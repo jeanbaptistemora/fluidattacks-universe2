@@ -22,7 +22,6 @@ import {
   UPLOAD_FILE_MUTATION,
 } from "scenes/Dashboard/containers/ProjectSettingsView/queries";
 import { ButtonToolbar, Col40, Col60, Row } from "styles/styledComponents";
-import { authContext, IAuthContext } from "utils/auth";
 import { Can } from "utils/authz/Can";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
@@ -34,8 +33,6 @@ export interface IFilesProps {
 }
 
 const files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
-  const { userName }: IAuthContext = React.useContext(authContext);
-
   // State management
   const [isAddModalOpen, setAddModalOpen] = React.useState(false);
   const openAddModal: (() => void) = (): void => { setAddModalOpen(true); };
@@ -84,7 +81,7 @@ const files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
   const [removeFile] = useMutation(REMOVE_FILE_MUTATION, {
     onCompleted: (): void => {
       void refetch();
-      mixpanel.track("RemoveProjectFiles", { User: userName });
+      mixpanel.track("RemoveProjectFiles");
       msgSuccess(
         translate.t("search_findings.tab_resources.success_remove"),
         translate.t("search_findings.tab_users.title_success"),
@@ -117,7 +114,7 @@ const files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
     },
     onCompleted: (): void => {
       void refetch();
-      mixpanel.track("AddProjectFiles", { User: userName });
+      mixpanel.track("AddProjectFiles");
       msgSuccess(
         translate.t("search_findings.tab_resources.success"),
         translate.t("search_findings.tab_users.title_success"),

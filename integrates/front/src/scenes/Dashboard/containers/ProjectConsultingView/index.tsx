@@ -28,10 +28,10 @@ import { translate } from "utils/translations/translate";
 
 const projectConsultingView: React.FC = (): JSX.Element => {
   const { projectName } = useParams<{ projectName: string}>();
-  const { userEmail, userName }: IAuthContext = React.useContext(authContext);
+  const { userEmail }: IAuthContext = React.useContext(authContext);
 
   const onMount: (() => void) = (): void => {
-    mixpanel.track("ProjectComments", { User: userName });
+    mixpanel.track("ProjectComments");
   };
   React.useEffect(onMount, []);
 

@@ -23,7 +23,6 @@ import {
 } from "scenes/Dashboard/containers/EventEvidenceView/queries";
 import { default as globalStyle } from "styles/global.css";
 import { ButtonToolbarRow } from "styles/styledComponents";
-import { authContext, IAuthContext } from "utils/auth";
 import { Can } from "utils/authz/Can";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
@@ -33,11 +32,10 @@ import { isValidFileSize, validEventFile, validEvidenceImage } from "utils/valid
 
 const eventEvidenceView: React.FC = (): JSX.Element => {
   const { eventId } = useParams<{ eventId: string }>();
-  const { userName }: IAuthContext = React.useContext(authContext);
 
   // Side effects
   const onMount: (() => void) = (): void => {
-    mixpanel.track("EventEvidence", { User: userName });
+    mixpanel.track("EventEvidence");
   };
   React.useEffect(onMount, []);
 

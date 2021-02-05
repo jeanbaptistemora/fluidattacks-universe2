@@ -21,6 +21,7 @@ import React from "react";
 import { ScrollUpButton } from "components/ScrollUpButton";
 import { Sidebar } from "scenes/Dashboard/components/Sidebar";
 import { TagContent } from "scenes/Dashboard/containers/TagContent";
+import mixpanel from "mixpanel-browser";
 import { msgError } from "utils/notifications";
 import style from "scenes/Dashboard/index.css";
 import { translate } from "utils/translations/translate";
@@ -93,6 +94,9 @@ export const Dashboard: React.FC = (): JSX.Element => {
     onCompleted: ({ me }): void => {
       user.setUser({ userEmail: me.userEmail, userName: me.userName });
       Bugsnag.setUser(me.userEmail, me.userEmail, me.userName);
+      mixpanel.alias(me.userEmail);
+      mixpanel.identify(me.userEmail);
+      mixpanel.register({ Email: me.userEmail, User: me.userName });
       initializeDelighted(me.userEmail, me.userName);
       initializeZendesk(me.userEmail, me.userName);
       setupSessionCheck(me.sessionExpiration);
@@ -120,6 +124,7 @@ export const Dashboard: React.FC = (): JSX.Element => {
         {(confirm: IConfirmFn): React.ReactNode => {
           function handleLogout(): void {
             confirm((): void => {
+              mixpanel.reset();
               location.assign("/logout");
             });
           }

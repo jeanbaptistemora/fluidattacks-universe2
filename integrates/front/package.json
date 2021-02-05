@@ -67,7 +67,7 @@
     "jquery-comments_brainkit": "1.2.8",
     "jsdom": "16.4.0",
     "lodash": "4.17.20",
-    "mixpanel-browser": "2.39.0",
+    "mixpanel-browser": "2.41.0",
     "moment": "2.29.1",
     "react": "16.14.0",
     "react-apollo-network-status": "4.0.1",

@@ -13,16 +13,14 @@ import { Files } from "scenes/Dashboard/containers/ProjectSettingsView/Files";
 import { GroupInformation } from "scenes/Dashboard/containers/ProjectSettingsView/Info";
 import { Portfolio } from "scenes/Dashboard/containers/ProjectSettingsView/Portfolio";
 import { Services } from "scenes/Dashboard/containers/ProjectSettingsView/Services";
-import { authContext, IAuthContext } from "utils/auth";
 import { Can } from "utils/authz/Can";
 
 const projectSettingsView: React.FC = (): JSX.Element => {
   const { projectName } = useParams<{ projectName: string }>();
-  const { userName }: IAuthContext = React.useContext(authContext);
 
   // Side effects
   const onMount: () => void = (): void => {
-    mixpanel.track("ProjectResources", { User: userName });
+    mixpanel.track("ProjectResources");
   };
   React.useEffect(onMount, []);
 

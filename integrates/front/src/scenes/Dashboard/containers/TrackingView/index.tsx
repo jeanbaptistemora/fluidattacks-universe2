@@ -38,7 +38,7 @@ const TrackingView: React.FC = (): JSX.Element => {
   const { userName }: IAuthContext = React.useContext(authContext);
 
   function onMount(): void {
-    mixpanel.track("FindingTracking", { User: userName });
+    mixpanel.track("FindingTracking");
   }
   React.useEffect(onMount, [userName]);
 

@@ -32,7 +32,6 @@ import {
 } from "scenes/Dashboard/containers/SeverityView/types";
 import { castFieldsCVSS3 } from "scenes/Dashboard/containers/SeverityView/utils";
 import { ButtonToolbarRow, Col100, Row } from "styles/styledComponents";
-import { authContext, IAuthContext } from "utils/auth";
 import { Can } from "utils/authz/Can";
 import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
 import { calcCVSSv3 } from "utils/cvss";
@@ -44,12 +43,11 @@ import { required } from "utils/validations";
 
 const severityView: React.FC = (): JSX.Element => {
   const { findingId } = useParams<{ findingId: string }>();
-  const { userName }: IAuthContext = React.useContext(authContext);
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
   const groupPermissions: PureAbility<string> = useAbility(authzGroupContext);
 
   const onMount: (() => void) = (): void => {
-    mixpanel.track("FindingSeverity", { User: userName });
+    mixpanel.track("FindingSeverity");
   };
   React.useEffect(onMount, []);
 
@@ -89,7 +87,7 @@ const severityView: React.FC = (): JSX.Element => {
                     if (mtResult.updateSeverity.success) {
                       void refetch();
                       msgSuccess(translate.t("group_alerts.updated"), translate.t("group_alerts.updated_title"));
-                      mixpanel.track("UpdateSeverity", { User: userName });
+                      mixpanel.track("UpdateSeverity");
                     }
                   }
                 };

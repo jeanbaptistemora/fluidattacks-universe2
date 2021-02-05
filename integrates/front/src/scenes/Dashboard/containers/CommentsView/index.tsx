@@ -36,12 +36,10 @@ const commentsView: React.FC = (): JSX.Element => {
     ? params.type.slice(0, -1)
     : params.type.slice(0, -3);
 
-  const { userEmail, userName }: IAuthContext = React.useContext(authContext);
+  const { userEmail }: IAuthContext = React.useContext(authContext);
 
   const onMount: (() => void) = (): void => {
-    mixpanel.track(type === "consult" ? "FindingComments" : "FindingObservations", {
-      User: userName,
-    });
+    mixpanel.track(type === "consult" ? "FindingComments" : "FindingObservations");
   };
   React.useEffect(onMount, []);
 

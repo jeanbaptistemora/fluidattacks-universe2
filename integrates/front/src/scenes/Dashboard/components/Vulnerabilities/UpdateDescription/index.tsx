@@ -71,7 +71,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
   handleClearSelected,
   handleCloseModal,
 }: IUpdateTreatmentModalProps): JSX.Element => {
-  const { userEmail, userName }: IAuthContext = React.useContext(authContext);
+  const { userEmail }: IAuthContext = React.useContext(authContext);
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
   const canRetrieveAnalyst: boolean = permissions.can(
     "backend_api_resolvers_vulnerability_analyst_resolve"
@@ -232,7 +232,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
         );
 
         if (areAllMutationValid.every(Boolean)) {
-          mixpanel.track("UpdatedTreatmentVulnerabilities", { User: userName });
+          mixpanel.track("UpdatedTreatmentVulnerabilities");
           msgSuccess(
             translate.t(
               "search_findings.tab_description.update_vulnerabilities"

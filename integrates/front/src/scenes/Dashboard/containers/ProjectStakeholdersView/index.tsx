@@ -35,7 +35,6 @@ import {
   IStakeholderAttrs,
 } from "scenes/Dashboard/containers/ProjectStakeholdersView/types";
 import { ButtonToolbar, Col100, Row } from "styles/styledComponents";
-import { authContext, IAuthContext } from "utils/auth";
 import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
 import { Logger } from "utils/logger";
@@ -89,12 +88,11 @@ const tableHeaders: IHeaderConfig[] = [
 const projectStakeholdersView: React.FC<IProjectStakeholdersViewProps> =
   (props: IProjectStakeholdersViewProps): JSX.Element => {
   const { projectName } = props.match.params;
-  const { userName }: IAuthContext = React.useContext(authContext);
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
 
   // Side effects
   const onMount: (() => void) = (): void => {
-    mixpanel.track("ProjectUsers", { User: userName });
+    mixpanel.track("ProjectUsers");
   };
   React.useEffect(onMount, []);
 
@@ -126,7 +124,7 @@ const projectStakeholdersView: React.FC<IProjectStakeholdersViewProps> =
     onCompleted: (mtResult: IAddStakeholderAttr): void => {
       if (mtResult.grantStakeholderAccess.success) {
         void refetch();
-        mixpanel.track("AddUserAccess", { User: userName });
+        mixpanel.track("AddUserAccess");
         const { email } = mtResult.grantStakeholderAccess.grantedStakeholder;
         msgSuccess(
           `${email} ${translate.t("search_findings.tab_users.success")}`,
@@ -173,7 +171,7 @@ const projectStakeholdersView: React.FC<IProjectStakeholdersViewProps> =
       if (mtResult.editStakeholder.success) {
         void refetch();
 
-        mixpanel.track("EditUserAccess", { User: userName });
+        mixpanel.track("EditUserAccess");
         msgSuccess(
           translate.t("search_findings.tab_users.success_admin"),
           translate.t("search_findings.tab_users.title_success"),
@@ -213,7 +211,7 @@ const projectStakeholdersView: React.FC<IProjectStakeholdersViewProps> =
       if (mtResult.removeStakeholderAccess.success) {
         void refetch();
 
-        mixpanel.track("RemoveUserAccess", { User: userName });
+        mixpanel.track("RemoveUserAccess");
         const { removedEmail } = mtResult.removeStakeholderAccess;
         msgSuccess(
           `${removedEmail} ${translate.t("search_findings.tab_users.success_delete")}`,

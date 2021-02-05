@@ -41,7 +41,6 @@ import {
   FormGroup,
   Row,
 } from "styles/styledComponents";
-import { authContext, IAuthContext } from "utils/auth";
 import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
 import { Dropdown, Text, TextArea } from "utils/forms/fields";
@@ -61,12 +60,11 @@ const maxCompromisedAttributesLength: ConfigurableValidator = maxLength(200);
 
 const descriptionView: React.FC = (): JSX.Element => {
   const { findingId, projectName } = useParams<{ findingId: string; projectName: string }>();
-  const { userName }: IAuthContext = React.useContext(authContext);
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
 
   // Side effects
   const onMount: (() => void) = (): void => {
-    mixpanel.track("FindingDescription", { User: userName });
+    mixpanel.track("FindingDescription");
   };
   React.useEffect(onMount, []);
 

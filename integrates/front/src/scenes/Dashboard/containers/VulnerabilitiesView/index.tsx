@@ -3,7 +3,6 @@ import type { ApolloError } from "apollo-client";
 import { GET_FINDING_VULN_INFO } from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
 import type { GraphQLError } from "graphql";
 import { HandleAcceptationModal } from "scenes/Dashboard/containers/VulnerabilitiesView/HandleAcceptationModal";
-import type { IAuthContext } from "utils/auth";
 import type { IGetFindingVulnInfoAttr } from "scenes/Dashboard/containers/VulnerabilitiesView/types";
 import { Logger } from "utils/logger";
 import type { PureAbility } from "@casl/ability";
@@ -12,7 +11,6 @@ import type { StyledComponent } from "styled-components";
 import { UpdateVerificationModal } from "scenes/Dashboard/components/UpdateVerificationModal";
 import { VulnComponent } from "scenes/Dashboard/components/Vulnerabilities";
 import _ from "lodash";
-import { authContext } from "utils/auth";
 import { authzPermissionsContext } from "utils/authz/config";
 import mixpanel from "mixpanel-browser";
 import { msgError } from "utils/notifications";
@@ -76,7 +74,6 @@ export const VulnsView: React.FC = (): JSX.Element => {
     projectName: string;
   }>();
   const { t } = useTranslation();
-  const { userName }: IAuthContext = React.useContext(authContext);
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
   const canConfirmZeroRiskVuln: boolean = permissions.can(
     "backend_api_mutations_confirm_zero_risk_vuln_mutate"
@@ -92,9 +89,9 @@ export const VulnsView: React.FC = (): JSX.Element => {
   );
 
   const onMount: () => void = (): void => {
-    mixpanel.track("FindingVulnerabilities", { User: userName });
+    mixpanel.track("FindingVulnerabilities");
   };
-  React.useEffect(onMount, [userName]);
+  React.useEffect(onMount, []);
 
   const [treatmentFilter, setTreatmentFilter] = React.useState("");
   const [currentStatusFilter, setCurrentStatusFilter] = React.useState("");

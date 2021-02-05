@@ -20,7 +20,6 @@ import { ADD_TAGS_MUTATION, GET_TAGS,
   REMOVE_TAG_MUTATION,
 } from "scenes/Dashboard/containers/ProjectSettingsView/queries";
 import { ButtonToolbar, Col40, Col60, Row } from "styles/styledComponents";
-import { authContext, IAuthContext } from "utils/auth";
 import { Can } from "utils/authz/Can";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
@@ -31,8 +30,6 @@ export interface IPortfolioProps {
 }
 
 const portfolio: React.FC<IPortfolioProps> = (props: IPortfolioProps): JSX.Element => {
-  const { userName }: IAuthContext = React.useContext(authContext);
-
   // State management
   const [isAddModalOpen, setAddModalOpen] = React.useState(false);
   const openAddModal: (() => void) = (): void => { setAddModalOpen(true); };
@@ -53,7 +50,7 @@ const portfolio: React.FC<IPortfolioProps> = (props: IPortfolioProps): JSX.Eleme
   const [addTags] = useMutation(ADD_TAGS_MUTATION, {
     onCompleted: (): void => {
       void refetch();
-      mixpanel.track("AddProjectTags", { User: userName });
+      mixpanel.track("AddProjectTags");
       msgSuccess(
         translate.t("search_findings.tab_resources.success"),
         translate.t("search_findings.tab_users.title_success"),
@@ -76,7 +73,7 @@ const portfolio: React.FC<IPortfolioProps> = (props: IPortfolioProps): JSX.Eleme
   const [removeTag, { loading: removing }] = useMutation(REMOVE_TAG_MUTATION, {
     onCompleted: (): void => {
       void refetch();
-      mixpanel.track("RemoveProjectEnv", { User: userName });
+      mixpanel.track("RemoveTag");
       msgSuccess(
         translate.t("search_findings.tab_resources.success_remove"),
         translate.t("search_findings.tab_users.title_success"),

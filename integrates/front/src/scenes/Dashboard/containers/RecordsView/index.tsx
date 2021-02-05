@@ -22,7 +22,6 @@ import { REMOVE_EVIDENCE_MUTATION, UPDATE_EVIDENCE_MUTATION } from "scenes/Dashb
 import { GET_FINDING_RECORDS } from "scenes/Dashboard/containers/RecordsView/queries";
 import { default as globalStyle } from "styles/global.css";
 import { ButtonToolbarRow, Col100, Row, RowCenter } from "styles/styledComponents";
-import { authContext, IAuthContext } from "utils/auth";
 import { Can } from "utils/authz/Can";
 import { FileInput } from "utils/forms/fields";
 import { Logger } from "utils/logger";
@@ -32,10 +31,9 @@ import { required, validRecordsFile } from "utils/validations";
 
 const recordsView: React.FC = (): JSX.Element => {
   const { findingId } = useParams<{ findingId: string }>();
-  const { userName }: IAuthContext = React.useContext(authContext);
 
   const onMount: (() => void) = (): void => {
-    mixpanel.track("FindingRecords", { User: userName });
+    mixpanel.track("FindingRecords");
   };
   React.useEffect(onMount, []);
 
@@ -143,7 +141,7 @@ const recordsView: React.FC = (): JSX.Element => {
                 >
                   {(removeRecords: MutationFunction, removeRes: MutationResult): JSX.Element => {
                     const handleRemoveClick: (() => void) = (): void => {
-                      mixpanel.track("RemoveRecords", { User: userName });
+                      mixpanel.track("RemoveRecords");
                       setEditing(false);
                       void removeRecords({ variables: { evidenceId: "RECORDS", findingId } });
                     };

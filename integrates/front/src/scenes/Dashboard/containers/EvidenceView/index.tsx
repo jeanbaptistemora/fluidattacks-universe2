@@ -25,7 +25,6 @@ import {
 } from "scenes/Dashboard/containers/EvidenceView/queries";
 import { default as globalStyle } from "styles/global.css";
 import { ButtonToolbarRow, Row } from "styles/styledComponents";
-import { authContext, IAuthContext } from "utils/auth";
 import { Can } from "utils/authz/Can";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
@@ -34,11 +33,10 @@ import { isValidFileSize, validEvidenceImage } from "utils/validations";
 
 const evidenceView: React.FC = (): JSX.Element => {
   const { findingId } = useParams<{ findingId: string }>();
-  const { userName }: IAuthContext = React.useContext(authContext);
 
   // Side effects
   const onMount: (() => void) = (): void => {
-    mixpanel.track("FindingEvidence", { User: userName });
+    mixpanel.track("FindingEvidence");
   };
   React.useEffect(onMount, []);
 
@@ -189,7 +187,7 @@ const evidenceView: React.FC = (): JSX.Element => {
                     const evidence: IEvidenceItem = evidenceImages[name];
 
                     const handleRemove: (() => void) = (): void => {
-                      mixpanel.track("RemoveEvidence", { User: userName });
+                      mixpanel.track("RemoveEvidence");
                       setEditing(false);
                       void removeEvidence({ variables: { evidenceId: name.toUpperCase(), findingId } });
                     };

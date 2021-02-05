@@ -28,7 +28,6 @@ import {
   IStakeholderAttrs,
 } from "scenes/Dashboard/containers/OrganizationStakeholdersView/types";
 import { ButtonToolbar, Col100, Row } from "styles/styledComponents";
-import { authContext, IAuthContext } from "utils/auth";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 import { translate } from "utils/translations/translate";
@@ -95,7 +94,6 @@ const organizationStakeholders: React.FC<IOrganizationStakeholders> =
   (props: IOrganizationStakeholders): JSX.Element => {
   const { organizationId } = props;
   const { organizationName } = useParams<{ organizationName: string }>();
-  const { userName }: IAuthContext = React.useContext(authContext);
 
   // State management
   const [currentRow, setCurrentRow] = React.useState<Dictionary<string>>({});
@@ -133,7 +131,7 @@ const organizationStakeholders: React.FC<IOrganizationStakeholders> =
     onCompleted: (mtResult: IAddStakeholderAttrs): void => {
       if (mtResult.grantStakeholderOrganizationAccess.success) {
         void refetchStakeholders();
-        mixpanel.track("AddUserOrganzationAccess", { Organization: organizationName, User: userName });
+        mixpanel.track("AddUserOrganzationAccess", { Organization: organizationName });
         const { email } = mtResult.grantStakeholderOrganizationAccess.grantedStakeholder;
         msgSuccess(
           `${email} ${translate.t("organization.tabs.users.addButton.success")}`,
@@ -150,7 +148,7 @@ const organizationStakeholders: React.FC<IOrganizationStakeholders> =
         const { email } = mtResult.editStakeholderOrganization.modifiedStakeholder;
         void refetchStakeholders();
 
-        mixpanel.track("EditUserOrganizationAccess", { Organization: organizationName, User: userName });
+        mixpanel.track("EditUserOrganizationAccess", { Organization: organizationName });
         msgSuccess(
           `${email} ${translate.t("organization.tabs.users.editButton.success")}`,
           translate.t("organization.tabs.users.successTitle"),
@@ -165,7 +163,7 @@ const organizationStakeholders: React.FC<IOrganizationStakeholders> =
       if (mtResult.removeStakeholderOrganizationAccess.success) {
         void refetchStakeholders();
 
-        mixpanel.track("RemoveUserOrganizationAccess", { Organization: organizationName, User: userName });
+        mixpanel.track("RemoveUserOrganizationAccess", { Organization: organizationName });
         msgSuccess(
           `${currentRow.email} ${translate.t("organization.tabs.users.removeButton.success")}`,
           translate.t("organization.tabs.users.successTitle"),

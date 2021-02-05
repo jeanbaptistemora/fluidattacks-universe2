@@ -29,7 +29,6 @@ import {
   FormGroup,
   Row,
 } from "styles/styledComponents";
-import { authContext, IAuthContext } from "utils/auth";
 import { Can } from "utils/authz/Can";
 import { DateTime, Text } from "utils/forms/fields";
 import { Logger } from "utils/logger";
@@ -39,11 +38,10 @@ import { dateTimeBeforeToday, numeric, required, validDatetime } from "utils/val
 
 const eventDescriptionView: React.FC = (): JSX.Element => {
   const { eventId } = useParams<{ eventId: string }>();
-  const { userName }: IAuthContext = React.useContext(authContext);
 
   // Side effects
   const onMount: (() => void) = (): void => {
-    mixpanel.track("EventDescription", { User: userName });
+    mixpanel.track("EventDescription");
   };
   React.useEffect(onMount, []);
 
