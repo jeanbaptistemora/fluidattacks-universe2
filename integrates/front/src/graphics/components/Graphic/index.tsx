@@ -9,6 +9,7 @@ import type { ISecureStoreConfig } from "utils/secureStore";
 import { Modal } from "components/Modal";
 import React from "react";
 import _ from "lodash";
+import mixpanel from "mixpanel-browser";
 import { secureStoreContext } from "utils/secureStore";
 import styles from "graphics/components/Graphic/index.css";
 import { translate } from "utils/translations/translate";
@@ -158,6 +159,11 @@ export const Graphic: React.FC<IGraphicProps> = (
   const glyphSizeTop: number =
     headSize.height + glyphPadding + glyphSize / 2 - fontSize;
 
+  const track: () => void = React.useCallback((): void => {
+    const { documentName, entity } = props;
+    mixpanel.track("DownloadGraphic", { documentName, entity });
+  }, [props]);
+
   return (
     <React.Fragment>
       <Modal
@@ -171,6 +177,7 @@ export const Graphic: React.FC<IGraphicProps> = (
                     className={"g-a"}
                     download={buildFileName(modalSize)}
                     href={buildUrl(props, modalSize)}
+                    onClick={track}
                     rel={"noopener noreferrer"}
                     target={"_blank"}
                   >
@@ -228,6 +235,7 @@ export const Graphic: React.FC<IGraphicProps> = (
                             className={"g-a"}
                             download={buildFileName(bigGraphicSize)}
                             href={buildUrl(props, bigGraphicSize)}
+                            onClick={track}
                             rel={"noopener noreferrer"}
                             target={"_blank"}
                           >

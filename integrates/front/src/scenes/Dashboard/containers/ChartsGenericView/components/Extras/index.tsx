@@ -9,6 +9,7 @@ import { Badge } from "components/Badge";
 import { Button } from "components/Button";
 import { DropdownButton, MenuItem } from "components/DropdownButton";
 import { TooltipWrapper } from "components/TooltipWrapper";
+import mixpanel from "mixpanel-browser";
 import styles from "scenes/Dashboard/containers/ChartsGenericView/index.css";
 import {
   SUBSCRIBE_TO_ENTITY_REPORT,
@@ -90,6 +91,7 @@ const chartsGenericViewExtras: React.FC<IChartsGenericViewProps> = (props: IChar
 
   const subscribeDropdownOnSelect: (key: string) => void =
     (key: string): void => {
+      mixpanel.track(`Analytics${key === "never" ? "Uns" : "S"}ubscribe`);
       subscribe({
         variables: {
           frequency: key.toUpperCase(),
