@@ -1,11 +1,9 @@
-forces/bin
 forces/config-development
 forces/config-runtime
 forces/config-wrapper
 forces/lint
 forces/oci-build
 forces/oci-build-wrapper
-integrates/back/bin
 integrates/back/certs/development
 integrates/back/probes/lib
 integrates/back/probes/liveness
@@ -17,9 +15,6 @@ integrates/back/tools/asciidoctor
 integrates/back/tools/asciidoctor-pdf
 integrates/back/tools/concurrent-ruby
 integrates/back/tools/secure-spreadsheet
-integrates/cache/bin
-integrates/db/bin
-integrates/front/bin
 integrates/front/config/development
 integrates/front/config/runtime
 integrates/front/lint
@@ -31,17 +26,12 @@ integrates/mobile/config/development
 integrates/mobile/config/runtime
 integrates/mobile/lint
 integrates/secrets/lint
-integrates/storage/bin
 integrates/web/e2e/pypi
 makes/dev
 makes/test
-makes/wait/bin
-melts/bin
 melts/config-development
 melts/config-runtime
 melts/lint
-observes/bin-tap-json
-observes/bin-target-redshift
 observes/config-streamer-zoho-crm-runtime
 observes/config-target-redshift-runtime
 observes/lint-code-etl
@@ -57,7 +47,6 @@ observes/lint-target-redshift
 observes/test-postgres-client
 observes/test-singer-io
 observes/test-streamer-gitlab
-skims/bin
 skims/config-development
 skims/config-runtime
 skims/docs/build
@@ -67,7 +56,6 @@ skims/parsers/antlr
 skims/parsers/babel
 skims/security
 skims/structure
-sorts/bin
 sorts/config-development
 sorts/config-runtime
 sorts/lint

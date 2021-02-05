@@ -11,6 +11,6 @@ makeOci {
   contents = [
     forcesPkgs.bash
     forcesPkgs.coreutils
-    packages."forces/bin"
+    packages.forces
   ];
 }
