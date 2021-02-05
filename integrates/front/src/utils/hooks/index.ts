@@ -32,12 +32,16 @@ function useStoredState<T>(
 const useTabTracking: (containerName: string) => void = (
   containerName
 ): void => {
-  const location: ReturnType<typeof useLocation> = useLocation();
+  const { pathname } = useLocation();
 
   React.useEffect((): void => {
-    const tab: string = _.last(location.pathname.split("/")) as string;
-    mixpanel.track(`${containerName}${_.capitalize(tab)}`);
-  }, [containerName, location]);
+    const lastElements: number = -2;
+    const [id, tabName] = pathname.split("/").slice(lastElements);
+
+    if (tabName) {
+      mixpanel.track(`${containerName}${_.capitalize(tabName)}`, { id });
+    }
+  }, [containerName, pathname]);
 };
 
 export { useStoredState, useTabTracking };

@@ -81,7 +81,7 @@ describe("Custom utility hooks", (): void => {
       useTabTracking("Group");
 
       const handleClick: () => void = React.useCallback((): void => {
-        push("/groups/unittesting/scope");
+        push("/groups/grp2/scope");
       }, [push]);
 
       return <button onClick={handleClick} />;
@@ -98,18 +98,19 @@ describe("Custom utility hooks", (): void => {
       const trackMock: jest.SpyInstance = jest.spyOn(mixpanel, "track");
 
       const wrapper: ReactWrapper = mount(
-        <MemoryRouter initialEntries={["/groups/unittesting/analytics"]}>
+        <MemoryRouter initialEntries={["/groups/grp1/analytics"]}>
           <TestComponent />
         </MemoryRouter>
       );
 
-      expect(trackMock).toHaveBeenCalledWith("GroupAnalytics");
+      expect(trackMock).toHaveBeenCalledWith("GroupAnalytics", { id: "grp1" });
 
       act((): void => {
         wrapper.find("button").simulate("click");
       });
 
-      expect(trackMock).toHaveBeenCalledWith("GroupScope");
+      expect(trackMock).toHaveBeenCalledWith("GroupScope", { id: "grp2" });
+      expect(trackMock).toHaveBeenCalledTimes(2);
 
       trackMock.mockReset();
     });
