@@ -1,5 +1,4 @@
 import { default as Constants } from "expo-constants";
-import _ from "lodash";
 
 /**
  * Environment data
@@ -9,23 +8,31 @@ interface IEnvironment {
   url: string;
 }
 
-export const getEnvironment: (() => IEnvironment) = (): IEnvironment => {
-  const { releaseChannel } = Constants.manifest;
+export const getEnvironment: () => IEnvironment = (): IEnvironment => {
+  const { hostUri, releaseChannel } = Constants.manifest;
 
-  let environment: IEnvironment;
   if (__DEV__ || releaseChannel === "local") {
-    environment = {
+    const hostAddress: string = (hostUri as string).split(":")[0];
+
+    return {
       name: "development",
-      url: `http://${String(Constants.manifest.hostUri)
-        .split(":")[0]}:8000`,
+      url: `http://${hostAddress}:8001`,
     };
-  } else if (releaseChannel === "master") {
-    environment = { name: "production", url: "https://integrates.fluidattacks.com" };
-  } else if (_.endsWith(String(releaseChannel), "atfluid")) {
-    environment = { name: "ephemeral", url: `https://${releaseChannel}.integrates.fluidattacks.com` };
-  } else {
-    throw new TypeError("Couldn't identify environment");
   }
 
-  return environment;
+  if ((releaseChannel as string).endsWith("atfluid")) {
+    return {
+      name: "ephemeral",
+      url: `https://${releaseChannel}.integrates.fluidattacks.com`,
+    };
+  }
+
+  if (releaseChannel === "master") {
+    return {
+      name: "production",
+      url: "https://integrates.fluidattacks.com",
+    };
+  }
+
+  throw new TypeError("Couldn't identify environment");
 };
