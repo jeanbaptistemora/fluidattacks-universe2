@@ -35,12 +35,16 @@ makeDerivation {
     template = ''
       #! __envShell__
 
+      unset GEM_PATH
+      unset LD_LIBRARY_PATH
+      unset NODE_PATH
+      unset PATH
+      unset PYTHON_PATH
+
       export PATH='__envPath__'
 
       source __envBashLibShopts__
       source __envBashLibCommon__
-
-      unset LD_LIBRARY_PATH
     '';
   };
   envLocation = location;
