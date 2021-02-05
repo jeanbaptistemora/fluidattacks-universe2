@@ -83,3 +83,31 @@ resource "kubernetes_service_account" "autoscaler" {
     }
   }
 }
+
+resource "helm_release" "autoscaler" {
+  name       = "autoscaler"
+  repository = "https://kubernetes.github.io/autoscaler"
+  chart      = "cluster-autoscaler"
+  version    = "9.4.0"
+  namespace  = "kube-system"
+
+  set {
+    name  = "autoDiscovery.clusterName"
+    value = var.cluster_name
+  }
+
+  set {
+    name  = "rbac.serviceAccount.create"
+    value = false
+  }
+
+  set {
+    name  = "rbac.serviceAccount.name"
+    value = kubernetes_service_account.autoscaler.metadata[0].name
+  }
+
+  set {
+    name  = "rbac.serviceAccount.annotations.\"eks.amazonaws.com/role-arn\""
+    value = module.oidc_role.this_iam_role_arn
+  }
+}
