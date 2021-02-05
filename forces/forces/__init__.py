@@ -74,6 +74,9 @@ async def entrypoint(
                 ('Could not detect repository name, use'
                  ' --repo-name option to specify it'),
             )
+            await log(
+                'warning',
+                'The vulnerabilities of all repositories will be scanned')
             if config.kind == KindEnum.ALL:
                 exit_code = 1
             # else:  temporarily disable
@@ -84,11 +87,10 @@ async def entrypoint(
             f"Running forces on the repository: {config.repository_name}")
 
         # check if repo is in roots
-        if not await check_remotes(config):
-            if config.kind == KindEnum.ALL:
-                exit_code = 1
-            # else:  temporarily disable
-            #     return 1
+        if (not await check_remotes(config)
+                and config.repository_name is not None
+                and config.kind != KindEnum.ALL):
+            return 1
 
     report = await generate_report(config)
 
