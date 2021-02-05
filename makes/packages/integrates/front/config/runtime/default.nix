@@ -38,6 +38,7 @@ let
         "@emotion/memoize@0.7.4"
         "@emotion/stylis@0.8.5"
         "@emotion/unitless@0.7.5"
+        "@fortawesome/fontawesome-common-types@0.2.34"
         "@tanem/svg-injector@8.2.3"
         "@types/anymatch@1.3.1"
         "@types/extract-files@8.1.0"

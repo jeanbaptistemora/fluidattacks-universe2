@@ -5,12 +5,13 @@
 import { Button } from "components/Button";
 import type { Column } from "react-bootstrap-table-next";
 import type { ColumnToggle } from "react-bootstrap-table2-toolkit";
-import { Glyphicon } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { ICustomToggleProps } from "components/DataTableNext/types";
 import { Modal } from "components/Modal";
 import React from "react";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import _ from "lodash";
+import { faCog } from "@fortawesome/free-solid-svg-icons";
 import { useTranslation } from "react-i18next";
 import {
   ButtonToolbar,
@@ -45,7 +46,7 @@ export const CustomToggleList: React.FC<ICustomToggleProps> = (
         message={t("group.findings.tableSet.btn.tooltip")}
       >
         <Button onClick={handleOpenTableSetClick}>
-          <Glyphicon glyph={"glyphicon glyphicon-cog"} />
+          <FontAwesomeIcon icon={faCog} />
           &nbsp;
           {t("group.findings.tableSet.btn.text")}
         </Button>
