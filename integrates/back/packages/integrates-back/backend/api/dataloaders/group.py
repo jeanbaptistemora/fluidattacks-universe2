@@ -1,25 +1,33 @@
-# Standard
-from typing import cast, Dict, List, Set
+# Standard libraries
+from typing import (
+    cast,
+    Dict,
+    List
+)
 
-# Third party
+# Third party libraries
 from aiodataloader import DataLoader
 
-# Local
+# Local libraries
 from backend.domain import project as group_domain
-from backend.exceptions import GroupNotFound
-from backend.typing import Project as Group
+from backend.typing import Project as GroupType
 
 
-def format_group(group: Group) -> Group:
+def format_group(group: GroupType) -> GroupType:
     """Returns the data in the format expected by default resolvers"""
-
+    status = group.get('project_status', 'FINISHED')
     historic_configuration: List[Dict[str, str]] = cast(
         List[Dict[str, str]],
-        group['historic_configuration']
+        group.get('historic_configuration', [{}])
     )
+    has_drills = historic_configuration[-1].get('has_drills', False)
+    has_forces = historic_configuration[-1].get('has_forces', False)
+    has_integrates = status == 'ACTIVE'
+    subscription = historic_configuration[-1].get('type', None)
+
     historic_deletion: List[Dict[str, str]] = cast(
         List[Dict[str, str]],
-        group.get('historic_deletion', [])
+        group.get('historic_deletion', [{}])
     )
 
     return {
@@ -30,10 +38,10 @@ def format_group(group: Group) -> Group:
         ),
         'description': group.get('description', ''),
         'files': group.get('files', []),
-        'has_drills': historic_configuration[-1]['has_drills'],
-        'has_forces': historic_configuration[-1]['has_forces'],
-        'has_integrates': group['project_status'] == 'ACTIVE',
-        'language': group['language'],
+        'has_drills': has_drills,
+        'has_forces': has_forces,
+        'has_integrates': has_integrates,
+        'language': group.get('language', 'en'),
         'last_closing_vuln': group.get('last_closing_date', 0),
         'last_closing_vuln_finding': group.get(
             'last_closing_vuln_finding'
@@ -59,10 +67,12 @@ def format_group(group: Group) -> Group:
             0
         ),
         'mean_remediate': group.get('mean_remediate', 0),
-        'name': group['project_name'],
+        'name': group.get('project_name'),
         'open_findings': group.get('open_findings', 0),
         'open_vulnerabilities': group.get('open_vulnerabilities', 0),
-        'subscription': historic_configuration[-1]['type'],
+        'project_status': status,
+        'remediated_over_time': group.get('remediated_over_time', []),
+        'subscription': subscription,
         'tags': group.get('tag', []),
         'total_treatment': group.get('total_treatment', {}),
         'user_deletion': (
@@ -72,23 +82,16 @@ def format_group(group: Group) -> Group:
     }
 
 
-def handle_group(group: Group) -> Group:
-    allowed_status: Set[str] = {'ACTIVE'}
-
-    if group.get('project_status') in allowed_status:
-        return format_group(group)
-
-    raise GroupNotFound()
-
-
 # pylint: disable=too-few-public-methods
 class GroupLoader(DataLoader):  # type: ignore
     """Batches load calls within the same execution fragment."""
+
     # pylint: disable=method-hidden
-    async def batch_load_fn(self, group_names: List[str]) -> List[Group]:
-        groups: List[Group] = await group_domain.get_many_groups(group_names)
+    async def batch_load_fn(self, group_names: List[str]) -> List[GroupType]:
+        groups: List[GroupType] = \
+            await group_domain.get_many_groups(group_names)
 
         return [
-            handle_group(group)
+            format_group(group)
             for group in groups
         ]

@@ -11,7 +11,8 @@ from aioextensions import (
     run,
 )
 from async_lru import alru_cache
-from backend.api.dataloaders.project import ProjectLoader
+
+from backend.api import get_new_context
 
 # Local libraries
 from analytics import (
@@ -61,13 +62,14 @@ def translate_date(date_str: str) -> datetime:
 @alru_cache(maxsize=None, typed=True)
 async def get_group_document(group: str) -> Dict[str, Dict[str, float]]:
     data: List[list] = []
+    context = get_new_context()
+    group_loader = context.group_all
 
-    group_loader = ProjectLoader()
     group_data = await group_loader.load(group)
     group_over_time = [
         # Last 12 weeks
         elements[-12:]
-        for elements in group_data['attrs'].get('remediated_over_time', [])
+        for elements in group_data['remediated_over_time']
     ]
 
     if group_over_time:

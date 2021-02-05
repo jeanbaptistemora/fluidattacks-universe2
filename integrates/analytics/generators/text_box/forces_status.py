@@ -13,11 +13,10 @@ from analytics import (
 
 async def generate_one(group: str):
     context = get_new_context()
-    group_loader = context.project
+    group_loader = context.group_all
     group_data = await group_loader.load(group)
 
-    has_forces = \
-        group_data['attrs']['historic_configuration'][-1]['has_forces']
+    has_forces = group_data['has_forces']
 
     return {
         'fontSizeRatio': 0.5,

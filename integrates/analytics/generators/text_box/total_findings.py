@@ -20,11 +20,12 @@ from analytics import (
 @alru_cache(maxsize=None, typed=True)
 async def generate_one(group: str) -> int:
     context = get_new_context()
-    group_loader = context.project
+    group_findings_loader = context.group_findings
     finding_loader = context.finding
-    findings = (await finding_loader.load_many(
-        (await group_loader.load(group))['findings']
-    ))
+
+    group_findings = await group_findings_loader.load(group)
+    group_findings_ids = [finding['finding_id'] for finding in group_findings]
+    findings = await finding_loader.load_many(group_findings_ids)
 
     non_deleted_findings_count = sum(
         1

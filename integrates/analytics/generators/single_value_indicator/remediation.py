@@ -70,13 +70,10 @@ def get_totals_by_week(
 
 async def generate_one(groups: List[str]):  # pylint: disable=too-many-locals
     context = get_new_context()
-    group_loader = context.project
+    group_findings_loader = context.group_findings
     finding_vulns_loader = context.finding_vulns
 
-    groups_data = list(filter(
-        lambda group: group['attrs'].get('project_status') == 'ACTIVE',
-        await group_loader.load_many(groups)
-    ))
+    groups_findings_data = await group_findings_loader.load_many(groups)
 
     current_rolling_week = datetime.now()
     previous_rolling_week = current_rolling_week - timedelta(days=7)
@@ -85,11 +82,12 @@ async def generate_one(groups: List[str]):  # pylint: disable=too-many-locals
     total_previous_closed: int = 0
     total_current_open: int = 0
     total_current_closed: int = 0
-
-    for group in groups_data:
+    for group_findings in groups_findings_data:
+        group_findings_ids = \
+            [finding['finding_id'] for finding in group_findings]
         vulns = list(
             chain.from_iterable(
-                await finding_vulns_loader.load_many(group['findings'])
+                await finding_vulns_loader.load_many(group_findings_ids)
             )
         )
         vulns = vuln_domain.filter_zero_risk(vulns)
@@ -117,7 +115,7 @@ async def generate_one(groups: List[str]):  # pylint: disable=too-many-locals
             'closed': total_previous_closed,
             'open': total_previous_open,
         },
-        'totalGroups': len(groups_data)
+        'totalGroups': len(groups)
     }
 
 

@@ -20,6 +20,7 @@ from backend.api.dataloaders.event import EventLoader
 from backend.api.dataloaders.finding import FindingLoader
 from backend.api.dataloaders.finding_vulns import FindingVulnsLoader
 from backend.api.dataloaders.group import GroupLoader
+from backend.api.dataloaders.group_active import GroupActiveLoader
 from backend.api.dataloaders.group_drafts import GroupDraftsLoader
 from backend.api.dataloaders.group_findings import GroupFindingsLoader
 from backend.api.dataloaders.group_roots import GroupRootsLoader
@@ -35,7 +36,8 @@ class Dataloaders(NamedTuple):
     event: EventLoader
     finding: FindingLoader
     finding_vulns: FindingVulnsLoader
-    group: GroupLoader
+    group: GroupActiveLoader
+    group_all: GroupLoader  # used only by analytics. Retrieves all groups
     group_drafts: GroupDraftsLoader
     group_findings: GroupFindingsLoader
     group_roots: GroupRootsLoader
@@ -44,11 +46,13 @@ class Dataloaders(NamedTuple):
 
 
 def get_new_context() -> Dataloaders:
+    group_loader = GroupLoader()
     return Dataloaders(
         event=EventLoader(),
         finding=FindingLoader(),
         finding_vulns=FindingVulnsLoader(),
-        group=GroupLoader(),
+        group=GroupActiveLoader(group_loader),
+        group_all=group_loader,
         group_drafts=GroupDraftsLoader(),
         group_findings=GroupFindingsLoader(),
         group_roots=GroupRootsLoader(),

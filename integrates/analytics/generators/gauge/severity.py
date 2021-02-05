@@ -30,13 +30,13 @@ Severity = NamedTuple('Severity', [
 @alru_cache(maxsize=None, typed=True)
 async def generate_one(group: str) -> Severity:
     context = get_new_context()
-    group_loader = context.project
+    group_loader = context.group_all
+    group_findings_loader = context.group_findings
     finding_loader = context.finding
 
-    group_data = await group_loader.load(group)
-    findings = await finding_loader.load_many(
-        group_data['findings']
-    )
+    group_findings_data = await group_findings_loader.load(group.lower())
+    finding_ids = [finding['finding_id'] for finding in group_findings_data]
+    findings = await finding_loader.load_many(finding_ids)
 
     max_severity_found = 0 if not findings else max(
         finding['severity_score']
@@ -45,7 +45,8 @@ async def generate_one(group: str) -> Severity:
         and finding['current_state'] != 'DELETED'
     )
 
-    max_open_severity = group_data['attrs'].get('max_open_severity', 0)
+    group_data = await group_loader.load(group.lower())
+    max_open_severity = group_data['max_open_severity']
 
     return Severity(
         max_open_severity=max_open_severity,

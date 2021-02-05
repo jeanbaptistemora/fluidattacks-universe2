@@ -20,11 +20,13 @@ from analytics import (
 @alru_cache(maxsize=None, typed=True)
 async def generate_one(group: str) -> int:
     context = get_new_context()
-    group_loader = context.project
+    group_loader = context.group_all
     group_data = (await group_loader.load(group))
 
-    return (group_data['attrs'].get('closed_vulnerabilities', 0) +
-            group_data['attrs'].get('open_vulnerabilities', 0))
+    return (
+        group_data['closed_vulnerabilities'] +
+        group_data['open_vulnerabilities']
+    )
 
 
 async def get_vulns_count_many_groups(groups: Tuple[str]) -> int:
