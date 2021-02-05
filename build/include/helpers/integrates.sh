@@ -302,30 +302,6 @@ function helper_integrates_serve_mobile {
   ||  return 1
 }
 
-function helper_integrates_probe_aws_credentials {
-  local user="${1}"
-
-  if aws sts get-caller-identity | grep -q "${user}"
-  then
-    echo '[INFO] Passed: test_aws_credentials'
-  else
-        echo '[ERROR] AWS credentials could not be validated.' \
-    &&  return 1
-  fi
-}
-
-function helper_integrates_probe_curl {
-  local endpoint="${1}"
-
-  if curl -sSiLk "${endpoint}" | grep -q 'FluidIntegrates'
-  then
-    echo "[INFO] Passed: helper_integrates_probe_curl on ${endpoint}"
-  else
-        echo "[ERROR] helper_integrates_probe_curl failed on ${endpoint}" \
-    &&  return 1
-  fi
-}
-
 function helper_integrates_mobile_version {
   local minutes
 
@@ -403,23 +379,4 @@ function helper_integrates_to_b64 {
   local value="${1}"
 
   echo -n "${value}" | base64 --wrap=0
-}
-
-function helper_integrates_terraform_plan {
-  local target="${1}"
-  local config
-
-      config="$(readlink -f ../.tflint.hcl)" \
-  &&  helper_common_terraform_plan_new "${target}" "${config}"
-}
-
-function helper_install_c3 {
-  local path="${1}"
-
-      echo '[INFO] Unzipping C3 local' \
-  &&  mkdir -p "${path}/C3" \
-  &&  pushd "${path}/C3" \
-    &&  unzip -ou "${srcExternalC3}" \
-  && popd \
-  ||  return 1
 }

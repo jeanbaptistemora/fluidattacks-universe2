@@ -614,24 +614,6 @@ function job_integrates_deploy_permissions_matrix {
   ||  return 1
 }
 
-function job_integrates_probes_liveness {
-  local aws_creds="${1}"
-  local localhost_endpoint="${2}"
-  local internet_endpoint="${3}"
-
-      helper_integrates_probe_aws_credentials "${aws_creds}" \
-  &&  helper_integrates_probe_curl "${localhost_endpoint}" \
-  &&  helper_integrates_probe_curl "${internet_endpoint}"
-}
-
-function job_integrates_probes_readiness {
-  local aws_creds="${1}"
-  local localhost_endpoint="${2}"
-
-      helper_integrates_probe_aws_credentials "${aws_creds}" \
-  &&  helper_integrates_probe_curl "${localhost_endpoint}"
-}
-
 function job_integrates_serve_components {
   local aws_creds="${1}"
 

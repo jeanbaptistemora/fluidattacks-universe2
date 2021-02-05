@@ -7,7 +7,6 @@ forces/oci-build
 forces/oci-build-wrapper
 integrates/back/bin
 integrates/back/certs/development
-integrates/back/oci
 integrates/back/probes/lib
 integrates/back/probes/liveness
 integrates/back/probes/readiness
@@ -19,9 +18,7 @@ integrates/back/tools/asciidoctor-pdf
 integrates/back/tools/concurrent-ruby
 integrates/back/tools/secure-spreadsheet
 integrates/cache/bin
-integrates/cache/oci
 integrates/db/bin
-integrates/db/oci
 integrates/front/config/development
 integrates/front/config/runtime
 integrates/front/lint
@@ -34,7 +31,6 @@ integrates/mobile/config/runtime
 integrates/mobile/lint
 integrates/secrets/lint
 integrates/storage/bin
-integrates/storage/oci
 makes/dev
 makes/test
 makes/wait/bin
