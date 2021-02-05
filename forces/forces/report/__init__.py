@@ -21,7 +21,7 @@ from forces.apis.integrates.api import (
 from forces.utils.model import ForcesConfig
 from forces.report.filters import (
     filter_kind,
-    filter_repo,
+    # filter_repo,  Temporarily disable
 )
 
 
@@ -128,7 +128,7 @@ async def generate_report(
     """
     _start_time = timer()
     kind = config.kind.value
-    repo_name = config.repository_name
+    # repo_name = config.repository_name  Temporarily disable
 
     _summary_dict = get_summary_template(kind)
 
@@ -141,8 +141,8 @@ async def generate_report(
 
         if not filter_kind(vuln, kind):
             continue
-        if not filter_repo(vuln, kind, repo_name):
-            continue
+        # if not filter_repo(vuln, kind, repo_name):  Temporarily disable
+        #     continue
 
         vuln_type = 'SAST' if vuln['vulnType'] == 'lines' else 'DAST'
 

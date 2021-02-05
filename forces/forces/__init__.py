@@ -76,8 +76,8 @@ async def entrypoint(
             )
             if config.kind == KindEnum.ALL:
                 exit_code = 1
-            else:
-                return 1
+            # else:  temporarily disable
+            #     return 1
         metadata['git_repo'] = config.repository_name or metadata['git_repo']
         await log(
             'info',
@@ -87,8 +87,8 @@ async def entrypoint(
         if not await check_remotes(config):
             if config.kind == KindEnum.ALL:
                 exit_code = 1
-            else:
-                return 1
+            # else:  temporarily disable
+            #     return 1
 
     report = await generate_report(config)
 
