@@ -85,6 +85,7 @@ makeTemplate {
       python = skimsPkgs.python38;
     };
     envSearchPaths = makeSearchPaths [
+      skimsPkgs.gcc
       skimsPkgs.graphviz
       skimsPkgs.nodejs
       skimsPkgs.python38Packages.pygraphviz

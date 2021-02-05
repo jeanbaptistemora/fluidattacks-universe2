@@ -90,7 +90,7 @@ function main {
               namespace="$(basename "${namespace}")" \
           &&  echo "[INFO] Running skims: ${group} ${namespace}" \
           &&  get_config "${group}" "${namespace}" \
-                | __envYq__ -y . \
+                | PYTHONPATH='' __envYq__ -y . \
                 | __envTee__ "${config_file}" \
           &&  echo '[INFO] Fetching cache' \
           &&  aws_s3_sync "${cache_remote}/${namespace}" "${cache_local}" \
