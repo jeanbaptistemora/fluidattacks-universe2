@@ -13,7 +13,7 @@
   };
 
   updateSyncDate = {
-    binName = "update-sync-date";
+    binName = "observes-update-sync-date";
     entrypoint = "from update_s3_last_sync_date.cli import main";
     package = observesPkgs.updateSyncDate;
   };

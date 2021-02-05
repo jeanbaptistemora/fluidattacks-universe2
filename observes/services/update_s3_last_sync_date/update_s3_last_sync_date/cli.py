@@ -1,5 +1,6 @@
 # Standard libraries
 import json
+from typing import IO
 
 # Third party libraries
 import click
@@ -9,9 +10,9 @@ from update_s3_last_sync_date import db_client
 
 
 @click.command()
-@click.argument('group')
 @click.argument('auth_file', type=click.File('r'))
-def main(group: str, auth_file):
+@click.argument('group')
+def main(auth_file: IO[str], group: str) -> None:
     auth = json.load(auth_file)
     db_state = db_client.make_access_point(auth)
     try:

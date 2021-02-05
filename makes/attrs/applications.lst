@@ -48,6 +48,7 @@ observes/scheduled-formstack-etl
 observes/tap-formstack
 observes/tap-json
 observes/target-redshift
+observes/update-sync-date
 serves/user/forces/apply
 serves/user/forces/test
 skims

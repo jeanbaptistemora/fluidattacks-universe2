@@ -4,28 +4,30 @@ source '__envUtilsBashLibAws__'
 source '__envUtilsBashLibSops__'
 source '__envUtilsBashLibGit__'
 
-export PATH="__envUpdateSyncDateBin__:${PATH:-}"
 export PATH="__envSopsBin__:${PATH:-}"
 export PATH="__envOpenSSH__:${PATH:-}"
 export PATH="__envFindUtils__:${PATH:-}"
 
-melts='__envMelts__'
-
 function job_code_mirror {
   local group="${1}"
-  local TEMP_FILE
-  TEMP_FILE=$(mktemp)
+  local melts
+  local temp_file
+  local update_sync_date
+
 
       if test -z "${group}"
       then
             echo '[INFO] Please set the first argument to the group name' \
         &&  return 1
       fi \
+  &&  melts="__envMelts__" \
+  &&  update_sync_date="__envUpdateSyncDate__" \
+  &&  temp_file=$(mktemp) \
   &&  aws_login_prod 'observes' \
   &&  sops_export_vars 'observes/secrets-prod.yaml' \
         analytics_auth_redshift \
   &&  echo '[INFO] Generating secret files' \
-  &&  echo "${analytics_auth_redshift}" > "${TEMP_FILE}" \
+  &&  echo "${analytics_auth_redshift}" > "${temp_file}" \
   &&  use_git_repo_services \
     &&  echo "[INFO] Working on ${group}" \
     &&  echo "[INFO] Cloning ${group} from source Git repository" \
@@ -39,7 +41,7 @@ function job_code_mirror {
               echo '[INFO] Pushing repositories to S3' \
           &&  "${melts}" drills --push-repos "${group}" \
           &&  echo '[INFO] Updating last sync date' \
-          &&  update-sync-date "${group}" "${TEMP_FILE}"
+          &&  "${update_sync_date}" "${temp_file}" "${group}"
         else
               echo '[INFO] Unable to clone repositories from source' \
           &&  echo '[INFO] Skipping push to S3' \

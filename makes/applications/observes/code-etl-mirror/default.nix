@@ -5,9 +5,6 @@
 } @ _:
 let
   nixPkgs = observesPkgs;
-  bins = import (path "/makes/libs/observes/bins") {
-    inherit path nixPkgs;
-  };
   makeEntrypoint = import (path "/makes/utils/make-entrypoint") path nixPkgs;
 in
 makeEntrypoint {
@@ -16,7 +13,7 @@ makeEntrypoint {
     envFindUtils = "${nixPkgs.findutils}/bin";
     envOpenSSH = "${nixPkgs.openssh}/bin";
     envSopsBin = "${nixPkgs.sops}/bin";
-    envUpdateSyncDateBin = "${bins.updateSyncDate}/bin";
+    envUpdateSyncDate = applications."observes/update-sync-date";
     envUtilsBashLibAws = import (path "/makes/utils/aws") path nixPkgs;
     envUtilsBashLibGit = import (path "/makes/utils/use-git-repo") path nixPkgs;
     envUtilsBashLibSops = import (path "/makes/utils/sops") path nixPkgs;
