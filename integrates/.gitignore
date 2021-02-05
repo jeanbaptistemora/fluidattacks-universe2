@@ -1,3 +1,5 @@
+/**/.expo/
+/**/google-services.json
 /**/*.css.d.ts
 /**/geckodriver.log
 /**/node_modules

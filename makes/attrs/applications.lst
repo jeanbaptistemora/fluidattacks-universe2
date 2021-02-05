@@ -26,6 +26,7 @@ integrates/infra/resources/test
 integrates/infra/secret-management/apply
 integrates/infra/secret-management/test
 integrates/kill
+integrates/mobile
 integrates/storage
 integrates/web/e2e
 makes/attrs
