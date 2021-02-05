@@ -15,19 +15,13 @@ let
       name = builtins.replaceStrings [ "/" ] [ "-" ] name;
       value = flake.defaultNix.outputs.packages.x86_64-linux.${name};
     })
-    [
-      "forces"
-      "integrates/back"
-      "integrates/back/probes/liveness"
-      "integrates/back/probes/readiness"
-      "integrates/cache"
-      "integrates/db"
-      "integrates/storage"
-      "makes/wait"
-      "melts"
-      "skims"
-      "sorts"
-    ]
+    (builtins.filter
+      (value: builtins.isString value && value != "")
+      (builtins.split "\n" (
+        (builtins.readFile ./makes/attrs/applications.lst) +
+        (builtins.readFile ./makes/attrs/packages.lst)
+      ))
+    )
   );
 
   # Nix2 components (deprecated)
