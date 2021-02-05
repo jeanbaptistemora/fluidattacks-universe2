@@ -142,6 +142,15 @@ observes/scheduled-code-etl-upload:
   tags: [autoscaling]
   interruptible: false
 
+observes/scheduled-formstack-etl:
+  <<: *makes
+  tags: [autoscaling-analytics]
+  stage: analytics
+  only:
+    refs: [schedules]
+    variables: [$observes_formstack]
+  interruptible: false
+
 observes/test-postgres-client:
   <<: *makes
   <<: *observes_in_dev_branch
@@ -163,15 +172,6 @@ observes_apply_infra:
   <<: *with_nix
   <<: *observes_in_master_branch
   stage: deploy-infra
-
-observes_formstack:
-  <<: *with_nix
-  tags: [autoscaling-analytics]
-  stage: analytics
-  only:
-    refs: [schedules]
-    variables: [$observes_formstack]
-  interruptible: false
 
 observes_dynamodb:
   <<: *with_nix

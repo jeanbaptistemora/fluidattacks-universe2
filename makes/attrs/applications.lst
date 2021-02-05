@@ -42,6 +42,8 @@ observes/scheduled-code-etl-amend
 observes/scheduled-code-etl-compute-bills
 observes/scheduled-code-etl-mirror
 observes/scheduled-code-etl-upload
+observes/scheduled-formstack-etl
+observes/tap-formstack
 observes/tap-json
 observes/target-redshift
 serves/user/forces/apply
