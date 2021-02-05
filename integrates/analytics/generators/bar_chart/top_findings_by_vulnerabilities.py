@@ -18,14 +18,15 @@ from analytics.colors import RISK
 @alru_cache(maxsize=None, typed=True)
 async def get_data_one_group(group: str) -> Counter:
     context = get_new_context()
-    group_loader = context.project
+    group_findings_loader = context.group_findings
     finding_loader = context.finding
     finding_vulns_loader = context.finding_vulns
 
-    group_data = await group_loader.load(group)
-    findings = await finding_loader.load_many(group_data['findings'])
+    group_findings_data = await group_findings_loader.load(group.lower())
+    finding_ids = [finding['finding_id'] for finding in group_findings_data]
+    findings = await finding_loader.load_many(finding_ids)
     finding_vulns = await finding_vulns_loader.load_many(
-        group_data['findings']
+        finding_ids
     )
 
     return Counter([

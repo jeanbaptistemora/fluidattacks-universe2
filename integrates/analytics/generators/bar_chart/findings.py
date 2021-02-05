@@ -22,12 +22,13 @@ from analytics.colors import RISK
 @alru_cache(maxsize=None, typed=True)
 async def get_data_one_group(group: str) -> PortfoliosGroupsInfo:
     context = get_new_context()
-    group_loader = context.project
+    group_findings_loader = context.group_findings
     finding_loader = context.finding
 
-    group_data = await group_loader.load(group)
+    group_findings_data = await group_findings_loader.load(group.lower())
+    finding_ids = [finding['finding_id'] for finding in group_findings_data]
     findings = await finding_loader.load_many(
-        group_data['findings']
+        finding_ids
     )
     findings_found = sum(
         1
