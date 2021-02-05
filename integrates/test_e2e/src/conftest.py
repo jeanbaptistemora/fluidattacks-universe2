@@ -51,14 +51,14 @@ def credentials() -> Credentials:
 
 @pytest.fixture(autouse=True, scope='session')
 def integrates_endpoint(branch: str, is_ci: bool) -> str:
-    url: str = ''
     if branch == 'master':
-        url = 'https://integrates.fluidattacks.com'
-    elif is_ci:
-        url = f'https://{branch}.integrates.fluidattacks.com'
-    else:
-        url = 'https://localhost:8081'
-    return url
+        raise NotImplementedError('e2e is only designed to run in dev env')
+
+    return (
+        f'https://{branch}.integrates.fluidattacks.com'
+        if is_ci
+        else 'https://localhost:8001'
+    )
 
 
 @pytest.fixture(autouse=True, scope='function')

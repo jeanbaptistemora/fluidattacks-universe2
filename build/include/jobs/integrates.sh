@@ -329,32 +329,6 @@ function job_integrates_back_clean_development_environments {
   ||  return 1
 }
 
-function job_integrates_back_test_e2e {
-  local args_pytest=(
-    --capture tee-sys
-    --disable-pytest-warnings
-    --exitfirst
-    --maxfail 20
-    --show-capture no
-    --verbose
-    --reruns 10
-    --test-group-count "${CI_NODE_TOTAL}"
-    --test-group "${CI_NODE_INDEX}"
-  )
-
-      pushd integrates \
-    &&  env_prepare_python_packages \
-    &&  helper_integrates_aws_login 'development' \
-    &&  helper_common_sops_env 'secrets-development.yaml' 'default' \
-          TEST_E2E_USER \
-          STARLETTE_SESSION_KEY \
-    &&  pushd test_e2e \
-      &&  pytest "${args_pytest[@]}" < /dev/null \
-    &&  popd \
-  &&  popd \
-  ||  return 1
-}
-
 function job_integrates_back_test_unit {
   local common_args=(
     -n auto
