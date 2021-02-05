@@ -244,6 +244,7 @@ async def invite_to_group(  # pylint: disable=too-many-arguments
                     'invitation': {
                         'date': now_str,
                         'is_used': False,
+                        'phone_number': phone_number,
                         'responsibility': responsibility,
                         'role': role,
                         'url_token': url_token,
