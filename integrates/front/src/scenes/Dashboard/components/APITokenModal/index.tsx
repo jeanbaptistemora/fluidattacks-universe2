@@ -6,6 +6,7 @@ import { Modal } from "components/Modal";
 import type { MutationFunction } from "@apollo/react-common";
 import React from "react";
 import _ from "lodash";
+import mixpanel from "mixpanel-browser";
 import { translate } from "utils/translations/translate";
 import {
   ButtonToolbar,
@@ -57,6 +58,7 @@ const APITokenModal: React.FC<IAPITokenModalProps> = (
     const expTimeStamp: number = Math.floor(
       new Date(values.expirationTime).getTime() / msToSec
     );
+    mixpanel.track("GenerateAPIToken");
     void updateAPIToken({
       variables: { expirationTime: expTimeStamp },
     });

@@ -106,6 +106,7 @@ const AddOrganizationModal: React.FC<IAddOrganizationModalProps> = (
   );
 
   function handleSubmit(values: { name: string }): void {
+    mixpanel.track("AddOrganization");
     void createOrganization({ variables: { name: values.name } });
   }
 

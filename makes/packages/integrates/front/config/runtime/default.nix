@@ -9,7 +9,7 @@ let
   nodeRequirements = buildNodeRequirements {
     dependencies = [ ];
     name = "integrates-front-runtime";
-    node = integratesPkgs.nodejs;
+    node = integratesPkgs.nodejs-12_x;
     requirements = {
       direct = (getPackageJsonDeps {
         packageJsonPath = "/integrates/front/package.json";

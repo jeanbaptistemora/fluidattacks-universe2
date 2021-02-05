@@ -8,6 +8,7 @@ import { Mutation, Query } from "@apollo/react-components";
 import { ApolloError } from "apollo-client";
 import { GraphQLError } from "graphql";
 import _ from "lodash";
+import mixpanel from "mixpanel-browser";
 import React from "react";
 import { useParams } from "react-router";
 
@@ -97,7 +98,7 @@ const commentsView: React.FC = (): JSX.Element => {
                       };
                     };
                   }
-
+                  mixpanel.track(`Add${_.capitalize(type)}`, { findingId });
                   void addComment({ variables: { findingId,
                                                  type: type.toUpperCase(),
                                                  ...comment } })

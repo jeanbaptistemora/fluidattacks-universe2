@@ -16,6 +16,7 @@ import _ from "lodash";
 import { authzPermissionsContext } from "utils/authz/config";
 import { deleteFormatter } from "components/DataTableNext/formatters";
 import { filterFormatter } from "components/DataTableNext/headerFormatters/filterFormatter";
+import mixpanel from "mixpanel-browser";
 import { useAbility } from "@casl/react";
 import { useTranslation } from "react-i18next";
 import { vulnerabilityInfo } from "scenes/Dashboard/components/Vulnerabilities/vulnerabilityInfo";
@@ -70,6 +71,7 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
     _0: React.FormEvent,
     vulnerability: IVulnRowAttr
   ): void {
+    mixpanel.track("ViewVulnerability", { groupName });
     updateRow(vulnerability);
     setAdditionalInfoOpen(true);
   }

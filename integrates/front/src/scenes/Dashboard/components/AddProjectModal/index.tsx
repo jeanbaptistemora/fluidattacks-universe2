@@ -11,6 +11,7 @@ import React from "react";
 import { SwitchButton } from "components/SwitchButton";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import _ from "lodash";
+import mixpanel from "mixpanel-browser";
 import { translate } from "utils/translations/translate";
 import {
   ButtonToolbar,
@@ -194,6 +195,7 @@ const AddProjectModal: React.FC<IAddProjectModalProps> = (
                     organization: string;
                     type: string;
                   }): void {
+                    mixpanel.track("AddGroup");
                     void createProject({
                       variables: {
                         description: values.description,

@@ -8,6 +8,7 @@ import { Mutation, Query } from "@apollo/react-components";
 import { ApolloError } from "apollo-client";
 import { GraphQLError } from "graphql";
 import _ from "lodash";
+import mixpanel from "mixpanel-browser";
 import React from "react";
 import { useParams } from "react-router";
 import {
@@ -87,7 +88,7 @@ const projectConsultingView: React.FC = (): JSX.Element => {
                       };
                     };
                   }
-
+                  mixpanel.track("AddGroupComment", { projectName });
                   void addConsult({ variables: { projectName, ...consult } })
                     .then((mtResult: void | {}): void => {
                       const result: IMutationResult["data"] = (mtResult as IMutationResult).data;
