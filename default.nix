@@ -12,21 +12,21 @@ let
   # Flake components
   components = builtins.listToAttrs (builtins.map
     (name: {
-      name = builtins.replaceStrings [ "/bin" "/" ] [ "" "-" ] name;
+      name = builtins.replaceStrings [ "/" ] [ "-" ] name;
       value = flake.defaultNix.outputs.packages.x86_64-linux.${name};
     })
     [
-      "forces/bin"
-      "integrates/back/bin"
+      "forces"
+      "integrates/back"
       "integrates/back/probes/liveness"
       "integrates/back/probes/readiness"
-      "integrates/cache/bin"
-      "integrates/db/bin"
-      "integrates/storage/bin"
-      "makes/wait/bin"
-      "melts/bin"
-      "skims/bin"
-      "sorts/bin"
+      "integrates/cache"
+      "integrates/db"
+      "integrates/storage"
+      "makes/wait"
+      "melts"
+      "skims"
+      "sorts"
     ]
   );
 
