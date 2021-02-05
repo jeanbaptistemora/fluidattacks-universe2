@@ -374,7 +374,6 @@ integrates_back_deploy_development:
   <<: *in_dev_branch_integrates
   stage: deploy-app
   needs:
-    - integrates_back_build_development
     - integrates/back/oci/deploy
     - integrates/cache/oci/deploy
     - integrates/db/oci/deploy
@@ -437,11 +436,6 @@ integrates_deploy_permissions_matrix:
 integrates_back_build_production:
   <<: *with_nix
   <<: *in_master_except_periodic_jobs_integrates
-  stage: build
-
-integrates_back_build_development:
-  <<: *with_nix
-  <<: *in_dev_branch_integrates
   stage: build
 
 integrates_back_test_functional:
