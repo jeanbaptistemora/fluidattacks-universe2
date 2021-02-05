@@ -19,7 +19,7 @@ platform = 'gitlab'
   [tests.mr_under_max_deltas]
     fail = true
     close_mr = true
-    max_deltas = 200
+    max_deltas = 100
     repo_path = '.'
 
   [tests.most_relevant_type]
