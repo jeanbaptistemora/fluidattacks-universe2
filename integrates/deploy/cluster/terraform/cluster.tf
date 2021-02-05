@@ -12,7 +12,7 @@ module "eks" {
   ]
 
   worker_additional_security_group_ids = [
-    data.aws_security_group.cloudflare.id
+    data.aws_security_group.cloudflare.id,
   ]
 
   tags = {
@@ -66,6 +66,19 @@ module "eks" {
       spot_allocation_strategy = "lowest-price"
       spot_instance_pools      = 5
       spot_max_price           = "" # Defaults to on-demand price
+
+      tags = [
+        {
+          "key"                 = "k8s.io/cluster-autoscaler/enabled"
+          "propagate_at_launch" = "false"
+          "value"               = "true"
+        },
+        {
+          "key"                 = "k8s.io/cluster-autoscaler/${var.cluster_name}"
+          "propagate_at_launch" = "false"
+          "value"               = "true"
+        }
+      ]
     },
   ]
 
