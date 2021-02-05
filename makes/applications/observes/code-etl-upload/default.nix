@@ -1,5 +1,5 @@
 { observesPkgs
-, outputs
+, applications
 , path
 , ...
 } @ _:
@@ -13,7 +13,7 @@ in
 makeEntrypoint {
   arguments = {
     envCodeEtlBin = "${bins.codeEtl}/bin";
-    envMelts = outputs.apps.melts.program;
+    envMelts = applications.melts;
     envUtilsBashLibAws = import (path "/makes/utils/aws") path observesPkgs;
     envUtilsBashLibGit = import (path "/makes/utils/use-git-repo") path observesPkgs;
     envUtilsBashLibSops = import (path "/makes/utils/sops") path observesPkgs;

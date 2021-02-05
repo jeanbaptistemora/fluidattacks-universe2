@@ -1,5 +1,5 @@
 { makesPkgs
-, outputs
+, packages
 , path
 , ...
 } @ _:
@@ -19,8 +19,8 @@ makeTemplate {
       makesPkgs.tokei
       makesPkgs.yq
     ];
-    envSkimsSetupDevelopment = outputs.packages."skims/config-development";
-    envSkimsSetupRuntime = outputs.packages."skims/config-runtime";
+    envSkimsSetupDevelopment = packages."skims/config-development";
+    envSkimsSetupRuntime = packages."skims/config-runtime";
   };
   name = "makes-dev";
   template = path "/makes/packages/makes/dev/template.sh";

@@ -1,4 +1,4 @@
-{ outputs
+{ applications
 , path
 , skimsPkgs
 , ...
@@ -13,8 +13,8 @@ makeEntrypoint {
     envUtilsBashLibAws = import (path "/makes/utils/aws") path skimsPkgs;
     envUtilsBashLibSops = import (path "/makes/utils/sops") path skimsPkgs;
     envSetupSkimsRuntime = import (path "/makes/packages/skims/config-runtime") attrs.copy;
-    envMelts = outputs.apps.melts.program;
-    envSkims = outputs.apps.skims.program;
+    envMelts = applications.melts;
+    envSkims = applications.skims;
     envTee = "${skimsPkgs.coreutils}/bin/tee";
     envYq = "${skimsPkgs.yq}/bin/yq";
   };

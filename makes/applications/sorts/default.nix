@@ -1,4 +1,4 @@
-{ outputs
+{ packages
 , ...
 } @ _:
-outputs.packages."sorts/bin"
+packages."sorts/bin"

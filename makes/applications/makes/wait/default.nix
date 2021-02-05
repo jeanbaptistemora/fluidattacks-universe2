@@ -1,4 +1,4 @@
-{ outputs
+{ packages
 , ...
 } @ _:
-outputs.packages."makes/wait/bin"
+packages."makes/wait/bin"

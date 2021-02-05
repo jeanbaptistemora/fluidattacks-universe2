@@ -1,4 +1,4 @@
-{ outputs
+{ packages
 , path
 , skimsPkgs
 , skimsTreeSitterRepo
@@ -13,8 +13,8 @@ makeTemplate {
   arguments = {
     envContextFile = makeTemplate {
       arguments = {
-        envParserAntlr = outputs.packages."skims/parsers/antlr";
-        envParserBabel = outputs.packages."skims/parsers/babel";
+        envParserAntlr = packages."skims/parsers/antlr";
+        envParserBabel = packages."skims/parsers/babel";
         envSrcSkimsStatic = path "/skims/static";
         envSrcSkimsVendor = path "/skims/vendor";
         envSrcTreeSitter = skimsTreeSitterRepo;

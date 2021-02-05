@@ -1,5 +1,5 @@
 { integratesPkgs
-, outputs
+, packages
 , path
 , ...
 } @ _:
@@ -8,7 +8,7 @@ let
 in
 makeEntrypoint {
   arguments = {
-    envProbes = outputs.packages."integrates/back/probes/lib";
+    envProbes = packages."integrates/back/probes/lib";
   };
   name = "integrates-back-probes-liveness";
   template = path "/makes/packages/integrates/back/probes/liveness/entrypoint.sh";

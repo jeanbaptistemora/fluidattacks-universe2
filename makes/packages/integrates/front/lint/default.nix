@@ -1,6 +1,6 @@
 { integratesPkgs
+, packages
 , path
-, sources
 , ...
 } @ _:
 let
@@ -9,9 +9,9 @@ in
 makeDerivation {
   builder = "success";
   envBuilt = [
-    sources.packages."integrates/front/lint/eslint"
-    sources.packages."integrates/front/lint/stylelint"
-    sources.packages."integrates/front/lint/tslint"
+    packages."integrates/front/lint/eslint"
+    packages."integrates/front/lint/stylelint"
+    packages."integrates/front/lint/tslint"
   ];
   name = "integrates-front-lint";
 }

@@ -1,4 +1,4 @@
-{ outputs
+{ applications
 , path
 , skimsBenchmarkOwaspRepo
 , skimsPkgs
@@ -12,11 +12,11 @@ makeEntrypoint {
     envBenchmarkRepo = skimsBenchmarkOwaspRepo;
     envPython = "${skimsPkgs.python38}/bin/python";
     envSetupSkimsRuntime = import (path "/makes/packages/skims/config-runtime") attrs.copy;
-    envSkims = outputs.apps.skims.program;
+    envSkims = applications.skims;
     envSrcSkimsSkims = path "/skims/skims";
     envSrcSkimsTest = path "/skims/test";
-    envTapJson = outputs.apps."observes/tap-json".program;
-    envTargetRedshift = outputs.apps."observes/target-redshift".program;
+    envTapJson = applications."observes/tap-json";
+    envTargetRedshift = applications."observes/target-redshift";
     envUtilsBashLibAws = import (path "/makes/utils/aws") path skimsPkgs;
     envUtilsBashLibSops = import (path "/makes/utils/sops") path skimsPkgs;
   };

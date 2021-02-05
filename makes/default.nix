@@ -21,6 +21,7 @@ flakeUtils.lib.eachSystem [ "x86_64-linux" ] (
   system:
   let
     attrs = makeLazyCopy rec {
+      applications = builtins.mapAttrs (name: value: "${value}/bin/${slashToDash name}") packages;
       debug = value: builtins.trace value value;
       forcesPkgs = import srcForcesPkgs { inherit system; };
       forcesPkgsTerraform = import srcForcesPkgsTerraform { inherit system; };
@@ -30,19 +31,7 @@ flakeUtils.lib.eachSystem [ "x86_64-linux" ] (
       meltsPkgs = import srcMeltsPkgs { inherit system; };
       observesPkgs = import srcObservesPkgs { inherit system; };
       observesPkgsTerraform = import srcObservesPkgsTerraform { inherit system; };
-      outputs = {
-        apps = builtins.mapAttrs makeApp sources.apps;
-        packages = sources.packages;
-      };
-      path = path: /. + (builtins.unsafeDiscardStringContext self.sourceInfo) + path;
-      revision = if (builtins.hasAttr "rev" self) then self.rev else "dirty";
-      servesPkgsTerraform = import srcServesPkgsTerraform { inherit system; };
-      skimsBenchmarkOwaspRepo = srcSkimsBenchmarkOwaspRepo;
-      skimsPkgs = import srcSkimsPkgs { inherit system; };
-      skimsPkgsTerraform = import srcSkimsPkgsTerraform { inherit system; };
-      skimsTreeSitterRepo = srcSkimsTreeSitterRepo;
-      sortsPkgs = import srcSortsPkgs { inherit system; };
-      sources =
+      packages =
         let
           attrsByType = source: builtins.listToAttrs (builtins.map
             (name: {
@@ -53,18 +42,20 @@ flakeUtils.lib.eachSystem [ "x86_64-linux" ] (
               builtins.readFile (path "/makes/attrs/${source}.lst"))
             )));
         in
-        {
-          apps = attrsByType "applications";
-          packages = attrsByType "packages";
-        };
+        attrsByType "applications" // attrsByType "packages";
+      path = path: /. + (builtins.unsafeDiscardStringContext self.sourceInfo) + path;
+      revision = if (builtins.hasAttr "rev" self) then self.rev else "dirty";
+      servesPkgsTerraform = import srcServesPkgsTerraform { inherit system; };
+      skimsBenchmarkOwaspRepo = srcSkimsBenchmarkOwaspRepo;
+      skimsPkgs = import srcSkimsPkgs { inherit system; };
+      skimsPkgsTerraform = import srcSkimsPkgsTerraform { inherit system; };
+      skimsTreeSitterRepo = srcSkimsTreeSitterRepo;
+      sortsPkgs = import srcSortsPkgs { inherit system; };
     };
-    makeApp = app: derivation: {
-      program = "${derivation}/bin/${builtins.replaceStrings [ "/" ] [ "-" ] app}";
-      type = "app";
-    };
+    slashToDash = builtins.replaceStrings [ "/" ] [ "-" ];
     makeLazyCopy = attrs: (attrs // {
       copy = makeLazyCopy attrs;
     });
   in
-  attrs.outputs
+  { inherit (attrs) packages; }
 )

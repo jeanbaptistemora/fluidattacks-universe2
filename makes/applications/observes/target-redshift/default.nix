@@ -1,4 +1,4 @@
-{ outputs
+{ packages
 , ...
 } @ _:
-outputs.packages."observes/bin-target-redshift"
+packages."observes/bin-target-redshift"

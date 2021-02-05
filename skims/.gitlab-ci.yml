@@ -79,7 +79,7 @@ skims/structure:
   <<: *makes
   <<: *skims_in_dev_branch
   after_script:
-    - cp -Lr makes/outputs/skims-structure outputs
+    - cp -Lr out/skims-structure outputs
   artifacts:
     expire_in: 1 week
     paths: [outputs]

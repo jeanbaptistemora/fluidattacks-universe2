@@ -1,4 +1,4 @@
-{ outputs
+{ packages
 , ...
 } @ _:
-outputs.packages."skims/bin"
+packages."skims/bin"

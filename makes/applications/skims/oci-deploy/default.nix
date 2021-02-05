@@ -1,4 +1,4 @@
-{ outputs
+{ packages
 , path
 , skimsPkgs
 , ...
@@ -7,7 +7,7 @@ let
   ociDeploy = import (path "/makes/utils/oci-deploy") path skimsPkgs;
 in
 ociDeploy {
-  oci = outputs.packages."skims/oci-build";
+  oci = packages."skims/oci-build";
   name = "skims-oci-deploy";
   registry = "registry.gitlab.com";
   tag = "fluidattacks/product/skims";

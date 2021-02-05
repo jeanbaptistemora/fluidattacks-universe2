@@ -1,6 +1,6 @@
 { makesPkgs
+, packages
 , path
-, sources
 , ...
 } @ _:
 let
@@ -9,9 +9,7 @@ in
 makeDerivation {
   builder = path "/makes/packages/makes/test/builder.sh";
   envBuilt = builtins.concatLists [
-    (builtins.attrValues (builtins.removeAttrs sources.apps [
-    ]))
-    (builtins.attrValues (builtins.removeAttrs sources.packages [
+    (builtins.attrValues (builtins.removeAttrs packages [
       # Too much disk
       "integrates/mobile/config/development"
       # Needed to avoid infinite recursion

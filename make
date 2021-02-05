@@ -4,12 +4,13 @@ set -e
 source makes/utils/shopts/template.sh
 
 function build_package {
-  local attr="${1}"
+  local attribute="${1}"
+  local attribute_output
 
   ./makes/wrappers/nix3 build \
-    --out-link "makes/outputs/${attr}" \
+    --out-link "out/${attribute////-}" \
     --show-trace \
-    ".#${attr}"
+    ".#${attribute}"
 }
 
 function cachix_push {
@@ -61,7 +62,7 @@ function main {
             &&  echo '[INFO]   Congratulations!' \
             &&  return 0
           else
-                echo \
+                echo '---' \
             &&  echo "[ERROR] ${attribute}'s execution failed :(" \
             &&  return 1
           fi
@@ -74,13 +75,14 @@ function main {
           if build_package "${attribute}"
           then
                 echo '---' \
-            &&  nix_store_path=$(readlink -f "makes/outputs/${attribute}") \
-            &&  cachix_push "${nix_store_path}" \
+            &&  nix_store_path=$(readlink -f "out/${attribute////-}") \
             &&  echo "[INFO] ${attribute} built successfully" \
             &&  echo '[INFO]   Congratulations!' \
             &&  echo '[INFO]' \
             &&  echo "[INFO] Store path: ${nix_store_path}" \
-            &&  echo "[INFO] Symlink at: ./makes/outputs/${attribute}" \
+            &&  echo "[INFO] Symlink at: out/${attribute////-}" \
+            &&  echo '---' \
+            &&  cachix_push "${nix_store_path}" \
             &&  return 0
           else
                 echo '---' \
@@ -118,13 +120,10 @@ function main_help {
 }
 
 function run_application {
-  local attr="${1}"
+  local attribute="${1}"
 
-  ./makes/wrappers/nix3 run \
-    --show-trace \
-    ".#${attr}" \
-    -- \
-    "${@:2}"
+      build_package "${attribute}" \
+  &&  "${PWD}/out/${attribute////-}/bin/${attribute////-}" "${@:2}"
 }
 
 main "${@}"

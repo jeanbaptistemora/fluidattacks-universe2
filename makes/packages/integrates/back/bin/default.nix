@@ -1,5 +1,6 @@
 { integratesPkgs
-, outputs
+, applications
+, packages
 , path
 , ...
 } @ _:
@@ -10,8 +11,8 @@ in
 makeEntrypoint {
   arguments = {
     envAsgi = "${integratesPkgs.python37Packages.gunicorn}/bin/gunicorn";
-    envCertsDevelopment = outputs.packages."integrates/back/certs/development";
-    envDone = outputs.apps."makes/done".program;
+    envCertsDevelopment = packages."integrates/back/certs/development";
+    envDone = applications."makes/done";
     envIntegrates = path "/integrates";
     envKillPidListeningOnPort = import (path "/makes/utils/kill-pid-listening-on-port") path integratesPkgs;
     envSearchPaths = makeSearchPaths [
@@ -24,13 +25,13 @@ makeEntrypoint {
       # The binary to zip the data report
       integratesPkgs.p7zip
     ];
-    envTools = outputs.packages."integrates/back/tools";
-    envPypiRuntime = outputs.packages."integrates/back/pypi/runtime";
+    envTools = packages."integrates/back/tools";
+    envPypiRuntime = packages."integrates/back/pypi/runtime";
     envSecretsDev = path "/integrates/secrets-development.yaml";
     envSecretsProd = path "/integrates/secrets-production.yaml";
     envUtilsAws = import (path "/makes/utils/aws") path integratesPkgs;
     envUtilsSops = import (path "/makes/utils/sops") path integratesPkgs;
-    envWait = outputs.apps."makes/wait".program;
+    envWait = applications."makes/wait";
   };
   name = "integrates-back";
   template = path "/makes/packages/integrates/back/bin/entrypoint.sh";

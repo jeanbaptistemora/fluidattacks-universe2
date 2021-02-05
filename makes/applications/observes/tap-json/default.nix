@@ -1,4 +1,4 @@
-{ outputs
+{ packages
 , ...
 } @ _:
-outputs.packages."observes/bin-tap-json"
+packages."observes/bin-tap-json"

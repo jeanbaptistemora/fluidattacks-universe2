@@ -1,5 +1,5 @@
 { integratesPkgs
-, outputs
+, applications
 , path
 , ...
 } @ _:
@@ -9,7 +9,7 @@ in
 makeEntrypoint {
   arguments = {
     envAws = "${integratesPkgs.awscli}/bin/aws";
-    envDone = outputs.apps."makes/done".program;
+    envDone = applications."makes/done";
     envDynamoData = path "/makes/packages/integrates/db/data";
     envDynamoZip = integratesPkgs.fetchurl {
       url = "https://s3-us-west-2.amazonaws.com/dynamodb-local/dynamodb_local_2020-05-19.zip";
@@ -21,7 +21,7 @@ makeEntrypoint {
     envTerraform = "${integratesPkgs.terraform}/bin/terraform";
     envTerraformModule = path "/makes/packages/integrates/db/bin";
     envUnzip = "${integratesPkgs.unzip}/bin/unzip";
-    envWait = outputs.apps."makes/wait".program;
+    envWait = applications."makes/wait";
   };
   name = "integrates-db";
   template = path "/makes/packages/integrates/db/bin/entrypoint.sh";

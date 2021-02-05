@@ -1,4 +1,4 @@
-{ outputs
+{ applications
 , path
 , skimsPkgs
 , ...
@@ -7,5 +7,5 @@ let
   makeOci = import (path "/makes/utils/make-oci") path skimsPkgs;
 in
 makeOci {
-  config.Entrypoint = [ outputs.apps.skims.program ];
+  config.Entrypoint = [ applications.skims ];
 }

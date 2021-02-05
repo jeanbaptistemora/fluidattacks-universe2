@@ -69,7 +69,7 @@ function main {
   &&  lint_nix \
   &&  lint_shell \
   &&  sort_attrs \
-  &&  success
+
 }
 
 main "${@}"

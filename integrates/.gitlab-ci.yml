@@ -109,7 +109,7 @@ integrates/front/test:
     expire_in: 1 week
   script:
     - ./make "${CI_JOB_NAME}"
-    - cp makes/outputs/integrates/front/test/coverage/lcov.info integrates/front/coverage.lcov
+    - cp out/integrates-front-test/coverage/lcov.info integrates/front/coverage.lcov
   stage: test-code
 
 integrates/infra/backup/apply:

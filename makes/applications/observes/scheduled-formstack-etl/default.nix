@@ -1,5 +1,5 @@
 { observesPkgs
-, outputs
+, applications
 , path
 , ...
 } @ _:
@@ -9,8 +9,8 @@ let
 in
 makeEntrypoint {
   arguments = {
-    envTapFormstack = outputs.apps."observes/tap-formstack".program;
-    envTargetRedshift = outputs.apps."observes/target-redshift".program;
+    envTapFormstack = applications."observes/tap-formstack";
+    envTargetRedshift = applications."observes/target-redshift";
     envUtilsBashLibAws = import (path "/makes/utils/aws") path nixPkgs;
     envUtilsBashLibSops = import (path "/makes/utils/sops") path nixPkgs;
   };

@@ -1,5 +1,5 @@
 { observesPkgs
-, outputs
+, applications
 , path
 , ...
 } @ _:
@@ -12,7 +12,7 @@ let
 in
 makeEntrypoint {
   arguments = {
-    envMelts = outputs.apps.melts.program;
+    envMelts = applications.melts;
     envFindUtils = "${nixPkgs.findutils}/bin";
     envOpenSSH = "${nixPkgs.openssh}/bin";
     envSopsBin = "${nixPkgs.sops}/bin";

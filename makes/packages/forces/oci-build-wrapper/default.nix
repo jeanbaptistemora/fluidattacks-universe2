@@ -1,5 +1,5 @@
 { forcesPkgs
-, outputs
+, applications
 , path
 , ...
 } @ _:
@@ -8,5 +8,5 @@ let
 in
 makeOci {
   config.WorkingDir = "/src";
-  config.Entrypoint = [ outputs.apps."forces/wrapper".program ];
+  config.Entrypoint = [ applications."forces/wrapper" ];
 }

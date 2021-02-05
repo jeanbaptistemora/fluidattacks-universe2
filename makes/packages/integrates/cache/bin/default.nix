@@ -1,5 +1,5 @@
 { integratesPkgs
-, outputs
+, applications
 , path
 , ...
 } @ _:
@@ -8,10 +8,10 @@ let
 in
 makeEntrypoint {
   arguments = {
-    envDone = outputs.apps."makes/done".program;
+    envDone = applications."makes/done";
     envKillPidListeningOnPort = import (path "/makes/utils/kill-pid-listening-on-port") path integratesPkgs;
     envRedisCli = "${integratesPkgs.redis}/bin/redis-cli";
-    envWait = outputs.apps."makes/wait".program;
+    envWait = applications."makes/wait";
     envRedisServer = "${integratesPkgs.redis}/bin/redis-server";
   };
   name = "integrates-cache";

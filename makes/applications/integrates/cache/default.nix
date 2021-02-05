@@ -1,4 +1,4 @@
-{ outputs
+{ packages
 , ...
 } @ _:
-outputs.packages."integrates/cache/bin"
+packages."integrates/cache/bin"

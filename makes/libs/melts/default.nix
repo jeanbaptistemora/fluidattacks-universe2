@@ -1,5 +1,5 @@
 { meltsPkgs
-, outputs
+, applications
 , path
 , ...
 } @ _:
@@ -8,7 +8,7 @@ let
 in
 makeTemplate {
   arguments = {
-    envMelts = outputs.apps.melts.program;
+    envMelts = applications.melts;
     envUtilsBashLibAws = import (path "/makes/utils/aws") path meltsPkgs;
     envUtilsBashLibGit = import (path "/makes/utils/use-git-repo") path meltsPkgs;
   };

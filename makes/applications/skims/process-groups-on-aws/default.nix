@@ -1,4 +1,4 @@
-{ outputs
+{ applications
 , path
 , skimsPkgs
 , ...
@@ -8,7 +8,7 @@ let
 in
 makeEntrypoint {
   arguments = {
-    envSkimsProcessGroupOnAws = outputs.apps."skims/process-group-on-aws".program;
+    envSkimsProcessGroupOnAws = applications."skims/process-group-on-aws";
     envUtilsBashLibAws = import (path "/makes/utils/aws") path skimsPkgs;
     envUtilsBashLibUseGitRepo = import (path "/makes/utils/use-git-repo") path skimsPkgs;
   };

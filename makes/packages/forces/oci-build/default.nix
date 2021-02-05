@@ -1,5 +1,5 @@
 { forcesPkgs
-, outputs
+, packages
 , path
 , ...
 } @ _:
@@ -11,6 +11,6 @@ makeOci {
   contents = [
     forcesPkgs.bash
     forcesPkgs.coreutils
-    outputs.packages."forces/bin"
+    packages."forces/bin"
   ];
 }
