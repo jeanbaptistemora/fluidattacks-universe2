@@ -118,7 +118,7 @@ resource "aws_launch_template" "batch_instance" {
 
     ebs {
       volume_size = 100
-      volume_type = "gp2"
+      volume_type = "gp3"
       delete_on_termination = true
     }
   }
