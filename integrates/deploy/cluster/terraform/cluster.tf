@@ -34,9 +34,8 @@ module "eks" {
       kubelet_extra_args      = "--node-labels=worker_group=development"
       public_ip               = true
 
-      asg_min_size         = 5
-      asg_desired_capacity = 11
-      asg_max_size         = 11
+      asg_min_size = 5
+      asg_max_size = 11
 
       root_volume_type = "gp3"
       root_volume_size = 50
@@ -46,6 +45,19 @@ module "eks" {
       spot_allocation_strategy = "lowest-price"
       spot_instance_pools      = 5
       spot_max_price           = "" # Defaults to on-demand price
+
+      tags = [
+        {
+          "key"                 = "k8s.io/cluster-autoscaler/enabled"
+          "propagate_at_launch" = "false"
+          "value"               = "true"
+        },
+        {
+          "key"                 = "k8s.io/cluster-autoscaler/${var.cluster_name}"
+          "propagate_at_launch" = "false"
+          "value"               = "true"
+        }
+      ]
     },
     {
       name                    = "production"
@@ -54,9 +66,8 @@ module "eks" {
       kubelet_extra_args      = "--node-labels=worker_group=production"
       public_ip               = true
 
-      asg_min_size         = 5
-      asg_desired_capacity = 11
-      asg_max_size         = 11
+      asg_min_size = 5
+      asg_max_size = 11
 
       root_volume_type = "gp3"
       root_volume_size = 50
