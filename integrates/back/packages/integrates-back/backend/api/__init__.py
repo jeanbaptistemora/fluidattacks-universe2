@@ -24,7 +24,6 @@ from backend.api.dataloaders.group_active import GroupActiveLoader
 from backend.api.dataloaders.group_drafts import GroupDraftsLoader
 from backend.api.dataloaders.group_findings import GroupFindingsLoader
 from backend.api.dataloaders.group_roots import GroupRootsLoader
-from backend.api.dataloaders.project import ProjectLoader
 from backend.api.dataloaders.vulnerability import VulnerabilityLoader
 
 from back import settings
@@ -41,7 +40,6 @@ class Dataloaders(NamedTuple):
     group_drafts: GroupDraftsLoader
     group_findings: GroupFindingsLoader
     group_roots: GroupRootsLoader
-    project: ProjectLoader  # used only by analytics. Needs refactor or rename
     vulnerability: VulnerabilityLoader
 
 
@@ -56,7 +54,6 @@ def get_new_context() -> Dataloaders:
         group_drafts=GroupDraftsLoader(),
         group_findings=GroupFindingsLoader(),
         group_roots=GroupRootsLoader(),
-        project=ProjectLoader(),
         vulnerability=VulnerabilityLoader()
     )
 
