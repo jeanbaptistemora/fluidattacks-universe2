@@ -18,6 +18,8 @@ let
     [
       "forces/bin"
       "integrates/back/bin"
+      "integrates/back/probes/liveness"
+      "integrates/back/probes/readiness"
       "integrates/cache/bin"
       "integrates/db/bin"
       "integrates/storage/bin"

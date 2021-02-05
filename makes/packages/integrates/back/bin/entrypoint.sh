@@ -111,6 +111,12 @@ function main {
             echo '[ERROR] First argument must be one of: dev, dev-mobile, eph, prod' \
         &&  return 1
       fi \
+  &&  if ! test -e 'integrates'
+      then
+        # Kubernetes specific
+            mkdir 'integrates' \
+        &&  copy '__envIntegrates__' 'integrates'
+      fi \
   &&  pushd integrates \
     &&  __envKillPidListeningOnPort__ "${port}" \
     &&  { STARTDIR="${PWD}" \

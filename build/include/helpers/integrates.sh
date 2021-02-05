@@ -85,7 +85,7 @@ function helper_integrates_back_deploy {
       helper_common_update_kubeconfig "${cluster}" "${region}" \
   &&  for file in $(find "${files_path}/"*)
       do
-            vars="$(grep -oP '__.*__' "${file}" || true)" \
+            vars="$(grep -oP '__.*?__' "${file}" || true)" \
         &&  for var in ${vars}
             do
                   var="${var:2:-2}" \

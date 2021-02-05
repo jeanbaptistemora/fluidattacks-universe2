@@ -250,12 +250,6 @@ function job_integrates_back_build_development {
 
 function job_integrates_back_deploy_development {
   local env='development'
-  export BRANCH
-  export DATE
-  export DEPLOYMENT_NAME
-  export B64_INTEGRATES_DEV_AWS_ACCESS_KEY_ID
-  export B64_INTEGRATES_DEV_AWS_SECRET_ACCESS_KEY
-  export B64_CI_COMMIT_REF_NAME
 
   local region='us-east-1'
   local cluster='integrates-cluster'
@@ -267,12 +261,13 @@ function job_integrates_back_deploy_development {
       helper_common_use_pristine_workdir \
   &&  helper_integrates_aws_login "${env}" \
   &&  pushd integrates \
-    &&  BRANCH="${CI_COMMIT_REF_NAME}" \
-    &&  DATE="$(date)" \
-    &&  DEPLOYMENT_NAME="${deployment}" \
-    &&  B64_INTEGRATES_DEV_AWS_ACCESS_KEY_ID=$(helper_integrates_to_b64 "${INTEGRATES_DEV_AWS_ACCESS_KEY_ID}") \
-    &&  B64_INTEGRATES_DEV_AWS_SECRET_ACCESS_KEY=$(helper_integrates_to_b64 "${INTEGRATES_DEV_AWS_SECRET_ACCESS_KEY}") \
-    &&  B64_CI_COMMIT_REF_NAME=$(helper_integrates_to_b64 "${CI_COMMIT_REF_NAME}") \
+    &&  export BRANCH="${CI_COMMIT_REF_NAME}" \
+    &&  export DATE="$(date)" \
+    &&  export DEPLOYMENT_NAME="${deployment}" \
+    &&  export B64_INTEGRATES_DEV_AWS_ACCESS_KEY_ID=$(helper_integrates_to_b64 "${INTEGRATES_DEV_AWS_ACCESS_KEY_ID}") \
+    &&  export B64_INTEGRATES_DEV_AWS_SECRET_ACCESS_KEY=$(helper_integrates_to_b64 "${INTEGRATES_DEV_AWS_SECRET_ACCESS_KEY}") \
+    &&  export B64_CI_COMMIT_REF_NAME=$(helper_integrates_to_b64 "${CI_COMMIT_REF_NAME}") \
+    &&  export B64_CI_COMMIT_SHA=$(helper_integrates_to_b64 "${CI_COMMIT_SHA}") \
     &&  helper_integrates_back_deploy \
           "${region}" \
           "${cluster}" \
@@ -286,10 +281,6 @@ function job_integrates_back_deploy_development {
 
 function job_integrates_back_deploy_production {
   local env='production'
-  export DATE
-  export B64_INTEGRATES_PROD_AWS_ACCESS_KEY_ID
-  export B64_INTEGRATES_PROD_AWS_SECRET_ACCESS_KEY
-  export B64_CI_COMMIT_REF_NAME
 
   local region='us-east-1'
   local cluster='integrates-cluster'
@@ -301,10 +292,11 @@ function job_integrates_back_deploy_production {
       helper_common_use_pristine_workdir \
   &&  helper_integrates_aws_login "${env}" \
   &&  pushd integrates \
-    &&  DATE="$(date)" \
-    &&  B64_INTEGRATES_PROD_AWS_ACCESS_KEY_ID=$(helper_integrates_to_b64 "${INTEGRATES_PROD_AWS_ACCESS_KEY_ID}") \
-    &&  B64_INTEGRATES_PROD_AWS_SECRET_ACCESS_KEY=$(helper_integrates_to_b64 "${INTEGRATES_PROD_AWS_SECRET_ACCESS_KEY}") \
-    &&  B64_CI_COMMIT_REF_NAME=$(helper_integrates_to_b64 'master') \
+    &&  export DATE="$(date)" \
+    &&  export B64_INTEGRATES_PROD_AWS_ACCESS_KEY_ID=$(helper_integrates_to_b64 "${INTEGRATES_PROD_AWS_ACCESS_KEY_ID}") \
+    &&  export B64_INTEGRATES_PROD_AWS_SECRET_ACCESS_KEY=$(helper_integrates_to_b64 "${INTEGRATES_PROD_AWS_SECRET_ACCESS_KEY}") \
+    &&  export B64_CI_COMMIT_REF_NAME=$(helper_integrates_to_b64 'master') \
+    &&  export B64_CI_COMMIT_SHA=$(helper_integrates_to_b64 "${CI_COMMIT_SHA}") \
     &&  helper_integrates_back_deploy \
           "${region}" \
           "${cluster}" \

@@ -12,6 +12,7 @@ makeEntrypoint {
     envAsgi = "${integratesPkgs.python37Packages.gunicorn}/bin/gunicorn";
     envCertsDevelopment = outputs.packages."integrates/back/certs/development";
     envDone = outputs.apps."makes/done".program;
+    envIntegrates = path "/integrates";
     envKillPidListeningOnPort = import (path "/makes/utils/kill-pid-listening-on-port") path integratesPkgs;
     envSearchPaths = makeSearchPaths [
       # Libmagic
