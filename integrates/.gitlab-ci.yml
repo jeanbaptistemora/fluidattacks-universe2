@@ -379,8 +379,8 @@ integrates_back_deploy_development:
     - integrates/db/oci/deploy
     - integrates/storage/oci/deploy
   environment:
-    name: "development/$CI_COMMIT_REF_SLUG"
-    url: "https://$CI_COMMIT_REF_SLUG.integrates.fluidattacks.com"
+    name: development/$CI_COMMIT_REF_SLUG
+    url: https://$CI_COMMIT_REF_SLUG.integrates.fluidattacks.com
 
 # Take into account that changing this job name impacts the rotation of
 #   AWS secrets at serves.
@@ -393,11 +393,10 @@ integrates_back_deploy_production:
   <<: *with_nix
   <<: *in_master_except_periodic_jobs_integrates
   stage: deploy-app
-  needs: [integrates_back_build_production]
   retry: 1
   environment:
-    name: "production"
-    url: "https://integrates.fluidattacks.com"
+    name: production
+    url: https://integrates.fluidattacks.com
 
 integrates_mobile_deploy_ota_production:
   <<: *with_nix

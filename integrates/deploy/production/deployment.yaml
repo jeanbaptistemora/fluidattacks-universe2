@@ -23,14 +23,10 @@ spec:
         worker_group: production
       containers:
         - name: integrates
-          image: registry.gitlab.com/fluidattacks/product/app:master
+          image: registry.gitlab.com/fluidattacks/product/integrates/back:master
           imagePullPolicy: Always
-          command: [bash]
-          args:
-            - build.sh
-            - integrates_serve_components
-            - production
-            - http/production/back.app.app:APP/back.settings.uvicorn.IntegratesWorker/5/0.0.0.0/8001/*
+          command: [integrates-back]
+          args: [prod]
           resources:
             requests:
               cpu: 1000m
@@ -53,11 +49,10 @@ spec:
           readinessProbe:
             exec:
               command:
-                - bash
-                - build.sh
-                - integrates_probes_readiness
+                - integrates-back-probes-readiness
                 - integrates-prod
-                - http://localhost:8001/
+                - FluidIntegrates
+                - http://localhost:8001
             initialDelaySeconds: 0
             periodSeconds: 30
             successThreshold: 1
@@ -66,12 +61,11 @@ spec:
           livenessProbe:
             exec:
               command:
-                - bash
-                - build.sh
-                - integrates_probes_liveness
+                - integrates-back-probes-liveness
                 - integrates-prod
-                - http://localhost:8001/
-                - https://integrates.fluidattacks.com/
+                - FluidIntegrates
+                - http://localhost:8001
+                - https://integrates.fluidattacks.com
             initialDelaySeconds: 0
             periodSeconds: 30
             successThreshold: 1
