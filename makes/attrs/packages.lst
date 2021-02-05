@@ -19,6 +19,7 @@ integrates/back/tools/concurrent-ruby
 integrates/back/tools/secure-spreadsheet
 integrates/cache/bin
 integrates/db/bin
+integrates/front/bin
 integrates/front/config/development
 integrates/front/config/runtime
 integrates/front/lint

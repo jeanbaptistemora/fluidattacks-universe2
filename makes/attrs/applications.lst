@@ -8,6 +8,7 @@ forces/wrapper
 integrates/back
 integrates/cache
 integrates/db
+integrates/front
 integrates/front/build
 integrates/front/deploy
 integrates/infra/backup/apply
