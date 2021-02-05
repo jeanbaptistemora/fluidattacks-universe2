@@ -1,4 +1,4 @@
-# Standard
+# Standard libraries
 from collections import (
     defaultdict,
 )
@@ -8,17 +8,20 @@ from typing import (
     NamedTuple
 )
 
-# Third party
+# Third party libraries
 import newrelic.agent
 from ariadne.asgi import GraphQL
 from starlette.requests import Request
 from starlette.responses import Response
 
-# Local
+# Local libraries
 from backend import util
 from backend.api.dataloaders.event import EventLoader
 from backend.api.dataloaders.finding import FindingLoader
 from backend.api.dataloaders.finding_vulns import FindingVulnsLoader
+from backend.api.dataloaders.finding_vulns_non_zero_risk import (
+    FindingVulnsNonZeroRiskLoader
+)
 from backend.api.dataloaders.group import GroupLoader
 from backend.api.dataloaders.group_active import GroupActiveLoader
 from backend.api.dataloaders.group_drafts import GroupDraftsLoader
@@ -34,7 +37,8 @@ newrelic.agent.initialize(settings.NEW_RELIC_CONF_FILE)
 class Dataloaders(NamedTuple):
     event: EventLoader
     finding: FindingLoader
-    finding_vulns: FindingVulnsLoader
+    finding_vulns: FindingVulnsLoader  # all vulns
+    finding_vulns_nzr: FindingVulnsNonZeroRiskLoader  # subset of vulns
     group: GroupActiveLoader
     group_all: GroupLoader  # used only by analytics. Retrieves all groups
     group_drafts: GroupDraftsLoader
@@ -45,10 +49,13 @@ class Dataloaders(NamedTuple):
 
 def get_new_context() -> Dataloaders:
     group_loader = GroupLoader()
+    finding_vulns_loader = FindingVulnsLoader()
+
     return Dataloaders(
         event=EventLoader(),
         finding=FindingLoader(),
-        finding_vulns=FindingVulnsLoader(),
+        finding_vulns=finding_vulns_loader,
+        finding_vulns_nzr=FindingVulnsNonZeroRiskLoader(finding_vulns_loader),
         group=GroupActiveLoader(group_loader),
         group_all=group_loader,
         group_drafts=GroupDraftsLoader(),

@@ -129,10 +129,12 @@ def send_finding_mail(
 
 
 async def get_finding_age(
+    context: Any,
     finding_id: str
 ) -> int:
     age = 0
-    vulns = await vuln_domain.list_vulnerabilities_async([finding_id])
+    finding_vulns_loader = context.finding_vulns_nzr
+    vulns = await finding_vulns_loader.load(finding_id)
     report_dates = vuln_utils.get_report_dates(vulns)
     if report_dates:
         oldest_report_date = min(report_dates)

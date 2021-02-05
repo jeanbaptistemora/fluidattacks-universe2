@@ -19,11 +19,11 @@ from backend.typing import Finding
 
 async def resolve(
     parent: Dict[str, Finding],
-    _info: GraphQLResolveInfo,
+    info: GraphQLResolveInfo,
     **_kwargs: None,
 ) -> int:
     response: int = await redis_get_or_set_entity_attr(
-        partial(resolve_no_cache, parent, _info, **_kwargs),
+        partial(resolve_no_cache, parent, info, **_kwargs),
         entity='finding',
         attr='age',
         id=cast(str, parent['id']),
@@ -34,10 +34,13 @@ async def resolve(
 
 async def resolve_no_cache(
     parent: Dict[str, Finding],
-    _info: GraphQLResolveInfo,
+    info: GraphQLResolveInfo,
     **_kwargs: None,
 ) -> int:
     finding_id: str = cast(str, parent['id'])
-    age = cast(int, await finding_domain.get_finding_age(finding_id))
+    age = cast(
+        int,
+        await finding_domain.get_finding_age(info.context.loaders, finding_id)
+    )
 
     return age

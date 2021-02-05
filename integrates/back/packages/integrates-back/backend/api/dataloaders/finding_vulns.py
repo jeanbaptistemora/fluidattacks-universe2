@@ -1,10 +1,17 @@
 # pylint: disable=method-hidden
 
+# Standard libraries
 from collections import defaultdict
-from typing import Dict, List, cast
+from typing import (
+    cast,
+    Dict,
+    List
+)
 
+# Third party libraries
 from aiodataloader import DataLoader
 
+# Local libraries
 from backend.domain import vulnerability as vuln_domain
 from backend.typing import (
     Vulnerability as VulnerabilityType,
@@ -12,15 +19,15 @@ from backend.typing import (
 )
 
 
-async def _batch_load_fn(
+async def batch_load_fn_vulns(
         finding_ids: List[str]) -> List[List[VulnerabilityType]]:
     """Batch the data load requests within the same execution fragment."""
     vulnerabilities: Dict[str, List[VulnerabilityType]] = defaultdict(list)
 
     vulns = await vuln_domain.list_vulnerabilities_async(
         finding_ids,
-        include_confirmed_zero_risk=True,
-        include_requested_zero_risk=True
+        include_requested_zero_risk=True,
+        include_confirmed_zero_risk=True
     )
     for vuln in vulns:
         vulnerabilities[cast(str, vuln['finding_id'])].append(
@@ -107,6 +114,10 @@ async def _batch_load_fn(
 
 # pylint: disable=too-few-public-methods
 class FindingVulnsLoader(DataLoader):  # type: ignore
+
     async def batch_load_fn(
-            self, finding_ids: List[str]) -> List[List[VulnerabilityType]]:
-        return await _batch_load_fn(finding_ids)
+        self,
+        finding_ids: List[str]
+    ) -> List[List[VulnerabilityType]]:
+
+        return await batch_load_fn_vulns(finding_ids)

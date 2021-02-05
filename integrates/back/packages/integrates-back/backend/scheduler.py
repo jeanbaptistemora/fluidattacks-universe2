@@ -16,6 +16,7 @@ from aioextensions import (
 )
 
 from backend import mailer
+from backend.api import get_new_context
 from backend.dal import (
     project as project_dal,
     tag as tag_dal,
@@ -529,7 +530,8 @@ async def create_msj_finding_pending(
         )[-1].get('treatment', 'NEW') == 'NEW'
     ]
     if open_vulns:
-        days = finding_domain.get_finding_age(finding_id)
+        context = get_new_context()
+        days = finding_domain.get_finding_age(context, finding_id)
         finding_name = f'{act_finding["finding"]} -{days} day(s)-'
         result = finding_name
     else:
