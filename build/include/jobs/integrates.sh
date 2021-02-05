@@ -649,15 +649,7 @@ function job_integrates_serve_components {
     &&  helper_integrates_aws_login "${aws_creds}" \
     &&  for arg in "${@:1}"
         do
-              if echo "${arg}" | grep -qP '^http'
-              then
-                    for internal_args in $(helper_common_string_to_lines "${arg}" '/')
-                    do
-                          back_args+=( "${internal_args}" ) \
-                      ||  return 1
-                    done \
-                &&  helper_integrates_serve_back "${back_args[@]}"
-              elif [[ "${arg}" == 'front' ]]
+              if [[ "${arg}" == 'front' ]]
               then
                 helper_integrates_serve_front
               elif [[ "${arg}" == 'mobile' ]]

@@ -10,24 +10,27 @@ let
   };
 
   # Flake components
-  components = {
-    forces = flake.defaultNix.outputs.packages.x86_64-linux."forces/bin";
-    melts = flake.defaultNix.outputs.packages.x86_64-linux."melts/bin";
-    skims = flake.defaultNix.outputs.packages.x86_64-linux."skims/bin";
-    sorts = flake.defaultNix.outputs.packages.x86_64-linux."sorts/bin";
-  };
-
-  # Temporary components while migrating from Nix2 to Nix3
-  temporaryComponents = {
-    integrates-cache = flake.defaultNix.outputs.packages.x86_64-linux."integrates/cache/bin";
-    integrates-db = flake.defaultNix.outputs.packages.x86_64-linux."integrates/db/bin";
-    integrates-storage = flake.defaultNix.outputs.packages.x86_64-linux."integrates/storage/bin";
-    makes-wait = flake.defaultNix.outputs.packages.x86_64-linux."makes/wait/bin";
-  };
+  components = builtins.listToAttrs (builtins.map
+    (name: {
+      name = builtins.replaceStrings [ "/bin" "/" ] [ "" "-" ] name;
+      value = flake.defaultNix.outputs.packages.x86_64-linux.${name};
+    })
+    [
+      "forces/bin"
+      "integrates/back/bin"
+      "integrates/cache/bin"
+      "integrates/db/bin"
+      "integrates/storage/bin"
+      "makes/wait/bin"
+      "melts/bin"
+      "skims/bin"
+      "sorts/bin"
+    ]
+  );
 
   # Nix2 components (deprecated)
   legacyComponents = {
     product = import ./default-legacy.nix;
   };
 in
-components // legacyComponents // temporaryComponents
+components // legacyComponents

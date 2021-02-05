@@ -29,6 +29,16 @@
       when: never
     - if: *integrates_commit_pattern
 
+.in_dev_and_master_branch_integrates: &in_dev_and_master_branch_integrates
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      when: never
+    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+      when: never
+    - if: '$CI_PIPELINE_SOURCE == "trigger"'
+      when: never
+    - if: *integrates_commit_pattern
+
 .in_dev_branch_integrates: &in_dev_branch_integrates
   rules:
     - if: '$CI_COMMIT_BRANCH == "master"'
@@ -99,22 +109,22 @@
 
 integrates/back/oci/deploy:
   <<: *makes
-  <<: *in_dev_branch_integrates
+  <<: *in_dev_and_master_branch_integrates
   stage: build
 
 integrates/cache/oci/deploy:
   <<: *makes
-  <<: *in_dev_branch_integrates
+  <<: *in_dev_and_master_branch_integrates
   stage: build
 
 integrates/db/oci/deploy:
   <<: *makes
-  <<: *in_dev_branch_integrates
+  <<: *in_dev_and_master_branch_integrates
   stage: build
 
 integrates/storage/oci/deploy:
   <<: *makes
-  <<: *in_dev_branch_integrates
+  <<: *in_dev_and_master_branch_integrates
   stage: build
 
 integrates/front/build-development:
@@ -431,11 +441,6 @@ integrates_deploy_permissions_matrix:
       - integrates/deploy/permissions-matrix/user_level_for_fluidattacks.html
     when: on_success
   retry: 2
-
-integrates_back_build_production:
-  <<: *with_nix
-  <<: *in_master_except_periodic_jobs_integrates
-  stage: build
 
 integrates_back_test_functional:
   <<: *with_nix
