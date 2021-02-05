@@ -82,6 +82,9 @@ async def get_vulnerabilities(
               historicTreatment {
                 treatment
               }
+              historicZeroRisk{
+                status
+              }
               vulnType
               where
               specific
@@ -104,8 +107,14 @@ async def get_vulnerabilities(
         current_state: Dict[str, str] = (
             vulnerabilities[index].get('historicTreatment', [{}])
         )[-1]
+        zero_risk = (
+            vulnerabilities[index].get('historicZeroRisk', [{}])
+        )[-1]
         if 'accepted' in current_state.get('treatment', 'unknown').lower():
             vulnerabilities[index]['currentState'] = 'accepted'
+        if zero_risk.get('status') in {'REQUESTED', 'CONFIRMED'}:
+            vulnerabilities[index]['currentState'] = 'accepted'
+
     return finding_value.get('vulnerabilities', list())
 
 
