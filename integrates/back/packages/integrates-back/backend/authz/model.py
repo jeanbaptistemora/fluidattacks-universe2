@@ -501,6 +501,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'backend_api_resolvers_query_finding_resolve',
             'backend_api_resolvers_query_group_resolve',
             'backend_api_resolvers_query_vulnerability_resolve',
+            'backend_api_resolvers_vulnerability_historic_zero_risk_resolve',
         },
         tags={
             'forces'
