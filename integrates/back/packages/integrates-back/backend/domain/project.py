@@ -1112,6 +1112,10 @@ async def get_access_by_url_token(url_token: str) -> ProjectAccessType:
     return cast(ProjectAccessType, access[0]) if access else {}
 
 
+async def get_unused_invitation_accesses() -> List[ProjectAccessType]:
+    return await project_dal.get_unused_invitation_accesses()
+
+
 def is_fluid_user(email: str) -> bool:
     return email.endswith('@fluidattacks.com')
 

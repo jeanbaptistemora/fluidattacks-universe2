@@ -520,3 +520,15 @@ async def update_access(
         LOGGER.exception(ex, extra={'extra': locals()})
 
     return success
+
+
+async def get_unused_invitation_accesses() -> List[ProjectAccessType]:
+    filter_exp = (
+        Attr('invitation').exists() &
+        Attr('invitation.is_used').eq(False)
+    )
+    scan_attrs = {
+        'FilterExpression': filter_exp
+    }
+
+    return await dynamodb.async_scan(TABLE_ACCESS_NAME, scan_attrs)

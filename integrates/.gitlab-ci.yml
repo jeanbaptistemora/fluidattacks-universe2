@@ -232,6 +232,12 @@ integrates_delete_obsolete_orgs:
     refs: [schedules]
     variables: [$integrates_delete_obsolete_orgs]
 
+integrates_delete_expired_invitations:
+  <<: *integrates_scheduler_prod_template
+  only:
+    refs: [schedules]
+    variables: [$integrates_delete_expired_invitations]
+
 integrates_subscriptions_trigger_user_to_entity_report_dev:
   <<: *with_nix
   <<: *in_dev_branch_integrates

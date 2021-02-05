@@ -18,7 +18,8 @@ from aioextensions import (
 from backend import mailer
 from backend.dal import (
     project as project_dal,
-    tag as tag_dal
+    tag as tag_dal,
+    user as user_dal,
 )
 from backend.domain import (
     finding as finding_domain,
@@ -35,6 +36,7 @@ from backend.typing import (
     Event as EventType,
     Finding as FindingType,
     Historic as HistoricType,
+    Invitation as InvitationType,
     MailContent as MailContentType,
     Project as ProjectType,
 )
@@ -945,3 +947,51 @@ async def integrates_delete_obsolete_orgs() -> None:
                 org_name,
                 None
             )
+
+
+async def _delete_expired_invitation(
+    email: str,
+    group_name: str
+) -> bool:
+    success = await project_domain.remove_access(email, group_name)
+    stakeholder_orgs = await org_domain.get_user_organizations(email)
+    if not stakeholder_orgs:
+        success = success and await user_dal.delete(email)
+
+    return success
+
+
+async def integrates_delete_expired_invitations() -> None:
+    """
+    Delete group invitation info for those stakeholders
+    who do not accept the invitation within a week
+    """
+    now = datetime_utils.get_now()
+    unused_invitation_accesses = (
+        await project_domain.get_unused_invitation_accesses()
+    )
+    unused_invitation_accesses_to_remove = [
+        unused_invitation_access
+        for unused_invitation_access
+        in unused_invitation_accesses
+        if datetime_utils.get_plus_delta(
+            datetime_utils.get_from_str(
+                cast(
+                    str,
+                    cast(
+                        InvitationType,
+                        unused_invitation_access['invitation']
+                    )['date']
+                )
+            ),
+            weeks=1
+        ) < now
+    ]
+    await collect([
+        _delete_expired_invitation(
+            cast(str, unused_invitation_access['user_email']),
+            cast(str, unused_invitation_access['project_name'])
+        )
+        for unused_invitation_access
+        in unused_invitation_accesses_to_remove
+    ])
