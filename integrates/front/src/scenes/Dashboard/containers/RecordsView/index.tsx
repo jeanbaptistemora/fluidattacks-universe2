@@ -32,11 +32,6 @@ import { required, validRecordsFile } from "utils/validations";
 const recordsView: React.FC = (): JSX.Element => {
   const { findingId } = useParams<{ findingId: string }>();
 
-  const onMount: (() => void) = (): void => {
-    mixpanel.track("FindingRecords");
-  };
-  React.useEffect(onMount, []);
-
   const [isEditing, setEditing] = React.useState(false);
   const handleEditClick: (() => void) = (): void => { setEditing(!isEditing); };
 

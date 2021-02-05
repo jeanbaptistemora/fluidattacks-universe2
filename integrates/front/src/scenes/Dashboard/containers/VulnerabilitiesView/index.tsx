@@ -12,7 +12,6 @@ import { UpdateVerificationModal } from "scenes/Dashboard/components/UpdateVerif
 import { VulnComponent } from "scenes/Dashboard/components/Vulnerabilities";
 import _ from "lodash";
 import { authzPermissionsContext } from "utils/authz/config";
-import mixpanel from "mixpanel-browser";
 import { msgError } from "utils/notifications";
 import style from "utils/forms/index.css";
 import styled from "styled-components";
@@ -87,11 +86,6 @@ export const VulnsView: React.FC = (): JSX.Element => {
   const shouldFilterZeroRisk: boolean = !(
     canConfirmZeroRiskVuln || canRejectZeroRiskVuln
   );
-
-  const onMount: () => void = (): void => {
-    mixpanel.track("FindingVulnerabilities");
-  };
-  React.useEffect(onMount, []);
 
   const [treatmentFilter, setTreatmentFilter] = React.useState("");
   const [currentStatusFilter, setCurrentStatusFilter] = React.useState("");

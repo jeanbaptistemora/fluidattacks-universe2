@@ -23,6 +23,7 @@ import {
   TabContent,
   TabsContainer,
 } from "styles/styledComponents";
+import { useTabTracking } from "utils/hooks";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
@@ -30,6 +31,9 @@ import { translate } from "utils/translations/translate";
 const eventContent: React.FC = (): JSX.Element => {
   const { eventId } = useParams<{ eventId: string }>();
   const { path, url } = useRouteMatch<{ path: string; url: string }>();
+
+  // Side effects
+  useTabTracking("Event");
 
   const handleErrors: ((error: ApolloError) => void) = (
     { graphQLErrors }: ApolloError,

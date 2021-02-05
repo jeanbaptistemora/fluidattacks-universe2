@@ -90,12 +90,6 @@ const projectStakeholdersView: React.FC<IProjectStakeholdersViewProps> =
   const { projectName } = props.match.params;
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
 
-  // Side effects
-  const onMount: (() => void) = (): void => {
-    mixpanel.track("ProjectUsers");
-  };
-  React.useEffect(onMount, []);
-
   // State management
   const [currentRow, setCurrentRow] = React.useState<Dictionary<string>>({});
   const [isUserModalOpen, setUserModalOpen] = React.useState(false);

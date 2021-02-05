@@ -6,7 +6,6 @@ import { Mutation, Query } from "@apollo/react-components";
 import { ApolloError } from "apollo-client";
 import { GraphQLError } from "graphql";
 import _ from "lodash";
-import mixpanel from "mixpanel-browser";
 import React from "react";
 import { useParams } from "react-router";
 import { Field, InjectedFormProps } from "redux-form";
@@ -38,12 +37,6 @@ import { dateTimeBeforeToday, numeric, required, validDatetime } from "utils/val
 
 const eventDescriptionView: React.FC = (): JSX.Element => {
   const { eventId } = useParams<{ eventId: string }>();
-
-  // Side effects
-  const onMount: (() => void) = (): void => {
-    mixpanel.track("EventDescription");
-  };
-  React.useEffect(onMount, []);
 
   // State management
   const [isSolvingModalOpen, setSolvingModalOpen] = React.useState(false);

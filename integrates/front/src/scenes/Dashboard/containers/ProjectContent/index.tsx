@@ -14,11 +14,15 @@ import { default as globalStyle } from "styles/global.css";
 import { Col100, Row, StickyContainer, TabsContainer } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { Have } from "utils/authz/Have";
+import { useTabTracking } from "utils/hooks";
 import { translate } from "utils/translations/translate";
 import { GroupScopeView } from "../GroupScopeView";
 
 const projectContent: React.FC = (): JSX.Element => {
   const { path, url } = useRouteMatch<{ path: string; url: string }>();
+
+  // Side effects
+  useTabTracking("Group");
 
   return (
     <React.StrictMode>

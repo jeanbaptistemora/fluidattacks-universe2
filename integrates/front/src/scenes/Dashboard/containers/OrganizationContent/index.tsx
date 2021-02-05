@@ -18,6 +18,7 @@ import { default as globalStyle } from "styles/global.css";
 import { Col100, Row, StickyContainerOrg, TabsContainer } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
+import { useTabTracking } from "utils/hooks";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
@@ -30,6 +31,8 @@ const organizationContent: React.FC<IOrganizationContent> = (props: IOrganizatio
   const permissions: PureAbility<string> = useContext(authzPermissionsContext);
 
   // Side effects
+  useTabTracking("Organization");
+
   const onOrganizationChange: (() => void) = (): void => {
     permissions.update([]);
   };

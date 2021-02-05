@@ -8,7 +8,6 @@ import { Mutation, Query } from "@apollo/react-components";
 import { ApolloError } from "apollo-client";
 import { GraphQLError } from "graphql";
 import _ from "lodash";
-import mixpanel from "mixpanel-browser";
 import React from "react";
 import { Glyphicon } from "react-bootstrap";
 import { selectFilter } from "react-bootstrap-table2-filter";
@@ -39,12 +38,7 @@ const projectDraftsView: React.FC<IProjectDraftsBaseProps> = (props: IProjectDra
   const goToFinding: ((event: React.FormEvent<HTMLButtonElement>, rowInfo: { id: string }) => void) = (
     _0: React.FormEvent<HTMLButtonElement>, rowInfo: { id: string },
   ): void => {
-    mixpanel.track("ReadDraft");
     push(`/groups/${projectName}/drafts/${rowInfo.id}/locations`);
-  };
-
-  const handleQryResult: ((qrResult: IProjectDraftsAttr) => void) = (): void => {
-    mixpanel.track("ProjectDrafts");
   };
 
   const [isDraftModalOpen, setDraftModalOpen] = React.useState(false);
@@ -154,7 +148,6 @@ const projectDraftsView: React.FC<IProjectDraftsBaseProps> = (props: IProjectDra
     <Query
       query={GET_DRAFTS}
       variables={{ projectName }}
-      onCompleted={handleQryResult}
       onError={handleQryError}
     >
       {

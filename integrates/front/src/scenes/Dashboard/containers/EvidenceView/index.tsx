@@ -34,12 +34,6 @@ import { isValidFileSize, validEvidenceImage } from "utils/validations";
 const evidenceView: React.FC = (): JSX.Element => {
   const { findingId } = useParams<{ findingId: string }>();
 
-  // Side effects
-  const onMount: (() => void) = (): void => {
-    mixpanel.track("FindingEvidence");
-  };
-  React.useEffect(onMount, []);
-
   // State management
   const [isEditing, setEditing] = React.useState(false);
   const handleEditClick: (() => void) = (): void => { setEditing(!isEditing); };

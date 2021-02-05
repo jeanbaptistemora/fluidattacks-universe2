@@ -1,13 +1,10 @@
 import type { ApolloError } from "apollo-client";
 import { GET_FINDING_TRACKING } from "scenes/Dashboard/containers/TrackingView/queries";
 import type { GraphQLError } from "graphql";
-import type { IAuthContext } from "utils/auth";
 import { Logger } from "utils/logger";
 import React from "react";
 import { TrackingItem } from "scenes/Dashboard/components/TrackingItem";
 import _ from "lodash";
-import { authContext } from "utils/auth";
-import mixpanel from "mixpanel-browser";
 import { msgError } from "utils/notifications";
 import style from "scenes/Dashboard/containers/TrackingView/index.css";
 import { translate } from "utils/translations/translate";
@@ -35,12 +32,6 @@ interface IGetFindingTrackingAttr {
 
 const TrackingView: React.FC = (): JSX.Element => {
   const { findingId } = useParams<{ findingId: string }>();
-  const { userName }: IAuthContext = React.useContext(authContext);
-
-  function onMount(): void {
-    mixpanel.track("FindingTracking");
-  }
-  React.useEffect(onMount, [userName]);
 
   const { data } = useQuery<IGetFindingTrackingAttr>(GET_FINDING_TRACKING, {
     onError: ({ graphQLErrors }: ApolloError): void => {

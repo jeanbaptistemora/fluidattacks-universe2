@@ -9,7 +9,6 @@ import { useLazyQuery } from "@apollo/react-hooks";
 import { ApolloError } from "apollo-client";
 import { GraphQLError } from "graphql";
 import _ from "lodash";
-import mixpanel from "mixpanel-browser";
 import React from "react";
 import { selectFilter, textFilter } from "react-bootstrap-table2-filter";
 import FontAwesome from "react-fontawesome";
@@ -141,15 +140,9 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
 
   const goToFinding: ((event: React.FormEvent<HTMLButtonElement>, rowInfo: { id: string }) => void) =
     (_0: React.FormEvent<HTMLButtonElement>, rowInfo: { id: string }): void => {
-      mixpanel.track("ReadFinding");
       push(`/groups/${projectName}/vulns/${rowInfo.id}/locations`);
     };
 
-  const handleQryResult: ((qrResult: IProjectFindingsAttr) => void) = (qrResult: IProjectFindingsAttr): void => {
-    if (!_.isUndefined(qrResult)) {
-      mixpanel.track("ProjectFindings");
-    }
-  };
   const handleQryErrors: ((error: ApolloError) => void) = (
     { graphQLErrors }: ApolloError,
   ): void => {
@@ -280,7 +273,7 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
   ];
 
   return (
-    <Query query={GET_FINDINGS} variables={{ projectName }} onCompleted={handleQryResult} onError={handleQryErrors}>
+    <Query query={GET_FINDINGS} variables={{ projectName }} onError={handleQryErrors}>
       {({ data }: QueryResult<IProjectFindingsAttr>): JSX.Element => {
         if (_.isUndefined(data) || _.isEmpty(data)) {
 

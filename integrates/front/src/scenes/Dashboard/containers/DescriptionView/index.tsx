@@ -10,7 +10,6 @@ import { useAbility } from "@casl/react";
 import { ApolloError } from "apollo-client";
 import { GraphQLError } from "graphql";
 import _ from "lodash";
-import mixpanel from "mixpanel-browser";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
@@ -61,12 +60,6 @@ const maxCompromisedAttributesLength: ConfigurableValidator = maxLength(200);
 const descriptionView: React.FC = (): JSX.Element => {
   const { findingId, projectName } = useParams<{ findingId: string; projectName: string }>();
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
-
-  // Side effects
-  const onMount: (() => void) = (): void => {
-    mixpanel.track("FindingDescription");
-  };
-  React.useEffect(onMount, []);
 
   // State management
   const dispatch: Dispatch = useDispatch();

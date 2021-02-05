@@ -1,8 +1,11 @@
+/* eslint-disable react/no-multi-comp */
 import React from "react";
-import type { ShallowWrapper } from "enzyme";
 import { act } from "react-dom/test-utils";
-import { shallow } from "enzyme";
-import { useStoredState } from "utils/hooks";
+import mixpanel from "mixpanel-browser";
+import { MemoryRouter, useHistory } from "react-router";
+import type { ReactWrapper, ShallowWrapper } from "enzyme";
+import { mount, shallow } from "enzyme";
+import { useStoredState, useTabTracking } from "utils/hooks";
 
 describe("Custom utility hooks", (): void => {
   describe("useStoredState", (): void => {
@@ -55,9 +58,7 @@ describe("Custom utility hooks", (): void => {
     it("should store state", (): void => {
       expect.hasAssertions();
 
-      const wrapper: ShallowWrapper = shallow(
-        React.createElement(TestComponent)
-      );
+      const wrapper: ShallowWrapper = shallow(<TestComponent />);
 
       act((): void => {
         wrapper.find("button").simulate("click");
@@ -71,6 +72,46 @@ describe("Custom utility hooks", (): void => {
       expect(sessionStorage.getItem("sortOrder")).toStrictEqual(
         JSON.stringify({ order: "none" })
       );
+    });
+  });
+
+  describe("useTabTracking", (): void => {
+    const TestComponent: React.FC = (): JSX.Element => {
+      const { push } = useHistory();
+      useTabTracking("Group");
+
+      const handleClick: () => void = React.useCallback((): void => {
+        push("/groups/unittesting/scope");
+      }, [push]);
+
+      return <button onClick={handleClick} />;
+    };
+
+    it("should return a function", (): void => {
+      expect.hasAssertions();
+      expect(typeof useTabTracking).toStrictEqual("function");
+    });
+
+    it("should trigger on route change", (): void => {
+      expect.hasAssertions();
+
+      const trackMock: jest.SpyInstance = jest.spyOn(mixpanel, "track");
+
+      const wrapper: ReactWrapper = mount(
+        <MemoryRouter initialEntries={["/groups/unittesting/analytics"]}>
+          <TestComponent />
+        </MemoryRouter>
+      );
+
+      expect(trackMock).toHaveBeenCalledWith("GroupAnalytics");
+
+      act((): void => {
+        wrapper.find("button").simulate("click");
+      });
+
+      expect(trackMock).toHaveBeenCalledWith("GroupScope");
+
+      trackMock.mockReset();
     });
   });
 });

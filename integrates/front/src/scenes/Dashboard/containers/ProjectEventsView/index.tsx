@@ -141,7 +141,6 @@ const projectEventsView: React.FC = (): JSX.Element => {
       const filterOptions: optionSelectFilterProps[] = selectOptionType.filter(
         (option: optionSelectFilterProps) => (_.includes(eventOptions, option.value)));
       setOptionType(filterOptions);
-      mixpanel.track("ProjectEvents");
     }
   };
   const handleQryErrors: ((error: ApolloError) => void) = (

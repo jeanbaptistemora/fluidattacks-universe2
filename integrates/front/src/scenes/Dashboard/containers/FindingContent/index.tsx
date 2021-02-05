@@ -57,6 +57,7 @@ import { Can } from "utils/authz/Can";
 import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
 import { Have } from "utils/authz/Have";
 import { Dropdown } from "utils/forms/fields";
+import { useTabTracking } from "utils/hooks";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 import { translate } from "utils/translations/translate";
@@ -69,6 +70,9 @@ const findingContent: React.FC = (): JSX.Element => {
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
   const groupPermissions: PureAbility<string> = useAbility(authzGroupContext);
   const { replace } = useHistory();
+
+  // Side effects
+  useTabTracking("Finding");
 
   // State management
   const [isDeleteModalOpen, setDeleteModalOpen] = React.useState(false);

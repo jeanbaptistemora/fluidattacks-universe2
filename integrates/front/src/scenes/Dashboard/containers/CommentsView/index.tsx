@@ -8,7 +8,6 @@ import { Mutation, Query } from "@apollo/react-components";
 import { ApolloError } from "apollo-client";
 import { GraphQLError } from "graphql";
 import _ from "lodash";
-import mixpanel from "mixpanel-browser";
 import React from "react";
 import { useParams } from "react-router";
 
@@ -37,11 +36,6 @@ const commentsView: React.FC = (): JSX.Element => {
     : params.type.slice(0, -3);
 
   const { userEmail }: IAuthContext = React.useContext(authContext);
-
-  const onMount: (() => void) = (): void => {
-    mixpanel.track(type === "consult" ? "FindingComments" : "FindingObservations");
-  };
-  React.useEffect(onMount, []);
 
   const handleErrors: ((error: ApolloError) => void) = (
     { graphQLErrors }: ApolloError,

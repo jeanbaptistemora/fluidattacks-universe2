@@ -46,11 +46,6 @@ const severityView: React.FC = (): JSX.Element => {
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
   const groupPermissions: PureAbility<string> = useAbility(authzGroupContext);
 
-  const onMount: (() => void) = (): void => {
-    mixpanel.track("FindingSeverity");
-  };
-  React.useEffect(onMount, []);
-
   const [isEditing, setEditing] = React.useState(false);
 
   const selector: (state: {}, ...field: string[]) => Dictionary<string> = formValueSelector("editSeverity");

@@ -7,7 +7,6 @@ import { useMutation, useQuery } from "@apollo/react-hooks";
 import { ApolloError, NetworkStatus } from "apollo-client";
 import { GraphQLError } from "graphql";
 import _ from "lodash";
-import mixpanel from "mixpanel-browser";
 import React from "react";
 import { Glyphicon } from "react-bootstrap";
 import { useParams } from "react-router";
@@ -32,12 +31,6 @@ import { isValidFileSize, validEventFile, validEvidenceImage } from "utils/valid
 
 const eventEvidenceView: React.FC = (): JSX.Element => {
   const { eventId } = useParams<{ eventId: string }>();
-
-  // Side effects
-  const onMount: (() => void) = (): void => {
-    mixpanel.track("EventEvidence");
-  };
-  React.useEffect(onMount, []);
 
   // State management
   const [isEditing, setEditing] = React.useState(false);

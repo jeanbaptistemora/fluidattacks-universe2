@@ -1,8 +1,10 @@
 import React from "react";
 import _ from "lodash";
+import mixpanel from "mixpanel-browser";
+import { useLocation } from "react-router";
 
 // Wrapper for React.useState that persists using the Web Storage API
-export function useStoredState<T>(
+function useStoredState<T>(
   key: string,
   defaultValue: T,
   storageProvider: Readonly<Storage> = sessionStorage
@@ -26,3 +28,16 @@ export function useStoredState<T>(
 
   return [state, setAndStore] as const;
 }
+
+const useTabTracking: (containerName: string) => void = (
+  containerName
+): void => {
+  const location: ReturnType<typeof useLocation> = useLocation();
+
+  React.useEffect((): void => {
+    const tab: string = _.last(location.pathname.split("/")) as string;
+    mixpanel.track(`${containerName}${_.capitalize(tab)}`);
+  }, [containerName, location]);
+};
+
+export { useStoredState, useTabTracking };

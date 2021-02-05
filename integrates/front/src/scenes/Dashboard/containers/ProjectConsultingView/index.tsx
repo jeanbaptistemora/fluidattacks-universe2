@@ -8,7 +8,6 @@ import { Mutation, Query } from "@apollo/react-components";
 import { ApolloError } from "apollo-client";
 import { GraphQLError } from "graphql";
 import _ from "lodash";
-import mixpanel from "mixpanel-browser";
 import React from "react";
 import { useParams } from "react-router";
 import {
@@ -29,11 +28,6 @@ import { translate } from "utils/translations/translate";
 const projectConsultingView: React.FC = (): JSX.Element => {
   const { projectName } = useParams<{ projectName: string}>();
   const { userEmail }: IAuthContext = React.useContext(authContext);
-
-  const onMount: (() => void) = (): void => {
-    mixpanel.track("ProjectComments");
-  };
-  React.useEffect(onMount, []);
 
   const handleAddConsultError: ((addCommentError: ApolloError) => void) =
     (addCommentError: ApolloError): void => {
