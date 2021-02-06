@@ -16,5 +16,7 @@ makeDerivation {
     ruby
   ];
   envRequirement = requirement;
+  envRuby = ruby;
+  envSed = "${pkgs.gnused}/bin/sed";
   name = "build-ruby-requirement-${name}";
 }
