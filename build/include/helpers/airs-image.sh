@@ -19,7 +19,7 @@ function helper_airs_image_optimized {
   local path="${1}"
 
       helper_airs_file_exists "${path}" \
-  &&  if optipng -simulate "${path}" 2>&1 | tail -n2 | grep -q 'already optimized.'
+  &&  if optipng -simulate -o7 -zm1-9 "${path}" 2>&1 | tail -n2 | grep -q 'already optimized.'
       then
             return 0
       else
