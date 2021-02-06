@@ -1,8 +1,8 @@
 """
 This migration aims to remove consecutive duplicate states in historic_state
 
-Execution Time:
-Finalization Time:
+Execution Time: 2021-02-05 at 19:37:12 UTC-5
+Finalization Time: 2021-02-05 at 20:05:28 UTC-5
 """
 # Standard library
 from itertools import chain

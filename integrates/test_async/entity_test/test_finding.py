@@ -55,11 +55,6 @@ async def test_finding():
       'specific': 'phone',
       'historicState': [
         {
-          'date': '2018-09-28 10:32:58',
-          'analyst': 'test@unittesting.com',
-          'state': 'open'
-        },
-        {
           'date': '2020-09-09 16:01:26',
           'analyst': 'test@unittesting.com',
           'state': 'open'

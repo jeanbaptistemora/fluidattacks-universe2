@@ -698,15 +698,13 @@ def get_open_vulnerability_date(
         List[Dict[str, str]],
         vulnerability.get('historic_state', [{}])
     )
-    current_state: Dict[str, str] = all_states[0]
-    open_date = None
-    if (current_state.get('state') == 'open' and
-            not current_state.get('approval_status')):
-        open_date = datetime_utils.get_from_str(
-            current_state.get('date', '').split(' ')[0],
+    open_states = [state for state in all_states if state['state'] == 'open']
+    if open_states:
+        return datetime_utils.get_from_str(
+            open_states[-1]['date'].split(' ')[0],
             date_format='%Y-%m-%d'
         ).date()
-    return open_date
+    return None
 
 
 async def get_mean_remediate(group_name: str) -> Decimal:

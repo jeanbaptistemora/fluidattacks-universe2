@@ -441,19 +441,6 @@
               {
                 "M": {
                   "date": {
-                    "S": "2018-09-28 10:32:58"
-                  },
-                  "analyst": {
-                    "S": "test@unittesting.com"
-                  },
-                  "state": {
-                    "S": "open"
-                  }
-                }
-              },
-              {
-                "M": {
-                  "date": {
                     "S": "2020-09-09 16:01:26"
                   },
                   "analyst": {
@@ -471,6 +458,16 @@
           },
           "historic_treatment": {
             "L": [
+              {
+                "M": {
+                  "date": {
+                    "S": "2020-09-09 16:01:26"
+                  },
+                  "treatment": {
+                    "S": "NEW"
+                  }
+                }
+              },
               {
                 "M": {
                   "date": {
@@ -1239,38 +1236,6 @@
                   },
                   "state": {
                     "S": "open"
-                  }
-                }
-              },
-              {
-                "M": {
-                  "date": {
-                    "S": "2019-09-13 08:59:20"
-                  },
-                  "analyst": {
-                    "S": "api-unittest@fluidattacks.com"
-                  },
-                  "state": {
-                    "S": "closed"
-                  },
-                  "approval_status": {
-                    "S": "PENDING"
-                  }
-                }
-              },
-              {
-                "M": {
-                  "date": {
-                    "S": "2019-09-13 09:10:08"
-                  },
-                  "analyst": {
-                    "S": "unittest@fluidattacks.com"
-                  },
-                  "state": {
-                    "S": "open"
-                  },
-                  "approval_status": {
-                    "S": "APPROVED"
                   }
                 }
               }

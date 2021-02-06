@@ -130,7 +130,7 @@ async def test_get_accepted_vulns():
     assert test_data == expected_output
 
 async def test_get_by_time_range():
-    last_day = '2020-09-07 23:59:59'
+    last_day = '2020-09-09 23:59:59'
     vuln = await get_vuln('80d6a69f-a376-46be-98cd-2fdedcffdcc0')
     test_data = get_by_time_range(
         vuln[0], last_day
@@ -170,7 +170,7 @@ async def test_get_first_week_dates():
         include_requested_zero_risk=True
     )
     test_data = get_first_week_dates(vulns)
-    expected_output = ('2018-09-24 00:00:00', '2018-09-30 23:59:59')
+    expected_output = ('2019-12-30 00:00:00', '2020-01-05 23:59:59')
     assert test_data == expected_output
 
 async def test_get_date_last_vulns():

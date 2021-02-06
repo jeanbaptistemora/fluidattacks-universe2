@@ -193,7 +193,7 @@ async def test_get_open_vulnerability_date():
     )
 
     test_data = get_open_vulnerability_date(open_vulnerability[0])
-    expected_output = datetime(2018, 9, 28).date()
+    expected_output = datetime(2020, 9, 9).date()
     assert test_data == expected_output
 
     test_data = get_open_vulnerability_date(closed_vulnerability)
@@ -205,8 +205,8 @@ async def test_get_mean_remediate():
     group_name = 'unittesting'
     test_data = await get_mean_remediate(group_name)
     test_data_non_treated = await get_mean_remediate_non_treated(group_name)
-    expected_output = Decimal('124.0')
-    expected_output_non_treated = Decimal('109.0')
+    expected_output = Decimal('88.0')
+    expected_output_non_treated = Decimal('94.0')
 
     assert test_data == expected_output
     assert test_data_non_treated == expected_output_non_treated
@@ -342,7 +342,7 @@ async def test_get_mean_remediate_severity():
     max_severity = 3.9
     mean_remediate_low_severity = await get_mean_remediate_severity(
         project_name, min_severity, max_severity)
-    expected_output = 197.0
+    expected_output = 181.0
     assert mean_remediate_low_severity == expected_output
     min_severity = 4
     max_severity = 6.9
