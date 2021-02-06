@@ -1,7 +1,7 @@
 :slug: iso-iec-29147/
 :date: 2021-02-05
 :subtitle: Guidelines for the vulnerability disclosure processes
-:category: opinions
+:category: politics
 :tags: cybersecurity, standard, vulnerability, information, company, challenge
 :image: cover.png
 :alt: Photo by Keagan Henman on Unsplash
