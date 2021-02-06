@@ -7,7 +7,12 @@ import { translate } from "utils/translations/translate";
 const formatTreatmentSummary: (
   vulns: IFindingAttr["vulnerabilities"]
 ) => string = (vulns: IFindingAttr["vulnerabilities"]): string => {
-  const lastTreatments: IHistoricTreatment[] = vulns.map(
+  const zeroRisk: IFindingAttr["vulnerabilities"] = vulns.filter(
+    (vuln: IFindingAttr["vulnerabilities"][0]): boolean => {
+      return !["Confirmed", "Requested"].includes(vuln.zeroRisk);
+    }
+  );
+  const lastTreatments: IHistoricTreatment[] = zeroRisk.map(
     (vuln: IFindingAttr["vulnerabilities"][0]): IHistoricTreatment =>
       getLastTreatment(vuln.historicTreatment)
   );

@@ -12,6 +12,7 @@ from graphql.type.definition import GraphQLResolveInfo
 from backend.dal.helpers.redis import (
     redis_get_or_set_entity_attr,
 )
+from backend.domain import vulnerability as vuln_domain
 from backend.typing import Finding, Vulnerability
 
 
@@ -28,6 +29,10 @@ async def resolve(
     )
 
     state: Optional[str] = kwargs.get('state')
+
+    vulnerabilities = vuln_domain.filter_non_confirmed_zero_risk_vuln(
+        vulnerabilities
+    )
 
     if state:
         vulnerabilities = [
@@ -48,5 +53,6 @@ async def resolve_no_cache(
 
     finding_vulns_loader: DataLoader = info.context.loaders.finding_vulns
     vulns: List[Vulnerability] = await finding_vulns_loader.load(finding_id)
+    vulns = vuln_domain.filter_non_confirmed_zero_risk_vuln(vulns)
 
     return vulns

@@ -160,6 +160,7 @@ describe("ProjectFindingsView", () => {
                       __typename: "Vulnerability",
                       historicTreatment: [],
                       where: "This is a test where",
+                      zeroRisk: "",
                     },
                   ],
                 },

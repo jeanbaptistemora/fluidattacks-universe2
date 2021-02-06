@@ -25,6 +25,7 @@ export const GET_FINDINGS: DocumentNode = gql`
             treatment
           }
           where
+          zeroRisk
         }
       }
     }

@@ -49,14 +49,14 @@ async def test_finding_age():
 async def test_finding():
     """Check for finding query."""
     expected_vuln = {
-      'id': '80d6a69f-a376-46be-98cd-2fdedcffdcc0',
+      'id': '0a848781-b6a4-422e-95fa-692151e6a98z',
       'findingId': '422286126',
-      'where': 'https://example.com',
-      'specific': 'phone',
+      'where': 'test/data/lib_path/f060/csharp.cs',
+      'specific': '12',
       'historicState': [
         {
-          'date': '2020-09-09 16:01:26',
-          'analyst': 'test@unittesting.com',
+          'analyst': 'unittest@fluidattacks.com',
+          'date': '2020-01-03 12:46:10',
           'state': 'open'
         }
       ],
@@ -67,21 +67,16 @@ async def test_finding():
       'historicVerification': [],
       'historicZeroRisk': [
         {
-          'date': '2018-09-28 10:32:58',
-          'status': 'REQUESTED'
-        },
-        {
-          'date': '2020-09-09 16:01:26',
-          'status': 'CONFIRMED'
+          'date': None,
+          'status': None
         }
       ],
       'currentState': 'open',
       'currentApprovalStatus': '',
-      'analyst': 'test@unittesting.com',
-      'treatmentManager': 'integratesuser@gmail.com',
+      'analyst': 'unittest@fluidattacks.com',
       'source': 'integrates',
-      'vulnType': 'inputs',
-      'zeroRisk': 'Confirmed'
+      'vulnType': 'lines',
+      'zeroRisk': '',
     }
     expected_tracking = [{
       'cycle': 0,
@@ -226,7 +221,8 @@ async def test_finding():
     assert 'lastVulnerability' in result['data']['finding']
     assert 'historicState' in result['data']['finding']
     assert 'vulnerabilities' in result['data']['finding']
-    for field, value in result['data']['finding']['vulnerabilities'][1].items():
+    assert result['data']['finding']['vulnerabilities'][-1] == expected_vuln
+    for field, value in result['data']['finding']['vulnerabilities'][-1].items():
         assert value == expected_vuln[field]
 
 @pytest.mark.changes_db
