@@ -139,17 +139,17 @@
     "srcMeltsPkgs": {
       "flake": false,
       "locked": {
-        "lastModified": 1584668685,
-        "narHash": "sha256-mj/ouBv7sEoATqG4aoLbIrPSfq0oAOG0ajk0+i59GeM=",
+        "lastModified": 1609429790,
+        "narHash": "sha256-g8ZZmGMbEbHuHW7yr86oRdh+7ot+3B5bz28J2WGgT6s=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "a437fe25652dea5b86de63891ce9c779c6e8bb9d",
+        "rev": "7138a338b58713e0dea22ddab6a6785abec7376a",
         "type": "github"
       },
       "original": {
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "a437fe25652dea5b86de63891ce9c779c6e8bb9d",
+        "rev": "7138a338b58713e0dea22ddab6a6785abec7376a",
         "type": "github"
       }
     },

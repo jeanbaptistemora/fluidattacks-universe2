@@ -94,7 +94,7 @@ def drills_management(  # pylint: disable=too-many-arguments
         success = push_repos.main(group)
     elif o_count_toe:
         success = count_toe.main(group)
-    elif o_vpn and group != 'unspecified-subs':
-        success = vpn.main(group)
+    elif o_vpn:
+        success = vpn.main()
 
     sys.exit(0 if success else 1)

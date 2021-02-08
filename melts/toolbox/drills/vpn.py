@@ -1,6 +1,4 @@
 # Standard libraries
-import os
-import subprocess
 from toolbox.utils import generic
 
 # Local libraries
@@ -9,41 +7,69 @@ from toolbox.utils.function import shield, RetryAndFinallyReturn
 
 
 @shield(retries=1)
-def main(subs: str) -> bool:
+def main() -> bool:
     """Use subs vpn"""
-    success: bool = True
-    config_file = f'tools/vpns/{subs}'
-    vpn_list = [f for f in os.listdir('tools/vpns')
-                if os.path.isfile(os.path.join('tools/vpns/', f))]
+    vpn_status, _, _ = generic.run_command(
+        cmd=['nmcli', 'connection', 'show', 'fluidvpn'],
+        cwd='.',
+        env={},
+    )
+    if vpn_status > 0:
+        LOGGER.info('Setting up the vpn')
+        psk = input("enter your psk: ")
+        username = input("enter your username: ")
+        vpn_data = (" gateway = 190.217.110.94,"
+                    " ipsec-enabled = yes,"
+                    f" ipsec-psk = {psk},"
+                    " mru = 1400,"
+                    " mtu = 1400,"
+                    " password-flags = 0,"
+                    " refuse-chap = yes,"
+                    " refuse-eap = yes,"
+                    " refuse-mschap = yes,"
+                    " refuse-pap = yes,"
+                    f" user = {username}")
+        command = [
+            'nmcli',
+            'connection',
+            'add',
+            'connection.id',
+            'fluidvpn',
+            'con-name',
+            'fluidvpn',
+            'type',
+            'VPN',
+            'vpn-type',
+            'l2tp',
+            'ifname',
+            '--',
+            'connection.autoconnect',
+            'no',
+            'ipv4.method',
+            'auto',
+            'vpn.data',
+            vpn_data,
+        ]
+        status, _, stderr = generic.run_command(
+            cmd=command,
+            cwd='.',
+            env={},
+        )
+        if status > 0:
+            LOGGER.error('Could not configure VPN')
+            LOGGER.error(stderr)
+            raise RetryAndFinallyReturn()
 
-    if (os.path.exists(f'{config_file}-bogota.sh') and
-            os.path.exists(f'{config_file}-medellin.sh')):
-        city = input(('Do you want to use bogota\'s or medellin\'s'
-                      ' VPN? [1: Bogota - 2: Medellin]: '))
-        if city == '1':
-            generic.aws_login(f'continuous-{subs}')
-            subprocess.call(
-                f'./{config_file}-bogota.sh',
-                shell=True
-            )
-        else:
-            generic.aws_login(f'continuous-{subs}')
-            subprocess.call(
-                f'./{config_file}-medellin.sh',
-                shell=True
-            )
-    else:
-        if not os.path.isfile(f'{config_file}.sh'):
-            LOGGER.error("No VPN file found")
-            LOGGER.info('Available VPNs:\n%s', vpn_list)
-            success = False
-        else:
-            generic.aws_login(f'continuous-{subs}')
-            subprocess.call(
-                f'./{config_file}.sh',
-                shell=True
-            )
-
-    if not success:
+    command = ['nmcli', 'connection', 'up', 'fluidvpn']
+    LOGGER.info('Connecting to the VPN')
+    status, _, stderr = generic.run_command(
+        cmd=command,
+        cwd='.',
+        env={},
+    )
+    if status > 0:
+        LOGGER.error('Could not connect to the VPN')
+        LOGGER.error(stderr)
         raise RetryAndFinallyReturn()
-    return success
+
+    return True
