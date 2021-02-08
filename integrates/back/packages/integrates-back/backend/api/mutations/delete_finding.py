@@ -38,7 +38,9 @@ async def mutate(
     group_name = finding_data['project_name']
 
     success = await finding_domain.delete_finding(
-        finding_id, justification, info.context
+        info.context,
+        finding_id,
+        justification
     )
     if success:
         redis_del_by_deps_soon('delete_finding', finding_id=finding_id)

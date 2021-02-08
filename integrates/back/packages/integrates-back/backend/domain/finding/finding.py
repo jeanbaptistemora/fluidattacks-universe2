@@ -273,9 +273,10 @@ async def save_severity(finding: Dict[str, FindingType]) -> bool:
 
 
 async def delete_finding(
-        finding_id: str,
-        justification: str,
-        context: Any) -> bool:
+    context: Any,
+    finding_id: str,
+    justification: str
+) -> bool:
     finding_data = await get_finding(finding_id)
     submission_history = cast(
         List[Dict[str, str]],
@@ -298,21 +299,26 @@ async def delete_finding(
         success = await finding_dal.update(finding_id, {
             'historic_state': submission_history
         })
-        schedule(delete_vulnerabilities(finding_id, justification, analyst))
+        schedule(
+            delete_vulnerabilities(
+                context.loaders,
+                finding_id,
+                justification,
+                analyst
+            )
+        )
 
     return success
 
 
 async def delete_vulnerabilities(
+    context: Any,
     finding_id: str,
     justification: str,
     user_email: str
 ) -> bool:
-    vulnerabilities = await vuln_domain.list_vulnerabilities_async(
-        [finding_id],
-        include_confirmed_zero_risk=True,
-        include_requested_zero_risk=True,
-    )
+    finding_vulns_loader = context.finding_vulns
+    vulnerabilities = await finding_vulns_loader.load(finding_id)
 
     return all(await collect(
         vuln_domain.delete_vulnerability(
