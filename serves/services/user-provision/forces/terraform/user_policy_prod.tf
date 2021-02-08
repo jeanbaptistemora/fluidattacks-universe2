@@ -47,15 +47,39 @@ data "aws_iam_policy_document" "forces_prod_policy_data" {
     ]
   }
 
+  # KMS Create Keys
+  statement {
+    effect = "Allow"
+    actions = [
+      "kms:UntagResource",
+      "kms:TagResource",
+      "kms:List*",
+      "kms:Get*",
+      "kms:Describe*",
+      "kms:CreateKey",
+      "kms:CreateAlias",
+      "kms:UpdateAlias"
+    ]
+    resources = ["*"]
+  }
+
   # KMS FUll permissions over owned KMS keys
   statement {
     effect = "Allow"
     actions = [
-      "kms:*"
+      "kms:*",
     ]
     resources = [
-      "arn:aws:kms:${var.region}:${data.aws_caller_identity.current.account_id}:alias/continuous-*"
+      "arn:aws:kms:${var.region}:${data.aws_caller_identity.current.account_id}:key/*",
     ]
+    condition {
+      test     = "StringLike"
+      variable = "kms:RequestAlias"
+      values = [
+        "alias/forces-*",
+        "alias/continuous-*",
+      ]
+    }
   }
 
   # Secretsmanager for forces

@@ -55,13 +55,31 @@ data "aws_iam_policy_document" "forces_dev_policy_data" {
   statement {
     effect = "Allow"
     actions = [
-      "kms:List*",
-      "kms:Get*",
-      "kms:Describe*"
+      "kms:ListAliases",
     ]
     resources = [
-      "arn:aws:kms:${var.region}:${data.aws_caller_identity.current.account_id}:alias/continuous-*"
+      "*",
     ]
+  }
+
+  statement {
+    effect = "Allow"
+    actions = [
+      "kms:List*",
+      "kms:Get*",
+      "kms:Describe*",
+    ]
+    resources = [
+      "arn:aws:kms:${var.region}:${data.aws_caller_identity.current.account_id}:key/*",
+    ]
+    condition {
+      test     = "StringLike"
+      variable = "kms:RequestAlias"
+      values = [
+        "alias/forces-*",
+        "alias/continuous-*",
+      ]
+    }
   }
 
   # Secretsmanager for forces secrets
