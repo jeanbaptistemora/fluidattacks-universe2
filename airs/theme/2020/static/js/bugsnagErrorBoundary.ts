@@ -2,7 +2,6 @@ import { Event } from "@bugsnag/core";
 // tslint:disable-next-line:no-submodule-imports
 import { Error } from "@bugsnag/core/types/event";
 import Bugsnag from "@bugsnag/js";
-import _ from "lodash";
 
 import { getEnvironment } from "./getEnvironment";
 
