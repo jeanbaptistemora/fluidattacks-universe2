@@ -1,4 +1,5 @@
 # Standard libraries
+from datetime import datetime
 from typing import (
     Any,
     Dict, NamedTuple,
@@ -10,6 +11,7 @@ import psycopg2.extensions as postgres_extensions
 
 PGCONN = Any
 PGCURR = Any
+SCHEMA = 'repos-s3-sync'
 
 
 class DbState(NamedTuple):
@@ -37,30 +39,61 @@ def drop_access_point(state: DbState) -> None:
     state.connection.close()
 
 
-def create_timestamp(state: DbState, group: str) -> None:
+def create_timestamp_group(state: DbState, group: str, table: str) -> None:
+    timestamp = datetime.timestamp(datetime.now())
     query = (
-        "INSERT INTO \"repos-s3-sync\".last_sync_date "
-        f"(group_name,sync_date) VALUES ('{group}',getdate())"
+        f"INSERT INTO \"{SCHEMA}\".{table} "
+        f"(group_name,sync_date) VALUES ('{group}',{timestamp})"
     )
     state.cursor.execute(query)
 
 
-def update_timestamp(state: DbState, group: str) -> None:
+def update_timestamp_group(state: DbState, group: str, table: str) -> None:
+    timestamp = datetime.timestamp(datetime.now())
     query = (
-        "UPDATE \"repos-s3-sync\".last_sync_date "
-        f"set sync_date=getdate() WHERE group_name='{group}'"
+        f"UPDATE \"{SCHEMA}\".{table} "
+        f"set sync_date={timestamp} WHERE group_name='{group}'"
     )
     state.cursor.execute(query)
 
 
-def create_or_update(state: DbState, group: str) -> None:
+def create_or_update_group(state: DbState, group: str, table: str) -> None:
     query = (
-        "SELECT * FROM \"repos-s3-sync\".last_sync_date "
+        f"SELECT * FROM \"{SCHEMA}\".{table} "
         f"WHERE group_name='{group}'"
     )
     state.cursor.execute(query)
     result = state.cursor.fetchall()
     if not result:
-        create_timestamp(state, group)
+        create_timestamp_group(state, group, table)
     else:
-        update_timestamp(state, group)
+        update_timestamp_group(state, group, table)
+
+
+def create_timestamp_job(state: DbState, job_name: str) -> None:
+    query = (
+        f"INSERT INTO \"{SCHEMA}\".last_sync_jobs "
+        f"(job_name,sync_date) VALUES ('{job_name}',getdate())"
+    )
+    state.cursor.execute(query)
+
+
+def update_timestamp_job(state: DbState, job_name: str) -> None:
+    query = (
+        f"UPDATE \"{SCHEMA}\".last_sync_jobs "
+        f"set sync_date=getdate() WHERE job_name='{job_name}'"
+    )
+    state.cursor.execute(query)
+
+
+def create_or_update_job(state: DbState, job_name: str) -> None:
+    query = (
+        f"SELECT * FROM \"{SCHEMA}\".last_sync_jobs "
+        f"WHERE job_name='{job_name}'"
+    )
+    state.cursor.execute(query)
+    result = state.cursor.fetchall()
+    if not result:
+        create_timestamp_job(state, job_name)
+    else:
+        update_timestamp_job(state, job_name)

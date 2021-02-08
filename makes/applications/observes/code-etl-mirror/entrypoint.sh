@@ -41,7 +41,7 @@ function job_code_mirror {
               echo '[INFO] Pushing repositories to S3' \
           &&  "${melts}" drills --push-repos "${group}" \
           &&  echo '[INFO] Updating last sync date' \
-          &&  "${update_sync_date}" "${temp_file}" "${group}"
+          &&  "${update_sync_date}" mirror "${temp_file}" "${group}"
         else
               echo '[INFO] Unable to clone repositories from source' \
           &&  echo '[INFO] Skipping push to S3' \

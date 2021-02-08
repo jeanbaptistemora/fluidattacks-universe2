@@ -8,9 +8,11 @@ function job_formstack_etl {
   local target_redshift
   local temp_file1
   local temp_file2
+  local update_sync_date
 
   tap_formstack="__envTapFormstack__" \
   &&  target_redshift="__envTargetRedshift__" \
+  &&  update_sync_date="__envUpdateSyncDate__" \
   &&  temp_file1=$(mktemp) \
   &&  temp_file2=$(mktemp) \
   &&  aws_login_prod 'observes' \
@@ -31,7 +33,8 @@ function job_formstack_etl {
         --auth "${temp_file2}" \
         --drop-schema \
         --schema-name 'formstack' \
-        < .singer
+        < .singer \
+  &&  "${update_sync_date}" formstack "${temp_file2}"
 }
 
 job_formstack_etl
