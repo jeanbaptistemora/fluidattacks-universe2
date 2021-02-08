@@ -18,7 +18,7 @@ makeEntrypoint {
     ];
     envProduct = product;
     envTarget = target;
-    envTflintConfig = path "/.tflint.hcl";
+    envTflintConfig = path "/makes/utils/terraform-test/tflint.hcl";
     envUtilsBashLibAws = import (path "/makes/utils/aws") path pkgs;
   };
   inherit name;

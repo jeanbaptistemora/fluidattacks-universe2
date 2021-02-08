@@ -82,8 +82,9 @@ function main {
             &&  echo "[INFO] Store path: ${nix_store_path}" \
             &&  echo "[INFO] Symlink at: out/${attribute////-}" \
             &&  echo '---' \
-            &&  cachix_push "${nix_store_path}" \
-            &&  return 0
+            &&  cache_push "${nix_store_path}" \
+            &&  return 0 \
+            ||  return 0
           else
                 echo '---' \
             &&  echo "[ERROR] ${attribute}'s build failed :(" \
