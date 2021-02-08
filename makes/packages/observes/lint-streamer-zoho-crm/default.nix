@@ -3,9 +3,9 @@
 , ...
 } @ _:
 let
+  nixPkgs = observesPkgs;
   lint = import (path "/makes/libs/observes/lint-jobs") {
-    inherit path;
-    nixPkgs = observesPkgs;
+    inherit nixPkgs path;
   };
 in
-lint.streamerZohoCrm
+lint.streamerZohoCrmDev
