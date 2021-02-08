@@ -131,6 +131,7 @@ async def complete_register_for_group_invitation(
         updated_invitation = invitation.copy()
         updated_invitation['is_used'] = True
         responsibility = cast(str, invitation['responsibility'])
+        phone_number = cast(str, invitation['phone_number'])
         role = cast(str, invitation['role'])
         success = await group_domain.update_access(
             user_email,
@@ -152,6 +153,19 @@ async def complete_register_for_group_invitation(
                 organization_id,
                 user_email,
                 'customer'
+            )
+
+        if await user_domain.get_data(user_email, 'email'):
+            success = success and await user_domain.add_phone_to_user(
+                user_email,
+                phone=phone_number
+            )
+        else:
+            success = success and await user_domain.create(
+                user_email,
+                {
+                    'phone': phone_number
+                }
             )
 
         if not await user_domain.is_registered(user_email):
@@ -222,14 +236,6 @@ async def invite_to_group(  # pylint: disable=too-many-arguments
     )
     if valid:
         if group_name and responsibility and len(responsibility) <= 50:
-            if not await user_domain.get_data(email, 'email'):
-                await user_domain.create(
-                    email.lower(),
-                    {
-                        'phone': phone_number
-                    }
-                )
-
             now_str = datetime_utils.get_as_str(
                 datetime_utils.get_now()
             )
