@@ -354,10 +354,11 @@ const projectEventsView: React.FC = (): JSX.Element => {
                                     </ControlLabel>
                                     <FormSection name="accessibility">
                                       <Field component={Checkbox} name="environment" validate={someRequired}>
-                                        {translate.t("group.events.form.accessibility.environment")}
+                                        {` ${translate.t("group.events.form.accessibility.environment")}`}
                                       </Field>
+                                      <br/>
                                       <Field component={Checkbox} name="repository" validate={someRequired}>
-                                        {translate.t("group.events.form.accessibility.repository")}
+                                        {` ${translate.t("group.events.form.accessibility.repository")}`}
                                       </Field>
                                     </FormSection>
                                   </FormGroup>
@@ -383,70 +384,87 @@ const projectEventsView: React.FC = (): JSX.Element => {
                                       </ControlLabel>
                                       <FormSection name="affectedComponents">
                                         <Field component={Checkbox} name="FLUID_STATION" validate={someRequired}>
-                                          {translate.t("group.events.form.components.fluid_station")}
+                                          {` ${translate.t("group.events.form.components.fluid_station")}`}
                                         </Field>
+                                        <br/>
                                         <Field component={Checkbox} name="CLIENT_STATION" validate={someRequired}>
-                                          {translate.t("group.events.form.components.client_station")}
+                                          {` ${translate.t("group.events.form.components.client_station")}`}
                                         </Field>
+                                        <br/>
                                         <Field component={Checkbox} name="TOE_EXCLUSSION" validate={someRequired}>
-                                          {translate.t("group.events.form.components.toe_exclussion")}
+                                          {` ${translate.t("group.events.form.components.toe_exclussion")}`}
                                         </Field>
+                                        <br/>
                                         <Field component={Checkbox} name="DOCUMENTATION" validate={someRequired}>
-                                          {translate.t("group.events.form.components.documentation")}
+                                          {` ${translate.t("group.events.form.components.documentation")}`}
                                         </Field>
+                                        <br/>
                                         <Field
                                           component={Checkbox}
                                           name="LOCAL_CONNECTION"
                                           validate={someRequired}
                                         >
-                                          {translate.t("group.events.form.components.local_conn")}
+                                          {` ${translate.t("group.events.form.components.local_conn")}`}
                                         </Field>
+                                        <br/>
                                         <Field
                                           component={Checkbox}
                                           name="INTERNET_CONNECTION"
                                           validate={someRequired}
                                         >
-                                          {translate.t("group.events.form.components.internet_conn")}
+                                          {` ${translate.t("group.events.form.components.internet_conn")}`}
                                         </Field>
+                                        <br/>
                                         <Field component={Checkbox} name="VPN_CONNECTION" validate={someRequired}>
-                                          {translate.t("group.events.form.components.vpn_conn")}
+                                          {` ${translate.t("group.events.form.components.vpn_conn")}`}
                                         </Field>
+                                        <br/>
                                         <Field component={Checkbox} name="TOE_LOCATION" validate={someRequired}>
-                                          {translate.t("group.events.form.components.toe_location")}
+                                          {` ${translate.t("group.events.form.components.toe_location")}`}
                                         </Field>
+                                        <br/>
                                         <Field component={Checkbox} name="TOE_CREDENTIALS" validate={someRequired}>
-                                          {translate.t("group.events.form.components.toe_credentials")}
+                                          {` ${translate.t("group.events.form.components.toe_credentials")}`}
                                         </Field>
+                                        <br/>
                                         <Field component={Checkbox} name="TOE_PRIVILEGES" validate={someRequired}>
-                                          {translate.t("group.events.form.components.toe_privileges")}
+                                          {` ${translate.t("group.events.form.components.toe_privileges")}`}
                                         </Field>
+                                        <br/>
                                         <Field component={Checkbox} name="TEST_DATA" validate={someRequired}>
-                                          {translate.t("group.events.form.components.test_data")}
+                                          {` ${translate.t("group.events.form.components.test_data")}`}
                                         </Field>
+                                        <br/>
                                         <Field component={Checkbox} name="TOE_UNSTABLE" validate={someRequired}>
-                                          {translate.t("group.events.form.components.toe_unstability")}
+                                          {` ${translate.t("group.events.form.components.toe_unstability")}`}
                                         </Field>
+                                        <br/>
                                         <Field
                                           component={Checkbox}
                                           name="TOE_UNACCESSIBLE"
                                           validate={someRequired}
                                         >
-                                          {translate.t("group.events.form.components.toe_unaccessible")}
+                                          {` ${translate.t("group.events.form.components.toe_unaccessible")}`}
                                         </Field>
+                                        <br/>
                                         <Field component={Checkbox} name="TOE_UNAVAILABLE" validate={someRequired}>
-                                          {translate.t("group.events.form.components.toe_unavailable")}
+                                          {` ${translate.t("group.events.form.components.toe_unavailable")}`}
                                         </Field>
+                                        <br/>
                                         <Field component={Checkbox} name="TOE_ALTERATION" validate={someRequired}>
-                                          {translate.t("group.events.form.components.toe_alteration")}
+                                          {` ${translate.t("group.events.form.components.toe_alteration")}`}
                                         </Field>
+                                        <br/>
                                         <Field component={Checkbox} name="SOURCE_CODE" validate={someRequired}>
-                                          {translate.t("group.events.form.components.source_code")}
+                                          {` ${translate.t("group.events.form.components.source_code")}`}
                                         </Field>
+                                        <br/>
                                         <Field component={Checkbox} name="COMPILE_ERROR" validate={someRequired}>
-                                          {translate.t("group.events.form.components.compile_error")}
+                                          {` ${translate.t("group.events.form.components.compile_error")}`}
                                         </Field>
+                                        <br/>
                                         <Field component={Checkbox} name="OTHER" validate={someRequired}>
-                                          {translate.t("group.events.form.other")}
+                                          {` ${translate.t("group.events.form.other")}`}
                                         </Field>
                                       </FormSection>
                                     </FormGroup>

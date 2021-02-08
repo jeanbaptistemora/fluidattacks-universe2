@@ -354,7 +354,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
                 bordered={true}
                 columnToggle={true}
                 dataset={roots}
-                exportCsv={false}
+                exportCsv={true}
                 headers={[
                   {
                     dataField: "url",
