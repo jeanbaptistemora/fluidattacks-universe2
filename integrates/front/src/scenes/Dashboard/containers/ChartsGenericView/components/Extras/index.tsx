@@ -1,9 +1,10 @@
 import { useMutation, useQuery } from "@apollo/react-hooks";
+import { faChartBar, faDownload, faHourglassHalf } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ApolloError } from "apollo-client";
 import { ExecutionResult, GraphQLError } from "graphql";
 import _ from "lodash";
 import React from "react";
-import { Glyphicon } from "react-bootstrap";
 
 import { Badge } from "components/Badge";
 import { Button } from "components/Button";
@@ -142,7 +143,7 @@ const chartsGenericViewExtras: React.FC<IChartsGenericViewProps> = (props: IChar
                         <Button
                           className={"pv3"}
                         >
-                          <Glyphicon glyph="save" />
+                          <FontAwesomeIcon icon={faDownload} />
                             {translate.t("analytics.sections.extras.download")}
                           <Badge>pro</Badge>
                         </Button>
@@ -154,8 +155,8 @@ const chartsGenericViewExtras: React.FC<IChartsGenericViewProps> = (props: IChar
                           <React.Fragment>
                             <div className={"tc"}>
                               {loadingSubscribe
-                                ? <Glyphicon glyph="hourglass" />
-                                : <Glyphicon glyph="stats" />}
+                                ? <FontAwesomeIcon icon={faHourglassHalf} />
+                                : <FontAwesomeIcon icon={faChartBar} />}
                               {`   ${translateFrequency(subscriptionFrequency, "statement")}`}
                               <Badge>pro</Badge>
                             </div>

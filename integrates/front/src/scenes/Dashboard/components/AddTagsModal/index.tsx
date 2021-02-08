@@ -1,6 +1,6 @@
 import { Button } from "components/Button";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { GenericForm } from "scenes/Dashboard/components/GenericForm";
-import { Glyphicon } from "react-bootstrap";
 import { Modal } from "components/Modal";
 import React from "react";
 import { Text } from "utils/forms/fields";
@@ -16,6 +16,7 @@ import {
 } from "styles/styledComponents";
 import { Field, FieldArray } from "redux-form";
 import type { InjectedFormProps, WrappedFieldArrayProps } from "redux-form";
+import { faPlus, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { required, validTag } from "utils/validations";
 
 interface IAddTagsModalProps {
@@ -64,7 +65,7 @@ const renderTagsFields: React.FC<WrappedFieldArrayProps> = (
                 {index > 0 ? (
                   <RemoveTag>
                     <Button onClick={removeItem}>
-                      <Glyphicon glyph={"trash"} />
+                      <FontAwesomeIcon icon={faTrashAlt} />
                     </Button>
                   </RemoveTag>
                 ) : undefined}
@@ -75,7 +76,7 @@ const renderTagsFields: React.FC<WrappedFieldArrayProps> = (
       )}
       <br />
       <Button onClick={addItem}>
-        <Glyphicon glyph={"plus"} />
+        <FontAwesomeIcon icon={faPlus} />
       </Button>
     </React.Fragment>
   );

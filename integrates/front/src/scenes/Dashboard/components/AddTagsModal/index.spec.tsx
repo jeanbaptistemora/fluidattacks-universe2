@@ -43,7 +43,7 @@ describe("Add Tags modal", (): void => {
 
     const addButton: ReactWrapper = modal
       .find("renderTagsFields")
-      .find("Glyphicon");
+      .find("FontAwesomeIcon");
 
     const inputField: ReactWrapper = modal
       .find("renderTagsFields")
@@ -68,7 +68,7 @@ describe("Add Tags modal", (): void => {
     );
     const addButton: ReactWrapper = modal
       .find("renderTagsFields")
-      .find(".glyphicon-plus");
+      .find(".fa-plus");
 
     addButton.simulate("click");
 
@@ -76,7 +76,7 @@ describe("Add Tags modal", (): void => {
 
     const deleteButton: ReactWrapper = modal
       .find("renderTagsFields")
-      .find(".glyphicon-trash");
+      .find(".fa-trash-alt");
 
     deleteButton.simulate("click");
 

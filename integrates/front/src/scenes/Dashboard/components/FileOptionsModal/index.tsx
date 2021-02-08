@@ -1,9 +1,9 @@
 /* tslint:disable:jsx-no-multiline-js
  * Disabling this rule is necessary for conditional rendering
  */
-
+import { faDownload, faMinus } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
-import { Glyphicon } from "react-bootstrap";
 
 import { Button } from "components/Button";
 import { Modal } from "components/Modal";
@@ -46,14 +46,14 @@ const fileOptionsModal: React.FC<IFileOptionsModalProps> = (props: IFileOptionsM
             {props.canRemove ? (
               <Col33>
                 <Button onClick={onDelete}>
-                  <Glyphicon glyph="minus" />&nbsp;
+                  <FontAwesomeIcon icon={faMinus} />&nbsp;
                     {translate.t("search_findings.tab_resources.remove_repository")}
                 </Button>
               </Col33>
             ) : undefined}
             <Col33>
               <Button onClick={onDownload}>
-                <Glyphicon glyph="download-alt" />&nbsp;
+                <FontAwesomeIcon icon={faDownload} />&nbsp;
                   {translate.t("search_findings.tab_resources.download")}
               </Button>
             </Col33>
