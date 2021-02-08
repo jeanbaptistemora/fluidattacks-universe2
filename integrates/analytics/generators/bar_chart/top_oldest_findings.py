@@ -28,6 +28,7 @@ async def get_data_one_group(group: str) -> Counter:
 
     return Counter({
         f'{finding_id}/{finding["title"]}': await get_finding_open_age(
+            context,
             finding_id
         )
         for finding, finding_id in zip(findings, finding_ids)

@@ -144,10 +144,12 @@ async def get_finding_age(
 
 
 async def get_finding_open_age(
+    context: Any,
     finding_id: str
 ) -> int:
     open_age = 0
-    vulns = await vuln_domain.list_vulnerabilities_async([finding_id])
+    finding_vulns_loader = context.finding_vulns_nzr
+    vulns = await finding_vulns_loader.load(finding_id)
     open_vulns = vuln_filters.filter_open_vulns(vulns)
     report_dates = vuln_utils.get_report_dates(open_vulns)
     if report_dates:
@@ -158,10 +160,12 @@ async def get_finding_open_age(
 
 
 async def get_finding_last_vuln_report(
+    context: Any,
     finding_id: str
 ) -> int:
     last_vuln_report = 0
-    vulns = await vuln_domain.list_vulnerabilities_async([finding_id])
+    finding_vulns_loader = context.finding_vulns_nzr
+    vulns = await finding_vulns_loader.load(finding_id)
     report_dates = vuln_utils.get_report_dates(vulns)
     if report_dates:
         newest_report_date = max(report_dates)

@@ -34,10 +34,16 @@ async def resolve(
 
 async def resolve_no_cache(
     parent: Dict[str, Finding],
-    _info: GraphQLResolveInfo,
+    info: GraphQLResolveInfo,
     **_kwargs: None
 ) -> int:
     finding_id: str = cast(str, parent['id'])
-    open_age = cast(int, await finding_domain.get_finding_open_age(finding_id))
+    open_age = cast(
+        int,
+        await finding_domain.get_finding_open_age(
+            info.context.loaders,
+            finding_id
+        )
+    )
 
     return open_age
