@@ -1,5 +1,4 @@
 # Standard libraries
-from datetime import datetime
 from typing import (
     Any,
     Dict, NamedTuple,
@@ -40,19 +39,17 @@ def drop_access_point(state: DbState) -> None:
 
 
 def create_timestamp_group(state: DbState, group: str, table: str) -> None:
-    timestamp = datetime.timestamp(datetime.now())
     query = (
         f"INSERT INTO \"{SCHEMA}\".{table} "
-        f"(group_name,sync_date) VALUES ('{group}',{timestamp})"
+        f"(group_name,sync_date) VALUES ('{group}',getdate())"
     )
     state.cursor.execute(query)
 
 
 def update_timestamp_group(state: DbState, group: str, table: str) -> None:
-    timestamp = datetime.timestamp(datetime.now())
     query = (
         f"UPDATE \"{SCHEMA}\".{table} "
-        f"set sync_date={timestamp} WHERE group_name='{group}'"
+        f"set sync_date=getdate() WHERE group_name='{group}'"
     )
     state.cursor.execute(query)
 
