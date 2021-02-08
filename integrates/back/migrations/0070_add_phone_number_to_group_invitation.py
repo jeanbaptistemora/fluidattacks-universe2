@@ -1,5 +1,8 @@
 """
 This migration add stakeholder phone number to group invitation
+
+Execution Time:    2021-02-08 at 11:35:54 UTC-05
+Finalization Time: 2021-02-08 at 11:36:19 UTC-05
 """
 # Standard library
 from pprint import pprint
