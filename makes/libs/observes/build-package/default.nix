@@ -1,26 +1,25 @@
 { nixPkgs
 , packageConfig
 , path
-, python
 }:
 let
   buildPythonReqs = import (path "/makes/utils/build-python-requirements") path nixPkgs;
   makeSearchPaths = import (path "/makes/utils/make-search-paths") path nixPkgs;
   makeTemplate = import (path "/makes/utils/make-template") path nixPkgs;
   reqs = buildPythonReqs {
-    inherit python;
     name = packageConfig.packageName;
     dependencies = packageConfig.buildInputsList;
+    python = packageConfig.python;
     requirements = {
-      direct = packageConfig.pythonReqs.direct;
-      inherited = packageConfig.pythonReqs.inherited;
+      direct = packageConfig.reqs.python.direct;
+      inherited = packageConfig.reqs.python.inherited;
     };
   };
 in
 makeTemplate {
   arguments = {
-    envPackageSrc = packageConfig.projectDir;
-    envPythonRequirements = reqs;
+    envPackageSrc = packageConfig.srcPath;
+    envPythonReqs = reqs;
     envSearchPaths = makeSearchPaths packageConfig.buildInputsList;
     envUtilsBashLibPython = path "/makes/utils/python/template.sh";
   };

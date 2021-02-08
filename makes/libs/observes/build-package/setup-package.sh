@@ -6,7 +6,7 @@ source '__envSearchPaths__'
 
 function setup_runtime {
       make_python_path '3.8' \
-        '__envPythonRequirements__'\
+        '__envPythonReqs__'\
   &&  make_python_path_plain \
         '__envPackageSrc__'
 }
