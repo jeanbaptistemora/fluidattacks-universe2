@@ -51,6 +51,7 @@ async def mutate(  # pylint: disable=too-many-arguments
 
     try:
         success = await group_domain.edit(
+            context=info.context.loaders,
             comments=comments,
             group_name=group_name,
             has_drills=has_drills,

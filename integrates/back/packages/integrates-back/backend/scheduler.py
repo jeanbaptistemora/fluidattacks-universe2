@@ -934,7 +934,11 @@ async def integrates_delete_obsolete_orgs() -> None:
                 if org_pending_deletion_date.date() <= today:
                     msg = f'- organization: {org_name} will be deleted'
                     LOGGER.info(msg, **NOEXTRA)
-                    await org_domain.delete_organization(org_id, email)
+                    await org_domain.delete_organization(
+                        get_new_context(),
+                        org_id,
+                        email
+                    )
             else:
                 new_org_pending_deletion_date_str = datetime_utils.get_as_str(
                     datetime_utils.get_now_plus_delta(days=60)

@@ -241,6 +241,7 @@ async def create_group(  # pylint: disable=too-many-arguments,too-many-locals
 
 async def edit(
     *,
+    context=Any,
     comments: str,
     group_name: str,
     has_drills: bool,
@@ -294,6 +295,7 @@ async def edit(
     if not has_integrates:
         org_id = await org_domain.get_id_for_group(group_name)
         success = success and await org_domain.remove_group(
+            context,
             organization_id=org_id,
             group_name=group_name,
             email=requester_email,
@@ -380,7 +382,7 @@ async def get_historic_deletion(project_name: str) -> HistoricType:
     return cast(HistoricType, historic_deletion.get('historic_deletion', []))
 
 
-async def remove_resources(project_name: str) -> bool:
+async def remove_resources(context: Any, project_name: str) -> bool:
     are_users_removed = await remove_all_users_access(project_name)
     group_findings = await finding_domain.list_findings(
         [project_name], include_deleted=True
@@ -392,7 +394,7 @@ async def remove_resources(project_name: str) -> bool:
         group_findings[0] + group_drafts[0]
     )
     are_findings_masked = all(await collect(
-        finding_domain.mask_finding(finding_id)
+        finding_domain.mask_finding(context, finding_id)
         for finding_id in findings_and_drafts
     ))
     events = await list_events(project_name)
@@ -420,7 +422,11 @@ async def remove_resources(project_name: str) -> bool:
     return response
 
 
-async def delete_project(project_name: str, user_email: str) -> bool:
+async def delete_project(
+    context: Any,
+    project_name: str,
+    user_email: str
+) -> bool:
     response = False
     data = await project_dal.get_attributes(
         project_name,
@@ -431,7 +437,7 @@ async def delete_project(project_name: str, user_email: str) -> bool:
         data.get('historic_deletion', [])
     )
     if data.get('project_status') != 'DELETED':
-        all_resources_removed = await remove_resources(project_name)
+        all_resources_removed = await remove_resources(context, project_name)
         today = datetime_utils.get_now()
         new_state = {
             'date': datetime_utils.get_as_str(today),

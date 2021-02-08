@@ -15,7 +15,7 @@ from backend.decorators import (
     require_login,
 )
 from backend.domain import (
-    project as project_domain
+    project as group_domain
 )
 from backend.exceptions import PermissionDenied
 from backend.typing import SimplePayload as SimplePayloadType
@@ -38,7 +38,8 @@ async def mutate(
     success = False
 
     try:
-        success = await project_domain.edit(
+        success = await group_domain.edit(
+            context=info.context.loaders,
             comments="",
             group_name=group_name,
             has_drills=False,

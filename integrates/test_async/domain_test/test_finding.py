@@ -11,6 +11,7 @@ from graphql.type import GraphQLResolveInfo
 from starlette.datastructures import UploadFile
 
 from backend import mailer
+from backend.api import get_new_context
 from backend.domain.finding import (
     add_comment,
     get_tracking_vulnerabilities,
@@ -239,7 +240,8 @@ async def test_add_comment():
 @pytest.mark.changes_db
 async def test_mask_finding():
     finding_id = '475041524'
-    test_data = await mask_finding(finding_id)
+    context = get_new_context()
+    test_data = await mask_finding(context, finding_id)
     expected_output = True
     assert isinstance(test_data, bool)
     assert test_data == expected_output

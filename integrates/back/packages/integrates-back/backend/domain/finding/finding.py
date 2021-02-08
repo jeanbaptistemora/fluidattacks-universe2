@@ -474,7 +474,7 @@ async def is_pending_verification(context: Any, finding_id: str) -> bool:
     return len(reattack_requested) > 0 and await validate_finding(finding_id)
 
 
-async def mask_finding(finding_id: str) -> bool:
+async def mask_finding(context: Any, finding_id: str) -> bool:
     finding = await finding_dal.get_finding(finding_id)
     finding = finding_utils.format_data(finding)
     historic_verification = cast(
@@ -530,21 +530,20 @@ async def mask_finding(finding_id: str) -> bool:
     ]
     mask_finding_coroutines.extend(comments_coroutines)
 
-    list_vulns = await vuln_domain.list_vulnerabilities_async(
-        [finding_id],
-        should_list_deleted=True,
-        include_confirmed_zero_risk=True,
-        include_requested_zero_risk=True
-    )
+    finding_loader = context.finding_vulns
+    vulns = await finding_loader.load(finding_id)
+    list_vulns = [
+        vuln for vuln in vulns
+        if vuln.get('historic_state', [{}])[-1].get('state') != 'DELETED'
+    ]
+
     mask_vulns_coroutines = [
         vuln_utils.mask_vuln(finding_id, str(vuln['UUID']))
         for vuln in list_vulns
     ]
     mask_finding_coroutines.extend(mask_vulns_coroutines)
 
-    success = all(await collect(mask_finding_coroutines))
-
-    return success
+    return all(await collect(mask_finding_coroutines))
 
 
 async def get_findings_by_group(

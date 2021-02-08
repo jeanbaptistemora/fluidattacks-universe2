@@ -5,6 +5,7 @@ from aioextensions import collect
 from graphql import GraphQLError
 
 from backend import authz
+from backend.api import get_new_context
 from backend.domain import (
     organization as org_domain,
     project as project_domain
@@ -85,7 +86,11 @@ async def test_delete_organization():
     users = await org_domain.get_users(org_id)
     assert len(users) > 0
 
-    await org_domain.delete_organization(org_id, 'test@gmail.com')
+    await org_domain.delete_organization(
+        get_new_context(),
+        org_id,
+        'test@gmail.com'
+    )
     updated_users = await org_domain.get_users(org_id)
     assert len(updated_users) == 0
 

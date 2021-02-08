@@ -2,6 +2,7 @@ import logging
 import sys
 from decimal import Decimal
 from typing import (
+    Any,
     AsyncIterator,
     cast,
     Dict,
@@ -101,7 +102,11 @@ async def create_organization(name: str, email: str) -> OrganizationType:
     return new_organization
 
 
-async def delete_organization(organization_id: str, email: str) -> bool:
+async def delete_organization(
+    context: Any,
+    organization_id: str,
+    email: str
+) -> bool:
     users = await get_users(organization_id)
     users_removed = await collect(
         remove_user(organization_id, user)
@@ -112,7 +117,7 @@ async def delete_organization(organization_id: str, email: str) -> bool:
     org_groups = await get_groups(organization_id)
     groups_removed = all(
         await collect(
-            remove_group(organization_id, group, email)
+            remove_group(context, organization_id, group, email)
             for group in org_groups
         )
     )
@@ -248,13 +253,14 @@ async def has_user_access(organization_id: str, email: str) -> bool:
 
 
 async def remove_group(
+    context: Any,
     organization_id: str,
     group_name: str,
     email: str
 ) -> bool:
     success = all(
         [
-            await project_domain.delete_project(group_name, email),
+            await project_domain.delete_project(context, group_name, email),
             await org_dal.remove_group(organization_id, group_name)
         ]
     )
