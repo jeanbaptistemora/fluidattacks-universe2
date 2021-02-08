@@ -546,7 +546,10 @@ async def get_remediated_findings() -> None:
     active_projects = await project_domain.get_active_projects()
     findings = []
     pending_verification_findings = await collect(
-        project_domain.get_pending_verification_findings(project)
+        project_domain.get_pending_verification_findings(
+            get_new_context(),
+            project
+        )
         for project in active_projects
     )
     for project_findings in pending_verification_findings:

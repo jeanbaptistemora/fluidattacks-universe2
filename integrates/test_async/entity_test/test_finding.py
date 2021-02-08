@@ -64,7 +64,12 @@ async def test_finding():
       'severity': '',
       'remediated': False,
       'verification': '',
-      'historicVerification': [],
+      'historicVerification': [
+        {
+          'date': None,
+          'status': None
+        }
+      ],
       'historicZeroRisk': [
         {
           'date': None,

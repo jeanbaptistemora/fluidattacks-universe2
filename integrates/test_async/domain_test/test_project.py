@@ -9,6 +9,7 @@ from pytz import timezone
 from freezegun import freeze_time
 import pytest
 
+from backend.api import get_new_context
 from backend.dal.helpers import dynamodb
 from backend.domain.project import (
     add_comment,
@@ -80,7 +81,8 @@ async def test_is_alive():
 
 
 async def test_get_pending_closing_checks():
-    test_data = await get_pending_closing_check('unittesting')
+    context = get_new_context()
+    test_data = await get_pending_closing_check(context, 'unittesting')
     expected_output = 1
     assert test_data == expected_output
 
@@ -404,7 +406,8 @@ async def test_edit(
 
 async def test_get_pending_verification_findings():
     project_name = 'unittesting'
-    findings = await get_pending_verification_findings(project_name)
+    context = get_new_context()
+    findings = await get_pending_verification_findings(context, project_name)
     assert len(findings) >= 1
     assert 'finding' in findings[0]
     assert 'finding_id' in findings[0]

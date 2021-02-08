@@ -8,6 +8,8 @@ from aioextensions import (
     collect,
     run,
 )
+
+from backend.api import get_new_context
 from backend.domain import (
     project as group_domain,
 )
@@ -19,7 +21,9 @@ from analytics import (
 
 
 async def generate_one(group: str) -> int:
-    return await group_domain.get_pending_closing_check(group)
+    context = get_new_context()
+
+    return await group_domain.get_pending_closing_check(context, group)
 
 
 async def get_many_groups(groups: Tuple[str]) -> int:

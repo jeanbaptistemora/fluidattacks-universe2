@@ -7,7 +7,15 @@ from collections import defaultdict
 from contextlib import AsyncExitStack
 from datetime import date
 from decimal import Decimal
-from typing import Dict, List, Tuple, Union, cast, Optional
+from typing import (
+    Any,
+    cast,
+    Dict,
+    List,
+    Tuple,
+    Union,
+    Optional
+)
 
 import simplejson as json
 from aioextensions import (
@@ -562,12 +570,15 @@ async def total_vulnerabilities(finding_id: str) -> Dict[str, int]:
 
 
 async def get_pending_verification_findings(
-        project_name: str) -> List[Dict[str, FindingType]]:
+    context: Any,
+    project_name: str
+) -> List[Dict[str, FindingType]]:
     """Gets findings pending for verification"""
     findings_ids = await finding_domain.list_findings([project_name])
-    are_pending_verifications = await collect(
-        map(finding_domain.is_pending_verification, findings_ids[0])
-    )
+    are_pending_verifications = await collect([
+        finding_domain.is_pending_verification(context, finding_id)
+        for finding_id in findings_ids[0]
+    ])
     pending_to_verify_ids = [
         finding_id
         for finding_id, are_pending_verification in zip(
@@ -586,10 +597,10 @@ async def get_pending_verification_findings(
     return cast(List[Dict[str, FindingType]], pending_to_verify)
 
 
-async def get_pending_closing_check(project: str) -> int:
+async def get_pending_closing_check(context: Any, project: str) -> int:
     """Check for pending closing checks."""
     pending_closing = len(
-        await get_pending_verification_findings(project))
+        await get_pending_verification_findings(context, project))
     return pending_closing
 
 

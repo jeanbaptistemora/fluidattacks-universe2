@@ -84,7 +84,7 @@ async def batch_load_fn_vulns(
                 ),
                 historic_verification=cast(
                     HistoricType,
-                    vuln.get('historic_verification', [])
+                    vuln.get('historic_verification', [{}])
                 ),
                 historic_zero_risk=cast(
                     HistoricType,

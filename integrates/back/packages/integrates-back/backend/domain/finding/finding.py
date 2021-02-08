@@ -451,8 +451,9 @@ async def get(
     return finding_utils.format_data(finding)
 
 
-async def is_pending_verification(finding_id: str) -> bool:
-    vulns = await vuln_domain.list_vulnerabilities_async([finding_id])
+async def is_pending_verification(context: Any, finding_id: str) -> bool:
+    finding_loader = context.finding_vulns_nzr
+    vulns = await finding_loader.load(finding_id)
     open_vulns = [
         vuln
         for vuln in vulns
