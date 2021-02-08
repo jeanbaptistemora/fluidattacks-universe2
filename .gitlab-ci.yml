@@ -124,8 +124,8 @@ makes/lint:
   <<: *common_in_dev_branch
   stage: lint-code
 
-common_lint_commit_msg:
-  <<: *with_nix
+makes/lint-commit-msg:
+  <<: *makes
   <<: *common_in_dev_branch
   stage: lint-code
 

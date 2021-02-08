@@ -13,8 +13,8 @@ let
   nix = import (path "/makes/utils/nix") path pkgs;
 
   # Unpack arguments and sort them
-  requirementsDirectSorted = nix.sortCaseless requirements.direct;
-  requirementsInheritedSorted = nix.sortCaseless requirements.inherited;
+  requirementsDirectSorted = nix.sort requirements.direct;
+  requirementsInheritedSorted = nix.sort requirements.inherited;
 
   # Ensure the developer wrote them sorted
   # This helps with code clarity and maintainability
@@ -26,7 +26,7 @@ let
     if (requirementsInheritedSorted == requirements.inherited)
     then requirementsInheritedSorted
     else abort "Inherited requirements must be sorted in this order: ${builtins.toJSON requirementsInheritedSorted}";
-  requirementsList = nix.sortCaseless (
+  requirementsList = nix.sort (
     requirementsDirect ++
     requirementsInherited
   );

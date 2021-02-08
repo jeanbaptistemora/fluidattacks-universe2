@@ -80,27 +80,6 @@ function job_common_compute_describe_job {
 
 }
 
-function job_common_lint_commit_msg {
-  local commit_diff
-  local commit_hashes
-
-      helper_common_use_pristine_workdir \
-  &&  env_prepare_node_modules \
-  &&  git fetch --prune > /dev/null \
-  &&  if [ "${IS_LOCAL_BUILD}" = "${TRUE}" ]
-      then
-            commit_diff="origin/master..${CI_COMMIT_REF_NAME}"
-      else
-            commit_diff="origin/master..origin/${CI_COMMIT_REF_NAME}"
-      fi \
-  &&  commit_hashes="$(git log --pretty=%h "${commit_diff}")" \
-  &&  for commit_hash in ${commit_hashes}
-      do
-            git log -1 --pretty=%B "${commit_hash}" | commitlint \
-        ||  return 1
-      done
-}
-
 function job_common_lint_build_system {
   # SC1090: Can't follow non-constant source. Use a directive to specify location.
   # SC2016: Expressions don't expand in single quotes, use double quotes for that.
