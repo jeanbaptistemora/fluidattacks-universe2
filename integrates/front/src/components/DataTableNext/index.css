@@ -51,6 +51,7 @@
 
 :local .exportCsv {
   composes: button from "../Button/index.css";
+  margin-top: -5px;
 }
 
 :local .tableModalContainer {
@@ -64,4 +65,10 @@
 :local .tableOptions {
   margin-bottom: 8px;
   margin-top: 8px;
+}
+
+@media (max-width: 1149px) {
+  :local .exportCsv {
+    margin-left: 5px;
+  }
 }

@@ -16,11 +16,11 @@ export const ExportCSVButtonWrapper: React.FC<ToolkitProviderProps> = (
   const { t } = useTranslation();
 
   return (
-    <TooltipWrapper
-      id={"exportCsvTooltip"}
-      message={t("group.findings.exportCsv.tooltip")}
-    >
-      <div className={style.buttonWrapper}>
+    <div>
+      <TooltipWrapper
+        id={"exportCsvTooltip"}
+        message={t("group.findings.exportCsv.tooltip")}
+      >
         <ExportCSVButton
           // This technique is used by react-bootstrap-table2 creators
           // eslint-disable-next-line react/jsx-props-no-spreading
@@ -32,7 +32,7 @@ export const ExportCSVButtonWrapper: React.FC<ToolkitProviderProps> = (
           <FluidIcon icon={"export"} />
           &nbsp;{t("group.findings.exportCsv.text")}
         </ExportCSVButton>
-      </div>
-    </TooltipWrapper>
+      </TooltipWrapper>
+    </div>
   );
 };
