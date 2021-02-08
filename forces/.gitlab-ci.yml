@@ -55,6 +55,13 @@ forces/infra-apply:
     variables: [$forces_infra_apply]
   stage: scheduler
 
+forces/process-groups:
+  <<: *makes
+  only:
+    refs: [schedules]
+    variables: [$forces_process_groups]
+  stage: scheduler
+
 forces/oci-deploy:
   <<: *makes
   <<: *forces_in_master_branch
