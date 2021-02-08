@@ -10,6 +10,7 @@ makeEntrypoint {
   arguments = {
     envSearchPaths = makeSearchPaths [
       integratesPkgs.findutils
+      integratesPkgs.iproute
       integratesPkgs.nodejs-12_x
       integratesPkgs.xdg_utils
     ];
