@@ -13,6 +13,22 @@ function build_package {
     ".#${attribute}"
 }
 
+function cache_push {
+  local cache_ip='0.0.0.0'
+  local cache_port='8888'
+  local nix_store_path="${1}"
+
+  if test -n "${MAKES_CACHE_PRIVATE_KEY:-}"
+  then
+        echo "[INFO] Pushing to cache: ${nix_store_path}" \
+    &&  key_file=$(mktemp) \
+    &&  echo "${MAKES_CACHE_PRIVATE_KEY}" > "${key_file}" \
+    &&  nix sign-paths --key-file "${key_file}" --recursive "${nix_store_path}" \
+    &&  nix copy --to "http://${cache_ip}:${cache_port}/cache" "${nix_store_path}" \
+    &&  echo '[INFO] Done!'
+  fi
+}
+
 function cachix_push {
   local nix_store_path="${1}"
 
@@ -28,10 +44,6 @@ function ensure_cachix {
       if test -z "$(command -v cachix)"
       then
         nix-env -iA cachix -f https://cachix.org/api/v1/install
-      fi \
-  &&  if ! cachix use fluidattacks
-      then
-        echo '[WARNING] Could not configure binary cache'
       fi \
   &&  echo '---'
 }
