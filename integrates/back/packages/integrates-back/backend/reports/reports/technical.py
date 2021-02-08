@@ -31,9 +31,6 @@ from back.settings import LOGGING
 
 logging.config.dictConfig(LOGGING)
 
-# Constants
-STARDIR = os.environ['STARTDIR']
-
 LOGGER = logging.getLogger(__name__)
 
 

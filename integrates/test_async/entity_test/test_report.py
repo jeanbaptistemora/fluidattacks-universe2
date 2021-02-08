@@ -9,6 +9,9 @@ from jose import jwt
 from backend import util
 from backend.api.schema import SCHEMA
 from test_async.utils import create_dummy_session
+from __init__ import (
+    STARTDIR
+)
 
 
 pytestmark = pytest.mark.asyncio
@@ -89,3 +92,37 @@ async def test_all_users_report():
     )
     assert ('url' in result_all_users['data']['report']
         and result_all_users['data']['report']['url'])
+
+def test_pdf_paths():
+    # secure_pdf.py paths
+    base = (
+        f'{STARTDIR}/integrates/back/packages/'
+        'integrates-back/backend/reports'
+    )
+    secure_pdf_paths = [
+        base,
+        f'{base}/results/results_pdf/',
+        f'{base}/resources/themes/watermark_integrates_en.pdf',
+        f'{base}/resources/themes/overlay_footer.pdf',
+    ]
+
+    for path in secure_pdf_paths:
+        assert os.path.exists(path), f'path: {path} is not valid'
+
+    # pdf.py paths
+    path = (
+        f'{STARTDIR}/integrates/back/packages/'
+        'integrates-back/backend/reports'
+    )
+    pdf_paths = [
+        path,
+        f'{path}/resources/fonts',
+        f'{path}/resources/themes',
+        f'{path}/results/results_pdf/',
+        f'{path}/templates/pdf/executive.adoc',
+        f'{path}/templates/pdf/tech.adoc',
+        f'{path}/tpls/',
+    ]
+
+    for path in pdf_paths:
+        assert os.path.exists(path), f'path: {path} is not valid'

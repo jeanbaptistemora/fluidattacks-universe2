@@ -46,6 +46,7 @@ try:
     FI_ZENDESK_SUBDOMAIN = os.environ['ZENDESK_SUBDOMAIN']
     FI_ZENDESK_TOKEN = os.environ['ZENDESK_TOKEN']
     SQS_QUEUE_URL = os.environ['SQS_QUEUE_URL']
+    STARTDIR = os.environ['STARTDIR']
 
     # not secrets but must be environment vars
     BASE_URL = 'https://integrates.fluidattacks.com'

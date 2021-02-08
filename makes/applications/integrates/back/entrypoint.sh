@@ -117,11 +117,10 @@ function main {
             mkdir 'integrates' \
         &&  copy '__envIntegrates__' 'integrates'
       fi \
+  &&  export STARTDIR="${PWD}" \
   &&  pushd integrates \
     &&  __envKillPidListeningOnPort__ "${port}" \
-    &&  { STARTDIR="${PWD}" \
-          __envAsgi__ "${config[@]}" 'back.app.app:APP' \
-        & } \
+    &&  { __envAsgi__ "${config[@]}" 'back.app.app:APP' & } \
     &&  __envWait__ 5 "${host}:${port}" \
     &&  __envDone__ 28001 \
     &&  echo '[INFO] Back is ready' \

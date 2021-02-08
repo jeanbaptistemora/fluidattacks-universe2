@@ -6,7 +6,6 @@ import sys
 import subprocess
 import uuid
 import importlib
-import os
 
 from typing import Dict
 import jinja2
@@ -14,15 +13,14 @@ import matplotlib
 
 from backend.reports.typing import PDFWordlistEn
 
-from __init__ import BASE_URL
+from __init__ import (
+    BASE_URL,
+    STARTDIR
+)
 from pylab import figure, pie, axis, savefig, cla, clf, close  # noqa
 
 
 matplotlib.use('Agg')
-
-
-# Constants
-STARDIR = os.environ['STARTDIR']
 
 
 # pylint: disable=too-many-instance-attributes
@@ -45,7 +43,7 @@ class CreatorPDF():
     def __init__(self, lang, doctype, tempdir):
         """Class constructor."""
         self.path = (
-            f'{STARDIR}/integrates/back/packages/'
+            f'{STARTDIR}/integrates/back/packages/'
             'integrates-back/backend/reports'
         )
         self.result_dir = self.path + self.result_dir

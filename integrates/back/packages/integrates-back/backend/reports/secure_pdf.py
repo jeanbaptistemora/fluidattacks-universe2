@@ -7,10 +7,9 @@ from aioextensions import (
 from fpdf import FPDF
 from PyPDF4 import PdfFileWriter, PdfFileReader
 from backend.dal import project as project_dal
-
-
-# Constants
-STARDIR = os.environ['STARTDIR']
+from __init__ import (
+    STARTDIR,
+)
 
 
 class PDF(FPDF):  # type: ignore
@@ -42,7 +41,7 @@ class SecurePDF():
     def __init__(self, passphrase: str):
         """Class constructor."""
         self.base = (
-            f'{STARDIR}/integrates/back/packages/'
+            f'{STARTDIR}/integrates/back/packages/'
             'integrates-back/backend/reports'
         )
 
