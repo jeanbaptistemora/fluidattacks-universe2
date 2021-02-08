@@ -193,17 +193,14 @@ async def update_invited_stakeholder(
         new_invitation['responsibility'] = responsibility
         new_invitation['role'] = role
 
-        success = all(await collect([
-            group_domain.update_access(
-                email,
-                group_name,
-                {
-                    'invitation': new_invitation,
+        success = await group_domain.update_access(
+            email,
+            group_name,
+            {
+                'invitation': new_invitation,
 
-                }
-            ),
-            user_domain.add_phone_to_user(email, phone_number)
-        ]))
+            }
+        )
 
     return success
 
