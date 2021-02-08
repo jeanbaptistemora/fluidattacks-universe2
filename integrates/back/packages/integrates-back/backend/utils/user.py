@@ -189,6 +189,7 @@ async def update_invited_stakeholder(
         and await validate_fluidattacks_staff_on_group(group_name, email, role)
 
     ):
+        new_invitation['phone_number'] = phone_number
         new_invitation['responsibility'] = responsibility
         new_invitation['role'] = role
 
