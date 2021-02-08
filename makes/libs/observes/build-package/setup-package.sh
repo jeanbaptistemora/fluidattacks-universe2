@@ -5,10 +5,20 @@ source '__envSearchPaths__'
 
 
 function setup_runtime {
-      make_python_path '3.8' \
-        '__envPythonReqs__'\
-  &&  make_python_path_plain \
-        '__envPackageSrc__'
+  IFS=' ' read -r -a python_req_srcs <<< "__envPythonReqsSrcs__" \
+  &&  IFS=' ' read -r -a python_req_envs <<< "__envPythonReqsEnvs__" \
+  &&  for pkg in "${python_req_envs[@]}"
+      do
+            make_python_path '3.8' \
+              "${pkg}" \
+        ||  return 1 \
+        &&  echo "[INFO] Added pyreqs: ${pkg}"
+      done \
+  &&  for pkg in "${python_req_srcs[@]}"
+      do
+            make_python_path_plain "$pkg" || return 1 \
+        &&  echo "[INFO] Added pysrc: ${pkg}"
+      done
 }
 
 setup_runtime

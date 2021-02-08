@@ -4,28 +4,24 @@ let
     inherit nixPkgs path;
   };
   packageBuilder = import (path "/makes/libs/observes/build-package");
-  mkDerivation = packageConfig: rec {
-    name = packageConfig.packageName;
-    packagePath = packageConfig.srcPath;
-    env = packageBuilder {
-      inherit nixPkgs;
-      inherit packageConfig;
-      inherit path;
-    };
-    buildInputs = [ env ] ++ packageConfig.buildInputsList;
+  mkPackage = packageConfig: packageBuilder {
+    inherit nixPkgs packageConfig path;
   };
-  getLocalReqs = pkgName: self: builtins.map (pkg: self.${pkg}.env) rawPackageConfig.${pkgName}.local;
+  getLocalReqs = pkgName: self:
+    builtins.map (pkg: self.${pkg}) rawPackageConfig.${pkgName}.local;
   getPackageConfig = packageName: self: {
     inherit packageName;
     srcPath = rawPackageConfig.${packageName}.srcPath;
-    reqs = rawPackageConfig.${packageName};
-    buildInputsList = rawPackageConfig.${packageName}.nix ++ getLocalReqs packageName self;
+    reqs = rawPackageConfig.${packageName} // {
+      local = getLocalReqs packageName self;
+    };
+    buildInputs = rawPackageConfig.${packageName}.nix;
     python = nixPkgs.python38;
   };
   lib = rec {
     self = builtins.mapAttrs
       (
-        pkgName: _: mkDerivation (getPackageConfig pkgName self)
+        pkgName: _: mkPackage (getPackageConfig pkgName self)
       )
       rawPackageConfig;
   };

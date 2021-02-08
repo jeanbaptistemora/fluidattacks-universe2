@@ -8,7 +8,7 @@ let
 in
 makeDerivation {
   builder = path "/makes/libs/observes/tester/builder.sh";
-  buildInputs = [ observesPackage.env ];
+  buildInputs = [ observesPackage.template ];
   envSrc = observesPackage.packagePath;
   envTestDir = testDir;
   name = "observes-tester";
