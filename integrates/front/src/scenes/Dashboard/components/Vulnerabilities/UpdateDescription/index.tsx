@@ -173,6 +173,12 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
     if (vulnerabilities.length === 0) {
       msgError(translate.t("search_findings.tab_resources.no_selection"));
     } else {
+      if (dataTreatment.tag !== undefined) {
+        mixpanel.track("AddVulnerabilityTag");
+      }
+      if (dataTreatment.severity !== undefined) {
+        mixpanel.track("AddVulnerabilityLevel");
+      }
       try {
         setRunning(true);
         const results: ExecutionResult<

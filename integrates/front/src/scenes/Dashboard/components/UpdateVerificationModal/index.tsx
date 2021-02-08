@@ -12,6 +12,7 @@ import React from "react";
 import { DataTableNext } from "components/DataTableNext";
 import { changeVulnStateFormatter } from "components/DataTableNext/formatters";
 import { IHeaderConfig } from "components/DataTableNext/types";
+import mixpanel from "mixpanel-browser";
 import { RemediationModal } from "scenes/Dashboard/components/RemediationModal/index";
 import {
   REQUEST_VERIFICATION_VULN,
@@ -150,6 +151,8 @@ const updateVerificationModal: React.FC<IUpdateVerificationModal> = (props: IUpd
     (values: { treatmentJustification: string }): void => {
       if (props.isReattacking) {
         const vulnerabilitiesId: string[] = props.vulns.map((vuln: IVulnData) => vuln.id);
+
+        mixpanel.track("RequestReattack");
         requestVerification({
           variables: {
             findingId: props.findingId,

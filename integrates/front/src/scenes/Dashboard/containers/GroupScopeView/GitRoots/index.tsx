@@ -16,6 +16,7 @@ import type { PureAbility } from "@casl/ability";
 import React from "react";
 import _ from "lodash";
 import { authzPermissionsContext } from "utils/authz/config";
+import mixpanel from "mixpanel-browser";
 import { msgError } from "utils/notifications";
 import { selectFilter } from "react-bootstrap-table2-filter";
 import style from "./index.css";
@@ -240,6 +241,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
 
       if (isManagingRoot != false) {
         if (isManagingRoot.mode === "ADD") {
+          mixpanel.track("AddGitRoot");
           await addGitRoot({
             variables: {
               branch,
@@ -251,6 +253,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
             },
           });
         } else {
+          mixpanel.track("EditGitRoot");
           await updateGitRoot({
             variables: {
               environment,

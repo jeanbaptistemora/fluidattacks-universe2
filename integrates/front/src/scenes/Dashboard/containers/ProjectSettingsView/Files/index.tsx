@@ -96,6 +96,7 @@ const files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
   });
   const handleRemoveFile: (() => void) = (): void => {
     closeOptionsModal();
+    mixpanel.track("RemoveFile");
     void removeFile({
       variables: {
         filesData: JSON.stringify({ fileName: currentRow.fileName }), projectName: props.projectName,

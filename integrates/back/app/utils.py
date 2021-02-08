@@ -6,12 +6,13 @@ from typing import Any, Dict
 import sqreen
 from aioextensions import (
     collect,
+    in_thread,
     schedule
 )
+from authlib.integrations.starlette_client import OAuth
+from mixpanel import Mixpanel
 from starlette.requests import Request
 from starlette.responses import HTMLResponse
-
-from authlib.integrations.starlette_client import OAuth
 
 # Local libraries
 from backend.dal.helpers.redis import redis_set_entity_attr
@@ -153,6 +154,12 @@ async def create_user(user: Dict[str, str]) -> None:
 
     if not await user_domain.is_registered(email):
         sqreen.signup_track(username=email)
+        await in_thread(
+            Mixpanel(settings.MIXPANEL_API_TOKEN).track,
+            email,
+            'Register',
+            {'Email': email}
+        )
         await autoenroll_user(email)
 
         schedule(
