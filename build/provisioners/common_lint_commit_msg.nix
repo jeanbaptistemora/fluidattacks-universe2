@@ -16,12 +16,12 @@ in
       nodeJsModuleCommitlint =
         builders.nodeJsModule {
           moduleName = "commitlint";
-          requirement = "@commitlint/cli@9.0.1";
+          requirement = "@commitlint/cli@11.0.0";
         };
       nodeJsModuleCommitlintConfigConventional =
         builders.nodeJsModule {
           moduleName = "commitlint-config-conventional";
-          requirement = "@commitlint/config-conventional@9.0.1";
+          requirement = "@commitlint/config-conventional@11.0.0";
         };
     })
   )
