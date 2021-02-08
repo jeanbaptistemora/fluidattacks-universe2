@@ -3,7 +3,7 @@
   We need className to override default styles from react-bootstrap.
   */
 import type { ComponentSize } from "@rehooks/component-size";
-import { Glyphicon } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { IGraphicProps } from "graphics/types";
 import type { ISecureStoreConfig } from "utils/secureStore";
 import { Modal } from "components/Modal";
@@ -22,6 +22,14 @@ import {
   GraphicPanelCollapseFooter,
   GraphicPanelCollapseHeader,
 } from "styles/styledComponents";
+import {
+  faDownload,
+  faExpandArrowsAlt,
+  faHourglassHalf,
+  faSyncAlt,
+  faTimes,
+  faWrench,
+} from "@fortawesome/free-solid-svg-icons";
 
 const glyphPadding: number = 15;
 const fontSize: number = 16;
@@ -181,14 +189,14 @@ export const Graphic: React.FC<IGraphicProps> = (
                     rel={"noopener noreferrer"}
                     target={"_blank"}
                   >
-                    <Glyphicon glyph={"save"} />
+                    <FontAwesomeIcon icon={faDownload} />
                   </a>
                 </GraphicButton>
                 <GraphicButton onClick={modalFrameOnRefresh}>
-                  <Glyphicon glyph={"refresh"} />
+                  <FontAwesomeIcon icon={faSyncAlt} />
                 </GraphicButton>
                 <GraphicButton onClick={frameOnFullScreenExit}>
-                  <Glyphicon glyph={"remove"} />
+                  <FontAwesomeIcon icon={faTimes} />
                 </GraphicButton>
               </ButtonGroup>
             </div>
@@ -239,14 +247,14 @@ export const Graphic: React.FC<IGraphicProps> = (
                             rel={"noopener noreferrer"}
                             target={"_blank"}
                           >
-                            <Glyphicon glyph={"save"} />
+                            <FontAwesomeIcon icon={faDownload} />
                           </a>
                         </GraphicButton>
                         <GraphicButton onClick={frameOnRefresh}>
-                          <Glyphicon glyph={"refresh"} />
+                          <FontAwesomeIcon icon={faSyncAlt} />
                         </GraphicButton>
                         <GraphicButton onClick={frameOnFullScreen}>
-                          <Glyphicon glyph={"fullscreen"} />
+                          <FontAwesomeIcon icon={faExpandArrowsAlt} />
                         </GraphicButton>
                       </ButtonGroup>
                     )}
@@ -282,10 +290,10 @@ export const Graphic: React.FC<IGraphicProps> = (
                   }}
                 >
                   {iframeState === "loading" ? (
-                    <Glyphicon glyph={"hourglass"} />
+                    <FontAwesomeIcon icon={faHourglassHalf} />
                   ) : (
                     <React.Fragment>
-                      <Glyphicon glyph={"wrench"} />
+                      <FontAwesomeIcon icon={faWrench} />
                       <p className={styles.emptyChart}>
                         {translate.t("analytics.emptyChart.text")}
                       </p>

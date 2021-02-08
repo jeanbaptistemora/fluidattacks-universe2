@@ -160,6 +160,6 @@ describe("ForcesView", () => {
     row.simulate("click");
     expect(wrapper
       .find("span"))
-      .toHaveLength(35);
+      .toHaveLength(34);
   });
 });
