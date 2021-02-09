@@ -16,6 +16,7 @@ import { authzPermissionsContext } from "utils/authz/config";
 import { msgError } from "utils/notifications";
 import store from "store";
 import wait from "waait";
+import waitForExpect from "wait-for-expect";
 import type { ReactWrapper, ShallowWrapper } from "enzyme";
 import { mount, shallow } from "enzyme";
 
@@ -203,24 +204,28 @@ describe("Add user modal", (): void => {
       target: { name: "email", value: "unittest@test.com" },
     });
     emailInput.simulate("blur");
+
     await act(
       async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
+        await waitForExpect((): void => {
+          wrapper.update();
+
+          const phoneNumberInput: ReactWrapper = wrapper
+            .find({ name: "phoneNumber", type: "text" })
+            .at(0)
+            .find("input");
+          const responsibilityInput: ReactWrapper = wrapper
+            .find({ name: "responsibility", type: "text" })
+            .at(0)
+            .find("input");
+
+          expect(phoneNumberInput.prop("value")).toStrictEqual(
+            "+57 (312) 321 0123"
+          );
+          expect(responsibilityInput.prop("value")).toStrictEqual("edited");
+        });
       }
     );
-
-    const phoneNumberInput: ReactWrapper = wrapper
-      .find({ name: "phoneNumber", type: "text" })
-      .at(0)
-      .find("input");
-    const responsibilityInput: ReactWrapper = wrapper
-      .find({ name: "responsibility", type: "text" })
-      .at(0)
-      .find("input");
-
-    expect(phoneNumberInput.prop("value")).toStrictEqual("+57 (312) 321 0123");
-    expect(responsibilityInput.prop("value")).toStrictEqual("edited");
   });
 
   it("should handle errors when auto fill data", async (): Promise<void> => {

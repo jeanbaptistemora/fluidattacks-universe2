@@ -21,6 +21,22 @@ function main {
     &&  HOME=. npm install --force \
     &&  { HOME=. npm audit || true; } \
   &&  popd \
+  &&  shopt -s nullglob \
+  &&  for module in "${out}/node_modules/"*
+      do
+            for bin in "${module}/bin/"*
+            do
+              sed -i "s|#!/usr/bin/env node|#!${envNode}/bin/node|g" "${bin}"
+            done \
+        &&  for bin in "${module}/src/"* # Handle modules without bin folder like secure-spreadsheet
+            do
+              if test -f "${bin}"
+              then
+                sed -i "s|#!/usr/bin/env node|#!${envNode}/bin/node|g" "${bin}"
+              fi
+            done \
+        ||  return 1
+      done \
   &&  echo '[INFO] Freezing' \
   &&  get_deps_from_lock "${out}/package-lock.json" > "${out}/requirements" \
   &&  if test "$(cat "${out}/requirements")" = "$(cat "${envRequirementsFile}")"

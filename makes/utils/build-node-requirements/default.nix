@@ -40,6 +40,7 @@ in
 makeDerivation {
   builder = path "/makes/utils/build-node-requirements/builder.sh";
   buildInputs = dependencies ++ [ pkgs.jq node ];
+  envNode = node;
   envBashLibCommon = path "/makes/utils/common/template.sh";
   envPackageJsonFile = builtins.toFile "package.json" packageJson;
   envRequirementsFile = nix.listToFileWithTrailinNewLine requirementsList;
