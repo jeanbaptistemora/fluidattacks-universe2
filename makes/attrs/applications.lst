@@ -70,6 +70,8 @@ serves/users/airs/apply
 serves/users/airs/test
 serves/users/forces/apply
 serves/users/forces/test
+serves/vpc/apply
+serves/vpc/test
 skims
 skims/benchmark
 skims/benchmark-on-aws
