@@ -119,6 +119,24 @@ async def get_active_projects() -> List[str]:
     )
 
 
+async def get_projects_with_forces() -> List[str]:
+    """Get active project in DynamoDB"""
+    query_attrs = {
+        "ProjectionExpression": "#name,#h_config",
+        "ExpressionAttributeNames": {
+            "#name": "project_name",
+            "#h_config": "historic_configuration",
+        },
+    }
+    response = await dynamodb.async_scan(TABLE_NAME, query_attrs)
+    projects = [
+        project['project_name'] for project in response
+        if project['historic_configuration'][-1]['has_forces']
+    ]
+
+    return cast(List[str], projects)
+
+
 async def get_alive_projects() -> List[str]:
     """Get active and suspended projects in DynamoDB"""
     filtering_exp = (
