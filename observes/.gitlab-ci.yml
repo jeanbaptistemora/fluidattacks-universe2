@@ -181,6 +181,11 @@ observes/test-streamer-zoho-crm:
   <<: *observes_in_dev_branch
   stage: test-code
 
+observes/test-tap-csv:
+  <<: *makes
+  <<: *observes_in_dev_branch
+  stage: test-code
+
 # disorganized jobs
 
 observes_apply_infra:
@@ -223,11 +228,6 @@ observes_gitlab_on_aws:
     refs: [schedules]
     variables: [$observes_gitlab_on_aws]
   interruptible: false
-
-observes_tap_csv_test:
-  <<: *with_nix
-  <<: *observes_in_dev_branch
-  stage: test-code
 
 observes_tredshift_test:
   <<: *with_nix
