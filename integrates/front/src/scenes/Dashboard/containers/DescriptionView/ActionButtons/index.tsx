@@ -3,9 +3,10 @@
  * jsx-no-multiline-js: Necessary for using conditional rendering
  */
 
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import _ from "lodash";
 import React from "react";
-import { Glyphicon } from "react-bootstrap";
 
 import { Button } from "components/Button";
 import { FluidIcon } from "components/FluidIcon";
@@ -48,7 +49,7 @@ const actionButtons: React.FC<IActionButtonsProps> = (props: IActionButtonsProps
         <Button onClick={onEdit}>
           {props.isEditing ? (
             <React.Fragment>
-              <Glyphicon glyph="remove" />&nbsp;{translate.t("search_findings.tab_description.editable.cancel")}
+              <FontAwesomeIcon icon={faTimes} />&nbsp;{translate.t("search_findings.tab_description.editable.cancel")}
             </React.Fragment>
           ) : (
             <React.Fragment>

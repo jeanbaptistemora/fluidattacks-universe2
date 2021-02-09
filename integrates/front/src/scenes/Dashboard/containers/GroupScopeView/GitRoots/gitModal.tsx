@@ -1,7 +1,7 @@
 import { Button } from "components/Button";
 import { Can } from "utils/authz/Can";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { GenericForm } from "scenes/Dashboard/components/GenericForm";
-import { Glyphicon } from "react-bootstrap";
 import type { IGitRootAttr } from "../types";
 import type { InjectedFormProps } from "redux-form";
 import { Modal } from "components/Modal";
@@ -9,7 +9,7 @@ import React from "react";
 import { SwitchButton } from "components/SwitchButton";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import _ from "lodash";
-import style from "./index.css";
+import { faQuestionCircle } from "@fortawesome/free-solid-svg-icons";
 import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 import {
@@ -17,6 +17,7 @@ import {
   ButtonToolbar,
   Col100,
   ControlLabel,
+  QuestionButton,
   RequiredField,
   Row,
 } from "styles/styledComponents";
@@ -172,13 +173,12 @@ const GitModal: React.FC<IGitModalProps> = ({
                       {t("group.scope.git.filter.exclude")}
                     </ControlLabel>
                   </TooltipWrapper>
-                  <Button
+                  <QuestionButton
                     // eslint-disable-next-line react/forbid-component-props
-                    className={style.button}
                     onClick={goToDocumentation}
                   >
-                    <Glyphicon glyph={"glyphicon glyphicon-question-sign"} />
-                  </Button>
+                    <FontAwesomeIcon icon={faQuestionCircle} />
+                  </QuestionButton>
                   {_.isUndefined(gitIgnoreValues) ? undefined : _.isEmpty(
                       gitIgnoreValues
                     ) ? undefined : (

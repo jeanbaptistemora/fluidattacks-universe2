@@ -4,11 +4,12 @@
  * apollo components
  */
 import { useMutation, useQuery } from "@apollo/react-hooks";
+import { faFile, faImage } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ApolloError, NetworkStatus } from "apollo-client";
 import { GraphQLError } from "graphql";
 import _ from "lodash";
 import React from "react";
-import { Glyphicon } from "react-bootstrap";
 import { useParams } from "react-router";
 import { InjectedFormProps, Validator } from "redux-form";
 
@@ -151,7 +152,7 @@ const eventEvidenceView: React.FC = (): JSX.Element => {
         <br />
         {_.isEmpty(data.event.evidence) && _.isEmpty(data.event.evidenceFile) && !isEditing ? (
           <div className={globalStyle["no-data"]}>
-            <Glyphicon glyph="picture" />
+            <FontAwesomeIcon size={"3x"} icon={faImage} />
             <p>{translate.t("group.events.evidence.no_data")}</p>
           </div>
         ) : undefined}
@@ -182,7 +183,11 @@ const eventEvidenceView: React.FC = (): JSX.Element => {
               {!_.isEmpty(data.event.evidenceFile) || isEditing ? (
                 <EvidenceImage
                   acceptedMimes="application/pdf,application/zip,text/csv,text/plain"
-                  content={<Glyphicon glyph="file" />}
+                  content={
+                    <div>
+                      <FontAwesomeIcon size={"1x"} icon={faFile} />
+                    </div>
+                  }
                   description="File"
                   isDescriptionEditable={false}
                   isEditing={isEditing}

@@ -5,12 +5,13 @@
  */
 import { ExecutionResult } from "@apollo/react-common";
 import { useMutation, useQuery } from "@apollo/react-hooks";
+import { faImage } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ApolloError, NetworkStatus } from "apollo-client";
 import { GraphQLError } from "graphql";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
-import { Glyphicon } from "react-bootstrap";
 import { useParams } from "react-router";
 import { InjectedFormProps, Validator } from "redux-form";
 
@@ -161,7 +162,7 @@ const evidenceView: React.FC = (): JSX.Element => {
       {_.isEmpty(evidenceList)
         ? (
           <div className={globalStyle["no-data"]}>
-            <Glyphicon glyph="picture" />
+            <FontAwesomeIcon size={"3x"} icon={faImage} />
             <p>{translate.t("group.findings.evidence.no_data")}</p>
           </div>
         )

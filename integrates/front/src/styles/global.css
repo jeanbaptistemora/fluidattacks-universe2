@@ -190,6 +190,16 @@ label {
   text-decoration: none;
 }
 
+:global .questionBtn {
+  border: 0 !important;
+  color: #ff3435;
+}
+
+:global .questionBtn:hover {
+  background-color: unset !important;
+  color: #272727 !important;
+}
+
 :global .navbar {
   background-color: #f5f5f5;
   border-bottom: 2px #e4e4e4 solid;

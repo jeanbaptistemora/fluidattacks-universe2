@@ -2,13 +2,3 @@
   white-space: pre-wrap !important;
   word-break: break-word !important;
 }
-
-:local .button {
-  border: 0 !important;
-  padding: 0 !important;
-}
-
-:local .button:hover {
-  background-color: unset !important;
-  color: unset !important;
-}

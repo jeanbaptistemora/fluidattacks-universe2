@@ -453,6 +453,13 @@ const ProjectScopeText: StyledComponent<
   className: "ph1-5 vertical-center w-60-ns fw2 f2-5",
 })``;
 
+const QuestionButton: StyledComponent<
+  "button",
+  Record<string, unknown>
+> = styled.button.attrs({
+  className: "outline-0 pa0 questionBtn",
+})``;
+
 const RemoveItem: StyledComponent<
   "div",
   Record<string, unknown>
@@ -673,6 +680,7 @@ export {
   PanelCollapseHeader,
   ProgressBar,
   ProjectScopeText,
+  QuestionButton,
   RemoveItem,
   RemoveTag,
   RequiredField,

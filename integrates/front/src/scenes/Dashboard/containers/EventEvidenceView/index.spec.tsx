@@ -237,8 +237,8 @@ describe("EventEvidenceView", () => {
       </MemoryRouter>,
     );
     await act(async () => { await wait(0); wrapper.update(); });
-    wrapper.find("span")
-      .find({ className: "img glyphicon glyphicon-file" })
+    wrapper.find("svg")
+      .find(".fa-file")
       .simulate("click");
     await act(async () => { await wait(0); });
     expect(onOpenLink)
