@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Feb 09, 2021, 04:09 PM",
+    "DateLastModified": "Feb 09, 2021, 04:56 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "2.0"
@@ -47,7 +47,15 @@
           "AttributeType": "BOOL"
         },
         {
+          "AttributeName": "email",
+          "AttributeType": "S"
+        },
+        {
           "AttributeName": "role",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "responsibility",
           "AttributeType": "S"
         },
         {
@@ -111,11 +119,35 @@
           "AttributeType": "M"
         },
         {
-          "AttributeName": "responsibility",
+          "AttributeName": "url",
           "AttributeType": "S"
         },
         {
-          "AttributeName": "email",
+          "AttributeName": "environment",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "environment_urls",
+          "AttributeType": "SS"
+        },
+        {
+          "AttributeName": "gitignore",
+          "AttributeType": "SS"
+        },
+        {
+          "AttributeName": "includes_health_check",
+          "AttributeType": "BOOL"
+        },
+        {
+          "AttributeName": "modified_by",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "cloning_status",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "cloning_message",
           "AttributeType": "S"
         }
       ],
@@ -206,6 +238,28 @@
             "repo",
             "strictness",
             "vulnerabilities"
+          ]
+        },
+        {
+          "FacetName": "root",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "pk",
+            "SortKeyAlias": "sk"
+          },
+          "TableData": [],
+          "NonKeyAttributes": [
+            "type",
+            "status",
+            "modified_date",
+            "branch",
+            "url",
+            "environment",
+            "environment_urls",
+            "gitignore",
+            "includes_health_check",
+            "modified_by",
+            "cloning_status",
+            "cloning_message"
           ]
         }
       ],
