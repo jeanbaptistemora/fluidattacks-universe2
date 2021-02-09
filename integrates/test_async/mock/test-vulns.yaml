@@ -2,6 +2,7 @@ inputs:
 - field: phone
   state: open
   url: https://example.com
+  stream: home,blog,articulo
 lines:
 - line: '123'
   path: path/to/file1.ext

@@ -107,6 +107,7 @@ async def batch_load_fn_vulns(
                     HistoricType, vuln['historic_state']
                 )[0]['date'],
                 last_reattack_date=vuln_domain.get_last_reattack_date(vuln),
+                stream=str(vuln.get('stream', '')).replace(',', ' > '),
             )
         )
 
