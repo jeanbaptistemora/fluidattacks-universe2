@@ -156,6 +156,11 @@ observes/scheduled-formstack-etl:
     variables: [$observes_formstack]
   interruptible: false
 
+observes/test-dif-gitlab-etl:
+  <<: *makes
+  <<: *observes_in_dev_branch
+  stage: test-code
+
 observes/test-postgres-client:
   <<: *makes
   <<: *observes_in_dev_branch
@@ -218,11 +223,6 @@ observes_gitlab_on_aws:
     refs: [schedules]
     variables: [$observes_gitlab_on_aws]
   interruptible: false
-
-observes_gitlab_etl_test:
-  <<: *with_nix
-  <<: *observes_in_dev_branch
-  stage: test-code
 
 observes_tap_csv_test:
   <<: *with_nix

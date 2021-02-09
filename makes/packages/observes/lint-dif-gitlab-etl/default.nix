@@ -8,4 +8,4 @@ let
     nixPkgs = observesPkgs;
   };
 in
-lint.difGitlabEtl
+lint.difGitlabEtlDev

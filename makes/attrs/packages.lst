@@ -46,6 +46,7 @@ observes/lint-tap-formstack
 observes/lint-tap-mixpanel
 observes/lint-target-redshift
 observes/lint-update-sync-date
+observes/test-dif-gitlab-etl
 observes/test-postgres-client
 observes/test-singer-io
 observes/test-streamer-gitlab
