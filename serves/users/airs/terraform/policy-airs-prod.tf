@@ -29,7 +29,7 @@ data "aws_iam_policy_document" "web-prod-policy-data" {
 
   # IAM full permissions over owned users, roles and policies
   statement {
-    effect  = "Allow"
+    effect = "Allow"
     actions = [
       "iam:*"
     ]
@@ -44,7 +44,7 @@ data "aws_iam_policy_document" "web-prod-policy-data" {
 
   # ACM create, read and delete certificate
   statement {
-    effect  = "Allow"
+    effect = "Allow"
     actions = [
       "acm:RequestCertificate",
       "acm:DescribeCertificate",
@@ -97,7 +97,7 @@ data "aws_iam_policy_document" "web-prod-policy-data" {
 
   # KMS full permissions
   statement {
-    effect  = "Allow"
+    effect = "Allow"
     actions = [
       "kms:*"
     ]

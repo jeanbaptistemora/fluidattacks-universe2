@@ -2,7 +2,7 @@ data "aws_iam_policy_document" "web-dev-policy-data" {
 
   # S3 web prod bucket
   statement {
-    effect  = "Allow"
+    effect = "Allow"
     actions = [
       "s3:ListBucket",
       "s3:Get*",
@@ -15,7 +15,7 @@ data "aws_iam_policy_document" "web-dev-policy-data" {
 
   # S3 web ephemeral bucket
   statement {
-    effect  = "Allow"
+    effect = "Allow"
     actions = [
       "s3:ListBucket",
       "s3:Get*",
@@ -45,7 +45,7 @@ data "aws_iam_policy_document" "web-dev-policy-data" {
 
   # IAM read over owned users, roles and policies
   statement {
-    effect  = "Allow"
+    effect = "Allow"
     actions = [
       "iam:GetUser",
       "iam:GetRole",
@@ -65,7 +65,7 @@ data "aws_iam_policy_document" "web-dev-policy-data" {
 
   # ACM read certificate
   statement {
-    effect  = "Allow"
+    effect = "Allow"
     actions = [
       "acm:DescribeCertificate",
       "acm:ListTagsForCertificate",
@@ -77,7 +77,7 @@ data "aws_iam_policy_document" "web-dev-policy-data" {
 
   # Lambda
   statement {
-    effect  = "Allow"
+    effect = "Allow"
     actions = [
       "lambda:Get*",
       "lambda:List*"
@@ -102,7 +102,7 @@ data "aws_iam_policy_document" "web-dev-policy-data" {
 
   # KMS full permissions
   statement {
-    effect  = "Allow"
+    effect = "Allow"
     actions = [
       "kms:*"
     ]

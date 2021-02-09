@@ -6,7 +6,7 @@ let
   terraformApply = import (path "/makes/utils/terraform-apply") path servesPkgsTerraform;
 in
 terraformApply {
-  name = "serves-user-forces-apply";
+  name = "serves-users-forces-apply";
   product = "serves";
-  target = "serves/services/user-provision/forces/terraform";
+  target = "serves/users/forces/terraform";
 }

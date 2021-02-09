@@ -63,8 +63,10 @@ serves/dns/apply
 serves/dns/test
 serves/secrets/apply
 serves/secrets/test
-serves/user/forces/apply
-serves/user/forces/test
+serves/users/airs/apply
+serves/users/airs/test
+serves/users/forces/apply
+serves/users/forces/test
 skims
 skims/benchmark
 skims/benchmark-on-aws
