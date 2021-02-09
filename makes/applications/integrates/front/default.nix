@@ -9,8 +9,7 @@ in
 makeEntrypoint {
   arguments = {
     envSearchPaths = makeSearchPaths [ integratesPkgs.nodejs ];
-    envSetupIntegratesDevelopmentFront = import (path "/makes/packages/integrates/front/config/development") attrs.copy;
-    envSetupIntegratesRuntimeFront = import (path "/makes/packages/integrates/front/config/runtime") attrs.copy;
+    envSetupIntegratesFrontDevRuntime = import (path "/makes/packages/integrates/front/config/dev-runtime") attrs.copy;
   };
   name = "integrates-front";
   template = path "/makes/applications/integrates/front/entrypoint.sh";

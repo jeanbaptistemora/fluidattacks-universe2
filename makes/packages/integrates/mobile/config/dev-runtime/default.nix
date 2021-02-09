@@ -16,7 +16,7 @@ makeDerivation {
   envBashLibCommon = path "/makes/utils/common/template.sh";
   envNodeRequirements = buildNodeRequirements {
     dependencies = [ ];
-    name = "integrates-mobile-development";
+    name = "integrates-mobile-dev-runtime";
     node = integratesPkgs.nodejs-12_x;
     requirements = {
       direct = nix.sort (packageJsonDeps.development ++ packageJsonDeps.production);
@@ -1824,5 +1824,5 @@ makeDerivation {
       ];
     };
   };
-  name = "integrates-mobile-config-development";
+  name = "integrates-mobile-config-dev-runtime";
 }

@@ -95,5 +95,5 @@ Run each command in a different terminal:
 Run each command in a different terminal:
 
 ```bash
-./build.sh integrates_serve_components development front
+./make integrates/front
 ```

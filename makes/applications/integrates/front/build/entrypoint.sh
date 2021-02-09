@@ -8,8 +8,7 @@ function main {
   export CI_COMMIT_SHORT_SHA
 
       pushd integrates/front \
-    &&  copy "__envSetupIntegratesDevelopmentFront__/node_modules" node_modules \
-    &&  copy "__envSetupIntegratesRuntimeFront__/node_modules" node_modules \
+    &&  copy "__envSetupIntegratesFrontDevRuntime__/node_modules" node_modules \
     &&  chmod 755 node_modules/.bin/tcm node_modules/.bin/webpack \
       &&  < ../../build/patches/jquery-comments.diff \
             patch \
