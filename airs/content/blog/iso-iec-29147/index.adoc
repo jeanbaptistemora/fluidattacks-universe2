@@ -34,12 +34,13 @@ link:https://www.iso.org/about-us.html[As shared on their website],
 "[It] brings together experts to share knowledge and develop voluntary,
 consensus-based, market relevant International Standards
 that support innovation and provide solutions to global challenges."
-With the number *35*, we have the 'link:https://www.iso.org/ics/35/x/[Information technology]' group
-in link:https://www.iso.org/standards-catalogue/browse-by-ics.html[their standards catalog], where, among 15 different subgroups,
+In link:https://www.iso.org/standards-catalogue/browse-by-ics.html[their standards catalog],
+the number *35* stands for the 'link:https://www.iso.org/ics/35/x/[Information technology]' group,
+where, among 15 different subgroups,
 *35.030* corresponds to the 'link:https://www.iso.org/ics/35.030/x/[IT Security (including encryption)].'
 There, we find the link:https://www.iso.org/standard/72311.html[ISO/IEC 29147:2018],
 'Information technology -Security techniques- Vulnerability disclosure.'
-Here we will introduce you to what the experts in this standard
+In this post, I will introduce you to what the experts in this standard
 have to offer to all interested parties.
 
 == Overview
@@ -68,8 +69,8 @@ is the person or organization that provides information
 on a potential vulnerability to the vendor or coordinator.
 On the other hand, the latter acts as an intermediary
 if communication and negotiation between stakeholders require it.
-It's relevant to note that apart from users,
-coordinators and even vendors can act as reporters.
+It's relevant to note that, apart from users,
+coordinators, and even vendors, can act as reporters.
 
 The procedures of receiving reports and distributing remediation advisories
 are only two elements of a broader process.
@@ -153,9 +154,9 @@ whether the vulnerability has begun to be under investigation,
 whether more information is required in their report,
 or whether it is currently irrelevant.
 In those cases where reports lead to research,
-the previously mentioned link:https://www.iso.org/standard/69725.html[vulnerability handling processes] appear,
+the previously mentioned link:https://www.iso.org/standard/69725.html[vulnerability handling processes] kick off,
 and the vendors build and test remediations
-about which later should distribute advisories.
+about which they should later distribute advisories.
 Certainly, they should not forget to keep reporters up to date.
 
 == Distributing remediation advisories
@@ -175,12 +176,12 @@ Always bearing in mind that if the information is public,
 it must avoid the exhibition of any specification
 advantageous to malicious hackers.
 
-== Quote to remember
+== A quote to remember
 
 [quote]
 "Vulnerability disclosure helps users protect their systems and data,
 prioritize defensive investments, and
-[make better risk decisions]." *ISO/IEC 29147:2018*
+[...] make better risk decisions." *ISO/IEC 29147:2018*
 
 *PS*: Many important details are missing in this post.
 If you're really curious about vulnerability disclosure,
