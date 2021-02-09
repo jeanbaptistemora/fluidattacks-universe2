@@ -1,22 +1,13 @@
-{ servesPkgs
-, servesPkgsTerraform
+{ servesPkgsTerraform
 , path
 , ...
 } @ _:
 let
-  makeEntrypoint = import (path "/makes/utils/make-entrypoint") path servesPkgs;
-  terraformTest = import (path "/makes/utils/terraform-test") path servesPkgsTerraform;
+  terraformTestCloudflare = import (path "/makes/utils/terraform-test-with-cloudflare") path servesPkgsTerraform;
 in
-makeEntrypoint rec {
-  arguments = {
-    envUtilsAws = import (path "/makes/utils/aws") path servesPkgs;
-    envUtilsSops = import (path "/makes/utils/sops") path servesPkgs;
-    envTerraformTest = "${terraformTest {
-      inherit name;
-      product = "serves";
-      target = "serves/users/airs/terraform";
-    }}/bin/${name}";
-  };
+terraformTestCloudflare {
   name = "serves-users-airs-test";
-  template = path "/makes/applications/serves/users/airs/test/entrypoint.sh";
+  product = "serves";
+  target = "serves/users/airs/terraform";
+  secrets_path = "serves/secrets/development.yaml";
 }
