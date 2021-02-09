@@ -96,7 +96,11 @@ export const Dashboard: React.FC = (): JSX.Element => {
       Bugsnag.setUser(me.userEmail, me.userEmail, me.userName);
       mixpanel.alias(me.userEmail);
       mixpanel.identify(me.userEmail);
-      mixpanel.register({ Email: me.userEmail, User: me.userName });
+      mixpanel.register({
+        User: me.userName,
+        integrates_user_email: me.userEmail,
+      });
+      mixpanel.people.set({ $email: me.userEmail, $name: me.userName });
       initializeDelighted(me.userEmail, me.userName);
       initializeZendesk(me.userEmail, me.userName);
       setupSessionCheck(me.sessionExpiration);

@@ -56,7 +56,7 @@ async def mutate(
             'DownloadProjectFile',
             {
                 'Project': project_name.upper(),
-                'Email': user_email,
+                'integrates_user_email': user_email,
                 'FileName': parameters['files_data'],
             }
         )

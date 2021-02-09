@@ -158,7 +158,7 @@ async def create_user(user: Dict[str, str]) -> None:
             Mixpanel(settings.MIXPANEL_API_TOKEN).track,
             email,
             'Register',
-            {'Email': email}
+            {'integrates_user_email': email}
         )
         await autoenroll_user(email)
 

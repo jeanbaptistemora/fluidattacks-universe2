@@ -119,7 +119,7 @@ async def mutate(
             email,
             'MobileAuth',
             {
-                'email': email,
+                'integrates_user_email': email,
                 'provider': provider
             }
         )
