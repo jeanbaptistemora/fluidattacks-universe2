@@ -1,0 +1,5 @@
+inputs:
+- field: search
+  state: open
+  url: https://example.com
+  stream: home,blog,articulo,
