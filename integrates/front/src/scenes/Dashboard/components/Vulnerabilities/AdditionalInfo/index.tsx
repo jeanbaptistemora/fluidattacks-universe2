@@ -8,21 +8,14 @@ import { getLastTreatment } from "scenes/Dashboard/components/Vulnerabilities/Up
 import { statusFormatter } from "components/DataTableNext/formatters";
 import styled from "styled-components";
 import { useTranslation } from "react-i18next";
-import {
-  Col100,
-  Col40,
-  Col60,
-  EditableFieldNotUrl,
-  Row,
-  RowCenter,
-} from "styles/styledComponents";
+import { Col100, Col40, Col60, Row, RowCenter } from "styles/styledComponents";
 
 interface IAdditionalInfoProps {
   canDisplayAnalyst: boolean;
   vulnerability: IVulnRowAttr;
 }
 
-const Justification: StyledComponent<
+const Field: StyledComponent<
   "span",
   Record<string, unknown>
 > = styled.span.attrs({
@@ -86,9 +79,13 @@ export const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
                     <b>{t("search_findings.tab_vuln.vulnTable.where")}</b>
                   </Col40>
                   <Col100>
-                    <EditableFieldNotUrl>
-                      {vulnerability.where}
-                    </EditableFieldNotUrl>
+                    <Field>{vulnerability.where}</Field>
+                    {_.isEmpty(vulnerability.stream) ? undefined : (
+                      <React.Fragment>
+                        <br />
+                        <Field>{vulnerability.stream}</Field>
+                      </React.Fragment>
+                    )}
                   </Col100>
                 </Row>
               </li>
@@ -198,7 +195,7 @@ export const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
                     </b>
                   </Col40>
                   <Col60>
-                    <Justification>{currentJustification}</Justification>
+                    <Field>{currentJustification}</Field>
                   </Col60>
                 </Row>
               </li>

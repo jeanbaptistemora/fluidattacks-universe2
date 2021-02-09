@@ -36,6 +36,7 @@ export const GET_FINDING_VULN_INFO: DocumentNode = gql`
         reportDate
         severity
         specific
+        stream
         tag
         verification
         vulnType

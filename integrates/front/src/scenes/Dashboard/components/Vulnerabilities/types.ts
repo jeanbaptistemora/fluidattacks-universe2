@@ -16,6 +16,7 @@ interface IVulnRowAttr {
   reportDate: string;
   severity: string;
   specific: string;
+  stream: string;
   tag: string;
   treatment: string;
   treatmentChanges: number;
