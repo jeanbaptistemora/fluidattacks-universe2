@@ -530,16 +530,12 @@ async def mask_finding(context: Any, finding_id: str) -> bool:
     ]
     mask_finding_coroutines.extend(comments_coroutines)
 
-    finding_loader = context.finding_vulns
-    vulns = await finding_loader.load(finding_id)
-    list_vulns = [
-        vuln for vuln in vulns
-        if vuln.get('historic_state', [{}])[-1].get('state') != 'DELETED'
-    ]
+    finding_all_vulns_loader = context.finding_vulns_all
+    vulns = await finding_all_vulns_loader.load(finding_id)
 
     mask_vulns_coroutines = [
         vuln_utils.mask_vuln(finding_id, str(vuln['UUID']))
-        for vuln in list_vulns
+        for vuln in vulns
     ]
     mask_finding_coroutines.extend(mask_vulns_coroutines)
 
