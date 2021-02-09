@@ -7,6 +7,7 @@ from collections import defaultdict
 from contextlib import AsyncExitStack
 from datetime import date
 from decimal import Decimal
+from itertools import chain
 from typing import (
     Any,
     cast,
@@ -30,10 +31,15 @@ from backend.dal.helpers.dynamodb import start_context
 from backend.dal import (
     project as project_dal
 )
+from backend.filters import (
+    stakeholder as stakeholder_filters,
+)
 from backend.typing import (
     Comment as CommentType,
     Finding as FindingType,
     Historic as HistoricType,
+    Invitation as InvitationType,
+    Stakeholder as StakeholderType,
     Project as ProjectType,
     ProjectAccess as ProjectAccessType,
     Vulnerability as VulnerabilityType
@@ -1151,3 +1157,73 @@ async def filter_stakeholders(
         if not is_fluid_user(email)
         or await is_manager(email, group_name)
     ]
+
+
+async def _get_stakeholder(
+    email: str,
+    group_name: str
+) -> StakeholderType:
+    stakeholder: StakeholderType = await user_domain.get_by_email(email)
+    project_access = await get_user_access(
+        email,
+        group_name
+    )
+    invitation = cast(InvitationType, project_access.get('invitation'))
+    invitation_state = (
+        'PENDING' if invitation and not invitation['is_used'] else
+        'UNREGISTERED' if not stakeholder.get('is_registered', False) else
+        'CONFIRMED'
+    )
+    if invitation_state == 'PENDING':
+        invitation_date = invitation['date']
+        responsibility = invitation['responsibility']
+        group_role = invitation['role']
+        phone_number = invitation['phone_number']
+    else:
+        invitation_date = ''
+        responsibility = cast(str, project_access.get('responsibility', ''))
+        group_role = await authz.get_group_level_role(email, group_name)
+        phone_number = cast(str, stakeholder['phone_number'])
+
+    return {
+        **stakeholder,
+        'responsibility': responsibility,
+        'invitation_date': invitation_date,
+        'invitation_state': invitation_state,
+        'phone_number': phone_number,
+        'role': group_role
+    }
+
+
+async def get_stakeholders(
+    group_name: str,
+    exclude_fluid_staff: bool = False,
+) -> List[StakeholderType]:
+    group_stakeholders_emails = cast(List[str], list(chain.from_iterable(
+        await collect([
+            get_users(group_name),
+            get_users(group_name, False)
+        ])
+    )))
+
+    if exclude_fluid_staff:
+        group_stakeholders_emails = (
+            await stakeholder_filters.filter_non_fluid_staff(
+                group_stakeholders_emails,
+                group_name
+            )
+        )
+
+    group_stakeholders = cast(
+        List[StakeholderType],
+        await collect(
+            _get_stakeholder(email, group_name)
+            for email in group_stakeholders_emails
+        )
+    )
+
+    group_stakeholders = stakeholder_filters.filter_by_expired_invitation(
+        group_stakeholders
+    )
+
+    return group_stakeholders
