@@ -68,6 +68,8 @@ serves/secrets/apply
 serves/secrets/test
 serves/users/airs/apply
 serves/users/airs/test
+serves/users/asserts/apply
+serves/users/asserts/test
 serves/users/forces/apply
 serves/users/forces/test
 serves/vpc/apply

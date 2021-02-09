@@ -126,6 +126,16 @@ serves/users/airs/apply:
   <<: *serves_in_master_branch
   stage: deploy-infra
 
+serves/users/asserts/test:
+  <<: *makes
+  <<: *serves_in_dev_branch
+  stage: test-infra
+
+serves/users/asserts/apply:
+  <<: *makes
+  <<: *serves_in_master_branch
+  stage: deploy-infra
+
 serves/users/forces/test:
   <<: *makes
   <<: *serves_in_dev_branch
@@ -135,11 +145,6 @@ serves/users/forces/apply:
   <<: *makes
   <<: *serves_in_master_branch
   stage: deploy-infra
-
-serves_test_user_provision_asserts:
-  <<: *with_nix
-  <<: *serves_in_dev_branch
-  stage: test-infra
 
 serves_test_user_provision_services:
   <<: *with_nix
@@ -177,11 +182,6 @@ serves_test_user_provision_observes:
   stage: test-infra
 
 serves_apply_config_autoscaling_ci:
-  <<: *with_nix
-  <<: *serves_in_master_branch
-  stage: deploy-infra
-
-serves_apply_user_provision_asserts:
   <<: *with_nix
   <<: *serves_in_master_branch
   stage: deploy-infra

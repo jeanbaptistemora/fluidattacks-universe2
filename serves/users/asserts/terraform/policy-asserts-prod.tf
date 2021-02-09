@@ -1,9 +1,10 @@
-data "aws_iam_policy_document" "asserts-dev-policy-data" {
+data "aws_iam_policy_document" "asserts-prod-policy-data" {
 
-  # S3 state files
+  # S3 state files and documentation
   statement {
     effect = "Allow"
     actions = [
+      "s3:PutObject",
       "s3:ListBucket",
       "s3:GetObject"
     ]
@@ -11,19 +12,16 @@ data "aws_iam_policy_document" "asserts-dev-policy-data" {
       "arn:aws:s3:::fluidattacks-terraform-states-*",
       "arn:aws:s3:::fluidattacks-terraform-states-prod/asserts-secret-management.tfstate",
       "arn:aws:s3:::fluidattacks-terraform-states-*/user-provision-asserts-*.tfstate",
+      "arn:aws:s3:::fluidattacks.com",
+      "arn:aws:s3:::fluidattacks.com/resources/doc/asserts/*",
     ]
   }
 
-  # IAM read over owned users, roles and policies
+  # IAM full permissions over owned users, roles and policies
   statement {
-    effect  = "Allow"
+    effect = "Allow"
     actions = [
-      "iam:GetUser",
-      "iam:GetRole",
-      "iam:GetPolicy",
-      "iam:GetPolicyVersion",
-      "iam:ListAttachedUserPolicies",
-      "iam:ListAttachedRolePolicies"
+      "iam:*"
     ]
     resources = [
       "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/asserts-*",
@@ -33,13 +31,18 @@ data "aws_iam_policy_document" "asserts-dev-policy-data" {
     ]
   }
 
-  # KMS read keys
+  # KMS create Keys
   statement {
     effect = "Allow"
     actions = [
+      "kms:UntagResource",
+      "kms:TagResource",
       "kms:List*",
       "kms:Get*",
-      "kms:Describe*"
+      "kms:Describe*",
+      "kms:CreateKey",
+      "kms:CreateAlias",
+      "kms:UpdateAlias"
     ]
     resources = [
       "*"
@@ -48,12 +51,12 @@ data "aws_iam_policy_document" "asserts-dev-policy-data" {
 
   # KMS full permissions
   statement {
-    effect  = "Allow"
+    effect = "Allow"
     actions = [
       "kms:*"
     ]
     resources = [
-      "arn:aws:kms:${var.region}:${data.aws_caller_identity.current.account_id}:alias/asserts-dev-*"
+      "arn:aws:kms:${var.region}:${data.aws_caller_identity.current.account_id}:alias/asserts-*"
     ]
   }
 
@@ -71,14 +74,14 @@ data "aws_iam_policy_document" "asserts-dev-policy-data" {
   }
 }
 
-resource "aws_iam_policy" "asserts-dev-policy" {
-  description = "asserts-dev policy"
-  name        = "asserts-dev-policy"
+resource "aws_iam_policy" "asserts-prod-policy" {
+  description = "asserts-prod policy"
+  name        = "asserts-prod-policy"
   path        = "/user-provision/"
-  policy      = data.aws_iam_policy_document.asserts-dev-policy-data.json
+  policy      = data.aws_iam_policy_document.asserts-prod-policy-data.json
 }
 
-resource "aws_iam_user_policy_attachment" "asserts-dev-attach-policy" {
-  user       = "asserts-dev"
-  policy_arn = aws_iam_policy.asserts-dev-policy.arn
+resource "aws_iam_user_policy_attachment" "asserts-prod-attach-policy" {
+  user       = "asserts-prod"
+  policy_arn = aws_iam_policy.asserts-prod-policy.arn
 }
