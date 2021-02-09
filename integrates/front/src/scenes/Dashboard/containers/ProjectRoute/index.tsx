@@ -8,17 +8,14 @@ import { ApolloError } from "apollo-client";
 import { GraphQLError } from "graphql";
 import _ from "lodash";
 import React from "react";
-import { Glyphicon } from "react-bootstrap";
 import { Redirect, Route, Switch, useParams, useRouteMatch } from "react-router-dom";
 
 import { EventContent } from "scenes/Dashboard/containers/EventContent";
 import { FindingContent } from "scenes/Dashboard/containers/FindingContent";
 import { ProjectContent } from "scenes/Dashboard/containers/ProjectContent";
-import { default as style } from "scenes/Dashboard/containers/ProjectRoute/index.css";
 import { GET_GROUP_DATA } from "scenes/Dashboard/containers/ProjectRoute/queries";
 import { IProjectData, IProjectRoute } from "scenes/Dashboard/containers/ProjectRoute/types";
 import { GET_USER_PERMISSIONS } from "scenes/Dashboard/queries";
-import { Row } from "styles/styledComponents";
 import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
@@ -78,11 +75,7 @@ const projectRoute: React.FC<IProjectRoute> = (props: IProjectRoute): JSX.Elemen
 
   if (!_.isUndefined(error)) {
     return (
-      <Row>
-        <div className={style.noData}>
-          <Glyphicon glyph="list" />
-        </div>
-      </Row>
+      <Redirect path={path} to={"/home"} />
     );
   }
   if (_.isUndefined(data) || _.isEmpty(data)) { return <React.Fragment />; }
