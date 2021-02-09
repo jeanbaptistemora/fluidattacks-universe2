@@ -34,7 +34,11 @@ async def mutate(
 ) -> SimplePayload:
     user_info = await util.get_jwt_content(info.context)
     analyst_email = user_info['user_email']
-    success = await finding_domain.submit_draft(finding_id, analyst_email)
+    success = await finding_domain.submit_draft(
+        info.context.loaders,
+        finding_id,
+        analyst_email
+    )
 
     if success:
         redis_del_by_deps_soon('submit_draft', finding_id=finding_id)

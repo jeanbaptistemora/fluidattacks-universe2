@@ -175,8 +175,13 @@ async def create_draft(
     raise InvalidDraftTitle()
 
 
-async def submit_draft(finding_id: str, analyst_email: str) -> bool:
+async def submit_draft(  # pylint: disable=too-many-locals
+    context: Any,
+    finding_id: str,
+    analyst_email: str
+) -> bool:
     success = False
+    finding_vulns_loader = context.finding_vulns
     finding = await get_finding(finding_id)
     is_finding_approved = finding_filters.is_approved(finding)
     is_finding_deleted = finding_filters.is_deleted(finding)
@@ -200,9 +205,7 @@ async def submit_draft(finding_id: str, analyst_email: str) -> bool:
                 for evidence in evidence_list
             ])
             has_severity = float(str(finding['severityCvss'])) > Decimal(0)
-            has_vulns = await vuln_domain.list_vulnerabilities_async(
-                [finding_id]
-            )
+            has_vulns = await finding_vulns_loader.load(finding_id)
 
             if all([
                     # has_evidence,
