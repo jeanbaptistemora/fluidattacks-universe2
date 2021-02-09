@@ -8,4 +8,4 @@ let
     inherit nixPkgs path;
   };
 in
-bins.tapFormstack
+bins.streamerZohoCrm

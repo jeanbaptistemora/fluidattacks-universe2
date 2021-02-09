@@ -50,6 +50,8 @@ observes/scheduled-code-etl-compute-bills
 observes/scheduled-code-etl-mirror
 observes/scheduled-code-etl-upload
 observes/scheduled-formstack-etl
+observes/scheduled-zoho-crm-prepare
+observes/streamer-zoho-crm
 observes/tap-formstack
 observes/tap-json
 observes/target-redshift
