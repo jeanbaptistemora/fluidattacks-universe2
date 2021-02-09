@@ -97,3 +97,11 @@ Run each command in a different terminal:
 ```bash
 ./make integrates/front
 ```
+
+## Local mobile application
+
+Run each command in a different terminal:
+
+```bash
+./make integrates/mobile
+```

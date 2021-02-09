@@ -221,23 +221,6 @@ function job_integrates_mobile_test_functional_local {
   ||  return 1
 }
 
-function job_integrates_mobile_test_unit {
-      pushd "${STARTDIR}/integrates/mobile" \
-    &&  npm install --unsafe-perm \
-    &&  npm test \
-    &&  mv coverage/lcov.info coverage.lcov \
-  &&  popd \
-  ||  return 1
-}
-
-function job_integrates_mobile_lint {
-      pushd integrates/mobile \
-    &&  npm install \
-    &&  npm run lint \
-  &&  popd \
-  ||  return 1
-}
-
 # Back
 
 function job_integrates_back_build_production {
@@ -587,27 +570,6 @@ function job_integrates_deploy_permissions_matrix {
   &&  popd \
   ||  return 1
 }
-
-function job_integrates_serve_components {
-  local aws_creds="${1}"
-
-  trap 'helper_common_kill_attached_processes 5' SIGINT
-
-      pushd integrates \
-    &&  helper_integrates_aws_login "${aws_creds}" \
-    &&  for arg in "${@:1}"
-        do
-              if [[ "${arg}" == 'mobile' ]]
-              then
-                helper_integrates_serve_mobile
-              fi \
-          ||  return 1
-        done \
-    &&  wait \
-  &&  popd \
-  ||  return 1
-}
-
 
 function _job_integrates_make_migration {
   local env="${1}"
