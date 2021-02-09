@@ -3,9 +3,9 @@
 , ...
 } @ _:
 let
-  terraformApplyCloudflare = import (path "/makes/utils/terraform-apply-with-cloudflare") path servesPkgsTerraform;
+  terraformApply = import (path "/makes/utils/terraform-apply") path servesPkgsTerraform;
 in
-terraformApplyCloudflare {
+terraformApply {
   name = "serves-dns-apply";
   product = "serves";
   target = "serves/dns/terraform";

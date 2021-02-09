@@ -3,9 +3,9 @@
 , ...
 } @ _:
 let
-  terraformTestCloudflare = import (path "/makes/utils/terraform-test-with-cloudflare") path servesPkgsTerraform;
+  terraformTest = import (path "/makes/utils/terraform-test") path servesPkgsTerraform;
 in
-terraformTestCloudflare {
+terraformTest {
   name = "serves-users-airs-test";
   product = "serves";
   target = "serves/users/airs/terraform";

@@ -1,10 +1,20 @@
 # shellcheck shell=bash
 
 source '__envSearchPaths__'
-source '__envUtilsBashLibAws__'
+source '__envUtilsCloudflare__'
+source '__envUtilsAws__'
 
 function main {
-      aws_login_dev '__envProduct__' \
+      # Login with cloudflare if secrets provided
+      if test -n '__envSecretsPath__'
+      then
+        cloudflare_login \
+          'dev' \
+          '__envProduct__' \
+          '__envSecretsPath__'
+      else
+        aws_login_dev '__envProduct__'
+      fi \
   &&  pushd '__envTarget__' \
     &&  echo '[INFO] Initializing' \
     &&  terraform init \
