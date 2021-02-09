@@ -19,7 +19,7 @@ data "aws_iam_policy_document" "key-serves-production" {
     sid    = "Key Administrators"
     effect = "Allow"
     principals {
-      type        = "AWS"
+      type = "AWS"
       identifiers = [
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/FLUIDServes_TF",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/user-provision/serves-prod",
@@ -51,7 +51,7 @@ data "aws_iam_policy_document" "key-serves-production" {
     sid    = "Key Users"
     effect = "Allow"
     principals {
-      type        = "AWS"
+      type = "AWS"
       identifiers = [
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/FLUIDServes_TF",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/user-provision/serves-prod",
@@ -74,7 +74,7 @@ data "aws_iam_policy_document" "key-serves-production" {
     sid    = "Attachment Of Persistent Resources"
     effect = "Allow"
     principals {
-      type        = "AWS"
+      type = "AWS"
       identifiers = [
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/FLUIDServes_TF",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/user-provision/serves-prod",
@@ -92,7 +92,7 @@ data "aws_iam_policy_document" "key-serves-production" {
     condition {
       test     = "Bool"
       variable = "kms:GrantIsForAWSResource"
-      values   = [
+      values = [
         "true",
       ]
     }

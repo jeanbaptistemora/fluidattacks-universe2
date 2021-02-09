@@ -59,6 +59,8 @@ serves/ci/apply
 serves/ci/test
 serves/dns/apply
 serves/dns/test
+serves/secrets/apply
+serves/secrets/test
 serves/user/forces/apply
 serves/user/forces/test
 skims

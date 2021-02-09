@@ -24,29 +24,6 @@ function job_serves_apply_infra_fluid_vpc {
   ||  return 1
 }
 
-function job_serves_test_infra_secret_management {
-  local target='secret-management/terraform'
-
-      helper_common_use_pristine_workdir \
-  &&  pushd serves \
-    &&  helper_serves_aws_login development \
-    &&  helper_serves_terraform_plan "${target}" \
-  &&  popd \
-  ||  return 1
-}
-
-function job_serves_apply_infra_secret_management {
-  local target='secret-management/terraform'
-
-      helper_common_use_pristine_workdir \
-  &&  pushd serves \
-  &&  helper_serves_aws_login production \
-  &&  helper_common_terraform_apply \
-        "${target}" \
-  &&  popd \
-  ||  return 1
-}
-
 function job_serves_test_infra_compute {
   local target='services/compute'
 
@@ -713,8 +690,8 @@ function job_serves_test_lint_code {
 function job_serves_apply_config_autoscaling_ci {
   local bastion_ip='192.168.3.11'
   local bastion_user='ubuntu'
-  local config='services/autoscaling-ci/config.toml'
-  local init='services/autoscaling-ci/init.sh'
+  local config='ci/config.toml'
+  local init='ci/init.sh'
   local secrets_to_replace=(
     autoscaling_token_1
     autoscaling_token_2
@@ -733,7 +710,7 @@ function job_serves_apply_config_autoscaling_ci {
         -H "${bastion_ip}" \
         >> ~/.ssh/known_hosts \
   &&  echo '[INFO] Exporting bastion SSH key' \
-  &&  helper_common_sops_env secret-management/production.yaml default \
+  &&  helper_common_sops_env secrets/production.yaml default \
         "${secrets_to_replace[@]}" \
         autoscaling_bastion_key_b64 \
   &&  echo -n "${autoscaling_bastion_key_b64}" \

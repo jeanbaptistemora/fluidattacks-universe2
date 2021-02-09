@@ -4,7 +4,7 @@ function helper_serves_deploy_integrates {
   local integrates_id='20741933'
 
       helper_serves_aws_login production \
-  &&  helper_common_sops_env secret-management/production.yaml default \
+  &&  helper_common_sops_env secrets/production.yaml default \
         PRODUCT_PIPELINE_TOKEN \
   &&  curl \
         -X POST \
@@ -42,7 +42,7 @@ function helper_serves_cloudflare_login {
   export TF_VAR_cloudflare_email
   export TF_VAR_cloudflare_api_key
 
-      helper_common_sops_env "secret-management/${user}.yaml" default \
+      helper_common_sops_env "secrets/${user}.yaml" default \
         CLOUDFLARE_EMAIL \
         CLOUDFLARE_API_KEY \
   &&  TF_VAR_cloudflare_email="${CLOUDFLARE_EMAIL}" \

@@ -76,6 +76,16 @@ serves/aws-sso/apply:
   <<: *serves_in_master_branch
   stage: deploy-infra
 
+serves/secrets/test:
+  <<: *makes
+  <<: *serves_in_dev_branch
+  stage: test-infra
+
+serves/secrets/apply:
+  <<: *makes
+  <<: *serves_in_master_branch
+  stage: deploy-infra
+
 serves_test_infra_compute:
   <<: *with_nix
   <<: *serves_in_dev_branch
@@ -92,11 +102,6 @@ serves/dns/apply:
   stage: deploy-infra
 
 serves_test_infra_fluid_vpc:
-  <<: *with_nix
-  <<: *serves_in_dev_branch
-  stage: test-infra
-
-serves_test_infra_secret_management:
   <<: *with_nix
   <<: *serves_in_dev_branch
   stage: test-infra
@@ -162,11 +167,6 @@ serves_apply_infra_compute:
   stage: deploy-infra
 
 serves_apply_infra_fluid_vpc:
-  <<: *with_nix
-  <<: *serves_in_master_branch
-  stage: deploy-infra
-
-serves_apply_infra_secret_management:
   <<: *with_nix
   <<: *serves_in_master_branch
   stage: deploy-infra
