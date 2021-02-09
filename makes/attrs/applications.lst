@@ -53,6 +53,8 @@ observes/tap-formstack
 observes/tap-json
 observes/target-redshift
 observes/update-sync-date
+serves/aws-sso/apply
+serves/aws-sso/test
 serves/ci/apply
 serves/ci/test
 serves/dns/apply

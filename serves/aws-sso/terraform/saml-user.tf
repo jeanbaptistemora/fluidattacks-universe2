@@ -1,6 +1,6 @@
 data "aws_iam_policy_document" "okta-saml-policy-data" {
   statement {
-    sid = "AllowListAliasesAndRoles"
+    sid    = "AllowListAliasesAndRoles"
     effect = "Allow"
     actions = [
       "iam:ListAccountAliases",
@@ -31,7 +31,7 @@ resource "aws_iam_policy" "okta-saml-policy" {
   name        = "okta-access"
   path        = "/"
   description = "Policy for allowing okta to list account aliases and roles"
-  policy = data.aws_iam_policy_document.okta-saml-policy-data.json
+  policy      = data.aws_iam_policy_document.okta-saml-policy-data.json
 }
 
 resource "aws_iam_user_policy_attachment" "okta-access-user-attach-policy" {

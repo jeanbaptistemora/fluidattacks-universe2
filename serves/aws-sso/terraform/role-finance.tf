@@ -1,6 +1,6 @@
 data "aws_iam_policy_document" "erp-finance-policy-data" {
   statement {
-    sid = "AllowStartAndStopInstance"
+    sid    = "AllowStartAndStopInstance"
     effect = "Allow"
     actions = [
       "ec2:StartInstances",
@@ -21,7 +21,7 @@ resource "aws_iam_policy" "erp-finance-policy" {
 }
 
 resource "aws_iam_role" "finance-role" {
-  name = "finance"
+  name               = "finance"
   assume_role_policy = data.aws_iam_policy_document.okta-assume-role-policy-data.json
 
   tags = {
