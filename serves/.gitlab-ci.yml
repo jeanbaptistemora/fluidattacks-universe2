@@ -66,10 +66,15 @@ serves_test_infra_compute:
   <<: *serves_in_dev_branch
   stage: test-infra
 
-serves_test_infra_dns:
-  <<: *with_nix
+serves/dns/test:
+  <<: *makes
   <<: *serves_in_dev_branch
   stage: test-infra
+
+serves/dns/apply:
+  <<: *makes
+  <<: *serves_in_master_branch
+  stage: deploy-infra
 
 serves_test_infra_aws_sso:
   <<: *with_nix
@@ -147,11 +152,6 @@ serves/user/forces/apply:
   stage: deploy-infra
 
 serves_apply_infra_compute:
-  <<: *with_nix
-  <<: *serves_in_master_branch
-  stage: deploy-infra
-
-serves_apply_infra_dns:
   <<: *with_nix
   <<: *serves_in_master_branch
   stage: deploy-infra
