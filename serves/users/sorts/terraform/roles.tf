@@ -4,7 +4,7 @@ data "aws_iam_policy_document" "sorts_sagemaker_assume_policy" {
     effect = "Allow"
 
     principals {
-      type        = "Service"
+      type = "Service"
       identifiers = [
         "sagemaker.amazonaws.com"
       ]
@@ -66,7 +66,7 @@ data "aws_iam_policy_document" "sorts_sagemaker_policy" {
 }
 
 resource "aws_iam_role" "sorts_sagemaker" {
-  name = "sorts_sagemaker"
+  name               = "sorts_sagemaker"
   assume_role_policy = data.aws_iam_policy_document.sorts_sagemaker_assume_policy.json
 
   tags = {
@@ -77,7 +77,7 @@ resource "aws_iam_role" "sorts_sagemaker" {
 }
 
 resource "aws_iam_role_policy" "sorts_sagemaker_policy" {
-  name = "sorts_sagemaker_policy"
+  name   = "sorts_sagemaker_policy"
   policy = data.aws_iam_policy_document.sorts_sagemaker_policy.json
-  role = aws_iam_role.sorts_sagemaker.id
+  role   = aws_iam_role.sorts_sagemaker.id
 }

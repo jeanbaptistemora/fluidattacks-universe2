@@ -156,17 +156,22 @@ serves/users/integrates/apply:
   <<: *serves_in_master_branch
   stage: deploy-infra
 
+serves/users/sorts/test:
+  <<: *makes
+  <<: *serves_in_dev_branch
+  stage: test-infra
+
+serves/users/sorts/apply:
+  <<: *makes
+  <<: *serves_in_master_branch
+  stage: deploy-infra
+
 serves_test_user_provision_services:
   <<: *with_nix
   <<: *serves_in_dev_branch
   stage: test-infra
 
 serves_test_user_provision_skims:
-  <<: *with_nix
-  <<: *serves_in_dev_branch
-  stage: test-infra
-
-serves_test_user_provision_sorts:
   <<: *with_nix
   <<: *serves_in_dev_branch
   stage: test-infra
@@ -197,11 +202,6 @@ serves_apply_user_provision_services:
   stage: deploy-infra
 
 serves_apply_user_provision_skims:
-  <<: *with_nix
-  <<: *serves_in_master_branch
-  stage: deploy-infra
-
-serves_apply_user_provision_sorts:
   <<: *with_nix
   <<: *serves_in_master_branch
   stage: deploy-infra
