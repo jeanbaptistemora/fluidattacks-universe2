@@ -40,6 +40,7 @@ makes/lint-commit-msg
 makes/wait
 melts
 melts/test
+melts/vpn
 observes/code-etl-amend
 observes/code-etl-mirror
 observes/code-etl-upload
