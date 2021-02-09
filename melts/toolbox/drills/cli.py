@@ -20,7 +20,6 @@ from toolbox.drills import (
     push_repos,
     update_lines,
     upload_history,
-    vpn,
 )
 
 
@@ -59,10 +58,6 @@ from toolbox.drills import (
 @option(
     '--count-toe', 'o_count_toe', is_flag=True,
     help='Pipelines only, count coverage data and upload it to DynamoDB')
-@option(
-    '--vpn', 'o_vpn',
-    help='Access a subs VPN',
-    is_flag=True)
 def drills_management(  # pylint: disable=too-many-arguments
     group: str,
     o_name: str,
@@ -73,7 +68,6 @@ def drills_management(  # pylint: disable=too-many-arguments
     o_pull_repos: bool,
     o_push_repos: bool,
     o_count_toe: bool,
-    o_vpn: bool,
 ) -> None:
     """Perform operations with the drills service."""
     success: bool = True
@@ -94,7 +88,5 @@ def drills_management(  # pylint: disable=too-many-arguments
         success = push_repos.main(group)
     elif o_count_toe:
         success = count_toe.main(group)
-    elif o_vpn:
-        success = vpn.main()
 
     sys.exit(0 if success else 1)

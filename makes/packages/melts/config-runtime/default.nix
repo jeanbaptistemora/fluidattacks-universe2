@@ -13,7 +13,6 @@ makeTemplate {
       meltsPkgs.git
       meltsPkgs.sops
       meltsPkgs.cloc
-      meltsPkgs.networkmanager
       meltsPkgs.openssh
     ];
     envPython = "${meltsPkgs.python38}/bin/python";
