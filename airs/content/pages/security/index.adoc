@@ -29,14 +29,15 @@ a large number of measures throughout the years.
 On this page, we will mention those that provide
 the highest value to our customers in terms of security.
 
-== 1. Transparency
+[[transparency]]
+== <<transparency, 1. Transparency>>
 
 This section focuses on what we do to keep our clients informed
 about their data and our services' status.
 
-=== 1.1 Open Source
+[[open-source]]
+=== <<open-source, 1.1 Open Source>>
 
-[[OPENSOURCE]]
 The source code of all our applications
 is available to the entire Internet.
 There are no backdoors or sensitive data exposed.
@@ -47,14 +48,16 @@ Additionally, here is the commit history of our public repository:
 
 - link:https://gitlab.com/fluidattacks/product/-/commits/master[Product]
 
-=== 1.2 Public incidents
+[[public-incidents]]
+=== <<public-incidents, 1.2 Public incidents>>
 
 All incidents are reported on our
 link:https://community.fluidattacks.com/tag/transparency/[Community Site]
 with details like *_what happened_*, *_what we've done_*,
 *_what's the impact_*, and *_what we're doing to help_*.
 
-=== 1.3 Data leakage policy
+[[data-leakage-policy]]
+=== <<data-leakage-policy,1.3 Data leakage policy>>
 
 In cases where `Fluid Attacks` detects a breach,
 emails are sent to notify the involved parties.
@@ -63,7 +66,8 @@ when, and for how long (to the extent that this information is available).
 For a breach that exposes private data of a large number of users,
 the public will also be informed via email.
 
-=== 1.4 Status page
+[[status-page]]
+=== <<status-page, 1.4 Status page>>
 
 We continuously monitor Integrates,
 its API, and link:../[our website].
@@ -74,12 +78,14 @@ and this information is real-time and available on our
 link:https://status.fluidattacks.com/[Status Site].
 
 
-== 2. Confidentiality
+[[confidentiality]]
+== <<confidentiality, 2. Confidentiality>>
 
 This section provides details on what we do
 to keep confidential information continuously protected.
 
-=== 2.1 Encryption at rest
+[[encryption-at-rest]]
+=== <<encryption-at-rest, 2.1 Encryption at rest>>
 
 All our applications and services
 have industry-standard link:../products/rules/list/224/[encryption at rest].
@@ -126,7 +132,8 @@ have industry-standard link:../products/rules/list/224/[encryption at rest].
   have their hard drives encrypted
   from bootloader using LUKS.
 
-=== 2.2 Encryption in transit
+[[encryption-in-transit]]
+=== <<encryption-in-transit, 2.2 Encryption in transit>>
 
 All our applications and services have
 industry-standard
@@ -150,7 +157,8 @@ industry-standard
 - <<EPH, Ephemeral environments>> always include a digital certificate,
   validated with ACME protocol, and link:../products/rules/list/092/[not self-signed].
 
-=== 2.3 Continuous hacking to our technology
+[[continuous-self-hacking]]
+=== <<continuous-self-hacking, 2.3 Continuous hacking to our technology>>
 
 We have projects focused on hacking our software.
 For us, it is essential to set an example of secure software,
@@ -163,7 +171,8 @@ including exploits and strict linters,
 to ensure that [inner]#link:../products/rules/list/155/[no known vulnerabilities]#
 are released to production.
 
-=== 2.4 All our hired personnel must accept an NDA
+[[NDA]]
+=== <<NDA, 2.4 All our hired personnel must accept an NDA>>
 
 Everyone within our company knows
 how important it is to keep our
@@ -172,7 +181,8 @@ We enforce this by requiring
 all our new employees to sign a
 non-disclosure agreement (NDA).
 
-=== 2.5 We only hire directly
+[[hire-directly]]
+=== <<hire-directly, 2.5 We only hire directly>>
 
 All our employees have indefinite time contracts
 directly with the company.
@@ -180,19 +190,22 @@ Due to our business nature,
 we never hire through contractors,
 freelance, or any other third parties.
 
-=== 2.6 Formatting and accumulation of data
+[[formatting]]
+=== <<formatting, 2.6 Formatting and accumulation of data>>
 
 Formatting of our equipment happens often,
 and the information does not accumulate in local storage.
 
-== 3. Authentication
+[[authentication]]
+== <<authentication, 3. Authentication>> 
 
 Authentication refers to the process
 of validating your identity within a service or platform.
 In this section, we cover how this is handled both for our services
 and the third-party services we use.
 
-=== 3.1 For clients
+[[auth-for-clients]]
+=== <<auth-for-clients, 3.1 For clients>>
 
 Integrates only uses link:https://en.wikipedia.org/wiki/Single_sign-on[SSO]
 with Google and Microsoft Accounts.
@@ -210,9 +223,11 @@ link:../products/rules/list/114/[they also lose access] to their Integrates acco
 Clients can link:../products/rules/list/034/[easily manage]
 who has and who does not have access to their projects.
 
-=== 3.2 Internal
+[[internal-auth]]
+=== <<internal-auth, 3.2 Internal>>
 
-==== 3.2.1 Centralized authentication
+[[centralized-auth]]
+==== <<centralized-auth, 3.2.1 Centralized authentication>>
 
 We use a centralized authentication platform (IAM)
 to manage all the applications we internally use.
@@ -249,7 +264,8 @@ Some of our IAM specifications and requirements are listed below:
   our IAM enforces its usage.
 - All successful sessions have a duration of 9 hours.
 
-==== 3.2.2 GPG signature for repository commits
+[[gpg-signature]]
+==== <<gpg-signature, 3.2.2 GPG signature for repository commits>>
 
 In order to avoid identity hijacking,
 all our source code repositories
@@ -257,9 +273,10 @@ require developers to use a
 link:https://en.wikipedia.org/wiki/GNU_Privacy_Guard[GPG digital signature]
 that verifies the developer's identity on the Internet.
 Signatures can be found on the repository commit histories linked in the
-<<OPENSOURCE, Open Source section>>.
+<<open-source, Open Source section>>.
 
-== 4. Authorization
+[[authorization]]
+== <<authorization, 4. Authorization>>
 
 Authorization refers to the ability to give users
 within an application
@@ -269,7 +286,8 @@ they need to do their work.
 No users should be allowed
 to do what they should not.
 
-=== 4.1 For clients
+[[autho-for-clients]]
+=== <<autho-for-clients, 4.1 For clients>>
 
 Integrates has a set of link:../products/rules/list/096/[roles]
 that are necessary for every hacking project.
@@ -283,7 +301,8 @@ Some of the available roles are
 _hacker_, _admin_, _releaser_, _escaper_,
 _user_ and _project manager_.
 
-=== 4.2 Internal
+[[autho-internal]]
+=== <<autho-internal, 4.2 Internal>>
 
 Every application we use must have user-granular authorization settings
 to grant minimum-privilege policy at all times.
@@ -315,7 +334,8 @@ Some examples are as follows:
   [inner]#link:../products/rules/list/034/[Giving or removing access to applications]#
   is simple, and no users/passwords are leaked.
 
-=== 4.3 Secret rotation
+[[secret-rotation]]
+=== <<secret-rotation, 4.3 Secret rotation>>
 
 link:../products/rules/list/130/[Key rotation] is essential
 when dealing with sensitive data.
@@ -349,7 +369,8 @@ Rotations are done in these two different ways:
   These secrets include KMS keys
   and other application credentials.
 
-=== 4.4 Access revocation
+[[access-revocation]]
+=== <<access-revocation, 4.4 Access revocation>>
 
 When employees go on vacation or leave the company,
 it is essential to revoke their access
@@ -374,7 +395,8 @@ is fundamental when dealing with sensitive data in an organization;
 that is why we have put so much effort
 into making this process as simple as possible.
 
-=== 4.5 Secure policies for enrolled mobile devices
+[[security-mobile]]
+=== <<security-mobile, 4.5 Secure policies for enrolled mobile devices>>
 
 Our collaboration systems also provide security requirements
 that mobile devices must comply with
@@ -383,12 +405,14 @@ This is especially useful,
 as personal mobile devices
 are common targets for malicious hackers.
 
-== 5. Privacy
+[[privacy]]
+== <<privacy, 5. Privacy>>
 
 This section talks about our efforts to protect
 both `Fluid Attacks's` and the clients' privacy.
 
-=== 5.1 Project pseudonymization
+[[project-pseudonymization]]
+=== <<project-pseudonymization, 5.1 Project pseudonymization>>
 
 Every project has a pseudonym within our systems,
 which brings advantages such as the following:
@@ -404,19 +428,22 @@ Generally speaking, only the people who need to know
 who the client of a project is,
 are the people who actually know it.
 
-=== 5.2 Secure delivery of sensitive data
+[[delivery-sensitive-data]]
+=== <<delivery-sensitive-data, 5.2 Secure delivery of sensitive data>>
 
 Here is what we do to reduce information leakage
 when delivering data to the client.
 
-==== 5.2.1 Secure information sharing system
+[[secure-sharing]]
+==== <<secure-sharing, 5.2.1 Secure information sharing system>>
 
 We use an information-sharing system with
 link:https://en.wikipedia.org/wiki/Data_loss_prevention_software[DLP]
 when sending any sensitive information to our clients.
 This includes contracts, portfolios, and other sensitive documents.
 
-==== 5.2.2 Signed URLs
+[[signed-urls]]
+==== <<signed-urls, 5.2.2 Signed URLs>>
 
 Integrates has the feature of creating signed download URLs
 with an expiration date when downloading reports,
@@ -424,7 +451,8 @@ meaning that links expire
 and can only be used
 by the user who requested the download.
 
-==== 5.2.3 Passphrase protected reports
+[[protected-reports]]
+==== <<protected-reports, 5.2.3 Passphrase protected reports>>
 
 All reports downloaded via Integrates
 have a randomly generated four-word passphrase.
@@ -432,7 +460,8 @@ This passphrase is sent to the email of the user
 who requested the download.
 This applies to both XLS and PDF formats.
 
-==== 5.2.4 Watermarked reports
+[[watermarked-reports]]
+==== <<watermarked-reports, 5.2.4 Watermarked reports>>
 
 Every report downloaded via Integrates
 comes with a watermark on all its pages,
@@ -443,7 +472,8 @@ who generated the report in the first place
 and discourage its distribution
 through channels other than Integrates.
 
-=== 5.3 Unsubscribe email
+[[unsubscribe-email]]
+=== <<unsubscribe-email, 5.3 Unsubscribe email>>
 
 To be respectful to users
 regarding what information they want to receive,
