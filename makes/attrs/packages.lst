@@ -49,6 +49,7 @@ observes/lint-update-sync-date
 observes/test-postgres-client
 observes/test-singer-io
 observes/test-streamer-gitlab
+observes/test-streamer-zoho-crm
 skims/config-development
 skims/config-runtime
 skims/docs/build

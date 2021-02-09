@@ -11,7 +11,7 @@ let
     inherit nixPkgs path;
     entrypoint = config.entrypoint;
     name = config.binName;
-    packageEnv = config.package.env;
+    packageEnv = config.package.template;
     python = nixPkgs.python38;
   };
 in
