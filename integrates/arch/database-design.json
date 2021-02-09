@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Feb 09, 2021, 03:51 PM",
+    "DateLastModified": "Feb 09, 2021, 03:54 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "2.0"
@@ -51,6 +51,34 @@
           "AttributeType": "S"
         },
         {
+          "AttributeName": "period",
+          "AttributeType": "N"
+        },
+        {
+          "AttributeName": "settings",
+          "AttributeType": "M"
+        },
+        {
+          "AttributeName": "description",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "type",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "status",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "language",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "tags",
+          "AttributeType": "SS"
+        },
+        {
           "AttributeName": "responsibility",
           "AttributeType": "S"
         },
@@ -87,6 +115,46 @@
           "NonKeyAttributes": [
             "role",
             "responsibility"
+          ]
+        },
+        {
+          "FacetName": "subscription",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "pk",
+            "SortKeyAlias": "sk"
+          },
+          "TableData": [],
+          "NonKeyAttributes": [
+            "period"
+          ]
+        },
+        {
+          "FacetName": "organization",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "pk",
+            "SortKeyAlias": "sk"
+          },
+          "TableData": [],
+          "NonKeyAttributes": [
+            "name",
+            "settings"
+          ]
+        },
+        {
+          "FacetName": "group",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "pk",
+            "SortKeyAlias": "sk"
+          },
+          "TableData": [],
+          "NonKeyAttributes": [
+            "name",
+            "settings",
+            "description",
+            "type",
+            "status",
+            "language",
+            "tags"
           ]
         }
       ],
