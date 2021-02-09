@@ -781,25 +781,36 @@ async def get_mean_remediate_vulnerabilities(
     return mean_vulnerabilities
 
 
-async def get_mean_remediate_severity(
-        project_name: str,
-        min_severity: float,
-        max_severity: float) -> Decimal:
+async def get_mean_remediate_severity(  # pylint: disable=too-many-locals
+    context: Any,
+    project_name: str,
+    min_severity: float,
+    max_severity: float
+) -> Decimal:
     """Get mean time to remediate."""
     total_days = 0
-    finding_ids = await finding_domain.list_findings([project_name.lower()])
-    vulns = await vuln_domain.list_vulnerabilities_async([
-        str(finding['findingId'])
-        for finding in await finding_domain.get_findings_async(finding_ids[0])
+    finding_vulns_loader = context.finding_vulns_nzr
+    group_findings_loader = context.group_findings
+
+    group_findings = await group_findings_loader.load(project_name.lower())
+    group_findings_ids = [
+        finding['finding_id'] for finding in group_findings
         if (
             min_severity <=
-            cast(float, finding.get('severityCvss', 0)) <=
+            cast(float, finding.get('cvss_temporal', 0)) <=
             max_severity
         )
-    ])
+    ]
+    findings_vulns = await finding_vulns_loader.load_many(group_findings_ids)
+    findings_vulns = [
+        vuln
+        for finding_vulns in findings_vulns
+        for vuln in finding_vulns
+    ]
+
     open_vuln_dates = await collect([
         in_process(get_open_vulnerability_date, vuln)
-        for vuln in vulns
+        for vuln in findings_vulns
     ])
     filtered_open_vuln_dates = [
         vuln for vuln in open_vuln_dates
@@ -807,7 +818,7 @@ async def get_mean_remediate_severity(
     ]
     closed_vuln_dates = await collect([
         in_process(get_last_closing_date, vuln)
-        for vuln, open_vuln_date in zip(vulns, open_vuln_dates)
+        for vuln, open_vuln_date in zip(findings_vulns, open_vuln_dates)
         if open_vuln_date
     ])
     for index, closed_vuln_date in enumerate(closed_vuln_dates):

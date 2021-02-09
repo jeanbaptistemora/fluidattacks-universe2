@@ -671,6 +671,7 @@ async def send_unsolved_to_all() -> None:
 
 
 async def get_project_indicators(project: str) -> Dict[str, object]:
+    context = get_new_context()
     fin_attrs = {'finding_id', 'cvss_temporal'}
     findings = await finding_domain.get_findings_by_group(
         project,
@@ -696,16 +697,36 @@ async def get_project_indicators(project: str) -> Dict[str, object]:
             await project_domain.get_mean_remediate_non_treated(project)
         ),
         'mean_remediate_critical_severity': (
-            await project_domain.get_mean_remediate_severity(project, 9, 10)
+            await project_domain.get_mean_remediate_severity(
+                context,
+                project,
+                9,
+                10
+            )
         ),
         'mean_remediate_high_severity': (
-            await project_domain.get_mean_remediate_severity(project, 7, 8.9)
+            await project_domain.get_mean_remediate_severity(
+                context,
+                project,
+                7,
+                8.9
+            )
         ),
         'mean_remediate_low_severity': (
-            await project_domain.get_mean_remediate_severity(project, 0.1, 3.9)
+            await project_domain.get_mean_remediate_severity(
+                context,
+                project,
+                0.1,
+                3.9
+            )
         ),
         'mean_remediate_medium_severity': (
-            await project_domain.get_mean_remediate_severity(project, 4, 6.9)
+            await project_domain.get_mean_remediate_severity(
+                context,
+                project,
+                4,
+                6.9
+            )
         ),
         'max_open_severity': max_open_severity,
         'max_open_severity_finding': max_open_severity_finding.get(
