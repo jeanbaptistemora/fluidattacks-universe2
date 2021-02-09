@@ -86,10 +86,15 @@ serves/secrets/apply:
   <<: *serves_in_master_branch
   stage: deploy-infra
 
-serves_test_infra_compute:
-  <<: *with_nix
+serves/compute/test:
+  <<: *makes
   <<: *serves_in_dev_branch
   stage: test-infra
+
+serves/compute/apply:
+  <<: *makes
+  <<: *serves_in_master_branch
+  stage: deploy-infra
 
 serves/dns/test:
   <<: *makes
@@ -158,11 +163,6 @@ serves_test_user_provision_observes:
 
 serves/user/forces/apply:
   <<: *makes
-  <<: *serves_in_master_branch
-  stage: deploy-infra
-
-serves_apply_infra_compute:
-  <<: *with_nix
   <<: *serves_in_master_branch
   stage: deploy-infra
 

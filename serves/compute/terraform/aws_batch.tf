@@ -1,8 +1,8 @@
 resource "aws_subnet" "default" {
-  availability_zone = "${var.region}a"
-  cidr_block = "192.168.8.0/23"
+  availability_zone       = "${var.region}a"
+  cidr_block              = "192.168.8.0/23"
   map_public_ip_on_launch = true
-  vpc_id = var.batch_vpc_id
+  vpc_id                  = var.batch_vpc_id
 
   tags = {
     "Name"               = "batch"
@@ -20,7 +20,7 @@ resource "aws_iam_role" "aws_ecs_instance_role" {
       Principal = {
         Service = "ec2.amazonaws.com"
       }
-    },{
+      }, {
       Action = "sts:AssumeRole",
       Effect = "Allow",
       Principal = {
@@ -38,12 +38,12 @@ resource "aws_iam_role" "aws_ecs_instance_role" {
 }
 
 resource "aws_iam_role_policy_attachment" "aws_ecs_instance_role" {
-  role = aws_iam_role.aws_ecs_instance_role.name
+  role       = aws_iam_role.aws_ecs_instance_role.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonEC2ContainerServiceforEC2Role"
 }
 
 resource "aws_iam_role_policy_attachment" "aws_ecs_instance_role_fleet_tagging" {
-  role = aws_iam_role.aws_ecs_instance_role.name
+  role       = aws_iam_role.aws_ecs_instance_role.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonEC2SpotFleetTaggingRole"
 }
 
@@ -73,27 +73,27 @@ resource "aws_iam_role" "aws_batch_service_role" {
 }
 
 resource "aws_iam_role_policy_attachment" "aws_batch_service_role" {
-  role = aws_iam_role.aws_batch_service_role.name
+  role       = aws_iam_role.aws_batch_service_role.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSBatchServiceRole"
 }
 
 resource "aws_security_group" "aws_batch_compute_environment_security_group" {
-  name = "aws_batch_compute_environment_security_group"
+  name   = "aws_batch_compute_environment_security_group"
   vpc_id = var.batch_vpc_id
 
   # AWS manage this things and it's unknown what source port, protocol or ip
   # will access the machine
   ingress {
-    from_port = 0
-    to_port = 0
-    protocol = "-1"
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
 
   egress {
-    from_port = 0
-    to_port = 0
-    protocol = "-1"
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
 
@@ -117,8 +117,8 @@ resource "aws_launch_template" "batch_instance" {
     device_name = "/dev/xvda"
 
     ebs {
-      volume_size = 100
-      volume_type = "gp3"
+      volume_size           = 100
+      volume_type           = "gp3"
       delete_on_termination = true
     }
   }
@@ -130,41 +130,41 @@ locals {
   # then un-comment, modify, and apply (to create the item again from scratch)
   compute_environments = {
     skims = {
-      bid_percentage = 100
-      max_vcpus = 32
+      bid_percentage      = 100
+      max_vcpus           = 32
       spot_iam_fleet_role = aws_iam_role.aws_ecs_instance_role.arn
-      type = "SPOT"
+      type                = "SPOT"
     },
     spot = {
-      bid_percentage = 100
-      max_vcpus = 16
+      bid_percentage      = 100
+      max_vcpus           = 16
       spot_iam_fleet_role = aws_iam_role.aws_ecs_instance_role.arn
-      type = "SPOT"
+      type                = "SPOT"
     },
     dedicated = {
-      bid_percentage = null
-      max_vcpus = 4
+      bid_percentage      = null
+      max_vcpus           = 4
       spot_iam_fleet_role = null
-      type = "EC2"
+      type                = "EC2"
     },
   }
   queues = [
     {
-      name = "now"
+      name     = "now"
       priority = 10
     },
     {
-      name = "soon"
+      name     = "soon"
       priority = 5
     },
     {
-      name = "later"
+      name     = "later"
       priority = 1
     },
   ]
 
   compute_environment_names = [
-    for name, _ in local.compute_environments: name
+    for name, _ in local.compute_environments : name
   ]
 }
 
@@ -172,10 +172,10 @@ resource "aws_batch_compute_environment" "default" {
   for_each = local.compute_environments
 
   compute_environment_name = each.key
-  depends_on = [aws_iam_role_policy_attachment.aws_batch_service_role]
-  service_role = aws_iam_role.aws_batch_service_role.arn
-  state = "ENABLED"
-  type = "MANAGED"
+  depends_on               = [aws_iam_role_policy_attachment.aws_batch_service_role]
+  service_role             = aws_iam_role.aws_batch_service_role.arn
+  state                    = "ENABLED"
+  type                     = "MANAGED"
 
   compute_resources {
     bid_percentage = each.value.bid_percentage
@@ -184,7 +184,7 @@ resource "aws_batch_compute_environment" "default" {
     #   whose volumes are not limited to 10GB size but are elastic
     # This avoids us this problem:
     #   https://aws.amazon.com/premiumsupport/knowledge-center/increase-default-ecs-docker-limit/
-    image_id = "ami-059628695ae4c249b"
+    image_id      = "ami-059628695ae4c249b"
     instance_role = aws_iam_instance_profile.aws_ecs_instance_role.arn
     instance_type = [
       "m5a.xlarge",
@@ -217,19 +217,19 @@ resource "aws_batch_job_queue" "default" {
     for data in setproduct(
       local.compute_environment_names,
       local.queues,
-    ):
+    ) :
 
     "${data[0]}_${data[1].name}" => {
       compute_environment = data[0]
-      priority = data[1].priority
+      priority            = data[1].priority
     }
   }
   compute_environments = [
     aws_batch_compute_environment.default[each.value.compute_environment].arn
   ]
-  name = each.key
+  name     = each.key
   priority = each.value.priority
-  state = "ENABLED"
+  state    = "ENABLED"
 }
 
 resource "aws_batch_job_definition" "default" {
@@ -239,8 +239,8 @@ resource "aws_batch_job_definition" "default" {
   # This can be overridden on a per-job basis so let's add default values
   container_properties = jsonencode({
     command = ["./build.sh", "--help"]
-    image = "registry.gitlab.com/fluidattacks/product/makes:batch"
-    memory = 512
-    vcpus = 1
+    image   = "registry.gitlab.com/fluidattacks/product/makes:batch"
+    memory  = 512
+    vcpus   = 1
   })
 }

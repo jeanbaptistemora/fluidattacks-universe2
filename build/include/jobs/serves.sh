@@ -24,26 +24,6 @@ function job_serves_apply_infra_fluid_vpc {
   ||  return 1
 }
 
-function job_serves_test_infra_compute {
-  local target='services/compute'
-
-      pushd serves \
-    &&  helper_serves_aws_login development \
-    &&  helper_serves_terraform_plan "${target}" \
-  &&  popd \
-  ||  return 1
-}
-
-function job_serves_apply_infra_compute {
-  local target='services/compute'
-
-      pushd serves \
-    &&  helper_serves_aws_login production \
-    &&  helper_common_terraform_apply "${target}" \
-  &&  popd \
-  ||  return 1
-}
-
 function job_serves_test_user_provision_asserts {
   local target='services/user-provision/asserts/terraform'
 

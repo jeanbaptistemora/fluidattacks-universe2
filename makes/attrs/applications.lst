@@ -57,6 +57,8 @@ serves/aws-sso/apply
 serves/aws-sso/test
 serves/ci/apply
 serves/ci/test
+serves/compute/apply
+serves/compute/test
 serves/dns/apply
 serves/dns/test
 serves/secrets/apply
