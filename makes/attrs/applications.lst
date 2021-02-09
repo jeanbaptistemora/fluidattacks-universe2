@@ -72,6 +72,8 @@ serves/users/asserts/apply
 serves/users/asserts/test
 serves/users/forces/apply
 serves/users/forces/test
+serves/users/integrates/apply
+serves/users/integrates/test
 serves/vpc/apply
 serves/vpc/test
 skims

@@ -22,30 +22,6 @@ function job_serves_apply_user_provision_services {
   ||  return 1
 }
 
-function job_serves_test_user_provision_integrates {
-  local target='services/user-provision/integrates/terraform'
-
-      helper_common_use_pristine_workdir \
-  &&  pushd serves \
-    &&  helper_serves_aws_login development \
-    &&  helper_serves_cloudflare_login development \
-    &&  helper_serves_terraform_plan "${target}" \
-  &&  popd \
-  ||  return 1
-}
-
-function job_serves_apply_user_provision_integrates {
-  local target='services/user-provision/integrates/terraform'
-
-      helper_common_use_pristine_workdir \
-  &&  pushd serves \
-    &&  helper_serves_aws_login production \
-    &&  helper_serves_cloudflare_login production \
-    &&  helper_common_terraform_apply "${target}" \
-  &&  popd \
-  ||  return 1
-}
-
 function job_serves_test_user_provision_skims {
   local target='services/user-provision/skims/terraform'
 
@@ -267,7 +243,7 @@ function job_serves_rotate_keys_user_provision_services {
 }
 
 function job_serves_rotate_keys_user_provision_integrates {
-  local terraform_dir='services/user-provision/integrates/terraform'
+  local terraform_dir='users/integrates/terraform'
   local gitlab_repo_id='20741933'
 
   # Dev

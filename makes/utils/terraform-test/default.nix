@@ -12,6 +12,8 @@ in
 makeEntrypoint {
   arguments = {
     envSearchPaths = makeSearchPaths [
+      pkgs.awscli
+      pkgs.git
       pkgs.terraform_0_13
       pkgs.tflint
     ];
