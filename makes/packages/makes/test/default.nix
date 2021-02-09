@@ -11,7 +11,7 @@ makeDerivation {
   envBuilt = builtins.concatLists [
     (builtins.attrValues (builtins.removeAttrs packages [
       # Too much disk
-      "integrates/mobile/config/development"
+      "integrates/mobile/config/dev-runtime"
       # Needed to avoid infinite recursion
       "makes/test"
     ]))

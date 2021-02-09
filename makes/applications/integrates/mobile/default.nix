@@ -15,8 +15,7 @@ makeEntrypoint {
       integratesPkgs.xdg_utils
     ];
     envSecretsDev = path "/integrates/secrets-development.yaml";
-    envSetupIntegratesMobileDevelopment = import (path "/makes/packages/integrates/mobile/config/development") attrs.copy;
-    envSetupIntegratesMobileRuntime = import (path "/makes/packages/integrates/mobile/config/runtime") attrs.copy;
+    envSetupIntegratesMobileDevRuntime = import (path "/makes/packages/integrates/mobile/config/dev-runtime") attrs.copy;
     envUtilsAws = import (path "/makes/utils/aws") path integratesPkgs;
     envUtilsCommon = path "/makes/utils/common/template.sh";
     envUtilsSops = import (path "/makes/utils/sops") path integratesPkgs;

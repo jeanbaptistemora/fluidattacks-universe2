@@ -9,8 +9,7 @@ in
 makeDerivation {
   builder = path "/makes/packages/integrates/mobile/lint/builder.sh";
   envSearchPaths = makeSearchPaths [ integratesPkgs.nodejs-12_x ];
-  envSetupIntegratesMobileDevelopment = import (path "/makes/packages/integrates/mobile/config/development") attrs.copy;
-  envSetupIntegratesMobileRuntime = import (path "/makes/packages/integrates/mobile/config/runtime") attrs.copy;
+  envSetupIntegratesMobileDevRuntime = import (path "/makes/packages/integrates/mobile/config/dev-runtime") attrs.copy;
   envSrcIntegratesMobile = path "/integrates/mobile";
   envUtilsCommon = path "/makes/utils/common/template.sh";
   name = "integrates-mobile-lint";
