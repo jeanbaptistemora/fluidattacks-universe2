@@ -18,28 +18,15 @@ rec {
         "aioextensions==20.9.2315218"
         "click==7.1.2"
         "psycopg2==2.8.4"
-        "pytest==5.2.0"
         "ratelimiter==1.2.0"
         "requests==2.25.1"
       ];
       inherited = [
-        "atomicwrites==1.4.0"
-        "attrs==20.3.0"
         "certifi==2020.12.5"
         "chardet==4.0.0"
-        "ddt==1.2.2"
-        "gitdb==4.0.2"
-        "GitPython==3.1.0"
         "idna==2.10"
-        "more-itertools==8.6.0"
-        "packaging==20.8"
-        "pluggy==0.13.1"
-        "py==1.10.0"
-        "pyparsing==2.4.7"
-        "smmap==3.0.1"
         "urllib3==1.26.3"
         "uvloop==0.14.0"
-        "wcwidth==0.2.5"
       ];
     };
     local = [ ];
@@ -47,6 +34,36 @@ rec {
       nixPkgs.git
       nixPkgs.python38Packages.psycopg2
     ];
+  };
+
+  codeEtlDev = {
+    srcPath = path "/observes/code_etl";
+    python = {
+      direct = mergeDeps [
+        codeEtl.python.direct
+        [
+          "pytest-asyncio==0.14.0"
+          "pytest==6.2.2"
+        ]
+      ];
+      inherited = mergeDeps [
+        codeEtl.python.inherited
+        [
+          "atomicwrites==1.4.0"
+          "attrs==20.3.0"
+          "iniconfig==1.1.1"
+          "more-itertools==8.7.0"
+          "packaging==20.9"
+          "pluggy==0.13.1"
+          "py==1.10.0"
+          "pyparsing==2.4.7"
+          "toml==0.10.2"
+          "wcwidth==0.2.5"
+        ]
+      ];
+    };
+    local = codeEtl.local;
+    nix = codeEtl.nix;
   };
 
   difDynamoEtl = {

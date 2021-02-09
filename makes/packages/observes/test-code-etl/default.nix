@@ -4,8 +4,8 @@
 } @ _:
 let
   nixPkgs = observesPkgs;
-  lint = import (path "/makes/libs/observes/lint-jobs") {
+  test = import (path "/makes/libs/observes/test-jobs") {
     inherit nixPkgs path;
   };
 in
-lint.codeEtlDev
+test.codeEtlDev
