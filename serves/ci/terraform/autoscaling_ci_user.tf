@@ -3,7 +3,7 @@ data "aws_iam_policy_document" "autoscaling_ci_policy_document_data" {
   # https://docs.gitlab.com/runner/configuration/runner_autoscale_aws/index.html#aws-credentials
 
   statement {
-    sid = "AutoscalingCIFullEC2Access"
+    sid    = "AutoscalingCIFullEC2Access"
     effect = "Allow"
     actions = [
       "ec2:*"
@@ -14,15 +14,15 @@ data "aws_iam_policy_document" "autoscaling_ci_policy_document_data" {
   }
 
   statement {
-      sid = "AutoscalingCIFullS3CacheAccess"
-      effect = "Allow"
-      actions = [
-        "s3:*"
-      ]
-      resources = [
-        "arn:aws:s3:::${var.autoscaling_ci_s3_cache_bucket}/*"
-      ]
-    }
+    sid    = "AutoscalingCIFullS3CacheAccess"
+    effect = "Allow"
+    actions = [
+      "s3:*"
+    ]
+    resources = [
+      "arn:aws:s3:::${var.autoscaling_ci_s3_cache_bucket}/*"
+    ]
+  }
 
 }
 
@@ -35,8 +35,8 @@ resource "aws_iam_policy" "autoscaling_ci_policy" {
 }
 
 resource "aws_iam_user" "autoscaling_ci_user" {
-  name     = "autoscaling-ci"
-  path     = "/autoscaling-ci/"
+  name = "autoscaling-ci"
+  path = "/autoscaling-ci/"
 
   tags = {
     "Name"               = "autoscaling-ci"

@@ -19,7 +19,7 @@ data "aws_iam_policy_document" "lambda-assume-role-policy" {
     effect = "Allow"
 
     principals {
-      type        = "Service"
+      type = "Service"
       identifiers = [
         "lambda.amazonaws.com",
         "edgelambda.amazonaws.com",

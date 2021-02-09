@@ -36,7 +36,7 @@ resource "aws_iam_policy" "autoscaling-clean" {
 }
 
 resource "aws_iam_role" "autoscaling-clean" {
-  name = "autoscaling-clean"
+  name               = "autoscaling-clean"
   assume_role_policy = data.aws_iam_policy_document.lambda-assume-role-policy.json
 
   tags = {
