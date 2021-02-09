@@ -6,8 +6,10 @@ function main {
   export CI_COMMIT_REF_NAME
   export CI_COMMIT_SHA
   export CI_COMMIT_SHORT_SHA
+  export INTEGRATES_DEPLOYMENT_DATE
 
-      pushd integrates/front \
+      INTEGRATES_DEPLOYMENT_DATE="$(date -u '+%FT%H:%M:%SZ')" \
+  &&  pushd integrates/front \
     &&  copy "__envSetupIntegratesFrontDevRuntime__/node_modules" node_modules \
     &&  chmod 755 node_modules/.bin/tcm node_modules/.bin/webpack \
       &&  < ../../build/patches/jquery-comments.diff \
@@ -19,7 +21,7 @@ function main {
             --env CI_COMMIT_REF_NAME="${CI_COMMIT_REF_NAME}" \
             --env CI_COMMIT_SHA="${CI_COMMIT_SHA}" \
             --env CI_COMMIT_SHORT_SHA="${CI_COMMIT_SHORT_SHA}" \
-            --env INTEGRATES_DEPLOYMENT_DATE="$(date -u '+%FT%H:%M:%SZ')" \
+            --env INTEGRATES_DEPLOYMENT_DATE="${INTEGRATES_DEPLOYMENT_DATE}" \
    &&  rm -rf node_modules \
   &&  popd \
   || return 1
