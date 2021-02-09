@@ -1,0 +1,98 @@
+{
+  "ModelName": "integrates",
+  "ModelMetadata": {
+    "Author": "development@fluidattacks.com",
+    "DateCreated": "Feb 08, 2021, 10:37 AM",
+    "DateLastModified": "Feb 09, 2021, 03:51 PM",
+    "Description": "",
+    "AWSService": "Amazon DynamoDB",
+    "Version": "2.0"
+  },
+  "DataModel": [
+    {
+      "TableName": "integrates",
+      "KeyAttributes": {
+        "PartitionKey": {
+          "AttributeName": "pk",
+          "AttributeType": "S"
+        },
+        "SortKey": {
+          "AttributeName": "sk",
+          "AttributeType": "S"
+        }
+      },
+      "NonKeyAttributes": [
+        {
+          "AttributeName": "access_token",
+          "AttributeType": "M"
+        },
+        {
+          "AttributeName": "push_tokens",
+          "AttributeType": "SS"
+        },
+        {
+          "AttributeName": "registered_date",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "last_login_date",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "name",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "legal_remember",
+          "AttributeType": "BOOL"
+        },
+        {
+          "AttributeName": "role",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "responsibility",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "email",
+          "AttributeType": "S"
+        }
+      ],
+      "TableFacets": [
+        {
+          "FacetName": "user",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "pk",
+            "SortKeyAlias": "sk"
+          },
+          "TableData": [],
+          "NonKeyAttributes": [
+            "access_token",
+            "push_tokens",
+            "registered_date",
+            "last_login_date",
+            "name",
+            "legal_remember",
+            "email"
+          ]
+        },
+        {
+          "FacetName": "authorization",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "pk",
+            "SortKeyAlias": "sk"
+          },
+          "TableData": [],
+          "NonKeyAttributes": [
+            "role",
+            "responsibility"
+          ]
+        }
+      ],
+      "DataAccess": {
+        "MySql": {}
+      }
+    }
+  ]
+}
