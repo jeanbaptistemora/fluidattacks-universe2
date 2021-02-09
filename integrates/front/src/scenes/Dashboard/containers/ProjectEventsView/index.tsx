@@ -4,12 +4,13 @@
  */
 import { MutationFunction, MutationResult, QueryResult } from "@apollo/react-common";
 import { Mutation, Query } from "@apollo/react-components";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ApolloError } from "apollo-client";
 import { GraphQLError } from "graphql";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
-import { Glyphicon } from "react-bootstrap";
 import { selectFilter } from "react-bootstrap-table2-filter";
 import { useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router";
@@ -231,7 +232,7 @@ const projectEventsView: React.FC = (): JSX.Element => {
                           message={translate.t("group.events.btn.tooltip")}
                         >
                           <Button onClick={openNewEventModal}>
-                            <Glyphicon glyph="plus" />&nbsp;{translate.t("group.events.btn.text")}
+                            <FontAwesomeIcon icon={faPlus} />&nbsp;{translate.t("group.events.btn.text")}
                           </Button>
                         </TooltipWrapper>
                       </Can>

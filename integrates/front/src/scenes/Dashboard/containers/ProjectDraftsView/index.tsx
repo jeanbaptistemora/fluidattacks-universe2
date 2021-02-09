@@ -5,11 +5,12 @@
  */
 import { MutationFunction, MutationResult, QueryResult } from "@apollo/react-common";
 import { Mutation, Query } from "@apollo/react-components";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ApolloError } from "apollo-client";
 import { GraphQLError } from "graphql";
 import _ from "lodash";
 import React from "react";
-import { Glyphicon } from "react-bootstrap";
 import { selectFilter } from "react-bootstrap-table2-filter";
 import { useHistory } from "react-router-dom";
 import { Field, InjectedFormProps } from "redux-form";
@@ -198,7 +199,7 @@ const projectDraftsView: React.FC<IProjectDraftsBaseProps> = (props: IProjectDra
                         message={translate.t("group.drafts.btn.tooltip")}
                       >
                         <Button onClick={openNewDraftModal}>
-                          <Glyphicon glyph="plus" />&nbsp;{translate.t("group.drafts.btn.text")}
+                          <FontAwesomeIcon icon={faPlus} />&nbsp;{translate.t("group.drafts.btn.text")}
                         </Button>
                       </TooltipWrapper>
                     </ButtonToolbarCenter>

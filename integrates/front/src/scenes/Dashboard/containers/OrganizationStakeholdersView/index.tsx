@@ -1,10 +1,11 @@
 import { useMutation, useQuery } from "@apollo/react-hooks";
+import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ApolloError } from "apollo-client";
 import { GraphQLError } from "graphql";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
-import { Glyphicon } from "react-bootstrap";
 import { useParams } from "react-router";
 
 import { Button } from "components/Button";
@@ -219,7 +220,7 @@ const organizationStakeholders: React.FC<IOrganizationStakeholders> =
                       message={translate.t("organization.tabs.users.addButton.tooltip")}
                     >
                       <Button id="addUser" onClick={openAddStakeholderModal}>
-                        <Glyphicon glyph="plus" />
+                        <FontAwesomeIcon icon={faPlus} />
                         &nbsp;{translate.t("organization.tabs.users.addButton.text")}
                       </Button>
                     </TooltipWrapper>
@@ -243,7 +244,7 @@ const organizationStakeholders: React.FC<IOrganizationStakeholders> =
                         onClick={handleRemoveStakeholder}
                         disabled={_.isEmpty(currentRow) || removing}
                       >
-                        <Glyphicon glyph="minus" />
+                        <FontAwesomeIcon icon={faMinus} />
                         &nbsp;{translate.t("organization.tabs.users.removeButton.text")}
                       </Button>
                     </TooltipWrapper>

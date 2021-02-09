@@ -6,8 +6,8 @@ import { ConfirmDialog } from "components/ConfirmDialog";
 import { DataTableNext } from "components/DataTableNext";
 import { EnvsModal } from "./envsModal";
 import { FluidIcon } from "components/FluidIcon";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { GitModal } from "./gitModal";
-import { Glyphicon } from "react-bootstrap";
 import type { GraphQLError } from "graphql";
 import type { IConfirmFn } from "components/ConfirmDialog";
 import type { IGitRootAttr } from "../types";
@@ -34,6 +34,7 @@ import {
   changeFormatter,
   statusFormatter,
 } from "components/DataTableNext/formatters";
+import { faCloud, faPlus } from "@fortawesome/free-solid-svg-icons";
 
 const formatList: (list: string[]) => JSX.Element = (list): JSX.Element => (
   <p>
@@ -307,7 +308,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
         <Can do={"backend_api_mutations_add_git_root_mutate"}>
           <div className={"mb3"}>
             <Button id={"git-root-add"} onClick={openAddModal}>
-              <Glyphicon glyph={"plus"} />
+              <FontAwesomeIcon icon={faPlus} />
               &nbsp;{t("group.scope.common.add")}
             </Button>
           </div>
@@ -327,7 +328,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
               id={"envs-manage"}
               onClick={openEnvsModal}
             >
-              <Glyphicon glyph={"cloud"} />
+              <FontAwesomeIcon icon={faCloud} />
               &nbsp;{t("group.scope.git.manageEnvs")}
             </Button>
           </div>

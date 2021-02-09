@@ -1,9 +1,10 @@
 import { useQuery } from "@apollo/react-hooks";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ApolloError } from "apollo-client";
 import { GraphQLError } from "graphql";
 import _ from "lodash";
 import React from "react";
-import { Glyphicon } from "react-bootstrap";
 import { useHistory, useParams, useRouteMatch } from "react-router-dom";
 
 import { Button } from "components/Button";
@@ -118,7 +119,7 @@ const organizationGroups: React.FC<IOrganizationGroupsProps> = (props: IOrganiza
                 message={translate.t("organization.tabs.groups.newGroup.new.tooltip")}
               >
                 <Button id={"add-group"} onClick={openNewProjectModal}>
-                  <Glyphicon glyph="plus" />&nbsp;{translate.t("organization.tabs.groups.newGroup.new.text")}
+                  <FontAwesomeIcon icon={faPlus} />&nbsp;{translate.t("organization.tabs.groups.newGroup.new.text")}
                 </Button>
               </TooltipWrapper>
             </ButtonToolbarCenter>
