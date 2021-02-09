@@ -68,23 +68,27 @@ async def reject_draft(draft_id: str, reviewer_email: str) -> bool:
 
 
 async def approve_draft(
-        draft_id: str,
-        reviewer_email: str) -> Tuple[bool, str]:
+    context: Any,
+    draft_id: str,
+    reviewer_email: str
+) -> Tuple[bool, str]:
+    finding_all_vulns_loader = context.finding_vulns_all
+    finding_vulns_loader = context.finding_vulns_nzr
     draft_data = await get_finding(draft_id)
     release_date: str = ''
     success = False
-    is_finding_approved = finding_filters.is_approved(draft_data)
-    is_finding_deleted = finding_filters.is_deleted(draft_data)
-    is_finding_submitted = finding_filters.is_submitted(draft_data)
 
-    if (not is_finding_approved and not is_finding_deleted):
-        vulns = await vuln_domain.list_vulnerabilities_async([draft_id])
+    if (
+        not finding_filters.is_approved(draft_data) and
+        not finding_filters.is_deleted(draft_data)
+    ):
+        vulns = await finding_vulns_loader.load(draft_id)
         has_vulns = [
             vuln for vuln in vulns
             if vuln_domain.filter_deleted_status(vuln)
         ]
         if has_vulns:
-            if is_finding_submitted:
+            if finding_filters.is_submitted(draft_data):
                 release_date = datetime_utils.get_as_str(
                     datetime_utils.get_now()
                 )
@@ -100,12 +104,7 @@ async def approve_draft(
                 finding_update_success = await finding_dal.update(draft_id, {
                     'historic_state': history
                 })
-                all_vulns = await vuln_domain.list_vulnerabilities_async(
-                    [draft_id],
-                    should_list_deleted=True,
-                    include_requested_zero_risk=True,
-                    include_confirmed_zero_risk=True
-                )
+                all_vulns = await finding_all_vulns_loader.load(draft_id)
                 vuln_update_success = await collect(
                     vuln_domain.update_historic_state_dates(
                         draft_id,

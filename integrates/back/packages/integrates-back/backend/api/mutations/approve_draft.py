@@ -37,7 +37,9 @@ async def mutate(
     group_name = await finding_domain.get_project(draft_id)
 
     success, release_date = await finding_domain.approve_draft(
-        draft_id, reviewer_email
+        info.context.loaders,
+        draft_id,
+        reviewer_email
     )
     if success:
         redis_del_by_deps_soon(

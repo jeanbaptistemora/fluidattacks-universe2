@@ -54,13 +54,17 @@ class Dataloaders(NamedTuple):
 def get_new_context() -> Dataloaders:
     group_loader = GroupLoader()
     finding_vulns_loader = FindingVulnsLoader()
+    finding_vulns_non_deleted_loader = \
+        FindingVulnsNonDeletedLoader(finding_vulns_loader)
+    finding_vulns_nzr_loader = \
+        FindingVulnsNonZeroRiskLoader(finding_vulns_non_deleted_loader)
 
     return Dataloaders(
         event=EventLoader(),
         finding=FindingLoader(),
-        finding_vulns=FindingVulnsNonDeletedLoader(finding_vulns_loader),
+        finding_vulns=finding_vulns_non_deleted_loader,
         finding_vulns_all=finding_vulns_loader,
-        finding_vulns_nzr=FindingVulnsNonZeroRiskLoader(finding_vulns_loader),
+        finding_vulns_nzr=finding_vulns_nzr_loader,
         group=GroupActiveLoader(group_loader),
         group_all=group_loader,
         group_drafts=GroupDraftsLoader(),

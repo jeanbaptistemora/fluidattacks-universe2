@@ -364,7 +364,10 @@ async def test_approve_draft():
     finding_id = '475041513'
     reviewer_email = 'unittest@fluidattacks.com'
     test_success, test_date = await approve_draft(
-        finding_id, reviewer_email)
+        get_new_context(),
+        finding_id,
+        reviewer_email
+    )
     release_date = '2019-11-30 19:00:00'
     expected_output =  True, release_date
     assert isinstance(test_success, bool)
