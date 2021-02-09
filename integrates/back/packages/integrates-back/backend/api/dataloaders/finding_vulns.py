@@ -26,6 +26,7 @@ async def batch_load_fn_vulns(
 
     vulns = await vuln_domain.list_vulnerabilities_async(
         finding_ids,
+        should_list_deleted=True,
         include_requested_zero_risk=True,
         include_confirmed_zero_risk=True
     )

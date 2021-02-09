@@ -19,6 +19,9 @@ from backend import util
 from backend.api.dataloaders.event import EventLoader
 from backend.api.dataloaders.finding import FindingLoader
 from backend.api.dataloaders.finding_vulns import FindingVulnsLoader
+from backend.api.dataloaders.finding_vulns_non_deleted import (
+    FindingVulnsNonDeletedLoader
+)
 from backend.api.dataloaders.finding_vulns_non_zero_risk import (
     FindingVulnsNonZeroRiskLoader
 )
@@ -37,8 +40,9 @@ newrelic.agent.initialize(settings.NEW_RELIC_CONF_FILE)
 class Dataloaders(NamedTuple):
     event: EventLoader
     finding: FindingLoader
-    finding_vulns: FindingVulnsLoader  # all vulns
-    finding_vulns_nzr: FindingVulnsNonZeroRiskLoader  # subset of vulns
+    finding_vulns: FindingVulnsLoader  # all vulns except deleted
+    finding_vulns_all: FindingVulnsNonDeletedLoader  # all vulns
+    finding_vulns_nzr: FindingVulnsNonZeroRiskLoader  # standard call
     group: GroupActiveLoader
     group_all: GroupLoader  # used only by analytics. Retrieves all groups
     group_drafts: GroupDraftsLoader
@@ -54,7 +58,8 @@ def get_new_context() -> Dataloaders:
     return Dataloaders(
         event=EventLoader(),
         finding=FindingLoader(),
-        finding_vulns=finding_vulns_loader,
+        finding_vulns=FindingVulnsNonDeletedLoader(finding_vulns_loader),
+        finding_vulns_all=finding_vulns_loader,
         finding_vulns_nzr=FindingVulnsNonZeroRiskLoader(finding_vulns_loader),
         group=GroupActiveLoader(group_loader),
         group_all=group_loader,
