@@ -186,6 +186,11 @@ observes/test-tap-csv:
   <<: *observes_in_dev_branch
   stage: test-code
 
+observes/test-target-redshift:
+  <<: *makes
+  <<: *observes_in_dev_branch
+  stage: test-code
+
 # disorganized jobs
 
 observes_apply_infra:
@@ -228,11 +233,6 @@ observes_gitlab_on_aws:
     refs: [schedules]
     variables: [$observes_gitlab_on_aws]
   interruptible: false
-
-observes_tredshift_test:
-  <<: *with_nix
-  <<: *observes_in_dev_branch
-  stage: test-code
 
 observes_code_test:
   <<: *with_nix
