@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Feb 09, 2021, 03:54 PM",
+    "DateLastModified": "Feb 09, 2021, 04:09 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "2.0"
@@ -77,6 +77,38 @@
         {
           "AttributeName": "tags",
           "AttributeType": "SS"
+        },
+        {
+          "AttributeName": "modified_date",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "exit_code",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "branch",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "commit",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "origin",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "repo",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "strictness",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "vulnerabilities",
+          "AttributeType": "M"
         },
         {
           "AttributeName": "responsibility",
@@ -155,6 +187,25 @@
             "status",
             "language",
             "tags"
+          ]
+        },
+        {
+          "FacetName": "forces_log",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "pk",
+            "SortKeyAlias": "sk"
+          },
+          "TableData": [],
+          "NonKeyAttributes": [
+            "type",
+            "modified_date",
+            "exit_code",
+            "branch",
+            "commit",
+            "origin",
+            "repo",
+            "strictness",
+            "vulnerabilities"
           ]
         }
       ],
