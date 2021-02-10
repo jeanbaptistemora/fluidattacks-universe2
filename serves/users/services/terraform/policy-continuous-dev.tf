@@ -17,7 +17,7 @@ data "aws_iam_policy_document" "continuous-dev-policy-data" {
 
   # S3 read over continuous buckets
   statement {
-    sid = "s3ContinuousRepositoriesRead"
+    sid    = "s3ContinuousRepositoriesRead"
     effect = "Allow"
     actions = [
       "s3:Get*",
@@ -31,7 +31,7 @@ data "aws_iam_policy_document" "continuous-dev-policy-data" {
 
   # IAM read break-build and AWS SSO role
   statement {
-    effect  = "Allow"
+    effect = "Allow"
     actions = [
       "iam:GetUser",
       "iam:GetRole",

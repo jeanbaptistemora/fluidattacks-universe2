@@ -18,7 +18,7 @@ data "aws_iam_policy_document" "continuous-prod-policy-data" {
 
   # S3 admin over continuous buckets
   statement {
-    sid = "s3ContinuousRepositoriesAdmin"
+    sid    = "s3ContinuousRepositoriesAdmin"
     effect = "Allow"
     actions = [
       "s3:*"
@@ -31,7 +31,7 @@ data "aws_iam_policy_document" "continuous-prod-policy-data" {
 
   # IAM Break Build and AWS SSO role
   statement {
-    effect  = "Allow"
+    effect = "Allow"
     actions = [
       "iam:*"
     ]
@@ -70,7 +70,7 @@ data "aws_iam_policy_document" "continuous-prod-policy-data" {
 
   # KMS FUll permissions over owned KMS keys
   statement {
-    effect  = "Allow"
+    effect = "Allow"
     actions = [
       "kms:*"
     ]
@@ -81,7 +81,7 @@ data "aws_iam_policy_document" "continuous-prod-policy-data" {
 
   # Sagemaker for sorts
   statement {
-    effect  = "Allow"
+    effect = "Allow"
     actions = [
       "sagemaker:*"
     ]
@@ -105,7 +105,7 @@ data "aws_iam_policy_document" "continuous-prod-policy-data" {
 
   # Secretsmanager for forces
   statement {
-    effect  = "Allow"
+    effect = "Allow"
     actions = [
       "secretsmanager:GetSecretValue",
       "secretsmanager:CreateSecret",

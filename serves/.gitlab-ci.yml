@@ -156,6 +156,16 @@ serves/users/integrates/apply:
   <<: *serves_in_master_branch
   stage: deploy-infra
 
+serves/users/services/test:
+  <<: *makes
+  <<: *serves_in_dev_branch
+  stage: test-infra
+
+serves/users/services/apply:
+  <<: *makes
+  <<: *serves_in_master_branch
+  stage: deploy-infra
+
 serves/users/sorts/test:
   <<: *makes
   <<: *serves_in_dev_branch
@@ -165,11 +175,6 @@ serves/users/sorts/apply:
   <<: *makes
   <<: *serves_in_master_branch
   stage: deploy-infra
-
-serves_test_user_provision_services:
-  <<: *with_nix
-  <<: *serves_in_dev_branch
-  stage: test-infra
 
 serves_test_user_provision_skims:
   <<: *with_nix
@@ -192,11 +197,6 @@ serves_test_user_provision_observes:
   stage: test-infra
 
 serves_apply_config_autoscaling_ci:
-  <<: *with_nix
-  <<: *serves_in_master_branch
-  stage: deploy-infra
-
-serves_apply_user_provision_services:
   <<: *with_nix
   <<: *serves_in_master_branch
   stage: deploy-infra
