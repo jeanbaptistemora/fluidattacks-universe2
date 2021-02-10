@@ -523,7 +523,19 @@ async def remove_user_access(
             await user_domain.get_projects(email, organization_id=org_id)
         )
         if has_org_access and not has_groups_in_org:
-            await org_domain.remove_user(org_id, email)
+            success = success and await org_domain.remove_user(org_id, email)
+
+        has_groups = bool(
+            await user_domain.get_projects(email)
+        )
+        if not has_groups:
+            success = success and all(
+                await collect([
+                    authz.revoke_user_level_role(email),
+                    user_domain.delete(email)
+                ])
+            )
+
     return success
 
 
