@@ -131,7 +131,8 @@ async def get_projects_with_forces() -> List[str]:
     response = await dynamodb.async_scan(TABLE_NAME, query_attrs)
     projects = [
         project['project_name'] for project in response
-        if project['historic_configuration'][-1]['has_forces']
+        if project.get('historic_configuration') is not None
+        and project['historic_configuration'][-1]['has_forces']
     ]
 
     return cast(List[str], projects)
