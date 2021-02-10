@@ -20,6 +20,12 @@ def update_job(auth_file: IO[str], job_name: str) -> None:
 
 @click.command()
 @click.argument('auth_file', type=click.File('r'))
+def formstack(auth_file: IO[str]) -> None:
+    update_job(auth_file, 'formstack')
+
+
+@click.command()
+@click.argument('auth_file', type=click.File('r'))
 @click.argument('group')
 def mirror(auth_file: IO[str], group: str) -> None:
     auth = json.load(auth_file)
@@ -32,8 +38,14 @@ def mirror(auth_file: IO[str], group: str) -> None:
 
 @click.command()
 @click.argument('auth_file', type=click.File('r'))
-def formstack(auth_file: IO[str]) -> None:
-    update_job(auth_file, 'formstack')
+def zoho_crm_etl(auth_file: IO[str]) -> None:
+    update_job(auth_file, 'zoho_crm_etl')
+
+
+@click.command()
+@click.argument('auth_file', type=click.File('r'))
+def zoho_crm_prepare(auth_file: IO[str]) -> None:
+    update_job(auth_file, 'zoho_crm_prepare')
 
 
 @click.group()
@@ -42,5 +54,7 @@ def main() -> None:
     pass
 
 
-main.add_command(mirror)
 main.add_command(formstack)
+main.add_command(mirror)
+main.add_command(zoho_crm_etl)
+main.add_command(zoho_crm_prepare)

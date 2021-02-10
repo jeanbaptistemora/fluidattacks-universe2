@@ -10,6 +10,7 @@ in
 makeEntrypoint {
   arguments = {
     envStreamerZohoCrm = applications."observes/streamer-zoho-crm";
+    envUpdateSyncDate = applications."observes/update-sync-date";
     envUtilsBashLibAws = import (path "/makes/utils/aws") path nixPkgs;
     envUtilsBashLibSops = import (path "/makes/utils/sops") path nixPkgs;
   };
