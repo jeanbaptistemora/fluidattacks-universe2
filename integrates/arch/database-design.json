@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Feb 10, 2021, 10:27 AM",
+    "DateLastModified": "Feb 10, 2021, 04:15 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "2.0"
@@ -189,6 +189,38 @@
         {
           "AttributeName": "content",
           "AttributeType": "S"
+        },
+        {
+          "AttributeName": "cvss",
+          "AttributeType": "M"
+        },
+        {
+          "AttributeName": "recommendation",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "requirements",
+          "AttributeType": "SS"
+        },
+        {
+          "AttributeName": "threat",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "source",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "using_sorts",
+          "AttributeType": "BOOL"
+        },
+        {
+          "AttributeName": "cwe",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "attack_vector",
+          "AttributeType": "S"
         }
       ],
       "TableFacets": [
@@ -337,6 +369,32 @@
             "modified_by",
             "parent",
             "content"
+          ]
+        },
+        {
+          "FacetName": "finding",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "pk",
+            "SortKeyAlias": "sk"
+          },
+          "TableData": [],
+          "NonKeyAttributes": [
+            "description",
+            "type",
+            "modified_date",
+            "modified_by",
+            "evidences",
+            "affected_components",
+            "cvss",
+            "recommendation",
+            "requirements",
+            "threat",
+            "source",
+            "using_sorts",
+            "cwe",
+            "attack_vector",
+            "status",
+            "name"
           ]
         }
       ],
