@@ -2,7 +2,9 @@
   -------
   We need className to override default styles from react-boostrap.
 */
+
 import { Col100 } from "styles/styledComponents";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import _ from "lodash";
 import logo from "resources/integrates.svg";
@@ -20,6 +22,11 @@ import {
   TwoFacol,
 } from "./components";
 import { Slide, toast } from "react-toastify";
+import {
+  faBitbucket,
+  faGoogle,
+  faWindows,
+} from "@fortawesome/free-brands-svg-icons";
 
 export const Login: React.FC = (): JSX.Element => {
   const { t } = useTranslation();
@@ -59,21 +66,21 @@ export const Login: React.FC = (): JSX.Element => {
           <TwoFacol>
             <TwoFaButton
               className={"btn-google"}
-              fontAwesomeName={"google"}
+              icon={<FontAwesomeIcon icon={faGoogle} size={"2x"} />}
               onClick={handleNotificationGoogle}
             />
           </TwoFacol>
           <TwoFacol>
             <TwoFaButton
               className={"btn-azure"}
-              fontAwesomeName={"windows"}
+              icon={<FontAwesomeIcon icon={faWindows} size={"2x"} />}
               onClick={handleNotificationMicrosoft}
             />
           </TwoFacol>
           <TwoFacol>
             <TwoFaButton
               className={"btn-bitbucket"}
-              fontAwesomeName={"bitbucket"}
+              icon={<FontAwesomeIcon icon={faBitbucket} size={"2x"} />}
               onClick={handleNotificationBitbucket}
             />
           </TwoFacol>
@@ -110,21 +117,21 @@ export const Login: React.FC = (): JSX.Element => {
         <LoginRow>
           <LoginButton
             className={"btn-lgoogle"}
-            fontAwesomeName={"google"}
+            icon={<FontAwesomeIcon icon={faGoogle} size={"2x"} />}
             id={"login-google"}
             onClick={handleGoogleLogin}
             text={t("login.google")}
           />
           <LoginButton
             className={"btn-lazure"}
-            fontAwesomeName={"windows"}
+            icon={<FontAwesomeIcon icon={faWindows} size={"2x"} />}
             id={"login-microsoft"}
             onClick={handleMicrosoftLogin}
             text={t("login.microsoft")}
           />
           <LoginButton
             className={"btn-lbitbucket"}
-            fontAwesomeName={"bitbucket"}
+            icon={<FontAwesomeIcon icon={faBitbucket} size={"2x"} />}
             id={"login-bitbucket"}
             onClick={handleBitbucketLogin}
             text={t("login.bitbucket")}

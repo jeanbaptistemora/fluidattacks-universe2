@@ -21,6 +21,7 @@
     "@casl/ability": "4.1.6",
     "@casl/react": "2.1.1",
     "@fortawesome/fontawesome-svg-core": "1.2.34",
+    "@fortawesome/free-brands-svg-icons": "5.15.2",
     "@fortawesome/free-solid-svg-icons": "5.15.2",
     "@fortawesome/react-fontawesome": "0.1.14",
     "@rehooks/component-size": "1.0.3",

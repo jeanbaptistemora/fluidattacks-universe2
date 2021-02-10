@@ -2,7 +2,6 @@
   -------
   We need className to override default styles from react-boostrap.
 */
-import FontAwesome from "react-fontawesome";
 import React from "react";
 import type { StyledComponent } from "styled-components";
 import styled from "styled-components";
@@ -10,7 +9,7 @@ import "./index.css";
 
 interface ILoginButtonProps {
   className: string;
-  fontAwesomeName: string;
+  icon: React.ReactNode;
   id: string;
   onClick: () => void;
   text: string;
@@ -27,11 +26,11 @@ const StyledLoginButton: StyledComponent<
 const LoginButton: React.FC<ILoginButtonProps> = (
   props: Readonly<ILoginButtonProps>
 ): JSX.Element => {
-  const { className, fontAwesomeName, id, onClick, text } = props;
+  const { className, icon, id, onClick, text } = props;
 
   return (
     <StyledLoginButton className={className} id={id} onClick={onClick}>
-      <FontAwesome name={fontAwesomeName} size={"2x"} />
+      {icon}
       {text}
     </StyledLoginButton>
   );

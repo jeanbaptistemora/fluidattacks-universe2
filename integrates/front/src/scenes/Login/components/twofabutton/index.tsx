@@ -2,7 +2,6 @@
   -------
   We need className to override default styles from react-boostrap.
 */
-import FontAwesome from "react-fontawesome";
 import React from "react";
 import type { StyledComponent } from "styled-components";
 import styled from "styled-components";
@@ -10,7 +9,7 @@ import "./index.css";
 
 interface ITwoFaButtonProps {
   className: string;
-  fontAwesomeName: string;
+  icon: React.ReactNode;
   onClick: () => void;
 }
 
@@ -24,13 +23,11 @@ const StyledTwoFaButton: StyledComponent<
 const TwoFaButton: React.FC<ITwoFaButtonProps> = (
   props: Readonly<ITwoFaButtonProps>
 ): JSX.Element => {
-  const { className, fontAwesomeName, onClick } = props;
+  const { className, icon, onClick } = props;
 
   return (
     <StyledTwoFaButton className={className} onClick={onClick}>
-      <span>
-        <FontAwesome name={fontAwesomeName} size={"2x"} />
-      </span>
+      {icon}
     </StyledTwoFaButton>
   );
 };
