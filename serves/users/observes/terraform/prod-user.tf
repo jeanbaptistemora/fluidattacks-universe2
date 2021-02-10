@@ -42,12 +42,12 @@ data "aws_iam_policy_document" "prod-policy-data" {
 
   # Batch access
   statement {
-    effect = "Allow"
-    actions = ["batch:ListJobs"]
+    effect    = "Allow"
+    actions   = ["batch:ListJobs"]
     resources = ["*"]
   }
   statement {
-    effect = "Allow"
+    effect  = "Allow"
     actions = ["batch:SubmitJob"]
     resources = [
       "arn:aws:batch:us-east-1:${data.aws_caller_identity.current.account_id}:job-definition/default",
@@ -58,7 +58,7 @@ data "aws_iam_policy_document" "prod-policy-data" {
 
   # DynamoDB
   statement {
-    effect  = "Allow"
+    effect = "Allow"
     actions = [
       "dynamodb:*",
     ]
@@ -67,7 +67,7 @@ data "aws_iam_policy_document" "prod-policy-data" {
 
   # Redshift
   statement {
-    effect  = "Allow"
+    effect = "Allow"
     actions = [
       "redshift:*",
     ]

@@ -25,7 +25,7 @@ data "aws_iam_policy_document" "dev-policy-data" {
 
   # DynamoDB
   statement {
-    effect  = "Allow"
+    effect = "Allow"
     actions = [
       "dynamodb:Describe*",
       "dynamodb:List*",
@@ -37,7 +37,7 @@ data "aws_iam_policy_document" "dev-policy-data" {
 
   # Redshift
   statement {
-    effect  = "Allow"
+    effect = "Allow"
     actions = [
       "redshift:Describe*",
       "redshift:List*",
