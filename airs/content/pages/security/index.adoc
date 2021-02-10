@@ -108,7 +108,11 @@ have industry-standard link:../products/rules/list/224/[encryption at rest].
   link:https://en.wikipedia.org/wiki/HMAC[HMAC]
   with link:https://en.wikipedia.org/wiki/SHA-2[SHA-256]
   hashes.
-- All our clients' repositories are
+- All our domain names are protected with
+  link:https://www.icann.org/resources/pages/dnssec-what-is-it-why-important-2019-03-05-en[DNSSEC]
+  to ensure that DNS records received by clients
+  are identical to the DNS records published by us.
+- All our clients' code repositories are
   stored in private,
   [inner]#link:../products/rules/list/185/[AES256 ciphered]#
   redundant data centers.
@@ -145,10 +149,14 @@ industry-standard
   cryptographic protocol for maximum in transit protection.
 - We maintain an SSL A+ score from
   link:https://www.ssllabs.com/ssltest/analyze.html?d=fluidattacks.com&latest[SSL Labs].
+- Digital certificates for [inner]#link:../../[Fluid Attacks]#
+  are renewed every 30 days
+  in order to minimize leaks.
 - We use the
   link:https://es.wikipedia.org/wiki/HTTP_Strict_Transport_Security[HSTS]
   policy to ensure that every connection to our domain goes
   through link:https://en.wikipedia.org/wiki/HTTPS[HTTPS].
+- We demand all conections to support at least TLSv1.2.
 - Integrates's database uses TLSv1.2 for in transit protection.
 - We possess fully dedicated network channels with some of our biggest clients,
   allowing us to isolate all unwanted traffic. This is especially useful
@@ -197,7 +205,7 @@ Formatting of our equipment happens often,
 and the information does not accumulate in local storage.
 
 [[authentication]]
-== <<authentication, 3. Authentication>> 
+== <<authentication, 3. Authentication>>
 
 Authentication refers to the process
 of validating your identity within a service or platform.
@@ -428,14 +436,21 @@ Generally speaking, only the people who need to know
 who the client of a project is,
 are the people who actually know it.
 
+[[email-obfuscation]]
+=== <<email-obfuscation, 5.2 Email Obfuscation>>
+
+- All emails contained in our websites are obfuscated for
+bots by using
+link:https://support.cloudflare.com/hc/en-us/articles/200170016-What-is-Email-Address-Obfuscation[Email Obfuscation].
+
 [[delivery-sensitive-data]]
-=== <<delivery-sensitive-data, 5.2 Secure delivery of sensitive data>>
+=== <<delivery-sensitive-data, 5.3 Secure delivery of sensitive data>>
 
 Here is what we do to reduce information leakage
 when delivering data to the client.
 
 [[secure-sharing]]
-==== <<secure-sharing, 5.2.1 Secure information sharing system>>
+==== <<secure-sharing, 5.3.1 Secure information sharing system>>
 
 We use an information-sharing system with
 link:https://en.wikipedia.org/wiki/Data_loss_prevention_software[DLP]
@@ -443,7 +458,7 @@ when sending any sensitive information to our clients.
 This includes contracts, portfolios, and other sensitive documents.
 
 [[signed-urls]]
-==== <<signed-urls, 5.2.2 Signed URLs>>
+==== <<signed-urls, 5.3.2 Signed URLs>>
 
 Integrates has the feature of creating signed download URLs
 with an expiration date when downloading reports,
@@ -451,8 +466,16 @@ meaning that links expire
 and can only be used
 by the user who requested the download.
 
+[[onion-routing]]
+==== <<onion-routing, 5.3.3 Onion Routing>>
+
+The [inner]#link:../../[Fluid Attacks]# domain supports
+link:https://en.wikipedia.org/wiki/Onion_routing[Onion Routing],
+improving privacy of the users
+and enabling more fine-grained protection.
+
 [[protected-reports]]
-==== <<protected-reports, 5.2.3 Passphrase protected reports>>
+==== <<protected-reports, 5.3.4 Passphrase protected reports>>
 
 All reports downloaded via Integrates
 have a randomly generated four-word passphrase.
@@ -461,7 +484,7 @@ who requested the download.
 This applies to both XLS and PDF formats.
 
 [[watermarked-reports]]
-==== <<watermarked-reports, 5.2.4 Watermarked reports>>
+==== <<watermarked-reports, 5.3.5 Watermarked reports>>
 
 Every report downloaded via Integrates
 comes with a watermark on all its pages,
@@ -473,7 +496,7 @@ and discourage its distribution
 through channels other than Integrates.
 
 [[unsubscribe-email]]
-=== <<unsubscribe-email, 5.3 Unsubscribe email>>
+=== <<unsubscribe-email, 5.4 Unsubscribe email>>
 
 To be respectful to users
 regarding what information they want to receive,
@@ -484,7 +507,8 @@ By doing so, their emails are placed on a list
 of unsubscribed emails,
 and no new emails will be sent to them.
 
-=== 5.4 Transparent cookie usage
+[[transparent-cookie-usage]]
+=== <<transparent-cookie-usage, 5.5 Transparent cookie usage>>
 
 Both Integrates and [inner]#link:../[Web]# use a link:https://en.wikipedia.org/wiki/General_Data_Protection_Regulation[GDPR] module that
 
@@ -502,12 +526,14 @@ security rules such as the following:
 - [inner]#link:../products/rules/list/312/[Allow user consent revocation]#
 - [inner]#link:../products/rules/list/315/[Provide processed data information]#
 
-=== 5.5 Data policies
+[[data-policies]]
+=== <<data-policies, 5.6 Data policies>>
 
 The following policies apply to all the information
 provided by a client in a project context.
 
-==== 5.5.1 Data use policy
+[[data-use-policy]]
+==== <<data-use-policy, 5.6.1 Data use policy>>
 
 We are committed to using our clients' data
 exclusively for vulnerability scanning
@@ -515,7 +541,8 @@ in the context of the service we are providing.
 No other activities will be executed
 over the provided information.
 
-==== 5.5.2 Data retention policy
+[[data-retention-policy]]
+==== <<data-retention-policy, 5.6.2 Data retention policy>>
 
 All the data related to a project
 can be deleted from Integrates
@@ -528,7 +555,8 @@ secrets, metadata and other project-related
 link:../products/rules/list/183/[data are completely removed]
 from all our systems.
 
-=== 5.6 OTR Messaging
+[[otr-messaging]]
+=== <<otr-messaging, 5.7 OTR Messaging>>
 
 We use a messaging system with
 link:https://en.wikipedia.org/wiki/Off-the-Record_Messaging[OTR]
@@ -539,7 +567,8 @@ Also, all chat histories
 [inner]#link:../products/rules/list/183/[are reset every week]#
 as an extra measure to avoid leaks.
 
-=== 5.7 Employee time tracking software
+[[employee-time-tracking-software]]
+=== <<employee-time-tracking-software, 5.8 Employee time tracking software>>
 
 We use a time tracking system that periodically takes
 screenshots of laptop screens while employees are working.
@@ -548,7 +577,8 @@ in case an incident happens.
 Employees have control over the software,
 which means that no screenshots are taken once they stop working.
 
-=== 5.8 Polygraph tests
+[[polygraph-tests]]
+=== <<polygraph-tests, 5.9 Polygraph tests>>
 
 We regularly run polygraph tests on all
 employees with access to sensitive information.
@@ -556,7 +586,9 @@ Tests fully focus on identifying whether an employee
 has disclosed confidential information to a third party.
 Personal questions are never asked.
 
-== 6. Non-repudiation
+
+[[non-repudiation]]
+== <<non-repudiation, 6. Non-repudiation>>
 
 Non-repudiation refers to the capability
 of keeping a log of every action
@@ -568,7 +600,8 @@ no one can deny their actions.
 We implement this in several ways
 depending on the context.
 
-=== 6.1 Everything as code
+[[everything-as-code]]
+=== <<everything-as-code, 6.1 Everything as code>>
 
 [[EAC]]
 At `Fluid Attacks`, we try to keep as much as possible
@@ -590,7 +623,8 @@ Currently, we keep the following systems as code:
 - <<IAC, Infrastructure>>
 - General documentation
 
-=== 6.2 Extensive logs
+[[extensive-logs]]
+=== <<extensive-logs, 6.2 Extensive logs>>
 
 Typical logs are also essential
 for a non-repudiation policy to be successful.
@@ -641,13 +675,15 @@ Currently, we store logs for:
   and the console output.
   These logs never expire.
 
-== 7. Availability
+[[availability]]
+== <<availability, 7. Availability>>
 
 Availability refers to the capacity
 to keep all our systems up and running.
 Avoiding service interruptions is crucial here.
 
-=== 7.1 Distributed applications
+[[distributed-applications]]
+=== <<distributed-applications, 7.1 Distributed applications>>
 
 Integrates is hosted in an application cluster with
 autoscaling policies and distributed
@@ -660,7 +696,22 @@ Additionally, its front side is served via a region-distributed
 link:https://en.wikipedia.org/wiki/Content_delivery_network[CDN],
 providing maximum speed and availability across the globe.
 
-=== 7.2 Forever-lasting backups
+[[distributed-firewall]]
+=== <<distributed-firewall, 7.2 Distributed firewall>>
+
+The [inner]#link:../../[Fluid Attacks]# domain
+is protected behind a distributed firewall that implements:
+
+- Dynamic firewall rules managed by top cybersecurity experts.
+- link:https://owasp.org/www-project-modsecurity-core-rule-set/[OWASP Core rules]
+- Rate limiting.
+- Full DDoS protection.
+- Browser integrity checking.
+- Hotlink protection.
+- Anti-bot challenges.
+
+[[forever-lasting-backups]]
+=== <<forever-lasting-backups, 7.3 Forever-lasting backups>>
 
 As all our backups are stored in decentralized data centers,
 problems like hard drive lifespans
@@ -670,7 +721,8 @@ for as long as we want,
 giving us full traceability
 and recoverability.
 
-=== 7.3 Everything is backed up
+[[everything-is-backed-up]]
+=== <<everything-is-backed-up, 7.4 Everything is backed up>>
 
 As data is likely our most valuable asset,
 we have strong backup policies for everything, for example:
@@ -691,13 +743,15 @@ we have strong backup policies for everything, for example:
   during the last 35 days.
 - All the exploits are versioned.
 
-== 8. Resilience
+[[resilence]]
+== <<resilence, 8. Resilience>>
 
 By resilience, we refer to the organization's ability
 to adapt to unexpected circumstances
 that affect the way our team usually works.
 
-=== 8.1 Redundant roles
+[[redundant-roles]]
+=== <<redundant-roles, 8.1 Redundant roles>>
 
 Every role within the organization
 has a minimum of two different employees
@@ -706,7 +760,8 @@ This allows us to be able to fill the gap
 in case an employee goes on sick leave,
 vacation, etc.
 
-=== 8.2 Everything is decentralized
+[[everything-is-decentralized]]
+=== <<everything-is-decentralized, 8.2 Everything is decentralized>>
 
 All our infrastructure is decentralized,
 meaning that we have independent data centers
@@ -720,7 +775,8 @@ and with the sole purpose of accessing the Internet.
 Connections are always encrypted
 [inner]#link:../products/rules/list/252/[using WPA2-AES]#.
 
-=== 8.3 Own equipment and possibility of telecommuting
+[[own-equipment-and-telecommuting]]
+=== <<own-equipment-and-telecommuting, 8.3 Own equipment and possibility of telecommuting>>
 
 link:https://en.wikipedia.org/wiki/Bring_your_own_device[BYOD] is not allowed.
 Every employee receives a computer with a password-secured BIOS,
@@ -732,7 +788,8 @@ In case our offices close
 (e.g., due to link:https://en.wikipedia.org/wiki/Coronavirus_disease_2019[COVID-19] pandemic),
 everyone can still do their job seamlessly.
 
-== 9. Integrity
+[[integrity]]
+== <<integrity, 9. Integrity>>
 
 Integrity refers to the ability to
 
@@ -746,7 +803,8 @@ Integrity refers to the ability to
   that ensures applications are
   secure and true to their source code.
 
-=== 9.1 Certified hackers
+[[certified-hackers]]
+=== <<certified-hackers, 9.1 Certified hackers>>
 
 We continuously encourage our hackers
 to certify their knowledge.
@@ -757,7 +815,8 @@ in the company.
 you can find a comprehensive list of certifications
 that our team of hackers currently holds.
 
-=== 9.2 Extensive hiring process
+[[extensive-hiring-process]]
+=== <<extensive-hiring-process, 9.2 Extensive hiring process>>
 
 All job applicants must undergo
 an extensive [inner]#link:../careers[testing process]# to prove
@@ -776,7 +835,8 @@ going to the office during a training
 phase to work alongside the team,
 and job interviews, among other things.
 
-=== 9.3 Secure emails
+[[secure-emails]]
+=== <<secure-emails, 9.3 Secure emails>>
 
 The [inner]#link:../../[Fluid Attacks]# domain
 has DKIM, and SPF protocols enabled.
@@ -787,13 +847,15 @@ These protocols help email recipients
 verify if an email comes from a trusted source,
 thus helping them avoid phishing and fake emails.
 
-=== 9.4 Developing for integrity
+[[developing-for-integrity]]
+=== <<developing-for-integrity, 9.4 Developing for integrity>>
 
 This section describes everything
 we do in our development cycle
 to reach a high integrity level.
 
-==== 9.4.1 Monorepo
+[[monorepo]]
+==== <<monorepo, 9.4.1 Monorepo>>
 
 We have a Git repository for all our applications.
 By taking this approach instead of dividing applications
@@ -814,7 +876,8 @@ into smaller repositories, we get the following:
   where everyone works, as there is no need
   to duplicate efforts or synchronize repositories.
 
-==== 9.4.2 Everything as code
+[[everything-as-code-2]]
+==== <<everything-as-code-2, 9.4.2 Everything as code>>
 
 As mentioned in the
 <<EAC, "Everything as code" previous section>>,
@@ -825,7 +888,8 @@ of keeping a healthy source code,
 after making the source code the only
 variable affecting an application.
 
-==== 9.4.3 Infrastructure as Code (IaC)
+[[infrastructure-as-code]]
+==== <<infrastructure-as-code, 9.4.3 Infrastructure as Code (IaC)>>
 
 [[IAC]]
 Our entire infrastructure is versioned
@@ -836,7 +900,8 @@ other source code,
 such as auditability, history,
 revert capabilities, etc.
 
-==== 9.4.4 Regenerative infrastructure
+[[regenerative-infrastructure]]
+==== <<regenerative-infrastructure, 9.4.4 Regenerative infrastructure>>
 
 By having our infrastructure written as code,
 we can recreate it
@@ -851,7 +916,8 @@ brings the following advantages:
 - Having the capability of deploying our infrastructure
   from zero (0) to production in an automated process.
 
-==== 9.4.5 Immutable infrastructure
+[[immutable-infrastructure]]
+==== <<immutable-infrastructure, 9.4.5 Immutable infrastructure>>
 
 The infrastructure code can be audited,
 and changes can only be made by
@@ -861,7 +927,8 @@ This provides full transparency on
 Also, no administrative protocols like ssh
 or administrative accounts are needed.
 
-==== 9.4.6 Continuous Integration
+[[continuous-integration]]
+==== <<continuous-integration, 9.4.6 Continuous Integration>>
 
 [[CI]]
 We run an Application Build Process for every change a
@@ -884,7 +951,8 @@ By always building and testing everything,
 we can guarantee that every change
 is compliant with the application's quality standards.
 
-==== 9.4.7 Peer review
+[[peer-review]]
+==== <<peer-review, 9.4.7 Peer review>>
 
 [[PR]]
 We recognize that not all the steps of
@@ -903,7 +971,8 @@ standards, and future plans for the application.
 This space is ideal for senior developers to
 guide juniors on the right path.
 
-==== 9.4.8 Continuous Deployment (CD)
+[[continuous-deployment]]
+==== <<continuous-deployment, 9.4.8 Continuous Deployment (CD)>>
 
 In addition to running an automated building process
 for every change,
@@ -913,7 +982,8 @@ an additional Continuous Deployment pipeline is triggered,
 automatically deploying a new production version
 based on the new source code.
 
-==== 9.4.9 Ephemeral environments
+[[ephemeral-environments]]
+==== <<ephemeral-environments, 9.4.9 Ephemeral environments>>
 
 [[EPH]]
 Instead of having long-term development environments
@@ -933,7 +1003,8 @@ Once a change reaches production,
 its ephemeral environment
 is destroyed forever.
 
-==== 9.4.10 Trunk based development
+[[trunk-based-development]]
+==== <<trunk-based-development, 9.4.10 Trunk based development>>
 
 We use
 link:https://trunkbaseddevelopment.com/[Trunk based development]
@@ -941,7 +1012,8 @@ to keep only one long-term master branch.
 That branch is the source of truth regarding
 what code is running in the production environments.
 
-==== 9.4.11 Micro-changes
+[[micro-changes]]
+==== <<micro-changes, 9.4.11 Micro-changes>>
 
 Merge requests made by developers
 cannot be bigger than 200 deltas of code.
@@ -963,7 +1035,8 @@ The following are some advantages of working with micro-changes:
 - Users of the application
   see it evolve on a daily basis.
 
-==== 9.4.12 One branch per developer
+[[one-branch-per-developer]]
+==== <<one-branch-per-developer, 9.4.12 One branch per developer>>
 
 Developers can only have one short-term branch
 with their names (employeeatfluid) for every application.
@@ -975,7 +1048,8 @@ merged to the master branch,
 their changes are deployed to production,
 and their short-term branch is deleted.
 
-==== 9.4.13 Isolated and sudo-less dependencies
+[[isolated-and-sudoless-dependencies]]
+==== <<isolated-and-sudoless-dependencies, 9.4.13 Isolated and sudo-less dependencies>>
 
 Some of our dependencies
 do not require OS libraries like libc.
@@ -987,7 +1061,8 @@ these dependencies do not require any administrative privileges like sudo.
 They are entirely built on user space,
 considerably reducing the possibility of compromising OS core files.
 
-==== 9.4.14 No dependency auto-update
+[[no-dependency-autoupdate]]
+==== <<no-dependency-autoupdate, 9.4.14 No dependency auto-update>>
 
 All external dependencies are pinned to a specific version
 (this is highly related to the immutability property),
@@ -1004,7 +1079,8 @@ In case all tests and peer review pass,
 a new production version with the updated
 dependency will be automatically deployed.
 
-=== 9.5 Static website
+[[static-website]]
+=== <<static-website, 9.5 Static website>>
 
 Our [inner]#link:../[Website]# is a
 link:https://en.wikipedia.org/wiki/Static_web_page[static website],
