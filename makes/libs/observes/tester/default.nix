@@ -11,5 +11,5 @@ makeDerivation {
   buildInputs = [ observesPackage.template ];
   envSrc = observesPackage.packagePath;
   envTestDir = testDir;
-  name = "observes-tester";
+  name = "observes-tester-${observesPackage.name}";
 }

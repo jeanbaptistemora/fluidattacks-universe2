@@ -12,5 +12,5 @@ makeDerivation {
     lintPython
   ];
   envSrc = observesPackage.packagePath;
-  name = "observes-linter";
+  name = "observes-linter-${observesPackage.name}";
 }
