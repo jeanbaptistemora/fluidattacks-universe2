@@ -86,6 +86,12 @@
     - ./make integrates/front/deploy
   stage: deploy-app
 
+.integrates_mobile_ota_deploy: &integrates_mobile_ota_deploy
+  <<: *makes
+  script:
+    - ./make integrates/mobile/ota
+  stage: pre-build
+
 integrates/front/deploy-development:
   <<: *in_dev_branch_integrates
   <<: *integrates_front_deploy
@@ -186,6 +192,10 @@ integrates/mobile/lint:
   <<: *makes
   <<: *in_dev_branch_integrates
   stage: lint-code
+
+integrates/mobile/ota-development:
+  <<: *in_dev_branch_integrates
+  <<: *integrates_mobile_ota_deploy
 
 integrates/mobile/test:
   <<: *makes
@@ -384,11 +394,6 @@ integrates_back_deploy_production:
 integrates_mobile_deploy_ota_production:
   <<: *with_nix
   <<: *in_master_branch_integrates
-  stage: pre-build
-
-integrates_mobile_deploy_ota_development:
-  <<: *with_nix
-  <<: *in_dev_branch_integrates
   stage: pre-build
 
 integrates_mobile_deploy_playstore:
