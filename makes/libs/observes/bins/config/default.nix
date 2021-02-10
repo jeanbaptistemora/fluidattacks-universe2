@@ -12,6 +12,12 @@
     package = observesPkgs.streamerZohoCrm;
   };
 
+  tapCsv = {
+    binName = "observes-tap-csv";
+    entrypoint = "from tap_csv.cli import main";
+    package = observesPkgs.tapCsv;
+  };
+
   tapFormstack = {
     binName = "observes-tap-formstack";
     entrypoint = "from tap_formstack import main";

@@ -11,13 +11,12 @@ function setup_runtime {
       do
             make_python_path '3.8' \
               "${pkg}" \
-        ||  return 1 \
-        &&  echo "[INFO] Added pyreqs: ${pkg}"
+        ||  return 1
       done \
   &&  for pkg in "${python_req_srcs[@]}"
       do
-            make_python_path_plain "$pkg" || return 1 \
-        &&  echo "[INFO] Added pysrc: ${pkg}"
+            make_python_path_plain "$pkg" \
+        ||  return 1
       done
 }
 
