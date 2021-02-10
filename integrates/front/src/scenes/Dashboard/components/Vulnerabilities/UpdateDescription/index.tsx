@@ -58,6 +58,7 @@ import {
   groupExternalBts,
   groupLastHistoricTreatment,
   groupVulnLevel,
+  hasNewTreatment,
   sortTags,
 } from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription/utils";
 import { msgError, msgSuccess } from "utils/notifications";
@@ -381,6 +382,8 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
     justification: "",
   };
 
+  const hasNewVulns: boolean = hasNewTreatment(vulnerabilities);
+
   const formValues: Dictionary<string> = useSelector(
     (state: Record<string, unknown>): Dictionary<string> =>
       // It is necessary since formValueSelector returns an any type
@@ -491,6 +494,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
                   <Row>
                     <Col100>
                       <ExternalBtsField
+                        hasNewVulnSelected={hasNewVulns}
                         isAcceptedSelected={isAcceptedSelected}
                         isAcceptedUndefinedSelected={
                           isAcceptedUndefinedSelected
@@ -504,6 +508,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
                     <Col100>
                       <TagField
                         handleDeletion={handleDeletion}
+                        hasNewVulnSelected={hasNewVulns}
                         isAcceptedSelected={isAcceptedSelected}
                         isAcceptedUndefinedSelected={
                           isAcceptedUndefinedSelected
@@ -515,6 +520,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
                   <Row>
                     <Col50>
                       <SeverityField
+                        hasNewVulnSelected={hasNewVulns}
                         isAcceptedSelected={isAcceptedSelected}
                         isAcceptedUndefinedSelected={
                           isAcceptedUndefinedSelected
@@ -532,6 +538,17 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
                     )}
                   </Alert>
                 )}
+                {hasNewVulns &&
+                !(
+                  isAcceptedSelected ||
+                  isAcceptedUndefinedSelected ||
+                  isInProgressSelected
+                ) ? (
+                  <Alert>
+                    {"*"}&nbsp;
+                    {translate.t("search_findings.tab_vuln.alerts.hasNewVulns")}
+                  </Alert>
+                ) : undefined}
                 <hr />
                 <Row>
                   <Col100>

@@ -43,7 +43,14 @@ describe("Update Description component", (): void => {
     {
       currentState: "open",
       externalBts: "",
-      historicTreatment: [],
+      historicTreatment: [
+        {
+          date: "",
+          justification: "test justification",
+          treatment: "NEW",
+          user: "",
+        },
+      ],
       id: "ab25380d-dfe1-4cde-aefd-acca6990d6aa",
       severity: "2",
       specific: "",

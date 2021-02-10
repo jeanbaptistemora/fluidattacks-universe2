@@ -17,6 +17,7 @@ const ExternalBtsField: React.FC<IExternalBtsFieldProps> = (
   props: IExternalBtsFieldProps
 ): JSX.Element => {
   const {
+    hasNewVulnSelected,
     isAcceptedSelected,
     isAcceptedUndefinedSelected,
     isInProgressSelected,
@@ -32,7 +33,8 @@ const ExternalBtsField: React.FC<IExternalBtsFieldProps> = (
     <React.StrictMode>
       {isAcceptedSelected ||
       isAcceptedUndefinedSelected ||
-      isInProgressSelected ? (
+      isInProgressSelected ||
+      !hasNewVulnSelected ? (
         <EditableField
           component={Text}
           currentValue={groupExternalBts(vulnerabilities)}

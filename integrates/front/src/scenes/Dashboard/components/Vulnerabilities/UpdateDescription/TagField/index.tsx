@@ -10,6 +10,7 @@ const TagField: React.FC<ITagFieldProps> = (
 ): JSX.Element => {
   const {
     handleDeletion,
+    hasNewVulnSelected,
     isAcceptedSelected,
     isAcceptedUndefinedSelected,
     isInProgressSelected,
@@ -19,7 +20,8 @@ const TagField: React.FC<ITagFieldProps> = (
     <React.StrictMode>
       {isAcceptedSelected ||
       isAcceptedUndefinedSelected ||
-      isInProgressSelected ? (
+      isInProgressSelected ||
+      !hasNewVulnSelected ? (
         <FormGroup>
           <ControlLabel>
             <b>{translate.t("search_findings.tab_description.tag")}</b>

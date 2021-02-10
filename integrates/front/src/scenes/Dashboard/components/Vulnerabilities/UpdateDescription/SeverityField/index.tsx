@@ -10,6 +10,7 @@ const SeverityField: React.FC<ISeverityFieldProps> = (
   props: ISeverityFieldProps
 ): JSX.Element => {
   const {
+    hasNewVulnSelected,
     isAcceptedSelected,
     isAcceptedUndefinedSelected,
     isInProgressSelected,
@@ -19,7 +20,8 @@ const SeverityField: React.FC<ISeverityFieldProps> = (
     <React.StrictMode>
       {isAcceptedSelected ||
       isAcceptedUndefinedSelected ||
-      isInProgressSelected ? (
+      isInProgressSelected ||
+      !hasNewVulnSelected ? (
         <FormGroup>
           <ControlLabel>
             <b>

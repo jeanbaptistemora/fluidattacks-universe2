@@ -53,6 +53,20 @@ const getLastTreatment: (
   };
 };
 
+const hasNewTreatment: (vulns: IVulnDataTypeAttr[]) => boolean = (
+  vulns: IVulnDataTypeAttr[]
+): boolean => {
+  return (
+    vulns.filter((vuln): boolean => {
+      const lastTreatment: IHistoricTreatment = getLastTreatment(
+        vuln.historicTreatment
+      );
+
+      return lastTreatment.treatment === "NEW";
+    }).length > 0
+  );
+};
+
 const groupLastHistoricTreatment: (
   vulnerabilities: IVulnDataTypeAttr[]
 ) => IHistoricTreatment = (
@@ -108,4 +122,5 @@ export {
   groupLastHistoricTreatment,
   groupVulnLevel,
   sortTags,
+  hasNewTreatment,
 };
