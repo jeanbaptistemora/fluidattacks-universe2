@@ -167,7 +167,7 @@ describe("EventsView", () => {
 
     const evidenceFiles: ReactWrapper = wrapper
       .find("span")
-      .find(".glyphicon-search");
+      .find(".fa-search");
 
     expect(wrapper.containsMatchingElement(<h4>New Event</h4>))
       .toBe(true);

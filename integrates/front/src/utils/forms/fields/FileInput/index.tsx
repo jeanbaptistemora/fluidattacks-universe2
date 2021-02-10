@@ -3,9 +3,10 @@
   Readonly utility type does not work on deeply nested types and we need
   className to override default styles from react-bootstrap.
 */
-import { Glyphicon } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import _ from "lodash";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import style from "utils/forms/index.css";
 import {
   ControlLabel,
@@ -51,7 +52,7 @@ export const FileInput: React.FC<IFileInputProps> = (
             type={"file"}
           />
           <strong>
-            <Glyphicon glyph={"search"} /> {"Explore"}&hellip;
+            <FontAwesomeIcon icon={faSearch} /> {"Explore"}&hellip;
           </strong>
         </ControlLabel>
       </InputGroup>

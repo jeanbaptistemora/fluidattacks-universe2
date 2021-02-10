@@ -3,12 +3,13 @@
  * Disabling this rule is necessary for using components with render props
  */
 import { useMutation, useQuery } from "@apollo/react-hooks";
+import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ApolloError, NetworkStatus } from "apollo-client";
 import { GraphQLError } from "graphql";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
-import { Glyphicon } from "react-bootstrap";
 
 import { Badge } from "components/Badge";
 import { Button } from "components/Button";
@@ -155,7 +156,7 @@ const portfolio: React.FC<IPortfolioProps> = (props: IPortfolioProps): JSX.Eleme
                 placement="top"
               >
                 <Button onClick={openAddModal} id={"portfolio-add"}>
-                  <Glyphicon glyph="plus" />&nbsp;
+                  <FontAwesomeIcon icon={faPlus} />&nbsp;
                 {translate.t("search_findings.tab_resources.add_repository")}
                 </Button>
               </TooltipWrapper>
@@ -172,7 +173,7 @@ const portfolio: React.FC<IPortfolioProps> = (props: IPortfolioProps): JSX.Eleme
                   disabled={_.isEmpty(currentRow) || removing}
                   id={"portfolio-remove"}
                 >
-                  <Glyphicon glyph="minus" />&nbsp;
+                  <FontAwesomeIcon icon={faMinus} />&nbsp;
                 {translate.t("search_findings.tab_resources.remove_repository")}
                 </Button>
               </TooltipWrapper>

@@ -6,12 +6,13 @@
 import { useMutation, useQuery } from "@apollo/react-hooks";
 import { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
+import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ApolloError } from "apollo-client";
 import { GraphQLError } from "graphql";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
-import { Glyphicon } from "react-bootstrap";
 
 import { Button } from "components/Button";
 import { DataTableNext } from "components/DataTableNext";
@@ -261,7 +262,7 @@ const projectStakeholdersView: React.FC<IProjectStakeholdersViewProps> =
                       message={translate.t("search_findings.tab_users.add_button.tooltip")}
                     >
                       <Button id="addUser" onClick={openAddUserModal}>
-                        <Glyphicon glyph="plus" />
+                        <FontAwesomeIcon icon={faPlus} />
                         &nbsp;{translate.t("search_findings.tab_users.add_button.text")}
                       </Button>
                     </TooltipWrapper>
@@ -289,7 +290,7 @@ const projectStakeholdersView: React.FC<IProjectStakeholdersViewProps> =
                         onClick={handleRemoveUser}
                         disabled={_.isEmpty(currentRow) || removing}
                       >
-                        <Glyphicon glyph="minus" />
+                        <FontAwesomeIcon icon={faMinus} />
                         &nbsp;{translate.t("search_findings.tab_users.remove_user_button.text")}
                       </Button>
                     </TooltipWrapper>

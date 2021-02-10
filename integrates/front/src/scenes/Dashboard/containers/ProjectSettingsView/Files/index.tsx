@@ -2,12 +2,13 @@
  * Disabling this rule is necessary for using components with render props
  */
 import { useMutation, useQuery } from "@apollo/react-hooks";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ApolloError } from "apollo-client";
 import { GraphQLError } from "graphql";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
-import { Glyphicon } from "react-bootstrap";
 
 import { Button } from "components/Button";
 import { DataTableNext } from "components/DataTableNext";
@@ -222,7 +223,7 @@ const files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
                 placement="top"
               >
                 <Button onClick={openAddModal} id={"file-add"}>
-                  <Glyphicon glyph="plus" />&nbsp;
+                  <FontAwesomeIcon icon={faPlus} />&nbsp;
                   {translate.t("search_findings.tab_resources.add_repository")}
                 </Button>
               </TooltipWrapper>

@@ -41,17 +41,17 @@ describe("Array field", (): void => {
 
     expect(wrapper.find(ArrayWrapper).find("input")).toHaveLength(1);
 
-    const addButton: ReactWrapper = wrapper.find(".glyphicon-plus");
+    const addButton: ReactWrapper = wrapper.find(".fa-plus");
 
     expect(addButton).toHaveLength(1);
 
-    expect(wrapper.find(".glyphicon-trash")).toHaveLength(0);
+    expect(wrapper.find(".fa-trash-alt")).toHaveLength(0);
 
     addButton.simulate("click");
 
     expect(wrapper.find(ArrayWrapper).find("input")).toHaveLength(2);
 
-    const removeButton: ReactWrapper = wrapper.find(".glyphicon-trash");
+    const removeButton: ReactWrapper = wrapper.find(".fa-trash-alt");
 
     expect(removeButton).toHaveLength(1);
 

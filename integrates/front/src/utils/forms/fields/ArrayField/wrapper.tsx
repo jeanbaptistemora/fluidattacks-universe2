@@ -1,8 +1,9 @@
 import { Button } from "components/Button";
-import { Glyphicon } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { IArrayProps } from ".";
 import React from "react";
 import type { WrappedFieldArrayProps } from "redux-form";
+import { faPlus, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 
 const ArrayWrapper: React.FC<WrappedFieldArrayProps> = (
   props: WrappedFieldArrayProps
@@ -37,7 +38,7 @@ const ArrayWrapper: React.FC<WrappedFieldArrayProps> = (
               <div className={"w-20"}>
                 {index > 0 || allowEmpty ? (
                   <Button onClick={removeItem}>
-                    <Glyphicon glyph={"trash"} />
+                    <FontAwesomeIcon icon={faTrashAlt} />
                   </Button>
                 ) : undefined}
               </div>
@@ -48,7 +49,7 @@ const ArrayWrapper: React.FC<WrappedFieldArrayProps> = (
       )}
       <div className={"mt4"}>
         <Button id={`${fields.name}-add`} onClick={addItem}>
-          <Glyphicon glyph={"plus"} />
+          <FontAwesomeIcon icon={faPlus} />
         </Button>
       </div>
     </React.Fragment>

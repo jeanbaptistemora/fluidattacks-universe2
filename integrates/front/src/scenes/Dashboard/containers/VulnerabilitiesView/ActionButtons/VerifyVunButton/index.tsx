@@ -1,9 +1,10 @@
 import { Button } from "components/Button";
 import { Can } from "utils/authz/Can";
 import { FluidIcon } from "components/FluidIcon";
-import { Glyphicon } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { TooltipWrapper } from "components/TooltipWrapper";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { useTranslation } from "react-i18next";
 
 interface IVerifyVunButtonProps {
@@ -52,7 +53,7 @@ const VerifyVunButton: React.FC<IVerifyVunButtonProps> = ({
           <Button onClick={onVerify}>
             {isVerifying ? (
               <React.Fragment>
-                <Glyphicon glyph={"remove"} />
+                <FontAwesomeIcon icon={faTimes} />
                 &nbsp;{t("search_findings.tab_description.cancel_verified")}
               </React.Fragment>
             ) : (

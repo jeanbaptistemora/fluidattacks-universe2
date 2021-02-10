@@ -5,12 +5,13 @@
  */
 import { MutationFunction, MutationResult, QueryResult } from "@apollo/react-common";
 import { Mutation, Query } from "@apollo/react-components";
+import { faCloudUploadAlt, faList } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ApolloError } from "apollo-client";
 import { GraphQLError } from "graphql";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
-import { Glyphicon } from "react-bootstrap";
 import { useParams } from "react-router";
 import { Field, InjectedFormProps } from "redux-form";
 
@@ -117,7 +118,7 @@ const recordsView: React.FC = (): JSX.Element => {
                                 validate={[required, validRecordsFile]}
                               />
                               <Button className={"h-25"} type="submit" disabled={pristine || updateRes.loading}>
-                                <Glyphicon glyph="cloud-upload" />
+                                <FontAwesomeIcon icon={faCloudUploadAlt} />
                                 &nbsp;{translate.t("search_findings.tab_evidence.update")}
                               </Button>
                             </ButtonToolbarRow>
@@ -157,7 +158,7 @@ const recordsView: React.FC = (): JSX.Element => {
               <RowCenter>
                 {_.isEmpty(JSON.parse(data.finding.records)) ? (
                   <div className={globalStyle["no-data"]}>
-                    <Glyphicon glyph="list" />
+                    <FontAwesomeIcon size={"3x"} icon={faList} />
                     <p>{translate.t("group.findings.records.no_data")}</p>
                   </div>
                 ) : (
