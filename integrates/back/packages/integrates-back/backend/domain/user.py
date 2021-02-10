@@ -291,3 +291,7 @@ async def get_by_email(email: str) -> UserType:
 
 async def get_organizations(email: str) -> List[str]:
     return await org_dal.get_ids_for_user(email)
+
+
+async def delete(email: str) -> bool:
+    return await user_dal.delete(email)
