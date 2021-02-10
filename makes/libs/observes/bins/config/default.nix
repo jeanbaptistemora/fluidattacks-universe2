@@ -6,6 +6,12 @@
     package = observesPkgs.codeEtl;
   };
 
+  difGitlabEtl = {
+    binName = "observes-dif-gitlab-etl";
+    entrypoint = "from dif_gitlab_etl.cli import main";
+    package = observesPkgs.difGitlabEtl;
+  };
+
   streamerZohoCrm = {
     binName = "observes-streamer-zoho-crm";
     entrypoint = "from streamer_zoho_crm.cli import main";

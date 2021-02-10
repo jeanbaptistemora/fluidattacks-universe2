@@ -44,11 +44,14 @@ melts/vpn
 observes/code-etl-amend
 observes/code-etl-mirror
 observes/code-etl-upload
+observes/dif-gitlab-etl
 observes/infra-test
+observes/job-dif-gitlab-etl
 observes/scheduled-code-etl-amend
 observes/scheduled-code-etl-compute-bills
 observes/scheduled-code-etl-mirror
 observes/scheduled-code-etl-upload
+observes/scheduled-dif-gitlab-etl
 observes/scheduled-formstack-etl
 observes/scheduled-zoho-crm-etl
 observes/scheduled-zoho-crm-prepare
