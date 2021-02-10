@@ -76,6 +76,8 @@ serves/users/forces/apply
 serves/users/forces/test
 serves/users/integrates/apply
 serves/users/integrates/test
+serves/users/melts/apply
+serves/users/melts/test
 serves/users/serves/apply
 serves/users/serves/test
 serves/users/services/apply

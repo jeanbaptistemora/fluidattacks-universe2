@@ -15,7 +15,7 @@ data "aws_iam_policy_document" "dev-policy-data" {
 
   # S3 read over continuous buckets
   statement {
-    sid = "s3ContinuousRepositoriesRead"
+    sid    = "s3ContinuousRepositoriesRead"
     effect = "Allow"
     actions = [
       "s3:Get*",
