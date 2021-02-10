@@ -73,7 +73,7 @@ makeTemplate {
       };
       python = sortsPkgs.python38;
     };
-    envSearchPaths = makeSearchPaths [ sortsPkgs.gcc.cc ];
+    envSearchPaths = makeSearchPaths [ sortsPkgs.gcc.cc sortsPkgs.git ];
     envSrcSortsSorts = path "/sorts/sorts";
     envUtilsBashLibPython = path "/makes/utils/python/template.sh";
   };
