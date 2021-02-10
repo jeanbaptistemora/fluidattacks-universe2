@@ -284,12 +284,12 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
         const handleRequestProjectReport: ((event: React.MouseEvent<HTMLElement>) => void) =
         (event: React.MouseEvent<HTMLElement>): void => {
           const target: HTMLElement = event.currentTarget as HTMLElement;
-          const span: HTMLSpanElement | null = target.querySelector("span");
-          if (span !== null) {
+          const icon: SVGElement | null = target.querySelector("svg");
+          if (icon !== null) {
             const reportType: string =
-              span.className.includes("pdf")
+              (icon.attributes.getNamedItem("data-icon")?.value as string).includes("pdf")
                 ? "PDF"
-                : span.className.includes("excel")
+                : (icon.attributes.getNamedItem("data-icon")?.value as string).includes("excel")
                   ? "XLS"
                   : "DATA";
 
