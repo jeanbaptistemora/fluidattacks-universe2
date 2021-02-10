@@ -75,7 +75,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'backend_api_resolvers_query_forces_execution_resolve',
             'backend_api_resolvers_query_forces_executions_new_resolve',
             'backend_api_resolvers_query_forces_executions_resolve',
-            'backend_api_resolvers_query_projects_with_forces',
+            'backend_api_resolvers_query_projects_with_forces_resolve',
             'backend_api_resolvers_query_group_resolve',
             'backend_api_resolvers_query_report__get_url_group_report',
             'backend_api_resolvers_query_resources_resolve',
