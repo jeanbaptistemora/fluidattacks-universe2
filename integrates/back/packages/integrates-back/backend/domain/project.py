@@ -1137,32 +1137,6 @@ async def get_access_by_url_token(url_token: str) -> ProjectAccessType:
     return cast(ProjectAccessType, access[0]) if access else {}
 
 
-def is_fluid_user(email: str) -> bool:
-    return email.endswith('@fluidattacks.com')
-
-
-async def is_manager(email: str, group_name: str) -> bool:
-    role: str = await authz.get_group_level_role(email, group_name)
-
-    return role == 'group_manager'
-
-
-async def filter_stakeholders(
-    emails: List[str],
-    group_name: str,
-    user_email: str,
-) -> List[str]:
-    if is_fluid_user(user_email):
-        return emails
-
-    return [
-        email
-        for email in emails
-        if not is_fluid_user(email)
-        or await is_manager(email, group_name)
-    ]
-
-
 async def _get_stakeholder(
     email: str,
     group_name: str
