@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Feb 09, 2021, 04:56 PM",
+    "DateLastModified": "Feb 09, 2021, 05:41 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "2.0"
@@ -149,6 +149,38 @@
         {
           "AttributeName": "cloning_message",
           "AttributeType": "S"
+        },
+        {
+          "AttributeName": "context",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "evidences",
+          "AttributeType": "M"
+        },
+        {
+          "AttributeName": "action_before_blocking",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "action_after_blocking",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "blocking_hours_expected",
+          "AttributeType": "N"
+        },
+        {
+          "AttributeName": "blocking_hours",
+          "AttributeType": "N"
+        },
+        {
+          "AttributeName": "affected_components",
+          "AttributeType": "SS"
+        },
+        {
+          "AttributeName": "accessibility",
+          "AttributeType": "S"
         }
       ],
       "TableFacets": [
@@ -260,6 +292,29 @@
             "modified_by",
             "cloning_status",
             "cloning_message"
+          ]
+        },
+        {
+          "FacetName": "event",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "pk",
+            "SortKeyAlias": "sk"
+          },
+          "TableData": [],
+          "NonKeyAttributes": [
+            "description",
+            "type",
+            "status",
+            "modified_date",
+            "modified_by",
+            "context",
+            "evidences",
+            "action_before_blocking",
+            "action_after_blocking",
+            "blocking_hours_expected",
+            "blocking_hours",
+            "affected_components",
+            "accessibility"
           ]
         }
       ],
