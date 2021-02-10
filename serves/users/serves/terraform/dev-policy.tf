@@ -1,7 +1,7 @@
 data "aws_iam_policy_document" "dev-policy-data" {
 
   statement {
-    effect  = "Allow"
+    effect = "Allow"
     actions = [
       "batch:Describe*",
       "batch:Get*",
