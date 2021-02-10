@@ -49,7 +49,7 @@ data "aws_iam_policy_document" "skims_prod_policy_data" {
 
   # Batch access
   statement {
-    effect = "Allow"
+    effect  = "Allow"
     actions = ["batch:SubmitJob"]
     resources = [
       "arn:aws:batch:us-east-1:${data.aws_caller_identity.current.account_id}:job-definition/default",
@@ -58,8 +58,8 @@ data "aws_iam_policy_document" "skims_prod_policy_data" {
     ]
   }
   statement {
-    effect = "Allow"
-    actions = ["batch:ListJobs"]
+    effect    = "Allow"
+    actions   = ["batch:ListJobs"]
     resources = ["*"]
   }
 

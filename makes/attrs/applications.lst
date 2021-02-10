@@ -78,6 +78,8 @@ serves/users/integrates/apply
 serves/users/integrates/test
 serves/users/services/apply
 serves/users/services/test
+serves/users/skims/apply
+serves/users/skims/test
 serves/users/sorts/apply
 serves/users/sorts/test
 serves/vpc/apply
