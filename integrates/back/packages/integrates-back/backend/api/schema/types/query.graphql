@@ -23,7 +23,7 @@ type Query {
   internalNames(entity: NameEntity!): InternalName
 
   "List projects with forces"
-  listProjectsWithForces: [Project]
+  listProjectsWithForces: [String]
 
   "Me entity"
   me(callerOrigin: String): Me

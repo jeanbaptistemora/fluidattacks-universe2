@@ -121,8 +121,12 @@ async def get_active_projects() -> List[str]:
 
 async def get_projects_with_forces() -> List[str]:
     """Get active project in DynamoDB"""
+    filtering_exp = (
+        Attr('project_status').eq('ACTIVE')
+    )
     query_attrs = {
         "ProjectionExpression": "#name,#h_config",
+        "FilterExpression": filtering_exp,
         "ExpressionAttributeNames": {
             "#name": "project_name",
             "#h_config": "historic_configuration",
