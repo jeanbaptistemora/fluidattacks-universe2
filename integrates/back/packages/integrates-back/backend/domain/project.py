@@ -571,13 +571,15 @@ async def is_alive(project: str) -> bool:
     return await project_dal.is_alive(project)
 
 
-async def total_vulnerabilities(finding_id: str) -> Dict[str, int]:
+async def total_vulnerabilities(
+    context: Any,
+    finding_id: str
+) -> Dict[str, int]:
     """Get total vulnerabilities in new format."""
     finding = {'openVulnerabilities': 0, 'closedVulnerabilities': 0}
+    finding_vulns_loader = context.finding_vulns
     if await finding_domain.validate_finding(finding_id):
-        vulnerabilities = await vuln_domain.list_vulnerabilities_async(
-            [finding_id]
-        )
+        vulnerabilities = await finding_vulns_loader.load(finding_id)
         last_approved_status = await collect([
             in_process(vuln_domain.get_last_status, vuln)
             for vuln in vulnerabilities
@@ -694,11 +696,12 @@ def is_vulnerability_closed(vuln: Dict[str, FindingType]) -> bool:
 
 
 async def get_max_open_severity(
-        findings: List[Dict[str, FindingType]]) -> \
-        Tuple[Decimal, Dict[str, FindingType]]:
+    context: Any,
+    findings: List[Dict[str, FindingType]]
+) -> Tuple[Decimal, Dict[str, FindingType]]:
     """Get maximum severity of project with open vulnerabilities."""
     total_vulns = await collect(
-        total_vulnerabilities(str(fin.get('finding_id', '')))
+        total_vulnerabilities(context, str(fin.get('finding_id', '')))
         for fin in findings
     )
     opened_findings = [

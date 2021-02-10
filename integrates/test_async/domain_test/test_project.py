@@ -154,7 +154,7 @@ async def test_get_max_open_severity():
         finding_dal.get_finding(finding_id)
         for finding_id in findings_to_get
     )
-    test_data = await get_max_open_severity(findings)
+    test_data = await get_max_open_severity(get_new_context(), findings)
     assert test_data[0] == Decimal(4.3).quantize(Decimal('0.1'))
     assert test_data[1]['finding_id'] == "463558592"
 
