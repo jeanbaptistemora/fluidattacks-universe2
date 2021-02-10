@@ -428,15 +428,6 @@ function job_serves_rotate_keys_user_provision_observes {
   ||  return 1
 }
 
-function job_serves_test_lint_code {
-
-      helper_common_use_pristine_workdir \
-  &&  pushd serves \
-  &&  helper_serves_test_lint_code_shell . \
-  &&  popd \
-  ||  return 1
-}
-
 function job_serves_apply_config_autoscaling_ci {
   local bastion_ip='192.168.3.11'
   local bastion_user='ubuntu'

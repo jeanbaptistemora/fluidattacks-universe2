@@ -51,11 +51,6 @@
       when: never
     - when: always
 
-serves_test_lint_code:
-  <<: *with_nix
-  <<: *serves_in_dev_branch
-  stage: lint-code
-
 serves/ci/test:
   <<: *makes
   <<: *serves_in_dev_branch
