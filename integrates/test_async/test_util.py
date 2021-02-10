@@ -122,6 +122,13 @@ async def test_get_jwt_content():
         value=payload['jti'],
         ttl=settings.SESSION_COOKIE_AGE
     )
+    await redis_set_entity_attr(
+        entity='session',
+        attr='jwt',
+        email=payload['user_email'],
+        value=token,
+        ttl=settings.SESSION_COOKIE_AGE
+    )
     test_data = await get_jwt_content(request)
     expected_output = {
         u'user_email': u'unittest',
@@ -143,6 +150,13 @@ async def test_valid_token():
     token = token_helper.new_encoded_jwt(payload)
     request.cookies[settings.JWT_COOKIE_NAME] = token
     await session_dal.add_element(f'fi_jwt:{payload["jti"]}', token, settings.SESSION_COOKIE_AGE)
+    await redis_set_entity_attr(
+        entity='session',
+        attr='jwt',
+        email=payload['user_email'],
+        value=token,
+        ttl=settings.SESSION_COOKIE_AGE
+    )
     test_data = await get_jwt_content(request)
     expected_output = {
         u'user_email': u'unittest',
@@ -165,6 +179,13 @@ async def test_valid_api_token():
     token = token_helper.new_encoded_jwt(payload, api=True)
     request.cookies[settings.JWT_COOKIE_NAME] = token
     await session_dal.add_element(f'fi_jwt:{payload["jti"]}', token, settings.SESSION_COOKIE_AGE)
+    await redis_set_entity_attr(
+        entity='session',
+        attr='jwt',
+        email=payload['user_email'],
+        value=token,
+        ttl=settings.SESSION_COOKIE_AGE
+    )
     test_data = await get_jwt_content(request)
     expected_output = {
         u'user_email': u'unittest',

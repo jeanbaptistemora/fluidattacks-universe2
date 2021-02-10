@@ -56,5 +56,12 @@ async def create_dummy_session(
             value=payload['jti'],
             ttl=settings.SESSION_COOKIE_AGE
         )
+        await redis_set_entity_attr(
+            entity='session',
+            attr='jwt',
+            email=payload['user_email'],
+            value=token,
+            ttl=settings.SESSION_COOKIE_AGE
+        )
 
     return request

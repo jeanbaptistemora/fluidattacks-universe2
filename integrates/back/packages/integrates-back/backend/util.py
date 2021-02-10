@@ -40,6 +40,9 @@ from jwcrypto.jwe import InvalidJWEData
 from starlette.concurrency import run_in_threadpool
 from starlette.datastructures import UploadFile
 
+from backend.dal import (
+    session as session_dal,
+)
 from backend.dal.helpers.redis import (
     redis_get_entity_attr,
 )
@@ -145,6 +148,10 @@ async def get_jwt_content(context) -> Dict[str, str]:  # noqa: MC0001
         header_token = context.headers.get('Authorization')
 
         token = header_token.split()[1] if header_token else cookie_token
+
+        if context.session.get('username'):
+            await session_dal.check_jwt_token_validity(context)
+
         if not token:
             raise InvalidAuthorization()
 

@@ -61,6 +61,13 @@ async def create_session_token(user: Dict[str, str]) -> str:
         value=jti,
         ttl=settings.SESSION_COOKIE_AGE
     )
+    await redis_set_entity_attr(
+        entity='session',
+        attr='jwt',
+        email=user_email,
+        value=jwt_token,
+        ttl=settings.SESSION_COOKIE_AGE
+    )
 
     return jwt_token
 

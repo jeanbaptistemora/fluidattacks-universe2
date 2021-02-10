@@ -163,6 +163,7 @@ ENTITIES: Dict[str, Dict[str, Set[str]]] = dict(
         },
         attrs={
             'jti',
+            'jwt',
             'web',
         },
         dependencies={

@@ -70,6 +70,7 @@ from __init__ import (
 async def app(request: Request) -> HTMLResponse:
     """ View for authenticated users"""
     email = request.session.get('username')
+
     try:
         if email:
             if FI_ENVIRONMENT == 'production':
@@ -102,7 +103,8 @@ async def logout(request: Request) -> HTMLResponse:
     """Close a user's active session"""
     if 'username' in request.session:
         user_email = request.session['username']
-        await session_dal.remove_session_web(user_email)
+        await session_dal.remove_session_key(user_email, 'web')
+        await session_dal.remove_session_key(user_email, 'jwt')
         await redis_del_entity_attr(
             entity='session',
             attr='jti',

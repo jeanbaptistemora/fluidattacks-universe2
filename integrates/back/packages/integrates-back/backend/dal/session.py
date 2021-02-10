@@ -36,7 +36,8 @@ async def create_session_web(request: Request) -> bool:
     session_key: str = request.session['session_key']
 
     # Check if there is a session already
-    request.session['is_concurrent'] = bool(await get_session_web(email))
+    request.session['is_concurrent'] = \
+        bool(await get_session_key(email, 'web'))
 
     # Proccede overwritting the user session
     # This means that if a session did exist before, this one will
@@ -50,21 +51,21 @@ async def create_session_web(request: Request) -> bool:
     )
 
 
-async def remove_session_web(email: str) -> bool:
+async def remove_session_key(email: str, attr: str) -> bool:
     return await redis_del_entity_attr(
         entity='session',
-        attr='web',
+        attr=attr,
         email=email,
     )
 
 
-async def get_session_web(email: str) -> Optional[str]:
+async def get_session_key(email: str, attr: str) -> Optional[str]:
     session_key: Optional[str] = None
 
     with contextlib.suppress(redis_model.KeyNotFound):
         session_key = await redis_get_entity_attr(
             entity='session',
-            attr='web',
+            attr=attr,
             email=email,
         )
 
@@ -74,6 +75,7 @@ async def get_session_web(email: str) -> Optional[str]:
 async def check_session_web_validity(request: Request) -> None:
     email: str = request.session['username']
     session_key: str = request.session['session_key']
+    attr: str = 'web'
 
     # Check if the user has a concurrent session
     if request.session.get('is_concurrent'):
@@ -83,16 +85,34 @@ async def check_session_web_validity(request: Request) -> None:
     try:
         # Check if the user has an active session but it's different
         # than the one in the cookie
-        if await get_session_web(email) == session_key:
+        if await get_session_key(email, attr) == session_key:
             # Session and cookie are ok and up to date
             pass
         else:
             # Session or the cookie are expired, let's logout the user
-            await remove_session_web(email)
+            await remove_session_key(email, attr)
             request.session.clear()
             raise ExpiredToken()
     except redis_model.KeyNotFound:
-        # Use do not even has an active session
+        # User do not even has an active session
+        raise SecureAccessException()
+
+
+async def check_jwt_token_validity(request: Request) -> None:
+    email: str = request.session['username']
+    attr: str = 'jwt'
+
+    try:
+        if await get_session_key(email, attr):
+            # Jwt cookie are ok and up to date
+            pass
+        else:
+            # Jwt cookie is expired, let's logout the user
+            await remove_session_key(email, attr)
+            request.session.clear()
+            raise ExpiredToken()
+    except redis_model.KeyNotFound:
+        # User do not even has an active session
         raise SecureAccessException()
 
 
