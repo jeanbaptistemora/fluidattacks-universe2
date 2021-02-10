@@ -1,6 +1,8 @@
 import _ from "lodash";
 
-export const getEnvironment: () => string = (): string => {
+type Environment = "development" | "ephemeral" | "production";
+
+export const getEnvironment: () => Environment = (): Environment => {
   if (_.isUndefined(window)) {
     return "development";
   } else {

@@ -9,6 +9,7 @@ import { Provider as ReduxProvider } from "react-redux";
 import { Registration } from "scenes/Registration";
 import { ToastContainer } from "react-toastify";
 import { authContext } from "utils/auth";
+import { getEnvironment } from "utils/environment";
 import mixpanel from "mixpanel-browser";
 import store from "store";
 import { ApolloProvider, useApolloNetworkStatus } from "utils/apollo";
@@ -70,4 +71,8 @@ if (extendedModule.hot !== undefined) {
 }
 
 mixpanel.init("7a7ceb75ff1eed29f976310933d1cc3e");
+if (getEnvironment() !== "production") {
+  mixpanel.disable();
+}
+
 ReactDOM.render(React.createElement(App), document.getElementById("root"));
