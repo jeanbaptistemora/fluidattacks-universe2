@@ -40,6 +40,7 @@ def do_check_commit_msg() -> bool:
 @option('--check-commit-msg', is_flag=True, help='validate commit msg syntax')
 @option('--is-drills-commit', is_flag=True)
 @option('--filter-groups-with-forces')
+@option('--groups-with-forces', is_flag=True)
 @option('--get-group-language', is_flag=True)
 @option('--has-drills', is_flag=True)
 def misc_management(  # pylint: disable=too-many-arguments
@@ -47,6 +48,7 @@ def misc_management(  # pylint: disable=too-many-arguments
     check_commit_msg: bool,
     is_drills_commit: bool,
     filter_groups_with_forces: str,
+    groups_with_forces: str,
     get_group_language: bool,
     has_drills: bool,
 ) -> None:
@@ -65,6 +67,8 @@ def misc_management(  # pylint: disable=too-many-arguments
         success = utils.integrates.filter_groups_with_forces_as_json_str(tuple(
             filter_groups_with_forces.split(' '),
         ))
+    elif groups_with_forces:
+        success = utils.integrates.get_projects_with_forces_json_str()
     elif get_group_language:
         print(utils.integrates.get_group_language(group))
         success = True

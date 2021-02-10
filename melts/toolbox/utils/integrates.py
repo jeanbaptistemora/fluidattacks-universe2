@@ -16,6 +16,14 @@ from toolbox import api
 from toolbox.constants import API_TOKEN
 from toolbox.logger import LOGGER
 from toolbox.api.exceptions import IntegratesError
+from toolbox.utils.env import guess_environment
+
+if guess_environment() == 'production':
+    RETRIES = 10
+    DELAY = 5
+else:
+    RETRIES = 1
+    DELAY = 2
 
 
 def get_project_repos(project: str) -> List:
@@ -42,7 +50,7 @@ def get_filter_rules(group: str) -> List[Dict[str, Any]]:
     return filter_request.data['project']['roots']
 
 
-@retry(IntegratesError, tries=10, delay=5)
+@retry(IntegratesError, tries=RETRIES, delay=DELAY)
 def has_forces(group: str) -> bool:
     response = api.integrates.Queries.get_group_info(API_TOKEN, group)
     if not response.ok:
@@ -51,7 +59,22 @@ def has_forces(group: str) -> bool:
     return response.data['project']['hasForces']
 
 
-@retry(IntegratesError, tries=10, delay=5, logger=LOGGER)
+@retry(IntegratesError, tries=RETRIES, delay=DELAY)
+def get_projects_with_forces() -> List[str]:
+    response = api.integrates.Queries.get_projects_with_forces(API_TOKEN)
+
+    if not response.ok:
+        raise IntegratesError(response.errors)
+
+    return response.data['listProjectsWithForces']
+
+
+def get_projects_with_forces_json_str() -> bool:
+    print(json.dumps(get_projects_with_forces()))
+    return True
+
+
+@retry(IntegratesError, tries=RETRIES, delay=DELAY, logger=LOGGER)
 def get_group_language(group: str) -> str:
     response = api.integrates.Queries.get_group_info(API_TOKEN, group)
     if not response.ok:
@@ -61,7 +84,7 @@ def get_group_language(group: str) -> str:
     return response.data['project']['language']
 
 
-@retry(IntegratesError, tries=10, delay=5)
+@retry(IntegratesError, tries=RETRIES, delay=DELAY)
 def has_drills(group: str) -> bool:
     response = api.integrates.Queries.get_group_info(API_TOKEN, group)
     if not response.ok:

@@ -378,6 +378,19 @@ class Queries:
             operation='MeltsGetGroupLanguage',
         )
 
+    @staticmethod
+    def get_projects_with_forces(api_token: str) -> Response:
+        query = """
+            query MeltsListGroupsWithForces{
+              listProjectsWithForces
+            }
+        """
+        return request(
+            api_token,
+            query,
+            operation='MeltsListGroupsWithForces',
+        )
+
 
 class Mutations:
     """Namespace for Integrates's GraphQL Mutations."""
