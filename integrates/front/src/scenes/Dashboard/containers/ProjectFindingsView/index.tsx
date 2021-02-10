@@ -6,12 +6,13 @@
 import { QueryResult } from "@apollo/react-common";
 import { Query } from "@apollo/react-components";
 import { useLazyQuery } from "@apollo/react-hooks";
+import { faFileArchive, faFileExcel, faFilePdf } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ApolloError } from "apollo-client";
 import { GraphQLError } from "graphql";
 import _ from "lodash";
 import React from "react";
 import { selectFilter, textFilter } from "react-bootstrap-table2-filter";
-import FontAwesome from "react-fontawesome";
 import { Trans } from "react-i18next";
 import { useHistory } from "react-router-dom";
 
@@ -365,15 +366,15 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
                       <Col100>
                         <ButtonToolbarCenter>
                           <Button onClick={handleRequestProjectReport} id={"report-pdf"}>
-                            <FontAwesome name="file-pdf-o" />
+                            <FontAwesomeIcon icon={faFilePdf} />
                               {translate.t("group.findings.report.pdf")}
                           </Button>
                           <Button onClick={handleRequestProjectReport} id={"report-excel"}>
-                            <FontAwesome name="file-excel-o" />
+                            <FontAwesomeIcon icon={faFileExcel} />
                               {translate.t("group.findings.report.xls")}
                           </Button>
                           <Button onClick={handleRequestProjectReport} id={"report-zip"}>
-                            <FontAwesome name="file-zip-o" />
+                            <FontAwesomeIcon icon={faFileArchive} />
                             {translate.t("group.findings.report.data")}
                           </Button>
                         </ButtonToolbarCenter>
