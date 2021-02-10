@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Feb 09, 2021, 05:41 PM",
+    "DateLastModified": "Feb 10, 2021, 10:27 AM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "2.0"
@@ -181,6 +181,14 @@
         {
           "AttributeName": "accessibility",
           "AttributeType": "S"
+        },
+        {
+          "AttributeName": "parent",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "content",
+          "AttributeType": "S"
         }
       ],
       "TableFacets": [
@@ -315,6 +323,20 @@
             "blocking_hours",
             "affected_components",
             "accessibility"
+          ]
+        },
+        {
+          "FacetName": "comment",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "pk",
+            "SortKeyAlias": "sk"
+          },
+          "TableData": [],
+          "NonKeyAttributes": [
+            "modified_date",
+            "modified_by",
+            "parent",
+            "content"
           ]
         }
       ],
