@@ -1113,9 +1113,19 @@ async def get_closed_vulnerabilities(context: Any, group_name: str) -> int:
     return closed_vulnerabilities
 
 
-async def get_open_finding(project_name: str) -> int:
-    findings = await finding_domain.list_findings([project_name])
-    vulns = await vuln_domain.list_vulnerabilities_async(findings[0])
+async def get_open_finding(context: Any, group_name: str) -> int:
+    finding_vulns_loader = context.finding_vulns_nzr
+    group_findings_loader = context.group_findings
+
+    group_findings = await group_findings_loader.load(group_name)
+    vulns = list(
+        chain.from_iterable(
+            await finding_vulns_loader.load_many([
+                finding['finding_id'] for finding in group_findings
+            ])
+        )
+    )
+
     finding_vulns_dict = defaultdict(list)
     for vuln in vulns:
         finding_vulns_dict[vuln['finding_id']].append(vuln)

@@ -732,7 +732,10 @@ async def get_project_indicators(project: str) -> Dict[str, object]:
         'max_open_severity_finding': max_open_severity_finding.get(
             'finding_id', ''
         ),
-        'open_findings': await project_domain.get_open_finding(project),
+        'open_findings': await project_domain.get_open_finding(
+            context,
+            project
+        ),
         'open_vulnerabilities': (
             await project_domain.get_open_vulnerabilities(context, project)
         ),

@@ -10,6 +10,7 @@ from aioextensions import (
     run,
 )
 from async_lru import alru_cache
+from backend.api import get_new_context
 from backend.domain import (
     project as group_domain,
 )
@@ -28,7 +29,8 @@ from analytics.colors import (
 
 @alru_cache(maxsize=None, typed=True)
 async def get_data_one_group(group: str) -> PortfoliosGroupsInfo:
-    open_findings = await group_domain.get_open_finding(group.lower())
+    context = get_new_context()
+    open_findings = await group_domain.get_open_finding(context, group.lower())
 
     return PortfoliosGroupsInfo(
         group_name=group.lower(),

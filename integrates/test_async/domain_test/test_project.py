@@ -182,7 +182,8 @@ async def test_get_closed_vulnerabilities():
 async def test_get_open_finding():
     project_name = 'unittesting'
     expected_output = 5
-    assert await get_open_finding(project_name) == expected_output
+    open_findings = await get_open_finding(get_new_context(), project_name)
+    assert open_findings == expected_output
 
 
 async def test_get_open_vulnerability_date():
