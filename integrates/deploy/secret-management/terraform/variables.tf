@@ -27,3 +27,7 @@ data "aws_iam_policy_document" "okta-assume-role-policy-data" {
 variable "region" {
   default = "us-east-1"
 }
+
+variable "projects_forces" {
+  type = list(string)
+}

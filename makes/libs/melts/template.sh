@@ -33,3 +33,8 @@ function forces_projects {
   &&  '__envMelts__' misc --filter-groups-with-forces "${groups[*]}" \
   &&  popd >&2 || return
 }
+
+
+function projects_with_forces {
+  '__envMelts__' misc --groups-with-forces
+}

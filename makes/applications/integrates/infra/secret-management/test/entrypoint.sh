@@ -1,7 +1,9 @@
 # shellcheck shell=bash
 
+source '__envUtilsMeltsLibCommon__'
+
 function main {
-      projects="$('__envMelts__' misc --groups-with-forces)" \
+      projects="$(projects_with_forces)" \
   &&  '__envTerraformTest__' -var="projects_forces=${projects}"
 }
 
