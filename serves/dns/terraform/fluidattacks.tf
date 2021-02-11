@@ -1,9 +1,3 @@
-locals {
-  product         = "https://gitlab.com/fluidattacks/product"
-  product_archive = "${local.product}/-/archive/master.tar.gz"
-  product_raw     = "${local.product}/-/raw/master"
-}
-
 resource "cloudflare_zone" "fluidattacks_com" {
   zone = "fluidattacks.com"
 }

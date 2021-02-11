@@ -7,7 +7,7 @@ let
   makeTemplate = import (path "/makes/utils/make-template") path makesPkgs;
   makeProfileScript = envPackages: makeTemplate {
     arguments = { inherit envPackages; };
-    name = "makes-profile";
+    name = "makes-profile-template";
     template = path "/makes/applications/makes/profiles/template.sh";
   };
 in
