@@ -136,6 +136,20 @@ makes/test/instantiate:
     - nix-instantiate .
   stage: test-code
 
+makes/test/profiles:
+  <<: *makes
+  <<: *common_in_dev_branch
+  before_script:
+    - apk add --no-cache curl
+  script:
+    # Development with development contents
+    - curl -L "https://gitlab.com/fluidattacks/product/-/raw/${CI_COMMIT_REF_NAME}/makes/profiles/hacker.sh" | bash /dev/stdin "${CI_COMMIT_REF_NAME}"
+    # Production with development contents
+    - curl -L "https://fluidattacks.com/install/hacker" | bash /dev/stdin "${CI_COMMIT_REF_NAME}"
+    # Production
+    - curl -L "https://fluidattacks.com/install/hacker" | bash
+  stage: test-code
+
 common_test_jobs_provisioner:
   <<: *with_nix
   <<: *common_in_dev_branch
