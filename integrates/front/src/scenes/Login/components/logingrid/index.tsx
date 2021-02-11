@@ -8,7 +8,7 @@ const LoginGrid: StyledComponent<
 > = styled.div.attrs<{
   className: string;
 }>({
-  className: "login-grid center pa2",
+  className: "login-grid center pa1",
 })``;
 
 export { LoginGrid };

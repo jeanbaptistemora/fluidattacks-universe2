@@ -56,10 +56,10 @@ export const Login: React.FC = (): JSX.Element => {
   // Show 2FA Notification
   React.useEffect((): void => {
     toast.info(
-      <div className={"pa2-ns"}>
-        <div className={"flex"}>
+      <div className={"pa1-ns"}>
+        <div className={style.twoP}>
           <Col100>
-            <p>{t("login.2fa")}</p>
+            <p className={"mt1"}>{t("login.2fa")}</p>
           </Col100>
         </div>
         <div className={"flex"}>
@@ -111,8 +111,8 @@ export const Login: React.FC = (): JSX.Element => {
           <img alt={"logo"} src={logo} />
         </LoginRow>
         <LoginRow>
-          <p>{t("login.auth")}</p>
-          <p>{t("login.newuser")}</p>
+          <p className={"mt0"}>{t("login.auth")}</p>
+          <p className={"mt0"}>{t("login.newuser")}</p>
         </LoginRow>
         <LoginRow>
           <LoginButton

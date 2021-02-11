@@ -2,3 +2,9 @@
   background-color: #3d3c3c !important;
   font-family: 'Source Sans Pro', sans-serif !important;
 }
+
+:local .twoP {
+  display: flex;
+  line-height: normal;
+  margin-left: -10px;
+}

@@ -5,7 +5,7 @@ const TwoFacol: StyledComponent<
   "div",
   Record<string, unknown>
 > = styled.div.attrs({
-  className: "w-33 pa2",
+  className: "w-33 pa1",
 })``;
 
 export { TwoFacol };
