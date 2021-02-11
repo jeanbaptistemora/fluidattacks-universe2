@@ -127,15 +127,25 @@ serves/vpc/apply:
   <<: *serves_in_master_branch
   stage: deploy-infra
 
-serves/users/airs/test:
-  <<: *makes
-  <<: *serves_in_dev_branch
-  stage: test-infra
-
 serves/users/airs/apply:
   <<: *makes
   <<: *serves_in_master_branch
   stage: deploy-infra
+
+serves/users/airs/rotate/even:
+  <<: *makes
+  <<: *serves_in_schedule_users_rotate_even
+  stage: rotation
+
+serves/users/airs/rotate/odd:
+  <<: *makes
+  <<: *serves_in_schedule_users_rotate_odd
+  stage: rotation
+
+serves/users/airs/test:
+  <<: *makes
+  <<: *serves_in_dev_branch
+  stage: test-infra
 
 serves/users/asserts/apply:
   <<: *makes
@@ -248,11 +258,6 @@ serves_rotate_keys_user_provision_services:
   stage: rotation
 
 serves_rotate_keys_user_provision_integrates:
-  <<: *with_nix
-  <<: *serves_in_schedule_rotate_keys_user_provision
-  stage: rotation
-
-serves_rotate_keys_user_provision_airs:
   <<: *with_nix
   <<: *serves_in_schedule_rotate_keys_user_provision
   stage: rotation

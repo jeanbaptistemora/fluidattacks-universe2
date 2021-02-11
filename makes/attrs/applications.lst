@@ -75,6 +75,8 @@ serves/dns/test
 serves/secrets/apply
 serves/secrets/test
 serves/users/airs/apply
+serves/users/airs/rotate/even
+serves/users/airs/rotate/odd
 serves/users/airs/test
 serves/users/asserts/apply
 serves/users/asserts/rotate/even

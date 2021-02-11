@@ -32,5 +32,5 @@ makeEntrypoint {
     envKeys = builtins.toJSON keys;
   };
   inherit name;
-  template = path "/makes/utils/users-rotate-keys/entrypoint.sh";
+  template = path "/makes/utils/user-rotate-keys/entrypoint.sh";
 }

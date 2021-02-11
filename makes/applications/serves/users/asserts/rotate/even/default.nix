@@ -3,7 +3,7 @@
 , ...
 } @ _:
 let
-  userRotateKeys = import (path "/makes/utils/users-rotate-keys") path servesPkgs;
+  userRotateKeys = import (path "/makes/utils/user-rotate-keys") path servesPkgs;
 in
 userRotateKeys {
   name = "serves-users-asserts-rotate-even";
