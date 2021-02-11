@@ -38,6 +38,12 @@ def mirror(auth_file: IO[str], group: str) -> None:
 
 @click.command()
 @click.argument('auth_file', type=click.File('r'))
+def mixpanel_integrates(auth_file: IO[str]) -> None:
+    update_job(auth_file, 'mixpanel_integrates')
+
+
+@click.command()
+@click.argument('auth_file', type=click.File('r'))
 def zoho_crm_etl(auth_file: IO[str]) -> None:
     update_job(auth_file, 'zoho_crm_etl')
 
@@ -56,5 +62,6 @@ def main() -> None:
 
 main.add_command(formstack)
 main.add_command(mirror)
+main.add_command(mixpanel_integrates)
 main.add_command(zoho_crm_etl)
 main.add_command(zoho_crm_prepare)

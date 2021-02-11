@@ -15,6 +15,7 @@ function job_mixpanel_integrates {
   tap_json="__envTapJson__" \
   &&  tap_mixpanel="__envTapMixpanel__" \
   &&  target_redshift="__envTargetRedshift__" \
+  &&  update_sync_date="__envUpdateSyncDate__" \
   &&  db_creds=$(mktemp) \
   &&  mixpanel_creds=$(mktemp) \
   &&  aws_login_prod 'observes' \
@@ -37,7 +38,8 @@ function job_mixpanel_integrates {
         --auth "${db_creds}" \
         --drop-schema \
         --schema-name "mixpanel_integrates" \
-        < .singer
+        < .singer \
+  &&  "${update_sync_date}" mixpanel-integrates "${db_creds}"
 }
 
 job_mixpanel_integrates "./observes/conf/mixpanel_integrates.json"
