@@ -133,12 +133,20 @@ def write_file(singer_schema: str, singer_records: List[str]) -> None:
         stream_file.write(str_stream)
 
 
+def lowercase_keys(data: Dict[str, Any]) -> Dict[str, Any]:
+    result = {}
+    for key, value in data.items():
+        result[key.lower()] = value
+    return result
+
+
 def process_line(line: str) -> Dict[str, Any]:
     data: Dict[str, Any] = json.loads(line)
     data = handle_null(data)
     data = new_formatted_data([data])[0]
     dtypes = take_dtypes([data])
     data = dict(check_and_parse(data, dtypes))
+    data = lowercase_keys(data)
     return data
 
 
