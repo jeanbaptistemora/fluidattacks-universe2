@@ -1897,6 +1897,7 @@ export const enTranslations: ResourceKey = {
       },
       close: "Close",
       closed: "Closed",
+      commitHash: "Commit hash",
       exceptions: {
         severity_out_of_range:
           "Vulnerability cannot be accepted, severity outside of range set by the organization",

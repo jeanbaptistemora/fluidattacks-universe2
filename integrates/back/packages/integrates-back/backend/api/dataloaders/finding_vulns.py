@@ -98,6 +98,7 @@ async def batch_load_fn_vulns(
                         [{}]
                     )
                 )[-1].get('status', '').capitalize(),
+                commit_hash=str(vuln.get('commit_hash', '')),
                 cycles=str(vuln_domain.get_reattack_cycles(vuln)),
                 last_requested_reattack_date=(
                     vuln_domain.get_last_requested_reattack_date(vuln)

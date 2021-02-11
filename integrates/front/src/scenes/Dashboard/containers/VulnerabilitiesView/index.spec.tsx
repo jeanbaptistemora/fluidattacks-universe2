@@ -33,6 +33,7 @@ describe("VulnerabilitiesView", (): void => {
           vulnerabilities: [
             {
               analyst: "useranalyst@test.test",
+              commitHash: "",
               currentState: "open",
               cycles: "",
               efficacy: "",
@@ -67,6 +68,7 @@ describe("VulnerabilitiesView", (): void => {
             },
             {
               analyst: "useranalyst@test.test",
+              commitHash: "",
               currentState: "closed",
               cycles: "",
               efficacy: "",

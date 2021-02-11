@@ -2,6 +2,7 @@ import type { IHistoricTreatment } from "scenes/Dashboard/containers/Description
 
 interface IVulnRowAttr {
   analyst?: string;
+  commitHash: string;
   currentState: "open" | "closed";
   currentStateCapitalized: "Open" | "Closed";
   cycles: string;

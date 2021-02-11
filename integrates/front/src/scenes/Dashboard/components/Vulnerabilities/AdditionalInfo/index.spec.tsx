@@ -8,6 +8,7 @@ import { mount } from "enzyme";
 describe("AdditionalInfo", (): void => {
   const numberOfDays: number = 5;
   const mockVuln: IVulnRowAttr = {
+    commitHash: "",
     currentState: "open",
     currentStateCapitalized: "Open",
     cycles: "1",

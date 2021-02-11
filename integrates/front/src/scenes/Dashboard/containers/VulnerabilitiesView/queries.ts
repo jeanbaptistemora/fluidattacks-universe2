@@ -14,6 +14,7 @@ export const GET_FINDING_VULN_INFO: DocumentNode = gql`
       verified
       vulnerabilities {
         analyst @include(if: $canRetrieveAnalyst)
+        commitHash
         currentState
         cycles
         efficacy

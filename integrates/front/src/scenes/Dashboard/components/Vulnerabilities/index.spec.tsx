@@ -11,6 +11,7 @@ describe("VulnComponent", (): void => {
   const numberOfDays: number = 5;
   const mocks: IVulnRowAttr[] = [
     {
+      commitHash: "",
       currentState: "open",
       currentStateCapitalized: "Open",
       cycles: "1",
@@ -47,6 +48,7 @@ describe("VulnComponent", (): void => {
       zeroRisk: "Requested",
     },
     {
+      commitHash: "",
       currentState: "closed",
       currentStateCapitalized: "Closed",
       cycles: "1",
@@ -85,6 +87,7 @@ describe("VulnComponent", (): void => {
       zeroRisk: "",
     },
     {
+      commitHash: "",
       currentState: "open",
       currentStateCapitalized: "Open",
       cycles: "1",
