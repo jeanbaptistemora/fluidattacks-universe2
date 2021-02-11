@@ -1,3 +1,9 @@
+locals {
+  product         = "https://gitlab.com/fluidattacks/product"
+  product_archive = "${local.product}/-/archive/master.tar.gz"
+  product_raw     = "${local.product}/-/raw/master"
+}
+
 resource "cloudflare_zone" "fluidattacks_com" {
   zone = "fluidattacks.com"
 }
@@ -458,7 +464,23 @@ resource "cloudflare_page_rule" "install" {
 
   actions {
     forwarding_url {
-      url         = "https://gitlab.com/fluidattacks/product/-/archive/master/product-master.tar.gz"
+      url         = local.product_archive
+      status_code = 301
+    }
+  }
+}
+
+resource "cloudflare_page_rule" "install_profiles" {
+  for_each = toset(["hacker"])
+
+  zone_id  = cloudflare_zone.fluidattacks_com.id
+  target   = "${cloudflare_zone.fluidattacks_com.zone}/install/${each.value}"
+  status   = "active"
+  priority = 101
+
+  actions {
+    forwarding_url {
+      url         = "${local.product_raw}/makes/profiles/${each.value}.sh"
       status_code = 301
     }
   }
