@@ -136,7 +136,9 @@ def is_valid_group(  # pylint: disable=unused-argument
     subs: str,
 ) -> str:
     actual_path: str = os.getcwd()
-    if ('groups' not in actual_path and subs not in os.listdir('groups')
+
+    if ('groups' not in actual_path and os.path.exists('groups')
+            and subs not in os.listdir('groups')
             and subs not in ('admin', 'all', 'unspecified-subs')):
         msg = f'the group {subs} does not exist'
         raise BadParameter(msg)
