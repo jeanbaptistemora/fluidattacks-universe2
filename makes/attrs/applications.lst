@@ -37,6 +37,7 @@ makes/deploy/oci-ci
 makes/done
 makes/lint
 makes/lint-commit-msg
+makes/profiles
 makes/wait
 melts
 melts/test
