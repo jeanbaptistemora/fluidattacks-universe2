@@ -6,7 +6,6 @@ path: pkgs:
 , secrets_path ? ""
 , gitlab_project_id
 , keys
-,
 }:
 let
   makeEntrypoint = import (path "/makes/utils/make-entrypoint") path pkgs;

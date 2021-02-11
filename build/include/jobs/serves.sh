@@ -1,53 +1,5 @@
 # shellcheck shell=bash
 
-function job_serves_rotate_keys_user_provision_asserts {
-  local terraform_dir='users/asserts/terraform'
-  local gitlab_repo_id='20741933'
-
-  # Dev
-  local dev_resource_to_taint='aws_iam_access_key.asserts-dev-key'
-  local dev_output_key_id_name='asserts-dev-secret-key-id'
-  local dev_output_secret_key_name='asserts-dev-secret-key'
-  local dev_gitlab_key_id_name='ASSERTS_DEV_AWS_ACCESS_KEY_ID'
-  local dev_gitlab_secret_key_name='ASSERTS_DEV_AWS_SECRET_ACCESS_KEY'
-  local dev_gitlab_masked='true'
-  local dev_gitlab_protected='false'
-
-  # Prod
-  local prod_resource_to_taint='aws_iam_access_key.asserts-prod-key'
-  local prod_output_key_id_name='asserts-prod-secret-key-id'
-  local prod_output_secret_key_name='asserts-prod-secret-key'
-  local prod_gitlab_key_id_name='ASSERTS_PROD_AWS_ACCESS_KEY_ID'
-  local prod_gitlab_secret_key_name='ASSERTS_PROD_AWS_SECRET_ACCESS_KEY'
-  local prod_gitlab_masked='true'
-  local prod_gitlab_protected='true'
-
-      pushd serves \
-    &&  helper_serves_aws_login production \
-    &&  helper_serves_user_provision_rotate_keys \
-          "${terraform_dir}" \
-          "${dev_resource_to_taint}" \
-          "${dev_output_key_id_name}" \
-          "${dev_output_secret_key_name}" \
-          "${gitlab_repo_id}" \
-          "${dev_gitlab_key_id_name}" \
-          "${dev_gitlab_secret_key_name}" \
-          "${dev_gitlab_masked}" \
-          "${dev_gitlab_protected}" \
-    &&  helper_serves_user_provision_rotate_keys \
-          "${terraform_dir}" \
-          "${prod_resource_to_taint}" \
-          "${prod_output_key_id_name}" \
-          "${prod_output_secret_key_name}" \
-          "${gitlab_repo_id}" \
-          "${prod_gitlab_key_id_name}" \
-          "${prod_gitlab_secret_key_name}" \
-          "${prod_gitlab_masked}" \
-          "${prod_gitlab_protected}" \
-  &&  popd \
-  ||  return 1
-}
-
 function job_serves_rotate_keys_user_provision_services {
   local terraform_dir='users/services/terraform'
   local gitlab_repo_id='4603023'

@@ -51,6 +51,22 @@
       when: never
     - when: always
 
+.serves_in_schedule_users_rotate_even: &serves_in_schedule_users_rotate_even
+  rules:
+    - if: '$CI_PIPELINE_SOURCE != "schedule"'
+      when: never
+    - if: '$serves_users_rotate_even != "defined"'
+      when: never
+    - when: always
+
+.serves_in_schedule_users_rotate_odd: &serves_in_schedule_users_rotate_odd
+  rules:
+    - if: '$CI_PIPELINE_SOURCE != "schedule"'
+      when: never
+    - if: '$serves_users_rotate_odd != "defined"'
+      when: never
+    - when: always
+
 serves/ci/test:
   <<: *makes
   <<: *serves_in_dev_branch
@@ -121,15 +137,25 @@ serves/users/airs/apply:
   <<: *serves_in_master_branch
   stage: deploy-infra
 
-serves/users/asserts/test:
-  <<: *makes
-  <<: *serves_in_dev_branch
-  stage: test-infra
-
 serves/users/asserts/apply:
   <<: *makes
   <<: *serves_in_master_branch
   stage: deploy-infra
+
+serves/users/asserts/rotate/even:
+  <<: *makes
+  <<: *serves_in_schedule_users_rotate_even
+  stage: rotation
+
+serves/users/asserts/rotate/odd:
+  <<: *makes
+  <<: *serves_in_schedule_users_rotate_odd
+  stage: rotation
+
+serves/users/asserts/test:
+  <<: *makes
+  <<: *serves_in_dev_branch
+  stage: test-infra
 
 serves/users/forces/test:
   <<: *makes
@@ -215,11 +241,6 @@ serves_apply_config_autoscaling_ci:
   <<: *with_nix
   <<: *serves_in_master_branch
   stage: deploy-infra
-
-serves_rotate_keys_user_provision_asserts:
-  <<: *with_nix
-  <<: *serves_in_schedule_rotate_keys_user_provision
-  stage: rotation
 
 serves_rotate_keys_user_provision_services:
   <<: *with_nix
