@@ -7,7 +7,7 @@ from graphql.type.definition import GraphQLResolveInfo
 
 # Local libraries
 from backend import util
-from backend.dal.helpers.redis import redis_del_by_deps_soon
+from backend.dal.helpers.redis import redis_del_by_deps
 from backend.decorators import enforce_organization_level_auth_async
 from backend.domain import organization as org_domain, user as user_domain
 from backend.typing import GrantStakeholderAccessPayload
@@ -49,7 +49,7 @@ async def mutate(
     success = user_added and any([user_created, user_exists])
 
     if success:
-        redis_del_by_deps_soon(
+        await redis_del_by_deps(
             'grant_stakeholder_organization_access',
             organization_id=organization_id
         )

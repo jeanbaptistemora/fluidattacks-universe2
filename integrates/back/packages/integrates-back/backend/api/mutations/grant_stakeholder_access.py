@@ -14,7 +14,7 @@ from backend import (
     util
 )
 from backend.dal.helpers.redis import (
-    redis_del_by_deps_soon,
+    redis_del_by_deps,
 )
 from backend.decorators import (
     concurrent_decorators,
@@ -82,7 +82,7 @@ async def mutate(
         )
 
     if success:
-        redis_del_by_deps_soon(
+        await redis_del_by_deps(
             'grant_stakeholder_access',
             group_name=project_name,
         )

@@ -7,7 +7,7 @@ from graphql.type.definition import GraphQLResolveInfo
 
 # Local libraries
 from backend import util
-from backend.dal.helpers.redis import redis_del_by_deps_soon
+from backend.dal.helpers.redis import redis_del_by_deps
 from backend.decorators import (
     concurrent_decorators,
     enforce_organization_level_auth_async,
@@ -67,7 +67,7 @@ async def mutate(
         )
 
     if success:
-        redis_del_by_deps_soon(
+        await redis_del_by_deps(
             'edit_stakeholder_organization',
             organization_id=organization_id
         )

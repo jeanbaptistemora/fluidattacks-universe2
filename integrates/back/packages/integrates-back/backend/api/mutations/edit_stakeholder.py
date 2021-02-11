@@ -9,7 +9,7 @@ from graphql.type.definition import GraphQLResolveInfo
 # Local libraries
 from backend import authz, util
 from backend.dal.helpers.redis import (
-    redis_del_by_deps_soon,
+    redis_del_by_deps,
 )
 from backend.decorators import (
     concurrent_decorators,
@@ -116,7 +116,7 @@ async def mutate(
             })
 
     if success:
-        redis_del_by_deps_soon('edit_stakeholder', group_name=project_name)
+        await redis_del_by_deps('edit_stakeholder', group_name=project_name)
         msg = (
             f'Security: Modified stakeholder data: {modified_email} '
             f'in {project_name} project successfully'
