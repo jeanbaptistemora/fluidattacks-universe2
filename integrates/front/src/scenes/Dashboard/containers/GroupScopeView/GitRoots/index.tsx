@@ -413,7 +413,6 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
                   },
                   {
                     align: "center",
-                    changeFunction: handleStateUpdate,
                     dataField: "lastStatusUpdate",
                     formatter: dateFormatter,
                     header: t("group.scope.common.lastStatusUpdate"),
