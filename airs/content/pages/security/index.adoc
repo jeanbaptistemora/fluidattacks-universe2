@@ -52,7 +52,7 @@ Additionally, here is the commit history of our public repository:
 === <<public-incidents, 1.2 Public incidents>>
 
 All incidents are reported on our
-link:https://community.fluidattacks.com/tag/transparency/[Community Site]
+link:https://news.fluidattacks.com/?label=15603[News Site]
 with details like *_what happened_*, *_what we've done_*,
 *_what's the impact_*, and *_what we're doing to help_*.
 
@@ -614,11 +614,9 @@ comprehensive logs of
 - when it was changed; and
 - who approved a change.
 
-Currently, we keep the following systems as code:
+Currently, we keep all our systems as code:
 
-- link:https://gitlab.com/fluidattacks/integrates/-/commits/master[Integrates]
-- link:https://gitlab.com/fluidattacks/asserts/-/commits/master[Asserts]
-- link:https://gitlab.com/fluidattacks/web/-/commits/master[Website]
+- link:https://gitlab.com/fluidattacks/product/-/commits/master[Integrates]
 - [inner]#link:../services/continuous-hacking/[Continuous hacking]#
 - <<IAC, Infrastructure>>
 - General documentation
