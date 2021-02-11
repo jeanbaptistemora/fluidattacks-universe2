@@ -30,6 +30,12 @@
     package = observesPkgs.tapFormstack;
   };
 
+  tapMixpanel = {
+    binName = "observes-tap-mixpanel";
+    entrypoint = "from tap_mixpanel import main";
+    package = observesPkgs.tapMixpanel;
+  };
+
   updateSyncDate = {
     binName = "observes-update-sync-date";
     entrypoint = "from update_s3_last_sync_date.cli import main";

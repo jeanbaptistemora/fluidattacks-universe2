@@ -54,12 +54,14 @@ observes/scheduled-code-etl-mirror
 observes/scheduled-code-etl-upload
 observes/scheduled-dif-gitlab-etl
 observes/scheduled-formstack-etl
+observes/scheduled-mixpanel-integrates-etl
 observes/scheduled-zoho-crm-etl
 observes/scheduled-zoho-crm-prepare
 observes/streamer-zoho-crm
 observes/tap-csv
 observes/tap-formstack
 observes/tap-json
+observes/tap-mixpanel
 observes/target-redshift
 observes/update-sync-date
 serves/aws-sso/apply

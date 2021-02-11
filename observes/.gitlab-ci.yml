@@ -156,6 +156,15 @@ observes/scheduled-formstack-etl:
     variables: [$observes_formstack]
   interruptible: false
 
+observes/scheduled-mixpanel-integrates-etl:
+  <<: *makes
+  tags: [autoscaling-analytics]
+  stage: analytics
+  only:
+    refs: [schedules]
+    variables: [$observes_mixpanel_integrates]
+  interruptible: false
+
 observes/scheduled-zoho-crm-etl:
   <<: *makes
   tags: [autoscaling-analytics]
@@ -273,15 +282,6 @@ observes_zoho:
   only:
     refs: [schedules]
     variables: [$observes_zoho]
-  interruptible: false
-
-observes_mixpanel_integrates:
-  <<: *with_nix
-  tags: [autoscaling-analytics]
-  stage: analytics
-  only:
-    refs: [schedules]
-    variables: [$observes_mixpanel_integrates]
   interruptible: false
 
 observes_batch_stability:
