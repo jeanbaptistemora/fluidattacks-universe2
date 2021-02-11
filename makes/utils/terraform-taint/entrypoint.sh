@@ -5,7 +5,6 @@ source '__envUtilsCloudflare__'
 source '__envUtilsAws__'
 
 function main {
-  local resources_to_taint='__envResourcesToTaint__'
 
       # Login with cloudflare if secrets provided
       if test -n '__envSecretsPath__'
@@ -22,12 +21,14 @@ function main {
     &&  terraform init \
     &&  echo '[INFO] Refreshing state' \
     &&  terraform refresh \
-    &&  for resource in ${resources_to_taint}
+    &&  for resource in "${@}"
         do
               echo "[INFO] Tainting ${resource}" \
           &&  terraform taint "${resource}" \
           ||  return 1
         done \
+    &&  echo '[INFO] Applying changes' \
+    &&  terraform apply -auto-approve -refresh=true \
   &&  popd \
   ||  return 1
 }

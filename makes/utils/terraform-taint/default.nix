@@ -4,7 +4,6 @@ path: pkgs:
 , product
 , target
 , secrets_path ? ""
-, resources_to_taint
 }:
 let
   makeEntrypoint = import (path "/makes/utils/make-entrypoint") path pkgs;
@@ -20,7 +19,6 @@ makeEntrypoint {
     envProduct = product;
     envTarget = target;
     envSecretsPath = secrets_path;
-    envResourcesToTaint = pkgs.lib.strings.escapeShellArgs resources_to_taint;
     envUtilsCloudflare = import (path "/makes/utils/cloudflare") path pkgs;
     envUtilsAws = import (path "/makes/utils/aws") path pkgs;
   };

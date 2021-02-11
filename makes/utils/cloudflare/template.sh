@@ -16,8 +16,7 @@ function cloudflare_login {
   }
 
       "aws_login_${env}" "${product}" \
-  &&  IFS=" " read -ra cloudflare_vars <<< "$(get_cloudflare_vars)" \
-  &&  echo "${cloudflare_vars[@]}" \
+  &&  IFS=' ' read -ra cloudflare_vars <<< "$(get_cloudflare_vars)" \
   &&  sops_export_vars "${secrets_path}" \
         "${cloudflare_vars[@]}" \
   &&  for var in "${cloudflare_vars[@]}"
