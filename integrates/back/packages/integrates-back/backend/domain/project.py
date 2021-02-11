@@ -28,6 +28,9 @@ from graphql.type.definition import GraphQLResolveInfo
 
 from backend.authz.policy import get_group_level_role
 from backend.dal.helpers.dynamodb import start_context
+from backend.dal.helpers.redis import (
+    redis_del_by_deps,
+)
 from backend.dal import (
     project as project_dal
 )
@@ -534,6 +537,10 @@ async def remove_user_access(
                     authz.revoke_user_level_role(email),
                     user_domain.delete(email)
                 ])
+            )
+            await redis_del_by_deps(
+                'session_logout',
+                session_email=email
             )
 
     return success

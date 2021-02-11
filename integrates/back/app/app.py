@@ -94,7 +94,7 @@ async def app(request: Request) -> HTMLResponse:
             '</script>'
         )
     except (ExpiredToken, SecureAccessException):
-        response = RedirectResponse('/')
+        response = await logout(request)
 
     return response
 
