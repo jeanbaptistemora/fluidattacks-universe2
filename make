@@ -7,25 +7,18 @@ function build_package {
   local attribute="${1}"
   local attribute_output
 
-  ./makes/wrappers/nix3 build \
+  ./makes/wrappers/nix3.sh build \
     --out-link "out/${attribute////-}" \
     --show-trace \
     ".#${attribute}"
 }
 
-function cache_push {
-  local cache_ip='0.0.0.0'
-  local cache_port='8888'
-  local nix_store_path="${1}"
+function cache_config {
 
-  if test -n "${MAKES_CACHE_PRIVATE_KEY:-}"
+  if test -n "${CI:-}"
   then
-        echo "[INFO] Pushing to cache: ${nix_store_path}" \
-    &&  key_file=$(mktemp) \
-    &&  echo "${MAKES_CACHE_PRIVATE_KEY}" > "${key_file}" \
-    &&  nix sign-paths --key-file "${key_file}" --recursive "${nix_store_path}" \
-    &&  nix copy --to "http://${cache_ip}:${cache_port}/cache" "${nix_store_path}" \
-    &&  echo '[INFO] Done!'
+        build_package makes/cache/config \
+    &&  source out/makes-cache-config
   fi
 }
 
@@ -93,8 +86,7 @@ function main {
             &&  echo '[INFO]' \
             &&  echo "[INFO] Store path: ${nix_store_path}" \
             &&  echo "[INFO] Symlink at: out/${attribute////-}" \
-            &&  echo '---' \
-            &&  cache_push "${nix_store_path}" \
+            &&  cachix_push "${nix_store_path}" \
             &&  return 0 \
             ||  return 0
           else
@@ -112,9 +104,7 @@ function main_ctx {
   &&  for arg in "${@}"
       do
         echo "[INFO]          ${arg}"
-      done \
-  &&  echo '---' \
-  &&  echo
+      done
 }
 
 function main_help {
