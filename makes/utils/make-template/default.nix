@@ -8,6 +8,7 @@ path: pkgs:
 }:
 let
   makeDerivation = import (path "/makes/utils/make-derivation") path pkgs;
+  nix = import (path "/makes/utils/nix") path pkgs;
 
   argumentNames = builtins.attrNames arguments;
   argumentNamesFile = builtins.toFile "arguments" (
@@ -15,11 +16,6 @@ let
     then builtins.concatStringsSep "\n" (argumentNames ++ [ "" ])
     else ""
   );
-
-  templateFile =
-    if builtins.isString template
-    then builtins.toFile "template" template
-    else template;
 
   # Validate arguments
   arguments' = builtins.mapAttrs
@@ -34,5 +30,5 @@ makeDerivation (arguments' // {
   builder = path "/makes/utils/make-template/builder.sh";
   inherit name;
   __envArgumentNamesFile = argumentNamesFile;
-  __envTemplate = templateFile;
+  __envTemplate = nix.readFile template;
 })

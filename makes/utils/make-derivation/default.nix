@@ -5,6 +5,8 @@ path: pkgs:
 
 __attrs:
 let
+  nix = import (path "/makes/utils/nix") path pkgs;
+
   # Validate arguments
   attrs = builtins.mapAttrs
     (k: v: (
@@ -19,11 +21,6 @@ let
       else abort "Ivalid argument: ${k}, must be one of: builder, buildInputs, name, or start with: env or __env"
     ))
     __attrs;
-
-  builder =
-    if builtins.isString attrs.builder
-    then attrs.builder
-    else builtins.readFile attrs.builder;
 in
 pkgs.stdenv.mkDerivation (attrs // {
   __envBashLibCommon = path "/makes/utils/common/template.sh";
@@ -36,6 +33,6 @@ pkgs.stdenv.mkDerivation (attrs // {
 
     use_ephemeral_dir
 
-    ${builder}
+    ${nix.readFile attrs.builder}
   '';
 })

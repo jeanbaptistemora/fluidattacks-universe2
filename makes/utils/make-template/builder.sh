@@ -15,7 +15,7 @@ function replace_var_in_file {
 }
 
 function main {
-      copy "${__envTemplate}" "${out}" \
+      echo "${__envTemplate}" > "${out}" \
   &&  echo '[INFO] Replacing arguments' \
   &&  while read -r 'var_name'
       do
