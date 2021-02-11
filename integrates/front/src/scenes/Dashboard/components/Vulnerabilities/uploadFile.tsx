@@ -109,6 +109,11 @@ export const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
         msgError(translate.t("group_alerts.invalid_specific"));
         Logger.warning(message);
       }
+      // Clean the files stored on input field
+      const formElement: HTMLFormElement = document.querySelector(
+        "#vulnerabilities"
+      ) as HTMLFormElement;
+      formElement.reset();
       dispatch(reset("vulns"));
     });
   }
