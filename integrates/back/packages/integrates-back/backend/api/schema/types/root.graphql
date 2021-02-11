@@ -24,6 +24,8 @@ type GitRoot implements IRoot {
   id: ID!
   "Analyze already existing code"
   includesHealthCheck: Boolean!
+  "Last time the root status was modified"
+  lastStatusUpdate: DateTime!
   "Whether the root is active or not"
   state: ResourceState!
   "Repository URL"

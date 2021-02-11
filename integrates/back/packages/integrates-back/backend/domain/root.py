@@ -58,6 +58,7 @@ def format_root(root: Dict[str, Any]) -> Root:
             gitignore=root_state['gitignore'],
             id=root['sk'],
             includes_health_check=root_state['includes_health_check'],
+            last_status_update=root_state['date'],
             state=root_state['state'],
             url=root['url']
         )

@@ -4,5 +4,6 @@ export { changeVulnTreatmentFormatter } from "components/DataTableNext/formatter
 export { limitFormatter } from "components/DataTableNext/formatters/limitFormatter";
 export { treatmentFormatter } from "components/DataTableNext/formatters/treatmentFormatter";
 export { changeFormatter } from "components/DataTableNext/formatters/changeFormatter";
+export { dateFormatter } from "components/DataTableNext/formatters/dateFormatter";
 export { deleteFormatter } from "components/DataTableNext/formatters/deleteFormatter";
 export { timeFromNow } from "components/DataTableNext/formatters/timeFromNow";

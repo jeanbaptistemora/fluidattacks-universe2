@@ -55,6 +55,7 @@ describe("GroupScopeView", (): void => {
                 gitignore: ["bower_components/*", "node_modules/*"],
                 id: "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19",
                 includesHealthCheck: true,
+                lastStatusUpdate: "2021-01-05T18:16:48",
                 state: "ACTIVE",
                 url: "https://gitlab.com/fluidattacks/product",
               },
@@ -101,6 +102,8 @@ describe("GroupScopeView", (): void => {
         "node_modules/*",
         // state
         "Active",
+        // last status update
+        "2021-01-05 06:16:48",
         // cloning status
         "Unknown",
       ].join("")
@@ -156,6 +159,7 @@ describe("GroupScopeView", (): void => {
                 gitignore: [],
                 id: "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19",
                 includesHealthCheck: false,
+                lastStatusUpdate: "2021-01-05T18:16:48",
                 state: "ACTIVE",
                 url: "https://gitlab.com/fluidattacks/product",
               },
@@ -237,6 +241,8 @@ describe("GroupScopeView", (): void => {
         "master",
         // state
         "Active",
+        // last status update
+        "2021-01-05 06:16:48",
         // cloning status
         "Unknown",
       ].join("")
@@ -269,6 +275,7 @@ describe("GroupScopeView", (): void => {
                 gitignore: ["bower_components/*"],
                 id: "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19",
                 includesHealthCheck: false,
+                lastStatusUpdate: "2021-01-05T18:16:48",
                 state: "ACTIVE",
                 url: "https://gitlab.com/fluidattacks/product",
               },
@@ -314,6 +321,7 @@ describe("GroupScopeView", (): void => {
                 gitignore: ["node_modules/*"],
                 id: "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19",
                 includesHealthCheck: true,
+                lastStatusUpdate: "2021-01-05T18:16:48",
                 state: "ACTIVE",
                 url: "https://gitlab.com/fluidattacks/product",
               },
@@ -405,6 +413,8 @@ describe("GroupScopeView", (): void => {
         "node_modules/*",
         // state
         "Active",
+        // last status update
+        "2021-01-05 06:16:48",
         // cloning status
         "Unknown",
       ].join("")
@@ -437,6 +447,7 @@ describe("GroupScopeView", (): void => {
                 gitignore: [],
                 id: "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19",
                 includesHealthCheck: false,
+                lastStatusUpdate: "2021-01-05T18:16:48",
                 state: "ACTIVE",
                 url: "https://gitlab.com/fluidattacks/product",
               },
@@ -482,6 +493,7 @@ describe("GroupScopeView", (): void => {
                 gitignore: [],
                 id: "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19",
                 includesHealthCheck: false,
+                lastStatusUpdate: "2021-01-05T18:16:48",
                 state: "INACTIVE",
                 url: "https://gitlab.com/fluidattacks/product",
               },

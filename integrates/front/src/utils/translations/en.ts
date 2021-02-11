@@ -494,6 +494,7 @@ export const enTranslations: ResourceKey = {
             "An active root with the same URL/branch already exists " +
             "within the organization",
         },
+        lastStatusUpdate: "Last status update",
         state: "State",
       },
       git: {

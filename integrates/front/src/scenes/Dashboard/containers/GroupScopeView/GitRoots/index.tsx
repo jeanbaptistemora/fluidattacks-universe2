@@ -32,6 +32,7 @@ import {
 } from "../query";
 import {
   changeFormatter,
+  dateFormatter,
   statusFormatter,
 } from "components/DataTableNext/formatters";
 import { faCloud, faPlus } from "@fortawesome/free-solid-svg-icons";
@@ -110,6 +111,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
       environmentUrls: false,
       "filter.exclude": true,
       "filter.include": true,
+      lastStatusUpdate: true,
       state: true,
       url: true,
     },
@@ -408,6 +410,14 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
                     header: t("group.scope.common.state"),
                     visible: checkedItems.state,
                     width: "15%",
+                  },
+                  {
+                    align: "center",
+                    changeFunction: handleStateUpdate,
+                    dataField: "lastStatusUpdate",
+                    formatter: dateFormatter,
+                    header: t("group.scope.common.lastStatusUpdate"),
+                    visible: checkedItems.lastStatusUpdate,
                   },
                   {
                     align: "center",
