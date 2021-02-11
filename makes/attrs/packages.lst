@@ -28,7 +28,6 @@ integrates/mobile/lint
 integrates/mobile/test
 integrates/secrets/lint
 integrates/web/e2e/pypi
-makes/cache/config
 makes/commitlint
 makes/dev
 makes/test

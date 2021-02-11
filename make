@@ -13,19 +13,16 @@ function build_package {
     ".#${attribute}"
 }
 
-function cache_config {
-
-  if test -n "${CI:-}"
-  then
-        build_package makes/cache/config \
-    &&  source out/makes-cache-config
-  fi
-}
-
 function cache_push {
-  if test -n "${CI:-}"
+  local nix_store_path="${1}"
+
+  if test -n "${CACHIX_FLUIDATTACKS_TOKEN:-}"
   then
-        run_application makes/cache/push "${1}" \
+        echo '---' \
+    &&  nix-env -iA cachix -f https://cachix.org/api/v1/install \
+    &&  echo "[INFO] Pushing to cache: ${nix_store_path}" \
+    &&  cachix authtoken "${CACHIX_FLUIDATTACKS_TOKEN}" \
+    &&  echo "${nix_store_path}" | cachix push -c 0 fluidattacks \
     ||  return 0
   fi
 }
@@ -42,7 +39,6 @@ function main {
   local attr="${1:-}"
 
       main_ctx "${@}" \
-  &&  cache_config \
   &&  source "${PWD}/.envrc.public" \
   &&  load_commands \
   &&  for attribute in "${APPLICATIONS[@]}"
