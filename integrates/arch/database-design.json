@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Feb 10, 2021, 04:15 PM",
+    "DateLastModified": "Feb 11, 2021, 10:03 AM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "2.0"
@@ -115,7 +115,7 @@
           "AttributeType": "S"
         },
         {
-          "AttributeName": "vulnerabilities",
+          "AttributeName": "results",
           "AttributeType": "M"
         },
         {
@@ -183,7 +183,7 @@
           "AttributeType": "S"
         },
         {
-          "AttributeName": "parent",
+          "AttributeName": "parent_id",
           "AttributeType": "S"
         },
         {
@@ -221,6 +221,14 @@
         {
           "AttributeName": "attack_vector",
           "AttributeType": "S"
+        },
+        {
+          "AttributeName": "consult_id",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "vulnerability_ids",
+          "AttributeType": "SS"
         }
       ],
       "TableFacets": [
@@ -309,7 +317,7 @@
             "origin",
             "repo",
             "strictness",
-            "vulnerabilities"
+            "results"
           ]
         },
         {
@@ -358,7 +366,7 @@
           ]
         },
         {
-          "FacetName": "comment",
+          "FacetName": "consult",
           "KeyAttributeAlias": {
             "PartitionKeyAlias": "pk",
             "SortKeyAlias": "sk"
@@ -367,7 +375,7 @@
           "NonKeyAttributes": [
             "modified_date",
             "modified_by",
-            "parent",
+            "parent_id",
             "content"
           ]
         },
@@ -379,8 +387,10 @@
           },
           "TableData": [],
           "NonKeyAttributes": [
+            "name",
             "description",
             "type",
+            "status",
             "modified_date",
             "modified_by",
             "evidences",
@@ -392,9 +402,22 @@
             "source",
             "using_sorts",
             "cwe",
-            "attack_vector",
+            "attack_vector"
+          ]
+        },
+        {
+          "FacetName": "reattack",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "pk",
+            "SortKeyAlias": "sk"
+          },
+          "TableData": [],
+          "NonKeyAttributes": [
             "status",
-            "name"
+            "modified_date",
+            "modified_by",
+            "consult_id",
+            "vulnerability_ids"
           ]
         }
       ],
