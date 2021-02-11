@@ -162,13 +162,21 @@ async def test_get_max_open_severity():
 async def test_get_open_vulnerabilities():
     project_name = 'unittesting'
     expected_output = 29
-    assert await get_open_vulnerabilities(project_name) == expected_output
+    open_vulns = await get_open_vulnerabilities(
+        get_new_context(),
+        project_name
+    )
+    assert open_vulns == expected_output
 
 
 async def test_get_closed_vulnerabilities():
     project_name = 'unittesting'
     expected_output = 7
-    assert await get_closed_vulnerabilities(project_name) == expected_output
+    closed_vulns = await get_closed_vulnerabilities(
+        get_new_context(),
+        project_name
+    )
+    assert closed_vulns == expected_output
 
 
 async def test_get_open_finding():

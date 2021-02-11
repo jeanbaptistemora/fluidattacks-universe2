@@ -24,7 +24,7 @@ async def resolve(
     vulnerabilities: List[Vulnerability] = await redis_get_or_set_entity_attr(
         partial(resolve_no_cache, parent, info, **kwargs),
         entity='finding',
-        attr='vulns',
+        attr='vulnerabilities',
         id=cast(Dict[str, str], parent)['id'],
     )
 

@@ -688,7 +688,7 @@ async def get_project_indicators(project: str) -> Dict[str, object]:
     )
     indicators = {
         'closed_vulnerabilities': (
-            await project_domain.get_closed_vulnerabilities(project)
+            await project_domain.get_closed_vulnerabilities(context, project)
         ),
         'last_closing_date': last_closing_vuln_days,
         'last_closing_vuln_finding': last_closing_vuln.get('finding_id', ''),
@@ -734,7 +734,7 @@ async def get_project_indicators(project: str) -> Dict[str, object]:
         ),
         'open_findings': await project_domain.get_open_finding(project),
         'open_vulnerabilities': (
-            await project_domain.get_open_vulnerabilities(project)
+            await project_domain.get_open_vulnerabilities(context, project)
         ),
         'total_treatment': await project_domain.get_total_treatment(findings),
         'remediated_over_time': remediated_over_time

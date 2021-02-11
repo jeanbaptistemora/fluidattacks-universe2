@@ -11,7 +11,10 @@ from jose import jwt
 from starlette.datastructures import UploadFile
 
 from backend import util
-from backend.api import apply_context_attrs
+from backend.api import (
+  apply_context_attrs,
+  get_new_context,
+)
 from backend.api.schema import SCHEMA
 from backend.domain.finding import get_finding
 from backend.domain.project import get_open_vulnerabilities
@@ -566,7 +569,8 @@ async def test_filter_deleted_findings():
         }
       }
     '''
-    open_vulns = await get_open_vulnerabilities('unittesting')
+    context = get_new_context()
+    open_vulns = await get_open_vulnerabilities(context, 'unittesting')
 
     data = {'query': mutation}
     result = await _get_result(data)
@@ -574,7 +578,7 @@ async def test_filter_deleted_findings():
     assert 'success' in result['data']['deleteFinding']
     assert result['data']['deleteFinding']['success']
 
-    assert await get_open_vulnerabilities('unittesting') < open_vulns
+    assert await get_open_vulnerabilities(context, 'unittesting') < open_vulns
 
 async def test_non_existing_finding():
     query = '''

@@ -1061,9 +1061,21 @@ async def get_managers(project_name: str) -> List[str]:
     ]
 
 
-async def get_open_vulnerabilities(project_name: str) -> int:
-    findings = await finding_domain.list_findings([project_name])
-    vulns = await vuln_domain.list_vulnerabilities_async(findings[0])
+async def get_open_vulnerabilities(context: Any, group_name: str) -> int:
+    group_findings_loader = context.group_findings
+    group_findings_loader.clear(group_name)
+    finding_vulns_loader = context.finding_vulns_nzr
+
+    group_findings = await group_findings_loader.load(group_name)
+    findings_vulns = await finding_vulns_loader.load_many([
+        finding['finding_id'] for finding in group_findings
+    ])
+    vulns = [
+        vuln
+        for finding_vulns in findings_vulns
+        for vuln in finding_vulns
+    ]
+
     last_approved_status = await collect([
         in_process(vuln_domain.get_last_status, vuln)
         for vuln in vulns
@@ -1075,9 +1087,21 @@ async def get_open_vulnerabilities(project_name: str) -> int:
     return open_vulnerabilities
 
 
-async def get_closed_vulnerabilities(project_name: str) -> int:
-    findings = await finding_domain.list_findings([project_name])
-    vulns = await vuln_domain.list_vulnerabilities_async(findings[0])
+async def get_closed_vulnerabilities(context: Any, group_name: str) -> int:
+    group_findings_loader = context.group_findings
+    group_findings_loader.clear(group_name)
+    finding_vulns_loader = context.finding_vulns_nzr
+
+    group_findings = await group_findings_loader.load(group_name)
+    findings_vulns = await finding_vulns_loader.load_many([
+        finding['finding_id'] for finding in group_findings
+    ])
+    vulns = [
+        vuln
+        for finding_vulns in findings_vulns
+        for vuln in finding_vulns
+    ]
+
     last_approved_status = await collect([
         in_process(vuln_domain.get_last_status, vuln)
         for vuln in vulns
