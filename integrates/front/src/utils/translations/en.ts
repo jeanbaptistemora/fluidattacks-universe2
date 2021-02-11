@@ -963,6 +963,16 @@ export const enTranslations: ResourceKey = {
       success: "You'll receive an email shortly",
       success_title: "Services changed correctly!",
       type: "Subscription type",
+      unsubscribe: {
+        button: "Unsubscribe",
+        title: "Unsubscribe",
+        type_group_name: "Please type the group name to procede.",
+        warning: "Revoke access permissions to this group.",
+        warning_body:
+          "This action will unsubscribe you from the group. " +
+          "If you do not have more groups, you will be removed from integrates. ",
+        warning_title: "Warning!",
+      },
     },
     severityLabel: "Severity",
     status: {
