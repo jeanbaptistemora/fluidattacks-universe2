@@ -17,6 +17,7 @@ rec {
       direct = [
         "aioextensions==20.9.2315218"
         "click==7.1.2"
+        "GitPython==3.1.13"
         "psycopg2==2.8.4"
         "ratelimiter==1.2.0"
         "requests==2.25.1"
@@ -24,7 +25,9 @@ rec {
       inherited = [
         "certifi==2020.12.5"
         "chardet==4.0.0"
+        "gitdb==4.0.5"
         "idna==2.10"
+        "smmap==3.0.5"
         "urllib3==1.26.3"
         "uvloop==0.14.0"
       ];
