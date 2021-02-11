@@ -22,23 +22,12 @@ function cache_config {
   fi
 }
 
-function cachix_push {
-  local nix_store_path="${1}"
-
-  if test -n "${CACHIX_FLUIDATTACKS_TOKEN:-}"
+function cache_push {
+  if test -n "${CI:-}"
   then
-        echo "[INFO] Pushing to cache: ${nix_store_path}" \
-    &&  cachix authtoken "${CACHIX_FLUIDATTACKS_TOKEN}" \
-    &&  echo "${nix_store_path}" | cachix push -c 0 fluidattacks
+        run_application makes/cache/push "${1}" \
+    ||  return 0
   fi
-}
-
-function ensure_cachix {
-      if test -z "$(command -v cachix)"
-      then
-        nix-env -iA cachix -f https://cachix.org/api/v1/install
-      fi \
-  &&  echo '---'
 }
 
 function load_commands {
@@ -53,7 +42,7 @@ function main {
   local attr="${1:-}"
 
       main_ctx "${@}" \
-  &&  ensure_cachix \
+  &&  cache_config \
   &&  source "${PWD}/.envrc.public" \
   &&  load_commands \
   &&  for attribute in "${APPLICATIONS[@]}"
@@ -86,7 +75,7 @@ function main {
             &&  echo '[INFO]' \
             &&  echo "[INFO] Store path: ${nix_store_path}" \
             &&  echo "[INFO] Symlink at: out/${attribute////-}" \
-            &&  cachix_push "${nix_store_path}" \
+            &&  cache_push "${nix_store_path}" \
             &&  return 0 \
             ||  return 0
           else

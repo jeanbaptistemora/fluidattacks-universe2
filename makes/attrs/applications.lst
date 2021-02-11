@@ -32,6 +32,7 @@ integrates/mobile/ota
 integrates/storage
 integrates/web/e2e
 makes/attrs
+makes/cache/push
 makes/deploy/oci-batch
 makes/deploy/oci-ci
 makes/done
