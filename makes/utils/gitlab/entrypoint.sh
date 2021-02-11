@@ -135,6 +135,20 @@ function create_project_variable {
     "${masked}"
 }
 
+function get_project_variable {
+  local token="${1}"
+  local repo_id="${2}"
+  local var_name="${3}"
+
+      api_url="https://gitlab.com/api/v4/projects/${repo_id}/variables" \
+  &&  echo "[INFO] Retrieving var from GitLab: ${var_name}" 1>&2 \
+  &&  curl \
+        --silent \
+        --header "private-token: ${token}" \
+        "${api_url}/${var_name}" \
+      | jq -er '.value'
+}
+
 function update_project_variable {
   local token="${1}"
   local repo_id="${2}"

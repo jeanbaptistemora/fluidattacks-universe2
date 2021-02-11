@@ -8,6 +8,7 @@ makeTemplate {
     envSearchPaths = makeSearchPaths [
       pkgs.cacert
       pkgs.curl
+      pkgs.jq
     ];
   };
   name = "utils-gitlab";
