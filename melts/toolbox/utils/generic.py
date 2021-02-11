@@ -116,13 +116,10 @@ def is_inside_services() -> bool:
 
 
 def go_back_to_services() -> None:
-    if not is_inside_services():
-        LOGGER.error('Please run the toolbox inside the services repo')
-        sys.exit(78)
-
-    while not os.getcwd().endswith('services'):
-        os.chdir('..')
-        LOGGER.debug('Adjusted working dir to: %s', os.getcwd())
+    if is_inside_services():
+        while not os.getcwd().endswith('services'):
+            os.chdir('..')
+            LOGGER.debug('Adjusted working dir to: %s', os.getcwd())
 
 
 def get_current_group() -> str:
@@ -139,10 +136,8 @@ def is_valid_group(  # pylint: disable=unused-argument
     subs: str,
 ) -> str:
     actual_path: str = os.getcwd()
-    if is_inside_services() \
-            and 'groups' not in actual_path \
-            and subs not in os.listdir('groups') \
-            and subs not in ('admin', 'all', 'unspecified-subs'):
+    if ('groups' not in actual_path and subs not in os.listdir('groups')
+            and subs not in ('admin', 'all', 'unspecified-subs')):
         msg = f'the group {subs} does not exist'
         raise BadParameter(msg)
     go_back_to_services()
