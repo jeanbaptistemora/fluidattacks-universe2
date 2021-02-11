@@ -273,6 +273,8 @@ type Mutation {
     reportSubject: String!
   ): SimplePayload!
 
+  unsubscribeFromGroup(group_name: String!): SimplePayload!
+
   updateAccessToken(expirationTime: Int!): UpdateAccessTokenPayload!
 
   updateAccessTokenProject(

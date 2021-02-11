@@ -53,6 +53,7 @@ from backend.api.mutations import (
     solve_event,
     submit_draft,
     subscribe_to_entity_report,
+    unsubscribe_from_group,
     update_access_token,
     update_event_evidence,
     update_evidence_description,
@@ -152,6 +153,7 @@ MUTATION.set_field('removeTag', remove_group_tag.mutate)
 MUTATION.set_field('removeEvidence', remove_finding_evidence.mutate)
 MUTATION.set_field('addFindingConsult', add_finding_consult.mutate)
 MUTATION.set_field('updateDescription', update_finding_description.mutate)
+MUTATION.set_field('unsubscribeFromGroup', unsubscribe_from_group.mutate)
 MUTATION.set_field('rejectDraft', reject_draft.mutate)
 MUTATION.set_field('deleteTags', delete_vulnerability_tags.mutate)
 MUTATION.set_field(

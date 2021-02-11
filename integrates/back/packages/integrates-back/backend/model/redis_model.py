@@ -136,6 +136,7 @@ ENTITIES: Dict[str, Dict[str, Set[str]]] = dict(
             'remove_group_tag',
             'remove_stakeholder_access',
             'solve_event',
+            'unsubscribe_from_group',
             'update_severity',
             'update_vulns_treatment',
             'upload_file',
@@ -153,8 +154,8 @@ ENTITIES: Dict[str, Dict[str, Set[str]]] = dict(
             'confirm_access',
             'edit_stakeholder_organization',
             'grant_stakeholder_organization_access',
-            'remove_stakeholder_organization_access'
-
+            'remove_stakeholder_organization_access',
+            'unsubscribe_from_group',
         },
     ),
     session=dict(
