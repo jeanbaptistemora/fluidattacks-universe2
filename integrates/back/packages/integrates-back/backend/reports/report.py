@@ -42,7 +42,8 @@ async def generate_group_report(
         await in_process(
             finding_domain.cast_new_vulnerabilities,
             await vuln_domain.get_open_vuln_by_type(
-                str(finding['findingId']), context
+                context,
+                str(finding['findingId'])
             ),
             finding
         )
