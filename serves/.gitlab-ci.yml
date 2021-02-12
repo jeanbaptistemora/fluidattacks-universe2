@@ -247,15 +247,25 @@ serves/users/skims/test:
   <<: *serves_in_dev_branch
   stage: test-infra
 
-serves/users/sorts/test:
-  <<: *makes
-  <<: *serves_in_dev_branch
-  stage: test-infra
-
 serves/users/sorts/apply:
   <<: *makes
   <<: *serves_in_master_branch
   stage: deploy-infra
+
+serves/users/sorts/rotate/even:
+  <<: *makes
+  <<: *serves_in_schedule_users_rotate_even
+  stage: rotation
+
+serves/users/sorts/rotate/odd:
+  <<: *makes
+  <<: *serves_in_schedule_users_rotate_odd
+  stage: rotation
+
+serves/users/sorts/test:
+  <<: *makes
+  <<: *serves_in_dev_branch
+  stage: test-infra
 
 serves_apply_config_autoscaling_ci:
   <<: *with_nix
@@ -283,11 +293,6 @@ serves_rotate_keys_user_provision_melts:
   stage: rotation
 
 serves_rotate_keys_user_provision_observes:
-  <<: *with_nix
-  <<: *serves_in_schedule_rotate_keys_user_provision
-  stage: rotation
-
-serves_rotate_keys_user_provision_sorts:
   <<: *with_nix
   <<: *serves_in_schedule_rotate_keys_user_provision
   stage: rotation

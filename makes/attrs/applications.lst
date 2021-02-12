@@ -101,6 +101,8 @@ serves/users/skims/rotate/even
 serves/users/skims/rotate/odd
 serves/users/skims/test
 serves/users/sorts/apply
+serves/users/sorts/rotate/even
+serves/users/sorts/rotate/odd
 serves/users/sorts/test
 serves/vpc/apply
 serves/vpc/test
