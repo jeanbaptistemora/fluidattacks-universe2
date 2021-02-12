@@ -14,6 +14,7 @@ import { GroupInformation } from "scenes/Dashboard/containers/ProjectSettingsVie
 import { Portfolio } from "scenes/Dashboard/containers/ProjectSettingsView/Portfolio";
 import { Services } from "scenes/Dashboard/containers/ProjectSettingsView/Services";
 import { Can } from "utils/authz/Can";
+import { Unsubscribe } from "./Unsubscribe";
 
 const projectSettingsView: React.FC = (): JSX.Element => {
   const { projectName } = useParams<{ projectName: string }>();
@@ -37,6 +38,12 @@ const projectSettingsView: React.FC = (): JSX.Element => {
           </React.Fragment>
         </Can>
         <GroupInformation />
+        <Can do="backend_api_mutations_unsubscribe_from_group_mutate">
+          <React.Fragment>
+            <hr />
+            <Unsubscribe />
+          </React.Fragment>
+        </Can>
         <Can do="backend_api_mutations_remove_group_mutate">
           <React.Fragment>
             <hr />

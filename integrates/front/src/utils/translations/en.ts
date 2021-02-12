@@ -966,6 +966,8 @@ export const enTranslations: ResourceKey = {
       type: "Subscription type",
       unsubscribe: {
         button: "Unsubscribe",
+        success: "Unsubscription from {{groupName}} was successful",
+        success_title: "Success",
         title: "Unsubscribe",
         type_group_name: "Please type the group name to procede.",
         warning: "Revoke access permissions to this group.",

@@ -28,8 +28,10 @@ const Unsubscribe: React.FC = (): JSX.Element => {
     {
       onCompleted: (): void => {
         msgSuccess(
-          t("search_findings.services_table.success"),
-          t("search_findings.services_table.success_title")
+          t("search_findings.services_table.unsubscribe.success", {
+            groupName: projectName,
+          }),
+          t("search_findings.services_table.unsubscribe.success_title")
         );
 
         push("/home");
