@@ -65,7 +65,7 @@ function set_project_variable {
   local protected="${5}"
   local masked="${6}"
 
-      echo "[INFO] Setting gitlab variable: ${var_name}" \
+      echo "[INFO] Setting gitlab variable ${var_name} in project ${repo_id}:"  \
   &&  if check_variable_exists "${token}" "${repo_id}" "${var_name}"
       then
         update_project_variable \

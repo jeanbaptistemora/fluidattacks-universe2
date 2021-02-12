@@ -25,6 +25,13 @@ function get_key_attrs {
   get_key ".\"${key}\" | keys[]" | tr '\n' ' '
 }
 
+function get_attr_gitlab_project_ids {
+  local key="${1}"
+  local attr="${2}"
+
+  get_key ".\"${key}\".\"${attr}\".gitlab.project_ids[]" | tr '\n' ' '
+}
+
 function update_key {
   local key="${1}"
   local attrs=()
@@ -32,16 +39,22 @@ function update_key {
       IFS=' ' read -ra attrs <<< "$(get_key_attrs "${key}")" \
   &&  for attr in "${attrs[@]}"
       do
-            gitlab_id="$(get_key ".\"${key}\".\"${attr}\".gitlab.id")" \
+            gitlab_project_ids=() \
+        &&  IFS=' ' read -ra gitlab_project_ids <<< "$(get_attr_gitlab_project_ids "${key}" "${attr}")" \
+        &&  gitlab_id="$(get_key ".\"${key}\".\"${attr}\".gitlab.id")" \
         &&  gitlab_masked="$(get_key ".\"${key}\".\"${attr}\".gitlab.masked")" \
         &&  gitlab_protected="$(get_key ".\"${key}\".\"${attr}\".gitlab.protected")" \
         &&  output_id="$(get_key ".\"${key}\".\"${attr}\".output.id")" \
         &&  output_val="$(terraform output "${output_id}")" \
-        &&  set_project_variable \
-              "${GITLAB_API_TOKEN}" \
-              '__envGitlabProjectId__' \
-              "${gitlab_id}" "${output_val}" \
-              "${gitlab_protected}" "${gitlab_masked}" \
+        &&  for gitlab_project_id in "${gitlab_project_ids[@]}"
+            do
+                  set_project_variable \
+                    "${GITLAB_API_TOKEN}" \
+                    "${gitlab_project_id}" \
+                    "${gitlab_id}" "${output_val}" \
+                    "${gitlab_protected}" "${gitlab_masked}" \
+              ||  return 1
+            done \
         ||  return 1
       done
 }

@@ -4,7 +4,6 @@ path: pkgs:
 , product
 , target
 , secrets_path ? ""
-, gitlab_project_id
 , keys
 }:
 let
@@ -27,7 +26,6 @@ makeEntrypoint {
       inherit secrets_path;
     }}/bin/${name}";
     envTarget = target;
-    envGitlabProjectId = gitlab_project_id;
     envKeys = builtins.toJSON keys;
   };
   inherit name;

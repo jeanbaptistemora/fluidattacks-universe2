@@ -10,11 +10,11 @@ userRotateKeys {
   product = "serves";
   target = "serves/users/airs/terraform";
   secrets_path = "serves/secrets/production.yaml";
-  gitlab_project_id = "20741933";
   keys = {
     "aws_iam_access_key.web-prod-key-1" = {
       id = {
         gitlab = {
+          project_ids = [ "20741933" ];
           id = "AIRS_PROD_AWS_ACCESS_KEY_ID";
           masked = true;
           protected = true;
@@ -25,6 +25,7 @@ userRotateKeys {
       };
       secret = {
         gitlab = {
+          project_ids = [ "20741933" ];
           id = "AIRS_PROD_AWS_SECRET_ACCESS_KEY";
           masked = true;
           protected = true;
@@ -37,6 +38,7 @@ userRotateKeys {
     "aws_iam_access_key.web-dev-key-1" = {
       id = {
         gitlab = {
+          project_ids = [ "20741933" ];
           id = "AIRS_DEV_AWS_ACCESS_KEY_ID";
           masked = true;
           protected = false;
@@ -47,6 +49,7 @@ userRotateKeys {
       };
       secret = {
         gitlab = {
+          project_ids = [ "20741933" ];
           id = "AIRS_DEV_AWS_SECRET_ACCESS_KEY";
           masked = true;
           protected = false;

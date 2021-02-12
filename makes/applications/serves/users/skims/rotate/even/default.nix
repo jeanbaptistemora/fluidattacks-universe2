@@ -9,11 +9,11 @@ userRotateKeys {
   name = "serves-users-skims-rotate-even";
   product = "serves";
   target = "serves/users/skims/terraform";
-  gitlab_project_id = "20741933";
   keys = {
     "aws_iam_access_key.skims_prod_key-2" = {
       id = {
         gitlab = {
+          project_ids = [ "20741933" ];
           id = "SKIMS_PROD_AWS_ACCESS_KEY_ID";
           masked = true;
           protected = true;
@@ -24,6 +24,7 @@ userRotateKeys {
       };
       secret = {
         gitlab = {
+          project_ids = [ "20741933" ];
           id = "SKIMS_PROD_AWS_SECRET_ACCESS_KEY";
           masked = true;
           protected = true;
@@ -36,6 +37,7 @@ userRotateKeys {
     "aws_iam_access_key.skims_dev_key-2" = {
       id = {
         gitlab = {
+          project_ids = [ "20741933" ];
           id = "SKIMS_DEV_AWS_ACCESS_KEY_ID";
           masked = true;
           protected = false;
@@ -46,6 +48,7 @@ userRotateKeys {
       };
       secret = {
         gitlab = {
+          project_ids = [ "20741933" ];
           id = "SKIMS_DEV_AWS_SECRET_ACCESS_KEY";
           masked = true;
           protected = false;
