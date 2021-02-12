@@ -8,7 +8,7 @@ let
 in
 makeTemplate {
   arguments = {
-    envBaseSearchPaths = import (path "/makes/utils/make-search-paths") path makesPkgs [
+    envBaseSearchPaths = import (path "/makes/utils/make-search-paths-deprecated") path makesPkgs [
       makesPkgs.awscli
       makesPkgs.cloc
       makesPkgs.jq

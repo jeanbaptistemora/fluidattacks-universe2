@@ -4,7 +4,7 @@
 }:
 let
   buildPythonReqs = import (path "/makes/utils/build-python-requirements") path nixPkgs;
-  makeSearchPaths = import (path "/makes/utils/make-search-paths") path nixPkgs;
+  makeSearchPaths = import (path "/makes/utils/make-search-paths-deprecated") path nixPkgs;
   makeTemplate = import (path "/makes/utils/make-template") path nixPkgs;
 
   inheritedBuildInputs = builtins.foldl' (a: b: a ++ b) [ ] (

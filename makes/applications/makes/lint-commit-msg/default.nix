@@ -4,7 +4,7 @@
 } @ attrs:
 let
   makeEntrypoint = import (path "/makes/utils/make-entrypoint") path makesPkgs;
-  makeSearchPaths = import (path "/makes/utils/make-search-paths") path makesPkgs;
+  makeSearchPaths = import (path "/makes/utils/make-search-paths-deprecated") path makesPkgs;
 in
 makeEntrypoint {
   arguments = {

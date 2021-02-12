@@ -4,7 +4,7 @@
 } @ _:
 let
   buildPythonRequirements = import (path "/makes/utils/build-python-requirements") path skimsPkgs;
-  makeSearchPaths = import (path "/makes/utils/make-search-paths") path skimsPkgs;
+  makeSearchPaths = import (path "/makes/utils/make-search-paths-deprecated") path skimsPkgs;
   makeTemplate = import (path "/makes/utils/make-template") path skimsPkgs;
 in
 makeTemplate {

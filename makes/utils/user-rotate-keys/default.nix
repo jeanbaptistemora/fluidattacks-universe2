@@ -9,7 +9,7 @@ path: pkgs:
 }:
 let
   makeEntrypoint = import (path "/makes/utils/make-entrypoint") path pkgs;
-  makeSearchPaths = import (path "/makes/utils/make-search-paths") path pkgs;
+  makeSearchPaths = import (path "/makes/utils/make-search-paths-deprecated") path pkgs;
   terraformTaint = import (path "/makes/utils/terraform-taint") path pkgs;
 in
 makeEntrypoint {

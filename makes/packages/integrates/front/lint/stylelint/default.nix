@@ -4,7 +4,7 @@
 } @ attrs:
 let
   makeDerivation = import (path "/makes/utils/make-derivation") path integratesPkgs;
-  makeSearchPaths = import (path "/makes/utils/make-search-paths") path integratesPkgs;
+  makeSearchPaths = import (path "/makes/utils/make-search-paths-deprecated") path integratesPkgs;
 in
 makeDerivation {
   builder = path "/makes/packages/integrates/front/lint/stylelint/builder.sh";

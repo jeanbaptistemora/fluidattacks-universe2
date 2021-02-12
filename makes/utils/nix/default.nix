@@ -11,6 +11,12 @@ rec {
     then expr
     else abort "Expected a store path or a string, got: ${builtins.typeOf expr}";
 
+  # Return name from the attribute set, or default
+  getAttr = attrset: name: default:
+    if builtins.hasAttr attrset name
+    then builtins.getAttr attrset name
+    else default;
+
   # Return true if string is a nix store path
   isStorePath = string: "/nix/store" == pkgs.lib.strings.substring 0 10 string;
 

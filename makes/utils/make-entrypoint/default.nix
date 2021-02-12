@@ -5,10 +5,12 @@ path: pkgs:
 { arguments
 , location ? "/bin/${name}"
 , name
+, searchPaths ? { }
 , template
 }:
 let
   makeDerivation = import (path "/makes/utils/make-derivation") path pkgs;
+  makeSearchPaths = import (path "/makes/utils/make-search-paths") path pkgs;
   makeTemplate = import (path "/makes/utils/make-template") path pkgs;
 in
 makeDerivation {
@@ -22,13 +24,13 @@ makeDerivation {
     arguments = {
       envBashLibCommon = path "/makes/utils/common/template.sh";
       envBashLibShopts = path "/makes/utils/shopts/template.sh";
-      envPath = pkgs.lib.strings.makeBinPath [
+      envSearchPaths = makeSearchPaths searchPaths;
+      envSearchPathsBase = makeSearchPaths {
         # Minimalistic shell environment
         # Let's try to keep it as lightweight as possible because this
         # propagates to all built apps and packages
-        pkgs.bash
-        pkgs.coreutils
-      ];
+        envPaths = [ pkgs.bash pkgs.coreutils ];
+      };
       envShell = "${pkgs.bash}/bin/bash";
     };
     name = "utils-make-entrypoint-script";
@@ -41,10 +43,10 @@ makeDerivation {
       unset PATH
       unset PYTHON_PATH
 
-      export PATH='__envPath__'
-
+      source __envSearchPathsBase__
       source __envBashLibShopts__
       source __envBashLibCommon__
+      source __envSearchPaths__
     '';
   };
   envLocation = location;

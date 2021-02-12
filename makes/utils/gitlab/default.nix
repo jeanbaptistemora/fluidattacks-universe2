@@ -1,6 +1,6 @@
 path: pkgs:
 let
-  makeSearchPaths = import (path "/makes/utils/make-search-paths") path pkgs;
+  makeSearchPaths = import (path "/makes/utils/make-search-paths-deprecated") path pkgs;
   makeTemplate = import (path "/makes/utils/make-template") path pkgs;
 in
 makeTemplate {

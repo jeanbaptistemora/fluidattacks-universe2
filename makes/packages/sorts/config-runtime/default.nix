@@ -4,7 +4,7 @@
 } @ _:
 let
   buildPythonRequirements = import (path "/makes/utils/build-python-requirements") path sortsPkgs;
-  makeSearchPaths = import (path "/makes/utils/make-search-paths") path sortsPkgs;
+  makeSearchPaths = import (path "/makes/utils/make-search-paths-deprecated") path sortsPkgs;
   makeTemplate = import (path "/makes/utils/make-template") path sortsPkgs;
 in
 makeTemplate {

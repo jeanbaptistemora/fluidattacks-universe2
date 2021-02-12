@@ -4,7 +4,7 @@
 } @ _:
 let
   buildPythonRequirements = import (path "/makes/utils/build-python-requirements") path forcesPkgs;
-  makeSearchPaths = import (path "/makes/utils/make-search-paths") path forcesPkgs;
+  makeSearchPaths = import (path "/makes/utils/make-search-paths-deprecated") path forcesPkgs;
   makeTemplate = import (path "/makes/utils/make-template") path forcesPkgs;
 in
 makeTemplate {
