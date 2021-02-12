@@ -231,37 +231,6 @@ function job_integrates_back_build_development {
   helper_integrates_back_build "${CI_COMMIT_REF_NAME}"
 }
 
-function job_integrates_back_deploy_development {
-  local env='development'
-
-  local region='us-east-1'
-  local cluster='integrates-cluster'
-  local namespace='development'
-  local deployment="${CI_COMMIT_REF_NAME}"
-  local timeout='10m'
-  local files_path='../makes/applications/integrates/back/deploy/dev/k8s'
-
-      helper_common_use_pristine_workdir \
-  &&  helper_integrates_aws_login "${env}" \
-  &&  pushd integrates \
-    &&  export BRANCH="${CI_COMMIT_REF_NAME}" \
-    &&  export DATE="$(date)" \
-    &&  export DEPLOYMENT_NAME="${deployment}" \
-    &&  export B64_INTEGRATES_DEV_AWS_ACCESS_KEY_ID=$(helper_integrates_to_b64 "${INTEGRATES_DEV_AWS_ACCESS_KEY_ID}") \
-    &&  export B64_INTEGRATES_DEV_AWS_SECRET_ACCESS_KEY=$(helper_integrates_to_b64 "${INTEGRATES_DEV_AWS_SECRET_ACCESS_KEY}") \
-    &&  export B64_CI_COMMIT_REF_NAME=$(helper_integrates_to_b64 "${CI_COMMIT_REF_NAME}") \
-    &&  export B64_CI_COMMIT_SHA=$(helper_integrates_to_b64 "${CI_COMMIT_SHA}") \
-    &&  helper_integrates_back_deploy \
-          "${region}" \
-          "${cluster}" \
-          "${namespace}" \
-          "${deployment}" \
-          "${timeout}" \
-          "${files_path}" \
-  &&  popd \
-  ||  return 1
-}
-
 function job_integrates_back_deploy_production {
   local env='production'
 
