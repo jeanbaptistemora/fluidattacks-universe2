@@ -27,7 +27,7 @@ async def mutate(
     user_info = await util.get_jwt_content(info.context)
 
     user_email = user_domain.format_forces_user_email(project_name)
-    if not user_domain.ensure_user_exists(user_email):
+    if not await user_domain.ensure_user_exists(user_email):
         util.cloudwatch_log(
             info.context,
             (
@@ -53,7 +53,8 @@ async def mutate(
                     f'{project_name}'
                 )
             )
-            if forces_domain.update_token(project_name, result.session_jwt):
+            if await forces_domain.update_token(project_name,
+                                                result.session_jwt):
                 util.cloudwatch_log(
                     info.context,
                     (f'{user_info["user_email"]} store in secretsmanager '
