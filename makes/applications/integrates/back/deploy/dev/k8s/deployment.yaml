@@ -1,17 +1,17 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: integrates-__DEPLOYMENT_NAME__
+  name: integrates-${CI_COMMIT_REF_NAME}
   namespace: development
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: integrates-__DEPLOYMENT_NAME__
+      app: integrates-${CI_COMMIT_REF_NAME}
   template:
     metadata:
       labels:
-        app: integrates-__DEPLOYMENT_NAME__
+        app: integrates-${CI_COMMIT_REF_NAME}
     spec:
       nodeSelector:
         worker_group: development
@@ -26,7 +26,7 @@ spec:
               cachix use fluidattacks &&
               nix-env
                 -i integrates-back
-                -f __CI_PROJECT_URL__/-/archive/__CI_COMMIT_SHA__.tar.gz &&
+                -f ${CI_PROJECT_URL}/-/archive/${CI_COMMIT_SHA}.tar.gz &&
               integrates-back eph
           resources:
             requests:
@@ -35,12 +35,9 @@ spec:
             limits:
               cpu: 4000m
               memory: 5000Mi
-          env:
-            - name: DEPLOYMENT_DATE
-              value: "__DATE__"
           envFrom:
             - secretRef:
-                name: integrates-__DEPLOYMENT_NAME__
+                name: integrates-${CI_COMMIT_REF_NAME}
           ports:
             - containerPort: 8001
           readinessProbe:
@@ -50,7 +47,7 @@ spec:
               - -c
               - nix-env
                   -i integrates-back-probes-readiness
-                  -f __CI_PROJECT_URL__/-/archive/__CI_COMMIT_SHA__.tar.gz &&
+                  -f ${CI_PROJECT_URL}/-/archive/${CI_COMMIT_SHA}.tar.gz &&
                 integrates-back-probes-readiness
                   integrates-dev
                   FluidIntegrates
@@ -67,12 +64,12 @@ spec:
               - -c
               - nix-env
                   -i integrates-back-probes-liveness
-                  -f __CI_PROJECT_URL__/-/archive/__CI_COMMIT_SHA__.tar.gz &&
+                  -f ${CI_PROJECT_URL}/-/archive/${CI_COMMIT_SHA}.tar.gz &&
                 integrates-back-probes-liveness
                   integrates-dev
                   FluidIntegrates
                   http://localhost:8001
-                  https://__BRANCH__.integrates.fluidattacks.com
+                  https://${CI_COMMIT_REF_NAME}.integrates.fluidattacks.com
             initialDelaySeconds: 0
             periodSeconds: 30
             successThreshold: 1
@@ -88,7 +85,7 @@ spec:
               cachix use fluidattacks &&
               nix-env
                 -i integrates-db
-                -f __CI_PROJECT_URL__/-/archive/__CI_COMMIT_SHA__.tar.gz &&
+                -f ${CI_PROJECT_URL}/-/archive/${CI_COMMIT_SHA}.tar.gz &&
               integrates-db
           resources:
             requests:
@@ -97,12 +94,9 @@ spec:
             limits:
               cpu: 4000m
               memory: 3000Mi
-          env:
-            - name: DEPLOYMENT_DATE
-              value: "__DATE__"
           envFrom:
             - secretRef:
-                name: integrates-__DEPLOYMENT_NAME__
+                name: integrates-${CI_COMMIT_REF_NAME}
         - name: cache
           image: nixos/nix:2.3.6
           imagePullPolicy: Always
@@ -113,7 +107,7 @@ spec:
               cachix use fluidattacks &&
               nix-env
                 -i integrates-cache
-                -f __CI_PROJECT_URL__/-/archive/__CI_COMMIT_SHA__.tar.gz &&
+                -f ${CI_PROJECT_URL}/-/archive/${CI_COMMIT_SHA}.tar.gz &&
               integrates-cache
           imagePullPolicy: Always
           resources:
@@ -123,12 +117,9 @@ spec:
             limits:
               cpu: 4000m
               memory: 3000Mi
-          env:
-            - name: DEPLOYMENT_DATE
-              value: "__DATE__"
           envFrom:
             - secretRef:
-                name: integrates-__DEPLOYMENT_NAME__
+                name: integrates-${CI_COMMIT_REF_NAME}
         - name: storage
           image: nixos/nix:2.3.6
           imagePullPolicy: Always
@@ -139,7 +130,7 @@ spec:
               cachix use fluidattacks &&
               nix-env
                 -i integrates-storage
-                -f __CI_PROJECT_URL__/-/archive/__CI_COMMIT_SHA__.tar.gz &&
+                -f ${CI_PROJECT_URL}/-/archive/${CI_COMMIT_SHA}.tar.gz &&
               integrates-storage
           resources:
             requests:
@@ -148,9 +139,6 @@ spec:
             limits:
               cpu: 4000m
               memory: 3000Mi
-          env:
-            - name: DEPLOYMENT_DATE
-              value: "__DATE__"
           envFrom:
             - secretRef:
-                name: integrates-__DEPLOYMENT_NAME__
+                name: integrates-${CI_COMMIT_REF_NAME}

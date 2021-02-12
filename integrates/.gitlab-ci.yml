@@ -219,7 +219,7 @@ integrates/web/e2e:
   <<: *makes
   <<: *in_dev_branch_integrates
   needs:
-    - integrates_back_deploy_development
+    - integrates/back/deploy/dev
     - integrates/front/deploy-development
   stage: post-deploy
   retry: 2
@@ -367,8 +367,8 @@ integrates_back_clean_development_environments:
   <<: *in_schedule_nightly_build_integrates
   stage: rotation
 
-integrates_back_deploy_development:
-  <<: *with_nix
+integrates/back/deploy/dev:
+  <<: *makes
   <<: *in_dev_branch_integrates
   stage: deploy-app
   environment:

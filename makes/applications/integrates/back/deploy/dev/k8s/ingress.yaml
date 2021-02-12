@@ -1,7 +1,7 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: integrates-__DEPLOYMENT_NAME__
+  name: integrates-${CI_COMMIT_REF_NAME}
   namespace: development
   annotations:
     kubernetes.io/ingress.class: alb
@@ -17,10 +17,10 @@ metadata:
     external-dns.alpha.kubernetes.io/cloudflare-proxied: "true"
 spec:
   rules:
-    - host: __DEPLOYMENT_NAME__.integrates.fluidattacks.com
+    - host: ${CI_COMMIT_REF_NAME}.integrates.fluidattacks.com
       http:
         paths:
           - path: /*
             backend:
-              serviceName: integrates-__DEPLOYMENT_NAME__
+              serviceName: integrates-${CI_COMMIT_REF_NAME}
               servicePort: 81
