@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Feb 11, 2021, 02:09 PM",
+    "DateLastModified": "Feb 11, 2021, 04:58 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "2.0"
@@ -241,6 +241,18 @@
         {
           "AttributeName": "deletion_reason",
           "AttributeType": "S"
+        },
+        {
+          "AttributeName": "accepted_until",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "accepted_reason",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "manager",
+          "AttributeType": "S"
         }
       ],
       "TableFacets": [
@@ -441,14 +453,31 @@
           },
           "TableData": [],
           "NonKeyAttributes": [
+            "type",
+            "status",
             "modified_date",
             "modified_by",
             "source",
-            "type",
             "where",
             "specific",
+            "deletion_reason",
+            "tags"
+          ]
+        },
+        {
+          "FacetName": "treatment",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "pk",
+            "SortKeyAlias": "sk"
+          },
+          "TableData": [],
+          "NonKeyAttributes": [
             "status",
-            "deletion_reason"
+            "modified_date",
+            "modified_by",
+            "accepted_until",
+            "accepted_reason",
+            "manager"
           ]
         }
       ],
