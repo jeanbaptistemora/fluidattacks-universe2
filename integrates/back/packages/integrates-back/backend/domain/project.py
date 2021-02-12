@@ -829,12 +829,9 @@ async def get_mean_remediate_severity(  # pylint: disable=too-many-locals
             max_severity
         )
     ]
-    findings_vulns = await finding_vulns_loader.load_many(group_findings_ids)
-    findings_vulns = [
-        vuln
-        for finding_vulns in findings_vulns
-        for vuln in finding_vulns
-    ]
+    findings_vulns = list(chain.from_iterable(
+        await finding_vulns_loader.load_many(group_findings_ids)
+    ))
 
     open_vuln_dates = await collect([
         in_process(get_open_vulnerability_date, vuln)
@@ -1073,18 +1070,15 @@ async def get_open_vulnerabilities(context: Any, group_name: str) -> int:
     finding_vulns_loader = context.finding_vulns_nzr
 
     group_findings = await group_findings_loader.load(group_name)
-    findings_vulns = await finding_vulns_loader.load_many([
-        finding['finding_id'] for finding in group_findings
-    ])
-    vulns = [
-        vuln
-        for finding_vulns in findings_vulns
-        for vuln in finding_vulns
-    ]
+    findings_vulns = list(chain.from_iterable(
+        await finding_vulns_loader.load_many([
+            finding['finding_id'] for finding in group_findings
+        ])
+    ))
 
     last_approved_status = await collect([
         in_process(vuln_domain.get_last_status, vuln)
-        for vuln in vulns
+        for vuln in findings_vulns
     ])
     open_vulnerabilities = 0
     for status in last_approved_status:
@@ -1099,18 +1093,15 @@ async def get_closed_vulnerabilities(context: Any, group_name: str) -> int:
     finding_vulns_loader = context.finding_vulns_nzr
 
     group_findings = await group_findings_loader.load(group_name)
-    findings_vulns = await finding_vulns_loader.load_many([
-        finding['finding_id'] for finding in group_findings
-    ])
-    vulns = [
-        vuln
-        for finding_vulns in findings_vulns
-        for vuln in finding_vulns
-    ]
+    findings_vulns = list(chain.from_iterable(
+        await finding_vulns_loader.load_many([
+            finding['finding_id'] for finding in group_findings
+        ])
+    ))
 
     last_approved_status = await collect([
         in_process(vuln_domain.get_last_status, vuln)
-        for vuln in vulns
+        for vuln in findings_vulns
     ])
     closed_vulnerabilities = 0
     for status in last_approved_status:
