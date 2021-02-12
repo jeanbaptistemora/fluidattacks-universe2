@@ -290,7 +290,7 @@ function helper_observes_timedoctor_refresh_token {
           'analytics_auth_timedoctor' \
           "${GITLAB_API_TOKEN}") \
   &&  echo '[INFO] Updating token...' \
-  &&  ./observes/auth_helper.py --timedoctor-refresh \
+  &&  ./observes/services/timedoctor_tokens/timedoctor_tokens/__init__.py --timedoctor-refresh \
   &&  echo '[INFO] Done! Token created for current project'
 }
 
@@ -336,7 +336,7 @@ function helper_observes_timedoctor_manually_create_token {
   &&  helper_common_sops_env observes/secrets-prod.yaml default \
         analytics_auth_timedoctor \
   &&  echo '[INFO] Executing creator, follow the steps' \
-  &&  ./observes/auth_helper.py --timedoctor-start \
+  &&  ./observes/services/timedoctor_tokens/timedoctor_tokens/__init__.py --timedoctor-start \
   &&  echo '[INFO] Done! Token created at GitLab/production env vars'
 }
 

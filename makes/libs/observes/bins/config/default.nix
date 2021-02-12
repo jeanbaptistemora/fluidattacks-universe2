@@ -12,6 +12,12 @@
     package = observesPkgs.difGitlabEtl;
   };
 
+  serviceTimedoctorTokens = {
+    binName = "observes-service-timedoctor-tokens";
+    entrypoint = "from timedoctor_tokens import main";
+    package = observesPkgs.serviceTimedoctorTokens;
+  };
+
   streamerZohoCrm = {
     binName = "observes-streamer-zoho-crm";
     entrypoint = "from streamer_zoho_crm.cli import main";

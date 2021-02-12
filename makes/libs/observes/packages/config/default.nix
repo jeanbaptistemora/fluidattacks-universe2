@@ -179,6 +179,16 @@ rec {
     nix = postgresClient.nix;
   };
 
+  serviceTimedoctorTokens = {
+    srcPath = path "observes/services/timedoctor_tokens";
+    python = {
+      direct = [ ];
+      inherited = [ ];
+    };
+    local = [ ];
+    nix = [ ];
+  };
+
   singerIO = {
     srcPath = path "/observes/common/singer_io";
     python = {
