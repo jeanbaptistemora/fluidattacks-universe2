@@ -1,20 +1,36 @@
 """ Asynchronous task execution scheduler for FLUIDIntegrates """
+# pylint: disable=too-many-lines
 
-
+# Standard libraries
 import logging
 import logging.config
-from collections import OrderedDict, defaultdict
+from itertools import chain
+from collections import (
+    OrderedDict,
+    defaultdict,
+)
 from datetime import datetime
 from decimal import Decimal
-from typing import Callable, Counter, Dict, List, Tuple, Union, cast
-import bugsnag
+from typing import (
+    Any,
+    Callable,
+    cast,
+    Counter,
+    Dict,
+    List,
+    Tuple,
+    Union,
+)
 
+# Third party libraries
+import bugsnag
 from botocore.exceptions import ClientError
 from aioextensions import (
     collect,
     schedule,
 )
 
+# Local libraries
 from backend import mailer
 from backend.api import get_new_context
 from backend.dal import (
@@ -247,15 +263,23 @@ def get_by_time_range(
 
 
 async def create_register_by_week(
-        project: str) -> List[List[Dict[str, Union[str, int]]]]:
+    context: Any,
+    project: str
+) -> List[List[Dict[str, Union[str, int]]]]:
     """Create weekly vulnerabilities registry by project"""
     accepted = 0
     closed = 0
     found = 0
+    finding_vulns_loader = context.finding_vulns_nzr
     all_registers = OrderedDict()
+
     findings_released = await finding_domain.get_findings_by_group(project)
-    vulns = await vuln_domain.list_vulnerabilities_async(
-        [str(finding['finding_id']) for finding in findings_released]
+    vulns = list(
+        chain.from_iterable(
+            await finding_vulns_loader.load_many([
+                str(finding['finding_id']) for finding in findings_released
+            ])
+        )
     )
     if vulns:
         first_day, last_day = get_first_week_dates(vulns)
@@ -390,6 +414,7 @@ async def get_group_new_vulnerabilities(group_name: str) -> None:
                 act_finding
             )
             delta = await calculate_vulnerabilities(
+                get_new_context(),
                 str(act_finding['finding_id'])
             )
             finding_text = format_vulnerabilities(delta, act_finding)
@@ -479,8 +504,9 @@ def calculate_tag_indicators(
     return tag_info
 
 
-async def calculate_vulnerabilities(finding_id: str) -> int:
-    vulns = await vuln_domain.list_vulnerabilities_async([finding_id])
+async def calculate_vulnerabilities(context: Any, finding_id: str) -> int:
+    finding_vulns_loader = context.finding_vulns_nzr
+    vulns = await finding_vulns_loader.load(finding_id)
     states_actions = get_state_actions(vulns)
     today = datetime_utils.get_now()
     last_week = datetime_utils.get_now_minus_delta(days=8)
@@ -684,6 +710,7 @@ async def get_project_indicators(project: str) -> Dict[str, object]:
         await project_domain.get_max_open_severity(context, findings)
     )
     remediated_over_time = await create_register_by_week(
+        context,
         project
     )
     indicators = {
@@ -867,21 +894,26 @@ async def update_portfolios() -> None:
 
 
 async def reset_group_expired_accepted_findings(
-        group_name: str,
-        today: str) -> None:
+    context: Any,
+    group_name: str,
+    today: str
+) -> None:
     LOGGER.info(
         'Resetting expired accepted findings',
         extra={'extra': locals()}
     )
-    list_findings = await finding_domain.list_findings(
-        [group_name]
+    finding_vulns_loader = context.finding_vulns
+    group_findings_loader = context.group_findings
+
+    group_findings = await group_findings_loader.load(group_name)
+    vulns = list(
+        chain.from_iterable(
+            await finding_vulns_loader.load_many([
+                finding['finding_id'] for finding in group_findings
+            ])
+        )
     )
-    vulns = await vuln_domain.list_vulnerabilities_async(
-        [finding_id for findings in list_findings
-         for finding_id in findings],
-        include_requested_zero_risk=True,
-        include_confirmed_zero_risk=True
-    )
+
     for vuln in vulns:
         finding_id = cast(str, vuln.get('finding_id'))
         historic_treatment = cast(
@@ -923,9 +955,10 @@ async def reset_expired_accepted_findings() -> None:
     today = datetime_utils.get_as_str(
         datetime_utils.get_now()
     )
+    context = get_new_context()
     groups = await project_domain.get_active_projects()
     await collect(
-        [reset_group_expired_accepted_findings(group_name, today)
+        [reset_group_expired_accepted_findings(context, group_name, today)
          for group_name in groups],
         workers=40
     )

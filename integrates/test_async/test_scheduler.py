@@ -6,6 +6,7 @@ from decimal import Decimal
 from freezegun import freeze_time
 from jose import jwt
 
+from backend.api import get_new_context
 from backend.dal.finding import get_finding
 from backend.dal.vulnerability import get as get_vuln
 from backend.domain.organization import (
@@ -93,8 +94,9 @@ def test_get_finding_url():
 
 @freeze_time('2019-09-15')
 async def test_calculate_vulnerabilities():
+    context = get_new_context()
     finding_id = '436992569'
-    assert await calculate_vulnerabilities(finding_id) == 17
+    assert await calculate_vulnerabilities(context, finding_id) == 17
 
 async def test_get_status_vulns_by_time_range():
     released_findings = await get_findings_by_group('UNITTESTING')
@@ -139,8 +141,9 @@ async def test_get_by_time_range():
     assert test_data == expected_output
 
 async def test_create_register_by_week():
+    context = get_new_context()
     project_name = 'unittesting'
-    test_data = await create_register_by_week(project_name)
+    test_data = await create_register_by_week(context, project_name)
     assert isinstance(test_data, list)
     for item in test_data:
         assert isinstance(item, list)
