@@ -48,8 +48,10 @@ function main {
           if run_application "${attribute}" "${@:2}"
           then
                 echo '---' \
+            &&  nix_store_path="$(readlink -f "out/${attribute////-}")" \
             &&  echo "[INFO] ${attribute} executed successfully" \
             &&  echo '[INFO]   Congratulations!' \
+            &&  cache_push "${nix_store_path}" \
             &&  return 0
           else
                 echo '---' \
@@ -65,7 +67,7 @@ function main {
           if build_package "${attribute}"
           then
                 echo '---' \
-            &&  nix_store_path=$(readlink -f "out/${attribute////-}") \
+            &&  nix_store_path="$(readlink -f "out/${attribute////-}")" \
             &&  echo "[INFO] ${attribute} built successfully" \
             &&  echo '[INFO]   Congratulations!' \
             &&  echo '[INFO]' \

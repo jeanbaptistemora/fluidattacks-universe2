@@ -33,6 +33,6 @@ pkgs.stdenv.mkDerivation (attrs // {
 
     use_ephemeral_dir
 
-    ${nix.readFile attrs.builder}
+    ${nix.asContent attrs.builder}
   '';
 })

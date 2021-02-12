@@ -30,5 +30,5 @@ makeDerivation (arguments' // {
   builder = path "/makes/utils/make-template/builder.sh";
   inherit name;
   __envArgumentNamesFile = argumentNamesFile;
-  __envTemplate = nix.readFile template;
+  __envTemplate = nix.asContent template;
 })
