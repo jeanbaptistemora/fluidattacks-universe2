@@ -142,12 +142,12 @@ makes/test/profiles:
   before_script:
     - apk add --no-cache curl
   script:
-    # Development with development contents
-    - bash <(curl -L "https://gitlab.com/fluidattacks/product/-/raw/${CI_COMMIT_REF_NAME}/makes/profiles/hacker.sh") "${CI_COMMIT_REF_NAME}"
-    # Production with development contents
-    - bash <(curl -L "https://fluidattacks.com/install/hacker") "${CI_COMMIT_REF_NAME}"
-    # Production
-    - bash <(curl -L "https://fluidattacks.com/install/hacker")
+    - for profile in forces hacker melts skims sorts;
+      do
+        bash <(curl -L "https://gitlab.com/fluidattacks/product/-/raw/${CI_COMMIT_REF_NAME}/makes/profiles/${profile}.sh") "${CI_COMMIT_REF_NAME}" &&
+        bash <(curl -L "https://fluidattacks.com/install/${profile}") ||
+        exit 1;
+      done
   stage: test-code
 
 common_test_jobs_provisioner:

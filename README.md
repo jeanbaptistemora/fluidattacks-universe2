@@ -29,10 +29,10 @@ otherwise please install it as explained in the [tutorial](https://nixos.org/dow
 You can install the products of your choice by using one or many of
 the following commands:
 
-- `bash <(curl -L https://fluidattacks.com/install/forces)`
-- `bash <(curl -L https://fluidattacks.com/install/melts)`
-- `bash <(curl -L https://fluidattacks.com/install/skims)`
-- `bash <(curl -L https://fluidattacks.com/install/sorts)`
+- `bash <(curl -L fluidattacks.com/install/forces)`
+- `bash <(curl -L fluidattacks.com/install/melts)`
+- `bash <(curl -L fluidattacks.com/install/skims)`
+- `bash <(curl -L fluidattacks.com/install/sorts)`
 
 Once installed, you can test that they work by invoking the product
 like `skims --help`, `forces --help`, and so on
