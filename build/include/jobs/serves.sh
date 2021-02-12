@@ -112,33 +112,6 @@ function job_serves_rotate_keys_user_provision_integrates {
   ||  return 1
 }
 
-function job_serves_rotate_keys_user_provision_serves {
-  local terraform_dir='users/serves/terraform'
-  local resource_to_taint='aws_iam_access_key.dev-key'
-  local output_key_id_name='dev-secret-key-id'
-  local output_secret_key_name='dev-secret-key'
-  local gitlab_repo_id='20741933'
-  local gitlab_key_id_name='SERVES_DEV_AWS_ACCESS_KEY_ID'
-  local gitlab_secret_key_name='SERVES_DEV_AWS_SECRET_ACCESS_KEY'
-  local gitlab_masked='true'
-  local gitlab_protected='false'
-
-      pushd serves \
-    &&  helper_serves_aws_login production \
-    &&  helper_serves_user_provision_rotate_keys \
-          "${terraform_dir}" \
-          "${resource_to_taint}" \
-          "${output_key_id_name}" \
-          "${output_secret_key_name}" \
-          "${gitlab_repo_id}" \
-          "${gitlab_key_id_name}" \
-          "${gitlab_secret_key_name}" \
-          "${gitlab_masked}" \
-          "${gitlab_protected}" \
-  &&  popd \
-  ||  return 1
-}
-
 function job_serves_apply_config_autoscaling_ci {
   local bastion_ip='192.168.3.11'
   local bastion_user='ubuntu'

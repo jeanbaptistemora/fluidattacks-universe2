@@ -227,15 +227,25 @@ serves/users/observes/test:
   <<: *serves_in_dev_branch
   stage: test-infra
 
-serves/users/serves/test:
-  <<: *makes
-  <<: *serves_in_dev_branch
-  stage: test-infra
-
 serves/users/serves/apply:
   <<: *makes
   <<: *serves_in_master_branch
   stage: deploy-infra
+
+serves/users/serves/rotate/even:
+  <<: *makes
+  <<: *serves_in_schedule_users_rotate_even
+  stage: rotation
+
+serves/users/serves/rotate/odd:
+  <<: *makes
+  <<: *serves_in_schedule_users_rotate_odd
+  stage: rotation
+
+serves/users/serves/test:
+  <<: *makes
+  <<: *serves_in_dev_branch
+  stage: test-infra
 
 serves/users/services/test:
   <<: *makes
@@ -298,11 +308,6 @@ serves_rotate_keys_user_provision_services:
   stage: rotation
 
 serves_rotate_keys_user_provision_integrates:
-  <<: *with_nix
-  <<: *serves_in_schedule_rotate_keys_user_provision
-  stage: rotation
-
-serves_rotate_keys_user_provision_serves:
   <<: *with_nix
   <<: *serves_in_schedule_rotate_keys_user_provision
   stage: rotation

@@ -99,6 +99,8 @@ serves/users/observes/rotate/even
 serves/users/observes/rotate/odd
 serves/users/observes/test
 serves/users/serves/apply
+serves/users/serves/rotate/even
+serves/users/serves/rotate/odd
 serves/users/serves/test
 serves/users/services/apply
 serves/users/services/test
