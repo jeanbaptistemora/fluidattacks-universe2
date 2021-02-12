@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Feb 11, 2021, 04:58 PM",
+    "DateLastModified": "Feb 12, 2021, 02:01 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "2.0"
@@ -227,10 +227,6 @@
           "AttributeType": "S"
         },
         {
-          "AttributeName": "vulnerability_ids",
-          "AttributeType": "SS"
-        },
-        {
           "AttributeName": "where",
           "AttributeType": "S"
         },
@@ -441,9 +437,16 @@
             "status",
             "modified_date",
             "modified_by",
-            "consult_id",
-            "vulnerability_ids"
+            "consult_id"
           ]
+        },
+        {
+          "FacetName": "reattack_vulns",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "pk",
+            "SortKeyAlias": "sk"
+          },
+          "TableData": []
         },
         {
           "FacetName": "vulnerability",
@@ -455,13 +458,13 @@
           "NonKeyAttributes": [
             "type",
             "status",
+            "tags",
             "modified_date",
             "modified_by",
             "source",
             "where",
             "specific",
-            "deletion_reason",
-            "tags"
+            "deletion_reason"
           ]
         },
         {
