@@ -222,6 +222,18 @@ data "aws_iam_policy_document" "integrates-dev-policy-data" {
     ]
     resources = ["*"]
   }
+
+  # Secretsmanager for forces secrets
+  statement {
+    effect = "Allow"
+    actions = [
+      "secretsmanager:DescribeSecret",
+      "secretsmanager:GetResourcePolicy",
+    ]
+    resources = [
+      "arn:aws:secretsmanager:${var.region}:${data.aws_caller_identity.current.account_id}:secret:forces_token_*",
+    ]
+  }
 }
 
 resource "aws_iam_policy" "integrates-dev-policy" {
