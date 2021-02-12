@@ -13,8 +13,6 @@ makeEntrypoint {
     envProduct = product;
     envTarget = target;
     envSecretsPath = secrets_path;
-    envUtilsCloudflare = import (path "/makes/utils/cloudflare") path pkgs;
-    envUtilsAws = import (path "/makes/utils/aws") path pkgs;
   };
   inherit name;
   searchPaths = {
@@ -22,6 +20,10 @@ makeEntrypoint {
       pkgs.awscli
       pkgs.git
       pkgs.terraform_0_13
+    ];
+    envUtils = [
+      "/makes/utils/aws"
+      "/makes/utils/cloudflare"
     ];
   };
   template = path "/makes/utils/terraform-taint/entrypoint.sh";

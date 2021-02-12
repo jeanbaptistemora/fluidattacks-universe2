@@ -6,7 +6,6 @@ function with_library {
 
 function with_node_path {
   export NODE_PATH="${1}:${NODE_PATH:-}"
-  export PATH="${1}/.bin:${PATH:-}"
 }
 
 function with_path {
@@ -25,6 +24,10 @@ function with_python38_path {
   export PYTHONPATH="${1}/lib/python3.8/site-packages:${PYTHONPATH:-}"
 }
 
+function with_source {
+  source "${1}"
+}
+
 function setup {
       for elem in __envLibraries__; do with_library "${elem}"; done \
   &&  for elem in __envNodePaths__; do with_node_path "${elem}"; done \
@@ -32,6 +35,8 @@ function setup {
   &&  for elem in __envPythonPaths__; do with_python_path "${elem}"; done \
   &&  for elem in __envPython37Paths__; do with_python37_path "${elem}"; done \
   &&  for elem in __envPython38Paths__; do with_python38_path "${elem}"; done \
+  &&  for elem in __envSources__; do with_source "${elem}"; done \
+  &&  for elem in __envUtils__; do with_source "${elem}"; done \
 
 }
 

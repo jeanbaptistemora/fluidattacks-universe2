@@ -1,9 +1,5 @@
 # shellcheck shell=bash
 
-source '__envUtilsBashLibAws__'
-source '__envUtilsBashLibSops__'
-source '__envUtilsGitlab__'
-
 function job_timedoctor {
   local tap_timedoctor
   local target_redshift

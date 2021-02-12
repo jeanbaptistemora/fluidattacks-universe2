@@ -10,26 +10,6 @@ let
 in
 makeTemplate {
   arguments = {
-    envContextFile = makeTemplate {
-      arguments = {
-        envParserAntlr = packages."skims/parsers/antlr";
-        envParserBabel = packages."skims/parsers/babel";
-        envSrcSkimsStatic = path "/skims/static";
-        envSrcSkimsVendor = path "/skims/vendor";
-        envSrcTreeSitter = skimsTreeSitterRepo;
-      };
-      name = "skims-config-context-file";
-      template = ''
-        export SKIMS_CIPHER_SUITES_PATH='__envSrcSkimsStatic__/cryptography/cipher_suites.csv'
-        export SKIMS_FLUID_WATERMARK='__envSrcSkimsStatic__/img/logo_fluid_attacks_854x329.png'
-        export SKIMS_PARSER_ANTLR='__envParserAntlr__/build/install/parse/bin/parse'
-        export SKIMS_PARSER_BABEL='__envParserBabel__'
-        export SKIMS_ROBOTO_FONT='__envSrcSkimsVendor__/fonts/roboto_mono_from_google/regular.ttf'
-        export SKIMS_STATIC='__envSrcSkimsStatic__'
-        export SKIMS_TREE_SITTER_JAVA='__envSrcTreeSitter__'
-        export SKIMS_VENDOR='__envSrcSkimsVendor__'
-      '';
-    };
     envSrcSkimsSkims = path "/skims/skims";
   };
   name = "skims-config-runtime";
@@ -96,6 +76,28 @@ makeTemplate {
           ];
         };
         python = skimsPkgs.python38;
+      })
+    ];
+    envSources = [
+      (makeTemplate {
+        arguments = {
+          envParserAntlr = packages."skims/parsers/antlr";
+          envParserBabel = packages."skims/parsers/babel";
+          envSrcSkimsStatic = path "/skims/static";
+          envSrcSkimsVendor = path "/skims/vendor";
+          envSrcTreeSitter = skimsTreeSitterRepo;
+        };
+        name = "skims-config-context-file";
+        template = ''
+          export SKIMS_CIPHER_SUITES_PATH='__envSrcSkimsStatic__/cryptography/cipher_suites.csv'
+          export SKIMS_FLUID_WATERMARK='__envSrcSkimsStatic__/img/logo_fluid_attacks_854x329.png'
+          export SKIMS_PARSER_ANTLR='__envParserAntlr__/build/install/parse/bin/parse'
+          export SKIMS_PARSER_BABEL='__envParserBabel__'
+          export SKIMS_ROBOTO_FONT='__envSrcSkimsVendor__/fonts/roboto_mono_from_google/regular.ttf'
+          export SKIMS_STATIC='__envSrcSkimsStatic__'
+          export SKIMS_TREE_SITTER_JAVA='__envSrcTreeSitter__'
+          export SKIMS_VENDOR='__envSrcSkimsVendor__'
+        '';
       })
     ];
   };

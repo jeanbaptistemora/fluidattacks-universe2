@@ -14,8 +14,6 @@ makeEntrypoint {
     envTarget = target;
     envSecretsPath = secrets_path;
     envTflintConfig = path "/makes/utils/terraform-test/tflint.hcl";
-    envUtilsAws = import (path "/makes/utils/aws") path pkgs;
-    envUtilsCloudflare = import (path "/makes/utils/cloudflare") path pkgs;
   };
   inherit name;
   searchPaths = {
@@ -24,6 +22,10 @@ makeEntrypoint {
       pkgs.git
       pkgs.terraform_0_13
       pkgs.tflint
+    ];
+    envUtils = [
+      "/makes/utils/aws"
+      "/makes/utils/cloudflare"
     ];
   };
   template = path "/makes/utils/terraform-test/entrypoint.sh";

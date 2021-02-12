@@ -11,15 +11,17 @@ makeEntrypoint {
   arguments = {
     envTapTimedoctor = applications."observes/tap-timedoctor";
     envTargetRedshift = applications."observes/target-redshift";
-    envUtilsBashLibAws = import (path "/makes/utils/aws") path nixPkgs;
-    envUtilsBashLibSops = import (path "/makes/utils/sops") path nixPkgs;
-    envUtilsGitlab = import (path "/makes/utils/gitlab") path nixPkgs;
   };
   searchPaths = {
     envPaths = [
       nixPkgs.awscli
       nixPkgs.coreutils
       nixPkgs.jq
+    ];
+    envUtils = [
+      "/makes/utils/aws"
+      "/makes/utils/gitlab"
+      "/makes/utils/sops"
     ];
   };
   name = "observes-scheduled-timedoctor-etl";

@@ -1,8 +1,5 @@
 # shellcheck shell=bash
 
-source '__envUtilsCloudflare__'
-source '__envUtilsAws__'
-
 function main {
       # Login with cloudflare if secrets provided
       if test -n '__envSecretsPath__'
