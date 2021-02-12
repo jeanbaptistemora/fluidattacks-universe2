@@ -2,10 +2,8 @@
 
 # Third party libraries
 from aioextensions import run
-from backend.domain import (
-    finding as finding_domain,
-    vulnerability as vulnerability_domain,
-)
+
+from backend.api import get_new_context
 from frozendict import frozendict
 
 # Local libraries
@@ -15,21 +13,21 @@ from analytics import (
 
 
 async def generate_one(group: str):
+    context = get_new_context()
+    finding_vulns_loader = context.finding_vulns_nzr
+    group_findings_loader = context.group_findings
     data: dict = {
         'nodes': set(),
         'links': set(),
     }
-    findings = await finding_domain.list_findings([group])
-    for finding_id in findings[0]:
-        finding = await finding_domain.get_finding(finding_id)
-        finding_title = finding['finding']
-        finding_cvss = finding['severityCvss']
+    group_findings = await group_findings_loader.load(group)
+    for finding in group_findings:
+        finding_id = finding['finding_id']
+        finding_title = finding['title']
+        finding_cvss = finding['cvss_temporal']
 
-        for vulnerability in (
-            await vulnerability_domain.list_vulnerabilities_async([
-                finding_id
-            ])
-        ):
+        finding_vulns = await finding_vulns_loader.load(finding_id)
+        for vulnerability in finding_vulns:
             source = utils.get_vulnerability_source(vulnerability)
             target = f'{finding_title} {source}'
 
