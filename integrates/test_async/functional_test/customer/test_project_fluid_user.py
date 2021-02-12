@@ -241,3 +241,27 @@ async def test_project_fluid_user():
         'includesHealthCheck': True,
         'url': 'https://gitlab.com/fluidattacks/test2'
     } in result['data']['group']['roots']
+
+    query = f'''
+        mutation {{
+            unsubscribeFromGroup(groupName: "{group_name}"){{
+                success
+            }}
+        }}
+    '''
+    data = {'query': query}
+    result = await get_result(data, stakeholder='integratescustomer@fluidattacks.com')
+    assert 'errors' not in result
+    assert result['data']['unsubscribeFromGroup']['success']
+
+    query = f'''
+        query {{
+            project(projectName: "{group_name}"){{
+                name
+            }}
+        }}
+    '''
+    data = {'query': query}
+    result = await get_result(data, stakeholder='integratescustomer@fluidattacks.com')
+    assert 'errors' in result
+    assert result['errors'][0]['message'] == 'Access denied'

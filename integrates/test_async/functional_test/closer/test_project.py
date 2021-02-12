@@ -229,3 +229,27 @@ async def test_project():
     assert result['data']['project']['totalTreatment'] == '{}'
     assert result['data']['project']['userDeletion'] == ''
     assert result['data']['project']['userRole'] == role.lower()
+
+    query = f'''
+        mutation {{
+            unsubscribeFromGroup(groupName: "{group_name}"){{
+                success
+            }}
+        }}
+    '''
+    data = {'query': query}
+    result = await get_result(data)
+    assert 'errors' not in result
+    assert result['data']['unsubscribeFromGroup']['success']
+
+    query = f'''
+        query {{
+            project(projectName: "{group_name}"){{
+                name
+            }}
+        }}
+    '''
+    data = {'query': query}
+    result = await get_result(data)
+    assert 'errors' in result
+    assert result['errors'][0]['message'] == 'Access denied'
