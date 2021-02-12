@@ -29,6 +29,9 @@ flakeUtils.lib.eachSystem [ "x86_64-linux" ] (
       integratesPkgs = import srcIntegratesPkgs { inherit system; };
       integratesPkgsTerraform = import srcIntegratesPkgsTerraform { inherit system; };
       makesPkgs = import srcMakesPkgs { inherit system; };
+      makeDerivation = import (path "/makes/utils/make-derivation") path;
+      makeEntrypoint = import (path "/makes/utils/make-entrypoint") path;
+      makeTemplate = import (path "/makes/utils/make-template") path;
       meltsPkgs = import srcMeltsPkgs { inherit system; };
       observesPkgs = import srcObservesPkgs { inherit system; };
       observesPkgsTerraform = import srcObservesPkgsTerraform { inherit system; };

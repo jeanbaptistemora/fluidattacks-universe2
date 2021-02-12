@@ -7,6 +7,7 @@ forces/process-groups
 forces/test
 forces/wrapper
 integrates/back
+integrates/back/deploy/dev
 integrates/cache
 integrates/db
 integrates/front

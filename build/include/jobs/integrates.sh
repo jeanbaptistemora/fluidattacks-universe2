@@ -239,7 +239,7 @@ function job_integrates_back_deploy_development {
   local namespace='development'
   local deployment="${CI_COMMIT_REF_NAME}"
   local timeout='10m'
-  local files_path='deploy/development'
+  local files_path='../makes/applications/integrates/back/deploy/dev/k8s'
 
       helper_common_use_pristine_workdir \
   &&  helper_integrates_aws_login "${env}" \
