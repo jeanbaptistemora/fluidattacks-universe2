@@ -4,12 +4,11 @@ function main {
   local attributes=( melts-vpn melts sorts skims )
   local revision="${1:-master}"
   local substituters=(
-    # Order matters, caches are looked-up from top to bottom
     https://fluidattacks.cachix.org
     https://cache.nixos.org
   )
   local trusted_public_keys=(
-    fluidattacks.cachix.org-1:zHq9yBCfg0wUPBDWdMFs62x6X/MJvSgGAWX8Vq9PnUY
+    fluidattacks.cachix.org-1:upiUCP8kWnr7NxVSJtTOM+SBqL0pZhZnUoqPG04sBv0=
     cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=
   )
 

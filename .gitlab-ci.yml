@@ -136,7 +136,7 @@ makes/test/instantiate:
     - nix-instantiate .
   stage: test-code
 
-makes/test/profiles:
+.makes/test/profiles:
   <<: *makes
   <<: *common_in_dev_branch
   before_script:
