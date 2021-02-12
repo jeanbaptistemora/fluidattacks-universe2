@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% block meta %}
+  <meta name="description"
+        content="{{ page.description }}">
+  <meta name="keywords"
+        content="{{ page.keywords }}">
+  <meta name="url"
+        property="og:url"
+        content="{{ SITEURL }}/{{ page.url }}">
+  <meta name="title"
+        property="og:title"
+        content="{{ page.title }} | {{ SITENAME }}">
+  <meta name="description"
+        property="og:description"
+        content="{{ page.description }}">
+  <meta name="image"
+        property="og:image"
+        content="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/logo-fa.png">
+  <meta name="type"
+        property="og:type"
+        content="website">
+{% endblock meta %}
+
+{% block title %}
+  {% set TITLE = 0 %}
+  {% if DEFAULT_LANG == "en" %}
+    {% if page.title|length < 23 %}
+{{ page.title }} | {{ SITENAME }}
+      {% set TITLE = 1 %}
+    {% endif %}
+  {% elif DEFAULT_LANG == "es" %}
+    {% if page.title|length < 11 %}
+{{ page.title }} | {{ SITENAME }}
+      {% set TITLE =1 %}
+    {% endif %}
+  {% endif %}
+  {% if TITLE == 0 %}
+{{ page.title }} | {{ AUTHOR }}
+  {% endif %}
+{% endblock title %}
+
+<!-- This block is for the breadcrumb -->
+{% block breadcrumb%}
+<div class="pv0 mt-body">
+  <div class="df ma-auto bg-fluid-black">
+    <div class="roboto f6-l f7 tl mw-1366 ph-body ml-auto mr-auto">
+      <ul class="dib list w-auto ph0">
+        <li class="dib mt0">
+          <a class="c-fluid-gray hover-white no-underline"
+             href="{{ SITEURL }}/">
+            Home
+          </a>
+          <span class="c-fluid-gray v-mid b"> / </span>
+        </li>
+        <li class="dib mt0">
+          <a class="white hover-white no-underline"
+             href=".">
+            {{ page.title }}
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+{% endblock breadcrumb %}
+
+{% block content %}
+<div class="bg-graylight w-80 center">
+  <div class="w-50 pl4">
+    <div class="bl-red">
+      <h1 class="f2 neue ml3">
+        {{ page.title }}
+      </h1>
+    </div>
+    <p class="c-fluid-bk fw3 f4 lh-2 roboto tl">
+      {{ page.phrase }}
+    </p>
+  </div>
+
+  <div class="indexof-content">
+    {{ page.content }}
+  </div>
+</div>
+{% assets output="static/js/faqGen.min.js", "js/tmp/faqGen.min.js" %}
+<script type="text/javascript"
+        src="{{ SITEURL }}/{{ ASSET_URL }}"></script>
+{% endassets %}
+{% endblock content %}
+<!-- Cookiebot consent message -->
+<script id="CookieDeclaration" src="https://consent.cookiebot.com/9c4480b4-b8ae-44d8-9c6f-6300b86e9094/cd.js" type="text/javascript" async></script>
