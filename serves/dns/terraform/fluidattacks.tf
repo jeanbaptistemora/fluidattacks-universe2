@@ -96,6 +96,15 @@ resource "cloudflare_record" "landing" {
   ttl     = 1
 }
 
+resource "cloudflare_record" "try" {
+  zone_id = cloudflare_zone.fluidattacks_com.id
+  name    = "try.${cloudflare_zone.fluidattacks_com.zone}"
+  type    = "CNAME"
+  value   = "3e5c7bed0ee948b1af14bbc3dd692011.unbouncepages.com"
+  proxied = false
+  ttl     = 1
+}
+
 resource "cloudflare_record" "landing_usa" {
   zone_id = cloudflare_zone.fluidattacks_com.id
   name    = "usa.${cloudflare_zone.fluidattacks_com.zone}"
