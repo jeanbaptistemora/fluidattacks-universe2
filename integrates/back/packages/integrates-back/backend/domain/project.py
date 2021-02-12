@@ -638,9 +638,11 @@ async def get_pending_closing_check(context: Any, project: str) -> int:
 
 
 async def get_last_closing_vuln_info(
-        findings: List[Dict[str, FindingType]]) -> \
-        Tuple[Decimal, VulnerabilityType]:
+    context: Any,
+    findings: List[Dict[str, FindingType]]
+) -> Tuple[Decimal, VulnerabilityType]:
     """Get day since last vulnerability closing."""
+    finding_vulns_loader = context.finding_vulns_nzr
 
     validate_findings = await collect(
         finding_domain.validate_finding(str(finding['finding_id']))
@@ -650,8 +652,12 @@ async def get_last_closing_vuln_info(
         finding for finding, is_valid in zip(findings, validate_findings)
         if is_valid
     ]
-    vulns = await vuln_domain.list_vulnerabilities_async(
-        [str(finding['finding_id']) for finding in validated_findings]
+    vulns = list(
+        chain.from_iterable(
+            await finding_vulns_loader.load_many([
+                str(finding['finding_id']) for finding in validated_findings
+            ])
+        )
     )
     are_vuln_closed = await collect([
         in_process(is_vulnerability_closed, vuln)

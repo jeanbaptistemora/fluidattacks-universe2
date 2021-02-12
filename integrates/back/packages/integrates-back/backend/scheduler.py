@@ -678,7 +678,7 @@ async def get_project_indicators(project: str) -> Dict[str, object]:
         fin_attrs
     )
     last_closing_vuln_days, last_closing_vuln = (
-        await project_domain.get_last_closing_vuln_info(findings)
+        await project_domain.get_last_closing_vuln_info(context, findings)
     )
     max_open_severity, max_open_severity_finding = (
         await project_domain.get_max_open_severity(context, findings)

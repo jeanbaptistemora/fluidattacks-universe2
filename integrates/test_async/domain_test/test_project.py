@@ -89,11 +89,12 @@ async def test_get_pending_closing_checks():
 
 async def test_get_last_closing_vuln():
     findings_to_get = ['463558592', '422286126']
+    context = get_new_context()
     findings = await collect(
         finding_dal.get_finding(finding_id)
         for finding_id in findings_to_get
     )
-    test_data = await get_last_closing_vuln_info(findings)
+    test_data = await get_last_closing_vuln_info(context, findings)
     tzn = timezone(settings.TIME_ZONE)
     actual_date = datetime.now(tz=tzn).date()
     initial_date = datetime(2019, 1, 15).date()
