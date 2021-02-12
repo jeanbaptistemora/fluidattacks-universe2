@@ -36,6 +36,12 @@
     package = observesPkgs.tapMixpanel;
   };
 
+  tapTimedoctor = {
+    binName = "observes-tap-timedoctor";
+    entrypoint = "from tap_timedoctor import main";
+    package = observesPkgs.tapTimedoctor;
+  };
+
   updateSyncDate = {
     binName = "observes-update-sync-date";
     entrypoint = "from update_s3_last_sync_date.cli import main";

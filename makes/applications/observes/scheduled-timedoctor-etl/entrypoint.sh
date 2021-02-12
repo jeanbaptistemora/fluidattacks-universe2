@@ -1,6 +1,5 @@
 # shellcheck shell=bash
 
-source '__envSearchPaths__'
 source '__envUtilsBashLibAws__'
 source '__envUtilsBashLibSops__'
 source '__envUtilsGitlab__'
@@ -34,7 +33,7 @@ function job_timedoctor {
   &&  bucket="$(< s3_files.json jq -r '.bucket_name')" \
   &&  cont_folder=$(< s3_files.json jq -r '.folder_name') \
   &&  new_folder=$(< s3_files.json jq -r '.save_as') \
-  &&  aws s3 cp --recursive "s3://${bucket}/${cont_folder}/" "${new_folder}/" \
+  &&  aws_s3_sync "s3://${bucket}/${cont_folder}/" "${new_folder}/" \
   &&  cat "${new_folder}"/* \
         > .singer \
   &&  echo '[INFO] Running tap' \

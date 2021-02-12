@@ -165,6 +165,15 @@ observes/scheduled-mixpanel-integrates-etl:
     variables: [$observes_mixpanel_integrates]
   interruptible: false
 
+observes/scheduled-timedoctor-etl:
+  <<: *makes
+  tags: [autoscaling-analytics]
+  stage: analytics
+  only:
+    refs: [schedules]
+    variables: [$observes_timedoctor]
+  interruptible: false
+
 observes/scheduled-zoho-crm-etl:
   <<: *makes
   tags: [autoscaling-analytics]
@@ -264,15 +273,6 @@ observes_gitlab_on_aws:
   only:
     refs: [schedules]
     variables: [$observes_gitlab_on_aws]
-  interruptible: false
-
-observes_timedoctor:
-  <<: *with_nix
-  tags: [autoscaling-analytics]
-  stage: analytics
-  only:
-    refs: [schedules]
-    variables: [$observes_timedoctor]
   interruptible: false
 
 observes_zoho:
