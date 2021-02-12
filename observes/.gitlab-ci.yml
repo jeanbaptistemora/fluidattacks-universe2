@@ -165,6 +165,15 @@ observes/scheduled-mixpanel-integrates-etl:
     variables: [$observes_mixpanel_integrates]
   interruptible: false
 
+observes/scheduled-timedoctor-backup:
+  <<: *makes
+  tags: [autoscaling-analytics]
+  stage: analytics
+  only:
+    refs: [schedules]
+    variables: [$observes_timedoctor_backup]
+  interruptible: false
+
 observes/scheduled-timedoctor-etl:
   <<: *makes
   tags: [autoscaling-analytics]
@@ -299,13 +308,4 @@ observes_timedoctor_refresh_token:
   only:
     refs: [schedules]
     variables: [$observes_timedoctor_refresh_token]
-  interruptible: false
-
-observes_timedoctor_backup:
-  <<: *with_nix
-  tags: [autoscaling-analytics]
-  stage: analytics
-  only:
-    refs: [schedules]
-    variables: [$observes_timedoctor_backup]
   interruptible: false

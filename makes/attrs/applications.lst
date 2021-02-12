@@ -56,6 +56,7 @@ observes/scheduled-code-etl-upload
 observes/scheduled-dif-gitlab-etl
 observes/scheduled-formstack-etl
 observes/scheduled-mixpanel-integrates-etl
+observes/scheduled-timedoctor-backup
 observes/scheduled-timedoctor-etl
 observes/scheduled-zoho-crm-etl
 observes/scheduled-zoho-crm-prepare
