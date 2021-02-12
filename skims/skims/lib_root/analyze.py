@@ -44,12 +44,14 @@ from utils.fs import (
 from utils.function import (
     TIMEOUT_1MIN,
     pipe,
+    shield,
 )
 from utils.logs import (
     log,
 )
 
 
+@shield(on_error_return=None)
 async def analyze(
     *,
     stores: Dict[core_model.FindingEnum, EphemeralStore],

@@ -4,10 +4,12 @@ path: pkgs:
 
 { arguments
 , name
+, searchPaths ? { }
 , template
 }:
 let
   makeDerivation = import (path "/makes/utils/make-derivation") path pkgs;
+  makeSearchPaths = import (path "/makes/utils/make-search-paths") path pkgs;
   nix = import (path "/makes/utils/nix") path pkgs;
 
   argumentNames = builtins.attrNames arguments;
@@ -30,5 +32,12 @@ makeDerivation (arguments' // {
   builder = path "/makes/utils/make-template/builder.sh";
   inherit name;
   __envArgumentNamesFile = argumentNamesFile;
-  __envTemplate = nix.asContent template;
+  __envTemplate =
+    if searchPaths == { }
+    then nix.asContent template
+    else ''
+      source "${makeSearchPaths searchPaths}"
+
+      ${nix.asContent template}
+    '';
 })
