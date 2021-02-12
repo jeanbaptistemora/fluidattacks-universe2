@@ -1,6 +1,5 @@
 # shellcheck shell=bash
 
-source '__envSearchPaths__'
 source '__envUtilsGitlab__'
 
 function get_key {
@@ -54,6 +53,7 @@ function main {
 
       IFS=' ' read -ra keys <<< "$(get_aws_keys)" \
   &&  '__envTerraformTaint__' "${keys[@]}" \
+  &&  '__envTerraformApply__' \
   &&  pushd '__envTarget__' \
     &&  for key in "${keys[@]}"
         do

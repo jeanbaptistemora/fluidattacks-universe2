@@ -26,8 +26,6 @@ function main {
           &&  terraform taint "${resource}" \
           ||  return 1
         done \
-    &&  echo '[INFO] Applying changes' \
-    &&  terraform apply -auto-approve -refresh=true \
   &&  popd \
   ||  return 1
 }

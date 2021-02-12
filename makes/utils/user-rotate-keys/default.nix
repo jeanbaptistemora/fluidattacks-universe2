@@ -9,17 +9,17 @@ path: pkgs:
 }:
 let
   makeEntrypoint = import (path "/makes/utils/make-entrypoint") path pkgs;
-  makeSearchPaths = import (path "/makes/utils/make-search-paths-deprecated") path pkgs;
+  terraformApply = import (path "/makes/utils/terraform-apply") path pkgs;
   terraformTaint = import (path "/makes/utils/terraform-taint") path pkgs;
 in
 makeEntrypoint {
   arguments = {
-    envSearchPaths = makeSearchPaths [
-      pkgs.cacert
-      pkgs.curl
-      pkgs.jq
-      pkgs.terraform_0_13
-    ];
+    envTerraformApply = "${terraformApply {
+      inherit name;
+      inherit product;
+      inherit target;
+      inherit secrets_path;
+    }}/bin/${name}";
     envTerraformTaint = "${terraformTaint {
       inherit name;
       inherit product;
@@ -32,5 +32,12 @@ makeEntrypoint {
     envKeys = builtins.toJSON keys;
   };
   inherit name;
+  searchPaths = {
+    envPaths = [
+      pkgs.curl
+      pkgs.jq
+      pkgs.terraform_0_13
+    ];
+  };
   template = path "/makes/utils/user-rotate-keys/entrypoint.sh";
 }
