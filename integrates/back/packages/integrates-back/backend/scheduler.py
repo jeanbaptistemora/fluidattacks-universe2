@@ -274,13 +274,10 @@ async def create_register_by_week(
     all_registers = OrderedDict()
 
     findings_released = await finding_domain.get_findings_by_group(project)
-    vulns = list(
-        chain.from_iterable(
-            await finding_vulns_loader.load_many([
-                str(finding['finding_id']) for finding in findings_released
-            ])
-        )
-    )
+    vulns = await finding_vulns_loader.load_many_chained([
+        finding['finding_id'] for finding in findings_released
+    ])
+
     if vulns:
         first_day, last_day = get_first_week_dates(vulns)
         first_day_last_week = get_date_last_vulns(vulns)

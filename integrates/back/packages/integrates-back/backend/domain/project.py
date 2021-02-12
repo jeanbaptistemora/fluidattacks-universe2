@@ -652,13 +652,9 @@ async def get_last_closing_vuln_info(
         finding for finding, is_valid in zip(findings, validate_findings)
         if is_valid
     ]
-    vulns = list(
-        chain.from_iterable(
-            await finding_vulns_loader.load_many([
-                str(finding['finding_id']) for finding in validated_findings
-            ])
-        )
-    )
+    vulns = await finding_vulns_loader.load_many_chained([
+        str(finding['finding_id']) for finding in validated_findings
+    ])
     are_vuln_closed = await collect([
         in_process(is_vulnerability_closed, vuln)
         for vuln in vulns
@@ -829,9 +825,9 @@ async def get_mean_remediate_severity(  # pylint: disable=too-many-locals
             max_severity
         )
     ]
-    findings_vulns = list(chain.from_iterable(
-        await finding_vulns_loader.load_many(group_findings_ids)
-    ))
+    findings_vulns = await finding_vulns_loader.load_many_chained(
+        group_findings_ids
+    )
 
     open_vuln_dates = await collect([
         in_process(get_open_vulnerability_date, vuln)
@@ -886,13 +882,9 @@ async def get_total_treatment(
         for finding, validate_finding in zip(findings, validate_findings)
         if validate_finding
     ]
-    vulns = list(
-        chain.from_iterable(
-            await finding_vulns_loader.load_many([
-                str(finding['finding_id']) for finding in validated_findings
-            ])
-        )
-    )
+    vulns = await finding_vulns_loader.load_many_chained([
+        str(finding['finding_id']) for finding in validated_findings
+    ])
 
     for vuln in vulns:
         vuln_treatment = cast(
@@ -1079,11 +1071,9 @@ async def get_open_vulnerabilities(context: Any, group_name: str) -> int:
     finding_vulns_loader = context.finding_vulns_nzr
 
     group_findings = await group_findings_loader.load(group_name)
-    findings_vulns = list(chain.from_iterable(
-        await finding_vulns_loader.load_many([
-            finding['finding_id'] for finding in group_findings
-        ])
-    ))
+    findings_vulns = await finding_vulns_loader.load_many_chained([
+        finding['finding_id'] for finding in group_findings
+    ])
 
     last_approved_status = await collect([
         in_process(vuln_domain.get_last_status, vuln)
@@ -1102,11 +1092,9 @@ async def get_closed_vulnerabilities(context: Any, group_name: str) -> int:
     finding_vulns_loader = context.finding_vulns_nzr
 
     group_findings = await group_findings_loader.load(group_name)
-    findings_vulns = list(chain.from_iterable(
-        await finding_vulns_loader.load_many([
-            finding['finding_id'] for finding in group_findings
-        ])
-    ))
+    findings_vulns = await finding_vulns_loader.load_many_chained([
+        finding['finding_id'] for finding in group_findings
+    ])
 
     last_approved_status = await collect([
         in_process(vuln_domain.get_last_status, vuln)
@@ -1124,13 +1112,9 @@ async def get_open_finding(context: Any, group_name: str) -> int:
     group_findings_loader = context.group_findings
 
     group_findings = await group_findings_loader.load(group_name)
-    vulns = list(
-        chain.from_iterable(
-            await finding_vulns_loader.load_many([
-                finding['finding_id'] for finding in group_findings
-            ])
-        )
-    )
+    vulns = await finding_vulns_loader.load_many_chained([
+        finding['finding_id'] for finding in group_findings
+    ])
 
     finding_vulns_dict = defaultdict(list)
     for vuln in vulns:
