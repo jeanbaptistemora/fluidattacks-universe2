@@ -10,7 +10,7 @@ Installing:
 
 1.  Run the following command:
 
-    `nix-env -i product -f 'https://fluidattacks.com/install'`
+    `bash <(curl -L "https://fluidattacks.com/install/skims")`
 
 1.  You should be able to execute skims now:
 

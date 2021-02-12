@@ -450,23 +450,14 @@ resource "cloudflare_page_rule" "redirect_www" {
   }
 }
 
-resource "cloudflare_page_rule" "install" {
-  zone_id  = cloudflare_zone.fluidattacks_com.id
-  target   = "${cloudflare_zone.fluidattacks_com.zone}/install"
-  status   = "active"
-  priority = 100
-
-  actions {
-    forwarding_url {
-      url         = local.product_archive
-      status_code = 301
-    }
-  }
-}
-
 resource "cloudflare_page_rule" "install_profiles" {
-  for_each = toset(["hacker"])
-
+  for_each = toset([
+    "forces",
+    "hacker",
+    "melts",
+    "skims",
+    "sorts",
+  ])
   zone_id  = cloudflare_zone.fluidattacks_com.id
   target   = "${cloudflare_zone.fluidattacks_com.zone}/install/${each.value}"
   status   = "active"

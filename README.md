@@ -1,60 +1,40 @@
-# Fluid Attacks / Product repository
+# Fluid Attacks, Products repository
 
-[![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=fluidattacks_product&metric=alert_status)](https://sonarcloud.io/dashboard?id=fluidattacks_product)
-[![Build](https://gitlab.com/fluidattacks/product/badges/master/pipeline.svg)](https://gitlab.com/fluidattacks/product/-/commits/master)
+We are a [cyber-security company](fluidattacks.com) whose only purpose is
+to make the world a safer place
 
-**Forces**
+We do this by:
+- Performing comprehensive security testing over all of your assets
+- Using cutting edge technologies and heavily trained human hackers
+- Reporting vulnerabilities back to you as accurate and fast as possible
 
-[![PyPI](https://img.shields.io/pypi/v/forces)](https://pypi.org/project/forces)
-[![Downloads](https://img.shields.io/pypi/dm/forces)](https://pypi.org/project/forces)
-[![License](https://img.shields.io/pypi/l/forces)](../LICENSE)
-[![Docs](https://img.shields.io/badge/Docs-grey)](./forces/README.md)
+The source code of the technologies used is versioned in this repository
+and is divided across many products:
 
-**Integrates**
-
-[![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/fluidattacks/integrates.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/fluidattacks/integrates/context:python)
-[![Language grade: TypeScript](https://img.shields.io/lgtm/grade/javascript/g/fluidattacks/integrates.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/fluidattacks/integrates/context:python)
-[![Coverage](https://codecov.io/gl/fluidattacks/integrates/branch/master/graph/badge.svg)](https://codecov.io/gl/fluidattacks/integrates)
-[![Docs](https://img.shields.io/badge/Docs-grey)](./integrates/README.md)
-
-**Reviews**
-
-[![Docs](https://img.shields.io/badge/Docs-grey)](./reviews/README.md)
-
-**Skims**
-
-[![](https://img.shields.io/badge/Contributing-green)](./skims/README.md)
-[![](https://img.shields.io/badge/Docs-grey)](https://fluidattacks.com/resources/doc/skims/)
+| Product | [![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=fluidattacks_product&metric=alert_status)](https://sonarcloud.io/dashboard?id=fluidattacks_product) |
+|---------|-|
+| Forces  |[![Docs](https://img.shields.io/badge/Docs-grey)](./forces/README.md) [![PyPI](https://img.shields.io/pypi/v/forces)](https://pypi.org/project/forces) [![Downloads](https://img.shields.io/pypi/dm/forces)](https://pypi.org/project/forces) [![License](https://img.shields.io/pypi/l/forces)](../LICENSE) |
+| Integrates | [![Docs](https://img.shields.io/badge/Docs-grey)](./integrates/README.md) |
+| Reviews | [![Docs](https://img.shields.io/badge/Docs-grey)](./reviews/README.md) |
+| Skims | [![](https://img.shields.io/badge/Docs-grey)](https://fluidattacks.com/resources/doc/skims/) [![](https://img.shields.io/badge/Contributing-green)](./skims/README.md) |
+| Sorts | [![](https://img.shields.io/badge/Docs-grey)](./sorts/README.md) |
 
 # Installing
 
-Most products are distributed as a standalone binary:
+Most products are distributed as a standalone binary
 
-| Product  | Command            |
-|--------- |------------------- |
-| Asserts  |  $ asserts --help  |
-| Forces   |  $ forces --help   |
-| Melts    |  $ melts --help    |
-| Reviews  |  $ reviews --help  |
-| Skims    |  $ skims --help    |
+Before proceeding make sure you have Nix installed in your system,
+otherwise please install it as explained in the [tutorial](https://nixos.org/download.html)
 
-Additional instructions may be available on the specific product documentation.
+You can install the products of your choice by using one or many of
+the following commands:
 
-**From source**
+- `bash <(curl -L https://fluidattacks.com/install/forces)`
+- `bash <(curl -L https://fluidattacks.com/install/melts)`
+- `bash <(curl -L https://fluidattacks.com/install/skims)`
+- `bash <(curl -L https://fluidattacks.com/install/sorts)`
 
-Clone the repository and install with: `./install.sh`
+Once installed, you can test that they work by invoking the product
+like `skims --help`, `forces --help`, and so on
 
-Uninstall with: `./uninstall.sh`
-
-**Nix**
-
-Install with:
-
-```sh
-nix-env \
-  --option 'sandbox' 'false' \
-  --option 'restrict-eval' 'false' \
-  -if 'https://fluidattacks.com/install'
-```
-
-See installed software with: `nix-env -q`, uninstall with: `nix-env -e`
+You can see installed software with: `nix-env -q` and uninstall with: `nix-env -e`
