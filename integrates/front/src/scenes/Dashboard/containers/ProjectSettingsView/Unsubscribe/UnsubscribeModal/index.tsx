@@ -16,15 +16,15 @@ import {
   Row,
 } from "styles/styledComponents";
 
-interface IDeleteGroupModalProps {
+interface IUnsubscribeModalProps {
   groupName: string;
   isOpen: boolean;
   onClose: () => void;
   onSubmit: (values: { confirmation: string }) => void;
 }
 
-const UnsubscribeModal: React.FC<IDeleteGroupModalProps> = (
-  props: IDeleteGroupModalProps
+const UnsubscribeModal: React.FC<IUnsubscribeModalProps> = (
+  props: IUnsubscribeModalProps
 ): JSX.Element => {
   const { groupName, isOpen, onClose, onSubmit } = props;
   const { t } = useTranslation();
@@ -103,4 +103,4 @@ const UnsubscribeModal: React.FC<IDeleteGroupModalProps> = (
   );
 };
 
-export { UnsubscribeModal };
+export { UnsubscribeModal, IUnsubscribeModalProps };
