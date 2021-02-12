@@ -739,7 +739,10 @@ async def get_project_indicators(project: str) -> Dict[str, object]:
         'open_vulnerabilities': (
             await project_domain.get_open_vulnerabilities(context, project)
         ),
-        'total_treatment': await project_domain.get_total_treatment(findings),
+        'total_treatment': await project_domain.get_total_treatment(
+            context,
+            findings
+        ),
         'remediated_over_time': remediated_over_time
     }
     return indicators

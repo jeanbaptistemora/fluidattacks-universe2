@@ -867,12 +867,16 @@ async def get_mean_remediate_severity(  # pylint: disable=too-many-locals
 
 
 async def get_total_treatment(
-        findings: List[Dict[str, FindingType]]) -> Dict[str, int]:
+    context: Any,
+    findings: List[Dict[str, FindingType]]
+) -> Dict[str, int]:
     """Get the total treatment of all the vulnerabilities"""
     accepted_vuln: int = 0
     indefinitely_accepted_vuln: int = 0
     in_progress_vuln: int = 0
     undefined_treatment: int = 0
+    finding_vulns_loader = context.finding_vulns_nzr
+
     validate_findings = await collect(
         finding_domain.validate_finding(str(finding['finding_id']))
         for finding in findings
@@ -882,9 +886,14 @@ async def get_total_treatment(
         for finding, validate_finding in zip(findings, validate_findings)
         if validate_finding
     ]
-    vulns = await vuln_domain.list_vulnerabilities_async([
-        str(finding['finding_id']) for finding in validated_findings
-    ])
+    vulns = list(
+        chain.from_iterable(
+            await finding_vulns_loader.load_many([
+                str(finding['finding_id']) for finding in validated_findings
+            ])
+        )
+    )
+
     for vuln in vulns:
         vuln_treatment = cast(
             List[Dict[str, str]],

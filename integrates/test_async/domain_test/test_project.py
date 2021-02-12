@@ -225,12 +225,13 @@ async def test_get_mean_remediate():
 
 
 async def test_get_total_treatment():
+    context = get_new_context()
     findings_to_get = ['463558592', '422286126']
     findings = await collect(
         finding_dal.get_finding(finding_id)
         for finding_id in findings_to_get
     )
-    test_data = await get_total_treatment(findings)
+    test_data = await get_total_treatment(context, findings)
     expected_output = \
         {'inProgress': 1, 'accepted': 1, 'acceptedUndefined': 0, 'undefined': 0}
     assert test_data == expected_output
