@@ -89,6 +89,8 @@ serves/users/forces/test
 serves/users/integrates/apply
 serves/users/integrates/test
 serves/users/melts/apply
+serves/users/melts/rotate/even
+serves/users/melts/rotate/odd
 serves/users/melts/test
 serves/users/observes/apply
 serves/users/observes/rotate/even
