@@ -180,9 +180,11 @@ rec {
   };
 
   serviceTimedoctorTokens = {
-    srcPath = path "observes/services/timedoctor_tokens";
+    srcPath = path "/observes/services/timedoctor_tokens";
     python = {
-      direct = [ ];
+      direct = [
+        "urllib3==1.26.3"
+      ];
       inherited = [ ];
     };
     local = [ ];
