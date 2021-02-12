@@ -926,3 +926,21 @@ async def test_update_root_state_nonexistent() -> None:
 
     assert 'errors' in result
     assert 'root not found' in result['errors'][0]['message']
+
+
+@pytest.mark.changes_db
+async def test_unsubscribe_from_group() -> None:
+    query = '''
+      mutation {
+        unsubscribeFromGroup(groupName: "metropolis"){
+          success
+        }
+      }
+    '''
+    result = await _get_result_async(
+      {'query': query},
+      user='integratesuser@gmail.com'
+    )
+
+    assert 'errors' not in result
+    assert result['data']['unsubscribeFromGroup']['success']
