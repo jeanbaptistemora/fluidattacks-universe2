@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Feb 12, 2021, 02:01 PM",
+    "DateLastModified": "Feb 12, 2021, 02:49 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "2.0"
@@ -253,10 +253,10 @@
       ],
       "TableFacets": [
         {
-          "FacetName": "user",
+          "FacetName": "user_metadata",
           "KeyAttributeAlias": {
-            "PartitionKeyAlias": "pk",
-            "SortKeyAlias": "sk"
+            "PartitionKeyAlias": "USER#email",
+            "SortKeyAlias": "METADATA"
           },
           "TableData": [],
           "NonKeyAttributes": [
@@ -270,10 +270,21 @@
           ]
         },
         {
-          "FacetName": "authorization",
+          "FacetName": "org_membership",
           "KeyAttributeAlias": {
-            "PartitionKeyAlias": "pk",
-            "SortKeyAlias": "sk"
+            "PartitionKeyAlias": "USER#email",
+            "SortKeyAlias": "ORG#name"
+          },
+          "TableData": [],
+          "NonKeyAttributes": [
+            "role"
+          ]
+        },
+        {
+          "FacetName": "group_membership",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "USER#email",
+            "SortKeyAlias": "GROUP#name"
           },
           "TableData": [],
           "NonKeyAttributes": [
@@ -282,10 +293,21 @@
           ]
         },
         {
-          "FacetName": "subscription",
+          "FacetName": "org_subscription",
           "KeyAttributeAlias": {
-            "PartitionKeyAlias": "pk",
-            "SortKeyAlias": "sk"
+            "PartitionKeyAlias": "USER#email",
+            "SortKeyAlias": "ORG#name"
+          },
+          "TableData": [],
+          "NonKeyAttributes": [
+            "period"
+          ]
+        },
+        {
+          "FacetName": "group_subscription",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "USER#email",
+            "SortKeyAlias": "GROUP#name"
           },
           "TableData": [],
           "NonKeyAttributes": [
