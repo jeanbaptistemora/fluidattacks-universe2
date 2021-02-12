@@ -143,11 +143,11 @@ makes/test/profiles:
     - apk add --no-cache curl
   script:
     # Development with development contents
-    - curl -L "https://gitlab.com/fluidattacks/product/-/raw/${CI_COMMIT_REF_NAME}/makes/profiles/hacker.sh" | bash /dev/stdin "${CI_COMMIT_REF_NAME}"
+    - bash <(curl -L "https://gitlab.com/fluidattacks/product/-/raw/${CI_COMMIT_REF_NAME}/makes/profiles/hacker.sh") "${CI_COMMIT_REF_NAME}"
     # Production with development contents
-    - curl -L "https://fluidattacks.com/install/hacker" | bash /dev/stdin "${CI_COMMIT_REF_NAME}"
+    - bash <(curl -L "https://fluidattacks.com/install/hacker") "${CI_COMMIT_REF_NAME}"
     # Production
-    - curl -L "https://fluidattacks.com/install/hacker" | bash
+    - bash <(curl -L "https://fluidattacks.com/install/hacker")
   stage: test-code
 
 common_test_jobs_provisioner:

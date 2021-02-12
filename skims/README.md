@@ -10,7 +10,7 @@ We do this by:
 You can help us achieve these goals by the following means:
 - Telling your friends
 - Using the product
-- Creating [issues](/product/-/issues) with ideas, feature requests,
+- Creating [issues](https://gitlab.com/fluidattacks/product/-/issues) with ideas, feature requests,
   problems, use cases, or feedback
 - Helping us solve those issues
 
