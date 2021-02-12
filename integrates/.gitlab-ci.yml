@@ -377,13 +377,13 @@ integrates/back/deploy/dev:
 
 # Take into account that changing this job name impacts the rotation of
 #   AWS secrets at serves.
-# The rotation script looks the last integrates_back_deploy_production execution
+# The rotation script looks the last execution
 #   and decides if keys should be rotated or not.
 # This is done to avoid keys expiration on the current integrates deployment
 #   in case the continuous delivery system at Integrates is failing
 # Please adjust the serves_rotate_keys_user_provision_integrates job
-integrates_back_deploy_production:
-  <<: *with_nix
+integrates/back/deploy/prod:
+  <<: *makes
   <<: *in_master_except_periodic_jobs_integrates
   stage: deploy-app
   retry: 1

@@ -12,6 +12,8 @@ spec:
     metadata:
       labels:
         app: integrates-${CI_COMMIT_REF_NAME}
+        # This ensures that the resource is updated on every apply
+        uuid: ${UUID}
     spec:
       nodeSelector:
         worker_group: development

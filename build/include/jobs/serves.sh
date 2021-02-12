@@ -96,7 +96,7 @@ function job_serves_rotate_keys_user_provision_integrates {
           "${dev_gitlab_protected}" \
     &&  helper_serves_check_last_job_succeeded \
           "${gitlab_repo_id}" \
-          'integrates_back_deploy_production' \
+          'integrates/back/deploy/prod' \
     &&  helper_serves_user_provision_rotate_keys \
           "${terraform_dir}" \
           "${prod_resource_to_taint}" \

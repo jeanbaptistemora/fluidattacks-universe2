@@ -8,6 +8,7 @@ forces/test
 forces/wrapper
 integrates/back
 integrates/back/deploy/dev
+integrates/back/deploy/prod
 integrates/cache
 integrates/db
 integrates/front

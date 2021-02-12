@@ -9,7 +9,6 @@ export CI_COMMIT_SHA
 export CI_COMMIT_SHORT_SHA
 export CI_NODE_INDEX
 export CI_NODE_TOTAL
-export CHANGELOG
 export CI_PROJECT_ID='20741933'
 export CI_PROJECT_NAME='product'
 export CI_PROJECT_NAMESPACE='fluidattacks'
@@ -44,7 +43,3 @@ test -n "${CI_NODE_INDEX:-}" \
   || CI_NODE_INDEX='1'
 test -n "${CI_NODE_TOTAL:-}" \
   || CI_NODE_TOTAL='1'
-test -n "${CHANGELOG:-}" \
-  || CHANGELOG=$(
-      git log --format='[%h] %s' --max-count 1 "${CI_COMMIT_SHA}" \
-        | sed -e 's/\n/\\n/g' -e 's/\"/\\"/g')

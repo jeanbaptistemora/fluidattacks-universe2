@@ -3,8 +3,6 @@ kind: Deployment
 metadata:
   name: integrates-master
   namespace: production
-  annotations:
-    kubernetes.io/change-cause: "New deployment version of async Integrates on __DATE__"
 spec:
   replicas: 10
   selector:
@@ -18,13 +16,14 @@ spec:
     metadata:
       labels:
         app: integrates-master
+        # This ensures that the resource is updated on every apply
+        uuid: ${UUID}
     spec:
       nodeSelector:
         worker_group: production
       containers:
         - name: integrates
           image: nixos/nix:2.3.6
-          imagePullPolicy: Always
           command: [sh]
           args:
             - -c
@@ -32,7 +31,7 @@ spec:
               cachix use fluidattacks &&
               nix-env
                 -i integrates-back
-                -f __CI_PROJECT_URL__/-/archive/master.tar.gz &&
+                -f ${CI_PROJECT_URL}/-/archive/master.tar.gz &&
               integrates-back prod
           resources:
             requests:
@@ -42,8 +41,6 @@ spec:
               cpu: 2000m
               memory: 7000Mi
           env:
-            - name: DEPLOYMENT_DATE
-              value: "__DATE__"
             - name: INSTANA_AGENT_HOST
               valueFrom:
                 fieldRef:
@@ -60,7 +57,7 @@ spec:
               - -c
               - nix-env
                   -i integrates-back-probes-readiness
-                  -f __CI_PROJECT_URL__/-/archive/master.tar.gz &&
+                  -f ${CI_PROJECT_URL}/-/archive/master.tar.gz &&
                 integrates-back-probes-readiness
                   integrates-prod
                   FluidIntegrates
@@ -77,7 +74,7 @@ spec:
               - -c
               - nix-env
                   -i integrates-back-probes-liveness
-                  -f __CI_PROJECT_URL__/-/archive/master.tar.gz &&
+                  -f ${CI_PROJECT_URL}/-/archive/master.tar.gz &&
                 integrates-back-probes-liveness
                   integrates-prod
                   FluidIntegrates

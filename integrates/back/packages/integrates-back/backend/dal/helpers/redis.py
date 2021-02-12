@@ -51,6 +51,7 @@ from backend.utils.serialization import (
 
 # Constants
 LOGGER = logging.getLogger(__name__)
+REDIS: RedisCluster = None
 REDIS_EXCEPTIONS = (
     AttributeError,
     ClusterDownException,
@@ -65,6 +66,8 @@ REDIS_TIMEOUT: int = 30
 
 
 async def _redis_cmd_base(cmd: str, *args: Any, **kwargs: Any) -> Any:
+    if REDIS is None:
+        raise ClusterDownException()
     cmd_func = getattr(REDIS, cmd)
     data = await asyncio.wait_for(
         in_thread(cmd_func, *args, **kwargs),
@@ -257,7 +260,3 @@ def instantiate_redis_cluster() -> RedisCluster:
         port=6379,
         skip_full_coverage_check=True,
     )
-
-
-# Import hooks
-REDIS = instantiate_redis_cluster()
