@@ -205,14 +205,15 @@ async def test_format_vulnerabilities():
     assert test_data == expected_output
 
 async def test_create_msj_finding_pending():
+    context = get_new_context()
     not_new_treatment_finding = await get_finding('422286126')
     new_treatment_finding = await get_finding('436992569')
 
-    test_data = await create_msj_finding_pending(not_new_treatment_finding)
+    test_data = await create_msj_finding_pending(context, not_new_treatment_finding)
     expected_output = ''
     assert test_data == expected_output
 
-    test_data = await create_msj_finding_pending(new_treatment_finding)
+    test_data = await create_msj_finding_pending(context, new_treatment_finding)
     expected_output = u'F038. Fuga de información de negocio'
     assert expected_output in test_data
 

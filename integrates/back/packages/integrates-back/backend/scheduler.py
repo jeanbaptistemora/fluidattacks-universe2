@@ -408,6 +408,7 @@ async def get_group_new_vulnerabilities(group_name: str) -> None:
         for act_finding in finding_requests:
             finding_url = get_finding_url(act_finding)
             msj_finding_pending = await create_msj_finding_pending(
+                get_new_context(),
                 act_finding
             )
             delta = await calculate_vulnerabilities(
@@ -540,12 +541,15 @@ def format_vulnerabilities(
 
 
 async def create_msj_finding_pending(
-        act_finding: Dict[str, FindingType]) -> str:
+    context: Any,
+    act_finding: Dict[str, FindingType]
+) -> str:
     """Validate if a finding has treatment."""
+    finding_vulns_loader = context.finding_vulns_nzr
     finding_id = cast(str, act_finding['finding_id'])
     open_vulns = [
         vuln
-        for vuln in await vuln_domain.list_vulnerabilities_async([finding_id])
+        for vuln in await finding_vulns_loader.load(finding_id)
         if vuln['current_state'] == 'open'
         and cast(
             List[Dict[str, str]],
