@@ -8,7 +8,10 @@ from graphql.type.definition import GraphQLResolveInfo
 # Local
 from backend import util
 from backend.decorators import enforce_group_level_auth_async
-from backend.domain import user as user_domain
+from backend.domain import (
+    user as user_domain,
+    forces as forces_domain,
+)
 from backend.exceptions import InvalidExpirationTime
 from backend.typing import UpdateAccessTokenPayload
 from backend.utils import datetime as datetime_utils
@@ -47,15 +50,20 @@ async def mutate(
                 info.context,
                 (
                     f'{user_info["user_email"]} update access token for '
-                    f'{user_email}'
+                    f'{project_name}'
                 )
             )
+            if forces_domain.update_token(project_name, result.session_jwt):
+                util.cloudwatch_log(
+                    info.context,
+                    (f'{user_info["user_email"]} store in secretsmanager '
+                     f'forces token for {user_email}'))
         else:
             util.cloudwatch_log(
                 info.context,
                 (
                     f'{user_info["user_email"]} attempted to update access '
-                    f'token for {user_email}'
+                    f'token for {project_name}'
                 ),
             )
         return result

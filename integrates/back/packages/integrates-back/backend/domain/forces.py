@@ -141,3 +141,11 @@ async def get_vulns_execution(
 
 async def get_log_execution(group_name: str, execution_id: str) -> str:
     return await forces_dal.get_log_execution(group_name, execution_id)
+
+
+async def update_token(project_name: str, token: str) -> bool:
+    return await forces_dal.update_secret_token(project_name, token)
+
+
+async def get_token(project_name: str) -> str:
+    return await forces_dal.get_secret_token(project_name)
