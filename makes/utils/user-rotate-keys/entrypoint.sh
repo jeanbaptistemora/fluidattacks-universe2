@@ -1,7 +1,5 @@
 # shellcheck shell=bash
 
-source '__envUtilsGitlab__'
-
 function get_key {
   local path="${1}"
   local result

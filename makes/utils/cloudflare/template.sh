@@ -1,8 +1,5 @@
 # shellcheck shell=bash
 
-source '__envUtilsAws__'
-source '__envUtilsSops__'
-
 function cloudflare_login {
   local env="${1}"
   local product="${2}"
@@ -12,7 +9,7 @@ function cloudflare_login {
   function get_cloudflare_vars {
     local regex='^CLOUDFLARE[_A-Z]+'
 
-    __envGrep__ -oP "${regex}" "${secrets_path}" | tr '\n' ' '
+    grep -oP "${regex}" "${secrets_path}" | tr '\n' ' '
   }
 
       "aws_login_${env}" "${product}" \

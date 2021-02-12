@@ -3,11 +3,15 @@ let
   makeTemplate = import (path "/makes/utils/make-template") path pkgs;
 in
 makeTemplate {
-  arguments = {
-    envGrep = "${pkgs.gnugrep}/bin/grep";
-    envUtilsAws = import (path "/makes/utils/aws") path pkgs;
-    envUtilsSops = import (path "/makes/utils/sops") path pkgs;
-  };
   name = "utils-cloudflare";
+  searchPaths = {
+    envPaths = [
+      pkgs.gnugrep
+    ];
+    envUtils = [
+      "/makes/utils/aws"
+      "/makes/utils/sops"
+    ];
+  };
   template = path "/makes/utils/cloudflare/template.sh";
 }

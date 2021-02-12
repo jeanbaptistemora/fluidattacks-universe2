@@ -1,7 +1,5 @@
 # shellcheck shell=bash
 
-source '__envSearchPaths__'
-
 function __check_curl_output {
   local success_msg="${1}"
   local failure_msg="${2}"

@@ -26,7 +26,6 @@ makeEntrypoint {
       inherit target;
       inherit secrets_path;
     }}/bin/${name}";
-    envUtilsGitlab = import (path "/makes/utils/gitlab") path pkgs;
     envTarget = target;
     envGitlabProjectId = gitlab_project_id;
     envKeys = builtins.toJSON keys;
@@ -37,6 +36,9 @@ makeEntrypoint {
       pkgs.curl
       pkgs.jq
       pkgs.terraform_0_13
+    ];
+    envUtils = [
+      "/makes/utils/gitlab"
     ];
   };
   template = path "/makes/utils/user-rotate-keys/entrypoint.sh";
