@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Feb 12, 2021, 02:49 PM",
+    "DateLastModified": "Feb 12, 2021, 05:13 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "2.0"
@@ -315,10 +315,10 @@
           ]
         },
         {
-          "FacetName": "organization",
+          "FacetName": "organization_metadata",
           "KeyAttributeAlias": {
-            "PartitionKeyAlias": "pk",
-            "SortKeyAlias": "sk"
+            "PartitionKeyAlias": "ORG#name",
+            "SortKeyAlias": "METADATA"
           },
           "TableData": [],
           "NonKeyAttributes": [
@@ -327,10 +327,10 @@
           ]
         },
         {
-          "FacetName": "group",
+          "FacetName": "group_metadata",
           "KeyAttributeAlias": {
-            "PartitionKeyAlias": "pk",
-            "SortKeyAlias": "sk"
+            "PartitionKeyAlias": "GROUP#name",
+            "SortKeyAlias": "METADATA"
           },
           "TableData": [],
           "NonKeyAttributes": [
@@ -346,8 +346,8 @@
         {
           "FacetName": "forces_log",
           "KeyAttributeAlias": {
-            "PartitionKeyAlias": "pk",
-            "SortKeyAlias": "sk"
+            "PartitionKeyAlias": "GROUP#name",
+            "SortKeyAlias": "FORCES_LOG#uuid"
           },
           "TableData": [],
           "NonKeyAttributes": [
@@ -365,8 +365,8 @@
         {
           "FacetName": "root",
           "KeyAttributeAlias": {
-            "PartitionKeyAlias": "pk",
-            "SortKeyAlias": "sk"
+            "PartitionKeyAlias": "GROUP#name",
+            "SortKeyAlias": "ROOT#uuid"
           },
           "TableData": [],
           "NonKeyAttributes": [
@@ -387,8 +387,8 @@
         {
           "FacetName": "event",
           "KeyAttributeAlias": {
-            "PartitionKeyAlias": "pk",
-            "SortKeyAlias": "sk"
+            "PartitionKeyAlias": "ROOT#uuid",
+            "SortKeyAlias": "EVENT#uuid"
           },
           "TableData": [],
           "NonKeyAttributes": [
@@ -424,8 +424,8 @@
         {
           "FacetName": "finding",
           "KeyAttributeAlias": {
-            "PartitionKeyAlias": "pk",
-            "SortKeyAlias": "sk"
+            "PartitionKeyAlias": "ROOT#uuid",
+            "SortKeyAlias": "FINDING#uuid"
           },
           "TableData": [],
           "NonKeyAttributes": [
@@ -451,8 +451,8 @@
         {
           "FacetName": "reattack",
           "KeyAttributeAlias": {
-            "PartitionKeyAlias": "pk",
-            "SortKeyAlias": "sk"
+            "PartitionKeyAlias": "FINDING#uuid",
+            "SortKeyAlias": "REATTACK#uuid"
           },
           "TableData": [],
           "NonKeyAttributes": [
@@ -465,16 +465,16 @@
         {
           "FacetName": "reattack_vulns",
           "KeyAttributeAlias": {
-            "PartitionKeyAlias": "pk",
-            "SortKeyAlias": "sk"
+            "PartitionKeyAlias": "FINDING#uuid",
+            "SortKeyAlias": "VULN#uuid"
           },
           "TableData": []
         },
         {
           "FacetName": "vulnerability",
           "KeyAttributeAlias": {
-            "PartitionKeyAlias": "pk",
-            "SortKeyAlias": "sk"
+            "PartitionKeyAlias": "FINDING#uuid",
+            "SortKeyAlias": "VULN#uuid"
           },
           "TableData": [],
           "NonKeyAttributes": [
@@ -492,8 +492,8 @@
         {
           "FacetName": "treatment",
           "KeyAttributeAlias": {
-            "PartitionKeyAlias": "pk",
-            "SortKeyAlias": "sk"
+            "PartitionKeyAlias": "VULN#uuid",
+            "SortKeyAlias": "TREATMENT#uuid"
           },
           "TableData": [],
           "NonKeyAttributes": [
