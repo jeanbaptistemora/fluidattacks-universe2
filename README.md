@@ -1,6 +1,6 @@
 # Fluid Attacks, Products repository
 
-We are a [cyber-security company](fluidattacks.com) whose only purpose is
+We are a [cyber-security company](https://fluidattacks.com) whose only purpose is
 to make the world a safer place
 
 We do this by:
