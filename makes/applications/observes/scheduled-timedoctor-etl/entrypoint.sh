@@ -1,0 +1,56 @@
+# shellcheck shell=bash
+
+source '__envSearchPaths__'
+source '__envUtilsBashLibAws__'
+source '__envUtilsBashLibSops__'
+source '__envUtilsGitlab__'
+
+function job_timedoctor {
+  local tap_timedoctor
+  local target_redshift
+  local db_creds
+  local timedoctor_creds
+
+      tap_timedoctor="__envTapTimedoctor__" \
+  &&  target_redshift="__envTargetRedshift__" \
+  &&  db_creds=$(mktemp) \
+  &&  timedoctor_creds=$(mktemp) \
+  &&  mkdir ./logs \
+  &&  aws_login_prod 'observes' \
+  &&  sops_export_vars 'observes/secrets-prod.yaml' \
+        analytics_auth_redshift \
+        analytics_s3_cache_timedoctor \
+  &&  analytics_auth_timedoctor=$( \
+        get_project_variable \
+          "${GITLAB_API_TOKEN}" \
+          "${CI_PROJECT_ID}" \
+          "analytics_auth_timedoctor"
+      ) \
+  &&  echo '[INFO] Generating secret files' \
+  &&  echo "${analytics_s3_cache_timedoctor}" > ./s3_files.json \
+  &&  echo "${analytics_auth_timedoctor}" > "${timedoctor_creds}" \
+  &&  echo "${analytics_auth_redshift}" > "${db_creds}" \
+  &&  echo '[INFO] Downloading backups from S3' \
+  &&  bucket="$(< s3_files.json jq -r '.bucket_name')" \
+  &&  cont_folder=$(< s3_files.json jq -r '.folder_name') \
+  &&  new_folder=$(< s3_files.json jq -r '.save_as') \
+  &&  aws s3 cp --recursive "s3://${bucket}/${cont_folder}/" "${new_folder}/" \
+  &&  cat "${new_folder}"/* \
+        > .singer \
+  &&  echo '[INFO] Running tap' \
+  &&  "${tap_timedoctor}" \
+        --auth "${timedoctor_creds}" \
+        --start-date "$(date +"%Y-%m-01")" \
+        --end-date "$(date +"%Y-%m-%d")" \
+        --work-logs \
+        --computer-activity \
+        >> .singer \
+  &&  echo '[INFO] Running target' \
+  &&  "${target_redshift}" \
+        --auth "${db_creds}" \
+        --drop-schema \
+        --schema-name 'timedoctor' \
+        < .singer
+}
+
+job_timedoctor
