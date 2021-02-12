@@ -754,13 +754,14 @@ def get_open_vulnerability_date(
     return None
 
 
-async def get_mean_remediate(group_name: str) -> Decimal:
-    findings = await finding_domain.get_findings_by_group(group_name)
-    vulns = await vuln_domain.list_vulnerabilities_async(
-        [str(finding['finding_id']) for finding in findings],
-        include_confirmed_zero_risk=True,
-        include_requested_zero_risk=True,
-    )
+async def get_mean_remediate(context: Any, group_name: str) -> Decimal:
+    group_findings_loader = context.group_findings
+    finding_vulns_loaders = context.finding_vulns
+
+    group_findings = await group_findings_loader.load(group_name)
+    vulns = await finding_vulns_loaders.load_many_chained([
+        str(finding['finding_id']) for finding in group_findings
+    ])
 
     return await get_mean_remediate_vulnerabilities(vulns)
 

@@ -716,7 +716,10 @@ async def get_project_indicators(project: str) -> Dict[str, object]:
         ),
         'last_closing_date': last_closing_vuln_days,
         'last_closing_vuln_finding': last_closing_vuln.get('finding_id', ''),
-        'mean_remediate': await project_domain.get_mean_remediate(project),
+        'mean_remediate': await project_domain.get_mean_remediate(
+            context,
+            project
+        ),
         'mean_remediate_non_treated': (
             await project_domain.get_mean_remediate_non_treated(project)
         ),
