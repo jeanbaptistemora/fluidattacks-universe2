@@ -1,6 +1,5 @@
 # shellcheck shell=bash
 
-source '__envSearchPaths__'
 source '__envUtilsCloudflare__'
 source '__envUtilsAws__'
 
