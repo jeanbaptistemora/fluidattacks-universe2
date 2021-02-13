@@ -57,85 +57,6 @@ function helper_integrates_mobile_deploy_ota {
 
 # Back
 
-function helper_integrates_back_build {
-  local branch="${1}"
-  local context='.'
-  local dockerfile='integrates/deploy/containers/app/Dockerfile'
-  local use_cache='false'
-  local base_image='registry.gitlab.com/fluidattacks/product/nix:integrates_serve_components'
-  local base_provisioner='build/provisioners/integrates_serve_components.nix'
-
-  helper_common_docker_build_and_push \
-    "${CI_REGISTRY_IMAGE}/app:${branch}" \
-    "${context}" \
-    "${dockerfile}" \
-    "${use_cache}" \
-    'PROVISIONER' "${base_provisioner}" \
-    'BASE' "${base_image}"
-}
-
-function helper_integrates_back_deploy {
-  local region="${1}"
-  local cluster="${2}"
-  local namespace="${3}"
-  local deployment="${4}"
-  local timeout="${5}"
-  local files_path="${6}"
-
-      helper_common_update_kubeconfig "${cluster}" "${region}" \
-  &&  for file in $(find "${files_path}/"*)
-      do
-            vars="$(grep -oP '__.*?__' "${file}" || true)" \
-        &&  for var in ${vars}
-            do
-                  var="${var:2:-2}" \
-              &&  helper_common_replace_var \
-                    "__${var}__" \
-                    "${!var}" \
-                    "${file}" \
-              ||  return 1
-            done \
-        &&  echo "[INFO] Applying: ${file}" \
-        &&  kubectl apply -f "${file}" \
-        ||  return 1
-      done \
-  &&  kubectl rollout status \
-        "deploy/integrates-${deployment}" \
-        -n "${namespace}" \
-        --timeout="${timeout}"
-}
-
-function helper_integrates_back_deploy_newrelic {
-      helper_common_sops_env 'secrets-production.yaml' 'default' \
-        NEW_RELIC_API_KEY \
-        NEW_RELIC_APP_ID \
-  &&  curl "https://api.newrelic.com/v2/applications/${NEW_RELIC_APP_ID}/deployments.json" \
-    --request 'POST' \
-    --header "X-Api-Key: ${NEW_RELIC_API_KEY}" \
-    --header 'Content-Type: application/json' \
-    --include \
-    --data "{
-        \"deployment\": {
-          \"revision\": \"${CI_COMMIT_SHA}\",
-          \"changelog\": \"${CHANGELOG}\",
-          \"description\": \"production\",
-          \"user\": \"${CI_COMMIT_AUTHOR}\"
-        }
-      }"
-}
-
-function helper_integrates_back_deploy_checkly {
-  local checkly_params
-
-      helper_common_sops_env 'secrets-production.yaml' 'default' \
-        CHECKLY_CHECK_ID \
-        CHECKLY_TRIGGER_ID \
-  &&  checkly_params="${CHECKLY_TRIGGER_ID}?deployment=true&repository=product/integrates&sha=${CI_COMMIT_SHA}" \
-  &&  curl \
-        --request 'GET' \
-        "https://api.checklyhq.com/check-groups/${CHECKLY_CHECK_ID}/trigger/${checkly_params}"
-}
-
 function helper_integrates_back_build_lambda {
   local lambda_name="${1}"
   local lambda_zip_file
@@ -338,10 +259,4 @@ function helper_integrates_sops_vars {
     ZENDESK_EMAIL \
     ZENDESK_SUBDOMAIN \
     ZENDESK_TOKEN
-}
-
-function helper_integrates_to_b64 {
-  local value="${1}"
-
-  echo -n "${value}" | base64 --wrap=0
 }

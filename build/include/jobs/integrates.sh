@@ -223,45 +223,6 @@ function job_integrates_mobile_test_functional_local {
 
 # Back
 
-function job_integrates_back_build_production {
-  helper_integrates_back_build 'master'
-}
-
-function job_integrates_back_build_development {
-  helper_integrates_back_build "${CI_COMMIT_REF_NAME}"
-}
-
-function job_integrates_back_deploy_production {
-  local env='production'
-
-  local region='us-east-1'
-  local cluster='integrates-cluster'
-  local namespace='production'
-  local deployment='master'
-  local timeout='10m'
-  local files_path='deploy/production'
-
-      helper_common_use_pristine_workdir \
-  &&  helper_integrates_aws_login "${env}" \
-  &&  pushd integrates \
-    &&  export DATE="$(date)" \
-    &&  export B64_INTEGRATES_PROD_AWS_ACCESS_KEY_ID=$(helper_integrates_to_b64 "${INTEGRATES_PROD_AWS_ACCESS_KEY_ID}") \
-    &&  export B64_INTEGRATES_PROD_AWS_SECRET_ACCESS_KEY=$(helper_integrates_to_b64 "${INTEGRATES_PROD_AWS_SECRET_ACCESS_KEY}") \
-    &&  export B64_CI_COMMIT_REF_NAME=$(helper_integrates_to_b64 'master') \
-    &&  export B64_CI_COMMIT_SHA=$(helper_integrates_to_b64 "${CI_COMMIT_SHA}") \
-    &&  helper_integrates_back_deploy \
-          "${region}" \
-          "${cluster}" \
-          "${namespace}" \
-          "${deployment}" \
-          "${timeout}" \
-          "${files_path}" \
-    &&  helper_integrates_back_deploy_newrelic \
-    &&  helper_integrates_back_deploy_checkly \
-  &&  popd \
-  ||  return 1
-}
-
 function job_integrates_back_clean_development_environments {
   local cluster='integrates-cluster'
   local namespace='development'
