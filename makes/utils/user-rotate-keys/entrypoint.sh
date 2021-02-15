@@ -14,6 +14,12 @@ function get_key {
       fi
 }
 
+function get_array_length {
+  local array_path="${1}"
+
+  get_key "${array_path} | length"
+}
+
 function get_aws_keys {
 
   get_key 'keys[]' | tr '\n' ' '
@@ -39,20 +45,20 @@ function update_key {
       IFS=' ' read -ra attrs <<< "$(get_key_attrs "${key}")" \
   &&  for attr in "${attrs[@]}"
       do
-            gitlab_project_ids=() \
-        &&  IFS=' ' read -ra gitlab_project_ids <<< "$(get_attr_gitlab_project_ids "${key}" "${attr}")" \
-        &&  gitlab_id="$(get_key ".\"${key}\".\"${attr}\".gitlab.id")" \
-        &&  gitlab_masked="$(get_key ".\"${key}\".\"${attr}\".gitlab.masked")" \
-        &&  gitlab_protected="$(get_key ".\"${key}\".\"${attr}\".gitlab.protected")" \
-        &&  output_id="$(get_key ".\"${key}\".\"${attr}\".output.id")" \
+            output_id="$(get_key ".\"${key}\".\"${attr}\".output.id")" \
         &&  output_val="$(terraform output "${output_id}")" \
-        &&  for gitlab_project_id in "${gitlab_project_ids[@]}"
+        &&  gitlab_length="$(get_array_length ".\"${key}\".\"${attr}\".gitlab")" \
+        &&  for ((i=0; i<gitlab_length; i++))
             do
-                  set_project_variable \
+                  project_id="$(get_key ".\"${key}\".\"${attr}\".gitlab[${i}].project_id")" \
+              &&  key_id="$(get_key ".\"${key}\".\"${attr}\".gitlab[${i}].key_id")" \
+              &&  masked="$(get_key ".\"${key}\".\"${attr}\".gitlab[${i}].masked")" \
+              &&  protected="$(get_key ".\"${key}\".\"${attr}\".gitlab[${i}].protected")" \
+              &&  set_project_variable \
                     "${GITLAB_API_TOKEN}" \
-                    "${gitlab_project_id}" \
-                    "${gitlab_id}" "${output_val}" \
-                    "${gitlab_protected}" "${gitlab_masked}" \
+                    "${project_id}" \
+                    "${key_id}" "${output_val}" \
+                    "${protected}" "${masked}" \
               ||  return 1
             done \
         ||  return 1
