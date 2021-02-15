@@ -78,6 +78,7 @@ observes/update-sync-date
 serves/aws-sso/apply
 serves/aws-sso/test
 serves/ci/apply
+serves/ci/config
 serves/ci/test
 serves/compute/apply
 serves/compute/test
