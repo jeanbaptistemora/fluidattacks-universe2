@@ -32,7 +32,7 @@ function main {
   &&  kubectl rollout status \
         "deploy/integrates-${CI_COMMIT_REF_NAME}" \
         -n "development" \
-        --timeout="10m"
+        --timeout="15m"
 }
 
 main "${@}"
