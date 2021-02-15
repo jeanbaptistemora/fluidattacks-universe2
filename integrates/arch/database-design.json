@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Feb 15, 2021, 10:01 AM",
+    "DateLastModified": "Feb 15, 2021, 12:23 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "2.0"
@@ -85,6 +85,18 @@
         {
           "AttributeName": "tags",
           "AttributeType": "SS"
+        },
+        {
+          "AttributeName": "change_reason",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "has_drills",
+          "AttributeType": "BOOL"
+        },
+        {
+          "AttributeName": "has_forces",
+          "AttributeType": "BOOL"
         },
         {
           "AttributeName": "modified_date",
@@ -320,7 +332,19 @@
             "PartitionKeyAlias": "USER#email",
             "SortKeyAlias": "ORG#name"
           },
-          "TableData": [],
+          "TableData": [
+            {
+              "pk": {
+                "S": "USER#test@fluidattacks.com"
+              },
+              "sk": {
+                "S": "ORG#imamura"
+              },
+              "role": {
+                "S": "group_manager"
+              }
+            }
+          ],
           "NonKeyAttributes": [
             "role"
           ],
@@ -431,14 +455,14 @@
                 "S": "2021-02-15T14:01:16Z"
               },
               "modified_by": {
-                "S": "test@fluidattacks.com"
+                "S": "USER#test@fluidattacks.com"
               }
             }
           ],
           "NonKeyAttributes": [
-            "settings",
             "modified_date",
-            "modified_by"
+            "modified_by",
+            "settings"
           ],
           "DataAccess": {
             "MySql": {}
@@ -450,15 +474,50 @@
             "PartitionKeyAlias": "GROUP#name",
             "SortKeyAlias": "METADATA"
           },
-          "TableData": [],
+          "TableData": [
+            {
+              "pk": {
+                "S": "GROUP#unittesting"
+              },
+              "sk": {
+                "S": "METADATA"
+              },
+              "name": {
+                "S": "unittesting"
+              },
+              "description": {
+                "S": "Test group"
+              },
+              "language": {
+                "S": "en"
+              }
+            }
+          ],
           "NonKeyAttributes": [
             "name",
-            "settings",
             "description",
+            "language"
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
+        },
+        {
+          "FacetName": "group_state",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "GROUP#name",
+            "SortKeyAlias": "STATE#iso8601utc"
+          },
+          "TableData": [],
+          "NonKeyAttributes": [
+            "modified_date",
+            "modified_by",
             "type",
             "status",
-            "language",
-            "tags"
+            "tags",
+            "change_reason",
+            "has_drills",
+            "has_forces"
           ],
           "DataAccess": {
             "MySql": {}
@@ -648,7 +707,10 @@
             "accepted_until",
             "accepted_reason",
             "manager"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         }
       ],
       "DataAccess": {
