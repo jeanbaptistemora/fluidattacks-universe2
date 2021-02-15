@@ -17,7 +17,6 @@ from backend.exceptions import RequestedReportError
 from backend.reports.reports import (
     data as data_report,
     technical as technical_report,
-    all_users as all_users_report,
 )
 from backend.utils.reports import patch_loop_exception_handler
 from backend import util
@@ -89,7 +88,3 @@ async def generate_group_report(
         raise RequestedReportError()
 
     return url
-
-
-async def generate_all_users_report(user_email: str) -> str:
-    return await all_users_report.generate(user_email)

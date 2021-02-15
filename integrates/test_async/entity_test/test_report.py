@@ -57,25 +57,6 @@ async def test_finding_report():
         result['data']['report']['url']
         for result in [result_xls, result_data, result_pdf])
 
-
-async def test_all_users_report():
-    query_all_users = '''
-        query test {
-            report(reportType: ALL_USERS) {
-                url
-            }
-        }
-    '''
-    data_all_users = {'query': query_all_users}
-    request = await create_dummy_session('integratesmanager@gmail.com')
-    _, result_all_users = await graphql(
-        SCHEMA,
-        data_all_users,
-        context_value=request
-    )
-    assert ('url' in result_all_users['data']['report']
-        and result_all_users['data']['report']['url'])
-
 def test_pdf_paths():
     # secure_pdf.py paths
     base = (

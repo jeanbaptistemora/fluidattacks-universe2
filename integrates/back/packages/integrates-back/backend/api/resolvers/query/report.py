@@ -11,7 +11,6 @@ from graphql.type.definition import GraphQLResolveInfo
 from backend import util
 from backend.decorators import (
     enforce_group_level_auth_async,
-    enforce_user_level_auth_async,
     require_login
 )
 from backend.exceptions import (
@@ -25,16 +24,6 @@ from back.settings import LOGGING
 
 logging.config.dictConfig(LOGGING)
 LOGGER = logging.getLogger(__name__)
-
-
-@enforce_user_level_auth_async
-async def _get_url_all_users(info: GraphQLResolveInfo, user_email: str) -> str:
-    util.cloudwatch_log(
-        info.context,
-        f'Security: All users report requested by {user_email}'
-    )
-
-    return cast(str, await report.generate_all_users_report(user_email))
 
 
 @enforce_group_level_auth_async
@@ -97,9 +86,6 @@ async def resolve(
     group_name: Optional[str] = kwargs.get('project_name')
     lang: str = kwargs.get('lang', 'en')
     report_type: str = kwargs['report_type']
-
-    if report_type == 'ALL_USERS':
-        return {'url': await _get_url_all_users(info, user_email)}
 
     if report_type in {'DATA', 'PDF', 'XLS'} and group_name:
         return {

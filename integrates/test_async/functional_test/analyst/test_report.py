@@ -51,15 +51,3 @@ async def test_report():
     result = await get_result(data)
     assert 'url' in result['data']['report']
     assert result['data']['report']['url'] == 'The report will be sent to integratesanalyst@fluidattacks.com shortly'
-
-    query = f'''
-        query {{
-            report(reportType: ALL_USERS) {{
-                url
-            }}
-        }}
-    '''
-    data = {'query': query}
-    result = await get_result(data)
-    assert result['data']['report'] is None
-    assert result['errors'][0]['message'] == 'Access denied'

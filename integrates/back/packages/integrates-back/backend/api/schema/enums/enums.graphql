@@ -170,7 +170,6 @@ enum ReportLang {
 }
 
 enum ReportType {
-  ALL_USERS
   DATA
   PDF
   XLS
