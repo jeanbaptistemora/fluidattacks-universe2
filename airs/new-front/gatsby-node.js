@@ -3,14 +3,6 @@ const path = require(`path`)
 const { slash } = require(`gatsby-core-utils`)
 const { createFilePath } = require(`gatsby-source-filesystem`)
 
-exports.onCreatePage = ({ page, actions }) => {
-  const { createPage } = actions
-  if (page.path === `/`) {
-    page.matchPath = `/*`
-    createPage(page)
-  }
-}
-
 exports.createPages = ({ graphql, actions }) => {
   const { createPage } = actions
   // The “graphql” function allows us to run arbitrary
@@ -42,7 +34,7 @@ exports.createPages = ({ graphql, actions }) => {
     }
 
     // Create Asciidoc pages.
-    const articleTemplate = path.resolve(`./src/templates/article.tsx`)
+    const articleTemplate = path.resolve(`./src/templates/pageArticle.tsx`)
     _.each(result.data.allAsciidoc.edges, edge => {
       // Gatsby uses Redux to manage its internal state.
       // Plugins and sites can use functions like "createPage"
