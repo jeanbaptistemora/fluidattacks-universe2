@@ -57,23 +57,6 @@ async def test_finding_report():
         result['data']['report']['url']
         for result in [result_xls, result_data, result_pdf])
 
-async def test_all_vulns_report():
-    query_all_vulns = '''
-        query test {
-            report(reportType: ALL_VULNS, projectName: "oneshottest") {
-                url
-            }
-        }
-    '''
-    data_all_vulns = {'query': query_all_vulns}
-    request = await create_dummy_session('integratesmanager@gmail.com')
-    _, result_all_vulns = await graphql(
-        SCHEMA,
-        data_all_vulns,
-        context_value=request
-    )
-    assert ('url' in result_all_vulns['data']['report']
-        and result_all_vulns['data']['report']['url'])
 
 async def test_all_users_report():
     query_all_users = '''

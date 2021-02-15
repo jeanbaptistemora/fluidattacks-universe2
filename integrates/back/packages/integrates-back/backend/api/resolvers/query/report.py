@@ -37,28 +37,6 @@ async def _get_url_all_users(info: GraphQLResolveInfo, user_email: str) -> str:
     return cast(str, await report.generate_all_users_report(user_email))
 
 
-@enforce_user_level_auth_async
-async def _get_url_all_vulns(
-    info: GraphQLResolveInfo,
-    user_email: str,
-    group_name: str
-) -> str:
-    util.cloudwatch_log(
-        info.context,
-        f'Security: All vulnerabilities report requested by {user_email} '
-        f'for group {group_name}'
-    )
-
-    return cast(
-        str,
-        await report.generate_all_vulns_report(
-            info.context.loaders,
-            user_email,
-            group_name
-        )
-    )
-
-
 @enforce_group_level_auth_async
 async def _get_url_group_report(
     info: GraphQLResolveInfo,
@@ -122,9 +100,6 @@ async def resolve(
 
     if report_type == 'ALL_USERS':
         return {'url': await _get_url_all_users(info, user_email)}
-
-    if report_type == 'ALL_VULNS' and group_name:
-        return {'url': await _get_url_all_vulns(info, user_email, group_name)}
 
     if report_type in {'DATA', 'PDF', 'XLS'} and group_name:
         return {

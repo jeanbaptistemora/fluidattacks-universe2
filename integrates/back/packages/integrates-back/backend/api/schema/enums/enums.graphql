@@ -171,7 +171,6 @@ enum ReportLang {
 
 enum ReportType {
   ALL_USERS
-  ALL_VULNS
   DATA
   PDF
   XLS

@@ -18,7 +18,6 @@ from backend.reports.reports import (
     data as data_report,
     technical as technical_report,
     all_users as all_users_report,
-    all_vulns as all_vulns_report,
 )
 from backend.utils.reports import patch_loop_exception_handler
 from backend import util
@@ -90,19 +89,6 @@ async def generate_group_report(
         raise RequestedReportError()
 
     return url
-
-
-async def generate_all_vulns_report(
-    context: Any,
-    user_email: str,
-    project_name: str = ''
-) -> str:
-
-    return await all_vulns_report.generate(
-        context,
-        user_email,
-        project_name
-    )
 
 
 async def generate_all_users_report(user_email: str) -> str:

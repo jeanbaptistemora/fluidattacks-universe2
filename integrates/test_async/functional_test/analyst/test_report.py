@@ -54,18 +54,6 @@ async def test_report():
 
     query = f'''
         query {{
-            report(reportType: ALL_VULNS, projectName: "{group_name}") {{
-                url
-            }}
-        }}
-    '''
-    data = {'query': query}
-    result = await get_result(data)
-    assert result['data']['report'] is None
-    assert result['errors'][0]['message'] == 'Access denied'
-
-    query = f'''
-        query {{
             report(reportType: ALL_USERS) {{
                 url
             }}
