@@ -34,7 +34,8 @@ function job_zoho_crm {
         --schema-name 'zoho_crm_test' \
         --drop-schema \
         < .singer \
-  &&  "${update_sync_date}" zoho-crm-etl "${db_creds}"
+  &&  "${update_sync_date}" "zoho_crm_etl" \
+          --auth-file "${db_creds}"
 }
 
 job_zoho_crm

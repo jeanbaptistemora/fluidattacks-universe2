@@ -34,7 +34,8 @@ function job_formstack_etl {
         --drop-schema \
         --schema-name 'formstack' \
         < .singer \
-  &&  "${update_sync_date}" formstack "${db_creds}"
+  &&  "${update_sync_date}" "formstack" \
+          --auth-file "${db_creds}"
 }
 
 job_formstack_etl
