@@ -193,6 +193,10 @@ const projectStakeholdersView: React.FC<IProjectStakeholdersViewProps> =
             + "can only have Hackers provided by Fluid Attacks":
             msgError(translate.t("validations.no_fluid_attacks_hackers_in_fluid_attacks_service"));
             break;
+          case "Access denied or stakeholder not found":
+            msgError(translate.t("group_alerts.expired_invitation"));
+            void refetch();
+            break;
           default:
             msgError(translate.t("group_alerts.error_textsad"));
             Logger.warning("An error occurred editing user", editError);

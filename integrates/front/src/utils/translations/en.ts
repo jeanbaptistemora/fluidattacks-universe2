@@ -601,6 +601,7 @@ export const enTranslations: ResourceKey = {
       "This finding can not been approved without vulnerabilities",
     error_network: "Check your network connection",
     error_textsad: "There is an error :(",
+    expired_invitation: "The stakeholder has an expired invitation",
     file_type_csv: "The file must have .csv extension",
     file_type_evidence: "The image must be .png or .gif type",
     file_type_py: "The file must have .py or .exp extension",

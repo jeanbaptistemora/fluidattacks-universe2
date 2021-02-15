@@ -20,6 +20,9 @@ from backend.decorators import (
 from backend.domain import (
     project as group_domain,
 )
+from backend.exceptions import (
+    StakeholderNotFound,
+)
 from backend.typing import (
     Invitation as InvitationType,
     EditStakeholderPayload as EditStakeholderPayloadType
@@ -50,25 +53,28 @@ async def _update_stakeholder(
         modified_email,
         group_name
     )
-    invitation = cast(InvitationType, project_access.get('invitation'))
-    if invitation and not invitation['is_used']:
-        success = await user_utils.update_invited_stakeholder(
-            updated_data,
-            invitation,
-            group_name
-        )
-    else:
-        if await authz.grant_group_level_role(
-            modified_email, group_name, modified_role
-        ):
-            success = await user_utils.modify_user_information(
-                info.context, updated_data, group_name
+    if project_access:
+        invitation = cast(InvitationType, project_access.get('invitation'))
+        if invitation and not invitation['is_used']:
+            success = await user_utils.update_invited_stakeholder(
+                updated_data,
+                invitation,
+                group_name
             )
         else:
-            LOGGER.error(
-                'Couldn\'t update stakeholder role',
-                extra={'extra': info.context}
-            )
+            if await authz.grant_group_level_role(
+                modified_email, group_name, modified_role
+            ):
+                success = await user_utils.modify_user_information(
+                    info.context, updated_data, group_name
+                )
+            else:
+                LOGGER.error(
+                    'Couldn\'t update stakeholder role',
+                    extra={'extra': info.context}
+                )
+    else:
+        raise StakeholderNotFound()
 
     return success
 
