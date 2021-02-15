@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Feb 15, 2021, 09:50 AM",
+    "DateLastModified": "Feb 15, 2021, 10:01 AM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "2.0"
@@ -258,7 +258,49 @@
             "PartitionKeyAlias": "USER#email",
             "SortKeyAlias": "METADATA"
           },
-          "TableData": [],
+          "TableData": [
+            {
+              "pk": {
+                "S": "USER#test@fluidattacks.com"
+              },
+              "sk": {
+                "S": "METADATA"
+              },
+              "access_token": {
+                "M": {
+                  "iat": {
+                    "N": "123"
+                  },
+                  "jti": {
+                    "S": "123"
+                  },
+                  "salt": {
+                    "S": "123"
+                  }
+                }
+              },
+              "push_tokens": {
+                "SS": [
+                  "ExponentPushToken[123]"
+                ]
+              },
+              "registered_date": {
+                "S": "2020-06-10 08:00:26"
+              },
+              "last_login_date": {
+                "S": "2021-02-12 17:36:42"
+              },
+              "name": {
+                "S": "Test user"
+              },
+              "legal_remember": {
+                "BOOL": false
+              },
+              "email": {
+                "S": "test@fluidattacks.com"
+              }
+            }
+          ],
           "NonKeyAttributes": [
             "access_token",
             "push_tokens",
@@ -335,7 +377,19 @@
             "PartitionKeyAlias": "ORG#name",
             "SortKeyAlias": "METADATA"
           },
-          "TableData": [],
+          "TableData": [
+            {
+              "pk": {
+                "S": "ORG#imamura"
+              },
+              "sk": {
+                "S": "METADATA"
+              },
+              "name": {
+                "S": "imamura"
+              }
+            }
+          ],
           "NonKeyAttributes": [
             "name"
           ],
@@ -349,7 +403,38 @@
             "PartitionKeyAlias": "ORG#name",
             "SortKeyAlias": "STATE#iso8601utc"
           },
-          "TableData": [],
+          "TableData": [
+            {
+              "pk": {
+                "S": "ORG#imamura"
+              },
+              "sk": {
+                "S": "STATE#2021-02-15T14:01:16Z"
+              },
+              "settings": {
+                "M": {
+                  "max_acceptance_days": {
+                    "N": "0"
+                  },
+                  "max_acceptance_severity": {
+                    "N": "0.0"
+                  },
+                  "min_acceptance_severity": {
+                    "N": "0.0"
+                  },
+                  "max_number_acceptations": {
+                    "N": "0"
+                  }
+                }
+              },
+              "modified_date": {
+                "S": "2021-02-15T14:01:16Z"
+              },
+              "modified_by": {
+                "S": "test@fluidattacks.com"
+              }
+            }
+          ],
           "NonKeyAttributes": [
             "settings",
             "modified_date",
@@ -544,7 +629,10 @@
             "where",
             "specific",
             "deletion_reason"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "treatment",
