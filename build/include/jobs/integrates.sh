@@ -573,26 +573,6 @@ function job_integrates_subscriptions_trigger_user_to_entity_report_prod_schedul
   ||  return 1
 }
 
-function job_integrates_scheduler_dev {
-  local module="backend.scheduler.${1}"
-
-      pushd "${STARTDIR}/integrates" \
-  &&  helper_bootstrap_dev_ci \
-  &&  helper_invoke_py "${module}" \
-  &&  popd \
-  ||  return 1
-}
-
-function job_integrates_scheduler_prod {
-  local module="backend.scheduler.${1}"
-
-      pushd "${STARTDIR}/integrates" \
-  &&  helper_bootstrap_prod_ci \
-  &&  helper_invoke_py "${module}" \
-  &&  popd \
-  ||  return 1
-}
-
 function job_integrates_reset {
   local files_to_delete=(
     'app/static/dashboard/'
