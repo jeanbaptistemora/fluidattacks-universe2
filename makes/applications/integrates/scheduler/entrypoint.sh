@@ -1,14 +1,19 @@
 # shellcheck shell=bash
 
 function main {
-  local module="backend.scheduler.${1}"
+  local env="${1:-}"
+  local module="${2:-}"
 
       echo "[INFO] Waking up: ${module}" \
+  &&  source __envIntegratesEnv__ "${env}" \
+  &&  if test -z "${module:-}"
+      then
+            echo '[ERROR] Second argument must be the module to execute' \
+        &&  return 1
+      fi \
   &&  pushd integrates \
-    &&  aws_login_dev integrates \
-    &&  sops_export_vars secrets-development.yaml "${INTEGRATES_SECRETS_LIST[@]}" \
     &&  python3 'back/packages/integrates-back/cli/invoker.py' "${module}" \
-    &&  popd \
+  &&  popd \
   ||  return 1
 }
 

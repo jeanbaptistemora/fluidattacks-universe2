@@ -5,14 +5,13 @@
 , ...
 } @ _:
 makeEntrypoint integratesPkgs {
-  arguments = { };
+  arguments = {
+    envIntegratesEnv = packages."integrates/back/env";
+  };
   name = "integrates-scheduler";
   searchPaths = {
     envPaths = [
       integratesPkgs.python37
-    ];
-    envSources = [
-      packages."integrates/secrets/list"
     ];
     envUtils = [
       "/makes/utils/aws"
