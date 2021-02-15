@@ -1,6 +1,10 @@
 # Standard libraries
 import logging
-from typing import cast, Dict, List, Optional
+from typing import (
+    cast,
+    Dict,
+    List
+)
 
 # Third party libraries
 from aiodataloader import DataLoader
@@ -14,7 +18,6 @@ from backend.decorators import (
     require_login
 )
 from backend.exceptions import (
-    InvalidParameter,
     RequestedReportError
 )
 from backend.reports import report
@@ -83,30 +86,16 @@ async def resolve(
     user_info: Dict[str, str] = await util.get_jwt_content(info.context)
     user_email: str = user_info['user_email']
 
-    group_name: Optional[str] = kwargs.get('project_name')
+    group_name: str = kwargs['project_name']
     lang: str = kwargs.get('lang', 'en')
     report_type: str = kwargs['report_type']
 
-    if report_type in {'DATA', 'PDF', 'XLS'} and group_name:
-        return {
-            'url': await _get_url_group_report(
-                info,
-                lang,
-                report_type,
-                user_email,
-                group_name=group_name,
-            )
-        }
-
-    LOGGER.error(
-        'Report type not in expected values',
-        extra={
-            'extra': {
-                'project_name': group_name,
-                'report_type': report_type,
-                'user_email': user_email
-            }
-        }
-    )
-
-    raise InvalidParameter()
+    return {
+        'url': await _get_url_group_report(
+            info,
+            lang,
+            report_type,
+            user_email,
+            group_name=group_name,
+        )
+    }

@@ -37,7 +37,7 @@ type Query {
   project(projectName: String!): Project
 
   "Report entity"
-  report(reportType: ReportType!, projectName: String, lang: ReportLang): Report
+  report(reportType: ReportType!, projectName: String!, lang: ReportLang): Report
 
   "Get resources from project"
   resources(projectName: String!): Resource
