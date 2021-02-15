@@ -27,6 +27,7 @@ integrates/mobile/config/runtime
 integrates/mobile/lint
 integrates/mobile/test
 integrates/secrets/lint
+integrates/secrets/list
 integrates/web/e2e/pypi
 makes/commitlint
 makes/dev
