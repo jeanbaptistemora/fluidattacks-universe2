@@ -137,6 +137,7 @@ async def complete_register_for_group_invitation(
             user_email,
             group_name,
             {
+                'expiration_time': None,
                 'has_access': True,
                 'invitation': updated_invitation,
                 'responsibility': responsibility,

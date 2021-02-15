@@ -50,7 +50,9 @@ Invitation = Dict[str, Union[
     str, bool
 ]]
 ProjectAccess = Dict[str, Union[
-    str, bool, Invitation
+    int, str, bool,
+    Invitation,
+    None
 ]]
 Organization = Dict[str, Union[
     Decimal,
