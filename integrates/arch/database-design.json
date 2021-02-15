@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Feb 12, 2021, 05:13 PM",
+    "DateLastModified": "Feb 15, 2021, 09:50 AM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "2.0"
@@ -267,10 +267,13 @@
             "name",
             "legal_remember",
             "email"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
-          "FacetName": "org_membership",
+          "FacetName": "organization_membership",
           "KeyAttributeAlias": {
             "PartitionKeyAlias": "USER#email",
             "SortKeyAlias": "ORG#name"
@@ -278,7 +281,10 @@
           "TableData": [],
           "NonKeyAttributes": [
             "role"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "group_membership",
@@ -290,10 +296,13 @@
           "NonKeyAttributes": [
             "role",
             "responsibility"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
-          "FacetName": "org_subscription",
+          "FacetName": "organization_subscription",
           "KeyAttributeAlias": {
             "PartitionKeyAlias": "USER#email",
             "SortKeyAlias": "ORG#name"
@@ -301,7 +310,10 @@
           "TableData": [],
           "NonKeyAttributes": [
             "period"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "group_subscription",
@@ -312,7 +324,10 @@
           "TableData": [],
           "NonKeyAttributes": [
             "period"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "organization_metadata",
@@ -322,9 +337,27 @@
           },
           "TableData": [],
           "NonKeyAttributes": [
-            "name",
-            "settings"
-          ]
+            "name"
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
+        },
+        {
+          "FacetName": "organization_state",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "ORG#name",
+            "SortKeyAlias": "STATE#iso8601utc"
+          },
+          "TableData": [],
+          "NonKeyAttributes": [
+            "settings",
+            "modified_date",
+            "modified_by"
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "group_metadata",
@@ -341,7 +374,10 @@
             "status",
             "language",
             "tags"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "forces_log",
@@ -360,7 +396,10 @@
             "repo",
             "strictness",
             "results"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "root",
@@ -382,7 +421,10 @@
             "modified_by",
             "cloning_status",
             "cloning_message"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "event",
@@ -405,7 +447,10 @@
             "blocking_hours",
             "affected_components",
             "accessibility"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "consult",
@@ -419,7 +464,10 @@
             "modified_by",
             "parent_id",
             "content"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "finding",
@@ -446,7 +494,10 @@
             "cwe",
             "attack_vector",
             "deletion_reason"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "reattack",
@@ -460,15 +511,21 @@
             "modified_date",
             "modified_by",
             "consult_id"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
-          "FacetName": "reattack_vulns",
+          "FacetName": "reattack_vulnerabilities",
           "KeyAttributeAlias": {
             "PartitionKeyAlias": "FINDING#uuid",
             "SortKeyAlias": "VULN#uuid"
           },
-          "TableData": []
+          "TableData": [],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "vulnerability",
