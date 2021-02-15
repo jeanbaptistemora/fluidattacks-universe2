@@ -43,14 +43,6 @@
       when: never
     - if: *serves_commit_pattern
 
-.serves_in_schedule_rotate_keys_user_provision: &serves_in_schedule_rotate_keys_user_provision
-  rules:
-    - if: '$CI_PIPELINE_SOURCE != "schedule"'
-      when: never
-    - if:  '$serves_in_schedule_rotate_keys_user_provision == null'
-      when: never
-    - when: always
-
 .serves_in_schedule_users_rotate_even: &serves_in_schedule_users_rotate_even
   rules:
     - if: '$CI_PIPELINE_SOURCE != "schedule"'
@@ -177,15 +169,25 @@ serves/users/forces/apply:
   <<: *serves_in_master_branch
   stage: deploy-infra
 
-serves/users/integrates/test:
-  <<: *makes
-  <<: *serves_in_dev_branch
-  stage: test-infra
-
 serves/users/integrates/apply:
   <<: *makes
   <<: *serves_in_master_branch
   stage: deploy-infra
+
+serves/users/integrates/rotate/even:
+  <<: *makes
+  <<: *serves_in_schedule_users_rotate_even
+  stage: rotation
+
+serves/users/integrates/rotate/odd:
+  <<: *makes
+  <<: *serves_in_schedule_users_rotate_odd
+  stage: rotation
+
+serves/users/integrates/test:
+  <<: *makes
+  <<: *serves_in_dev_branch
+  stage: test-infra
 
 serves/users/melts/apply:
   <<: *makes
@@ -311,8 +313,3 @@ serves_apply_config_autoscaling_ci:
   <<: *with_nix
   <<: *serves_in_master_branch
   stage: deploy-infra
-
-serves_rotate_keys_user_provision_integrates:
-  <<: *with_nix
-  <<: *serves_in_schedule_rotate_keys_user_provision
-  stage: rotation

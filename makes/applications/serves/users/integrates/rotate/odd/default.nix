@@ -78,20 +78,22 @@ let
 in
 makeEntrypoint {
   arguments = {
+    envProduct = product;
+    envSecretsPath = secretsPath;
     envuserRotateKeysProduction = "${userRotateKeys {
       name = productionName;
       inherit product;
       inherit target;
       inherit secretsPath;
       keys = productionKeys;
-    }}/bin/${name}";
+    }}/bin/${productionName}";
     envuserRotateKeysDevelopment = "${userRotateKeys {
       name = developmentName;
       inherit product;
       inherit target;
       inherit secretsPath;
       keys = developmentKeys;
-    }}/bin/${name}";
+    }}/bin/${developmentName}";
   };
   inherit name;
   searchPaths = {

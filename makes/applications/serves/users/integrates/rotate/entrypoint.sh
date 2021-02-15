@@ -45,28 +45,32 @@ function check_last_job_succeeded {
 }
 
 function deploy_integrates {
-  local integrates_id='20741933'
+  local gitlab_repo_id="${1}"
+  local pipeline_token="${2}"
 
-      aws_login_prod integrates \
-  &&  sops_export_vars secrets/production.yaml \
-        PRODUCT_PIPELINE_TOKEN \
-  &&  curl \
-        -X POST \
-        -F token="${PRODUCT_PIPELINE_TOKEN}" \
-        -F 'variables[CI_COMMIT_TITLE]=integrates' \
-        -F ref=master \
-        "https://gitlab.com/api/v4/projects/${integrates_id}/trigger/pipeline"
+  curl \
+    -X POST \
+    -F token="${pipeline_token}" \
+    -F 'variables[CI_COMMIT_TITLE]=integrates' \
+    -F ref=master \
+    "https://gitlab.com/api/v4/projects/${gitlab_repo_id}/trigger/pipeline"
 }
 
 function main {
-  local project_id='20741933'
+  local gitlab_repo_id='20741933'
+  local integrates_job_name='integrates/back/deploy/prod'
 
       '__envuserRotateKeysDevelopment__' \
   &&  check_last_job_succeeded \
-        "${project_id}" \
-        'integrates/back/deploy/prod' \
+        "${gitlab_repo_id}" \
+        "${integrates_job_name}" \
+  &&  aws_login_prod '__envProduct__' \
+  &&  sops_export_vars '__envSecretsPath__' \
+        PRODUCT_PIPELINE_TOKEN \
   &&  '__envuserRotateKeysProduction__' \
-  &&  deploy_integrates
+  &&  deploy_integrates \
+        "${gitlab_repo_id}" \
+        "${PRODUCT_PIPELINE_TOKEN}"
 }
 
 main "${@}"
