@@ -13,18 +13,6 @@ let
 in
 makeEntrypoint {
   arguments = {
-    envTerraformApply = "${terraformApply {
-      inherit name;
-      inherit product;
-      inherit target;
-      inherit secretsPath;
-    }}/bin/${name}";
-    envTerraformTaint = "${terraformTaint {
-      inherit name;
-      inherit product;
-      inherit target;
-      inherit secretsPath;
-    }}/bin/${name}";
     envTarget = target;
     envKeys = builtins.toJSON keys;
   };
@@ -34,6 +22,18 @@ makeEntrypoint {
       pkgs.curl
       pkgs.jq
       pkgs.terraform_0_13
+      (terraformApply {
+        name = "terraformApply";
+        inherit product;
+        inherit target;
+        inherit secretsPath;
+      })
+      (terraformTaint {
+        name = "terraformTaint";
+        inherit product;
+        inherit target;
+        inherit secretsPath;
+      })
     ];
     envUtils = [
       "/makes/utils/gitlab"

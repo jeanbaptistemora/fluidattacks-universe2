@@ -9,9 +9,6 @@ let
   product = "serves";
   target = "serves/users/integrates/terraform";
   secretsPath = "serves/secrets/production.yaml";
-
-  # Production
-  productionName = "serves-users-integrates-rotate-even-production";
   productionKeys = {
     "aws_iam_access_key.integrates-prod-key-2" = {
       id = {
@@ -42,9 +39,6 @@ let
       };
     };
   };
-
-  # Development
-  developmentName = "serves-users-integrates-rotate-even-development";
   developmentKeys = {
     "aws_iam_access_key.integrates-dev-key-2" = {
       id = {
@@ -80,26 +74,26 @@ makeEntrypoint {
   arguments = {
     envProduct = product;
     envSecretsPath = secretsPath;
-    envuserRotateKeysProduction = "${userRotateKeys {
-      name = productionName;
-      inherit product;
-      inherit target;
-      inherit secretsPath;
-      keys = productionKeys;
-    }}/bin/${productionName}";
-    envuserRotateKeysDevelopment = "${userRotateKeys {
-      name = developmentName;
-      inherit product;
-      inherit target;
-      inherit secretsPath;
-      keys = developmentKeys;
-    }}/bin/${developmentName}";
   };
   inherit name;
   searchPaths = {
     envPaths = [
       servesPkgs.curl
       servesPkgs.jq
+      (userRotateKeys {
+        name = "userRotateKeysProduction";
+        inherit product;
+        inherit target;
+        inherit secretsPath;
+        keys = productionKeys;
+      })
+      (userRotateKeys {
+        name = "userRotateKeysDevelopment";
+        inherit product;
+        inherit target;
+        inherit secretsPath;
+        keys = developmentKeys;
+      })
     ];
     envUtils = [
       "/makes/utils/aws"

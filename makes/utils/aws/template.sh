@@ -10,8 +10,8 @@ function aws_login_dev {
   export TF_VAR_aws_secret_key
 
       echo '[INFO] Logging into AWS with development credentials' \
-  &&  '__envAwscli__' configure set 'aws_access_key_id' "${AWS_ACCESS_KEY_ID}" \
-  &&  '__envAwscli__' configure set 'aws_secret_access_key' "${AWS_SECRET_ACCESS_KEY}" \
+  &&  aws configure set 'aws_access_key_id' "${AWS_ACCESS_KEY_ID}" \
+  &&  aws configure set 'aws_secret_access_key' "${AWS_SECRET_ACCESS_KEY}" \
   &&  TF_VAR_aws_access_key="${AWS_ACCESS_KEY_ID}" \
   &&  TF_VAR_aws_secret_key="${AWS_SECRET_ACCESS_KEY}" \
 
@@ -27,8 +27,8 @@ function aws_login_prod {
   export TF_VAR_aws_secret_key
 
       echo '[INFO] Logging into AWS with production credentials' \
-  &&  '__envAwscli__' configure set 'aws_access_key_id' "${AWS_ACCESS_KEY_ID}" \
-  &&  '__envAwscli__' configure set 'aws_secret_access_key' "${AWS_SECRET_ACCESS_KEY}" \
+  &&  aws configure set 'aws_access_key_id' "${AWS_ACCESS_KEY_ID}" \
+  &&  aws configure set 'aws_secret_access_key' "${AWS_SECRET_ACCESS_KEY}" \
   &&  TF_VAR_aws_access_key="${AWS_ACCESS_KEY_ID}" \
   &&  TF_VAR_aws_secret_key="${AWS_SECRET_ACCESS_KEY}" \
 
@@ -43,12 +43,12 @@ function aws_s3_sync {
 
       echo "[INFO] Syncing AWS S3 data from ${from} to ${to}" \
   &&  if test -n "${CI:-}"; then flags+=( --quiet ); fi \
-  &&  '__envAwscli__' s3 sync "${@:3}" "${flags[@]}" "${from}" "${to}"
+  &&  aws s3 sync "${@:3}" "${flags[@]}" "${from}" "${to}"
 }
 
 function aws_eks_update_kubeconfig {
   local name="${1}"
   local region="${2}"
 
-  '__envAwscli__' eks update-kubeconfig --name "${name}" --region "${region}"
+  aws eks update-kubeconfig --name "${name}" --region "${region}"
 }

@@ -3,9 +3,11 @@ let
   makeTemplate = import (path "/makes/utils/make-template") path pkgs;
 in
 makeTemplate {
-  arguments = {
-    envJq = "${pkgs.jq}/bin/jq";
-    envSops = "${pkgs.sops}/bin/sops";
+  searchPaths = {
+    envPaths = [
+      pkgs.jq
+      pkgs.sops
+    ];
   };
   name = "utils-bash-lib-sops";
   template = path "/makes/utils/sops/template.sh";

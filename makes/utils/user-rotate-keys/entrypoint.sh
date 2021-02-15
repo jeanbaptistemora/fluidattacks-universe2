@@ -69,8 +69,8 @@ function main {
   local keys=()
 
       IFS=' ' read -ra keys <<< "$(get_aws_keys)" \
-  &&  '__envTerraformTaint__' "${keys[@]}" \
-  &&  '__envTerraformApply__' \
+  &&  terraformTaint "${keys[@]}" \
+  &&  terraformApply \
   &&  pushd '__envTarget__' \
     &&  for key in "${keys[@]}"
         do

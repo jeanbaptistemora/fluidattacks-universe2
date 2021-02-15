@@ -60,14 +60,14 @@ function main {
   local gitlab_repo_id='20741933'
   local integrates_job_name='integrates/back/deploy/prod'
 
-      '__envuserRotateKeysDevelopment__' \
+      userRotateKeysDevelopment \
   &&  check_last_job_succeeded \
         "${gitlab_repo_id}" \
         "${integrates_job_name}" \
   &&  aws_login_prod '__envProduct__' \
   &&  sops_export_vars '__envSecretsPath__' \
         PRODUCT_PIPELINE_TOKEN \
-  &&  '__envuserRotateKeysProduction__' \
+  &&  userRotateKeysProduction \
   &&  deploy_integrates \
         "${gitlab_repo_id}" \
         "${PRODUCT_PIPELINE_TOKEN}"
