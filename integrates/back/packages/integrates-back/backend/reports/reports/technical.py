@@ -124,9 +124,7 @@ async def generate_xls_file(
     findings_ord: List[Dict[str, FindingType]],
     passphrase: str,
 ) -> str:
-    finding_vulns_loader = context.finding_vulns_nzr
-    findings_vulns = finding_vulns_loader.load_many_chained(findings_ord)
-    it_report = ITReport(data=findings_vulns)
+    it_report = ITReport(data=findings_ord, context=context)
     await it_report.create()
     filepath = it_report.result_filename
 

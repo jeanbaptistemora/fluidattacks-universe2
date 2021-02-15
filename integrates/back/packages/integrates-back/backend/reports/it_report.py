@@ -2,7 +2,13 @@
 """ Class for generate an xlsx file with vulnerabilities information. """
 
 # Standard libraries
-from typing import cast, Dict, List, Union
+from typing import (
+    Any,
+    cast,
+    Dict,
+    List,
+    Union
+)
 from datetime import datetime
 
 # Third party libraries
@@ -50,6 +56,7 @@ def get_formatted_last_date(
     return curr_trtmnt_date
 
 
+# pylint: disable=too-many-instance-attributes
 class ITReport():
     """Class to generate IT reports."""
 
@@ -83,12 +90,15 @@ class ITReport():
     ]
 
     def __init__(
-            self,
-            data: List[Dict[str, FindingType]],
-            lang: str = 'es') -> None:
+        self,
+        data: List[Dict[str, FindingType]],
+        context: Any,
+        lang: str = 'es'
+    ) -> None:
         """Initialize variables."""
         self.data = data
-        self.project_name = str(data[0].get('projectName'))
+        self.finding_vulns_loader = context.finding_vulns_nzr
+        self.group_name = str(data[0].get('projectName'))
         self.lang = lang
 
         self.workbook = Workbook()
@@ -107,7 +117,7 @@ class ITReport():
             date_format='%Y-%m-%dT%H-%M-%S'
         )
         self.result_filename = (
-            f'{self.project_name}-vulnerabilities-{today_date}.xlsx'
+            f'{self.group_name}-vulnerabilities-{today_date}.xlsx'
         )
         self.workbook.save(self.result_filename)
 
@@ -133,15 +143,16 @@ class ITReport():
         self.row += 1
 
     async def generate(self, data: List[Dict[str, FindingType]]) -> None:
-        self.project_name = str(data[0].get('projectName'))
-
-        for vuln in data:
-            finding_id = vuln['finding_id']
-            await self.set_vuln_row(
-                cast(VulnType, vuln),
-                cast(Dict[str, FindingType], finding_id)
+        for finding in data:
+            finding_vulns = await self.finding_vulns_loader.load(
+                str(finding['findingId'])
             )
-            self.row += 1
+            for vuln in finding_vulns:
+                await self.set_vuln_row(
+                    cast(VulnType, vuln),
+                    cast(Dict[str, FindingType], finding)
+                )
+                self.row += 1
 
     def set_row_height(self) -> None:
         self.current_sheet.set_row_style(
