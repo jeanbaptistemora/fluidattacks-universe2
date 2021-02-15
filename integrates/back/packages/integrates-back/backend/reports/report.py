@@ -27,7 +27,7 @@ async def generate_group_report(
     user_email: str,
     **parameters: Any
 ) -> str:
-    context = parameters.get('context')
+    context = parameters['context']
     project_findings = parameters.get('project_findings', [])
     project_name = str(parameters.get('project_name'))
 
@@ -66,6 +66,7 @@ async def generate_group_report(
     elif report_type == 'XLS':
         schedule(
             technical_report.generate_xls(
+                context.loaders,
                 findings_ord=findings_ord,
                 group_name=project_name,
                 user_email=user_email,
@@ -75,6 +76,7 @@ async def generate_group_report(
     elif report_type == 'DATA':
         schedule(
             data_report.generate(
+                context=context.loaders,
                 findings_ord=findings_ord,
                 group=project_name,
                 group_description=description,

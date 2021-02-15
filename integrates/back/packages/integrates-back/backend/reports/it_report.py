@@ -1,8 +1,11 @@
 # -*- coding: utf-8 -*-
 """ Class for generate an xlsx file with vulnerabilities information. """
-from typing import cast, Dict, List, Union
 
+# Standard libraries
+from typing import cast, Dict, List, Union
 from datetime import datetime
+
+# Third party libraries
 from dateutil.parser import parse
 from pyexcelerate import (
     Alignment,
@@ -12,7 +15,8 @@ from pyexcelerate import (
     Workbook,
     Worksheet as WorksheetType
 )
-from backend.domain import vulnerability as vuln_domain
+
+# Local libraries
 from backend.reports.typing import GroupVulnsReportHeader
 from backend.typing import (
     Finding as FindingType,
@@ -131,16 +135,13 @@ class ITReport():
     async def generate(self, data: List[Dict[str, FindingType]]) -> None:
         self.project_name = str(data[0].get('projectName'))
 
-        for finding in data:
-            finding_vulns = await vuln_domain.list_vulnerabilities_async(
-                [str(finding.get('findingId'))]
+        for vuln in data:
+            finding_id = vuln['finding_id']
+            await self.set_vuln_row(
+                cast(VulnType, vuln),
+                cast(Dict[str, FindingType], finding_id)
             )
-            for vuln in finding_vulns:
-                await self.set_vuln_row(
-                    cast(VulnType, vuln),
-                    cast(Dict[str, FindingType], finding)
-                )
-                self.row += 1
+            self.row += 1
 
     def set_row_height(self) -> None:
         self.current_sheet.set_row_style(

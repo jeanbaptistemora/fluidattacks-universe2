@@ -4,6 +4,7 @@ import os
 import subprocess
 import tempfile
 from typing import (
+    Any,
     Dict,
     Iterator,
     List,
@@ -31,6 +32,7 @@ from __init__ import (
 
 async def generate(
     *,
+    context: Any,
     findings_ord: List[Dict[str, FindingType]],
     group: str,
     group_description: str,
@@ -48,6 +50,7 @@ async def generate(
             requester_email=requester_email,
         )
         await _append_xls_report(
+            context,
             directory=directory,
             findings_ord=findings_ord,
             passphrase=passphrase,
@@ -98,11 +101,13 @@ async def _append_pdf_report(
 
 
 async def _append_xls_report(
+    context: Any,
     directory: str,
     findings_ord: List[Dict[str, FindingType]],
     passphrase: str,
 ) -> None:
     report_filename = await technical_report.generate_xls_file(
+        context,
         findings_ord=findings_ord,
         passphrase=passphrase,
     )

@@ -2,10 +2,10 @@
 import logging
 import os
 from typing import (
+    Any,
     cast,
     Dict,
     List,
-    Any,
 )
 
 # Third party libraries
@@ -120,10 +120,13 @@ async def generate_pdf(
 
 
 async def generate_xls_file(
+    context: Any,
     findings_ord: List[Dict[str, FindingType]],
     passphrase: str,
 ) -> str:
-    it_report = ITReport(data=findings_ord)
+    finding_vulns_loader = context.finding_vulns_nzr
+    findings_vulns = finding_vulns_loader.load_many_chained(findings_ord)
+    it_report = ITReport(data=findings_vulns)
     await it_report.create()
     filepath = it_report.result_filename
 
@@ -142,6 +145,7 @@ async def generate_xls_file(
 
 
 async def generate_xls(
+    context: Any,
     findings_ord: List[Dict[str, FindingType]],
     group_name: str,
     user_email: str,
@@ -149,6 +153,7 @@ async def generate_xls(
     passphrase = get_passphrase(4)
 
     report_filename = await generate_xls_file(
+        context,
         findings_ord=findings_ord,
         passphrase=passphrase,
     )
