@@ -101,3 +101,15 @@ def get_now_minus_delta(
         weeks=weeks,
     )
     return now_minus_delta
+
+
+def get_from_epoch(epoch: int) -> datetime:
+    date = datetime.fromtimestamp(epoch, TZN)
+
+    return date
+
+
+def get_as_epoch(date: datetime) -> int:
+    epoch = int(date.timestamp())
+
+    return epoch
