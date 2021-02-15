@@ -107,6 +107,8 @@ serves/users/serves/rotate/even
 serves/users/serves/rotate/odd
 serves/users/serves/test
 serves/users/services/apply
+serves/users/services/rotate/even
+serves/users/services/rotate/odd
 serves/users/services/test
 serves/users/skims/apply
 serves/users/skims/rotate/even
