@@ -99,8 +99,16 @@ async def generate_complete_report(
 
 
 async def generate_all_vulns_report(
-        user_email: str, project_name: str = '') -> str:
-    return await all_vulns_report.generate(user_email, project_name)
+    context: Any,
+    user_email: str,
+    project_name: str = ''
+) -> str:
+
+    return await all_vulns_report.generate(
+        context,
+        user_email,
+        project_name
+    )
 
 
 async def generate_all_users_report(user_email: str) -> str:

@@ -1,15 +1,21 @@
 # -*- coding: utf-8 -*-
-""" Export all vulnerabilities """
+
+# Standard library
 import hashlib
 import uuid
-from typing import Dict, List, cast, Union
+from typing import (
+    Any,
+    cast,
+    Dict,
+    List,
+    Union
+)
+
+# Third party libraries
 from pyexcelerate import Workbook
 
+# Local libraries
 from backend.dal import project as project_dal
-from backend.domain import (
-    finding as finding_domain,
-    vulnerability as vuln_domain,
-)
 from backend.reports.typing import (
     AllVulnsReportHeaderFindings,
     AllVulnsReportHeaderMasked,
@@ -26,12 +32,14 @@ TEST_PROJECTS = FI_TEST_PROJECTS.split(',')
 
 
 def _hash_cell(cell: str) -> str:
+
     return hashlib.sha256(cell.encode()).hexdigest()[-5:]
 
 
 def _mask_finding(finding: Dict[str, FindingType]) -> Dict[str, FindingType]:
     for masked_cell in [label.value for label in AllVulnsReportHeaderMasked]:
         finding[masked_cell] = _hash_cell(str(finding[masked_cell]))
+
     return finding
 
 
@@ -49,6 +57,7 @@ def _get_reporter_analyst(
         analyst = _hash_cell(analyst)
     else:
         analyst = ''
+
     return analyst
 
 
@@ -86,15 +95,23 @@ def _format_vuln(
     vuln['specific'] = _format_specific(vuln)
     vuln['report_date'] = opening_state.get('date')
     vuln['analyst'] = _get_reporter_analyst(opening_state, vuln, finding)
+
     return vuln
 
 
-async def generate_all_vulns_xlsx(
-        user_email: str, project_name: str = '') -> str:
+async def generate_all_vulns_xlsx(  # pylint: disable=too-many-locals
+    context: Any,
+    user_email: str,
+    project_name: str = ''
+) -> str:
+    group_findings_loader = context.group_findings
+    finding_vulns_loader = context.finding_vulns_nzr
+
     workbook = Workbook()
     header = AllVulnsReportHeaderFindings.labels() + \
         AllVulnsReportHeaderVulns.labels()
     sheet_values: List[Union[List[str], List[List[str]]]] = [header]
+
     if project_name:
         projects = [{'project_name': project_name}]
     else:
@@ -105,14 +122,13 @@ async def generate_all_vulns_xlsx(
 
     for project in projects:
         if project not in TEST_PROJECTS:
-            findings = await finding_domain.get_findings_by_group(
-                project.get('project_name', ''))
+            findings = await group_findings_loader.load(
+                project['project_name']
+            )
         else:
             findings = []
         for finding in findings:
-            vulns = await vuln_domain.list_vulnerabilities_async(
-                [str(finding['finding_id'])]
-            )
+            vulns = await finding_vulns_loader.load(str(finding['finding_id']))
             finding_row = _mask_finding(finding)
             for vuln in vulns:
                 vuln_row = _format_vuln(vuln, finding_row)

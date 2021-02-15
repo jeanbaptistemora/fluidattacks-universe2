@@ -49,7 +49,11 @@ async def _get_url_all_vulns(
 
     return cast(
         str,
-        await report.generate_all_vulns_report(user_email, group_name)
+        await report.generate_all_vulns_report(
+            info.context.loaders,
+            user_email,
+            group_name
+        )
     )
 
 
