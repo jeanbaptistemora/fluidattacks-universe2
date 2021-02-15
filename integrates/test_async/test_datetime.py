@@ -1,4 +1,5 @@
 import pytz
+import pytest
 from datetime import datetime, timedelta
 
 from freezegun import freeze_time
@@ -77,3 +78,21 @@ def test_get_now_minus_delta():
     assert datetime_utils.get_now_minus_delta(
         days=1, minutes=1, seconds=1, hours=1
     ) == now - delta
+
+
+@freeze_time("2019-12-01")
+def test_get_as_epoch():
+    epoch = datetime_utils.get_as_epoch(
+        datetime_utils.get_now()
+    )
+
+    assert epoch == 1575158400
+
+
+@freeze_time("2019-12-01")
+def test_get_from_epoch():
+    now = datetime_utils.get_now()
+    epoch = datetime_utils.get_as_epoch(now)
+    epoch_date = datetime_utils.get_from_epoch(epoch)
+
+    assert epoch_date == now
