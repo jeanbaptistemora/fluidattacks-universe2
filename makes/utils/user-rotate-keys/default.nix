@@ -3,7 +3,7 @@ path: pkgs:
 { name
 , product
 , target
-, secrets_path ? ""
+, secretsPath ? ""
 , keys
 }:
 let
@@ -17,13 +17,13 @@ makeEntrypoint {
       inherit name;
       inherit product;
       inherit target;
-      inherit secrets_path;
+      inherit secretsPath;
     }}/bin/${name}";
     envTerraformTaint = "${terraformTaint {
       inherit name;
       inherit product;
       inherit target;
-      inherit secrets_path;
+      inherit secretsPath;
     }}/bin/${name}";
     envTarget = target;
     envKeys = builtins.toJSON keys;

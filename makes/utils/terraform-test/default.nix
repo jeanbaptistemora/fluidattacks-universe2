@@ -3,7 +3,7 @@ path: pkgs:
 { name
 , product
 , target
-, secrets_path ? ""
+, secretsPath ? ""
 }:
 let
   makeEntrypoint = import (path "/makes/utils/make-entrypoint") path pkgs;
@@ -12,7 +12,7 @@ makeEntrypoint {
   arguments = {
     envProduct = product;
     envTarget = target;
-    envSecretsPath = secrets_path;
+    envSecretsPath = secretsPath;
     envTflintConfig = path "/makes/utils/terraform-test/tflint.hcl";
   };
   inherit name;

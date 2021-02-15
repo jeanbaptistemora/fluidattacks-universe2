@@ -9,5 +9,5 @@ terraformTest {
   name = "serves-vpc-test";
   product = "serves";
   target = "serves/vpc/terraform";
-  secrets_path = "serves/secrets/development.yaml";
+  secretsPath = "serves/secrets/development.yaml";
 }

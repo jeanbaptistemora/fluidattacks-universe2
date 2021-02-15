@@ -9,5 +9,5 @@ terraformApply {
   name = "serves-dns-apply";
   product = "serves";
   target = "serves/dns/terraform";
-  secrets_path = "serves/secrets/production.yaml";
+  secretsPath = "serves/secrets/production.yaml";
 }
