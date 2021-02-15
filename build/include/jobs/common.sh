@@ -28,58 +28,6 @@ function job_common_build_nix_caches {
         "${TEMP_FILE1}"
 }
 
-function job_common_compute_stream_log {
-  local log_stream="${1}"
-  local awslogs_options=(
-    get
-    --no-group
-    --no-stream
-    --timestamp
-    --start 1w
-    --watch
-    /aws/batch/job
-    "${log_stream}"
-  )
-
-      if test -z "${log_stream}"
-      then
-            echo '[ERROR] Please pass the log stream as the first argument' \
-        &&  return 1
-      fi \
-  &&  helper_serves_aws_login production \
-  &&  env_prepare_python_packages \
-  &&  while echo '[INFO] Connecting...' && sleep 1
-      do
-        awslogs "${awslogs_options[@]}"
-      done
-}
-
-function job_common_compute_describe_job {
-  local job_id="${1}"
-  local log_stream
-  local data
-
-      if test -z "${job_id}"
-      then
-            echo '[ERROR] Please pass the job id as the first argument' \
-        &&  return 1
-      fi \
-  &&  helper_serves_aws_login production \
-  &&  env_prepare_python_packages \
-  &&  data=$(aws batch describe-jobs --job "${job_id}") \
-  &&  log_stream=$(echo "${data}" | jq -er '.jobs[0].container.logStreamName') \
-  &&  echo '[INFO] logStreamName for base execution:' \
-  &&  echo "       $ ./build.sh common_compute_stream_log ${log_stream}" \
-  &&  echo '[INFO] logStreamName for attempts executions (if any):' \
-  &&  echo "${data}" | jq -er '.jobs[0].attempts[] | .container.logStreamName' \
-        > "${TEMP_FILE1}" \
-  &&  while read -r log_stream
-      do
-        echo "       $ ./build.sh common_compute_stream_log ${log_stream}"
-      done < "${TEMP_FILE1}" \
-
-}
-
 function job_common_lint_build_system {
   # SC1090: Can't follow non-constant source. Use a directive to specify location.
   # SC2016: Expressions don't expand in single quotes, use double quotes for that.

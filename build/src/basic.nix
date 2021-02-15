@@ -34,10 +34,6 @@ rec {
   # Reviews
   srcIncludeReviewsJobs = ../include/jobs/reviews.sh;
 
-  # Serves
-  srcIncludeHelpersServes = ../include/helpers/serves.sh;
-  srcIncludeServesJobs = ../include/jobs/serves.sh;
-
   # Services
   srcIncludeHelpersServices = ../include/helpers/services.sh;
 }

@@ -1,13 +1,3 @@
-.with_nix: &with_nix
-  tags: [autoscaling]
-  image: "${CI_REGISTRY_IMAGE}/nix:${CI_JOB_NAME}"
-  needs: []
-  script:
-    - ./build.sh "${CI_JOB_NAME% *}"
-  interruptible: true
-  variables:
-    GIT_DEPTH: 5
-
 .makes: &makes
   tags: [autoscaling]
   image: "${CI_REGISTRY_IMAGE}/makes:ci"
@@ -59,12 +49,7 @@
       when: never
     - when: always
 
-serves/ci/test:
-  <<: *makes
-  <<: *serves_in_dev_branch
-  stage: test-infra
-
-serves/ci/apply:
+serves/aws-sso/apply:
   <<: *makes
   <<: *serves_in_master_branch
   stage: deploy-infra
@@ -74,22 +59,17 @@ serves/aws-sso/test:
   <<: *serves_in_dev_branch
   stage: test-infra
 
-serves/aws-sso/apply:
+serves/ci/apply:
   <<: *makes
   <<: *serves_in_master_branch
   stage: deploy-infra
 
-serves/secrets/test:
-  <<: *makes
-  <<: *serves_in_dev_branch
-  stage: test-infra
-
-serves/secrets/apply:
+serves/ci/config:
   <<: *makes
   <<: *serves_in_master_branch
   stage: deploy-infra
 
-serves/compute/test:
+serves/ci/test:
   <<: *makes
   <<: *serves_in_dev_branch
   stage: test-infra
@@ -99,7 +79,7 @@ serves/compute/apply:
   <<: *serves_in_master_branch
   stage: deploy-infra
 
-serves/dns/test:
+serves/compute/test:
   <<: *makes
   <<: *serves_in_dev_branch
   stage: test-infra
@@ -109,15 +89,20 @@ serves/dns/apply:
   <<: *serves_in_master_branch
   stage: deploy-infra
 
-serves/vpc/test:
+serves/dns/test:
   <<: *makes
   <<: *serves_in_dev_branch
   stage: test-infra
 
-serves/vpc/apply:
+serves/secrets/apply:
   <<: *makes
   <<: *serves_in_master_branch
   stage: deploy-infra
+
+serves/secrets/test:
+  <<: *makes
+  <<: *serves_in_dev_branch
+  stage: test-infra
 
 serves/users/airs/apply:
   <<: *makes
@@ -159,15 +144,15 @@ serves/users/asserts/test:
   <<: *serves_in_dev_branch
   stage: test-infra
 
-serves/users/forces/test:
-  <<: *makes
-  <<: *serves_in_dev_branch
-  stage: test-infra
-
 serves/users/forces/apply:
   <<: *makes
   <<: *serves_in_master_branch
   stage: deploy-infra
+
+serves/users/forces/test:
+  <<: *makes
+  <<: *serves_in_dev_branch
+  stage: test-infra
 
 serves/users/integrates/apply:
   <<: *makes
@@ -309,7 +294,12 @@ serves/users/sorts/test:
   <<: *serves_in_dev_branch
   stage: test-infra
 
-serves_apply_config_autoscaling_ci:
-  <<: *with_nix
+serves/vpc/apply:
+  <<: *makes
   <<: *serves_in_master_branch
   stage: deploy-infra
+
+serves/vpc/test:
+  <<: *makes
+  <<: *serves_in_dev_branch
+  stage: test-infra
