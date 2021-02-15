@@ -2,8 +2,14 @@
 
 function refresh_token {
   export analytics_auth_timedoctor
+  local db_creds
 
-      aws_login_prod 'observes' \
+      db_creds=$(mktemp) \
+  &&  aws_login_prod 'observes' \
+  &&  sops_export_vars 'observes/secrets-prod.yaml' \
+        analytics_auth_redshift \
+  &&  echo '[INFO] Generating secret files' \
+  &&  echo "${analytics_auth_redshift}" > "${db_creds}" \
   &&  analytics_auth_timedoctor=$( \
         get_project_variable \
           "${GITLAB_API_TOKEN}" \
@@ -12,7 +18,9 @@ function refresh_token {
       ) \
   &&  echo '[INFO] Updating token...' \
   &&  observes-service-timedoctor-tokens --timedoctor-refresh \
-  &&  echo '[INFO] Done! Token created for current project'
+  &&  echo '[INFO] Done! Token created for current project' \
+  &&  observes-update-sync-date "timedoctor_refresh_token" \
+        --auth-file "${db_creds}"
 }
 
 refresh_token

@@ -1,5 +1,5 @@
-{ applications
-, observesPkgs
+{ observesPkgs
+, packages
 , path
 , ...
 } @ _:
@@ -8,15 +8,15 @@ let
   makeEntrypoint = import (path "/makes/utils/make-entrypoint") path nixPkgs;
 in
 makeEntrypoint {
-  arguments = {
-    envTapTimedoctor = applications."observes/tap-timedoctor";
-    envTargetRedshift = applications."observes/target-redshift";
-  };
+  arguments = { };
   searchPaths = {
     envPaths = [
       nixPkgs.awscli
       nixPkgs.coreutils
       nixPkgs.jq
+      packages."observes/tap-timedoctor"
+      packages."observes/target-redshift"
+      packages."observes/update-sync-date"
     ];
     envUtils = [
       "/makes/utils/aws"

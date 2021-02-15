@@ -1,14 +1,10 @@
 # shellcheck shell=bash
 
 function job_timedoctor {
-  local tap_timedoctor
-  local target_redshift
   local db_creds
   local timedoctor_creds
 
-      tap_timedoctor="__envTapTimedoctor__" \
-  &&  target_redshift="__envTargetRedshift__" \
-  &&  db_creds=$(mktemp) \
+      db_creds=$(mktemp) \
   &&  timedoctor_creds=$(mktemp) \
   &&  mkdir ./logs \
   &&  aws_login_prod 'observes' \
@@ -33,7 +29,7 @@ function job_timedoctor {
   &&  cat "${new_folder}"/* \
         > .singer \
   &&  echo '[INFO] Running tap' \
-  &&  "${tap_timedoctor}" \
+  &&  observes-tap-timedoctor \
         --auth "${timedoctor_creds}" \
         --start-date "$(date +"%Y-%m-01")" \
         --end-date "$(date +"%Y-%m-%d")" \
@@ -41,11 +37,13 @@ function job_timedoctor {
         --computer-activity \
         >> .singer \
   &&  echo '[INFO] Running target' \
-  &&  "${target_redshift}" \
+  &&  observes-target-redshift \
         --auth "${db_creds}" \
         --drop-schema \
         --schema-name 'timedoctor' \
-        < .singer
+        < .singer \
+  &&  observes-update-sync-date "timedoctor_etl" \
+        --auth-file "${db_creds}"
 }
 
 job_timedoctor

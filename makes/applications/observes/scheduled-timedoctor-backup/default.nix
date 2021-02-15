@@ -11,10 +11,11 @@ makeEntrypoint {
   arguments = { };
   searchPaths = {
     envPaths = [
-      packages."observes/tap-timedoctor"
       nixPkgs.awscli
       nixPkgs.coreutils
       nixPkgs.jq
+      packages."observes/tap-timedoctor"
+      packages."observes/update-sync-date"
     ];
     envUtils = [
       "/makes/utils/aws"

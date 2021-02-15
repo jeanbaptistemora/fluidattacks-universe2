@@ -12,6 +12,9 @@ from update_s3_last_sync_date import db_client
 no_group_jobs = frozenset([
     'formstack',
     'mixpanel_integrates',
+    'timedoctor_backup',
+    'timedoctor_etl',
+    'timedoctor_refresh_token',
     'zoho_crm_etl',
     'zoho_crm_prepare',
 ])
