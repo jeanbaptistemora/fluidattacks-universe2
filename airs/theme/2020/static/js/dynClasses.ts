@@ -37,6 +37,8 @@ const dynClasses: (() => void) = (): void => {
     addClasses(".plans-feat > .flex > .sect2", "b--light-gray b--solid br3 bw1 mb3 mh3 pb5 ph4 tc");
     addClasses(".plans-feat > .flex > .sect2 > .paragraph", "tl");
 
+    addClasses(".indexof-content > .sect1", "dib-l");
+
     if ($("div")
         .hasClass("contact-page")) {
       $(".footer-component")

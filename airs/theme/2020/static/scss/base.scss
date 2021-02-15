@@ -275,6 +275,46 @@ $codeyellow: rgba(230, 219, 116, 1);
 .grid { display: grid; }
 .table-center { margin: 0 auto !important;}
 .halign-center { text-align: center; }
+.f60 { font-size: 60px; }
+
+.bl-red {
+  border-left: 7px solid $button-hover;
+  content: '';
+  display: block;
+  width: 100%;
+}
+
+.indexof-content {
+  a {
+    border-bottom: 1px solid $fluid-gray;
+    color: $fluid-black;
+    font-weight: 400;
+    text-decoration: none;
+  }
+
+  .sect1 {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 400px;
+    min-height: 420px;
+    padding: 0 2rem;
+    vertical-align: top;
+
+    h2 {
+      color: $fluid-black;
+      font-size: 24px;
+      font-weight: bold;
+      line-height: 1.5;
+    }
+
+    p {
+      color: $fluid-black;
+      font-size: 16px;
+      font-weight: 300;
+      line-height: 2;
+    }
+  }
+}
 
 .ph-bt {
   padding-left: 4.25rem;
@@ -401,6 +441,7 @@ $codeyellow: rgba(230, 219, 116, 1);
   .h40-s { height: 40rem; }
   .h-menu-s { height: 6rem; }
   .w-logo { width: 10rem; }
+  .f1-s { font-size: 3rem;}
 
   .pv-4-m {
     padding-bottom: 1.6rem;
