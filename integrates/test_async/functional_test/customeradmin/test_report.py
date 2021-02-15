@@ -75,15 +75,3 @@ async def test_report():
     result = await get_result(data)
     assert result['data']['report'] is None
     assert result['errors'][0]['message'] == 'Access denied'
-
-    query = f'''
-        query {{
-            report(reportType: COMPLETE) {{
-                url
-            }}
-        }}
-    '''
-    data = {'query': query}
-    result = await get_result(data)
-    assert 'url' in result['data']['report']
-    assert 'https://d22vuezekkq177.cloudfront.net/' in result['data']['report']['url']

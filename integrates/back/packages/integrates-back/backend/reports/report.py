@@ -1,5 +1,5 @@
 # Standard library
-from typing import List, Any
+from typing import Any
 
 # Third party libraries
 from aioextensions import (
@@ -15,7 +15,6 @@ from backend.domain import (
 )
 from backend.exceptions import RequestedReportError
 from backend.reports.reports import (
-    complete as complete_report,
     data as data_report,
     technical as technical_report,
     all_users as all_users_report,
@@ -91,11 +90,6 @@ async def generate_group_report(
         raise RequestedReportError()
 
     return url
-
-
-async def generate_complete_report(
-        user_email: str, projects: List[str]) -> str:
-    return await complete_report.generate(user_email, projects)
 
 
 async def generate_all_vulns_report(

@@ -219,7 +219,6 @@ ENUMS: Tuple[EnumType, ...] = (
         {
             'ALL_USERS': 'ALL_USERS',
             'ALL_VULNS': 'ALL_VULNS',
-            'COMPLETE': 'COMPLETE',
             'DATA': 'DATA',
             'PDF': 'PDF',
             'XLS': 'XLS'

@@ -1,21 +1,23 @@
-# Standard
+# Standard libraries
 import logging
 from typing import cast, Dict, List, Optional
 
-# Third party
+# Third party libraries
 from aiodataloader import DataLoader
 from ariadne.utils import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
-# Local
+# Local libraries
 from backend import util
 from backend.decorators import (
     enforce_group_level_auth_async,
     enforce_user_level_auth_async,
     require_login
 )
-from backend.domain import user as user_domain
-from backend.exceptions import InvalidParameter, RequestedReportError
+from backend.exceptions import (
+    InvalidParameter,
+    RequestedReportError
+)
 from backend.reports import report
 from backend.typing import Report
 from back.settings import LOGGING
@@ -54,19 +56,6 @@ async def _get_url_all_vulns(
             user_email,
             group_name
         )
-    )
-
-
-async def _get_url_complete(info: GraphQLResolveInfo, user_email: str) -> str:
-    groups: List[str] = await user_domain.get_projects(user_email)
-    util.cloudwatch_log(
-        info.context,
-        f'Security: Complete report requested by {user_email}'
-    )
-
-    return cast(
-        str,
-        await report.generate_complete_report(user_email, groups)
     )
 
 
@@ -136,9 +125,6 @@ async def resolve(
 
     if report_type == 'ALL_VULNS' and group_name:
         return {'url': await _get_url_all_vulns(info, user_email, group_name)}
-
-    if report_type == 'COMPLETE':
-        return {'url': await _get_url_complete(info, user_email)}
 
     if report_type in {'DATA', 'PDF', 'XLS'} and group_name:
         return {
