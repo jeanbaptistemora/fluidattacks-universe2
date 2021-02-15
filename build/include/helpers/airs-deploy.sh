@@ -108,7 +108,6 @@ function helper_airs_compile {
   &&  helper_airs_deploy_install_plugins \
   &&  sed -i "s|https://fluidattacks.com|${target}|g" pelicanconf.py \
   &&  npm install --prefix theme/2020/ \
-  &&  npm install --prefix new-front/ \
   &&  PATH="${PATH}:$(pwd)/theme/2020/node_modules/.bin/" \
   &&  PATH="${PATH}:$(pwd)/theme/2020/node_modules/uglify-js/bin/" \
   &&  npm run --prefix theme/2020/ build \
@@ -125,11 +124,6 @@ function helper_airs_compile {
   &&  mv output/pages/* output/ \
   &&  rm -rf output/pages \
   &&  cp robots.txt output/ \
-  &&  pushd new-front \
-  &&  npm run build \
-  &&  mkdir ../output/new-front \
-  &&  rsync public/* ../output/new-front/ \
-  &&  popd \
   &&  rsync content/files/* output/ \
   &&  cp -r content/files/.well-known output/
 }
