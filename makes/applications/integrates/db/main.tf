@@ -156,6 +156,10 @@ resource "aws_dynamodb_table" "FI_project_access" {
   hash_key  = "user_email"
   name      = "FI_project_access"
   range_key = "project_name"
+  ttl {
+    attribute_name = "expiration_time"
+    enabled        = true
+  }
 }
 
 resource "aws_dynamodb_table" "fi_project_comments" {
