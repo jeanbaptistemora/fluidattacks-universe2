@@ -1,14 +1,14 @@
-{ integratesPkgs
-, applications
+{ applications
+, integratesPkgs
+, makeEntrypoint
 , packages
 , path
 , ...
 } @ _:
 let
-  makeEntrypoint = import (path "/makes/utils/make-entrypoint") path integratesPkgs;
   makeSearchPaths = import (path "/makes/utils/make-search-paths-deprecated") path integratesPkgs;
 in
-makeEntrypoint {
+makeEntrypoint integratesPkgs {
   arguments = {
     envAsgi = "${integratesPkgs.python37Packages.gunicorn}/bin/gunicorn";
     envCertsDevelopment = packages."integrates/back/certs/development";
@@ -34,5 +34,10 @@ makeEntrypoint {
     envWait = applications."makes/wait";
   };
   name = "integrates-back";
+  searchPaths = {
+    envSources = [
+      packages."integrates/secrets/list"
+    ];
+  };
   template = path "/makes/applications/integrates/back/entrypoint.sh";
 }
