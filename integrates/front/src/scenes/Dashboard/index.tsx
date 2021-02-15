@@ -94,7 +94,6 @@ export const Dashboard: React.FC = (): JSX.Element => {
     onCompleted: ({ me }): void => {
       user.setUser({ userEmail: me.userEmail, userName: me.userName });
       Bugsnag.setUser(me.userEmail, me.userEmail, me.userName);
-      mixpanel.alias(me.userEmail);
       mixpanel.identify(me.userEmail);
       mixpanel.register({
         User: me.userName,
