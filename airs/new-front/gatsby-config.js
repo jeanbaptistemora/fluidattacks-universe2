@@ -34,7 +34,23 @@ module.exports = {
         }
       }
     },
+    {
+      resolve: "gatsby-source-filesystem",
+      options: {
+        path: "../content/pages",
+        name: 'pages',
+      },
+    },
+    {
+      resolve: "gatsby-transformer-asciidoc",
+      options: {
+        attributes: {
+          showtitle: true,
+        },
+      },
+    },
     "gatsby-plugin-react-helmet",
+    "gatsby-transformer-asciidoc",
     "gatsby-plugin-styled-components",
     "gatsby-plugin-typescript",
     "gatsby-transformer-sharp",
