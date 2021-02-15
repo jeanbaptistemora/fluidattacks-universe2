@@ -5,6 +5,7 @@ forces/lint
 forces/oci-build
 forces/oci-build-wrapper
 integrates/back/certs/development
+integrates/back/env
 integrates/back/probes/lib
 integrates/back/probes/liveness
 integrates/back/probes/readiness

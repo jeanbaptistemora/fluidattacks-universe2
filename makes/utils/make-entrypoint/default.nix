@@ -33,7 +33,7 @@ makeDerivation {
       };
       envShell = "${pkgs.bash}/bin/bash";
     };
-    name = "utils-make-entrypoint-script";
+    name = "utils-make-entrypoint-script-for-${name}";
     template = ''
       #! __envShell__
 

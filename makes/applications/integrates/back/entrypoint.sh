@@ -27,53 +27,39 @@ function main {
     --worker-connections '512'
   )
 
-      if test "${env}" == 'dev'
+      source __envIntegratesEnv__ "${env}" \
+  &&  if test "${env}" == 'dev'
       then
-            aws_login_dev 'integrates' \
-        &&  sops_export_vars __envSecretsDev__ "${INTEGRATES_SECRETS_LIST[@]}" \
-        &&  config+=(
-              # SSL certificate file
-              --certfile='__envCertsDevelopment__/cert.crt'
-              # SSL key file
-              --keyfile='__envCertsDevelopment__/cert.key'
-              # The number of worker processes for handling requests
-              --workers 3
-            )
+        config+=(
+          # SSL certificate file
+          --certfile='__envCertsDevelopment__/cert.crt'
+          # SSL key file
+          --keyfile='__envCertsDevelopment__/cert.key'
+          # The number of worker processes for handling requests
+          --workers 3
+        )
       elif test "${env}" == 'dev-mobile'
       then
-            aws_login_dev 'integrates' \
-        &&  sops_export_vars __envSecretsDev__ "${INTEGRATES_SECRETS_LIST[@]}" \
-        &&  config+=(
-              # The number of worker processes for handling requests
-              --workers 3
-            )
+        config+=(
+          # The number of worker processes for handling requests
+          --workers 3
+        )
       elif test "${env}" == 'eph'
       then
-            aws_login_dev 'integrates' \
-        &&  sops_export_vars __envSecretsDev__ "${INTEGRATES_SECRETS_LIST[@]}" \
-        &&  config+=(
-              # The number of worker processes for handling requests
-              --workers 3
-            )
+        config+=(
+          # The number of worker processes for handling requests
+          --workers 3
+        )
       elif test "${env}" == 'prod'
       then
-            aws_login_prod 'integrates' \
-        &&  sops_export_vars __envSecretsProd__ "${INTEGRATES_SECRETS_LIST[@]}" \
-        &&  config+=(
-              # The number of worker processes for handling requests
-              --workers 5
-            )
+        config+=(
+          # The number of worker processes for handling requests
+          --workers 5
+        )
       else
             echo '[ERROR] First argument must be one of: dev, dev-mobile, eph, prod' \
         &&  return 1
       fi \
-  &&  if ! test -e 'integrates'
-      then
-        # Kubernetes specific
-            mkdir 'integrates' \
-        &&  copy '__envIntegrates__' 'integrates'
-      fi \
-  &&  export STARTDIR="${PWD}" \
   &&  pushd integrates \
     &&  __envKillPidListeningOnPort__ "${port}" \
     &&  { gunicorn "${config[@]}" 'back.app.app:APP' & } \
