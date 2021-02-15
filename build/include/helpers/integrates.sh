@@ -174,18 +174,15 @@ function helper_invoke_py {
 }
 
 function helper_integrates_serve_redis {
-      { integrates-cache & } \
-  &&  makes-wait 60 localhost:26379
+  DAEMON=true integrates-cache
 }
 
 function helper_integrates_serve_dynamo {
-      { integrates-db & } \
-  &&  makes-wait 60 localhost:28022
+  DAEMON=true integrates-db
 }
 
 function helper_integrates_serve_minio {
-      { integrates-storage & } \
-  &&  makes-wait 120 localhost:29000
+  DAEMON=true integrates-storage
 }
 
 function helper_integrates_mobile_version {

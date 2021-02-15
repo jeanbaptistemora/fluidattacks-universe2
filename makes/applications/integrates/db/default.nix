@@ -1,5 +1,4 @@
 { integratesPkgs
-, applications
 , makeEntrypoint
 , packages
 , path
@@ -8,7 +7,6 @@
 makeEntrypoint integratesPkgs {
   arguments = {
     envAws = "${integratesPkgs.awscli}/bin/aws";
-    envDone = applications."makes/done";
     envDynamoData = path "/makes/applications/integrates/db/data";
     envDynamoZip = integratesPkgs.fetchurl {
       url = "https://s3-us-west-2.amazonaws.com/dynamodb-local/dynamodb_local_2020-05-19.zip";
@@ -19,12 +17,13 @@ makeEntrypoint integratesPkgs {
     envTerraform = "${integratesPkgs.terraform}/bin/terraform";
     envTerraformModule = path "/makes/applications/integrates/db";
     envUnzip = "${integratesPkgs.unzip}/bin/unzip";
-    envWait = applications."makes/wait";
   };
   name = "integrates-db";
   searchPaths = {
     envPaths = [
+      packages."makes/done"
       packages."makes/kill-port"
+      packages."makes/wait"
     ];
   };
   template = path "/makes/applications/integrates/db/entrypoint.sh";

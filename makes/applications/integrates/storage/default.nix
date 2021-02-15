@@ -1,5 +1,4 @@
 { integratesPkgs
-, applications
 , makeEntrypoint
 , packages
 , path
@@ -8,7 +7,6 @@
 makeEntrypoint integratesPkgs {
   arguments = {
     envDevSecrets = path "/integrates/secrets-development.yaml";
-    envDone = applications."makes/done";
     envMinioLocal = integratesPkgs.fetchurl {
       url = "https://dl.min.io/server/minio/release/linux-amd64/archive/minio.RELEASE.2020-09-10T22-02-45Z";
       sha256 = "OkGh6Rimy0NWWqTru3HP4KDaHhmaP3J/ShGkxzpgJrE=";
@@ -19,12 +17,13 @@ makeEntrypoint integratesPkgs {
     };
     envUtilsAws = import (path "/makes/utils/aws") path integratesPkgs;
     envUtilsSops = import (path "/makes/utils/sops") path integratesPkgs;
-    envWait = applications."makes/wait";
   };
   name = "integrates-storage";
   searchPaths = {
     envPaths = [
+      packages."makes/done"
       packages."makes/kill-port"
+      packages."makes/wait"
     ];
   };
   template = path "/makes/applications/integrates/storage/entrypoint.sh";

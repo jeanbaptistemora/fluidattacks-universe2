@@ -3,7 +3,7 @@
 source '__envUtilsAws__'
 source '__envUtilsSops__'
 
-function main {
+function serve {
   local buckets_by_branch=(
     'fluidintegrates.analytics'
   )
@@ -36,8 +36,8 @@ function main {
         MINIO_SECRET_KEY='testtest' \
         __envMinioLocal__ server "${state_path}" --address "${host}:${port}" &
       } \
-  &&  __envWait__ 10 "${host}:${port}" \
-  &&  sleep 1 \
+  &&  makes-wait 10 "${host}:${port}" \
+  &&  sleep 3 \
   &&  __envMinioCli__ alias set storage "http://${host}:${port}" 'test' 'testtest' \
   &&  __envMinioCli__ admin user add storage "${AWS_ACCESS_KEY_ID}" "${AWS_SECRET_ACCESS_KEY}" \
   &&  __envMinioCli__ admin policy set storage readwrite user="${AWS_ACCESS_KEY_ID}" \
@@ -65,9 +65,24 @@ function main {
               --delete \
         ||  return 1
       done \
-  &&  __envDone__ 29000 \
+  &&  makes-done 29000 \
   &&  echo '[INFO] Storage is ready' \
   &&  wait
+}
+
+function serve_daemon {
+      makes-kill-port 29000 \
+  &&  { serve "${@}" & } \
+  &&  makes-wait 60 localhost:29000
+}
+
+function main {
+  if test "${DAEMON:-}" = 'true'
+  then
+    serve_daemon "${@}"
+  else
+    serve "${@}"
+  fi
 }
 
 main "${@}"

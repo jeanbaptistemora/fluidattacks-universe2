@@ -1,6 +1,6 @@
 # shellcheck shell=bash
 
-function main {
+function serve {
   local cluster_addrs=()
   local cluster_path='.Cache'
 
@@ -21,18 +21,33 @@ function main {
                 &&  echo "port ${port}" \
 
               } > redis.conf \
-          &&  { __envRedisServer__ redis.conf & } \
+          &&  { redis-server redis.conf & } \
         &&  popd \
         &&  cluster_addrs+=( "127.0.0.1:${port}" ) \
         ||  return 1
       done \
-  &&  __envWait__ 10 "${cluster_addrs[@]}" \
-  &&  __envRedisCli__ \
+  &&  makes-wait 10 "${cluster_addrs[@]}" \
+  &&  redis-cli \
         --cluster create "${cluster_addrs[@]}" \
         --cluster-replicas 0 \
         --cluster-yes \
-  &&  __envDone__ 26379 \
+  &&  makes-done 26379 \
   &&  wait
+}
+
+function serve_daemon {
+      makes-kill-port 26379 \
+  &&  { serve "${@}" & } \
+  &&  makes-wait 60 localhost:26379
+}
+
+function main {
+  if test "${DAEMON:-}" = 'true'
+  then
+    serve_daemon "${@}"
+  else
+    serve "${@}"
+  fi
 }
 
 main "${@}"

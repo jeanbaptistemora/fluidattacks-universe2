@@ -37,6 +37,7 @@ function load_commands {
 
 function main {
   local attr="${1:-}"
+  local symlink="out/${attr////-}"
 
       main_ctx "${@}" \
   &&  source "${PWD}/.envrc.public" \
@@ -48,10 +49,10 @@ function main {
           if run_application "${attribute}" "${@:2}"
           then
                 echo '---' \
-            &&  nix_store_path="$(readlink -f "out/${attribute////-}")" \
             &&  echo "[INFO] ${attribute} executed successfully" \
             &&  echo '[INFO]   Congratulations!' \
-            &&  cache_push "${nix_store_path}" \
+            &&  echo '[INFO]' \
+            &&  echo "[INFO] Symlink at: ${symlink}" \
             &&  return 0
           else
                 echo '---' \
@@ -67,13 +68,11 @@ function main {
           if build_package "${attribute}"
           then
                 echo '---' \
-            &&  nix_store_path="$(readlink -f "out/${attribute////-}")" \
             &&  echo "[INFO] ${attribute} built successfully" \
             &&  echo '[INFO]   Congratulations!' \
             &&  echo '[INFO]' \
-            &&  echo "[INFO] Store path: ${nix_store_path}" \
-            &&  echo "[INFO] Symlink at: out/${attribute////-}" \
-            &&  cache_push "${nix_store_path}" \
+            &&  echo "[INFO] Symlink at: ${symlink}" \
+            &&  cache_push "${symlink}" \
             &&  return 0 \
             ||  return 0
           else

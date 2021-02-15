@@ -1,6 +1,6 @@
 # shellcheck shell=bash
 
-function main {
+function serve {
   export AWS_ACCESS_KEY_ID='test'
   export AWS_SECRET_ACCESS_KEY='test'
   export AWS_DEFAULT_REGION='us-east-1'
@@ -24,7 +24,7 @@ function main {
           -port "${port}" \
           -sharedDb \
       & } \
-  &&  __envWait__ 10 "${host}:${port}" \
+  &&  makes-wait 10 "${host}:${port}" \
   &&  copy __envTerraformModule__ "${state_path}/terraform" \
   &&  pushd "${state_path}/terraform" \
     &&  __envTerraform__ init \
@@ -43,9 +43,24 @@ function main {
               --request-items "file://${data}" \
         ||  return 1
       done \
-  &&  __envDone__ 28022 \
+  &&  makes-done 28022 \
   &&  echo '[INFO] Dynamo DB is ready' \
   &&  wait
+}
+
+function serve_daemon {
+      makes-kill-port 28022 \
+  &&  { serve "${@}" & } \
+  &&  makes-wait 60 localhost:28022
+}
+
+function main {
+  if test "${DAEMON:-}" = 'true'
+  then
+    serve_daemon "${@}"
+  else
+    serve "${@}"
+  fi
 }
 
 main "${@}"
