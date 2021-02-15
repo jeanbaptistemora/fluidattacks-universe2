@@ -18,6 +18,12 @@
     package = observesPkgs.serviceTimedoctorTokens;
   };
 
+  streamerDynamoDB = {
+    binName = "observes-streamer-dynamodb";
+    entrypoint = "from streamer_dynamodb import main";
+    package = observesPkgs.streamerDynamoDB;
+  };
+
   streamerZohoCrm = {
     binName = "observes-streamer-zoho-crm";
     entrypoint = "from streamer_zoho_crm.cli import main";

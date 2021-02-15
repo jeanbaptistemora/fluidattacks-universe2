@@ -64,6 +64,7 @@ observes/scheduled/timedoctor-refresh-token
 observes/scheduled/zoho-crm-etl
 observes/scheduled/zoho-crm-prepare
 observes/service/timedoctor-tokens
+observes/streamer-dynamodb
 observes/streamer-zoho-crm
 observes/tap-csv
 observes/tap-formstack
