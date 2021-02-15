@@ -31,6 +31,7 @@ integrates/infra/secret-management/test
 integrates/kill
 integrates/mobile
 integrates/mobile/ota
+integrates/scheduler
 integrates/storage
 integrates/web/e2e
 makes/attrs
