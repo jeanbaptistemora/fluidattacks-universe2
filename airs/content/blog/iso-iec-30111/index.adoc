@@ -1,0 +1,189 @@
+:slug: iso-iec-30111/
+:date: 2021-02-12
+:subtitle: Guidelines for the vulnerability handling processes
+:category: politics
+:tags: cybersecurity, standard, vulnerability, information, company, challenge
+:image: cover.png
+:alt: Photo by Cristofer Jeschke on Unsplash
+:description: This post is related to vulnerability handling processes (ISO/IEC 30111), complementing the previous writing on vulnerability disclosure (ISO/IEC 29147).
+:keywords: Standard, ISO, Vulnerability, Handling, Verification, Remediation, Ethical Hacking, Pentesting
+:author: Felipe Ruiz
+:writer: fruiz
+:name: Felipe Ruiz
+:about1: Cybersecurity Editor
+:source: https://unsplash.com/photos/8ZfTxdPvNos
+
+= And Don't Forget ISO/IEC 30111
+
+A few days ago, I brought readers some highlights
+link:../iso-iec-29147/[on the ISO/IEC 29147:2018 standard]
+that guides us in the vulnerability disclosure processes.
+(If you haven't read that post, for clarity and contextualization,
+I recommend that you do so before continuing with this one.)
+These processes mainly involve
+receiving security vulnerability reports as a vendor
+and releasing remediation advisories to all stakeholders.
+They are two points, beginning-ending, of a course of action
+between which it is necessary to address the vulnerabilities in your systems.
+As a vendor, you have to verify that what the reporter informed you of
+is a real security issue and, if so,
+you need to come up expeditiously with a solution.
+This is the topic covered by link:https://www.iso.org/standard/69725.html[the ISO/IEC 30111:2019 standard],
+about which I will inform you in this post.
+
+'Information technology -Security techniques- Vulnerability handling processes'
+is the name of this standard, which, like link:https://www.iso.org/standard/72311.html[the ISO/IEC 29147],
+is in the ISO link:https://www.iso.org/standards-catalogue/browse-by-ics.html[standards catalog] in group *35* 'link:https://www.iso.org/ics/35/x/[Information technology],'
+subgroup *35.030* 'link:https://www.iso.org/ics/35.030/x/[IT Security (including encryption)].'
+As stated in the introduction to this standard,
+it "describes processes for vendors
+to handle reports of potential vulnerabilities in products and services."
+Therefore, as may already be clear, everyone should use this standard
+in consonance with that one of vulnerability disclosure.
+Beyond the handling of reports,
+it also discusses requirements and recommendations
+for the procedures of examination, triage, and remediation of vulnerabilities.
+
+== Policies
+
+As a preliminary step, vendors should create and maintain
+*vulnerability handling policies* for a commitment to the security
+of their products or services and the benefit of their customers or users.
+ISO suggests that vendors need to explicitly disclose their intentions
+to investigate and remediate security vulnerabilities
+to all interested parties. These policies should be continuously reviewed,
+updated, and improved by the managers of each organization.
+Part of the policies should be directed to vendors' staff
+to provide them with basic guidelines, roles, and responsibilities
+in handling reports and vulnerabilities.
+It is of utmost importance that all concerned persons
+also receive caveats to ensure the privacy of information
+about vulnerabilities prior to their remediation.
+
+== Organizational scheme
+
+ISO recommends that vendors build their *vulnerability handling processes*
+and evaluate them frequently to be always well prepared
+to deal with reports and security issues.
+Every company should have a document where all these processes remain
+faithfully recorded for prospective replication and possible optimization.
+Besides, they should always contemplate an appropriate integration
+of these operations with their other procedures and ensure that
+the required resources for the intended outcomes are permanently available.
+
+Companies prepared for handling vulnerabilities
+establish authorities or leaders to be aware of the internal processes,
+objectives, and organizational frameworks
+and make decisions at a management level.
+It is pertinent for these organizations to have points of contact
+for communications with internal departments and external parties
+concerned with the vulnerability disclosure and handling processes.
+Not to mention being ready to receive and respond to questions from customers
+and other interested individuals when information about security weaknesses
+has already been made public.
+
+At this point, those units mentioned by ISO as
+'product security incident response teams' (PSIRT) stand out.
+Apart from their activities as points of contact
+and supervisors of disclosure procedures,
+these teams may help with the vulnerability assessments
+of vendors' products and services.
+Their assistance should include tracking weaknesses or flaws
+found in third-party suppliers' software components
+that may impact the operations and assets of the vendors in consideration.
+In addition, PSIRT staff should understand the pertinence of
+maintaining confidentiality before vulnerability remediations are carried out
+and notifying 'product business divisions' for appropriate action.
+
+Product business divisions, those that provide products
+or services to vendors' clients,
+are also responsible parties in vulnerability handling processes.
+These divisions receive vulnerability reports from PSIRT
+and should work with them in the development of remediations.
+After remediations are ready,
+the 'customer support divisions' are in charge
+of sending corresponding advisories to customers and other stakeholders,
+a matter of vulnerability disclosure processes, appearing in ISO/IEC 29147.
+
+== Vulnerability handling process
+
+Now, as a guide for companies
+in establishing their vulnerability handling processes,
+let's check what ISO shares for the phases
+of verification and remediation of vulnerabilities.
+
+.Photo by link:https://unsplash.com/@kovah?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText[Kovah] on link:https://unsplash.com/photos/MVjTry-e8MQ[Unsplash]
+image::kovah.png[Kovah]
+
+=== Verification of vulnerabilities
+
+After receiving a report of a potential vulnerability,
+the vendor has to verify it.
+Here's where the investigation begins to confirm the weakness,
+determine the affected product or service,
+the security issue's severity, and the root cause.
+If it is necessary,
+the vendor should request further evidence from the reporter.
+When verification shows that the vulnerability is a duplicate,
+has no security implications, or is in an obsolete or external product,
+the vulnerability handling process must be interrupted.
+Of course, if other vendors are compromised,
+the issue should be prudently reported to them.
+
+It's valuable —and companies should pay attention to it—
+ISO's emphasis on the continuous change in the exploitability of weaknesses
+resulting from advances in attack techniques.
+Another essential aspect to consider in verifications,
+usually when various vulnerabilities have been reported,
+corresponds to prioritization. "Vendors may consider several factors
+in determining the relative urgency of producing a remediation,
+such as potential impact, likelihood of exploitation,
+and the scope of affected users."
+Finally, after the vulnerability verification,
+reporters should receive information about results.
+
+=== Remediation of vulnerabilities
+
+Vendors need to establish either partial or total remediations
+to the vulnerabilities they have already verified.
+While the remediation is expected to be generated quickly,
+vendors should maintain this in balance with the amount of testing required
+to ensure the product's or service's high quality.
+Fast and temporary remediations usually take place
+when the vulnerabilities show critical or high-risk levels
+for customers or users, which should receive constant assistance.
+In association with this, it may be necessary for vendors
+to disable at-risk applications or software temporarily.
+
+Regarding the tests to be carried out with the remediations,
+vendors should guarantee evaluation on the corresponding platforms.
+Plus, their results should be sufficient proof
+of the absence of new vulnerabilities and operational and quality obstacles
+in products or services.
+A remediation that doesn't work is one that needs to be rethought.
+
+After releasing the vulnerability remediations,
+vendors should continue updating them until it is no longer required.
+On the other hand, with the information gained during the investigation,
+vendors should check their software and make proper renewals
+to prevent similar security weaknesses in their products or services.
+
+To conclude, it is worth highlighting the *monitoring activity*
+for the vulnerability handling processes, suggested by ISO.
+Every company or vendor should always keep track of (and be ready to improve)
+the speed at which they respond with verifications and remediations.
+They should also supervise that their remediations are complete
+at the end of each case,
+in terms of dealing with the root causes of vulnerabilities,
+and that results are as expected.
+All of this, it is hoped, should go hand in hand
+with a confidential and secure treatment of vulnerability information
+and individuals' and organizations' sensitive data.
+
+Would you like to know how link:../../[Fluid Attacks] can help you
+in your vulnerability handling processes?
+link:../../contact-us/[Do not hesitate to contact us!]
+
+*PS*: Several important details are missing in this post.
+If you're really interested in vulnerability handling,
+we recommend that you read the entire link:https://www.iso.org/standard/69725.html[ISO/IEC 30111:2019] document.
