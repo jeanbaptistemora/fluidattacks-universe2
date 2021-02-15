@@ -16,5 +16,5 @@ makeEntrypoint {
     envUtilsBashLibSops = import (path "/makes/utils/sops") path observesPkgs;
   };
   name = "observes-scheduled-code-etl-compute-bills";
-  template = path "/makes/applications/observes/scheduled-code-etl-compute-bills/entrypoint.sh";
+  template = path "/makes/applications/observes/scheduled/code-etl-compute-bills/entrypoint.sh";
 }

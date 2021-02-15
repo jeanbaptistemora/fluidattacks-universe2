@@ -111,7 +111,7 @@ observes/lint-update-sync-date:
   <<: *observes_in_dev_branch
   stage: lint-code
 
-observes/scheduled-code-etl-amend:
+observes/scheduled/code-etl-amend:
   <<: *makes
   only:
     refs: [schedules]
@@ -120,7 +120,7 @@ observes/scheduled-code-etl-amend:
   tags: [autoscaling]
   interruptible: false
 
-observes/scheduled-code-etl-compute-bills:
+observes/scheduled/code-etl-compute-bills:
   <<: *makes
   only:
     refs: [schedules]
@@ -129,7 +129,7 @@ observes/scheduled-code-etl-compute-bills:
   tags: [autoscaling]
   interruptible: false
 
-observes/scheduled-code-etl-mirror:
+observes/scheduled/code-etl-mirror:
   <<: *makes
   only:
     refs: [schedules]
@@ -138,7 +138,7 @@ observes/scheduled-code-etl-mirror:
   tags: [autoscaling]
   interruptible: false
 
-observes/scheduled-code-etl-upload:
+observes/scheduled/code-etl-upload:
   <<: *makes
   only:
     refs: [schedules]
@@ -147,7 +147,7 @@ observes/scheduled-code-etl-upload:
   tags: [autoscaling]
   interruptible: false
 
-observes/scheduled-formstack-etl:
+observes/scheduled/formstack-etl:
   <<: *makes
   tags: [autoscaling-analytics]
   stage: analytics
@@ -156,7 +156,7 @@ observes/scheduled-formstack-etl:
     variables: [$observes_formstack]
   interruptible: false
 
-observes/scheduled-mixpanel-integrates-etl:
+observes/scheduled/mixpanel-integrates-etl:
   <<: *makes
   tags: [autoscaling-analytics]
   stage: analytics
@@ -165,7 +165,7 @@ observes/scheduled-mixpanel-integrates-etl:
     variables: [$observes_mixpanel_integrates]
   interruptible: false
 
-observes/scheduled-timedoctor-backup:
+observes/scheduled/timedoctor-backup:
   <<: *makes
   tags: [autoscaling-analytics]
   stage: analytics
@@ -174,7 +174,7 @@ observes/scheduled-timedoctor-backup:
     variables: [$observes_timedoctor_backup]
   interruptible: false
 
-observes/scheduled-timedoctor-etl:
+observes/scheduled/timedoctor-etl:
   <<: *makes
   tags: [autoscaling-analytics]
   stage: analytics
@@ -183,7 +183,7 @@ observes/scheduled-timedoctor-etl:
     variables: [$observes_timedoctor]
   interruptible: false
 
-observes/scheduled-zoho-crm-etl:
+observes/scheduled/zoho-crm-etl:
   <<: *makes
   tags: [autoscaling-analytics]
   stage: analytics
@@ -192,7 +192,7 @@ observes/scheduled-zoho-crm-etl:
     variables: [$observes_zoho_crm]
   interruptible: false
 
-observes/scheduled-zoho-crm-prepare:
+observes/scheduled/zoho-crm-prepare:
   <<: *makes
   tags: [autoscaling-analytics]
   stage: analytics

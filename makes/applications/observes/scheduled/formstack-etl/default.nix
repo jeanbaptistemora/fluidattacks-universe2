@@ -16,5 +16,5 @@ makeEntrypoint {
     envUtilsBashLibSops = import (path "/makes/utils/sops") path nixPkgs;
   };
   name = "observes-scheduled-formstack-etl";
-  template = path "/makes/applications/observes/scheduled-formstack-etl/entrypoint.sh";
+  template = path "/makes/applications/observes/scheduled/formstack-etl/entrypoint.sh";
 }

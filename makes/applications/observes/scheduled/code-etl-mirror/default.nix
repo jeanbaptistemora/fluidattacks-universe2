@@ -4,12 +4,12 @@
 } @ _:
 let
   computeOnAws = import (path "/makes/utils/compute-on-aws") path observesPkgs;
-  uploadGroup = computeOnAws {
+  mirrorGroup = computeOnAws {
     attempts = 5;
-    command = [ "./make" "observes/code-etl-upload" ];
-    jobname = "code-etl-upload";
-    jobqueue = "spot_later";
-    name = "aws-batch-code-etl-upload";
+    command = [ "./make" "observes/code-etl-mirror" ];
+    jobname = "code-etl-mirror";
+    jobqueue = "spot_soon";
+    name = "aws-batch-code-etl-mirror";
     product = "observes";
     secrets = [
       "GITLAB_API_TOKEN"
@@ -25,11 +25,11 @@ let
 in
 makeEntrypoint {
   arguments = {
-    envUploadGroupBin = "${uploadGroup}/bin";
+    envMirrorGroupBin = "${mirrorGroup}/bin";
     envUtilsBashLibAws = import (path "/makes/utils/aws") path observesPkgs;
     envUtilsBashLibGit = import (path "/makes/utils/use-git-repo") path observesPkgs;
     envUtilsBashLibSops = import (path "/makes/utils/sops") path observesPkgs;
   };
-  name = "observes-scheduled-code-etl-upload";
-  template = path "/makes/applications/observes/scheduled-code-etl-upload/entrypoint.sh";
+  name = "observes-scheduled-code-etl-mirror";
+  template = path "/makes/applications/observes/scheduled/code-etl-mirror/entrypoint.sh";
 }

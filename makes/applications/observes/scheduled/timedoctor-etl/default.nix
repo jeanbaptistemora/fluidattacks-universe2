@@ -25,5 +25,5 @@ makeEntrypoint {
     ];
   };
   name = "observes-scheduled-timedoctor-etl";
-  template = path "/makes/applications/observes/scheduled-timedoctor-etl/entrypoint.sh";
+  template = path "/makes/applications/observes/scheduled/timedoctor-etl/entrypoint.sh";
 }

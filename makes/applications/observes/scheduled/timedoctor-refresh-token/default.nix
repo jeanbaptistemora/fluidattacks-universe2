@@ -18,5 +18,5 @@ makeEntrypoint observesPkgs {
     ];
   };
   name = "observes-scheduled-timedoctor-refresh-token";
-  template = path "/makes/applications/observes/scheduled-timedoctor-refresh-token/entrypoint.sh";
+  template = path "/makes/applications/observes/scheduled/timedoctor-refresh-token/entrypoint.sh";
 }
