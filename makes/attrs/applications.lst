@@ -38,6 +38,7 @@ makes/attrs
 makes/deploy/oci-batch
 makes/deploy/oci-ci
 makes/done
+makes/kill-port
 makes/lint
 makes/lint-commit-msg
 makes/profiles

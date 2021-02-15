@@ -1,12 +1,11 @@
 { integratesPkgs
 , applications
+, makeEntrypoint
+, packages
 , path
 , ...
 } @ _:
-let
-  makeEntrypoint = import (path "/makes/utils/make-entrypoint") path integratesPkgs;
-in
-makeEntrypoint {
+makeEntrypoint integratesPkgs {
   arguments = {
     envDevSecrets = path "/integrates/secrets-development.yaml";
     envDone = applications."makes/done";
@@ -18,11 +17,15 @@ makeEntrypoint {
       url = "https://dl.min.io/client/mc/release/linux-amd64/archive/mc.RELEASE.2020-09-18T00-13-21Z";
       sha256 = "D9Y4uY4bt131eu2jxVRHdevsFMV5aMUpBkff4LI1M6Q=";
     };
-    envKillPidListeningOnPort = import (path "/makes/utils/kill-pid-listening-on-port") path integratesPkgs;
     envUtilsAws = import (path "/makes/utils/aws") path integratesPkgs;
     envUtilsSops = import (path "/makes/utils/sops") path integratesPkgs;
     envWait = applications."makes/wait";
   };
   name = "integrates-storage";
+  searchPaths = {
+    envPaths = [
+      packages."makes/kill-port"
+    ];
+  };
   template = path "/makes/applications/integrates/storage/entrypoint.sh";
 }

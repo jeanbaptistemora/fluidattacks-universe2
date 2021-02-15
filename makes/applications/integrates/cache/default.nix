@@ -1,19 +1,22 @@
 { integratesPkgs
 , applications
+, makeEntrypoint
+, packages
 , path
 , ...
 } @ _:
-let
-  makeEntrypoint = import (path "/makes/utils/make-entrypoint") path integratesPkgs;
-in
-makeEntrypoint {
+makeEntrypoint integratesPkgs {
   arguments = {
     envDone = applications."makes/done";
-    envKillPidListeningOnPort = import (path "/makes/utils/kill-pid-listening-on-port") path integratesPkgs;
     envRedisCli = "${integratesPkgs.redis}/bin/redis-cli";
     envWait = applications."makes/wait";
     envRedisServer = "${integratesPkgs.redis}/bin/redis-server";
   };
   name = "integrates-cache";
+  searchPaths = {
+    envPaths = [
+      packages."makes/kill-port"
+    ];
+  };
   template = path "/makes/applications/integrates/cache/entrypoint.sh";
 }

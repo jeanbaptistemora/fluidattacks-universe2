@@ -61,7 +61,7 @@ function main {
         &&  return 1
       fi \
   &&  pushd integrates \
-    &&  __envKillPidListeningOnPort__ "${port}" \
+    &&  makes-kill-port "${port}" \
     &&  { gunicorn "${config[@]}" 'back.app.app:APP' & } \
     &&  makes-wait 5 "${host}:${port}" \
     &&  makes-done 28001 \

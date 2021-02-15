@@ -2,7 +2,7 @@
 
 path: pkgs:
 
-{ arguments
+{ arguments ? { }
 , location ? "/bin/${name}"
 , name
 , searchPaths ? { }

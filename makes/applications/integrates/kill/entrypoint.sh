@@ -9,7 +9,7 @@ function main {
     8081  # back2
   )
 
-  '__envKillPidListeningOnPort__' "${ports[@]}"
+  makes-kill-port "${ports[@]}"
 }
 
 main "${@}"

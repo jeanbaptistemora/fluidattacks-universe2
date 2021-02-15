@@ -15,7 +15,7 @@ function main {
     &&  __envUnzip__ -u '__envDynamoZip__' \
   &&  popd \
   &&  echo '[INFO] Deleting old instance, if exists' \
-  &&  __envKillPidListeningOnPort__ "${port}" \
+  &&  makes-kill-port "${port}" \
   &&  echo '[INFO] Launching DynamoDB' \
   &&  { __envJava__ \
           -Djava.library.path="${state_path}/DynamoDBLocal_lib" \

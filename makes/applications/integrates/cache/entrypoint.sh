@@ -9,7 +9,7 @@ function main {
   &&  for port in 6379 6380 6381
       do
             echo "[INFO] Configuring replica ${port}" \
-        &&  '__envKillPidListeningOnPort__' "${port}" \
+        &&  makes-kill-port "${port}" \
         &&  mkdir -p "${cluster_path}/${port}" \
         &&  pushd "${cluster_path}/${port}" \
           &&  {

@@ -1,12 +1,11 @@
 { integratesPkgs
 , applications
+, makeEntrypoint
+, packages
 , path
 , ...
 } @ _:
-let
-  makeEntrypoint = import (path "/makes/utils/make-entrypoint") path integratesPkgs;
-in
-makeEntrypoint {
+makeEntrypoint integratesPkgs {
   arguments = {
     envAws = "${integratesPkgs.awscli}/bin/aws";
     envDone = applications."makes/done";
@@ -16,7 +15,6 @@ makeEntrypoint {
       sha256 = "0lqxrbiqnvac8rq8x41pm76mb5bh4rxhfzj5yxji6n9q0m1wxbqq";
     };
     envJava = "${integratesPkgs.openjdk_headless}/bin/java";
-    envKillPidListeningOnPort = import (path "/makes/utils/kill-pid-listening-on-port") path integratesPkgs;
     envSed = "${integratesPkgs.gnused}/bin/sed";
     envTerraform = "${integratesPkgs.terraform}/bin/terraform";
     envTerraformModule = path "/makes/applications/integrates/db";
@@ -24,5 +22,10 @@ makeEntrypoint {
     envWait = applications."makes/wait";
   };
   name = "integrates-db";
+  searchPaths = {
+    envPaths = [
+      packages."makes/kill-port"
+    ];
+  };
   template = path "/makes/applications/integrates/db/entrypoint.sh";
 }

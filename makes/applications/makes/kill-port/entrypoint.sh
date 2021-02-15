@@ -5,7 +5,7 @@ function kill_one {
   local port="${1}"
 
       pids="$(mktemp)" \
-  &&  if ! __envLsof__ -t "-i:${port}" > "${pids}"
+  &&  if ! lsof -t "-i:${port}" > "${pids}"
       then
             echo "[INFO] Nothing listening on port: ${port}" \
         &&  return 0
