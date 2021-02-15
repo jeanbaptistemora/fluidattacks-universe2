@@ -12,6 +12,7 @@ from backend.api.resolvers.group import (
     drafts,
     events,
     findings,
+    forces_token,
     last_closing_vuln_finding,
     max_open_severity_finding,
     max_severity_finding,
@@ -34,6 +35,7 @@ GROUP.set_field('consulting', consulting.resolve)
 GROUP.set_field('drafts', drafts.resolve)
 GROUP.set_field('events', events.resolve)
 GROUP.set_field('findings', findings.resolve)
+GROUP.set_field('forcesToken', forces_token.resolve)
 GROUP.set_field('lastClosingVulnFinding', last_closing_vuln_finding.resolve)
 GROUP.set_field('maxOpenSeverityFinding', max_open_severity_finding.resolve)
 GROUP.set_field('maxSeverityFinding', max_severity_finding.resolve)

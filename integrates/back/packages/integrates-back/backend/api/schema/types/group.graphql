@@ -9,6 +9,7 @@ type Project {
   drafts: [Finding!]
   events: [Event!]
   findings(filters: GenericScalar): [Finding]
+  forcesToken: String
   hasDrills: Boolean
   hasForces: Boolean
   hasIntegrates: Boolean
