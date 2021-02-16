@@ -33,7 +33,7 @@ function main {
   &&  kubectl rollout status \
         "deploy/integrates-${CI_COMMIT_REF_NAME}" \
         -n 'production' \
-        --timeout="15m" \
+        --timeout="25m" \
   &&  sops_export_vars integrates/secrets-production.yaml \
         CHECKLY_CHECK_ID \
         CHECKLY_TRIGGER_ID \
