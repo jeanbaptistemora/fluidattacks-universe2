@@ -253,6 +253,7 @@ resource "aws_dynamodb_table" "project_access" {
     hash_key        = "project_name"
     projection_type = "INCLUDE"
     non_key_attributes = [
+      "expiration_time",
       "responsibility",
       "has_access",
       "project_name"
@@ -267,6 +268,11 @@ resource "aws_dynamodb_table" "project_access" {
     "Name"               = "FI_project_access"
     "management:type"    = "production"
     "management:product" = "integrates"
+  }
+
+  ttl {
+    attribute_name = "expiration_time"
+    enabled        = true
   }
 }
 
