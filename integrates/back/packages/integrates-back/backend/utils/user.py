@@ -240,11 +240,15 @@ async def invite_to_group(  # pylint: disable=too-many-arguments
             now_str = datetime_utils.get_as_str(
                 datetime_utils.get_now()
             )
+            expiration_time = datetime_utils.get_as_epoch(
+                datetime_utils.get_now_plus_delta(weeks=1)
+            )
             url_token = secrets.token_urlsafe(64)
             success = await group_domain.update_access(
                 email,
                 group_name,
                 {
+                    'expiration_time': expiration_time,
                     'has_access': False,
                     'invitation': {
                         'date': now_str,
