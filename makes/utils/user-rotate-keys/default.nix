@@ -23,13 +23,13 @@ makeEntrypoint {
       pkgs.jq
       pkgs.terraform_0_13
       (terraformApply {
-        name = "terraformApply";
+        name = "terraform-apply";
         inherit product;
         inherit target;
         inherit secretsPath;
       })
       (terraformTaint {
-        name = "terraformTaint";
+        name = "terraform-taint";
         inherit product;
         inherit target;
         inherit secretsPath;

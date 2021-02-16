@@ -81,14 +81,14 @@ makeEntrypoint {
       servesPkgs.curl
       servesPkgs.jq
       (userRotateKeys {
-        name = "userRotateKeysProduction";
+        name = "user-rotate-keys-production";
         inherit product;
         inherit target;
         inherit secretsPath;
         keys = productionKeys;
       })
       (userRotateKeys {
-        name = "userRotateKeysDevelopment";
+        name = "user-rotate-keys-development";
         inherit product;
         inherit target;
         inherit secretsPath;
