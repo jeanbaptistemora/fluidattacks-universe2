@@ -18,7 +18,7 @@ let
         (k == "name")
       )
       then v
-      else abort "Ivalid argument: ${k}, must be one of: builder, buildInputs, name, or start with: env or __env"
+      else abort "Invalid argument: ${k}, must be one of: builder, buildInputs, name, or start with: env or __env"
     ))
     __attrs;
 in
