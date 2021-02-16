@@ -149,6 +149,16 @@ serves.users.forces.apply:
   <<: *serves_in_master_branch
   stage: deploy-infra
 
+serves.users.forces.rotate.even:
+  <<: *makes
+  <<: *serves_in_schedule_users_rotate_even
+  stage: rotation
+
+serves.users.forces.rotate.odd:
+  <<: *makes
+  <<: *serves_in_schedule_users_rotate_odd
+  stage: rotation
+
 serves.users.forces.test:
   <<: *makes
   <<: *serves_in_dev_branch

@@ -97,6 +97,8 @@ serves.users.asserts.rotate.even
 serves.users.asserts.rotate.odd
 serves.users.asserts.test
 serves.users.forces.apply
+serves.users.forces.rotate.even
+serves.users.forces.rotate.odd
 serves.users.forces.test
 serves.users.integrates.apply
 serves.users.integrates.rotate.even
