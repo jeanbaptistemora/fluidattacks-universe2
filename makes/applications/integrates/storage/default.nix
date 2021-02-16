@@ -21,9 +21,9 @@ makeEntrypoint integratesPkgs {
   name = "integrates-storage";
   searchPaths = {
     envPaths = [
-      packages."makes/done"
-      packages."makes/kill-port"
-      packages."makes/wait"
+      packages.makes.done
+      packages.makes.kill-port
+      packages.makes.wait
     ];
   };
   template = path "/makes/applications/integrates/storage/entrypoint.sh";

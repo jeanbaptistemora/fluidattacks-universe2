@@ -22,7 +22,9 @@ flakeUtils.lib.eachSystem [ "x86_64-linux" ] (
   system:
   let
     attrs = makeLazyCopy rec {
-      applications = builtins.mapAttrs (name: value: "${value}/bin/${slashToDash name}") packages;
+      applications = makesPkgs.lib.attrsets.mapAttrsRecursive
+        (path: value: "${value}/bin/${builtins.concatStringsSep "-" (makesPkgs.lib.lists.init path)}")
+        packages;
       debug = value: builtins.trace value value;
       forcesPkgs = import srcForcesPkgs { inherit system; };
       forcesPkgsTerraform = import srcForcesPkgsTerraform { inherit system; };
@@ -37,10 +39,27 @@ flakeUtils.lib.eachSystem [ "x86_64-linux" ] (
       observesPkgsTerraform = import srcObservesPkgsTerraform { inherit system; };
       packages =
         let
+          attrsByType =
+            source: builtins.foldl'
+              (x: name: makesPkgs.lib.attrsets.recursiveUpdate x (
+                makesPkgs.lib.attrsets.setAttrByPath
+                  (makesPkgs.lib.strings.splitString "." name)
+                  (import (path "/makes/${source}/${dotToSlash name}") attrs)
+              ))
+              { }
+              (makesPkgs.lib.lists.init (makesPkgs.lib.strings.splitString "\n" (
+                builtins.readFile (path "/makes/attrs/${source}.lst"))
+              ));
+        in
+        makesPkgs.lib.attrsets.recursiveUpdate
+          (attrsByType "applications")
+          (attrsByType "packages");
+      packagesFlattened =
+        let
           attrsByType = source: builtins.listToAttrs (builtins.map
             (name: {
               inherit name;
-              value = import (path "/makes/${source}/${name}") attrs;
+              value = import (path "/makes/${source}/${dotToSlash name}") attrs;
             })
             (makesPkgs.lib.lists.init (makesPkgs.lib.strings.splitString "\n" (
               builtins.readFile (path "/makes/attrs/${source}.lst"))
@@ -57,10 +76,10 @@ flakeUtils.lib.eachSystem [ "x86_64-linux" ] (
       skimsTreeSitterRepo = srcSkimsTreeSitterRepo;
       sortsPkgs = import srcSortsPkgs { inherit system; };
     };
-    slashToDash = builtins.replaceStrings [ "/" ] [ "-" ];
+    dotToSlash = builtins.replaceStrings [ "." ] [ "/" ];
     makeLazyCopy = attrs: (attrs // {
       copy = makeLazyCopy attrs;
     });
   in
-  { inherit (attrs) packages; }
+  { packages = attrs.packagesFlattened; }
 )

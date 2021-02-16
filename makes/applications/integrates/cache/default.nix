@@ -9,9 +9,9 @@ makeEntrypoint integratesPkgs {
   searchPaths = {
     envPaths = [
       integratesPkgs.redis
-      packages."makes/done"
-      packages."makes/kill-port"
-      packages."makes/wait"
+      packages.makes.done
+      packages.makes.kill-port
+      packages.makes.wait
     ];
   };
   template = path "/makes/applications/integrates/cache/entrypoint.sh";

@@ -13,7 +13,7 @@ makeEntrypoint {
     envFindUtils = "${nixPkgs.findutils}/bin";
     envOpenSSH = "${nixPkgs.openssh}/bin";
     envSopsBin = "${nixPkgs.sops}/bin";
-    envUpdateSyncDate = applications."observes/update-sync-date";
+    envUpdateSyncDate = applications.observes.update-sync-date;
     envUtilsBashLibAws = import (path "/makes/utils/aws") path nixPkgs;
     envUtilsBashLibGit = import (path "/makes/utils/use-git-repo") path nixPkgs;
     envUtilsBashLibSops = import (path "/makes/utils/sops") path nixPkgs;

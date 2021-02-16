@@ -15,8 +15,8 @@ makeEntrypoint {
     envSkims = applications.skims;
     envSrcSkimsSkims = path "/skims/skims";
     envSrcSkimsTest = path "/skims/test";
-    envTapJson = applications."observes/tap-json";
-    envTargetRedshift = applications."observes/target-redshift";
+    envTapJson = applications.observes.tap-json;
+    envTargetRedshift = applications.observes.target-redshift;
     envUtilsBashLibAws = import (path "/makes/utils/aws") path skimsPkgs;
     envUtilsBashLibSops = import (path "/makes/utils/sops") path skimsPkgs;
   };

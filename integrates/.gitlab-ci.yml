@@ -74,37 +74,52 @@
   <<: *makes
   interruptible: false
   script:
-    - ./make integrates/scheduler prod "backend.scheduler.${CI_JOB_NAME/integrates\/scheduler\//}"
+    - ./make integrates.scheduler prod "backend.scheduler.${CI_JOB_NAME/integrates.scheduler./}"
   stage: scheduler
   tags: [autoscaling-large]
 
 .integrates_front_deploy: &integrates_front_deploy
   <<: *makes
   script:
-    - ./make integrates/front/build
-    - ./make integrates/front/deploy
+    - ./make integrates.front.build
+    - ./make integrates.front.deploy
   stage: deploy-app
 
 .integrates_mobile_ota_deploy: &integrates_mobile_ota_deploy
   <<: *makes
   script:
-    - ./make integrates/mobile/ota
+    - ./make integrates.mobile.ota
   stage: pre-build
 
-integrates/front/deploy-development:
+integrates.analytics.documents-dev:
+  <<: *analytics_template
+  <<: *in_dev_branch_integrates
+  parallel: 4
+  script: [./make integrates.analytics.documents dev]
+
+integrates.analytics.documents-prod-schedule:
+  <<: *analytics_template
+  interruptible: false
+  only:
+    refs: [schedules]
+    variables: [$integrates_analytics_make_documents_prod_schedule]
+  parallel: 10
+  script: [./make integrates.analytics.documents prod]
+
+integrates.front.deploy-development:
   <<: *in_dev_branch_integrates
   <<: *integrates_front_deploy
 
-integrates/front/deploy-production:
+integrates.front.deploy-production:
   <<: *in_master_branch_integrates
   <<: *integrates_front_deploy
 
-integrates/front/lint:
+integrates.front.lint:
   <<: *makes
   <<: *in_dev_branch_integrates
   stage: lint-code
 
-integrates/front/test:
+integrates.front.test:
   <<: *makes
   <<: *in_dev_branch_integrates
   artifacts:
@@ -117,86 +132,86 @@ integrates/front/test:
     - cp out/integrates-front-test/coverage/lcov.info integrates/front/coverage.lcov
   stage: test-code
 
-integrates/infra/backup/apply:
+integrates.infra.backup.apply:
   <<: *makes
   <<: *in_master_branch_integrates
   stage: deploy-infra
 
-integrates/infra/backup/test:
+integrates.infra.backup.test:
   <<: *makes
   <<: *in_dev_branch_integrates
   stage: test-infra
 
-integrates/infra/cache-db/apply:
+integrates.infra.cache-db.apply:
   <<: *makes
   <<: *in_master_branch_integrates
   stage: deploy-infra
 
-integrates/infra/cache-db/test:
+integrates.infra.cache-db.test:
   <<: *makes
   <<: *in_dev_branch_integrates
   stage: test-infra
 
-integrates/infra/cluster/apply:
+integrates.infra.cluster.apply:
   <<: *makes
   <<: *in_master_branch_integrates
   stage: deploy-infra
 
-integrates/infra/cluster/test:
+integrates.infra.cluster.test:
   <<: *makes
   <<: *in_dev_branch_integrates
   stage: test-infra
 
-integrates/infra/database/apply:
+integrates.infra.database.apply:
   <<: *makes
   <<: *in_master_branch_integrates
   stage: deploy-infra
 
-integrates/infra/database/test:
+integrates.infra.database.test:
   <<: *makes
   <<: *in_dev_branch_integrates
   stage: test-infra
 
-integrates/infra/front/apply:
+integrates.infra.front.apply:
   <<: *makes
   <<: *in_master_branch_integrates
   stage: deploy-infra
 
-integrates/infra/front/test:
+integrates.infra.front.test:
   <<: *makes
   <<: *in_dev_branch_integrates
   stage: test-infra
 
-integrates/infra/resources/apply:
+integrates.infra.resources.apply:
   <<: *makes
   <<: *in_master_branch_integrates
   stage: deploy-infra
 
-integrates/infra/resources/test:
+integrates.infra.resources.test:
   <<: *makes
   <<: *in_dev_branch_integrates
   stage: test-infra
 
-integrates/infra/secret-management/apply:
+integrates.infra.secret-management.apply:
   <<: *makes
   <<: *in_master_branch_integrates
   stage: deploy-infra
 
-integrates/infra/secret-management/test:
+integrates.infra.secret-management.test:
   <<: *makes
   <<: *in_dev_branch_integrates
   stage: test-infra
 
-integrates/mobile/lint:
+integrates.mobile.lint:
   <<: *makes
   <<: *in_dev_branch_integrates
   stage: lint-code
 
-integrates/mobile/ota-development:
+integrates.mobile.ota-development:
   <<: *in_dev_branch_integrates
   <<: *integrates_mobile_ota_deploy
 
-integrates/mobile/test:
+integrates.mobile.test:
   <<: *makes
   <<: *in_dev_branch_integrates
   artifacts:
@@ -209,91 +224,76 @@ integrates/mobile/test:
     - cp out/integrates-mobile-test/coverage/lcov.info integrates/mobile/coverage.lcov
   stage: test-code
 
-integrates/scheduler/integrates_delete_obsolete_orgs:
+integrates.scheduler.integrates_delete_obsolete_orgs:
   <<: *integrates_scheduler
   only:
     refs: [schedules]
     variables: [$integrates_scheduler_delete_obsolete_orgs]
 
-integrates/scheduler/get_new_releases:
+integrates.scheduler.get_new_releases:
   <<: *integrates_scheduler
   only:
     refs: [schedules]
     variables: [$integrates_scheduler_get_new_releases]
 
-integrates/scheduler/get_new_vulnerabilities:
+integrates.scheduler.get_new_vulnerabilities:
   <<: *integrates_scheduler
   only:
     refs: [schedules]
     variables: [$integrates_scheduler_get_new_vulnerabilities]
 
-integrates/scheduler/get_remediated_findings:
+integrates.scheduler.get_remediated_findings:
   <<: *integrates_scheduler
   only:
     refs: [schedules]
     variables: [$integrates_scheduler_get_remediated_findings]
 
-integrates/scheduler/reset_expired_accepted_findings:
+integrates.scheduler.reset_expired_accepted_findings:
   <<: *integrates_scheduler
   only:
     refs: [schedules]
     variables: [$integrates_scheduler_reset_expired_accepted_findings]
 
-integrates/scheduler/update_indicators:
+integrates.scheduler.update_indicators:
   <<: *integrates_scheduler
   only:
     refs: [schedules]
     variables: [$integrates_scheduler_update_indicators]
 
-integrates/scheduler/update_portfolios:
+integrates.scheduler.update_portfolios:
   <<: *integrates_scheduler
   only:
     refs: [schedules]
     variables: [$integrates_scheduler_update_portfolios]
 
-integrates/scheduler/send_treatment_change:
+integrates.scheduler.send_treatment_change:
   <<: *integrates_scheduler
   only:
     refs: [schedules]
     variables: [$integrates_scheduler_send_treatment_change]
 
-integrates/scheduler/send_unsolved_to_all:
+integrates.scheduler.send_unsolved_to_all:
   <<: *integrates_scheduler
   only:
     refs: [schedules]
     variables: [$integrates_scheduler_send_unsolved_to_all]
 
-integrates/secrets/lint:
+integrates.secrets.lint:
   <<: *makes
   <<: *in_dev_branch_integrates
   stage: lint-code
 
-integrates/web/e2e:
+integrates.web.e2e:
   <<: *makes
   <<: *in_dev_branch_integrates
   needs:
-    - integrates/back/deploy/dev
-    - integrates/front/deploy-development
+    - integrates.back.deploy.dev
+    - integrates.front.deploy-development
   stage: post-deploy
   retry: 2
   parallel: 5
 
 # Pending to migrate
-
-integrates_analytics_make_documents_dev:
-  <<: *analytics_template
-  <<: *in_dev_branch_integrates
-  parallel: 4
-  script: [./make integrates/analytics/documents dev]
-
-integrates_analytics_make_documents_prod_schedule:
-  <<: *analytics_template
-  interruptible: false
-  only:
-    refs: [schedules]
-    variables: [$integrates_analytics_make_documents_prod_schedule]
-  parallel: 10
-  script: [./make integrates/analytics/documents prod]
 
 integrates_analytics_make_snapshots_prod_schedule:
   <<: *analytics_template
@@ -350,8 +350,8 @@ integrates_coverage_report:
   <<: *in_dev_branch_integrates
   needs:
     - integrates_back_test_unit
-    - integrates/front/test
-    - integrates/mobile/test
+    - integrates.front.test
+    - integrates.mobile.test
   stage: external
   retry: 1
 
@@ -360,7 +360,7 @@ integrates_back_clean_development_environments:
   <<: *in_schedule_nightly_build_integrates
   stage: rotation
 
-integrates/back/deploy/dev:
+integrates.back.deploy.dev:
   <<: *makes
   <<: *in_dev_branch_integrates
   stage: deploy-app
@@ -375,7 +375,7 @@ integrates/back/deploy/dev:
 # This is done to avoid keys expiration on the current integrates deployment
 #   in case the continuous delivery system at Integrates is failing
 # Please adjust the serves_rotate_keys_user_provision_integrates job
-integrates/back/deploy/prod:
+integrates.back.deploy.prod:
   <<: *makes
   <<: *in_master_except_periodic_jobs_integrates
   stage: deploy-app

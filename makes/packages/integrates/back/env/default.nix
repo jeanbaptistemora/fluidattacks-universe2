@@ -29,9 +29,9 @@ makeTemplate integratesPkgs {
         # Libstdc++
         integratesPkgs.gcc.cc
       ])
-      packages."integrates/back/pypi/runtime"
-      packages."integrates/back/tools"
-      packages."integrates/secrets/list"
+      packages.integrates.back.pypi.runtime
+      packages.integrates.back.tools
+      packages.integrates.secrets.list
     ];
     envUtils = [
       "/makes/utils/aws"

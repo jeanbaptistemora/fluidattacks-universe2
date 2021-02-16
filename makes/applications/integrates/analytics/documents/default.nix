@@ -6,18 +6,18 @@
 } @ _:
 makeEntrypoint integratesPkgs {
   arguments = {
-    envIntegratesEnv = packages."integrates/back/env";
+    envIntegratesEnv = packages.integrates.back.env;
   };
   name = "integrates-analytics-documents";
   searchPaths = {
     envPaths = [
       integratesPkgs.findutils
       integratesPkgs.python37
-      packages."integrates/db"
-      packages."integrates/cache"
-      packages."integrates/storage"
-      packages."makes/kill-port"
-      packages."makes/wait"
+      packages.integrates.db
+      packages.integrates.cache
+      packages.integrates.storage
+      packages.makes.kill-port
+      packages.makes.wait
     ];
     envUtils = [
       "/makes/utils/aws"

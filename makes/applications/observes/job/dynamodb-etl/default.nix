@@ -11,9 +11,9 @@ makeEntrypoint nixPkgs {
   arguments = { };
   searchPaths = {
     envPaths = [
-      packages."observes/streamer-dynamodb"
-      packages."observes/tap-json"
-      packages."observes/target-redshift"
+      packages.observes.streamer-dynamodb
+      packages.observes.tap-json
+      packages.observes.target-redshift
     ];
     envUtils = [
       "/makes/utils/aws"

@@ -9,7 +9,7 @@ makeEntrypoint makesPkgs {
   searchPaths = {
     envPaths = [
       makesPkgs.netcat
-      packages."makes/kill-port"
+      packages.makes.kill-port
     ];
   };
   template = path "/makes/applications/makes/done/entrypoint.sh";

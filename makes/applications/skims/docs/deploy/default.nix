@@ -8,7 +8,7 @@ let
 in
 makeEntrypoint {
   arguments = {
-    envSkimsDocsBuild = packages."skims/docs/build";
+    envSkimsDocsBuild = packages.skims.docs.build;
     envUtilsBashLibAws = import (path "/makes/utils/aws") path skimsPkgs;
   };
   name = "skims-docs-deploy";

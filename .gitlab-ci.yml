@@ -104,12 +104,12 @@ common_build_nix_caches:
     refs: [schedules]
     variables: [$common_build_nix_caches]
 
-makes/deploy/oci-batch:
+makes.deploy.oci-batch:
   <<: *makes
   <<: *common_in_master_branch
   stage: build
 
-makes/deploy/oci-ci:
+makes.deploy.oci-ci:
   <<: *makes
   <<: *common_in_master_branch
   stage: build
@@ -119,24 +119,24 @@ common_deploy_container_image:
   <<: *common_in_master_branch
   stage: deploy-app
 
-makes/lint:
+makes.lint:
   <<: *makes
   <<: *common_in_dev_branch
   stage: lint-code
 
-makes/lint-commit-msg:
+makes.lint-commit-msg:
   <<: *makes
   <<: *common_in_dev_branch
   stage: lint-code
 
-makes/test/instantiate:
+makes.test.instantiate:
   <<: *makes
   <<: *common_in_dev_branch
   script:
     - nix-instantiate .
   stage: test-code
 
-makes/test/profiles:
+makes.test.profiles:
   <<: *makes
   <<: *common_in_dev_branch
   before_script:

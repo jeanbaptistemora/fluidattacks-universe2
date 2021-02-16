@@ -72,36 +72,36 @@
         - "sorts/sorts/**/*"
         - "sorts/training/*"
 
-sorts/lint:
+sorts.lint:
   <<: *makes
   <<: *sorts_in_dev_branch
   stage: lint-code
 
-sorts/test:
+sorts.test:
   <<: *makes
   <<: *sorts_in_dev_branch
   stage: test-code
 
-sorts/infra/test:
+sorts.infra.test:
   <<: *makes
   <<: *sorts_in_dev_branch
   stage: test-infra
 
-sorts/infra/deploy:
+sorts.infra.deploy:
   <<: *makes
   <<: *sorts_in_master_branch
   stage: deploy-infra
 
-sorts/extract-features:
+sorts.extract-features:
   <<: *makes
   <<: *sorts_in_master_branch_code_changes
   stage: test-code
   interruptible: false
   parallel: 15
 
-sorts/train:
+sorts.train:
   <<: *makes
   <<: *sorts_in_master_branch_code_changes
   stage: deploy-app
   interruptible: false
-  needs: [sorts/extract-features]
+  needs: [sorts.extract-features]

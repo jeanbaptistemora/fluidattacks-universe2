@@ -1,5 +1,5 @@
 { makesPkgs
-, packages
+, packagesFlattened
 , path
 , ...
 } @ _:
@@ -9,11 +9,11 @@ in
 makeDerivation {
   builder = path "/makes/packages/makes/test/builder.sh";
   envBuilt = builtins.concatLists [
-    (builtins.attrValues (builtins.removeAttrs packages [
+    (builtins.attrValues (builtins.removeAttrs packagesFlattened [
       # Too much disk
-      "integrates/mobile/config/dev-runtime"
+      "integrates.mobile.config.dev-runtime"
       # Needed to avoid infinite recursion
-      "makes/test"
+      "makes.test"
     ]))
   ];
   name = "makes-test";

@@ -12,7 +12,7 @@ makeEntrypoint {
     envFirefox = integratesPkgs.firefox;
     envGeckodriver = integratesPkgs.geckodriver;
     envSearchPaths = makeSearchPaths [
-      packages."integrates/web/e2e/pypi"
+      packages.integrates.web.e2e.pypi
     ];
     envUtilsAws = import (path "/makes/utils/aws") path integratesPkgs;
     envUtilsSops = import (path "/makes/utils/sops") path integratesPkgs;

@@ -6,7 +6,7 @@
 } @ _:
 makeEntrypoint integratesPkgs {
   arguments = {
-    envIntegratesEnv = packages."integrates/back/env";
+    envIntegratesEnv = packages.integrates.back.env;
   };
   name = "integrates-scheduler";
   searchPaths = {

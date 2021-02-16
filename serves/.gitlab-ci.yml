@@ -49,257 +49,257 @@
       when: never
     - when: always
 
-serves/aws-sso/apply:
+serves.aws-sso.apply:
   <<: *makes
   <<: *serves_in_master_branch
   stage: deploy-infra
 
-serves/aws-sso/test:
+serves.aws-sso.test:
   <<: *makes
   <<: *serves_in_dev_branch
   stage: test-infra
 
-serves/ci/apply:
+serves.ci.apply:
   <<: *makes
   <<: *serves_in_master_branch
   stage: deploy-infra
 
-serves/ci/config:
+serves.ci.config:
   <<: *makes
   <<: *serves_in_master_branch
   stage: deploy-infra
 
-serves/ci/test:
+serves.ci.test:
   <<: *makes
   <<: *serves_in_dev_branch
   stage: test-infra
 
-serves/compute/apply:
+serves.compute.apply:
   <<: *makes
   <<: *serves_in_master_branch
   stage: deploy-infra
 
-serves/compute/test:
+serves.compute.test:
   <<: *makes
   <<: *serves_in_dev_branch
   stage: test-infra
 
-serves/dns/apply:
+serves.dns.apply:
   <<: *makes
   <<: *serves_in_master_branch
   stage: deploy-infra
 
-serves/dns/test:
+serves.dns.test:
   <<: *makes
   <<: *serves_in_dev_branch
   stage: test-infra
 
-serves/secrets/apply:
+serves.secrets.apply:
   <<: *makes
   <<: *serves_in_master_branch
   stage: deploy-infra
 
-serves/secrets/test:
+serves.secrets.test:
   <<: *makes
   <<: *serves_in_dev_branch
   stage: test-infra
 
-serves/users/airs/apply:
+serves.users.airs.apply:
   <<: *makes
   <<: *serves_in_master_branch
   stage: deploy-infra
 
-serves/users/airs/rotate/even:
+serves.users.airs.rotate.even:
   <<: *makes
   <<: *serves_in_schedule_users_rotate_even
   stage: rotation
 
-serves/users/airs/rotate/odd:
+serves.users.airs.rotate.odd:
   <<: *makes
   <<: *serves_in_schedule_users_rotate_odd
   stage: rotation
 
-serves/users/airs/test:
+serves.users.airs.test:
   <<: *makes
   <<: *serves_in_dev_branch
   stage: test-infra
 
-serves/users/asserts/apply:
+serves.users.asserts.apply:
   <<: *makes
   <<: *serves_in_master_branch
   stage: deploy-infra
 
-serves/users/asserts/rotate/even:
+serves.users.asserts.rotate.even:
   <<: *makes
   <<: *serves_in_schedule_users_rotate_even
   stage: rotation
 
-serves/users/asserts/rotate/odd:
+serves.users.asserts.rotate.odd:
   <<: *makes
   <<: *serves_in_schedule_users_rotate_odd
   stage: rotation
 
-serves/users/asserts/test:
+serves.users.asserts.test:
   <<: *makes
   <<: *serves_in_dev_branch
   stage: test-infra
 
-serves/users/forces/apply:
+serves.users.forces.apply:
   <<: *makes
   <<: *serves_in_master_branch
   stage: deploy-infra
 
-serves/users/forces/test:
+serves.users.forces.test:
   <<: *makes
   <<: *serves_in_dev_branch
   stage: test-infra
 
-serves/users/integrates/apply:
+serves.users.integrates.apply:
   <<: *makes
   <<: *serves_in_master_branch
   stage: deploy-infra
 
-serves/users/integrates/rotate/even:
+serves.users.integrates.rotate.even:
   <<: *makes
   <<: *serves_in_schedule_users_rotate_even
   stage: rotation
 
-serves/users/integrates/rotate/odd:
+serves.users.integrates.rotate.odd:
   <<: *makes
   <<: *serves_in_schedule_users_rotate_odd
   stage: rotation
 
-serves/users/integrates/test:
+serves.users.integrates.test:
   <<: *makes
   <<: *serves_in_dev_branch
   stage: test-infra
 
-serves/users/melts/apply:
+serves.users.melts.apply:
   <<: *makes
   <<: *serves_in_master_branch
   stage: deploy-infra
 
-serves/users/melts/rotate/even:
+serves.users.melts.rotate.even:
   <<: *makes
   <<: *serves_in_schedule_users_rotate_even
   stage: rotation
 
-serves/users/melts/rotate/odd:
+serves.users.melts.rotate.odd:
   <<: *makes
   <<: *serves_in_schedule_users_rotate_odd
   stage: rotation
 
-serves/users/melts/test:
+serves.users.melts.test:
   <<: *makes
   <<: *serves_in_dev_branch
   stage: test-infra
 
-serves/users/observes/apply:
+serves.users.observes.apply:
   <<: *makes
   <<: *serves_in_master_branch
   stage: deploy-infra
 
-serves/users/observes/rotate/even:
+serves.users.observes.rotate.even:
   <<: *makes
   <<: *serves_in_schedule_users_rotate_even
   stage: rotation
 
-serves/users/observes/rotate/odd:
+serves.users.observes.rotate.odd:
   <<: *makes
   <<: *serves_in_schedule_users_rotate_odd
   stage: rotation
 
-serves/users/observes/test:
+serves.users.observes.test:
   <<: *makes
   <<: *serves_in_dev_branch
   stage: test-infra
 
-serves/users/serves/apply:
+serves.users.serves.apply:
   <<: *makes
   <<: *serves_in_master_branch
   stage: deploy-infra
 
-serves/users/serves/rotate/even:
+serves.users.serves.rotate.even:
   <<: *makes
   <<: *serves_in_schedule_users_rotate_even
   stage: rotation
 
-serves/users/serves/rotate/odd:
+serves.users.serves.rotate.odd:
   <<: *makes
   <<: *serves_in_schedule_users_rotate_odd
   stage: rotation
 
-serves/users/serves/test:
+serves.users.serves.test:
   <<: *makes
   <<: *serves_in_dev_branch
   stage: test-infra
 
-serves/users/services/apply:
+serves.users.services.apply:
   <<: *makes
   <<: *serves_in_master_branch
   stage: deploy-infra
 
-serves/users/services/rotate/even:
+serves.users.services.rotate.even:
   <<: *makes
   <<: *serves_in_schedule_users_rotate_even
   stage: rotation
 
-serves/users/services/rotate/odd:
+serves.users.services.rotate.odd:
   <<: *makes
   <<: *serves_in_schedule_users_rotate_odd
   stage: rotation
 
-serves/users/services/test:
+serves.users.services.test:
   <<: *makes
   <<: *serves_in_dev_branch
   stage: test-infra
 
-serves/users/skims/apply:
+serves.users.skims.apply:
   <<: *makes
   <<: *serves_in_master_branch
   stage: deploy-infra
 
-serves/users/skims/rotate/even:
+serves.users.skims.rotate.even:
   <<: *makes
   <<: *serves_in_schedule_users_rotate_even
   stage: rotation
 
-serves/users/skims/rotate/odd:
+serves.users.skims.rotate.odd:
   <<: *makes
   <<: *serves_in_schedule_users_rotate_odd
   stage: rotation
 
-serves/users/skims/test:
+serves.users.skims.test:
   <<: *makes
   <<: *serves_in_dev_branch
   stage: test-infra
 
-serves/users/sorts/apply:
+serves.users.sorts.apply:
   <<: *makes
   <<: *serves_in_master_branch
   stage: deploy-infra
 
-serves/users/sorts/rotate/even:
+serves.users.sorts.rotate.even:
   <<: *makes
   <<: *serves_in_schedule_users_rotate_even
   stage: rotation
 
-serves/users/sorts/rotate/odd:
+serves.users.sorts.rotate.odd:
   <<: *makes
   <<: *serves_in_schedule_users_rotate_odd
   stage: rotation
 
-serves/users/sorts/test:
+serves.users.sorts.test:
   <<: *makes
   <<: *serves_in_dev_branch
   stage: test-infra
 
-serves/vpc/apply:
+serves.vpc.apply:
   <<: *makes
   <<: *serves_in_master_branch
   stage: deploy-infra
 
-serves/vpc/test:
+serves.vpc.test:
   <<: *makes
   <<: *serves_in_dev_branch
   stage: test-infra

@@ -9,11 +9,11 @@ let
 in
 makeEntrypoint {
   arguments = {
-    envStreamerZohoCrm = applications."observes/streamer-zoho-crm";
-    envTapCsv = applications."observes/tap-csv";
-    envTapJson = applications."observes/tap-json";
-    envTargetRedshift = applications."observes/target-redshift";
-    envUpdateSyncDate = applications."observes/update-sync-date";
+    envStreamerZohoCrm = applications.observes.streamer-zoho-crm;
+    envTapCsv = applications.observes.tap-csv;
+    envTapJson = applications.observes.tap-json;
+    envTargetRedshift = applications.observes.target-redshift;
+    envUpdateSyncDate = applications.observes.update-sync-date;
     envUtilsBashLibAws = import (path "/makes/utils/aws") path nixPkgs;
     envUtilsBashLibSops = import (path "/makes/utils/sops") path nixPkgs;
   };

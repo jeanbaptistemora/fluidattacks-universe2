@@ -33,41 +33,41 @@
       when: never
     - if: *forces_commit_pattern
 
-forces/lint:
+forces.lint:
   <<: *makes
   <<: *forces_in_dev_and_master_branch
   stage: lint-code
 
-forces/test:
+forces.test:
   <<: *makes
   <<: *forces_in_dev_and_master_branch
   stage: test-code
 
-forces/infra-test:
+forces.infra-test:
   <<: *makes
   <<: *forces_in_dev_and_master_branch
   stage: test-code
 
-forces/infra-apply:
+forces.infra-apply:
   <<: *makes
   only:
     refs: [schedules]
     variables: [$forces_infra_apply]
   stage: scheduler
 
-forces/process-groups:
+forces.process-groups:
   <<: *makes
   only:
     refs: [schedules]
     variables: [$forces_process_groups]
   stage: scheduler
 
-forces/oci-deploy:
+forces.oci-deploy:
   <<: *makes
   <<: *forces_in_master_branch
   stage: deploy-app
 
-forces/oci-deploy-wrapper:
+forces.oci-deploy-wrapper:
   <<: *makes
   <<: *forces_in_master_branch
   stage: deploy-app

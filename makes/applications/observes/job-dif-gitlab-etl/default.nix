@@ -9,7 +9,7 @@ let
 in
 makeEntrypoint {
   arguments = {
-    envDifGitlabEtl = applications."observes/dif-gitlab-etl";
+    envDifGitlabEtl = applications.observes.dif-gitlab-etl;
     envUtilsBashLibAws = import (path "/makes/utils/aws") path nixPkgs;
     envUtilsBashLibSops = import (path "/makes/utils/sops") path nixPkgs;
   };

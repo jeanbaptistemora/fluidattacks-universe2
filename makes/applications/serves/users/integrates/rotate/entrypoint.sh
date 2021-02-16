@@ -58,7 +58,7 @@ function deploy_integrates {
 
 function main {
   local gitlab_repo_id='20741933'
-  local integrates_job_name='integrates/back/deploy/prod'
+  local integrates_job_name='integrates.back.deploy.prod'
 
       user-rotate-keys-development \
   &&  check_last_job_succeeded \

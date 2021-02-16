@@ -31,4 +31,4 @@ Changes made to the source code are reflected on each invocation
 ## Executing quality checks locally (lint, benchmark, test, security, structure, docs, etc)
 
 - Run: `./make`, a list of available commands will be displayed.
-  Relevant commands begin with `skims-` prefix
+  Relevant commands begin with `skims` prefix

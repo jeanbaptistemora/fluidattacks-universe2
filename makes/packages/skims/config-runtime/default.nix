@@ -81,8 +81,8 @@ makeTemplate {
     envSources = [
       (makeTemplate {
         arguments = {
-          envParserAntlr = packages."skims/parsers/antlr";
-          envParserBabel = packages."skims/parsers/babel";
+          envParserAntlr = packages.skims.parsers.antlr;
+          envParserBabel = packages.skims.parsers.babel;
           envSrcSkimsStatic = path "/skims/static";
           envSrcSkimsVendor = path "/skims/vendor";
           envSrcTreeSitter = skimsTreeSitterRepo;

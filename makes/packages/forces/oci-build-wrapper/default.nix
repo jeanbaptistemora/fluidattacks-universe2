@@ -8,5 +8,5 @@ let
 in
 makeOci {
   config.WorkingDir = "/src";
-  config.Entrypoint = [ applications."forces/wrapper" ];
+  config.Entrypoint = [ applications.forces.wrapper ];
 }

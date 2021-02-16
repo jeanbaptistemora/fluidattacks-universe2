@@ -51,67 +51,67 @@
       when: never
     - if: *observes_commit_pattern
 
-observes/infra-test:
+observes.infra-test:
   <<: *makes
   <<: *observes_in_dev_branch
   stage: test-infra
 
-observes/lint-code-etl:
+observes.lint-code-etl:
   <<: *makes
   <<: *observes_in_dev_branch
   stage: lint-code
 
-observes/lint-dif-gitlab-etl:
+observes.lint-dif-gitlab-etl:
   <<: *makes
   <<: *observes_in_dev_branch
   stage: lint-code
 
-observes/lint-postgres-client:
+observes.lint-postgres-client:
   <<: *makes
   <<: *observes_in_dev_branch
   stage: lint-code
 
-observes/lint-singer-io:
+observes.lint-singer-io:
   <<: *makes
   <<: *observes_in_dev_branch
   stage: lint-code
 
-observes/lint-streamer-gitlab:
+observes.lint-streamer-gitlab:
   <<: *makes
   <<: *observes_in_dev_branch
   stage: lint-code
 
-observes/lint-streamer-zoho-crm:
+observes.lint-streamer-zoho-crm:
   <<: *makes
   <<: *observes_in_dev_branch
   stage: lint-code
 
-observes/lint-tap-csv:
+observes.lint-tap-csv:
   <<: *makes
   <<: *observes_in_dev_branch
   stage: lint-code
 
-observes/lint-tap-formstack:
+observes.lint-tap-formstack:
   <<: *makes
   <<: *observes_in_dev_branch
   stage: lint-code
 
-observes/lint-tap-mixpanel:
+observes.lint-tap-mixpanel:
   <<: *makes
   <<: *observes_in_dev_branch
   stage: lint-code
 
-observes/lint-target-redshift:
+observes.lint-target-redshift:
   <<: *makes
   <<: *observes_in_dev_branch
   stage: lint-code
 
-observes/lint-update-sync-date:
+observes.lint-update-sync-date:
   <<: *makes
   <<: *observes_in_dev_branch
   stage: lint-code
 
-observes/scheduled/code-etl-amend:
+observes.scheduled.code-etl-amend:
   <<: *makes
   only:
     refs: [schedules]
@@ -120,7 +120,7 @@ observes/scheduled/code-etl-amend:
   tags: [autoscaling]
   interruptible: false
 
-observes/scheduled/code-etl-compute-bills:
+observes.scheduled.code-etl-compute-bills:
   <<: *makes
   only:
     refs: [schedules]
@@ -129,7 +129,7 @@ observes/scheduled/code-etl-compute-bills:
   tags: [autoscaling]
   interruptible: false
 
-observes/scheduled/code-etl-mirror:
+observes.scheduled.code-etl-mirror:
   <<: *makes
   only:
     refs: [schedules]
@@ -138,7 +138,7 @@ observes/scheduled/code-etl-mirror:
   tags: [autoscaling]
   interruptible: false
 
-observes/scheduled/code-etl-upload:
+observes.scheduled.code-etl-upload:
   <<: *makes
   only:
     refs: [schedules]
@@ -147,7 +147,7 @@ observes/scheduled/code-etl-upload:
   tags: [autoscaling]
   interruptible: false
 
-observes/scheduled/formstack-etl:
+observes.scheduled.formstack-etl:
   <<: *makes
   tags: [autoscaling-analytics]
   stage: analytics
@@ -156,7 +156,7 @@ observes/scheduled/formstack-etl:
     variables: [$observes_formstack]
   interruptible: false
 
-observes/scheduled/mixpanel-integrates-etl:
+observes.scheduled.mixpanel-integrates-etl:
   <<: *makes
   tags: [autoscaling-analytics]
   stage: analytics
@@ -165,7 +165,7 @@ observes/scheduled/mixpanel-integrates-etl:
     variables: [$observes_mixpanel_integrates]
   interruptible: false
 
-observes/scheduled/timedoctor-backup:
+observes.scheduled.timedoctor-backup:
   <<: *makes
   tags: [autoscaling-analytics]
   stage: analytics
@@ -174,7 +174,7 @@ observes/scheduled/timedoctor-backup:
     variables: [$observes_timedoctor_backup]
   interruptible: false
 
-observes/scheduled/timedoctor-etl:
+observes.scheduled.timedoctor-etl:
   <<: *makes
   tags: [autoscaling-analytics]
   stage: analytics
@@ -183,7 +183,7 @@ observes/scheduled/timedoctor-etl:
     variables: [$observes_timedoctor]
   interruptible: false
 
-observes/scheduled/zoho-crm-etl:
+observes.scheduled.zoho-crm-etl:
   <<: *makes
   tags: [autoscaling-analytics]
   stage: analytics
@@ -192,7 +192,7 @@ observes/scheduled/zoho-crm-etl:
     variables: [$observes_zoho_crm]
   interruptible: false
 
-observes/scheduled/zoho-crm-prepare:
+observes.scheduled.zoho-crm-prepare:
   <<: *makes
   tags: [autoscaling-analytics]
   stage: analytics
@@ -201,42 +201,42 @@ observes/scheduled/zoho-crm-prepare:
     variables: [$observes_zoho_crm_prepare]
   interruptible: false
 
-observes/test-code-etl:
+observes.test-code-etl:
   <<: *makes
   <<: *observes_in_dev_branch
   stage: test-code
 
-observes/test-dif-gitlab-etl:
+observes.test-dif-gitlab-etl:
   <<: *makes
   <<: *observes_in_dev_branch
   stage: test-code
 
-observes/test-postgres-client:
+observes.test-postgres-client:
   <<: *makes
   <<: *observes_in_dev_branch
   stage: test-code
 
-observes/test-singer-io:
+observes.test-singer-io:
   <<: *makes
   <<: *observes_in_dev_branch
   stage: test-code
 
-observes/test-streamer-gitlab:
+observes.test-streamer-gitlab:
   <<: *makes
   <<: *observes_in_dev_branch
   stage: test-code
 
-observes/test-streamer-zoho-crm:
+observes.test-streamer-zoho-crm:
   <<: *makes
   <<: *observes_in_dev_branch
   stage: test-code
 
-observes/test-tap-csv:
+observes.test-tap-csv:
   <<: *makes
   <<: *observes_in_dev_branch
   stage: test-code
 
-observes/test-target-redshift:
+observes.test-target-redshift:
   <<: *makes
   <<: *observes_in_dev_branch
   stage: test-code

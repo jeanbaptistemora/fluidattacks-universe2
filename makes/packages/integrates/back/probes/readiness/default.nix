@@ -8,7 +8,7 @@ let
 in
 makeEntrypoint {
   arguments = {
-    envProbes = packages."integrates/back/probes/lib";
+    envProbes = packages.integrates.back.probes.lib;
   };
   name = "integrates-back-probes-readiness";
   template = path "/makes/packages/integrates/back/probes/readiness/entrypoint.sh";

@@ -84,10 +84,10 @@ Please check out the [Get development keys](https://gitlab.com/fluidattacks/prod
 Run each command in a different terminal:
 
 ```bash
-./make integrates/back
-./make integrates/cache
-./make integrates/db
-./make integrates/storage
+./make integrates.back
+./make integrates.cache
+./make integrates.db
+./make integrates.storage
 ```
 
 ## Local web application
@@ -95,7 +95,7 @@ Run each command in a different terminal:
 Run each command in a different terminal:
 
 ```bash
-./make integrates/front
+./make integrates.front
 ```
 
 ## Local mobile application
@@ -103,5 +103,5 @@ Run each command in a different terminal:
 Run each command in a different terminal:
 
 ```bash
-./make integrates/mobile
+./make integrates.mobile
 ```

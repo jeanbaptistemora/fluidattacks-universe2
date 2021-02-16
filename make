@@ -8,9 +8,9 @@ function build_package {
   local attribute_output
 
   ./makes/wrappers/nix3.sh build \
-    --out-link "out/${attribute////-}" \
+    --out-link "out/${attribute//./-}" \
     --show-trace \
-    ".#${attribute}"
+    ".#\"${attribute}\""
 }
 
 function cache_push {
@@ -37,7 +37,7 @@ function load_commands {
 
 function main {
   local attr="${1:-}"
-  local symlink="out/${attr////-}"
+  local symlink="out/${attr//./-}"
 
       main_ctx "${@}" \
   &&  source "${PWD}/.envrc.public" \
@@ -112,7 +112,7 @@ function run_application {
   local attribute="${1}"
 
       build_package "${attribute}" \
-  &&  "${PWD}/out/${attribute////-}/bin/${attribute////-}" "${@:2}"
+  &&  "${PWD}/out/${attribute//./-}/bin/${attribute//./-}" "${@:2}"
 }
 
 main "${@}"

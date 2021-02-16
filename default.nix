@@ -12,7 +12,7 @@ let
   # Flake components
   components = builtins.listToAttrs (builtins.map
     (name: {
-      name = builtins.replaceStrings [ "/" ] [ "-" ] name;
+      name = builtins.replaceStrings [ "." ] [ "-" ] name;
       value = flake.defaultNix.outputs.packages.x86_64-linux.${name};
     })
     (builtins.filter
