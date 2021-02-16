@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Feb 15, 2021, 12:23 PM",
+    "DateLastModified": "Feb 16, 2021, 09:37 AM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "2.0"
@@ -358,7 +358,22 @@
             "PartitionKeyAlias": "USER#email",
             "SortKeyAlias": "GROUP#name"
           },
-          "TableData": [],
+          "TableData": [
+            {
+              "pk": {
+                "S": "USER#test@fluidattacks.com"
+              },
+              "sk": {
+                "S": "GROUP#unittesting"
+              },
+              "role": {
+                "S": "group_manager"
+              },
+              "responsibility": {
+                "S": "Product owner"
+              }
+            }
+          ],
           "NonKeyAttributes": [
             "role",
             "responsibility"
@@ -460,9 +475,9 @@
             }
           ],
           "NonKeyAttributes": [
+            "settings",
             "modified_date",
-            "modified_by",
-            "settings"
+            "modified_by"
           ],
           "DataAccess": {
             "MySql": {}
@@ -471,16 +486,16 @@
         {
           "FacetName": "group_metadata",
           "KeyAttributeAlias": {
-            "PartitionKeyAlias": "GROUP#name",
-            "SortKeyAlias": "METADATA"
+            "PartitionKeyAlias": "ORG#name",
+            "SortKeyAlias": "GROUP#name#METADATA"
           },
           "TableData": [
             {
               "pk": {
-                "S": "GROUP#unittesting"
+                "S": "ORG#imamura"
               },
               "sk": {
-                "S": "METADATA"
+                "S": "GROUP#unittesting#METADATA"
               },
               "name": {
                 "S": "unittesting"
@@ -505,19 +520,54 @@
         {
           "FacetName": "group_state",
           "KeyAttributeAlias": {
-            "PartitionKeyAlias": "GROUP#name",
-            "SortKeyAlias": "STATE#iso8601utc"
+            "PartitionKeyAlias": "ORG#name",
+            "SortKeyAlias": "GROUP#name#STATE#iso8601utc"
           },
-          "TableData": [],
+          "TableData": [
+            {
+              "pk": {
+                "S": "ORG#imamura"
+              },
+              "sk": {
+                "S": "GROUP#unittesting#STATE#2021-02-15T14:01:16Z"
+              },
+              "type": {
+                "S": "CONTINUOUS"
+              },
+              "status": {
+                "S": "ACTIVE"
+              },
+              "tags": {
+                "SS": [
+                  "test"
+                ]
+              },
+              "change_reason": {
+                "S": "BUDGET"
+              },
+              "has_drills": {
+                "BOOL": true
+              },
+              "has_forces": {
+                "BOOL": false
+              },
+              "modified_date": {
+                "S": "2021-02-15T14:01:16Z"
+              },
+              "modified_by": {
+                "S": "USER#test@fluidattacks.com"
+              }
+            }
+          ],
           "NonKeyAttributes": [
-            "modified_date",
-            "modified_by",
             "type",
             "status",
             "tags",
             "change_reason",
             "has_drills",
-            "has_forces"
+            "has_forces",
+            "modified_date",
+            "modified_by"
           ],
           "DataAccess": {
             "MySql": {}
