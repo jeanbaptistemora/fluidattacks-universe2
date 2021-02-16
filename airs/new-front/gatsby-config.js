@@ -5,7 +5,7 @@ module.exports = {
       "We're a pentesting and ethical hacking company that identifies and \
       reports all your applications and software vulnerabilities ASAP.",
     url: "https://fluidattacks.com/new-front", // No trailing slash allowed!
-    image: "/images/fluid-attacks-logo.webp", // Path to your image you placed in the 'static' folder
+    image: "/images/logo-fluid-attacks.png", // Path to your image you placed in the 'static' folder
   },
   plugins: [
     {

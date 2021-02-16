@@ -31,7 +31,7 @@ export const NavbarItems: React.FC = (): JSX.Element => (
         <img
           alt={"Fluid Attacks logo navbar"}
           className={"h-5 ml3 pv2"}
-          src={"../theme/images/fluid-attacks-logo.webp"}
+          src={"../theme/images/logo-fluid-attacks.png"}
         />
       </a>
     </li>
