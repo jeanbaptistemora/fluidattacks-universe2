@@ -23,6 +23,7 @@
       "src/scenes/Dashboard/components/AddUserModal/index.tsx",
       "src/scenes/Dashboard/components/AddUserModal/index.spec.tsx",
       "src/scenes/Dashboard/components/APITokenModal/**",
+      "src/scenes/Dashboard/components/Comments/index.spec.tsx",
       "src/scenes/Dashboard/components/DeleteGroupModal/**",
       "src/scenes/Dashboard/components/NewsWidget/**",
       "src/scenes/Dashboard/components/Navbar/components/splitbutton/index.tsx",
