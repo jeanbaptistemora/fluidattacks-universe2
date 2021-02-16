@@ -10,6 +10,7 @@ import type { IHeaderConfig } from "components/DataTableNext/types";
 import { Modal } from "components/Modal";
 import type { PureAbility } from "@casl/ability";
 import React from "react";
+import { TooltipWrapper } from "components/TooltipWrapper";
 import { UpdateTreatmentModal } from "./UpdateDescription";
 import { UploadVulnerabilities } from "./uploadFile";
 import _ from "lodash";
@@ -253,13 +254,21 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
           {canUpdateVulnsTreatment || canRequestZeroRiskVuln ? (
             <React.Fragment>
               <RowCenter>
-                <Button
-                  disabled={selectedVulnerabilities.length === 0}
-                  onClick={openUpdateVulnModal}
+                <TooltipWrapper
+                  id={t("search_findings.tab_description.editVuln_tooltip.id")}
+                  message={t(
+                    "search_findings.tab_description.editVuln_tooltip"
+                  )}
+                  placement={"top"}
                 >
-                  <FluidIcon icon={"edit"} />
-                  {t("search_findings.tab_description.editVuln")}
-                </Button>
+                  <Button
+                    disabled={selectedVulnerabilities.length === 0}
+                    onClick={openUpdateVulnModal}
+                  >
+                    <FluidIcon icon={"edit"} />
+                    {t("search_findings.tab_description.editVuln")}
+                  </Button>
+                </TooltipWrapper>
               </RowCenter>
               <br />
             </React.Fragment>

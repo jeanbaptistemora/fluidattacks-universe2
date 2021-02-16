@@ -1044,7 +1044,10 @@ export const enTranslations: ResourceKey = {
         tooltip: "Brief explanation of the vulnerability and how it works",
       },
       download_vulnerabilities: "Download Vulnerabilities",
+      download_vulnerabilities_tooltip:
+        "Download a yaml file with all the vulnerabilities of this finding",
       editVuln: "Edit vulnerabilities",
+      editVuln_tooltip: "Modify the treatment for the selected vulnerabilities",
       editable: {
         cancel: "Cancel",
         cancel_tooltip: "Cancel changes",
@@ -1160,6 +1163,8 @@ export const enTranslations: ResourceKey = {
         title: "Finding type",
       },
       update_vulnerabilities: "Update Vulnerabilities",
+      update_vulnerabilities_tooltip:
+        "Modify the existing vulnerabilities using the selected yaml file",
       verification: "Verification",
       vulnBatchLimit: "You can update up to {{count}} vulnerabilities at once",
       vulnDeleted: "Vulnerability deleted",

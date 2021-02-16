@@ -14,6 +14,7 @@ import type { GraphQLError } from "graphql";
 import { Logger } from "utils/logger";
 import type { PureAbility } from "@casl/ability";
 import React from "react";
+import { TooltipWrapper } from "components/TooltipWrapper";
 import _ from "lodash";
 import { isValidVulnsFile } from "utils/validations";
 import { openUrl } from "utils/resourceHelpers";
@@ -21,7 +22,13 @@ import { translate } from "utils/translations/translate";
 import { useAbility } from "@casl/react";
 import { useDispatch } from "react-redux";
 import { useMutation } from "@apollo/react-hooks";
-import { Col25, Col33, FormGroup, RowCenter } from "styles/styledComponents";
+import {
+  ButtonToolbarLeft,
+  Col25,
+  Col33,
+  FormGroup,
+  RowCenter,
+} from "styles/styledComponents";
 import {
   DOWNLOAD_VULNERABILITIES,
   UPLOAD_VULNERABILITIES,
@@ -212,13 +219,27 @@ export const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
         <br />
         <RowCenter>
           <Col33>
-            <Button disabled={loading} onClick={handleDownloadVulnerability}>
-              <FluidIcon icon={"export"} />
-              &nbsp;
-              {translate.t(
-                "search_findings.tab_description.download_vulnerabilities"
-              )}
-            </Button>
+            <ButtonToolbarLeft>
+              <TooltipWrapper
+                id={translate.t(
+                  "search_findings.tab_description.download_vulnerabilities_tooltip.id"
+                )}
+                message={translate.t(
+                  "search_findings.tab_description.download_vulnerabilities_tooltip"
+                )}
+              >
+                <Button
+                  disabled={loading}
+                  onClick={handleDownloadVulnerability}
+                >
+                  <FluidIcon icon={"export"} />
+                  &nbsp;
+                  {translate.t(
+                    "search_findings.tab_description.download_vulnerabilities"
+                  )}
+                </Button>
+              </TooltipWrapper>
+            </ButtonToolbarLeft>
           </Col33>
           <Col25 className={"upload-file"}>
             <FormGroup>
@@ -232,13 +253,24 @@ export const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
             </FormGroup>
           </Col25>
           <Col33>
-            <Button disabled={loading} type={"submit"}>
-              <FluidIcon icon={"import"} />
-              &nbsp;
-              {translate.t(
-                "search_findings.tab_description.update_vulnerabilities"
-              )}
-            </Button>
+            <ButtonToolbarLeft>
+              <TooltipWrapper
+                id={translate.t(
+                  "search_findings.tab_description.update_vulnerabilities_tooltip.id"
+                )}
+                message={translate.t(
+                  "search_findings.tab_description.update_vulnerabilities_tooltip"
+                )}
+              >
+                <Button disabled={loading} type={"submit"}>
+                  <FluidIcon icon={"import"} />
+                  &nbsp;
+                  {translate.t(
+                    "search_findings.tab_description.update_vulnerabilities"
+                  )}
+                </Button>
+              </TooltipWrapper>
+            </ButtonToolbarLeft>
           </Col33>
         </RowCenter>
       </React.Fragment>
