@@ -763,6 +763,24 @@
           }
         }
       ],
+      "GlobalSecondaryIndexes": [
+        {
+          "IndexName": "inverted_index",
+          "KeyAttributes": {
+            "PartitionKey": {
+              "AttributeName": "sk",
+              "AttributeType": "S"
+            },
+            "SortKey": {
+              "AttributeName": "pk",
+              "AttributeType": "S"
+            }
+          },
+          "Projection": {
+            "ProjectionType": "ALL"
+          }
+        }
+      ],
       "DataAccess": {
         "MySql": {}
       }
