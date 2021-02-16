@@ -388,7 +388,7 @@ async def send_group_treatment_change(
     LOGGER.info(msg, extra={'extra': payload_data})
     findings = await finding_domain.list_findings([group_name])
     await collect(
-        vuln_domain.send_treatment_chage_mail(context, finding_id, min_date)
+        vuln_domain.send_treatment_change_mail(context, finding_id, min_date)
         for finding_id in findings[0]
     )
 
