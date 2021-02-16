@@ -60,6 +60,7 @@ observes.scheduled.code-etl-compute-bills
 observes.scheduled.code-etl-mirror
 observes.scheduled.code-etl-upload
 observes.scheduled.dif-gitlab-etl
+observes.scheduled.dynamodb-integrates-etl
 observes.scheduled.formstack-etl
 observes.scheduled.mixpanel-integrates-etl
 observes.scheduled.timedoctor-backup

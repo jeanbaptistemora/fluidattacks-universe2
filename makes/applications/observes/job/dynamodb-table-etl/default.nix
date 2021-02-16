@@ -15,7 +15,6 @@ makeEntrypoint nixPkgs {
       nixPkgs.coreutils
       nixPkgs.jq
     ];
-    envUtils = [ ];
   };
   name = "observes-job-dynamodb-table-etl";
   template = path "/makes/applications/observes/job/dynamodb-table-etl/entrypoint.sh";
