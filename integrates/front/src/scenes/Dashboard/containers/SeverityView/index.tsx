@@ -18,6 +18,7 @@ import { formValueSelector, InjectedFormProps } from "redux-form";
 
 import { Button } from "components/Button/index";
 import { FluidIcon } from "components/FluidIcon";
+import { TooltipWrapper } from "components/TooltipWrapper";
 import { EditableField } from "scenes/Dashboard/components/EditableField";
 import { GenericForm } from "scenes/Dashboard/components/GenericForm/index";
 import { GET_FINDING_HEADER } from "scenes/Dashboard/containers/FindingContent/queries";
@@ -100,9 +101,14 @@ const severityView: React.FC = (): JSX.Element => {
                 <React.Fragment>
                   <Can do="backend_api_mutations_update_severity_mutate">
                     <ButtonToolbarRow>
-                      <Button onClick={handleEditClick}>
-                        <FluidIcon icon="edit" />&nbsp;{translate.t("search_findings.tab_severity.editable")}
-                      </Button>
+                      <TooltipWrapper
+                        id={translate.t("search_findings.tab_severity.editable_tooltip.id")}
+                        message={translate.t("search_findings.tab_severity.editable_tooltip")}
+                      >
+                        <Button onClick={handleEditClick}>
+                          <FluidIcon icon="edit" />&nbsp;{translate.t("search_findings.tab_severity.editable")}
+                        </Button>
+                      </TooltipWrapper>
                     </ButtonToolbarRow>
                   </Can>
                   <br />

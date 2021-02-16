@@ -1210,6 +1210,7 @@ export const enTranslations: ResourceKey = {
       date: "Date: ",
       detail: "Detail",
       editable: "Edit",
+      editable_tooltip: "Modify the evidence for this finding",
       evidence_exploit: "Exploitation evidence",
       remove: "Delete",
       tab_title: "Evidence",
@@ -1218,6 +1219,8 @@ export const enTranslations: ResourceKey = {
       update: "Update",
     },
     tab_exploit: {
+      editable: "Edit",
+      editable_tooltip: "Modify the exploit script",
       tab_title: "Exploit",
       tooltip: "Script to replicate the exploitation process using Asserts",
     },
@@ -1587,6 +1590,7 @@ export const enTranslations: ResourceKey = {
       },
       cvss_version: "CVSS Version",
       editable: "Edit",
+      editable_tooltip: "Modify severity metrics",
       exploitability: "Exploitability",
       exploitability_options: {
         conceptual: {

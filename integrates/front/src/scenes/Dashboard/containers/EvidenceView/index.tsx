@@ -17,6 +17,7 @@ import { InjectedFormProps, Validator } from "redux-form";
 
 import { Button } from "components/Button";
 import { FluidIcon } from "components/FluidIcon";
+import { TooltipWrapper } from "components/TooltipWrapper";
 import { evidenceImage as EvidenceImage } from "scenes/Dashboard/components/EvidenceImage/index";
 import { EvidenceLightbox } from "scenes/Dashboard/components/EvidenceLightbox";
 import { GenericForm } from "scenes/Dashboard/components/GenericForm";
@@ -153,9 +154,14 @@ const evidenceView: React.FC = (): JSX.Element => {
     <React.StrictMode>
       <ButtonToolbarRow>
         <Can do="backend_api_mutations_update_evidence_mutate">
-          <Button onClick={handleEditClick}>
-            <FluidIcon icon="edit" />&nbsp;{translate.t("group.findings.evidence.edit")}
-          </Button>
+          <TooltipWrapper
+            id={"search_findings.tab_evidence.editable_tooltip.id"}
+            message={translate.t("search_findings.tab_evidence.editable_tooltip")}
+          >
+            <Button onClick={handleEditClick}>
+              <FluidIcon icon="edit" />&nbsp;{translate.t("search_findings.tab_evidence.editable")}
+            </Button>
+          </TooltipWrapper>
         </Can>
       </ButtonToolbarRow>
       <br />
