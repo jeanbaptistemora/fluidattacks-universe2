@@ -1,7 +1,10 @@
 # Standard
 
 # Third party
-from typing import cast
+from typing import (
+    cast,
+    Optional,
+)
 from ariadne.utils import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
@@ -23,8 +26,8 @@ from backend.typing import Project as Group
 async def resolve(
     parent: Group,
     __: GraphQLResolveInfo,
-) -> str:
+) -> Optional[str]:
     group_name: str = cast(str, parent['name'])
-    token: str = await forces_domain.get_token(group_name)
+    token: Optional[str] = await forces_domain.get_token(group_name)
 
     return token

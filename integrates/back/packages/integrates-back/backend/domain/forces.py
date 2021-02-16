@@ -10,6 +10,7 @@ from typing import (
     cast,
     Dict,
     List,
+    Optional,
     Union,
 )
 import tempfile
@@ -147,5 +148,5 @@ async def update_token(project_name: str, token: str) -> bool:
     return await forces_dal.update_secret_token(project_name, token)
 
 
-async def get_token(project_name: str) -> str:
+async def get_token(project_name: str) -> Optional[str]:
     return await forces_dal.get_secret_token(project_name)

@@ -4,6 +4,7 @@ from typing import (
     Any,
     AsyncIterator,
     cast,
+    Optional,
 )
 
 # Standard library
@@ -169,7 +170,7 @@ async def update_secret_token(project_name: str, secret: str) -> bool:
     return True
 
 
-async def get_secret_token(project_name: str) -> str:
+async def get_secret_token(project_name: str) -> Optional[str]:
     client = boto3.client(
         'secretsmanager',
         aws_access_key_id=FI_AWS_SECRETSMANAGER_ACCESS_KEY,
@@ -182,5 +183,5 @@ async def get_secret_token(project_name: str) -> str:
         )
     except ClientError as error:
         LOGGER.exception(error, extra={'extra': locals()})
-        return 'Token not found'
+        return None
     return cast(str, response.get('SecretString'))
