@@ -5,6 +5,7 @@ from typing import (
     Callable,
     Dict,
     Iterable,
+    List,
     NamedTuple,
     Optional,
     Union,
@@ -25,13 +26,6 @@ class DynamicSQLargs(NamedTuple):
     identifiers: Dict[str, Optional[str]] = {}
 
 
-class Cursor(NamedTuple):
-    execute: Callable[[str, Optional[DynamicSQLargs]], 'CursorExeAction']
-    fetchall: Callable[[], 'CursorFetchAction']
-    fetchone: Callable[[], 'CursorFetchAction']
-    close: Callable[[], None]
-
-
 class CursorExeAction(NamedTuple):
     act: Callable[[], Any]
     statement: str
@@ -43,6 +37,16 @@ class CursorFetchAction(NamedTuple):
 
 
 CursorAction = Union[CursorExeAction, CursorFetchAction]
+
+
+class Cursor(NamedTuple):
+    act: Callable[[List[CursorAction]], List[Any]]
+    execute: Callable[[str, Optional[DynamicSQLargs]], CursorExeAction]
+    fetchall: Callable[[], CursorFetchAction]
+    fetchone: Callable[[], CursorFetchAction]
+    close: Callable[[], None]
+
+
 SQLidPurifier = Callable[[str, Optional[DynamicSQLargs]], str]
 DbCursor = Any
 
@@ -71,6 +75,10 @@ def _act_exe_action(
     safe_stm = purify_sql_ids(statement, args)
     stm_values = args.values if args else {}
     cursor.execute(safe_stm, stm_values)
+
+
+def _act(actions: List[CursorAction]) -> List[Any]:
+    return list(map(lambda action: action.act(), actions))
 
 
 def _make_exe_action(
@@ -111,6 +119,7 @@ def _cursor_builder(db_cursor: DbCursor) -> Cursor:
         return _make_fetch_action(db_cursor, FetchAction.ONE)
 
     return Cursor(
+        act=_act,
         execute=exe,
         fetchall=f_all,
         fetchone=f_one,
