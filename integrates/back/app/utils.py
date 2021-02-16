@@ -3,7 +3,6 @@ from datetime import datetime, timedelta
 from typing import Any, Dict
 
 # Third party libraries
-import sqreen
 from aioextensions import collect, schedule
 from authlib.integrations.starlette_client import OAuth
 from starlette.requests import Request
@@ -156,7 +155,6 @@ async def create_user(user: Dict[str, str]) -> None:
     }
 
     if not await user_domain.is_registered(email):
-        sqreen.signup_track(username=email)
         await analytics.mixpanel_track(email, 'Register')
         await autoenroll_user(email)
 
@@ -173,7 +171,6 @@ async def create_user(user: Dict[str, str]) -> None:
             email, data_dict
         )
     else:
-        sqreen.auth_track(success=True, username=email)
         if await user_domain.get_data(email, 'first_name'):
             await user_domain.update_last_login(email)
         else:

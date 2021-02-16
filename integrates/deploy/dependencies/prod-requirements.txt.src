@@ -48,7 +48,6 @@ retrying==1.3.3
 s3transfer==0.3.3
 simplejson==3.17.0
 social-auth-core==3.3.3
-sqreen==1.25.1
 starlette==0.13.8
 tracers==20.7.1645
 uvicorn[standard]==0.12.3

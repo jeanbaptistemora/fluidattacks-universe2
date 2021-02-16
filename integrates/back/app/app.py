@@ -7,7 +7,6 @@ import asyncio
 import bugsnag
 from bugsnag.asgi import BugsnagMiddleware
 import newrelic.agent
-import sqreen
 
 from aioextensions import in_thread
 
@@ -213,7 +212,6 @@ STARLETTE_APP = Starlette(
 
 BUGSNAG_WRAP = BugsnagMiddleware(STARLETTE_APP)
 
-sqreen.start()
 NEWRELIC_WRAP = newrelic.agent.ASGIApplicationWrapper(
     BUGSNAG_WRAP,
     framework=('Starlette', '0.13.8')

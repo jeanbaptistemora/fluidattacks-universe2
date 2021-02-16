@@ -6,7 +6,6 @@ from typing import Any, Callable
 
 # Third party libraries
 import newrelic.agent
-import sqreen
 
 from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.requests import Request
@@ -29,6 +28,4 @@ class CustomRequestMiddleware(BaseHTTPMiddleware):  # type: ignore
         if url != traceback:
             newrelic.agent.set_transaction_name(traceback)
         request.state.store = defaultdict(lambda: None)
-        if request.session.get('username'):
-            sqreen.identify({'username': request.session['username']})
         return await call_next(request)
