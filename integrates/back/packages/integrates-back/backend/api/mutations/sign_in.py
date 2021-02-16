@@ -9,17 +9,15 @@ from typing import (
 )
 
 # Third party libraries
-from aioextensions import in_thread
 import aiohttp
 
 from ariadne import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
-from mixpanel import Mixpanel
-
 # Local libraries
 from backend.typing import SignInPayload as SignInPayloadType
 from backend.utils import (
+    analytics,
     datetime as datetime_utils,
     token as token_helper
 )
@@ -113,15 +111,10 @@ async def mutate(
                 'sub': 'session_token',
             }
         )
-        mp_obj = Mixpanel(settings.MIXPANEL_API_TOKEN)
-        await in_thread(
-            mp_obj.track,
+        await analytics.mixpanel_track(
             email,
             'MobileAuth',
-            {
-                'integrates_user_email': email,
-                'provider': provider
-            }
+            provider=provider
         )
         success = True
     else:

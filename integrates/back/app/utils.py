@@ -4,13 +4,8 @@ from typing import Any, Dict
 
 # Third party libraries
 import sqreen
-from aioextensions import (
-    collect,
-    in_thread,
-    schedule
-)
+from aioextensions import collect, schedule
 from authlib.integrations.starlette_client import OAuth
-from mixpanel import Mixpanel
 from starlette.requests import Request
 from starlette.responses import HTMLResponse
 
@@ -26,6 +21,7 @@ from backend import (
     util
 )
 from backend.utils import (
+    analytics,
     token as token_helper,
 )
 from back import settings
@@ -161,12 +157,7 @@ async def create_user(user: Dict[str, str]) -> None:
 
     if not await user_domain.is_registered(email):
         sqreen.signup_track(username=email)
-        await in_thread(
-            Mixpanel(settings.MIXPANEL_API_TOKEN).track,
-            email,
-            'Register',
-            {'integrates_user_email': email}
-        )
+        await analytics.mixpanel_track(email, 'Register')
         await autoenroll_user(email)
 
         schedule(

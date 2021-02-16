@@ -3,14 +3,10 @@ import logging
 from typing import Any
 
 # Third party libraries
-from aioextensions import in_thread
 from ariadne import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
-from mixpanel import Mixpanel
 
 # Local libraries
-from back import settings
-
 from backend import util
 from backend.decorators import (
     concurrent_decorators,
@@ -20,6 +16,7 @@ from backend.decorators import (
 )
 from backend.domain import resources as resources_domain
 from backend.typing import DownloadFilePayload as DownloadFilePayloadType
+from backend.utils import analytics
 
 LOGGER = logging.getLogger(__name__)
 
@@ -49,16 +46,11 @@ async def mutate(
             f'in project {project_name} successfully'
         )
         util.cloudwatch_log(info.context, msg)
-        mp_obj = Mixpanel(settings.MIXPANEL_API_TOKEN)
-        await in_thread(
-            mp_obj.track,
+        await analytics.mixpanel_track(
             user_email,
             'DownloadProjectFile',
-            {
-                'Project': project_name.upper(),
-                'integrates_user_email': user_email,
-                'FileName': parameters['files_data'],
-            }
+            Project=project_name.upper(),
+            FileName=parameters['files_data'],
         )
         success = True
     else:
