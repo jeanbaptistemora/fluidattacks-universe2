@@ -239,7 +239,9 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
         );
 
         if (areAllMutationValid.every(Boolean)) {
-          mixpanel.track("UpdatedTreatmentVulnerabilities");
+          mixpanel.track("UpdatedTreatmentVulnerabilities", {
+            batchSize: vulnerabilities.length,
+          });
           msgSuccess(
             translate.t(
               "search_findings.tab_description.update_vulnerabilities"
