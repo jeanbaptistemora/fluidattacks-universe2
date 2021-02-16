@@ -4,14 +4,14 @@ metadata:
   name: integrates-master
   namespace: production
 spec:
-  replicas: 10
+  replicas: 5
   selector:
     matchLabels:
       app: integrates-master
   strategy:
     rollingUpdate:
-      maxSurge: 3
-      maxUnavailable: 3
+      maxSurge: 2
+      maxUnavailable: 2
   template:
     metadata:
       labels:

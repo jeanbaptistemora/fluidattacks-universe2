@@ -67,7 +67,7 @@ module "eks" {
       public_ip               = true
 
       asg_min_size = 3
-      asg_max_size = 15
+      asg_max_size = 7
 
       root_volume_type = "gp3"
       root_volume_size = 50
