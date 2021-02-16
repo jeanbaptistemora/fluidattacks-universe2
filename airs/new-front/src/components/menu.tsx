@@ -1,4 +1,6 @@
-/* eslint-disable-next-line react/forbid-component-props */
+/* eslint react/forbid-component-props: 0 */
+import { Link } from "gatsby";
+
 import React from "react";
 
 import {
@@ -12,7 +14,6 @@ import {
 } from "../styles/styledComponents";
 
 export const NavbarItems: React.FC = (): JSX.Element => (
-  //eslint-disable-next-line react/forbid-component-props
   <NavbarList className={"roboto"} id={"navbar_list"}>
     <MenuButton>
       <div className={"lower"}>
@@ -27,27 +28,27 @@ export const NavbarItems: React.FC = (): JSX.Element => (
     </MenuButton>
 
     <li className={"fl"}>
-      <a className={"db tc pa1 no-underline"} href={"/"}>
+      <Link className={"db tc pa1 no-underline"} to={"/"}>
         <img
           alt={"Fluid Attacks logo navbar"}
           className={"h-5 ml3 pv2"}
           src={"../theme/images/logo-fluid-attacks.png"}
         />
-      </a>
+      </Link>
     </li>
 
     <li className={"relative fr pv4 db-l dn"}>
-      <a className={"no-underline"} href={"../contact-us/"}>
+      <Link className={"no-underline"} to={"../contact-us/"}>
         <NavbarContactButton>{"Contact"}</NavbarContactButton>
-      </a>
+      </Link>
     </li>
 
     <li className={"relative fr mr3 pr2 pv4 db-l dn"}>
-      <a
+      <Link
         className={"no-underline"}
-        href={"https://integrates.fluidattacks.com/"}>
+        to={"https://integrates.fluidattacks.com/"}>
         <NavbarLoginButton>{"Login"}</NavbarLoginButton>
-      </a>
+      </Link>
     </li>
 
     <li className={"relative fr mr4 pv3 mv1 db-l dn"}>
@@ -55,21 +56,21 @@ export const NavbarItems: React.FC = (): JSX.Element => (
     </li>
 
     <li className={"db-xl display-none relative fr mr3 pv4"}>
-      <a className={"no-underline"} href={"../blog/"}>
+      <Link className={"no-underline"} to={"../blog/"}>
         <NavbarRegularButton>{"Blog"}</NavbarRegularButton>
-      </a>
+      </Link>
     </li>
 
     <li className={"db-xl display-none relative fr mr3 pr2 pv4"}>
-      <a className={"no-underline"} href={"../resources/"}>
+      <Link className={"no-underline"} to={"../resources/"}>
         <NavbarRegularButton>{"Resources"}</NavbarRegularButton>
-      </a>
+      </Link>
     </li>
 
     <li className={"db-l dn fr mr3 pr2 pv4 solutions-index"}>
-      <a className={"no-underline"} href={"../solutions/"}>
+      <Link className={"no-underline"} to={"../solutions/"}>
         <NavbarRegularButton>{"Solutions"}</NavbarRegularButton>
-      </a>
+      </Link>
 
       <NavbarSubcategory
         //eslint-disable-next-line react/forbid-component-props
@@ -109,9 +110,9 @@ export const NavbarItems: React.FC = (): JSX.Element => (
     </li>
 
     <li className={"db-l dn fr mr3 pr2 pv4 usecases-index"}>
-      <a className={"no-underline"} href={"../services/continuous-hacking/"}>
+      <Link className={"no-underline"} to={"../services/continuous-hacking/"}>
         <NavbarRegularButton>{"Services"}</NavbarRegularButton>
-      </a>
+      </Link>
 
       <NavbarSubcategory
         //eslint-disable-next-line react/forbid-component-props

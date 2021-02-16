@@ -1,4 +1,4 @@
-:slug: advisories/morison/
+:slug: advisories/morrison/
 :authors: Andres Roldan
 :writer: aroldan
 :codename: morrison

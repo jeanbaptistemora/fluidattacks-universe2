@@ -247,6 +247,7 @@ function job_airs_deploy_local {
   &&  helper_airs_set_lc_all \
   &&  helper_airs_compile 'http://localhost:8000' \
   &&  python3 -m http.server --directory output \
+  &&  npm run --prefix new-front/ develop \
   &&  popd \
   ||  return 1
 }

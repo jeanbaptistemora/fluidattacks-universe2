@@ -48,6 +48,7 @@ exports.createPages = ({ graphql, actions }) => {
         component: slash(articleTemplate),
         context: {
           id: edge.node.id,
+          slug: `/${edge.node.pageAttributes.slug}`
         },
       })
     })
