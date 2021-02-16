@@ -61,7 +61,7 @@
     - when: always
 
 .analytics_template: &analytics_template
-  <<: *with_nix
+  <<: *makes
   artifacts:
     expire_in: 1 week
     paths:
@@ -283,17 +283,17 @@ integrates/web/e2e:
 integrates_analytics_make_documents_dev:
   <<: *analytics_template
   <<: *in_dev_branch_integrates
-  image: "${CI_REGISTRY_IMAGE}/nix:integrates_analytics_make_documents_dev"
   parallel: 4
+  script: [./make integrates/analytics/documents dev]
 
 integrates_analytics_make_documents_prod_schedule:
   <<: *analytics_template
-  image: "${CI_REGISTRY_IMAGE}/nix:integrates_analytics_make_documents_prod_schedule"
   interruptible: false
   only:
     refs: [schedules]
     variables: [$integrates_analytics_make_documents_prod_schedule]
   parallel: 10
+  script: [./make integrates/analytics/documents prod]
 
 integrates_analytics_make_snapshots_prod_schedule:
   <<: *analytics_template

@@ -7,6 +7,7 @@ function main {
     8022  # dynamodb
     8080  # back1
     8081  # back2
+    9000  # storage
   )
 
   makes-kill-port "${ports[@]}"

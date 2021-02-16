@@ -6,6 +6,7 @@ forces/oci-deploy-wrapper
 forces/process-groups
 forces/test
 forces/wrapper
+integrates/analytics/documents
 integrates/back
 integrates/back/deploy/dev
 integrates/back/deploy/prod
