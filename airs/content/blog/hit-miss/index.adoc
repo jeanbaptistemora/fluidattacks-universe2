@@ -45,7 +45,7 @@ One way to do so would be to look at their
 link:https://en.wikipedia.org/wiki/Moving_average[rolling average],
 i.e., his average so far. The
 link:https://www.probabilisticworld.com/law-large-numbers/[law of large numbers]
-tells us that no matter what happens at the beggining,
+tells us that no matter what happens at the beginning,
 the rolling average will tend to the true value,
 if you observe it for long enough:
 
