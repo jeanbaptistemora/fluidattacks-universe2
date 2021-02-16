@@ -28,7 +28,9 @@ from backend.api.dataloaders.finding_vulns_non_zero_risk import (
 from backend.api.dataloaders.group import GroupLoader
 from backend.api.dataloaders.group_active import GroupActiveLoader
 from backend.api.dataloaders.group_drafts import GroupDraftsLoader
-from backend.api.dataloaders.group_findings import GroupFindingsLoader
+from backend.api.dataloaders.group_findings_non_deleted import (
+    GroupFindingsNonDeletedLoader
+)
 from backend.api.dataloaders.group_roots import GroupRootsLoader
 from backend.api.dataloaders.vulnerability import VulnerabilityLoader
 
@@ -46,7 +48,7 @@ class Dataloaders(NamedTuple):
     group: GroupActiveLoader
     group_all: GroupLoader  # used only by analytics. Retrieves all groups
     group_drafts: GroupDraftsLoader
-    group_findings: GroupFindingsLoader
+    group_findings: GroupFindingsNonDeletedLoader
     group_roots: GroupRootsLoader
     vulnerability: VulnerabilityLoader
 
@@ -68,7 +70,7 @@ def get_new_context() -> Dataloaders:
         group=GroupActiveLoader(group_loader),
         group_all=group_loader,
         group_drafts=GroupDraftsLoader(),
-        group_findings=GroupFindingsLoader(),
+        group_findings=GroupFindingsNonDeletedLoader(),
         group_roots=GroupRootsLoader(),
         vulnerability=VulnerabilityLoader()
     )
