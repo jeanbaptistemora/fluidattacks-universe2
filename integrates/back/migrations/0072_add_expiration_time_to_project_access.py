@@ -1,6 +1,9 @@
 """
 This migration add expiration_time to project access for that stakeholder
 who has not confirmed the group invitation
+
+Execution Time:    2021-02-16 at 16:52:25 UTC-05
+Finalization Time: 2021-02-16 at 16:52:36 UTC-05
 """
 # Standard library
 from pprint import pprint
