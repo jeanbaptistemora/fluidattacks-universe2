@@ -26,6 +26,9 @@ from backend.typing import (
     ProjectAccess as ProjectAccessType,
 )
 from backend.dal.user import get_user_name
+from backend.utils import (
+    datetime as datetime_utils,
+)
 from back.settings import LOGGING
 
 logging.config.dictConfig(LOGGING)
@@ -202,10 +205,18 @@ async def get_users(project: str, active: bool = True) -> List[str]:
     key_condition = Key('project_name').eq(project_name)
     projection_expression = \
         'user_email, has_access, project_name, responsibility'
+    now_epoch = datetime_utils.get_as_epoch(
+        datetime_utils.get_now()
+    )
+    filter_exp = (
+        Attr('expiration_time').not_exists() |
+        Attr('expiration_time').gt(now_epoch)
+    )
     query_attrs = {
         'IndexName': 'project_access_users',
         'KeyConditionExpression': key_condition,
-        'ProjectionExpression': projection_expression
+        'ProjectionExpression': projection_expression,
+        'FilterExpression': filter_exp,
     }
     users = await dynamodb.async_query(TABLE_ACCESS_NAME, query_attrs)
     if active:

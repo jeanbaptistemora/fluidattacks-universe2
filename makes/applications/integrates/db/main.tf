@@ -148,6 +148,7 @@ resource "aws_dynamodb_table" "FI_project_access" {
     hash_key = "project_name"
     name     = "project_access_users"
     non_key_attributes = [
+      "expiration_time",
       "has_access",
       "responsibility",
     ]
