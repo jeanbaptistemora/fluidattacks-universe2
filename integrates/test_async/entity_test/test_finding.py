@@ -1,7 +1,9 @@
 from collections import OrderedDict
 from datetime import datetime, timedelta
+from typing import Optional
 import json
 import os
+import time
 import pytest
 
 from ariadne import graphql
@@ -14,6 +16,7 @@ from backend import util
 from backend.api import (
   apply_context_attrs,
   get_new_context,
+  Dataloaders
 )
 from backend.api.schema import SCHEMA
 from backend.domain.finding import get_finding
@@ -23,10 +26,18 @@ from test_async.utils import create_dummy_session
 
 pytestmark = pytest.mark.asyncio
 
-async def _get_result(data, user='integratesmanager@gmail.com'):
+
+async def _get_result(
+    data,
+    user: str = 'integratesmanager@gmail.com',
+    context: Optional[Dataloaders] = None
+):
     """Get result."""
     request = await create_dummy_session(username=user)
-    request = apply_context_attrs(request)
+    request = apply_context_attrs(
+        request,
+        loaders=context if context else get_new_context()
+      )
     _, result = await graphql(SCHEMA, data, context_value=request)
     return result
 
@@ -573,11 +584,10 @@ async def test_filter_deleted_findings():
     open_vulns = await get_open_vulnerabilities(context, 'unittesting')
 
     data = {'query': mutation}
-    result = await _get_result(data)
+    result = await _get_result(data, context=context)
     assert 'errors' not in result
     assert 'success' in result['data']['deleteFinding']
     assert result['data']['deleteFinding']['success']
-
     assert await get_open_vulnerabilities(context, 'unittesting') < open_vulns
 
 async def test_non_existing_finding():
