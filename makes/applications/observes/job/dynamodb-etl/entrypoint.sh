@@ -1,10 +1,10 @@
 # shellcheck shell=bash
 
 function dynamodb_etl {
-      local conf="${1}"
-      local schema="${2}"
-      local db_creds
-      local dynamo_creds
+  local conf="${1}"
+  local schema="${2}"
+  local db_creds
+  local dynamo_creds
 
       db_creds=$(mktemp) \
   &&  dynamo_creds=$(mktemp) \

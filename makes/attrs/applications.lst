@@ -54,6 +54,7 @@ observes.dif-gitlab-etl
 observes.infra-test
 observes.job-dif-gitlab-etl
 observes.job.dynamodb-etl
+observes.job.dynamodb-table-etl
 observes.scheduled.code-etl-amend
 observes.scheduled.code-etl-compute-bills
 observes.scheduled.code-etl-mirror
