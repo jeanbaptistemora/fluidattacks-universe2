@@ -134,9 +134,8 @@ a service to continuously check and improve robustness of defenses.
 * [inner]#link:../../services/one-shot-hacking/[One-shot hacking]#,
 if a precise audit is needed.
 
-Our customers rely on Integrates,
-`Fluid Attacks's` vulnerability management platform,
-to keep track of weaknesses.
+Our customers rely on our Attack Surface Manager,
+the platform to keep track of weaknesses.
 They don’t have to worry much about managing findings on their IT assets;
 we make it easy for them by providing a tool to centralize everything.
 

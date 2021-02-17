@@ -178,9 +178,9 @@ We combine automated tools with the best-trained cybersecurity professionals.
 - We automate almost everything we know and do.
 Our product [inner]#link:../../products/asserts/[Asserts]#
 allow us to evaluate the state of your systems quickly.
-- We store, describe, and track almost everything in Integrates,
-our Vulnerability Management Platform.
-Integrates makes it easier for our customers
+- We store, describe, and track almost everything
+in our Attack Surface Manager (ASM).
+ASM makes it easier for our customers
 to keep track of their security weaknesses as well as fixes.
 
 We hope you have enjoyed this post, and we look forward to hearing from you.

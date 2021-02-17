@@ -110,7 +110,7 @@ from security professionals can be much more valuable.
 
 Immediately afterward, what Georgia remarks
 connects perfectly with what we at `Fluid Attacks` do
-through our Integrates platform.
+through our Attack Surface Manager.
 "For me it's important to not only clearly explain my results
 but also keep an open dialogue with the client blue team
 as they work through remediating the issues

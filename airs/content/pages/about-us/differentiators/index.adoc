@@ -54,7 +54,7 @@ and hours or days for the most critical vulnerabilities.
 
 a|==== Support
 | Our standard service includes consulting and clarification by hackers
-(via Integrates) so that users understand vulnerabilities.
+(via our Attack Surface Manager) so that users understand vulnerabilities.
 | Usually, companies provide support to the users of the tools
 as an additional and expensive service.
 
@@ -91,7 +91,8 @@ and (2) the appropriate authorization.
 | There is no exploitation because they are not capable of doing `DAST`.
 
 a|==== Management
-| Through Integrates, the entire security testing process is centrally managed,
+| Through our Attack Surface Manager,
+the entire security testing process is centrally managed,
 the vulnerability remediation process is controlled,
 permanent support is provided to the development teams,
 and executive indicators for organizational management are delivered

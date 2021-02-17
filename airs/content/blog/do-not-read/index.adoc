@@ -167,7 +167,7 @@ without forgetting about security.
 That’s our missing and with zero false positives.
 Additionally, we provide bandwidth not only to developers
 but also to IT security administrators and project managers
-through our Integrates platform.
+through our Attack Surface Manager.
 You don’t have to invest important cognitive resources
 to deal with tracking weaknesses,
 their remediation, and reporting or results.

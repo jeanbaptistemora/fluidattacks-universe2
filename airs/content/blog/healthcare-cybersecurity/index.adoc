@@ -163,9 +163,9 @@ how customers' systems are, quickly.
 It is like using a smart checklist,
 fed by all of our knowledge and experience.
 
-* All that we do gets stored, described, and tracked in Integrates,
-our Vulnerability Management Platform.
-Integrates makes it easier for our customers to keep track
+* All that we do gets stored, described, and tracked
+in our Attack Surface Manager (`ASM`).
+ASM makes it easier for our customers to keep track
 of their security weaknesses as well as their fixes performed.
 
 What about what Dr. Gawande calls M&M meetings?

@@ -167,7 +167,7 @@ And close that cycle triggering the fixes required, as soon as possible,
 to keep the business up and running.
 You can have all of that with link:../../services/continuous-hacking/[Continuous Hacking]
 and coordinating your team and stakeholders
-with a platform like Integrates.
+with an Attack Surface Manager.
 
 We hope you have enjoyed this post,
 and we look forward to hearing from you.

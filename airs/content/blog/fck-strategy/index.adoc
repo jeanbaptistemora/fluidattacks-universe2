@@ -219,9 +219,8 @@ a service that provides a constant review of your source code
 and applications, looking for vulnerabilities
 (allowing the develop team to focus only on the development),
 as well as the tracking of the found weaknesses.
-The service leverages on Integrates,
-our product for Vulnerability Management.
-Integrates is a critical component of our value proposition.
-We know Integrates is not yet a front runner.
+The service leverages on our Attack Surface Manager (ASM).
+ASM is a critical component of our value proposition.
+We know ASM is not yet a front runner.
 We don’t know whether we are the number one,
 or the second, but we work hard to make it better for you.

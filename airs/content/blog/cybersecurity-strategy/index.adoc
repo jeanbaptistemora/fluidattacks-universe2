@@ -180,7 +180,7 @@ On the one hand, we have link:../../services/continuous-hacking/[Continuous Hack
 This is like the seismic resistance tests we referred to previously.
 Vulnerabilities are identified, and customers can know the potential damage
 if they remain open (an approximation to counterfactuals).
-Furthermore, with Integrates,
+Furthermore, with our Attack Surface Manager,
 an organization can communicate to all stakeholders
 what’s behind the scenes that could impact the business.
 This equals adopting transparency, allowing learning for the future,

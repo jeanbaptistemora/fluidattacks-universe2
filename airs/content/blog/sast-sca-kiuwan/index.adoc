@@ -156,7 +156,7 @@ and from that to allow or not the transfer to production.
 
 The `ASTO` process —which at Kiuwan comprises `SAST` and `SCA`—
 at Fluid Attacks comprises `SAST`, `DAST`, `IAST`, and `SCA`,
-and is carried out on the `Integrates` platform.
+and is carried out on our Attack Surface Manager (`ASM`).
 At `Fluid Attacks`, to keep false positive
 and false negative records near `ZERO`,
 we go beyond the use of automatic tools and employ human acumen and sagacity.
