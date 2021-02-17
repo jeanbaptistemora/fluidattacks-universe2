@@ -3,7 +3,7 @@
 function dynamodb_centralize {
   local db_creds
 
-      db_creds=$(mktemp) \
+      db_creds="$(mktemp)" \
   &&  aws_login_prod 'observes' \
   &&  sops_export_vars 'observes/secrets-prod.yaml' \
         analytics_auth_redshift \
@@ -12,8 +12,8 @@ function dynamodb_centralize {
   &&  echo '[INFO] Running centralizer' \
   &&  observes-service-migrate-tables centralize-dynamo-schemas \
         --db-auth "${db_creds}" \
-        --dymo-tables "./observes/conf/awsdynamodb.json" \
-        --schema "dynamo_test"
+        --dymo-tables './observes/conf/awsdynamodb.json' \
+        --schema 'dynamodb_test'
 }
 
 dynamodb_centralize

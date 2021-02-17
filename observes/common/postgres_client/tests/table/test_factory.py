@@ -11,8 +11,7 @@ from postgres_client.table import (
 )
 
 
-@pytest.mark.timeout(15, method='thread')
-def test_create_like(postgresql_my: Any) -> None:
+def setup_db(postgresql_my: Any) -> None:
     temp_cur = postgresql_my.cursor()
     temp_cur.execute('CREATE SCHEMA test_schema')
     temp_cur.execute('CREATE SCHEMA test_schema_2')
@@ -21,6 +20,11 @@ def test_create_like(postgresql_my: Any) -> None:
         '(Name CHARACTER (30))'
     )
     postgresql_my.commit()
+
+
+@pytest.mark.timeout(15, method='thread')
+def test_create_like(postgresql_my: Any) -> None:
+    setup_db(postgresql_my)
     db_client = client.new_test_client(postgresql_my)
     blueprint = TableID(schema='test_schema', table_name='table_number_one')
     new_table = TableID(schema='test_schema_2', table_name='the_table')

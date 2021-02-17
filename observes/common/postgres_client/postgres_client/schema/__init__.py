@@ -11,3 +11,4 @@ from typing import (
 class Schema(NamedTuple):
     name: str
     get_tables: Callable[[], Iterable[str]]
+    exist_on_db: Callable[[], bool]

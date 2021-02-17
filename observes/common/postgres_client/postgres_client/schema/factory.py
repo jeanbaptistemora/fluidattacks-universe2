@@ -29,12 +29,33 @@ def _get_tables(db_client: Client, schema: str) -> Iterable[str]:
     return map(lambda item: item[0], cursor.act(actions)[1])
 
 
+def _exist_on_db(db_client: Client, schema: str) -> bool:
+    cursor = db_client.cursor
+    statement: str = (
+        'SELECT EXISTS('
+        'SELECT 1 FROM pg_namespace '
+        'WHERE nspname = %(schema_name)s);'
+    )
+    args = DynamicSQLargs(
+        values={'schema_name': schema}
+    )
+    actions: List[CursorAction] = [
+        cursor.execute(statement, args),
+        cursor.fetchone()
+    ]
+    return cursor.act(actions)[1]
+
+
 def db_schema(db_client: Client, schema: str) -> Schema:
 
     def get_tables() -> Iterable[str]:
         return _get_tables(db_client, schema)
 
+    def exist_on_db() -> bool:
+        return _exist_on_db(db_client, schema)
+
     return Schema(
         name=schema,
-        get_tables=get_tables
+        get_tables=get_tables,
+        exist_on_db=exist_on_db
     )
