@@ -697,3 +697,12 @@ class RootNotFound(Exception):
     def __init__(self) -> None:
         msg = 'Exception - Access denied or root not found'
         super(RootNotFound, self).__init__(msg)
+
+
+class StakeholderHasGroupAccess(Exception):
+    def __init__(self) -> None:
+        msg = (
+            'Exception - The stakeholder has been granted access to '
+            'the group previously'
+        )
+        super(StakeholderHasGroupAccess, self).__init__(msg)

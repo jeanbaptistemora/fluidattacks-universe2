@@ -2116,6 +2116,8 @@ export const enTranslations: ResourceKey = {
     numeric: "This field can only contain numbers",
     required: "Required field",
     some_required: "Select at least one value",
+    stakeholder_has_group_access:
+      "The stakeholder has been granted access to the group previously",
     tags: "This field can only contain alphanumeric characters and dashes",
     valid_date: "The date must be below six months",
     valid_date_token: "The date must be below six months",

@@ -153,6 +153,9 @@ const projectStakeholdersView: React.FC<IProjectStakeholdersViewProps> =
             + "can only have Hackers provided by Fluid Attacks":
             msgError(translate.t("validations.no_fluid_attacks_hackers_in_fluid_attacks_service"));
             break;
+          case "Exception - The stakeholder has been granted access to the group previously":
+            msgError(translate.t("validations.stakeholder_has_group_access"));
+            break;
           default:
             msgError(translate.t("group_alerts.error_textsad"));
             Logger.warning("An error occurred adding stakeholder to project", grantError);

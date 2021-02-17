@@ -22,6 +22,12 @@ from backend.decorators import (
     require_integrates,
     require_login
 )
+from backend.domain import (
+    project as group_domain,
+)
+from backend.exceptions import (
+    StakeholderHasGroupAccess
+)
 from backend.typing import (
     GrantStakeholderAccessPayload as GrantStakeholderAccessPayloadType,
 )
@@ -53,6 +59,13 @@ async def mutate(
     new_user_role = role
     new_user_email = query_args.get('email', '')
     new_user_responsibility = query_args.get('responsibility', '-')
+
+    project_access = await group_domain.get_user_access(
+        new_user_email,
+        project_name
+    )
+    if project_access and project_access['has_access']:
+        raise StakeholderHasGroupAccess()
 
     allowed_roles_to_grant = \
         await authz.get_group_level_roles_a_user_can_grant(

@@ -1,7 +1,6 @@
 import json
 import pytest
 
-from test_async.functional_test.utils import complete_register
 from test_async.functional_test.customer.utils import get_result
 
 pytestmark = pytest.mark.asyncio
@@ -44,7 +43,7 @@ async def test_project_fluid_user():
     customer_email = 'integratescustomer@fluidattacks.com'
     query = f'''
         mutation {{
-            grantStakeholderAccess (
+            editStakeholder (
                 email: "{customer_email}",
                 phoneNumber: "-",
                 projectName: "{group_name}",
@@ -52,17 +51,13 @@ async def test_project_fluid_user():
                 role: {role}
             ) {{
             success
-                grantedStakeholder {{
-                    email
-                }}
             }}
         }}
     '''
     data = {'query': query}
     result = await get_result(data, stakeholder='integratesmanager@gmail.com')
     assert 'errors' not in result
-    assert result['data']['grantStakeholderAccess']['success']
-    assert await complete_register(customer_email, group_name)
+    assert result['data']['editStakeholder']['success']
 
     query = f'''
         mutation {{

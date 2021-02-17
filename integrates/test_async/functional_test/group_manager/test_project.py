@@ -6,7 +6,6 @@ from backend.exceptions import (
     NotPendingDeletion,
     UserNotInOrganization
 )
-from test_async.functional_test.utils import complete_register
 from test_async.functional_test.group_manager.utils import get_result
 
 pytestmark = pytest.mark.asyncio
@@ -60,7 +59,7 @@ async def test_project():
     groupmanager_email = 'unittest2@fluidattacks.com'
     query = f'''
         mutation {{
-            grantStakeholderAccess (
+            editStakeholder (
                 email: "{groupmanager_email}",
                 phoneNumber: "-",
                 projectName: "{group_name}",
@@ -68,21 +67,17 @@ async def test_project():
                 role: {role}
             ) {{
             success
-                grantedStakeholder {{
-                    email
-                }}
             }}
         }}
     '''
     data = {'query': query}
     result = await get_result(data, stakeholder='integratesmanager@gmail.com')
     assert 'errors' not in result
-    assert  result['data']['grantStakeholderAccess']['success']
-    assert await complete_register(groupmanager_email, group_name )
+    assert  result['data']['editStakeholder']['success']
 
     query = f'''
         mutation {{
-            grantStakeholderAccess (
+            editStakeholder (
                 email: "{groupmanager_email}",
                 phoneNumber: "-",
                 projectName: "{group_name2}",
@@ -90,17 +85,13 @@ async def test_project():
                 role: {role}
             ) {{
             success
-                grantedStakeholder {{
-                    email
-                }}
             }}
         }}
     '''
     data = {'query': query}
     result = await get_result(data, stakeholder='integratesmanager@gmail.com')
     assert 'errors' not in result
-    assert  result['data']['grantStakeholderAccess']['success']
-    assert await complete_register(groupmanager_email, group_name2)
+    assert  result['data']['editStakeholder']['success']
 
     query = f'''
         mutation {{
