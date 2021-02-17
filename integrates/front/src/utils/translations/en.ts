@@ -847,6 +847,10 @@ export const enTranslations: ResourceKey = {
       approve: "Approve Acceptation",
       reject: "Reject Acceptation",
     },
+    agent_token_section: {
+      generate: "Generate Token",
+      title: "Agent Token",
+    },
     alert: {
       attention: "Attention",
     },
@@ -2073,6 +2077,21 @@ export const enTranslations: ResourceKey = {
     successfully: "Token updated successfully",
     title: "Update access token",
     token_created: "Token created at: ",
+  },
+  update_forces_token: {
+    access_token: "Forces API token",
+    close: "Close",
+    copy: {
+      copy: "Copy",
+      failed: "It cannot be copied",
+      success: "Forces Token copied",
+      successfully: "Forces Token copied successfully",
+    },
+    reveal_token: "Reveal Token",
+    success: "Updated forces token",
+    successfully: "Forces token updated successfully",
+    tittle: "Manage forces API token",
+    token_no_exists: "A token could not be found for the group",
   },
   userModal: {
     emailPlaceholder: "someone@domain.com",
