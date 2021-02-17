@@ -1,6 +1,7 @@
 import type { ApolloError } from "apollo-client";
 import { Button } from "components/Button/index";
 import { Can } from "utils/authz/Can";
+import type { ConfigurableValidator } from "revalidate";
 import { Field } from "redux-form";
 import { GET_USER } from "scenes/Dashboard/components/AddUserModal/queries";
 import { GenericForm } from "scenes/Dashboard/components/GenericForm";
@@ -25,7 +26,12 @@ import type {
   IAddStakeholderModalProps,
   IStakeholderAttrs,
 } from "scenes/Dashboard/components/AddUserModal/types";
-import { required, validEmail, validTextField } from "utils/validations";
+import {
+  maxLength,
+  required,
+  validEmail,
+  validTextField,
+} from "utils/validations";
 
 const userLevelRoles: string[] = ["admin", "customer", "analyst"];
 const groupLevelRoles: string[] = [
@@ -43,6 +49,10 @@ const organizationLevelRoles: string[] = [
   "customer",
   "group_manager",
 ];
+const MAX_RESPONSIBILITY_LENGTH: number = 50;
+const maxResponsibilityLength: ConfigurableValidator = maxLength(
+  MAX_RESPONSIBILITY_LENGTH
+);
 
 export const AddUserModal: React.FC<IAddStakeholderModalProps> = (
   props: IAddStakeholderModalProps
@@ -178,7 +188,11 @@ export const AddUserModal: React.FC<IAddStakeholderModalProps> = (
                       "userModal.responsibilityPlaceholder"
                     )}
                     type={"text"}
-                    validate={[required, validTextField]}
+                    validate={[
+                      maxResponsibilityLength,
+                      required,
+                      validTextField,
+                    ]}
                   />
                 </FormGroup>
               ) : undefined}

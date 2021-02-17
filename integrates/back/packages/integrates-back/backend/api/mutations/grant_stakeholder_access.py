@@ -75,7 +75,6 @@ async def mutate(
 
     if new_user_role in allowed_roles_to_grant:
         success = await user_utils.invite_to_group(
-            context=info.context,
             email=new_user_email,
             responsibility=new_user_responsibility,
             role=new_user_role,

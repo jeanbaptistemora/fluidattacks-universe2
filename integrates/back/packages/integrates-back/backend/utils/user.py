@@ -220,8 +220,7 @@ async def update_invited_stakeholder(
     return success
 
 
-async def invite_to_group(  # pylint: disable=too-many-arguments
-    context: Any,
+async def invite_to_group(
     email: str,
     responsibility: str,
     role: str,
@@ -229,52 +228,45 @@ async def invite_to_group(  # pylint: disable=too-many-arguments
     group_name: str,
 ) -> bool:
     success = False
-    valid = (
-        validate_alphanumeric_field(responsibility) and
-        validate_phone_field(phone_number) and
-        validate_email_address(email) and
-        await validate_fluidattacks_staff_on_group(group_name, email, role)
-    )
-    if valid:
-        if group_name and responsibility and len(responsibility) <= 50:
-            expiration_time = datetime_utils.get_as_epoch(
-                datetime_utils.get_now_plus_delta(weeks=1)
-            )
-            url_token = secrets.token_urlsafe(64)
-            success = await group_domain.update_access(
-                email,
-                group_name,
-                {
-                    'expiration_time': expiration_time,
-                    'has_access': False,
-                    'invitation': {
-                        'is_used': False,
-                        'phone_number': phone_number,
-                        'responsibility': responsibility,
-                        'role': role,
-                        'url_token': url_token,
-                    },
+    if (
+        validate_field_length(responsibility, 50)
+        and validate_alphanumeric_field(responsibility)
+        and validate_phone_field(phone_number)
+        and validate_email_address(email)
+        and await validate_fluidattacks_staff_on_group(group_name, email, role)
+    ):
+        expiration_time = datetime_utils.get_as_epoch(
+            datetime_utils.get_now_plus_delta(weeks=1)
+        )
+        url_token = secrets.token_urlsafe(64)
+        success = await group_domain.update_access(
+            email,
+            group_name,
+            {
+                'expiration_time': expiration_time,
+                'has_access': False,
+                'invitation': {
+                    'is_used': False,
+                    'phone_number': phone_number,
+                    'responsibility': responsibility,
+                    'role': role,
+                    'url_token': url_token,
+                },
 
-                }
-            )
-            description = await group_domain.get_description(
-                group_name.lower()
-            )
-            project_url = f'{BASE_URL}/confirm_access/{url_token}'
-            mail_to = [email]
-            email_context: MailContentType = {
-                'admin': email,
-                'project': group_name,
-                'project_description': description,
-                'project_url': project_url,
             }
-            schedule(mailer.send_mail_access_granted(mail_to, email_context))
-        else:
-            util.cloudwatch_log(
-                context,
-                (f'Security: {email} Attempted to add responsibility '
-                 f'to project {group_name} without validation')
-            )
+        )
+        description = await group_domain.get_description(
+            group_name.lower()
+        )
+        project_url = f'{BASE_URL}/confirm_access/{url_token}'
+        mail_to = [email]
+        email_context: MailContentType = {
+            'admin': email,
+            'project': group_name,
+            'project_description': description,
+            'project_url': project_url,
+        }
+        schedule(mailer.send_mail_access_granted(mail_to, email_context))
 
     return success
 
@@ -285,7 +277,6 @@ async def create_forces_user(
 ) -> bool:
     user_email = user_domain.format_forces_user_email(group_name)
     success = await invite_to_group(
-        context=info.context,
         email=user_email,
         responsibility='Forces service user',
         role='service_forces',
