@@ -21,3 +21,10 @@ def reviews(config_path: str) -> None:
     success = run_tests(config)
 
     sys.exit(0 if success else 1)
+
+
+if __name__ == '__main__':
+    # pylint: disable=no-value-for-parameter, unexpected-keyword-arg
+    reviews(
+        prog_name='reviews',
+    )

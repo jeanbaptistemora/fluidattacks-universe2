@@ -1,5 +1,4 @@
 # Standard libraries
-import os
 import re
 import subprocess
 from time import sleep
@@ -22,7 +21,9 @@ def skip_ci(pull_request: PullRequest) -> bool:
     return '[skip ci]' in pull_request.title
 
 
-def mr_under_max_deltas(pull_request: PullRequest, config: Dict[str, Any]) -> bool:
+def mr_under_max_deltas(
+        pull_request: PullRequest,
+        config: Dict[str, Any]) -> bool:
     """MR under max_deltas if commit is not solution"""
     success: bool = True
     should_fail: bool = config['fail']
@@ -53,7 +54,9 @@ def mr_under_max_deltas(pull_request: PullRequest, config: Dict[str, Any]) -> bo
     return success or not should_fail
 
 
-def all_pipelines_successful(pull_request: PullRequest, config: Dict[str, Any]) -> bool:
+def all_pipelines_successful(
+        pull_request: PullRequest,
+        config: Dict[str, Any]) -> bool:
     """Test if all previous pipelines were successful"""
     should_fail: bool = config['fail']
     err_log: str = get_err_log(should_fail)
@@ -62,7 +65,7 @@ def all_pipelines_successful(pull_request: PullRequest, config: Dict[str, Any]) 
     while index < len(pull_request.pipelines()):
         pipeline: Any = pull_request.pipelines()[index]
         p_jobs: Any = pipeline.jobs.list()
-        p_jobs_names: List[str] = [ job.name for job in p_jobs ]
+        p_jobs_names: List[str] = [job.name for job in p_jobs]
         if config['job_name'] not in p_jobs_names:
             for p_job in p_jobs:
                 if p_job.status in ('success', 'manual'):
@@ -83,7 +86,9 @@ def all_pipelines_successful(pull_request: PullRequest, config: Dict[str, Any]) 
     return success or not should_fail
 
 
-def mr_message_syntax(pull_request: PullRequest, config: Dict[str, Any]) -> bool:
+def mr_message_syntax(
+        pull_request: PullRequest,
+        config: Dict[str, Any]) -> bool:
     """Run commitlint on MR message"""
     success: bool = True
     should_fail: bool = config['fail']
@@ -100,7 +105,9 @@ def mr_message_syntax(pull_request: PullRequest, config: Dict[str, Any]) -> bool
     return success or not should_fail
 
 
-def branch_equals_to_user(pull_request: PullRequest, config: Dict[str, Any]) -> bool:
+def branch_equals_to_user(
+        pull_request: PullRequest,
+        config: Dict[str, Any]) -> bool:
     """Test if branch name differs from user name"""
     success: bool = True
     should_fail: bool = config['fail']
@@ -116,7 +123,9 @@ def branch_equals_to_user(pull_request: PullRequest, config: Dict[str, Any]) -> 
     return success or not should_fail
 
 
-def most_relevant_type(pull_request: PullRequest, config: Dict[str, Any]) -> bool:
+def most_relevant_type(
+        pull_request: PullRequest,
+        config: Dict[str, Any]) -> bool:
     """Test if MR message uses the most relevant type of all its commits"""
     success: bool = True
     should_fail: bool = config['fail']
@@ -128,7 +137,7 @@ def most_relevant_type(pull_request: PullRequest, config: Dict[str, Any]) -> boo
         success = False
     commits: Any = pull_request.commits()
     mr_title_type: str = mr_title_match.group(2) if success else ''
-    most_relevant_type: str = list(relevances.keys())[-1]
+    highest_type: str = list(relevances.keys())[-1]
     for commit in commits:
         commit_title_match: Any = re.match(commit_regex, commit.title)
         if commit_title_match is None:
@@ -139,23 +148,25 @@ def most_relevant_type(pull_request: PullRequest, config: Dict[str, Any]) -> boo
             continue
         commit_title_type = commit_title_match.group(2)
         if commit_title_type in relevances.keys() and \
-                relevances[commit_title_type] < relevances[most_relevant_type]:
-            most_relevant_type = commit_title_type
-    if success and mr_title_type not in most_relevant_type:
+                relevances[commit_title_type] < relevances[highest_type]:
+            highest_type = commit_title_type
+    if success and mr_title_type not in highest_type:
         log(err_log,
             'The most relevant type of all commits '
             'included in your MR is: %s\n'
             'The type used in your MR title is: %s\n'
             'Please make sure to change it.\n\n'
             'The relevance order is (from highest to lowest):\n\n%s',
-            most_relevant_type,
+            highest_type,
             mr_title_type,
             relevances)
         success = False
     return success or not should_fail
 
 
-def commits_user_syntax(pull_request: PullRequest, config: Dict[str, Any]) -> bool:
+def commits_user_syntax(
+        pull_request: PullRequest,
+        config: Dict[str, Any]) -> bool:
     """Test if usernames of all commits associated to MR are compliant"""
     success: bool = True
     should_fail: bool = config['fail']
@@ -181,7 +192,9 @@ def commits_user_syntax(pull_request: PullRequest, config: Dict[str, Any]) -> bo
     return success or not should_fail
 
 
-def mr_user_syntax(pull_request: PullRequest, config: Dict[str, Any]) -> bool:
+def mr_user_syntax(
+        pull_request: PullRequest,
+        config: Dict[str, Any]) -> bool:
     """Test if username of mr author is compliant"""
     success: bool = True
     should_fail: bool = config['fail']
@@ -201,7 +214,9 @@ def mr_user_syntax(pull_request: PullRequest, config: Dict[str, Any]) -> bool:
     return success or not should_fail
 
 
-def max_commits_per_mr(pull_request: PullRequest, config: Dict[str, Any]) -> bool:
+def max_commits_per_mr(
+        pull_request: PullRequest,
+        config: Dict[str, Any]) -> bool:
     """Only one commit per MR"""
     success: bool = True
     should_fail: bool = config['fail']
@@ -219,7 +234,9 @@ def max_commits_per_mr(pull_request: PullRequest, config: Dict[str, Any]) -> boo
     return success or not should_fail
 
 
-def close_issue_directive(pull_request: PullRequest, config: Dict[str, Any]) -> bool:
+def close_issue_directive(
+        pull_request: PullRequest,
+        config: Dict[str, Any]) -> bool:
     """Test if a MR has an issue different from #0 without a Close directive"""
     success: bool = True
     should_fail: bool = config['fail']
@@ -240,7 +257,9 @@ def close_issue_directive(pull_request: PullRequest, config: Dict[str, Any]) -> 
     return success or not should_fail
 
 
-def mr_only_one_product(pull_request: PullRequest, config: Dict[str, Any]) -> bool:
+def mr_only_one_product(
+        pull_request: PullRequest,
+        config: Dict[str, Any]) -> bool:
     """Test if a MR only contains commits for its product"""
     success: bool = True
     should_fail: bool = config['fail']
@@ -262,7 +281,6 @@ def mr_only_one_product(pull_request: PullRequest, config: Dict[str, Any]) -> bo
                     'Commit title is not syntax compliant:\n%s',
                     commit.title)
                 success = False
-                continue
             else:
                 if commit_title_match.group(1) not in mr_title_match.group(1):
                     log(err_log,
@@ -273,5 +291,4 @@ def mr_only_one_product(pull_request: PullRequest, config: Dict[str, Any]) -> bo
                         mr_title_match.group(1),
                         commit_title_match.group(1))
                     success = False
-                    continue
     return success or not should_fail
