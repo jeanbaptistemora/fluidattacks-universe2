@@ -267,13 +267,14 @@ async def create_register_by_week(
     project: str
 ) -> List[List[Dict[str, Union[str, int]]]]:
     """Create weekly vulnerabilities registry by project"""
+    finding_vulns_loader = context.finding_vulns_nzr
+    group_findings_loader = context.group_findings
     accepted = 0
     closed = 0
     found = 0
-    finding_vulns_loader = context.finding_vulns_nzr
     all_registers = OrderedDict()
 
-    findings_released = await finding_domain.get_findings_by_group(project)
+    findings_released = await group_findings_loader.load(project)
     vulns = await finding_vulns_loader.load_many_chained([
         finding['finding_id'] for finding in findings_released
     ])
@@ -393,19 +394,17 @@ async def send_group_treatment_change(
     )
 
 
-async def get_group_new_vulnerabilities(group_name: str) -> None:
+async def get_group_new_vulnerabilities(context: Any, group_name: str) -> None:
+    group_findings_loader = context.group_findings
     msg = 'Info: Getting new vulnerabilities'
     LOGGER.info(msg, extra={'extra': locals()})
     fin_attrs = {'finding_id', 'project_name', 'finding'}
-    context: MailContentType = {
+    mail_context: MailContentType = {
         'updated_findings': list(),
         'no_treatment_findings': list()
     }
     try:
-        finding_requests = await finding_domain.get_findings_by_group(
-            group_name,
-            fin_attrs
-        )
+        finding_requests = await group_findings_loader.load(group_name)
         for act_finding in finding_requests:
             finding_url = get_finding_url(act_finding)
             msj_finding_pending = await create_msj_finding_pending(
@@ -420,7 +419,7 @@ async def get_group_new_vulnerabilities(group_name: str) -> None:
             if msj_finding_pending:
                 cast(
                     List[Dict[str, str]],
-                    context['no_treatment_findings']
+                    mail_context['no_treatment_findings']
                 ).append({
                     'finding_name': msj_finding_pending,
                     'finding_url': finding_url
@@ -428,36 +427,40 @@ async def get_group_new_vulnerabilities(group_name: str) -> None:
             if finding_text:
                 cast(
                     List[Dict[str, str]],
-                    context['updated_findings']
+                    mail_context['updated_findings']
                 ).append({
                     'finding_name': finding_text,
                     'finding_url': finding_url
                 })
-            context['project'] = str.upper(str(
+            mail_context['project'] = str.upper(str(
                 act_finding['project_name']
             ))
-            context['project_url'] = (
+            mail_context['project_url'] = (
                 f'{BASE_URL}/groups/'
                 f'{act_finding["project_name"]}/indicators'
             )
     except (TypeError, KeyError) as ex:
         LOGGER.exception(ex, extra={'extra': {'group_name': group_name}})
         raise
-    if context['updated_findings']:
+    if mail_context['updated_findings']:
         mail_to = await project_domain.get_users_to_notify(group_name)
         scheduler_send_mail(
             mailer.send_mail_new_vulnerabilities,
             mail_to,
-            context
+            mail_context
         )
 
 
 async def get_new_vulnerabilities() -> None:
     """Summary mail send with the findings of a project."""
+    context = get_new_context()
     msg = '[scheduler]: get_new_vulnerabilities is running'
     LOGGER.warning(msg, **NOEXTRA)
     groups = await project_domain.get_active_projects()
-    await collect(map(get_group_new_vulnerabilities, groups))
+    await collect([
+        get_group_new_vulnerabilities(context, group)
+        for group in groups
+    ])
 
 
 async def send_treatment_change() -> None:
@@ -701,11 +704,9 @@ async def send_unsolved_to_all() -> None:
 
 async def get_project_indicators(project: str) -> Dict[str, object]:
     context = get_new_context()
-    fin_attrs = {'finding_id', 'cvss_temporal'}
-    findings = await finding_domain.get_findings_by_group(
-        project,
-        fin_attrs
-    )
+    group_findings_loader = context.group_findings
+
+    findings = await group_findings_loader.load(project)
     last_closing_vuln_days, last_closing_vuln = (
         await project_domain.get_last_closing_vuln_info(context, findings)
     )
@@ -816,6 +817,8 @@ async def update_organization_indicators(
     organization_name: str,
     groups: List[str]
 ) -> Tuple[bool, List[str]]:
+    group_findings_loader = context.group_findings
+
     success: List[bool] = []
     updated_tags: List[str] = []
     indicator_list: List[str] = [
@@ -835,18 +838,14 @@ async def update_organization_indicators(
         )
         for group in groups
     )
-    groups_findings = await finding_domain.list_findings(context, groups)
-    groups_findings_attrs = await collect(
-        finding_domain.get_findings_async(group_findings)
-        for group_findings in groups_findings
-    )
+    group_findings = await group_findings_loader.load_many(groups)
     for index, group in enumerate(groups):
         groups_attrs[index]['max_severity'] = Decimal(max(
             [
-                float(finding.get('severityCvss', 0.0))
-                for finding in groups_findings_attrs[index]
+                float(finding.get('cvss_temporal', 0.0))
+                for finding in group_findings[index]
             ]
-            if groups_findings_attrs[index]
+            if group_findings[index]
             else [0.0]
         )).quantize(Decimal('0.1'))
         groups_attrs[index]['name'] = group
