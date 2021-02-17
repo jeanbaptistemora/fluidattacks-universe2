@@ -8,7 +8,7 @@ let
 in
 computeOnAws {
   attempts = 5;
-  command = [ "./make" "observes/job-dif-gitlab-etl" ];
+  command = [ "./make" "observes.job-dif-gitlab-etl" ];
   jobname = "dif-gitlab-etl";
   jobqueue = "spot_later";
   name = "observes-scheduled-dif-gitlab-etl";

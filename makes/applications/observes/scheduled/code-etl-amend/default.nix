@@ -7,7 +7,7 @@ let
 in
 computeOnAws {
   attempts = 5;
-  command = [ "./make" "observes/code-etl-amend" ];
+  command = [ "./make" "observes.code-etl-amend" ];
   jobname = "code-etl-amend";
   jobqueue = "spot_later";
   name = "observes-scheduled-code-etl-amend";
