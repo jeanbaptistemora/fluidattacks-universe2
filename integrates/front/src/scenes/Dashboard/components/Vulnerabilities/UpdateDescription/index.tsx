@@ -14,7 +14,6 @@ import type { IConfirmFn } from "components/ConfirmDialog";
 import type { IHistoricTreatment } from "scenes/Dashboard/containers/DescriptionView/types";
 import { JustificationField } from "./JustificationField";
 import { Logger } from "utils/logger";
-import { Modal } from "components/Modal";
 import type { PureAbility } from "@casl/ability";
 import React from "react";
 import { SeverityField } from "./SeverityField";
@@ -400,10 +399,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
 
   return (
     <React.StrictMode>
-      <Modal
-        headerTitle={translate.t("search_findings.tab_description.editVuln")}
-        open={true}
-      >
+      <React.StrictMode>
         <ConfirmDialog
           message={translate.t(
             "search_findings.tab_description.approval_message"
@@ -548,7 +544,10 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
                 ) ? (
                   <Alert>
                     {"*"}&nbsp;
-                    {translate.t("search_findings.tab_vuln.alerts.hasNewVulns")}
+                    {translate.t(
+                      "search_findings.tab_vuln.alerts.hasNewVulns",
+                      { count: vulnerabilities.length }
+                    )}
                   </Alert>
                 ) : undefined}
                 <hr />
@@ -579,7 +578,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
             );
           }}
         </ConfirmDialog>
-      </Modal>
+      </React.StrictMode>
     </React.StrictMode>
   );
 };

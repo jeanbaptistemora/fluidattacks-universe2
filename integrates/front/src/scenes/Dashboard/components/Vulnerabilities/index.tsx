@@ -2,6 +2,7 @@ import { AdditionalInfo } from "./AdditionalInfo";
 import { Button } from "components/Button";
 import { Can } from "utils/authz/Can";
 import { Col100 } from "scenes/Dashboard/containers/ChartsGenericView/components/ChartCols";
+import { ContentTab } from "../ContentTab";
 import { DataTableNext } from "components/DataTableNext";
 import { DeleteVulnerabilityModal } from "scenes/Dashboard/components/DeleteVulnerability/index";
 import { FluidIcon } from "components/FluidIcon";
@@ -21,12 +22,13 @@ import mixpanel from "mixpanel-browser";
 import { useAbility } from "@casl/react";
 import { useTranslation } from "react-i18next";
 import { vulnerabilityInfo } from "scenes/Dashboard/components/Vulnerabilities/vulnerabilityInfo";
-import { ButtonToolbar, Row, RowCenter } from "styles/styledComponents";
 import type {
   IVulnComponentProps,
   IVulnDataTypeAttr,
   IVulnRowAttr,
 } from "scenes/Dashboard/components/Vulnerabilities/types";
+import { MemoryRouter, Route } from "react-router";
+import { RowCenter, TabsContainer } from "styles/styledComponents";
 import {
   formatVulnerabilities,
   getNonSelectableVulnerabilitiesOnEdit,
@@ -241,13 +243,18 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
         open={isDeleteVulnOpen}
       />
       {isUpdateVulnOpen ? (
-        <UpdateTreatmentModal
-          findingId={findingId}
-          handleClearSelected={clearSelectedVulns}
-          handleCloseModal={handleCloseUpdateModal}
-          projectName={groupName}
-          vulnerabilities={selectedVulnerabilities}
-        />
+        <Modal
+          headerTitle={t("search_findings.tab_description.editVuln")}
+          open={isUpdateVulnOpen}
+        >
+          <UpdateTreatmentModal
+            findingId={findingId}
+            handleClearSelected={clearSelectedVulns}
+            handleCloseModal={handleCloseUpdateModal}
+            projectName={groupName}
+            vulnerabilities={selectedVulnerabilities}
+          />
+        </Modal>
       ) : undefined}
       {isEditing ? (
         <Col100>
@@ -286,24 +293,53 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
         open={isAdditionalInfoOpen}
       >
         {_.isUndefined(currentRow) ? undefined : (
-          <AdditionalInfo
-            canDisplayAnalyst={canDisplayAnalyst}
-            vulnerability={currentRow}
-          />
+          <MemoryRouter
+            initialEntries={["/details", "/treatments"]}
+            initialIndex={0}
+          >
+            <TabsContainer>
+              <ContentTab
+                icon={"icon pe-7s-graph3"}
+                id={"vulnerabilityDetailsTab"}
+                link={"/details"}
+                title={t("search_findings.tab_vuln.contentTab.details.title")}
+                tooltip={t(
+                  "search_findings.tab_vuln.contentTab.details.tooltip"
+                )}
+              />
+              {currentRow.currentState === "open" ? (
+                <ContentTab
+                  icon={"icon pe-7s-note"}
+                  id={"vulnerabilityTreatmentsTab"}
+                  link={"/treatments"}
+                  title={t(
+                    "search_findings.tab_vuln.contentTab.treatments.title"
+                  )}
+                  tooltip={t(
+                    "search_findings.tab_vuln.contentTab.treatments.tooltip"
+                  )}
+                />
+              ) : undefined}
+            </TabsContainer>
+            <br />
+            <Route path={"/details"}>
+              <AdditionalInfo
+                canDisplayAnalyst={canDisplayAnalyst}
+                onClose={closeAdditionalInfoModal}
+                vulnerability={currentRow}
+              />
+            </Route>
+            <Route path={"/treatments"}>
+              <UpdateTreatmentModal
+                findingId={findingId}
+                handleClearSelected={clearSelectedVulns}
+                handleCloseModal={closeAdditionalInfoModal}
+                projectName={groupName}
+                vulnerabilities={[currentRow]}
+              />
+            </Route>
+          </MemoryRouter>
         )}
-        <hr />
-        <Row>
-          <Col100>
-            <ButtonToolbar>
-              <Button
-                id={"close-vuln-modal"}
-                onClick={closeAdditionalInfoModal}
-              >
-                {t("search_findings.tab_vuln.close")}
-              </Button>
-            </ButtonToolbar>
-          </Col100>
-        </Row>
       </Modal>
     </React.StrictMode>
   );

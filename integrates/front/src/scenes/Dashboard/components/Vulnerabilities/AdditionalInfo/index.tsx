@@ -1,3 +1,4 @@
+import { Button } from "components/Button";
 import type { IHistoricTreatment } from "../../../containers/DescriptionView/types";
 import type { IVulnRowAttr } from "scenes/Dashboard/components/Vulnerabilities/types";
 import { PointStatus } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
@@ -8,11 +9,19 @@ import { getLastTreatment } from "scenes/Dashboard/components/Vulnerabilities/Up
 import { statusFormatter } from "components/DataTableNext/formatters";
 import styled from "styled-components";
 import { useTranslation } from "react-i18next";
-import { Col100, Col40, Col60, Row, RowCenter } from "styles/styledComponents";
+import {
+  ButtonToolbar,
+  Col100,
+  Col40,
+  Col60,
+  Row,
+  RowCenter,
+} from "styles/styledComponents";
 
 interface IAdditionalInfoProps {
   canDisplayAnalyst: boolean;
   vulnerability: IVulnRowAttr;
+  onClose: () => void;
 }
 
 const Field: StyledComponent<
@@ -39,6 +48,7 @@ const Status: StyledComponent<
 export const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
   canDisplayAnalyst,
   vulnerability,
+  onClose,
 }: IAdditionalInfoProps): JSX.Element => {
   const { t } = useTranslation();
 
@@ -280,6 +290,16 @@ export const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
           </li>
         </ul>
       </Col100>
+      <hr />
+      <Row>
+        <Col100>
+          <ButtonToolbar>
+            <Button id={"close-vuln-modal"} onClick={onClose}>
+              {t("search_findings.tab_vuln.close")}
+            </Button>
+          </ButtonToolbar>
+        </Col100>
+      </Row>
     </React.StrictMode>
   );
 };

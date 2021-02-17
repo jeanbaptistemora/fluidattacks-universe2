@@ -1909,6 +1909,8 @@ export const enTranslations: ResourceKey = {
         acceptation_not_requested: "Indefinite acceptation is not requested",
         acceptation_success: "Indefinite acceptation has been handled",
         hasNewVulns:
+          "The treatment is set as new, please select a treatment for the vulnerability.",
+        hasNewVulns_plural:
           "The treatment on one or more vulnerabilities is set as new, please select a treatment for the vulnerabilities.",
         maximum_number_of_acceptations:
           "Vulnerability has been accepted the maximum number of times allowed by the organization",
@@ -1926,6 +1928,16 @@ export const enTranslations: ResourceKey = {
       close: "Close",
       closed: "Closed",
       commitHash: "Commit hash",
+      contentTab: {
+        details: {
+          title: "Details",
+          tooltip: "Details",
+        },
+        treatments: {
+          title: "Treatments",
+          tooltip: "Modify the treatment of the vulnerability",
+        },
+      },
       exceptions: {
         severity_out_of_range:
           "Vulnerability cannot be accepted, severity outside of range set by the organization",
@@ -1971,7 +1983,7 @@ export const enTranslations: ResourceKey = {
         },
         where: "Where",
       },
-      vulnerabilityInfo: "Vulnerability Info",
+      vulnerabilityInfo: "Vulnerability",
     },
     users_table: {
       firstlogin: "First login",

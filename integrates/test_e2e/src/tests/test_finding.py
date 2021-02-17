@@ -272,7 +272,7 @@ def test_finding_vulnerabilities(
     table_row.click()
     assert utils.wait_for_text(
         driver,
-        'Vulnerability Info',
+        'Vulnerability',
         timeout,
     )
     assert 'Expiration' in driver.page_source
@@ -284,7 +284,7 @@ def test_finding_vulnerabilities(
     close.click()
     assert utils.wait_for_hide_text(
         driver,
-        'Vulnerability Info',
+        'Vulnerability',
         timeout,
     )
 

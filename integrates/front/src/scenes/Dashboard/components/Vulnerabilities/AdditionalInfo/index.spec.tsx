@@ -57,7 +57,11 @@ describe("AdditionalInfo", (): void => {
     expect.hasAssertions();
 
     const wrapper: ReactWrapper = mount(
-      <AdditionalInfo canDisplayAnalyst={false} vulnerability={mockVuln} />
+      <AdditionalInfo
+        canDisplayAnalyst={false}
+        onClose={jest.fn()}
+        vulnerability={mockVuln}
+      />
     );
     wrapper.update();
 
