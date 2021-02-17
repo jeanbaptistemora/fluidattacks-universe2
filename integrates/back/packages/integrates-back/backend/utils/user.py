@@ -237,9 +237,6 @@ async def invite_to_group(  # pylint: disable=too-many-arguments
     )
     if valid:
         if group_name and responsibility and len(responsibility) <= 50:
-            now_str = datetime_utils.get_as_str(
-                datetime_utils.get_now()
-            )
             expiration_time = datetime_utils.get_as_epoch(
                 datetime_utils.get_now_plus_delta(weeks=1)
             )
@@ -251,7 +248,6 @@ async def invite_to_group(  # pylint: disable=too-many-arguments
                     'expiration_time': expiration_time,
                     'has_access': False,
                     'invitation': {
-                        'date': now_str,
                         'is_used': False,
                         'phone_number': phone_number,
                         'responsibility': responsibility,

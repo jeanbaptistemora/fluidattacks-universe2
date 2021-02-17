@@ -1,35 +1,12 @@
-from typing import List, cast
+from typing import List
 
 from aioextensions import (
     collect,
 )
 
-from backend.typing import (
-    Stakeholder as StakeholderType,
-)
 from backend.utils import (
-    datetime as datetime_utils,
     user as user_utils,
 )
-
-
-def filter_by_expired_invitation(
-    stakeholders: List[StakeholderType]
-) -> List[StakeholderType]:
-    return [
-        stakeholder
-        for stakeholder in stakeholders
-        if not (
-            stakeholder['invitation_state'] == 'PENDING'
-            and stakeholder['invitation_date']
-            and datetime_utils.get_plus_delta(
-                datetime_utils.get_from_str(
-                    cast(str, stakeholder['invitation_date'])
-                ),
-                weeks=1
-            ) < datetime_utils.get_now()
-        )
-    ]
 
 
 async def filter_non_fluid_staff(

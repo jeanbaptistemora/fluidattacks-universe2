@@ -1216,12 +1216,10 @@ async def _get_stakeholder(
         'CONFIRMED'
     )
     if invitation_state == 'PENDING':
-        invitation_date = invitation['date']
         responsibility = invitation['responsibility']
         group_role = invitation['role']
         phone_number = invitation['phone_number']
     else:
-        invitation_date = ''
         responsibility = cast(str, project_access.get('responsibility', ''))
         group_role = await authz.get_group_level_role(email, group_name)
         phone_number = cast(str, stakeholder['phone_number'])
@@ -1229,7 +1227,6 @@ async def _get_stakeholder(
     return {
         **stakeholder,
         'responsibility': responsibility,
-        'invitation_date': invitation_date,
         'invitation_state': invitation_state,
         'phone_number': phone_number,
         'role': group_role
@@ -1261,10 +1258,6 @@ async def get_stakeholders(
             _get_stakeholder(email, group_name)
             for email in group_stakeholders_emails
         )
-    )
-
-    group_stakeholders = stakeholder_filters.filter_by_expired_invitation(
-        group_stakeholders
     )
 
     return group_stakeholders
