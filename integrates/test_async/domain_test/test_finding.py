@@ -385,8 +385,9 @@ async def test_approve_draft():
 
 
 async def test_list_findings() -> None:
+    context = get_new_context()
     project_name = 'unittesting'
-    test_data = await list_findings([project_name])
+    test_data = await list_findings(context, [project_name])
     expected_output = [
         '988493279', '422286126', '436992569', '463461507', '463558592', '457497316'
     ]

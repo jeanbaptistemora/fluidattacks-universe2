@@ -386,7 +386,7 @@ async def send_group_treatment_change(
     payload_data = {'group_name': group_name}
     msg = 'Info: Getting treatment change'
     LOGGER.info(msg, extra={'extra': payload_data})
-    findings = await finding_domain.list_findings([group_name])
+    findings = await finding_domain.list_findings(context, [group_name])
     await collect(
         vuln_domain.send_treatment_change_mail(context, finding_id, min_date)
         for finding_id in findings[0]
@@ -812,8 +812,10 @@ async def update_indicators() -> None:
 
 
 async def update_organization_indicators(
-        organization_name: str,
-        groups: List[str]) -> Tuple[bool, List[str]]:
+    context: Any,
+    organization_name: str,
+    groups: List[str]
+) -> Tuple[bool, List[str]]:
     success: List[bool] = []
     updated_tags: List[str] = []
     indicator_list: List[str] = [
@@ -833,7 +835,7 @@ async def update_organization_indicators(
         )
         for group in groups
     )
-    groups_findings = await finding_domain.list_findings(groups)
+    groups_findings = await finding_domain.list_findings(context, groups)
     groups_findings_attrs = await collect(
         finding_domain.get_findings_async(group_findings)
         for group_findings in groups_findings
@@ -866,6 +868,7 @@ async def update_portfolios() -> None:
     Update portfolios metrics
     """
     LOGGER.info('[scheduler]: updating portfolios indicators', **NOEXTRA)
+    context = get_new_context()
     async for _, org_name, org_groups in \
             org_domain.iterate_organizations_and_groups():
         org_tags = await tag_domain.get_tags(org_name, ['tag'])
@@ -881,7 +884,9 @@ async def update_portfolios() -> None:
             if group.get('project_status') == 'ACTIVE' and group.get('tag', [])
         ]
         success, updated_tags = await update_organization_indicators(
-            org_name, tag_groups
+            context,
+            org_name,
+            tag_groups
         )
         if success:
             deleted_tags = [

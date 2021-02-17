@@ -394,7 +394,9 @@ async def get_historic_deletion(project_name: str) -> HistoricType:
 async def remove_resources(context: Any, project_name: str) -> bool:
     are_users_removed = await remove_all_users_access(project_name)
     group_findings = await finding_domain.list_findings(
-        [project_name], include_deleted=True
+        context,
+        [project_name],
+        include_deleted=True
     )
     group_drafts = await finding_domain.list_drafts(
         [project_name], include_deleted=True
@@ -607,7 +609,10 @@ async def get_pending_verification_findings(
     project_name: str
 ) -> List[Dict[str, FindingType]]:
     """Gets findings pending for verification"""
-    findings_ids = await finding_domain.list_findings([project_name])
+    findings_ids = await finding_domain.list_findings(
+        context,
+        [project_name]
+    )
     are_pending_verifications = await collect([
         finding_domain.is_pending_verification(context, finding_id)
         for finding_id in findings_ids[0]

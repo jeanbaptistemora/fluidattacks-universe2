@@ -564,19 +564,16 @@ async def get_findings_by_group(
 
 
 async def list_findings(
+    context: Any,
     group_names: List[str],
     include_deleted: bool = False
 ) -> List[List[str]]:
     """Returns a list of the list of finding ids associated with the groups"""
-    attrs = {'finding_id', 'historic_state'}
-    findings = await collect(
-        get_findings_by_group(
-            group_name,
-            attrs,
-            include_deleted
-        )
-        for group_name in group_names
+    group_findings_loader = (
+        context.group_findings_all if include_deleted
+        else context.group_findings
     )
+    findings = await group_findings_loader.load_many(group_names)
     findings = [
         list(map(
             lambda finding: finding['finding_id'],
