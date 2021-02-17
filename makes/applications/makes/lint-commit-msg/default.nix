@@ -1,5 +1,5 @@
-{ makesPkgs
-, makeEntrypoint
+{ makeEntrypoint
+, makesPkgs
 , packages
 , path
 , ...

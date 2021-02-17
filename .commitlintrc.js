@@ -1,6 +1,5 @@
 module.exports = {
   parserPreset: './.commitlint-parser-preset',
-  extends: [ '@commitlint/config-conventional' ],
   rules: {
 
     // Body

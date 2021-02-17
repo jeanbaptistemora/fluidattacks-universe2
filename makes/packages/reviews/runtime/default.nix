@@ -1,4 +1,5 @@
-{ path
+{ packages
+, path
 , reviewsPkgs
 , ...
 } @ _:
@@ -21,7 +22,7 @@ makeTemplate {
     envPython38Paths = [
       (buildPythonRequirements {
         dependencies = [ ];
-        name = "skims-runtime";
+        name = "reviews-runtime";
         requirements = {
           direct = [
             "click==7.1.2"
@@ -42,6 +43,12 @@ makeTemplate {
         };
         python = reviewsPkgs.python38;
       })
+    ];
+    envNodeBinaries = [
+      packages.makes.commitlint
+    ];
+    envNodeLibraries = [
+      packages.makes.commitlint
     ];
   };
   template = path "/makes/packages/reviews/runtime/template.sh";

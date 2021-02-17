@@ -57,6 +57,7 @@ observes.test-streamer-gitlab
 observes.test-streamer-zoho-crm
 observes.test-tap-csv
 observes.test-target-redshift
+reviews.lint
 reviews.runtime
 skims.config-development
 skims.config-runtime

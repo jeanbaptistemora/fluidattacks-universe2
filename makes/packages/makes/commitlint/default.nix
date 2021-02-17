@@ -12,7 +12,6 @@ buildNodeRequirements {
   requirements = {
     direct = [
       "@commitlint/cli@11.0.0"
-      "@commitlint/config-conventional@11.0.0"
     ];
     inherited = [
       "@babel/code-frame@7.12.13"
@@ -51,7 +50,6 @@ buildNodeRequirements {
       "color-name@1.1.3"
       "compare-func@2.0.0"
       "conventional-changelog-angular@5.0.12"
-      "conventional-changelog-conventionalcommits@4.5.0"
       "conventional-commits-parser@3.2.0"
       "core-js@3.8.3"
       "core-util-is@1.0.2"
