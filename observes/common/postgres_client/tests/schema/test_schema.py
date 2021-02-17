@@ -3,14 +3,12 @@ from typing import Any
 # Third party libraries
 import pytest
 # Local libraries
-from postgres_client import (
-    client,
-    schema,
-)
+from postgres_client import client
+from postgres_client.schema import factory
 
 
 @pytest.mark.timeout(15, method='thread')
-def test_schema_get_tables(postgresql_my: Any) -> None:
+def test_get_tables(postgresql_my: Any) -> None:
     temp_cur = postgresql_my.cursor()
     temp_cur.execute('CREATE SCHEMA test_schema')
     temp_cur.execute(
@@ -23,6 +21,6 @@ def test_schema_get_tables(postgresql_my: Any) -> None:
     )
     postgresql_my.commit()
     db_client = client.new_test_client(postgresql_my)
-    db_schema = schema.db_schema(db_client.cursor, 'test_schema')
+    db_schema = factory.db_schema(db_client, 'test_schema')
     tables = set(db_schema.get_tables())
     assert tables == set(['table_number_one', 'table_number_two'])
