@@ -22,11 +22,11 @@ class GroupFindingsLoader(DataLoader):  # type: ignore
     ) -> List[List[Finding]]:
         return cast(
             List[List[Finding]],
-            await collect(
+            await collect([
                 finding_domain.get_findings_by_group(
                     group_name,
                     include_deleted=True
                 )
                 for group_name in group_names
-            )
+            ])
         )
