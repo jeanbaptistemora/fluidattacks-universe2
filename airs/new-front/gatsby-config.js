@@ -1,4 +1,5 @@
 module.exports = {
+  pathPrefix: '/new-front',
   siteMetadata: {
     title: "A Pentesting Company | Fluid Attacks",
     description:
@@ -8,12 +9,6 @@ module.exports = {
     image: "/images/logo-fluid-attacks.png", // Path to your image you placed in the 'static' folder
   },
   plugins: [
-    {
-      resolve: "gatsby-plugin-canonical-urls",
-      options: {
-        siteUrl: "https://fluidattacks.com",
-      },
-    },
     {
       resolve: "gatsby-plugin-manifest",
       options: {

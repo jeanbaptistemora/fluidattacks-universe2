@@ -246,8 +246,8 @@ function job_airs_deploy_local {
   &&  npm cache clean --force \
   &&  helper_airs_set_lc_all \
   &&  helper_airs_compile 'http://localhost:8000' \
+  &&  helper_airs_compile_gatsby "http://localhost:8000" "/new-front" \
   &&  python3 -m http.server --directory output \
-  &&  npm run --prefix new-front/ develop \
   &&  popd \
   ||  return 1
 }
@@ -258,6 +258,7 @@ function job_airs_deploy_ephemeral {
   &&  helper_airs_set_lc_all \
   &&  helper_airs_aws_login development \
   &&  helper_airs_compile "https://web.eph.fluidattacks.com/${CI_COMMIT_REF_NAME}" \
+  &&  helper_airs_compile_gatsby "https://web.eph.fluidattacks.com/${CI_COMMIT_REF_NAME}/new-front" "${CI_COMMIT_REF_NAME}/new-front" \
   &&  helper_airs_deploy_sync_s3 'output/' "web.eph.fluidattacks.com/${CI_COMMIT_REF_NAME}" \
   &&  npx bugsnag-build-reporter \
         --api-key 6d0d7e66955855de59cfff659e6edf31 \
@@ -286,6 +287,7 @@ function job_airs_deploy_production {
   &&  helper_airs_set_lc_all \
   &&  helper_airs_aws_login production \
   &&  helper_airs_compile 'https://fluidattacks.com' \
+  &&  helper_airs_compile_gatsby "https://fluidattacks.com/new-front" "/new-front" \
   &&  helper_airs_deploy_sync_s3 'output/' 'fluidattacks.com' \
   &&  npx bugsnag-build-reporter \
         --api-key 6d0d7e66955855de59cfff659e6edf31 \

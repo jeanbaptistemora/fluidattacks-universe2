@@ -12,6 +12,9 @@ import { NavbarComponent } from "../components/navbar";
 import React from "react";
 import { graphql } from "gatsby";
 
+import "tachyons/css/tachyons.min.css";
+import "../styles/index.scss";
+
 interface IQueryData {
   data: {
     asciidoc: {
