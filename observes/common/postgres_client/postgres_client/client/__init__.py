@@ -1,7 +1,10 @@
 # Standard libraries
+import json
 from typing import (
     Callable,
+    IO,
     NamedTuple,
+    Tuple,
 )
 # Third party libraries
 # Local libraries
@@ -45,6 +48,20 @@ def _create_client(
     )
 
 
+def _extract_conf_info(
+    auth_file: IO[str]
+) -> Tuple[DatabaseID, Credentials]:
+    auth = json.load(auth_file)
+    auth['db_name'] = auth['dbname']
+    db_id_raw = dict(
+        filter(lambda x: x[0] in DatabaseID._fields, auth.items())
+    )
+    creds_raw = dict(
+        filter(lambda x: x[0] in Credentials._fields, auth.items())
+    )
+    return (DatabaseID(**db_id_raw), Credentials(**creds_raw))
+
+
 def new_client(
     db_id: DatabaseID,
     cred: Credentials
@@ -52,6 +69,10 @@ def new_client(
     db_connection = connection_module.connect(db_id, cred)
     db_cursor = cursor_module.new_cursor(db_connection)
     return _create_client(db_connection, db_cursor)
+
+
+def new_client_from_conf(auth_file: IO[str]) -> Client:
+    return new_client(*_extract_conf_info(auth_file))
 
 
 def new_test_client(connection: DbConn) -> Client:
