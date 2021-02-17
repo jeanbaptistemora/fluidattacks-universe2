@@ -5,7 +5,7 @@ function with_library {
 }
 
 function with_node_library {
-  export NODE_PATH="${1}:${NODE_PATH:-}"
+  export NODE_PATH="${1}/node_modules:${NODE_PATH:-}"
 }
 
 function with_node_binary {

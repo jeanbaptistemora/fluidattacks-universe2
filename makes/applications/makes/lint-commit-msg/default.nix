@@ -1,19 +1,21 @@
 { makesPkgs
+, makeEntrypoint
+, packages
 , path
 , ...
-} @ attrs:
-let
-  makeEntrypoint = import (path "/makes/utils/make-entrypoint") path makesPkgs;
-  makeSearchPaths = import (path "/makes/utils/make-search-paths-deprecated") path makesPkgs;
-in
-makeEntrypoint {
-  arguments = {
-    envSearchPaths = makeSearchPaths [
-      makesPkgs.nodejs
+} @ _:
+makeEntrypoint makesPkgs {
+  searchPaths = {
+    envPaths = [
       makesPkgs.git
+      makesPkgs.nodejs
     ];
-    envUtilsCommon = path "/makes/utils/common/template.sh";
-    envSetupCommitlint = import (path "/makes/packages/makes/commitlint") attrs.copy;
+    envNodeBinaries = [
+      packages.makes.commitlint
+    ];
+    envNodeLibraries = [
+      packages.makes.commitlint
+    ];
   };
   name = "makes-lint-commit-msg";
   template = path "/makes/applications/makes/lint-commit-msg/entrypoint.sh";
