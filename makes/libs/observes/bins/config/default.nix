@@ -12,6 +12,12 @@
     package = observesPkgs.difGitlabEtl;
   };
 
+  serviceMigrateTables = {
+    binName = "observes-service-migrate-tables";
+    entrypoint = "from migrate_tables.cli import main";
+    package = observesPkgs.serviceMigrateTables;
+  };
+
   serviceTimedoctorTokens = {
     binName = "observes-service-timedoctor-tokens";
     entrypoint = "from timedoctor_tokens import main";
