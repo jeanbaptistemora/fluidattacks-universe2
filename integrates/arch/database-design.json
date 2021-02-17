@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Feb 16, 2021, 09:37 AM",
+    "DateLastModified": "Feb 17, 2021, 02:33 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "2.0"
@@ -261,6 +261,10 @@
         {
           "AttributeName": "manager",
           "AttributeType": "S"
+        },
+        {
+          "AttributeName": "global_id",
+          "AttributeType": "S"
         }
       ],
       "TableFacets": [
@@ -268,7 +272,7 @@
           "FacetName": "user_metadata",
           "KeyAttributeAlias": {
             "PartitionKeyAlias": "USER#email",
-            "SortKeyAlias": "METADATA"
+            "SortKeyAlias": "USER#email"
           },
           "TableData": [
             {
@@ -276,7 +280,7 @@
                 "S": "USER#test@fluidattacks.com"
               },
               "sk": {
-                "S": "METADATA"
+                "S": "USER#test@fluidattacks.com"
               },
               "access_token": {
                 "M": {
@@ -338,7 +342,7 @@
                 "S": "USER#test@fluidattacks.com"
               },
               "sk": {
-                "S": "ORG#imamura"
+                "S": "ORG#okada"
               },
               "role": {
                 "S": "group_manager"
@@ -414,18 +418,18 @@
           "FacetName": "organization_metadata",
           "KeyAttributeAlias": {
             "PartitionKeyAlias": "ORG#name",
-            "SortKeyAlias": "METADATA"
+            "SortKeyAlias": "ORG#name#METADATA"
           },
           "TableData": [
             {
               "pk": {
-                "S": "ORG#imamura"
+                "S": "ORG#okada"
               },
               "sk": {
-                "S": "METADATA"
+                "S": "ORG#okada#METADATA"
               },
               "name": {
-                "S": "imamura"
+                "S": "okada"
               }
             }
           ],
@@ -437,18 +441,18 @@
           }
         },
         {
-          "FacetName": "organization_state",
+          "FacetName": "organization_historic",
           "KeyAttributeAlias": {
             "PartitionKeyAlias": "ORG#name",
-            "SortKeyAlias": "STATE#iso8601utc"
+            "SortKeyAlias": "ORG#name#HISTORIC#iso8601utc"
           },
           "TableData": [
             {
               "pk": {
-                "S": "ORG#imamura"
+                "S": "ORG#okada"
               },
               "sk": {
-                "S": "STATE#2021-02-15T14:01:16Z"
+                "S": "ORG#okada#HISTORIC#2021-02-15T14:01:16Z"
               },
               "settings": {
                 "M": {
@@ -492,7 +496,7 @@
           "TableData": [
             {
               "pk": {
-                "S": "ORG#imamura"
+                "S": "ORG#okada"
               },
               "sk": {
                 "S": "GROUP#unittesting#METADATA"
@@ -505,31 +509,35 @@
               },
               "language": {
                 "S": "en"
+              },
+              "global_id": {
+                "S": "ORG#okada#GROUP#unittesting"
               }
             }
           ],
           "NonKeyAttributes": [
             "name",
             "description",
-            "language"
+            "language",
+            "global_id"
           ],
           "DataAccess": {
             "MySql": {}
           }
         },
         {
-          "FacetName": "group_state",
+          "FacetName": "group_historic",
           "KeyAttributeAlias": {
-            "PartitionKeyAlias": "ORG#name",
-            "SortKeyAlias": "GROUP#name#STATE#iso8601utc"
+            "PartitionKeyAlias": "GROUP#name#HISTORIC#iso8601utc",
+            "SortKeyAlias": "GROUP#name#HISTORIC#iso8601utc"
           },
           "TableData": [
             {
               "pk": {
-                "S": "ORG#imamura"
+                "S": "GROUP#unittesting#HISTORIC#2021-02-15T14:01:16Z"
               },
               "sk": {
-                "S": "GROUP#unittesting#STATE#2021-02-15T14:01:16Z"
+                "S": "GROUP#unittesting#HISTORIC#2021-02-15T14:01:16Z"
               },
               "type": {
                 "S": "CONTINUOUS"
@@ -556,6 +564,9 @@
               },
               "modified_by": {
                 "S": "USER#test@fluidattacks.com"
+              },
+              "global_id": {
+                "S": "ORG#okada#GROUP#unittesting"
               }
             }
           ],
@@ -567,7 +578,8 @@
             "has_drills",
             "has_forces",
             "modified_date",
-            "modified_by"
+            "modified_by",
+            "global_id"
           ],
           "DataAccess": {
             "MySql": {}
@@ -773,6 +785,22 @@
             },
             "SortKey": {
               "AttributeName": "pk",
+              "AttributeType": "S"
+            }
+          },
+          "Projection": {
+            "ProjectionType": "ALL"
+          }
+        },
+        {
+          "IndexName": "global_index",
+          "KeyAttributes": {
+            "PartitionKey": {
+              "AttributeName": "global_id",
+              "AttributeType": "S"
+            },
+            "SortKey": {
+              "AttributeName": "sk",
               "AttributeType": "S"
             }
           },
