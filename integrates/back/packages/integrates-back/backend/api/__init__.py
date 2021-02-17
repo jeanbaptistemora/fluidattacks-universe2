@@ -34,6 +34,10 @@ from backend.api.dataloaders.group_findings_non_deleted import (
     GroupFindingsNonDeletedLoader
 )
 from backend.api.dataloaders.group_roots import GroupRootsLoader
+from backend.api.dataloaders.group_stakeholders import GroupStakeholdersLoader
+from backend.api.dataloaders.group_stakeholders_non_fluid import (
+    GroupStakeholdersNonFluidLoader
+)
 from backend.api.dataloaders.vulnerability import VulnerabilityLoader
 
 from back import settings
@@ -53,12 +57,15 @@ class Dataloaders(NamedTuple):
     group_findings: GroupFindingsNonDeletedLoader  # Non deleted findings
     group_findings_all: GroupFindingsLoader  # All findings
     group_roots: GroupRootsLoader
+    group_stakeholders: GroupStakeholdersLoader
+    group_stakeholders_nf: GroupStakeholdersNonFluidLoader
     vulnerability: VulnerabilityLoader
 
 
 def get_new_context() -> Dataloaders:
     group_loader = GroupLoader()
     group_findings_loader = GroupFindingsLoader()
+    group_stakeholders_loader = GroupStakeholdersLoader()
     finding_vulns_loader = FindingVulnsLoader()
     finding_vulns_non_deleted_loader = \
         FindingVulnsNonDeletedLoader(finding_vulns_loader)
@@ -77,6 +84,10 @@ def get_new_context() -> Dataloaders:
         group_findings=GroupFindingsNonDeletedLoader(group_findings_loader),
         group_findings_all=group_findings_loader,
         group_roots=GroupRootsLoader(),
+        group_stakeholders=group_stakeholders_loader,
+        group_stakeholders_nf=GroupStakeholdersNonFluidLoader(
+            group_stakeholders_loader
+        ),
         vulnerability=VulnerabilityLoader()
     )
 

@@ -1200,7 +1200,7 @@ async def get_access_by_url_token(url_token: str) -> ProjectAccessType:
     return cast(ProjectAccessType, access[0]) if access else {}
 
 
-async def _get_stakeholder(
+async def format_stakeholder(
     email: str,
     group_name: str
 ) -> StakeholderType:
@@ -1255,7 +1255,7 @@ async def get_stakeholders(
     group_stakeholders = cast(
         List[StakeholderType],
         await collect(
-            _get_stakeholder(email, group_name)
+            format_stakeholder(email, group_name)
             for email in group_stakeholders_emails
         )
     )
