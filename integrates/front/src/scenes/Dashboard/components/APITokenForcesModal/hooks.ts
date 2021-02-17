@@ -1,24 +1,41 @@
 import type { ApolloError } from "apollo-client";
-import { GET_FORCES_TOKEN } from "scenes/Dashboard/components/APITokenForcesModal/queries";
+import type { FormAction } from "redux-form";
 import type { GraphQLError } from "graphql";
-import type { IGetForcesTokenAttr } from "scenes/Dashboard/components/APITokenForcesModal/types";
 import { Logger } from "utils/logger";
-import type { OperationVariables } from "@apollo/react-common";
 import type { QueryLazyOptions } from "@apollo/react-hooks";
-import { msgError } from "utils/notifications";
-import { useLazyQuery } from "@apollo/react-hooks";
+import { useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
+import {
+  GET_FORCES_TOKEN,
+  UPDATE_FORCES_TOKEN_MUTATION,
+} from "scenes/Dashboard/components/APITokenForcesModal/queries";
+import type {
+  IGetForcesTokenAttr,
+  IUpdateForcesTokenAttr,
+} from "scenes/Dashboard/components/APITokenForcesModal/types";
+import type {
+  MutationFunction,
+  MutationResult,
+  OperationVariables,
+} from "@apollo/react-common";
+import { change, reset } from "redux-form";
+import { msgError, msgSuccess } from "utils/notifications";
+import { useLazyQuery, useMutation } from "@apollo/react-hooks";
 
 const useGetAPIToken: (
   groupName: string
 ) => readonly [
   (options?: QueryLazyOptions<OperationVariables> | undefined) => void,
-  IGetForcesTokenAttr | undefined
+  boolean,
+  IGetForcesTokenAttr | undefined,
+  boolean
 ] = (
   groupName: string
 ): readonly [
   (options?: QueryLazyOptions<OperationVariables> | undefined) => void,
-  IGetForcesTokenAttr | undefined
+  boolean,
+  IGetForcesTokenAttr | undefined,
+  boolean
 ] => {
   const { t } = useTranslation();
   // Handle query results
@@ -31,18 +48,63 @@ const useGetAPIToken: (
     });
   };
 
-  const [getForcesApiToken, { data }] = useLazyQuery<IGetForcesTokenAttr>(
-    GET_FORCES_TOKEN,
+  const [getForcesApiToken, { called, data, loading }] = useLazyQuery<
+    IGetForcesTokenAttr
+  >(GET_FORCES_TOKEN, {
+    fetchPolicy: "network-only",
+    onError: handleOnError,
+    variables: {
+      groupName,
+    },
+  });
+
+  return [getForcesApiToken, called, data, loading] as const;
+};
+
+const useUpdateAPIToken: () => readonly [
+  MutationFunction,
+  MutationResult<IUpdateForcesTokenAttr>
+] = (): readonly [MutationFunction, MutationResult<IUpdateForcesTokenAttr>] => {
+  const { t } = useTranslation();
+  const dispatch: React.Dispatch<FormAction> = useDispatch();
+
+  // Handle mutation results
+  const handleOnSuccess: (mtResult: IUpdateForcesTokenAttr) => void = (
+    mtResult: IUpdateForcesTokenAttr
+  ): void => {
+    if (mtResult.updateForcesAccessToken.success) {
+      dispatch(
+        change(
+          "updateForcesAccessToken",
+          "sessionJwt",
+          mtResult.updateForcesAccessToken.sessionJwt
+        )
+      );
+      msgSuccess(
+        t("update_access_token.successfully"),
+        t("update_access_token.success")
+      );
+    }
+  };
+  const handleOnError: ({ graphQLErrors }: ApolloError) => void = ({
+    graphQLErrors,
+  }: ApolloError): void => {
+    graphQLErrors.forEach((error: GraphQLError): void => {
+      Logger.warning("An error occurred adding access token", error);
+      msgError(t("group_alerts.error_textsad"));
+    });
+    dispatch(reset("updateAccessToken"));
+  };
+
+  const [updateAPIToken, mtResponse] = useMutation(
+    UPDATE_FORCES_TOKEN_MUTATION,
     {
-      fetchPolicy: "network-only",
+      onCompleted: handleOnSuccess,
       onError: handleOnError,
-      variables: {
-        groupName: groupName,
-      },
     }
   );
 
-  return [getForcesApiToken, data] as const;
+  return [updateAPIToken, mtResponse] as const;
 };
 
-export { useGetAPIToken };
+export { useGetAPIToken, useUpdateAPIToken };

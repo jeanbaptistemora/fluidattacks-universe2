@@ -1,5 +1,5 @@
 interface IUpdateForcesTokenAttr {
-  updateAccessToken: {
+  updateForcesAccessToken: {
     sessionJwt: string;
     success: boolean;
   };
