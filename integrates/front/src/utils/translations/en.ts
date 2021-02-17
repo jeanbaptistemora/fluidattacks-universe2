@@ -1213,15 +1213,18 @@ export const enTranslations: ResourceKey = {
     tab_evidence: {
       animation_exploit: "Exploitation animation",
       date: "Date: ",
+      description_tooltip: "Brief explanation about the evidence",
       detail: "Detail",
       editable: "Edit",
       editable_tooltip: "Modify the evidence for this finding",
       evidence_exploit: "Exploitation evidence",
       remove: "Delete",
+      remove_tooltip: "Delete this evidence",
       tab_title: "Evidence",
       tooltip:
         "Images or animation representing the exploitation process to support the existence of the finding",
       update: "Update",
+      update_tooltip: "Update all modified evidences",
     },
     tab_exploit: {
       editable: "Edit",
@@ -1334,6 +1337,8 @@ export const enTranslations: ResourceKey = {
         "Space to review the finding and suggest adjustments. For internal purposes only",
     },
     tab_records: {
+      editable: "Edit",
+      editable_tooltip: "Modify the records for this finding",
       tab_title: "Records",
       tooltip:
         "Information that will be compromised or disclosed by exploiting the vulnerability",

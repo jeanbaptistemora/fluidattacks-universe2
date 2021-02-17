@@ -178,9 +178,14 @@ const evidenceView: React.FC = (): JSX.Element => {
               <React.Fragment>
                 {isEditing ? (
                   <ButtonToolbarRow>
+                    <TooltipWrapper
+                      id={translate.t("search_findings.tab_evidence.update_tooltip.id")}
+                      message={translate.t("search_findings.tab_evidence.update_tooltip")}
+                    >
                     <Button type="submit" disabled={pristine}>
                       <FluidIcon icon="loading" />&nbsp;{translate.t("search_findings.tab_evidence.update")}
                     </Button>
+                    </TooltipWrapper>
                   </ButtonToolbarRow>
                 ) : undefined}
                 <Row className={styles.evidenceGrid}>

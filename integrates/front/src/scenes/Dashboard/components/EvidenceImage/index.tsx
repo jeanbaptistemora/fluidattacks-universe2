@@ -8,8 +8,9 @@ import { Field, FormSection, Validator } from "redux-form";
 
 import { Button } from "components/Button/index";
 import { FluidIcon } from "components/FluidIcon";
+import { TooltipWrapper } from "components/TooltipWrapper";
 import { default as style } from "scenes/Dashboard/components/EvidenceImage/index.css";
-import { Col33, EvidenceDescription, Row } from "styles/styledComponents";
+import { ButtonToolbarLeft, Col33, EvidenceDescription, Row } from "styles/styledComponents";
 import { FileInput, TextArea } from "utils/forms/fields";
 import { translate } from "utils/translations/translate";
 import { validEvidenceDescription, validTextField } from "utils/validations";
@@ -42,17 +43,30 @@ const renderForm: ((props: IEvidenceImageProps) => JSX.Element) = (props: IEvide
       />
       {props.isDescriptionEditable
         ?
-          <Field
-            name="description"
-            component={TextArea}
-            validate={[validEvidenceDescription, validTextField]}
-          />
+          <TooltipWrapper
+            id={translate.t("search_findings.tab_evidence.description_tooltip.id")}
+            message={translate.t("search_findings.tab_evidence.description_tooltip")}
+            placement="right"
+          >
+            <Field
+              name="description"
+              component={TextArea}
+              validate={[validEvidenceDescription, validTextField]}
+            />
+          </TooltipWrapper>
         : <p>{props.description}</p>}
       {props.isRemovable === true
-        ? <Button onClick={onDelete}>
-          <FluidIcon icon="delete" />
-          &nbsp;{translate.t("search_findings.tab_evidence.remove")}
-        </Button>
+        ? <ButtonToolbarLeft>
+          <TooltipWrapper
+            id={translate.t("search_findings.tab_evidence.remove_tooltip.id")}
+            message={translate.t("search_findings.tab_evidence.remove_tooltip")}
+          >
+            <Button onClick={onDelete}>
+              <FluidIcon icon="delete" />
+              &nbsp;{translate.t("search_findings.tab_evidence.remove")}
+            </Button>
+          </TooltipWrapper>
+        </ButtonToolbarLeft>
         : undefined}
     </FormSection>
   );

@@ -18,6 +18,7 @@ import { Field, InjectedFormProps } from "redux-form";
 import { Button } from "components/Button";
 import { DataTableNext } from "components/DataTableNext";
 import { FluidIcon } from "components/FluidIcon";
+import { TooltipWrapper } from "components/TooltipWrapper";
 import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import { REMOVE_EVIDENCE_MUTATION, UPDATE_EVIDENCE_MUTATION } from "scenes/Dashboard/containers/EvidenceView/queries";
 import { GET_FINDING_RECORDS } from "scenes/Dashboard/containers/RecordsView/queries";
@@ -83,9 +84,16 @@ const recordsView: React.FC = (): JSX.Element => {
               <Can do="backend_api_mutations_update_evidence_mutate">
                 <Row>
                   <Col100 className={"pa0"}>
-                    <Button className={"fr"} onClick={handleEditClick}>
-                      <FluidIcon icon="edit" />&nbsp;{translate.t("search_findings.tab_evidence.editable")}
-                    </Button>
+                    <ButtonToolbarRow>
+                      <TooltipWrapper
+                        id={translate.t("search_findings.tab_records.editable_tooltip.id")}
+                        message={translate.t("search_findings.tab_records.editable_tooltip")}
+                      >
+                        <Button className={"fr"} onClick={handleEditClick}>
+                          <FluidIcon icon="edit" />&nbsp;{translate.t("search_findings.tab_records.editable")}
+                        </Button>
+                      </TooltipWrapper>
+                    </ButtonToolbarRow>
                   </Col100>
                 </Row>
               </Can>
