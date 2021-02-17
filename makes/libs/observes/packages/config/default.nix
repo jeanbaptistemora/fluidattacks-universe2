@@ -179,11 +179,27 @@ rec {
     nix = postgresClient.nix;
   };
 
+  serviceMigrateTables = {
+    srcPath = path "/observes/services/migrate_tables";
+    python = {
+      direct = [
+        "click==7.1.2"
+      ];
+      inherited = [
+        "psycopg2==2.8.4"
+      ];
+    };
+    local = [
+      "postgresClient"
+    ];
+    nix = [ ];
+  };
+
   serviceTimedoctorTokens = {
     srcPath = path "/observes/services/timedoctor_tokens";
     python = {
       direct = [
-        "urllib3==1.26.3"
+        "click==7.1.2"
       ];
       inherited = [ ];
     };

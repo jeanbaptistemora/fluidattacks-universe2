@@ -71,6 +71,11 @@ observes.lint-postgres-client:
   <<: *observes_in_dev_branch
   stage: lint-code
 
+observes.lint.service-migrate-tables:
+  <<: *makes
+  <<: *observes_in_dev_branch
+  stage: lint-code
+
 observes.lint-singer-io:
   <<: *makes
   <<: *observes_in_dev_branch

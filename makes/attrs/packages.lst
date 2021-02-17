@@ -49,6 +49,7 @@ observes.lint-tap-formstack
 observes.lint-tap-mixpanel
 observes.lint-target-redshift
 observes.lint-update-sync-date
+observes.lint.service-migrate-tables
 observes.test-code-etl
 observes.test-dif-gitlab-etl
 observes.test-postgres-client
