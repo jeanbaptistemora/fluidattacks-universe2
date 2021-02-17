@@ -128,6 +128,7 @@ describe("Update Description component", (): void => {
     },
   };
   const mockedPermissions: PureAbility<string> = new PureAbility([
+    { action: "backend_api_mutations_delete_vulnerability_tags_mutate" },
     { action: "backend_api_mutations_request_zero_risk_vuln_mutate" },
     { action: "backend_api_mutations_update_treatment_vulnerability_mutate" },
     { action: "backend_api_mutations_update_vulns_treatment_mutate" },
@@ -218,7 +219,11 @@ describe("Update Description component", (): void => {
             .at(0)
             .find("input");
 
-          expect(wrapper.find({ renderAsEditable: true })).toHaveLength(4);
+          const numberOfEditableFields: number = 5;
+
+          expect(wrapper.find({ renderAsEditable: true })).toHaveLength(
+            numberOfEditableFields
+          );
           expect(severityInput.prop("value")).toStrictEqual(vulns[0].severity);
         });
       }

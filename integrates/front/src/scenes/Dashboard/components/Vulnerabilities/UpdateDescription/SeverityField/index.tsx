@@ -1,9 +1,12 @@
-import { Field } from "redux-form";
+import { EditableField } from "scenes/Dashboard/components/EditableField";
+import { FormGroup } from "styles/styledComponents";
 import type { ISeverityFieldProps } from "./types";
+import type { PureAbility } from "@casl/ability";
 import React from "react";
 import { Text } from "utils/forms/fields";
+import { authzPermissionsContext } from "utils/authz/config";
 import { translate } from "utils/translations/translate";
-import { ControlLabel, FormGroup } from "styles/styledComponents";
+import { useAbility } from "@casl/react";
 import { isValidVulnSeverity, numeric } from "utils/validations";
 
 const SeverityField: React.FC<ISeverityFieldProps> = (
@@ -14,7 +17,12 @@ const SeverityField: React.FC<ISeverityFieldProps> = (
     isAcceptedSelected,
     isAcceptedUndefinedSelected,
     isInProgressSelected,
+    level,
   } = props;
+  const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
+  const canUpdateVulnsTreatment: boolean = permissions.can(
+    "backend_api_mutations_update_vulns_treatment_mutate"
+  );
 
   return (
     <React.StrictMode>
@@ -23,16 +31,14 @@ const SeverityField: React.FC<ISeverityFieldProps> = (
       isInProgressSelected ||
       !hasNewVulnSelected ? (
         <FormGroup>
-          <ControlLabel>
-            <b>
-              {translate.t(
-                "search_findings.tab_description.business_criticality"
-              )}
-            </b>
-          </ControlLabel>
-          <Field
+          <EditableField
             component={Text}
+            currentValue={level}
+            label={translate.t(
+              "search_findings.tab_description.business_criticality"
+            )}
             name={"severity"}
+            renderAsEditable={canUpdateVulnsTreatment}
             type={"number"}
             validate={[isValidVulnSeverity, numeric]}
           />

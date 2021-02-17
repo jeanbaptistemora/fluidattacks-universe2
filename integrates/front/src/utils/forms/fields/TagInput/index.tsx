@@ -10,6 +10,7 @@ import type { WrappedFieldInputProps, WrappedFieldProps } from "redux-form";
 
 interface ITagInputProps extends WrappedFieldProps {
   input: { value: string } & Omit<WrappedFieldInputProps, "value">;
+  readOnly: boolean;
   onDeletion: (tag: string) => void;
 }
 export const TagInput: React.FC<ITagInputProps> = (
@@ -17,7 +18,7 @@ export const TagInput: React.FC<ITagInputProps> = (
   // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
   props: Readonly<ITagInputProps>
 ): JSX.Element => {
-  const { onDeletion, input } = props;
+  const { onDeletion, input, readOnly } = props;
   const { value, onChange } = input;
 
   // Hooks
@@ -100,6 +101,7 @@ export const TagInput: React.FC<ITagInputProps> = (
         maxLength={25}
         name={"tags"}
         placeholder={""}
+        readOnly={readOnly}
         tags={tagsInput}
       />
       {tagsError && (

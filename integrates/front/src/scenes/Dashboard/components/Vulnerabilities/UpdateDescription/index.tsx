@@ -524,6 +524,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
                           isAcceptedUndefinedSelected
                         }
                         isInProgressSelected={isInProgressSelected}
+                        level={groupVulnLevel(vulnerabilities)}
                       />
                     </Col50>
                   </Row>

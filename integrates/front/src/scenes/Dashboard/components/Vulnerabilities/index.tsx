@@ -51,6 +51,9 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
 }: IVulnComponentProps): JSX.Element => {
   const { t } = useTranslation();
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
+  const canDeleteVulnsTags: boolean = permissions.can(
+    "backend_api_mutations_delete_vulnerability_tags_mutate"
+  );
   const canRequestZeroRiskVuln: boolean = permissions.can(
     "backend_api_mutations_request_zero_risk_vuln_mutate"
   );
@@ -307,7 +310,10 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
                   "search_findings.tab_vuln.contentTab.details.tooltip"
                 )}
               />
-              {currentRow.currentState === "open" ? (
+              {currentRow.currentState === "open" &&
+              (canUpdateVulnsTreatment ||
+                canRequestZeroRiskVuln ||
+                canDeleteVulnsTags) ? (
                 <ContentTab
                   icon={"icon pe-7s-note"}
                   id={"vulnerabilityTreatmentsTab"}

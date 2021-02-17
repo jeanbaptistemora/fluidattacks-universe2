@@ -3,6 +3,7 @@ interface ISeverityFieldProps {
   isAcceptedSelected: boolean;
   isAcceptedUndefinedSelected: boolean;
   isInProgressSelected: boolean;
+  level: string;
 }
 
 export { ISeverityFieldProps };
