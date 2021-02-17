@@ -38,3 +38,13 @@ def test_delete(postgresql_my: Any) -> None:
     target = TableID(schema='test_schema', table_name='table_number_one')
     operations.delete(db_client, target)
     assert not table.exist(db_client, target)
+
+
+@pytest.mark.skip(
+    reason=(
+        'move procedure uses specific redshift statement '
+        'not supported on test db'
+    )
+)
+def test_move() -> None:
+    pass

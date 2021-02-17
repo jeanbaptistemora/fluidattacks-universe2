@@ -47,3 +47,27 @@ def delete(
     )
     action = db_client.cursor.execute(statement, args)
     action.act()
+
+
+def move(
+    db_client: Client,
+    source: TableID,
+    target: TableID,
+) -> TableID:
+    statement = (
+        'ALTER TABLE {target_schema}.{target_table} '
+        'APPEND FROM {source_schema}.{source_table};'
+    )
+    identifiers: Dict[str, Optional[str]] = {
+        'source_schema': source.schema,
+        'source_table': source.table_name,
+        'target_schema': target.schema,
+        'target_table': target.table_name,
+    }
+    args = DynamicSQLargs(
+        identifiers=identifiers
+    )
+    action = db_client.cursor.execute(statement, args)
+    action.act()
+    delete(db_client, source)
+    return target
