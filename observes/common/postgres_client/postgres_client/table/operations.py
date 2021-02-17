@@ -29,3 +29,21 @@ def rename(
     action = db_client.cursor.execute(statement, args)
     action.act()
     return TableID(schema=table.schema, table_name=new_name)
+
+
+def delete(
+    db_client: Client,
+    table: TableID,
+) -> None:
+    statement = """
+        DROP TABLE {schema}.{table};
+    """
+    identifiers: Dict[str, Optional[str]] = {
+        'schema': table.schema,
+        'table': table.table_name,
+    }
+    args = DynamicSQLargs(
+        identifiers=identifiers
+    )
+    action = db_client.cursor.execute(statement, args)
+    action.act()

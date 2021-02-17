@@ -12,7 +12,7 @@ from postgres_client.table import (
 
 
 @pytest.mark.timeout(15, method='thread')
-def test_schema_get_tables(postgresql_my: Any) -> None:
+def test_create_like(postgresql_my: Any) -> None:
     temp_cur = postgresql_my.cursor()
     temp_cur.execute('CREATE SCHEMA test_schema')
     temp_cur.execute('CREATE SCHEMA test_schema_2')
