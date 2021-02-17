@@ -331,10 +331,10 @@
           }
         },
         {
-          "FacetName": "organization_membership",
+          "FacetName": "organization_authorization",
           "KeyAttributeAlias": {
             "PartitionKeyAlias": "USER#email",
-            "SortKeyAlias": "ORG#name"
+            "SortKeyAlias": "AUTHZ#ORG#name"
           },
           "TableData": [
             {
@@ -342,7 +342,7 @@
                 "S": "USER#test@fluidattacks.com"
               },
               "sk": {
-                "S": "ORG#okada"
+                "S": "AUTHZ#ORG#okada"
               },
               "role": {
                 "S": "group_manager"
@@ -357,10 +357,10 @@
           }
         },
         {
-          "FacetName": "group_membership",
+          "FacetName": "group_authorization",
           "KeyAttributeAlias": {
             "PartitionKeyAlias": "USER#email",
-            "SortKeyAlias": "GROUP#name"
+            "SortKeyAlias": "AUTHZ#GROUP#name"
           },
           "TableData": [
             {
@@ -368,7 +368,7 @@
                 "S": "USER#test@fluidattacks.com"
               },
               "sk": {
-                "S": "GROUP#unittesting"
+                "S": "AUTHZ#GROUP#unittesting"
               },
               "role": {
                 "S": "group_manager"
@@ -390,9 +390,18 @@
           "FacetName": "organization_subscription",
           "KeyAttributeAlias": {
             "PartitionKeyAlias": "USER#email",
-            "SortKeyAlias": "ORG#name"
+            "SortKeyAlias": "SUBS#ORG#name"
           },
-          "TableData": [],
+          "TableData": [
+            {
+              "pk": {
+                "S": "USER#test@fluidattacks.com"
+              },
+              "sk": {
+                "S": "SUBS#ORG#okada"
+              }
+            }
+          ],
           "NonKeyAttributes": [
             "period"
           ],
@@ -404,9 +413,21 @@
           "FacetName": "group_subscription",
           "KeyAttributeAlias": {
             "PartitionKeyAlias": "USER#email",
-            "SortKeyAlias": "GROUP#name"
+            "SortKeyAlias": "SUBS#GROUP#name"
           },
-          "TableData": [],
+          "TableData": [
+            {
+              "pk": {
+                "S": "USER#test@fluidattacks.com"
+              },
+              "sk": {
+                "S": "SUBS#GROUP#unittesting"
+              },
+              "period": {
+                "N": "86400"
+              }
+            }
+          ],
           "NonKeyAttributes": [
             "period"
           ],
