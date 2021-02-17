@@ -10,14 +10,14 @@
 
 We can break the build in your CI,
 obliging developers to fix the open vulnerabilities in order to deploy.
-With just one click in *Integrates*,
-managers can decide which vulnerabilities are crucial
+With just one click in our *Attack Surface Manager (ASM)*,
+leaders can decide which vulnerabilities are crucial
 and must break the build in their CI if they are still open.
 
 === Critical Information Extraction and Information Removal
 
 Information extraction is done to maximize the impacts of the finding.
-The data gathered during a subscription remains on *Integrates*.
+The data gathered during a subscription remains on *ASM*.
 Your subscription's admin is allowed to delete it.
 The data is removed *30* days after the admin's decision. This operation can be
 reversed during those *30* days.
@@ -55,12 +55,12 @@ Then, the continuous hacking advances simultaneously with the development.
 You can check at any time if any of the findings have been closed.
 To perform remediation validation:
 First, you must define the treatment used to remediate the vulnerability.
-Then, you must request, through *Integrates*, a finding validation.
+Then, you must request, through *ASM*, a finding validation.
 You can always resolve any doubts by contacting `Fluid Attacks` directly.
 
-=== Vulnerability Management Platform
+=== Attack Surface Manager
 
-*Integrates* is the platform that allows control
+*ASM* is the platform that allows control
 in the testing and remediation processes of vulnerabilities.
 It can be used to access general data on each finding.
 It also allows you to check the findings' remediation status

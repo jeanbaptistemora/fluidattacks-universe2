@@ -69,7 +69,7 @@ the public will also be informed via email.
 [[status-page]]
 === <<status-page, 1.4 Status page>>
 
-We continuously monitor Integrates,
+We continuously monitor our Attack Surface Manager (ASM),
 its API, and link:../[our website].
 Monitoring checks run on North American and European servers
 every minute for all applications.
@@ -117,7 +117,7 @@ have industry-standard link:../products/rules/list/224/[encryption at rest].
   [inner]#link:../products/rules/list/185/[AES256 ciphered]#
   redundant data centers.
 - All the exploits are stored encrypted using AES256 keys.
-- All Integrates data is stored in an AES256 encrypted database.
+- All ASM data is stored in an AES256 encrypted database.
 - Most of our encrypted-at-rest secrets
   are only decrypted in memory,
   meaning that they are never stored
@@ -157,7 +157,7 @@ industry-standard
   policy to ensure that every connection to our domain goes
   through link:https://en.wikipedia.org/wiki/HTTPS[HTTPS].
 - We demand all conections to support at least TLSv1.2.
-- Integrates's database uses TLSv1.2 for in transit protection.
+- ASM's database uses TLSv1.2 for in transit protection.
 - We possess fully dedicated network channels with some of our biggest clients,
   allowing us to isolate all unwanted traffic. This is especially useful
   for running secure dynamic application hacking.
@@ -215,7 +215,7 @@ and the third-party services we use.
 [[auth-for-clients]]
 === <<auth-for-clients, 3.1 For clients>>
 
-Integrates only uses link:https://en.wikipedia.org/wiki/Single_sign-on[SSO]
+ASM only uses link:https://en.wikipedia.org/wiki/Single_sign-on[SSO]
 with Google and Microsoft Accounts.
 link:https://oauth.net/2/[Oauth2] protocol is used.
 Such protocol only accepts login attempts from trusted URLs
@@ -227,7 +227,7 @@ The only personal information we store of our clients is:
 - Company and cellphone (only if shared, user can decide)
 
 It is also worth noting that if users lose their corporate email,
-link:../products/rules/list/114/[they also lose access] to their Integrates account.
+link:../products/rules/list/114/[they also lose access] to their ASM account.
 Clients can link:../products/rules/list/034/[easily manage]
 who has and who does not have access to their projects.
 
@@ -297,7 +297,7 @@ to do what they should not.
 [[autho-for-clients]]
 === <<autho-for-clients, 4.1 For clients>>
 
-Integrates has a set of link:../products/rules/list/096/[roles]
+Attack Surface Manager (ASM) has a set of link:../products/rules/list/096/[roles]
 that are necessary for every hacking project.
 Once the client decides which members of their team
 should be *_project managers_*,
@@ -391,7 +391,7 @@ access revocation:
     access to all the company applications
     and client data.
     This includes
-    Integrates, mail, etc.
+    ASM, mail, etc.
   . *Removing Git repository access:*
     Users can no longer see confidential information from the repository,
     such as registry images, confidential issues,
@@ -460,7 +460,7 @@ This includes contracts, portfolios, and other sensitive documents.
 [[signed-urls]]
 ==== <<signed-urls, 5.3.2 Signed URLs>>
 
-Integrates has the feature of creating signed download URLs
+ASM has the feature of creating signed download URLs
 with an expiration date when downloading reports,
 meaning that links expire
 and can only be used
@@ -477,7 +477,7 @@ and enabling more fine-grained protection.
 [[protected-reports]]
 ==== <<protected-reports, 5.3.4 Passphrase protected reports>>
 
-All reports downloaded via Integrates
+All reports downloaded via ASM
 have a randomly generated four-word passphrase.
 This passphrase is sent to the email of the user
 who requested the download.
@@ -486,14 +486,14 @@ This applies to both XLS and PDF formats.
 [[watermarked-reports]]
 ==== <<watermarked-reports, 5.3.5 Watermarked reports>>
 
-Every report downloaded via Integrates
+Every report downloaded via ASM
 comes with a watermark on all its pages,
 specifying that only the individual
 who generated it is allowed to read it.
 This is used as a measure to identify
 who generated the report in the first place
 and discourage its distribution
-through channels other than Integrates.
+through channels other than ASM.
 
 [[unsubscribe-email]]
 === <<unsubscribe-email, 5.4 Unsubscribe email>>
@@ -510,7 +510,7 @@ and no new emails will be sent to them.
 [[transparent-cookie-usage]]
 === <<transparent-cookie-usage, 5.5 Transparent cookie usage>>
 
-Both Integrates and [inner]#link:../[Web]# use a link:https://en.wikipedia.org/wiki/General_Data_Protection_Regulation[GDPR] module that
+Both ASM and [inner]#link:../[Web]# use a link:https://en.wikipedia.org/wiki/General_Data_Protection_Regulation[GDPR] module that
 
 - informs the user about
   every cookie the site creates; and
@@ -545,7 +545,7 @@ over the provided information.
 ==== <<data-retention-policy, 5.6.2 Data retention policy>>
 
 All the data related to a project
-can be deleted from Integrates
+can be deleted from our Attack Surface Manager (ASM)
 by a user with a *_project manager_* role.
 Once this action is performed,
 a 30-day link:../products/rules/list/317/[deletion window] begins.
@@ -616,7 +616,7 @@ comprehensive logs of
 
 Currently, we keep all our systems as code:
 
-- link:https://gitlab.com/fluidattacks/product/-/commits/master[Integrates]
+- link:https://gitlab.com/fluidattacks/product/-/commits/master[ASM]
 - [inner]#link:../services/continuous-hacking/[Continuous hacking]#
 - <<IAC, Infrastructure>>
 - General documentation
@@ -628,14 +628,14 @@ Typical logs are also essential
 for a non-repudiation policy to be successful.
 Currently, we store logs for:
 
-- *Integrates's logging system:*
-  Integrates stores a historical status
+- *ASM's logging system:*
+  ASM stores a historical status
   of projects, findings, vulnerabilities,
   and other critical components.
   Changes made to these components
   are always tied to a user and a date.
   The historical status never expires.
-- *Integrates's error tracking system:*
+- *ASM's error tracking system:*
   It provides real-time logging
   of errors that occur in its production environments.
   It is especially useful for quickly detecting
@@ -683,13 +683,13 @@ Avoiding service interruptions is crucial here.
 [[distributed-applications]]
 === <<distributed-applications, 7.1 Distributed applications>>
 
-Integrates is hosted in an application cluster with
+ASM is hosted in an application cluster with
 autoscaling policies and distributed
 replicas. This ensures high availability,
 as there is always one instance ready to
 receive user requests if another stops
 working. Every cluster node has at least one
-Integrates instance running in it.
+ASM instance running in it.
 Additionally, its front side is served via a region-distributed
 link:https://en.wikipedia.org/wiki/Content_delivery_network[CDN],
 providing maximum speed and availability across the globe.
@@ -728,13 +728,13 @@ we have strong backup policies for everything, for example:
 - Our redundant data centers are fully versioned,
   meaning that any file can be recovered
   or returned to a previous version.
-- Integrates's database has daily, weekly, quarterly,
+- ASM's database has daily, weekly, quarterly,
   and annual full backup schedules.
   The daily backups last one week,
   the weekly ones twelve weeks,
   the quarterly ones three years,
   and the annual ones fifteen years.
-- Integrates's database has point-in-time
+- ASM's database has point-in-time
   recovery with the ability to recover
   the database to the state it was
   in at a specific date and time (hours, minutes and seconds)

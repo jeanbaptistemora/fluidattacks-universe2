@@ -40,7 +40,7 @@ a|==== Face-to-face delivery
 |{info}  Unlimited within the contract period.
 All information deliveries are made via +
 {sp} +
-Integrates
+our Attack Surface Manager (ASM)
 link:../continuous-hacking/#direct-and-agile-communication[^4^].
 a|{yes} Limited to two within the contract period:
 

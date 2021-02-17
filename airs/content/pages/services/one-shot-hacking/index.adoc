@@ -19,7 +19,8 @@ where its overall size cannot be assessed and a specific scope is predefined.
 === Critical Information Extraction and Information Removal
 
 Information extraction is done to maximize the impacts of the findings.
-The data gathered during a project remains on *Integrates*.
+The data gathered during a project
+remains on our *Attack Surface Manager (ASM)*.
 Your project's admin is allowed to delete it.
 The data is removed *30* days after the admin's decision.
 This operation can be reversed during those *30* days.
@@ -61,11 +62,11 @@ Each ethical hacking test includes a remote meeting with the technical team of
 the client to verify the reports. All stakeholders in the project can take part
 when there is a formal presentation of the executive report.
 
-=== Vulnerability Management Platform
+=== Attack Surface Manager
 
 You can check the status of findings
-during the execution of the project using *Integrates*.
-Each project must have a manager
+during the execution of the project using *ASM*.
+Each project must have a leader
 so that he or she can express the needs of your company
 before, during, and after the performance.
 Daily progress reports are sent by email. These include coverage, strictness,
