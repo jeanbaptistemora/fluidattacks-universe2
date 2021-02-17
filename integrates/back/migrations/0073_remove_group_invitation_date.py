@@ -1,6 +1,9 @@
 """
 This migration removes the date attribute for a group invitation
 in the project access table
+
+Execution Time:    2021-02-17 at 15:48:11 UTC-05
+Finalization Time: 2021-02-17 at 15:48:30 UTC-05
 """
 # Standard library
 from pprint import pprint
