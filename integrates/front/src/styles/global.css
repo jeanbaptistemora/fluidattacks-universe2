@@ -13,11 +13,19 @@ html,
 body,
 :global(#root) {
   height: 100%;
+  line-height: unset !important;
 }
 
 body {
   font-family: Source Sans Pro, sans-serif;
   font-size: 16px;
+}
+
+hr {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border: 0;
+  border-top: 1px solid #eee;
 }
 
 h1,
@@ -61,8 +69,8 @@ label {
 }
 
 :global .a-pv a {
-  padding-bottom: 1rem;
-  padding-top: 1rem;
+  padding-bottom: 10px;
+  padding-top: 10px;
 }
 
 :global .a-ph a {
@@ -80,6 +88,10 @@ label {
 
 :global .a-bg-white a {
   background-color: #fff;
+}
+
+:global .badge-size {
+  font-size: 7px;
 }
 
 :local .tab > a {
@@ -161,6 +173,7 @@ label {
 }
 
 :global .breadcrumb {
+  background-color: transparent;
   margin-bottom: 0;
   display: flex;
   align-items: flex-end;
@@ -168,6 +181,8 @@ label {
 }
 
 :global .breadcrumb > li + li::before {
+  color: #ccc;
+  content: "/\00a0";
   padding: 0 2px;
 }
 
@@ -203,6 +218,7 @@ label {
 :global .navbar {
   background-color: #f5f5f5;
   border-bottom: 2px #e4e4e4 solid;
+  display: flow-root;
   font-size: 18px;
   height: 55px;
   margin-bottom: 0.1px;
@@ -361,7 +377,7 @@ label {
 }
 
 :global .suscribeDropdownBtn {
-  width: 235px;
+  width: 260px;
 }
 
 :global .split-button > div > button {
@@ -583,8 +599,22 @@ label {
   background-color: #fafafa;
 }
 
+:global .btn-pa {
+  padding-bottom: 8px;
+  padding-left: 12px;
+  padding-right: 12px;
+  padding-top: 8px;
+}
+
+:global .bg-btn {
+  background-color: #fff;
+}
+
+:global .bg-bh:active,
+:global .bg-bh:focus,
 :global .bg-bh:hover {
   background-color: #ff3435;
+  color: #fff;
 }
 
 :global .bg-lbl-gray {

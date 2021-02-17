@@ -4,8 +4,10 @@
   order to pass down props to react-bootstrap DropdownButton.
 */
 import { ButtonGroup } from "styles/styledComponents";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import type { StyledComponent } from "styled-components";
+import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
 
 interface ISplitButtonProps {
@@ -41,7 +43,7 @@ const SplitButton: React.FC<ISplitButtonProps> = (
         {title}
       </LastOrg>
       <IconButton onClick={onClickIcon}>
-        <span className={"caret"} />
+        <FontAwesomeIcon icon={faCaretDown} />
       </IconButton>
       {content}
     </ButtonGroup>

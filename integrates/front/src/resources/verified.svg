@@ -43,17 +43,16 @@
    inkscape:current-layer="Capa_1" />
 
 <g
+   fill="currentColor"
    id="g5"
    transform="matrix(2.1404997,0,0,2.1404997,-25.149893,-28.042549)">
 	<path
    id="Shape_12_"
    d="m 21.6,28.3 -4.8,-4.9 c -0.5,-0.5 -1.3,-0.5 -1.7,0 -0.5,0.5 -0.5,1.3 0,1.8 l 4.8,4.9 c 0.3,0.3 0.5,0.4 0.8,0.4 0.3,0 0.6,-0.1 0.8,-0.4 0.6,-0.5 0.6,-1.3 0.1,-1.8 z"
-   inkscape:connector-curvature="0"
-   style="fill:#f73435;stroke:#f73435;stroke-width:0.64999998" />
+   inkscape:connector-curvature="0" />
 	<path
    id="Shape_13_"
    d="m 29.5,16.7 c -0.4,-0.5 -1,-0.5 -1.4,0 l -7.7,11.7 c -0.4,0.5 -0.4,1.5 0,2.1 0.2,0.3 0.4,0.4 0.6,0.4 0.2,0 0.5,-0.1 0.6,-0.4 l 7.7,-11.7 c 0.6,-0.6 0.6,-1.6 0.2,-2.1 z"
-   inkscape:connector-curvature="0"
-   style="fill:#f73435;stroke:#f73435;stroke-width:0.64999998" />
+   inkscape:connector-curvature="0" />
 </g>
 </svg>

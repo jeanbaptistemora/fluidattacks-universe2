@@ -17,8 +17,8 @@ const StyledButton: StyledComponent<
     type: "submit" | "reset" | "button";
   } => ({
     className:
-      "b--bd b--bh b--orgred ba bg-bd bg-bh bg-white br0 cna-bd color-bd color-bh " +
-      "f2-5 fw100 ml2 montserrat o-bd orgred ph3 pv2-5 svg-box ws-normal",
+      "b--bd b--bh b--orgred ba bg-bd bg-bh bg-btn cna-bd color-bd color-bh hover-white " +
+      "fw100 ml2 montserrat orgred btn-pa svg-box",
     type: props.type ?? "button",
   })
 )``;

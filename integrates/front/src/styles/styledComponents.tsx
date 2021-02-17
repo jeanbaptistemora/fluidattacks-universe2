@@ -46,7 +46,7 @@ const BreadCrumb: StyledComponent<
   "div",
   Record<string, unknown>
 > = styled.div.attrs({
-  className: "breadcrumb",
+  className: "breadcrumb list mt3",
 })``;
 
 const Col100: StyledComponent<
@@ -215,7 +215,7 @@ const FindingHeaderGrid: StyledComponent<
   "div",
   Record<string, unknown>
 > = styled.div.attrs({
-  className: "grid ph4 menu-grid",
+  className: "grid ph4 menu-grid mb2",
 })``;
 
 const FindingHeaderIndicator: StyledComponent<
@@ -229,7 +229,7 @@ const FindingHeaderLabel: StyledComponent<
   "p",
   Record<string, unknown>
 > = styled.p.attrs({
-  className: "mb0",
+  className: "ma0",
 })``;
 
 const Flex: StyledComponent<"div", Record<string, unknown>> = styled.div.attrs<{
@@ -343,7 +343,7 @@ const NavBar: StyledComponent<
 > = styled.div.attrs<{
   className: string;
 }>({
-  className: "ph4 navbar h-100",
+  className: "ph4 pt0 pb0 navbar h-100",
 })``;
 
 const NavBarCollapse: StyledComponent<
@@ -508,7 +508,7 @@ const StickyContainer: StyledComponent<
 > = styled.div.attrs<{
   className: string;
 }>({
-  className: "bg-white sticky top5-5 top9-9 z-4",
+  className: "bg-white sticky z-4",
 })``;
 
 const StickyContainerFinding: StyledComponent<
@@ -517,7 +517,7 @@ const StickyContainerFinding: StyledComponent<
 > = styled.div.attrs<{
   className: string;
 }>({
-  className: "bg-white sticky-find top9-9 top5-5-find z-4",
+  className: "bg-white sticky-find z-4",
 })``;
 
 const StickyContainerOrg: StyledComponent<
@@ -526,7 +526,7 @@ const StickyContainerOrg: StyledComponent<
 > = styled.div.attrs<{
   className: string;
 }>({
-  className: "bg-white sticky top5-5 z-4",
+  className: "bg-white w-100 sticky z-4",
 })``;
 
 const Switch: StyledComponent<
