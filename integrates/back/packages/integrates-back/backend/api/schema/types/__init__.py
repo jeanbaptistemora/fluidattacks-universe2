@@ -53,5 +53,5 @@ TYPES: Tuple[ObjectType, ...] = (
     TAG,
     TREATMENT,
     VERIFICATION,
-    VULNERABILITY
+    VULNERABILITY,
 )

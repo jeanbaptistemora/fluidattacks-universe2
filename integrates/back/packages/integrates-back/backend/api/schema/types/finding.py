@@ -27,7 +27,8 @@ from backend.api.resolvers.finding import (
     state,
     tracking,
     verified,
-    vulnerabilities
+    vulnerabilities,
+    zero_risk
 )
 
 
@@ -55,3 +56,4 @@ FINDING.set_field('state', state.resolve)
 FINDING.set_field('tracking', tracking.resolve)
 FINDING.set_field('verified', verified.resolve)
 FINDING.set_field('vulnerabilities', vulnerabilities.resolve)
+FINDING.set_field('zeroRisk', zero_risk.resolve)

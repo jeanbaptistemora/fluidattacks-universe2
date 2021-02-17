@@ -26,6 +26,9 @@ from backend.api.dataloaders.finding_vulns_non_deleted import (
 from backend.api.dataloaders.finding_vulns_non_zero_risk import (
     FindingVulnsNonZeroRiskLoader
 )
+from backend.api.dataloaders.finding_vulns_only_zero_risk import (
+    FindingVulnsOnlyZeroRiskLoader
+)
 from backend.api.dataloaders.group import GroupLoader
 from backend.api.dataloaders.group_active import GroupActiveLoader
 from backend.api.dataloaders.group_drafts import GroupDraftsLoader
@@ -51,6 +54,7 @@ class Dataloaders(NamedTuple):
     finding_vulns: FindingVulnsLoader  # All vulns except deleted
     finding_vulns_all: FindingVulnsNonDeletedLoader  # All vulns
     finding_vulns_nzr: FindingVulnsNonZeroRiskLoader  # Standard call
+    finding_vulns_zr: FindingVulnsOnlyZeroRiskLoader
     group: GroupActiveLoader
     group_all: GroupLoader  # Used only by analytics. Retrieves all groups
     group_drafts: GroupDraftsLoader
@@ -71,6 +75,8 @@ def get_new_context() -> Dataloaders:
         FindingVulnsNonDeletedLoader(finding_vulns_loader)
     finding_vulns_nzr_loader = \
         FindingVulnsNonZeroRiskLoader(finding_vulns_non_deleted_loader)
+    finding_vulns_zr_loader = \
+        FindingVulnsOnlyZeroRiskLoader(finding_vulns_loader)
 
     return Dataloaders(
         event=EventLoader(),
@@ -78,6 +84,7 @@ def get_new_context() -> Dataloaders:
         finding_vulns=finding_vulns_non_deleted_loader,
         finding_vulns_all=finding_vulns_loader,
         finding_vulns_nzr=finding_vulns_nzr_loader,
+        finding_vulns_zr=finding_vulns_zr_loader,
         group=GroupActiveLoader(group_loader),
         group_all=group_loader,
         group_drafts=GroupDraftsLoader(),

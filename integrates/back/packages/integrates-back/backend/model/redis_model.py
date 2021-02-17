@@ -74,6 +74,7 @@ ENTITIES: Dict[str, Dict[str, Set[str]]] = dict(
             'tracking',
             'verified',
             'vulnerabilities',
+            'zero_risk',
         },
         dependencies={
             'add_finding_consult',
