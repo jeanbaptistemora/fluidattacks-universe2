@@ -13,7 +13,7 @@ function dynamodb_centralize {
   &&  observes-service-migrate-tables centralize-dynamo-schemas \
         --db-auth "${db_creds}" \
         --dymo-tables './observes/conf/awsdynamodb.json' \
-        --schema 'dynamodb_test'
+        --schema 'dynamodb'
 }
 
 dynamodb_centralize

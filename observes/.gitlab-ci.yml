@@ -152,6 +152,24 @@ observes.scheduled.code-etl-upload:
   tags: [autoscaling]
   interruptible: false
 
+observes.scheduled.dynamodb-centralize:
+  <<: *makes
+  tags: [autoscaling-large]
+  stage: analytics
+  only:
+    refs: [schedules]
+    variables: [$observes_dynamodb_centralize]
+  interruptible: false
+
+observes.scheduled.dynamodb-integrates-etl:
+  <<: *makes
+  tags: [autoscaling-large]
+  stage: analytics
+  only:
+    refs: [schedules]
+    variables: [$observes_dynamodb]
+  interruptible: false
+
 observes.scheduled.formstack-etl:
   <<: *makes
   tags: [autoscaling-analytics]
@@ -252,15 +270,6 @@ observes_apply_infra:
   <<: *with_nix
   <<: *observes_in_master_branch
   stage: deploy-infra
-
-observes_dynamodb:
-  <<: *with_nix
-  tags: [autoscaling-large]
-  stage: analytics
-  only:
-    refs: [schedules]
-    variables: [$observes_dynamodb]
-  interruptible: false
 
 observes_dynamodb_forces_on_aws:
   <<: *with_nix
