@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Feb 18, 2021, 03:01 PM",
+    "DateLastModified": "Feb 18, 2021, 04:21 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "2.0"
@@ -598,12 +598,60 @@
           }
         },
         {
-          "FacetName": "forces_log",
+          "FacetName": "forces_execution",
           "KeyAttributeAlias": {
-            "PartitionKeyAlias": "GROUP#name",
-            "SortKeyAlias": "FORCES_LOG#uuid"
+            "PartitionKeyAlias": "ORG#name",
+            "SortKeyAlias": "GROUP#name#EXEC#uuid"
           },
-          "TableData": [],
+          "TableData": [
+            {
+              "pk": {
+                "S": "ORG#okada"
+              },
+              "sk": {
+                "S": "GROUP#unittesting#EXE#b68e1063-18da-44d1-9d1a-295299a9fee7"
+              },
+              "type": {
+                "S": "all"
+              },
+              "modified_date": {
+                "S": "2020-12-14T20:50:43.038688"
+              },
+              "exit_code": {
+                "S": "1"
+              },
+              "branch": {
+                "S": "unable to retrieve"
+              },
+              "commit": {
+                "S": "76bd6dbbba2d1864c09ba9af5be134728de8bdd2"
+              },
+              "origin": {
+                "S": "https://gitlab-ci-token:test@gitlab.com/company/test.git"
+              },
+              "repo": {
+                "S": "test"
+              },
+              "strictness": {
+                "S": "strict"
+              },
+              "results": {
+                "M": {
+                  "M": {
+                    "num_of_accepted_vulnerabilities": {
+                      "N": "0"
+                    },
+                    "num_of_closed_vulnerabilities": {
+                      "N": "238"
+                    },
+                    "num_of_open_vulnerabilities": {
+                      "N": "8"
+                    }
+                  }
+                }
+              }
+            }
+          ],
           "NonKeyAttributes": [
             "type",
             "modified_date",
@@ -688,30 +736,25 @@
           }
         },
         {
-          "FacetName": "finding",
+          "FacetName": "finding_metadata",
           "KeyAttributeAlias": {
-            "PartitionKeyAlias": "ROOT#uuid",
-            "SortKeyAlias": "FINDING#uuid"
+            "PartitionKeyAlias": "ORG#name",
+            "SortKeyAlias": "GROUP#name#FIN#uuid"
           },
           "TableData": [],
           "NonKeyAttributes": [
             "name",
             "description",
             "type",
-            "status",
-            "modified_date",
-            "modified_by",
             "evidences",
             "affected_components",
             "cvss",
             "recommendation",
             "requirements",
             "threat",
-            "source",
             "using_sorts",
             "cwe",
-            "attack_vector",
-            "deletion_reason"
+            "attack_vector"
           ],
           "DataAccess": {
             "MySql": {}
@@ -781,6 +824,24 @@
             "accepted_until",
             "accepted_reason",
             "manager"
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
+        },
+        {
+          "FacetName": "finding_historic",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "FIN#uuid#HISTORIC#iso8601utc",
+            "SortKeyAlias": "FIN#uuid"
+          },
+          "TableData": [],
+          "NonKeyAttributes": [
+            "status",
+            "change_reason",
+            "modified_date",
+            "modified_by",
+            "source"
           ],
           "DataAccess": {
             "MySql": {}
