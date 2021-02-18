@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Feb 18, 2021, 05:17 PM",
+    "DateLastModified": "Feb 18, 2021, 05:43 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "2.0"
@@ -615,7 +615,7 @@
                 "S": "all"
               },
               "modified_date": {
-                "S": "2020-12-14T20:50:43.038688"
+                "S": "2021-02-15T14:01:16Z"
               },
               "exit_code": {
                 "S": "1"
@@ -698,7 +698,49 @@
             "PartitionKeyAlias": "ORG#name",
             "SortKeyAlias": "GROUP#name#EVENT#uuid"
           },
-          "TableData": [],
+          "TableData": [
+            {
+              "pk": {
+                "S": "ORG#okada"
+              },
+              "sk": {
+                "S": "GROUP#unittesting#EVENT#01405804-4c10-400f-97b4-87661af5f0ae"
+              },
+              "description": {
+                "S": "Después de iniciar sesión, el servidor devuelve error"
+              },
+              "type": {
+                "S": "INCORRECT_MISSING_SUPPLIES"
+              },
+              "context": {
+                "S": "TELECOMMUTING"
+              },
+              "evidences": {
+                "M": {}
+              },
+              "action_before_blocking": {
+                "S": "EXECUTE_OTHER_PROJECT_SAME_CLIENT"
+              },
+              "action_after_blocking": {
+                "S": "OTHER"
+              },
+              "blocking_hours_expected": {
+                "N": "1"
+              },
+              "blocking_hours": {
+                "N": "2"
+              },
+              "affected_components": {
+                "SS": [
+                  "Inestabilidad del ToE",
+                  "Indisponibilidad del ToE"
+                ]
+              },
+              "accessibility": {
+                "S": "Ambiente"
+              }
+            }
+          ],
           "NonKeyAttributes": [
             "description",
             "type",
@@ -716,17 +758,59 @@
           }
         },
         {
-          "FacetName": "consult",
+          "FacetName": "group_comment",
           "KeyAttributeAlias": {
-            "PartitionKeyAlias": "pk",
-            "SortKeyAlias": "sk"
+            "PartitionKeyAlias": "ORG#name",
+            "SortKeyAlias": "GROUP#name#CMNT#uuid"
           },
-          "TableData": [],
+          "TableData": [
+            {
+              "pk": {
+                "S": "ORG#okada"
+              },
+              "sk": {
+                "S": "GROUP#unittesting#CMNT#8207c89a-27e2-4abe-9367-3ffea7856a4d"
+              },
+              "type": {
+                "S": "CONSULT"
+              },
+              "modified_date": {
+                "S": "2021-02-15T14:01:16Z"
+              },
+              "modified_by": {
+                "S": "USER#test@fluidattacks.com"
+              },
+              "content": {
+                "S": "comment"
+              }
+            },
+            {
+              "pk": {
+                "S": "ORG#okada"
+              },
+              "sk": {
+                "S": "GROUP#unittesting#CMNT#851cbc02-416e-43c7-ad30-a2af6328f748"
+              },
+              "type": {
+                "S": "OBSERVATION"
+              },
+              "modified_date": {
+                "S": "2021-02-15T14:01:16Z"
+              },
+              "modified_by": {
+                "S": "USER#test@fluidattacks.com"
+              },
+              "content": {
+                "S": "comment"
+              }
+            }
+          ],
           "NonKeyAttributes": [
             "modified_date",
             "modified_by",
             "parent_id",
-            "content"
+            "content",
+            "type"
           ],
           "DataAccess": {
             "MySql": {}
