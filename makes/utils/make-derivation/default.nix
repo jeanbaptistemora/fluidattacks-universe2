@@ -31,7 +31,7 @@ pkgs.stdenv.mkDerivation (attrs // {
     source $__envBashLibShopts
     source $__envBashLibCommon
 
-    use_ephemeral_dir
+    cd "$(mktemp -d)"
 
     ${nix.asContent attrs.builder}
   '';

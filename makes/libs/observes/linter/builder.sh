@@ -17,7 +17,7 @@ function main {
             lint_python_module "${pkg}" \
         ||  return 1
       done < "${pkgs}" \
-  &&  success
+  &&  touch "${out}"
 }
 
 main "${@}"

@@ -7,7 +7,7 @@ source "${envBashLibLintPython}"
 function main {
       lint_python_module "${envSrcMeltsToolbox}" \
   &&  lint_python_module "${envSrcMeltsTest}" \
-  &&  success
+  &&  touch "${out}"
 }
 
 main "${@}"

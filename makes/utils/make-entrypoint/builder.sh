@@ -11,7 +11,7 @@ function main {
         &&  cat "${envEntrypoint}" \
 
       } > "${location}" \
-  &&  make_executable "${location}"
+  &&  chmod +x "${location}"
 }
 
 main "${@}"

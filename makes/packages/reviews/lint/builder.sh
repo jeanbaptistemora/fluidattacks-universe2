@@ -12,7 +12,7 @@ function main {
             fi \
         ||  return 1
       done \
-  &&  success
+  &&  touch "${out}"
 }
 
 main "${@}"

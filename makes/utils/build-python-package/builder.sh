@@ -6,9 +6,11 @@ function main {
   &&  echo '[INFO] Activating virtualenv' \
   &&  source "${out}/bin/activate" \
   &&  echo '[INFO] Installing' \
-  &&  use_ephemeral_dir \
+  &&  pushd "$(mktemp -d)" \
     &&  copy "${envPackagePath}" . \
-    &&  python -m pip install --no-cache-dir .
+    &&  python -m pip install --no-cache-dir . \
+  &&  popd \
+  ||  return 1
 }
 
 main "${@}"

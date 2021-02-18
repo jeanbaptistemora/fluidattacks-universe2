@@ -21,7 +21,7 @@ function owasp {
   &&  '__envPython__' '__envSrcSkimsSkims__/benchmark/__init__.py' \
   &&  echo '[INFO] Cleaning environment' \
   &&  aws_s3_sync "${cache_local}" "${cache_remote}" \
-  &&  remove "${PRODUCED_RESULTS_CSV}" \
+  &&  rm -rf "${PRODUCED_RESULTS_CSV}" \
   ||  return 1
 }
 
@@ -41,7 +41,7 @@ function upload {
         --drop-schema \
         --schema-name 'skims_benchmark' \
         < '.singer' \
-  &&  remove '.singer' 'benchmark.json'
+  &&  rm -rf '.singer' 'benchmark.json'
 }
 
 function main {

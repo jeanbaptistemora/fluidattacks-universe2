@@ -8,6 +8,17 @@ function copy {
     "${@}"
 }
 
+function ensure_env_vars {
+  for var_name in "${@}"
+  do
+    if test -z "${!var_name:-}"
+    then
+          echo "[ERROR] Missing environment variable: ${var_name}" \
+      &&  return 1
+    fi
+  done
+}
+
 function execute_chunk_parallel {
   export CI_NODE_INDEX
   export CI_NODE_TOTAL
@@ -22,24 +33,4 @@ function execute_chunk_parallel {
                 "${function_to_call}" "${item}" \
             ||  return 1
           done
-}
-
-function make_executable {
-  chmod +x "${@}"
-}
-
-function remove {
-  rm -rf "${@}"
-}
-
-function success {
-  touch "${out}"
-}
-
-function use_ephemeral_dir {
-  local build_dir
-
-      build_dir="$(mktemp -d)" \
-  &&  pushd "${build_dir}" \
-  ||  return 1
 }

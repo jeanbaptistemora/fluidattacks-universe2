@@ -4,7 +4,7 @@ source "${envSetupSkimsDevelopment}"
 
 function main {
       bandit --recursive "${envSrcSkimsSkims}" \
-  &&  success
+  &&  touch "${out}"
 }
 
 main "${@}"

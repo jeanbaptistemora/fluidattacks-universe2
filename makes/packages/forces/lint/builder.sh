@@ -7,7 +7,7 @@ source "${envBashLibLintPython}"
 function main {
       lint_python_module "${envSrcForcesForces}" \
   &&  lint_python_module "${envSrcForcesTest}" \
-  &&  success
+  &&  touch "${out}"
 }
 
 main "${@}"

@@ -7,7 +7,7 @@ function main {
             -p no:cacheprovider \
             --full-trace "${envTestDir}" \
   &&  popd \
-  &&  success
+  &&  touch "${out}"
 }
 
 main

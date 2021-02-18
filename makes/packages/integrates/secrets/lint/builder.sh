@@ -8,7 +8,7 @@ function main {
         &&  yamllint --no-warnings --config-file "${envConfig}" 'source_file' \
         ||  return 1
       done \
-  &&  success
+  &&  touch "${out}"
 }
 
 main "${@}"
