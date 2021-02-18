@@ -81,8 +81,8 @@ const useUpdateAPIToken: () => readonly [
         )
       );
       msgSuccess(
-        t("update_access_token.successfully"),
-        t("update_access_token.success")
+        t("update_forces_token.successfully"),
+        t("update_forces_token.success")
       );
     }
   };

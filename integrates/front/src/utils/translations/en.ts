@@ -848,7 +848,8 @@ export const enTranslations: ResourceKey = {
       reject: "Reject Acceptation",
     },
     agent_token_section: {
-      generate: "Generate Token",
+      about: "Generate, reveal or update token for forces.",
+      generate: "Manage Token",
       title: "Agent Token",
     },
     alert: {

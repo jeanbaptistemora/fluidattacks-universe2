@@ -8,6 +8,7 @@ import mixpanel from "mixpanel-browser";
 import React from "react";
 import { useParams } from "react-router";
 
+import { AgentToken } from "scenes/Dashboard/containers/ProjectSettingsView/AgentToken";
 import { DeleteGroup } from "scenes/Dashboard/containers/ProjectSettingsView/DeleteGroup";
 import { Files } from "scenes/Dashboard/containers/ProjectSettingsView/Files";
 import { GroupInformation } from "scenes/Dashboard/containers/ProjectSettingsView/Info";
@@ -38,6 +39,9 @@ const projectSettingsView: React.FC = (): JSX.Element => {
           </React.Fragment>
         </Can>
         <GroupInformation />
+        <Can do="backend_api_resolvers_group_forces_token_resolve">
+          <AgentToken groupName={projectName}/>
+        </Can>
         <Can do="backend_api_mutations_unsubscribe_from_group_mutate">
           <React.Fragment>
             <hr />
