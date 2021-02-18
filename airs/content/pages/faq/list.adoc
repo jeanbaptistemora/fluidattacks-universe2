@@ -219,8 +219,8 @@ Continuous Hacking has an interactive reporting platform,
 our Attack Surface Manager (`ASM`).
 `ASM` gives all project stakeholders access
 to details concerning vulnerabilities reported by `Fluid Attacks`.
-We have recently released link:https://gitlab.com/fluidattacks/integrates[`Integrates`]
-source code to our link:https://gitlab.com/fluidattacks[public repository].
+(We have the source code of all our link:https://gitlab.com/fluidattacks/product[products]
+in our link:https://gitlab.com/fluidattacks[public repository].)
 
 === 27. What types of reports does Continuous Hacking generate?
 Continuous Hacking generates and delivers, through `ASM`,
