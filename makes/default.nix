@@ -21,7 +21,7 @@
 flakeUtils.lib.eachSystem [ "x86_64-linux" ] (
   system:
   let
-    attrs = makeLazyCopy rec {
+    attrs = rec {
       applications = makesPkgs.lib.attrsets.mapAttrsRecursive
         (path: value: "${value}/bin/${builtins.concatStringsSep "-" (makesPkgs.lib.lists.init path)}")
         packages;
@@ -82,9 +82,6 @@ flakeUtils.lib.eachSystem [ "x86_64-linux" ] (
       makeTemplate = import (path "/makes/utils/make-template") path;
     };
     dotToSlash = builtins.replaceStrings [ "." ] [ "/" ];
-    makeLazyCopy = attrs: (attrs // {
-      copy = makeLazyCopy attrs;
-    });
   in
   { packages = attrs.packagesFlattened; }
 )

@@ -33,6 +33,7 @@ makes.dev
 makes.test
 melts.config-development
 melts.config-runtime
+melts.lib
 melts.lint
 observes.config-streamer-zoho-crm-runtime
 observes.config-target-redshift-runtime

@@ -1,8 +1,9 @@
 { forcesPkgs
 , forcesPkgsTerraform
+, packages
 , path
 , ...
-} @ attrs:
+} @ _:
 let
   makeEntrypoint = import (path "/makes/utils/make-entrypoint") path forcesPkgs;
   terraformApply = import (path "/makes/utils/terraform-apply") path forcesPkgsTerraform;
@@ -14,7 +15,7 @@ makeEntrypoint rec {
       product = "forces";
       target = "forces/infra";
     }}/bin/${name}";
-    envUtilsMeltsLibCommon = import (path "/makes/libs/melts") attrs.copy;
+    envUtilsMeltsLibCommon = packages.melts.lib;
   };
   name = "forces-infra-apply";
   template = path "/makes/applications/forces/infra-apply/entrypoint.sh";

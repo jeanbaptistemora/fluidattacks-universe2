@@ -1,8 +1,9 @@
-{ path
+{ packages
+, path
 , integratesPkgs
 , integratesPkgsTerraform
 , ...
-} @ attrs:
+} @ _:
 let
   makeEntrypoint = import (path "/makes/utils/make-entrypoint") path integratesPkgs;
   terraformTest = import (path "/makes/utils/terraform-test") path integratesPkgsTerraform;
@@ -14,7 +15,7 @@ makeEntrypoint rec {
       product = "integrates";
       target = "integrates/deploy/secret-management/terraform";
     }}/bin/${name}";
-    envUtilsMeltsLibCommon = import (path "/makes/libs/melts") attrs.copy;
+    envUtilsMeltsLibCommon = packages.melts.lib;
   };
   name = "integrates-infra-secret-management-test";
   template = path "/makes/applications/integrates/infra/secret-management/test/entrypoint.sh";
