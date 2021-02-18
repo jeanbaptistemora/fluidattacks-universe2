@@ -11,7 +11,6 @@ from graphql.type.definition import GraphQLResolveInfo
 # Local libraries
 from backend.decorators import require_organization_access
 from backend.domain import (
-    organization as org_domain,
     user as user_domain
 )
 from backend.typing import (
@@ -27,13 +26,14 @@ async def resolve(
     info: GraphQLResolveInfo,
     **kwargs: str
 ) -> List[TagType]:
+    organization_loader = info.context.loaders.organization
     organization_tags_loader = info.context.loaders.organization_tags
     user_email: str = cast(str, parent['user_email'])
 
     organization_id: str = kwargs['organization_id']
 
-    org_name = await org_domain.get_name_by_id(organization_id)
-    org_tags = await organization_tags_loader.load(org_name)
+    organization = await organization_loader.load(organization_id)
+    org_tags = await organization_tags_loader.load(organization['name'])
     user_groups = await user_domain.get_projects(
         user_email,
         organization_id=organization_id
