@@ -645,13 +645,13 @@ Currently, we store logs for:
   These store comprehensive logs
   of all our infrastructure components.
   Logs here never expire.
-- *Forces executions:*
-  Whenever a client's <<CI, CI pipeline>> runs Forces,
+- *DevSecOps execution:*
+  Whenever a client's <<CI, CI pipeline>> runs DevSecOps,
   logs containing information like who ran it,
   vulnerability status, and other relevant data
   are uploaded to our data centers,
   allowing us to always know the current status
-  of our client's Forces service.
+  of our client's DevSecOps service.
   These logs never expire.
 - *IAM authentication:*
   Our IAM stores logs of
