@@ -8,6 +8,6 @@ makeEntrypoint reviewsPkgs {
   searchPaths = {
     envSources = [ packages.reviews.runtime ];
   };
-  name = "makes-reviews";
+  name = "reviews";
   template = path "/makes/applications/reviews/entrypoint.sh";
 }
