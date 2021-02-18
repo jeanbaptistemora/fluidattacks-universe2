@@ -31,6 +31,7 @@ the following commands:
 
 - `bash <(curl -L fluidattacks.com/install/forces)`
 - `bash <(curl -L fluidattacks.com/install/melts)`
+- `bash <(curl -L fluidattacks.com/install/reviews)`
 - `bash <(curl -L fluidattacks.com/install/skims)`
 - `bash <(curl -L fluidattacks.com/install/sorts)`
 

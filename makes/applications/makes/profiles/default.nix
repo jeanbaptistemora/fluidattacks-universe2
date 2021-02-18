@@ -17,6 +17,7 @@ makeEntrypoint {
       envForces = [ "forces" ];
       envHacker = [ "melts-vpn" "melts" "sorts" "skims" ];
       envMelts = [ "melts" ];
+      envReviews = [ "reviews" ];
       envSkims = [ "skims" ];
       envSorts = [ "sorts" ];
     };
