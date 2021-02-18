@@ -460,22 +460,14 @@ resource "cloudflare_page_rule" "redirect_www" {
 }
 
 resource "cloudflare_page_rule" "install_profiles" {
-  for_each = toset([
-    "forces",
-    "hacker",
-    "melts",
-    "reviews",
-    "skims",
-    "sorts",
-  ])
   zone_id  = cloudflare_zone.fluidattacks_com.id
-  target   = "${cloudflare_zone.fluidattacks_com.zone}/install/${each.value}"
+  target   = "${cloudflare_zone.fluidattacks_com.zone}/install/*"
   status   = "active"
   priority = 101
 
   actions {
     forwarding_url {
-      url         = "${local.product_raw}/makes/profiles/${each.value}.sh"
+      url         = "${local.product_raw}/makes/profiles/$1.sh"
       status_code = 301
     }
   }
