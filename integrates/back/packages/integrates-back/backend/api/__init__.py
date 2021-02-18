@@ -41,6 +41,9 @@ from backend.api.dataloaders.group_stakeholders import GroupStakeholdersLoader
 from backend.api.dataloaders.group_stakeholders_non_fluid import (
     GroupStakeholdersNonFluidLoader
 )
+from backend.api.dataloaders.organization_stakeholders import (
+    OrganizationStakeholdersLoader
+)
 from backend.api.dataloaders.vulnerability import VulnerabilityLoader
 
 from back import settings
@@ -63,6 +66,7 @@ class Dataloaders(NamedTuple):
     group_roots: GroupRootsLoader
     group_stakeholders: GroupStakeholdersLoader
     group_stakeholders_nf: GroupStakeholdersNonFluidLoader
+    organization_stakeholders: OrganizationStakeholdersLoader
     vulnerability: VulnerabilityLoader
 
 
@@ -95,6 +99,7 @@ def get_new_context() -> Dataloaders:
         group_stakeholders_nf=GroupStakeholdersNonFluidLoader(
             group_stakeholders_loader
         ),
+        organization_stakeholders=OrganizationStakeholdersLoader(),
         vulnerability=VulnerabilityLoader()
     )
 
