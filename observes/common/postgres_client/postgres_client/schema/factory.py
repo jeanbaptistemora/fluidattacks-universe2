@@ -26,7 +26,7 @@ def _get_tables(db_client: Client, schema: str) -> Iterable[str]:
         cursor.execute(statement, args),
         cursor.fetchall()
     ]
-    return map(lambda item: item[0], cursor.act(actions)[1])
+    return list(map(lambda item: item[0], cursor.act(actions)[1]))
 
 
 def _exist_on_db(db_client: Client, schema: str) -> bool:
