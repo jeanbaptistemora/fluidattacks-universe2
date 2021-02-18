@@ -5,7 +5,7 @@
 } @ _:
 let
   computeOnAws = import (path "/makes/utils/compute-on-aws") path observesPkgs;
-  dynamoEtlOnAws = computeOnAws {
+  jobConfig = {
     attempts = 5;
     command = [ "./make" "observes.job.dynamodb-table-etl" ];
     jobname = "dynamodb-etl";
@@ -16,14 +16,22 @@ let
       "OBSERVES_PROD_AWS_ACCESS_KEY_ID"
       "OBSERVES_PROD_AWS_SECRET_ACCESS_KEY"
     ];
-    timeout = 10800;
+    timeout = 7200;
     vcpus = 1;
   };
+  dynamoEtlOnAws = computeOnAws jobConfig;
+  dynamoEtlOnAwsBig = computeOnAws (
+    jobConfig // {
+      name = "aws-batch-dynamodb-etl-big";
+      timeout = 25200;
+    }
+  );
 in
 makeEntrypoint observesPkgs {
   searchPaths = {
     envPaths = [
       dynamoEtlOnAws
+      dynamoEtlOnAwsBig
       observesPkgs.coreutils
       observesPkgs.jq
     ];
