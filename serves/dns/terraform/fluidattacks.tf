@@ -464,6 +464,7 @@ resource "cloudflare_page_rule" "install_profiles" {
     "forces",
     "hacker",
     "melts",
+    "reviews",
     "skims",
     "sorts",
   ])
