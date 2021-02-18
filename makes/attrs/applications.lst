@@ -43,6 +43,7 @@ makes.kill-port
 makes.lint
 makes.lint-commit-msg
 makes.profiles
+makes.review-mr
 makes.wait
 melts
 melts.test

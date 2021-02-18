@@ -129,6 +129,12 @@ makes.lint-commit-msg:
   <<: *common_in_dev_branch
   stage: lint-code
 
+makes.review-mr:
+  <<: *makes
+  <<: *common_in_mrs
+  stage: merge-request
+  interruptible: false
+
 makes.test.instantiate:
   <<: *makes
   <<: *common_in_dev_branch

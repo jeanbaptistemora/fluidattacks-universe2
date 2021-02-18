@@ -1,13 +1,13 @@
-{ packages
+{ makeTemplate
+, packages
 , path
 , reviewsPkgs
 , ...
 } @ _:
 let
   buildPythonRequirements = import (path "/makes/utils/build-python-requirements") path reviewsPkgs;
-  makeTemplate = import (path "/makes/utils/make-template") path reviewsPkgs;
 in
-makeTemplate {
+makeTemplate reviewsPkgs {
   arguments = {
     envSrcReviews = path "/reviews/src";
   };
