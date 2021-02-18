@@ -24,6 +24,7 @@ makeDerivation {
     arguments = {
       envBashLibCommon = path "/makes/utils/common/template.sh";
       envBashLibShopts = path "/makes/utils/shopts/template.sh";
+      envCaCert = pkgs.cacert;
       envSearchPaths = makeSearchPaths searchPaths;
       envSearchPathsBase = makeSearchPaths {
         # Minimalistic shell environment
@@ -34,20 +35,7 @@ makeDerivation {
       envShell = "${pkgs.bash}/bin/bash";
     };
     name = "utils-make-entrypoint-script-for-${name}";
-    template = ''
-      #! __envShell__
-
-      unset GEM_PATH
-      unset LD_LIBRARY_PATH
-      unset NODE_PATH
-      unset PATH
-      unset PYTHON_PATH
-
-      source __envSearchPathsBase__
-      source __envBashLibShopts__
-      source __envBashLibCommon__
-      source __envSearchPaths__
-    '';
+    template = path "/makes/utils/make-entrypoint/template.sh";
   };
   envLocation = location;
   inherit name;

@@ -51,6 +51,7 @@ spec:
                   -i integrates-back-probes-readiness
                   -f ${CI_PROJECT_URL}/-/archive/${CI_COMMIT_SHA}.tar.gz &&
                 integrates-back-probes-readiness
+                  aws_login_dev
                   integrates-dev
                   FluidIntegrates
                   http://localhost:8001
@@ -68,6 +69,7 @@ spec:
                   -i integrates-back-probes-liveness
                   -f ${CI_PROJECT_URL}/-/archive/${CI_COMMIT_SHA}.tar.gz &&
                 integrates-back-probes-liveness
+                  aws_login_dev
                   integrates-dev
                   FluidIntegrates
                   http://localhost:8001

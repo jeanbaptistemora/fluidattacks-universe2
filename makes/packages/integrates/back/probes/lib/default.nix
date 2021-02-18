@@ -1,16 +1,16 @@
 { integratesPkgs
+, makeTemplate
 , path
 , ...
 } @ _:
-let
-  makeTemplate = import (path "/makes/utils/make-template") path integratesPkgs;
-in
-makeTemplate {
-  arguments = {
-    envAws = "${integratesPkgs.awscli}/bin/aws";
-    envCurl = "${integratesPkgs.curl}/bin/curl";
-    envGrep = "${integratesPkgs.gnugrep}/bin/grep";
-  };
+makeTemplate integratesPkgs {
   name = "integrates-back-probes-lib";
+  searchPaths = {
+    envPaths = [
+      integratesPkgs.awscli
+      integratesPkgs.curl
+      integratesPkgs.gnugrep
+    ];
+  };
   template = path "/makes/packages/integrates/back/probes/lib/template.sh";
 }

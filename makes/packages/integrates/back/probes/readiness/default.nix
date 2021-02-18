@@ -1,15 +1,14 @@
 { integratesPkgs
+, makeEntrypoint
 , packages
 , path
 , ...
 } @ _:
-let
-  makeEntrypoint = import (path "/makes/utils/make-entrypoint") path integratesPkgs;
-in
-makeEntrypoint {
-  arguments = {
-    envProbes = packages.integrates.back.probes.lib;
-  };
+makeEntrypoint integratesPkgs {
   name = "integrates-back-probes-readiness";
+  searchPaths = {
+    envSources = [ packages.integrates.back.probes.lib ];
+    envUtils = [ "/makes/utils/aws" ];
+  };
   template = path "/makes/packages/integrates/back/probes/readiness/entrypoint.sh";
 }
