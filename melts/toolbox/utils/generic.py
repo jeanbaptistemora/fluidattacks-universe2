@@ -460,10 +460,14 @@ def aws_login(profile: str = 'default') -> None:
         aws_secret_access_key = os.environ['AWS_SECRET_ACCESS_KEY']
 
         credentials = configparser.ConfigParser()
-        credentials.read(os.path.expanduser('~/.aws/credentials'))
+        credentials_dir = os.path.expanduser('~/.aws')
+        credentials_path = f'{credentials_dir}/credentials'
+        credentials.read(credentials_path)
+        credentials.setdefault('default', {})
         credentials['default']['aws_access_key_id'] = aws_access_key_id
         credentials['default']['aws_secret_access_key'] = aws_secret_access_key
-        with open(os.path.expanduser('~/.aws/credentials'), 'w') as handler:
+        os.makedirs(credentials_dir, exist_ok=True)
+        with open(credentials_path, 'w') as handler:
             credentials.write(handler)
 
     else:
