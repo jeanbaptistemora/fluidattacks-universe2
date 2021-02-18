@@ -6,7 +6,7 @@ import { useHistory } from "react-router-dom";
 
 import { Badge } from "components/Badge";
 import { TooltipWrapper } from "components/TooltipWrapper/index";
-import { default as logo } from "resources/integrates.svg";
+import { default as logo } from "resources/integrates_sidebar.svg";
 import { default as style } from "scenes/Dashboard/components/Sidebar/index.css";
 import { Can } from "utils/authz/Can";
 import { translate } from "utils/translations/translate";
