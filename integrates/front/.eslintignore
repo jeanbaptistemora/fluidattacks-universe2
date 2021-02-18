@@ -14,9 +14,7 @@ src/scenes/Dashboard/**/*.*
 !src/scenes/Dashboard/components/Comments/index.spec.tsx
 !src/scenes/Dashboard/components/ContentTab/**
 !src/scenes/Dashboard/components/DeleteGroupModal/**
-!src/scenes/Dashboard/components/DeleteVulnerability/index.spec.tsx
-!src/scenes/Dashboard/components/DeleteVulnerability/queries.ts
-!src/scenes/Dashboard/components/DeleteVulnerability/types.ts
+!src/scenes/Dashboard/components/DeleteVulnerability/**
 !src/scenes/Dashboard/components/EditableField/index.spec.tsx
 !src/scenes/Dashboard/components/EventHeader/index.spec.tsx
 !src/scenes/Dashboard/components/NewsWidget/**
