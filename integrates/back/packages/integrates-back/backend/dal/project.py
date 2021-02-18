@@ -486,7 +486,8 @@ async def get_access_by_url_token(
 
     filter_exp = (
         Attr('invitation').exists() &
-        Attr('invitation.url_token').eq(url_token)
+        Attr('invitation.url_token').eq(url_token) &
+        Attr('invitation.is_used').eq(False)
     )
     scan_attrs = {
         'FilterExpression': filter_exp
