@@ -16,12 +16,9 @@ makeEntrypoint integratesPkgs {
       packages.integrates.db
       packages.integrates.cache
       packages.integrates.storage
-      packages.makes.kill-port
-      packages.makes.wait
     ];
     envUtils = [
       "/makes/utils/aws"
-      "/makes/utils/sops"
     ];
   };
   template = path "/makes/applications/integrates/analytics/documents/entrypoint.sh";

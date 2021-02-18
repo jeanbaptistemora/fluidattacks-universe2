@@ -3,7 +3,7 @@
 
 path: pkgs:
 
-{ dependencies
+{ dependencies ? [ ]
 , name
 , python
 , requirements

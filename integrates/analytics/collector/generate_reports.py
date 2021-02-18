@@ -32,8 +32,8 @@ from analytics import (
 )
 
 # Environment
-GECKO = os.environ['pkgGeckoDriver']
-FIREFOX = os.environ['pkgFirefox']
+GECKO = os.environ['envGeckoDriver']
+FIREFOX = os.environ['envFirefox']
 
 # Finding bugs?
 DEBUGGING: bool = False

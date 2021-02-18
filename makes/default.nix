@@ -31,9 +31,6 @@ flakeUtils.lib.eachSystem [ "x86_64-linux" ] (
       integratesPkgs = import srcIntegratesPkgs { inherit system; };
       integratesPkgsTerraform = import srcIntegratesPkgsTerraform { inherit system; };
       makesPkgs = import srcMakesPkgs { inherit system; };
-      makeDerivation = import (path "/makes/utils/make-derivation") path;
-      makeEntrypoint = import (path "/makes/utils/make-entrypoint") path;
-      makeTemplate = import (path "/makes/utils/make-template") path;
       meltsPkgs = import srcMeltsPkgs { inherit system; };
       observesPkgs = import srcObservesPkgs { inherit system; };
       observesPkgsTerraform = import srcObservesPkgsTerraform { inherit system; };
@@ -75,6 +72,12 @@ flakeUtils.lib.eachSystem [ "x86_64-linux" ] (
       skimsPkgsTerraform = import srcSkimsPkgsTerraform { inherit system; };
       skimsTreeSitterRepo = srcSkimsTreeSitterRepo;
       sortsPkgs = import srcSortsPkgs { inherit system; };
+
+      # Makes utils
+      buildPythonRequirements = import (path "/makes/utils/build-python-requirements") path;
+      makeDerivation = import (path "/makes/utils/make-derivation") path;
+      makeEntrypoint = import (path "/makes/utils/make-entrypoint") path;
+      makeTemplate = import (path "/makes/utils/make-template") path;
     };
     dotToSlash = builtins.replaceStrings [ "." ] [ "/" ];
     makeLazyCopy = attrs: (attrs // {
