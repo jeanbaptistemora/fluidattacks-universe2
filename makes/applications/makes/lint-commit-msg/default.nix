@@ -8,7 +8,6 @@ makeEntrypoint makesPkgs {
   searchPaths = {
     envPaths = [
       makesPkgs.git
-      makesPkgs.nodejs
     ];
     envNodeBinaries = [
       packages.makes.commitlint

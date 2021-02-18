@@ -7,12 +7,21 @@ function get_deps_from_lock {
     | sort
 }
 
+function get_files_to_patch {
+  local path="${1}"
+  local regex="${2}"
+
+  grep -lrP "${regex}" "${path}" | tr '\n' ' '
+}
+
 # Use npm install with --force flag for packages that would fail to install
 # due to OS/arch issues (fsevents), but removing them from the dependencies
 # would install them anyway due to being an inherited dependency
 # from another package, thus creating an Integrity Check error
 function main {
   local dependencies
+  local files_to_patch=()
+  local shebang_regex='#!(\s*)/usr/bin/env(\s*)node'
 
       mkdir "${out}" \
   &&  echo "[INFO] Installing: ${dependencies[*]}" \
@@ -32,13 +41,10 @@ function main {
         &&  comm -1 -3 "${envRequirementsFile}" "${out}/requirements" \
         &&  return 1
       fi \
-  &&  shopt -s nullglob \
-  &&  for bin in "${out}"/node_modules/**/{bin,src}/*
+  &&  IFS=' ' read -ra files_to_patch <<< "$(get_files_to_patch "${out}" "${shebang_regex}")" \
+  &&  for file in "${files_to_patch[@]}"
       do
-            if test -f "${bin}"
-            then
-              sed -i "s|#!/usr/bin/env node|#!${envNode}/bin/node|g" "${bin}"
-            fi \
+            sed -Ei "s|${shebang_regex}|#!${envNode}/bin/node|g" "${file}" \
         ||  return 1
       done \
   ||  return 1
