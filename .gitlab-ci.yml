@@ -166,12 +166,6 @@ common_mailmap_linter:
   script:
     - mailmap-linter
 
-reviews:
-  <<: *with_nix
-  <<: *common_in_mrs
-  stage: merge-request
-  interruptible: false
-
 common_forces:
   <<: *common_in_master_branch
   stage: post-deploy
