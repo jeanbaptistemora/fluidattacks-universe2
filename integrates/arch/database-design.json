@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Feb 18, 2021, 04:21 PM",
+    "DateLastModified": "Feb 18, 2021, 05:17 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "2.0"
@@ -693,18 +693,15 @@
           }
         },
         {
-          "FacetName": "event",
+          "FacetName": "event_metadata",
           "KeyAttributeAlias": {
-            "PartitionKeyAlias": "ROOT#uuid",
-            "SortKeyAlias": "EVENT#uuid"
+            "PartitionKeyAlias": "ORG#name",
+            "SortKeyAlias": "GROUP#name#EVENT#uuid"
           },
           "TableData": [],
           "NonKeyAttributes": [
             "description",
             "type",
-            "status",
-            "modified_date",
-            "modified_by",
             "context",
             "evidences",
             "action_before_blocking",
@@ -741,7 +738,56 @@
             "PartitionKeyAlias": "ORG#name",
             "SortKeyAlias": "GROUP#name#FIN#uuid"
           },
-          "TableData": [],
+          "TableData": [
+            {
+              "pk": {
+                "S": "ORG#okada"
+              },
+              "sk": {
+                "S": "GROUP#unittesting#FIN#a0fddb36-ac0d-4a58-969f-b13194af61c2"
+              },
+              "name": {
+                "S": "F035. Weak credential policy"
+              },
+              "description": {
+                "S": "Passwords set as date-user could be easily guessed"
+              },
+              "type": {
+                "S": "SECURITY"
+              },
+              "evidences": {
+                "M": {}
+              },
+              "affected_components": {
+                "SS": [
+                  "web app"
+                ]
+              },
+              "cvss": {
+                "M": {}
+              },
+              "recommendation": {
+                "S": "Consider changing the date-user standard."
+              },
+              "requirements": {
+                "SS": [
+                  "REQ.0132. The system must require passphrases to be at least 4 words long and allow them to have 64 characters or more."
+                ]
+              },
+              "threat": {
+                "S": "External attacker with access"
+              },
+              "using_sorts": {
+                "BOOL": false
+              },
+              "cwe": {
+                "S": "521"
+              },
+              "attack_vector": {
+                "S": "Guess passwords"
+              }
+            }
+          ],
           "NonKeyAttributes": [
             "name",
             "description",
@@ -842,6 +888,22 @@
             "modified_date",
             "modified_by",
             "source"
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
+        },
+        {
+          "FacetName": "event_historic",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "EVENT#uuid#HISTORIC#iso8601utc",
+            "SortKeyAlias": "EVENT#uuid"
+          },
+          "TableData": [],
+          "NonKeyAttributes": [
+            "status",
+            "modified_date",
+            "modified_by"
           ],
           "DataAccess": {
             "MySql": {}
