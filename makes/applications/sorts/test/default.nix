@@ -1,14 +1,15 @@
-{ path
+{ packages
+, path
 , sortsPkgs
 , ...
-} @ attrs:
+} @ _:
 let
   makeEntrypoint = import (path "/makes/utils/make-entrypoint") path sortsPkgs;
 in
 makeEntrypoint {
   arguments = {
-    envSetupSortsDevelopment = import (path "/makes/packages/sorts/config-development") attrs.copy;
-    envSetupSortsRuntime = import (path "/makes/packages/sorts/config-runtime") attrs.copy;
+    envSetupSortsDevelopment = packages.sorts.config-development;
+    envSetupSortsRuntime = packages.sorts.config-runtime;
     envSrcSortsSorts = path "/sorts/sorts";
   };
   name = "sorts-test";

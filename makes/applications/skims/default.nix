@@ -1,13 +1,14 @@
-{ path
+{ packages
+, path
 , skimsPkgs
 , ...
-} @ attrs:
+} @ _:
 let
   makeEntrypoint = import (path "/makes/utils/make-entrypoint") path skimsPkgs;
 in
 makeEntrypoint {
   arguments = {
-    envSetupSkimsRuntime = import (path "/makes/packages/skims/config-runtime") attrs.copy;
+    envSetupSkimsRuntime = packages.skims.config-runtime;
   };
   name = "skims";
   template = path "/makes/applications/skims/entrypoint.sh";

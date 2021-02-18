@@ -1,13 +1,14 @@
 { meltsPkgs
+, packages
 , path
 , ...
-} @ attrs:
+} @ _:
 let
   makeEntrypoint = import (path "/makes/utils/make-entrypoint") path meltsPkgs;
 in
 makeEntrypoint {
   arguments = {
-    envSetupMeltsRuntime = import (path "/makes/packages/melts/config-runtime") attrs.copy;
+    envSetupMeltsRuntime = packages.melts.config-runtime;
   };
   name = "melts";
   template = path "/makes/applications/melts/entrypoint.sh";

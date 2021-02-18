@@ -1,4 +1,5 @@
-{ path
+{ packages
+, path
 , sortsPkgs
 , ...
 } @ attrs:
@@ -7,7 +8,7 @@ let
 in
 makeEntrypoint {
   arguments = {
-    envSetupSortsRuntime = import (path "/makes/packages/sorts/config-runtime") attrs.copy;
+    envSetupSortsRuntime = packages.sorts.config-runtime;
     envUtilsBashLibAws = import (path "/makes/utils/aws") path sortsPkgs;
     envUtilsBashLibGit = import (path "/makes/utils/use-git-repo") path sortsPkgs;
     envUtilsMeltsLibCommon = import (path "/makes/libs/melts") attrs.copy;

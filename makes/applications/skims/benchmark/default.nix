@@ -1,9 +1,10 @@
 { applications
+, packages
 , path
 , skimsBenchmarkOwaspRepo
 , skimsPkgs
 , ...
-} @ attrs:
+} @ _:
 let
   makeEntrypoint = import (path "/makes/utils/make-entrypoint") path skimsPkgs;
 in
@@ -11,7 +12,7 @@ makeEntrypoint {
   arguments = {
     envBenchmarkRepo = skimsBenchmarkOwaspRepo;
     envPython = "${skimsPkgs.python38}/bin/python";
-    envSetupSkimsRuntime = import (path "/makes/packages/skims/config-runtime") attrs.copy;
+    envSetupSkimsRuntime = packages.skims.config-runtime;
     envSkims = applications.skims;
     envSrcSkimsSkims = path "/skims/skims";
     envSrcSkimsTest = path "/skims/test";

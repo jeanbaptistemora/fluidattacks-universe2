@@ -1,16 +1,17 @@
-{ path
+{ packages
+, path
 , skimsBenchmarkOwaspRepo
 , skimsPkgs
 , ...
-} @ attrs:
+} @ _:
 let
   makeEntrypoint = import (path "/makes/utils/make-entrypoint") path skimsPkgs;
 in
 makeEntrypoint {
   arguments = {
     envBenchmarkRepo = skimsBenchmarkOwaspRepo;
-    envSetupSkimsDevelopment = import (path "/makes/packages/skims/config-development") attrs.copy;
-    envSetupSkimsRuntime = import (path "/makes/packages/skims/config-runtime") attrs.copy;
+    envSetupSkimsDevelopment = packages.skims.config-development;
+    envSetupSkimsRuntime = packages.skims.config-runtime;
     envUtilsBashLibAws = import (path "/makes/utils/aws") path skimsPkgs;
   };
   name = "skims-test";

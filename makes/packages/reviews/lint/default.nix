@@ -1,12 +1,13 @@
 { makeDerivation
+, packages
 , path
 , reviewsPkgs
 , ...
-} @ attrs:
+} @ _:
 makeDerivation reviewsPkgs {
   builder = path "/makes/packages/reviews/lint/builder.sh";
   envUtilsLintPython = import (path "/makes/utils/lint-python") path reviewsPkgs;
-  envReviewsRuntime = import (path "/makes/packages/reviews/runtime") attrs.copy;
+  envReviewsRuntime = packages.reviews.runtime;
   envSrcReviews = path "/reviews/src/";
   name = "reviews-lint";
 }

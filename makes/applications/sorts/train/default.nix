@@ -1,14 +1,15 @@
-{ path
+{ packages
+, path
 , sortsPkgs
 , ...
-} @ attrs:
+} @ _:
 let
   makeEntrypoint = import (path "/makes/utils/make-entrypoint") path sortsPkgs;
 in
 makeEntrypoint {
   arguments = {
     envPython = "${sortsPkgs.python38}/bin/python";
-    envSetupSortsDevelopment = import (path "/makes/packages/sorts/config-development") attrs.copy;
+    envSetupSortsDevelopment = packages.sorts.config-development;
     envUtilsBashLibAws = import (path "/makes/utils/aws") path sortsPkgs;
   };
   name = "sorts-train";
