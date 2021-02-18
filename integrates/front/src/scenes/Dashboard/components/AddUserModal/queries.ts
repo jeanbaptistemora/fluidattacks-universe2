@@ -1,17 +1,17 @@
-import { DocumentNode } from "graphql";
+import type { DocumentNode } from "graphql";
 import gql from "graphql-tag";
 
 export const GET_USER: DocumentNode = gql`
   query GetStakeholderDataQuery(
-    $entity: StakeholderEntity!,
-    $organizationId: String,
-    $projectName: String,
+    $entity: StakeholderEntity!
+    $organizationId: String
+    $projectName: String
     $userEmail: String!
   ) {
     stakeholder(
-      entity: $entity,
-      organizationId: $organizationId,
-      projectName: $projectName,
+      entity: $entity
+      organizationId: $organizationId
+      projectName: $projectName
       userEmail: $userEmail
     ) {
       email
@@ -19,4 +19,4 @@ export const GET_USER: DocumentNode = gql`
       phoneNumber
     }
   }
-  `;
+`;
