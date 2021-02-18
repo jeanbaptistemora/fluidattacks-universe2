@@ -14,6 +14,7 @@ import type { IGitRootAttr } from "../types";
 import { Logger } from "utils/logger";
 import type { PureAbility } from "@casl/ability";
 import React from "react";
+import { TooltipWrapper } from "components/TooltipWrapper";
 import _ from "lodash";
 import { authzPermissionsContext } from "utils/authz/config";
 import mixpanel from "mixpanel-browser";
@@ -309,30 +310,45 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
       <ButtonToolbarRow>
         <Can do={"backend_api_mutations_add_git_root_mutate"}>
           <div className={"mb3"}>
-            <Button id={"git-root-add"} onClick={openAddModal}>
-              <FontAwesomeIcon icon={faPlus} />
-              &nbsp;{t("group.scope.common.add")}
-            </Button>
+            <TooltipWrapper
+              id={t("group.scope.common.add_tooltip.id")}
+              message={t("group.scope.common.add_tooltip")}
+            >
+              <Button id={"git-root-add"} onClick={openAddModal}>
+                <FontAwesomeIcon icon={faPlus} />
+                &nbsp;{t("group.scope.common.add")}
+              </Button>
+            </TooltipWrapper>
           </div>
         </Can>
         <Can do={"backend_api_mutations_update_git_root_mutate"}>
           <div className={"mb3"}>
-            <Button disabled={editDisabled} onClick={openEditModal}>
-              <FluidIcon icon={"edit"} />
-              &nbsp;{t("group.scope.common.edit")}
-            </Button>
+            <TooltipWrapper
+              id={t("group.scope.common.edit_tooltip.id")}
+              message={t("group.scope.common.edit_tooltip")}
+            >
+              <Button disabled={editDisabled} onClick={openEditModal}>
+                <FluidIcon icon={"edit"} />
+                &nbsp;{t("group.scope.common.edit")}
+              </Button>
+            </TooltipWrapper>
           </div>
         </Can>
         <Can do={"backend_api_mutations_update_git_environments_mutate"}>
           <div className={"mb3"}>
-            <Button
-              disabled={editDisabled}
-              id={"envs-manage"}
-              onClick={openEnvsModal}
+            <TooltipWrapper
+              id={t("group.scope.git.manageEnvs_tooltip.id")}
+              message={t("group.scope.git.manageEnvs_tooltip")}
             >
-              <FontAwesomeIcon icon={faCloud} />
-              &nbsp;{t("group.scope.git.manageEnvs")}
-            </Button>
+              <Button
+                disabled={editDisabled}
+                id={"envs-manage"}
+                onClick={openEnvsModal}
+              >
+                <FontAwesomeIcon icon={faCloud} />
+                &nbsp;{t("group.scope.git.manageEnvs")}
+              </Button>
+            </TooltipWrapper>
           </div>
         </Can>
       </ButtonToolbarRow>

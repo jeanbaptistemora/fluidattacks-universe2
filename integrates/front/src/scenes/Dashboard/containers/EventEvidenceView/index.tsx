@@ -15,6 +15,7 @@ import { InjectedFormProps, Validator } from "redux-form";
 
 import { Button } from "components/Button";
 import { FluidIcon } from "components/FluidIcon";
+import { TooltipWrapper } from "components/TooltipWrapper";
 import { evidenceImage as EvidenceImage } from "scenes/Dashboard/components/EvidenceImage/index";
 import { EvidenceLightbox } from "scenes/Dashboard/components/EvidenceLightbox";
 import { GenericForm } from "scenes/Dashboard/components/GenericForm";
@@ -144,9 +145,14 @@ const eventEvidenceView: React.FC = (): JSX.Element => {
       <React.Fragment>
         <ButtonToolbarRow>
           <Can do="backend_api_mutations_update_event_evidence_mutate">
-            <Button disabled={data.event.eventStatus === "SOLVED"} onClick={handleEditClick}>
-              <FluidIcon icon="edit" />&nbsp;{translate.t("group.events.evidence.edit")}
-            </Button>
+            <TooltipWrapper
+              id={translate.t("group.events.evidence.edit_tooltip.id")}
+              message={translate.t("group.events.evidence.edit_tooltip")}
+            >
+              <Button disabled={data.event.eventStatus === "SOLVED"} onClick={handleEditClick}>
+                <FluidIcon icon="edit" />&nbsp;{translate.t("group.events.evidence.edit")}
+              </Button>
+            </TooltipWrapper>
           </Can>
         </ButtonToolbarRow>
         <br />
@@ -161,9 +167,14 @@ const eventEvidenceView: React.FC = (): JSX.Element => {
             <React.Fragment>
               {isEditing ? (
                 <ButtonToolbarRow>
-                  <Button type="submit" disabled={pristine}>
-                    <FluidIcon icon="loading" />&nbsp;{translate.t("search_findings.tab_evidence.update")}
-                  </Button>
+                  <TooltipWrapper
+                    id={translate.t("search_findings.tab_evidence.update_tooltip.id")}
+                    message={translate.t("search_findings.tab_evidence.update_tooltip")}
+                  >
+                    <Button type="submit" disabled={pristine}>
+                      <FluidIcon icon="loading" />&nbsp;{translate.t("search_findings.tab_evidence.update")}
+                    </Button>
+                  </TooltipWrapper>
                 </ButtonToolbarRow>
               ) : undefined}
               {!_.isEmpty(data.event.evidence) || isEditing ? (

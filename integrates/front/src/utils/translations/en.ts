@@ -303,6 +303,7 @@ export const enTranslations: ResourceKey = {
       },
       evidence: {
         edit: "Edit",
+        edit_tooltip: "Modify the evidence for this event",
         no_data: "There are no evidences",
       },
       form: {
@@ -487,8 +488,10 @@ export const enTranslations: ResourceKey = {
     scope: {
       common: {
         add: "Add new root",
+        add_tooltip: "Add a new git root to this group",
         confirm: "Confirm state change",
         edit: "Edit root",
+        edit_tooltip: "Edit the selected git root",
         errors: {
           duplicate:
             "An active root with the same URL/branch already exists " +
@@ -523,6 +526,8 @@ export const enTranslations: ResourceKey = {
           title: "Health Check",
         },
         manageEnvs: "Manage environments",
+        manageEnvs_tooltip:
+          "Add, edit or remove environment URLs for the selected git root",
         repo: {
           branch: "Branch",
           cloning: {
