@@ -83,6 +83,7 @@ observes.tap-mixpanel
 observes.tap-timedoctor
 observes.target-redshift
 observes.update-sync-date
+reviews
 serves.aws-sso.apply
 serves.aws-sso.test
 serves.ci.apply
