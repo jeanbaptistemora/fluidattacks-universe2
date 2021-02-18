@@ -16,7 +16,11 @@ def setup_db(postgresql_my: Any) -> None:
     temp_cur.execute('CREATE SCHEMA test_schema')
     temp_cur.execute(
         'CREATE TABLE test_schema.table_number_one '
-        '(Name CHARACTER (30))'
+        '(Name VARCHAR (30))'
+    )
+    temp_cur.execute(
+        'INSERT INTO test_schema.table_number_one (Name) '
+        "VALUES ('Juan Lopez');"
     )
     postgresql_my.commit()
 

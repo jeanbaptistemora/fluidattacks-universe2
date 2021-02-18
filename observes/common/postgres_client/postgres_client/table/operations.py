@@ -36,7 +36,7 @@ def delete(
     table: TableID,
 ) -> None:
     statement = """
-        DROP TABLE {schema}.{table};
+        DROP TABLE {schema}.{table} CASCADE;
     """
     identifiers: Dict[str, Optional[str]] = {
         'schema': table.schema,

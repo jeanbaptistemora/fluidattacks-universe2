@@ -10,5 +10,6 @@ from typing import (
 
 class Schema(NamedTuple):
     name: str
-    get_tables: Callable[[], Iterable[str]]
+    delete_on_db: Callable[[], None]
     exist_on_db: Callable[[], bool]
+    get_tables: Callable[[], Iterable[str]]
