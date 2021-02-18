@@ -17,7 +17,6 @@ integrates.back.tools.asciidoctor-pdf
 integrates.back.tools.concurrent-ruby
 integrates.back.tools.secure-spreadsheet
 integrates.front.config.dev-runtime
-integrates.front.config.runtime
 integrates.front.lint
 integrates.front.lint.eslint
 integrates.front.lint.stylelint

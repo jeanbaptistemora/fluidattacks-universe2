@@ -1,15 +1,13 @@
-{ path
+{ getPackageJsonDeps
 , integratesPkgs
+, path
 , ...
 } @ _:
 let
   buildNodeRequirements = import (path "/makes/utils/build-node-requirements") path integratesPkgs;
-  getPackageJsonDeps = import (path "/makes/utils/get-package-json-deps") path integratesPkgs;
   makeDerivation = import (path "/makes/utils/make-derivation") path integratesPkgs;
   nix = import (path "/makes/utils/nix") path integratesPkgs;
-  packageJsonDeps = getPackageJsonDeps {
-    packageJsonPath = "/integrates/front/package.json";
-  };
+  packageJsonDeps = getPackageJsonDeps integratesPkgs "/integrates/front/package.json";
 in
 makeDerivation {
   builder = path "/makes/packages/integrates/front/config/dev-runtime/builder.sh";

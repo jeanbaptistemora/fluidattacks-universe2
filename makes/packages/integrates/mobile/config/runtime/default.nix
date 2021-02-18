@@ -1,19 +1,18 @@
-{ path
+{ getPackageJsonDeps
 , integratesPkgs
+, path
 , ...
 } @ _:
 let
   buildNodeRequirements = import (path "/makes/utils/build-node-requirements") path integratesPkgs;
   makeDerivation = import (path "/makes/utils/make-derivation") path integratesPkgs;
-  getPackageJsonDeps = import (path "/makes/utils/get-package-json-deps") path integratesPkgs;
+  packageJsonDeps = getPackageJsonDeps integratesPkgs "/integrates/mobile/package.json";
   nodeRequirements = buildNodeRequirements {
     dependencies = [ ];
     name = "integrates-mobile-runtime";
     node = integratesPkgs.nodejs-12_x;
     requirements = {
-      direct = (getPackageJsonDeps {
-        packageJsonPath = "/integrates/mobile/package.json";
-      }).production;
+      direct = packageJsonDeps.production;
       inherited = [
         "@babel/code-frame@7.12.13"
         "@babel/compat-data@7.12.13"

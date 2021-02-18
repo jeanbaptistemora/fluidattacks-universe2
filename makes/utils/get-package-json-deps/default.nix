@@ -1,6 +1,6 @@
 path: pkgs:
 
-{ packageJsonPath }:
+packageJsonPath:
 let
   nix = import (path "/makes/utils/nix") path pkgs;
   packageJson = builtins.fromJSON (builtins.readFile (path packageJsonPath));
