@@ -15,9 +15,6 @@ from backend.decorators import (
     enforce_group_level_auth_async,
     require_integrates
 )
-from backend.domain import (
-    project as group_domain,
-)
 from backend.typing import (
     Project as GroupType,
     Stakeholder as StakeholderType,
@@ -56,13 +53,12 @@ async def resolve_no_cache(
     user_data: Dict[str, str] = await util.get_jwt_content(info.context)
     user_email: str = user_data['user_email']
 
-    group_stakeholders: List[StakeholderType] = []
     if user_utils.is_fluid_staff(user_email):
-        group_stakeholders = await group_domain.get_stakeholders(group_name)
+        group_stakeholders_loader = info.context.loaders.group_stakeholders
     else:
-        group_stakeholders = await group_domain.get_stakeholders(
-            group_name,
-            exclude_fluid_staff=True
-        )
+        group_stakeholders_loader = info.context.loaders.group_stakeholders_nf
 
-    return group_stakeholders
+    return cast(
+        List[StakeholderType],
+        await group_stakeholders_loader.load(group_name)
+    )
