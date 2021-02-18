@@ -10,7 +10,7 @@ computeOnAws {
   command = [ "./make" "observes.job.dynamodb-centralize" ];
   jobname = "dynamodb-centralize";
   jobqueue = "spot_soon";
-  name = "aws-batch-dynamodb-centralize";
+  name = "observes-scheduled-dynamodb-centralize";
   product = "observes";
   secrets = [
     "OBSERVES_PROD_AWS_ACCESS_KEY_ID"
