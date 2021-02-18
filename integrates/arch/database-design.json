@@ -1,16 +1,16 @@
 {
-  "ModelName": "integrates",
+  "ModelName": "database-design",
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Feb 17, 2021, 02:33 PM",
+    "DateLastModified": "Feb 18, 2021, 03:01 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "2.0"
   },
   "DataModel": [
     {
-      "TableName": "integrates",
+      "TableName": "integrates_vms",
       "KeyAttributes": {
         "PartitionKey": {
           "AttributeName": "pk",
@@ -261,10 +261,6 @@
         {
           "AttributeName": "manager",
           "AttributeType": "S"
-        },
-        {
-          "AttributeName": "global_id",
-          "AttributeType": "S"
         }
       ],
       "TableFacets": [
@@ -399,6 +395,9 @@
               },
               "sk": {
                 "S": "SUBS#ORG#okada"
+              },
+              "period": {
+                "N": "86400"
               }
             }
           ],
@@ -464,16 +463,16 @@
         {
           "FacetName": "organization_historic",
           "KeyAttributeAlias": {
-            "PartitionKeyAlias": "ORG#name",
-            "SortKeyAlias": "ORG#name#HISTORIC#iso8601utc"
+            "PartitionKeyAlias": "ORG#name#HISTORIC#iso8601utc",
+            "SortKeyAlias": "ORG#name"
           },
           "TableData": [
             {
               "pk": {
-                "S": "ORG#okada"
+                "S": "ORG#okada#HISTORIC#2021-02-15T14:01:16Z"
               },
               "sk": {
-                "S": "ORG#okada#HISTORIC#2021-02-15T14:01:16Z"
+                "S": "ORG#okada"
               },
               "settings": {
                 "M": {
@@ -530,17 +529,13 @@
               },
               "language": {
                 "S": "en"
-              },
-              "global_id": {
-                "S": "ORG#okada#GROUP#unittesting"
               }
             }
           ],
           "NonKeyAttributes": [
             "name",
             "description",
-            "language",
-            "global_id"
+            "language"
           ],
           "DataAccess": {
             "MySql": {}
@@ -550,7 +545,7 @@
           "FacetName": "group_historic",
           "KeyAttributeAlias": {
             "PartitionKeyAlias": "GROUP#name#HISTORIC#iso8601utc",
-            "SortKeyAlias": "GROUP#name#HISTORIC#iso8601utc"
+            "SortKeyAlias": "GROUP#name#METADATA"
           },
           "TableData": [
             {
@@ -558,7 +553,7 @@
                 "S": "GROUP#unittesting#HISTORIC#2021-02-15T14:01:16Z"
               },
               "sk": {
-                "S": "GROUP#unittesting#HISTORIC#2021-02-15T14:01:16Z"
+                "S": "GROUP#unittesting#METADATA"
               },
               "type": {
                 "S": "CONTINUOUS"
@@ -585,9 +580,6 @@
               },
               "modified_by": {
                 "S": "USER#test@fluidattacks.com"
-              },
-              "global_id": {
-                "S": "ORG#okada#GROUP#unittesting"
               }
             }
           ],
@@ -599,8 +591,7 @@
             "has_drills",
             "has_forces",
             "modified_date",
-            "modified_by",
-            "global_id"
+            "modified_by"
           ],
           "DataAccess": {
             "MySql": {}
@@ -806,22 +797,6 @@
             },
             "SortKey": {
               "AttributeName": "pk",
-              "AttributeType": "S"
-            }
-          },
-          "Projection": {
-            "ProjectionType": "ALL"
-          }
-        },
-        {
-          "IndexName": "global_index",
-          "KeyAttributes": {
-            "PartitionKey": {
-              "AttributeName": "global_id",
-              "AttributeType": "S"
-            },
-            "SortKey": {
-              "AttributeName": "sk",
               "AttributeType": "S"
             }
           },
