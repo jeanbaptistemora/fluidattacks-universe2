@@ -10,8 +10,11 @@ function get_deps_from_lock {
 function get_files_to_patch {
   local path="${1}"
   local regex="${2}"
+  local file
 
-  grep -lrP "${regex}" "${path}" | tr '\n' ' '
+      file="$(mktemp)" \
+  &&  grep -lrP "${regex}" "${path}" > "${file}" \
+  &&  echo "${file}"
 }
 
 # Use npm install with --force flag for packages that would fail to install
@@ -41,7 +44,7 @@ function main {
         &&  comm -1 -3 "${envRequirementsFile}" "${out}/requirements" \
         &&  return 1
       fi \
-  &&  IFS=' ' read -ra files_to_patch <<< "$(get_files_to_patch "${out}" "${shebang_regex}")" \
+  &&  mapfile -t files_to_patch < "$(get_files_to_patch "${out}" "${shebang_regex}")" \
   &&  for file in "${files_to_patch[@]}"
       do
             sed -Ei "s|${shebang_regex}|#!${envNode}/bin/node|g" "${file}" \
