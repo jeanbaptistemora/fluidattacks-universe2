@@ -106,6 +106,38 @@ integrates.analytics.documents-prod-schedule:
   parallel: 10
   script: [./make integrates.analytics.documents prod]
 
+integrates.analytics.snapshots-prod:
+  <<: *analytics_template
+  interruptible: false
+  only:
+    refs: [schedules]
+    variables: [$analytics]
+  script: [./make integrates.analytics.snapshots prod]
+
+integrates.back.deploy.dev:
+  <<: *makes
+  <<: *in_dev_branch_integrates
+  stage: deploy-app
+  environment:
+    name: development/$CI_COMMIT_REF_SLUG
+    url: https://$CI_COMMIT_REF_SLUG.integrates.fluidattacks.com
+
+# Take into account that changing this job name impacts the rotation of
+#   AWS secrets at serves.
+# The rotation script looks the last execution
+#   and decides if keys should be rotated or not.
+# This is done to avoid keys expiration on the current integrates deployment
+#   in case the continuous delivery system at Integrates is failing
+# Please adjust the serves_rotate_keys_user_provision_integrates job
+integrates.back.deploy.prod:
+  <<: *makes
+  <<: *in_master_except_periodic_jobs_integrates
+  stage: deploy-app
+  retry: 1
+  environment:
+    name: production
+    url: https://integrates.fluidattacks.com
+
 integrates.front.deploy-development:
   <<: *in_dev_branch_integrates
   <<: *integrates_front_deploy
@@ -295,13 +327,6 @@ integrates.web.e2e:
 
 # Pending to migrate
 
-integrates_analytics_make_snapshots_prod_schedule:
-  <<: *analytics_template
-  interruptible: false
-  only:
-    refs: [schedules]
-    variables: [$analytics]
-
 integrates_subscriptions_trigger_user_to_entity_report_dev:
   <<: *with_nix
   <<: *in_dev_branch_integrates
@@ -359,30 +384,6 @@ integrates_back_clean_development_environments:
   <<: *with_nix
   <<: *in_schedule_nightly_build_integrates
   stage: rotation
-
-integrates.back.deploy.dev:
-  <<: *makes
-  <<: *in_dev_branch_integrates
-  stage: deploy-app
-  environment:
-    name: development/$CI_COMMIT_REF_SLUG
-    url: https://$CI_COMMIT_REF_SLUG.integrates.fluidattacks.com
-
-# Take into account that changing this job name impacts the rotation of
-#   AWS secrets at serves.
-# The rotation script looks the last execution
-#   and decides if keys should be rotated or not.
-# This is done to avoid keys expiration on the current integrates deployment
-#   in case the continuous delivery system at Integrates is failing
-# Please adjust the serves_rotate_keys_user_provision_integrates job
-integrates.back.deploy.prod:
-  <<: *makes
-  <<: *in_master_except_periodic_jobs_integrates
-  stage: deploy-app
-  retry: 1
-  environment:
-    name: production
-    url: https://integrates.fluidattacks.com
 
 integrates_mobile_deploy_ota_production:
   <<: *with_nix
