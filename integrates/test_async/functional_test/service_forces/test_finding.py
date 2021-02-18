@@ -142,18 +142,6 @@ async def test_finding():
             {
                 'id': '242f848c-148a-4028-8e36-c7d995502590'
             },
-            {
-                'id': '3bcdb384-5547-4170-a0b6-3b397a245465'
-            },
-            {
-                'id': '54b94fa0-8f4f-4b10-a38a-6e848a9eb0c6'
-            },
-            {
-                'id': '6f023c26-5b10-4ded-aa27-bb563c2206ab'
-            },
-            {
-                'id': '74632c0c-db08-47c2-b013-c70e5b67c49f'
-            }
         ],
         'ports_vulns': [],
         'inputs_vulns': [],
