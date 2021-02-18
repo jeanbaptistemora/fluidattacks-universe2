@@ -1,7 +1,8 @@
 { integratesPkgs
+, packages
 , path
 , ...
-} @ attrs:
+} @ _:
 let
   makeEntrypoint = import (path "/makes/utils/make-entrypoint") path integratesPkgs;
   makeSearchPaths = import (path "/makes/utils/make-search-paths-deprecated") path integratesPkgs;
@@ -15,7 +16,7 @@ makeEntrypoint {
     ];
     envSecretsDev = path "/integrates/secrets-development.yaml";
     envSecretsProd = path "/integrates/secrets-production.yaml";
-    envSetupIntegratesMobileDevRuntime = import (path "/makes/packages/integrates/mobile/config/dev-runtime") attrs.copy;
+    envSetupIntegratesMobileDevRuntime = packages.integrates.mobile.config.dev-runtime;
     envUtilsAws = import (path "/makes/utils/aws") path integratesPkgs;
     envUtilsSops = import (path "/makes/utils/sops") path integratesPkgs;
   };
