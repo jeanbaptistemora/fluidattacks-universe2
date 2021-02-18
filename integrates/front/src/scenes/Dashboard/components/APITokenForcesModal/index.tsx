@@ -29,20 +29,23 @@ const apiTokenForcesModal: React.FC<IAPITokenForcesModalProps> = (
 ): JSX.Element => {
   const { open, onClose, groupName } = props;
 
-  const [getApiToken, getTokenCalled, forcesToken, getTokenLoading] = useGetAPIToken(groupName);
+  const [getApiToken, getTokenCalled, getTokenData, getTokenLoading] = useGetAPIToken(groupName);
 
   // Disabled while creating the function to update the token
   // tslint:disable-next-line: no-empty
   const handleUpdateAPIToken: () => void = () => {
 
   };
-  const handleReveal: () => void = getApiToken;
+  const handleReveal: () => void = () => {
+    // tslint:disable-next-line: no-void-expression
+    void getApiToken();
+  };
   const handleCopy: () => Promise<void> = async () => {
     const clipboard: Clipboard = navigator.clipboard;
 
     if (!_.isUndefined(clipboard)) {
       await clipboard.writeText(
-        forcesToken?.project.forcesToken ?? "",
+        getTokenData?.project.forcesToken ?? "",
       );
       document.execCommand("copy");
       msgSuccess(
@@ -53,7 +56,7 @@ const apiTokenForcesModal: React.FC<IAPITokenForcesModalProps> = (
       msgError(translate.t("update_forces_token.copy.failed"));
     }
   };
-  if (!Boolean(forcesToken?.project.forcesToken) && getTokenCalled && !getTokenLoading) {
+  if (!Boolean(getTokenData?.project.forcesToken) && getTokenCalled && !getTokenLoading) {
     msgError(translate.t("update_forces_token.token_no_exists"));
   }
 
@@ -62,7 +65,7 @@ const apiTokenForcesModal: React.FC<IAPITokenForcesModalProps> = (
       <GenericForm
         name={"updateForcesToken"}
         onSubmit={handleUpdateAPIToken}
-        initialValues={{ sessionJwt: forcesToken?.project.forcesToken }}>
+        initialValues={{ sessionJwt: getTokenData?.project.forcesToken }}>
         <React.Fragment>
           <Row>
             <Col100>
@@ -77,7 +80,7 @@ const apiTokenForcesModal: React.FC<IAPITokenForcesModalProps> = (
                 rows={"7"}
                 type={"text"}
               />
-              <Button onClick={handleCopy} disabled={!Boolean(forcesToken?.project.forcesToken)}>
+              <Button onClick={handleCopy} disabled={!Boolean(getTokenData?.project.forcesToken)}>
                 {translate.t("update_forces_token.copy.copy")}
               </Button>
               <Button
@@ -94,7 +97,10 @@ const apiTokenForcesModal: React.FC<IAPITokenForcesModalProps> = (
                 <Button onClick={onClose}>
                   {translate.t("update_forces_token.close")}
                 </Button>
-                <Button disabled={!getTokenCalled || Boolean(forcesToken?.project.forcesToken)} type={"submit"}>
+                <Button
+                  disabled={!getTokenCalled || getTokenLoading || Boolean(getTokenData?.project.forcesToken)}
+                  type={"submit"}
+                >
                   {translate.t("confirmmodal.proceed")}
                 </Button>
               </ButtonToolbar>
