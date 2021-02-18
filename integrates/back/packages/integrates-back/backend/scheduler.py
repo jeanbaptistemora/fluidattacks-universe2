@@ -870,7 +870,7 @@ async def update_portfolios() -> None:
     context = get_new_context()
     async for _, org_name, org_groups in \
             org_domain.iterate_organizations_and_groups():
-        org_tags = await tag_domain.get_tags(org_name, ['tag'])
+        org_tags = await context.organization_tags.load(org_name)
         org_groups_attrs = await collect(
             project_domain.get_attributes(
                 group, ['project_name', 'project_status', 'tag']
