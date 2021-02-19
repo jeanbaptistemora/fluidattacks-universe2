@@ -19,8 +19,13 @@ SINGLE_JOBS = frozenset([
     'zoho_crm_prepare',
 ])
 COMPOUND_JOBS = frozenset([
+    'dynamo',
     'mirror',
 ])
+COMPOUND_JOBS_TABLES = {
+    'dynamo': 'dynamo_tables',
+    'mirror': 'last_sync_date',
+}
 
 
 class UnknownJob(Exception):
@@ -31,20 +36,22 @@ class MissingOption(Exception):
     pass
 
 
-def update_job(auth_file: IO[str], job_name: str) -> None:
+def update_single_job(auth_file: IO[str], job_name: str) -> None:
     auth = json.load(auth_file)
     db_state = db_client.make_access_point(auth)
     try:
-        db_client.create_or_update_job(db_state, job_name)
+        db_client.single_job_update(db_state, job_name)
     finally:
         db_client.drop_access_point(db_state)
 
 
-def mirror(auth_file: IO[str], group: str) -> None:
+def update_compound_job(auth_file: IO[str], job: str, child: str) -> None:
     auth = json.load(auth_file)
     db_state = db_client.make_access_point(auth)
     try:
-        db_client.create_or_update_group(db_state, group, 'last_sync_date')
+        db_client.compound_job_update(
+            db_state, child, COMPOUND_JOBS_TABLES[job]
+        )
     finally:
         db_client.drop_access_point(db_state)
 
@@ -54,7 +61,7 @@ def mirror(auth_file: IO[str], group: str) -> None:
 @click.option('--job', type=str, required=True)
 def single_job(auth: IO[str], job: str) -> None:
     if job in SINGLE_JOBS:
-        update_job(auth, job)
+        update_single_job(auth, job)
     else:
         raise UnknownJob(f'single job: {job}')
 
@@ -65,7 +72,7 @@ def single_job(auth: IO[str], job: str) -> None:
 @click.option('--child', type=str, required=True)
 def compound_job(auth: IO[str], job: str, child: str) -> None:
     if job in COMPOUND_JOBS:
-        mirror(auth, child)
+        update_compound_job(auth, job, child)
     else:
         raise UnknownJob(f'compound job: {job}')
 

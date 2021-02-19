@@ -4,16 +4,14 @@
 , path
 , ...
 } @ _:
-let
-  nixPkgs = observesPkgs;
-in
-makeEntrypoint nixPkgs {
+makeEntrypoint observesPkgs {
   arguments = { };
   searchPaths = {
     envPaths = [
       packages.observes.streamer-dynamodb
       packages.observes.tap-json
       packages.observes.target-redshift
+      packages.observes.update-sync-date
     ];
     envUtils = [
       "/makes/utils/aws"

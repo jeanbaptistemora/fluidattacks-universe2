@@ -1,7 +1,9 @@
 # Standard libraries
 from typing import (
     Any,
-    Dict, NamedTuple,
+    Dict,
+    List,
+    NamedTuple,
 )
 # Third party libraries
 import psycopg2 as postgres
@@ -38,7 +40,7 @@ def drop_access_point(state: DbState) -> None:
     state.connection.close()
 
 
-def create_timestamp_group(state: DbState, group: str, table: str) -> None:
+def _create_timestamp_group(state: DbState, group: str, table: str) -> None:
     query = (
         f"INSERT INTO \"{SCHEMA}\".{table} "
         f"(group_name,sync_date) VALUES ('{group}',getdate())"
@@ -46,7 +48,7 @@ def create_timestamp_group(state: DbState, group: str, table: str) -> None:
     state.cursor.execute(query)
 
 
-def update_timestamp_group(state: DbState, group: str, table: str) -> None:
+def _update_timestamp_group(state: DbState, group: str, table: str) -> None:
     query = (
         f"UPDATE \"{SCHEMA}\".{table} "
         f"set sync_date=getdate() WHERE group_name='{group}'"
@@ -54,7 +56,7 @@ def update_timestamp_group(state: DbState, group: str, table: str) -> None:
     state.cursor.execute(query)
 
 
-def create_or_update_group(state: DbState, group: str, table: str) -> None:
+def compound_job_update(state: DbState, group: str, table: str) -> None:
     query = (
         f"SELECT * FROM \"{SCHEMA}\".{table} "
         f"WHERE group_name='{group}'"
@@ -62,12 +64,12 @@ def create_or_update_group(state: DbState, group: str, table: str) -> None:
     state.cursor.execute(query)
     result = state.cursor.fetchall()
     if not result:
-        create_timestamp_group(state, group, table)
+        _create_timestamp_group(state, group, table)
     else:
-        update_timestamp_group(state, group, table)
+        _update_timestamp_group(state, group, table)
 
 
-def create_timestamp_job(state: DbState, job_name: str) -> None:
+def _create_timestamp_job(state: DbState, job_name: str) -> None:
     query = (
         f"INSERT INTO \"{SCHEMA}\".last_sync_jobs "
         f"(job_name,sync_date) VALUES ('{job_name}',getdate())"
@@ -75,7 +77,7 @@ def create_timestamp_job(state: DbState, job_name: str) -> None:
     state.cursor.execute(query)
 
 
-def update_timestamp_job(state: DbState, job_name: str) -> None:
+def _update_timestamp_job(state: DbState, job_name: str) -> None:
     query = (
         f"UPDATE \"{SCHEMA}\".last_sync_jobs "
         f"set sync_date=getdate() WHERE job_name='{job_name}'"
@@ -83,14 +85,18 @@ def update_timestamp_job(state: DbState, job_name: str) -> None:
     state.cursor.execute(query)
 
 
-def create_or_update_job(state: DbState, job_name: str) -> None:
+def _get_single_job(state: DbState, job_name: str) -> List[Any]:
     query = (
         f"SELECT * FROM \"{SCHEMA}\".last_sync_jobs "
         f"WHERE job_name='{job_name}'"
     )
     state.cursor.execute(query)
     result = state.cursor.fetchall()
-    if not result:
-        create_timestamp_job(state, job_name)
+    return result
+
+
+def single_job_update(state: DbState, job_name: str) -> None:
+    if not _get_single_job(state, job_name):
+        _create_timestamp_job(state, job_name)
     else:
-        update_timestamp_job(state, job_name)
+        _update_timestamp_job(state, job_name)
