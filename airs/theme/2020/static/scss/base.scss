@@ -4,6 +4,7 @@ $fluid-black: rgba(39, 39, 39, 1);
 $lightblack: rgba(34, 34, 34, 1);
 $fluid-dark-red: rgba(203, 50, 51, 1);
 $fluid-gray: rgba(176, 176, 176, 1);
+$fluid-mid-gray: rgb(92, 92, 92, 1);
 $fluid-light-gray: rgba(241, 241, 241, 1);
 $fluid-red: rgba(255, 52, 53, 1);
 $lightblue: rgba(0, 133, 161, 1);
@@ -75,6 +76,7 @@ $codeyellow: rgba(230, 219, 116, 1);
 .c-fluid-dkred { color: $fluid-dark-red; }
 .c-dkred { color: $button-red; }
 .c-fluid-gray { color: $fluid-gray; }
+.c-fluid-mid-gray { color: $fluid-mid-gray; }
 .c-fluid-dkblue { color: $darkblue; }
 .c-codegray { color: $codegray; }
 .c-codebrown { color: $codebrown; }
@@ -288,7 +290,6 @@ $codeyellow: rgba(230, 219, 116, 1);
 
 .indexof-content {
   a {
-    border-bottom: 1px solid $fluid-gray;
     color: $fluid-black;
     font-weight: 400;
     text-decoration: none;
@@ -307,13 +308,15 @@ $codeyellow: rgba(230, 219, 116, 1);
       font-size: 24px;
       font-weight: bold;
       line-height: 1.5;
+      margin-bottom: 0 !important;
     }
 
     p {
-      color: $fluid-black;
+      color: $fluid-mid-gray;
       font-size: 16px;
       font-weight: 300;
       line-height: 2;
+      margin-top: 0 !important;
     }
   }
 }
