@@ -75,6 +75,7 @@ flakeUtils.lib.eachSystem [ "x86_64-linux" ] (
 
       # Makes utils
       buildNodeRequirements = import (path "/makes/utils/build-node-requirements") path;
+      buildPythonLambda = import (path "/makes/utils/build-python-lambda") path;
       buildPythonRequirements = import (path "/makes/utils/build-python-requirements") path;
       getPackageJsonDeps = import (path "/makes/utils/get-package-json-deps") path;
       makeDerivation = import (path "/makes/utils/make-derivation") path;
