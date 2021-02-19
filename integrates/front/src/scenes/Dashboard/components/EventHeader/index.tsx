@@ -1,4 +1,5 @@
 import React from "react";
+import { translate } from "utils/translations/translate";
 import {
   Col100,
   EventHeaderGrid,
@@ -7,50 +8,48 @@ import {
   Row,
 } from "styles/styledComponents";
 import { castEventStatus, castEventType } from "utils/formatHelpers";
-import { translate } from "utils/translations/translate";
 
-export interface IEventHeaderProps {
+interface IEventHeaderProps {
   eventDate: string;
   eventStatus: string;
   eventType: string;
   id: string;
 }
 
-const eventHeader: ((props: IEventHeaderProps) => JSX.Element) =
-  (props: IEventHeaderProps): JSX.Element => {
-    const eventType: string = translate.t(castEventType(props.eventType));
-    const eventStatus: string = translate.t(castEventStatus(props.eventStatus));
+const eventHeader: (props: IEventHeaderProps) => JSX.Element = (
+  props: IEventHeaderProps
+): JSX.Element => {
+  const eventType: string = translate.t(castEventType(props.eventType));
+  const eventStatus: string = translate.t(castEventStatus(props.eventStatus));
 
-    return (
-      <React.Fragment>
-      <div id="events" className="tab-pane cont active">
-        <Row>
-          <Col100>
-             <h2>{eventType}</h2>
-             <hr/>
-          </Col100>
-        </Row>
-        <Row>
-          <Col100>
-            <EventHeaderGrid>
-              <EventHeaderLabel>
-                {translate.t("search_findings.tab_events.id")}
-                <Label> {props.id} </Label>
-              </EventHeaderLabel>
-              <EventHeaderLabel>
-                {translate.t("search_findings.tab_events.date")}
-                <Label> {props.eventDate} </Label>
-              </EventHeaderLabel>
-              <EventHeaderLabel>
-                {translate.t("search_findings.tab_events.status")}
-                <Label> {eventStatus} </Label>
-              </EventHeaderLabel>
-            </EventHeaderGrid>
-          </Col100>
-        </Row>
-      </div>
-    </React.Fragment>
+  return (
+    <div className={"tab-pane cont active"} id={"events"}>
+      <Row>
+        <Col100>
+          <h2>{eventType}</h2>
+          <hr />
+        </Col100>
+      </Row>
+      <Row>
+        <Col100>
+          <EventHeaderGrid>
+            <EventHeaderLabel>
+              {translate.t("search_findings.tab_events.id")}
+              <Label> {props.id} </Label>
+            </EventHeaderLabel>
+            <EventHeaderLabel>
+              {translate.t("search_findings.tab_events.date")}
+              <Label> {props.eventDate} </Label>
+            </EventHeaderLabel>
+            <EventHeaderLabel>
+              {translate.t("search_findings.tab_events.status")}
+              <Label> {eventStatus} </Label>
+            </EventHeaderLabel>
+          </EventHeaderGrid>
+        </Col100>
+      </Row>
+    </div>
   );
 };
 
-export { eventHeader as EventHeader };
+export { eventHeader as EventHeader, IEventHeaderProps };

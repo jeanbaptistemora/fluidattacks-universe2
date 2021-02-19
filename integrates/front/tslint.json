@@ -27,7 +27,7 @@
       "src/scenes/Dashboard/components/DeleteGroupModal/**",
       "src/scenes/Dashboard/components/DeleteVulnerability/**",
       "src/scenes/Dashboard/components/EditableField/index.spec.tsx",
-      "src/scenes/Dashboard/components/EventHeader/index.spec.tsx",
+      "src/scenes/Dashboard/components/EventHeader/**",
       "src/scenes/Dashboard/components/NewsWidget/**",
       "src/scenes/Dashboard/components/Navbar/components/splitbutton/index.tsx",
       "src/scenes/Dashboard/components/Vulnerabilities/**",
