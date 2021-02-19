@@ -36,7 +36,7 @@ function main {
               echo "export CP=\"${jar}:\${CP:-}\""
             done \
         &&  echo \
-        &&  echo "${envJava} --class-path \"\${CP}\" Parse \"\${@}\"" \
+        &&  echo "${envJava} -classpath \"\${CP}\" Parse \"\${@}\"" \
 
       } > "${out}/build/install/parse/bin/parse" \
   ||  return 1
