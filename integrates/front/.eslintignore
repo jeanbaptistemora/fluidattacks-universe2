@@ -18,6 +18,7 @@ src/scenes/Dashboard/**/*.*
 !src/scenes/Dashboard/components/EditableField/index.spec.tsx
 !src/scenes/Dashboard/components/EventHeader/**
 !src/scenes/Dashboard/components/FileOptionsModal/index.spec.tsx
+!src/scenes/Dashboard/components/FindingActions/index.spec.tsx
 !src/scenes/Dashboard/components/NewsWidget/**
 !src/scenes/Dashboard/components/Navbar/components/splitbutton/index.tsx
 !src/scenes/Dashboard/components/Vulnerabilities/**
