@@ -71,6 +71,7 @@ async def test_finding():
         {
           'analyst': 'unittest@fluidattacks.com',
           'date': '2020-01-03 12:46:10',
+          'source': 'integrates',
           'state': 'open'
         }
       ],

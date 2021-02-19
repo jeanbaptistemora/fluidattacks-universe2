@@ -16,6 +16,10 @@
                   "analyst": {
                     "S": "api-unittest@fluidattacks.com"
                   },
+
+                  "source": {
+                    "S": "integrates"
+                  },
                   "state": {
                     "S": "open"
                   },
@@ -71,6 +75,9 @@
                   "analyst": {
                     "S": "unittest@fluidattacks.com"
                   },
+                  "source": {
+                    "S": "integrates"
+                  },
                   "state": {
                     "S": "open"
                   }
@@ -122,6 +129,9 @@
                   },
                   "analyst": {
                     "S": "unittest@fluidattacks.com"
+                  },
+                  "source": {
+                    "S": "integrates"
                   },
                   "state": {
                     "S": "open"
@@ -175,6 +185,9 @@
                   "analyst": {
                     "S": "unittest@fluidattacks.com"
                   },
+                  "source": {
+                    "S": "integrates"
+                  },
                   "state": {
                     "S": "open"
                   }
@@ -226,6 +239,9 @@
                   },
                   "analyst": {
                     "S": "unittest@fluidattacks.com"
+                  },
+                  "source": {
+                    "S": "integrates"
                   },
                   "state": {
                     "S": "open"
@@ -279,6 +295,9 @@
                   "analyst": {
                     "S": "unittest@fluidattacks.com"
                   },
+                  "source": {
+                    "S": "integrates"
+                  },
                   "state": {
                     "S": "open"
                   }
@@ -331,6 +350,9 @@
                   "analyst": {
                     "S": "api-unittest@fluidattacks.com"
                   },
+                  "source": {
+                    "S": "integrates"
+                  },
                   "state": {
                     "S": "open"
                   },
@@ -346,6 +368,9 @@
                   },
                   "analyst": {
                     "S": "unittest@fluidattacks.com"
+                  },
+                  "source": {
+                    "S": "integrates"
                   },
                   "state": {
                     "S": "closed"
@@ -402,6 +427,9 @@
                   "analyst": {
                     "S": "unittest@fluidattacks.com"
                   },
+                  "source": {
+                    "S": "integrates"
+                  },
                   "state": {
                     "S": "open"
                   }
@@ -454,6 +482,9 @@
                   "analyst": {
                     "S": "unittest@fluidattacks.com"
                   },
+                  "source": {
+                    "S": "integrates"
+                  },
                   "state": {
                     "S": "open"
                   }
@@ -505,6 +536,9 @@
                   },
                   "analyst": {
                     "S": "api-unittest@fluidattacks.com"
+                  },
+                  "source": {
+                    "S": "integrates"
                   },
                   "state": {
                     "S": "open"
@@ -561,6 +595,9 @@
                   "analyst": {
                     "S": "unittest@fluidattacks.com"
                   },
+                  "source": {
+                    "S": "integrates"
+                  },
                   "state": {
                     "S": "open"
                   }
@@ -612,6 +649,9 @@
                   },
                   "analyst": {
                     "S": "api-unittest@fluidattacks.com"
+                  },
+                  "source": {
+                    "S": "integrates"
                   },
                   "state": {
                     "S": "open"
@@ -668,6 +708,9 @@
                   "analyst": {
                     "S": "integratesmanager@gmail.com"
                   },
+                  "source": {
+                    "S": "integrates"
+                  },
                   "state": {
                     "S": "open"
                   }
@@ -680,6 +723,9 @@
                   },
                   "analyst": {
                     "S": "unittest@fluidattacks.com"
+                  },
+                  "source": {
+                    "S": "integrates"
                   },
                   "state": {
                     "S": "closed"
@@ -736,6 +782,9 @@
                   "analyst": {
                     "S": "unittest@fluidattacks.com"
                   },
+                  "source": {
+                    "S": "integrates"
+                  },
                   "state": {
                     "S": "open"
                   }
@@ -790,6 +839,9 @@
                   },
                   "analyst": {
                     "S": "unittest@fluidattacks.com"
+                  },
+                  "source": {
+                    "S": "integrates"
                   },
                   "state": {
                     "S": "open"
@@ -868,6 +920,9 @@
                   "analyst": {
                     "S": "unittest@fluidattacks.com"
                   },
+                  "source": {
+                    "S": "integrates"
+                  },
                   "state": {
                     "S": "open"
                   }
@@ -880,6 +935,9 @@
                   },
                   "analyst": {
                     "S": "unittest@fluidattacks.com"
+                  },
+                  "source": {
+                    "S": "integrates"
                   },
                   "state": {
                     "S": "DELETED"
@@ -935,6 +993,9 @@
                   },
                   "analyst": {
                     "S": "unittest@fluidattacks.com"
+                  },
+                  "source": {
+                    "S": "integrates"
                   },
                   "state": {
                     "S": "open"
@@ -1000,6 +1061,9 @@
                   "analyst": {
                     "S": "unittest@fluidattacks.com"
                   },
+                  "source": {
+                    "S": "integrates"
+                  },
                   "state": {
                     "S": "open"
                   }
@@ -1012,6 +1076,9 @@
                   },
                   "analyst": {
                     "S": "unittest@fluidattacks.com"
+                  },
+                  "source": {
+                    "S": "integrates"
                   },
                   "state": {
                     "S": "closed"
@@ -1064,6 +1131,9 @@
                   },
                   "analyst": {
                     "S": "unittest@fluidattacks.com"
+                  },
+                  "source": {
+                    "S": "integrates"
                   },
                   "state": {
                     "S": "open"
@@ -1144,6 +1214,9 @@
                   },
                   "analyst": {
                     "S": "unittest@fluidattacks.com"
+                  },
+                  "source": {
+                    "S": "integrates"
                   },
                   "state": {
                     "S": "open"
@@ -1233,6 +1306,9 @@
                   "analyst": {
                     "S": "unittest@fluidattacks.com"
                   },
+                  "source": {
+                    "S": "integrates"
+                  },
                   "state": {
                     "S": "open"
                   }
@@ -1245,6 +1321,9 @@
                   },
                   "analyst": {
                     "S": "unittest@fluidattacks.com"
+                  },
+                  "source": {
+                    "S": "integrates"
                   },
                   "state": {
                     "S": "closed"
@@ -1323,6 +1402,9 @@
                   },
                   "analyst": {
                     "S": "unittest@fluidattacks.com"
+                  },
+                  "source": {
+                    "S": "integrates"
                   },
                   "state": {
                     "S": "open"
@@ -1416,6 +1498,9 @@
                   "analyst": {
                     "S": "unittest@fluidattacks.com"
                   },
+                  "source": {
+                    "S": "integrates"
+                  },
                   "state": {
                     "S": "open"
                   }
@@ -1428,6 +1513,9 @@
                   },
                   "analyst": {
                     "S": "unittest@fluidattacks.com"
+                  },
+                  "source": {
+                    "S": "integrates"
                   },
                   "state": {
                     "S": "closed"
@@ -1442,6 +1530,9 @@
                   "analyst": {
                     "S": "unittest@fluidattacks.com"
                   },
+                  "source": {
+                    "S": "integrates"
+                  },
                   "state": {
                     "S": "open"
                   }
@@ -1454,6 +1545,9 @@
                   },
                   "analyst": {
                     "S": "unittest@fluidattacks.com"
+                  },
+                  "source": {
+                    "S": "integrates"
                   },
                   "state": {
                     "S": "closed"
