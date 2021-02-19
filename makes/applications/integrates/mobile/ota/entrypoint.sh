@@ -1,9 +1,5 @@
 # shellcheck shell=bash
 
-source '__envSearchPaths__'
-source '__envUtilsAws__'
-source '__envUtilsSops__'
-
 function get_mobile_version {
   local minutes
 

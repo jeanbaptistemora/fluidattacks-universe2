@@ -1,26 +1,26 @@
 { integratesPkgs
+, makeEntrypoint
 , packages
 , path
 , ...
 } @ _:
-let
-  makeEntrypoint = import (path "/makes/utils/make-entrypoint") path integratesPkgs;
-  makeSearchPaths = import (path "/makes/utils/make-search-paths-deprecated") path integratesPkgs;
-in
-makeEntrypoint {
+makeEntrypoint integratesPkgs {
   arguments = {
-    envSearchPaths = makeSearchPaths [
+    envSecretsDev = path "/integrates/secrets-development.yaml";
+    envSetupIntegratesMobileDevRuntime = packages.integrates.mobile.config.dev-runtime;
+  };
+  name = "integrates-mobile";
+  searchPaths = {
+    envPaths = [
       integratesPkgs.findutils
       integratesPkgs.iproute
       integratesPkgs.nodejs-12_x
       integratesPkgs.xdg_utils
     ];
-    envSecretsDev = path "/integrates/secrets-development.yaml";
-    envSetupIntegratesMobileDevRuntime = packages.integrates.mobile.config.dev-runtime;
-    envUtilsAws = import (path "/makes/utils/aws") path integratesPkgs;
-    envUtilsCommon = path "/makes/utils/common/template.sh";
-    envUtilsSops = import (path "/makes/utils/sops") path integratesPkgs;
+    envUtils = [
+      "/makes/utils/aws"
+      "/makes/utils/sops"
+    ];
   };
-  name = "integrates-mobile";
   template = path "/makes/applications/integrates/mobile/entrypoint.sh";
 }

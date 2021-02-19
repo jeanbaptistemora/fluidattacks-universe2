@@ -1,8 +1,5 @@
 # shellcheck shell=bash
 
-source "${envSearchPaths}"
-source "${envUtilsCommon}"
-
 function main {
 
       copy "${envSrcIntegratesMobile}" "${out}" \

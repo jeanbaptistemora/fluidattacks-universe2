@@ -1,10 +1,5 @@
 # shellcheck shell=bash
 
-source '__envSearchPaths__'
-source '__envUtilsAws__'
-source '__envUtilsCommon__'
-source '__envUtilsSops__'
-
 function main {
   local secrets=(
     EXPO_PASS
