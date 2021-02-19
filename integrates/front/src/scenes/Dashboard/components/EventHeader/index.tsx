@@ -16,17 +16,18 @@ interface IEventHeaderProps {
   id: string;
 }
 
-const eventHeader: (props: IEventHeaderProps) => JSX.Element = (
+const EventHeader: (props: IEventHeaderProps) => JSX.Element = (
   props: IEventHeaderProps
 ): JSX.Element => {
-  const eventType: string = translate.t(castEventType(props.eventType));
-  const eventStatus: string = translate.t(castEventStatus(props.eventStatus));
+  const { eventDate, eventStatus, eventType, id } = props;
+  const tEventType: string = translate.t(castEventType(eventType));
+  const tEventStatus: string = translate.t(castEventStatus(eventStatus));
 
   return (
     <div className={"tab-pane cont active"} id={"events"}>
       <Row>
         <Col100>
-          <h2>{eventType}</h2>
+          <h2>{tEventType}</h2>
           <hr />
         </Col100>
       </Row>
@@ -35,15 +36,15 @@ const eventHeader: (props: IEventHeaderProps) => JSX.Element = (
           <EventHeaderGrid>
             <EventHeaderLabel>
               {translate.t("search_findings.tab_events.id")}
-              <Label> {props.id} </Label>
+              <Label> {id} </Label>
             </EventHeaderLabel>
             <EventHeaderLabel>
               {translate.t("search_findings.tab_events.date")}
-              <Label> {props.eventDate} </Label>
+              <Label> {eventDate} </Label>
             </EventHeaderLabel>
             <EventHeaderLabel>
               {translate.t("search_findings.tab_events.status")}
-              <Label> {eventStatus} </Label>
+              <Label> {tEventStatus} </Label>
             </EventHeaderLabel>
           </EventHeaderGrid>
         </Col100>
@@ -52,4 +53,4 @@ const eventHeader: (props: IEventHeaderProps) => JSX.Element = (
   );
 };
 
-export { eventHeader as EventHeader, IEventHeaderProps };
+export { EventHeader, IEventHeaderProps };
