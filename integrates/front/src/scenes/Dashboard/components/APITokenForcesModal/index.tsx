@@ -4,7 +4,7 @@ import _ from "lodash";
 import React from "react";
 import { Field } from "redux-form";
 import {
-  useGetAPIToken,
+  useGetAPIToken, useUpdateAPIToken,
 } from "scenes/Dashboard/components/APITokenForcesModal/hooks";
 
 import { GenericForm } from "scenes/Dashboard/components/GenericForm";
@@ -30,11 +30,14 @@ const apiTokenForcesModal: React.FC<IAPITokenForcesModalProps> = (
   const { open, onClose, groupName } = props;
 
   const [getApiToken, getTokenCalled, getTokenData, getTokenLoading] = useGetAPIToken(groupName);
+  const [updateApiToken, updateResponse] = useUpdateAPIToken();
 
-  // Disabled while creating the function to update the token
-  // tslint:disable-next-line: no-empty
+  const currentToken: string | undefined = Boolean(getTokenData?.project.forcesToken) ?
+    getTokenData?.project.forcesToken :
+    updateResponse.data?.updateForcesAccessToken.sessionJwt;
+
   const handleUpdateAPIToken: () => void = () => {
-
+    void updateApiToken({ variables: { groupName } });
   };
   const handleReveal: () => void = () => {
     // tslint:disable-next-line: no-void-expression
@@ -65,7 +68,7 @@ const apiTokenForcesModal: React.FC<IAPITokenForcesModalProps> = (
       <GenericForm
         name={"updateForcesToken"}
         onSubmit={handleUpdateAPIToken}
-        initialValues={{ sessionJwt: getTokenData?.project.forcesToken }}>
+        initialValues={{ sessionJwt: currentToken }}>
         <React.Fragment>
           <Row>
             <Col100>
@@ -80,7 +83,7 @@ const apiTokenForcesModal: React.FC<IAPITokenForcesModalProps> = (
                 rows={"7"}
                 type={"text"}
               />
-              <Button onClick={handleCopy} disabled={!Boolean(getTokenData?.project.forcesToken)}>
+              <Button onClick={handleCopy} disabled={!Boolean(currentToken)}>
                 {translate.t("update_forces_token.copy.copy")}
               </Button>
               <Button
@@ -98,10 +101,10 @@ const apiTokenForcesModal: React.FC<IAPITokenForcesModalProps> = (
                   {translate.t("update_forces_token.close")}
                 </Button>
                 <Button
-                  disabled={!getTokenCalled || getTokenLoading || Boolean(getTokenData?.project.forcesToken)}
+                  disabled={!getTokenCalled || getTokenLoading}
                   type={"submit"}
                 >
-                  {translate.t("confirmmodal.proceed")}
+                  {Boolean(currentToken) ? translate.t("update_forces_token.reset") : translate.t("update_forces_token.generate")}
                 </Button>
               </ButtonToolbar>
             </Col100>

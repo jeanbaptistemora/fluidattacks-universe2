@@ -2093,6 +2093,8 @@ export const enTranslations: ResourceKey = {
       success: "Forces Token copied",
       successfully: "Forces Token copied successfully",
     },
+    generate: "Generate",
+    reset: "Reset",
     reveal_token: "Reveal Token",
     success: "Updated forces token",
     successfully: "Forces token updated successfully",

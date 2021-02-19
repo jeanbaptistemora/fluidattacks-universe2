@@ -81,14 +81,14 @@ describe("Update access token modal", (): void => {
     expect(copyButton.prop("disabled"))
       .toBe(false);
 
-    const processButton: ReactWrapper = wrapper
+    const resetButton: ReactWrapper = wrapper
       .find("button")
       .filterWhere((element: ReactWrapper): boolean =>
-        element.contains("Proceed"),
+        element.contains("Reset"),
       )
       .first();
-    expect(processButton.prop("disabled"))
-      .toBe(true);
+    expect(resetButton.prop("disabled"))
+      .toBe(false);
 
     const tokenTextArea: ReactWrapper = wrapper
       .find("textarea")
@@ -156,11 +156,10 @@ describe("Update access token modal", (): void => {
       async (): Promise<void> => {
         await waitForExpect((): void => {
           wrapper.update();
-          wrapper.update();
-          const processButton: ReactWrapper = wrapper
+          const generateButton: ReactWrapper = wrapper
             .find("button")
             .filterWhere((element: ReactWrapper): boolean =>
-              element.contains("Proceed"),
+              element.contains("Generate"),
             )
             .first();
           const copyButton: ReactWrapper = wrapper
@@ -179,7 +178,7 @@ describe("Update access token modal", (): void => {
           // When the token is revealed and does not exist, it cannot be copied
           expect(copyButton.prop("disabled"))
             .toBe(true);
-          expect(processButton.prop("disabled"))
+          expect(generateButton.prop("disabled"))
             .toBe(false);
           expect(revealButtonAfter.prop("disabled"))
             .toBe(true);
