@@ -320,6 +320,22 @@ integrates.secrets.lint:
   <<: *in_dev_branch_integrates
   stage: lint-code
 
+integrates.subscriptions.user-to-entity-dev:
+  <<: *makes
+  <<: *in_dev_branch_integrates
+  script: [./make integrates.subscriptions.user-to-entity dev]
+  stage: subscriptions
+  retry: 2
+
+integrates.subscriptions.user-to-entity-prod:
+  <<: *makes
+  interruptible: false
+  only:
+    refs: [schedules]
+    variables: [$integrates_subscriptions_trigger_user_to_entity_report_prod_schedule]
+  script: [./make integrates.subscriptions.user-to-entity prod]
+  stage: subscriptions
+
 integrates.web.e2e:
   <<: *makes
   <<: *in_dev_branch_integrates
@@ -331,20 +347,6 @@ integrates.web.e2e:
   parallel: 5
 
 # Pending to migrate
-
-integrates_subscriptions_trigger_user_to_entity_report_dev:
-  <<: *with_nix
-  <<: *in_dev_branch_integrates
-  stage: subscriptions
-  retry: 2
-
-integrates_subscriptions_trigger_user_to_entity_report_prod_schedule:
-  <<: *with_nix
-  interruptible: false
-  stage: subscriptions
-  only:
-    refs: [schedules]
-    variables: [$integrates_subscriptions_trigger_user_to_entity_report_prod_schedule]
 
 integrates_mobile_build_android:
   <<: *with_nix
