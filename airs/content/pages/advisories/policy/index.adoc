@@ -1,10 +1,10 @@
 :slug: advisories/policy/
 :description: This Disclosure Policy describes the details referring to the parameters used by Fluid Attacks on disclosing public vulnerabilities.
-:keywords: Fluid Attacks, Disclosure, Policy, Vulnerability, CVE
+:keywords: Fluid Attacks, Disclosure, Policy, Vulnerability, CVE, ISO
 
 = Fluid Attacks Disclosure Policy
 
-_This document was last updated on February 18, 2021_
+_This document was last updated on February 19, 2021_
 
 This disclosure policy ("Policy") describes how `Fluid Attacks`
 ("Fluid Attacks", "we", "us" or "our")
@@ -96,10 +96,9 @@ social media or link:../../blog/[blog] posts.
 
 === Contact
 
-If you would like to contact us to understand more about this Policy
-or wish to contact us concerning any matter
-relating to our Disclosure Policy, you may send an email to
+If you would like to contact us to learn more about this Policy
+or to discuss any matter related to it, please send us an email to
 
 image::help.png["Help",width=200]
 
-_This document was last updated on February 18, 2021_
+_This document was last updated on February 19, 2021_
