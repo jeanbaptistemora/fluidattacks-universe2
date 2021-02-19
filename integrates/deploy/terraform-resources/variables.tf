@@ -34,3 +34,5 @@ variable "aws_s3_forces_bucket" {
   type    = string
   default = "fluidintegrates.forces"
 }
+
+variable "aws_lambda_send_mail_notification_zip" {}

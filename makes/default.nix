@@ -81,6 +81,7 @@ flakeUtils.lib.eachSystem [ "x86_64-linux" ] (
       makeDerivation = import (path "/makes/utils/make-derivation") path;
       makeEntrypoint = import (path "/makes/utils/make-entrypoint") path;
       makeTemplate = import (path "/makes/utils/make-template") path;
+      terraformApply = import (path "/makes/utils/terraform-apply") path;
       terraformTest = import (path "/makes/utils/terraform-test") path;
     };
     dotToSlash = builtins.replaceStrings [ "." ] [ "/" ];

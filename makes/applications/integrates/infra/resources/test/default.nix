@@ -1,12 +1,24 @@
-{ path
+{ integratesPkgs
 , integratesPkgsTerraform
+, makeEntrypoint
+, packages
+, path
+, terraformTest
 , ...
 } @ _:
-let
-  terraformTest = import (path "/makes/utils/terraform-test") path integratesPkgsTerraform;
-in
-terraformTest {
+makeEntrypoint integratesPkgs rec {
+  arguments = {
+    envLambdaSendMailNotification = packages.integrates.lambda.send-mail-notification;
+  };
   name = "integrates-infra-resources-test";
-  product = "integrates";
-  target = "integrates/deploy/terraform-resources";
+  searchPaths = {
+    envPaths = [
+      (terraformTest integratesPkgsTerraform {
+        inherit name;
+        product = "integrates";
+        target = "integrates/deploy/terraform-resources";
+      })
+    ];
+  };
+  template = path "/makes/applications/integrates/infra/resources/test/entrypoint.sh";
 }
