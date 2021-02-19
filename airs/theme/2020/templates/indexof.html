@@ -65,19 +65,19 @@
 {% endblock breadcrumb %}
 
 {% block content %}
-<div class="bg-graylight w-80-ns center">
-  <div class="w-50-ns pl4">
+<div class="bg-graylight center flex flex-wrap mw-1200">
+  <div class="pl4">
     <div class="bl-red">
       <h1 class="f1-s f60 neue ml3">
         {{ page.title }}
       </h1>
     </div>
-    <p class="c-fluid-bk fw3 f3 lh-title roboto tl">
+    <p class="c-fluid-bk fw3 f3 lh-title roboto tl w-60-ns">
       {{ page.phrase }}
     </p>
   </div>
 
-  <div class="indexof-content">
+  <div class="grid indexof-content indexof-grid roboto w-100">
     {{ page.content }}
   </div>
 </div>
