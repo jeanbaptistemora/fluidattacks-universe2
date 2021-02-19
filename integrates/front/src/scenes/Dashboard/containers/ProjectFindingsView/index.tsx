@@ -365,18 +365,33 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
                     <Row>
                       <Col100>
                         <ButtonToolbarCenter>
+                          <TooltipWrapper
+                            id={"group.findings.report.pdf_tooltip.id"}
+                            message={translate.t("group.findings.report.pdf_tooltip")}
+                          >
                           <Button onClick={handleRequestProjectReport} id={"report-pdf"}>
                             <FontAwesomeIcon icon={faFilePdf} />
                               {translate.t("group.findings.report.pdf")}
                           </Button>
+                          </TooltipWrapper>
+                          <TooltipWrapper
+                            id={"group.findings.report.xls_tooltip.id"}
+                            message={translate.t("group.findings.report.xls_tooltip")}
+                          >
                           <Button onClick={handleRequestProjectReport} id={"report-excel"}>
                             <FontAwesomeIcon icon={faFileExcel} />
                               {translate.t("group.findings.report.xls")}
                           </Button>
+                          </TooltipWrapper>
+                          <TooltipWrapper
+                            id={"group.findings.report.data_tooltip.id"}
+                            message={translate.t("group.findings.report.data_tooltip")}
+                          >
                           <Button onClick={handleRequestProjectReport} id={"report-zip"}>
                             <FontAwesomeIcon icon={faFileArchive} />
                             {translate.t("group.findings.report.data")}
                           </Button>
+                          </TooltipWrapper>
                         </ButtonToolbarCenter>
                       </Col100>
                     </Row>

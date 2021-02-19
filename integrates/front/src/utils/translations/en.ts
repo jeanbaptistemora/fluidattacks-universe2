@@ -407,14 +407,23 @@ export const enTranslations: ResourceKey = {
           tooltip: "Generate a report of findings and send it to your email",
         },
         data: "  Export",
+        data_tooltip:
+          "Receive a zip file containing the exported data of all the findings " +
+          "of this group",
         modal_close: "Close",
         modal_title: "Reports",
         pdf: "  Executive",
+        pdf_tooltip:
+          "Receive a pdf file with an executive report that gives you summarized information " +
+          "about all the findings of this group",
         tech_description:
           "Reports are created on-demand and are protected by a <strong>passphrase</strong>. " +
           "The <strong>passphrase</strong> is generated randomly and will be " +
           "sent through a notification to your mobile device.",
         xls: "  Technical",
+        xls_tooltip:
+          "Receive an xls file with a technical report that gives you more detailed " +
+          "information about all the findings of this group",
       },
       tableSet: {
         btn: {
@@ -687,6 +696,7 @@ export const enTranslations: ResourceKey = {
   },
   logout: "Log out",
   navbar: {
+    news_tooltip: "Latest updates about ASM",
     searchPlaceholder: "Group Name",
   },
   organization: {

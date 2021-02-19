@@ -21,6 +21,7 @@ import {
 import { Button } from "components/Button";
 import { MenuItem } from "components/DropdownButton";
 import { FluidIcon } from "components/FluidIcon";
+import { TooltipWrapper } from "components/TooltipWrapper";
 import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import { GET_USER_ORGANIZATIONS } from "scenes/Dashboard/components/Navbar/queries";
 import { stylizeBreadcrumbItem } from "scenes/Dashboard/components/Navbar/utils";
@@ -170,7 +171,12 @@ export const navbarComponent: React.FC = (): JSX.Element => {
         </NavBarHeader>
         <NavBarCollapse>
           <Col25>
+            <TooltipWrapper
+              id={"navbar.news_tooltip.id"}
+              message={translate.t("navbar.news_tooltip")}
+            >
             <NewsWidget />
+            </TooltipWrapper>
           </Col25>
           <Col100>
             <Can do="front_can_use_groups_searchbar">
