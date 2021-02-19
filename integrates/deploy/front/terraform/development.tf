@@ -70,8 +70,8 @@ resource "cloudflare_page_rule" "development" {
 
   actions {
     cache_level       = "aggressive"
-    edge_cache_ttl    = 60
-    browser_cache_ttl = 60
+    edge_cache_ttl    = 300
+    browser_cache_ttl = 300
   }
 }
 
