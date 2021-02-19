@@ -11,9 +11,10 @@ function main {
   &&  sops_export_vars integrates/secrets-development.yaml \
         STARLETTE_SESSION_KEY \
         TEST_E2E_USER \
-  &&  pushd integrates/test_e2e \
+  &&  pushd integrates/test_e2e/src \
     &&  pkgFirefox='__envFirefox__' \
         pkgGeckoDriver='__envGeckodriver__' \
+        PYTHONPATH="${PWD}:${PYTHONPATH:-}" \
         pytest "${args_pytest[@]}" \
           --disable-pytest-warnings \
           --exitfirst \

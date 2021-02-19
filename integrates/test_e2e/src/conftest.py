@@ -50,7 +50,10 @@ def credentials() -> Credentials:
 
 
 @pytest.fixture(autouse=True, scope='session')
-def integrates_endpoint(branch: str, is_ci: bool) -> str:
+def integrates_endpoint(
+    branch: str,  # pylint: disable=redefined-outer-name
+    is_ci: bool,  # pylint: disable=redefined-outer-name
+) -> str:
     if branch == 'master':
         raise NotImplementedError('e2e is only designed to run in dev env')
 
@@ -63,19 +66,20 @@ def integrates_endpoint(branch: str, is_ci: bool) -> str:
 
 @pytest.fixture(autouse=True, scope='function')
 def driver(
-        path_geckodriver: str,
-        path_firefox: str,
-        is_ci: bool) -> Iterable[WebDriver]:
+    path_geckodriver: str,  # pylint: disable=redefined-outer-name
+    path_firefox: str,  # pylint: disable=redefined-outer-name
+    is_ci: bool,  # pylint: disable=redefined-outer-name
+) -> Iterable[WebDriver]:
     options = Options()
     options.binary_location = path_firefox
     options.headless = is_ci
-    driver: WebDriver = Firefox(
+    web_driver: WebDriver = Firefox(
         executable_path=path_geckodriver,
         firefox_binary=path_firefox,
         options=options
     )
     try:
-        driver.maximize_window()
-        yield driver
+        web_driver.maximize_window()
+        yield web_driver
     finally:
-        driver.quit()
+        web_driver.quit()

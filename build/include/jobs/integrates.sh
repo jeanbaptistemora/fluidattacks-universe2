@@ -330,20 +330,6 @@ function job_integrates_back_lint {
   || return 1
 }
 
-function job_integrates_back_lint_e2e {
-  local modules=(
-    src/
-    src/tests/
-  )
-
-      pushd integrates/test_e2e \
-    &&  env_prepare_python_packages \
-    &&  mypy --config-file settings.cfg "${modules[@]}" \
-    &&  prospector --profile profile.yaml . \
-  &&  popd \
-  ||  return 1
-}
-
 function job_integrates_back_lint_graphics {
       env_prepare_node_modules \
   &&  pushd integrates/back/app/templates/static/graphics \

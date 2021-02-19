@@ -28,6 +28,7 @@ integrates.mobile.lint
 integrates.mobile.test
 integrates.secrets.lint
 integrates.secrets.list
+integrates.web.e2e.lint
 integrates.web.e2e.pypi
 makes.commitlint
 makes.dev

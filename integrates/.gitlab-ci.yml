@@ -346,6 +346,11 @@ integrates.web.e2e:
   retry: 2
   parallel: 5
 
+integrates.web.e2e.lint:
+  <<: *makes
+  <<: *in_dev_branch_integrates
+  stage: lint-code
+
 # Pending to migrate
 
 integrates_mobile_build_android:
@@ -406,11 +411,6 @@ integrates_back_test_functional:
   retry: 1
 
 integrates_back_lint:
-  <<: *with_nix
-  <<: *in_dev_branch_integrates
-  stage: lint-code
-
-integrates_back_lint_e2e:
   <<: *with_nix
   <<: *in_dev_branch_integrates
   stage: lint-code
