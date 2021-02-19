@@ -167,11 +167,10 @@ def commits_user_syntax(*, data: TestData) -> bool:
     success: bool = True
     should_fail: bool = data.config['fail']
     err_log: str = get_err_log(should_fail)
-    user_regex: str = data.config['user_regex']
     failed_user: str = ''
     commits: Any = data.pull_request.commits()
     for commit in commits:
-        if not re.match(user_regex, commit.author_name):
+        if not re.match(data.syntax.user_regex, commit.author_name):
             failed_user = commit.author_name
             success = False
             log(err_log,
@@ -193,9 +192,8 @@ def pr_user_syntax(*, data: TestData) -> bool:
     success: bool = True
     should_fail: bool = data.config['fail']
     err_log: str = get_err_log(should_fail)
-    user_regex: str = data.config['user_regex']
     author: str = data.pull_request.author['name']
-    if not re.match(user_regex, author):
+    if not re.match(data.syntax.user_regex, author):
         success = False
         log(err_log,
             'Your gitlab user name is %s. \n'

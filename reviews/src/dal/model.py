@@ -9,24 +9,25 @@ from typing import (
 
 
 class PullRequest(NamedTuple):
-    type: str
+    author: Dict[str, str]
+    changes: Callable[[], Any]
+    commits: Callable[[], Any]
+    description: str
     id: str
     iid: str
-    title: str
-    state: str
-    author: Dict[str, str]
-    description: str
-    source_branch: str
-    target_branch: str
-    commits: Callable[[], Any]
-    changes: Callable[[], Any]
     pipelines: Callable[[], List[Dict[str, str]]]
     raw: Any
+    source_branch: str
+    state: str
+    target_branch: str
+    title: str
+    type: str
 
 
 class Syntax(NamedTuple):
-    regex: str
     match_groups: Dict[str, int]
+    regex: str
+    user_regex: str
 
 
 class TestData(NamedTuple):

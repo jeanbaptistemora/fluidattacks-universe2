@@ -37,8 +37,9 @@ def run_tests(config_path: str) -> bool:
 
     if success and not tests.skip_ci(pull_request):
         syntax: Syntax = Syntax(
-            regex=config['syntax']['regex'],
             match_groups=config['syntax']['match_groups'],
+            regex=config['syntax']['regex'],
+            user_regex=config['syntax']['user_regex'],
         )
         for name, args in config['tests'].items():
             data: TestData = TestData(
