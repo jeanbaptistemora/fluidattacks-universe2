@@ -13,8 +13,8 @@ rec {
 
   # Return name from the attribute set, or default
   getAttr = attrset: name: default:
-    if builtins.hasAttr attrset name
-    then builtins.getAttr attrset name
+    if builtins.hasAttr name attrset
+    then builtins.getAttr name attrset
     else default;
 
   # Return true if string is a nix store path

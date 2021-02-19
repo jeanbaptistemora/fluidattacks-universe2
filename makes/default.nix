@@ -78,8 +78,10 @@ flakeUtils.lib.eachSystem [ "x86_64-linux" ] (
       buildPythonLambda = import (path "/makes/utils/build-python-lambda") path;
       buildPythonRequirements = import (path "/makes/utils/build-python-requirements") path;
       getPackageJsonDeps = import (path "/makes/utils/get-package-json-deps") path;
+      lintPython = import (path "/makes/utils/lint-python") path;
       makeDerivation = import (path "/makes/utils/make-derivation") path;
       makeEntrypoint = import (path "/makes/utils/make-entrypoint") path;
+      makeSearchPaths = import (path "/makes/utils/make-search-paths") path;
       makeTemplate = import (path "/makes/utils/make-template") path;
       terraformApply = import (path "/makes/utils/terraform-apply") path;
       terraformTest = import (path "/makes/utils/terraform-test") path;

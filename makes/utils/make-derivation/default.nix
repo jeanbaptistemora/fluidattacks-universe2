@@ -15,21 +15,27 @@ let
         (pkgs.lib.strings.hasPrefix "env" k) ||
         (k == "builder") ||
         (k == "buildInputs") ||
-        (k == "name")
+        (k == "name") ||
+        (k == "searchPaths")
       )
       then v
-      else abort "Invalid argument: ${k}, must be one of: builder, buildInputs, name, or start with: env or __env"
+      else abort "Invalid argument: ${k}, must be one of: builder, buildInputs, name, searchPaths or start with: env or __env"
     ))
     __attrs;
 in
-pkgs.stdenv.mkDerivation (attrs // {
+pkgs.stdenv.mkDerivation (builtins.removeAttrs attrs [ "searchPaths" ] // {
   __envBashLibCommon = path "/makes/utils/common/template.sh";
   __envBashLibShopts = path "/makes/utils/shopts/template.sh";
+  __envSeachPaths =
+    if attrs ? "searchPaths"
+    then import (path "/makes/utils/make-search-paths") path pkgs attrs.searchPaths
+    else "/dev/null";
   __envStdenv = "${pkgs.stdenv}/setup";
   builder = builtins.toFile "setup-make-derivation" ''
     source $__envStdenv
     source $__envBashLibShopts
     source $__envBashLibCommon
+    source $__envSeachPaths
 
     cd "$(mktemp -d)"
 
