@@ -31,7 +31,7 @@ function job_zoho_crm {
         | "${tap_csv}"  | "${tap_json}"  > .singer \
   &&  "${target_redshift}" \
         --auth "${db_creds}" \
-        --schema-name 'zoho_crm_test' \
+        --schema-name 'zoho_crm' \
         --drop-schema \
         < .singer \
   &&  "${update_sync_date}" single-job \
