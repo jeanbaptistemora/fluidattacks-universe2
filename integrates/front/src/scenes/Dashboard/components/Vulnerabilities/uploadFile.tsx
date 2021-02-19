@@ -76,11 +76,24 @@ export const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
       } else if (message.includes("Exception - Invalid Schema")) {
         const errorObject: IErrorInfoAttr = JSON.parse(message);
         if (errorObject.values.length > 0 || errorObject.keys.length > 0) {
-          const listValuesFormated: string[] = errorObject.values.map(
-            (x: string): string => formatError("group_alerts.value", x)
+          const listValuesFormated: string[] = Array.from(
+            new Set(
+              errorObject.values.map((x: string): string =>
+                translate.t(
+                  "search_findings.tab_vuln.alerts.uploadFile.value",
+                  { pattern: x }
+                )
+              )
+            )
           );
-          const listKeysFormated: string[] = errorObject.keys.map(
-            (x: string): string => formatError("group_alerts.key", x)
+          const listKeysFormated: string[] = Array.from(
+            new Set(
+              errorObject.keys.map((x: string): string =>
+                translate.t("search_findings.tab_vuln.alerts.uploadFile.key", {
+                  key: x,
+                })
+              )
+            )
           );
           msgErrorStick(
             listKeysFormated.join("") + listValuesFormated.join(""),

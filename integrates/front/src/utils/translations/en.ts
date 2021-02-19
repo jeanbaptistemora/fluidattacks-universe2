@@ -1925,6 +1925,10 @@ export const enTranslations: ResourceKey = {
         maximum_number_of_acceptations:
           "Vulnerability has been accepted the maximum number of times allowed by the organization",
         treatmentChange: "Vulnerability treatment will be changed",
+        uploadFile: {
+          key: "Key '{{key}}' is missing or invalid. ",
+          value: "Value is invalid, pattern '{{pattern}}'. ",
+        },
       },
       buttons: {
         handle_acceptation: "Treatment Acceptation",
