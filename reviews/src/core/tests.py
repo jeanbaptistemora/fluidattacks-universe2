@@ -59,17 +59,15 @@ def mr_under_max_deltas(*, data: TestData) -> bool:
 
 def all_pipelines_successful(*, data: TestData) -> bool:
     """Test if all previous pipelines were successful"""
-    config: Dict[str, Any] = data.config
-    pull_request: PullRequest = data.pull_request
-    should_fail: bool = config['fail']
+    should_fail: bool = data.config['fail']
     err_log: str = get_err_log(should_fail)
     success: bool = True
     index: int = 0
-    while index < len(pull_request.pipelines()):
-        pipeline: Any = pull_request.pipelines()[index]
+    while index < len(data.pull_request.pipelines()):
+        pipeline: Any = data.pull_request.pipelines()[index]
         p_jobs: Any = pipeline.jobs.list()
         p_jobs_names: List[str] = [job.name for job in p_jobs]
-        if config['job_name'] not in p_jobs_names:
+        if data.config['job_name'] not in p_jobs_names:
             for p_job in p_jobs:
                 if p_job.status in ('success', 'manual'):
                     pass
@@ -91,12 +89,11 @@ def all_pipelines_successful(*, data: TestData) -> bool:
 
 def mr_message_syntax(*, data: TestData) -> bool:
     """Run commitlint on MR message"""
-    config: Dict[str, Any] = data.config
-    pull_request: PullRequest = data.pull_request
     success: bool = True
-    should_fail: bool = config['fail']
+    should_fail: bool = data.config['fail']
     err_log: str = get_err_log(should_fail)
-    mr_commit_msg: str = f'{pull_request.title}\n\n{pull_request.description}'
+    mr_commit_msg: str = \
+        f'{data.pull_request.title}\n\n{data.pull_request.description}'
     command: List[str] = ['commitlint']
     proc: Any = subprocess.run(command, input=mr_commit_msg,
                                encoding='ascii', check=False)
@@ -110,18 +107,18 @@ def mr_message_syntax(*, data: TestData) -> bool:
 
 def branch_equals_to_user(*, data: TestData) -> bool:
     """Test if branch name differs from user name"""
-    config: Dict[str, Any] = data.config
-    pull_request: PullRequest = data.pull_request
     success: bool = True
-    should_fail: bool = config['fail']
+    should_fail: bool = data.config['fail']
     err_log: str = get_err_log(should_fail)
-    if pull_request.source_branch not in pull_request.author['username']:
+    source_branch: str = data.pull_request.source_branch
+    author: str = data.pull_request.author['username']
+    if source_branch not in author:
         log(err_log,
             'Your branch name should be equal to your gitlab user.\n\n'
             'Branch name: %s\n'
             'Gitlab user: %s',
-            pull_request.source_branch,
-            pull_request.author['username'])
+            source_branch,
+            author)
         success = False
     return success or not should_fail
 
@@ -131,23 +128,23 @@ def most_relevant_type(*, data: TestData) -> bool:
     success: bool = True
     should_fail: bool = data.config['fail']
     err_log: str = get_err_log(should_fail)
-    regex: str = data.syntax.regex
-    pr_match: Any = re.match(regex, data.pull_request.title)
+    pr_match: Any = re.match(data.syntax.regex, data.pull_request.title)
     success = pr_match is not None
-    match_group_type: int = data.syntax.match_groups['type']
-    pr_type: str = pr_match.group(match_group_type) if success else ''
+    pr_type: str = pr_match.group(data.syntax.match_groups['type']) \
+        if success \
+        else ''
     relevances: Dict[str, int] = data.config['relevances']
     highest_type: str = list(relevances.keys())[-1]
     commits: Any = data.pull_request.commits()
     for commit in commits:
-        commit_match: Any = re.match(regex, commit.title)
+        commit_match: Any = re.match(data.syntax.regex, commit.title)
         if commit_match is None:
             log(err_log,
                 'Commit title is not syntax compliant:\n%s',
                 commit.title)
             success = False
             continue
-        commit_type = commit_match.group(match_group_type)
+        commit_type = commit_match.group(data.syntax.match_groups['type'])
         if commit_type in relevances.keys() and \
                 relevances[commit_type] < relevances[highest_type]:
             highest_type = commit_type
@@ -167,14 +164,12 @@ def most_relevant_type(*, data: TestData) -> bool:
 
 def commits_user_syntax(*, data: TestData) -> bool:
     """Test if usernames of all commits associated to MR are compliant"""
-    config: Dict[str, Any] = data.config
-    pull_request: PullRequest = data.pull_request
     success: bool = True
-    should_fail: bool = config['fail']
+    should_fail: bool = data.config['fail']
     err_log: str = get_err_log(should_fail)
-    user_regex: str = config['user_regex']
+    user_regex: str = data.config['user_regex']
     failed_user: str = ''
-    commits: Any = pull_request.commits()
+    commits: Any = data.pull_request.commits()
     for commit in commits:
         if not re.match(user_regex, commit.author_name):
             failed_user = commit.author_name
@@ -195,13 +190,12 @@ def commits_user_syntax(*, data: TestData) -> bool:
 
 def mr_user_syntax(*, data: TestData) -> bool:
     """Test if username of mr author is compliant"""
-    config: Dict[str, Any] = data.config
-    pull_request: PullRequest = data.pull_request
     success: bool = True
-    should_fail: bool = config['fail']
+    should_fail: bool = data.config['fail']
     err_log: str = get_err_log(should_fail)
-    user_regex: str = config['user_regex']
-    if not re.match(user_regex, pull_request.author['name']):
+    user_regex: str = data.config['user_regex']
+    author: str = data.pull_request.author['name']
+    if not re.match(user_regex, author):
         success = False
         log(err_log,
             'Your gitlab user name is %s. \n'
@@ -211,19 +205,17 @@ def mr_user_syntax(*, data: TestData) -> bool:
             'For example: Aureliano Buendia. \n'
             'You can change your gitlab user name here: \n'
             'https://gitlab.com/profile',
-            pull_request.author['name'])
+            author)
     return success or not should_fail
 
 
 def max_commits_per_mr(*, data: TestData) -> bool:
     """Only one commit per MR"""
-    config: Dict[str, Any] = data.config
-    pull_request: PullRequest = data.pull_request
     success: bool = True
-    should_fail: bool = config['fail']
+    should_fail: bool = data.config['fail']
     err_log: str = get_err_log(should_fail)
-    max_commits: int = config['max_commits']
-    commit_number: int = len(list(pull_request.commits()))
+    max_commits: int = data.config['max_commits']
+    commit_number: int = len(list(data.pull_request.commits()))
     if commit_number > max_commits:
         success = False
         log(err_log,
@@ -237,17 +229,16 @@ def max_commits_per_mr(*, data: TestData) -> bool:
 
 def close_issue_directive(*, data: TestData) -> bool:
     """Test if a MR has an issue different from #0 without a Close directive"""
-    config: Dict[str, Any] = data.config
-    pull_request: PullRequest = data.pull_request
     success: bool = True
-    should_fail: bool = config['fail']
+    should_fail: bool = data.config['fail']
     err_log: str = get_err_log(should_fail)
-    mr_title_regex: str = config['mr_title_regex']
-    mr_title_match: Any = re.match(mr_title_regex, pull_request.title)
+    mr_title_regex: str = data.config['mr_title_regex']
+    mr_title_match: Any = re.match(mr_title_regex, data.pull_request.title)
+
     if mr_title_match is None:
         success = False
-    if success and mr_title_match.group(3) not in '#0' \
-            and 'Closes #' not in pull_request.description:
+    if success and mr_title_match.group(4) not in '#0' \
+            and 'Closes #' not in data.pull_request.description:
         log(err_log,
             'This MR is referencing issue %s '
             'but it does not have a: Close %s '
@@ -259,37 +250,36 @@ def close_issue_directive(*, data: TestData) -> bool:
 
 
 def mr_only_one_product(*, data: TestData) -> bool:
-    """Test if a MR only contains commits for its product"""
-    config: Dict[str, Any] = data.config
-    pull_request: PullRequest = data.pull_request
+    """Test if a PR only contains commits for its product"""
     success: bool = True
-    should_fail: bool = config['fail']
+    should_fail: bool = data.config['fail']
     err_log: str = get_err_log(should_fail)
-    mr_regex: str = config['mr_title_regex']
-    commit_regex: str = config['commit_regex']
-    mr_title_match: Any = re.match(mr_regex, pull_request.title)
-    if mr_title_match is None:
+    pr_match: Any = re.match(data.syntax.regex, data.pull_request.title)
+    pr_product: str = pr_match.group(data.syntax.match_groups['product'])
+    if pr_match is None:
         log(err_log,
-            'MR title is not syntax compliant: %s',
-            pull_request.title)
+            'PR title is not syntax compliant: %s',
+            data.pull_request.title)
         success = False
     else:
-        commits: Any = pull_request.commits()
+        commits: Any = data.pull_request.commits()
         for commit in commits:
-            commit_title_match: Any = re.match(commit_regex, commit.title)
-            if commit_title_match is None:
+            commit_match: Any = re.match(data.syntax.regex, commit.title)
+            if commit_match is None:
                 log(err_log,
                     'Commit title is not syntax compliant:\n%s',
                     commit.title)
                 success = False
             else:
-                if commit_title_match.group(1) not in mr_title_match.group(1):
+                commit_product: str = \
+                    commit_match.group(data.syntax.match_groups['product'])
+                if commit_product not in pr_product:
                     log(err_log,
                         'All associated commits must '
-                        'have the same product as the MR.\n'
-                        'MR product: %s\n'
+                        'have the same product as the PR.\n'
+                        'PR product: %s\n'
                         'Commit product: %s',
-                        mr_title_match.group(1),
-                        commit_title_match.group(1))
+                        pr_product,
+                        commit_product)
                     success = False
     return success or not should_fail

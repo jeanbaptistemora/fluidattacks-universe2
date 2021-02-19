@@ -69,5 +69,3 @@ platform = 'gitlab'
   [tests.mr_only_one_product]
     fail = true
     close_mr = true
-    commit_regex = '^(airs|all|asserts|common|forces|integrates|melts|observes|reviews|serves|skims|sorts|teaches)\\(\w*)\((\w*)\):\s(#[1-9]\d*)(.\d+)?\s(.*)$'
-    mr_title_regex = '^(airs|all|asserts|common|forces|integrates|melts|observes|reviews|serves|skims|sorts|teaches)\\(\w*)\((\w*)\):\s(#[1-9]\d*)(.\d+)?\s(.*)$'
