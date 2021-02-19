@@ -124,7 +124,8 @@ def extract_info_from_event_dict(event_dict: EventType) -> EventType:
     return event_dict
 
 
-async def send_unsolved_events_email(project: str) -> None:
+async def send_unsolved_events_email(context: Any, project: str) -> None:
+    organization_loader = context.organization
     mail_to = []
     events_info_for_email = []
     project_info = await project_domain.get_attributes(
@@ -145,7 +146,8 @@ async def send_unsolved_events_email(project: str) -> None:
             for x in unsolved_events
         ]
     org_id = await org_domain.get_id_for_group(project)
-    org_name = await org_domain.get_name_by_id(org_id)
+    organization = await organization_loader.load(org_id)
+    org_name = organization['name']
     context_event: MailContentType = {
         'project': project.capitalize(),
         'organization': org_name,
@@ -619,6 +621,8 @@ async def get_remediated_findings() -> None:
 
 async def get_new_releases() -> None:  # pylint: disable=too-many-locals
     """Summary mail send with findings that have not been released yet."""
+    context = get_new_context()
+    organization_loader = context.organization
     msg = '[scheduler]: get_new_releases is running'
     LOGGER.warning(msg, extra=dict(extra=None))
     test_projects = FI_TEST_PROJECTS.split(',')
@@ -644,7 +648,8 @@ async def get_new_releases() -> None:  # pylint: disable=too-many-locals
                     is_finding_released = finding_filters.is_released(finding)
                     if not is_finding_released:
                         org_id = await org_domain.get_id_for_group(project)
-                        org_name = await org_domain.get_name_by_id(org_id)
+                        organization = await organization_loader.load(org_id)
+                        org_name = organization['name']
                         submission = finding.get('historicState')
                         status = submission[-1].get('state')
                         category = (
@@ -693,11 +698,12 @@ async def get_new_releases() -> None:  # pylint: disable=too-many-locals
 
 async def send_unsolved_to_all() -> None:
     """Send email with unsolved events to all projects """
+    context = get_new_context()
     msg = '[scheduler]: send_unsolved_to_all is running'
     LOGGER.warning(msg, extra=dict(extra=None))
     projects = await project_domain.get_active_projects()
     await collect(
-        send_unsolved_events_email(project)
+        send_unsolved_events_email(context, project)
         for project in projects
     )
 
