@@ -273,6 +273,7 @@ $codeyellow: rgba(230, 219, 116, 1);
 .h-slide-bt { height: 0.25rem; }
 .slide-bt-trans { transition: background-color 0.6s ease; }
 .advisories-grid { grid-template-columns: repeat(2, minmax(25rem, 1fr)); }
+.indexof-grid { grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr)); }
 .grid { display: grid; }
 .table-center { margin: 0 auto !important;}
 .halign-center { text-align: center; }
