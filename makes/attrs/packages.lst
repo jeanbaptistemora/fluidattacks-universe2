@@ -22,6 +22,7 @@ integrates.front.lint.eslint
 integrates.front.lint.stylelint
 integrates.front.lint.tslint
 integrates.front.test
+integrates.lambda.send-mail-notification
 integrates.mobile.config.dev-runtime
 integrates.mobile.lint
 integrates.mobile.test

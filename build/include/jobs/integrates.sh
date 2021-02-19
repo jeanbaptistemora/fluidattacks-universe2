@@ -307,7 +307,6 @@ function job_integrates_back_test_functional {
 function job_integrates_back_build_lambdas_production {
       pushd integrates \
     &&  helper_integrates_back_build_lambda 'send_mail_notification' \
-    &&  helper_integrates_back_build_lambda 'project_to_pdf' \
   &&  popd \
   || return 1
 }
