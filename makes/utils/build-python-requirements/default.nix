@@ -32,8 +32,12 @@ let
   );
 in
 makeDerivation {
+  arguments = {
+    envRequirementsFile = nix.listToFileWithTrailinNewLine requirementsList;
+  };
   builder = path "/makes/utils/build-python-requirements/builder.sh";
-  buildInputs = dependencies ++ [ pkgs.git python ];
-  envRequirementsFile = nix.listToFileWithTrailinNewLine requirementsList;
   name = "build-python-requirements-${name}";
+  searchPaths = {
+    envPaths = dependencies ++ [ pkgs.gcc pkgs.git python ];
+  };
 }

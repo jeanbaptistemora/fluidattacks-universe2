@@ -11,16 +11,18 @@ let
   makeDerivation = import (path "/makes/utils/make-derivation") path pkgs;
 in
 makeDerivation {
-  builder = path "/makes/utils/build-python-lambda/builder.sh";
-  buildInputs = [
-    pkgs.zip
-  ];
-  envRequirements = buildPythonRequirements {
-    inherit dependencies;
-    inherit name;
-    inherit python;
-    inherit requirements;
+  arguments = {
+    envRequirements = buildPythonRequirements {
+      inherit dependencies;
+      inherit name;
+      inherit python;
+      inherit requirements;
+    };
+    envSource = source;
   };
-  envSource = source;
+  builder = path "/makes/utils/build-python-lambda/builder.sh";
   name = "build-python-lambda-for-${name}";
+  searchPaths = {
+    envPaths = [ pkgs.zip ];
+  };
 }

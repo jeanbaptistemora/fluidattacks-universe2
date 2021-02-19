@@ -5,9 +5,11 @@
 , ...
 } @ _:
 makeDerivation reviewsPkgs {
+  arguments = {
+    envUtilsLintPython = import (path "/makes/utils/lint-python") path reviewsPkgs;
+    envReviewsRuntime = packages.reviews.runtime;
+    envSrcReviews = path "/reviews/src/";
+  };
   builder = path "/makes/packages/reviews/lint/builder.sh";
-  envUtilsLintPython = import (path "/makes/utils/lint-python") path reviewsPkgs;
-  envReviewsRuntime = packages.reviews.runtime;
-  envSrcReviews = path "/reviews/src/";
   name = "reviews-lint";
 }

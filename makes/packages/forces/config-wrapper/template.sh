@@ -8,8 +8,6 @@ function forces_setup_wrapper {
 }
 
 function forces {
-  export SSL_CERT_FILE='__envCacert__/etc/ssl/certs/ca-bundle.crt'
-
   '__envPython__' '__envForces__' "$@"
 }
 

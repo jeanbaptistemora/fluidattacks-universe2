@@ -3,42 +3,51 @@
 
 path: pkgs:
 
-__attrs:
+{ arguments ? { }
+, builder
+, name
+, searchPaths ? { }
+}:
 let
   nix = import (path "/makes/utils/nix") path pkgs;
 
   # Validate arguments
-  attrs = builtins.mapAttrs
+  arguments' = builtins.mapAttrs
     (k: v: (
       if (
         (pkgs.lib.strings.hasPrefix "__env" k) ||
-        (pkgs.lib.strings.hasPrefix "env" k) ||
-        (k == "builder") ||
-        (k == "buildInputs") ||
-        (k == "name") ||
-        (k == "searchPaths")
+        (pkgs.lib.strings.hasPrefix "env" k)
       )
       then v
-      else abort "Invalid argument: ${k}, must be one of: builder, buildInputs, name, searchPaths or start with: env or __env"
+      else abort "Invalid argument: ${k}, must start with: env or __env"
     ))
-    __attrs;
+    arguments;
 in
-pkgs.stdenv.mkDerivation (builtins.removeAttrs attrs [ "searchPaths" ] // {
+builtins.derivation (arguments' // {
   __envBashLibCommon = path "/makes/utils/common/template.sh";
   __envBashLibShopts = path "/makes/utils/shopts/template.sh";
   __envSeachPaths =
-    if attrs ? "searchPaths"
-    then import (path "/makes/utils/make-search-paths") path pkgs attrs.searchPaths
-    else "/dev/null";
-  __envStdenv = "${pkgs.stdenv}/setup";
-  builder = builtins.toFile "setup-make-derivation" ''
-    source $__envStdenv
-    source $__envBashLibShopts
-    source $__envBashLibCommon
-    source $__envSeachPaths
+    if searchPaths == { }
+    then "/dev/null"
+    else import (path "/makes/utils/make-search-paths") path pkgs searchPaths;
+  __envSeachPathsBase = pkgs.lib.strings.makeBinPath [
+    pkgs.coreutils
+    pkgs.gnugrep
+    pkgs.gnused
+  ];
+  args = [
+    (builtins.toFile "make-derivation" ''
+      source $__envBashLibShopts
+      source $__envBashLibCommon
+      export PATH=$__envSeachPathsBase
+      source $__envSeachPaths
 
-    cd "$(mktemp -d)"
+      cd "$(mktemp -d)"
 
-    ${nix.asContent attrs.builder}
-  '';
+      ${nix.asContent builder}
+    '')
+  ];
+  builder = "${pkgs.bash}/bin/bash";
+  inherit name;
+  system = "x86_64-linux";
 })

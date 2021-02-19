@@ -7,9 +7,13 @@ let
   makeDerivation = import (path "/makes/utils/make-derivation") path nixPkgs;
 in
 makeDerivation {
+  arguments = {
+    envSrc = observesPackage.packagePath;
+    envTestDir = testDir;
+  };
   builder = path "/makes/libs/observes/tester/builder.sh";
-  buildInputs = [ observesPackage.template ];
-  envSrc = observesPackage.packagePath;
-  envTestDir = testDir;
   name = "observes-tester-${observesPackage.name}";
+  searchPaths = {
+    envSources = [ observesPackage.template ];
+  };
 }

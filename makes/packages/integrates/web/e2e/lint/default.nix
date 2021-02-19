@@ -6,8 +6,10 @@
 , ...
 } @ _:
 makeDerivation integratesPkgs {
+  arguments = {
+    envSrc = path "/integrates/test_e2e/src";
+  };
   builder = path "/makes/packages/integrates/web/e2e/lint/builder.sh";
-  envSrc = path "/integrates/test_e2e/src";
   name = "integrates-web-e2e-lint";
   searchPaths = {
     envPython38Paths = [

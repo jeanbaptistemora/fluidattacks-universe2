@@ -8,7 +8,6 @@ let
 in
 makeTemplate {
   arguments = {
-    envCacert = forcesPkgs.cacert;
     envPython = "${forcesPkgs.python38}/bin/python";
     envPythonRequirements = buildPythonRequirements {
       dependencies = [ ];

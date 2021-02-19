@@ -9,14 +9,14 @@ let
   makeDerivation = import (path "/makes/utils/make-derivation") path pkgs;
 in
 makeDerivation {
+  arguments = {
+    envRequirement = requirement;
+    envRuby = ruby;
+    envSed = "${pkgs.gnused}/bin/sed";
+  };
   builder = path "/makes/utils/build-ruby-requirement/builder.sh";
-  buildInputs = dependencies ++ [
-    pkgs.cacert
-    pkgs.git
-    ruby
-  ];
-  envRequirement = requirement;
-  envRuby = ruby;
-  envSed = "${pkgs.gnused}/bin/sed";
   name = "build-ruby-requirement-${name}";
+  searchPaths = {
+    envPaths = dependencies ++ [ pkgs.git ruby ];
+  };
 }

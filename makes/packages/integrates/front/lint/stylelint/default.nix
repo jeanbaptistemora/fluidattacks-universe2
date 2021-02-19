@@ -5,13 +5,17 @@
 , ...
 } @ _:
 makeDerivation integratesPkgs {
+  arguments = {
+    envBashLibCommon = path "/makes/utils/common/template.sh";
+    envSetupIntegratesFrontDevRuntime = packages.integrates.front.config.dev-runtime;
+    envSrcIntegratesFront = path "/integrates/front";
+  };
   builder = path "/makes/packages/integrates/front/lint/stylelint/builder.sh";
-  envSetupIntegratesFrontDevRuntime = packages.integrates.front.config.dev-runtime;
-  envSrcIntegratesFront = path "/integrates/front";
   name = "integrates-front-lint-stylelint";
   searchPaths = {
     envPaths = [
       integratesPkgs.nodejs
+      integratesPkgs.bash
     ];
   };
 }

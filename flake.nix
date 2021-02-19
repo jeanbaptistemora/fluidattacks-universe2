@@ -2,7 +2,6 @@
   description = "Fluid Attacks, We hack your software!";
   inputs = {
     flakeCompat = { url = "github:edolstra/flake-compat"; flake = false; };
-    flakeUtils = { url = "github:numtide/flake-utils"; };
     srcForcesPkgs = { url = "github:NixOS/nixpkgs/a437fe25652dea5b86de63891ce9c779c6e8bb9d"; flake = false; };
     srcForcesPkgsTerraform = { url = "github:NixOS/nixpkgs/f99908924015bb83df8186b2c473919be35b43f0"; };
     srcIntegratesPkgs = { url = "github:NixOS/nixpkgs/a437fe25652dea5b86de63891ce9c779c6e8bb9d"; flake = false; };

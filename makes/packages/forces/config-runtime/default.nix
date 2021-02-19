@@ -9,7 +9,6 @@ let
 in
 makeTemplate {
   arguments = {
-    envCacert = forcesPkgs.cacert;
     envSearchPaths = makeSearchPaths [
       forcesPkgs.git
     ];

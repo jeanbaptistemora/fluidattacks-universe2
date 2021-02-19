@@ -18,7 +18,6 @@ rec {
         "aioextensions==20.9.2315218"
         "click==7.1.2"
         "GitPython==3.1.13"
-        "psycopg2==2.8.4"
         "ratelimiter==1.2.0"
         "requests==2.25.1"
       ];
@@ -86,7 +85,6 @@ rec {
         "aiohttp==3.6.2"
         "click==7.1.2"
         "nest-asyncio==1.4.1"
-        "psycopg2==2.8.4"
       ];
       inherited = [
         "aioextensions==20.8.2087641"
@@ -136,14 +134,13 @@ rec {
   postgresClient = {
     srcPath = path "/observes/common/postgres_client";
     python = {
-      direct = [
-        "psycopg2==2.8.4"
-      ];
+      direct = [ ];
       inherited = [ ];
     };
     local = [ ];
     nix = [
       nixPkgs.postgresql
+      nixPkgs.python38Packages.psycopg2
     ];
   };
 
@@ -185,14 +182,14 @@ rec {
       direct = [
         "click==7.1.2"
       ];
-      inherited = [
-        "psycopg2==2.8.4"
-      ];
+      inherited = [ ];
     };
     local = [
       "postgresClient"
     ];
-    nix = [ ];
+    nix = [
+      nixPkgs.python38Packages.psycopg2
+    ];
   };
 
   serviceTimedoctorTokens = {
@@ -338,7 +335,6 @@ rec {
         "certifi==2020.12.5"
         "chardet==3.0.4"
         "idna==2.10"
-        "psycopg2==2.8.4"
         "urllib3==1.26.3"
       ];
     };
@@ -346,7 +342,9 @@ rec {
       "postgresClient"
       "singerIO"
     ];
-    nix = [ ];
+    nix = [
+      nixPkgs.python38Packages.psycopg2
+    ];
   };
 
   streamerZohoCrmDev = {
@@ -493,15 +491,15 @@ rec {
     srcPath = path "/observes/singer/target_redshift_2";
     python = {
       direct = [ ];
-      inherited = [
-        "psycopg2==2.8.4"
-      ];
+      inherited = [ ];
     };
     local = [
       "postgresClient"
       "singerIO"
     ];
-    nix = [ ];
+    nix = [
+      nixPkgs.python38Packages.psycopg2
+    ];
   };
 
   targetRedshiftDev = {
@@ -539,7 +537,6 @@ rec {
     python = {
       direct = [
         "click==7.1.2"
-        "psycopg2==2.8.4"
       ];
       inherited = [ ];
     };

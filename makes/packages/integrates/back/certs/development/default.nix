@@ -7,6 +7,8 @@ let
 in
 makeDerivation {
   builder = path "/makes/packages/integrates/back/certs/development/builder.sh";
-  buildInputs = [ integratesPkgs.openssl ];
   name = "integrates-back-certs-development";
+  searchPaths = {
+    envPaths = [ integratesPkgs.openssl ];
+  };
 }
