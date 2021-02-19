@@ -1,4 +1,4 @@
-:slug: products/forces/install/
+:slug: products/devsecops/install/
 :description: DevSecOps agent makes use of human skills for the creation of exploits to break your build and force remediation of vulnerabilities.
 :keywords: Fluid Attacks, Products, Forces, Ethical Hacking, Pentesting, Security, DevSecOps
 :forcespage: yes
