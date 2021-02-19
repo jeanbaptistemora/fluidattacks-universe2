@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Feb 18, 2021, 05:43 PM",
+    "DateLastModified": "Feb 19, 2021, 07:28 AM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "2.0"
@@ -59,7 +59,7 @@
           "AttributeType": "S"
         },
         {
-          "AttributeName": "period",
+          "AttributeName": "subscription_period",
           "AttributeType": "N"
         },
         {
@@ -327,10 +327,10 @@
           }
         },
         {
-          "FacetName": "organization_authorization",
+          "FacetName": "organization_membership",
           "KeyAttributeAlias": {
             "PartitionKeyAlias": "USER#email",
-            "SortKeyAlias": "AUTHZ#ORG#name"
+            "SortKeyAlias": "ORG#name"
           },
           "TableData": [
             {
@@ -338,25 +338,29 @@
                 "S": "USER#test@fluidattacks.com"
               },
               "sk": {
-                "S": "AUTHZ#ORG#okada"
+                "S": "ORG#okada"
               },
               "role": {
                 "S": "group_manager"
+              },
+              "subscription_period": {
+                "N": "86400"
               }
             }
           ],
           "NonKeyAttributes": [
-            "role"
+            "role",
+            "subscription_period"
           ],
           "DataAccess": {
             "MySql": {}
           }
         },
         {
-          "FacetName": "group_authorization",
+          "FacetName": "group_membership",
           "KeyAttributeAlias": {
             "PartitionKeyAlias": "USER#email",
-            "SortKeyAlias": "AUTHZ#GROUP#name"
+            "SortKeyAlias": "GROUP#name"
           },
           "TableData": [
             {
@@ -364,71 +368,23 @@
                 "S": "USER#test@fluidattacks.com"
               },
               "sk": {
-                "S": "AUTHZ#GROUP#unittesting"
+                "S": "GROUP#unittesting"
               },
               "role": {
                 "S": "group_manager"
               },
               "responsibility": {
                 "S": "Product owner"
+              },
+              "subscription_period": {
+                "N": "86400"
               }
             }
           ],
           "NonKeyAttributes": [
             "role",
-            "responsibility"
-          ],
-          "DataAccess": {
-            "MySql": {}
-          }
-        },
-        {
-          "FacetName": "organization_subscription",
-          "KeyAttributeAlias": {
-            "PartitionKeyAlias": "USER#email",
-            "SortKeyAlias": "SUBS#ORG#name"
-          },
-          "TableData": [
-            {
-              "pk": {
-                "S": "USER#test@fluidattacks.com"
-              },
-              "sk": {
-                "S": "SUBS#ORG#okada"
-              },
-              "period": {
-                "N": "86400"
-              }
-            }
-          ],
-          "NonKeyAttributes": [
-            "period"
-          ],
-          "DataAccess": {
-            "MySql": {}
-          }
-        },
-        {
-          "FacetName": "group_subscription",
-          "KeyAttributeAlias": {
-            "PartitionKeyAlias": "USER#email",
-            "SortKeyAlias": "SUBS#GROUP#name"
-          },
-          "TableData": [
-            {
-              "pk": {
-                "S": "USER#test@fluidattacks.com"
-              },
-              "sk": {
-                "S": "SUBS#GROUP#unittesting"
-              },
-              "period": {
-                "N": "86400"
-              }
-            }
-          ],
-          "NonKeyAttributes": [
-            "period"
+            "responsibility",
+            "subscription_period"
           ],
           "DataAccess": {
             "MySql": {}
@@ -545,7 +501,7 @@
           "FacetName": "group_historic",
           "KeyAttributeAlias": {
             "PartitionKeyAlias": "GROUP#name#HISTORIC#iso8601utc",
-            "SortKeyAlias": "GROUP#name#METADATA"
+            "SortKeyAlias": "GROUP#name"
           },
           "TableData": [
             {
@@ -553,7 +509,7 @@
                 "S": "GROUP#unittesting#HISTORIC#2021-02-15T14:01:16Z"
               },
               "sk": {
-                "S": "GROUP#unittesting#METADATA"
+                "S": "GROUP#unittesting"
               },
               "type": {
                 "S": "CONTINUOUS"
@@ -806,11 +762,11 @@
             }
           ],
           "NonKeyAttributes": [
+            "type",
             "modified_date",
             "modified_by",
             "parent_id",
-            "content",
-            "type"
+            "content"
           ],
           "DataAccess": {
             "MySql": {}
