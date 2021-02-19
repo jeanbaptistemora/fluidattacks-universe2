@@ -1,8 +1,9 @@
 :slug: advisories/policy/
+:categories: advisories
 :description: This Disclosure Policy describes the details referring to the parameters used by Fluid Attacks on disclosing public vulnerabilities.
 :keywords: Fluid Attacks, Disclosure, Policy, Vulnerability, CVE, ISO
 
-= Fluid Attacks Disclosure Policy
+= Disclosure Policy
 
 _This document was last updated on February 19, 2021_
 
@@ -20,10 +21,12 @@ as they are covered by a Non-Disclosure Agreement.
 
 `Fluid Attacks'` commitment is to find all vulnerabilities
 and report them as soon as possible.
-In order to accomplish this, we adhere to the link:https://www.iso.org/standard/72311.html[ISO/IEC 29147:2018] standard,
-which describes the accepted responsible disclosure guidelines
-to ensure the maximum benefit for vendors, customers
-and the community in general. This includes:
+In order to accomplish this, we adhere to the 
+link:https://www.iso.org/standard/72311.html[ISO/IEC 29147:2018] and
+link:https://www.iso.org/standard/69725.html[ISO/IEC 30111:2019]
+standards, which describes the accepted responsible disclosure and
+vulnerability handling guidelines to ensure the maximum benefit 
+for vendors, customers and the community in general. This includes:
 
 * Providing the maximum level of detail on the vulnerabilities found
 in a way that the vendors are able to reproduce the problem.
@@ -38,8 +41,8 @@ This leads to an overall risk reduction for the users.
 == Scope
 
 `Fluid Attacks` will apply this Policy
-to disclose third-party product vulnerabilities.
-We will issue CVE IDs that are not in the scope
+to disclose third-party product vulnerabilities to whom we will issue 
+CVE IDs and that are not in the scope
 of another CNA (CVE Numbering Authority).
 
 == Disclosure process
@@ -67,7 +70,7 @@ we will proceed with our link:#Responsible_disclosure[Responsible Disclosure] pr
 1. If the vendor acknowledges the report
 but there are no updates on the issue after fifteen (15) days,
 we will proceed with our link:#Responsible_disclosure[Responsible Disclosure] process.
-1. Alternatively, we can arrange
+1. Otherwise, we can arrange
 a coordinated vulnerability disclosure with the vendor.
 We suggest this to be done
 in no more than ninety (90) days after the discovery.
