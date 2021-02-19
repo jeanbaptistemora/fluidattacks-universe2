@@ -70,6 +70,7 @@ def format_group(group: GroupType) -> GroupType:
         'name': group.get('project_name'),
         'open_findings': group.get('open_findings', 0),
         'open_vulnerabilities': group.get('open_vulnerabilities', 0),
+        'organization': group.get('organization', ''),
         'project_status': status,
         'remediated_over_time': group.get('remediated_over_time', []),
         'subscription': subscription,
