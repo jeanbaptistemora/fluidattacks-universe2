@@ -34,7 +34,7 @@ async def _batch_load_fn(
             max_acceptance_severity=organization['max_acceptance_severity'],
             min_acceptance_severity=organization['min_acceptance_severity'],
             name=organization['name'],
-            pending_deletion_date=organization['pending_deletion_date'],
+            pending_deletion_date=organization.get('pending_deletion_date'),
         )
 
     return [

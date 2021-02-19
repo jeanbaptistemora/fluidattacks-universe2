@@ -519,6 +519,9 @@ def format_organization(organization: OrganizationType) -> OrganizationType:
 
     return {
         **organization,
+        'historic_max_number_acceptations': organization.get(
+            'historic_max_number_acceptations', []
+        ),
         'max_acceptance_days': organization.get(
             'max_acceptance_days',
             Decimal(0)
