@@ -1,7 +1,5 @@
 # shellcheck shell=bash
 
-source "__envSearchPaths__"
-
 function main {
   export CI_COMMIT_REF_NAME
   export CI_COMMIT_SHA

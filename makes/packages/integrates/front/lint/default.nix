@@ -1,12 +1,10 @@
 { integratesPkgs
+, makeDerivation
 , packages
 , path
 , ...
 } @ _:
-let
-  makeDerivation = import (path "/makes/utils/make-derivation") path integratesPkgs;
-in
-makeDerivation {
+makeDerivation integratesPkgs {
   builder = path "/makes/packages/integrates/front/lint/builder.sh";
   envBuilt = [
     packages.integrates.front.lint.eslint

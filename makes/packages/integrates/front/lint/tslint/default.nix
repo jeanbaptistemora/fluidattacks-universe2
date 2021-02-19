@@ -1,17 +1,17 @@
 { integratesPkgs
+, makeDerivation
 , packages
 , path
 , ...
 } @ _:
-let
-  makeDerivation = import (path "/makes/utils/make-derivation") path integratesPkgs;
-  makeSearchPaths = import (path "/makes/utils/make-search-paths-deprecated") path integratesPkgs;
-in
-makeDerivation {
+makeDerivation integratesPkgs {
   builder = path "/makes/packages/integrates/front/lint/tslint/builder.sh";
-  envBashLibCommon = path "/makes/utils/common/template.sh";
-  envSearchPaths = makeSearchPaths [ integratesPkgs.nodejs ];
   envSetupIntegratesFrontDevRuntime = packages.integrates.front.config.dev-runtime;
   envSrcIntegratesFront = path "/integrates/front";
   name = "integrates-front-lint-tslint";
+  searchPaths = {
+    envPaths = [
+      integratesPkgs.nodejs
+    ];
+  };
 }

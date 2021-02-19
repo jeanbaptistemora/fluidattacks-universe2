@@ -1,8 +1,5 @@
 # shellcheck shell=bash
 
-source "${envBashLibCommon}"
-source "${envSearchPaths}"
-
 function main {
 
       copy "${envSrcIntegratesFront}" "${out}" \

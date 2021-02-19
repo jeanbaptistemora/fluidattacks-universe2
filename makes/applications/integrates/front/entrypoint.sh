@@ -1,7 +1,5 @@
 # shellcheck shell=bash
 
-source "__envSearchPaths__"
-
 function main {
   export INTEGRATES_DEPLOYMENT_DATE
 

@@ -1,8 +1,5 @@
 # shellcheck shell=bash
 
-source '__envUtilsAws__'
-source '__envUtilsCommon__'
-
 function main {
   export CI_COMMIT_REF_NAME
   local env='development'
