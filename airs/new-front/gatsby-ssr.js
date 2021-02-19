@@ -4,11 +4,18 @@ export const onRenderBody = (
   pluginOptions
 ) => {
   setHeadComponents([
+    <script
+      id={"Cookiebot"}
+      src={"https://consent.cookiebot.com/uc.js"}
+      data-cbid={"9c4480b4-b8ae-44d8-9c6f-6300b86e9094"}
+      data-blockingmode={"auto"}
+      type={"text/javascript"}
+    />,
     // Cloudflare Web Analytics
     <script
       defer
-      src="https://static.cloudflareinsights.com/beacon.min.js"
-      data-cf-beacon='{"token": "f4f99c985c414a5591e8077bf301b39b"}'
+      src={"https://static.cloudflareinsights.com/beacon.min.js"}
+      data-cf-beacon={'{"token": "f4f99c985c414a5591e8077bf301b39b"}'}
     />,
   ]);
   setPostBodyComponents([

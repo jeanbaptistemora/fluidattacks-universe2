@@ -1,3 +1,4 @@
+import { Layout } from "../components/layout";
 import { NavbarComponent } from "../components/navbar";
 import React from "react";
 
@@ -6,9 +7,9 @@ import "../styles/index.scss";
 
 const Index: React.FC = (): JSX.Element => (
   <React.StrictMode>
-    <div id={"main"}>
+    <Layout>
       <NavbarComponent />
-    </div>
+    </Layout>
   </React.StrictMode>
 );
 

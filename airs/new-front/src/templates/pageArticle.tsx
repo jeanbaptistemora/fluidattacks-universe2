@@ -8,6 +8,7 @@
 /* eslint import/no-default-export:0 */
 /* eslint @typescript-eslint/no-invalid-void-type:0 */
 /* eslint @typescript-eslint/no-confusing-void-expression:0 */
+import { Layout } from "../components/layout";
 import { NavbarComponent } from "../components/navbar";
 import React from "react";
 import { graphql } from "gatsby";
@@ -35,15 +36,19 @@ interface IQueryData {
 const DefaultPage: React.FC<IQueryData> = ({
   data,
 }: IQueryData): JSX.Element => (
-  <React.Fragment>
-    <NavbarComponent />
+  <React.StrictMode>
+    <Layout>
+      <div>
+        <NavbarComponent />
 
-    <div>
-      <h1>{data.asciidoc.document.title}</h1>
+        <article>
+          <h1>{data.asciidoc.document.title}</h1>
 
-      <div dangerouslySetInnerHTML={{ __html: data.asciidoc.html }} />
-    </div>
-  </React.Fragment>
+          <div dangerouslySetInnerHTML={{ __html: data.asciidoc.html }} />
+        </article>
+      </div>
+    </Layout>
+  </React.StrictMode>
 );
 
 export default DefaultPage;

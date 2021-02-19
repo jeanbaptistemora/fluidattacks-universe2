@@ -147,7 +147,23 @@ const SubcategoryLink: StyledComponent<
     `,
 })``;
 
+const CopyrightParagraph: StyledComponent<
+  "p",
+  Record<string, unknown>
+> = styled.p.attrs({
+  className: `
+    c-fluid-bk
+    b
+    f6
+    fw2
+    roboto
+    pv3
+    mv0
+  `,
+})``;
+
 export {
+  CopyrightParagraph,
   NavbarSubcategory,
   NavbarContactButton,
   NavbarContainer,
