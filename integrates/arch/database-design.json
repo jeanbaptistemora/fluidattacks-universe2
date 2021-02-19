@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Feb 19, 2021, 08:49 AM",
+    "DateLastModified": "Feb 19, 2021, 09:48 AM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "2.0"
@@ -624,7 +624,7 @@
           }
         },
         {
-          "FacetName": "root",
+          "FacetName": "root_metadata",
           "KeyAttributeAlias": {
             "PartitionKeyAlias": "GROUP#name",
             "SortKeyAlias": "ROOT#uuid"
@@ -632,17 +632,8 @@
           "TableData": [],
           "NonKeyAttributes": [
             "type",
-            "status",
-            "modified_date",
             "branch",
-            "url",
-            "environment",
-            "environment_urls",
-            "gitignore",
-            "includes_health_check",
-            "modified_by",
-            "cloning_status",
-            "cloning_message"
+            "url"
           ],
           "DataAccess": {
             "MySql": {}
@@ -994,11 +985,68 @@
             }
           ],
           "NonKeyAttributes": [
+            "type",
             "modified_date",
             "modified_by",
             "parent_id",
-            "content",
-            "type"
+            "content"
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
+        },
+        {
+          "FacetName": "event_comment",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "ORG#name",
+            "SortKeyAlias": "GROUP#name#EVENT#uuid#CMNT#uuid"
+          },
+          "TableData": [
+            {
+              "pk": {
+                "S": "ORG#okada"
+              },
+              "sk": {
+                "S": "GROUP#unittesting#EVENT#01405804-4c10-400f-97b4-87661af5f0ae#CMNT#92c96802-48c5-4b6f-8bae-873f7e84f12e"
+              },
+              "modified_date": {
+                "S": "2021-02-15T14:01:16Z"
+              },
+              "modified_by": {
+                "S": "USER#test@fluidattacks.com"
+              },
+              "content": {
+                "S": "comment"
+              }
+            }
+          ],
+          "NonKeyAttributes": [
+            "modified_date",
+            "modified_by",
+            "parent_id",
+            "content"
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
+        },
+        {
+          "FacetName": "root_historic",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "ROOT#uuid#HISTORIC#iso8601utc",
+            "SortKeyAlias": "ROOT#uuid"
+          },
+          "TableData": [],
+          "NonKeyAttributes": [
+            "modified_date",
+            "modified_by",
+            "environment",
+            "environment_urls",
+            "gitignore",
+            "includes_health_check",
+            "status",
+            "cloning_status",
+            "cloning_message"
           ],
           "DataAccess": {
             "MySql": {}
