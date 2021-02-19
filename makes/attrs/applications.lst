@@ -11,6 +11,7 @@ integrates.analytics.snapshots
 integrates.back
 integrates.back.deploy.dev
 integrates.back.deploy.prod
+integrates.back.destroy.eph
 integrates.cache
 integrates.db
 integrates.front

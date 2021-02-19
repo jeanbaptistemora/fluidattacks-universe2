@@ -138,6 +138,11 @@ integrates.back.deploy.prod:
     name: production
     url: https://integrates.fluidattacks.com
 
+integrates.back.destroy.eph:
+  <<: *makes
+  <<: *in_schedule_nightly_build_integrates
+  stage: rotation
+
 integrates.front.deploy-development:
   <<: *in_dev_branch_integrates
   <<: *integrates_front_deploy
@@ -379,11 +384,6 @@ integrates_coverage_report:
     - integrates.mobile.test
   stage: external
   retry: 1
-
-integrates_back_clean_development_environments:
-  <<: *with_nix
-  <<: *in_schedule_nightly_build_integrates
-  stage: rotation
 
 integrates_mobile_deploy_ota_production:
   <<: *with_nix
