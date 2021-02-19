@@ -31,9 +31,6 @@ rec {
   srcIncludeHelpersObserves = ../include/helpers/observes.sh;
   srcIncludeObservesJobs = ../include/jobs/observes.sh;
 
-  # Reviews
-  srcIncludeReviewsJobs = ../include/jobs/reviews.sh;
-
   # Services
   srcIncludeHelpersServices = ../include/helpers/services.sh;
 }

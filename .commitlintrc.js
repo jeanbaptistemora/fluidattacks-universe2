@@ -1,20 +1,24 @@
+const HEADERLENGTHMAX = 60;
+const LINELENGTHMAX = 72;
+const BODYLENGTHMIN = 15;
+
 module.exports = {
   parserPreset: './.commitlint-parser-preset',
   rules: {
 
     // Body
-    'body-leading-blank':   [2, 'always'],     // blank line between header and body
-    'body-empty':           [2, 'never'],      // body cannot be empty
-    'body-max-line-length': [2, 'always', 72], // body lines max chars 72
-    'body-min-length' :     [2, 'always', 15], // body more than 15 chars
+    'body-leading-blank':   [2, 'always'],                // blank line between header and body
+    'body-empty':           [2, 'never'],                 // body cannot be empty
+    'body-max-line-length': [2, 'always', LINELENGTHMAX], // body lines max chars LINELENGTHMAX
+    'body-min-length' :     [2, 'always', BODYLENGTHMIN], // body more than BODYLENGTHMIN chars
 
     // Footer
-    'footer-leading-blank':   [2, 'always'],     // blank line between body and footer
-    'footer-max-line-length': [2, 'always', 72], // footer lines max chars 72
+    'footer-leading-blank':   [2, 'always'],                // blank line between body and footer
+    'footer-max-line-length': [2, 'always', LINELENGTHMAX], // footer lines max chars LINELENGTHMAX
 
     // Header
-    'header-case':       [2, 'always', 'lower-case'], // header lower case
-    'header-max-length': [2, 'always', 60],           // header max chars 60
+    'header-case':       [2, 'always', 'lower-case'],    // header lower case
+    'header-max-length': [2, 'always', HEADERLENGTHMAX], // header max chars HEADERLENGTHMAX
 
     // Scope
     'scope-empty': [2, 'never'], // scope always

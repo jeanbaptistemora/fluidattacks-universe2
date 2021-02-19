@@ -22,8 +22,6 @@ source "${srcIncludeIntegratesJobs}"
 source "${srcIncludeHelpersObserves}"
 source "${srcIncludeObservesJobs}"
 
-source "${srcIncludeReviewsJobs}"
-
 source "${srcIncludeHelpersServices}"
 
 function cli {
