@@ -706,3 +706,12 @@ class StakeholderHasGroupAccess(Exception):
             'the group previously'
         )
         super(StakeholderHasGroupAccess, self).__init__(msg)
+
+
+class InvalidSource(Exception):
+    """Exception to control if the source is valid."""
+
+    def __init__(self) -> None:
+        """ Constructor """
+        msg = 'Exception - Invalid source'
+        super(InvalidSource, self).__init__(msg)

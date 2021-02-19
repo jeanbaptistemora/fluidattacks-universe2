@@ -49,6 +49,7 @@ from backend.dal.helpers.redis import (
 from backend.exceptions import (
     ExpiredToken,
     InvalidAuthorization,
+    InvalidSource,
 )
 from backend.model import redis_model
 from backend.typing import (
@@ -189,6 +190,15 @@ async def get_jwt_content(context) -> Dict[str, str]:  # noqa: MC0001
     else:
         store[context_store_key] = content
         return content
+
+
+def get_source(context: Any) -> str:
+    headers = context.headers
+    source = headers.get('x-integrates-source', 'integrates')
+    if source not in {'integrates', 'skims'}:
+        raise InvalidSource()
+
+    return source
 
 
 def iterate_s3_keys(client, bucket: str, prefix: str) -> Iterator[str]:
