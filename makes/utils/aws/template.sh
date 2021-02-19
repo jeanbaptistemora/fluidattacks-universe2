@@ -23,13 +23,16 @@ function aws_login_dev {
 function aws_login_prod {
   local key="${1^^}_PROD_AWS_ACCESS_KEY_ID"
   local secret="${1^^}_PROD_AWS_SECRET_ACCESS_KEY"
-  export AWS_ACCESS_KEY_ID="${!key}"
+  export AWS_ACCESS_KEY_ID
   export AWS_DEFAULT_REGION='us-east-1'
-  export AWS_SECRET_ACCESS_KEY="${!secret}"
+  export AWS_SECRET_ACCESS_KEY
   export TF_VAR_aws_access_key
   export TF_VAR_aws_secret_key
 
       echo '[INFO] Logging into AWS with production credentials' \
+  &&  ensure_env_vars "${key}" "${secret}" \
+  &&  AWS_ACCESS_KEY_ID="${!key}" \
+  &&  AWS_SECRET_ACCESS_KEY="${!secret}" \
   &&  aws configure set 'aws_access_key_id' "${AWS_ACCESS_KEY_ID}" \
   &&  aws configure set 'aws_secret_access_key' "${AWS_SECRET_ACCESS_KEY}" \
   &&  TF_VAR_aws_access_key="${AWS_ACCESS_KEY_ID}" \
