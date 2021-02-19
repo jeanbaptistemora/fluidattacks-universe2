@@ -304,17 +304,6 @@ function job_integrates_back_test_functional {
   ||  return 1
 }
 
-function job_integrates_back_build_lambdas_production {
-      pushd integrates \
-    &&  helper_integrates_back_build_lambda 'send_mail_notification' \
-  &&  popd \
-  || return 1
-}
-
-function job_integrates_back_build_lambdas_development {
-  job_integrates_back_build_lambdas_production
-}
-
 function job_integrates_back_lint {
       pushd integrates \
   &&  env_prepare_python_packages \
