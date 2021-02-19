@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Feb 19, 2021, 09:48 AM",
+    "DateLastModified": "Feb 19, 2021, 02:08 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "2.0"
@@ -244,10 +244,6 @@
         },
         {
           "AttributeName": "specific",
-          "AttributeType": "S"
-        },
-        {
-          "AttributeName": "deletion_reason",
           "AttributeType": "S"
         },
         {
@@ -626,10 +622,28 @@
         {
           "FacetName": "root_metadata",
           "KeyAttributeAlias": {
-            "PartitionKeyAlias": "GROUP#name",
-            "SortKeyAlias": "ROOT#uuid"
+            "PartitionKeyAlias": "ORG#name",
+            "SortKeyAlias": "GROUP#name#ROOT#uuid"
           },
-          "TableData": [],
+          "TableData": [
+            {
+              "pk": {
+                "S": "ORG#okada"
+              },
+              "sk": {
+                "S": "GROUP#unittesting#ROOT#7be44c33-f03f-4d01-94ef-813b534d61ca"
+              },
+              "type": {
+                "S": "Git"
+              },
+              "branch": {
+                "S": "master"
+              },
+              "url": {
+                "S": "ssh://git@gitlab.com:fluidattacks/product"
+              }
+            }
+          ],
           "NonKeyAttributes": [
             "type",
             "branch",
@@ -862,22 +876,18 @@
           }
         },
         {
-          "FacetName": "vulnerability",
+          "FacetName": "vulnerability_metadata",
           "KeyAttributeAlias": {
-            "PartitionKeyAlias": "FINDING#uuid",
-            "SortKeyAlias": "VULN#uuid"
+            "PartitionKeyAlias": "ORG#name",
+            "SortKeyAlias": "GROUP#name#FIN#uuid#VULN#uuid"
           },
           "TableData": [],
           "NonKeyAttributes": [
             "type",
-            "status",
             "tags",
-            "modified_date",
-            "modified_by",
             "source",
             "where",
-            "specific",
-            "deletion_reason"
+            "specific"
           ],
           "DataAccess": {
             "MySql": {}
@@ -1038,15 +1048,32 @@
           },
           "TableData": [],
           "NonKeyAttributes": [
+            "status",
             "modified_date",
-            "modified_by",
             "environment",
             "environment_urls",
             "gitignore",
             "includes_health_check",
-            "status",
+            "modified_by",
             "cloning_status",
             "cloning_message"
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
+        },
+        {
+          "FacetName": "vulnerability_historic",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "VULN#uuid#HISTORIC#iso8601utc",
+            "SortKeyAlias": "VULN#uuid"
+          },
+          "TableData": [],
+          "NonKeyAttributes": [
+            "status",
+            "change_reason",
+            "modified_date",
+            "modified_by"
           ],
           "DataAccess": {
             "MySql": {}
