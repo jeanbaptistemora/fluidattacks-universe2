@@ -51,7 +51,7 @@ def run_tests(config_path: str) -> bool:
             log('info', f'Running tests.{name}')
             success = test() and success
             if not success \
-                    and args['close_mr'] \
+                    and args['close_pr'] \
                     and pull_request.raw.state not in 'closed':
                 gitlab.close_pr(pull_request)
                 log('error', 'Merge Request closed by: %s', name)

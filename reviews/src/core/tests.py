@@ -24,8 +24,8 @@ def skip_ci(pull_request: PullRequest) -> bool:
     return '[skip ci]' in pull_request.title
 
 
-def mr_under_max_deltas(*, data: TestData) -> bool:
-    """MR under max_deltas if commit is not solution"""
+def pr_under_max_deltas(*, data: TestData) -> bool:
+    """PR under max_deltas if commit is not solution"""
     success: bool = True
     should_fail: bool = data.config['fail']
     err_log: str = get_err_log(should_fail)
@@ -50,7 +50,7 @@ def mr_under_max_deltas(*, data: TestData) -> bool:
     deltas: int = diff.stats.deletions + diff.stats.insertions
     if not skip_deltas and deltas > max_deltas:
         log(err_log,
-            'MR should be under or equal to %s deltas. You MR has %s deltas',
+            'PR should be under or equal to %s deltas. You PR has %s deltas',
             max_deltas,
             deltas)
         success = False
@@ -87,20 +87,20 @@ def all_pipelines_successful(*, data: TestData) -> bool:
     return success or not should_fail
 
 
-def mr_message_syntax(*, data: TestData) -> bool:
-    """Run commitlint on MR message"""
+def pr_message_syntax(*, data: TestData) -> bool:
+    """Run commitlint on PR message"""
     success: bool = True
     should_fail: bool = data.config['fail']
     err_log: str = get_err_log(should_fail)
-    mr_commit_msg: str = \
+    pr_commit_msg: str = \
         f'{data.pull_request.title}\n\n{data.pull_request.description}'
     command: List[str] = ['commitlint']
-    proc: Any = subprocess.run(command, input=mr_commit_msg,
+    proc: Any = subprocess.run(command, input=pr_commit_msg,
                                encoding='ascii', check=False)
     if proc.returncode != 0:
         log(err_log,
             'Commitlint tests failed. '
-            'MR Message should be syntax compliant.')
+            'PR Message should be syntax compliant.')
         success = False
     return success or not should_fail
 
@@ -151,8 +151,8 @@ def most_relevant_type(*, data: TestData) -> bool:
     if success and pr_type not in highest_type:
         log(err_log,
             'The most relevant type of all commits '
-            'included in your MR is: %s\n'
-            'The type used in your MR title is: %s\n'
+            'included in your PR is: %s\n'
+            'The type used in your PR title is: %s\n'
             'Please make sure to change it.\n\n'
             'The relevance order is (from highest to lowest):\n\n%s',
             highest_type,
@@ -163,7 +163,7 @@ def most_relevant_type(*, data: TestData) -> bool:
 
 
 def commits_user_syntax(*, data: TestData) -> bool:
-    """Test if usernames of all commits associated to MR are compliant"""
+    """Test if usernames of all commits associated to PR are compliant"""
     success: bool = True
     should_fail: bool = data.config['fail']
     err_log: str = get_err_log(should_fail)
@@ -188,8 +188,8 @@ def commits_user_syntax(*, data: TestData) -> bool:
     return success or not should_fail
 
 
-def mr_user_syntax(*, data: TestData) -> bool:
-    """Test if username of mr author is compliant"""
+def pr_user_syntax(*, data: TestData) -> bool:
+    """Test if username of PR author is compliant"""
     success: bool = True
     should_fail: bool = data.config['fail']
     err_log: str = get_err_log(should_fail)
@@ -209,8 +209,8 @@ def mr_user_syntax(*, data: TestData) -> bool:
     return success or not should_fail
 
 
-def max_commits_per_mr(*, data: TestData) -> bool:
-    """Only one commit per MR"""
+def pr_max_commits(*, data: TestData) -> bool:
+    """Only one commit per PR"""
     success: bool = True
     should_fail: bool = data.config['fail']
     err_log: str = get_err_log(should_fail)
@@ -219,8 +219,8 @@ def max_commits_per_mr(*, data: TestData) -> bool:
     if commit_number > max_commits:
         success = False
         log(err_log,
-            'This MR adds %s commits.\n'
-            'A maximum of %s commits per MR are recommended.\n'
+            'This PR adds %s commits.\n'
+            'A maximum of %s commits per PR are recommended.\n'
             'Make sure to use git squash',
             commit_number,
             max_commits)
@@ -228,28 +228,27 @@ def max_commits_per_mr(*, data: TestData) -> bool:
 
 
 def close_issue_directive(*, data: TestData) -> bool:
-    """Test if a MR has an issue different from #0 without a Close directive"""
+    """Test if a PR has an issue different from #0 without a Close directive"""
     success: bool = True
     should_fail: bool = data.config['fail']
     err_log: str = get_err_log(should_fail)
-    mr_title_regex: str = data.config['mr_title_regex']
-    mr_title_match: Any = re.match(mr_title_regex, data.pull_request.title)
-
-    if mr_title_match is None:
+    pr_match: Any = re.match(data.syntax.regex, data.pull_request.title)
+    pr_issue: str = pr_match.group(data.syntax.match_groups['issue'])
+    if pr_match is None:
         success = False
-    if success and mr_title_match.group(4) not in '#0' \
-            and 'Closes #' not in data.pull_request.description:
+    if success and pr_issue not in '#0' \
+            and f'Closes {pr_issue}' not in data.pull_request.description:
         log(err_log,
-            'This MR is referencing issue %s '
+            'This PR is referencing issue %s '
             'but it does not have a: Close %s '
             'in its footer. Was this intentional?',
-            mr_title_match.group(4),
-            mr_title_match.group(4))
+            pr_issue,
+            pr_issue)
         success = False
     return success or not should_fail
 
 
-def mr_only_one_product(*, data: TestData) -> bool:
+def pr_only_one_product(*, data: TestData) -> bool:
     """Test if a PR only contains commits for its product"""
     success: bool = True
     should_fail: bool = data.config['fail']

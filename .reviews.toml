@@ -17,26 +17,26 @@ platform = 'gitlab'
 
   [tests.all_pipelines_successful]
     fail = true
-    close_mr = true
+    close_pr = true
     job_name = 'makes.review-mr'
 
-  [tests.mr_message_syntax]
+  [tests.pr_message_syntax]
     fail = true
-    close_mr = true
+    close_pr = true
 
   [tests.branch_equals_to_user]
     fail = true
-    close_mr = true
+    close_pr = true
 
-  [tests.mr_under_max_deltas]
+  [tests.pr_under_max_deltas]
     fail = true
-    close_mr = true
+    close_pr = true
     max_deltas = 100
     repo_path = '.'
 
   [tests.most_relevant_type]
     fail = true
-    close_mr = true
+    close_pr = true
     [tests.most_relevant_type.relevances]
       rever = 1
       feat = 2
@@ -48,24 +48,23 @@ platform = 'gitlab'
 
   [tests.commits_user_syntax]
     fail = true
-    close_mr = true
+    close_pr = true
     user_regex = '^[A-Z][a-z]+ [A-Z][a-z]+$'
 
-  [tests.mr_user_syntax]
+  [tests.pr_user_syntax]
     fail = true
-    close_mr = true
+    close_pr = true
     user_regex = '^[A-Z][a-z]+ [A-Z][a-z]+$'
 
-  [tests.max_commits_per_mr]
+  [tests.pr_max_commits]
     fail = false
-    close_mr = false
+    close_pr = false
     max_commits = 1
 
   [tests.close_issue_directive]
     fail = false
-    close_mr = false
-    mr_title_regex = '^(airs|all|asserts|common|forces|integrates|melts|observes|reviews|serves|skims|sorts|teaches)\\(\w*)\((\w*)\):\s(#[1-9]\d*)(.\d+)?\s(.*)$'
+    close_pr = false
 
-  [tests.mr_only_one_product]
+  [tests.pr_only_one_product]
     fail = true
-    close_mr = true
+    close_pr = true

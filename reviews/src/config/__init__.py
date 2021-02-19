@@ -48,7 +48,7 @@ def validate_base(config: Dynaconf) -> None:
     tests: List[str] = list(config['tests'].keys())
     for test in tests:
         config.validators.register(
-            Validator(f'tests.{test}.fail', f'tests.{test}.close_mr',
+            Validator(f'tests.{test}.fail', f'tests.{test}.close_pr',
                       must_exist=True, is_type_of=bool, messages=ERR_DEFAULT),
         )
 
@@ -56,7 +56,7 @@ def validate_base(config: Dynaconf) -> None:
 def validate_specific(config: Dynaconf) -> None:
     tests: List[str] = list(config['tests'].keys())
     for test in tests:
-        if test in ('commits_user_syntax', 'mr_user_syntax'):
+        if test in ('commits_user_syntax', 'pr_user_syntax'):
             config.validators.register(
                 Validator(f'tests.{test}.user_regex', must_exist=True,
                           is_type_of=str, messages=ERR_DEFAULT),
@@ -67,7 +67,7 @@ def validate_specific(config: Dynaconf) -> None:
                           must_exist=True, is_type_of=str,
                           messages=ERR_DEFAULT),
             )
-        elif test in 'mr_under_max_deltas':
+        elif test in 'pr_under_max_deltas':
             config.validators.register(
                 Validator(f'tests.{test}.max_deltas', must_exist=True,
                           is_type_of=int, messages=ERR_DEFAULT),
@@ -82,15 +82,10 @@ def validate_specific(config: Dynaconf) -> None:
                                     'condition': '{name} invalid. '
                                     'All values must be int'}),
             )
-        elif test in 'max_commits_per_mr':
+        elif test in 'pr_max_commits':
             config.validators.register(
                 Validator(f'tests.{test}.max_commits', must_exist=True,
                           is_type_of=int, messages=ERR_DEFAULT),
-            )
-        elif test in 'close_issue_directive':
-            config.validators.register(
-                Validator(f'tests.{test}.mr_title_regex', must_exist=True,
-                          is_type_of=str, messages=ERR_DEFAULT),
             )
     config.validators.validate()
 
