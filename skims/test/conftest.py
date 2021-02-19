@@ -88,9 +88,11 @@ def test_group(
     test_branch: str,  # pylint: disable=redefined-outer-name
 ) -> Iterator[str]:
     mapping: Dict[str, str] = {
+        'acaguirreatfluid': 'worcester',
         'kamadoatfluid': 'worcester',
         'master': 'wausau',
     } if os.environ.get('CI') else {
+        'acaguirreatfluid': 'magdalena',
         'kamadoatfluid': 'magdalena',
         'master': 'djibo',
     }

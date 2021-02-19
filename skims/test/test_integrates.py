@@ -31,7 +31,8 @@ async def test_client(
     async with graphql_client() as client:
         # pylint: disable=protected-access
         assert client.session._default_headers == {
-            'authorization': f'Bearer {test_integrates_api_token}'
+            'authorization': f'Bearer {test_integrates_api_token}',
+            'x-integrates-source': 'skims'
         }
 
 
