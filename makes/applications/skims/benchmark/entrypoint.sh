@@ -6,7 +6,7 @@ source '__envUtilsBashLibSops__'
 
 function owasp {
   local benchmark_local_repo="${PWD}/../owasp_benchmark"
-  local cache_local="${HOME}/.skims/cache"
+  local cache_local="${HOME_IMPURE}/.skims/cache"
   local cache_remote="s3://skims.data/cache/owasp_benchmark"
   export EXPECTED_RESULTS_CSV="${benchmark_local_repo}/expectedresults-1.2.csv"
   export PRODUCED_RESULTS_CSV="${PWD}/results.csv"

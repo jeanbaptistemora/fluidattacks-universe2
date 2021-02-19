@@ -6,7 +6,7 @@ source '__envUtilsBashLibAws__'
 
 function main {
   local benchmark_local_repo="${PWD}/../owasp_benchmark"
-  local cache_local="${HOME}/.skims/cache"
+  local cache_local="${HOME_IMPURE}/.skims/cache"
   local cache_remote="s3://skims.data/cache/${CI_COMMIT_REF_NAME}"
   local skims_test_group="${1:-all}"
 
