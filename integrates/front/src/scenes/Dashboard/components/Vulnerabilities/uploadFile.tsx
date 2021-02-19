@@ -125,6 +125,13 @@ export const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
         msgError(translate.t("group_alerts.invalid_n_of_vulns"));
       } else if (message === "Exception - Error Uploading File to S3") {
         msgError(translate.t("group_alerts.error_textsad"));
+      } else if (message === "Exception - Invalid Stream") {
+        translate.t("group_alerts.invalid_schema");
+        msgError(
+          translate.t(
+            "search_findings.tab_vuln.alerts.uploadFile.invalidStream"
+          )
+        );
       } else {
         msgError(translate.t("group_alerts.invalid_specific"));
         Logger.warning(message);

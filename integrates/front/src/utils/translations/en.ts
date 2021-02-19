@@ -1926,6 +1926,7 @@ export const enTranslations: ResourceKey = {
           "Vulnerability has been accepted the maximum number of times allowed by the organization",
         treatmentChange: "Vulnerability treatment will be changed",
         uploadFile: {
+          invalidStream: "Invalid stream, it must start with 'home'",
           key: "Key '{{key}}' is missing or invalid. ",
           value: "Value is invalid, pattern '{{pattern}}'. ",
         },

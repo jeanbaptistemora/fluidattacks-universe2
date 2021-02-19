@@ -122,6 +122,14 @@ class InvalidSchema(Exception):
         super(InvalidSchema, self).__init__(msg)
 
 
+class InvalidStream(Exception):
+    """Exception to control stream validation."""
+    def __init__(self) -> None:
+        """ Constructor """
+        msg = 'Exception - Invalid Stream'
+        super(InvalidStream, self).__init__(msg)
+
+
 class InvalidFileSize(Exception):
     """Exception to control file size."""
     def __init__(self) -> None:
