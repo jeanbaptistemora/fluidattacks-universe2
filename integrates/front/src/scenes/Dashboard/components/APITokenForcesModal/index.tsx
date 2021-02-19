@@ -32,9 +32,9 @@ const apiTokenForcesModal: React.FC<IAPITokenForcesModalProps> = (
   const [getApiToken, getTokenCalled, getTokenData, getTokenLoading] = useGetAPIToken(groupName);
   const [updateApiToken, updateResponse] = useUpdateAPIToken();
 
-  const currentToken: string | undefined = Boolean(getTokenData?.project.forcesToken) ?
-    getTokenData?.project.forcesToken :
-    updateResponse.data?.updateForcesAccessToken.sessionJwt;
+  const currentToken: string | undefined = Boolean(updateResponse.data) ?
+    updateResponse.data?.updateForcesAccessToken.sessionJwt :
+    getTokenData?.project.forcesToken;
 
   const handleUpdateAPIToken: () => void = () => {
     void updateApiToken({ variables: { groupName } });
