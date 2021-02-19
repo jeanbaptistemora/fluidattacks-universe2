@@ -6,7 +6,6 @@ stdenv.mkDerivation {
   repoAsserts = ./asserts;
   repoBuild = ./build;
   repoObserves = ./observes;
-  repoReviews = ./reviews;
 
   src = ./bin;
 
@@ -18,6 +17,5 @@ stdenv.mkDerivation {
     cp -r "$repoAsserts" "$out/asserts"
     cp -r "$repoBuild" "$out/build"
     cp -r "$repoObserves" "$out/observes"
-    cp -r "$repoReviews" "$out/reviews"
   '';
 }
