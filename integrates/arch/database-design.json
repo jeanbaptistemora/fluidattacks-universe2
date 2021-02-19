@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Feb 19, 2021, 07:28 AM",
+    "DateLastModified": "Feb 19, 2021, 08:49 AM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "2.0"
@@ -727,9 +727,6 @@
               "sk": {
                 "S": "GROUP#unittesting#CMNT#8207c89a-27e2-4abe-9367-3ffea7856a4d"
               },
-              "type": {
-                "S": "CONSULT"
-              },
               "modified_date": {
                 "S": "2021-02-15T14:01:16Z"
               },
@@ -745,10 +742,7 @@
                 "S": "ORG#okada"
               },
               "sk": {
-                "S": "GROUP#unittesting#CMNT#851cbc02-416e-43c7-ad30-a2af6328f748"
-              },
-              "type": {
-                "S": "OBSERVATION"
+                "S": "GROUP#unittesting#CMNT#726ed18c-97e9-487a-8fa9-eed31c54fb74"
               },
               "modified_date": {
                 "S": "2021-02-15T14:01:16Z"
@@ -756,13 +750,15 @@
               "modified_by": {
                 "S": "USER#test@fluidattacks.com"
               },
+              "parent_id": {
+                "S": "GROUP#unittesting#CMNT#8207c89a-27e2-4abe-9367-3ffea7856a4d"
+              },
               "content": {
-                "S": "comment"
+                "S": "reply"
               }
             }
           ],
           "NonKeyAttributes": [
-            "type",
             "modified_date",
             "modified_by",
             "parent_id",
@@ -944,6 +940,65 @@
             "status",
             "modified_date",
             "modified_by"
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
+        },
+        {
+          "FacetName": "finding_comment",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "ORG#name",
+            "SortKeyAlias": "GROUP#name#FIN#uuid#CMNT#uuid"
+          },
+          "TableData": [
+            {
+              "pk": {
+                "S": "ORG#okada"
+              },
+              "sk": {
+                "S": "GROUP#unittesting#FIN#a0fddb36-ac0d-4a58-969f-b13194af61c2#CMNT#8707b47e-6fe7-4099-b3cf-961508bb4c41"
+              },
+              "type": {
+                "S": "CONSULT"
+              },
+              "modified_date": {
+                "S": "2021-02-15T14:01:16Z"
+              },
+              "modified_by": {
+                "S": "USER#test@fluidattacks.com"
+              },
+              "content": {
+                "S": "comment"
+              }
+            },
+            {
+              "pk": {
+                "S": "ORG#okada"
+              },
+              "sk": {
+                "S": "GROUP#unittesting#FIN#a0fddb36-ac0d-4a58-969f-b13194af61c2#CMNT#729ec222-23ff-4918-b2f5-b30fc9cd98f7"
+              },
+              "type": {
+                "S": "OBSERVATION"
+              },
+              "modified_date": {
+                "S": "2021-02-15T14:01:16Z"
+              },
+              "modified_by": {
+                "S": "USER#test@fluidattacks.com"
+              },
+              "content": {
+                "S": "comment"
+              }
+            }
+          ],
+          "NonKeyAttributes": [
+            "modified_date",
+            "modified_by",
+            "parent_id",
+            "content",
+            "type"
           ],
           "DataAccess": {
             "MySql": {}
