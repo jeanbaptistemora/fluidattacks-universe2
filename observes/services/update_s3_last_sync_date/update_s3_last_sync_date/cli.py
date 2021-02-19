@@ -1,6 +1,6 @@
 # Standard libraries
 import json
-from typing import IO, Optional
+from typing import IO
 
 # Third party libraries
 import click
@@ -9,7 +9,7 @@ import click
 from update_s3_last_sync_date import db_client
 
 
-no_group_jobs = frozenset([
+SINGLE_JOBS = frozenset([
     'formstack',
     'mixpanel_integrates',
     'timedoctor_backup',
@@ -18,7 +18,7 @@ no_group_jobs = frozenset([
     'zoho_crm_etl',
     'zoho_crm_prepare',
 ])
-group_jobs = frozenset([
+COMPOUND_JOBS = frozenset([
     'mirror',
 ])
 
@@ -50,19 +50,31 @@ def mirror(auth_file: IO[str], group: str) -> None:
 
 
 @click.command()
-@click.argument('job-name', type=str)
-@click.option('--auth-file', type=click.File('r'), required=True)
-@click.option('--group', type=str, default=None)
-def main(
-    auth_file: IO[str],
-    job_name: str,
-    group: Optional[str]
-) -> None:
-    if job_name in no_group_jobs:
-        update_job(auth_file, job_name)
-    elif job_name in group_jobs:
-        if not group:
-            raise MissingOption(f'--group is required for job `{job_name}`')
-        mirror(auth_file, group)
+@click.option('--auth', type=click.File('r'), required=True)
+@click.option('--job', type=str, required=True)
+def single_job(auth: IO[str], job: str) -> None:
+    if job in SINGLE_JOBS:
+        update_job(auth, job)
     else:
-        raise UnknownJob(job_name)
+        raise UnknownJob(f'single job: {job}')
+
+
+@click.command()
+@click.option('--auth', type=click.File('r'), required=True)
+@click.option('--job', type=str, required=True)
+@click.option('--child', type=str, required=True)
+def compound_job(auth: IO[str], job: str, child: str) -> None:
+    if job in COMPOUND_JOBS:
+        mirror(auth, child)
+    else:
+        raise UnknownJob(f'compound job: {job}')
+
+
+@click.group()
+def main() -> None:
+    # cli group entrypoint
+    pass
+
+
+main.add_command(single_job)
+main.add_command(compound_job)

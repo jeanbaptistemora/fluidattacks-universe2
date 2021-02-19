@@ -39,8 +39,9 @@ function job_mixpanel_integrates {
         --drop-schema \
         --schema-name "mixpanel_integrates" \
         < .singer \
-  &&  "${update_sync_date}" "mixpanel_integrates" \
-          --auth-file "${db_creds}"
+  &&  "${update_sync_date}" single-job \
+          --auth "${db_creds}" \
+          --job 'mixpanel_integrates'
 }
 
 job_mixpanel_integrates "./observes/conf/mixpanel_integrates.json"

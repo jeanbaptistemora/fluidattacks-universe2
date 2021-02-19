@@ -21,8 +21,9 @@ function job_zoho_prepare {
   &&  echo "${analytics_auth_redshift}" > "${db_creds}" \
   &&  "${streamer_zoho_crm}" init-db "${db_creds}" \
   &&  "${streamer_zoho_crm}" create-jobs "${zoho_creds}" "${db_creds}" \
-  &&  "${update_sync_date}" "zoho_crm_prepare" \
-          --auth-file "${db_creds}"
+  &&  "${update_sync_date}" single-job \
+          --auth "${db_creds}" \
+          --job 'zoho_crm_prepare'
 }
 
 job_zoho_prepare
