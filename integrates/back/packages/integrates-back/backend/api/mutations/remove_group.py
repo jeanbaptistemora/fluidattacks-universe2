@@ -32,6 +32,7 @@ async def mutate(
     info: GraphQLResolveInfo,
     group_name: str
 ) -> SimplePayloadType:
+    loaders = info.context.loaders
     group_name = group_name.lower()
     user_info = await util.get_jwt_content(info.context)
     requester_email = user_info['user_email']
@@ -39,7 +40,7 @@ async def mutate(
 
     try:
         success = await group_domain.edit(
-            context=info.context.loaders,
+            context=loaders,
             comments="",
             group_name=group_name,
             has_drills=False,
@@ -56,6 +57,7 @@ async def mutate(
         )
 
     if success:
+        loaders.group_all.clear(group_name)
         redis_del_by_deps_soon('remove_group', group_name=group_name)
         await authz.revoke_cached_group_service_attributes_policies(group_name)
         util.cloudwatch_log(

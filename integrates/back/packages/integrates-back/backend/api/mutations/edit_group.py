@@ -44,6 +44,7 @@ async def mutate(  # pylint: disable=too-many-arguments
     reason: str,
     subscription: str
 ) -> SimplePayloadType:
+    loaders = info.context.loaders
     group_name = group_name.lower()
     user_info = await util.get_jwt_content(info.context)
     requester_email = user_info['user_email']
@@ -51,7 +52,7 @@ async def mutate(  # pylint: disable=too-many-arguments
 
     try:
         success = await group_domain.edit(
-            context=info.context.loaders,
+            context=loaders,
             comments=comments,
             group_name=group_name,
             has_drills=has_drills,
@@ -76,8 +77,11 @@ async def mutate(  # pylint: disable=too-many-arguments
         )
     ):
         await group_domain.remove_user_access(
-            group_name, user_domain.format_forces_user_email(group_name))
+            group_name,
+            user_domain.format_forces_user_email(group_name)
+        )
     if success:
+        loaders.group_all.clear(group_name)
         await redis_del_by_deps('edit_group', group_name=group_name)
         await authz.revoke_cached_group_service_attributes_policies(group_name)
         util.cloudwatch_log(

@@ -51,6 +51,7 @@ async def mutate(  # pylint: disable=too-many-arguments
     )
 
     if success and has_forces:
+        info.context.loaders.group_all.clear(group_name)
         await create_forces_user(info, group_name)
     if success:
         util.cloudwatch_log(
