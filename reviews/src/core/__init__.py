@@ -8,13 +8,22 @@ from gitlab import Gitlab
 from dynaconf import Dynaconf
 
 # Local libraries
+from config import load
 from core import tests
-from dal import gitlab, verify_required_vars
-from dal.model import PullRequest
+from dal import (
+    gitlab,
+    verify_required_vars,
+)
+from dal.model import (
+    Syntax,
+    PullRequest,
+    TestData,
+)
 from utils.logs import log
 
 
-def run_tests(config: Dynaconf) -> bool:
+def run_tests(config_path: str) -> bool:
+    config: Dynaconf = load(config_path)
     if config['platform'] in 'gitlab':
         success: bool = verify_required_vars(gitlab.required_vars())
         if success:
@@ -27,11 +36,18 @@ def run_tests(config: Dynaconf) -> bool:
                 gitlab.get_pr(session, project_id, mr_iid)
 
     if success and not tests.skip_ci(pull_request):
+        syntax: Syntax = Syntax(
+            regex=config['syntax']['regex'],
+            match_groups=config['syntax']['match_groups'],
+        )
         for name, args in config['tests'].items():
+            data: TestData = TestData(
+                config=args,
+                pull_request=pull_request,
+                syntax=syntax,
+            )
             test: Callable[[], bool] = \
-                partial(getattr(tests, name),
-                        pull_request=pull_request,
-                        config=args)
+                partial(getattr(tests, name), data=data)
             log('info', f'Running tests.{name}')
             success = test() and success
             if not success \

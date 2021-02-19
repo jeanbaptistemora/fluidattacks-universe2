@@ -1,6 +1,18 @@
 endpoint_url = 'https://gitlab.com'
 platform = 'gitlab'
 
+
+[syntax]
+  regex = '^(airs|all|asserts|common|forces|integrates|melts|observes|reviews|serves|skims|sorts|teaches)\\(\w*)\((\w*)\):\s(#[1-9]\d*)(.\d+)?\s(.*)$'
+  [syntax.match_groups]
+    product = 1
+    type = 2
+    scope = 3
+    issue = 4
+    issue_part = 5
+    title = 6
+
+
 [tests]
 
   [tests.all_pipelines_successful]
@@ -25,7 +37,6 @@ platform = 'gitlab'
   [tests.most_relevant_type]
     fail = true
     close_mr = true
-    commit_regex = '^(airs|all|asserts|common|forces|integrates|melts|observes|reviews|serves|skims|sorts|teaches)\\(\w*)\((\w*)\):\s(#[1-9]\d*)(.\d+)?\s(.*)$'
     [tests.most_relevant_type.relevances]
       rever = 1
       feat = 2

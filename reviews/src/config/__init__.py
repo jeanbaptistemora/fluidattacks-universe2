@@ -27,8 +27,22 @@ def dict_has_type_values(
 
 def validate_base(config: Dynaconf) -> None:
     config.validators.register(
-        Validator('endpoint_url', 'platform', 'tests',
-                  must_exist=True, messages=ERR_DEFAULT),
+        Validator(
+            'endpoint_url',
+            'platform',
+            'syntax.regex',
+            'tests',
+            must_exist=True,
+            messages=ERR_DEFAULT
+        ),
+        Validator(
+            'syntax.match_groups',
+            must_exist=True,
+            condition=lambda x: dict_has_type_values(x, int),
+            messages={'must_exist_true': '{name} is required.',
+                      'condition': '{name} invalid. '
+                      'All values must be int'},
+        ),
     )
     config.validators.validate()
     tests: List[str] = list(config['tests'].keys())
@@ -62,8 +76,6 @@ def validate_specific(config: Dynaconf) -> None:
             )
         elif test in 'most_relevant_type':
             config.validators.register(
-                Validator(f'tests.{test}.commit_regex', must_exist=True,
-                          is_type_of=str, messages=ERR_DEFAULT),
                 Validator(f'tests.{test}.relevances', must_exist=True,
                           condition=lambda x: dict_has_type_values(x, int),
                           messages={'must_exist_true': '{name} is required.',
