@@ -301,7 +301,7 @@ async def delete_finding(
         })
         schedule(
             delete_vulnerabilities(
-                context.loaders,
+                context,
                 finding_id,
                 justification,
                 analyst
@@ -317,8 +317,9 @@ async def delete_vulnerabilities(
     justification: str,
     user_email: str
 ) -> bool:
-    finding_vulns_loader = context.finding_vulns
+    finding_vulns_loader = context.loaders.finding_vulns
     vulnerabilities = await finding_vulns_loader.load(finding_id)
+    source = util.get_source(context)
 
     return all(await collect(
         vuln_domain.delete_vulnerability(
@@ -326,6 +327,7 @@ async def delete_vulnerabilities(
             str(vuln['UUID']),
             justification,
             user_email,
+            source,
             include_closed_vuln=True,
         )
         for vuln in vulnerabilities
