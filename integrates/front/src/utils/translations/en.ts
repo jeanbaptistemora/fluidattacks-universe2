@@ -863,9 +863,9 @@ export const enTranslations: ResourceKey = {
       reject: "Reject Acceptation",
     },
     agent_token_section: {
-      about: "Generate, reveal or update token for forces.",
+      about: "Generate, reveal or update token for DevSecOps.",
       generate: "Manage Token",
-      title: "Agent Token",
+      title: "DevSecOps Token",
     },
     alert: {
       attention: "Attention",
@@ -2100,20 +2100,20 @@ export const enTranslations: ResourceKey = {
     token_created: "Token created at: ",
   },
   update_forces_token: {
-    access_token: "Forces API token",
+    access_token: "DevSecOps token",
     close: "Close",
     copy: {
       copy: "Copy",
       failed: "It cannot be copied",
-      success: "Forces Token copied",
-      successfully: "Forces Token copied successfully",
+      success: "DevSecOps Token copied",
+      successfully: "DevSecOps Token copied successfully",
     },
     generate: "Generate",
     reset: "Reset",
     reveal_token: "Reveal Token",
-    success: "Updated forces token",
-    successfully: "Forces token updated successfully",
-    tittle: "Manage forces API token",
+    success: "Updated DevSecOps token",
+    successfully: "DevSecOps token updated successfully",
+    tittle: "Manage DevSecOps token",
     token_no_exists: "A token could not be found for the group",
   },
   userModal: {

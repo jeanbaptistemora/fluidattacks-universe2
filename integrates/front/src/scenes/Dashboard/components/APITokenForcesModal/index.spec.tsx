@@ -191,7 +191,7 @@ describe("Update access token modal", (): void => {
     expect(wrapper)
       .toHaveLength(1);
     expect(componentTitle.text())
-      .toBe("Manage forces API token");
+      .toBe("Manage DevSecOps token");
     expect(revealButton)
       .toHaveLength(1);
     expect(handleOnClose)
