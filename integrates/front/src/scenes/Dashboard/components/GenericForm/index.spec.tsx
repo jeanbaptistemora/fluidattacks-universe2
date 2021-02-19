@@ -1,32 +1,33 @@
-import { shallow, ShallowWrapper } from "enzyme";
-import * as React from "react";
-import { Provider } from "react-redux";
-import { Action, createStore, Store } from "redux";
 import { GenericForm } from "scenes/Dashboard/components/GenericForm";
+import { Provider } from "react-redux";
+import React from "react";
+import type { ShallowWrapper } from "enzyme";
+import { createStore } from "redux";
+import { shallow } from "enzyme";
+import type { Action, Store } from "redux";
 
-const functionMock: (() => void) = (): void => undefined;
+const functionMock: () => void = (): void => undefined;
 
-describe("GenericForm", () => {
-
-  const store: Store<{}, Action<{}>> = createStore(() => ({}));
+describe("GenericForm", (): void => {
+  const store: Store<
+    unknown,
+    Action<unknown>
+  > = createStore((): unknown => ({}));
   const wrapper: ShallowWrapper = shallow(
     <Provider store={store}>
-      <GenericForm
-        name="test"
-        onSubmit={functionMock}
-      >
+      <GenericForm name={"test"} onSubmit={functionMock}>
         <div />
       </GenericForm>
-    </Provider>,
+    </Provider>
   );
 
-  it("should return a function", () => {
-    expect(typeof (GenericForm))
-      .toEqual("function");
+  it("should return a function", (): void => {
+    expect.hasAssertions();
+    expect(typeof GenericForm).toStrictEqual("function");
   });
 
-  it("should render", () => {
-    expect(wrapper)
-      .toHaveLength(1);
+  it("should render", (): void => {
+    expect.hasAssertions();
+    expect(wrapper).toHaveLength(1);
   });
 });
