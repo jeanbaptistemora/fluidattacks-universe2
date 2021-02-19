@@ -1,34 +1,38 @@
-import { shallow, ShallowWrapper } from "enzyme";
-import * as React from "react";
-import { Provider } from "react-redux";
-import { Action, createStore, Store } from "redux";
 import { FileOptionsModal } from "scenes/Dashboard/components/FileOptionsModal";
+import { Provider } from "react-redux";
+import React from "react";
+import type { ShallowWrapper } from "enzyme";
+import { createStore } from "redux";
+import { shallow } from "enzyme";
+import type { Action, Store } from "redux";
 
-const functionMock: (() => void) = (): void => undefined;
+const functionMock: () => void = (): void => undefined;
 
-describe("Add resources modal", () => {
-
-  const store: Store<{}, Action<{}>> = createStore(() => ({}));
+describe("Add resources modal", (): void => {
+  const store: Store<
+    unknown,
+    Action<unknown>
+  > = createStore((): unknown => ({}));
   const wrapper: ShallowWrapper = shallow(
     <Provider store={store}>
       <FileOptionsModal
         canRemove={true}
-        fileName=""
+        fileName={""}
         isOpen={true}
         onClose={functionMock}
         onDelete={functionMock}
         onDownload={functionMock}
       />
-    </Provider>,
+    </Provider>
   );
 
-  it("should return a function", () => {
-    expect(typeof (FileOptionsModal))
-      .toEqual("function");
+  it("should return a function", (): void => {
+    expect.hasAssertions();
+    expect(typeof FileOptionsModal).toStrictEqual("function");
   });
 
-  it("should render", () => {
-    expect(wrapper)
-      .toHaveLength(1);
+  it("should render", (): void => {
+    expect.hasAssertions();
+    expect(wrapper).toHaveLength(1);
   });
 });
