@@ -223,25 +223,6 @@ function job_integrates_mobile_test_functional_local {
 
 # Back
 
-function job_integrates_back_clean_development_environments {
-  local cluster='integrates-cluster'
-  local namespace='development'
-  local region='us-east-1'
-
-      helper_common_use_pristine_workdir \
-  &&  pushd integrates \
-  &&  echo "[INFO] Setting namespace preferences..." \
-  &&  helper_integrates_aws_login 'development' \
-  &&  helper_common_update_kubeconfig "${cluster}" "${region}" \
-  &&  echo '[INFO] Deleting development environments' \
-  &&  kubectl delete --all deployment -n "${namespace}" \
-  &&  kubectl delete --all secret -n "${namespace}" \
-  &&  kubectl delete --all service -n "${namespace}" \
-  &&  kubectl delete --all ingress -n "${namespace}" \
-  &&  popd \
-  ||  return 1
-}
-
 function job_integrates_back_test_unit {
   local common_args=(
     -n auto
