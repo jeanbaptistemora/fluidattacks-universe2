@@ -445,27 +445,6 @@ function job_integrates_make_migration_prod_apply {
   ||  return 1
 }
 
-function _job_integrates_subscriptions_trigger_user_to_entity_report {
-  helper_invoke_py backend.domain.subscriptions.trigger_user_to_entity_report
-
-}
-
-function job_integrates_subscriptions_trigger_user_to_entity_report_dev {
-      pushd "${STARTDIR}/integrates" \
-  &&  helper_bootstrap_dev_ci \
-  &&  _job_integrates_subscriptions_trigger_user_to_entity_report \
-  &&  popd \
-  ||  return 1
-}
-
-function job_integrates_subscriptions_trigger_user_to_entity_report_prod_schedule {
-      pushd "${STARTDIR}/integrates" \
-  &&  helper_bootstrap_prod_ci \
-  &&  _job_integrates_subscriptions_trigger_user_to_entity_report \
-  &&  popd \
-  ||  return 1
-}
-
 function job_integrates_reset {
   local files_to_delete=(
     'app/static/dashboard/'
