@@ -4,6 +4,8 @@ $button-hover: rgba(255, 52, 53, 1);
 $darkshadow: rgba(176, 176, 176, 0.3);
 $fluid-black: rgba(39, 39, 39, 1);
 $fluid-red: rgba(255, 52, 53, 1);
+$fluid-gray: rgba(176, 176, 176, 1);
+$fluid-dark-red: rgba(203, 50, 51, 1);
 
 // Rules
 @keyframes fadein {
@@ -15,6 +17,7 @@ $fluid-red: rgba(255, 52, 53, 1);
 .bc-fluid-red { border-color: $button-red; }
 .c-dkred { color: $button-red; }
 .c-fluid-bk { color: $fluid-black; }
+.c-fluid-gray { color: $fluid-gray; }
 
 // Fonts
 .roboto { font-family: 'Roboto', sans-serif; }
@@ -29,6 +32,7 @@ $fluid-red: rgba(255, 52, 53, 1);
 // Hover changes classes
 .hv-fluid-bd { &:hover { border-color: $button-hover;} }
 .hv-fluid-rd { &:hover { color: $button-hover; } }
+.hv-fluid-dkred { &:hover { color: $fluid-dark-red;} }
 
 // Width and Max Width classes
 .mw-1366 { max-width: 1366px; }

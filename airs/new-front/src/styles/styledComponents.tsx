@@ -162,8 +162,88 @@ const CopyrightParagraph: StyledComponent<
   `,
 })``;
 
+const MainFooterInfoContainer: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs({
+  className: `
+    mb0-l
+    mb0-m
+    mb3
+    ph3
+    bg-white
+  `,
+})``;
+
+const InnerFooterInfoContainer: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs({
+  className: `
+    mw-1366
+    ph-body
+    center
+    h3
+  `,
+})``;
+
+const CopyrightContainer: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs({
+  className: `
+    tc
+    nb3
+    fl-l
+  `,
+})``;
+
+const FooterInfoLinksContainer: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs({
+  className: `
+    h2
+    bg-white
+    b
+    tc
+    pb3
+    fr-l
+  `,
+})``;
+
+const FooterInfoLink: StyledComponent<
+  "a",
+  Record<string, unknown>
+> = styled.a.attrs({
+  className: `
+    c-fluid-gray
+    f6
+    fw2
+    mt2
+    roboto
+    no-underline
+    hv-fluid-dkred
+  `,
+})``;
+
+const GrayDash: StyledComponent<
+  "span",
+  Record<string, unknown>
+> = styled.span.attrs({
+  className: `
+    c-fluid-gray
+    f6
+  `,
+})``;
+
 export {
+  CopyrightContainer,
   CopyrightParagraph,
+  FooterInfoLinksContainer,
+  FooterInfoLink,
+  GrayDash,
+  InnerFooterInfoContainer,
   NavbarSubcategory,
   NavbarContactButton,
   NavbarContainer,
@@ -171,6 +251,7 @@ export {
   NavbarList,
   NavbarLoginButton,
   NavbarRegularButton,
+  MainFooterInfoContainer,
   MenuButton,
   SubcategoryLink,
 };

@@ -1,6 +1,14 @@
-import { CopyrightParagraph } from "../styles/styledComponents";
-
 import React from "react";
+import {
+  CopyrightContainer,
+  CopyrightParagraph,
+  FooterInfoLink,
+  FooterInfoLinksContainer,
+  GrayDash,
+  InnerFooterInfoContainer,
+  MainFooterInfoContainer,
+} from "../styles/styledComponents";
+import { graphql, useStaticQuery } from "gatsby";
 
 import "tachyons/css/tachyons.min.css";
 import "../styles/index.scss";
@@ -9,33 +17,66 @@ interface IChildrenProps {
   children: JSX.Element;
 }
 
+interface ISiteMetadata {
+  site: {
+    siteMetadata: {
+      url: string;
+    };
+  };
+}
+
 const Layout: React.FC<IChildrenProps> = ({
   children,
-}: IChildrenProps): JSX.Element => (
-  <React.Fragment>
-    <main>{children}</main>
-    <footer>
-      <div className={"mb0-l mb0-m mb3 ph3 bg-white"}>
-        <div className={"mw-1366 ph-body center h3"}>
-          <div className={"tc nb3 fl-l"}>
-            <CopyrightParagraph>
-              {`Copyright © ${new Date().getFullYear()} Fluid Attacks, We hack
-              your software. All rights reserved.`}
-            </CopyrightParagraph>
-          </div>
-        </div>
-      </div>
-    </footer>
-
-    <script
-      async={true}
-      id={"CookieDeclaration"}
-      src={
-        "https://consent.cookiebot.com/9c4480b4-b8ae-44d8-9c6f-6300b86e9094/cd.js"
+}: IChildrenProps): JSX.Element => {
+  const { site }: ISiteMetadata = useStaticQuery(
+    // eslint-disable-next-line @typescript-eslint/no-confusing-void-expression
+    graphql`
+      query {
+        site {
+          siteMetadata {
+            url
+          }
+        }
       }
-      type={"text/javascript"}
-    />
-  </React.Fragment>
-);
+    `
+  );
+
+  return (
+    <React.StrictMode>
+      <div>
+        <main>{children}</main>
+        <footer>
+          <MainFooterInfoContainer>
+            <InnerFooterInfoContainer>
+              <CopyrightContainer>
+                <CopyrightParagraph>
+                  {`Copyright © ${new Date().getFullYear()} Fluid Attacks, We hack
+                  your software. All rights reserved.`}
+                </CopyrightParagraph>
+              </CopyrightContainer>
+              <FooterInfoLinksContainer>
+                <FooterInfoLink href={"https://status.fluidattacks.com/"}>
+                  {"Service status"}
+                </FooterInfoLink>
+                <GrayDash>{" - "}</GrayDash>
+                <FooterInfoLink href={`${site.siteMetadata.url}/terms-use/`}>
+                  {"Terms of Use"}
+                </FooterInfoLink>
+                <GrayDash>{" - "}</GrayDash>
+                <FooterInfoLink href={`${site.siteMetadata.url}/privacy/`}>
+                  {"Privacy Policy"}
+                </FooterInfoLink>
+                <GrayDash>{" - "}</GrayDash>
+                <FooterInfoLink href={`${site.siteMetadata.url}/cookie/`}>
+                  {"Cookie Policy"}
+                </FooterInfoLink>
+              </FooterInfoLinksContainer>
+            </InnerFooterInfoContainer>
+          </MainFooterInfoContainer>
+        </footer>
+      </div>
+    </React.StrictMode>
+  );
+};
 
 export { Layout };
