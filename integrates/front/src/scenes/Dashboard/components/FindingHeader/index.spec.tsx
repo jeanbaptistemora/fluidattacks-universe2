@@ -1,19 +1,26 @@
-import { shallow, ShallowWrapper } from "enzyme";
-import * as React from "react";
 import { FindingHeader } from "scenes/Dashboard/components/FindingHeader";
+import React from "react";
+import type { ShallowWrapper } from "enzyme";
+import { shallow } from "enzyme";
 
-describe("FindingHeader", () => {
-
-  it("should return a function", () => {
-    expect(typeof (FindingHeader))
-      .toEqual("function");
+describe("FindingHeader", (): void => {
+  it("should return a function", (): void => {
+    expect.hasAssertions();
+    expect(typeof FindingHeader).toStrictEqual("function");
   });
 
-  it("should render finding header", () => {
+  it("should render finding header", (): void => {
+    expect.hasAssertions();
+
     const wrapper: ShallowWrapper = shallow(
-      <FindingHeader openVulns={9} discoveryDate="" severity={2} status="open" />,
+      <FindingHeader
+        discoveryDate={""}
+        openVulns={9}
+        severity={2}
+        status={"open"}
+      />
     );
-    expect(wrapper)
-      .toHaveLength(1);
+
+    expect(wrapper).toHaveLength(1);
   });
 });
