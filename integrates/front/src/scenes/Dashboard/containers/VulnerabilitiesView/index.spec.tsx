@@ -200,9 +200,15 @@ describe("VulnerabilitiesView", (): void => {
           wrapper.update();
 
           expect(wrapper).toHaveLength(1);
+
+          wrapper.find("Button#handleAcceptationButton").simulate("click");
+
           expect(
-            wrapper.find("BootstrapTable").find("RowPureContent")
-          ).toHaveLength(2);
+            wrapper
+              .find("div#vulnsToHandleAcceptation")
+              .find("BootstrapTable")
+              .find("RowPureContent")
+          ).toHaveLength(1);
         });
       }
     );

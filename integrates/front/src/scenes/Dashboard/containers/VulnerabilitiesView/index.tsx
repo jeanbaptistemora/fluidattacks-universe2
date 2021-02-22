@@ -75,17 +75,8 @@ export const VulnsView: React.FC = (): JSX.Element => {
   }>();
   const { t } = useTranslation();
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
-  const canConfirmZeroRiskVuln: boolean = permissions.can(
-    "backend_api_mutations_confirm_zero_risk_vuln_mutate"
-  );
-  const canRejectZeroRiskVuln: boolean = permissions.can(
-    "backend_api_mutations_reject_zero_risk_vuln_mutate"
-  );
   const canRetrieveAnalyst: boolean = permissions.can(
     "backend_api_resolvers_vulnerability_analyst_resolve"
-  );
-  const shouldFilterZeroRisk: boolean = !(
-    canConfirmZeroRiskVuln || canRejectZeroRiskVuln
   );
   const canRetrieveZeroRisk: boolean = permissions.can(
     "backend_api_resolvers_finding_zero_risk_resolve"
@@ -341,11 +332,7 @@ export const VulnsView: React.FC = (): JSX.Element => {
                 isRequestingReattack={isRequestingVerify}
                 isVerifyingRequest={isVerifying}
                 onVulnSelect={openRemediationModal}
-                vulnerabilities={
-                  shouldFilterZeroRisk
-                    ? filterZeroRisk(vulnerabilities)
-                    : vulnerabilities
-                }
+                vulnerabilities={filterZeroRisk(vulnerabilities)}
               />
             </Row>
           </Col100>

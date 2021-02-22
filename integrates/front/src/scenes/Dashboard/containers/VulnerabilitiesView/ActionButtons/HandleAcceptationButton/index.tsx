@@ -44,7 +44,10 @@ const HandleAcceptationButton: React.FC<IHandleAcceptationButtonProps> = ({
           )}
           placement={"top"}
         >
-          <Button onClick={openHandleAcceptation}>
+          <Button
+            id={"handleAcceptationButton"}
+            onClick={openHandleAcceptation}
+          >
             <React.Fragment>
               <FluidIcon icon={"verified"} />
               &nbsp;
