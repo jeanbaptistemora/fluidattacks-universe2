@@ -340,22 +340,6 @@ function job_integrates_back_lint_graphics {
 
 # Others
 
-function job_integrates_deploy_permissions_matrix {
-  export PYTHONPATH="${pyPkgPandas}/lib/python3.7/site-packages"
-  export PYTHONPATH="${pyPkgNumpy}/lib/python3.7/site-packages:${PYTHONPATH}"
-  export PYTHONPATH="${pyPkgMagic}/lib/python3.7/site-packages:${PYTHONPATH}"
-  export PYTHONPATH=".:${PYTHONPATH}"
-
-      pushd "${STARTDIR}/integrates" \
-  &&  env_prepare_python_packages \
-  &&  helper_integrates_set_dev_secrets \
-  &&  helper_integrates_serve_redis \
-  &&  echo '[INFO] Deploying permissions matrix' \
-  &&  python3 deploy/permissions-matrix/matrix.py \
-  &&  popd \
-  ||  return 1
-}
-
 function _job_integrates_make_migration {
   local env="${1}"
   local stage="${2}"
