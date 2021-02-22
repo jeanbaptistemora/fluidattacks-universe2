@@ -15,7 +15,7 @@ module.exports = {
     },
     navbar: {
       logo: {
-        alt: 'My Site Logo',
+        alt: 'Fluid Attacks Logo',
         src: 'static/img/logo.png',
       },
       items: [
