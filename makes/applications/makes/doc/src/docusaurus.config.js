@@ -1,32 +1,35 @@
 module.exports = {
-  title: 'My Site',
-  tagline: 'The tagline of my site',
-  url: 'https://your-docusaurus-test-site.com',
+  title: 'Fluid Attacks Documentation',
+  tagline: 'Here you can find documentation for all our products',
+  url: 'https://doc.fluidattacks.com',
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
-  favicon: 'img/favicon.ico',
-  organizationName: 'facebook', // Usually your GitHub org/user name.
-  projectName: 'docusaurus', // Usually your repo name.
+  favicon: 'static/img/favicon.ico',
+  organizationName: 'fluidattacks',
+  projectName: 'product',
   themeConfig: {
+    colorMode: {
+      defaultMode: 'dark',
+      disableSwitch: true,
+    },
     navbar: {
-      title: 'My Site',
       logo: {
         alt: 'My Site Logo',
-        src: 'img/logo.svg',
+        src: 'static/img/logo.png',
       },
       items: [
         {
-          to: 'docs/',
-          activeBasePath: 'docs',
-          label: 'Docs',
+          to: 'docs/integrates/',
+          activeBasePath: 'docs/integrates/',
+          label: 'Integrates',
           position: 'left',
         },
-        {to: 'blog', label: 'Blog', position: 'left'},
         {
-          href: 'https://github.com/facebook/docusaurus',
-          label: 'GitHub',
-          position: 'right',
+          to: 'docs/skims/',
+          activeBasePath: 'docs/skims/',
+          label: 'Skims',
+          position: 'left',
         },
       ],
     },
@@ -34,32 +37,32 @@ module.exports = {
       style: 'dark',
       links: [
         {
-          title: 'Docs',
+          title: 'Community',
           items: [
             {
-              label: 'Style Guide',
-              to: 'docs/',
+              label: 'Discord',
+              href: 'https://community.fluidattacks.com',
             },
             {
-              label: 'Second Doc',
-              to: 'docs/doc2/',
+              label: 'Help',
+              href: 'https://help.fluidattacks.com',
+            },
+            {
+              label: 'LinkedIn',
+              href: 'https://www.linkedin.com/company/fluidattacks',
             },
           ],
         },
         {
-          title: 'Community',
+          title: 'Main',
           items: [
             {
-              label: 'Stack Overflow',
-              href: 'https://stackoverflow.com/questions/tagged/docusaurus',
+              label: 'Integrates',
+              to: 'https://integrates.fluidattacks.com',
             },
             {
-              label: 'Discord',
-              href: 'https://discordapp.com/invite/docusaurus',
-            },
-            {
-              label: 'Twitter',
-              href: 'https://twitter.com/docusaurus',
+              label: 'Website',
+              to: 'https://fluidattacks.com',
             },
           ],
         },
@@ -68,16 +71,16 @@ module.exports = {
           items: [
             {
               label: 'Blog',
-              to: 'blog',
+              to: 'https://fluidattacks.com/blog',
             },
             {
-              label: 'GitHub',
-              href: 'https://github.com/facebook/docusaurus',
+              label: 'Gitlab',
+              href: 'https://gitlab.com/fluidattacks/product',
             },
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} Fluid Attacks, We hack your software. All rights reserved.`,
     },
   },
   presets: [
@@ -86,15 +89,9 @@ module.exports = {
       {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
-          // Please change this to your repo.
-          editUrl:
-            'https://github.com/facebook/docusaurus/edit/master/website/',
         },
         blog: {
           showReadingTime: true,
-          // Please change this to your repo.
-          editUrl:
-            'https://github.com/facebook/docusaurus/edit/master/website/blog/',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
