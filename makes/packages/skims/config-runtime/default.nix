@@ -16,6 +16,7 @@ makeTemplate {
   searchPaths = {
     envPaths = [
       skimsPkgs.gcc
+      skimsPkgs.git
       skimsPkgs.graphviz
       skimsPkgs.nodejs
       skimsPkgs.python38
@@ -39,6 +40,7 @@ makeTemplate {
             "click==7.1.2"
             "confuse==1.3.0"
             "frozendict==1.2"
+            "GitPython==3.1.13"
             "jmespath==0.10.0"
             "lark-parser==0.7.8"
             "metaloaders==20.9.2566091"
@@ -64,12 +66,14 @@ makeTemplate {
             "chardet==3.0.4"
             "decorator==4.4.2"
             "ecdsa==0.14.1"
+            "gitdb==4.0.5"
             "idna==2.10"
             "multidict==4.7.6"
             "pyasn1==0.4.8"
             "PyYAML==5.3.1"
             "rsa==4.6"
             "six==1.15.0"
+            "smmap==3.0.5"
             "urllib3==1.25.11"
             "WebOb==1.8.6"
             "yarl==1.6.3"

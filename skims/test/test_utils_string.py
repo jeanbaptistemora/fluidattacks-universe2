@@ -13,7 +13,6 @@ from utils.string import (
 
 
 @pytest.mark.skims_test_group('unittesting')
-@pytest.mark.skims_test_group('unittesting')
 def test_to_snippet() -> None:
     content: str = dedent("""
         xxxxx
