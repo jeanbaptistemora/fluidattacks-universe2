@@ -86,6 +86,9 @@ export const VulnsView: React.FC = (): JSX.Element => {
   const shouldFilterZeroRisk: boolean = !(
     canConfirmZeroRiskVuln || canRejectZeroRiskVuln
   );
+  const canRetrieveZeroRisk: boolean = permissions.can(
+    "backend_api_resolvers_finding_zero_risk_resolve"
+  );
 
   const [treatmentFilter, setTreatmentFilter] = React.useState("");
   const [currentStatusFilter, setCurrentStatusFilter] = React.useState("");
@@ -146,13 +149,26 @@ export const VulnsView: React.FC = (): JSX.Element => {
           Logger.warning("An error occurred loading finding", error);
         });
       },
-      variables: { canRetrieveAnalyst, findingId, groupName: projectName },
+      variables: {
+        canRetrieveAnalyst,
+        canRetrieveZeroRisk,
+        findingId,
+        groupName: projectName,
+      },
     }
   );
 
   if (_.isUndefined(data) || _.isEmpty(data)) {
     return <React.StrictMode />;
   }
+
+  const zeroRiskVulns: IVulnRowAttr[] = data.finding.zeroRisk
+    ? data.finding.zeroRisk
+    : [];
+
+  const vulns: IVulnRowAttr[] = data.finding.vulnerabilities.concat(
+    zeroRiskVulns
+  );
 
   function onTreatmentChange(
     event: React.ChangeEvent<HTMLSelectElement>
@@ -171,19 +187,19 @@ export const VulnsView: React.FC = (): JSX.Element => {
     setTextFilter(event.target.value);
   }
   const filterTreatmentVulnerabilities: IVulnRowAttr[] = filterTreatment(
-    data.finding.vulnerabilities,
+    vulns,
     treatmentFilter
   );
   const filterCurrentStatusVulnerabilities: IVulnRowAttr[] = filterCurrentStatus(
-    data.finding.vulnerabilities,
+    vulns,
     currentStatusFilter
   );
   const filterVerificationVulnerabilities: IVulnRowAttr[] = filterVerification(
-    data.finding.vulnerabilities,
+    vulns,
     verificationFilter
   );
   const filterTextVulnerabilities: IVulnRowAttr[] = filterText(
-    data.finding.vulnerabilities,
+    vulns,
     textFilter
   );
 
@@ -328,7 +344,7 @@ export const VulnsView: React.FC = (): JSX.Element => {
             groupName={projectName}
             handleCloseModal={toggleHandleAcceptationModal}
             refetchData={refetch}
-            vulns={data.finding.vulnerabilities}
+            vulns={vulnerabilities}
           />
         ) : undefined}
       </React.Fragment>

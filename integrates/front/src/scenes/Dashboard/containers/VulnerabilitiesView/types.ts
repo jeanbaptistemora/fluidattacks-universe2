@@ -11,6 +11,7 @@ interface IFindingAttr {
   state: "open" | "closed";
   verified: boolean;
   vulnerabilities: IVulnRowAttr[];
+  zeroRisk?: IVulnRowAttr[];
 }
 
 interface IGetFindingVulnInfoAttr {

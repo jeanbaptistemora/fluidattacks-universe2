@@ -74,6 +74,7 @@ describe("handle vulns acceptation modal", (): void => {
           query: GET_FINDING_VULN_INFO,
           variables: {
             canRetrieveAnalyst: false,
+            canRetrieveZeroRisk: false,
             findingId: "1",
             groupName: "",
           },
@@ -317,6 +318,7 @@ describe("handle vulns acceptation modal", (): void => {
         query: GET_FINDING_VULN_INFO,
         variables: {
           canRetrieveAnalyst: false,
+          canRetrieveZeroRisk: false,
           findingId: "422286126",
           groupName: "group name",
         },
@@ -481,6 +483,7 @@ describe("handle vulns acceptation modal", (): void => {
         query: GET_FINDING_VULN_INFO,
         variables: {
           canRetrieveAnalyst: false,
+          canRetrieveZeroRisk: false,
           findingId: "422286126",
           groupName: "group name",
         },
@@ -638,6 +641,7 @@ describe("handle vulns acceptation modal", (): void => {
         query: GET_FINDING_VULN_INFO,
         variables: {
           canRetrieveAnalyst: false,
+          canRetrieveZeroRisk: false,
           findingId: "422286126",
           groupName: "group name",
         },
@@ -802,6 +806,7 @@ describe("handle vulns acceptation modal", (): void => {
         query: GET_FINDING_VULN_INFO,
         variables: {
           canRetrieveAnalyst: false,
+          canRetrieveZeroRisk: false,
           findingId: "422286126",
           groupName: "group name",
         },

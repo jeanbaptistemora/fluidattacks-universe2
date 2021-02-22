@@ -95,6 +95,7 @@ const updateVerificationModal: React.FC<IUpdateVerificationModal> = (props: IUpd
         query: GET_FINDING_VULN_INFO,
         variables: {
           canRetrieveAnalyst: permissions.can("backend_api_resolvers_vulnerability_analyst_resolve"),
+          canRetrieveZeroRisk: permissions.can("backend_api_resolvers_finding_zero_risk_resolve"),
           findingId: props.findingId,
           groupName: props.groupName,
         },
@@ -140,6 +141,7 @@ const updateVerificationModal: React.FC<IUpdateVerificationModal> = (props: IUpd
         query: GET_FINDING_VULN_INFO,
         variables: {
           canRetrieveAnalyst: permissions.can("backend_api_resolvers_vulnerability_analyst_resolve"),
+          canRetrieveZeroRisk: permissions.can("backend_api_resolvers_finding_zero_risk_resolve"),
           findingId: props.findingId,
           groupName: props.groupName,
         },

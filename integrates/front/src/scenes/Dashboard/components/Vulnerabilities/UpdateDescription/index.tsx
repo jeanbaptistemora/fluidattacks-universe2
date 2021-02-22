@@ -76,6 +76,9 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
   const canRetrieveAnalyst: boolean = permissions.can(
     "backend_api_resolvers_vulnerability_analyst_resolve"
   );
+  const canRetrieveZeroRisk: boolean = permissions.can(
+    "backend_api_resolvers_finding_zero_risk_resolve"
+  );
   const canGetHistoricState: boolean = permissions.can(
     "backend_api_resolvers_finding_historic_state_resolve"
   );
@@ -117,6 +120,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
         query: GET_FINDING_VULN_INFO,
         variables: {
           canRetrieveAnalyst,
+          canRetrieveZeroRisk,
           findingId,
           groupName: projectName,
         },
@@ -158,6 +162,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
         query: GET_FINDING_VULN_INFO,
         variables: {
           canRetrieveAnalyst,
+          canRetrieveZeroRisk,
           findingId,
           groupName: projectName,
         },
@@ -355,6 +360,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
           query: GET_FINDING_VULN_INFO,
           variables: {
             canRetrieveAnalyst,
+            canRetrieveZeroRisk,
             findingId,
             groupName: projectName,
           },

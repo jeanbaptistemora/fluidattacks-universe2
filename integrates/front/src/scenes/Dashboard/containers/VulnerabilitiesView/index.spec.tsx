@@ -19,6 +19,7 @@ describe("VulnerabilitiesView", (): void => {
       query: GET_FINDING_VULN_INFO,
       variables: {
         canRetrieveAnalyst: true,
+        canRetrieveZeroRisk: false,
         findingId: "422286126",
         groupName: "testgroup",
       },
