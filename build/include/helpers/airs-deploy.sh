@@ -79,7 +79,7 @@ function helper_airs_deploy_sync_s3 {
         &&  aws s3 sync                        \
               "${source_code}/"                \
               "s3://${bucket_path}/"           \
-              --acl public-read                \
+              --acl private                    \
               --exclude "*"                    \
               --include "*.${extension}"       \
               --exclude "resources/doc/*"      \
