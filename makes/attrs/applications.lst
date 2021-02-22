@@ -13,6 +13,7 @@ integrates.back.authz-matrix
 integrates.back.deploy.dev
 integrates.back.deploy.prod
 integrates.back.destroy.eph
+integrates.back.test.unit
 integrates.cache
 integrates.coverage
 integrates.db

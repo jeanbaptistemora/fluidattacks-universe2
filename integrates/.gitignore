@@ -1,12 +1,11 @@
 /**/.expo/
-/**/coverage
 /**/google-services.json
 /**/*.css.d.ts
+/**/*coverage*
 /**/geckodriver.log
 /**/node_modules
 /**/results_pdf/*.pdf
 /*.xlsx
-/.coverage*
 /.Cache
 /.DB
 /.Storage
