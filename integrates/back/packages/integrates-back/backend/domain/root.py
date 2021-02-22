@@ -135,7 +135,8 @@ def _format_git_repo_url(raw_url: str) -> str:
     return unquote(url)
 
 
-async def add_git_root(user_email: str, **kwargs: Any) -> None:
+async def add_git_root(context: Any, user_email: str, **kwargs: Any) -> None:
+    group_loader = context.group_all
     group_name: str = kwargs['group_name'].lower()
     url: str = _format_git_repo_url(kwargs['url'])
     branch: str = kwargs['branch']
@@ -162,7 +163,7 @@ async def add_git_root(user_email: str, **kwargs: Any) -> None:
     }
 
     if is_valid:
-        org_id: str = await org_domain.get_id_for_group(group_name)
+        group = await group_loader.load(group_name)
         initial_state: Dict[str, Any] = {
             'date': now_date,
             'environment': kwargs['environment'],
@@ -180,7 +181,7 @@ async def add_git_root(user_email: str, **kwargs: Any) -> None:
             'url': url
         }
 
-        if await _is_git_unique_in_org(org_id, url, branch):
+        if await _is_git_unique_in_org(group['organization'], url, branch):
             await root_dal.create(group_name, root_attributes)
             if kwargs['includes_health_check']:
                 await notifications_domain.request_health_check(
@@ -214,7 +215,8 @@ async def _is_ip_unique_in_org(org_id: str, address: str, port: int) -> bool:
     return (address, port) not in org_roots
 
 
-async def add_ip_root(user_email: str, **kwargs: Any) -> None:
+async def add_ip_root(context: Any, user_email: str, **kwargs: Any) -> None:
+    group_loader = context.group_all
     group_name: str = kwargs['group_name'].lower()
     address: str = kwargs['address']
     port: int = kwargs['port']
@@ -224,7 +226,8 @@ async def add_ip_root(user_email: str, **kwargs: Any) -> None:
     )
 
     if is_valid:
-        org_id: str = await org_domain.get_id_for_group(group_name)
+        group = await group_loader.load(group_name)
+        org_id = group['organization']
         initial_state: Dict[str, Any] = {
             'address': address,
             'date': datetime.get_as_str(datetime.get_now()),
@@ -271,7 +274,8 @@ async def _is_url_unique_in_org(
     return (host, path, port, protocol) not in org_roots
 
 
-async def add_url_root(user_email: str, **kwargs: Any) -> None:
+async def add_url_root(context: Any, user_email: str, **kwargs: Any) -> None:
+    group_loader = context.group_all
     group_name: str = kwargs['group_name'].lower()
     url_attributes: Url = parse_url(kwargs['url'])
     is_valid: bool = (
@@ -285,7 +289,7 @@ async def add_url_root(user_email: str, **kwargs: Any) -> None:
         default_port: int = 443 if url_attributes.scheme == 'https' else 80
         port: int = url_attributes.port or default_port
         protocol: str = url_attributes.scheme.upper()
-        org_id: str = await org_domain.get_id_for_group(group_name)
+        group = await group_loader.load(group_name)
 
         initial_state: Dict[str, Any] = {
             'date': datetime.get_as_str(datetime.get_now()),
@@ -295,7 +299,13 @@ async def add_url_root(user_email: str, **kwargs: Any) -> None:
             'protocol': protocol,
             'user': user_email
         }
-        if await _is_url_unique_in_org(org_id, host, path, port, protocol):
+        if await _is_url_unique_in_org(
+            group['organization'],
+            host,
+            path,
+            port,
+            protocol
+        ):
             root_attributes: Dict[str, Any] = {
                 'historic_state': [initial_state],
                 'kind': 'URL'
