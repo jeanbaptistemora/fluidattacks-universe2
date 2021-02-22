@@ -84,6 +84,7 @@ function job_integrates_mobile_build_android {
   ||  return 1
 }
 
+# This job is used locally and should be migrated to makes
 function job_integrates_mobile_build_ios {
   export EXPO_APPLE_PASSWORD
   export EXPO_IOS_DIST_P12_PASSWORD
@@ -132,32 +133,6 @@ function job_integrates_mobile_build_ios {
   ||  return 1
 }
 
-function job_integrates_mobile_deploy_ota_development {
-  local env='development'
-  local release_channel="${CI_COMMIT_REF_NAME}"
-
-      pushd integrates \
-    &&  helper_integrates_aws_login "${env}" \
-    &&  helper_integrates_mobile_deploy_ota \
-          "${env}" \
-          "${release_channel}" \
-  &&  popd \
-  ||  return 1
-}
-
-function job_integrates_mobile_deploy_ota_production {
-  local env='production'
-  local release_channel='master'
-
-      pushd integrates \
-    &&  helper_integrates_aws_login "${env}" \
-    &&  helper_integrates_mobile_deploy_ota \
-          "${env}" \
-          "${release_channel}" \
-  &&  popd \
-  ||  return 1
-}
-
 function job_integrates_mobile_deploy_playstore {
   export LANG=en_US.UTF-8
 
@@ -194,6 +169,7 @@ function job_integrates_mobile_deploy_playstore {
   ||  return 1
 }
 
+# This job is used locally and should be migrated to makes
 function job_integrates_mobile_test_functional_local {
   export CI_COMMIT_REF_NAME
   local expo_apk_url="https://d1ahtucjixef4r.cloudfront.net/Exponent-2.16.1.apk"
@@ -222,52 +198,6 @@ function job_integrates_mobile_test_functional_local {
 }
 
 # Back
-
-function job_integrates_back_test_unit {
-  local common_args=(
-    -n auto
-    --dist 'loadscope'
-    --verbose
-    --maxfail '20'
-    --cov "${pyPkgIntegratesBack}/site-packages/backend"
-    --cov-report 'term'
-    --cov-report 'html:build/coverage/html'
-    --cov-report 'xml:build/coverage/results.xml'
-    --cov-report 'annotate:build/coverage/annotate'
-    --disable-warnings
-    --ignore 'test_async/functional_test'
-  )
-  local extra_args=()
-  local markers=(
-    'not changes_db'
-    'changes_db'
-  )
-
-  # shellcheck disable=SC2015
-      pushd integrates \
-  &&  env_prepare_python_packages \
-  &&  helper_integrates_set_dev_secrets \
-  &&  helper_integrates_serve_dynamo \
-  &&  helper_integrates_serve_minio \
-  &&  helper_integrates_serve_redis \
-  &&  for i in "${!markers[@]}"
-      do
-            echo "[INFO] Running marker: ${markers[i]}" \
-        &&  if [[ "${i}" != 0 ]]
-            then
-              extra_args=( --cov-append )
-            fi \
-        &&  pytest \
-              -m "${markers[i]}" \
-              "${common_args[@]}" \
-              "${extra_args[@]}" \
-              'test_async' \
-        ||  return 1
-      done \
-  &&  cp -a 'build/coverage/results.xml' "coverage.xml" \
-  &&  popd \
-  ||  return 1
-}
 
 function job_integrates_back_test_functional {
   local common_args=(
@@ -334,109 +264,6 @@ function job_integrates_back_lint_graphics {
       env_prepare_node_modules \
   &&  pushd integrates/back/app/templates/static/graphics \
         &&  eslint --config .eslintrc --fix . \
-  &&  popd \
-  ||  return 1
-}
-
-# Others
-
-function _job_integrates_make_migration {
-  local env="${1}"
-  local stage="${2}"
-  local migration_file="${3}"
-
-      env_prepare_python_packages \
-  &&  "helper_integrates_set_${env}_secrets" \
-  &&  PYTHONPATH="${PWD}:${PYTHONPATH}" \
-      STAGE="${stage}" \
-      python3 "${migration_file}" \
-
-}
-
-function job_integrates_make_migration_dev_test {
-  local migration_file="${1}"
-
-      pushd "${STARTDIR}/integrates" \
-  &&  _job_integrates_make_migration 'dev' 'test' "${migration_file}" \
-        | tee "${migration_file}.dev_test.out" \
-  &&  popd \
-  ||  return 1
-}
-
-function job_integrates_make_migration_prod_test {
-  local migration_file="${1}"
-
-      pushd "${STARTDIR}/integrates" \
-  &&  _job_integrates_make_migration 'prod' 'test' "${migration_file}" \
-  &&  popd \
-  ||  return 1
-}
-
-function job_integrates_make_migration_dev_apply {
-  local migration_file="${1}"
-
-  pushd "${STARTDIR}/integrates" \
-  &&  _job_integrates_make_migration 'dev' 'apply' "${migration_file}" \
-        | tee "${migration_file}.dev_apply.out" \
-  &&  popd \
-  ||  return 1
-}
-
-function job_integrates_make_migration_prod_apply {
-  local migration_file="${1}"
-
-      pushd "${STARTDIR}/integrates" \
-  &&  _job_integrates_make_migration 'prod' 'apply' "${migration_file}" \
-  &&  popd \
-  ||  return 1
-}
-
-function job_integrates_reset {
-  local files_to_delete=(
-    'app/static/dashboard/'
-    'app/backend/reports/images/*'
-    'back/packages/integrates-back/backend/reports/tpls/*'
-    'back/packages/integrates-back/backend/reports/results/results_pdf/*'
-    'back/packages/integrates-back/backend/reports/results/results_excel/*'
-    'build/coverage'
-    'back/packages/*/*.egg-info'
-    'front/coverage'
-    'geckodriver.log'
-    'mobile/coverage'
-    'front/coverage.lcov'
-    'front/node_modules'
-    'lambda/.venv.*'
-    'mobile/.expo/'
-    'mobile/google-services.json'
-    'TEMP_FD'
-    'version.txt'
-    '*.xlsx'
-    '.tmp'
-    '.DynamoDB'
-  )
-  local globs_to_delete=(
-    '*.coverage*'
-    '*package-lock.json'
-    '*__pycache__*'
-    '*.mypy_cache'
-    '*.pytest_cache'
-    '*.terraform'
-  )
-
-      pushd "${STARTDIR}/integrates" \
-  &&  for file in "${files_to_delete[@]}"
-      do
-        # I want word splitting to exploit globbing
-        # shellcheck disable=SC2086
-            echo "[INFO] Deleting: ${file}" \
-        &&  rm -rf ${file}
-      done
-
-      for glob in "${globs_to_delete[@]}"
-      do
-            echo "[INFO] Deleting: ${glob}" \
-        &&  find . -wholename "${glob}" -exec rm -rf {} +
-      done \
   &&  popd \
   ||  return 1
 }

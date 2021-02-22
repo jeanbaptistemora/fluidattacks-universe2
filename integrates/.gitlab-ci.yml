@@ -157,7 +157,6 @@ integrates.back.test.unit:
   <<: *makes
   <<: *in_dev_branch_integrates
   stage: test-code
-  retry: 1
   artifacts:
     name: "coverage_xml_${CI_COMMIT_REF_NAME}_${CI_COMMIT_SHA:0:8}"
     paths:
