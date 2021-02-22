@@ -63,7 +63,7 @@ def get_vulnerability_from_n_id(
             namespace=CTX.config.namespace,
             what=meta_attrs_label_path,
         ),
-        where=n_attrs_label_line,
+        where=str(n_attrs_label_line),
         skims_metadata=core_model.SkimsVulnerabilityMetadata(
             cwe=cwe,
             description=t(

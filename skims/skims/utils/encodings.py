@@ -94,6 +94,22 @@ def deserialize_namespace_from_vuln(
     return namespace
 
 
+def deserialize_what_from_vuln(
+    kind: core_model.VulnerabilityKindEnum,
+    what: str,
+) -> str:
+    if kind == core_model.VulnerabilityKindEnum.INPUTS:
+        what = what.split(': ', maxsplit=1)[1]
+    elif kind == core_model.VulnerabilityKindEnum.LINES:
+        what = what.split('/', maxsplit=1)[1]
+    elif kind == core_model.VulnerabilityKindEnum.PORTS:
+        what = what.split(': ', maxsplit=1)[1]
+    else:
+        raise NotImplementedError()
+
+    return what
+
+
 def serialize_namespace_into_vuln(
     kind: core_model.VulnerabilityKindEnum,
     namespace: str,

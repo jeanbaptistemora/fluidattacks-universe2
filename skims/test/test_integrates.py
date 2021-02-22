@@ -48,7 +48,7 @@ async def test_build_vulnerabilities_stream() -> None:
                 ),
                 kind=core_model.VulnerabilityKindEnum.LINES,
                 state=core_model.VulnerabilityStateEnum.OPEN,
-                what='what',
+                what='namespace/what',
                 where='123',
             ),
         )
@@ -56,7 +56,7 @@ async def test_build_vulnerabilities_stream() -> None:
         lines:
         - commit_hash: '00000000'
           line: '123'
-          path: what
+          path: namespace/what
           source: skims
           state: open
     """)[1:]
