@@ -2,6 +2,7 @@ forces
 forces.infra-apply
 forces.infra-test
 forces.oci-deploy
+forces.oci-deploy-ephemeral
 forces.process-groups
 forces.test
 integrates.analytics.documents

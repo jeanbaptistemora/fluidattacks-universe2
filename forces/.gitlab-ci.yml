@@ -33,6 +33,11 @@
       when: never
     - if: *forces_commit_pattern
 
+forces.oci-deploy-ephemeral:
+  <<: *makes
+  <<: *forces_in_dev_and_master_branch
+  stage: build
+
 forces.lint:
   <<: *makes
   <<: *forces_in_dev_and_master_branch
@@ -42,6 +47,8 @@ forces.test:
   <<: *makes
   <<: *forces_in_dev_and_master_branch
   stage: test-code
+  needs:
+    - forces.oci-deploy-ephemeral
 
 forces.infra-test:
   <<: *makes
