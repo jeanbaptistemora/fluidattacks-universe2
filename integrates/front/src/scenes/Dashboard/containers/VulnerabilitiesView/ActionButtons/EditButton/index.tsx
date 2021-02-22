@@ -46,7 +46,7 @@ const EditButton: React.FC<IEditButtonProps> = ({
             ) : (
               <React.Fragment>
                 <FluidIcon icon={"edit"} />
-                &nbsp;{t("search_findings.tab_description.editable.text")}
+                &nbsp;{t("search_findings.tab_vuln.buttons.edit")}
               </React.Fragment>
             )}
           </Button>

@@ -40,9 +40,7 @@ describe("ActionButtons", (): void => {
     expect(buttons).toHaveLength(1);
     expect(
       buttons.filterWhere((button: ReactWrapper): boolean =>
-        button
-          .text()
-          .includes(t("search_findings.tab_description.editable.text"))
+        button.text().includes(t("search_findings.tab_vuln.buttons.edit"))
       )
     ).toHaveLength(1);
   });
@@ -94,9 +92,7 @@ describe("ActionButtons", (): void => {
     expect(requestButton).toHaveLength(1);
     expect(
       buttons.filterWhere((button: ReactWrapper): boolean =>
-        button
-          .text()
-          .includes(t("search_findings.tab_description.editable.text"))
+        button.text().includes(t("search_findings.tab_vuln.buttons.edit"))
       )
     ).toHaveLength(1);
 
@@ -122,9 +118,7 @@ describe("ActionButtons", (): void => {
       wrapper
         .find("Button")
         .filterWhere((button: ReactWrapper): boolean =>
-          button
-            .text()
-            .includes(t("search_findings.tab_description.editable.text"))
+          button.text().includes(t("search_findings.tab_vuln.buttons.edit"))
         )
     ).toHaveLength(0);
   });

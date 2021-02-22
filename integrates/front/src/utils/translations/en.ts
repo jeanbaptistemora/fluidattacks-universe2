@@ -1942,6 +1942,7 @@ export const enTranslations: ResourceKey = {
         },
       },
       buttons: {
+        edit: "Bulk edit",
         handle_acceptation: "Treatment Acceptation",
         reattack: "Reattack",
       },
