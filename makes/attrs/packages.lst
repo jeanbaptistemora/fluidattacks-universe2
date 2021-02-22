@@ -29,6 +29,7 @@ integrates.web.e2e.lint
 integrates.web.e2e.pypi
 makes.commitlint
 makes.dev
+makes.docs.runtime
 makes.test
 melts.config-development
 melts.config-runtime

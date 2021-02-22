@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "bucket" {
-  bucket = "docs.${lookup(data.cloudflare_zones.fluidattacks_com.zones[0], "id")}"
+  bucket = "docs.${lookup(data.cloudflare_zones.fluidattacks_com.zones[0], "name")}"
   acl    = "private"
 
   server_side_encryption_configuration {
