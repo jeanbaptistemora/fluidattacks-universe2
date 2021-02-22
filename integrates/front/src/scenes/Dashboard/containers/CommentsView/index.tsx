@@ -12,12 +12,12 @@ import mixpanel from "mixpanel-browser";
 import React from "react";
 import { useParams } from "react-router";
 
+import { Comments } from "scenes/Dashboard/components/Comments/index";
 import {
-  Comments,
   ICommentStructure,
-  loadCallback,
-  postCallback,
-} from "scenes/Dashboard/components/Comments/index";
+  ILoadCallback,
+  IPostCallback,
+} from "scenes/Dashboard/components/Comments/types";
 import {
   ADD_FINDING_CONSULT,
   GET_FINDING_CONSULTING,
@@ -56,7 +56,7 @@ const commentsView: React.FC = (): JSX.Element => {
       >
         {({ data, loading }: QueryResult): JSX.Element => {
           if (_.isUndefined(data) || loading) { return <React.Fragment />; }
-          const getData: ((callback: loadCallback) => void) = (
+          const getData: ((callback: ILoadCallback) => void) = (
             callbackFn: (data: ICommentStructure[]) => void,
           ): void => {
             const comments: ICommentStructure[] = type === "consult"
@@ -87,8 +87,8 @@ const commentsView: React.FC = (): JSX.Element => {
           return (
             <Mutation mutation={ADD_FINDING_CONSULT} onError={handleAddCommentError}>
               {(addComment: MutationFunction): JSX.Element => {
-                const handlePost: ((comment: ICommentStructure, callbackFn: postCallback) => void) = (
-                  comment: ICommentStructure, callbackFn: postCallback,
+                const handlePost: ((comment: ICommentStructure, callbackFn: IPostCallback) => void) = (
+                  comment: ICommentStructure, callbackFn: IPostCallback,
                 ): void => {
                   interface IMutationResult {
                     data: {

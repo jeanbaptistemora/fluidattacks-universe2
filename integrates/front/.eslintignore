@@ -11,7 +11,7 @@ src/scenes/Dashboard/**/*.*
 !src/scenes/Dashboard/components/AddTagsModal/**
 !src/scenes/Dashboard/components/AddUserModal/**
 !src/scenes/Dashboard/components/APITokenModal/**
-!src/scenes/Dashboard/components/Comments/index.spec.tsx
+!src/scenes/Dashboard/components/Comments/**
 !src/scenes/Dashboard/components/ContentTab/**
 !src/scenes/Dashboard/components/DeleteGroupModal/**
 !src/scenes/Dashboard/components/DeleteVulnerability/**

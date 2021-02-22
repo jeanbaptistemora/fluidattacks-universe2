@@ -11,12 +11,12 @@ import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
 import { useParams } from "react-router";
+import { Comments } from "scenes/Dashboard/components/Comments/index";
 import {
-  Comments,
   ICommentStructure,
-  loadCallback,
-  postCallback,
-} from "scenes/Dashboard/components/Comments/index";
+  ILoadCallback,
+  IPostCallback,
+} from "scenes/Dashboard/components/Comments/types";
 import {
   ADD_PROJECT_CONSULT,
   GET_PROJECT_CONSULTING,
@@ -63,7 +63,7 @@ const projectConsultingView: React.FC = (): JSX.Element => {
       >
         {({ data, loading }: QueryResult): JSX.Element => {
           if (_.isUndefined(data) || loading) { return <React.Fragment />; }
-          const getData: ((callback: loadCallback) => void) = (
+          const getData: ((callback: ILoadCallback) => void) = (
             callbackFn: (data: ICommentStructure[]) => void,
           ): void => {
             callbackFn(data.project.consulting.map((consult: ICommentStructure) => ({
@@ -77,8 +77,8 @@ const projectConsultingView: React.FC = (): JSX.Element => {
           return (
             <Mutation mutation={ADD_PROJECT_CONSULT} onError={handleAddConsultError}>
               {(addConsult: MutationFunction): JSX.Element => {
-                const handlePost: ((consult: ICommentStructure, callbackFn: postCallback) => void) = (
-                  consult: ICommentStructure, callbackFn: postCallback,
+                const handlePost: ((consult: ICommentStructure, callbackFn: IPostCallback) => void) = (
+                  consult: ICommentStructure, callbackFn: IPostCallback,
                 ): void => {
                   interface IMutationResult {
                     data: {

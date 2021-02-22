@@ -1,41 +1,17 @@
-import { default as $ } from "jquery";
-/* tslint:disable-next-line no-import-side-effect
- * Disabling this rule is necessary to use the comments
- * plugin, which is currently only available for JQuery
- */
-import "jquery-comments_brainkit";
-/* tslint:disable-next-line:no-import-side-effect no-submodule-imports
- * Disabling this two rules is necessary for
- * allowing the import of default styles that jquery-comments needs
- * to display properly even if some of them are overridden later
- */
-import "jquery-comments_brainkit/css/jquery-comments.css";
+import $ from "jquery";
+import type { ICommentsProps } from "scenes/Dashboard/components/Comments/types";
 import React from "react";
+import "jquery-comments_brainkit";
+import "jquery-comments_brainkit/css/jquery-comments.css";
 
-export interface ICommentStructure {
-  content: string;
-  created: string;
-  created_by_current_user: boolean;
-  email: string;
-  fullname: string;
-  id: number;
-  modified: string;
-  parent: number;
-}
+const initializeComments: (props: ICommentsProps) => void = (
+  props: ICommentsProps
+): void => {
+  const { id, onLoad, onPostComment } = props;
 
-export type loadCallback = ((comments: ICommentStructure[]) => void);
-export type postCallback = ((comments: ICommentStructure) => void);
-
-export interface ICommentsProps {
-  id: string;
-  onLoad(callbackFn: ((comments: ICommentStructure[]) => void)): void;
-  onPostComment(comment: ICommentStructure, callbackFn: ((comment: ICommentStructure) => void)): void;
-}
-
-const initializeComments: ((props: ICommentsProps) => void) = (props: ICommentsProps): void => {
-  const { onLoad, onPostComment } = props;
-
-  ($(`#${props.id}`) as JQuery & { comments(options: Dictionary): void }).comments({
+  ($(`#${id}`) as JQuery & {
+    comments: (options: Record<string, unknown>) => void;
+  }).comments({
     defaultNavigationSortKey: "oldest",
     enableAttachments: false,
     enableEditing: false,
@@ -49,17 +25,22 @@ const initializeComments: ((props: ICommentsProps) => void) = (props: ICommentsP
   });
 };
 
-const comments: React.FC<ICommentsProps> = (props: ICommentsProps): JSX.Element => {
-  const onMount: (() => void) = (): void => {
-    initializeComments(props);
+const Comments: React.FC<ICommentsProps> = (
+  props: ICommentsProps
+): JSX.Element => {
+  const { id, onLoad, onPostComment } = props;
+  const onMount: () => void = (): void => {
+    initializeComments({ id, onLoad, onPostComment });
   };
-  React.useEffect(onMount, [props.id]);
+  // Annotation needed for avoiding improper behaviour of callbacks
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  React.useEffect(onMount, [id]);
 
   return (
     <React.StrictMode>
-      <div id={props.id} />
+      <div id={id} />
     </React.StrictMode>
   );
 };
 
-export { comments as Comments };
+export { Comments };
