@@ -1,26 +1,28 @@
-import { ChartData, ChartOptions } from "chart.js";
-import React from "react";
 import { HorizontalBar } from "react-chartjs-2";
-import { default as style } from "scenes/Dashboard/components/HorizontalBarIndicator/index.css";
+import React from "react";
+import style from "scenes/Dashboard/components/HorizontalBarIndicator/index.css";
+import type { ChartData, ChartOptions } from "chart.js";
 
 interface IStackedBarProps {
   data: ChartData;
+  // Next annotation needed for avoiding the mutation of defaultProps
+  // eslint-disable-next-line react/require-default-props
   height?: number;
   name: string;
   options: ChartOptions;
 }
 
-const horizontalBarIndicator: React.FC<IStackedBarProps> = (props: IStackedBarProps): JSX.Element => (
-  <React.Fragment>
-    <div className={style.styleChart}>
-      <h3>{props.name}</h3>
-      <HorizontalBar
-        data={props.data}
-        options={props.options}
-        height={props.height}
-      />
-    </div>
-  </React.Fragment>
-);
+const HorizontalBarIndicator: React.FC<IStackedBarProps> = (
+  props: IStackedBarProps
+): JSX.Element => {
+  const { data, height, name, options } = props;
 
-export { horizontalBarIndicator as HorizontalBarIndicator };
+  return (
+    <div className={style.styleChart}>
+      <h3>{name}</h3>
+      <HorizontalBar data={data} height={height} options={options} />
+    </div>
+  );
+};
+
+export { HorizontalBarIndicator };

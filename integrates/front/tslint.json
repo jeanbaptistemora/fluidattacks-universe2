@@ -32,6 +32,7 @@
       "src/scenes/Dashboard/components/FindingActions/index.spec.tsx",
       "src/scenes/Dashboard/components/FindingHeader/index.spec.tsx",
       "src/scenes/Dashboard/components/GenericForm/index.spec.tsx",
+      "src/scenes/Dashboard/components/HorizontalBarIndicator/**",
       "src/scenes/Dashboard/components/NewsWidget/**",
       "src/scenes/Dashboard/components/Navbar/components/splitbutton/index.tsx",
       "src/scenes/Dashboard/components/Vulnerabilities/**",
