@@ -878,19 +878,17 @@ async def update_portfolios() -> None:
     """
     LOGGER.info('[scheduler]: updating portfolios indicators', **NOEXTRA)
     context = get_new_context()
+    group_loader = context.group_all
     async for _, org_name, org_groups in \
             org_domain.iterate_organizations_and_groups():
         org_tags = await context.organization_tags.load(org_name)
-        org_groups_attrs = await collect(
-            project_domain.get_attributes(
-                group, ['project_name', 'project_status', 'tag']
-            )
-            for group in org_groups
+        org_groups_attrs = await group_loader.load_many_chained(
+            list(org_groups)
         )
         tag_groups: List[str] = [
-            group['project_name']
+            str(group['name'])
             for group in org_groups_attrs
-            if group.get('project_status') == 'ACTIVE' and group.get('tag', [])
+            if group['project_status'] == 'ACTIVE' and group['tags']
         ]
         success, updated_tags = await update_organization_indicators(
             context,
