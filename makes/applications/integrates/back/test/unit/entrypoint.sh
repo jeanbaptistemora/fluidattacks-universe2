@@ -9,10 +9,8 @@ function main {
     --cov-report 'xml:coverage.xml'
     --cov-report 'annotate:build/coverage/annotate'
     --disable-warnings
-    --dist 'loadscope'
     --exitfirst
     --ignore 'test_async/functional_test'
-    -n auto
     --verbose
   )
 
