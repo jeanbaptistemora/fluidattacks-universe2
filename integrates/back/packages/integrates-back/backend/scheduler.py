@@ -124,12 +124,13 @@ def extract_info_from_event_dict(event_dict: EventType) -> EventType:
     return event_dict
 
 
-async def send_unsolved_events_email(context: Any, project: str) -> None:
+async def send_unsolved_events_email(context: Any, group_name: str) -> None:
+    group_loader = context.group_all
     organization_loader = context.organization
     mail_to = []
     events_info_for_email = []
     project_info = await project_domain.get_attributes(
-        project, ['historic_configuration']
+        group_name, ['historic_configuration']
     )
     historic_configuration = cast(
         HistoricType,
@@ -137,22 +138,23 @@ async def send_unsolved_events_email(context: Any, project: str) -> None:
     )
     if (project_info and
             historic_configuration[-1].get('type', '') == 'continuous'):
-        mail_to = await get_external_recipients(project)
+        mail_to = await get_external_recipients(group_name)
         mail_to.append(FI_MAIL_CONTINUOUS)
         mail_to.append(FI_MAIL_PROJECTS)
-        unsolved_events = await get_unsolved_events(project)
+        unsolved_events = await get_unsolved_events(group_name)
         events_info_for_email = [
             extract_info_from_event_dict(x)
             for x in unsolved_events
         ]
-    org_id = await org_domain.get_id_for_group(project)
+    group = await group_loader.load(group_name)
+    org_id = group['organization']
     organization = await organization_loader.load(org_id)
     org_name = organization['name']
     context_event: MailContentType = {
-        'project': project.capitalize(),
+        'project': group_name.capitalize(),
         'organization': org_name,
         'events_len': int(len(events_info_for_email)),
-        'event_url': f'{BASE_URL}/orgs/{org_name}/groups/{project}/events'
+        'event_url': f'{BASE_URL}/orgs/{org_name}/groups/{group_name}/events'
     }
     if context_event['events_len'] and mail_to:
         scheduler_send_mail(
@@ -622,32 +624,34 @@ async def get_remediated_findings() -> None:
 async def get_new_releases() -> None:  # pylint: disable=too-many-locals
     """Summary mail send with findings that have not been released yet."""
     context = get_new_context()
+    group_loader = context.group_all
     organization_loader = context.organization
     msg = '[scheduler]: get_new_releases is running'
     LOGGER.warning(msg, extra=dict(extra=None))
-    test_projects = FI_TEST_PROJECTS.split(',')
-    projects = await project_domain.get_active_projects()
+    test_groups = FI_TEST_PROJECTS.split(',')
+    groups = await project_domain.get_active_projects()
     email_context: MailContentType = (
         defaultdict(list)
     )
     cont = 0
-    projects = [
-        project
-        for project in projects
-        if project not in test_projects
+    groups = [
+        group
+        for group in groups
+        if group not in test_groups
     ]
-    list_drafts = await finding_domain.list_drafts(projects)
-    project_drafts = await collect(
+    list_drafts = await finding_domain.list_drafts(groups)
+    group_drafts = await collect(
         finding_domain.get_findings_async(drafts)
         for drafts in list_drafts
     )
-    for project, finding_requests in zip(projects, project_drafts):
-        if project not in test_projects:
+    for group_name, finding_requests in zip(groups, group_drafts):
+        if group_name not in test_groups:
             try:
                 for finding in finding_requests:
                     is_finding_released = finding_filters.is_released(finding)
                     if not is_finding_released:
-                        org_id = await org_domain.get_id_for_group(project)
+                        group = await group_loader.load(group_name)
+                        org_id = group['organization']
                         organization = await organization_loader.load(org_id)
                         org_name = organization['name']
                         submission = finding.get('historicState')
@@ -663,11 +667,11 @@ async def get_new_releases() -> None:  # pylint: disable=too-many-locals
                         ).append({
                             'finding_name': finding.get('finding'),
                             'finding_url': (
-                                f'{BASE_URL}/orgs/{org_name}/groups/{project}/'
-                                f'drafts/{finding.get("findingId")}'
-                                '/description'
+                                f'{BASE_URL}/orgs/{org_name}/groups/'
+                                f'{group_name}/drafts/'
+                                f'{finding.get("findingId")}/description'
                             ),
-                            'project': project.upper(),
+                            'project': group_name.upper(),
                             'organization': org_name
                         })
                         cont += 1
