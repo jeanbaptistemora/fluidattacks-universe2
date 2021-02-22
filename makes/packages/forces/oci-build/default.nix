@@ -1,4 +1,5 @@
 { forcesPkgs
+, makeDerivation
 , packages
 , path
 , ...
@@ -12,5 +13,9 @@ makeOci {
     forcesPkgs.bash
     forcesPkgs.coreutils
     packages.forces
+    (makeDerivation forcesPkgs {
+      builder = path "/makes/packages/forces/oci-build/builder.sh";
+      name = "forces-oci-build-customization-layer";
+    })
   ];
 }
