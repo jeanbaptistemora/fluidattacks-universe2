@@ -414,6 +414,7 @@ async def test_edit(
     expected: bool,
 ):
     assert expected == await edit(
+        context=get_new_context(),
         comments='',
         group_name=group_name,
         subscription=subscription,

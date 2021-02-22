@@ -77,6 +77,7 @@ async def mutate(  # pylint: disable=too-many-arguments
         )
     ):
         await group_domain.remove_user_access(
+            loaders,
             group_name,
             user_domain.format_forces_user_email(group_name)
         )

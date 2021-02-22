@@ -39,6 +39,7 @@ async def mutate(
     stakeholder_info = await util.get_jwt_content(info.context)
     stakeholder_email = stakeholder_info['user_email']
     success = await group_domain.remove_user_access(
+        info.context.loaders,
         group_name,
         stakeholder_email
     )

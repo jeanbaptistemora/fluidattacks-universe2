@@ -250,7 +250,7 @@ async def create_group(  # pylint: disable=too-many-arguments,too-many-locals
 
 async def edit(
     *,
-    context=Any,
+    context: Any,
     comments: str,
     group_name: str,
     has_drills: bool,
@@ -302,7 +302,9 @@ async def edit(
         )
 
     if not has_integrates:
-        org_id = await org_domain.get_id_for_group(group_name)
+        group_loader = context.group_all
+        group = await group_loader.load(group_name)
+        org_id = group['organization']
         success = success and await org_domain.remove_group(
             context,
             organization_id=org_id,
@@ -392,7 +394,7 @@ async def get_historic_deletion(project_name: str) -> HistoricType:
 
 
 async def remove_resources(context: Any, project_name: str) -> bool:
-    are_users_removed = await remove_all_users_access(project_name)
+    are_users_removed = await remove_all_users_access(context, project_name)
     group_findings = await finding_domain.list_findings(
         context,
         [project_name],
@@ -495,7 +497,7 @@ async def mask(group_name: str) -> bool:
     return comments_result and is_group_finished
 
 
-async def remove_all_users_access(project: str) -> bool:
+async def remove_all_users_access(context: Any, project: str) -> bool:
     """Remove user access to project."""
     user_active, user_suspended = await collect([
         get_users(project, True),
@@ -503,7 +505,7 @@ async def remove_all_users_access(project: str) -> bool:
     ])
     all_users = user_active + user_suspended
     are_users_removed = all(await collect([
-        remove_user_access(project, user)
+        remove_user_access(context, project, user)
         for user in all_users
     ]))
 
@@ -511,24 +513,32 @@ async def remove_all_users_access(project: str) -> bool:
 
 
 async def remove_user_access(
-        group: str,
-        email: str,
-        check_org_access: bool = True) -> bool:
+    context: Any,
+    group_name: str,
+    email: str,
+    check_org_access: bool = True
+) -> bool:
     """Remove user access to project."""
     success: bool = all(
         await collect([
-            authz.revoke_group_level_role(email, group),
-            remove_access(email, group)
+            authz.revoke_group_level_role(email, group_name),
+            remove_access(email, group_name)
         ])
     )
     if success and check_org_access:
-        org_id = await org_domain.get_id_for_group(group)
+        group_loader = context.group
+        group = await group_loader.load(group_name)
+        org_id = group['organization']
         has_org_access = await org_domain.has_user_access(org_id, email)
         has_groups_in_org = bool(
             await user_domain.get_projects(email, organization_id=org_id)
         )
         if has_org_access and not has_groups_in_org:
-            success = success and await org_domain.remove_user(org_id, email)
+            success = success and await org_domain.remove_user(
+                context,
+                org_id,
+                email
+            )
 
         has_groups = bool(
             await user_domain.get_projects(email)

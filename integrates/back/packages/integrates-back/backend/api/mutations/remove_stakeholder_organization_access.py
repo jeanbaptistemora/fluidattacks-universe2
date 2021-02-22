@@ -24,7 +24,9 @@ async def mutate(
     organization_name = await org_domain.get_name_by_id(organization_id)
 
     success: bool = await org_domain.remove_user(
-        organization_id, user_email.lower()
+        info.context.loaders,
+        organization_id,
+        user_email.lower()
     )
     if success:
         redis_del_by_deps_soon(

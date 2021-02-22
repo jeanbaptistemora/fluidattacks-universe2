@@ -29,12 +29,15 @@ from backend.typing import (
     require_integrates,
 )
 async def mutate(
-        _: Any,
-        info: GraphQLResolveInfo,
-        project_name: str,
-        user_email: str) -> RemoveStakeholderAccessPayloadType:
+    _: Any,
+    info: GraphQLResolveInfo,
+    project_name: str,
+    user_email: str
+) -> RemoveStakeholderAccessPayloadType:
     success = await project_domain.remove_user_access(
-        project_name, user_email
+        info.context.loaders,
+        project_name,
+        user_email
     )
     removed_email = user_email if success else ''
     if success:
