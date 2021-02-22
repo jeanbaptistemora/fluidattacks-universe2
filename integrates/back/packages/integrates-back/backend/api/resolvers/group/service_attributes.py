@@ -1,5 +1,5 @@
 # Standard
-from typing import cast, Set
+from typing import cast, List
 
 # Third party
 from graphql.type.definition import GraphQLResolveInfo
@@ -15,7 +15,7 @@ async def resolve(
     parent: Group,
     _info: GraphQLResolveInfo,
     **_kwargs: None
-) -> Set[str]:
+) -> List[str]:
     group_name: str = cast(str, parent['name'])
 
-    return await authz.get_group_service_attributes(group_name)
+    return sorted(await authz.get_group_service_attributes(group_name))

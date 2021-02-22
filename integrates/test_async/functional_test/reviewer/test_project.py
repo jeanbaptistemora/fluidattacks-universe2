@@ -231,10 +231,10 @@ async def test_project():
     assert result['data']['project']['organization'] == org_name
     assert result['data']['project']['serviceAttributes'] == [
         'has_drills_white',
-        'is_fluidattacks_customer',
-        'is_continuous',
-        'has_integrates',
         'has_forces',
+        'has_integrates',
+        'is_continuous',
+        'is_fluidattacks_customer',
         'must_only_have_fluidattacks_hackers',
     ]
     assert len(result['data']['project']['stakeholders']) == 3

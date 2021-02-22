@@ -137,15 +137,15 @@ async def test_me():
         {
             'name': 'test-projects',
             'projects': [
+                {'name': 'oneshottest'},
                 {'name': 'unittesting'},
-                {'name': 'oneshottest'}
             ]
         },
         {
             'name': 'test-updates',
             'projects': [
+                {'name': 'oneshottest'},
                 {'name': 'unittesting'},
-                {'name': 'oneshottest'}
             ]
         }
     ]

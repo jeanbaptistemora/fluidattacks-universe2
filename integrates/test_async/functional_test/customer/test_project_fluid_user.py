@@ -159,9 +159,14 @@ async def test_project_fluid_user():
     assert result['data']['project']['consulting'] == [
         {'content': 'Test consult'}]
     assert result['data']['project']['events'] == []
-    assert result['data']['project']['serviceAttributes'] == ['has_drills_white', 'is_fluidattacks_customer',
-                                                              'is_continuous', 'has_integrates', 'has_forces', 'must_only_have_fluidattacks_hackers']
-
+    assert result['data']['project']['serviceAttributes'] == [
+        'has_drills_white',
+        'has_forces',
+        'has_integrates',
+        'is_continuous',
+        'is_fluidattacks_customer',
+        'must_only_have_fluidattacks_hackers',
+    ]
     query = f'''
         mutation {{
             removeTag (

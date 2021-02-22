@@ -224,10 +224,10 @@ async def test_project():
     assert {'email': f'forces.{group_name}@fluidattacks.com', 'role': 'service_forces'} in result['data']['project']['stakeholders']
     assert result['data']['project']['serviceAttributes'] == [
         'has_drills_white',
-        'is_fluidattacks_customer',
-        'is_continuous',
-        'has_integrates',
         'has_forces',
+        'has_integrates',
+        'is_continuous',
+        'is_fluidattacks_customer',
         'must_only_have_fluidattacks_hackers',
     ]
     assert result['data']['project']['bill'] ==  {'developers': []}

@@ -42,7 +42,7 @@ async def _batch_load_fn(organization_names: List[str]) -> List[List[TagType]]:
                     'mean_remediate_medium_severity'
                 ],
                 organization=organization_name,
-                projects=tag['projects'],
+                projects=sorted(tag['projects']),
                 tag=tag['tag'],
             )
             for tag in organization_tags
