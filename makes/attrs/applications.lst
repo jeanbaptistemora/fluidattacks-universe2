@@ -5,6 +5,7 @@ forces.oci-deploy
 forces.oci-deploy-ephemeral
 forces.process-groups
 forces.test
+forces.test-container
 integrates.analytics.documents
 integrates.analytics.snapshots
 integrates.back
