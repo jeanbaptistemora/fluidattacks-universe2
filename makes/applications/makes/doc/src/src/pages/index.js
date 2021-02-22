@@ -8,6 +8,14 @@ import styles from './styles.module.css';
 
 const features = [
   {
+    title: 'Asserts',
+    description: (
+      <>
+        Asserts description
+      </>
+    ),
+  },
+  {
     title: 'Integrates',
     description: (
       <>
@@ -47,12 +55,6 @@ function Home() {
     <Layout
       title={`Hello from ${siteConfig.title}`}
       description="Description will go into a meta tag in <head />">
-      <header className={clsx('hero hero--primary', styles.heroBanner)}>
-        <div className="container">
-          <h1 className="hero__title">{siteConfig.title}</h1>
-          <p className="hero__subtitle">{siteConfig.tagline}</p>
-        </div>
-      </header>
       <main>
         {features && features.length > 0 && (
           <section className={styles.features}>

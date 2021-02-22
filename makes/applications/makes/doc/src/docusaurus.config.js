@@ -20,6 +20,12 @@ module.exports = {
       },
       items: [
         {
+          to: 'docs/asserts/',
+          activeBasePath: 'docs/asserts/',
+          label: 'Asserts',
+          position: 'left',
+        },
+        {
           to: 'docs/integrates/',
           activeBasePath: 'docs/integrates/',
           label: 'Integrates',
