@@ -3,7 +3,7 @@ import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import { MemoryRouter } from "react-router-dom";
 import { MockedProvider } from "@apollo/react-testing";
 import type { MockedResponse } from "@apollo/react-testing";
-import { navbarComponent as NavbarComponent } from "scenes/Dashboard/components/Navbar";
+import { NavbarComponent } from "scenes/Dashboard/components/Navbar";
 import { Provider } from "react-redux";
 import { PureAbility } from "@casl/ability";
 import React from "react";
