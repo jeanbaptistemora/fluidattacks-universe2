@@ -5,6 +5,7 @@ from aniso8601 import parse_datetime
 
 from starlette.datastructures import UploadFile
 
+from backend.api import get_new_context
 from backend.domain import event as event_domain
 from backend.dal import (
     comment as comment_dal,
@@ -36,14 +37,17 @@ async def test_create_event():
         'action_after_blocking': 'TRAINING',
         'action_before_blocking': 'DOCUMENT_PROJECT',
         'accessibility': 'REPOSITORY',
-        'analyst_email': 'unittesting@fluidattacks.com',
         'context': 'OTHER',
         'detail': 'Something happened.',
         'event_date': parse_datetime('2019-12-09T05:00:00.000Z'),
         'event_type': 'CLIENT_DETECTS_ATTACK',
-        'project_name': 'unittesting'
     }
-    assert await event_domain.create_event(**attrs)
+    assert await event_domain.create_event(
+        get_new_context(),
+        analyst_email='unittesting@fluidattacks.com',
+        group_name='unittesting',
+        **attrs
+    )
 
 @pytest.mark.changes_db
 async def test_create_event_file_image():
@@ -51,12 +55,10 @@ async def test_create_event_file_image():
         'action_after_blocking': 'TRAINING',
         'action_before_blocking': 'DOCUMENT_PROJECT',
         'accessibility': 'REPOSITORY',
-        'analyst_email': 'unittesting@fluidattacks.com',
         'context': 'OTHER',
         'detail': 'Something happened.',
         'event_date': parse_datetime('2019-12-09T05:00:00.000Z'),
         'event_type': 'CLIENT_DETECTS_ATTACK',
-        'project_name': 'unittesting'
     }
     filename = os.path.dirname(os.path.abspath(__file__))
     filename = os.path.join(filename, '../mock/test-file-records.csv')
@@ -71,9 +73,12 @@ async def test_create_event_file_image():
                 'image/gif'
             )
             test_data = await event_domain.create_event(
-                **attrs,
+                get_new_context(),
+                analyst_email='unittesting@fluidattacks.com',
+                group_name='unittesting',
                 file=uploaded_file,
-                image=uploaded_image
+                image=uploaded_image,
+                **attrs,
             )
     expected_output = True
     assert isinstance(test_data, bool)

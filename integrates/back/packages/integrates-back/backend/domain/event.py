@@ -151,15 +151,16 @@ async def validate_evidence(
     return success
 
 
-async def _send_new_event_mail(
-        analyst: str,
-        event_id: str,
-        project: str,
-        subscription: str,
-        event_type: str) -> None:
-    recipients = await project_dal.list_project_managers(project)
+async def _send_new_event_mail(  # pylint: disable=too-many-arguments
+    org_id: str,
+    analyst: str,
+    event_id: str,
+    group_name: str,
+    subscription: str,
+    event_type: str
+) -> None:
+    recipients = await project_dal.list_project_managers(group_name)
     recipients.append(analyst)
-    org_id = await org_domain.get_id_for_group(project)
     org_name = await org_domain.get_name_by_id(org_id)
     if subscription == 'oneshot':
         recipients.append(FI_MAIL_PROJECTS)
@@ -172,9 +173,9 @@ async def _send_new_event_mail(
     email_context: MailContentType = {
         'analyst_email': analyst,
         'event_id': event_id,
-        'event_url': f'{BASE_URL}/orgs/{org_name}/groups/{project}'
+        'event_url': f'{BASE_URL}/orgs/{org_name}/groups/{group_name}'
                      f'/events/{event_id}',
-        'project': project,
+        'project': group_name,
         'organization': org_name
     }
 
@@ -182,13 +183,13 @@ async def _send_new_event_mail(
         recipient
         for recipient in recipients
         if await authz.get_group_level_role(
-            recipient, project) == 'customeradmin'
+            recipient, group_name) == 'customeradmin'
     ]
     recipients_not_customers = [
         recipient
         for recipient in recipients
         if await authz.get_group_level_role(
-            recipient, project) != 'customeradmin'
+            recipient, group_name) != 'customeradmin'
     ]
     email_context_customers = email_context.copy()
     email_context_customers['analyst_email'] = f'Hacker at FluidIntegrates'
@@ -201,12 +202,15 @@ async def _send_new_event_mail(
     )
 
 
-async def create_event(
-        analyst_email: str,
-        project_name: str,
-        file: Optional[UploadFile] = None,
-        image: Optional[UploadFile] = None,
-        **kwargs: Any) -> bool:
+async def create_event(  # pylint: disable=too-many-locals
+    loaders: Any,
+    analyst_email: str,
+    group_name: str,
+    file: Optional[UploadFile] = None,
+    image: Optional[UploadFile] = None,
+    **kwargs: Any
+) -> bool:
+    group_loader = loaders.group_all
     validations.validate_fields([kwargs['detail']])
     validations.validate_field_length(kwargs['detail'], 300)
     event_id = str(random.randint(10000000, 170000000))
@@ -215,13 +219,14 @@ async def create_event(
     today = datetime_utils.get_now()
 
     project_info = await project_domain.get_attributes(
-        project_name, ['historic_configuration']
+        group_name, ['historic_configuration']
     )
     subscription = cast(
         HistoryType, project_info.get('historic_configuration', [{}])
     )[-1].get('type', '')
 
-    org_id = await org_domain.get_id_for_group(project_name)
+    group = await group_loader.load(group_name)
+    org_id = group['organization']
 
     event_attrs = kwargs.copy()
     event_date = (
@@ -266,21 +271,29 @@ async def create_event(
             valid = validate_evidence('evidence', image)
 
         if (valid and
-                await event_dal.create(event_id, project_name, event_attrs)):
+                await event_dal.create(event_id, group_name, event_attrs)):
             if file:
                 await update_evidence(event_id, 'evidence_file', file)
             if image:
                 await update_evidence(event_id, 'evidence', image)
             success = True
             await _send_new_event_mail(
-                analyst_email, event_id, project_name, subscription,
+                org_id,
+                analyst_email,
+                event_id,
+                group_name,
+                subscription,
                 event_attrs['event_type']
             )
 
     else:
-        success = await event_dal.create(event_id, project_name, event_attrs)
+        success = await event_dal.create(event_id, group_name, event_attrs)
         await _send_new_event_mail(
-            analyst_email, event_id, project_name, subscription,
+            org_id,
+            analyst_email,
+            event_id,
+            group_name,
+            subscription,
             event_attrs['event_type']
         )
 

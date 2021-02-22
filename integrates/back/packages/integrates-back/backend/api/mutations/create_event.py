@@ -39,6 +39,7 @@ async def mutate(
     user_info = await util.get_jwt_content(info.context)
     analyst_email = user_info['user_email']
     success = await event_domain.create_event(
+        info.context.loaders,
         analyst_email,
         project_name.lower(),
         file,
