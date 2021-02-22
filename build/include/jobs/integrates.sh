@@ -340,18 +340,6 @@ function job_integrates_back_lint_graphics {
 
 # Others
 
-function job_integrates_coverage_report {
-      pushd "${STARTDIR}/integrates" \
-  &&  env_prepare_python_packages \
-  &&  echo '[INFO] Logging in to AWS' \
-  &&  helper_integrates_aws_login "${ENVIRONMENT_NAME}" \
-  &&  helper_common_sops_env "secrets-${ENVIRONMENT_NAME}.yaml" 'default' \
-        CODECOV_TOKEN \
-  &&  codecov -b "${CI_COMMIT_REF_NAME}" \
-  &&  popd \
-  || return 1
-}
-
 function job_integrates_deploy_permissions_matrix {
   export PYTHONPATH="${pyPkgPandas}/lib/python3.7/site-packages"
   export PYTHONPATH="${pyPkgNumpy}/lib/python3.7/site-packages:${PYTHONPATH}"
