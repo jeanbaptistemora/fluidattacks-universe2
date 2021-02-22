@@ -2004,6 +2004,8 @@ export const enTranslations: ResourceKey = {
         treatmentJustification: "Justification",
         treatmentManager: "Manager",
         treatments: "Treatments",
+        treatments_tooltip:
+          "Filter vulnerabilities based on the treatment they were given",
         verification: "Last reattack",
         vulnType: {
           inputs: "app",

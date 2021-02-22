@@ -250,28 +250,39 @@ export const VulnsView: React.FC = (): JSX.Element => {
                   <Small>
                     {t("search_findings.tab_vuln.vulnTable.treatments")}
                   </Small>
-                  <Select
-                    defaultValue={treatmentFilter}
-                    onChange={onTreatmentChange}
+                  <TooltipWrapper
+                    id={
+                      "search_findings.tab_vuln.vulnTable.treatments_tooltip.id"
+                    }
+                    message={t(
+                      "search_findings.tab_vuln.vulnTable.treatments_tooltip"
+                    )}
                   >
-                    <option value={""} />
-                    <option value={"NEW"}>
-                      {t("search_findings.tab_description.treatment.new")}
-                    </option>
-                    <option value={"IN_PROGRESS"}>
-                      {t(
-                        "search_findings.tab_description.treatment.in_progress"
-                      )}
-                    </option>
-                    <option value={"ACCEPTED"}>
-                      {t("search_findings.tab_description.treatment.accepted")}
-                    </option>
-                    <option value={"ACCEPTED_UNDEFINED"}>
-                      {t(
-                        "search_findings.tab_description.treatment.accepted_undefined"
-                      )}
-                    </option>
-                  </Select>
+                    <Select
+                      defaultValue={treatmentFilter}
+                      onChange={onTreatmentChange}
+                    >
+                      <option value={""} />
+                      <option value={"NEW"}>
+                        {t("search_findings.tab_description.treatment.new")}
+                      </option>
+                      <option value={"IN_PROGRESS"}>
+                        {t(
+                          "search_findings.tab_description.treatment.in_progress"
+                        )}
+                      </option>
+                      <option value={"ACCEPTED"}>
+                        {t(
+                          "search_findings.tab_description.treatment.accepted"
+                        )}
+                      </option>
+                      <option value={"ACCEPTED_UNDEFINED"}>
+                        {t(
+                          "search_findings.tab_description.treatment.accepted_undefined"
+                        )}
+                      </option>
+                    </Select>
+                  </TooltipWrapper>
                 </SelectContainer>
                 <SelectContainer>
                   <Small>
