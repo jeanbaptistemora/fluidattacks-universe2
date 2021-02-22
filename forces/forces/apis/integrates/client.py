@@ -21,8 +21,6 @@ from aiogqlc import GraphQLClient
 from forces.apis.integrates import (
     get_api_token,
 )
-from forces.apis.integrates.limits import DEFAULT as DEFAULT_RATE_LIMIT
-from forces.utils.function import rate_limited
 
 # Context
 SESSION: ContextVar[GraphQLClient] = ContextVar('SESSION')
@@ -57,7 +55,6 @@ async def session(
                 SESSION.reset(token)
 
 
-@rate_limited(rpm=DEFAULT_RATE_LIMIT)
 async def execute(query: str,
                   operation_name: str,
                   variables: Optional[Dict[str, Any]] = None,
