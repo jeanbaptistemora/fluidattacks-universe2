@@ -195,7 +195,7 @@ const GitModal: React.FC<IGitModalProps> = ({
                         name={fieldName}
                         placeholder={t("group.scope.git.filter.placeholder")}
                         type={"text"}
-                        validate={excludeFormat}
+                        validate={[required, excludeFormat]}
                       />
                     )}
                   </ArrayField>
