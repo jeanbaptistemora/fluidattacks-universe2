@@ -1,15 +1,13 @@
-import React from "react";
 import { CircularProgressbar } from "react-circular-progressbar";
-/* tslint:disable-next-line: no-submodule-imports
- * Necessary because react-circular-progressbar doesn't export its props indexed
- */
-import { CircularProgressbarDefaultProps } from "react-circular-progressbar/dist/types";
-import { default as calendarIcon } from "resources/calendar.svg";
-import { default as defaultIcon } from "resources/default_finding_state.svg";
-import { default as failIcon } from "resources/fail.svg";
-import { default as okIcon } from "resources/ok.svg";
-import { default as vulnerabilitiesIcon } from "resources/vulnerabilities.svg";
-import { default as style } from "scenes/Dashboard/components/FindingHeader/index.css";
+import type { CircularProgressbarDefaultProps } from "react-circular-progressbar/dist/types";
+import React from "react";
+import calendarIcon from "resources/calendar.svg";
+import defaultIcon from "resources/default_finding_state.svg";
+import failIcon from "resources/fail.svg";
+import okIcon from "resources/ok.svg";
+import style from "scenes/Dashboard/components/FindingHeader/index.css";
+import { translate } from "utils/translations/translate";
+import vulnerabilitiesIcon from "resources/vulnerabilities.svg";
 import {
   Col100,
   FindingHeaderDetail,
@@ -18,38 +16,62 @@ import {
   FindingHeaderLabel,
   Row,
 } from "styles/styledComponents";
-import { translate } from "utils/translations/translate";
 
 interface IFindingHeaderProps {
   discoveryDate: string;
   openVulns: number;
   severity: number;
-  status: "open" | "closed" | "default";
+  status: "closed" | "default" | "open";
 }
 
-const severityConfigs: { [level: string]: { color: string; text: string } } = {
-  CRITICAL: { color: "#96030D", text: translate.t("search_findings.critical_severity") },
-  HIGH: { color: "#FF1122", text: translate.t("search_findings.high_severity") },
+const severityConfigs: Record<string, { color: string; text: string }> = {
+  CRITICAL: {
+    color: "#96030D",
+    text: translate.t("search_findings.critical_severity"),
+  },
+  HIGH: {
+    color: "#FF1122",
+    text: translate.t("search_findings.high_severity"),
+  },
   LOW: { color: "#FFBF00", text: translate.t("search_findings.low_severity") },
-  MED: { color: "#FF7722", text: translate.t("search_findings.medium_severity") },
-  NONE: { color: "#FF7722", text: translate.t("search_findings.none_severity") },
+  MED: {
+    color: "#FF7722",
+    text: translate.t("search_findings.medium_severity"),
+  },
+  NONE: {
+    color: "#FF7722",
+    text: translate.t("search_findings.none_severity"),
+  },
 };
 
-const statusConfigs: { [level: string]: { icon: string; text: string } } = {
+const statusConfigs: Record<string, { icon: string; text: string }> = {
   closed: { icon: okIcon, text: translate.t("search_findings.status.closed") },
   default: { icon: defaultIcon, text: "" },
   open: { icon: failIcon, text: translate.t("search_findings.status.open") },
 };
 
-const findingHeader: React.FC<IFindingHeaderProps> = (props: IFindingHeaderProps): JSX.Element => {
-  const severityLevel: "CRITICAL" | "HIGH" | "MED" | "LOW" | "NONE" =
-    props.severity >= 9 ? "CRITICAL"
-      : props.severity > 6.9 ? "HIGH"
-        : props.severity > 3.9 ? "MED"
-          : props.severity >= 0.1 ? "LOW"
-            : "NONE";
-  const { color: severityColor, text: severityText } = severityConfigs[severityLevel];
-  const { icon: statusIcon, text: statusText } = statusConfigs[props.status];
+const FindingHeader: React.FC<IFindingHeaderProps> = (
+  props: IFindingHeaderProps
+): JSX.Element => {
+  const { discoveryDate, openVulns, severity, status } = props;
+  const SEVERITY_THRESHOLD_CRITICAL: number = 9;
+  const SEVERITY_THRESHOLD_HIGH: number = 6.9;
+  const SEVERITY_THRESHOLD_MED: number = 3.9;
+  const SEVERITY_THRESHOLD_LOW: number = 0.1;
+  const severityLevel: "CRITICAL" | "HIGH" | "LOW" | "MED" | "NONE" =
+    severity >= SEVERITY_THRESHOLD_CRITICAL
+      ? "CRITICAL"
+      : severity > SEVERITY_THRESHOLD_HIGH
+      ? "HIGH"
+      : severity > SEVERITY_THRESHOLD_MED
+      ? "MED"
+      : severity >= SEVERITY_THRESHOLD_LOW
+      ? "LOW"
+      : "NONE";
+  const { color: severityColor, text: severityText } = severityConfigs[
+    severityLevel
+  ];
+  const { icon: statusIcon, text: statusText } = statusConfigs[status];
   const severityStyles: CircularProgressbarDefaultProps["classes"] = {
     background: style.severityCircleBg,
     path: style.severityCirclePath,
@@ -57,6 +79,8 @@ const findingHeader: React.FC<IFindingHeaderProps> = (props: IFindingHeaderProps
     text: style.severityCircleText,
     trail: style.severityCircleTrail,
   };
+  const CIRCULAR_PROGRESS_BAR_PARAM1: number = 10;
+  const CIRCULAR_PROGRESS_BAR_PARAM2: number = 100;
 
   return (
     <React.StrictMode>
@@ -66,50 +90,65 @@ const findingHeader: React.FC<IFindingHeaderProps> = (props: IFindingHeaderProps
             <div>
               <FindingHeaderDetail>
                 <CircularProgressbar
-                  value={props.severity / 10 * 100}
-                  text={`${props.severity}`}
-                  styles={{ text: { fill: severityColor }, path: { stroke: severityColor } }}
                   classes={severityStyles}
+                  styles={{
+                    path: { stroke: severityColor },
+                    text: { fill: severityColor },
+                  }}
+                  text={`${severity}`}
+                  value={
+                    (severity / CIRCULAR_PROGRESS_BAR_PARAM1) *
+                    CIRCULAR_PROGRESS_BAR_PARAM2
+                  }
                 />
               </FindingHeaderDetail>
               <FindingHeaderDetail>
                 <FindingHeaderLabel>
                   {translate.t("search_findings.severityLabel")}
                 </FindingHeaderLabel>
-                <FindingHeaderIndicator><b>{severityText}</b></FindingHeaderIndicator>
+                <FindingHeaderIndicator>
+                  <b>{severityText}</b>
+                </FindingHeaderIndicator>
               </FindingHeaderDetail>
             </div>
             <div>
               <FindingHeaderDetail>
-                <img src={statusIcon} width={45} height={45} />
+                <img alt={""} height={45} src={statusIcon} width={45} />
               </FindingHeaderDetail>
               <FindingHeaderDetail>
                 <FindingHeaderLabel>
                   {translate.t("search_findings.statusLabel")}
                 </FindingHeaderLabel>
-                <FindingHeaderIndicator><b>{statusText}</b></FindingHeaderIndicator>
+                <FindingHeaderIndicator>
+                  <b>{statusText}</b>
+                </FindingHeaderIndicator>
               </FindingHeaderDetail>
             </div>
             <div>
               <FindingHeaderDetail>
-                <img src={vulnerabilitiesIcon} width={45} height={45} />
+                <img
+                  alt={""}
+                  height={45}
+                  src={vulnerabilitiesIcon}
+                  width={45}
+                />
               </FindingHeaderDetail>
               <FindingHeaderDetail>
                 <FindingHeaderLabel>
                   {translate.t("search_findings.openVulnsLabel")}
                 </FindingHeaderLabel>
-                <FindingHeaderIndicator>{props.openVulns}</FindingHeaderIndicator>
+                <FindingHeaderIndicator>{openVulns}</FindingHeaderIndicator>
               </FindingHeaderDetail>
             </div>
             <div>
               <FindingHeaderDetail>
-                <img src={calendarIcon} width={40} height={40} />
+                <img alt={""} height={40} src={calendarIcon} width={40} />
               </FindingHeaderDetail>
               <FindingHeaderDetail>
                 <FindingHeaderLabel>
                   {translate.t("search_findings.discoveryDateLabel")}
                 </FindingHeaderLabel>
-                <FindingHeaderIndicator>{props.discoveryDate}</FindingHeaderIndicator>
+                <FindingHeaderIndicator>{discoveryDate}</FindingHeaderIndicator>
               </FindingHeaderDetail>
             </div>
           </FindingHeaderGrid>
@@ -119,4 +158,4 @@ const findingHeader: React.FC<IFindingHeaderProps> = (props: IFindingHeaderProps
   );
 };
 
-export { findingHeader as FindingHeader };
+export { FindingHeader };
