@@ -458,6 +458,16 @@ rec {
     nix = [ ];
   };
 
+  tapMailchimp = {
+    srcPath = path "/observes/singer/tap_mailchimp";
+    python = {
+      direct = [ ];
+      inherited = [ ];
+    };
+    local = [ ];
+    nix = [ ];
+  };
+
   tapMixpanel = {
     srcPath = path "/observes/singer/tap_mixpanel";
     python = {

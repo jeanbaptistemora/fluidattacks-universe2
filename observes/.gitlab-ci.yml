@@ -101,6 +101,11 @@ observes.lint-tap-formstack:
   <<: *observes_in_dev_branch
   stage: lint-code
 
+observes.lint.tap-mailchimp:
+  <<: *makes
+  <<: *observes_in_dev_branch
+  stage: lint-code
+
 observes.lint-tap-mixpanel:
   <<: *makes
   <<: *observes_in_dev_branch
