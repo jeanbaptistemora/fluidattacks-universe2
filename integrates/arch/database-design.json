@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Feb 22, 2021, 08:05 AM",
+    "DateLastModified": "Feb 22, 2021, 02:56 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "2.0"
@@ -257,6 +257,10 @@
         {
           "AttributeName": "manager",
           "AttributeType": "S"
+        },
+        {
+          "AttributeName": "files",
+          "AttributeType": "SS"
         }
       ],
       "TableFacets": [
@@ -481,13 +485,19 @@
               },
               "language": {
                 "S": "en"
+              },
+              "files": {
+                "SS": [
+                  "https://s3.amazonaws.com/fluidintegrates.resources/unittesting/file.ext"
+                ]
               }
             }
           ],
           "NonKeyAttributes": [
             "name",
             "description",
-            "language"
+            "language",
+            "files"
           ],
           "DataAccess": {
             "MySql": {}
@@ -850,10 +860,31 @@
         {
           "FacetName": "reattack",
           "KeyAttributeAlias": {
-            "PartitionKeyAlias": "FINDING#uuid",
-            "SortKeyAlias": "REATTACK#uuid"
+            "PartitionKeyAlias": "ORG#name",
+            "SortKeyAlias": "GROUP#name#FIN#uuid#REATT#iso8601utc"
           },
-          "TableData": [],
+          "TableData": [
+            {
+              "pk": {
+                "S": "ORG#okada"
+              },
+              "sk": {
+                "S": "GROUP#unittesting#FIN#a0fddb36-ac0d-4a58-969f-b13194af61c2#REATT#2021-02-15T14:01:16Z"
+              },
+              "status": {
+                "S": "REQUESTED"
+              },
+              "modified_date": {
+                "S": "2021-02-15T14:01:16Z"
+              },
+              "modified_by": {
+                "S": "USER#test@fluidattacks.com"
+              },
+              "consult_id": {
+                "S": "GROUP#unittesting#CMNT#8207c89a-27e2-4abe-9367-3ffea7856a4d"
+              }
+            }
+          ],
           "NonKeyAttributes": [
             "status",
             "modified_date",
