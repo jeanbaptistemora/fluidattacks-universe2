@@ -114,6 +114,16 @@ integrates.analytics.snapshots-prod:
     variables: [$analytics]
   script: [./make integrates.analytics.snapshots prod]
 
+integrates.back.authz-matrix:
+  <<: *makes
+  <<: *in_dev_branch_integrates
+  stage: deploy-app
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/deploy/permissions-matrix
+    when: on_success
+
 integrates.back.deploy.dev:
   <<: *makes
   <<: *in_dev_branch_integrates
@@ -385,22 +395,6 @@ integrates_mobile_deploy_playstore:
   needs: [integrates_mobile_build_android]
   dependencies:
     - integrates_mobile_build_android
-
-integrates_deploy_permissions_matrix:
-  <<: *with_nix
-  <<: *in_dev_branch_integrates
-  stage: deploy-app
-  artifacts:
-    expire_in: 1 day
-    paths:
-      - integrates/deploy/permissions-matrix/group_level.html
-      - integrates/deploy/permissions-matrix/organization_level.html
-      - integrates/deploy/permissions-matrix/user_level.html
-      - integrates/deploy/permissions-matrix/group_level_for_fluidattacks.html
-      - integrates/deploy/permissions-matrix/organization_level_for_fluidattacks.html
-      - integrates/deploy/permissions-matrix/user_level_for_fluidattacks.html
-    when: on_success
-  retry: 2
 
 integrates_back_test_functional:
   <<: *with_nix

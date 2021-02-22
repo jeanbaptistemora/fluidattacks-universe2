@@ -8,6 +8,7 @@ forces.test
 integrates.analytics.documents
 integrates.analytics.snapshots
 integrates.back
+integrates.back.authz-matrix
 integrates.back.deploy.dev
 integrates.back.deploy.prod
 integrates.back.destroy.eph
