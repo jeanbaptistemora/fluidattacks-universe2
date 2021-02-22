@@ -7,7 +7,6 @@ integrates.back.env
 integrates.back.probes.lib
 integrates.back.probes.liveness
 integrates.back.probes.readiness
-integrates.back.pypi.development
 integrates.back.pypi.runtime
 integrates.back.tools
 integrates.back.tools.asciidoctor
