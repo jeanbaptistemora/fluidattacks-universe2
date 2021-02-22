@@ -1,1 +1,0 @@
-import ./integrates_mobile_deploy_ota_production.nix

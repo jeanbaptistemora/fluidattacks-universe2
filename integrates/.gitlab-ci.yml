@@ -248,6 +248,10 @@ integrates.mobile.ota-development:
   <<: *in_dev_branch_integrates
   <<: *integrates_mobile_ota_deploy
 
+integrates.mobile.ota-production:
+  <<: *in_master_branch_integrates
+  <<: *integrates_mobile_ota_deploy
+
 integrates.mobile.test:
   <<: *makes
   <<: *in_dev_branch_integrates
@@ -357,7 +361,7 @@ integrates_mobile_build_android:
   <<: *with_nix
   <<: *in_master_branch_integrates
   stage: build
-  needs: [integrates_mobile_deploy_ota_production]
+  needs: [integrates.mobile.ota-production]
   tags: [autoscaling-large]
   artifacts:
     expire_in: 1 day
@@ -374,11 +378,6 @@ integrates_coverage_report:
     - integrates.mobile.test
   stage: external
   retry: 1
-
-integrates_mobile_deploy_ota_production:
-  <<: *with_nix
-  <<: *in_master_branch_integrates
-  stage: pre-build
 
 integrates_mobile_deploy_playstore:
   <<: *with_nix
