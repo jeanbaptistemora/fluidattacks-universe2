@@ -45,6 +45,7 @@ async def mutate(
         finding_loader = info.context.loaders.finding
         finding = await finding_loader.load(finding_id)
         finding_domain.send_finding_mail(
+            info.context.loaders,
             finding_utils.send_new_draft_mail,
             finding_id,
             str(finding.get('title', '')),

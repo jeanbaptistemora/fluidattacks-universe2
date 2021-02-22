@@ -116,12 +116,14 @@ def send_comment_mail(
 
 
 def send_finding_mail(
+    context: Any,
     send_email_function: Callable,
     finding_id: str,
     *mail_params: Union[str, Dict[str, str]]
 ) -> None:
     schedule(
         send_email_function(
+            context,
             finding_id,
             *mail_params
         )

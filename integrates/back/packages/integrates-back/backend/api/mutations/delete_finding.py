@@ -52,6 +52,7 @@ async def mutate(
             'NOT_REQUIRED': 'Finding not required',
         }
         finding_domain.send_finding_mail(
+            info.context.loaders,
             finding_utils.send_finding_delete_mail,
             finding_id,
             str(finding_data.get('finding', '')),

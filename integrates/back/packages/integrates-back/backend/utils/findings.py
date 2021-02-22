@@ -478,16 +478,22 @@ def get_reattack_requesters(
     return list(set(users))
 
 
-async def send_finding_verified_email(
-        finding_id: str,
-        finding_name: str,
-        project_name: str,
-        historic_verification: List[Dict[str, str]],
-        vulnerabilities: List[str]) -> None:
-    org_id = await org_domain.get_id_for_group(project_name)
-    org_name = await org_domain.get_name_by_id(org_id)
+async def send_finding_verified_email(  # pylint: disable=too-many-arguments
+    context: Any,
+    finding_id: str,
+    finding_name: str,
+    group_name: str,
+    historic_verification: List[Dict[str, str]],
+    vulnerabilities: List[str]
+) -> None:
+    group_loader = context.group_all
+    organization_loader = context.organization
+    group = await group_loader.load(group_name)
+    org_id = group['organization']
+    organization = await organization_loader.load(org_id)
+    org_name = organization['name']
     all_recipients = await project_domain.get_users_to_notify(
-        project_name
+        group_name
     )
     recipients = await in_process(
         get_reattack_requesters,
@@ -502,11 +508,11 @@ async def send_finding_verified_email(
         mailer.send_mail_verified_finding(
             recipients,
             {
-                'project': project_name,
+                'project': group_name,
                 'organization': org_name,
                 'finding_name': finding_name,
                 'finding_url': (
-                    f'{BASE_URL}/orgs/{org_name}/groups/{project_name}'
+                    f'{BASE_URL}/orgs/{org_name}/groups/{group_name}'
                     f'/vulns/{finding_id}/tracking'
                 ),
                 'finding_id': finding_id
@@ -569,12 +575,15 @@ def get_tracking_dates(
     return new_casted
 
 
-async def send_finding_delete_mail(
-        finding_id: str,
-        finding_name: str,
-        project_name: str,
-        discoverer_email: str,
-        justification: str) -> None:
+async def send_finding_delete_mail(  # pylint: disable=too-many-arguments
+    context: Any,
+    finding_id: str,
+    finding_name: str,
+    project_name: str,
+    discoverer_email: str,
+    justification: str
+) -> None:
+    del context
     recipients = FI_MAIL_REVIEWERS.split(',')
 
     schedule(
@@ -591,26 +600,32 @@ async def send_finding_delete_mail(
     )
 
 
-async def send_remediation_email(
-        user_email: str,
-        finding_id: str,
-        finding_name: str,
-        project_name: str,
-        justification: str) -> None:
-    org_id = await org_domain.get_id_for_group(project_name)
-    org_name = await org_domain.get_name_by_id(org_id)
+async def send_remediation_email(  # pylint: disable=too-many-arguments
+    context: Any,
+    user_email: str,
+    finding_id: str,
+    finding_name: str,
+    group_name: str,
+    justification: str
+) -> None:
+    group_loader = context.group_all
+    organization_loader = context.organization
+    group = await group_loader.load(group_name)
+    org_id = group['organization']
+    organization = await organization_loader.load(org_id)
+    org_name = organization['name']
     recipients = await project_domain.get_closers(
-        project_name
+        group_name
     )
     schedule(
         mailer.send_mail_remediate_finding(
             recipients,
             {
-                'project': project_name.lower(),
+                'project': group_name.lower(),
                 'organization': org_name,
                 'finding_name': finding_name,
                 'finding_url': (
-                    f'{BASE_URL}/orgs/{org_name}/groups/{project_name}'
+                    f'{BASE_URL}/orgs/{org_name}/groups/{group_name}'
                     f'/vulns/{finding_id}/locations'
                 ),
                 'finding_id': finding_id,
@@ -621,26 +636,32 @@ async def send_remediation_email(
     )
 
 
-async def send_draft_reject_mail(
-        draft_id: str,
-        finding_name: str,
-        project_name: str,
-        discoverer_email: str,
-        reviewer_email: str) -> None:
-    org_id = await org_domain.get_id_for_group(project_name)
-    org_name = await org_domain.get_name_by_id(org_id)
+async def send_draft_reject_mail(  # pylint: disable=too-many-arguments
+    context: Any,
+    draft_id: str,
+    finding_name: str,
+    group_name: str,
+    discoverer_email: str,
+    reviewer_email: str
+) -> None:
+    group_loader = context.group_all
+    organization_loader = context.organization
+    group = await group_loader.load(group_name)
+    org_id = group['organization']
+    organization = await organization_loader.load(org_id)
+    org_name = organization['name']
     recipients = FI_MAIL_REVIEWERS.split(',')
     recipients.append(discoverer_email)
     email_context: MailContentType = {
         'admin_mail': reviewer_email,
         'analyst_mail': discoverer_email,
         'draft_url': (
-            f'{BASE_URL}/orgs/{org_name}/groups/{project_name}'
+            f'{BASE_URL}/orgs/{org_name}/groups/{group_name}'
             f'/drafts/{draft_id}/description'
         ),
         'finding_id': draft_id,
         'finding_name': finding_name,
-        'project': project_name,
+        'project': group_name,
         'organization': org_name
     }
     schedule(
@@ -651,24 +672,30 @@ async def send_draft_reject_mail(
 
 
 async def send_new_draft_mail(
-        finding_id: str,
-        finding_title: str,
-        project_name: str,
-        analyst_email: str) -> None:
-    org_id = await org_domain.get_id_for_group(project_name)
-    org_name = await org_domain.get_name_by_id(org_id)
+    context: Any,
+    finding_id: str,
+    finding_title: str,
+    group_name: str,
+    analyst_email: str
+) -> None:
+    group_loader = context.group_all
+    organization_loader = context.organization
+    group = await group_loader.load(group_name)
+    org_id = group['organization']
+    organization = await organization_loader.load(org_id)
+    org_name = organization['name']
     recipients = FI_MAIL_REVIEWERS.split(',')
-    recipients += await project_dal.list_internal_managers(project_name)
+    recipients += await project_dal.list_internal_managers(group_name)
 
     email_context: MailContentType = {
         'analyst_email': analyst_email,
         'finding_id': finding_id,
         'finding_name': finding_title,
         'finding_url': (
-            f'{BASE_URL}/orgs/{org_name}/groups/{project_name}'
+            f'{BASE_URL}/orgs/{org_name}/groups/{group_name}'
             f'/drafts/{finding_id}/description'
         ),
-        'project': project_name,
+        'project': group_name,
         'organization': org_name
     }
     schedule(
