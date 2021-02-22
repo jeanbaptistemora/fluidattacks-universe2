@@ -143,6 +143,15 @@ integrates.back.destroy.eph:
   <<: *in_schedule_nightly_build_integrates
   stage: rotation
 
+integrates.coverage:
+  <<: *makes
+  <<: *in_dev_branch_integrates
+  needs:
+    - integrates_back_test_unit
+    - integrates.front.test
+    - integrates.mobile.test
+  stage: external
+
 integrates.front.deploy-development:
   <<: *in_dev_branch_integrates
   <<: *integrates_front_deploy
@@ -368,16 +377,6 @@ integrates_mobile_build_android:
     paths:
       - integrates/mobile/output/
     when: on_success
-
-integrates_coverage_report:
-  <<: *with_nix
-  <<: *in_dev_branch_integrates
-  needs:
-    - integrates_back_test_unit
-    - integrates.front.test
-    - integrates.mobile.test
-  stage: external
-  retry: 1
 
 integrates_mobile_deploy_playstore:
   <<: *with_nix

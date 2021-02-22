@@ -12,6 +12,7 @@ integrates.back.deploy.dev
 integrates.back.deploy.prod
 integrates.back.destroy.eph
 integrates.cache
+integrates.coverage
 integrates.db
 integrates.front
 integrates.front.build
