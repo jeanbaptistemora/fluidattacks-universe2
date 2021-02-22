@@ -2,10 +2,8 @@ forces
 forces.infra-apply
 forces.infra-test
 forces.oci-deploy
-forces.oci-deploy-wrapper
 forces.process-groups
 forces.test
-forces.wrapper
 integrates.analytics.documents
 integrates.analytics.snapshots
 integrates.back
