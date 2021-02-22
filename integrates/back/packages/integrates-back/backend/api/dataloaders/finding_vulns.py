@@ -71,7 +71,7 @@ async def batch_load_fn_vulns(
                     vuln.get('historic_verification', [{}])
                 )[-1].get('status') == 'REQUESTED',
                 severity=cast(str, vuln.get('severity', '')),
-                tag=', '.join(cast(List[str], vuln.get('tag', []))),
+                tag=', '.join(sorted(cast(List[str], vuln.get('tag', [])))),
                 verification=cast(
                     HistoricType,
                     vuln.get(
