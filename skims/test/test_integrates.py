@@ -54,7 +54,8 @@ async def test_build_vulnerabilities_stream() -> None:
         )
     ) == dedent("""
         lines:
-        - line: '123'
+        - commit_hash: '00000000'
+          line: '123'
           path: what
           source: skims
           state: open

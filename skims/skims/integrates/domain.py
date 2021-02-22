@@ -35,6 +35,9 @@ from utils.encodings import (
 from utils.logs import (
     log,
 )
+from utils.repositories import (
+    get_repository_head_hash,
+)
 from utils.string import (
     are_similar,
 )
@@ -57,6 +60,7 @@ def _build_vulnerabilities_stream(
     data: VulnStreamType = {
         core_model.VulnerabilityKindEnum.LINES: tuple(
             core_model.IntegratesVulnerabilitiesLines(
+                commit_hash=get_repository_head_hash(result.what)[0:8],
                 line=result.where,
                 path=result.what,
                 source=(

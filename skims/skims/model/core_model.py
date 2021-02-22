@@ -604,6 +604,7 @@ class SkimsVulnerabilityMetadata(NamedTuple):
 
 
 class IntegratesVulnerabilitiesLines(NamedTuple):
+    commit_hash: str
     line: str
     path: str
     source: VulnerabilitySourceEnum
