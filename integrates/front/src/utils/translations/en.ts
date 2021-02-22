@@ -1976,6 +1976,8 @@ export const enTranslations: ResourceKey = {
       requested: "Requested",
       searchText: "Search Text",
       status: "Status",
+      status_tooltip:
+        "Filter vulnerabilities based on their open / closed status",
       tab_title: "Locations",
       tooltip: "Open / Closed vulnerabilities",
       verified: "Verified",
@@ -1990,6 +1992,8 @@ export const enTranslations: ResourceKey = {
         more: "...",
         reattack: "Reattack: ",
         reattacks: "Reattacks",
+        reattacks_tooltip:
+          "Filter vulnerabilities based on the status of their reattack requests",
         reportDate: "Report date",
         requester: "Requester",
         specific: "Specific",

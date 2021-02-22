@@ -8,6 +8,7 @@ import { Logger } from "utils/logger";
 import type { PureAbility } from "@casl/ability";
 import React from "react";
 import type { StyledComponent } from "styled-components";
+import { TooltipWrapper } from "components/TooltipWrapper";
 import { UpdateVerificationModal } from "scenes/Dashboard/components/UpdateVerificationModal";
 import { VulnComponent } from "scenes/Dashboard/components/Vulnerabilities";
 import _ from "lodash";
@@ -276,33 +277,47 @@ export const VulnsView: React.FC = (): JSX.Element => {
                   <Small>
                     {t("search_findings.tab_vuln.vulnTable.reattacks")}
                   </Small>
-                  <Select
-                    defaultValue={verificationFilter}
-                    onChange={onVerificationChange}
+                  <TooltipWrapper
+                    id={
+                      "search_findings.tab_vuln.vulnTable.reattacks_tooltip.id"
+                    }
+                    message={t(
+                      "search_findings.tab_vuln.vulnTable.reattacks_tooltip"
+                    )}
                   >
-                    <option value={""} />
-                    <option value={"Requested"}>
-                      {t("search_findings.tab_vuln.requested")}
-                    </option>
-                    <option value={"Verified"}>
-                      {t("search_findings.tab_vuln.verified")}
-                    </option>
-                  </Select>
+                    <Select
+                      defaultValue={verificationFilter}
+                      onChange={onVerificationChange}
+                    >
+                      <option value={""} />
+                      <option value={"Requested"}>
+                        {t("search_findings.tab_vuln.requested")}
+                      </option>
+                      <option value={"Verified"}>
+                        {t("search_findings.tab_vuln.verified")}
+                      </option>
+                    </Select>
+                  </TooltipWrapper>
                 </SelectContainer>
                 <SelectContainer>
                   <Small>{t("search_findings.tab_vuln.status")}</Small>
-                  <Select
-                    defaultValue={currentStatusFilter}
-                    onChange={onStatusChange}
+                  <TooltipWrapper
+                    id={"search_findings.tab_vuln.status_tooltip.id"}
+                    message={t("search_findings.tab_vuln.status_tooltip")}
                   >
-                    <option value={""} />
-                    <option value={"open"}>
-                      {t("search_findings.tab_vuln.open")}
-                    </option>
-                    <option value={"closed"}>
-                      {t("search_findings.tab_vuln.closed")}
-                    </option>
-                  </Select>
+                    <Select
+                      defaultValue={currentStatusFilter}
+                      onChange={onStatusChange}
+                    >
+                      <option value={""} />
+                      <option value={"open"}>
+                        {t("search_findings.tab_vuln.open")}
+                      </option>
+                      <option value={"closed"}>
+                        {t("search_findings.tab_vuln.closed")}
+                      </option>
+                    </Select>
+                  </TooltipWrapper>
                 </SelectContainer>
               </RowFilters>
             </Row>
