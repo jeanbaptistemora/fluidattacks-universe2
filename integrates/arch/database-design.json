@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Feb 19, 2021, 02:08 PM",
+    "DateLastModified": "Feb 22, 2021, 08:05 AM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "2.0"
@@ -390,7 +390,7 @@
           "FacetName": "organization_metadata",
           "KeyAttributeAlias": {
             "PartitionKeyAlias": "ORG#name",
-            "SortKeyAlias": "ORG#name#METADATA"
+            "SortKeyAlias": "ORG#name"
           },
           "TableData": [
             {
@@ -398,7 +398,7 @@
                 "S": "ORG#okada"
               },
               "sk": {
-                "S": "ORG#okada#METADATA"
+                "S": "ORG#okada"
               },
               "name": {
                 "S": "okada"
@@ -463,7 +463,7 @@
           "FacetName": "group_metadata",
           "KeyAttributeAlias": {
             "PartitionKeyAlias": "ORG#name",
-            "SortKeyAlias": "GROUP#name#METADATA"
+            "SortKeyAlias": "GROUP#name"
           },
           "TableData": [
             {
@@ -471,7 +471,7 @@
                 "S": "ORG#okada"
               },
               "sk": {
-                "S": "GROUP#unittesting#METADATA"
+                "S": "GROUP#unittesting"
               },
               "name": {
                 "S": "unittesting"
@@ -881,7 +881,33 @@
             "PartitionKeyAlias": "ORG#name",
             "SortKeyAlias": "GROUP#name#FIN#uuid#VULN#uuid"
           },
-          "TableData": [],
+          "TableData": [
+            {
+              "pk": {
+                "S": "ORG#okada"
+              },
+              "sk": {
+                "S": "GROUP#unittesting#FIN#a0fddb36-ac0d-4a58-969f-b13194af61c2#VULN#3098e835-833c-48f7-aa76-12ea884e871f"
+              },
+              "type": {
+                "S": "lines"
+              },
+              "tags": {
+                "SS": [
+                  "tag"
+                ]
+              },
+              "source": {
+                "S": "skims"
+              },
+              "where": {
+                "S": "test/data/lib_path/f073/Test.cs"
+              },
+              "specific": {
+                "S": "44"
+              }
+            }
+          ],
           "NonKeyAttributes": [
             "type",
             "tags",
@@ -896,10 +922,28 @@
         {
           "FacetName": "treatment",
           "KeyAttributeAlias": {
-            "PartitionKeyAlias": "VULN#uuid",
-            "SortKeyAlias": "TREATMENT#uuid"
+            "PartitionKeyAlias": "ORG#name",
+            "SortKeyAlias": "GROUP#name#FIN#uuid#VULN#uuid#TREAT#iso8601utc"
           },
-          "TableData": [],
+          "TableData": [
+            {
+              "pk": {
+                "S": "ORG#okada"
+              },
+              "sk": {
+                "S": "GROUP#unittesting#FIN#a0fddb36-ac0d-4a58-969f-b13194af61c2#VULN#3098e835-833c-48f7-aa76-12ea884e871f#TREAT#2021-02-15T14:01:16Z"
+              },
+              "status": {
+                "S": "NEW"
+              },
+              "modified_date": {
+                "S": "2021-02-15T14:01:16Z"
+              },
+              "modified_by": {
+                "S": "USER#test@fluidattacks.com"
+              }
+            }
+          ],
           "NonKeyAttributes": [
             "status",
             "modified_date",
