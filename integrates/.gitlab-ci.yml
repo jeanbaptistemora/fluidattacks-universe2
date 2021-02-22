@@ -273,6 +273,18 @@ integrates.infra.secret-management.test:
   <<: *in_dev_branch_integrates
   stage: test-infra
 
+integrates.mobile.build.android:
+  <<: *makes
+  <<: *in_master_branch_integrates
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/mobile/output/
+    when: on_success
+  needs: [integrates.mobile.ota-production]
+  stage: build
+  tags: [autoscaling-large]
+
 integrates.mobile.lint:
   <<: *makes
   <<: *in_dev_branch_integrates

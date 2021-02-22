@@ -1,5 +1,44 @@
 # shellcheck shell=bash
 
+function get_touched_files_last_commit {
+  export CI_COMMIT_BEFORE_SHA
+  export CI_COMMIT_SHA
+
+  git diff --name-only "${CI_COMMIT_BEFORE_SHA}" "${CI_COMMIT_SHA}" \
+    | while read -r path
+      do
+        ! test -e "${path}" || echo "${path}"
+      done
+}
+
+function has_any_file_changed {
+  local canon_file_a
+  local canon_file_b
+  local file
+  local files=( "$@" )
+  local touched_files
+
+      touched_files="$(mktemp)" \
+  &&  get_touched_files_last_commit > "${touched_files}" \
+  &&  while read -r touched_file
+      do
+        for file in "${files[@]}"
+        do
+              canon_file_a=$(readlink -f "${touched_file}") \
+          &&  canon_file_b=$(readlink -f "${file}") \
+          &&  if [[ "${canon_file_a}" == "${canon_file_b}"* ]]
+              then
+                echo "${canon_file_a}"
+                echo "${canon_file_b}"
+                return 0
+              else
+                continue
+              fi
+        done || :
+      done < "${touched_files}" \
+  &&  return 1
+}
+
 function use_git_repo {
   local source="${1}"
   local target="${2}"

@@ -1,10 +1,10 @@
-{ integratesPkgs
+{ integratesMobilePkgs
 , makeEntrypoint
 , packages
 , path
 , ...
 } @ _:
-makeEntrypoint integratesPkgs {
+makeEntrypoint integratesMobilePkgs {
   arguments = {
     envSecretsDev = path "/integrates/secrets-development.yaml";
     envSetupIntegratesMobileDevRuntime = packages.integrates.mobile.config.dev-runtime;
@@ -12,10 +12,10 @@ makeEntrypoint integratesPkgs {
   name = "integrates-mobile";
   searchPaths = {
     envPaths = [
-      integratesPkgs.findutils
-      integratesPkgs.iproute
-      integratesPkgs.nodejs-12_x
-      integratesPkgs.xdg_utils
+      integratesMobilePkgs.findutils
+      integratesMobilePkgs.iproute
+      integratesMobilePkgs.nodejs-12_x
+      integratesMobilePkgs.xdg_utils
     ];
     envUtils = [
       "/makes/utils/aws"
