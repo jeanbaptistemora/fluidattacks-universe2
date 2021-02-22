@@ -38,14 +38,27 @@ async def add_source_field_to_historic_state(
     to_update = False
     historic_state = cast(Historic, vuln['historic_state'])
     old_historic_state = copy.deepcopy(historic_state)
+    is_previous_api_skim_analyst = False
 
     for state_info in historic_state:
         if not state_info.get('source'):
             to_update = True
+            is_api_skim_analyst = (
+                state_info['analyst']
+                in {'api-kamado@fluidattacks.com', 'api-drestrepo@fluidattacks.com'}
+            )
+            is_skim_analyst = (
+                state_info['analyst']
+                in {'kamado@fluidattacks.com', 'drestrepo@fluidattacks.com'}
+            )
+            if is_api_skim_analyst:
+                is_previous_api_skim_analyst = True
             if (
                 (
-                    state_info['analyst']
-                    in {'api-kamado@fluidattacks.com', 'api-drestrepo@fluidattacks.com'}
+                    is_api_skim_analyst
+                    or (
+                        is_previous_api_skim_analyst and is_skim_analyst
+                    )
                 )
                 and (
                     datetime_utils.get_from_str(state_info['date'])
