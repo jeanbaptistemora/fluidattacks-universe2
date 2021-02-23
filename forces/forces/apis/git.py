@@ -16,7 +16,12 @@ from git import (
 )
 
 # Local libraries
-from forces.utils.logs import blocking_log
+from forces.utils.logs import (
+    blocking_log,
+    log,
+)
+from forces.utils.model import ForcesConfig
+from forces.apis.integrates.api import get_git_remotes
 
 # Contants
 DEFAULT_COLUMN_VALUE: str = 'unable to retrieve'
@@ -70,8 +75,7 @@ def get_repository_metadata(repo_path: str = '.') -> Dict[str, str]:
         blocking_log('info', 'repository name obtained from environment')
         git_repo = name
 
-    try:
-        blocking_log('info', 'trying to detect repository')
+    with suppress(InvalidGitRepositoryError):
         repo = Repo(repo_path, search_parent_directories=True)
         blocking_log('info', 'repository detected')
         head_commit: Commit = repo.head.commit
@@ -98,8 +102,6 @@ def get_repository_metadata(repo_path: str = '.') -> Dict[str, str]:
                 blocking_log('info',
                              'repository name obtained from current dir')
                 git_repo = os.path.basename(os.path.split(repo.git_dir)[0])
-    except InvalidGitRepositoryError:
-        blocking_log('error', 'the repository cannot be detected')
 
     return {
         'git_branch': git_branch,
@@ -109,3 +111,26 @@ def get_repository_metadata(repo_path: str = '.') -> Dict[str, str]:
         'git_repo': git_repo,
         'git_origin': git_origin
     }
+
+
+async def check_remotes(config: ForcesConfig) -> bool:
+    api_remotes = await get_git_remotes(config.group)
+
+    match_remotes = [
+        remote for remote in api_remotes
+        if extract_repo_name(remote['url']) == config.repository_name
+    ]
+    if not match_remotes:
+        await log('error',
+                  'The %s repository has not been registered in integrates',
+                  config.repository_name)
+        return False
+
+    active_remotes = any(remote for remote in match_remotes
+                         if remote['state'] == 'ACTIVE')
+    if not active_remotes:
+        await log('error', 'The %s repository is innactive',
+                  config.repository_name)
+        return False
+
+    return True

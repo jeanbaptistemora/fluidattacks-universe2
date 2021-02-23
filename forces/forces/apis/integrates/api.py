@@ -19,11 +19,12 @@ from typing import (
 # Local Library
 from forces.apis.integrates.client import execute
 from forces.utils.function import shield
+from forces.utils.env import guess_environment
 
 # Constants
 TFun = TypeVar('TFun', bound=Callable[..., Any])
 SHIELD: Callable[[TFun], TFun] = shield(
-    retries=8,
+    retries=8 if guess_environment() == 'production' else 1,
     sleep_between_retries=5,
 )
 

@@ -8,14 +8,11 @@ import uuid
 from aioextensions import in_thread
 
 # Local imports
-from forces.apis.integrates import (
-    set_api_token,
-)
-from forces.apis.integrates.api import (
-    get_git_remotes, upload_report,
-)
+from forces.apis.integrates import set_api_token
+from forces.apis.integrates.api import upload_report
 from forces.apis.git import (
-    extract_repo_name, get_repository_metadata,
+    check_remotes,
+    get_repository_metadata,
     DEFAULT_COLUMN_VALUE,
 )
 from forces.report import (
@@ -30,24 +27,6 @@ from forces.utils.model import (
     ForcesConfig,
     KindEnum,
 )
-
-
-async def check_remotes(config: ForcesConfig) -> bool:
-    api_remotes = await get_git_remotes(config.group)
-    is_in_remotes = False
-    for remote in api_remotes:
-        if extract_repo_name(remote['url']) == config.repository_name:
-            if remote['state'] != 'ACTIVE':
-                await log('error', 'The %s repository is innactive',
-                          config.repository_name)
-                return False
-            is_in_remotes = True
-            break
-    if not is_in_remotes:
-        await log('error',
-                  'The %s repository has not been registered in integrates',
-                  config.repository_name)
-    return is_in_remotes
 
 
 async def entrypoint(
@@ -104,13 +83,12 @@ async def entrypoint(
 
     if output := config.output:
         temp_file.seek(os.SEEK_SET)
-        await in_thread(output.write,
-                        temp_file.read().decode('utf-8'))
+        await in_thread(output.write, temp_file.read().decode('utf-8'))
     if config.strict and report['summary']['open']['total'] > 0:
         exit_code = 1
     execution_id = str(uuid.uuid4()).replace('-', '')
     await log('info', 'Success execution: %s', exit_code == 0)
-    success_upload = await upload_report(
+    await upload_report(
         project=config.group,
         execution_id=execution_id,
         exit_code=str(exit_code),
@@ -120,5 +98,4 @@ async def entrypoint(
         git_metadata=metadata,
         kind=config.kind.value,
     )
-    await log('info', 'Success upload metadata execution: %s', success_upload)
     return exit_code
