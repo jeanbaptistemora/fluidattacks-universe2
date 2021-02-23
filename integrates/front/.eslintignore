@@ -27,6 +27,7 @@ src/scenes/Dashboard/**/*.*
 !src/scenes/Dashboard/components/NewsWidget/**
 !src/scenes/Dashboard/components/RemediationModal/**
 !src/scenes/Dashboard/components/Sidebar/**
+!src/scenes/Dashboard/components/TrackingItem/index.spec.tsx
 !src/scenes/Dashboard/components/Vulnerabilities/**
 !src/scenes/Dashboard/containers/ChartsGenericView/components/ChartCols/index.tsx
 !src/scenes/Dashboard/containers/FindingContent/components/buttoncol/index.tsx
