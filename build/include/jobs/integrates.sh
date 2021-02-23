@@ -224,11 +224,3 @@ function job_integrates_back_lint {
   &&  popd \
   || return 1
 }
-
-function job_integrates_back_lint_graphics {
-      env_prepare_node_modules \
-  &&  pushd integrates/back/app/templates/static/graphics \
-        &&  eslint --config .eslintrc --fix . \
-  &&  popd \
-  ||  return 1
-}
