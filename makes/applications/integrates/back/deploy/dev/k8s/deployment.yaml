@@ -46,11 +46,11 @@ spec:
               - integrates-dev
               - FluidIntegrates
               - http://localhost:8001
-            initialDelaySeconds: 0
+            initialDelaySeconds: 90
             periodSeconds: 30
             successThreshold: 1
             failureThreshold: 40
-            timeoutSeconds: 60
+            timeoutSeconds: 600
           livenessProbe:
             exec:
               command:
@@ -60,7 +60,7 @@ spec:
               - FluidIntegrates
               - http://localhost:8001
               - https://${CI_COMMIT_REF_NAME}.integrates.fluidattacks.com
-            initialDelaySeconds: 0
+            initialDelaySeconds: 90
             periodSeconds: 30
             successThreshold: 1
             failureThreshold: 40

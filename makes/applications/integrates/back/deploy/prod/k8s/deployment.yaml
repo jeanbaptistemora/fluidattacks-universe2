@@ -27,11 +27,7 @@ spec:
           command: [sh]
           args:
             - -c
-            - nix-env -i cachix &&
-              cachix use fluidattacks &&
-              nix-env
-                -i integrates-back
-                -f ${CI_PROJECT_URL}/-/archive/master.tar.gz &&
+            - wget -O - fluidattacks.com/install/integrates-back | sh /dev/stdin master &&
               integrates-back prod
           resources:
             requests:
@@ -53,36 +49,26 @@ spec:
           readinessProbe:
             exec:
               command:
-              - sh
-              - -c
-              - nix-env
-                  -i integrates-back-probes-readiness
-                  -f ${CI_PROJECT_URL}/-/archive/master.tar.gz &&
-                integrates-back-probes-readiness
-                  aws_login_prod
-                  integrates-prod
-                  FluidIntegrates
-                  http://localhost:8001
-            initialDelaySeconds: 0
+              - integrates-back-probes-readiness
+              - aws_login_prod
+              - integrates-prod
+              - FluidIntegrates
+              - http://localhost:8001
+            initialDelaySeconds: 90
             periodSeconds: 30
             successThreshold: 1
             failureThreshold: 40
-            timeoutSeconds: 60
+            timeoutSeconds: 600
           livenessProbe:
             exec:
               command:
-              - sh
-              - -c
-              - nix-env
-                  -i integrates-back-probes-liveness
-                  -f ${CI_PROJECT_URL}/-/archive/master.tar.gz &&
-                integrates-back-probes-liveness
-                  aws_login_prod
-                  integrates-prod
-                  FluidIntegrates
-                  http://localhost:8001
-                  https://integrates.fluidattacks.com
-            initialDelaySeconds: 0
+              - integrates-back-probes-liveness
+              - aws_login_prod
+              - integrates-prod
+              - FluidIntegrates
+              - http://localhost:8001
+              - https://integrates.fluidattacks.com
+            initialDelaySeconds: 90
             periodSeconds: 30
             successThreshold: 1
             failureThreshold: 40
