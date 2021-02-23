@@ -15,12 +15,12 @@
 
 = Insensato reporte de vulnerabilidad
 
-Suponga que se dispone a comprobar y descargar su visa
+Suponga que usted se dispone a revisar y a descargar su visa
 a través de la página web de la agencia federal correspondiente
 en un país en el que usted es extranjero.
-Entonces, en medio de su curiosidad, para su sorpresa,
+En medio de su curiosidad, para su sorpresa,
 usted se da cuenta de que puede hacer algo que se supone
-uno no puede hacer en esa web.
+uno no podría hacer en esa web.
 Resulta que usted puede ver y descargar las visas de muchas otras personas
 con solo hacer un pequeño cambio al final de la URL.
 ¿Qué cree que debería hacer en este tipo de situación?
@@ -59,7 +59,7 @@ de la que no obtuvo ninguna solución,
 y luego al Ministerio de Asuntos Exteriores, para no recibir respuesta alguna.
 ¿Cómo carajos puede ser eso posible?
 Está bien, olvido de momento que
-la _lentitud en la tramitación de las solicitudes_ es fácil de encontrar
+una _lentitud en los trámites_ es fácil de encontrar
 en la burocracia de casi cualquier lugar.
 Posteriormente, el individuo al parecer inició comunicación con LSV,
 y ellos pudieron comprobar la debilidad de seguridad
@@ -71,8 +71,8 @@ además de hacerlo en las redes sociales, link:https://lasillavacia.com/bache-se
 ¿Qué hicieron con su imprudente conducta?
 Adelantaron la Navidad para muchos hackers malintencionados,
 principalmente en América Latina.
-LSV reveló una vulnerabilidad de ciberseguridad
-para la que no había ninguna solución implementada en ese momento.
+La Silla Vacía reveló una vulnerabilidad de ciberseguridad
+para la que no había ninguna solución implementada en ese entonces.
 A pesar de censurar las URLs y la información de las personas,
 entregaron un gif mostrando el error de la plataforma.
 ¿No eran conscientes del daño que podían estar haciendo?
@@ -81,10 +81,10 @@ De nuevo, preguntas sin respuesta.
 
 No obstante, LSV comunicó por chat el embrollo
 a las autoridades competentes de la Cancillería.
-Esta entidad dijo entonces a LSV que pronto remediaría la vulnerabilidad
-y, horas más tarde, publicó un link:https://www.cancilleria.gov.co/newsroom/news/cancilleria-informa-falla-sistema-informacion-plataforma-visas-electronicas[escueto boletín oficial]
+Quienes respondieron que pronto remediarían la vulnerabilidad
+y, horas más tarde, publicaron un link:https://www.cancilleria.gov.co/newsroom/news/cancilleria-informa-falla-sistema-informacion-plataforma-visas-electronicas[escueto boletín oficial]
 sobre el tema (véase la Figura 1).
-Sin embargo, parece que no sugirieron a LSV que eliminara las publicaciones
+Sin embargo, parece que no sugirieron a LSV que eliminara sus publicaciones
 que no estaban lejos de parecer incentivos para la ciberdelincuencia.
 Los datos que por ley se supone que están protegidos
 estaban a merced de muchas personas astutas con oscuras intenciones
@@ -106,18 +106,18 @@ Preguntas atractivas, aunque, en este punto,
 me gustaría mantenerme enfocado en el asunto del reporte de la vulnerabilidad.
 
 Como dijo link:https://globelivemedia.com/a-computer-error-by-the-colombian-foreign-ministry-made-the-visas-of-some-550000-foreigners-public/[Oakley para GlobeLiveMedia],
-algunas otras personas también rechazaron la publicación de LSV.
+algunas otras personas también rechazaron la publicación de La Silla Vacía.
 Repito: ¡podían haber estado llamando a la ciberdelincuencia!
 Su comportamiento no fue apropiado ni juicioso
 en cuanto a la revelación de una vulnerabilidad de un sistema informático.
-Sin embargo, antes de eso, el individuo involucrado no debería haber ido
+Sin embargo, antes de eso, el individuo involucrado no debió haber ido
 más allá de la comunicación fallida con un par de autoridades
 a compartir sus hallazgos con un grupo periodístico.
 Tal como sugiere link:../../about-us/people/ralvarez/[Rafael Álvarez], CTO de `Fluid Attacks`,
-este hombre debería haber intentado en repetidas ocasiones
+este hombre debió haber intentado en repetidas ocasiones
 establecer una conversación con la Cancillería.
 Al no encontrar respuesta o ser ignorado, su siguiente paso
-debería haber sido contactar con un intermediario, como la policía.
+debió haber sido contactar con un intermediario, como la policía.
 
 O, en su posible ignorancia sobre qué hacer,
 ¿por qué no recurrir a Google?
@@ -126,7 +126,7 @@ donde la gente en Colombia puede reportar el cibercrimen
 y los incidentes relacionados.
 (Aunque, por ejemplo, https://www.elespectador.com/opinion/la-importancia-de-reportar-fallos-en-sistemas-informaticos-del-estado/[Carolina Botero], directora de la Fundación Karisma,
 descalifica este sitio para el adecuado reporte de vulnerabilidades).
-Sin embargo, ya en manos de los medios de comunicación,
+No obstante, ya en manos de los medios de comunicación,
 que buscan continuamente generar tráfico,
 difícilmente podríamos esperar un manejo responsable de este tipo de datos.
 "Desgraciadamente —como dijo Rafael—, la búsqueda de la fama
@@ -175,4 +175,4 @@ para reportar una vulnerabilidad.
 Por otro lado, todos deberíamos esforzarnos por ser más conscientes
 del daño que nuestras acciones pueden causar a los demás.
 Ese sería un buen comienzo
-para responder a algunas señales de principios morales descuidados.
+para responder a algunos signos de principios morales descuidados.
