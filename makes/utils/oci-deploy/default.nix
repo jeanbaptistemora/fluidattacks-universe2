@@ -16,7 +16,7 @@ makeEntrypoint {
   };
   inherit name;
   searchPaths = {
-    envPaths = [ pkgs.podman ];
+    envPaths = [ pkgs.conmon pkgs.podman ];
   };
   template = path "/makes/utils/oci-deploy/entrypoint.sh";
 }
