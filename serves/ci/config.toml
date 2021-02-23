@@ -14,10 +14,9 @@ check_interval = 20
   [runners.docker]
     tls_verify = false
     image = "docker"
-    privileged = true
+    privileged = false
     volumes = [
-      "/builds:/builds",
-      "/var/run/docker.sock:/var/run/docker.sock"
+      "/builds:/builds"
     ]
     disable_entrypoint_overwrite = false
     oom_kill_disable = false
@@ -137,10 +136,9 @@ check_interval = 20
   [runners.docker]
     tls_verify = false
     image = "docker"
-    privileged = true
+    privileged = false
     volumes = [
-      "/builds:/builds",
-      "/var/run/docker.sock:/var/run/docker.sock"
+      "/builds:/builds"
     ]
     disable_entrypoint_overwrite = false
     oom_kill_disable = false

@@ -1,33 +1,5 @@
 # shellcheck shell=bash
 
-function _job_common_build_nix_caches {
-  local provisioner
-  local context='.'
-  local dockerfile='build/Dockerfile'
-  local use_cache='false'
-
-      provisioner=$(basename "${1:-}") \
-  &&  provisioner="${provisioner%.*}" \
-  &&  helper_common_docker_build_and_push \
-        "${CI_REGISTRY_IMAGE}/nix:${provisioner}" \
-        "${context}" \
-        "${dockerfile}" \
-        "${use_cache}" \
-        'PROVISIONER' "${provisioner}"
-}
-
-function job_common_build_nix_caches {
-  export TEMP_FILE1
-  local provisioners
-
-      helper_common_use_pristine_workdir \
-  &&  provisioners=(./build/provisioners/*) \
-  &&  printf "%s\n" "${provisioners[@]}" | LC_ALL=C sort > "${TEMP_FILE1}" \
-  &&  helper_common_execute_chunk_parallel \
-        "_job_common_build_nix_caches" \
-        "${TEMP_FILE1}"
-}
-
 function job_common_lint_build_system {
   # SC1090: Can't follow non-constant source. Use a directive to specify location.
   # SC2016: Expressions don't expand in single quotes, use double quotes for that.
@@ -75,18 +47,4 @@ function job_common_test_jobs_provisioner {
             fi \
         ||  return 1
       done
-}
-
-function job_common_deploy_container_image {
-  local context='.'
-  local dockerfile='Dockerfile'
-  local tag="${CI_REGISTRY_IMAGE}/bin:latest"
-  local use_cache='false'
-
-      echo '[INFO] Building' \
-  &&  helper_common_docker_build_and_push \
-        "${tag}" \
-        "${context}" \
-        "${dockerfile}" \
-        "${use_cache}"
 }

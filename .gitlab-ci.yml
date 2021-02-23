@@ -91,33 +91,17 @@ workflow:
       when: never
     - when: always
 
-common_build_nix_caches:
-  <<: *with_nix
-  tags: [autoscaling-large]
-  image: nixos/nix:2.3
-  stage: build
-  before_script:
-    - apk add --no-cache bash
-  parallel: 50
-  interruptible: false
-  only:
-    refs: [schedules]
-    variables: [$common_build_nix_caches]
-
 makes.deploy.oci-batch:
   <<: *makes
   <<: *common_in_master_branch
   stage: build
+  tags: [autoscaling-large]
 
 makes.deploy.oci-ci:
   <<: *makes
   <<: *common_in_master_branch
   stage: build
-
-common_deploy_container_image:
-  <<: *with_nix
-  <<: *common_in_master_branch
-  stage: deploy-app
+  tags: [autoscaling-large]
 
 makes.doc.deploy:
   <<: *makes

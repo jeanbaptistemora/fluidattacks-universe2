@@ -52,6 +52,7 @@ forces.test-container:
   <<: *makes
   <<: *forces_in_dev_and_master_branch
   stage: test-code
+  tags: [autoscaling-large]
   needs:
     - forces.oci-deploy-ephemeral
 
