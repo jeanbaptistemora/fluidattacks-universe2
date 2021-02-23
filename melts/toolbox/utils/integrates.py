@@ -66,7 +66,7 @@ def get_projects_with_forces() -> List[str]:
     if not response.ok:
         raise IntegratesError(response.errors)
 
-    return response.data['listProjectsWithForces']
+    return response.data['groupsWithForces']
 
 
 def get_projects_with_forces_json_str() -> bool:

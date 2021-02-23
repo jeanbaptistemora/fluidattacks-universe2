@@ -382,7 +382,7 @@ class Queries:
     def get_projects_with_forces(api_token: str) -> Response:
         query = """
             query MeltsListGroupsWithForces{
-              listProjectsWithForces
+              groupsWithForces
             }
         """
         return request(
