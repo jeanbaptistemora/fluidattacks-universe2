@@ -1,7 +1,8 @@
-# Third party
+# Third party libraries
 from ariadne.utils import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
-# Local
+
+# Local libraries
 from backend import util
 from backend.dal.helpers.redis import (
     redis_del_by_deps,
@@ -12,8 +13,7 @@ from backend.decorators import (
     require_integrates,
     require_login,
 )
-from backend.domain.organization import get_id_for_group
-from backend.domain.vulnerability import update_vulns_treatment
+from backend.domain import vulnerability as vuln_domain
 from backend.typing import SimplePayload
 
 
@@ -33,12 +33,14 @@ async def mutate(
     user_info = await util.get_jwt_content(info.context)
     user_email: str = user_info['user_email']
     finding_loader = info.context.loaders.finding
+    group_loader = info.context.loaders.group_all
     finding_data = await finding_loader.load(finding_id)
     group_name: str = finding_data['project_name']
-    success: bool = await update_vulns_treatment(
+    group = await group_loader.load(group_name)
+    success: bool = await vuln_domain.update_vulns_treatment(
         finding_id=finding_id,
         updated_values=parameters,
-        organization_name=await get_id_for_group(group_name),
+        organization_id=group['organization'],
         finding_severity=float(finding_data['severity_score']),
         user_email=user_email,
         vulnerability_id=vulnerability_id,
