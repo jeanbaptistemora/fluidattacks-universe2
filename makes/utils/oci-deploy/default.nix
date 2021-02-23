@@ -10,11 +10,18 @@ let
 in
 makeEntrypoint {
   arguments = {
-    envDocker = "${pkgs.docker}/bin/docker";
+    envConmon = "${pkgs.conmon}/bin/conmon";
     envOci = oci;
+    envPodman = "${pkgs.podman}/bin/podman";
     envRegistry = registry;
+    envRunc = "${pkgs.runc}/bin/runc";
     envTag = "${registry}/${tag}";
   };
   inherit name;
+  searchPaths = {
+    envPaths = [
+      pkgs.utillinux
+    ];
+  };
   template = path "/makes/utils/oci-deploy/entrypoint.sh";
 }

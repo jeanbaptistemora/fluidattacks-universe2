@@ -1,5 +1,27 @@
 # shellcheck shell=bash
 
+function _podman {
+  __envPodman__ \
+    --conmon '__envConmon__' \
+    --runtime '__envRunc__' \
+    "${@}"
+}
+
+function configure_trust {
+  local policy
+
+      if test "${USER}" = 'root'
+      then
+        policy='/etc/containers'
+      else
+        policy="${HOME}/.config/containers"
+      fi \
+  &&  mkdir -p "${policy}" \
+  &&  echo '{}' > "${policy}/policy.json" \
+  &&  _podman image trust set --type accept 'default' \
+  &&  _podman image trust set --type accept '__envRegistry__'
+}
+
 function login_to_registry {
   local registry
   local username
@@ -20,7 +42,7 @@ function login_to_registry {
     &&  return 1
   fi \
   &&  echo "[INFO] Logging into: ${registry}" \
-  &&  __envDocker__ login \
+  &&  _podman login \
         --username "${username}" \
         --password "${password}" \
       "${registry}"
@@ -31,15 +53,16 @@ function main {
   local tag="__envTag__"
   local oci='__envOci__'
 
-      login_to_registry \
+      configure_trust \
+  &&  login_to_registry \
   &&  echo '[INFO] Loading OCI' \
-  &&  __envDocker__ load < "${oci}" \
+  &&  _podman load < "${oci}" \
   &&  echo "[INFO] Tagging: ${tag}" \
-  &&  __envDocker__ tag 'oci' "${tag}" \
+  &&  _podman tag 'oci' "${tag}" \
   &&  echo "[INFO] Pushing: ${tag}" \
-  &&  __envDocker__ push "${tag}" \
+  &&  _podman push "${tag}" \
   &&  echo "[INFO] Deleting local copy of: ${tag}" \
-  &&  __envDocker__ image remove "${tag}"
+  &&  _podman image rm "${tag}"
 }
 
 main "${@}"
