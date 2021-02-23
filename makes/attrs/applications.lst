@@ -42,6 +42,7 @@ integrates.infra.secret-management.test
 integrates.kill
 integrates.mobile
 integrates.mobile.build.android
+integrates.mobile.build.ios
 integrates.mobile.deploy.playstore
 integrates.mobile.ota
 integrates.scheduler
