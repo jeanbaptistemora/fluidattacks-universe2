@@ -6,6 +6,7 @@ function serve {
 
     echo '[INFO] Launching Redis' \
   &&  rm -rf "${cluster_path}" \
+  &&  makes-kill-port 26379 \
   &&  for port in 6379 6380 6381
       do
             echo "[INFO] Configuring replica ${port}" \

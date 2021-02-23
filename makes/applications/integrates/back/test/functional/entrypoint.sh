@@ -17,8 +17,8 @@ function main {
   &&  DAEMON=true integrates-db \
   &&  DAEMON=true integrates-storage \
   &&  pushd integrates \
-    &&  pytest -m 'priority' "${pytest_args[@]}" test_async/functional_test \
-    &&  pytest -m 'not priority' "${pytest_args[@]}" test_async/functional_test \
+    &&  pytest -m 'priority' "${pytest_args[@]}" test_functional \
+    &&  pytest -m 'not priority' "${pytest_args[@]}" test_functional \
   &&  popd \
   ||  return 1
 }

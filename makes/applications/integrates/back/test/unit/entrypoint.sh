@@ -10,7 +10,6 @@ function main {
     --cov-report 'annotate:build/coverage/annotate'
     --disable-warnings
     --exitfirst
-    --ignore 'test_async/functional_test'
     --verbose
   )
 
@@ -19,8 +18,8 @@ function main {
   &&  DAEMON=true integrates-db \
   &&  DAEMON=true integrates-storage \
   &&  pushd integrates \
-    &&  pytest -m 'not changes_db' "${pytest_args[@]}" test_async \
-    &&  pytest -m 'changes_db' "${pytest_args[@]}" test_async \
+    &&  pytest -m 'not changes_db' "${pytest_args[@]}" test_unit \
+    &&  pytest -m 'changes_db' "${pytest_args[@]}" test_unit \
   &&  popd \
   ||  return 1
 }
