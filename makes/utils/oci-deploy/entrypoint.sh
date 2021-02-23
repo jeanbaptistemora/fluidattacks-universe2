@@ -1,14 +1,5 @@
 # shellcheck shell=bash
 
-function configure_trust {
-  local config="${HOME}/.config/containers"
-
-      mkdir -p "${config}" \
-  &&  echo '{}' > "${config}/policy.json" \
-  &&  podman image trust set --type accept 'default' \
-  &&  podman image trust set --type accept '__envRegistry__'
-}
-
 function login_to_registry {
   local registry
   local username
@@ -29,7 +20,7 @@ function login_to_registry {
     &&  return 1
   fi \
   &&  echo "[INFO] Logging into: ${registry}" \
-  &&  podman login \
+  &&  __envDocker__ login \
         --username "${username}" \
         --password "${password}" \
       "${registry}"
@@ -40,16 +31,15 @@ function main {
   local tag="__envTag__"
   local oci='__envOci__'
 
-      configure_trust \
-  &&  login_to_registry \
+      login_to_registry \
   &&  echo '[INFO] Loading OCI' \
-  &&  podman load --input "${oci}" \
+  &&  __envDocker__ load < "${oci}" \
   &&  echo "[INFO] Tagging: ${tag}" \
-  &&  podman tag 'oci' "${tag}" \
+  &&  __envDocker__ tag 'oci' "${tag}" \
   &&  echo "[INFO] Pushing: ${tag}" \
-  &&  podman push "${tag}" \
+  &&  __envDocker__ push "${tag}" \
   &&  echo "[INFO] Deleting local copy of: ${tag}" \
-  &&  podman image rm "${tag}"
+  &&  __envDocker__ image remove "${tag}"
 }
 
 main "${@}"
