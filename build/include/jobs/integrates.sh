@@ -199,41 +199,6 @@ function job_integrates_mobile_test_functional_local {
 
 # Back
 
-function job_integrates_back_test_functional {
-  local common_args=(
-    --verbose
-    --cov "${pyPkgIntegratesBack}/site-packages/backend"
-    --cov-report 'term'
-    --cov-report 'html:build/coverage/functional/html'
-    --cov-report 'xml:build/coverage/functional/results.xml'
-    --cov-report 'annotate:build/coverage/functional/annotate'
-    --disable-warnings
-  )
-  local markers=(
-    'priority'
-    'not priority'
-  )
-
-  # shellcheck disable=SC2015
-      pushd integrates \
-  &&  env_prepare_python_packages \
-  &&  helper_integrates_set_dev_secrets \
-  &&  helper_integrates_serve_dynamo \
-  &&  helper_integrates_serve_minio \
-  &&  helper_integrates_serve_redis \
-  &&  for marker in "${markers[@]}"
-      do
-            echo "[INFO] Running marker: ${marker}" \
-        &&  pytest \
-              -m "${marker}" \
-              "${common_args[@]}" \
-              'test_async/functional_test' \
-        ||  return 1
-      done \
-  &&  popd \
-  ||  return 1
-}
-
 function job_integrates_back_lint {
       pushd integrates \
   &&  env_prepare_python_packages \

@@ -16,9 +16,6 @@ makeEntrypoint integratesPkgs {
       packages.integrates.cache
       packages.integrates.storage
     ];
-    envUtils = [
-      "/makes/utils/aws"
-    ];
   };
   template = path "/makes/applications/integrates/subscriptions/user-to-entity/entrypoint.sh";
 }

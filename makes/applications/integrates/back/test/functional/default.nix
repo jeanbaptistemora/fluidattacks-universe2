@@ -50,10 +50,6 @@ makeEntrypoint integratesPkgs {
     envPython37Paths = [
       pythonRequirements
     ];
-    envUtils = [
-      "/makes/utils/aws"
-      "/makes/utils/sops"
-    ];
   };
   template = path "/makes/applications/integrates/back/test/functional/entrypoint.sh";
 }
