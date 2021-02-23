@@ -20,7 +20,6 @@ from backend.dal import (
 from backend.domain import (
     comment as comment_domain,
     organization as org_domain,
-    project as project_domain,
     user as user_domain
 )
 from backend.exceptions import (
@@ -34,7 +33,6 @@ from backend.exceptions import (
 from backend.typing import (
     Comment as CommentType,
     Event as EventType,
-    Historic as HistoryType,
     MailContent as MailContentType,
 )
 from backend.utils import (
@@ -218,14 +216,8 @@ async def create_event(  # pylint: disable=too-many-locals
     tzn = pytz.timezone(settings.TIME_ZONE)
     today = datetime_utils.get_now()
 
-    project_info = await project_domain.get_attributes(
-        group_name, ['historic_configuration']
-    )
-    subscription = cast(
-        HistoryType, project_info.get('historic_configuration', [{}])
-    )[-1].get('type', '')
-
     group = await group_loader.load(group_name)
+    subscription = group['subscription']
     org_id = group['organization']
 
     event_attrs = kwargs.copy()
