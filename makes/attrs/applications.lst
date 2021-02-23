@@ -1,4 +1,6 @@
 asserts
+asserts.infra.secrets.apply
+asserts.infra.secrets.test
 asserts.oci.deploy
 forces
 forces.infra-apply

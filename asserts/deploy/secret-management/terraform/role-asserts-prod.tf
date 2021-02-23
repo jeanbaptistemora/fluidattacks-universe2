@@ -1,6 +1,6 @@
 resource "aws_iam_role" "asserts-prod" {
-  name = "asserts-prod"
-  assume_role_policy = data.aws_iam_policy_document.okta-assume-role-policy-data.json
+  name                 = "asserts-prod"
+  assume_role_policy   = data.aws_iam_policy_document.okta-assume-role-policy-data.json
   max_session_duration = "32400"
 
   tags = {

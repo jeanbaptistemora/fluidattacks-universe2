@@ -3,6 +3,7 @@
   inputs = {
     flakeCompat = { url = "github:edolstra/flake-compat"; flake = false; };
     srcAssertsPkgs = { url = "github:Nixos/nixpkgs/f99908924015bb83df8186b2c473919be35b43f0"; flake = false; };
+    srcAssertsPkgsTerraform = { url = "github:NixOS/nixpkgs/f99908924015bb83df8186b2c473919be35b43f0"; flake = false; };
     srcForcesPkgs = { url = "github:NixOS/nixpkgs/a437fe25652dea5b86de63891ce9c779c6e8bb9d"; flake = false; };
     srcForcesPkgsTerraform = { url = "github:NixOS/nixpkgs/f99908924015bb83df8186b2c473919be35b43f0"; };
     srcIntegratesMobilePkgs = { url = "github:NixOS/nixpkgs/932941b79c3dbbef2de9440e1631dfec43956261"; flake = false; };

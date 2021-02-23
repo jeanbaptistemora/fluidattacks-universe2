@@ -1,5 +1,6 @@
 { self
 , srcAssertsPkgs
+, srcAssertsPkgsTerraform
 , srcForcesPkgs
 , srcForcesPkgsTerraform
 , srcIntegratesMobilePkgs
@@ -25,6 +26,7 @@ let
       packages;
     debug = value: builtins.trace value value;
     assertsPkgs = import srcAssertsPkgs { inherit system; };
+    assertsPkgsTerraform = import srcAssertsPkgsTerraform { inherit system; };
     forcesPkgs = import srcForcesPkgs { inherit system; };
     forcesPkgsTerraform = import srcForcesPkgsTerraform { inherit system; };
     integratesMobilePkgs = import srcIntegratesMobilePkgs { inherit system; config.android_sdk.accept_license = true; };
