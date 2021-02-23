@@ -110,7 +110,7 @@ asserts_test_api_db_postgres:
   <<: *in_dev_branch_asserts
   stage: test-code
 
-asserts_test_api_format:
+.asserts_test_api_format:
   <<: *with_nix
   <<: *in_dev_branch_asserts
   stage: test-code

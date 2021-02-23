@@ -1,4 +1,5 @@
 { self
+, srcAssertsPkgs
 , srcForcesPkgs
 , srcForcesPkgsTerraform
 , srcIntegratesMobilePkgs
@@ -23,6 +24,7 @@ let
       (path: value: "${value}/bin/${builtins.concatStringsSep "-" (makesPkgs.lib.lists.init path)}")
       packages;
     debug = value: builtins.trace value value;
+    assertsPkgs = import srcAssertsPkgs { inherit system; };
     forcesPkgs = import srcForcesPkgs { inherit system; };
     forcesPkgsTerraform = import srcForcesPkgsTerraform { inherit system; };
     integratesMobilePkgs = import srcIntegratesMobilePkgs { inherit system; config.android_sdk.accept_license = true; };

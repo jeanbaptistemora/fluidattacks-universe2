@@ -19,6 +19,7 @@
     "root": {
       "inputs": {
         "flakeCompat": "flakeCompat",
+        "srcAssertsPkgs": "srcAssertsPkgs",
         "srcForcesPkgs": "srcForcesPkgs",
         "srcForcesPkgsTerraform": "srcForcesPkgsTerraform",
         "srcIntegratesMobilePkgs": "srcIntegratesMobilePkgs",
@@ -35,6 +36,23 @@
         "srcSkimsPkgsTerraform": "srcSkimsPkgsTerraform",
         "srcSkimsTreeSitterRepo": "srcSkimsTreeSitterRepo",
         "srcSortsPkgs": "srcSortsPkgs"
+      }
+    },
+    "srcAssertsPkgs": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1598565984,
+        "narHash": "sha256-IhMHI80jrf+y8JN8NgiwwzbIahHo/6Yddz1vzfn5YIg=",
+        "owner": "Nixos",
+        "repo": "nixpkgs",
+        "rev": "f99908924015bb83df8186b2c473919be35b43f0",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Nixos",
+        "repo": "nixpkgs",
+        "rev": "f99908924015bb83df8186b2c473919be35b43f0",
+        "type": "github"
       }
     },
     "srcForcesPkgs": {
