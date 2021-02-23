@@ -2,6 +2,7 @@ forces.config-development
 forces.config-runtime
 forces.lint
 forces.oci-build
+integrates.analytics.lint
 integrates.back.certs.development
 integrates.back.env
 integrates.back.probes.lib
