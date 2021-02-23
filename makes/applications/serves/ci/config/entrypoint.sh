@@ -18,34 +18,29 @@ function main {
   )
 
       echo '[INFO] Exporting secrets' \
-  &&  aws_login_prod '__envProduct__' \
-  &&  sops_export_vars '__envSecretsPath__' \
-            "${secrets_to_replace[@]}" \
-  &&  pushd '__envTarget__' \
+  &&  aws_login_prod serves \
+  &&  sops_export_vars serves/secrets/production.yaml "${secrets_to_replace[@]}" \
+  &&  pushd serves/ci \
     &&  echo '[INFO] Creating temporary files' \
     &&  tmp_file_1="$(mktemp)" \
     &&  tmp_file_2="$(mktemp)" \
     &&  echo '[INFO] Adding bastion to known hosts' \
     &&  mkdir -p ~/.ssh \
     &&  touch ~/.ssh/known_hosts \
-    &&  ssh-keyscan \
-            -H "${bastion_ip}" \
-            >> ~/.ssh/known_hosts \
+    &&  ssh-keyscan -H "${bastion_ip}" >> ~/.ssh/known_hosts \
     &&  echo '[INFO] Exporting bastion SSH key' \
-    &&  echo -n "${autoscaling_bastion_key_b64}" \
-            | base64 -d \
-            > "${tmp_file_1}" \
+    &&  echo -n "${autoscaling_bastion_key_b64}" | base64 -d > "${tmp_file_1}" \
+    &&  ssh-keygen -y -f "${tmp_file_1}" > "${tmp_file_1}.pub" \
     &&  echo '[INFO] Executing test: $ sudo whoami' \
-    &&  ssh -i "${tmp_file_1}" "${bastion_user}@${bastion_ip}" \
-            'sudo whoami' \
+    &&  ssh -i "${tmp_file_1}" "${bastion_user}@${bastion_ip}" 'sudo whoami' \
     &&  echo '[INFO] Writing config with secrets' \
     &&  cp "${config}" "${tmp_file_2}" \
     &&  for secret in "${secrets_to_replace[@]}"
         do
-            rpl "__${secret}__" "${!secret}" "${tmp_file_2}" \
-            |& grep 'Replacing' \
-            |& sed -E 's/with.*$//g' \
-            || return 1
+                rpl "__${secret}__" "${!secret}" "${tmp_file_2}" \
+            |&  grep 'Replacing' \
+            |&  sed -E 's/with.*$//g' \
+            ||  return 1
         done \
     &&  echo '[INFO] Moving file to bastion: config.toml to /etc/gitlab-runner/config.toml' \
     &&  scp -i "${tmp_file_1}" "${tmp_file_2}" "${bastion_user}@${bastion_ip}:/port/config.toml" \
