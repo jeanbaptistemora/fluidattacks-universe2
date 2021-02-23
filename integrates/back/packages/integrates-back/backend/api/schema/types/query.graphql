@@ -19,11 +19,11 @@ type Query {
     toDate: DateTime
   ): ForcesExecutions
 
+  "List groups with forces"
+  groupsWithForces: [String]
+
   "InternalNames entity"
   internalNames(entity: NameEntity!): InternalName
-
-  "List projects with forces"
-  listProjectsWithForces: [String]
 
   "Me entity"
   me(callerOrigin: String): Me
