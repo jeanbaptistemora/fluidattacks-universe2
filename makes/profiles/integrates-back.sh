@@ -1,9 +1,9 @@
 #! /bin/sh
 
     nix-env \
-      --uninstall __envPackages__ \
+      --uninstall integrates-back integrates-back-probes-liveness integrates-back-probes-readiness \
 &&  nix-env \
-      --install __envPackages__ \
+      --install integrates-back integrates-back-probes-liveness integrates-back-probes-readiness \
       --file "https://gitlab.com/fluidattacks/product/-/archive/${1:-master}.tar.gz" \
       --option narinfo-cache-negative-ttl 1 \
       --option narinfo-cache-positive-ttl 1 \
@@ -14,3 +14,4 @@
         fluidattacks.cachix.org-1:upiUCP8kWnr7NxVSJtTOM+SBqL0pZhZnUoqPG04sBv0=
         cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=
       ' \
+
