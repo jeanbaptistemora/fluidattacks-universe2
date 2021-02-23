@@ -1,31 +1,33 @@
-import { shallow, ShallowWrapper } from "enzyme";
-import * as React from "react";
 import { MemoryRouter } from "react-router-dom";
+import React from "react";
+import type { ShallowWrapper } from "enzyme";
 import { Sidebar } from "scenes/Dashboard/components/Sidebar";
+import { shallow } from "enzyme";
 
-const functionMock: (() => JSX.Element) = (): JSX.Element => <div />;
+const functionMock: () => JSX.Element = (): JSX.Element => <div />;
 
-describe("Sidebar", () => {
-
-  it("should return a function", () => {
-    expect(typeof (Sidebar))
-      .toEqual("function");
+describe("Sidebar", (): void => {
+  it("should return a function", (): void => {
+    expect.hasAssertions();
+    expect(typeof Sidebar).toStrictEqual("function");
   });
 
-  it("should render a sidebar", () => {
+  it("should render a sidebar", (): void => {
+    expect.hasAssertions();
+
     const wrapper: ShallowWrapper = shallow(
       <MemoryRouter initialEntries={["/home"]}>
         <Sidebar
-          userEmail="test@test.com"
-          userRole="Unit role"
           onLogoutClick={functionMock}
           onOpenAccessTokenModal={functionMock}
-          onOpenAddUserModal={functionMock}
           onOpenAddOrganizationModal={functionMock}
+          onOpenAddUserModal={functionMock}
+          userEmail={"test@test.com"}
+          userRole={"Unit role"}
         />
-      </MemoryRouter>,
+      </MemoryRouter>
     );
-    expect(wrapper)
-      .toHaveLength(1);
+
+    expect(wrapper).toHaveLength(1);
   });
 });
