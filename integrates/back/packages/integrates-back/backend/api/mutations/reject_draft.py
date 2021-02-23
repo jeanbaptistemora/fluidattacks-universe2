@@ -36,7 +36,11 @@ async def mutate(
 ) -> SimplePayloadType:
     user_info = await util.get_jwt_content(info.context)
     reviewer_email = user_info['user_email']
-    success = await finding_domain.reject_draft(finding_id, reviewer_email)
+    success = await finding_domain.reject_draft(
+        info.context.loaders,
+        finding_id,
+        reviewer_email
+    )
     if success:
         redis_del_by_deps_soon('reject_draft', finding_id=finding_id)
         finding_loader = info.context.loaders.finding

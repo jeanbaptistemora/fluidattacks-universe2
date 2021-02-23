@@ -31,14 +31,18 @@ from backend.utils import (
     datetime as datetime_utils,
     findings as finding_utils,
 )
-from .finding import get_finding
 
 
-async def reject_draft(draft_id: str, reviewer_email: str) -> bool:
-    draft_data = await get_finding(draft_id)
+async def reject_draft(
+    context: Any,
+    draft_id: str,
+    reviewer_email: str
+) -> bool:
+    finding_loader = context.finding
+    draft_data = await finding_loader.load(draft_id)
     history = cast(
         List[Dict[str, str]],
-        draft_data.get('historicState', [{}])
+        draft_data['historic_state']
     )
     success = False
     is_finding_approved = finding_filters.is_approved(draft_data)
@@ -74,7 +78,8 @@ async def approve_draft(
 ) -> Tuple[bool, str]:
     finding_all_vulns_loader = context.finding_vulns_all
     finding_vulns_loader = context.finding_vulns_nzr
-    draft_data = await get_finding(draft_id)
+    finding_loader = context.finding
+    draft_data = await finding_loader.load(draft_id)
     release_date: str = ''
     success = False
 
@@ -94,7 +99,7 @@ async def approve_draft(
                 )
                 history = cast(
                     List[Dict[str, str]],
-                    draft_data.get('historicState', [{}])
+                    draft_data['historic_state']
                 )
                 history.append({
                     'date': release_date,
@@ -126,10 +131,11 @@ async def approve_draft(
 
 
 async def create_draft(
-        info: GraphQLResolveInfo,
-        project_name: str,
-        title: str,
-        **kwargs: Any) -> bool:
+    info: GraphQLResolveInfo,
+    project_name: str,
+    title: str,
+    **kwargs: Any
+) -> bool:
     last_fs_id = 550000000
     finding_id = str(random.randint(last_fs_id, 1000000000))
     project_name = project_name.lower()
@@ -182,7 +188,8 @@ async def submit_draft(  # pylint: disable=too-many-locals
 ) -> bool:
     success = False
     finding_vulns_loader = context.finding_vulns
-    finding = await get_finding(finding_id)
+    finding_loader = context.finding
+    finding = await finding_loader.load(finding_id)
     is_finding_approved = finding_filters.is_approved(finding)
     is_finding_deleted = finding_filters.is_deleted(finding)
     is_finding_submitted = finding_filters.is_submitted(finding)
@@ -204,7 +211,7 @@ async def submit_draft(  # pylint: disable=too-many-locals
                 str(evidence.get('url', ''))
                 for evidence in evidence_list
             ])
-            has_severity = float(str(finding['severityCvss'])) > Decimal(0)
+            has_severity = float(str(finding['severity_score'])) > Decimal(0)
             has_vulns = await finding_vulns_loader.load(finding_id)
 
             if all([
@@ -217,7 +224,7 @@ async def submit_draft(  # pylint: disable=too-many-locals
                 )
                 history = cast(
                     List[Dict[str, str]],
-                    finding.get('historicState', [])
+                    finding['historic_state']
                 )
                 history.append({
                     'analyst': analyst_email,
