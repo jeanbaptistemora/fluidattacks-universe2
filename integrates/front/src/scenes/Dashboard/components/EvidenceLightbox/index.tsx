@@ -1,53 +1,61 @@
-import React from "react";
 import Lightbox from "react-image-lightbox";
-/* tslint:disable-next-line:no-import-side-effect no-submodule-imports
- * Disabling this two rules is necessary for
- * allowing the import of default styles that react-image-lightbox needs
- * to display properly even if some of them are overridden later
- */
+import React from "react";
 import "react-image-lightbox/style.css";
 
 interface IEvidenceLightboxProps {
-  evidenceImages: Array<{ description?: string; url: string }>;
+  evidenceImages: { description?: string; url: string }[];
   index: number;
-  onChange(index: number): void;
+  onChange: (index: number) => void;
 }
 
-const evidenceLightbox: React.FC<IEvidenceLightboxProps> = (props: IEvidenceLightboxProps): JSX.Element => {
-  const nextIndex: number = (props.index + 1) % props.evidenceImages.length;
-  const moveNext: (() => void) = (): void => { props.onChange(nextIndex); };
+const EvidenceLightbox: React.FC<IEvidenceLightboxProps> = (
+  props: IEvidenceLightboxProps
+): JSX.Element => {
+  const { index, evidenceImages } = props;
+  const nextIndex: number = (index + 1) % evidenceImages.length;
+  const moveNext: () => void = React.useCallback((): void => {
+    props.onChange(nextIndex);
+  }, [props, nextIndex]);
+  const previousIndex: number =
+    (index + evidenceImages.length - 1) % evidenceImages.length;
+  const movePrevious: () => void = React.useCallback((): void => {
+    props.onChange(previousIndex);
+  }, [props, previousIndex]);
 
-  const previousIndex: number = (props.index + props.evidenceImages.length - 1) % props.evidenceImages.length;
-  const movePrevious: (() => void) = (): void => { props.onChange(previousIndex); };
-
-  const adjustZoom: (() => void) = (): void => {
+  const adjustZoom: () => void = React.useCallback((): void => {
     /**
      * As a workaround to a bug in react-image-lightbox,
      * we need trigger the resize event for it to properly calculate the image scale
      */
-    setTimeout((): void => { window.dispatchEvent(new Event("resize")); }, 50);
-    document.body.style.overflow = "hidden";
-  };
+    const RESIZE_TIMEOUT: number = 50;
+    setTimeout((): void => {
+      window.dispatchEvent(new Event("resize"));
+    }, RESIZE_TIMEOUT);
+    document.body.style.overflow = "hidden"; // eslint-disable-line fp/no-mutation
+  }, []);
 
-  const closeImage: (() => void) = (): void => {
+  const closeImage: () => void = React.useCallback((): void => {
     document.body.style.removeProperty("overflow");
     props.onChange(-1);
-  };
+  }, [props]);
 
-  return props.index > -1 ? (
+  return index > -1 ? (
     <Lightbox
-      mainSrc={`${location.href}/${props.evidenceImages[props.index].url}`}
-      nextSrc={`${location.href}/${props.evidenceImages[nextIndex].url}`}
-      prevSrc={`${location.href}/${props.evidenceImages[previousIndex].url}`}
       imagePadding={50}
-      imageTitle={props.evidenceImages[props.index].description}
+      imageTitle={evidenceImages[index].description}
+      mainSrc={`${location.href}/${evidenceImages[index].url}`}
+      nextSrc={`${location.href}/${evidenceImages[nextIndex].url}`}
       onAfterOpen={adjustZoom}
       onCloseRequest={closeImage}
       onMoveNextRequest={moveNext}
       onMovePrevRequest={movePrevious}
+      prevSrc={`${location.href}/${evidenceImages[previousIndex].url}`}
       reactModalStyle={{ overlay: { zIndex: "1200" } }}
     />
-  ) : <React.Fragment />;
+  ) : (
+    // eslint-disable-next-line react/jsx-no-useless-fragment
+    <React.Fragment />
+  );
 };
 
-export { evidenceLightbox as EvidenceLightbox };
+export { EvidenceLightbox };

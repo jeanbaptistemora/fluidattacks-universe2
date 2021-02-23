@@ -17,6 +17,7 @@ src/scenes/Dashboard/**/*.*
 !src/scenes/Dashboard/components/DeleteVulnerability/**
 !src/scenes/Dashboard/components/EditableField/index.spec.tsx
 !src/scenes/Dashboard/components/EventHeader/**
+!src/scenes/Dashboard/components/EvidenceLightbox/**
 !src/scenes/Dashboard/components/FileOptionsModal/**
 !src/scenes/Dashboard/components/FindingActions/**
 !src/scenes/Dashboard/components/FindingHeader/**
