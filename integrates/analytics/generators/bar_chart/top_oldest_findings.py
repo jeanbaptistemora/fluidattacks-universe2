@@ -73,7 +73,11 @@ def format_data(counters: Counter) -> dict:
     return dict(
         data=dict(
             columns=[
-                ['Open Age (days)'] + [open_age for _, open_age in data],
+                ['Open Age (days)'] +
+                [
+                    open_age
+                    for _, open_age in merged_data
+                ],
             ],
             colors={
                 'Open Age (days)': RISK.neutral,
@@ -86,7 +90,7 @@ def format_data(counters: Counter) -> dict:
         axis=dict(
             x=dict(
                 categories=[
-                    utils.get_finding_name([title]) for title, _ in data
+                    utils.get_finding_name([title]) for title, _ in merged_data
                 ],
                 type='category',
                 tick=dict(
