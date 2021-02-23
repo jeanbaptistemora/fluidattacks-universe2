@@ -93,6 +93,15 @@ def has_drills(group: str) -> bool:
     return response.data['project']['hasDrills']
 
 
+@retry(IntegratesError, tries=RETRIES, delay=DELAY)
+def get_forces_token(group: str) -> str:
+    response = api.integrates.Queries.get_forces_token(API_TOKEN, group)
+    if not response.ok:
+        raise IntegratesError(response.errors)
+
+    return response.data['project']['forcesToken']
+
+
 def filter_groups_with_forces(groups: Tuple[str, ...]) -> Tuple[str, ...]:
     with multiprocessing.pool.ThreadPool(10) as pool:
         return tuple(

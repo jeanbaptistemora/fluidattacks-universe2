@@ -37,3 +37,9 @@ function forces_projects {
 function projects_with_forces {
   melts misc --groups-with-forces
 }
+
+function get_forces_token {
+  local group="${1}"
+
+  melts misc --get-forces-token "${group}"
+}

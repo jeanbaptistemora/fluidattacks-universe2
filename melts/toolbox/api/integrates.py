@@ -391,6 +391,23 @@ class Queries:
             operation='MeltsListGroupsWithForces',
         )
 
+    @staticmethod
+    def get_forces_token(api_token: str, group_name: str) -> Response:
+        query = """
+            query MeltsGetForcesToken($groupName: String!) {
+              project(projectName: $groupName){
+                forcesToken
+              }
+            }
+        """
+        params: dict = {'groupName': group_name}
+        return request(
+            api_token,
+            query,
+            params,
+            operation='MeltsGetForcesToken',
+        )
+
 
 class Mutations:
     """Namespace for Integrates's GraphQL Mutations."""

@@ -42,6 +42,7 @@ def do_check_commit_msg() -> bool:
 @option('--filter-groups-with-forces')
 @option('--groups-with-forces', is_flag=True)
 @option('--get-group-language', is_flag=True)
+@option('--get-forces-token', is_flag=True)
 @option('--has-drills', is_flag=True)
 def misc_management(  # pylint: disable=too-many-arguments
     group: str,
@@ -51,6 +52,7 @@ def misc_management(  # pylint: disable=too-many-arguments
     groups_with_forces: str,
     get_group_language: bool,
     has_drills: bool,
+    get_forces_token: str,
 ) -> None:
     success: bool = False
 
@@ -74,5 +76,8 @@ def misc_management(  # pylint: disable=too-many-arguments
         success = True
     elif has_drills:
         success = utils.integrates.has_drills(group)
+    elif get_forces_token:
+        print(utils.integrates.get_forces_token(group))
+        success = True
 
     sys.exit(0 if success else 1)
