@@ -13,6 +13,7 @@ and is divided across many products:
 
 | Product | [![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=fluidattacks_product&metric=alert_status)](https://sonarcloud.io/dashboard?id=fluidattacks_product) |
 |---------|-|
+| Asserts | [![](https://img.shields.io/badge/Docs-grey)](https://fluidattacks.com/resources/doc/asserts) |
 | Forces  |[![Docs](https://img.shields.io/badge/Docs-grey)](./forces/README.md) [![PyPI](https://img.shields.io/pypi/v/forces)](https://pypi.org/project/forces) [![Downloads](https://img.shields.io/pypi/dm/forces)](https://pypi.org/project/forces) [![License](https://img.shields.io/pypi/l/forces)](../LICENSE) |
 | Integrates | [![Docs](https://img.shields.io/badge/Docs-grey)](./integrates/README.md) |
 | Reviews | [![Docs](https://img.shields.io/badge/Docs-grey)](./reviews/README.md) |
@@ -29,6 +30,7 @@ otherwise please install it as explained in the [tutorial](https://nixos.org/dow
 You can install the products of your choice by using one or many of
 the following commands:
 
+- `bash <(curl -L fluidattacks.com/install/asserts)`
 - `bash <(curl -L fluidattacks.com/install/forces)`
 - `bash <(curl -L fluidattacks.com/install/melts)`
 - `bash <(curl -L fluidattacks.com/install/reviews)`
