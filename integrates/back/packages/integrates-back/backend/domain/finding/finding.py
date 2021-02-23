@@ -325,6 +325,7 @@ async def delete_vulnerabilities(
 
     return all(await collect(
         vuln_domain.delete_vulnerability(
+            context.loaders,
             finding_id,
             str(vuln['UUID']),
             justification,

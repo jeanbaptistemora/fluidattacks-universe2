@@ -1,17 +1,23 @@
+# Standard libraries
 from collections import OrderedDict
-from datetime import datetime, timedelta
+from datetime import (
+  datetime,
+  timedelta
+)
 from typing import Optional
 import json
 import os
 import time
 import pytest
 
+# Third party libraries
 from ariadne import graphql
 from freezegun import freeze_time
 from graphql import GraphQLError
 from jose import jwt
 from starlette.datastructures import UploadFile
 
+# Local libraries
 from backend import util
 from backend.api import (
   apply_context_attrs,
@@ -35,9 +41,9 @@ async def _get_result(
     """Get result."""
     request = await create_dummy_session(username=user)
     request = apply_context_attrs(
-        request,
-        loaders=context if context else get_new_context()
-      )
+      request,
+      loaders=context if context else get_new_context()
+    )
     _, result = await graphql(SCHEMA, data, context_value=request)
     return result
 

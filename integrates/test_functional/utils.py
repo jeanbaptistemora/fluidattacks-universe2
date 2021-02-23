@@ -1,6 +1,15 @@
+# Standard libraries
+from typing import Optional
+
+# Third party libraries
 from ariadne import graphql
 
-from backend.api import apply_context_attrs
+# Local libraries
+from backend.api import (
+    apply_context_attrs,
+    get_new_context,
+    Dataloaders
+)
 from backend.api.schema import SCHEMA
 from backend.domain import(
     project as group_domain,
@@ -23,10 +32,18 @@ async def complete_register(
     return success
 
 
-async def get_graphql_result(data, stakeholder, session_jwt=None):
+async def get_graphql_result(
+    data,
+    stakeholder: str,
+    session_jwt: Optional[str] = None,
+    context: Optional[Dataloaders] = None
+):
     """Get graphql result."""
     request = await create_dummy_session(stakeholder, session_jwt)
-    request = apply_context_attrs(request)
+    request = apply_context_attrs(
+      request,
+      loaders=context if context else get_new_context()
+    )
     _, result = await graphql(SCHEMA, data, context_value=request)
 
     return result
