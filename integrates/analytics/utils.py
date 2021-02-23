@@ -55,6 +55,10 @@ async def get_all_time_forces_executions(
     return executions
 
 
+def get_finding_name(item: List[str]) -> str:
+    return item[0].split('/')[-1].split(' -')[0]
+
+
 def get_result_path(name: str) -> str:
     return os.path.join(os.environ['RESULTS_DIR'], name)
 

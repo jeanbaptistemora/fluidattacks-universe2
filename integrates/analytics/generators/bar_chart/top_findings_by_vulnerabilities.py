@@ -44,10 +44,6 @@ async def get_data_many_groups(groups: List[str]) -> Counter:
     return sum(groups_data, Counter())
 
 
-def get_finding_name(item: list) -> str:
-    return item[0].split('/')[-1].split(' -')[0]
-
-
 def format_data(counters: Counter) -> dict:
     data = counters.most_common()
 
@@ -55,9 +51,9 @@ def format_data(counters: Counter) -> dict:
     for axis, columns in groupby(
         sorted(
             data,
-            key=get_finding_name
+            key=utils.get_finding_name
         ),
-        get_finding_name
+        utils.get_finding_name
     ):
         merged_data.append(
             [
@@ -91,7 +87,7 @@ def format_data(counters: Counter) -> dict:
         axis=dict(
             x=dict(
                 categories=[
-                    get_finding_name([key]) for key, _ in merged_data
+                    utils.get_finding_name([key]) for key, _ in merged_data
                 ],
                 type='category',
                 tick=dict(
