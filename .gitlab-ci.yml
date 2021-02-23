@@ -119,17 +119,17 @@ common_deploy_container_image:
   <<: *common_in_master_branch
   stage: deploy-app
 
-makes.docs.deploy:
+makes.doc.deploy:
   <<: *makes
   <<: *common_in_master_branch
   stage: deploy-app
 
-makes.docs.infra.apply:
+makes.doc.infra.apply:
   <<: *makes
   <<: *common_in_master_branch
   stage: deploy-infra
 
-makes.docs.infra.test:
+makes.doc.infra.test:
   <<: *makes
   <<: *common_in_dev_branch
   stage: test-infra

@@ -3,8 +3,8 @@
 , ...
 } @ _:
 terraformTest makesPkgs {
-  name = "makes-docs-infra-test";
+  name = "makes-doc-infra-test";
   product = "serves";
-  target = "makes/applications/makes/docs/infra/terraform";
+  target = "makes/applications/makes/doc/infra/terraform";
   secretsPath = "serves/secrets/development.yaml";
 }

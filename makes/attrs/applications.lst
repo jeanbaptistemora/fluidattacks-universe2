@@ -45,10 +45,10 @@ integrates.web.e2e
 makes.attrs
 makes.deploy.oci-batch
 makes.deploy.oci-ci
-makes.docs
-makes.docs.deploy
-makes.docs.infra.apply
-makes.docs.infra.test
+makes.doc
+makes.doc.deploy
+makes.doc.infra.apply
+makes.doc.infra.test
 makes.done
 makes.kill-port
 makes.lint

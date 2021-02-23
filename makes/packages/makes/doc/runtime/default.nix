@@ -6,10 +6,10 @@
 } @ _:
 let
   nix = import (path "/makes/utils/nix") path makesPkgs;
-  packageJsonDeps = getPackageJsonDeps makesPkgs "/makes/applications/makes/docs/src/package.json";
+  packageJsonDeps = getPackageJsonDeps makesPkgs "/makes/applications/makes/doc/src/package.json";
 in
 buildNodeRequirements makesPkgs {
-  name = "makes-docs-runtime";
+  name = "makes-doc-runtime";
   node = makesPkgs.nodejs-12_x;
   requirements = {
     direct = nix.sort packageJsonDeps.production;

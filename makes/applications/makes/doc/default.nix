@@ -5,9 +5,9 @@
 , ...
 } @ _:
 makeEntrypoint makesPkgs {
-  name = "makes-docs";
+  name = "makes-doc";
   arguments = {
-    envRuntime = packages.makes.docs.runtime;
+    envRuntime = packages.makes.doc.runtime;
   };
   searchPaths = {
     envPaths = [
@@ -15,5 +15,5 @@ makeEntrypoint makesPkgs {
       makesPkgs.xdg_utils
     ];
   };
-  template = path "/makes/applications/makes/docs/entrypoint.sh";
+  template = path "/makes/applications/makes/doc/entrypoint.sh";
 }

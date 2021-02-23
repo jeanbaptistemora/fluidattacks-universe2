@@ -1,6 +1,6 @@
 resource "cloudflare_page_rule" "cache" {
   zone_id  = lookup(data.cloudflare_zones.fluidattacks_com.zones[0], "id")
-  target   = "docs.${lookup(data.cloudflare_zones.fluidattacks_com.zones[0], "name")}/*"
+  target   = "doc.${lookup(data.cloudflare_zones.fluidattacks_com.zones[0], "name")}/*"
   status   = "active"
   priority = 1
 

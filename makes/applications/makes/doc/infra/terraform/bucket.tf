@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "bucket" {
-  bucket = "docs.${lookup(data.cloudflare_zones.fluidattacks_com.zones[0], "name")}"
+  bucket = "doc.${lookup(data.cloudflare_zones.fluidattacks_com.zones[0], "name")}"
   acl    = "private"
 
   server_side_encryption_configuration {
@@ -12,11 +12,11 @@ resource "aws_s3_bucket" "bucket" {
 
   website {
     index_document = "index.html"
-    error_document = "error/index.html"
+    error_document = "404.html"
   }
 
   tags = {
-    "Name"               = "docs.fluidattacks.com"
+    "Name"               = "doc.fluidattacks.com"
     "management:type"    = "production"
     "management:product" = "makes"
   }

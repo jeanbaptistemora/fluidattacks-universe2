@@ -3,8 +3,8 @@
 , ...
 } @ _:
 terraformApply makesPkgs {
-  name = "makes-docs-infra-apply";
+  name = "makes-doc-infra-apply";
   product = "serves";
-  target = "makes/applications/makes/docs/infra/terraform";
+  target = "makes/applications/makes/doc/infra/terraform";
   secretsPath = "serves/secrets/development.yaml";
 }
