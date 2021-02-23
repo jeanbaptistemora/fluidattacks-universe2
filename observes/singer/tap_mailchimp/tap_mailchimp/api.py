@@ -4,8 +4,10 @@ from typing import (
     Any,
     Callable,
     Dict,
+    Iterable,
     NamedTuple,
-    Optional
+    Optional,
+    cast
 )
 # Third party libraries
 from mailchimp_marketing import (
@@ -18,7 +20,7 @@ JSON = Dict[str, Any]
 
 
 class ApiData(NamedTuple):
-    data: JSON
+    data: Iterable[JSON]
     links: JSON
     total_items: Optional[int]
 
@@ -34,7 +36,7 @@ class ApiClient(NamedTuple):
 
 
 def _list_audiences(client: Client) -> ApiData:
-    raw = client.lists.get_all_lists()
+    raw = client.lists.get_all_lists(fields='id')
     return ApiData(
         data=raw['lists'],
         links=raw['_links'],
@@ -46,7 +48,7 @@ def _get_audience(client: Client, audience_id: str) -> ApiData:
     raw = client.lists.get_list(audience_id)
     links = raw.pop('_links')
     return ApiData(
-        data=raw,
+        data=[raw],
         links=links,
         total_items=None
     )
@@ -71,7 +73,7 @@ def _get_abuse_report(
     )
     links = raw.pop('_links')
     return ApiData(
-        data=raw,
+        data=[raw],
         links=links,
         total_items=None
     )
@@ -104,18 +106,36 @@ def _get_members(client: Client, audience_id: str) -> ApiData:
     )
 
 
-def new_client() -> ApiClient:
+def new_client(conf: Dict[str, str]) -> ApiClient:
     client = Client()
-    client.set_config({
-        "api_key": "YOUR_API_KEY",
-        "server": "YOUR_SERVER_PREFIX"
-    })
+    client.set_config(conf)
     return ApiClient(
-        list_audiences=partial(_list_audiences, client),
-        get_audience=partial(_get_audience, client),
-        list_abuse_reports=partial(_list_abuse_reports, client),
-        get_abuse_report=partial(_get_abuse_report, client),
-        get_activity=partial(_get_activity, client),
-        get_clients=partial(_get_clients, client),
-        get_members=partial(_get_members, client)
+        list_audiences=cast(
+            Callable[[], ApiData],
+            partial(_list_audiences, client)
+        ),
+        get_audience=cast(
+            Callable[[str], ApiData],
+            partial(_get_audience, client)
+        ),
+        list_abuse_reports=cast(
+            Callable[[str], ApiData],
+            partial(_list_abuse_reports, client)
+        ),
+        get_abuse_report=cast(
+            Callable[[str, str], ApiData],
+            partial(_get_abuse_report, client)
+        ),
+        get_activity=cast(
+            Callable[[str], ApiData],
+            partial(_get_activity, client)
+        ),
+        get_clients=cast(
+            Callable[[str], ApiData],
+            partial(_get_clients, client)
+        ),
+        get_members=cast(
+            Callable[[str], ApiData],
+            partial(_get_members, client)
+        ),
     )
