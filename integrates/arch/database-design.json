@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Feb 22, 2021, 02:56 PM",
+    "DateLastModified": "Feb 23, 2021, 09:17 AM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "2.0"
@@ -419,16 +419,16 @@
         {
           "FacetName": "organization_historic",
           "KeyAttributeAlias": {
-            "PartitionKeyAlias": "ORG#name#HISTORIC#iso8601utc",
-            "SortKeyAlias": "ORG#name"
+            "PartitionKeyAlias": "ORG#name",
+            "SortKeyAlias": "ORG#name#HIST#iso8601utc"
           },
           "TableData": [
             {
               "pk": {
-                "S": "ORG#okada#HISTORIC#2021-02-15T14:01:16Z"
+                "S": "ORG#okada"
               },
               "sk": {
-                "S": "ORG#okada"
+                "S": "ORG#okada#HIST#2021-02-15T14:01:16Z"
               },
               "settings": {
                 "M": {
@@ -506,16 +506,16 @@
         {
           "FacetName": "group_historic",
           "KeyAttributeAlias": {
-            "PartitionKeyAlias": "GROUP#name#HISTORIC#iso8601utc",
-            "SortKeyAlias": "GROUP#name"
+            "PartitionKeyAlias": "ORG#name",
+            "SortKeyAlias": "GROUP#name#HIST#iso8601utc"
           },
           "TableData": [
             {
               "pk": {
-                "S": "GROUP#unittesting#HISTORIC#2021-02-15T14:01:16Z"
+                "S": "ORG#name"
               },
               "sk": {
-                "S": "GROUP#unittesting"
+                "S": "GROUP#unittesting#HIST#2021-02-15T14:01:16Z"
               },
               "type": {
                 "S": "CONTINUOUS"
@@ -990,10 +990,31 @@
         {
           "FacetName": "finding_historic",
           "KeyAttributeAlias": {
-            "PartitionKeyAlias": "FIN#uuid#HISTORIC#iso8601utc",
-            "SortKeyAlias": "FIN#uuid"
+            "PartitionKeyAlias": "ORG#okada",
+            "SortKeyAlias": "GROUP#name#FIN#uuid#HIST#iso8601utc"
           },
-          "TableData": [],
+          "TableData": [
+            {
+              "pk": {
+                "S": "ORG#okada"
+              },
+              "sk": {
+                "S": "GROUP#unittesting#FIN#a0fddb36-ac0d-4a58-969f-b13194af61c2#HIST#2021-02-15T14:01:16Z"
+              },
+              "status": {
+                "S": "CREATED"
+              },
+              "modified_date": {
+                "S": "2021-02-15T14:01:16Z"
+              },
+              "modified_by": {
+                "S": "USER#test@fluidattacks.com"
+              },
+              "source": {
+                "S": "skims"
+              }
+            }
+          ],
           "NonKeyAttributes": [
             "status",
             "change_reason",
@@ -1008,10 +1029,28 @@
         {
           "FacetName": "event_historic",
           "KeyAttributeAlias": {
-            "PartitionKeyAlias": "EVENT#uuid#HISTORIC#iso8601utc",
-            "SortKeyAlias": "EVENT#uuid"
+            "PartitionKeyAlias": "ORG#okada",
+            "SortKeyAlias": "GROUP#name#EVENT#uuid#HIST#iso8601utc"
           },
-          "TableData": [],
+          "TableData": [
+            {
+              "pk": {
+                "S": "ORG#okada"
+              },
+              "sk": {
+                "S": "GROUP#unittesting#EVENT#01405804-4c10-400f-97b4-87661af5f0ae#HIST#2021-02-15T14:01:16Z"
+              },
+              "status": {
+                "S": "OPEN"
+              },
+              "modified_date": {
+                "S": "2021-02-15T14:01:16Z"
+              },
+              "modified_by": {
+                "S": "USER#test@fluidattacks.com"
+              }
+            }
+          ],
           "NonKeyAttributes": [
             "status",
             "modified_date",
@@ -1118,8 +1157,8 @@
         {
           "FacetName": "root_historic",
           "KeyAttributeAlias": {
-            "PartitionKeyAlias": "ROOT#uuid#HISTORIC#iso8601utc",
-            "SortKeyAlias": "ROOT#uuid"
+            "PartitionKeyAlias": "ORG#okada",
+            "SortKeyAlias": "GROUP#name#ROOT#uuid#HIST#iso8601utc"
           },
           "TableData": [],
           "NonKeyAttributes": [
@@ -1140,8 +1179,8 @@
         {
           "FacetName": "vulnerability_historic",
           "KeyAttributeAlias": {
-            "PartitionKeyAlias": "VULN#uuid#HISTORIC#iso8601utc",
-            "SortKeyAlias": "VULN#uuid"
+            "PartitionKeyAlias": "ORG#okada",
+            "SortKeyAlias": "GROUP#name#FIN#uuid#VULN#uuid#HIST#iso8601utc"
           },
           "TableData": [],
           "NonKeyAttributes": [
