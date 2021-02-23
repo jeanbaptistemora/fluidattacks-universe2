@@ -1,7 +1,8 @@
 # shellcheck shell=bash
 
 function dump {
-      cat __envForces__ > makes/profiles/forces.sh \
+      cat __envAsserts__ > makes/profiles/asserts.sh \
+  &&  cat __envForces__ > makes/profiles/forces.sh \
   &&  cat __envIntegratesBack__ > makes/profiles/integrates-back.sh \
   &&  cat __envIntegratesCache__ > makes/profiles/integrates-cache.sh \
   &&  cat __envIntegratesDb__ > makes/profiles/integrates-db.sh \

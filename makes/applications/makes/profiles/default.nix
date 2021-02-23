@@ -14,6 +14,7 @@ makeEntrypoint {
       template = path "/makes/applications/makes/profiles/template.sh";
     })
     {
+      envAsserts = [ "asserts" ];
       envIntegratesBack = [
         "integrates-back"
         "integrates-back-probes-liveness"
