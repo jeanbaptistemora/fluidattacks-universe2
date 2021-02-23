@@ -70,6 +70,7 @@ observes.infra-test
 observes.job-dif-gitlab-etl
 observes.job.dynamodb-centralize
 observes.job.dynamodb-etl
+observes.job.dynamodb-forces-etl
 observes.job.dynamodb-table-etl
 observes.scheduled.code-etl-amend
 observes.scheduled.code-etl-compute-bills
@@ -77,6 +78,7 @@ observes.scheduled.code-etl-mirror
 observes.scheduled.code-etl-upload
 observes.scheduled.dif-gitlab-etl
 observes.scheduled.dynamodb-centralize
+observes.scheduled.dynamodb-forces-etl
 observes.scheduled.dynamodb-integrates-etl
 observes.scheduled.dynamodb-integrates-etl-vulns
 observes.scheduled.formstack-etl

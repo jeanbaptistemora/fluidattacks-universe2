@@ -171,6 +171,15 @@ observes.scheduled.dynamodb-centralize:
     variables: [$observes_dynamodb_centralize]
   interruptible: false
 
+observes.scheduled.dynamodb-forces-etl:
+  <<: *makes
+  tags: [autoscaling-analytics]
+  stage: analytics
+  only:
+    refs: [schedules]
+    variables: [$observes_dynamodb_forces_on_aws]
+  interruptible: false
+
 observes.scheduled.dynamodb-integrates-etl:
   <<: *makes
   tags: [autoscaling-large]
@@ -289,15 +298,6 @@ observes_apply_infra:
   <<: *with_nix
   <<: *observes_in_master_branch
   stage: deploy-infra
-
-observes_dynamodb_forces_on_aws:
-  <<: *with_nix
-  tags: [autoscaling-analytics]
-  stage: analytics
-  only:
-    refs: [schedules]
-    variables: [$observes_dynamodb_forces_on_aws]
-  interruptible: false
 
 observes_services_toe:
   <<: *with_nix
