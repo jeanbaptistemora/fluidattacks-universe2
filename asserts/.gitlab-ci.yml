@@ -33,6 +33,21 @@
       when: never
     - if: *asserts_commit_pattern
 
+.makes: &makes
+  tags: [autoscaling]
+  image: "${CI_REGISTRY_IMAGE}/makes:ci"
+  needs: []
+  interruptible: true
+  script:
+    - ./m "${CI_JOB_NAME% *}"
+  variables:
+    GIT_DEPTH: 5
+
+asserts.oci.deploy:
+  <<: *makes
+  <<: *in_master_branch_asserts
+  stage: deploy-app
+
 asserts_lint_code:
   <<: *with_nix
   <<: *in_dev_branch_asserts
@@ -265,11 +280,6 @@ asserts_test_output:
   <<: *with_nix
   <<: *in_dev_branch_asserts
   stage: test-code
-
-asserts_release_docker_hub:
-  <<: *with_nix
-  <<: *in_master_branch_asserts
-  stage: deploy-app
 
 asserts_documentation:
   <<: *with_nix

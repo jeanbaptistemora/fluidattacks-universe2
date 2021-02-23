@@ -82,8 +82,10 @@ let
     lintPython = import (path "/makes/utils/lint-python") path;
     makeDerivation = import (path "/makes/utils/make-derivation") path;
     makeEntrypoint = import (path "/makes/utils/make-entrypoint") path;
+    makeOci = import (path "/makes/utils/make-oci") path;
     makeSearchPaths = import (path "/makes/utils/make-search-paths") path;
     makeTemplate = import (path "/makes/utils/make-template") path;
+    ociDeploy = import (path "/makes/utils/oci-deploy") path;
     terraformApply = import (path "/makes/utils/terraform-apply") path;
     terraformTest = import (path "/makes/utils/terraform-test") path;
   };

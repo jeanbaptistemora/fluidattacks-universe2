@@ -1,4 +1,5 @@
 asserts.env
+asserts.oci.build
 asserts.pypi.runtime
 forces.config-development
 forces.config-runtime

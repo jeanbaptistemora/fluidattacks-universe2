@@ -1,4 +1,5 @@
 asserts
+asserts.oci.deploy
 forces
 forces.infra-apply
 forces.infra-test
