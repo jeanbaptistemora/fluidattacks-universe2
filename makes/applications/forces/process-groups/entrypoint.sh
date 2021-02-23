@@ -10,10 +10,14 @@ function main {
   &&  sops_export_vars "forces/secrets-prod.yaml" \
         groups_to_check \
   &&   jq -c '.[]' -r <<< "${groups_to_check}" | while read -r group; do
-            echo "[INFO] Runing forces for ${group}" \
-        &&  forces --token "$(get_forces_token "${group}")" -vvv
-      done \
-  &&  popd || return 1
+            group_name=$(jq -r '.name' <<< "${group}") \
+        &&  repo_name=$(jq -r '.repo_name' <<< "${group}") \
+        &&  echo "[INFO] Runing forces for ${group_name}" \
+        &&  forces \
+              --token "$(get_forces_token "${group_name}")" \
+              -vvv \
+              --repo-name "${repo_name}"
+      done
 }
 
 main
