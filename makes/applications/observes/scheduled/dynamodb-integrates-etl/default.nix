@@ -20,18 +20,11 @@ let
     vcpus = 1;
   };
   dynamoEtlOnAws = computeOnAws jobConfig;
-  dynamoEtlOnAwsBig = computeOnAws (
-    jobConfig // {
-      name = "aws-batch-dynamodb-etl-big";
-      timeout = 25200;
-    }
-  );
 in
 makeEntrypoint observesPkgs {
   searchPaths = {
     envPaths = [
       dynamoEtlOnAws
-      dynamoEtlOnAwsBig
       observesPkgs.coreutils
       observesPkgs.jq
     ];
