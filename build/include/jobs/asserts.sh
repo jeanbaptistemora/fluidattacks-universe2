@@ -610,29 +610,6 @@ function job_asserts_test_output {
   ||  return 1
 }
 
-function job_asserts_build {
-      helper_common_use_pristine_workdir \
-  &&  pushd asserts \
-  &&  helper_build_asserts \
-  &&  cp -a asserts-release "${STARTDIR}/asserts" \
-  &&  popd \
-  || return 1
-}
-
-function job_asserts_release_pypi {
-  local release_folder='asserts-release'
-
-      helper_common_use_pristine_workdir \
-  &&  pushd asserts \
-  &&  env_prepare_python_packages \
-  &&  helper_with_production_secrets \
-  &&  helper_build_asserts \
-  &&  twine check "${release_folder}/"* \
-  &&  twine upload "${release_folder}/"* \
-  &&  popd \
-  ||  return 1
-}
-
 function job_asserts_release_docker_hub {
   function build {
     local image_name="${1}"
