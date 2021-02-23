@@ -1,5 +1,6 @@
 # Standard library
 from collections import Counter
+from itertools import groupby
 from typing import List
 
 # Third party libraries
@@ -41,12 +42,37 @@ async def get_data_many_groups(groups: List[str]) -> Counter:
     return sum(groups_data, Counter())
 
 
+def get_finding_name(item: list) -> str:
+    return item[0].split('/')[-1].split(' -')[0]
+
+
 def format_data(counters: Counter) -> dict:
     data = [
         (title, open_age)
-        for title, open_age in counters.most_common()[:10]
+        for title, open_age in counters.most_common()
         if open_age > 0
     ]
+
+    merged_data = []
+
+    for axis, columns in groupby(
+        sorted(
+            data,
+            key=get_finding_name
+        ),
+        get_finding_name
+    ):
+        merged_data.append(
+            [
+                axis, max(
+                    [
+                        value for _, value in columns
+                    ]
+                )
+            ]
+        )
+
+    merged_data = sorted(merged_data, key=lambda x: x[1], reverse=True)[:10]
 
     return dict(
         data=dict(
@@ -64,7 +90,7 @@ def format_data(counters: Counter) -> dict:
         axis=dict(
             x=dict(
                 categories=[
-                    title.split('/')[-1].split(' -')[0] for title, _ in data
+                    get_finding_name([title]) for title, _ in data
                 ],
                 type='category',
                 tick=dict(
