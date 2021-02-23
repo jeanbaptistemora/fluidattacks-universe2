@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Feb 23, 2021, 09:17 AM",
+    "DateLastModified": "Feb 23, 2021, 09:30 AM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "2.0"
@@ -87,7 +87,7 @@
           "AttributeType": "SS"
         },
         {
-          "AttributeName": "change_reason",
+          "AttributeName": "reason",
           "AttributeType": "S"
         },
         {
@@ -152,14 +152,6 @@
         },
         {
           "AttributeName": "modified_by",
-          "AttributeType": "S"
-        },
-        {
-          "AttributeName": "cloning_status",
-          "AttributeType": "S"
-        },
-        {
-          "AttributeName": "cloning_message",
           "AttributeType": "S"
         },
         {
@@ -248,10 +240,6 @@
         },
         {
           "AttributeName": "accepted_until",
-          "AttributeType": "S"
-        },
-        {
-          "AttributeName": "accepted_reason",
           "AttributeType": "S"
         },
         {
@@ -528,7 +516,7 @@
                   "test"
                 ]
               },
-              "change_reason": {
+              "reason": {
                 "S": "BUDGET"
               },
               "has_drills": {
@@ -549,7 +537,7 @@
             "type",
             "status",
             "tags",
-            "change_reason",
+            "reason",
             "has_drills",
             "has_forces",
             "modified_date",
@@ -977,10 +965,10 @@
           ],
           "NonKeyAttributes": [
             "status",
+            "reason",
             "modified_date",
             "modified_by",
             "accepted_until",
-            "accepted_reason",
             "manager"
           ],
           "DataAccess": {
@@ -1017,7 +1005,7 @@
           ],
           "NonKeyAttributes": [
             "status",
-            "change_reason",
+            "reason",
             "modified_date",
             "modified_by",
             "source"
@@ -1160,7 +1148,41 @@
             "PartitionKeyAlias": "ORG#okada",
             "SortKeyAlias": "GROUP#name#ROOT#uuid#HIST#iso8601utc"
           },
-          "TableData": [],
+          "TableData": [
+            {
+              "pk": {
+                "S": "ORG#okada"
+              },
+              "sk": {
+                "S": "GROUP#unittesting#ROOT#7be44c33-f03f-4d01-94ef-813b534d61ca#HIST#2021-02-15T14:01:16Z"
+              },
+              "status": {
+                "S": "ACTIVE"
+              },
+              "modified_date": {
+                "S": "2021-02-15T14:01:16Z"
+              },
+              "environment": {
+                "S": "production"
+              },
+              "environment_urls": {
+                "SS": [
+                  "https://integrates.fluidattacks.com"
+                ]
+              },
+              "gitignore": {
+                "SS": [
+                  "!/integrates/"
+                ]
+              },
+              "includes_health_check": {
+                "BOOL": false
+              },
+              "modified_by": {
+                "S": "USER#test@fluidattacks.com"
+              }
+            }
+          ],
           "NonKeyAttributes": [
             "status",
             "modified_date",
@@ -1168,9 +1190,7 @@
             "environment_urls",
             "gitignore",
             "includes_health_check",
-            "modified_by",
-            "cloning_status",
-            "cloning_message"
+            "modified_by"
           ],
           "DataAccess": {
             "MySql": {}
@@ -1185,9 +1205,43 @@
           "TableData": [],
           "NonKeyAttributes": [
             "status",
-            "change_reason",
+            "reason",
             "modified_date",
             "modified_by"
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
+        },
+        {
+          "FacetName": "root_cloning_historic",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "ORG#okada",
+            "SortKeyAlias": "GROUP#name#ROOT#uuid#CLON#iso8601utc"
+          },
+          "TableData": [
+            {
+              "pk": {
+                "S": "ORG#okada"
+              },
+              "sk": {
+                "S": "GROUP#unittesting#ROOT#7be44c33-f03f-4d01-94ef-813b534d61ca#CLON#2021-02-15T14:01:16Z"
+              },
+              "status": {
+                "S": "UNKNOWN"
+              },
+              "reason": {
+                "S": "root created"
+              },
+              "modified_date": {
+                "S": "2021-02-15T14:01:16Z"
+              }
+            }
+          ],
+          "NonKeyAttributes": [
+            "status",
+            "reason",
+            "modified_date"
           ],
           "DataAccess": {
             "MySql": {}
