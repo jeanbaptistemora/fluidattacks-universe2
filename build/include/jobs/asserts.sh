@@ -610,47 +610,6 @@ function job_asserts_test_output {
   ||  return 1
 }
 
-function job_asserts_release_docker_hub {
-  function build {
-    local image_name="${1}"
-    local target_name="${2}"
-    local file="${3}"
-
-        docker build  \
-          --tag "${image_name}" \
-          --target "${target_name}" \
-          -f "${file}" \
-          . \
-    &&  docker push "${image_name}"
-  }
-
-      helper_common_use_pristine_workdir \
-  &&  pushd asserts \
-  &&  helper_with_production_secrets \
-  &&  docker login "${DOCKER_HUB_URL}" \
-        --username "${DOCKER_HUB_USER}" \
-        --password-stdin \
-        <<< "${DOCKER_HUB_PASS}" \
-  &&  build \
-        'fluidattacks/asserts:debian-light' \
-        'light' \
-        'debian.Dockerfile' \
-  &&  build \
-        'fluidattacks/asserts:debian-full' \
-        'full' \
-        'debian.Dockerfile' \
-  &&  build \
-        'fluidattacks/asserts:debian' \
-        'full' \
-        'debian.Dockerfile' \
-  &&  build \
-        'fluidattacks/asserts' \
-        'full' \
-        'debian.Dockerfile' \
-  &&  popd \
-  ||  return 1
-}
-
 function job_asserts_documentation {
   local bucket_path='s3://fluidattacks.com/resources/doc/asserts/'
 
