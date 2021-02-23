@@ -35,6 +35,7 @@
       "src/scenes/Dashboard/components/HorizontalBarIndicator/**",
       "src/scenes/Dashboard/components/Navbar/**/*.*",
       "src/scenes/Dashboard/components/NewsWidget/**",
+      "src/scenes/Dashboard/components/RemediationModal/index.spec.tsx",
       "src/scenes/Dashboard/components/Vulnerabilities/**",
       "src/scenes/Dashboard/containers/ChartsGenericView/components/ChartCols/index.tsx",
       "src/scenes/Dashboard/containers/FindingContent/components/buttoncol/index.tsx",
