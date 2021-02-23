@@ -37,7 +37,7 @@ Specifically, this man could access a link
 through a QR code attached to his digital visa.
 And, from there, by changing the final numbers of that link,
 he could see and obtain not just his
-but other people's passports on PDF without any restriction.
+but other people's visas on PDF without any restriction.
 
 Perhaps this citizen hadn't the foggiest idea of the magnitude of the snag.
 An estimated *550,000* people had their data
@@ -107,7 +107,7 @@ in terms of disclosing an IT system vulnerability.
 However, before that, our individual should not have gone
 beyond failed communication with a couple of authorities
 to share his findings with a journalistic group.
-As suggested by Rafael Alvarez, Fluid Attacks' CTO,
+As suggested by Rafael Alvarez, `Fluid Attacks'` CTO,
 this man should have tried repeatedly
 to establish a conversation with the Ministry.
 Finding no response or being ignored,

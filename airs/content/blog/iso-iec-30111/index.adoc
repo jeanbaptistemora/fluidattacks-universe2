@@ -180,7 +180,7 @@ All of this, it is hoped, should go hand in hand
 with a confidential and secure treatment of vulnerability information
 and individuals' and organizations' sensitive data.
 
-Would you like to know how link:../../[Fluid Attacks] can help you
+Would you like to know how link:../../[`Fluid Attacks`] can help you
 in your vulnerability handling processes?
 link:../../contact-us/[Do not hesitate to contact us!]
 

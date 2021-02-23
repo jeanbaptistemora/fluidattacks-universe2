@@ -39,7 +39,7 @@ En concreto, este hombre podía acceder a un enlace
 a través de un código QR adjunto a su visa digital.
 Y, a partir de ahí, cambiando los números finales de ese enlace,
 podía ver y obtener no solo su visa
-sino la de otras personas en PDF sin ninguna restricción.
+sino las de otras personas en PDF sin restricción alguna.
 
 Tal vez este ciudadano no tenía la menor idea de la magnitud del inconveniente.
 Se calcula que *550.000* personas tenían sus datos
