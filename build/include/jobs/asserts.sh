@@ -51,28 +51,6 @@ function job_asserts_lint_tests {
   || return 1
 }
 
-function job_asserts_infra_secret_management_test {
-  local target='deploy/secret-management/terraform'
-
-      helper_common_use_pristine_workdir \
-  &&  pushd asserts \
-    &&  helper_asserts_aws_login dev \
-    &&  helper_asserts_terraform_plan "${target}" \
-  &&  popd \
-  ||  return 1
-}
-
-function job_asserts_infra_secret_management_deploy {
-  local dir='deploy/secret-management/terraform'
-
-      helper_common_use_pristine_workdir \
-  &&  pushd asserts \
-  &&  helper_asserts_aws_login prod \
-  &&  helper_common_terraform_apply "${dir}" \
-  &&  popd \
-  ||  return 1
-}
-
 function job_asserts_test_api_cloud_aws_api {
   local marker_name='cloud_aws_api'
 
