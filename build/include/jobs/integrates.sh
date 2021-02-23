@@ -3,87 +3,6 @@
 
 # Mobile
 
-function job_integrates_mobile_build_android {
-  export EXPO_ANDROID_KEYSTORE_PASSWORD
-  export EXPO_ANDROID_KEY_PASSWORD
-  export TURTLE_ANDROID_DEPENDENCIES_DIR="${HOME}/.turtle/androidDependencies"
-  export JAVA_OPTS="
-    -Xmx7G
-    -XX:+HeapDumpOnOutOfMemoryError
-    -XX:+UnlockExperimentalVMOptions
-    -XX:+UseCGroupMemoryLimitForHeap
-    -XX:+UseG1GC
-  "
-  export GRADLE_OPTS="
-    -Dorg.gradle.configureondemand=true
-    -Dorg.gradle.daemon=false
-    -Dorg.gradle.jvmargs=\"${JAVA_OPTS}\"
-    -Dorg.gradle.parallel=true
-    -Dorg.gradle.project.android.aapt2FromMavenOverride=${TURTLE_ANDROID_DEPENDENCIES_DIR}/sdk/build-tools/30.0.3/aapt2
-  "
-  export GRADLE_DAEMON_DISABLED="1"
-
-      if  helper_common_has_any_file_changed \
-        'integrates/mobile/app.json' \
-        'integrates/mobile/assets/icon.png' \
-        'integrates/mobile/assets/splash.png'
-      then
-            pushd "${STARTDIR}/integrates" \
-        &&  echo '[INFO] Logging in to AWS' \
-        &&  helper_integrates_aws_login "${ENVIRONMENT_NAME}" \
-        &&  helper_common_sops_env "secrets-${ENVIRONMENT_NAME}.yaml" 'default' \
-              EXPO_USER \
-              EXPO_PASS \
-        &&  sops \
-              --aws-profile default \
-              --decrypt \
-              --extract '["GOOGLE_SERVICES_APP"]' \
-              --output 'mobile/google-services.json' \
-              --output-type 'json' \
-              "secrets-development.yaml" \
-        &&  EXPO_ANDROID_KEYSTORE_PASSWORD=${EXPO_PASS} \
-        &&  EXPO_ANDROID_KEY_PASSWORD=${EXPO_PASS} \
-        &&  pushd mobile \
-          &&  echo '[INFO] Installing deps' \
-          &&  echo '[INFO] Using NodeJS '"$(node -v)"'' \
-          &&  echo '[INFO] Using Java '"$(java -version 2>&1)"'' \
-          &&  npm install \
-          &&  npx --no-install expo login \
-                --username "${EXPO_USER}" \
-                --password "${EXPO_PASS}" \
-                --non-interactive \
-          &&  aws s3 cp \
-                --recursive \
-                "s3://fluidintegrates.build/mobile/certs" \
-                ./certs \
-          &&  echo '[INFO] Patching android sdk' \
-          &&  rm -rf "${HOME}/.turtle/" \
-          &&  mkdir -p "${TURTLE_ANDROID_DEPENDENCIES_DIR}/sdk" \
-          &&  cp -r --no-preserve=mode,ownership \
-                "${androidSdk}"/libexec/android-sdk/* \
-                "${TURTLE_ANDROID_DEPENDENCIES_DIR}/sdk" \
-          &&  touch "${TURTLE_ANDROID_DEPENDENCIES_DIR}/sdk/.ready" \
-          &&  echo '[INFO] Building android app' \
-          &&  npx --no-install turtle build:android \
-                --username "${EXPO_USER}" \
-                --password "${EXPO_PASS}" \
-                --keystore-alias fluidintegrates-keystore \
-                --keystore-path ./certs/keystore-dev.jks \
-                --output output/integrates.aab \
-                --release-channel "${CI_COMMIT_REF_NAME}" \
-                --type app-bundle \
-          &&  rm google-services.json \
-          &&  rm -rf ./certs \
-        &&  popd \
-        ||  return 1
-      else
-            echo '[INFO] No relevant files were modified, skipping build' \
-        &&  return 0
-      fi \
-  &&  popd \
-  ||  return 1
-}
-
 # This job is used locally and should be migrated to makes
 function job_integrates_mobile_build_ios {
   export EXPO_APPLE_PASSWORD
@@ -130,42 +49,6 @@ function job_integrates_mobile_build_ios {
     &&  curl -sSo output/integrates.ipa "$(npx expo-cli url:ipa)" \
     &&  rm -rf ./certs \
     &&  popd \
-  ||  return 1
-}
-
-function job_integrates_mobile_deploy_playstore {
-  export LANG=en_US.UTF-8
-
-      if  helper_common_has_any_file_changed \
-        'integrates/mobile/app.json'
-      then
-            pushd "${STARTDIR}/integrates" \
-        &&  echo '[INFO] Logging in to AWS' \
-        &&  helper_integrates_aws_login "${ENVIRONMENT_NAME}" \
-        &&  sops \
-              --aws-profile default \
-              --decrypt \
-              --extract '["PLAYSTORE_CREDENTIALS"]' \
-              --output 'mobile/playstore-credentials.json' \
-              --output-type 'json' \
-              "secrets-${ENVIRONMENT_NAME}.yaml" \
-        &&  pushd mobile \
-          &&  echo '[INFO] Installing deps' \
-          &&  bundle install \
-          &&  echo '[INFO] Deploying to Google Play Store' \
-          &&  bundle exec fastlane supply \
-                --aab ./output/integrates.aab \
-                --json_key ./playstore-credentials.json \
-                --package_name "com.fluidattacks.integrates" \
-                --track production \
-          &&  rm playstore-credentials.json \
-        &&  popd \
-        ||  return 1
-      else
-            echo '[INFO] No relevant files were modified, skipping deploy' \
-        &&  return 0
-      fi \
-  &&  popd \
   ||  return 1
 }
 

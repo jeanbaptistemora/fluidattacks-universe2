@@ -27,6 +27,9 @@ integrates.lambda.send-mail-notification
 integrates.mobile.config.dev-runtime
 integrates.mobile.lint
 integrates.mobile.test
+integrates.mobile.tools
+integrates.mobile.tools.bundler
+integrates.mobile.tools.fastlane
 integrates.secrets.lint
 integrates.secrets.list
 integrates.web.e2e.lint

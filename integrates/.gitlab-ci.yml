@@ -290,6 +290,14 @@ integrates.mobile.build.android:
   stage: build
   tags: [autoscaling-large]
 
+integrates.mobile.deploy.playstore:
+  <<: *makes
+  <<: *in_master_branch_integrates
+  dependencies:
+    - integrates.mobile.build.android
+  needs: [integrates.mobile.build.android]
+  stage: deploy-app
+
 integrates.mobile.lint:
   <<: *makes
   <<: *in_dev_branch_integrates
@@ -412,26 +420,6 @@ makes.test.integrates:
   stage: test-code
 
 # Pending to migrate
-
-integrates_mobile_build_android:
-  <<: *with_nix
-  <<: *in_master_branch_integrates
-  stage: build
-  needs: [integrates.mobile.ota-production]
-  tags: [autoscaling-large]
-  artifacts:
-    expire_in: 1 day
-    paths:
-      - integrates/mobile/output/
-    when: on_success
-
-integrates_mobile_deploy_playstore:
-  <<: *with_nix
-  <<: *in_master_branch_integrates
-  stage: deploy-app
-  needs: [integrates_mobile_build_android]
-  dependencies:
-    - integrates_mobile_build_android
 
 integrates_back_lint:
   <<: *with_nix
