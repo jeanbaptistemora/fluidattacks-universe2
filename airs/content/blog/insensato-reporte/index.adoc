@@ -1,6 +1,6 @@
 :slug: insensato-reporte/
 :date: 2017-01-01
-:subtitle: Cancillería colombiana enfrentó un grave problema
+:subtitle: La Cancillería colombiana enfrentó un grave problema
 :category: opinions
 :tags: cybersecurity, vulnerability, information, web, risk, standard
 :image: cover.png
@@ -23,8 +23,8 @@ usted se da cuenta de que puede hacer algo que se supone
 uno no podría hacer en esa web.
 Resulta que usted puede ver y descargar las visas de muchas otras personas
 con solo hacer un pequeño cambio al final de la URL.
-¿Qué cree que debería hacer en este tipo de situación?
-¿A quién debería contarle esto, asumiendo, por supuesto,
+¿Qué cree que debería hacer en esta situación?
+¿A quién debería informarle esto, asumiendo, por supuesto,
 que usted no tiene intención de ser un ciberdelincuente?
 
 Pues bien, a dicho escenario link:https://www.dw.com/es/colombia-falla-inform%C3%A1tica-expone-datos-de-550000-personas-extranjeras/a-56245939[se enfrentó recientemente] un individuo extranjero
@@ -45,19 +45,18 @@ Tal vez este ciudadano no tenía la menor idea de la magnitud del inconveniente.
 Se calcula que *550.000* personas tenían sus datos
 en ese sistema de información vulnerable en ese momento.
 Por tanto, de cualquiera de ellas,
-nuestro individuo podía obtener datos como los siguientes:
+este individuo podía obtener datos como los siguientes:
 fotografía, nombre completo, fecha de nacimiento, nacionalidad,
 número de pasaporte y puesto de trabajo.
-Por cierto, ¿sería este hombre el primero en darse cuenta de esta falla?
+Por cierto, ¿sería él el primero en darse cuenta de esta falla?
 ¿Hacía cuánto tiempo existía esta vulnerabilidad? ¿Días, meses?
-Preguntas sin respuestas compartidas públicamente hasta ahora, al parecer.
+Hasta ahora, al parecer, no se han dado respuestas a estas preguntas.
 
 En todo caso, siguiendo lo comunicado en Twitter por LSV,
-nuestro individuo en cuestión
-decidió escribir correos electrónicos a su embajada,
+el individuo en cuestión decidió escribir correos electrónicos a su embajada,
 de la que no obtuvo ninguna solución,
 y luego al Ministerio de Asuntos Exteriores, para no recibir respuesta alguna.
-¿Cómo carajos puede ser eso posible?
+¿Cómo carajos es eso posible?
 Está bien, olvido de momento que
 una _lentitud en los trámites_ es fácil de encontrar
 en la burocracia de casi cualquier lugar.
@@ -68,10 +67,10 @@ en la plataforma de visas electrónicas.
 Ese día, el *15 de enero*, estos periodistas,
 además de hacerlo en las redes sociales, link:https://lasillavacia.com/bache-seguridad-amenazo-los-datos-extranjeros-y-cancilleria-no-sabia-79749[publicaron en su web]
 'TODO' lo que se sabía hasta el momento sobre el asunto.
-¿Qué hicieron con su imprudente conducta?
+¿Qué lograron con su imprudencia?
 Adelantaron la Navidad para muchos hackers malintencionados,
 principalmente en América Latina.
-La Silla Vacía reveló una vulnerabilidad de ciberseguridad
+LSV reveló una vulnerabilidad de ciberseguridad
 para la que no había ninguna solución implementada en ese entonces.
 A pesar de censurar las URLs y la información de las personas,
 entregaron un gif mostrando el error de la plataforma.
@@ -81,7 +80,7 @@ De nuevo, preguntas sin respuesta.
 
 No obstante, LSV comunicó por chat el embrollo
 a las autoridades competentes de la Cancillería.
-Quienes respondieron que pronto remediarían la vulnerabilidad
+Ellas respondieron que pronto remediarían la vulnerabilidad
 y, horas más tarde, publicaron un link:https://www.cancilleria.gov.co/newsroom/news/cancilleria-informa-falla-sistema-informacion-plataforma-visas-electronicas[escueto boletín oficial]
 sobre el tema (véase la Figura 1).
 Sin embargo, parece que no sugirieron a LSV que eliminara sus publicaciones
@@ -102,11 +101,11 @@ image::boletin.png[Boletín]
 ofrece este suceso a los extranjeros?
 ¿link:https://www.enter.co/empresas/seguridad/la-falla-de-la-cancilleria-colombiana-que-expuso-miles-de-visas/[Existen problemas similares] en los sistemas de este gobierno
 (utilizando la misma tecnología) que no han sido resueltos?
-Preguntas atractivas, aunque, en este punto,
+Preguntas atractivas, pero, en este punto,
 me gustaría mantenerme enfocado en el asunto del reporte de la vulnerabilidad.
 
 Como dijo link:https://globelivemedia.com/a-computer-error-by-the-colombian-foreign-ministry-made-the-visas-of-some-550000-foreigners-public/[Oakley para GlobeLiveMedia],
-algunas otras personas también rechazaron la publicación de La Silla Vacía.
+algunas otras personas también rechazaron la publicación de LSV.
 Repito: ¡podían haber estado llamando a la ciberdelincuencia!
 Su comportamiento no fue apropiado ni juicioso
 en cuanto a la revelación de una vulnerabilidad de un sistema informático.
