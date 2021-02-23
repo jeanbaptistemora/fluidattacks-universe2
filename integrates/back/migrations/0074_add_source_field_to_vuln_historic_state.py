@@ -1,6 +1,9 @@
 """
 This migration uses the analyst and the date to populate the source field
 into the vulnerability historic state
+
+Execution Time:    2021-02-22 at 16:27:03 UTC-05
+Finalization Time: 2021-02-23 at 10:29:38 UTC-05
 """
 # Standard library
 import copy
