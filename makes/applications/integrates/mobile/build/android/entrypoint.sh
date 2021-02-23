@@ -44,8 +44,8 @@ function main {
           &&  echo "${GOOGLE_SERVICES_APP}" > google-services.json \
           &&  EXPO_ANDROID_KEYSTORE_PASSWORD=${EXPO_PASS} \
           &&  EXPO_ANDROID_KEY_PASSWORD=${EXPO_PASS} \
-          &&  echo '[INFO] Using NodeJS '"$(node -v)"'' \
-          &&  echo '[INFO] Using Java '"$(java -version 2>&1)"'' \
+          &&  echo "[INFO] Using NodeJS $(node -v)" \
+          &&  echo "[INFO] Using Java $(java -version 2>&1)" \
           &&  npx --no-install expo login \
                 --username "${EXPO_USER}" \
                 --password "${EXPO_PASS}" \

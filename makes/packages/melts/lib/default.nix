@@ -10,7 +10,7 @@ makeTemplate meltsPkgs {
     envPaths = [ packages.melts ];
     envUtils = [
       "/makes/utils/aws"
-      "/makes/utils/use-git-repo"
+      "/makes/utils/git"
     ];
   };
   template = path "/makes/packages/melts/lib/template.sh";

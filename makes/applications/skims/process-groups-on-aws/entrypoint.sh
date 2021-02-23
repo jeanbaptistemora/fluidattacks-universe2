@@ -1,7 +1,7 @@
 # shellcheck shell=bash
 
 source '__envUtilsBashLibAws__'
-source '__envUtilsBashLibUseGitRepo__'
+source '__envUtilsBashLibGit__'
 
 function main {
       aws_login_prod 'skims' \

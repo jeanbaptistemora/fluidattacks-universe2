@@ -3,7 +3,7 @@
 source '__envSetupSkimsRuntime__'
 source '__envUtilsBashLibAws__'
 source '__envUtilsBashLibSops__'
-source '__envUtilsBashLibUseGitRepo__'
+source '__envUtilsBashLibGit__'
 
 function clone_group {
   export SERVICES_PROD_AWS_ACCESS_KEY_ID

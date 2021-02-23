@@ -15,7 +15,7 @@ makeEntrypoint {
     envCodeEtlBin = "${bins.codeEtl}/bin";
     envMelts = applications.melts;
     envUtilsBashLibAws = import (path "/makes/utils/aws") path observesPkgs;
-    envUtilsBashLibGit = import (path "/makes/utils/use-git-repo") path observesPkgs;
+    envUtilsBashLibGit = import (path "/makes/utils/git") path observesPkgs;
     envUtilsBashLibSops = import (path "/makes/utils/sops") path observesPkgs;
   };
   name = "observes-code-etl-upload";

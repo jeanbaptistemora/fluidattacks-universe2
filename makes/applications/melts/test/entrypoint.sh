@@ -3,7 +3,7 @@
 source '__envSetupMeltsRuntime__'
 source '__envSetupMeltsDevelopment__'
 source '__envUtilsBashLibAws__'
-source '__envUtilsBashLibUseGitRepo__'
+source '__envUtilsBashLibGit__'
 
 function start_localstack {
   local time='0'

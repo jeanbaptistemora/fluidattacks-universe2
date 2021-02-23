@@ -24,8 +24,8 @@ makeEntrypoint integratesMobilePkgs {
     ];
     envUtils = [
       "/makes/utils/aws"
+      "/makes/utils/git"
       "/makes/utils/sops"
-      "/makes/utils/use-git-repo"
     ];
   };
   template = path "/makes/applications/integrates/mobile/build/android/entrypoint.sh";
