@@ -122,7 +122,7 @@ async def get_active_projects() -> List[str]:
     )
 
 
-async def get_projects_with_forces() -> List[str]:
+async def get_groups_with_forces() -> List[str]:
     """Get active project in DynamoDB"""
     filtering_exp = (
         Attr('project_status').eq('ACTIVE')

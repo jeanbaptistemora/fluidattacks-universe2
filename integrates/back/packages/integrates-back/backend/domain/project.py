@@ -1012,8 +1012,8 @@ async def get_active_projects() -> List[str]:
     return projects
 
 
-async def get_projects_with_forces() -> List[str]:
-    return await project_dal.get_projects_with_forces()
+async def get_groups_with_forces() -> List[str]:
+    return await project_dal.get_groups_with_forces()
 
 
 async def get_alive_projects() -> List[str]:

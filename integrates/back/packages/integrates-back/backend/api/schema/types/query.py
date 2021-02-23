@@ -12,6 +12,7 @@ from backend.api.resolvers.query import (
     forces_execution,
     forces_executions,
     group,
+    groups_with_forces,
     internal_names,
     me,
     organization,
@@ -21,7 +22,6 @@ from backend.api.resolvers.query import (
     stakeholder,
     tag,
     user_list_groups,
-    projects_with_forces,
     vulnerability
 )
 
@@ -34,7 +34,7 @@ QUERY.set_field('events', events.resolve)
 QUERY.set_field('finding', finding.resolve)
 QUERY.set_field('forcesExecution', forces_execution.resolve)
 QUERY.set_field('forcesExecutions', forces_executions.resolve)
-QUERY.set_field('groupsWithForces', projects_with_forces.resolve)
+QUERY.set_field('groupsWithForces', groups_with_forces.resolve)
 QUERY.set_field('internalNames', internal_names.resolve)
 QUERY.set_field('me', me.resolve)
 QUERY.set_field('organization', organization.resolve)

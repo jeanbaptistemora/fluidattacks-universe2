@@ -37,5 +37,5 @@ async def resolve(
 
 
 async def resolve_no_cache() -> List[str]:
-    projects = await project_domain.get_projects_with_forces()
+    projects = await project_domain.get_groups_with_forces()
     return cast(List[str], projects)
