@@ -1,5 +1,6 @@
 # Standard library
 from collections import Counter
+from itertools import groupby
 from typing import List
 
 # Third party libraries
@@ -43,13 +44,42 @@ async def get_data_many_groups(groups: List[str]) -> Counter:
     return sum(groups_data, Counter())
 
 
+def get_finding_name(item: list) -> str:
+    return item[0].split('/')[-1].split(' -')[0]
+
+
 def format_data(counters: Counter) -> dict:
-    data = counters.most_common()[:10]
+    data = counters.most_common()
+
+    merged_data = []
+    for axis, columns in groupby(
+        sorted(
+            data,
+            key=get_finding_name
+        ),
+        get_finding_name
+    ):
+        cols = list(columns)
+        merged_data.append(
+            [
+                axis, sum(
+                    [
+                        value for _, value in cols
+                    ]
+                )
+            ]
+        )
+
+    merged_data = sorted(merged_data, key=lambda x: x[1], reverse=True)[:10]
 
     return dict(
         data=dict(
             columns=[
-                ['# Open Vulnerabilities'] + [value for _, value in data],
+                ['# Open Vulnerabilities'] +
+                [
+                    value
+                    for _, value in merged_data
+                ],
             ],
             colors={
                 '# Open Vulnerabilities': RISK.neutral,
@@ -62,7 +92,7 @@ def format_data(counters: Counter) -> dict:
         axis=dict(
             x=dict(
                 categories=[
-                    key.split('/')[-1].split(' -')[0] for key, _ in data
+                    key.split('/')[-1].split(' -')[0] for key, _ in merged_data
                 ],
                 type='category',
                 tick=dict(
