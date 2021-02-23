@@ -389,6 +389,11 @@ integrates.web.e2e.lint:
   <<: *in_dev_branch_integrates
   stage: lint-code
 
+makes.test.integrates:
+  <<: *makes
+  <<: *in_dev_branch_integrates
+  stage: test-code
+
 # Pending to migrate
 
 integrates_mobile_build_android:

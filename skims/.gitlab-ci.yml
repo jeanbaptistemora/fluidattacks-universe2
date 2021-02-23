@@ -34,6 +34,11 @@
       when: never
     - if: *skims_commit_pattern
 
+makes.test.skims:
+  <<: *makes
+  <<: *skims_in_dev_branch
+  stage: test-code
+
 skims.benchmark-on-aws:
   <<: *makes
   interruptible: false

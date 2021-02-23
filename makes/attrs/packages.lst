@@ -31,6 +31,13 @@ makes.commitlint
 makes.dev
 makes.docs.runtime
 makes.test
+makes.test.forces
+makes.test.integrates
+makes.test.melts
+makes.test.observes
+makes.test.reviews
+makes.test.skims
+makes.test.sorts
 melts.config-development
 melts.config-runtime
 melts.lib

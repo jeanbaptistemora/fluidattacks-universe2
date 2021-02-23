@@ -72,6 +72,11 @@
         - "sorts/sorts/**/*"
         - "sorts/training/*"
 
+makes.test.sorts:
+  <<: *makes
+  <<: *sorts_in_dev_branch
+  stage: test-code
+
 sorts.lint:
   <<: *makes
   <<: *sorts_in_dev_branch
