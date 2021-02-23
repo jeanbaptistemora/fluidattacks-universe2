@@ -445,13 +445,6 @@ def test_is_not_https_required_open():
         '%s/' % (MOCK_SERVICE))
 
 
-def test_is_header_x_xxs_protection_missing_open():
-    """Header x-xss-protection establecido?."""
-    assert http.is_header_x_xxs_protection_missing(NO_HEADERS).is_open()
-    assert http.is_header_x_xxs_protection_missing(
-        '%s/xxs_protection/fail' % (BASE_URL)).is_open()
-
-
 def test_expires_open():
     """Check Expires header."""
     assert http.is_header_expires_missing(
@@ -475,13 +468,6 @@ def test_content_options_open():
     assert http.is_header_x_content_type_options_missing(NO_HEADERS).is_open()
     assert http.is_header_x_content_type_options_missing(
         '%s/content_options/fail' % (BASE_URL)).is_open()
-
-
-def test_frame_options_open():
-    """Check X-Frame-Options header."""
-    assert http.is_header_x_frame_options_missing(NO_HEADERS).is_open()
-    assert http.is_header_x_frame_options_missing(
-        '%s/frame_options/fail' % (BASE_URL)).is_open()
 
 
 def test_is_header_perm_cross_dom_pol_missing_open():

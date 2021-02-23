@@ -21,7 +21,6 @@ HDR_RGX: Dict[str, str] = {
                                   # 123 or "123" as a capture group
                                   r'"?((?<!")\d+(?!")|(?<=")\d+(?="))"?'),
     'x-content-type-options': '^\\s*nosniff\\s*$',
-    'x-frame-options': '^\\s*deny.*$',
 }
 
 
@@ -119,19 +118,6 @@ def accepts_insecure_accept_header(url: str, *args, **kwargs) -> tuple:
     session.add_unit(
         is_vulnerable=session.response.status_code not in (406, 415))
     return session.get_tuple_result()
-
-
-@api(risk=MEDIUM, kind=DAST)
-def is_header_x_frame_options_missing(url: str, *args, **kwargs) -> tuple:
-    r"""
-    Check if X-Frame-Options HTTP header is properly set.
-
-    :param url: URL to test.
-    :param \*args: Optional arguments for :class:`.HTTPSession`.
-    :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
-    :rtype: :class:`fluidasserts.Result`
-    """
-    return _has_insecure_value(url, 'X-Frame-Options', True, *args, **kwargs)
 
 
 @api(risk=LOW, kind=DAST)

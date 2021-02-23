@@ -338,40 +338,6 @@ def rest_content_options_fail():
     return resp
 
 
-@APP.route('/http/headers/frame_options/ok')
-def frame_options_ok():
-    """Run X-Frame-Options mock."""
-    resp = Response('content-security-policy OK')
-    resp.headers[
-        'X-Frame-Options'] = "sameorigin"
-    return resp
-
-
-@APP.route('/http/headers/frame_options/fail')
-def frame_options_fail():
-    """Run X-Frame-Options mock."""
-    resp = Response('Content-Security-Policy FAIL')
-    resp.headers['X-Frame-Options'] = 'Fail'
-    return resp
-
-
-@APP.route('/rest/frame_options/ok')
-def rest_frame_options_ok():
-    """Run X-Frame-Options mock."""
-    resp = Response('content-security-policy OK')
-    resp.headers[
-        'X-Frame-Options'] = "deny"
-    return resp
-
-
-@APP.route('/rest/frame_options/fail')
-def rest_frame_options_fail():
-    """Run X-Frame-Options mock."""
-    resp = Response('Content-Security-Policy FAIL')
-    resp.headers['X-Frame-Options'] = 'fail'
-    return resp
-
-
 @APP.route('/http/headers/content_security_policy/ok')
 def content_security_policy_ok():
     """Header para politica de contenido bien establecida."""

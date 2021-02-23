@@ -671,15 +671,6 @@ def test_content_options_close():
         '%s/content_type/ok' % (BAD_FORMAT_SERVICE)).is_unknown()
 
 
-def test_frame_options_close():
-    """Check X-Frame-Options header."""
-    assert http.is_header_x_frame_options_missing(
-        '%s/frame_options/ok' % (BASE_URL)).is_closed()
-    assert http.is_header_x_frame_options_missing(
-        '%s/frame_options/ok' % (NONEXISTANT_SERVICE)).is_unknown()
-    assert http.is_header_x_frame_options_missing(
-        '%s/frame_options/ok' % (BAD_FORMAT_SERVICE)).is_unknown()
-
 
 def test_server_close():
     """Check Server header."""
@@ -723,16 +714,6 @@ def test_is_version_visible_close():
     assert not http.is_version_visible('%s/version/ok' % (BASE_URL))
     assert not http.is_version_visible('%s/version/ok' % (NONEXISTANT_SERVICE))
     assert not http.is_version_visible('%s/version/ok' % (BAD_FORMAT_SERVICE))
-
-
-def test_is_header_x_xxs_protection_missing_close():
-    """Header x-xss-protection establecido?."""
-    assert http.is_header_x_xxs_protection_missing(
-        '%s/xxs_protection/ok' % (BASE_URL)).is_closed()
-    assert http.is_header_x_xxs_protection_missing(
-        '%s/xxs_protection/ok' % (NONEXISTANT_SERVICE)).is_unknown()
-    assert http.is_header_x_xxs_protection_missing(
-        '%s/xxs_protection/ok' % (BAD_FORMAT_SERVICE)).is_unknown()
 
 
 def test_is_header_perm_cross_dom_pol_missing_close():

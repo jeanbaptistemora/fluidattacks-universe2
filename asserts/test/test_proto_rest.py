@@ -44,13 +44,6 @@ def test_hsts_open():
         '%s/hsts/fail' % (BASE_URL))
 
 
-def test_frame_options_open():
-    """Check X-Frame-Options header."""
-    assert rest.is_header_x_frame_options_missing(NO_HEADERS).is_open()
-    assert rest.is_header_x_frame_options_missing(
-        '%s/frame_options/fail' % (BASE_URL)).is_open()
-
-
 def test_content_options_open():
     """Check X-Content-Type-Options header."""
     assert rest.is_header_x_content_type_options_missing(NO_HEADERS).is_open()
@@ -128,13 +121,3 @@ def test_content_type_close():
         '%s/content_type/ok' % (NONEXISTANT_SERVICE)).is_unknown()
     assert rest.is_header_content_type_missing(
         '%s/content_type/ok' % (BAD_FORMAT_SERVICE)).is_unknown()
-
-
-def test_frame_options_close():
-    """Check X-Frame-Options header."""
-    assert rest.is_header_x_frame_options_missing(
-        '%s/frame_options/ok' % (BASE_URL)).is_closed()
-    assert rest.is_header_x_frame_options_missing(
-        '%s/frame_options/ok' % (NONEXISTANT_SERVICE)).is_unknown()
-    assert rest.is_header_x_frame_options_missing(
-        '%s/frame_options/ok' % (BAD_FORMAT_SERVICE)).is_unknown()

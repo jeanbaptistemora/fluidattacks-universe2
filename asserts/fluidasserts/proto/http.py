@@ -43,7 +43,6 @@ HDR_RGX: Dict[str, str] = {
                                   r'"?((?<!")\d+(?!")|(?<=")\d+(?="))"?'
                                   r'\s*;\s*includeSubDomains'),
     'x-content-type-options': '^\\s*nosniff\\s*$',
-    'x-frame-options': '^\\s*(deny|allow-from|sameorigin).*$',
     'server': '^[^0-9]*$',
     'x-permitted-cross-domain-policies': '^((?!all).)*$',
     'x-xss-protection': '^1(\\s*;\\s*mode=block)?$',
@@ -805,19 +804,6 @@ def is_header_x_content_type_options_missing(url: str, *args,
 
 
 @api(risk=MEDIUM, kind=DAST)
-def is_header_x_frame_options_missing(url: str, *args, **kwargs) -> tuple:
-    r"""
-    Check if X-Frame-Options HTTP header is properly set.
-
-    :param url: URL to test.
-    :param \*args: Optional arguments for :class:`.HTTPSession`.
-    :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
-    :rtype: :class:`fluidasserts.Result`
-    """
-    return _has_insecure_value(url, 'X-Frame-Options', True, *args, **kwargs)
-
-
-@api(risk=MEDIUM, kind=DAST)
 def is_header_perm_cross_dom_pol_missing(url: str, *args, **kwargs) -> tuple:
     r"""
     Check if X-Permitted-Cross-Domain-Policies HTTP header is properly set.
@@ -829,19 +815,6 @@ def is_header_perm_cross_dom_pol_missing(url: str, *args, **kwargs) -> tuple:
     """
     return _has_insecure_value(
         url, 'X-Permitted-Cross-Domain-Policies', True, *args, **kwargs)
-
-
-@api(risk=MEDIUM, kind=DAST)
-def is_header_x_xxs_protection_missing(url: str, *args, **kwargs) -> tuple:
-    r"""
-    Check if X-XSS-Protection HTTP header is properly set.
-
-    :param url: URL to test.
-    :param \*args: Optional arguments for :class:`.HTTPSession`.
-    :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
-    :rtype: :class:`fluidasserts.Result`
-    """
-    return _has_insecure_value(url, 'X-XSS-Protection', True, *args, **kwargs)
 
 
 @api(risk=MEDIUM, kind=DAST)
