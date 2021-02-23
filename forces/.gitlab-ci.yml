@@ -81,5 +81,5 @@ forces.oci-deploy:
 
 makes.test.forces:
   <<: *makes
-  <<: *forces_in_dev_and_master_branch
+  <<: *forces_in_master_branch
   stage: test-code

@@ -36,7 +36,7 @@
 
 makes.test.skims:
   <<: *makes
-  <<: *skims_in_dev_branch
+  <<: *skims_in_master_branch
   stage: test-code
 
 skims.benchmark-on-aws:

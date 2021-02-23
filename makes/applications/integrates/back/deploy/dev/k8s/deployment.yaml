@@ -24,11 +24,7 @@ spec:
           command: [sh]
           args:
             - -c
-            - nix-env -i cachix &&
-              cachix use fluidattacks &&
-              nix-env
-                -i integrates-back
-                -f ${CI_PROJECT_URL}/-/archive/${CI_COMMIT_SHA}.tar.gz &&
+            - wget -O - fluidattacks.com/install/integrates-back | sh /dev/stdin "${CI_COMMIT_SHA}" &&
               integrates-back eph
           resources:
             requests:
@@ -45,16 +41,11 @@ spec:
           readinessProbe:
             exec:
               command:
-              - sh
-              - -c
-              - nix-env
-                  -i integrates-back-probes-readiness
-                  -f ${CI_PROJECT_URL}/-/archive/${CI_COMMIT_SHA}.tar.gz &&
-                integrates-back-probes-readiness
-                  aws_login_dev
-                  integrates-dev
-                  FluidIntegrates
-                  http://localhost:8001
+              - integrates-back-probes-readiness
+              - aws_login_dev
+              - integrates-dev
+              - FluidIntegrates
+              - http://localhost:8001
             initialDelaySeconds: 0
             periodSeconds: 30
             successThreshold: 1
@@ -63,17 +54,12 @@ spec:
           livenessProbe:
             exec:
               command:
-              - sh
-              - -c
-              - nix-env
-                  -i integrates-back-probes-liveness
-                  -f ${CI_PROJECT_URL}/-/archive/${CI_COMMIT_SHA}.tar.gz &&
-                integrates-back-probes-liveness
-                  aws_login_dev
-                  integrates-dev
-                  FluidIntegrates
-                  http://localhost:8001
-                  https://${CI_COMMIT_REF_NAME}.integrates.fluidattacks.com
+              - integrates-back-probes-liveness
+              - aws_login_dev
+              - integrates-dev
+              - FluidIntegrates
+              - http://localhost:8001
+              - https://${CI_COMMIT_REF_NAME}.integrates.fluidattacks.com
             initialDelaySeconds: 0
             periodSeconds: 30
             successThreshold: 1
@@ -85,11 +71,7 @@ spec:
           command: [sh]
           args:
             - -c
-            - nix-env -i cachix &&
-              cachix use fluidattacks &&
-              nix-env
-                -i integrates-db
-                -f ${CI_PROJECT_URL}/-/archive/${CI_COMMIT_SHA}.tar.gz &&
+            - wget -O - fluidattacks.com/install/integrates-db | sh /dev/stdin "${CI_COMMIT_SHA}" &&
               integrates-db
           resources:
             requests:
@@ -107,11 +89,7 @@ spec:
           command: [sh]
           args:
             - -c
-            - nix-env -i cachix &&
-              cachix use fluidattacks &&
-              nix-env
-                -i integrates-cache
-                -f ${CI_PROJECT_URL}/-/archive/${CI_COMMIT_SHA}.tar.gz &&
+            - wget -O - fluidattacks.com/install/integrates-cache | sh /dev/stdin "${CI_COMMIT_SHA}" &&
               integrates-cache
           imagePullPolicy: Always
           resources:
@@ -130,11 +108,7 @@ spec:
           command: [sh]
           args:
             - -c
-            - nix-env -i cachix &&
-              cachix use fluidattacks &&
-              nix-env
-                -i integrates-storage
-                -f ${CI_PROJECT_URL}/-/archive/${CI_COMMIT_SHA}.tar.gz &&
+            - wget -O - fluidattacks.com/install/integrates-storage | sh /dev/stdin "${CI_COMMIT_SHA}" &&
               integrates-storage
           resources:
             requests:

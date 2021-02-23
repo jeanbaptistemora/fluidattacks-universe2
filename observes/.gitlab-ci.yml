@@ -53,7 +53,7 @@
 
 makes.test.observes:
   <<: *makes
-  <<: *observes_in_dev_branch
+  <<: *observes_in_master_branch
   stage: test-code
 
 observes.infra-test:
