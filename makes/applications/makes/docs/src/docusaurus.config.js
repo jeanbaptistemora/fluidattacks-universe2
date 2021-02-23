@@ -5,7 +5,7 @@ module.exports = {
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
-  favicon: 'static/img/favicon.ico',
+  favicon: 'img/favicon.ico',
   organizationName: 'fluidattacks',
   projectName: 'product',
   themeConfig: {
@@ -16,7 +16,7 @@ module.exports = {
     navbar: {
       logo: {
         alt: 'Fluid Attacks Logo',
-        src: 'static/img/logo.png',
+        src: 'img/logo.png',
       },
       items: [
         {

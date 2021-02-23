@@ -5,15 +5,18 @@
 , ...
 } @ _:
 makeEntrypoint makesPkgs {
-  name = "makes-docs";
+  name = "makes-docs-deploy";
   arguments = {
     envRuntime = packages.makes.docs.runtime;
   };
   searchPaths = {
     envPaths = [
+      makesPkgs.awscli
       makesPkgs.nodejs
-      makesPkgs.xdg_utils
+    ];
+    envUtils = [
+      "/makes/utils/aws"
     ];
   };
-  template = path "/makes/applications/makes/docs/entrypoint.sh";
+  template = path "/makes/applications/makes/docs/deploy/entrypoint.sh";
 }

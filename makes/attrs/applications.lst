@@ -46,6 +46,7 @@ makes.attrs
 makes.deploy.oci-batch
 makes.deploy.oci-ci
 makes.docs
+makes.docs.deploy
 makes.docs.infra.apply
 makes.docs.infra.test
 makes.done
