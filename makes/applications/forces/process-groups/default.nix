@@ -1,6 +1,6 @@
-{ forcesPkgs
+{ packages
+, forcesPkgs
 , path
-, applications
 , ...
 }:
 let
@@ -9,10 +9,14 @@ in
 makeEntrypoint rec {
   arguments = {
     envUtilsAws = import (path "/makes/utils/aws") path forcesPkgs;
-    envForces = applications.forces;
-    envJq = forcesPkgs.jq;
-    envUtilsBashLibGit = import (path "/makes/utils/use-git-repo") path forcesPkgs;
     envUtilsSops = import (path "/makes/utils/sops") path forcesPkgs;
+    envUtilsMeltsLibCommon = packages.melts.lib;
+  };
+  searchPaths = {
+    envPaths = [
+      forcesPkgs.jq
+      packages.forces
+    ];
   };
   name = "forces-process-groups";
   template = path "/makes/applications/forces/process-groups/entrypoint.sh";
