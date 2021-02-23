@@ -39,7 +39,9 @@ async def batch_load_fn_vulns(
                 finding_id=cast(str, vuln.get('finding_id', '')),
                 vuln_type=cast(str, vuln.get('vuln_type', '')),
                 where=cast(str, vuln.get('where', '')),
-                source=cast(str, vuln.get('source', 'integrates')),
+                source=cast(
+                    HistoricType, vuln['historic_state']
+                )[0]['source'],
                 specific=cast(str, vuln.get('specific', '')),
                 historic_state=cast(
                     HistoricType,
