@@ -4,7 +4,7 @@ product:
 , makesPkgs
 , packagesFlattened
 , ...
-} @ _:
+}:
 makeDerivation makesPkgs {
   arguments = {
     envBuilt =

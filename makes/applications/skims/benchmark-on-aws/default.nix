@@ -1,13 +1,13 @@
 { path
 , skimsPkgs
 , ...
-} @ _:
+}:
 let
   computeOnAws = import (path "/makes/utils/compute-on-aws") path skimsPkgs;
 in
 computeOnAws {
   attempts = 1;
-  command = [ "./make" "skims.benchmark" ];
+  command = [ "./m" "skims.benchmark" ];
   jobname = "skims-benchmark";
   jobqueue = "dedicated_later";
   name = "skims-benchmark-on-aws";

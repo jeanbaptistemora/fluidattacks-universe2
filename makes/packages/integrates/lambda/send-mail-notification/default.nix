@@ -2,7 +2,7 @@
 , integratesPkgs
 , path
 , ...
-} @ _:
+}:
 buildPythonLambda integratesPkgs {
   name = "integrates-lambda-send-mail-notification";
   python = integratesPkgs.python37;

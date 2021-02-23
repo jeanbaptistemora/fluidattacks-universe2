@@ -3,7 +3,7 @@
 , integratesMobilePkgs
 , path
 , ...
-} @ _:
+}:
 let
   nix = import (path "/makes/utils/nix") path integratesMobilePkgs;
   packageJsonDeps = getPackageJsonDeps integratesMobilePkgs "/integrates/mobile/package.json";

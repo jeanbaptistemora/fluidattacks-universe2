@@ -1,7 +1,7 @@
 { makesPkgs
 , terraformApply
 , ...
-} @ _:
+}:
 terraformApply makesPkgs {
   name = "makes-doc-infra-apply";
   product = "serves";

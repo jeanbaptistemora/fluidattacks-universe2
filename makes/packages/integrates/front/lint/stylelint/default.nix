@@ -3,7 +3,7 @@
 , packages
 , path
 , ...
-} @ _:
+}:
 makeDerivation integratesPkgs {
   arguments = {
     envBashLibCommon = path "/makes/utils/common/template.sh";

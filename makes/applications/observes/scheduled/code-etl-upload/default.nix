@@ -1,12 +1,12 @@
 { path
 , observesPkgs
 , ...
-} @ _:
+}:
 let
   computeOnAws = import (path "/makes/utils/compute-on-aws") path observesPkgs;
   uploadGroup = computeOnAws {
     attempts = 5;
-    command = [ "./make" "observes.code-etl-upload" ];
+    command = [ "./m" "observes.code-etl-upload" ];
     jobname = "code-etl-upload";
     jobqueue = "spot_later";
     name = "aws-batch-code-etl-upload";

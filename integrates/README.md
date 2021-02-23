@@ -69,7 +69,7 @@ curl -sL https://nixos.org/nix/install | sh
 
 ## Build system
 
-In general, everything can be achieved by running `./build.sh` and `./make`
+In general, everything can be achieved by running `./build.sh` and `./m`
 inside the repository.
 If no instruction is provided, the list of
 available commands is displayed.
@@ -84,10 +84,10 @@ Please check out the [Get development keys](https://gitlab.com/fluidattacks/prod
 Run each command in a different terminal:
 
 ```bash
-./make integrates.back
-./make integrates.cache
-./make integrates.db
-./make integrates.storage
+./m integrates.back
+./m integrates.cache
+./m integrates.db
+./m integrates.storage
 ```
 
 ## Local web application
@@ -95,7 +95,7 @@ Run each command in a different terminal:
 Run each command in a different terminal:
 
 ```bash
-./make integrates.front
+./m integrates.front
 ```
 
 ## Local mobile application
@@ -103,5 +103,5 @@ Run each command in a different terminal:
 Run each command in a different terminal:
 
 ```bash
-./make integrates.mobile
+./m integrates.mobile
 ```

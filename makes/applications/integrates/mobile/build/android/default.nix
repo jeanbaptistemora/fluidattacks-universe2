@@ -3,7 +3,7 @@
 , packages
 , path
 , ...
-} @ _:
+}:
 makeEntrypoint integratesMobilePkgs {
   arguments = {
     envAndroidSdk = (integratesMobilePkgs.androidenv.composeAndroidPackages {

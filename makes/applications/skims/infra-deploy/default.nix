@@ -1,7 +1,7 @@
 { path
 , skimsPkgsTerraform
 , ...
-} @ _:
+}:
 let
   terraformApply = import (path "/makes/utils/terraform-apply") path skimsPkgsTerraform;
 in

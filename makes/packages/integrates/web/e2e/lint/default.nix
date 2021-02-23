@@ -4,7 +4,7 @@
 , path
 , integratesPkgs
 , ...
-} @ _:
+}:
 makeDerivation integratesPkgs {
   arguments = {
     envSrc = path "/integrates/test_e2e/src";

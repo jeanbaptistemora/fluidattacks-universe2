@@ -3,7 +3,7 @@
 , packages
 , path
 , ...
-} @ _:
+}:
 makeEntrypoint reviewsPkgs {
   searchPaths = {
     envSources = [ packages.reviews.runtime ];

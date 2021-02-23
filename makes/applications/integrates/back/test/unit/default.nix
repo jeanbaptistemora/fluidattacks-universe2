@@ -4,7 +4,7 @@
 , packages
 , path
 , ...
-} @ _:
+}:
 let
   pythonRequirements = buildPythonRequirements integratesPkgs {
     name = "integrates-back-test-unit";

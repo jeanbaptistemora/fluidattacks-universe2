@@ -1,12 +1,12 @@
 { path
 , observesPkgs
 , ...
-} @ _:
+}:
 let
   computeOnAws = import (path "/makes/utils/compute-on-aws") path observesPkgs;
   mirrorGroup = computeOnAws {
     attempts = 5;
-    command = [ "./make" "observes.code-etl-mirror" ];
+    command = [ "./m" "observes.code-etl-mirror" ];
     jobname = "code-etl-mirror";
     jobqueue = "spot_soon";
     name = "aws-batch-code-etl-mirror";

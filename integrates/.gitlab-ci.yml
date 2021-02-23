@@ -4,7 +4,7 @@
   needs: []
   interruptible: true
   script:
-    - ./make "${CI_JOB_NAME% *}"
+    - ./m "${CI_JOB_NAME% *}"
   variables:
     GIT_DEPTH: 5
 
@@ -74,28 +74,28 @@
   <<: *makes
   interruptible: false
   script:
-    - ./make integrates.scheduler prod "backend.scheduler.${CI_JOB_NAME/integrates.scheduler./}"
+    - ./m integrates.scheduler prod "backend.scheduler.${CI_JOB_NAME/integrates.scheduler./}"
   stage: scheduler
   tags: [autoscaling-large]
 
 .integrates_front_deploy: &integrates_front_deploy
   <<: *makes
   script:
-    - ./make integrates.front.build
-    - ./make integrates.front.deploy
+    - ./m integrates.front.build
+    - ./m integrates.front.deploy
   stage: deploy-app
 
 .integrates_mobile_ota_deploy: &integrates_mobile_ota_deploy
   <<: *makes
   script:
-    - ./make integrates.mobile.ota
+    - ./m integrates.mobile.ota
   stage: pre-build
 
 integrates.analytics.documents-dev:
   <<: *analytics_template
   <<: *in_dev_branch_integrates
   parallel: 4
-  script: [./make integrates.analytics.documents dev]
+  script: [./m integrates.analytics.documents dev]
 
 integrates.analytics.documents-prod-schedule:
   <<: *analytics_template
@@ -104,7 +104,7 @@ integrates.analytics.documents-prod-schedule:
     refs: [schedules]
     variables: [$integrates_analytics_make_documents_prod_schedule]
   parallel: 10
-  script: [./make integrates.analytics.documents prod]
+  script: [./m integrates.analytics.documents prod]
 
 integrates.analytics.lint:
   <<: *makes
@@ -117,7 +117,7 @@ integrates.analytics.snapshots-prod:
   only:
     refs: [schedules]
     variables: [$analytics]
-  script: [./make integrates.analytics.snapshots prod]
+  script: [./m integrates.analytics.snapshots prod]
 
 integrates.back.authz-matrix:
   <<: *makes
@@ -204,7 +204,7 @@ integrates.front.test:
       - integrates/front/coverage.lcov
     expire_in: 1 week
   script:
-    - ./make "${CI_JOB_NAME}"
+    - ./m "${CI_JOB_NAME}"
     - cp out/integrates-front-test/coverage/lcov.info integrates/front/coverage.lcov
   stage: test-code
 
@@ -312,7 +312,7 @@ integrates.mobile.test:
     paths:
       - integrates/mobile/coverage.lcov
   script:
-    - ./make "${CI_JOB_NAME}"
+    - ./m "${CI_JOB_NAME}"
     - cp out/integrates-mobile-test/coverage/lcov.info integrates/mobile/coverage.lcov
   stage: test-code
 
@@ -378,7 +378,7 @@ integrates.secrets.lint:
 integrates.subscriptions.user-to-entity-dev:
   <<: *makes
   <<: *in_dev_branch_integrates
-  script: [./make integrates.subscriptions.user-to-entity dev]
+  script: [./m integrates.subscriptions.user-to-entity dev]
   stage: subscriptions
   retry: 2
 
@@ -388,7 +388,7 @@ integrates.subscriptions.user-to-entity-prod:
   only:
     refs: [schedules]
     variables: [$integrates_subscriptions_trigger_user_to_entity_report_prod_schedule]
-  script: [./make integrates.subscriptions.user-to-entity prod]
+  script: [./m integrates.subscriptions.user-to-entity prod]
   stage: subscriptions
 
 integrates.web.e2e:

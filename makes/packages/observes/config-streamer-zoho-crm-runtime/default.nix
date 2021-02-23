@@ -1,7 +1,7 @@
 { observesPkgs
 , path
 , ...
-} @ _:
+}:
 let
   buildPythonRequirements = import (path "/makes/utils/build-python-requirements") path observesPkgs;
   makeSearchPaths = import (path "/makes/utils/make-search-paths-deprecated") path observesPkgs;

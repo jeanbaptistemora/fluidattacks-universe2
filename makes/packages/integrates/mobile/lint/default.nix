@@ -3,7 +3,7 @@
 , packages
 , path
 , ...
-} @ _:
+}:
 makeDerivation integratesMobilePkgs {
   arguments = {
     envSetupIntegratesMobileDevRuntime = packages.integrates.mobile.config.dev-runtime;

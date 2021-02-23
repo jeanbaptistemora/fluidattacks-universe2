@@ -1,7 +1,7 @@
 { servesPkgs
 , path
 , ...
-} @ _:
+}:
 let
   makeEntrypoint = import (path "/makes/utils/make-entrypoint") path servesPkgs;
   userRotateKeys = import (path "/makes/utils/user-rotate-keys") path servesPkgs;

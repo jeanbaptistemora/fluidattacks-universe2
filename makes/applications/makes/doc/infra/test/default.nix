@@ -1,7 +1,7 @@
 { makesPkgs
 , terraformTest
 , ...
-} @ _:
+}:
 terraformTest makesPkgs {
   name = "makes-doc-infra-test";
   product = "serves";

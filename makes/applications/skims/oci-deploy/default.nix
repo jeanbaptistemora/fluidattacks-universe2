@@ -2,7 +2,7 @@
 , path
 , skimsPkgs
 , ...
-} @ _:
+}:
 let
   ociDeploy = import (path "/makes/utils/oci-deploy") path skimsPkgs;
 in

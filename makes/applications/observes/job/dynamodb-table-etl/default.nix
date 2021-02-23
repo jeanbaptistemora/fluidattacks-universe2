@@ -3,7 +3,7 @@
 , packages
 , path
 , ...
-} @ _:
+}:
 let
   nixPkgs = observesPkgs;
 in

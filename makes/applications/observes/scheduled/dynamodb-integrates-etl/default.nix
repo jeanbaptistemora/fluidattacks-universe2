@@ -2,12 +2,12 @@
 , makeEntrypoint
 , path
 , ...
-} @ _:
+}:
 let
   computeOnAws = import (path "/makes/utils/compute-on-aws") path observesPkgs;
   jobConfig = {
     attempts = 5;
-    command = [ "./make" "observes.job.dynamodb-table-etl" ];
+    command = [ "./m" "observes.job.dynamodb-table-etl" ];
     jobname = "dynamodb-etl";
     jobqueue = "spot_soon";
     name = "aws-batch-dynamodb-etl";

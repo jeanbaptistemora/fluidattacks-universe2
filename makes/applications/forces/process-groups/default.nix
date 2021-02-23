@@ -2,7 +2,7 @@
 , path
 , applications
 , ...
-} @ _:
+}:
 let
   makeEntrypoint = import (path "/makes/utils/make-entrypoint") path forcesPkgs;
 in

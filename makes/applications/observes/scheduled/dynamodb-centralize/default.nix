@@ -1,13 +1,13 @@
 { observesPkgs
 , path
 , ...
-} @ _:
+}:
 let
   computeOnAws = import (path "/makes/utils/compute-on-aws") path observesPkgs;
 in
 computeOnAws {
   attempts = 5;
-  command = [ "./make" "observes.job.dynamodb-centralize" ];
+  command = [ "./m" "observes.job.dynamodb-centralize" ];
   jobname = "dynamodb-centralize";
   jobqueue = "spot_soon";
   name = "observes-scheduled-dynamodb-centralize";

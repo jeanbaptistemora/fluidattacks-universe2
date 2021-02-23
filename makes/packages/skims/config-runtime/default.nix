@@ -3,7 +3,7 @@
 , skimsPkgs
 , skimsTreeSitterRepo
 , ...
-} @ _:
+}:
 let
   buildPythonRequirements = import (path "/makes/utils/build-python-requirements") path skimsPkgs;
   makeTemplate = import (path "/makes/utils/make-template") path skimsPkgs;

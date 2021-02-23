@@ -2,7 +2,7 @@
 , makeEntrypoint
 , path
 , ...
-} @ _:
+}:
 makeEntrypoint integratesPkgs {
   searchPaths = {
     envPaths = [ integratesPkgs.kubectl ];

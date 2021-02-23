@@ -2,7 +2,7 @@
 , integratesPkgsTerraform
 , path
 , ...
-} @ _:
+}:
 let
   makeEntrypoint = import (path "/makes/utils/make-entrypoint") path integratesPkgs;
   terraformTest = import (path "/makes/utils/terraform-test") path integratesPkgsTerraform;

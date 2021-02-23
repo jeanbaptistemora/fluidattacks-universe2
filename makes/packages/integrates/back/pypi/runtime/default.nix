@@ -1,7 +1,7 @@
 { path
 , integratesPkgs
 , ...
-} @ _:
+}:
 let
   buildPythonRequirements = import (path "/makes/utils/build-python-requirements") path integratesPkgs;
   makeTemplate = import (path "/makes/utils/make-template") path integratesPkgs;

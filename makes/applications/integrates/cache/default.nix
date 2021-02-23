@@ -3,7 +3,7 @@
 , packages
 , path
 , ...
-} @ _:
+}:
 makeEntrypoint integratesPkgs {
   name = "integrates-cache";
   searchPaths = {

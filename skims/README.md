@@ -24,11 +24,11 @@ Should you have any questions we'll be happy to help you: help@fluidattacks.com
 
 - Install Nix as explained in the [tutorial](https://nixos.org/download.html)
 - Clone this repository
-- Run: `./make skims --help`
+- Run: `./m skims --help`
 
 Changes made to the source code are reflected on each invocation
 
 ## Executing quality checks locally (lint, benchmark, test, security, structure, docs, etc)
 
-- Run: `./make`, a list of available commands will be displayed.
+- Run: `./m`, a list of available commands will be displayed.
   Relevant commands begin with `skims` prefix

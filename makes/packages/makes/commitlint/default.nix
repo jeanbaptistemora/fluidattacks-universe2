@@ -1,7 +1,7 @@
 { makesPkgs
 , path
 , ...
-} @ _:
+}:
 let
   buildNodeRequirements = import (path "/makes/utils/build-node-requirements") path makesPkgs;
 in

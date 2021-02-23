@@ -1,7 +1,7 @@
 { meltsPkgs
 , path
 , ...
-} @ _:
+}:
 let
   makeEntrypoint = import (path "/makes/utils/make-entrypoint") path meltsPkgs;
 in

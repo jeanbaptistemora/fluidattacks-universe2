@@ -1,7 +1,7 @@
 { makesPkgs
 , path
 , ...
-} @ _:
+}:
 let
   makeEntrypoint = import (path "/makes/utils/make-entrypoint") path makesPkgs;
   makeTemplate = import (path "/makes/utils/make-template") path makesPkgs;

@@ -2,7 +2,7 @@
 , packages
 , path
 , ...
-} @ _:
+}:
 let
   makeDerivation = import (path "/makes/utils/make-derivation") path meltsPkgs;
 in

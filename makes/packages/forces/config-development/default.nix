@@ -1,7 +1,7 @@
 { forcesPkgs
 , path
 , ...
-} @ _:
+}:
 let
   buildPythonRequirements = import (path "/makes/utils/build-python-requirements") path forcesPkgs;
   makeSearchPaths = import (path "/makes/utils/make-search-paths-deprecated") path forcesPkgs;

@@ -3,7 +3,7 @@
 , path
 , reviewsPkgs
 , ...
-} @ _:
+}:
 let
   buildPythonRequirements = import (path "/makes/utils/build-python-requirements") path reviewsPkgs;
 in

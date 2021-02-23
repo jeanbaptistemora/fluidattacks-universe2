@@ -3,7 +3,7 @@
 , packages
 , path
 , ...
-} @ _:
+}:
 makeEntrypoint integratesPkgs {
   arguments = {
     envCertsDevelopment = packages.integrates.back.certs.development;

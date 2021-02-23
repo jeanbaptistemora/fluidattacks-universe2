@@ -1,7 +1,7 @@
 { servesPkgs
 , path
 , ...
-} @ _:
+}:
 let
   userRotateKeys = import (path "/makes/utils/user-rotate-keys") path servesPkgs;
 in

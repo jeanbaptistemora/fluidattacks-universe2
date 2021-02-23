@@ -2,7 +2,7 @@
 , path
 , sortsPkgs
 , ...
-} @ _:
+}:
 let
   makeDerivation = import (path "/makes/utils/make-derivation") path sortsPkgs;
 in

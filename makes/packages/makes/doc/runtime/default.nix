@@ -3,7 +3,7 @@
 , makesPkgs
 , path
 , ...
-} @ _:
+}:
 let
   nix = import (path "/makes/utils/nix") path makesPkgs;
   packageJsonDeps = getPackageJsonDeps makesPkgs "/makes/applications/makes/doc/src/package.json";

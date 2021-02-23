@@ -4,7 +4,7 @@
 , skimsBenchmarkOwaspRepo
 , skimsPkgs
 , ...
-} @ _:
+}:
 let
   makeEntrypoint = import (path "/makes/utils/make-entrypoint") path skimsPkgs;
 in

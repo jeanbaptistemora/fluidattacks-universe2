@@ -2,7 +2,7 @@
 , packages
 , path
 , ...
-} @ _:
+}:
 let
   makeTemplate = import (path "/makes/utils/make-template") path makesPkgs;
 in

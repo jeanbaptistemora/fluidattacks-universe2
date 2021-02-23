@@ -1,7 +1,7 @@
 { meltsPkgs
 , path
 , ...
-} @ _:
+}:
 let
   buildPythonRequirements = import (path "/makes/utils/build-python-requirements") path meltsPkgs;
   makeSearchPaths = import (path "/makes/utils/make-search-paths-deprecated") path meltsPkgs;

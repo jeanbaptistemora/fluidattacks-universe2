@@ -1,7 +1,7 @@
 { path
 , integratesPkgsTerraform
 , ...
-} @ _:
+}:
 let
   envTerraformApply = import (path "/makes/utils/terraform-apply") path integratesPkgsTerraform;
 in

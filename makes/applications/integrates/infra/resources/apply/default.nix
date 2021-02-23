@@ -5,7 +5,7 @@
 , path
 , terraformApply
 , ...
-} @ _:
+}:
 makeEntrypoint integratesPkgs rec {
   arguments = {
     envLambdaSendMailNotification = packages.integrates.lambda.send-mail-notification;

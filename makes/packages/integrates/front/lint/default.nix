@@ -3,7 +3,7 @@
 , packages
 , path
 , ...
-} @ _:
+}:
 makeDerivation integratesPkgs {
   arguments = {
     envBuilt = [

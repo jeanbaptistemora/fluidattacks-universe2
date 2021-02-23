@@ -3,7 +3,7 @@
 , makeDerivation
 , path
 , ...
-} @ _:
+}:
 let
   nodeRequirements = buildNodeRequirements integratesPkgs {
     name = "integrates-analytics-lint";

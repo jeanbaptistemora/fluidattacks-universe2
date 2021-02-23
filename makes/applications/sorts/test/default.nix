@@ -2,7 +2,7 @@
 , path
 , sortsPkgs
 , ...
-} @ _:
+}:
 let
   makeEntrypoint = import (path "/makes/utils/make-entrypoint") path sortsPkgs;
 in

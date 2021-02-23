@@ -1,7 +1,7 @@
 { observesPkgs
 , path
 , ...
-} @ _:
+}:
 let
   nixPkgs = observesPkgs;
   lint = import (path "/makes/libs/observes/lint-jobs") {

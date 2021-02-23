@@ -3,7 +3,7 @@
 , packages
 , path
 , ...
-} @ _:
+}:
 makeTemplate meltsPkgs {
   name = "melts-lib";
   searchPaths = {

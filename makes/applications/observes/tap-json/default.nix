@@ -1,7 +1,7 @@
 { observesPkgs
 , path
 , ...
-} @ _:
+}:
 let
   buildPythonPackage = import (path "/makes/utils/build-python-package") path observesPkgs;
   makeEntrypoint = import (path "/makes/utils/make-entrypoint") path observesPkgs;

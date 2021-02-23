@@ -1,7 +1,7 @@
 { path
 , sortsPkgs
 , ...
-} @ _:
+}:
 let
   terraformTest = import (path "/makes/utils/terraform-test") path sortsPkgs;
 in

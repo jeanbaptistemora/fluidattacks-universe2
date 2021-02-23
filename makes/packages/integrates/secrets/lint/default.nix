@@ -1,7 +1,7 @@
 { path
 , integratesPkgs
 , ...
-} @ _:
+}:
 let
   makeDerivation = import (path "/makes/utils/make-derivation") path integratesPkgs;
 in

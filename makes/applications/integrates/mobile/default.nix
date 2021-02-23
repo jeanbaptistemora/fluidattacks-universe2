@@ -3,7 +3,7 @@
 , packages
 , path
 , ...
-} @ _:
+}:
 makeEntrypoint integratesMobilePkgs {
   arguments = {
     envSecretsDev = path "/integrates/secrets-development.yaml";

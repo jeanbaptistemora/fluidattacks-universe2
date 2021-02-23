@@ -1,7 +1,7 @@
 { observesPkgs
 , path
 , ...
-} @ _:
+}:
 let
   lint = import (path "/makes/libs/observes/lint-jobs") {
     inherit path;

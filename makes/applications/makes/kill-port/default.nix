@@ -2,7 +2,7 @@
 , makesPkgs
 , path
 , ...
-} @ _:
+}:
 makeEntrypoint makesPkgs {
   name = "makes-kill-port";
   searchPaths = {

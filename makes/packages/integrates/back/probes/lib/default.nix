@@ -2,7 +2,7 @@
 , makeTemplate
 , path
 , ...
-} @ _:
+}:
 makeTemplate integratesPkgs {
   name = "integrates-back-probes-lib";
   searchPaths = {

@@ -2,7 +2,7 @@
 , makeEntrypoint
 , path
 , ...
-} @ _:
+}:
 makeEntrypoint integratesPkgs {
   name = "integrates-coverage";
   searchPaths = {

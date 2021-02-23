@@ -1,7 +1,7 @@
 { path
 , skimsPkgs
 , ...
-} @ _:
+}:
 let
   buildNodeRequirements = import (path "/makes/utils/build-node-requirements") path skimsPkgs;
   makeDerivation = import (path "/makes/utils/make-derivation") path skimsPkgs;

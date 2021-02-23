@@ -1,13 +1,13 @@
 { path
 , observesPkgs
 , ...
-} @ _:
+}:
 let
   computeOnAws = import (path "/makes/utils/compute-on-aws") path observesPkgs;
 in
 computeOnAws {
   attempts = 5;
-  command = [ "./make" "observes.code-etl-amend" ];
+  command = [ "./m" "observes.code-etl-amend" ];
   jobname = "code-etl-amend";
   jobqueue = "spot_later";
   name = "observes-scheduled-code-etl-amend";

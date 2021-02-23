@@ -2,7 +2,7 @@
 , applications
 , path
 , ...
-} @ _:
+}:
 let
   nixPkgs = observesPkgs;
   makeEntrypoint = import (path "/makes/utils/make-entrypoint") path nixPkgs;

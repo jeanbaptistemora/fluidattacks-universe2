@@ -1,7 +1,7 @@
 { integratesPkgs
 , path
 , ...
-} @ _:
+}:
 let
   buildRubyRequirement = import (path "/makes/utils/build-ruby-requirement") path integratesPkgs;
 in

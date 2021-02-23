@@ -5,7 +5,7 @@
 , packageEnv
 , python
 , ...
-} @ _:
+}:
 let
   makeEntrypoint = import (path "/makes/utils/make-entrypoint") path nixPkgs;
 in

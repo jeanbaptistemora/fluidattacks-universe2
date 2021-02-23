@@ -4,7 +4,7 @@
   needs: []
   interruptible: true
   script:
-    - ./make "${CI_JOB_NAME% *}"
+    - ./m "${CI_JOB_NAME% *}"
   variables:
     GIT_DEPTH: 5
 

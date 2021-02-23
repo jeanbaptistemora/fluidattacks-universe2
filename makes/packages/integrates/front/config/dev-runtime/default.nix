@@ -3,7 +3,7 @@
 , integratesPkgs
 , path
 , ...
-} @ _:
+}:
 let
   nix = import (path "/makes/utils/nix") path integratesPkgs;
   packageJsonDeps = getPackageJsonDeps integratesPkgs "/integrates/front/package.json";

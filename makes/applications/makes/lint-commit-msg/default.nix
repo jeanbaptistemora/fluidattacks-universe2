@@ -3,7 +3,7 @@
 , packages
 , path
 , ...
-} @ _:
+}:
 makeEntrypoint makesPkgs {
   searchPaths = {
     envPaths = [

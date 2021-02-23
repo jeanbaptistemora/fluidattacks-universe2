@@ -16,7 +16,7 @@
 , srcSkimsTreeSitterRepo
 , srcSortsPkgs
 , ...
-} @ _:
+}:
 let
   attrs = rec {
     applications = makesPkgs.lib.attrsets.mapAttrsRecursive

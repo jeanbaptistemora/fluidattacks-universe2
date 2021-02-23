@@ -2,7 +2,7 @@
 , packages
 , path
 , ...
-} @ _:
+}:
 let
   ociDeploy = import (path "/makes/utils/oci-deploy") path forcesPkgs;
 in

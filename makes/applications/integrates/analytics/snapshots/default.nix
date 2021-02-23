@@ -4,7 +4,7 @@
 , packages
 , path
 , ...
-} @ _:
+}:
 makeEntrypoint integratesPkgs {
   arguments = {
     envGeckoDriver = integratesPkgs.geckodriver;

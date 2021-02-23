@@ -2,7 +2,7 @@
 , makeEntrypoint
 , path
 , ...
-} @ _:
+}:
 makeEntrypoint integratesPkgs {
   arguments = {
     envExternalC3 = integratesPkgs.fetchzip {
