@@ -59,12 +59,11 @@ def format_data(counters: Counter) -> dict:
         ),
         get_finding_name
     ):
-        cols = list(columns)
         merged_data.append(
             [
                 axis, sum(
                     [
-                        value for _, value in cols
+                        value for _, value in columns
                     ]
                 )
             ]
@@ -92,7 +91,7 @@ def format_data(counters: Counter) -> dict:
         axis=dict(
             x=dict(
                 categories=[
-                    key.split('/')[-1].split(' -')[0] for key, _ in merged_data
+                    get_finding_name([key]) for key, _ in merged_data
                 ],
                 type='category',
                 tick=dict(
