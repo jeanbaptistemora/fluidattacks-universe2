@@ -51,6 +51,9 @@ async def mutate(
     else:
         raise InvalidFileType()
     if success:
+        info.context.loaders.finding.clear(finding_id)
+        info.context.loaders.finding_vulns_all.clear(finding_id)
+        info.context.loaders.finding_vulns.clear(finding_id)
         await redis_del_by_deps(
             'upload_file',
             finding_id=finding_id,

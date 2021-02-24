@@ -34,6 +34,7 @@ async def mutate(
     success = await finding_domain.remove_evidence(evidence_id, finding_id)
 
     if success:
+        info.context.loaders.finding.clear(finding_id)
         redis_del_by_deps_soon(
             'remove_finding_evidence',
             finding_id=finding_id,

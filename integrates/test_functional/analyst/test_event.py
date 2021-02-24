@@ -1,8 +1,12 @@
+# Local libraries
 import os
 import pytest
 
+# Third party libraries
 from starlette.datastructures import UploadFile
 
+# Local libraries
+from backend.api import get_new_context
 from backend.utils import datetime as datetime_utils
 from test_functional.analyst.utils import get_result
 
@@ -10,6 +14,7 @@ pytestmark = pytest.mark.asyncio
 
 
 async def test_event():
+    context = get_new_context()
     today = datetime_utils.get_as_str(
         datetime_utils.get_now(),
         date_format='%Y-%m-%d'
@@ -36,7 +41,7 @@ async def test_event():
     '''
     data = {'query': query}
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     assert result['data']['createEvent']
 
@@ -52,7 +57,7 @@ async def test_event():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     assert 'events' in result['data']['project']
     events = result['data']['project']['events']
@@ -71,7 +76,7 @@ async def test_event():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     assert 'success' in result['data']['addEventConsult']
     assert result['data']['addEventConsult']
@@ -98,7 +103,7 @@ async def test_event():
         }
         data = {'query': query, 'variables': variables}
 
-        result = await get_result(data)
+        result = await get_result(data, context=context)
     assert result['data']['updateEventEvidence']['success']
 
     query = f'''{{
@@ -124,7 +129,7 @@ async def test_event():
         }}
     }}'''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     assert 'event' in result['data']
     assert result['data']['event']['accessibility'] == 'Ambiente'
@@ -166,7 +171,7 @@ async def test_event():
         }}
     }}'''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'events' in result['data']
     events = result['data']['events']
     event = [event for event in events if event['id'] == event_id][0]
@@ -185,7 +190,7 @@ async def test_event():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     assert 'success' in result['data']['solveEvent']
 
@@ -198,7 +203,7 @@ async def test_event():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert result['data']['removeEventEvidence']['success']
 
     query = f'''
@@ -213,7 +218,7 @@ async def test_event():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     assert 'success' in result['data']['downloadEventFile']
     assert result['data']['downloadEventFile']
@@ -226,7 +231,7 @@ async def test_event():
         }}
     }}'''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     assert 'event' in result['data']
     assert result['data']['event']['eventStatus'] == 'SOLVED'
@@ -241,7 +246,7 @@ async def test_event():
         }}
     }}'''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'events' in result['data']
     events = result['data']['events']
     event = [event for event in events if event['id'] == event_id][0]

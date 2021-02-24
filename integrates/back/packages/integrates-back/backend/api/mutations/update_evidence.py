@@ -28,7 +28,7 @@ from backend.typing import SimplePayload
 )
 async def mutate(
     _parent: None,
-    _info: GraphQLResolveInfo,
+    info: GraphQLResolveInfo,
     **kwargs: Any
 ) -> SimplePayload:
     file: UploadFile = kwargs['file']
@@ -42,6 +42,7 @@ async def mutate(
     )
 
     if success:
+        info.context.loaders.finding.clear(finding_id)
         await redis_del_by_deps('update_evidence', finding_id=finding_id)
 
     return SimplePayload(success=success)

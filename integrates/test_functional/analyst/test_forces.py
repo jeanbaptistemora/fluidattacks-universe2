@@ -1,11 +1,15 @@
+# Standard libraries
 import pytest
 
+# Local libraries
+from backend.api import get_new_context
 from test_functional.analyst.utils import get_result
 
 pytestmark = pytest.mark.asyncio
 
 
 async def _test_forces():
+    context = get_new_context()
     group_name = 'unittesting'
     query = f"""
         mutation {{
@@ -16,7 +20,7 @@ async def _test_forces():
         }}
     """
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' in result
     assert result['errors'][0]['message'] == 'Access denied'
 
@@ -65,7 +69,7 @@ async def _test_forces():
         }}
     """
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     executions = result['data']['forcesExecutions']['executions']
     assert 'errors' not in result
     assert executions[0]['date'] == '2020-02-19T19:31:18+00:00'
@@ -167,7 +171,7 @@ async def _test_forces():
         }}
     """
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     assert result['data']['forcesExecutions']['fromDate'] == '2020-02-01 00:00:00+00:00'
     assert result['data']['forcesExecutions']['toDate'] == '2020-02-28 23:59:59+00:00'
@@ -194,7 +198,7 @@ async def _test_forces():
         }}
     """
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     assert result['data']['forcesExecution']['projectName'] == group_name
     assert result['data']['forcesExecution']['execution_id'] == execution_id

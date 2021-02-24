@@ -40,6 +40,7 @@ async def mutate(
     success = False
     success = await finding_domain.save_severity(data)
     if success:
+        info.context.loaders.finding.clear(finding_id)
         redis_del_by_deps_soon(
             'update_severity',
             finding_id=finding_id,

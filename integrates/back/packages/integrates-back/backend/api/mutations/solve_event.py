@@ -40,6 +40,7 @@ async def mutate(
     )
 
     if success:
+        info.context.loaders.event.clear(event_id)
         event = await event_domain.get_event(event_id)
         project_name = str(event.get('project_name', ''))
         redis_del_by_deps_soon('solve_event', group_name=project_name)

@@ -26,7 +26,7 @@ from backend.utils.datetime import get_now
 )
 async def mutate(
     _parent: None,
-    _info: GraphQLResolveInfo,
+    info: GraphQLResolveInfo,
     event_id: str,
     evidence_type: str,
     file: UploadFile
@@ -39,5 +39,6 @@ async def mutate(
             file,
             get_now(),
         )
+        info.context.loaders.event.clear(event_id)
 
     return SimplePayload(success=success)

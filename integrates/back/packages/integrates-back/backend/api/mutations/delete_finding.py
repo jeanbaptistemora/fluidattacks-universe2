@@ -43,8 +43,10 @@ async def mutate(
         justification
     )
     if success:
-        group_all_findings_loader = info.context.loaders.group_findings_all
-        group_all_findings_loader.clear(group_name)
+        info.context.loaders.group_findings_all.clear(group_name)
+        info.context.loaders.group_findings.clear(group_name)
+        info.context.loaders.group_drafts.clear(group_name)
+        info.context.loaders.finding.clear(finding_id)
         redis_del_by_deps_soon('delete_finding', finding_id=finding_id)
         justification_dict = {
             'DUPLICATED': 'It is duplicated',

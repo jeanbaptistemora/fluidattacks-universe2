@@ -44,6 +44,7 @@ async def mutate(
             finding_id, evidence_id, description
         )
         if success:
+            info.context.loaders.finding.clear(finding_id)
             redis_del_by_deps_soon(
                 'update_evidence_description',
                 finding_id=finding_id,

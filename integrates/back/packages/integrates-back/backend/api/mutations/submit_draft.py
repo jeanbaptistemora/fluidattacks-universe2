@@ -41,6 +41,7 @@ async def mutate(
     )
 
     if success:
+        info.context.loaders.finding.clear(finding_id)
         redis_del_by_deps_soon('submit_draft', finding_id=finding_id)
         finding_loader = info.context.loaders.finding
         finding = await finding_loader.load(finding_id)

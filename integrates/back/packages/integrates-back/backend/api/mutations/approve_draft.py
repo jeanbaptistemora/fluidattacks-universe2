@@ -42,6 +42,7 @@ async def mutate(
         reviewer_email
     )
     if success:
+        info.context.loaders.finding.clear(draft_id)
         redis_del_by_deps_soon(
             'approve_draft',
             finding_id=draft_id,
