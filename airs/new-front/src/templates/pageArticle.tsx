@@ -8,6 +8,7 @@
 /* eslint import/no-default-export:0 */
 /* eslint @typescript-eslint/no-invalid-void-type:0 */
 /* eslint @typescript-eslint/no-confusing-void-expression:0 */
+import { Breadcrumb } from "gatsby-plugin-breadcrumb";
 import { Layout } from "../components/layout";
 import { NavbarComponent } from "../components/navbar";
 import React from "react";
@@ -31,25 +32,54 @@ interface IQueryData {
       };
     };
   };
+  pageContext: {
+    breadcrumb: {
+      location: string;
+      crumbs: [
+        {
+          pathname: string;
+          crumbLabel: string;
+        }
+      ];
+    };
+    slug: string;
+  };
 }
 
 const DefaultPage: React.FC<IQueryData> = ({
   data,
-}: IQueryData): JSX.Element => (
-  <React.StrictMode>
-    <Layout>
-      <div>
-        <NavbarComponent />
+  pageContext,
+}: IQueryData): JSX.Element => {
+  const {
+    breadcrumb: { crumbs },
+  } = pageContext;
 
-        <article>
-          <h1>{data.asciidoc.document.title}</h1>
+  const title: string = data.asciidoc.document.title;
+  const customCrumbLabel: string = `${title
+    .charAt(0)
+    .toUpperCase()}${title.slice(1).replace("-", "")}`;
 
-          <div dangerouslySetInnerHTML={{ __html: data.asciidoc.html }} />
-        </article>
-      </div>
-    </Layout>
-  </React.StrictMode>
-);
+  return (
+    <React.StrictMode>
+      <Layout>
+        <div>
+          <NavbarComponent />
+          <Breadcrumb
+            crumbLabel={customCrumbLabel}
+            crumbSeparator={" / "}
+            crumbs={crumbs}
+          />
+
+          <article>
+            <h1>{data.asciidoc.document.title}</h1>
+
+            <div dangerouslySetInnerHTML={{ __html: data.asciidoc.html }} />
+          </article>
+        </div>
+      </Layout>
+    </React.StrictMode>
+  );
+};
 
 export default DefaultPage;
 
