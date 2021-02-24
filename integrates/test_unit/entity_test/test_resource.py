@@ -1,20 +1,32 @@
+# Standard libraries
+from typing import Optional
 import json
 import os
-import pytest
 
+# Third party libraries
+import pytest
 from ariadne import graphql
 from starlette.datastructures import UploadFile
 
-from backend.api import apply_context_attrs
+# Local libraries
+from backend.api import (
+    apply_context_attrs,
+    get_new_context,
+    Dataloaders
+)
 from backend.api.schema import SCHEMA
 from test_unit.utils import create_dummy_session
 
 pytestmark = pytest.mark.asyncio
 
 
-async def _get_result(data):
+async def _get_result(data, context: Optional[Dataloaders] = None):
     """Get result."""
     request = await create_dummy_session('integratesmanager@gmail.com')
+    request = apply_context_attrs(
+        request,
+        loaders=context if context else get_new_context()
+    )
     _, result = await graphql(SCHEMA, data, context_value=request)
     return result
 
@@ -104,6 +116,7 @@ async def test_download_file():
 @pytest.mark.changes_db
 async def test_remove_files():
     """Check for removeFiles mutation."""
+    context = get_new_context()
     file_data = {
         'description': 'test',
         'fileName': 'shell.exe',
@@ -121,7 +134,7 @@ async def test_remove_files():
         'projectName': 'UNITTESTING'
     }
     data = {'query': query, 'variables': variables}
-    result = await _get_result(data)
+    result = await _get_result(data, context=context)
     assert 'errors' not in result
     assert 'success' in result['data']['removeFiles']
     assert result['data']['removeFiles']['success']

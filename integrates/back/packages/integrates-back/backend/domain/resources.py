@@ -1,15 +1,24 @@
 """Domain functions for resources."""
 
+# Standard libraries
 import logging
 from collections import namedtuple
-from typing import Dict, List, NamedTuple, cast
+from typing import (
+    Any,
+    cast,
+    Dict,
+    List,
+    NamedTuple
+)
 
+# Third party libraries
 from aioextensions import (
     collect,
     schedule,
 )
 from starlette.datastructures import UploadFile
 
+# Local libraries
 from backend import mailer
 from backend import util
 from backend.dal import (
@@ -19,9 +28,6 @@ from backend.dal import (
 from backend.typing import (
     MailContent as MailContentType,
     Resource as ResourceType
-)
-from backend.domain import (
-    organization as org_domain
 )
 from backend.exceptions import InvalidFileSize
 from backend.utils import (
@@ -52,36 +58,45 @@ def format_resource(resource_list: List[ResourceType], resource_type: str) -> \
     return resource_description
 
 
-async def send_mail(
-        project_name: str,
-        user_email: str,
-        resource_list: List[ResourceType],
-        action: str,
-        resource_type: str) -> None:
-    recipients = set(await project_dal.list_project_managers(project_name))
+async def send_mail(  # pylint: disable=too-many-arguments
+    context: Any,
+    group_name: str,
+    user_email: str,
+    resource_list: List[ResourceType],
+    action: str,
+    resource_type: str
+) -> None:
+    group_loader = context.group_all
+    organization_loader = context.organization
+    recipients = set(await project_dal.list_project_managers(group_name))
     recipients.add(user_email)
     recipients.update(FI_MAIL_RESOURCERS.split(','))
     resource_description = format_resource(resource_list, resource_type)
-    org_id = await org_domain.get_id_for_group(project_name)
-    org_name = await org_domain.get_name_by_id(org_id)
+
+    group = await group_loader.load(group_name.lower())
+    org_id = group['organization']
+    organization = await organization_loader.load(org_id)
+    org_name = organization['name']
+
     if len(resource_list) > 1:
         resource_type = '{}s'.format(resource_type)
     else:
         # resource_type is the same
         pass
-    context: MailContentType = {
-        'project': project_name.lower(),
+    mail_context: MailContentType = {
+        'project': group_name.lower(),
         'organization': org_name,
         'user_email': user_email,
         'action': action,
         'resource_type': resource_type,
         'resource_list': resource_description,
         'project_url': f'{BASE_URL}/orgs/{org_name}/groups/'
-                       f'{project_name}/resources'
+                       f'{group_name}/resources'
     }
     schedule(
         mailer.send_mail_resources(
-            list(recipients), context
+            list(recipients),
+            mail_context
         )
     )
 

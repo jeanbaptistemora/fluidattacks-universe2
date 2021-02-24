@@ -47,6 +47,7 @@ async def mutate(
     )
     if remove_file:
         await resources_domain.send_mail(
+            info.context.loaders,
             project_name,
             user_email,
             [files_data],

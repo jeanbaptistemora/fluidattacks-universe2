@@ -30,9 +30,10 @@ LOGGER = logging.getLogger(__name__)
     require_integrates,
 )
 async def mutate(
-        _: Any,
-        info: GraphQLResolveInfo,
-        **parameters: Any) -> SimplePayloadType:
+    _: Any,
+    info: GraphQLResolveInfo,
+    **parameters: Any
+) -> SimplePayloadType:
     success = False
     files_data = parameters['files_data']
     new_files_data = util.camel_case_list_dict(files_data)
@@ -51,6 +52,7 @@ async def mutate(
     )
     if add_file:
         await resources_domain.send_mail(
+            info.context.loaders,
             project_name,
             user_email,
             new_files_data,
