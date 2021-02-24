@@ -9,6 +9,7 @@ src/scenes/Dashboard/**/*.*
 !src/scenes/Dashboard/components/AddProjectModal/**
 !src/scenes/Dashboard/components/AddTagsModal/**
 !src/scenes/Dashboard/components/AddUserModal/**
+!src/scenes/Dashboard/components/APITokenForcesModal/index.spec.tsx
 !src/scenes/Dashboard/components/APITokenModal/**
 !src/scenes/Dashboard/components/Comments/**
 !src/scenes/Dashboard/components/ContentTab/**
