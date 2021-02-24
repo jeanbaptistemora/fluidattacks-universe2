@@ -1,5 +1,4 @@
 # Standard libraries
-from itertools import chain
 from typing import (
     cast,
     Dict,
@@ -106,14 +105,6 @@ async def _batch_load_fn(group_names: List[str]) -> List[GroupType]:
 # pylint: disable=too-few-public-methods
 class GroupLoader(DataLoader):  # type: ignore
     """Batches load calls within the same execution fragment."""
-
-    async def load_many_chained(
-        self,
-        group_names: List[str]
-    ) -> List[GroupType]:
-        unchained_data: List[GroupType] = await self.load_many(group_names)
-
-        return list(chain(unchained_data))
 
     # pylint: disable=method-hidden
     async def batch_load_fn(self, group_names: List[str]) -> List[GroupType]:

@@ -882,7 +882,7 @@ async def update_portfolios() -> None:
     async for _, org_name, org_groups in \
             org_domain.iterate_organizations_and_groups():
         org_tags = await context.organization_tags.load(org_name)
-        org_groups_attrs = await group_loader.load_many_chained(
+        org_groups_attrs = await group_loader.load_many(
             list(org_groups)
         )
         tag_groups: List[str] = [
