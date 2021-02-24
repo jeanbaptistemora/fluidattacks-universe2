@@ -24,15 +24,16 @@ It was early last year when one SolarWinds Orion software update
 was infected with malware, and thousands of corporate customers
 and several U.S. federal agencies installed it on their systems.
 It took _nine months_ or so for a cybersecurity company
-(link:https://www.fireeye.com/[FireEye]; among the victims) to realize that Russian spies were already inside
+(link:https://www.fireeye.com/[FireEye]; among the victims)
+to realize that 'Russian spies' were already inside
 and that they were skulking around, paying attention
 to organizational processes and collecting private information.
 
-Kevin Mandia, CEO of FireEye, recently link:https://www.cbsnews.com/news/solarwinds-hack-russia-cyberattack-60-minutes-2021-02-14/[explained to 60 Minutes] of link:https://www.cbsnews.com/[CBS News]
+Kevin Mandia, CEO of FireEye, recently explained to link:https://www.cbsnews.com/news/solarwinds-hack-russia-cyberattack-60-minutes-2021-02-14/[CBS News' 60 Minutes]
 how everything started when a staff member noticed that something was wrong.
 Apparently, in the middle of their two-factor authentication process,
 one of the employees displayed two phones registered in his name
-when it usually is only one.
+when there usually is only one.
 "Suspicious, FireEye turned its gaze inward and saw intruders
 impersonating its employees snooping around inside their network,"
 according to CBS. They triggered the alarms from that internal investigation,
@@ -47,12 +48,13 @@ It is worth recalling that the affected agencies
 include the U.S. departments of Treasury, Commerce, State, and Justice,
 as well as the National Nuclear Security Administration and even the Pentagon.
 A tremendous amount of a nation's critical data
-is what a group of Russian cyber soldiers could and possibly still can access.
+is what a group of 'Russian cyber soldiers'
+could and possibly still can access.
 
 "Spies," "soldiers," these are not words
 I'm choosing on the spur of the moment.
 Media such as the one I'm using as a reference in this particular case
-(i.e., CBS News) already make mention
+(i.e., link:https://www.cbsnews.com/[CBS News]) already make mention
 of a link:https://www.cbsnews.com/news/solarwinds-hack-russia-cyberattack-60-minutes-2021-02-14/["cyber war between] the United States and Russia."
 Since the first reports on this event, experts have spoken
 of a highly sophisticated and unprecedented attack.
@@ -100,7 +102,7 @@ Given the current state of affairs,
 he is among those who assume that in order for everyone
 to get rid of this infection entirely, they would have to get rid of all
 the hardware and software involved.
-(It reminds me of link:https://www.zdnet.com/article/solarwinds-the-more-we-learn-the-worse-it-looks/[Vaughan-Nichols's words].)
+(That reminds me of link:https://www.zdnet.com/article/solarwinds-the-more-we-learn-the-worse-it-looks/[Vaughan-Nichols's words].)
 Inglis recognized that the U.S. has a significant problem
 with the absence of a common defense line
 for private enterprise and government.
@@ -110,7 +112,7 @@ for the identification and treatment of cyber threats.
 In the meantime, this incident is still ongoing,
 with new breached companies joining the victims.
 In line with what Miller said,
-this is such a case where you discover the surreptitious attack,
+this is one case where you discover the surreptitious attack,
 but even so, it doesn't stop.
 Perhaps it is so because the U.S. is not completely sure who the attackers are.
 However, link:https://www.cbsnews.com/news/solarwinds-60-minutes-2021-02-14/[Miller believes that] the government will succeed in identifying them,
@@ -128,14 +130,14 @@ link:https://www.cbsnews.com/news/solarwinds-60-minutes-2021-02-14/[While accept
 with the possibility of generating a major conflict,
 he acknowledged it as a priority
 to begin experimenting with cyberattacks against the Russians.
-Lewis even gave as alternatives trying to interfere
-with their media and financial activities.
+Lewis even listed trying to interfere
+with their media and financial activities as alternatives.
 "The goal is to make them afraid," he said.
 It would be an essential step —following Lewis— to get the U.S. out
 of the current mess and to avoid further complications of this nature.
 
 I'd like to know what Russians think
-when they read in the media such suggestions.
+when they read such suggestions in the media.
 Where might a United States counterattack lead us?
 How would the Russians react?
 Could a cyberwar consolidate as the bedrock
