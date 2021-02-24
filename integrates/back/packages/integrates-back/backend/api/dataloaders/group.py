@@ -111,9 +111,9 @@ class GroupLoader(DataLoader):  # type: ignore
         self,
         group_names: List[str]
     ) -> List[GroupType]:
-        unchained_data = await self.load_many(group_names)
+        unchained_data: List[GroupType] = await self.load_many(group_names)
 
-        return list(chain.from_iterable(unchained_data))
+        return list(chain(unchained_data))
 
     # pylint: disable=method-hidden
     async def batch_load_fn(self, group_names: List[str]) -> List[GroupType]:
