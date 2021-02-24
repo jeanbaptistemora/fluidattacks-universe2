@@ -1,5 +1,6 @@
 airs.infra.ephemeral.apply
 airs.infra.ephemeral.test
+airs.infra.production.test
 asserts
 asserts.infra.secrets.apply
 asserts.infra.secrets.test

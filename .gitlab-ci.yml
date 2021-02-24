@@ -187,7 +187,7 @@ common_forces:
     GIT_DEPTH: 5
 
 common_sonarcloud_check:
-  <<: *common_in_dev_and_master_branch
+  <<: *common_in_master_branch
   interruptible: true
   stage: external
   tags: [autoscaling]
