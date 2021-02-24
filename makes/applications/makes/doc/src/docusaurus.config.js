@@ -20,21 +20,21 @@ module.exports = {
       },
       items: [
         {
+          to: 'app/',
+          activeBasePath: 'app/',
+          label: 'App',
+          position: 'left',
+        },
+        {
           to: 'asserts/',
           activeBasePath: 'asserts/',
           label: 'Asserts',
           position: 'left',
         },
         {
-          to: 'integrates/',
-          activeBasePath: 'integrates/',
-          label: 'Integrates',
-          position: 'left',
-        },
-        {
-          to: 'skims/',
-          activeBasePath: 'skims/',
-          label: 'Skims',
+          to: 'machine/',
+          activeBasePath: 'machine/',
+          label: 'Machine',
           position: 'left',
         },
       ],
@@ -63,7 +63,7 @@ module.exports = {
           title: 'Main',
           items: [
             {
-              label: 'Integrates',
+              label: 'App',
               to: 'https://integrates.fluidattacks.com',
             },
             {

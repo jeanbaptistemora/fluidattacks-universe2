@@ -2,9 +2,9 @@
 id: home
 title: Home
 sidebar_label: Home
-slug: /skims
+slug: /Machine
 ---
 
 # Home
 
-Skims home
+Machine home

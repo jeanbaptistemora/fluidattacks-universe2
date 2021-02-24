@@ -8,6 +8,14 @@ import styles from './styles.module.css';
 
 const features = [
   {
+    title: 'App',
+    description: (
+      <>
+        App description
+      </>
+    ),
+  },
+  {
     title: 'Asserts',
     description: (
       <>
@@ -16,18 +24,10 @@ const features = [
     ),
   },
   {
-    title: 'Integrates',
+    title: 'Machine',
     description: (
       <>
-        Integrates description
-      </>
-    ),
-  },
-  {
-    title: 'Skims',
-    description: (
-      <>
-        Skims description
+        Machine description
       </>
     ),
   },

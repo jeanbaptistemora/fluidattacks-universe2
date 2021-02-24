@@ -12,13 +12,13 @@ function getDocs(path) {
 }
 
 module.exports = {
+  App: {
+    App: getDocs('app'),
+  },
   Asserts: {
     Asserts: getDocs('asserts'),
   },
-  Integrates: {
-    Integrates: getDocs('integrates'),
-  },
-  Skims: {
-    Skims: getDocs('skims'),
+  Machine: {
+    Machine: getDocs('machine'),
   },
 };
