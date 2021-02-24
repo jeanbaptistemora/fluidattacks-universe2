@@ -3,9 +3,9 @@
 , ...
 }:
 let
-  nixPkgs = observesPkgs;
   test = import (path "/makes/libs/observes/test-jobs") {
-    inherit nixPkgs path;
+    inherit path;
+    nixPkgs = observesPkgs;
   };
 in
-test.tapCsvDev
+test.streamerGitlabDev

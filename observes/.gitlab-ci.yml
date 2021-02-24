@@ -257,42 +257,42 @@ observes.scheduled.zoho-crm-prepare:
     variables: [$observes_zoho_crm_prepare]
   interruptible: false
 
-observes.test-code-etl:
+observes.test.code-etl:
   <<: *makes
   <<: *observes_in_dev_branch
   stage: test-code
 
-observes.test-dif-gitlab-etl:
+observes.test.dif-gitlab-etl:
   <<: *makes
   <<: *observes_in_dev_branch
   stage: test-code
 
-observes.test-postgres-client:
+observes.test.postgres-client:
   <<: *makes
   <<: *observes_in_dev_branch
   stage: test-code
 
-observes.test-singer-io:
+observes.test.singer-io:
   <<: *makes
   <<: *observes_in_dev_branch
   stage: test-code
 
-observes.test-streamer-gitlab:
+observes.test.streamer-gitlab:
   <<: *makes
   <<: *observes_in_dev_branch
   stage: test-code
 
-observes.test-streamer-zoho-crm:
+observes.test.streamer-zoho-crm:
   <<: *makes
   <<: *observes_in_dev_branch
   stage: test-code
 
-observes.test-tap-csv:
+observes.test.tap-csv:
   <<: *makes
   <<: *observes_in_dev_branch
   stage: test-code
 
-observes.test-target-redshift:
+observes.test.target-redshift:
   <<: *makes
   <<: *observes_in_dev_branch
   stage: test-code
