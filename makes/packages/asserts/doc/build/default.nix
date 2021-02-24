@@ -19,7 +19,6 @@ makeDerivation assertsPkgs {
         python = assertsPkgs.python37;
         requirements = {
           direct = [
-            "awscli==1.18.145"
             "sphinx-autodoc-typehints==1.10.3"
             "sphinx-rtd-theme==0.4.3"
             "Sphinx==2.2.1"
