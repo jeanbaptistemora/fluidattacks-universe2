@@ -20,12 +20,12 @@ makeTemplate {
       skimsPkgs.graphviz
       skimsPkgs.nodejs
       skimsPkgs.python38
-      skimsPkgs.python38Packages.pygraphviz
     ];
     envPythonPaths = [
       (path "/skims/skims")
     ];
     envPython38Paths = [
+      skimsPkgs.python38Packages.pygraphviz
       (buildPythonRequirements {
         dependencies = [ ];
         name = "skims-runtime";

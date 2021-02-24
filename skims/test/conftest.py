@@ -91,8 +91,10 @@ def test_group(
     mapping: Dict[str, str] = {
         'kamadoatfluid': 'worcester',
         'master': 'wausau',
+        'drestrepoatfluid': 'tacna',
     } if os.environ.get('CI') else {
         'kamadoatfluid': 'magdalena',
+        'drestrepoatfluid': 'jessup',
         'master': 'djibo',
     }
 
