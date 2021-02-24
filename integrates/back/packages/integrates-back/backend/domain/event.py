@@ -386,14 +386,24 @@ async def remove_evidence(evidence_type: str, event_id: str) -> bool:
 
     full_name = f'{project_name}/{event_id}/{event[evidence_type]}'
     if await event_dal.remove_evidence(full_name):
-        success = await event_dal.update(event_id, {evidence_type: None})
+        success = await event_dal.update(
+            event_id,
+            {evidence_type: None, f'{evidence_type}_date': None}
+        )
 
     return success
 
 
 async def mask(event_id: str) -> bool:
     event = await event_dal.get_event(event_id)
-    attrs_to_mask = ['client', 'detail', 'evidence', 'evidence_file']
+    attrs_to_mask = [
+        'client',
+        'detail',
+        'evidence',
+        'evidence_date',
+        'evidence_file',
+        'evidence_file_date'
+    ]
     mask_events_coroutines = []
 
     mask_events_coroutines.append(

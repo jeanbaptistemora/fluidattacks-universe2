@@ -9,6 +9,7 @@ from starlette.datastructures import UploadFile
 from backend import util
 from backend.api import apply_context_attrs
 from backend.api.schema import SCHEMA
+from backend.utils import datetime as datetime_utils
 from test_unit.utils import create_dummy_session
 
 pytestmark = pytest.mark.asyncio
@@ -146,18 +147,37 @@ async def test_update_event_evidence():
     with open(filename, 'rb') as test_file:
         uploaded_file = UploadFile(test_file.name, test_file, 'image/gif')
         variables = {
-            'eventId': '538745942',
+            'eventId': '540462628',
             'evidenceType': 'IMAGE',
             'file': uploaded_file
         }
         data = {'query': query, 'variables': variables}
         request = await create_dummy_session()
         _, result = await graphql(SCHEMA, data, context_value=request)
-    if 'errors' not in result:
-        assert 'errors' not in result
-        assert 'success' in result['data']['updateEventEvidence']
-    else:
-        pytest.skip("Expected error")
+
+    assert 'errors' not in result
+    assert 'success' in result['data']['updateEventEvidence']
+
+    date_str = datetime_utils.get_as_str(datetime_utils.get_now())
+    query = '''
+        query GetEvent($eventId: String!) {
+            event(identifier: $eventId) {
+                evidence
+                evidenceDate
+            }
+        }
+    '''
+    variables = {'eventId': '540462628'}
+    data = {'query': query, 'variables': variables}
+    request = await create_dummy_session()
+    _, result = await graphql(SCHEMA, data, context_value=request)
+    assert 'errors' not in result
+    assert result['data']['event']['evidence'] == (
+        'unittesting-540462628-evidence.gif'
+    )
+    assert result['data']['event']['evidenceDate'].split(' ')[0] == (
+        date_str.split(' ')[0]
+    )
 
 @pytest.mark.changes_db
 async def test_download_event_file():

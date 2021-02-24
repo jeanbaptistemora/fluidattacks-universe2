@@ -13,7 +13,11 @@ type Event {
   eventStatus: String
   eventType: String
   evidence: String
+  "Upload date of evidence image"
+  evidenceDate: String
   evidenceFile: String
+  "Upload date of evidence file"
+  evidenceFileDate: String
   historicState: [GenericScalar]
   id: String
   projectName: String

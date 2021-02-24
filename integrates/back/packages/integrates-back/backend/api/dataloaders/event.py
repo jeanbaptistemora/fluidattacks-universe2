@@ -27,6 +27,12 @@ async def _batch_load_fn(event_ids: List[str]) -> List[EventType]:
             context=event.get('context', ''),
             detail=event.get('detail', ''),
             event_date=history[0].get('date', ''),
+            evidence_date=(
+                event['evidence_date'] if 'evidence' in event else ''
+            ),
+            evidence_file_date=(
+                event['evidence_file_date'] if 'evidence_file' in event else ''
+            ),
             evidence_file=event.get('evidence_file', ''),
             event_status=history[-1].get('state', ''),
             event_type=event.get('event_type', ''),
