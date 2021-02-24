@@ -1,6 +1,9 @@
 """
 This migration removes the source field from vulnerabilities
 since its historic state has the source
+
+Execution Time:    2021-02-24 at 11:09:24 UTC-05
+Finalization Time: 2021-02-24 at 14:44:44 UTC-05
 """
 # Third party libraries
 from aioextensions import (
