@@ -1,48 +1,63 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from "react";
-import { ConfigProps, DecoratedComponentClass, InjectedFormProps, reduxForm } from "redux-form";
 import { focusError } from "utils/forms/events";
+import { reduxForm } from "redux-form";
+import type {
+  ConfigProps,
+  DecoratedComponentClass,
+  InjectedFormProps,
+} from "redux-form";
 
+// eslint-disable-next-line @typescript-eslint/no-type-alias
 type FormChildren = React.ReactNode | ((props: formProps) => React.ReactNode);
 
-interface IFormProps extends Pick<
-  ConfigProps<{}, Pick<IFormProps, "children">>,
-  "initialValues" | "onChange" | "validate"
-> {
+interface IFormProps
+  extends Pick<
+    ConfigProps<any, Pick<IFormProps, "children">>,
+    "initialValues" | "onChange" | "validate"
+  > {
   children: FormChildren;
   name: string;
-  onSubmit(values: {}): void;
+  onSubmit: (values: any) => void;
 }
 
-type formProps = Pick<IFormProps, "children"> & InjectedFormProps<{}, Pick<IFormProps, "children">>;
+type formProps = Pick<IFormProps, "children"> &
+  InjectedFormProps<any, Pick<IFormProps, "children">>;
 
-type wrappedForm = DecoratedComponentClass<{}, Pick<IFormProps, "children">
-  & ConfigProps<{}, Pick<IFormProps, "children">>, string>;
+type wrappedForm = DecoratedComponentClass<
+  any,
+  Pick<IFormProps, "children"> & ConfigProps<any, Pick<IFormProps, "children">>,
+  string
+>;
 
-/* tslint:disable-next-line:variable-name
- * VARIABLE-NAME: Disabling here is necessary due a conflict
- * between lowerCamelCase var naming rule from tslint
- * and PascalCase rule for naming JSX elements
- */
-const WrappedForm: wrappedForm = reduxForm<{}, Pick<IFormProps, "children">>({})((props: formProps) => (
-  <form onSubmit={props.handleSubmit}>
-    {typeof props.children === "function" ? props.children(props) : props.children}
-  </form>
-));
+const WrappedForm: wrappedForm = reduxForm<any, Pick<IFormProps, "children">>(
+  {}
+)(
+  (props: formProps): JSX.Element => (
+    <form onSubmit={props.handleSubmit}>
+      {typeof props.children === "function"
+        ? props.children(props)
+        : props.children}
+    </form>
+  )
+);
 
-const genericForm: ((props: IFormProps) => JSX.Element) = (props: IFormProps): JSX.Element => {
-  const { onSubmit } = props;
+const genericForm: (props: IFormProps) => JSX.Element = (
+  props: IFormProps
+): JSX.Element => {
+  const { initialValues, name, onChange, validate, children, onSubmit } = props;
 
   return (
     <WrappedForm
-      enableReinitialize={props.initialValues !== undefined}
-      form={props.name}
-      initialValues={props.initialValues}
+      enableReinitialize={initialValues !== undefined}
+      form={name}
+      initialValues={initialValues}
+      onChange={onChange}
       onSubmit={onSubmit}
       onSubmitFail={focusError}
-      onChange={props.onChange}
-      validate={props.validate}
+      validate={validate}
     >
-      {props.children}
+      {children}
     </WrappedForm>
   );
 };
