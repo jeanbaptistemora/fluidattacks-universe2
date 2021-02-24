@@ -73,15 +73,15 @@ airs.infra.production.test:
   <<: *in_dev_branch_airs
   stage: test-infra
 
-airs_infra_secret_management_test:
-  <<: *with_nix
-  <<: *in_dev_branch_airs
-  stage: test-infra
-
-airs_infra_secret_management_apply:
-  <<: *with_nix
+airs.infra.secrets.apply:
+  <<: *makes
   <<: *in_master_branch_airs
   stage: deploy-infra
+
+airs.infra.secrets.test:
+  <<: *makes
+  <<: *in_dev_branch_airs
+  stage: test-infra
 
 airs_test_lint_code:
   <<: *with_nix
