@@ -91,6 +91,7 @@ let
     makeOci = import (path "/makes/utils/make-oci") path;
     makeSearchPaths = import (path "/makes/utils/make-search-paths") path;
     makeTemplate = import (path "/makes/utils/make-template") path;
+    nix = import (path "/makes/utils/nix") path makesPkgs;
     ociDeploy = import (path "/makes/utils/oci-deploy") path;
     terraformApply = import (path "/makes/utils/terraform-apply") path;
     terraformTest = import (path "/makes/utils/terraform-test") path;
