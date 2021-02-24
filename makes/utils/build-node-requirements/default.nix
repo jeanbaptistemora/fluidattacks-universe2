@@ -4,6 +4,7 @@
 path: pkgs:
 
 { dependencies ? [ ]
+, hooks ? ""
 , name
 , node
 , requirements
@@ -39,6 +40,7 @@ let
 in
 makeDerivation {
   arguments = {
+    envHooks = builtins.toFile "hooks.sh" hooks;
     envNode = node;
     envBashLibCommon = path "/makes/utils/common/template.sh";
     envPackageJsonFile = builtins.toFile "package.json" packageJson;

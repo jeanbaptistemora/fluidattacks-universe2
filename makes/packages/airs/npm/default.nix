@@ -8,8 +8,21 @@ let
   packageJsonDeps = getPackageJsonDeps airsPkgs "/airs/new-front/package.json";
 in
 buildNodeRequirements airsPkgs {
+  dependencies = [
+    # Required to compile sharp
+    airsPkgs.bash
+    airsPkgs.binutils-unwrapped
+    airsPkgs.gcc
+    airsPkgs.gnumake
+    airsPkgs.python37
+  ];
+  hooks = ''
+    function post_install {
+      HOME=. npm rebuild --verbose sharp
+    }
+  '';
   name = "airs-npm";
-  node = airsPkgs.nodejs-12_x;
+  node = airsPkgs.nodejs;
   requirements = {
     direct = nix.sort (packageJsonDeps.development ++ packageJsonDeps.production);
     inherited = [
