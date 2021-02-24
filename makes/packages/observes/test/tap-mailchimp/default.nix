@@ -3,9 +3,9 @@
 , ...
 }:
 let
-  lint = import (path "/makes/libs/observes/lint-jobs") {
+  test = import (path "/makes/libs/observes/test-jobs") {
     inherit path;
     nixPkgs = observesPkgs;
   };
 in
-lint.tapMailchimpDev
+test.tapMailchimpDev
