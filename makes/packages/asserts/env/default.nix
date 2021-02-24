@@ -8,6 +8,7 @@ makeTemplate assertsPkgs {
   name = "asserts-env";
   searchPaths = {
     envPaths = [
+      assertsPkgs.git
       assertsPkgs.python37
     ];
     envPythonPaths = [
