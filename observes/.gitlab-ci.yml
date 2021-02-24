@@ -66,17 +66,17 @@ observes.job.infra.test:
   <<: *observes_in_dev_branch
   stage: test-infra
 
-observes.lint-code-etl:
+observes.lint.code-etl:
   <<: *makes
   <<: *observes_in_dev_branch
   stage: lint-code
 
-observes.lint-dif-gitlab-etl:
+observes.lint.dif-gitlab-etl:
   <<: *makes
   <<: *observes_in_dev_branch
   stage: lint-code
 
-observes.lint-postgres-client:
+observes.lint.postgres-client:
   <<: *makes
   <<: *observes_in_dev_branch
   stage: lint-code
@@ -86,27 +86,27 @@ observes.lint.service-migrate-tables:
   <<: *observes_in_dev_branch
   stage: lint-code
 
-observes.lint-singer-io:
+observes.lint.singer-io:
   <<: *makes
   <<: *observes_in_dev_branch
   stage: lint-code
 
-observes.lint-streamer-gitlab:
+observes.lint.streamer-gitlab:
   <<: *makes
   <<: *observes_in_dev_branch
   stage: lint-code
 
-observes.lint-streamer-zoho-crm:
+observes.lint.streamer-zoho-crm:
   <<: *makes
   <<: *observes_in_dev_branch
   stage: lint-code
 
-observes.lint-tap-csv:
+observes.lint.tap-csv:
   <<: *makes
   <<: *observes_in_dev_branch
   stage: lint-code
 
-observes.lint-tap-formstack:
+observes.lint.tap-formstack:
   <<: *makes
   <<: *observes_in_dev_branch
   stage: lint-code
@@ -116,17 +116,17 @@ observes.lint.tap-mailchimp:
   <<: *observes_in_dev_branch
   stage: lint-code
 
-observes.lint-tap-mixpanel:
+observes.lint.tap-mixpanel:
   <<: *makes
   <<: *observes_in_dev_branch
   stage: lint-code
 
-observes.lint-target-redshift:
+observes.lint.target-redshift:
   <<: *makes
   <<: *observes_in_dev_branch
   stage: lint-code
 
-observes.lint-update-sync-date:
+observes.lint.update-sync-date:
   <<: *makes
   <<: *observes_in_dev_branch
   stage: lint-code

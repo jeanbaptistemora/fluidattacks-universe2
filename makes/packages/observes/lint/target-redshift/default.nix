@@ -3,9 +3,9 @@
 , ...
 }:
 let
-  nixPkgs = observesPkgs;
   lint = import (path "/makes/libs/observes/lint-jobs") {
-    inherit nixPkgs path;
+    inherit path;
+    nixPkgs = observesPkgs;
   };
 in
-lint.postgresClientDev
+lint.targetRedshiftDev
