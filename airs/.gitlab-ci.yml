@@ -63,15 +63,15 @@ airs.infra.ephemeral.test:
   <<: *in_dev_branch_airs
   stage: test-infra
 
-airs_infra_production_test:
-  <<: *with_nix
-  <<: *in_dev_branch_airs
-  stage: test-infra
-
-airs_infra_production_apply:
-  <<: *with_nix
+airs.infra.production.apply:
+  <<: *makes
   <<: *in_master_branch_airs
   stage: deploy-infra
+
+airs.infra.production.test:
+  <<: *makes
+  <<: *in_dev_branch_airs
+  stage: test-infra
 
 airs_infra_secret_management_test:
   <<: *with_nix
