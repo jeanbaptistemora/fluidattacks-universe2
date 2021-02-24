@@ -10,13 +10,13 @@ module.exports = {
   projectName: 'product',
   themeConfig: {
     colorMode: {
-      defaultMode: 'dark',
+      defaultMode: 'light',
       disableSwitch: true,
     },
     navbar: {
       logo: {
         alt: 'Fluid Attacks Logo',
-        src: 'img/logo.png',
+        src: 'img/logo.svg',
       },
       items: [
         {
