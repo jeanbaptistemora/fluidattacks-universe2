@@ -1,3 +1,11 @@
+# Standard libraries
+from typing import Optional
+
+# Local libraries
+from backend.api import (
+    get_new_context,
+    Dataloaders
+)
 from test_functional.utils import (
     get_graphql_result,
     complete_register,
@@ -7,9 +15,15 @@ MANAGER = 'integratesmanager@gmail.com'
 CUSTOMER = 'integratescustomer@gmail.com'
 
 
-async def get_result(data, stakeholder='integratescustomer@gmail.com', session_jwt=None):
+async def get_result(
+    data,
+    stakeholder: str = CUSTOMER,
+    session_jwt: str = None,
+    context: Optional[Dataloaders] = None
+):
     """Get result for customer role."""
-    result = await get_graphql_result(data, stakeholder, session_jwt)
+    result = await get_graphql_result(data, stakeholder, session_jwt, context)
+
     return result
 
 

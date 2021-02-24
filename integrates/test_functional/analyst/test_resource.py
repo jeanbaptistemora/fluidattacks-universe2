@@ -1,15 +1,20 @@
+# Standard libraries
 import json
 import os
 import pytest
 
+# Third party libraries
 from starlette.datastructures import UploadFile
 
+# Local libraries
+from backend.api import get_new_context
 from test_functional.analyst.utils import get_result
 
 pytestmark = pytest.mark.asyncio
 
 
 async def test_resource():
+    context = get_new_context()
     group_name = 'unittesting'
     file_name = 'test.zip'
     query = f'''{{
@@ -20,7 +25,7 @@ async def test_resource():
         }}
     }}'''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert result['data']['resources']['projectName'] == 'unittesting'
     assert file_name in result['data']['resources']['files']
     assert 'shell.exe' in result['data']['resources']['files']
@@ -40,7 +45,7 @@ async def test_resource():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     assert 'success' in result['data']['downloadFile']
     assert result['data']['downloadFile']['success']
@@ -73,7 +78,7 @@ async def test_resource():
             'projectName': group_name
         }
     data = {'query': query, 'variables': variables}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' in result
     assert result['errors'][0]['message'] == 'Access denied'
 
@@ -94,7 +99,7 @@ async def test_resource():
         'projectName': group_name
     }
     data = {'query': query, 'variables': variables}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' in result
     assert result['errors'][0]['message'] == 'Access denied'
 
@@ -106,5 +111,5 @@ async def test_resource():
         }}
     }}'''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert json.loads(result['data']['resources']['files']) == files
