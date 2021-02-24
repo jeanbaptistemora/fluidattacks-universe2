@@ -2,7 +2,6 @@
 , buildNodeRequirements
 , getPackageJsonDeps
 , nix
-, path
 , ...
 }:
 let

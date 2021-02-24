@@ -13,6 +13,7 @@ const NavbarContainer: StyledComponent<
    h-navbar
    cover
    ba
+   fixed
    b--light-gray
    w-100
    top-0

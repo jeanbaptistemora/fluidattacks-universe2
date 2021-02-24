@@ -6,6 +6,7 @@ $fluid-black: rgba(39, 39, 39, 1);
 $fluid-red: rgba(255, 52, 53, 1);
 $fluid-gray: rgba(176, 176, 176, 1);
 $fluid-dark-red: rgba(203, 50, 51, 1);
+$white: rgba(255, 255, 255, 1);
 
 // Rules
 @keyframes fadein {
@@ -82,4 +83,37 @@ $fluid-dark-red: rgba(203, 50, 51, 1);
       color: $fluid-red;
     }
   }
+}
+
+.breadcrumb {
+  background-color: $fluid-black;
+  font-family: 'Roboto', sans-serif;
+  margin-top: 6.5rem;
+  padding-bottom: 0;
+  padding-top: 0;
+}
+
+// stylelint-disable-next-line selector-class-pattern
+.breadcrumb__list {
+  font-size: 0.75rem;
+  margin: 5px auto !important;
+  max-width: 1366px;
+  padding: 15px 1.875rem !important;
+  text-align: left;
+
+  @media screen and (min-width: 60em) {
+    font-size: 0.875rem;
+    padding: 15px 3.75rem !important;
+  }
+}
+
+// stylelint-disable-next-line selector-class-pattern
+.breadcrumb__link {
+  color: $fluid-gray;
+  &:hover { color: $white; }
+}
+
+// stylelint-disable-next-line selector-class-pattern
+.breadcrumb__separator {
+  color: $fluid-gray;
 }
