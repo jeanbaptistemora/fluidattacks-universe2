@@ -106,3 +106,48 @@ resource "aws_s3_bucket_policy" "bucket_dev_policy" {
   bucket = aws_s3_bucket.bucket_dev.id
   policy = data.aws_iam_policy_document.bucket_dev_policy.json
 }
+
+resource "aws_s3_bucket_object" "html" {
+  for_each     = { for name in fileset("${path.module}/html", "*") : name => name }
+  bucket       = aws_s3_bucket.bucket_dev.id
+  key          = each.value
+  source       = "html/${each.value}"
+  etag         = filemd5("html/${each.value}")
+  content_type = "text/html"
+
+  tags = {
+    "Name"               = each.value
+    "management:type"    = "development"
+    "management:product" = "makes"
+  }
+}
+
+resource "aws_s3_bucket_object" "img" {
+  for_each     = { for name in fileset(path.module, "img/*") : name => name }
+  bucket       = aws_s3_bucket.bucket_dev.id
+  key          = each.value
+  source       = each.value
+  etag         = filemd5(each.value)
+  content_type = "image/png"
+
+  tags = {
+    "Name"               = each.value
+    "management:type"    = "development"
+    "management:product" = "makes"
+  }
+}
+
+resource "aws_s3_bucket_object" "css" {
+  for_each     = { for name in fileset(path.module, "css/*") : name => name }
+  bucket       = aws_s3_bucket.bucket_dev.id
+  key          = each.value
+  source       = each.value
+  etag         = filemd5(each.value)
+  content_type = "text/css"
+
+  tags = {
+    "Name"               = each.value
+    "management:type"    = "development"
+    "management:product" = "makes"
+  }
+}
