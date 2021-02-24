@@ -3,7 +3,7 @@ import { ApolloError } from "apollo-client";
 import { GraphQLError } from "graphql";
 import _ from "lodash";
 import React from "react";
-import { Redirect, Switch } from "react-router-dom";
+import { Redirect, Switch, useHistory } from "react-router-dom";
 import { GET_USER_ORGANIZATIONS } from "scenes/Dashboard/components/Navbar/queries";
 import { useStoredState } from "utils/hooks";
 import { Logger } from "utils/logger";
@@ -13,6 +13,12 @@ import { translate } from "utils/translations/translate";
 const homeView: React.FC = (): JSX.Element => {
   const [lastOrganization, setLastOrganization] = useStoredState("organization", { name: "" }, localStorage);
 
+  const savedUrl: string = _.get(localStorage, "start_url");
+  const { push } = useHistory();
+  const loadSavedUrl: () => void = (): void => {
+    localStorage.removeItem("start_url");
+    push(savedUrl);
+  };
   // GraphQL Operations
   const { data } = useQuery(GET_USER_ORGANIZATIONS, {
     onError: ({ graphQLErrors }: ApolloError): void => {
@@ -36,6 +42,8 @@ const homeView: React.FC = (): JSX.Element => {
       return hasOrganization;
     };
 
+  React.useEffect(() => { loadSavedUrl(); }, []);
+
   // Render Elements
   if (_.isEmpty(data) || _.isUndefined(data)) {
     return <React.Fragment />;
@@ -57,7 +65,7 @@ const homeView: React.FC = (): JSX.Element => {
       <Switch>
         <Redirect
           path="/home"
-          to={`/orgs/${homeOrganization}/`}
+          to={`/orgs/${homeOrganization}/groups`}
         />
       </Switch>
     </React.Fragment>
