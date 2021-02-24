@@ -473,19 +473,13 @@
               },
               "language": {
                 "S": "en"
-              },
-              "files": {
-                "SS": [
-                  "https://s3.amazonaws.com/fluidintegrates.resources/unittesting/file.ext"
-                ]
               }
             }
           ],
           "NonKeyAttributes": [
             "name",
             "description",
-            "language",
-            "files"
+            "language"
           ],
           "DataAccess": {
             "MySql": {}
@@ -530,6 +524,11 @@
               },
               "modified_by": {
                 "S": "USER#test@fluidattacks.com"
+              },
+              "files": {
+                "SS": [
+                  "https://s3.amazonaws.com/fluidintegrates.resources/unittesting/file.ext"
+                ]
               }
             }
           ],
@@ -541,7 +540,8 @@
             "has_drills",
             "has_forces",
             "modified_date",
-            "modified_by"
+            "modified_by",
+            "files"
           ],
           "DataAccess": {
             "MySql": {}
@@ -674,9 +674,6 @@
               "context": {
                 "S": "TELECOMMUTING"
               },
-              "evidences": {
-                "M": {}
-              },
               "action_before_blocking": {
                 "S": "EXECUTE_OTHER_PROJECT_SAME_CLIENT"
               },
@@ -685,9 +682,6 @@
               },
               "blocking_hours_expected": {
                 "N": "1"
-              },
-              "blocking_hours": {
-                "N": "2"
               },
               "affected_components": {
                 "SS": [
@@ -704,11 +698,9 @@
             "description",
             "type",
             "context",
-            "evidences",
             "action_before_blocking",
             "action_after_blocking",
             "blocking_hours_expected",
-            "blocking_hours",
             "affected_components",
             "accessibility"
           ],
@@ -1036,13 +1028,21 @@
               },
               "modified_by": {
                 "S": "USER#test@fluidattacks.com"
+              },
+              "evidences": {
+                "M": {}
+              },
+              "blocking_hours": {
+                "N": "2"
               }
             }
           ],
           "NonKeyAttributes": [
             "status",
             "modified_date",
-            "modified_by"
+            "modified_by",
+            "evidences",
+            "blocking_hours"
           ],
           "DataAccess": {
             "MySql": {}
@@ -1242,6 +1242,58 @@
             "status",
             "reason",
             "modified_date"
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
+        },
+        {
+          "FacetName": "available_group_names",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "NAME#GROUP",
+            "SortKeyAlias": "NAME#GROUP"
+          },
+          "TableData": [
+            {
+              "pk": {
+                "S": "NAME#GROUP"
+              },
+              "sk": {
+                "S": "NAME#GROUP"
+              },
+              "name": {
+                "S": "ebisu"
+              }
+            }
+          ],
+          "NonKeyAttributes": [
+            "name"
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
+        },
+        {
+          "FacetName": "available_org_names",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "NAME#ORG",
+            "SortKeyAlias": "NAME#ORG"
+          },
+          "TableData": [
+            {
+              "pk": {
+                "S": "NAME#ORG"
+              },
+              "sk": {
+                "S": "NAME#ORG"
+              },
+              "name": {
+                "S": "udon"
+              }
+            }
+          ],
+          "NonKeyAttributes": [
+            "name"
           ],
           "DataAccess": {
             "MySql": {}
