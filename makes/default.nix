@@ -1,4 +1,6 @@
 { self
+, srcAirsPkgs
+, srcAirsPkgsTerraform
 , srcAssertsPkgs
 , srcAssertsPkgsTerraform
 , srcForcesPkgs
@@ -21,12 +23,14 @@
 }:
 let
   attrs = rec {
+    airsPkgs = import srcAirsPkgs { inherit system; };
+    airsPkgsTerraform = import srcAirsPkgsTerraform { inherit system; };
     applications = makesPkgs.lib.attrsets.mapAttrsRecursive
       (path: value: "${value}/bin/${builtins.concatStringsSep "-" (makesPkgs.lib.lists.init path)}")
       packages;
-    debug = value: builtins.trace value value;
     assertsPkgs = import srcAssertsPkgs { inherit system; };
     assertsPkgsTerraform = import srcAssertsPkgsTerraform { inherit system; };
+    debug = value: builtins.trace value value;
     forcesPkgs = import srcForcesPkgs { inherit system; };
     forcesPkgsTerraform = import srcForcesPkgsTerraform { inherit system; };
     integratesMobilePkgs = import srcIntegratesMobilePkgs { inherit system; config.android_sdk.accept_license = true; };

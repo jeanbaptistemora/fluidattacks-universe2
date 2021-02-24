@@ -24,11 +24,11 @@ resource "aws_s3_bucket" "web-ephemeral-bucket" {
 
 data "aws_iam_policy_document" "web-ephemeral-bucket-policy-data" {
   statement {
-    sid     = "CloudFlare"
-    effect  = "Allow"
+    sid    = "CloudFlare"
+    effect = "Allow"
 
     principals {
-      type = "AWS"
+      type        = "AWS"
       identifiers = ["*"]
     }
     actions = [
@@ -79,7 +79,7 @@ resource "aws_s3_bucket_object" "error-index" {
 }
 
 resource "aws_s3_bucket_object" "img" {
-  for_each     = {for name in fileset(path.module, "img/*"): name => name}
+  for_each     = { for name in fileset(path.module, "img/*") : name => name }
   bucket       = aws_s3_bucket.web-ephemeral-bucket.id
   key          = each.value
   source       = each.value
@@ -94,7 +94,7 @@ resource "aws_s3_bucket_object" "img" {
 }
 
 resource "aws_s3_bucket_object" "css" {
-  for_each     = {for name in fileset(path.module, "css/*"): name => name}
+  for_each     = { for name in fileset(path.module, "css/*") : name => name }
   bucket       = aws_s3_bucket.web-ephemeral-bucket.id
   key          = each.value
   source       = each.value
