@@ -1,8 +1,9 @@
-import _ from "lodash";
-import React, { TextareaHTMLAttributes } from "react";
-import { BaseFieldProps, Field } from "redux-form";
-
+import type { BaseFieldProps } from "redux-form";
+import { Field } from "redux-form";
+import React from "react";
+import type { TextareaHTMLAttributes } from "react";
 import { TooltipWrapper } from "components/TooltipWrapper";
+import _ from "lodash";
 import {
   Col50,
   ControlLabel,
@@ -14,116 +15,177 @@ import {
   Row,
 } from "styles/styledComponents";
 
-type EditableFieldProps = BaseFieldProps & TextareaHTMLAttributes<HTMLTextAreaElement> & {
-  alignField?: string;
-  className?: string;
-  currentValue: string;
-  id?: string;
-  label: string;
-  renderAsEditable: boolean;
-  tooltip?: string;
-  type?: string;
-  visibleWhileEditing?: boolean;
-};
+/* eslint-disable @typescript-eslint/no-type-alias, react/require-default-props, react/no-unused-prop-types */
+type EditableFieldProps = BaseFieldProps &
+  TextareaHTMLAttributes<HTMLTextAreaElement> & {
+    alignField?: string;
+    className?: string;
+    currentValue: string;
+    id?: string;
+    label: string;
+    renderAsEditable: boolean;
+    tooltip?: string;
+    type?: string;
+    visibleWhileEditing?: boolean;
+  };
+/* eslint-disable react/require-default-props, react/no-unused-prop-types */
 
-const renderCurrentValue: ((value: string) => JSX.Element) = (value: string): JSX.Element => {
+const renderCurrentValue: (value: string) => JSX.Element = (
+  value: string
+): JSX.Element => {
   const isUrl: boolean = _.startsWith(value, "https://");
 
-  return isUrl
-    ? <a href={value} rel="noopener" target="_blank">{value}</a>
-    : <EditableFieldNotUrl>{value}</EditableFieldNotUrl>;
+  return isUrl ? (
+    <a href={value} rel={"noopener noreferrer"} target={"_blank"}>
+      {value}
+    </a>
+  ) : (
+    <EditableFieldNotUrl>{value}</EditableFieldNotUrl>
+  );
 };
 
-const renderHorizontal: ((props: EditableFieldProps) => JSX.Element) =
-  (props: EditableFieldProps): JSX.Element => {
-    const { id = "editableField", label, currentValue, renderAsEditable, tooltip, ...fieldProps } = props;
+const renderHorizontal: (props: EditableFieldProps) => JSX.Element = (
+  props: EditableFieldProps
+): JSX.Element => {
+  const {
+    id = "editableField",
+    label,
+    currentValue,
+    renderAsEditable,
+    tooltip,
+    ...fieldProps // eslint-disable-line fp/no-rest-parameters
+  } = props;
 
-    return (
-      <FormGroup>
-        <Row>
-          <EditableFieldTitle25>
-            <ControlLabel><b>{label}</b></ControlLabel>
-          </EditableFieldTitle25>
-          <EditableFieldContent>
-            {renderAsEditable
-              ? <Field {...fieldProps} />
-              : _.isUndefined(tooltip) || _.isEmpty(tooltip)
-                ? renderCurrentValue(currentValue)
-                : <TooltipWrapper id={id} message={tooltip} placement="right">
-                    {renderCurrentValue(currentValue)}
-                  </TooltipWrapper>
-            }
-          </EditableFieldContent>
-        </Row>
-      </FormGroup>
-    );
-  };
-
-const renderHorizontalWide: ((props: EditableFieldProps) => JSX.Element) =
-  (props: EditableFieldProps): JSX.Element => {
-    const { label, currentValue, renderAsEditable, ...fieldProps } = props;
-
-    return (
+  return (
+    <FormGroup>
       <Row>
-        <EditableFieldTitle50><ControlLabel><b>{label}</b></ControlLabel></EditableFieldTitle50>
-        <Col50>
-          {renderAsEditable ? <Field {...fieldProps} /> : renderCurrentValue(currentValue)}
-        </Col50>
-      </Row>
-    );
-  };
-
-const renderVertical: ((props: EditableFieldProps) => JSX.Element) =
-  (props: EditableFieldProps): JSX.Element => {
-    const { id = "editableField", label, currentValue, renderAsEditable, tooltip, ...fieldProps } = props;
-
-    return (
-      <FormGroup>
-        { _.isUndefined(tooltip) ? (
-          <React.Fragment>
-            <ControlLabel><b>{label}</b></ControlLabel><br />
-            {renderAsEditable ? <Field {...fieldProps} /> : renderCurrentValue(currentValue)}
-          </React.Fragment>
-        ) : (
-          renderAsEditable ? (
-            <React.Fragment>
-              <ControlLabel><b>{label}</b></ControlLabel><br />
-              <TooltipWrapper id={id} message={tooltip}>
-                <Field {...fieldProps} />
-              </TooltipWrapper>
-            </React.Fragment>
+        <EditableFieldTitle25>
+          <ControlLabel>
+            <b>{label}</b>
+          </ControlLabel>
+        </EditableFieldTitle25>
+        <EditableFieldContent>
+          {renderAsEditable ? (
+            <Field {...fieldProps} /> // eslint-disable-line react/jsx-props-no-spreading
+          ) : _.isUndefined(tooltip) || _.isEmpty(tooltip) ? (
+            renderCurrentValue(currentValue)
           ) : (
-            <React.Fragment>
-              <TooltipWrapper id={id} displayClass={"dib"} message={tooltip} placement="top">
-                <ControlLabel><b>{label}</b></ControlLabel>
-              </TooltipWrapper>
-              <br />
+            <TooltipWrapper id={id} message={tooltip} placement={"right"}>
               {renderCurrentValue(currentValue)}
-            </React.Fragment>
-          )
-        )}
-      </FormGroup>
-    );
-  };
-
-const editableField: React.FC<EditableFieldProps> = (props: EditableFieldProps): JSX.Element => {
-  let render: JSX.Element;
-  if (props.alignField === "horizontal") {
-    render = renderHorizontal(props);
-  } else if (props.alignField === "horizontalWide") {
-    render = renderHorizontalWide(props);
-  } else {
-    render = renderVertical(props);
-  }
-
-  const visibleWhileEditing: boolean = props.visibleWhileEditing === true
-   || _.isUndefined(props.visibleWhileEditing);
-
-  const shouldRender: boolean = props.renderAsEditable
-    ? visibleWhileEditing
-    : !_.isEmpty(props.currentValue) && props.currentValue !== "0";
-
-  return shouldRender ? (render) : <React.Fragment />;
+            </TooltipWrapper>
+          )}
+        </EditableFieldContent>
+      </Row>
+    </FormGroup>
+  );
 };
 
-export { editableField as EditableField };
+const renderHorizontalWide: (props: EditableFieldProps) => JSX.Element = (
+  props: EditableFieldProps
+): JSX.Element => {
+  // eslint-disable-next-line fp/no-rest-parameters
+  const { label, currentValue, renderAsEditable, ...fieldProps } = props;
+
+  return (
+    <Row>
+      <EditableFieldTitle50>
+        <ControlLabel>
+          <b>{label}</b>
+        </ControlLabel>
+      </EditableFieldTitle50>
+      <Col50>
+        {renderAsEditable ? (
+          <Field {...fieldProps} /> // eslint-disable-line react/jsx-props-no-spreading
+        ) : (
+          renderCurrentValue(currentValue)
+        )}
+      </Col50>
+    </Row>
+  );
+};
+
+const renderVertical: (props: EditableFieldProps) => JSX.Element = (
+  props: EditableFieldProps
+): JSX.Element => {
+  const {
+    id = "editableField",
+    label,
+    currentValue,
+    renderAsEditable,
+    tooltip,
+    ...fieldProps // eslint-disable-line fp/no-rest-parameters
+  } = props;
+
+  return (
+    <FormGroup>
+      {_.isUndefined(tooltip) ? (
+        <React.Fragment>
+          <ControlLabel>
+            <b>{label}</b>
+          </ControlLabel>
+          <br />
+          {renderAsEditable ? (
+            <Field {...fieldProps} /> // eslint-disable-line react/jsx-props-no-spreading
+          ) : (
+            renderCurrentValue(currentValue)
+          )}
+        </React.Fragment>
+      ) : renderAsEditable ? (
+        <React.Fragment>
+          <ControlLabel>
+            <b>{label}</b>
+          </ControlLabel>
+          <br />
+          <TooltipWrapper id={id} message={tooltip}>
+            {/* eslint-disable-next-line react/jsx-props-no-spreading */}
+            <Field {...fieldProps} />{" "}
+          </TooltipWrapper>
+        </React.Fragment>
+      ) : (
+        <React.Fragment>
+          <TooltipWrapper
+            displayClass={"dib"}
+            id={id}
+            message={tooltip}
+            placement={"top"}
+          >
+            <ControlLabel>
+              <b>{label}</b>
+            </ControlLabel>
+          </TooltipWrapper>
+          <br />
+          {renderCurrentValue(currentValue)}
+        </React.Fragment>
+      )}
+    </FormGroup>
+  );
+};
+
+const EditableField: React.FC<EditableFieldProps> = (
+  props: EditableFieldProps
+): JSX.Element => {
+  const {
+    alignField,
+    visibleWhileEditing,
+    renderAsEditable,
+    currentValue,
+  } = props;
+
+  const render: JSX.Element =
+    alignField === "horizontal"
+      ? renderHorizontal(props)
+      : alignField === "horizontalWide"
+      ? renderHorizontalWide(props)
+      : renderVertical(props);
+
+  const isVisibleWhileEditing: boolean =
+    visibleWhileEditing === true || _.isUndefined(visibleWhileEditing);
+
+  const shouldRender: boolean = renderAsEditable
+    ? isVisibleWhileEditing
+    : !_.isEmpty(currentValue) && currentValue !== "0";
+
+  return shouldRender ? render : <div />;
+};
+
+export { EditableField };
