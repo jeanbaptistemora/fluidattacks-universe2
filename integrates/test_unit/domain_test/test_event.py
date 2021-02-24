@@ -15,6 +15,7 @@ from backend.exceptions import (
     EventAlreadyClosed, EventNotFound, InvalidCommentParent,
     InvalidFileType, InvalidFileSize
 )
+from backend.utils import datetime as datetime_utils
 from test_unit.utils import create_dummy_session
 from graphql.type import GraphQLResolveInfo
 
@@ -157,7 +158,8 @@ async def test_update_evidence():
     with open(filename, 'rb') as test_file:
         uploaded_file = UploadFile(test_file.name, test_file, 'text/csv')
         test_data = await event_domain.update_evidence(
-            event_id, evidence_type, uploaded_file)
+            event_id, evidence_type, uploaded_file, datetime_utils.get_now(),
+        )
     expected_output = True
     assert isinstance(test_data, bool)
     assert test_data == expected_output
@@ -208,7 +210,8 @@ async def test_mask_event():
         await event_domain.update_evidence(
             event_id,
             evidence_type,
-            uploaded_file
+            uploaded_file,
+            datetime_utils.get_now(),
         )
     evidence_prefix = f'unittesting/{event_id}'
 

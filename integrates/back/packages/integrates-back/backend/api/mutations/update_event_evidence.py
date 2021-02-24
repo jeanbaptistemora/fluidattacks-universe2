@@ -15,6 +15,7 @@ from backend.decorators import (
 )
 from backend.domain import event as event_domain
 from backend.typing import SimplePayload
+from backend.utils.datetime import get_now
 
 
 @convert_kwargs_to_snake_case  # type: ignore
@@ -35,7 +36,8 @@ async def mutate(
         success = await event_domain.update_evidence(
             event_id,
             evidence_type,
-            file
+            file,
+            get_now(),
         )
 
     return SimplePayload(success=success)

@@ -89,9 +89,11 @@ async def solve_event(
 
 
 async def update_evidence(
-        event_id: str,
-        evidence_type: str,
-        file: UploadFile) -> bool:
+    event_id: str,
+    evidence_type: str,
+    file: UploadFile,
+    update_date: datetime,
+) -> bool:
     event = await get_event(event_id)
     success = False
 
@@ -116,7 +118,12 @@ async def update_evidence(
 
     if await event_dal.save_evidence(file, full_name):
         success = await event_dal.update(
-            event_id, {evidence_type: evidence_id})
+            event_id,
+            {
+                evidence_type: evidence_id,
+                f'{evidence_type}_date': datetime_utils.get_as_str(update_date)
+            }
+        )
 
     return success
 
@@ -265,9 +272,11 @@ async def create_event(  # pylint: disable=too-many-locals
         if (valid and
                 await event_dal.create(event_id, group_name, event_attrs)):
             if file:
-                await update_evidence(event_id, 'evidence_file', file)
+                await update_evidence(
+                    event_id, 'evidence_file', file, event_date
+                )
             if image:
-                await update_evidence(event_id, 'evidence', image)
+                await update_evidence(event_id, 'evidence', image, event_date)
             success = True
             await _send_new_event_mail(
                 org_id,
