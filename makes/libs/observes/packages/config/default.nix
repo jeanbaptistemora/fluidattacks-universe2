@@ -474,7 +474,9 @@ rec {
         "urllib3==1.26.3"
       ];
     };
-    local = [ ];
+    local = [
+      "singerIO"
+    ];
     nix = [ ];
   };
 
