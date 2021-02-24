@@ -248,8 +248,14 @@
           "evidence": {
             "S": "1bhEW8rN33fq01SBmWjjEwEtK6HWkdMq6"
           },
+          "evidence_date": {
+            "S": "2019-03-11 10:57:45"
+          },
           "evidence_file": {
             "S": "1mvStFSToOL3bl47zaVZHBpRMZUUhU0Ad"
+          },
+          "evidence_file_date": {
+            "S": "2019-03-11 10:57:45"
           },
           "project_name": {
             "S": "unittesting"

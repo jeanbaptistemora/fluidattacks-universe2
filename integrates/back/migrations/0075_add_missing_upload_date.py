@@ -1,6 +1,9 @@
 """
 This migration aims to add upload_date to evidence files when missing,
 taking it from LastModified
+
+Execution Time:    2021-02-24 at 08:24:07 UTC-05
+Finalization Time: 2021-02-24 at 08:25:51 UTC-05
 """
 # Standard library
 from typing import (
