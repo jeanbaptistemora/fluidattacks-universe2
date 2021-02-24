@@ -2,6 +2,7 @@
 type Me {
   accessToken: String
   callerOrigin: CallerOrigin
+  isConcurrentSession: Boolean
   organizations: [Organization!]
   permissions(entity: Entity!, identifier: String): [String]
   remember: Boolean

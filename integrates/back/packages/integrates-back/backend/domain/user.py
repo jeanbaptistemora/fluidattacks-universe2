@@ -44,6 +44,11 @@ from backend import util
 from __init__ import FI_DEFAULT_ORG
 
 
+async def acknowledge_concurrent_session(email: str) -> bool:
+    """ Acknowledge termination of concurrent session """
+    return await user_dal.update(email, {'is_concurrent_session': False})
+
+
 async def add_phone_to_user(email: str, phone: str) -> bool:
     """ Update user phone number. """
     return await user_dal.update(email, {'phone': phone})

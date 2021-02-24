@@ -1,6 +1,8 @@
 type Mutation {
   acceptLegal(remember: Boolean): SimplePayload!
 
+  acknowledgeConcurrentSession: SimplePayload!
+
   addEventConsult(
     content: String!
     eventId: String!

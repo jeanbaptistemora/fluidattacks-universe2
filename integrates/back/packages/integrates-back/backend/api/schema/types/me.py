@@ -7,6 +7,7 @@ from ariadne import ObjectType
 # Local
 from backend.api.resolvers.me import (
     access_token,
+    is_concurrent_session,
     organizations,
     permissions,
     remember,
@@ -19,6 +20,7 @@ from backend.api.resolvers.me import (
 ME = ObjectType('Me')
 
 ME.set_field('accessToken', access_token.resolve)
+ME.set_field('isConcurrentSession', is_concurrent_session.resolve)
 ME.set_field('permissions', permissions.resolve)
 ME.set_field('organizations', organizations.resolve)
 ME.set_field('remember', remember.resolve)

@@ -92,6 +92,7 @@ async def test_me():
         me(callerOrigin: "API") {{
             accessToken
             callerOrigin
+            isConcurrentSession
             organizations {{
                 name
             }}
@@ -119,6 +120,7 @@ async def test_me():
     assert 'errors' not in result
     assert '{"hasAccessToken": true' in result['data']['me']['accessToken']
     assert result['data']['me']['callerOrigin'] == 'API'
+    assert result['data']['me']['isConcurrentSession'] == False
     assert result['data']['me']['organizations'] == [{'name': org_name}]
     assert len(result['data']['me']['permissions']) == 1
     assert result['data']['me']['remember'] == False
@@ -191,6 +193,7 @@ async def test_me():
         me(callerOrigin: "API") {{
             accessToken
             callerOrigin
+            isConcurrentSession
             organizations {{
                 name
             }}
@@ -217,3 +220,15 @@ async def test_me():
     result = await get_result(data, session_jwt=session_jwt)
     assert 'errors' in result
     assert result['errors'][0]['message'] == 'Login required'
+
+    query = '''
+        mutation {
+            acknowledgeConcurrentSession {
+                success
+            }
+        }
+    '''
+    data = {'query': query}
+    result = await get_result(data, session_jwt=session_jwt)
+    assert 'errors' not in result
+    assert result['data']['acknowledgeConcurrentSession']['success']

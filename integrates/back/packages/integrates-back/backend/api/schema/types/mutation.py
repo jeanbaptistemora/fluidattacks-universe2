@@ -7,6 +7,7 @@ from ariadne import MutationType
 # Local
 from backend.api.mutations import (
     accept_legal,
+    acknowledge_concurrent_session,
     add_event_consult,
     add_files,
     add_group_consult,
@@ -137,6 +138,10 @@ MUTATION.set_field(
 MUTATION.set_field('updateAccessToken', update_access_token.mutate)
 MUTATION.set_field('invalidateAccessToken', invalidate_access_token.mutate)
 MUTATION.set_field('acceptLegal', accept_legal.mutate)
+MUTATION.set_field(
+    'acknowledgeConcurrentSession',
+    acknowledge_concurrent_session.mutate
+)
 MUTATION.set_field('addPushToken', add_push_token.mutate)
 MUTATION.set_field('grantStakeholderAccess', grant_stakeholder_access.mutate)
 MUTATION.set_field('removeStakeholderAccess', remove_stakeholder_access.mutate)
