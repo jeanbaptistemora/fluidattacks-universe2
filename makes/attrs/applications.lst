@@ -51,6 +51,7 @@ integrates.mobile
 integrates.mobile.build.android
 integrates.mobile.build.ios
 integrates.mobile.deploy.playstore
+integrates.mobile.e2e
 integrates.mobile.ota
 integrates.scheduler
 integrates.storage

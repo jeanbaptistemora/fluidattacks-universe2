@@ -16,3 +16,4 @@
 /back/packages/integrates-back/backend/reports/tpls/*.tpl
 /build
 /deploy/permissions-matrix/**/*.html
+expoClient.apk
