@@ -18,7 +18,7 @@ import { InjectedFormProps, Validator } from "redux-form";
 import { Button } from "components/Button";
 import { FluidIcon } from "components/FluidIcon";
 import { TooltipWrapper } from "components/TooltipWrapper";
-import { evidenceImage as EvidenceImage } from "scenes/Dashboard/components/EvidenceImage/index";
+import { EvidenceImage } from "scenes/Dashboard/components/EvidenceImage/index";
 import { EvidenceLightbox } from "scenes/Dashboard/components/EvidenceLightbox";
 import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import styles from "scenes/Dashboard/containers/EvidenceView/index.css";

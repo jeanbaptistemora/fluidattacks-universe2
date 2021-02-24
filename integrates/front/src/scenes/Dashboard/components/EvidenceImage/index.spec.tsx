@@ -1,4 +1,4 @@
-import { evidenceImage as EvidenceImage } from "scenes/Dashboard/components/EvidenceImage/index";
+import { EvidenceImage } from "scenes/Dashboard/components/EvidenceImage/index";
 // Next annotation is needed in order to avoid a problem with cyclic dependencies
 // eslint-disable-next-line sort-imports
 import { EvidenceDescription } from "styles/styledComponents";
