@@ -56,7 +56,12 @@ makes.test.observes:
   <<: *observes_in_master_branch
   stage: test-code
 
-observes.infra-test:
+observes.job.infra.apply:
+  <<: *makes
+  <<: *observes_in_master_branch
+  stage: deploy-infra
+
+observes.job.infra.test:
   <<: *makes
   <<: *observes_in_dev_branch
   stage: test-infra
@@ -293,11 +298,6 @@ observes.test-target-redshift:
   stage: test-code
 
 # disorganized jobs
-
-observes_apply_infra:
-  <<: *with_nix
-  <<: *observes_in_master_branch
-  stage: deploy-infra
 
 observes_services_toe:
   <<: *with_nix
