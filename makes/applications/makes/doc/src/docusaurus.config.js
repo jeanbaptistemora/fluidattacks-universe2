@@ -20,20 +20,20 @@ module.exports = {
       },
       items: [
         {
-          to: 'docs/asserts/',
-          activeBasePath: 'docs/asserts/',
+          to: 'asserts/',
+          activeBasePath: 'asserts/',
           label: 'Asserts',
           position: 'left',
         },
         {
-          to: 'docs/integrates/',
-          activeBasePath: 'docs/integrates/',
+          to: 'integrates/',
+          activeBasePath: 'integrates/',
           label: 'Integrates',
           position: 'left',
         },
         {
-          to: 'docs/skims/',
-          activeBasePath: 'docs/skims/',
+          to: 'skims/',
+          activeBasePath: 'skims/',
           label: 'Skims',
           position: 'left',
         },
@@ -95,6 +95,7 @@ module.exports = {
       {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
+          routeBasePath: '/',
         },
         blog: {
           showReadingTime: true,
