@@ -43,15 +43,25 @@
       when: never
     - if: *airs_commit_pattern
 
-airs_infra_ephemeral_test:
-  <<: *with_nix
-  <<: *in_dev_branch_airs
-  stage: test-infra
+.makes: &makes
+  tags: [autoscaling]
+  image: "${CI_REGISTRY_IMAGE}/makes:ci"
+  needs: []
+  interruptible: true
+  script:
+    - ./m "${CI_JOB_NAME% *}"
+  variables:
+    GIT_DEPTH: 5
 
-airs_infra_ephemeral_apply:
-  <<: *with_nix
+airs.infra.ephemeral.apply:
+  <<: *makes
   <<: *in_master_branch_airs
   stage: deploy-infra
+
+airs.infra.ephemeral.test:
+  <<: *makes
+  <<: *in_dev_branch_airs
+  stage: test-infra
 
 airs_infra_production_test:
   <<: *with_nix
