@@ -189,16 +189,6 @@ function job_airs_deploy_ephemeral {
   &&  helper_airs_compile "https://web.eph.fluidattacks.com/${CI_COMMIT_REF_NAME}" \
   &&  popd \
   &&  airs airs/output eph \
-  &&  pushd airs \
-  &&  npx bugsnag-build-reporter \
-        --api-key 6d0d7e66955855de59cfff659e6edf31 \
-        --app-version "${CI_COMMIT_SHORT_SHA}" \
-        --release-stage "ephemeral" \
-        --builder-name "${CI_COMMIT_AUTHOR}" \
-        --source-control-provider 'gitlab' \
-        --source-control-repository 'https://gitlab.com/fluidattacks/product.git' \
-        --source-control-revision "${CI_COMMIT_SHA}" \
-  &&  popd \
   ||  return 1
 }
 
@@ -219,15 +209,5 @@ function job_airs_deploy_production {
   &&  helper_airs_compile 'https://fluidattacks.com' \
   &&  popd \
   &&  airs airs/output prod \
-  &&  pushd airs \
-  &&  npx bugsnag-build-reporter \
-        --api-key 6d0d7e66955855de59cfff659e6edf31 \
-        --app-version "${CI_COMMIT_SHORT_SHA}" \
-        --release-stage "production" \
-        --builder-name "${CI_COMMIT_AUTHOR}" \
-        --source-control-provider 'gitlab' \
-        --source-control-repository 'https://gitlab.com/fluidattacks/product.git' \
-        --source-control-revision "${CI_COMMIT_SHA}" \
-  &&  popd \
   ||  return 1
 }

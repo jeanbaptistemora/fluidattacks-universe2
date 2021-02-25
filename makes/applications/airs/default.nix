@@ -15,6 +15,7 @@ makeEntrypoint airsPkgs {
       airsPkgs.gnused
       airsPkgs.gzip
       airsPkgs.python37
+      packages.makes.announce.bugsnag
     ];
     envUtils = [
       "/makes/utils/aws"

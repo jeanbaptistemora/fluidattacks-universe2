@@ -111,7 +111,8 @@ function deploy_eph {
 
       aws_login_dev airs \
   &&  compress_files "${src}" \
-  &&  sync_files "${src}" "s3://web.eph.fluidattacks.com/${CI_COMMIT_REF_NAME}"
+  &&  sync_files "${src}" "s3://web.eph.fluidattacks.com/${CI_COMMIT_REF_NAME}" \
+  &&  announce_to_bugsnag ephemeral
 }
 
 function deploy_prod {
@@ -119,7 +120,21 @@ function deploy_prod {
 
       aws_login_prod airs \
   &&  compress_files "${src}" \
-  &&  sync_files "${src}" 's3://fluidattacks.com'
+  &&  sync_files "${src}" 's3://fluidattacks.com' \
+  &&  announce_to_bugsnag production
+}
+
+function announce_to_bugsnag {
+  local release_stage="${1}"
+
+  makes-announce-bugsnag \
+    --api-key 6d0d7e66955855de59cfff659e6edf31 \
+    --app-version "${CI_COMMIT_SHORT_SHA}" \
+    --release-stage "${release_stage}" \
+    --builder-name "${CI_COMMIT_AUTHOR}" \
+    --source-control-provider 'gitlab' \
+    --source-control-repository 'https://gitlab.com/fluidattacks/product.git' \
+    --source-control-revision "${CI_COMMIT_SHA}"
 }
 
 function main {
