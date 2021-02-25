@@ -29,6 +29,9 @@ from backend.api import (
   Dataloaders
 )
 from backend.api.schema import SCHEMA
+from backend.dal import (
+  finding as finding_dal,
+)
 from backend.domain.finding import get_finding
 from backend.domain.project import get_open_vulnerabilities
 from backend.exceptions import FindingNotFound, NotVerificationRequested
@@ -486,6 +489,7 @@ async def test_reject_draft():
     assert result['data']['rejectDraft']
 
 @pytest.mark.changes_db
+@freeze_time("2020-12-01")
 async def test_delete_finding():
     """Check for deleteFinding mutation."""
     query = '''
@@ -500,6 +504,23 @@ async def test_delete_finding():
     assert 'errors' not in result
     assert 'success' in result['data']['deleteFinding']
     assert result['data']['deleteFinding']['success']
+    finding = await finding_dal.get_finding('560175507')
+    historic_state = finding['historic_state']
+    assert historic_state == [
+      {
+        'analyst': 'unittest@fluidattacks.com',
+        'date': '2019-02-04 12:46:10',
+        'source': 'integrates',
+        'state': 'CREATED'
+      },
+      {
+        'analyst': 'integratesmanager@gmail.com',
+        'date': '2020-11-30 19:00:00',
+        'justification': 'NOT_REQUIRED',
+        'source': 'integrates',
+        'state': 'DELETED'
+      }
+    ]
     with pytest.raises(FindingNotFound):
         assert await get_finding('560175507')
 
