@@ -1,11 +1,15 @@
 # Standard libraries
 import sys
-from collections import deque
-from typing import IO
+from collections import (
+    deque,
+)
+from typing import (
+    IO,
+)
 # Third party libraries
 # Local libraries
 from singer_io import factory
-from singer_io import (
+from singer_io.singer import (
     SingerSchema,
     SingerRecord,
 )
@@ -32,7 +36,8 @@ def _emit_audience(
     factory.emit(record, target)
 
 
-def all_audiences(client: ApiClient) -> None:
-    audiences_data = client.list_audiences().data
+def all_audiences(client: ApiClient, target: IO[str] = sys.stdout) -> None:
+    audiences_data = client.list_audiences().data['lists']
     audiences_id = map(lambda a: a['id'], audiences_data)
-    deque(map(lambda id: _emit_audience(client, id), audiences_id), 0)
+    map_obj = map(lambda id: _emit_audience(client, id, target), audiences_id)
+    deque(map_obj, 0)

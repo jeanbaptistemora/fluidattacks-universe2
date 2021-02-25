@@ -17,7 +17,7 @@ from tap_mailchimp.api import (
 from tap_mailchimp.api.raw import (
     RawSource,
 )
-from tap_mailchimp.common import (
+from tap_mailchimp.common.objs import (
     JSON,
 )
 
@@ -38,7 +38,7 @@ def _pop_if_exist(raw: JSON, key: str) -> Any:
 
 
 def create_api_data(raw: JSON) -> ApiData:
-    links = raw.pop('_links')
+    links = raw.pop('_links')[0]
     total_items = _pop_if_exist(raw, 'total_items')
     return ApiData(
         data=raw,

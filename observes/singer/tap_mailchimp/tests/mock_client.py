@@ -14,7 +14,7 @@ from tap_mailchimp import (
 from tap_mailchimp.api.raw import (
     RawSource,
 )
-from tap_mailchimp.common import (
+from tap_mailchimp.common.objs import (
     JSON,
 )
 
