@@ -1,20 +1,25 @@
-import _ from "lodash";
-import React from "react";
-import { useLocation, useParams } from "react-router";
-import { IChartsForPortfolioViewProps } from "scenes/Dashboard/containers/ChartsForPortfolioView/types";
 import { ChartsGenericView } from "scenes/Dashboard/containers/ChartsGenericView";
+import type { IChartsForPortfolioViewProps } from "scenes/Dashboard/containers/ChartsForPortfolioView/types";
+import React from "react";
+import _ from "lodash";
+import { useLocation, useParams } from "react-router";
 
-const chartsForPortfolioView: React.FC<IChartsForPortfolioViewProps> = (
-  props: IChartsForPortfolioViewProps,
+const ChartsForPortfolioView: React.FC<IChartsForPortfolioViewProps> = (
+  props: IChartsForPortfolioViewProps
 ): JSX.Element => {
   const { tagName } = useParams<{ tagName: string }>();
-  const searchParams: URLSearchParams = new URLSearchParams(useLocation().search);
+  const searchParams: URLSearchParams = new URLSearchParams(
+    useLocation().search
+  );
 
   const subjectFromSearchParams: string | null = searchParams.get("portfolio");
-
-  const organizationId: string = _.isUndefined(props.organizationId) ? "" : props.organizationId;
+  const { organizationId } = props;
+  const auxOrganizationId: string = _.isUndefined(organizationId)
+    ? ""
+    : organizationId;
   const subject: string = _.isNull(subjectFromSearchParams)
-  ? `${organizationId}PORTFOLIO#${tagName}` : subjectFromSearchParams;
+    ? `${auxOrganizationId}PORTFOLIO#${tagName}`
+    : subjectFromSearchParams;
 
   return (
     <React.StrictMode>
@@ -27,4 +32,4 @@ const chartsForPortfolioView: React.FC<IChartsForPortfolioViewProps> = (
   );
 };
 
-export { chartsForPortfolioView as ChartsForPortfolioView };
+export { ChartsForPortfolioView };
