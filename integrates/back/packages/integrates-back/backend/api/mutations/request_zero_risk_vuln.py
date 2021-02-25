@@ -39,6 +39,9 @@ async def mutate(
         vulnerabilities
     )
     if success:
+        info.context.loaders.finding.clear(finding_id)
+        for vuln_id in vulnerabilities:
+            info.context.loaders.vulnerability.clear(vuln_id)
         await redis_del_by_deps(
             'request_zero_risk_vuln',
             finding_id=finding_id,

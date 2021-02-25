@@ -1,11 +1,15 @@
+# Standard libraries
 import pytest
 
+# Local libraries
+from backend.api import get_new_context
 from test_functional.customeradmin.utils import get_result
 
 pytestmark = pytest.mark.asyncio
 
 
 async def test_event():
+    context = get_new_context()
     event_id = '540462628'
     group_name = 'unittesting'
     query = f'''{{
@@ -32,7 +36,7 @@ async def test_event():
         }}
     }}'''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     assert 'event' in result['data']
     assert result['data']['event']['accessibility'] == 'Repositorio'
@@ -71,7 +75,7 @@ async def test_event():
         }}
     }}'''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'events' in result['data']
     events = result['data']['events']
     event = [event for event in events if event['id'] == event_id][0]
@@ -90,7 +94,7 @@ async def test_event():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     assert 'success' in result['data']['addEventConsult']
     assert result['data']['addEventConsult']
@@ -108,7 +112,7 @@ async def test_event():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     assert 'success' in result['data']['downloadEventFile']
     assert result['data']['downloadEventFile']
@@ -122,7 +126,7 @@ async def test_event():
         }}
     }}'''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     assert 'event' in result['data']
     assert result['data']['event']['consulting'] == [{'content': consult_content}]
