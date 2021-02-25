@@ -3,7 +3,7 @@ import gql from "graphql-tag";
 
 const GET_FORCES_TOKEN: DocumentNode = gql`
   query IntegratesGetForcesToken($groupName: String!) {
-    project(projectName: $groupName){
+    project(projectName: $groupName) {
       forcesToken
     }
   }
@@ -18,7 +18,4 @@ const UPDATE_FORCES_TOKEN_MUTATION: DocumentNode = gql`
   }
 `;
 
-export {
-  GET_FORCES_TOKEN,
-  UPDATE_FORCES_TOKEN_MUTATION,
-};
+export { GET_FORCES_TOKEN, UPDATE_FORCES_TOKEN_MUTATION };
