@@ -33,74 +33,6 @@ function helper_airs_deploy_install_plugins {
         "${url_pelican_plugins}"
 }
 
-function helper_airs_deploy_sync_s3 {
-  local source_code="${1}"
-  local bucket_path="${2}"
-  local extensions=('html' 'css' 'js' 'png' 'svg')
-  local files_to_compress
-  local compress
-  local content_type
-
-      files_to_compress="$(find "${source_code}" -type f -name '*.html' -o -name '*.css' -o -name '*.js')" \
-  &&  for file in ${files_to_compress}
-      do
-            gzip -9 "${file}" \
-        &&  mv "${file}.gz" "${file}" \
-        || return 1
-      done \
-  &&  for extension in "${extensions[@]}"
-      do
-            case ${extension} in
-              'html')
-                    content_type='text/html' \
-                &&  compress='gzip'
-                    ;;
-              'css')
-                    content_type='text/css' \
-                &&  compress='gzip'
-                    ;;
-              'js')
-                    content_type='application/javascript' \
-                &&  compress='gzip'
-                    ;;
-              'png')
-                    content_type='image/png' \
-                &&  compress='identity'
-                    ;;
-              'svg')
-                    content_type='image/svg+xml' \
-                &&  compress='identity'
-                    ;;
-              *)
-                    content_type='application/octet-stream' \
-                &&  compress='identity'
-                    ;;
-            esac \
-        &&  aws s3 sync                        \
-              "${source_code}/"                \
-              "s3://${bucket_path}/"           \
-              --acl private                    \
-              --exclude "*"                    \
-              --include "*.${extension}"       \
-              --exclude "resources/doc/*"      \
-              --metadata-directive REPLACE     \
-              --content-type "${content_type}" \
-              --content-encoding "${compress}" \
-              --delete \
-        ||  return 1
-      done \
-  &&  aws s3 sync \
-        "${source_code}/"               \
-        "s3://${bucket_path}/"          \
-        --exclude "*.html"              \
-        --exclude "*.css"               \
-        --exclude "*.js"                \
-        --exclude "*.png"               \
-        --exclude "*.svg"               \
-        --exclude "resources/doc/*"     \
-        --delete
-}
-
 function helper_airs_compile {
   local target="${1}"
 
@@ -126,24 +58,4 @@ function helper_airs_compile {
   &&  cp robots.txt output/ \
   &&  rsync content/files/* output/ \
   &&  cp -r content/files/.well-known output/
-}
-
-function helper_airs_compile_gatsby {
-  local target="${1}"
-  local path="${2}"
-
-      pushd new-front \
-  &&  npm install \
-  &&  sed -i "s|https://fluidattacks.com/new-front|${target}|g" gatsby-config.js \
-  &&  sed -i "s|pathPrefix: '/new-front'|pathPrefix: '${path}'|g" gatsby-config.js \
-  &&  popd \
-  &&  pushd content/pages \
-  &&  find . -type f -name "*.adoc" -exec sed -i "s|:slug|:page-slug|g" {} + \
-  &&  rm -r about-us/clients/ products/defends products/rules \
-  &&  popd \
-  &&  pushd new-front \
-  &&  npm run build \
-  &&  mkdir ../output/new-front \
-  &&  rsync -av public/* ../output/new-front/ \
-  &&  popd
 }

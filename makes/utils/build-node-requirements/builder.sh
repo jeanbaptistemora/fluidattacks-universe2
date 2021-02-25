@@ -2,10 +2,6 @@
 
 source "${envBashLibCommon}"
 
-function post_install { :; }
-
-source "${envHooks}"
-
 function get_deps_from_lock {
   jq -r '.dependencies | to_entries[] | .key + "@" + .value.version' < "${1}" \
     | sort
@@ -35,7 +31,6 @@ function main {
   &&  copy "${envPackageJsonFile}" "${out}/package.json" \
   &&  pushd "${out}" \
     &&  HOME=. npm install --force --ignore-scripts=false --verbose \
-    &&  post_install \
   &&  popd \
   &&  echo '[INFO] Freezing' \
   &&  get_deps_from_lock "${out}/package-lock.json" > "${out}/requirements" \
