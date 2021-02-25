@@ -2,6 +2,7 @@
 
 function main {
   local src='makes/applications/makes/doc/src'
+  export env='prod'
 
       pushd "${src}" \
     &&  copy "__envRuntime__/node_modules" node_modules \

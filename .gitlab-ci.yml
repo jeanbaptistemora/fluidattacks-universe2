@@ -103,10 +103,23 @@ makes.deploy.oci-ci:
   stage: build
   tags: [autoscaling-large]
 
-makes.doc.deploy:
+makes.doc.deploy.dev:
+  <<: *makes
+  <<: *common_in_dev_branch
+  stage: deploy-app
+  script: ./m makes.doc.deploy dev
+  environment:
+    name: doc/${CI_COMMIT_REF_NAME}
+    url: https://doc-dev.fluidattacks.com/${CI_COMMIT_REF_NAME}/
+
+makes.doc.deploy.prod:
   <<: *makes
   <<: *common_in_master_branch
   stage: deploy-app
+  script: ./m makes.doc.deploy prod
+  environment:
+    name: doc/${CI_COMMIT_REF_NAME}
+    url: https://doc.fluidattacks.com/
 
 makes.doc.infra.apply:
   <<: *makes
