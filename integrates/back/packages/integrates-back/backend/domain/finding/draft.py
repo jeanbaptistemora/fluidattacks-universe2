@@ -192,8 +192,8 @@ async def submit_draft(  # pylint: disable=too-many-locals
     analyst_email: str
 ) -> bool:
     success = False
-    finding_vulns_loader = context.finding_vulns
-    finding_loader = context.finding
+    finding_vulns_loader = context.loaders.finding_vulns
+    finding_loader = context.loaders.finding
     finding = await finding_loader.load(finding_id)
     is_finding_approved = finding_filters.is_approved(finding)
     is_finding_deleted = finding_filters.is_deleted(finding)
@@ -227,6 +227,7 @@ async def submit_draft(  # pylint: disable=too-many-locals
                 report_date = datetime_utils.get_as_str(
                     datetime_utils.get_now()
                 )
+                source = util.get_source(context)
                 history = cast(
                     List[Dict[str, str]],
                     finding['historic_state']
@@ -234,6 +235,7 @@ async def submit_draft(  # pylint: disable=too-many-locals
                 history.append({
                     'analyst': analyst_email,
                     'date': report_date,
+                    'source': source,
                     'state': 'SUBMITTED'
                 })
 

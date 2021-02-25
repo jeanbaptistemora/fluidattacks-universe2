@@ -35,7 +35,7 @@ async def mutate(
     user_info = await util.get_jwt_content(info.context)
     analyst_email = user_info['user_email']
     success = await finding_domain.submit_draft(
-        info.context.loaders,
+        info.context,
         finding_id,
         analyst_email
     )
