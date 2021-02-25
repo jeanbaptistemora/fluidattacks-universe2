@@ -14,11 +14,10 @@ function main {
         content/pages/products/defends \
         content/pages/products/rules \
   &&  pushd new-front \
-    &&  copy "${envAirsNpm}/node_modules" 'node_modules' \
-    &&  chmod +x ./node_modules/.bin/gatsby \
+    &&  copy2 "${envAirsNpm}/node_modules" 'node_modules' \
     &&  HOME=. ./node_modules/.bin/gatsby build --prefix-paths \
     &&  mkdir "${out}" \
-    &&  copy public "${out}" \
+    &&  copy2 public "${out}" \
   &&  popd \
   ||  return 1
 }

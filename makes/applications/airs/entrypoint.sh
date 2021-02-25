@@ -34,6 +34,13 @@ function patch_paths_prod {
   patch_paths "${1}" 'https' 'fluidattacks.com/new-front' '/new-front'
 }
 
+function deploy_dev {
+      pushd "${1}" \
+    &&  python3 -m http.server \
+  &&  popd \
+  ||  return 1
+}
+
 function main {
   local out="${1}"
   local env="${2:-}"
@@ -46,8 +53,10 @@ function main {
         dev) patch_paths_dev "${out}";;
         eph) patch_paths_eph "${out}";;
         prod) patch_paths_prod "${out}";;
-        *)    echo '[ERROR] Second argument must be one of: dev, eph, prod' \
-          &&  return 1;;
+        *) abort '[ERROR] Second argument must be one of: dev, eph, prod';;
+      esac \
+  &&  case "${env}" in
+        dev) deploy_dev "${out}";;
       esac \
   ||  return 1
 }

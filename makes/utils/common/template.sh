@@ -1,11 +1,22 @@
 # shellcheck shell=bash
 
+function abort {
+      echo "${1}" \
+  &&  return 1 \
+  ||  return 1
+}
+
 function copy {
   cp \
     --no-preserve 'mode' \
     --no-target-directory \
     --recursive \
     "${@}"
+}
+
+function copy2 {
+      cp --no-target-directory --recursive "${@}" \
+  &&  chmod --recursive +w "${@}"
 }
 
 function ensure_env_vars {
