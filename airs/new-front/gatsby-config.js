@@ -10,18 +10,6 @@ module.exports = {
   },
   plugins: [
     {
-      resolve: "gatsby-plugin-manifest",
-      options: {
-        name: "Fluid Attacks",
-        short_name: "https://fluidattacks.com",
-        start_url: "/",
-        background_color: "#ffffff",
-        theme_color: "#663399",
-        display: "minimal-ui",
-        icon: "src/images/favicon.png", // This path is relative to the root of the site.,
-      },
-    },
-    {
       resolve: 'gatsby-plugin-web-font-loader',
       options: {
         google: {
@@ -86,7 +74,6 @@ module.exports = {
     "gatsby-transformer-asciidoc",
     "gatsby-plugin-styled-components",
     "gatsby-plugin-typescript",
-    "gatsby-transformer-sharp",
     "gatsby-plugin-sass",
   ],
 }

@@ -16,7 +16,7 @@ function copy {
 
 function copy2 {
       cp --no-target-directory --recursive "${@}" \
-  &&  chmod --recursive +w "${@}"
+  &&  chmod --recursive +w "${@: -1}"
 }
 
 function ensure_env_vars {

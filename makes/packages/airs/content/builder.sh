@@ -17,7 +17,7 @@ function main {
     &&  copy2 "${envAirsNpm}/node_modules" 'node_modules' \
     &&  HOME=. ./node_modules/.bin/gatsby build --prefix-paths \
     &&  mkdir "${out}" \
-    &&  copy2 public "${out}" \
+    &&  copy2 public "${out}/new-front" \
   &&  popd \
   ||  return 1
 }
