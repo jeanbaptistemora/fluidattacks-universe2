@@ -7,6 +7,7 @@ interface IAddStakeholderAttr {
 
 interface IUser {
   me: {
+    isConcurrentSession: boolean;
     permissions: string[];
     sessionExpiration: string;
     userEmail: string;

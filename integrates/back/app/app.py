@@ -35,7 +35,6 @@ from backend.domain import (
     organization as org_domain,
 )
 from backend.exceptions import (
-    ConcurrentSession,
     ExpiredToken,
     SecureAccessException,
 )
@@ -85,13 +84,6 @@ async def app(request: Request) -> HTMLResponse:
         else:
             response = templates.unauthorized(request)
             response.delete_cookie(key=settings.JWT_COOKIE_NAME)
-    except ConcurrentSession:
-        response = HTMLResponse(
-            '<script> '
-            'localStorage.setItem("concurrentSession","1"); '
-            'location.assign("/registration"); '
-            '</script>'
-        )
     except (ExpiredToken, SecureAccessException):
         response = await logout(request)
 

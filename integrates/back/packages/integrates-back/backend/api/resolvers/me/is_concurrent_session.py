@@ -15,8 +15,8 @@ async def resolve(
     **_kwargs: None
 ) -> bool:
     user_email: str = cast(str, parent['user_email'])
-    is_concurrent_cession: bool = bool(
+    is_concurrent_session: bool = bool(
         await user_domain.get_data(user_email, 'is_concurrent_session')
     )
 
-    return is_concurrent_cession
+    return is_concurrent_session

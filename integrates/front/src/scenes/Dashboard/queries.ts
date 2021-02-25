@@ -1,6 +1,14 @@
 import type { DocumentNode } from "graphql";
 import gql from "graphql-tag";
 
+const ACKNOWLEDGE_CONCURRENT_SESSION: DocumentNode = gql`
+  mutation AcknowledgeConcurrentSessionMutation {
+    acknowledgeConcurrentSession {
+      success
+    }
+  }
+`;
+
 const ADD_STAKEHOLDER_MUTATION: DocumentNode = gql`
   mutation AddStakeholderMutation(
     $email: String!
@@ -26,6 +34,7 @@ const GET_USER_PERMISSIONS: DocumentNode = gql`
 const GET_USER: DocumentNode = gql`
   query GetUser {
     me(callerOrigin: "FRONT") {
+      isConcurrentSession
       permissions(entity: USER)
       role(entity: USER)
       sessionExpiration
@@ -35,4 +44,9 @@ const GET_USER: DocumentNode = gql`
   }
 `;
 
-export { ADD_STAKEHOLDER_MUTATION, GET_USER, GET_USER_PERMISSIONS };
+export {
+  ADD_STAKEHOLDER_MUTATION,
+  GET_USER,
+  GET_USER_PERMISSIONS,
+  ACKNOWLEDGE_CONCURRENT_SESSION,
+};

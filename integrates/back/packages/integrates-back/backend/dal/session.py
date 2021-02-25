@@ -18,6 +18,9 @@ from back import settings
 from backend.model import (
     redis_model,
 )
+from backend.dal import (
+    user as user_dal,
+)
 from backend.dal.helpers.redis import (
     redis_cmd,
     redis_del_entity_attr,
@@ -25,7 +28,6 @@ from backend.dal.helpers.redis import (
     redis_set_entity_attr,
 )
 from backend.exceptions import (
-    ConcurrentSession,
     ExpiredToken,
     SecureAccessException,
 )
@@ -77,10 +79,11 @@ async def check_session_web_validity(request: Request) -> None:
     session_key: str = request.session['session_key']
     attr: str = 'web'
 
-    # Check if the user has a concurrent session
+    # Check if the user has a concurrent session and in case they do
+    # raise the concurrent session modal flag
     if request.session.get('is_concurrent'):
         request.session.pop('is_concurrent')
-        raise ConcurrentSession()
+        await user_dal.update(email, {'is_concurrent_session': True})
 
     try:
         # Check if the user has an active session but it's different

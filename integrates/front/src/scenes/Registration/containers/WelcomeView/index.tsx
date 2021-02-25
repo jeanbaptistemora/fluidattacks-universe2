@@ -3,7 +3,6 @@
   We need to override default styles from react-bootstrap
 */
 import type { ApolloError } from "apollo-client";
-import { Button } from "components/Button";
 import { CompulsoryNotice } from "scenes/Registration/components/CompulsoryNotice";
 import type { GraphQLError } from "graphql";
 import { Logger } from "utils/logger";
@@ -18,7 +17,6 @@ import {
   ACCEPT_LEGAL_MUTATION,
   GET_USER_AUTHORIZATION,
 } from "scenes/Registration/containers/WelcomeView/queries";
-import { Col100, Row } from "styles/styledComponents";
 import { useMutation, useQuery } from "@apollo/react-hooks";
 
 export const WelcomeView: React.FC = (): JSX.Element => {
@@ -83,27 +81,12 @@ export const WelcomeView: React.FC = (): JSX.Element => {
             {"!"}
           </h1>
         </div>
-        {localStorage.getItem("concurrentSession") === "1" ? (
-          <div>
-            <Row>
-              <h2>{translate.t("registration.concurrent_session_message")}</h2>
-            </Row>
-            <Row>
-              <Col100>
-                <Button onClick={loadDashboard}>
-                  {translate.t("registration.continue_btn")}
-                </Button>
-              </Col100>
-            </Row>
-          </div>
-        ) : (
-          !(_.isUndefined(data) || loading || data.me.remember) && (
-            <CompulsoryNotice
-              content={translate.t("legalNotice.description")}
-              onAccept={handleAccept}
-              open={isLegalModalOpen}
-            />
-          )
+        {!(_.isUndefined(data) || loading || data.me.remember) && (
+          <CompulsoryNotice
+            content={translate.t("legalNotice.description")}
+            onAccept={handleAccept}
+            open={isLegalModalOpen}
+          />
         )}
       </div>
     </div>

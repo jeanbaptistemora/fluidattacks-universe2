@@ -3,8 +3,8 @@ import { AddOrganizationModal } from "scenes/Dashboard/components/AddOrganizatio
 import { AddUserModal } from "scenes/Dashboard/components/AddUserModal";
 import type { ApolloError } from "apollo-client";
 import Bugsnag from "@bugsnag/js";
+import { ConcurrentSessionNotice } from "scenes/Dashboard/components/ConcurrentSessionNoticeModal";
 import { ConfirmDialog } from "components/ConfirmDialog";
-import { GET_USER } from "scenes/Dashboard/queries";
 import type { GraphQLError } from "graphql";
 import { HomeView } from "scenes/Dashboard/containers/HomeView";
 import type { IAuthContext } from "utils/auth";
@@ -26,7 +26,10 @@ import { msgError } from "utils/notifications";
 import style from "scenes/Dashboard/index.css";
 import { translate } from "utils/translations/translate";
 import { useAddStakeholder } from "scenes/Dashboard/hooks";
-import { useQuery } from "@apollo/react-hooks";
+import {
+  ACKNOWLEDGE_CONCURRENT_SESSION,
+  GET_USER,
+} from "scenes/Dashboard/queries";
 import { Redirect, Route, Switch, useLocation } from "react-router-dom";
 import { authContext, setupSessionCheck } from "utils/auth";
 import {
@@ -37,6 +40,7 @@ import {
   organizationLevelPermissions,
 } from "utils/authz/config";
 import { initializeDelighted, initializeZendesk } from "utils/widgets";
+import { useMutation, useQuery } from "@apollo/react-hooks";
 
 export const Dashboard: React.FC = (): JSX.Element => {
   const { hash } = useLocation();
@@ -90,6 +94,8 @@ export const Dashboard: React.FC = (): JSX.Element => {
     authContext as React.Context<Required<IAuthContext>>
   );
 
+  const [isCtSessionModalOpen, setCtSessionModalOpen] = React.useState(false);
+
   useQuery<IUser>(GET_USER, {
     onCompleted: ({ me }): void => {
       user.setUser({ userEmail: me.userEmail, userName: me.userName });
@@ -112,6 +118,9 @@ export const Dashboard: React.FC = (): JSX.Element => {
       if (me.permissions.length === 0) {
         Logger.error("Empty permissions", JSON.stringify(me.permissions));
       }
+      if (me.isConcurrentSession) {
+        setCtSessionModalOpen(true);
+      }
     },
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
@@ -120,6 +129,22 @@ export const Dashboard: React.FC = (): JSX.Element => {
       });
     },
   });
+
+  const [acknowledgeConcurrent] = useMutation(ACKNOWLEDGE_CONCURRENT_SESSION, {
+    onError: ({ graphQLErrors }: ApolloError): void => {
+      graphQLErrors.forEach((error: GraphQLError): void => {
+        Logger.error(
+          "An error occurred while acknowledging concurrent session",
+          error
+        );
+      });
+    },
+  });
+
+  function handleConcurrent(): void {
+    setCtSessionModalOpen(false);
+    void acknowledgeConcurrent();
+  }
 
   return (
     <React.Fragment>
@@ -206,6 +231,10 @@ export const Dashboard: React.FC = (): JSX.Element => {
         open={isUserModalOpen}
         title={translate.t("sidebar.user.text")}
         type={"user"}
+      />
+      <ConcurrentSessionNotice
+        onClick={handleConcurrent}
+        open={isCtSessionModalOpen}
       />
     </React.Fragment>
   );

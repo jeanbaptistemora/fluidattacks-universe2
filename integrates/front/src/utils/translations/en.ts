@@ -847,6 +847,7 @@ export const enTranslations: ResourceKey = {
     concurrent_session_message:
       "You already have an active session. If you proceed, that session will " +
       "be terminated.",
+    concurrent_session_title: "Active Session Detected",
     continue_as_btn: "Continue as",
     continue_btn: "Continue",
     greeting: "Hello",
