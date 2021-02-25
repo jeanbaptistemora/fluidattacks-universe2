@@ -61,8 +61,9 @@ async def mutate(  # pylint: disable=too-many-arguments
             f'Security: Attempted to add tags without the allowed validations'
         )
     if success:
-        redis_del_by_deps_soon('add_group_tags', group_name=project_name)
         group_loader.clear(group_name)
+        info.context.loaders.group_all.clear(group_name)
+        redis_del_by_deps_soon('add_group_tags', group_name=project_name)
         util.cloudwatch_log(
             info.context,
             f'Security: Added tag to {group_name} group successfully'

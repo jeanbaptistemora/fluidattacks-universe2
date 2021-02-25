@@ -1,12 +1,16 @@
+# Standard libraries
 import json
 import pytest
 
+# Local libraries
+from backend.api import get_new_context
 from test_functional.customer.utils import get_result
 
 pytestmark = pytest.mark.asyncio
 
 
 async def test_project_fluid_user():
+    context = get_new_context()
     query = '''{
         internalNames(entity: GROUP){
             name
@@ -14,7 +18,11 @@ async def test_project_fluid_user():
         }
     }'''
     data = {'query': query}
-    result = await get_result(data, stakeholder='integratescustomer@fluidattacks.com')
+    result = await get_result(
+        data,
+        stakeholder='integratescustomer@fluidattacks.com',
+        context=context
+    )
     assert 'errors' not in result
     assert 'internalNames' in result['data']
     group_name = result['data']['internalNames']['name']
@@ -35,7 +43,11 @@ async def test_project_fluid_user():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data, stakeholder='integratescustomer@fluidattacks.com')
+    result = await get_result(
+        data,
+        stakeholder='integratescustomer@fluidattacks.com',
+        context=context
+    )
     assert 'success' in result['data']['createProject']
     assert result['data']['createProject']['success']
 
@@ -55,7 +67,11 @@ async def test_project_fluid_user():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data, stakeholder='integratesmanager@gmail.com')
+    result = await get_result(
+        data,
+        stakeholder='integratesmanager@gmail.com',
+        context=context
+    )
     assert 'errors' not in result
     assert result['data']['editStakeholder']['success']
 
@@ -72,7 +88,11 @@ async def test_project_fluid_user():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data, stakeholder='integratescustomer@fluidattacks.com')
+    result = await get_result(
+        data,
+        stakeholder='integratescustomer@fluidattacks.com',
+        context=context
+    )
     assert 'errors' not in result
     assert 'success' in result['data']['addProjectConsult']
     assert result['data']['addProjectConsult']['success']
@@ -91,7 +111,11 @@ async def test_project_fluid_user():
         'tagsData': json.dumps(['testing'])
     }
     data = {'query': query, 'variables': variables}
-    result = await get_result(data, stakeholder='integratescustomer@fluidattacks.com')
+    result = await get_result(
+        data,
+        stakeholder='integratescustomer@fluidattacks.com',
+        context=context
+    )
     assert 'errors' not in result
     assert 'success' in result['data']['addTags']
     assert result['data']['addTags']['success']
@@ -134,7 +158,11 @@ async def test_project_fluid_user():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data, stakeholder='integratescustomer@fluidattacks.com')
+    result = await get_result(
+        data,
+        stakeholder='integratescustomer@fluidattacks.com',
+        context=context
+    )
     assert 'errors' not in result
     assert result['data']['project']['name'] == group_name
     assert result['data']['project']['hasDrills']
@@ -178,7 +206,11 @@ async def test_project_fluid_user():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data, stakeholder='integratescustomer@fluidattacks.com')
+    result = await get_result(
+        data,
+        stakeholder='integratescustomer@fluidattacks.com',
+        context=context
+    )
     assert 'errors' not in result
     assert 'success' in result['data']['removeTag']
     assert result['data']['removeTag']['success']
@@ -191,7 +223,11 @@ async def test_project_fluid_user():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data, stakeholder='integratescustomer@fluidattacks.com')
+    result = await get_result(
+        data,
+        stakeholder='integratescustomer@fluidattacks.com',
+        context=context
+    )
     assert 'errors' not in result
     assert result['data']['project']['tags'] == []
 
@@ -209,7 +245,12 @@ async def test_project_fluid_user():
         }}
       }}
     '''
-    result = await get_result({'query': query}, stakeholder='integratescustomer@fluidattacks.com')
+    data = {'query': query}
+    result = await get_result(
+        data,
+        stakeholder='integratescustomer@fluidattacks.com',
+        context=context
+    )
     assert 'errors' not in result
     assert result['data']['addGitRoot']['success']
 
@@ -230,7 +271,12 @@ async def test_project_fluid_user():
           }}
         }}
     '''
-    result = await get_result({'query': query}, stakeholder='integratescustomer@fluidattacks.com')
+    data = {'query': query}
+    result = await get_result(
+        data,
+        stakeholder='integratescustomer@fluidattacks.com',
+        context=context
+    )
     assert 'errors' not in result
     assert {
         '__typename': 'GitRoot',
@@ -250,7 +296,11 @@ async def test_project_fluid_user():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data, stakeholder='integratescustomer@fluidattacks.com')
+    result = await get_result(
+        data,
+        stakeholder='integratescustomer@fluidattacks.com',
+        context=context
+    )
     assert 'errors' not in result
     assert result['data']['unsubscribeFromGroup']['success']
 
@@ -262,6 +312,10 @@ async def test_project_fluid_user():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data, stakeholder='integratescustomer@fluidattacks.com')
+    result = await get_result(
+        data,
+        stakeholder='integratescustomer@fluidattacks.com',
+        context=context
+    )
     assert 'errors' in result
     assert result['errors'][0]['message'] == 'Access denied'
