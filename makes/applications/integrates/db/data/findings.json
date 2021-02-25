@@ -56,6 +56,9 @@
                   "analyst": {
                     "S": "integratesmanager@gmail.com"
                   },
+                  "source": {
+                    "S": "integrates"
+                  },
                   "state": {
                     "S": "SUBMITTED"
                   }
@@ -515,6 +518,9 @@
                   "analyst": {
                     "S": "integratesmanager@gmail.com"
                   },
+                  "source": {
+                    "S": "integrates"
+                  },
                   "state": {
                     "S": "SUBMITTED"
                   }
@@ -668,6 +674,9 @@
                   },
                   "analyst": {
                     "S": "integratesmanager@gmail.com"
+                  },
+                  "source": {
+                    "S": "integrates"
                   },
                   "state": {
                     "S": "SUBMITTED"
@@ -972,6 +981,9 @@
                   },
                   "analyst": {
                     "S": "integratesmanager@gmail.com"
+                  },
+                  "source": {
+                    "S": "integrates"
                   },
                   "state": {
                     "S": "SUBMITTED"
@@ -1304,6 +1316,9 @@
                   },
                   "analyst": {
                     "S": "integratesmanager@gmail.com"
+                  },
+                  "source": {
+                    "S": "integrates"
                   },
                   "state": {
                     "S": "SUBMITTED"
@@ -1820,6 +1835,9 @@
                   "analyst": {
                     "S": "integratesmanager@gmail.com"
                   },
+                  "source": {
+                    "S": "integrates"
+                  },
                   "state": {
                     "S": "SUBMITTED"
                   }
@@ -2109,6 +2127,9 @@
                   },
                   "analyst": {
                     "S": "integratesmanager@gmail.com"
+                  },
+                  "source": {
+                    "S": "integrates"
                   },
                   "state": {
                     "S": "SUBMITTED"
@@ -2813,6 +2834,9 @@
                   "analyst": {
                     "S": "integratesmanager@gmail.com"
                   },
+                  "source": {
+                    "S": "integrates"
+                  },
                   "state": {
                     "S": "SUBMITTED"
                   }
@@ -2960,6 +2984,9 @@
                   },
                   "analyst": {
                     "S": "integratesmanager@gmail.com"
+                  },
+                  "source": {
+                    "S": "integrates"
                   },
                   "state": {
                     "S": "SUBMITTED"
@@ -3192,6 +3219,9 @@
                   "analyst": {
                     "S": "integratesmanager@gmail.com"
                   },
+                  "source": {
+                    "S": "integrates"
+                  },
                   "state": {
                     "S": "SUBMITTED"
                   }
@@ -3386,6 +3416,9 @@
                   },
                   "analyst": {
                     "S": "integratesmanager@gmail.com"
+                  },
+                  "source": {
+                    "S": "integrates"
                   },
                   "state": {
                     "S": "SUBMITTED"
@@ -3597,6 +3630,9 @@
                   },
                   "analyst": {
                     "S": "integratesmanager@gmail.com"
+                  },
+                  "source": {
+                    "S": "integrates"
                   },
                   "state": {
                     "S": "SUBMITTED"

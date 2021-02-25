@@ -348,6 +348,7 @@ async def test_finding():
         {
             'analyst': 'integratesanalyst@fluidattacks.com',
             'date': today,
+            'source': 'integrates',
             'state': 'SUBMITTED'
         },
         {
