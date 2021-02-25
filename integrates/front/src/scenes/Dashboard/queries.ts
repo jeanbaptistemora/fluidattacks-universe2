@@ -1,6 +1,14 @@
 import type { DocumentNode } from "graphql";
 import gql from "graphql-tag";
 
+const ACCEPT_LEGAL_MUTATION: DocumentNode = gql`
+  mutation AcceptLegalMutation($remember: Boolean!) {
+    acceptLegal(remember: $remember) {
+      success
+    }
+  }
+`;
+
 const ACKNOWLEDGE_CONCURRENT_SESSION: DocumentNode = gql`
   mutation AcknowledgeConcurrentSessionMutation {
     acknowledgeConcurrentSession {
@@ -36,6 +44,7 @@ const GET_USER: DocumentNode = gql`
     me(callerOrigin: "FRONT") {
       isConcurrentSession
       permissions(entity: USER)
+      remember
       role(entity: USER)
       sessionExpiration
       userEmail
@@ -45,8 +54,9 @@ const GET_USER: DocumentNode = gql`
 `;
 
 export {
+  ACCEPT_LEGAL_MUTATION,
+  ACKNOWLEDGE_CONCURRENT_SESSION,
   ADD_STAKEHOLDER_MUTATION,
   GET_USER,
   GET_USER_PERMISSIONS,
-  ACKNOWLEDGE_CONCURRENT_SESSION,
 };

@@ -25,6 +25,7 @@ describe("Dashboard", (): void => {
       me: {
         isConcurrentSession: false,
         permissions: ["dummyPermission", "dummyPermissionBrother"],
+        remember: false,
         sessionExpiration: "2021-01-20 21:37:37.944176",
         userEmail: "",
         userName: "",

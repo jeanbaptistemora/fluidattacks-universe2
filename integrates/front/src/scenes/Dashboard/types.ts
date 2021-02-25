@@ -9,6 +9,7 @@ interface IUser {
   me: {
     isConcurrentSession: boolean;
     permissions: string[];
+    remember: boolean;
     sessionExpiration: string;
     userEmail: string;
     userName: string;

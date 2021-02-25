@@ -6,7 +6,6 @@ import { Preloader } from "components/Preloader";
 import React from "react";
 import ReactDOM from "react-dom";
 import { Provider as ReduxProvider } from "react-redux";
-import { Registration } from "scenes/Registration";
 import { ToastContainer } from "react-toastify";
 import { authContext } from "utils/auth";
 import { getEnvironment } from "utils/environment";
@@ -40,7 +39,6 @@ const App: React.FC = (): JSX.Element => {
                   <authContext.Provider value={{ ...user, setUser }}>
                     <Switch>
                       <Route component={Login} exact={true} path={"/"} />
-                      <Route component={Registration} path={"/registration"} />
                       <Route component={Dashboard} path={"/"} />
                     </Switch>
                   </authContext.Provider>

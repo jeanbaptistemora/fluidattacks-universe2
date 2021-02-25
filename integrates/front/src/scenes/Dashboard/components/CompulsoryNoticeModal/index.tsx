@@ -18,9 +18,14 @@ export const CompulsoryNotice: React.FC<ICompulsoryNoticeProps> = (
 ): JSX.Element => {
   const { open, content, onAccept } = props;
 
-  function handleSubmit(values: { remember: boolean }): void {
-    onAccept(values.remember);
-  }
+  const handleSubmit: (values: {
+    remember: boolean;
+  }) => void = React.useCallback(
+    (values: { remember: boolean }): void => {
+      onAccept(values.remember);
+    },
+    [onAccept]
+  );
 
   return (
     <Modal headerTitle={translate.t("legalNotice.title")} open={open}>

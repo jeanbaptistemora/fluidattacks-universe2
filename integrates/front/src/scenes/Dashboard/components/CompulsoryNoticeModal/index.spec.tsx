@@ -1,4 +1,4 @@
-import { CompulsoryNotice } from "scenes/Registration/components/CompulsoryNotice";
+import { CompulsoryNotice } from "scenes/Dashboard/components/CompulsoryNoticeModal";
 import { Provider } from "react-redux";
 import React from "react";
 import store from "store";

@@ -3,6 +3,7 @@ import { AddOrganizationModal } from "scenes/Dashboard/components/AddOrganizatio
 import { AddUserModal } from "scenes/Dashboard/components/AddUserModal";
 import type { ApolloError } from "apollo-client";
 import Bugsnag from "@bugsnag/js";
+import { CompulsoryNotice } from "scenes/Dashboard/components/CompulsoryNoticeModal";
 import { ConcurrentSessionNotice } from "scenes/Dashboard/components/ConcurrentSessionNoticeModal";
 import { ConfirmDialog } from "components/ConfirmDialog";
 import type { GraphQLError } from "graphql";
@@ -27,6 +28,7 @@ import style from "scenes/Dashboard/index.css";
 import { translate } from "utils/translations/translate";
 import { useAddStakeholder } from "scenes/Dashboard/hooks";
 import {
+  ACCEPT_LEGAL_MUTATION,
   ACKNOWLEDGE_CONCURRENT_SESSION,
   GET_USER,
 } from "scenes/Dashboard/queries";
@@ -54,37 +56,44 @@ export const Dashboard: React.FC = (): JSX.Element => {
   const [userRole, setUserRole] = React.useState<string | undefined>(undefined);
 
   const [isTokenModalOpen, setTokenModalOpen] = React.useState(false);
-  function openTokenModal(): void {
+  const openTokenModal: () => void = React.useCallback((): void => {
     setTokenModalOpen(true);
-  }
-  function closeTokenModal(): void {
+  }, []);
+
+  const closeTokenModal: () => void = React.useCallback((): void => {
     setTokenModalOpen(false);
-  }
+  }, []);
 
   const [
     addStakeholder,
     isUserModalOpen,
     toggleUserModal,
   ] = useAddStakeholder();
-  function handleAddUserSubmit(values: IStakeholderAttrs): void {
-    void addStakeholder({ variables: values });
-  }
-  function openUserModal(): void {
+  const handleAddUserSubmit: (
+    values: IStakeholderAttrs
+  ) => void = React.useCallback(
+    (values: IStakeholderAttrs): void => {
+      void addStakeholder({ variables: values });
+    },
+    [addStakeholder]
+  );
+
+  const openUserModal: () => void = React.useCallback((): void => {
     toggleUserModal(true);
-  }
-  function closeUserModal(): void {
+  }, [toggleUserModal]);
+  const closeUserModal: () => void = React.useCallback((): void => {
     toggleUserModal(false);
-  }
+  }, [toggleUserModal]);
 
   const [isOrganizationModalOpen, setOrganizationModalOpen] = React.useState(
     false
   );
-  function openOrganizationModal(): void {
+  const openOrganizationModal: () => void = React.useCallback((): void => {
     setOrganizationModalOpen(true);
-  }
-  function closeOrganizationModal(): void {
+  }, []);
+  const closeOrganizationModal: () => void = React.useCallback((): void => {
     setOrganizationModalOpen(false);
-  }
+  }, []);
 
   const permissions: PureAbility<string> = React.useContext(
     authzPermissionsContext
@@ -95,8 +104,9 @@ export const Dashboard: React.FC = (): JSX.Element => {
   );
 
   const [isCtSessionModalOpen, setCtSessionModalOpen] = React.useState(false);
+  const [isLegalModalOpen, setLegalModalOpen] = React.useState(false);
 
-  useQuery<IUser>(GET_USER, {
+  const { data } = useQuery<IUser>(GET_USER, {
     onCompleted: ({ me }): void => {
       user.setUser({ userEmail: me.userEmail, userName: me.userName });
       Bugsnag.setUser(me.userEmail, me.userEmail, me.userName);
@@ -120,12 +130,28 @@ export const Dashboard: React.FC = (): JSX.Element => {
       }
       if (me.isConcurrentSession) {
         setCtSessionModalOpen(true);
+      } else if (
+        !me.remember &&
+        document.referrer == "https://integrates.fluidattacks.com/"
+      ) {
+        setLegalModalOpen(true);
       }
     },
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
         msgError(translate.t("group_alerts.error_textsad"));
         Logger.error("Couldn't load user-level permissions", error);
+      });
+    },
+  });
+
+  const [acceptLegal] = useMutation(ACCEPT_LEGAL_MUTATION, {
+    onError: ({ graphQLErrors }: ApolloError): void => {
+      graphQLErrors.forEach((error: GraphQLError): void => {
+        Logger.error(
+          "An error occurred while accepting user legal notice",
+          error
+        );
       });
     },
   });
@@ -141,10 +167,24 @@ export const Dashboard: React.FC = (): JSX.Element => {
     },
   });
 
-  function handleConcurrent(): void {
+  const handleConcurrent: () => void = React.useCallback((): void => {
     setCtSessionModalOpen(false);
+    if (
+      !(data?.me.remember ?? false) &&
+      document.referrer == "https://integrates.fluidattacks.com/"
+    ) {
+      setLegalModalOpen(true);
+    }
     void acknowledgeConcurrent();
-  }
+  }, [data?.me.remember, acknowledgeConcurrent]);
+
+  const handleAccept: (remember: boolean) => void = React.useCallback(
+    (remember: boolean): void => {
+      setLegalModalOpen(false);
+      void acceptLegal({ variables: { remember } });
+    },
+    [acceptLegal]
+  );
 
   return (
     <React.Fragment>
@@ -235,6 +275,11 @@ export const Dashboard: React.FC = (): JSX.Element => {
       <ConcurrentSessionNotice
         onClick={handleConcurrent}
         open={isCtSessionModalOpen}
+      />
+      <CompulsoryNotice
+        content={translate.t("legalNotice.description")}
+        onAccept={handleAccept}
+        open={isLegalModalOpen}
       />
     </React.Fragment>
   );
