@@ -1,15 +1,19 @@
-import _ from "lodash";
-import React from "react";
-import { useLocation, useParams } from "react-router";
 import { ChartsGenericView } from "scenes/Dashboard/containers/ChartsGenericView";
+import React from "react";
+import _ from "lodash";
+import { useLocation, useParams } from "react-router";
 
-const chartsForGroupView: React.FC = (): JSX.Element => {
+const ChartsForGroupView: React.FC = (): JSX.Element => {
   const params: { projectName: string } = useParams();
-  const searchParams: URLSearchParams = new URLSearchParams(useLocation().search);
+  const searchParams: URLSearchParams = new URLSearchParams(
+    useLocation().search
+  );
 
   const subjectFromSearchParams: string | null = searchParams.get("group");
 
-  const subject: string = _.isNull(subjectFromSearchParams) ? params.projectName : subjectFromSearchParams;
+  const subject: string = _.isNull(subjectFromSearchParams)
+    ? params.projectName
+    : subjectFromSearchParams;
 
   return (
     <React.StrictMode>
@@ -22,4 +26,4 @@ const chartsForGroupView: React.FC = (): JSX.Element => {
   );
 };
 
-export { chartsForGroupView as ChartsForGroupView };
+export { ChartsForGroupView };

@@ -5,6 +5,7 @@ src/scenes/Dashboard/**/*.*
 !src/scenes/Dashboard/**/hooks.ts
 !src/scenes/Dashboard/*.*
 !src/scenes/Dashboard/components/**
+!src/scenes/Dashboard/containers/ChartsForGroupView/**
 !src/scenes/Dashboard/containers/ChartsGenericView/components/ChartCols/index.tsx
 !src/scenes/Dashboard/containers/FindingContent/components/buttoncol/index.tsx
 !src/scenes/Dashboard/containers/GroupScopeView/**

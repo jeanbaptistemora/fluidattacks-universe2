@@ -1,10 +1,8 @@
 import { ChartsForGroupView } from "scenes/Dashboard/containers/ChartsForGroupView";
 
-describe("ChartsForGroupView", () => {
-
-  it("should return an function", () => {
-    expect(typeof (ChartsForGroupView))
-      .toEqual("function");
+describe("ChartsForGroupView", (): void => {
+  it("should return an function", (): void => {
+    expect.hasAssertions();
+    expect(typeof ChartsForGroupView).toStrictEqual("function");
   });
-
 });
