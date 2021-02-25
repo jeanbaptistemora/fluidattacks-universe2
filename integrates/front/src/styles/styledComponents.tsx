@@ -532,12 +532,12 @@ const StickyContainerOrg: StyledComponent<
 const Switch: StyledComponent<
   "div",
   Record<string, unknown>
-> = styled.div.attrs((props: { theme: { on: boolean } }): {
+> = styled.div.attrs((props: { theme: { on: boolean; color: string } }): {
   className: string;
 } => ({
   className:
     "ba br0 db overflow-hidden ph3 pointer pv2 relative switch-mh tc w-100 " +
-    (props.theme.on ? "bg-switch b--switch" : "bg-white b--moon-gray"),
+    (props.theme.on ? props.theme.color : "bg-white b--moon-gray"),
 }))``;
 
 const SwitchHandle: StyledComponent<

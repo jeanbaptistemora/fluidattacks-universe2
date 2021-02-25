@@ -22,10 +22,12 @@ export const changeZeroRiskRejectionFormatter: (
   return (
     <SwitchButton
       checked={row.acceptation === "REJECTED"}
+      fontSize={"cr-switch"}
       id={"zeroRiskRejectionSwitch"}
       offlabel={"NON REJECTED"}
       onChange={handleOnChange}
       onlabel={"REJECTED"}
+      switchColor={"green-switch"}
     />
   );
 };

@@ -14,6 +14,7 @@ body,
 :global(#root) {
   height: 100%;
   line-height: unset !important;
+  overflow-x: hidden;
 }
 
 body {
@@ -683,6 +684,20 @@ label {
 
 :global .bg-switch:hover {
   background-color: #c9302c;
+}
+
+:global .green-switch {
+  background-color: #5cb85c;
+  border-color: #5cb85c;
+}
+
+:global .green-switch:hover {
+  background-color: #3faf3f;
+  border-color: #3faf3f;
+}
+
+:global .cr-switch {
+  font-size: 10px;
 }
 
 :global .bottom-9 {

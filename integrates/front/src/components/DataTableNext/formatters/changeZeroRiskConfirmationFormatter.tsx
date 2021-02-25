@@ -22,10 +22,12 @@ export const changeZeroRiskConfirmationFormatter: (
   return (
     <SwitchButton
       checked={row.acceptation === "APPROVED"}
+      fontSize={"cr-switch"}
       id={"zeroRiskConfirmSwitch"}
       offlabel={"NON CONFIRMED"}
       onChange={handleOnChange}
       onlabel={"CONFIRMED"}
+      switchColor={"green-switch"}
     />
   );
 };
