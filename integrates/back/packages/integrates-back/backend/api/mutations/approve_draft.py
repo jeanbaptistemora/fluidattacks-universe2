@@ -37,7 +37,7 @@ async def mutate(
     group_name = await finding_domain.get_project(draft_id)
 
     success, release_date = await finding_domain.approve_draft(
-        info.context.loaders,
+        info.context,
         draft_id,
         reviewer_email
     )

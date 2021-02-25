@@ -76,9 +76,9 @@ async def approve_draft(
     draft_id: str,
     reviewer_email: str
 ) -> Tuple[bool, str]:
-    finding_all_vulns_loader = context.finding_vulns_all
-    finding_vulns_loader = context.finding_vulns_nzr
-    finding_loader = context.finding
+    finding_all_vulns_loader = context.loaders.finding_vulns_all
+    finding_vulns_loader = context.loaders.finding_vulns_nzr
+    finding_loader = context.loaders.finding
     draft_data = await finding_loader.load(draft_id)
     release_date: str = ''
     success = False
@@ -104,6 +104,7 @@ async def approve_draft(
                 history.append({
                     'date': release_date,
                     'analyst': reviewer_email,
+                    'source': util.get_source(context),
                     'state': 'APPROVED'
                 })
                 finding_update_success = await finding_dal.update(draft_id, {
