@@ -234,7 +234,7 @@ const findingContent: React.FC = (): JSX.Element => {
             <React.Fragment>
               <Row>
                 <Col60>
-                  <h2>{headerData.finding.title}</h2>
+                  <h1>{headerData.finding.title}</h1>
                 </Col60>
                 <ButtonCol>
                   <FindingActions

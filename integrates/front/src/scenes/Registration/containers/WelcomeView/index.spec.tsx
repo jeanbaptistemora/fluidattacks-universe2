@@ -82,7 +82,7 @@ describe("Welcome view", (): void => {
       </MockedProvider>
     );
 
-    expect(wrapper.find("h3").text()).toContain(
+    expect(wrapper.find("h2").text()).toContain(
       translate.t("registration.concurrent_session_message")
     );
   });

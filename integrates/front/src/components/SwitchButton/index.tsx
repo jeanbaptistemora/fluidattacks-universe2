@@ -10,17 +10,19 @@ import {
 interface ISwitchButtonProps {
   checked: boolean;
   disabled?: boolean;
+  id?: string;
   offlabel: string;
   onChange?: (checked: boolean) => void;
   onlabel: string;
 }
 
-export const SwitchButton: React.FC<ISwitchButtonProps> = (
+const SwitchButton: React.FC<ISwitchButtonProps> = (
   props: Readonly<ISwitchButtonProps>
 ): JSX.Element => {
   const {
     checked,
     disabled = false,
+    id,
     offlabel,
     onChange = undefined,
     onlabel,
@@ -34,6 +36,7 @@ export const SwitchButton: React.FC<ISwitchButtonProps> = (
 
   return (
     <Switch
+      id={id}
       onClick={disabled ? undefined : handleClick}
       theme={{ on: checked }}
     >
@@ -45,3 +48,5 @@ export const SwitchButton: React.FC<ISwitchButtonProps> = (
     </Switch>
   );
 };
+
+export { SwitchButton, ISwitchButtonProps };

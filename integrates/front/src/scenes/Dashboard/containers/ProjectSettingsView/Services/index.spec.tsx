@@ -214,25 +214,16 @@ describe("Services", () => {
 
     const integratesSwitch: (() => ReactWrapper) = (): ReactWrapper =>
       integratesRow()
-        .find("td")
-        .at(1)
-        .find("e")
-        .find("div")
-        .first();
+        .find("#integratesSwitch")
+        .at(0);
     const drillsSwitch: (() => ReactWrapper) = (): ReactWrapper =>
       drillsRow()
-        .find("td")
-        .at(1)
-        .find("e")
-        .find("div")
-        .first();
+        .find("#drillsSwitch")
+        .at(0);
     const forcesSwitch: (() => ReactWrapper) = (): ReactWrapper =>
       forcesRow()
-        .find("td")
-        .at(1)
-        .find("e")
-        .find("div")
-        .first();
+        .find("#forcesSwitch")
+        .at(0);
 
     expect(formValues())
       .toEqual({

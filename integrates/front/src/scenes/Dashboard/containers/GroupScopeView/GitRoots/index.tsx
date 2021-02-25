@@ -306,7 +306,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
 
   return (
     <React.Fragment>
-      <h3>{t("group.scope.git.title")}</h3>
+      <h2>{t("group.scope.git.title")}</h2>
       <ButtonToolbarRow>
         <Can do={"backend_api_mutations_add_git_root_mutate"}>
           <div className={"mb3"}>

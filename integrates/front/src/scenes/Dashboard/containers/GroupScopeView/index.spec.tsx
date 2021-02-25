@@ -1,4 +1,3 @@
-import BootstrapSwitchButton from "bootstrap-switch-button-react";
 import { Button } from "components/Button";
 import { ConfirmDialog } from "components/ConfirmDialog";
 import { GroupScopeView } from ".";
@@ -543,7 +542,7 @@ describe("GroupScopeView", (): void => {
     const getStateSwitch: () => ReactWrapper = (): ReactWrapper => {
       const firstTableRow: ReactWrapper = wrapper.find("tr").at(1);
 
-      return firstTableRow.find(BootstrapSwitchButton) as ReactWrapper;
+      return firstTableRow.find("#rootSwitch").at(0) as ReactWrapper;
     };
 
     expect(getStateSwitch().prop("checked")).toStrictEqual(true);

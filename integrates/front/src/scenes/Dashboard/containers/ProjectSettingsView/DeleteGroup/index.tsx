@@ -58,9 +58,9 @@ const DeleteGroup: React.FC = (): JSX.Element => {
     <React.StrictMode>
       <LastProjectSetting>
         <Flex>
-          <h3>
+          <h2>
             {t("search_findings.services_table.delete_group.delete_group")}
-          </h3>
+          </h2>
         </Flex>
         <Row>
           <ProjectScopeText>

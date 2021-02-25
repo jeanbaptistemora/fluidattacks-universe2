@@ -1,6 +1,6 @@
-import BootstrapSwitchButton from "bootstrap-switch-button-react";
 import type { IHeaderConfig } from "components/DataTableNext/types";
 import React from "react";
+import { SwitchButton } from "components/SwitchButton";
 
 export const changeVulnTreatmentFormatter: (
   value: string,
@@ -20,15 +20,12 @@ export const changeVulnTreatmentFormatter: (
   }
 
   return (
-    <BootstrapSwitchButton
+    <SwitchButton
       checked={!("acceptation" in row) || row.acceptation !== "REJECTED"}
+      id={"vulnTreatmentSwitch"}
       offlabel={"REJECTED"}
       onChange={handleOnChange}
       onlabel={"APPROVED"}
-      onstyle={"danger"}
-      // Disable to apply custom styles to the switch button.
-      // eslint-disable-next-line react/forbid-component-props, react/style-prop-object
-      style={"btn-block"}
     />
   );
 };

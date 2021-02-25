@@ -6,7 +6,7 @@ export { DateTime } from "utils/forms/fields/DateTime";
 export { Dropdown } from "utils/forms/fields/Dropdown";
 export { FileInput } from "utils/forms/fields/FileInput";
 export { PhoneNumber } from "utils/forms/fields/PhoneNumber";
-export { SwitchButton } from "utils/forms/fields/SwitchButton";
+export { FormSwitchButton } from "utils/forms/fields/SwitchButton";
 export { TagInput } from "utils/forms/fields/TagInput";
 export { Text } from "utils/forms/fields/Text";
 export { TextArea } from "utils/forms/fields/TextArea";

@@ -144,7 +144,7 @@ const portfolio: React.FC<IPortfolioProps> = (props: IPortfolioProps): JSX.Eleme
     <React.StrictMode>
       <Row>
         <Col60 className={"pa0"}>
-          <h3>{translate.t("search_findings.tab_resources.tags.title")}<Badge>pro</Badge></h3>
+          <h2>{translate.t("search_findings.tab_resources.tags.title")}<Badge>pro</Badge></h2>
         </Col60>
         <Col40 className={"pa0"}>
           <ButtonToolbar>

@@ -142,10 +142,8 @@ describe("handle vulns acceptation modal", (): void => {
       target: { value: "This is a justification test" },
     });
     const switchButton: ReactWrapper = wrapper
-      .find("BootstrapTable")
-      .find("e")
-      .find("div")
-      .first();
+      .find("#vulnTreatmentSwitch")
+      .at(0);
     switchButton.simulate("click");
     const form: ReactWrapper = wrapper.find("form");
     form.at(0).simulate("submit");
@@ -401,8 +399,8 @@ describe("handle vulns acceptation modal", (): void => {
       IZeroRiskConfirmationTableProps
     >> = wrapper.find(ZeroRiskConfirmationTable);
     const requestedZeroRiskSwitch: ReactWrapper = zeroRiskConfirmationTable
-      .find("SimpleRow")
-      .find(".switch");
+      .find("#zeroRiskConfirmSwitch")
+      .at(0);
     requestedZeroRiskSwitch.simulate("click");
 
     const form: ReactWrapper = wrapper.find("form");
@@ -566,8 +564,8 @@ describe("handle vulns acceptation modal", (): void => {
       IZeroRiskConfirmationTableProps
     >> = wrapper.find(ZeroRiskConfirmationTable);
     const requestedZeroRiskSwitch: ReactWrapper = zeroRiskConfirmationTable
-      .find("SimpleRow")
-      .find(".switch");
+      .find("#zeroRiskConfirmSwitch")
+      .at(0);
     requestedZeroRiskSwitch.simulate("click");
 
     const form: ReactWrapper = wrapper.find("form");
@@ -724,8 +722,8 @@ describe("handle vulns acceptation modal", (): void => {
       IZeroRiskRejectionTableProps
     >> = wrapper.find(ZeroRiskRejectionTable);
     const requestedZeroRiskSwitch: ReactWrapper = zeroRiskRejectionTable
-      .find("SimpleRow")
-      .find(".switch");
+      .find("#zeroRiskRejectionSwitch")
+      .at(0);
     requestedZeroRiskSwitch.simulate("click");
 
     const form: ReactWrapper = wrapper.find("form");
@@ -889,8 +887,8 @@ describe("handle vulns acceptation modal", (): void => {
       IZeroRiskRejectionTableProps
     >> = wrapper.find(ZeroRiskRejectionTable);
     const requestedZeroRiskSwitch: ReactWrapper = zeroRiskRejectionTable
-      .find("SimpleRow")
-      .find(".switch");
+      .find("#zeroRiskRejectionSwitch")
+      .at(0);
     requestedZeroRiskSwitch.simulate("click");
 
     const form: ReactWrapper = wrapper.find("form");

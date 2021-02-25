@@ -29,6 +29,8 @@
   color: #ff3435;
   border: 1px solid #ff3435;
   background-color: #f5ad99;
+  font-size: small;
+  height: 35px;
   padding: 0;
 }
 
@@ -59,7 +61,7 @@
 }
 
 :local .inputfile_evidence + label > span {
-  width: 130px;
+  width: 80px;
   min-height: 2em;
   display: inline-block;
   text-overflow: ellipsis;
@@ -99,7 +101,6 @@
   display: block;
   width: 100% !important;
   resize: none;
-  height: 44px;
   padding: 10px 12px;
   font-size: 16px !important;
   line-height: 1.42857143;

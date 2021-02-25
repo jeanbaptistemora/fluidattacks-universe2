@@ -17,7 +17,7 @@ const StyledTwoFaButton: StyledComponent<
   "button",
   Record<string, unknown>
 > = styled.button.attrs({
-  className: "dim w-100 db ba br0 outline-0 white",
+  className: "dim w-100 db ba br0 pointer outline-0 white",
 })``;
 
 const TwoFaButton: React.FC<ITwoFaButtonProps> = (

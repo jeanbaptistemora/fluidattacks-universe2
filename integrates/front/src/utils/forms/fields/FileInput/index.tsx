@@ -51,7 +51,7 @@ export const FileInput: React.FC<IFileInputProps> = (
             onClick={onClick}
             type={"file"}
           />
-          <strong>
+          <strong className={"f7"}>
             <FontAwesomeIcon icon={faSearch} /> {"Explore"}&hellip;
           </strong>
         </ControlLabel>

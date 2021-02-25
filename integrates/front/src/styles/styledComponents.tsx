@@ -157,7 +157,7 @@ const EditableFieldNotUrl: StyledComponent<
   "p",
   Record<string, unknown>
 > = styled.p.attrs({
-  className: "f3 w-fit-content ws-pre-wrap ww-break-word",
+  className: "f5 w-fit-content ws-pre-wrap ww-break-word ma0",
 })``;
 
 const EditableFieldTitle25: StyledComponent<
@@ -180,7 +180,7 @@ const EvidenceDescription: StyledComponent<
 > = styled.div.attrs<{
   className: string;
 }>({
-  className: "f3 w-100",
+  className: "f5 w-100",
 })``;
 
 const EventHeaderGrid: StyledComponent<
@@ -222,7 +222,7 @@ const FindingHeaderIndicator: StyledComponent<
   "p",
   Record<string, unknown>
 > = styled.p.attrs({
-  className: "f2",
+  className: "f3 ma0",
 })``;
 
 const FindingHeaderLabel: StyledComponent<
@@ -263,7 +263,7 @@ const GraphicPanelCollapseBody: StyledComponent<
   "div",
   Record<string, unknown>
 > = styled.div.attrs({
-  className: "pa4 items-center panel-cb",
+  className: "pa2 items-center panel-cb",
 })``;
 
 const GraphicPanelCollapseHeader: StyledComponent<
@@ -327,14 +327,14 @@ const ModalHeader: StyledComponent<
   "div",
   Record<string, unknown>
 > = styled.div.attrs({
-  className: "bg-orgred modalh-bb pv4 ph3 white",
+  className: "bg-orgred modalh-bb pv3 ph2 white",
 })``;
 
 const ModalTitle: StyledComponent<
   "h4",
   Record<string, unknown>
 > = styled.h4.attrs({
-  className: "color-inherit fw3 f2 lh-solid ma0 montserrat tc",
+  className: "color-inherit fw3 f3 lh-solid ma0 montserrat tc",
 })``;
 
 const NavBar: StyledComponent<
@@ -450,7 +450,7 @@ const ProjectScopeText: StyledComponent<
 > = styled.div.attrs<{
   className: string;
 }>({
-  className: "ph1-5 vertical-center w-60-ns fw2 f2-5",
+  className: "ph1-5 vertical-center w-60-ns fw2 f4",
 })``;
 
 const QuestionButton: StyledComponent<
@@ -577,7 +577,7 @@ const SwitchOn: StyledComponent<
 const Tab: StyledComponent<"div", Record<string, unknown>> = styled.div.attrs<{
   className: string;
 }>({
-  className: "a-bg-white a-db a-gray a-pv a-relative tc",
+  className: "a-bg-white a-db a-gray a-pv a-relative tc nowrap",
 })``;
 
 const TabContent: StyledComponent<
@@ -587,6 +587,24 @@ const TabContent: StyledComponent<
   className: string;
 }>({
   className: "bg-white pa4 mb5",
+})``;
+
+const TableOptionsColBar: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs<{
+  className: string;
+}>({
+  className: "dib ma0 pa0 w-60-ns",
+})``;
+
+const TableOptionsColBtn: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs<{
+  className: string;
+}>({
+  className: "dib pa0 w-40-ns table-btn",
 })``;
 
 const TabsContainer: StyledComponent<
@@ -602,7 +620,7 @@ const TrackingLabel: StyledComponent<
   "p",
   Record<string, unknown>
 > = styled.p.attrs({
-  className: "f3 mv0 w-fit-content ws-pre-wrap ww-break-word",
+  className: "f5 mv0 w-fit-content ws-pre-wrap ww-break-word",
 })``;
 
 const ValidationError: StyledComponent<
@@ -696,6 +714,8 @@ export {
   SwitchOn,
   Tab,
   TabContent,
+  TableOptionsColBar,
+  TableOptionsColBtn,
   TabsContainer,
   TrackingLabel,
   ValidationError,

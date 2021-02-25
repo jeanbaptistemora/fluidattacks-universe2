@@ -20,7 +20,7 @@ const StyledLoginButton: StyledComponent<
   Record<string, unknown>
 > = styled.button.attrs({
   className:
-    "dim w-100 flex ba br0 pa2 outline-0 justify-between items-center btn-login white",
+    "dim w-100 flex ba br0 pa2 outline-0 pointer justify-between items-center btn-login white",
 })``;
 
 const LoginButton: React.FC<ILoginButtonProps> = (

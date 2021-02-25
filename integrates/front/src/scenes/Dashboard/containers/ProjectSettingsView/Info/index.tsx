@@ -51,9 +51,9 @@ const groupInformation: React.FC = (): JSX.Element => {
     <React.StrictMode>
       <LastProjectSetting>
         <Flex>
-          <h3>
+          <h2>
             {translate.t("search_findings.info_table.title")}
-          </h3>
+          </h2>
         </Flex>
         <DataTableNext
           bordered={true}

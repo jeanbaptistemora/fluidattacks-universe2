@@ -7,13 +7,19 @@
 }
 
 :local .tableWrapper table {
+  border-spacing: 0;
+  border: 1px solid #ddd;
   table-layout: auto !important;
+  width: 100%;
+  margin-bottom: 20px;
 }
 
 :local .tableHeader > th,
 .tableBody > td {
   overflow: hidden;
   text-overflow: ellipsis;
+  border-top: 1px solid #ddd;
+  border-right: 1px solid #ddd;
   white-space: pre-wrap;
 }
 
@@ -27,14 +33,19 @@
   text-align: center !important;
   vertical-align: middle !important;
   font-weight: 400;
+  padding: 8px;
 }
 
 :local .tableBody {
   cursor: pointer;
 }
 
-:local .tableBody > td {
+:local .tableBody > td,
+:local .tableBody > tr {
   vertical-align: middle;
+  padding: 8px;
+  padding-bottom: 5px;
+  padding-top: 5px;
 }
 
 :local .label {
@@ -52,6 +63,7 @@
 :local .exportCsv {
   composes: button from "../Button/index.css";
   margin-top: -5px;
+  margin-left: 8px !important;
 }
 
 :local .tableModalContainer {

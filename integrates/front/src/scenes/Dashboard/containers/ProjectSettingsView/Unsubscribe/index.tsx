@@ -62,7 +62,7 @@ const Unsubscribe: React.FC = (): JSX.Element => {
     <React.StrictMode>
       <LastProjectSetting>
         <Row>
-          <h3>{t("search_findings.services_table.unsubscribe.title")}</h3>
+          <h2>{t("search_findings.services_table.unsubscribe.title")}</h2>
         </Row>
         <Row>
           <ProjectScopeText>

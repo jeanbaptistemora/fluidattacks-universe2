@@ -85,7 +85,7 @@ const GitModal: React.FC<IGitModalProps> = ({
         {({ pristine, submitting }: InjectedFormProps): JSX.Element => (
           <React.Fragment>
             <React.Fragment>
-              <fieldset>
+              <fieldset className={"bn"}>
                 <legend className={"f3 b"}>
                   {t("group.scope.git.repo.title")}
                 </legend>
@@ -133,7 +133,7 @@ const GitModal: React.FC<IGitModalProps> = ({
                   </div>
                 </div>
               </fieldset>
-              <fieldset>
+              <fieldset className={"bn"}>
                 <legend className={"f3 b"}>
                   {t("group.scope.git.healthCheck.title")}
                 </legend>
@@ -163,7 +163,7 @@ const GitModal: React.FC<IGitModalProps> = ({
                 </div>
               </fieldset>
               <Can do={"update_git_root_filter"}>
-                <fieldset>
+                <fieldset className={"bn"}>
                   <TooltipWrapper
                     displayClass={"dib"}
                     id={"group.scope.git.filter.tooltip.info"}

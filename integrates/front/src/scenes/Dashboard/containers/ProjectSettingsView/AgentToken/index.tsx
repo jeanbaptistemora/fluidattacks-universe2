@@ -24,9 +24,9 @@ const agentToken: React.FC<IServicesProps> = (props: IServicesProps): JSX.Elemen
     <React.StrictMode>
       <LastProjectSetting>
         <Flex>
-          <h3>
+          <h2>
             {translate.t("search_findings.agent_token_section.title")}
-          </h3>
+          </h2>
         </Flex>
         <ProjectScopeText>
             {t("search_findings.agent_token_section.about")}

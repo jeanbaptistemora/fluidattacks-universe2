@@ -9,7 +9,7 @@ const StyledBadge: StyledComponent<
   className: string;
 }>({
   className:
-    "bg-red br4 dib badge-size fw7 lh-solid ml2 mr1 nowrap ph2 pv1 relative tc v-top white",
+    "bg-red br4 dib badge-size fw7 lh-solid ml2 mr1 nowrap ph1 pv1 relative tc v-top white",
 })``;
 
 export interface IBadgeProps {

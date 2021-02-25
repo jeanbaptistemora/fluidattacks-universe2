@@ -251,11 +251,7 @@ describe("update verification component", (): void => {
           "This is a commenting test of a verifying request verification in vulns",
       },
     });
-    const switchButton: ReactWrapper = wrapper
-      .find("BootstrapTable")
-      .find("e")
-      .find("div")
-      .first();
+    const switchButton: ReactWrapper = wrapper.find("#vulnStateSwitch").at(0);
     switchButton.simulate("click");
     const form: ReactWrapper = wrapper.find("form");
     form.at(0).simulate("submit");

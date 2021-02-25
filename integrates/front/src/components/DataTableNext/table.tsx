@@ -23,8 +23,8 @@ import {
   ButtonGroup,
   ButtonToolbarLeft,
   ButtonToolbarRow,
-  Col33,
-  Col40,
+  TableOptionsColBar,
+  TableOptionsColBtn,
 } from "styles/styledComponents";
 import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
 
@@ -82,7 +82,7 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
   return (
     <div>
       <div className={style.tableOptions}>
-        <Col40 className={"pa0"}>
+        <TableOptionsColBtn>
           {(exportCsv || columnToggle || !_.isUndefined(isFilterEnabled)) && (
             <ButtonToolbarLeft>
               {exportCsv && (
@@ -118,13 +118,13 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
               )}
             </ButtonToolbarLeft>
           )}
-        </Col40>
+        </TableOptionsColBtn>
         {search && (
-          <ButtonToolbarRow>
-            <Col33 className={"pa0"}>
+          <TableOptionsColBar>
+            <ButtonToolbarRow>
               <SearchBar {...searchProps} className={style.searchBar} />
-            </Col33>
-          </ButtonToolbarRow>
+            </ButtonToolbarRow>
+          </TableOptionsColBar>
         )}
       </div>
       <BootstrapTable
@@ -146,9 +146,8 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
         rowEvents={rowEvents}
         selectRow={selectionMode}
         striped={striped}
-        wrapperClasses={`table-responsive ${style.tableWrapper} ${
-          bordered ? "" : style.borderNone
-        }`}
+        wrapperClasses={`table-responsive mw-100 overflow-x-auto
+          ${style.tableWrapper} ${bordered ? "" : style.borderNone}`}
       />
     </div>
   );

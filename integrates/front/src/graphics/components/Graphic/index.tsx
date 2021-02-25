@@ -16,6 +16,7 @@ import { translate } from "utils/translations/translate";
 import useComponentSize from "@rehooks/component-size";
 import {
   ButtonGroup,
+  ButtonToolbar,
   GraphicButton,
   GraphicPanelCollapse,
   GraphicPanelCollapseBody,
@@ -179,7 +180,7 @@ export const Graphic: React.FC<IGraphicProps> = (
           <div className={"w-100"}>
             <div className={styles.titleBar}>
               {title}
-              <ButtonGroup className={"fr"}>
+              <ButtonToolbar className={"f5"}>
                 <GraphicButton>
                   <a
                     className={"g-a"}
@@ -198,7 +199,7 @@ export const Graphic: React.FC<IGraphicProps> = (
                 <GraphicButton onClick={frameOnFullScreenExit}>
                   <FontAwesomeIcon icon={faTimes} />
                 </GraphicButton>
-              </ButtonGroup>
+              </ButtonToolbar>
             </div>
           </div>
         }

@@ -14,7 +14,7 @@ const Point: StyledComponent<
 > = styled.span.attrs<{
   className: string;
 }>({
-  className: "br-100 f3 ph3",
+  className: "br-100 f5 paPoint",
 })``;
 
 interface IPointStatus {

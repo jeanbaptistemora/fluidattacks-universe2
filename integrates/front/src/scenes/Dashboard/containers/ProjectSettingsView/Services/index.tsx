@@ -30,7 +30,8 @@ import {
   IServicesProps,
 } from "scenes/Dashboard/containers/ProjectSettingsView/Services/types";
 import { Alert, ButtonToolbar, Col100, Col80, ControlLabel, FormGroup, Row, Well } from "styles/styledComponents";
-import { Dropdown, SwitchButton, Text, TextArea } from "utils/forms/fields";
+import { Dropdown, Text, TextArea } from "utils/forms/fields";
+import { FormSwitchButton } from "utils/forms/fields/SwitchButton";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 import { translate } from "utils/translations/translate";
@@ -181,16 +182,19 @@ const services: React.FC<IServicesProps> = (props: IServicesProps): JSX.Element 
   const servicesList: IServicesDataSet[] = [
     {
       canHave: true,
+      id: "integratesSwitch",
       onChange: handleIntegratesBtnChange,
       service: "integrates",
     },
     {
       canHave: true,
+      id: "drillsSwitch",
       onChange: handleDrillsBtnChange,
       service: "drills",
     },
     {
       canHave: isContinuousType(formValues.type),
+      id: "forcesSwitch",
       onChange: handleForcesBtnChange,
       service: "forces",
     },
@@ -224,15 +228,13 @@ const services: React.FC<IServicesProps> = (props: IServicesProps): JSX.Element 
       <React.Fragment>
         <FormGroup>
           <Field
-            component={SwitchButton}
+            component={FormSwitchButton}
             name={element.service}
             props={{
-              disabled: false,
+              id: element.id,
               offlabel: translate.t("search_findings.services_table.inactive"),
               onChange: _.isUndefined(element.onChange) ? undefined : element.onChange,
               onlabel: translate.t("search_findings.services_table.active"),
-              onstyle: "danger",
-              style: "btn-block",
             }}
             type="checkbox"
           />
@@ -259,7 +261,7 @@ const services: React.FC<IServicesProps> = (props: IServicesProps): JSX.Element 
       <div>
         <Row>
           <Col80 className={"pa0"}>
-            <h3>{translate.t("search_findings.services_table.services")}</h3>
+            <h2>{translate.t("search_findings.services_table.services")}</h2>
           </Col80>
         </Row>
         <GenericForm

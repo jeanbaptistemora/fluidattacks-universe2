@@ -212,7 +212,7 @@ const files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
     <React.StrictMode>
       <Row>
         <Col60 className={"pa0"}>
-          <h3>{translate.t("search_findings.tab_resources.files.title")}</h3>
+          <h2>{translate.t("search_findings.tab_resources.files.title")}</h2>
         </Col60>
         <Can do="backend_api_mutations_add_files_mutate">
           <Col40 className={"pa0"}>

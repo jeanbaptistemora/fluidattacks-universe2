@@ -86,7 +86,7 @@ export const WelcomeView: React.FC = (): JSX.Element => {
         {localStorage.getItem("concurrentSession") === "1" ? (
           <div>
             <Row>
-              <h3>{translate.t("registration.concurrent_session_message")}</h3>
+              <h2>{translate.t("registration.concurrent_session_message")}</h2>
             </Row>
             <Row>
               <Col100>

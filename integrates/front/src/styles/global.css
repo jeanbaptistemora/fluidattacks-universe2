@@ -123,6 +123,11 @@ label {
   color: #272727;
 }
 
+:global .paPoint {
+  padding-left: 0.6rem;
+  padding-right: 0.6rem;
+}
+
 :global .pagination > .active > a,
 :global .pagination > .active > span {
   background-color: #ff3435;
@@ -432,9 +437,20 @@ label {
   z-index: 1;
 }
 
+:global .table-btn {
+  margin-left: -7px;
+  margin-bottom: -10px;
+}
+
 :global .upload-file {
   margin-right: 40px;
   margin-left: 40px;
+}
+
+@media (max-width: 479px) {
+  :global .table-btn {
+    margin-bottom: 10px;
+  }
 }
 
 @media (max-width: 479px) {
@@ -728,7 +744,7 @@ label {
 }
 
 :global .menu-grid {
-  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(7rem, 1fr));
 }
 
 :global .meter-shadow {

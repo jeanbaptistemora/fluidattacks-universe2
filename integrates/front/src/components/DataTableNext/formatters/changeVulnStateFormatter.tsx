@@ -1,6 +1,6 @@
-import BootstrapSwitchButton from "bootstrap-switch-button-react";
 import type { IHeaderConfig } from "components/DataTableNext/types";
 import React from "react";
+import { SwitchButton } from "components/SwitchButton";
 
 export const changeVulnStateFormatter: (
   value: string,
@@ -20,15 +20,12 @@ export const changeVulnStateFormatter: (
   }
 
   return (
-    <BootstrapSwitchButton
+    <SwitchButton
       checked={!("currentState" in row) || row.currentState !== "closed"}
+      id={"vulnStateSwitch"}
       offlabel={"closed"}
       onChange={handleOnChange}
       onlabel={"open"}
-      onstyle={"danger"}
-      // Disable to apply custom styles to the switch button.
-      // eslint-disable-next-line react/forbid-component-props, react/style-prop-object
-      style={"btn-block"}
     />
   );
 };

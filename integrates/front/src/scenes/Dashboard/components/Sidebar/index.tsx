@@ -145,7 +145,7 @@ const sidebar: React.FC<ISidebarProps> = (
           message={"Log out of Integrates"}
           placement={"right"}
         >
-          <ul>
+          <ul className={"mt0"}>
             {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions */}
             <li onClick={onLogoutClick}>
               {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}

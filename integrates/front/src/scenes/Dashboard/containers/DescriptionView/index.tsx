@@ -181,7 +181,7 @@ const descriptionView: React.FC = (): JSX.Element => {
                     <ControlLabel>
                       <b>{translate.t("search_findings.tab_description.analyst")}</b>
                     </ControlLabel>
-                    <p>{dataset.analyst}</p>
+                    <p className={"ma0"}>{dataset.analyst}</p>
                   </FormGroup>
                 </Col45>
               </Can>
