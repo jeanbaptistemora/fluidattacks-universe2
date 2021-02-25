@@ -9,6 +9,7 @@ src/scenes/Dashboard/**/*.*
 !src/scenes/Dashboard/containers/ChartsForOrganizationView/**
 !src/scenes/Dashboard/containers/ChartsForPortfolioView/**
 !src/scenes/Dashboard/containers/ChartsGenericView/components/ChartCols/index.tsx
+!src/scenes/Dashboard/containers/ChartsGenericView/components/Extras/index.tsx
 !src/scenes/Dashboard/containers/ChartsGenericView/index.spec.tsx
 !src/scenes/Dashboard/containers/ChartsGenericView/queries.ts
 !src/scenes/Dashboard/containers/ChartsGenericView/types.ts

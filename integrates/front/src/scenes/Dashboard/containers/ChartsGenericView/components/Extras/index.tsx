@@ -1,27 +1,14 @@
-import { useMutation, useQuery } from "@apollo/react-hooks";
-import { faChartBar, faDownload, faHourglassHalf } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { ApolloError } from "apollo-client";
-import { ExecutionResult, GraphQLError } from "graphql";
-import _ from "lodash";
-import React from "react";
-
+import type { ApolloError } from "apollo-client";
 import { Badge } from "components/Badge";
 import { Button } from "components/Button";
-import { DropdownButton, MenuItem } from "components/DropdownButton";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Logger } from "utils/logger";
+import React from "react";
 import { TooltipWrapper } from "components/TooltipWrapper";
+import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import styles from "scenes/Dashboard/containers/ChartsGenericView/index.css";
-import {
-  SUBSCRIBE_TO_ENTITY_REPORT,
-  SUBSCRIPTIONS_TO_ENTITY_REPORT,
-} from "scenes/Dashboard/containers/ChartsGenericView/queries";
-import {
-  EntityType,
-  IChartsGenericViewProps,
-  ISubscriptionsToEntityReport,
-  ISubscriptionToEntityReport,
-} from "scenes/Dashboard/containers/ChartsGenericView/types";
+import { translate } from "utils/translations/translate";
 import {
   ButtonToolbarCenter,
   Col100,
@@ -30,100 +17,135 @@ import {
   PanelBody,
   Row,
 } from "styles/styledComponents";
-import { Logger } from "utils/logger";
+import { DropdownButton, MenuItem } from "components/DropdownButton";
+import type {
+  EntityType,
+  IChartsGenericViewProps,
+  ISubscriptionToEntityReport,
+  ISubscriptionsToEntityReport,
+} from "scenes/Dashboard/containers/ChartsGenericView/types";
+import type { ExecutionResult, GraphQLError } from "graphql";
+import {
+  SUBSCRIBE_TO_ENTITY_REPORT,
+  SUBSCRIPTIONS_TO_ENTITY_REPORT,
+} from "scenes/Dashboard/containers/ChartsGenericView/queries";
+import {
+  faChartBar,
+  faDownload,
+  faHourglassHalf,
+} from "@fortawesome/free-solid-svg-icons";
 import { msgError, msgSuccess } from "utils/notifications";
-import { translate } from "utils/translations/translate";
+import { useMutation, useQuery } from "@apollo/react-hooks";
 
-const frequencies: string[] = [
-  "daily",
-  "weekly",
-  "monthly",
-  "never",
-];
+const frequencies: string[] = ["daily", "weekly", "monthly", "never"];
 
-const translateFrequency: (freq: string, kind: "action" | "statement") => string =
-(freq: string, kind: "action" | "statement"): string => (
-  translate.t(`analytics.sections.extras.frequencies.${kind}.${freq}`)
-);
+const translateFrequency: (
+  freq: string,
+  kind: "action" | "statement"
+) => string = (freq: string, kind: "action" | "statement"): string =>
+  translate.t(`analytics.sections.extras.frequencies.${kind}.${freq}`);
 
-const translateFrequencyArrivalTime: (freq: string) => string =
-(freq: string): string => (
-  translate.t(`analytics.sections.extras.frequenciesArrivalTime.${freq}`)
-);
+const translateFrequencyArrivalTime: (freq: string) => string = (
+  freq: string
+): string =>
+  translate.t(`analytics.sections.extras.frequenciesArrivalTime.${freq}`);
 
-const chartsGenericViewExtras: React.FC<IChartsGenericViewProps> = (props: IChartsGenericViewProps): JSX.Element => {
+const ChartsGenericViewExtras: React.FC<IChartsGenericViewProps> = (
+  props: IChartsGenericViewProps
+): JSX.Element => {
   const { entity, subject } = props;
 
   const entityName: EntityType = entity;
-  const downloadPngUrl: URL = new URL("/graphics-report", window.location.origin);
+  const downloadPngUrl: URL = new URL(
+    "/graphics-report",
+    window.location.origin
+  );
   downloadPngUrl.searchParams.set("entity", entity);
   downloadPngUrl.searchParams.set(entityName, subject);
 
-  const { data: dataSubscriptions, refetch: refetchSubscriptions } =
-    useQuery<ISubscriptionsToEntityReport>(SUBSCRIPTIONS_TO_ENTITY_REPORT, {
-      onError: ({ graphQLErrors }: ApolloError): void => {
-        graphQLErrors.forEach((error: GraphQLError): void => {
-          msgError(translate.t("group_alerts.error_textsad"));
-          Logger.warning("An error occurred loading subscriptions info", error);
-        });
-      },
-    });
-
-  const [subscribe, { loading: loadingSubscribe }] = useMutation(SUBSCRIBE_TO_ENTITY_REPORT, {
-    onError: (updateError: ApolloError): void => {
-      updateError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
+  const { data: dataSubscriptions, refetch: refetchSubscriptions } = useQuery<
+    ISubscriptionsToEntityReport
+  >(SUBSCRIPTIONS_TO_ENTITY_REPORT, {
+    onError: ({ graphQLErrors }: ApolloError): void => {
+      graphQLErrors.forEach((error: GraphQLError): void => {
         msgError(translate.t("group_alerts.error_textsad"));
-        Logger.warning("An error occurred subscribing to charts", message);
+        Logger.warning("An error occurred loading subscriptions info", error);
       });
     },
   });
 
+  const [subscribe, { loading: loadingSubscribe }] = useMutation(
+    SUBSCRIBE_TO_ENTITY_REPORT,
+    {
+      onError: (updateError: ApolloError): void => {
+        updateError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
+          msgError(translate.t("group_alerts.error_textsad"));
+          Logger.warning("An error occurred subscribing to charts", message);
+        });
+      },
+    }
+  );
+
   if (_.isUndefined(dataSubscriptions) || _.isEmpty(dataSubscriptions)) {
-    return <React.Fragment />;
+    return <div />;
   }
 
-  const subscriptions: ISubscriptionToEntityReport[] =
-    dataSubscriptions.me.subscriptionsToEntityReport.filter(
-      (value: ISubscriptionToEntityReport) => (
-        value.entity.toLowerCase() === entity.toLowerCase()
-        && value.subject.toLocaleLowerCase() === subject.toLowerCase()
-      ),
-    );
+  const subscriptions: ISubscriptionToEntityReport[] = dataSubscriptions.me.subscriptionsToEntityReport.filter(
+    (value: ISubscriptionToEntityReport): boolean =>
+      value.entity.toLowerCase() === entity.toLowerCase() &&
+      value.subject.toLocaleLowerCase() === subject.toLowerCase()
+  );
 
-  const subscribeDropdownOnSelect: (key: string) => void =
-    (key: string): void => {
-      mixpanel.track(`Analytics${key === "never" ? "Uns" : "S"}ubscribe`);
-      subscribe({
-        variables: {
-          frequency: key.toUpperCase(),
-          reportEntity: entity.toUpperCase(),
-          reportSubject: subject,
-        },
-      })
-      .then(async (value: ExecutionResult<{ subscribeToEntityReport: { success: boolean } }>) => {
+  const subscribeDropdownOnSelect: (key: string) => void = (
+    key: string
+  ): void => {
+    mixpanel.track(`Analytics${key === "never" ? "Uns" : "S"}ubscribe`);
+    void subscribe({
+      variables: {
+        frequency: key.toUpperCase(),
+        reportEntity: entity.toUpperCase(),
+        reportSubject: subject,
+      },
+    }).then(
+      async (
+        value: ExecutionResult<{
+          subscribeToEntityReport: { success: boolean };
+        }>
+      ): Promise<void> => {
         if (
-          value.data !== null
-          && value.data !== undefined
-          && value.data.subscribeToEntityReport.success
+          // eslint-disable-next-line @typescript-eslint/prefer-optional-chain
+          value.data !== null &&
+          value.data !== undefined &&
+          value.data.subscribeToEntityReport.success
         ) {
           if (key.toLowerCase() === "never") {
             msgSuccess(
-              translate.t("analytics.sections.extras.unsubscribedSuccessfully.msg"),
-              translate.t("analytics.sections.extras.unsubscribedSuccessfully.title"),
+              translate.t(
+                "analytics.sections.extras.unsubscribedSuccessfully.msg"
+              ),
+              translate.t(
+                "analytics.sections.extras.unsubscribedSuccessfully.title"
+              )
             );
           } else {
             msgSuccess(
-              translate.t("analytics.sections.extras.subscribedSuccessfully.msg"),
-              translate.t("analytics.sections.extras.subscribedSuccessfully.title"),
+              translate.t(
+                "analytics.sections.extras.subscribedSuccessfully.msg"
+              ),
+              translate.t(
+                "analytics.sections.extras.subscribedSuccessfully.title"
+              )
             );
           }
           await refetchSubscriptions();
         }
-      });
-    };
+      }
+    );
+  };
 
-  const subscriptionFrequency: string =
-    _.isEmpty(subscriptions) ? "never" : subscriptions[0].frequency.toLowerCase();
+  const subscriptionFrequency: string = _.isEmpty(subscriptions)
+    ? "never"
+    : subscriptions[0].frequency.toLowerCase();
 
   return (
     <React.StrictMode>
@@ -136,55 +158,56 @@ const chartsGenericViewExtras: React.FC<IChartsGenericViewProps> = (props: IChar
                   <div className={styles.toolbarCentered}>
                     <ButtonToolbarCenter>
                       <a
+                        className={"mr2"}
                         download={`charts-${entity}-${subject}.png`}
                         href={downloadPngUrl.toString()}
-                        className={"mr2"}
                       >
-                        <Button
-                          className={"pv3"}
-                        >
+                        {/* eslint-disable-next-line react/forbid-component-props*/}
+                        <Button className={"pv3"}>
                           <FontAwesomeIcon icon={faDownload} />
-                            {translate.t("analytics.sections.extras.download")}
-                          <Badge>pro</Badge>
+                          {translate.t("analytics.sections.extras.download")}
+                          <Badge>{"pro"}</Badge>
                         </Button>
                       </a>
                       <DropdownButton
-                        id="subscribe-dropdown"
-                        width={"suscribeDropdownBtn"}
                         content={
-                          <React.Fragment>
-                            <div className={"tc"}>
-                              {loadingSubscribe
-                                ? <FontAwesomeIcon icon={faHourglassHalf} />
-                                : <FontAwesomeIcon icon={faChartBar} />}
-                              {`   ${translateFrequency(subscriptionFrequency, "statement")}`}
-                              <Badge>pro</Badge>
-                            </div>
-                          </React.Fragment>
+                          <div className={"tc"}>
+                            {loadingSubscribe ? (
+                              <FontAwesomeIcon icon={faHourglassHalf} />
+                            ) : (
+                              <FontAwesomeIcon icon={faChartBar} />
+                            )}
+                            {`   ${translateFrequency(
+                              subscriptionFrequency,
+                              "statement"
+                            )}`}
+                            <Badge>{"pro"}</Badge>
+                          </div>
                         }
-                        items={
-                          frequencies.map((freq: string): JSX.Element => (
+                        id={"subscribe-dropdown"}
+                        items={frequencies.map(
+                          (freq: string): JSX.Element => (
                             <TooltipWrapper
                               id={freq}
                               key={freq}
                               message={translateFrequencyArrivalTime(freq)}
-                              placement="right"
+                              placement={"right"}
                             >
                               <MenuItem
                                 eventKey={freq}
-                                key={freq}
-                                onClick={subscribeDropdownOnSelect}
                                 itemContent={
-                                  <React.Fragment>
-                                      <span>
-                                        {translateFrequency(freq, "action")}
-                                      </span>
-                                  </React.Fragment>
+                                  <span>
+                                    {translateFrequency(freq, "action")}
+                                  </span>
                                 }
+                                key={freq}
+                                // eslint-disable-next-line react/jsx-no-bind
+                                onClick={subscribeDropdownOnSelect}
                               />
                             </TooltipWrapper>
-
-                        ))}
+                          )
+                        )}
+                        width={"suscribeDropdownBtn"}
                       />
                     </ButtonToolbarCenter>
                   </div>
@@ -199,4 +222,4 @@ const chartsGenericViewExtras: React.FC<IChartsGenericViewProps> = (props: IChar
   );
 };
 
-export { chartsGenericViewExtras as ChartsGenericViewExtras };
+export { ChartsGenericViewExtras };
