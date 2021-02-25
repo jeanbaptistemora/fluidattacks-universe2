@@ -181,6 +181,7 @@ const eventEvidenceView: React.FC = (): JSX.Element => {
                 <EvidenceImage
                   acceptedMimes="image/gif,image/png"
                   content={showEmpty ? <div /> : `${location.href}/${data.event.evidence}`}
+                  date={data.event.evidenceDate}
                   description="Evidence"
                   isDescriptionEditable={false}
                   isEditing={isEditing}
@@ -199,6 +200,7 @@ const eventEvidenceView: React.FC = (): JSX.Element => {
                       <FontAwesomeIcon size={"1x"} icon={faFile} />
                     </div>
                   }
+                  date={data.event.evidenceFileDate}
                   description="File"
                   isDescriptionEditable={false}
                   isEditing={isEditing}

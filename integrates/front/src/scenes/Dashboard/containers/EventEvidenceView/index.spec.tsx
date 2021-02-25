@@ -35,7 +35,9 @@ describe("EventEvidenceView", () => {
           event: {
             eventStatus: "CREATED",
             evidence: "some_image.png",
+            evidenceDate: "2020-10-17 00:00:00",
             evidenceFile: "",
+            evidenceFileDate: "",
             id: "413372600",
           },
         },
@@ -64,7 +66,9 @@ describe("EventEvidenceView", () => {
           event: {
             eventStatus: "CREATED",
             evidence: "",
+            evidenceDate: "",
             evidenceFile: "",
+            evidenceFileDate: "",
             id: "413372600",
           },
         },
@@ -95,7 +99,9 @@ describe("EventEvidenceView", () => {
           event: {
             eventStatus: "CREATED",
             evidence: "some_image.png",
+            evidenceDate: "2020-10-17 00:00:00",
             evidenceFile: "some_file.pdf",
+            evidenceFileDate: "2020-10-17 00:00:00",
             id: "413372600",
           },
         },
@@ -128,7 +134,9 @@ describe("EventEvidenceView", () => {
           event: {
             eventStatus: "CREATED",
             evidence: "some_image.png",
+            evidenceDate: "2021-02-17 00:00:00",
             evidenceFile: "",
+            evidenceFileDate: "",
             id: "413372600",
           },
         },
@@ -162,7 +170,9 @@ describe("EventEvidenceView", () => {
           event: {
             eventStatus: "SOLVED",
             evidence: "",
+            evidenceDate: "",
             evidenceFile: "",
+            evidenceFileDate: "",
             id: "413372600",
           },
         },
@@ -202,7 +212,9 @@ describe("EventEvidenceView", () => {
             event: {
               eventStatus: "CLOSED",
               evidence: "",
+              evidenceDate: "",
               evidenceFile: "some_file.pdf",
+              evidenceFileDate: "2020-10-17 00:00:00",
               id: "413372600",
             },
           },

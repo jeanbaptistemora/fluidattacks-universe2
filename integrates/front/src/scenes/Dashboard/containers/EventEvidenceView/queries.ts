@@ -15,7 +15,9 @@ export const GET_EVENT_EVIDENCES: DocumentNode = gql`
     event(identifier: $eventId) {
       eventStatus
       evidence
+      evidenceDate
       evidenceFile
+      evidenceFileDate
       id
     }
   }
