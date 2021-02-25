@@ -363,8 +363,9 @@ async def test_validate_number_acceptations():
 async def test_approve_draft():
     finding_id = '475041513'
     reviewer_email = 'unittest@fluidattacks.com'
+    context = await create_dummy_session(reviewer_email)
     test_success, test_date = await approve_draft(
-        get_new_context(),
+        context,
         finding_id,
         reviewer_email
     )

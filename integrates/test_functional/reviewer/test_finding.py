@@ -403,6 +403,7 @@ async def test_finding():
         {
             'analyst': 'integratesreviewer@fluidattacks.com',
             'date': today,
+            'source': 'integrates',
             'state': 'APPROVED'
         }
     ]

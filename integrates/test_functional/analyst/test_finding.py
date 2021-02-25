@@ -417,6 +417,7 @@ async def test_finding():
         {
             'analyst': 'integratesmanager@gmail.com',
             'date': today,
+            'source': 'integrates',
             'state': 'APPROVED'
         }
     ]
