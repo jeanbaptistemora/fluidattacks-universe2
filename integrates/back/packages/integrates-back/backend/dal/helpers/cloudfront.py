@@ -40,7 +40,7 @@ def rsa_signer(message: str) -> bool:
         private_key.sign(
             message,
             asymmetric.padding.PKCS1v15(),
-            hashes.SHA1()
+            hashes.SHA256()
         )
     )
 
