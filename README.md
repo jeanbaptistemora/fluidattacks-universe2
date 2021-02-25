@@ -11,14 +11,12 @@ We do this by:
 The source code of the technologies used is versioned in this repository
 and is divided across many products:
 
-| Product | [![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=fluidattacks_product&metric=alert_status)](https://sonarcloud.io/dashboard?id=fluidattacks_product) |
+| Product | Badges |
 |---------|-|
-| Asserts | [![](https://img.shields.io/badge/Docs-grey)](https://fluidattacks.com/resources/doc/asserts) |
-| Forces  |[![Docs](https://img.shields.io/badge/Docs-grey)](./forces/README.md) [![PyPI](https://img.shields.io/pypi/v/forces)](https://pypi.org/project/forces) [![Downloads](https://img.shields.io/pypi/dm/forces)](https://pypi.org/project/forces) [![License](https://img.shields.io/pypi/l/forces)](../LICENSE) |
-| Integrates | [![Docs](https://img.shields.io/badge/Docs-grey)](./integrates/README.md) |
-| Reviews | [![Docs](https://img.shields.io/badge/Docs-grey)](./reviews/README.md) |
-| Skims | [![](https://img.shields.io/badge/Docs-grey)](https://fluidattacks.com/resources/doc/skims/) [![](https://img.shields.io/badge/Contributing-green)](./skims/README.md) |
-| Sorts | [![](https://img.shields.io/badge/Docs-grey)](./sorts/README.md) |
+| Licence | [![License](https://img.shields.io/pypi/l/forces)](../LICENSE) |
+| Documentation | [![Docs](https://img.shields.io/badge/Docs-grey)](https://doc.fluidattacks.com/) |
+| Quality | [![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=fluidattacks_product&metric=alert_status)](https://sonarcloud.io/dashboard?id=fluidattacks_product) [![Code Grade](https://www.code-inspector.com/project/19186/score/svg)](https://www.code-inspector.com)|
+| Contributing | [![](https://img.shields.io/badge/Contributing-green)](./skims/README.md) |
 
 # Installing
 
