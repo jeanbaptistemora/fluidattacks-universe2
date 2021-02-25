@@ -13,7 +13,11 @@ makeEntrypoint airsPkgs {
     envPaths = [
       airsPkgs.findutils
       airsPkgs.gnused
+      airsPkgs.gzip
       airsPkgs.python37
+    ];
+    envUtils = [
+      "/makes/utils/aws"
     ];
   };
   template = path "/makes/applications/airs/entrypoint.sh";

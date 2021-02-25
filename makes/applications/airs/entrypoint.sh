@@ -23,22 +23,56 @@ function patch_paths {
 }
 
 function patch_paths_dev {
-  patch_paths "${1}" 'http' 'localhost:8000' '/new-front'
+  local src="${1}"
+
+  patch_paths "${src}" 'http' 'localhost:8000' '/new-front'
 }
 
 function patch_paths_eph {
-  patch_paths "${1}" 'https' "web.eph.fluidattacks.com/${CI_COMMIT_REF_NAME}/new-front" "${CI_COMMIT_REF_NAME}/new-front"
+  local src="${1}"
+
+  patch_paths "${src}" 'https' "web.eph.fluidattacks.com/${CI_COMMIT_REF_NAME}/new-front" "${CI_COMMIT_REF_NAME}/new-front"
 }
 
 function patch_paths_prod {
-  patch_paths "${1}" 'https' 'fluidattacks.com/new-front' '/new-front'
+  local src="${1}"
+
+  patch_paths "${src}" 'https' 'fluidattacks.com/new-front' '/new-front'
+}
+
+function compress_files {
+  local src="${1}"
+
+  find "${src}" -type f -name '*.html' -o -name '*.css' -o -name '*.js' \
+    | while read -r file
+      do
+            gzip -9 "${file}" \
+        &&  mv "${file}.gz" "${file}" \
+        ||  return 1
+      done \
 }
 
 function deploy_dev {
-      pushd "${1}" \
+  local src="${1}"
+
+      pushd "${src}" \
     &&  python3 -m http.server \
   &&  popd \
   ||  return 1
+}
+
+function deploy_eph {
+  local src="${1}"
+
+      aws_login_dev airs \
+  &&  compress_files "${src}"
+}
+
+function deploy_prod {
+  local src="${1}"
+
+      aws_login_prod airs \
+  &&  compress_files "${src}"
 }
 
 function main {
@@ -57,6 +91,8 @@ function main {
       esac \
   &&  case "${env}" in
         dev) deploy_dev "${out}";;
+        eph) deploy_eph "${out}";;
+        prod) deploy_prod "${out}";;
       esac \
   ||  return 1
 }
