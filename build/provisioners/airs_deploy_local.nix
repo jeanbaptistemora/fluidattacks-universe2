@@ -16,6 +16,7 @@ in
         pkgs.nodejs
         pkgs.python38
         pkgs.rsync
+        (import ../..).airs
       ];
 
       pyPkgPelican = builders.pythonPackage {

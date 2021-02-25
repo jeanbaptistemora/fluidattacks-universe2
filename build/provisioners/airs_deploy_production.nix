@@ -25,6 +25,7 @@ in
         pkgs.pkgconfig
         pkgs.libpng
         pkgs.gcc
+        (import ../..).airs
       ];
 
       pyPkgPelican = builders.pythonPackage {
