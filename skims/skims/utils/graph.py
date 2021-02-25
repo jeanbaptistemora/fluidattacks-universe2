@@ -9,6 +9,7 @@ from typing import (
     Any,
     Dict,
     Callable,
+    cast,
     Iterable,
     Iterator,
     List,
@@ -283,6 +284,28 @@ def match_ast(
     return nodes
 
 
+def match_ast_group(
+    graph: Graph,
+    n_id: str,
+    *label_type: str,
+) -> Dict[str, Set[str]]:
+    index: int = 0
+    nodes: Dict[str, Set[str]] = dict.fromkeys(label_type)
+
+    for c_id in adj_ast(graph, n_id):
+        c_type = graph.nodes[c_id]['label_type']
+        if c_type in nodes:
+            if not nodes[c_type]:
+                nodes[c_type] = {c_id}
+            else:
+                nodes[c_type].add(c_id)
+        else:
+            nodes[f'__{index}__'] = c_id
+            index += 1
+
+    return nodes
+
+
 def get_ast_childs(
     graph: Graph,
     n_id: NId,
@@ -308,10 +331,10 @@ def lookup_first_cfg_parent(
     # Lookup first parent who is connected to the CFG
     for p_id in chain([n_id], pred_ast_lazy(graph, n_id, depth=-1)):
         if is_connected_to_cfg(graph, p_id):
-            return p_id
+            return cast(str, p_id)
 
     # Base case, pass through
-    return n_id
+    return cast(str, n_id)
 
 
 def flows(
