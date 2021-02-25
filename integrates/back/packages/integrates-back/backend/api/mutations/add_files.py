@@ -64,6 +64,8 @@ async def mutate(
     else:
         LOGGER.error('Couldn\'t upload file', extra={'extra': parameters})
     if success:
+        info.context.loaders.group.clear(project_name)
+        info.context.loaders.group_all.clear(project_name)
         util.cloudwatch_log(
             info.context,
             f'Security: Added resource files to {project_name} '

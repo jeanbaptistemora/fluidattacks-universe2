@@ -65,6 +65,8 @@ async def mutate(
                 }
             })
     if success:
+        info.context.loaders.group.clear(project_name)
+        info.context.loaders.group_all.clear(project_name)
         util.cloudwatch_log(
             info.context,
             f'Security: Removed Files from {project_name} project successfully'
