@@ -1,9 +1,8 @@
 # shellcheck shell=bash
 
-
 function main {
-  local url='https://please-replace-me-before-deploying'
-  local path='/please-replace-me-before-deploying'
+  local url='https://please-replace-this-url-before-deploying'
+  local path='/please-replace-this-path-before-deploying'
 
       copy "${envAirsNewFront}" new-front \
   &&  copy "${envAirsContent}" content \
