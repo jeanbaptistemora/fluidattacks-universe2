@@ -148,3 +148,8 @@ airs_deploy_production:
   <<: *with_nix
   <<: *in_master_branch_airs
   stage: deploy-app
+
+makes.test.airs:
+  <<: *makes
+  <<: *in_master_branch_airs
+  stage: test-code

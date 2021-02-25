@@ -41,6 +41,7 @@ makes.commitlint
 makes.dev
 makes.doc.runtime
 makes.test
+makes.test.airs
 makes.test.asserts
 makes.test.forces
 makes.test.integrates
