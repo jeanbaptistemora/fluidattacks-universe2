@@ -1,20 +1,33 @@
-export declare type EntityType = "group" | "organization" | "portfolio";
-export declare type FrequencyType = "hourly" | "daily" | "weekly" | "monthly" | "never";
+declare type EntityType = "group" | "organization" | "portfolio";
+declare type FrequencyType =
+  | "hourly"
+  | "daily"
+  | "weekly"
+  | "monthly"
+  | "never";
 
-export interface IChartsGenericViewProps {
+interface IChartsGenericViewProps {
   entity: EntityType;
   reportMode: boolean;
   subject: string;
 }
 
-export interface ISubscriptionToEntityReport {
+interface ISubscriptionToEntityReport {
   entity: EntityType;
   frequency: FrequencyType;
   subject: string;
 }
 
-export interface ISubscriptionsToEntityReport {
+interface ISubscriptionsToEntityReport {
   me: {
     subscriptionsToEntityReport: ISubscriptionToEntityReport[];
   };
 }
+
+export {
+  EntityType,
+  FrequencyType,
+  IChartsGenericViewProps,
+  ISubscriptionToEntityReport,
+  ISubscriptionsToEntityReport,
+};
