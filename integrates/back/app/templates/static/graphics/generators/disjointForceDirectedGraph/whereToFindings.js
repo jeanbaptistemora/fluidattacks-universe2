@@ -123,4 +123,4 @@ function load() {
   render(dataDocument, args.height, args.width);
 }
 
-global.load = load;
+window.load = load;
