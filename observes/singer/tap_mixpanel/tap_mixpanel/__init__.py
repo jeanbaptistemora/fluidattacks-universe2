@@ -3,7 +3,6 @@ import argparse
 import datetime
 import json
 import sys
-import tempfile
 from contextlib import contextmanager
 from typing import (
     Any,
@@ -14,10 +13,10 @@ from typing import (
     Tuple,
 )
 # Third party libraries
-import requests
 # Local libraries
 from singer_io import factory
 from singer_io.singer import SingerRecord
+from tap_mixpanel import api
 
 
 @contextmanager
@@ -58,20 +57,6 @@ def handle_null(dct: Dict[str, Any]) -> Dict[str, Any]:
         else:
             continue
     return dct
-
-
-@contextmanager
-def load_data(event: str, credentials: Dict[str, Any]) -> Iterator[IO[str]]:
-    from_date = credentials['from_date']
-    to_date = credentials['to_date']
-    parameters = {"from_date": from_date, "to_date": to_date,
-                  "event": f'["{event}"]'}
-    authorization = (credentials['API_secret'], credentials['token'])
-    result = requests.get("https://data.mixpanel.com/api/2.0/export/",
-                          auth=authorization, params=parameters)
-    with tempfile.NamedTemporaryFile('w+') as tmp:
-        tmp.write(result.text)
-        yield tmp
 
 
 def new_formatted_data(formatted_data: List[Dict]) -> List[Dict]:
@@ -178,7 +163,7 @@ def main() -> None:
 
     for table in tables:
         print(table, file=sys.stderr)
-        with load_data(table, credentials) as raw_data_file:
+        with api.load_data(table, credentials) as raw_data_file:
             format_and_emit_data(raw_data_file)
 
 

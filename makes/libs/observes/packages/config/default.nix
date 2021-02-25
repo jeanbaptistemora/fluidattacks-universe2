@@ -510,6 +510,7 @@ rec {
     srcPath = path "/observes/singer/tap_mixpanel";
     python = {
       direct = [
+        "ratelimiter==1.2.0"
         "requests==2.25.1"
       ];
       inherited = [
