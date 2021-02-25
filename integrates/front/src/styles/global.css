@@ -57,6 +57,7 @@ label {
   display: inline-block;
   padding-left: 0;
   margin: 18px 0;
+  margin-top: -50px;
   border-radius: 0;
 }
 
@@ -378,7 +379,7 @@ label {
 }
 
 :global .sizePageDropdownBtn {
-  width: 45px;
+  width: 60px;
 }
 
 :global .suscribeDropdownBtn {

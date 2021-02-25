@@ -184,31 +184,31 @@ const modalExecution: React.FC<IExecution> = (
 
   return (
     <div>
-      <Row>
+      <Row className={"nb3"}>
         <Col33><p><b>{translate.t("group.forces.date")}</b></p></Col33>
         <Col33><p>{execution.date}</p></Col33>
       </Row>
-      <Row>
+      <Row className={"nb3"}>
         <Col33><p><b>{translate.t("group.forces.status.title")}</b></p></Col33>
         <Col33><p>{execution.status}</p></Col33>
       </Row>
-      <Row>
+      <Row className={"nb3"}>
         <Col33><p><b>{translate.t("group.forces.strictness.title")}</b></p></Col33>
         <Col33><p>{execution.strictness}</p></Col33>
       </Row>
-      <Row>
+      <Row className={"nb3"}>
         <Col33><p><b>{translate.t("group.forces.kind.title")}</b></p></Col33>
         <Col33><p>{execution.kind}</p></Col33>
       </Row>
-      <Row>
+      <Row className={"nb3"}>
         <Col33><p><b>{translate.t("group.forces.git_repo")}</b></p></Col33>
         <Col33><p>{execution.gitRepo}</p></Col33>
       </Row>
-      <Row>
+      <Row className={"nb3"}>
         <Col33><p><b>{translate.t("group.forces.identifier")}</b></p></Col33>
         <Col33><p>{execution.execution_id}</p></Col33>
       </Row>
-      <Row>
+      <Row className={"nb3"}>
         <Col33><p><b>{translate.t("group.forces.found_vulnerabilities.title")}</b></p></Col33>
         <Col33>
           <p className={styles.wrapped}>
