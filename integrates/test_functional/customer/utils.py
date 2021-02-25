@@ -1,5 +1,9 @@
 # Standard libraries
-from typing import Optional
+from typing import (
+    Any,
+    Dict,
+    Optional
+)
 
 # Local libraries
 from backend.api import (
@@ -16,11 +20,11 @@ CUSTOMER = 'integratescustomer@gmail.com'
 
 
 async def get_result(
-    data,
+    data: Dict[str, Any],
     stakeholder: str = CUSTOMER,
     session_jwt: str = None,
     context: Optional[Dataloaders] = None
-):
+) -> Dict[str, Any]:
     """Get result for customer role."""
     result = await get_graphql_result(data, stakeholder, session_jwt, context)
 

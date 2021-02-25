@@ -1,11 +1,19 @@
+# Standard libraries
+from typing import (
+    Any,
+    Dict
+)
 from tempfile import NamedTemporaryFile
 from datetime import datetime, timedelta
 import json
 import os
 import pytest
 
+# Third party libraries
 from ariadne import graphql
 from jose import jwt
+
+# Local libraries
 from backend import util
 from backend.api.schema import SCHEMA
 from test_unit.utils import create_dummy_session
@@ -14,10 +22,12 @@ import pytest
 
 pytestmark = pytest.mark.asyncio
 
-async def _get_result(data):
+
+async def _get_result(data: Dict[str, Any]) -> Dict[str, Any]:
     """Get result."""
     request = await create_dummy_session(username='integratesuser@gmail.com')
     _, result = await graphql(SCHEMA, data, context_value=request)
+
     return result
 
 async def test_project_name():

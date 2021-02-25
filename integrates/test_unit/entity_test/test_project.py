@@ -1,7 +1,15 @@
+# Standard libraries
+from typing import (
+    Any,
+    Dict
+)
 import json
 import pytest
 
+# Third party libraries
 from ariadne import graphql
+
+# Local libraries
 from backend.api import apply_context_attrs
 from backend.api.schema import SCHEMA
 from backend.domain.available_name import get_name
@@ -15,11 +23,15 @@ from test_unit.utils import create_dummy_session
 pytestmark = pytest.mark.asyncio
 
 
-async def _get_result_async(data, user='integratesmanager@gmail.com'):
+async def _get_result_async(
+  data: Dict[str, Any],
+  user: str = 'integratesmanager@gmail.com'
+) -> Dict[str, Any]:
     """Get result."""
     request = await create_dummy_session(username=user)
     request = apply_context_attrs(request)
     _, result = await graphql(SCHEMA, data, context_value=request)
+
     return result
 
 

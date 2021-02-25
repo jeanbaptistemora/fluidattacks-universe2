@@ -1,5 +1,9 @@
 # Standard libraries
-from typing import Optional
+from typing import (
+    Any,
+    Dict,
+    Optional
+)
 import json
 import os
 
@@ -20,7 +24,10 @@ from test_unit.utils import create_dummy_session
 pytestmark = pytest.mark.asyncio
 
 
-async def _get_result(data, context: Optional[Dataloaders] = None):
+async def _get_result(
+    data: Dict[str, Any],
+    context: Optional[Dataloaders] = None
+) -> Dict[str, Any]:
     """Get result."""
     request = await create_dummy_session('integratesmanager@gmail.com')
     request = apply_context_attrs(
@@ -28,6 +35,7 @@ async def _get_result(data, context: Optional[Dataloaders] = None):
         loaders=context if context else get_new_context()
     )
     _, result = await graphql(SCHEMA, data, context_value=request)
+
     return result
 
 

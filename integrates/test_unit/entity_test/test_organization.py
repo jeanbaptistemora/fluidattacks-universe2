@@ -1,9 +1,17 @@
+# Standard libraries
+from typing import (
+    Any,
+    Dict,
+    Optional
+)
 import pytest
 from decimal import Decimal
 from string import Template
 
+# Third party libraries
 from ariadne import graphql
 
+# Local libraries
 from backend.api import apply_context_attrs
 from backend.api.schema import SCHEMA
 from backend.exceptions import (
@@ -19,11 +27,15 @@ pytestmark = [
 ]
 
 
-async def _get_result_async(data, stakeholder='integratesmanager@gmail.com'):
+async def _get_result_async(
+    data: Dict[str, Any],
+    stakeholder: str = 'integratesmanager@gmail.com'
+) -> Dict[str, Any]:
     """Get result."""
     request = await create_dummy_session(username=stakeholder)
     request = apply_context_attrs(request)
     _, result = await graphql(SCHEMA, data, context_value=request)
+
     return result
 
 

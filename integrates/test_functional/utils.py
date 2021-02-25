@@ -1,5 +1,9 @@
 # Standard libraries
-from typing import Optional
+from typing import (
+    Any,
+    Dict,
+    Optional
+)
 
 # Third party libraries
 from ariadne import graphql
@@ -33,11 +37,11 @@ async def complete_register(
 
 
 async def get_graphql_result(
-    data,
+    data: Dict[str, Any],
     stakeholder: str,
     session_jwt: Optional[str] = None,
     context: Optional[Dataloaders] = None
-):
+) -> Dict[str, Any]:
     """Get graphql result."""
     request = await create_dummy_session(stakeholder, session_jwt)
     request = apply_context_attrs(

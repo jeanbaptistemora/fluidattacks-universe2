@@ -4,7 +4,11 @@ from datetime import (
   datetime,
   timedelta
 )
-from typing import Optional
+from typing import (
+    Any,
+    Dict,
+    Optional
+)
 import json
 import os
 import time
@@ -34,10 +38,10 @@ pytestmark = pytest.mark.asyncio
 
 
 async def _get_result(
-    data,
+    data: Dict[str, Any],
     user: str = 'integratesmanager@gmail.com',
     context: Optional[Dataloaders] = None
-):
+) -> Dict[str, Any]:
     """Get result."""
     request = await create_dummy_session(username=user)
     request = apply_context_attrs(
