@@ -16,6 +16,7 @@ makeEntrypoint integratesMobilePkgs {
       integratesMobilePkgs.findutils
       integratesMobilePkgs.gnused
       integratesMobilePkgs.nodejs-12_x
+      packages.makes.announce.bugsnag
     ];
     envUtils = [
       "/makes/utils/aws"

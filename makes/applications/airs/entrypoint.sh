@@ -127,14 +127,7 @@ function deploy_prod {
 function announce_to_bugsnag {
   local release_stage="${1}"
 
-  makes-announce-bugsnag \
-    --api-key 6d0d7e66955855de59cfff659e6edf31 \
-    --app-version "${CI_COMMIT_SHORT_SHA}" \
-    --release-stage "${release_stage}" \
-    --builder-name "${CI_COMMIT_AUTHOR}" \
-    --source-control-provider 'gitlab' \
-    --source-control-repository 'https://gitlab.com/fluidattacks/product.git' \
-    --source-control-revision "${CI_COMMIT_SHA}"
+  makes-announce-bugsnag 6d0d7e66955855de59cfff659e6edf31 "${release_stage}"
 }
 
 function main {
