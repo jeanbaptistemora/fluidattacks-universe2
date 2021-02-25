@@ -292,11 +292,13 @@ async def delete_finding(
         )
         user_info = await util.get_jwt_content(context)
         analyst = user_info['user_email']
+        source = util.get_source(context)
         submission_history.append({
             'state': 'DELETED',
             'date': delete_date,
             'justification': justification,
             'analyst': analyst,
+            'source': source,
         })
         success = await finding_dal.update(finding_id, {
             'historic_state': submission_history
