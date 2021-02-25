@@ -52,6 +52,51 @@ function compress_files {
       done \
 }
 
+function sync_files {
+  local src="${1}"
+  local target="${2}"
+  declare -A content_encodings=(
+    [css]=gzip
+    [html]=gzip
+    [js]=gzip
+    [png]=identity
+    [svg]=identity
+  )
+  declare -A content_types=(
+    [css]=text/css
+    [html]=text/html
+    [js]=application/javascript
+    [png]=image/png
+    [svg]=image/svg+xml
+  )
+
+      for ext in "${!content_encodings[@]}"
+      do
+            content_encoding="${content_encodings[${ext}]}" \
+        &&  content_type="${content_types[${ext}]}" \
+        &&  aws s3 sync \
+              "${src}" \
+              "${target}" \
+              --acl private \
+              --delete \
+              --content-encoding "${content_encoding}" \
+              --content-type "${content_type}" \
+              --exclude '*' \
+              --include "*.${ext}" \
+              --metadata-directive REPLACE \
+        ||  return 1
+      done \
+  &&  aws s3 sync \
+        "${src}" \
+        "${target}" \
+        --delete \
+        --exclude '*.css' \
+        --exclude '*.html' \
+        --exclude '*.js' \
+        --exclude '*.png' \
+        --exclude '*.svg'
+}
+
 function deploy_dev {
   local src="${1}"
 
@@ -65,14 +110,16 @@ function deploy_eph {
   local src="${1}"
 
       aws_login_dev airs \
-  &&  compress_files "${src}"
+  &&  compress_files "${src}" \
+  &&  sync_files "${src}" "s3://web.eph.fluidattacks.com/${CI_COMMIT_REF_NAME}"
 }
 
 function deploy_prod {
   local src="${1}"
 
       aws_login_prod airs \
-  &&  compress_files "${src}"
+  &&  compress_files "${src}" \
+  &&  sync_files "${src}" 's3://fluidattacks.com'
 }
 
 function main {
