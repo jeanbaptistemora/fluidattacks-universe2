@@ -37,6 +37,22 @@ data "aws_iam_policy_document" "dev-policy-data" {
     ]
   }
 
+  # S3 doc development bucket
+  statement {
+    effect = "Allow"
+    actions = [
+      "s3:ListBucket",
+      "s3:Get*",
+      "s3:PutObject",
+      "s3:PutObjectAcl",
+      "s3:DeleteObject*",
+    ]
+    resources = [
+      "arn:aws:s3:::doc-dev.fluidattacks.com/*",
+      "arn:aws:s3:::doc-dev.fluidattacks.com",
+    ]
+  }
+
 }
 
 resource "aws_iam_policy" "dev-policy" {
