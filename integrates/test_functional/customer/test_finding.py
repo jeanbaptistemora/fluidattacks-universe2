@@ -1,5 +1,8 @@
+# Standard libraries
 import pytest
 
+# Local libraries
+from backend.api import get_new_context
 from backend.utils import datetime as datetime_utils
 from test_functional.customer.utils import get_result
 
@@ -7,6 +10,7 @@ pytestmark = pytest.mark.asyncio
 
 
 async def test_finding():
+    context = get_new_context()
     today = datetime_utils.get_as_str(
         datetime_utils.get_now(),
         date_format='%Y-%m-%d'
@@ -221,7 +225,7 @@ async def test_finding():
         }}
     }}'''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     assert result['data']['finding']['id'] == expected_output.get('id')
     assert result['data']['finding']['projectName'] == expected_output.get('project_name')
@@ -277,7 +281,7 @@ async def test_finding():
         }}
         '''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     assert 'success' in result['data']['addFindingConsult']
     assert result['data']['addFindingConsult']['success']
@@ -295,6 +299,6 @@ async def test_finding():
         }}
     }}'''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     assert  expected_output.get('consulting') in result['data']['finding']['consulting']
