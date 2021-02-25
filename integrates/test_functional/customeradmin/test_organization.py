@@ -1,6 +1,9 @@
+# Standard libraries
 import pytest
 from decimal import Decimal
 
+# Local libraries
+from backend.api import get_new_context
 from backend.exceptions import UserNotInOrganization
 from test_functional.customeradmin.utils import get_result
 
@@ -8,6 +11,7 @@ pytestmark = pytest.mark.asyncio
 
 
 async def test_organization():
+    context = get_new_context()
     org_name = 'OKADA'
     org_id = 'ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3'
     stakeholder = 'org_testuser_2@gmail.com'
@@ -28,14 +32,18 @@ async def test_organization():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     assert result['data']['grantStakeholderOrganizationAccess']['success']
     assert result['data']['grantStakeholderOrganizationAccess']['grantedStakeholder']['email'] == stakeholder
-    result = await get_result(data, stakeholder=stakeholder)
+    result = await get_result(data, stakeholder=stakeholder, context=context)
     assert 'errors' in result
     assert result['errors'][0]['message'] == 'Access denied'
-    result = await get_result(data, stakeholder='madeupuser@gmail.com')
+    result = await get_result(
+        data,
+        stakeholder='madeupuser@gmail.com',
+        context=context
+    )
     exe = UserNotInOrganization()
     assert 'errors' in result
     assert result['errors'][0]['message'] == exe.args[0]
@@ -58,7 +66,7 @@ async def test_organization():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     assert result['data']['editStakeholderOrganization']['success']
     assert result['data']['editStakeholderOrganization']['modifiedStakeholder']['email'] == stakeholder
@@ -79,7 +87,7 @@ async def test_organization():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     assert result['data']['stakeholder']['phoneNumber'] == phone_number
 
@@ -98,13 +106,17 @@ async def test_organization():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     assert result['data']['updateOrganizationPolicies']['success']
-    result = await get_result(data, stakeholder=stakeholder)
+    result = await get_result(data, stakeholder=stakeholder, context=context)
     assert 'errors' in result
     assert result['errors'][0]['message'] == 'Access denied'
-    result = await get_result(data, stakeholder='madeupuser@gmail.com')
+    result = await get_result(
+        data,
+        stakeholder='madeupuser@gmail.com',
+        context=context
+    )
     exe = UserNotInOrganization()
     assert 'errors' in result
     assert result['errors'][0]['message'] == exe.args[0]
@@ -129,7 +141,7 @@ async def test_organization():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     groups = [group['name'] for group in result['data']['organization']['projects']]
     stakeholders = [stakeholder['email'] for stakeholder in result['data']['organization']['stakeholders']]
     assert 'errors' not in result
@@ -157,7 +169,7 @@ async def test_organization():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     assert result['data']['removeStakeholderOrganizationAccess']['success']
 
@@ -171,7 +183,7 @@ async def test_organization():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     stakeholders = [stakeholder['email'] for stakeholder in result['data']['organization']['stakeholders']]
     assert 'errors' not in result
     assert stakeholder not in stakeholders

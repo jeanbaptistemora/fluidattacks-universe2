@@ -29,6 +29,7 @@ async def mutate(
         user_email.lower()
     )
     if success:
+        info.context.loaders.organization_stakeholders.clear(organization_id)
         redis_del_by_deps_soon(
             'remove_stakeholder_organization_access',
             organization_id=organization_id
