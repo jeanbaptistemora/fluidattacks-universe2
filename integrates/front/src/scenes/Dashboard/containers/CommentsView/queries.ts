@@ -1,4 +1,4 @@
-import { DocumentNode } from "graphql";
+import type { DocumentNode } from "graphql";
 import gql from "graphql-tag";
 
 const FRAGMENTS: Dictionary<DocumentNode> = {
@@ -26,7 +26,7 @@ const FRAGMENTS: Dictionary<DocumentNode> = {
   `,
 };
 
-export const GET_FINDING_CONSULTING: DocumentNode = gql`
+const GET_FINDING_CONSULTING: DocumentNode = gql`
   query GetFindingConsulting($findingId: String!) {
     finding(identifier: $findingId) {
       consulting {
@@ -38,7 +38,7 @@ export const GET_FINDING_CONSULTING: DocumentNode = gql`
   ${FRAGMENTS.consultFields}
 `;
 
-export const GET_FINDING_OBSERVATIONS: DocumentNode = gql`
+const GET_FINDING_OBSERVATIONS: DocumentNode = gql`
   query GetFindingObservations($findingId: String!) {
     finding(identifier: $findingId) {
       observations {
@@ -50,12 +50,27 @@ export const GET_FINDING_OBSERVATIONS: DocumentNode = gql`
   ${FRAGMENTS.commentFields}
 `;
 
-export const ADD_FINDING_CONSULT: DocumentNode = gql`
+const ADD_FINDING_CONSULT: DocumentNode = gql`
   mutation AddFindingConsult(
-      $content: String!, $findingId: String!, $parent: GenericScalar!, $type: FindingConsultType!) {
-    addFindingConsult(content: $content, findingId: $findingId, parent: $parent, type: $type) {
+    $content: String!
+    $findingId: String!
+    $parent: GenericScalar!
+    $type: FindingConsultType!
+  ) {
+    addFindingConsult(
+      content: $content
+      findingId: $findingId
+      parent: $parent
+      type: $type
+    ) {
       commentId
       success
     }
   }
 `;
+
+export {
+  GET_FINDING_CONSULTING,
+  GET_FINDING_OBSERVATIONS,
+  ADD_FINDING_CONSULT,
+};
