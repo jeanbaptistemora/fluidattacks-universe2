@@ -144,9 +144,11 @@ async def create_draft(
     )
     user_data = cast(UserType, await util.get_jwt_content(info.context))
     analyst_email = str(user_data.get('user_email', ''))
+    source = util.get_source(info.context)
     submission_history = {
         'analyst': analyst_email,
         'date': creation_date,
+        'source': source,
         'state': 'CREATED'
     }
     if util.is_api_token(user_data):
