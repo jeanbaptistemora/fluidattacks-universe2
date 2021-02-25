@@ -1,4 +1,4 @@
-:slug: techniques/sca/
+:slug: categories/sca/
 :description: Here at Fluid Attacks, we perform Software Composition Analysis (SCA) to identify security weaknesses related to third-party or open-source components.
 :keywords: Fluid Attacks, Techniques, SCA, Composition, Analysis, Security, Testing, Ethical Hacking
 :category: techniques

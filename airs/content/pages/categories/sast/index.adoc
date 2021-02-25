@@ -1,4 +1,4 @@
-:slug: techniques/sast/
+:slug: categories/sast/
 :description: Here at Fluid Attacks, we perform Static Application Security Testing (SAST) to identify security vulnerabilities in non-running software as soon as possible.
 :keywords: Fluid Attacks, Techniques, SAST, Static, Application, Security, Testing, Ethical Hacking
 :category: techniques

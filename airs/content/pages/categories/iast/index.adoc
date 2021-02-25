@@ -1,4 +1,4 @@
-:slug: techniques/iast/
+:slug: categories/iast/
 :description: Here at Fluid Attacks, we combine the advantages of SAST and DAST to work with a very accurate Interactive Application Security Testing (IAST) technique.
 :keywords: Fluid Attacks, Techniques, IAST, Interactive, Application, Security, Testing, Ethical Hacking
 :category: techniques

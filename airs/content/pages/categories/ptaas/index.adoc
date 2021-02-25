@@ -1,4 +1,4 @@
-:slug: techniques/ptaas/
+:slug: categories/ptaas/
 :description: We offer you PTaaS as a continuous evaluation of systems using automatic and manual techniques and providing real-time vulnerability reports via our platform.
 :keywords: PTaaS, Penetration, Testing, Pentesting, Service, Cybersecurity, Vulnerability, Ethical Hacking
 :category: techniques

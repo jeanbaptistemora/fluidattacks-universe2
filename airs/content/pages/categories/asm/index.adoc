@@ -1,4 +1,4 @@
-:slug: techniques/asm/
+:slug: categories/asm/
 :description: We offer you ASM for continuous monitoring of your digital assets (attack surface) and to facilitate the identification of threats and security vulnerabilities.
 :keywords: ASM, Attack Surface, Management, Digital Assets, Network, Cybersecurity; Ethical Hacking, Pentesting
 :category: techniques
