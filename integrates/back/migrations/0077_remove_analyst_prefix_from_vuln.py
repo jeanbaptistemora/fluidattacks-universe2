@@ -1,6 +1,9 @@
 """
 This migration removes the api prefix for some analysts
 in vulnerability historic state
+
+Execution Time:    2021-02-25 at 11:04:35 UTC-05
+Finalization Time: 2021-02-25 at 14:23:58 UTC-05
 """
 # Standard library
 import copy
