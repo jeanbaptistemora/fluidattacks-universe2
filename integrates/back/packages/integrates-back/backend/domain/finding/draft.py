@@ -38,7 +38,7 @@ async def reject_draft(
     draft_id: str,
     reviewer_email: str
 ) -> bool:
-    finding_loader = context.finding
+    finding_loader = context.loaders.finding
     draft_data = await finding_loader.load(draft_id)
     history = cast(
         List[Dict[str, str]],
@@ -54,9 +54,11 @@ async def reject_draft(
             rejection_date = datetime_utils.get_as_str(
                 datetime_utils.get_now()
             )
+            source = util.get_source(context)
             history.append({
                 'date': rejection_date,
                 'analyst': reviewer_email,
+                'source': source,
                 'state': 'REJECTED'
             })
 
