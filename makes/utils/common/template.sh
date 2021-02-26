@@ -2,8 +2,8 @@
 
 function abort {
       echo "${1}" \
-  &&  return 1 \
-  ||  return 1
+  &&  exit 1 \
+  ||  exit 1
 }
 
 function copy {

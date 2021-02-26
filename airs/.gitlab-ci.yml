@@ -83,6 +83,11 @@ airs.infra.secrets.test:
   <<: *in_dev_branch_airs
   stage: test-infra
 
+airs.test.images.format:
+  <<: *makes
+  <<: *in_dev_branch_airs
+  stage: test-code
+
 airs_test_lint_code:
   <<: *with_nix
   <<: *in_dev_branch_airs
