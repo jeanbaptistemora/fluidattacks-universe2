@@ -1,0 +1,41 @@
+{
+  "list_audiences": {
+    "lists": [
+      {"id": "audience_1"},
+      {"id": "audience_2"},
+      {"id": "audience_3"}
+    ],
+    "total_items": 3,
+    "_links": [
+      {
+        "targetSchema": "the_schema"
+      }
+    ]
+  },
+  "get_audience": {
+    "audience_1": {
+      "id": "audience_1",
+      "foo_bool": false,
+      "foo_array": [1, 2, 3],
+      "_links": [
+        {"targetSchema": "audience_schema"}
+      ]
+    },
+    "audience_2": {
+      "id": "audience_2",
+      "foo_bool": true,
+      "foo_array": [11, 22, 33],
+      "_links": [
+        {"targetSchema": "audience_schema"}
+      ]
+    },
+    "audience_3": {
+      "id": "audience_3",
+      "foo_bool": false,
+      "foo_array": [41, 42, 43],
+      "_links": [
+        {"targetSchema": "audience_schema"}
+      ]
+    }
+  }
+}
