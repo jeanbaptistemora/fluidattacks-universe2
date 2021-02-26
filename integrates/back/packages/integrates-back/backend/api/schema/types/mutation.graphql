@@ -97,7 +97,6 @@ type Mutation {
     attackVectorDesc: String
     cwe: String
     description: String
-    origin: String
     projectName: String!
     recommendation: String
     requirements: String
