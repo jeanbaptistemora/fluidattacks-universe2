@@ -134,12 +134,6 @@
         "allowAliases": "always"
       }
     ],
-    "@typescript-eslint/typedef": [
-      "error",
-      {
-        "variableDeclaration": true
-      }
-    ],
     /*
      * In the functional react world, you likely will never have a function that
      * actually cares about the this context. Refer to:
