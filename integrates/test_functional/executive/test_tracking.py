@@ -1,11 +1,15 @@
+# Standard libraries
 import pytest
 
+# Local libraries
+from backend.api import get_new_context
 from test_functional.customer.utils import get_result
 
 pytestmark = pytest.mark.asyncio
 
 
 async def test_tracking():
+    context = get_new_context()
     finding_id = '436992569'
     expected_output =  {
         'id': finding_id,
@@ -69,7 +73,7 @@ async def test_tracking():
         }}
     }}'''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     assert result['data']['finding']['id'] == expected_output.get('id')
     assert result['data']['finding']['tracking'] == expected_output.get('tracking')
@@ -97,7 +101,7 @@ async def test_tracking():
         }}
     }}'''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     assert result['data']['finding']['id'] == expected_output.get('id')
     assert result['data']['finding']['tracking'] == expected_output.get('tracking')
@@ -145,7 +149,7 @@ async def test_tracking():
         }}
     }}'''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     assert result['data']['finding']['id'] == expected_output.get('id')
     assert result['data']['finding']['tracking'] == expected_output.get('tracking')
@@ -193,7 +197,7 @@ async def test_tracking():
         }}
     }}'''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     assert result['data']['finding']['id'] == expected_output.get('id')
     assert result['data']['finding']['tracking'] == expected_output.get('tracking')

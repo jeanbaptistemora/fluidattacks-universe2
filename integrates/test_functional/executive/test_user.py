@@ -1,11 +1,15 @@
+# Standard libraries
 import pytest
 
+# Local libraries
+from backend.api import get_new_context
 from test_functional.executive.utils import get_result
 
 pytestmark = pytest.mark.asyncio
 
 
 async def test_user():
+    context = get_new_context()
     group_name = 'unittesting'
     stakeholder = 'stakeholder@fluidattacks.com'
     phone_number = '3453453453'
@@ -28,7 +32,7 @@ async def test_user():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' in result
     assert  result['errors'][0]['message'] == 'Access denied'
 
@@ -51,7 +55,7 @@ async def test_user():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' in result
     assert  result['errors'][0]['message'] == 'Access denied'
 
@@ -72,7 +76,7 @@ async def test_user():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' in result
     assert  result['errors'][0]['message'] == 'Access denied'
 
@@ -89,6 +93,6 @@ async def test_user():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' in result
     assert  result['errors'][0]['message'] == 'Access denied'
