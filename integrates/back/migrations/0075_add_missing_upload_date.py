@@ -19,12 +19,12 @@ from aioextensions import (
 
 # Local libraries
 from backend.api.dataloaders.event import EventLoader
-from backend.dal import event as event_dal
 from backend.dal.helpers.s3 import aio_client
 from backend.domain.project import (
     get_alive_projects,
     list_events,
 )
+from backend.events import dal as events_dal
 from backend.typing import Event
 from backend.utils import datetime as datetime_utils
 from __init__ import FI_AWS_S3_BUCKET
@@ -53,7 +53,7 @@ async def add_missing_upload_date(event: Event) -> None:
                 unaware_datetime = date_list[file_index]
                 upload_date = datetime_utils.get_as_str(unaware_datetime)
                 coroutines.append(
-                    event_dal.update(
+                    events_dal.update(
                         event_id, {f'{evidence}_date': upload_date}
                     )
                 )

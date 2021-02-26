@@ -1,7 +1,8 @@
 import pytest
 
-from backend.dal.event import (
-    update, get_event
+from backend.events.dal import (
+    get_event,
+    update
 )
 
 pytestmark = [

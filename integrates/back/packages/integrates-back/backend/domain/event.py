@@ -14,7 +14,6 @@ from starlette.datastructures import UploadFile
 from backend import authz, mailer, util
 from backend.dal import (
     comment as comment_dal,
-    event as event_dal,
     project as project_dal
 )
 from backend.domain import (
@@ -30,6 +29,7 @@ from backend.exceptions import (
     InvalidFileSize,
     InvalidFileType
 )
+from backend.events import dal as events_dal
 from backend.typing import (
     Comment as CommentType,
     Event as EventType,
@@ -83,7 +83,7 @@ async def solve_event(
         }
     ]
 
-    success = await event_dal.update(event_id, {'historic_state': history})
+    success = await events_dal.update(event_id, {'historic_state': history})
 
     return success
 
@@ -116,8 +116,8 @@ async def update_evidence(
     evidence_id = f'{project_name}-{event_id}-{evidence_type}{extension}'
     full_name = f'{project_name}/{event_id}/{evidence_id}'
 
-    if await event_dal.save_evidence(file, full_name):
-        success = await event_dal.update(
+    if await events_dal.save_evidence(file, full_name):
+        success = await events_dal.update(
             event_id,
             {
                 evidence_type: evidence_id,
@@ -270,7 +270,7 @@ async def create_event(  # pylint: disable=too-many-locals
             valid = validate_evidence('evidence', image)
 
         if (valid and
-                await event_dal.create(event_id, group_name, event_attrs)):
+                await events_dal.create(event_id, group_name, event_attrs)):
             if file:
                 await update_evidence(
                     event_id, 'evidence_file', file, event_date
@@ -288,7 +288,7 @@ async def create_event(  # pylint: disable=too-many-locals
             )
 
     else:
-        success = await event_dal.create(event_id, group_name, event_attrs)
+        success = await events_dal.create(event_id, group_name, event_attrs)
         await _send_new_event_mail(
             org_id,
             analyst_email,
@@ -302,7 +302,7 @@ async def create_event(  # pylint: disable=too-many-locals
 
 
 async def get_event(event_id: str) -> EventType:
-    event = await event_dal.get_event(event_id)
+    event = await events_dal.get_event(event_id)
     if not event:
         raise EventNotFound()
 
@@ -376,7 +376,7 @@ async def get_evidence_link(event_id: str, file_name: str) -> str:
     project_name = event['project_name']
     file_url = f'{project_name}/{event_id}/{file_name}'
 
-    return await event_dal.sign_url(file_url)
+    return await events_dal.sign_url(file_url)
 
 
 async def remove_evidence(evidence_type: str, event_id: str) -> bool:
@@ -385,8 +385,8 @@ async def remove_evidence(evidence_type: str, event_id: str) -> bool:
     success = False
 
     full_name = f'{project_name}/{event_id}/{event[evidence_type]}'
-    if await event_dal.remove_evidence(full_name):
-        success = await event_dal.update(
+    if await events_dal.remove_evidence(full_name):
+        success = await events_dal.update(
             event_id,
             {evidence_type: None, f'{evidence_type}_date': None}
         )
@@ -395,7 +395,7 @@ async def remove_evidence(evidence_type: str, event_id: str) -> bool:
 
 
 async def mask(event_id: str) -> bool:
-    event = await event_dal.get_event(event_id)
+    event = await events_dal.get_event(event_id)
     attrs_to_mask = [
         'client',
         'detail',
@@ -407,7 +407,7 @@ async def mask(event_id: str) -> bool:
     mask_events_coroutines = []
 
     mask_events_coroutines.append(
-        event_dal.update(
+        events_dal.update(
             event_id,
             {attr: 'Masked' for attr in attrs_to_mask}
         )
@@ -415,9 +415,9 @@ async def mask(event_id: str) -> bool:
 
     project_name = str(event.get('project_name', ''))
     evidence_prefix = f'{project_name}/{event_id}'
-    list_evidences = await event_dal.search_evidence(evidence_prefix)
+    list_evidences = await events_dal.search_evidence(evidence_prefix)
     mask_events_coroutines.extend([
-        event_dal.remove_evidence(file_name)
+        events_dal.remove_evidence(file_name)
         for file_name in list_evidences
     ])
 

@@ -1,4 +1,3 @@
-"""DAL functions for events."""
 import logging
 from typing import cast, List
 

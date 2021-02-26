@@ -7,14 +7,12 @@ from starlette.datastructures import UploadFile
 
 from backend.api import get_new_context
 from backend.domain import event as event_domain
-from backend.dal import (
-    comment as comment_dal,
-    event as event_dal
-)
+from backend.dal import comment as comment_dal
 from backend.exceptions import (
     EventAlreadyClosed, EventNotFound, InvalidCommentParent,
     InvalidFileType, InvalidFileSize
 )
+from backend.events import dal as events_dal
 from backend.utils import datetime as datetime_utils
 from test_unit.utils import create_dummy_session
 from graphql.type import GraphQLResolveInfo
@@ -217,7 +215,7 @@ async def test_mask_event():
 
     assert success
     assert len(await comment_dal.get_comments('event', int(event_id))) >= 1
-    assert len(await event_dal.search_evidence(evidence_prefix)) >=1
+    assert len(await events_dal.search_evidence(evidence_prefix)) >=1
 
     test_data = await event_domain.mask(event_id)
     expected_output = True
@@ -225,7 +223,7 @@ async def test_mask_event():
     assert isinstance(test_data, bool)
     assert test_data == expected_output
     assert len(await comment_dal.get_comments('event', int(event_id))) == 0
-    assert len(await event_dal.search_evidence(evidence_prefix)) == 0
+    assert len(await events_dal.search_evidence(evidence_prefix)) == 0
 
     event = await event_domain.get_event(event_id)
     assert event.get('detail') == 'Masked'

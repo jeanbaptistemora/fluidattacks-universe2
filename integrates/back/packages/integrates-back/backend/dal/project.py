@@ -17,8 +17,8 @@ from botocore.exceptions import ClientError
 from boto3.dynamodb.conditions import Attr, Key
 
 from backend import authz
-from backend.dal.event import TABLE_NAME as EVENTS_TABLE_NAME
 from backend.dal.helpers import dynamodb
+from backend.events.dal import TABLE_NAME as EVENTS_TABLE_NAME
 from backend.typing import (
     Comment as CommentType,
     DynamoDelete as DynamoDeleteType,
