@@ -1,5 +1,8 @@
+# Standard libraries
 import pytest
 
+# Local libraries
+from backend.api import get_new_context
 from backend.exceptions import StakeholderNotFound
 from test_functional.utils import complete_register
 from test_functional.customeradmin.utils import get_result
@@ -8,6 +11,7 @@ pytestmark = pytest.mark.asyncio
 
 
 async def test_user():
+    context = get_new_context()
     group_name = 'unittesting'
     stakeholder = 'stakeholder@test.test'
     phone_number = '3453453453'
@@ -30,7 +34,7 @@ async def test_user():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     assert  result['data']['grantStakeholderAccess']['success']
     assert  result['data']['grantStakeholderAccess']['grantedStakeholder'] == {'email': stakeholder}
@@ -51,7 +55,7 @@ async def test_user():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     group_stakeholders = result['data']['project']['stakeholders']
     new_granted_access_stakeholder = list(filter(
@@ -83,7 +87,7 @@ async def test_user():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     assert  result['data']['stakeholder']['email'] == stakeholder
     assert  result['data']['stakeholder']['role'] == role.lower()
@@ -110,7 +114,7 @@ async def test_user():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     assert 'success' in result['data']['editStakeholder']
 
@@ -133,7 +137,7 @@ async def test_user():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     assert  result['data']['stakeholder']['email'] == stakeholder
     assert  result['data']['stakeholder']['role'] == role.lower()
@@ -156,7 +160,7 @@ async def test_user():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     assert result['data']['removeStakeholderAccess']
     assert result['data']['removeStakeholderAccess']['removedEmail'] == stakeholder
@@ -182,6 +186,6 @@ async def test_user():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' in result
     assert result['errors'][0]['message'] == str(StakeholderNotFound())
