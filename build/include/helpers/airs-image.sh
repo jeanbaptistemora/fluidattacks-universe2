@@ -42,17 +42,3 @@ function helper_airs_image_size {
         &&  return 1
       fi
 }
-
-function helper_airs_image_valid {
-  local path="${1}"
-  local valid_extensions='image/\(png\|svg+xml\|gif\)'
-
-      helper_airs_file_exists "${path}" \
-  &&  if file --mime-type "${path}" | grep -q "${valid_extensions}"
-      then
-            return 0
-      else
-            echo "[ERROR] ${path} must be a valid format: ${valid_extensions}" \
-        &&  return 1
-      fi
-}

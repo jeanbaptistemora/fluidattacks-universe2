@@ -25,13 +25,6 @@ function job_airs_test_images {
   &&  helper_airs_set_lc_all \
   &&  blog_covers="$(find content/blog/ -type f -name cover.png)" \
   &&  touched_png_images="$(helper_airs_list_touched_files | grep '.png')" || true \
-  &&  all_images="$(find content/ -name '*' -exec file --mime-type {} \; | grep -oP '.*(?=: image/)')" \
-  &&  echo '[INFO] Testing all images' \
-  &&  for image in ${all_images}
-      do
-            helper_airs_image_valid "${image}" \
-        ||  return 1
-      done \
   &&  echo '[INFO] Testing blog covers' \
   &&  for cover in ${blog_covers}
       do
