@@ -52,13 +52,6 @@
           </a>
           <span class="c-fluid-gray v-mid b"> / </span>
         </li>
-        <li class="dib mt0">
-          <a class="c-fluid-gray hover-white no-underline"
-             href="{{ SITEURL }}/about-us/">
-            About Us
-          </a>
-          <span class="c-fluid-gray v-mid b"> / </span>
-        </li>
         {% if page.partnersindex %}
         <li class="dib mt0">
           <a class="white hover-white no-underline"
@@ -106,7 +99,7 @@
       {% for partnerpage in pages if partnerpage.partner %}
       <div class="br3 shadowbox-blog hover-card relative dt-ns mv3 mh2 bg-white w-card">
         <button class="accordion partner pointer pa3 w-100 bg-white outline-transparent bn t-all-5">
-          <img src="{{ SITEURL }}/about-us/partners/{{partnerpage.partnerlogo}}.png" alt="{{partnerpage.alt}}">
+          <img src="{{ SITEURL }}/partners/{{partnerpage.partnerlogo}}.png" alt="{{partnerpage.alt}}">
           <br>
           <div class="fakebt absolute bottom-0 right-0 left-0 fw3 fadein">
             Read More <br>
