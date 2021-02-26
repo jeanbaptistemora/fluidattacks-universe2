@@ -3,10 +3,12 @@ from typing import (
     Callable,
     NamedTuple,
 )
+
 # Third party libraries
 from mailchimp_marketing import (
     Client,
 )
+
 # Local libraries
 from tap_mailchimp.common.objs import (
     JSON,

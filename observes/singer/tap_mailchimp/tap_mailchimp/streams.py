@@ -6,7 +6,9 @@ from collections import (
 from typing import (
     IO,
 )
+
 # Third party libraries
+
 # Local libraries
 from singer_io import factory
 from singer_io.singer import (
@@ -19,7 +21,10 @@ from tap_mailchimp.api import (
 
 
 def _emit_audience(
-    client: ApiClient, audience_id: str, target: IO[str] = sys.stdout
+    client: ApiClient,
+    audience_id: str,
+    emit_schema: bool,
+    target: IO[str] = sys.stdout
 ) -> None:
     stream = 'audiences'
     result = client.get_audience(audience_id)
@@ -32,12 +37,18 @@ def _emit_audience(
         stream=stream,
         record=result.data
     )
-    factory.emit(schema, target)
+    if emit_schema:
+        factory.emit(schema, target)
     factory.emit(record, target)
 
 
 def all_audiences(client: ApiClient, target: IO[str] = sys.stdout) -> None:
     audiences_data = client.list_audiences().data['lists']
-    audiences_id = map(lambda a: a['id'], audiences_data)
-    map_obj = map(lambda id: _emit_audience(client, id, target), audiences_id)
-    deque(map_obj, 0)
+    if audiences_data:
+        audiences_id = map(lambda a: a['id'], audiences_data)
+        _emit_audience(client, next(audiences_id), True, target)
+        map_obj = map(
+            lambda id: _emit_audience(client, id, False, target),
+            audiences_id
+        )
+        deque(map_obj, 0)

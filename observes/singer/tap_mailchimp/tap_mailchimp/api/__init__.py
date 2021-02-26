@@ -6,10 +6,12 @@ from typing import (
     NamedTuple,
     Optional,
 )
+
 # Third party libraries
 from mailchimp_marketing import (
     Client,
 )
+
 # Local libraries
 from tap_mailchimp.api import (
     raw as raw_module,

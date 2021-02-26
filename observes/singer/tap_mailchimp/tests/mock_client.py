@@ -1,9 +1,11 @@
 # Standard libraries
 import json
+
 # Third party libraries
 from mailchimp_marketing import (
     Client,
 )
+
 # Local libraries
 from tap_mailchimp.api import (
     ApiClient,
