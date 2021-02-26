@@ -1,4 +1,4 @@
-export interface IHistoricTreatment {
+interface IHistoricTreatment {
   acceptanceDate?: string;
   acceptanceStatus?: string;
   date: string;
@@ -8,7 +8,7 @@ export interface IHistoricTreatment {
   user: string;
 }
 
-export interface IFinding {
+interface IFinding {
   actor: string;
   affectedSystems: string;
   analyst?: string;
@@ -29,13 +29,20 @@ export interface IFinding {
   type: string;
 }
 
-export interface IFindingDescriptionData {
+interface IFindingDescriptionData {
   finding: IFinding;
 }
 
-export interface IFindingDescriptionVars {
+interface IFindingDescriptionVars {
   canRetrieveAnalyst: boolean;
   canRetrieveSorts: boolean;
   findingId: string;
   projectName: string;
 }
+
+export {
+  IHistoricTreatment,
+  IFinding,
+  IFindingDescriptionData,
+  IFindingDescriptionVars,
+};

@@ -1,10 +1,10 @@
-import { DocumentNode } from "graphql";
+import type { DocumentNode } from "graphql";
 import gql from "graphql-tag";
 
-export const GET_FINDING_DESCRIPTION: DocumentNode = gql`
+const GET_FINDING_DESCRIPTION: DocumentNode = gql`
   query GetFindingDescription(
-    $canRetrieveAnalyst: Boolean!,
-    $canRetrieveSorts: Boolean!,
+    $canRetrieveAnalyst: Boolean!
+    $canRetrieveSorts: Boolean!
     $findingId: String!
   ) {
     finding(identifier: $findingId) {
@@ -30,42 +30,44 @@ export const GET_FINDING_DESCRIPTION: DocumentNode = gql`
   }
 `;
 
-export const UPDATE_DESCRIPTION_MUTATION: DocumentNode = gql`
+const UPDATE_DESCRIPTION_MUTATION: DocumentNode = gql`
   mutation UpdateFindingDescription(
-    $actor: String!,
-    $affectedSystems: String!,
-    $attackVectorDesc: String!,
-    $compromisedAttributes: String,
-    $compromisedRecords: Int!,
-    $cweUrl: String!,
-    $description: String!,
-    $findingId: String!,
-    $recommendation: String!,
-    $requirements: String!,
-    $scenario: String!,
-    $sorts: Sorts!,
-    $threat: String!,
-    $title: String!,
+    $actor: String!
+    $affectedSystems: String!
+    $attackVectorDesc: String!
+    $compromisedAttributes: String
+    $compromisedRecords: Int!
+    $cweUrl: String!
+    $description: String!
+    $findingId: String!
+    $recommendation: String!
+    $requirements: String!
+    $scenario: String!
+    $sorts: Sorts!
+    $threat: String!
+    $title: String!
     $type: String
-  ){
+  ) {
     updateDescription(
-      actor: $actor,
-      affectedSystems: $affectedSystems,
-      attackVectorDesc: $attackVectorDesc,
-      cwe: $cweUrl,
-      description: $description,
-      findingId: $findingId,
-      records: $compromisedAttributes,
-      recommendation: $recommendation,
-      recordsNumber: $compromisedRecords,
-      requirements: $requirements,
-      scenario: $scenario,
-      sorts: $sorts,
-      threat: $threat,
-      title: $title,
+      actor: $actor
+      affectedSystems: $affectedSystems
+      attackVectorDesc: $attackVectorDesc
+      cwe: $cweUrl
+      description: $description
+      findingId: $findingId
+      records: $compromisedAttributes
+      recommendation: $recommendation
+      recordsNumber: $compromisedRecords
+      requirements: $requirements
+      scenario: $scenario
+      sorts: $sorts
+      threat: $threat
+      title: $title
       findingType: $type
     ) {
       success
     }
   }
 `;
+
+export { GET_FINDING_DESCRIPTION, UPDATE_DESCRIPTION_MUTATION };

@@ -12,6 +12,8 @@ src/scenes/Dashboard/**/*.*
 !src/scenes/Dashboard/containers/CommentsView/**
 !src/scenes/Dashboard/containers/DescriptionView/ActionButtons/**
 !src/scenes/Dashboard/containers/DescriptionView/index.spec.tsx
+!src/scenes/Dashboard/containers/DescriptionView/queries.ts
+!src/scenes/Dashboard/containers/DescriptionView/types.ts
 !src/scenes/Dashboard/containers/FindingContent/components/buttoncol/index.tsx
 !src/scenes/Dashboard/containers/GroupScopeView/**
 !src/scenes/Dashboard/containers/ProjectSettingsView/DeleteGroup/**
