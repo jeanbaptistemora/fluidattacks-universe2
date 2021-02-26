@@ -1,8 +1,12 @@
+# Standard libraries
 import os
 import pytest
 
+# Third party libraries
 from starlette.datastructures import UploadFile
 
+# Local libraries
+from backend.api import get_new_context
 from backend.utils import datetime as datetime_utils
 from test_functional.executive.utils import get_result
 
@@ -10,6 +14,7 @@ pytestmark = pytest.mark.asyncio
 
 
 async def test_finding():
+    context = get_new_context()
     today = datetime_utils.get_as_str(
         datetime_utils.get_now(),
         date_format='%Y-%m-%d'
@@ -42,7 +47,11 @@ async def test_finding():
 
     '''
     data = {'query': query}
-    result = await get_result(data, stakeholder='integratesanalyst@fluidattacks.com')
+    result = await get_result(
+        data,
+        stakeholder='integratesanalyst@fluidattacks.com',
+        context=context
+    )
     assert 'errors' not in result
     assert 'success' in result['data']['createDraft']
     assert result['data']['createDraft']['success']
@@ -59,7 +68,11 @@ async def test_finding():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data, stakeholder='integratesanalyst@fluidattacks.com')
+    result = await get_result(
+        data,
+        stakeholder='integratesanalyst@fluidattacks.com',
+        context=context
+    )
     assert 'errors' not in result
     draft = [draft for draft in result['data']['project']['drafts'] if draft['title'] == title][0]
     draft_id = draft['id']
@@ -85,7 +98,11 @@ async def test_finding():
             'findingId': draft_id,
         }
         data = {'query': query, 'variables': variables}
-        result = await get_result(data, stakeholder='integratesanalyst@fluidattacks.com')
+        result = await get_result(
+            data,
+            stakeholder='integratesanalyst@fluidattacks.com',
+            context=context
+        )
     assert 'errors' not in result
     assert result['data']['uploadFile']['success']
 
@@ -115,7 +132,11 @@ async def test_finding():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data, stakeholder='integratesanalyst@fluidattacks.com')
+    result = await get_result(
+        data,
+        stakeholder='integratesanalyst@fluidattacks.com',
+        context=context
+    )
     assert 'errors' not in result
     assert 'success' in result['data']['updateSeverity']
     assert result['data']['updateSeverity']['success']
@@ -141,7 +162,11 @@ async def test_finding():
             'file': uploaded_file
         }
         data = {'query': query, 'variables': variables}
-        result = await get_result(data, stakeholder='integratesanalyst@fluidattacks.com')
+        result = await get_result(
+            data,
+            stakeholder='integratesanalyst@fluidattacks.com',
+            context=context
+        )
         assert 'errors' not in result
         assert 'success' in result['data']['updateEvidence']
         assert result['data']['updateEvidence']['success']
@@ -159,7 +184,11 @@ async def test_finding():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data, stakeholder='integratesanalyst@fluidattacks.com')
+    result = await get_result(
+        data,
+        stakeholder='integratesanalyst@fluidattacks.com',
+        context=context
+    )
     assert 'errors' not in result
     assert 'success' in result['data']['updateEvidenceDescription']
     assert result['data']['updateEvidenceDescription']['success']
@@ -172,7 +201,11 @@ async def test_finding():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data, stakeholder='integratesanalyst@fluidattacks.com')
+    result = await get_result(
+        data,
+        stakeholder='integratesanalyst@fluidattacks.com',
+        context=context
+    )
     assert 'errors' not in result
     assert result['data']['submitDraft']['success']
 
@@ -184,7 +217,11 @@ async def test_finding():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data, stakeholder='integratesmanager@gmail.com')
+    result = await get_result(
+        data,
+        stakeholder='integratesmanager@fluidattacks.com',
+        context=context
+    )
     assert 'errors' not in result
     assert result['data']['approveDraft']['success']
 
@@ -244,7 +281,7 @@ async def test_finding():
     }}'''
 
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     assert result['data']['finding']['id'] == finding_id
     assert result['data']['finding']['projectName'] == group_name
@@ -353,7 +390,7 @@ async def test_finding():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' in result
     assert result['errors'][0]['message'] == 'Access denied'
 
@@ -365,7 +402,7 @@ async def test_finding():
         }}
     '''
     data = {'query': query, 'variables': variables}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' in result
     assert result['errors'][0]['message'] == 'Access denied'
 
@@ -384,7 +421,7 @@ async def test_finding():
         }}
         '''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     assert 'success' in result['data']['addFindingConsult']
     assert result['data']['addFindingConsult']['success']
@@ -408,7 +445,7 @@ async def test_finding():
         }}
     }}'''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     assert result['data']['finding']['consulting'] == [
         {
@@ -425,7 +462,7 @@ async def test_finding():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' in result
     assert result['errors'][0]['message'] == 'Access denied'
 
@@ -437,7 +474,7 @@ async def test_finding():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data, stakeholder='integratesanalyst@fluidattacks.com')
+    result = await get_result(data, stakeholder='integratesanalyst@fluidattacks.com', context=context)
     assert 'errors' not in result
     assert 'success' in result['data']['deleteFinding']
     assert result['data']['deleteFinding']['success']

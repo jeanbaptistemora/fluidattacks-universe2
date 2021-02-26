@@ -53,6 +53,7 @@ async def mutate(
     if success:
         info.context.loaders.finding.clear(finding_id)
         info.context.loaders.finding_vulns_all.clear(finding_id)
+        info.context.loaders.finding_vulns_nzr.clear(finding_id)
         info.context.loaders.finding_vulns.clear(finding_id)
         await redis_del_by_deps(
             'upload_file',
