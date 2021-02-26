@@ -132,7 +132,11 @@ export const Dashboard: React.FC = (): JSX.Element => {
         setCtSessionModalOpen(true);
       } else if (
         !me.remember &&
-        document.referrer == "https://integrates.fluidattacks.com/"
+        (document.referrer === "https://integrates.fluidattacks.com/" ||
+          document.referrer === "https://accounts.google.com.co/" ||
+          document.referrer === "https://account.live.com/" ||
+          document.referrer === "https://login.live.com/" ||
+          document.referrer === "https://bitbucket.org/")
       ) {
         setLegalModalOpen(true);
       }
@@ -171,7 +175,11 @@ export const Dashboard: React.FC = (): JSX.Element => {
     setCtSessionModalOpen(false);
     if (
       !(data?.me.remember ?? false) &&
-      document.referrer == "https://integrates.fluidattacks.com/"
+      (document.referrer == "https://integrates.fluidattacks.com/" ||
+        document.referrer == "https://accounts.google.com.co/" ||
+        document.referrer === "https://account.live.com/" ||
+        document.referrer == "https://login.live.com/" ||
+        document.referrer == "https://bitbucket.org/")
     ) {
       setLegalModalOpen(true);
     }
