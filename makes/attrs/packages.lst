@@ -1,5 +1,6 @@
 airs.content
 airs.npm
+airs.test.images.covers
 airs.test.images.format
 asserts.doc.build
 asserts.env
