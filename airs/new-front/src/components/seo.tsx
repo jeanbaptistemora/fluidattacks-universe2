@@ -1,101 +1,149 @@
-/*
- *These rules are disabled since the usage are for performance issues,
- *but this will be a static site, so everything in this file is going to
- *be ran at compile time
- */
-/* eslint @typescript-eslint/no-non-null-assertion: 0 */
-/* eslint react/jsx-no-bind: 0 */
-/* eslint react/default-props-match-prop-types:0 */
-import Helmet from "react-helmet";
-
+/* eslint import/no-namespace:0 */
+/* eslint @typescript-eslint/no-non-null-assertion:0 */
+import { Helmet } from "react-helmet";
+import PropTypes from "prop-types";
 import React from "react";
+import * as favicon from "../images/favicon.png";
 
-import { graphql, useStaticQuery } from "gatsby";
-
-interface IStaticQueryData {
-  site: {
-    siteMetadata: {
-      description: string;
-      keywords: [string];
-      title: string;
-    };
-  };
+interface IMetaItem {
+  content: string;
+  name: string;
 }
 
-interface IProps {
+interface ILinkItem {
+  href: string;
+  rel: string;
+}
+
+interface ISeoProps {
+  title?: string;
   description?: string;
-  keywords?: string[];
-  lang?: string;
-  title: string;
+  url?: string;
+  author?: string;
+  keywords?: string;
+  meta?: IMetaItem[];
+  image?: string;
 }
 
-const defaultProps: IProps = {
-  description: "",
-  keywords: [""],
-  lang: "en_US",
-  title: "",
-};
-const SEO: React.FC<IProps> = ({
-  description,
-  lang,
-  keywords,
+const Seo: React.FC<ISeoProps> = ({
   title,
-}: IProps): JSX.Element => {
-  const { site }: IStaticQueryData = useStaticQuery(
-    // eslint-disable-next-line @typescript-eslint/no-confusing-void-expression
-    graphql`
-      query {
-        site {
-          siteMetadata {
-            title
-            description
-          }
-        }
-      }
-    `
-  );
+  description,
+  url,
+  author,
+  keywords,
+  meta,
+  image,
+}: ISeoProps): JSX.Element => {
+  const siteTitle: string = title!;
+  const siteDescription: string = description!;
+  const siteUrl: string = url!;
+  const siteAuthor: string = author!;
+  const siteImage: string = image!;
+  const siteKeywords: string = keywords!;
+  const metaData: IMetaItem[] = [
+    {
+      content: siteUrl,
+      name: "canonical",
+    },
+    {
+      content: siteDescription,
+      name: "description",
+    },
+    {
+      content: siteImage,
+      name: "image",
+    },
+    {
+      content: siteUrl,
+      name: "og:url",
+    },
+    {
+      content: "article",
+      name: "og:type",
+    },
+    {
+      content: siteTitle,
+      name: "og:title",
+    },
+    {
+      content: siteDescription,
+      name: "og:description",
+    },
+    {
+      content: `${siteUrl}/${siteImage}`,
+      name: "og:image",
+    },
+    {
+      content: "summary_large_image",
+      name: "twitter:card",
+    },
+    {
+      content: siteAuthor,
+      name: "twitter:creator",
+    },
+    {
+      content: siteTitle,
+      name: "twitter:title",
+    },
+    {
+      content: siteDescription,
+      name: "twitter:description",
+    },
+    {
+      content: siteImage,
+      name: "twitter:image",
+    },
+    {
+      content: siteKeywords,
+      name: "keywords",
+    },
+  ].concat(meta!);
 
-  const metaDescription: string = description!;
-  const language: string = lang!;
-  const kwords: string[] = keywords!;
+  const linkData: ILinkItem[] = [
+    {
+      href: favicon,
+      rel: "shortcut icon",
+    },
+    {
+      href: "icons/apple-touch-icon.png",
+      rel: "apple-touch-icon",
+    },
+  ];
 
   return (
     <Helmet
-      htmlAttributes={{
-        language,
-      }}
-      meta={[
-        {
-          content: metaDescription,
-          name: "description",
-        },
-        {
-          content: title,
-          property: "og:title",
-        },
-        {
-          content: metaDescription,
-          property: "og:description",
-        },
-        {
-          content: "website",
-          property: "og:type",
-        },
-      ].concat(
-        kwords.length > 0
-          ? {
-              content: kwords.join(", "),
-              name: "keywords",
-            }
-          : []
-      )}
-      title={title}
-      titleTemplate={`%s | ${site.siteMetadata.title}`}
+      htmlAttributes={{ lang: "en" }}
+      link={linkData}
+      meta={metaData}
+      title={siteTitle}
     />
   );
 };
 
 // eslint-disable-next-line fp/no-mutation
-SEO.defaultProps = defaultProps;
+Seo.propTypes = {
+  author: PropTypes.string,
+  description: PropTypes.string,
+  image: PropTypes.string,
+  keywords: PropTypes.string,
+  title: PropTypes.string,
+  url: PropTypes.string,
+};
 
-export { SEO };
+// eslint-disable-next-line fp/no-mutation
+Seo.defaultProps = {
+  author: "",
+  description: "",
+  image: "",
+  keywords: "",
+  meta: [
+    {
+      content: "",
+      name: "",
+    },
+  ],
+  title: "",
+  url: "",
+};
+
+export { Seo };

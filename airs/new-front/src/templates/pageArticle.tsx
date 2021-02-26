@@ -12,6 +12,7 @@ import { Breadcrumb } from "gatsby-plugin-breadcrumb";
 import { Layout } from "../components/layout";
 import { NavbarComponent } from "../components/navbar";
 import React from "react";
+import { Seo } from "../components/seo";
 import { graphql } from "gatsby";
 
 import "tachyons/css/tachyons.min.css";
@@ -28,6 +29,8 @@ interface IQueryData {
         slug: string;
       };
       pageAttributes: {
+        description: string;
+        keywords: string;
         slug: string;
       };
     };
@@ -60,7 +63,14 @@ const DefaultPage: React.FC<IQueryData> = ({
     .toUpperCase()}${title.slice(1).replace("-", "")}`;
 
   return (
-    <React.StrictMode>
+    <React.Fragment>
+      <Seo
+        description={data.asciidoc.pageAttributes.description}
+        keywords={data.asciidoc.pageAttributes.keywords}
+        title={title}
+        url={data.asciidoc.pageAttributes.slug}
+      />
+
       <Layout>
         <div>
           <NavbarComponent />
@@ -71,13 +81,13 @@ const DefaultPage: React.FC<IQueryData> = ({
           />
 
           <article>
-            <h1>{data.asciidoc.document.title}</h1>
+            <h1>{title}</h1>
 
             <div dangerouslySetInnerHTML={{ __html: data.asciidoc.html }} />
           </article>
         </div>
       </Layout>
-    </React.StrictMode>
+    </React.Fragment>
   );
 };
 
@@ -94,6 +104,8 @@ export const query: void = graphql`
         slug
       }
       pageAttributes {
+        description
+        keywords
         slug
       }
     }

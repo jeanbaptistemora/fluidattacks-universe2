@@ -20,7 +20,7 @@ interface IChildrenProps {
 interface ISiteMetadata {
   site: {
     siteMetadata: {
-      url: string;
+      siteUrl: string;
     };
   };
 }
@@ -34,7 +34,7 @@ const Layout: React.FC<IChildrenProps> = ({
       query {
         site {
           siteMetadata {
-            url
+            siteUrl
           }
         }
       }
@@ -59,15 +59,16 @@ const Layout: React.FC<IChildrenProps> = ({
                   {"Service status"}
                 </FooterInfoLink>
                 <GrayDash>{" - "}</GrayDash>
-                <FooterInfoLink href={`${site.siteMetadata.url}/terms-use/`}>
+                <FooterInfoLink
+                  href={`${site.siteMetadata.siteUrl}/terms-use/`}>
                   {"Terms of Use"}
                 </FooterInfoLink>
                 <GrayDash>{" - "}</GrayDash>
-                <FooterInfoLink href={`${site.siteMetadata.url}/privacy/`}>
+                <FooterInfoLink href={`${site.siteMetadata.siteUrl}/privacy/`}>
                   {"Privacy Policy"}
                 </FooterInfoLink>
                 <GrayDash>{" - "}</GrayDash>
-                <FooterInfoLink href={`${site.siteMetadata.url}/cookie/`}>
+                <FooterInfoLink href={`${site.siteMetadata.siteUrl}/cookie/`}>
                   {"Cookie Policy"}
                 </FooterInfoLink>
               </FooterInfoLinksContainer>

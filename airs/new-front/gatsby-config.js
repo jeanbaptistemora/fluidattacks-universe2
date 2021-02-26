@@ -1,12 +1,14 @@
 module.exports = {
   pathPrefix: '/new-front',
   siteMetadata: {
-    title: "A Pentesting Company | Fluid Attacks",
+    author: "Fluid Attacks",
     description:
       "We're a pentesting and ethical hacking company that identifies and \
       reports all your applications and software vulnerabilities ASAP.",
-    url: "https://fluidattacks.com/new-front", // No trailing slash allowed!
     image: "/images/logo-fluid-attacks.png", // Path to your image you placed in the 'static' folder
+    keywords: "Fluid Attacks, Pentesting, Ethical Hacking, Security Testing, Cybersecurity",
+    siteUrl: "https://fluidattacks.com/new-front", // No trailing slash allowed!
+    title: "A Pentesting Company | Fluid Attacks",
   },
   plugins: [
     {
@@ -28,6 +30,7 @@ module.exports = {
       resolve: "gatsby-transformer-asciidoc",
       options: {
         attributes: {
+          imagesdir: "../content/pages",
           showtitle: true,
         },
       },
