@@ -1,6 +1,9 @@
+variable "host" {}
+variable "port" {}
+
 provider "aws" {
   endpoints {
-    dynamodb = "http://127.0.0.1:8022"
+    dynamodb = "http://${var.host}:${var.port}"
   }
   region                      = "us-east-1"
   skip_credentials_validation = true
