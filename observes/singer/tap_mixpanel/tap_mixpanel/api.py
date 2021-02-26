@@ -16,7 +16,7 @@ import requests
 
 JSON = Dict[str, Any]
 API_BASE_URL = 'https://data.mixpanel.com/api/2.0'
-rate_limiter = RateLimiter(max_calls=60, period=3600)
+rate_limiter = RateLimiter(max_calls=40, period=3600)
 
 
 def export(auth: Tuple[str, str], params: JSON) -> Any:
