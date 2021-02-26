@@ -17,11 +17,13 @@ from typing import (
     Pattern,
     Tuple,
 )
+
 # Third party libraries
 from aioextensions import (
     generate_in_thread,
     in_thread,
 )
+
 # Local libraries
 from code_etl.utils import (
     db_cursor,

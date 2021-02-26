@@ -18,7 +18,7 @@ function job_code_amend_authors {
         'REDSHIFT_PORT' \
         'REDSHIFT_USER' \
   &&  use_git_repo_services \
-    &&  code-etl ammend-authors \
+    &&  code-etl amend-authors \
           '.groups-mailmap' \
   &&  popd \
   ||  return 1

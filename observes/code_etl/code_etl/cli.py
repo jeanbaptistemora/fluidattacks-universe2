@@ -2,12 +2,17 @@
 import asyncio
 import sys
 from os.path import abspath
-from typing import Iterator, Tuple
+from typing import (
+    Iterator,
+    Tuple,
+)
 # Third party libraries
 import click
+
 # Local libraries
+
 from code_etl import (
-    ammend_authors as ammend,
+    amend_authors as amend,
     compute_bills as bills,
     upload
 )
@@ -15,8 +20,8 @@ from code_etl import (
 
 @click.command()
 @click.argument('mailmap_path', type=str)
-def ammend_authors(mailmap_path: str) -> None:
-    asyncio.run(ammend.main(mailmap_path))
+def amend_authors(mailmap_path: str) -> None:
+    asyncio.run(amend.main(mailmap_path))
 
 
 @click.command()
@@ -53,6 +58,6 @@ def main() -> None:
     pass
 
 
-main.add_command(ammend_authors)
+main.add_command(amend_authors)
 main.add_command(compute_bills)
 main.add_command(upload_code)
