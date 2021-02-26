@@ -1,22 +1,23 @@
-import { MockedProvider, MockedResponse, wait } from "@apollo/react-testing";
-import { PureAbility } from "@casl/ability";
-import { mount, ReactWrapper } from "enzyme";
-import React from "react";
-// tslint:disable-next-line: no-submodule-imports
-import { act } from "react-dom/test-utils";
-import { Provider } from "react-redux";
-import { MemoryRouter, Route } from "react-router";
 import { DescriptionView } from "scenes/Dashboard/containers/DescriptionView";
 import { GET_FINDING_DESCRIPTION } from "scenes/Dashboard/containers/DescriptionView/queries";
-import {
+import type { MockedResponse } from "@apollo/react-testing";
+import { Provider } from "react-redux";
+import { PureAbility } from "@casl/ability";
+import React from "react";
+import type { ReactWrapper } from "enzyme";
+import { act } from "react-dom/test-utils";
+import { authzPermissionsContext } from "utils/authz/config";
+import { mount } from "enzyme";
+import store from "store";
+import type {
   IFinding,
   IFindingDescriptionData,
   IFindingDescriptionVars,
 } from "scenes/Dashboard/containers/DescriptionView/types";
-import store from "store";
-import { authzPermissionsContext } from "utils/authz/config";
+import { MemoryRouter, Route } from "react-router";
+import { MockedProvider, wait } from "@apollo/react-testing";
 
-describe("Finding Description", () => {
+describe("Finding Description", (): void => {
   const finding: IFinding = {
     actor: "ANY_EMPLOYEE",
     affectedSystems: "BWAPP Server",
@@ -55,60 +56,86 @@ describe("Finding Description", () => {
     },
   };
 
-  it("should return a function", () => {
-    expect(typeof (DescriptionView))
-      .toEqual("function");
+  it("should return a function", (): void => {
+    expect.hasAssertions();
+    expect(typeof DescriptionView).toStrictEqual("function");
   });
 
-  it("should render a component", async () => {
+  it("should render a component", async (): Promise<void> => {
+    expect.hasAssertions();
+
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/TEST/vulns/413372600/description"]}>
         <Provider store={store}>
-          <MockedProvider mocks={[descriptionQuery]} addTypename={false}>
-            <Route path="/:projectName/vulns/:findingId/description" component={DescriptionView} />
+          <MockedProvider addTypename={false} mocks={[descriptionQuery]}>
+            <Route
+              component={DescriptionView}
+              path={"/:projectName/vulns/:findingId/description"}
+            />
           </MockedProvider>
         </Provider>
-      </MemoryRouter>,
+      </MemoryRouter>
     );
-    await act(async () => { await wait(50); wrapper.update(); });
-    expect(wrapper)
-      .toHaveLength(1);
-    expect(wrapper
-      .find("Button")
-      .filterWhere((button: ReactWrapper): boolean =>
-        button
-          .text()
-          .includes("Edit")))
-      .toHaveLength(0);
+    await act(
+      async (): Promise<void> => {
+        const TEST_TIMEOUT: number = 50;
+        await wait(TEST_TIMEOUT);
+        wrapper.update();
+      }
+    );
+
+    expect(wrapper).toHaveLength(1);
+    expect(
+      wrapper
+        .find("Button")
+        .filterWhere((button: ReactWrapper): boolean =>
+          button.text().includes("Edit")
+        )
+    ).toHaveLength(0);
   });
 
-  it("should set the description as editable", async () => {
+  it("should set the description as editable", async (): Promise<void> => {
+    expect.hasAssertions();
+
     const mockedPermissions: PureAbility<string> = new PureAbility([
       { action: "backend_api_mutations_update_finding_description_mutate" },
     ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/TEST/vulns/413372600/description"]}>
         <Provider store={store}>
-          <MockedProvider mocks={[descriptionQuery]} addTypename={false}>
+          <MockedProvider addTypename={false} mocks={[descriptionQuery]}>
             <authzPermissionsContext.Provider value={mockedPermissions}>
-              <Route path="/:projectName/vulns/:findingId/description" component={DescriptionView} />
+              <Route
+                component={DescriptionView}
+                path={"/:projectName/vulns/:findingId/description"}
+              />
             </authzPermissionsContext.Provider>
           </MockedProvider>
         </Provider>
-      </MemoryRouter>,
+      </MemoryRouter>
     );
-    await act(async () => { await wait(50); wrapper.update(); });
+    await act(
+      async (): Promise<void> => {
+        const TEST_TIMEOUT: number = 50;
+        await wait(TEST_TIMEOUT);
+        wrapper.update();
+      }
+    );
     const editButton: ReactWrapper = wrapper
       .find("Button")
-      .filterWhere((element: ReactWrapper) => element.contains("Edit"));
+      .filterWhere((element: ReactWrapper): boolean =>
+        element.contains("Edit")
+      );
     editButton.simulate("click");
 
-    let editingComponents: ReactWrapper = wrapper.find({ isEditing: true });
-    let fieldsAsEditable: ReactWrapper = wrapper.find({ renderAsEditable: true });
-    expect(editingComponents)
-      .toHaveLength(1);
-    expect(fieldsAsEditable)
-      .toHaveLength(10);
+    const editingComponents: ReactWrapper = wrapper.find({ isEditing: true });
+    const fieldsAsEditable: ReactWrapper = wrapper.find({
+      renderAsEditable: true,
+    });
+    const EXPECTED_LENGTH: number = 10;
+
+    expect(editingComponents).toHaveLength(1);
+    expect(fieldsAsEditable).toHaveLength(EXPECTED_LENGTH);
 
     const titleInput: ReactWrapper = wrapper
       .find({ name: "title", type: "text" })
@@ -117,11 +144,14 @@ describe("Finding Description", () => {
     titleInput.simulate("change", { target: { value: "test" } });
 
     editButton.simulate("click");
-    editingComponents = wrapper.find({ isEditing: true });
-    fieldsAsEditable = wrapper.find({ renderAsEditable: true });
-    expect(editingComponents)
-      .toHaveLength(0);
-    expect(fieldsAsEditable)
-      .toHaveLength(0);
+    const editingComponentsAfterClick: ReactWrapper = wrapper.find({
+      isEditing: true,
+    });
+    const fieldsAsEditableAfterClick: ReactWrapper = wrapper.find({
+      renderAsEditable: true,
+    });
+
+    expect(editingComponentsAfterClick).toHaveLength(0);
+    expect(fieldsAsEditableAfterClick).toHaveLength(0);
   });
 });
