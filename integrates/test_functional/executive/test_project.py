@@ -1,6 +1,9 @@
+# Standard libraries
 import json
 import pytest
 
+# Local libraries
+from backend.api import get_new_context
 from test_functional.utils import complete_register
 from test_functional.executive.utils import get_result
 
@@ -8,6 +11,7 @@ pytestmark = pytest.mark.asyncio
 
 
 async def test_project():
+    context = get_new_context()
     query = '''{
         internalNames(entity: GROUP){
             name
@@ -15,7 +19,11 @@ async def test_project():
         }
     }'''
     data = {'query': query}
-    result = await get_result(data, stakeholder='integratesmanager@gmail.com')
+    result = await get_result(
+        data,
+        stakeholder='integratesmanager@gmail.com',
+        context=context
+    )
     assert 'errors' not in result
     assert 'internalNames' in result['data']
     group_name = result['data']['internalNames']['name']
@@ -36,7 +44,11 @@ async def test_project():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data, stakeholder='integratesmanager@gmail.com')
+    result = await get_result(
+        data,
+        stakeholder='integratesmanager@gmail.com',
+        context=context
+    )
     assert 'errors' not in result
     assert 'success' in result['data']['createProject']
     assert result['data']['createProject']['success']
@@ -60,7 +72,11 @@ async def test_project():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data, stakeholder='integratesmanager@gmail.com')
+    result = await get_result(
+        data,
+        stakeholder='integratesmanager@gmail.com',
+        context=context
+    )
     assert 'errors' not in result
     assert  result['data']['grantStakeholderAccess']['success']
     assert await complete_register(executive_email, group_name)
@@ -79,7 +95,7 @@ async def test_project():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     assert 'success' in result['data']['addProjectConsult']
     assert result['data']['addProjectConsult']['success']
@@ -98,7 +114,7 @@ async def test_project():
         'tagsData': json.dumps(['testing'])
     }
     data = {'query': query, 'variables': variables}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     assert 'success' in result['data']['addTags']
     assert result['data']['addTags']['success']
@@ -141,7 +157,7 @@ async def test_project():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     assert result['data']['project']['name'] == group_name
     assert result['data']['project']['hasDrills']
@@ -185,7 +201,7 @@ async def test_project():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     assert 'success' in result['data']['removeTag']
     assert result['data']['removeTag']['success']
@@ -198,7 +214,7 @@ async def test_project():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     assert result['data']['project']['tags'] == []
 
@@ -216,7 +232,8 @@ async def test_project():
         }}
       }}
     '''
-    result = await get_result({'query': query})
+    data = {'query': query}
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     assert result['data']['addGitRoot']['success']
 
@@ -237,7 +254,8 @@ async def test_project():
           }}
         }}
     '''
-    result = await get_result({'query': query})
+    data = {'query': query}
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     assert {
         '__typename': 'GitRoot',
@@ -257,7 +275,7 @@ async def test_project():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     assert result['data']['unsubscribeFromGroup']['success']
 
@@ -269,6 +287,6 @@ async def test_project():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' in result
     assert result['errors'][0]['message'] == 'Access denied'

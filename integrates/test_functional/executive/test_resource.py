@@ -1,10 +1,14 @@
+# Standard libraries
 import json
 import os
 import pytest
 
+# Third party libraries
 from starlette.datastructures import UploadFile
 from urllib.parse import quote
 
+# Local libraries
+from backend.api import get_new_context
 from backend.utils import datetime as datetime_utils
 from test_functional.executive.utils import get_result
 
@@ -12,6 +16,7 @@ pytestmark = pytest.mark.asyncio
 
 
 async def test_resource():
+    context = get_new_context()
     today = datetime_utils.get_as_str(
         datetime_utils.get_now(),
         date_format='%Y-%m-%d'
@@ -45,7 +50,7 @@ async def test_resource():
             'projectName': group_name
         }
         data = {'query': query, 'variables': variables}
-        result = await get_result(data)
+        result = await get_result(data, context=context)
     assert 'errors' not in result
     assert 'success' in result['data']['addFiles']
     assert result['data']['addFiles']['success']
@@ -58,7 +63,7 @@ async def test_resource():
         }}
     }}'''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     files = json.loads(result['data']['resources']['files'])
     file = [file for file in files if file['uploadDate'][:-6] == today][0]
     assert file['uploader'] == 'integratesexecutive@gmail.com'
@@ -75,7 +80,7 @@ async def test_resource():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     assert 'success' in result['data']['downloadFile']
     assert result['data']['downloadFile']['success']
@@ -98,7 +103,7 @@ async def test_resource():
         'projectName': group_name
     }
     data = {'query': query, 'variables': variables}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     assert 'success' in result['data']['removeFiles']
     assert result['data']['removeFiles']['success']
@@ -111,7 +116,7 @@ async def test_resource():
         }}
     }}'''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     files = json.loads(result['data']['resources']['files'])
     today_files = [file for file in files if file['uploadDate'][:-6] == today]
     assert today_files == []
