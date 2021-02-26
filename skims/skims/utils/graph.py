@@ -605,3 +605,26 @@ def yield_dicts(model: Any) -> Iterator[Dict[str, Any]]:
     elif isinstance(model, list):
         for sub_model in model:
             yield from yield_dicts(sub_model)
+
+
+def yield_object_creation_expression(
+    graph: Graph,
+    identifiers: Set[str],
+) -> Iterator[str]:
+    for n_id in filter_nodes(
+            graph,
+            graph.nodes,
+            predicate=pred_has_labels(
+                label_type='object_creation_expression'),
+    ):
+        match = match_ast(
+            graph,
+            n_id,
+            'new',
+            'scoped_type_identifier',
+            'argument_list',
+        )
+
+        if (len(match) == 3 and (class_id := match['scoped_type_identifier'])
+                and graph.nodes[class_id]['label_text'] in identifiers):
+            yield n_id
