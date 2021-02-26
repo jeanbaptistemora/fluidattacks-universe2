@@ -1,20 +1,5 @@
 # shellcheck shell=bash
 
-function helper_airs_image_blog_cover_dimensions {
-  local path="${1}"
-  local dimensions
-
-      helper_airs_file_exists "${path}" \
-  &&  dimensions="$(identify -format "%wx%h" "${path}")" \
-  &&  if [ "${dimensions}" = '900x600' ]
-      then
-            return 0
-      else
-            echo "[ERROR] ${path} does not have a size of 900x600" \
-        && return 1
-      fi
-}
-
 function helper_airs_image_optimized {
   local path="${1}"
 

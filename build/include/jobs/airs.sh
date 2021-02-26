@@ -23,14 +23,7 @@ function job_airs_test_images {
 
       pushd airs \
   &&  helper_airs_set_lc_all \
-  &&  blog_covers="$(find content/blog/ -type f -name cover.png)" \
   &&  touched_png_images="$(helper_airs_list_touched_files | grep '.png')" || true \
-  &&  echo '[INFO] Testing blog covers' \
-  &&  for cover in ${blog_covers}
-      do
-            helper_airs_image_blog_cover_dimensions "${cover}" \
-        ||  return 1
-      done \
   &&  echo '[INFO] Testing PNG images' \
   &&  for image in ${touched_png_images}
       do
