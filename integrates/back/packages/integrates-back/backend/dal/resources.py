@@ -17,14 +17,14 @@ LOGGER = logging.getLogger(__name__)
 
 
 async def search_file(file_name: str) -> List[str]:
-    return await s3.list_files(  # type: ignore
+    return await s3.list_files(
         FI_AWS_S3_RESOURCES_BUCKET,
         file_name
     )
 
 
 async def save_file(file_object: object, file_name: str) -> bool:
-    success: bool = await s3.upload_memory_file(  # type: ignore
+    success: bool = await s3.upload_memory_file(
         FI_AWS_S3_RESOURCES_BUCKET,
         file_object,
         file_name
@@ -34,7 +34,7 @@ async def save_file(file_object: object, file_name: str) -> bool:
 
 
 async def remove_file(file_name: str) -> bool:
-    return await s3.remove_file(  # type: ignore
+    return await s3.remove_file(
         FI_AWS_S3_RESOURCES_BUCKET,
         file_name
     )

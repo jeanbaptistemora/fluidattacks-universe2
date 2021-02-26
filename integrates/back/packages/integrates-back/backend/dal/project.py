@@ -18,7 +18,6 @@ from boto3.dynamodb.conditions import Attr, Key
 
 from backend import authz
 from backend.dal.helpers import dynamodb
-from backend.events.dal import TABLE_NAME as EVENTS_TABLE_NAME
 from backend.typing import (
     Comment as CommentType,
     DynamoDelete as DynamoDeleteType,
@@ -30,6 +29,7 @@ from backend.utils import (
     datetime as datetime_utils,
 )
 from back.settings import LOGGING
+from events.dal import TABLE_NAME as EVENTS_TABLE_NAME
 
 logging.config.dictConfig(LOGGING)
 

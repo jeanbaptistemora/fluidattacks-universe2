@@ -101,7 +101,7 @@ async def get_execution(project_name: str, execution_id: str) -> Any:
 
 
 async def save_log_execution(file_object: object, file_name: str) -> bool:
-    return await s3.upload_memory_file(  # type: ignore
+    return await s3.upload_memory_file(
         FI_AWS_S3_FORCES_BUCKET,
         file_object,
         file_name,
@@ -109,7 +109,7 @@ async def save_log_execution(file_object: object, file_name: str) -> bool:
 
 
 async def save_vulns_execution(file_object: object, file_name: str) -> bool:
-    return await s3.upload_memory_file(  # type: ignore
+    return await s3.upload_memory_file(
         FI_AWS_S3_FORCES_BUCKET,
         file_object,
         file_name,
@@ -118,7 +118,7 @@ async def save_vulns_execution(file_object: object, file_name: str) -> bool:
 
 async def get_log_execution(project_name: str, execution_id: str) -> str:
     with tempfile.NamedTemporaryFile(mode='w+') as file:
-        await s3.download_file(FI_AWS_S3_FORCES_BUCKET,  # type: ignore
+        await s3.download_file(FI_AWS_S3_FORCES_BUCKET,
                                f'{project_name}/{execution_id}.log', file.name)
         with open(file.name) as reader:
             return reader.read()
@@ -126,7 +126,7 @@ async def get_log_execution(project_name: str, execution_id: str) -> str:
 
 async def get_vulns_execution(project_name: str, execution_id: str) -> Any:
     with tempfile.NamedTemporaryFile(mode='w+') as file:
-        await s3.download_file(  # type: ignore
+        await s3.download_file(
             FI_AWS_S3_FORCES_BUCKET,
             f'{project_name}/{execution_id}.json',
             file.name)

@@ -5,9 +5,7 @@ import io
 from botocore.exceptions import ClientError
 
 # Local libraries
-from backend.dal.helpers.s3 import (  # type: ignore
-    aio_client,
-)
+from backend.dal.helpers.s3 import aio_client
 from backend.exceptions import DocumentNotFound
 from backend.utils import (
     apm,

@@ -11,6 +11,7 @@ import pytz
 from graphql.type.definition import GraphQLResolveInfo
 from starlette.datastructures import UploadFile
 
+from back import settings
 from backend import authz, mailer, util
 from backend.dal import (
     comment as comment_dal,
@@ -29,7 +30,6 @@ from backend.exceptions import (
     InvalidFileSize,
     InvalidFileType
 )
-from backend.events import dal as events_dal
 from backend.typing import (
     Comment as CommentType,
     Event as EventType,
@@ -41,8 +41,7 @@ from backend.utils import (
     events as event_utils,
     validations
 )
-
-from back import settings
+from events import dal as events_dal
 
 from __init__ import (
     BASE_URL,

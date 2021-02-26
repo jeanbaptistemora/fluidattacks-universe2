@@ -8,7 +8,7 @@ from datetime import datetime
 from botocore.exceptions import ClientError
 
 # Local libraries
-from backend.dal.helpers.s3 import aio_client  # type: ignore
+from backend.dal.helpers.s3 import aio_client
 from back.settings import LOGGING
 from __init__ import (
     SERVICES_AWS_S3_DATA_BUCKET as SERVICES_DATA_BUCKET,

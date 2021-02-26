@@ -1,15 +1,17 @@
-# disable MyPy due to error "boto module has no attribute client"
-#  type: ignore
-
 # Standard libraries
 import io
 import contextlib
 import logging
 import os
+from typing import (
+    List,
+    Optional
+)
 
 # Third party libraries
-from tempfile import _TemporaryFileWrapper as TemporaryFileWrapper
-
+from tempfile import (  # type: ignore
+    _TemporaryFileWrapper as TemporaryFileWrapper
+)
 from aioextensions import in_thread
 
 import aioboto3
@@ -43,26 +45,26 @@ if FI_ENVIRONMENT == 'development':
     OPTIONS['endpoint_url'] = 'http://localhost:9000'
 
 
-@apm.trace()
+@apm.trace()  # type: ignore
 @contextlib.asynccontextmanager
-async def aio_client():
+async def aio_client() -> aioboto3.session.Session.client:
     async with aioboto3.client(**OPTIONS) as client:
         yield client
 
 
-@apm.trace()
+@apm.trace()  # type: ignore
 @contextlib.asynccontextmanager
-async def aio_resource():
+async def aio_resource() -> aioboto3.session.Session.resource:
     async with aioboto3.resource(**OPTIONS) as resource:
         yield resource
 
 
-async def download_file(bucket, file_name, file_path):
+async def download_file(bucket: str, file_name: str, file_path: str) -> None:
     async with aio_client() as client:
         await client.download_file(bucket, file_name, file_path)
 
 
-async def list_files(bucket, name=None):
+async def list_files(bucket: str, name: Optional[str] = None) -> List[str]:
     async with aio_client() as client:
         resp = await client.list_objects_v2(Bucket=bucket, Prefix=name)
         key_list = [item['Key'] for item in resp.get('Contents', [])]
@@ -70,7 +72,7 @@ async def list_files(bucket, name=None):
     return key_list
 
 
-async def remove_file(bucket, name):
+async def remove_file(bucket: str, name: str) -> bool:
     success = False
     async with aio_client() as client:
         try:
@@ -106,7 +108,7 @@ async def upload_memory_file(
     bucket: str,
     file_object: object,
     file_name: str
-) -> None:
+) -> bool:
     valid_in_memory_files = (
         TemporaryFileWrapper,
         UploadFile

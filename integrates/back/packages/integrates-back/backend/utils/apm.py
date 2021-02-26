@@ -15,7 +15,7 @@ from __init__ import (
 
 
 def trace(
-    overridden_function: Optional[Callable[[Any], Any]] = None
+    overridden_function: Optional[Callable[..., Any]] = None
 ) -> Any:
     return tracers.function.trace(
         enabled=DEBUG.lower() == 'true',

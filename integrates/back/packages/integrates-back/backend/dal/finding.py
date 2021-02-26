@@ -147,7 +147,7 @@ async def get(
 
 
 async def save_evidence(file_object: object, file_name: str) -> bool:
-    return await s3.upload_memory_file(  # type: ignore
+    return await s3.upload_memory_file(
         FI_AWS_S3_BUCKET,
         file_object,
         file_name
@@ -155,15 +155,15 @@ async def save_evidence(file_object: object, file_name: str) -> bool:
 
 
 async def search_evidence(file_name: str) -> List[str]:
-    return await s3.list_files(FI_AWS_S3_BUCKET, file_name)  # type: ignore
+    return await s3.list_files(FI_AWS_S3_BUCKET, file_name)
 
 
 async def remove_evidence(file_name: str) -> bool:
-    return await s3.remove_file(FI_AWS_S3_BUCKET, file_name)  # type: ignore
+    return await s3.remove_file(FI_AWS_S3_BUCKET, file_name)
 
 
 async def download_evidence(file_name: str, file_path: str) -> None:
-    await s3.download_file(  # type: ignore
+    await s3.download_file(
         FI_AWS_S3_BUCKET,
         file_name,
         file_path

@@ -24,9 +24,9 @@ from backend.domain.project import (
     get_alive_projects,
     list_events,
 )
-from backend.events import dal as events_dal
 from backend.typing import Event
 from backend.utils import datetime as datetime_utils
+from events import dal as events_dal
 from __init__ import FI_AWS_S3_BUCKET
 
 

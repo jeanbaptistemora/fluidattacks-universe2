@@ -12,8 +12,8 @@ from backend.exceptions import (
     EventAlreadyClosed, EventNotFound, InvalidCommentParent,
     InvalidFileType, InvalidFileSize
 )
-from backend.events import dal as events_dal
 from backend.utils import datetime as datetime_utils
+from events import dal as events_dal
 from test_unit.utils import create_dummy_session
 from graphql.type import GraphQLResolveInfo
 

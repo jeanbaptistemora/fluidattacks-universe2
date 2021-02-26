@@ -1,6 +1,6 @@
 import pytest
 
-from backend.events.dal import (
+from events.dal import (
     get_event,
     update
 )

@@ -158,6 +158,11 @@ integrates.back.destroy.eph:
   <<: *in_schedule_nightly_build_integrates
   stage: rotation
 
+integrates.back.lint:
+  <<: *makes
+  <<: *in_dev_branch_integrates
+  stage: lint-code
+
 integrates.back.test.functional:
   <<: *makes
   <<: *in_dev_branch_integrates

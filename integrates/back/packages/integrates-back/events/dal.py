@@ -1,4 +1,5 @@
 import logging
+import logging.config
 from typing import cast, List
 
 from aioextensions import in_thread
@@ -85,7 +86,7 @@ async def get_event(event_id: str) -> EventType:
 
 
 async def save_evidence(file_object: object, file_name: str) -> bool:
-    return await s3.upload_memory_file(  # type: ignore
+    return await s3.upload_memory_file(
         FI_AWS_S3_BUCKET,
         file_object,
         file_name
@@ -93,7 +94,7 @@ async def save_evidence(file_object: object, file_name: str) -> bool:
 
 
 async def remove_evidence(file_name: str) -> bool:
-    return await s3.remove_file(FI_AWS_S3_BUCKET, file_name)  # type: ignore
+    return await s3.remove_file(FI_AWS_S3_BUCKET, file_name)
 
 
 async def sign_url(file_url: str) -> str:
@@ -109,4 +110,4 @@ async def sign_url(file_url: str) -> str:
 
 
 async def search_evidence(file_name: str) -> List[str]:
-    return await s3.list_files(FI_AWS_S3_BUCKET, file_name)  # type: ignore
+    return await s3.list_files(FI_AWS_S3_BUCKET, file_name)
