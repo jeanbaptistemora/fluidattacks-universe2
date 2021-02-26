@@ -1,10 +1,15 @@
 """
 This migration uses the vulns, the analyst and the date to populate
 the source field into the finding historic state
+
+Execution Time:    2021-02-26 at 13:10:24 UTC-05
+Finalization Time: 2021-02-26 at 13:36:41 UTC-05
 """
-# Standard library
+# Standard libraries
 import copy
-from pprint import pprint
+from pprint import (
+    pprint,
+)
 from typing import (
     Dict,
     cast,
@@ -15,10 +20,14 @@ from aioextensions import (
     collect,
     run,
 )
-from boto3.dynamodb.conditions import Key
+from boto3.dynamodb.conditions import (
+    Key,
+)
 
 # Local libraries
-from backend.dal.helpers import dynamodb
+from backend.dal.helpers import (
+    dynamodb,
+)
 from backend.dal import (
     finding as finding_dal,
 )
@@ -31,7 +40,7 @@ from backend.utils import (
 )
 
 FINDING_TABLE: str = 'FI_findings'
-VULNERABILITY_TABLE = 'FI_vulnerabilities'
+VULNERABILITY_TABLE: str = 'FI_vulnerabilities'
 
 
 async def add_source_field_to_historic_state(
@@ -85,7 +94,7 @@ async def add_source_field_to_historic_state(
         success = await finding_dal.update(
             finding_id,
             {
-                "historic_state": finding_historic_state
+                'historic_state': finding_historic_state
             }
         )
         print(f'finding_id = {finding_id}')
