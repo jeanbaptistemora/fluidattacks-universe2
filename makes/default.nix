@@ -81,20 +81,37 @@ let
     sortsPkgs = import srcSortsPkgs { inherit system; };
 
     # Makes utils
-    buildNodeRequirements = import (path "/makes/utils/build-node-requirements") path;
-    buildPythonLambda = import (path "/makes/utils/build-python-lambda") path;
-    buildPythonRequirements = import (path "/makes/utils/build-python-requirements") path;
-    getPackageJsonDeps = import (path "/makes/utils/get-package-json-deps") path;
-    lintPython = import (path "/makes/utils/lint-python") path;
-    makeDerivation = import (path "/makes/utils/make-derivation") path;
-    makeEntrypoint = import (path "/makes/utils/make-entrypoint") path;
-    makeOci = import (path "/makes/utils/make-oci") path;
-    makeSearchPaths = import (path "/makes/utils/make-search-paths") path;
-    makeTemplate = import (path "/makes/utils/make-template") path;
-    nix = import (path "/makes/utils/nix") path makesPkgs;
-    ociDeploy = import (path "/makes/utils/oci-deploy") path;
-    terraformApply = import (path "/makes/utils/terraform-apply") path;
-    terraformTest = import (path "/makes/utils/terraform-test") path;
+    makeUtils = {
+      buildNodeRequirements = import (path "/makes/utils/build-node-requirements") path;
+      buildPythonLambda = import (path "/makes/utils/build-python-lambda") path;
+      buildPythonRequirements = import (path "/makes/utils/build-python-requirements") path;
+      getPackageJsonDeps = import (path "/makes/utils/get-package-json-deps") path;
+      lintPython = import (path "/makes/utils/lint-python") path;
+      makeDerivation = import (path "/makes/utils/make-derivation") path;
+      makeEntrypoint = import (path "/makes/utils/make-entrypoint") path;
+      makeOci = import (path "/makes/utils/make-oci") path;
+      makeSearchPaths = import (path "/makes/utils/make-search-paths") path;
+      makeTemplate = import (path "/makes/utils/make-template") path;
+      nix = import (path "/makes/utils/nix") path;
+      ociDeploy = import (path "/makes/utils/oci-deploy") path;
+      terraformApply = import (path "/makes/utils/terraform-apply") path;
+      terraformTest = import (path "/makes/utils/terraform-test") path;
+    };
+    # Old support
+    buildNodeRequirements = makeUtils.buildNodeRequirements;
+    buildPythonLambda = makeUtils.buildPythonLambda;
+    buildPythonRequirements = makeUtils.buildPythonRequirements;
+    getPackageJsonDeps = makeUtils.getPackageJsonDeps;
+    lintPython = makeUtils.lintPython;
+    makeDerivation = makeUtils.makeDerivation;
+    makeEntrypoint = makeUtils.makeEntrypoint;
+    makeOci = makeUtils.makeOci;
+    makeSearchPaths = makeUtils.makeSearchPaths;
+    makeTemplate = makeUtils.makeTemplate;
+    nix = makeUtils.nix makesPkgs;
+    ociDeploy = makeUtils.ociDeploy;
+    terraformApply = makeUtils.terraformApply;
+    terraformTest = makeUtils.terraformTest;
   };
   dotToSlash = builtins.replaceStrings [ "." ] [ "/" ];
 in
