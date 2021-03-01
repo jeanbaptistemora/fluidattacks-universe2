@@ -766,16 +766,16 @@
         {
           "FacetName": "finding_metadata",
           "KeyAttributeAlias": {
-            "PartitionKeyAlias": "GROUP#name",
-            "SortKeyAlias": "FIN#uuid"
+            "PartitionKeyAlias": "FIN#uuid",
+            "SortKeyAlias": "GROUP#name"
           },
           "TableData": [
             {
               "pk": {
-                "S": "GROUP#unittesting"
+                "S": "FIN#a0fddb36-ac0d-4a58-969f-b13194af61c2"
               },
               "sk": {
-                "S": "FIN#a0fddb36-ac0d-4a58-969f-b13194af61c2"
+                "S": "GROUP#unittesting"
               },
               "name": {
                 "S": "F035. Weak credential policy"
@@ -971,7 +971,7 @@
           "FacetName": "finding_historic",
           "KeyAttributeAlias": {
             "PartitionKeyAlias": "FIN#uuid#HIST#iso8601utc",
-            "SortKeyAlias": "FIN#uuid"
+            "SortKeyAlias": "GROUP#name"
           },
           "TableData": [
             {
@@ -979,7 +979,7 @@
                 "S": "FIN#a0fddb36-ac0d-4a58-969f-b13194af61c2#HIST#2021-02-15T14:01:16Z"
               },
               "sk": {
-                "S": "FIN#a0fddb36-ac0d-4a58-969f-b13194af61c2"
+                "S": "GROUP#unittesting"
               },
               "status": {
                 "S": "CREATED"
@@ -1295,6 +1295,46 @@
           ],
           "NonKeyAttributes": [
             "name"
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
+        },
+        {
+          "FacetName": "org_groups",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "ORG#name",
+            "SortKeyAlias": "GROUP#name"
+          },
+          "TableData": [
+            {
+              "pk": {
+                "S": "ORG#okada"
+              },
+              "sk": {
+                "S": "GROUP#unittesting"
+              }
+            }
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
+        },
+        {
+          "FacetName": "group_findings",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "GROUP#name",
+            "SortKeyAlias": "FIN#uuid"
+          },
+          "TableData": [
+            {
+              "pk": {
+                "S": "GROUP#unittesting"
+              },
+              "sk": {
+                "S": "FIN#a0fddb36-ac0d-4a58-969f-b13194af61c2"
+              }
+            }
           ],
           "DataAccess": {
             "MySql": {}
