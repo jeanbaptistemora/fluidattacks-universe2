@@ -835,24 +835,19 @@
         {
           "FacetName": "vulnerability_metadata",
           "KeyAttributeAlias": {
-            "PartitionKeyAlias": "FIN#uuid",
-            "SortKeyAlias": "VULN#uuid"
+            "PartitionKeyAlias": "VULN#uuid",
+            "SortKeyAlias": "FIN#uuid"
           },
           "TableData": [
             {
               "pk": {
-                "S": "FIN#a0fddb36-ac0d-4a58-969f-b13194af61c2"
+                "S": "VULN#3098e835-833c-48f7-aa76-12ea884e871f"
               },
               "sk": {
-                "S": "VULN#3098e835-833c-48f7-aa76-12ea884e871f"
+                "S": "FIN#a0fddb36-ac0d-4a58-969f-b13194af61c2"
               },
               "type": {
                 "S": "lines"
-              },
-              "tags": {
-                "SS": [
-                  "tag"
-                ]
               },
               "source": {
                 "S": "skims"
@@ -867,7 +862,6 @@
           ],
           "NonKeyAttributes": [
             "type",
-            "tags",
             "source",
             "where",
             "specific"
@@ -877,18 +871,18 @@
           }
         },
         {
-          "FacetName": "treatment",
+          "FacetName": "vulnerability_treatment_historic",
           "KeyAttributeAlias": {
-            "PartitionKeyAlias": "VULN#uuid",
-            "SortKeyAlias": "TREAT#iso8601utc"
+            "PartitionKeyAlias": "VULN#uuid#TREAT#iso8601utc",
+            "SortKeyAlias": "FIN#uuid"
           },
           "TableData": [
             {
               "pk": {
-                "S": "VULN#3098e835-833c-48f7-aa76-12ea884e871f"
+                "S": "VULN#3098e835-833c-48f7-aa76-12ea884e871f#TREAT#2021-02-15T14:01:16Z"
               },
               "sk": {
-                "S": "TREAT#2021-02-15T14:01:16Z"
+                "S": "FIN#a0fddb36-ac0d-4a58-969f-b13194af61c2"
               },
               "status": {
                 "S": "NEW"
@@ -1198,9 +1192,30 @@
           "FacetName": "vulnerability_historic",
           "KeyAttributeAlias": {
             "PartitionKeyAlias": "VULN#uuid#HIST#iso8601utc",
-            "SortKeyAlias": "VULN#uuid"
+            "SortKeyAlias": "FIN#uuid"
           },
-          "TableData": [],
+          "TableData": [
+            {
+              "pk": {
+                "S": "VULN#3098e835-833c-48f7-aa76-12ea884e871f#HIST#2021-02-15T14:01:16Z"
+              },
+              "sk": {
+                "S": "FIN#a0fddb36-ac0d-4a58-969f-b13194af61c2"
+              },
+              "status": {
+                "S": "OPEN"
+              },
+              "tags": {
+                "SS": []
+              },
+              "modified_date": {
+                "S": "2021-02-15T14:01:16Z"
+              },
+              "modified_by": {
+                "S": "USER#test@fluidattacks.com"
+              }
+            }
+          ],
           "NonKeyAttributes": [
             "status",
             "tags",
@@ -1216,7 +1231,7 @@
           "FacetName": "root_cloning_historic",
           "KeyAttributeAlias": {
             "PartitionKeyAlias": "ROOT#uuid#CLON#iso8601utc",
-            "SortKeyAlias": "ROOT#uuid"
+            "SortKeyAlias": "GROUP#name"
           },
           "TableData": [
             {
