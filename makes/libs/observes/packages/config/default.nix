@@ -462,6 +462,7 @@ rec {
     srcPath = path "/observes/singer/tap_mailchimp";
     python = {
       direct = [
+        "click==7.1.2"
         "mailchimp-marketing==3.0.31"
       ];
       inherited = [

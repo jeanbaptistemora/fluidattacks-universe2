@@ -5,7 +5,10 @@ from collections import (
 )
 from enum import Enum
 from typing import (
+    Callable,
     IO,
+    Mapping,
+    Optional,
 )
 
 # Third party libraries
@@ -16,9 +19,13 @@ from singer_io.singer import (
     SingerSchema,
     SingerRecord,
 )
-from tap_mailchimp.api import (
-    ApiClient,
+from tap_mailchimp import (
+    api
 )
+
+
+ApiClient = api.ApiClient
+Credentials = api.Credentials
 
 
 class SupportedStreams(Enum):
@@ -29,8 +36,9 @@ def _emit_audience(
     client: ApiClient,
     audience_id: str,
     emit_schema: bool,
-    target: IO[str] = sys.stdout
+    target: Optional[IO[str]]
 ) -> None:
+    target = target if target else sys.stdout
     stream = 'audiences'
     result = client.get_audience(audience_id)
     schema = SingerSchema(
@@ -47,7 +55,7 @@ def _emit_audience(
     factory.emit(record, target)
 
 
-def all_audiences(client: ApiClient, target: IO[str] = sys.stdout) -> None:
+def all_audiences(client: ApiClient, target: Optional[IO[str]]) -> None:
     audiences_data = client.list_audiences().data['lists']
     if audiences_data:
         audiences_id = map(lambda a: a['id'], audiences_data)
@@ -57,3 +65,11 @@ def all_audiences(client: ApiClient, target: IO[str] = sys.stdout) -> None:
             audiences_id
         )
         deque(map_obj, 0)
+
+
+STREAM_EXECUTOR: Mapping[
+    SupportedStreams,
+    Callable[[ApiClient, Optional[IO[str]]], None]
+] = {
+    SupportedStreams.ALL_AUDIENCES: all_audiences
+}
