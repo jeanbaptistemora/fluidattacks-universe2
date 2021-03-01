@@ -131,7 +131,7 @@ $codeyellow: rgba(230, 219, 116, 1);
   }
 
   td {
-    padding: 0 2rem !important; 
+    padding: 0 2rem !important;
   }
 }
 
@@ -273,7 +273,6 @@ $codeyellow: rgba(230, 219, 116, 1);
 .bb-form { border-bottom: 1px solid $lightblack; }
 .h-slide-bt { height: 0.25rem; }
 .slide-bt-trans { transition: background-color 0.6s ease; }
-.advisories-grid { grid-template-columns: repeat(2, minmax(25rem, 1fr)); }
 .indexof-grid { grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr)); }
 .grid { display: grid; }
 .table-center { margin: 0 auto !important;}
@@ -523,6 +522,7 @@ $codeyellow: rgba(230, 219, 116, 1);
   .pl-body { padding-left: 3.75rem; }
   .mw-20 { max-width: 20rem; }
   .w-benefit { width: 33%; }
+  .advisories-grid { grid-template-columns: repeat(2, minmax(25rem, 1fr)); }
 }
 
 //Very large screens
