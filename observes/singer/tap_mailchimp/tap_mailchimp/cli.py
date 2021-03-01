@@ -18,7 +18,7 @@ from tap_mailchimp import (
 
 ApiClient = api.ApiClient
 Credentials = auth.Credentials
-STREAM_EXECUTOR = streams.STREAM_EXECUTOR
+stream_executor = streams.stream_executor
 SupportedStreams = streams.SupportedStreams
 
 
@@ -27,14 +27,14 @@ SupportedStreams = streams.SupportedStreams
 @click.option(
     '--stream-name',
     type=click.Choice(
-        list(map(lambda x: x.value, iter(SupportedStreams))),
+        [x.value for x in iter(SupportedStreams)],
         case_sensitive=False),
     required=True
 )
 def stream(creds_file: IO[AnyStr], stream_name: str) -> None:
     creds: Credentials = auth.to_credentials(json.load(creds_file))
     client: ApiClient = api.new_client(creds)
-    STREAM_EXECUTOR[SupportedStreams(stream_name)](client, None)
+    stream_executor[SupportedStreams(stream_name)](client, None)
 
 
 @click.group()

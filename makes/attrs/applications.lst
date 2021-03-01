@@ -111,6 +111,7 @@ observes.streamer-zoho-crm
 observes.tap-csv
 observes.tap-formstack
 observes.tap-json
+observes.tap-mailchimp
 observes.tap-mixpanel
 observes.tap-timedoctor
 observes.target-redshift

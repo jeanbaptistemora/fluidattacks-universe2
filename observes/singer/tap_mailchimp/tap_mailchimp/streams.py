@@ -67,7 +67,7 @@ def all_audiences(client: ApiClient, target: Optional[IO[str]]) -> None:
         deque(map_obj, 0)
 
 
-STREAM_EXECUTOR: Mapping[
+stream_executor: Mapping[
     SupportedStreams,
     Callable[[ApiClient, Optional[IO[str]]], None]
 ] = {

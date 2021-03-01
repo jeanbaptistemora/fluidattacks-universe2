@@ -54,6 +54,12 @@
     package = observesPkgs.tapFormstack;
   };
 
+  tapMailchimp = {
+    binName = "observes-tap-mailchimp";
+    entrypoint = "from tap_mailchimp.cli import main";
+    package = observesPkgs.tapMailchimp;
+  };
+
   tapMixpanel = {
     binName = "observes-tap-mixpanel";
     entrypoint = "from tap_mixpanel import main";
