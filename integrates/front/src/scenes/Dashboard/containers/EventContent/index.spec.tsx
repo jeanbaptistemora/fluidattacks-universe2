@@ -3,6 +3,7 @@ import { GET_EVENT_HEADER } from "scenes/Dashboard/containers/EventContent/queri
 import { MockedProvider } from "@apollo/react-testing";
 import type { MockedResponse } from "@apollo/react-testing";
 import React from "react";
+import { act } from "react-dom/test-utils";
 import wait from "waait";
 import { MemoryRouter, Route } from "react-router";
 import type { ReactWrapper, ShallowWrapper } from "enzyme";
@@ -63,7 +64,12 @@ describe("EventContent", (): void => {
         </MockedProvider>
       </MemoryRouter>
     );
-    await wait(0);
+    await act(
+      async (): Promise<void> => {
+        await wait(0);
+        wrapper.update();
+      }
+    );
 
     expect(wrapper.text()).toContain("Solved");
   });

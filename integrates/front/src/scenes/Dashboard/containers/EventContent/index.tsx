@@ -5,14 +5,14 @@ import { EventEvidenceView } from "scenes/Dashboard/containers/EventEvidenceView
 import { EventHeader } from "scenes/Dashboard/components/EventHeader";
 import { GET_EVENT_HEADER } from "scenes/Dashboard/containers/EventContent/queries";
 import type { GraphQLError } from "graphql";
+import type { IEventHeaderProps } from "scenes/Dashboard/components/EventHeader";
 import { Logger } from "utils/logger";
 import { NavLink } from "react-router-dom";
-import { Query } from "@apollo/react-components";
-import type { QueryResult } from "@apollo/react-common";
 import React from "react";
 import _ from "lodash";
 import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
+import { useQuery } from "@apollo/react-hooks";
 import { useTabTracking } from "utils/hooks";
 import {
   Col100,
@@ -28,6 +28,10 @@ import {
   useParams,
   useRouteMatch,
 } from "react-router";
+
+interface IEventHeaderData {
+  event: IEventHeaderProps;
+}
 
 const EventContent: React.FC = (): JSX.Element => {
   const { eventId } = useParams<{ eventId: string }>();
@@ -46,35 +50,28 @@ const EventContent: React.FC = (): JSX.Element => {
     []
   );
 
+  const { data } = useQuery<IEventHeaderData>(GET_EVENT_HEADER, {
+    onError: handleErrors,
+    variables: { eventId },
+  });
+
+  if (_.isUndefined(data) || _.isEmpty(data)) {
+    return <div />;
+  }
+
+  const { eventDate, eventStatus, eventType, id } = data.event;
+
   return (
     <React.StrictMode>
       <div>
         <Row>
           <Col100>
-            <Query
-              onError={handleErrors}
-              query={GET_EVENT_HEADER}
-              variables={{ eventId }}
-            >
-              {({ data }: QueryResult): JSX.Element => {
-                if (_.isUndefined(data) || _.isEmpty(data)) {
-                  return <div />;
-                }
-
-                // Eslint annotation needed as the DB handles "any" type
-                // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-                const { eventDate, eventStatus, eventType, id } = data.event;
-
-                return (
-                  <EventHeader
-                    eventDate={eventDate}
-                    eventStatus={eventStatus}
-                    eventType={eventType}
-                    id={id}
-                  />
-                );
-              }}
-            </Query>
+            <EventHeader
+              eventDate={eventDate}
+              eventStatus={eventStatus}
+              eventType={eventType}
+              id={id}
+            />
             <TabsContainer>
               <Tab id={"resourcesTab"}>
                 <NavLink
