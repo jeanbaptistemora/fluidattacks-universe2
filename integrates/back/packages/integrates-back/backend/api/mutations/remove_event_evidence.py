@@ -13,8 +13,8 @@ from backend.decorators import (
     require_integrates,
     require_login
 )
-from backend.domain import event as event_domain
 from backend.typing import SimplePayload
+from events import domain as events_domain
 
 
 @convert_kwargs_to_snake_case  # type: ignore
@@ -30,7 +30,7 @@ async def mutate(
     evidence_type: str
 ) -> SimplePayload:
     """Resolve remove_event_evidence mutation."""
-    success = await event_domain.remove_evidence(evidence_type, event_id)
+    success = await events_domain.remove_evidence(evidence_type, event_id)
     if success:
         info.context.loaders.event.clear(event_id)
         util.cloudwatch_log(

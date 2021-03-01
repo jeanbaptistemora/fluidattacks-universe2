@@ -1,8 +1,18 @@
 """Domain functions for events."""  # pylint:disable=cyclic-import
-from typing import Any, cast, Dict, List, Optional, Tuple, Union
+# Standard Libraries
+from typing import (
+    Any,
+    cast,
+    Dict,
+    List,
+    Optional,
+    Tuple,
+    Union,
+)
 import random
 from datetime import datetime
 
+# Third-party Libraries
 from aioextensions import (
     collect,
     schedule,
@@ -11,6 +21,7 @@ import pytz
 from graphql.type.definition import GraphQLResolveInfo
 from starlette.datastructures import UploadFile
 
+# Local Libraries
 from back import settings
 from backend import authz, mailer, util
 from backend.dal import (
@@ -196,7 +207,7 @@ async def _send_new_event_mail(  # pylint: disable=too-many-arguments
             recipient, group_name) != 'customeradmin'
     ]
     email_context_customers = email_context.copy()
-    email_context_customers['analyst_email'] = f'Hacker at FluidIntegrates'
+    email_context_customers['analyst_email'] = 'Hacker at FluidIntegrates'
 
     schedule(
         mailer.send_mail_new_event(

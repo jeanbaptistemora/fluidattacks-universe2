@@ -1,13 +1,13 @@
 """ Integrates services definition """
 
 from typing import Dict, cast
+
+from backend import authz, util
 from backend.domain import (
-    event as event_domain,
     finding as finding_domain,
     user as user_domain
 )
-
-from backend import authz, util
+from events import domain as events_domain
 
 
 async def has_access_to_project(email: str, group: str) -> bool:
@@ -24,7 +24,7 @@ async def has_access_to_finding(email: str, finding_id: str) -> bool:
 
 async def has_access_to_event(email: str, event_id: str) -> bool:
     """ Verify if the user has access to a event submission. """
-    event = await event_domain.get_event(event_id)
+    event = await events_domain.get_event(event_id)
     group = cast(str, event.get('project_name', ''))
     return await has_access_to_project(email, group)
 

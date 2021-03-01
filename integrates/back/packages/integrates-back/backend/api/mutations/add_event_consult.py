@@ -17,8 +17,8 @@ from backend.decorators import (
     require_integrates,
     require_login,
 )
-from backend.domain import event as event_domain
 from backend.typing import AddConsultPayload
+from events import domain as events_domain
 
 
 @convert_kwargs_to_snake_case  # type: ignore
@@ -43,7 +43,7 @@ async def mutate(
         'content': content,
         'user_id': random_comment_id
     }
-    comment_id, success = await event_domain.add_comment(
+    comment_id, success = await events_domain.add_comment(
         info,
         user_email,
         comment_data,
@@ -54,7 +54,7 @@ async def mutate(
         redis_del_by_deps_soon('add_event_consult', event_id=event_id)
         event_loader = info.context.loaders.event
         if content.strip() not in {'#external', '#internal'}:
-            event_domain.send_comment_mail(
+            events_domain.send_comment_mail(
                 user_email,
                 comment_data,
                 await event_loader.load(event_id)

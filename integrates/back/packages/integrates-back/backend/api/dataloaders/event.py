@@ -1,18 +1,19 @@
 # pylint: disable=method-hidden
 
 from collections import defaultdict
-
 from typing import Dict, List, cast
+
 from aiodataloader import DataLoader
-from backend.domain import event as event_domain
+
 from backend.typing import Event as EventType, Historic
+from events import domain as events_domain
 
 
 async def _batch_load_fn(event_ids: List[str]) -> List[EventType]:
     """Batch the data load requests within the same execution fragment."""
     events: Dict[str, EventType] = defaultdict(EventType)
 
-    evnts = await event_domain.get_events(event_ids)
+    evnts = await events_domain.get_events(event_ids)
     for event in evnts:
         history: Historic = cast(Historic, event.get('historic_state', []))
         event_id: str = cast(str, event['event_id'])

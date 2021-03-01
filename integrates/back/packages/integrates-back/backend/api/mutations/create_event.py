@@ -17,8 +17,8 @@ from backend.decorators import (
     require_integrates,
     require_login,
 )
-from backend.domain import event as event_domain
 from backend.typing import SimplePayload
+from events import domain as events_domain
 
 
 @convert_kwargs_to_snake_case  # type: ignore
@@ -38,7 +38,7 @@ async def mutate(
     """Resolve create_event mutation."""
     user_info = await util.get_jwt_content(info.context)
     analyst_email = user_info['user_email']
-    success = await event_domain.create_event(
+    success = await events_domain.create_event(
         info.context.loaders,
         analyst_email,
         project_name.lower(),

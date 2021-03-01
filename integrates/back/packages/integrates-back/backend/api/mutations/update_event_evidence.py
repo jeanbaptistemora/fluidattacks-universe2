@@ -13,9 +13,9 @@ from backend.decorators import (
     require_integrates,
     require_login,
 )
-from backend.domain import event as event_domain
 from backend.typing import SimplePayload
 from backend.utils.datetime import get_now
+from events import domain as events_domain
 
 
 @convert_kwargs_to_snake_case  # type: ignore
@@ -32,8 +32,8 @@ async def mutate(
     file: UploadFile
 ) -> SimplePayload:
     success = False
-    if await event_domain.validate_evidence(evidence_type, file):
-        success = await event_domain.update_evidence(
+    if await events_domain.validate_evidence(evidence_type, file):
+        success = await events_domain.update_evidence(
             event_id,
             evidence_type,
             file,

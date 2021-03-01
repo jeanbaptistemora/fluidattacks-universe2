@@ -16,8 +16,8 @@ from backend.decorators import (
     require_integrates,
     require_login
 )
-from backend.domain import event as event_domain
 from backend.typing import SimplePayload
+from events import domain as events_domain
 
 
 @convert_kwargs_to_snake_case  # type: ignore
@@ -35,13 +35,13 @@ async def mutate(
 ) -> SimplePayload:
     user_info = await util.get_jwt_content(info.context)
     analyst_email = user_info['user_email']
-    success = await event_domain.solve_event(
+    success = await events_domain.solve_event(
         event_id, affectation, analyst_email, date
     )
 
     if success:
         info.context.loaders.event.clear(event_id)
-        event = await event_domain.get_event(event_id)
+        event = await events_domain.get_event(event_id)
         project_name = str(event.get('project_name', ''))
         redis_del_by_deps_soon('solve_event', group_name=project_name)
         util.cloudwatch_log(

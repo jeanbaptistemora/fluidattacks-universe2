@@ -13,8 +13,8 @@ from backend.decorators import (
     require_integrates,
     require_login
 )
-from backend.domain import event as event_domain
 from backend.typing import DownloadFilePayload
+from events import domain as events_domain
 
 
 @convert_kwargs_to_snake_case  # type: ignore
@@ -30,7 +30,7 @@ async def mutate(
     file_name: str
 ) -> DownloadFilePayload:
     success = False
-    signed_url = await event_domain.get_evidence_link(event_id, file_name)
+    signed_url = await events_domain.get_evidence_link(event_id, file_name)
     if signed_url:
         util.cloudwatch_log(
             info.context,

@@ -26,6 +26,8 @@ from aioextensions import (
 )
 from graphql.type.definition import GraphQLResolveInfo
 
+from back.settings import LOGGING
+from backend import authz, mailer
 from backend.authz.policy import get_group_level_role
 from backend.dal.helpers.dynamodb import start_context
 from backend.dal.helpers.redis import (
@@ -53,7 +55,6 @@ from backend.domain import (
     finding as finding_domain,
     user as user_domain,
     notifications as notifications_domain,
-    event as event_domain,
     organization as org_domain,
     vulnerability as vuln_domain,
     available_name as available_name_domain
@@ -74,8 +75,7 @@ from backend.utils import (
     findings as finding_utils,
     validations
 )
-from backend import authz, mailer
-from back.settings import LOGGING
+from events import domain as events_domain
 
 logging.config.dictConfig(LOGGING)
 
@@ -412,7 +412,7 @@ async def remove_resources(context: Any, project_name: str) -> bool:
     ))
     events = await list_events(project_name)
     are_events_masked = all(await collect(
-        event_domain.mask(event_id)
+        events_domain.mask(event_id)
         for event_id in events
     ))
     is_group_masked = await mask(project_name)

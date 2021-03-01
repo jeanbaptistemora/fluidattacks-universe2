@@ -43,7 +43,6 @@ from backend.domain import (
     project as project_domain,
     tag as tag_domain,
     vulnerability as vuln_domain,
-    event as event_domain
 )
 from backend.filters import (
     finding as finding_filters,
@@ -63,6 +62,7 @@ from backend.utils.findings import (
     sort_historic_by_date,
     filter_by_date,
 )
+from events import domain as events_domain
 
 from back.settings import (
     LOGGING,
@@ -109,7 +109,7 @@ def is_a_unsolved_event(event: EventType) -> bool:
 async def get_unsolved_events(project: str) -> List[EventType]:
     events = await project_domain.list_events(project)
     event_list = await collect(
-        event_domain.get_event(event)
+        events_domain.get_event(event)
         for event in events
     )
     unsolved_events = list(filter(is_a_unsolved_event, event_list))
