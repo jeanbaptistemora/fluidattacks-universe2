@@ -31,6 +31,7 @@ async def test_me():
     assert 'success' in result['data']['signIn']
     assert not result['data']['signIn']['success']
 
+    context = get_new_context()
     expiration_time = datetime.utcnow() + timedelta(weeks=8)
     expiration_time = int(expiration_time.timestamp())
     query = f'''
@@ -47,6 +48,7 @@ async def test_me():
     assert result['data']['updateAccessToken']['success']
     session_jwt = result['data']['updateAccessToken']['sessionJwt']
 
+    context = get_new_context()
     query = '''
         mutation {
             addPushToken(token: "ExponentPushToken[something123]") {
@@ -59,6 +61,7 @@ async def test_me():
     assert 'error' not in result
     assert result['data']['addPushToken']['success']
 
+    context = get_new_context()
     frecuency = 'WEEKLY'
     entity = 'GROUP'
     query = f'''
@@ -79,6 +82,7 @@ async def test_me():
     assert 'errors' not in result
     assert result['data']['subscribeToEntityReport']['success']
 
+    context = get_new_context()
     query = '''
         mutation {
             acceptLegal(remember: false) {
@@ -91,6 +95,7 @@ async def test_me():
     assert 'errors' not in result
     assert result['data']['acceptLegal']['success']
 
+    context = get_new_context()
     query = f'''{{
         me(callerOrigin: "API") {{
             accessToken
@@ -165,6 +170,7 @@ async def test_me():
     ]
     assert result['data']['me']['__typename'] == 'Me'
 
+    context = get_new_context()
     query = f'''{{
         me(callerOrigin: "API") {{
             permissions(entity: PROJECT, identifier: "{group_name}")
@@ -177,6 +183,7 @@ async def test_me():
     assert len(result['data']['me']['permissions']) == 48
     assert result['data']['me']['role'] == 'analyst'
 
+    context = get_new_context()
     query = f'''{{
         me(callerOrigin: "API") {{
             permissions(entity: ORGANIZATION, identifier: "{group_name}")
@@ -189,6 +196,7 @@ async def test_me():
     assert len(result['data']['me']['permissions']) == 0
     assert result['data']['me']['role'] == 'analyst'
 
+    context = get_new_context()
     query = '''
         mutation {
             invalidateAccessToken {
@@ -201,6 +209,7 @@ async def test_me():
     assert 'errors' not in result
     assert result['data']['invalidateAccessToken']['success']
 
+    context = get_new_context()
     query = f'''{{
         me(callerOrigin: "API") {{
             accessToken

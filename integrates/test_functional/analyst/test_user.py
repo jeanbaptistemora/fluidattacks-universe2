@@ -36,6 +36,7 @@ async def test_user():
     assert 'errors' in result
     assert  result['errors'][0]['message'] == 'Access denied'
 
+    context = get_new_context()
     query = f'''
         query {{
             stakeholder(entity: PROJECT,
@@ -59,6 +60,7 @@ async def test_user():
     assert 'errors' in result
     assert  result['errors'][0]['message'] == 'Access denied'
 
+    context = get_new_context()
     phone_number = '17364735'
     responsibility = 'edited'
     role = 'GROUP_MANAGER'
@@ -80,6 +82,7 @@ async def test_user():
     assert 'errors' in result
     assert  result['errors'][0]['message'] == 'Access denied'
 
+    context = get_new_context()
     query = f'''
         mutation {{
             removeStakeholderAccess (

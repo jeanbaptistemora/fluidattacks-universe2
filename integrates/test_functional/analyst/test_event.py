@@ -45,6 +45,7 @@ async def test_event():
     assert 'errors' not in result
     assert result['data']['createEvent']
 
+    context = get_new_context()
     query = f'''
         query {{
             project(projectName: "{group_name}"){{
@@ -64,6 +65,7 @@ async def test_event():
     event = [event for event in events if event['detail'] == event_detail][0]
     event_id = event['id']
 
+    context = get_new_context()
     counsult_content = 'Test content of new event'
     query = f'''
         mutation {{
@@ -81,6 +83,7 @@ async def test_event():
     assert 'success' in result['data']['addEventConsult']
     assert result['data']['addEventConsult']
 
+    context = get_new_context()
     query = '''
         mutation updateEventEvidence(
             $eventId: String!, $evidenceType: EventEvidenceType!, $file: Upload!
@@ -106,6 +109,7 @@ async def test_event():
         result = await get_result(data, context=context)
     assert result['data']['updateEventEvidence']['success']
 
+    context = get_new_context()
     query = f'''{{
         event(identifier: "{event_id}"){{
             client
@@ -163,6 +167,7 @@ async def test_event():
     assert result['data']['event']['projectName'] == group_name
     assert result['data']['event']['subscription'] == 'CONTINUOUS'
 
+    context = get_new_context()
     query = f'''{{
         events(projectName: "{group_name}"){{
             id
@@ -178,6 +183,7 @@ async def test_event():
     assert event['projectName'] == group_name
     assert event['detail'] == event_detail
 
+    context = get_new_context()
     query = f'''
         mutation {{
             solveEvent(
@@ -194,6 +200,7 @@ async def test_event():
     assert 'errors' not in result
     assert 'success' in result['data']['solveEvent']
 
+    context = get_new_context()
     query = f'''
         mutation {{
             removeEventEvidence(eventId: "{event_id}",
@@ -206,6 +213,7 @@ async def test_event():
     result = await get_result(data, context=context)
     assert result['data']['removeEventEvidence']['success']
 
+    context = get_new_context()
     query = f'''
         mutation {{
             downloadEventFile(
@@ -224,6 +232,7 @@ async def test_event():
     assert result['data']['downloadEventFile']
     assert 'url' in result['data']['downloadEventFile']
 
+    context = get_new_context()
     query = f'''{{
         event(identifier: "{event_id}"){{
             eventStatus
@@ -237,6 +246,7 @@ async def test_event():
     assert result['data']['event']['eventStatus'] == 'SOLVED'
     assert result['data']['event']['evidence'] == ''
 
+    context = get_new_context()
     query = f'''{{
         events(projectName: "{group_name}"){{
             id

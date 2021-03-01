@@ -33,6 +33,7 @@ async def test_resource():
     assert 'asdasd.py' in result['data']['resources']['files']
     files = json.loads(result['data']['resources']['files'])
 
+    context = get_new_context()
     query = f'''
         mutation {{
             downloadFile (
@@ -51,6 +52,7 @@ async def test_resource():
     assert result['data']['downloadFile']['success']
     assert 'url' in result['data']['downloadFile']
 
+    context = get_new_context()
     filename = os.path.dirname(os.path.abspath(__file__))
     filename = os.path.join(filename, '../../test_unit/mock/test-anim.gif')
     with open(filename, 'rb') as test_file:
@@ -82,6 +84,7 @@ async def test_resource():
     assert 'errors' in result
     assert result['errors'][0]['message'] == 'Access denied'
 
+    context = get_new_context()
     query = '''
         mutation RemoveFileMutation($filesData: JSONString!, $projectName: String!) {
             removeFiles(filesData: $filesData, projectName: $projectName) {
@@ -103,6 +106,7 @@ async def test_resource():
     assert 'errors' in result
     assert result['errors'][0]['message'] == 'Access denied'
 
+    context = get_new_context()
     query = f'''{{
         resources(projectName: "{group_name}"){{
             projectName

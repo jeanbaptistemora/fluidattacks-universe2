@@ -53,6 +53,7 @@ async def test_finding():
     assert 'success' in result['data']['createDraft']
     assert result['data']['createDraft']['success']
 
+    context = get_new_context()
     query = f'''
         query {{
             project(projectName: "{group_name}"){{
@@ -70,6 +71,7 @@ async def test_finding():
     draft = [draft for draft in result['data']['project']['drafts'] if draft['title'] == title][0]
     draft_id = draft['id']
 
+    context = get_new_context()
     filename = os.path.dirname(os.path.abspath(__file__))
     filename = os.path.join(filename, '../../test_unit/mock/test-vulns.yaml')
     with open(filename, 'rb') as test_file:
@@ -95,6 +97,7 @@ async def test_finding():
     assert 'errors' not in result
     assert result['data']['uploadFile']['success']
 
+    context = get_new_context()
     query = f'''
         mutation {{
             updateSeverity (
@@ -126,6 +129,7 @@ async def test_finding():
     assert 'success' in result['data']['updateSeverity']
     assert result['data']['updateSeverity']['success']
 
+    context = get_new_context()
     query = '''
         mutation UpdateEvidenceMutation(
             $evidenceId: EvidenceType!, $file: Upload!, $findingId: String!
@@ -151,6 +155,8 @@ async def test_finding():
         assert 'errors' not in result
         assert 'success' in result['data']['updateEvidence']
         assert result['data']['updateEvidence']['success']
+
+    context = get_new_context()
     filename = os.path.dirname(os.path.abspath(__file__))
     filename = os.path.join(filename, '../../test_unit/mock/test-img.png')
     with open(filename, 'rb') as test_file:
@@ -166,6 +172,7 @@ async def test_finding():
         assert 'success' in result['data']['updateEvidence']
         assert result['data']['updateEvidence']['success']
 
+    context = get_new_context()
     evidence_description = 'this is a test description'
     query = f'''
         mutation {{
@@ -184,6 +191,7 @@ async def test_finding():
     assert 'success' in result['data']['updateEvidenceDescription']
     assert result['data']['updateEvidenceDescription']['success']
 
+    context = get_new_context()
     query = f'''
         mutation {{
             submitDraft(findingId: "{draft_id}") {{
@@ -196,6 +204,7 @@ async def test_finding():
     assert 'errors' not in result
     assert result['data']['submitDraft']['success']
 
+    context = get_new_context()
     query = f'''
         mutation {{
             rejectDraft(findingId: "{draft_id}") {{
@@ -209,6 +218,7 @@ async def test_finding():
     assert 'success' in result['data']['rejectDraft']
     assert result['data']['rejectDraft']['success']
 
+    context = get_new_context()
     query = f'''
         mutation {{
             submitDraft(findingId: "{draft_id}") {{
@@ -221,6 +231,7 @@ async def test_finding():
     assert 'errors' not in result
     assert result['data']['submitDraft']['success']
 
+    context = get_new_context()
     query = f'''
         mutation {{
             approveDraft(draftId: "{draft_id}") {{
@@ -233,6 +244,7 @@ async def test_finding():
     assert 'errors' not in result
     assert result['data']['approveDraft']['success']
 
+    context = get_new_context()
     finding_id = draft_id
     query = f'''
         query {{
@@ -250,6 +262,7 @@ async def test_finding():
     finding_ids = [finding['id'] for finding in group_findings]
     assert finding_id in finding_ids
 
+    context = get_new_context()
     query = f'''{{
         finding(identifier: "{finding_id}"){{
             id
@@ -425,6 +438,7 @@ async def test_finding():
         }
     ]
 
+    context = get_new_context()
     open_vulnerabilities = result['data']['finding']['openVulns']
     closed_vulnerabilities = result['data']['finding']['closedVulns']
     vuln_ids = [vuln['id'] for vuln in open_vulnerabilities + closed_vulnerabilities]
@@ -469,6 +483,7 @@ async def test_finding():
     assert 'success' in result['data']['updateDescription']
     assert result['data']['updateDescription']['success']
 
+    context = get_new_context()
     query = f'''
         mutation {{
             removeEvidence(evidenceId: EVIDENCE2, findingId: "{finding_id}") {{
@@ -481,6 +496,7 @@ async def test_finding():
     assert 'errors' not in result
     assert result['data']['removeEvidence']['success']
 
+    context = get_new_context()
     observation_content = "This is a observation test"
     query = f'''
         mutation {{
@@ -501,6 +517,7 @@ async def test_finding():
     assert 'success' in result['data']['addFindingConsult']
     assert result['data']['addFindingConsult']['success']
 
+    context = get_new_context()
     consult_content = "This is a comenting test"
     query = f'''
         mutation {{
@@ -521,6 +538,7 @@ async def test_finding():
     assert 'success' in result['data']['addFindingConsult']
     assert result['data']['addFindingConsult']['success']
 
+    context = get_new_context()
     query = f'''{{
         finding(identifier: "{finding_id}"){{
             consulting {{
@@ -580,6 +598,7 @@ async def test_finding():
     ]
     assert result['data']['finding']['consulting'] == [{'content': consult_content}]
 
+    context = get_new_context()
     vuln_query = '''
         query GetVulnInfo($vuln1Id: String!, $vuln2Id: String!, $vuln3Id: String!) {
             vuln1: vulnerability(uuid: $vuln1Id) {
@@ -601,6 +620,7 @@ async def test_finding():
     assert result['data']['vuln2']['currentState'] == 'closed'
     assert result['data']['vuln3']['currentState'] == 'closed'
 
+    context = get_new_context()
     query = f'''
         mutation {{
             deleteFinding(findingId: "{finding_id}", justification: NOT_REQUIRED) {{
@@ -614,6 +634,7 @@ async def test_finding():
     assert 'success' in result['data']['deleteFinding']
     assert result['data']['deleteFinding']['success']
 
+    context = get_new_context()
     query = f'''{{
         finding(identifier: "{finding_id}"){{
             id
@@ -624,6 +645,7 @@ async def test_finding():
     assert 'errors' in result
     assert result['errors'][0]['message'] == 'Access denied'
 
+    context = get_new_context()
     query = f'''
         query {{
             project(projectName: "{group_name}"){{

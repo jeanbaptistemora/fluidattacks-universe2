@@ -78,6 +78,7 @@ async def test_tracking():
     assert result['data']['finding']['id'] == expected_output.get('id')
     assert result['data']['finding']['tracking'] == expected_output.get('tracking')
 
+    context = get_new_context()
     finding_id = '422286126'
     expected_output =  {
         'id': finding_id,
@@ -106,6 +107,7 @@ async def test_tracking():
     assert result['data']['finding']['id'] == expected_output.get('id')
     assert result['data']['finding']['tracking'] == expected_output.get('tracking')
 
+    context = get_new_context()
     finding_id = '463558592'
     expected_output =  {
         'id': finding_id,
@@ -154,6 +156,7 @@ async def test_tracking():
     assert result['data']['finding']['id'] == expected_output.get('id')
     assert result['data']['finding']['tracking'] == expected_output.get('tracking')
 
+    context = get_new_context()
     finding_id = '463461507'
     expected_output =  {
         'id': finding_id,

@@ -24,6 +24,7 @@ async def _test_forces():
     assert 'errors' in result
     assert result['errors'][0]['message'] == 'Access denied'
 
+    context = get_new_context()
     query = f"""
         query {{
             forcesExecutions(
@@ -177,6 +178,7 @@ async def _test_forces():
     assert result['data']['forcesExecutions']['toDate'] == '2020-02-28 23:59:59+00:00'
     assert result['data']['forcesExecutions']['executions'] == []
 
+    context = get_new_context()
     execution_id = '08c1e735a73243f2ab1ee0757041f80e'
     query = f"""
         query {{

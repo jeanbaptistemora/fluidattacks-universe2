@@ -22,6 +22,7 @@ async def test_project():
     assert 'internalNames' in result['data']
     group_name = result['data']['internalNames']['name']
 
+    context = get_new_context()
     org_name = 'okada'
     description = 'This is a new project from pytest'
     subscription = 'CONTINUOUS'
@@ -45,6 +46,7 @@ async def test_project():
     assert 'success' in result['data']['createProject']
     assert result['data']['createProject']['success']
 
+    context = get_new_context()
     role = 'ANALYST'
     analyst_email = "integratesanalyst@fluidattacks.com"
     query = f'''
@@ -69,6 +71,7 @@ async def test_project():
     assert 'errors' not in result
     assert  result['data']['editStakeholder']['success']
 
+    context = get_new_context()
     consult_content = 'Test consult'
     query = f'''
         mutation {{
@@ -88,6 +91,7 @@ async def test_project():
     assert 'success' in result['data']['addProjectConsult']
     assert result['data']['addProjectConsult']['success']
 
+    context = get_new_context()
     query = f'''
         query {{
             project(projectName: "{group_name}"){{
@@ -185,6 +189,7 @@ async def test_project():
     assert result['data']['project']['organization'] == org_name
     assert result['data']['project']['userRole'] == role.lower()
 
+    context = get_new_context()
     query = f'''
         query {{
             project(projectName: "{group_name}"){{
@@ -199,6 +204,7 @@ async def test_project():
     assert 'errors' not in result
     assert result['data']['project']['findings'] == []
 
+    context = get_new_context()
     query = f'''
         query {{
             project(projectName: "{group_name}"){{
@@ -213,6 +219,7 @@ async def test_project():
     assert 'errors' not in result
     assert result['data']['project']['findings'] == []
 
+    context = get_new_context()
     query = f'''
         mutation {{
             unsubscribeFromGroup(groupName: "{group_name}"){{
@@ -225,6 +232,7 @@ async def test_project():
     assert 'errors' not in result
     assert result['data']['unsubscribeFromGroup']['success']
 
+    context = get_new_context()
     query = f'''
         query {{
             project(projectName: "{group_name}"){{
