@@ -776,62 +776,8 @@
               },
               "sk": {
                 "S": "GROUP#unittesting"
-              },
-              "name": {
-                "S": "F035. Weak credential policy"
-              },
-              "description": {
-                "S": "Passwords set as date-user could be easily guessed"
-              },
-              "type": {
-                "S": "SECURITY"
-              },
-              "evidences": {
-                "M": {}
-              },
-              "affected_components": {
-                "SS": [
-                  "web app"
-                ]
-              },
-              "cvss": {
-                "M": {}
-              },
-              "recommendation": {
-                "S": "Consider changing the date-user standard."
-              },
-              "requirements": {
-                "SS": [
-                  "REQ.0132. The system must require passphrases to be at least 4 words long and allow them to have 64 characters or more."
-                ]
-              },
-              "threat": {
-                "S": "External attacker with access"
-              },
-              "using_sorts": {
-                "BOOL": false
-              },
-              "cwe": {
-                "S": "521"
-              },
-              "attack_vector": {
-                "S": "Guess passwords"
               }
             }
-          ],
-          "NonKeyAttributes": [
-            "name",
-            "description",
-            "type",
-            "evidences",
-            "affected_components",
-            "cvss",
-            "recommendation",
-            "requirements",
-            "threat",
-            "using_sorts",
-            "cwe",
-            "attack_vector"
           ],
           "DataAccess": {
             "MySql": {}
@@ -981,6 +927,15 @@
               "sk": {
                 "S": "GROUP#unittesting"
               },
+              "name": {
+                "S": "F035. Weak credential policy"
+              },
+              "description": {
+                "S": "Passwords set as date-user could be easily guessed"
+              },
+              "type": {
+                "S": "SECURITY"
+              },
               "status": {
                 "S": "CREATED"
               },
@@ -990,17 +945,60 @@
               "modified_by": {
                 "S": "USER#test@fluidattacks.com"
               },
+              "evidences": {
+                "M": {}
+              },
+              "affected_components": {
+                "SS": [
+                  "web app"
+                ]
+              },
+              "cvss": {
+                "M": {}
+              },
+              "recommendation": {
+                "S": "Consider changing the date-user standard."
+              },
+              "requirements": {
+                "SS": [
+                  "REQ.0132. The system must require passphrases to be at least 4 words long and allow them to have 64 characters or more."
+                ]
+              },
+              "threat": {
+                "S": "External attacker with access"
+              },
               "source": {
                 "S": "skims"
+              },
+              "using_sorts": {
+                "BOOL": false
+              },
+              "cwe": {
+                "S": "521"
+              },
+              "attack_vector": {
+                "S": "Guess passwords"
               }
             }
           ],
           "NonKeyAttributes": [
+            "name",
+            "description",
+            "type",
             "status",
             "reason",
             "modified_date",
             "modified_by",
-            "source"
+            "evidences",
+            "affected_components",
+            "cvss",
+            "recommendation",
+            "requirements",
+            "threat",
+            "source",
+            "using_sorts",
+            "cwe",
+            "attack_vector"
           ],
           "DataAccess": {
             "MySql": {}
