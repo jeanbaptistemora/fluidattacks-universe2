@@ -7,6 +7,7 @@ from test_functional.utils import (
 )
 from test_functional.populate import (
     populate_db,
+    clean_db,
 )
 
 
@@ -63,3 +64,4 @@ async def test_organization_admin():
     )
     assert 'errors' not in result
     assert result['data']['organizationId']['id'] != None
+    assert await clean_db()
