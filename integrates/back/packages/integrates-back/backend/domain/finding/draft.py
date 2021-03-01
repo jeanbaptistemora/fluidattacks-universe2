@@ -154,10 +154,6 @@ async def create_draft(
         'source': source,
         'state': 'CREATED'
     }
-    if util.is_api_token(user_data):
-        submission_history.update({
-            'analyst': f'api-{analyst_email}'
-        })
 
     if 'description' in kwargs:
         kwargs['vulnerability'] = kwargs['description']
