@@ -6,7 +6,6 @@ from test_functional.group_manager.utils import get_result
 pytestmark = pytest.mark.asyncio
 
 
-@pytest.mark.priority
 async def test_finding():
     finding_id = '463558592'
     expected_output =  {

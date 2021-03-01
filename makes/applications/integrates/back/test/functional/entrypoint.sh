@@ -18,9 +18,8 @@ function main {
   &&  DAEMON=true PORT=8023 POPULATE=false integrates-db \
   &&  DAEMON=true integrates-storage \
   &&  pushd integrates \
-    &&  DYNAMODB_PORT=8022 pytest -m 'priority' "${pytest_args[@]}" test_functional \
-    &&  DYNAMODB_PORT=8022 pytest -m 'not priority' "${pytest_args[@]}" test_functional \
     &&  DYNAMODB_PORT=8023 pytest -m 'stateless' "${pytest_args[@]}" test_functional \
+    &&  DYNAMODB_PORT=8022 pytest -m 'not stateless' "${pytest_args[@]}" test_functional \
   &&  popd \
   ||  return 1
 }
