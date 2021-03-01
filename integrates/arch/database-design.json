@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Feb 23, 2021, 09:30 AM",
+    "DateLastModified": "Mar 01, 2021, 03:35 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "2.0"
@@ -1308,77 +1308,6 @@
           ],
           "NonKeyAttributes": [
             "name"
-          ],
-          "DataAccess": {
-            "MySql": {}
-          }
-        },
-        {
-          "FacetName": "org_groups",
-          "KeyAttributeAlias": {
-            "PartitionKeyAlias": "ORG#name",
-            "SortKeyAlias": "GROUP#name"
-          },
-          "TableData": [
-            {
-              "pk": {
-                "S": "ORG#okada"
-              },
-              "sk": {
-                "S": "GROUP#unittesting"
-              }
-            }
-          ],
-          "DataAccess": {
-            "MySql": {}
-          }
-        },
-        {
-          "FacetName": "group_findings",
-          "KeyAttributeAlias": {
-            "PartitionKeyAlias": "GROUP#name",
-            "SortKeyAlias": "FIN#uuid"
-          },
-          "TableData": [
-            {
-              "pk": {
-                "S": "GROUP#unittesting"
-              },
-              "sk": {
-                "S": "FIN#a0fddb36-ac0d-4a58-969f-b13194af61c2"
-              }
-            }
-          ],
-          "DataAccess": {
-            "MySql": {}
-          }
-        },
-        {
-          "FacetName": "group_events",
-          "KeyAttributeAlias": {
-            "PartitionKeyAlias": "GROUP#name",
-            "SortKeyAlias": "EVENT#uuid"
-          },
-          "TableData": [],
-          "DataAccess": {
-            "MySql": {}
-          }
-        },
-        {
-          "FacetName": "group_roots",
-          "KeyAttributeAlias": {
-            "PartitionKeyAlias": "GROUP#name",
-            "SortKeyAlias": "ROOT#uuid"
-          },
-          "TableData": [
-            {
-              "pk": {
-                "S": "GROUP#unittesting"
-              },
-              "sk": {
-                "S": "ROOT#7be44c33-f03f-4d01-94ef-813b534d61ca"
-              }
-            }
           ],
           "DataAccess": {
             "MySql": {}
