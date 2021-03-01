@@ -48,9 +48,10 @@ const useGetAPIToken: (
     });
   };
 
-  const [getForcesApiToken, { called, data, loading }] = useLazyQuery<
-    IGetForcesTokenAttr
-  >(GET_FORCES_TOKEN, {
+  const [
+    getForcesApiToken,
+    { called, data, loading },
+  ] = useLazyQuery<IGetForcesTokenAttr>(GET_FORCES_TOKEN, {
     fetchPolicy: "network-only",
     onError: handleOnError,
     variables: {

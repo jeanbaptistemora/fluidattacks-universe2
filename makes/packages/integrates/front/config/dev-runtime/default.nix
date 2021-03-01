@@ -118,7 +118,7 @@ buildNodeRequirements integratesPkgs {
       "@types/normalize-package-data@2.4.0"
       "@types/parse-json@4.0.0"
       "@types/parse5@6.0.0"
-      "@types/prettier@2.2.0"
+      "@types/prettier@2.2.1"
       "@types/prop-types@15.7.3"
       "@types/q@1.5.4"
       "@types/qs@6.9.5"

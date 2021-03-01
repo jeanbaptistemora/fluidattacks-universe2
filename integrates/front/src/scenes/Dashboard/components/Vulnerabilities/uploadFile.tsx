@@ -145,9 +145,10 @@ export const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
     });
   }
 
-  const [uploadVulnerability, { loading }] = useMutation<
-    IUploadVulnerabilitiesResultAttr
-  >(UPLOAD_VULNERABILITIES, {
+  const [
+    uploadVulnerability,
+    { loading },
+  ] = useMutation<IUploadVulnerabilitiesResultAttr>(UPLOAD_VULNERABILITIES, {
     onCompleted: (result: IUploadVulnerabilitiesResultAttr): void => {
       if (!_.isUndefined(result)) {
         if (result.uploadFile.success) {
@@ -186,38 +187,43 @@ export const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
       },
     ],
   });
-  const [downloadVulnerability] = useMutation<
-    IDownloadVulnerabilitiesResultAttr
-  >(DOWNLOAD_VULNERABILITIES, {
-    onCompleted: (result: IDownloadVulnerabilitiesResultAttr): void => {
-      if (!_.isUndefined(result)) {
-        if (
-          result.downloadVulnFile.success &&
-          result.downloadVulnFile.url !== ""
-        ) {
-          openUrl(result.downloadVulnFile.url);
+  const [
+    downloadVulnerability,
+  ] = useMutation<IDownloadVulnerabilitiesResultAttr>(
+    DOWNLOAD_VULNERABILITIES,
+    {
+      onCompleted: (result: IDownloadVulnerabilitiesResultAttr): void => {
+        if (!_.isUndefined(result)) {
+          if (
+            result.downloadVulnFile.success &&
+            result.downloadVulnFile.url !== ""
+          ) {
+            openUrl(result.downloadVulnFile.url);
+          }
         }
-      }
-    },
-    onError: (downloadError: ApolloError): void => {
-      downloadError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
-        msgError(translate.t("group_alerts.error_textsad"));
-        switch (message) {
-          case "Exception - Error Uploading File to S3":
-            Logger.warning(
-              "An error occurred downloading vuln file while uploading file to S3",
-              downloadError
-            );
-            break;
-          default:
-            Logger.warning(
-              "An error occurred downloading vuln file",
-              downloadError
-            );
-        }
-      });
-    },
-  });
+      },
+      onError: (downloadError: ApolloError): void => {
+        downloadError.graphQLErrors.forEach(
+          ({ message }: GraphQLError): void => {
+            msgError(translate.t("group_alerts.error_textsad"));
+            switch (message) {
+              case "Exception - Error Uploading File to S3":
+                Logger.warning(
+                  "An error occurred downloading vuln file while uploading file to S3",
+                  downloadError
+                );
+                break;
+              default:
+                Logger.warning(
+                  "An error occurred downloading vuln file",
+                  downloadError
+                );
+            }
+          }
+        );
+      },
+    }
+  );
 
   function handleUploadVulnerability(values: { filename: FileList }): void {
     void uploadVulnerability({

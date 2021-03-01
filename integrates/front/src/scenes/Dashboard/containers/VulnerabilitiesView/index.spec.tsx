@@ -164,9 +164,7 @@ describe("VulnerabilitiesView", (): void => {
     );
   });
 
-  it("should render container with additional permissions", async (): Promise<
-    void
-  > => {
+  it("should render container with additional permissions", async (): Promise<void> => {
     expect.hasAssertions();
 
     const mockedPermissions: PureAbility<string> = new PureAbility([

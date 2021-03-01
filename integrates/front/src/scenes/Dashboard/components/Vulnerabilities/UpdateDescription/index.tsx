@@ -112,21 +112,25 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
   );
 
   const dispatch: Dispatch = useDispatch();
-  const [updateVuln, { loading: updatingVuln }] = useMutation<
-    IUpdateVulnDescriptionResultAttr
-  >(UPDATE_DESCRIPTION_MUTATION, {
-    refetchQueries: [
-      {
-        query: GET_FINDING_VULN_INFO,
-        variables: {
-          canRetrieveAnalyst,
-          canRetrieveZeroRisk,
-          findingId,
-          groupName: projectName,
+  const [
+    updateVuln,
+    { loading: updatingVuln },
+  ] = useMutation<IUpdateVulnDescriptionResultAttr>(
+    UPDATE_DESCRIPTION_MUTATION,
+    {
+      refetchQueries: [
+        {
+          query: GET_FINDING_VULN_INFO,
+          variables: {
+            canRetrieveAnalyst,
+            canRetrieveZeroRisk,
+            findingId,
+            groupName: projectName,
+          },
         },
-      },
-    ],
-  });
+      ],
+    }
+  );
 
   const { data } = useQuery<IProjectUsersAttr>(GET_PROJECT_USERS, {
     skip: permissions.cannot("backend_api_resolvers_project__get_users"),
@@ -186,9 +190,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
       }
       try {
         setRunning(true);
-        const results: ExecutionResult<
-          IUpdateVulnDescriptionResultAttr
-        >[] = await Promise.all(
+        const results: ExecutionResult<IUpdateVulnDescriptionResultAttr>[] = await Promise.all(
           vulnerabilities.map(
             async (
               vuln: IVulnDataTypeAttr

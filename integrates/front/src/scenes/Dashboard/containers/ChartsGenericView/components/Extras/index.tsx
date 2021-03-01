@@ -63,9 +63,10 @@ const ChartsGenericViewExtras: React.FC<IChartsGenericViewProps> = (
   downloadPngUrl.searchParams.set("entity", entity);
   downloadPngUrl.searchParams.set(entityName, subject);
 
-  const { data: dataSubscriptions, refetch: refetchSubscriptions } = useQuery<
-    ISubscriptionsToEntityReport
-  >(SUBSCRIPTIONS_TO_ENTITY_REPORT, {
+  const {
+    data: dataSubscriptions,
+    refetch: refetchSubscriptions,
+  } = useQuery<ISubscriptionsToEntityReport>(SUBSCRIPTIONS_TO_ENTITY_REPORT, {
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
         msgError(translate.t("group_alerts.error_textsad"));

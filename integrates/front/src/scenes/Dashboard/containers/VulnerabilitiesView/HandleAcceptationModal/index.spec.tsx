@@ -33,9 +33,9 @@ import { msgError, msgSuccess } from "utils/notifications";
 jest.mock(
   "../../../../../utils/notifications",
   (): Dictionary => {
-    const mockedNotifications: Dictionary<() => Dictionary> = jest.requireActual(
-      "../../../../../utils/notifications"
-    );
+    const mockedNotifications: Dictionary<
+      () => Dictionary
+    > = jest.requireActual("../../../../../utils/notifications");
     jest.spyOn(mockedNotifications, "msgError").mockImplementation();
     jest.spyOn(mockedNotifications, "msgSuccess").mockImplementation();
 
@@ -395,9 +395,9 @@ describe("handle vulns acceptation modal", (): void => {
         value: "This is a test of confirming zero risk vulns",
       },
     });
-    const zeroRiskConfirmationTable: ReactWrapper<PropsWithChildren<
-      IZeroRiskConfirmationTableProps
-    >> = wrapper.find(ZeroRiskConfirmationTable);
+    const zeroRiskConfirmationTable: ReactWrapper<
+      PropsWithChildren<IZeroRiskConfirmationTableProps>
+    > = wrapper.find(ZeroRiskConfirmationTable);
     const requestedZeroRiskSwitch: ReactWrapper = zeroRiskConfirmationTable
       .find("#zeroRiskConfirmSwitch")
       .at(0);
@@ -560,9 +560,9 @@ describe("handle vulns acceptation modal", (): void => {
         value: "This is a test of confirming zero risk vulns",
       },
     });
-    const zeroRiskConfirmationTable: ReactWrapper<PropsWithChildren<
-      IZeroRiskConfirmationTableProps
-    >> = wrapper.find(ZeroRiskConfirmationTable);
+    const zeroRiskConfirmationTable: ReactWrapper<
+      PropsWithChildren<IZeroRiskConfirmationTableProps>
+    > = wrapper.find(ZeroRiskConfirmationTable);
     const requestedZeroRiskSwitch: ReactWrapper = zeroRiskConfirmationTable
       .find("#zeroRiskConfirmSwitch")
       .at(0);
@@ -718,9 +718,9 @@ describe("handle vulns acceptation modal", (): void => {
         value: "This is a test of rejecting zero risk vulns",
       },
     });
-    const zeroRiskRejectionTable: ReactWrapper<PropsWithChildren<
-      IZeroRiskRejectionTableProps
-    >> = wrapper.find(ZeroRiskRejectionTable);
+    const zeroRiskRejectionTable: ReactWrapper<
+      PropsWithChildren<IZeroRiskRejectionTableProps>
+    > = wrapper.find(ZeroRiskRejectionTable);
     const requestedZeroRiskSwitch: ReactWrapper = zeroRiskRejectionTable
       .find("#zeroRiskRejectionSwitch")
       .at(0);
@@ -883,9 +883,9 @@ describe("handle vulns acceptation modal", (): void => {
         value: "This is a test of rejecting zero risk vulns",
       },
     });
-    const zeroRiskRejectionTable: ReactWrapper<PropsWithChildren<
-      IZeroRiskRejectionTableProps
-    >> = wrapper.find(ZeroRiskRejectionTable);
+    const zeroRiskRejectionTable: ReactWrapper<
+      PropsWithChildren<IZeroRiskRejectionTableProps>
+    > = wrapper.find(ZeroRiskRejectionTable);
     const requestedZeroRiskSwitch: ReactWrapper = zeroRiskRejectionTable
       .find("#zeroRiskRejectionSwitch")
       .at(0);

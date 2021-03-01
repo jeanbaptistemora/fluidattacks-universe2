@@ -47,9 +47,7 @@ const APITokenForcesModal: React.FC<IAPITokenForcesModalProps> = (
   const handleReveal: () => void = React.useCallback((): void => {
     void getApiToken(); // eslint-disable-line @typescript-eslint/no-confusing-void-expression
   }, [getApiToken]);
-  const handleCopy: () => Promise<void> = React.useCallback(async (): Promise<
-    void
-  > => {
+  const handleCopy: () => Promise<void> = React.useCallback(async (): Promise<void> => {
     const clipboard: Clipboard = navigator.clipboard;
 
     if (!_.isUndefined(clipboard)) {
