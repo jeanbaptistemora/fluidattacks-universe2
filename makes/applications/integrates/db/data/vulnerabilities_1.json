@@ -975,7 +975,7 @@
                     "S": "2019-09-13 17:00:56"
                   },
                   "analyst": {
-                    "S": "api-unittest@fluidattacks.com"
+                    "S": "unittest@fluidattacks.com"
                   },
                   "source": {
                     "S": "integrates"
@@ -1105,7 +1105,7 @@
                     "S": "2019-09-13 15:37:59"
                   },
                   "analyst": {
-                    "S": "api-unittest@fluidattacks.com"
+                    "S": "unittest@fluidattacks.com"
                   },
                   "source": {
                     "S": "integrates"

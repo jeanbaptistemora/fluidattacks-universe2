@@ -14,7 +14,7 @@
                     "S": "2019-09-16 16:01:24"
                   },
                   "analyst": {
-                    "S": "api-unittest@fluidattacks.com"
+                    "S": "unittest@fluidattacks.com"
                   },
 
                   "source": {
@@ -348,7 +348,7 @@
                     "S": "2019-09-13 10:53:05"
                   },
                   "analyst": {
-                    "S": "api-unittest@fluidattacks.com"
+                    "S": "unittest@fluidattacks.com"
                   },
                   "source": {
                     "S": "integrates"
@@ -535,7 +535,7 @@
                     "S": "2019-09-13 15:19:17"
                   },
                   "analyst": {
-                    "S": "api-unittest@fluidattacks.com"
+                    "S": "unittest@fluidattacks.com"
                   },
                   "source": {
                     "S": "integrates"
@@ -648,7 +648,7 @@
                     "S": "2019-09-16 15:02:17"
                   },
                   "analyst": {
-                    "S": "api-unittest@fluidattacks.com"
+                    "S": "unittest@fluidattacks.com"
                   },
                   "source": {
                     "S": "integrates"
