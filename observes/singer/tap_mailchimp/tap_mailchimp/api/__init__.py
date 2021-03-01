@@ -2,7 +2,6 @@
 from typing import (
     Any,
     Callable,
-    Dict,
     NamedTuple,
     Optional,
 )
@@ -13,15 +12,18 @@ from mailchimp_marketing import (
 )
 
 # Local libraries
+from tap_mailchimp import (
+    auth,
+    common,
+)
 from tap_mailchimp.api import (
     raw as raw_module,
 )
-from tap_mailchimp.api.raw import (
-    RawSource,
-)
-from tap_mailchimp.common.objs import (
-    JSON,
-)
+
+
+Credentials = auth.Credentials
+JSON = common.objs.JSON
+RawSource = raw_module.RawSource
 
 
 class ApiData(NamedTuple):
@@ -50,11 +52,14 @@ def create_api_data(raw: JSON) -> ApiData:
 
 
 def new_client_from_source(
-    conf: Dict[str, str],
+    creds: Credentials,
     raw_source: RawSource
 ) -> ApiClient:
     client = Client()
-    client.set_config(conf)
+    client.set_config({
+        'api_key': creds.api_key,
+        'server': creds.dc
+    })
     return ApiClient(
         list_audiences=lambda: create_api_data(
             raw_source.list_audiences(client)
@@ -65,6 +70,6 @@ def new_client_from_source(
     )
 
 
-def new_client(conf: Dict[str, str]) -> ApiClient:
+def new_client(creds: Credentials) -> ApiClient:
     raw_source = raw_module.create_raw_source()
-    return new_client_from_source(conf, raw_source)
+    return new_client_from_source(creds, raw_source)

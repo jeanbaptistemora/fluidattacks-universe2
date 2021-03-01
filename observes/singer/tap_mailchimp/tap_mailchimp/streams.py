@@ -3,6 +3,7 @@ import sys
 from collections import (
     deque,
 )
+from enum import Enum
 from typing import (
     IO,
 )
@@ -18,6 +19,10 @@ from singer_io.singer import (
 from tap_mailchimp.api import (
     ApiClient,
 )
+
+
+class SupportedStreams(Enum):
+    ALL_AUDIENCES = 'ALL_AUDIENCES'
 
 
 def _emit_audience(
