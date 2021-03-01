@@ -1,61 +1,19 @@
-import { MockedProvider, MockedResponse } from "@apollo/react-testing";
-import { mount, ReactWrapper } from "enzyme";
-import _ from "lodash";
-import * as React from "react";
-// tslint:disable-next-line: no-submodule-imports
-import { act } from "react-dom/test-utils";
-import { Provider } from "react-redux";
-import { MemoryRouter, Route } from "react-router";
-import wait from "waait";
-
 import { EvidenceView } from "scenes/Dashboard/containers/EvidenceView";
 import { GET_FINDING_EVIDENCES } from "scenes/Dashboard/containers/EvidenceView/queries";
+import { MockedProvider } from "@apollo/react-testing";
+import type { MockedResponse } from "@apollo/react-testing";
+import { Provider } from "react-redux";
+import React from "react";
+import type { ReactWrapper } from "enzyme";
+import { act } from "react-dom/test-utils";
+import { mount } from "enzyme";
 import store from "store";
+import wait from "waait";
+import { MemoryRouter, Route } from "react-router";
 
-describe("FindingEvidenceView", () => {
-  const mocks: ReadonlyArray<MockedResponse> = [{
-    request: {
-      query: GET_FINDING_EVIDENCES,
-      variables: { findingId: "413372600" },
-    },
-    result: {
-      data: {
-        finding: {
-          evidence: {
-            animation: { description: "", url: "some_file.gif" },
-            evidence1: { description: "", url: "" },
-            evidence2: { description: "", url: "" },
-            evidence3: { description: "", url: "" },
-            evidence4: { description: "", url: "" },
-            evidence5: { description: "", url: "" },
-            exploitation: { description: "", url: "" },
-          },
-          id: "413372600",
-        },
-      },
-    },
-  }];
-
-  it("should return a fuction", () => {
-    expect(typeof (EvidenceView))
-      .toEqual("function");
-  });
-
-  it("should render a component", async () => {
-    const wrapper: ReactWrapper = mount(
-      <MemoryRouter initialEntries={["/TEST/events/413372600/evidence"]}>
-        <MockedProvider mocks={[]} addTypename={false}>
-          <Route path={"/:projectName/events/:findingId/evidence"} component={EvidenceView}/>
-        </MockedProvider>
-      </MemoryRouter>,
-    );
-    await act(async () => { await wait(0); });
-    expect(wrapper)
-      .toHaveLength(1);
-  });
-
-  it("should render empty UI", async () => {
-    const emptyMocks: ReadonlyArray<MockedResponse> = [{
+describe("FindingEvidenceView", (): void => {
+  const mocks: readonly MockedResponse[] = [
+    {
       request: {
         query: GET_FINDING_EVIDENCES,
         variables: { findingId: "413372600" },
@@ -64,7 +22,7 @@ describe("FindingEvidenceView", () => {
         data: {
           finding: {
             evidence: {
-              animation: { description: "", url: "" },
+              animation: { description: "", url: "some_file.gif" },
               evidence1: { description: "", url: "" },
               evidence2: { description: "", url: "" },
               evidence3: { description: "", url: "" },
@@ -76,50 +34,137 @@ describe("FindingEvidenceView", () => {
           },
         },
       },
-    }];
-    const wrapper: ReactWrapper = mount(
-      <MemoryRouter initialEntries={["/TEST/events/413372600/evidence"]}>
-        <MockedProvider mocks={emptyMocks} addTypename={false}>
-          <Route path={"/:projectName/events/:findingId/evidence"} component={EvidenceView}/>
-        </MockedProvider>
-      </MemoryRouter>,
-    );
-    await act(async () => { await wait(0); wrapper.update(); });
-    expect(wrapper.text())
-      .toContain("There are no evidences");
+    },
+  ];
+
+  it("should return a fuction", (): void => {
+    expect.hasAssertions();
+    expect(typeof EvidenceView).toStrictEqual("function");
   });
 
-  it("should render image", async () => {
+  it("should render a component", async (): Promise<void> => {
+    expect.hasAssertions();
+
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/TEST/events/413372600/evidence"]}>
-        <MockedProvider mocks={mocks} addTypename={false}>
-          <Provider store={store}>
-            <Route path={"/:projectName/events/:findingId/evidence"} component={EvidenceView}/>
-          </Provider>
+        <MockedProvider addTypename={false} mocks={[]}>
+          <Route
+            component={EvidenceView}
+            path={"/:projectName/events/:findingId/evidence"}
+          />
         </MockedProvider>
-      </MemoryRouter>,
+      </MemoryRouter>
     );
-    await act(async () => { await wait(0); wrapper.update(); });
-    expect(wrapper.containsMatchingElement(<img />))
-      .toBe(true);
+    await act(
+      async (): Promise<void> => {
+        await wait(0);
+      }
+    );
+
+    expect(wrapper).toHaveLength(1);
   });
 
-  it("should render image lightbox", async () => {
+  it("should render empty UI", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    const emptyMocks: readonly MockedResponse[] = [
+      {
+        request: {
+          query: GET_FINDING_EVIDENCES,
+          variables: { findingId: "413372600" },
+        },
+        result: {
+          data: {
+            finding: {
+              evidence: {
+                animation: { description: "", url: "" },
+                evidence1: { description: "", url: "" },
+                evidence2: { description: "", url: "" },
+                evidence3: { description: "", url: "" },
+                evidence4: { description: "", url: "" },
+                evidence5: { description: "", url: "" },
+                exploitation: { description: "", url: "" },
+              },
+              id: "413372600",
+            },
+          },
+        },
+      },
+    ];
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/TEST/events/413372600/evidence"]}>
-        <MockedProvider mocks={mocks} addTypename={false}>
+        <MockedProvider addTypename={false} mocks={emptyMocks}>
+          <Route
+            component={EvidenceView}
+            path={"/:projectName/events/:findingId/evidence"}
+          />
+        </MockedProvider>
+      </MemoryRouter>
+    );
+    await act(
+      async (): Promise<void> => {
+        await wait(0);
+        wrapper.update();
+      }
+    );
+
+    expect(wrapper.text()).toContain("There are no evidences");
+  });
+
+  it("should render image", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    const wrapper: ReactWrapper = mount(
+      <MemoryRouter initialEntries={["/TEST/events/413372600/evidence"]}>
+        <MockedProvider addTypename={false} mocks={mocks}>
           <Provider store={store}>
-            <Route path={"/:projectName/events/:findingId/evidence"} component={EvidenceView}/>
+            <Route
+              component={EvidenceView}
+              path={"/:projectName/events/:findingId/evidence"}
+            />
           </Provider>
         </MockedProvider>
-      </MemoryRouter>,
+      </MemoryRouter>
     );
-    await act(async () => { await wait(0); wrapper.update(); });
-    wrapper.find("img")
-      .at(0)
-      .simulate("click");
-    await act(async () => { wrapper.update(); });
-    expect(wrapper.find("ReactImageLightbox"))
-      .toHaveLength(1);
+    await act(
+      async (): Promise<void> => {
+        await wait(0);
+        wrapper.update();
+      }
+    );
+
+    expect(wrapper.containsMatchingElement(<img alt={""} />)).toBe(true);
+  });
+
+  it("should render image lightbox", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    const wrapper: ReactWrapper = mount(
+      <MemoryRouter initialEntries={["/TEST/events/413372600/evidence"]}>
+        <MockedProvider addTypename={false} mocks={mocks}>
+          <Provider store={store}>
+            <Route
+              component={EvidenceView}
+              path={"/:projectName/events/:findingId/evidence"}
+            />
+          </Provider>
+        </MockedProvider>
+      </MemoryRouter>
+    );
+    await act(
+      async (): Promise<void> => {
+        await wait(0);
+        wrapper.update();
+      }
+    );
+    wrapper.find("img").at(0).simulate("click");
+    await act(
+      async (): Promise<void> => {
+        await wait(0);
+        wrapper.update();
+      }
+    );
+
+    expect(wrapper.find("ReactImageLightbox")).toHaveLength(1);
   });
 });
