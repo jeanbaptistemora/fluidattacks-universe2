@@ -1,11 +1,5 @@
-{ observesPkgs
-, path
-, ...
-}:
+{ path, ... } @ attrs:
 let
-  bins = import (path "/makes/libs/observes/bins") {
-    inherit path;
-    nixPkgs = observesPkgs;
-  };
+  observes = import (path "/makes/libs/observes") attrs;
 in
-bins.serviceMigrateTables
+observes.binaries.serviceMigrateTables

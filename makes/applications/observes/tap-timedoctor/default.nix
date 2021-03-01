@@ -1,11 +1,5 @@
-{ observesPkgs
-, path
-, ...
-}:
+{ path, ... } @ attrs:
 let
-  nixPkgs = observesPkgs;
-  bins = import (path "/makes/libs/observes/bins") {
-    inherit nixPkgs path;
-  };
+  observes = import (path "/makes/libs/observes") attrs;
 in
-bins.tapTimedoctor
+observes.binaries.tapTimedoctor

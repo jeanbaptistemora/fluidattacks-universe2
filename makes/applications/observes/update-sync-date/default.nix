@@ -1,11 +1,5 @@
-{ observesPkgs
-, path
-, ...
-}:
+{ path, ... } @ attrs:
 let
-  nixPkgs = observesPkgs;
-  bins = import (path "/makes/libs/observes/bins") {
-    inherit path nixPkgs;
-  };
+  observes = import (path "/makes/libs/observes") attrs;
 in
-bins.updateSyncDate
+observes.binaries.updateSyncDate
