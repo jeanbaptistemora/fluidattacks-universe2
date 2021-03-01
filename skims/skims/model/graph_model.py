@@ -141,6 +141,14 @@ class SyntaxStepSymbolLookup(NamedTuple):
     type: str = 'SyntaxStepSymbolLookup'
 
 
+class SyntaxStepArrayAccess(NamedTuple):
+    meta: SyntaxStepMeta
+    n_id_object: str
+    n_id_index: str
+
+    type: str = 'SyntaxStepArrayAccess'
+
+
 class Graph(nx.DiGraph):
     pass
 
@@ -209,6 +217,11 @@ GRAPH_VULNERABILITY_PARAMETERS: Dict[
             desc_params={},
         )
     ),
+    core_model.FindingEnum.F034: GraphVulnerabilityParameters(
+        cwe=('330',),
+        desc_key='utils.model.finding.enum.f034.description',
+        desc_params={}
+    )
 }
 
 

@@ -119,10 +119,13 @@ def _build_ast_graph(
         if not obj.children or any((
             language == GraphShardMetadataLanguage.JAVA and obj.type in {
                 'array_type',
+                'character_literal',
                 'field_access',
+                'floating_point_type',
                 'integral_type',
                 'scoped_identifier',
                 'scoped_type_identifier',
+                'this',
             },
         )):
             # Consider it a final node, extract the text from it

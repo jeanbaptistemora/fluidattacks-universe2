@@ -143,6 +143,20 @@ def identifier(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
     )
 
 
+def array_access(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
+    match = g.match_ast(
+        args.graph,
+        args.n_id,
+        '__0__',
+        '__2__',
+    )
+    yield graph_model.SyntaxStepArrayAccess(
+        meta=graph_model.SyntaxStepMeta.default(args.n_id),
+        n_id_index=match['__2__'],
+        n_id_object=match['__0__'],
+    )
+
+
 def if_statement(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
     # if ( __0__ ) __1__ else __2__
     match = g.match_ast(
@@ -459,6 +473,17 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
             graph_model.GraphShardMetadataLanguage.JAVA,
         },
         applicable_node_label_types={
+            'array_access',
+        },
+        syntax_readers=(
+            array_access,
+        ),
+    ),
+    Dispatcher(
+        applicable_languages={
+            graph_model.GraphShardMetadataLanguage.JAVA,
+        },
+        applicable_node_label_types={
             'object_creation_expression',
         },
         syntax_readers=(
@@ -472,6 +497,7 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
         applicable_node_label_types={
             'decimal_integer_literal',
             'false',
+            'floating_point_type',
             'null_literal',
             'string_literal',
             'true',
@@ -495,8 +521,10 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
         for applicable_node_label_type in (
             'block',
             'break_statement',
+            'character_literal',
             'comment',
             'expression_statement',
+            'this',
             'try_statement',
             ';',
         )
