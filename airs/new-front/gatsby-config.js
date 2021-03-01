@@ -72,6 +72,15 @@ module.exports = {
         usePathPrefix: "/new-front",
      },
     },
+    {
+      resolve: "gatsby-plugin-web-font-loader",
+      options: {
+        typekit: {
+          id: "gtl3fqb",
+        },
+      },
+    },
+
     "gatsby-plugin-remove-trailing-slashes",
     "gatsby-plugin-react-helmet",
     "gatsby-transformer-asciidoc",

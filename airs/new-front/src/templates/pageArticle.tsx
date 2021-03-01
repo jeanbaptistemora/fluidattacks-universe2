@@ -81,7 +81,7 @@ const DefaultPage: React.FC<IQueryData> = ({
           />
 
           <article>
-            <h1>{title}</h1>
+            <h1 className={"neue"}>{title}</h1>
 
             <div dangerouslySetInnerHTML={{ __html: data.asciidoc.html }} />
           </article>
