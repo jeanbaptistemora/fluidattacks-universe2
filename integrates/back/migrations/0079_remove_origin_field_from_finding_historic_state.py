@@ -1,5 +1,8 @@
 """
 This migration removes the origin field from finding historic state
+
+Execution Time:    2021-03-01 at 09:57:35 UTC-05
+Finalization Time: 2021-03-01 at 10:08:58 UTC-05
 """
 # Standard libraries
 import copy
