@@ -1,7 +1,7 @@
-import { DocumentNode } from "graphql";
+import type { DocumentNode } from "graphql";
 import gql from "graphql-tag";
 
-export const DOWNLOAD_FILE_MUTATION: DocumentNode = gql`
+const DOWNLOAD_FILE_MUTATION: DocumentNode = gql`
   mutation DownloadEventFileMutation($eventId: String!, $fileName: String!) {
     downloadEventFile(eventId: $eventId, fileName: $fileName) {
       success
@@ -10,7 +10,7 @@ export const DOWNLOAD_FILE_MUTATION: DocumentNode = gql`
   }
 `;
 
-export const GET_EVENT_EVIDENCES: DocumentNode = gql`
+const GET_EVENT_EVIDENCES: DocumentNode = gql`
   query GetEventEvidences($eventId: String!) {
     event(identifier: $eventId) {
       eventStatus
@@ -23,18 +23,36 @@ export const GET_EVENT_EVIDENCES: DocumentNode = gql`
   }
 `;
 
-export const UPDATE_EVIDENCE_MUTATION: DocumentNode = gql`
-  mutation UpdateEventEvidenceMutation($eventId: String!, $evidenceType: EventEvidenceType!, $file: Upload!) {
-    updateEventEvidence(eventId: $eventId, evidenceType: $evidenceType, file: $file) {
+const UPDATE_EVIDENCE_MUTATION: DocumentNode = gql`
+  mutation UpdateEventEvidenceMutation(
+    $eventId: String!
+    $evidenceType: EventEvidenceType!
+    $file: Upload!
+  ) {
+    updateEventEvidence(
+      eventId: $eventId
+      evidenceType: $evidenceType
+      file: $file
+    ) {
       success
     }
   }
 `;
 
-export const REMOVE_EVIDENCE_MUTATION: DocumentNode = gql`
-  mutation RemoveEventEvidenceMutation($eventId: String!, $evidenceType: EventEvidenceType!) {
+const REMOVE_EVIDENCE_MUTATION: DocumentNode = gql`
+  mutation RemoveEventEvidenceMutation(
+    $eventId: String!
+    $evidenceType: EventEvidenceType!
+  ) {
     removeEventEvidence(eventId: $eventId, evidenceType: $evidenceType) {
       success
     }
   }
 `;
+
+export {
+  DOWNLOAD_FILE_MUTATION,
+  GET_EVENT_EVIDENCES,
+  UPDATE_EVIDENCE_MUTATION,
+  REMOVE_EVIDENCE_MUTATION,
+};
