@@ -40,6 +40,7 @@ async def test_user():
     assert  result['data']['grantStakeholderAccess']['grantedStakeholder'] == {'email': stakeholder}
     assert await complete_register(stakeholder, group_name)
 
+    context = get_new_context()
     query = f'''
         {{
             project(projectName: "{group_name}") {{
@@ -68,6 +69,7 @@ async def test_user():
     assert new_granted_access_stakeholder['responsibility'] == responsibility
     assert new_granted_access_stakeholder['role'] == role.lower()
 
+    context = get_new_context()
     query = f'''
         query {{
             stakeholder(entity: PROJECT,
@@ -97,6 +99,7 @@ async def test_user():
     assert  result['data']['stakeholder']['lastLogin'] == ''
     assert  result['data']['stakeholder']['projects'] == [{'name': group_name}]
 
+    context = get_new_context()
     phone_number = '17364735'
     responsibility = 'edited'
     role = 'CUSTOMERADMIN'
@@ -118,6 +121,7 @@ async def test_user():
     assert 'errors' not in result
     assert 'success' in result['data']['editStakeholder']
 
+    context = get_new_context()
     query = f'''
         query {{
             stakeholder(entity: PROJECT,
@@ -147,6 +151,7 @@ async def test_user():
     assert  result['data']['stakeholder']['lastLogin'] == ''
     assert  result['data']['stakeholder']['projects'] == [{'name': group_name}]
 
+    context = get_new_context()
     query = f'''
         mutation {{
             removeStakeholderAccess (
@@ -165,6 +170,7 @@ async def test_user():
     assert result['data']['removeStakeholderAccess']
     assert result['data']['removeStakeholderAccess']['removedEmail'] == stakeholder
 
+    context = get_new_context()
     query = f'''
         query {{
             stakeholder(entity: PROJECT,

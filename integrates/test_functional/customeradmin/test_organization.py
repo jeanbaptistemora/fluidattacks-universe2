@@ -48,6 +48,7 @@ async def test_organization():
     assert 'errors' in result
     assert result['errors'][0]['message'] == exe.args[0]
 
+    context = get_new_context()
     phone_number = '9999999999'
     query = f'''
         mutation {{
@@ -71,6 +72,7 @@ async def test_organization():
     assert result['data']['editStakeholderOrganization']['success']
     assert result['data']['editStakeholderOrganization']['modifiedStakeholder']['email'] == stakeholder
 
+    context = get_new_context()
     query = f'''
         query {{
             stakeholder(entity: ORGANIZATION,
@@ -91,6 +93,7 @@ async def test_organization():
     assert 'errors' not in result
     assert result['data']['stakeholder']['phoneNumber'] == phone_number
 
+    context = get_new_context()
     query = f'''
         mutation {{
             updateOrganizationPolicies(
@@ -121,6 +124,7 @@ async def test_organization():
     assert 'errors' in result
     assert result['errors'][0]['message'] == exe.args[0]
 
+    context = get_new_context()
     expected_groups = ['oneshottest', 'unittesting']
     query = f'''
         query {{
@@ -158,6 +162,7 @@ async def test_organization():
     assert 'errors' in result
     assert result['errors'][0]['message'] == exe.args[0]
 
+    context = get_new_context()
     query = f'''
         mutation {{
             removeStakeholderOrganizationAccess(
@@ -173,6 +178,7 @@ async def test_organization():
     assert 'errors' not in result
     assert result['data']['removeStakeholderOrganizationAccess']['success']
 
+    context = get_new_context()
     query = f'''
         query {{
             organization(organizationId: "{org_id}") {{

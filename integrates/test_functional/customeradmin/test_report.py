@@ -27,6 +27,7 @@ async def test_report():
     assert 'url' in result['data']['report']
     assert result['data']['report']['url'] == 'The report will be sent to integratesuser@gmail.com shortly'
 
+    context = get_new_context()
     query = f'''
         query {{
             report(
@@ -42,6 +43,7 @@ async def test_report():
     assert 'url' in result['data']['report']
     assert result['data']['report']['url'] == 'The report will be sent to integratesuser@gmail.com shortly'
 
+    context = get_new_context()
     query = f'''
         query {{
             report(

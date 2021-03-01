@@ -55,6 +55,7 @@ async def test_resource():
     assert 'success' in result['data']['addFiles']
     assert result['data']['addFiles']['success']
 
+    context = get_new_context()
     query = f'''{{
         resources(projectName: "{group_name}"){{
             projectName
@@ -69,6 +70,7 @@ async def test_resource():
     assert file['uploader'] == 'integratesuser@gmail.com'
     file_name = file['fileName']
 
+    context = get_new_context()
     query = f'''
             mutation {{
               downloadFile (
@@ -86,6 +88,7 @@ async def test_resource():
     assert result['data']['downloadFile']['success']
     assert 'url' in result['data']['downloadFile']
 
+    context = get_new_context()
     query = '''
         mutation RemoveFileMutation($filesData: JSONString!, $projectName: String!) {
             removeFiles(filesData: $filesData, projectName: $projectName) {
@@ -108,6 +111,7 @@ async def test_resource():
     assert 'success' in result['data']['removeFiles']
     assert result['data']['removeFiles']['success']
 
+    context = get_new_context()
     query = f'''{{
         resources(projectName: "{group_name}"){{
             projectName
