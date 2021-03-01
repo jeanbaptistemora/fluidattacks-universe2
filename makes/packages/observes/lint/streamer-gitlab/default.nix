@@ -1,11 +1,5 @@
-{ observesPkgs
-, path
-, ...
-}:
+{ path, ... } @ attrs:
 let
-  lint = import (path "/makes/libs/observes/lint-jobs") {
-    inherit path;
-    nixPkgs = observesPkgs;
-  };
+  observes = import (path "/makes/libs/observes") attrs;
 in
-lint.streamerGitlabDev
+observes.jobs.lint.streamerGitlabDev
