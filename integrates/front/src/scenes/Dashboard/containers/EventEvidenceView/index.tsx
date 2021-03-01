@@ -1,42 +1,49 @@
-/* tslint:disable:jsx-no-multiline-js
- *
- * Disabling this rule is necessary for accessing render props from
- * apollo components
- */
-import { useMutation, useQuery } from "@apollo/react-hooks";
-import { faFile, faImage } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { ApolloError, NetworkStatus } from "apollo-client";
-import { GraphQLError } from "graphql";
-import _ from "lodash";
-import React from "react";
-import { useParams } from "react-router";
-import { InjectedFormProps, Validator } from "redux-form";
-
+/* eslint-disable @typescript-eslint/restrict-template-expressions, @typescript-eslint/no-unsafe-member-access 
+--- Needed annotations as DB queries use "any" type
+*/
+import type { ApolloError } from "apollo-client";
 import { Button } from "components/Button";
-import { FluidIcon } from "components/FluidIcon";
-import { TooltipWrapper } from "components/TooltipWrapper";
-import { EvidenceImage } from "scenes/Dashboard/components/EvidenceImage/index";
-import { EvidenceLightbox } from "scenes/Dashboard/components/EvidenceLightbox";
-import { GenericForm } from "scenes/Dashboard/components/GenericForm";
-import {
-  DOWNLOAD_FILE_MUTATION, GET_EVENT_EVIDENCES, REMOVE_EVIDENCE_MUTATION, UPDATE_EVIDENCE_MUTATION,
-} from "scenes/Dashboard/containers/EventEvidenceView/queries";
-import { default as globalStyle } from "styles/global.css";
 import { ButtonToolbarRow } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
+import { EvidenceImage } from "scenes/Dashboard/components/EvidenceImage/index";
+import { EvidenceLightbox } from "scenes/Dashboard/components/EvidenceLightbox";
+import { FluidIcon } from "components/FluidIcon";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { GenericForm } from "scenes/Dashboard/components/GenericForm";
+import type { GraphQLError } from "graphql";
 import { Logger } from "utils/logger";
+import { NetworkStatus } from "apollo-client";
+import React from "react";
+import { TooltipWrapper } from "components/TooltipWrapper";
+import _ from "lodash";
+import globalStyle from "styles/global.css";
 import { msgError } from "utils/notifications";
 import { openUrl } from "utils/resourceHelpers";
 import { translate } from "utils/translations/translate";
-import { isValidFileSize, validEventFile, validEvidenceImage } from "utils/validations";
+import { useParams } from "react-router";
+import {
+  DOWNLOAD_FILE_MUTATION,
+  GET_EVENT_EVIDENCES,
+  REMOVE_EVIDENCE_MUTATION,
+  UPDATE_EVIDENCE_MUTATION,
+} from "scenes/Dashboard/containers/EventEvidenceView/queries";
+import type { InjectedFormProps, Validator } from "redux-form";
+import { faFile, faImage } from "@fortawesome/free-solid-svg-icons";
+import {
+  isValidFileSize,
+  validEventFile,
+  validEvidenceImage,
+} from "utils/validations";
+import { useMutation, useQuery } from "@apollo/react-hooks";
 
-const eventEvidenceView: React.FC = (): JSX.Element => {
+const EventEvidenceView: React.FC = (): JSX.Element => {
   const { eventId } = useParams<{ eventId: string }>();
 
   // State management
   const [isEditing, setEditing] = React.useState(false);
-  const handleEditClick: (() => void) = (): void => { setEditing(!isEditing); };
+  const handleEditClick: () => void = React.useCallback((): void => {
+    setEditing(!isEditing);
+  }, [isEditing]);
 
   const [lightboxIndex, setLightboxIndex] = React.useState(-1);
 
@@ -54,7 +61,9 @@ const eventEvidenceView: React.FC = (): JSX.Element => {
   const isRefetching: boolean = networkStatus === NetworkStatus.refetch;
 
   const [downloadEvidence] = useMutation(DOWNLOAD_FILE_MUTATION, {
-    onCompleted: (downloadData: { downloadEventFile: { url: string } }): void => {
+    onCompleted: (downloadData: {
+      downloadEventFile: { url: string };
+    }): void => {
       openUrl(downloadData.downloadEventFile.url);
     },
     onError: ({ graphQLErrors }: ApolloError): void => {
@@ -91,102 +100,144 @@ const eventEvidenceView: React.FC = (): JSX.Element => {
             break;
           default:
             msgError(translate.t("group_alerts.error_textsad"));
-            Logger.warning("An error occurred updating event evidence", updateError);
+            Logger.warning(
+              "An error occurred updating event evidence",
+              updateError
+            );
         }
       });
     },
   });
 
-  if (_.isUndefined(data) || _.isEmpty(data)) { return <React.Fragment />; }
+  const handleUpdate: (
+    values: Record<string, unknown>
+  ) => void = React.useCallback(
+    async (values: Record<string, unknown>): Promise<void> => {
+      setEditing(false);
 
-  const openImage: (() => void) = (): void => {
-    if (!isEditing && !isRefetching) { setLightboxIndex(0); }
-  };
+      const updateChanges: (
+        evidence: { file?: FileList },
+        key: string
+      ) => Promise<void> = async (
+        evidence: { file?: FileList },
+        key: string
+      ): Promise<void> => {
+        const { file } = evidence;
 
-  const handleDownload: (() => void) = (): void => {
+        if (!_.isUndefined(file)) {
+          await updateEvidence({
+            variables: {
+              eventId,
+              evidenceType: key.toUpperCase(),
+              file: file[0],
+            },
+          });
+        }
+      };
+
+      await Promise.all(_.map(values, updateChanges));
+      setLightboxIndex(-1);
+      await refetch();
+    },
+    [eventId, refetch, updateEvidence]
+  );
+
+  const openImage: () => void = React.useCallback((): void => {
+    if (!isEditing && !isRefetching) {
+      setLightboxIndex(0);
+    }
+  }, [isEditing, isRefetching]);
+
+  const handleDownload: () => void = (): void => {
     if (!isEditing) {
-      void downloadEvidence({ variables: { eventId, fileName: data.event.evidenceFile } });
+      void downloadEvidence({
+        variables: { eventId, fileName: data.event.evidenceFile },
+      });
     }
   };
 
-  const removeImage: (() => void) = (): void => {
+  const removeImage: () => void = React.useCallback((): void => {
     setEditing(false);
     void removeEvidence({ variables: { eventId, evidenceType: "IMAGE" } });
-  };
+  }, [eventId, removeEvidence]);
 
-  const removeFile: (() => void) = (): void => {
+  const removeFile: () => void = React.useCallback((): void => {
     setEditing(false);
     void removeEvidence({ variables: { eventId, evidenceType: "FILE" } });
-  };
+  }, [eventId, removeEvidence]);
 
-  const handleUpdate: ((values: {}) => void) = async (values: {}): Promise<void> => {
-    setEditing(false);
-
-    const updateChanges: ((evidence: { file?: FileList }, key: string) => Promise<void>) = async (
-      evidence: { file?: FileList }, key: string): Promise<void> => {
-      const { file } = evidence;
-
-      if (!_.isUndefined(file)) {
-        await updateEvidence({ variables: { eventId, evidenceType: key.toUpperCase(), file: file[0] } });
-      }
-    };
-
-    await Promise.all(_.map(values, updateChanges));
-    setLightboxIndex(-1);
-    await refetch();
-  };
+  if (_.isUndefined(data) || _.isEmpty(data)) {
+    return <div />;
+  }
 
   const showEmpty: boolean = _.isEmpty(data.event.evidence) || isRefetching;
-
-  const maxFileSize: Validator = isValidFileSize(10);
+  const MAX_FILE_SIZE = 10;
+  const maxFileSize: Validator = isValidFileSize(MAX_FILE_SIZE);
 
   return (
     <React.StrictMode>
       <React.Fragment>
         <ButtonToolbarRow>
-          <Can do="backend_api_mutations_update_event_evidence_mutate">
+          <Can do={"backend_api_mutations_update_event_evidence_mutate"}>
             <TooltipWrapper
               id={translate.t("group.events.evidence.edit_tooltip.id")}
               message={translate.t("group.events.evidence.edit_tooltip")}
             >
-              <Button disabled={data.event.eventStatus === "SOLVED"} onClick={handleEditClick}>
-                <FluidIcon icon="edit" />&nbsp;{translate.t("group.events.evidence.edit")}
+              <Button
+                disabled={data.event.eventStatus === "SOLVED"}
+                onClick={handleEditClick}
+              >
+                <FluidIcon icon={"edit"} />
+                &nbsp;{translate.t("group.events.evidence.edit")}
               </Button>
             </TooltipWrapper>
           </Can>
         </ButtonToolbarRow>
         <br />
-        {_.isEmpty(data.event.evidence) && _.isEmpty(data.event.evidenceFile) && !isEditing ? (
+        {_.isEmpty(data.event.evidence) &&
+        _.isEmpty(data.event.evidenceFile) &&
+        !isEditing ? (
           <div className={globalStyle["no-data"]}>
-            <FontAwesomeIcon size={"3x"} icon={faImage} />
+            <FontAwesomeIcon icon={faImage} size={"3x"} />
             <p>{translate.t("group.events.evidence.no_data")}</p>
           </div>
         ) : undefined}
-        <GenericForm name="editEvidences" onSubmit={handleUpdate}>
+        <GenericForm name={"editEvidences"} onSubmit={handleUpdate}>
           {({ pristine }: InjectedFormProps): JSX.Element => (
             <React.Fragment>
               {isEditing ? (
                 <ButtonToolbarRow>
                   <TooltipWrapper
-                    id={translate.t("search_findings.tab_evidence.update_tooltip.id")}
-                    message={translate.t("search_findings.tab_evidence.update_tooltip")}
+                    id={translate.t(
+                      "search_findings.tab_evidence.update_tooltip.id"
+                    )}
+                    message={translate.t(
+                      "search_findings.tab_evidence.update_tooltip"
+                    )}
                   >
-                    <Button type="submit" disabled={pristine}>
-                      <FluidIcon icon="loading" />&nbsp;{translate.t("search_findings.tab_evidence.update")}
+                    <Button disabled={pristine} type={"submit"}>
+                      <FluidIcon icon={"loading"} />
+                      &nbsp;{translate.t("search_findings.tab_evidence.update")}
                     </Button>
                   </TooltipWrapper>
                 </ButtonToolbarRow>
               ) : undefined}
               {!_.isEmpty(data.event.evidence) || isEditing ? (
                 <EvidenceImage
-                  acceptedMimes="image/gif,image/png"
-                  content={showEmpty ? <div /> : `${location.href}/${data.event.evidence}`}
+                  acceptedMimes={"image/gif,image/png"}
+                  content={
+                    showEmpty ? (
+                      <div />
+                    ) : (
+                      `${location.href}/${data.event.evidence}`
+                    )
+                  }
                   date={data.event.evidenceDate}
-                  description="Evidence"
+                  description={"Evidence"}
                   isDescriptionEditable={false}
                   isEditing={isEditing}
                   isRemovable={!_.isEmpty(data.event.evidence)}
-                  name="image"
+                  name={"image"}
                   onClick={openImage}
                   onDelete={removeImage}
                   validate={[validEvidenceImage, maxFileSize]}
@@ -194,25 +245,28 @@ const eventEvidenceView: React.FC = (): JSX.Element => {
               ) : undefined}
               {!_.isEmpty(data.event.evidenceFile) || isEditing ? (
                 <EvidenceImage
-                  acceptedMimes="application/pdf,application/zip,text/csv,text/plain"
+                  acceptedMimes={
+                    "application/pdf,application/zip,text/csv,text/plain"
+                  }
                   content={
                     <div>
-                      <FontAwesomeIcon size={"1x"} icon={faFile} />
+                      <FontAwesomeIcon icon={faFile} size={"1x"} />
                     </div>
                   }
                   date={data.event.evidenceFileDate}
-                  description="File"
+                  description={"File"}
                   isDescriptionEditable={false}
                   isEditing={isEditing}
                   isRemovable={!_.isEmpty(data.event.evidenceFile)}
-                  name="file"
-                  onClick={handleDownload}
+                  name={"file"}
+                  onClick={handleDownload} // eslint-disable-line react/jsx-no-bind -- Needed due to a memory leakage
                   onDelete={removeFile}
                   validate={[validEventFile, maxFileSize]}
                 />
               ) : undefined}
             </React.Fragment>
-          )}</GenericForm>
+          )}
+        </GenericForm>
         <EvidenceLightbox
           evidenceImages={[{ url: data.event.evidence }]}
           index={lightboxIndex}
@@ -223,4 +277,4 @@ const eventEvidenceView: React.FC = (): JSX.Element => {
   );
 };
 
-export { eventEvidenceView as EventEvidenceView };
+export { EventEvidenceView };
