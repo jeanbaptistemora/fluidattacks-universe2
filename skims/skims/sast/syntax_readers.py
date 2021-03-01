@@ -74,7 +74,28 @@ class MissingCaseHandling(Exception):
 def assignment_expression(
     args: SyntaxReaderArgs,
 ) -> graph_model.SyntaxStepsLazy:
-    match = g.match_ast(args.graph, args.n_id, '__0__', '=', '__1__')
+    assignment_operators = {
+        '=',
+        '+=',
+        '-=',
+        '*=',
+        '/=',
+        '%=',
+        '&=',
+        '^=',
+        '|=',
+        '<<=',
+        '>>=',
+        '>>>=',
+    }
+    match = g.match_ast(
+        args.graph,
+        args.n_id,
+        '__0__',
+        *assignment_operators,
+        '__1__',
+    )
+    match = {key: value for key, value in match.items() if value is not None}
 
     if (
         len(match) == 3
@@ -101,6 +122,35 @@ def binary_expression(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
         ]),
         operator=args.graph.nodes[op_id]['label_text'],
     )
+
+
+def for_statement(args: SyntaxReaderArgs,) -> graph_model.SyntaxStepsLazy:
+    match = g.match_ast(
+        args.graph, args.n_id,
+        'for',
+        '(',
+        'binary_expression',
+        'local_variable_declaration',
+        'update_expression',
+        ')',
+        'block',
+    )
+    if (
+        len(match) == 8
+        and (var := match['local_variable_declaration'])
+        and (binary := match['binary_expression'])
+        and (update := match['update_expression'])
+    ):
+        yield graph_model.SyntaxStepFor(
+            meta=graph_model.SyntaxStepMeta.default(args.n_id, [
+                generic(args.fork_n_id(var)),
+            ]),
+            n_id_var_declaration=var,
+            n_id_conditional_expression=binary,
+            n_id_update=update,
+        )
+    else:
+        raise MissingCaseHandling(enhanced_for_statement, args)
 
 
 def enhanced_for_statement(
@@ -410,6 +460,17 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
         },
         syntax_readers=(
             enhanced_for_statement,
+        ),
+    ),
+    Dispatcher(
+        applicable_languages={
+            graph_model.GraphShardMetadataLanguage.JAVA,
+        },
+        applicable_node_label_types={
+            'for_statement'
+        },
+        syntax_readers=(
+            for_statement,
         ),
     ),
     Dispatcher(
