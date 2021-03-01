@@ -14,6 +14,11 @@ import { NavbarComponent } from "../components/navbar";
 import React from "react";
 import { Seo } from "../components/seo";
 import { graphql } from "gatsby";
+import {
+  ArticleContainer,
+  ArticleTitle,
+  PageArticle,
+} from "../styles/styledComponents";
 
 import "tachyons/css/tachyons.min.css";
 import "../styles/index.scss";
@@ -80,11 +85,14 @@ const DefaultPage: React.FC<IQueryData> = ({
             crumbs={crumbs}
           />
 
-          <article>
-            <h1 className={"neue"}>{title}</h1>
-
-            <div dangerouslySetInnerHTML={{ __html: data.asciidoc.html }} />
-          </article>
+          <PageArticle>
+            <ArticleTitle>{title}</ArticleTitle>
+            <ArticleContainer
+              dangerouslySetInnerHTML={{
+                __html: data.asciidoc.html,
+              }}
+            />
+          </PageArticle>
         </div>
       </Layout>
     </React.Fragment>

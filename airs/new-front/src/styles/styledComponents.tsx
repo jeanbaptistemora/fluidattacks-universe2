@@ -297,7 +297,56 @@ const Flex: StyledComponent<"div", Record<string, unknown>> = styled.div.attrs({
   `,
 })``;
 
+const PageArticle: StyledComponent<
+  "article",
+  Record<string, unknown>
+> = styled.article.attrs({
+  className: `
+    bg-graylight
+  `,
+})``;
+
+const ArticleTitle: StyledComponent<
+  "h1",
+  Record<string, unknown>
+> = styled.h1.attrs({
+  className: `
+    bg-white
+    mw-1366
+    ph-body
+    ma0
+    center
+    c-fluid-bk
+    fw7
+    f1
+    f-5-l
+    roboto
+    tc
+  `,
+})``;
+
+const ArticleContainer: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs({
+  className: `
+    internal
+    mw-1366
+    ph-body
+    center
+    roboto
+    bg-white
+    ph4-l
+    ph3
+    pt5-l
+    pt4
+    pb5
+  `,
+})``;
+
 export {
+  ArticleContainer,
+  ArticleTitle,
   BreadcrumbContainer,
   BreadcrumbInnerContainer,
   BreadcrumbLink,
@@ -319,5 +368,6 @@ export {
   NavbarRegularButton,
   MainFooterInfoContainer,
   MenuButton,
+  PageArticle,
   SubcategoryLink,
 };

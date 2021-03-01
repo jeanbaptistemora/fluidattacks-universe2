@@ -80,8 +80,6 @@ module.exports = {
         },
       },
     },
-
-    "gatsby-plugin-remove-trailing-slashes",
     "gatsby-plugin-react-helmet",
     "gatsby-transformer-asciidoc",
     "gatsby-plugin-styled-components",
