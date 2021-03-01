@@ -51,6 +51,21 @@ export const Dashboard: React.FC = (): JSX.Element => {
   const groupRegex: string = ":projectName([a-zA-Z0-9]+)";
   const tagRegex: string = ":tagName([a-zA-Z0-9-_ ]+)";
 
+  const checkLoginReferrer = React.useCallback((): boolean => {
+    const loginReferrers = [
+      "https://integrates.fluidattacks.com/",
+      "https://account.live.com/",
+      "https://login.live.com/",
+      "https://bitbucket.org/",
+    ];
+    const isGoogleLogin = document.referrer.startsWith(
+      "https://accounts.google"
+    );
+    const isLogin = loginReferrers.includes(document.referrer);
+
+    return isLogin || isGoogleLogin;
+  }, []);
+
   const { userEmail }: IAuthContext = React.useContext(authContext);
 
   const [userRole, setUserRole] = React.useState<string | undefined>(undefined);
@@ -130,14 +145,7 @@ export const Dashboard: React.FC = (): JSX.Element => {
       }
       if (me.isConcurrentSession) {
         setCtSessionModalOpen(true);
-      } else if (
-        !me.remember &&
-        (document.referrer === "https://integrates.fluidattacks.com/" ||
-          document.referrer === "https://accounts.google.com.co/" ||
-          document.referrer === "https://account.live.com/" ||
-          document.referrer === "https://login.live.com/" ||
-          document.referrer === "https://bitbucket.org/")
-      ) {
+      } else if (!me.remember && checkLoginReferrer()) {
         setLegalModalOpen(true);
       }
     },
@@ -173,18 +181,11 @@ export const Dashboard: React.FC = (): JSX.Element => {
 
   const handleConcurrent: () => void = React.useCallback((): void => {
     setCtSessionModalOpen(false);
-    if (
-      !(data?.me.remember ?? false) &&
-      (document.referrer == "https://integrates.fluidattacks.com/" ||
-        document.referrer == "https://accounts.google.com.co/" ||
-        document.referrer === "https://account.live.com/" ||
-        document.referrer == "https://login.live.com/" ||
-        document.referrer == "https://bitbucket.org/")
-    ) {
+    if (!(data?.me.remember ?? false) && checkLoginReferrer()) {
       setLegalModalOpen(true);
     }
     void acknowledgeConcurrent();
-  }, [data?.me.remember, acknowledgeConcurrent]);
+  }, [data?.me.remember, checkLoginReferrer, acknowledgeConcurrent]);
 
   const handleAccept: (remember: boolean) => void = React.useCallback(
     (remember: boolean): void => {
