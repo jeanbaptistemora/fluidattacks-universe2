@@ -27,6 +27,7 @@ async def test_project_fluid_user():
     assert 'internalNames' in result['data']
     group_name = result['data']['internalNames']['name']
 
+    context = get_new_context()
     org_name = 'okada'
     query = f'''
         mutation {{
@@ -51,6 +52,7 @@ async def test_project_fluid_user():
     assert 'success' in result['data']['createProject']
     assert result['data']['createProject']['success']
 
+    context = get_new_context()
     role = 'CUSTOMER'
     customer_email = 'integratescustomer@fluidattacks.com'
     query = f'''
@@ -75,6 +77,7 @@ async def test_project_fluid_user():
     assert 'errors' not in result
     assert result['data']['editStakeholder']['success']
 
+    context = get_new_context()
     query = f'''
         mutation {{
             addProjectConsult(
@@ -97,6 +100,7 @@ async def test_project_fluid_user():
     assert 'success' in result['data']['addProjectConsult']
     assert result['data']['addProjectConsult']['success']
 
+    context = get_new_context()
     query = '''
         mutation AddTagsMutation($projectName: String!, $tagsData: JSONString!) {
             addTags (
@@ -120,6 +124,7 @@ async def test_project_fluid_user():
     assert 'success' in result['data']['addTags']
     assert result['data']['addTags']['success']
 
+    context = get_new_context()
     query = f'''
         query {{
             project(projectName: "{group_name}"){{
@@ -215,6 +220,7 @@ async def test_project_fluid_user():
     assert 'success' in result['data']['removeTag']
     assert result['data']['removeTag']['success']
 
+    context = get_new_context()
     query = f'''
         query {{
             project(projectName: "{group_name}"){{
@@ -231,6 +237,7 @@ async def test_project_fluid_user():
     assert 'errors' not in result
     assert result['data']['project']['tags'] == []
 
+    context = get_new_context()
     query = f'''
       mutation {{
         addGitRoot(
@@ -254,6 +261,7 @@ async def test_project_fluid_user():
     assert 'errors' not in result
     assert result['data']['addGitRoot']['success']
 
+    context = get_new_context()
     query = f'''
         query {{
           group: project(projectName: "{group_name}") {{
@@ -288,6 +296,7 @@ async def test_project_fluid_user():
         'url': 'https://gitlab.com/fluidattacks/test2'
     } in result['data']['group']['roots']
 
+    context = get_new_context()
     query = f'''
         mutation {{
             unsubscribeFromGroup(groupName: "{group_name}"){{
@@ -304,6 +313,7 @@ async def test_project_fluid_user():
     assert 'errors' not in result
     assert result['data']['unsubscribeFromGroup']['success']
 
+    context = get_new_context()
     query = f'''
         query {{
             project(projectName: "{group_name}"){{

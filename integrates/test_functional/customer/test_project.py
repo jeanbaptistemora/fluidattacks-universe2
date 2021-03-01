@@ -27,6 +27,7 @@ async def test_project():
     assert 'internalNames' in result['data']
     group_name = result['data']['internalNames']['name']
 
+    context = get_new_context()
     org_name = 'okada'
     query = f'''
         mutation {{
@@ -50,6 +51,7 @@ async def test_project():
     # the permission and add the stakeholder to the project
     group_name = await create_group()
 
+    context = get_new_context()
     query = f'''
         mutation {{
             addProjectConsult(
@@ -68,6 +70,7 @@ async def test_project():
     assert 'success' in result['data']['addProjectConsult']
     assert result['data']['addProjectConsult']['success']
 
+    context = get_new_context()
     query = '''
         mutation AddTagsMutation($projectName: String!, $tagsData: JSONString!) {
             addTags (
@@ -87,6 +90,7 @@ async def test_project():
     assert 'success' in result['data']['addTags']
     assert result['data']['addTags']['success']
 
+    context = get_new_context()
     query = f'''
         query {{
             project(projectName: "{group_name}"){{
@@ -159,6 +163,7 @@ async def test_project():
         'must_only_have_fluidattacks_hackers',
     ]
 
+    context = get_new_context()
     query = f'''
         mutation {{
             removeTag (
@@ -175,6 +180,7 @@ async def test_project():
     assert 'success' in result['data']['removeTag']
     assert result['data']['removeTag']['success']
 
+    context = get_new_context()
     query = f'''
         query {{
             project(projectName: "{group_name}"){{
@@ -187,6 +193,7 @@ async def test_project():
     assert 'errors' not in result
     assert result['data']['project']['tags'] == []
 
+    context = get_new_context()
     query = f'''
       mutation {{
         addGitRoot(
@@ -206,6 +213,7 @@ async def test_project():
     assert 'errors' not in result
     assert result['data']['addGitRoot']['success']
 
+    context = get_new_context()
     query = f'''
         query {{
           group: project(projectName: "{group_name}") {{
@@ -236,6 +244,7 @@ async def test_project():
         'url': 'https://gitlab.com/fluidattacks/test6'
     } in result['data']['group']['roots']
 
+    context = get_new_context()
     query = f'''
         mutation {{
             unsubscribeFromGroup(groupName: "{group_name}"){{
@@ -248,6 +257,7 @@ async def test_project():
     assert 'errors' not in result
     assert result['data']['unsubscribeFromGroup']['success']
 
+    context = get_new_context()
     query = f'''
         query {{
             project(projectName: "{group_name}"){{

@@ -266,6 +266,7 @@ async def test_finding():
     assert result['data']['finding']['inputsVulns'] == expected_output.get('inputs_vulns')
     assert result['data']['finding']['linesVulns'] == expected_output.get('lines_vulns')
 
+    context = get_new_context()
     consult_content = "This is a comenting test"
     query = f'''
         mutation {{
@@ -286,6 +287,7 @@ async def test_finding():
     assert 'success' in result['data']['addFindingConsult']
     assert result['data']['addFindingConsult']['success']
 
+    context = get_new_context()
     expected_output =  {
         'consulting': {
             'content': consult_content
