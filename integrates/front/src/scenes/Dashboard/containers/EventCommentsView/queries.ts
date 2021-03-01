@@ -1,7 +1,7 @@
-import { DocumentNode } from "graphql";
+import type { DocumentNode } from "graphql";
 import gql from "graphql-tag";
 
-export const GET_EVENT_CONSULTING: DocumentNode = gql`
+const GET_EVENT_CONSULTING: DocumentNode = gql`
   query GetEventConsulting($eventId: String!) {
     event(identifier: $eventId) {
       consulting {
@@ -18,9 +18,11 @@ export const GET_EVENT_CONSULTING: DocumentNode = gql`
   }
 `;
 
-export const ADD_EVENT_CONSULT: DocumentNode = gql`
+const ADD_EVENT_CONSULT: DocumentNode = gql`
   mutation AddEventConsult(
-    $content: String!, $eventId: String!, $parent: GenericScalar!
+    $content: String!
+    $eventId: String!
+    $parent: GenericScalar!
   ) {
     addEventConsult(content: $content, eventId: $eventId, parent: $parent) {
       commentId
@@ -28,3 +30,5 @@ export const ADD_EVENT_CONSULT: DocumentNode = gql`
     }
   }
 `;
+
+export { GET_EVENT_CONSULTING, ADD_EVENT_CONSULT };
