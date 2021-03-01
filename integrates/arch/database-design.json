@@ -454,13 +454,13 @@
         {
           "FacetName": "group_metadata",
           "KeyAttributeAlias": {
-            "PartitionKeyAlias": "ORG#name",
+            "PartitionKeyAlias": "GROUP#name",
             "SortKeyAlias": "GROUP#name"
           },
           "TableData": [
             {
               "pk": {
-                "S": "ORG#okada"
+                "S": "GROUP#unittesting"
               },
               "sk": {
                 "S": "GROUP#unittesting"
@@ -620,16 +620,16 @@
         {
           "FacetName": "root_metadata",
           "KeyAttributeAlias": {
-            "PartitionKeyAlias": "GROUP#name",
-            "SortKeyAlias": "ROOT#uuid"
+            "PartitionKeyAlias": "ROOT#uuid",
+            "SortKeyAlias": "GROUP#name"
           },
           "TableData": [
             {
               "pk": {
-                "S": "GROUP#unittesting"
+                "S": "ROOT#7be44c33-f03f-4d01-94ef-813b534d61ca"
               },
               "sk": {
-                "S": "ROOT#7be44c33-f03f-4d01-94ef-813b534d61ca"
+                "S": "GROUP#unittesting"
               },
               "type": {
                 "S": "Git"
@@ -654,16 +654,16 @@
         {
           "FacetName": "event_metadata",
           "KeyAttributeAlias": {
-            "PartitionKeyAlias": "GROUP#name",
-            "SortKeyAlias": "EVENT#uuid"
+            "PartitionKeyAlias": "EVENT#uuid",
+            "SortKeyAlias": "GROUP#name"
           },
           "TableData": [
             {
               "pk": {
-                "S": "GROUP#unittesting"
+                "S": "EVENT#01405804-4c10-400f-97b4-87661af5f0ae"
               },
               "sk": {
-                "S": "EVENT#01405804-4c10-400f-97b4-87661af5f0ae"
+                "S": "GROUP#unittesting"
               },
               "description": {
                 "S": "Después de iniciar sesión, el servidor devuelve error"
@@ -1010,7 +1010,7 @@
           "FacetName": "event_historic",
           "KeyAttributeAlias": {
             "PartitionKeyAlias": "EVENT#uuid#HIST#iso8601utc",
-            "SortKeyAlias": "EVENT#uuid"
+            "SortKeyAlias": "GROUP#name"
           },
           "TableData": [
             {
@@ -1018,7 +1018,7 @@
                 "S": "EVENT#01405804-4c10-400f-97b4-87661af5f0ae#HIST#2021-02-15T14:01:16Z"
               },
               "sk": {
-                "S": "EVENT#01405804-4c10-400f-97b4-87661af5f0ae"
+                "S": "GROUP#unittesting"
               },
               "status": {
                 "S": "OPEN"
@@ -1146,7 +1146,7 @@
           "FacetName": "root_historic",
           "KeyAttributeAlias": {
             "PartitionKeyAlias": "ROOT#uuid#HIST#iso8601utc",
-            "SortKeyAlias": "ROOT#uuid"
+            "SortKeyAlias": "GROUP#name"
           },
           "TableData": [
             {
@@ -1154,7 +1154,7 @@
                 "S": "ROOT#7be44c33-f03f-4d01-94ef-813b534d61ca#HIST#2021-02-15T14:01:16Z"
               },
               "sk": {
-                "S": "ROOT#7be44c33-f03f-4d01-94ef-813b534d61ca"
+                "S": "GROUP#unittesting"
               },
               "status": {
                 "S": "ACTIVE"
@@ -1226,7 +1226,7 @@
                 "S": "ROOT#7be44c33-f03f-4d01-94ef-813b534d61ca#CLON#2021-02-15T14:01:16Z"
               },
               "sk": {
-                "S": "ROOT#7be44c33-f03f-4d01-94ef-813b534d61ca"
+                "S": "GROUP#unittesting"
               },
               "status": {
                 "S": "UNKNOWN"
@@ -1333,6 +1333,37 @@
               },
               "sk": {
                 "S": "FIN#a0fddb36-ac0d-4a58-969f-b13194af61c2"
+              }
+            }
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
+        },
+        {
+          "FacetName": "group_events",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "GROUP#name",
+            "SortKeyAlias": "EVENT#uuid"
+          },
+          "TableData": [],
+          "DataAccess": {
+            "MySql": {}
+          }
+        },
+        {
+          "FacetName": "group_roots",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "GROUP#name",
+            "SortKeyAlias": "ROOT#uuid"
+          },
+          "TableData": [
+            {
+              "pk": {
+                "S": "GROUP#unittesting"
+              },
+              "sk": {
+                "S": "ROOT#7be44c33-f03f-4d01-94ef-813b534d61ca"
               }
             }
           ],
