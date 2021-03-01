@@ -1,6 +1,9 @@
 """
 This migration removes the api prefix for some analysts
 into the finding historic state
+
+Execution Time:    2021-03-01 at 16:09:50 UTC-05
+Finalization Time: 2021-03-01 at 16:24:29 UTC-05
 """
 # Standard libraries
 import copy
