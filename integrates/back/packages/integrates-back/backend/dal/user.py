@@ -6,19 +6,18 @@ from typing import Any, Dict, List, NamedTuple
 # Third party libraries
 from boto3.dynamodb.conditions import Attr, Key, Not
 from botocore.exceptions import ClientError
+
+# Local libraries
+from back.settings import LOGGING
 from backend.exceptions import UnavailabilityError
 from backend.dal.helpers import dynamodb
 from backend.typing import (
     DynamoDelete as DynamoDeleteType,
     User as UserType
 )
-from backend.utils import (
-    apm,
-)
-
-# Local libraries
-from back.settings import LOGGING
+from newutils import apm
 from __init__ import FI_TEST_PROJECTS
+
 
 logging.config.dictConfig(LOGGING)
 

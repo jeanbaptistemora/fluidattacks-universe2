@@ -40,6 +40,7 @@ from jwcrypto.jwe import InvalidJWEData
 from starlette.concurrency import run_in_threadpool
 from starlette.datastructures import UploadFile
 
+from back import settings
 from backend.dal import (
     session as session_dal,
 )
@@ -58,14 +59,11 @@ from backend.typing import (
     Project as ProjectType
 )
 from backend.utils import (
-    apm,
     datetime as datetime_utils,
     function,
     token as token_helper,
 )
-
-from back import settings
-
+from newutils import apm
 from __init__ import (
     FI_ENVIRONMENT,
 )

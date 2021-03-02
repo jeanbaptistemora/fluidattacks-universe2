@@ -16,7 +16,7 @@ from backend.decorators import (
 )
 from backend.domain import resources as resources_domain
 from backend.typing import DownloadFilePayload as DownloadFilePayloadType
-from backend.utils import analytics
+from newutils import analytics
 
 LOGGER = logging.getLogger(__name__)
 

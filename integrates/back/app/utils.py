@@ -19,11 +19,9 @@ from backend import (
     mailer,
     util
 )
-from backend.utils import (
-    analytics,
-    token as token_helper,
-)
+from backend.utils import token as token_helper
 from back import settings
+from newutils import analytics
 
 from __init__ import (
     FI_COMMUNITY_PROJECTS,

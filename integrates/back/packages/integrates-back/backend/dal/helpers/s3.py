@@ -20,8 +20,8 @@ from botocore.exceptions import ClientError
 from starlette.datastructures import UploadFile
 
 # Local libraries
-from backend.utils import apm
 from back.settings import LOGGING
+from newutils import apm
 
 from __init__ import (
     FI_AWS_S3_ACCESS_KEY, FI_AWS_S3_SECRET_KEY,

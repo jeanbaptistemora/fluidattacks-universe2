@@ -47,12 +47,12 @@ from backend.typing import (
     MailContent as MailContentType,
 )
 from backend.utils import (
-    comments as comment_utils,
     datetime as datetime_utils,
     events as event_utils,
     validations
 )
 from events import dal as events_dal
+from newutils import comments as comments_utils
 
 from __init__ import (
     BASE_URL,
@@ -339,7 +339,7 @@ async def add_comment(
     event = await event_loader.load(event_id)
     project_name = event['project_name']
 
-    await comment_utils.validate_handle_comment_scope(
+    await comments_utils.validate_handle_comment_scope(
         content,
         user_email,
         project_name,

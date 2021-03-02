@@ -5,29 +5,30 @@ Execution Time:    2020-11-13 at 12:08:40 UTC-05
 Finalization Time: 2020-11-13 at 12:31:53 UTC-05
 """
 # disable MyPy due to error "boto module has no attribute client"
-import aioboto3
 import contextlib
 import logging
 import os
 import time
-
-from backend.dal.helpers import s3
-from backend.utils import apm
-from botocore.exceptions import ClientError
-from back.settings import LOGGING
-from __init__ import (
-    FI_AWS_S3_ACCESS_KEY, FI_AWS_S3_SECRET_KEY
+from collections.abc import AsyncGenerator
+from typing import (
+    List,
+    cast,
 )
+
+import aioboto3
 from aioextensions import (
     collect,
     in_thread,
     run,
 )
-from typing import (
-    List,
-    cast,
+from botocore.exceptions import ClientError
+
+from back.settings import LOGGING
+from backend.dal.helpers import s3
+from newutils import apm
+from __init__ import (
+    FI_AWS_S3_ACCESS_KEY, FI_AWS_S3_SECRET_KEY
 )
-from collections.abc import AsyncGenerator
 
 # Constants
 logging.config.dictConfig(LOGGING)

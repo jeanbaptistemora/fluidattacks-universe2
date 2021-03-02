@@ -37,8 +37,6 @@ from backend.filters import (
     vulnerability as vuln_filters,
 )
 from backend.utils import (
-    comments as comment_utils,
-    cvss,
     datetime as datetime_utils,
     findings as finding_utils,
     validations,
@@ -55,6 +53,10 @@ from backend.typing import (
     Finding as FindingType,
     Tracking as TrackingItem,
 )
+from newutils import (
+    comments as comments_utils,
+    cvss,
+)
 
 
 async def add_comment(
@@ -68,7 +70,7 @@ async def add_comment(
     parent = str(comment_data['parent'])
     content = str(comment_data['content'])
 
-    await comment_utils.validate_handle_comment_scope(
+    await comments_utils.validate_handle_comment_scope(
         content,
         user_email,
         project_name,

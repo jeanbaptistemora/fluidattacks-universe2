@@ -15,13 +15,6 @@ from ariadne import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local libraries
-from backend.typing import SignInPayload as SignInPayloadType
-from backend.utils import (
-    analytics,
-    datetime as datetime_utils,
-    token as token_helper
-)
-
 from back import settings
 from back.app import utils
 from back.settings.auth import (
@@ -30,6 +23,12 @@ from back.settings.auth import (
     GOOGLE_ARGS
 )
 from back.settings import LOGGING
+from backend.typing import SignInPayload as SignInPayloadType
+from backend.utils import (
+    datetime as datetime_utils,
+    token as token_helper
+)
+from newutils import analytics
 
 
 logging.config.dictConfig(LOGGING)

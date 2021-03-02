@@ -70,12 +70,13 @@ from backend.exceptions import (
     UserNotInOrganization
 )
 from backend.utils import (
-    comments as comment_utils,
     datetime as datetime_utils,
     findings as finding_utils,
     validations
 )
 from events import domain as events_domain
+from newutils import comments as comments_utils
+
 
 logging.config.dictConfig(LOGGING)
 
@@ -92,7 +93,7 @@ async def add_comment(
     """Add comment in a project."""
     parent = str(comment_data['parent'])
     content = str(comment_data['content'])
-    await comment_utils.validate_handle_comment_scope(
+    await comments_utils.validate_handle_comment_scope(
         content,
         email,
         project_name,

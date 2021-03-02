@@ -16,6 +16,7 @@ from backports import csv
 from magic import Magic
 from starlette.datastructures import UploadFile
 
+from back.settings import LOGGING
 from backend import mailer, util
 from backend.dal import (
     finding as finding_dal,
@@ -44,11 +45,10 @@ from backend.typing import (
     Datetime,
 )
 from backend.utils import (
-    cvss,
     datetime as datetime_utils,
     forms as forms_utils
 )
-from back.settings import LOGGING
+from newutils import cvss
 from __init__ import (
     BASE_URL,
     FI_MAIL_REVIEWERS
