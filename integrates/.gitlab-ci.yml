@@ -70,13 +70,10 @@
   stage: analytics
   tags: [autoscaling]
 
-.integrates_scheduler: &integrates_scheduler
+.integrates_back_test_functional: &integrates_back_test_functional
   <<: *makes
-  interruptible: false
-  script:
-    - ./m integrates.scheduler prod "backend.scheduler.${CI_JOB_NAME/integrates.scheduler./}"
-  stage: scheduler
-  tags: [autoscaling-large]
+  <<: *in_dev_branch_integrates
+  stage: test-code
 
 .integrates_front_deploy: &integrates_front_deploy
   <<: *makes
@@ -90,6 +87,14 @@
   script:
     - ./m integrates.mobile.ota
   stage: pre-build
+
+.integrates_scheduler: &integrates_scheduler
+  <<: *makes
+  interruptible: false
+  script:
+    - ./m integrates.scheduler prod "backend.scheduler.${CI_JOB_NAME/integrates.scheduler./}"
+  stage: scheduler
+  tags: [autoscaling-large]
 
 integrates.analytics.documents-dev:
   <<: *analytics_template
@@ -163,9 +168,15 @@ integrates.back.lint:
   <<: *in_dev_branch_integrates
   stage: lint-code
 
-.integrates_back_test_functional: &integrates_back_test_functional
+integrates.back.structure:
   <<: *makes
   <<: *in_dev_branch_integrates
+  after_script:
+    - cp -Lr out/integrates-back-structure outputs
+  artifacts:
+    expire_in: 1 week
+    paths: [outputs]
+    when: always
   stage: test-code
 
 integrates.back.test.functional.old:

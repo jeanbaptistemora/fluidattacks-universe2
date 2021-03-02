@@ -18,6 +18,7 @@ integrates.back.probes.lib
 integrates.back.probes.liveness
 integrates.back.probes.readiness
 integrates.back.pypi.runtime
+integrates.back.structure
 integrates.back.tools
 integrates.back.tools.asciidoctor
 integrates.back.tools.asciidoctor-pdf

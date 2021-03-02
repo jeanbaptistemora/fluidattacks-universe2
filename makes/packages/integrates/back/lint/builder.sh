@@ -1,7 +1,8 @@
 # shellcheck shell=bash
 
 function main {
-      for module in "${envIntegratesBackModules}"/*
+      lint_python_imports "${envIntegratesImportsConfig}" "${envIntegratesBackModules}" \
+  &&  for module in "${envIntegratesBackModules}"/*
       do
             if test -d "${module}"
             then
