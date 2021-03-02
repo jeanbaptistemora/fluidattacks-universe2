@@ -1,16 +1,20 @@
+# Standard libraries
 import pytest
 
+# Local libraries
+from backend.api import get_new_context
 from back.tests.functional.admin.utils import get_result
 
 pytestmark = pytest.mark.asyncio
 
 
 async def test_permissions():
+    context = get_new_context()
     query = '''{
         groupsWithForces
     }'''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     assert result['data']['groupsWithForces'][0] == 'unittesting'
     result = await get_result(data, stakeholder='madeupuser@gmail.com')
