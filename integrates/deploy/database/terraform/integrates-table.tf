@@ -82,3 +82,37 @@ resource "aws_dynamodb_table" "fi_roots" {
     "management:product" = "integrates"
   }
 }
+
+resource "aws_dynamodb_table" "integrates_vms" {
+  name         = "integrates_vms"
+  billing_mode = "PAY_PER_REQUEST"
+  hash_key     = "pk"
+  range_key    = "sk"
+
+  attribute {
+    name = "pk"
+    type = "S"
+  }
+
+  attribute {
+    name = "sk"
+    type = "S"
+  }
+
+  global_secondary_index {
+    name            = "inverted_index"
+    hash_key        = "sk"
+    range_key       = "pk"
+    projection_type = "ALL"
+  }
+
+  point_in_time_recovery {
+    enabled = true
+  }
+
+  tags = {
+    "Name"               = "integrates_vms"
+    "management:type"    = "production"
+    "management:product" = "integrates"
+  }
+}
