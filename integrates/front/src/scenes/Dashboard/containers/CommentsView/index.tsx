@@ -20,8 +20,14 @@ import type {
   ILoadCallback,
   IPostCallback,
 } from "scenes/Dashboard/components/Comments/types";
-import { Mutation, Query } from "@apollo/react-components";
-import type { MutationFunction, QueryResult } from "@apollo/react-common";
+import { useMutation, useQuery } from "@apollo/react-hooks";
+
+interface ICommentsData {
+  finding: {
+    consulting: ICommentStructure[];
+    observations: ICommentStructure[];
+  };
+}
 
 const CommentsView: React.FC = (): JSX.Element => {
   const params: { findingId: string; type: string } = useParams();
@@ -71,92 +77,85 @@ const CommentsView: React.FC = (): JSX.Element => {
     [type]
   );
 
+  const { data, loading } = useQuery<ICommentsData>(
+    type === "consult" ? GET_FINDING_CONSULTING : GET_FINDING_OBSERVATIONS,
+    {
+      onError: handleErrors,
+      variables: { findingId },
+    }
+  );
+
+  const getData: (callback: ILoadCallback) => void = React.useCallback(
+    (callbackFn: (cData: ICommentStructure[]) => void): void => {
+      if (!_.isUndefined(data)) {
+        const comments: ICommentStructure[] =
+          type === "consult"
+            ? data.finding.consulting
+            : data.finding.observations;
+        callbackFn(
+          comments.map(
+            (comment: ICommentStructure): ICommentStructure => ({
+              ...comment,
+              created_by_current_user: comment.email === userEmail,
+              id: Number(comment.id),
+              parent: Number(comment.parent),
+            })
+          )
+        );
+      }
+    },
+    [data, type, userEmail]
+  );
+
+  const [addComment] = useMutation(ADD_FINDING_CONSULT, {
+    onError: handleAddCommentError,
+  });
+
+  const handlePost: (
+    comment: ICommentStructure,
+    callbackFn: IPostCallback
+  ) => void = React.useCallback(
+    (comment: ICommentStructure, callbackFn: IPostCallback): void => {
+      interface IMutationResult {
+        data: {
+          addFindingConsult: {
+            commentId: string;
+            success: boolean;
+          };
+        };
+      }
+      mixpanel.track(`Add${_.capitalize(type)}`, { findingId });
+      void addComment({
+        variables: {
+          findingId,
+          type: type.toUpperCase(),
+          ...comment,
+        },
+      }).then((mtResult: unknown | null): void => {
+        const result: IMutationResult["data"] = (mtResult as IMutationResult)
+          .data;
+        if (result.addFindingConsult.success) {
+          callbackFn({
+            ...comment,
+            id: Number(result.addFindingConsult.commentId),
+          });
+        }
+      });
+    },
+    [addComment, findingId, type]
+  );
+
+  if (_.isUndefined(data) || loading) {
+    return <div />;
+  }
+
   return (
     <React.StrictMode>
-      <Query
-        onError={handleErrors}
-        query={
-          type === "consult" ? GET_FINDING_CONSULTING : GET_FINDING_OBSERVATIONS
-        }
-        variables={{ findingId }}
-      >
-        {({ data, loading }: QueryResult): JSX.Element => {
-          if (_.isUndefined(data) || loading) {
-            return <div />;
-          }
-          const getData: (callback: ILoadCallback) => void = (
-            callbackFn: (cData: ICommentStructure[]) => void
-          ): void => {
-            // Next eslint annotations needed due to the usage of any type in DB query results
-            const comments: ICommentStructure[] =
-              type === "consult"
-                ? data.finding.consulting // eslint-disable-line @typescript-eslint/no-unsafe-member-access
-                : data.finding.observations; // eslint-disable-line @typescript-eslint/no-unsafe-member-access
-            callbackFn(
-              comments.map(
-                (comment: ICommentStructure): ICommentStructure => ({
-                  ...comment,
-                  created_by_current_user: comment.email === userEmail,
-                  id: Number(comment.id),
-                  parent: Number(comment.parent),
-                })
-              )
-            );
-          };
-
-          return (
-            <Mutation
-              mutation={ADD_FINDING_CONSULT}
-              onError={handleAddCommentError}
-            >
-              {(addComment: MutationFunction): JSX.Element => {
-                const handlePost: (
-                  comment: ICommentStructure,
-                  callbackFn: IPostCallback
-                ) => void = (
-                  comment: ICommentStructure,
-                  callbackFn: IPostCallback
-                ): void => {
-                  interface IMutationResult {
-                    data: {
-                      addFindingConsult: {
-                        commentId: string;
-                        success: boolean;
-                      };
-                    };
-                  }
-                  mixpanel.track(`Add${_.capitalize(type)}`, { findingId });
-                  void addComment({
-                    variables: {
-                      findingId,
-                      type: type.toUpperCase(),
-                      ...comment,
-                    },
-                  }).then((mtResult: unknown | null): void => {
-                    const result: IMutationResult["data"] = (mtResult as IMutationResult)
-                      .data;
-                    if (result.addFindingConsult.success) {
-                      callbackFn({
-                        ...comment,
-                        id: Number(result.addFindingConsult.commentId),
-                      });
-                    }
-                  });
-                };
-
-                return (
-                  <Comments
-                    id={`finding-${type}`}
-                    // Next eslint annotations needed due to nested callbacks
-                    onLoad={getData} // eslint-disable-line react/jsx-no-bind
-                    onPostComment={handlePost} // eslint-disable-line react/jsx-no-bind
-                  />
-                );
-              }}
-            </Mutation>
-          );
-        }}
-      </Query>
+      <Comments
+        id={`finding-${type}`}
+        onLoad={getData}
+        onPostComment={handlePost}
+      />
     </React.StrictMode>
   );
 };
