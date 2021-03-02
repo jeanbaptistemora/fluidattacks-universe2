@@ -1,3 +1,4 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "gatsby";
 import type { StyledComponent } from "styled-components";
 import styled from "styled-components";
@@ -8,13 +9,9 @@ const NavbarContainer: StyledComponent<
 > = styled.div.attrs({
   className: `
    cssmenu
-   bg-white
    lh-solid
    h-navbar
    cover
-   ba
-   fixed
-   b--light-gray
    w-100
    top-0
    z-max
@@ -116,7 +113,7 @@ const NavbarRegularButton: StyledComponent<
   fw4
   f-18
   ba
-  b--white
+  b--transparent
   bw1
   ph0
   pv2
@@ -344,6 +341,16 @@ const ArticleContainer: StyledComponent<
   `,
 })``;
 
+const FontAwesomeAngleDown: StyledComponent<
+  typeof FontAwesomeIcon,
+  Record<string, unknown>
+> = styled(FontAwesomeIcon)`
+  display: inline-block;
+  float: right;
+  margin-right: 1rem;
+  width: 1rem;
+`;
+
 export {
   ArticleContainer,
   ArticleTitle,
@@ -355,6 +362,7 @@ export {
   CopyrightContainer,
   CopyrightParagraph,
   Flex,
+  FontAwesomeAngleDown,
   FooterInfoLinksContainer,
   FooterInfoLink,
   GrayDash,

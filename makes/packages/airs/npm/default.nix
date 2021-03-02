@@ -130,6 +130,7 @@ buildNodeRequirements airsPkgs {
       "@emotion/unitless@0.7.5"
       "@endemolshinegroup/cosmiconfig-typescript-loader@3.0.2"
       "@eslint/eslintrc@0.3.0"
+      "@fortawesome/fontawesome-common-types@0.2.34"
       "@graphql-tools/batch-execute@7.0.0"
       "@graphql-tools/delegate@7.0.10"
       "@graphql-tools/graphql-file-loader@6.2.7"

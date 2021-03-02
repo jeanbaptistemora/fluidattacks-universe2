@@ -70,7 +70,7 @@ $white: rgba(255, 255, 255, 1);
 
 .usecases-content,
 .solutions-content {
-  background-color: #fff;
+  background-color: $graylight;
   box-shadow: 0 20px 20px $darkshadow;
   display: none;
   min-width: 160px;
