@@ -6,7 +6,7 @@
 } @ _:
 makeUtils.makeDerivation integratesPkgs {
   arguments = {
-    envIntegratesSrc = path "/integrates";
+    envIntegratesBackModules = path "/integrates/back/packages/modules";
   };
   builder = path "/makes/packages/integrates/back/lint/builder.sh";
   name = "integrates-back-lint";

@@ -144,6 +144,7 @@ makeTemplate {
     envPythonUtils = path "/makes/utils/python/template.sh";
     envSrcIntegrates = path "/integrates";
     envSrcIntegratesPackagesBack = path "/integrates/back/packages/integrates-back";
+    envSrcIntegratesBackModules = path "/integrates/back/packages/modules";
   };
   name = "integrates-back-pypi-runtime";
   template = path "/makes/packages/integrates/back/pypi/runtime/template.sh";
