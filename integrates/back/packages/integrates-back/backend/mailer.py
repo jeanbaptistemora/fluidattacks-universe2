@@ -13,7 +13,10 @@ from typing import (
 
 # Third party libraries
 import aioboto3
-from aioextensions import schedule
+from aioextensions import (
+    collect,
+    schedule
+)
 import botocore
 import mandrill
 from jinja2 import (
@@ -218,29 +221,57 @@ async def _send_mail_async(
 
 
 async def _send_mail_async_new(
-        email_to: List[str], content: str, subject: str) -> None:
+    email_to: str,
+    context: MailContentType,
+    tags: List[str],
+    subject: str,
+    template_name: str
+) -> None:
     mandrill_client = mandrill.Mandrill(API_KEY)
-    emails: List[Dict[str, str]] = []
+    first_name = await _get_recipient_first_name_async(email_to)
+    context['name'] = first_name
+    content = _get_content(template_name, context)
     message = {
         'from_email': 'noreply@fluidattacks.com',
         'from_name': 'Fluid Attacks',
+        'html': content,
         'subject': subject,
-        'html': content
-    }
-    for email in email_to:
-        fname_mail = await _get_recipient_first_name_async(email)
-        emails.append({
-            'email': email,
-            'name': fname_mail,
+        'tags': tags,
+        'to': [{
+            'email': email_to,
+            'name': first_name,
             'type': 'to'
-        })
-    message['to'] = cast(str, emails)
-
-    result = mandrill_client.messages.send(message=message)
+        }],
+    }
+    mandrill_client.messages.send(message=message)
     LOGGER.info(
         '[mailer]: mail sent',
-        extra=result
+        extra={
+            'extra': {
+                'message': json.dumps(message),
+                'MessageGroupId': template_name,
+            }
+        }
     )
+
+
+async def _send_mails_async_new(
+    email_to: List[str],
+    context: MailContentType,
+    tags: List[str],
+    subject: str,
+    template_name: str
+) -> None:
+    await collect([
+        _send_mail_async_new(
+            email,
+            context,
+            tags,
+            subject,
+            template_name
+        )
+        for email in email_to
+    ])
 
 
 async def _send_mail_immediately(
@@ -478,16 +509,6 @@ async def send_mail_project_report(
         context: MailContentType) -> None:
     await _send_mail_async(
         'project-report', email_to, context=context, tags=GENERAL_TAG)
-
-
-async def send_mail_project_report_new(
-        email_to: List[str],
-        context: MailContentType) -> None:
-    await _send_mail_async_new(
-        email_to,
-        _get_content('project-report', context),
-        str(context['subject'])
-    )
 
 
 async def send_mail_verified_finding(
