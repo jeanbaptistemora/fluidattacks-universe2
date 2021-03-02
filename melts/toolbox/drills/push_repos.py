@@ -6,6 +6,7 @@ from typing import (
     Optional,
 )
 from pathlib import Path
+import shutil
 
 # Third party libaries
 import boto3
@@ -54,9 +55,9 @@ def fill_empty_folders(path: str) -> None:
         Path(folder, '.keep').touch()
 
 
-def git_optimize_all(path: str) -> bool:
+def git_optimize_all(path: str) -> None:
     git_files = Path(path).glob('**/.git')
-    LOGGER.info('Git files: %s', git_files)
+    LOGGER.info('Git files: %s', tuple(git_files))
     git_folders = set(map(lambda x: x.parent, git_files))
     for folder in git_folders:
         LOGGER.info('Git optimize at %s', folder)
@@ -67,8 +68,7 @@ def git_optimize_all(path: str) -> bool:
             LOGGER.error('Git optimization has failed at %s: ', folder)
             LOGGER.info(exc.stdout)
             LOGGER.info(exc.stderr)
-            return False
-    return True
+            shutil.rmtree(folder)
 
 
 def s3_sync_fusion_to_s3(
@@ -96,8 +96,7 @@ def s3_sync_fusion_to_s3(
     fill_empty_folders(fusion_dir)
 
     if not generic.is_env_ci():
-        if not git_optimize_all(fusion_dir):
-            return False
+        git_optimize_all(fusion_dir)
 
     if endpoint_url:
         aws_sync_command.append('--endpoint')
