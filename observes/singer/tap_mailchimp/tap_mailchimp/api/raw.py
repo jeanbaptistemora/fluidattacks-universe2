@@ -10,9 +10,15 @@ from mailchimp_marketing import (
 )
 
 # Local libraries
+from tap_mailchimp import (
+    utils
+)
 from tap_mailchimp.common.objs import (
     JSON,
 )
+
+
+LOG = utils.get_log(__name__)
 
 
 class RawSource(NamedTuple):
@@ -21,7 +27,11 @@ class RawSource(NamedTuple):
 
 
 def _list_audiences(client: Client) -> JSON:
-    return client.lists.get_all_lists(fields='id')
+    result = client.lists.get_all_lists(
+        fields=['lists.id', 'total_items', '_links']
+    )
+    LOG.debug('_list_audiences response: %s', result)
+    return result
 
 
 def _get_audience(client: Client, audience_id: str) -> JSON:

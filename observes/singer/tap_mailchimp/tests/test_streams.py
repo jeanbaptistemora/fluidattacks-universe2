@@ -40,6 +40,6 @@ def test_all_audiences() -> None:
             client.list_audiences().data['lists']
         ))
         # Assert
-        assert n_schemas == 1
+        assert n_schemas == 0
         for audience in audiences:
             assert client.get_audience(audience).data in raw_records
