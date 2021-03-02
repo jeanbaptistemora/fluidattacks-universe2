@@ -1,6 +1,9 @@
+# Standard libraries
 import json
 import pytest
 
+# Local libraries
+from backend.api import get_new_context
 from backend.exceptions import (
     NotPendingDeletion,
     UserNotInOrganization
@@ -11,6 +14,7 @@ pytestmark = pytest.mark.asyncio
 
 
 async def test_project():
+    context = get_new_context()
     query = '''{
         internalNames(entity: GROUP){
             name
@@ -18,11 +22,12 @@ async def test_project():
         }
     }'''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     assert 'internalNames' in result['data']
     group_name = result['data']['internalNames']['name']
 
+    context = get_new_context()
     org_name = 'okada'
     query = f'''
         mutation {{
@@ -39,11 +44,12 @@ async def test_project():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     assert 'success' in result['data']['createProject']
     assert result['data']['createProject']['success']
 
+    context = get_new_context()
     role = 'ADMIN'
     query = f'''
         mutation {{
@@ -59,10 +65,11 @@ async def test_project():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     assert 'success' in result['data']['editStakeholder']
 
+    context = get_new_context()
     query = f'''
         mutation {{
             addProjectConsult(
@@ -76,11 +83,12 @@ async def test_project():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     assert 'success' in result['data']['addProjectConsult']
     assert result['data']['addProjectConsult']['success']
 
+    context = get_new_context()
     query = '''
         mutation AddTagsMutation($projectName: String!, $tagsData: JSONString!) {
             addTags (
@@ -95,11 +103,12 @@ async def test_project():
         'tagsData': json.dumps(['testing'])
     }
     data = {'query': query, 'variables': variables}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     assert 'success' in result['data']['addTags']
     assert result['data']['addTags']['success']
 
+    context = get_new_context()
     query = f'''
         query {{
             project(projectName: "{group_name}"){{
@@ -144,7 +153,7 @@ async def test_project():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     assert result['data']['project']['name'] == group_name
     assert result['data']['project']['hasDrills']
@@ -171,6 +180,7 @@ async def test_project():
     assert result['data']['project']['events'] == []
     assert result['data']['project']['stakeholders'] == [{'email': 'unittest2@fluidattacks.com', 'role': 'group_manager'}]
 
+    context = get_new_context()
     query = f'''
         query {{
             project(projectName: "{group_name}"){{
@@ -181,10 +191,11 @@ async def test_project():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     assert result['data']['project']['findings'] == []
 
+    context = get_new_context()
     query = f'''
         query {{
             project(projectName: "{group_name}"){{
@@ -195,10 +206,11 @@ async def test_project():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     assert result['data']['project']['findings'] == []
 
+    context = get_new_context()
     query = f'''
         mutation {{
             removeTag (
@@ -210,11 +222,12 @@ async def test_project():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     assert 'success' in result['data']['removeTag']
     assert result['data']['removeTag']['success']
 
+    context = get_new_context()
     query = f'''
         query {{
             project(projectName: "{group_name}"){{
@@ -223,10 +236,11 @@ async def test_project():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     assert result['data']['project']['tags'] == []
 
+    context = get_new_context()
     query = f'''
       mutation {{
         addGitRoot(
@@ -241,10 +255,12 @@ async def test_project():
         }}
       }}
     '''
-    result = await get_result({'query': query})
+    data = {'query': query}
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     assert result['data']['addGitRoot']['success']
 
+    context = get_new_context()
     query = f'''
         query {{
           group: project(projectName: "{group_name}") {{
@@ -262,7 +278,8 @@ async def test_project():
           }}
         }}
     '''
-    result = await get_result({'query': query})
+    data = {'query': query}
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     assert {
         '__typename': 'GitRoot',
@@ -274,6 +291,7 @@ async def test_project():
         'url': 'https://gitlab.com/fluidattacks/test1'
     } in result['data']['group']['roots']
 
+    context = get_new_context()
     query = f"""
         mutation {{
             editGroup(
@@ -290,11 +308,12 @@ async def test_project():
         }}
       """
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     assert 'success' in result['data']['editGroup']
     assert result['data']['editGroup']['success']
 
+    context = get_new_context()
     query = f'''
         mutation {{
             removeGroup(
@@ -305,10 +324,11 @@ async def test_project():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' in result
     assert result['errors'][0]['message'] == str(UserNotInOrganization())
 
+    context = get_new_context()
     query = f'''
         query {{
             project(projectName: "{group_name}"){{
@@ -321,5 +341,5 @@ async def test_project():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' in result
