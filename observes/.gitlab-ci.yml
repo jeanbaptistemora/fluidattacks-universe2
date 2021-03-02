@@ -226,6 +226,15 @@ observes.scheduled.formstack-etl:
     variables: [$observes_formstack]
   interruptible: false
 
+observes.scheduled.mailchimp-etl:
+  <<: *makes
+  tags: [autoscaling-analytics]
+  stage: analytics
+  only:
+    refs: [schedules]
+    variables: [$observes_mailchimp_etl]
+  interruptible: false
+
 observes.scheduled.mixpanel-integrates-etl:
   <<: *makes
   tags: [autoscaling-analytics]
