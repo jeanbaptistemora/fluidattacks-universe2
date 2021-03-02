@@ -127,7 +127,7 @@ async def confirm_access(request: Request) -> HTMLResponse:
             else:
                 response = templates.invalid_invitation(
                     request,
-                    'used',
+                    'Invalid or Expired',
                     project_access=project_access
                 )
         else:
@@ -141,7 +141,7 @@ async def confirm_access(request: Request) -> HTMLResponse:
     else:
         response = templates.invalid_invitation(
             request,
-            'Invalid'
+            'Invalid or Expired'
         )
 
     return response

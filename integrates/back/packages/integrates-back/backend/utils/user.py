@@ -125,62 +125,61 @@ async def complete_register_for_group_invitation(
 
     if invitation['is_used']:
         bugsnag.notify(Exception('Token already used'), severity='warning')
-    else:
-        user_email = cast(str, project_access['user_email'])
-        group_name = cast(str, project_access['project_name'])
-        updated_invitation = invitation.copy()
-        updated_invitation['is_used'] = True
-        responsibility = cast(str, invitation['responsibility'])
-        phone_number = cast(str, invitation['phone_number'])
-        role = cast(str, invitation['role'])
-        success = await group_domain.update_access(
+    user_email = cast(str, project_access['user_email'])
+    group_name = cast(str, project_access['project_name'])
+    updated_invitation = invitation.copy()
+    updated_invitation['is_used'] = True
+    responsibility = cast(str, invitation['responsibility'])
+    phone_number = cast(str, invitation['phone_number'])
+    role = cast(str, invitation['role'])
+    success = await group_domain.update_access(
+        user_email,
+        group_name,
+        {
+            'expiration_time': None,
+            'has_access': True,
+            'invitation': updated_invitation,
+            'responsibility': responsibility,
+        }
+    )
+
+    success = success and await authz.grant_group_level_role(
+        user_email, group_name, role
+    )
+
+    organization_id = await org_domain.get_id_for_group(group_name)
+    if not await org_domain.has_user_access(organization_id, user_email):
+        success = success and await org_domain.add_user(
+            organization_id,
             user_email,
-            group_name,
+            'customer'
+        )
+
+    if await user_domain.get_data(user_email, 'email'):
+        success = success and await user_domain.add_phone_to_user(
+            user_email,
+            phone=phone_number
+        )
+    else:
+        success = success and await user_domain.create(
+            user_email,
             {
-                'expiration_time': None,
-                'has_access': True,
-                'invitation': updated_invitation,
-                'responsibility': responsibility,
+                'phone': phone_number
             }
         )
 
-        success = success and await authz.grant_group_level_role(
-            user_email, group_name, role
+    if not await user_domain.is_registered(user_email):
+        success = success and all(await collect((
+            user_domain.register(user_email),
+            authz.grant_user_level_role(user_email, 'customer')
+        )))
+
+    if success:
+        redis_del_by_deps_soon(
+            'confirm_access',
+            group_name=group_name,
+            organization_id=organization_id,
         )
-
-        organization_id = await org_domain.get_id_for_group(group_name)
-        if not await org_domain.has_user_access(organization_id, user_email):
-            success = success and await org_domain.add_user(
-                organization_id,
-                user_email,
-                'customer'
-            )
-
-        if await user_domain.get_data(user_email, 'email'):
-            success = success and await user_domain.add_phone_to_user(
-                user_email,
-                phone=phone_number
-            )
-        else:
-            success = success and await user_domain.create(
-                user_email,
-                {
-                    'phone': phone_number
-                }
-            )
-
-        if not await user_domain.is_registered(user_email):
-            success = success and all(await collect((
-                user_domain.register(user_email),
-                authz.grant_user_level_role(user_email, 'customer')
-            )))
-
-        if success:
-            redis_del_by_deps_soon(
-                'confirm_access',
-                group_name=group_name,
-                organization_id=organization_id,
-            )
 
     return success
 
