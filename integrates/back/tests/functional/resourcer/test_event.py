@@ -1,8 +1,12 @@
+# Standard libraries
 import os
 import pytest
 
+# Third party libraries
 from starlette.datastructures import UploadFile
 
+# Local libraries
+from backend.api import get_new_context
 from backend.utils import datetime as datetime_utils
 from back.tests.functional.resourcer.utils import get_result
 
@@ -10,6 +14,7 @@ from back.tests.functional.resourcer.utils import get_result
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group('old')
 async def test_event():
+    context = get_new_context()
     today = datetime_utils.get_as_str(
         datetime_utils.get_now(),
         date_format='%Y-%m-%d'
@@ -35,10 +40,11 @@ async def test_event():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     assert result['data']['createEvent']
 
+    context = get_new_context()
     query = f'''
         query {{
             project(projectName: "{group_name}"){{
@@ -51,13 +57,14 @@ async def test_event():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     assert 'events' in result['data']['project']
     events = result['data']['project']['events']
     event = [event for event in events if event['detail'] == event_detail][0]
     event_id = event['id']
 
+    context = get_new_context()
     consult_content = 'Test content of new event'
     query = f'''
         mutation {{
@@ -70,11 +77,12 @@ async def test_event():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     assert 'success' in result['data']['addEventConsult']
     assert result['data']['addEventConsult']
 
+    context = get_new_context()
     query = '''
         mutation updateEventEvidence(
             $eventId: String!, $evidenceType: EventEvidenceType!, $file: Upload!
@@ -97,10 +105,12 @@ async def test_event():
         }
         data = {'query': query, 'variables': variables}
 
-    result = await get_result(data)
+    context = get_new_context()
+    result = await get_result(data, context=context)
     assert 'errors' in result
     assert result['errors'][0]['message'] == 'Access denied'
 
+    context = get_new_context()
     query = f'''{{
         event(identifier: "{event_id}"){{
             analyst
@@ -125,7 +135,7 @@ async def test_event():
         }}
     }}'''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     assert 'event' in result['data']
     assert result['data']['event']['analyst'] == 'integratesresourcer@fluidattacks.com'
@@ -156,10 +166,10 @@ async def test_event():
             'state': 'CREATED'
         }
     ]
-
     assert result['data']['event']['projectName'] == group_name
     assert result['data']['event']['subscription'] == 'CONTINUOUS'
 
+    context = get_new_context()
     query = f'''{{
         events(projectName: "{group_name}"){{
             id
@@ -168,13 +178,14 @@ async def test_event():
         }}
     }}'''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'events' in result['data']
     events = result['data']['events']
     event = [event for event in events if event['id'] == event_id][0]
     assert event['projectName'] == group_name
     assert event['detail'] == event_detail
 
+    context = get_new_context()
     query = f'''
         mutation {{
             solveEvent(
@@ -187,10 +198,11 @@ async def test_event():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     assert 'success' in result['data']['solveEvent']
 
+    context = get_new_context()
     query = f'''
         mutation {{
             removeEventEvidence(eventId: "{event_id}",
@@ -200,10 +212,11 @@ async def test_event():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' in result
     assert result['errors'][0]['message'] == 'Access denied'
 
+    context = get_new_context()
     query = f'''
         mutation {{
             downloadEventFile(
@@ -216,12 +229,13 @@ async def test_event():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     assert 'success' in result['data']['downloadEventFile']
     assert result['data']['downloadEventFile']
     assert 'url' in result['data']['downloadEventFile']
 
+    context = get_new_context()
     query = f'''{{
         event(identifier: "{event_id}"){{
             eventStatus
@@ -229,12 +243,13 @@ async def test_event():
         }}
     }}'''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     assert 'event' in result['data']
     assert result['data']['event']['eventStatus'] == 'SOLVED'
     assert result['data']['event']['evidence'] == ''
 
+    context = get_new_context()
     query = f'''{{
         events(projectName: "{group_name}"){{
             id
@@ -244,7 +259,7 @@ async def test_event():
         }}
     }}'''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'events' in result['data']
     events = result['data']['events']
     event = [event for event in events if event['id'] == event_id][0]
