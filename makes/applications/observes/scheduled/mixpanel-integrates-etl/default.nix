@@ -1,20 +1,19 @@
-{ applications
-, observesPkgs
-, path
-, ...
-}:
+{ path, packages, ... } @ attrs:
 let
-  nixPkgs = observesPkgs;
-  makeEntrypoint = import (path "/makes/utils/make-entrypoint") path nixPkgs;
+  observes = import (path "/makes/libs/observes") attrs;
 in
-makeEntrypoint {
-  arguments = {
-    envTapJson = applications.observes.tap-json;
-    envTapMixpanel = applications.observes.tap-mixpanel;
-    envTargetRedshift = applications.observes.target-redshift;
-    envUpdateSyncDate = applications.observes.update-sync-date;
-    envUtilsBashLibAws = import (path "/makes/utils/aws") path nixPkgs;
-    envUtilsBashLibSops = import (path "/makes/utils/sops") path nixPkgs;
+observes.makeUtils.makeEntrypoint {
+  searchPaths = {
+    envPaths = [
+      packages.observes.tap-json
+      packages.observes.tap-mixpanel
+      packages.observes.target-redshift
+      packages.observes.update-sync-date
+    ];
+    envUtils = [
+      "/makes/utils/aws"
+      "/makes/utils/sops"
+    ];
   };
   name = "observes-scheduled-mixpanel-integrates-etl";
   template = path "/makes/applications/observes/scheduled/mixpanel-integrates-etl/entrypoint.sh";
