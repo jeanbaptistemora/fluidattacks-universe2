@@ -1,6 +1,8 @@
 # shellcheck shell=bash
 
 function main {
+  local resolver_test_group="${1}"
+  local populate_db="${2:-false}"
   local pytest_args=(
     --cov 'back'
     --cov 'backend'
@@ -9,17 +11,17 @@ function main {
     --cov-report 'html:build/functional/html'
     --disable-warnings
     --exitfirst
+    --resolver-test-group "${resolver_test_group}"
     --verbose
   )
 
       source __envIntegratesEnv__ dev \
   &&  DAEMON=true integrates-cache \
   &&  DAEMON=true integrates-storage \
-  &&  pushd integrates \
-    &&  DAEMON=true POPULATE=true integrates-db \
-    &&  pytest -m 'old' "${pytest_args[@]}" back/tests/functional \
-    &&  DAEMON=true POPULATE=false integrates-db \
-    &&  pytest -m 'organization_id' "${pytest_args[@]}" back/tests/functional \
+  &&  DAEMON=true POPULATE="${populate_db}" integrates-db \
+  &&  echo "[INFO] Running tests for: ${resolver_test_group}" \
+  &&  pushd integrates/back/tests/functional \
+    &&  pytest "${pytest_args[@]}" \
   &&  popd \
   ||  return 1
 }

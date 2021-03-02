@@ -4,7 +4,7 @@ from back.tests.functional.reviewer.utils import get_result
 
 
 @pytest.mark.asyncio
-@pytest.mark.old
+@pytest.mark.resolver_test_group('old')
 async def test_event():
     event_id = '540462628'
     group_name = 'unittesting'

@@ -7,7 +7,7 @@ from back.tests.functional.executive.utils import get_result
 
 
 @pytest.mark.asyncio
-@pytest.mark.old
+@pytest.mark.resolver_test_group('old')
 async def _test_forces():
     context = get_new_context()
     group_name = 'unittesting'

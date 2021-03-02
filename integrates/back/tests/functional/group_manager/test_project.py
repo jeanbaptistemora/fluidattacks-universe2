@@ -10,7 +10,7 @@ from back.tests.functional.group_manager.utils import get_result
 
 
 @pytest.mark.asyncio
-@pytest.mark.old
+@pytest.mark.resolver_test_group('old')
 async def test_project():
     org_name = 'okada'
     group_name = await get_name('group')

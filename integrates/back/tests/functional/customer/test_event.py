@@ -7,7 +7,7 @@ from back.tests.functional.customer.utils import get_result
 
 
 @pytest.mark.asyncio
-@pytest.mark.old
+@pytest.mark.resolver_test_group('old')
 async def test_event():
     context = get_new_context()
     event_id = '418900971'

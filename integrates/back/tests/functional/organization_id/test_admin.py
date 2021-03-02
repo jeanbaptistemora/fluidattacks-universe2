@@ -9,7 +9,7 @@ from back.tests.functional.utils import (
 
 
 @pytest.mark.asyncio
-@pytest.mark.organization_id
+@pytest.mark.resolver_test_group('organization_id')
 async def test_organization_id_admin(populate: bool):
     context = get_new_context()
     assert populate

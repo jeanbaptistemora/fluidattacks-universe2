@@ -14,7 +14,7 @@ from back.tests.functional.customeradmin.utils import get_result
 
 
 @pytest.mark.asyncio
-@pytest.mark.old
+@pytest.mark.resolver_test_group('old')
 async def test_project():
     context = get_new_context()
     org_name = 'okada'

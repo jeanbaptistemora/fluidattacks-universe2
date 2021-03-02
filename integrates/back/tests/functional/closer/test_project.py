@@ -6,7 +6,7 @@ from back.tests.functional.closer.utils import get_result
 
 
 @pytest.mark.asyncio
-@pytest.mark.old
+@pytest.mark.resolver_test_group('old')
 async def test_project():
     query = '''{
         internalNames(entity: GROUP){

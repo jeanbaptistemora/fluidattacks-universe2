@@ -5,7 +5,7 @@ from back.tests.functional.resourcer.utils import get_result
 
 
 @pytest.mark.asyncio
-@pytest.mark.old
+@pytest.mark.resolver_test_group('old')
 async def test_me():
     org_id = 'ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3'
     org_name = 'okada'

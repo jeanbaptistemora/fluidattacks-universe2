@@ -5,7 +5,7 @@ from back.tests.functional.resourcer.utils import get_result
 
 
 @pytest.mark.asyncio
-@pytest.mark.old
+@pytest.mark.resolver_test_group('old')
 async def test_finding():
     today = datetime_utils.get_as_str(
         datetime_utils.get_now(),

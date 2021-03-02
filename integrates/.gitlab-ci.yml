@@ -163,10 +163,18 @@ integrates.back.lint:
   <<: *in_dev_branch_integrates
   stage: lint-code
 
-integrates.back.test.functional:
+.integrates_back_test_functional: &integrates_back_test_functional
   <<: *makes
   <<: *in_dev_branch_integrates
   stage: test-code
+
+integrates.back.test.functional.old:
+  <<: *integrates_back_test_functional
+  script: ./m integrates.back.test.functional old true
+
+integrates.back.test.functional.organization_id:
+  <<: *integrates_back_test_functional
+  script: ./m integrates.back.test.functional organization_id
 
 integrates.back.test.unit:
   <<: *makes

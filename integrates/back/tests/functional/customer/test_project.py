@@ -12,7 +12,7 @@ from back.tests.functional.customer.utils import (
 
 
 @pytest.mark.asyncio
-@pytest.mark.old
+@pytest.mark.resolver_test_group('old')
 async def test_project():
     context = get_new_context()
     query = '''{

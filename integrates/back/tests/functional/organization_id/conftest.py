@@ -14,7 +14,7 @@ from back.tests import (
 
 
 @pytest.mark.asyncio
-@pytest.mark.organization_id
+@pytest.mark.resolver_test_group('organization_id')
 @pytest.fixture(autouse=True, scope='session')
 async def populate() -> bool:
     data: Dict[str, Any] = {
