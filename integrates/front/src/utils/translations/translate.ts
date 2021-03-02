@@ -21,11 +21,11 @@ i18next
   });
 
 interface ITranslationFn {
-  (key: string | string[], options?: TOptions): string;
+  (key: string[] | string, options?: TOptions): string;
 }
 
 const translate: { t: ITranslationFn } = {
-  t: (key: string | string[], options?: TOptions): string =>
+  t: (key: string[] | string, options?: TOptions): string =>
     i18next.t(key, options),
 };
 

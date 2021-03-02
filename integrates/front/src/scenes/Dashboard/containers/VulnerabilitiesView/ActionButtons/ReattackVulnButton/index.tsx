@@ -14,7 +14,7 @@ interface IReattackVulnButtonProps {
   isReattackRequestedInAllVuln: boolean;
   isRequestingReattack: boolean;
   isVerifying: boolean;
-  state: "open" | "closed";
+  state: "closed" | "open";
   subscription: string;
   onRequestReattack: () => void;
   openModal: () => void;

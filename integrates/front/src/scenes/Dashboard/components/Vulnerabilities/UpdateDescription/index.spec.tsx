@@ -407,7 +407,7 @@ describe("Update Description component", (): void => {
       updateTreatmentVuln: { success: true },
       updateVulnsTreatment: { success: true },
     };
-    const mutationVariables: Dictionary<boolean | string | number> = {
+    const mutationVariables: Dictionary<boolean | number | string> = {
       acceptanceDate: "",
       externalBts: "http://test.t",
       findingId: "422286126",

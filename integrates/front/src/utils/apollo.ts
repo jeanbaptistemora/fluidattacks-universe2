@@ -146,8 +146,8 @@ const wsLink: ApolloLink = new WebSocketLink({
 const apiLink: ApolloLink = ApolloLink.split(
   ({ query }: Operation): boolean => {
     const definition:
-      | OperationDefinitionNode
-      | FragmentDefinitionNode = getMainDefinition(query);
+      | FragmentDefinitionNode
+      | OperationDefinitionNode = getMainDefinition(query);
 
     return (
       definition.kind === "OperationDefinition" &&

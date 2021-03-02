@@ -9,7 +9,7 @@ import { validTextField } from "utils/validations";
 import type { WrappedFieldInputProps, WrappedFieldProps } from "redux-form";
 
 interface ITagInputProps extends WrappedFieldProps {
-  input: { value: string } & Omit<WrappedFieldInputProps, "value">;
+  input: Omit<WrappedFieldInputProps, "value"> & { value: string };
   readOnly: boolean;
   onDeletion: (tag: string) => void;
 }

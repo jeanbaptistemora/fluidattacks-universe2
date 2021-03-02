@@ -14,7 +14,7 @@ interface IActionButtonsProps {
   isRequestingReattack: boolean;
   isVerified: boolean;
   isVerifying: boolean;
-  state: "open" | "closed";
+  state: "closed" | "open";
   subscription: string;
   onEdit: () => void;
   onRequestReattack: () => void;

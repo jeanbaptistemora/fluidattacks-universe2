@@ -59,7 +59,7 @@ export const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
     interface IErrorInfoAttr {
       keys: string[];
       msg: string;
-      values: string & string[];
+      values: string[] & string;
     }
     function formatError(errorName: string, errorValue: string): string {
       return ` ${translate.t(errorName)} "${errorValue}" ${translate.t(

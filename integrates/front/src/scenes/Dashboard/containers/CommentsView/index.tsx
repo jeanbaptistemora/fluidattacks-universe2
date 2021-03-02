@@ -132,7 +132,7 @@ const CommentsView: React.FC = (): JSX.Element => {
                       type: type.toUpperCase(),
                       ...comment,
                     },
-                  }).then((mtResult: null | unknown): void => {
+                  }).then((mtResult: unknown | null): void => {
                     const result: IMutationResult["data"] = (mtResult as IMutationResult)
                       .data;
                     if (result.addFindingConsult.success) {

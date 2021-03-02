@@ -11,7 +11,7 @@ import type { WrappedFieldInputProps, WrappedFieldProps } from "redux-form";
 
 interface ITextAreaProps extends WrappedFieldProps {
   className?: string;
-  input: { value: string } & Omit<WrappedFieldInputProps, "value">;
+  input: Omit<WrappedFieldInputProps, "value"> & { value: string };
   withCount?: boolean;
 }
 

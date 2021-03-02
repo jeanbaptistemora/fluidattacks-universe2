@@ -68,7 +68,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
 
   // State management
   const [isManagingRoot, setManagingRoot] = React.useState<
-    { mode: "ADD" | "EDIT" } | false
+    false | { mode: "ADD" | "EDIT" }
   >(false);
 
   const openAddModal: () => void = React.useCallback((): void => {

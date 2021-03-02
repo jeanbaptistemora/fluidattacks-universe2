@@ -21,12 +21,12 @@ interface IFormProps
   onSubmit: (values: any) => void;
 }
 
-type formProps = Pick<IFormProps, "children"> &
-  InjectedFormProps<any, Pick<IFormProps, "children">>;
+type formProps = InjectedFormProps<any, Pick<IFormProps, "children">> &
+  Pick<IFormProps, "children">;
 
 type wrappedForm = DecoratedComponentClass<
   any,
-  Pick<IFormProps, "children"> & ConfigProps<any, Pick<IFormProps, "children">>,
+  ConfigProps<any, Pick<IFormProps, "children">> & Pick<IFormProps, "children">,
   string
 >;
 

@@ -9,11 +9,8 @@ const ArrayWrapper: React.FC<WrappedFieldArrayProps> = (
   props: WrappedFieldArrayProps
 ): JSX.Element => {
   const { fields } = props;
-  const {
-    allowEmpty,
-    children,
-    initialValue,
-  } = props as WrappedFieldArrayProps & IArrayProps;
+  const { allowEmpty, children, initialValue } = props as IArrayProps &
+    WrappedFieldArrayProps;
 
   function addItem(): void {
     /*

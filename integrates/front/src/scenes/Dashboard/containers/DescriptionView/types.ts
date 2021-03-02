@@ -23,7 +23,7 @@ interface IFinding {
   requirements: string;
   scenario: string;
   sorts: string;
-  state: "open" | "closed";
+  state: "closed" | "open";
   threat: string;
   title: string;
   type: string;

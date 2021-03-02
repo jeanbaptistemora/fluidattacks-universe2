@@ -14,7 +14,7 @@ const StyledButton: StyledComponent<
     props: React.ButtonHTMLAttributes<HTMLButtonElement>
   ): {
     className: string;
-    type: "submit" | "reset" | "button";
+    type: "button" | "reset" | "submit";
   } => ({
     className:
       "b--bd b--bh b--orgred ba bg-bd bg-bh bg-btn cna-bd color-bd color-bh hover-white " +

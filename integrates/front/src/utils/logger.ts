@@ -10,11 +10,11 @@ interface ILoggerAttr {
 const sendBugsnagReport: (
   msg: string,
   extra: unknown,
-  severity: "info" | "warning" | "error"
+  severity: "error" | "info" | "warning"
 ) => void = (
   msg: string,
   extra: unknown,
-  severity: "info" | "warning" | "error"
+  severity: "error" | "info" | "warning"
 ): void => {
   Bugsnag.notify(msg, (event: Event): void => {
     event.errors.forEach((error: Error): void => {

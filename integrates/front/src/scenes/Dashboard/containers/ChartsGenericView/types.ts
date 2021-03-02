@@ -1,10 +1,10 @@
 declare type EntityType = "group" | "organization" | "portfolio";
 declare type FrequencyType =
-  | "hourly"
   | "daily"
-  | "weekly"
+  | "hourly"
   | "monthly"
-  | "never";
+  | "never"
+  | "weekly";
 
 interface IChartsGenericViewProps {
   entity: EntityType;

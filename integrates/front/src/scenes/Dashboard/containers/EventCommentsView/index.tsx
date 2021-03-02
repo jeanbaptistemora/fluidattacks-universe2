@@ -112,7 +112,7 @@ const EventCommentsView: React.FC = (): JSX.Element => {
                   }
                   mixpanel.track("AddEventComment", { eventId });
                   void addComment({ variables: { eventId, ...comment } }).then(
-                    (mtResult: null | unknown): void => {
+                    (mtResult: unknown | null): void => {
                       const result: IMutationResult["data"] = (mtResult as IMutationResult)
                         .data;
                       if (result.addEventConsult.success) {

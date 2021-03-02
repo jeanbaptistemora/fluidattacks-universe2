@@ -52,7 +52,7 @@ interface IHeaderConfig {
     row: any,
     rowIndex: number,
     formatExtraData: any
-  ) => string | ReactElement;
+  ) => ReactElement | string;
   onSort?: (dataField: string, order: SortOrder) => void;
   sortFunc?: (
     a: any,

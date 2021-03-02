@@ -12,7 +12,7 @@ interface IDateProps extends WrappedFieldProps {
   className?: string;
   disabled?: boolean;
   id?: string;
-  input: { value: string } & Omit<WrappedFieldInputProps, "value">;
+  input: Omit<WrappedFieldInputProps, "value"> & { value: string };
 }
 
 export const Date: React.FC<IDateProps> = (

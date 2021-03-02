@@ -20,7 +20,7 @@ interface IFileInputProps extends WrappedFieldProps {
   accept?: string;
   className?: string;
   id?: string;
-  input: { value: FileList } & Omit<WrappedFieldInputProps, "value">;
+  input: Omit<WrappedFieldInputProps, "value"> & { value: FileList };
   name?: string;
   onClick: () => void;
 }
@@ -52,7 +52,7 @@ export const FileInput: React.FC<IFileInputProps> = (
             type={"file"}
           />
           <strong className={"f7"}>
-            <FontAwesomeIcon icon={faSearch} /> {"Explore"}&hellip;
+            <FontAwesomeIcon icon={faSearch} /> {"Explore\u2026"}
           </strong>
         </ControlLabel>
       </InputGroup>

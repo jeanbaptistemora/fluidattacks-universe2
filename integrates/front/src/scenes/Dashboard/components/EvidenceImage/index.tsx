@@ -19,7 +19,7 @@ import { validEvidenceDescription, validTextField } from "utils/validations";
 /* eslint-disable react/require-default-props, react/no-unused-prop-types */
 interface IEvidenceImageProps {
   acceptedMimes?: string;
-  content: string | JSX.Element;
+  content: JSX.Element | string;
   date?: string;
   description: string;
   isDescriptionEditable: boolean;

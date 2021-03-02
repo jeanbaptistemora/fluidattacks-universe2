@@ -227,9 +227,9 @@ const getFileExtension: (file: File) => string = (file: File): string => {
 };
 
 const hasExtension: (
-  allowedExtensions: string | string[],
+  allowedExtensions: string[] | string,
   file?: File
-) => boolean = (allowedExtensions: string | string[], file?: File): boolean => {
+) => boolean = (allowedExtensions: string[] | string, file?: File): boolean => {
   if (!_.isUndefined(file)) {
     return _.includes(allowedExtensions, getFileExtension(file));
   }

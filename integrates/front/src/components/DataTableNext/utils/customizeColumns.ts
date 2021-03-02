@@ -8,12 +8,12 @@ const handleFormatter: (
   row: Readonly<Record<string, string>>,
   rowIndex: number,
   key: Readonly<IHeaderConfig>
-) => string | ReactElement | undefined = (
+) => ReactElement | string | undefined = (
   value: string,
   row: Readonly<Record<string, string>>,
   rowIndex: number,
   key: Readonly<IHeaderConfig>
-): string | ReactElement | undefined => {
+): ReactElement | string | undefined => {
   return _.isUndefined(key.formatter)
     ? undefined
     : key.formatter(value, row, rowIndex, key);

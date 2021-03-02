@@ -140,6 +140,14 @@
      * https://github.com/typescript-eslint/typescript-eslint/issues/2245#issuecomment-648712540
      */
     "@typescript-eslint/unbound-method": "off",
+    "@typescript-eslint/sort-type-union-intersection-members": "error",
+    /*
+     * This rule must be disabled as it can report incorrect errors in conflict
+     * with with rule eslint/object-curly-spacing. Official plugin doc
+     */
+    "@typescript-eslint/object-curly-spacing": "off",
+    "@typescript-eslint/non-nullable-type-assertion-style": "off",
+    "@typescript-eslint/no-non-null-assertion": "off",
     "fp/no-mutation": [
       "error",
       {
@@ -216,10 +224,11 @@
     "react/jsx-boolean-value": ["error", "always"],
     "react/jsx-curly-brace-presence": ["error", "always"],
     "react/jsx-max-depth": "off",
-    "react/jsx-no-literals": [
-      "error",
-      { "allowedStrings": ["&nbsp;", "&hellip;"] }
-    ],
+    /*
+     * "allowedStrings" is not working once the @typescript-eslint@4.15.2
+     * plugin is updated. Affected string changed by its Unicode equivalent
+     */
+    "react/jsx-no-literals": ["error"],
     "react/function-component-definition": [
       "error",
       {

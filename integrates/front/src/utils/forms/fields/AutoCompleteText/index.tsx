@@ -13,7 +13,7 @@ interface IAutoCompleteTextProps extends WrappedFieldProps {
   className?: string;
   disabled?: boolean;
   id?: string;
-  input: { value: string } & Omit<WrappedFieldInputProps, "value">;
+  input: Omit<WrappedFieldInputProps, "value"> & { value: string };
   placeholder?: string;
   suggestions: string[];
   type: string;

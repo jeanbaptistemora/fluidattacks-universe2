@@ -11,8 +11,8 @@ import style from "utils/forms/index.css";
 interface ITextProps extends WrappedFieldProps {
   disabled?: boolean;
   id?: string;
-  max?: string | number;
-  min?: string | number;
+  max?: number | string;
+  min?: number | string;
   placeholder?: string;
   type?: string;
 }

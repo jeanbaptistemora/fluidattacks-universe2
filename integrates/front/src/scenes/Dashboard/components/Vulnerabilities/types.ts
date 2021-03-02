@@ -3,8 +3,8 @@ import type { IHistoricTreatment } from "scenes/Dashboard/containers/Description
 interface IVulnRowAttr {
   analyst?: string;
   commitHash: string;
-  currentState: "open" | "closed";
-  currentStateCapitalized: "Open" | "Closed";
+  currentState: "closed" | "open";
+  currentStateCapitalized: "Closed" | "Open";
   cycles: string;
   efficacy: string;
   externalBts: string;
@@ -55,7 +55,7 @@ interface IUpdateTreatmentVulnAttr {
 }
 
 interface IVulnDataTypeAttr {
-  currentState: "open" | "closed";
+  currentState: "closed" | "open";
   externalBts: string;
   historicTreatment: IHistoricTreatment[];
   id: string;
