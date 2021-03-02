@@ -11,7 +11,7 @@ function main {
   &&  sops_export_vars integrates/secrets-development.yaml \
         STARLETTE_SESSION_KEY \
         TEST_E2E_USER \
-  &&  pushd integrates/test_e2e/src \
+  &&  pushd integrates/back/tests/e2e/src \
     &&  pkgFirefox='__envFirefox__' \
         pkgGeckoDriver='__envGeckodriver__' \
         PYTHONPATH="${PWD}:${PYTHONPATH:-}" \
