@@ -44,7 +44,6 @@ async def test_finding():
                 success
             }}
         }}
-
     '''
     data = {'query': query}
     result = await get_result(
@@ -56,6 +55,7 @@ async def test_finding():
     assert 'success' in result['data']['createDraft']
     assert result['data']['createDraft']['success']
 
+    context = get_new_context()
     query = f'''
         query {{
             project(projectName: "{group_name}"){{
@@ -77,6 +77,7 @@ async def test_finding():
     draft = [draft for draft in result['data']['project']['drafts'] if draft['title'] == title][0]
     draft_id = draft['id']
 
+    context = get_new_context()
     filename = os.path.dirname(os.path.abspath(__file__))
     filename = os.path.join(filename, '../../unit/mock/test-vulns.yaml')
     with open(filename, 'rb') as test_file:
@@ -106,6 +107,7 @@ async def test_finding():
     assert 'errors' not in result
     assert result['data']['uploadFile']['success']
 
+    context = get_new_context()
     query = f'''
         mutation {{
             updateSeverity (
@@ -141,6 +143,7 @@ async def test_finding():
     assert 'success' in result['data']['updateSeverity']
     assert result['data']['updateSeverity']['success']
 
+    context = get_new_context()
     query = '''
         mutation UpdateEvidenceMutation(
             $evidenceId: EvidenceType!, $file: Upload!, $findingId: String!
@@ -171,6 +174,7 @@ async def test_finding():
         assert 'success' in result['data']['updateEvidence']
         assert result['data']['updateEvidence']['success']
 
+    context = get_new_context()
     evidence2_description = 'this is a evidence2 description'
     query = f'''
         mutation {{
@@ -193,6 +197,7 @@ async def test_finding():
     assert 'success' in result['data']['updateEvidenceDescription']
     assert result['data']['updateEvidenceDescription']['success']
 
+    context = get_new_context()
     query = f'''
         mutation {{
             submitDraft(findingId: "{draft_id}") {{
@@ -209,6 +214,7 @@ async def test_finding():
     assert 'errors' not in result
     assert result['data']['submitDraft']['success']
 
+    context = get_new_context()
     query = f'''
         mutation {{
             approveDraft(draftId: "{draft_id}") {{
@@ -225,6 +231,7 @@ async def test_finding():
     assert 'errors' not in result
     assert result['data']['approveDraft']['success']
 
+    context = get_new_context()
     finding_id = draft_id
     query = f'''{{
         finding(identifier: "{finding_id}"){{
@@ -279,7 +286,6 @@ async def test_finding():
             __typename
         }}
     }}'''
-
     data = {'query': query}
     result = await get_result(data, context=context)
     assert 'errors' not in result
@@ -354,6 +360,7 @@ async def test_finding():
     assert result['data']['finding']['newRemediated'] == False
     assert result['data']['finding']['verified'] == True
 
+    context = get_new_context()
     actor = 'ANYONE_INTERNET'
     affected_systems = 'Server bWAPP'
     attack_vector_desc = 'This is an updated attack vector'
@@ -394,6 +401,7 @@ async def test_finding():
     assert 'errors' in result
     assert result['errors'][0]['message'] == 'Access denied'
 
+    context = get_new_context()
     query = f'''
         mutation {{
             removeEvidence(evidenceId: EVIDENCE2, findingId: "{finding_id}") {{
@@ -406,6 +414,7 @@ async def test_finding():
     assert 'errors' in result
     assert result['errors'][0]['message'] == 'Access denied'
 
+    context = get_new_context()
     consult_content = "This is a comenting test"
     query = f'''
         mutation {{
@@ -426,11 +435,13 @@ async def test_finding():
     assert 'success' in result['data']['addFindingConsult']
     assert result['data']['addFindingConsult']['success']
 
+    context = get_new_context()
     tomorrow_date = datetime_utils.get_now_plus_delta(days=1)
     tomorrow = datetime_utils.get_as_str(
         tomorrow_date
     )
 
+    context = get_new_context()
     tomorrow = datetime_utils.get_as_str(
         tomorrow_date,
         date_format='%Y-%m-%d'
@@ -454,6 +465,7 @@ async def test_finding():
         }
     ]
 
+    context = get_new_context()
     query = f'''
         mutation {{
             deleteFinding(findingId: "{finding_id}", justification: NOT_REQUIRED) {{
@@ -466,6 +478,7 @@ async def test_finding():
     assert 'errors' in result
     assert result['errors'][0]['message'] == 'Access denied'
 
+    context = get_new_context()
     query = f'''
         mutation {{
             deleteFinding(findingId: "{finding_id}", justification: NOT_REQUIRED) {{
