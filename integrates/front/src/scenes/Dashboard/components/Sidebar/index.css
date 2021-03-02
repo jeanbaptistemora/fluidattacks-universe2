@@ -53,6 +53,12 @@
   width: 190px;
 }
 
+@media (max-height: 490px) {
+  .logo {
+    display: none !important;
+  }
+}
+
 :local .menuList {
   margin-top: 30px;
 }
