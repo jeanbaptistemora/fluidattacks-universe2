@@ -16,8 +16,7 @@ src/scenes/Dashboard/**/*.*
 !src/scenes/Dashboard/containers/EventDescriptionView/**
 !src/scenes/Dashboard/containers/EventEvidenceView/**
 !src/scenes/Dashboard/containers/EvidenceView/**
-!src/scenes/Dashboard/containers/ExploitView/index.spec.tsx
-!src/scenes/Dashboard/containers/ExploitView/queries.ts
+!src/scenes/Dashboard/containers/ExploitView/**
 !src/scenes/Dashboard/containers/FindingContent/components/buttoncol/index.tsx
 !src/scenes/Dashboard/containers/GroupScopeView/**
 !src/scenes/Dashboard/containers/ProjectSettingsView/DeleteGroup/**
