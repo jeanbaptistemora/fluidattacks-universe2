@@ -388,7 +388,7 @@ def get_fingerprint(subs: str) -> bool:
     for repo in (r for r in listpath if os.path.isdir(f'{path}/{r}')):
         # com -> commom command
         git_repo = git.Repo(f"{path}/{repo}", search_parent_directories=True)
-        hashr = git_repo.head.commit.hexsha[:7]
+        hashr = git_repo.head.commit.hexsha
         date = datetime.fromtimestamp(git_repo.head.commit.authored_date)
         max_date = max_date or date
         if date >= max_date:
