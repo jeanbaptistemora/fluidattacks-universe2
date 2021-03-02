@@ -5,7 +5,7 @@ from ariadne import graphql, graphql_sync
 from jose import jwt
 from backend import util
 from backend.api.schema import SCHEMA
-from test_unit.utils import create_dummy_session
+from back.tests.unit.utils import create_dummy_session
 
 pytestmark = pytest.mark.asyncio
 

@@ -4,7 +4,7 @@ import pytest
 from starlette.datastructures import UploadFile
 
 from backend.utils import datetime as datetime_utils
-from test_functional.reviewer.utils import get_result
+from back.tests.functional.reviewer.utils import get_result
 
 pytestmark = pytest.mark.asyncio
 
@@ -75,7 +75,7 @@ async def test_finding():
     assert result['data']['finding']['id'] == draft_id
 
     filename = os.path.dirname(os.path.abspath(__file__))
-    filename = os.path.join(filename, '../../test_unit/mock/test-vulns.yaml')
+    filename = os.path.join(filename, '../../unit/mock/test-vulns.yaml')
     with open(filename, 'rb') as test_file:
         uploaded_file = UploadFile(test_file.name, test_file, 'text/x-yaml')
         query = '''
@@ -142,7 +142,7 @@ async def test_finding():
         }
     '''
     filename = os.path.dirname(os.path.abspath(__file__))
-    filename = os.path.join(filename, '../../test_unit/mock/test-img.png')
+    filename = os.path.join(filename, '../../unit/mock/test-img.png')
     with open(filename, 'rb') as test_file:
         uploaded_file = UploadFile(test_file.name, test_file, 'image/png')
         variables = {

@@ -1,8 +1,8 @@
 import json
 import pytest
 
-from test_functional.utils import complete_register
-from test_functional.closer.utils import get_result
+from back.tests.functional.utils import complete_register
+from back.tests.functional.closer.utils import get_result
 
 pytestmark = pytest.mark.asyncio
 

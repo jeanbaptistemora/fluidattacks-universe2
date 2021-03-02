@@ -1,7 +1,7 @@
 import pytest
 from datetime import datetime, timedelta
 
-from test_functional.closer.utils import get_result
+from back.tests.functional.closer.utils import get_result
 
 pytestmark = pytest.mark.asyncio
 

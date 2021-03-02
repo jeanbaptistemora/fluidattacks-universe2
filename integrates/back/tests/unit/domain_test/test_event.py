@@ -13,7 +13,7 @@ from backend.exceptions import (
 )
 from backend.utils import datetime as datetime_utils
 from events import dal as events_dal
-from test_unit.utils import create_dummy_session
+from back.tests.unit.utils import create_dummy_session
 from graphql.type import GraphQLResolveInfo
 from events import domain as events_domain
 

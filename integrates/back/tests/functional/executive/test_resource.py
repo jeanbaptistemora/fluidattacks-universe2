@@ -10,7 +10,7 @@ from urllib.parse import quote
 # Local libraries
 from backend.api import get_new_context
 from backend.utils import datetime as datetime_utils
-from test_functional.executive.utils import get_result
+from back.tests.functional.executive.utils import get_result
 
 pytestmark = pytest.mark.asyncio
 
@@ -24,7 +24,7 @@ async def test_resource():
     group_name = 'unittesting'
 
     filename = os.path.dirname(os.path.abspath(__file__))
-    filename = os.path.join(filename, '../../test_unit/mock/test-anim.gif')
+    filename = os.path.join(filename, '../../unit/mock/test-anim.gif')
     with open(filename, 'rb') as test_file:
         uploaded_file = UploadFile('test-anim.gif', test_file, 'image/gif')
         file_data = [

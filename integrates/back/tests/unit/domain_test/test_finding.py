@@ -37,7 +37,7 @@ from backend.utils import (
 
 from back import settings
 
-from test_unit.utils import create_dummy_session
+from back.tests.unit.utils import create_dummy_session
 
 pytestmark = [
     pytest.mark.asyncio,

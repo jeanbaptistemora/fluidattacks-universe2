@@ -10,7 +10,7 @@ from backend.api import (
     get_new_context,
     Dataloaders
 )
-from test_functional.utils import (
+from back.tests.functional.utils import (
     get_graphql_result,
     complete_register,
 )

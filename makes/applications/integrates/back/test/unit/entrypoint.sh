@@ -18,8 +18,8 @@ function main {
   &&  DAEMON=true integrates-db \
   &&  DAEMON=true integrates-storage \
   &&  pushd integrates \
-    &&  pytest -m 'not changes_db' "${pytest_args[@]}" test_unit \
-    &&  pytest -m 'changes_db' "${pytest_args[@]}" test_unit \
+    &&  pytest -m 'not changes_db' "${pytest_args[@]}" back/tests/unit \
+    &&  pytest -m 'changes_db' "${pytest_args[@]}" back/tests/unit \
   &&  popd \
   ||  return 1
 }

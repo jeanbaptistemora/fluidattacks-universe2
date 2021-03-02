@@ -4,7 +4,7 @@ from decimal import Decimal
 from graphql.type.definition import GraphQLResolveInfo
 
 import backend.domain.comment as comment_domain
-from test_unit.utils import create_dummy_session
+from back.tests.unit.utils import create_dummy_session
 
 pytestmark = [
     pytest.mark.asyncio,

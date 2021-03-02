@@ -10,7 +10,7 @@ from backend import util
 from backend.api import apply_context_attrs
 from backend.api.schema import SCHEMA
 from backend.utils import datetime as datetime_utils
-from test_unit.utils import create_dummy_session
+from back.tests.unit.utils import create_dummy_session
 
 pytestmark = pytest.mark.asyncio
 

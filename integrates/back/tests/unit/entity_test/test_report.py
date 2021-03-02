@@ -8,7 +8,7 @@ from ariadne import graphql_sync, graphql
 from jose import jwt
 from backend import util
 from backend.api.schema import SCHEMA
-from test_unit.utils import create_dummy_session
+from back.tests.unit.utils import create_dummy_session
 from __init__ import (
     STARTDIR
 )

@@ -4,7 +4,7 @@ import pytest
 
 from starlette.datastructures import UploadFile
 
-from test_functional.closer.utils import get_result
+from back.tests.functional.closer.utils import get_result
 
 pytestmark = pytest.mark.asyncio
 
@@ -47,7 +47,7 @@ async def test_resource():
     assert 'url' in result['data']['downloadFile']
 
     filename = os.path.dirname(os.path.abspath(__file__))
-    filename = os.path.join(filename, '../../test_unit/mock/test-anim.gif')
+    filename = os.path.join(filename, '../../unit/mock/test-anim.gif')
     with open(filename, 'rb') as test_file:
         uploaded_file = UploadFile(test_file.name, test_file, 'image/gif')
         file_data = [

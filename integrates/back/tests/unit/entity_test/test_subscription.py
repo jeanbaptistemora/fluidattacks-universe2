@@ -28,7 +28,7 @@ from starlette.testclient import TestClient
 # Local libraries
 from backend import util
 from backend.api.schema import SCHEMA
-from test_unit.utils import create_dummy_session
+from back.tests.unit.utils import create_dummy_session
 
 
 async def _get_result(data: Dict[str, Any]) -> Dict[str, Any]:

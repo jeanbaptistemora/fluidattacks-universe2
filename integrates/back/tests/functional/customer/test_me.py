@@ -4,7 +4,7 @@ from datetime import datetime, timedelta
 
 # Local libraries
 from backend.api import get_new_context
-from test_functional.customer.utils import get_result
+from back.tests.functional.customer.utils import get_result
 
 pytestmark = pytest.mark.asyncio
 

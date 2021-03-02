@@ -1,7 +1,7 @@
 import pytest
 
 from backend.utils import datetime as datetime_utils
-from test_functional.service_forces.utils import get_result
+from back.tests.functional.service_forces.utils import get_result
 
 pytestmark = pytest.mark.asyncio
 

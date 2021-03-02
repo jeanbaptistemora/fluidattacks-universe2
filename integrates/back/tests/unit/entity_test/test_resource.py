@@ -19,7 +19,7 @@ from backend.api import (
     Dataloaders
 )
 from backend.api.schema import SCHEMA
-from test_unit.utils import create_dummy_session
+from back.tests.unit.utils import create_dummy_session
 
 pytestmark = pytest.mark.asyncio
 

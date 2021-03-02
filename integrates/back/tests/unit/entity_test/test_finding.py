@@ -35,7 +35,7 @@ from backend.dal import (
 from backend.domain.finding import get_finding
 from backend.domain.project import get_open_vulnerabilities
 from backend.exceptions import FindingNotFound, NotVerificationRequested
-from test_unit.utils import create_dummy_session
+from back.tests.unit.utils import create_dummy_session
 
 pytestmark = pytest.mark.asyncio
 

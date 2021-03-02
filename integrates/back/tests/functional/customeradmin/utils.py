@@ -7,12 +7,12 @@ from typing import (
 
 # Local libraries
 from backend.api import Dataloaders
-from test_functional.utils import get_graphql_result
+from back.tests.functional.utils import get_graphql_result
 
 
 async def get_result(
     data: Dict[str, Any],
-    stakeholder: str = 'integratesuser@gmail.com',    
+    stakeholder: str = 'integratesuser@gmail.com',
     session_jwt: str = None,
     context: Optional[Dataloaders] = None
 ) -> Dict[str, Any]:

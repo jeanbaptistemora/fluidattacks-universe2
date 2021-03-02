@@ -18,7 +18,7 @@ from backend.exceptions import (
     InvalidOrganization,
     UserNotInOrganization
 )
-from test_unit.utils import create_dummy_session
+from back.tests.unit.utils import create_dummy_session
 
 
 # Run async tests

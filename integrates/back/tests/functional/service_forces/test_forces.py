@@ -4,7 +4,7 @@ import textwrap
 
 from starlette.datastructures import UploadFile
 
-from test_functional.service_forces.utils import get_result
+from back.tests.functional.service_forces.utils import get_result
 
 pytestmark = pytest.mark.asyncio
 
@@ -26,7 +26,7 @@ async def test_forces():
 
     execution_id = '18c1e735a73243f2ab1ee0757041f80e'
     filename = os.path.dirname(os.path.abspath(__file__))
-    filename = os.path.join(filename, '../../test_unit/mock/test-log.log')
+    filename = os.path.join(filename, '../../unit/mock/test-log.log')
     with open(filename, 'rb') as test_file:
         uploaded_file = UploadFile(test_file.name, test_file, 'text/plain')
         query = '''

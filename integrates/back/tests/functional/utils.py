@@ -25,7 +25,7 @@ from backend.domain import (
 from backend.utils import (
     user as user_utils,
 )
-from test_unit.utils import (
+from back.tests.unit.utils import (
     create_dummy_session,
 )
 

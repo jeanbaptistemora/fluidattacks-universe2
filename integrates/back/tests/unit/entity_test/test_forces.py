@@ -16,7 +16,7 @@ from jose import jwt
 # Local libraries
 from backend import util
 from backend.api.schema import SCHEMA
-from test_unit.utils import create_dummy_session
+from back.tests.unit.utils import create_dummy_session
 
 import pytest
 

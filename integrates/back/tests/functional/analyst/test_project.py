@@ -3,7 +3,7 @@ import pytest
 
 # Local libraries
 from backend.api import get_new_context
-from test_functional.analyst.utils import get_result
+from back.tests.functional.analyst.utils import get_result
 
 pytestmark = pytest.mark.asyncio
 

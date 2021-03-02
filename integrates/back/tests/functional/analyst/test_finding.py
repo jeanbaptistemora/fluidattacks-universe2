@@ -9,7 +9,7 @@ from starlette.datastructures import UploadFile
 from backend.api import get_new_context
 from backend.exceptions import VulnNotFound
 from backend.utils import datetime as datetime_utils
-from test_functional.analyst.utils import get_result
+from back.tests.functional.analyst.utils import get_result
 
 pytestmark = pytest.mark.asyncio
 
@@ -73,7 +73,7 @@ async def test_finding():
 
     context = get_new_context()
     filename = os.path.dirname(os.path.abspath(__file__))
-    filename = os.path.join(filename, '../../test_unit/mock/test-vulns.yaml')
+    filename = os.path.join(filename, '../../unit/mock/test-vulns.yaml')
     with open(filename, 'rb') as test_file:
         uploaded_file = UploadFile(test_file.name, test_file, 'text/x-yaml')
         query = '''
@@ -142,7 +142,7 @@ async def test_finding():
         }
     '''
     filename = os.path.dirname(os.path.abspath(__file__))
-    filename = os.path.join(filename, '../../test_unit/mock/test-anim.gif')
+    filename = os.path.join(filename, '../../unit/mock/test-anim.gif')
     with open(filename, 'rb') as test_file:
         uploaded_file = UploadFile(test_file.name, test_file, 'image/gif')
         variables = {
@@ -158,7 +158,7 @@ async def test_finding():
 
     context = get_new_context()
     filename = os.path.dirname(os.path.abspath(__file__))
-    filename = os.path.join(filename, '../../test_unit/mock/test-img.png')
+    filename = os.path.join(filename, '../../unit/mock/test-img.png')
     with open(filename, 'rb') as test_file:
         uploaded_file = UploadFile(test_file.name, test_file, 'image/png')
         variables = {

@@ -32,7 +32,7 @@ from backend.utils import datetime as datetime_utils
 
 from back import settings
 
-from test_unit.utils import create_dummy_simple_session
+from back.tests.unit.utils import create_dummy_simple_session
 
 pytestmark = [
     pytest.mark.asyncio,

@@ -1,6 +1,6 @@
 import pytest
 
-from test_functional.customer.utils import get_result
+from back.tests.functional.customer.utils import get_result
 
 pytestmark = pytest.mark.asyncio
 

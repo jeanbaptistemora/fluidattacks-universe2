@@ -2,10 +2,10 @@
 import pytest
 
 # Local libraries
-from test_functional.utils import (
+from back.tests.functional.utils import (
     get_graphql_result,
 )
-from test_functional.populate import (
+from back.tests.functional.populate import (
     populate_db,
     clean_db,
 )

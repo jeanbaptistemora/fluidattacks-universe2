@@ -5,7 +5,7 @@ from backend.exceptions import (
     NotPendingDeletion,
     UserNotInOrganization
 )
-from test_functional.admin.utils import get_result
+from back.tests.functional.admin.utils import get_result
 
 pytestmark = pytest.mark.asyncio
 

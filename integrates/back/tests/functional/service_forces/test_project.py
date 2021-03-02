@@ -1,7 +1,7 @@
 import json
 import pytest
 
-from test_functional.service_forces.utils import get_result
+from back.tests.functional.service_forces.utils import get_result
 
 pytestmark = pytest.mark.asyncio
 

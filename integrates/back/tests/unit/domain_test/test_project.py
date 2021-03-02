@@ -37,7 +37,7 @@ from backend.dal import (
 )
 
 from back import settings
-from test_unit.utils import create_dummy_session
+from back.tests.unit.utils import create_dummy_session
 from graphql.type import GraphQLResolveInfo
 
 pytestmark = [
