@@ -3,9 +3,9 @@ from datetime import datetime, timedelta
 
 from back.tests.functional.service_forces.utils import get_result
 
-pytestmark = pytest.mark.asyncio
 
-
+@pytest.mark.asyncio
+@pytest.mark.old
 async def test_me():
     org_id = 'ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3'
     org_name = 'okada'

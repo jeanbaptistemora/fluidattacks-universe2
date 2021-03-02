@@ -2,9 +2,9 @@ import pytest
 
 from back.tests.functional.closer.utils import get_result
 
-pytestmark = pytest.mark.asyncio
 
-
+@pytest.mark.asyncio
+@pytest.mark.old
 async def _test_forces():
     group_name = 'unittesting'
     query = f"""

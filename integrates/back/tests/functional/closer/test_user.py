@@ -2,9 +2,9 @@ import pytest
 
 from back.tests.functional.closer.utils import get_result
 
-pytestmark = pytest.mark.asyncio
 
-
+@pytest.mark.asyncio
+@pytest.mark.old
 async def test_user():
     group_name = 'unittesting'
     stakeholder = 'stakeholder@fluidattacks.com'

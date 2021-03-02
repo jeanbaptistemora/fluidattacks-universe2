@@ -11,9 +11,9 @@ from backend.exceptions import VulnNotFound
 from backend.utils import datetime as datetime_utils
 from back.tests.functional.analyst.utils import get_result
 
-pytestmark = pytest.mark.asyncio
 
-
+@pytest.mark.asyncio
+@pytest.mark.old
 async def test_finding():
     context = get_new_context()
     today = datetime_utils.get_as_str(

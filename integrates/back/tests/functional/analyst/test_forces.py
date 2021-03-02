@@ -5,9 +5,9 @@ import pytest
 from backend.api import get_new_context
 from back.tests.functional.analyst.utils import get_result
 
-pytestmark = pytest.mark.asyncio
 
-
+@pytest.mark.asyncio
+@pytest.mark.old
 async def _test_forces():
     context = get_new_context()
     group_name = 'unittesting'

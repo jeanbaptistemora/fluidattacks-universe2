@@ -4,9 +4,9 @@ import pytest
 from back.tests.functional.utils import complete_register
 from back.tests.functional.closer.utils import get_result
 
-pytestmark = pytest.mark.asyncio
 
-
+@pytest.mark.asyncio
+@pytest.mark.old
 async def test_project():
     query = '''{
         internalNames(entity: GROUP){

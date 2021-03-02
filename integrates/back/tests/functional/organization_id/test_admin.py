@@ -8,8 +8,8 @@ from back.tests.functional.utils import (
 
 
 @pytest.mark.asyncio
-@pytest.mark.organizationId
-async def test_organizationId_admin(populate: bool):
+@pytest.mark.organization_id
+async def test_organization_id_admin(populate: bool):
     assert populate
     query = '''{
         organizationId(organizationName: "orgtest") {

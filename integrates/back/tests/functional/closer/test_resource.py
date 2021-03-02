@@ -6,9 +6,9 @@ from starlette.datastructures import UploadFile
 
 from back.tests.functional.closer.utils import get_result
 
-pytestmark = pytest.mark.asyncio
 
-
+@pytest.mark.asyncio
+@pytest.mark.old
 async def test_resource():
     group_name = 'unittesting'
     file_name = 'test.zip'

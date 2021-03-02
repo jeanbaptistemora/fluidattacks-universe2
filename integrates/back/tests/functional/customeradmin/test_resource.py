@@ -12,9 +12,9 @@ from backend.api import get_new_context
 from backend.utils import datetime as datetime_utils
 from back.tests.functional.customeradmin.utils import get_result
 
-pytestmark = pytest.mark.asyncio
 
-
+@pytest.mark.asyncio
+@pytest.mark.old
 async def test_resource():
     context = get_new_context()
     today = datetime_utils.get_as_str(

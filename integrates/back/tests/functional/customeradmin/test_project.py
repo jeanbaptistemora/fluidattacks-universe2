@@ -12,9 +12,9 @@ from backend.exceptions import (
 from back.tests.functional.utils import complete_register
 from back.tests.functional.customeradmin.utils import get_result
 
-pytestmark = pytest.mark.asyncio
 
-
+@pytest.mark.asyncio
+@pytest.mark.old
 async def test_project():
     context = get_new_context()
     org_name = 'okada'

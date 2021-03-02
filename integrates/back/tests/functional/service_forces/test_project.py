@@ -3,9 +3,9 @@ import pytest
 
 from back.tests.functional.service_forces.utils import get_result
 
-pytestmark = pytest.mark.asyncio
 
-
+@pytest.mark.asyncio
+@pytest.mark.old
 async def test_project():
     group_name = 'unittesting'
 

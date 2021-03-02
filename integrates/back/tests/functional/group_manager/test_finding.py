@@ -3,9 +3,9 @@ import pytest
 from backend.utils import datetime as datetime_utils
 from back.tests.functional.group_manager.utils import get_result
 
-pytestmark = pytest.mark.asyncio
 
-
+@pytest.mark.asyncio
+@pytest.mark.old
 async def test_finding():
     finding_id = '463558592'
     expected_output =  {

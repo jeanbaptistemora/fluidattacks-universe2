@@ -4,6 +4,7 @@ from typing import (
     Awaitable,
     Dict,
     List,
+    Tuple,
 )
 
 # Third party libraries
@@ -33,6 +34,7 @@ async def populate_users(data: List[Any]) -> bool:
 async def populate_orgs(data: List[Any]) -> bool:
     success: bool = False
     coroutines_orgs: List[Awaitable[bool]] = []
+    coroutines_ogs_ids: List[Awaitable[bool]] = []
     coroutines_org_users: List[Awaitable[bool]] = []
     coroutines_orgs.extend([
         dal_organization.create(
@@ -41,18 +43,24 @@ async def populate_orgs(data: List[Any]) -> bool:
         for org in data
     ])
     success = all(await collect(coroutines_orgs))
-    for org in data:
-        org_id: str = (await dal_organization.get_by_name(
+    coroutines_ogs_ids.extend([
+        dal_organization.get_by_name(
             org['name'],
             ['id'],
-        ))['id']
-        coroutines_org_users.extend([
-            dal_organization.add_user(
-                org_id,
-                user,
-            )
-            for user in org['users']
-        ])
+        )
+        for org in data
+    ])
+    org_ids: Tuple[str] = tuple(
+        x['id'] for x in await collect(coroutines_ogs_ids)
+    )
+    coroutines_org_users.extend([
+        dal_organization.add_user(
+            org_id,
+            user,
+        )
+        for org_id in org_ids
+        for org in data for user in org['users']
+    ])
     success = success and all(await collect(coroutines_org_users))
     return success
 

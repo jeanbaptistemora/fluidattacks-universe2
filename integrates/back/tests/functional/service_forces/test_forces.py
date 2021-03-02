@@ -6,9 +6,9 @@ from starlette.datastructures import UploadFile
 
 from back.tests.functional.service_forces.utils import get_result
 
-pytestmark = pytest.mark.asyncio
 
-
+@pytest.mark.asyncio
+@pytest.mark.old
 async def test_forces():
     group_name = 'unittesting'
     query = f"""

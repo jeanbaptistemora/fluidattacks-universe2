@@ -10,9 +10,9 @@ from back.tests.functional.customer.utils import (
     create_group,
 )
 
-pytestmark = pytest.mark.asyncio
 
-
+@pytest.mark.asyncio
+@pytest.mark.old
 async def test_project():
     context = get_new_context()
     query = '''{

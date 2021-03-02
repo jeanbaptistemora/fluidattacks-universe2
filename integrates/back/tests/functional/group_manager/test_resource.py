@@ -8,9 +8,9 @@ from urllib.parse import quote
 from backend.utils import datetime as datetime_utils
 from back.tests.functional.group_manager.utils import get_result
 
-pytestmark = pytest.mark.asyncio
 
-
+@pytest.mark.asyncio
+@pytest.mark.old
 async def test_resource():
     today = datetime_utils.get_as_str(
         datetime_utils.get_now(),

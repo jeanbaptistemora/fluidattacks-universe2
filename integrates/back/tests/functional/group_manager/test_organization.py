@@ -4,9 +4,9 @@ from decimal import Decimal
 from backend.exceptions import UserNotInOrganization
 from back.tests.functional.group_manager.utils import get_result
 
-pytestmark = pytest.mark.asyncio
 
-
+@pytest.mark.asyncio
+@pytest.mark.old
 async def test_organization():
     org_name = 'OKADA'
     group_name = 'unittesting'

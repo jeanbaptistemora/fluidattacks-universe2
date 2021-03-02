@@ -5,9 +5,9 @@ import pytest
 from backend.api import get_new_context
 from back.tests.functional.customeradmin.utils import get_result
 
-pytestmark = pytest.mark.asyncio
 
-
+@pytest.mark.asyncio
+@pytest.mark.old
 async def test_report():
     context = get_new_context()
     group_name = 'unittesting'
