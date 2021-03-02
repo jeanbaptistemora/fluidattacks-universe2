@@ -711,6 +711,24 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
           </RowCenter>
         </React.Fragment>
       ) : undefined}
+      {doesEntityMatch("organization", "portfolio") ? (
+        <RowCenter>
+          <Col100>
+            <Graphic
+              bsHeight={320}
+              className={"g1"}
+              documentName={"groupsByTag"}
+              documentType={"heatMapChart"}
+              entity={entity}
+              generatorName={"generic"}
+              generatorType={"heatMapChart"}
+              reportMode={reportMode}
+              subject={subject}
+              title={translate.t("analytics.heatMapChart.groupsByTag")}
+            />
+          </Col100>
+        </RowCenter>
+      ) : undefined}
       {doesEntityMatch("group") ? (
         <React.Fragment>
           <hr />

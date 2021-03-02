@@ -55,6 +55,9 @@ export const enTranslations: ResourceKey = {
         title: "Severity",
       },
     },
+    heatMapChart: {
+      groupsByTag: "Tags by groups",
+    },
     pieChart: {
       resources: {
         footer: {
