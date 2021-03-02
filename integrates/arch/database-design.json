@@ -379,6 +379,58 @@
           }
         },
         {
+          "FacetName": "available_group_names",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "NAME#GROUP",
+            "SortKeyAlias": "NAME#name"
+          },
+          "TableData": [
+            {
+              "pk": {
+                "S": "NAME#GROUP"
+              },
+              "sk": {
+                "S": "NAME#ebisu"
+              },
+              "name": {
+                "S": "ebisu"
+              }
+            }
+          ],
+          "NonKeyAttributes": [
+            "name"
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
+        },
+        {
+          "FacetName": "available_org_names",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "NAME#ORG",
+            "SortKeyAlias": "NAME#name"
+          },
+          "TableData": [
+            {
+              "pk": {
+                "S": "NAME#ORG"
+              },
+              "sk": {
+                "S": "NAME#udon"
+              },
+              "name": {
+                "S": "udon"
+              }
+            }
+          ],
+          "NonKeyAttributes": [
+            "name"
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
+        },
+        {
           "FacetName": "organization_metadata",
           "KeyAttributeAlias": {
             "PartitionKeyAlias": "ORG#name",
@@ -548,167 +600,6 @@
           }
         },
         {
-          "FacetName": "forces_execution",
-          "KeyAttributeAlias": {
-            "PartitionKeyAlias": "GROUP#name",
-            "SortKeyAlias": "EXEC#uuid"
-          },
-          "TableData": [
-            {
-              "pk": {
-                "S": "GROUP#unittesting"
-              },
-              "sk": {
-                "S": "EXEC#b68e1063-18da-44d1-9d1a-295299a9fee7"
-              },
-              "type": {
-                "S": "all"
-              },
-              "modified_date": {
-                "S": "2021-02-15T14:01:16Z"
-              },
-              "exit_code": {
-                "S": "1"
-              },
-              "branch": {
-                "S": "unable to retrieve"
-              },
-              "commit": {
-                "S": "76bd6dbbba2d1864c09ba9af5be134728de8bdd2"
-              },
-              "origin": {
-                "S": "https://gitlab-ci-token:test@gitlab.com/company/test.git"
-              },
-              "repo": {
-                "S": "test"
-              },
-              "strictness": {
-                "S": "strict"
-              },
-              "results": {
-                "M": {
-                  "M": {
-                    "num_of_accepted_vulnerabilities": {
-                      "N": "0"
-                    },
-                    "num_of_closed_vulnerabilities": {
-                      "N": "238"
-                    },
-                    "num_of_open_vulnerabilities": {
-                      "N": "8"
-                    }
-                  }
-                }
-              }
-            }
-          ],
-          "NonKeyAttributes": [
-            "type",
-            "modified_date",
-            "exit_code",
-            "branch",
-            "commit",
-            "origin",
-            "repo",
-            "strictness",
-            "results"
-          ],
-          "DataAccess": {
-            "MySql": {}
-          }
-        },
-        {
-          "FacetName": "root_metadata",
-          "KeyAttributeAlias": {
-            "PartitionKeyAlias": "ROOT#uuid",
-            "SortKeyAlias": "GROUP#name"
-          },
-          "TableData": [
-            {
-              "pk": {
-                "S": "ROOT#7be44c33-f03f-4d01-94ef-813b534d61ca"
-              },
-              "sk": {
-                "S": "GROUP#unittesting"
-              },
-              "type": {
-                "S": "Git"
-              },
-              "branch": {
-                "S": "master"
-              },
-              "url": {
-                "S": "ssh://git@gitlab.com:fluidattacks/product"
-              }
-            }
-          ],
-          "NonKeyAttributes": [
-            "type",
-            "branch",
-            "url"
-          ],
-          "DataAccess": {
-            "MySql": {}
-          }
-        },
-        {
-          "FacetName": "event_metadata",
-          "KeyAttributeAlias": {
-            "PartitionKeyAlias": "EVENT#uuid",
-            "SortKeyAlias": "GROUP#name"
-          },
-          "TableData": [
-            {
-              "pk": {
-                "S": "EVENT#01405804-4c10-400f-97b4-87661af5f0ae"
-              },
-              "sk": {
-                "S": "GROUP#unittesting"
-              },
-              "description": {
-                "S": "Después de iniciar sesión, el servidor devuelve error"
-              },
-              "type": {
-                "S": "INCORRECT_MISSING_SUPPLIES"
-              },
-              "context": {
-                "S": "TELECOMMUTING"
-              },
-              "action_before_blocking": {
-                "S": "EXECUTE_OTHER_PROJECT_SAME_CLIENT"
-              },
-              "action_after_blocking": {
-                "S": "OTHER"
-              },
-              "blocking_hours_expected": {
-                "N": "1"
-              },
-              "affected_components": {
-                "SS": [
-                  "Inestabilidad del ToE",
-                  "Indisponibilidad del ToE"
-                ]
-              },
-              "accessibility": {
-                "S": "Ambiente"
-              }
-            }
-          ],
-          "NonKeyAttributes": [
-            "description",
-            "type",
-            "context",
-            "action_before_blocking",
-            "action_after_blocking",
-            "blocking_hours_expected",
-            "affected_components",
-            "accessibility"
-          ],
-          "DataAccess": {
-            "MySql": {}
-          }
-        },
-        {
           "FacetName": "group_comment",
           "KeyAttributeAlias": {
             "PartitionKeyAlias": "GROUP#name",
@@ -778,119 +669,6 @@
                 "S": "GROUP#unittesting"
               }
             }
-          ],
-          "DataAccess": {
-            "MySql": {}
-          }
-        },
-        {
-          "FacetName": "vulnerability_reattack_historic",
-          "KeyAttributeAlias": {
-            "PartitionKeyAlias": "VULN#uuid#REATT#iso8601utc",
-            "SortKeyAlias": "FIN#uuid"
-          },
-          "TableData": [
-            {
-              "pk": {
-                "S": "VULN#3098e835-833c-48f7-aa76-12ea884e871f#REATT#2021-02-15T14:01:16Z"
-              },
-              "sk": {
-                "S": "FIN#a0fddb36-ac0d-4a58-969f-b13194af61c2"
-              },
-              "status": {
-                "S": "REQUESTED"
-              },
-              "modified_date": {
-                "S": "2021-02-15T14:01:16Z"
-              },
-              "modified_by": {
-                "S": "USER#test@fluidattacks.com"
-              },
-              "consult_id": {
-                "S": "CMNT#8207c89a-27e2-4abe-9367-3ffea7856a4d"
-              }
-            }
-          ],
-          "NonKeyAttributes": [
-            "status",
-            "modified_date",
-            "modified_by",
-            "consult_id"
-          ],
-          "DataAccess": {
-            "MySql": {}
-          }
-        },
-        {
-          "FacetName": "vulnerability_metadata",
-          "KeyAttributeAlias": {
-            "PartitionKeyAlias": "VULN#uuid",
-            "SortKeyAlias": "FIN#uuid"
-          },
-          "TableData": [
-            {
-              "pk": {
-                "S": "VULN#3098e835-833c-48f7-aa76-12ea884e871f"
-              },
-              "sk": {
-                "S": "FIN#a0fddb36-ac0d-4a58-969f-b13194af61c2"
-              },
-              "type": {
-                "S": "lines"
-              },
-              "source": {
-                "S": "skims"
-              },
-              "where": {
-                "S": "test/data/lib_path/f073/Test.cs"
-              },
-              "specific": {
-                "S": "44"
-              }
-            }
-          ],
-          "NonKeyAttributes": [
-            "type",
-            "source",
-            "where",
-            "specific"
-          ],
-          "DataAccess": {
-            "MySql": {}
-          }
-        },
-        {
-          "FacetName": "vulnerability_treatment_historic",
-          "KeyAttributeAlias": {
-            "PartitionKeyAlias": "VULN#uuid#TREAT#iso8601utc",
-            "SortKeyAlias": "FIN#uuid"
-          },
-          "TableData": [
-            {
-              "pk": {
-                "S": "VULN#3098e835-833c-48f7-aa76-12ea884e871f#TREAT#2021-02-15T14:01:16Z"
-              },
-              "sk": {
-                "S": "FIN#a0fddb36-ac0d-4a58-969f-b13194af61c2"
-              },
-              "status": {
-                "S": "NEW"
-              },
-              "modified_date": {
-                "S": "2021-02-15T14:01:16Z"
-              },
-              "modified_by": {
-                "S": "USER#test@fluidattacks.com"
-              }
-            }
-          ],
-          "NonKeyAttributes": [
-            "status",
-            "reason",
-            "modified_date",
-            "modified_by",
-            "accepted_until",
-            "manager"
           ],
           "DataAccess": {
             "MySql": {}
@@ -988,48 +766,6 @@
           }
         },
         {
-          "FacetName": "event_historic",
-          "KeyAttributeAlias": {
-            "PartitionKeyAlias": "EVENT#uuid#HIST#iso8601utc",
-            "SortKeyAlias": "GROUP#name"
-          },
-          "TableData": [
-            {
-              "pk": {
-                "S": "EVENT#01405804-4c10-400f-97b4-87661af5f0ae#HIST#2021-02-15T14:01:16Z"
-              },
-              "sk": {
-                "S": "GROUP#unittesting"
-              },
-              "status": {
-                "S": "OPEN"
-              },
-              "modified_date": {
-                "S": "2021-02-15T14:01:16Z"
-              },
-              "modified_by": {
-                "S": "USER#test@fluidattacks.com"
-              },
-              "evidences": {
-                "M": {}
-              },
-              "blocking_hours": {
-                "N": "2"
-              }
-            }
-          ],
-          "NonKeyAttributes": [
-            "status",
-            "modified_date",
-            "modified_by",
-            "evidences",
-            "blocking_hours"
-          ],
-          "DataAccess": {
-            "MySql": {}
-          }
-        },
-        {
           "FacetName": "finding_comment",
           "KeyAttributeAlias": {
             "PartitionKeyAlias": "FIN#uuid",
@@ -1089,6 +825,327 @@
           }
         },
         {
+          "FacetName": "vulnerability_metadata",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "VULN#uuid",
+            "SortKeyAlias": "FIN#uuid"
+          },
+          "TableData": [
+            {
+              "pk": {
+                "S": "VULN#3098e835-833c-48f7-aa76-12ea884e871f"
+              },
+              "sk": {
+                "S": "FIN#a0fddb36-ac0d-4a58-969f-b13194af61c2"
+              },
+              "type": {
+                "S": "lines"
+              },
+              "source": {
+                "S": "skims"
+              },
+              "where": {
+                "S": "test/data/lib_path/f073/Test.cs"
+              },
+              "specific": {
+                "S": "44"
+              }
+            }
+          ],
+          "NonKeyAttributes": [
+            "type",
+            "source",
+            "where",
+            "specific"
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
+        },
+        {
+          "FacetName": "vulnerability_historic",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "VULN#uuid#HIST#iso8601utc",
+            "SortKeyAlias": "FIN#uuid"
+          },
+          "TableData": [
+            {
+              "pk": {
+                "S": "VULN#3098e835-833c-48f7-aa76-12ea884e871f#HIST#2021-02-15T14:01:16Z"
+              },
+              "sk": {
+                "S": "FIN#a0fddb36-ac0d-4a58-969f-b13194af61c2"
+              },
+              "status": {
+                "S": "OPEN"
+              },
+              "tags": {
+                "SS": []
+              },
+              "modified_date": {
+                "S": "2021-02-15T14:01:16Z"
+              },
+              "modified_by": {
+                "S": "USER#test@fluidattacks.com"
+              }
+            }
+          ],
+          "NonKeyAttributes": [
+            "status",
+            "tags",
+            "reason",
+            "modified_date",
+            "modified_by"
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
+        },
+        {
+          "FacetName": "vulnerability_treatment_historic",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "VULN#uuid#TREAT#iso8601utc",
+            "SortKeyAlias": "FIN#uuid"
+          },
+          "TableData": [
+            {
+              "pk": {
+                "S": "VULN#3098e835-833c-48f7-aa76-12ea884e871f#TREAT#2021-02-15T14:01:16Z"
+              },
+              "sk": {
+                "S": "FIN#a0fddb36-ac0d-4a58-969f-b13194af61c2"
+              },
+              "status": {
+                "S": "NEW"
+              },
+              "modified_date": {
+                "S": "2021-02-15T14:01:16Z"
+              },
+              "modified_by": {
+                "S": "USER#test@fluidattacks.com"
+              }
+            }
+          ],
+          "NonKeyAttributes": [
+            "status",
+            "reason",
+            "modified_date",
+            "modified_by",
+            "accepted_until",
+            "manager"
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
+        },
+        {
+          "FacetName": "vulnerability_reattack_historic",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "VULN#uuid#REATT#iso8601utc",
+            "SortKeyAlias": "FIN#uuid"
+          },
+          "TableData": [
+            {
+              "pk": {
+                "S": "VULN#3098e835-833c-48f7-aa76-12ea884e871f#REATT#2021-02-15T14:01:16Z"
+              },
+              "sk": {
+                "S": "FIN#a0fddb36-ac0d-4a58-969f-b13194af61c2"
+              },
+              "status": {
+                "S": "REQUESTED"
+              },
+              "modified_date": {
+                "S": "2021-02-15T14:01:16Z"
+              },
+              "modified_by": {
+                "S": "USER#test@fluidattacks.com"
+              },
+              "consult_id": {
+                "S": "CMNT#8207c89a-27e2-4abe-9367-3ffea7856a4d"
+              }
+            }
+          ],
+          "NonKeyAttributes": [
+            "status",
+            "modified_date",
+            "modified_by",
+            "consult_id"
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
+        },
+        {
+          "FacetName": "forces_execution",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "GROUP#name",
+            "SortKeyAlias": "EXEC#uuid"
+          },
+          "TableData": [
+            {
+              "pk": {
+                "S": "GROUP#unittesting"
+              },
+              "sk": {
+                "S": "EXEC#b68e1063-18da-44d1-9d1a-295299a9fee7"
+              },
+              "type": {
+                "S": "all"
+              },
+              "modified_date": {
+                "S": "2021-02-15T14:01:16Z"
+              },
+              "exit_code": {
+                "S": "1"
+              },
+              "branch": {
+                "S": "unable to retrieve"
+              },
+              "commit": {
+                "S": "76bd6dbbba2d1864c09ba9af5be134728de8bdd2"
+              },
+              "origin": {
+                "S": "https://gitlab-ci-token:test@gitlab.com/company/test.git"
+              },
+              "repo": {
+                "S": "test"
+              },
+              "strictness": {
+                "S": "strict"
+              },
+              "results": {
+                "M": {
+                  "M": {
+                    "num_of_accepted_vulnerabilities": {
+                      "N": "0"
+                    },
+                    "num_of_closed_vulnerabilities": {
+                      "N": "238"
+                    },
+                    "num_of_open_vulnerabilities": {
+                      "N": "8"
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "NonKeyAttributes": [
+            "type",
+            "modified_date",
+            "exit_code",
+            "branch",
+            "commit",
+            "origin",
+            "repo",
+            "strictness",
+            "results"
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
+        },
+        {
+          "FacetName": "event_metadata",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "EVENT#uuid",
+            "SortKeyAlias": "GROUP#name"
+          },
+          "TableData": [
+            {
+              "pk": {
+                "S": "EVENT#01405804-4c10-400f-97b4-87661af5f0ae"
+              },
+              "sk": {
+                "S": "GROUP#unittesting"
+              },
+              "description": {
+                "S": "Después de iniciar sesión, el servidor devuelve error"
+              },
+              "type": {
+                "S": "INCORRECT_MISSING_SUPPLIES"
+              },
+              "context": {
+                "S": "TELECOMMUTING"
+              },
+              "action_before_blocking": {
+                "S": "EXECUTE_OTHER_PROJECT_SAME_CLIENT"
+              },
+              "action_after_blocking": {
+                "S": "OTHER"
+              },
+              "blocking_hours_expected": {
+                "N": "1"
+              },
+              "affected_components": {
+                "SS": [
+                  "Inestabilidad del ToE",
+                  "Indisponibilidad del ToE"
+                ]
+              },
+              "accessibility": {
+                "S": "Ambiente"
+              }
+            }
+          ],
+          "NonKeyAttributes": [
+            "description",
+            "type",
+            "context",
+            "action_before_blocking",
+            "action_after_blocking",
+            "blocking_hours_expected",
+            "affected_components",
+            "accessibility"
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
+        },
+        {
+          "FacetName": "event_historic",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "EVENT#uuid#HIST#iso8601utc",
+            "SortKeyAlias": "GROUP#name"
+          },
+          "TableData": [
+            {
+              "pk": {
+                "S": "EVENT#01405804-4c10-400f-97b4-87661af5f0ae#HIST#2021-02-15T14:01:16Z"
+              },
+              "sk": {
+                "S": "GROUP#unittesting"
+              },
+              "status": {
+                "S": "OPEN"
+              },
+              "modified_date": {
+                "S": "2021-02-15T14:01:16Z"
+              },
+              "modified_by": {
+                "S": "USER#test@fluidattacks.com"
+              },
+              "evidences": {
+                "M": {}
+              },
+              "blocking_hours": {
+                "N": "2"
+              }
+            }
+          ],
+          "NonKeyAttributes": [
+            "status",
+            "modified_date",
+            "modified_by",
+            "evidences",
+            "blocking_hours"
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
+        },
+        {
           "FacetName": "event_comment",
           "KeyAttributeAlias": {
             "PartitionKeyAlias": "EVENT#uuid",
@@ -1118,6 +1175,40 @@
             "modified_by",
             "parent_id",
             "content"
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
+        },
+        {
+          "FacetName": "root_metadata",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "ROOT#uuid",
+            "SortKeyAlias": "GROUP#name"
+          },
+          "TableData": [
+            {
+              "pk": {
+                "S": "ROOT#7be44c33-f03f-4d01-94ef-813b534d61ca"
+              },
+              "sk": {
+                "S": "GROUP#unittesting"
+              },
+              "type": {
+                "S": "Git"
+              },
+              "branch": {
+                "S": "master"
+              },
+              "url": {
+                "S": "ssh://git@gitlab.com:fluidattacks/product"
+              }
+            }
+          ],
+          "NonKeyAttributes": [
+            "type",
+            "branch",
+            "url"
           ],
           "DataAccess": {
             "MySql": {}
@@ -1178,45 +1269,6 @@
           }
         },
         {
-          "FacetName": "vulnerability_historic",
-          "KeyAttributeAlias": {
-            "PartitionKeyAlias": "VULN#uuid#HIST#iso8601utc",
-            "SortKeyAlias": "FIN#uuid"
-          },
-          "TableData": [
-            {
-              "pk": {
-                "S": "VULN#3098e835-833c-48f7-aa76-12ea884e871f#HIST#2021-02-15T14:01:16Z"
-              },
-              "sk": {
-                "S": "FIN#a0fddb36-ac0d-4a58-969f-b13194af61c2"
-              },
-              "status": {
-                "S": "OPEN"
-              },
-              "tags": {
-                "SS": []
-              },
-              "modified_date": {
-                "S": "2021-02-15T14:01:16Z"
-              },
-              "modified_by": {
-                "S": "USER#test@fluidattacks.com"
-              }
-            }
-          ],
-          "NonKeyAttributes": [
-            "status",
-            "tags",
-            "reason",
-            "modified_date",
-            "modified_by"
-          ],
-          "DataAccess": {
-            "MySql": {}
-          }
-        },
-        {
           "FacetName": "root_cloning_historic",
           "KeyAttributeAlias": {
             "PartitionKeyAlias": "ROOT#uuid#CLON#iso8601utc",
@@ -1245,58 +1297,6 @@
             "status",
             "reason",
             "modified_date"
-          ],
-          "DataAccess": {
-            "MySql": {}
-          }
-        },
-        {
-          "FacetName": "available_group_names",
-          "KeyAttributeAlias": {
-            "PartitionKeyAlias": "NAME#GROUP",
-            "SortKeyAlias": "NAME#name"
-          },
-          "TableData": [
-            {
-              "pk": {
-                "S": "NAME#GROUP"
-              },
-              "sk": {
-                "S": "NAME#ebisu"
-              },
-              "name": {
-                "S": "ebisu"
-              }
-            }
-          ],
-          "NonKeyAttributes": [
-            "name"
-          ],
-          "DataAccess": {
-            "MySql": {}
-          }
-        },
-        {
-          "FacetName": "available_org_names",
-          "KeyAttributeAlias": {
-            "PartitionKeyAlias": "NAME#ORG",
-            "SortKeyAlias": "NAME#name"
-          },
-          "TableData": [
-            {
-              "pk": {
-                "S": "NAME#ORG"
-              },
-              "sk": {
-                "S": "NAME#udon"
-              },
-              "name": {
-                "S": "udon"
-              }
-            }
-          ],
-          "NonKeyAttributes": [
-            "name"
           ],
           "DataAccess": {
             "MySql": {}
