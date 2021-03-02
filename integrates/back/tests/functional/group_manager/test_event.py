@@ -1,5 +1,8 @@
+# Standar libraries
 import pytest
 
+# Local libraries
+from backend.api import get_new_context
 from backend.utils import datetime as datetime_utils
 from back.tests.functional.group_manager.utils import get_result
 
@@ -7,6 +10,7 @@ from back.tests.functional.group_manager.utils import get_result
 @pytest.mark.asyncio
 @pytest.mark.old
 async def test_event():
+    context = get_new_context()
     today = datetime_utils.get_as_str(
         datetime_utils.get_now(),
         date_format='%Y-%m-%d'
@@ -33,10 +37,11 @@ async def test_event():
     '''
     data = {'query': query}
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     assert result['data']['createEvent']
 
+    context = get_new_context()
     query = f'''
         query {{
             project(projectName: "{group_name}"){{
@@ -49,13 +54,14 @@ async def test_event():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     assert 'events' in result['data']['project']
     events = result['data']['project']['events']
     event = [event for event in events if event['detail'] == event_detail][0]
     event_id = event['id']
 
+    context = get_new_context()
     counsult_content = 'Test content of new event'
     query = f'''
         mutation {{
@@ -68,11 +74,12 @@ async def test_event():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     assert 'success' in result['data']['addEventConsult']
     assert result['data']['addEventConsult']
 
+    context = get_new_context()
     query = f'''{{
         event(identifier: "{event_id}"){{
             client
@@ -97,7 +104,7 @@ async def test_event():
         }}
     }}'''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     assert 'event' in result['data']
     assert result['data']['event']['accessibility'] == 'Ambiente'
@@ -128,10 +135,10 @@ async def test_event():
             'state': 'CREATED'
         }
     ]
-
     assert result['data']['event']['projectName'] == group_name
     assert result['data']['event']['subscription'] == 'CONTINUOUS'
 
+    context = get_new_context()
     query = f'''{{
         events(projectName: "{group_name}"){{
             id
@@ -140,12 +147,14 @@ async def test_event():
         }}
     }}'''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'events' in result['data']
     events = result['data']['events']
     event = [event for event in events if event['id'] == event_id][0]
     assert event['projectName'] == group_name
     assert event['detail'] == event_detail
+
+    context = get_new_context()
     query = f'''
         mutation {{
             solveEvent(
@@ -158,10 +167,11 @@ async def test_event():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     assert 'success' in result['data']['solveEvent']
 
+    context = get_new_context()
     query = f'''
         mutation {{
             downloadEventFile(
@@ -174,23 +184,25 @@ async def test_event():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     assert 'success' in result['data']['downloadEventFile']
     assert result['data']['downloadEventFile']
     assert 'url' in result['data']['downloadEventFile']
 
+    context = get_new_context()
     query = f'''{{
         event(identifier: "{event_id}"){{
             eventStatus
         }}
     }}'''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     assert 'event' in result['data']
     assert result['data']['event']['eventStatus'] == 'SOLVED'
 
+    context = get_new_context()
     query = f'''{{
         events(projectName: "{group_name}"){{
             id
@@ -199,7 +211,7 @@ async def test_event():
         }}
     }}'''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'events' in result['data']
     events = result['data']['events']
     event = [event for event in events if event['id'] == event_id][0]

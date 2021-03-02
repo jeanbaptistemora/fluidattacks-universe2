@@ -1,5 +1,8 @@
+# Standard libraries
 import pytest
 
+# Local libraries
+from backend.api import get_new_context
 from backend.utils import datetime as datetime_utils
 from back.tests.functional.group_manager.utils import get_result
 
@@ -7,6 +10,7 @@ from back.tests.functional.group_manager.utils import get_result
 @pytest.mark.asyncio
 @pytest.mark.old
 async def test_finding():
+    context = get_new_context()
     finding_id = '463558592'
     expected_output =  {
         'id': finding_id,
@@ -224,7 +228,7 @@ async def test_finding():
         }}
     }}'''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     assert result['data']['finding']['id'] == expected_output.get('id')
     assert result['data']['finding']['projectName'] == expected_output.get('project_name')
@@ -267,6 +271,7 @@ async def test_finding():
     assert result['data']['finding']['analyst'] == expected_output.get('analyst')
     assert result['data']['finding']['observations'] == expected_output.get('observations')
 
+    context = get_new_context()
     consult_content = "This is a observation test"
     query = f'''
         mutation {{
@@ -282,11 +287,12 @@ async def test_finding():
         }}
         '''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     assert 'success' in result['data']['addFindingConsult']
     assert result['data']['addFindingConsult']['success']
 
+    context = get_new_context()
     expected_output = {
         'consulting': {
             'content': consult_content
@@ -310,7 +316,7 @@ async def test_finding():
         }}
     }}'''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     assert  expected_output.get('consulting') not in result['data']['finding']['consulting']
     assert result['data']['finding']['observations'] == expected_output.get('observations')

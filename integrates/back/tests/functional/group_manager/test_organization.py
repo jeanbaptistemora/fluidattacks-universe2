@@ -1,6 +1,9 @@
+# Standard libraries
 import pytest
 from decimal import Decimal
 
+# Local libraries
+from backend.api import get_new_context
 from backend.exceptions import UserNotInOrganization
 from back.tests.functional.group_manager.utils import get_result
 
@@ -8,6 +11,7 @@ from back.tests.functional.group_manager.utils import get_result
 @pytest.mark.asyncio
 @pytest.mark.old
 async def test_organization():
+    context = get_new_context()
     org_name = 'OKADA'
     group_name = 'unittesting'
     org_id = 'ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3'
@@ -29,7 +33,7 @@ async def test_organization():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     assert result['data']['grantStakeholderOrganizationAccess']['success']
     assert result['data']['grantStakeholderOrganizationAccess']['grantedStakeholder']['email'] == stakeholder
@@ -41,6 +45,7 @@ async def test_organization():
     assert 'errors' in result
     assert result['errors'][0]['message'] == exe.args[0]
 
+    context = get_new_context()
     phone_number = '9999999999'
     query = f'''
         mutation {{
@@ -53,17 +58,17 @@ async def test_organization():
                 success
                 modifiedStakeholder {{
                     email
-
                 }}
             }}
         }}
     '''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     assert result['data']['editStakeholderOrganization']['success']
     assert result['data']['editStakeholderOrganization']['modifiedStakeholder']['email'] == stakeholder
 
+    context = get_new_context()
     query = f'''
         query {{
             stakeholder(entity: ORGANIZATION,
@@ -80,10 +85,11 @@ async def test_organization():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     assert result['data']['stakeholder']['phoneNumber'] == phone_number
 
+    context = get_new_context()
     query = f'''
         mutation {{
             updateOrganizationPolicies(
@@ -99,11 +105,12 @@ async def test_organization():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     exe = UserNotInOrganization()
     assert 'errors' in result
     assert result['errors'][0]['message'] == exe.args[0]
 
+    context = get_new_context()
     query = f'''
         query {{
             organization(organizationId: "{org_id}") {{
@@ -123,7 +130,7 @@ async def test_organization():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     groups = [group['name'] for group in result['data']['organization']['projects']]
     stakeholders = [stakeholder['email'] for stakeholder in result['data']['organization']['stakeholders']]
     assert 'errors' not in result
@@ -140,6 +147,7 @@ async def test_organization():
     assert 'errors' in result
     assert result['errors'][0]['message'] == exe.args[0]
 
+    context = get_new_context()
     query = f'''
         mutation {{
             removeStakeholderOrganizationAccess(
@@ -151,10 +159,11 @@ async def test_organization():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     assert result['data']['removeStakeholderOrganizationAccess']['success']
 
+    context = get_new_context()
     query = f'''
         query {{
             organization(organizationId: "{org_id}") {{
@@ -165,7 +174,7 @@ async def test_organization():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     stakeholders = [stakeholder['email'] for stakeholder in result['data']['organization']['stakeholders']]
     assert 'errors' not in result
     assert stakeholder not in stakeholders

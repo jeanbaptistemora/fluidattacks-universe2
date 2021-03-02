@@ -1,11 +1,15 @@
+# Standard libraries
 import pytest
 
+# Local libraries
+from backend.api import get_new_context
 from back.tests.functional.group_manager.utils import get_result
 
 
 @pytest.mark.asyncio
 @pytest.mark.old
 async def _test_forces():
+    context = get_new_context()
     group_name = 'unittesting'
     query = f"""
         mutation {{
@@ -16,11 +20,12 @@ async def _test_forces():
         }}
     """
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     assert result['data']['updateForcesAccessToken']['success']
     assert 'sessionJwt' in result['data']['updateForcesAccessToken']
 
+    context = get_new_context()
     query = f"""
         query {{
             forcesExecutions(
@@ -66,7 +71,7 @@ async def _test_forces():
         }}
     """
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     executions = result['data']['forcesExecutions']['executions']
     assert 'errors' not in result
     assert executions[0]['date'] == '2020-02-19T19:31:18+00:00'
@@ -150,6 +155,7 @@ async def _test_forces():
         "numOfVulnerabilitiesInAcceptedExploits": 5
     }
 
+    context = get_new_context()
     query = f"""
         query {{
             forcesExecutions(
@@ -162,18 +168,18 @@ async def _test_forces():
                 executions{{
                     projectName
                 }}
-
                 __typename
             }}
         }}
     """
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     assert result['data']['forcesExecutions']['fromDate'] == '2020-02-01 00:00:00+00:00'
     assert result['data']['forcesExecutions']['toDate'] == '2020-02-28 23:59:59+00:00'
     assert result['data']['forcesExecutions']['executions'] == []
 
+    context = get_new_context()
     execution_id = '08c1e735a73243f2ab1ee0757041f80e'
     query = f"""
         query {{
@@ -195,7 +201,7 @@ async def _test_forces():
         }}
     """
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     assert result['data']['forcesExecution']['projectName'] == group_name
     assert result['data']['forcesExecution']['execution_id'] == execution_id
