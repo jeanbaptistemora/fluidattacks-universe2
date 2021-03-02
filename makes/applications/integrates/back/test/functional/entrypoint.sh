@@ -17,9 +17,9 @@ function main {
   &&  DAEMON=true integrates-storage \
   &&  pushd integrates \
     &&  DAEMON=true POPULATE=true integrates-db \
-    &&  pytest -m 'not stateless' "${pytest_args[@]}" back/tests/functional \
+    &&  pytest -m 'not organizationId' "${pytest_args[@]}" back/tests/functional \
     &&  DAEMON=true POPULATE=false integrates-db \
-    &&  pytest -m 'stateless' "${pytest_args[@]}" back/tests/functional \
+    &&  pytest -m 'organizationId' "${pytest_args[@]}" back/tests/functional \
   &&  popd \
   ||  return 1
 }

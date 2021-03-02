@@ -1,20 +1,23 @@
+# Standard libraries
+from typing import (
+    Any,
+    Dict,
+)
+
 # Third party libraries
 import pytest
 
 # Local libraries
-from back.tests.functional.utils import (
-    get_graphql_result,
-)
-from back.tests.functional.populate import (
-    populate_db,
-    clean_db,
+from back.tests import (
+    db,
 )
 
 
 @pytest.mark.asyncio
-@pytest.mark.stateless
-async def test_organization_admin():
-    data = {
+@pytest.mark.organizationId
+@pytest.fixture(autouse=True, scope='session')
+async def populate() -> bool:
+    data: Dict[str, Any] = {
         'users': [
             {
                 'email': 'test1@test1.com',
@@ -51,17 +54,4 @@ async def test_organization_admin():
             },
         ]
     }
-    assert await populate_db(data)
-    query = '''{
-        organizationId(organizationName: "orgtest") {
-            id
-        }
-    }'''
-    data = {'query': query}
-    result = await get_graphql_result(
-        data,
-        'test1@test1.com',
-    )
-    assert 'errors' not in result
-    assert result['data']['organizationId']['id'] != None
-    assert await clean_db()
+    return await db.populate(data)
