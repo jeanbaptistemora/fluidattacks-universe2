@@ -1,16 +1,10 @@
 # shellcheck shell=bash
 
-source '__envUtilsBashLibAws__'
-source '__envUtilsBashLibSops__'
-
-
-function job_gitlab_etl {
-  local dif_gitlab_etl
-
+function start_etl {
   local db_creds
   local projects
-  dif_gitlab_etl="__envDifGitlabEtl__" \
-  &&  projects=(
+
+      projects=(
         'autonomicmind/default'
         'autonomicmind/challenges'
         'fluidattacks/services'
@@ -22,7 +16,7 @@ function job_gitlab_etl {
         analytics_auth_redshift \
   &&  echo '[INFO] Generating secret files' \
   &&  echo "${analytics_auth_redshift}" > "${db_creds}" \
-  &&  "${dif_gitlab_etl}" start-etl "${projects[@]}" "${db_creds}"
+  &&  observes-dif-gitlab-etl start-etl "${projects[@]}" "${db_creds}"
 }
 
-job_gitlab_etl
+start_etl

@@ -80,7 +80,7 @@ observes.code-etl-amend
 observes.code-etl-mirror
 observes.code-etl-upload
 observes.dif-gitlab-etl
-observes.job-dif-gitlab-etl
+observes.job.dif-gitlab-etl
 observes.job.dynamodb-etl
 observes.job.dynamodb-forces-etl
 observes.job.dynamodb-table-etl

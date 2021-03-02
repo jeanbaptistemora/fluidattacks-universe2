@@ -85,6 +85,7 @@ let
       buildNodeRequirements = import (path "/makes/utils/build-node-requirements") path;
       buildPythonLambda = import (path "/makes/utils/build-python-lambda") path;
       buildPythonRequirements = import (path "/makes/utils/build-python-requirements") path;
+      computeOnAws = import (path "/makes/utils/compute-on-aws") path;
       getPackageJsonDeps = import (path "/makes/utils/get-package-json-deps") path;
       lintPython = import (path "/makes/utils/lint-python") path;
       makeDerivation = import (path "/makes/utils/make-derivation") path;

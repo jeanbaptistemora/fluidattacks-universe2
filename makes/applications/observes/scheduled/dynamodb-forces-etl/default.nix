@@ -10,7 +10,7 @@ computeOnAws {
   command = [ "./m" "observes.job.dynamodb-forces-etl" ];
   jobname = "dynamodb-forces-etl";
   jobqueue = "spot_later";
-  name = "aws-batch-dynamodb-forces-etl";
+  name = "observes-scheduled-dynamodb-forces-etl";
   product = "observes";
   secrets = [
     "OBSERVES_PROD_AWS_ACCESS_KEY_ID"

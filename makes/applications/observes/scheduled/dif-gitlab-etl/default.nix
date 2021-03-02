@@ -1,14 +1,10 @@
-{ observesPkgs
-, path
-, ...
-}:
+{ path, ... } @ attrs:
 let
-  nixPkgs = observesPkgs;
-  computeOnAws = import (path "/makes/utils/compute-on-aws") path nixPkgs;
+  observes = import (path "/makes/libs/observes") attrs;
 in
-computeOnAws {
+observes.makeUtils.computeOnAws {
   attempts = 5;
-  command = [ "./m" "observes.job-dif-gitlab-etl" ];
+  command = [ "./m" "observes.job.dif-gitlab-etl" ];
   jobname = "dif-gitlab-etl";
   jobqueue = "spot_later";
   name = "observes-scheduled-dif-gitlab-etl";

@@ -22,9 +22,12 @@ let
   binaries = import (path "/makes/libs/observes/bins") {
     inherit nixPkgs path;
   };
+
+  makeUtils = builtins.mapAttrs (_: util: util nixPkgs) attrs.makeUtils;
 in
 {
   inherit binaries;
   inherit jobs;
+  inherit makeUtils;
   packages = localLib;
 }
