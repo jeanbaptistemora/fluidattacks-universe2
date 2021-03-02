@@ -1,44 +1,46 @@
-/* tslint:disable:jsx-no-multiline-js
- *
- * Disabling this rule is necessary for accessing render props from
- * apollo components
- */
-import { ExecutionResult } from "@apollo/react-common";
-import { useMutation, useQuery } from "@apollo/react-hooks";
-import { faImage } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { ApolloError, NetworkStatus } from "apollo-client";
-import { GraphQLError } from "graphql";
-import _ from "lodash";
-import mixpanel from "mixpanel-browser";
-import React from "react";
-import { useParams } from "react-router";
-import { InjectedFormProps, Validator } from "redux-form";
-
+/* eslint-disable @typescript-eslint/no-unsafe-member-access
+-- annotation needed as the DB handles "any" type */
+import type { ApolloError } from "apollo-client";
 import { Button } from "components/Button";
-import { FluidIcon } from "components/FluidIcon";
-import { TooltipWrapper } from "components/TooltipWrapper";
+import { Can } from "utils/authz/Can";
 import { EvidenceImage } from "scenes/Dashboard/components/EvidenceImage/index";
 import { EvidenceLightbox } from "scenes/Dashboard/components/EvidenceLightbox";
+import type { ExecutionResult } from "@apollo/react-common";
+import { FluidIcon } from "components/FluidIcon";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { GenericForm } from "scenes/Dashboard/components/GenericForm";
-import styles from "scenes/Dashboard/containers/EvidenceView/index.css";
-import {
-  GET_FINDING_EVIDENCES, REMOVE_EVIDENCE_MUTATION, UPDATE_DESCRIPTION_MUTATION, UPDATE_EVIDENCE_MUTATION,
-} from "scenes/Dashboard/containers/EvidenceView/queries";
-import { default as globalStyle } from "styles/global.css";
-import { ButtonToolbarRow, Row } from "styles/styledComponents";
-import { Can } from "utils/authz/Can";
+import type { GraphQLError } from "graphql";
 import { Logger } from "utils/logger";
+import { NetworkStatus } from "apollo-client";
+import React from "react";
+import { TooltipWrapper } from "components/TooltipWrapper";
+import _ from "lodash";
+import { faImage } from "@fortawesome/free-solid-svg-icons";
+import globalStyle from "styles/global.css";
+import mixpanel from "mixpanel-browser";
 import { msgError } from "utils/notifications";
+import styles from "scenes/Dashboard/containers/EvidenceView/index.css";
 import { translate } from "utils/translations/translate";
+import { useParams } from "react-router";
+import { ButtonToolbarRow, Row } from "styles/styledComponents";
+import {
+  GET_FINDING_EVIDENCES,
+  REMOVE_EVIDENCE_MUTATION,
+  UPDATE_DESCRIPTION_MUTATION,
+  UPDATE_EVIDENCE_MUTATION,
+} from "scenes/Dashboard/containers/EvidenceView/queries";
+import type { InjectedFormProps, Validator } from "redux-form";
 import { isValidFileSize, validEvidenceImage } from "utils/validations";
+import { useMutation, useQuery } from "@apollo/react-hooks";
 
-const evidenceView: React.FC = (): JSX.Element => {
+const EvidenceView: React.FC = (): JSX.Element => {
   const { findingId } = useParams<{ findingId: string }>();
 
   // State management
   const [isEditing, setEditing] = React.useState(false);
-  const handleEditClick: (() => void) = (): void => { setEditing(!isEditing); };
+  const handleEditClick: () => void = React.useCallback((): void => {
+    setEditing(!isEditing);
+  }, [isEditing]);
 
   const [lightboxIndex, setLightboxIndex] = React.useState(-1);
 
@@ -76,7 +78,10 @@ const evidenceView: React.FC = (): JSX.Element => {
             break;
           default:
             msgError(translate.t("group_alerts.error_textsad"));
-            Logger.warning("An error occurred updating finding evidence", updateError);
+            Logger.warning(
+              "An error occurred updating finding evidence",
+              updateError
+            );
         }
       });
     },
@@ -94,51 +99,91 @@ const evidenceView: React.FC = (): JSX.Element => {
             break;
           default:
             msgError(translate.t("group_alerts.error_textsad"));
-            Logger.warning("An error occurred updating finding evidence", updateError);
+            Logger.warning(
+              "An error occurred updating finding evidence",
+              updateError
+            );
         }
       });
     },
   });
 
-  if (_.isUndefined(data) || _.isEmpty(data)) { return <React.Fragment />; }
+  if (_.isUndefined(data) || _.isEmpty(data)) {
+    return <div />;
+  }
 
-  interface IEvidenceItem { date?: string; description: string; url: string; }
+  interface IEvidenceItem {
+    date?: string;
+    description: string;
+    url: string;
+  }
   const evidenceImages: Dictionary<IEvidenceItem> = {
     ...data.finding.evidence,
     animation: {
       ...data.finding.evidence.animation,
-      description: translate.t("search_findings.tab_evidence.animation_exploit"),
+      description: translate.t(
+        "search_findings.tab_evidence.animation_exploit"
+      ),
     },
     exploitation: {
       ...data.finding.evidence.exploitation,
       description: translate.t("search_findings.tab_evidence.evidence_exploit"),
     },
   };
-  const evidenceList: string[] = _.uniq(["animation", "exploitation", ...Object.keys(evidenceImages)])
-    .filter((name: string) => _.isEmpty(evidenceImages[name].url) ? isEditing : true);
+  const evidenceList: string[] = _.uniq([
+    "animation",
+    "exploitation",
+    ...Object.keys(evidenceImages),
+  ]).filter((name: string): boolean =>
+    _.isEmpty(evidenceImages[name].url) ? isEditing : true
+  );
 
-  const handleUpdate: ((values: Dictionary<IEvidenceItem>) => void) = async (
-    values: Dictionary<IEvidenceItem>,
+  const handleUpdate: (values: Dictionary<IEvidenceItem>) => void = async (
+    values: Dictionary<IEvidenceItem>
   ): Promise<void> => {
     setEditing(false);
 
-    const updateChanges: ((evidence: IEvidenceItem & { file?: FileList }, key: string) => Promise<void>) = async (
-      evidence: IEvidenceItem & { file?: FileList }, key: string): Promise<void> => {
+    const updateChanges: (
+      evidence: IEvidenceItem & { file?: FileList },
+      key: string
+    ) => Promise<void> = async (
+      evidence: IEvidenceItem & { file?: FileList },
+      key: string
+    ): Promise<void> => {
       const { description, file } = evidence;
-      const descriptionChanged: boolean = description !== evidenceImages[key].description;
+      const descriptionChanged: boolean =
+        description !== evidenceImages[key].description;
 
       if (file !== undefined) {
         const mtResult: ExecutionResult = await updateEvidence({
-          variables: { evidenceId: key.toUpperCase(), file: file[0], findingId },
+          variables: {
+            evidenceId: key.toUpperCase(),
+            file: file[0],
+            findingId,
+          },
         });
-        const { success } = (mtResult as { data: { updateEvidence: { success: boolean } } }).data.updateEvidence;
+        const { success } = (mtResult as {
+          data: { updateEvidence: { success: boolean } };
+        }).data.updateEvidence;
 
         if (success && descriptionChanged) {
-          await updateDescription({ variables: { description, evidenceId: key.toUpperCase(), findingId } });
+          await updateDescription({
+            variables: {
+              description,
+              evidenceId: key.toUpperCase(),
+              findingId,
+            },
+          });
         }
       } else {
         if (descriptionChanged) {
-          await updateDescription({ variables: { description, evidenceId: key.toUpperCase(), findingId } });
+          await updateDescription({
+            variables: {
+              description,
+              evidenceId: key.toUpperCase(),
+              findingId,
+            },
+          });
         }
       }
     };
@@ -148,86 +193,117 @@ const evidenceView: React.FC = (): JSX.Element => {
     await refetch();
   };
 
-  const maxFileSize: Validator = isValidFileSize(10);
+  const MAX_FILE_SIZE = 10;
+  const maxFileSize: Validator = isValidFileSize(MAX_FILE_SIZE);
 
   return (
     <React.StrictMode>
       <ButtonToolbarRow>
-        <Can do="backend_api_mutations_update_evidence_mutate">
+        <Can do={"backend_api_mutations_update_evidence_mutate"}>
           <TooltipWrapper
             id={"search_findings.tab_evidence.editable_tooltip.id"}
-            message={translate.t("search_findings.tab_evidence.editable_tooltip")}
+            message={translate.t(
+              "search_findings.tab_evidence.editable_tooltip"
+            )}
           >
             <Button onClick={handleEditClick}>
-              <FluidIcon icon="edit" />&nbsp;{translate.t("search_findings.tab_evidence.editable")}
+              <FluidIcon icon={"edit"} />
+              &nbsp;{translate.t("search_findings.tab_evidence.editable")}
             </Button>
           </TooltipWrapper>
         </Can>
       </ButtonToolbarRow>
       <br />
-      {_.isEmpty(evidenceList)
-        ? (
-          <div className={globalStyle["no-data"]}>
-            <FontAwesomeIcon size={"3x"} icon={faImage} />
-            <p>{translate.t("group.findings.evidence.no_data")}</p>
-          </div>
-        )
-        : (
-          <GenericForm name="editEvidences" onSubmit={handleUpdate} initialValues={evidenceImages}>
-            {({ pristine }: InjectedFormProps): JSX.Element => (
-              <React.Fragment>
-                {isEditing ? (
-                  <ButtonToolbarRow>
-                    <TooltipWrapper
-                      id={translate.t("search_findings.tab_evidence.update_tooltip.id")}
-                      message={translate.t("search_findings.tab_evidence.update_tooltip")}
-                    >
-                    <Button type="submit" disabled={pristine}>
-                      <FluidIcon icon="loading" />&nbsp;{translate.t("search_findings.tab_evidence.update")}
+      {_.isEmpty(evidenceList) ? (
+        <div className={globalStyle["no-data"]}>
+          <FontAwesomeIcon icon={faImage} size={"3x"} />
+          <p>{translate.t("group.findings.evidence.no_data")}</p>
+        </div>
+      ) : (
+        <GenericForm
+          initialValues={evidenceImages}
+          name={"editEvidences"}
+          onSubmit={handleUpdate} // eslint-disable-line react/jsx-no-bind
+        >
+          {({ pristine }: InjectedFormProps): JSX.Element => (
+            <React.Fragment>
+              {isEditing ? (
+                <ButtonToolbarRow>
+                  <TooltipWrapper
+                    id={translate.t(
+                      "search_findings.tab_evidence.update_tooltip.id"
+                    )}
+                    message={translate.t(
+                      "search_findings.tab_evidence.update_tooltip"
+                    )}
+                  >
+                    <Button disabled={pristine} type={"submit"}>
+                      <FluidIcon icon={"loading"} />
+                      &nbsp;{translate.t("search_findings.tab_evidence.update")}
                     </Button>
-                    </TooltipWrapper>
-                  </ButtonToolbarRow>
-                ) : undefined}
-                <Row className={styles.evidenceGrid}>
-                  {evidenceList.map((name: string, index: number): JSX.Element => {
+                  </TooltipWrapper>
+                </ButtonToolbarRow>
+              ) : undefined}
+              {/* eslint-disable-next-line react/forbid-component-props */}
+              <Row className={styles.evidenceGrid}>
+                {evidenceList.map(
+                  (name: string, index: number): JSX.Element => {
                     const evidence: IEvidenceItem = evidenceImages[name];
 
-                    const handleRemove: (() => void) = (): void => {
+                    const handleRemove: () => void = (): void => {
                       mixpanel.track("RemoveEvidence");
                       setEditing(false);
-                      void removeEvidence({ variables: { evidenceId: name.toUpperCase(), findingId } });
+                      void removeEvidence({
+                        variables: {
+                          evidenceId: name.toUpperCase(),
+                          findingId,
+                        },
+                      });
                     };
 
-                    const openImage: (() => void) = (): void => {
-                      if (!isEditing && !isRefetching) { setLightboxIndex(index); }
+                    const openImage: () => void = (): void => {
+                      if (!isEditing && !isRefetching) {
+                        setLightboxIndex(index);
+                      }
                     };
 
-                    const showEmpty: boolean = _.isEmpty(evidence.url) || isRefetching;
+                    const showEmpty: boolean =
+                      _.isEmpty(evidence.url) || isRefetching;
 
                     return (
                       <EvidenceImage
-                        acceptedMimes="image/gif,image/png"
-                        content={showEmpty ? <div /> : `${location.href}/${evidence.url}`}
+                        acceptedMimes={"image/gif,image/png"}
+                        content={
+                          showEmpty ? (
+                            <div />
+                          ) : (
+                            `${location.href}/${evidence.url}`
+                          )
+                        }
                         date={evidence.date}
                         description={evidence.description}
                         isDescriptionEditable={index > 1}
                         isEditing={isEditing}
                         isRemovable={!_.isEmpty(evidence.url)}
-                        key={index}
+                        key={index} // eslint-disable-line react/no-array-index-key
                         name={name}
-                        onClick={openImage}
-                        onDelete={handleRemove}
+                        // Next annotations needed due to nested callbacks
+                        onClick={openImage} // eslint-disable-line react/jsx-no-bind
+                        onDelete={handleRemove} // eslint-disable-line react/jsx-no-bind
                         validate={[validEvidenceImage, maxFileSize]}
                       />
                     );
-                  })}
-                </Row>
-              </React.Fragment>
-            )}
-          </GenericForm>
-        )}
+                  }
+                )}
+              </Row>
+            </React.Fragment>
+          )}
+        </GenericForm>
+      )}
       <EvidenceLightbox
-        evidenceImages={evidenceList.map((name: string) => evidenceImages[name])}
+        evidenceImages={evidenceList.map(
+          (name: string): IEvidenceItem => evidenceImages[name]
+        )}
         index={lightboxIndex}
         onChange={setLightboxIndex}
       />
@@ -235,4 +311,4 @@ const evidenceView: React.FC = (): JSX.Element => {
   );
 };
 
-export { evidenceView as EvidenceView };
+export { EvidenceView };
