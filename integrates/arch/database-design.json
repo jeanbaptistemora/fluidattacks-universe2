@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Mar 01, 2021, 03:35 PM",
+    "DateLastModified": "Mar 02, 2021, 09:10 AM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "2.0"
@@ -784,18 +784,18 @@
           }
         },
         {
-          "FacetName": "reattack",
+          "FacetName": "vulnerability_reattack_historic",
           "KeyAttributeAlias": {
-            "PartitionKeyAlias": "FIN#uuid",
-            "SortKeyAlias": "REATT#iso8601utc"
+            "PartitionKeyAlias": "VULN#uuid#REATT#iso8601utc",
+            "SortKeyAlias": "FIN#uuid"
           },
           "TableData": [
             {
               "pk": {
-                "S": "FIN#a0fddb36-ac0d-4a58-969f-b13194af61c2"
+                "S": "VULN#3098e835-833c-48f7-aa76-12ea884e871f#REATT#2021-02-15T14:01:16Z"
               },
               "sk": {
-                "S": "REATT#2021-02-15T14:01:16Z"
+                "S": "FIN#a0fddb36-ac0d-4a58-969f-b13194af61c2"
               },
               "status": {
                 "S": "REQUESTED"
@@ -817,17 +817,6 @@
             "modified_by",
             "consult_id"
           ],
-          "DataAccess": {
-            "MySql": {}
-          }
-        },
-        {
-          "FacetName": "reattack_vulnerabilities",
-          "KeyAttributeAlias": {
-            "PartitionKeyAlias": "FINDING#uuid",
-            "SortKeyAlias": "VULN#uuid"
-          },
-          "TableData": [],
           "DataAccess": {
             "MySql": {}
           }
