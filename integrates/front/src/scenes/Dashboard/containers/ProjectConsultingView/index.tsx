@@ -1,10 +1,4 @@
-/* tslint:disable:jsx-no-multiline-js
- *
- * Disabling this rule is necessary for accessing render props from
- * apollo components
- */
-import { MutationFunction, QueryResult } from "@apollo/react-common";
-import { Mutation, Query } from "@apollo/react-components";
+import { useMutation, useQuery } from "@apollo/react-hooks";
 import { ApolloError } from "apollo-client";
 import { GraphQLError } from "graphql";
 import _ from "lodash";
@@ -53,57 +47,55 @@ const projectConsultingView: React.FC = (): JSX.Element => {
     });
   };
 
+  const { data, loading } = useQuery(GET_PROJECT_CONSULTING, {
+    fetchPolicy: "network-only",
+    onError: handleErrors,
+    variables: { projectName },
+  });
+
+  const getData: ((callback: ILoadCallback) => void) = (
+    callbackFn: (data: ICommentStructure[]) => void,
+  ): void => {
+    callbackFn(data.project.consulting.map((consult: ICommentStructure) => ({
+      ...consult,
+      created_by_current_user: consult.email === userEmail,
+      id: Number(consult.id),
+      parent: Number(consult.parent),
+    })));
+  };
+
+  const [addConsult] = useMutation(ADD_PROJECT_CONSULT, {
+    onError: handleAddConsultError,
+  });
+
+  const handlePost: ((consult: ICommentStructure, callbackFn: IPostCallback) => void) = (
+    consult: ICommentStructure, callbackFn: IPostCallback,
+  ): void => {
+    interface IMutationResult {
+      data: {
+        addProjectConsult: {
+          commentId: string;
+          success: boolean;
+        };
+      };
+    }
+    mixpanel.track("AddGroupComment", { projectName });
+    void addConsult({ variables: { projectName, ...consult } })
+      .then((mtResult: void | {}): void => {
+        const result: IMutationResult["data"] = (mtResult as IMutationResult).data;
+        if (result.addProjectConsult.success) {
+          callbackFn({ ...consult, id: Number(result.addProjectConsult.commentId) });
+        }
+      });
+  };
+
+  if (_.isUndefined(data) || loading) {
+    return <div />;
+  }
+
   return (
     <React.StrictMode>
-      <Query
-        fetchPolicy="network-only"
-        query={GET_PROJECT_CONSULTING}
-        variables={{ projectName }}
-        onError={handleErrors}
-      >
-        {({ data, loading }: QueryResult): JSX.Element => {
-          if (_.isUndefined(data) || loading) { return <React.Fragment />; }
-          const getData: ((callback: ILoadCallback) => void) = (
-            callbackFn: (data: ICommentStructure[]) => void,
-          ): void => {
-            callbackFn(data.project.consulting.map((consult: ICommentStructure) => ({
-              ...consult,
-              created_by_current_user: consult.email === userEmail,
-              id: Number(consult.id),
-              parent: Number(consult.parent),
-            })));
-          };
-
-          return (
-            <Mutation mutation={ADD_PROJECT_CONSULT} onError={handleAddConsultError}>
-              {(addConsult: MutationFunction): JSX.Element => {
-                const handlePost: ((consult: ICommentStructure, callbackFn: IPostCallback) => void) = (
-                  consult: ICommentStructure, callbackFn: IPostCallback,
-                ): void => {
-                  interface IMutationResult {
-                    data: {
-                      addProjectConsult: {
-                        commentId: string;
-                        success: boolean;
-                      };
-                    };
-                  }
-                  mixpanel.track("AddGroupComment", { projectName });
-                  void addConsult({ variables: { projectName, ...consult } })
-                    .then((mtResult: void | {}): void => {
-                      const result: IMutationResult["data"] = (mtResult as IMutationResult).data;
-                      if (result.addProjectConsult.success) {
-                        callbackFn({ ...consult, id: Number(result.addProjectConsult.commentId) });
-                      }
-                    });
-                };
-
-                return (<Comments id="project-comments" onLoad={getData} onPostComment={handlePost} />);
-              }}
-            </Mutation>
-          );
-        }}
-      </Query>
+      <Comments id="project-comments" onLoad={getData} onPostComment={handlePost} />
     </React.StrictMode>
   );
 };
