@@ -62,6 +62,7 @@ observes.config-target-redshift-runtime
 observes.lint.code-etl
 observes.lint.dif-gitlab-etl
 observes.lint.postgres-client
+observes.lint.service-batch-stability
 observes.lint.service-migrate-tables
 observes.lint.singer-io
 observes.lint.streamer-gitlab

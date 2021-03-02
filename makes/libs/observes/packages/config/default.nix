@@ -176,6 +176,27 @@ rec {
     nix = postgresClient.nix;
   };
 
+  serviceBatchStability = {
+    srcPath = path "/observes/services/batch_stability";
+    python = {
+      direct = [
+        "boto3==1.17.17"
+        "bugsnag==4.0.2"
+      ];
+      inherited = [
+        "botocore==1.20.17"
+        "jmespath==0.10.0"
+        "python-dateutil==2.8.1"
+        "s3transfer==0.3.4"
+        "six==1.15.0"
+        "urllib3==1.26.3"
+        "WebOb==1.8.7"
+      ];
+    };
+    local = [ ];
+    nix = [ ];
+  };
+
   serviceMigrateTables = {
     srcPath = path "/observes/services/migrate_tables";
     python = {

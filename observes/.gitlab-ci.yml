@@ -81,6 +81,11 @@ observes.lint.postgres-client:
   <<: *observes_in_dev_branch
   stage: lint-code
 
+observes.lint.service-batch-stability:
+  <<: *makes
+  <<: *observes_in_dev_branch
+  stage: lint-code
+
 observes.lint.service-migrate-tables:
   <<: *makes
   <<: *observes_in_dev_branch
@@ -130,6 +135,15 @@ observes.lint.update-sync-date:
   <<: *makes
   <<: *observes_in_dev_branch
   stage: lint-code
+
+observes.scheduled.batch-stability:
+  <<: *makes
+  only:
+    refs: [schedules]
+    variables: [$observes_batch_stability]
+  stage: analytics
+  tags: [autoscaling]
+  interruptible: false
 
 observes.scheduled.code-etl-amend:
   <<: *makes
@@ -329,15 +343,6 @@ observes_zoho:
   only:
     refs: [schedules]
     variables: [$observes_zoho]
-  interruptible: false
-
-observes_batch_stability:
-  <<: *with_nix_serial
-  only:
-    refs: [schedules]
-    variables: [$observes_batch_stability]
-  stage: analytics
-  tags: [autoscaling]
   interruptible: false
 
 observes_timedoctor_refresh_token:

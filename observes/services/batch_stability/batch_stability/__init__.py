@@ -50,7 +50,6 @@ def report_msg(
     print(arguments)
     bugsnag.start_session()
     bugsnag.notify(**arguments)
-    bugsnag.send_sessions()
 
 
 def main() -> None:
@@ -59,11 +58,11 @@ def main() -> None:
 
     for items in chain(
         paginator.paginate(
-            jobQueue='default',
+            jobQueue='spot_soon',
             jobStatus='SUCCEEDED',
         ),
         paginator.paginate(
-            jobQueue='default',
+            jobQueue='spot_soon',
             jobStatus='FAILED',
         ),
     ):
@@ -79,7 +78,3 @@ def main() -> None:
                     reason=job['statusReason'],
                     success=job['status'] == 'SUCCEEDED',
                 )
-
-
-if __name__ == '__main__':
-    main()

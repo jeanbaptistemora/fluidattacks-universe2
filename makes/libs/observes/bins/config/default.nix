@@ -12,6 +12,12 @@
     package = observesPkgs.difGitlabEtl;
   };
 
+  serviceBatchStability = {
+    binName = "observes-service-batch-stability";
+    entrypoint = "from batch_stability import main";
+    package = observesPkgs.serviceBatchStability;
+  };
+
   serviceMigrateTables = {
     binName = "observes-service-migrate-tables";
     entrypoint = "from migrate_tables.cli import main";
