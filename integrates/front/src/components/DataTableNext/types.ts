@@ -32,6 +32,7 @@ interface ITableProps {
   striped?: boolean;
   tableBody?: string;
   tableHeader?: string;
+  tableSize?: string;
   onColumnToggle?: (arg1: string) => void;
   onUpdateEnableFilter?: () => void;
 }

@@ -212,6 +212,12 @@ label {
   text-decoration: none;
 }
 
+:global .largeTable {
+  height: 500px;
+  margin-bottom: 10px;
+  overflow: auto;
+}
+
 :global .questionBtn {
   border: 0 !important;
   color: #ff3435;

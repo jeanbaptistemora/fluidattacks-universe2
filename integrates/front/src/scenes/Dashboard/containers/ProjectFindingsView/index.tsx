@@ -335,6 +335,7 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
               rowEvents={{ onClick: goToFinding }}
               search={true}
               striped={true}
+              tableSize={"largeTable"}
             />
               <Modal
                 open={isReportsModalOpen}
