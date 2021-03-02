@@ -72,6 +72,12 @@
     package = observesPkgs.tapTimedoctor;
   };
 
+  tapToeFiles = {
+    binName = "observes-tap-toe-files";
+    entrypoint = "from tap_toe_files import main";
+    package = observesPkgs.tapToeFiles;
+  };
+
   updateSyncDate = {
     binName = "observes-update-sync-date";
     entrypoint = "from update_s3_last_sync_date.cli import main";

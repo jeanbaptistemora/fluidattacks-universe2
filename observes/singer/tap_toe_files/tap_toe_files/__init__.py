@@ -50,7 +50,3 @@ def main():
         subs, = re.match(pattern=r'services/groups/(\w+)',
                          string=lines_csv_path).groups(1)
         stream_lines_csv(subs, lines_csv_path)
-
-
-if __name__ == "__main__":
-    main()

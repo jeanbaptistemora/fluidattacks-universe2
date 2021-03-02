@@ -253,6 +253,15 @@ observes.scheduled.timedoctor-etl:
     variables: [$observes_timedoctor]
   interruptible: false
 
+observes.scheduled.toe-files-etl:
+  <<: *makes
+  tags: [autoscaling-analytics]
+  stage: analytics
+  only:
+    refs: [schedules]
+    variables: [$observes_services_toe]
+  interruptible: false
+
 observes.scheduled.zoho-crm-etl:
   <<: *makes
   tags: [autoscaling-analytics]
@@ -317,15 +326,6 @@ observes.test.target-redshift:
   stage: test-code
 
 # disorganized jobs
-
-observes_services_toe:
-  <<: *with_nix
-  tags: [autoscaling-analytics]
-  stage: analytics
-  only:
-    refs: [schedules]
-    variables: [$observes_services_toe]
-  interruptible: false
 
 observes_gitlab_on_aws:
   <<: *with_nix

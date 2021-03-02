@@ -558,6 +558,16 @@ rec {
     nix = [ ];
   };
 
+  tapToeFiles = {
+    srcPath = path "/observes/singer/tap_toe_files";
+    python = {
+      direct = [ ];
+      inherited = [ ];
+    };
+    local = [ ];
+    nix = [ ];
+  };
+
   targetRedshift = {
     srcPath = path "/observes/singer/target_redshift_2";
     python = {

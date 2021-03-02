@@ -101,6 +101,7 @@ observes.scheduled.mixpanel-integrates-etl
 observes.scheduled.timedoctor-backup
 observes.scheduled.timedoctor-etl
 observes.scheduled.timedoctor-refresh-token
+observes.scheduled.toe-files-etl
 observes.scheduled.zoho-crm-etl
 observes.scheduled.zoho-crm-prepare
 observes.service.batch-stability
@@ -114,6 +115,7 @@ observes.tap-json
 observes.tap-mailchimp
 observes.tap-mixpanel
 observes.tap-timedoctor
+observes.tap-toe-files
 observes.target-redshift
 observes.update-sync-date
 reviews
