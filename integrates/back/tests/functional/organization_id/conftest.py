@@ -47,12 +47,6 @@ async def populate() -> bool:
                 'object': 'self',
                 'role': 'admin',
             },
-            {
-                'level': 'organization',
-                'subject': 'test1@test1.com',
-                'object': '40f6da5f-4f66-4bf0-825b-a2d9748ad6db',
-                'role': 'customeradmin',
-            },
         ]
     }
     return await db.populate(data)
