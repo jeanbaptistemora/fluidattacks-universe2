@@ -1,43 +1,54 @@
-import { MockedProvider, MockedResponse } from "@apollo/react-testing";
-import { PureAbility } from "@casl/ability";
-import { mount, ReactWrapper } from "enzyme";
 import { GraphQLError } from "graphql";
-import React from "react";
-// tslint:disable-next-line: no-submodule-imports
-import { act } from "react-dom/test-utils";
-import { Provider } from "react-redux";
-import { MemoryRouter, Route } from "react-router";
-import waitForExpect from "wait-for-expect";
-
+import type { IOrganizationPolicies } from "scenes/Dashboard/containers/OrganizationPoliciesView/types";
+import { MockedProvider } from "@apollo/react-testing";
+import type { MockedResponse } from "@apollo/react-testing";
 import { OrganizationPolicies } from "scenes/Dashboard/containers/OrganizationPoliciesView";
+import { Provider } from "react-redux";
+import { PureAbility } from "@casl/ability";
+import React from "react";
+import type { ReactWrapper } from "enzyme";
+import { act } from "react-dom/test-utils";
+import { authzPermissionsContext } from "utils/authz/config";
+import { mount } from "enzyme";
+import store from "store";
+import { translate } from "utils/translations/translate";
+import waitForExpect from "wait-for-expect";
 import {
   GET_ORGANIZATION_POLICIES,
   UPDATE_ORGANIZATION_POLICIES,
 } from "scenes/Dashboard/containers/OrganizationPoliciesView/queries";
-import { IOrganizationPolicies } from "scenes/Dashboard/containers/OrganizationPoliciesView/types";
-import store from "store";
-import { authzPermissionsContext } from "utils/authz/config";
+import { MemoryRouter, Route } from "react-router";
 import { msgError, msgSuccess } from "utils/notifications";
-import { translate } from "utils/translations/translate";
 
-jest.mock("../../../../utils/notifications", (): Dictionary => {
-  const mockedNotifications: Dictionary = jest.requireActual("../../../../utils/notifications");
-  mockedNotifications.msgError = jest.fn();
-  mockedNotifications.msgSuccess = jest.fn();
+jest.mock(
+  "../../../../utils/notifications",
+  (): Dictionary => {
+    const mockedNotifications: Dictionary = jest.requireActual(
+      "../../../../utils/notifications"
+    );
 
-  return mockedNotifications;
-});
+    mockedNotifications.msgError = jest.fn(); // eslint-disable-line fp/no-mutation, jest/prefer-spy-on
+    mockedNotifications.msgSuccess = jest.fn(); // eslint-disable-line fp/no-mutation, jest/prefer-spy-on
 
-describe("Organization policies view", () => {
-  const mockProps: IOrganizationPolicies = { organizationId: "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3" };
+    return mockedNotifications;
+  }
+);
 
-  it("should return a  function", () => {
-    expect(typeof OrganizationPolicies)
-      .toEqual("function");
+describe("Organization policies view", (): void => {
+  const mockProps: IOrganizationPolicies = {
+    organizationId: "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3",
+  };
+
+  it("should return a  function", (): void => {
+    expect.hasAssertions();
+
+    expect(typeof OrganizationPolicies).toStrictEqual("function");
   });
 
   it("should render component with default values", async (): Promise<void> => {
-    const mocks: ReadonlyArray<MockedResponse> = [
+    expect.hasAssertions();
+
+    const mocks: readonly MockedResponse[] = [
       {
         request: {
           query: GET_ORGANIZATION_POLICIES,
@@ -48,12 +59,10 @@ describe("Organization policies view", () => {
         result: {
           data: {
             organization: {
-              // tslint:disable: no-null-keyword
               maxAcceptanceDays: null,
               maxAcceptanceSeverity: 10,
               maxNumberAcceptations: null,
               minAcceptanceSeverity: 0,
-              // tslint:enable: no-null-keyword
             },
           },
         },
@@ -62,57 +71,58 @@ describe("Organization policies view", () => {
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/orgs/okada/policies"]}>
         <Provider store={store}>
-          <MockedProvider mocks={mocks} addTypename={false}>
-            <Route path="/orgs/:organizationName/policies">
-              <OrganizationPolicies {...mockProps} />
+          <MockedProvider addTypename={false} mocks={mocks}>
+            <Route path={"/orgs/:organizationName/policies"}>
+              <OrganizationPolicies organizationId={mockProps.organizationId} />
             </Route>
           </MockedProvider>
         </Provider>
-      </MemoryRouter>,
+      </MemoryRouter>
     );
 
-    await act(async () => {
-      await waitForExpect(() => {
-        wrapper.update();
+    await act(
+      async (): Promise<void> => {
+        expect.hasAssertions();
 
-        expect(wrapper)
-          .toHaveLength(1);
-        expect(wrapper.find("tr"))
-          .toHaveLength(4);
-      });
-    });
+        await waitForExpect((): void => {
+          wrapper.update();
+
+          expect(wrapper).toHaveLength(1);
+          expect(wrapper.find("tr")).toHaveLength(4);
+        });
+      }
+    );
 
     expect(
-      wrapper
-        .find({ name: "maxAcceptanceDays" })
-        .find("input")
-        .prop("value"))
-      .toBe("");
+      wrapper.find({ name: "maxAcceptanceDays" }).find("input").prop("value")
+    ).toBe("");
 
     expect(
       wrapper
         .find({ name: "maxAcceptanceSeverity" })
         .find("input")
-        .prop("value"))
-      .toBe("10.0");
+        .prop("value")
+    ).toBe("10.0");
 
     expect(
       wrapper
         .find({ name: "maxNumberAcceptations" })
         .find("input")
-        .prop("value"))
-      .toBe("");
+        .prop("value")
+    ).toBe("");
 
     expect(
       wrapper
         .find({ name: "minAcceptanceSeverity" })
         .find("input")
-        .prop("value"))
-      .toBe("0.0");
+        .prop("value")
+    ).toBe("0.0");
   });
 
-  it("should render an error message", async () => {
-    const mocks: ReadonlyArray<MockedResponse> = [
+  it("should render an error message", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    const mocks: readonly MockedResponse[] = [
       {
         request: {
           query: GET_ORGANIZATION_POLICIES,
@@ -128,29 +138,33 @@ describe("Organization policies view", () => {
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/orgs/okada/policies"]}>
         <Provider store={store}>
-          <MockedProvider mocks={mocks} addTypename={false}>
-            <Route path="/orgs/:organizationName/policies">
-              <OrganizationPolicies {...mockProps} />
+          <MockedProvider addTypename={false} mocks={mocks}>
+            <Route path={"/orgs/:organizationName/policies"}>
+              <OrganizationPolicies organizationId={mockProps.organizationId} />
             </Route>
           </MockedProvider>
         </Provider>
-      </MemoryRouter>,
+      </MemoryRouter>
     );
 
-    await act(async () => {
-      await waitForExpect(() => {
-        wrapper.update();
+    await act(
+      async (): Promise<void> => {
+        expect.hasAssertions();
 
-        expect(msgError)
-          .toHaveBeenCalled();
-        expect(wrapper.find("table"))
-          .toHaveLength(0);
-      });
-    });
+        await waitForExpect((): void => {
+          wrapper.update();
+
+          expect(msgError).toHaveBeenCalled(); // eslint-disable-line jest/prefer-called-with
+          expect(wrapper.find("table")).toHaveLength(0);
+        });
+      }
+    );
   });
 
-  it("should update the policies", async () => {
-    const mocks: ReadonlyArray<MockedResponse> = [
+  it("should update the policies", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    const mocks: readonly MockedResponse[] = [
       {
         request: {
           query: GET_ORGANIZATION_POLICIES,
@@ -176,7 +190,6 @@ describe("Organization policies view", () => {
             maxAcceptanceDays: 2,
             maxAcceptanceSeverity: 8.9,
             maxNumberAcceptations: 1,
-            // tslint:disable-next-line: no-null-keyword
             minAcceptanceSeverity: null,
             organizationId: mockProps.organizationId,
             organizationName: "okada",
@@ -215,27 +228,31 @@ describe("Organization policies view", () => {
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/orgs/okada/policies"]}>
         <Provider store={store}>
-          <MockedProvider mocks={mocks} addTypename={false}>
-            <Route path="/orgs/:organizationName/policies">
+          <MockedProvider addTypename={false} mocks={mocks}>
+            <Route path={"/orgs/:organizationName/policies"}>
               <authzPermissionsContext.Provider value={mockedPermissions}>
-                <OrganizationPolicies {...mockProps} />
+                <OrganizationPolicies
+                  organizationId={mockProps.organizationId}
+                />
               </authzPermissionsContext.Provider>
             </Route>
           </MockedProvider>
         </Provider>
-      </MemoryRouter>,
+      </MemoryRouter>
     );
 
-    await act(async () => {
-      await waitForExpect(() => {
-        wrapper.update();
+    await act(
+      async (): Promise<void> => {
+        expect.hasAssertions();
 
-        expect(wrapper)
-          .toHaveLength(1);
-        expect(wrapper.find("tr"))
-          .toHaveLength(4);
-      });
-    });
+        await waitForExpect((): void => {
+          wrapper.update();
+
+          expect(wrapper).toHaveLength(1);
+          expect(wrapper.find("tr")).toHaveLength(4);
+        });
+      }
+    );
 
     const form: ReactWrapper = wrapper.find("genericForm");
     const maxAcceptanceDays: ReactWrapper = wrapper
@@ -250,52 +267,62 @@ describe("Organization policies view", () => {
     const minAcceptanceSeverity: ReactWrapper = wrapper
       .find({ name: "minAcceptanceSeverity" })
       .find("input");
-    let saveButton: ReactWrapper = wrapper
+    const saveButton1: ReactWrapper = wrapper
       .find("button")
-      .filterWhere((element: ReactWrapper) => element.contains("Save"))
+      .filterWhere((element: ReactWrapper): boolean => element.contains("Save"))
       .first();
 
-    expect(saveButton)
-      .toHaveLength(0);
+    expect(saveButton1).toHaveLength(0);
 
-    maxAcceptanceDays.simulate("change", { target: { value: "2" }});
-    maxAcceptanceSeverity.simulate("change", { target: { value: "8.9" }});
-    maxNumberAcceptations.simulate("change", { target: { value: "1" }});
+    maxAcceptanceDays.simulate("change", { target: { value: "2" } });
+    maxAcceptanceSeverity.simulate("change", { target: { value: "8.9" } });
+    maxNumberAcceptations.simulate("change", { target: { value: "1" } });
     minAcceptanceSeverity.simulate("change", { target: { value: "" } });
 
-    await act(async () => {
-      await waitForExpect(() => {
-        wrapper.update();
+    await act(
+      async (): Promise<void> => {
+        expect.hasAssertions();
 
-        saveButton = wrapper
-          .find("button")
-          .filterWhere((element: ReactWrapper) => element.contains("Save"))
-          .first();
-        expect(saveButton)
-          .toHaveLength(1);
-      });
-    });
+        await waitForExpect((): void => {
+          wrapper.update();
+
+          const saveButton2: ReactWrapper = wrapper
+            .find("button")
+            .filterWhere((element: ReactWrapper): boolean =>
+              element.contains("Save")
+            )
+            .first();
+
+          expect(saveButton2).toHaveLength(1);
+        });
+      }
+    );
 
     form.simulate("submit");
 
-    await act(async () => {
-      await waitForExpect(() => {
-        wrapper.update();
+    await act(
+      async (): Promise<void> => {
+        expect.hasAssertions();
 
-        expect(msgSuccess)
-          .toHaveBeenCalled();
-        expect(
-          wrapper
-            .find({ name: "maxAcceptanceDays" })
-            .find("input")
-            .prop("value"))
-          .toBe("2");
-      });
-    });
+        await waitForExpect((): void => {
+          wrapper.update();
+
+          expect(msgSuccess).toHaveBeenCalled(); // eslint-disable-line jest/prefer-called-with
+          expect(
+            wrapper
+              .find({ name: "maxAcceptanceDays" })
+              .find("input")
+              .prop("value")
+          ).toBe("2");
+        });
+      }
+    );
   });
 
-  it("should not show save button", async () => {
-    const mocks: ReadonlyArray<MockedResponse> = [
+  it("should not show save button", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    const mocks: readonly MockedResponse[] = [
       {
         request: {
           query: GET_ORGANIZATION_POLICIES,
@@ -318,55 +345,64 @@ describe("Organization policies view", () => {
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/orgs/okada/policies"]}>
         <Provider store={store}>
-          <MockedProvider mocks={mocks} addTypename={false}>
-            <Route path="/orgs/:organizationName/policies">
-              <OrganizationPolicies {...mockProps} />
+          <MockedProvider addTypename={false} mocks={mocks}>
+            <Route path={"/orgs/:organizationName/policies"}>
+              <OrganizationPolicies organizationId={mockProps.organizationId} />
             </Route>
           </MockedProvider>
         </Provider>
-      </MemoryRouter>,
+      </MemoryRouter>
     );
 
-    await act(async () => {
-      await waitForExpect(() => {
-        wrapper.update();
+    await act(
+      async (): Promise<void> => {
+        expect.hasAssertions();
 
-        expect(wrapper)
-          .toHaveLength(1);
-        expect(wrapper.find("tr"))
-          .toHaveLength(4);
-      });
-    });
+        await waitForExpect((): void => {
+          wrapper.update();
+
+          expect(wrapper).toHaveLength(1);
+          expect(wrapper.find("tr")).toHaveLength(4);
+        });
+      }
+    );
 
     const maxAcceptanceDays: ReactWrapper = wrapper
       .find({ name: "maxAcceptanceDays" })
       .find("input");
-    let saveButton: ReactWrapper = wrapper
+    const saveButton1: ReactWrapper = wrapper
       .find("button")
-      .filterWhere((element: ReactWrapper) => element.contains("Save"))
+      .filterWhere((element: ReactWrapper): boolean => element.contains("Save"))
       .first();
 
-    expect(saveButton)
-      .toHaveLength(0);
+    expect(saveButton1).toHaveLength(0);
 
-    maxAcceptanceDays.simulate("change", { target: { value: "2" }});
+    maxAcceptanceDays.simulate("change", { target: { value: "2" } });
 
-    await act(async () => {
-      await waitForExpect(() => {
-        wrapper.update();
+    await act(
+      async (): Promise<void> => {
+        expect.hasAssertions();
 
-        saveButton = wrapper
-          .find("button")
-          .filterWhere((element: ReactWrapper) => element.contains("Save"))
-          .first();
-        expect(saveButton)
-          .toHaveLength(0);
-      });
-    });
+        await waitForExpect((): void => {
+          wrapper.update();
+
+          const saveButton2: ReactWrapper = wrapper
+            .find("button")
+            .filterWhere((element: ReactWrapper): boolean =>
+              element.contains("Save")
+            )
+            .first();
+
+          expect(saveButton2).toHaveLength(0);
+        });
+      }
+    );
   });
 
-  it("should handle errors", async () => {
-    const mocks: ReadonlyArray<MockedResponse> = [
+  it("should handle errors", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    const mocks: readonly MockedResponse[] = [
       {
         request: {
           query: GET_ORGANIZATION_POLICIES,
@@ -398,7 +434,11 @@ describe("Organization policies view", () => {
           },
         },
         result: {
-          errors: [new GraphQLError("Exception - Acceptance days should be a positive integer")],
+          errors: [
+            new GraphQLError(
+              "Exception - Acceptance days should be a positive integer"
+            ),
+          ],
         },
       },
       {
@@ -414,9 +454,11 @@ describe("Organization policies view", () => {
           },
         },
         result: {
-          errors: [new GraphQLError(
-            "Exception - Severity value should be a positive floating number between 0.0 a 10.0",
-          )],
+          errors: [
+            new GraphQLError(
+              "Exception - Severity value should be a positive floating number between 0.0 a 10.0"
+            ),
+          ],
         },
       },
       {
@@ -432,9 +474,11 @@ describe("Organization policies view", () => {
           },
         },
         result: {
-          errors: [new GraphQLError(
-            "Exception - Min acceptance severity value should not be higher than the max value",
-          )],
+          errors: [
+            new GraphQLError(
+              "Exception - Min acceptance severity value should not be higher than the max value"
+            ),
+          ],
         },
       },
       {
@@ -450,7 +494,11 @@ describe("Organization policies view", () => {
           },
         },
         result: {
-          errors: [new GraphQLError("Exception - Number of acceptations should be zero or positive")],
+          errors: [
+            new GraphQLError(
+              "Exception - Number of acceptations should be zero or positive"
+            ),
+          ],
         },
       },
       {
@@ -476,87 +524,120 @@ describe("Organization policies view", () => {
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/orgs/okada/policies"]}>
         <Provider store={store}>
-          <MockedProvider mocks={mocks} addTypename={false}>
-            <Route path="/orgs/:organizationName/policies">
+          <MockedProvider addTypename={false} mocks={mocks}>
+            <Route path={"/orgs/:organizationName/policies"}>
               <authzPermissionsContext.Provider value={mockedPermissions}>
-                <OrganizationPolicies {...mockProps} />
+                <OrganizationPolicies
+                  organizationId={mockProps.organizationId}
+                />
               </authzPermissionsContext.Provider>
             </Route>
           </MockedProvider>
         </Provider>
-      </MemoryRouter>,
+      </MemoryRouter>
     );
 
-    await act(async () => {
-      await waitForExpect(() => {
-        wrapper.update();
+    await act(
+      async (): Promise<void> => {
+        expect.hasAssertions();
 
-        expect(wrapper)
-          .toHaveLength(1);
-        expect(wrapper.find("tr"))
-          .toHaveLength(4);
-      });
-    });
+        await waitForExpect((): void => {
+          wrapper.update();
+
+          expect(wrapper).toHaveLength(1);
+          expect(wrapper.find("tr")).toHaveLength(4);
+        });
+      }
+    );
 
     const form: ReactWrapper = wrapper.find("genericForm");
     const maxAcceptanceDays: ReactWrapper = wrapper
       .find({ name: "maxAcceptanceDays" })
       .find("input");
 
-    maxAcceptanceDays.simulate("change", { target: { value: "1" }});
+    maxAcceptanceDays.simulate("change", { target: { value: "1" } });
     form.simulate("submit");
 
-    await act(async () => {
-      await waitForExpect(() => {
-        wrapper.update();
+    await act(
+      async (): Promise<void> => {
+        expect.hasAssertions();
 
-        expect(msgError)
-          .toBeCalledWith(translate.t("organization.tabs.policies.errors.maxAcceptanceDays"));
-      });
-    });
+        await waitForExpect((): void => {
+          wrapper.update();
 
-    form.simulate("submit");
-
-    await act(async () => {
-      await waitForExpect(() => {
-        wrapper.update();
-
-        expect(msgError)
-          .toBeCalledWith(translate.t("organization.tabs.policies.errors.acceptanceSeverity"));
-      });
-    });
+          expect(msgError).toHaveBeenCalledWith(
+            translate.t("organization.tabs.policies.errors.maxAcceptanceDays")
+          );
+        });
+      }
+    );
 
     form.simulate("submit");
 
-    await act(async () => {
-      await waitForExpect(() => {
-        wrapper.update();
+    await act(
+      async (): Promise<void> => {
+        expect.hasAssertions();
 
-        expect(msgError)
-          .toBeCalledWith(translate.t("organization.tabs.policies.errors.acceptanceSeverityRange"));
-      });
-    });
+        await waitForExpect((): void => {
+          wrapper.update();
 
-    form.simulate("submit");
-
-    await act(async () => {
-      await waitForExpect(() => {
-        wrapper.update();
-
-        expect(msgError)
-          .toBeCalledWith(translate.t("organization.tabs.policies.errors.maxNumberAcceptations"));
-      });
-    });
+          expect(msgError).toHaveBeenCalledWith(
+            translate.t("organization.tabs.policies.errors.acceptanceSeverity")
+          );
+        });
+      }
+    );
 
     form.simulate("submit");
 
-    await act(async () => {
-      await waitForExpect(() => {
-        wrapper.update();
+    await act(
+      async (): Promise<void> => {
+        expect.hasAssertions();
 
-        expect(msgError)
-          .toBeCalledWith(translate.t("group_alerts.error_textsad"));
-      });
-    });
+        await waitForExpect((): void => {
+          wrapper.update();
+
+          expect(msgError).toHaveBeenCalledWith(
+            translate.t(
+              "organization.tabs.policies.errors.acceptanceSeverityRange"
+            )
+          );
+        });
+      }
+    );
+
+    form.simulate("submit");
+
+    await act(
+      async (): Promise<void> => {
+        expect.hasAssertions();
+
+        await waitForExpect((): void => {
+          wrapper.update();
+
+          expect(msgError).toHaveBeenCalledWith(
+            translate.t(
+              "organization.tabs.policies.errors.maxNumberAcceptations"
+            )
+          );
+        });
+      }
+    );
+
+    form.simulate("submit");
+
+    await act(
+      async (): Promise<void> => {
+        expect.hasAssertions();
+
+        await waitForExpect((): void => {
+          wrapper.update();
+
+          expect(msgError).toHaveBeenCalledWith(
+            translate.t("group_alerts.error_textsad")
+          );
+        });
+      }
+    );
   });
 });
