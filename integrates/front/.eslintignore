@@ -23,6 +23,8 @@ src/scenes/Dashboard/**/*.*
 !src/scenes/Dashboard/containers/OrganizationContent/**
 !src/scenes/Dashboard/containers/OrganizationGroupsView/**
 !src/scenes/Dashboard/containers/OrganizationPoliciesView/index.spec.tsx
+!src/scenes/Dashboard/containers/OrganizationPoliciesView/queries.ts
+!src/scenes/Dashboard/containers/OrganizationPoliciesView/types.ts
 !src/scenes/Dashboard/containers/ProjectSettingsView/DeleteGroup/**
 !src/scenes/Dashboard/containers/ProjectSettingsView/Unsubscribe/**
 !src/scenes/Dashboard/containers/TrackingView/**

@@ -1,10 +1,12 @@
-export interface IOrganizationPolicies {
+interface IOrganizationPolicies {
   organizationId: string;
 }
 
-export interface IPoliciesFormData {
+interface IPoliciesFormData {
   maxAcceptanceDays: string;
   maxAcceptanceSeverity: string;
   maxNumberAcceptations: string;
   minAcceptanceSeverity: string;
 }
+
+export { IOrganizationPolicies, IPoliciesFormData };
