@@ -1,9 +1,15 @@
 # Standard library
+from operator import itemgetter
 from typing import (
+    Any,
     Dict,
+    List,
     NamedTuple,
     Set,
 )
+
+# Local
+from backend.model.dynamo.types import VersionedItem
 
 
 class PrimaryKey(NamedTuple):
@@ -13,7 +19,6 @@ class PrimaryKey(NamedTuple):
 
 class Entity(NamedTuple):
     primary_key: PrimaryKey
-    attrs: Set[str]
 
 
 # Constants
@@ -22,19 +27,12 @@ RESERVED_WORDS: Set[str] = {
     '/',
 }
 
-
 ENTITIES: Dict[str, Entity] = dict(
     ROOT=Entity(
         primary_key=PrimaryKey(
             partition_key='GROUP#',
             sort_key='ROOT#',
         ),
-        attrs={
-            'branch',
-            'kind',
-            'url',
-            'environment_urls',
-        },
     ),
 )
 
@@ -65,7 +63,7 @@ def validate_key_words(*, key: str) -> None:
 def build_key(*, entity: str, partition_key: str, sort_key: str) -> PrimaryKey:
     validate_entity(entity=entity)
     validate_pkey_not_empty(key=partition_key)
-    for key in [partition_key, sort_key]:
+    for key in {partition_key, sort_key}:
         validate_key_type(key=key)
         validate_key_words(key=key)
 
@@ -84,4 +82,30 @@ def build_key(*, entity: str, partition_key: str, sort_key: str) -> PrimaryKey:
     return PrimaryKey(
         partition_key=composite_pkey,
         sort_key=composite_skey,
+    )
+
+
+def build_versioned_item(
+    *,
+    primary_key: PrimaryKey,
+    raw_items: List[Any]
+) -> VersionedItem:
+    historic_sort_key = f'{primary_key.sort_key}#HIST#'
+    historic = (
+        item
+        for item in raw_items
+        if item['sk'].startswith(historic_sort_key)
+    )
+
+    metadata = next(
+        item
+        for item in raw_items
+        if item['sk'] == primary_key.sort_key
+    )
+
+    return VersionedItem(
+        historic=tuple(
+            sorted(historic, key=itemgetter('sk'), reverse=True)
+        ),
+        metadata=metadata
     )

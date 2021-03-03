@@ -4,11 +4,10 @@
 
 from datetime import datetime
 from decimal import Decimal
-from enum import Enum
 from typing import Any, List, Dict, Union, Set, NamedTuple, Optional
 from typing_extensions import TypedDict
 
-from boto3.dynamodb.conditions import Key
+from boto3.dynamodb.conditions import ConditionBase
 
 Action = NamedTuple('Action', [
     ('action', str),
@@ -177,7 +176,7 @@ UpdateAccessTokenPayload = NamedTuple('UpdateAccessTokenPayload', [
     ('session_jwt', str),
 ])
 Dynamo = Union[Organization, str]
-DynamoQuery = Dict[str, Union[Key, str]]
+DynamoQuery = Dict[str, Union[ConditionBase, str]]
 DynamoDelete = NamedTuple(
     'DynamoDelete',
     [('Key', Dict[str, Any])]

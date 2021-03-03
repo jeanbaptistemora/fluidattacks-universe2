@@ -6,8 +6,7 @@ from boto3.dynamodb.conditions import Key
 
 # Local
 from backend.dal.helpers import dynamodb
-from backend.model import dynamo_model
-
+from backend.model import dynamo
 
 # Constants
 ENTITY = 'ROOT'
@@ -15,7 +14,7 @@ TABLE_NAME = 'integrates_vms'
 
 
 async def get_roots(group_name: str) -> Tuple[Dict[str, Any], ...]:
-    primary_key = dynamo_model.build_key(
+    primary_key = dynamo.build_key(
         entity=ENTITY,
         partition_key=group_name,
         sort_key=''
