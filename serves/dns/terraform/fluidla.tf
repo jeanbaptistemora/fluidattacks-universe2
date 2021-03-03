@@ -2,7 +2,7 @@ resource "cloudflare_zone" "fluid_la" {
   zone = "fluid.la"
 }
 
-resource "cloudflare_zone_settings_override" "fluidla_com" {
+resource "cloudflare_zone_settings_override" "fluid_la" {
   zone_id = cloudflare_zone.fluid_la.id
 
   settings {
@@ -19,9 +19,8 @@ resource "cloudflare_zone_settings_override" "fluidla_com" {
     opportunistic_encryption = "on"
     min_tls_version          = "1.2"
     ssl                      = "flexible"
-
-    tls_1_3       = "on"
-    challenge_ttl = 1800
+    tls_1_3                  = "on"
+    challenge_ttl            = 1800
 
     minify {
       css  = "on"
@@ -36,5 +35,22 @@ resource "cloudflare_zone_settings_override" "fluidla_com" {
   }
 }
 
+resource "cloudflare_argo" "fluid_la" {
+  zone_id        = cloudflare_zone.fluid_la.id
+  tiered_caching = "on"
+  smart_routing  = "on"
+}
 
+resource "cloudflare_zone_dnssec" "fluid_la" {
+  zone_id = cloudflare_zone.fluid_la.id
+}
 
+# CNAME Records
+
+resource "cloudflare_record" "fluid_main" {
+  zone_id = cloudflare_zone.fluid_la.id
+  name    = cloudflare_zone.fluid_la.zone
+  type    = "CNAME"
+  value   = "fluidattacks.com"
+  proxied = true
+}
