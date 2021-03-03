@@ -5,17 +5,7 @@
 function job_integrates_back_lint {
       pushd integrates \
   &&  env_prepare_python_packages \
-  &&  mypy --strict --ignore-missing-imports analytics/ \
-        back/migrations/ \
-        back \
-  &&  mypy --strict --ignore-missing-imports --follow-imports=skip \
-        back/packages/integrates-back/backend/decorators.py \
-        back/packages/integrates-back/backend/api/ \
-        back/packages/integrates-back/backend/authz/ \
-        back/packages/integrates-back/backend/dal/ \
-        back/packages/integrates-back/backend/utils/ \
-  &&  mypy --ignore-missing-imports --follow-imports=skip \
-        back/packages/integrates-back \
+  &&  mypy --strict --ignore-missing-imports --follow-imports=skip --config-file back/.mypylintignore \
   &&  prospector -F -s veryhigh analytics/ \
   &&  prospector -F -s veryhigh back \
   &&  prospector -F -s veryhigh lambda \
