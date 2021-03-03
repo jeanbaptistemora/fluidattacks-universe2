@@ -1,76 +1,93 @@
-import { useQuery } from "@apollo/react-hooks";
-import { ApolloError } from "apollo-client";
-import { GraphQLError } from "graphql";
-import _ from "lodash";
-import React from "react";
-import { Redirect, Switch, useHistory } from "react-router-dom";
+/* eslint-disable @typescript-eslint/no-unsafe-member-access -- DB queries use "any" type */
+import type { ApolloError } from "apollo-client";
 import { GET_USER_ORGANIZATIONS } from "scenes/Dashboard/components/Navbar/queries";
-import { useStoredState } from "utils/hooks";
+import type { GraphQLError } from "graphql";
 import { Logger } from "utils/logger";
+import React from "react";
+import _ from "lodash";
 import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
+import { useQuery } from "@apollo/react-hooks";
+import { useStoredState } from "utils/hooks";
+import { Redirect, Switch, useHistory } from "react-router-dom";
 
-const homeView: React.FC = (): JSX.Element => {
-  const [lastOrganization, setLastOrganization] = useStoredState("organization", { name: "" }, localStorage);
+const HomeView: React.FC = (): JSX.Element => {
+  const [lastOrganization, setLastOrganization] = useStoredState(
+    "organization",
+    { name: "" },
+    localStorage
+  );
 
   const savedUrl: string = _.get(localStorage, "start_url");
   const { push } = useHistory();
-  const loadSavedUrl: () => void = (): void => {
+  const loadSavedUrl: () => void = React.useCallback((): void => {
     localStorage.removeItem("start_url");
     push(savedUrl);
-  };
+  }, [push, savedUrl]);
   // GraphQL Operations
   const { data } = useQuery(GET_USER_ORGANIZATIONS, {
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
         msgError(translate.t("group_alerts.error_textsad"));
-        Logger.warning("An error occurred fetching organizations for the Home view", error);
+        Logger.warning(
+          "An error occurred fetching organizations for the Home view",
+          error
+        );
       });
     },
   });
 
   // Auxiliary Functions
-  const userHasOrganization: (currentOrganization: string, organizationList: Array<{ name: string }>) => boolean =
-    (currentOrganization: string , organizationList: Array<{ name: string }>): boolean => {
-      let hasOrganization: boolean = false;
-      if (!_.isEmpty(currentOrganization)) {
-        hasOrganization = organizationList
-          .filter((organization: { name: string }) => organization.name === currentOrganization)
-          .length > 0;
-      }
+  const userHasOrganization: (
+    currentOrganization: string,
+    organizationList: { name: string }[]
+  ) => boolean = (
+    currentOrganization: string,
+    organizationList: { name: string }[]
+  ): boolean => {
+    if (!_.isEmpty(currentOrganization)) {
+      return (
+        organizationList.filter(
+          (organization: { name: string }): boolean =>
+            organization.name === currentOrganization
+        ).length > 0
+      );
+    }
 
-      return hasOrganization;
-    };
+    return false;
+  };
 
-  React.useEffect(() => { loadSavedUrl(); }, []);
+  React.useEffect((): void => {
+    loadSavedUrl();
+  }, [loadSavedUrl]);
 
   // Render Elements
   if (_.isEmpty(data) || _.isUndefined(data)) {
-    return <React.Fragment />;
+    return <div />;
   }
 
-  let homeOrganization: string;
-  if (_.isEmpty(lastOrganization.name) || !userHasOrganization(lastOrganization.name, data.me.organizations)) {
+  if (
+    _.isEmpty(lastOrganization.name) ||
+    !userHasOrganization(lastOrganization.name, data.me.organizations)
+  ) {
     if (data.me.organizations.length === 0) {
       Logger.warning("User does not have any organization associated");
     }
-    homeOrganization = data.me.organizations[0].name;
+    const homeOrganization: string = data.me.organizations[0].name;
     setLastOrganization({ name: homeOrganization });
-  } else {
-    homeOrganization = lastOrganization.name;
+
+    return (
+      <Switch>
+        <Redirect path={"/home"} to={`/orgs/${homeOrganization}/groups`} />
+      </Switch>
+    );
   }
 
   return (
-    <React.Fragment>
-      <Switch>
-        <Redirect
-          path="/home"
-          to={`/orgs/${homeOrganization}/groups`}
-        />
-      </Switch>
-    </React.Fragment>
+    <Switch>
+      <Redirect path={"/home"} to={`/orgs/${lastOrganization.name}/groups`} />
+    </Switch>
   );
-
 };
 
-export { homeView as HomeView };
+export { HomeView };
