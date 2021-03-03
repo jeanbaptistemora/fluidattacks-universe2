@@ -1,6 +1,9 @@
+# Standard libraries
 import json
 import pytest
 
+# Local libraries
+from backend.api import get_new_context
 from back.tests.functional.utils import complete_register
 from back.tests.functional.reviewer.utils import get_result
 
@@ -8,6 +11,7 @@ from back.tests.functional.reviewer.utils import get_result
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group('old')
 async def test_project():
+    context = get_new_context()
     query = '''{
         internalNames(entity: GROUP){
             name
@@ -15,11 +19,16 @@ async def test_project():
         }
     }'''
     data = {'query': query}
-    result = await get_result(data, stakeholder='integratesmanager@gmail.com')
+    result = await get_result(
+        data,
+        stakeholder='integratesmanager@gmail.com',
+        context=context
+    )
     assert 'errors' not in result
     assert 'internalNames' in result['data']
     group_name = result['data']['internalNames']['name']
 
+    context = get_new_context()
     org_name = 'okada'
     query = f'''
         mutation {{
@@ -36,11 +45,16 @@ async def test_project():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data, stakeholder='integratesmanager@gmail.com')
+    result = await get_result(
+        data,
+        stakeholder='integratesmanager@gmail.com',
+        context=context
+    )
     assert 'errors' not in result
     assert 'success' in result['data']['createProject']
     assert result['data']['createProject']['success']
 
+    context = get_new_context()
     role = 'REVIEWER'
     reviewer_email = 'integratesreviewer@fluidattacks.com'
     query = f'''
@@ -60,11 +74,16 @@ async def test_project():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data, stakeholder='integratesmanager@gmail.com')
+    result = await get_result(
+        data,
+        stakeholder='integratesmanager@gmail.com',
+        context=context
+    )
     assert 'errors' not in result
     assert  result['data']['grantStakeholderAccess']['success']
     assert await complete_register(reviewer_email, group_name)
 
+    context = get_new_context()
     consult_content = 'Test reviewer consult'
     query = f'''
         mutation {{
@@ -79,11 +98,12 @@ async def test_project():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     assert 'success' in result['data']['addProjectConsult']
     assert result['data']['addProjectConsult']['success']
 
+    context = get_new_context()
     query = '''
         mutation AddTagsMutation($projectName: String!, $tagsData: JSONString!) {
             addTags (
@@ -98,10 +118,11 @@ async def test_project():
         'tagsData': json.dumps(['testing'])
     }
     data = {'query': query, 'variables': variables}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' in result
     assert result['errors'][0]['message'] == 'Access denied'
 
+    context = get_new_context()
     query = f'''
         mutation {{
             removeTag (
@@ -113,10 +134,11 @@ async def test_project():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' in result
     assert result['errors'][0]['message'] == 'Access denied'
 
+    context = get_new_context()
     query = f"""
         mutation {{
             editGroup(
@@ -133,10 +155,11 @@ async def test_project():
         }}
       """
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' in result
     assert result['errors'][0]['message'] == 'Access denied'
 
+    context = get_new_context()
     query = f'''
         query {{
             project(projectName: "{group_name}"){{
@@ -200,7 +223,7 @@ async def test_project():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' in result
     assert len(result['errors']) == 1
     assert result['errors'][0]['message'] == 'Exception - Document not found'
@@ -245,6 +268,7 @@ async def test_project():
     assert result['data']['project']['userDeletion'] == ''
     assert result['data']['project']['userRole'] == role.lower()
 
+    context = get_new_context()
     query = f'''
         mutation {{
             unsubscribeFromGroup(groupName: "{group_name}"){{
@@ -253,10 +277,11 @@ async def test_project():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     assert result['data']['unsubscribeFromGroup']['success']
 
+    context = get_new_context()
     query = f'''
         query {{
             project(projectName: "{group_name}"){{
@@ -265,6 +290,6 @@ async def test_project():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' in result
     assert result['errors'][0]['message'] == 'Access denied'

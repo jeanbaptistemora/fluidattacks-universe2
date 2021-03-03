@@ -1,12 +1,16 @@
+# Standard libraries
 import pytest
 from datetime import datetime, timedelta
 
+# Local libraries
+from backend.api import get_new_context
 from back.tests.functional.reviewer.utils import get_result
 
 
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group('old')
 async def test_me():
+    context = get_new_context()
     org_id = 'ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3'
     org_name = 'okada'
     group_name = 'unittesting'
@@ -22,11 +26,12 @@ async def test_me():
         }
     '''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     assert 'success' in result['data']['signIn']
     assert not result['data']['signIn']['success']
 
+    context = get_new_context()
     expiration_time = datetime.utcnow() + timedelta(weeks=8)
     expiration_time = int(expiration_time.timestamp())
     query = f'''
@@ -38,12 +43,14 @@ async def test_me():
         }}
     '''
 
+    context = get_new_context()
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     assert result['data']['updateAccessToken']['success']
     session_jwt = result['data']['updateAccessToken']['sessionJwt']
 
+    context = get_new_context()
     query = '''
         mutation {
             addPushToken(token: "ExponentPushToken[something123]") {
@@ -52,10 +59,11 @@ async def test_me():
         }
     '''
     data = {'query': query}
-    result = await get_result(data, session_jwt=session_jwt)
+    result = await get_result(data, session_jwt=session_jwt, context=context)
     assert 'error' not in result
     assert result['data']['addPushToken']['success']
 
+    context = get_new_context()
     frecuency = 'WEEKLY'
     entity = 'GROUP'
     query = f'''
@@ -64,18 +72,17 @@ async def test_me():
                 frequency: {frecuency},
                 reportEntity: {entity},
                 reportSubject: "{org_id}"
-
-
             ) {{
                 success
             }}
         }}
     '''
     data = {'query': query}
-    result = await get_result(data, session_jwt=session_jwt)
+    result = await get_result(data, session_jwt=session_jwt, context=context)
     assert 'errors' not in result
     assert result['data']['subscribeToEntityReport']['success']
 
+    context = get_new_context()
     query = '''
         mutation {
             acceptLegal(remember: false) {
@@ -84,10 +91,11 @@ async def test_me():
         }
     '''
     data = {'query': query}
-    result = await get_result(data, session_jwt=session_jwt)
+    result = await get_result(data, session_jwt=session_jwt, context=context)
     assert 'errors' not in result
     assert result['data']['acceptLegal']['success']
 
+    context = get_new_context()
     query = f'''{{
         me(callerOrigin: "API") {{
             accessToken
@@ -103,7 +111,6 @@ async def test_me():
                 entity
                 frequency
                 subject
-
             }}
             tags(organizationId: "{org_id}") {{
                 name
@@ -115,7 +122,7 @@ async def test_me():
         }}
     }}'''
     data = {'query': query}
-    result = await get_result(data, session_jwt=session_jwt)
+    result = await get_result(data, session_jwt=session_jwt, context=context)
     assert 'errors' not in result
     assert '{"hasAccessToken": true' in result['data']['me']['accessToken']
     assert result['data']['me']['callerOrigin'] == 'API'
@@ -151,6 +158,7 @@ async def test_me():
     ]
     assert result['data']['me']['__typename'] == 'Me'
 
+    context = get_new_context()
     query = f'''{{
         me(callerOrigin: "API") {{
             permissions(entity: PROJECT, identifier: "{group_name}")
@@ -158,11 +166,12 @@ async def test_me():
         }}
     }}'''
     data = {'query': query}
-    result = await get_result(data, session_jwt=session_jwt)
+    result = await get_result(data, session_jwt=session_jwt, context=context)
     assert 'errors' not in result
     assert len(result['data']['me']['permissions']) == 45
     assert result['data']['me']['role'] == 'reviewer'
 
+    context = get_new_context()
     query = f'''{{
         me(callerOrigin: "API") {{
             permissions(entity: ORGANIZATION, identifier: "{group_name}")
@@ -170,11 +179,12 @@ async def test_me():
         }}
     }}'''
     data = {'query': query}
-    result = await get_result(data, session_jwt=session_jwt)
+    result = await get_result(data, session_jwt=session_jwt, context=context)
     assert 'errors' not in result
     assert len(result['data']['me']['permissions']) == 0
     assert result['data']['me']['role'] == 'reviewer'
 
+    context = get_new_context()
     query = '''
         mutation {
             invalidateAccessToken {
@@ -183,10 +193,11 @@ async def test_me():
         }
     '''
     data = {'query': query}
-    result = await get_result(data, session_jwt=session_jwt)
+    result = await get_result(data, session_jwt=session_jwt, context=context)
     assert 'errors' not in result
     assert result['data']['invalidateAccessToken']['success']
 
+    context = get_new_context()
     query = f'''{{
         me(callerOrigin: "API") {{
             accessToken
@@ -202,7 +213,6 @@ async def test_me():
                 entity
                 frequency
                 subject
-
             }}
             tags(organizationId: "{org_id}") {{
                 name
@@ -214,6 +224,6 @@ async def test_me():
         }}
     }}'''
     data = {'query': query}
-    result = await get_result(data, session_jwt=session_jwt)
+    result = await get_result(data, session_jwt=session_jwt, context=context)
     assert 'errors' in result
     assert result['errors'][0]['message'] == 'Login required'
