@@ -1,8 +1,12 @@
+# Standard libraries
 import os
 import pytest
 
+# Third party libraries
 from starlette.datastructures import UploadFile
 
+# Local libraries
+from backend.api import get_new_context
 from backend.utils import datetime as datetime_utils
 from back.tests.functional.reviewer.utils import get_result
 
@@ -10,6 +14,7 @@ from back.tests.functional.reviewer.utils import get_result
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group('old')
 async def test_finding():
+    context = get_new_context()
     today = datetime_utils.get_as_str(
         datetime_utils.get_now(),
         date_format='%Y-%m-%d'
@@ -39,14 +44,18 @@ async def test_finding():
                 success
             }}
         }}
-
     '''
     data = {'query': query}
-    result = await get_result(data, stakeholder='integratesanalyst@fluidattacks.com')
+    result = await get_result(
+        data,
+        stakeholder='integratesanalyst@fluidattacks.com',
+        context=context
+    )
     assert 'errors' not in result
     assert 'success' in result['data']['createDraft']
     assert result['data']['createDraft']['success']
 
+    context = get_new_context()
     query = f'''
         query {{
             project(projectName: "{group_name}"){{
@@ -59,21 +68,23 @@ async def test_finding():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     draft = [draft for draft in result['data']['project']['drafts'] if draft['title'] == title][0]
     draft_id = draft['id']
 
+    context = get_new_context()
     query = f'''{{
         finding(identifier: "{draft_id}"){{
             id
         }}
     }}'''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     assert result['data']['finding']['id'] == draft_id
 
+    context = get_new_context()
     filename = os.path.dirname(os.path.abspath(__file__))
     filename = os.path.join(filename, '../../unit/mock/test-vulns.yaml')
     with open(filename, 'rb') as test_file:
@@ -95,10 +106,11 @@ async def test_finding():
             'findingId': draft_id,
         }
         data = {'query': query, 'variables': variables}
-        result = await get_result(data)
+        result = await get_result(data, context=context)
     assert 'errors' not in result
     assert result['data']['uploadFile']['success']
 
+    context = get_new_context()
     query = f'''
         mutation {{
             updateSeverity (
@@ -125,11 +137,12 @@ async def test_finding():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     assert 'success' in result['data']['updateSeverity']
     assert result['data']['updateSeverity']['success']
 
+    context = get_new_context()
     query = '''
         mutation UpdateEvidenceMutation(
             $evidenceId: EvidenceType!, $file: Upload!, $findingId: String!
@@ -151,11 +164,14 @@ async def test_finding():
             'file': uploaded_file
         }
         data = {'query': query, 'variables': variables}
-        result = await get_result(data, stakeholder='integratesmanager@gmail.com')
+        result = await get_result(
+            data,
+            stakeholder='integratesmanager@gmail.com',
+            context=context
+        )
         assert 'errors' not in result
         assert 'success' in result['data']['updateEvidence']
         assert result['data']['updateEvidence']['success']
-
     evidence_description = 'this is a test description'
     query = f'''
         mutation {{
@@ -169,11 +185,12 @@ async def test_finding():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     assert 'success' in result['data']['updateEvidenceDescription']
     assert result['data']['updateEvidenceDescription']['success']
 
+    context = get_new_context()
     query = f'''
         mutation {{
             submitDraft(findingId: "{draft_id}") {{
@@ -182,10 +199,15 @@ async def test_finding():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data, stakeholder='integratesanalyst@fluidattacks.com')
+    result = await get_result(
+        data,
+        stakeholder='integratesanalyst@fluidattacks.com',
+        context=context
+    )
     assert 'errors' not in result
     assert result['data']['submitDraft']['success']
 
+    context = get_new_context()
     query = f'''
         mutation {{
             rejectDraft(findingId: "{draft_id}") {{
@@ -194,11 +216,12 @@ async def test_finding():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     assert 'success' in result['data']['rejectDraft']
     assert result['data']['rejectDraft']['success']
 
+    context = get_new_context()
     query = f'''
         mutation {{
             submitDraft(findingId: "{draft_id}") {{
@@ -207,10 +230,15 @@ async def test_finding():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data, stakeholder='integratesanalyst@fluidattacks.com')
+    result = await get_result(
+        data,
+        stakeholder='integratesanalyst@fluidattacks.com',
+        context=context
+    )
     assert 'errors' not in result
     assert result['data']['submitDraft']['success']
 
+    context = get_new_context()
     query = f'''
         mutation {{
             approveDraft(draftId: "{draft_id}") {{
@@ -219,10 +247,11 @@ async def test_finding():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     assert result['data']['approveDraft']['success']
 
+    context = get_new_context()
     finding_id = draft_id
     query = f'''
         query {{
@@ -234,12 +263,13 @@ async def test_finding():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     group_findings = result['data']['project']['findings']
     finding_ids = [finding['id'] for finding in group_findings]
     assert finding_id in finding_ids
 
+    context = get_new_context()
     query = f'''{{
         finding(identifier: "{finding_id}"){{
             id
@@ -300,7 +330,7 @@ async def test_finding():
         }}
     }}'''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     assert result['data']['finding']['id'] == finding_id
     assert result['data']['finding']['projectName'] == group_name
@@ -410,7 +440,6 @@ async def test_finding():
             'state': 'APPROVED'
         }
     ]
-
     actor = 'ANYONE_INTERNET'
     affected_systems = 'Server bWAPP'
     attack_vector_desc = 'This is an updated attack vector'
@@ -447,11 +476,12 @@ async def test_finding():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     assert 'success' in result['data']['updateDescription']
     assert result['data']['updateDescription']['success']
 
+    context = get_new_context()
     query = f'''
         mutation {{
             removeEvidence(evidenceId: EVIDENCE2, findingId: "{finding_id}") {{
@@ -460,10 +490,13 @@ async def test_finding():
         }}
     '''
     data = {'query': query, 'variables': variables}
-    result = await get_result(data, stakeholder='integratesanalyst@fluidattacks.com')
+    result = await get_result(
+        data,
+        stakeholder='integratesanalyst@fluidattacks.com',
+        context=context
+    )
     assert 'errors' not in result
     assert result['data']['removeEvidence']['success']
-
     observation_content = "This is a observation test"
     query = f'''
         mutation {{
@@ -479,11 +512,12 @@ async def test_finding():
         }}
         '''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     assert 'success' in result['data']['addFindingConsult']
     assert result['data']['addFindingConsult']['success']
 
+    context = get_new_context()
     consult_content = "This is a comenting test"
     query = f'''
         mutation {{
@@ -499,11 +533,12 @@ async def test_finding():
         }}
         '''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     assert 'success' in result['data']['addFindingConsult']
     assert result['data']['addFindingConsult']['success']
 
+    context = get_new_context()
     query = f'''{{
         finding(identifier: "{finding_id}"){{
             consulting {{
@@ -534,7 +569,7 @@ async def test_finding():
         }}
     }}'''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     assert len(result['data']['finding']['evidence']) == 7
     assert result['data']['finding']['evidence']['evidence2']['description'] == ''
@@ -562,6 +597,7 @@ async def test_finding():
     ]
     assert result['data']['finding']['consulting'] == [{'content': consult_content}]
 
+    context = get_new_context()
     query = f'''
         mutation {{
             deleteFinding(findingId: "{finding_id}", justification: NOT_REQUIRED) {{
@@ -570,21 +606,23 @@ async def test_finding():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     assert 'success' in result['data']['deleteFinding']
     assert result['data']['deleteFinding']['success']
 
+    context = get_new_context()
     query = f'''{{
         finding(identifier: "{finding_id}"){{
             id
         }}
     }}'''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' in result
     assert result['errors'][0]['message'] == 'Access denied'
 
+    context = get_new_context()
     query = f'''
         query {{
             project(projectName: "{group_name}"){{
@@ -595,7 +633,7 @@ async def test_finding():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     group_findings = result['data']['project']['findings']
     finding_ids = [finding['id'] for finding in group_findings]

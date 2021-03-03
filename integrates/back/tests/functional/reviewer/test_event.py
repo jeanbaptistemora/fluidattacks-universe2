@@ -1,11 +1,15 @@
+# Standard libraries
 import pytest
 
+# Local libraries
+from backend.api import get_new_context
 from back.tests.functional.reviewer.utils import get_result
 
 
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group('old')
 async def test_event():
+    context = get_new_context()
     event_id = '540462628'
     group_name = 'unittesting'
     query = f'''{{
@@ -34,7 +38,7 @@ async def test_event():
         }}
     }}'''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     assert 'event' in result['data']
     assert result['data']['event']['id'] == event_id
@@ -70,6 +74,7 @@ async def test_event():
     assert result['data']['event']['projectName'] == group_name
     assert result['data']['event']['subscription'] == 'CONTINUOUS'
 
+    context = get_new_context()
     query = f'''{{
         events(projectName: "{group_name}"){{
             id
@@ -78,13 +83,14 @@ async def test_event():
         }}
     }}'''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'events' in result['data']
     events = result['data']['events']
     event = [event for event in events if event['id'] == event_id][0]
     assert event['projectName'] == group_name
     assert len(event['detail']) >= 1
 
+    context = get_new_context()
     event_content = 'Test reviewer content'
     query = f'''
         mutation {{
@@ -97,12 +103,13 @@ async def test_event():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     assert 'success' in result['data']['addEventConsult']
     assert result['data']['addEventConsult']['success']
     assert 'commentId' in result['data']['addEventConsult']
 
+    context = get_new_context()
     query = f'''
         mutation {{
             downloadEventFile(
@@ -115,12 +122,13 @@ async def test_event():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     assert 'success' in result['data']['downloadEventFile']
     assert result['data']['downloadEventFile']
     assert 'url' in result['data']['downloadEventFile']
 
+    context = get_new_context()
     query = f'''{{
         event(identifier: "{event_id}"){{
             consulting {{
@@ -129,7 +137,7 @@ async def test_event():
         }}
     }}'''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     assert 'event' in result['data']
     assert result['data']['event']['consulting'] == [
@@ -138,6 +146,7 @@ async def test_event():
         {'content': event_content}
     ]
 
+    context = get_new_context()
     query = f'''{{
         events(projectName: "{group_name}"){{
             id
@@ -149,7 +158,7 @@ async def test_event():
         }}
     }}'''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'events' in result['data']
     events = result['data']['events']
     event = [event for event in events if event['id'] == event_id][0]
