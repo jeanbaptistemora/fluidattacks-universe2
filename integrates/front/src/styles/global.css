@@ -218,6 +218,12 @@ label {
   overflow: auto;
 }
 
+@media (min-width: 1600px) {
+  :global .largeTable {
+    height: 100%;
+  }
+}
+
 :global .questionBtn {
   border: 0 !important;
   color: #ff3435;
