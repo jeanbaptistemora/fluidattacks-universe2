@@ -1,12 +1,16 @@
+# Standard libraries
 import json
 import pytest
 
+# Local libraries
+from backend.api import get_new_context
 from back.tests.functional.service_forces.utils import get_result
 
 
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group('old')
 async def test_project():
+    context = get_new_context()
     group_name = 'unittesting'
 
     query = f'''
@@ -39,7 +43,7 @@ async def test_project():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     assert result['data']['project']['closedVulnerabilities'] == 8
     assert result['data']['project']['deletionDate'] == ''
