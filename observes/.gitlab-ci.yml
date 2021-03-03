@@ -329,6 +329,11 @@ observes.test.tap-mailchimp:
   <<: *observes_in_dev_branch
   stage: test-code
 
+observes.test.tap-mixpanel:
+  <<: *makes
+  <<: *observes_in_dev_branch
+  stage: test-code
+
 observes.test.target-redshift:
   <<: *makes
   <<: *observes_in_dev_branch
