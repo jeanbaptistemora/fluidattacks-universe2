@@ -1,5 +1,8 @@
+# Standard libraries
 import pytest
 
+# Local libraries
+from backend.api import get_new_context
 from backend.utils import datetime as datetime_utils
 from back.tests.functional.service_forces.utils import get_result
 
@@ -7,6 +10,7 @@ from back.tests.functional.service_forces.utils import get_result
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group('old')
 async def test_finding():
+    context = get_new_context()
     today = datetime_utils.get_as_str(
         datetime_utils.get_now(),
         date_format='%Y-%m-%d'
@@ -221,7 +225,7 @@ async def test_finding():
         }}
     }}'''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' not in result
     assert result['data']['finding']['id'] == expected_output.get('id')
     assert result['data']['finding']['projectName'] == expected_output.get('project_name')
