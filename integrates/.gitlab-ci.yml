@@ -183,6 +183,10 @@ integrates.back.test.functional.old:
   <<: *integrates_back_test_functional
   script: ./m integrates.back.test.functional old true
 
+integrates.back.test.functional.create_organization:
+  <<: *integrates_back_test_functional
+  script: ./m integrates.back.test.functional create_organization
+
 integrates.back.test.functional.organization_id:
   <<: *integrates_back_test_functional
   script: ./m integrates.back.test.functional organization_id

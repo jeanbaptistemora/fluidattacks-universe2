@@ -16,6 +16,7 @@ from aioextensions import (
 from backend.dal import (
     organization as dal_organization,
     user as dal_user,
+    available_name as dal_name,
 )
 
 
@@ -27,6 +28,19 @@ async def populate_users(data: List[Any]) -> bool:
             user,
         )
         for user in data
+    ])
+    return all(await collect(coroutines))
+
+
+async def populate_names(data: List[Any]) -> bool:
+    success: bool = False
+    coroutines: List[Awaitable[bool]] = []
+    coroutines.extend([
+        dal_name.create(
+            name['name'],
+            name['entity'],
+        )
+        for name in data
     ])
     return all(await collect(coroutines))
 
@@ -93,6 +107,9 @@ async def populate(data: Dict[str, Any]) -> bool:
 
     if 'users' in keys:
         success = await populate_users(data['users'])
+
+    if 'names' in keys:
+        success = await populate_names(data['names'])
 
     if 'orgs' in keys:
         success = success and await populate_orgs(data['orgs'])

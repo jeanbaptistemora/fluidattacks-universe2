@@ -10,7 +10,7 @@ from back.tests.functional.utils import (
 
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group('organization_id')
-async def test_organization_id_admin(populate: bool):
+async def test_admin(populate: bool):
     context = get_new_context()
     assert populate
     query = '''{
@@ -22,7 +22,7 @@ async def test_organization_id_admin(populate: bool):
     result = await get_graphql_result(
         data,
         'test1@test1.com',
-        context=context
+        context=context,
     )
     assert 'errors' not in result
     assert result['data']['organizationId']['id'] != None

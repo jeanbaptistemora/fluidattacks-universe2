@@ -1,13 +1,15 @@
 # Standard libraries
 from typing import (
     Any,
+    Set,
 )
 
 # Third party libraries
 import pytest
 
 # Constants
-TEST_GROUPS = {
+TEST_GROUPS: Set[str] = {
+    'create_organization',
     'old',
     'organization_id',
 }
