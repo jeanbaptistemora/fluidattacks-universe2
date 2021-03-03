@@ -595,3 +595,16 @@ async def send_mail_new_event(
         'new-event', email_to[0], context=context[0], tags=GENERAL_TAG)
     await _send_mail_async(
         'new-event', email_to[1], context=context[1], tags=GENERAL_TAG)
+
+
+async def send_mail_org_deletion(
+    email_to: List[str],
+    context: MailContentType
+) -> None:
+    await _send_mails_async_new(
+        email_to,
+        context,
+        GENERAL_TAG,
+        f'Organization deletion [{context["org_name"]}]',
+        'organization-deletion'
+    )

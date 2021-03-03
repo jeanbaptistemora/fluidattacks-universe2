@@ -1026,6 +1026,18 @@ async def integrates_delete_obsolete_orgs() -> None:
                     org_name,
                     new_org_pending_deletion_date_str
                 )
+                if org_users:
+                    scheduler_send_mail(
+                        mailer.send_mail_org_deletion,
+                        org_users,
+                        {
+                            'deletion_date': new_org_pending_deletion_date_str,
+                            'year': datetime_utils.get_as_str(
+                                datetime_utils.get_now(), '%Y'
+                            ),
+                            'org_name': org_name,
+                        }
+                    )
         else:
             await org_domain.update_pending_deletion_date(
                 org_id,
