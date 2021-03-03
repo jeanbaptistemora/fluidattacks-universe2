@@ -60,7 +60,8 @@ def _mark_java_f034(graph: graph_model.Graph) -> None:
     }
 
     for n_id in g.yield_object_creation_expression(graph, identifier_objects):
-        graph.nodes[n_id]['label_sink_type'] = core_model.FindingEnum.F034.name
+        graph.nodes[n_id][
+            'label_input_type'] = core_model.FindingEnum.F034.name
 
     for n_id in g.filter_nodes(
             graph,

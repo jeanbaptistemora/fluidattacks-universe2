@@ -35,45 +35,57 @@ def _mark_java_f063(graph: graph_model.Graph) -> None:
         )
 
 
-def _mark_java_f034(graph: graph_model.Graph) -> None:
-    identifiers: Set[str] = {
-        *build_attr_paths('javax', 'servlet', 'http', 'Cookie'),
-    }
+def _check_method_call(
+    graph: graph_model.Graph,
+    n_id: graph_model.NId,
+    *call_identifiers: str,
+) -> bool:
+    """
+    Check if a node is the call of the method specified in the identifiers
+    """
+    match = g.match_ast_group(
+        graph,
+        n_id,
+        'identifier',
+        'method_invocation',
+    )
+    if identifier := match.get('identifier'):
+        identifiers = {
+            graph.nodes[iden].get('label_text')
+            for iden in identifier
+        }
+        if len(call_identifiers) == 1 and call_identifiers[0] in identifiers:
+            return True
 
-    for n_id in g.yield_object_creation_expression(graph, identifiers):
-        graph.nodes[n_id]['label_sink_type'] = (
-            core_model
-            .FindingEnum
-            .F034
-            .name
-        )
-
-    for n_id in g.filter_nodes(
-            graph,
-            graph.nodes,
-            predicate=g.pred_has_labels(
-                label_type='method_invocation',
-            )
-    ):
-        match = g.match_ast_group(
-            graph,
-            n_id,
-            'identifier',
-        )
-        if identifier := match.get('identifier'):
-            identifiers = {
-                graph.nodes[iden].get('label_text')
-                for iden in identifier
-            }
-            if len(identifiers) < 2:
-                continue
-            if 'addCookie' in identifiers:
-                graph.nodes[n_id]['label_sink_type'] = (
-                    core_model
-                    .FindingEnum
-                    .F034
-                    .name
+        if call_identifiers[-1] not in identifiers:
+            return False
+        for inx, call in enumerate(reversed(call_identifiers)):
+            if call in identifiers and (method :=
+                                        match.get('method_invocation')):
+                return _check_method_call(
+                    graph,
+                    method.pop(),
+                    *call_identifiers[:-inx + 1],
                 )
+
+    return False
+
+
+def _mark_java_f034(graph: graph_model.Graph) -> None:
+    for n_id in g.filter_nodes(
+        graph,
+        graph.nodes,
+        predicate=g.pred_has_labels(label_type='method_invocation'),
+    ):
+        if any((
+                _check_method_call(graph, n_id, 'getSession', 'setAttribute'),
+                _check_method_call(graph, n_id, 'addCookie'),
+        )):
+            graph.nodes[n_id]['label_sink_type'] = (
+                core_model
+                .FindingEnum
+                .F034.name
+            )
 
 
 def mark(

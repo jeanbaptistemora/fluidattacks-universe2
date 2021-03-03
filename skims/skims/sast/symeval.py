@@ -119,6 +119,11 @@ def syntax_step_declaration(args: EvaluatorArgs) -> None:
                 'javax', 'servlet', 'http', 'HttpServletRequest'
             ),
         )),
+        args.finding == core_model.FindingEnum.F034 and any((
+            args.syntax_step.var_type in build_attr_paths(
+                'javax', 'servlet', 'http', 'Cookie'
+            ),
+        )),
     ))
 
     # Local context
