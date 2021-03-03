@@ -1,6 +1,8 @@
+/* eslint import/no-namespace:0 */
 import { Link } from "gatsby";
 import type { StyledComponent } from "styled-components";
 import styled from "styled-components";
+import * as coverMainHome from "../images/cover-main.png";
 
 const NavbarContainer: StyledComponent<
   "div",
@@ -353,9 +355,101 @@ const FontAwesomeContainerSmall: StyledComponent<
   width: 0.7rem;
 `;
 
+const MainCoverHome: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs({
+  className: `
+  flex-ns
+  items-center
+  cover
+  h-section
+  `,
+})`
+  background-image: url(${coverMainHome});
+`;
+
+const MainContentHome: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs({
+  className: `
+    mt-body
+    ph-body
+    mw-1366
+    center
+    w-100
+  `,
+})``;
+
+const InnerMainContentHome: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs({
+  className: `
+    fr-l
+    w-50-l
+    w100-m
+    mt3-l
+    center
+    pt0-ns
+    pt4
+  `,
+})``;
+
+const BlackBigHeader: StyledComponent<
+  "h1",
+  Record<string, unknown>
+> = styled.h1.attrs({
+  className: `
+    f1
+    c-fluid-bk
+    fw6
+    tl
+    tc-m
+    neue
+    lh-solid
+    ma0
+  `,
+})``;
+
+const BlackBigParagraph: StyledComponent<
+  "p",
+  Record<string, unknown>
+> = styled.p.attrs({
+  className: `
+    f1
+    c-fluid-bk
+    fw6
+    tl
+    tc-m
+    neue
+    lh-solid
+    ma0
+  `,
+})``;
+
+const GrayBigParagraph: StyledComponent<
+  "p",
+  Record<string, unknown>
+> = styled.p.attrs({
+  className: `
+    f1
+    c-fluid-gray
+    fw6
+    tl
+    tc-m
+    neue
+    lh-solid
+    ma0
+  `,
+})``;
+
 export {
   ArticleContainer,
   ArticleTitle,
+  BlackBigHeader,
+  BlackBigParagraph,
   BreadcrumbContainer,
   BreadcrumbInnerContainer,
   BreadcrumbLink,
@@ -367,8 +461,14 @@ export {
   FontAwesomeContainerSmall,
   FooterInfoLinksContainer,
   FooterInfoLink,
+  GrayBigParagraph,
   GrayDash,
   InnerFooterInfoContainer,
+  InnerMainContentHome,
+  MainContentHome,
+  MainCoverHome,
+  MainFooterInfoContainer,
+  MenuButton,
   NavbarSubcategory,
   NavbarContactButton,
   NavbarContainer,
@@ -376,8 +476,6 @@ export {
   NavbarList,
   NavbarLoginButton,
   NavbarRegularButton,
-  MainFooterInfoContainer,
-  MenuButton,
   PageArticle,
   SubcategoryLink,
 };

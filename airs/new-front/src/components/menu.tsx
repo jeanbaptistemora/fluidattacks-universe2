@@ -1,8 +1,10 @@
+/* eslint import/no-namespace:0 */
 /* eslint react/forbid-component-props: 0 */
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "gatsby";
 import React from "react";
 import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
+import * as fluidAttacksLogo from "../images/logo-fluid-attacks.png";
 import {
   FontAwesomeContainerSmall,
   MenuButton,
@@ -32,7 +34,7 @@ export const NavbarItems: React.FC = (): JSX.Element => (
         <img
           alt={"Fluid Attacks logo navbar"}
           className={"h-5 ml3 pv2"}
-          src={"https://fluidattacks.com/theme/images/logo-fluid-attacks.png"}
+          src={fluidAttacksLogo}
         />
       </Link>
     </li>

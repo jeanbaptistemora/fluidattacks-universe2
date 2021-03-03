@@ -30,10 +30,12 @@ $white: rgba(255, 255, 255, 1);
 
 // Font Sizes
 .f-18 { font-size: 1.125rem; }
+.fheader { font-size: 2.25rem; }
 
 // Height Classes
 .h-navbar { height: 6.5rem; }
 .h-5 { height: 5rem; }
+.h-section { height: 50rem; }
 
 // Hover changes classes
 .hv-fluid-bd { &:hover { border-color: $button-hover;} }
@@ -53,6 +55,10 @@ $white: rgba(255, 255, 255, 1);
 // Media queries
 @media screen and (min-width: 60em) {
   .ph-body { padding: 0 3.75rem; }
+}
+
+@media screen and (min-width: 30em) and (max-width: 60em) {
+  .fheader { font-size: 3.5rem; }
 }
 
 // Animations
