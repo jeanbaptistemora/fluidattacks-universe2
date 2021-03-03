@@ -1,4 +1,3 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "gatsby";
 import type { StyledComponent } from "styled-components";
 import styled from "styled-components";
@@ -341,14 +340,17 @@ const ArticleContainer: StyledComponent<
   `,
 })``;
 
-const FontAwesomeAngleDown: StyledComponent<
-  typeof FontAwesomeIcon,
+const FontAwesomeContainerSmall: StyledComponent<
+  "div",
   Record<string, unknown>
-> = styled(FontAwesomeIcon)`
-  display: inline-block;
-  float: right;
-  margin-right: 1rem;
-  width: 1rem;
+> = styled.div.attrs({
+  className: `
+    dib
+    fr
+    mh1
+  `,
+})`
+  width: 0.7rem;
 `;
 
 export {
@@ -362,7 +364,7 @@ export {
   CopyrightContainer,
   CopyrightParagraph,
   Flex,
-  FontAwesomeAngleDown,
+  FontAwesomeContainerSmall,
   FooterInfoLinksContainer,
   FooterInfoLink,
   GrayDash,

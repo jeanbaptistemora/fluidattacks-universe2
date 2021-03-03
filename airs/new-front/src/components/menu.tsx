@@ -1,9 +1,10 @@
 /* eslint react/forbid-component-props: 0 */
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "gatsby";
 import React from "react";
 import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 import {
-  FontAwesomeAngleDown,
+  FontAwesomeContainerSmall,
   MenuButton,
   NavbarContactButton,
   NavbarList,
@@ -70,7 +71,9 @@ export const NavbarItems: React.FC = (): JSX.Element => (
       <Link className={"no-underline"} to={"/solutions/"}>
         <NavbarRegularButton>
           {"Solutions"}
-          <FontAwesomeAngleDown icon={faAngleDown} />
+          <FontAwesomeContainerSmall>
+            <FontAwesomeIcon icon={faAngleDown} />
+          </FontAwesomeContainerSmall>
         </NavbarRegularButton>
       </Link>
 
@@ -117,7 +120,9 @@ export const NavbarItems: React.FC = (): JSX.Element => (
       <Link className={"no-underline"} to={"/services/continuous-hacking/"}>
         <NavbarRegularButton>
           {"Services"}
-          <FontAwesomeAngleDown icon={faAngleDown} />
+          <FontAwesomeContainerSmall>
+            <FontAwesomeIcon icon={faAngleDown} />
+          </FontAwesomeContainerSmall>
         </NavbarRegularButton>
       </Link>
 
