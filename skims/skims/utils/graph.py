@@ -26,6 +26,10 @@ from more_itertools.recipes import (
     pairwise,
 )
 import networkx as nx
+from func_timeout import (
+    func_timeout,
+    FunctionTimedOut,
+)
 
 # Local libraries
 from model import core_model
@@ -36,6 +40,8 @@ from model.graph_model import (
     NId,
     NIdPredicateFunction,
 )
+from utils.logs import log_blocking
+
 from utils.system import (
     read_blocking,
 )
@@ -390,7 +396,7 @@ def branches_cfg_finding(
     graph: Graph,
     n_id: NId,
     finding: core_model.FindingEnum
-) -> Tuple[Tuple[str, ...], ...]:
+) -> Iterator[Tuple[str, ...]]:
     # Compute all childs reachable from CFG edges
     c_ids = adj_cfg(graph, n_id, depth=-1)
 
@@ -400,11 +406,22 @@ def branches_cfg_finding(
         if graph.nodes[x_id].get('label_sink_type') == finding.name
         or not adj_cfg(graph, x_id)
     )
-    return tuple(sorted(
-        path
-        for leaf_id in leaf_ids
-        for path in paths(graph, n_id, leaf_id, label_cfg='CFG')
-    ))
+    for leaf_id in leaf_ids:
+        try:
+            all_paths = func_timeout(
+                20,
+                tuple,
+                args=(paths(graph, n_id, leaf_id, label_cfg='CFG'), ),
+            )
+            yield from all_paths
+        except FunctionTimedOut:
+            log_blocking(
+                'debug',
+                'The paths beetwing %s and %s cannot be analyzed',
+                n_id,
+                leaf_id,
+            )
+            continue
 
 
 def import_graph_from_json(model: Any) -> Graph:

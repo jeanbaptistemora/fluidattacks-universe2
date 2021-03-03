@@ -40,6 +40,7 @@ makeTemplate {
             "click==7.1.2"
             "confuse==1.3.0"
             "frozendict==1.2"
+            "func-timeout==4.3.5"
             "GitPython==3.1.13"
             "jmespath==0.10.0"
             "lark-parser==0.7.8"

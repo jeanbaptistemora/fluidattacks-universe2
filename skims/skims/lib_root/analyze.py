@@ -42,7 +42,6 @@ from utils.fs import (
     resolve_paths,
 )
 from utils.function import (
-    TIMEOUT_1MIN,
     pipe,
     shield,
 )
@@ -75,7 +74,6 @@ async def analyze(
     ] = resolve((
         pipe(
             partial(in_process, query),
-            TIMEOUT_1MIN,
             SHIELD,
         )(graph_db)
         for query in queries

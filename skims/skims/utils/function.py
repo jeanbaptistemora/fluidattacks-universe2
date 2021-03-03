@@ -64,7 +64,17 @@ def get_bound_arguments(
 
 
 def get_id(function: Callable[..., Any]) -> str:
-    return f'{function.__module__}.{function.__name__}'
+    try:
+        func_module = function.__module__
+    except AttributeError:
+        func_module = 'unknown module'
+
+    try:
+        func_name = function.__module__
+    except AttributeError:
+        func_name = 'unknown name'
+
+    return f'{func_module}.{func_name}'
 
 
 def get_signature(function: Callable[..., Any]) -> inspect.Signature:
