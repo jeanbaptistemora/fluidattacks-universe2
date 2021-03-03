@@ -1,10 +1,4 @@
-/* tslint:disable:jsx-no-multiline-js
- *
- * Disabling this rule is necessary for accessing render props from
- * apollo components
- */
-import { MutationFunction, MutationResult, QueryResult } from "@apollo/react-common";
-import { Mutation, Query } from "@apollo/react-components";
+import { useMutation, useQuery } from "@apollo/react-hooks";
 import { faCloudUploadAlt, faList } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ApolloError } from "apollo-client";
@@ -51,140 +45,132 @@ const recordsView: React.FC = (): JSX.Element => {
     Logger.warning("An error occurred removing records", removeError);
   };
 
+  const { data, refetch } = useQuery(GET_FINDING_RECORDS, {
+    onError: handleErrors,
+    variables: { findingId },
+  });
+
+  const handleUpdateResult: (() => void) = (): void => {
+    void refetch();
+  };
+
+  const handleUpdateError: ((updateError: ApolloError) => void) = (updateError: ApolloError): void => {
+    updateError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
+      switch (message) {
+        case "Exception - Wrong File Structure":
+          msgError(translate.t("group_alerts.invalid_structure"));
+          break;
+        case "Exception - Invalid File Size":
+          msgError(translate.t("validations.file_size", { count: 1 }));
+          break;
+        case "Exception - Invalid File Type":
+          msgError(translate.t("group_alerts.file_type_csv"));
+          break;
+        default:
+          msgError(translate.t("group_alerts.error_textsad"));
+          Logger.warning("An error occurred updating records", updateError);
+      }
+    });
+  };
+
+  const [updateRecords, updateRes] = useMutation(UPDATE_EVIDENCE_MUTATION, {
+    onCompleted: handleUpdateResult,
+    onError: handleUpdateError,
+  });
+
+  const handleSubmit: ((values: { filename: FileList }) => void) = (
+    values: { filename: FileList },
+  ): void => {
+    setEditing(false);
+    void updateRecords({ variables: { evidenceId: "RECORDS", file: values.filename[0], findingId } });
+  };
+
+  const [removeRecords, removeRes] = useMutation(REMOVE_EVIDENCE_MUTATION, {
+    onCompleted: handleUpdateResult,
+    onError: handleRemoveErrors,
+  });
+
+  const handleRemoveClick: (() => void) = (): void => {
+    mixpanel.track("RemoveRecords");
+    setEditing(false);
+    void removeRecords({ variables: { evidenceId: "RECORDS", findingId } });
+  };
+
+  if (_.isUndefined(data) || _.isEmpty(data)) {
+    return <div />;
+  }
+
   return (
     <React.StrictMode>
-      <Query query={GET_FINDING_RECORDS} variables={{ findingId }} onError={handleErrors}>
-        {({ data, refetch }: QueryResult): JSX.Element => {
-          if (_.isUndefined(data) || _.isEmpty(data)) { return <React.Fragment />; }
-
-          const handleUpdateResult: (() => void) = (): void => {
-            void refetch();
-          };
-          const handleUpdateError: ((updateError: ApolloError) => void) = (updateError: ApolloError): void => {
-            updateError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
-              switch (message) {
-                case "Exception - Wrong File Structure":
-                  msgError(translate.t("group_alerts.invalid_structure"));
-                  break;
-                case "Exception - Invalid File Size":
-                  msgError(translate.t("validations.file_size", { count: 1 }));
-                  break;
-                case "Exception - Invalid File Type":
-                  msgError(translate.t("group_alerts.file_type_csv"));
-                  break;
-                default:
-                  msgError(translate.t("group_alerts.error_textsad"));
-                  Logger.warning("An error occurred updating records", updateError);
-              }
-            });
-          };
-
-          return (
-            <React.Fragment>
-              <Can do="backend_api_mutations_update_evidence_mutate">
-                <Row>
-                  <Col100 className={"pa0"}>
-                    <ButtonToolbarRow>
-                      <TooltipWrapper
-                        id={translate.t("search_findings.tab_records.editable_tooltip.id")}
-                        message={translate.t("search_findings.tab_records.editable_tooltip")}
-                      >
-                        <Button className={"fr"} onClick={handleEditClick}>
-                          <FluidIcon icon="edit" />&nbsp;{translate.t("search_findings.tab_records.editable")}
-                        </Button>
-                      </TooltipWrapper>
-                    </ButtonToolbarRow>
-                  </Col100>
-                </Row>
-              </Can>
-              <br />
-              {isEditing ? (
-                <Mutation
-                  mutation={UPDATE_EVIDENCE_MUTATION}
-                  onCompleted={handleUpdateResult}
-                  onError={handleUpdateError}
+      <React.Fragment>
+        <Can do="backend_api_mutations_update_evidence_mutate">
+          <Row>
+            <Col100 className={"pa0"}>
+              <ButtonToolbarRow>
+                <TooltipWrapper
+                  id={translate.t("search_findings.tab_records.editable_tooltip.id")}
+                  message={translate.t("search_findings.tab_records.editable_tooltip")}
                 >
-                  {(updateRecords: MutationFunction, updateRes: MutationResult): JSX.Element => {
-                    const handleSubmit: ((values: { filename: FileList }) => void) = (
-                      values: { filename: FileList },
-                    ): void => {
-                      setEditing(false);
-                      void updateRecords({ variables: { evidenceId: "RECORDS", file: values.filename[0], findingId } });
-                    };
-
-                    return (
-                      <GenericForm name="records" onSubmit={handleSubmit}>
-                        {({ pristine }: InjectedFormProps): React.ReactNode => (
-                          <React.Fragment>
-                            <ButtonToolbarRow className={"mb3"}>
-                              <Field
-                                accept=".csv"
-                                component={FileInput}
-                                className={"fr"}
-                                id="recordsFile"
-                                name="filename"
-                                validate={[required, validRecordsFile]}
-                              />
-                              <Button className={"h-25"} type="submit" disabled={pristine || updateRes.loading}>
-                                <FontAwesomeIcon icon={faCloudUploadAlt} />
-                                &nbsp;{translate.t("search_findings.tab_evidence.update")}
-                              </Button>
-                            </ButtonToolbarRow>
-                          </React.Fragment>
-                        )}
-                      </GenericForm>
-                    );
-                  }}
-                </Mutation>
-              ) : undefined}
-              {isEditing && !_.isEmpty(JSON.parse(data.finding.records)) ? (
-                <Mutation
-                  mutation={REMOVE_EVIDENCE_MUTATION}
-                  onCompleted={handleUpdateResult}
-                  onError={handleRemoveErrors}
-                >
-                  {(removeRecords: MutationFunction, removeRes: MutationResult): JSX.Element => {
-                    const handleRemoveClick: (() => void) = (): void => {
-                      mixpanel.track("RemoveRecords");
-                      setEditing(false);
-                      void removeRecords({ variables: { evidenceId: "RECORDS", findingId } });
-                    };
-
-                    return (
-                      <Row>
-                        <Col100 className={"pa0"}>
-                          <Button className={"fr"} onClick={handleRemoveClick} disabled={removeRes.loading}>
-                            <FluidIcon icon="delete" />
-                            &nbsp;{translate.t("search_findings.tab_evidence.remove")}
-                          </Button>
-                        </Col100>
-                      </Row>
-                    );
-                  }}
-                </Mutation>
-              ) : undefined}
-              <RowCenter>
-                {_.isEmpty(JSON.parse(data.finding.records)) ? (
-                  <div className={globalStyle["no-data"]}>
-                    <FontAwesomeIcon size={"3x"} icon={faList} />
-                    <p>{translate.t("group.findings.records.no_data")}</p>
-                  </div>
-                ) : (
-                    <DataTableNext
-                      bordered={true}
-                      dataset={JSON.parse(data.finding.records)}
-                      exportCsv={false}
-                      headers={[]}
-                      id="tblRecords"
-                      pageSize={15}
-                      search={false}
-                    />
-                  )}
-              </RowCenter>
-            </React.Fragment>
-          );
-        }}
-      </Query>
+                  <Button className={"fr"} onClick={handleEditClick}>
+                    <FluidIcon icon="edit" />&nbsp;{translate.t("search_findings.tab_records.editable")}
+                  </Button>
+                </TooltipWrapper>
+              </ButtonToolbarRow>
+            </Col100>
+          </Row>
+        </Can>
+        <br />
+        {isEditing ? (
+          <GenericForm name="records" onSubmit={handleSubmit}>
+            {({ pristine }: InjectedFormProps): React.ReactNode => (
+              <React.Fragment>
+                <ButtonToolbarRow className={"mb3"}>
+                  <Field
+                    accept=".csv"
+                    component={FileInput}
+                    className={"fr"}
+                    id="recordsFile"
+                    name="filename"
+                    validate={[required, validRecordsFile]}
+                  />
+                  <Button className={"h-25"} type="submit" disabled={pristine || updateRes.loading}>
+                    <FontAwesomeIcon icon={faCloudUploadAlt} />
+                    &nbsp;{translate.t("search_findings.tab_evidence.update")}
+                  </Button>
+                </ButtonToolbarRow>
+              </React.Fragment>
+            )}
+          </GenericForm>
+        ) : undefined}
+        {isEditing && !_.isEmpty(JSON.parse(data.finding.records)) ? (
+          <Row>
+            <Col100 className={"pa0"}>
+              <Button className={"fr"} onClick={handleRemoveClick} disabled={removeRes.loading}>
+                <FluidIcon icon="delete" />
+                &nbsp;{translate.t("search_findings.tab_evidence.remove")}
+              </Button>
+            </Col100>
+          </Row>
+        ) : undefined}
+        <RowCenter>
+          {_.isEmpty(JSON.parse(data.finding.records)) ? (
+            <div className={globalStyle["no-data"]}>
+              <FontAwesomeIcon size={"3x"} icon={faList} />
+              <p>{translate.t("group.findings.records.no_data")}</p>
+            </div>
+          ) : (
+              <DataTableNext
+                bordered={true}
+                dataset={JSON.parse(data.finding.records)}
+                exportCsv={false}
+                headers={[]}
+                id="tblRecords"
+                pageSize={15}
+                search={false}
+              />
+            )}
+        </RowCenter>
+      </React.Fragment>
     </React.StrictMode>
   );
 };
