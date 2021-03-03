@@ -1,29 +1,53 @@
-import { useQuery } from "@apollo/react-hooks";
-import { PureAbility } from "@casl/ability";
-import { ApolloError } from "apollo-client";
-import { GraphQLError } from "graphql";
-import _ from "lodash";
-import React, { useContext } from "react";
-import { Redirect, Route, Switch, useParams, useRouteMatch } from "react-router-dom";
-import { ContentTab } from "scenes/Dashboard/components/ContentTab";
+/* eslint-disable @typescript-eslint/no-unsafe-member-access -- DB queries use "any" type */
+import type { ApolloError } from "apollo-client";
+import { Can } from "utils/authz/Can";
 import { ChartsForOrganizationView } from "scenes/Dashboard/containers/ChartsForOrganizationView";
-import { GET_ORGANIZATION_ID, GET_USER_PORTFOLIOS } from "scenes/Dashboard/containers/OrganizationContent/queries";
-import { IOrganizationContent, IOrganizationPermission } from "scenes/Dashboard/containers/OrganizationContent/types";
+import { ContentTab } from "scenes/Dashboard/components/ContentTab";
+import { GET_USER_PERMISSIONS } from "scenes/Dashboard/queries";
+import type { GraphQLError } from "graphql";
+import { Logger } from "utils/logger";
 import { OrganizationGroups } from "scenes/Dashboard/containers/OrganizationGroupsView";
 import { OrganizationPolicies } from "scenes/Dashboard/containers/OrganizationPoliciesView/index";
 import { OrganizationPortfolios } from "scenes/Dashboard/containers/OrganizationPortfoliosView/index";
 import { OrganizationStakeholders } from "scenes/Dashboard/containers/OrganizationStakeholdersView/index";
-import { GET_USER_PERMISSIONS } from "scenes/Dashboard/queries";
-import { default as globalStyle } from "styles/global.css";
-import { Col100, Row, StickyContainerOrg, TabsContainer } from "styles/styledComponents";
-import { Can } from "utils/authz/Can";
+import _ from "lodash";
 import { authzPermissionsContext } from "utils/authz/config";
-import { useTabTracking } from "utils/hooks";
-import { Logger } from "utils/logger";
+import globalStyle from "styles/global.css";
 import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
+import { useQuery } from "@apollo/react-hooks";
+import { useTabTracking } from "utils/hooks";
+import type {
+  ClaimRawRule,
+  LegacyClaimRawRule,
+  PureAbility,
+} from "@casl/ability";
+import {
+  Col100,
+  Row,
+  StickyContainerOrg,
+  TabsContainer,
+} from "styles/styledComponents";
+import {
+  GET_ORGANIZATION_ID,
+  GET_USER_PORTFOLIOS,
+} from "scenes/Dashboard/containers/OrganizationContent/queries";
+import type {
+  IOrganizationContent,
+  IOrganizationPermission,
+} from "scenes/Dashboard/containers/OrganizationContent/types";
+import React, { useContext } from "react";
+import {
+  Redirect,
+  Route,
+  Switch,
+  useParams,
+  useRouteMatch,
+} from "react-router-dom";
 
-const organizationContent: React.FC<IOrganizationContent> = (props: IOrganizationContent): JSX.Element => {
+const OrganizationContent: React.FC<IOrganizationContent> = (
+  props: IOrganizationContent
+): JSX.Element => {
   const { setUserRole } = props;
   const { organizationName } = useParams<{ organizationName: string }>();
   const { path, url } = useRouteMatch();
@@ -33,10 +57,10 @@ const organizationContent: React.FC<IOrganizationContent> = (props: IOrganizatio
   // Side effects
   useTabTracking("Organization");
 
-  const onOrganizationChange: (() => void) = (): void => {
+  const onOrganizationChange: () => void = (): void => {
     permissions.update([]);
   };
-  React.useEffect(onOrganizationChange, [organizationName]);
+  React.useEffect(onOrganizationChange, [organizationName, permissions]);
 
   // GraphQL Operations
   const { data: basicData } = useQuery(GET_ORGANIZATION_ID, {
@@ -58,9 +82,9 @@ const organizationContent: React.FC<IOrganizationContent> = (props: IOrganizatio
         Logger.warning("An error occurred fetching user portfolios", error);
       });
     },
-    skip: !basicData,
+    skip: basicData === undefined,
     variables: {
-      organizationId: basicData && basicData.organizationId.id,
+      organizationId: basicData?.organizationId.id,
     },
   });
 
@@ -68,78 +92,88 @@ const organizationContent: React.FC<IOrganizationContent> = (props: IOrganizatio
     onCompleted: (permData: IOrganizationPermission): void => {
       if (!_.isUndefined(permData)) {
         if (_.isEmpty(permData.me.permissions)) {
-          Logger.error("Empty permissions", JSON.stringify(permData.me.permissions));
+          Logger.error(
+            "Empty permissions",
+            JSON.stringify(permData.me.permissions)
+          );
         }
-        permissions.update(permData.me.permissions.map((action: string) => ({ action })));
+        permissions.update(
+          permData.me.permissions.map((action: string):
+            | ClaimRawRule<string>
+            | LegacyClaimRawRule<string> => ({ action }))
+        );
         setUserRole(permData.me.role);
       }
     },
     onError: ({ graphQLErrors }: ApolloError): void => {
-      graphQLErrors.forEach((permissionsError: GraphQLError) => {
+      graphQLErrors.forEach((permissionsError: GraphQLError): void => {
         Logger.error(
           "Couldn't load organization-level permissions",
-          permissionsError,
+          permissionsError
         );
       });
     },
-    skip: !basicData,
+    skip: basicData === undefined,
     variables: {
       entity: "ORGANIZATION",
-      identifier: basicData && basicData.organizationId.id,
+      identifier: basicData?.organizationId.id,
     },
   });
 
   // Render Elements
   if (_.isUndefined(portfoliosData) || _.isEmpty(portfoliosData)) {
-    return <React.Fragment />;
+    return <div />;
   }
 
-  return(
+  return (
     <React.StrictMode>
-      <React.Fragment>
+      <div>
         <Row>
           <Col100>
             <StickyContainerOrg>
               <TabsContainer>
                 <ContentTab
-                  icon="icon pe-7s-graph3"
-                  id="analyticsTab"
+                  icon={"icon pe-7s-graph3"}
+                  id={"analyticsTab"}
                   link={`${url}/analytics`}
                   title={translate.t("organization.tabs.analytics.text")}
                   tooltip={translate.t("organization.tabs.analytics.tooltip")}
                 />
                 <ContentTab
-                  icon="icon pe-7s-folder"
-                  id="groupsTab"
+                  icon={"icon pe-7s-folder"}
+                  id={"groupsTab"}
                   link={`${url}/groups`}
                   title={translate.t("organization.tabs.groups.text")}
                   tooltip={translate.t("organization.tabs.groups.tooltip")}
                 />
-                {portfoliosData.me.tags.length > 0
-                  ? (
-                    <ContentTab
-                    icon="icon pe-7s-display2"
-                    id="portfoliosTab"
+                {portfoliosData.me.tags.length > 0 ? (
+                  <ContentTab
+                    icon={"icon pe-7s-display2"}
+                    id={"portfoliosTab"}
                     link={`${url}/portfolios`}
                     plus={{ visible: true }}
                     title={translate.t("organization.tabs.portfolios.text")}
-                    tooltip={translate.t("organization.tabs.portfolios.tooltip")}
-                    />
-                  )
-                  : <React.Fragment />
-                }
-                <Can do="backend_api_resolvers_organization_stakeholders_resolve">
+                    tooltip={translate.t(
+                      "organization.tabs.portfolios.tooltip"
+                    )}
+                  />
+                ) : (
+                  <div />
+                )}
+                <Can
+                  do={"backend_api_resolvers_organization_stakeholders_resolve"}
+                >
                   <ContentTab
-                    icon="icon pe-7s-users"
-                    id="usersTab"
+                    icon={"icon pe-7s-users"}
+                    id={"usersTab"}
                     link={`${url}/stakeholders`}
                     title={translate.t("organization.tabs.users.text")}
                     tooltip={translate.t("organization.tabs.users.tooltip")}
                   />
                 </Can>
                 <ContentTab
-                  icon="icon pe-7s-box1"
-                  id="policiesTab"
+                  icon={"icon pe-7s-box1"}
+                  id={"policiesTab"}
                   link={`${url}/policies`}
                   plus={{ visible: true }}
                   title={translate.t("organization.tabs.policies.text")}
@@ -149,29 +183,37 @@ const organizationContent: React.FC<IOrganizationContent> = (props: IOrganizatio
             </StickyContainerOrg>
             <div className={globalStyle.tabContent}>
               <Switch>
-                <Route path={`${path}/analytics`} exact={true}>
-                  <ChartsForOrganizationView organizationId={basicData.organizationId.id} />
+                <Route exact={true} path={`${path}/analytics`}>
+                  <ChartsForOrganizationView
+                    organizationId={basicData.organizationId.id}
+                  />
                 </Route>
-                <Route path={`${path}/groups`} exact={true}>
-                  <OrganizationGroups organizationId={basicData.organizationId.id} />
+                <Route exact={true} path={`${path}/groups`}>
+                  <OrganizationGroups
+                    organizationId={basicData.organizationId.id}
+                  />
                 </Route>
-                <Route path={`${path}/portfolios`} exact={true}>
-                  <OrganizationPortfolios portfolios={portfoliosData.me.tags}/>
+                <Route exact={true} path={`${path}/portfolios`}>
+                  <OrganizationPortfolios portfolios={portfoliosData.me.tags} />
                 </Route>
-                <Route path={`${path}/stakeholders`} exact={true}>
-                  <OrganizationStakeholders organizationId={basicData.organizationId.id} />
+                <Route exact={true} path={`${path}/stakeholders`}>
+                  <OrganizationStakeholders
+                    organizationId={basicData.organizationId.id}
+                  />
                 </Route>
-                <Route path={`${path}/policies`} exact={true}>
-                  <OrganizationPolicies organizationId={basicData.organizationId.id} />
+                <Route exact={true} path={`${path}/policies`}>
+                  <OrganizationPolicies
+                    organizationId={basicData.organizationId.id}
+                  />
                 </Route>
                 <Redirect to={`${path}/groups`} />
               </Switch>
             </div>
           </Col100>
         </Row>
-      </React.Fragment>
+      </div>
     </React.StrictMode>
   );
 };
 
-export { organizationContent as OrganizationContent };
+export { OrganizationContent };

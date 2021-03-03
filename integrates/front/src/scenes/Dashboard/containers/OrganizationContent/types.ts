@@ -1,10 +1,12 @@
-export interface IOrganizationContent {
-  setUserRole(userRole: string | undefined): void;
+interface IOrganizationContent {
+  setUserRole: (userRole: string | undefined) => void;
 }
 
-export interface IOrganizationPermission {
+interface IOrganizationPermission {
   me: {
     permissions: string[];
     role: string | undefined;
   };
 }
+
+export { IOrganizationContent, IOrganizationPermission };
