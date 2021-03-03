@@ -3,14 +3,16 @@ export interface IHeaderQueryResult {
     analyst?: string;
     closedVulns: number;
     exploit: string;
-    historicState: Array<{
-      analyst: string; date: string; state: string;
-    }>;
+    historicState: {
+      analyst: string;
+      date: string;
+      state: string;
+    }[];
     id: string;
     openVulns: number;
     releaseDate: string;
     severityScore: number;
-    state: "open" | "closed" | "default";
+    state: "closed" | "default" | "open";
     title: string;
   };
 }
