@@ -1,11 +1,9 @@
 # Standard libraries
+import pytest
 from typing import (
     Any,
     Dict,
 )
-
-# Third party libraries
-import pytest
 
 # Local libraries
 from back.tests import (

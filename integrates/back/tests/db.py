@@ -14,9 +14,10 @@ from aioextensions import (
 
 # Local libraries
 from backend.dal import (
+    project as dal_group,
+    available_name as dal_name,
     organization as dal_organization,
     user as dal_user,
-    available_name as dal_name,
 )
 
 
@@ -47,26 +48,40 @@ async def populate_names(data: List[Any]) -> bool:
 
 async def populate_orgs(data: List[Any]) -> bool:
     success: bool = False
-    coroutines_orgs: List[Awaitable[bool]] = []
-    coroutines_org_users: List[Awaitable[bool]] = []
-    coroutines_orgs.extend([
-        dal_organization.create(
-            org['name'],
-            org['id'],
+    coroutines: List[Awaitable[bool]] = []
+    for org in data:
+        coroutines.append(
+            dal_organization.create(
+                org['name'],
+                org['id'],
+            )
         )
-        for org in data
-    ])
-    success = all(await collect(coroutines_orgs))
-    coroutines_org_users.extend([
-        dal_organization.add_user(
-            org['id'],
-            user,
+        for user in org['users']:
+            coroutines.append(
+                dal_organization.add_user(
+                    org['id'],
+                    user,
+                )
+            )
+        for group in org['groups']:
+            coroutines.append(
+                dal_organization.add_group(
+                    org['id'],
+                    group,
+                )
+            )
+    return all(await collect(coroutines))
+
+
+async def populate_groups(data: List[Any]) -> bool:
+    coroutines: List[Awaitable[bool]] = []
+    coroutines.extend([
+        dal_group.create(
+            group,
         )
-        for org in data
-        for user in org['users']
+        for group in data
     ])
-    success = success and all(await collect(coroutines_org_users))
-    return success
+    return all(await collect(coroutines))
 
 
 async def populate_policies(data: List[Any]) -> bool:
@@ -97,6 +112,9 @@ async def populate(data: Dict[str, Any]) -> bool:
 
     if 'orgs' in keys:
         success = success and await populate_orgs(data['orgs'])
+
+    if 'groups' in keys:
+        success = success and await populate_groups(data['groups'])
 
     if 'policies' in keys:
         success = success and await populate_policies(data['policies'])

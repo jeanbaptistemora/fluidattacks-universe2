@@ -1,11 +1,9 @@
 # Standard libraries
+import pytest
 from typing import (
     Any,
     Dict,
 )
-
-# Third party libraries
-import pytest
 
 # Local libraries
 from back.tests import (
@@ -25,6 +23,7 @@ async def populate() -> bool:
                 'users': [
                     'test1@gmail.com',
                 ],
+                'groups': [],
             },
         ],
         'users': [
