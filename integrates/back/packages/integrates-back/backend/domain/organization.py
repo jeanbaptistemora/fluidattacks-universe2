@@ -15,6 +15,7 @@ from typing import (
 from aioextensions import collect
 from graphql import GraphQLError
 
+from back.settings import LOGGING
 from backend import authz
 from backend.dal import organization as org_dal
 from backend.domain import (
@@ -31,10 +32,8 @@ from backend.exceptions import (
     UserNotInOrganization
 )
 from backend.typing import Organization as OrganizationType
-from backend.utils import (
-    datetime as datetime_utils,
-)
-from back.settings import LOGGING
+from newutils import datetime as datetime_utils
+
 
 logging.config.dictConfig(LOGGING)
 

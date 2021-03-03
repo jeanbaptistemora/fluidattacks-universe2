@@ -20,7 +20,6 @@ from graphql.type.definition import GraphQLResolveInfo
 
 # Local libraries
 from back.settings import LOGGING
-
 from backend import (
     authz,
     mailer,
@@ -39,9 +38,6 @@ from backend.typing import (
     MailContent as MailContentType,
     ProjectAccess as ProjectAccessType,
 )
-from backend.utils import (
-    datetime as datetime_utils,
-)
 from backend.utils.validations import (
     validate_alphanumeric_field,
     validate_email_address,
@@ -49,7 +45,7 @@ from backend.utils.validations import (
     validate_fluidattacks_staff_on_group,
     validate_phone_field
 )
-
+from newutils import datetime as datetime_utils
 from __init__ import BASE_URL
 
 logging.config.dictConfig(LOGGING)

@@ -7,9 +7,7 @@ from aioextensions import in_thread
 from cryptography.hazmat.primitives import asymmetric, hashes, serialization
 from cryptography.hazmat.backends import default_backend
 from botocore import signers
-from backend.utils import (
-    datetime as datetime_utils,
-)
+from newutils import datetime as datetime_utils
 from __init__ import (
     FI_CLOUDFRONT_ACCESS_KEY,
     FI_CLOUDFRONT_PRIVATE_KEY

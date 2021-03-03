@@ -15,6 +15,10 @@ from urllib.parse import quote_plus
 import botocore.exceptions
 
 # Local libraries
+from back.settings import (
+    LOGGING,
+    NOEXTRA
+)
 from backend import (
     mailer,
 )
@@ -30,18 +34,12 @@ from backend.domain import (
     organization as org_domain,
     tag as portfolio_domain,
 )
-from backend.utils import (
-    datetime as datetime_utils,
-    reports,
-)
 from backend.services import (
     has_access_to_project as has_access_to_group,
 )
+from backend.utils import reports
+from newutils import datetime as datetime_utils
 
-from back.settings import (
-    LOGGING,
-    NOEXTRA
-)
 
 logging.config.dictConfig(LOGGING)
 

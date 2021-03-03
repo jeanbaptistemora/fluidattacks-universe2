@@ -31,6 +31,10 @@ from aioextensions import (
 )
 
 # Local libraries
+from back.settings import (
+    LOGGING,
+    NOEXTRA
+)
 from backend import mailer
 from backend.api import get_new_context
 from backend.dal import (
@@ -54,20 +58,13 @@ from backend.typing import (
     MailContent as MailContentType,
     Project as ProjectType,
 )
-from backend.utils import (
-    datetime as datetime_utils,
-)
 from backend.utils.findings import (
     get_state_actions,
     sort_historic_by_date,
     filter_by_date,
 )
 from events import domain as events_domain
-
-from back.settings import (
-    LOGGING,
-    NOEXTRA
-)
+from newutils import datetime as datetime_utils
 from __init__ import (
     BASE_URL,
     FI_TEST_PROJECTS,

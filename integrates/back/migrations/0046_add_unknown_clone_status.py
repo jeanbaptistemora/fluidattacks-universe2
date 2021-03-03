@@ -21,8 +21,8 @@ from aioextensions import (
 
 # Local
 from backend.dal import root as root_dal
-from backend.utils import datetime
 from backend.domain.project import get_active_projects
+from newutils import datetime
 
 
 async def update_root(group_name: str, root_id: Dict[str, Any]) -> None:

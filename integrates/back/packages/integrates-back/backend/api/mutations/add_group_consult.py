@@ -19,7 +19,7 @@ from backend.decorators import (
 )
 from backend.domain import project as group_domain
 from backend.typing import AddConsultPayload as AddConsultPayloadType
-from backend.utils import datetime as datetime_utils
+from newutils import datetime as datetime_utils
 
 
 @convert_kwargs_to_snake_case  # type: ignore

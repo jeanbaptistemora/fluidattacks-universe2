@@ -19,6 +19,10 @@ from aioextensions import (
 from starlette.datastructures import UploadFile
 
 # Local libraries
+from back.settings import (
+    LOGGING,
+    NOEXTRA
+)
 from backend import mailer
 from backend import util
 from backend.dal import (
@@ -30,17 +34,10 @@ from backend.typing import (
     Resource as ResourceType
 )
 from backend.exceptions import InvalidFileSize
-from backend.utils import (
-    datetime as datetime_utils,
-    validations,
-)
-
-from back.settings import (
-    LOGGING,
-    NOEXTRA
-)
-
+from backend.utils import validations
+from newutils import datetime as datetime_utils
 from __init__ import BASE_URL, FI_MAIL_RESOURCERS
+
 
 logging.config.dictConfig(LOGGING)
 

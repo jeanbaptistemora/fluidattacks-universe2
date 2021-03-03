@@ -28,7 +28,7 @@ from backend.dal.helpers.s3 import (
 )
 from backend.domain.project import get_active_projects
 from backend.typing import Finding
-from backend.utils import datetime as datetime_utils
+from newutils import datetime as datetime_utils
 from __init__ import FI_AWS_S3_BUCKET
 STAGE: str = os.environ['STAGE']
 

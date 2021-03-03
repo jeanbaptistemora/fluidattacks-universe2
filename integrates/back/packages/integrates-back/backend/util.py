@@ -59,11 +59,13 @@ from backend.typing import (
     Project as ProjectType
 )
 from backend.utils import (
-    datetime as datetime_utils,
     function,
     token as token_helper,
 )
-from newutils import apm
+from newutils import (
+    apm,
+    datetime as datetime_utils,
+)
 from __init__ import (
     FI_ENVIRONMENT,
 )

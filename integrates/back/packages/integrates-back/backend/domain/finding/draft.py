@@ -27,10 +27,8 @@ from backend.typing import (
     Finding as FindingType,
     User as UserType
 )
-from backend.utils import (
-    datetime as datetime_utils,
-    findings as finding_utils,
-)
+from backend.utils import findings as finding_utils
+from newutils import datetime as datetime_utils
 
 
 async def reject_draft(

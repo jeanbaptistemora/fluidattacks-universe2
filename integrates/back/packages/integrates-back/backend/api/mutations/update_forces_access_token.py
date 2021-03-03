@@ -14,7 +14,7 @@ from backend.domain import (
 )
 from backend.exceptions import InvalidExpirationTime
 from backend.typing import UpdateAccessTokenPayload
-from backend.utils import datetime as datetime_utils
+from newutils import datetime as datetime_utils
 
 
 @convert_kwargs_to_snake_case  # type: ignore

@@ -14,8 +14,8 @@ from backend.decorators import (
     require_login,
 )
 from backend.typing import SimplePayload
-from backend.utils.datetime import get_now
 from events import domain as events_domain
+from newutils.datetime import get_now
 
 
 @convert_kwargs_to_snake_case  # type: ignore

@@ -36,7 +36,7 @@ from backend.domain.vulnerability import (
 from backend.typing import (
     Finding,
 )
-from backend.utils.datetime import (
+from newutils.datetime import (
     DEFAULT_STR,
     get_from_str,
 )

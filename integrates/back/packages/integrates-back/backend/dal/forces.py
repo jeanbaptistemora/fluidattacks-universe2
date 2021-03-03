@@ -21,12 +21,10 @@ from boto3.dynamodb.conditions import Key, Attr
 from botocore.exceptions import ClientError
 
 # Local libraries
+from back.settings import LOGGING
 from backend.dal.helpers import dynamodb, s3
 from backend.dal.helpers.dynamodb import RESOURCE_OPTIONS
-from backend.utils import (
-    datetime as datetime_utils,
-)
-from back.settings import LOGGING
+from newutils import datetime as datetime_utils
 from __init__ import (
     FI_AWS_S3_FORCES_BUCKET,
     FI_AWS_SECRETSMANAGER_ACCESS_KEY,

@@ -30,9 +30,8 @@ from dateutil.parser import (
 )
 
 # Local libraries
-from backend.utils.datetime import (
-    get_utc_timestamp,
-)
+from newutils.datetime import get_utc_timestamp
+
 
 # Constants
 TVar = TypeVar('TVar')

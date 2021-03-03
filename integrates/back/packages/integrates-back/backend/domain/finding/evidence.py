@@ -9,10 +9,10 @@ from backend.exceptions import (
     InvalidFileSize
 )
 from backend.utils import (
-    datetime as datetime_utils,
     findings as finding_utils,
     validations
 )
+from newutils import datetime as datetime_utils
 from .finding import get_finding
 
 

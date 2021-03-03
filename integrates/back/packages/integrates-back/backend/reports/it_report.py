@@ -29,9 +29,7 @@ from backend.typing import (
     Historic as HistoricType,
     Vulnerability as VulnType
 )
-from backend.utils import (
-    datetime as datetime_utils,
-)
+from newutils import datetime as datetime_utils
 
 
 EMPTY = '-'

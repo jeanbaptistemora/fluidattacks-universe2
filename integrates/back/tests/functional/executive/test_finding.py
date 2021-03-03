@@ -7,8 +7,8 @@ from starlette.datastructures import UploadFile
 
 # Local libraries
 from backend.api import get_new_context
-from backend.utils import datetime as datetime_utils
 from back.tests.functional.executive.utils import get_result
+from newutils import datetime as datetime_utils
 
 
 @pytest.mark.asyncio

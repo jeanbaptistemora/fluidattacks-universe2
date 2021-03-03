@@ -25,6 +25,7 @@ from jinja2 import (
 )
 
 # Local libraries
+from back.settings import LOGGING
 from backend import authz
 from backend.domain import (
     organization as org_domain,
@@ -41,11 +42,7 @@ from backend.typing import (
     MailContent as MailContentType,
     Project as ProjectType
 )
-from backend.utils import (
-    datetime as datetime_utils,
-)
-from back.settings import LOGGING
-
+from newutils import datetime as datetime_utils
 from __init__ import (
     BASE_URL,
     FI_MAIL_REVIEWERS,

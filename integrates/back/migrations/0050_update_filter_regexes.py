@@ -22,8 +22,8 @@ from aioextensions import (
 
 # Local
 from backend.dal import root as root_dal
-from backend.utils import datetime
 from backend.domain.project import get_active_projects
+from newutils import datetime
 
 
 def regex_to_glob(regex: str) -> str:

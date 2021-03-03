@@ -44,11 +44,11 @@ from backend.typing import (
     Historic as HistoricType,
     Datetime,
 )
-from backend.utils import (
+from backend.utils import forms as forms_utils
+from newutils import (
+    cvss,
     datetime as datetime_utils,
-    forms as forms_utils
 )
-from newutils import cvss
 from __init__ import (
     BASE_URL,
     FI_MAIL_REVIEWERS

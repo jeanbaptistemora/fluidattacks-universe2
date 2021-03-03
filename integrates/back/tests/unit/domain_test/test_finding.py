@@ -10,6 +10,8 @@ from freezegun import freeze_time
 from graphql.type import GraphQLResolveInfo
 from starlette.datastructures import UploadFile
 
+from back import settings
+from back.tests.unit.utils import create_dummy_session
 from backend import mailer
 from backend.api import get_new_context
 from backend.domain.finding import (
@@ -30,14 +32,9 @@ from backend.exceptions import (
     InvalidFileType,
     InvalidNumberAcceptations
 )
-from backend.utils import (
-    datetime as datetime_utils,
-    findings as findings_utils,
-)
+from backend.utils import findings as findings_utils
+from newutils import datetime as datetime_utils
 
-from back import settings
-
-from back.tests.unit.utils import create_dummy_session
 
 pytestmark = [
     pytest.mark.asyncio,

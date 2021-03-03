@@ -47,13 +47,14 @@ from backend.typing import (
     MailContent as MailContentType,
 )
 from backend.utils import (
-    datetime as datetime_utils,
     events as event_utils,
     validations
 )
 from events import dal as events_dal
-from newutils import comments as comments_utils
-
+from newutils import (
+    comments as comments_utils,
+    datetime as datetime_utils,
+)
 from __init__ import (
     BASE_URL,
     FI_MAIL_CONTINUOUS,

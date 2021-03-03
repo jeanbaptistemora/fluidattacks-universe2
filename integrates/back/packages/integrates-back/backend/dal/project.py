@@ -16,6 +16,7 @@ from aioextensions import collect
 from botocore.exceptions import ClientError
 from boto3.dynamodb.conditions import Attr, Key
 
+from back.settings import LOGGING
 from backend import authz
 from backend.dal.helpers import dynamodb
 from backend.typing import (
@@ -25,11 +26,9 @@ from backend.typing import (
     ProjectAccess as ProjectAccessType,
 )
 from backend.dal.user import get_user_name
-from backend.utils import (
-    datetime as datetime_utils,
-)
-from back.settings import LOGGING
 from events.dal import TABLE_NAME as EVENTS_TABLE_NAME
+from newutils import datetime as datetime_utils
+
 
 logging.config.dictConfig(LOGGING)
 

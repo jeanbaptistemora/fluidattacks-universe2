@@ -15,9 +15,7 @@ from backend.typing import (
     Comment as CommentType,
     User as UserType
 )
-from backend.utils import (
-    datetime as datetime_utils,
-)
+from newutils import datetime as datetime_utils
 
 
 async def _get_comments(

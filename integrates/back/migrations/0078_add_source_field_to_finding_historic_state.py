@@ -35,9 +35,8 @@ from backend.typing import (
     Finding,
     Historic,
 )
-from backend.utils import (
-    datetime as datetime_utils,
-)
+from newutils import datetime as datetime_utils
+
 
 FINDING_TABLE: str = 'FI_findings'
 VULNERABILITY_TABLE: str = 'FI_vulnerabilities'

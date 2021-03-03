@@ -31,13 +31,11 @@ from backend.domain import (
     project as group_domain,
     vulnerability as vuln_domain,
 )
-from backend.utils import (
-    datetime as datetime_utils
-)
 from backend.typing import (
     Finding as FindingType,
     Vulnerability as VulnerabilityType,
 )
+from newutils import datetime as datetime_utils
 
 
 async def fix_vuln_deletion_dates(

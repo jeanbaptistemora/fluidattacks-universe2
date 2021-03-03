@@ -27,9 +27,8 @@ from backend.typing import (
     Vulnerability,
     Historic
 )
-from backend.utils import (
-    datetime as datetime_utils,
-)
+from newutils import datetime as datetime_utils
+
 
 VULNERABILITY_TABLE = 'FI_vulnerabilities'
 

@@ -37,7 +37,6 @@ from backend.filters import (
     vulnerability as vuln_filters,
 )
 from backend.utils import (
-    datetime as datetime_utils,
     findings as finding_utils,
     validations,
     vulnerabilities as vuln_utils
@@ -56,6 +55,7 @@ from backend.typing import (
 from newutils import (
     comments as comments_utils,
     cvss,
+    datetime as datetime_utils,
 )
 
 

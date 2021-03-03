@@ -6,10 +6,10 @@ import pytest
 from starlette.datastructures import UploadFile
 
 # Local libraries
+from back.tests.functional.analyst.utils import get_result
 from backend.api import get_new_context
 from backend.exceptions import VulnNotFound
-from backend.utils import datetime as datetime_utils
-from back.tests.functional.analyst.utils import get_result
+from newutils import datetime as datetime_utils
 
 
 @pytest.mark.asyncio

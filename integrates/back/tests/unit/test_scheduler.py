@@ -6,6 +6,8 @@ from decimal import Decimal
 from freezegun import freeze_time
 from jose import jwt
 
+from back import settings
+from back.tests.unit.utils import create_dummy_simple_session
 from backend.api import get_new_context
 from backend.dal.finding import get_finding
 from backend.dal.vulnerability import get as get_vuln
@@ -28,11 +30,8 @@ from backend.scheduler import (
     integrates_delete_obsolete_orgs,
     calculate_vulnerabilities
 )
-from backend.utils import datetime as datetime_utils
+from newutils import datetime as datetime_utils
 
-from back import settings
-
-from back.tests.unit.utils import create_dummy_simple_session
 
 pytestmark = [
     pytest.mark.asyncio,

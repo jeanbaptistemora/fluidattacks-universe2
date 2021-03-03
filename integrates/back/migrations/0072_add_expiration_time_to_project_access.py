@@ -26,9 +26,8 @@ from backend.domain import (
 from backend.typing import (
     ProjectAccess as ProjectAccessType,
 )
-from backend.utils import (
-    datetime as datetime_utils,
-)
+from newutils import datetime as datetime_utils
+
 
 TABLE_ACCESS_NAME = 'FI_project_access'
 

@@ -5,16 +5,15 @@ from datetime import datetime
 from operator import itemgetter
 from typing import Any, Iterable, List, Dict, Union, cast
 
+from back.settings import LOGGING
 from backend.dal import vulnerability as vuln_dal
 from backend.exceptions import InvalidRange
 from backend.typing import (
     Finding as FindingType,
     Historic as HistoricType,
 )
-from backend.utils import (
-    datetime as datetime_utils,
-)
-from back.settings import LOGGING
+from newutils import datetime as datetime_utils
+
 
 logging.config.dictConfig(LOGGING)
 

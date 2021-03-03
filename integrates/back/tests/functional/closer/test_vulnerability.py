@@ -3,8 +3,8 @@ import pytest
 
 from starlette.datastructures import UploadFile
 
-from backend.utils import datetime as datetime_utils
 from back.tests.functional.closer.utils import get_result
+from newutils import datetime as datetime_utils
 
 
 @pytest.mark.asyncio

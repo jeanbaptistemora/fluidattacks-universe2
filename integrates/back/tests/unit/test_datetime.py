@@ -4,11 +4,9 @@ from datetime import datetime, timedelta
 
 from freezegun import freeze_time
 
-from backend.utils import (
-    datetime as datetime_utils
-)
-
 from back import settings
+from newutils import datetime as datetime_utils
+
 
 tzn = pytz.timezone(settings.TIME_ZONE)
 
@@ -31,7 +29,7 @@ def test_get_from_str():
     now = datetime_utils.get_now()
     now_str = datetime_utils.get_as_str(now)
     assert datetime_utils.get_from_str(now_str) == now
-    
+
 
 @freeze_time("2019-12-01")
 def test_get_as_str():

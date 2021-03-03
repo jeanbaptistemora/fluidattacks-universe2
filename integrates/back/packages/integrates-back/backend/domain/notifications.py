@@ -23,10 +23,7 @@ from backend.domain import (
 from backend.typing import (
     Finding as FindingType,
 )
-from backend.utils import (
-    datetime as datetime_utils,
-)
-
+from newutils import datetime as datetime_utils
 from __init__ import (
     BASE_URL,
 )

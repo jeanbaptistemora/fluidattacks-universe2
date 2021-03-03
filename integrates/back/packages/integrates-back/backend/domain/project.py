@@ -70,12 +70,14 @@ from backend.exceptions import (
     UserNotInOrganization
 )
 from backend.utils import (
-    datetime as datetime_utils,
     findings as finding_utils,
     validations
 )
 from events import domain as events_domain
-from newutils import comments as comments_utils
+from newutils import (
+    comments as comments_utils,
+    datetime as datetime_utils,
+)
 
 
 logging.config.dictConfig(LOGGING)

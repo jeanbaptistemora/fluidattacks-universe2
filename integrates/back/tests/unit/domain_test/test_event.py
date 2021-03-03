@@ -11,11 +11,12 @@ from backend.exceptions import (
     EventAlreadyClosed, EventNotFound, InvalidCommentParent,
     InvalidFileType, InvalidFileSize
 )
-from backend.utils import datetime as datetime_utils
 from events import dal as events_dal
 from back.tests.unit.utils import create_dummy_session
 from graphql.type import GraphQLResolveInfo
 from events import domain as events_domain
+from newutils import datetime as datetime_utils
+
 
 pytestmark = [
     pytest.mark.asyncio,

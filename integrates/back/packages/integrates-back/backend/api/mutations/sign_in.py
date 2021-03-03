@@ -24,11 +24,11 @@ from back.settings.auth import (
 )
 from back.settings import LOGGING
 from backend.typing import SignInPayload as SignInPayloadType
-from backend.utils import (
+from backend.utils import token as token_helper
+from newutils import (
+    analytics,
     datetime as datetime_utils,
-    token as token_helper
 )
-from newutils import analytics
 
 
 logging.config.dictConfig(LOGGING)

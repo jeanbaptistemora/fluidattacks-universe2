@@ -20,9 +20,7 @@ from backend.decorators import (
 from backend.domain import finding as finding_domain
 from backend.exceptions import PermissionDenied
 from backend.typing import AddConsultPayload as AddConsultPayloadType
-from backend.utils import (
-    datetime as datetime_utils
-)
+from newutils import datetime as datetime_utils
 
 
 @convert_kwargs_to_snake_case  # type: ignore

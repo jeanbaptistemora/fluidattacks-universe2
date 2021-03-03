@@ -6,11 +6,12 @@ from ariadne import graphql_sync, graphql
 from jose import jwt
 from starlette.datastructures import UploadFile
 
+from back.tests.unit.utils import create_dummy_session
 from backend import util
 from backend.api import apply_context_attrs
 from backend.api.schema import SCHEMA
-from backend.utils import datetime as datetime_utils
-from back.tests.unit.utils import create_dummy_session
+from newutils import datetime as datetime_utils
+
 
 pytestmark = pytest.mark.asyncio
 

@@ -8,9 +8,9 @@ from starlette.datastructures import UploadFile
 from urllib.parse import quote
 
 # Local libraries
-from backend.api import get_new_context
-from backend.utils import datetime as datetime_utils
 from back.tests.functional.customeradmin.utils import get_result
+from backend.api import get_new_context
+from newutils import datetime as datetime_utils
 
 
 @pytest.mark.asyncio

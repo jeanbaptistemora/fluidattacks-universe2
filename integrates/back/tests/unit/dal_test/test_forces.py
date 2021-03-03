@@ -7,9 +7,8 @@ from backend.dal.forces import (
     get_secret_token,
 )
 
-from backend.utils import (
-    datetime as datetime_utils,
-)
+from newutils import datetime as datetime_utils
+
 
 pytestmark = pytest.mark.asyncio
 
