@@ -15,7 +15,10 @@ from backend.dal.helpers import dynamodb
 from backend.typing import (
     DynamoDelete,
 )
-from backend.utils.encodings import key_to_mapping, mapping_to_key
+from newutils.encodings import (
+    key_to_mapping,
+    mapping_to_key,
+)
 
 # Constants
 SUBSCRIPTIONS_TABLE = 'fi_subscriptions'

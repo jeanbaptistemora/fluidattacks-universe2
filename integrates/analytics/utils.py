@@ -1,11 +1,11 @@
 # Standard library
 import asyncio
 import contextlib
-from datetime import datetime
-from decimal import Decimal
 import functools
 import json
 import os
+from datetime import datetime
+from decimal import Decimal
 from typing import (
     Any,
     AsyncIterator,
@@ -22,6 +22,8 @@ from urllib.parse import (
     urlparse,
 )
 
+from frozendict import frozendict
+
 # Third party libraries
 from backend.domain import (
     organization as org_domain,
@@ -29,10 +31,8 @@ from backend.domain import (
     forces as forces_domain,
     tag as portfolio_domain,
 )
-from backend.utils.encodings import (
-    safe_encode,
-)
-from frozendict import frozendict
+from newutils.encodings import safe_encode
+
 
 PortfoliosGroups = NamedTuple('PortfoliosGroups', [
     ('portfolio', str),

@@ -1,15 +1,14 @@
 # Standard libraries
-# Third party libraries
 from typing import Any, cast, Dict
+
+# Third party libraries
 from jose import jwt
 from jwcrypto.jwe import JWE
 from jwcrypto.jwk import JWK
-# Local libraries
-from backend.utils import (
-    encodings,
-)
-from back import settings
 
+# Local libraries
+from back import settings
+from newutils import encodings
 from __init__ import (
     FI_JWT_ENCRYPTION_KEY,
 )
@@ -31,7 +30,7 @@ def _encrypt_jwt_payload(payload: Dict[str, Any]) -> Dict[str, Any]:
         },
         recipient=key,
     ).serialize()
-    return encodings.jwt_payload_decode(claims)
+    return cast(Dict[str, Any], encodings.jwt_payload_decode(claims))
 
 
 def _decrypt_jwt_payload(payload: Dict[str, Any]) -> Dict[str, Any]:
@@ -43,7 +42,10 @@ def _decrypt_jwt_payload(payload: Dict[str, Any]) -> Dict[str, Any]:
     result = JWE()
     result.deserialize(serialized_payload.encode('utf-8'))
     result.decrypt(key)
-    return encodings.jwt_payload_decode(result.payload.decode('utf-8'))
+    return cast(
+        Dict[str, Any],
+        encodings.jwt_payload_decode(result.payload.decode('utf-8'))
+    )
 
 
 def new_encoded_jwt(

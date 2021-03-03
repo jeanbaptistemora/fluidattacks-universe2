@@ -13,11 +13,9 @@ from graphql.language.ast import (
     ValueNode,
     ArgumentNode
 )
-from __init__ import (
-    FI_AWS_S3_ACCESS_KEY, FI_AWS_S3_SECRET_KEY, FI_AWS_S3_BUCKET
-)
 
-from backend.exceptions import ExpiredToken
+from back import settings
+from back.tests.unit.utils import create_dummy_simple_session
 from backend.dal import (
     session as session_dal,
 )
@@ -26,6 +24,7 @@ from backend.dal.helpers.redis import (
     redis_del_entity_attr,
     redis_set_entity_attr,
 )
+from backend.exceptions import ExpiredToken
 from backend.util import (
     ord_asc_by_criticality,
     assert_file_mime,
@@ -34,12 +33,12 @@ from backend.util import (
     calculate_hash_token,
     get_field_parameters,
 )
-from backend.utils import (
-    encodings,
-    token as token_helper
+from backend.utils import token as token_helper
+from newutils import encodings
+from __init__ import (
+    FI_AWS_S3_ACCESS_KEY, FI_AWS_S3_SECRET_KEY, FI_AWS_S3_BUCKET
 )
-from back import settings
-from back.tests.unit.utils import create_dummy_simple_session
+
 
 pytestmark = [
     pytest.mark.asyncio,

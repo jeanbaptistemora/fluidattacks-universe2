@@ -3,6 +3,8 @@
 # Back
 
 function job_integrates_back_lint {
+  export PYTHONPATH="${PWD}/integrates/back/packages/modules:${PYTHONPATH}"
+
       pushd integrates \
   &&  env_prepare_python_packages \
   &&  mypy --strict --ignore-missing-imports --follow-imports=skip --config-file back/.mypylintignore \

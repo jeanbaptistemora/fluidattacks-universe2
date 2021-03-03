@@ -30,6 +30,8 @@ from starlette.requests import Request
 from starlette.responses import Response
 
 # Local libraries
+from back.app.views import templates
+from back.settings import LOGGING
 from backend.dal import (
     analytics as analytics_dal,
 )
@@ -45,18 +47,14 @@ from backend.exceptions import DocumentNotFound
 from backend.services import (
     has_access_to_project as has_access_to_group,
 )
-from backend.utils.encodings import (
-    safe_encode,
-)
 from backend import util
 from backend.typing import (
     GraphicsForEntityParameters,
     GraphicParameters,
     ReportParameters
 )
-from back.settings import LOGGING
+from newutils.encodings import safe_encode
 
-from back.app.views import templates
 
 logging.config.dictConfig(LOGGING)
 

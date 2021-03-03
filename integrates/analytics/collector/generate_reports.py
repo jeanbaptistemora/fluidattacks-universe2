@@ -16,9 +16,6 @@ from aioextensions import (
     run,
 )
 import aiohttp
-from backend.utils.encodings import (
-    safe_encode,
-)
 from selenium import webdriver
 from selenium.webdriver.firefox.options import Options
 from selenium.common.exceptions import (
@@ -30,6 +27,7 @@ from selenium.common.exceptions import (
 from analytics import (
     utils,
 )
+from newutils.encodings import safe_encode
 
 # Environment
 GECKO = os.environ['envGeckoDriver']
