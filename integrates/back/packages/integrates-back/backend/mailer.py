@@ -41,6 +41,9 @@ from backend.typing import (
     MailContent as MailContentType,
     Project as ProjectType
 )
+from backend.utils import (
+    datetime as datetime_utils,
+)
 from back.settings import LOGGING
 
 from __init__ import (
@@ -229,7 +232,11 @@ async def _send_mail_async_new(
 ) -> None:
     mandrill_client = mandrill.Mandrill(API_KEY)
     first_name = await _get_recipient_first_name_async(email_to)
+    year = datetime_utils.get_as_str(
+        datetime_utils.get_now(), '%Y'
+    )
     context['name'] = first_name
+    context['year'] = year
     content = _get_content(template_name, context)
     message = {
         'from_email': 'noreply@fluidattacks.com',

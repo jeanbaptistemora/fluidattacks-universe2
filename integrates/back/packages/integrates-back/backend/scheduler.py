@@ -1032,9 +1032,6 @@ async def integrates_delete_obsolete_orgs() -> None:
                         org_users,
                         {
                             'deletion_date': new_org_pending_deletion_date_str,
-                            'year': datetime_utils.get_as_str(
-                                datetime_utils.get_now(), '%Y'
-                            ),
                             'org_name': org_name,
                         }
                     )
