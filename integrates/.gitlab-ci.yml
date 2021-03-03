@@ -70,10 +70,13 @@
   stage: analytics
   tags: [autoscaling]
 
-.integrates_back_test_functional: &integrates_back_test_functional
+.integrates_scheduler: &integrates_scheduler
   <<: *makes
-  <<: *in_dev_branch_integrates
-  stage: test-code
+  interruptible: false
+  script:
+    - ./m integrates.scheduler prod "backend.scheduler.${CI_JOB_NAME/integrates.scheduler./}"
+  stage: scheduler
+  tags: [autoscaling-large]
 
 .integrates_front_deploy: &integrates_front_deploy
   <<: *makes
@@ -87,14 +90,6 @@
   script:
     - ./m integrates.mobile.ota
   stage: pre-build
-
-.integrates_scheduler: &integrates_scheduler
-  <<: *makes
-  interruptible: false
-  script:
-    - ./m integrates.scheduler prod "backend.scheduler.${CI_JOB_NAME/integrates.scheduler./}"
-  stage: scheduler
-  tags: [autoscaling-large]
 
 integrates.analytics.documents-dev:
   <<: *analytics_template
@@ -168,15 +163,9 @@ integrates.back.lint:
   <<: *in_dev_branch_integrates
   stage: lint-code
 
-integrates.back.structure:
+.integrates_back_test_functional: &integrates_back_test_functional
   <<: *makes
   <<: *in_dev_branch_integrates
-  after_script:
-    - cp -Lr out/integrates-back-structure outputs
-  artifacts:
-    expire_in: 1 week
-    paths: [outputs]
-    when: always
   stage: test-code
 
 integrates.back.test.functional.old:
@@ -186,6 +175,14 @@ integrates.back.test.functional.old:
 integrates.back.test.functional.create_organization:
   <<: *integrates_back_test_functional
   script: ./m integrates.back.test.functional create_organization
+
+integrates.back.test.functional.grant_stakeholder_organization_access:
+  <<: *integrates_back_test_functional
+  script: ./m integrates.back.test.functional grant_stakeholder_organization_access
+
+integrates.back.test.functional.groups_with_forces:
+  <<: *integrates_back_test_functional
+  script: ./m integrates.back.test.functional groups_with_forces
 
 integrates.back.test.functional.organization_id:
   <<: *integrates_back_test_functional
