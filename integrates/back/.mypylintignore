@@ -1,7 +1,7 @@
 [mypy]
 files =
   back/packages/integrates-back/backend/utils/
-  #,back/packages/integrates-back/cli/invoker.py
+  ,back/packages/integrates-back/cli/invoker.py
   #,back/packages/integrates-back/setup.py
   #,back/packages/integrates-back/backend/
   ,back/packages/integrates-back/backend/authz/

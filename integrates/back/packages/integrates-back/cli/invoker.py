@@ -9,7 +9,7 @@ from aioextensions import (
 )
 
 
-async def main():
+async def main() -> None:
     module, func = sys.argv[1].rsplit('.', maxsplit=1)
     to_invoke = getattr(importlib.import_module(module), func)
     if asyncio.iscoroutinefunction(to_invoke):
