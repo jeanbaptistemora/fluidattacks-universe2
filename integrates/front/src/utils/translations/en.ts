@@ -56,6 +56,7 @@ export const enTranslations: ResourceKey = {
       },
     },
     heatMapChart: {
+      findingsByTag: "Finding by tags",
       groupsByTag: "Tags by groups",
     },
     pieChart: {
