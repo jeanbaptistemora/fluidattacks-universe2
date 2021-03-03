@@ -532,6 +532,7 @@ rec {
     srcPath = path "/observes/singer/tap_mixpanel";
     python = {
       direct = [
+        "pandas==1.2.3"
         "ratelimiter==1.2.0"
         "requests==2.25.1"
       ];
@@ -539,6 +540,10 @@ rec {
         "certifi==2020.12.5"
         "chardet==4.0.0"
         "idna==2.10"
+        "numpy==1.20.1"
+        "python-dateutil==2.8.1"
+        "pytz==2021.1"
+        "six==1.15.0"
         "urllib3==1.26.2"
       ];
     };
