@@ -25,4 +25,5 @@ async def test_admin(populate: bool):
         context=context,
     )
     assert 'errors' not in result
-    assert result['data']['organizationId']['id'] != None
+    assert result['data']['organizationId']['id'] == \
+        'ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db'

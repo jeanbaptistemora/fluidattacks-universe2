@@ -34,6 +34,7 @@ async def populate() -> bool:
         'orgs': [
             {
                 'name': 'orgtest',
+                'id': '40f6da5f-4f66-4bf0-825b-a2d9748ad6db',
                 'users': [
                     'test1@test1.com',
                 ],
@@ -49,7 +50,7 @@ async def populate() -> bool:
             {
                 'level': 'organization',
                 'subject': 'test1@test1.com',
-                'object': 'orgtest',
+                'object': '40f6da5f-4f66-4bf0-825b-a2d9748ad6db',
                 'role': 'customeradmin',
             },
         ]

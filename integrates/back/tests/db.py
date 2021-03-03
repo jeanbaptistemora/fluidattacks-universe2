@@ -48,32 +48,22 @@ async def populate_names(data: List[Any]) -> bool:
 async def populate_orgs(data: List[Any]) -> bool:
     success: bool = False
     coroutines_orgs: List[Awaitable[bool]] = []
-    coroutines_ogs_ids: List[Awaitable[bool]] = []
     coroutines_org_users: List[Awaitable[bool]] = []
     coroutines_orgs.extend([
         dal_organization.create(
             org['name'],
+            org['id'],
         )
         for org in data
     ])
     success = all(await collect(coroutines_orgs))
-    coroutines_ogs_ids.extend([
-        dal_organization.get_by_name(
-            org['name'],
-            ['id'],
-        )
-        for org in data
-    ])
-    org_ids: Tuple[str] = tuple(
-        x['id'] for x in await collect(coroutines_ogs_ids)
-    )
     coroutines_org_users.extend([
         dal_organization.add_user(
-            org_id,
+            org['id'],
             user,
         )
-        for org_id in org_ids
-        for org in data for user in org['users']
+        for org in data
+        for user in org['users']
     ])
     success = success and all(await collect(coroutines_org_users))
     return success
@@ -86,13 +76,7 @@ async def populate_policies(data: List[Any]) -> bool:
             dal_user.SubjectPolicy(
                 level=policy['level'],
                 subject=policy['subject'],
-                object=(
-                    await dal_organization.get_by_name(
-                        policy['object'],
-                        ['id'],
-                    ))['id'] \
-                    if policy['level'] == 'organization' \
-                    else policy['object'],
+                object=policy['object'],
                 role=policy['role'],
             ),
         )
@@ -109,7 +93,7 @@ async def populate(data: Dict[str, Any]) -> bool:
         success = await populate_users(data['users'])
 
     if 'names' in keys:
-        success = await populate_names(data['names'])
+        success = success and await populate_names(data['names'])
 
     if 'orgs' in keys:
         success = success and await populate_orgs(data['orgs'])
