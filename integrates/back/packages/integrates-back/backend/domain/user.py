@@ -286,8 +286,6 @@ async def get_by_email(email: str) -> UserType:
         })
     else:
         stakeholder_data.update({
-            'first_login': 'Unregistered',
-            'last_login': 'None',
             'is_registered': False
         })
 
