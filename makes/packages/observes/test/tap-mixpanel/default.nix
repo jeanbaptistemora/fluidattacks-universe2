@@ -2,4 +2,4 @@
 let
   observes = import (path "/makes/libs/observes") attrs;
 in
-observes.jobs.lint.tapMixpanelDev
+observes.jobs.test.tapMixpanelDev

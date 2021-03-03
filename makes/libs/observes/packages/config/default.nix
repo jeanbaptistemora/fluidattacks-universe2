@@ -532,7 +532,6 @@ rec {
     srcPath = path "/observes/singer/tap_mixpanel";
     python = {
       direct = [
-        "pandas==1.2.3"
         "ratelimiter==1.2.0"
         "requests==2.25.1"
       ];
@@ -550,7 +549,37 @@ rec {
     local = [
       "singerIO"
     ];
-    nix = [ ];
+    nix = [
+      nixPkgs.python38Packages.pandas
+    ];
+  };
+
+  tapMixpanelDev = {
+    srcPath = tapMixpanel.srcPath;
+    python = {
+      direct = mergeDeps [
+        tapMixpanel.python.direct
+        [
+          "pytest-freezegun==0.4.2"
+          "pytest==6.2.2"
+        ]
+      ];
+      inherited = mergeDeps [
+        tapMixpanel.python.inherited
+        [
+          "attrs==20.3.0"
+          "freezegun==1.1.0"
+          "iniconfig==1.1.1"
+          "packaging==20.9"
+          "pluggy==0.13.1"
+          "py==1.10.0"
+          "pyparsing==2.4.7"
+          "toml==0.10.2"
+        ]
+      ];
+    };
+    local = tapMixpanel.local;
+    nix = tapMixpanel.nix;
   };
 
   tapTimedoctor = {
