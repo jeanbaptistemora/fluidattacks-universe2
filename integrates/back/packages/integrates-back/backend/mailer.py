@@ -269,6 +269,7 @@ async def _send_mails_async_new(
     subject: str,
     template_name: str
 ) -> None:
+    test_proj_list = FI_TEST_PROJECTS.split(',')
     await collect([
         _send_mail_async_new(
             email,
@@ -278,6 +279,7 @@ async def _send_mails_async_new(
             template_name
         )
         for email in email_to
+        if context.get('project', '').lower() not in test_proj_list
     ])
 
 
