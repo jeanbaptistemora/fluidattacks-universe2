@@ -14,6 +14,7 @@ from aioextensions import (
 
 # Local libraries
 from backend.dal import (
+    finding as dal_finding,
     project as dal_group,
     available_name as dal_name,
     organization as dal_organization,
@@ -84,6 +85,19 @@ async def populate_groups(data: List[Any]) -> bool:
     return all(await collect(coroutines))
 
 
+async def populate_findings(data: List[Any]) -> bool:
+    coroutines: List[Awaitable[bool]] = []
+    coroutines.extend([
+        dal_finding.create(
+            finding['finding_id'],
+            finding['project_name'],
+            finding,
+        )
+        for finding in data
+    ])
+    return all(await collect(coroutines))
+
+
 async def populate_policies(data: List[Any]) -> bool:
     coroutines: List[Awaitable[bool]] = []
     coroutines.extend([
@@ -115,6 +129,9 @@ async def populate(data: Dict[str, Any]) -> bool:
 
     if 'groups' in keys:
         success = success and await populate_groups(data['groups'])
+
+    if 'findings' in keys:
+        success = success and await populate_findings(data['findings'])
 
     if 'policies' in keys:
         success = success and await populate_policies(data['policies'])
