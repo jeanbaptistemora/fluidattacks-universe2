@@ -37,6 +37,7 @@ async def mutate(
     user_info = await util.get_jwt_content(info.context)
     email: str = user_info['user_email']
     success: bool = await handle_vulns_acceptation(
+        context=info.context.loaders,
         accepted_vulns=accepted_vulns,
         finding_id=finding_id,
         justification=justification,

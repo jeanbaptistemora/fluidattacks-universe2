@@ -40,6 +40,7 @@ async def mutate(
     )
     if success:
         info.context.loaders.finding.clear(finding_id)
+        info.context.loaders.finding_vulns_all.clear(finding_id)
         for vuln_id in vulnerabilities:
             info.context.loaders.vulnerability.clear(vuln_id)
         await redis_del_by_deps(
