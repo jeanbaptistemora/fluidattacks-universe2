@@ -129,6 +129,14 @@ def syntax_step_if(_args: EvaluatorArgs) -> None:
     pass
 
 
+def syntax_step_for(_args: EvaluatorArgs) -> None:
+    pass
+
+
+def syntax_step_array_access(_args: EvaluatorArgs) -> None:
+    pass
+
+
 def syntax_step_literal(args: EvaluatorArgs) -> None:
     if args.syntax_step.value_type in {
         'boolean',
@@ -216,8 +224,10 @@ def syntax_step_symbol_lookup(args: EvaluatorArgs) -> None:
 
 EVALUATORS: Dict[object, Evaluator] = {
     graph_model.SyntaxStepAssignment: syntax_step_assignment,
+    graph_model.SyntaxStepArrayAccess: syntax_step_array_access,
     graph_model.SyntaxStepBinaryExpression: syntax_step_binary_expression,
     graph_model.SyntaxStepDeclaration: syntax_step_declaration,
+    graph_model.SyntaxStepFor: syntax_step_for,
     graph_model.SyntaxStepIf: syntax_step_if,
     graph_model.SyntaxStepLiteral: syntax_step_literal,
     graph_model.SyntaxStepMethodInvocation: syntax_step_method_invocation,
@@ -333,9 +343,10 @@ def get_possible_syntax_steps_for_untrusted_n_id(
             shard=shard,
             path=path,
         )
-        for path in g.branches_cfg(
+        for path in g.branches_cfg_finding(
             graph=shard.graph,
             n_id=g.lookup_first_cfg_parent(shard.graph, untrusted_n_id),
+            finding=finding
         )
     }
 

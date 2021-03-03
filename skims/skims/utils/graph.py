@@ -28,6 +28,7 @@ from more_itertools.recipes import (
 import networkx as nx
 
 # Local libraries
+from model import core_model
 from model.graph_model import (
     Graph,
     NAttrs,
@@ -378,6 +379,27 @@ def branches_cfg(
     # Filter the ones that are leafs
     leaf_ids = filterfalse(lambda x_id: adj_cfg(graph, x_id), c_ids)
 
+    return tuple(sorted(
+        path
+        for leaf_id in leaf_ids
+        for path in paths(graph, n_id, leaf_id, label_cfg='CFG')
+    ))
+
+
+def branches_cfg_finding(
+    graph: Graph,
+    n_id: NId,
+    finding: core_model.FindingEnum
+) -> Tuple[Tuple[str, ...], ...]:
+    # Compute all childs reachable from CFG edges
+    c_ids = adj_cfg(graph, n_id, depth=-1)
+
+    # Filter the ones that are leafs or sinks
+    leaf_ids = (
+        x_id for x_id in c_ids
+        if graph.nodes[x_id].get('label_sink_type') == finding.name
+        or not adj_cfg(graph, x_id)
+    )
     return tuple(sorted(
         path
         for leaf_id in leaf_ids
