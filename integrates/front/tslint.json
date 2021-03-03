@@ -32,7 +32,7 @@
       "src/scenes/Dashboard/containers/GroupScopeView/**",
       "src/scenes/Dashboard/containers/HomeView/**",
       "src/scenes/Dashboard/containers/OrganizationContent/**",
-      "src/scenes/Dashboard/containers/OrganizationGroupsView/index.spec.tsx",
+      "src/scenes/Dashboard/containers/OrganizationGroupsView/**",
       "src/scenes/Dashboard/containers/ProjectSettingsView/DeleteGroup/**",
       "src/scenes/Dashboard/containers/ProjectSettingsView/Unsubscribe/**",
       "src/scenes/Dashboard/containers/TrackingView/**",
