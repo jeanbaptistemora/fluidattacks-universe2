@@ -5,11 +5,21 @@ from typing import (
     Dict,
     List,
     NamedTuple,
-    Set,
+    Optional,
+    Set
 )
 
+# Third party
+from boto3.dynamodb.conditions import Key
+
 # Local
-from backend.model.dynamo.types import VersionedItem
+from backend.dal.helpers import dynamodb
+from backend.model.dynamo.types import (
+    RootHistoric,
+    RootItem,
+    RootMetadata,
+    VersionedItem
+)
 
 
 class PrimaryKey(NamedTuple):
@@ -35,6 +45,8 @@ ENTITIES: Dict[str, Entity] = dict(
         ),
     ),
 )
+
+TABLE_NAME = 'integrates_vms'
 
 
 def validate_pkey_not_empty(*, key: str) -> None:
@@ -109,3 +121,55 @@ def build_versioned_item(
         ),
         metadata=metadata
     )
+
+
+async def get_root(
+    *,
+    group_name: str,
+    url: str,
+    branch: str
+) -> Optional[RootItem]:
+    primary_key = build_key(
+        entity='ROOT',
+        partition_key=group_name,
+        sort_key=''.join([url, branch])
+    )
+
+    results = await dynamodb.async_query(
+        TABLE_NAME,
+        {
+            'IndexName': 'inverted_index',
+            'KeyConditionExpression': (
+                Key('sk').eq(primary_key.partition_key) &
+                Key('pk').begins_with(primary_key.sort_key)
+            )
+        }
+    )
+
+    if results:
+        historic, metadata = build_versioned_item(
+            primary_key=primary_key,
+            raw_items=results
+        )
+
+        return RootItem(
+            historic=tuple(
+                RootHistoric(
+                    environment_urls=item['environment_urls'],
+                    environment=item['environment'],
+                    gitignore=item['gitignore'],
+                    includes_health_check=item['includes_health_check'],
+                    modified_by=item['modified_by'],
+                    modified_date=item['modified_date'],
+                    status=item['status']
+                )
+                for item in historic
+            ),
+            metadata=RootMetadata(
+                branch=metadata['branch'],
+                type=metadata['type'],
+                url=metadata['url']
+            )
+        )
+
+    return None

@@ -1,5 +1,5 @@
 # Standard
-from typing import Any, Dict, Tuple
+from typing import Any, Dict, Optional, Tuple
 
 # Third party
 from boto3.dynamodb.conditions import Key
@@ -7,6 +7,7 @@ from boto3.dynamodb.conditions import Key
 # Local
 from backend.dal.helpers import dynamodb
 from backend.model import dynamo
+from backend.model.dynamo.types import RootItem
 
 # Constants
 ENTITY = 'ROOT'
@@ -32,3 +33,16 @@ async def get_roots(group_name: str) -> Tuple[Dict[str, Any], ...]:
     )
 
     return tuple(results)
+
+
+async def get_root(
+    *,
+    group_name: str,
+    url: str,
+    branch: str
+) -> Optional[RootItem]:
+    return await dynamo.get_root(
+        group_name=group_name,
+        url=url,
+        branch=branch
+    )
