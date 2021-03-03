@@ -1,11 +1,15 @@
+# Standard libraries
 import pytest
 
+# Local libraries
+from backend.api import get_new_context
 from back.tests.functional.reviewer.utils import get_result
 
 
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group('old')
 async def test_user():
+    context = get_new_context()
     group_name = 'unittesting'
     stakeholder = 'stakeholder@fluidattacks.com'
     phone_number = '3453453453'
@@ -28,10 +32,11 @@ async def test_user():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' in result
     assert  result['errors'][0]['message'] == 'Access denied'
 
+    context = get_new_context()
     query = f'''
         query {{
             stakeholder(entity: PROJECT,
@@ -51,10 +56,11 @@ async def test_user():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' in result
     assert  result['errors'][0]['message'] == 'Access denied or stakeholder not found'
 
+    context = get_new_context()
     phone_number = '17364735'
     responsibility = 'edited'
     role = 'GROUP_MANAGER'
@@ -72,10 +78,11 @@ async def test_user():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' in result
     assert  result['errors'][0]['message'] == 'Access denied'
 
+    context = get_new_context()
     query = f'''
         mutation {{
             removeStakeholderAccess (
@@ -89,6 +96,6 @@ async def test_user():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, context=context)
     assert 'errors' in result
     assert  result['errors'][0]['message'] == 'Access denied'
