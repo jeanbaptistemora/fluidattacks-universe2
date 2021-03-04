@@ -70,8 +70,27 @@
     "no-duplicate-imports": "off",
     "no-else-return": "error",
     "no-implicit-coercion": "error",
+    /*
+     * Rules regarding the ternary op are disabled, as it is common its usage in React
+     */
+    "no-nested-ternary": "off",
     "no-shadow": "error",
+    "no-ternary": "off",
+    /*
+     * This rule is deactivated as the codebase uses extensivelly "undefined"
+     * It was established by a previous TSLint rule:
+     * https://palantir.github.io/tslint/rules/no-null-keyword/
+     * For consistency, we will prefer "undefined" over "null"
+     */
+    "no-undefined": "off",
+    /*
+     * Exception to the next rule: The variable "__typename" is required by Apollo Library
+     */
+    "no-underscore-dangle": ["error", { "allow": ["__typename"] }],
+    "no-unneeded-ternary": "error",
+    "no-useless-concat": "error",
     "no-useless-rename": "error",
+    "no-void": ["error", { "allowAsStatement": true }],
     "one-var": ["error", "never"],
     "padding-line-between-statements": [
       "error",

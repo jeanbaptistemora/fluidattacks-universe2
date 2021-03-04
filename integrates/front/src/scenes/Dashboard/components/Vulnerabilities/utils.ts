@@ -115,11 +115,11 @@ const formatVulnerabilities: (
       const shouldDisplayVerification: boolean =
         !_.isEmpty(vulnerability.lastReattackDate) &&
         vulnerability.verification === "Verified"
-          ? isWithInAWeek(
-              moment(vulnerability.lastReattackDate, "YYYY-MM-DD hh:mm:ss")
+          ? Boolean(
+              isWithInAWeek(
+                moment(vulnerability.lastReattackDate, "YYYY-MM-DD hh:mm:ss")
+              )
             )
-            ? true
-            : false
           : true;
 
       return {

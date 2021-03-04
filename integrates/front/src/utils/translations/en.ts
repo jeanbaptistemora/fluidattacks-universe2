@@ -2136,7 +2136,7 @@ export const enTranslations: ResourceKey = {
     organization: "Organization",
     phoneNumber: "Phone Number",
     responsibility: "Responsibility",
-    responsibilityPlaceholder: "Product Owner, Group Manager, " + "Tester, ...",
+    responsibilityPlaceholder: "Product Owner, Group Manager, Tester, ...",
     role: "Role",
     roles: {
       admin: "Admin",
