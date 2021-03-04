@@ -91,11 +91,13 @@
     "no-useless-concat": "error",
     "no-useless-rename": "error",
     "no-void": ["error", { "allowAsStatement": true }],
+    "object-shorthand": "error",
     "one-var": ["error", "never"],
     "padding-line-between-statements": [
       "error",
       { "blankLine": "always", "prev": "*", "next": "return" }
     ],
+    "prefer-destructuring": "error",
     "require-unicode-regexp": "error",
     "sort-keys": "error",
     "sort-imports": [

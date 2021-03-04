@@ -135,7 +135,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
   const { data } = useQuery<IProjectUsersAttr>(GET_PROJECT_USERS, {
     skip: permissions.cannot("backend_api_resolvers_project__get_users"),
     variables: {
-      projectName: projectName,
+      projectName,
     },
   });
 
@@ -199,7 +199,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
                 variables: {
                   acceptanceDate: dataTreatment.acceptanceDate,
                   externalBts: dataTreatment.externalBts,
-                  findingId: findingId,
+                  findingId,
                   isVulnInfoChanged: !isEditPristine,
                   isVulnTreatmentChanged: !isTreatmentPristine,
                   justification: dataTreatment.justification,
@@ -318,7 +318,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
   function handleDeletion(tag: string): void {
     void deleteTagVuln({
       variables: {
-        findingId: findingId,
+        findingId,
         tag,
         vulnerabilities: vulnerabilities.map(
           (vuln: IVulnDataTypeAttr): string => vuln.id
@@ -372,7 +372,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
           variables: {
             canGetExploit,
             canGetHistoricState,
-            findingId: findingId,
+            findingId,
           },
         },
       ],
@@ -425,7 +425,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
               if (changedToRequestZeroRisk) {
                 void requestZeroRisk({
                   variables: {
-                    findingId: findingId,
+                    findingId,
                     justification: values.justification,
                     vulnerabilities: vulnerabilities.map(
                       (vuln: IVulnDataTypeAttr): string => vuln.id

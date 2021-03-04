@@ -33,7 +33,7 @@ export const FileInput: React.FC<IFileInputProps> = (
   const { touched, error } = meta;
 
   function handleFileChange(event: React.FormEvent<HTMLInputElement>): void {
-    const files: FileList | null = (event.target as HTMLInputElement).files;
+    const { files } = event.target as HTMLInputElement;
     onChange(_.isEmpty(files) ? [] : (files as FileList));
   }
 

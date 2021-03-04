@@ -73,7 +73,7 @@ const APITokenModal: React.FC<IAPITokenModalProps> = (
   }
 
   async function handleCopy(): Promise<void> {
-    const clipboard: Clipboard = navigator.clipboard;
+    const { clipboard } = navigator;
 
     if (!_.isUndefined(clipboard)) {
       await clipboard.writeText(

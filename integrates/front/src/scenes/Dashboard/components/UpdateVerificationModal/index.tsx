@@ -119,8 +119,8 @@ const UpdateVerificationModal: React.FC<IUpdateVerificationModal> = (
             canRetrieveZeroRisk: permissions.can(
               "backend_api_resolvers_finding_zero_risk_resolve"
             ),
-            findingId: findingId,
-            groupName: groupName,
+            findingId,
+            groupName,
           },
         },
       ],
@@ -162,7 +162,7 @@ const UpdateVerificationModal: React.FC<IUpdateVerificationModal> = (
           variables: {
             canGetExploit: canDisplayExploit,
             canGetHistoricState: canDisplayAnalyst,
-            findingId: findingId,
+            findingId,
           },
         },
         {
@@ -174,8 +174,8 @@ const UpdateVerificationModal: React.FC<IUpdateVerificationModal> = (
             canRetrieveZeroRisk: permissions.can(
               "backend_api_resolvers_finding_zero_risk_resolve"
             ),
-            findingId: findingId,
-            groupName: groupName,
+            findingId,
+            groupName,
           },
         },
       ],
@@ -194,7 +194,7 @@ const UpdateVerificationModal: React.FC<IUpdateVerificationModal> = (
         mixpanel.track("RequestReattack");
         requestVerification({
           variables: {
-            findingId: findingId,
+            findingId,
             justification: values.treatmentJustification,
             vulnerabilities: vulnerabilitiesId,
           },
@@ -213,7 +213,7 @@ const UpdateVerificationModal: React.FC<IUpdateVerificationModal> = (
         verifyRequest({
           variables: {
             closedVulns: closedVulnsId,
-            findingId: findingId,
+            findingId,
             justification: values.treatmentJustification,
             openVulns: openVulnsId,
           },

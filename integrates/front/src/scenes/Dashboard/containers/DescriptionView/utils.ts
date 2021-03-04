@@ -24,17 +24,17 @@ const formatHistoricTreatment: (
   treatmentEvent: IHistoricTreatment,
   translateTreatment: boolean
 ): IHistoricTreatment => {
-  const date: string = _.get(treatmentEvent, "date", "").split(" ")[0];
-  const acceptanceDate: string = (_.get(
+  const [date] = _.get(treatmentEvent, "date", "").split(" ");
+  const [acceptanceDate] = (_.get(
     treatmentEvent,
     "acceptance_date",
     ""
-  ) as string).split(" ")[0];
-  const acceptanceStatus: string = (_.get(
+  ) as string).split(" ");
+  const [acceptanceStatus] = (_.get(
     treatmentEvent,
     "acceptance_status",
     ""
-  ) as string).split(" ")[0];
+  ) as string).split(" ");
   const treatment: string = translateTreatment
     ? formatTreatment(
         _.get(treatmentEvent, "treatment").replace(" ", "_"),

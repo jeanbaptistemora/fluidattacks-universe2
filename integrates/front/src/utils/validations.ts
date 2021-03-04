@@ -27,7 +27,7 @@ const getGroupValues: (
   const fieldId: string[] = name.split(".");
 
   if (fieldId.length > 1) {
-    const groupName: string = fieldId[0];
+    const [groupName] = fieldId;
 
     return allValues[groupName];
   }
@@ -268,6 +268,7 @@ const isValidVulnsFile: Validator = (value: FileList): string | undefined => {
   if (_.isNil(value) || value.length === 0) {
     return translate.t("group_alerts.no_file_selected");
   }
+  // eslint-disable-next-line prefer-destructuring -- No destructuring as method returns an iterator
   const file: File = value[0];
   const MIB: number = 1048576;
   const fileType: string = `.${
@@ -359,7 +360,7 @@ const excludeFormat: Validator = (
   const repoUrl: string = allValues.url;
 
   if (!_.isUndefined(repoUrl) && !_.isUndefined(value)) {
-    const urlBasename: string = repoUrl.split("/").slice(-1)[0];
+    const [urlBasename] = repoUrl.split("/").slice(-1);
     const repoName: string = urlBasename.endsWith(".git")
       ? urlBasename.replace(".git", "")
       : urlBasename;

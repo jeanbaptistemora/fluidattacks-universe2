@@ -73,7 +73,7 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
     (!_.isEmpty(dataset) && dataset.length > pageSize);
 
   const paginationOptions: PaginationProps = {
-    onPageChange: onPageChange,
+    onPageChange,
     onSizePerPageChange,
     paginationSize: numPages,
     sizePerPage: pageSize,

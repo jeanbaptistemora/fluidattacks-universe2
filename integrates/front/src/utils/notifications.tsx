@@ -54,7 +54,7 @@ const msgInfo: (text: string, title: string, hideMessage?: boolean) => void = (
     closeButton: false,
     delay: 0,
     draggable: false,
-    toastId: toastId,
+    toastId,
     transition: Slide,
   });
 };

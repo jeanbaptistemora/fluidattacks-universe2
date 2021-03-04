@@ -24,7 +24,7 @@ const sendBugsnagReport: (
       // eslint-disable-next-line fp/no-mutating-methods
       error.stacktrace.splice(0, 2);
     });
-    event.addMetadata("extra", { extra: extra });
+    event.addMetadata("extra", { extra });
 
     // eslint-disable-next-line fp/no-mutation
     event.severity = severity;

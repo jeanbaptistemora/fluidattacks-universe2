@@ -48,7 +48,7 @@ const APITokenForcesModal: React.FC<IAPITokenForcesModalProps> = (
     void getApiToken(); // eslint-disable-line @typescript-eslint/no-confusing-void-expression
   }, [getApiToken]);
   const handleCopy: () => Promise<void> = React.useCallback(async (): Promise<void> => {
-    const clipboard: Clipboard = navigator.clipboard;
+    const { clipboard } = navigator;
 
     if (!_.isUndefined(clipboard)) {
       await clipboard.writeText(getTokenData?.project.forcesToken ?? "");

@@ -136,7 +136,7 @@ const NavbarComponent: React.FC = (): JSX.Element => {
 
   const breadcrumbItems: JSX.Element[] = pathData.slice(1).map(
     (item: string, index: number): JSX.Element => {
-      const baseLink: string = path.split("/")[1];
+      const [, baseLink] = path.split("/");
       const link: string = pathData.slice(0, index + 2).join("/");
 
       return (

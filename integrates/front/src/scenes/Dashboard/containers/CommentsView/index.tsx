@@ -31,7 +31,7 @@ interface ICommentsData {
 
 const CommentsView: React.FC = (): JSX.Element => {
   const params: { findingId: string; type: string } = useParams();
-  const findingId: string = params.findingId;
+  const { findingId } = params;
   const PARAM_NO_OBSERVATIONS: number = -3;
   const type: string =
     params.type === "observations"
