@@ -56,11 +56,6 @@ from backend.exceptions import (
 from backend.filters import (
     stakeholder as stakeholder_filters,
 )
-from backend.utils import (
-    findings as finding_utils,
-    stakeholders as stakeholders_utils,
-    validations
-)
 from backend.typing import (
     Comment as CommentType,
     Finding as FindingType,
@@ -71,7 +66,10 @@ from backend.typing import (
     ProjectAccess as ProjectAccessType,
     Vulnerability as VulnerabilityType
 )
-from backend.utils import validations
+from backend.utils import (
+    stakeholders as stakeholders_utils,
+    validations
+)
 from events import domain as events_domain
 from newutils import (
     comments as comments_utils,
