@@ -6,7 +6,7 @@ import { mount, ReactWrapper } from "enzyme";
 import { GraphQLError } from "graphql";
 import * as React from "react";
 import { Provider } from "react-redux";
-import { MemoryRouter } from "react-router-dom";
+import { MemoryRouter, Route } from "react-router-dom";
 import wait from "waait";
 
 import { DataTableNext } from "components/DataTableNext";
@@ -15,34 +15,10 @@ import { ITableProps } from "components/DataTableNext/types";
 import { act } from "react-dom/test-utils";
 import { ProjectFindingsView } from "scenes/Dashboard/containers/ProjectFindingsView";
 import { GET_FINDINGS } from "scenes/Dashboard/containers/ProjectFindingsView/queries";
-import { IProjectFindingsProps } from "scenes/Dashboard/containers/ProjectFindingsView/types";
 import store from "store";
 import { authzPermissionsContext } from "utils/authz/config";
 
 describe("ProjectFindingsView", () => {
-
-  const propsMock: IProjectFindingsProps = {
-    history: {
-      action: "PUSH",
-      block: (): (() => void) => (): void => undefined,
-      createHref: (): string => "",
-      go: (): void => undefined,
-      goBack: (): void => undefined,
-      goForward: (): void => undefined,
-      length: 1,
-      listen: (): (() => void) => (): void => undefined,
-      location: { hash: "", pathname: "/", search: "", state: {} },
-      push: (): void => undefined,
-      replace: (): void => undefined,
-    },
-    location: { hash: "", pathname: "/", search: "", state: {} },
-    match: {
-      isExact: true,
-      params: { projectName: "TEST" },
-      path: "/",
-      url: "",
-    },
-  };
 
   const apolloDataMock: ReadonlyArray<MockedResponse> = [
     {
@@ -144,10 +120,10 @@ describe("ProjectFindingsView", () => {
 
   it("should render a component", async () => {
     const wrapper: ReactWrapper = mount(
-      <MemoryRouter initialEntries={["/groups/test/vulns"]}>
+      <MemoryRouter initialEntries={["/groups/TEST/vulns"]}>
         <Provider store={store}>
           <MockedProvider mocks={apolloDataMock} addTypename={true}>
-            <ProjectFindingsView {...propsMock} />
+            <Route path={"/groups/:projectName/vulns"} component={ProjectFindingsView}/>
           </MockedProvider>
         </Provider>
       </MemoryRouter>,
@@ -162,11 +138,11 @@ describe("ProjectFindingsView", () => {
       { action: "backend_api_resolvers_query_report__get_url_group_report" },
     ]);
     const wrapper: ReactWrapper = mount(
-      <MemoryRouter initialEntries={["/groups/test/vulns"]}>
+      <MemoryRouter initialEntries={["/groups/TEST/vulns"]}>
         <Provider store={store}>
           <MockedProvider mocks={mocksFindings} addTypename={true}>
             <authzPermissionsContext.Provider value={mockedPermissions}>
-              <ProjectFindingsView {...propsMock} />
+              <Route path={"/groups/:projectName/vulns"} component={ProjectFindingsView}/>
             </authzPermissionsContext.Provider>
           </MockedProvider>
         </Provider>
@@ -213,10 +189,10 @@ describe("ProjectFindingsView", () => {
 
   it("should render an error in component", async () => {
     const wrapper: ReactWrapper = mount(
-      <MemoryRouter initialEntries={["/groups/test/vulns"]}>
+      <MemoryRouter initialEntries={["/groups/TEST/vulns"]}>
         <Provider store={store}>
           <MockedProvider mocks={mockError} addTypename={true}>
-            <ProjectFindingsView {...propsMock} />
+            <Route path={"/groups/:projectName/vulns"} component={ProjectFindingsView}/>
           </MockedProvider>
         </Provider>
       </MemoryRouter>,
@@ -228,10 +204,10 @@ describe("ProjectFindingsView", () => {
 
   it("should display all finding columns", async (): Promise<void> => {
     const wrapper: ReactWrapper = mount(
-      <MemoryRouter initialEntries={["/groups/test/vulns"]}>
+      <MemoryRouter initialEntries={["/groups/TEST/vulns"]}>
         <Provider store={store}>
           <MockedProvider mocks={mocksFindings} addTypename={true}>
-            <ProjectFindingsView {...propsMock} />
+            <Route path={"/groups/:projectName/vulns"} component={ProjectFindingsView}/>
           </MockedProvider>
         </Provider>
       </MemoryRouter>,

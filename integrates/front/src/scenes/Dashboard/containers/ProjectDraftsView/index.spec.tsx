@@ -6,11 +6,10 @@ import * as React from "react";
 // tslint:disable-next-line: no-submodule-imports
 import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
-import { MemoryRouter } from "react-router-dom";
+import { MemoryRouter, Route } from "react-router-dom";
 
 import { ProjectDraftsView } from "scenes/Dashboard/containers/ProjectDraftsView";
 import { GET_DRAFTS } from "scenes/Dashboard/containers/ProjectDraftsView/queries";
-import { IProjectDraftsBaseProps } from "scenes/Dashboard/containers/ProjectDraftsView/types";
 import store from "store";
 
 const mockedFetch: FetchMockStatic = fetch as typeof fetch & FetchMockStatic;
@@ -26,15 +25,6 @@ mockedFetch.mock(`${baseUrl}/${spreadsheetId}/1/public/values?alt=json&min-row=2
 });
 
 describe("ProjectDraftsView", () => {
-
-  const mockProps: IProjectDraftsBaseProps = {
-    match: {
-      isExact: true,
-      params: { projectName: "TEST" },
-      path: "/",
-      url: "",
-    },
-  };
 
   const mocks: ReadonlyArray<MockedResponse> = [
     {
@@ -84,10 +74,10 @@ describe("ProjectDraftsView", () => {
 
   it("should render a component", async () => {
     const wrapper: ReactWrapper = mount(
-      <MemoryRouter initialEntries={["/project/test/drafts"]}>
+      <MemoryRouter initialEntries={["/groups/TEST/drafts"]}>
         <Provider store={store}>
           <MockedProvider mocks={mocks} addTypename={false}>
-            <ProjectDraftsView {...mockProps} />
+            <Route path={"/groups/:projectName/drafts"} component={ProjectDraftsView}/>
           </MockedProvider>
         </Provider>
       </MemoryRouter>,
@@ -100,10 +90,10 @@ describe("ProjectDraftsView", () => {
 
   it("should render an error in component", async () => {
     const wrapper: ReactWrapper = mount(
-      <MemoryRouter initialEntries={["/project/test/drafts"]}>
+      <MemoryRouter initialEntries={["/groups/TEST/drafts"]}>
         <Provider store={store}>
           <MockedProvider mocks={mockError} addTypename={false}>
-            <ProjectDraftsView {...mockProps} />
+            <Route path={"/groups/:projectName/drafts"} component={ProjectDraftsView}/>
           </MockedProvider>
         </Provider>
       </MemoryRouter>,

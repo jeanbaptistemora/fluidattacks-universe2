@@ -14,7 +14,7 @@ import _ from "lodash";
 import React from "react";
 import { selectFilter, textFilter } from "react-bootstrap-table2-filter";
 import { Trans } from "react-i18next";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 
 import { Button } from "components/Button";
 import { DataTableNext } from "components/DataTableNext";
@@ -31,7 +31,6 @@ import {
 import {
   IFindingAttr,
   IProjectFindingsAttr,
-  IProjectFindingsProps,
 } from "scenes/Dashboard/containers/ProjectFindingsView/types";
 import { formatFindings } from "scenes/Dashboard/containers/ProjectFindingsView/utils";
 import { ButtonToolbar, ButtonToolbarCenter, Col100, Row } from "styles/styledComponents";
@@ -41,7 +40,7 @@ import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 
-const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFindingsProps): JSX.Element => {
+const projectFindingsView: React.FC = (): JSX.Element => {
   const now: Date = new Date();
   const timeSoFar: number = Date.now();
   const tzoffset: number = now.getTimezoneOffset() * 60000;
@@ -49,7 +48,7 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
   const formattingDate: string = localIsoTime.toISOString();
   const currentDate: string = formattingDate.slice(0, 19);
 
-  const { projectName } = props.match.params;
+  const { projectName } = useParams<{ projectName: string }>();
   const { push } = useHistory();
 
   // State management

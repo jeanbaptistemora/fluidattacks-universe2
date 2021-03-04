@@ -1,5 +1,3 @@
-import { RouteComponentProps } from "react-router";
-
 export interface IProjectDraftsAttr {
   project: {
     drafts: Array<{
@@ -16,5 +14,3 @@ export interface IProjectDraftsAttr {
     }>;
   };
 }
-
-export type IProjectDraftsBaseProps = Pick<RouteComponentProps<{ projectName: string }>, "match">;

@@ -12,7 +12,7 @@ import { GraphQLError } from "graphql";
 import _ from "lodash";
 import React from "react";
 import { selectFilter } from "react-bootstrap-table2-filter";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { Field, InjectedFormProps } from "redux-form";
 
 import { Button } from "components/Button";
@@ -23,7 +23,7 @@ import { Modal } from "components/Modal";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import { CREATE_DRAFT_MUTATION, GET_DRAFTS } from "scenes/Dashboard/containers/ProjectDraftsView/queries";
-import { IProjectDraftsAttr, IProjectDraftsBaseProps } from "scenes/Dashboard/containers/ProjectDraftsView/types";
+import { IProjectDraftsAttr } from "scenes/Dashboard/containers/ProjectDraftsView/types";
 import { formatDrafts } from "scenes/Dashboard/containers/ProjectDraftsView/utils";
 import { ButtonToolbar, ButtonToolbarCenter, Col100, Row } from "styles/styledComponents";
 import { AutoCompleteText } from "utils/forms/fields";
@@ -32,8 +32,8 @@ import { msgError, msgSuccess } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 import { required, validDraftTitle } from "utils/validations";
 
-const projectDraftsView: React.FC<IProjectDraftsBaseProps> = (props: IProjectDraftsBaseProps): JSX.Element => {
-  const { projectName } = props.match.params;
+const projectDraftsView: React.FC = (): JSX.Element => {
+  const { projectName } = useParams<{ projectName: string }>();
   const { push } = useHistory();
 
   const goToFinding: ((event: React.FormEvent<HTMLButtonElement>, rowInfo: { id: string }) => void) = (
