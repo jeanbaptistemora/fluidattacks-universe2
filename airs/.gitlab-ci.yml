@@ -98,30 +98,17 @@ airs.test.images.size:
   <<: *in_dev_branch_airs
   stage: test-code
 
-airs_test_lint_code:
-  <<: *with_nix
-  <<: *in_dev_branch_airs
+makes.test.airs:
+  <<: *makes
+  <<: *in_master_branch_airs
   stage: test-code
 
-airs_test_generic:
-  <<: *with_nix
-  <<: *in_dev_branch_airs
+makes.lint.styles:
+  <<: *makes
+  <<: *in_master_branch_airs
   stage: test-code
 
-airs_test_blog:
-  <<: *with_nix
-  <<: *in_dev_branch_airs
-  stage: test-code
-
-airs_test_defends:
-  <<: *with_nix
-  <<: *in_dev_branch_airs
-  stage: test-code
-
-airs_test_lint_styles:
-  <<: *with_nix
-  <<: *in_dev_branch_airs
-  stage: test-code
+# Migrated to makes, but pending to finish gatsby migration
 
 airs_deploy_ephemeral:
   <<: *with_nix
@@ -135,6 +122,18 @@ airs_deploy_ephemeral:
     key: ${CI_JOB_NAME}-${CI_COMMIT_REF_SLUG}
     paths:
     - airs/cache/
+
+airs_deploy_production:
+  <<: *with_nix
+  <<: *in_master_branch_airs
+  stage: deploy-app
+
+airs_test_lint_styles:
+  <<: *with_nix
+  <<: *in_dev_branch_airs
+  stage: test-code
+
+# Pending to migrate
 
 airs_deploy_stop_ephemeral:
   <<: *with_nix
@@ -154,12 +153,22 @@ airs_deploy_stop_ephemeral:
     - if: *airs_commit_pattern
       when: manual
 
-airs_deploy_production:
+airs_test_lint_code:
   <<: *with_nix
-  <<: *in_master_branch_airs
-  stage: deploy-app
+  <<: *in_dev_branch_airs
+  stage: test-code
 
-makes.test.airs:
-  <<: *makes
-  <<: *in_master_branch_airs
+airs_test_generic:
+  <<: *with_nix
+  <<: *in_dev_branch_airs
+  stage: test-code
+
+airs_test_blog:
+  <<: *with_nix
+  <<: *in_dev_branch_airs
+  stage: test-code
+
+airs_test_defends:
+  <<: *with_nix
+  <<: *in_dev_branch_airs
   stage: test-code
