@@ -3,8 +3,8 @@ This migration tries to restore some
 masked data on DELETED projects.
 
 
-Execution Time:
-Finalization Time:
+Execution Time:    2021-03-04 at 09:23:37 UTC-05
+Finalization Time: 2021-03-04 at 09:27:43 UTC-05
 """
 # Standard libraries
 import copy
@@ -78,7 +78,7 @@ async def restore_historic_state(
             state_info['state'] = r_state_info['state']
 
     if to_update:
-        if type_item == 'finging':
+        if type_item == 'finding':
             success = await finding_dal.update(
                 finding_id,
                 {
@@ -146,7 +146,7 @@ async def main() -> None:
         })
     ]
 
-    success = all(await collect(
+    success_findings = all(await collect(
         [
             restore_historic_state(finding, 'finding')
             for finding in findings
@@ -161,14 +161,15 @@ async def main() -> None:
         })
     ]
 
-    success = all(await collect(
+    success_vulns = all(await collect(
         [
             restore_historic_state(vuln, 'vuln')
             for vuln in vulns
         ]
     ))
 
-    print(f'Success: {success}')
+    print(f'Success findings: {success_findings}')
+    print(f'Success vulns: {success_vulns}')
 
 
 if __name__ == '__main__':
