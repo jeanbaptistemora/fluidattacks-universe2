@@ -40,18 +40,6 @@ function helper_airs_aws_login {
   &&  aws configure set region 'us-east-1'
 }
 
-function helper_airs_cloudflare_login {
-  local user="${1}"
-  export TF_VAR_cloudflare_account_id
-  export TF_VAR_cloudflare_api_token
-
-      helper_common_sops_env "deploy/secret-management/${user}.yaml" default \
-        CLOUDFLARE_ACCOUNT_ID \
-        CLOUDFLARE_API_TOKEN \
-  &&  TF_VAR_cloudflare_account_id="${CLOUDFLARE_ACCOUNT_ID}" \
-  &&  TF_VAR_cloudflare_api_token="${CLOUDFLARE_API_TOKEN}"
-}
-
 function helper_airs_file_exists {
   local path="${1}"
 
@@ -234,12 +222,4 @@ function helper_airs_git_sparse_checkout {
   &&  git reset --hard "${version}" \
   &&  rm -rf .git/ \
   &&  popd || return 1
-}
-
-function helper_airs_terraform_plan {
-  local target="${1}"
-  local config
-
-      config="$(readlink -f ../.tflint.hcl)" \
-  &&  helper_common_terraform_plan_new "${target}" "${config}"
 }

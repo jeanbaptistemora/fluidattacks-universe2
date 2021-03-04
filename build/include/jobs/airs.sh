@@ -122,18 +122,6 @@ function job_airs_test_lint_styles {
         &&  return 1
       fi \
   &&  popd \
-  &&  pushd airs/new-front \
-  &&  npm install \
-  &&  echo "[INFO] Running Stylelint to lint SCSS files" \
-  &&  if npm run lint:stylelint
-      then
-        echo '[INFO] All styles on the new front are ok!'
-      else
-            err_count="$(npx stylelint '**/*.scss' | wc -l || true)" \
-        &&  echo "[ERROR] ${err_count} errors found in styles!" \
-        &&  return 1
-      fi \
-  &&  popd \
   || return 1
 }
 
@@ -156,15 +144,6 @@ function job_airs_deploy_ephemeral {
   &&  helper_airs_compile "https://web.eph.fluidattacks.com/${CI_COMMIT_REF_NAME}" \
   &&  popd \
   &&  airs airs/output eph \
-  ||  return 1
-}
-
-function job_airs_deploy_stop_ephemeral {
-      helper_common_use_pristine_workdir \
-  &&  pushd airs \
-  &&  helper_airs_aws_login development \
-  &&  aws s3 rm "s3://web.eph.fluidattacks.com/$CI_COMMIT_REF_NAME" --recursive \
-  &&  popd \
   ||  return 1
 }
 

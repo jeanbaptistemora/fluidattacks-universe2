@@ -10,7 +10,6 @@ source "${srcIncludeHelpersAirs}"
 source "${srcIncludeHelpersAirsBlog}"
 source "${srcIncludeHelpersAirsDeploy}"
 source "${srcIncludeHelpersAirsGeneric}"
-source "${srcIncludeHelpersAirsImage}"
 source "${srcIncludeAirsJobs}"
 
 source "${srcIncludeHelpersAsserts}"
