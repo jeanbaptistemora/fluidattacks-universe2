@@ -117,7 +117,7 @@ airs_deploy_ephemeral:
   environment:
     name: ephemeral/${CI_COMMIT_REF_NAME}
     url: https://web.eph.fluidattacks.com/${CI_COMMIT_REF_NAME}/
-    on_stop: airs_deploy_stop_ephemeral
+    on_stop: airs.eph-stop
   cache:
     key: ${CI_JOB_NAME}-${CI_COMMIT_REF_SLUG}
     paths:
@@ -135,8 +135,10 @@ airs_test_lint_styles:
 
 # Pending to migrate
 
-airs_deploy_stop_ephemeral:
-  <<: *with_nix
+airs.eph-stop:
+  <<: *makes
+  script:
+    - ./m airs . eph-stop
   stage: deploy-app
   environment:
     name: ephemeral/${CI_COMMIT_REF_NAME}

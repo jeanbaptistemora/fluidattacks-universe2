@@ -124,6 +124,11 @@ function deploy_prod {
   &&  announce_to_bugsnag production
 }
 
+function stop_eph {
+      aws_login_dev airs \
+  &&  aws s3 rm --recursive "s3://web.eph.fluidattacks.com/${CI_COMMIT_REF_NAME}"
+}
+
 function announce_to_bugsnag {
   local release_stage="${1}"
 
@@ -141,12 +146,14 @@ function main {
   &&  case "${env}" in
         dev) patch_paths_dev "${out}";;
         eph) patch_paths_eph "${out}";;
+        eph-stop) :;;
         prod) patch_paths_prod "${out}";;
         *) abort '[ERROR] Second argument must be one of: dev, eph, prod';;
       esac \
   &&  case "${env}" in
         dev) deploy_dev "${out}";;
         eph) deploy_eph "${out}";;
+        eph-stop) stop_eph;;
         prod) deploy_prod "${out}";;
       esac \
   ||  return 1
