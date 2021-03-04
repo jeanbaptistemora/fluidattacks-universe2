@@ -7,5 +7,10 @@ makeTemplate {
     envGit = "${pkgs.git}/bin/git";
   };
   name = "utils-bash-lib-git";
+  searchPaths = {
+    envPaths = [
+      pkgs.git
+    ];
+  };
   template = path "/makes/utils/git/template.sh";
 }

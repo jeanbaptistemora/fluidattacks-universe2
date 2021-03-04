@@ -1,14 +1,7 @@
 # shellcheck shell=bash
 
 function get_touched_files_last_commit {
-  export CI_COMMIT_BEFORE_SHA
-  export CI_COMMIT_SHA
-
-  git diff --name-only "${CI_COMMIT_BEFORE_SHA}" "${CI_COMMIT_SHA}" \
-    | while read -r path
-      do
-        ! test -e "${path}" || echo "${path}"
-      done
+  git show --diff-filter=d --format= --name-only HEAD
 }
 
 function has_any_file_changed {
