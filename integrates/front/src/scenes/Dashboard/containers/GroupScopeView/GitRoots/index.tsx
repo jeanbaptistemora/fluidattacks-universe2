@@ -287,6 +287,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
         .length === 1 &&
       checkedItems[columnName]
     ) {
+      // eslint-disable-next-line no-alert -- Deliberate usage
       alert(t("validations.columns"));
       setCheckedItems({
         ...checkedItems,

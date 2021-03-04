@@ -135,21 +135,20 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
       setSelectedVulnerabilities(vulnsToSet);
 
       return vulnsToSet.map((vuln: IVulnRowAttr): string => vuln.id);
-    } else {
-      const vulnerabilitiesIds: string[] = getVulnerabilitiesIds(
-        vulnerabilitiesSelected
-      );
-      setSelectedVulnerabilities(
-        Array.from(
-          new Set(
-            selectedVulnerabilities.filter(
-              (selectedVulnerability: IVulnDataTypeAttr): boolean =>
-                !vulnerabilitiesIds.includes(selectedVulnerability.id)
-            )
+    }
+    const vulnerabilitiesIds: string[] = getVulnerabilitiesIds(
+      vulnerabilitiesSelected
+    );
+    setSelectedVulnerabilities(
+      Array.from(
+        new Set(
+          selectedVulnerabilities.filter(
+            (selectedVulnerability: IVulnDataTypeAttr): boolean =>
+              !vulnerabilitiesIds.includes(selectedVulnerability.id)
           )
         )
-      );
-    }
+      )
+    );
 
     return selectedVulnerabilities.map((vuln: IVulnRowAttr): string => vuln.id);
   }

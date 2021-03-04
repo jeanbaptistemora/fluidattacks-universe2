@@ -30,16 +30,15 @@ const getGroupValues: (
     const groupName: string = fieldId[0];
 
     return allValues[groupName];
-  } else {
-    Logger.error(
-      `Fields must be grouped by a <FormSection> component`,
-      new TypeError(
-        `Field ${fieldId.toString()} must be grouped by a <FormSection> component`
-      )
-    );
-
-    return undefined;
   }
+  Logger.error(
+    `Fields must be grouped by a <FormSection> component`,
+    new TypeError(
+      `Field ${fieldId.toString()} must be grouped by a <FormSection> component`
+    )
+  );
+
+  return undefined;
 };
 
 const someRequired: Validator = (
@@ -99,12 +98,12 @@ const validTextField: Validator = (value: string): string | undefined => {
       return translate.t("validations.invalidTextField", {
         chars: `'${textMatch[0]}'`,
       });
-    } else {
-      return undefined;
     }
-  } else {
+
     return undefined;
   }
+
+  return undefined;
 };
 
 const validUrlField: (value: string) => string | undefined = (
@@ -136,12 +135,12 @@ const validUrlField: (value: string) => string | undefined = (
       return translate.t("validations.invalidUrlField", {
         chars: `'${urlMatch[0]}'`,
       });
-    } else {
-      return undefined;
     }
-  } else {
+
     return undefined;
   }
+
+  return undefined;
 };
 
 const numberBetween: (min: number, max: number) => Validator = (
@@ -268,38 +267,37 @@ const dateTimeBeforeToday: Validator = (date: Moment): string | undefined => {
 const isValidVulnsFile: Validator = (value: FileList): string | undefined => {
   if (_.isNil(value) || value.length === 0) {
     return translate.t("group_alerts.no_file_selected");
-  } else {
-    const file: File = value[0];
-    const MIB: number = 1048576;
-    const fileType: string = `.${
-      _.last(file.name.split(".")) as string
-    }`.toLowerCase();
-    if (file.size > MIB * 1) {
-      return translate.t("validations.file_size", { count: 1 });
-    } else if (!_.includes([".yml", ".yaml"], fileType)) {
-      return translate.t("group_alerts.file_type_yaml");
-    } else {
-      return undefined;
-    }
   }
+  const file: File = value[0];
+  const MIB: number = 1048576;
+  const fileType: string = `.${
+    _.last(file.name.split(".")) as string
+  }`.toLowerCase();
+  if (file.size > Number(MIB)) {
+    return translate.t("validations.file_size", { count: 1 });
+  } else if (!_.includes([".yml", ".yaml"], fileType)) {
+    return translate.t("group_alerts.file_type_yaml");
+  }
+
+  return undefined;
 };
 
 const validTag: Validator = (value: string): string | undefined => {
   const pattern: RegExp = /^[a-z0-9]+(?:-[a-z0-9]+)*$/u;
   if (_.isEmpty(value) || !pattern.test(value)) {
     return translate.t("validations.tags");
-  } else {
-    return undefined;
   }
+
+  return undefined;
 };
 
 const validField: Validator = (value: string): string | undefined => {
   const pattern: RegExp = /^(?!=).+/u;
   if (_.isEmpty(value) || !pattern.test(value)) {
     return translate.t("validations.invalidValueInField");
-  } else {
-    return undefined;
   }
+
+  return undefined;
 };
 
 const isValidFileName: Validator = (file: FileList): string | undefined => {
@@ -335,9 +333,9 @@ const isValidDateAccessToken: Validator = (
 
   if (date > sixMonthsLater) {
     return translate.t("validations.valid_date_token");
-  } else {
-    return undefined;
   }
+
+  return undefined;
 };
 
 const isLowerDate: Validator = (value: string): string | undefined => {
@@ -346,9 +344,9 @@ const isLowerDate: Validator = (value: string): string | undefined => {
 
   if (date <= today) {
     return translate.t("validations.lower_date");
-  } else {
-    return undefined;
   }
+
+  return undefined;
 };
 
 const checked: Validator = (value: unknown): string | undefined =>
@@ -369,9 +367,9 @@ const excludeFormat: Validator = (
     return value.toLowerCase().split("/").indexOf(repoName.toLowerCase()) === 0
       ? translate.t("validations.excludeFormat")
       : undefined;
-  } else {
-    return undefined;
   }
+
+  return undefined;
 };
 
 export {

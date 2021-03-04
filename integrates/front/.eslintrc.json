@@ -45,20 +45,31 @@
     "capitalized-comments": ["error", "always", { "ignoreConsecutiveComments": true }],
     "complexity": "off",
     "eqeqeq": ["error", "smart"],
+    "func-style": ["error", "declaration", { "allowArrowFunctions": true }],
     /*
      * Given exceptions for lodash, jquery and translation wildcard "t"
      */
     "id-length": ["error", { "exceptions": ["_", "$", "t"] }],
-    "func-style": ["error", "declaration", { "allowArrowFunctions": true }],
     "line-comment-position": ["error", "above"],
+    /*
+     * "Max" retrictions are not suitable for the present codebase due to the
+     * size of certain files and components
+     */
+    "max-lines": "off",
+    "max-lines-per-function": "off",
+    "max-params": "off",
+    "max-statements": "off",
     "multiline-comment-style": ["error", "starred-block"],
+    "no-alert": "error",
     "no-console": "error",
     /*
-     * Replaced by @typescript-eslint/no-duplicate-imports to avoid
-     * conflicts with type imports
-     * https://github.com/typescript-eslint/typescript-eslint/issues/2315
-     */
+    * Replaced by @typescript-eslint/no-duplicate-imports to avoid
+    * conflicts with type imports
+    * https://github.com/typescript-eslint/typescript-eslint/issues/2315
+    */
     "no-duplicate-imports": "off",
+    "no-else-return": "error",
+    "no-implicit-coercion": "error",
     "no-shadow": "error",
     "no-useless-rename": "error",
     "one-var": ["error", "never"],
