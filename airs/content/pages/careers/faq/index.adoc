@@ -728,7 +728,7 @@ our `frontend` is currently in migration to link:https://reactjs.org/[`React`]
 under link:https://www.typescriptlang.org/[`Typescript`]
 only with stateless components.
 The `backend` is in migration to link:https://graphql.org/[`GraphQL`].
-All the documentation and the web page is built on link:http://asciidoc.org/[`AsciiDoc`]
+All the documentation and the web page is built on link:http://AsciiDoc.org/[`AsciiDoc`]
 using a static generation strategy via link:https://blog.getpelican.com/[`Pelican`].
 The operative systems on each workstation
 depend on the employee's preferences,

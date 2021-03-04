@@ -117,7 +117,7 @@ that are highly similar to common (high-occurrence frequency) code,
 then the rare ones are probably buggy and
 worthy of further analysis.
 Take for example the following snippets from
-link:https://pig.apache.org[Apache Pig].
+link:https://pig.Apache.org[Apache Pig].
 
 .Snippets found by Bugram
 image::bugram-pig.png[Snippets found by Bugram]

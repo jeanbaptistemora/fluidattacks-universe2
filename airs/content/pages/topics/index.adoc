@@ -1,5 +1,5 @@
 :slug: topics/
-:description: Fluid Attack's website is a place where you can share your IT opinions. If you want to contribute to our blog, look at our topics of interest here.
+:description: Fluid Attacks' website is a place where you can share your IT opinions. If you want to contribute to our blog, look at our topics of interest here.
 :keywords: Fluid Attacks, Website, Topics, Blog, Opinion, Security, Ethical Hacking, Pentesting
 :category: blog
 
@@ -132,7 +132,7 @@ Among the topics of interest are:
 * Why we use infrastructure as code?
 * Why we use `staticgen`?
 * Why we use `SLB`?
-* Why we use `asciidoc`?
+* Why we use `AsciiDoc`?
 * Why we use link:https://calver.org/[`CalVer`] over link:https://semver.org/[`SemVer`]?
 * Why `CI` security tools don't break builds?
 * Why automated tools have higher escapes rate?

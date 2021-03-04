@@ -56,8 +56,8 @@ the important points from the introduction.
 Documents will only be accepted in an `AsciiDoc` format.
 For more information check out our
 link:../format/[format page], the
-link:http://asciidoctor.org/docs/asciidoc-writers-guide/[`AsciiDoc` guide],
-or a link:http://asciidoctor.org/docs/asciidoc-syntax-quick-reference/[quick reference].
+link:http://AsciiDoctor.org/docs/AsciiDoc-writers-guide/[`AsciiDoc` guide],
+or a link:http://AsciiDoctor.org/docs/AsciiDoc-syntax-quick-reference/[quick reference].
 
 === 4. Word limit
 
@@ -98,7 +98,7 @@ image::slb-example.png[slb]
 For more information regarding `SLB` and their use,
 you can check out the link:http://rhodesmill.org/brandon/2012/one-sentence-per-line/[semantic linefeeds guide],
 link:https://scott.mn/2014/02/21/semantic_linewrapping/[semantic line wrapping guide],
-or the link:http://asciidoctor.org/docs/asciidoc-recommended-practices/#one-sentence[`AsciiDoc` documentation]
+or the link:http://AsciiDoctor.org/docs/AsciiDoc-recommended-practices/#one-sentence[`AsciiDoc` documentation]
 
 === 6. Images
 

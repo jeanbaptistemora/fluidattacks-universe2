@@ -1327,5 +1327,5 @@ line breaks in the source code"]
 
 == References
 
-. link:http://powerman.name/doc/asciidoc[`AsciiDoc` Cheat Sheet]
-. link:http://asciidoc.org/userguide.html[`AsciiDoc` User Guide]
+. link:http://powerman.name/doc/AsciiDoc[`AsciiDoc` Cheat Sheet]
+. link:http://AsciiDoc.org/userguide.html[`AsciiDoc` User Guide]

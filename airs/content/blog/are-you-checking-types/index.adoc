@@ -76,7 +76,7 @@ or data structures in your code.
 For example the following code:
 
 .[[adding-integers]]Add integers method in Python.
-[source, python]
+[source, Python]
 ----
 def add_integers(a, b):
   return a + b
@@ -91,7 +91,7 @@ In the following example, we will use the same
 add_integers method but we will make a change.
 
 .[[adding-strings]]Adding strings in Python.
-[source, python]
+[source, Python]
 ----
 add_integers('2', '3')  #  '23'
 ----
@@ -106,7 +106,7 @@ But I will show you the destructive potential of this feature
 with another example using the same <<adding-integers, _add_integers_>> function:
 
 .A more complex application with no variable typing.
-[source, python]
+[source, Python]
 ----
 def taxes_calculation(apple_price, taxes_rate):
   return apple_price * taxes_rate
