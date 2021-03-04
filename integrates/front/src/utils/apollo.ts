@@ -290,36 +290,34 @@ const errorLink: (history: History) => ApolloLink = (
             msgError(translate.t("group_alerts.error_textsad"));
             Logger.warning("A network error occurred", { ...networkError });
         }
-      } else {
-        if (graphQLErrors !== undefined) {
-          graphQLErrors.forEach((error: GraphQLError): void => {
-            switch (error.message) {
-              case "Login required":
-              case "Exception - User token has expired":
-                if (response !== undefined) {
-                  if (_.isFunction(skipForwarding)) {
-                    skipForwarding();
-                  }
+      } else if (graphQLErrors !== undefined) {
+        graphQLErrors.forEach((error: GraphQLError): void => {
+          switch (error.message) {
+            case "Login required":
+            case "Exception - User token has expired":
+              if (response !== undefined) {
+                if (_.isFunction(skipForwarding)) {
+                  skipForwarding();
                 }
-                location.assign("/logout");
-                break;
-              case "Access denied":
-              case "Access denied or tag not found":
-              case "Exception - Event not found":
-              case "Exception - Project does not exist":
-                if (response !== undefined) {
-                  if (_.isFunction(skipForwarding)) {
-                    skipForwarding();
-                  }
+              }
+              location.assign("/logout");
+              break;
+            case "Access denied":
+            case "Access denied or tag not found":
+            case "Exception - Event not found":
+            case "Exception - Project does not exist":
+              if (response !== undefined) {
+                if (_.isFunction(skipForwarding)) {
+                  skipForwarding();
                 }
-                msgError(translate.t("group_alerts.access_denied"));
-                history.replace("/home");
-                break;
-              default:
-              // Propagate
-            }
-          });
-        }
+              }
+              msgError(translate.t("group_alerts.access_denied"));
+              history.replace("/home");
+              break;
+            default:
+            // Propagate
+          }
+        });
       }
     },
     history

@@ -50,15 +50,15 @@ const APITokenForcesModal: React.FC<IAPITokenForcesModalProps> = (
   const handleCopy: () => Promise<void> = React.useCallback(async (): Promise<void> => {
     const { clipboard } = navigator;
 
-    if (!_.isUndefined(clipboard)) {
+    if (_.isUndefined(clipboard)) {
+      msgError(translate.t("update_forces_token.copy.failed"));
+    } else {
       await clipboard.writeText(getTokenData?.project.forcesToken ?? "");
       document.execCommand("copy");
       msgSuccess(
         translate.t("update_forces_token.copy.successfully"),
         translate.t("update_forces_token.copy.success")
       );
-    } else {
-      msgError(translate.t("update_forces_token.copy.failed"));
     }
   }, [getTokenData?.project.forcesToken]);
   if (

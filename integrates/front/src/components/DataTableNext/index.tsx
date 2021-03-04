@@ -31,9 +31,9 @@ export const DataTableNext: React.FC<ITableProps> = (
     search,
   } = props;
 
-  const datasetWithUniqueKeys: Record<string, unknown>[] = !_.isEmpty(dataset)
-    ? addUniqueKeys(dataset)
-    : dataset;
+  const datasetWithUniqueKeys: Record<string, unknown>[] = _.isEmpty(dataset)
+    ? dataset
+    : addUniqueKeys(dataset);
 
   interface ISearchValues {
     searchText: string;

@@ -175,7 +175,7 @@ export const AddUserModal: React.FC<IAddStakeholderModalProps> = (
                   )}
                 </Field>
               </FormGroup>
-              {projectName !== undefined ? (
+              {projectName === undefined ? undefined : (
                 <FormGroup>
                   <ControlLabel>
                     <RequiredField>{"* "}</RequiredField>
@@ -195,7 +195,7 @@ export const AddUserModal: React.FC<IAddStakeholderModalProps> = (
                     ]}
                   />
                 </FormGroup>
-              ) : undefined}
+              )}
               <FormGroup>
                 <ControlLabel>
                   {translate.t("userModal.phoneNumber")}

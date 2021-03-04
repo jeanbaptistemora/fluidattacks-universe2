@@ -22,12 +22,10 @@ const calcPrivilegesRequired: (privileges: string, scope: string) => number = (
     } else if (privReq === HIGH_SCOPE_U) {
       return HIGH_SCOPE_C;
     }
-  } else {
-    if (privReq === LOW_SCOPE_C) {
-      return LOW_SCOPE_U;
-    } else if (privReq === HIGH_SCOPE_C) {
-      return HIGH_SCOPE_U;
-    }
+  } else if (privReq === LOW_SCOPE_C) {
+    return LOW_SCOPE_U;
+  } else if (privReq === HIGH_SCOPE_C) {
+    return HIGH_SCOPE_U;
   }
 
   return privReq;
@@ -69,7 +67,7 @@ const calcCVSSv3: (data: ISeverityAttr["finding"]["severity"]) => number = (
   const impact: number =
     sevScope === 1
       ? IMPACT_FACTOR_2 * (iscBase - IMPACT_FACTOR_3) -
-        IMPACT_FACTOR_4 * Math.pow(iscBase - IMPACT_FACTOR_5, IMPACT_FACTOR_6)
+        IMPACT_FACTOR_4 * (iscBase - IMPACT_FACTOR_5) ** IMPACT_FACTOR_6
       : IMPACT_FACTOR_1 * iscBase;
 
   const exploitability: number =

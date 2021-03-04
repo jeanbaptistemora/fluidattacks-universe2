@@ -164,7 +164,7 @@ const maxLength: (max: number) => Validator = (max: number): Validator =>
 const sameValue: (projectName: string) => Validator = (
   projectName: string
 ): Validator => (value: string): string | undefined =>
-  value !== projectName ? translate.t("validations.required") : undefined;
+  value === projectName ? undefined : translate.t("validations.required");
 
 const numeric: Validator = isNumeric({
   message: translate.t("validations.numeric"),

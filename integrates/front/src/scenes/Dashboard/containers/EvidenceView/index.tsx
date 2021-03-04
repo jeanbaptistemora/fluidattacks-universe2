@@ -175,16 +175,14 @@ const EvidenceView: React.FC = (): JSX.Element => {
             },
           });
         }
-      } else {
-        if (descriptionChanged) {
-          await updateDescription({
-            variables: {
-              description,
-              evidenceId: key.toUpperCase(),
-              findingId,
-            },
-          });
-        }
+      } else if (descriptionChanged) {
+        await updateDescription({
+          variables: {
+            description,
+            evidenceId: key.toUpperCase(),
+            findingId,
+          },
+        });
       }
     };
 

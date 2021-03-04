@@ -32,7 +32,7 @@ const devConfig: webpack.Configuration = {
     rules: [
       ...(commonConfig.module as webpack.Module).rules,
       {
-        test: /\.(gif|jpg|png|svg)$/u,
+        test: /\.(?<extension>gif|jpg|png|svg)$/u,
         use: [
           {
             loader: "file-loader",

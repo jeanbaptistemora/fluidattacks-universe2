@@ -19,13 +19,13 @@ const AcceptedUndefinedTable: React.FC<IAcceptedUndefinedTableProps> = (
   ): void => {
     const newVulnList: IVulnDataAttr[] = acceptationVulns.map(
       (vuln: IVulnDataAttr): IVulnDataAttr =>
-        vuln.id !== vulnInfo.id
-          ? vuln
-          : {
+        vuln.id === vulnInfo.id
+          ? {
               ...vuln,
               acceptation:
                 vuln.acceptation === "APPROVED" ? "REJECTED" : "APPROVED",
             }
+          : vuln
     );
     setAcceptationVulns([...newVulnList]);
   };

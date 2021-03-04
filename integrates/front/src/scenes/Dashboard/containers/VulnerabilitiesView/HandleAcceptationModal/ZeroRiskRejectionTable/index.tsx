@@ -19,12 +19,12 @@ const ZeroRiskRejectionTable: React.FC<IZeroRiskRejectionTableProps> = (
   ) => void = (vulnInfo: Dictionary<string>): void => {
     const newVulnList: IVulnDataAttr[] = acceptationVulns.map(
       (vuln: IVulnDataAttr): IVulnDataAttr =>
-        vuln.id !== vulnInfo.id
-          ? vuln
-          : {
+        vuln.id === vulnInfo.id
+          ? {
               ...vuln,
               acceptation: vuln.acceptation === "REJECTED" ? "" : "REJECTED",
             }
+          : vuln
     );
     setAcceptationVulns([...newVulnList]);
   };

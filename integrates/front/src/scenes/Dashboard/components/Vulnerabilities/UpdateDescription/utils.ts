@@ -79,7 +79,7 @@ const groupLastHistoricTreatment: (
         vuln.historicTreatment
       );
 
-      return !_.some(lastTreatment, _.isEmpty) ? acc : lastTreatment;
+      return _.some(lastTreatment, _.isEmpty) ? lastTreatment : acc;
     },
     emptyTreatment
   );

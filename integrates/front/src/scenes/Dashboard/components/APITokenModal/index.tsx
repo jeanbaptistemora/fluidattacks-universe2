@@ -75,7 +75,9 @@ const APITokenModal: React.FC<IAPITokenModalProps> = (
   async function handleCopy(): Promise<void> {
     const { clipboard } = navigator;
 
-    if (!_.isUndefined(clipboard)) {
+    if (_.isUndefined(clipboard)) {
+      msgError(translate.t("update_access_token.copy.failed"));
+    } else {
       await clipboard.writeText(
         mtResponse.data?.updateAccessToken.sessionJwt ?? ""
       );
@@ -84,8 +86,6 @@ const APITokenModal: React.FC<IAPITokenModalProps> = (
         translate.t("update_access_token.copy.successfully"),
         translate.t("update_access_token.copy.success")
       );
-    } else {
-      msgError(translate.t("update_access_token.copy.failed"));
     }
   }
 
@@ -123,8 +123,8 @@ const APITokenModal: React.FC<IAPITokenModalProps> = (
                     <b>{translate.t("update_access_token.access_token")}</b>
                   </ControlLabel>
                   <Field
-                    //Allow to block resizing the TextArea
-                    //eslint-disable-next-line react/forbid-component-props
+                    // Allow to block resizing the TextArea
+                    // eslint-disable-next-line react/forbid-component-props
                     className={"noresize"}
                     component={TextArea}
                     disabled={true}

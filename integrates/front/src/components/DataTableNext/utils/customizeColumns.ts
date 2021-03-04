@@ -96,6 +96,6 @@ export const customizeColumns: (
   dataset: readonly Readonly<Record<string, unknown>>[],
   isFilterEnabled?: boolean
 ): Column[] =>
-  !_.isEmpty(headers)
-    ? addGivenHeaders(headers, isFilterEnabled)
-    : addDynamicHeaders(Object.keys(dataset[0]));
+  _.isEmpty(headers)
+    ? addDynamicHeaders(Object.keys(dataset[0]))
+    : addGivenHeaders(headers, isFilterEnabled);

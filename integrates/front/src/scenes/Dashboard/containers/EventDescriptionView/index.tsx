@@ -264,7 +264,7 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
                 </Col50>
               </Row>
               <Row>
-                {!_.isEmpty(data.event.affectedComponents) ? (
+                {_.isEmpty(data.event.affectedComponents) ? undefined : (
                   <Col50>
                     <EditableField
                       alignField={"horizontalWide"}
@@ -278,7 +278,7 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
                       type={"text"}
                     />
                   </Col50>
-                ) : undefined}
+                )}
                 <Col50>
                   <EditableField
                     alignField={"horizontalWide"}

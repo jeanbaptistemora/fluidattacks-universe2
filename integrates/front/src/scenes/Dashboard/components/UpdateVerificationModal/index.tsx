@@ -238,12 +238,12 @@ const UpdateVerificationModal: React.FC<IUpdateVerificationModal> = (
     ): void => {
       const newVulnList: IVulnData[] = vulnerabilitiesList.map(
         (vuln: IVulnData): IVulnData =>
-          vuln.id !== vulnInfo.id
-            ? vuln
-            : {
+          vuln.id === vulnInfo.id
+            ? {
                 ...vuln,
                 currentState: vuln.currentState === "open" ? "closed" : "open",
               }
+            : vuln
       );
       setVulnerabilities([...newVulnList]);
     };

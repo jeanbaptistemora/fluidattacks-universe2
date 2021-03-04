@@ -24,7 +24,7 @@
     "react-hooks"
   ],
   "extends": [
-    "eslint:recommended",
+    "eslint:all",
     "plugin:@typescript-eslint/all",
     "plugin:fp/recommended",
     "plugin:import/typescript",
@@ -70,6 +70,8 @@
     "no-duplicate-imports": "off",
     "no-else-return": "error",
     "no-implicit-coercion": "error",
+    "no-lonely-if": "error",
+    "no-negated-condition": "error",
     /*
      * Rules regarding the ternary op are disabled, as it is common its usage in React
      */
@@ -98,6 +100,9 @@
       { "blankLine": "always", "prev": "*", "next": "return" }
     ],
     "prefer-destructuring": "error",
+    "prefer-named-capture-group": "error",
+    "prefer-exponentiation-operator": "error",
+    "prefer-template": "error",
     "require-unicode-regexp": "error",
     "sort-keys": "error",
     "sort-imports": [
@@ -106,6 +111,7 @@
         "memberSyntaxSortOrder": ["single", "all", "multiple", "none"]
       }
     ],
+    "spaced-comment": "error",
     "prettier/prettier": [
       "error",
       {},

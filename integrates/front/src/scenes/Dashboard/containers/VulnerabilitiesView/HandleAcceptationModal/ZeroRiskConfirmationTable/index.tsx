@@ -19,12 +19,12 @@ const ZeroRiskConfirmationTable: React.FC<IZeroRiskConfirmationTableProps> = (
   ) => void = (vulnInfo: Dictionary<string>): void => {
     const newVulnList: IVulnDataAttr[] = acceptationVulns.map(
       (vuln: IVulnDataAttr): IVulnDataAttr =>
-        vuln.id !== vulnInfo.id
-          ? vuln
-          : {
+        vuln.id === vulnInfo.id
+          ? {
               ...vuln,
               acceptation: vuln.acceptation === "APPROVED" ? "" : "APPROVED",
             }
+          : vuln
     );
     setAcceptationVulns([...newVulnList]);
   };
