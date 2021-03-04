@@ -1,7 +1,6 @@
 # shellcheck shell=bash
 
 source '__envUtilsBashLibPython__'
-source '__envSearchPaths__'
 
 
 function setup_runtime {
