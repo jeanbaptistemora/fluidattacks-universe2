@@ -1,10 +1,4 @@
-/* tslint:disable:jsx-no-multiline-js
- *
- * NO-MULTILINE-JS: Disabling this rule is necessary for the sake of
-  * readability of the code in graphql queries
- */
-import { MutationFunction, MutationResult, QueryResult } from "@apollo/react-common";
-import { Mutation, Query } from "@apollo/react-components";
+import { useMutation, useQuery } from "@apollo/react-hooks";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ApolloError } from "apollo-client";
@@ -116,8 +110,8 @@ const projectDraftsView: React.FC = (): JSX.Element => {
     }
     fetch(`${baseUrl}/${spreadsheetId}/1/public/values?alt=json${extraParams}`)
       .then(async (httpResponse: Response) => httpResponse.json())
-      .then((data: { feed: { entry: IRowStructure[] } }): void => {
-        setSuggestions(data.feed.entry.map((row: IRowStructure) => {
+      .then((sData: { feed: { entry: IRowStructure[] } }): void => {
+        setSuggestions(sData.feed.entry.map((row: IRowStructure) => {
           const cwe: RegExpMatchArray | null = row.gsx$cwe.$t.match(/\d+/g);
 
           return {
@@ -145,136 +139,124 @@ const projectDraftsView: React.FC = (): JSX.Element => {
     });
   };
 
+  const { data, refetch } = useQuery<IProjectDraftsAttr>(GET_DRAFTS, {
+    onError: handleQryError,
+    variables: { projectName },
+  });
+
+  const handleMutationResult: ((result: { createDraft: { success: boolean } }) => void) = (
+    result: { createDraft: { success: boolean } },
+  ): void => {
+    if (result.createDraft.success) {
+      closeNewDraftModal();
+      msgSuccess(
+        translate.t("group.drafts.success_create"),
+        translate.t("group.drafts.title_success"),
+      );
+      void refetch();
+    }
+  };
+
+  const handleMutationError: ((error: ApolloError) => void) = (
+    { graphQLErrors }: ApolloError,
+  ): void => {
+    graphQLErrors.forEach((error: GraphQLError): void => {
+      switch (error.message) {
+        case "Exception - The inserted title is invalid":
+          msgError(translate.t("validations.draftTitle"));
+          break;
+        default:
+          msgError(translate.t("group_alerts.error_textsad"));
+          Logger.warning(
+            "An error occurred getting project drafts",
+            error,
+          );
+      }
+    });
+  };
+
+  const [createDraft, { loading: submitting }] = useMutation(CREATE_DRAFT_MUTATION, {
+    onCompleted: handleMutationResult,
+    onError: handleMutationError,
+  });
+
+  const handleSubmit: ((values: { title: string }) => void) = (values: { title: string }): void => {
+    const matchingSuggestion: ISuggestion = suggestions.filter((
+      suggestion: ISuggestion): boolean => suggestion.title === values.title)[0];
+
+    void createDraft({ variables: { ...matchingSuggestion, title: values.title, projectName } });
+  };
+
+  if (_.isUndefined(data) || _.isEmpty(data)) {
+    return <div />;
+  }
+
   return (
-    <Query
-      query={GET_DRAFTS}
-      variables={{ projectName }}
-      onError={handleQryError}
-    >
-      {
-        ({ data, refetch }: QueryResult<IProjectDraftsAttr>): JSX.Element => {
-          if (_.isUndefined(data) || _.isEmpty(data)) {
-
-            return <React.Fragment />;
-          }
-
-          const handleMutationResult: ((result: { createDraft: { success: boolean } }) => void) = (
-              result: { createDraft: { success: boolean } },
-            ): void => {
-              if (result.createDraft.success) {
-                closeNewDraftModal();
-                msgSuccess(
-                  translate.t("group.drafts.success_create"),
-                  translate.t("group.drafts.title_success"),
-                );
-                void refetch();
-              }
-            };
-
-          const handleMutationError: ((error: ApolloError) => void) = (
-            { graphQLErrors }: ApolloError,
-          ): void => {
-            graphQLErrors.forEach((error: GraphQLError): void => {
-              switch (error.message) {
-                case "Exception - The inserted title is invalid":
-                  msgError(translate.t("validations.draftTitle"));
-                  break;
-                default:
-                  msgError(translate.t("group_alerts.error_textsad"));
-                  Logger.warning(
-                    "An error occurred getting project drafts",
-                    error,
-                  );
-              }
-            });
-          };
-
-          return (
-              <React.StrictMode>
-                <Row>
-                  <Col100>
-                    <ButtonToolbarCenter>
-                      <TooltipWrapper
-                        id={"group.drafts.btn.tooltip"}
-                        message={translate.t("group.drafts.btn.tooltip")}
-                      >
-                        <Button onClick={openNewDraftModal}>
-                          <FontAwesomeIcon icon={faPlus} />&nbsp;{translate.t("group.drafts.btn.text")}
-                        </Button>
-                      </TooltipWrapper>
-                    </ButtonToolbarCenter>
-                  </Col100>
-                </Row>
-                <Modal
-                  headerTitle={translate.t("group.drafts.new")}
-                  open={isDraftModalOpen}
-                >
-                  <Mutation
-                    mutation={CREATE_DRAFT_MUTATION}
-                    onCompleted={handleMutationResult}
-                    onError={handleMutationError}
-                  >
-                    {(createDraft: MutationFunction, { loading: submitting }: MutationResult): JSX.Element => {
-                      const handleSubmit: ((values: { title: string }) => void) = (values: { title: string }): void => {
-                        const matchingSuggestion: ISuggestion = suggestions.filter((
-                          suggestion: ISuggestion): boolean => suggestion.title === values.title)[0];
-
-                        void createDraft({ variables: { ...matchingSuggestion, title: values.title, projectName } });
-                      };
-
-                      return (
-                        <GenericForm name="newDraft" onSubmit={handleSubmit}>
-                          {({ pristine }: InjectedFormProps): JSX.Element => (
-                            <React.Fragment>
-                              <Row>
-                                <Col100>
-                                  <label>{translate.t("group.drafts.title")}</label>
-                                  <Field
-                                    component={AutoCompleteText}
-                                    name="title"
-                                    suggestions={titleSuggestions}
-                                    type="text"
-                                    validate={[required, validDraftTitle]}
-                                  />
-                                </Col100>
-                              </Row>
-                              <hr />
-                              <Row>
-                                <Col100>
-                                  <ButtonToolbar>
-                                    <Button onClick={closeNewDraftModal}>
-                                      {translate.t("confirmmodal.cancel")}
-                                    </Button>
-                                    <Button type="submit" disabled={pristine || submitting}>
-                                      {translate.t("confirmmodal.proceed")}
-                                    </Button>
-                                  </ButtonToolbar>
-                                </Col100>
-                              </Row>
-                            </React.Fragment>
-                          )}
-                        </GenericForm>
-                      );
-                    }}
-                  </Mutation>
-                </Modal>
-                <p>{translate.t("group.findings.help_label")}</p>
-                <DataTableNext
-                  bordered={true}
-                  dataset={formatDrafts(data.project.drafts)}
-                  defaultSorted={JSON.parse(_.get(sessionStorage, "draftSort", "{}"))}
-                  exportCsv={true}
-                  headers={tableHeaders}
-                  id="tblDrafts"
-                  pageSize={15}
-                  rowEvents={{ onClick: goToFinding }}
-                  search={true}
-                  striped={true}
-                />
-              </React.StrictMode>
-            );
-        }}
-    </Query>
+    <React.StrictMode>
+      <Row>
+        <Col100>
+          <ButtonToolbarCenter>
+            <TooltipWrapper
+              id={"group.drafts.btn.tooltip"}
+              message={translate.t("group.drafts.btn.tooltip")}
+            >
+              <Button onClick={openNewDraftModal}>
+                <FontAwesomeIcon icon={faPlus} />&nbsp;{translate.t("group.drafts.btn.text")}
+              </Button>
+            </TooltipWrapper>
+          </ButtonToolbarCenter>
+        </Col100>
+      </Row>
+      <Modal
+        headerTitle={translate.t("group.drafts.new")}
+        open={isDraftModalOpen}
+      >
+        <GenericForm name="newDraft" onSubmit={handleSubmit}>
+          {({ pristine }: InjectedFormProps): JSX.Element => (
+            <React.Fragment>
+              <Row>
+                <Col100>
+                  <label>{translate.t("group.drafts.title")}</label>
+                  <Field
+                    component={AutoCompleteText}
+                    name="title"
+                    suggestions={titleSuggestions}
+                    type="text"
+                    validate={[required, validDraftTitle]}
+                  />
+                </Col100>
+              </Row>
+              <hr />
+              <Row>
+                <Col100>
+                  <ButtonToolbar>
+                    <Button onClick={closeNewDraftModal}>
+                      {translate.t("confirmmodal.cancel")}
+                    </Button>
+                    <Button type="submit" disabled={pristine || submitting}>
+                      {translate.t("confirmmodal.proceed")}
+                    </Button>
+                  </ButtonToolbar>
+                </Col100>
+              </Row>
+            </React.Fragment>
+          )}
+        </GenericForm>
+      </Modal>
+      <p>{translate.t("group.findings.help_label")}</p>
+      <DataTableNext
+        bordered={true}
+        dataset={formatDrafts(data.project.drafts)}
+        defaultSorted={JSON.parse(_.get(sessionStorage, "draftSort", "{}"))}
+        exportCsv={true}
+        headers={tableHeaders}
+        id="tblDrafts"
+        pageSize={15}
+        rowEvents={{ onClick: goToFinding }}
+        search={true}
+        striped={true}
+      />
+    </React.StrictMode>
   );
 };
 
