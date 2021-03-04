@@ -126,12 +126,18 @@ makes.test.airs:
 airs.lint.code:
   <<: *makes
   <<: *in_dev_branch_airs
-  stage: test-code
+  stage: lint-code
+  allow_failure: true
+
+airs.lint.content:
+  <<: *makes
+  <<: *in_dev_branch_airs
+  stage: lint-code
 
 airs.lint.styles:
   <<: *makes
   <<: *in_dev_branch_airs
-  stage: test-code
+  stage: lint-code
 
 # Migrated to makes, but pending to finish gatsby migration
 

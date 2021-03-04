@@ -1,6 +1,7 @@
 airs.adoc.linter
 airs.content
 airs.lint.code
+airs.lint.content
 airs.lint.styles
 airs.npm
 airs.test.images.covers

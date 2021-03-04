@@ -179,9 +179,9 @@ and notify you of the total work hours
 to be put on your monthly time-worked invoice.
 
 
-= After Entering
+== After Entering
 
-== Applied to Employees
+=== Applied to Employees
 
 `Fluid Attacks` focuses on and specializes in `Red Team` testing.
 In regard to information security concepts,
