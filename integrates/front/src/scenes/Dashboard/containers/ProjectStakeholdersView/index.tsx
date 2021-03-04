@@ -13,6 +13,7 @@ import { GraphQLError } from "graphql";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
+import { useParams } from "react-router";
 
 import { Button } from "components/Button";
 import { DataTableNext } from "components/DataTableNext";
@@ -31,7 +32,6 @@ import {
   IAddStakeholderAttr,
   IEditStakeholderAttr,
   IGetStakeholdersAttrs,
-  IProjectStakeholdersViewProps,
   IRemoveStakeholderAttr,
   IStakeholderAttrs,
 } from "scenes/Dashboard/containers/ProjectStakeholdersView/types";
@@ -86,9 +86,8 @@ const tableHeaders: IHeaderConfig[] = [
   },
 ];
 
-const projectStakeholdersView: React.FC<IProjectStakeholdersViewProps> =
-  (props: IProjectStakeholdersViewProps): JSX.Element => {
-  const { projectName } = props.match.params;
+const projectStakeholdersView: React.FC = (): JSX.Element => {
+  const { projectName } = useParams<{ projectName: string }>();
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
 
   // State management

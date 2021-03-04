@@ -9,6 +9,7 @@ import * as React from "react";
 // tslint:disable-next-line: no-submodule-imports
 import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
+import { MemoryRouter, Route } from "react-router";
 import wait from "waait";
 
 import { ProjectStakeholdersView } from "scenes/Dashboard/containers/ProjectStakeholdersView";
@@ -18,7 +19,6 @@ import {
   GET_STAKEHOLDERS,
   REMOVE_STAKEHOLDER_MUTATION,
 } from "scenes/Dashboard/containers/ProjectStakeholdersView/queries";
-import { IProjectStakeholdersViewProps } from "scenes/Dashboard/containers/ProjectStakeholdersView/types";
 import store from "store";
 import { authzPermissionsContext } from "utils/authz/config";
 import { msgError, msgSuccess } from "utils/notifications";
@@ -35,29 +35,6 @@ describe("Project users view", () => {
   afterEach(() => {
     jest.clearAllMocks();
   });
-
-  const mockProps: IProjectStakeholdersViewProps = {
-    history: {
-      action: "PUSH",
-      block: (): (() => void) => (): void => undefined,
-      createHref: (): string => "",
-      go: (): void => undefined,
-      goBack: (): void => undefined,
-      goForward: (): void => undefined,
-      length: 1,
-      listen: (): (() => void) => (): void => undefined,
-      location: { hash: "", pathname: "/", search: "", state: {} },
-      push: (): void => undefined,
-      replace: (): void => undefined,
-    },
-    location: { hash: "", pathname: "/", search: "", state: {} },
-    match: {
-      isExact: true,
-      params: { projectName: "TEST" },
-      path: "/",
-      url: "",
-    },
-  };
 
   const mocks: ReadonlyArray<MockedResponse> = [
     {
@@ -142,11 +119,13 @@ describe("Project users view", () => {
 
   it("should render an error in component", async () => {
     const wrapper: ReactWrapper = mount(
-      <Provider store={store}>
-        <MockedProvider mocks={mockError} addTypename={false}>
-          <ProjectStakeholdersView {...mockProps} />
-        </MockedProvider>
-      </Provider>,
+      <MemoryRouter initialEntries={["/groups/TEST/stakeholders"]}>
+        <Provider store={store}>
+          <MockedProvider mocks={mockError} addTypename={false}>
+            <Route path={"/groups/:projectName/stakeholders"} component={ProjectStakeholdersView}/>
+          </MockedProvider>
+        </Provider>
+      </MemoryRouter>,
     );
     await wait(0);
     expect(wrapper)
@@ -155,11 +134,13 @@ describe("Project users view", () => {
 
   it("should display all group stakeholder columns", async () => {
     const wrapper: ReactWrapper = mount(
-      <Provider store={store}>
-        <MockedProvider mocks={mocks} addTypename={false}>
-          <ProjectStakeholdersView {...mockProps} />
-        </MockedProvider>
-      </Provider>,
+      <MemoryRouter initialEntries={["/groups/TEST/stakeholders"]}>
+        <Provider store={store}>
+          <MockedProvider mocks={mocks} addTypename={false}>
+            <Route path={"/groups/:projectName/stakeholders"} component={ProjectStakeholdersView}/>
+          </MockedProvider>
+        </Provider>
+      </MemoryRouter>,
     );
     await act(
       async (): Promise<void> => {
@@ -209,11 +190,13 @@ describe("Project users view", () => {
 
   it("should render an add stakeholder component", async () => {
     const wrapper: ReactWrapper = mount(
-      <Provider store={store}>
-        <MockedProvider mocks={mocks} addTypename={false}>
-          <ProjectStakeholdersView {...mockProps} />
-        </MockedProvider>
-      </Provider>,
+      <MemoryRouter initialEntries={["/groups/TEST/stakeholders"]}>
+        <Provider store={store}>
+          <MockedProvider mocks={mocks} addTypename={false}>
+            <Route path={"/groups/:projectName/stakeholders"} component={ProjectStakeholdersView}/>
+          </MockedProvider>
+        </Provider>
+      </MemoryRouter>,
     );
     await wait(0);
     expect(wrapper)
@@ -222,11 +205,13 @@ describe("Project users view", () => {
 
   it("should render an edit stakeholder component", async () => {
     const wrapper: ReactWrapper = mount(
-      <Provider store={store}>
-        <MockedProvider mocks={mocks} addTypename={false}>
-          <ProjectStakeholdersView {...mockProps} />
-        </MockedProvider>
-      </Provider>,
+      <MemoryRouter initialEntries={["/groups/TEST/stakeholders"]}>
+        <Provider store={store}>
+          <MockedProvider mocks={mocks} addTypename={false}>
+            <Route path={"/groups/:projectName/stakeholders"} component={ProjectStakeholdersView}/>
+          </MockedProvider>
+        </Provider>
+      </MemoryRouter>,
     );
     await wait(0);
     expect(wrapper)
@@ -238,13 +223,15 @@ describe("Project users view", () => {
       { action: "backend_api_mutations_grant_stakeholder_access_mutate" },
     ]);
     const wrapper: ReactWrapper = mount(
-      <Provider store={store}>
-        <MockedProvider mocks={mocks} addTypename={false}>
-          <authzPermissionsContext.Provider value={mockedPermissions}>
-            <ProjectStakeholdersView {...mockProps} />
-          </authzPermissionsContext.Provider>
-        </MockedProvider>
-      </Provider>,
+      <MemoryRouter initialEntries={["/groups/TEST/stakeholders"]}>
+        <Provider store={store}>
+          <MockedProvider mocks={mocks} addTypename={false}>
+            <authzPermissionsContext.Provider value={mockedPermissions}>
+              <Route path={"/groups/:projectName/stakeholders"} component={ProjectStakeholdersView}/>
+            </authzPermissionsContext.Provider>
+          </MockedProvider>
+        </Provider>
+      </MemoryRouter>,
     );
     await act(async () => { await wait(0); wrapper.update(); });
     let addUserModal: ReactWrapper = wrapper
@@ -269,13 +256,15 @@ describe("Project users view", () => {
       { action: "backend_api_mutations_edit_stakeholder_mutate" },
     ]);
     const wrapper: ReactWrapper = mount(
-      <Provider store={store}>
-        <MockedProvider mocks={mocks} addTypename={false}>
-          <authzPermissionsContext.Provider value={mockedPermissions}>
-            <ProjectStakeholdersView {...mockProps} />
-          </authzPermissionsContext.Provider>
-        </MockedProvider>
-      </Provider>,
+      <MemoryRouter initialEntries={["/groups/TEST/stakeholders"]}>
+        <Provider store={store}>
+          <MockedProvider mocks={mocks} addTypename={false}>
+            <authzPermissionsContext.Provider value={mockedPermissions}>
+              <Route path={"/groups/:projectName/stakeholders"} component={ProjectStakeholdersView}/>
+            </authzPermissionsContext.Provider>
+          </MockedProvider>
+        </Provider>
+      </MemoryRouter>,
     );
     await act(async () => { await wait(0); wrapper.update(); });
     let editUserModal: ReactWrapper = wrapper
@@ -327,13 +316,15 @@ describe("Project users view", () => {
       { action: "grant_group_level_role:analyst" },
     ]);
     const wrapper: ReactWrapper = mount(
-      <Provider store={store}>
-        <MockedProvider mocks={mocks.concat(mocksMutation)} addTypename={false}>
-          <authzPermissionsContext.Provider value={mockedPermissions}>
-            <ProjectStakeholdersView {...mockProps} />
-          </authzPermissionsContext.Provider>
-        </MockedProvider>
-      </Provider>,
+      <MemoryRouter initialEntries={["/groups/TEST/stakeholders"]}>
+        <Provider store={store}>
+          <MockedProvider mocks={mocks.concat(mocksMutation)} addTypename={false}>
+            <authzPermissionsContext.Provider value={mockedPermissions}>
+              <Route path={"/groups/:projectName/stakeholders"} component={ProjectStakeholdersView}/>
+            </authzPermissionsContext.Provider>
+          </MockedProvider>
+        </Provider>
+      </MemoryRouter>,
     );
     await act(async () => { await wait(0); wrapper.update(); });
     const addButton: ReactWrapper = wrapper.find("button")
@@ -393,13 +384,15 @@ describe("Project users view", () => {
       { action: "backend_api_mutations_remove_stakeholder_access_mutate" },
     ]);
     const wrapper: ReactWrapper = mount(
-      <Provider store={store}>
-        <MockedProvider mocks={mocks.concat(mocksMutation)} addTypename={false}>
-          <authzPermissionsContext.Provider value={mockedPermissions}>
-            <ProjectStakeholdersView {...mockProps} />
-          </authzPermissionsContext.Provider>
-        </MockedProvider>
-      </Provider>,
+      <MemoryRouter initialEntries={["/groups/TEST/stakeholders"]}>
+        <Provider store={store}>
+          <MockedProvider mocks={mocks.concat(mocksMutation)} addTypename={false}>
+            <authzPermissionsContext.Provider value={mockedPermissions}>
+              <Route path={"/groups/:projectName/stakeholders"} component={ProjectStakeholdersView}/>
+            </authzPermissionsContext.Provider>
+          </MockedProvider>
+        </Provider>
+      </MemoryRouter>,
     );
     await act(async () => { await wait(0); wrapper.update(); });
     const userInfo: ReactWrapper = wrapper.find("tr")
@@ -443,13 +436,15 @@ describe("Project users view", () => {
       { action: "grant_group_level_role:analyst" },
     ]);
     const wrapper: ReactWrapper = mount(
-      <Provider store={store}>
-        <MockedProvider mocks={mocks.concat(mocksMutation)} addTypename={false}>
-          <authzPermissionsContext.Provider value={mockedPermissions}>
-            <ProjectStakeholdersView {...mockProps} />
-          </authzPermissionsContext.Provider>
-        </MockedProvider>
-      </Provider>,
+      <MemoryRouter initialEntries={["/groups/TEST/stakeholders"]}>
+        <Provider store={store}>
+          <MockedProvider mocks={mocks.concat(mocksMutation)} addTypename={false}>
+            <authzPermissionsContext.Provider value={mockedPermissions}>
+              <Route path={"/groups/:projectName/stakeholders"} component={ProjectStakeholdersView}/>
+            </authzPermissionsContext.Provider>
+          </MockedProvider>
+        </Provider>
+      </MemoryRouter>,
     );
     await act(async () => { await wait(0); wrapper.update(); });
     const userInfo: ReactWrapper = wrapper.find("tr")
@@ -523,13 +518,15 @@ describe("Project users view", () => {
       { action: "grant_group_level_role:analyst" },
     ]);
     const wrapper: ReactWrapper = mount(
-      <Provider store={store}>
-        <MockedProvider mocks={mocks.concat(mocksMutation)} addTypename={false}>
-          <authzPermissionsContext.Provider value={mockedPermissions}>
-            <ProjectStakeholdersView {...mockProps} />
-          </authzPermissionsContext.Provider>
-        </MockedProvider>
-      </Provider>,
+      <MemoryRouter initialEntries={["/groups/TEST/stakeholders"]}>
+        <Provider store={store}>
+          <MockedProvider mocks={mocks.concat(mocksMutation)} addTypename={false}>
+            <authzPermissionsContext.Provider value={mockedPermissions}>
+              <Route path={"/groups/:projectName/stakeholders"} component={ProjectStakeholdersView}/>
+            </authzPermissionsContext.Provider>
+          </MockedProvider>
+        </Provider>
+      </MemoryRouter>,
     );
     await act(async () => { await wait(0); wrapper.update(); });
     const addButton: ReactWrapper = wrapper.find("button")
@@ -589,13 +586,15 @@ describe("Project users view", () => {
       { action: "backend_api_mutations_remove_stakeholder_access_mutate" },
     ]);
     const wrapper: ReactWrapper = mount(
-      <Provider store={store}>
-        <MockedProvider mocks={mocks.concat(mocksMutation)} addTypename={false}>
-          <authzPermissionsContext.Provider value={mockedPermissions}>
-            <ProjectStakeholdersView {...mockProps} />
-          </authzPermissionsContext.Provider>
-        </MockedProvider>
-      </Provider>,
+      <MemoryRouter initialEntries={["/groups/TEST/stakeholders"]}>
+        <Provider store={store}>
+          <MockedProvider mocks={mocks.concat(mocksMutation)} addTypename={false}>
+            <authzPermissionsContext.Provider value={mockedPermissions}>
+              <Route path={"/groups/:projectName/stakeholders"} component={ProjectStakeholdersView}/>
+            </authzPermissionsContext.Provider>
+          </MockedProvider>
+        </Provider>
+      </MemoryRouter>,
     );
     await act(async () => { await wait(0); wrapper.update(); });
     const userInfo: ReactWrapper = wrapper.find("tr")
@@ -639,13 +638,15 @@ describe("Project users view", () => {
       { action: "grant_group_level_role:analyst" },
     ]);
     const wrapper: ReactWrapper = mount(
-      <Provider store={store}>
-        <MockedProvider mocks={mocks.concat(mocksMutation)} addTypename={false}>
-          <authzPermissionsContext.Provider value={mockedPermissions}>
-            <ProjectStakeholdersView {...mockProps} />
-          </authzPermissionsContext.Provider>
-        </MockedProvider>
-      </Provider>,
+      <MemoryRouter initialEntries={["/groups/TEST/stakeholders"]}>
+        <Provider store={store}>
+          <MockedProvider mocks={mocks.concat(mocksMutation)} addTypename={false}>
+            <authzPermissionsContext.Provider value={mockedPermissions}>
+              <Route path={"/groups/:projectName/stakeholders"} component={ProjectStakeholdersView}/>
+            </authzPermissionsContext.Provider>
+          </MockedProvider>
+        </Provider>
+      </MemoryRouter>,
     );
     await act(async () => { await wait(0); wrapper.update(); });
     const userInfo: ReactWrapper = wrapper.find("tr")

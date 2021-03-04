@@ -1,5 +1,3 @@
-import { RouteComponentProps } from "react-router";
-
 export interface IRemoveStakeholderAttr {
   removeStakeholderAccess: {
     removedEmail: string;
@@ -47,5 +45,3 @@ export interface IEditStakeholderAttr {
     success: boolean;
   };
 }
-
-export type IProjectStakeholdersViewProps = RouteComponentProps<{ projectName: string }>;
