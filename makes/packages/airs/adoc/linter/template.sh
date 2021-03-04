@@ -2,7 +2,7 @@
 
 function check_adoc_main_title {
   local target="${1}"
-  local msg='Files must contain exactly one title'
+  local msg='File must contain exactly one title'
 
       titles_count="$(grep -Pc '^=\s.*$' "${target}" || true)" \
   &&  if test "${titles_count}" = '1'
@@ -27,7 +27,6 @@ function check_adoc_min_keywords {
       then
         echo "[INFO] PASSED: ${msg}: ${target}"
       else
-        # TODO: Should use `abort` so the job fails
-        echo "[ERROR] ${msg}: ${target}"
+        abort "[ERROR] ${msg}: ${target}"
       fi
 }
