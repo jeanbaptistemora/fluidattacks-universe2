@@ -12,3 +12,22 @@ function check_adoc_main_title {
         abort "[ERROR] ${msg}: ${target}"
       fi
 }
+
+function check_adoc_min_keywords {
+  local target="${1}"
+  local min_keywords='5'
+  local msg="File must contain at least ${min_keywords} keywords"
+
+      keywords="$( \
+        { grep -Po '^:keywords:.*' "${target}" || true; } \
+          | tr ',' '\n' \
+          | wc -l \
+      )" \
+  &&  if test "${keywords}" -ge "${min_keywords}"
+      then
+        echo "[INFO] PASSED: ${msg}: ${target}"
+      else
+        # TODO: Should use `abort` so the job fails
+        echo "[ERROR] ${msg}: ${target}"
+      fi
+}

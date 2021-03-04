@@ -35,9 +35,7 @@ function job_airs_test_generic {
   && echo '[INFO] Testing touched adoc files' \
   &&  for path in ${touched_adoc_files}
       do
-            helper_airs_generic_adoc_main_title "${path}" \
-        &&  helper_airs_generic_adoc_min_keywords "${path}" \
-        &&  helper_airs_generic_adoc_keywords_uppercase "${path}" \
+            helper_airs_generic_adoc_keywords_uppercase "${path}" \
         &&  helper_airs_generic_adoc_fluid_attacks_name "${path}" \
         &&  helper_airs_generic_adoc_spelling "${path}" \
         &&  helper_airs_generic_adoc_others "${path}" \
