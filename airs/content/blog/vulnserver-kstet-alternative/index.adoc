@@ -351,7 +351,7 @@ link:http://www.vividmachines.com/shellcode/arwin.c[arwin] tool:
 
 [source,console]
 ----
-C:\Users\Fluid\Downloads\osce\tools>arwin.exe kernel32 LoadLibraryA
+C:\Users\Fluid Attacks\Downloads\osce\tools>arwin.exe kernel32 LoadLibraryA
 arwin - win32 address resolution program - by steve hanna - v.01
 LoadLibraryA is located at 0x76460b30 in kernel32
 ----

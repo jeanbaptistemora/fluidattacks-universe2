@@ -30,3 +30,24 @@ function check_adoc_min_keywords {
         abort "[ERROR] ${msg}: ${target}"
       fi
 }
+
+function check_adoc_fluid_attacks_name {
+  local target="${1}"
+  local msg='Fluid Attacks must be spelled as Fluid Attacks'
+
+  if pcregrep \
+      -e '\bfluid attacks' \
+      -e '\bFLUID Attacks' \
+      -e '\bfluidsignal(?!\.formstack)' \
+      -e '\bFluidsignal Group' \
+      -e '\bfluid(?!.)' \
+      -e '\bFluid(?! Attacks)' \
+      -e '\bFLUID(?!.)' \
+      -e '\bFLUIDAttacks' \
+      "${target}"
+  then
+    echo "[ERROR] ${msg}: ${target}"
+  else
+    echo "[INFO] PASSED: ${msg}: ${target}"
+  fi
+}

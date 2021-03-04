@@ -8,6 +8,7 @@ makeTemplate airsPkgs {
   searchPaths = {
     envPaths = [
       airsPkgs.gnugrep
+      airsPkgs.pcre
     ];
   };
   template = path "/makes/packages/airs/adoc/linter/template.sh";

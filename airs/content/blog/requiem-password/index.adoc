@@ -163,14 +163,14 @@ to actual english words like this:
 
 .Some words from a link:http://world.std.com/~reinhold/dicewarewordlist.pdf[`Diceware` dictionary].
 ----
-26114 -> fluid
+26114 -> code
 32236 -> hack
 52416 -> rule
 52133 -> risk
 ----
 
 Thus if you roll first a 2, then a 6, ... and a 4,
-the first word in your passphrase will be `fluid`.
+the first word in your passphrase will be `code`.
 Do this four to seven times and
 your passphrase will be pretty strong.
 No time to play dice? No problem.
@@ -221,7 +221,7 @@ let us compare some typical authentication policies:
 | Passphrase
 | 4 words x 4 letters
 | non-random lower
-| `fluid hacks rule risk`
+| `code hacks rule risk`
 | 41 quadrillion (e15) years
 
 | Passphrase

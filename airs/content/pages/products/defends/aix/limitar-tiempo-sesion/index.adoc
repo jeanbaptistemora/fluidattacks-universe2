@@ -73,8 +73,8 @@ se puede realizar lo siguiente:
 +
 [source, bash, linenums]
 ----
-%  ssh server -fluid
-fluid@server's password:
+%  ssh server -user
+user@server's password:
 ...
 % set | grep TMOUT
 TMOUT=300
