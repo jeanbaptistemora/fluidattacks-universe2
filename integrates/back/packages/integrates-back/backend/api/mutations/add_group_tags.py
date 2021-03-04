@@ -21,7 +21,7 @@ from backend.decorators import (
 )
 from backend.domain import project as group_domain
 from backend.typing import SimpleProjectPayload as SimpleProjectPayloadType
-from backend.utils.groups import update_tags
+from newutils.groups import update_tags
 
 
 @convert_kwargs_to_snake_case  # type: ignore

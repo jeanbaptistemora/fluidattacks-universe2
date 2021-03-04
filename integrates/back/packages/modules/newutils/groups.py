@@ -1,5 +1,6 @@
 # Standard libraries
 import logging
+import logging.config
 from typing import (
     cast,
     List,
@@ -8,9 +9,9 @@ from typing import (
 
 # Local libraries
 from back.settings import LOGGING
-
 from backend.domain import project as group_domain
 from backend.typing import Project as ProjectType
+
 
 logging.config.dictConfig(LOGGING)
 

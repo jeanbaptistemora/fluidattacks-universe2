@@ -45,10 +45,10 @@ from backend.typing import (
     Historic as HistoricType,
     Datetime,
 )
-from backend.utils import forms as forms_utils
 from newutils import (
     cvss,
     datetime as datetime_utils,
+    forms as forms_utils
 )
 from __init__ import (
     BASE_URL,
@@ -77,7 +77,7 @@ CVSS_PARAMETERS = {
 LOGGER = logging.getLogger(__name__)
 
 
-def _get_evidence(
+def get_evidence(
     name: str,
     items: List[Dict[str, str]],
     finding: Dict[str, FindingType],
@@ -105,7 +105,7 @@ def _get_evidence(
     return evidence[0] if evidence else {'url': '', 'description': ''}
 
 
-async def _download_evidence_file(
+async def download_evidence_file(
         project_name: str,
         finding_id: str,
         file_name: str) -> str:
@@ -178,7 +178,7 @@ async def get_records_from_file(
         project_name: str,
         finding_id: str,
         file_name: str) -> List[Dict[object, object]]:
-    file_path = await _download_evidence_file(
+    file_path = await download_evidence_file(
         project_name,
         finding_id,
         file_name
@@ -205,7 +205,7 @@ async def get_exploit_from_file(
         project_name: str,
         finding_id: str,
         file_name: str) -> str:
-    file_path = await _download_evidence_file(
+    file_path = await download_evidence_file(
         project_name,
         finding_id,
         file_name
@@ -377,17 +377,17 @@ def format_data(finding: Dict[str, FindingType]) -> Dict[str, FindingType]:
 
     finding_files = cast(List[Dict[str, str]], finding.get('files', []))
     finding['evidence'] = {
-        'animation': _get_evidence('animation', finding_files, finding),
-        'evidence1': _get_evidence('evidence_route_1', finding_files, finding),
-        'evidence2': _get_evidence('evidence_route_2', finding_files, finding),
-        'evidence3': _get_evidence('evidence_route_3', finding_files, finding),
-        'evidence4': _get_evidence('evidence_route_4', finding_files, finding),
-        'evidence5': _get_evidence('evidence_route_5', finding_files, finding),
-        'exploitation': _get_evidence('exploitation', finding_files, finding)
+        'animation': get_evidence('animation', finding_files, finding),
+        'evidence1': get_evidence('evidence_route_1', finding_files, finding),
+        'evidence2': get_evidence('evidence_route_2', finding_files, finding),
+        'evidence3': get_evidence('evidence_route_3', finding_files, finding),
+        'evidence4': get_evidence('evidence_route_4', finding_files, finding),
+        'evidence5': get_evidence('evidence_route_5', finding_files, finding),
+        'exploitation': get_evidence('exploitation', finding_files, finding)
     }
     finding['compromisedAttrs'] = finding.get('records', '')
-    finding['records'] = _get_evidence('fileRecords', finding_files, finding)
-    finding['exploit'] = _get_evidence('exploit', finding_files, finding)
+    finding['records'] = get_evidence('fileRecords', finding_files, finding)
+    finding['exploit'] = get_evidence('exploit', finding_files, finding)
 
     cvss_fields = {
         '2': [

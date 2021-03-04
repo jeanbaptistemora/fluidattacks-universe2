@@ -15,6 +15,10 @@ from aioextensions import (
 from graphql import GraphQLError
 
 # Local libraries
+from back import settings
+from back.app.views import templates
+from back.settings import LOGGING
+from backend import authz, util
 from backend.domain import (
     finding as finding_domain,
     organization as org_domain,
@@ -24,20 +28,13 @@ from backend.domain import (
 from backend.services import (
     has_valid_access_token
 )
-from backend import authz, util
 from backend.exceptions import (
     FindingNotFound,
     InvalidAuthorization,
     UserNotInOrganization
 )
-from backend.utils import (
-    function,
-)
+from newutils import function
 
-from back import settings
-from back.app.views import templates
-
-from back.settings import LOGGING
 
 logging.config.dictConfig(LOGGING)
 

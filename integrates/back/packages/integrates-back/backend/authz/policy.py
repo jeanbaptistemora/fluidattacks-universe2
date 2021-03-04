@@ -20,6 +20,7 @@ from aioextensions import (
 )
 
 # Local imports
+from back.settings import LOGGING
 from backend.dal import (
     project as project_dal,
     user as user_dal,
@@ -28,16 +29,13 @@ from backend.dal.helpers.redis import (
     redis_del_by_deps,
     redis_get_or_set_entity_attr,
 )
-from backend.utils import (
-    function,
-)
-
-from back.settings import LOGGING
+from newutils import function
 from .model import (
     get_user_level_roles_model,
     get_group_level_roles_model,
     get_organization_level_roles_model
 )
+
 
 logging.config.dictConfig(LOGGING)
 

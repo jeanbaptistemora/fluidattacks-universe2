@@ -1,9 +1,9 @@
 import pytest
 from datetime import datetime
 
-from backend.utils.forms import is_exploitable
-
 from numpy import arange
+
+from newutils.forms import is_exploitable
 
 
 def test_is_exploitable():

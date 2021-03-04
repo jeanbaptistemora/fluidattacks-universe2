@@ -13,18 +13,10 @@ from typing import (
 )
 
 # Local libraries
-from model import (
-    graph_model,
-)
-from utils import (
-    graph as g,
-)
-from utils.function import (
-    get_id,
-)
-from utils.logs import (
-    log_blocking,
-)
+from model import graph_model
+from utils import graph as g
+from utils.logs import log_blocking
+from newutils.function import get_id
 
 
 class SyntaxReaderArgs(NamedTuple):
