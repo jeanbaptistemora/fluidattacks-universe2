@@ -394,6 +394,7 @@ const InnerMainContentHome: StyledComponent<
     center
     pt0-ns
     pt4
+    pl3
   `,
 })``;
 
@@ -445,11 +446,26 @@ const GrayBigParagraph: StyledComponent<
   `,
 })``;
 
+const BlackSimpleParagraph: StyledComponent<
+  "p",
+  Record<string, unknown>
+> = styled.p.attrs({
+  className: `
+    roboto
+    f5
+    c-fluid-bk
+    lh-copy
+    fw3
+    ma0
+  `,
+})``;
+
 export {
   ArticleContainer,
   ArticleTitle,
   BlackBigHeader,
   BlackBigParagraph,
+  BlackSimpleParagraph,
   BreadcrumbContainer,
   BreadcrumbInnerContainer,
   BreadcrumbLink,

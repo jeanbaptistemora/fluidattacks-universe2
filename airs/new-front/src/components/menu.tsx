@@ -3,7 +3,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "gatsby";
 import React from "react";
-import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 import * as fluidAttacksLogo from "../images/logo-fluid-attacks.png";
 import {
   FontAwesomeContainerSmall,
@@ -14,17 +13,14 @@ import {
   NavbarRegularButton,
   NavbarSubcategory,
 } from "../styles/styledComponents";
+import { faAngleDown, faBars } from "@fortawesome/free-solid-svg-icons";
 
 export const NavbarItems: React.FC = (): JSX.Element => (
   <NavbarList className={"roboto"} id={"navbar_list"}>
     <MenuButton>
       <div className={"lower"}>
         <span className={"pointer dib h2-l"} id={"openbtn"}>
-          <img
-            alt={"Menu open icon"}
-            className={"w2"}
-            src={"https://fluidattacks.com/theme/images/menu.svg"}
-          />
+          <FontAwesomeIcon className={"w2"} icon={faBars} />
         </span>
       </div>
     </MenuButton>

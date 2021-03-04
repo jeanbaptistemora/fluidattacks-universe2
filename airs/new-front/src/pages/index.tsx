@@ -1,18 +1,22 @@
 /* eslint @typescript-eslint/no-invalid-void-type:0 */
 /* eslint @typescript-eslint/no-confusing-void-expression:0 */
+/* eslint react/forbid-component-props: 0 */
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Layout } from "../components/layout";
 import { NavbarComponent } from "../components/navbar";
 import React from "react";
 import { Seo } from "../components/seo";
-import { graphql } from "gatsby";
+import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import {
   BlackBigHeader,
   BlackBigParagraph,
+  BlackSimpleParagraph,
   GrayBigParagraph,
   InnerMainContentHome,
   MainContentHome,
   MainCoverHome,
 } from "../styles/styledComponents";
+import { Link, graphql } from "gatsby";
 import "tachyons/css/tachyons.min.css";
 import "../styles/index.scss";
 
@@ -53,6 +57,24 @@ const Index: React.FC<IQueryData> = ({ data }: IQueryData): JSX.Element => (
               <GrayBigParagraph>
                 {"FAST, ACCURATE AND COST-EFFECTIVE"}
               </GrayBigParagraph>
+              <div className={"w-80-l ba b--light-gray pa4 mt4"}>
+                <BlackSimpleParagraph className={"mb2"}>
+                  {
+                    "Security should not be an obstacle in the time-to-market of \
+                    your application. With Continuous Hacking, we integrate security \
+                    testing into your software development lifecycles."
+                  }
+                </BlackSimpleParagraph>
+                <Link
+                  className={"roboto f5 c-fluid-bk fw3 no-underline"}
+                  to={"/contact-us/"}>
+                  {"Get a Demo"}
+                  <FontAwesomeIcon
+                    className={"c-dkred mh1 dib"}
+                    icon={faArrowRight}
+                  />
+                </Link>
+              </div>
             </InnerMainContentHome>
           </MainContentHome>
         </MainCoverHome>
