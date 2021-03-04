@@ -1,4 +1,8 @@
 # Standard libraries
+import json
+from decimal import (
+    Decimal,
+)
 from typing import (
     Any,
     Awaitable,
@@ -19,6 +23,7 @@ from backend.dal import (
     available_name as dal_name,
     organization as dal_organization,
     user as dal_user,
+    vulnerability as dal_vulnerability,
 )
 
 
@@ -87,13 +92,26 @@ async def populate_groups(data: List[Any]) -> bool:
 
 async def populate_findings(data: List[Any]) -> bool:
     coroutines: List[Awaitable[bool]] = []
+    data_dump: str = json.dumps(data)
+    data_parsed: List[Any] = json.loads(data_dump, parse_float=Decimal)
     coroutines.extend([
         dal_finding.create(
             finding['finding_id'],
             finding['project_name'],
             finding,
         )
-        for finding in data
+        for finding in data_parsed
+    ])
+    return all(await collect(coroutines))
+
+
+async def populate_vulnerabilities(data: List[Any]) -> bool:
+    coroutines: List[Awaitable[bool]] = []
+    coroutines.extend([
+        dal_vulnerability.create(
+            vulnerability,
+        )
+        for vulnerability in data
     ])
     return all(await collect(coroutines))
 
@@ -122,18 +140,27 @@ async def populate(data: Dict[str, Any]) -> bool:
         success = await populate_users(data['users'])
 
     if 'names' in keys:
-        success = success and await populate_names(data['names'])
+        success = success and \
+            await populate_names(data['names'])
 
     if 'orgs' in keys:
-        success = success and await populate_orgs(data['orgs'])
+        success = success and \
+            await populate_orgs(data['orgs'])
 
     if 'groups' in keys:
-        success = success and await populate_groups(data['groups'])
+        success = success and \
+            await populate_groups(data['groups'])
 
     if 'findings' in keys:
-        success = success and await populate_findings(data['findings'])
+        success = success and \
+            await populate_findings(data['findings'])
+
+    if 'vulnerabilities' in keys:
+        success = success and \
+            await populate_vulnerabilities(data['vulnerabilities'])
 
     if 'policies' in keys:
-        success = success and await populate_policies(data['policies'])
+        success = success and \
+            await populate_policies(data['policies'])
 
     return success
