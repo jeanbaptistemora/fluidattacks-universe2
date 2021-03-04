@@ -3,7 +3,6 @@ files =
   back/packages/integrates-back/backend/utils/
   ,back/packages/integrates-back/cli/invoker.py
   ,back/packages/integrates-back/setup.py
-  #,back/packages/integrates-back/backend/
   ,back/packages/integrates-back/backend/authz/
   ,back/packages/integrates-back/backend/api/mutations/
   ,back/packages/integrates-back/backend/api/__init__.py
@@ -33,8 +32,8 @@ files =
   ,back/packages/integrates-back/backend/reports/typing.py
   ,back/packages/integrates-back/backend/decorators.py
   ,back/packages/integrates-back/backend/dal/
-  #,back/packages/integrates-back/backend/mailer.py
-  #,back/packages/modules/events/
+  ,back/packages/integrates-back/backend/mailer.py
+  ,back/packages/modules/events/
   #,back/__init__.py
   #,back/app/views/charts.py
   #,back/app/views/__init__.py

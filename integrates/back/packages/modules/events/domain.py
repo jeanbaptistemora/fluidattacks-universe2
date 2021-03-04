@@ -321,9 +321,12 @@ async def get_event(event_id: str) -> EventType:
 
 
 async def get_events(event_ids: List[str]) -> List[EventType]:
-    return await collect(
-        get_event(event_id)
-        for event_id in event_ids
+    return cast(
+        List[EventType],
+        await collect(
+            get_event(event_id)
+            for event_id in event_ids
+        )
     )
 
 
@@ -363,7 +366,10 @@ async def add_comment(
     success = await comment_domain.create(event_id, comment_data, user_data)
     del comment_data['user_id']
 
-    return success
+    return cast(
+        Tuple[Optional[int], bool],
+        success
+    )
 
 
 def send_comment_mail(
