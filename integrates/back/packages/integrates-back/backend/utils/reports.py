@@ -1,22 +1,18 @@
 # Standard library
 import asyncio
 import logging
-from typing import Any, cast, Dict
+from typing import Any, Dict
 from uuid import uuid4 as uuid
 
 # Third party libraries
-from aioextensions import in_thread
-
 from starlette.datastructures import UploadFile
 
 # Local libraries
 from backend.dal.helpers import (
-    cloudfront,
     s3,
 )
 from backend.exceptions import ErrorUploadingFileS3
 from __init__ import (
-    FI_CLOUDFRONT_REPORTS_DOMAIN,
     FI_AWS_S3_REPORTS_BUCKET,
 )
 
@@ -24,24 +20,11 @@ from __init__ import (
 LOGGER = logging.getLogger(__name__)
 
 
-async def sign_url(path: str, minutes: float = 60.0) -> str:
-    return cast(
-        str,
-        await in_thread(
-            cloudfront.sign_url, FI_CLOUDFRONT_REPORTS_DOMAIN, path, minutes
-        )
-    )
-
-
-async def sign(path: str, ttl: float) -> str:
-    return cast(
-        str,
-        await in_thread(
-            cloudfront.sign_url,
-            FI_CLOUDFRONT_REPORTS_DOMAIN,
-            path,
-            ttl / 60,
-        )
+async def sign_url(path: str, minutes: float = 10.0) -> str:
+    return await s3.sign_url(
+        path,
+        minutes,
+        FI_AWS_S3_REPORTS_BUCKET
     )
 
 
@@ -75,7 +58,7 @@ async def expose_bytes_as_url(
     ):
         raise ErrorUploadingFileS3()
 
-    return await sign(path=file_name, ttl=ttl)
+    return await sign_url(path=file_name, minutes=ttl)
 
 
 async def upload_report_from_file_descriptor(report: Any) -> str:

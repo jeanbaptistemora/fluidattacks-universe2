@@ -1,18 +1,16 @@
 import logging
 import logging.config
-from typing import cast, List
+from typing import List
 
-from aioextensions import in_thread
 from boto3.dynamodb.conditions import Key
 from botocore.exceptions import ClientError
 
-from backend.dal.helpers import cloudfront, dynamodb, s3
+from backend.dal.helpers import dynamodb, s3
 from backend.typing import Event as EventType
 from back.settings import LOGGING
 
 from __init__ import (
     FI_AWS_S3_BUCKET,
-    FI_CLOUDFRONT_RESOURCES_DOMAIN
 )
 
 logging.config.dictConfig(LOGGING)
@@ -98,14 +96,10 @@ async def remove_evidence(file_name: str) -> bool:
 
 
 async def sign_url(file_url: str) -> str:
-    return cast(
-        str,
-        await in_thread(
-            cloudfront.sign_url,
-            FI_CLOUDFRONT_RESOURCES_DOMAIN,
-            file_url,
-            1.0 / 6
-        )
+    return await s3.sign_url(
+        file_url,
+        10,
+        FI_AWS_S3_BUCKET
     )
 
 

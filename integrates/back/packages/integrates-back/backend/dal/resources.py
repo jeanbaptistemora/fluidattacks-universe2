@@ -1,13 +1,12 @@
 import logging
 from typing import List
 from botocore.exceptions import ClientError
-from backend.dal.helpers import cloudfront, dynamodb, s3
+from backend.dal.helpers import dynamodb, s3
 from backend.dal import project as project_dal
 from back.settings import LOGGING
 
 from __init__ import (
     FI_AWS_S3_RESOURCES_BUCKET,
-    FI_CLOUDFRONT_RESOURCES_DOMAIN
 )
 
 logging.config.dictConfig(LOGGING)
@@ -41,11 +40,12 @@ async def remove_file(file_name: str) -> bool:
 
 
 async def download_file(file_info: str, project_name: str) -> str:
-    return await cloudfront.download_file(
-        file_info,
-        project_name,
-        FI_CLOUDFRONT_RESOURCES_DOMAIN,
-        1.0 / 6
+    project_name = project_name.lower()
+    file_url = project_name + '/' + file_info
+    return await s3.sign_url(
+        file_url,
+        10,
+        FI_AWS_S3_RESOURCES_BUCKET
     )
 
 

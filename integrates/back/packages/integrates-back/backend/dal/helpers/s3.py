@@ -127,3 +127,26 @@ async def upload_memory_file(
             extra={'extra': locals()})
 
     return success
+
+
+async def sign_url(
+    file_name: str,
+    expire_mins: float,
+    bucket: str,
+) -> str:
+    async with aio_client() as client:
+        try:
+            response = await client.generate_presigned_url(
+                'get_object',
+                Params={
+                    'Bucket': bucket,
+                    'Key': file_name
+                },
+                ExpiresIn=expire_mins
+            )
+
+            return str(response)
+        except ClientError as ex:
+            LOGGER.exception(ex, extra={'extra': locals()})
+
+    return ''
