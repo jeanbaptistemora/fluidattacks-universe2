@@ -93,12 +93,12 @@ airs.test.images.format:
   <<: *in_dev_branch_airs
   stage: test-code
 
-airs_test_lint_code:
-  <<: *with_nix
+airs.test.images.size:
+  <<: *makes
   <<: *in_dev_branch_airs
   stage: test-code
 
-airs_test_images:
+airs_test_lint_code:
   <<: *with_nix
   <<: *in_dev_branch_airs
   stage: test-code

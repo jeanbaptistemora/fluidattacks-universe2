@@ -1,7 +1,7 @@
 # shellcheck shell=bash
 
 function get_touched_files_last_commit {
-  git show --diff-filter=d --format= --name-only HEAD
+  git --no-pager show --diff-filter=d --format= --name-only HEAD
 }
 
 function has_any_file_changed {
