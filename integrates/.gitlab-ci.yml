@@ -163,10 +163,11 @@ integrates.back.lint:
   <<: *in_dev_branch_integrates
   stage: lint-code
 
-.integrates_back_test_functional: &integrates_back_test_functional
+.integrates.back.test.functional: &integrates_back_test_functional
   <<: *makes
   <<: *in_dev_branch_integrates
   stage: test-code
+  script: ./m integrates.back.test.functional "${CI_JOB_NAME/integrates.back.test.functional./}"
 
 integrates.back.test.functional.old:
   <<: *integrates_back_test_functional
@@ -174,23 +175,18 @@ integrates.back.test.functional.old:
 
 integrates.back.test.functional.create_organization:
   <<: *integrates_back_test_functional
-  script: ./m integrates.back.test.functional create_organization
 
 integrates.back.test.functional.finding:
   <<: *integrates_back_test_functional
-  script: ./m integrates.back.test.functional finding
 
 integrates.back.test.functional.grant_stakeholder_organization_access:
   <<: *integrates_back_test_functional
-  script: ./m integrates.back.test.functional grant_stakeholder_organization_access
 
 integrates.back.test.functional.groups_with_forces:
   <<: *integrates_back_test_functional
-  script: ./m integrates.back.test.functional groups_with_forces
 
 integrates.back.test.functional.organization_id:
   <<: *integrates_back_test_functional
-  script: ./m integrates.back.test.functional organization_id
 
 integrates.back.test.unit:
   <<: *makes

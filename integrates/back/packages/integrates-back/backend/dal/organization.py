@@ -133,7 +133,7 @@ async def add_user(organization_id: str, email: str) -> bool:
 
 async def create(
     organization_name: str,
-    organization_id: str = str(uuid.uuid4()),
+    organization_id: str = '',
 ) -> OrganizationType:
     """
     Create an organization and returns its key
@@ -142,6 +142,9 @@ async def create(
     if org_exists:
         raise InvalidOrganization()
 
+    organization_id = str(uuid.uuid4()) \
+        if organization_id == '' \
+        else organization_id
     new_item: OrganizationType = {
         'pk': f'ORG#{organization_id}',
         'sk': f'INFO#{organization_name.lower().strip()}'
