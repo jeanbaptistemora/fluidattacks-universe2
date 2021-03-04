@@ -16,25 +16,6 @@ function job_airs_test_lint_code {
   ||  return 1
 }
 
-function job_airs_test_images {
-  local blog_covers
-  local touched_png_images
-  local all_images
-
-      pushd airs \
-  &&  helper_airs_set_lc_all \
-  &&  touched_png_images="$(helper_airs_list_touched_files | grep '.png')" || true \
-  &&  echo '[INFO] Testing PNG images' \
-  &&  for image in ${touched_png_images}
-      do
-            helper_airs_image_optimized "${image}" \
-        &&  helper_airs_image_size "${image}" \
-        ||  return 1
-      done \
-  &&  popd \
-  ||  return 1
-}
-
 function job_airs_test_generic {
   local all_content_files
   local touched_adoc_files
