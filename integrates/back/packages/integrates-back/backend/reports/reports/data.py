@@ -13,7 +13,7 @@ from uuid import uuid4
 
 # Local libraries
 from backend.typing import Finding as FindingType
-from backend.dal.helpers.s3 import (  # type: ignore
+from backend.dal.helpers.s3 import (
     download_file,
     list_files,
 )

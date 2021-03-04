@@ -148,7 +148,7 @@ class ITReport():
             for vuln in finding_vulns:
                 await self.set_vuln_row(
                     cast(VulnType, vuln),
-                    cast(Dict[str, FindingType], finding)
+                    finding
                 )
                 self.row += 1
 

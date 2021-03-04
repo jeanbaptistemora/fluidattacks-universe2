@@ -1,7 +1,6 @@
 # Standard libraries
 import logging
 from typing import (
-    cast,
     Dict,
     List
 )
@@ -50,16 +49,13 @@ async def _get_url_group_report(
             f'group {group_name}'
         )
 
-        return cast(
-            str,
-            await report.generate_group_report(
-                report_type,
-                user_email,
-                context=info.context,
-                lang=lang,
-                project_findings=finding_ids,
-                project_name=group_name,
-            )
+        return await report.generate_group_report(
+            report_type,
+            user_email,
+            context=info.context,
+            lang=lang,
+            project_findings=finding_ids,
+            project_name=group_name,
         )
     except RequestedReportError as ex:
         LOGGER.exception(

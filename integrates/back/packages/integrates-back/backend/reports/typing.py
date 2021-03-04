@@ -178,11 +178,11 @@ class WordlistItem(NamedTuple):
 class Wordlist(Enum):
 
     @classmethod
-    def keys(cls):
+    def keys(cls) -> List[str]:
         return [member.value.key for member in cls]
 
     @classmethod
-    def labels(cls):
+    def labels(cls) -> List[str]:
         return [member.value.label for member in cls]
 
 
