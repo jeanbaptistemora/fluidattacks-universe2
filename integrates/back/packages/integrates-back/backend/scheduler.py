@@ -989,9 +989,9 @@ def scheduler_send_mail(
     )
 
 
-async def integrates_delete_obsolete_orgs() -> None:
+async def delete_obsolete_orgs() -> None:
     """ Delete obsolete organizations """
-    msg = '[scheduler]: integrates_delete_obsolete_orgs is running'
+    msg = '[scheduler]: delete_obsolete_orgs is running'
     LOGGER.info(msg, **NOEXTRA)
     today = datetime_utils.get_now().date()
     email = 'integrates@fluidattacks.com'

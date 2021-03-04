@@ -27,7 +27,7 @@ from backend.scheduler import (
     get_first_week_dates, get_date_last_vulns,
     create_msj_finding_pending, format_vulnerabilities,
     get_project_indicators,
-    integrates_delete_obsolete_orgs,
+    delete_obsolete_orgs,
     calculate_vulnerabilities
 )
 from newutils import datetime as datetime_utils
@@ -247,7 +247,7 @@ async def test_get_project_indicators():
 
 @pytest.mark.changes_db
 @freeze_time("2019-12-01")
-async def test_integrates_delete_obsolete_orgs():
+async def test_delete_obsolete_orgs():
     org_id = 'ORG#33c08ebd-2068-47e7-9673-e1aa03dc9448'
     org_name = 'kiba'
     org_ids = []
@@ -264,7 +264,7 @@ async def test_integrates_delete_obsolete_orgs():
         org_name,
         now_str
     )
-    await integrates_delete_obsolete_orgs()
+    await delete_obsolete_orgs()
     new_org_ids = []
     async for organization_id, _ in iterate_organizations():
         new_org_ids.append(organization_id)
