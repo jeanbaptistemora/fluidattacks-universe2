@@ -1,4 +1,5 @@
 airs.content
+airs.lint.code
 airs.lint.styles
 airs.npm
 airs.test.images.covers

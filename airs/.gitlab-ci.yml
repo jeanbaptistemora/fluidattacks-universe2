@@ -53,6 +53,26 @@
   variables:
     GIT_DEPTH: 5
 
+airs.eph-stop:
+  <<: *makes
+  script:
+    - ./m airs . eph-stop
+  stage: deploy-app
+  environment:
+    name: ephemeral/${CI_COMMIT_REF_NAME}
+    action: stop
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "master"'
+      when: never
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      when: never
+    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+      when: never
+    - if: '$CI_PIPELINE_SOURCE == "trigger"'
+      when: never
+    - if: *airs_commit_pattern
+      when: manual
+
 airs.infra.ephemeral.apply:
   <<: *makes
   <<: *in_master_branch_airs
@@ -103,9 +123,14 @@ makes.test.airs:
   <<: *in_master_branch_airs
   stage: test-code
 
-makes.lint.styles:
+airs.lint.code:
   <<: *makes
-  <<: *in_master_branch_airs
+  <<: *in_dev_branch_airs
+  stage: test-code
+
+airs.lint.styles:
+  <<: *makes
+  <<: *in_dev_branch_airs
   stage: test-code
 
 # Migrated to makes, but pending to finish gatsby migration
@@ -128,37 +153,17 @@ airs_deploy_production:
   <<: *in_master_branch_airs
   stage: deploy-app
 
+airs_test_lint_code:
+  <<: *with_nix
+  <<: *in_dev_branch_airs
+  stage: test-code
+
 airs_test_lint_styles:
   <<: *with_nix
   <<: *in_dev_branch_airs
   stage: test-code
 
 # Pending to migrate
-
-airs.eph-stop:
-  <<: *makes
-  script:
-    - ./m airs . eph-stop
-  stage: deploy-app
-  environment:
-    name: ephemeral/${CI_COMMIT_REF_NAME}
-    action: stop
-  rules:
-    - if: '$CI_COMMIT_BRANCH == "master"'
-      when: never
-    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
-      when: never
-    - if: '$CI_PIPELINE_SOURCE == "schedule"'
-      when: never
-    - if: '$CI_PIPELINE_SOURCE == "trigger"'
-      when: never
-    - if: *airs_commit_pattern
-      when: manual
-
-airs_test_lint_code:
-  <<: *with_nix
-  <<: *in_dev_branch_airs
-  stage: test-code
 
 airs_test_generic:
   <<: *with_nix
