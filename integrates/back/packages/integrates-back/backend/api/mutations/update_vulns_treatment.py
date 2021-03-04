@@ -38,6 +38,7 @@ async def mutate(
     group_name: str = finding_data['project_name']
     group = await group_loader.load(group_name)
     success: bool = await vuln_domain.update_vulns_treatment(
+        context=info.context.loaders,
         finding_id=finding_id,
         updated_values=parameters,
         organization_id=group['organization'],
