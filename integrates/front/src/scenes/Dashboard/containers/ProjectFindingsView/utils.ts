@@ -82,7 +82,7 @@ const formatFindings: (dataset: IFindingAttr[]) => IFindingAttr[] = (
     // eslint-disable-next-line fp/no-mutating-methods
     const where: string = _.uniqBy(finding.vulnerabilities, "where")
       .map((vuln: { where: string }): string => vuln.where)
-      .sort((a: string, b: string): number => a.localeCompare(b))
+      .sort((valA: string, valB: string): number => valA.localeCompare(valB))
       .join(", ");
 
     return {

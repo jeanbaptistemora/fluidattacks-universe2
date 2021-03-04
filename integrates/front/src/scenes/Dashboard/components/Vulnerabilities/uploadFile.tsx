@@ -78,19 +78,19 @@ export const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
         if (errorObject.values.length > 0 || errorObject.keys.length > 0) {
           const listValuesFormated: string[] = Array.from(
             new Set(
-              errorObject.values.map((x: string): string =>
+              errorObject.values.map((valX: string): string =>
                 translate.t(
                   "search_findings.tab_vuln.alerts.uploadFile.value",
-                  { pattern: x }
+                  { pattern: valX }
                 )
               )
             )
           );
           const listKeysFormated: string[] = Array.from(
             new Set(
-              errorObject.keys.map((x: string): string =>
+              errorObject.keys.map((valY: string): string =>
                 translate.t("search_findings.tab_vuln.alerts.uploadFile.key", {
-                  key: x,
+                  key: valY,
                 })
               )
             )

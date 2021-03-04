@@ -123,8 +123,8 @@ const NavbarComponent: React.FC = (): JSX.Element => {
       ? [{ name: "" }]
       : // eslint-disable-next-line fp/no-mutating-methods, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
         data.me.organizations.sort(
-          (a: { name: string }, b: { name: string }): number =>
-            a.name > b.name ? 1 : -1
+          (nameA: { name: string }, nameB: { name: string }): number =>
+            nameA.name > nameB.name ? 1 : -1
         );
 
   React.useEffect((): void => {

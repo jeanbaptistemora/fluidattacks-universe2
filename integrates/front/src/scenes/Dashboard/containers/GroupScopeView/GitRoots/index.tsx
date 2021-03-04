@@ -243,7 +243,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
         url,
       } = values;
 
-      if (isManagingRoot != false) {
+      if (isManagingRoot !== false) {
         if (isManagingRoot.mode === "ADD") {
           mixpanel.track("AddGitRoot");
           await addGitRoot({

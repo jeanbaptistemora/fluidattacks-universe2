@@ -366,7 +366,7 @@ const excludeFormat: Validator = (
       ? urlBasename.replace(".git", "")
       : urlBasename;
 
-    return value.toLowerCase().split("/").indexOf(repoName.toLowerCase()) == 0
+    return value.toLowerCase().split("/").indexOf(repoName.toLowerCase()) === 0
       ? translate.t("validations.excludeFormat")
       : undefined;
   } else {

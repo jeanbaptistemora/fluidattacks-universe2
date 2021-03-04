@@ -20,7 +20,7 @@ const branchName: string =
     ? "master"
     : process.env.CI_COMMIT_REF_NAME;
 const bucketName: string =
-  branchName == "master"
+  branchName === "master"
     ? "integrates.front.production.fluidattacks.com"
     : "integrates.front.development.fluidattacks.com";
 

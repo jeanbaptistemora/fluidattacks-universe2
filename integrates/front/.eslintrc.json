@@ -43,6 +43,12 @@
      */
     "camelcase": "off",
     "capitalized-comments": ["error", "always", { "ignoreConsecutiveComments": true }],
+    "complexity": "off",
+    "eqeqeq": ["error", "smart"],
+    /*
+     * Given exceptions for lodash, jquery and translation wildcard "t"
+     */
+    "id-length": ["error", { "exceptions": ["_", "$", "t"] }],
     "func-style": ["error", "declaration", { "allowArrowFunctions": true }],
     "line-comment-position": ["error", "above"],
     "multiline-comment-style": ["error", "starred-block"],
