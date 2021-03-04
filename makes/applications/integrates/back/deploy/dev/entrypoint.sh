@@ -27,12 +27,7 @@ function main {
             echo "[INFO] Applying: ${manifest}" \
         &&  apply "${manifest}" \
         ||  return 1
-      done \
-  &&  echo '[INFO] Rolling out update' \
-  &&  kubectl rollout status \
-        "deploy/integrates-${CI_COMMIT_REF_NAME}" \
-        -n "development" \
-        --timeout="15m"
+      done
 }
 
 main "${@}"

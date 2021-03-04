@@ -1,16 +1,17 @@
 # shellcheck shell=bash
 
-source '__envSearchPaths__'
-source '__envUtilsAws__'
-source '__envUtilsSops__'
-
 function main {
       echo '[INFO] Firefox: __envFirefox__' \
   &&  echo '[INFO] Geckodriver: __envGeckodriver__' \
   &&  aws_login_dev integrates \
+  &&  aws_eks_update_kubeconfig 'integrates-cluster' 'us-east-1' \
   &&  sops_export_vars integrates/secrets-development.yaml \
         STARLETTE_SESSION_KEY \
         TEST_E2E_USER \
+  &&  kubectl rollout status \
+      "deploy/integrates-${CI_COMMIT_REF_NAME}" \
+      -n "development" \
+      --timeout="15m" \
   &&  pushd integrates/back/tests/e2e/src \
     &&  pkgFirefox='__envFirefox__' \
         pkgGeckoDriver='__envGeckodriver__' \

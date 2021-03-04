@@ -1,21 +1,23 @@
 { integratesPkgs
+, makeUtils
 , packages
 , path
 , ...
 }:
-let
-  makeEntrypoint = import (path "/makes/utils/make-entrypoint") path integratesPkgs;
-  makeSearchPaths = import (path "/makes/utils/make-search-paths-deprecated") path integratesPkgs;
-in
-makeEntrypoint {
+makeUtils.makeEntrypoint integratesPkgs {
   arguments = {
     envFirefox = integratesPkgs.firefox;
     envGeckodriver = integratesPkgs.geckodriver;
-    envSearchPaths = makeSearchPaths [
+  };
+  searchPaths = {
+    envPaths = [
+      integratesPkgs.kubectl
       packages.integrates.web.e2e.pypi
     ];
-    envUtilsAws = import (path "/makes/utils/aws") path integratesPkgs;
-    envUtilsSops = import (path "/makes/utils/sops") path integratesPkgs;
+    envUtils = [
+      "/makes/utils/aws"
+      "/makes/utils/sops"
+    ];
   };
   name = "integrates-web-e2e";
   template = path "/makes/applications/integrates/web/e2e/entrypoint.sh";
