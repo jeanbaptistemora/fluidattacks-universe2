@@ -9,9 +9,9 @@ function main {
         STARLETTE_SESSION_KEY \
         TEST_E2E_USER \
   &&  kubectl rollout status \
-      "deploy/integrates-${CI_COMMIT_REF_NAME}" \
-      -n "development" \
-      --timeout="15m" \
+        "deploy/integrates-${CI_COMMIT_REF_NAME}" \
+        -n "development" \
+        --timeout="15m" \
   &&  pushd integrates/back/tests/e2e/src \
     &&  pkgFirefox='__envFirefox__' \
         pkgGeckoDriver='__envGeckodriver__' \
