@@ -2,11 +2,15 @@ import os
 import pytest
 from collections import OrderedDict
 
-from backend.utils.findings import (
-    _get_evidence, _download_evidence_file, get_records_from_file,
-    get_exploit_from_file, format_data, get_reattack_requesters
-)
 from backend.dal.finding import get_finding
+from newutils.findings import (
+    _download_evidence_file,
+    _get_evidence,
+    format_data,
+    get_exploit_from_file,
+    get_reattack_requesters,
+    get_records_from_file,
+)
 
 
 pytestmark = [

@@ -50,8 +50,10 @@ from backend.domain import (
     vulnerability as vulnerability_domain,
     finding as finding_domain
 )
-from backend.utils import findings as finding_utils
 from backend.typing import Vulnerability
+from newutils import findings as finding_utils
+
+
 STAGE = os.environ['STAGE']
 
 

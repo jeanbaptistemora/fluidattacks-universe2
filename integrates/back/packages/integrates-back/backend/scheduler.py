@@ -58,13 +58,13 @@ from backend.typing import (
     MailContent as MailContentType,
     Project as ProjectType,
 )
-from backend.utils.findings import (
-    get_state_actions,
-    sort_historic_by_date,
-    filter_by_date,
-)
 from events import domain as events_domain
 from newutils import datetime as datetime_utils
+from newutils.findings import (
+    filter_by_date,
+    get_state_actions,
+    sort_historic_by_date,
+)
 from __init__ import (
     BASE_URL,
     FI_TEST_PROJECTS,

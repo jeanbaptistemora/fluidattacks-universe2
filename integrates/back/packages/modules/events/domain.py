@@ -46,14 +46,12 @@ from backend.typing import (
     Event as EventType,
     MailContent as MailContentType,
 )
-from backend.utils import (
-    events as event_utils,
-    validations
-)
+from backend.utils import validations
 from events import dal as events_dal
 from newutils import (
     comments as comments_utils,
     datetime as datetime_utils,
+    events as events_utils
 )
 from __init__ import (
     BASE_URL,
@@ -317,7 +315,7 @@ async def get_event(event_id: str) -> EventType:
     if not event:
         raise EventNotFound()
 
-    return event_utils.format_data(event)
+    return events_utils.format_data(event)
 
 
 async def get_events(event_ids: List[str]) -> List[EventType]:

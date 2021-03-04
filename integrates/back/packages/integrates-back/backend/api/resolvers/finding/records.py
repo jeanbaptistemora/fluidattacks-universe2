@@ -12,7 +12,7 @@ from backend.dal.helpers.redis import (
     redis_get_or_set_entity_attr,
 )
 from backend.typing import Finding
-from backend.utils import findings as finding_utils
+from newutils import findings as finding_utils
 
 
 async def resolve(
@@ -42,10 +42,13 @@ async def resolve_no_cache(
     )['records']['url']
 
     if records_url:
-        return await finding_utils.get_records_from_file(
-            group_name,
-            finding_id,
-            records_url
+        return cast(
+            List[Dict[object, object]],
+            await finding_utils.get_records_from_file(
+                group_name,
+                finding_id,
+                records_url
+            )
         )
 
     return []

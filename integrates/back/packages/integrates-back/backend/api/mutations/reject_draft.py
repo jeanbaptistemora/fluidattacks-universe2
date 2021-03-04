@@ -19,7 +19,7 @@ from backend.decorators import (
 )
 from backend.domain import finding as finding_domain
 from backend.typing import SimplePayload as SimplePayloadType
-from backend.utils import findings as finding_utils
+from newutils import findings as finding_utils
 
 
 @convert_kwargs_to_snake_case  # type: ignore

@@ -14,6 +14,7 @@ from back import settings
 from back.tests.unit.utils import create_dummy_session
 from backend import mailer
 from backend.api import get_new_context
+from backend.dal import finding as finding_dal
 from backend.domain.finding import (
     add_comment,
     get_tracking_vulnerabilities,
@@ -23,7 +24,6 @@ from backend.domain.finding import (
 )
 from backend.domain.vulnerability import list_vulnerabilities_async
 from backend.domain.organization import get_max_acceptance_days
-from backend.dal import finding as finding_dal
 from backend.exceptions import (
     InvalidAcceptanceDays,
     InvalidAcceptanceSeverity,
@@ -32,8 +32,10 @@ from backend.exceptions import (
     InvalidFileType,
     InvalidNumberAcceptations
 )
-from backend.utils import findings as findings_utils
-from newutils import datetime as datetime_utils
+from newutils import (
+    datetime as datetime_utils,
+    findings as findings_utils,
+)
 
 
 pytestmark = [

@@ -19,13 +19,17 @@ from aioextensions import (
 import aioboto3
 from graphql.type.definition import GraphQLResolveInfo
 
+from backend import authz, mailer, util
+from backend.dal.helpers.dynamodb import start_context
+from backend.dal import (
+    comment as comment_dal,
+    finding as finding_dal,
+)
 from backend.domain import (
     comment as comment_domain,
     user as user_domain,
     vulnerability as vuln_domain
 )
-
-from backend import authz, mailer, util
 from backend.exceptions import (
     FindingNotFound,
     InvalidCommentParent,
@@ -36,26 +40,20 @@ from backend.filters import (
     finding as finding_filters,
     vulnerability as vuln_filters,
 )
-from backend.utils import (
-    findings as finding_utils,
-    validations,
-    vulnerabilities as vuln_utils
-)
-
-from backend.dal.helpers.dynamodb import start_context
-from backend.dal import (
-    comment as comment_dal,
-    finding as finding_dal,
-)
 from backend.typing import (
     Comment as CommentType,
     Finding as FindingType,
     Tracking as TrackingItem,
 )
+from backend.utils import (
+    validations,
+    vulnerabilities as vuln_utils
+)
 from newutils import (
     comments as comments_utils,
     cvss,
     datetime as datetime_utils,
+    findings as finding_utils,
 )
 
 

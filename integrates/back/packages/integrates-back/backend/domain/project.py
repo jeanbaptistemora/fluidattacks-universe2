@@ -36,19 +36,6 @@ from backend.dal.helpers.redis import (
 from backend.dal import (
     project as project_dal
 )
-from backend.filters import (
-    stakeholder as stakeholder_filters,
-)
-from backend.typing import (
-    Comment as CommentType,
-    Finding as FindingType,
-    Historic as HistoricType,
-    Invitation as InvitationType,
-    Stakeholder as StakeholderType,
-    Project as ProjectType,
-    ProjectAccess as ProjectAccessType,
-    Vulnerability as VulnerabilityType
-)
 from backend.domain import (
     comment as comment_domain,
     resources as resources_domain,
@@ -69,14 +56,25 @@ from backend.exceptions import (
     RepeatedValues,
     UserNotInOrganization
 )
-from backend.utils import (
-    findings as finding_utils,
-    validations
+from backend.filters import (
+    stakeholder as stakeholder_filters,
 )
+from backend.typing import (
+    Comment as CommentType,
+    Finding as FindingType,
+    Historic as HistoricType,
+    Invitation as InvitationType,
+    Stakeholder as StakeholderType,
+    Project as ProjectType,
+    ProjectAccess as ProjectAccessType,
+    Vulnerability as VulnerabilityType
+)
+from backend.utils import validations
 from events import domain as events_domain
 from newutils import (
     comments as comments_utils,
     datetime as datetime_utils,
+    findings as finding_utils,
 )
 
 

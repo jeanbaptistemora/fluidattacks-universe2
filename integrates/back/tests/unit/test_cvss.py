@@ -1,8 +1,10 @@
 import pytest
 from decimal import Decimal
 
-from backend.utils import findings as finding_utils
-from newutils import cvss
+from newutils import (
+    cvss,
+    findings as finding_utils
+)
 
 
 def test_calculate_cvss2_basescore():
