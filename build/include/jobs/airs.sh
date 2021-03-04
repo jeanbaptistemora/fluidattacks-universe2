@@ -36,7 +36,6 @@ function job_airs_test_generic {
   &&  for path in ${touched_adoc_files}
       do
             helper_airs_generic_adoc_keywords_uppercase "${path}" \
-        &&  helper_airs_generic_adoc_spelling "${path}" \
         &&  helper_airs_generic_adoc_others "${path}" \
         &&  helper_airs_adoc_tag_exists "${path}" ':description:' \
         &&  helper_airs_adoc_max_columns "${path}" "${max_columns}" \

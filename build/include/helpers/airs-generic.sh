@@ -31,39 +31,6 @@ function helper_airs_generic_file_name {
       fi
 }
 
-function helper_airs_generic_adoc_main_title {
-  local file="${1}"
-  local titles
-
-      helper_airs_file_exists "${file}" \
-  &&  titles="$(grep -Pc '^=\s.*$' "${file}")" || titles='0' \
-  &&  if [ "${titles}" = '1' ]
-      then
-            return 0
-      else
-            echo "[ERROR] ${file} must have only one main title" \
-        &&  return 1
-      fi
-}
-
-function helper_airs_generic_adoc_min_keywords {
-  local file="${1}"
-  local tag=':keywords:'
-  local min_keywords='5'
-  local keywords
-
-      helper_airs_file_exists "${file}" \
-  &&  helper_airs_adoc_tag_exists "${file}" "${tag}" \
-  &&  keywords="$(grep -Po '(?<=^:keywords:).*' "${file}" | tr ',' '\n' | wc -l)" \
-  &&  if [ "${keywords}" -ge "${min_keywords}" ]
-      then
-            return 0
-      else
-            echo "[ERROR] ${file} has less than ${min_keywords} keywords" \
-        &&  return 1
-      fi
-}
-
 function helper_airs_generic_adoc_keywords_uppercase {
   local file="${1}"
   local tag=":keywords:"
@@ -81,82 +48,6 @@ function helper_airs_generic_adoc_keywords_uppercase {
             echo "[ERROR] All keywords in ${file} must begin with an upper case" \
         && return 1
       fi
-}
-
-function helper_airs_generic_adoc_fluid_attacks_name {
-  local file="${1}"
-  local normalized_file
-
-  local regex_fluid_no_attacks='Fluid(?! Attacks)'
-  local regex_fluidsignal_group='Fluidsignal Group'
-  local regex_fluidsignal_formstack='fluidsignal(?!\.formstack)'
-  local regex_fluid_lowercase_1='fluid attacks'
-  local regex_fluid_lowercase_2='fluid(?!.)'
-  local regex_fluid_uppercase_1='FLUID(?!.)'
-  local regex_fluid_uppercase_2='FLUIDAttacks'
-  local regex_fluid_uppercase_3='FLUID Attacks'
-
-      helper_airs_file_exists "${file}" \
-  &&  normalized_file="$(helper_airs_adoc_normalize "${file}")" \
-  &&  if ! echo "${normalized_file}" | pcregrep \
-         -e "${regex_fluid_no_attacks}" \
-         -e "${regex_fluidsignal_group}" \
-         -e "${regex_fluidsignal_formstack}" \
-         -e "${regex_fluid_lowercase_1}" \
-         -e "${regex_fluid_lowercase_2}" \
-         -e "${regex_fluid_uppercase_1}" \
-         -e "${regex_fluid_uppercase_2}" \
-         -e "${regex_fluid_uppercase_3}"
-      then
-        return 0
-      else
-            echo "[ERROR] Incorrect reference to 'Fluid Attacks' found in ${file}" \
-        &&  return 1
-      fi
-}
-
-function helper_airs_generic_adoc_spelling {
-  local file="${1}"
-  local normalized_file
-  local case_insensitive
-  local case_sensitive
-  local words=(
-    'HTML'
-    'Java'
-    'Red Hat'
-    'JavaScript'
-    'COBOL'
-    'AsciiDoc'
-    'OpenSSL'
-    'RPG'
-    'MySQL'
-    'SQLi'
-    'bWAPP'
-    'Python'
-    'GlassFish'
-    'OWASP'
-    'Apache'
-    'C Sharp'
-    'OSCP'
-    'OSWP'
-    'CEH'
-    'Linux'
-    'Scala'
-  )
-      helper_airs_file_exists "${file}" \
-  &&  normalized_file="$(helper_airs_adoc_normalize "${file}")" \
-  &&  for word in "${words[@]}"
-      do
-            case_insensitive="$(echo "${normalized_file}" | grep -oi " ${word} ")" || true \
-        &&  case_sensitive="$(echo "${normalized_file}" | grep -o " ${word} ")" || true \
-        &&  if [ "${case_insensitive}" = "${case_sensitive}" ]
-            then
-                  continue
-            else
-                  echo "[ERROR] Spelling error in ${file}: Only '${word}' allowed" \
-              &&  return 1
-            fi
-      done
 }
 
 function helper_airs_generic_adoc_others {
