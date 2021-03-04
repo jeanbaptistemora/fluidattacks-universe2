@@ -92,18 +92,18 @@ describe("GroupScopeView", (): void => {
 
     expect(firstTableRow.text()).toStrictEqual(
       [
-        // url
+        // Url
         "https://gitlab.com/fluidattacks/product",
-        // branch
+        // Branch
         "master",
-        // exclude
+        // Exclude
         "bower_components/*",
         "node_modules/*",
-        // state
+        // State
         "Active",
-        // last status update
+        // Last status update
         "2021-01-05 06:16:48",
-        // cloning status
+        // Cloning status
         "Unknown",
       ].join("")
     );
@@ -234,15 +234,15 @@ describe("GroupScopeView", (): void => {
 
     expect(firstTableRow.text()).toStrictEqual(
       [
-        // url
+        // Url
         "https://gitlab.com/fluidattacks/product",
-        // branch
+        // Branch
         "master",
-        // state
+        // State
         "Active",
-        // last status update
+        // Last status update
         "2021-01-05 06:16:48",
-        // cloning status
+        // Cloning status
         "Unknown",
       ].join("")
     );
@@ -404,17 +404,17 @@ describe("GroupScopeView", (): void => {
 
     expect(getFirstTableRow().text()).toStrictEqual(
       [
-        // url
+        // Url
         "https://gitlab.com/fluidattacks/product",
-        // branch
+        // Branch
         "master",
-        // exclude
+        // Exclude
         "node_modules/*",
-        // state
+        // State
         "Active",
-        // last status update
+        // Last status update
         "2021-01-05 06:16:48",
-        // cloning status
+        // Cloning status
         "Unknown",
       ].join("")
     );

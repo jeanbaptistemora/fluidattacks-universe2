@@ -36,7 +36,7 @@ Bugsnag.start({
       // eslint-disable-next-line fp/no-mutation
       event.groupingHash = event.context;
     });
-    // custom handling to space device errors
+    // Custom handling to space device errors
     if (noSpaceLeftOnDevice(event.errors[0])) {
       Logger.error("noSpaceLeftOnDevice", event);
 

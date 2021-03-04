@@ -235,7 +235,7 @@ const onError: (
                       skipForwarding,
                     });
                   }
-                  // isForwarded can change its value
+                  // IsForwarded can change its value
                   // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
                   if (isForwarded) {
                     observer.next(result);

@@ -14,29 +14,35 @@
   },
   "plugins": [
     "@typescript-eslint",
-    "react",
-    "react-hooks",
     "fp",
-    "prettier",
+    "import",
     "jest",
     "jest-formatting",
     "jsx-a11y",
-    "import"
+    "prettier",
+    "react",
+    "react-hooks"
   ],
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/all",
-    "plugin:react/all",
+    "plugin:fp/recommended",
+    "plugin:import/typescript",
     "plugin:jest/all",
     "plugin:jest-formatting/strict",
-    "plugin:fp/recommended",
     "plugin:jsx-a11y/strict",
-    "plugin:import/typescript",
     "plugin:prettier/recommended",
+    "plugin:react/all",
     "prettier/@typescript-eslint",
     "prettier/react"
   ],
   "rules": {
+    /*
+     * This rule will be activated eventually. However, its implementation must
+     * be gradual due to its extended usage in translation
+     */
+    "camelcase": "off",
+    "capitalized-comments": ["error", "always", { "ignoreConsecutiveComments": true }],
     "func-style": ["error", "declaration", { "allowArrowFunctions": true }],
     "line-comment-position": ["error", "above"],
     "multiline-comment-style": ["error", "starred-block"],
@@ -96,9 +102,9 @@
     ],
     "@typescript-eslint/no-duplicate-imports": ["error"],
     /*
-     * Disabling this rule is necessary to avoid a conflict with
-     * @typescript-eslint/typedef that checks for all variables to be typed.
-     */
+    * Disabling this rule is necessary to avoid a conflict with
+    * @typescript-eslint/typedef that checks for all variables to be typed
+    */
     "@typescript-eslint/no-inferrable-types": "off",
     "@typescript-eslint/no-magic-numbers": [
       "error",
@@ -106,16 +112,29 @@
         "ignore": [-1, 0, 1, 2, 4]
       }
     ],
+    "@typescript-eslint/no-non-null-assertion": "off",
+    "@typescript-eslint/non-nullable-type-assertion-style": "off",
+    "@typescript-eslint/no-type-alias": [
+      "error",
+      {
+        "allowAliases": "always"
+      }
+    ],
     /*
      * Since we are working with external libraries that use any in there type
      * definitions. We need to disable the NEXT rule, until they update to the
-     * new unknown type.
+     * new unknown type
      */
     "@typescript-eslint/no-unsafe-assignment": "off",
     "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_" } ],
     /*
+     * This rule must be disabled as it can report incorrect errors in conflict
+     * with with rule eslint/object-curly-spacing. Official plugin doc
+     */
+    "@typescript-eslint/object-curly-spacing": "off",
+    /*
      * We prefer interfaces over type aliases, the reason is no more than
-     * consistency.
+     * consistency
      */
     "@typescript-eslint/prefer-function-type": "off",
     /*
@@ -125,29 +144,16 @@
      * modify the types of the component being wrapped, if it is from a third
      * party library.
      * 2. We are using the fp eslint plugin that is already in charge of
-     * avoiding side effects as much as posible.
+     * avoiding side effects as much as posible
      */
     "@typescript-eslint/prefer-readonly-parameter-types": "off",
-    "@typescript-eslint/no-type-alias": [
-      "error",
-      {
-        "allowAliases": "always"
-      }
-    ],
+    "@typescript-eslint/sort-type-union-intersection-members": "error",
     /*
      * In the functional react world, you likely will never have a function that
      * actually cares about the this context. Refer to:
      * https://github.com/typescript-eslint/typescript-eslint/issues/2245#issuecomment-648712540
      */
     "@typescript-eslint/unbound-method": "off",
-    "@typescript-eslint/sort-type-union-intersection-members": "error",
-    /*
-     * This rule must be disabled as it can report incorrect errors in conflict
-     * with with rule eslint/object-curly-spacing. Official plugin doc
-     */
-    "@typescript-eslint/object-curly-spacing": "off",
-    "@typescript-eslint/non-nullable-type-assertion-style": "off",
-    "@typescript-eslint/no-non-null-assertion": "off",
     "fp/no-mutation": [
       "error",
       {
@@ -158,7 +164,7 @@
      * Since we need side effects to make our program meaningful, for instace:
      * callbacks, DOM mutations, Node processes, etc. We need to disable the
      * next TWO rules, the result is: from now on it should be inferred that
-     * any method call without an assignment, produce some kind of side effect.
+     * any method call without an assignment, produce some kind of side effect
      */
     "fp/no-unused-expression": "off",
     "fp/no-nil": "off",
@@ -187,10 +193,6 @@
         "ignoreTopLevelDescribe": true
       }
     ],
-    /*
-     * This rule has been deprecated in favor of jest/no-restricted-matchers.
-     */
-    "jest/no-truthy-falsy": "off",
     "jest/no-restricted-matchers": [
       "error",
       {
@@ -199,8 +201,12 @@
       }
     ],
     /*
+     * This rule has been deprecated in favor of jest/no-restricted-matchers
+     */
+    "jest/no-truthy-falsy": "off",
+    /*
      * This rule has been deprecated in favor of
-     * jsx-a11y/label-has-associated-control.
+     * jsx-a11y/label-has-associated-control
      */
     "jsx-a11y/label-has-for": "off",
     /*
@@ -211,9 +217,11 @@
     "jsx-a11y/no-onchange": "off",
     /*
      * This rule requires the type attribute to be a string literal, because of
-     * that it has a conflic with react/jsx-curly-brace-presence.
+     * that it has a conflic with react/jsx-curly-brace-presence
      */
     "react/button-has-type": "off",
+    "react/jsx-boolean-value": ["error", "always"],
+    "react/jsx-curly-brace-presence": ["error", "always"],
     "react/jsx-filename-extension": [
       "error",
       {
@@ -221,8 +229,6 @@
       }
     ],
     "react/jsx-fragments": ["error", "element"],
-    "react/jsx-boolean-value": ["error", "always"],
-    "react/jsx-curly-brace-presence": ["error", "always"],
     "react/jsx-max-depth": "off",
     /*
      * "allowedStrings" is not working once the @typescript-eslint@4.15.2
@@ -235,7 +241,7 @@
         "namedComponents": "arrow-function"
       }
     ],
-    "react-hooks/rules-of-hooks": "error",
-    "react-hooks/exhaustive-deps": "error"
+    "react-hooks/exhaustive-deps": "error",
+    "react-hooks/rules-of-hooks": "error"
   }
 }

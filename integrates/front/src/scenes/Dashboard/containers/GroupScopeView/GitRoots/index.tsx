@@ -135,7 +135,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
   ): void => {
     sessionStorage.setItem("stateScopeFilter", filterVal);
   };
-  // const []
+  // Const []
   const selectOptionsStatus: optionSelectFilterProps[] = [
     { label: "Failed", value: "FAILED" },
     { label: "Ok", value: "OK" },
