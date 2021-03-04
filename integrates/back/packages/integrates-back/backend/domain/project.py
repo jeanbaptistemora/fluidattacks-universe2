@@ -30,11 +30,8 @@ from back.settings import LOGGING
 from backend import authz, mailer
 from backend.authz.policy import get_group_level_role
 from backend.dal.helpers.dynamodb import start_context
-from backend.dal.helpers.redis import (
-    redis_del_by_deps,
-)
 from backend.dal import (
-    project as project_dal
+    project as project_dal,
 )
 from backend.domain import (
     comment as comment_domain,
@@ -58,6 +55,11 @@ from backend.exceptions import (
 )
 from backend.filters import (
     stakeholder as stakeholder_filters,
+)
+from backend.utils import (
+    findings as finding_utils,
+    stakeholders as stakeholders_utils,
+    validations
 )
 from backend.typing import (
     Comment as CommentType,
@@ -545,16 +547,7 @@ async def remove_user_access(
             await user_domain.get_projects(email)
         )
         if not has_groups:
-            success = success and all(
-                await collect([
-                    authz.revoke_user_level_role(email),
-                    user_domain.delete(email)
-                ])
-            )
-            await redis_del_by_deps(
-                'session_logout',
-                session_email=email
-            )
+            success = success and await stakeholders_utils.remove(email)
 
     return success
 

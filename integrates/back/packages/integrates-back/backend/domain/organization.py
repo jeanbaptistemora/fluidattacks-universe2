@@ -17,7 +17,9 @@ from graphql import GraphQLError
 
 from back.settings import LOGGING
 from backend import authz
-from backend.dal import organization as org_dal
+from backend.dal import (
+    organization as org_dal,
+)
 from backend.domain import (
     available_name as available_name_domain,
     project as project_domain
@@ -32,6 +34,9 @@ from backend.exceptions import (
     UserNotInOrganization
 )
 from backend.typing import Organization as OrganizationType
+from backend.utils import (
+    stakeholders as stakeholders_utils,
+)
 from newutils import datetime as datetime_utils
 
 
@@ -288,6 +293,12 @@ async def remove_user(context: Any, organization_id: str, email: str) -> bool:
             for group in org_groups
         )
     )
+    has_orgs = bool(
+        await get_user_organizations(email)
+    )
+    if not has_orgs:
+        user_removed = user_removed and await stakeholders_utils.remove(email)
+
     return user_removed and role_removed and groups_removed
 
 

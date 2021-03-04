@@ -23,6 +23,7 @@ from backend.dal import (
 )
 from backend.dal.helpers.redis import (
     redis_cmd,
+    redis_del_by_deps,
     redis_del_entity_attr,
     redis_get_entity_attr,
     redis_set_entity_attr,
@@ -127,4 +128,11 @@ async def element_exists(key: str) -> bool:
     return cast(
         bool,
         await redis_cmd('exists', key) > 0
+    )
+
+
+async def logout(email: str) -> None:
+    await redis_del_by_deps(
+        'session_logout',
+        session_email=email
     )

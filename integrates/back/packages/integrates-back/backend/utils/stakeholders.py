@@ -1,3 +1,4 @@
+# Standard libraries
 from typing import (
     Any,
     Callable,
@@ -5,6 +6,20 @@ from typing import (
     List,
     Optional,
     Union
+)
+
+# Third party libraries
+from aioextensions import (
+    collect,
+)
+
+# Local libraries
+from backend import (
+    authz,
+)
+from backend.dal import (
+    session as session_dal,
+    user as user_dal,
 )
 
 
@@ -20,3 +35,15 @@ def check_enums(
                     raise exception()
             except ValueError:
                 raise exception()
+
+
+async def remove(email: str) -> bool:
+    success = all(
+        await collect([
+            authz.revoke_user_level_role(email),
+            user_dal.delete(email)
+        ])
+    )
+    await session_dal.logout(email)
+
+    return success
