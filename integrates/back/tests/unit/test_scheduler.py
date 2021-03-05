@@ -11,7 +11,11 @@ from back.tests.unit.utils import create_dummy_simple_session
 from backend.api import get_new_context
 from backend.dal.finding import get_finding
 from backend.dal.vulnerability import get as get_vuln
+from backend.dal import (
+    user as user_dal,
+)
 from backend.domain.organization import (
+    get_id_by_name,
     get_pending_deletion_date_str,
     iterate_organizations,
     update_pending_deletion_date,
@@ -27,6 +31,7 @@ from backend.scheduler import (
     get_first_week_dates, get_date_last_vulns,
     create_msj_finding_pending, format_vulnerabilities,
     get_project_indicators,
+    delete_imamura_stakeholders,
     delete_obsolete_orgs,
     calculate_vulnerabilities
 )
@@ -274,3 +279,52 @@ async def test_delete_obsolete_orgs():
     org_id = 'ORG#fe80d2d4-ccb7-46d1-8489-67c6360581de'
     org_pending_deletion_date = await get_pending_deletion_date_str(org_id)
     assert org_pending_deletion_date == '2020-01-29 19:00:00'
+
+
+@pytest.mark.changes_db
+@freeze_time("2021-01-01")
+async def test_delete_imamura_stakeholders():
+    org_name = 'imamura'
+    org_id = await get_id_by_name(org_name)
+    loaders = get_new_context()
+    org_stakeholders_loader = loaders.organization_stakeholders
+    org_stakeholders = await org_stakeholders_loader.load(org_id)
+    org_stakeholders_emails = [
+        stakeholder['email']
+        for stakeholder in org_stakeholders
+    ]
+    assert org_stakeholders_emails == [
+        'deleteimamura@fluidattacks.com',
+        'nodeleteimamura@fluidattacks.com',
+    ]
+    delete_stakeholder = await user_dal.get(
+        'deleteimamura@fluidattacks.com'
+    )
+    delete_stakeholder_exists = bool(delete_stakeholder)
+    assert delete_stakeholder_exists
+    nodelete_stakeholder = await user_dal.get(
+        'nodeleteimamura@fluidattacks.com'
+    )
+    nodelete_stakeholder_exists = bool(nodelete_stakeholder)
+    assert nodelete_stakeholder_exists
+
+    await delete_imamura_stakeholders()
+
+    loaders = get_new_context()
+    org_stakeholders_loader = loaders.organization_stakeholders
+    org_stakeholders = await org_stakeholders_loader.load(org_id)
+    org_stakeholders_emails = [
+        stakeholder['email']
+        for stakeholder in org_stakeholders
+    ]
+    assert org_stakeholders_emails == ['nodeleteimamura@fluidattacks.com']
+    delete_stakeholder = await user_dal.get(
+        'deleteimamura@fluidattacks.com'
+    )
+    delete_stakeholder_exists = bool(delete_stakeholder)
+    assert not delete_stakeholder_exists
+    nodelete_stakeholder = await user_dal.get(
+        'nodeleteimamura@fluidattacks.com'
+    )
+    nodelete_stakeholder_exists = bool(nodelete_stakeholder)
+    assert nodelete_stakeholder_exists
