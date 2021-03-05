@@ -15,8 +15,13 @@ from typing import (
 # Third party libraries
 # Local libraries
 from singer_io import factory
-from singer_io.singer import SingerRecord
-from tap_mixpanel import api
+from singer_io.singer import (
+    SingerRecord,
+)
+from tap_mixpanel.api import (
+    ApiClient,
+    Credentials
+)
 
 
 @contextmanager
@@ -157,13 +162,15 @@ def main() -> None:
     args = parser.parse_args()
     auth_file = args.auth
     conf_file = args.conf
-    credentials = read_properties(auth_file)
-    credentials = config_completion(credentials)
+    raw_creds = read_properties(auth_file)
+    client = ApiClient.from_creds(Credentials.from_json(raw_creds))
+    raw_date_range = config_completion({})
+    date_range = (raw_date_range['from_date'], raw_date_range['to_date'])
     tables = read_properties(conf_file)['tables']
 
     for table in tables:
         print(table, file=sys.stderr)
-        with api.load_data(table, credentials) as raw_data_file:
+        with client.data_handler(table, date_range) as raw_data_file:
             format_and_emit_data(raw_data_file)
 
 

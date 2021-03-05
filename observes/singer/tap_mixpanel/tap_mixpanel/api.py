@@ -1,11 +1,16 @@
 # Standard libraries
-from contextlib import contextmanager
 import tempfile
+from functools import (
+    partial,
+)
+from contextlib import (
+    contextmanager,
+)
 from typing import (
-    Any,
+    Any, Callable, ContextManager,
     Dict,
     IO,
-    Iterator,
+    Iterator, NamedTuple,
     Tuple,
 )
 # Third party libraries
@@ -19,7 +24,19 @@ API_BASE_URL = 'https://data.mixpanel.com/api/2.0'
 rate_limiter = RateLimiter(max_calls=40, period=3600)
 
 
-def export(auth: Tuple[str, str], params: JSON) -> Any:
+class Credentials(NamedTuple):
+    api_secret: str
+    token: str
+
+    @classmethod
+    def from_json(cls, creds: JSON) -> 'Credentials':
+        return Credentials(
+            api_secret=creds['API_secret'],
+            token=creds['token']
+        )
+
+
+def _export(auth: Tuple[str, str], params: JSON) -> Any:
     with rate_limiter:
         return requests.get(
             f'{API_BASE_URL}/export/',
@@ -28,17 +45,38 @@ def export(auth: Tuple[str, str], params: JSON) -> Any:
         )
 
 
-@contextmanager
-def load_data(event: str, credentials: Dict[str, Any]) -> Iterator[IO[str]]:
-    from_date = credentials['from_date']
-    to_date = credentials['to_date']
+def _load_data(
+    creds: Credentials,
+    event: str,
+    date_range: Tuple[str, str]
+) -> Iterator[IO[str]]:
     params = {
-        "from_date": from_date,
-        "to_date": to_date,
+        "from_date": date_range[0],
+        "to_date": date_range[1],
         "event": f'["{event}"]'
     }
-    auth = (credentials['API_secret'], credentials['token'])
-    result = export(auth, params)
+    auth = (creds.api_secret, creds.token)
+    result = _export(auth, params)
     with tempfile.NamedTemporaryFile('w+') as tmp:
         tmp.write(result.text)
         yield tmp
+
+
+class ApiClient(NamedTuple):
+    load_data: Callable[[str, Tuple[str, str]], Iterator[IO[str]]]
+    data_handler: Callable[[str, Tuple[str, str]], ContextManager[IO[str]]]
+
+    @classmethod
+    def from_creds(cls, creds: Credentials) -> 'ApiClient':
+
+        @contextmanager
+        def data_handler(
+            event: str,
+            date_range: Tuple[str, str]
+        ) -> Iterator[IO[str]]:
+            return _load_data(creds, event, date_range)
+
+        return ApiClient(
+            load_data=partial(_load_data, creds),
+            data_handler=data_handler
+        )
