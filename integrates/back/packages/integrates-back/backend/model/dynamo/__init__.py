@@ -1,6 +1,7 @@
 # Standard library
 from typing import (
     Dict,
+    List,
     Optional,
     Set
 )
@@ -13,6 +14,7 @@ from backend.dal.helpers import dynamodb
 from backend.model.dynamo import versioned
 from backend.model.dynamo.types import (
     Entity,
+    Item,
     PrimaryKey,
     RootHistoricCloning,
     RootHistoricState,
@@ -87,6 +89,55 @@ def build_key(*, entity: str, partition_key: str, sort_key: str) -> PrimaryKey:
     )
 
 
+def build_root(
+    *,
+    primary_key: PrimaryKey,
+    raw_items: List[Item],
+) -> RootItem:
+    historic_cloning = versioned.get_historic(
+        primary_key=primary_key,
+        historic_prefix='HIST',
+        raw_items=raw_items
+    )
+    historic_state = versioned.get_historic(
+        primary_key=primary_key,
+        historic_prefix='CLON',
+        raw_items=raw_items
+    )
+    metadata = versioned.get_metadata(
+        primary_key=primary_key,
+        raw_items=raw_items
+    )
+
+    return RootItem(
+        historic_cloning=tuple(
+            RootHistoricCloning(
+                modified_date=item['modified_date'],
+                reason=item['reason'],
+                status=item['status']
+            )
+            for item in historic_cloning
+        ),
+        historic_state=tuple(
+            RootHistoricState(
+                environment_urls=item['environment_urls'],
+                environment=item['environment'],
+                gitignore=item['gitignore'],
+                includes_health_check=item['includes_health_check'],
+                modified_by=item['modified_by'],
+                modified_date=item['modified_date'],
+                status=item['status']
+            )
+            for item in historic_state
+        ),
+        metadata=RootMetadata(
+            branch=metadata['branch'],
+            type=metadata['type'],
+            url=metadata['url']
+        )
+    )
+
+
 async def get_root(
     *,
     group_name: str,
@@ -111,47 +162,6 @@ async def get_root(
     )
 
     if results:
-        historic_cloning = versioned.get_historic(
-            primary_key=primary_key,
-            historic_prefix='HIST',
-            raw_items=results
-        )
-        historic_state = versioned.get_historic(
-            primary_key=primary_key,
-            historic_prefix='CLON',
-            raw_items=results
-        )
-        metadata = versioned.get_metadata(
-            primary_key=primary_key,
-            raw_items=results
-        )
-
-        return RootItem(
-            historic_cloning=tuple(
-                RootHistoricCloning(
-                    modified_date=item['modified_date'],
-                    reason=item['reason'],
-                    status=item['status']
-                )
-                for item in historic_cloning
-            ),
-            historic_state=tuple(
-                RootHistoricState(
-                    environment_urls=item['environment_urls'],
-                    environment=item['environment'],
-                    gitignore=item['gitignore'],
-                    includes_health_check=item['includes_health_check'],
-                    modified_by=item['modified_by'],
-                    modified_date=item['modified_date'],
-                    status=item['status']
-                )
-                for item in historic_state
-            ),
-            metadata=RootMetadata(
-                branch=metadata['branch'],
-                type=metadata['type'],
-                url=metadata['url']
-            )
-        )
+        return build_root(primary_key=primary_key, raw_items=results)
 
     return None
