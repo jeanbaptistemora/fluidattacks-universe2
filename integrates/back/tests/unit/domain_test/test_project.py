@@ -289,6 +289,7 @@ async def test_get_alive_projects():
         'asgard',
         'barranquilla',
         'continuoustesting',
+        'deleteimamura',
         'gotham',
         'lubbock',
         'metropolis',

@@ -179,6 +179,78 @@
           }
         }
       }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "level": {
+            "S": "group"
+          },
+          "subject": {
+            "S": "deleteimamura@fluidattacks.com"
+          },
+          "object": {
+            "S": "deleteimamura"
+          },
+          "role": {
+            "S": "analyst"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "level": {
+            "S": "organization"
+          },
+          "subject": {
+            "S": "deleteimamura@fluidattacks.com"
+          },
+          "object": {
+            "S": "org#7376c5fe-4634-4053-9718-e14ecbda1e6b"
+          },
+          "role": {
+            "S": "admin"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "level": {
+            "S": "group"
+          },
+          "subject": {
+            "S": "nodeleteimamura@fluidattacks.com"
+          },
+          "object": {
+            "S": "deleteimamura"
+          },
+          "role": {
+            "S": "analyst"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "level": {
+            "S": "organization"
+          },
+          "subject": {
+            "S": "nodeleteimamura@fluidattacks.com"
+          },
+          "object": {
+            "S": "org#7376c5fe-4634-4053-9718-e14ecbda1e6b"
+          },
+          "role": {
+            "S": "customer"
+          }
+        }
+      }
     }
   ]
 }

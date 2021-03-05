@@ -179,6 +179,69 @@
           }
         }
       }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "pk": {
+            "S": "ORG#7376c5fe-4634-4053-9718-e14ecbda1e6b"
+          },
+          "sk": {
+            "S": "INFO#imamura"
+          },
+          "historic_max_number_acceptations": {
+            "L": []
+          },
+          "max_acceptance_days": {
+            "N": "30"
+          },
+          "max_number_acceptations": {
+            "N": "3"
+          },
+          "max_acceptance_severity": {
+            "N": "8.5"
+          },
+          "min_acceptance_severity": {
+            "N": "1"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "pk": {
+            "S": "ORG#7376c5fe-4634-4053-9718-e14ecbda1e6b"
+          },
+          "sk": {
+            "S": "GROUP#deleteimamura"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "pk": {
+            "S": "ORG#7376c5fe-4634-4053-9718-e14ecbda1e6b"
+          },
+          "sk": {
+            "S": "USER#deleteimamura@fluidattacks.com"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "pk": {
+            "S": "ORG#7376c5fe-4634-4053-9718-e14ecbda1e6b"
+          },
+          "sk": {
+            "S": "USER#nodeleteimamura@fluidattacks.com"
+          }
+        }
+      }
     }
   ]
 }

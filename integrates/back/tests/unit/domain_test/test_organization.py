@@ -418,6 +418,7 @@ async def test_iterate_organizations():
         'ORG#c6cecc0e-bb92-4079-8b6d-c4e815c10bb1': 'makimachi',
         'ORG#956e9107-fd8d-49bc-b550-5609a7a1f6ac': 'kamiya',
         'ORG#33c08ebd-2068-47e7-9673-e1aa03dc9448': 'kiba',
+        'ORG#7376c5fe-4634-4053-9718-e14ecbda1e6b': 'imamura',
     }
     async for org_id, org_name in org_domain.iterate_organizations():
         assert expected_organizations.pop(org_id) == org_name
@@ -449,6 +450,9 @@ async def test_iterate_organizations_and_groups():
         },
         'ORG#33c08ebd-2068-47e7-9673-e1aa03dc9448': {
             'kiba': []
+        },
+        'ORG#7376c5fe-4634-4053-9718-e14ecbda1e6b': {
+            'imamura': ['deleteimamura']
         },
     }
     async for org_id, org_name, groups in org_domain.iterate_organizations_and_groups():

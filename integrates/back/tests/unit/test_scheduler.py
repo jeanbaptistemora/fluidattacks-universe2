@@ -254,7 +254,7 @@ async def test_delete_obsolete_orgs():
     async for organization_id, _ in iterate_organizations():
         org_ids.append(organization_id)
     assert org_id in org_ids
-    assert len(org_ids) == 8
+    assert len(org_ids) == 9
 
     now_str = datetime_utils.get_as_str(
          datetime_utils.get_now()
@@ -269,7 +269,7 @@ async def test_delete_obsolete_orgs():
     async for organization_id, _ in iterate_organizations():
         new_org_ids.append(organization_id)
     assert org_id not in new_org_ids
-    assert len(new_org_ids) == 7
+    assert len(new_org_ids) == 8
 
     org_id = 'ORG#fe80d2d4-ccb7-46d1-8489-67c6360581de'
     org_pending_deletion_date = await get_pending_deletion_date_str(org_id)

@@ -616,6 +616,66 @@
           }
         }
       }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "company": {
+            "S": "fluid"
+          },
+          "last_name": {
+            "S": "delete"
+          },
+          "first_name": {
+            "S": "imamura"
+          },
+          "date_joined": {
+            "S": "2018-02-28 11:54:12"
+          },
+          "legal_remember": {
+            "BOOL": true
+          },
+          "last_login": {
+            "S": "2020-10-29 13:40:37"
+          },
+          "email": {
+            "S": "deleteimamura@fluidattacks.com"
+          },
+          "registered": {
+            "BOOL": true
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "company": {
+            "S": "fluid"
+          },
+          "last_name": {
+            "S": "no delete"
+          },
+          "first_name": {
+            "S": "imamura"
+          },
+          "date_joined": {
+            "S": "2018-02-28 11:54:12"
+          },
+          "legal_remember": {
+            "BOOL": true
+          },
+          "last_login": {
+            "S": "2020-11-02 13:40:37"
+          },
+          "email": {
+            "S": "nodeleteimamura@fluidattacks.com"
+          },
+          "registered": {
+            "BOOL": true
+          }
+        }
+      }
     }
   ]
 }
