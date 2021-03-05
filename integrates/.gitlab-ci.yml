@@ -191,6 +191,9 @@ integrates.back.test.functional.groups_with_forces:
 integrates.back.test.functional.organization_id:
   <<: *integrates_back_test_functional
 
+integrates.back.test.functional.update_organization_policies:
+  <<: *integrates_back_test_functional
+
 integrates.back.test.unit:
   <<: *makes
   <<: *in_dev_branch_integrates

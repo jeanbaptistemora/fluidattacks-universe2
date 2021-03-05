@@ -16,6 +16,7 @@ TEST_GROUPS: Set[str] = {
     'groups_with_forces',
     'old',
     'organization_id',
+    'update_organization_policies',
 }
 
 
