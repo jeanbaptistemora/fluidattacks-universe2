@@ -49,7 +49,7 @@ def get_files_in_head(repo_path: str) -> Iterator[str]:
 
 def get_last_hash(repo: Repo, file_path: str) -> str:
     """Get last hash of a file in the repo."""
-    return repo.git.log('--max-count', '1', '--format=%h', '--',
+    return repo.git.log('--max-count', '1', '--format=%H', '--',
                         f'{file_path}')
 
 
