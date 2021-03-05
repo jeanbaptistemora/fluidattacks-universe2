@@ -16,8 +16,6 @@
     srcIntegratesMobilePkgs = { url = "github:NixOS/nixpkgs/932941b79c3dbbef2de9440e1631dfec43956261"; flake = false; };
     srcIntegratesPkgs = { url = "github:NixOS/nixpkgs/a437fe25652dea5b86de63891ce9c779c6e8bb9d"; flake = false; };
     srcObservesPkgs = { url = "github:NixOS/nixpkgs/a437fe25652dea5b86de63891ce9c779c6e8bb9d"; flake = false; };
-    srcSkimsBenchmarkOwaspRepo = { url = "github:OWASP/Benchmark/9a0c25a5f8443245c676965d20d22d5f93da3f99"; flake = false; };
-    srcSkimsTreeSitterRepo = { url = "github:tree-sitter/tree-sitter-java"; flake = false; };
   };
   outputs = attrs: import ./makes attrs;
 }

@@ -9,9 +9,7 @@
 , srcObservesPkgs
 , srcReviewsPkgs
 , srcServesPkgs
-, srcSkimsBenchmarkOwaspRepo
 , srcSkimsPkgs
-, srcSkimsTreeSitterRepo
 , srcSortsPkgs
 , ...
 }:
@@ -65,9 +63,11 @@ let
     revision = if (builtins.hasAttr "rev" self) then self.rev else "dirty";
     servesPkgs = import srcServesPkgs { inherit system; };
     system = "x86_64-linux";
-    skimsBenchmarkOwaspRepo = srcSkimsBenchmarkOwaspRepo;
+    skimsBenchmarkOwaspRepo = fetchzip {
+      url = "https://github.com/owasp/benchmark/archive/9a0c25a5f8443245c676965d20d22d5f93da3f99.tar.gz";
+      sha256 = "QwtG90KPleNRU9DrNYTdBlcjR6vcmLTiC6G57x1Ayw4=";
+    };
     skimsPkgs = import srcSkimsPkgs { inherit system; };
-    skimsTreeSitterRepo = srcSkimsTreeSitterRepo;
     sortsPkgs = import srcSortsPkgs { inherit system; };
 
     # Makes utilities
@@ -75,6 +75,7 @@ let
     buildPythonLambda = importUtility "build-python-lambda";
     buildPythonRequirements = importUtility "build-python-requirements";
     computeOnAws = importUtility "compute-on-aws";
+    fetchzip = makesPkgs.fetchzip;
     getPackageJsonDeps = importUtility "get-package-json-deps";
     lintPython = importUtility "lint-python";
     makeDerivation = importUtility "make-derivation";

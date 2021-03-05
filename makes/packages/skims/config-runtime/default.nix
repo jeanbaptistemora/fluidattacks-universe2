@@ -1,7 +1,7 @@
-{ packages
+{ fetchzip
+, packages
 , path
 , skimsPkgs
-, skimsTreeSitterRepo
 , ...
 }:
 let
@@ -90,7 +90,10 @@ makeTemplate {
           envParserBabel = packages.skims.parsers.babel;
           envSrcSkimsStatic = path "/skims/static";
           envSrcSkimsVendor = path "/skims/vendor";
-          envSrcTreeSitter = skimsTreeSitterRepo;
+          envSrcTreeSitter = fetchzip {
+            url = "https://github.com/tree-sitter/tree-sitter-java/archive/e9cf7d286c428aceda92a551b7d326599d38ba4c.tar.gz";
+            sha256 = "zkvaKO/53e2VukxcniQVs7MBdOwn8EcMfaTD1+qnBxU=";
+          };
         };
         name = "skims-config-context-file";
         template = ''

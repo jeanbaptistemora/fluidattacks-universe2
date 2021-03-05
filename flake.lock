@@ -29,9 +29,7 @@
         "srcObservesPkgs": "srcObservesPkgs",
         "srcReviewsPkgs": "srcReviewsPkgs",
         "srcServesPkgs": "srcServesPkgs",
-        "srcSkimsBenchmarkOwaspRepo": "srcSkimsBenchmarkOwaspRepo",
         "srcSkimsPkgs": "srcSkimsPkgs",
-        "srcSkimsTreeSitterRepo": "srcSkimsTreeSitterRepo",
         "srcSortsPkgs": "srcSortsPkgs"
       }
     },
@@ -170,23 +168,6 @@
         "url": "https://github.com/nixos/nixpkgs/archive/7138a338b58713e0dea22ddab6a6785abec7376a.tar.gz"
       }
     },
-    "srcSkimsBenchmarkOwaspRepo": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1608579362,
-        "narHash": "sha256-QwtG90KPleNRU9DrNYTdBlcjR6vcmLTiC6G57x1Ayw4=",
-        "owner": "OWASP",
-        "repo": "Benchmark",
-        "rev": "9a0c25a5f8443245c676965d20d22d5f93da3f99",
-        "type": "github"
-      },
-      "original": {
-        "owner": "OWASP",
-        "repo": "Benchmark",
-        "rev": "9a0c25a5f8443245c676965d20d22d5f93da3f99",
-        "type": "github"
-      }
-    },
     "srcSkimsPkgs": {
       "flake": false,
       "locked": {
@@ -197,22 +178,6 @@
       "original": {
         "type": "tarball",
         "url": "https://github.com/nixos/nixpkgs/archive/7138a338b58713e0dea22ddab6a6785abec7376a.tar.gz"
-      }
-    },
-    "srcSkimsTreeSitterRepo": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1603820462,
-        "narHash": "sha256-qz8u75CvWrVph9vZM5hfERpyc7NJF8Cxm7oFnVc6cEk=",
-        "owner": "tree-sitter",
-        "repo": "tree-sitter-java",
-        "rev": "f7b62ac33d63bea56ce202ace107aaa4285e50af",
-        "type": "github"
-      },
-      "original": {
-        "owner": "tree-sitter",
-        "repo": "tree-sitter-java",
-        "type": "github"
       }
     },
     "srcSortsPkgs": {
