@@ -62,7 +62,7 @@ const DefaultPage: React.FC<IQueryData> = ({
     breadcrumb: { crumbs },
   } = pageContext;
 
-  const title: string = data.asciidoc.document.title;
+  const { title } = data.asciidoc.document;
   const customCrumbLabel: string = `${title
     .charAt(0)
     .toUpperCase()}${title.slice(1).replace("-", "")}`;

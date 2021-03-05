@@ -76,7 +76,7 @@ export const NavbarItems: React.FC = (): JSX.Element => (
       </Link>
 
       <NavbarSubcategory
-        //eslint-disable-next-line react/forbid-component-props
+        // eslint-disable-next-line react/forbid-component-props
         className={"solutions-content"}>
         <Link className={"f-18 fw4"} to={"/solutions/devsecops/"}>
           {"DevSecOps"}
@@ -125,7 +125,7 @@ export const NavbarItems: React.FC = (): JSX.Element => (
       </Link>
 
       <NavbarSubcategory
-        //eslint-disable-next-line react/forbid-component-props
+        // eslint-disable-next-line react/forbid-component-props
         className={"usecases-content"}>
         <Link className={"f-18 fw4"} to={"/services/continuous-hacking/"}>
           {"Continuous Hacking"}
