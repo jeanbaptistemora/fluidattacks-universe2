@@ -1,9 +1,11 @@
 # Standard library
+from collections import defaultdict
 from typing import (
     Dict,
     List,
     Optional,
-    Set
+    Set,
+    Tuple
 )
 
 # Third party
@@ -165,3 +167,32 @@ async def get_root(
         return build_root(primary_key=primary_key, raw_items=results)
 
     return None
+
+
+async def get_roots(*, group_name: str) -> Tuple[RootItem, ...]:
+    primary_key = build_key(
+        entity='ROOT',
+        partition_key=group_name,
+        sort_key=''
+    )
+
+    results = await dynamodb.async_query(
+        TABLE_NAME,
+        {
+            'IndexName': 'inverted_index',
+            'KeyConditionExpression': (
+                Key('sk').eq(primary_key.partition_key) &
+                Key('pk').begins_with(primary_key.sort_key)
+            )
+        }
+    )
+
+    root_items = defaultdict(lambda: [])
+    for item in results:
+        root_id = '#'.join(item['sk'].split('#')[:2])
+        root_items[root_id].append(item)
+
+    return tuple(
+        build_root(primary_key=primary_key, raw_items=items)
+        for items in root_items.values()
+    )

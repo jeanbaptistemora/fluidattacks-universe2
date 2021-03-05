@@ -1,11 +1,7 @@
 # Standard
-from typing import Any, Dict, Optional, Tuple
-
-# Third party
-from boto3.dynamodb.conditions import Key
+from typing import Optional, Tuple
 
 # Local
-from backend.dal.helpers import dynamodb
 from backend.model import dynamo
 from backend.model.dynamo.types import RootItem
 
@@ -14,25 +10,10 @@ ENTITY = 'ROOT'
 TABLE_NAME = 'integrates_vms'
 
 
-async def get_roots(group_name: str) -> Tuple[Dict[str, Any], ...]:
-    primary_key = dynamo.build_key(
-        entity=ENTITY,
-        partition_key=group_name,
-        sort_key=''
-    )
+async def get_roots(*, group_name: str) -> Tuple[RootItem, ...]:
+    roots: Tuple[RootItem, ...] = await dynamo.get_roots(group_name=group_name)
 
-    results = await dynamodb.async_query(
-        TABLE_NAME,
-        {
-            'IndexName': 'inverted_index',
-            'KeyConditionExpression': (
-                Key('sk').eq(primary_key.partition_key) &
-                Key('pk').begins_with(primary_key.sort_key)
-            )
-        }
-    )
-
-    return tuple(results)
+    return roots
 
 
 async def get_root(
