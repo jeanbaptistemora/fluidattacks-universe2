@@ -1,6 +1,6 @@
 #! /usr/bin/env nix-shell
 #!   nix-shell -i bash
-#!   nix-shell -I nixpkgs=https://github.com/NixOS/nixpkgs/archive/cb52887c38ef47f6649a21336cfaa347cc7dfa75.tar.gz
+#!   nix-shell -I nixpkgs=https://github.com/nixos/nixpkgs/archive/7138a338b58713e0dea22ddab6a6785abec7376a.tar.gz
 #!   nix-shell -p nixFlakes
 #  shellcheck shell=bash
 
