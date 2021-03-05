@@ -21,7 +21,9 @@ from sast.common import (
     build_attr_paths,
     DANGER_METHODS_BY_ARGS_PROPAGATION,
     DANGER_METHODS_BY_OBJ,
+    DANGER_METHODS_BY_OBJ_NO_TYPE_ARGS_PROPAGATION,
     DANGER_METHODS_BY_TYPE,
+    DANGER_METHODS_STATIC,
     split_on_first_dot,
 )
 from utils import (
@@ -123,7 +125,7 @@ def syntax_step_declaration(args: EvaluatorArgs) -> None:
             args.syntax_step.var_type in build_attr_paths(
                 'javax', 'servlet', 'http', 'Cookie'
             ),
-        )),
+        )) and args_danger,
     ))
 
     # Local context
@@ -160,12 +162,10 @@ def syntax_step_literal(args: EvaluatorArgs) -> None:
         raise NotImplementedError()
 
 
-def syntax_step_method_invocation(args: EvaluatorArgs) -> None:
+def _analyze_method_invocation(args: EvaluatorArgs, method: str) -> None:
     # Analyze the arguments involved in the method invocation
     args_danger = any(dep.meta.danger for dep in args.dependencies)
 
-    # Analyze if the method itself is untrusted
-    method = args.syntax_step.method
     method_var, method_path = split_on_first_dot(method)
     method_var_decl = lookup_var_dcl_by_name(args, method_var)
     method_var_decl_type = (
@@ -184,11 +184,37 @@ def syntax_step_method_invocation(args: EvaluatorArgs) -> None:
         # Known functions that propagate args danger
         method in DANGER_METHODS_BY_ARGS_PROPAGATION
         and args_danger
+    ) or (
+        # Known static functions that no require args danger
+        method in DANGER_METHODS_STATIC
+    ) or (
+        # functions for which the type of the variable cannot be obtained,
+        # but which propagate args danger
+        method_path in DANGER_METHODS_BY_OBJ_NO_TYPE_ARGS_PROPAGATION
+        and args_danger
     )
 
 
-def syntax_step_method_invocation_chain(_args: EvaluatorArgs) -> None:
-    pass
+def syntax_step_method_invocation(args: EvaluatorArgs) -> None:
+    # Analyze if the method itself is untrusted
+    method = args.syntax_step.method
+
+    _analyze_method_invocation(args, method)
+
+
+def syntax_step_method_invocation_chain(args: EvaluatorArgs) -> None:
+    method = args.syntax_step.method
+    parent: Optional[graph_model.SyntaxStepMethodInvocation] = None
+
+    for dep in args.dependencies:
+        if isinstance(dep, graph_model.SyntaxStepMethodInvocation):
+            parent = dep
+    if not parent:
+        return None
+
+    method = parent.method + method
+    _analyze_method_invocation(args, method)
+    return None
 
 
 def syntax_step_no_op(args: EvaluatorArgs) -> None:

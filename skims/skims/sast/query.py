@@ -139,7 +139,7 @@ def query_lazy(
                             if operator.eq(
                                 untrusted_n_attrs['label_input_type'],
                                 syntax_step_n_attrs.get('label_sink_type'),
-                            )
+                            ) and syntax_step.meta.danger
                         ],
                     )
 

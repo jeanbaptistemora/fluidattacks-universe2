@@ -40,7 +40,16 @@ DANGER_METHODS_BY_ARGS_PROPAGATION: Set[str] = _complete_attrs_on_set({
     'java.nio.file.Paths.get',
     'org.apache.commons.codec.binary.Base64.decodeBase64',
     'org.apache.commons.codec.binary.Base64.encodeBase64',
+    'Double.toString',
 })
+DANGER_METHODS_STATIC: Set[str] = _complete_attrs_on_set({
+    'java.lang.Math.random',
+})
+DANGER_METHODS_BY_OBJ_NO_TYPE_ARGS_PROPAGATION: Set[
+    str] = _complete_attrs_on_set({
+        'getSession.setAttribute',
+        'toString.substring',
+    })
 DANGER_METHODS_BY_OBJ: Dict[str, Set[str]] = _complete_attrs_on_dict({
     'java.lang.String': {
         'getBytes',
@@ -71,5 +80,6 @@ DANGER_METHODS_BY_TYPE: Dict[str, Set[str]] = _complete_attrs_on_dict({
     },
     'javax.servlet.http.HttpServletResponse': {
         'getWriter',
+        'addCookie'
     },
 })
