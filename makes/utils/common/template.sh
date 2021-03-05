@@ -7,14 +7,6 @@ function abort {
 }
 
 function copy {
-  cp \
-    --no-preserve 'mode' \
-    --no-target-directory \
-    --recursive \
-    "${@}"
-}
-
-function copy2 {
       cp --no-target-directory --recursive "${@}" \
   &&  chmod --recursive +w "${@: -1}"
 }

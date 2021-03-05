@@ -1,13 +1,10 @@
 { nixPkgs, path }:
 let
-  nixpkgs2 = import (path "/makes/libs/observes/packages") {
+  observesPackages = import (path "/makes/libs/observes/packages") {
     inherit nixPkgs path;
   };
-  binConfig = import (path "/makes/libs/observes/bins/config") {
-    inherit nixpkgs2;
-  };
-  binBuilder = import (path "/makes/libs/observes/build-bin");
-  mkBin = config: binBuilder {
+
+  mkBin = config: import (path "/makes/libs/observes/build-bin") {
     inherit nixPkgs path;
     entrypoint = config.entrypoint;
     name = config.binName;
@@ -15,4 +12,6 @@ let
     python = nixPkgs.python38;
   };
 in
-builtins.mapAttrs (_: mkBin) binConfig
+builtins.mapAttrs
+  (_: mkBin)
+  (import (path "/makes/libs/observes/bins/config") observesPackages)

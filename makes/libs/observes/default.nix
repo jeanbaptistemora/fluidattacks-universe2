@@ -1,7 +1,9 @@
-attrs:
+{ nixpkgs2
+, path
+, ...
+}:
 let
-  nixPkgs = attrs.nixpkgs2;
-  path = attrs.path;
+  nixPkgs = nixpkgs2;
 
   localLib = import (path "/makes/libs/observes/packages") {
     inherit nixPkgs path;
