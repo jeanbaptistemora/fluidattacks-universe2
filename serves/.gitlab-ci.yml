@@ -49,6 +49,11 @@
       when: never
     - when: always
 
+makes.test.serves:
+  <<: *makes
+  <<: *serves_in_master_branch
+  stage: test-code
+
 serves.aws-sso.apply:
   <<: *makes
   <<: *serves_in_master_branch

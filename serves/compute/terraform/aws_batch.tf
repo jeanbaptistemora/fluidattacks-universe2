@@ -210,6 +210,12 @@ resource "aws_batch_compute_environment" "default" {
       launch_template_id = aws_launch_template.batch_instance.id
     }
   }
+
+  tags = {
+    "Name"               = "default"
+    "management:type"    = "production"
+    "management:product" = "common"
+  }
 }
 
 resource "aws_batch_job_queue" "default" {
@@ -230,10 +236,20 @@ resource "aws_batch_job_queue" "default" {
   name     = each.key
   priority = each.value.priority
   state    = "ENABLED"
+  tags = {
+    "Name"               = "default"
+    "management:type"    = "production"
+    "management:product" = "common"
+  }
 }
 
 resource "aws_batch_job_definition" "default" {
   name = "default"
+  tags = {
+    "Name"               = "default"
+    "management:type"    = "production"
+    "management:product" = "common"
+  }
   type = "container"
 
   # This can be overridden on a per-job basis so let's add default values
