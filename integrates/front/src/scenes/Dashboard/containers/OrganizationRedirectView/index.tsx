@@ -1,19 +1,25 @@
-import { useQuery } from "@apollo/react-hooks";
-import { ApolloError } from "apollo-client";
-import { GraphQLError } from "graphql";
-import _ from "lodash";
-import React from "react";
-import {  Redirect, Switch, useLocation, useParams } from "react-router";
+/* eslint-disable @typescript-eslint/no-unsafe-member-access, @typescript-eslint/restrict-template-expressions */
+/* Note: ESLint annotations needed ad DB queries use "any" type */
+import type { ApolloError } from "apollo-client";
 import { GET_ENTITY_ORGANIZATION } from "scenes/Dashboard/containers/OrganizationRedirectView/queries";
-import { IOrganizationRedirectProps } from "scenes/Dashboard/containers/OrganizationRedirectView/types";
+import type { GraphQLError } from "graphql";
+import type { IOrganizationRedirectProps } from "scenes/Dashboard/containers/OrganizationRedirectView/types";
 import { Logger } from "utils/logger";
+import React from "react";
+import _ from "lodash";
 import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
+import { useQuery } from "@apollo/react-hooks";
+import { Redirect, Switch, useLocation, useParams } from "react-router";
 
-const organizationtRedirect: React.FC<IOrganizationRedirectProps> =
-    (props: IOrganizationRedirectProps): JSX.Element => {
+const OrganizationRedirect: React.FC<IOrganizationRedirectProps> = (
+  props: IOrganizationRedirectProps
+): JSX.Element => {
   const { type } = props;
-  const { projectName, tagName } = useParams<{ projectName: string; tagName: string }>();
+  const { projectName, tagName } = useParams<{
+    projectName: string;
+    tagName: string;
+  }>();
   const { pathname } = useLocation();
 
   // GraphQL operations
@@ -21,35 +27,40 @@ const organizationtRedirect: React.FC<IOrganizationRedirectProps> =
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
         msgError(translate.t("group_alerts.error_textsad"));
-        Logger.warning("An error occurred getting organization name for redirection", error);
+        Logger.warning(
+          "An error occurred getting organization name for redirection",
+          error
+        );
       });
     },
     variables: {
       getProject: type === "groups",
       getTag: type === "portfolios",
-      projectName: _.isUndefined(projectName)
-        ? ""
-        : projectName.toLowerCase(),
-      tagName: _.isUndefined(tagName)
-        ? ""
-        : tagName.toLowerCase(),
+      projectName: _.isUndefined(projectName) ? "" : projectName.toLowerCase(),
+      tagName: _.isUndefined(tagName) ? "" : tagName.toLowerCase(),
     },
   });
 
   if (_.isUndefined(data) || _.isEmpty(data)) {
-    return <React.Fragment />;
+    return <div />;
   }
 
   return (
-    <React.Fragment>
-      <Switch>
-        {type === "groups"
-          ? <Redirect path="/groups/:groupName" to={`/orgs/${data.project.organization}${pathname}`} />
-          : <Redirect path="/portfolios/:tagName" to={`/orgs/${data.tag.organization}${pathname}`} />
-        }
-      </Switch>
-    </React.Fragment>
+    <Switch>
+      {" "}
+      {type === "groups" ? (
+        <Redirect
+          path={"/groups/:groupName"}
+          to={`/orgs/${data.project.organization}${pathname}`}
+        />
+      ) : (
+        <Redirect
+          path={"/portfolios/:tagName"}
+          to={`/orgs/${data.tag.organization}${pathname}`}
+        />
+      )}{" "}
+    </Switch>
   );
 };
 
-export { organizationtRedirect as OrganizationRedirect };
+export { OrganizationRedirect };
