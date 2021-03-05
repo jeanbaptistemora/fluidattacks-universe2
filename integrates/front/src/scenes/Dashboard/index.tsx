@@ -128,6 +128,7 @@ export const Dashboard: React.FC = (): JSX.Element => {
       mixpanel.identify(me.userEmail);
       mixpanel.register({
         User: me.userName,
+        // eslint-disable-next-line camelcase -- It is possibly required for the API
         integrates_user_email: me.userEmail,
       });
       mixpanel.people.set({ $email: me.userEmail, $name: me.userName });

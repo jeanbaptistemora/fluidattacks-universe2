@@ -45,8 +45,8 @@ describe("Data table next", (): void => {
 
     const data: Record<string, unknown>[] = [
       {
-        test_header: "value 1",
-        test_header2: "value 2",
+        testHeader: "value 1",
+        testHeader2: "value 2",
       },
     ];
     const selectionMode: SelectRowOptions = {
@@ -75,21 +75,21 @@ describe("Data table next", (): void => {
 
     const data: Record<string, unknown>[] = [
       {
-        test_header: "value 1",
-        test_header2: "value 2",
+        testHeader: "value 1",
+        testHeader2: "value 2",
       },
     ];
     const testHeaders: IHeaderConfig[] = [
       {
         align: "center",
-        dataField: "test_header",
+        dataField: "testHeader",
         header: "Prueba 1",
         width: "5%",
         wrapped: false,
       },
       {
         align: "center",
-        dataField: "test_header2",
+        dataField: "testHeader2",
         header: "Prueba 2",
         width: "5%",
         wrapped: false,

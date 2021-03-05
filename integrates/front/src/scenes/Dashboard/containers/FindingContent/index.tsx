@@ -120,7 +120,7 @@ const findingContent: React.FC = (): JSX.Element => {
             _.includes(message, "Exception - This draft has missing fields")
           ) {
             msgError(
-              translate.t("group.drafts.error_submit", {
+              translate.t("group.drafts.errorSubmit", {
                 missingFields: message.split("fields: ")[1],
               })
             );

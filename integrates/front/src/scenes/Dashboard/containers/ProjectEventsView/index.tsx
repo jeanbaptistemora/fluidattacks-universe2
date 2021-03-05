@@ -578,7 +578,7 @@ const projectEventsView: React.FC = (): JSX.Element => {
                     }}
                   </Mutation>
                 </Modal>
-                <p>{translate.t("search_findings.tab_events.table_advice")}</p>
+                <p>{translate.t("search_findings.tab_events.tableAdvice")}</p>
                 <DataTableNext
                   bordered={true}
                   dataset={formatEvents(data.project.events)}

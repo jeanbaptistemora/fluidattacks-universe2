@@ -37,11 +37,7 @@
     "prettier/react"
   ],
   "rules": {
-    /*
-     * This rule will be activated eventually. However, its implementation must
-     * be gradual due to its extended usage in translation
-     */
-    "camelcase": "off",
+    "camelcase": "error",
     "capitalized-comments": ["error", "always", { "ignoreConsecutiveComments": true }],
     "complexity": "off",
     "eqeqeq": ["error", "smart"],

@@ -24,6 +24,7 @@ describe("TrackingView", (): void => {
           tracking: [
             {
               accepted: 0,
+              // eslint-disable-next-line camelcase -- It is possibly required for the API
               accepted_undefined: 0,
               closed: 0,
               cycle: 0,
@@ -32,6 +33,7 @@ describe("TrackingView", (): void => {
             },
             {
               accepted: 1,
+              // eslint-disable-next-line camelcase -- It is possibly required for the API
               accepted_undefined: 0,
               closed: 0,
               cycle: 1,

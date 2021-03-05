@@ -97,7 +97,7 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
         t("group_alerts.title_success")
       );
     } else {
-      msgError(t("delete_vulns.not_success"));
+      msgError(t("deleteVulns.notSuccess"));
     }
     setDeleteVulnOpen(false);
   }

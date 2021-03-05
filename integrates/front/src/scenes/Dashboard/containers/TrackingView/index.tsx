@@ -14,6 +14,7 @@ import { Col80, Row } from "styles/styledComponents";
 
 interface IClosing {
   accepted: number;
+  // eslint-disable-next-line camelcase -- It is possibly required for the API
   accepted_undefined?: number;
   closed: number;
   cycle: number;

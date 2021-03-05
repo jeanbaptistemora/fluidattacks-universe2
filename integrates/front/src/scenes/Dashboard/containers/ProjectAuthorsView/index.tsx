@@ -65,7 +65,7 @@ const projectAuthorsView: React.FC = (): JSX.Element => {
       align: "center",
       dataField: "groups",
       formatter: formatText,
-      header: translate.t("group.authors.groups_contributed"),
+      header: translate.t("group.authors.groupsContributed"),
       width: "20%",
       wrapped: true,
     },
@@ -109,7 +109,7 @@ const projectAuthorsView: React.FC = (): JSX.Element => {
     <React.StrictMode>
       <Row>
         <Col100 className={"pl0"}>
-          <p>{translate.t("group.authors.table_advice")}</p>
+          <p>{translate.t("group.authors.tableAdvice")}</p>
         </Col100>
       </Row>
       <Row>

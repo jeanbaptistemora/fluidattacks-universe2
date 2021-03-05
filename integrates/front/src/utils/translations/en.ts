@@ -1,3 +1,5 @@
+/* eslint-disable camelcase */
+/* Note: ESLint rule disabled temporally, as the conversion will be gradual */
 import type { ResourceKey } from "i18next";
 
 export const enTranslations: ResourceKey = {
@@ -237,8 +239,8 @@ export const enTranslations: ResourceKey = {
     cancel: "Cancel",
     message: "Are you sure?",
     proceed: "Proceed",
-    title_cvssv2: "Update CVSSv2",
-    title_generic: "Confirm action",
+    titleCvssv2: "Update CVSSv2",
+    titleGeneric: "Confirm action",
   },
   dataTableNext: {
     filters: "Filters",
@@ -246,9 +248,9 @@ export const enTranslations: ResourceKey = {
     noDataIndication: "There is no data to display",
     tooltip: "filters of search on the table",
   },
-  delete_vulns: {
-    not_success: "Vulnerability could not be eliminated",
-    reporting_error: "Error while reporting",
+  deleteVulns: {
+    notSuccess: "Vulnerability could not be eliminated",
+    reportingError: "Error while reporting",
     title: "Delete Vulnerability",
   },
   forms: {
@@ -261,9 +263,9 @@ export const enTranslations: ResourceKey = {
     authors: {
       actor: "Author",
       commit: "Commit",
-      groups_contributed: "Groups Contributed",
+      groupsContributed: "Groups Contributed",
       repository: "Repository",
-      table_advice:
+      tableAdvice:
         "Below you'll find the authors that have contributed " +
         "to your group in the selected month, and one example commit",
     },
@@ -277,7 +279,7 @@ export const enTranslations: ResourceKey = {
         text: "New",
         tooltip: "Create a new finding",
       },
-      error_submit: "Please provide {{missingFields}} before submitting",
+      errorSubmit: "Please provide {{missingFields}} before submitting",
       new: "New Finding",
       reject: {
         text: "Reject",
@@ -486,7 +488,7 @@ export const enTranslations: ResourceKey = {
         title: "Strictness",
         tolerant: "Tolerant",
       },
-      table_advice: "Click on an execution to see more details",
+      tableAdvice: "Click on an execution to see more details",
       tabs: {
         log: {
           text: "Execution Log",
@@ -1221,7 +1223,7 @@ export const enTranslations: ResourceKey = {
         solve: "Solved",
         unsolve: "Unsolved",
       },
-      table_advice: "Click on an event to see more details",
+      tableAdvice: "Click on an event to see more details",
       type: "Type",
       type_values: {
         approv_change: "Client approves the change of ToE",

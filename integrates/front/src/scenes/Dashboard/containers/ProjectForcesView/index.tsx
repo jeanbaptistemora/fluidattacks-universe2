@@ -276,7 +276,7 @@ const projectForcesView: React.FC = (): JSX.Element => {
 
           return (
               <React.StrictMode>
-                <p>{translate.t("group.forces.table_advice")}</p>
+                <p>{translate.t("group.forces.tableAdvice")}</p>
                 <DataTableNext
                   bordered={true}
                   dataset={executions}
