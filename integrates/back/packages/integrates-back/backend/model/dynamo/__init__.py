@@ -1,10 +1,8 @@
 # Standard library
-from operator import itemgetter
 from typing import (
     Any,
     Dict,
     List,
-    NamedTuple,
     Optional,
     Set
 )
@@ -14,21 +12,15 @@ from boto3.dynamodb.conditions import Key
 
 # Local
 from backend.dal.helpers import dynamodb
+from backend.model.dynamo import versioned
 from backend.model.dynamo.types import (
+    Entity,
+    PrimaryKey,
     RootHistoric,
     RootItem,
     RootMetadata,
     VersionedItem
 )
-
-
-class PrimaryKey(NamedTuple):
-    partition_key: str
-    sort_key: str
-
-
-class Entity(NamedTuple):
-    primary_key: PrimaryKey
 
 
 # Constants
@@ -102,24 +94,17 @@ def build_versioned_item(
     primary_key: PrimaryKey,
     raw_items: List[Any]
 ) -> VersionedItem:
-    historic_sort_key = f'{primary_key.sort_key}#HIST#'
-    historic = (
-        item
-        for item in raw_items
-        if item['sk'].startswith(historic_sort_key)
-    )
-
-    metadata = next(
-        item
-        for item in raw_items
-        if item['sk'] == primary_key.sort_key
-    )
 
     return VersionedItem(
-        historic=tuple(
-            sorted(historic, key=itemgetter('sk'), reverse=True)
+        historic=versioned.get_historic(
+            primary_key=primary_key,
+            historic_prefix='HIST',
+            raw_items=raw_items
         ),
-        metadata=metadata
+        metadata=versioned.get_metadata(
+            primary_key=primary_key,
+            raw_items=raw_items
+        )
     )
 
 

@@ -2,9 +2,21 @@
 from typing import Any, Dict, NamedTuple, Set, Tuple
 
 
+Item = Dict[str, Any]
+
+
 class VersionedItem(NamedTuple):
     historic: Tuple[Dict[str, Any], ...]
     metadata: Dict[str, Any]
+
+
+class PrimaryKey(NamedTuple):
+    partition_key: str
+    sort_key: str
+
+
+class Entity(NamedTuple):
+    primary_key: PrimaryKey
 
 
 class RootMetadata(NamedTuple):
