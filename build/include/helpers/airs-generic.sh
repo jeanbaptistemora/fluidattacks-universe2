@@ -31,25 +31,6 @@ function helper_airs_generic_file_name {
       fi
 }
 
-function helper_airs_generic_adoc_keywords_uppercase {
-  local file="${1}"
-  local tag=":keywords:"
-  local keywords
-  local invalid_keywords
-
-      helper_airs_file_exists "${file}" \
-  &&  helper_airs_adoc_tag_exists "${file}" "${tag}" \
-  &&  keywords="$(grep -Po '(?<=^:keywords:).*' "${file}" | tr ',' '\n' | sed -e 's/^\s*//g')" \
-  &&  invalid_keywords="$( echo "${keywords}" | grep -Pvc '^[A-Z]')" || invalid_keywords='0' \
-  &&  if [ "${invalid_keywords}" = '0' ]
-      then
-            return 0
-      else
-            echo "[ERROR] All keywords in ${file} must begin with an upper case" \
-        && return 1
-      fi
-}
-
 function helper_airs_generic_adoc_others {
   local file="${1}"
   local tests_direct=(

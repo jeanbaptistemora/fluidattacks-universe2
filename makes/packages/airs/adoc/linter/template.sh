@@ -1,5 +1,23 @@
 # shellcheck shell=bash
 
+function check_adoc_keywords_casing {
+  local target="${1}"
+  local msg="Keywords must be: Like This"
+
+      { grep -Po '(?<=^:keywords: ).*' "${target}" || true; } \
+        | sed -E 's|,\s*|\n|g;s| |\n|g' \
+        > list \
+  &&  mapfile -t words < list \
+  &&  for word in "${words[@]}"
+      do
+        if test "$(echo "${word}" | grep -cPv '^[A-Z]+[a-z]*$')" -gt 0
+        then
+          echo "[ERROR] ${msg}: ${word}: ${target}"
+
+        fi
+      done
+}
+
 function check_adoc_main_title {
   local target="${1}"
   local msg='File must contain exactly one title'

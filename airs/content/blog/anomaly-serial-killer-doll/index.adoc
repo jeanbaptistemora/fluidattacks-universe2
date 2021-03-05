@@ -6,7 +6,7 @@
 :image: cover.png
 :alt: The actual serial killer doll
 :description: Here we describe the system Chucky, which applies machine learning and natural language processing techniques to find missing-check related vulnerabilities.
-:keywords: Machine learning, Natural Language Processing, Vulnerability, Anomaly detection, Nearest Neighbors, Missing Check, Security, Ethical Hacking, Pentesting
+:keywords: Machine Learning, Natural Language Processing, Vulnerability, Anomaly Detection, Nearest Neighbors, Missing Check, Security, Ethical Hacking, Pentesting
 :author: Rafael Ballestas
 :writer: raballestasr
 :name: Rafael Ballestas
