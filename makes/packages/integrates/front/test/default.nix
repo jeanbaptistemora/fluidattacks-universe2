@@ -1,4 +1,4 @@
-{ nixpkgs2
+{ nixpkgs
 , makeDerivation
 , packages
 , path
@@ -14,8 +14,8 @@ makeDerivation {
   name = "integrates-front-test";
   searchPaths = {
     envPaths = [
-      nixpkgs2.bash
-      nixpkgs2.nodejs
+      nixpkgs.bash
+      nixpkgs.nodejs
     ];
   };
 }

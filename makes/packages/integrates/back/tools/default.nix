@@ -1,11 +1,8 @@
-{ nixpkgs2
+{ makeTemplate
 , packages
 , path
 , ...
 }:
-let
-  makeTemplate = import (path "/makes/utils/make-template") path nixpkgs2;
-in
 makeTemplate {
   arguments = {
     envToolsAsciidoctor = packages.integrates.back.tools.asciidoctor;

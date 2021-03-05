@@ -1,4 +1,4 @@
-{ nixpkgs2
+{ nixpkgs
 , makeDerivation
 , packages
 , path
@@ -13,8 +13,8 @@ makeDerivation {
   name = "integrates-mobile-test";
   searchPaths = {
     envPaths = [
-      nixpkgs2.bash
-      nixpkgs2.nodejs-12_x
+      nixpkgs.bash
+      nixpkgs.nodejs-12_x
     ];
   };
 }

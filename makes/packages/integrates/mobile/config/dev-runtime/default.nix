@@ -1,25 +1,24 @@
 { buildNodeRequirements
 , getPackageJsonDeps
-, nixpkgs2
-, path
+, nix
+, nixpkgs
 , ...
 }:
 let
-  nix = import (path "/makes/utils/nix") path nixpkgs2;
   packageJsonDeps = getPackageJsonDeps "/integrates/mobile/package.json";
 in
 buildNodeRequirements {
   dependencies = [
     # Libraries needed to build some node modules like sharp, used in the APK build
-    nixpkgs2.bash
-    nixpkgs2.gcc
-    nixpkgs2.gnugrep
-    nixpkgs2.gnumake
-    nixpkgs2.gnused
-    nixpkgs2.python37
+    nixpkgs.bash
+    nixpkgs.gcc
+    nixpkgs.gnugrep
+    nixpkgs.gnumake
+    nixpkgs.gnused
+    nixpkgs.python37
   ];
   name = "integrates-mobile-dev-runtime";
-  node = nixpkgs2.nodejs-12_x;
+  node = nixpkgs.nodejs-12_x;
   requirements = {
     direct = nix.sort (packageJsonDeps.development ++ packageJsonDeps.production);
     inherited = [

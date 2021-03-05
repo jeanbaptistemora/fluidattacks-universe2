@@ -56,6 +56,7 @@ let
     buildNodeRequirements = importUtility "build-node-requirements";
     buildPythonLambda = importUtility "build-python-lambda";
     buildPythonRequirements = importUtility "build-python-requirements";
+    buildRubyRequirement = importUtility "build-ruby-requirement";
     computeOnAws = importUtility "compute-on-aws";
     fetchzip = nixpkgs.fetchzip;
     getPackageJsonDeps = importUtility "get-package-json-deps";

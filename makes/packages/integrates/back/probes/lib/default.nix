@@ -1,4 +1,4 @@
-{ nixpkgs2
+{ nixpkgs
 , makeTemplate
 , path
 , ...
@@ -7,9 +7,9 @@ makeTemplate {
   name = "integrates-back-probes-lib";
   searchPaths = {
     envPaths = [
-      nixpkgs2.awscli
-      nixpkgs2.curl
-      nixpkgs2.gnugrep
+      nixpkgs.awscli
+      nixpkgs.curl
+      nixpkgs.gnugrep
     ];
   };
   template = path "/makes/packages/integrates/back/probes/lib/template.sh";

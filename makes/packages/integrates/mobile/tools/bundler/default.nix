@@ -1,13 +1,10 @@
-{ nixpkgs2
-, path
+{ buildRubyRequirement
+, nixpkgs
 , ...
 }:
-let
-  buildRubyRequirement = import (path "/makes/utils/build-ruby-requirement") path nixpkgs2;
-in
 buildRubyRequirement {
   dependencies = [ ];
   name = "integrates-mobile-tools-bundler";
-  ruby = nixpkgs2.ruby;
+  ruby = nixpkgs.ruby;
   requirement = "bundler:2.2.6";
 }

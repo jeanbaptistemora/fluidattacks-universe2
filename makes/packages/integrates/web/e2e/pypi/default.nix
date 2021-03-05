@@ -1,10 +1,7 @@
-{ nixpkgs2
-, path
+{ buildPythonRequirements
+, nixpkgs
 , ...
 }:
-let
-  buildPythonRequirements = import (path "/makes/utils/build-python-requirements") path nixpkgs2;
-in
 buildPythonRequirements {
   dependencies = [ ];
   name = "integrates-web-e2e-pypi";
@@ -27,5 +24,5 @@ buildPythonRequirements {
       "urllib3==1.26.3"
     ];
   };
-  python = nixpkgs2.python38;
+  python = nixpkgs.python38;
 }

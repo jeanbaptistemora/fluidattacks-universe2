@@ -1,4 +1,4 @@
-{ nixpkgs2
+{ nixpkgs
 , makeTemplate
 , packages
 , path
@@ -14,20 +14,20 @@ makeTemplate {
   searchPaths = {
     envLibraries = [
       # Libmagic
-      nixpkgs2.file
+      nixpkgs.file
     ];
     envPaths = [
       # The binary for pypi://GitPython
-      nixpkgs2.git
+      nixpkgs.git
       # The binary for the ASGI
-      nixpkgs2.python37Packages.gunicorn
+      nixpkgs.python37Packages.gunicorn
       # The binary to zip the data report
-      nixpkgs2.p7zip
+      nixpkgs.p7zip
     ];
     envSources = [
-      (import (path "/makes/utils/make-search-paths-deprecated") path nixpkgs2 [
+      (import (path "/makes/utils/make-search-paths-deprecated") path nixpkgs [
         # Libstdc++
-        nixpkgs2.gcc.cc
+        nixpkgs.gcc.cc
       ])
       packages.integrates.back.pypi.runtime
       packages.integrates.back.tools

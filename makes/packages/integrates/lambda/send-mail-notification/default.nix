@@ -1,11 +1,11 @@
 { buildPythonLambda
-, nixpkgs2
+, nixpkgs
 , path
 , ...
 }:
 buildPythonLambda {
   name = "integrates-lambda-send-mail-notification";
-  python = nixpkgs2.python37;
+  python = nixpkgs.python37;
   requirements = {
     direct = [
       "certifi==2020.4.5.2"

@@ -1,5 +1,5 @@
 { buildNodeRequirements
-, nixpkgs2
+, nixpkgs
 , makeDerivation
 , path
 , ...
@@ -7,7 +7,7 @@
 let
   nodeRequirements = buildNodeRequirements {
     name = "integrates-analytics-lint";
-    node = nixpkgs2.nodejs;
+    node = nixpkgs.nodejs;
     requirements = {
       direct = [
         "eslint-config-strict@14.0.1"
