@@ -15,7 +15,6 @@ rec {
   srcIncludeHelpersAirs = ../include/helpers/airs.sh;
   srcIncludeHelpersAirsBlog = ../include/helpers/airs-blog.sh;
   srcIncludeHelpersAirsDeploy = ../include/helpers/airs-deploy.sh;
-  srcIncludeHelpersAirsGeneric = ../include/helpers/airs-generic.sh;
   srcIncludeAirsJobs = ../include/jobs/airs.sh;
 
   # Asserts

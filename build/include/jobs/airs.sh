@@ -13,24 +13,12 @@ function job_airs_test_lint_code {
 }
 
 function job_airs_test_generic {
-  local all_content_files
   local touched_adoc_files
-  local min_words='1'
-  local max_words='4500'
   local max_lix='65'
 
       pushd airs \
   &&  helper_airs_set_lc_all \
-  &&  all_content_files="$(find content/ -type f)" \
   &&  touched_adoc_files="$(helper_airs_list_touched_files | grep '.adoc')" || true \
-  &&  echo '[INFO] Testing forbidden extensions' \
-  &&  helper_airs_generic_forbidden_extensions \
-  &&  echo '[INFO] Testing compliant file names' \
-  &&  for path in ${all_content_files}
-      do
-            helper_airs_generic_file_name "${path}" \
-        ||  return 1
-      done \
   && echo '[INFO] Testing touched adoc files' \
   &&  for path in ${touched_adoc_files}
       do

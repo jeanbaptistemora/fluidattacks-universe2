@@ -9,7 +9,6 @@ source "${srcIncludeCommonJobs}"
 source "${srcIncludeHelpersAirs}"
 source "${srcIncludeHelpersAirsBlog}"
 source "${srcIncludeHelpersAirsDeploy}"
-source "${srcIncludeHelpersAirsGeneric}"
 source "${srcIncludeAirsJobs}"
 
 source "${srcIncludeHelpersAsserts}"
