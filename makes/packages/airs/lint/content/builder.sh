@@ -11,6 +11,7 @@ function main {
             &&  check_adoc_keywords_casing "${path}" \
             &&  check_adoc_main_title "${path}" \
             &&  check_adoc_min_keywords "${path}" \
+            &&  check_adoc_patterns "${path}" \
             &&  check_adoc_words_case "${path}" \
             ||  return 1
           done \

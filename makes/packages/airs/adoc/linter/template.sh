@@ -12,8 +12,7 @@ function check_adoc_keywords_casing {
       do
         if test "$(echo "${word}" | grep -cPv '^[A-Z]+[a-z]*$')" -gt 0
         then
-          echo "[ERROR] ${msg}: ${word}: ${target}"
-
+          abort "[ERROR] ${msg}: ${word}: ${target}"
         fi
       done
 }
@@ -100,4 +99,26 @@ function check_adoc_words_case {
           fi \
       ||  return 1
     done
+}
+
+function check_adoc_patterns {
+  local target="${1}"
+  declare -A msgs=(
+    [caption_forbidden_titles]='Captions must not contain "image", "table" or "figure"'
+    [only_local_images]='Only local images are allowed'
+    [only_autonomic_com]='Use autonomicmind.com'
+  )
+  declare -A patterns=(
+    [caption_forbidden_titles]='^\.(image|table|figure) \d+'
+    [only_local_images]='image::?https?://'
+    [only_autonomic_com]='autonomicmind.co(?!m)'
+  )
+
+  for test in "${!patterns[@]}"
+  do
+    if pcregrep -MH "${patterns[${test}]}" "${target}"
+    then
+      abort "[ERROR] ${msgs[${test}]}: ${target}"
+    fi
+  done
 }
