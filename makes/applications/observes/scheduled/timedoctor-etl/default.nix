@@ -1,10 +1,10 @@
-{ nixpkgs2
+{ nixpkgs
 , packages
 , path
 , ...
 }:
 let
-  nixPkgs = nixpkgs2;
+  nixPkgs = nixpkgs;
   makeEntrypoint = import (path "/makes/utils/make-entrypoint") path nixPkgs;
 in
 makeEntrypoint {

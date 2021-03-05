@@ -1,9 +1,9 @@
 { path
-, nixpkgs2
+, nixpkgs
 , ...
 }:
 let
-  computeOnAws = import (path "/makes/utils/compute-on-aws") path nixpkgs2;
+  computeOnAws = import (path "/makes/utils/compute-on-aws") path nixpkgs;
   mirrorGroup = computeOnAws {
     attempts = 5;
     command = [ "./m" "observes.code-etl-mirror" ];
@@ -21,14 +21,14 @@ let
     timeout = 7200;
     vcpus = 1;
   };
-  makeEntrypoint = import (path "/makes/utils/make-entrypoint") path nixpkgs2;
+  makeEntrypoint = import (path "/makes/utils/make-entrypoint") path nixpkgs;
 in
 makeEntrypoint {
   arguments = {
     envMirrorGroupBin = "${mirrorGroup}/bin";
-    envUtilsBashLibAws = import (path "/makes/utils/aws") path nixpkgs2;
-    envUtilsBashLibGit = import (path "/makes/utils/git") path nixpkgs2;
-    envUtilsBashLibSops = import (path "/makes/utils/sops") path nixpkgs2;
+    envUtilsBashLibAws = import (path "/makes/utils/aws") path nixpkgs;
+    envUtilsBashLibGit = import (path "/makes/utils/git") path nixpkgs;
+    envUtilsBashLibSops = import (path "/makes/utils/sops") path nixpkgs;
   };
   name = "observes-scheduled-code-etl-mirror";
   template = path "/makes/applications/observes/scheduled/code-etl-mirror/entrypoint.sh";

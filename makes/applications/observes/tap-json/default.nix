@@ -1,10 +1,10 @@
-{ nixpkgs2
+{ nixpkgs
 , path
 , ...
 }:
 let
-  buildPythonPackage = import (path "/makes/utils/build-python-package") path nixpkgs2;
-  makeEntrypoint = import (path "/makes/utils/make-entrypoint") path nixpkgs2;
+  buildPythonPackage = import (path "/makes/utils/build-python-package") path nixpkgs;
+  makeEntrypoint = import (path "/makes/utils/make-entrypoint") path nixpkgs;
 in
 makeEntrypoint {
   arguments = {
@@ -13,7 +13,7 @@ makeEntrypoint {
       dependencies = [ ];
       name = "observes-bin-tap-json";
       packagePath = path "/observes/singer/tap_json";
-      python = nixpkgs2.python37;
+      python = nixpkgs.python37;
     };
   };
   name = "observes-tap-json";

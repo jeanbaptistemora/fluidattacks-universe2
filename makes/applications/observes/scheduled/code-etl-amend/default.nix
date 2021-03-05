@@ -1,9 +1,9 @@
 { path
-, nixpkgs2
+, nixpkgs
 , ...
 }:
 let
-  computeOnAws = import (path "/makes/utils/compute-on-aws") path nixpkgs2;
+  computeOnAws = import (path "/makes/utils/compute-on-aws") path nixpkgs;
 in
 computeOnAws {
   attempts = 5;
