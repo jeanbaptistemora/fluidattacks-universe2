@@ -6,28 +6,18 @@ from typing import (
 )
 
 # Third party libraries
-from ariadne import (
-    graphql,
-)
+from ariadne import graphql
 
 # Local libraries
+from back.tests.unit.utils import create_dummy_session
 from backend.api import (
     apply_context_attrs,
     get_new_context,
     Dataloaders
 )
-from backend.api.schema import (
-    SCHEMA,
-)
-from backend.domain import (
-    project as domain_group,
-)
-from backend.utils import (
-    user as user_utils,
-)
-from back.tests.unit.utils import (
-    create_dummy_session,
-)
+from backend.api.schema import SCHEMA
+from backend.domain import project as domain_group
+from newutils import user as user_utils
 
 
 async def complete_register(

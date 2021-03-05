@@ -7,32 +7,23 @@ from ariadne import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local libraries
+from back.settings import LOGGING
 from backend import authz, util
-from backend.dal.helpers.redis import (
-    redis_del_by_deps,
-)
+from backend.dal.helpers.redis import redis_del_by_deps
 from backend.decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
     require_integrates,
     require_login
 )
-from backend.domain import (
-    project as group_domain,
-)
-from backend.exceptions import (
-    StakeholderNotFound,
-)
+from backend.domain import project as group_domain
+from backend.exceptions import StakeholderNotFound
 from backend.typing import (
     Invitation as InvitationType,
     EditStakeholderPayload as EditStakeholderPayloadType
 )
-from backend.utils import (
-    user as user_utils,
-)
 from backend.utils.validations import validate_fluidattacks_staff_on_group
-
-from back.settings import LOGGING
+from newutils import user as user_utils
 
 
 logging.config.dictConfig(LOGGING)

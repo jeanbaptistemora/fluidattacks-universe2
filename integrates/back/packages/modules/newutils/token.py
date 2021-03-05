@@ -30,7 +30,7 @@ def _encrypt_jwt_payload(payload: Dict[str, Any]) -> Dict[str, Any]:
         },
         recipient=key,
     ).serialize()
-    return cast(Dict[str, Any], encodings.jwt_payload_decode(claims))
+    return encodings.jwt_payload_decode(claims)
 
 
 def _decrypt_jwt_payload(payload: Dict[str, Any]) -> Dict[str, Any]:
@@ -42,10 +42,7 @@ def _decrypt_jwt_payload(payload: Dict[str, Any]) -> Dict[str, Any]:
     result = JWE()
     result.deserialize(serialized_payload.encode('utf-8'))
     result.decrypt(key)
-    return cast(
-        Dict[str, Any],
-        encodings.jwt_payload_decode(result.payload.decode('utf-8'))
-    )
+    return encodings.jwt_payload_decode(result.payload.decode('utf-8'))
 
 
 def new_encoded_jwt(

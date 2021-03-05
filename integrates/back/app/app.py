@@ -1,15 +1,13 @@
 # Starlette app init file
 
-# Standar libraries
-
+# Standard libraries
 import asyncio
+
 # Third party libraries
 import bugsnag
-from bugsnag.asgi import BugsnagMiddleware
 import newrelic.agent
-
 from aioextensions import in_thread
-
+from bugsnag.asgi import BugsnagMiddleware
 from starlette.applications import Starlette
 from starlette.middleware import Middleware
 from starlette.middleware.sessions import SessionMiddleware
@@ -22,13 +20,23 @@ from starlette.routing import Mount, Route
 from starlette.staticfiles import StaticFiles
 
 # Local libraries
+from back import settings
+from back.app import utils
+from back.app.middleware import CustomRequestMiddleware
+from back.app.views import (
+    auth,
+    charts,
+    evidence,
+    templates
+)
+from back.settings.queue import (
+    get_task,
+    init_queue,
+)
 from backend.api import IntegratesAPI
-from backend.dal import (
-    session as session_dal,
-)
-from backend.dal.helpers.redis import (
-    redis_del_entity_attr,
-)
+from backend.api.schema import SCHEMA
+from backend.dal import session as session_dal
+from backend.dal.helpers.redis import redis_del_entity_attr
 from backend.decorators import authenticate_session
 from backend.domain import (
     project as group_domain,
@@ -38,26 +46,7 @@ from backend.exceptions import (
     ExpiredToken,
     SecureAccessException,
 )
-from backend.api.schema import SCHEMA
-from backend.utils import (
-    user as user_utils
-)
-
-from back.app.middleware import CustomRequestMiddleware
-from back.app import utils
-from back.app.views import (
-    auth,
-    charts,
-    evidence,
-    templates
-)
-
-from back import settings
-from back.settings.queue import (
-    get_task,
-    init_queue,
-)
-
+from newutils import user as user_utils
 from __init__ import (
     FI_ENVIRONMENT,
     FI_STARLETTE_SESSION_KEY

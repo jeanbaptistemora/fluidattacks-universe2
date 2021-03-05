@@ -10,24 +10,23 @@ from typing import (
 
 # Third party libraries
 import aiohttp
-
 from ariadne import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local libraries
 from back import settings
 from back.app import utils
+from back.settings import LOGGING
 from back.settings.auth import (
     azure,
     BITBUCKET_ARGS,
     GOOGLE_ARGS
 )
-from back.settings import LOGGING
 from backend.typing import SignInPayload as SignInPayloadType
-from backend.utils import token as token_helper
 from newutils import (
     analytics,
     datetime as datetime_utils,
+    token as token_helper,
 )
 
 

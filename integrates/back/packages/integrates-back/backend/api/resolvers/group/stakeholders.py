@@ -6,9 +6,7 @@ from typing import cast, Dict, List
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local libraries
-from backend import (
-    util
-)
+from backend import util
 from backend.dal.helpers.redis import redis_get_or_set_entity_attr
 from backend.decorators import (
     concurrent_decorators,
@@ -19,9 +17,7 @@ from backend.typing import (
     Project as GroupType,
     Stakeholder as StakeholderType,
 )
-from backend.utils import (
-    user as user_utils,
-)
+from newutils import user as user_utils
 
 
 @concurrent_decorators(

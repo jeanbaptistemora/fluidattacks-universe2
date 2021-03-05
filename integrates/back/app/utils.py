@@ -9,20 +9,21 @@ from starlette.requests import Request
 from starlette.responses import HTMLResponse
 
 # Local libraries
-from backend.dal.helpers.redis import redis_set_entity_attr
-from backend.domain import (
-    user as user_domain,
-    project as group_domain,
-)
+from back import settings
 from backend import (
     authz,
     mailer,
     util
 )
-from backend.utils import token as token_helper
-from back import settings
-from newutils import analytics
-
+from backend.dal.helpers.redis import redis_set_entity_attr
+from backend.domain import (
+    user as user_domain,
+    project as group_domain,
+)
+from newutils import (
+    analytics,
+    token as token_helper
+)
 from __init__ import (
     FI_COMMUNITY_PROJECTS,
     FI_MAIL_CONTINUOUS,

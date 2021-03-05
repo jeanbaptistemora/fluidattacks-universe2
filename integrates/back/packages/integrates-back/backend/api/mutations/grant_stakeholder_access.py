@@ -8,32 +8,25 @@ from graphql.type.definition import GraphQLResolveInfo
 
 # Local libraries
 from back.settings import LOGGING
-
 from backend import (
     authz,
     util
 )
-from backend.dal.helpers.redis import (
-    redis_del_by_deps,
-)
+from backend.dal.helpers.redis import redis_del_by_deps
 from backend.decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
     require_integrates,
     require_login
 )
-from backend.domain import (
-    project as group_domain,
-)
-from backend.exceptions import (
-    StakeholderHasGroupAccess
-)
+from backend.domain import project as group_domain
+from backend.exceptions import StakeholderHasGroupAccess
 from backend.typing import (
     GrantStakeholderAccessPayload as GrantStakeholderAccessPayloadType,
 )
-from backend.utils import (
-    user as user_utils
-)
+from newutils import user as user_utils
+
+
 logging.config.dictConfig(LOGGING)
 
 # Constants

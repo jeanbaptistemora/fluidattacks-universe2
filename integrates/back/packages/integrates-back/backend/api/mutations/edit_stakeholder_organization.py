@@ -17,7 +17,7 @@ from backend.decorators import (
 from backend.domain import organization as org_domain
 from backend.exceptions import UserNotInOrganization
 from backend.typing import EditStakeholderPayload
-from backend.utils.user import modify_user_information
+from newutils.user import modify_user_information
 
 
 @convert_kwargs_to_snake_case  # type: ignore

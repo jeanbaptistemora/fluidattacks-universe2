@@ -15,7 +15,6 @@ from aioextensions import (
     collect,
     schedule
 )
-
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local libraries
@@ -25,9 +24,7 @@ from backend import (
     mailer,
     util
 )
-from backend.dal.helpers.redis import (
-    redis_del_by_deps_soon,
-)
+from backend.dal.helpers.redis import redis_del_by_deps_soon
 from backend.domain import (
     organization as org_domain,
     project as group_domain,
@@ -47,6 +44,7 @@ from backend.utils.validations import (
 )
 from newutils import datetime as datetime_utils
 from __init__ import BASE_URL
+
 
 logging.config.dictConfig(LOGGING)
 

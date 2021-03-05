@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 """ Integrates auxiliar functions. """
 
-import collections
-import os
-from datetime import datetime, timedelta
 import binascii
+import collections
 import logging
+import os
 import re
 import secrets
+from datetime import datetime, timedelta
 from typing import (
     Any,
     cast,
@@ -16,6 +16,7 @@ from typing import (
     List,
     Union
 )
+
 import magic
 from aioextensions import (
     collect,
@@ -41,12 +42,8 @@ from starlette.concurrency import run_in_threadpool
 from starlette.datastructures import UploadFile
 
 from back import settings
-from backend.dal import (
-    session as session_dal,
-)
-from backend.dal.helpers.redis import (
-    redis_get_entity_attr,
-)
+from backend.dal import session as session_dal
+from backend.dal.helpers.redis import redis_get_entity_attr
 from backend.exceptions import (
     ExpiredToken,
     InvalidAuthorization,
@@ -58,15 +55,14 @@ from backend.typing import (
     User as UserType,
     Project as ProjectType
 )
-from backend.utils import token as token_helper
 from newutils import (
     apm,
     datetime as datetime_utils,
     function,
+    token as token_helper,
 )
-from __init__ import (
-    FI_ENVIRONMENT,
-)
+from __init__ import FI_ENVIRONMENT
+
 
 logging.config.dictConfig(settings.LOGGING)
 

@@ -4,9 +4,7 @@ from aioextensions import (
     collect,
 )
 
-from backend.utils import (
-    user as user_utils,
-)
+from newutils import user as user_utils
 
 
 async def filter_non_fluid_staff(

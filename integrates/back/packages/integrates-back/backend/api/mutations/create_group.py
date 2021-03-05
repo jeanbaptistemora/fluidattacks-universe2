@@ -14,7 +14,7 @@ from backend.decorators import (
 )
 from backend.domain import project as group_domain
 from backend.typing import SimplePayload as SimplePayloadType
-from backend.utils.user import create_forces_user
+from newutils.user import create_forces_user
 
 
 @convert_kwargs_to_snake_case  # type: ignore

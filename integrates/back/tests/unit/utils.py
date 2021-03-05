@@ -1,18 +1,15 @@
 import requests
 import uuid
-
 from datetime import datetime, timedelta
 
 from starlette.responses import Response
 
+from back import settings
 from backend import util
 from backend.api import apply_context_attrs
-from backend.dal import (
-    session as session_dal,
-)
+from backend.dal import session as session_dal
 from backend.dal.helpers.redis import redis_set_entity_attr
-from backend.utils import token as token_helper
-from back import settings
+from newutils import token as token_helper
 
 
 def create_dummy_simple_session(

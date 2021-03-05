@@ -23,7 +23,7 @@ from backend.domain import (
 )
 from backend.exceptions import PermissionDenied
 from backend.typing import SimplePayload as SimplePayloadType
-from backend.utils.user import create_forces_user
+from newutils.user import create_forces_user
 
 
 @convert_kwargs_to_snake_case  # type: ignore

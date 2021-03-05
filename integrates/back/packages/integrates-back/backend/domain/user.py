@@ -13,15 +13,17 @@ import aioboto3
 from aioextensions import collect
 
 # Local libraries
-from backend.dal.helpers import dynamodb
+from backend import (
+    authz,
+    util,
+)
 from backend.dal import (
     organization as org_dal,
     project as project_dal,
     user as user_dal,
 )
-from backend.domain import (
-    organization as org_domain
-)
+from backend.dal.helpers import dynamodb
+from backend.domain import organization as org_domain
 from backend.exceptions import (
     InvalidPushToken,
     InvalidExpirationTime,
@@ -34,12 +36,10 @@ from backend.utils.validations import (
     validate_email_address,
     validate_phone_field,
 )
-from backend.utils import token as token_helper
-from backend import authz
-from backend import util
 from newutils import (
     apm,
     datetime as datetime_utils,
+    token as token_helper,
 )
 from __init__ import FI_DEFAULT_ORG
 

@@ -16,9 +16,7 @@ from graphql.language.ast import (
 
 from back import settings
 from back.tests.unit.utils import create_dummy_simple_session
-from backend.dal import (
-    session as session_dal,
-)
+from backend.dal import session as session_dal
 from backend.dal.helpers.redis import (
     redis_cmd,
     redis_del_entity_attr,
@@ -33,10 +31,14 @@ from backend.util import (
     calculate_hash_token,
     get_field_parameters,
 )
-from backend.utils import token as token_helper
-from newutils import encodings
+from newutils import (
+    encodings,
+    token as token_helper,
+)
 from __init__ import (
-    FI_AWS_S3_ACCESS_KEY, FI_AWS_S3_SECRET_KEY, FI_AWS_S3_BUCKET
+    FI_AWS_S3_ACCESS_KEY,
+    FI_AWS_S3_SECRET_KEY,
+    FI_AWS_S3_BUCKET
 )
 
 
