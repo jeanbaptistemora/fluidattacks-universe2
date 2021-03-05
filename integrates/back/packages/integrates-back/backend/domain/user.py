@@ -32,14 +32,14 @@ from backend.typing import (
     User as UserType,
     UpdateAccessTokenPayload as UpdateAccessTokenPayloadType,
 )
-from backend.utils.validations import (
-    validate_email_address,
-    validate_phone_field,
-)
 from newutils import (
     apm,
     datetime as datetime_utils,
     token as token_helper,
+)
+from newutils.validations import (
+    validate_email_address,
+    validate_phone_field,
 )
 from __init__ import FI_DEFAULT_ORG
 

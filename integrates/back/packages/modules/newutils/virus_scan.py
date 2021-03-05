@@ -5,8 +5,8 @@ import cloudmersive_virus_api_client
 from cloudmersive_virus_api_client.rest import ApiException
 from starlette.datastructures import UploadFile
 
-from backend.exceptions import FileInfected
 from back.settings import LOGGING
+from backend.exceptions import FileInfected
 from __init__ import (
     FI_CLOUDMERSIVE_API_KEY,
     FI_ENVIRONMENT

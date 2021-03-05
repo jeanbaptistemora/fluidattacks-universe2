@@ -16,9 +16,8 @@ from backend.decorators import (
 )
 from backend.domain import resources as resources_domain
 from backend.typing import SimplePayload as SimplePayloadType
-from backend.utils import (
-    virus_scan
-)
+from newutils import virus_scan
+
 
 LOGGER = logging.getLogger(__name__)
 

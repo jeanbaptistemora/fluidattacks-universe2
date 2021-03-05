@@ -1,6 +1,8 @@
 # pylint:disable=too-many-branches
 from typing import Dict, List, Union, cast, Optional, Any
+
 from starlette.datastructures import UploadFile
+
 from backend import util
 from backend.dal import finding as finding_dal
 from backend.exceptions import (
@@ -8,10 +10,10 @@ from backend.exceptions import (
     InvalidFileType,
     InvalidFileSize
 )
-from backend.utils import validations
 from newutils import (
     datetime as datetime_utils,
     findings as finding_utils,
+    validations,
 )
 from .finding import get_finding
 

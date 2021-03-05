@@ -12,19 +12,23 @@ from typing import (
     Union
 )
 
+import aioboto3
 from aioextensions import (
     collect,
     schedule,
 )
-import aioboto3
 from graphql.type.definition import GraphQLResolveInfo
 
-from backend import authz, mailer, util
-from backend.dal.helpers.dynamodb import start_context
+from backend import (
+    authz,
+    mailer,
+    util,
+)
 from backend.dal import (
     comment as comment_dal,
     finding as finding_dal,
 )
+from backend.dal.helpers.dynamodb import start_context
 from backend.domain import (
     comment as comment_domain,
     user as user_domain,
@@ -45,15 +49,13 @@ from backend.typing import (
     Finding as FindingType,
     Tracking as TrackingItem,
 )
-from backend.utils import (
-    validations,
-    vulnerabilities as vuln_utils
-)
 from newutils import (
     comments as comments_utils,
     cvss,
     datetime as datetime_utils,
     findings as finding_utils,
+    validations,
+    vulnerabilities as vuln_utils,
 )
 
 

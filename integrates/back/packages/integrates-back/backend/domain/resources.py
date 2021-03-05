@@ -23,20 +23,27 @@ from back.settings import (
     LOGGING,
     NOEXTRA
 )
-from backend import mailer
-from backend import util
+from backend import (
+    mailer,
+    util,
+)
 from backend.dal import (
     project as project_dal,
     resources as resources_dal
 )
+from backend.exceptions import InvalidFileSize
 from backend.typing import (
     MailContent as MailContentType,
     Resource as ResourceType
 )
-from backend.exceptions import InvalidFileSize
-from backend.utils import validations
-from newutils import datetime as datetime_utils
-from __init__ import BASE_URL, FI_MAIL_RESOURCERS
+from newutils import (
+    datetime as datetime_utils,
+    validations,
+)
+from __init__ import (
+    BASE_URL,
+    FI_MAIL_RESOURCERS,
+)
 
 
 logging.config.dictConfig(LOGGING)

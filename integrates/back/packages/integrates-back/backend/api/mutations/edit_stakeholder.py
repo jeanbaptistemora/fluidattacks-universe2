@@ -22,8 +22,8 @@ from backend.typing import (
     Invitation as InvitationType,
     EditStakeholderPayload as EditStakeholderPayloadType
 )
-from backend.utils.validations import validate_fluidattacks_staff_on_group
 from newutils import user as user_utils
+from newutils.validations import validate_fluidattacks_staff_on_group
 
 
 logging.config.dictConfig(LOGGING)

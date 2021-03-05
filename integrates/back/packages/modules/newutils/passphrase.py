@@ -1,6 +1,6 @@
 import random
 
-from backend.utils.wordlist import wordlist
+from newutils.wordlist import wordlist
 
 
 def get_passphrase(n_words: int, sep: str = ' ') -> str:

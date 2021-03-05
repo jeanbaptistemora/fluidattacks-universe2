@@ -1,6 +1,11 @@
 import pytest
 
-from backend.utils.validations import (
+from backend.exceptions import (
+    InvalidChar,
+    InvalidField,
+    InvalidFieldLength,
+)
+from newutils.validations import (
     is_exclude_valid,
     is_valid_git_branch,
     is_valid_ip,
@@ -11,9 +16,8 @@ from backend.utils.validations import (
     validate_fields,
     validate_file_name,
     validate_phone_field,
-    validate_project_name
+    validate_project_name,
 )
-from backend.exceptions import InvalidChar, InvalidField, InvalidFieldLength
 
 
 def test_validate_fields():

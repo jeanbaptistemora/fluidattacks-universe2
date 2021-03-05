@@ -46,12 +46,12 @@ from backend.typing import (
     Event as EventType,
     MailContent as MailContentType,
 )
-from backend.utils import validations
 from events import dal as events_dal
 from newutils import (
     comments as comments_utils,
     datetime as datetime_utils,
-    events as events_utils
+    events as events_utils,
+    validations,
 )
 from __init__ import (
     BASE_URL,

@@ -27,7 +27,10 @@ from aioextensions import (
 from graphql.type.definition import GraphQLResolveInfo
 
 from back.settings import LOGGING
-from backend import authz, mailer
+from backend import (
+    authz,
+    mailer,
+)
 from backend.authz.policy import get_group_level_role
 from backend.dal import project as project_dal
 from backend.dal.helpers.dynamodb import start_context
@@ -62,13 +65,13 @@ from backend.typing import (
     ProjectAccess as ProjectAccessType,
     Vulnerability as VulnerabilityType
 )
-from backend.utils import validations
 from events import domain as events_domain
 from newutils import (
     comments as comments_utils,
     datetime as datetime_utils,
     findings as finding_utils,
     stakeholders as stakeholders_utils,
+    validations,
 )
 
 

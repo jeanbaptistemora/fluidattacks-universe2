@@ -35,14 +35,14 @@ from backend.typing import (
     MailContent as MailContentType,
     ProjectAccess as ProjectAccessType,
 )
-from backend.utils.validations import (
+from newutils import datetime as datetime_utils
+from newutils.validations import (
     validate_alphanumeric_field,
     validate_email_address,
     validate_field_length,
     validate_fluidattacks_staff_on_group,
     validate_phone_field
 )
-from newutils import datetime as datetime_utils
 from __init__ import BASE_URL
 
 
