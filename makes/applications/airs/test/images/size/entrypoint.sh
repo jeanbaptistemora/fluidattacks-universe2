@@ -6,7 +6,7 @@ function optimize_png {
   then
     echo "[INFO] Image is optimized: ${path}"
   else
-    abort "[ERROR] Image is not optimized: ${path}"
+    abort "[ERROR] Image is not optimized with $ optipng -o7 -zm1-9 ${path}"
   fi
 }
 
