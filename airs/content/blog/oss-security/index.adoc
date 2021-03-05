@@ -21,7 +21,7 @@ In link:../vulns-triage-synopsys/[the first one],
 I remember quoting Dale Gardner,
 referring to the increasing use of *OSS* by development teams
 in charge of building applications.
-In link:https://fluidattacks.com/blog/look-inside-oss/[the second one],
+In link:/blog/look-inside-oss/[the second one],
 which may serve as an introduction to the post you are currently reading,
 I addressed some generalities about *OSS*,
 its differentiation from proprietary software,

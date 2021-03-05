@@ -30,7 +30,7 @@
 [cols="1, 4"]
 |====
 |*Kind*|Stack Buffer Overflow
-|*Rule* |link:https://fluidattacks.com/products/rules/list/345/[R345. Establish protections against overflows]
+|*Rule* |link:/products/rules/list/345/[R345. Establish protections against overflows]
 |*Remote*|Yes
 |*CVSSv3 Vector*|CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H
 |*CVSSv3 Base Score*| 9.8 CRITICAL

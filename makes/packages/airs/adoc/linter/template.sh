@@ -104,14 +104,44 @@ function check_adoc_words_case {
 function check_adoc_patterns {
   local target="${1}"
   declare -A msgs=(
+    [blank_space_header]='Headers must be followed by a blank line'
     [caption_forbidden_titles]='Captions must not contain "image", "table" or "figure"'
+    [description_char_range]='Descriptions must be in the 50-160 character range'
+    [four_dashes_code_block]='Code blocks must only have four dashes (----)'
+    [image_alt_name]='Images must have an alt description'
+    [local_relative_paths]='Local URLs must use relative paths'
+    [metadata_lowercase]='All metadata must be lowercase'
+    [no_monospace_header]='Headers must not have monospaces'
+    [no_start_used]='Start attribute must not be used. Use a + sign instead'
+    [numbered_references]='References must be numbered'
     [only_local_images]='Only local images are allowed'
     [only_autonomic_com]='Use autonomicmind.com'
+    [separate_code_from_paragraph]='Source code must be separated from a paragraph using a + sign'
+    [slug_ends_with_slash]=':slug: tag must end with a slash /'
+    [slug_max_chars]='Slug length has a maximum of 44 characters'
+    [title_before_image]='Title must go before image'
+    [title_length_limit]='Title must not exceed 60 characters'
+    [title_no_double_quotes]='Do not use double quotes (") in titles'
   )
   declare -A patterns=(
+    [blank_space_header]='^=\s+.+\n.+'
     [caption_forbidden_titles]='^\.(image|table|figure) \d+'
+    [description_char_range]='(?<=^:description: )(.{0,49}|.{161,})$'
+    [four_dashes_code_block]='^-{5,}'
+    [image_alt_name]='^image::.+\[\]'
+    [local_relative_paths]='link:http(s)?://fluidattacks.com'
+    [metadata_lowercase]='^:[A-Z]:'
+    [no_monospace_header]='^=+ \+.+\+.*'
+    [no_start_used]='\[start'
+    [numbered_references]='^== Referenc.+\n\n[a-zA-Z]'
     [only_local_images]='image::?https?://'
     [only_autonomic_com]='autonomicmind.co(?!m)'
+    [separate_code_from_paragraph]='^[a-zA-Z0-9].*\n.*\[source'
+    [slug_ends_with_slash]='^:slug:.*[a-z0-9-]$'
+    [slug_max_chars]='^:slug: .{44,}'
+    [title_before_image]='image::.+\n\.[a-zA-Z]'
+    [title_length_limit]='^= .{60,}'
+    [title_no_double_quotes]='^={1,6} .*"'
   )
 
   for test in "${!patterns[@]}"

@@ -35,8 +35,7 @@ function job_airs_test_generic {
   && echo '[INFO] Testing touched adoc files' \
   &&  for path in ${touched_adoc_files}
       do
-            helper_airs_generic_adoc_others "${path}" \
-        &&  helper_airs_adoc_tag_exists "${path}" ':description:' \
+            helper_airs_adoc_tag_exists "${path}" ':description:' \
         &&  helper_airs_adoc_max_columns "${path}" "${max_columns}" \
         &&  helper_airs_word_count "${path}" "${min_words}" "${max_words}" \
         &&  helper_airs_test_lix "${path}" "${max_lix}" \

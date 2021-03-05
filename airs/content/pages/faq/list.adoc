@@ -502,7 +502,7 @@ that supports `Docker` (`Docker engine 18.03.1`)
 and has access to the internet.
 
 === 63. Is there documentation for Asserts?
-Yes, it is available on the link:https://fluidattacks.com/products/asserts/[Asserts page].
+Yes, it is available on the link:/products/asserts/[Asserts page].
 
 === 64. Is it possible to group multiple applications into one subscription? How would I recognize the vulnerabilities within each application?
 According to the active authors model,
