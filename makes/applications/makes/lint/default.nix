@@ -1,17 +1,17 @@
-{ makesPkgs
+{ nixpkgs
 , path
 , ...
 }:
 let
-  makeEntrypoint = import (path "/makes/utils/make-entrypoint") path makesPkgs;
+  makeEntrypoint = import (path "/makes/utils/make-entrypoint") path nixpkgs;
 in
 makeEntrypoint {
   arguments = {
-    envFind = "${makesPkgs.findutils}/bin/find";
-    envNixLinter = "${makesPkgs.nix-linter}/bin/nix-linter";
-    envNixpkgsFmt = "${makesPkgs.nixpkgs-fmt}/bin/nixpkgs-fmt";
+    envFind = "${nixpkgs.findutils}/bin/find";
+    envNixLinter = "${nixpkgs.nix-linter}/bin/nix-linter";
+    envNixpkgsFmt = "${nixpkgs.nixpkgs-fmt}/bin/nixpkgs-fmt";
     envMakes = path "/";
-    envShellcheck = "${makesPkgs.shellcheck}/bin/shellcheck";
+    envShellcheck = "${nixpkgs.shellcheck}/bin/shellcheck";
   };
   name = "makes-lint";
   template = path "/makes/applications/makes/lint/template.sh";

@@ -1,4 +1,4 @@
-{ integratesPkgs
+{ nixpkgs2
 , makeEntrypoint
 , packages
 , path
@@ -11,8 +11,8 @@ makeEntrypoint {
   name = "integrates-analytics-documents";
   searchPaths = {
     envPaths = [
-      integratesPkgs.findutils
-      integratesPkgs.python37
+      nixpkgs2.findutils
+      nixpkgs2.python37
       packages.integrates.db
       packages.integrates.cache
       packages.integrates.storage

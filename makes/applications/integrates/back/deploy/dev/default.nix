@@ -1,4 +1,4 @@
-{ integratesPkgs
+{ nixpkgs2
 , makeEntrypoint
 , path
 , ...
@@ -9,10 +9,10 @@ makeEntrypoint {
   };
   searchPaths = {
     envPaths = [
-      integratesPkgs.awscli
-      integratesPkgs.envsubst
-      integratesPkgs.kubectl
-      integratesPkgs.utillinux
+      nixpkgs2.awscli
+      nixpkgs2.envsubst
+      nixpkgs2.kubectl
+      nixpkgs2.utillinux
     ];
     envUtils = [
       "/makes/utils/aws"

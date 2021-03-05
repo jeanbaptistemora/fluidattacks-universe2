@@ -1,5 +1,5 @@
 { makeEntrypoint
-, makesPkgs
+, nixpkgs
 , packages
 , path
 , ...
@@ -11,8 +11,8 @@ makeEntrypoint {
   };
   searchPaths = {
     envPaths = [
-      makesPkgs.awscli
-      makesPkgs.nodejs
+      nixpkgs.awscli
+      nixpkgs.nodejs
     ];
     envUtils = [
       "/makes/utils/aws"

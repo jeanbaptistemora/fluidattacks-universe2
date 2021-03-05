@@ -1,10 +1,10 @@
-{ makesPkgs
+{ nixpkgs
 , path
 , ...
 }:
 let
-  makeEntrypoint = import (path "/makes/utils/make-entrypoint") path makesPkgs;
-  makeTemplate = import (path "/makes/utils/make-template") path makesPkgs;
+  makeEntrypoint = import (path "/makes/utils/make-entrypoint") path nixpkgs;
+  makeTemplate = import (path "/makes/utils/make-template") path nixpkgs;
 in
 makeEntrypoint {
   arguments = builtins.mapAttrs

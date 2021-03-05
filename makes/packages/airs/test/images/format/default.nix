@@ -1,4 +1,4 @@
-{ airsPkgs
+{ nixpkgs
 , makeDerivation
 , path
 , ...
@@ -11,9 +11,9 @@ makeDerivation {
   name = "airs-test-images-format";
   searchPaths = {
     envPaths = [
-      airsPkgs.file
-      airsPkgs.findutils
-      airsPkgs.gnugrep
+      nixpkgs.file
+      nixpkgs.findutils
+      nixpkgs.gnugrep
     ];
   };
 }

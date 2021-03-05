@@ -1,10 +1,10 @@
 { path
-, integratesPkgs
+, nixpkgs2
 , ...
 }:
 let
-  buildPythonRequirements = import (path "/makes/utils/build-python-requirements") path integratesPkgs;
-  makeTemplate = import (path "/makes/utils/make-template") path integratesPkgs;
+  buildPythonRequirements = import (path "/makes/utils/build-python-requirements") path nixpkgs2;
+  makeTemplate = import (path "/makes/utils/make-template") path nixpkgs2;
 in
 makeTemplate {
   arguments = {
@@ -139,7 +139,7 @@ makeTemplate {
           "zope.interface==5.2.0"
         ];
       };
-      python = integratesPkgs.python37;
+      python = nixpkgs2.python37;
     };
     envPythonUtils = path "/makes/utils/python/template.sh";
     envSrcIntegrates = path "/integrates";

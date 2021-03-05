@@ -1,13 +1,13 @@
-{ meltsPkgs
+{ nixpkgs
 , path
 , ...
 }:
 let
-  makeEntrypoint = import (path "/makes/utils/make-entrypoint") path meltsPkgs;
+  makeEntrypoint = import (path "/makes/utils/make-entrypoint") path nixpkgs;
 in
 makeEntrypoint {
   arguments = {
-    envNetworkManager = meltsPkgs.networkmanager;
+    envNetworkManager = nixpkgs.networkmanager;
   };
   name = "melts-vpn";
   template = path "/makes/applications/melts/vpn/entrypoint.sh";

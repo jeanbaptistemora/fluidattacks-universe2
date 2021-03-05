@@ -1,16 +1,16 @@
 { buildNodeRequirements
 , getPackageJsonDeps
-, makesPkgs
+, nixpkgs
 , path
 , ...
 }:
 let
-  nix = import (path "/makes/utils/nix") path makesPkgs;
+  nix = import (path "/makes/utils/nix") path nixpkgs;
   packageJsonDeps = getPackageJsonDeps "/makes/applications/makes/doc/src/package.json";
 in
 buildNodeRequirements {
   name = "makes-doc-runtime";
-  node = makesPkgs.nodejs-12_x;
+  node = nixpkgs.nodejs-12_x;
   requirements = {
     direct = nix.sort packageJsonDeps.production;
     inherited = [

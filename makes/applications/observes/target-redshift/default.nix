@@ -1,10 +1,10 @@
-{ observesPkgs
+{ nixpkgs2
 , packages
 , path
 , ...
 }:
 let
-  makeEntrypoint = import (path "/makes/utils/make-entrypoint") path observesPkgs;
+  makeEntrypoint = import (path "/makes/utils/make-entrypoint") path nixpkgs2;
 in
 makeEntrypoint {
   arguments = {

@@ -1,14 +1,14 @@
 { packages
 , path
-, sortsPkgs
+, nixpkgs
 , ...
 }:
 let
-  makeDerivation = import (path "/makes/utils/make-derivation") path sortsPkgs;
+  makeDerivation = import (path "/makes/utils/make-derivation") path nixpkgs;
 in
 makeDerivation {
   arguments = {
-    envBashLibLintPython = import (path "/makes/utils/lint-python") path sortsPkgs;
+    envBashLibLintPython = import (path "/makes/utils/lint-python") path nixpkgs;
     envImportLinterConfig = path "/sorts/setup.imports.cfg";
     envSetupSortsDevelopment = packages.sorts.config-development;
     envSetupSortsRuntime = packages.sorts.config-runtime;

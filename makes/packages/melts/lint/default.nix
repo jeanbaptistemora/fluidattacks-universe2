@@ -1,14 +1,14 @@
-{ meltsPkgs
+{ nixpkgs
 , packages
 , path
 , ...
 }:
 let
-  makeDerivation = import (path "/makes/utils/make-derivation") path meltsPkgs;
+  makeDerivation = import (path "/makes/utils/make-derivation") path nixpkgs;
 in
 makeDerivation {
   arguments = {
-    envBashLibLintPython = import (path "/makes/utils/lint-python") path meltsPkgs;
+    envBashLibLintPython = import (path "/makes/utils/lint-python") path nixpkgs;
     envSetupMeltsDevelopment = packages.melts.config-development;
     envSetupMeltsRuntime = packages.melts.config-runtime;
     envSrcMeltsToolbox = path "/melts/toolbox";

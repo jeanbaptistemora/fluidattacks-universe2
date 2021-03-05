@@ -1,5 +1,5 @@
 { makeEntrypoint
-, observesPkgs
+, nixpkgs2
 , packages
 , path
 , ...
@@ -9,8 +9,8 @@ makeEntrypoint {
   searchPaths = {
     envPaths = [
       packages.observes.job.dynamodb-etl
-      observesPkgs.coreutils
-      observesPkgs.jq
+      nixpkgs2.coreutils
+      nixpkgs2.jq
     ];
   };
   name = "observes-job-dynamodb-table-etl";

@@ -1,4 +1,4 @@
-{ integratesPkgs
+{ nixpkgs2
 , makeEntrypoint
 , path
 , terraformTest
@@ -6,8 +6,8 @@
 }:
 makeEntrypoint rec {
   arguments = {
-    envUtilsAws = import (path "/makes/utils/aws") path integratesPkgs;
-    envUtilsSops = import (path "/makes/utils/sops") path integratesPkgs;
+    envUtilsAws = import (path "/makes/utils/aws") path nixpkgs2;
+    envUtilsSops = import (path "/makes/utils/sops") path nixpkgs2;
     envTerraformTest = "${terraformTest {
       inherit name;
       product = "integrates";

@@ -1,11 +1,11 @@
 { makeTemplate
 , packages
 , path
-, reviewsPkgs
+, nixpkgs
 , ...
 }:
 let
-  buildPythonRequirements = import (path "/makes/utils/build-python-requirements") path reviewsPkgs;
+  buildPythonRequirements = import (path "/makes/utils/build-python-requirements") path nixpkgs;
 in
 makeTemplate {
   arguments = {
@@ -14,7 +14,7 @@ makeTemplate {
   name = "reviews-runtime";
   searchPaths = {
     envPaths = [
-      reviewsPkgs.python38
+      nixpkgs.python38
     ];
     envPythonPaths = [
       (path "/reviews/src")
@@ -41,7 +41,7 @@ makeTemplate {
             "urllib3==1.26.3"
           ];
         };
-        python = reviewsPkgs.python38;
+        python = nixpkgs.python38;
       })
     ];
     envNodeBinaries = [

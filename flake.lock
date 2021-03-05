@@ -16,165 +16,35 @@
         "type": "github"
       }
     },
+    "nixpkgsSource": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-g8ZZmGMbEbHuHW7yr86oRdh+7ot+3B5bz28J2WGgT6s=",
+        "type": "tarball",
+        "url": "https://github.com/nixos/nixpkgs/archive/7138a338b58713e0dea22ddab6a6785abec7376a.tar.gz"
+      },
+      "original": {
+        "type": "tarball",
+        "url": "https://github.com/nixos/nixpkgs/archive/7138a338b58713e0dea22ddab6a6785abec7376a.tar.gz"
+      }
+    },
+    "nixpkgsSource2": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-F5+ESAMGMumeYuBx7qi9YnE9aeRhEE9JTjtvTb30lrQ=",
+        "type": "tarball",
+        "url": "https://github.com/nixos/nixpkgs/archive/932941b79c3dbbef2de9440e1631dfec43956261.tar.gz"
+      },
+      "original": {
+        "type": "tarball",
+        "url": "https://github.com/nixos/nixpkgs/archive/932941b79c3dbbef2de9440e1631dfec43956261.tar.gz"
+      }
+    },
     "root": {
       "inputs": {
         "flakeCompat": "flakeCompat",
-        "srcAirsPkgs": "srcAirsPkgs",
-        "srcAssertsPkgs": "srcAssertsPkgs",
-        "srcForcesPkgs": "srcForcesPkgs",
-        "srcIntegratesMobilePkgs": "srcIntegratesMobilePkgs",
-        "srcIntegratesPkgs": "srcIntegratesPkgs",
-        "srcMakesPkgs": "srcMakesPkgs",
-        "srcMeltsPkgs": "srcMeltsPkgs",
-        "srcObservesPkgs": "srcObservesPkgs",
-        "srcReviewsPkgs": "srcReviewsPkgs",
-        "srcServesPkgs": "srcServesPkgs",
-        "srcSkimsPkgs": "srcSkimsPkgs",
-        "srcSortsPkgs": "srcSortsPkgs"
-      }
-    },
-    "srcAirsPkgs": {
-      "flake": false,
-      "locked": {
-        "narHash": "sha256-g8ZZmGMbEbHuHW7yr86oRdh+7ot+3B5bz28J2WGgT6s=",
-        "type": "tarball",
-        "url": "https://github.com/nixos/nixpkgs/archive/7138a338b58713e0dea22ddab6a6785abec7376a.tar.gz"
-      },
-      "original": {
-        "type": "tarball",
-        "url": "https://github.com/nixos/nixpkgs/archive/7138a338b58713e0dea22ddab6a6785abec7376a.tar.gz"
-      }
-    },
-    "srcAssertsPkgs": {
-      "flake": false,
-      "locked": {
-        "narHash": "sha256-g8ZZmGMbEbHuHW7yr86oRdh+7ot+3B5bz28J2WGgT6s=",
-        "type": "tarball",
-        "url": "https://github.com/nixos/nixpkgs/archive/7138a338b58713e0dea22ddab6a6785abec7376a.tar.gz"
-      },
-      "original": {
-        "type": "tarball",
-        "url": "https://github.com/nixos/nixpkgs/archive/7138a338b58713e0dea22ddab6a6785abec7376a.tar.gz"
-      }
-    },
-    "srcForcesPkgs": {
-      "flake": false,
-      "locked": {
-        "narHash": "sha256-g8ZZmGMbEbHuHW7yr86oRdh+7ot+3B5bz28J2WGgT6s=",
-        "type": "tarball",
-        "url": "https://github.com/nixos/nixpkgs/archive/7138a338b58713e0dea22ddab6a6785abec7376a.tar.gz"
-      },
-      "original": {
-        "type": "tarball",
-        "url": "https://github.com/nixos/nixpkgs/archive/7138a338b58713e0dea22ddab6a6785abec7376a.tar.gz"
-      }
-    },
-    "srcIntegratesMobilePkgs": {
-      "flake": false,
-      "locked": {
-        "narHash": "sha256-F5+ESAMGMumeYuBx7qi9YnE9aeRhEE9JTjtvTb30lrQ=",
-        "type": "tarball",
-        "url": "https://github.com/nixos/nixpkgs/archive/932941b79c3dbbef2de9440e1631dfec43956261.tar.gz"
-      },
-      "original": {
-        "type": "tarball",
-        "url": "https://github.com/nixos/nixpkgs/archive/932941b79c3dbbef2de9440e1631dfec43956261.tar.gz"
-      }
-    },
-    "srcIntegratesPkgs": {
-      "flake": false,
-      "locked": {
-        "narHash": "sha256-F5+ESAMGMumeYuBx7qi9YnE9aeRhEE9JTjtvTb30lrQ=",
-        "type": "tarball",
-        "url": "https://github.com/nixos/nixpkgs/archive/932941b79c3dbbef2de9440e1631dfec43956261.tar.gz"
-      },
-      "original": {
-        "type": "tarball",
-        "url": "https://github.com/nixos/nixpkgs/archive/932941b79c3dbbef2de9440e1631dfec43956261.tar.gz"
-      }
-    },
-    "srcMakesPkgs": {
-      "flake": false,
-      "locked": {
-        "narHash": "sha256-g8ZZmGMbEbHuHW7yr86oRdh+7ot+3B5bz28J2WGgT6s=",
-        "type": "tarball",
-        "url": "https://github.com/nixos/nixpkgs/archive/7138a338b58713e0dea22ddab6a6785abec7376a.tar.gz"
-      },
-      "original": {
-        "type": "tarball",
-        "url": "https://github.com/nixos/nixpkgs/archive/7138a338b58713e0dea22ddab6a6785abec7376a.tar.gz"
-      }
-    },
-    "srcMeltsPkgs": {
-      "flake": false,
-      "locked": {
-        "narHash": "sha256-g8ZZmGMbEbHuHW7yr86oRdh+7ot+3B5bz28J2WGgT6s=",
-        "type": "tarball",
-        "url": "https://github.com/nixos/nixpkgs/archive/7138a338b58713e0dea22ddab6a6785abec7376a.tar.gz"
-      },
-      "original": {
-        "type": "tarball",
-        "url": "https://github.com/nixos/nixpkgs/archive/7138a338b58713e0dea22ddab6a6785abec7376a.tar.gz"
-      }
-    },
-    "srcObservesPkgs": {
-      "flake": false,
-      "locked": {
-        "narHash": "sha256-F5+ESAMGMumeYuBx7qi9YnE9aeRhEE9JTjtvTb30lrQ=",
-        "type": "tarball",
-        "url": "https://github.com/nixos/nixpkgs/archive/932941b79c3dbbef2de9440e1631dfec43956261.tar.gz"
-      },
-      "original": {
-        "type": "tarball",
-        "url": "https://github.com/nixos/nixpkgs/archive/932941b79c3dbbef2de9440e1631dfec43956261.tar.gz"
-      }
-    },
-    "srcReviewsPkgs": {
-      "flake": false,
-      "locked": {
-        "narHash": "sha256-g8ZZmGMbEbHuHW7yr86oRdh+7ot+3B5bz28J2WGgT6s=",
-        "type": "tarball",
-        "url": "https://github.com/nixos/nixpkgs/archive/7138a338b58713e0dea22ddab6a6785abec7376a.tar.gz"
-      },
-      "original": {
-        "type": "tarball",
-        "url": "https://github.com/nixos/nixpkgs/archive/7138a338b58713e0dea22ddab6a6785abec7376a.tar.gz"
-      }
-    },
-    "srcServesPkgs": {
-      "flake": false,
-      "locked": {
-        "narHash": "sha256-g8ZZmGMbEbHuHW7yr86oRdh+7ot+3B5bz28J2WGgT6s=",
-        "type": "tarball",
-        "url": "https://github.com/nixos/nixpkgs/archive/7138a338b58713e0dea22ddab6a6785abec7376a.tar.gz"
-      },
-      "original": {
-        "type": "tarball",
-        "url": "https://github.com/nixos/nixpkgs/archive/7138a338b58713e0dea22ddab6a6785abec7376a.tar.gz"
-      }
-    },
-    "srcSkimsPkgs": {
-      "flake": false,
-      "locked": {
-        "narHash": "sha256-g8ZZmGMbEbHuHW7yr86oRdh+7ot+3B5bz28J2WGgT6s=",
-        "type": "tarball",
-        "url": "https://github.com/nixos/nixpkgs/archive/7138a338b58713e0dea22ddab6a6785abec7376a.tar.gz"
-      },
-      "original": {
-        "type": "tarball",
-        "url": "https://github.com/nixos/nixpkgs/archive/7138a338b58713e0dea22ddab6a6785abec7376a.tar.gz"
-      }
-    },
-    "srcSortsPkgs": {
-      "flake": false,
-      "locked": {
-        "narHash": "sha256-g8ZZmGMbEbHuHW7yr86oRdh+7ot+3B5bz28J2WGgT6s=",
-        "type": "tarball",
-        "url": "https://github.com/nixos/nixpkgs/archive/7138a338b58713e0dea22ddab6a6785abec7376a.tar.gz"
-      },
-      "original": {
-        "type": "tarball",
-        "url": "https://github.com/nixos/nixpkgs/archive/7138a338b58713e0dea22ddab6a6785abec7376a.tar.gz"
+        "nixpkgsSource": "nixpkgsSource",
+        "nixpkgsSource2": "nixpkgsSource2"
       }
     }
   },

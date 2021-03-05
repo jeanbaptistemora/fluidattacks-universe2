@@ -1,10 +1,10 @@
 { packages
 , path
-, skimsPkgs
+, nixpkgs
 , ...
 }:
 let
-  makeEntrypoint = import (path "/makes/utils/make-entrypoint") path skimsPkgs;
+  makeEntrypoint = import (path "/makes/utils/make-entrypoint") path nixpkgs;
 in
 makeEntrypoint {
   arguments = {

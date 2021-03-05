@@ -1,4 +1,4 @@
-{ integratesPkgs
+{ nixpkgs2
 , makeEntrypoint
 , path
 , ...
@@ -7,9 +7,9 @@ makeEntrypoint {
   name = "integrates-coverage";
   searchPaths = {
     envPaths = [
-      integratesPkgs.findutils
-      integratesPkgs.git
-      integratesPkgs.python37Packages.codecov
+      nixpkgs2.findutils
+      nixpkgs2.git
+      nixpkgs2.python37Packages.codecov
     ];
     envUtils = [
       "/makes/utils/aws"

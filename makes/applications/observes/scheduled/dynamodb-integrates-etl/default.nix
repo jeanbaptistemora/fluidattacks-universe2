@@ -1,10 +1,10 @@
-{ observesPkgs
+{ nixpkgs2
 , makeEntrypoint
 , path
 , ...
 }:
 let
-  computeOnAws = import (path "/makes/utils/compute-on-aws") path observesPkgs;
+  computeOnAws = import (path "/makes/utils/compute-on-aws") path nixpkgs2;
   jobConfig = {
     attempts = 5;
     command = [ "./m" "observes.job.dynamodb-table-etl" ];
@@ -25,8 +25,8 @@ makeEntrypoint {
   searchPaths = {
     envPaths = [
       dynamoEtlOnAws
-      observesPkgs.coreutils
-      observesPkgs.jq
+      nixpkgs2.coreutils
+      nixpkgs2.jq
     ];
     envUtils = [
       "/makes/utils/aws"

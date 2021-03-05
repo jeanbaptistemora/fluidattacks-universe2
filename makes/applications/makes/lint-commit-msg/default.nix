@@ -1,5 +1,5 @@
 { makeEntrypoint
-, makesPkgs
+, nixpkgs
 , packages
 , path
 , ...
@@ -7,7 +7,7 @@
 makeEntrypoint {
   searchPaths = {
     envPaths = [
-      makesPkgs.git
+      nixpkgs.git
     ];
     envNodeBinaries = [
       packages.makes.commitlint

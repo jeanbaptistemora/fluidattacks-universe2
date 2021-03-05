@@ -1,10 +1,10 @@
-{ servesPkgs
+{ nixpkgs
 , path
 , ...
 }:
 let
-  makeEntrypoint = import (path "/makes/utils/make-entrypoint") path servesPkgs;
-  userRotateKeys = import (path "/makes/utils/user-rotate-keys") path servesPkgs;
+  makeEntrypoint = import (path "/makes/utils/make-entrypoint") path nixpkgs;
+  userRotateKeys = import (path "/makes/utils/user-rotate-keys") path nixpkgs;
   name = "serves-users-integrates-rotate-even";
   product = "serves";
   target = "serves/users/integrates/terraform";
@@ -78,8 +78,8 @@ makeEntrypoint {
   inherit name;
   searchPaths = {
     envPaths = [
-      servesPkgs.curl
-      servesPkgs.jq
+      nixpkgs.curl
+      nixpkgs.jq
       (userRotateKeys {
         name = "user-rotate-keys-production";
         inherit product;

@@ -1,10 +1,10 @@
 { path
-, skimsPkgs
+, nixpkgs
 , ...
 }:
 let
-  buildPythonRequirements = import (path "/makes/utils/build-python-requirements") path skimsPkgs;
-  makeTemplate = import (path "/makes/utils/make-template") path skimsPkgs;
+  buildPythonRequirements = import (path "/makes/utils/build-python-requirements") path nixpkgs;
+  makeTemplate = import (path "/makes/utils/make-template") path nixpkgs;
   pythonRequirements = buildPythonRequirements {
     dependencies = [ ];
     name = "skims-development";
@@ -37,7 +37,7 @@ let
         "wcwidth==0.2.5"
       ];
     };
-    python = skimsPkgs.python38;
+    python = nixpkgs.python38;
   };
 in
 makeTemplate {

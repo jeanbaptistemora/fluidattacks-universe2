@@ -1,4 +1,4 @@
-{ airsPkgs
+{ nixpkgs
 , makeEntrypoint
 , path
 , ...
@@ -7,8 +7,8 @@ makeEntrypoint {
   name = "airs-test-images-size";
   searchPaths = {
     envPaths = [
-      airsPkgs.gnugrep
-      airsPkgs.optipng
+      nixpkgs.gnugrep
+      nixpkgs.optipng
     ];
     envUtils = [
       "/makes/utils/git"

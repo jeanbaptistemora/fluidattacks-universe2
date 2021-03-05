@@ -1,10 +1,10 @@
-{ forcesPkgs
+{ nixpkgs
 , packages
 , path
 , ...
 }:
 let
-  ociDeploy = import (path "/makes/utils/oci-deploy") path forcesPkgs;
+  ociDeploy = import (path "/makes/utils/oci-deploy") path nixpkgs;
 in
 ociDeploy {
   oci = packages.forces.oci-build;

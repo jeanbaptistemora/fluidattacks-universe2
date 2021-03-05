@@ -1,11 +1,11 @@
-{ forcesPkgs
+{ nixpkgs
 , path
 , ...
 }:
 let
-  buildPythonRequirements = import (path "/makes/utils/build-python-requirements") path forcesPkgs;
-  makeSearchPaths = import (path "/makes/utils/make-search-paths-deprecated") path forcesPkgs;
-  makeTemplate = import (path "/makes/utils/make-template") path forcesPkgs;
+  buildPythonRequirements = import (path "/makes/utils/build-python-requirements") path nixpkgs;
+  makeSearchPaths = import (path "/makes/utils/make-search-paths-deprecated") path nixpkgs;
+  makeTemplate = import (path "/makes/utils/make-template") path nixpkgs;
 in
 makeTemplate {
   arguments = {
@@ -30,7 +30,7 @@ makeTemplate {
           "wcwidth==0.2.5"
         ];
       };
-      python = forcesPkgs.python38;
+      python = nixpkgs.python38;
     };
     envUtilsBashLibPython = path "/makes/utils/python/template.sh";
   };

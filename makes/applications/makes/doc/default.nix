@@ -1,5 +1,5 @@
 { makeEntrypoint
-, makesPkgs
+, nixpkgs
 , packages
 , path
 , ...
@@ -11,8 +11,8 @@ makeEntrypoint {
   };
   searchPaths = {
     envPaths = [
-      makesPkgs.nodejs
-      makesPkgs.xdg_utils
+      nixpkgs.nodejs
+      nixpkgs.xdg_utils
     ];
   };
   template = path "/makes/applications/makes/doc/entrypoint.sh";

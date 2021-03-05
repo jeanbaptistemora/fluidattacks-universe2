@@ -1,4 +1,4 @@
-{ integratesPkgs
+{ nixpkgs2
 , makeEntrypoint
 , packages
 , path
@@ -11,8 +11,8 @@ makeEntrypoint {
   name = "integrates-front-build";
   searchPaths = {
     envPaths = [
-      integratesPkgs.nodejs
-      integratesPkgs.patch
+      nixpkgs2.nodejs
+      nixpkgs2.patch
     ];
   };
   template = path "/makes/applications/integrates/front/build/entrypoint.sh";

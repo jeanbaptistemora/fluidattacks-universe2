@@ -1,9 +1,9 @@
-{ integratesPkgs
+{ nixpkgs2
 , path
 , ...
 }:
 let
-  buildPythonRequirements = import (path "/makes/utils/build-python-requirements") path integratesPkgs;
+  buildPythonRequirements = import (path "/makes/utils/build-python-requirements") path nixpkgs2;
 in
 buildPythonRequirements {
   dependencies = [ ];
@@ -27,5 +27,5 @@ buildPythonRequirements {
       "urllib3==1.26.3"
     ];
   };
-  python = integratesPkgs.python38;
+  python = nixpkgs2.python38;
 }

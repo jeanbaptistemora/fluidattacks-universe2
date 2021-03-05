@@ -1,10 +1,10 @@
 { packages
 , path
-, skimsPkgs
+, nixpkgs
 , ...
 }:
 let
-  makeDerivation = import (path "/makes/utils/make-derivation") path skimsPkgs;
+  makeDerivation = import (path "/makes/utils/make-derivation") path nixpkgs;
 in
 makeDerivation {
   arguments = {

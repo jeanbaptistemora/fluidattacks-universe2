@@ -1,11 +1,11 @@
-{ integratesPkgs
+{ nixpkgs2
 , makeEntrypoint
 , path
 , ...
 }:
 makeEntrypoint {
   searchPaths = {
-    envPaths = [ integratesPkgs.kubectl ];
+    envPaths = [ nixpkgs2.kubectl ];
     envUtils = [ "/makes/utils/aws" ];
   };
   name = "integrates-back-destroy-eph";

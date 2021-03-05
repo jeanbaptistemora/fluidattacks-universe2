@@ -1,14 +1,14 @@
-{ forcesPkgs
+{ nixpkgs
 , packages
 , path
 , ...
 }:
 let
-  makeDerivation = import (path "/makes/utils/make-derivation") path forcesPkgs;
+  makeDerivation = import (path "/makes/utils/make-derivation") path nixpkgs;
 in
 makeDerivation {
   arguments = {
-    envBashLibLintPython = import (path "/makes/utils/lint-python") path forcesPkgs;
+    envBashLibLintPython = import (path "/makes/utils/lint-python") path nixpkgs;
     envSetupForcesRuntime = packages.forces.config-runtime;
     envSetupForcesDevelopment = packages.forces.config-development;
     envSrcForcesForces = path "/forces/forces";

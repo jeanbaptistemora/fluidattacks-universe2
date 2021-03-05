@@ -1,4 +1,4 @@
-{ assertsPkgs
+{ nixpkgs
 , makeTemplate
 , packages
 , path
@@ -8,8 +8,8 @@ makeTemplate {
   name = "asserts-env";
   searchPaths = {
     envPaths = [
-      assertsPkgs.git
-      assertsPkgs.python37
+      nixpkgs.git
+      nixpkgs.python37
     ];
     envPythonPaths = [
       (path "/asserts")
@@ -18,11 +18,11 @@ makeTemplate {
       # Order matters. In order to overwrite libraries from pypi,
       # we must attach python37Packages at the end.
       packages.asserts.pypi.runtime
-      assertsPkgs.python37Packages.mysql-connector
-      assertsPkgs.python37Packages.psycopg2
-      assertsPkgs.python37Packages.pyodbc
-      assertsPkgs.python37Packages.brotli
-      assertsPkgs.python37Packages.urllib3
+      nixpkgs.python37Packages.mysql-connector
+      nixpkgs.python37Packages.psycopg2
+      nixpkgs.python37Packages.pyodbc
+      nixpkgs.python37Packages.brotli
+      nixpkgs.python37Packages.urllib3
     ];
   };
   template = path "/makes/packages/asserts/env/template.sh";

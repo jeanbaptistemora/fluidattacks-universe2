@@ -1,16 +1,16 @@
-{ meltsPkgs
+{ nixpkgs
 , path
 , ...
 }:
 let
-  buildPythonRequirements = import (path "/makes/utils/build-python-requirements") path meltsPkgs;
-  makeSearchPaths = import (path "/makes/utils/make-search-paths-deprecated") path meltsPkgs;
-  makeTemplate = import (path "/makes/utils/make-template") path meltsPkgs;
+  buildPythonRequirements = import (path "/makes/utils/build-python-requirements") path nixpkgs;
+  makeSearchPaths = import (path "/makes/utils/make-search-paths-deprecated") path nixpkgs;
+  makeTemplate = import (path "/makes/utils/make-template") path nixpkgs;
 in
 makeTemplate {
   arguments = {
     envSearchPaths = makeSearchPaths [
-      meltsPkgs.docker
+      nixpkgs.docker
     ];
     envPythonRequirements = buildPythonRequirements {
       dependencies = [ ];
@@ -57,7 +57,7 @@ makeTemplate {
           "wcwidth==0.2.5"
         ];
       };
-      python = meltsPkgs.python38;
+      python = nixpkgs.python38;
     };
     envUtilsBashLibPython = path "/makes/utils/python/template.sh";
   };

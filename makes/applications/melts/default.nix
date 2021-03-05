@@ -1,10 +1,10 @@
-{ meltsPkgs
+{ nixpkgs
 , packages
 , path
 , ...
 }:
 let
-  makeEntrypoint = import (path "/makes/utils/make-entrypoint") path meltsPkgs;
+  makeEntrypoint = import (path "/makes/utils/make-entrypoint") path nixpkgs;
 in
 makeEntrypoint {
   arguments = {

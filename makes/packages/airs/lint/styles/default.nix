@@ -1,4 +1,4 @@
-{ airsPkgs
+{ nixpkgs
 , makeDerivation
 , packages
 , path
@@ -13,7 +13,7 @@ makeDerivation {
   name = "airs-lint-styles";
   searchPaths = {
     envPaths = [
-      airsPkgs.findutils
+      nixpkgs.findutils
     ];
   };
 }

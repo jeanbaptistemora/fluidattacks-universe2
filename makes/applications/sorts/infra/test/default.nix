@@ -1,9 +1,9 @@
 { path
-, sortsPkgs
+, nixpkgs
 , ...
 }:
 let
-  terraformTest = import (path "/makes/utils/terraform-test") path sortsPkgs;
+  terraformTest = import (path "/makes/utils/terraform-test") path nixpkgs;
 in
 terraformTest {
   name = "sorts-infra-test";

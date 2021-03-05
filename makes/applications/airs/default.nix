@@ -1,4 +1,4 @@
-{ airsPkgs
+{ nixpkgs
 , makeEntrypoint
 , packages
 , path
@@ -11,10 +11,10 @@ makeEntrypoint {
   name = "airs";
   searchPaths = {
     envPaths = [
-      airsPkgs.findutils
-      airsPkgs.gnused
-      airsPkgs.gzip
-      airsPkgs.python37
+      nixpkgs.findutils
+      nixpkgs.gnused
+      nixpkgs.gzip
+      nixpkgs.python37
       packages.makes.announce.bugsnag
     ];
     envUtils = [

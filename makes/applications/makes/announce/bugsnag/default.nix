@@ -1,13 +1,13 @@
 { buildNodeRequirements
 , makeEntrypoint
-, makesPkgs
+, nixpkgs
 , path
 , ...
 }:
 let
   nodeRequirements = buildNodeRequirements {
     name = "makes-announce-bugsnag";
-    node = makesPkgs.nodejs;
+    node = nixpkgs.nodejs;
     requirements = {
       direct = [
         "bugsnag-build-reporter@1.0.3"

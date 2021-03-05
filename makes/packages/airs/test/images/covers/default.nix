@@ -1,4 +1,4 @@
-{ airsPkgs
+{ nixpkgs
 , makeDerivation
 , path
 , ...
@@ -11,8 +11,8 @@ makeDerivation {
   name = "airs-test-images-covers";
   searchPaths = {
     envPaths = [
-      airsPkgs.findutils
-      airsPkgs.imagemagick
+      nixpkgs.findutils
+      nixpkgs.imagemagick
     ];
   };
 }

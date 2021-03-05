@@ -1,12 +1,12 @@
 { makeDerivation
 , packages
 , path
-, reviewsPkgs
+, nixpkgs
 , ...
 }:
 makeDerivation {
   arguments = {
-    envUtilsLintPython = import (path "/makes/utils/lint-python") path reviewsPkgs;
+    envUtilsLintPython = import (path "/makes/utils/lint-python") path nixpkgs;
     envReviewsRuntime = packages.reviews.runtime;
     envSrcReviews = path "/reviews/src/";
   };

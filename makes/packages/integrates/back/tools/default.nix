@@ -1,10 +1,10 @@
-{ integratesPkgs
+{ nixpkgs2
 , packages
 , path
 , ...
 }:
 let
-  makeTemplate = import (path "/makes/utils/make-template") path integratesPkgs;
+  makeTemplate = import (path "/makes/utils/make-template") path nixpkgs2;
 in
 makeTemplate {
   arguments = {

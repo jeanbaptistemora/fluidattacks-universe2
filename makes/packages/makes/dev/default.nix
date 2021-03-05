@@ -1,23 +1,23 @@
-{ makesPkgs
+{ nixpkgs
 , packages
 , path
 , ...
 }:
 let
-  makeTemplate = import (path "/makes/utils/make-template") path makesPkgs;
+  makeTemplate = import (path "/makes/utils/make-template") path nixpkgs;
 in
 makeTemplate {
   arguments = {
-    envBaseSearchPaths = import (path "/makes/utils/make-search-paths-deprecated") path makesPkgs [
-      makesPkgs.awscli
-      makesPkgs.cloc
-      makesPkgs.jq
-      makesPkgs.nixpkgs-fmt
-      makesPkgs.redis
-      makesPkgs.sops
-      makesPkgs.terraform
-      makesPkgs.tokei
-      makesPkgs.yq
+    envBaseSearchPaths = import (path "/makes/utils/make-search-paths-deprecated") path nixpkgs [
+      nixpkgs.awscli
+      nixpkgs.cloc
+      nixpkgs.jq
+      nixpkgs.nixpkgs-fmt
+      nixpkgs.redis
+      nixpkgs.sops
+      nixpkgs.terraform
+      nixpkgs.tokei
+      nixpkgs.yq
     ];
     envSkimsSetupDevelopment = packages.skims.config-development;
     envSkimsSetupRuntime = packages.skims.config-runtime;

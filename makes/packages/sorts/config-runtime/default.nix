@@ -1,17 +1,17 @@
 { path
-, sortsPkgs
+, nixpkgs
 , ...
 }:
 let
-  buildPythonRequirements = import (path "/makes/utils/build-python-requirements") path sortsPkgs;
-  makeSearchPaths = import (path "/makes/utils/make-search-paths-deprecated") path sortsPkgs;
-  makeTemplate = import (path "/makes/utils/make-template") path sortsPkgs;
+  buildPythonRequirements = import (path "/makes/utils/build-python-requirements") path nixpkgs;
+  makeSearchPaths = import (path "/makes/utils/make-search-paths-deprecated") path nixpkgs;
+  makeTemplate = import (path "/makes/utils/make-template") path nixpkgs;
 in
 makeTemplate {
   arguments = {
     envContextFile = makeTemplate {
       arguments = {
-        envSortsModel = sortsPkgs.fetchurl {
+        envSortsModel = nixpkgs.fetchurl {
           url = "https://sorts.s3.amazonaws.com/training-output/model.joblib?versionId=IKhqYYxpu72milhmPGti94p.YvdyJxzV";
           sha256 = "0h9yYuNI2L4V6dzfhYgoE55lFrg21B2D0NJT3U6Z9aY=";
         };
@@ -23,7 +23,7 @@ makeTemplate {
         export SORTS_MODEL_PATH='__envSortsModel__'
       '';
     };
-    envPython = "${sortsPkgs.python38}/bin/python";
+    envPython = "${nixpkgs.python38}/bin/python";
     envPythonRequirements = buildPythonRequirements {
       dependencies = [ ];
       name = "sorts-runtime";
@@ -71,9 +71,9 @@ makeTemplate {
           "yarl==1.6.3"
         ];
       };
-      python = sortsPkgs.python38;
+      python = nixpkgs.python38;
     };
-    envSearchPaths = makeSearchPaths [ sortsPkgs.gcc.cc sortsPkgs.git ];
+    envSearchPaths = makeSearchPaths [ nixpkgs.gcc.cc nixpkgs.git ];
     envSrcSortsSorts = path "/sorts/sorts";
     envUtilsBashLibPython = path "/makes/utils/python/template.sh";
   };

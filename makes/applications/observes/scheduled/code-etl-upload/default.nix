@@ -1,9 +1,9 @@
 { path
-, observesPkgs
+, nixpkgs2
 , ...
 }:
 let
-  computeOnAws = import (path "/makes/utils/compute-on-aws") path observesPkgs;
+  computeOnAws = import (path "/makes/utils/compute-on-aws") path nixpkgs2;
   uploadGroup = computeOnAws {
     attempts = 5;
     command = [ "./m" "observes.code-etl-upload" ];
@@ -21,14 +21,14 @@ let
     timeout = 7200;
     vcpus = 1;
   };
-  makeEntrypoint = import (path "/makes/utils/make-entrypoint") path observesPkgs;
+  makeEntrypoint = import (path "/makes/utils/make-entrypoint") path nixpkgs2;
 in
 makeEntrypoint {
   arguments = {
     envUploadGroupBin = "${uploadGroup}/bin";
-    envUtilsBashLibAws = import (path "/makes/utils/aws") path observesPkgs;
-    envUtilsBashLibGit = import (path "/makes/utils/git") path observesPkgs;
-    envUtilsBashLibSops = import (path "/makes/utils/sops") path observesPkgs;
+    envUtilsBashLibAws = import (path "/makes/utils/aws") path nixpkgs2;
+    envUtilsBashLibGit = import (path "/makes/utils/git") path nixpkgs2;
+    envUtilsBashLibSops = import (path "/makes/utils/sops") path nixpkgs2;
   };
   name = "observes-scheduled-code-etl-upload";
   template = path "/makes/applications/observes/scheduled/code-etl-upload/entrypoint.sh";

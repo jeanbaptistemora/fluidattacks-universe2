@@ -1,14 +1,14 @@
-{ integratesPkgs
+{ nixpkgs2
 , path
 , ...
 }:
 let
-  buildNodeRequirements = import (path "/makes/utils/build-node-requirements") path integratesPkgs;
+  buildNodeRequirements = import (path "/makes/utils/build-node-requirements") path nixpkgs2;
 in
 buildNodeRequirements {
   dependencies = [ ];
   name = "integrates-back-tools-secure-spreadsheet";
-  node = integratesPkgs.nodejs;
+  node = nixpkgs2.nodejs;
   requirements = {
     direct = [
       "secure-spreadsheet@0.1.0"

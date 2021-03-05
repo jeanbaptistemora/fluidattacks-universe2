@@ -1,21 +1,21 @@
-{ meltsPkgs
+{ nixpkgs
 , path
 , ...
 }:
 let
-  buildPythonRequirements = import (path "/makes/utils/build-python-requirements") path meltsPkgs;
-  makeSearchPaths = import (path "/makes/utils/make-search-paths-deprecated") path meltsPkgs;
-  makeTemplate = import (path "/makes/utils/make-template") path meltsPkgs;
+  buildPythonRequirements = import (path "/makes/utils/build-python-requirements") path nixpkgs;
+  makeSearchPaths = import (path "/makes/utils/make-search-paths-deprecated") path nixpkgs;
+  makeTemplate = import (path "/makes/utils/make-template") path nixpkgs;
 in
 makeTemplate {
   arguments = {
     envSearchPaths = makeSearchPaths [
-      meltsPkgs.git
-      meltsPkgs.sops
-      meltsPkgs.cloc
-      meltsPkgs.openssh
+      nixpkgs.git
+      nixpkgs.sops
+      nixpkgs.cloc
+      nixpkgs.openssh
     ];
-    envPython = "${meltsPkgs.python38}/bin/python";
+    envPython = "${nixpkgs.python38}/bin/python";
     envPythonRequirements = buildPythonRequirements {
       dependencies = [ ];
       name = "melts-runtime";
@@ -81,7 +81,7 @@ makeTemplate {
           "yarl==1.6.3"
         ];
       };
-      python = meltsPkgs.python38;
+      python = nixpkgs.python38;
     };
     envSrcMelts = path "/melts";
     envUtilsBashLibPython = path "/makes/utils/python/template.sh";

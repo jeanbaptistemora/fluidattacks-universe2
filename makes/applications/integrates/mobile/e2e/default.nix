@@ -1,6 +1,6 @@
 { buildNodeRequirements
 , buildPythonRequirements
-, integratesMobilePkgs
+, nixpkgs2
 , makeEntrypoint
 , packages
 , path
@@ -9,7 +9,7 @@
 let
   nodeRequirements = buildNodeRequirements {
     name = "integrates-mobile-e2e-npm";
-    node = integratesMobilePkgs.nodejs-12_x;
+    node = nixpkgs2.nodejs-12_x;
     requirements = {
       direct = [
         "appium@1.16.0"
@@ -21,7 +21,7 @@ let
   };
   pythonRequirements = buildPythonRequirements {
     name = "integrates-mobile-e2e-pypi";
-    python = integratesMobilePkgs.python37;
+    python = nixpkgs2.python37;
     requirements = {
       direct = [
         "Appium-Python-Client==1.0.2"
@@ -47,21 +47,21 @@ let
 in
 makeEntrypoint {
   arguments = {
-    envAndroidSdk = (integratesMobilePkgs.androidenv.composeAndroidPackages {
+    envAndroidSdk = (nixpkgs2.androidenv.composeAndroidPackages {
       abiVersions = [ "x86" "x86_64" ];
       platformVersions = [ "29" ];
     }).androidsdk;
     envApkUrl = "https://d1ahtucjixef4r.cloudfront.net/Exponent-2.18.7.apk";
     envIntegratesMobileE2eNpm = nodeRequirements;
-    envJava = integratesMobilePkgs.openjdk8_headless;
+    envJava = nixpkgs2.openjdk8_headless;
   };
   name = "integrates-mobile-e2e";
   searchPaths = {
     envPaths = [
-      integratesMobilePkgs.curl
-      integratesMobilePkgs.nodejs-12_x
-      integratesMobilePkgs.openjdk8_headless
-      integratesMobilePkgs.python37
+      nixpkgs2.curl
+      nixpkgs2.nodejs-12_x
+      nixpkgs2.openjdk8_headless
+      nixpkgs2.python37
       packages.makes.kill-port
       packages.makes.wait
       pythonRequirements

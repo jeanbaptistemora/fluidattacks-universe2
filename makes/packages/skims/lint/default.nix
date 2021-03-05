@@ -1,14 +1,14 @@
 { packages
 , path
-, skimsPkgs
+, nixpkgs
 , ...
 }:
 let
-  makeDerivation = import (path "/makes/utils/make-derivation") path skimsPkgs;
+  makeDerivation = import (path "/makes/utils/make-derivation") path nixpkgs;
 in
 makeDerivation {
   arguments = {
-    envBashLibLintPython = import (path "/makes/utils/lint-python") path skimsPkgs;
+    envBashLibLintPython = import (path "/makes/utils/lint-python") path nixpkgs;
     envImportLinterConfig = path "/skims/setup.imports.cfg";
     envSetupSkimsDevelopment = packages.skims.config-development;
     envSetupSkimsRuntime = packages.skims.config-runtime;

@@ -1,15 +1,15 @@
 { path
-, sortsPkgs
+, nixpkgs
 , ...
 }:
 let
-  buildPythonRequirements = import (path "/makes/utils/build-python-requirements") path sortsPkgs;
-  makeSearchPaths = import (path "/makes/utils/make-search-paths-deprecated") path sortsPkgs;
-  makeTemplate = import (path "/makes/utils/make-template") path sortsPkgs;
+  buildPythonRequirements = import (path "/makes/utils/build-python-requirements") path nixpkgs;
+  makeSearchPaths = import (path "/makes/utils/make-search-paths-deprecated") path nixpkgs;
+  makeTemplate = import (path "/makes/utils/make-template") path nixpkgs;
 in
 makeTemplate {
   arguments = {
-    envSearchPaths = makeSearchPaths [ sortsPkgs.gcc.cc ];
+    envSearchPaths = makeSearchPaths [ nixpkgs.gcc.cc ];
     envPythonRequirements = buildPythonRequirements {
       dependencies = [ ];
       name = "sorts-development";
@@ -47,7 +47,7 @@ makeTemplate {
           "zipp==3.4.0"
         ];
       };
-      python = sortsPkgs.python38;
+      python = nixpkgs.python38;
     };
     envUtilsBashLibPython = path "/makes/utils/python/template.sh";
   };

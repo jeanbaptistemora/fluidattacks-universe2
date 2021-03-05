@@ -1,12 +1,12 @@
 { fetchzip
 , packages
 , path
-, skimsPkgs
+, nixpkgs
 , ...
 }:
 let
-  buildPythonRequirements = import (path "/makes/utils/build-python-requirements") path skimsPkgs;
-  makeTemplate = import (path "/makes/utils/make-template") path skimsPkgs;
+  buildPythonRequirements = import (path "/makes/utils/build-python-requirements") path nixpkgs;
+  makeTemplate = import (path "/makes/utils/make-template") path nixpkgs;
 in
 makeTemplate {
   arguments = {
@@ -15,17 +15,17 @@ makeTemplate {
   name = "skims-config-runtime";
   searchPaths = {
     envPaths = [
-      skimsPkgs.gcc
-      skimsPkgs.git
-      skimsPkgs.graphviz
-      skimsPkgs.nodejs
-      skimsPkgs.python38
+      nixpkgs.gcc
+      nixpkgs.git
+      nixpkgs.graphviz
+      nixpkgs.nodejs
+      nixpkgs.python38
     ];
     envPythonPaths = [
       (path "/skims/skims")
     ];
     envPython38Paths = [
-      skimsPkgs.python38Packages.pygraphviz
+      nixpkgs.python38Packages.pygraphviz
       (buildPythonRequirements {
         dependencies = [ ];
         name = "skims-runtime";
@@ -80,7 +80,7 @@ makeTemplate {
             "yarl==1.6.3"
           ];
         };
-        python = skimsPkgs.python38;
+        python = nixpkgs.python38;
       })
     ];
     envSources = [

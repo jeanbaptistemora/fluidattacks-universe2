@@ -1,4 +1,4 @@
-{ integratesMobilePkgs
+{ nixpkgs2
 , makeEntrypoint
 , packages
 , path
@@ -11,9 +11,9 @@ makeEntrypoint {
   name = "integrates-mobile-deploy-playstore";
   searchPaths = {
     envPaths = [
-      integratesMobilePkgs.git
-      integratesMobilePkgs.nodejs-12_x
-      integratesMobilePkgs.ruby
+      nixpkgs2.git
+      nixpkgs2.nodejs-12_x
+      nixpkgs2.ruby
     ];
     envSources = [
       packages.integrates.mobile.tools

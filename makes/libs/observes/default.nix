@@ -1,6 +1,6 @@
 attrs:
 let
-  nixPkgs = attrs.observesPkgs;
+  nixPkgs = attrs.nixpkgs2;
   path = attrs.path;
 
   localLib = import (path "/makes/libs/observes/packages") {

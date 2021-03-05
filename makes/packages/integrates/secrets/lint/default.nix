@@ -1,9 +1,9 @@
 { path
-, integratesPkgs
+, nixpkgs2
 , ...
 }:
 let
-  makeDerivation = import (path "/makes/utils/make-derivation") path integratesPkgs;
+  makeDerivation = import (path "/makes/utils/make-derivation") path nixpkgs2;
 in
 makeDerivation {
   arguments = {
@@ -17,8 +17,8 @@ makeDerivation {
   name = "integrates-secrets-lint";
   searchPaths = {
     envPaths = [
-      integratesPkgs.python37Packages.yamllint
-      integratesPkgs.yq
+      nixpkgs2.python37Packages.yamllint
+      nixpkgs2.yq
     ];
   };
 }

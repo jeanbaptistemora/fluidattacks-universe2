@@ -1,4 +1,4 @@
-{ integratesPkgs
+{ nixpkgs2
 , makeDerivation
 , packages
 , path
@@ -14,8 +14,8 @@ makeDerivation {
   name = "integrates-front-lint-stylelint";
   searchPaths = {
     envPaths = [
-      integratesPkgs.nodejs
-      integratesPkgs.bash
+      nixpkgs2.nodejs
+      nixpkgs2.bash
     ];
   };
 }

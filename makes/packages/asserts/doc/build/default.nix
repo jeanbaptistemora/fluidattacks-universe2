@@ -1,4 +1,4 @@
-{ assertsPkgs
+{ nixpkgs
 , buildPythonRequirements
 , makeDerivation
 , packages
@@ -12,11 +12,11 @@ makeDerivation {
   };
   searchPaths = {
     envPaths = [
-      assertsPkgs.perl
-      assertsPkgs.python37
+      nixpkgs.perl
+      nixpkgs.python37
       (buildPythonRequirements {
         name = "asserts-docs-build-pypi";
-        python = assertsPkgs.python37;
+        python = nixpkgs.python37;
         requirements = {
           direct = [
             "sphinx-autodoc-typehints==1.10.3"

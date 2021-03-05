@@ -1,20 +1,20 @@
 { packages
-, forcesPkgs
+, nixpkgs
 , path
 , ...
 }:
 let
-  makeEntrypoint = import (path "/makes/utils/make-entrypoint") path forcesPkgs;
+  makeEntrypoint = import (path "/makes/utils/make-entrypoint") path nixpkgs;
 in
 makeEntrypoint {
   arguments = {
-    envUtilsAws = import (path "/makes/utils/aws") path forcesPkgs;
-    envUtilsSops = import (path "/makes/utils/sops") path forcesPkgs;
+    envUtilsAws = import (path "/makes/utils/aws") path nixpkgs;
+    envUtilsSops = import (path "/makes/utils/sops") path nixpkgs;
     envUtilsMeltsLibCommon = packages.melts.lib;
   };
   searchPaths = {
     envPaths = [
-      forcesPkgs.jq
+      nixpkgs.jq
       packages.forces
     ];
   };

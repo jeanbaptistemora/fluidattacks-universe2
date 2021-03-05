@@ -1,18 +1,18 @@
-{ servesPkgs
+{ nixpkgs
 , path
 , ...
 }:
 let
-  makeEntrypoint = import (path "/makes/utils/make-entrypoint") path servesPkgs;
+  makeEntrypoint = import (path "/makes/utils/make-entrypoint") path nixpkgs;
 in
 makeEntrypoint {
   name = "serves-ci-config";
   searchPaths = {
     envPaths = [
-      servesPkgs.gnugrep
-      servesPkgs.gnused
-      servesPkgs.openssh
-      servesPkgs.rpl
+      nixpkgs.gnugrep
+      nixpkgs.gnused
+      nixpkgs.openssh
+      nixpkgs.rpl
     ];
     envUtils = [
       "/makes/utils/aws"

@@ -1,4 +1,4 @@
-{ integratesMobilePkgs
+{ nixpkgs2
 , makeDerivation
 , packages
 , path
@@ -13,8 +13,8 @@ makeDerivation {
   name = "integrates-mobile-lint";
   searchPaths = {
     envPaths = [
-      integratesMobilePkgs.bash
-      integratesMobilePkgs.nodejs-12_x
+      nixpkgs2.bash
+      nixpkgs2.nodejs-12_x
     ];
   };
 }

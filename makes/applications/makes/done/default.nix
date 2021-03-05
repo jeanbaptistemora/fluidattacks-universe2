@@ -1,5 +1,5 @@
 { makeEntrypoint
-, makesPkgs
+, nixpkgs
 , packages
 , path
 , ...
@@ -8,7 +8,7 @@ makeEntrypoint {
   name = "makes-done";
   searchPaths = {
     envPaths = [
-      makesPkgs.netcat
+      nixpkgs.netcat
       packages.makes.kill-port
     ];
   };

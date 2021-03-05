@@ -1,10 +1,10 @@
 { applications
 , path
-, skimsPkgs
+, nixpkgs
 , ...
 }:
 let
-  makeOci = import (path "/makes/utils/make-oci") path skimsPkgs;
+  makeOci = import (path "/makes/utils/make-oci") path nixpkgs;
 in
 makeOci {
   config.Entrypoint = [ applications.skims ];

@@ -1,10 +1,10 @@
 { packages
 , path
-, sortsPkgs
+, nixpkgs
 , ...
 }:
 let
-  makeEntrypoint = import (path "/makes/utils/make-entrypoint") path sortsPkgs;
+  makeEntrypoint = import (path "/makes/utils/make-entrypoint") path nixpkgs;
 in
 makeEntrypoint {
   arguments = {

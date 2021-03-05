@@ -1,4 +1,4 @@
-{ integratesPkgs
+{ nixpkgs2
 , lintPython
 , makeDerivation
 , packages
@@ -14,7 +14,7 @@ makeDerivation {
   name = "integrates-back-lint";
   searchPaths = {
     envPaths = [
-      integratesPkgs.python37
+      nixpkgs2.python37
     ];
     envSources = [
       lintPython

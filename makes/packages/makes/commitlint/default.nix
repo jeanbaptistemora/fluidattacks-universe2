@@ -1,14 +1,14 @@
-{ makesPkgs
+{ nixpkgs
 , path
 , ...
 }:
 let
-  buildNodeRequirements = import (path "/makes/utils/build-node-requirements") path makesPkgs;
+  buildNodeRequirements = import (path "/makes/utils/build-node-requirements") path nixpkgs;
 in
 buildNodeRequirements {
   dependencies = [ ];
   name = "commitlint";
-  node = makesPkgs.nodejs;
+  node = nixpkgs.nodejs;
   requirements = {
     direct = [
       "@commitlint/cli@11.0.0"

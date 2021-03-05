@@ -1,4 +1,4 @@
-{ integratesPkgs
+{ nixpkgs2
 , makeDerivation
 , buildPythonRequirements
 , packages
@@ -9,7 +9,7 @@ let
   pythonRequirements = buildPythonRequirements {
     dependencies = [ ];
     name = "integrates-back-structure-pypi";
-    python = integratesPkgs.python37;
+    python = nixpkgs2.python37;
     requirements = {
       direct = [
         "pydeps==1.9.13"
@@ -28,8 +28,8 @@ makeDerivation {
   name = "integrates-back-structure";
   searchPaths = {
     envPaths = [
-      integratesPkgs.graphviz
-      integratesPkgs.python37
+      nixpkgs2.graphviz
+      nixpkgs2.python37
       pythonRequirements
     ];
     envPython37Paths = [

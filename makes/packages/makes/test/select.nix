@@ -1,7 +1,7 @@
 product:
 
 { makeDerivation
-, makesPkgs
+, nixpkgs
 , packagesFlattened
 , ...
 }:
@@ -9,12 +9,12 @@ makeDerivation {
   arguments = {
     envBuilt =
       builtins.attrValues
-        (makesPkgs.lib.attrsets.filterAttrs
+        (nixpkgs.lib.attrsets.filterAttrs
           (name: _: (
             # Select derivations belonging to the product
-            (makesPkgs.lib.strings.hasPrefix product name)
+            (nixpkgs.lib.strings.hasPrefix product name)
             # Prevent infinite recursion
-            && !(makesPkgs.lib.strings.hasPrefix "makes.test" name)
+            && !(nixpkgs.lib.strings.hasPrefix "makes.test" name)
           ))
           (packagesFlattened));
   };

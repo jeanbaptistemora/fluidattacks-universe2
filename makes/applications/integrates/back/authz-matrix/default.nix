@@ -1,4 +1,4 @@
-{ integratesPkgs
+{ nixpkgs2
 , makeEntrypoint
 , packages
 , path
@@ -11,7 +11,7 @@ makeEntrypoint {
   name = "integrates-back-authz-matrix";
   searchPaths = {
     envPython37Paths = [
-      integratesPkgs.python37Packages.pandas
+      nixpkgs2.python37Packages.pandas
     ];
   };
   template = path "/makes/applications/integrates/back/authz-matrix/entrypoint.sh";

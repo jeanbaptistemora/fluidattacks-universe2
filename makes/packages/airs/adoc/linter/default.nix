@@ -1,4 +1,4 @@
-{ airsPkgs
+{ nixpkgs
 , makeTemplate
 , path
 , ...
@@ -7,9 +7,9 @@ makeTemplate {
   name = "airs-adoc-linter";
   searchPaths = {
     envPaths = [
-      airsPkgs.diction
-      airsPkgs.gnugrep
-      airsPkgs.pcre
+      nixpkgs.diction
+      nixpkgs.gnugrep
+      nixpkgs.pcre
     ];
   };
   template = path "/makes/packages/airs/adoc/linter/template.sh";

@@ -1,10 +1,10 @@
-{ assertsPkgs
+{ nixpkgs
 , buildPythonRequirements
 , ...
 }:
 buildPythonRequirements {
   name = "asserts-pypi-runtime";
-  python = assertsPkgs.python37;
+  python = nixpkgs.python37;
   requirements = {
     direct = [
       "aiohttp==3.6.2"

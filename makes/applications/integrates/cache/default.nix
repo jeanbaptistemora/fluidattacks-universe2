@@ -1,4 +1,4 @@
-{ integratesPkgs
+{ nixpkgs2
 , makeEntrypoint
 , packages
 , path
@@ -8,7 +8,7 @@ makeEntrypoint {
   name = "integrates-cache";
   searchPaths = {
     envPaths = [
-      integratesPkgs.redis
+      nixpkgs2.redis
       packages.makes.done
       packages.makes.kill-port
       packages.makes.wait

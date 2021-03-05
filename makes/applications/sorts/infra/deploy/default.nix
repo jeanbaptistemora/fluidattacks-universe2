@@ -1,9 +1,9 @@
 { path
-, sortsPkgs
+, nixpkgs
 , ...
 }:
 let
-  terraformApply = import (path "/makes/utils/terraform-apply") path sortsPkgs;
+  terraformApply = import (path "/makes/utils/terraform-apply") path nixpkgs;
 in
 terraformApply {
   name = "sorts-infra-deploy";

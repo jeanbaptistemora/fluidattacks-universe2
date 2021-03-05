@@ -1,4 +1,4 @@
-{ airsPkgs
+{ nixpkgs
 , buildNodeRequirements
 , getPackageJsonDeps
 , nix
@@ -9,7 +9,7 @@ let
 in
 buildNodeRequirements {
   name = "airs-npm";
-  node = airsPkgs.nodejs;
+  node = nixpkgs.nodejs;
   requirements = {
     direct = nix.sort (packageJsonDeps.development ++ packageJsonDeps.production);
     inherited = [

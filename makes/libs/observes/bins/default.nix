@@ -1,10 +1,10 @@
 { nixPkgs, path }:
 let
-  observesPkgs = import (path "/makes/libs/observes/packages") {
+  nixpkgs2 = import (path "/makes/libs/observes/packages") {
     inherit nixPkgs path;
   };
   binConfig = import (path "/makes/libs/observes/bins/config") {
-    inherit observesPkgs;
+    inherit nixpkgs2;
   };
   binBuilder = import (path "/makes/libs/observes/build-bin");
   mkBin = config: binBuilder {

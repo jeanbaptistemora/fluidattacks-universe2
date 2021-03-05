@@ -1,10 +1,10 @@
 { packages
 , path
-, skimsPkgs
+, nixpkgs
 , ...
 }:
 let
-  ociDeploy = import (path "/makes/utils/oci-deploy") path skimsPkgs;
+  ociDeploy = import (path "/makes/utils/oci-deploy") path nixpkgs;
 in
 ociDeploy {
   oci = packages.skims.oci-build;

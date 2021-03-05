@@ -1,16 +1,16 @@
 { buildNodeRequirements
 , getPackageJsonDeps
-, integratesPkgs
+, nixpkgs2
 , path
 , ...
 }:
 let
-  nix = import (path "/makes/utils/nix") path integratesPkgs;
+  nix = import (path "/makes/utils/nix") path nixpkgs2;
   packageJsonDeps = getPackageJsonDeps "/integrates/front/package.json";
 in
 buildNodeRequirements {
   name = "integrates-front-dev-runtime";
-  node = integratesPkgs.nodejs-12_x;
+  node = nixpkgs2.nodejs-12_x;
   requirements = {
     direct = nix.sort (packageJsonDeps.development ++ packageJsonDeps.production);
     inherited = [

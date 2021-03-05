@@ -1,4 +1,4 @@
-{ airsPkgs
+{ nixpkgs
 , makeDerivation
 , packages
 , path
@@ -13,6 +13,6 @@ makeDerivation {
   builder = path "/makes/packages/airs/content/builder.sh";
   name = "airs-content";
   searchPaths = {
-    envPaths = [ airsPkgs.findutils ];
+    envPaths = [ nixpkgs.findutils ];
   };
 }

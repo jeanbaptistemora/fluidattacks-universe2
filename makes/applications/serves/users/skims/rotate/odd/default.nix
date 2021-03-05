@@ -1,9 +1,9 @@
-{ servesPkgs
+{ nixpkgs
 , path
 , ...
 }:
 let
-  userRotateKeys = import (path "/makes/utils/user-rotate-keys") path servesPkgs;
+  userRotateKeys = import (path "/makes/utils/user-rotate-keys") path nixpkgs;
 in
 userRotateKeys {
   name = "serves-users-skims-rotate-odd";

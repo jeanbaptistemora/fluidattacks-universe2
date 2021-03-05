@@ -1,4 +1,4 @@
-{ integratesPkgs
+{ nixpkgs2
 , makeEntrypoint
 , packages
 , path
@@ -11,7 +11,7 @@ makeEntrypoint {
   name = "integrates-scheduler";
   searchPaths = {
     envPaths = [
-      integratesPkgs.python37
+      nixpkgs2.python37
     ];
   };
   template = path "/makes/applications/integrates/scheduler/entrypoint.sh";

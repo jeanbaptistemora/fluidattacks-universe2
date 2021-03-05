@@ -1,17 +1,17 @@
 { path
-, skimsPkgs
+, nixpkgs
 , ...
 }:
 let
-  buildNodeRequirements = import (path "/makes/utils/build-node-requirements") path skimsPkgs;
-  makeDerivation = import (path "/makes/utils/make-derivation") path skimsPkgs;
+  buildNodeRequirements = import (path "/makes/utils/build-node-requirements") path nixpkgs;
+  makeDerivation = import (path "/makes/utils/make-derivation") path nixpkgs;
 in
 makeDerivation {
   arguments = {
     envNodeRequirements = buildNodeRequirements {
       dependencies = [ ];
       name = "skims-parsers-babel";
-      node = skimsPkgs.nodejs;
+      node = nixpkgs.nodejs;
       requirements = {
         direct = [ "@babel/parser@7.11.0" ];
         inherited = [ ];

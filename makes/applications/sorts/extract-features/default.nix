@@ -1,16 +1,16 @@
 { packages
 , path
-, sortsPkgs
+, nixpkgs
 , ...
 }:
 let
-  makeEntrypoint = import (path "/makes/utils/make-entrypoint") path sortsPkgs;
+  makeEntrypoint = import (path "/makes/utils/make-entrypoint") path nixpkgs;
 in
 makeEntrypoint {
   arguments = {
     envSetupSortsRuntime = packages.sorts.config-runtime;
-    envUtilsBashLibAws = import (path "/makes/utils/aws") path sortsPkgs;
-    envUtilsBashLibGit = import (path "/makes/utils/git") path sortsPkgs;
+    envUtilsBashLibAws = import (path "/makes/utils/aws") path nixpkgs;
+    envUtilsBashLibGit = import (path "/makes/utils/git") path nixpkgs;
     envUtilsMeltsLibCommon = packages.melts.lib;
   };
   name = "sorts-extract-features";

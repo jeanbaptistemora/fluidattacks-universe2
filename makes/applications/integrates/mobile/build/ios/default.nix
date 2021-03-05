@@ -1,4 +1,4 @@
-{ integratesMobilePkgs
+{ nixpkgs2
 , makeEntrypoint
 , packages
 , path
@@ -12,8 +12,8 @@ makeEntrypoint {
   name = "integrates-mobile-build-ios";
   searchPaths = {
     envPaths = [
-      integratesMobilePkgs.curl
-      integratesMobilePkgs.nodejs-12_x
+      nixpkgs2.curl
+      nixpkgs2.nodejs-12_x
     ];
     envUtils = [
       "/makes/utils/aws"
