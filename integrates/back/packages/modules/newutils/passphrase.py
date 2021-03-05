@@ -1,4 +1,5 @@
 import random
+
 from backend.utils.wordlist import wordlist
 
 

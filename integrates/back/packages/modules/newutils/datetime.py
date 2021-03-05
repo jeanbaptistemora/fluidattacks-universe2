@@ -1,8 +1,10 @@
 # pylint: disable=too-many-arguments
 from datetime import datetime, timedelta
+
 import pytz
 
 from back import settings
+
 
 DEFAULT_STR = '2000-01-01 00:00:00'
 TZN = pytz.timezone(settings.TIME_ZONE)

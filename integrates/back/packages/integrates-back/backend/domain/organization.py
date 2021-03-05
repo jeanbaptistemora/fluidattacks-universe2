@@ -34,10 +34,10 @@ from backend.exceptions import (
     UserNotInOrganization
 )
 from backend.typing import Organization as OrganizationType
-from backend.utils import (
+from newutils import (
+    datetime as datetime_utils,
     stakeholders as stakeholders_utils,
 )
-from newutils import datetime as datetime_utils
 
 
 logging.config.dictConfig(LOGGING)

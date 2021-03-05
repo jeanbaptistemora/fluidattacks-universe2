@@ -29,10 +29,8 @@ from graphql.type.definition import GraphQLResolveInfo
 from back.settings import LOGGING
 from backend import authz, mailer
 from backend.authz.policy import get_group_level_role
+from backend.dal import project as project_dal
 from backend.dal.helpers.dynamodb import start_context
-from backend.dal import (
-    project as project_dal,
-)
 from backend.domain import (
     comment as comment_domain,
     resources as resources_domain,
@@ -53,9 +51,7 @@ from backend.exceptions import (
     RepeatedValues,
     UserNotInOrganization
 )
-from backend.filters import (
-    stakeholder as stakeholder_filters,
-)
+from backend.filters import stakeholder as stakeholder_filters
 from backend.typing import (
     Comment as CommentType,
     Finding as FindingType,
@@ -66,15 +62,13 @@ from backend.typing import (
     ProjectAccess as ProjectAccessType,
     Vulnerability as VulnerabilityType
 )
-from backend.utils import (
-    stakeholders as stakeholders_utils,
-    validations
-)
+from backend.utils import validations
 from events import domain as events_domain
 from newutils import (
     comments as comments_utils,
     datetime as datetime_utils,
     findings as finding_utils,
+    stakeholders as stakeholders_utils,
 )
 
 

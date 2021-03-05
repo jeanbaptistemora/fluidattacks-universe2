@@ -18,8 +18,8 @@ from backend.reports.reports import (
     data as data_report,
     technical as technical_report,
 )
-from backend.utils.reports import patch_loop_exception_handler
 from backend import util
+from newutils.reports import patch_loop_exception_handler
 
 
 async def generate_group_report(

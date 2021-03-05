@@ -22,7 +22,7 @@ from backend.reports.it_report import ITReport
 from backend.reports.pdf import CreatorPDF
 from backend.reports.secure_pdf import SecurePDF
 from backend.typing import Finding as FindingType
-from backend.utils import reports as reports_utils
+from newutils import reports as reports_utils
 from newutils.passphrase import get_passphrase
 
 

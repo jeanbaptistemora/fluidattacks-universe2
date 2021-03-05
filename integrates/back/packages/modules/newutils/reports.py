@@ -8,9 +8,7 @@ from uuid import uuid4 as uuid
 from starlette.datastructures import UploadFile
 
 # Local libraries
-from backend.dal.helpers import (
-    s3,
-)
+from backend.dal.helpers import s3
 from backend.exceptions import ErrorUploadingFileS3
 from __init__ import (
     FI_AWS_S3_REPORTS_BUCKET,

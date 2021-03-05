@@ -19,26 +19,22 @@ from back.settings import (
     LOGGING,
     NOEXTRA
 )
-from backend import (
-    mailer,
-)
+from backend import mailer
 from backend.dal import (
     project as group_dal,
     subscriptions as subscriptions_dal,
 )
-from backend.dal.subscriptions import (
-    NumericType,
-)
+from backend.dal.subscriptions import NumericType
 from backend.domain import (
     analytics as analytics_domain,
     organization as org_domain,
     tag as portfolio_domain,
 )
-from backend.services import (
-    has_access_to_project as has_access_to_group,
+from backend.services import has_access_to_project as has_access_to_group
+from newutils import (
+    datetime as datetime_utils,
+    reports,
 )
-from backend.utils import reports
-from newutils import datetime as datetime_utils
 
 
 logging.config.dictConfig(LOGGING)

@@ -1,4 +1,5 @@
 from typing import Dict, List, cast
+
 from backend.typing import Event as EventType
 
 

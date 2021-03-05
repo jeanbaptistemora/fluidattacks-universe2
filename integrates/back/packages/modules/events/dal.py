@@ -5,13 +5,13 @@ from typing import List
 from boto3.dynamodb.conditions import Key
 from botocore.exceptions import ClientError
 
+from back.settings import LOGGING
 from backend.dal.helpers import dynamodb, s3
 from backend.typing import Event as EventType
-from back.settings import LOGGING
-
 from __init__ import (
     FI_AWS_S3_BUCKET,
 )
+
 
 logging.config.dictConfig(LOGGING)
 

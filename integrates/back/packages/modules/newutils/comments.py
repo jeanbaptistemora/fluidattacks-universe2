@@ -1,4 +1,5 @@
 from typing import Any, DefaultDict
+
 from backend import authz
 from backend.exceptions import (
     InvalidCommentParent,

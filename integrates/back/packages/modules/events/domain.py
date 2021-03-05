@@ -1,5 +1,7 @@
 """Domain functions for events."""  # pylint:disable=cyclic-import
 # Standard Libraries
+import random
+from datetime import datetime
 from typing import (
     Any,
     cast,
@@ -9,15 +11,13 @@ from typing import (
     Tuple,
     Union,
 )
-import random
-from datetime import datetime
 
 # Third-party Libraries
+import pytz
 from aioextensions import (
     collect,
     schedule,
 )
-import pytz
 from graphql.type.definition import GraphQLResolveInfo
 from starlette.datastructures import UploadFile
 

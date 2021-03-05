@@ -36,7 +36,7 @@ from back import (
 from backend.model import (
     redis_model,
 )
-from backend.utils.serialization import (
+from newutils.serialization import (
     dump,
     load,
 )

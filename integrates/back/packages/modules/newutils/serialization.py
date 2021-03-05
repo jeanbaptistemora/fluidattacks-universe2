@@ -1,20 +1,13 @@
 # Standard libraries
-from collections import (
-    OrderedDict,
-)
-from decimal import (
-    Decimal,
-)
 import dataclasses
-from enum import (
-    Enum,
-)
 import json
+from collections import OrderedDict
 from datetime import (
     datetime,
     date,
 )
-
+from decimal import Decimal
+from enum import Enum
 from typing import (
     Any,
     Callable,
@@ -24,10 +17,9 @@ from typing import (
     Tuple,
     TypeVar,
 )
+
 # Third party libraries
-from dateutil.parser import (
-    parse as date_parser
-)
+from dateutil.parser import parse as date_parser
 
 # Local libraries
 from newutils.datetime import get_utc_timestamp
@@ -152,23 +144,17 @@ ALLOWED_FACTORIES: Dict[type, Dict[str, Any]] = {
         (str, _dump_base, str),
         (tuple, _dump_tuple, _load_tuple),
         (type(None), _dump_none, _load_none),
-        *[
-            (enum,   # type: ignore
-             _dump_enum, _load_enum(enum))
-            for enum in (
-            )
+        *[  # type: ignore
+            (enum, _dump_enum, _load_enum(enum))
+            for enum in ()
         ],
-        *[
-            (named_tuple,   # type: ignore
-             _dump_named_tuple, _load_named_tuple(named_tuple))
-            for named_tuple in (
-            )
+        *[  # type: ignore
+            (named_tuple, _dump_named_tuple, _load_named_tuple(named_tuple))
+            for named_tuple in ()
         ],
-        *[
-            (dataclass,   # type: ignore
-             _dump_dataclass, _load_dataclass(dataclass))
-            for dataclass in (
-            )
+        *[  # type: ignore
+            (dataclass, _dump_dataclass, _load_dataclass(dataclass))
+            for dataclass in ()
         ],
     ]
 }

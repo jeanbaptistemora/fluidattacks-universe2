@@ -9,14 +9,10 @@ from typing import (
 )
 
 # Third party libraries
-from aioextensions import (
-    collect,
-)
+from aioextensions import collect
 
 # Local libraries
-from backend import (
-    authz,
-)
+from backend import authz
 from backend.dal import (
     session as session_dal,
     user as user_dal,
