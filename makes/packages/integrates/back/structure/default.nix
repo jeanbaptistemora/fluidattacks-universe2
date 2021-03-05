@@ -1,11 +1,12 @@
 { integratesPkgs
-, makeUtils
+, makeDerivation
+, buildPythonRequirements
 , packages
 , path
 , ...
 } @ _:
 let
-  pythonRequirements = makeUtils.buildPythonRequirements integratesPkgs {
+  pythonRequirements = buildPythonRequirements integratesPkgs {
     dependencies = [ ];
     name = "integrates-back-structure-pypi";
     python = integratesPkgs.python37;
@@ -19,7 +20,7 @@ let
     };
   };
 in
-makeUtils.makeDerivation integratesPkgs {
+makeDerivation integratesPkgs {
   arguments = {
     envIntegratesBackModules = path "/integrates/back/packages/modules";
   };

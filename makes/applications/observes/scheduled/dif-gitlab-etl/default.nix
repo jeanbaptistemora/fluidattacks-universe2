@@ -1,8 +1,8 @@
-{ path, ... } @ attrs:
-let
-  observes = import (path "/makes/libs/observes") attrs;
-in
-observes.makeUtils.computeOnAws {
+{ computeOnAws
+, observesPkgs
+, ...
+}:
+computeOnAws observesPkgs {
   attempts = 5;
   command = [ "./m" "observes.job.dif-gitlab-etl" ];
   jobname = "dif-gitlab-etl";

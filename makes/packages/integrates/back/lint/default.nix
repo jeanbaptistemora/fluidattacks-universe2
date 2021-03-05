@@ -1,10 +1,11 @@
 { integratesPkgs
-, makeUtils
+, lintPython
+, makeDerivation
 , packages
 , path
 , ...
 } @ _:
-makeUtils.makeDerivation integratesPkgs {
+makeDerivation integratesPkgs {
   arguments = {
     envIntegratesBackModules = path "/integrates/back/packages/modules";
     envIntegratesImportsConfig = path "/integrates/back/setup.imports.cfg";
@@ -16,7 +17,7 @@ makeUtils.makeDerivation integratesPkgs {
       integratesPkgs.python37
     ];
     envSources = [
-      (makeUtils.lintPython integratesPkgs)
+      (lintPython integratesPkgs)
       packages.integrates.back.pypi.runtime
     ];
   };

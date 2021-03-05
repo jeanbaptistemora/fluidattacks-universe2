@@ -1,8 +1,10 @@
-{ path, packages, ... } @ attrs:
-let
-  observes = import (path "/makes/libs/observes") attrs;
-in
-observes.makeUtils.makeEntrypoint {
+{ makeEntrypoint
+, observesPkgs
+, path
+, packages
+, ...
+}:
+makeEntrypoint observesPkgs {
   searchPaths = {
     envPaths = [
       packages.observes.dif-gitlab-etl

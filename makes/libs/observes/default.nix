@@ -3,8 +3,6 @@ let
   nixPkgs = attrs.observesPkgs;
   path = attrs.path;
 
-  observesMakeUtils = builtins.mapAttrs (_: util: util nixPkgs) attrs.makeUtils;
-
   localLib = import (path "/makes/libs/observes/packages") {
     inherit nixPkgs path;
   };
@@ -29,6 +27,5 @@ in
 {
   inherit binaries;
   inherit jobs;
-  makeUtils = observesMakeUtils;
   packages = localLib;
 }

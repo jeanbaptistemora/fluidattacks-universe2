@@ -1,10 +1,10 @@
 { integratesPkgs
-, makeUtils
+, makeEntrypoint
 , packages
 , path
 , ...
 }:
-makeUtils.makeEntrypoint integratesPkgs {
+makeEntrypoint integratesPkgs {
   arguments = {
     envFirefox = integratesPkgs.firefox;
     envGeckodriver = integratesPkgs.geckodriver;

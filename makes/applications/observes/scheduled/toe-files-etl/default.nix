@@ -1,10 +1,10 @@
-{ makeUtils
+{ makeEntrypoint
 , observesPkgs
-, packages
 , path
+, packages
 , ...
 }:
-makeUtils.makeEntrypoint observesPkgs {
+makeEntrypoint observesPkgs {
   searchPaths = {
     envPaths = [
       packages.observes.tap-toe-files

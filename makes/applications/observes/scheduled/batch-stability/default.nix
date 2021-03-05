@@ -1,10 +1,10 @@
-{ makeUtils
+{ makeEntrypoint
 , observesPkgs
 , packages
 , path
 , ...
 }:
-makeUtils.makeEntrypoint observesPkgs {
+makeEntrypoint observesPkgs {
   searchPaths = {
     envPaths = [
       packages.observes.service.batch-stability
