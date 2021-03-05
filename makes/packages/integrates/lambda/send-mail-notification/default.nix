@@ -3,7 +3,7 @@
 , path
 , ...
 }:
-buildPythonLambda integratesPkgs {
+buildPythonLambda {
   name = "integrates-lambda-send-mail-notification";
   python = integratesPkgs.python37;
   requirements = {

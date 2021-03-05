@@ -4,7 +4,7 @@
 , path
 , ...
 }:
-makeEntrypoint integratesMobilePkgs {
+makeEntrypoint {
   arguments = {
     envAndroidSdk = (integratesMobilePkgs.androidenv.composeAndroidPackages {
       buildToolsVersions = [ "29.0.2" "30.0.3" ];

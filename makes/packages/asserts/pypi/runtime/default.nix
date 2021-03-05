@@ -2,7 +2,7 @@
 , buildPythonRequirements
 , ...
 }:
-buildPythonRequirements assertsPkgs {
+buildPythonRequirements {
   name = "asserts-pypi-runtime";
   python = assertsPkgs.python37;
   requirements = {

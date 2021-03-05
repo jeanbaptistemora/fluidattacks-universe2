@@ -1,10 +1,9 @@
 { makeTemplate
-, meltsPkgs
 , packages
 , path
 , ...
 }:
-makeTemplate meltsPkgs {
+makeTemplate {
   name = "melts-lib";
   searchPaths = {
     envPaths = [ packages.melts ];

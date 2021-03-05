@@ -4,7 +4,7 @@
 , path
 , ...
 }:
-makeDerivation airsPkgs {
+makeDerivation {
   arguments = {
     envAirs = path "/airs";
     envExclude = path "/makes/packages/airs/lint/content/exclude.lst";

@@ -4,7 +4,7 @@
 , path
 , ...
 }:
-makeEntrypoint integratesPkgs {
+makeEntrypoint {
   arguments = {
     envIntegratesEnv = packages.integrates.back.env;
   };

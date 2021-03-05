@@ -1,13 +1,9 @@
 { packages
+, makeEntrypoint
 , path
-, integratesPkgs
-, integratesPkgsTerraform
+, terraformApply
 , ...
 }:
-let
-  makeEntrypoint = import (path "/makes/utils/make-entrypoint") path integratesPkgs;
-  terraformApply = import (path "/makes/utils/terraform-apply") path integratesPkgsTerraform;
-in
 makeEntrypoint rec {
   arguments = {
     envTerraformApply = "${terraformApply {

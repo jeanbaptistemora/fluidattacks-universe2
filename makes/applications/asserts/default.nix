@@ -1,10 +1,9 @@
-{ assertsPkgs
-, makeEntrypoint
+{ makeEntrypoint
 , packages
 , path
 , ...
 }:
-makeEntrypoint assertsPkgs {
+makeEntrypoint {
   name = "asserts";
   searchPaths = {
     envSources = [ packages.asserts.env ];

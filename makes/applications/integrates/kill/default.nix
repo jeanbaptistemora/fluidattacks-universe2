@@ -1,10 +1,9 @@
-{ integratesPkgs
-, makeEntrypoint
+{ makeEntrypoint
 , packages
 , path
 , ...
 }:
-makeEntrypoint integratesPkgs {
+makeEntrypoint {
   name = "integrates-kill";
   searchPaths = {
     envPaths = [

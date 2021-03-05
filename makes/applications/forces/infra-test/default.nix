@@ -1,13 +1,9 @@
-{ forcesPkgs
-, forcesPkgsTerraform
+{ terraformTest
+, makeEntrypoint
 , packages
 , path
 , ...
 }:
-let
-  makeEntrypoint = import (path "/makes/utils/make-entrypoint") path forcesPkgs;
-  terraformTest = import (path "/makes/utils/terraform-test") path forcesPkgsTerraform;
-in
 makeEntrypoint rec {
   arguments = {
     envTerraformTest = "${terraformTest {

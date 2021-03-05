@@ -21,7 +21,7 @@ let
   };
   dynamoEtlOnAws = computeOnAws jobConfig;
 in
-makeEntrypoint observesPkgs {
+makeEntrypoint {
   searchPaths = {
     envPaths = [
       dynamoEtlOnAws

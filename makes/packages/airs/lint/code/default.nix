@@ -1,10 +1,9 @@
-{ airsPkgs
-, makeDerivation
+{ makeDerivation
 , packages
 , path
 , ...
 }:
-makeDerivation airsPkgs {
+makeDerivation {
   arguments = {
     envLintConfig = path "/integrates/front";
     envAirsNewFront = path "/airs/new-front";

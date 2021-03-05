@@ -7,7 +7,7 @@
 , ...
 } @ _:
 let
-  nodeRequirements = buildNodeRequirements integratesMobilePkgs {
+  nodeRequirements = buildNodeRequirements {
     name = "integrates-mobile-e2e-npm";
     node = integratesMobilePkgs.nodejs-12_x;
     requirements = {
@@ -19,7 +19,7 @@ let
       ];
     };
   };
-  pythonRequirements = buildPythonRequirements integratesMobilePkgs {
+  pythonRequirements = buildPythonRequirements {
     name = "integrates-mobile-e2e-pypi";
     python = integratesMobilePkgs.python37;
     requirements = {
@@ -45,7 +45,7 @@ let
     };
   };
 in
-makeEntrypoint integratesMobilePkgs {
+makeEntrypoint {
   arguments = {
     envAndroidSdk = (integratesMobilePkgs.androidenv.composeAndroidPackages {
       abiVersions = [ "x86" "x86_64" ];

@@ -3,7 +3,7 @@
 , path
 , ...
 }:
-makeTemplate integratesPkgs {
+makeTemplate {
   name = "integrates-back-probes-lib";
   searchPaths = {
     envPaths = [

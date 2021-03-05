@@ -5,9 +5,9 @@
 , ...
 }:
 let
-  packageJsonDeps = getPackageJsonDeps airsPkgs "/airs/new-front/package.json";
+  packageJsonDeps = getPackageJsonDeps "/airs/new-front/package.json";
 in
-buildNodeRequirements airsPkgs {
+buildNodeRequirements {
   name = "airs-npm";
   node = airsPkgs.nodejs;
   requirements = {

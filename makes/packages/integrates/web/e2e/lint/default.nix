@@ -2,10 +2,9 @@
 , makeDerivation
 , packages
 , path
-, integratesPkgs
 , ...
 }:
-makeDerivation integratesPkgs {
+makeDerivation {
   arguments = {
     envSrc = path "/integrates/back/tests/e2e/src";
   };
@@ -16,7 +15,7 @@ makeDerivation integratesPkgs {
       packages.integrates.web.e2e.pypi
     ];
     envSources = [
-      (lintPython integratesPkgs)
+      lintPython
     ];
   };
 }

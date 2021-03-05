@@ -1,8 +1,7 @@
-{ airsPkgsTerraform
-, terraformTest
+{ terraformTest
 , ...
 }:
-terraformTest airsPkgsTerraform {
+terraformTest {
   name = "airs-infra-production-test";
   product = "airs";
   target = "airs/deploy/production/terraform";

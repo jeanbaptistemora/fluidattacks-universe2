@@ -4,7 +4,7 @@
 , path
 , ...
 }:
-makeTemplate assertsPkgs {
+makeTemplate {
   name = "asserts-env";
   searchPaths = {
     envPaths = [

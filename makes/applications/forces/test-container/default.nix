@@ -3,7 +3,7 @@
 , makeEntrypoint
 , ...
 }:
-makeEntrypoint forcesPkgs {
+makeEntrypoint {
   searchPaths = {
     envPaths = [ forcesPkgs.docker ];
   };

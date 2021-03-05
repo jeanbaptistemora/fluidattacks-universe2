@@ -4,7 +4,7 @@
 , path
 , ...
 }:
-makeDerivation airsPkgs {
+makeDerivation {
   arguments = {
     envAirsNewFront = path "/airs/new-front";
     envAirsNpm = packages.airs.npm;

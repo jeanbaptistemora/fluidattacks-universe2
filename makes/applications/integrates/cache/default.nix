@@ -4,7 +4,7 @@
 , path
 , ...
 }:
-makeEntrypoint integratesPkgs {
+makeEntrypoint {
   name = "integrates-cache";
   searchPaths = {
     envPaths = [

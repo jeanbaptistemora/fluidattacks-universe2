@@ -7,7 +7,7 @@
 let
   buildPythonRequirements = import (path "/makes/utils/build-python-requirements") path reviewsPkgs;
 in
-makeTemplate reviewsPkgs {
+makeTemplate {
   arguments = {
     envSrcReviews = path "/reviews/src";
   };

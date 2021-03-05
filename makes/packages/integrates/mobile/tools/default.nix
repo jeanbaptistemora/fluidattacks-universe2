@@ -1,10 +1,9 @@
-{ integratesMobilePkgs
-, makeTemplate
+{ makeTemplate
 , packages
 , path
 , ...
 }:
-makeTemplate integratesMobilePkgs {
+makeTemplate {
   arguments = {
     envMobileToolsBundler = packages.integrates.mobile.tools.bundler;
     envMobileToolsFastlane = packages.integrates.mobile.tools.fastlane;

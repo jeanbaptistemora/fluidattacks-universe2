@@ -1,10 +1,9 @@
 { makeEntrypoint
-, reviewsPkgs
 , packages
 , path
 , ...
 }:
-makeEntrypoint reviewsPkgs {
+makeEntrypoint {
   searchPaths = {
     envSources = [ packages.reviews.runtime ];
   };

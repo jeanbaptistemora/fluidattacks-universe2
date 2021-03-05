@@ -4,7 +4,7 @@
 , path
 , ...
 }:
-makeEntrypoint integratesPkgs {
+makeEntrypoint {
   arguments = {
     envDevSecrets = path "/integrates/secrets-development.yaml";
     envMinioLocal = integratesPkgs.fetchurl {

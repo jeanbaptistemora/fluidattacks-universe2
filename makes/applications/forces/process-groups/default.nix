@@ -6,7 +6,7 @@
 let
   makeEntrypoint = import (path "/makes/utils/make-entrypoint") path forcesPkgs;
 in
-makeEntrypoint rec {
+makeEntrypoint {
   arguments = {
     envUtilsAws = import (path "/makes/utils/aws") path forcesPkgs;
     envUtilsSops = import (path "/makes/utils/sops") path forcesPkgs;

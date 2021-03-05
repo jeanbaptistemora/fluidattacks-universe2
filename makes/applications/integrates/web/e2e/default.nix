@@ -4,7 +4,7 @@
 , path
 , ...
 }:
-makeEntrypoint integratesPkgs {
+makeEntrypoint {
   arguments = {
     envFirefox = integratesPkgs.firefox;
     envGeckodriver = integratesPkgs.geckodriver;

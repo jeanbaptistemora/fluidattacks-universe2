@@ -1,8 +1,7 @@
 { applications
-, assertsPkgs
 , makeOci
 , ...
 }:
-makeOci assertsPkgs {
+makeOci {
   config.Entrypoint = [ applications.asserts ];
 }

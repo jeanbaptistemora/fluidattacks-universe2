@@ -1,10 +1,9 @@
 { makeEntrypoint
-, observesPkgs
 , packages
 , path
 , ...
 }:
-makeEntrypoint observesPkgs {
+makeEntrypoint {
   arguments = { };
   searchPaths = {
     envPaths = [

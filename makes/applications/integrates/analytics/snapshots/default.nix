@@ -5,7 +5,7 @@
 , path
 , ...
 }:
-makeEntrypoint integratesPkgs {
+makeEntrypoint {
   arguments = {
     envGeckoDriver = integratesPkgs.geckodriver;
     envIntegratesEnv = packages.integrates.back.env;
@@ -20,7 +20,7 @@ makeEntrypoint integratesPkgs {
       packages.integrates.storage
     ];
     envPython37Paths = [
-      (buildPythonRequirements integratesPkgs {
+      (buildPythonRequirements {
         name = "integrates-analytics-snapshots";
         requirements = {
           direct = [

@@ -4,7 +4,7 @@
 , path
 , ...
 }:
-makeEntrypoint integratesPkgs {
+makeEntrypoint {
   arguments = {
     envDb = path "/makes/applications/integrates/db";
     envDynamoZip = integratesPkgs.fetchurl {

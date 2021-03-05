@@ -3,7 +3,7 @@
 , path
 , ...
 }:
-makeTemplate airsPkgs {
+makeTemplate {
   name = "airs-adoc-linter";
   searchPaths = {
     envPaths = [

@@ -3,7 +3,7 @@
 , path
 , ...
 }:
-makeEntrypoint integratesPkgs {
+makeEntrypoint {
   arguments = {
     envManifests = path "/makes/applications/integrates/back/deploy/dev/k8s";
   };

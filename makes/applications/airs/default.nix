@@ -4,7 +4,7 @@
 , path
 , ...
 }:
-makeEntrypoint airsPkgs {
+makeEntrypoint {
   arguments = {
     envAirsContent = packages.airs.content;
   };

@@ -1,10 +1,9 @@
-{ integratesPkgs
-, makeEntrypoint
+{ makeEntrypoint
 , packages
 , path
 , ...
 }:
-makeEntrypoint integratesPkgs {
+makeEntrypoint {
   name = "integrates-back-probes-liveness";
   searchPaths = {
     envSources = [ packages.integrates.back.probes.lib ];

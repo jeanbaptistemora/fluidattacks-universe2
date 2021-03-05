@@ -4,7 +4,7 @@
 , path
 , ...
 }:
-makeEntrypoint integratesMobilePkgs {
+makeEntrypoint {
   arguments = {
     envSecretsDev = path "/integrates/secrets-development.yaml";
     envSecretsProd = path "/integrates/secrets-production.yaml";

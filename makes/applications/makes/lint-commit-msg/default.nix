@@ -4,7 +4,7 @@
 , path
 , ...
 }:
-makeEntrypoint makesPkgs {
+makeEntrypoint {
   searchPaths = {
     envPaths = [
       makesPkgs.git

@@ -1,8 +1,7 @@
 { computeOnAws
-, observesPkgs
 , ...
 }:
-computeOnAws observesPkgs {
+computeOnAws {
   attempts = 5;
   command = [ "./m" "observes.job.dif-gitlab-etl" ];
   jobname = "dif-gitlab-etl";

@@ -4,7 +4,7 @@
 , reviewsPkgs
 , ...
 }:
-makeDerivation reviewsPkgs {
+makeDerivation {
   arguments = {
     envUtilsLintPython = import (path "/makes/utils/lint-python") path reviewsPkgs;
     envReviewsRuntime = packages.reviews.runtime;

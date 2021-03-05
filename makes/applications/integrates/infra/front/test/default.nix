@@ -1,12 +1,9 @@
 { integratesPkgs
-, integratesPkgsTerraform
+, makeEntrypoint
 , path
+, terraformTest
 , ...
 }:
-let
-  makeEntrypoint = import (path "/makes/utils/make-entrypoint") path integratesPkgs;
-  terraformTest = import (path "/makes/utils/terraform-test") path integratesPkgsTerraform;
-in
 makeEntrypoint rec {
   arguments = {
     envUtilsAws = import (path "/makes/utils/aws") path integratesPkgs;

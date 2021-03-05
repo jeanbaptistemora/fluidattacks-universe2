@@ -3,7 +3,7 @@
 , path
 , ...
 }:
-makeEntrypoint integratesPkgs {
+makeEntrypoint {
   name = "integrates-coverage";
   searchPaths = {
     envPaths = [

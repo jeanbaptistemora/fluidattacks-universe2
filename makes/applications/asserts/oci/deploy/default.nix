@@ -1,9 +1,8 @@
-{ assertsPkgs
-, ociDeploy
+{ ociDeploy
 , packages
 , ...
 }:
-ociDeploy assertsPkgs {
+ociDeploy {
   oci = packages.asserts.oci.build;
   name = "asserts-oci-deploy";
   tag = "fluidattacks/asserts";

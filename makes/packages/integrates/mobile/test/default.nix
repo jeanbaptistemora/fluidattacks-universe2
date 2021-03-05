@@ -4,7 +4,7 @@
 , path
 , ...
 }:
-makeDerivation integratesMobilePkgs {
+makeDerivation {
   arguments = {
     envSetupIntegratesMobileDevRuntime = packages.integrates.mobile.config.dev-runtime;
     envSrcIntegratesMobile = path "/integrates/mobile";

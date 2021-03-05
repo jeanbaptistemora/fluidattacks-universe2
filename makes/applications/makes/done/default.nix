@@ -4,7 +4,7 @@
 , path
 , ...
 }:
-makeEntrypoint makesPkgs {
+makeEntrypoint {
   name = "makes-done";
   searchPaths = {
     envPaths = [

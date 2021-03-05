@@ -3,7 +3,7 @@
 , path
 , ...
 }:
-makeEntrypoint integratesPkgs {
+makeEntrypoint {
   searchPaths = {
     envPaths = [ integratesPkgs.kubectl ];
     envUtils = [ "/makes/utils/aws" ];

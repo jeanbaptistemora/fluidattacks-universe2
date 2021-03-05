@@ -1,10 +1,9 @@
-{ integratesPkgs
-, makeDerivation
+{ makeDerivation
 , packages
 , path
 , ...
 }:
-makeDerivation integratesPkgs {
+makeDerivation {
   arguments = {
     envBuilt = [
       packages.integrates.front.lint.eslint

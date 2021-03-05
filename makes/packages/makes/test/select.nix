@@ -5,7 +5,7 @@ product:
 , packagesFlattened
 , ...
 }:
-makeDerivation makesPkgs {
+makeDerivation {
   arguments = {
     envBuilt =
       builtins.attrValues

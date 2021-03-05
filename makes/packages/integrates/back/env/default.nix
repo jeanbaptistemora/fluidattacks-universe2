@@ -4,7 +4,7 @@
 , path
 , ...
 }:
-makeTemplate integratesPkgs {
+makeTemplate {
   arguments = {
     envIntegrates = path "/integrates";
     envSecretsDev = path "/integrates/secrets-development.yaml";

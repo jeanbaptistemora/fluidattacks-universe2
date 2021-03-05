@@ -5,7 +5,7 @@
 , path
 , ...
 }:
-makeDerivation assertsPkgs {
+makeDerivation {
   arguments = {
     envSrcAssertsFluidasserts = path "/asserts/fluidasserts";
     envSrcAssertsSphinx = path "/asserts/sphinx";
@@ -14,7 +14,7 @@ makeDerivation assertsPkgs {
     envPaths = [
       assertsPkgs.perl
       assertsPkgs.python37
-      (buildPythonRequirements assertsPkgs {
+      (buildPythonRequirements {
         name = "asserts-docs-build-pypi";
         python = assertsPkgs.python37;
         requirements = {

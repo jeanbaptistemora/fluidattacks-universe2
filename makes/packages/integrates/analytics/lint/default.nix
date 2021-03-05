@@ -5,7 +5,7 @@
 , ...
 }:
 let
-  nodeRequirements = buildNodeRequirements integratesPkgs {
+  nodeRequirements = buildNodeRequirements {
     name = "integrates-analytics-lint";
     node = integratesPkgs.nodejs;
     requirements = {
@@ -164,7 +164,7 @@ let
     };
   };
 in
-makeDerivation integratesPkgs {
+makeDerivation {
   arguments = {
     envSrc = path "/integrates/back/app/templates/static/graphics";
   };

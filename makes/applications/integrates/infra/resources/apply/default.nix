@@ -1,19 +1,17 @@
-{ integratesPkgs
-, integratesPkgsTerraform
-, makeEntrypoint
+{ makeEntrypoint
 , packages
 , path
 , terraformApply
 , ...
 }:
-makeEntrypoint integratesPkgs rec {
+makeEntrypoint rec {
   arguments = {
     envLambdaSendMailNotification = packages.integrates.lambda.send-mail-notification;
   };
   name = "integrates-infra-resources-apply";
   searchPaths = {
     envPaths = [
-      (terraformApply integratesPkgsTerraform {
+      (terraformApply {
         inherit name;
         product = "integrates";
         target = "integrates/deploy/terraform-resources";

@@ -4,7 +4,7 @@
 , path
 , ...
 } @ _:
-makeEntrypoint integratesMobilePkgs {
+makeEntrypoint {
   arguments = {
     envSecretsProd = path "/integrates/secrets-production.yaml";
     envIntegratesMobileDevRuntime = packages.integrates.mobile.config.dev-runtime;

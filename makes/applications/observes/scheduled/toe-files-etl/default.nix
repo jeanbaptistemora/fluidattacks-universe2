@@ -1,10 +1,9 @@
 { makeEntrypoint
-, observesPkgs
 , path
 , packages
 , ...
 }:
-makeEntrypoint observesPkgs {
+makeEntrypoint {
   searchPaths = {
     envPaths = [
       packages.observes.tap-toe-files

@@ -6,7 +6,7 @@
 , ...
 }:
 let
-  pythonRequirements = buildPythonRequirements integratesPkgs {
+  pythonRequirements = buildPythonRequirements {
     name = "integrates-back-test-unit";
     requirements = {
       direct = [
@@ -78,7 +78,7 @@ let
     python = integratesPkgs.python37;
   };
 in
-makeEntrypoint integratesPkgs {
+makeEntrypoint {
   arguments = {
     envIntegratesEnv = packages.integrates.back.env;
   };

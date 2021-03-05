@@ -1,10 +1,9 @@
-{ integratesPkgs
-, makeEntrypoint
+{ makeEntrypoint
 , packages
 , path
 , ...
 }:
-makeEntrypoint integratesPkgs {
+makeEntrypoint {
   arguments = {
     envCertsDevelopment = packages.integrates.back.certs.development;
     envIntegratesEnv = packages.integrates.back.env;

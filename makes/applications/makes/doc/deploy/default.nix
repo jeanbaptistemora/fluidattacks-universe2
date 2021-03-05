@@ -4,7 +4,7 @@
 , path
 , ...
 }:
-makeEntrypoint makesPkgs {
+makeEntrypoint {
   name = "makes-doc-deploy";
   arguments = {
     envRuntime = packages.makes.doc.runtime;

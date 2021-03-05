@@ -13,7 +13,7 @@ makeOci {
     forcesPkgs.bash
     forcesPkgs.coreutils
     packages.forces
-    (makeDerivation forcesPkgs {
+    (makeDerivation {
       builder = path "/makes/packages/forces/oci-build/builder.sh";
       name = "forces-oci-build-customization-layer";
     })

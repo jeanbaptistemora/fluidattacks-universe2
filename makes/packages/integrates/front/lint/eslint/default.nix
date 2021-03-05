@@ -4,7 +4,7 @@
 , path
 , ...
 }:
-makeDerivation integratesPkgs {
+makeDerivation {
   arguments = {
     envBashLibCommon = path "/makes/utils/common/template.sh";
     envSetupIntegratesFrontDevRuntime = packages.integrates.front.config.dev-runtime;

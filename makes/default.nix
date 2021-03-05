@@ -1,22 +1,16 @@
 { self
 , srcAirsPkgs
-, srcAirsPkgsTerraform
 , srcAssertsPkgs
-, srcAssertsPkgsTerraform
 , srcForcesPkgs
-, srcForcesPkgsTerraform
 , srcIntegratesMobilePkgs
 , srcIntegratesPkgs
-, srcIntegratesPkgsTerraform
 , srcMakesPkgs
 , srcMeltsPkgs
 , srcObservesPkgs
-, srcObservesPkgsTerraform
 , srcReviewsPkgs
 , srcServesPkgs
 , srcSkimsBenchmarkOwaspRepo
 , srcSkimsPkgs
-, srcSkimsPkgsTerraform
 , srcSkimsTreeSitterRepo
 , srcSortsPkgs
 , ...
@@ -24,22 +18,19 @@
 let
   attrs = rec {
     airsPkgs = import srcAirsPkgs { inherit system; };
-    airsPkgsTerraform = import srcAirsPkgsTerraform { inherit system; };
     applications = makesPkgs.lib.attrsets.mapAttrsRecursive
       (path: value: "${value}/bin/${builtins.concatStringsSep "-" (makesPkgs.lib.lists.init path)}")
       packages;
     assertsPkgs = import srcAssertsPkgs { inherit system; };
-    assertsPkgsTerraform = import srcAssertsPkgsTerraform { inherit system; };
     debug = value: builtins.trace value value;
+    dotToSlash = builtins.replaceStrings [ "." ] [ "/" ];
     forcesPkgs = import srcForcesPkgs { inherit system; };
-    forcesPkgsTerraform = import srcForcesPkgsTerraform { inherit system; };
+    importUtility = utility: import (path "/makes/utils/${utility}") path makesPkgs;
     integratesMobilePkgs = import srcIntegratesMobilePkgs { inherit system; config.android_sdk.accept_license = true; };
     integratesPkgs = import srcIntegratesPkgs { inherit system; };
-    integratesPkgsTerraform = import srcIntegratesPkgsTerraform { inherit system; };
     makesPkgs = import srcMakesPkgs { inherit system; };
     meltsPkgs = import srcMeltsPkgs { inherit system; };
     observesPkgs = import srcObservesPkgs { inherit system; };
-    observesPkgsTerraform = import srcObservesPkgsTerraform { inherit system; };
     packages =
       let
         attrsByType =
@@ -76,27 +67,25 @@ let
     system = "x86_64-linux";
     skimsBenchmarkOwaspRepo = srcSkimsBenchmarkOwaspRepo;
     skimsPkgs = import srcSkimsPkgs { inherit system; };
-    skimsPkgsTerraform = import srcSkimsPkgsTerraform { inherit system; };
     skimsTreeSitterRepo = srcSkimsTreeSitterRepo;
     sortsPkgs = import srcSortsPkgs { inherit system; };
 
     # Makes utilities
-    buildNodeRequirements = import (path "/makes/utils/build-node-requirements") path;
-    buildPythonLambda = import (path "/makes/utils/build-python-lambda") path;
-    buildPythonRequirements = import (path "/makes/utils/build-python-requirements") path;
-    computeOnAws = import (path "/makes/utils/compute-on-aws") path;
-    getPackageJsonDeps = import (path "/makes/utils/get-package-json-deps") path;
-    lintPython = import (path "/makes/utils/lint-python") path;
-    makeDerivation = import (path "/makes/utils/make-derivation") path;
-    makeEntrypoint = import (path "/makes/utils/make-entrypoint") path;
-    makeOci = import (path "/makes/utils/make-oci") path;
-    makeSearchPaths = import (path "/makes/utils/make-search-paths") path;
-    makeTemplate = import (path "/makes/utils/make-template") path;
-    nix = import (path "/makes/utils/nix") path makesPkgs;
-    ociDeploy = import (path "/makes/utils/oci-deploy") path;
-    terraformApply = import (path "/makes/utils/terraform-apply") path;
-    terraformTest = import (path "/makes/utils/terraform-test") path;
+    buildNodeRequirements = importUtility "build-node-requirements";
+    buildPythonLambda = importUtility "build-python-lambda";
+    buildPythonRequirements = importUtility "build-python-requirements";
+    computeOnAws = importUtility "compute-on-aws";
+    getPackageJsonDeps = importUtility "get-package-json-deps";
+    lintPython = importUtility "lint-python";
+    makeDerivation = importUtility "make-derivation";
+    makeEntrypoint = importUtility "make-entrypoint";
+    makeOci = importUtility "make-oci";
+    makeSearchPaths = importUtility "make-search-paths";
+    makeTemplate = importUtility "make-template";
+    nix = importUtility "nix";
+    ociDeploy = importUtility "oci-deploy";
+    terraformApply = importUtility "terraform-apply";
+    terraformTest = importUtility "terraform-test";
   };
-  dotToSlash = builtins.replaceStrings [ "." ] [ "/" ];
 in
 { packages.x86_64-linux = attrs.packagesFlattened; }

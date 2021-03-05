@@ -5,7 +5,7 @@
 , ...
 }:
 let
-  nodeRequirements = buildNodeRequirements makesPkgs {
+  nodeRequirements = buildNodeRequirements {
     name = "makes-announce-bugsnag";
     node = makesPkgs.nodejs;
     requirements = {
@@ -100,7 +100,7 @@ let
     };
   };
 in
-makeEntrypoint makesPkgs {
+makeEntrypoint {
   name = "makes-announce-bugsnag";
   searchPaths = {
     envNodeBinaries = [ nodeRequirements ];

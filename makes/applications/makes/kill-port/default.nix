@@ -3,7 +3,7 @@
 , path
 , ...
 }:
-makeEntrypoint makesPkgs {
+makeEntrypoint {
   name = "makes-kill-port";
   searchPaths = {
     envPaths = [

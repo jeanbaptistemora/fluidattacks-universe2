@@ -6,9 +6,9 @@
 }:
 let
   nix = import (path "/makes/utils/nix") path integratesMobilePkgs;
-  packageJsonDeps = getPackageJsonDeps integratesMobilePkgs "/integrates/mobile/package.json";
+  packageJsonDeps = getPackageJsonDeps "/integrates/mobile/package.json";
 in
-buildNodeRequirements integratesMobilePkgs {
+buildNodeRequirements {
   dependencies = [
     # Libraries needed to build some node modules like sharp, used in the APK build
     integratesMobilePkgs.bash

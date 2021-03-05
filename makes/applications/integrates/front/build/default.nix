@@ -4,7 +4,7 @@
 , path
 , ...
 }:
-makeEntrypoint integratesPkgs {
+makeEntrypoint {
   arguments = {
     envSetupIntegratesFrontDevRuntime = packages.integrates.front.config.dev-runtime;
   };

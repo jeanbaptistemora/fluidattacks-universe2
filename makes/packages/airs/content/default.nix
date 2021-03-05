@@ -4,7 +4,7 @@
 , path
 , ...
 }:
-makeDerivation airsPkgs {
+makeDerivation {
   arguments = {
     envAirsContent = path "/airs/content";
     envAirsNewFront = path "/airs/new-front";

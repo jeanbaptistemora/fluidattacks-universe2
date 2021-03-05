@@ -1,8 +1,7 @@
-{ makesPkgs
-, terraformTest
+{ terraformTest
 , ...
 }:
-terraformTest makesPkgs {
+terraformTest {
   name = "makes-doc-infra-test";
   product = "serves";
   target = "makes/applications/makes/doc/infra/terraform";

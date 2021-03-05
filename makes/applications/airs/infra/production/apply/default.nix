@@ -1,8 +1,7 @@
-{ airsPkgsTerraform
-, terraformApply
+{ terraformApply
 , ...
 }:
-terraformApply airsPkgsTerraform {
+terraformApply {
   name = "airs-infra-production-apply";
   product = "airs";
   target = "airs/deploy/production/terraform";

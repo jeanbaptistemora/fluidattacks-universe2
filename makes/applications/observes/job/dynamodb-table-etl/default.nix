@@ -4,16 +4,13 @@
 , path
 , ...
 }:
-let
-  nixPkgs = observesPkgs;
-in
-makeEntrypoint nixPkgs {
+makeEntrypoint {
   arguments = { };
   searchPaths = {
     envPaths = [
       packages.observes.job.dynamodb-etl
-      nixPkgs.coreutils
-      nixPkgs.jq
+      observesPkgs.coreutils
+      observesPkgs.jq
     ];
   };
   name = "observes-job-dynamodb-table-etl";

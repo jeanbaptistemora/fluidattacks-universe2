@@ -3,7 +3,7 @@
 , path
 , ...
 }:
-makeEntrypoint airsPkgs {
+makeEntrypoint {
   name = "airs-test-images-size";
   searchPaths = {
     envPaths = [
