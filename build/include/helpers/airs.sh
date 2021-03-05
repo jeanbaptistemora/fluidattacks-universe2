@@ -52,24 +52,6 @@ function helper_airs_file_exists {
       fi
 }
 
-function helper_airs_adoc_max_columns {
-  local file="${1}"
-  local max_columns="${2}"
-  local regex
-
-      helper_airs_file_exists "${file}" \
-  &&  normalized_file="$(helper_airs_adoc_normalize "${file}")" \
-  &&  regex=".{${max_columns},}" \
-  &&  if ! echo "${normalized_file}" | grep -Pq "${regex}"
-      then
-            return 0
-      else
-            echo "${normalized_file}" | grep -P "${regex}"
-            echo "[ERROR] ${file} must be wrapped at column ${max_columns}" \
-        &&  return 1
-      fi
-}
-
 function helper_airs_adoc_tag_exists {
   file="${1}"
   tag="${2}"

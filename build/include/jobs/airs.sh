@@ -15,7 +15,6 @@ function job_airs_test_lint_code {
 function job_airs_test_generic {
   local all_content_files
   local touched_adoc_files
-  local max_columns='81'
   local min_words='1'
   local max_words='4500'
   local max_lix='65'
@@ -36,7 +35,6 @@ function job_airs_test_generic {
   &&  for path in ${touched_adoc_files}
       do
             helper_airs_adoc_tag_exists "${path}" ':description:' \
-        &&  helper_airs_adoc_max_columns "${path}" "${max_columns}" \
         &&  helper_airs_word_count "${path}" "${min_words}" "${max_words}" \
         &&  helper_airs_test_lix "${path}" "${max_lix}" \
         ||  return 1

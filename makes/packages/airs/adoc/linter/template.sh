@@ -28,6 +28,16 @@ function check_adoc_main_title {
       fi
 }
 
+function check_adoc_max_columns {
+  local target="${1}"
+  local msg='File must be at most 80 columns'
+
+  if grep -v '^:' "${target}" | grep -P "^.{81,}"
+  then
+    abort "[ERROR] ${msg}: ${target}"
+  fi
+}
+
 function check_adoc_min_keywords {
   local target="${1}"
   local min_keywords='5'
