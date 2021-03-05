@@ -301,7 +301,7 @@ describe("EventEvidenceView", (): void => {
           data: {
             downloadEventFile: {
               success: true,
-              url: "https://cloudfront/some_file.pdf",
+              url: "https://localhost:9000/some_file.pdf",
             },
           },
         },
@@ -341,7 +341,7 @@ describe("EventEvidenceView", (): void => {
     );
 
     expect(onOpenLink).toHaveBeenCalledWith(
-      "https://cloudfront/some_file.pdf",
+      "https://localhost:9000/some_file.pdf",
       undefined,
       "noopener,noreferrer,"
     );
