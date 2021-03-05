@@ -1,51 +1,55 @@
-/* tslint:disable:max-file-line-count
- * This file exceeds the limit by 9 lines
- */
-import { MockedProvider, MockedResponse, wait } from "@apollo/react-testing";
-import { mount, ReactWrapper } from "enzyme";
-import { GraphQLError } from "graphql";
-import React from "react";
-// tslint:disable-next-line: no-submodule-imports
-import { act } from "react-dom/test-utils";
-import { Provider } from "react-redux";
-import { MemoryRouter, Route } from "react-router";
-import waitForExpect from "wait-for-expect";
-
-import moment from "moment";
 import { AddUserModal } from "scenes/Dashboard/components/AddUserModal/index";
 import { GET_USER } from "scenes/Dashboard/components/AddUserModal/queries";
+import { GraphQLError } from "graphql";
+import type { IOrganizationStakeholders } from "scenes/Dashboard/containers/OrganizationStakeholdersView/types";
+import type { MockedResponse } from "@apollo/react-testing";
 import { OrganizationStakeholders } from "scenes/Dashboard/containers/OrganizationStakeholdersView";
+import { Provider } from "react-redux";
+import React from "react";
+import type { ReactWrapper } from "enzyme";
+import { act } from "react-dom/test-utils";
+import moment from "moment";
+import { mount } from "enzyme";
+import store from "store";
+import { translate } from "utils/translations/translate";
+import waitForExpect from "wait-for-expect";
 import {
   ADD_STAKEHOLDER_MUTATION,
   EDIT_STAKEHOLDER_MUTATION,
   GET_ORGANIZATION_STAKEHOLDERS,
   REMOVE_STAKEHOLDER_MUTATION,
 } from "scenes/Dashboard/containers/OrganizationStakeholdersView/queries";
-import { IOrganizationStakeholders } from "scenes/Dashboard/containers/OrganizationStakeholdersView/types";
-import store from "store";
+import { MemoryRouter, Route } from "react-router";
+import { MockedProvider, wait } from "@apollo/react-testing";
 import { msgError, msgSuccess } from "utils/notifications";
-import { translate } from "utils/translations/translate";
 
-waitForExpect.defaults.interval = 1000;
+jest.mock(
+  "../../../../utils/notifications",
+  (): Dictionary => {
+    const mockedNotifications: Dictionary = jest.requireActual(
+      "../../../../utils/notifications"
+    );
+    mockedNotifications.msgError = jest.fn(); // eslint-disable-line fp/no-mutation, jest/prefer-spy-on
+    mockedNotifications.msgSuccess = jest.fn(); // eslint-disable-line fp/no-mutation, jest/prefer-spy-on
 
-jest.mock("../../../../utils/notifications", (): Dictionary => {
-  const mockedNotifications: Dictionary = jest.requireActual("../../../../utils/notifications");
-  mockedNotifications.msgError = jest.fn();
-  mockedNotifications.msgSuccess = jest.fn();
+    return mockedNotifications;
+  }
+);
 
-  return mockedNotifications;
-});
+describe("Organization users view", (): void => {
+  const mockProps: IOrganizationStakeholders = {
+    organizationId: "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3",
+  };
 
-describe("Organization users view", () => {
-  const mockProps: IOrganizationStakeholders = { organizationId: "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3" };
-
-  it("should return a function", () => {
-    expect(typeof OrganizationStakeholders)
-      .toEqual("function");
+  it("should return a function", (): void => {
+    expect.hasAssertions();
+    expect(typeof OrganizationStakeholders).toStrictEqual("function");
   });
 
-  it("should render component", async () => {
-    const mocks: ReadonlyArray<MockedResponse> = [
+  it("should render component", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    const mocks: readonly MockedResponse[] = [
       {
         request: {
           query: GET_ORGANIZATION_STAKEHOLDERS,
@@ -78,131 +82,77 @@ describe("Organization users view", () => {
       },
     ];
     const wrapper: ReactWrapper = mount(
-      <MemoryRouter initialEntries={["/orgs/okada/stakeholders"]} >
+      <MemoryRouter initialEntries={["/orgs/okada/stakeholders"]}>
         <Provider store={store}>
-          <MockedProvider mocks={mocks} addTypename={false} >
-            <Route path="/orgs/:organizationName/stakeholders" >
-              <OrganizationStakeholders organizationId={mockProps.organizationId} />
+          <MockedProvider addTypename={false} mocks={mocks}>
+            <Route path={"/orgs/:organizationName/stakeholders"}>
+              <OrganizationStakeholders
+                organizationId={mockProps.organizationId}
+              />
             </Route>
           </MockedProvider>
         </Provider>
-      </MemoryRouter>,
+      </MemoryRouter>
     );
 
-    await act(async () => {
-      await waitForExpect(() => {
-        wrapper.update();
+    await act(
+      async (): Promise<void> => {
+        await waitForExpect((): void => {
+          wrapper.update();
 
-        expect(wrapper)
-          .toHaveLength(1);
+          expect(wrapper).toHaveLength(1);
 
-        expect(wrapper.find("tr"))
-          .toHaveLength(3);
-      });
-    });
+          const RENDER_TEST_LENGTH = 3;
 
-    const addButton: ReactWrapper = wrapper
-      .find("button#addUser")
-      .first();
-    const editButton: ReactWrapper = wrapper
-      .find("button#editUser")
-      .first();
+          expect(wrapper.find("tr")).toHaveLength(RENDER_TEST_LENGTH);
+        });
+      }
+    );
+
+    const addButton: ReactWrapper = wrapper.find("button#addUser").first();
+    const editButton: ReactWrapper = wrapper.find("button#editUser").first();
     const removeButton: ReactWrapper = wrapper
       .find("button#removeUser")
       .first();
 
-    expect(addButton.prop("disabled"))
-      .toBeUndefined();
-    expect(editButton.prop("disabled"))
-      .toBe(true);
-    expect(removeButton.prop("disabled"))
-      .toBe(true);
+    expect(addButton.prop("disabled")).toBeUndefined();
+    expect(editButton.prop("disabled")).toBe(true);
+    expect(removeButton.prop("disabled")).toBe(true);
 
-    const user1Cells: ReactWrapper = wrapper
-      .find("tr")
-      .at(1)
-      .find("td");
-    const user2Cells: ReactWrapper = wrapper
-      .find("tr")
-      .at(2)
-      .find("td");
+    const user1Cells: ReactWrapper = wrapper.find("tr").at(1).find("td");
+    const user2Cells: ReactWrapper = wrapper.find("tr").at(2).find("td");
 
-    expect(
-      user1Cells
-        .at(1)
-        .text())
-      .toBe("testuser1@gmail.com");
-    expect(
-      user1Cells
-        .at(2)
-        .text())
-      .toBe("Group Manager");
-    expect(
-      user1Cells
-        .at(3)
-        .text())
-      .toBe("3100000000");
-    expect(
-      user1Cells
-        .at(4)
-        .text())
-      .toBe("2020-06-01");
-    expect(
-      user1Cells
-        .at(5)
-        .text())
-      .toBe(
-        moment("2020-09-01", "YYYY-MM-DD hh:mm:ss")
-        .fromNow(),
-      );
+    const RENDER_TEST_AT3 = 3;
+    const RENDER_TEST_AT5 = 5;
 
-    expect(
-      user2Cells
-        .at(1)
-        .text())
-      .toBe("testuser2@gmail.com");
-    expect(
-      user2Cells
-        .at(2)
-        .text())
-      .toBe("User Manager");
-    expect(
-      user2Cells
-        .at(3)
-        .text())
-      .toBe("3140000000");
-    expect(
-      user2Cells
-        .at(4)
-        .text())
-      .toBe("2020-08-01");
-    expect(
-      user2Cells
-        .at(5)
-        .text())
-      .toBe("-");
+    expect(user1Cells.at(1).text()).toBe("testuser1@gmail.com");
+    expect(user1Cells.at(2).text()).toBe("Group Manager");
+    expect(user1Cells.at(RENDER_TEST_AT3).text()).toBe("3100000000");
+    expect(user1Cells.at(4).text()).toBe("2020-06-01");
+    expect(user1Cells.at(RENDER_TEST_AT5).text()).toBe(
+      moment("2020-09-01", "YYYY-MM-DD hh:mm:ss").fromNow()
+    );
 
-    wrapper
-      .find("tr")
-      .at(1)
-      .simulate("click");
+    expect(user2Cells.at(1).text()).toBe("testuser2@gmail.com");
+    expect(user2Cells.at(2).text()).toBe("User Manager");
+    expect(user2Cells.at(RENDER_TEST_AT3).text()).toBe("3140000000");
+    expect(user2Cells.at(4).text()).toBe("2020-08-01");
+    expect(user2Cells.at(RENDER_TEST_AT5).text()).toBe("-");
 
-    expect(
-      wrapper
-        .find("button#editUser")
-        .first()
-        .prop("disabled"))
-      .toBe(false);
-    expect(
-      wrapper
-        .find("button#removeUser")
-        .first()
-        .prop("disabled"))
-      .toBe(false);
+    wrapper.find("tr").at(1).simulate("click");
+
+    expect(wrapper.find("button#editUser").first().prop("disabled")).toBe(
+      false
+    );
+    expect(wrapper.find("button#removeUser").first().prop("disabled")).toBe(
+      false
+    );
   });
 
-  it("should add a user", async () => {
-    const mocks: ReadonlyArray<MockedResponse> = [
+  it("should add a user", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    const mocks: readonly MockedResponse[] = [
       {
         request: {
           query: GET_ORGANIZATION_STAKEHOLDERS,
@@ -300,49 +250,39 @@ describe("Organization users view", () => {
       },
     ];
     const wrapper: ReactWrapper = mount(
-      <MemoryRouter initialEntries={["/orgs/okada/stakeholders"]} >
+      <MemoryRouter initialEntries={["/orgs/okada/stakeholders"]}>
         <Provider store={store}>
-          <MockedProvider mocks={mocks} addTypename={false} >
-            <Route path="/orgs/:organizationName/stakeholders" >
-              <OrganizationStakeholders organizationId={mockProps.organizationId} />
+          <MockedProvider addTypename={false} mocks={mocks}>
+            <Route path={"/orgs/:organizationName/stakeholders"}>
+              <OrganizationStakeholders
+                organizationId={mockProps.organizationId}
+              />
             </Route>
           </MockedProvider>
         </Provider>
-      </MemoryRouter>,
+      </MemoryRouter>
     );
 
-    await act(async () => {
-      await waitForExpect(() => {
-        wrapper.update();
+    await act(
+      async (): Promise<void> => {
+        await waitForExpect((): void => {
+          wrapper.update();
 
-        expect(wrapper)
-          .toHaveLength(1);
-        expect(wrapper.find("tr"))
-          .toHaveLength(2);
-      });
-    });
+          expect(wrapper).toHaveLength(1);
+          expect(wrapper.find("tr")).toHaveLength(2);
+        });
+      }
+    );
 
-    expect(
-      wrapper
-        .find(AddUserModal)
-        .prop("open"))
-      .toBe(false);
+    expect(wrapper.find(AddUserModal).prop("open")).toBe(false);
 
-    const addUserButton: ReactWrapper = wrapper
-      .find("button#addUser")
-      .first();
+    const addUserButton: ReactWrapper = wrapper.find("button#addUser").first();
 
     addUserButton.simulate("click");
 
-    expect(
-      wrapper
-        .find(AddUserModal)
-        .prop("open"))
-      .toBe(true);
+    expect(wrapper.find(AddUserModal).prop("open")).toBe(true);
 
-    const form: ReactWrapper = wrapper
-      .find(AddUserModal)
-      .find("genericForm");
+    const form: ReactWrapper = wrapper.find(AddUserModal).find("genericForm");
     const emailField: ReactWrapper = wrapper
       .find(AddUserModal)
       .find({ name: "email" })
@@ -355,42 +295,43 @@ describe("Organization users view", () => {
     emailField.simulate("change", { target: { value: "testuser2@gmail.com" } });
     emailField.simulate("blur");
 
-    await act(async () => {
-      await waitForExpect(() => {
-        wrapper.update();
+    await act(
+      async (): Promise<void> => {
+        await waitForExpect((): void => {
+          wrapper.update();
 
-        expect(
-          wrapper
-            .find(AddUserModal)
-            .find({ name: "phoneNumber" })
-            .find("input")
-            .prop("value"))
-          .toBe("+57 (310) 444 8888");
-      });
-    });
+          expect(
+            wrapper
+              .find(AddUserModal)
+              .find({ name: "phoneNumber" })
+              .find("input")
+              .prop("value")
+          ).toBe("+57 (310) 444 8888");
+        });
+      }
+    );
 
     roleField.simulate("change", { target: { value: "CUSTOMER" } });
     form.simulate("submit");
 
-    await act(async () => {
-      await waitForExpect(() => {
-        wrapper.update();
+    await act(
+      async (): Promise<void> => {
+        await waitForExpect((): void => {
+          wrapper.update();
 
-        expect(
-          wrapper
-            .find(AddUserModal)
-            .prop("open"))
-          .toBe(false);
-        expect(msgSuccess)
-          .toHaveBeenCalled();
-        expect(wrapper.find("tr"))
-          .toHaveLength(2);
-      });
-    });
+          expect(wrapper.find(AddUserModal).prop("open")).toBe(false);
+
+          expect(msgSuccess).toHaveBeenCalled(); // eslint-disable-line jest/prefer-called-with
+          expect(wrapper.find("tr")).toHaveLength(2);
+        });
+      }
+    );
   });
 
-  it("should edit a user", async () => {
-    const mocks: ReadonlyArray<MockedResponse> = [
+  it("should edit a user", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    const mocks: readonly MockedResponse[] = [
       {
         request: {
           query: GET_ORGANIZATION_STAKEHOLDERS,
@@ -461,77 +402,66 @@ describe("Organization users view", () => {
       },
     ];
     const wrapper: ReactWrapper = mount(
-      <MemoryRouter initialEntries={["/orgs/okada/stakeholders"]} >
-        <Provider store={store} >
-          <MockedProvider mocks={mocks} addTypename={false} >
-            <Route path="/orgs/:organizationName/stakeholders" >
-              <OrganizationStakeholders organizationId={mockProps.organizationId} />
+      <MemoryRouter initialEntries={["/orgs/okada/stakeholders"]}>
+        <Provider store={store}>
+          <MockedProvider addTypename={false} mocks={mocks}>
+            <Route path={"/orgs/:organizationName/stakeholders"}>
+              <OrganizationStakeholders
+                organizationId={mockProps.organizationId}
+              />
             </Route>
           </MockedProvider>
         </Provider>
-      </MemoryRouter>,
+      </MemoryRouter>
     );
 
-    await act(async () => { await wait(0); wrapper.update(); });
+    await act(
+      async (): Promise<void> => {
+        await wait(0);
+        wrapper.update();
+      }
+    );
 
-    expect(wrapper)
-      .toHaveLength(1);
-    expect(wrapper.find("tr"))
-      .toHaveLength(2);
+    expect(wrapper).toHaveLength(1);
+    expect(wrapper.find("tr")).toHaveLength(2);
 
-    expect(
-      wrapper
-        .find(AddUserModal)
-        .prop("open"))
-      .toBe(false);
+    expect(wrapper.find(AddUserModal).prop("open")).toBe(false);
 
-    wrapper
-      .find("tr")
-      .at(1)
-      .simulate("click");
+    wrapper.find("tr").at(1).simulate("click");
 
-    wrapper
-      .find("button#editUser")
-      .first()
-      .simulate("click");
+    wrapper.find("button#editUser").first().simulate("click");
 
-    expect(
-      wrapper
-        .find(AddUserModal)
-        .prop("open"))
-      .toBe(true);
+    expect(wrapper.find(AddUserModal).prop("open")).toBe(true);
     expect(
       wrapper
         .find(AddUserModal)
         .find({ name: "email" })
         .find("input")
-        .prop("value"))
-      .toBe("testuser1@gmail.com");
+        .prop("value")
+    ).toBe("testuser1@gmail.com");
     expect(
       wrapper
         .find(AddUserModal)
         .find({ name: "email" })
         .find("input")
-        .prop("disabled"))
-      .toBe(true);
+        .prop("disabled")
+    ).toBe(true);
     expect(
       wrapper
         .find(AddUserModal)
         .find({ name: "role" })
         .find("select")
-        .prop("defaultValue"))
-      .toBe("CUSTOMER");
+        .prop("defaultValue")
+    ).toBe("CUSTOMER");
     expect(
       wrapper
         .find(AddUserModal)
         .find({ name: "phoneNumber" })
         .find("input")
-        .prop("value"))
-      .toBe("+57 (310) 000 0000");
+        .prop("value")
+    ).toBe("+57 (310) 000 0000");
 
-    const form: ReactWrapper = wrapper
-      .find(AddUserModal)
-      .find("genericForm");
+    const form: ReactWrapper = wrapper.find(AddUserModal).find("genericForm");
     const roleField: ReactWrapper = wrapper
       .find(AddUserModal)
       .find({ name: "role" })
@@ -542,28 +472,26 @@ describe("Organization users view", () => {
       .find("input");
 
     roleField.simulate("change", { target: { value: "CUSTOMERADMIN" } });
-    phoneField.simulate("change", { target: { value: "+57 (320) 111 3333" }});
+    phoneField.simulate("change", { target: { value: "+57 (320) 111 3333" } });
     form.simulate("submit");
 
-    await act(async () => {
-      await waitForExpect(() => {
-        wrapper.update();
+    await act(
+      async (): Promise<void> => {
+        await waitForExpect((): void => {
+          wrapper.update();
 
-        expect(
-          wrapper
-            .find(AddUserModal)
-            .prop("open"))
-          .toBe(false);
-        expect(msgSuccess)
-          .toHaveBeenCalled();
-        expect(wrapper.find("tr"))
-          .toHaveLength(2);
-      });
-    });
+          expect(wrapper.find(AddUserModal).prop("open")).toBe(false);
+          expect(msgSuccess).toHaveBeenCalled(); // eslint-disable-line jest/prefer-called-with
+          expect(wrapper.find("tr")).toHaveLength(2);
+        });
+      }
+    );
   });
 
-  it("should remove a user", async () => {
-    const mocks: ReadonlyArray<MockedResponse> = [
+  it("should remove a user", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    const mocks: readonly MockedResponse[] = [
       {
         request: {
           query: GET_ORGANIZATION_STAKEHOLDERS,
@@ -635,65 +563,64 @@ describe("Organization users view", () => {
       },
     ];
     const wrapper: ReactWrapper = mount(
-      <MemoryRouter initialEntries={["/orgs/okada/stakeholders"]} >
+      <MemoryRouter initialEntries={["/orgs/okada/stakeholders"]}>
         <Provider store={store}>
-          <MockedProvider mocks={mocks} addTypename={false} >
-            <Route path="/orgs/:organizationName/stakeholders" >
-              <OrganizationStakeholders organizationId={mockProps.organizationId} />
+          <MockedProvider addTypename={false} mocks={mocks}>
+            <Route path={"/orgs/:organizationName/stakeholders"}>
+              <OrganizationStakeholders
+                organizationId={mockProps.organizationId}
+              />
             </Route>
           </MockedProvider>
         </Provider>
-      </MemoryRouter>,
+      </MemoryRouter>
     );
 
-    await act(async () => {
-      await waitForExpect(() => {
-        wrapper.update();
+    await act(
+      async (): Promise<void> => {
+        await waitForExpect((): void => {
+          wrapper.update();
 
-        expect(wrapper)
-          .toHaveLength(1);
-        expect(wrapper.find("tr"))
-          .toHaveLength(3);
-      });
-    });
+          const TEST_LENGTH = 3;
 
-    wrapper
-      .find("tr")
-      .at(2)
-      .simulate("click");
+          expect(wrapper).toHaveLength(1);
+          expect(wrapper.find("tr")).toHaveLength(TEST_LENGTH);
+        });
+      }
+    );
 
-    await act(async () => {
-      await waitForExpect(() => {
-        wrapper.update();
+    wrapper.find("tr").at(2).simulate("click");
 
-        expect(
-          wrapper
-            .find("button#removeUser")
-            .first()
-            .prop("disabled"))
-          .toBe(false);
-      });
-    });
+    await act(
+      async (): Promise<void> => {
+        await waitForExpect((): void => {
+          wrapper.update();
 
-    wrapper
-      .find("button#removeUser")
-      .first()
-      .simulate("click");
+          expect(
+            wrapper.find("button#removeUser").first().prop("disabled")
+          ).toBe(false);
+        });
+      }
+    );
 
-    await act(async () => {
-      await waitForExpect(() => {
-        wrapper.update();
+    wrapper.find("button#removeUser").first().simulate("click");
 
-        expect(msgSuccess)
-          .toHaveBeenCalled();
-        expect(wrapper.find("tr"))
-          .toHaveLength(2);
-      });
-    });
+    await act(
+      async (): Promise<void> => {
+        await waitForExpect((): void => {
+          wrapper.update();
+
+          expect(msgSuccess).toHaveBeenCalled(); // eslint-disable-line jest/prefer-called-with
+          expect(wrapper.find("tr")).toHaveLength(2);
+        });
+      }
+    );
   });
 
-  it("should handle query errors", async () => {
-    const mocks: ReadonlyArray<MockedResponse> = [
+  it("should handle query errors", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    const mocks: readonly MockedResponse[] = [
       {
         request: {
           query: GET_ORGANIZATION_STAKEHOLDERS,
@@ -702,42 +629,44 @@ describe("Organization users view", () => {
           },
         },
         result: {
-          errors: [new GraphQLError("An error occurred fetching organization users")],
+          errors: [
+            new GraphQLError("An error occurred fetching organization users"),
+          ],
         },
       },
     ];
     const wrapper: ReactWrapper = mount(
-      <MemoryRouter initialEntries={["/orgs/okada/stakeholders"]} >
+      <MemoryRouter initialEntries={["/orgs/okada/stakeholders"]}>
         <Provider store={store}>
-          <MockedProvider mocks={mocks} addTypename={false} >
-            <Route path="/orgs/:organizationName/stakeholders" >
-              <OrganizationStakeholders organizationId={mockProps.organizationId} />
+          <MockedProvider addTypename={false} mocks={mocks}>
+            <Route path={"/orgs/:organizationName/stakeholders"}>
+              <OrganizationStakeholders
+                organizationId={mockProps.organizationId}
+              />
             </Route>
           </MockedProvider>
         </Provider>
-      </MemoryRouter>,
+      </MemoryRouter>
     );
 
-    await act(async () => {
-      await waitForExpect(() => {
-        wrapper.update();
+    await act(
+      async (): Promise<void> => {
+        await waitForExpect((): void => {
+          wrapper.update();
 
-        expect(msgError)
-          .toHaveBeenCalled();
-        expect(
-          wrapper
-            .find("tr")
-            .at(1)
-            .find("td")
-            .at(0)
-            .text())
-          .toBe("dataTableNext.noDataIndication");
-      });
-    });
+          expect(msgError).toHaveBeenCalled(); // eslint-disable-line jest/prefer-called-with
+          expect(wrapper.find("tr").at(1).find("td").at(0).text()).toBe(
+            "dataTableNext.noDataIndication"
+          );
+        });
+      }
+    );
   });
 
-  it("should handle mutation errors", async () => {
-    const mocks: ReadonlyArray<MockedResponse> = [
+  it("should handle mutation errors", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    const mocks: readonly MockedResponse[] = [
       {
         request: {
           query: GET_ORGANIZATION_STAKEHOLDERS,
@@ -818,7 +747,9 @@ describe("Organization users view", () => {
           },
         },
         result: {
-          errors: [new GraphQLError("Exception - Invalid phone number in form")],
+          errors: [
+            new GraphQLError("Exception - Invalid phone number in form"),
+          ],
         },
       },
       {
@@ -833,7 +764,9 @@ describe("Organization users view", () => {
           },
         },
         result: {
-          errors: [new GraphQLError("Exception - Invalid email address in form")],
+          errors: [
+            new GraphQLError("Exception - Invalid email address in form"),
+          ],
         },
       },
       {
@@ -853,122 +786,132 @@ describe("Organization users view", () => {
       },
     ];
     const wrapper: ReactWrapper = mount(
-      <MemoryRouter initialEntries={["/orgs/okada/stakeholders"]} >
+      <MemoryRouter initialEntries={["/orgs/okada/stakeholders"]}>
         <Provider store={store}>
-          <MockedProvider mocks={mocks} addTypename={false} >
-            <Route path="/orgs/:organizationName/stakeholders" >
-              <OrganizationStakeholders organizationId={mockProps.organizationId} />
+          <MockedProvider addTypename={false} mocks={mocks}>
+            <Route path={"/orgs/:organizationName/stakeholders"}>
+              <OrganizationStakeholders
+                organizationId={mockProps.organizationId}
+              />
             </Route>
           </MockedProvider>
         </Provider>
-      </MemoryRouter>,
+      </MemoryRouter>
     );
 
-    await act(async () => { await wait(0); wrapper.update(); });
+    await act(
+      async (): Promise<void> => {
+        await wait(0);
+        wrapper.update();
+      }
+    );
 
-    expect(wrapper)
-      .toHaveLength(1);
-    expect(wrapper.find("tr"))
-      .toHaveLength(2);
+    expect(wrapper).toHaveLength(1);
+    expect(wrapper.find("tr")).toHaveLength(2);
 
-    wrapper
-      .find("tr")
-      .at(1)
-      .simulate("click");
+    wrapper.find("tr").at(1).simulate("click");
 
-    const openModal: (() => void) = (): void => {
-      wrapper
-        .find("button#editUser")
-        .first()
-        .simulate("click");
+    const openModal: () => void = (): void => {
+      wrapper.find("button#editUser").first().simulate("click");
     };
 
-    const getForm: (() => ReactWrapper) = (): ReactWrapper => wrapper
-      .find(AddUserModal)
-      .find("genericForm");
-    const getRoleField: (() => ReactWrapper) = (): ReactWrapper => wrapper
-      .find(AddUserModal)
-      .find({ name: "role" })
-      .find("select");
-    const submit: (() => void) = (): void => {
+    const getForm: () => ReactWrapper = (): ReactWrapper =>
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+      wrapper.find(AddUserModal).find("genericForm");
+    const getRoleField: () => ReactWrapper = (): ReactWrapper =>
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+      wrapper.find(AddUserModal).find({ name: "role" }).find("select");
+    const submit: () => void = (): void => {
       openModal();
 
-      expect(
-        wrapper
-          .find(AddUserModal)
-          .prop("open"))
-        .toBe(true);
+      expect(wrapper.find(AddUserModal).prop("open")).toBe(true);
 
-      getRoleField()
-        .simulate("change", { target: { value: "CUSTOMERADMIN" } });
-      getForm()
-        .simulate("submit");
+      getRoleField().simulate("change", { target: { value: "CUSTOMERADMIN" } });
+      getForm().simulate("submit");
     };
 
     submit();
 
-    await act(async () => {
-      await waitForExpect(() => {
-        wrapper.update();
+    await act(
+      async (): Promise<void> => {
+        await waitForExpect((): void => {
+          wrapper.update();
 
-        expect(msgError)
-          .toHaveBeenCalledWith(translate.t("validations.email"));
-      });
-    });
-
-    submit();
-
-    await act(async () => {
-      await waitForExpect(() => {
-        wrapper.update();
-
-        expect(msgError)
-          .toHaveBeenCalledWith(translate.t("validations.invalidValueInField"));
-      });
-    });
+          expect(msgError).toHaveBeenCalledWith(
+            translate.t("validations.email")
+          );
+        });
+      }
+    );
 
     submit();
 
-    await act(async () => {
-      await waitForExpect(() => {
-        wrapper.update();
+    await act(
+      async (): Promise<void> => {
+        await waitForExpect((): void => {
+          wrapper.update();
 
-        expect(msgError)
-          .toHaveBeenCalledWith(translate.t("validations.invalid_char"));
-      });
-    });
-
-    submit();
-
-    await act(async () => {
-      await waitForExpect(() => {
-        wrapper.update();
-
-        expect(msgError)
-          .toHaveBeenCalledWith(translate.t("validations.invalidPhoneNumberInField"));
-      });
-    });
+          expect(msgError).toHaveBeenCalledWith(
+            translate.t("validations.invalidValueInField")
+          );
+        });
+      }
+    );
 
     submit();
 
-    await act(async () => {
-      await waitForExpect(() => {
-        wrapper.update();
+    await act(
+      async (): Promise<void> => {
+        await waitForExpect((): void => {
+          wrapper.update();
 
-        expect(msgError)
-          .toHaveBeenCalledWith(translate.t("validations.invalidEmailInField"));
-      });
-    });
+          expect(msgError).toHaveBeenCalledWith(
+            translate.t("validations.invalid_char")
+          );
+        });
+      }
+    );
 
     submit();
 
-    await act(async () => {
-      await waitForExpect(() => {
-        wrapper.update();
+    await act(
+      async (): Promise<void> => {
+        await waitForExpect((): void => {
+          wrapper.update();
 
-        expect(msgError)
-          .toHaveBeenCalledWith(translate.t("group_alerts.error_textsad"));
-      });
-    });
+          expect(msgError).toHaveBeenCalledWith(
+            translate.t("validations.invalidPhoneNumberInField")
+          );
+        });
+      }
+    );
+
+    submit();
+
+    await act(
+      async (): Promise<void> => {
+        await waitForExpect((): void => {
+          wrapper.update();
+
+          expect(msgError).toHaveBeenCalledWith(
+            translate.t("validations.invalidEmailInField")
+          );
+        });
+      }
+    );
+
+    submit();
+
+    await act(
+      async (): Promise<void> => {
+        await waitForExpect((): void => {
+          wrapper.update();
+
+          expect(msgError).toHaveBeenCalledWith(
+            translate.t("group_alerts.error_textsad")
+          );
+        });
+      }
+    );
   });
 });
