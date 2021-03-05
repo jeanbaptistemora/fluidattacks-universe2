@@ -1,5 +1,5 @@
 { buildPythonRequirements
-, nixpkgs2
+, nixpkgs
 , makeEntrypoint
 , packages
 , path
@@ -7,14 +7,14 @@
 }:
 makeEntrypoint {
   arguments = {
-    envGeckoDriver = nixpkgs2.geckodriver;
+    envGeckoDriver = nixpkgs.geckodriver;
     envIntegratesEnv = packages.integrates.back.env;
-    envFirefox = nixpkgs2.firefox;
+    envFirefox = nixpkgs.firefox;
   };
   name = "integrates-analytics-snapshots";
   searchPaths = {
     envPaths = [
-      nixpkgs2.python37
+      nixpkgs.python37
       packages.integrates.db
       packages.integrates.cache
       packages.integrates.storage
@@ -30,7 +30,7 @@ makeEntrypoint {
             "urllib3==1.26.3"
           ];
         };
-        python = nixpkgs2.python37;
+        python = nixpkgs.python37;
       })
     ];
     envUtils = [

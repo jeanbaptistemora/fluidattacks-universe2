@@ -1,4 +1,4 @@
-{ nixpkgs2
+{ nixpkgs
 , makeEntrypoint
 , packages
 , path
@@ -6,12 +6,12 @@
 }:
 makeEntrypoint {
   arguments = {
-    envFirefox = nixpkgs2.firefox;
-    envGeckodriver = nixpkgs2.geckodriver;
+    envFirefox = nixpkgs.firefox;
+    envGeckodriver = nixpkgs.geckodriver;
   };
   searchPaths = {
     envPaths = [
-      nixpkgs2.kubectl
+      nixpkgs.kubectl
       packages.integrates.web.e2e.pypi
     ];
     envUtils = [

@@ -1,4 +1,4 @@
-{ nixpkgs2
+{ nixpkgs
 , makeEntrypoint
 , path
 , ...
@@ -9,10 +9,10 @@ makeEntrypoint {
   };
   searchPaths = {
     envPaths = [
-      nixpkgs2.awscli
-      nixpkgs2.envsubst
-      nixpkgs2.kubectl
-      nixpkgs2.utillinux
+      nixpkgs.awscli
+      nixpkgs.envsubst
+      nixpkgs.kubectl
+      nixpkgs.utillinux
     ];
     envUtils = [
       "/makes/utils/aws"

@@ -1,4 +1,4 @@
-{ nixpkgs2
+{ nixpkgs
 , makeEntrypoint
 , packages
 , path
@@ -7,7 +7,7 @@
 makeEntrypoint {
   arguments = {
     envDb = path "/makes/applications/integrates/db";
-    envDynamoZip = nixpkgs2.fetchurl {
+    envDynamoZip = nixpkgs.fetchurl {
       url = "https://s3-us-west-2.amazonaws.com/dynamodb-local/dynamodb_local_2020-05-19.zip";
       sha256 = "0lqxrbiqnvac8rq8x41pm76mb5bh4rxhfzj5yxji6n9q0m1wxbqq";
     };
@@ -15,11 +15,11 @@ makeEntrypoint {
   name = "integrates-db";
   searchPaths = {
     envPaths = [
-      nixpkgs2.awscli
-      nixpkgs2.gnused
-      nixpkgs2.openjdk_headless
-      nixpkgs2.terraform
-      nixpkgs2.unzip
+      nixpkgs.awscli
+      nixpkgs.gnused
+      nixpkgs.openjdk_headless
+      nixpkgs.terraform
+      nixpkgs.unzip
       packages.makes.done
       packages.makes.kill-port
       packages.makes.wait

@@ -1,4 +1,4 @@
-{ nixpkgs2
+{ nixpkgs
 , makeEntrypoint
 , packages
 , path
@@ -13,9 +13,9 @@ makeEntrypoint {
   name = "integrates-mobile-ota";
   searchPaths = {
     envPaths = [
-      nixpkgs2.findutils
-      nixpkgs2.gnused
-      nixpkgs2.nodejs-12_x
+      nixpkgs.findutils
+      nixpkgs.gnused
+      nixpkgs.nodejs-12_x
       packages.makes.announce.bugsnag
     ];
     envUtils = [

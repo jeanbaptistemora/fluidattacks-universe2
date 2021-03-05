@@ -1,11 +1,11 @@
-{ nixpkgs2
+{ nixpkgs
 , makeEntrypoint
 , path
 , ...
 }:
 makeEntrypoint {
   arguments = {
-    envExternalC3 = nixpkgs2.fetchzip {
+    envExternalC3 = nixpkgs.fetchzip {
       url = "https://github.com/c3js/c3/archive/v0.7.18.zip";
       sha256 = "Wqfm34pE2NDMu1JMwBAR/1jcZZlVBfxRKGp/YPNlocU=";
     };

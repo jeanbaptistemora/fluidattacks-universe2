@@ -1,4 +1,4 @@
-{ nixpkgs2
+{ nixpkgs
 , buildPythonRequirements
 , makeEntrypoint
 , packages
@@ -32,7 +32,7 @@ let
         "zipp==3.4.0"
       ];
     };
-    python = nixpkgs2.python37;
+    python = nixpkgs.python37;
   };
 in
 makeEntrypoint {
