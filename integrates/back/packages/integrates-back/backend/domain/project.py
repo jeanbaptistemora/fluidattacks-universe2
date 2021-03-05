@@ -687,7 +687,9 @@ async def get_last_closing_vuln_info(
 
 
 def get_last_closing_date(
-        vulnerability: Dict[str, FindingType]) -> Optional[date]:
+    vulnerability: Dict[str, FindingType],
+    min_date: Optional[date] = None
+) -> Optional[date]:
     """Get last closing date of a vulnerability."""
     current_state = vuln_domain.get_last_approved_state(vulnerability)
     last_closing_date = None
@@ -697,6 +699,10 @@ def get_last_closing_date(
             current_state.get('date', '').split(' ')[0],
             date_format='%Y-%m-%d'
         ).date()
+
+        if min_date and min_date > last_closing_date:
+            return None
+
     return last_closing_date
 
 
@@ -740,7 +746,9 @@ async def get_max_open_severity(
 
 
 def get_open_vulnerability_date(
-        vulnerability: Dict[str, FindingType]) -> Optional[date]:
+    vulnerability: Dict[str, FindingType],
+    min_date: Optional[date] = None
+) -> Optional[date]:
     """Get open vulnerability date of a vulnerability."""
     all_states = cast(
         List[Dict[str, str]],
@@ -748,14 +756,24 @@ def get_open_vulnerability_date(
     )
     open_states = [state for state in all_states if state['state'] == 'open']
     if open_states:
-        return datetime_utils.get_from_str(
+        open_vulnerability_date = datetime_utils.get_from_str(
             open_states[-1]['date'].split(' ')[0],
             date_format='%Y-%m-%d'
         ).date()
+
+        if min_date and min_date > open_vulnerability_date:
+            return None
+
+        return open_vulnerability_date
+
     return None
 
 
-async def get_mean_remediate(context: Any, group_name: str) -> Decimal:
+async def get_mean_remediate(
+    context: Any,
+    group_name: str,
+    min_date: Optional[date] = None
+) -> Decimal:
     group_findings_loader = context.group_findings
     finding_vulns_loaders = context.finding_vulns
 
@@ -764,17 +782,18 @@ async def get_mean_remediate(context: Any, group_name: str) -> Decimal:
         str(finding['finding_id']) for finding in group_findings
     ])
 
-    return await get_mean_remediate_vulnerabilities(vulns)
+    return await get_mean_remediate_vulnerabilities(vulns, min_date)
 
 
 async def get_mean_remediate_vulnerabilities(
-    vulns: List[Dict[str, FindingType]]
+    vulns: List[Dict[str, FindingType]],
+    min_date: Optional[date] = None
 ) -> Decimal:
     """Get mean time to remediate a vulnerability."""
     total_vuln = 0
     total_days = 0
     open_vuln_dates = await collect(
-        in_process(get_open_vulnerability_date, vuln)
+        in_process(get_open_vulnerability_date, vuln, min_date)
         for vuln in vulns
     )
     filtered_open_vuln_dates = [
@@ -783,7 +802,7 @@ async def get_mean_remediate_vulnerabilities(
         if vuln
     ]
     closed_vuln_dates = await collect(
-        in_process(get_last_closing_date, vuln)
+        in_process(get_last_closing_date, vuln, min_date)
         for vuln, open_vuln in zip(vulns, open_vuln_dates)
         if open_vuln
     )
@@ -912,17 +931,23 @@ async def get_total_treatment(
     return treatment
 
 
-async def get_mean_remediate_non_treated(group_name: str) -> Decimal:
+async def get_mean_remediate_non_treated(
+    group_name: str,
+    min_date: Optional[date] = None
+) -> Decimal:
     findings = await finding_domain.get_findings_by_group(group_name)
     vulnerabilities = await vuln_domain.list_vulnerabilities_async(
         [str(finding['finding_id']) for finding in findings],
         include_requested_zero_risk=True,
     )
 
-    return await get_mean_remediate_vulnerabilities([
-        vuln for vuln in vulnerabilities
-        if not vuln_domain.is_accepted_undefined_vulnerability(vuln)
-    ])
+    return await get_mean_remediate_vulnerabilities(
+        [
+            vuln for vuln in vulnerabilities
+            if not vuln_domain.is_accepted_undefined_vulnerability(vuln)
+        ],
+        min_date
+    )
 
 
 async def get_closers(

@@ -39,6 +39,9 @@ from backend.dal import (
 from back import settings
 from back.tests.unit.utils import create_dummy_session
 from graphql.type import GraphQLResolveInfo
+from newutils import (
+    datetime as datetime_utils,
+)
 
 pytestmark = [
     pytest.mark.asyncio,
@@ -212,17 +215,34 @@ async def test_get_open_vulnerability_date():
     assert test_data is None
 
 
-@freeze_time("2019-12-01")
+@freeze_time("2020-12-01")
 async def test_get_mean_remediate():
     context = get_new_context()
     group_name = 'unittesting'
-    test_data = await get_mean_remediate(context, group_name)
-    test_data_non_treated = await get_mean_remediate_non_treated(group_name)
-    expected_output = Decimal('88.0')
-    expected_output_non_treated = Decimal('94.0')
+    assert await get_mean_remediate(context, group_name) == Decimal('383.0')
+    assert await get_mean_remediate_non_treated(group_name) == Decimal('385.0')
 
-    assert test_data == expected_output
-    assert test_data_non_treated == expected_output_non_treated
+    min_date = datetime_utils.get_now_minus_delta(days=30).date()
+    assert await get_mean_remediate(
+        context,
+        group_name,
+        min_date
+    ) == Decimal('0.0')
+    assert await get_mean_remediate_non_treated(
+        group_name,
+        min_date
+    ) == Decimal('0.0')
+
+    min_date = datetime_utils.get_now_minus_delta(days=90).date()
+    assert await get_mean_remediate(
+        context,
+        group_name,
+        min_date
+    ) == Decimal('82.0')
+    assert await get_mean_remediate_non_treated(
+        group_name,
+        min_date
+    ) == Decimal('0.0')
 
 
 async def test_get_total_treatment():
