@@ -176,6 +176,9 @@ integrates.back.test.functional.old:
 integrates.back.test.functional.create_organization:
   <<: *integrates_back_test_functional
 
+integrates.back.test.functional.edit_stakeholder_organization:
+  <<: *integrates_back_test_functional
+
 integrates.back.test.functional.finding:
   <<: *integrates_back_test_functional
 

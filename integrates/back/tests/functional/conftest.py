@@ -10,6 +10,7 @@ import pytest
 # Constants
 TEST_GROUPS: Set[str] = {
     'create_organization',
+    'edit_stakeholder_organization',
     'finding',
     'grant_stakeholder_organization_access',
     'groups_with_forces',

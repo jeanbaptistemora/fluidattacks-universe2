@@ -65,14 +65,14 @@ async def populate_orgs(data: List[Any]) -> bool:
         for user in org['users']:
             coroutines.append(
                 dal_organization.add_user(
-                    org['id'],
+                    f'ORG#{org["id"]}',
                     user,
                 )
             )
         for group in org['groups']:
             coroutines.append(
                 dal_organization.add_group(
-                    org['id'],
+                    f'ORG#{org["id"]}',
                     group,
                 )
             )
