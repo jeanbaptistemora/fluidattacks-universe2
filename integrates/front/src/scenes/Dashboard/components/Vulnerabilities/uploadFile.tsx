@@ -154,7 +154,7 @@ export const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
         if (result.uploadFile.success) {
           msgSuccess(
             translate.t("group_alerts.file_updated"),
-            translate.t("group_alerts.title_success")
+            translate.t("group_alerts.titleSuccess")
           );
           dispatch(reset("vulns"));
         }

@@ -54,7 +54,7 @@ const portfolio: React.FC<IPortfolioProps> = (props: IPortfolioProps): JSX.Eleme
       mixpanel.track("AddProjectTags");
       msgSuccess(
         translate.t("search_findings.tab_resources.success"),
-        translate.t("search_findings.tab_users.title_success"),
+        translate.t("search_findings.tab_users.titleSuccess"),
       );
     },
     onError: (error: ApolloError): void => {
@@ -77,7 +77,7 @@ const portfolio: React.FC<IPortfolioProps> = (props: IPortfolioProps): JSX.Eleme
       mixpanel.track("RemoveTag");
       msgSuccess(
         translate.t("search_findings.tab_resources.success_remove"),
-        translate.t("search_findings.tab_users.title_success"),
+        translate.t("search_findings.tab_users.titleSuccess"),
       );
     },
     onError: ({ graphQLErrors }: ApolloError): void => {

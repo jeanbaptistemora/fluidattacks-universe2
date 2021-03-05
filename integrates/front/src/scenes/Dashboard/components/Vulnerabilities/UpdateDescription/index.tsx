@@ -150,7 +150,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
             translate.t(
               "search_findings.tab_description.update_vulnerabilities"
             ),
-            translate.t("group_alerts.title_success")
+            translate.t("group_alerts.titleSuccess")
           );
         }
       }
@@ -252,7 +252,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
             translate.t(
               "search_findings.tab_description.update_vulnerabilities"
             ),
-            translate.t("group_alerts.title_success")
+            translate.t("group_alerts.titleSuccess")
           );
           handleCloseModal();
         }

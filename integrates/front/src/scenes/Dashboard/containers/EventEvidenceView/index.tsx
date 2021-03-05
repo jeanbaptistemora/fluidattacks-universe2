@@ -180,8 +180,8 @@ const EventEvidenceView: React.FC = (): JSX.Element => {
         <ButtonToolbarRow>
           <Can do={"backend_api_mutations_update_event_evidence_mutate"}>
             <TooltipWrapper
-              id={translate.t("group.events.evidence.edit_tooltip.id")}
-              message={translate.t("group.events.evidence.edit_tooltip")}
+              id={translate.t("group.events.evidence.editTooltip.id")}
+              message={translate.t("group.events.evidence.editTooltip")}
             >
               <Button
                 disabled={data.event.eventStatus === "SOLVED"}
@@ -199,7 +199,7 @@ const EventEvidenceView: React.FC = (): JSX.Element => {
         !isEditing ? (
           <div className={globalStyle["no-data"]}>
             <FontAwesomeIcon icon={faImage} size={"3x"} />
-            <p>{translate.t("group.events.evidence.no_data")}</p>
+            <p>{translate.t("group.events.evidence.noData")}</p>
           </div>
         ) : undefined}
         <GenericForm name={"editEvidences"} onSubmit={handleUpdate}>

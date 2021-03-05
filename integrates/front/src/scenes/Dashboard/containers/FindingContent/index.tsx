@@ -108,8 +108,8 @@ const findingContent: React.FC = (): JSX.Element => {
       onCompleted: (result: { submitDraft: { success: boolean } }): void => {
         if (result.submitDraft.success) {
           msgSuccess(
-            translate.t("group.drafts.success_submit"),
-            translate.t("group.drafts.title_success")
+            translate.t("group.drafts.successSubmit"),
+            translate.t("group.drafts.titleSuccess")
           );
           void headerRefetch();
         }
@@ -151,7 +151,7 @@ const findingContent: React.FC = (): JSX.Element => {
         if (result.approveDraft.success) {
           msgSuccess(
             translate.t("search_findings.draft_approved"),
-            translate.t("group.drafts.title_success")
+            translate.t("group.drafts.titleSuccess")
           );
           void headerRefetch();
         }
@@ -192,7 +192,7 @@ const findingContent: React.FC = (): JSX.Element => {
         if (result.rejectDraft.success) {
           msgSuccess(
             translate.t("search_findings.finding_rejected", { findingId }),
-            translate.t("group.drafts.title_success")
+            translate.t("group.drafts.titleSuccess")
           );
           void headerRefetch();
         }
@@ -225,7 +225,7 @@ const findingContent: React.FC = (): JSX.Element => {
         if (result.deleteFinding.success) {
           msgSuccess(
             translate.t("search_findings.finding_deleted", { findingId }),
-            translate.t("group.drafts.title_success")
+            translate.t("group.drafts.titleSuccess")
           );
           replace(`/groups/${projectName}/vulns`);
         }

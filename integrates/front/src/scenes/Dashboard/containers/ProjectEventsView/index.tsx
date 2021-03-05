@@ -195,8 +195,8 @@ const projectEventsView: React.FC = (): JSX.Element => {
               if (result.createEvent.success) {
                 closeNewEventModal();
                 msgSuccess(
-                  translate.t("group.events.success_create"),
-                  translate.t("group.events.title_success"),
+                  translate.t("group.events.successCreate"),
+                  translate.t("group.events.titleSuccess"),
                 );
                 void refetch();
               }
@@ -369,7 +369,7 @@ const projectEventsView: React.FC = (): JSX.Element => {
                                 <Row>
                                   <Col50>
                                     <FormGroup>
-                                      <ControlLabel>{translate.t("group.events.form.blocking_hours")}</ControlLabel>
+                                      <ControlLabel>{translate.t("group.events.form.blockingHours")}</ControlLabel>
                                       <Field
                                         component={Text}
                                         name="blockingHours"
@@ -385,15 +385,15 @@ const projectEventsView: React.FC = (): JSX.Element => {
                                       </ControlLabel>
                                       <FormSection name="affectedComponents">
                                         <Field component={Checkbox} name="FLUID_STATION" validate={someRequired}>
-                                          {` ${translate.t("group.events.form.components.fluid_station")}`}
+                                          {` ${translate.t("group.events.form.components.fluidStation")}`}
                                         </Field>
                                         <br/>
                                         <Field component={Checkbox} name="CLIENT_STATION" validate={someRequired}>
-                                          {` ${translate.t("group.events.form.components.client_station")}`}
+                                          {` ${translate.t("group.events.form.components.clientStation")}`}
                                         </Field>
                                         <br/>
                                         <Field component={Checkbox} name="TOE_EXCLUSSION" validate={someRequired}>
-                                          {` ${translate.t("group.events.form.components.toe_exclussion")}`}
+                                          {` ${translate.t("group.events.form.components.toeExclusion")}`}
                                         </Field>
                                         <br/>
                                         <Field component={Checkbox} name="DOCUMENTATION" validate={someRequired}>
@@ -405,7 +405,7 @@ const projectEventsView: React.FC = (): JSX.Element => {
                                           name="LOCAL_CONNECTION"
                                           validate={someRequired}
                                         >
-                                          {` ${translate.t("group.events.form.components.local_conn")}`}
+                                          {` ${translate.t("group.events.form.components.localConn")}`}
                                         </Field>
                                         <br/>
                                         <Field
@@ -413,31 +413,31 @@ const projectEventsView: React.FC = (): JSX.Element => {
                                           name="INTERNET_CONNECTION"
                                           validate={someRequired}
                                         >
-                                          {` ${translate.t("group.events.form.components.internet_conn")}`}
+                                          {` ${translate.t("group.events.form.components.internetConn")}`}
                                         </Field>
                                         <br/>
                                         <Field component={Checkbox} name="VPN_CONNECTION" validate={someRequired}>
-                                          {` ${translate.t("group.events.form.components.vpn_conn")}`}
+                                          {` ${translate.t("group.events.form.components.vpnConn")}`}
                                         </Field>
                                         <br/>
                                         <Field component={Checkbox} name="TOE_LOCATION" validate={someRequired}>
-                                          {` ${translate.t("group.events.form.components.toe_location")}`}
+                                          {` ${translate.t("group.events.form.components.toeLocation")}`}
                                         </Field>
                                         <br/>
                                         <Field component={Checkbox} name="TOE_CREDENTIALS" validate={someRequired}>
-                                          {` ${translate.t("group.events.form.components.toe_credentials")}`}
+                                          {` ${translate.t("group.events.form.components.toeCredentials")}`}
                                         </Field>
                                         <br/>
                                         <Field component={Checkbox} name="TOE_PRIVILEGES" validate={someRequired}>
-                                          {` ${translate.t("group.events.form.components.toe_privileges")}`}
+                                          {` ${translate.t("group.events.form.components.toePrivileges")}`}
                                         </Field>
                                         <br/>
                                         <Field component={Checkbox} name="TEST_DATA" validate={someRequired}>
-                                          {` ${translate.t("group.events.form.components.test_data")}`}
+                                          {` ${translate.t("group.events.form.components.testData")}`}
                                         </Field>
                                         <br/>
                                         <Field component={Checkbox} name="TOE_UNSTABLE" validate={someRequired}>
-                                          {` ${translate.t("group.events.form.components.toe_unstability")}`}
+                                          {` ${translate.t("group.events.form.components.toeUnstability")}`}
                                         </Field>
                                         <br/>
                                         <Field
@@ -445,23 +445,23 @@ const projectEventsView: React.FC = (): JSX.Element => {
                                           name="TOE_UNACCESSIBLE"
                                           validate={someRequired}
                                         >
-                                          {` ${translate.t("group.events.form.components.toe_unaccessible")}`}
+                                          {` ${translate.t("group.events.form.components.toeUnaccessible")}`}
                                         </Field>
                                         <br/>
                                         <Field component={Checkbox} name="TOE_UNAVAILABLE" validate={someRequired}>
-                                          {` ${translate.t("group.events.form.components.toe_unavailable")}`}
+                                          {` ${translate.t("group.events.form.components.toeUnavailable")}`}
                                         </Field>
                                         <br/>
                                         <Field component={Checkbox} name="TOE_ALTERATION" validate={someRequired}>
-                                          {` ${translate.t("group.events.form.components.toe_alteration")}`}
+                                          {` ${translate.t("group.events.form.components.toeAlteration")}`}
                                         </Field>
                                         <br/>
                                         <Field component={Checkbox} name="SOURCE_CODE" validate={someRequired}>
-                                          {` ${translate.t("group.events.form.components.source_code")}`}
+                                          {` ${translate.t("group.events.form.components.sourceCode")}`}
                                         </Field>
                                         <br/>
                                         <Field component={Checkbox} name="COMPILE_ERROR" validate={someRequired}>
-                                          {` ${translate.t("group.events.form.components.compile_error")}`}
+                                          {` ${translate.t("group.events.form.components.compileError")}`}
                                         </Field>
                                         <br/>
                                         <Field component={Checkbox} name="OTHER" validate={someRequired}>
@@ -489,15 +489,15 @@ const projectEventsView: React.FC = (): JSX.Element => {
                                 <Col50>
                                   <FormGroup>
                                     <ControlLabel>
-                                      {translate.t("group.events.form.action_before.title")}
+                                      {translate.t("group.events.form.actionBefore.title")}
                                     </ControlLabel>
                                     <Field component={Dropdown} name="actionBeforeBlocking" validate={required}>
                                       <option value="" selected={true} />
                                       <option value="DOCUMENT_PROJECT">
-                                        {translate.t("group.events.form.action_before.document")}
+                                        {translate.t("group.events.form.actionBefore.document")}
                                       </option>
                                       <option value="TEST_OTHER_PART_TOE">
-                                        {translate.t("group.events.form.action_before.test_other")}
+                                        {translate.t("group.events.form.actionBefore.testOther")}
                                       </option>
                                       <option value="NONE">
                                         {translate.t("group.events.form.none")}
@@ -510,17 +510,17 @@ const projectEventsView: React.FC = (): JSX.Element => {
                                 </Col50>
                                 <Col50>
                                   <FormGroup>
-                                    <ControlLabel>{translate.t("group.events.form.action_after.title")}</ControlLabel>
+                                    <ControlLabel>{translate.t("group.events.form.actionAfter.title")}</ControlLabel>
                                     <Field component={Dropdown} name="actionAfterBlocking" validate={required}>
                                       <option value="" selected={true} />
                                       <option value="EXECUTE_OTHER_PROJECT_SAME_CLIENT">
-                                        {translate.t("group.events.form.action_after.other_same")}
+                                        {translate.t("group.events.form.actionAfter.otherSame")}
                                       </option>
                                       <option value="EXECUTE_OTHER_PROJECT_OTHER_CLIENT">
-                                        {translate.t("group.events.form.action_after.other_other")}
+                                        {translate.t("group.events.form.actionAfter.otherOther")}
                                       </option>
                                       <option value="TRAINING">
-                                        {translate.t("group.events.form.action_after.training")}
+                                        {translate.t("group.events.form.actionAfter.training")}
                                       </option>
                                       <option value="NONE">
                                         {translate.t("group.events.form.none")}

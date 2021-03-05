@@ -150,8 +150,8 @@ const projectDraftsView: React.FC = (): JSX.Element => {
     if (result.createDraft.success) {
       closeNewDraftModal();
       msgSuccess(
-        translate.t("group.drafts.success_create"),
-        translate.t("group.drafts.title_success"),
+        translate.t("group.drafts.successCreate"),
+        translate.t("group.drafts.titleSuccess"),
       );
       void refetch();
     }

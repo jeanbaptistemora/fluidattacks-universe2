@@ -94,7 +94,7 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
     if (deleteVulnResult.deleteVulnerability.success) {
       msgSuccess(
         t("search_findings.tab_description.vulnDeleted"),
-        t("group_alerts.title_success")
+        t("group_alerts.titleSuccess")
       );
     } else {
       msgError(t("deleteVulns.notSuccess"));

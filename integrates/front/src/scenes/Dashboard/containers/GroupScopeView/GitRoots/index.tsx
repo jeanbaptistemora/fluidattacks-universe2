@@ -325,8 +325,8 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
         <Can do={"backend_api_mutations_update_git_root_mutate"}>
           <div className={"mb3"}>
             <TooltipWrapper
-              id={t("group.scope.common.edit_tooltip.id")}
-              message={t("group.scope.common.edit_tooltip")}
+              id={t("group.scope.common.editTooltip.id")}
+              message={t("group.scope.common.editTooltip")}
             >
               <Button disabled={editDisabled} onClick={openEditModal}>
                 <FluidIcon icon={"edit"} />

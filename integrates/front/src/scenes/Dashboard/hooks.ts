@@ -35,7 +35,7 @@ export const useAddStakeholder: () => readonly [
           t("userModal.success", {
             email: mtResult.addStakeholder.email,
           }),
-          t("search_findings.tab_users.title_success")
+          t("search_findings.tab_users.titleSuccess")
         );
       }
     }

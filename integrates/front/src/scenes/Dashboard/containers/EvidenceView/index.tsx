@@ -215,7 +215,7 @@ const EvidenceView: React.FC = (): JSX.Element => {
       {_.isEmpty(evidenceList) ? (
         <div className={globalStyle["no-data"]}>
           <FontAwesomeIcon icon={faImage} size={"3x"} />
-          <p>{translate.t("group.findings.evidence.no_data")}</p>
+          <p>{translate.t("group.findings.evidence.noData")}</p>
         </div>
       ) : (
         <GenericForm

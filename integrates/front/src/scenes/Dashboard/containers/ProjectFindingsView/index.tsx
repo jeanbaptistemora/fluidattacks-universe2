@@ -60,7 +60,7 @@ const projectFindingsView: React.FC = (): JSX.Element => {
     onCompleted: (): void => {
       msgSuccess(
         translate.t("group_alerts.report_requested"),
-        translate.t("group_alerts.title_success"));
+        translate.t("group_alerts.titleSuccess"));
     },
     onError: (error: ApolloError): void => {
       msgError(translate.t("group_alerts.error_textsad"));

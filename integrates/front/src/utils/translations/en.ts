@@ -290,10 +290,10 @@ export const enTranslations: ResourceKey = {
         text: "Submit",
         tooltip: "Submit the finding for review",
       },
-      success_create: "Draft created successfully",
-      success_submit: "Draft successfully submitted for review",
+      successCreate: "Draft created successfully",
+      successSubmit: "Draft successfully submitted for review",
       title: "Title",
-      title_success: "Success",
+      titleSuccess: "Success",
     },
     events: {
       alreadyClosed: "This event has already been closed",
@@ -309,8 +309,8 @@ export const enTranslations: ResourceKey = {
       },
       evidence: {
         edit: "Edit",
-        edit_tooltip: "Modify the evidence for this event",
-        no_data: "There are no evidences",
+        editTooltip: "Modify the evidence for this event",
+        noData: "There are no evidences",
       },
       form: {
         accessibility: {
@@ -318,37 +318,37 @@ export const enTranslations: ResourceKey = {
           repository: "Repository",
           title: "Accessibility",
         },
-        action_after: {
-          other_other: "Execute another group of a different client",
-          other_same: "Execute another group of the same client",
+        actionAfter: {
+          otherOther: "Execute another group of a different client",
+          otherSame: "Execute another group of the same client",
           title: "Action after getting blocked",
           training: "Training",
         },
-        action_before: {
+        actionBefore: {
           document: "Document group",
-          test_other: "Test other part of ToE",
+          testOther: "Test other part of ToE",
           title: "Action before blocking",
         },
-        blocking_hours: "Working hours until getting blocked",
+        blockingHours: "Working hours until getting blocked",
         components: {
-          client_station: "Client's test station",
-          compile_error: "Compilation error",
+          clientStation: "Client's test station",
+          compileError: "Compilation error",
           documentation: "Group documentation",
-          fluid_station: "FLUID's test station",
-          internet_conn: "Internet connectivity",
-          local_conn: "Local connectivity (LAN, WiFi)",
-          source_code: "Source code",
-          test_data: "Test data",
+          fluidStation: "FLUID's test station",
+          internetConn: "Internet connectivity",
+          localConn: "Local connectivity (LAN, WiFi)",
+          sourceCode: "Source code",
+          testData: "Test data",
           title: "Affected components",
-          toe_alteration: "ToE alteration",
-          toe_credentials: "ToE credentials",
-          toe_exclussion: "ToE exclussion",
-          toe_location: "ToE location (IP, URL)",
-          toe_privileges: "ToE privileges",
-          toe_unaccessible: "ToE unaccessibility",
-          toe_unavailable: "ToE unavailability",
-          toe_unstability: "ToE unstability",
-          vpn_conn: "VPN connectivity",
+          toeAlteration: "ToE alteration",
+          toeCredentials: "ToE credentials",
+          toeExclusion: "ToE exclusion",
+          toeLocation: "ToE location (IP, URL)",
+          toePrivileges: "ToE privileges",
+          toeUnaccessible: "ToE unaccessibility",
+          toeUnavailable: "ToE unavailability",
+          toeUnstability: "ToE unstability",
+          vpnConn: "VPN connectivity",
         },
         context: {
           client: "Client",
@@ -380,8 +380,8 @@ export const enTranslations: ResourceKey = {
           "/exploitation and .png for evidences",
       },
       new: "New Event",
-      success_create: "Event created successfully",
-      title_success: "Success",
+      successCreate: "Event created successfully",
+      titleSuccess: "Success",
     },
     findings: {
       boolean: {
@@ -390,10 +390,10 @@ export const enTranslations: ResourceKey = {
       },
       evidence: {
         edit: "Edit",
-        no_data: "There are no evidences",
+        noData: "There are no evidences",
       },
       exploit: {
-        no_data: "There is no exploit",
+        noData: "There is no exploit",
       },
       exportCsv: {
         text: "Export",
@@ -401,7 +401,7 @@ export const enTranslations: ResourceKey = {
       },
       help_label: "Click on a finding to see more details",
       records: {
-        no_data: "There are no records",
+        noData: "There are no records",
       },
       remediated: {
         False: "-",
@@ -506,7 +506,7 @@ export const enTranslations: ResourceKey = {
         add_tooltip: "Add a new git root to this group",
         confirm: "Confirm state change",
         edit: "Edit root",
-        edit_tooltip: "Edit the selected git root",
+        editTooltip: "Edit the selected git root",
         errors: {
           duplicate:
             "An active root with the same URL/branch already exists " +
@@ -658,7 +658,7 @@ export const enTranslations: ResourceKey = {
       "You will be receiving a mail with the link of the report in the next minutes",
     request_remove: "Group deletion request has been sent successfully",
     requested_zero_risk_success: "Zero risk vulnerability has been requested",
-    title_success: "Congratulations",
+    titleSuccess: "Congratulations",
     updated: "Updated",
     updated_title: "Correct!",
     value: "Value",
@@ -1929,7 +1929,7 @@ export const enTranslations: ResourceKey = {
         "Enter the email of the person you wish to add, it must be " +
         "an Office 365 or Google email",
       title: "Add stakeholder to this group",
-      title_success: "Congratulations",
+      titleSuccess: "Congratulations",
     },
     tab_vuln: {
       alerts: {

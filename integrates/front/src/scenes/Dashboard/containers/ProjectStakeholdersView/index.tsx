@@ -122,7 +122,7 @@ const projectStakeholdersView: React.FC = (): JSX.Element => {
         const { email } = mtResult.grantStakeholderAccess.grantedStakeholder;
         msgSuccess(
           `${email} ${translate.t("search_findings.tab_users.success")}`,
-          translate.t("search_findings.tab_users.title_success"),
+          translate.t("search_findings.tab_users.titleSuccess"),
         );
       }
     },
@@ -171,7 +171,7 @@ const projectStakeholdersView: React.FC = (): JSX.Element => {
         mixpanel.track("EditUserAccess");
         msgSuccess(
           translate.t("search_findings.tab_users.success_admin"),
-          translate.t("search_findings.tab_users.title_success"),
+          translate.t("search_findings.tab_users.titleSuccess"),
         );
       }
     },
@@ -216,7 +216,7 @@ const projectStakeholdersView: React.FC = (): JSX.Element => {
         const { removedEmail } = mtResult.removeStakeholderAccess;
         msgSuccess(
           `${removedEmail} ${translate.t("search_findings.tab_users.success_delete")}`,
-          translate.t("search_findings.tab_users.title_success"),
+          translate.t("search_findings.tab_users.titleSuccess"),
         );
       }
     },

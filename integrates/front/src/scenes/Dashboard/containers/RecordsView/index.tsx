@@ -156,7 +156,7 @@ const recordsView: React.FC = (): JSX.Element => {
           {_.isEmpty(JSON.parse(data.finding.records)) ? (
             <div className={globalStyle["no-data"]}>
               <FontAwesomeIcon size={"3x"} icon={faList} />
-              <p>{translate.t("group.findings.records.no_data")}</p>
+              <p>{translate.t("group.findings.records.noData")}</p>
             </div>
           ) : (
               <DataTableNext
