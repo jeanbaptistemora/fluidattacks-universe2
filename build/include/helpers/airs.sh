@@ -99,23 +99,6 @@ function helper_airs_adoc_regex_direct {
       fi
 }
 
-function helper_airs_adoc_regex_normalized {
-  local file="${1}"
-  local regex="${2}"
-  local error="${3}"
-  local normalized_file
-
-      helper_airs_file_exists "${file}" \
-  &&  normalized_file="$(helper_airs_adoc_normalize "${file}")" \
-  &&  if ! echo "${normalized_file}" | pcregrep -MH "${regex}"
-      then
-            return 0
-      else
-            echo "[ERROR] ${file}: ${error}" \
-        &&  return 1
-      fi
-}
-
 function helper_airs_adoc_normalize {
   local file="${1}"
   local content
