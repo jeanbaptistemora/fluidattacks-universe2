@@ -224,6 +224,14 @@ export const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
           <li>
             <b>{t("search_findings.tab_vuln.vulnTable.info")}</b>
             <ul>
+              <li>
+                <Row>
+                  <Col40>
+                    <b>{t("search_findings.tab_vuln.vulnTable.reportDate")}</b>
+                  </Col40>
+                  <Col60>{vulnerability.reportDate}</Col60>
+                </Row>
+              </li>
               {_.isEmpty(vulnerability.commitHash) ? undefined : (
                 <li>
                   <Row>
