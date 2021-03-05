@@ -41,14 +41,25 @@ DANGER_METHODS_BY_ARGS_PROPAGATION: Set[str] = _complete_attrs_on_set({
     'org.apache.commons.codec.binary.Base64.decodeBase64',
     'org.apache.commons.codec.binary.Base64.encodeBase64',
     'Double.toString',
+    'Float.toString',
+    'Integer.toString',
+    'Long.toString',
 })
 DANGER_METHODS_STATIC: Set[str] = _complete_attrs_on_set({
     'java.lang.Math.random',
+    'java.util.Random.nextFloat',
+    'java.util.Random.nextInt',
+    'java.util.Random.nextLong',
+    'java.util.Random.nextBoolean',
+    'java.util.Random.nextDouble',
+    'java.util.Random.nextGaussian',
+    'java.util.Random.nextBytes',
 })
 DANGER_METHODS_BY_OBJ_NO_TYPE_ARGS_PROPAGATION: Set[
     str] = _complete_attrs_on_set({
         'getSession.setAttribute',
         'toString.substring',
+        'addCookie',
     })
 DANGER_METHODS_BY_OBJ: Dict[str, Set[str]] = _complete_attrs_on_dict({
     'java.lang.String': {

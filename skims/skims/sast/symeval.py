@@ -207,12 +207,18 @@ def syntax_step_method_invocation_chain(args: EvaluatorArgs) -> None:
     parent: Optional[graph_model.SyntaxStepMethodInvocation] = None
 
     for dep in args.dependencies:
-        if isinstance(dep, graph_model.SyntaxStepMethodInvocation):
+        if isinstance(dep, (
+                graph_model.SyntaxStepMethodInvocation,
+                graph_model.SyntaxStepObjectInstantiation,
+        )):
             parent = dep
     if not parent:
         return None
 
-    method = parent.method + method
+    if isinstance(parent, graph_model.SyntaxStepMethodInvocation):
+        method = parent.method + method
+    elif isinstance(parent, graph_model.SyntaxStepObjectInstantiation):
+        method = parent.object_type + method
     _analyze_method_invocation(args, method)
     return None
 
@@ -240,7 +246,16 @@ def syntax_step_object_instantiation(args: EvaluatorArgs) -> None:
         )),
     ))
 
-    if instantiation_danger:
+    instantiation_danger_no_args = any((
+        args.finding == core_model.FindingEnum.F034 and any((
+            args.syntax_step.object_type in build_attr_paths(
+                'java', 'util', 'Random'
+            ),
+        )),
+    ))
+    if instantiation_danger_no_args:
+        args.syntax_step.meta.danger = True
+    elif instantiation_danger:
         args.syntax_step.meta.danger = args_danger if args else True
     else:
         args.syntax_step.meta.danger = args_danger
