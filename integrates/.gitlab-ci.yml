@@ -349,6 +349,12 @@ integrates.mobile.test:
     - cp out/integrates-mobile-test/coverage/lcov.info integrates/mobile/coverage.lcov
   stage: test-code
 
+integrates.scheduler.delete_imamura_stakeholders:
+  <<: *integrates_scheduler
+  only:
+    refs: [schedules]
+    variables: [$integrates_scheduler_delete_imamura_stakeholders]
+
 integrates.scheduler.delete_obsolete_orgs:
   <<: *integrates_scheduler
   only:
