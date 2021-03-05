@@ -13,6 +13,7 @@ function main {
             &&  check_adoc_max_columns "${path}" \
             &&  check_adoc_min_keywords "${path}" \
             &&  check_adoc_patterns "${path}" \
+            &&  check_adoc_word_count "${path}" '1' '4500' \
             &&  check_adoc_words_case "${path}" \
             ||  return 1
           done \

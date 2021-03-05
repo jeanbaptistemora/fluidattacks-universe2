@@ -7,6 +7,7 @@ makeTemplate airsPkgs {
   name = "airs-adoc-linter";
   searchPaths = {
     envPaths = [
+      airsPkgs.diction
       airsPkgs.gnugrep
       airsPkgs.pcre
     ];

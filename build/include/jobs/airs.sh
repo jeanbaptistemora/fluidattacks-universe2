@@ -35,7 +35,6 @@ function job_airs_test_generic {
   &&  for path in ${touched_adoc_files}
       do
             helper_airs_adoc_tag_exists "${path}" ':description:' \
-        &&  helper_airs_word_count "${path}" "${min_words}" "${max_words}" \
         &&  helper_airs_test_lix "${path}" "${max_lix}" \
         ||  return 1
       done \

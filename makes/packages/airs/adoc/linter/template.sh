@@ -162,3 +162,17 @@ function check_adoc_patterns {
     fi
   done
 }
+
+function check_adoc_word_count {
+  local target="${1}"
+  local min_words="${2}"
+  local max_words="${3}"
+  local msg="Document must have between ${min_words} and ${max_words} words"
+  local words
+
+      words="$(style "${target}" | grep -oP '[0-9]+(?= words,)')" \
+  &&  if test "${words}" -lt "${min_words}" || test "${words}" -gt "${max_words}"
+      then
+        abort "[ERROR] ${msg}: ${target}"
+      fi
+}
