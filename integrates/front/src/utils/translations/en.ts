@@ -360,22 +360,21 @@ export const enTranslations: ResourceKey = {
         date: "Event date",
         details: "Details",
         evidence: "Evidence image",
-        evidence_file: "Evidence file",
+        evidenceFile: "Evidence file",
         none: "None",
         other: "Other",
         responsible: "Person in charge (client)",
         type: {
-          detects_attack: "Client detects the attack",
-          high_availability: "High availability approval",
-          missing_supplies: "Incorrect or missing supplies",
-          special_attack: "Authorization for special attack",
+          detectsAttack: "Client detects the attack",
+          highAvailability: "High availability approval",
+          missingSupplies: "Incorrect or missing supplies",
+          specialAttack: "Authorization for special attack",
           title: "Type",
-          toe_change: "Client approves ToE change",
-          toe_differs: "ToE different than agreed upon",
+          toeChange: "Client approves ToE change",
+          toeDiffers: "ToE different than agreed upon",
         },
-        wrong_file_type:
-          "Evidence files must have .pdf, .zip or .csv extension",
-        wrong_image_type:
+        wrongFileType: "Evidence files must have .pdf, .zip or .csv extension",
+        wrongImageType:
           "Evidence images must have .gif/.png extension for animation" +
           "/exploitation and .png for evidences",
       },
@@ -399,7 +398,7 @@ export const enTranslations: ResourceKey = {
         text: "Export",
         tooltip: "Export to a comma-separated values file",
       },
-      help_label: "Click on a finding to see more details",
+      helpLabel: "Click on a finding to see more details",
       records: {
         noData: "There are no records",
       },
@@ -413,7 +412,7 @@ export const enTranslations: ResourceKey = {
           tooltip: "Generate a report of findings and send it to your email",
         },
         data: "  Export",
-        data_tooltip:
+        dataTooltip:
           "Receive a zip file containing the exported data of all the findings " +
           "of this group",
         modal_close: "Close",
@@ -1233,7 +1232,7 @@ export const enTranslations: ResourceKey = {
         inacc_ambient: "Inaccessible environment",
         incor_supplies: "Incorrect or missing supplies",
         other: "Other",
-        toe_differs: "ToE different from what was agreed upon",
+        toeDiffers: "ToE different from what was agreed upon",
         uns_ambient: "Unstable ambient",
       },
     },

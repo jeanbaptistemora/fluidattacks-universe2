@@ -53,11 +53,11 @@ const projectEventsView: React.FC = (): JSX.Element => {
   ];
   const selectOptionType: optionSelectFilterProps[] = [
     {
-      label: translate.t("group.events.form.type.special_attack"),
+      label: translate.t("group.events.form.type.specialAttack"),
       value: translate.t(castEventType("AUTHORIZATION_SPECIAL_ATTACK")),
     },
     {
-      label: translate.t("group.events.form.type.toe_change"),
+      label: translate.t("group.events.form.type.toeChange"),
       value: translate.t(castEventType("CLIENT_APPROVES_CHANGE_TOE")),
     },
     {
@@ -65,15 +65,15 @@ const projectEventsView: React.FC = (): JSX.Element => {
       value: translate.t(castEventType("CLIENT_DETECTS_ATTACK")),
     },
     {
-      label: translate.t("group.events.form.type.high_availability"),
+      label: translate.t("group.events.form.type.highAvailability"),
       value: translate.t(castEventType("HIGH_AVAILABILITY_APPROVAL")),
     },
     {
-      label: translate.t("group.events.form.type.missing_supplies"),
+      label: translate.t("group.events.form.type.missingSupplies"),
       value: translate.t(castEventType("INCORRECT_MISSING_SUPPLIES")),
     },
     {
-      label: translate.t("group.events.form.type.toe_differs"),
+      label: translate.t("group.events.form.type.toeDiffers"),
       value: translate.t(castEventType("TOE_DIFFERS_APPROVED")),
     },
     {
@@ -209,10 +209,10 @@ const projectEventsView: React.FC = (): JSX.Element => {
                     msgError(translate.t("validations.file_size", { count: 10 }));
                     break;
                   case "Exception - Invalid File Type: EVENT_IMAGE":
-                    msgError(translate.t("group.events.form.wrong_image_type"));
+                    msgError(translate.t("group.events.form.wrongImageType"));
                     break;
                   case "Exception - Invalid File Type: EVENT_FILE":
-                    msgError(translate.t("group.events.form.wrong_file_type"));
+                    msgError(translate.t("group.events.form.wrongFileType"));
                     break;
                   default:
                     msgError(translate.t("group_alerts.error_textsad"));
@@ -300,22 +300,22 @@ const projectEventsView: React.FC = (): JSX.Element => {
                                     <Field component={Dropdown} name="eventType" validate={required}>
                                       <option value="" selected={true} />
                                       <option value="AUTHORIZATION_SPECIAL_ATTACK">
-                                        {translate.t("group.events.form.type.special_attack")}
+                                        {translate.t("group.events.form.type.specialAttack")}
                                       </option>
                                       <option value="CLIENT_APPROVES_CHANGE_TOE">
-                                        {translate.t("group.events.form.type.toe_change")}
+                                        {translate.t("group.events.form.type.toeChange")}
                                       </option>
                                       <option value="CLIENT_DETECTS_ATTACK">
-                                        {translate.t("group.events.form.type.detects_attack")}
+                                        {translate.t("group.events.form.type.detectsAttack")}
                                       </option>
                                       <option value="HIGH_AVAILABILITY_APPROVAL">
-                                        {translate.t("group.events.form.type.high_availability")}
+                                        {translate.t("group.events.form.type.highAvailability")}
                                       </option>
                                       <option value="INCORRECT_MISSING_SUPPLIES">
-                                        {translate.t("group.events.form.type.missing_supplies")}
+                                        {translate.t("group.events.form.type.missingSupplies")}
                                       </option>
                                       <option value="TOE_DIFFERS_APPROVED">
-                                        {translate.t("group.events.form.type.toe_differs")}
+                                        {translate.t("group.events.form.type.toeDiffers")}
                                       </option>
                                       <option value="OTHER">
                                         {translate.t("group.events.form.other")}
@@ -547,7 +547,7 @@ const projectEventsView: React.FC = (): JSX.Element => {
                                 </Col50>
                                 <Col50>
                                   <FormGroup>
-                                    <ControlLabel>{translate.t("group.events.form.evidence_file")}</ControlLabel>
+                                    <ControlLabel>{translate.t("group.events.form.evidenceFile")}</ControlLabel>
                                     <Field
                                       accept="application/pdf,application/zip,text/csv,text/plain"
                                       component={FileInput}

@@ -239,12 +239,12 @@ const hasExtension: (
 const validEventFile: Validator = (value: FileList): string | undefined =>
   _.isEmpty(value) || hasExtension(["pdf", "zip", "csv", "txt"], _.first(value))
     ? undefined
-    : translate.t("group.events.form.wrong_file_type");
+    : translate.t("group.events.form.wrongFileType");
 
 const validEvidenceImage: Validator = (value: FileList): string | undefined =>
   _.isEmpty(value) || hasExtension(["gif", "png"], _.first(value))
     ? undefined
-    : translate.t("group.events.form.wrong_image_type");
+    : translate.t("group.events.form.wrongImageType");
 
 const validExploitFile: Validator = (value: FileList): string | undefined =>
   hasExtension(["exp", "py"], _.first(value))

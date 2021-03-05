@@ -95,7 +95,7 @@ const EvidenceView: React.FC = (): JSX.Element => {
             msgError(translate.t("validations.file_size", { count: 10 }));
             break;
           case "Exception - Invalid File Type":
-            msgError(translate.t("group.events.form.wrong_image_type"));
+            msgError(translate.t("group.events.form.wrongImageType"));
             break;
           default:
             msgError(translate.t("group_alerts.error_textsad"));

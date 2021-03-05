@@ -93,10 +93,10 @@ const EventEvidenceView: React.FC = (): JSX.Element => {
             msgError(translate.t("validations.file_size", { count: 10 }));
             break;
           case "Exception - Invalid File Type: EVENT_IMAGE":
-            msgError(translate.t("group.events.form.wrong_image_type"));
+            msgError(translate.t("group.events.form.wrongImageType"));
             break;
           case "Exception - Invalid File Type: EVENT_FILE":
-            msgError(translate.t("group.events.form.wrong_file_type"));
+            msgError(translate.t("group.events.form.wrongFileType"));
             break;
           default:
             msgError(translate.t("group_alerts.error_textsad"));

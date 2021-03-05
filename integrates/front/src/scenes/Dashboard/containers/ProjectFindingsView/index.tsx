@@ -317,7 +317,7 @@ const projectFindingsView: React.FC = (): JSX.Element => {
                 </Col100>
               </Row>
             </Can>
-            <p>{translate.t("group.findings.help_label")}</p>
+            <p>{translate.t("group.findings.helpLabel")}</p>
             <DataTableNext
               bordered={true}
               columnToggle={true}
@@ -385,7 +385,7 @@ const projectFindingsView: React.FC = (): JSX.Element => {
                           </TooltipWrapper>
                           <TooltipWrapper
                             id={"group.findings.report.data_tooltip.id"}
-                            message={translate.t("group.findings.report.data_tooltip")}
+                            message={translate.t("group.findings.report.dataTooltip")}
                           >
                           <Button onClick={handleRequestProjectReport} id={"report-zip"}>
                             <FontAwesomeIcon icon={faFileArchive} />

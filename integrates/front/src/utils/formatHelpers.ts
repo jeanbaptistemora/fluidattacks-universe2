@@ -15,7 +15,7 @@ const castEventType: (field: string) => string = (field: string): string => {
     INCORRECT_MISSING_SUPPLIES:
       "search_findings.tab_events.type_values.incor_supplies",
     OTHER: "search_findings.tab_events.type_values.other",
-    TOE_DIFFERS_APPROVED: "search_findings.tab_events.type_values.toe_differs",
+    TOE_DIFFERS_APPROVED: "search_findings.tab_events.type_values.toeDiffers",
   };
 
   return eventType[field];

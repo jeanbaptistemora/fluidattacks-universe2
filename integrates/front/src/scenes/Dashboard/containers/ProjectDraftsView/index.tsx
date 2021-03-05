@@ -243,7 +243,7 @@ const projectDraftsView: React.FC = (): JSX.Element => {
           )}
         </GenericForm>
       </Modal>
-      <p>{translate.t("group.findings.help_label")}</p>
+      <p>{translate.t("group.findings.helpLabel")}</p>
       <DataTableNext
         bordered={true}
         dataset={formatDrafts(data.project.drafts)}
