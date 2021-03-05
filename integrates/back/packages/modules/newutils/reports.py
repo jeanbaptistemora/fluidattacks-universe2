@@ -18,7 +18,8 @@ from __init__ import (
 LOGGER = logging.getLogger(__name__)
 
 
-async def sign_url(path: str, minutes: float = 10.0) -> str:
+# Default ttl for reports is 1 hour = 3600 seconds
+async def sign_url(path: str, minutes: float = 3600) -> str:
     return await s3.sign_url(
         path,
         minutes,
