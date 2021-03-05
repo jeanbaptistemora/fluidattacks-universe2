@@ -5,11 +5,6 @@ from typing import Any, Dict, NamedTuple, Set, Tuple
 Item = Dict[str, Any]
 
 
-class VersionedItem(NamedTuple):
-    historic: Tuple[Dict[str, Any], ...]
-    metadata: Dict[str, Any]
-
-
 class PrimaryKey(NamedTuple):
     partition_key: str
     sort_key: str
@@ -25,7 +20,13 @@ class RootMetadata(NamedTuple):
     url: str
 
 
-class RootHistoric(NamedTuple):
+class RootHistoricCloning(NamedTuple):
+    modified_date: str
+    reason: str
+    status: str
+
+
+class RootHistoricState(NamedTuple):
     environment_urls: Set[str]
     environment: str
     gitignore: Set[str]
@@ -36,5 +37,6 @@ class RootHistoric(NamedTuple):
 
 
 class RootItem(NamedTuple):
-    historic: Tuple[RootHistoric, ...]
+    historic_cloning: Tuple[RootHistoricCloning, ...]
+    historic_state: Tuple[RootHistoricState, ...]
     metadata: RootMetadata

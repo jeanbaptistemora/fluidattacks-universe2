@@ -1,8 +1,6 @@
 # Standard library
 from typing import (
-    Any,
     Dict,
-    List,
     Optional,
     Set
 )
@@ -16,10 +14,10 @@ from backend.model.dynamo import versioned
 from backend.model.dynamo.types import (
     Entity,
     PrimaryKey,
-    RootHistoric,
+    RootHistoricCloning,
+    RootHistoricState,
     RootItem,
-    RootMetadata,
-    VersionedItem
+    RootMetadata
 )
 
 
@@ -89,25 +87,6 @@ def build_key(*, entity: str, partition_key: str, sort_key: str) -> PrimaryKey:
     )
 
 
-def build_versioned_item(
-    *,
-    primary_key: PrimaryKey,
-    raw_items: List[Any]
-) -> VersionedItem:
-
-    return VersionedItem(
-        historic=versioned.get_historic(
-            primary_key=primary_key,
-            historic_prefix='HIST',
-            raw_items=raw_items
-        ),
-        metadata=versioned.get_metadata(
-            primary_key=primary_key,
-            raw_items=raw_items
-        )
-    )
-
-
 async def get_root(
     *,
     group_name: str,
@@ -132,14 +111,32 @@ async def get_root(
     )
 
     if results:
-        historic, metadata = build_versioned_item(
+        historic_cloning = versioned.get_historic(
+            primary_key=primary_key,
+            historic_prefix='HIST',
+            raw_items=results
+        )
+        historic_state = versioned.get_historic(
+            primary_key=primary_key,
+            historic_prefix='CLON',
+            raw_items=results
+        )
+        metadata = versioned.get_metadata(
             primary_key=primary_key,
             raw_items=results
         )
 
         return RootItem(
-            historic=tuple(
-                RootHistoric(
+            historic_cloning=tuple(
+                RootHistoricCloning(
+                    modified_date=item['modified_date'],
+                    reason=item['reason'],
+                    status=item['status']
+                )
+                for item in historic_cloning
+            ),
+            historic_state=tuple(
+                RootHistoricState(
                     environment_urls=item['environment_urls'],
                     environment=item['environment'],
                     gitignore=item['gitignore'],
@@ -148,7 +145,7 @@ async def get_root(
                     modified_date=item['modified_date'],
                     status=item['status']
                 )
-                for item in historic
+                for item in historic_state
             ),
             metadata=RootMetadata(
                 branch=metadata['branch'],
