@@ -13,8 +13,8 @@ from boto3.dynamodb.conditions import Key
 
 # Local
 from backend.dal.helpers import dynamodb
-from backend.model.dynamo import versioned
-from backend.model.dynamo.types import (
+from dynamodb import versioned
+from dynamodb.types import (
     Entity,
     Item,
     PrimaryKey,
@@ -45,7 +45,7 @@ TABLE_NAME = 'integrates_vms'
 
 def validate_pkey_not_empty(*, key: str) -> None:
     if not key:
-        raise ValueError(f'Partition key cannot be empty')
+        raise ValueError('Partition key cannot be empty')
 
 
 def validate_entity(*, entity: str) -> None:

@@ -3,7 +3,7 @@ from operator import itemgetter
 from typing import List, Tuple
 
 # Local
-from backend.model.dynamo.types import Item, PrimaryKey
+from dynamodb.types import Item, PrimaryKey
 
 
 def get_metadata(
