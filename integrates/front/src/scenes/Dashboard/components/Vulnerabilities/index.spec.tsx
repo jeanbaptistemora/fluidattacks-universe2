@@ -1,14 +1,22 @@
 import type { IVulnRowAttr } from "./types";
+import { PureAbility } from "@casl/ability";
 import React from "react";
 import type { ReactWrapper } from "enzyme";
 import { VulnComponent } from "scenes/Dashboard/components/Vulnerabilities";
 import { act } from "react-dom/test-utils";
+import { authzPermissionsContext } from "utils/authz/config";
 import moment from "moment";
 import { mount } from "enzyme";
+import { useTranslation } from "react-i18next";
 
 describe("VulnComponent", (): void => {
   const numberOfDaysOldThanAWeek: number = 12;
   const numberOfDays: number = 5;
+  const mockedPermissions: PureAbility<string> = new PureAbility([
+    { action: "backend_api_mutations_request_zero_risk_vuln_mutate" },
+    { action: "backend_api_mutations_update_treatment_vulnerability_mutate" },
+    { action: "backend_api_mutations_update_vulns_treatment_mutate" },
+  ]);
   const mocks: IVulnRowAttr[] = [
     {
       commitHash: "",
@@ -136,17 +144,23 @@ describe("VulnComponent", (): void => {
   it("should render in vulnerabilities", (): void => {
     expect.hasAssertions();
 
+    const { t } = useTranslation();
     const wrapper: ReactWrapper = mount(
       <VulnComponent
         canDisplayAnalyst={false}
         findingId={"480857698"}
         groupName={"test"}
         isEditing={true}
+        isFindingReleased={true}
         isRequestingReattack={false}
         isVerifyingRequest={false}
         onVulnSelect={jest.fn()}
         vulnerabilities={mocks}
-      />
+      />,
+      {
+        wrappingComponent: authzPermissionsContext.Provider,
+        wrappingComponentProps: { value: mockedPermissions },
+      }
     );
     wrapper.update();
 
@@ -156,7 +170,13 @@ describe("VulnComponent", (): void => {
       .find({ id: "vulnerabilitiesTable" })
       .at(0);
     const selectionCell: ReactWrapper = tableVulns.find("SelectionCell");
+    const buttons: ReactWrapper = wrapper
+      .find("Button")
+      .filterWhere((button: ReactWrapper): boolean =>
+        button.text().includes(t("search_findings.tab_description.editVuln"))
+      );
 
+    expect(buttons).toHaveLength(1);
     expect(selectionCell.at(0).find("input").prop("disabled")).toBe(false);
     expect(selectionCell.at(1).find("input").prop("disabled")).toBe(true);
 
@@ -178,5 +198,46 @@ describe("VulnComponent", (): void => {
     expect(selectionCellUpdated.at(1).find("input").prop("disabled")).toBe(
       true
     );
+  });
+
+  it("should render in vulnerabilities in draft", (): void => {
+    expect.hasAssertions();
+
+    const { t } = useTranslation();
+    const wrapper: ReactWrapper = mount(
+      <VulnComponent
+        canDisplayAnalyst={false}
+        findingId={"480857698"}
+        groupName={"test"}
+        isEditing={true}
+        isFindingReleased={false}
+        isRequestingReattack={false}
+        isVerifyingRequest={false}
+        onVulnSelect={jest.fn()}
+        vulnerabilities={mocks}
+      />,
+      {
+        wrappingComponent: authzPermissionsContext.Provider,
+        wrappingComponentProps: { value: mockedPermissions },
+      }
+    );
+    wrapper.update();
+
+    expect(wrapper).toHaveLength(1);
+
+    const tableVulnsDraft: ReactWrapper = wrapper
+      .find({ id: "vulnerabilitiesTable" })
+      .at(0);
+    const selectionCellDraft: ReactWrapper = tableVulnsDraft.find(
+      "SelectionCell"
+    );
+    const buttons: ReactWrapper = wrapper
+      .find("Button")
+      .filterWhere((button: ReactWrapper): boolean =>
+        button.text().includes(t("search_findings.tab_description.editVuln"))
+      );
+
+    expect(buttons).toHaveLength(0);
+    expect(selectionCellDraft).toHaveLength(0);
   });
 });

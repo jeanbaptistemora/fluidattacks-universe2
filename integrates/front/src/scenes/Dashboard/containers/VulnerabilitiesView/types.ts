@@ -8,6 +8,7 @@ interface IProjectAttr {
 interface IFindingAttr {
   id: string;
   newRemediated: boolean;
+  releaseDate: string;
   state: "closed" | "open";
   verified: boolean;
   vulnerabilities: IVulnRowAttr[];

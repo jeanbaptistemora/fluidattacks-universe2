@@ -10,6 +10,7 @@ import { translate } from "utils/translations/translate";
 interface IActionButtonsProps {
   areVulnsSelected: boolean;
   isEditing: boolean;
+  isFindingReleased: boolean;
   isReattackRequestedInAllVuln: boolean;
   isRequestingReattack: boolean;
   isVerified: boolean;
@@ -26,6 +27,7 @@ interface IActionButtonsProps {
 const ActionButtons: React.FC<IActionButtonsProps> = ({
   areVulnsSelected,
   isEditing,
+  isFindingReleased,
   isReattackRequestedInAllVuln,
   isRequestingReattack,
   isVerified,
@@ -67,6 +69,7 @@ const ActionButtons: React.FC<IActionButtonsProps> = ({
       <ReattackVulnButton
         areVulnsSelected={areVulnsSelected}
         isEditing={isEditing}
+        isFindingReleased={isFindingReleased}
         isReattackRequestedInAllVuln={isReattackRequestedInAllVuln}
         isRequestingReattack={isRequestingReattack}
         isVerifying={isVerifying}

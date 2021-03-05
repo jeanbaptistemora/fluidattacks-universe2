@@ -44,6 +44,7 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
   findingId,
   groupName,
   isEditing,
+  isFindingReleased,
   isRequestingReattack,
   isVerifyingRequest,
   vulnerabilities,
@@ -233,7 +234,7 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
         pageSize={10}
         rowEvents={{ onClick: openAdditionalInfoModal }}
         search={false}
-        selectionMode={selectionMode}
+        selectionMode={isFindingReleased ? selectionMode : undefined}
         striped={true}
       />
       <DeleteVulnerabilityModal
@@ -260,7 +261,8 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
       ) : undefined}
       {isEditing ? (
         <Col100>
-          {canUpdateVulnsTreatment || canRequestZeroRiskVuln ? (
+          {isFindingReleased &&
+          (canUpdateVulnsTreatment || canRequestZeroRiskVuln) ? (
             <React.Fragment>
               <RowCenter>
                 <TooltipWrapper
@@ -310,6 +312,7 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
                 )}
               />
               {currentRow.currentState === "open" &&
+              isFindingReleased &&
               (canUpdateVulnsTreatment ||
                 canRequestZeroRiskVuln ||
                 canDeleteVulnsTags) ? (

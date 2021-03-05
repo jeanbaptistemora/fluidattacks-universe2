@@ -70,6 +70,7 @@ interface IVulnComponentProps {
   canDisplayAnalyst: boolean;
   findingId: string;
   groupName: string;
+  isFindingReleased: boolean;
   isEditing: boolean;
   isRequestingReattack: boolean;
   isVerifyingRequest: boolean;

@@ -29,6 +29,7 @@ describe("VulnerabilitiesView", (): void => {
         finding: {
           id: "422286126",
           newRemediated: true,
+          releaseDate: "2019-07-05 08:56:40",
           state: "open",
           verified: false,
           vulnerabilities: [

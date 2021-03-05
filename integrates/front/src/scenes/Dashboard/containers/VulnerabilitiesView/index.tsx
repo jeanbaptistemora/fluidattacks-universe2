@@ -201,6 +201,7 @@ export const VulnsView: React.FC = (): JSX.Element => {
     filterVerificationVulnerabilities,
     filterTextVulnerabilities
   );
+  const isFindingReleased: boolean = !_.isEmpty(data.finding.releaseDate);
 
   return (
     <React.StrictMode>
@@ -212,6 +213,7 @@ export const VulnsView: React.FC = (): JSX.Element => {
                 remediationModalConfig.vulnerabilities.length > 0
               }
               isEditing={isEditing}
+              isFindingReleased={isFindingReleased}
               isReattackRequestedInAllVuln={data.finding.newRemediated}
               isRequestingReattack={isRequestingVerify}
               isVerified={data.finding.verified}
@@ -329,6 +331,7 @@ export const VulnsView: React.FC = (): JSX.Element => {
                 findingId={findingId}
                 groupName={projectName}
                 isEditing={isEditing}
+                isFindingReleased={isFindingReleased}
                 isRequestingReattack={isRequestingVerify}
                 isVerifyingRequest={isVerifying}
                 onVulnSelect={openRemediationModal}

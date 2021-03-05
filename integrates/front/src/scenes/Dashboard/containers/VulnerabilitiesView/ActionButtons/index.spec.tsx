@@ -21,6 +21,7 @@ describe("ActionButtons", (): void => {
       <ActionButtons
         areVulnsSelected={false}
         isEditing={false}
+        isFindingReleased={true}
         isReattackRequestedInAllVuln={false}
         isRequestingReattack={false}
         isVerified={false}
@@ -60,6 +61,7 @@ describe("ActionButtons", (): void => {
       <ActionButtons
         areVulnsSelected={false}
         isEditing={false}
+        isFindingReleased={true}
         isReattackRequestedInAllVuln={false}
         isRequestingReattack={false}
         isVerified={false}

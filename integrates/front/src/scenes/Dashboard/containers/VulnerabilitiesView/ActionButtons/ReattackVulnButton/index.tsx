@@ -11,6 +11,7 @@ import { useTranslation } from "react-i18next";
 interface IReattackVulnButtonProps {
   areVulnsSelected: boolean;
   isEditing: boolean;
+  isFindingReleased: boolean;
   isReattackRequestedInAllVuln: boolean;
   isRequestingReattack: boolean;
   isVerifying: boolean;
@@ -23,6 +24,7 @@ interface IReattackVulnButtonProps {
 const ReattackVulnButton: React.FC<IReattackVulnButtonProps> = ({
   areVulnsSelected,
   isEditing,
+  isFindingReleased,
   isReattackRequestedInAllVuln,
   isRequestingReattack,
   isVerifying,
@@ -39,7 +41,10 @@ const ReattackVulnButton: React.FC<IReattackVulnButtonProps> = ({
   );
 
   const shouldRenderRequestVerifyBtn: boolean =
-    isContinuous && state === "open" && !(isEditing || isVerifying);
+    isContinuous &&
+    isFindingReleased &&
+    state === "open" &&
+    !(isEditing || isVerifying);
 
   return (
     <Can do={"backend_api_mutations_request_verification_vulnerability_mutate"}>
