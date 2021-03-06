@@ -1,6 +1,5 @@
 # shellcheck shell=bash
 
-source '__envSearchPaths__'
 source '__envUtilsBashLibPython__'
 
 function sorts_setup_development {

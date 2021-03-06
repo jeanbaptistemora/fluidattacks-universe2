@@ -1,15 +1,11 @@
-{ path
+{ buildPythonRequirements
+, makeTemplate
 , nixpkgs
+, path
 , ...
 }:
-let
-  buildPythonRequirements = import (path "/makes/utils/build-python-requirements") path nixpkgs;
-  makeSearchPaths = import (path "/makes/utils/make-search-paths-deprecated") path nixpkgs;
-  makeTemplate = import (path "/makes/utils/make-template") path nixpkgs;
-in
 makeTemplate {
   arguments = {
-    envSearchPaths = makeSearchPaths [ nixpkgs.gcc.cc ];
     envPythonRequirements = buildPythonRequirements {
       dependencies = [ ];
       name = "sorts-development";
@@ -52,5 +48,8 @@ makeTemplate {
     envUtilsBashLibPython = path "/makes/utils/python/template.sh";
   };
   name = "sorts-config-development";
+  searchPaths = {
+    envLibraries = [ nixpkgs.gcc.cc.lib ];
+  };
   template = path "/makes/packages/sorts/config-development/template.sh";
 }

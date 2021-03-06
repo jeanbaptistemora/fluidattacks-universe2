@@ -1,7 +1,7 @@
 # shellcheck shell=bash
 
 function main {
-      copy2 "${envAirsNewFront}" new-front \
+      copy "${envAirsNewFront}" new-front \
   &&  copy "${envLintConfig}/.eslintrc.json" new-front/.eslintrc.json \
   &&  pushd new-front \
     &&  copy "${envAirsNpm}/node_modules" 'node_modules' \

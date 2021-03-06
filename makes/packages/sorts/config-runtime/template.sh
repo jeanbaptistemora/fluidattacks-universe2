@@ -1,6 +1,5 @@
 # shellcheck shell=bash
 
-source '__envSearchPaths__'
 source '__envUtilsBashLibPython__'
 source '__envContextFile__'
 

@@ -1,12 +1,9 @@
-{ nixpkgs
+{ buildPythonRequirements
+, makeTemplate
+, nixpkgs
 , path
 , ...
 }:
-let
-  buildPythonRequirements = import (path "/makes/utils/build-python-requirements") path nixpkgs;
-  makeSearchPaths = import (path "/makes/utils/make-search-paths-deprecated") path nixpkgs;
-  makeTemplate = import (path "/makes/utils/make-template") path nixpkgs;
-in
 makeTemplate {
   arguments = {
     envPython = "${nixpkgs.python37}/bin/python";
@@ -31,9 +28,6 @@ makeTemplate {
       };
       python = nixpkgs.python37;
     };
-    envSearchPaths = makeSearchPaths [
-      nixpkgs.postgresql
-    ];
     envSrcObservesTargetRedshiftEntrypoint = path "/observes/singer/target_redshift/target_redshift/__init__.py";
     envUtilsBashLibPython = path "/makes/utils/python/template.sh";
   };
