@@ -32,7 +32,9 @@ function check_adoc_max_columns {
   local target="${1}"
   local msg='File must be at most 80 columns'
 
-  if grep -v '^:' "${target}" | grep -P "^.{81,}"
+  if grep -v '^:' "${target}" \
+      | grep -v '^link:' \
+      | grep -P "^.{81,}"
   then
     abort "[ERROR] ${msg}: ${target}"
   fi
