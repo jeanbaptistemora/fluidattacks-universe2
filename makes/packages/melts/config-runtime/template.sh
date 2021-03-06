@@ -1,7 +1,6 @@
 # shellcheck shell=bash
 
 source '__envUtilsBashLibPython__'
-source '__envSearchPaths__'
 
 function melts_setup_runtime {
   # Leave melts use the host's home in order to allow credentials to live

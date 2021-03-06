@@ -1,17 +1,11 @@
-{ nixpkgs
+{ buildPythonRequirements
+, makeTemplate
+, nixpkgs
 , path
 , ...
 }:
-let
-  buildPythonRequirements = import (path "/makes/utils/build-python-requirements") path nixpkgs;
-  makeSearchPaths = import (path "/makes/utils/make-search-paths-deprecated") path nixpkgs;
-  makeTemplate = import (path "/makes/utils/make-template") path nixpkgs;
-in
 makeTemplate {
   arguments = {
-    envSearchPaths = makeSearchPaths [
-      nixpkgs.docker
-    ];
     envPythonRequirements = buildPythonRequirements {
       dependencies = [ ];
       name = "melts-development";
@@ -62,5 +56,10 @@ makeTemplate {
     envUtilsBashLibPython = path "/makes/utils/python/template.sh";
   };
   name = "melts-config-development";
+  searchPaths = {
+    envPaths = [
+      nixpkgs.docker
+    ];
+  };
   template = path "/makes/packages/melts/config-development/template.sh";
 }

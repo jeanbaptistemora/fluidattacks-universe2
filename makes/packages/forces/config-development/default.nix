@@ -4,12 +4,10 @@
 }:
 let
   buildPythonRequirements = import (path "/makes/utils/build-python-requirements") path nixpkgs;
-  makeSearchPaths = import (path "/makes/utils/make-search-paths-deprecated") path nixpkgs;
   makeTemplate = import (path "/makes/utils/make-template") path nixpkgs;
 in
 makeTemplate {
   arguments = {
-    envSearchPaths = makeSearchPaths [ ];
     envPythonRequirements = buildPythonRequirements {
       dependencies = [ ];
       name = "forces-development";

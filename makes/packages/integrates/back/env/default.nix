@@ -15,6 +15,8 @@ makeTemplate {
     envLibraries = [
       # Libmagic
       nixpkgs.file
+      # Required by matplotlib
+      nixpkgs.gcc.cc.lib
     ];
     envPaths = [
       # The binary for pypi://GitPython
@@ -25,10 +27,6 @@ makeTemplate {
       nixpkgs.p7zip
     ];
     envSources = [
-      (import (path "/makes/utils/make-search-paths-deprecated") path nixpkgs [
-        # Libstdc++
-        nixpkgs.gcc.cc
-      ])
       packages.integrates.back.pypi.runtime
       packages.integrates.back.tools
       packages.integrates.secrets.list

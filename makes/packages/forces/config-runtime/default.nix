@@ -4,14 +4,10 @@
 }:
 let
   buildPythonRequirements = import (path "/makes/utils/build-python-requirements") path nixpkgs;
-  makeSearchPaths = import (path "/makes/utils/make-search-paths-deprecated") path nixpkgs;
   makeTemplate = import (path "/makes/utils/make-template") path nixpkgs;
 in
 makeTemplate {
   arguments = {
-    envSearchPaths = makeSearchPaths [
-      nixpkgs.git
-    ];
     envPython = "${nixpkgs.python38}/bin/python";
     envPythonRequirements = buildPythonRequirements {
       dependencies = [ ];
@@ -50,5 +46,8 @@ makeTemplate {
     envUtilsBashLibPython = path "/makes/utils/python/template.sh";
   };
   name = "forces-config-runtime";
+  searchPaths = {
+    envPaths = [ nixpkgs.git ];
+  };
   template = path "/makes/packages/forces/config-runtime/template.sh";
 }

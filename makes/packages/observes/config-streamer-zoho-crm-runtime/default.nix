@@ -4,7 +4,6 @@
 }:
 let
   buildPythonRequirements = import (path "/makes/utils/build-python-requirements") path nixpkgs;
-  makeSearchPaths = import (path "/makes/utils/make-search-paths-deprecated") path nixpkgs;
   makeTemplate = import (path "/makes/utils/make-template") path nixpkgs;
 in
 makeTemplate {
@@ -29,7 +28,6 @@ makeTemplate {
       };
       python = nixpkgs.python38;
     };
-    envSearchPaths = makeSearchPaths [ ];
     envSrcObservesStreamerZohoCrmEntrypoint = path "/observes/singer/streamer_zoho_crm/streamer_zoho_crm/__init__.py";
     envUtilsBashLibPython = path "/makes/utils/python/template.sh";
   };

@@ -1,7 +1,7 @@
 # shellcheck disable=SC2043 shell=bash
 
 function with_library {
-  export LD_LIBRARY_PATH="${1}/lib:${LD_LIBRARY_PATH:-}"
+  export LD_LIBRARY_PATH="${1}/lib:${1}/lib64:${LD_LIBRARY_PATH:-}"
 }
 
 function with_node_library {
