@@ -1,8 +1,8 @@
-import { DocumentNode } from "graphql";
+import type { DocumentNode } from "graphql";
 import gql from "graphql-tag";
 
-export const GET_ORGANIZATION_STAKEHOLDERS: DocumentNode = gql`
-  query GetOrganizationStakeholders ($organizationId: String!) {
+const GET_ORGANIZATION_STAKEHOLDERS: DocumentNode = gql`
+  query GetOrganizationStakeholders($organizationId: String!) {
     organization(organizationId: $organizationId) {
       stakeholders {
         email
@@ -13,20 +13,20 @@ export const GET_ORGANIZATION_STAKEHOLDERS: DocumentNode = gql`
       }
     }
   }
-  `;
+`;
 
-export const ADD_STAKEHOLDER_MUTATION: DocumentNode = gql`
+const ADD_STAKEHOLDER_MUTATION: DocumentNode = gql`
   mutation GrantStakeholderOrganizationAccessMutation(
-    $email: String!,
-    $organizationId: String!,
-    $phoneNumber: String,
+    $email: String!
+    $organizationId: String!
+    $phoneNumber: String
     $role: OrganizationRole!
-    ) {
-    grantStakeholderOrganizationAccess (
-      organizationId: $organizationId,
-      phoneNumber: $phoneNumber,
-      role: $role,
-      userEmail: $email,
+  ) {
+    grantStakeholderOrganizationAccess(
+      organizationId: $organizationId
+      phoneNumber: $phoneNumber
+      role: $role
+      userEmail: $email
     ) {
       success
       grantedStakeholder {
@@ -34,18 +34,18 @@ export const ADD_STAKEHOLDER_MUTATION: DocumentNode = gql`
       }
     }
   }
-  `;
+`;
 
-export const EDIT_STAKEHOLDER_MUTATION: DocumentNode = gql`
+const EDIT_STAKEHOLDER_MUTATION: DocumentNode = gql`
   mutation EditStakeholderOrganizationMutation(
-    $email: String!,
-    $organizationId: String!,
-    $phoneNumber: String,
+    $email: String!
+    $organizationId: String!
+    $phoneNumber: String
     $role: OrganizationRole!
   ) {
-    editStakeholderOrganization (
-      organizationId: $organizationId,
-      phoneNumber: $phoneNumber,
+    editStakeholderOrganization(
+      organizationId: $organizationId
+      phoneNumber: $phoneNumber
       role: $role
       userEmail: $email
     ) {
@@ -55,18 +55,25 @@ export const EDIT_STAKEHOLDER_MUTATION: DocumentNode = gql`
       }
     }
   }
-  `;
+`;
 
-export const REMOVE_STAKEHOLDER_MUTATION: DocumentNode = gql`
+const REMOVE_STAKEHOLDER_MUTATION: DocumentNode = gql`
   mutation RemoveStakeholderOrganizationAccessMutation(
-    $organizationId: String!,
-    $userEmail: String!,
+    $organizationId: String!
+    $userEmail: String!
+  ) {
+    removeStakeholderOrganizationAccess(
+      organizationId: $organizationId
+      userEmail: $userEmail
     ) {
-      removeStakeholderOrganizationAccess (
-        organizationId: $organizationId,
-        userEmail: $userEmail
-      ) {
-        success
-      }
+      success
     }
-  `;
+  }
+`;
+
+export {
+  GET_ORGANIZATION_STAKEHOLDERS,
+  ADD_STAKEHOLDER_MUTATION,
+  EDIT_STAKEHOLDER_MUTATION,
+  REMOVE_STAKEHOLDER_MUTATION,
+};

@@ -1,4 +1,4 @@
-export interface IAddStakeholderAttrs {
+interface IAddStakeholderAttrs {
   grantStakeholderOrganizationAccess: {
     grantedStakeholder: {
       email: string;
@@ -12,31 +12,31 @@ export interface IAddStakeholderAttrs {
   };
 }
 
-export interface IEditStakeholderAttrs {
+interface IEditStakeholderAttrs {
   editStakeholderOrganization: {
     modifiedStakeholder: {
       email: string;
     };
     success: boolean;
   };
- }
+}
 
-export interface IOrganizationStakeholders {
+interface IOrganizationStakeholders {
   organizationId: string;
 }
 
-export interface IRemoveStakeholderAttrs {
+interface IRemoveStakeholderAttrs {
   removeStakeholderOrganizationAccess: {
     success: boolean;
   };
 }
 
-export interface ILastLogin {
+interface ILastLogin {
   label: string;
   value: number[];
 }
 
-export interface IStakeholderAttrs {
+interface IStakeholderAttrs {
   email: string;
   firstLogin: string;
   lastLogin: ILastLogin;
@@ -45,3 +45,11 @@ export interface IStakeholderAttrs {
   responsibility: string;
   role: string;
 }
+
+export {
+  IAddStakeholderAttrs,
+  IEditStakeholderAttrs,
+  IOrganizationStakeholders,
+  IRemoveStakeholderAttrs,
+  IStakeholderAttrs,
+};
