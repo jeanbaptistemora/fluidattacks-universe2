@@ -175,8 +175,3 @@ airs_test_blog:
   <<: *with_nix
   <<: *in_dev_branch_airs
   stage: test-code
-
-airs_test_defends:
-  <<: *with_nix
-  <<: *in_dev_branch_airs
-  stage: test-code

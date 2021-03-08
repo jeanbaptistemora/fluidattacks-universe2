@@ -3,12 +3,14 @@ airs/content/blog/another-proud-son-json/index.adoc
 airs/content/blog/app-pickle/index.adoc
 airs/content/blog/are-you-checking-types/index.adoc
 airs/content/blog/asymmetric-dos-slow-http-attack/index.adoc
+airs/content/blog/attack-no-announce/index.adoc
 airs/content/blog/babuk-locker/index.adoc
 airs/content/blog/backdooring-putty/index.adoc
 airs/content/blog/battle-tendency/index.adoc
 airs/content/blog/big-code/index.adoc
 airs/content/blog/binary-learning/index.adoc
 airs/content/blog/bounty-writeup/index.adoc
+airs/content/blog/bypassing-dep/index.adoc
 airs/content/blog/ceo-bugs/index.adoc
 airs/content/blog/chat-with-correa/index.adoc
 airs/content/blog/code-translate/index.adoc
@@ -25,6 +27,7 @@ airs/content/blog/cybersecurity-2020-21-i/index.adoc
 airs/content/blog/cybersecurity-strategy/index.adoc
 airs/content/blog/dark-web/index.adoc
 airs/content/blog/deep-hacking/index.adoc
+airs/content/blog/delimit-ethical-hacking/index.adoc
 airs/content/blog/devoops-writeup/index.adoc
 airs/content/blog/devops-concept/index.adoc
 airs/content/blog/devsecops-concept/index.adoc
@@ -111,6 +114,7 @@ airs/content/blog/secure-infra-code/index.adoc
 airs/content/blog/security-trends/index.adoc
 airs/content/blog/seek-chaos/index.adoc
 airs/content/blog/sensible-cybersecurity/index.adoc
+airs/content/blog/shared-responsibility-model/index.adoc
 airs/content/blog/smbs-bankruptcy/index.adoc
 airs/content/blog/solarwinds-attack/index.adoc
 airs/content/blog/solarwinds-us-strike-back/index.adoc

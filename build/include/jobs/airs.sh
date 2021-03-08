@@ -12,29 +12,11 @@ function job_airs_test_lint_code {
   ||  return 1
 }
 
-function job_airs_test_generic {
-  local touched_adoc_files
-  local max_lix='65'
-
-      pushd airs \
-  &&  helper_airs_set_lc_all \
-  &&  touched_adoc_files="$(helper_airs_list_touched_files | grep '.adoc')" || true \
-  && echo '[INFO] Testing touched adoc files' \
-  &&  for path in ${touched_adoc_files}
-      do
-            helper_airs_test_lix "${path}" "${max_lix}" \
-        ||  return 1
-      done \
-  &&  popd \
-  ||  return 1
-}
-
 function job_airs_test_blog {
   local all_blog_adoc_files
   local touched_blog_adoc_files
   local min_words='800'
   local max_words='1200'
-  local max_lix='50'
 
       pushd airs \
   &&  helper_airs_set_lc_all \
@@ -45,36 +27,11 @@ function job_airs_test_blog {
       do
             helper_airs_blog_adoc_category "${path}" \
         &&  helper_airs_blog_adoc_tags "${path}" \
-        &&  helper_airs_adoc_tag_exists "${path}" ':subtitle:' \
-        &&  helper_airs_adoc_tag_exists "${path}" ':alt:' \
         ||  return 1
       done \
   &&  for path in ${touched_blog_adoc_files}
       do
             helper_airs_blog_adoc_others "${path}" \
-        &&  helper_airs_adoc_tag_exists "${path}" ':source:' \
-        &&  helper_airs_word_count "${path}" "${min_words}" "${max_words}" \
-        &&  helper_airs_test_lix "${path}" "${max_lix}" \
-        ||  return 1
-      done \
-  &&  popd \
-  ||  return 1
-}
-
-function job_airs_test_defends {
-  local touched_defends_adoc_files
-  local min_words='400'
-  local max_words='800'
-  local max_lix='60'
-
-      pushd airs \
-  &&  helper_airs_set_lc_all \
-  &&  touched_defends_adoc_files="$(helper_airs_list_touched_files | grep 'content/pages/products/defends/' | grep '.adoc')" || true \
-  &&  echo '[INFO] Testing defends files' \
-  &&  for path in ${touched_defends_adoc_files}
-      do
-            helper_airs_word_count "${path}" "${min_words}" "${max_words}" \
-        &&  helper_airs_test_lix "${path}" "${max_lix}" \
         ||  return 1
       done \
   &&  popd \
