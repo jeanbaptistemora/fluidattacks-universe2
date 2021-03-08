@@ -22,8 +22,7 @@ function job_airs_test_generic {
   && echo '[INFO] Testing touched adoc files' \
   &&  for path in ${touched_adoc_files}
       do
-            helper_airs_adoc_tag_exists "${path}" ':description:' \
-        &&  helper_airs_test_lix "${path}" "${max_lix}" \
+            helper_airs_test_lix "${path}" "${max_lix}" \
         ||  return 1
       done \
   &&  popd \

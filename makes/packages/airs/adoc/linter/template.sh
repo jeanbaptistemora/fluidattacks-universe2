@@ -165,6 +165,17 @@ function check_adoc_patterns {
   done
 }
 
+function check_adoc_tag_exists {
+  local target="${1}"
+  local tag="${2}"
+  local msg="Tag must exists: ${2}"
+
+  if ! grep -q ":${tag}:" "${target}"
+  then
+    abort "[ERROR] ${msg}: ${target}"
+  fi
+}
+
 function check_adoc_word_count {
   local target="${1}"
   local min_words="${2}"
