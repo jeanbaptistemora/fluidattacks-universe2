@@ -150,6 +150,8 @@ airs/content/blog/why-we-go-functional/index.adoc
 airs/content/blog/windows-kernel-debugging/index.adoc
 airs/content/blog/xml-exploitable-markup-language/index.adoc
 airs/content/blog/xss-protection/index.adoc
+airs/content/pages/about-us/certifications/ceh/index.adoc
+airs/content/pages/about-us/certifications/index.adoc
 airs/content/pages/about-us/clients/avianca/index.adoc
 airs/content/pages/about-us/clients/banco-general/index.adoc
 airs/content/pages/about-us/clients/banco-industrial/index.adoc
@@ -161,6 +163,7 @@ airs/content/pages/about-us/clients/colmedica/index.adoc
 airs/content/pages/about-us/clients/ecopetrol/index.adoc
 airs/content/pages/about-us/clients/ficohsa/index.adoc
 airs/content/pages/about-us/clients/gesa/index.adoc
+airs/content/pages/about-us/clients/index.adoc
 airs/content/pages/about-us/clients/interbank/index.adoc
 airs/content/pages/about-us/clients/itau/index.adoc
 airs/content/pages/about-us/clients/manpower/index.adoc
@@ -204,6 +207,7 @@ airs/content/pages/compliance/hipaa/index.adoc
 airs/content/pages/compliance/nist/index.adoc
 airs/content/pages/compliance/owasp/index.adoc
 airs/content/pages/compliance/pci/index.adoc
+airs/content/pages/contact-us/index.adoc
 airs/content/pages/contact-us/thank-you/index.adoc
 airs/content/pages/cookie/index.adoc
 airs/content/pages/faq/list.adoc
@@ -721,6 +725,7 @@ airs/content/pages/products/rules/list/files/045/index.adoc
 airs/content/pages/products/rules/list/files/046/index.adoc
 airs/content/pages/products/rules/list/files/339/index.adoc
 airs/content/pages/products/rules/list/files/340/index.adoc
+airs/content/pages/products/rules/list/index.adoc
 airs/content/pages/products/rules/list/legal/331/index.adoc
 airs/content/pages/products/rules/list/logs/075/index.adoc
 airs/content/pages/products/rules/list/logs/077/index.adoc
@@ -740,15 +745,18 @@ airs/content/pages/products/rules/list/networks/257/index.adoc
 airs/content/pages/products/rules/list/networks/258/index.adoc
 airs/content/pages/products/rules/list/networks/259/index.adoc
 airs/content/pages/products/rules/list/networks/356/index.adoc
+airs/content/pages/products/rules/list/out-of-scope/architecture/052/index.adoc
 airs/content/pages/products/rules/list/out-of-scope/architecture/055/index.adoc
 airs/content/pages/products/rules/list/out-of-scope/architecture/058/index.adoc
 airs/content/pages/products/rules/list/out-of-scope/architecture/061/index.adoc
 airs/content/pages/products/rules/list/out-of-scope/architecture/070/index.adoc
 airs/content/pages/products/rules/list/out-of-scope/assets/001/index.adoc
+airs/content/pages/products/rules/list/out-of-scope/assets/002/index.adoc
 airs/content/pages/products/rules/list/out-of-scope/assets/004/index.adoc
 airs/content/pages/products/rules/list/out-of-scope/assets/005/index.adoc
 airs/content/pages/products/rules/list/out-of-scope/assets/006/index.adoc
 airs/content/pages/products/rules/list/out-of-scope/assets/008/index.adoc
+airs/content/pages/products/rules/list/out-of-scope/authentication/234/index.adoc
 airs/content/pages/products/rules/list/out-of-scope/authorization/094/index.adoc
 airs/content/pages/products/rules/list/out-of-scope/authorization/097/index.adoc
 airs/content/pages/products/rules/list/out-of-scope/authorization/098/index.adoc
@@ -768,6 +776,8 @@ airs/content/pages/products/rules/list/out-of-scope/control/297/index.adoc
 airs/content/pages/products/rules/list/out-of-scope/data/179/index.adoc
 airs/content/pages/products/rules/list/out-of-scope/data/191/index.adoc
 airs/content/pages/products/rules/list/out-of-scope/development/240/index.adoc
+airs/content/pages/products/rules/list/out-of-scope/development/241/index.adoc
+airs/content/pages/products/rules/list/out-of-scope/development/242/index.adoc
 airs/content/pages/products/rules/list/out-of-scope/foreign/194/index.adoc
 airs/content/pages/products/rules/list/out-of-scope/foreign/198/index.adoc
 airs/content/pages/products/rules/list/out-of-scope/foreign/199/index.adoc
@@ -844,9 +854,11 @@ airs/content/pages/solutions/ethical-hacking/index.adoc
 airs/content/pages/solutions/index.adoc
 airs/content/pages/solutions/penetration-testing/index.adoc
 airs/content/pages/solutions/secure-code-review/index.adoc
+airs/content/pages/solutions/vulnerability-management/index.adoc
 airs/content/pages/style/index.adoc
 airs/content/pages/systems/index.adoc
 airs/content/pages/systems/iot/index.adoc
+airs/content/pages/systems/ot/index.adoc
 airs/content/pages/systems/web-apps/index.adoc
 airs/content/pages/terms-use/index.adoc
 airs/content/pages/topics/index.adoc

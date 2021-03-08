@@ -19,6 +19,7 @@ function main {
                 echo "[INFO] Verifying: ${path}" \
             &&  check_adoc_fluid_attacks_name "${path}" \
             &&  check_adoc_keywords_casing "${path}" \
+            &&  check_adoc_lix "${path}" '65' \
             &&  check_adoc_main_title "${path}" \
             &&  check_adoc_max_columns "${path}" \
             &&  check_adoc_min_keywords "${path}" \

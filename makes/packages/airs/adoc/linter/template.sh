@@ -17,6 +17,19 @@ function check_adoc_keywords_casing {
       done
 }
 
+function check_adoc_lix {
+  local target="${1}"
+  local max_lix="${2}"
+  local msg="Document Lix must be under ${max_lix}"
+  local lix
+
+      lix="$(style "${target}" | grep -oP '(?<=Lix: )[0-9]+')" \
+  &&  if test "${lix}" -gt "${max_lix}"
+      then
+        abort "[ERROR] ${msg}, current: ${lix}: ${target}"
+      fi
+}
+
 function check_adoc_main_title {
   local target="${1}"
   local msg='File must contain exactly one title'

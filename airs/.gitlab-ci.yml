@@ -171,11 +171,6 @@ airs_test_lint_styles:
 
 # Pending to migrate
 
-airs_test_generic:
-  <<: *with_nix
-  <<: *in_dev_branch_airs
-  stage: test-code
-
 airs_test_blog:
   <<: *with_nix
   <<: *in_dev_branch_airs
