@@ -43,6 +43,7 @@ function main {
   &&  find_adoc "${envAirs}/content/blog" | while read -r path
       do
             echo "[INFO] Verifying: ${path}" \
+        &&  check_adoc_blog_tags "${path}" \
         &&  check_adoc_lix "${path}" '50' \
         &&  check_adoc_tag_exists "${path}" 'alt' \
         &&  check_adoc_tag_exists "${path}" 'source' \

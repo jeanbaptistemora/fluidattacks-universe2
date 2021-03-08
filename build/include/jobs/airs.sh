@@ -26,7 +26,6 @@ function job_airs_test_blog {
   &&  for path in ${all_blog_adoc_files}
       do
             helper_airs_blog_adoc_category "${path}" \
-        &&  helper_airs_blog_adoc_tags "${path}" \
         ||  return 1
       done \
   &&  for path in ${touched_blog_adoc_files}

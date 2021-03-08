@@ -1,5 +1,115 @@
 # shellcheck shell=bash
 
+function check_adoc_blog_tags {
+  local target="${1}"
+  local valid_tags=(
+    'android'
+    'application'
+    'backdoor'
+    'blue team'
+    'bug'
+    'business'
+    'cbc'
+    'challenge'
+    'cloud'
+    'code'
+    'company'
+    'credential'
+    'csv'
+    'cybersecurity'
+    'dependency'
+    'detect'
+    'devops'
+    'discovery'
+    'documentation'
+    'economics'
+    'encryption'
+    'engineering'
+    'eslint'
+    'ethical'
+    'ethical hacking'
+    'experiment'
+    'exploit'
+    'flaw'
+    'functional'
+    'fuzzing'
+    'git'
+    'hacking'
+    'health'
+    'healthcare'
+    'hevd'
+    'htb'
+    'imperative'
+    'information'
+    'injection'
+    'interview'
+    'investment'
+    'javascript'
+    'jwt'
+    'kernel'
+    'libssh'
+    'linters'
+    'machine learning'
+    'math'
+    'mistake'
+    'multiparadigm'
+    'mypy'
+    'openssl'
+    'operations'
+    'osce'
+    'osee'
+    'password'
+    'pentesting'
+    'policies'
+    'protect'
+    'pwn'
+    'python'
+    'red team'
+    'revert'
+    'risk'
+    'saml'
+    'scanner'
+    'security'
+    'security testing'
+    'social'
+    'social engineering'
+    'software'
+    'sql'
+    'ssl'
+    'standard'
+    'stateless'
+    'technology'
+    'test'
+    'testing'
+    'tls'
+    'training'
+    'trends'
+    'vector'
+    'vulnerability'
+    'vulnserver'
+    'web'
+    'wep'
+    'wifi'
+    'windows'
+    'xml'
+    'xpath'
+    'xss'
+  )
+
+      check_adoc_tag_exists "${path}" 'tags' \
+  &&  grep -Po '(?<=^:tags: ).+$' "${target}" \
+        | sed -E 's|,\s*|\n|g' \
+        > list \
+  &&  mapfile -t tags < list \
+  &&  for tag in "${tags[@]}"
+      do
+        if ! echo "${valid_tags[*]}" | grep -q "${tag}"
+        then
+          abort "[ERROR] Tag: ${tag}, is not valid: ${target}, pick one from: ${valid_tags[*]}"
+        fi
+      done
+}
+
 function check_adoc_keywords_casing {
   local target="${1}"
   local msg="Keywords must be: Like This"
@@ -46,7 +156,7 @@ function check_adoc_max_columns {
   local msg='File must be at most 80 columns'
 
   if grep -v '^:' "${target}" \
-      | grep -v '^link:' \
+      | grep -v 'link:' \
       | grep -P "^.{81,}"
   then
     abort "[ERROR] ${msg}: ${target}"
