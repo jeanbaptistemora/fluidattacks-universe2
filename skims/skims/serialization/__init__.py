@@ -240,6 +240,7 @@ ALLOWED_FACTORIES: Dict[type, Dict[str, Any]] = {
                 graph_model.GraphShardMetadataNodes,
                 graph_model.GraphVulnerabilityParameters,
                 graph_model.SyntaxStepArrayAccess,
+                graph_model.SyntaxStepArrayInstantiation,
                 graph_model.SyntaxStepAssignment,
                 graph_model.SyntaxStepBinaryExpression,
                 graph_model.SyntaxStepDeclaration,

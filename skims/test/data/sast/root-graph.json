@@ -4896,6 +4896,7 @@
           },
           "398": {
             "label_c": 22,
+            "label_input_type": "F034",
             "label_l": 72,
             "label_type": "array_creation_expression"
           },
@@ -6535,7 +6536,9 @@
             "F022": [],
             "F031_AWS": [],
             "F031_CWE378": [],
-            "F034": [],
+            "F034": [
+              "398"
+            ],
             "F037": [],
             "F052": [],
             "F055_AWS": [],
@@ -7481,6 +7484,29 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          }
+        ],
+        "393": [
+          {
+            "array_type": "byte",
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "398",
+              "value": null
+            },
+            "type": "SyntaxStepArrayInstantiation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "393",
+              "value": null
+            },
+            "type": "SyntaxStepDeclaration",
+            "var": "b",
+            "var_type": "byte[]"
           }
         ],
         "406": [

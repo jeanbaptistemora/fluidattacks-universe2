@@ -199,6 +199,40 @@ def array_access(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
     )
 
 
+def array_creation_expression(
+    args: SyntaxReaderArgs,
+) -> graph_model.SyntaxStepsLazy:
+    match = g.match_ast(
+        args.graph,
+        args.n_id,
+        'new',
+        '__0__',
+        'dimensions_expr',
+    )
+
+    if (
+        len(match) == 3
+        and match['new']
+        and (object_type_id := match['__0__'])
+        and (dimension := match['dimensions_expr'])
+    ):
+        match = g.match_ast(
+            args.graph,
+            dimension,
+            '__1__',
+        )
+        yield graph_model.SyntaxStepArrayInstantiation(
+            meta=graph_model.SyntaxStepMeta.default(
+                args.n_id, dependencies_from_arguments(
+                    args.fork_n_id(match['__1__']),
+                ),
+            ),
+            array_type=args.graph.nodes[object_type_id]['label_text'],
+        )
+    else:
+        raise MissingCaseHandling(array_creation_expression, args)
+
+
 def if_statement(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
     # if ( __0__ ) __1__ else __2__
     match = g.match_ast(
@@ -541,6 +575,17 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
         },
         syntax_readers=(
             object_creation_expression,
+        ),
+    ),
+    Dispatcher(
+        applicable_languages={
+            graph_model.GraphShardMetadataLanguage.JAVA,
+        },
+        applicable_node_label_types={
+            'array_creation_expression',
+        },
+        syntax_readers=(
+            array_creation_expression,
         ),
     ),
     Dispatcher(

@@ -7,7 +7,33 @@
     "F022": {},
     "F031_AWS": {},
     "F031_CWE378": {},
-    "F034": {},
+    "F034": {
+      "398": {
+        "393-406-420-421-480": [
+          {
+            "array_type": "byte",
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "398",
+              "value": null
+            },
+            "type": "SyntaxStepArrayInstantiation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "393",
+              "value": null
+            },
+            "type": "SyntaxStepDeclaration",
+            "var": "b",
+            "var_type": "byte[]"
+          }
+        ]
+      }
+    },
     "F037": {},
     "F052": {},
     "F055_AWS": {},
@@ -517,6 +543,27 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          },
+          {
+            "array_type": "byte",
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "398",
+              "value": null
+            },
+            "type": "SyntaxStepArrayInstantiation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "393",
+              "value": null
+            },
+            "type": "SyntaxStepDeclaration",
+            "var": "b",
+            "var_type": "byte[]"
           }
         ],
         "223-246-248-249-250-258-259-272-279-288-290-298-300-319-321-322-341-342-348-355-362-364-482-547": [
@@ -1328,6 +1375,27 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          },
+          {
+            "array_type": "byte",
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "398",
+              "value": null
+            },
+            "type": "SyntaxStepArrayInstantiation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "393",
+              "value": null
+            },
+            "type": "SyntaxStepDeclaration",
+            "var": "b",
+            "var_type": "byte[]"
           }
         ],
         "223-246-248-249-250-258-259-272-279-288-290-298-300-348-355-362-364-482-547": [
@@ -2011,6 +2079,27 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          },
+          {
+            "array_type": "byte",
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "398",
+              "value": null
+            },
+            "type": "SyntaxStepArrayInstantiation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "393",
+              "value": null
+            },
+            "type": "SyntaxStepDeclaration",
+            "var": "b",
+            "var_type": "byte[]"
           }
         ],
         "223-246-248-249-250-258-259-272-279-288-290-348-355-362-364-482-547": [
@@ -2613,6 +2702,27 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          },
+          {
+            "array_type": "byte",
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "398",
+              "value": null
+            },
+            "type": "SyntaxStepArrayInstantiation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "393",
+              "value": null
+            },
+            "type": "SyntaxStepDeclaration",
+            "var": "b",
+            "var_type": "byte[]"
           }
         ],
         "223-246-248-249-250-258-259-272-279-348-355-362-364-482-547": [
