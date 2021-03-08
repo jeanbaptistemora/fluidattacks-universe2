@@ -28,6 +28,10 @@ makeDerivation {
   arguments = arguments' // argumentsBase64' // {
     __envArgumentNamesFile = nix.listToFileWithTrailinNewLine (builtins.attrNames arguments);
     __envArgumentBase64NamesFile = nix.listToFileWithTrailinNewLine (builtins.attrNames argumentsBase64);
+    __envPath = pkgs.lib.strings.makeBinPath [
+      pkgs.gnugrep
+      pkgs.gnused
+    ];
     __envTemplate =
       if searchPaths == { }
       then nix.asContent template

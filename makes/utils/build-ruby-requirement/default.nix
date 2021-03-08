@@ -11,12 +11,14 @@ in
 makeDerivation {
   arguments = {
     envRequirement = requirement;
-    envRuby = ruby;
-    envSed = "${pkgs.gnused}/bin/sed";
   };
   builder = path "/makes/utils/build-ruby-requirement/builder.sh";
   name = "build-ruby-requirement-${name}";
   searchPaths = {
-    envPaths = dependencies ++ [ pkgs.git ruby ];
+    envPaths = dependencies ++ [
+      pkgs.git
+      pkgs.gnused
+      ruby
+    ];
   };
 }

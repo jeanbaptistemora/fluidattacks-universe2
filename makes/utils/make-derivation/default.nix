@@ -26,23 +26,17 @@ in
 builtins.derivation (arguments' // {
   __envBashLibCommon = path "/makes/utils/common/template.sh";
   __envBashLibShopts = path "/makes/utils/shopts/template.sh";
-  __envSeachPaths =
+  __envSearchPaths =
     if searchPaths == { }
     then "/dev/null"
     else import (path "/makes/utils/make-search-paths") path pkgs searchPaths;
-  __envSeachPathsBase = pkgs.lib.strings.makeBinPath [
-    pkgs.coreutils
-    pkgs.gnugrep
-    pkgs.gnused
-  ];
+  __envSearchPathsBase = pkgs.lib.strings.makeBinPath [ pkgs.coreutils ];
   args = [
     (builtins.toFile "make-derivation" ''
       source $__envBashLibShopts
       source $__envBashLibCommon
-      export PATH=$__envSeachPathsBase
-      source $__envSeachPaths
-
-      cd "$(mktemp -d)"
+      export PATH=$__envSearchPathsBase
+      source $__envSearchPaths
 
       ${nix.asContent builder}
     '')

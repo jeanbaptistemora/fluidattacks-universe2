@@ -38,6 +38,11 @@ makeDerivation {
   builder = path "/makes/utils/build-python-requirements/builder.sh";
   name = "build-python-requirements-${name}";
   searchPaths = {
-    envPaths = dependencies ++ [ pkgs.gcc pkgs.git python ];
+    envPaths = dependencies ++ [
+      pkgs.gcc
+      pkgs.git
+      pkgs.gnused
+      python
+    ];
   };
 }

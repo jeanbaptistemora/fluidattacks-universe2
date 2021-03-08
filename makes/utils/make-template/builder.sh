@@ -15,6 +15,8 @@ function replace_var_in_file {
 }
 
 function main {
+  export PATH="${__envPath}:${PATH:-}"
+
       echo "${__envTemplate}" > "${out}" \
   &&  echo '[INFO] Replacing arguments' \
   &&  while read -r 'var_name'

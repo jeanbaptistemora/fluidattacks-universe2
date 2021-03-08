@@ -39,14 +39,17 @@ let
 in
 makeDerivation {
   arguments = {
-    envNode = node;
-    envBashLibCommon = path "/makes/utils/common/template.sh";
     envPackageJsonFile = builtins.toFile "package.json" packageJson;
     envRequirementsFile = nix.listToFileWithTrailinNewLine requirementsList;
   };
   builder = path "/makes/utils/build-node-requirements/builder.sh";
   name = "build-node-requirements-${name}";
   searchPaths = {
-    envPaths = dependencies ++ [ pkgs.jq node ];
+    envPaths = dependencies ++ [
+      node
+      pkgs.gnugrep
+      pkgs.gnused
+      pkgs.jq
+    ];
   };
 }

@@ -1,7 +1,5 @@
 # shellcheck shell=bash
 
-source "${envBashLibCommon}"
-
 function get_deps_from_lock {
   jq -r '.dependencies | to_entries[] | .key + "@" + .value.version' < "${1}" \
     | sort
@@ -46,7 +44,7 @@ function main {
   &&  mapfile -t files_to_patch < "$(get_files_to_patch "${out}" "${shebang_regex}")" \
   &&  for file in "${files_to_patch[@]}"
       do
-            sed -Ei "s|${shebang_regex}|#!${envNode}/bin/node|g" "${file}" \
+            sed -Ei "s|${shebang_regex}|#! $(command -v node)|g" "${file}" \
         ||  return 1
       done \
   ||  return 1

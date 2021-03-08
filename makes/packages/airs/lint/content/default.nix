@@ -14,6 +14,7 @@ makeDerivation {
   searchPaths = {
     envPaths = [
       nixpkgs.findutils
+      nixpkgs.gnused
     ];
     envSources = [
       packages.airs.adoc.linter
