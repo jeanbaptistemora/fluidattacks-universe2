@@ -1,4 +1,5 @@
 // Color Variables
+$black-gray: rgba(92, 92, 92, 1);
 $button-red: rgba(191, 38, 38, 1);
 $button-hover: rgba(255, 52, 53, 1);
 $darkshadow: rgba(176, 176, 176, 0.3);
@@ -20,6 +21,8 @@ $white: rgba(255, 255, 255, 1);
 
 // Color classes
 .bc-fluid-red { border-color: $button-red; }
+.bc-black-gray { border-color: $black-gray; }
+.c-black-gray { color: $black-gray; }
 .c-dkred { color: $button-red; }
 .c-fluid-bk { color: $fluid-black; }
 .c-fluid-gray { color: $fluid-gray; }
@@ -33,14 +36,17 @@ $white: rgba(255, 255, 255, 1);
 .fheader { font-size: 2.25rem; }
 
 // Height Classes
-.h-navbar { height: 6.5rem; }
 .h-5 { height: 5rem; }
+.h-29 { height: 29rem; }
+.h-navbar { height: 6.5rem; }
 .h-section { height: 50rem; }
 
 // Hover changes classes
 .hv-fluid-bd { &:hover { border-color: $button-hover;} }
 .hv-fluid-rd { &:hover { color: $button-hover; } }
 .hv-fluid-dkred { &:hover { color: $fluid-dark-red;} }
+.hv-grow { &:hover { transform: scale(1.05); } }
+.hv-rotate-360 { &:hover { transform: rotate(360deg); } }
 
 // Width and Max Width classes
 .mw-1366 { max-width: 1366px; }
@@ -51,14 +57,24 @@ $white: rgba(255, 255, 255, 1);
 // Transitions
 .t-all-5 { transition: all 0.5s; }
 .t-all-3-ease { transition: all 0.3s ease;}
+.t-tf-6-eio { transition: transform 0.6s ease-in-out; }
 
 // Media queries
+
+// Big screen sizes
 @media screen and (min-width: 60em) {
+  .bg-banner-sz { background-size: 100% 100%; }
   .ph-body { padding: 0 3.75rem; }
 }
 
+// Medium screen sizes
 @media screen and (min-width: 30em) and (max-width: 60em) {
   .fheader { font-size: 3.5rem; }
+}
+
+// Small screen sizes
+@media screen and (max-width: 30em) {
+  .cover-s { background-size: cover; }
 }
 
 // Animations

@@ -2,7 +2,7 @@
 import { Link } from "gatsby";
 import type { StyledComponent } from "styled-components";
 import styled from "styled-components";
-import * as coverMainHome from "../assets/images/cover-main.png";
+import * as coverMainHome from "../assets/images/home/cover-main.png";
 
 const NavbarContainer: StyledComponent<
   "div",
@@ -362,7 +362,9 @@ const MainCoverHome: StyledComponent<
   className: `
   flex-ns
   items-center
-  cover
+  cover-m
+  cover-s
+  bg-banner-sz
   h-section
   `,
 })`
@@ -460,6 +462,64 @@ const BlackSimpleParagraph: StyledComponent<
   `,
 })``;
 
+const PlayItButtonSection: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs({
+  className: `
+    h-section
+    justify-center
+    items-center
+    flex
+  `,
+})``;
+
+const PlayItButtonContainer: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs({
+  className: `
+    roboto
+    f4
+    c-black-gray
+    justify-center
+    items-center
+    flex
+    t-tf-6-eio
+    hv-grow
+    w5
+    center
+  `,
+})``;
+
+const PlayItButtonImage: StyledComponent<
+  "img",
+  Record<string, unknown>
+> = styled.img.attrs({
+  className: `
+    hv-rotate-360
+    t-tf-6-eio
+    w4
+    ba
+    br-100
+    mh2
+    bc-black-gray
+  `,
+})``;
+
+const GetDemoContainer: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs({
+  className: `
+    w-80-l
+    ba
+    b--light-gray
+    pa4
+    mt4
+  `,
+})``;
+
 export {
   ArticleContainer,
   ArticleTitle,
@@ -477,8 +537,12 @@ export {
   FontAwesomeContainerSmall,
   FooterInfoLinksContainer,
   FooterInfoLink,
+  GetDemoContainer,
   GrayBigParagraph,
   GrayDash,
+  PlayItButtonContainer,
+  PlayItButtonImage,
+  PlayItButtonSection,
   InnerFooterInfoContainer,
   InnerMainContentHome,
   MainContentHome,
