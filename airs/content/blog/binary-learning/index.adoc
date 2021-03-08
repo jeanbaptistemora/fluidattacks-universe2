@@ -2,7 +2,7 @@
 :date: 2019-01-25
 :subtitle: Learning to exploit binaries
 :category: machine-learning
-:tags: machine learning, vulnerability, exploit
+:tags: machine-learning, vulnerability, exploit
 :image: cover.png
 :alt: Binary machine learning. Credits: https://unsplash.com/photos/h3sAF1cVURw
 :description: In this article, we describe a system named VDiscover, created from the ground up to learn vulnerabilities in binary code without access to the source.

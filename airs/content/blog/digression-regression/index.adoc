@@ -2,7 +2,7 @@
 :date: 2019-10-02
 :subtitle: Simple linear regression in scikit
 :category: machine-learning
-:tags: machine learning, python, code
+:tags: machine-learning, python, code
 :image: cover.png
 :alt: Computer showing a graph
 :description: In this post, we begin to tackle why vectors are the most appropriate representation for data as input to machine learning algorithms.

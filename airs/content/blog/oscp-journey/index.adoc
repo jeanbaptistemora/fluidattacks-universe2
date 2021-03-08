@@ -2,7 +2,7 @@
 :date: 2019-12-04
 :category: opinions
 :subtitle: The meaning of Try Harder
-:tags: challenge, ethical hacking, pentesting, security, training, exploit
+:tags: challenge, ethical-hacking, pentesting, security, training, exploit
 :image: cover.png
 :alt: Man sitting facing laptop. Photo by Clint Patterson on Unsplash: https://unsplash.com/photos/dYEuFB8KQJk
 :description: The OSCP exam is one of the hardest certifications out there for pentesters. Here we show you how you can prepare yourself to do your best on it.

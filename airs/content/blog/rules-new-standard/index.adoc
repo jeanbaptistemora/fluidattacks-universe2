@@ -2,7 +2,7 @@
 :date: 2020-04-17
 :subtitle: More requirements in Rules are firmly supported
 :category: philosophy
-:tags: security, cybersecurity, information, documentation, standard, ethical hacking
+:tags: security, cybersecurity, information, documentation, standard, ethical-hacking
 :image: cover.png
 :alt: Photo by Bradley Feller on Unsplash
 :description: Here we briefly outline Rules, Fluid Attacks's set of security requirements, along with the world-renowned standards that have served as a reference for us.

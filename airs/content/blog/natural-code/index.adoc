@@ -2,7 +2,7 @@
 :date: 2019-07-26
 :subtitle: Natural language processing for code security
 :category: machine-learning
-:tags: machine learning, vulnerability, code
+:tags: machine-learning, vulnerability, code
 :image: cover.png
 :alt: Photo by Andres Urena on Unsplash. Credits: https://unsplash.com/photos/k1osF_h2fzA
 :description: In this blog post, we present the use of Natural Language Processing in bug finding and coding conventions, both based upon the n-gram model.

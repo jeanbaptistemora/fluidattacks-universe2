@@ -2,7 +2,7 @@
 :date: 2019-01-11
 :category: opinions
 :subtitle: Nobody knows, but everything is allowed
-:tags: protect, information, business, red team, blue team, policies
+:tags: protect, information, business, red-team, blue-team, policies
 :image: cover.png
 :alt: Executive leaking business information
 :description: We want to guide you about some management policies we suggest that you could take to answer with high precision how secure your information is.

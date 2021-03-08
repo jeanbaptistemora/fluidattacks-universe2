@@ -2,7 +2,7 @@
 :date: 2019-08-13
 :subtitle: Trick neural network classifiers
 :category: machine-learning
-:tags: machine learning, vulnerability, code
+:tags: machine-learning, vulnerability, code
 :image: cover.png
 :alt: Photo by KP Bodenstein on Unsplash: https://unsplash.com/photos/ElQI4kGSbiw
 :description: You'll see how to create images that fool classifiers into thinking they see the wrong object while maintaining visual similarity to a rightly classified image.

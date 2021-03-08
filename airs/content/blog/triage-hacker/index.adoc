@@ -2,7 +2,7 @@
 :date: 2019-10-18
 :subtitle: Prioritize code auditing via ML
 :category: machine-learning
-:tags: machine learning, security, code
+:tags: machine-learning, security, code
 :image: cover.png
 :alt: Photo by camilo jimenez on Unsplash: https://unsplash.com/photos/vGu08RYjO-s
 :description: This post is a high-level review of our previous discussion concerning machine learning techniques applied to vulnerability discovery and exploitation.

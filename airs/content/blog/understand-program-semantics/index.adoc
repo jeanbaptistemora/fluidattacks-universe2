@@ -2,7 +2,7 @@
 :date: 2020-02-14
 :subtitle: With symbolic execution
 :category: machine-learning
-:tags: machine learning, security, code
+:tags: machine-learning, security, code
 :image: cover.png
 :alt: Rubber duckies
 :description: Here's a reflection on the need to represent code before actually feeding it into neural network based encoders, such as code2vec, word2vec, and code2seq.

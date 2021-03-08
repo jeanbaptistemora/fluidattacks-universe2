@@ -2,7 +2,7 @@
 :date: 2020-03-20
 :subtitle: Sharing at least a modicum about phishing attacks
 :category: techniques
-:tags: social engineering, information, web, software, cybersecurity, business
+:tags: social-engineering, information, web, software, cybersecurity, business
 :image: cover.png
 :alt: Photo by Glen Hooper on Unsplash
 :description: In this post, we give some general ideas about phishing, hoping to contribute to its prevention.

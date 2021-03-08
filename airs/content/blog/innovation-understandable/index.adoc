@@ -2,7 +2,7 @@
 :date: 2019-06-18
 :subtitle: "We make innovation more understandable, more worldly."
 :category: interview
-:tags: interview, machine learning
+:tags: interview, machine-learning
 :image: cover.png
 :alt: Nicolás Acosta, CISO at Corona
 :description: Nicolás Acosta, CISO of Corona, shared his perspective on topics like artificial intelligence, machine learning, innovation, setbacks as CISO, among others.

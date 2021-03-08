@@ -2,7 +2,7 @@
 :date: 2018-12-05
 :subtitle: Hunting missing checks with anomaly detection
 :category: machine-learning
-:tags: machine learning, vulnerability, discovery
+:tags: machine-learning, vulnerability, discovery
 :image: cover.png
 :alt: The actual serial killer doll
 :description: Here we describe the system Chucky, which applies machine learning and natural language processing techniques to find missing-check related vulnerabilities.

@@ -2,7 +2,7 @@
 :date: 2019-02-19
 :subtitle: From color scales to probabilities and ranges
 :category: philosophy
-:tags: business, ethical hacking, risk
+:tags: business, ethical-hacking, risk
 :image: cover.png
 :alt: Risky poker move. Credits: https://unsplash.com/photos/vBpd607jLXs
 :description: Here we discuss a survey of probabilistic methods that can be applied to quantify cybersecurity risk in terms of probabilities, confidence intervals, and money.

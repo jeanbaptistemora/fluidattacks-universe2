@@ -2,7 +2,7 @@
 :date: 2020-01-31
 :subtitle: From code to words
 :category: machine-learning
-:tags: machine learning, security, code
+:tags: machine-learning, security, code
 :image: cover.png
 :alt: Book in two languages
 :description: Here we talk about Code2seq, which differs in adapting neural machine translation techniques to the task of mapping a snippet of code to a sequence of words.

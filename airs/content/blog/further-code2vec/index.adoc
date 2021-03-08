@@ -2,7 +2,7 @@
 :date: 2020-01-24
 :subtitle: Vector representations of code
 :category: machine-learning
-:tags: machine learning, security, code
+:tags: machine-learning, security, code
 :image: cover.png
 :alt: Target and darts
 :description: Here is a tutorial on the usage of code2vec to predict method names, determine the accuracy of the model, and exporting the corresponding vector embeddings.

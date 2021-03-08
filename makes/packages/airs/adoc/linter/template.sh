@@ -1,99 +1,128 @@
 # shellcheck shell=bash
 
+function check_adoc_blog_categories {
+  local target="${1}"
+  local valid_categories=(
+    attacks
+    challenges
+    documentation
+    hacking
+    identity
+    interview
+    machine-learning
+    math
+    opinions
+    philosophy
+    politics
+    programming
+    social-engineering
+    techniques
+  )
+
+      check_adoc_tag_exists "${path}" 'category' \
+  &&  grep -Po '(?<=^:category: ).+$' "${target}" \
+        | sed -E 's|,\s*|\n|g' \
+        > list \
+  &&  mapfile -t categories < list \
+  &&  for category in "${categories[@]}"
+      do
+        if ! echo "${valid_categories[*]}" | grep -q "${category}"
+        then
+          abort "[ERROR] Tag: ${category}, is not valid: ${target}, pick one from: ${valid_categories[*]}"
+        fi
+      done
+}
+
 function check_adoc_blog_tags {
   local target="${1}"
   local valid_tags=(
-    'android'
-    'application'
-    'backdoor'
-    'blue team'
-    'bug'
-    'business'
-    'cbc'
-    'challenge'
-    'cloud'
-    'code'
-    'company'
-    'credential'
-    'csv'
-    'cybersecurity'
-    'dependency'
-    'detect'
-    'devops'
-    'discovery'
-    'documentation'
-    'economics'
-    'encryption'
-    'engineering'
-    'eslint'
-    'ethical'
-    'ethical hacking'
-    'experiment'
-    'exploit'
-    'flaw'
-    'functional'
-    'fuzzing'
-    'git'
-    'hacking'
-    'health'
-    'healthcare'
-    'hevd'
-    'htb'
-    'imperative'
-    'information'
-    'injection'
-    'interview'
-    'investment'
-    'javascript'
-    'jwt'
-    'kernel'
-    'libssh'
-    'linters'
-    'machine learning'
-    'math'
-    'mistake'
-    'multiparadigm'
-    'mypy'
-    'openssl'
-    'operations'
-    'osce'
-    'osee'
-    'password'
-    'pentesting'
-    'policies'
-    'protect'
-    'pwn'
-    'python'
-    'red team'
-    'revert'
-    'risk'
-    'saml'
-    'scanner'
-    'security'
-    'security testing'
-    'social'
-    'social engineering'
-    'software'
-    'sql'
-    'ssl'
-    'standard'
-    'stateless'
-    'technology'
-    'test'
-    'testing'
-    'tls'
-    'training'
-    'trends'
-    'vector'
-    'vulnerability'
-    'vulnserver'
-    'web'
-    'wep'
-    'wifi'
-    'windows'
-    'xml'
-    'xpath'
-    'xss'
+    android
+    application
+    backdoor
+    blue-team
+    bug
+    business
+    cbc
+    challenge
+    cloud
+    code
+    company
+    credential
+    csv
+    cybersecurity
+    dependency
+    detect
+    devops
+    discovery
+    documentation
+    economics
+    encryption
+    engineering
+    eslint
+    ethical-hacking
+    experiment
+    exploit
+    flaw
+    functional
+    fuzzing
+    git
+    hacking
+    health
+    healthcare
+    hevd
+    htb
+    imperative
+    information
+    injection
+    interview
+    investment
+    javascript
+    jwt
+    kernel
+    libssh
+    linters
+    machine-learning
+    math
+    mistake
+    multiparadigm
+    mypy
+    openssl
+    operations
+    osce
+    osee
+    password
+    pentesting
+    policies
+    protect
+    pwn
+    python
+    red-team
+    revert
+    risk
+    saml
+    scanner
+    security-testing
+    social-engineering
+    software
+    sql
+    ssl
+    standard
+    stateless
+    technology
+    test
+    tls
+    training
+    trends
+    vector
+    vulnerability
+    vulnserver
+    web
+    wep
+    wifi
+    windows
+    xml
+    xpath
+    xss
   )
 
       check_adoc_tag_exists "${path}" 'tags' \

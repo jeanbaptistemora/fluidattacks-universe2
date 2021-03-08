@@ -2,7 +2,7 @@
 :date: 2019-05-15
 :subtitle: A matter of taste
 :category: philosophy
-:tags: business, ethical hacking, risk
+:tags: business, ethical-hacking, risk
 :image: cover.png
 :alt: Choices. Photo by Nathan Dumlao on Unsplash: https://unsplash.com/photos/pMW4jzELQCw
 :description: Here we compare risk indicators used in quantitative finance, giving their pros and cons. Most of them we have discussed earlier, but here we introduce the ALE.

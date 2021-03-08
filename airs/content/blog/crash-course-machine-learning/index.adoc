@@ -2,7 +2,7 @@
 :date: 2018-11-19
 :subtitle: A survey of machine learning algorithms
 :category: machine-learning
-:tags: machine learning, security, application
+:tags: machine-learning, security, application
 :image: cover.png
 :alt: Robot playing the piano
 :description: In this article, we give a high-level view of each of the most important ML algorithms that have a relevant application in information security.

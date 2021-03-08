@@ -2,7 +2,7 @@
 :date: 2020-11-25
 :subtitle: Mauricio Gomez talking about Fluid Attacks
 :category: interview
-:tags: security, cybersecurity, interview, red team, vulnerability, ethical hacking
+:tags: security, cybersecurity, interview, red-team, vulnerability, ethical-hacking
 :image: cover.png
 :alt: Photo by Daniel McCullough on Unsplash
 :description: Mauricio Gomez, a co-founder of Fluid Attacks, recently had an interview with Aviva Zacks of Safety Detectives. You can access it here.

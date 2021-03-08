@@ -2,7 +2,7 @@
 :date: 2020-05-20
 :category: attacks
 :subtitle: Bypassing SQLi filters manually
-:tags: security, web, vulnerability, ethical hacking
+:tags: security, web, vulnerability, ethical-hacking
 :image: cover.png
 :alt: Photo by Kuma Kum on Unsplash
 :description: SQL injection can be one of the most dangerous vulnerabilities. Here we will see how to bypass certain controls that developers put in their code.

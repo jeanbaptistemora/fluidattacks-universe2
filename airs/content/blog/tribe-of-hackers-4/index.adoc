@@ -2,7 +2,7 @@
 :date: 2021-01-08
 :subtitle: Learning from the red team expert 'Tinker Secor'
 :category: opinions
-:tags: cybersecurity, red team, hacking, pentesting, ethical hacking, blue team
+:tags: cybersecurity, red-team, hacking, pentesting, ethical-hacking, blue-team
 :image: cover.png
 :alt: Photo by Chase Moyer on Unsplash
 :description: This post is based on the book 'Tribe of Hackers Red Team' by Carey and Jin. Here we share content from the interview with Tinker Secor.

@@ -2,7 +2,7 @@
 :date: 2020-03-30
 :subtitle: A chat with Daniel Correa
 :category: interview
-:tags: machine learning, cybersecurity, security, interview, risk, software
+:tags: machine-learning, cybersecurity, security, interview, risk, software
 :image: cover.png
 :alt: Photo by Liam Tucker on Unsplash
 :description: We had the pleasure of chatting with Daniel Correa, a Security Expert who shared his views on current threats, human factors in cybersecurity, and technology.

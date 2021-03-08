@@ -2,7 +2,7 @@
 :date: 2019-08-02
 :subtitle: Learning from open source
 :category: machine-learning
-:tags: machine learning, vulnerability, code
+:tags: machine-learning, vulnerability, code
 :image: cover.png
 :alt: Git. Photo by Yancy Min on Unsplash: https://unsplash.com/photos/842ofHC6MaI/
 :description: Here we'll see how DeepCode works. It has a lot of potential for identifying bugs in your code by learning from the abundant sources available in Github.

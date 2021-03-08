@@ -2,7 +2,7 @@
 :date: 2020-05-06
 :category: attacks
 :subtitle: Attacking a web server using SSRF
-:tags: security, web, vulnerability, ethical hacking
+:tags: security, web, vulnerability, ethical-hacking
 :image: cover.png
 :alt: Blacksmith. Photo by Hannah Gibbs on Unsplash: https://unsplash.com/photos/BINLgyrG_fI
 :description: Here we will see what a Server Side Request Forgery is, how hackers can exploit it, and what are the best ways to protect against this attack.

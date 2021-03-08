@@ -2,7 +2,7 @@
 :date: 2019-03-5
 :subtitle: How Bayes Rule affects risk
 :category: philosophy
-:tags: business, ethical hacking, risk
+:tags: business, ethical-hacking, risk
 :image: cover.png
 :alt: New information. Photo by M. Parzuchowski on Unsplash: https://unsplash.com/photos/GikVY_KS9vQ
 :description: Here you can find how to use Bayes rule and basic probability theory to reduce uncertainty, refining initial estimates through evidence.

@@ -2,7 +2,7 @@
 :date: 2019-12-13
 :subtitle: Distributed representations of natural language
 :category: machine-learning
-:tags: machine learning, security, code
+:tags: machine-learning, security, code
 :image: cover.png
 :alt: Photo by Franck V. on Unsplash: https://unsplash.com/photos/_E1PQXKUkMw
 :description: This post is an overview of word2vec, a method for obtaining vectors that represent natural language in a way that is suitable for machine learning algorithms.

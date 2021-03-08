@@ -2,7 +2,7 @@
 :date: 2019-07-22
 :subtitle: You probably don’t see it.
 :category: attacks
-:tags: challenge, business, ethical hacking, pentesting, security
+:tags: challenge, business, ethical-hacking, pentesting, security
 :image: cover.png
 :alt: handshake
 :description: In cybersecurity, there's plenty of opportunities for Conflicts of Interest to emerge. Here we discuss understanding, consequences, and ways to deal with them.

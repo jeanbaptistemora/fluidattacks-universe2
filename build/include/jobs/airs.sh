@@ -20,14 +20,7 @@ function job_airs_test_blog {
 
       pushd airs \
   &&  helper_airs_set_lc_all \
-  &&  all_blog_adoc_files="$(find content/blog/ -type f -name '*.adoc')" \
   &&  touched_blog_adoc_files="$(helper_airs_list_touched_files | grep 'content/blog/' | grep '.adoc')" || true \
-  &&  echo '[INFO] Testing adoc files' \
-  &&  for path in ${all_blog_adoc_files}
-      do
-            helper_airs_blog_adoc_category "${path}" \
-        ||  return 1
-      done \
   &&  for path in ${touched_blog_adoc_files}
       do
             helper_airs_blog_adoc_others "${path}" \

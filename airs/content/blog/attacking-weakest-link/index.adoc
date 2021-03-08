@@ -2,7 +2,7 @@
 :date: 2019-06-04
 :category: social-engineering
 :subtitle: Attacking without borders
-:tags: social, password, information, social engineering
+:tags: social, password, information, social-engineering
 :image: cover.png
 :alt: People manipulation
 :description: Humans are and always will be the weakest link in security. Learn how to deal with these kinds of holes and how to patch them.
