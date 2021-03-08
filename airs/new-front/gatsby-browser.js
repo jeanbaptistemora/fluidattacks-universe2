@@ -1,2 +1,2 @@
 import "gatsby-plugin-breadcrumb/gatsby-plugin-breadcrumb.css";
-import "./src/styles/index.scss";
+import "./src/assets/scss/index.scss";

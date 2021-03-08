@@ -2,7 +2,7 @@
 import { Link } from "gatsby";
 import type { StyledComponent } from "styled-components";
 import styled from "styled-components";
-import * as coverMainHome from "../images/cover-main.png";
+import * as coverMainHome from "../assets/images/cover-main.png";
 
 const NavbarContainer: StyledComponent<
   "div",

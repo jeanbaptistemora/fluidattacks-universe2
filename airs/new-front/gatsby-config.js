@@ -6,24 +6,26 @@ module.exports = {
       "We're a pentesting and ethical hacking company that identifies and \
       reports all your applications and software vulnerabilities ASAP.",
     image: "/images/logo-fluid-attacks.png", // Path to your image you placed in the 'static' folder
-    keywords: "Fluid Attacks, Pentesting, Ethical Hacking, Security Testing, Cybersecurity",
+    keywords:
+      "Fluid Attacks, Pentesting, Ethical Hacking, Security Testing, Cybersecurity",
     siteUrl: "https://fluidattacks.com/new-front", // No trailing slash allowed!
     title: "A Pentesting Company | Fluid Attacks",
   },
   plugins: [
+    "gatsby-plugin-sass",
     {
-      resolve: 'gatsby-plugin-web-font-loader',
+      resolve: "gatsby-plugin-web-font-loader",
       options: {
         google: {
-          families: ["Roboto:300,400,700,900"]
-        }
-      }
+          families: ["Roboto:300,400,700,900"],
+        },
+      },
     },
     {
       resolve: "gatsby-source-filesystem",
       options: {
         path: "../content/pages",
-        name: 'pages',
+        name: "pages",
       },
     },
     {
@@ -62,7 +64,7 @@ module.exports = {
         // generate breadcrumbs for (see below for details).
         // isMatchOptions: optional, include this object to configure the wildcard-match library.
         excludeOptions: {
-          separator: '.'
+          separator: ".",
         },
         // crumbLabelUpdates: optional, update specific crumbLabels in the path
         // trailingSlashes: optional, will add trailing slashes to the end
@@ -70,7 +72,7 @@ module.exports = {
         trailingSlashes: true,
         // usePathPrefix: optional, if you are using pathPrefix above
         usePathPrefix: "/new-front",
-     },
+      },
     },
     {
       resolve: "gatsby-plugin-web-font-loader",
@@ -84,6 +86,5 @@ module.exports = {
     "gatsby-transformer-asciidoc",
     "gatsby-plugin-styled-components",
     "gatsby-plugin-typescript",
-    "gatsby-plugin-sass",
   ],
-}
+};

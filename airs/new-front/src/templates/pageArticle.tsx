@@ -20,8 +20,7 @@ import {
   PageArticle,
 } from "../styles/styledComponents";
 
-import "tachyons/css/tachyons.min.css";
-import "../styles/index.scss";
+import "../assets/scss/index.scss";
 
 interface IQueryData {
   data: {

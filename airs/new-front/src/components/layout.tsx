@@ -11,7 +11,6 @@ import {
 import { graphql, useStaticQuery } from "gatsby";
 
 import "tachyons/css/tachyons.min.css";
-import "../styles/index.scss";
 
 interface IChildrenProps {
   children: JSX.Element;

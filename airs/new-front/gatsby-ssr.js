@@ -17,6 +17,18 @@ export const onRenderBody = (
       src={"https://static.cloudflareinsights.com/beacon.min.js"}
       data-cf-beacon={'{"token": "f4f99c985c414a5591e8077bf301b39b"}'}
     />,
+    // Tachyons stylesheet, this preload is necessary
+    <link
+      rel="preload"
+      as="style"
+      onload="this.rel = 'stylesheet'"
+      href="https://unpkg.com/tachyons@4.10.0/css/tachyons.min.css"
+    />,
+    // this is an alternative to old browsers
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/tachyons@4.10.0/css/tachyons.min.css"
+    />,
   ]);
   setPostBodyComponents([
     // Zoho CRM Live Chat
