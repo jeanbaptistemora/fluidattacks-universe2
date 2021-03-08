@@ -1290,3 +1290,19 @@ async def get_stakeholders(
     )
 
     return group_stakeholders
+
+
+async def update_pending_deletion_date(
+    group_name: str,
+    pending_deletion_date: Optional[str]
+) -> bool:
+    """ Update pending deletion date """
+    values: ProjectType = {
+        'pending_deletion_date': pending_deletion_date
+    }
+    success = await project_dal.update(
+        group_name,
+        values
+    )
+
+    return success
