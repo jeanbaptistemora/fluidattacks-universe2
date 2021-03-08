@@ -49,7 +49,6 @@ def has_integrates_services(group: ProjectType) -> bool:
     group_has_integrates_services: bool = (
         last_config_info['has_drills']
         or last_config_info['has_forces']
-        or group['project_status'] == 'ACTIVE'
     )
 
     return group_has_integrates_services
