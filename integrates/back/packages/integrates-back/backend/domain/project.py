@@ -1047,6 +1047,11 @@ async def get_attributes(
     return await project_dal.get_attributes(project_name, attributes)
 
 
+async def get_all(attributes: List[str] = None) -> List[ProjectType]:
+    data_attr = ','.join(attributes or [])
+    return await project_dal.get_all(data_attr=data_attr)
+
+
 async def get_description(project_name: str) -> str:
     return await project_dal.get_description(project_name)
 
