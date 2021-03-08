@@ -22,6 +22,7 @@ import { limitFormatter, statusFormatter, treatmentFormatter } from "components/
 import { IHeaderConfig } from "components/DataTableNext/types";
 import { Modal } from "components/Modal";
 import { TooltipWrapper } from "components/TooltipWrapper";
+import mixpanel from "mixpanel-browser";
 import { default as AppstoreBadge } from "resources/appstore_badge.svg";
 import { default as GoogleplayBadge } from "resources/googleplay_badge.svg";
 import {
@@ -291,6 +292,8 @@ const projectFindingsView: React.FC = (): JSX.Element => {
                 : (icon.attributes.getNamedItem("data-icon")?.value as string).includes("excel")
                   ? "XLS"
                   : "DATA";
+
+            mixpanel.track("GroupReportRequest", { reportType });
 
             requestProjectReport({variables: {
               projectName, reportType,
