@@ -10,7 +10,10 @@ from typing import (
 # Local libraries
 from back.settings import LOGGING
 from backend.domain import project as group_domain
-from backend.typing import Project as ProjectType
+from backend.typing import (
+    Historic as HistoricType,
+    Project as ProjectType,
+)
 
 
 logging.config.dictConfig(LOGGING)
@@ -36,3 +39,17 @@ async def update_tags(
         success = False
 
     return success
+
+
+def has_integrates_services(group: ProjectType) -> bool:
+    historic_configuration: HistoricType = (
+        group.get('historic_configuration', [])
+    )
+    last_config_info = historic_configuration[-1]
+    group_has_integrates_services: bool = (
+        last_config_info['has_drills']
+        or last_config_info['has_forces']
+        or group['project_status'] == 'ACTIVE'
+    )
+
+    return group_has_integrates_services
