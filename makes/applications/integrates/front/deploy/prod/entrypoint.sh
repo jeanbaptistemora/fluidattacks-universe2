@@ -4,4 +4,4 @@ deploy \
   prod \
   production \
   master \
-  "${envCompiledFront}"
+  "__envCompiledFront__"

@@ -2,7 +2,6 @@
 
 function compile {
   local env="${1}"
-  export CI_COMMIT_REF_NAME='__CI_COMMIT_REF_NAME__'
   export CI_COMMIT_SHA='__CI_COMMIT_SHA__'
   export CI_COMMIT_SHORT_SHA='__CI_COMMIT_SHORT_SHA__'
   export INTEGRATES_DEPLOYMENT_DATE='__INTEGRATES_DEPLOYMENT_DATE__'
@@ -19,7 +18,6 @@ function compile {
     &&  tcm src/ --silent \
     &&  webpack \
           --config "webpack.${env}.config.ts" \
-          --env CI_COMMIT_REF_NAME="${CI_COMMIT_REF_NAME}" \
           --env CI_COMMIT_SHA="${CI_COMMIT_SHA}" \
           --env CI_COMMIT_SHORT_SHA="${CI_COMMIT_SHORT_SHA}" \
           --env INTEGRATES_DEPLOYMENT_DATE="${INTEGRATES_DEPLOYMENT_DATE}" \
