@@ -189,7 +189,7 @@ const projectForcesView: React.FC = (): JSX.Element => {
       onSort: onSortState,  wrapped: true,
     },
     {
-      align: "center", dataField: "gitRepo", header: translate.t("group.forces.git_repo"),
+      align: "center", dataField: "gitRepo", header: translate.t("group.forces.gitRepo"),
       onSort: onSortState, wrapped: true,
     },
     {

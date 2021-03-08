@@ -151,8 +151,8 @@ const portfolio: React.FC<IPortfolioProps> = (props: IPortfolioProps): JSX.Eleme
             <Can do="backend_api_mutations_add_group_tags_mutate">
               <TooltipWrapper
                 displayClass={"dib"}
-                id={"search_findings.tab_resources.tags.add_tooltip.id"}
-                message={translate.t("search_findings.tab_resources.tags.add_tooltip")}
+                id={"search_findings.tab_resources.tags.addTooltip.id"}
+                message={translate.t("search_findings.tab_resources.tags.addTooltip")}
                 placement="top"
               >
                 <Button onClick={openAddModal} id={"portfolio-add"}>

@@ -466,7 +466,7 @@ export const enTranslations: ResourceKey = {
         title: "Vulnerabilities",
         total: "Total",
       },
-      git_repo: "Git Repository",
+      gitRepo: "Git Repository",
       identifier: "Identifier",
       kind: {
         all: "ALL",
@@ -502,7 +502,7 @@ export const enTranslations: ResourceKey = {
     scope: {
       common: {
         add: "Add new root",
-        add_tooltip: "Add a new git root to this group",
+        addTooltip: "Add a new git root to this group",
         confirm: "Confirm state change",
         edit: "Edit root",
         editTooltip: "Edit the selected git root",
@@ -540,7 +540,7 @@ export const enTranslations: ResourceKey = {
           title: "Health Check",
         },
         manageEnvs: "Manage environments",
-        manageEnvs_tooltip:
+        manageEnvsTooltip:
           "Add, edit or remove environment URLs for the selected git root",
         repo: {
           branch: "Branch",
@@ -1424,7 +1424,7 @@ export const enTranslations: ResourceKey = {
       success_change: "Item state changed successfully.",
       success_remove: "Item removed successfully.",
       tags: {
-        add_tooltip: "Add a portfolio",
+        addTooltip: "Add a portfolio",
         remove_tooltip: "Remove selected portfolio",
         title: "Portfolio",
       },

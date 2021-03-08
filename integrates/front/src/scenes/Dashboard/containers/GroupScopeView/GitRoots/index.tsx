@@ -312,8 +312,8 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
         <Can do={"backend_api_mutations_add_git_root_mutate"}>
           <div className={"mb3"}>
             <TooltipWrapper
-              id={t("group.scope.common.add_tooltip.id")}
-              message={t("group.scope.common.add_tooltip")}
+              id={t("group.scope.common.addTooltip.id")}
+              message={t("group.scope.common.addTooltip")}
             >
               <Button id={"git-root-add"} onClick={openAddModal}>
                 <FontAwesomeIcon icon={faPlus} />
@@ -338,8 +338,8 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
         <Can do={"backend_api_mutations_update_git_environments_mutate"}>
           <div className={"mb3"}>
             <TooltipWrapper
-              id={t("group.scope.git.manageEnvs_tooltip.id")}
-              message={t("group.scope.git.manageEnvs_tooltip")}
+              id={t("group.scope.git.manageEnvsTooltip.id")}
+              message={t("group.scope.git.manageEnvsTooltip")}
             >
               <Button
                 disabled={editDisabled}

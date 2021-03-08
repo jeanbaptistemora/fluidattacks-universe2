@@ -201,7 +201,7 @@ const modalExecution: React.FC<IExecution> = (
         <Col33><p>{execution.kind}</p></Col33>
       </Row>
       <Row className={"nb3"}>
-        <Col33><p><b>{translate.t("group.forces.git_repo")}</b></p></Col33>
+        <Col33><p><b>{translate.t("group.forces.gitRepo")}</b></p></Col33>
         <Col33><p>{execution.gitRepo}</p></Col33>
       </Row>
       <Row className={"nb3"}>

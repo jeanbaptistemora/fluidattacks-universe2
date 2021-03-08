@@ -152,8 +152,15 @@
         "ignore": [-1, 0, 1, 2, 4]
       }
     ],
-    "@typescript-eslint/no-non-null-assertion": "off",
-    "@typescript-eslint/non-nullable-type-assertion-style": "off",
+    /*
+     * Using non-null assertions cancels the benefits of the strict null-checking mode
+     */
+     "@typescript-eslint/no-non-null-assertion": "error",
+     /*
+      * This rule is incompatible with "@typescript-eslint/no-non-null-assertion" and it
+      * is not a problem to have verbose type casts
+      */
+     "@typescript-eslint/non-nullable-type-assertion-style": "off",
     "@typescript-eslint/no-type-alias": [
       "error",
       {
