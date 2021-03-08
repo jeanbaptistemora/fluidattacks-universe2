@@ -13,7 +13,6 @@ rec {
 
   # Airs
   srcIncludeHelpersAirs = ../include/helpers/airs.sh;
-  srcIncludeHelpersAirsBlog = ../include/helpers/airs-blog.sh;
   srcIncludeHelpersAirsDeploy = ../include/helpers/airs-deploy.sh;
   srcIncludeAirsJobs = ../include/jobs/airs.sh;
 

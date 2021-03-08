@@ -7,7 +7,6 @@ source "${srcIncludeHelpersCommonGitlab}"
 source "${srcIncludeCommonJobs}"
 
 source "${srcIncludeHelpersAirs}"
-source "${srcIncludeHelpersAirsBlog}"
 source "${srcIncludeHelpersAirsDeploy}"
 source "${srcIncludeAirsJobs}"
 

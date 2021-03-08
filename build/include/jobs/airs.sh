@@ -12,24 +12,6 @@ function job_airs_test_lint_code {
   ||  return 1
 }
 
-function job_airs_test_blog {
-  local all_blog_adoc_files
-  local touched_blog_adoc_files
-  local min_words='800'
-  local max_words='1200'
-
-      pushd airs \
-  &&  helper_airs_set_lc_all \
-  &&  touched_blog_adoc_files="$(helper_airs_list_touched_files | grep 'content/blog/' | grep '.adoc')" || true \
-  &&  for path in ${touched_blog_adoc_files}
-      do
-            helper_airs_blog_adoc_others "${path}" \
-        ||  return 1
-      done \
-  &&  popd \
-  ||  return 1
-}
-
 function job_airs_test_lint_styles {
   local err_count
 
