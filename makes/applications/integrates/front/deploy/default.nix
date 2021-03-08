@@ -1,20 +1,20 @@
-{ fetchzip
-, makeEntrypoint
+{ nixpkgs
+, makeTemplate
+, packages
 , path
 , ...
 }:
-makeEntrypoint {
-  arguments = {
-    envExternalC3 = fetchzip {
-      url = "https://github.com/c3js/c3/archive/v0.7.18.zip";
-      sha256 = "Wqfm34pE2NDMu1JMwBAR/1jcZZlVBfxRKGp/YPNlocU=";
-    };
-  };
+makeTemplate {
   name = "integrates-front-deploy";
   searchPaths = {
+    envPaths = [
+      nixpkgs.findutils
+      nixpkgs.gnused
+      packages.makes.announce.bugsnag
+    ];
     envUtils = [
       "/makes/utils/aws"
     ];
   };
-  template = path "/makes/applications/integrates/front/deploy/entrypoint.sh";
+  template = path "/makes/applications/integrates/front/deploy/template.sh";
 }

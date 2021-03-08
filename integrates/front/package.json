@@ -47,7 +47,6 @@
     "@types/revalidate": "1.1.2",
     "@types/sjcl": "1.0.29",
     "@types/styled-components": "5.1.4",
-    "@types/webpack-bugsnag-plugins": "1.4.0",
     "announcekit-react": "2.1.3",
     "apollo-cache-inmemory": "1.6.6",
     "apollo-client": "2.6.10",
@@ -155,7 +154,6 @@
     "waait": "1.0.5",
     "wait-for-expect": "3.0.2",
     "webpack": "4.44.2",
-    "webpack-bugsnag-plugins": "1.4.3",
     "webpack-cli": "4.2.0",
     "webpack-dev-server": "3.11.0"
   },

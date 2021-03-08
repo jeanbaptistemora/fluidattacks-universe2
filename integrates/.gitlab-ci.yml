@@ -78,13 +78,6 @@
   stage: scheduler
   tags: [autoscaling-large]
 
-.integrates_front_deploy: &integrates_front_deploy
-  <<: *makes
-  script:
-    - ./m integrates.front.build
-    - ./m integrates.front.deploy
-  stage: deploy-app
-
 .integrates_mobile_ota_deploy: &integrates_mobile_ota_deploy
   <<: *makes
   script:
@@ -213,13 +206,15 @@ integrates.coverage:
     - integrates.mobile.test
   stage: external
 
-integrates.front.deploy-development:
+integrates.front.deploy.dev:
+  <<: *makes
   <<: *in_dev_branch_integrates
-  <<: *integrates_front_deploy
+  stage: deploy-app
 
-integrates.front.deploy-production:
+integrates.front.deploy.prod:
+  <<: *makes
   <<: *in_master_branch_integrates
-  <<: *integrates_front_deploy
+  stage: deploy-app
 
 integrates.front.lint:
   <<: *makes
@@ -441,7 +436,7 @@ integrates.web.e2e:
   <<: *in_dev_branch_integrates
   needs:
     - integrates.back.deploy.dev
-    - integrates.front.deploy-development
+    - integrates.front.deploy.dev
   stage: post-deploy
   retry: 2
   parallel: 5

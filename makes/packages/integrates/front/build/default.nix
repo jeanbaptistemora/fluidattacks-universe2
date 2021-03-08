@@ -13,10 +13,10 @@ makeTemplate {
     envSetupIntegratesFrontDevRuntime = packages.integrates.front.config.dev-runtime;
     envIntegratesBackAppTemplates = path "/integrates/back/app/templates/static";
     envIntegratesFront = path "/integrates/front";
-    envJqueryCommentsPatch = path "/makes/packages/integrates/front/build-pkg/jquery-comments.diff";
+    envJqueryCommentsPatch = path "/makes/packages/integrates/front/build/jquery-comments.diff";
   };
-  template = path "/makes/packages/integrates/front/build-pkg/template.sh";
-  name = "integrates-front-build-pkg";
+  template = path "/makes/packages/integrates/front/build/template.sh";
+  name = "integrates-front-build";
   searchPaths = {
     envPaths = [
       nixpkgs.nodejs
