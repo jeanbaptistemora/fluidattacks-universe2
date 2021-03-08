@@ -14,6 +14,13 @@ class Entity(NamedTuple):
     primary_key: PrimaryKey
 
 
+class Facet(NamedTuple):
+    attrs: Tuple[str, ...]
+    name: str
+    pk_prefix: str
+    sk_prefix: str
+
+
 class RootMetadata(NamedTuple):
     branch: str
     type: str

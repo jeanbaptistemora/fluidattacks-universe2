@@ -670,6 +670,7 @@
               }
             }
           ],
+          "NonKeyAttributes": [],
           "DataAccess": {
             "MySql": {}
           }
@@ -1183,13 +1184,13 @@
         {
           "FacetName": "root_metadata",
           "KeyAttributeAlias": {
-            "PartitionKeyAlias": "ROOT#uuid",
+            "PartitionKeyAlias": "ROOT#url#branch",
             "SortKeyAlias": "GROUP#name"
           },
           "TableData": [
             {
               "pk": {
-                "S": "ROOT#7be44c33-f03f-4d01-94ef-813b534d61ca"
+                "S": "ROOT#ssh://git@gitlab.com:fluidattacks/product#master"
               },
               "sk": {
                 "S": "GROUP#unittesting"
@@ -1217,13 +1218,13 @@
         {
           "FacetName": "root_historic",
           "KeyAttributeAlias": {
-            "PartitionKeyAlias": "ROOT#uuid#HIST#iso8601utc",
+            "PartitionKeyAlias": "ROOT#url#branch#HIST#iso8601utc",
             "SortKeyAlias": "GROUP#name"
           },
           "TableData": [
             {
               "pk": {
-                "S": "ROOT#7be44c33-f03f-4d01-94ef-813b534d61ca#HIST#2021-02-15T14:01:16Z"
+                "S": "ROOT#ssh://git@gitlab.com:fluidattacks/product#master#HIST#2021-02-15T14:01:16Z"
               },
               "sk": {
                 "S": "GROUP#unittesting"
@@ -1271,13 +1272,13 @@
         {
           "FacetName": "root_cloning_historic",
           "KeyAttributeAlias": {
-            "PartitionKeyAlias": "ROOT#uuid#CLON#iso8601utc",
+            "PartitionKeyAlias": "ROOT#url#branch#CLON#iso8601utc",
             "SortKeyAlias": "GROUP#name"
           },
           "TableData": [
             {
               "pk": {
-                "S": "ROOT#7be44c33-f03f-4d01-94ef-813b534d61ca#CLON#2021-02-15T14:01:16Z"
+                "S": "ROOT#ssh://git@gitlab.com:fluidattacks/product#master#CLON#2021-02-15T14:01:16Z"
               },
               "sk": {
                 "S": "GROUP#unittesting"

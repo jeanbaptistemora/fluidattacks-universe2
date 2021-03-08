@@ -23,6 +23,7 @@ function main {
             echo '[ERROR] First argument must be one of: dev, dev-mobile, eph, prod' \
         &&  return 1
       fi \
+  &&  export INTEGRATES_DB_MODEL_PATH='__envIntegrates__/arch/database-design.json' \
   &&  export STARTDIR="${PWD}" \
   &&  if ! test -e 'integrates'
       then
