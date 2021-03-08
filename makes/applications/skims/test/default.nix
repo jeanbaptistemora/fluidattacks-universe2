@@ -1,19 +1,22 @@
 { packages
+, makeEntrypoint
 , path
 , skimsBenchmarkOwaspRepo
-, nixpkgs
 , ...
 }:
-let
-  makeEntrypoint = import (path "/makes/utils/make-entrypoint") path nixpkgs;
-in
 makeEntrypoint {
   arguments = {
     envBenchmarkRepo = skimsBenchmarkOwaspRepo;
-    envSetupSkimsDevelopment = packages.skims.config-development;
-    envSetupSkimsRuntime = packages.skims.config-runtime;
-    envUtilsBashLibAws = import (path "/makes/utils/aws") path nixpkgs;
   };
   name = "skims-test";
+  searchPaths = {
+    envSources = [
+      packages.skims.config-development
+      packages.skims.config-runtime
+    ];
+    envUtils = [
+      "/makes/utils/aws"
+    ];
+  };
   template = path "/makes/applications/skims/test/entrypoint.sh";
 }

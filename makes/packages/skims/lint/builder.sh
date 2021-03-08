@@ -1,8 +1,5 @@
 # shellcheck shell=bash
 
-source "${envSetupSkimsDevelopment}"
-source "${envSetupSkimsRuntime}"
-
 function main {
       lint_python_imports "${envImportLinterConfig}" "${envSrcSkimsSkims}" \
   &&  lint_python_module "${envSrcSkimsTest}" \

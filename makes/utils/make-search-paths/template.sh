@@ -1,5 +1,9 @@
 # shellcheck disable=SC2043 shell=bash
 
+function with_classpath {
+  export CLASSPATH="${1}:${CLASSPATH:-}"
+}
+
 function with_library {
   export LD_LIBRARY_PATH="${1}/lib:${1}/lib64:${LD_LIBRARY_PATH:-}"
 }
@@ -33,7 +37,8 @@ function with_source {
 }
 
 function setup {
-      for elem in __envLibraries__; do with_library "${elem}"; done \
+      for elem in __envClassPaths__; do with_classpath "${elem}"; done \
+  &&  for elem in __envLibraries__; do with_library "${elem}"; done \
   &&  for elem in __envNodeBinaries__; do with_node_binary "${elem}"; done \
   &&  for elem in __envNodeLibraries__; do with_node_library "${elem}"; done \
   &&  for elem in __envPaths__; do with_path "${elem}"; done \

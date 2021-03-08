@@ -1,15 +1,12 @@
-{ packages
+{ makeEntrypoint
+, packages
 , path
-, nixpkgs
 , ...
 }:
-let
-  makeEntrypoint = import (path "/makes/utils/make-entrypoint") path nixpkgs;
-in
 makeEntrypoint {
-  arguments = {
-    envSetupSkimsRuntime = packages.skims.config-runtime;
-  };
   name = "skims";
+  searchPaths = {
+    envSources = [ packages.skims.config-runtime ];
+  };
   template = path "/makes/applications/skims/entrypoint.sh";
 }

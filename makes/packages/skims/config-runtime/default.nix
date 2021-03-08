@@ -1,13 +1,11 @@
-{ fetchzip
+{ buildPythonRequirements
+, fetchzip
+, makeTemplate
 , packages
 , path
 , nixpkgs
 , ...
 }:
-let
-  buildPythonRequirements = import (path "/makes/utils/build-python-requirements") path nixpkgs;
-  makeTemplate = import (path "/makes/utils/make-template") path nixpkgs;
-in
 makeTemplate {
   arguments = {
     envSrcSkimsSkims = path "/skims/skims";
@@ -27,7 +25,6 @@ makeTemplate {
     envPython38Paths = [
       nixpkgs.python38Packages.pygraphviz
       (buildPythonRequirements {
-        dependencies = [ ];
         name = "skims-runtime";
         requirements = {
           direct = [

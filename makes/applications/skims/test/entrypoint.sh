@@ -1,9 +1,5 @@
 # shellcheck shell=bash
 
-source '__envSetupSkimsRuntime__'
-source '__envSetupSkimsDevelopment__'
-source '__envUtilsBashLibAws__'
-
 function main {
   local benchmark_local_repo="${PWD}/../owasp_benchmark"
   local cache_local="${HOME_IMPURE}/.skims/cache"

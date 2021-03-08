@@ -1,10 +1,5 @@
 # shellcheck shell=bash
 
-source '__envSetupSkimsRuntime__'
-source '__envUtilsBashLibAws__'
-source '__envUtilsBashLibSops__'
-source '__envUtilsBashLibGit__'
-
 function clone_group {
   export SERVICES_PROD_AWS_ACCESS_KEY_ID
   export SERVICES_PROD_AWS_SECRET_ACCESS_KEY
@@ -14,7 +9,7 @@ function clone_group {
       CI_COMMIT_REF_NAME='master' \
       PROD_AWS_ACCESS_KEY_ID="${SERVICES_PROD_AWS_ACCESS_KEY_ID}" \
       PROD_AWS_SECRET_ACCESS_KEY="${SERVICES_PROD_AWS_SECRET_ACCESS_KEY}" \
-      __envMelts__ drills --pull-repos "${group}" \
+      melts drills --pull-repos "${group}" \
   &&  echo "[INFO] Repositories cloned:" \
   &&  shopt -s nullglob \
   &&  for namespace in "groups/${group}/fusion/"*
@@ -28,8 +23,8 @@ function get_config {
   local group="${1}"
   local namespace="${2}"
 
-  __envJq__ -e -n -r \
-    --arg 'language' "$(__envMelts__ misc --get-group-language "${group}")" \
+  jq -e -n -r \
+    --arg 'language' "$(melts misc --get-group-language "${group}")" \
     --arg 'namespace' "${namespace}" \
     --arg 'working_dir' "groups/${group}/fusion/${namespace}" \
     '{
@@ -90,11 +85,11 @@ function main {
               namespace="$(basename "${namespace}")" \
           &&  echo "[INFO] Running skims: ${group} ${namespace}" \
           &&  get_config "${group}" "${namespace}" \
-                | PYTHONPATH='' __envYq__ -y . \
-                | __envTee__ "${config_file}" \
+                | PYTHONPATH='' yq -y . \
+                | tee "${config_file}" \
           &&  echo '[INFO] Fetching cache' \
           &&  aws_s3_sync "${cache_remote}/${namespace}" "${cache_local}" \
-          &&  if __envSkims__ --group "${group}" "${config_file}"
+          &&  if skims --group "${group}" "${config_file}"
               then
                 echo "[INFO] Succesfully processed: ${group} ${namespace}"
               else

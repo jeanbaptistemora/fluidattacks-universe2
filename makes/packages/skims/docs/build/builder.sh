@@ -1,8 +1,5 @@
 # shellcheck shell=bash
 
-source "${envSetupSkimsDevelopment}"
-source "${envSetupSkimsRuntime}"
-
 function main {
       echo '[INFO] Creating a staging area' \
   &&  copy "${envSrcSkimsDocs}" "${PWD}/docs" \

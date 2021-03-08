@@ -1,10 +1,6 @@
-{ path
-, nixpkgs
+{ computeOnAws
 , ...
 }:
-let
-  computeOnAws = import (path "/makes/utils/compute-on-aws") path nixpkgs;
-in
 computeOnAws {
   attempts = 1;
   command = [ "./m" "skims.process-group" ];

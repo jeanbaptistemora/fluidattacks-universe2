@@ -1,12 +1,11 @@
-{ path
+{ buildPythonRequirements
+, makeTemplate
+, path
 , nixpkgs
 , ...
 }:
 let
-  buildPythonRequirements = import (path "/makes/utils/build-python-requirements") path nixpkgs;
-  makeTemplate = import (path "/makes/utils/make-template") path nixpkgs;
   pythonRequirements = buildPythonRequirements {
-    dependencies = [ ];
     name = "skims-development";
     requirements = {
       direct = [
@@ -41,7 +40,6 @@ let
   };
 in
 makeTemplate {
-  arguments = { };
   name = "skims-config-development";
   searchPaths = {
     envPaths = [ pythonRequirements ];

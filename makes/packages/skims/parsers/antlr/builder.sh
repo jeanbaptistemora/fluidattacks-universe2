@@ -1,13 +1,11 @@
 # shellcheck shell=bash
 
-export CLASSPATH="${envANTLR}:${CLASSPATH:-}"
-
 function compile_antlr {
-  ${envJava} -jar "${envANTLR}" -no-listener -no-visitor "${@}"
+  java -jar "${envANTLR}" -no-listener -no-visitor "${@}"
 }
 
 function compile_java {
-  ${envJavac} -Werror "${@}"
+  javac -Werror "${@}"
 }
 
 function main {
@@ -29,14 +27,14 @@ function main {
   &&  gradle -g "$(mktemp -d)" installDist \
   &&  mv "${PWD}" "${out}" \
   &&  {
-            echo "#! ${envShell}" \
+            echo "#! $(command -v bash)" \
         &&  echo \
         &&  for jar in "${out}/build/install/parse/lib/"*
             do
               echo "export CP=\"${jar}:\${CP:-}\""
             done \
         &&  echo \
-        &&  echo "${envJava} -classpath \"\${CP}\" Parse \"\${@}\"" \
+        &&  echo "$(command -v java) -classpath \"\${CP}\" Parse \"\${@}\"" \
 
       } > "${out}/build/install/parse/bin/parse" \
   ||  return 1

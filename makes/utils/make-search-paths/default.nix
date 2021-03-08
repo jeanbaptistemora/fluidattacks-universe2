@@ -2,7 +2,8 @@ path: pkgs:
 let
   makeTemplate = import (path "/makes/utils/make-template") path pkgs;
 in
-{ envLibraries ? [ ]
+{ envClassPaths ? [ ]
+, envLibraries ? [ ]
 , envNodeBinaries ? [ ]
 , envNodeLibraries ? [ ]
 , envPaths ? [ ]
@@ -13,6 +14,7 @@ in
 , envUtils ? [ ]
 }: makeTemplate {
   arguments = {
+    inherit envClassPaths;
     inherit envLibraries;
     inherit envNodeBinaries;
     inherit envNodeLibraries;

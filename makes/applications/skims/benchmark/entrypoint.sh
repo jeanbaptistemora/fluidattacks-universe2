@@ -1,9 +1,5 @@
 # shellcheck shell=bash
 
-source '__envSetupSkimsRuntime__'
-source '__envUtilsBashLibAws__'
-source '__envUtilsBashLibSops__'
-
 function owasp {
   local benchmark_local_repo="${PWD}/../owasp_benchmark"
   local cache_local="${HOME_IMPURE}/.skims/cache"
@@ -16,9 +12,9 @@ function owasp {
   &&  aws_login_prod 'skims' \
   &&  aws_s3_sync "${cache_remote}" "${cache_local}" \
   &&  echo '[INFO] Analyzing repository' \
-  &&  '__envSkims__' '__envSrcSkimsTest__/data/config/benchmark_owasp.yaml' \
+  &&  skims '__envSrcSkimsTest__/data/config/benchmark_owasp.yaml' \
   &&  echo '[INFO] Computing score' \
-  &&  '__envPython__' '__envSrcSkimsSkims__/benchmark/__init__.py' \
+  &&  python3.8 '__envSrcSkimsSkims__/benchmark/__init__.py' \
   &&  echo '[INFO] Cleaning environment' \
   &&  aws_s3_sync "${cache_local}" "${cache_remote}" \
   &&  rm -rf "${PRODUCED_RESULTS_CSV}" \
@@ -32,11 +28,11 @@ function upload {
         analytics_auth_redshift \
   &&  echo "${analytics_auth_redshift}" > "${analytics_auth_redshift_file}" \
   &&  echo '[INFO] Running tap' \
-  &&  '__envTapJson__' \
+  &&  observes-tap-json \
         < 'benchmark.json' \
         > '.singer' \
   &&  echo '[INFO] Running target' \
-  && '__envTargetRedshift__' \
+  &&  observes-target-redshift \
         --auth "${analytics_auth_redshift_file}" \
         --drop-schema \
         --schema-name 'skims_benchmark' \

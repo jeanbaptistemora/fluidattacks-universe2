@@ -1,12 +1,10 @@
-{ makeTemplate
+{ buildPythonRequirements
+, makeTemplate
 , packages
 , path
 , nixpkgs
 , ...
 }:
-let
-  buildPythonRequirements = import (path "/makes/utils/build-python-requirements") path nixpkgs;
-in
 makeTemplate {
   arguments = {
     envSrcReviews = path "/reviews/src";

@@ -1,7 +1,5 @@
 # shellcheck shell=bash
 
-source '__envUtilsBashLibAws__'
-
 function main {
   local source='__envSkimsDocsBuild__'
   local target='s3://fluidattacks.com/resources/doc/skims'
