@@ -22,13 +22,12 @@ In the following table, we outline what differentiates us from our competitors:
 
 a|==== Precision
 | Our combination of technology and human expertise
-ensures that all of our reported findings are vulnerabilities
-– *0%* false positives (lies).
+ensures that we achieve *minimal rates* of false positives (lies).
 | They report about *35%* false positives.<<f1 ,*>>
 
 a|==== Completeness
 | Thanks to our combination of technology and human expertise,
-we have a *0%* false negatives (omissions).
+we have *minimal rates* of false negatives (omissions).
 | They may reach a rate of *80%* false negatives.<<f1 ,*>>
 
 a|==== All in one
