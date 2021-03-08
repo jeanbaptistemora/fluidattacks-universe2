@@ -43,7 +43,7 @@ async def update_tags(
 
 def has_integrates_services(group: ProjectType) -> bool:
     historic_configuration: HistoricType = (
-        group.get('historic_configuration', [])
+        group.get('historic_configuration', [{}])
     )
     last_config_info = historic_configuration[-1]
     group_has_integrates_services: bool = (

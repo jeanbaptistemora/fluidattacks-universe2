@@ -60,6 +60,9 @@ from backend.typing import (
 )
 from events import domain as events_domain
 from newutils import datetime as datetime_utils
+from newutils.groups import (
+    has_integrates_services,
+)
 from newutils.findings import (
     filter_by_date,
     get_state_actions,
@@ -1082,4 +1085,131 @@ async def delete_imamura_stakeholders() -> None:
             stakeholder_to_delete['email']
         )
         for stakeholder_to_delete in stakeholders_to_delete
+    ])
+
+
+async def _remove_group_pending_deletion_dates(
+    groups: List[ProjectType],
+    obsolete_groups: List[ProjectType]
+) -> bool:
+    groups_to_remove_pending_deletion_date = [
+        group
+        for group in groups
+        if group.get('pending_deletion_date')
+        if group not in obsolete_groups
+    ]
+    success = all(await collect([
+        project_domain.update_pending_deletion_date(
+            group['project_name'],
+            None
+        )
+        for group in groups_to_remove_pending_deletion_date
+    ]))
+
+    return success
+
+
+async def _set_group_pending_deletion_dates(
+    obsolete_groups: List[ProjectType]
+) -> bool:
+    group_pending_deletion_date_str = datetime_utils.get_as_str(
+        datetime_utils.get_now_plus_delta(weeks=1)
+    )
+    groups_to_set_pending_deletion_date = [
+        obsolete_group
+        for obsolete_group in obsolete_groups
+        if not obsolete_group.get('pending_deletion_date')
+    ]
+    success = all(await collect([
+        project_domain.update_pending_deletion_date(
+            group['project_name'],
+            group_pending_deletion_date_str
+        )
+        for group in groups_to_set_pending_deletion_date
+    ]))
+
+    return success
+
+
+async def _delete_groups(
+    loaders: Any,
+    obsolete_groups: List[ProjectType]
+) -> bool:
+    today = datetime_utils.get_now().date()
+    email = 'integrates@fluidattacks.com'
+    groups_to_delete = [
+        obsolete_group
+        for obsolete_group in obsolete_groups
+        if obsolete_group.get('pending_deletion_date')
+        and datetime_utils.get_from_str(
+            obsolete_group['pending_deletion_date']
+        ).date() <= today
+    ]
+    groups_to_delete_org_ids = await collect([
+        org_domain.get_id_for_group(group_to_delete['project_name'])
+        for group_to_delete in groups_to_delete
+    ])
+    success = all(await collect([
+        org_domain.remove_group(
+            loaders,
+            org_id,
+            group['project_name'],
+            email
+        )
+        for group, org_id in zip(groups_to_delete, groups_to_delete_org_ids)
+    ]))
+
+    return success
+
+
+async def delete_obsolete_groups() -> None:
+    """
+    Delete groups without users, findings nor Fluid Attacks services enabled
+    """
+    msg = '[scheduler]: delete_obsolete_groups is running'
+    LOGGER.info(msg, **NOEXTRA)
+    loaders = get_new_context()
+    group_findings_loader = loaders.group_findings
+    group_stakeholders_loader = loaders.group_stakeholders
+    group_attributes = {
+        'project_name',
+        'project_status',
+        'historic_configuration',
+        'pending_deletion_date'
+    }
+    groups = await project_domain.get_alive_groups(group_attributes)
+    inactive_groups = [
+        group
+        for group in groups
+        if not has_integrates_services(group)
+    ]
+    inactive_group_names = [
+        group['project_name']
+        for group in inactive_groups
+    ]
+    inactive_groups_findings = (
+        await group_findings_loader.load_many(inactive_group_names)
+    )
+    inactive_groups_stakeholders = (
+        await group_stakeholders_loader.load_many(inactive_group_names)
+    )
+    obsolete_groups = [
+        inactive_group
+        for (
+            inactive_group,
+            inactive_group_findings,
+            inactive_group_stakeholders
+        )
+        in zip(
+            inactive_groups,
+            inactive_groups_findings,
+            inactive_groups_stakeholders
+        )
+        if len(inactive_group_findings) == 0
+        and len(inactive_group_stakeholders) <= 1
+    ]
+    await collect([
+        _remove_group_pending_deletion_dates(groups, obsolete_groups),
+        _set_group_pending_deletion_dates(obsolete_groups),
+        _delete_groups(loaders, obsolete_groups)
     ])
