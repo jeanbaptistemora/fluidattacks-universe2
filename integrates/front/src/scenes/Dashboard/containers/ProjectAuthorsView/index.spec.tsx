@@ -1,31 +1,24 @@
-import { MockedProvider, MockedResponse } from "@apollo/react-testing";
-import { mount, ReactWrapper } from "enzyme";
-import { GraphQLError } from "graphql";
-import _ from "lodash";
-import MockDate from "mockdate";
-import * as React from "react";
-// tslint:disable-next-line: no-submodule-imports
-import { act } from "react-dom/test-utils";
-import { Provider } from "react-redux";
-import { MemoryRouter, Route } from "react-router";
-import wait from "waait";
-
-import { ProjectAuthorsView } from "scenes/Dashboard/containers/ProjectAuthorsView";
 import { GET_BILL } from "scenes/Dashboard/containers/ProjectAuthorsView/queries";
+import { GraphQLError } from "graphql";
+import MockDate from "mockdate";
+import { MockedProvider } from "@apollo/react-testing";
+import type { MockedResponse } from "@apollo/react-testing";
+import { ProjectAuthorsView } from "scenes/Dashboard/containers/ProjectAuthorsView";
+import { Provider } from "react-redux";
+import React from "react";
+import type { ReactWrapper } from "enzyme";
+import _ from "lodash";
+import { act } from "react-dom/test-utils";
+import { mount } from "enzyme";
 import store from "store";
+import wait from "waait";
+import { MemoryRouter, Route } from "react-router";
 
-describe("AuthorsView", () => {
-  const date: Date = new Date(2020, 0);
-
-  beforeEach(() => {
-    MockDate.set(date);
-  });
-
-  afterEach(() => {
-    MockDate.reset();
-  });
-
-  const mocks: ReadonlyArray<MockedResponse> = [
+describe("AuthorsView", (): void => {
+  const TEST_DATE = 2020;
+  const date: Date = new Date(TEST_DATE, 0);
+  MockDate.set(date);
+  const mocks: readonly MockedResponse[] = [
     {
       request: {
         query: GET_BILL,
@@ -51,9 +44,10 @@ describe("AuthorsView", () => {
           },
         },
       },
-    }];
+    },
+  ];
 
-  const mockError: ReadonlyArray<MockedResponse> = [
+  const mockError: readonly MockedResponse[] = [
     {
       request: {
         query: GET_BILL,
@@ -64,61 +58,81 @@ describe("AuthorsView", () => {
       result: {
         errors: [new GraphQLError("Access denied")],
       },
-    }];
+    },
+  ];
 
-  it("should return a function", () => {
-    expect(typeof (ProjectAuthorsView))
-      .toEqual("function");
+  it("should return a function", (): void => {
+    expect.hasAssertions();
+    expect(typeof ProjectAuthorsView).toStrictEqual("function");
   });
 
-  it("should render an error in component", async () => {
+  it("should render an error in component", async (): Promise<void> => {
+    expect.hasAssertions();
+
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/unittesting"]}>
         <Provider store={store}>
-          <MockedProvider mocks={mockError} addTypename={false}>
-            <Route path={"/:projectName"} component={ProjectAuthorsView} />
+          <MockedProvider addTypename={false} mocks={mockError}>
+            <Route component={ProjectAuthorsView} path={"/:projectName"} />
           </MockedProvider>
         </Provider>
-      </MemoryRouter>,
+      </MemoryRouter>
     );
-    await act(async () => { await wait(0); wrapper.update(); });
-    expect(wrapper.find("Query")
-      .children())
-      .toHaveLength(0);
+    await act(
+      async (): Promise<void> => {
+        await wait(0);
+        wrapper.update();
+      }
+    );
+
+    expect(wrapper.find("Query").children()).toHaveLength(0);
   });
 
-  it("should render a component", async () => {
+  it("should render a component", (): void => {
+    expect.hasAssertions();
+
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/unittesting"]}>
         <Provider store={store}>
-          <MockedProvider mocks={mocks} addTypename={false}>
-            <Route path={"/:projectName"} component={ProjectAuthorsView} />
+          <MockedProvider addTypename={false} mocks={mocks}>
+            <Route component={ProjectAuthorsView} path={"/:projectName"} />
           </MockedProvider>
         </Provider>
-      </MemoryRouter>,
+      </MemoryRouter>
     );
-    expect(wrapper)
-      .toHaveLength(1);
+
+    expect(wrapper).toHaveLength(1);
   });
 
-  it("should render table", async () => {
+  it("should render table", async (): Promise<void> => {
+    expect.hasAssertions();
+
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/unittesting"]}>
         <Provider store={store}>
-          <MockedProvider mocks={mocks} addTypename={false}>
-            <Route path={"/:projectName"} component={ProjectAuthorsView} />
+          <MockedProvider addTypename={false} mocks={mocks}>
+            <Route component={ProjectAuthorsView} path={"/:projectName"} />
           </MockedProvider>
         </Provider>
-      </MemoryRouter>,
+      </MemoryRouter>
     );
-    await act(async () => { await wait(0); wrapper.update(); });
+    await act(
+      async (): Promise<void> => {
+        await wait(0);
+        wrapper.update();
+      }
+    );
 
-    expect(wrapper.find("table"))
-      .toHaveLength(1);
+    expect(wrapper.find("table")).toHaveLength(1);
 
-    expect(wrapper
-      .find("td")
-      .filterWhere((td: ReactWrapper) => _.includes(td.text(), "test")))
-      .toHaveLength(3);
+    const TEST_RENDER_TABLE_LENGTH = 3;
+
+    expect(
+      wrapper
+        .find("td")
+        .filterWhere((td: ReactWrapper): boolean =>
+          _.includes(td.text(), "test")
+        )
+    ).toHaveLength(TEST_RENDER_TABLE_LENGTH);
   });
 });
