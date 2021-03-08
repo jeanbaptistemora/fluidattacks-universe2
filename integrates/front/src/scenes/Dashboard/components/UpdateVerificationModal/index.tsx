@@ -78,8 +78,8 @@ const UpdateVerificationModal: React.FC<IUpdateVerificationModal> = (
       onCompleted: (data: IRequestVerificationVulnResult): void => {
         if (data.requestVerificationVuln.success) {
           msgSuccess(
-            translate.t("group_alerts.verified_success"),
-            translate.t("group_alerts.updated_title")
+            translate.t("group_alerts.verifiedSuccess"),
+            translate.t("group_alerts.updatedTitle")
           );
           refetchData();
           clearSelected();
@@ -91,7 +91,7 @@ const UpdateVerificationModal: React.FC<IUpdateVerificationModal> = (
           switch (error.message) {
             case "Exception - Request verification already requested":
               msgError(
-                translate.t("group_alerts.verification_already_requested")
+                translate.t("group_alerts.verificationAlreadyRequested")
               );
               break;
             case "Exception - The vulnerability has already been closed":
@@ -133,8 +133,8 @@ const UpdateVerificationModal: React.FC<IUpdateVerificationModal> = (
       onCompleted: (data: IVerifyRequestVulnResult): void => {
         if (data.verifyRequestVuln.success) {
           msgSuccess(
-            translate.t("group_alerts.verified_success"),
-            translate.t("group_alerts.updated_title")
+            translate.t("group_alerts.verifiedSuccess"),
+            translate.t("group_alerts.updatedTitle")
           );
           refetchData();
           clearSelected();

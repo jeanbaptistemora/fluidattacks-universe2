@@ -641,29 +641,29 @@ export const enTranslations: ResourceKey = {
     no_file_update: "Failed to update the file",
     no_found: "Vulnerabilities in the request not found",
     no_verification_requested: "No verification requested",
-    organization_policies: {
-      exceeds_acceptance_date:
+    organizationPolicies: {
+      exceedsAcceptanceDate:
         "Chosen date is either in the past or exceeds the maximum number of days allowed " +
         "by the organization",
-      severity_out_of_range:
+      severityOutOfRange:
         "Finding severity outside of the acceptance range set by the organization",
     },
-    path_value: "Path value should not use backslash.",
-    port_value: "Port value should be between 0 and 65535.",
-    range_error: "Range limits are wrong.",
-    records_removed: "Records have been removed successfully",
-    rejected_zero_risk_success: "Zero risk vulnerability has been rejected",
-    report_requested:
+    pathValue: "Path value should not use backslash.",
+    portValue: "Port value should be between 0 and 65535.",
+    rangeError: "Range limits are wrong.",
+    recordsRemoved: "Records have been removed successfully",
+    rejectedZeroRiskSuccess: "Zero risk vulnerability has been rejected",
+    reportRequested:
       "You will be receiving a mail with the link of the report in the next minutes",
-    request_remove: "Group deletion request has been sent successfully",
-    requested_zero_risk_success: "Zero risk vulnerability has been requested",
+    requestRemove: "Group deletion request has been sent successfully",
+    requestedZeroRiskSuccess: "Zero risk vulnerability has been requested",
     titleSuccess: "Congratulations",
     updated: "Updated",
-    updated_title: "Correct!",
+    updatedTitle: "Correct!",
     value: "Value",
-    verification_already_requested: "Verification already requested",
-    verified_success: "This finding was marked as verified.",
-    vuln_closed: "Vulnerability has already been closed",
+    verificationAlreadyRequested: "Verification already requested",
+    verifiedSuccess: "This finding was marked as verified.",
+    vulnClosed: "Vulnerability has already been closed",
     zeroRiskAlreadyRequested: "Zero risk vulnerability already requested",
     zeroRiskIsNotRequested: "Zero risk vulnerability is not requested",
   },
@@ -1971,7 +1971,7 @@ export const enTranslations: ResourceKey = {
         },
       },
       exceptions: {
-        severity_out_of_range:
+        severityOutOfRange:
           "Vulnerability cannot be accepted, severity outside of range set by the organization",
       },
       info: {

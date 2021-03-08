@@ -129,7 +129,7 @@ const DescriptionView: React.FC = (): JSX.Element => {
       if (result.updateDescription.success) {
         msgSuccess(
           translate.t("group_alerts.updated"),
-          translate.t("group_alerts.updated_title")
+          translate.t("group_alerts.updatedTitle")
         );
         await refetch();
       }

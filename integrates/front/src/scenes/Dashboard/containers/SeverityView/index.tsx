@@ -75,7 +75,7 @@ const severityView: React.FC = (): JSX.Element => {
       if (!_.isUndefined(mtResult)) {
         if (mtResult.updateSeverity.success) {
           void refetch();
-          msgSuccess(translate.t("group_alerts.updated"), translate.t("group_alerts.updated_title"));
+          msgSuccess(translate.t("group_alerts.updated"), translate.t("group_alerts.updatedTitle"));
           mixpanel.track("UpdateSeverity");
         }
       }

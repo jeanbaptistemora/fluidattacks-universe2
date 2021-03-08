@@ -60,7 +60,7 @@ const projectFindingsView: React.FC = (): JSX.Element => {
   const [requestProjectReport] = useLazyQuery(REQUEST_PROJECT_REPORT, {
     onCompleted: (): void => {
       msgSuccess(
-        translate.t("group_alerts.report_requested"),
+        translate.t("group_alerts.reportRequested"),
         translate.t("group_alerts.titleSuccess"));
     },
     onError: (error: ApolloError): void => {

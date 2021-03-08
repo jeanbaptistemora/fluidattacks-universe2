@@ -141,7 +141,7 @@ const HandleAcceptationModal: React.FC<IHandleVulnsAcceptationModalProps> = (
         if (data.handleVulnsAcceptation.success) {
           msgSuccess(
             translate.t("search_findings.tab_vuln.alerts.acceptation_success"),
-            translate.t("group_alerts.updated_title")
+            translate.t("group_alerts.updatedTitle")
           );
           refetchData();
           handleCloseModal();
@@ -189,7 +189,7 @@ const HandleAcceptationModal: React.FC<IHandleVulnsAcceptationModalProps> = (
         if (data.confirmZeroRiskVuln.success) {
           msgSuccess(
             translate.t("group_alerts.confirmed_zero_risk_success"),
-            translate.t("group_alerts.updated_title")
+            translate.t("group_alerts.updatedTitle")
           );
           refetchData();
           handleCloseModal();
@@ -237,8 +237,8 @@ const HandleAcceptationModal: React.FC<IHandleVulnsAcceptationModalProps> = (
       onCompleted: (data: IRejectZeroRiskVulnResultAttr): void => {
         if (data.rejectZeroRiskVuln.success) {
           msgSuccess(
-            translate.t("group_alerts.rejected_zero_risk_success"),
-            translate.t("group_alerts.updated_title")
+            translate.t("group_alerts.rejectedZeroRiskSuccess"),
+            translate.t("group_alerts.updatedTitle")
           );
           refetchData();
           handleCloseModal();

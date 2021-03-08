@@ -276,27 +276,25 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
           _.includes(
             String(updateError),
             translate.t(
-              "group_alerts.organization_policies.exceeds_acceptance_date"
+              "group_alerts.organizationPolicies.exceedsAcceptanceDate"
             )
           )
         ) {
           msgError(
             translate.t(
-              "group_alerts.organization_policies.exceeds_acceptance_date"
+              "group_alerts.organizationPolicies.exceedsAcceptanceDate"
             )
           );
         } else if (
           _.includes(
             String(updateError),
             translate.t(
-              "search_findings.tab_vuln.exceptions.severity_out_of_range"
+              "search_findings.tab_vuln.exceptions.severityOutOfRange"
             )
           )
         ) {
           msgError(
-            translate.t(
-              "group_alerts.organization_policies.severity_out_of_range"
-            )
+            translate.t("group_alerts.organizationPolicies.severityOutOfRange")
           );
         } else {
           msgError(translate.t("group_alerts.error_textsad"));
@@ -335,8 +333,8 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
       ): void => {
         if (requestZeroRiskVulnResult.requestZeroRiskVuln.success) {
           msgSuccess(
-            translate.t("group_alerts.requested_zero_risk_success"),
-            translate.t("group_alerts.updated_title")
+            translate.t("group_alerts.requestedZeroRiskSuccess"),
+            translate.t("group_alerts.updatedTitle")
           );
           handleClearSelected();
           handleCloseModal();

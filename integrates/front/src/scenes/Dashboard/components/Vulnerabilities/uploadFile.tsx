@@ -71,7 +71,7 @@ export const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
       if (message.includes("Exception - Error in range limit numbers")) {
         const errorObject: IErrorInfoAttr = JSON.parse(message);
         msgError(
-          `${translate.t("group_alerts.range_error")} ${errorObject.values}`
+          `${translate.t("group_alerts.rangeError")} ${errorObject.values}`
         );
       } else if (message.includes("Exception - Invalid Schema")) {
         const errorObject: IErrorInfoAttr = JSON.parse(message);
@@ -110,11 +110,11 @@ export const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
         msgError(translate.t("group_alerts.file_type_yaml"));
       } else if (message.includes("Exception - Error in path value")) {
         const errorObject: IErrorInfoAttr = JSON.parse(message);
-        msgErrorStick(`${translate.t("group_alerts.path_value")}
+        msgErrorStick(`${translate.t("group_alerts.pathValue")}
           ${formatError("group_alerts.value", errorObject.values)}`);
       } else if (message.includes("Exception - Error in port value")) {
         const errorObject: IErrorInfoAttr = JSON.parse(message);
-        msgErrorStick(`${translate.t("group_alerts.port_value")}
+        msgErrorStick(`${translate.t("group_alerts.portValue")}
           ${formatError("group_alerts.value", errorObject.values)}`);
       } else if (message === "Exception - Error in specific value") {
         msgError(translate.t("group_alerts.invalid_specific"));
