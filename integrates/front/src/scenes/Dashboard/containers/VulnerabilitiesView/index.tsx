@@ -1,3 +1,8 @@
+/* eslint-disable react/forbid-component-props
+  -------
+  We need className to override default styles from react-boostrap.
+*/
+
 import { ActionButtons } from "scenes/Dashboard/containers/VulnerabilitiesView/ActionButtons";
 import type { ApolloError } from "apollo-client";
 import { GET_FINDING_VULN_INFO } from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
@@ -37,7 +42,7 @@ const RowFilters: StyledComponent<
   "div",
   Record<string, unknown>
 > = styled.div.attrs({
-  className: "pt2-ns w-100-ns",
+  className: "pt3 w-100-ns",
 })``;
 
 const Select: StyledComponent<
@@ -65,7 +70,7 @@ const Small: StyledComponent<
   "small",
   Record<string, unknown>
 > = styled.small.attrs({
-  className: "f3 black-40 db",
+  className: "f5 black-40 db",
 })``;
 
 export const VulnsView: React.FC = (): JSX.Element => {
@@ -235,6 +240,7 @@ export const VulnsView: React.FC = (): JSX.Element => {
                 <SelectContainer>
                   <Small>{t("search_findings.tab_vuln.searchText")}</Small>
                   <SearchText
+                    className={"black-40"}
                     defaultValue={textFilter}
                     onChange={onSearchChange}
                   />
@@ -252,6 +258,7 @@ export const VulnsView: React.FC = (): JSX.Element => {
                     )}
                   >
                     <Select
+                      className={"black-40"}
                       defaultValue={treatmentFilter}
                       onChange={onTreatmentChange}
                     >
@@ -290,6 +297,7 @@ export const VulnsView: React.FC = (): JSX.Element => {
                     )}
                   >
                     <Select
+                      className={"black-40"}
                       defaultValue={verificationFilter}
                       onChange={onVerificationChange}
                     >
@@ -310,6 +318,7 @@ export const VulnsView: React.FC = (): JSX.Element => {
                     message={t("search_findings.tab_vuln.status_tooltip")}
                   >
                     <Select
+                      className={"black-40"}
                       defaultValue={currentStatusFilter}
                       onChange={onStatusChange}
                     >
