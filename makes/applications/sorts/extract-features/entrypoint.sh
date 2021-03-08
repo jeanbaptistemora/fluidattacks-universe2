@@ -1,10 +1,5 @@
 # shellcheck shell=bash
 
-source '__envSetupSortsRuntime__'
-source '__envUtilsBashLibAws__'
-source '__envUtilsBashLibGit__'
-source '__envUtilsMeltsLibCommon__'
-
 function upload_sorts_results_to_s3 {
   export SORTS_PROD_AWS_ACCESS_KEY_ID
   export SORTS_PROD_AWS_SECRET_ACCESS_KEY

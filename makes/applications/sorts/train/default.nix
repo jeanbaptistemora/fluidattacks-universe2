@@ -1,17 +1,14 @@
-{ packages
+{ makeEntrypoint
+, packages
 , path
 , nixpkgs
 , ...
 }:
-let
-  makeEntrypoint = import (path "/makes/utils/make-entrypoint") path nixpkgs;
-in
 makeEntrypoint {
-  arguments = {
-    envPython = "${nixpkgs.python38}/bin/python";
-    envSetupSortsDevelopment = packages.sorts.config-development;
-    envUtilsBashLibAws = import (path "/makes/utils/aws") path nixpkgs;
-  };
   name = "sorts-train";
+  searchPaths = {
+    envPaths = [ nixpkgs.python38 ];
+    envSources = [ packages.sorts.config-development ];
+  };
   template = path "/makes/applications/sorts/train/entrypoint.sh";
 }

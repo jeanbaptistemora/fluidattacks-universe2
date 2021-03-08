@@ -1,8 +1,5 @@
 # shellcheck shell=bash
 
-source '__envSetupSortsDevelopment__'
-source '__envSetupSortsRuntime__'
-
 function main {
   local args_pytest=(
       --capture tee-sys

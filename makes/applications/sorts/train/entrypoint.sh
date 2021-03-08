@@ -1,8 +1,5 @@
 # shellcheck shell=bash
 
-source '__envSetupSortsDevelopment__'
-source '__envUtilsBashLibAws__'
-
 function main {
   export SORTS_PROD_AWS_ACCESS_KEY_ID
   export SORTS_PROD_AWS_SECRET_ACCESS_KEY
@@ -10,11 +7,11 @@ function main {
       aws_login_prod 'sorts' \
   &&  pushd sorts \
     &&  echo "[INFO] Preparing extracted features data..." \
-    &&  '__envPython__' training/merge_features.py \
+    &&  python3.8 training/merge_features.py \
     &&  echo "[INFO] Initializing training..." \
-    &&  '__envPython__' training/sagemaker_provisioner.py \
+    &&  python3.8 training/sagemaker_provisioner.py \
     &&  echo "[INFO] Evaluating resulting artifacts..." \
-    &&  '__envPython__' training/evaluate_results.py \
+    &&  python3.8 training/evaluate_results.py \
   &&  popd \
   || return 1
 }

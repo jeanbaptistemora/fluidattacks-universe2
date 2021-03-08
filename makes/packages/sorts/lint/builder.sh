@@ -1,8 +1,5 @@
 # shellcheck shell=bash
 
-source "${envSetupSortsDevelopment}"
-source "${envSetupSortsRuntime}"
-
 function main {
       lint_python_imports "${envImportLinterConfig}" "${envSrcSortsSorts}" \
   &&  lint_python_module "${envSrcSortsTest}" \
