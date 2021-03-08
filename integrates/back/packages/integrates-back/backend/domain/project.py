@@ -35,7 +35,6 @@ from backend.authz.policy import get_group_level_role
 from backend.dal import project as project_dal
 from backend.dal.helpers.dynamodb import start_context
 from backend.domain import (
-    comment as comment_domain,
     resources as resources_domain,
     finding as finding_domain,
     user as user_domain,
@@ -65,6 +64,7 @@ from backend.typing import (
     ProjectAccess as ProjectAccessType,
     Vulnerability as VulnerabilityType
 )
+from comments import domain as comments_domain
 from events import domain as events_domain
 from newutils import (
     comments as comments_utils,
@@ -1000,7 +1000,7 @@ async def list_comments(
     enforcer = await authz.get_group_level_enforcer(user_email)
 
     comments = await collect([
-        comment_domain.fill_comment_data(project_name, user_email, comment)
+        comments_domain.fill_comment_data(project_name, user_email, comment)
         for comment in await project_dal.get_comments(project_name)
     ])
 

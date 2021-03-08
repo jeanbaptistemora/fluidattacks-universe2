@@ -30,7 +30,6 @@ from backend.dal import (
 )
 from backend.dal.helpers.dynamodb import start_context
 from backend.domain import (
-    comment as comment_domain,
     user as user_domain,
     vulnerability as vuln_domain
 )
@@ -49,6 +48,7 @@ from backend.typing import (
     Finding as FindingType,
     Tracking as TrackingItem,
 )
+from comments import domain as comments_domain
 from newutils import (
     comments as comments_utils,
     cvss,
@@ -97,7 +97,7 @@ async def add_comment(
 
     user_data = await user_domain.get(user_email)
     user_data['user_email'] = user_data.pop('email')
-    success = await comment_domain.create(finding_id, comment_data, user_data)
+    success = await comments_domain.create(finding_id, comment_data, user_data)
     return success[1]
 
 

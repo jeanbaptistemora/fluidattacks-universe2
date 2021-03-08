@@ -17,8 +17,8 @@ from backend import util
 from backend.dal.helpers.redis import (
     redis_get_or_set_entity_attr,
 )
-from backend.domain import comment as comment_domain
 from backend.typing import Comment, Event
+from comments import domain as comments_domain
 
 
 async def resolve_no_cache(
@@ -34,7 +34,7 @@ async def resolve_no_cache(
 
     return cast(
         List[Comment],
-        await comment_domain.get_event_comments(
+        await comments_domain.get_event_comments(
             group_name,
             event_id,
             user_email

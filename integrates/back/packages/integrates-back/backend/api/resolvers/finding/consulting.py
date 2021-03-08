@@ -12,8 +12,8 @@ from backend.dal.helpers.redis import (
     redis_get_or_set_entity_attr,
 )
 from backend import util
-from backend.domain import comment as comment_domain
 from backend.typing import Comment, Finding
+from comments import domain as comments_domain
 
 
 async def resolve(
@@ -44,7 +44,7 @@ async def resolve_no_cache(
 
     return cast(
         List[Comment],
-        await comment_domain.get_comments(
+        await comments_domain.get_comments(
             group_name,
             finding_id,
             user_email,

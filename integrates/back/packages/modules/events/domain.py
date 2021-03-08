@@ -29,7 +29,6 @@ from backend.dal import (
     project as project_dal
 )
 from backend.domain import (
-    comment as comment_domain,
     organization as org_domain,
     user as user_domain
 )
@@ -46,6 +45,7 @@ from backend.typing import (
     Event as EventType,
     MailContent as MailContentType,
 )
+from comments import domain as comments_domain
 from events import dal as events_dal
 from newutils import (
     comments as comments_utils,
@@ -361,7 +361,7 @@ async def add_comment(
             raise InvalidCommentParent()
     user_data = await user_domain.get(user_email)
     user_data['user_email'] = user_data.pop('email')
-    success = await comment_domain.create(event_id, comment_data, user_data)
+    success = await comments_domain.create(event_id, comment_data, user_data)
     del comment_data['user_id']
 
     return cast(

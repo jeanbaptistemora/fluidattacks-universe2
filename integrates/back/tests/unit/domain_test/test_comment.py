@@ -1,10 +1,12 @@
-import pytest
 
 from decimal import Decimal
+
+import pytest
 from graphql.type.definition import GraphQLResolveInfo
 
-import backend.domain.comment as comment_domain
 from back.tests.unit.utils import create_dummy_session
+from comments import domain as comments_domain
+
 
 pytestmark = [
     pytest.mark.asyncio,
@@ -16,7 +18,7 @@ async def test_list_comments():
     user_email = 'unittest@fluidattacks.com'
     request = await create_dummy_session(user_email)
     info = GraphQLResolveInfo(None , None, None, None, None, None, None, None, None, None, request)
-    test_data = await comment_domain.get_comments(
+    test_data = await comments_domain.get_comments(
         'unittesting',
         finding_id,
         user_email,
@@ -45,11 +47,11 @@ async def test_fill_comment_data():
         'parent': Decimal('0')
     }
     res_data_no_fullname = \
-        await comment_domain.fill_comment_data('unittesting', 'customer', test_data)
+        await comments_domain.fill_comment_data('unittesting', 'customer', test_data)
     assert res_data_no_fullname['fullname'] == 'unittesting@test.com'
 
     test_data['fullname'] = ''
     res_data_empty_fullname = \
-        await comment_domain.fill_comment_data('unittesting', 'customer', test_data)
+        await comments_domain.fill_comment_data('unittesting', 'customer', test_data)
 
     assert res_data_empty_fullname['fullname'] == 'unittesting@test.com'
