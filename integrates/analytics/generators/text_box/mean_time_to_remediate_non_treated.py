@@ -113,7 +113,7 @@ async def generate_all() -> None:
         ):
             utils.json_dump(
                 document=format_data(
-                    mean_remediate=await get_many_groups(org_groups),
+                    mean_remediate=await get_many_groups(org_groups, min_date),
                 ),
                 entity='organization',
                 subject=f'{org_id}_{days}',
@@ -127,7 +127,7 @@ async def generate_all() -> None:
             ):
                 utils.json_dump(
                     document=format_data(
-                        mean_remediate=await get_many_groups(groups),
+                        mean_remediate=await get_many_groups(groups, min_date),
                     ),
                     entity='portfolio',
                     subject=f'{org_id}PORTFOLIO#{portfolio}_{days}',
