@@ -19,7 +19,7 @@ from backend.domain.project import (
     get_open_vulnerability_date, get_mean_remediate, get_total_treatment,
     get_users, get_description, get_pending_verification_findings,
     list_comments, get_active_projects, get_managers, list_events,
-    get_alive_projects, get_mean_remediate_severity,
+    get_alive_group_names, get_mean_remediate_severity,
     remove_access, validate_project_services_config,
     create_group, total_vulnerabilities,
     get_open_vulnerabilities, get_closed_vulnerabilities, get_open_finding,
@@ -303,8 +303,8 @@ async def test_get_active_projects():
     assert test_data is not None
 
 
-async def test_get_alive_projects():
-    test_data = await get_alive_projects()
+async def test_get_alive_group_names():
+    test_data = await get_alive_group_names()
     expected_output = [
         'asgard',
         'barranquilla',

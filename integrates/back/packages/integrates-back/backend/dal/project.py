@@ -144,17 +144,17 @@ async def get_groups_with_forces() -> List[str]:
     return cast(List[str], projects)
 
 
-async def get_alive_projects() -> List[str]:
+async def get_alive_groups(
+    data_attr: str = ''
+) -> List[ProjectType]:
     """Get active and suspended projects in DynamoDB"""
     filtering_exp = (
         Attr('project_status').eq('ACTIVE') |
         Attr('project_status').eq('SUSPENDED')
     )
-    projects = await get_all(filtering_exp, 'project_name')
-    return cast(
-        List[str],
-        [prj['project_name'] for prj in projects]
-    )
+    groups = await get_all(filtering_exp, data_attr)
+
+    return groups
 
 
 async def get_group(

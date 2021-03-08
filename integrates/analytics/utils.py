@@ -111,7 +111,7 @@ async def get_portfolios_groups(org_name: str) -> List[PortfoliosGroups]:
 
 async def iterate_groups() -> AsyncIterator[str]:
     for group in sorted(
-        await group_domain.get_alive_projects(),
+        await group_domain.get_alive_group_names(),
         reverse=True
     ):
         log_info(f'Working on group: {group}')
@@ -122,7 +122,7 @@ async def iterate_organizations_and_groups() -> AsyncIterator[
     Tuple[str, str, Tuple[str, ...]],
 ]:
     """Yield (org_id, org_name, org_groups) non-concurrently generated."""
-    groups: Set[str] = set(await group_domain.get_alive_projects())
+    groups: Set[str] = set(await group_domain.get_alive_group_names())
     async for org_id, org_name, org_groups in (
         org_domain.iterate_organizations_and_groups()
     ):

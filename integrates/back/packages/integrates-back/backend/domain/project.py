@@ -1030,10 +1030,23 @@ async def get_groups_with_forces() -> List[str]:
     return await project_dal.get_groups_with_forces()
 
 
-async def get_alive_projects() -> List[str]:
-    projects = await project_dal.get_alive_projects()
+async def get_alive_groups(
+    attributes: List[str] = None
+) -> List[ProjectType]:
+    data_attr = ','.join(attributes or [])
+    projects = await project_dal.get_alive_groups(data_attr)
 
     return projects
+
+
+async def get_alive_group_names() -> List[str]:
+    attributes = {'project_name'}
+    groups = await get_alive_groups(attributes)
+
+    return cast(
+        List[str],
+        [group['project_name'] for group in groups]
+    )
 
 
 async def list_events(project_name: str) -> List[str]:
