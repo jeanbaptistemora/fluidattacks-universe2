@@ -4,15 +4,17 @@
 , terraformApply
 , ...
 }:
-makeEntrypoint rec {
-  arguments = {
-    envTerraformApply = "${terraformApply {
-      inherit name;
-      product = "forces";
-      target = "forces/infra";
-    }}/bin/${name}";
-    envUtilsMeltsLibCommon = packages.melts.lib;
-  };
+makeEntrypoint {
   name = "forces-infra-apply";
+  searchPaths = {
+    envPaths = [
+      (terraformApply {
+        name = "terraforma-apply";
+        product = "forces";
+        target = "forces/infra";
+      })
+    ];
+    envSources = [ packages.melts.lib ];
+  };
   template = path "/makes/applications/forces/infra-apply/entrypoint.sh";
 }

@@ -1,21 +1,21 @@
-{ packages
+{ makeEntrypoint
+, packages
 , nixpkgs
 , path
 , ...
 }:
-let
-  makeEntrypoint = import (path "/makes/utils/make-entrypoint") path nixpkgs;
-in
 makeEntrypoint {
-  arguments = {
-    envUtilsAws = import (path "/makes/utils/aws") path nixpkgs;
-    envUtilsSops = import (path "/makes/utils/sops") path nixpkgs;
-    envUtilsMeltsLibCommon = packages.melts.lib;
-  };
   searchPaths = {
     envPaths = [
       nixpkgs.jq
       packages.forces
+    ];
+    envSources = [
+      packages.melts.lib
+    ];
+    envUtils = [
+      "/makes/utils/aws"
+      "/makes/utils/sops"
     ];
   };
   name = "forces-process-groups";

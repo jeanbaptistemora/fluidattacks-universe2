@@ -1,16 +1,15 @@
-{ nixpkgs
+{ makeEntrypoint
 , packages
 , path
 , ...
 }:
-let
-  makeEntrypoint = import (path "/makes/utils/make-entrypoint") path nixpkgs;
-in
 makeEntrypoint {
-  arguments = {
-    envSetupForcesRuntime = packages.forces.config-runtime;
-    envSetupForcesDevelopment = packages.forces.config-development;
-  };
   name = "forces-test";
+  searchPaths = {
+    envSources = [
+      packages.forces.config-development
+      packages.forces.config-runtime
+    ];
+  };
   template = path "/makes/applications/forces/test/entrypoint.sh";
 }

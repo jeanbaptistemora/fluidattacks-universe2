@@ -1,10 +1,5 @@
 # shellcheck shell=bash
 
-source '__envUtilsSops__'
-source '__envUtilsAws__'
-source '__envUtilsMeltsLibCommon__'
-
-
 function main {
       aws_login_prod forces \
   &&  sops_export_vars "forces/secrets-prod.yaml" \
