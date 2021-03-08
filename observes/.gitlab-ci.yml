@@ -217,7 +217,7 @@ observes.scheduled.dynamodb-integrates-etl-vulns:
     variables: [$observes_dynamodb_vulns]
   interruptible: false
 
-observes.scheduled.formstack-etl:
+observes.scheduled.on-aws.formstack-etl:
   <<: *makes
   tags: [autoscaling-analytics]
   stage: analytics

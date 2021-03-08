@@ -97,9 +97,10 @@ observes.scheduled.dynamodb-centralize
 observes.scheduled.dynamodb-forces-etl
 observes.scheduled.dynamodb-integrates-etl
 observes.scheduled.dynamodb-integrates-etl-vulns
-observes.scheduled.formstack-etl
+observes.scheduled.job.formstack-etl
 observes.scheduled.mailchimp-etl
 observes.scheduled.mixpanel-integrates-etl
+observes.scheduled.on-aws.formstack-etl
 observes.scheduled.timedoctor-backup
 observes.scheduled.timedoctor-etl
 observes.scheduled.timedoctor-refresh-token
