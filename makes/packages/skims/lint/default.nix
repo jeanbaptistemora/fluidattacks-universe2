@@ -8,7 +8,6 @@ let
 in
 makeDerivation {
   arguments = {
-    envBashLibLintPython = import (path "/makes/utils/lint-python") path nixpkgs;
     envImportLinterConfig = path "/skims/setup.imports.cfg";
     envSetupSkimsDevelopment = packages.skims.config-development;
     envSetupSkimsRuntime = packages.skims.config-runtime;
@@ -17,4 +16,7 @@ makeDerivation {
   };
   builder = path "/makes/packages/skims/lint/builder.sh";
   name = "skims-lint";
+  searchPaths = {
+    envUtils = [ "/makes/utils/lint-python" ];
+  };
 }

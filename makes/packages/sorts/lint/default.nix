@@ -8,7 +8,6 @@ let
 in
 makeDerivation {
   arguments = {
-    envBashLibLintPython = import (path "/makes/utils/lint-python") path nixpkgs;
     envImportLinterConfig = path "/sorts/setup.imports.cfg";
     envSetupSortsDevelopment = packages.sorts.config-development;
     envSetupSortsRuntime = packages.sorts.config-runtime;
@@ -18,4 +17,7 @@ makeDerivation {
   };
   builder = path "/makes/packages/sorts/lint/builder.sh";
   name = "sorts-lint";
+  searchPaths = {
+    envUtils = [ "/makes/utils/lint-python" ];
+  };
 }

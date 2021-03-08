@@ -2,7 +2,6 @@
 
 source "${envSetupSkimsDevelopment}"
 source "${envSetupSkimsRuntime}"
-source "${envBashLibLintPython}"
 
 function main {
       lint_python_imports "${envImportLinterConfig}" "${envSrcSkimsSkims}" \

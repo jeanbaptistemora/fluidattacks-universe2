@@ -5,14 +5,16 @@
 , ...
 }:
 makeEntrypoint rec {
-  arguments = {
-    envTerraformTest = "${terraformTest {
-      inherit name;
-      product = "forces";
-      target = "forces/infra";
-    }}/bin/${name}";
-    envUtilsMeltsLibCommon = packages.melts.lib;
-  };
   name = "forces-infra-test";
+  searchPaths = {
+    envPaths = [
+      (terraformTest {
+        name = "terraform-test";
+        product = "forces";
+        target = "forces/infra";
+      })
+    ];
+    envSources = [ packages.melts.lib ];
+  };
   template = path "/makes/applications/forces/infra-test/entrypoint.sh";
 }

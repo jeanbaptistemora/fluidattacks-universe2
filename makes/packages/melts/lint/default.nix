@@ -8,7 +8,6 @@ let
 in
 makeDerivation {
   arguments = {
-    envBashLibLintPython = import (path "/makes/utils/lint-python") path nixpkgs;
     envSetupMeltsDevelopment = packages.melts.config-development;
     envSetupMeltsRuntime = packages.melts.config-runtime;
     envSrcMeltsToolbox = path "/melts/toolbox";
@@ -16,4 +15,7 @@ makeDerivation {
   };
   builder = path "/makes/packages/melts/lint/builder.sh";
   name = "melts-lint";
+  searchPaths = {
+    envUtils = [ "/makes/utils/lint-python" ];
+  };
 }

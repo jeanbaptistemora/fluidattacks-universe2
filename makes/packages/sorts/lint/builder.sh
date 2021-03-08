@@ -2,7 +2,6 @@
 
 source "${envSetupSortsDevelopment}"
 source "${envSetupSortsRuntime}"
-source "${envBashLibLintPython}"
 
 function main {
       lint_python_imports "${envImportLinterConfig}" "${envSrcSortsSorts}" \

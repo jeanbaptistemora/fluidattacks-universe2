@@ -4,7 +4,6 @@
 }:
 let
   makeDerivation = import (path "/makes/utils/make-derivation") path nixPkgs;
-  lintPython = import (path "/makes/utils/lint-python") path nixPkgs;
 in
 makeDerivation {
   arguments = {
@@ -14,6 +13,7 @@ makeDerivation {
   name = "observes-linter-${observesPackage.name}";
   searchPaths = {
     envPaths = observesPackage.buildInputs ++ [ nixPkgs.findutils ];
-    envSources = [ lintPython observesPackage.template ];
+    envSources = [ observesPackage.template ];
+    envUtils = [ "/makes/utils/lint-python" ];
   };
 }

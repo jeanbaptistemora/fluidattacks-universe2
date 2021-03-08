@@ -1,12 +1,10 @@
 { nixpkgs
 , makeDerivation
+, makeOci
 , packages
 , path
 , ...
 }:
-let
-  makeOci = import (path "/makes/utils/make-oci") path nixpkgs;
-in
 makeOci {
   config.WorkingDir = "/src";
   contents = [

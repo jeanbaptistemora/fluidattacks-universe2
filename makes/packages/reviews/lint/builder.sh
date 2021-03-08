@@ -1,6 +1,5 @@
 # shellcheck shell=bash
 
-source "${envUtilsLintPython}"
 source "${envReviewsRuntime}"
 
 function main {
