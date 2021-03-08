@@ -1,4 +1,4 @@
-export interface IBillDeveloper {
+interface IBillDeveloper {
   actor: string;
   commit: string;
   groups: string;
@@ -6,12 +6,14 @@ export interface IBillDeveloper {
   repository: string;
 }
 
-export interface IBill {
+interface IBill {
   developers: IBillDeveloper[];
 }
 
-export interface IData {
+interface IData {
   project: {
     bill: IBill;
   };
 }
+
+export { IBillDeveloper, IBill, IData };
