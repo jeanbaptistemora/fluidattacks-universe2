@@ -13,7 +13,6 @@ function main {
     &&  curl -sSo expoClient.apk '__envApkUrl__' \
     &&  echo '[INFO] Copying dependencies...' \
     &&  copy __envIntegratesMobileE2eNpm__/node_modules node_modules \
-    &&  chmod 755 node_modules/.bin/appium \
       &&  echo '[INFO] Looking for available android devices...' \
       &&  echo '[INFO] Make sure to enable USB debugging and set' \
                'your mobile device to file transfer mode' \

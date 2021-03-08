@@ -22,9 +22,6 @@ function main {
   &&  pushd integrates/mobile \
     &&  echo '[INFO] Copying dependencies...' \
     &&  copy __envIntegratesMobileDevRuntime__/node_modules node_modules \
-    &&  chmod 755 \
-          node_modules/.bin/expo \
-          node_modules/.bin/expo-cli \
       &&  echo "[INFO] Using NodeJS $(node -v)" \
       &&  npx --no-install expo login \
             --username "${EXPO_USER}" \

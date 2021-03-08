@@ -37,10 +37,6 @@ function main {
       &&  pushd integrates/mobile \
         &&  echo '[INFO] Copying dependencies...' \
         &&  copy __envSetupIntegratesMobileDevRuntime__/node_modules node_modules \
-        &&  chmod 755 \
-              node_modules/.bin/expo \
-              node_modules/.bin/expo-cli \
-              node_modules/.bin/turtle \
           &&  echo "${GOOGLE_SERVICES_APP}" > google-services.json \
           &&  EXPO_ANDROID_KEYSTORE_PASSWORD=${EXPO_PASS} \
           &&  EXPO_ANDROID_KEY_PASSWORD=${EXPO_PASS} \

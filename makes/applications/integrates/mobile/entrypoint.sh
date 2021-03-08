@@ -11,7 +11,6 @@ function main {
   &&  sops_export_vars __envSecretsDev__ "${secrets[@]}" \
   &&  pushd integrates/mobile \
     &&  copy __envSetupIntegratesMobileDevRuntime__/node_modules node_modules \
-    &&  chmod 755 node_modules/.bin/expo node_modules/.bin/expo-cli \
       &&  echo "${GOOGLE_SERVICES_APP}" > google-services.json \
       &&  npx --no-install expo login \
           --username "${EXPO_USER}" \

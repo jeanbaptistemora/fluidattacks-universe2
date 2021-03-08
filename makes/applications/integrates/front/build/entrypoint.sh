@@ -9,7 +9,6 @@ function main {
       INTEGRATES_DEPLOYMENT_DATE="$(date -u '+%FT%H:%M:%SZ')" \
   &&  pushd integrates/front \
     &&  copy "__envSetupIntegratesFrontDevRuntime__/node_modules" node_modules \
-    &&  chmod 755 node_modules/.bin/tcm node_modules/.bin/webpack \
       &&  < ../../build/patches/jquery-comments.diff \
             patch \
               -p1 \

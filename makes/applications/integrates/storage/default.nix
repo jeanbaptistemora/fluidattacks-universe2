@@ -15,8 +15,6 @@ makeEntrypoint {
       url = "https://dl.min.io/client/mc/release/linux-amd64/archive/mc.RELEASE.2020-09-18T00-13-21Z";
       sha256 = "D9Y4uY4bt131eu2jxVRHdevsFMV5aMUpBkff4LI1M6Q=";
     };
-    envUtilsAws = import (path "/makes/utils/aws") path nixpkgs;
-    envUtilsSops = import (path "/makes/utils/sops") path nixpkgs;
   };
   name = "integrates-storage";
   searchPaths = {
@@ -24,6 +22,10 @@ makeEntrypoint {
       packages.makes.done
       packages.makes.kill-port
       packages.makes.wait
+    ];
+    envUtils = [
+      "/makes/utils/aws"
+      "/makes/utils/sops"
     ];
   };
   template = path "/makes/applications/integrates/storage/entrypoint.sh";

@@ -1,8 +1,5 @@
 # shellcheck shell=bash
 
-source '__envUtilsAws__'
-source '__envUtilsSops__'
-
 function serve {
   local buckets_by_branch=(
     'fluidintegrates.analytics'

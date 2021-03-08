@@ -50,7 +50,6 @@ function main {
   &&  pushd integrates/mobile \
     &&  echo '[INFO] Copying dependencies...' \
     &&  copy "__envSetupIntegratesMobileDevRuntime__/node_modules" node_modules \
-    &&  chmod 755 node_modules/.bin/expo node_modules/.bin/expo-cli \
       &&  echo "${GOOGLE_SERVICES_APP}" > google-services.json \
       &&  npx --no-install expo login \
             --username "${EXPO_USER}" \

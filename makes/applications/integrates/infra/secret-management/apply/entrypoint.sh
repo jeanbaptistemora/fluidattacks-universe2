@@ -1,10 +1,7 @@
 # shellcheck shell=bash
 
-source '__envUtilsMeltsLibCommon__'
-
 function main {
-      projects="$(projects_with_forces)" \
-  &&  '__envTerraformApply__' -var="projects_forces=${projects}"
+  terraform-apply -var="projects_forces=$(projects_with_forces)"
 }
 
 main
