@@ -338,12 +338,12 @@ const projectFindingsView: React.FC = (): JSX.Element => {
             />
               <Modal
                 open={isReportsModalOpen}
-                headerTitle={translate.t("group.findings.report.modal_title")}
+                headerTitle={translate.t("group.findings.report.modalTitle")}
               >
                 <Row className={"tc"}>
                   <Col100>
                     <Trans>
-                      <p>{translate.t("group.findings.report.tech_description")}</p>
+                      <p>{translate.t("group.findings.report.techDescription")}</p>
                     </Trans>
                     <p>
                       <a
@@ -366,8 +366,8 @@ const projectFindingsView: React.FC = (): JSX.Element => {
                       <Col100>
                         <ButtonToolbarCenter>
                           <TooltipWrapper
-                            id={"group.findings.report.pdf_tooltip.id"}
-                            message={translate.t("group.findings.report.pdf_tooltip")}
+                            id={"group.findings.report.pdfTooltip.id"}
+                            message={translate.t("group.findings.report.pdfTooltip")}
                           >
                           <Button onClick={handleRequestProjectReport} id={"report-pdf"}>
                             <FontAwesomeIcon icon={faFilePdf} />
@@ -375,8 +375,8 @@ const projectFindingsView: React.FC = (): JSX.Element => {
                           </Button>
                           </TooltipWrapper>
                           <TooltipWrapper
-                            id={"group.findings.report.xls_tooltip.id"}
-                            message={translate.t("group.findings.report.xls_tooltip")}
+                            id={"group.findings.report.xlsTooltip.id"}
+                            message={translate.t("group.findings.report.xlsTooltip")}
                           >
                           <Button onClick={handleRequestProjectReport} id={"report-excel"}>
                             <FontAwesomeIcon icon={faFileExcel} />
@@ -402,7 +402,7 @@ const projectFindingsView: React.FC = (): JSX.Element => {
                   <Col100>
                     <ButtonToolbar>
                       <Button onClick={closeReportsModal}>
-                        {translate.t("group.findings.report.modal_close")}
+                        {translate.t("group.findings.report.modalClose")}
                       </Button>
                     </ButtonToolbar>
                   </Col100>

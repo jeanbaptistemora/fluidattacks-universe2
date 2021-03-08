@@ -100,13 +100,13 @@ const modalExecution: React.FC<IExecution> = (
     foundVulnerabilities: IFoundVulnerabilities,
     ): string => {
         const openTrans: string = translate.t(
-          "group.forces.found_vulnerabilities_new.open");
+          "group.forces.foundVulnerabilitiesNew.open");
         const acceptedTrans: string = translate.t(
-          "group.forces.found_vulnerabilities_new.accepted");
+          "group.forces.foundVulnerabilitiesNew.accepted");
         const closedTrans: string = translate.t(
-          "group.forces.found_vulnerabilities_new.closed");
+          "group.forces.foundVulnerabilitiesNew.closed");
         const totalTrans: string = translate.t(
-          "group.forces.found_vulnerabilities_new.total");
+          "group.forces.foundVulnerabilitiesNew.total");
 
         const openStr: string = `${foundVulnerabilities.open} ${openTrans}`;
         const acceptedStr: string = `${foundVulnerabilities.accepted} ${acceptedTrans}`;
@@ -140,7 +140,7 @@ const modalExecution: React.FC<IExecution> = (
             options: selectOptionsExploitability,
           }),
           formatter: formatText,
-          header: translate.t("group.forces.compromised_toe.exploitability"),
+          header: translate.t("group.forces.compromisedToe.exploitability"),
           width: "15%",
           wrapped: true,
         },
@@ -152,7 +152,7 @@ const modalExecution: React.FC<IExecution> = (
             options: selectOptionsStatus,
           }),
           formatter: statusFormatter,
-          header: translate.t("group.forces.compromised_toe.status"),
+          header: translate.t("group.forces.compromisedToe.status"),
           width: "10%",
           wrapped: true,
         },
@@ -164,20 +164,20 @@ const modalExecution: React.FC<IExecution> = (
             options: selectOptionsKind,
           }),
           formatter: formatText,
-          header: translate.t("group.forces.compromised_toe.type"),
+          header: translate.t("group.forces.compromisedToe.type"),
           width: "10%",
           wrapped: true,
         },
         {
           dataField: "who",
           formatter: formatText,
-          header: translate.t("group.forces.compromised_toe.what"),
+          header: translate.t("group.forces.compromisedToe.what"),
           wrapped: true,
         },
         {
           dataField: "where",
           formatter: formatText,
-          header: translate.t("group.forces.compromised_toe.where"),
+          header: translate.t("group.forces.compromisedToe.where"),
           wrapped: true,
         },
       ];
@@ -209,7 +209,7 @@ const modalExecution: React.FC<IExecution> = (
         <Col33><p>{execution.execution_id}</p></Col33>
       </Row>
       <Row className={"nb3"}>
-        <Col33><p><b>{translate.t("group.forces.found_vulnerabilities.title")}</b></p></Col33>
+        <Col33><p><b>{translate.t("group.forces.foundVulnerabilities.title")}</b></p></Col33>
         <Col33>
           <p className={styles.wrapped}>
             {getVulnerabilitySummaries(execution.foundVulnerabilities)}

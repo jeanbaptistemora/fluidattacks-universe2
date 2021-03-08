@@ -390,7 +390,7 @@ const HandleAcceptationModal: React.FC<IHandleVulnsAcceptationModalProps> = (
             <Col100>
               <ButtonToolbar>
                 <Button onClick={handleCloseModal}>
-                  {translate.t("group.findings.report.modal_close")}
+                  {translate.t("group.findings.report.modalClose")}
                 </Button>
                 <Button
                   disabled={

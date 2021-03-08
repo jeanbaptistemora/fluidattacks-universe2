@@ -415,18 +415,18 @@ export const enTranslations: ResourceKey = {
         dataTooltip:
           "Receive a zip file containing the exported data of all the findings " +
           "of this group",
-        modal_close: "Close",
-        modal_title: "Reports",
+        modalClose: "Close",
+        modalTitle: "Reports",
         pdf: "  Executive",
-        pdf_tooltip:
+        pdfTooltip:
           "Receive a pdf file with an executive report that gives you summarized information " +
           "about all the findings of this group",
-        tech_description:
+        techDescription:
           "Reports are created on-demand and are protected by a <strong>passphrase</strong>. " +
           "The <strong>passphrase</strong> is generated randomly and will be " +
           "sent through a notification to your mobile device.",
         xls: "  Technical",
-        xls_tooltip:
+        xlsTooltip:
           "Receive an xls file with a technical report that gives you more detailed " +
           "information about all the findings of this group",
       },
@@ -435,11 +435,11 @@ export const enTranslations: ResourceKey = {
           text: "Columns",
           tooltip: "Choose the fields you want to display",
         },
-        modal_title: "Columns Filter",
+        modalTitle: "Columns Filter",
       },
     },
     forces: {
-      compromised_toe: {
+      compromisedToe: {
         exploitability: "Exploitability",
         status: "Status",
         title: "Compromised Surface",
@@ -448,18 +448,18 @@ export const enTranslations: ResourceKey = {
         where: "Where",
       },
       date: "Date",
-      execution_details_modal: {
+      executionDetailsModal: {
         close: "Close",
         title: "Execution Details",
       },
-      found_vulnerabilities: {
+      foundVulnerabilities: {
         accepted: "Accepted",
         exploitable: "Exploitable",
-        not_exploitable: "Not exploitable",
+        notExploitable: "Not exploitable",
         title: "Vulnerabilities",
         total: "Total",
       },
-      found_vulnerabilities_new: {
+      foundVulnerabilitiesNew: {
         accepted: "Accepted",
         closed: "Closed",
         open: "Open",
@@ -1335,7 +1335,7 @@ export const enTranslations: ResourceKey = {
       status_graph: "Status",
       success: "Group deletion was cancelled successfully",
       tags: {
-        modal_title: "Add tags information",
+        modalTitle: "Add tags information",
       },
       total_findings: {
         text: "Total Findings",

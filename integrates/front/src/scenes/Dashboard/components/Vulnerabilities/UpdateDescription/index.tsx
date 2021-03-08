@@ -564,7 +564,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
                   <Col100>
                     <ButtonToolbar>
                       <Button onClick={handleCloseModal}>
-                        {translate.t("group.findings.report.modal_close")}
+                        {translate.t("group.findings.report.modalClose")}
                       </Button>
                       {canRequestZeroRiskVuln || canUpdateVulnsTreatment ? (
                         <Button
