@@ -1,9 +1,9 @@
-{ nixpkgs2
+{ nixpkgs
 , path
 , ...
 }:
 let
-  nixPkgs = nixpkgs2;
+  nixPkgs = nixpkgs;
 
   localLib = import (path "/makes/libs/observes/packages") {
     inherit nixPkgs path;

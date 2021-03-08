@@ -1,4 +1,5 @@
 { nixpkgs
+, nixpkgs2
 , path
 , ...
 }:
@@ -8,7 +9,7 @@ in
 makeEntrypoint {
   arguments = {
     envFind = "${nixpkgs.findutils}/bin/find";
-    envNixLinter = "${nixpkgs.nix-linter}/bin/nix-linter";
+    envNixLinter = "${nixpkgs2.nix-linter}/bin/nix-linter";
     envNixpkgsFmt = "${nixpkgs.nixpkgs-fmt}/bin/nixpkgs-fmt";
     envMakes = path "/";
     envShellcheck = "${nixpkgs.shellcheck}/bin/shellcheck";

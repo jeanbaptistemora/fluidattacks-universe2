@@ -1,5 +1,4 @@
 { nixpkgs
-, nixpkgs2
 , makeEntrypoint
 , packages
 , path
@@ -7,7 +6,7 @@
 }:
 makeEntrypoint {
   arguments = {
-    envAndroidSdk = (nixpkgs2.androidenv.composeAndroidPackages {
+    envAndroidSdk = (nixpkgs.androidenv.composeAndroidPackages {
       buildToolsVersions = [ "29.0.2" "30.0.3" ];
       platformVersions = [ "29" ];
     }).androidsdk;

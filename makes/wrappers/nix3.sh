@@ -1,6 +1,6 @@
 #! /usr/bin/env nix-shell
 #!   nix-shell -i bash
-#!   nix-shell -I nixpkgs=https://github.com/nixos/nixpkgs/archive/7138a338b58713e0dea22ddab6a6785abec7376a.tar.gz
+#!   nix-shell -I nixpkgs=https://github.com/nixos/nixpkgs/archive/932941b79c3dbbef2de9440e1631dfec43956261.tar.gz
 #!   nix-shell -p nixFlakes
 #  shellcheck shell=bash
 
@@ -26,7 +26,7 @@ function main {
     --option cores 1 \
     --option download-attempts 1 \
     --option eval-cache false \
-    --option http-connections 256 \
+    --option http-connections 512 \
     --option keep-going true \
     --option max-jobs auto \
     --option narinfo-cache-negative-ttl 1 \

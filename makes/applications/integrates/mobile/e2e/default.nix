@@ -1,7 +1,6 @@
 { buildNodeRequirements
 , buildPythonRequirements
 , nixpkgs
-, nixpkgs2
 , makeEntrypoint
 , packages
 , path
@@ -48,7 +47,7 @@ let
 in
 makeEntrypoint {
   arguments = {
-    envAndroidSdk = (nixpkgs2.androidenv.composeAndroidPackages {
+    envAndroidSdk = (nixpkgs.androidenv.composeAndroidPackages {
       abiVersions = [ "x86" "x86_64" ];
       platformVersions = [ "29" ];
     }).androidsdk;
