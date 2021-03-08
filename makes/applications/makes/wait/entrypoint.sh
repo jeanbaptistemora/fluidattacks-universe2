@@ -8,7 +8,7 @@ function wait_for_tcp {
 
   while true
   do
-    if timeout 1s __envNc__ -z "${host}" "${port}"
+    if timeout 1s nc -z "${host}" "${port}"
     then
       return 0
     elif test "${elapsed}" -gt "${timeout}"

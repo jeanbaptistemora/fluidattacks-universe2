@@ -1,14 +1,12 @@
-{ nixpkgs
+{ makeEntrypoint
+, nixpkgs
 , path
 , ...
 }:
-let
-  makeEntrypoint = import (path "/makes/utils/make-entrypoint") path nixpkgs;
-in
 makeEntrypoint {
-  arguments = {
-    envNc = "${nixpkgs.netcat}/bin/nc";
-  };
   name = "makes-wait";
+  searchPaths = {
+    envPaths = [ nixpkgs.netcat ];
+  };
   template = path "/makes/applications/makes/wait/entrypoint.sh";
 }

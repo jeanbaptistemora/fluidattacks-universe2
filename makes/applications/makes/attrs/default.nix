@@ -1,16 +1,18 @@
-{ nixpkgs
+{ makeEntrypoint
+, nixpkgs
 , path
 , ...
 }:
-let
-  makeEntrypoint = import (path "/makes/utils/make-entrypoint") path nixpkgs;
-in
 makeEntrypoint {
   arguments = {
-    envFind = "${nixpkgs.findutils}/bin/find";
     envRoot = path "/";
-    envSed = "${nixpkgs.gnused}/bin/sed";
   };
   name = "makes-attrs";
+  searchPaths = {
+    envPaths = [
+      nixpkgs.findutils
+      nixpkgs.gnused
+    ];
+  };
   template = path "/makes/applications/makes/attrs/template.sh";
 }

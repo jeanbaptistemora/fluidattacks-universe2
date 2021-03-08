@@ -1,11 +1,10 @@
 { buildNodeRequirements
 , getPackageJsonDeps
+, nix
 , nixpkgs
-, path
 , ...
 }:
 let
-  nix = import (path "/makes/utils/nix") path nixpkgs;
   packageJsonDeps = getPackageJsonDeps "/makes/applications/makes/doc/src/package.json";
 in
 buildNodeRequirements {

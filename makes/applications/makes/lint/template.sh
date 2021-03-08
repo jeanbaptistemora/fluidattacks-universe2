@@ -1,11 +1,11 @@
 # shellcheck shell=bash
 
 function format_nix {
-  if ! __envNixpkgsFmt__ --check ./*.nix makes > /dev/null
+  if ! nixpkgs-fmt --check ./*.nix makes > /dev/null
   then
-        echo '[ERROR] Source code is not formated with: __envNixpkgsFmt__' \
+        echo '[ERROR] Source code is not formated with: nixpkgs-fmt' \
     &&  echo '[INFO] We will format it for you, but the job will fail' \
-    &&  __envNixpkgsFmt__ ./*.nix makes \
+    &&  nixpkgs-fmt ./*.nix makes \
     &&  return 1 \
     ||  return 1
   fi
@@ -18,11 +18,11 @@ function lint_nix {
   #   AlphabeticalArgs
   #   AlphabeticalBindings
 
-      __envFind__ makes -wholename '*.nix' | sort --ignore-case > "${LIST}" \
+      find makes -wholename '*.nix' | sort --ignore-case > "${LIST}" \
   &&  while read -r path
       do
             echo "[INFO] Testing: ${path}" \
-        &&  __envNixLinter__ \
+        &&  nix-linter \
               --check=BetaReduction \
               --check=EmptyVariadicParamSet \
               --check=UnneededAntiquote \
@@ -38,11 +38,11 @@ function lint_shell {
   # SC2153: Possible misspelling: x may not be assigned, but y is.
   # SC2154: x is referenced but not assigned.
 
-      __envFind__ ./*.sh makes -wholename '*.sh' | sort --ignore-case > "${LIST}" \
+      find ./*.sh makes -wholename '*.sh' | sort --ignore-case > "${LIST}" \
   &&  while read -r path
       do
             echo "[INFO] Testing: ${path}" \
-        &&  __envShellcheck__ \
+        &&  shellcheck \
               --exclude=SC1090,SC1091,SC2016,SC2153,SC2154 \
               --external-sources \
               "${path}" \
