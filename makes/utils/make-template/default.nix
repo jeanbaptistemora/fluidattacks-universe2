@@ -6,7 +6,7 @@ path: pkgs:
 , argumentsBase64 ? { }
 , name
 , searchPaths ? { }
-, template
+, template ? ""
 }:
 let
   makeDerivation = import (path "/makes/utils/make-derivation") path pkgs;

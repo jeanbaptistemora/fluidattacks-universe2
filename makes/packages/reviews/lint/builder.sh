@@ -1,7 +1,5 @@
 # shellcheck shell=bash
 
-source "${envReviewsRuntime}"
-
 function main {
       for module in "${envSrcReviews}"/*
       do
