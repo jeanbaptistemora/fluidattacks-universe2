@@ -3,5 +3,4 @@
 deploy \
   prod \
   production \
-  master \
-  "__envCompiledFront__"
+  master

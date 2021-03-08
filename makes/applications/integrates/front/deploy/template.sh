@@ -12,7 +12,6 @@ function deploy {
   local env="${1}"
   local endpoint="${2}"
   local branch="${3}"
-  local front_path="${4}"
   local bugsnag_key='99a64555a50340cfa856f6623c6bf35d'
   local deployment_date
   export CI_COMMIT_SHA
@@ -21,7 +20,7 @@ function deploy {
       "aws_login_${env}" integrates \
   &&  pushd integrates \
     &&  mkdir -p app/static \
-    &&  copy "${front_path}/output/app/static" app/static \
+    &&  copy "__envCompiledFront__/output/app/static" app/static \
     &&  deployment_date="$(date -u '+%FT%H:%M:%SZ')" \
     &&  _replace app '__CI_COMMIT_SHA__' "${CI_COMMIT_SHA}" \
     &&  _replace app '__CI_COMMIT_SHORT_SHA__' "${CI_COMMIT_SHORT_SHA}" \

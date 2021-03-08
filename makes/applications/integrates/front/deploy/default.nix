@@ -6,6 +6,9 @@
 }:
 makeTemplate {
   name = "integrates-front-deploy";
+  arguments = {
+    envCompiledFront = packages.integrates.front.build;
+  };
   searchPaths = {
     envPaths = [
       nixpkgs.findutils

@@ -1,10 +1,10 @@
 { nixpkgs
-, makeTemplate
+, makeDerivation
 , packages
 , path
 , ...
 }:
-makeTemplate {
+makeDerivation {
   arguments = {
     envExternalC3 = nixpkgs.fetchzip {
       url = "https://github.com/c3js/c3/archive/v0.7.18.zip";
@@ -15,11 +15,10 @@ makeTemplate {
     envIntegratesFront = path "/integrates/front";
     envJqueryCommentsPatch = path "/makes/packages/integrates/front/build/jquery-comments.diff";
   };
-  template = path "/makes/packages/integrates/front/build/template.sh";
+  builder = path "/makes/packages/integrates/front/build/builder.sh";
   name = "integrates-front-build";
   searchPaths = {
     envPaths = [
-      nixpkgs.nodejs
       nixpkgs.patch
     ];
     envNodeBinaries = [

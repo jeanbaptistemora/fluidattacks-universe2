@@ -3,5 +3,4 @@
 deploy \
   dev \
   development \
-  "${CI_COMMIT_REF_NAME}" \
-  "__envCompiledFront__"
+  "${CI_COMMIT_REF_NAME}"
