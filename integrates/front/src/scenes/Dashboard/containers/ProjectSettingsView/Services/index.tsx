@@ -110,7 +110,7 @@ const services: React.FC<IServicesProps> = (props: IServicesProps): JSX.Element 
       mixpanel.track("EditGroupData", formValues);
       msgSuccess(
         translate.t("search_findings.services_table.success"),
-        translate.t("search_findings.services_table.success_title"),
+        translate.t("search_findings.services_table.successTitle"),
       );
 
       if (formValues.integrates) {
@@ -215,7 +215,7 @@ const services: React.FC<IServicesProps> = (props: IServicesProps): JSX.Element 
             {translate.t("search_findings.services_table.continuous")}
           </option>
           <option value="ONESHOT">
-            {translate.t("search_findings.services_table.one_shot")}
+            {translate.t("search_findings.services_table.oneShot")}
           </option>
         </Field>
       ),
@@ -358,7 +358,7 @@ const services: React.FC<IServicesProps> = (props: IServicesProps): JSX.Element 
                   />
                 </FormGroup>
                 <Alert>
-                  * {translate.t("organization.tabs.groups.newGroup.extra_charges_may_apply")}
+                  * {translate.t("organization.tabs.groups.newGroup.extraChargesMayApply")}
                 </Alert>
                 <hr />
                 <Row>

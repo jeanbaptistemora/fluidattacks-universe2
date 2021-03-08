@@ -329,7 +329,7 @@ const AddProjectModal: React.FC<IAddProjectModalProps> = (
                                       </option>
                                       <option value={"ONESHOT"}>
                                         {translate.t(
-                                          "organization.tabs.groups.newGroup.type.one_shot"
+                                          "organization.tabs.groups.newGroup.type.oneShot"
                                         )}
                                       </option>
                                     </Field>
@@ -472,7 +472,7 @@ const AddProjectModal: React.FC<IAddProjectModalProps> = (
                           ) : undefined}
                           {" *"}
                           {translate.t(
-                            "organization.tabs.groups.newGroup.extra_charges_may_apply"
+                            "organization.tabs.groups.newGroup.extraChargesMayApply"
                           )}
                           <hr />
                           <Row>

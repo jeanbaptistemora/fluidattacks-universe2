@@ -183,8 +183,8 @@ const NavbarComponent: React.FC = (): JSX.Element => {
         <NavBarCollapse>
           <Col25>
             <TooltipWrapper
-              id={"navbar.news_tooltip.id"}
-              message={translate.t("navbar.news_tooltip")}
+              id={"navbar.newsTooltip.id"}
+              message={translate.t("navbar.newsTooltip")}
             >
               <NewsWidget />
             </TooltipWrapper>

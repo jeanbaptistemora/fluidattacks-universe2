@@ -76,7 +76,7 @@ const OrganizationPolicies: React.FC<IOrganizationPolicies> = (
         mixpanel.track("UpdateOrganizationPolicies", formValues);
         msgSuccess(
           translate.t("organization.tabs.policies.success"),
-          translate.t("organization.tabs.policies.success_title")
+          translate.t("organization.tabs.policies.successTitle")
         );
 
         void refetchPolicies();

@@ -119,6 +119,10 @@
       "error",
       { "ts-expect-error": "allow-with-description" }
     ],
+    /*
+     * Useful when migrating from TSLint to ESLint
+     */
+    "@typescript-eslint/ban-tslint-comment": "error",
     "@typescript-eslint/explicit-function-return-type": [
       "error",
       {

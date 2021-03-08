@@ -31,7 +31,7 @@ const Unsubscribe: React.FC = (): JSX.Element => {
           t("search_findings.services_table.unsubscribe.success", {
             groupName: projectName,
           }),
-          t("search_findings.services_table.unsubscribe.success_title")
+          t("search_findings.services_table.unsubscribe.successTitle")
         );
 
         push("/home");

@@ -346,7 +346,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
         graphQLErrors.forEach((error: GraphQLError): void => {
           switch (error.message) {
             case "Exception - Zero risk vulnerability is already requested":
-              msgError(translate.t("group_alerts.zero_risk_already_requested"));
+              msgError(translate.t("group_alerts.zeroRiskAlreadyRequested"));
               break;
             default:
               msgError(translate.t("group_alerts.error_textsad"));

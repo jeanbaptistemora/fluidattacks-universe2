@@ -56,7 +56,7 @@ const organizationPortfolios: React.FC<IOrganizationPortfoliosProps> =
     // Render Elements
     const tableHeaders: IHeaderConfig[] = [
       { dataField: "portfolio", header: translate.t("organization.tabs.portfolios.table.portfolio") },
-      { dataField: "n_groups", header: translate.t("organization.tabs.portfolios.table.n_groups") },
+      { dataField: "n_groups", header: translate.t("organization.tabs.portfolios.table.nGroups") },
       { dataField: "groups", header: translate.t("organization.tabs.portfolios.table.groups") },
     ];
 

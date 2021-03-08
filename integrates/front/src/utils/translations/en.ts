@@ -664,8 +664,8 @@ export const enTranslations: ResourceKey = {
     verification_already_requested: "Verification already requested",
     verified_success: "This finding was marked as verified.",
     vuln_closed: "Vulnerability has already been closed",
-    zero_risk_already_requested: "Zero risk vulnerability already requested",
-    zero_risk_is_not_requested: "Zero risk vulnerability is not requested",
+    zeroRiskAlreadyRequested: "Zero risk vulnerability already requested",
+    zeroRiskIsNotRequested: "Zero risk vulnerability is not requested",
   },
   legalNotice: {
     acceptBtn: {
@@ -701,7 +701,7 @@ export const enTranslations: ResourceKey = {
   },
   logout: "Log out",
   navbar: {
-    news_tooltip: "Latest updates about ASM",
+    newsTooltip: "Latest updates about ASM",
     searchPlaceholder: "Group Name",
   },
   organization: {
@@ -723,7 +723,7 @@ export const enTranslations: ResourceKey = {
             tooltip:
               "Drills finds deep and zero-day vulnerabilities during software development",
           },
-          extra_charges_may_apply: "Extra charges may apply",
+          extraChargesMayApply: "Extra charges may apply",
           forces: {
             text: "Include Forces Service?",
             tooltip:
@@ -761,7 +761,7 @@ export const enTranslations: ResourceKey = {
           titleSuccess: "Success",
           type: {
             continuous: "Continuous Hacking",
-            one_shot: "One-Shot Hacking",
+            oneShot: "One-Shot Hacking",
             title: "Group Type",
             tooltip: "Type of subscription",
           },
@@ -797,7 +797,7 @@ export const enTranslations: ResourceKey = {
         },
         save: "Save",
         success: "Organization policies updated successfully",
-        success_title: "Success",
+        successTitle: "Success",
         text: "Policies",
         tooltip:
           "Set common policies across all the groups of the organization",
@@ -807,7 +807,7 @@ export const enTranslations: ResourceKey = {
         remainingDescription: " and {{remaining}} more",
         table: {
           groups: "Groups",
-          n_groups: "# of Groups",
+          nGroups: "# of Groups",
           portfolio: "Portfolio",
         },
         tabs: {
@@ -983,18 +983,18 @@ export const enTranslations: ResourceKey = {
           "This will remove all of its data including findings and related vulnerabilities. " +
           "This is a destructive action and cannot be undone.",
       },
-      one_shot: "One-Shot Hacking",
+      oneShot: "One-Shot Hacking",
       oneshot: "One-Shot Hacking",
       service: "Service",
       services: "Services",
       status: "Status",
       success: "You'll receive an email shortly",
-      success_title: "Services changed correctly!",
+      successTitle: "Services changed correctly!",
       type: "Subscription type",
       unsubscribe: {
         button: "Unsubscribe",
         success: "Unsubscription from {{groupName}} was successful",
-        success_title: "Success",
+        successTitle: "Success",
         title: "Unsubscribe",
         type_group_name: "Please type the group name to procede.",
         warning: "Revoke access permissions to this group.",

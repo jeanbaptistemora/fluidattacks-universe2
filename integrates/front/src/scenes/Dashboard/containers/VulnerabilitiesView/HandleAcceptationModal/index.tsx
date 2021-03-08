@@ -199,7 +199,7 @@ const HandleAcceptationModal: React.FC<IHandleVulnsAcceptationModalProps> = (
         graphQLErrors.forEach((error: GraphQLError): void => {
           switch (error.message) {
             case "Exception - Zero risk vulnerability is not requested":
-              msgError(translate.t("group_alerts.zero_risk_is_not_requested"));
+              msgError(translate.t("group_alerts.zeroRiskIsNotRequested"));
               break;
             default:
               msgError(translate.t("group_alerts.error_textsad"));
@@ -248,7 +248,7 @@ const HandleAcceptationModal: React.FC<IHandleVulnsAcceptationModalProps> = (
         graphQLErrors.forEach((error: GraphQLError): void => {
           switch (error.message) {
             case "Exception - Zero risk vulnerability is not requested":
-              msgError(translate.t("group_alerts.zero_risk_is_not_requested"));
+              msgError(translate.t("group_alerts.zeroRiskIsNotRequested"));
               break;
             default:
               msgError(translate.t("group_alerts.error_textsad"));

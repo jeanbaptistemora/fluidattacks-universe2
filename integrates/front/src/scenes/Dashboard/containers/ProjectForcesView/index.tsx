@@ -282,7 +282,7 @@ const projectForcesView: React.FC = (): JSX.Element => {
         onUpdateEnableFilter={handleUpdateFilter}
       />
       <Modal
-        headerTitle={translate.t("group.forces.execution_details_modal.title")}
+        headerTitle={translate.t("group.forces.executionDetailsModal.title")}
         open={isExecutionDetailsModalOpen}
         size={"largeModal"}
       >
@@ -292,7 +292,7 @@ const projectForcesView: React.FC = (): JSX.Element => {
           <Col100>
             <ButtonToolbar>
               <Button onClick={closeSeeExecutionDetailsModal}>
-                {translate.t("group.forces.execution_details_modal.close")}
+                {translate.t("group.forces.executionDetailsModal.close")}
               </Button>
             </ButtonToolbar>
           </Col100>
