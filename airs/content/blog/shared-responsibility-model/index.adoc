@@ -31,14 +31,14 @@ Let's see what's happening.
 
 == What is cloud computing?
 
-As
-link:https://www.zdnet.com/article/what-is-cloud-computing-everything-you-need-to-know-about-the-cloud/[Steve Ranger said on ZDNet],
+As link:https://www.zdnet.com/article/what-is-cloud-computing-everything-you-need-to-know-about-the-cloud/[Steve Ranger said on ZDNet],
 "Cloud computing is the delivery of on-demand computing services
 —from applications to storage and processing power—
 typically over the internet and on a pay-as-you-go basis."
-link:https://medium.com/@aditi.chaudhry92/what-is-cloud-computing-59d0d5570332[So now, for example], if you intend to develop and offer a new application,
-you do not have to do as before and go
-continuously acquiring software and hardware resources
+So now, link:https://medium.com/@aditi.chaudhry92/what-is-cloud-computing-59d0d5570332[for example],
+if you intend to develop and offer a new application,
+you do not have to do as before,
+gradually acquiring software and hardware resources
 and maintaining your own computing infrastructure.
 You can save money, time, and effort by paying for web-based services
 according to your needs. The clouds of companies like Amazon,
@@ -48,7 +48,7 @@ while your projects are hosted there.
 Thus, as its fame grows, for instance,
 your application can quickly increase its use of cloud servers
 to satisfy your customers with speed and effectiveness.
-Yet, it can also easily reduce such usage if its popularity ever declines.
+Yet, it can also easily reduce cloud usage if its popularity ever declines.
 You then pay strictly for what you need at a specific time.
 
 "Rarely do people mention how security is a benefit of moving to the cloud,"
@@ -64,44 +64,40 @@ However, unknown to many, these are only partial benefits.
 
 == What is the SRM?
 
-According to
-link:https://www.csoonline.com/article/3043030/top-cloud-security-threats.html[Violino on CSO], for example,
+According to link:https://www.csoonline.com/article/3043030/top-cloud-security-threats.html[Violino on CSO], for example,
 "Contrary to what many might think,
 the main responsibility for protecting corporate data in the cloud
 lies not with the service provider but with the cloud customer."
 Cloud security efforts do not depend on just one of the parties involved.
-In fact,
-link:https://blog.radware.com/security/cloudsecurity/2020/10/understanding-the-shared-responsibility-model/[CSPs subscribe to] the globally accepted security SRM,
+In fact, link:https://blog.radware.com/security/cloudsecurity/2020/10/understanding-the-shared-responsibility-model/[CSPs subscribe to the globally accepted security SRM],
 in which they are primarily concerned with the security of physical aspects,
 infrastructure, network, and virtualization.
 On the other hand, the customer must always guarantee
 the security of the user access/identity and data.
-As shown in
-link:https://www.oracle.com/a/ocom/docs/cloud/oracle-ctr-2020-shared-responsibility.pdf[*Figure 1*], the party responsible
+As shown in *Figure 1*, the party responsible
 for protecting the application or the guest OS
 will vary based on the type of cloud service
-(IaaS, PaaS, and SaaS; see
-link:https://miro.medium.com/max/2800/1*hlMABmD_hJmMJlu433KIAg.png[*Figure 2*]).
+(IaaS, PaaS, and SaaS; see *Figure 2*).
 Besides, some other differences in these delimitations
 may be the product of the CSPs' particular choices.
 
-.Cloud security shared responsibility model.
+.Cloud security shared responsibility model (source: link:https://www.oracle.com/a/ocom/docs/cloud/oracle-ctr-2020-shared-responsibility.pdf[Oracle.com]).
 image::oracle.png[Oracle]
 
-.Types of cloud services.
+.Types of cloud services (source: link:https://miro.medium.com/max/2800/1*hlMABmD_hJmMJlu433KIAg.png[Medium.com]; see also link:https://www.zdnet.com/article/what-is-cloud-computing-everything-you-need-to-know-about-the-cloud/[Ranger's post]).
 image::ipsaas.png[IPSaaS]
 
-As
-link:https://www.oracle.com/a/ocom/docs/cloud/oracle-ctr-2020-shared-responsibility.pdf[reported by Oracle and KPMG] in research published in 2020,
-almost all of their respondents revealed high levels
+In research published in 2020,
+link:https://www.oracle.com/a/ocom/docs/cloud/oracle-ctr-2020-shared-responsibility.pdf[Oracle and KPMG] surveyed cloud service subscribers' understanding of SRM.
+Almost all of their respondents revealed high levels
 of familiarity with the term SRM.
-However, only *8%* of their participants said they entirely understand
+However, only *8%* of them said they entirely understand
 the SRM for every kind of cloud service.
 The confusion arising from this variable distribution of responsibilities
 in security matters has led many organizations to overlook
 several of their obligations inside the cloud
 or fail to fulfill them adequately.
-link:https://www.secureworldexpo.com/industry-news/4-types-cloud-security-vulnerability-mitigation[One of the most] prevalent implications of such confusion
+link:https://www.secureworldexpo.com/industry-news/4-types-cloud-security-vulnerability-mitigation[One of the most prevalent implications] of such confusion
 is the misconfiguration vulnerability
 (which may also be related to a lack of training).
 
@@ -111,11 +107,10 @@ A widely known case of misconfiguration was the
 link:https://edition.cnn.com/2019/07/29/business/capital-one-data-breach/index.html[Capital One data breach] in 2019.
 According to the SRM, a client company's employees are responsible
 for the appropriate integration of cloud service platforms.
-Following
-link:https://www.bitsight.com/blog/what-companies-using-cloud-computing-providers-need-to-know-about-their-risk-responsibilities[Kaitlyn Graham's point],
+Following link:https://www.bitsight.com/blog/what-companies-using-cloud-computing-providers-need-to-know-about-their-risk-responsibilities[Kaitlyn Graham's point],
 "Engineers that have worked with cloud computing systems
-have frequently noted that system integrations are
-link:https://www.wsj.com/articles/human-error-often-the-culprit-in-cloud-data-breaches-11566898203[not always straightforward]."
+have frequently noted that system integrations
+are link:https://www.wsj.com/articles/human-error-often-the-culprit-in-cloud-data-breaches-11566898203[not always straightforward]."
 Either because of confusion, incompetence, or both,
 Capital One personnel left a firewall improperly configured
 in the process of integrating AWS solutions,
@@ -125,31 +120,28 @@ In conclusion, Capital One, not AWS,
 link:https://www.bitsight.com/blog/what-companies-using-cloud-computing-providers-need-to-know-about-their-risk-responsibilities["was held accountable] for the monetary loss and time spent fixing the error."
 
 'Data breaches' along with 'Misconfiguration and inadequate change control'
-are the first two cloud threats that, for the education of organizations,
-the
-link:https://cloudsecurityalliance.org/[Cloud Security Alliance (CSA)] put on
-its
-link:https://cloudsecurityalliance.org/artifacts/top-threats-egregious-11-deep-dive/[Top Threats to Cloud Computing: Egregious Eleven] report.
+are the first two cloud threats that
+the link:https://cloudsecurityalliance.org/[Cloud Security Alliance (CSA)] puts on
+its link:https://cloudsecurityalliance.org/artifacts/top-threats-egregious-11-deep-dive/[Top Threats to Cloud Computing: Egregious Eleven] report
+for the education of organizations.
 Companies should not only worry about the risk of losing data
 or intellectual property but also about the risk of their cloud resources
 being deleted or modified to disrupt business operations.
-link:https://www.oracle.com/a/ocom/docs/cloud/oracle-ctr-2020-shared-responsibility.pdf[Confusion with cloud] responsibilities can also lead to errors
+link:https://www.oracle.com/a/ocom/docs/cloud/oracle-ctr-2020-shared-responsibility.pdf[Confusion with cloud responsibilities] can also lead to errors
 involving unauthorized access to data and services.
-Besides, it can open the door to malware
+Plus, it can open the door to malware
 and facilitate the stealing of cloud credentials.
 
-As
-link:https://www.secureworldexpo.com/industry-news/biggest-cloud-security-threat-2021[Mark Nunnikhoven told SecureWorld],
+As link:https://www.secureworldexpo.com/industry-news/biggest-cloud-security-threat-2021[Mark Nunnikhoven told SecureWorld],
 the vast majority of cloud service-related incidents have involved problems
 on the customer side, not the CSP side.
 link:https://blog.radware.com/security/cloudsecurity/2020/10/understanding-the-shared-responsibility-model/[Apparently, from Gartner], it is expected that by next year,
 "at least 95% of cloud security failures will be the customer's fault."
-Still,
-link:https://www.threatscape.com/what-is-the-shared-responsibility-model-your-cloud-security-responsibilities-defined/[it is said that] many companies refrain from migrating to the cloud
+Still, link:https://www.threatscape.com/what-is-the-shared-responsibility-model-your-cloud-security-responsibilities-defined/[it is said that] many companies refrain from migrating to the cloud
 because they perceive considerable security risks. That's silly.
-(Although we should never rule out the
-link:https://www.csoonline.com/article/3573371/cloud-technology-great-for-security-but-poses-systemic-risks-according-to-new-report.html[possibility of catastrophe]
-in the security of CSPs.) According to the above,
+(Although we should never rule out
+the link:https://www.csoonline.com/article/3573371/cloud-technology-great-for-security-but-poses-systemic-risks-according-to-new-report.html[possibility of catastrophe] in the security of CSPs.)
+According to the above,
 they could recognize that security is an issue
 that will be primarily affected by their decisions and actions
 in both on-premise and cloud infrastructures.
@@ -161,8 +153,7 @@ that even multiple companies inside the cloud haven't figured out.
 A solution to this problem around the SRM for any company
 could start with an education geared towards a cultural shift
 in which all parties involved, all teams, discuss cybersecurity.
-(Remember,
-link:../devsecops-concept/[everyone is responsible for 'Sec']
+(Remember, link:../devsecops-concept/[everyone is responsible for 'Sec']
 if you are following the DevSecOps approach.)
 Understanding what the cloud is
 and which security requirements are under your responsibility
@@ -170,8 +161,8 @@ is of vital importance prior to business migration.
 (If you are already in the cloud, make sure you understand this).
 Keep in mind that it is never prudent to let a desire
 for rapid migration to the cloud take precedence over security.
-Don't let cyber-criminals with their misdeeds be the ones
-to make you and your colleagues aware of your security obligations.
+Don't let cyber-criminals be the ones to make you and your colleagues
+aware of your security obligations with their misdeeds.
 
 Of course, without hesitation,
 establish a conversation with your CSP whenever necessary.
@@ -183,8 +174,7 @@ Bear in mind that it is always crucial to have robust authentication mechanisms
 and manage a definite restriction of access to critical data and systems.
 Likewise, keep threat models up to date and deploy continuous monitoring
 for configuration errors and vulnerabilities.
-(
-link:../../services/continuous-hacking/[`Fluid Attacks` red team] can help you with that.)
+(link:../../services/continuous-hacking/[`Fluid Attacks` red team] can help you with that.)
 Finally, don't forget that if you don't understand
 and address cloud security in your company's digital transformation,
 the next cybersecurity breach could be your fault!
