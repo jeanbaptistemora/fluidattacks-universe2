@@ -56,7 +56,7 @@
 airs.eph-stop:
   <<: *makes
   script:
-    - ./m airs . eph-stop
+    - ./m airs eph-stop
   stage: deploy-app
   environment:
     name: ephemeral/${CI_COMMIT_REF_NAME}

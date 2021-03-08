@@ -37,7 +37,7 @@ function job_airs_deploy_local {
   &&  helper_airs_set_lc_all \
   &&  helper_airs_compile 'http://localhost:8000' \
   &&  popd \
-  &&  airs airs/output dev \
+  &&  airs dev \
   ||  return 1
 }
 
@@ -48,7 +48,7 @@ function job_airs_deploy_ephemeral {
   &&  helper_airs_aws_login development \
   &&  helper_airs_compile "https://web.eph.fluidattacks.com/${CI_COMMIT_REF_NAME}" \
   &&  popd \
-  &&  airs airs/output eph \
+  &&  airs eph \
   ||  return 1
 }
 
@@ -59,6 +59,6 @@ function job_airs_deploy_production {
   &&  helper_airs_aws_login production \
   &&  helper_airs_compile 'https://fluidattacks.com' \
   &&  popd \
-  &&  airs airs/output prod \
+  &&  airs prod \
   ||  return 1
 }

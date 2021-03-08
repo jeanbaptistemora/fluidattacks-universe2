@@ -136,8 +136,8 @@ function announce_to_bugsnag {
 }
 
 function main {
-  local out="${1}"
-  local env="${2:-}"
+  local env="${1:-}"
+  local out='airs/output'
   local url_to_replace='please-replace-this-url-before-deploying'
   local path_to_replace='please-replace-this-path-before-deploying'
 
