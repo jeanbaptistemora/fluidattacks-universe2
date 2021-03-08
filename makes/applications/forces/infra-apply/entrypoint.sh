@@ -1,7 +1,7 @@
 # shellcheck shell=bash
 
 function main {
-  terraforma-apply -var="projects=$(forces_projects)"
+  terraform-apply -var="projects=$(forces_projects)"
 }
 
 main

@@ -3,7 +3,7 @@
 , terraformTest
 , ...
 }:
-makeEntrypoint rec {
+makeEntrypoint {
   name = "integrates-infra-cluster-test";
   searchPaths = {
     envPaths = [

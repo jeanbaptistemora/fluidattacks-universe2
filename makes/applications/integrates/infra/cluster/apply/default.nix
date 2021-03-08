@@ -3,7 +3,7 @@
 , terraformApply
 , ...
 }:
-makeEntrypoint rec {
+makeEntrypoint {
   name = "integrates-infra-cluster-apply";
   searchPaths = {
     envPaths = [

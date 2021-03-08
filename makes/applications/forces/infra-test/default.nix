@@ -4,7 +4,7 @@
 , path
 , ...
 }:
-makeEntrypoint rec {
+makeEntrypoint {
   name = "forces-infra-test";
   searchPaths = {
     envPaths = [

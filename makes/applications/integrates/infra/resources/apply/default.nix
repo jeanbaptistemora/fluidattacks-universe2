@@ -4,7 +4,7 @@
 , terraformApply
 , ...
 }:
-makeEntrypoint rec {
+makeEntrypoint {
   arguments = {
     envLambdaSendMailNotification = packages.integrates.lambda.send-mail-notification;
   };
@@ -12,7 +12,7 @@ makeEntrypoint rec {
   searchPaths = {
     envPaths = [
       (terraformApply {
-        inherit name;
+        name = "terraform-apply";
         product = "integrates";
         target = "integrates/deploy/terraform-resources";
       })

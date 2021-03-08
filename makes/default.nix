@@ -58,6 +58,7 @@ let
     buildPythonRequirements = importUtility "build-python-requirements";
     buildRubyRequirement = importUtility "build-ruby-requirement";
     computeOnAws = importUtility "compute-on-aws";
+    fetchurl = nixpkgs.fetchurl;
     fetchzip = nixpkgs.fetchzip;
     getPackageJsonDeps = importUtility "get-package-json-deps";
     lintPython = importUtility "lint-python";

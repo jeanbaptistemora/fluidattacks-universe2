@@ -1,4 +1,5 @@
-{ path
+{ fetchurl
+, path
 , nixpkgs
 , ...
 }:
@@ -7,7 +8,7 @@ let
 in
 makeDerivation {
   arguments = {
-    envANTLR = nixpkgs.fetchurl {
+    envANTLR = fetchurl {
       sha256 = "0nms976cnqyr1ndng3haxkmknpdq6xli4cpf4x4al0yr21l9v93k";
       url = "https://www.antlr.org/download/antlr-4.8-complete.jar";
     };

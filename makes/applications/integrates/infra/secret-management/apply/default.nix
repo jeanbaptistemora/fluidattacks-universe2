@@ -4,7 +4,7 @@
 , terraformApply
 , ...
 }:
-makeEntrypoint rec {
+makeEntrypoint {
   name = "integrates-infra-secret-management-apply";
   searchPaths = {
     envPaths = [

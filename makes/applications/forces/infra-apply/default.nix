@@ -9,7 +9,7 @@ makeEntrypoint {
   searchPaths = {
     envPaths = [
       (terraformApply {
-        name = "terraforma-apply";
+        name = "terraform-apply";
         product = "forces";
         target = "forces/infra";
       })

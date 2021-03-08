@@ -4,7 +4,7 @@
 , makeEntrypoint
 , ...
 }:
-makeEntrypoint rec {
+makeEntrypoint {
   name = "integrates-infra-secret-management-test";
   searchPaths = {
     envPaths = [
