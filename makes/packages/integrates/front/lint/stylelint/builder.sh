@@ -4,7 +4,6 @@ function main {
 
       copy "${envSrcIntegratesFront}" "${out}" \
   &&  copy "${envSetupIntegratesFrontDevRuntime}/node_modules" "${out}/node_modules" \
-  &&  chmod 755 "${out}/node_modules/.bin/stylelint" \
   &&  pushd "${out}" \
     &&  if npm run lint:stylelint
         then

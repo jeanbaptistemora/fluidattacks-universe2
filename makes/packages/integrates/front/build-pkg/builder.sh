@@ -10,7 +10,6 @@ function main {
   &&  copy "${envIntegratesFront}" front \
   &&  pushd front \
     &&  copy "${envSetupIntegratesFrontDevRuntime}/node_modules" node_modules \
-    &&  chmod 755 node_modules/.bin/tcm node_modules/.bin/webpack \
     &&  patch \
           -p1 \
           --binary \

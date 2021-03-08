@@ -3,7 +3,6 @@
 , ...
 }:
 buildPythonRequirements {
-  dependencies = [ ];
   name = "integrates-web-e2e-pypi";
   requirements = {
     direct = [

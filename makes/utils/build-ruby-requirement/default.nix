@@ -1,6 +1,6 @@
 path: pkgs:
 
-{ dependencies
+{ dependencies ? [ ]
 , name
 , ruby
 , requirement

@@ -3,7 +3,6 @@
 , ...
 }:
 buildNodeRequirements {
-  dependencies = [ ];
   name = "integrates-back-tools-secure-spreadsheet";
   node = nixpkgs.nodejs;
   requirements = {

@@ -7,7 +7,6 @@
 } @ _:
 let
   pythonRequirements = buildPythonRequirements {
-    dependencies = [ ];
     name = "integrates-back-structure-pypi";
     python = nixpkgs.python37;
     requirements = {
