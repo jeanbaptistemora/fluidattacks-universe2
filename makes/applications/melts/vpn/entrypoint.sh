@@ -1,7 +1,5 @@
 # shellcheck shell=bash
 
-export PATH="__envNetworkManager__/bin:${PATH:-}"
-
 function main {
   local vpn_data
   local vpn_ipsec_psk
