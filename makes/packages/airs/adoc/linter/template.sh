@@ -33,6 +33,28 @@ function check_adoc_blog_categories {
       done
 }
 
+function check_adoc_blog_patterns {
+  local target="${1}"
+  declare -A msgs=(
+    [source_unsplash]='The cover image is not from unsplash'
+    [subtitle_length_limit]='Subtitles must not exceed 55 characters'
+    [title_length_limit]='Title must not exceed 35 characters'
+  )
+  declare -A patterns=(
+    [source_unsplash]='(?<=^:source: )((?!https://unsplash).*$)'
+    [subtitle_length_limit]='(?<=^:subtitle: ).{56,}'
+    [title_length_limit]='^= .{35,}'
+  )
+
+  for test in "${!patterns[@]}"
+  do
+    if pcregrep -MH "${patterns[${test}]}" "${target}"
+    then
+      abort "[ERROR] ${msgs[${test}]}: ${target}"
+    fi
+  done
+}
+
 function check_adoc_blog_tags {
   local target="${1}"
   local valid_tags=(

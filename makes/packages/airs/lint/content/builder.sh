@@ -44,6 +44,7 @@ function main {
       do
             echo "[INFO] Verifying: ${path}" \
         &&  check_adoc_blog_categories "${path}" \
+        &&  check_adoc_blog_patterns "${path}" \
         &&  check_adoc_blog_tags "${path}" \
         &&  check_adoc_lix "${path}" '50' \
         &&  check_adoc_tag_exists "${path}" 'alt' \
