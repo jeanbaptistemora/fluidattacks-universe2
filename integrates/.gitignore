@@ -12,7 +12,7 @@
 /.Storage
 /analytics/collector/**/*.png
 /analytics/generators/**/*.json
-/app/static/dashboard
+/app
 /back/packages/integrates-back/backend/reports/tpls/*.tpl
 /build
 /deploy/permissions-matrix/**/*.html

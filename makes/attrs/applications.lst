@@ -34,6 +34,8 @@ integrates.db.migration
 integrates.front
 integrates.front.build
 integrates.front.deploy
+integrates.front.deploy.dev
+integrates.front.deploy.prod
 integrates.infra.backup.apply
 integrates.infra.backup.test
 integrates.infra.cache-db.apply
