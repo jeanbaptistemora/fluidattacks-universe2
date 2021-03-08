@@ -450,6 +450,7 @@ class Batcher():
         # initialize the bucket
         if table_name not in self.buckets:
             self.buckets[table_name] = {
+                "n_fields": len(self.fields[table_name]),
                 "records": [],
                 "count": 0,
                 "size": 0
@@ -461,11 +462,15 @@ class Batcher():
         row_size = str_len(row)
 
         # a redshift statement must be less than 16MB
-        # also load if there are too many queued rows
-
+        # also load if there are too many queued data (rows * fields)
         # if we are to exceed the limit with the current row
+
+        n_fields = self.buckets[table_name]["n_fields"]
+        n_values = self.buckets[table_name]["count"] + 1
+        n_items = n_fields * n_values
+
         if self.buckets[table_name]["size"] + row_size >= 13000000 \
-                or self.buckets[table_name]["count"] + 1 >= 100000:
+                or n_items >= 1000000:
             # load the queued rows to Redshift
             self.load(table_name)
 
