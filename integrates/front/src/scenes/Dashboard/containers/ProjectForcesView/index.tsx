@@ -1,17 +1,11 @@
-/* tslint:disable:jsx-no-multiline-js
- *
- * Disabling this rule is necessary for the sake of readability
- */
-
 // Third parties imports
-import { QueryResult } from "@apollo/react-common";
-import { Query } from "@apollo/react-components";
 import _ from "lodash";
 import React from "react";
 import { dateFilter, selectFilter } from "react-bootstrap-table2-filter";
 import { useParams } from "react-router-dom";
 
 // Local imports
+import { useQuery } from "@apollo/react-hooks";
 import { ApolloError } from "apollo-client";
 import { GraphQLError } from "graphql";
 
@@ -224,93 +218,87 @@ const projectForcesView: React.FC = (): JSX.Element => {
     });
   };
 
+  const { data } = useQuery(GET_FORCES_EXECUTIONS, {
+    onError: handleQryErrors,
+    variables: { projectName },
+  });
+
+  if (_.isUndefined(data) || _.isEmpty(data)) {
+    return <div />;
+  }
+
+  const executions: IExecution[] = data.forcesExecutions.executions
+    .map((execution: IExecution) => {
+      const date: string = formatDate(execution.date);
+      const kind: string =
+        translate.t(`group.forces.kind.${execution.kind}`);
+      const strictness: string = toTitleCase(
+        translate.t(
+          execution.strictness === "lax"
+            ? "group.forces.strictness.tolerant"
+            : "group.forces.strictness.strict"));
+      const vulnerabilities: IVulnerabilities =
+        execution.vulnerabilities;
+      const foundVulnerabilities: IFoundVulnerabilities = {
+            accepted: vulnerabilities.numOfAcceptedVulnerabilities,
+            closed: vulnerabilities.numOfClosedVulnerabilities,
+            open: vulnerabilities.numOfOpenVulnerabilities,
+            total:
+              vulnerabilities.numOfAcceptedVulnerabilities +
+              vulnerabilities.numOfOpenVulnerabilities +
+              vulnerabilities.numOfClosedVulnerabilities,
+          };
+      const status: string = translate.t(
+        foundVulnerabilities.open === 0
+          ? "group.forces.status.secure"
+          : "group.forces.status.vulnerable");
+
+      return {
+        ...execution,
+        date,
+        foundVulnerabilities,
+        kind,
+        status,
+        strictness,
+      };
+    });
+
+  const initialSort: string = JSON.stringify({ dataField: "date", order: "desc" });
+
   return (
-    <Query
-      query={GET_FORCES_EXECUTIONS}
-      variables={{ projectName }}
-      onError={handleQryErrors}
-    >
-      {
-        ({ data }: QueryResult): JSX.Element => {
-          if (_.isUndefined(data) || _.isEmpty(data)) {
-            return <React.Fragment />;
-          }
-
-          const executions: IExecution[] = data.forcesExecutions.executions
-            .map((execution: IExecution) => {
-              const date: string = formatDate(execution.date);
-              const kind: string =
-                translate.t(`group.forces.kind.${execution.kind}`);
-              const strictness: string = toTitleCase(
-                translate.t(
-                  execution.strictness === "lax"
-                    ? "group.forces.strictness.tolerant"
-                    : "group.forces.strictness.strict"));
-              const vulnerabilities: IVulnerabilities =
-                execution.vulnerabilities;
-              const foundVulnerabilities: IFoundVulnerabilities = {
-                    accepted: vulnerabilities.numOfAcceptedVulnerabilities,
-                    closed: vulnerabilities.numOfClosedVulnerabilities,
-                    open: vulnerabilities.numOfOpenVulnerabilities,
-                    total:
-                      vulnerabilities.numOfAcceptedVulnerabilities +
-                      vulnerabilities.numOfOpenVulnerabilities +
-                      vulnerabilities.numOfClosedVulnerabilities,
-                  };
-              const status: string = translate.t(
-                foundVulnerabilities.open === 0
-                  ? "group.forces.status.secure"
-                  : "group.forces.status.vulnerable");
-
-              return {
-                ...execution,
-                date,
-                foundVulnerabilities,
-                kind,
-                status,
-                strictness,
-              };
-            });
-
-          const initialSort: string = JSON.stringify({ dataField: "date", order: "desc" });
-
-          return (
-              <React.StrictMode>
-                <p>{translate.t("group.forces.tableAdvice")}</p>
-                <DataTableNext
-                  bordered={true}
-                  dataset={executions}
-                  defaultSorted={JSON.parse(_.get(sessionStorage, "forcesSort", initialSort))}
-                  exportCsv={true}
-                  search={true}
-                  headers={headersExecutionTable}
-                  id="tblForcesExecutions"
-                  pageSize={100}
-                  rowEvents={{ onClick: openSeeExecutionDetailsModal }}
-                  isFilterEnabled={isFilterEnabled}
-                  onUpdateEnableFilter={handleUpdateFilter}
-                />
-                <Modal
-                  headerTitle={translate.t("group.forces.executionDetailsModal.title")}
-                  open={isExecutionDetailsModalOpen}
-                  size={"largeModal"}
-                >
-                  <Execution {...currentRow} />
-                  <hr />
-                  <Row>
-                    <Col100>
-                      <ButtonToolbar>
-                        <Button onClick={closeSeeExecutionDetailsModal}>
-                          {translate.t("group.forces.executionDetailsModal.close")}
-                        </Button>
-                      </ButtonToolbar>
-                    </Col100>
-                  </Row>
-                </Modal>
-              </React.StrictMode>
-            );
-        }}
-    </Query>
+    <React.StrictMode>
+      <p>{translate.t("group.forces.tableAdvice")}</p>
+      <DataTableNext
+        bordered={true}
+        dataset={executions}
+        defaultSorted={JSON.parse(_.get(sessionStorage, "forcesSort", initialSort))}
+        exportCsv={true}
+        search={true}
+        headers={headersExecutionTable}
+        id="tblForcesExecutions"
+        pageSize={100}
+        rowEvents={{ onClick: openSeeExecutionDetailsModal }}
+        isFilterEnabled={isFilterEnabled}
+        onUpdateEnableFilter={handleUpdateFilter}
+      />
+      <Modal
+        headerTitle={translate.t("group.forces.execution_details_modal.title")}
+        open={isExecutionDetailsModalOpen}
+        size={"largeModal"}
+      >
+        <Execution {...currentRow} />
+        <hr />
+        <Row>
+          <Col100>
+            <ButtonToolbar>
+              <Button onClick={closeSeeExecutionDetailsModal}>
+                {translate.t("group.forces.execution_details_modal.close")}
+              </Button>
+            </ButtonToolbar>
+          </Col100>
+        </Row>
+      </Modal>
+    </React.StrictMode>
   );
 };
 
