@@ -168,11 +168,6 @@ makes.test.profiles:
       done
   stage: test-code
 
-common_test_jobs_provisioner:
-  <<: *with_nix
-  <<: *common_in_dev_branch
-  stage: test-code
-
 makes.lint.mailmap:
   <<: *with_nix
   <<: *common_in_dev_branch
