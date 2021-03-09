@@ -234,7 +234,7 @@ async def test_get_project_indicators():
     accepted = over_time[2][-1]['y']
 
     assert isinstance(test_data, dict)
-    assert len(test_data) == 15
+    assert len(test_data) == 17
     assert test_data['max_open_severity'] == Decimal(6.3).quantize(Decimal('0.1'))
     assert found == len(
         [vuln for vuln in vulns if vuln['historic_state'][-1].get('state') != 'DELETED']

@@ -18,6 +18,7 @@ from typing import (
     Counter,
     Dict,
     List,
+    Optional,
     Tuple,
     Union,
 )
@@ -180,7 +181,9 @@ def get_finding_url(finding: Dict[str, FindingType]) -> str:
 def get_status_vulns_by_time_range(
         vulns: List[Dict[str, FindingType]],
         first_day: str,
-        last_day: str) -> Dict[str, int]:
+        last_day: str,
+        min_date: Optional[str] = None
+) -> Dict[str, int]:
     """Get total closed and found vulnerabilities by time range"""
     resp: Dict[str, int] = defaultdict(int)
     for vuln in vulns:
@@ -193,10 +196,10 @@ def get_status_vulns_by_time_range(
         if first_day <= historic_states[0]['date'] <= last_day:
             resp['found'] += 1
     resp['closed'] = sum([
-        get_closed_vulns(vuln, last_day) for vuln in vulns
+        get_closed_vulns(vuln, last_day, min_date) for vuln in vulns
     ])
     resp['accepted'] = sum([
-        get_accepted_vulns(vuln, last_day) for vuln in vulns
+        get_accepted_vulns(vuln, last_day, min_date) for vuln in vulns
     ])
     return resp
 
@@ -221,6 +224,7 @@ def create_weekly_date(first_date: str) -> str:
 def get_closed_vulns(
     vuln: Dict[str, FindingType],
     last_day: str,
+    min_date: Optional[str] = None,
 ) -> int:
     historic_state = sort_historic_by_date(vuln['historic_state'])
     states = filter_by_date(
@@ -228,6 +232,13 @@ def get_closed_vulns(
     )
     if (states and states[-1]['date'] <= last_day and
             states[-1]['state'] == 'closed'):
+        if (
+            min_date and
+            datetime_utils.get_from_str(
+                historic_state[0]['date']
+            ) < datetime_utils.get_from_str(min_date)
+        ):
+            return 0
         return 1
 
     return 0
@@ -236,6 +247,7 @@ def get_closed_vulns(
 def get_accepted_vulns(
     vuln: Dict[str, FindingType],
     last_day: str,
+    min_date: Optional[str] = None,
 ) -> int:
     accepted_treatments = {'ACCEPTED', 'ACCEPTED_UNDEFINED'}
     sorted_treatment = sort_historic_by_date(
@@ -246,14 +258,16 @@ def get_accepted_vulns(
     )
     if (treatments and
             treatments[-1].get('treatment') in accepted_treatments):
-        return get_by_time_range(vuln, last_day)
+        return get_by_time_range(vuln, last_day, min_date)
 
     return 0
 
 
 def get_by_time_range(
-        vuln: Dict[str, FindingType],
-        last_day: str) -> int:
+    vuln: Dict[str, FindingType],
+    last_day: str,
+    min_date: Optional[str] = None,
+) -> int:
     """Accepted vulnerability"""
     historic_state = sort_historic_by_date(vuln['historic_state'])
     states = filter_by_date(
@@ -261,6 +275,14 @@ def get_by_time_range(
     )
     if (states and
             states[-1]['date'] <= last_day and states[-1]['state'] == 'open'):
+        if (
+            min_date and
+            datetime_utils.get_from_str(
+                historic_state[0]['date']
+            ) < datetime_utils.get_from_str(min_date)
+        ):
+            return 0
+
         return 1
 
     return 0
@@ -268,29 +290,30 @@ def get_by_time_range(
 
 async def create_register_by_week(
     context: Any,
-    project: str
+    project: str,
+    min_date: Optional[datetime] = None
 ) -> List[List[Dict[str, Union[str, int]]]]:
     """Create weekly vulnerabilities registry by project"""
     finding_vulns_loader = context.finding_vulns_nzr
-    group_findings_loader = context.group_findings
     accepted = 0
     closed = 0
     found = 0
     all_registers = OrderedDict()
 
-    findings_released = await group_findings_loader.load(project)
+    findings_released = await context.group_findings.load(project)
     vulns = await finding_vulns_loader.load_many_chained([
         finding['finding_id'] for finding in findings_released
     ])
 
     if vulns:
-        first_day, last_day = get_first_week_dates(vulns)
+        first_day, last_day = get_first_week_dates(vulns, min_date)
         first_day_last_week = get_date_last_vulns(vulns)
         while first_day <= first_day_last_week:
             result_vulns_by_week = get_status_vulns_by_time_range(
                 vulns,
                 first_day,
                 last_day,
+                datetime_utils.get_as_str(min_date) if min_date else None
             )
             accepted = result_vulns_by_week.get('accepted', 0)
             closed = result_vulns_by_week.get('closed', 0)
@@ -340,7 +363,9 @@ def create_data_format_chart(
 
 
 def get_first_week_dates(
-        vulns: List[Dict[str, FindingType]]) -> Tuple[str, str]:
+    vulns: List[Dict[str, FindingType]],
+    min_date: Optional[datetime] = None
+) -> Tuple[str, str]:
     """Get first week vulnerabilities"""
     first_date = min([
         datetime_utils.get_from_str(
@@ -351,6 +376,8 @@ def get_first_week_dates(
         )
         for vuln in vulns
     ])
+    if min_date:
+        first_date = min_date
     day_week = first_date.weekday()
     first_day_delta = datetime_utils.get_minus_delta(first_date, days=day_week)
     first_day = datetime.combine(first_day_delta, datetime.min.time())
@@ -727,6 +754,20 @@ async def get_project_indicators(project: str) -> Dict[str, object]:
         context,
         project
     )
+    remediated_over_thirty_days = await create_register_by_week(
+        context,
+        project,
+        datetime.combine(
+            datetime_utils.get_now_minus_delta(days=30), datetime.min.time()
+        )
+    )
+    remediated_over_ninety_days = await create_register_by_week(
+        context,
+        project,
+        datetime.combine(
+            datetime_utils.get_now_minus_delta(days=90), datetime.min.time()
+        )
+    )
     indicators = {
         'closed_vulnerabilities': (
             await project_domain.get_closed_vulnerabilities(context, project)
@@ -787,7 +828,9 @@ async def get_project_indicators(project: str) -> Dict[str, object]:
             context,
             findings
         ),
-        'remediated_over_time': remediated_over_time
+        'remediated_over_time': remediated_over_time,
+        'remediated_over_time_30': remediated_over_thirty_days,
+        'remediated_over_time_90': remediated_over_ninety_days
     }
     return indicators
 
