@@ -21,8 +21,7 @@ data "aws_iam_policy_document" "sorts_sagemaker_policy" {
   statement {
     effect = "Allow"
     actions = [
-      "s3:Get*",
-      "s3:List*"
+      "s3:*"
     ]
     resources = [
       "arn:aws:s3:::sorts",
