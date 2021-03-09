@@ -40,7 +40,6 @@ async def populate_users(data: List[Any]) -> bool:
 
 
 async def populate_names(data: List[Any]) -> bool:
-    success: bool = False
     coroutines: List[Awaitable[bool]] = []
     coroutines.extend([
         dal_name.create(
@@ -76,7 +75,19 @@ async def populate_orgs(data: List[Any]) -> bool:
                     group,
                 )
             )
-    return all(await collect(coroutines))
+    success = all(await collect(coroutines))
+    coroutines = []
+    coroutines.extend([
+        dal_organization.update(
+            org['id'],
+            org['name'],
+            org['policy'],
+        )
+        for org in data if org['policy']
+    ])
+    success = success and all(await collect(coroutines))
+    return success
+
 
 
 async def populate_groups(data: List[Any]) -> bool:

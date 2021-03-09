@@ -25,6 +25,7 @@ async def populate() -> bool:
                     'test2@gmail.com',
                 ],
                 'groups': [],
+                'policy': {},
             },
         ],
         'users': [

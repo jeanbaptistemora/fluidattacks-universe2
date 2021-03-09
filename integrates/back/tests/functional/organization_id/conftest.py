@@ -36,7 +36,8 @@ async def populate() -> bool:
                 'users': [
                     'test1@test1.com',
                 ],
-                'groups': []
+                'groups': [],
+                'policy': {},
             },
         ],
         'policies': [

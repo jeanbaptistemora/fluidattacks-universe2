@@ -39,6 +39,7 @@ async def populate() -> bool:
                 'groups': [
                     'group-1',
                 ],
+                'policy': {},
             },
         ],
         'groups': [

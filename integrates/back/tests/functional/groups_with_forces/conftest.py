@@ -40,6 +40,7 @@ async def populate() -> bool:
                     'group-1',
                     'group-2',
                 ],
+                'policy': {},
             },
         ],
         'groups': [
