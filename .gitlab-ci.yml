@@ -97,11 +97,10 @@ makes.deploy.oci-batch:
   stage: build
   tags: [autoscaling-large]
 
-makes.deploy.oci-ci:
+makes.deploy.oci.ci:
   <<: *makes
   <<: *common_in_master_branch
   stage: build
-  tags: [autoscaling-large]
 
 makes.doc.deploy.dev:
   <<: *makes
