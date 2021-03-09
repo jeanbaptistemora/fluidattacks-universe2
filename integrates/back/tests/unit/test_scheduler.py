@@ -14,6 +14,9 @@ from backend.dal.vulnerability import get as get_vuln
 from backend.dal import (
     user as user_dal,
 )
+from backend.domain import (
+    project as group_domain,
+)
 from backend.domain.organization import (
     get_id_by_name,
     get_pending_deletion_date_str,
@@ -33,6 +36,7 @@ from backend.scheduler import (
     get_project_indicators,
     delete_imamura_stakeholders,
     delete_obsolete_orgs,
+    delete_obsolete_groups,
     calculate_vulnerabilities
 )
 from newutils import datetime as datetime_utils
@@ -328,3 +332,46 @@ async def test_delete_imamura_stakeholders():
     )
     nodelete_stakeholder_exists = bool(nodelete_stakeholder)
     assert nodelete_stakeholder_exists
+
+
+@pytest.mark.changes_db
+async def test_delete_obsolete_groups():
+    group_attributes = {
+        'project_name',
+        'project_status',
+        'pending_deletion_date'
+    }
+    alive_groups = await group_domain.get_alive_groups(group_attributes)
+    assert len(alive_groups) == 13
+    expected_groups = [
+        {
+            'project_status': 'SUSPENDED',
+            'project_name': 'setpendingdeletion',
+        },
+        {
+            'project_name': 'deletegroup',
+            'project_status': 'ACTIVE',
+            'pending_deletion_date': '2020-12-22 14:36:29'
+        },
+    ]
+    for expected_group in expected_groups:
+        assert expected_group in alive_groups
+
+    await delete_obsolete_groups()
+
+    alive_groups = await group_domain.get_alive_groups(group_attributes)
+    assert len(alive_groups) == 12
+    groups = await group_domain.get_all(group_attributes)
+    setpendingdeletion = [
+        group
+        for group in groups
+        if group['project_name'] == 'setpendingdeletion'
+    ][0]
+    assert setpendingdeletion['project_status'] == 'SUSPENDED'
+    assert 'pending_deletion_date' in setpendingdeletion
+    deletegroup = [
+        group
+        for group in groups
+        if group['project_name'] == 'deletegroup'
+    ][0]
+    assert deletegroup['project_status'] == 'DELETED'
