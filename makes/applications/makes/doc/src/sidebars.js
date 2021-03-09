@@ -12,13 +12,19 @@ function getDocs(path) {
 }
 
 module.exports = {
-  App: {
-    App: getDocs('app'),
+  Web: {
+    Web: getDocs('web'),
   },
-  Asserts: {
-    Asserts: getDocs('asserts'),
+  Mobile: {
+    Mobile: getDocs('mobile'),
   },
-  Machine: {
-    Machine: getDocs('machine'),
+  API: {
+    API: getDocs('api'),
+  },
+  Agent: {
+    Agent: getDocs('agent'),
+  },
+  Framework: {
+    Framework: getDocs('framework'),
   },
 };

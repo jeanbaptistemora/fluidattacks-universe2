@@ -2,9 +2,9 @@
 id: home
 title: Home
 sidebar_label: Home
-slug: /Machine
+slug: /agent
 ---
 
 # Home
 
-Machine home
+Agent home

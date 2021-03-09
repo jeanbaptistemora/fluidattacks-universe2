@@ -20,21 +20,33 @@ module.exports = {
       },
       items: [
         {
-          to: 'app/',
-          activeBasePath: 'app/',
-          label: 'App',
+          to: 'web/',
+          activeBasePath: 'web/',
+          label: 'Web',
           position: 'left',
         },
         {
-          to: 'asserts/',
-          activeBasePath: 'asserts/',
-          label: 'Asserts',
+          to: 'mobile/',
+          activeBasePath: 'mobile/',
+          label: 'Mobile',
           position: 'left',
         },
         {
-          to: 'machine/',
-          activeBasePath: 'machine/',
-          label: 'Machine',
+          to: 'api/',
+          activeBasePath: 'api/',
+          label: 'API',
+          position: 'left',
+        },
+        {
+          to: 'agent/',
+          activeBasePath: 'agent/',
+          label: 'Agent',
+          position: 'left',
+        },
+        {
+          to: 'framework/',
+          activeBasePath: 'framework/',
+          label: 'Framework',
           position: 'left',
         },
       ],
@@ -63,11 +75,11 @@ module.exports = {
           title: 'Main',
           items: [
             {
-              label: 'App',
+              label: 'Web',
               to: 'https://integrates.fluidattacks.com',
             },
             {
-              label: 'Website',
+              label: 'Site',
               to: 'https://fluidattacks.com',
             },
           ],

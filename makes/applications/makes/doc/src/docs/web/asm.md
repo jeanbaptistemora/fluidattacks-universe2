@@ -2,7 +2,7 @@
 id: asm
 title: Attack Surface Management
 sidebar_label: Attack Surface Management
-slug: /app
+slug: /web
 ---
 
 Fluid Attacks ASM (Attack Surface Management)

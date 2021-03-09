@@ -8,26 +8,42 @@ import styles from './styles.module.css';
 
 const features = [
   {
-    title: 'App',
+    title: 'Web',
     description: (
       <>
-        App description
+        Web description
       </>
     ),
   },
   {
-    title: 'Asserts',
+    title: 'Mobile',
     description: (
       <>
-        Asserts description
+        Mobile description
       </>
     ),
   },
   {
-    title: 'Machine',
+    title: 'API',
     description: (
       <>
-        Machine description
+        API description
+      </>
+    ),
+  },
+  {
+    title: 'Agent',
+    description: (
+      <>
+        Agent description
+      </>
+    ),
+  },
+  {
+    title: 'Framework',
+    description: (
+      <>
+        Framework description
       </>
     ),
   },
