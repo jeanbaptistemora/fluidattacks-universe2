@@ -1,84 +1,131 @@
-import { useMutation, useQuery } from "@apollo/react-hooks";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { ApolloError } from "apollo-client";
-import { GraphQLError } from "graphql";
-import _ from "lodash";
-import React from "react";
-import { selectFilter } from "react-bootstrap-table2-filter";
-import { useHistory, useParams } from "react-router-dom";
-import { Field, InjectedFormProps } from "redux-form";
-
+import type { ApolloError } from "apollo-client";
+import { AutoCompleteText } from "utils/forms/fields";
 import { Button } from "components/Button";
 import { DataTableNext } from "components/DataTableNext";
-import { statusFormatter } from "components/DataTableNext/formatters";
-import { IHeaderConfig } from "components/DataTableNext/types";
-import { Modal } from "components/Modal";
-import { TooltipWrapper } from "components/TooltipWrapper";
+import { Field } from "redux-form";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { GenericForm } from "scenes/Dashboard/components/GenericForm";
-import { CREATE_DRAFT_MUTATION, GET_DRAFTS } from "scenes/Dashboard/containers/ProjectDraftsView/queries";
-import { IProjectDraftsAttr } from "scenes/Dashboard/containers/ProjectDraftsView/types";
-import { formatDrafts } from "scenes/Dashboard/containers/ProjectDraftsView/utils";
-import { ButtonToolbar, ButtonToolbarCenter, Col100, Row } from "styles/styledComponents";
-import { AutoCompleteText } from "utils/forms/fields";
+import type { GraphQLError } from "graphql";
+import type { IHeaderConfig } from "components/DataTableNext/types";
+import type { IProjectDraftsAttr } from "scenes/Dashboard/containers/ProjectDraftsView/types";
+import type { InjectedFormProps } from "redux-form";
 import { Logger } from "utils/logger";
-import { msgError, msgSuccess } from "utils/notifications";
+import { Modal } from "components/Modal";
+import React from "react";
+import { TooltipWrapper } from "components/TooltipWrapper";
+import _ from "lodash";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { formatDrafts } from "scenes/Dashboard/containers/ProjectDraftsView/utils";
+import { selectFilter } from "react-bootstrap-table2-filter";
+import { statusFormatter } from "components/DataTableNext/formatters";
 import { translate } from "utils/translations/translate";
+import {
+  ButtonToolbar,
+  ButtonToolbarCenter,
+  Col100,
+  Row,
+} from "styles/styledComponents";
+import {
+  CREATE_DRAFT_MUTATION,
+  GET_DRAFTS,
+} from "scenes/Dashboard/containers/ProjectDraftsView/queries";
+import { msgError, msgSuccess } from "utils/notifications";
 import { required, validDraftTitle } from "utils/validations";
+import { useHistory, useParams } from "react-router-dom";
+import { useMutation, useQuery } from "@apollo/react-hooks";
 
-const projectDraftsView: React.FC = (): JSX.Element => {
+const ProjectDraftsView: React.FC = (): JSX.Element => {
   const { projectName } = useParams<{ projectName: string }>();
   const { push } = useHistory();
 
-  const goToFinding: ((event: React.FormEvent<HTMLButtonElement>, rowInfo: { id: string }) => void) = (
-    _0: React.FormEvent<HTMLButtonElement>, rowInfo: { id: string },
+  const goToFinding: (
+    event: React.FormEvent<HTMLButtonElement>,
+    rowInfo: { id: string }
+  ) => void = (
+    _0: React.FormEvent<HTMLButtonElement>,
+    rowInfo: { id: string }
   ): void => {
     push(`/groups/${projectName}/drafts/${rowInfo.id}/locations`);
   };
 
   const [isDraftModalOpen, setDraftModalOpen] = React.useState(false);
 
-  const openNewDraftModal: (() => void) = (): void => {
+  const openNewDraftModal: () => void = React.useCallback((): void => {
     setDraftModalOpen(true);
-  };
+  }, []);
 
-  const closeNewDraftModal: (() => void) = (): void => {
+  const closeNewDraftModal: () => void = React.useCallback((): void => {
     setDraftModalOpen(false);
-  };
-  const onSortState: ((dataField: string, order: SortOrder) => void) = (
-    dataField: string, order: SortOrder,
+  }, []);
+
+  const onSortState: (dataField: string, order: SortOrder) => void = (
+    dataField: string,
+    order: SortOrder
   ): void => {
     const newSorted: Sorted = { dataField, order };
     sessionStorage.setItem("draftSort", JSON.stringify(newSorted));
   };
   const selectOptionsStatus: optionSelectFilterProps[] = [
-    { value: "Created", label: "Created" },
-    { value: "Submitted", label: "Submitted" },
-    { value: "Rejected", label: "Rejected" },
+    { label: "Created", value: "Created" },
+    { label: "Submitted", value: "Submitted" },
+    { label: "Rejected", value: "Rejected" },
   ];
-  const onFilterStatus: ((filterVal: string) => void) = (filterVal: string): void => {
+  const onFilterStatus: (filterVal: string) => void = (
+    filterVal: string
+  ): void => {
     sessionStorage.setItem("draftStatusFilter", filterVal);
   };
 
   const tableHeaders: IHeaderConfig[] = [
-    { align: "center", dataField: "reportDate", header: "Date", onSort: onSortState, width: "9%" },
-    { align: "center", dataField: "title", header: "Type", onSort: onSortState, wrapped: true, width: "28%" },
     {
-      align: "center", dataField: "description", header: "Description", onSort: onSortState, width: "28%",
+      align: "center",
+      dataField: "reportDate",
+      header: "Date",
+      onSort: onSortState,
+      width: "9%",
+    },
+    {
+      align: "center",
+      dataField: "title",
+      header: "Type",
+      onSort: onSortState,
+      width: "28%",
       wrapped: true,
     },
-    { align: "center", dataField: "severityScore", header: "Severity", onSort: onSortState, width: "10%" },
     {
-      align: "center", dataField: "openVulnerabilities", header: "Open Vulns.", onSort: onSortState, width: "10%",
+      align: "center",
+      dataField: "description",
+      header: "Description",
+      onSort: onSortState,
+      width: "28%",
+      wrapped: true,
     },
     {
-      align: "center", dataField: "currentState",
+      align: "center",
+      dataField: "severityScore",
+      header: "Severity",
+      onSort: onSortState,
+      width: "10%",
+    },
+    {
+      align: "center",
+      dataField: "openVulnerabilities",
+      header: "Open Vulns.",
+      onSort: onSortState,
+      width: "10%",
+    },
+    {
+      align: "center",
+      dataField: "currentState",
       filter: selectFilter({
         defaultValue: _.get(sessionStorage, "draftStatusFilter"),
         onFilter: onFilterStatus,
         options: selectOptionsStatus,
       }),
-      formatter: statusFormatter, header: "State", onSort: onSortState, width: "15%",
+      formatter: statusFormatter,
+      header: "State",
+      onSort: onSortState,
+      width: "15%",
       wrapped: true,
     },
   ];
@@ -92,11 +139,14 @@ const projectDraftsView: React.FC = (): JSX.Element => {
     type: string;
   }
   const [suggestions, setSuggestions] = React.useState<ISuggestion[]>([]);
-  const titleSuggestions: string[] = suggestions.map((suggestion: ISuggestion): string => suggestion.title);
+  const titleSuggestions: string[] = suggestions.map(
+    (suggestion: ISuggestion): string => suggestion.title
+  );
 
-  const onMount: (() => void) = (): void => {
+  const onMount: () => void = (): void => {
     const baseUrl: string = "https://spreadsheets.google.com/feeds/list";
-    const spreadsheetId: string = "1L37WnF6enoC8Ws8vs9sr0G29qBLwbe-3ztbuopu1nvc";
+    const spreadsheetId: string =
+      "1L37WnF6enoC8Ws8vs9sr0G29qBLwbe-3ztbuopu1nvc";
     const rowOffset: number = 2;
     const extraParams: string = `&min-row=${rowOffset}`;
 
@@ -109,30 +159,37 @@ const projectDraftsView: React.FC = (): JSX.Element => {
       gsx$tipo: { $t: string };
     }
     fetch(`${baseUrl}/${spreadsheetId}/1/public/values?alt=json${extraParams}`)
-      .then(async (httpResponse: Response) => httpResponse.json())
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      .then(async (httpResponse: Response): Promise<any> => httpResponse.json())
       .then((sData: { feed: { entry: IRowStructure[] } }): void => {
-        setSuggestions(sData.feed.entry.map((row: IRowStructure) => {
-          const cwe: RegExpMatchArray | null = row.gsx$cwe.$t.match(/\d+/g);
+        setSuggestions(
+          sData.feed.entry.map(
+            (row: IRowStructure): ISuggestion => {
+              const cwe: RegExpMatchArray | null = row.gsx$cwe.$t.match(
+                /\d+/gu
+              );
 
-          return {
-            cwe: cwe === null ? "" : cwe[0],
-            description: row.gsx$descripcion.$t,
-            recommendation: row.gsx$recomendacion.$t,
-            requirements: row.gsx$requisito.$t,
-            title: row.gsx$fin.$t,
-            type: row.gsx$tipo.$t === "Seguridad" ? "SECURITY" : "HYGIENE",
-          };
-        }));
+              return {
+                cwe: cwe === null ? "" : cwe[0],
+                description: row.gsx$descripcion.$t,
+                recommendation: row.gsx$recomendacion.$t,
+                requirements: row.gsx$requisito.$t,
+                title: row.gsx$fin.$t,
+                type: row.gsx$tipo.$t === "Seguridad" ? "SECURITY" : "HYGIENE",
+              };
+            }
+          )
+        );
       })
-      .catch((error: Error) => {
+      .catch((error: Error): void => {
         Logger.error("An error occurred getting draft suggestions", error);
       });
   };
   React.useEffect(onMount, []);
 
-  const handleQryError: ((error: ApolloError) => void) = (
-    { graphQLErrors }: ApolloError,
-  ): void => {
+  const handleQryError: (error: ApolloError) => void = ({
+    graphQLErrors,
+  }: ApolloError): void => {
     graphQLErrors.forEach((error: GraphQLError): void => {
       msgError(translate.t("groupAlerts.errorTextsad"));
       Logger.warning("An error occurred getting project drafts", error);
@@ -144,22 +201,22 @@ const projectDraftsView: React.FC = (): JSX.Element => {
     variables: { projectName },
   });
 
-  const handleMutationResult: ((result: { createDraft: { success: boolean } }) => void) = (
-    result: { createDraft: { success: boolean } },
-  ): void => {
+  const handleMutationResult: (result: {
+    createDraft: { success: boolean };
+  }) => void = (result: { createDraft: { success: boolean } }): void => {
     if (result.createDraft.success) {
       closeNewDraftModal();
       msgSuccess(
         translate.t("group.drafts.successCreate"),
-        translate.t("group.drafts.titleSuccess"),
+        translate.t("group.drafts.titleSuccess")
       );
       void refetch();
     }
   };
 
-  const handleMutationError: ((error: ApolloError) => void) = (
-    { graphQLErrors }: ApolloError,
-  ): void => {
+  const handleMutationError: (error: ApolloError) => void = ({
+    graphQLErrors,
+  }: ApolloError): void => {
     graphQLErrors.forEach((error: GraphQLError): void => {
       switch (error.message) {
         case "Exception - The inserted title is invalid":
@@ -167,25 +224,31 @@ const projectDraftsView: React.FC = (): JSX.Element => {
           break;
         default:
           msgError(translate.t("groupAlerts.errorTextsad"));
-          Logger.warning(
-            "An error occurred getting project drafts",
-            error,
-          );
+          Logger.warning("An error occurred getting project drafts", error);
       }
     });
   };
 
-  const [createDraft, { loading: submitting }] = useMutation(CREATE_DRAFT_MUTATION, {
-    onCompleted: handleMutationResult,
-    onError: handleMutationError,
-  });
+  const [createDraft, { loading: submitting }] = useMutation(
+    CREATE_DRAFT_MUTATION,
+    {
+      onCompleted: handleMutationResult,
+      onError: handleMutationError,
+    }
+  );
 
-  const handleSubmit: ((values: { title: string }) => void) = (values: { title: string }): void => {
-    const matchingSuggestion: ISuggestion = suggestions.filter((
-      suggestion: ISuggestion): boolean => suggestion.title === values.title)[0];
+  const handleSubmit: (values: { title: string }) => void = React.useCallback(
+    (values: { title: string }): void => {
+      const [matchingSuggestion] = suggestions.filter(
+        (suggestion: ISuggestion): boolean => suggestion.title === values.title
+      );
 
-    void createDraft({ variables: { ...matchingSuggestion, title: values.title, projectName } });
-  };
+      void createDraft({
+        variables: { ...matchingSuggestion, projectName, title: values.title },
+      });
+    },
+    [createDraft, projectName, suggestions]
+  );
 
   if (_.isUndefined(data) || _.isEmpty(data)) {
     return <div />;
@@ -201,7 +264,8 @@ const projectDraftsView: React.FC = (): JSX.Element => {
               message={translate.t("group.drafts.btn.tooltip")}
             >
               <Button onClick={openNewDraftModal}>
-                <FontAwesomeIcon icon={faPlus} />&nbsp;{translate.t("group.drafts.btn.text")}
+                <FontAwesomeIcon icon={faPlus} />
+                &nbsp;{translate.t("group.drafts.btn.text")}
               </Button>
             </TooltipWrapper>
           </ButtonToolbarCenter>
@@ -211,7 +275,7 @@ const projectDraftsView: React.FC = (): JSX.Element => {
         headerTitle={translate.t("group.drafts.new")}
         open={isDraftModalOpen}
       >
-        <GenericForm name="newDraft" onSubmit={handleSubmit}>
+        <GenericForm name={"newDraft"} onSubmit={handleSubmit}>
           {({ pristine }: InjectedFormProps): JSX.Element => (
             <React.Fragment>
               <Row>
@@ -219,9 +283,9 @@ const projectDraftsView: React.FC = (): JSX.Element => {
                   <label>{translate.t("group.drafts.title")}</label>
                   <Field
                     component={AutoCompleteText}
-                    name="title"
+                    name={"title"}
                     suggestions={titleSuggestions}
-                    type="text"
+                    type={"text"}
                     validate={[required, validDraftTitle]}
                   />
                 </Col100>
@@ -233,7 +297,7 @@ const projectDraftsView: React.FC = (): JSX.Element => {
                     <Button onClick={closeNewDraftModal}>
                       {translate.t("confirmmodal.cancel")}
                     </Button>
-                    <Button type="submit" disabled={pristine || submitting}>
+                    <Button disabled={pristine || submitting} type={"submit"}>
                       {translate.t("confirmmodal.proceed")}
                     </Button>
                   </ButtonToolbar>
@@ -250,7 +314,7 @@ const projectDraftsView: React.FC = (): JSX.Element => {
         defaultSorted={JSON.parse(_.get(sessionStorage, "draftSort", "{}"))}
         exportCsv={true}
         headers={tableHeaders}
-        id="tblDrafts"
+        id={"tblDrafts"}
         pageSize={15}
         rowEvents={{ onClick: goToFinding }}
         search={true}
@@ -260,4 +324,4 @@ const projectDraftsView: React.FC = (): JSX.Element => {
   );
 };
 
-export { projectDraftsView as ProjectDraftsView };
+export { ProjectDraftsView };
