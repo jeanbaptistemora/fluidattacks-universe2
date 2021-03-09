@@ -98,7 +98,7 @@ const services: React.FC<IServicesProps> = (props: IServicesProps): JSX.Element 
   const { data, loading: loadingGroupData, refetch: refetchGroupData } = useQuery(GET_GROUP_DATA, {
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
-        msgError(translate.t("group_alerts.errorTextsad"));
+        msgError(translate.t("groupAlerts.errorTextsad"));
         Logger.warning("An error occurred getting group data", error);
       });
     },
@@ -131,7 +131,7 @@ const services: React.FC<IServicesProps> = (props: IServicesProps): JSX.Element 
             msg = "search_findings.services_table.errors.forces_only_if_continuous";
             break;
           default:
-            msg = "group_alerts.errorTextsad";
+            msg = "groupAlerts.errorTextsad";
             Logger.warning("An error occurred editing group services", error);
         }
 

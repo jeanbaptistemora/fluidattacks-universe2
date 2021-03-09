@@ -49,7 +49,7 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
     },
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
-        msgError(translate.t("group_alerts.errorTextsad"));
+        msgError(translate.t("groupAlerts.errorTextsad"));
         Logger.warning("An error occurred loading organization groups", error);
       });
     },

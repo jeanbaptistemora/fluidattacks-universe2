@@ -66,7 +66,7 @@ const OrganizationContent: React.FC<IOrganizationContent> = (
   const { data: basicData } = useQuery(GET_ORGANIZATION_ID, {
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
-        msgError(translate.t("group_alerts.errorTextsad"));
+        msgError(translate.t("groupAlerts.errorTextsad"));
         Logger.warning("An error occurred fetching organization ID", error);
       });
     },
@@ -78,7 +78,7 @@ const OrganizationContent: React.FC<IOrganizationContent> = (
   const { data: portfoliosData } = useQuery(GET_USER_PORTFOLIOS, {
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
-        msgError(translate.t("group_alerts.errorTextsad"));
+        msgError(translate.t("groupAlerts.errorTextsad"));
         Logger.warning("An error occurred fetching user portfolios", error);
       });
     },

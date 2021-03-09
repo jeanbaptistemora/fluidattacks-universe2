@@ -58,7 +58,7 @@ const OrganizationPolicies: React.FC<IOrganizationPolicies> = (
     {
       onError: ({ graphQLErrors }: ApolloError): void => {
         graphQLErrors.forEach((error: GraphQLError): void => {
-          msgError(translate.t("group_alerts.errorTextsad"));
+          msgError(translate.t("groupAlerts.errorTextsad"));
           Logger.warning(
             "An error occurred fetching organization policies",
             error
@@ -113,7 +113,7 @@ const OrganizationPolicies: React.FC<IOrganizationPolicies> = (
               );
               break;
             default:
-              msgError(translate.t("group_alerts.errorTextsad"));
+              msgError(translate.t("groupAlerts.errorTextsad"));
               Logger.warning(
                 "An error occurred updating the organization policies",
                 error

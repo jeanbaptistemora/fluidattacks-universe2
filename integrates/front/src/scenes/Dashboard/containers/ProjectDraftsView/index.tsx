@@ -134,7 +134,7 @@ const projectDraftsView: React.FC = (): JSX.Element => {
     { graphQLErrors }: ApolloError,
   ): void => {
     graphQLErrors.forEach((error: GraphQLError): void => {
-      msgError(translate.t("group_alerts.errorTextsad"));
+      msgError(translate.t("groupAlerts.errorTextsad"));
       Logger.warning("An error occurred getting project drafts", error);
     });
   };
@@ -166,7 +166,7 @@ const projectDraftsView: React.FC = (): JSX.Element => {
           msgError(translate.t("validations.draftTitle"));
           break;
         default:
-          msgError(translate.t("group_alerts.errorTextsad"));
+          msgError(translate.t("groupAlerts.errorTextsad"));
           Logger.warning(
             "An error occurred getting project drafts",
             error,

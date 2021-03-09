@@ -45,7 +45,7 @@ export const useAddStakeholder: () => readonly [
   }: ApolloError): void => {
     graphQLErrors.forEach((error: GraphQLError): void => {
       Logger.warning("An error occurred adding user", error);
-      msgError(t("group_alerts.errorTextsad"));
+      msgError(t("groupAlerts.errorTextsad"));
     });
   };
 

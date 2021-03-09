@@ -49,7 +49,7 @@ const EvidenceView: React.FC = (): JSX.Element => {
     notifyOnNetworkStatusChange: true,
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
-        msgError(translate.t("group_alerts.errorTextsad"));
+        msgError(translate.t("groupAlerts.errorTextsad"));
         Logger.warning("An error occurred loading finding evidences", error);
       });
     },
@@ -61,7 +61,7 @@ const EvidenceView: React.FC = (): JSX.Element => {
     onCompleted: refetch,
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
-        msgError(translate.t("group_alerts.errorTextsad"));
+        msgError(translate.t("groupAlerts.errorTextsad"));
         Logger.warning("An error occurred removing finding evidences", error);
       });
     },
@@ -77,7 +77,7 @@ const EvidenceView: React.FC = (): JSX.Element => {
             msgError(translate.t("validations.invalid_char"));
             break;
           default:
-            msgError(translate.t("group_alerts.errorTextsad"));
+            msgError(translate.t("groupAlerts.errorTextsad"));
             Logger.warning(
               "An error occurred updating finding evidence",
               updateError
@@ -98,7 +98,7 @@ const EvidenceView: React.FC = (): JSX.Element => {
             msgError(translate.t("group.events.form.wrongImageType"));
             break;
           default:
-            msgError(translate.t("group_alerts.errorTextsad"));
+            msgError(translate.t("groupAlerts.errorTextsad"));
             Logger.warning(
               "An error occurred updating finding evidence",
               updateError

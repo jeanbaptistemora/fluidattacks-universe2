@@ -52,7 +52,7 @@ const AddOrganizationModal: React.FC<IAddOrganizationModalProps> = (
               );
               break;
             default:
-              msgError(translate.t("group_alerts.errorTextsad"));
+              msgError(translate.t("groupAlerts.errorTextsad"));
               Logger.warning(
                 "An error occurred creating an organization",
                 message
@@ -94,7 +94,7 @@ const AddOrganizationModal: React.FC<IAddOrganizationModalProps> = (
               );
               break;
             default:
-              msgError(translate.t("group_alerts.errorTextsad"));
+              msgError(translate.t("groupAlerts.errorTextsad"));
               Logger.warning(
                 "An error occurred creating new organization",
                 message

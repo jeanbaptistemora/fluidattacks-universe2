@@ -89,7 +89,7 @@ const findingContent: React.FC = (): JSX.Element => {
   }: QueryResult<IHeaderQueryResult> = useQuery(GET_FINDING_HEADER, {
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
-        msgError(translate.t("group_alerts.errorTextsad"));
+        msgError(translate.t("groupAlerts.errorTextsad"));
         Logger.warning("An error occurred loading finding header", error);
       });
     },
@@ -127,15 +127,15 @@ const findingContent: React.FC = (): JSX.Element => {
           } else if (
             message === "Exception - This draft has already been submitted"
           ) {
-            msgError(translate.t("group_alerts.draftAlreadySubmitted"));
+            msgError(translate.t("groupAlerts.draftAlreadySubmitted"));
             void headerRefetch();
           } else if (
             message === "Exception - This draft has already been approved"
           ) {
-            msgError(translate.t("group_alerts.draftAlreadyApproved"));
+            msgError(translate.t("groupAlerts.draftAlreadyApproved"));
             void headerRefetch();
           } else {
-            msgError(translate.t("group_alerts.errorTextsad"));
+            msgError(translate.t("groupAlerts.errorTextsad"));
             Logger.warning("An error occurred submitting draft", submitError);
           }
         });
@@ -161,18 +161,18 @@ const findingContent: React.FC = (): JSX.Element => {
           ({ message }: GraphQLError): void => {
             switch (message) {
               case "Exception - This draft has already been approved":
-                msgError(translate.t("group_alerts.draftAlreadyApproved"));
+                msgError(translate.t("groupAlerts.draftAlreadyApproved"));
                 void headerRefetch();
                 break;
               case "Exception - The draft has not been submitted yet":
-                msgError(translate.t("group_alerts.draftNotSubmitted"));
+                msgError(translate.t("groupAlerts.draftNotSubmitted"));
                 void headerRefetch();
                 break;
               case "CANT_APPROVE_FINDING_WITHOUT_VULNS":
-                msgError(translate.t("group_alerts.draftWithoutVulns"));
+                msgError(translate.t("groupAlerts.draftWithoutVulns"));
                 break;
               default:
-                msgError(translate.t("group_alerts.errorTextsad"));
+                msgError(translate.t("groupAlerts.errorTextsad"));
                 Logger.warning(
                   "An error occurred approving draft",
                   approveError
@@ -201,15 +201,15 @@ const findingContent: React.FC = (): JSX.Element => {
         rejectError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
           switch (message) {
             case "Exception - This draft has already been approved":
-              msgError(translate.t("group_alerts.draftAlreadyApproved"));
+              msgError(translate.t("groupAlerts.draftAlreadyApproved"));
               void headerRefetch();
               break;
             case "Exception - The draft has not been submitted yet":
-              msgError(translate.t("group_alerts.draftNotSubmitted"));
+              msgError(translate.t("groupAlerts.draftNotSubmitted"));
               void headerRefetch();
               break;
             default:
-              msgError(translate.t("group_alerts.errorTextsad"));
+              msgError(translate.t("groupAlerts.errorTextsad"));
               Logger.warning("An error occurred rejecting draft", rejectError);
           }
         });
@@ -232,7 +232,7 @@ const findingContent: React.FC = (): JSX.Element => {
       },
       onError: ({ graphQLErrors }: ApolloError): void => {
         graphQLErrors.forEach((error: GraphQLError): void => {
-          msgError(translate.t("group_alerts.errorTextsad"));
+          msgError(translate.t("groupAlerts.errorTextsad"));
           Logger.warning("An error occurred deleting finding", error);
         });
       },

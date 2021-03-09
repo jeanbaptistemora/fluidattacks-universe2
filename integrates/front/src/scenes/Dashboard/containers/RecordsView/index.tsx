@@ -35,13 +35,13 @@ const recordsView: React.FC = (): JSX.Element => {
     { graphQLErrors }: ApolloError,
   ): void => {
     graphQLErrors.forEach((error: GraphQLError): void => {
-      msgError(translate.t("group_alerts.errorTextsad"));
+      msgError(translate.t("groupAlerts.errorTextsad"));
       Logger.warning("An error occurred loading finding records", error);
     });
   };
 
   const handleRemoveErrors: ((removeError: ApolloError) => void) = (removeError: ApolloError): void => {
-    msgError(translate.t("group_alerts.errorTextsad"));
+    msgError(translate.t("groupAlerts.errorTextsad"));
     Logger.warning("An error occurred removing records", removeError);
   };
 
@@ -58,16 +58,16 @@ const recordsView: React.FC = (): JSX.Element => {
     updateError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
       switch (message) {
         case "Exception - Wrong File Structure":
-          msgError(translate.t("group_alerts.invalidStructure"));
+          msgError(translate.t("groupAlerts.invalidStructure"));
           break;
         case "Exception - Invalid File Size":
           msgError(translate.t("validations.file_size", { count: 1 }));
           break;
         case "Exception - Invalid File Type":
-          msgError(translate.t("group_alerts.fileTypeCsv"));
+          msgError(translate.t("groupAlerts.fileTypeCsv"));
           break;
         default:
-          msgError(translate.t("group_alerts.errorTextsad"));
+          msgError(translate.t("groupAlerts.errorTextsad"));
           Logger.warning("An error occurred updating records", updateError);
       }
     });

@@ -69,7 +69,7 @@ const ChartsGenericViewExtras: React.FC<IChartsGenericViewProps> = (
   } = useQuery<ISubscriptionsToEntityReport>(SUBSCRIPTIONS_TO_ENTITY_REPORT, {
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
-        msgError(translate.t("group_alerts.errorTextsad"));
+        msgError(translate.t("groupAlerts.errorTextsad"));
         Logger.warning("An error occurred loading subscriptions info", error);
       });
     },
@@ -80,7 +80,7 @@ const ChartsGenericViewExtras: React.FC<IChartsGenericViewProps> = (
     {
       onError: (updateError: ApolloError): void => {
         updateError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
-          msgError(translate.t("group_alerts.errorTextsad"));
+          msgError(translate.t("groupAlerts.errorTextsad"));
           Logger.warning("An error occurred subscribing to charts", message);
         });
       },

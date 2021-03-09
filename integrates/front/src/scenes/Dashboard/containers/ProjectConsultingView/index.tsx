@@ -42,7 +42,7 @@ const ProjectConsultingView: React.FC = (): JSX.Element => {
           );
           break;
         default:
-          msgError(translate.t("group_alerts.errorTextsad"));
+          msgError(translate.t("groupAlerts.errorTextsad"));
           Logger.warning("An error occurred updating exploit", addCommentError);
       }
     });
@@ -52,7 +52,7 @@ const ProjectConsultingView: React.FC = (): JSX.Element => {
     graphQLErrors,
   }: ApolloError): void => {
     graphQLErrors.forEach((error: GraphQLError): void => {
-      msgError(translate.t("group_alerts.errorTextsad"));
+      msgError(translate.t("groupAlerts.errorTextsad"));
       Logger.warning("An error occurred loading project comments", error);
     });
   };

@@ -152,7 +152,7 @@ export const Dashboard: React.FC = (): JSX.Element => {
     },
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
-        msgError(translate.t("group_alerts.errorTextsad"));
+        msgError(translate.t("groupAlerts.errorTextsad"));
         Logger.error("Couldn't load user-level permissions", error);
       });
     },

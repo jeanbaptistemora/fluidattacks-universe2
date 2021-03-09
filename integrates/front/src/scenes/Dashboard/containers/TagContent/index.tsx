@@ -22,7 +22,7 @@ const tagContent: React.FC = (): JSX.Element => {
   const { data } = useQuery(GET_ORGANIZATION_ID, {
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
-        msgError(translate.t("group_alerts.errorTextsad"));
+        msgError(translate.t("groupAlerts.errorTextsad"));
         Logger.warning("An error occurred fetching organization ID", error);
       });
     },

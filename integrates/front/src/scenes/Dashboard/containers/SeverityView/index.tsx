@@ -51,7 +51,7 @@ const severityView: React.FC = (): JSX.Element => {
     { graphQLErrors }: ApolloError,
   ): void => {
     graphQLErrors.forEach((error: GraphQLError): void => {
-      msgError(translate.t("group_alerts.errorTextsad"));
+      msgError(translate.t("groupAlerts.errorTextsad"));
       Logger.warning("An error occurred loading finding severity", error);
     });
   };
@@ -75,7 +75,7 @@ const severityView: React.FC = (): JSX.Element => {
       if (!_.isUndefined(mtResult)) {
         if (mtResult.updateSeverity.success) {
           void refetch();
-          msgSuccess(translate.t("group_alerts.updated"), translate.t("group_alerts.updatedTitle"));
+          msgSuccess(translate.t("groupAlerts.updated"), translate.t("groupAlerts.updatedTitle"));
           mixpanel.track("UpdateSeverity");
         }
       }
@@ -85,7 +85,7 @@ const severityView: React.FC = (): JSX.Element => {
     { graphQLErrors }: ApolloError,
   ): void => {
     graphQLErrors.forEach((error: GraphQLError): void => {
-      msgError(translate.t("group_alerts.errorTextsad"));
+      msgError(translate.t("groupAlerts.errorTextsad"));
       Logger.warning("An error occurred updating severity", error);
     });
   };

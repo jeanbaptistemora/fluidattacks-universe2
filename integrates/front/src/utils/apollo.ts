@@ -280,14 +280,14 @@ const errorLink: (history: History) => ApolloLink = (
 
         switch (statusCode) {
           case undefined:
-            msgError(translate.t("group_alerts.errorNetwork"), "Offline");
+            msgError(translate.t("groupAlerts.errorNetwork"), "Offline");
             break;
           case forbidden:
             // Django CSRF expired
             location.reload();
             break;
           default:
-            msgError(translate.t("group_alerts.errorTextsad"));
+            msgError(translate.t("groupAlerts.errorTextsad"));
             Logger.warning("A network error occurred", { ...networkError });
         }
       } else if (graphQLErrors !== undefined) {
@@ -311,7 +311,7 @@ const errorLink: (history: History) => ApolloLink = (
                   skipForwarding();
                 }
               }
-              msgError(translate.t("group_alerts.accessDenied"));
+              msgError(translate.t("groupAlerts.accessDenied"));
               history.replace("/home");
               break;
             default:

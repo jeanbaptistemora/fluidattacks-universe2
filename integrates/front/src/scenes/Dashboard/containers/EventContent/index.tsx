@@ -43,7 +43,7 @@ const EventContent: React.FC = (): JSX.Element => {
   const handleErrors: (error: ApolloError) => void = React.useCallback(
     ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
-        msgError(translate.t("group_alerts.errorTextsad"));
+        msgError(translate.t("groupAlerts.errorTextsad"));
         Logger.warning("An error occurred loading event header", error);
       });
     },

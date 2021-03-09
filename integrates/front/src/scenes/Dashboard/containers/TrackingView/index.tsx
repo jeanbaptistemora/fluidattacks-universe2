@@ -37,7 +37,7 @@ const TrackingView: React.FC = (): JSX.Element => {
   const { data } = useQuery<IGetFindingTrackingAttr>(GET_FINDING_TRACKING, {
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
-        msgError(translate.t("group_alerts.errorTextsad"));
+        msgError(translate.t("groupAlerts.errorTextsad"));
         Logger.warning("An error occurred loading finding tracking", error);
       });
     },

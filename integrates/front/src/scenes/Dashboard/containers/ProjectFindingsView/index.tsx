@@ -60,11 +60,11 @@ const projectFindingsView: React.FC = (): JSX.Element => {
   const [requestProjectReport] = useLazyQuery(REQUEST_PROJECT_REPORT, {
     onCompleted: (): void => {
       msgSuccess(
-        translate.t("group_alerts.reportRequested"),
-        translate.t("group_alerts.titleSuccess"));
+        translate.t("groupAlerts.reportRequested"),
+        translate.t("groupAlerts.titleSuccess"));
     },
     onError: (error: ApolloError): void => {
-      msgError(translate.t("group_alerts.errorTextsad"));
+      msgError(translate.t("groupAlerts.errorTextsad"));
       Logger.warning("An error occurred requesting project report", error);
     },
   });
@@ -148,7 +148,7 @@ const projectFindingsView: React.FC = (): JSX.Element => {
     { graphQLErrors }: ApolloError,
   ): void => {
     graphQLErrors.forEach((error: GraphQLError): void => {
-      msgError(translate.t("group_alerts.errorTextsad"));
+      msgError(translate.t("groupAlerts.errorTextsad"));
       Logger.warning("An error occurred loading project data", error);
     });
   };

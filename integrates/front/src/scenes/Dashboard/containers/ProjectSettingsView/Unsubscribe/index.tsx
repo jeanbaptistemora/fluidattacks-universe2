@@ -39,7 +39,7 @@ const Unsubscribe: React.FC = (): JSX.Element => {
       onError: (error: ApolloError): void => {
         error.graphQLErrors.forEach((): void => {
           Logger.warning("An error occurred unsubscribing from group", error);
-          msgError(t("group_alerts.errorTextsad"));
+          msgError(t("groupAlerts.errorTextsad"));
         });
       },
       variables: {

@@ -612,7 +612,7 @@ export const enTranslations: ResourceKey = {
       },
     },
   },
-  group_alerts: {
+  groupAlerts: {
     acceptationApproved: "Indefinite acceptation has been approved",
     acceptationRejected: "Indefinite acceptation has been rejected",
     accessDenied: "Access denied",

@@ -96,7 +96,7 @@ const ProjectAuthorsView: React.FC = (): JSX.Element => {
   const { data } = useQuery(GET_BILL, {
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
-        msgError(translate.t("group_alerts.errorTextsad"));
+        msgError(translate.t("groupAlerts.errorTextsad"));
         Logger.warning("An error occurred getting bill data", error);
       });
     },

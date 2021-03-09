@@ -21,7 +21,7 @@ const groupInformation: React.FC = (): JSX.Element => {
   const { data } = useQuery(GET_GROUP_DATA, {
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
-        msgError(translate.t("group_alerts.error_text"));
+        msgError(translate.t("groupAlerts.error_text"));
         Logger.warning("An error occurred getting group data", error);
       });
     },

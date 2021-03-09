@@ -150,14 +150,14 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
             translate.t(
               "search_findings.tab_description.update_vulnerabilities"
             ),
-            translate.t("group_alerts.titleSuccess")
+            translate.t("groupAlerts.titleSuccess")
           );
         }
       }
     },
     onError: (updateError: ApolloError): void => {
       updateError.graphQLErrors.forEach((error: GraphQLError): void => {
-        msgError(translate.t("group_alerts.errorTextsad"));
+        msgError(translate.t("groupAlerts.errorTextsad"));
         Logger.warning("An error occurred deleting vulnerabilities", error);
       });
     },
@@ -252,13 +252,13 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
             translate.t(
               "search_findings.tab_description.update_vulnerabilities"
             ),
-            translate.t("group_alerts.titleSuccess")
+            translate.t("groupAlerts.titleSuccess")
           );
           handleCloseModal();
         }
       } catch (updateError: unknown) {
         if (_.includes(String(updateError), "Invalid treatment manager")) {
-          msgError(translate.t("group_alerts.invalidTreatmentMgr"));
+          msgError(translate.t("groupAlerts.invalidTreatmentMgr"));
         } else if (
           _.includes(
             String(updateError),
@@ -276,13 +276,13 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
           _.includes(
             String(updateError),
             translate.t(
-              "group_alerts.organizationPolicies.exceedsAcceptanceDate"
+              "groupAlerts.organizationPolicies.exceedsAcceptanceDate"
             )
           )
         ) {
           msgError(
             translate.t(
-              "group_alerts.organizationPolicies.exceedsAcceptanceDate"
+              "groupAlerts.organizationPolicies.exceedsAcceptanceDate"
             )
           );
         } else if (
@@ -294,10 +294,10 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
           )
         ) {
           msgError(
-            translate.t("group_alerts.organizationPolicies.severityOutOfRange")
+            translate.t("groupAlerts.organizationPolicies.severityOutOfRange")
           );
         } else {
-          msgError(translate.t("group_alerts.errorTextsad"));
+          msgError(translate.t("groupAlerts.errorTextsad"));
           Logger.warning(
             "An error occurred updating vuln treatment",
             updateError
@@ -333,8 +333,8 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
       ): void => {
         if (requestZeroRiskVulnResult.requestZeroRiskVuln.success) {
           msgSuccess(
-            translate.t("group_alerts.requestedZeroRiskSuccess"),
-            translate.t("group_alerts.updatedTitle")
+            translate.t("groupAlerts.requestedZeroRiskSuccess"),
+            translate.t("groupAlerts.updatedTitle")
           );
           handleClearSelected();
           handleCloseModal();
@@ -344,10 +344,10 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
         graphQLErrors.forEach((error: GraphQLError): void => {
           switch (error.message) {
             case "Exception - Zero risk vulnerability is already requested":
-              msgError(translate.t("group_alerts.zeroRiskAlreadyRequested"));
+              msgError(translate.t("groupAlerts.zeroRiskAlreadyRequested"));
               break;
             default:
-              msgError(translate.t("group_alerts.errorTextsad"));
+              msgError(translate.t("groupAlerts.errorTextsad"));
               Logger.warning(
                 "An error occurred requesting zero risk vuln",
                 error

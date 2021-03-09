@@ -84,7 +84,7 @@ const handleMtError: (mtError: ApolloError) => void = (
         msgError(translate.t("validations.invalidEmailInField"));
         break;
       default:
-        msgError(translate.t("group_alerts.errorTextsad"));
+        msgError(translate.t("groupAlerts.errorTextsad"));
         Logger.warning(
           "An error occurred adding user to organization",
           mtError
@@ -127,7 +127,7 @@ const OrganizationStakeholders: React.FC<IOrganizationStakeholders> = (
       notifyOnNetworkStatusChange: true,
       onError: ({ graphQLErrors }: ApolloError): void => {
         graphQLErrors.forEach((error: GraphQLError): void => {
-          msgError(translate.t("group_alerts.errorTextsad"));
+          msgError(translate.t("groupAlerts.errorTextsad"));
           Logger.warning(
             "An error occurred fetching organization stakeholders",
             error
@@ -201,7 +201,7 @@ const OrganizationStakeholders: React.FC<IOrganizationStakeholders> = (
         }
       },
       onError: (removeError: ApolloError): void => {
-        msgError(translate.t("group_alerts.errorTextsad"));
+        msgError(translate.t("groupAlerts.errorTextsad"));
         Logger.warning("An error occurred removing stakeholder", removeError);
       },
     }

@@ -130,7 +130,7 @@ describe("Portfolio Groups", () => {
         expect(wrapper)
           .toHaveLength(1);
         expect(msgError)
-          .toBeCalledWith(translate.t("group_alerts.errorTextsad"));
+          .toBeCalledWith(translate.t("groupAlerts.errorTextsad"));
       });
     });
   });

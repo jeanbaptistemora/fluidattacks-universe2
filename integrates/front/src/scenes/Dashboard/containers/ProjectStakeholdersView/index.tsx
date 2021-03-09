@@ -109,7 +109,7 @@ const projectStakeholdersView: React.FC = (): JSX.Element => {
   // GraphQL operations
   const { data, refetch } = useQuery(GET_STAKEHOLDERS, {
     onError: (error: ApolloError): void => {
-      msgError(translate.t("group_alerts.errorTextsad"));
+      msgError(translate.t("groupAlerts.errorTextsad"));
       Logger.warning("An error occurred loading project stakeholders", error);
     },
     variables: { projectName },
@@ -156,7 +156,7 @@ const projectStakeholdersView: React.FC = (): JSX.Element => {
             msgError(translate.t("validations.stakeholder_has_group_access"));
             break;
           default:
-            msgError(translate.t("group_alerts.errorTextsad"));
+            msgError(translate.t("groupAlerts.errorTextsad"));
             Logger.warning("An error occurred adding stakeholder to project", grantError);
         }
       });
@@ -196,11 +196,11 @@ const projectStakeholdersView: React.FC = (): JSX.Element => {
             msgError(translate.t("validations.no_fluid_attacks_hackers_in_fluid_attacks_service"));
             break;
           case "Access denied or stakeholder not found":
-            msgError(translate.t("group_alerts.expiredInvitation"));
+            msgError(translate.t("groupAlerts.expiredInvitation"));
             void refetch();
             break;
           default:
-            msgError(translate.t("group_alerts.errorTextsad"));
+            msgError(translate.t("groupAlerts.errorTextsad"));
             Logger.warning("An error occurred editing user", editError);
         }
       });
@@ -221,7 +221,7 @@ const projectStakeholdersView: React.FC = (): JSX.Element => {
       }
     },
     onError: (removeError: ApolloError): void => {
-      msgError(translate.t("group_alerts.errorTextsad"));
+      msgError(translate.t("groupAlerts.errorTextsad"));
       Logger.warning("An error occurred removing user", removeError);
     },
   });

@@ -44,7 +44,7 @@ const useGetAPIToken: (
   }: ApolloError): void => {
     graphQLErrors.forEach((error: GraphQLError): void => {
       Logger.warning("An error occurred getting forces token", error);
-      msgError(t("group_alerts.errorTextsad"));
+      msgError(t("groupAlerts.errorTextsad"));
     });
   };
 
@@ -92,7 +92,7 @@ const useUpdateAPIToken: () => readonly [
   }: ApolloError): void => {
     graphQLErrors.forEach((error: GraphQLError): void => {
       Logger.warning("An error occurred adding access token", error);
-      msgError(t("group_alerts.errorTextsad"));
+      msgError(t("groupAlerts.errorTextsad"));
     });
     dispatch(reset("updateAccessToken"));
   };

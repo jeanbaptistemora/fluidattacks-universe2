@@ -141,7 +141,7 @@ const HandleAcceptationModal: React.FC<IHandleVulnsAcceptationModalProps> = (
         if (data.handleVulnsAcceptation.success) {
           msgSuccess(
             translate.t("search_findings.tab_vuln.alerts.acceptation_success"),
-            translate.t("group_alerts.updatedTitle")
+            translate.t("groupAlerts.updatedTitle")
           );
           refetchData();
           handleCloseModal();
@@ -158,13 +158,13 @@ const HandleAcceptationModal: React.FC<IHandleVulnsAcceptationModalProps> = (
               );
               break;
             case "Exception - Vulnerability not found":
-              msgError(translate.t("group_alerts.noFound"));
+              msgError(translate.t("groupAlerts.noFound"));
               break;
             case "Exception - Invalid characters":
               msgError(translate.t("validations.invalid_char"));
               break;
             default:
-              msgError(translate.t("group_alerts.errorTextsad"));
+              msgError(translate.t("groupAlerts.errorTextsad"));
               Logger.warning("An error occurred handling acceptation", error);
           }
         });
@@ -188,8 +188,8 @@ const HandleAcceptationModal: React.FC<IHandleVulnsAcceptationModalProps> = (
       onCompleted: (data: IConfirmZeroRiskVulnResultAttr): void => {
         if (data.confirmZeroRiskVuln.success) {
           msgSuccess(
-            translate.t("group_alerts.confirmedZeroRiskSuccess"),
-            translate.t("group_alerts.updatedTitle")
+            translate.t("groupAlerts.confirmedZeroRiskSuccess"),
+            translate.t("groupAlerts.updatedTitle")
           );
           refetchData();
           handleCloseModal();
@@ -199,10 +199,10 @@ const HandleAcceptationModal: React.FC<IHandleVulnsAcceptationModalProps> = (
         graphQLErrors.forEach((error: GraphQLError): void => {
           switch (error.message) {
             case "Exception - Zero risk vulnerability is not requested":
-              msgError(translate.t("group_alerts.zeroRiskIsNotRequested"));
+              msgError(translate.t("groupAlerts.zeroRiskIsNotRequested"));
               break;
             default:
-              msgError(translate.t("group_alerts.errorTextsad"));
+              msgError(translate.t("groupAlerts.errorTextsad"));
               Logger.warning(
                 "An error occurred confirming zero risk vuln",
                 error
@@ -237,8 +237,8 @@ const HandleAcceptationModal: React.FC<IHandleVulnsAcceptationModalProps> = (
       onCompleted: (data: IRejectZeroRiskVulnResultAttr): void => {
         if (data.rejectZeroRiskVuln.success) {
           msgSuccess(
-            translate.t("group_alerts.rejectedZeroRiskSuccess"),
-            translate.t("group_alerts.updatedTitle")
+            translate.t("groupAlerts.rejectedZeroRiskSuccess"),
+            translate.t("groupAlerts.updatedTitle")
           );
           refetchData();
           handleCloseModal();
@@ -248,10 +248,10 @@ const HandleAcceptationModal: React.FC<IHandleVulnsAcceptationModalProps> = (
         graphQLErrors.forEach((error: GraphQLError): void => {
           switch (error.message) {
             case "Exception - Zero risk vulnerability is not requested":
-              msgError(translate.t("group_alerts.zeroRiskIsNotRequested"));
+              msgError(translate.t("groupAlerts.zeroRiskIsNotRequested"));
               break;
             default:
-              msgError(translate.t("group_alerts.errorTextsad"));
+              msgError(translate.t("groupAlerts.errorTextsad"));
               Logger.warning(
                 "An error occurred rejecting zero risk vuln",
                 error
