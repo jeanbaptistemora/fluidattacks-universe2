@@ -16,9 +16,19 @@ class Entity(NamedTuple):
 
 class Facet(NamedTuple):
     attrs: Tuple[str, ...]
-    name: str
     pk_prefix: str
     sk_prefix: str
+
+
+class Index(NamedTuple):
+    primary_key: PrimaryKey
+
+
+class Table(NamedTuple):
+    facets: Dict[str, Facet]
+    indexes: Dict[str, Index]
+    name: str
+    primary_key: PrimaryKey
 
 
 class RootMetadata(NamedTuple):

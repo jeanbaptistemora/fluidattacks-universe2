@@ -14,6 +14,7 @@ from boto3.dynamodb.conditions import Key
 # Local
 from backend.dal.helpers import dynamodb
 from dynamodb import versioned
+from dynamodb.table import TABLE
 from dynamodb.types import (
     Entity,
     Item,
@@ -39,8 +40,6 @@ ENTITIES: Dict[str, Entity] = dict(
         ),
     ),
 )
-
-TABLE_NAME = 'integrates_vms'
 
 
 def validate_pkey_not_empty(*, key: str) -> None:
@@ -153,7 +152,7 @@ async def get_root(
     )
 
     results = await dynamodb.async_query(
-        TABLE_NAME,
+        TABLE.name,
         {
             'IndexName': 'inverted_index',
             'KeyConditionExpression': (
@@ -177,7 +176,7 @@ async def get_roots(*, group_name: str) -> Tuple[RootItem, ...]:
     )
 
     results = await dynamodb.async_query(
-        TABLE_NAME,
+        TABLE.name,
         {
             'IndexName': 'inverted_index',
             'KeyConditionExpression': (
