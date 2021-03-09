@@ -614,3 +614,16 @@ async def send_mail_org_deletion(
         f'Organization deletion [{context["org_name"]}]',
         'organization_deletion'
     )
+
+
+async def send_mail_group_deletion(
+    email_to: List[str],
+    context: MailContentType
+) -> None:
+    await _send_mails_async_new(
+        email_to,
+        context,
+        GENERAL_TAG,
+        f'Group deletion [{context["group_name"]}]',
+        'group_deletion'
+    )

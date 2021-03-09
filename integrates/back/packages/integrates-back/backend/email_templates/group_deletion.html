@@ -1,0 +1,12 @@
+{% extends "layouts/fluid_attacks.html" %}
+{% block content %}
+<p>Hello {{ name }},</p>
+<br />
+<p>
+  The <strong>{{ group_name }}</strong> group will be deleted at {{
+  deletion_date }}. To avoid deletion, the group must have more than one
+  stakeholder, or at least one finding, or Fluid Attacks services enabled prior
+  to the deletion date.
+</p>
+<br />
+{% endblock %}
