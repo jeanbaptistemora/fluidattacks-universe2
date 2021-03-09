@@ -27,6 +27,17 @@ function cache_push {
   fi
 }
 
+function ensure_git {
+  if ! test -e .git
+  then
+    # Batch specific, clone the contents of the repository
+        git clone --depth 5 https://gitlab.com/fluidattacks/product src \
+    &&  mv src/.git .git \
+    &&  rm -rf src \
+    &&  git checkout -- .
+  fi
+}
+
 function load_commands {
   export APPLICATIONS
   export PACKAGES
@@ -40,6 +51,7 @@ function main {
   local symlink="out/${attr//./-}"
 
       main_ctx "${@}" \
+  &&  ensure_git \
   &&  source "${PWD}/.envrc.public" \
   &&  load_commands \
   &&  for attribute in "${APPLICATIONS[@]}"

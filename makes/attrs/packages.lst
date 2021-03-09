@@ -49,6 +49,7 @@ integrates.web.e2e.pypi
 makes.commitlint
 makes.dev
 makes.doc.runtime
+makes.oci.batch
 makes.oci.ci
 makes.test
 makes.test.airs
