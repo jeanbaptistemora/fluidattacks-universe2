@@ -1,7 +1,7 @@
-import { DocumentNode } from "graphql";
+import type { DocumentNode } from "graphql";
 import gql from "graphql-tag";
 
-export const GET_PROJECT_CONSULTING: DocumentNode = gql`
+const GET_PROJECT_CONSULTING: DocumentNode = gql`
   query GetProjectConsulting($projectName: String!) {
     project(projectName: $projectName) {
       consulting {
@@ -18,13 +18,21 @@ export const GET_PROJECT_CONSULTING: DocumentNode = gql`
   }
 `;
 
-export const ADD_PROJECT_CONSULT: DocumentNode = gql`
+const ADD_PROJECT_CONSULT: DocumentNode = gql`
   mutation AddProjectConsult(
-    $content: String!, $projectName: String!, $parent: GenericScalar!
+    $content: String!
+    $projectName: String!
+    $parent: GenericScalar!
   ) {
-    addProjectConsult(content: $content, projectName: $projectName, parent: $parent) {
+    addProjectConsult(
+      content: $content
+      projectName: $projectName
+      parent: $parent
+    ) {
       commentId
       success
     }
   }
 `;
+
+export { ADD_PROJECT_CONSULT, GET_PROJECT_CONSULTING };
