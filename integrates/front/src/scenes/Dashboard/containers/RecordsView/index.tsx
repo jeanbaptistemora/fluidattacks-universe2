@@ -58,13 +58,13 @@ const recordsView: React.FC = (): JSX.Element => {
     updateError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
       switch (message) {
         case "Exception - Wrong File Structure":
-          msgError(translate.t("group_alerts.invalid_structure"));
+          msgError(translate.t("group_alerts.invalidStructure"));
           break;
         case "Exception - Invalid File Size":
           msgError(translate.t("validations.file_size", { count: 1 }));
           break;
         case "Exception - Invalid File Type":
-          msgError(translate.t("group_alerts.file_type_csv"));
+          msgError(translate.t("group_alerts.fileTypeCsv"));
           break;
         default:
           msgError(translate.t("group_alerts.error_textsad"));

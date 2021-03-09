@@ -97,17 +97,17 @@ export const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
           );
           msgErrorStick(
             listKeysFormated.join("") + listValuesFormated.join(""),
-            translate.t("group_alerts.invalid_schema")
+            translate.t("group_alerts.invalidSchema")
           );
         } else {
-          msgError(translate.t("group_alerts.invalid_schema"));
+          msgError(translate.t("group_alerts.invalidSchema"));
         }
       } else if (message === "Exception - Invalid characters") {
         msgError(translate.t("validations.invalid_char"));
       } else if (message === "Exception - Invalid File Size") {
         msgError(translate.t("validations.file_size", { count: 1 }));
       } else if (message === "Exception - Invalid File Type") {
-        msgError(translate.t("group_alerts.file_type_yaml"));
+        msgError(translate.t("group_alerts.fileTypeYaml"));
       } else if (message.includes("Exception - Error in path value")) {
         const errorObject: IErrorInfoAttr = JSON.parse(message);
         msgErrorStick(`${translate.t("group_alerts.pathValue")}
@@ -117,23 +117,23 @@ export const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
         msgErrorStick(`${translate.t("group_alerts.portValue")}
           ${formatError("group_alerts.value", errorObject.values)}`);
       } else if (message === "Exception - Error in specific value") {
-        msgError(translate.t("group_alerts.invalid_specific"));
+        msgError(translate.t("group_alerts.invalidSpecific"));
       } else if (
         message ===
         "Exception - You can upload a maximum of 100 vulnerabilities per file"
       ) {
-        msgError(translate.t("group_alerts.invalid_n_of_vulns"));
+        msgError(translate.t("group_alerts.invalidNOfVulns"));
       } else if (message === "Exception - Error Uploading File to S3") {
         msgError(translate.t("group_alerts.error_textsad"));
       } else if (message === "Exception - Invalid Stream") {
-        translate.t("group_alerts.invalid_schema");
+        translate.t("group_alerts.invalidSchema");
         msgError(
           translate.t(
             "search_findings.tab_vuln.alerts.uploadFile.invalidStream"
           )
         );
       } else {
-        msgError(translate.t("group_alerts.invalid_specific"));
+        msgError(translate.t("group_alerts.invalidSpecific"));
         Logger.warning(message);
       }
       // Clean the files stored on input field
@@ -153,7 +153,7 @@ export const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
       if (!_.isUndefined(result)) {
         if (result.uploadFile.success) {
           msgSuccess(
-            translate.t("group_alerts.file_updated"),
+            translate.t("group_alerts.fileUpdated"),
             translate.t("group_alerts.titleSuccess")
           );
           dispatch(reset("vulns"));

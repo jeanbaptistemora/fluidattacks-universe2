@@ -74,7 +74,7 @@ const validEvidenceDescription: Validator = (
       ? undefined
       : hasFileSelected
       ? undefined
-      : translate.t("group_alerts.no_file_selected")
+      : translate.t("group_alerts.noFileSelected")
     : hasFileSelected
     ? translate.t("validations.required")
     : undefined;
@@ -249,12 +249,12 @@ const validEvidenceImage: Validator = (value: FileList): string | undefined =>
 const validExploitFile: Validator = (value: FileList): string | undefined =>
   hasExtension(["exp", "py"], _.first(value))
     ? undefined
-    : translate.t("group_alerts.file_type_py");
+    : translate.t("group_alerts.fileTypePy");
 
 const validRecordsFile: Validator = (value: FileList): string | undefined =>
   hasExtension("csv", _.first(value))
     ? undefined
-    : translate.t("group_alerts.file_type_csv");
+    : translate.t("group_alerts.fileTypeCsv");
 
 const dateTimeBeforeToday: Validator = (date: Moment): string | undefined => {
   const today: Moment = moment();
@@ -266,7 +266,7 @@ const dateTimeBeforeToday: Validator = (date: Moment): string | undefined => {
 
 const isValidVulnsFile: Validator = (value: FileList): string | undefined => {
   if (_.isNil(value) || value.length === 0) {
-    return translate.t("group_alerts.no_file_selected");
+    return translate.t("group_alerts.noFileSelected");
   }
   // eslint-disable-next-line prefer-destructuring -- No destructuring as method returns an iterator
   const file: File = value[0];
@@ -277,7 +277,7 @@ const isValidVulnsFile: Validator = (value: FileList): string | undefined => {
   if (file.size > Number(MIB)) {
     return translate.t("validations.file_size", { count: 1 });
   } else if (!_.includes([".yml", ".yaml"], fileType)) {
-    return translate.t("group_alerts.file_type_yaml");
+    return translate.t("group_alerts.fileTypeYaml");
   }
 
   return undefined;

@@ -258,7 +258,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
         }
       } catch (updateError: unknown) {
         if (_.includes(String(updateError), "Invalid treatment manager")) {
-          msgError(translate.t("group_alerts.invalid_treatment_mgr"));
+          msgError(translate.t("group_alerts.invalidTreatmentMgr"));
         } else if (
           _.includes(
             String(updateError),

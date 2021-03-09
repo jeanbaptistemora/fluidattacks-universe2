@@ -196,7 +196,7 @@ const projectStakeholdersView: React.FC = (): JSX.Element => {
             msgError(translate.t("validations.no_fluid_attacks_hackers_in_fluid_attacks_service"));
             break;
           case "Access denied or stakeholder not found":
-            msgError(translate.t("group_alerts.expired_invitation"));
+            msgError(translate.t("group_alerts.expiredInvitation"));
             void refetch();
             break;
           default:
