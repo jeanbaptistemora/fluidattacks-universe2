@@ -39,7 +39,6 @@ from backend.dal.helpers.redis import (
     redis_get_or_set_entity_attr,
 )
 from backend.domain import (
-    finding as finding_domain,
     organization as organization_domain,
     tag as portfolio_domain,
 )
@@ -61,7 +60,7 @@ logging.config.dictConfig(LOGGING)
 # Constants
 LOGGER = logging.getLogger(__name__)
 ALLOWED_CHARS_IN_PARAMS: str = string.ascii_letters + string.digits + '#-'
-ENTITIES = {'group', 'finding', 'organization', 'portfolio'}
+ENTITIES = {'group', 'organization', 'portfolio'}
 IMAGE_PATH: str = 'reports/resources/themes/logo.png'
 TRANSPARENCY_RATIO: float = 0.40
 
@@ -148,25 +147,24 @@ async def handle_authz_claims(
 ) -> None:
     user_info = await util.get_jwt_content(request)
     email = user_info['user_email']
+    if params.subject.endswith('_30') or params.subject.endswith('_90'):
+        subject = params.subject[:-3]
+    else:
+        subject = params.subject
 
     if params.entity == 'group':
         if not await has_access_to_group(
-            email, params.subject.lower(),
+            email, subject.lower(),
         ):
             raise PermissionError('Access denied')
     elif params.entity == 'organization':
         if not await organization_domain.has_user_access(
             email=email,
-            organization_id=params.subject,
+            organization_id=subject,
         ):
             raise PermissionError('Access denied')
     elif params.entity == 'portfolio':
-        if not await portfolio_domain.has_user_access(email, params.subject):
-            raise PermissionError('Access denied')
-    elif params.entity == 'finding':
-        if not await has_access_to_group(
-            email, await finding_domain.get_project(params.subject.lower()),
-        ):
+        if not await portfolio_domain.has_user_access(email, subject):
             raise PermissionError('Access denied')
     else:
         raise ValueError(f'Invalid entity: {params.entity}')
