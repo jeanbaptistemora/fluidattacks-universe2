@@ -1,0 +1,38 @@
+utils.model.finding.enum.f004.description:
+  en: >
+    The system builds OS commands using inputs that can be manipulated externally,
+    it does not correctly neutralize special elements that could modify the OS command.
+  es: >
+    El sistema construye comandos de sistema utilizando entradas que puden ser
+    manipuladas externamente, no neutraliza correctamente elementos especiales
+    que podrían modificar el comando del sistema.
+utils.model.finding.enum.f004.impact:
+  en: >
+    Execute Unauthorized Code or Commands.
+  es: >
+    Ejecutar secuencias de comandos no autorizados.
+utils.model.finding.enum.f004.recommendation:
+  en: >
+    - If at all possible, use standard library calls rather than external processes to recreate the desired functionality.
+    - Keep as much data as possible used to generate command outside of external control.
+    - Properly escape the arguments used to generate the command and avoid special characters
+  es: >
+    - Si es posible, utilizar llamadas a la biblioteca estandar en lugar de procesos externos para recrear la funcionalidad deseada.
+    - Mantener la mayor cantidad posible de datos usados para generar comando fuera del control externo.
+    - Escapar correctamente los argumentos usados para generar el comando y evite los caracteres especiales.
+utils.model.finding.enum.f004.requirements:
+  en: |
+    R173. The system must discard all potentially harmful information received via data inputs.
+    R265. The system must restrict access to system functions that execute critical business processes, allowing only authorized users.
+  es: |
+    R173. El sistema debe descartar toda la información potencialmente insegura que sea recibida por entradas de datos.
+    R265. El sistema debe restringir el acceso a funciones del sistema que ejecutan procesos críticos de negocio. Solo permitirá acceso a usuarios autorizados.
+utils.model.finding.enum.f004.threat:
+  en: >
+    Autenticated attacker from the Internet.
+  es: >
+    Atacante autenticado desde Internet.
+utils.model.finding.enum.f004.title:
+  en: F004. Remote command execution
+  es: F004. Ejecución remota de comandos
+
