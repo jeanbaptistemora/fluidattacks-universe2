@@ -1,4 +1,4 @@
-#! /usr/bin/env nix-shell
+#! /bin/env nix-shell
 #!   nix-shell -i bash
 #!   nix-shell -I nixpkgs=https://github.com/nixos/nixpkgs/archive/932941b79c3dbbef2de9440e1631dfec43956261.tar.gz
 #!   nix-shell -p nixFlakes

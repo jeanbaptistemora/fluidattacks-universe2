@@ -4,7 +4,6 @@ function main {
   local credentials
   local oci='__envOci__'
   local tag="__envTag__"
-  local oci='__envOci__'
 
       echo '[INFO] Setting up credentials' \
   &&  if test '__envRegistry__' = 'registry.gitlab.com'

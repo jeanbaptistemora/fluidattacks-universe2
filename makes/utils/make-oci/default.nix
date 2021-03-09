@@ -6,7 +6,7 @@ _: pkgs:
 
 { config ? null
 , contents ? [ ]
-, extraCommands ? null
+, extraCommands ? ""
 }:
 
 pkgs.dockerTools.buildLayeredImage {
