@@ -2,7 +2,7 @@
 
 path: pkgs:
 
-{ dependencies
+{ dependencies ? [ ]
 , name
 , packagePath
 , python

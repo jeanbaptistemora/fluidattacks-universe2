@@ -3,7 +3,7 @@
 function main {
       echo "[INFO] Testing python package: ${envSrc}" \
   &&  pushd "${envSrc}" \
-    &&  python -m pytest \
+    &&  USER=nobody python -m pytest \
             -p no:cacheprovider \
             --full-trace "${envTestDir}" \
   &&  popd \
