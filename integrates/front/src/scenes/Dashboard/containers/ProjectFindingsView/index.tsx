@@ -64,7 +64,7 @@ const projectFindingsView: React.FC = (): JSX.Element => {
         translate.t("group_alerts.titleSuccess"));
     },
     onError: (error: ApolloError): void => {
-      msgError(translate.t("group_alerts.error_textsad"));
+      msgError(translate.t("group_alerts.errorTextsad"));
       Logger.warning("An error occurred requesting project report", error);
     },
   });
@@ -148,7 +148,7 @@ const projectFindingsView: React.FC = (): JSX.Element => {
     { graphQLErrors }: ApolloError,
   ): void => {
     graphQLErrors.forEach((error: GraphQLError): void => {
-      msgError(translate.t("group_alerts.error_textsad"));
+      msgError(translate.t("group_alerts.errorTextsad"));
       Logger.warning("An error occurred loading project data", error);
     });
   };

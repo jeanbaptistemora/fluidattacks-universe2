@@ -66,7 +66,7 @@ const projectRoute: React.FC<IProjectRoute> = (props: IProjectRoute): JSX.Elemen
     },
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((groupError: GraphQLError): void => {
-        msgError(translate.t("group_alerts.error_textsad"));
+        msgError(translate.t("group_alerts.errorTextsad"));
         Logger.warning("An error occurred group data", groupError);
       });
     },

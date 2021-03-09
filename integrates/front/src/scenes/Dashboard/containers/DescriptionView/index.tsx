@@ -106,7 +106,7 @@ const DescriptionView: React.FC = (): JSX.Element => {
   >(GET_FINDING_DESCRIPTION, {
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
-        msgError(translate.t("group_alerts.error_textsad"));
+        msgError(translate.t("group_alerts.errorTextsad"));
         Logger.warning("An error occurred loading finding description", error);
       });
     },
@@ -144,7 +144,7 @@ const DescriptionView: React.FC = (): JSX.Element => {
             msgError(translate.t("validations.invalid_char"));
             break;
           default:
-            msgError(translate.t("group_alerts.error_textsad"));
+            msgError(translate.t("group_alerts.errorTextsad"));
             Logger.warning("An error occurred updating treatment", updateError);
         }
       });

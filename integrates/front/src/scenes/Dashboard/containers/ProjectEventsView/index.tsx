@@ -149,7 +149,7 @@ const projectEventsView: React.FC = (): JSX.Element => {
   ): void => {
     graphQLErrors.forEach((error: GraphQLError): void => {
       Logger.warning("An error occurred loading project data", error);
-      msgError(translate.t("group_alerts.error_textsad"));
+      msgError(translate.t("group_alerts.errorTextsad"));
     });
   };
 
@@ -215,7 +215,7 @@ const projectEventsView: React.FC = (): JSX.Element => {
                     msgError(translate.t("group.events.form.wrongFileType"));
                     break;
                   default:
-                    msgError(translate.t("group_alerts.error_textsad"));
+                    msgError(translate.t("group_alerts.errorTextsad"));
                     Logger.warning("An error occurred updating event evidence", creationError);
                 }
               });

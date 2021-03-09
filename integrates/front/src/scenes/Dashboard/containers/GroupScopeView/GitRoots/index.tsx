@@ -165,7 +165,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
             msgError(t("group.scope.git.errors.rootInGitignore"));
             break;
           default:
-            msgError(t("group_alerts.error_textsad"));
+            msgError(t("group_alerts.errorTextsad"));
             Logger.error("Couldn't add git roots", error);
         }
       });
@@ -185,7 +185,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
             msgError(t("group.scope.git.errors.invalid"));
             break;
           default:
-            msgError(t("group_alerts.error_textsad"));
+            msgError(t("group_alerts.errorTextsad"));
             Logger.error("Couldn't update git root", error);
         }
       });
@@ -205,7 +205,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
             msgError(t("group.scope.git.errors.invalid"));
             break;
           default:
-            msgError(t("group_alerts.error_textsad"));
+            msgError(t("group_alerts.errorTextsad"));
             Logger.error("Couldn't update git envs", error);
         }
       });
@@ -218,7 +218,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
       setCurrentRow(undefined);
     },
     onError: ({ graphQLErrors }: ApolloError): void => {
-      msgError(t("group_alerts.error_textsad"));
+      msgError(t("group_alerts.errorTextsad"));
       graphQLErrors.forEach((error: GraphQLError): void => {
         Logger.error("Couldn't update root state", error);
       });

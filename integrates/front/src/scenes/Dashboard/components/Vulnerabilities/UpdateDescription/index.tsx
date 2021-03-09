@@ -157,7 +157,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
     },
     onError: (updateError: ApolloError): void => {
       updateError.graphQLErrors.forEach((error: GraphQLError): void => {
-        msgError(translate.t("group_alerts.error_textsad"));
+        msgError(translate.t("group_alerts.errorTextsad"));
         Logger.warning("An error occurred deleting vulnerabilities", error);
       });
     },
@@ -297,7 +297,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
             translate.t("group_alerts.organizationPolicies.severityOutOfRange")
           );
         } else {
-          msgError(translate.t("group_alerts.error_textsad"));
+          msgError(translate.t("group_alerts.errorTextsad"));
           Logger.warning(
             "An error occurred updating vuln treatment",
             updateError
@@ -347,7 +347,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
               msgError(translate.t("group_alerts.zeroRiskAlreadyRequested"));
               break;
             default:
-              msgError(translate.t("group_alerts.error_textsad"));
+              msgError(translate.t("group_alerts.errorTextsad"));
               Logger.warning(
                 "An error occurred requesting zero risk vuln",
                 error

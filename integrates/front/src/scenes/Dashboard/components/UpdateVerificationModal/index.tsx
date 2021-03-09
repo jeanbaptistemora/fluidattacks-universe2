@@ -101,7 +101,7 @@ const UpdateVerificationModal: React.FC<IUpdateVerificationModal> = (
               msgError(translate.t("group_alerts.noFound"));
               break;
             default:
-              msgError(translate.t("group_alerts.error_textsad"));
+              msgError(translate.t("group_alerts.errorTextsad"));
               Logger.warning(
                 "An error occurred requesting verification",
                 error
@@ -151,7 +151,7 @@ const UpdateVerificationModal: React.FC<IUpdateVerificationModal> = (
               msgError(translate.t("group_alerts.noFound"));
               break;
             default:
-              msgError(translate.t("group_alerts.error_textsad"));
+              msgError(translate.t("group_alerts.errorTextsad"));
               Logger.warning("An error occurred verifying a request", error);
           }
         });

@@ -623,8 +623,8 @@ export const enTranslations: ResourceKey = {
       "This finding has not been submitted yet or it might've been rejected by someone else",
     draft_without_vulns:
       "This finding can not been approved without vulnerabilities",
+    errorTextsad: "There is an error :(",
     error_network: "Check your network connection",
-    error_textsad: "There is an error :(",
     expiredInvitation: "The stakeholder has an expired invitation",
     fileTypeCsv: "The file must have .csv extension",
     fileTypeEvidence: "The image must be .png or .gif type",

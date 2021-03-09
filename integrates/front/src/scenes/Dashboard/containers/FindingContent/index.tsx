@@ -89,7 +89,7 @@ const findingContent: React.FC = (): JSX.Element => {
   }: QueryResult<IHeaderQueryResult> = useQuery(GET_FINDING_HEADER, {
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
-        msgError(translate.t("group_alerts.error_textsad"));
+        msgError(translate.t("group_alerts.errorTextsad"));
         Logger.warning("An error occurred loading finding header", error);
       });
     },
@@ -135,7 +135,7 @@ const findingContent: React.FC = (): JSX.Element => {
             msgError(translate.t("group_alerts.draft_already_approved"));
             void headerRefetch();
           } else {
-            msgError(translate.t("group_alerts.error_textsad"));
+            msgError(translate.t("group_alerts.errorTextsad"));
             Logger.warning("An error occurred submitting draft", submitError);
           }
         });
@@ -172,7 +172,7 @@ const findingContent: React.FC = (): JSX.Element => {
                 msgError(translate.t("group_alerts.draft_without_vulns"));
                 break;
               default:
-                msgError(translate.t("group_alerts.error_textsad"));
+                msgError(translate.t("group_alerts.errorTextsad"));
                 Logger.warning(
                   "An error occurred approving draft",
                   approveError
@@ -209,7 +209,7 @@ const findingContent: React.FC = (): JSX.Element => {
               void headerRefetch();
               break;
             default:
-              msgError(translate.t("group_alerts.error_textsad"));
+              msgError(translate.t("group_alerts.errorTextsad"));
               Logger.warning("An error occurred rejecting draft", rejectError);
           }
         });
@@ -232,7 +232,7 @@ const findingContent: React.FC = (): JSX.Element => {
       },
       onError: ({ graphQLErrors }: ApolloError): void => {
         graphQLErrors.forEach((error: GraphQLError): void => {
-          msgError(translate.t("group_alerts.error_textsad"));
+          msgError(translate.t("group_alerts.errorTextsad"));
           Logger.warning("An error occurred deleting finding", error);
         });
       },

@@ -109,7 +109,7 @@ const projectStakeholdersView: React.FC = (): JSX.Element => {
   // GraphQL operations
   const { data, refetch } = useQuery(GET_STAKEHOLDERS, {
     onError: (error: ApolloError): void => {
-      msgError(translate.t("group_alerts.error_textsad"));
+      msgError(translate.t("group_alerts.errorTextsad"));
       Logger.warning("An error occurred loading project stakeholders", error);
     },
     variables: { projectName },
@@ -156,7 +156,7 @@ const projectStakeholdersView: React.FC = (): JSX.Element => {
             msgError(translate.t("validations.stakeholder_has_group_access"));
             break;
           default:
-            msgError(translate.t("group_alerts.error_textsad"));
+            msgError(translate.t("group_alerts.errorTextsad"));
             Logger.warning("An error occurred adding stakeholder to project", grantError);
         }
       });
@@ -200,7 +200,7 @@ const projectStakeholdersView: React.FC = (): JSX.Element => {
             void refetch();
             break;
           default:
-            msgError(translate.t("group_alerts.error_textsad"));
+            msgError(translate.t("group_alerts.errorTextsad"));
             Logger.warning("An error occurred editing user", editError);
         }
       });
@@ -221,7 +221,7 @@ const projectStakeholdersView: React.FC = (): JSX.Element => {
       }
     },
     onError: (removeError: ApolloError): void => {
-      msgError(translate.t("group_alerts.error_textsad"));
+      msgError(translate.t("group_alerts.errorTextsad"));
       Logger.warning("An error occurred removing user", removeError);
     },
   });

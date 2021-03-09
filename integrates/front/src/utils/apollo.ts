@@ -287,7 +287,7 @@ const errorLink: (history: History) => ApolloLink = (
             location.reload();
             break;
           default:
-            msgError(translate.t("group_alerts.error_textsad"));
+            msgError(translate.t("group_alerts.errorTextsad"));
             Logger.warning("A network error occurred", { ...networkError });
         }
       } else if (graphQLErrors !== undefined) {

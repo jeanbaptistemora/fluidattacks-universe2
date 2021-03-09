@@ -89,7 +89,7 @@ const AddProjectModal: React.FC<IAddProjectModalProps> = (
           );
           break;
         default:
-          msgError(translate.t("group_alerts.error_textsad"));
+          msgError(translate.t("group_alerts.errorTextsad"));
           Logger.warning("An error occurred adding access token", error);
       }
     });
@@ -146,7 +146,7 @@ const AddProjectModal: React.FC<IAddProjectModalProps> = (
                     );
                     break;
                   default:
-                    msgError(translate.t("group_alerts.error_textsad"));
+                    msgError(translate.t("group_alerts.errorTextsad"));
                     Logger.warning("An error occurred adding a project", error);
                 }
               });

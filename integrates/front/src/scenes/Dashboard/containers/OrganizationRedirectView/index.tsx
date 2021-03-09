@@ -26,7 +26,7 @@ const OrganizationRedirect: React.FC<IOrganizationRedirectProps> = (
   const { data } = useQuery(GET_ENTITY_ORGANIZATION, {
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
-        msgError(translate.t("group_alerts.error_textsad"));
+        msgError(translate.t("group_alerts.errorTextsad"));
         Logger.warning(
           "An error occurred getting organization name for redirection",
           error

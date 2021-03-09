@@ -24,7 +24,7 @@ const tagsGroup: React.FC = (): JSX.Element => {
   const { data } = useQuery<IPortfolio>(PORTFOLIO_GROUP_QUERY, {
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
-        msgError(translate.t("group_alerts.error_textsad"));
+        msgError(translate.t("group_alerts.errorTextsad"));
         Logger.error("An error occurred loading tag groups", error);
       });
     },

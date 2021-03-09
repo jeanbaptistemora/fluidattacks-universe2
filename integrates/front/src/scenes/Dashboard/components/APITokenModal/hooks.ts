@@ -56,7 +56,7 @@ const useUpdateAPIToken: (
           break;
         default:
           Logger.warning("An error occurred adding access token", error);
-          msgError(t("group_alerts.error_textsad"));
+          msgError(t("group_alerts.errorTextsad"));
       }
     });
     dispatch(reset("updateAccessToken"));
@@ -88,7 +88,7 @@ const useGetAPIToken: () => readonly [
   }: ApolloError): void => {
     graphQLErrors.forEach((error: GraphQLError): void => {
       Logger.warning("An error occurred getting access token", error);
-      msgError(t("group_alerts.error_textsad"));
+      msgError(t("group_alerts.errorTextsad"));
     });
   };
 
@@ -128,7 +128,7 @@ const useInvalidateAPIToken: (
   }: ApolloError): void => {
     graphQLErrors.forEach((error: GraphQLError): void => {
       Logger.warning("An error occurred invalidating access token", error);
-      msgError(t("group_alerts.error_textsad"));
+      msgError(t("group_alerts.errorTextsad"));
     });
     dispatch(reset("updateAccessToken"));
   };

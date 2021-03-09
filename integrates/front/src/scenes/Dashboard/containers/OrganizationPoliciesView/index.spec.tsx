@@ -634,7 +634,7 @@ describe("Organization policies view", (): void => {
           wrapper.update();
 
           expect(msgError).toHaveBeenCalledWith(
-            translate.t("group_alerts.error_textsad")
+            translate.t("group_alerts.errorTextsad")
           );
         });
       }

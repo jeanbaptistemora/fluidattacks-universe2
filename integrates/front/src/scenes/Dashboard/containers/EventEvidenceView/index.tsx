@@ -52,7 +52,7 @@ const EventEvidenceView: React.FC = (): JSX.Element => {
     notifyOnNetworkStatusChange: true,
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
-        msgError(translate.t("group_alerts.error_textsad"));
+        msgError(translate.t("group_alerts.errorTextsad"));
         Logger.warning("An error occurred loading event evidences", error);
       });
     },
@@ -68,7 +68,7 @@ const EventEvidenceView: React.FC = (): JSX.Element => {
     },
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
-        msgError(translate.t("group_alerts.error_textsad"));
+        msgError(translate.t("group_alerts.errorTextsad"));
         Logger.warning("An error occurred downloading event file", error);
       });
     },
@@ -77,7 +77,7 @@ const EventEvidenceView: React.FC = (): JSX.Element => {
     onCompleted: refetch,
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
-        msgError(translate.t("group_alerts.error_textsad"));
+        msgError(translate.t("group_alerts.errorTextsad"));
         Logger.warning("An error occurred removing event evidence", error);
       });
     },
@@ -99,7 +99,7 @@ const EventEvidenceView: React.FC = (): JSX.Element => {
             msgError(translate.t("group.events.form.wrongFileType"));
             break;
           default:
-            msgError(translate.t("group_alerts.error_textsad"));
+            msgError(translate.t("group_alerts.errorTextsad"));
             Logger.warning(
               "An error occurred updating event evidence",
               updateError

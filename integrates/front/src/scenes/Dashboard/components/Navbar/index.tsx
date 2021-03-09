@@ -55,7 +55,7 @@ const NavbarComponent: React.FC = (): JSX.Element => {
     {
       onError: ({ graphQLErrors }: ApolloError): void => {
         graphQLErrors.forEach((error: GraphQLError): void => {
-          msgError(translate.t("group_alerts.error_textsad"));
+          msgError(translate.t("group_alerts.errorTextsad"));
           Logger.warning(
             "An error occurred fetching organizations for the navbar",
             error

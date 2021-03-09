@@ -142,7 +142,7 @@ export const VulnsView: React.FC = (): JSX.Element => {
     {
       onError: ({ graphQLErrors }: ApolloError): void => {
         graphQLErrors.forEach((error: GraphQLError): void => {
-          msgError(t("group_alerts.error_textsad"));
+          msgError(t("group_alerts.errorTextsad"));
           Logger.warning("An error occurred loading finding", error);
         });
       },

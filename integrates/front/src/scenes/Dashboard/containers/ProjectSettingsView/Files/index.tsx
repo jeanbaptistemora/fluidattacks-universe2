@@ -56,7 +56,7 @@ const files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
   const { data, refetch } = useQuery(GET_FILES, {
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
-        msgError(translate.t("group_alerts.error_textsad"));
+        msgError(translate.t("group_alerts.errorTextsad"));
         Logger.warning("An error occurred loading project files", error);
       });
     },
@@ -69,7 +69,7 @@ const files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
     },
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
-        msgError(translate.t("group_alerts.error_textsad"));
+        msgError(translate.t("group_alerts.errorTextsad"));
         Logger.warning("An error occurred downloading project files", error);
       });
     },
@@ -90,7 +90,7 @@ const files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
     },
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
-        msgError(translate.t("group_alerts.error_textsad"));
+        msgError(translate.t("group_alerts.errorTextsad"));
         Logger.warning("An error occurred removing project files", error);
       });
     },
@@ -135,7 +135,7 @@ const files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
             msgError(translate.t("validations.infectedFile"));
             break;
           default:
-            msgError(translate.t("group_alerts.error_textsad"));
+            msgError(translate.t("group_alerts.errorTextsad"));
             Logger.warning("An error occurred adding files to project", filesError);
         }
       });

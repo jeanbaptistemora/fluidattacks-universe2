@@ -164,7 +164,7 @@ const HandleAcceptationModal: React.FC<IHandleVulnsAcceptationModalProps> = (
               msgError(translate.t("validations.invalid_char"));
               break;
             default:
-              msgError(translate.t("group_alerts.error_textsad"));
+              msgError(translate.t("group_alerts.errorTextsad"));
               Logger.warning("An error occurred handling acceptation", error);
           }
         });
@@ -202,7 +202,7 @@ const HandleAcceptationModal: React.FC<IHandleVulnsAcceptationModalProps> = (
               msgError(translate.t("group_alerts.zeroRiskIsNotRequested"));
               break;
             default:
-              msgError(translate.t("group_alerts.error_textsad"));
+              msgError(translate.t("group_alerts.errorTextsad"));
               Logger.warning(
                 "An error occurred confirming zero risk vuln",
                 error
@@ -251,7 +251,7 @@ const HandleAcceptationModal: React.FC<IHandleVulnsAcceptationModalProps> = (
               msgError(translate.t("group_alerts.zeroRiskIsNotRequested"));
               break;
             default:
-              msgError(translate.t("group_alerts.error_textsad"));
+              msgError(translate.t("group_alerts.errorTextsad"));
               Logger.warning(
                 "An error occurred rejecting zero risk vuln",
                 error

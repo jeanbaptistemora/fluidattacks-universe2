@@ -89,7 +89,7 @@ export const AddUserModal: React.FC<IAddStakeholderModalProps> = (
           case "Access denied or stakeholder not found":
             break;
           default:
-            msgError(translate.t("group_alerts.error_textsad"));
+            msgError(translate.t("group_alerts.errorTextsad"));
             Logger.warning(
               "An error occurred getting user information for autofill",
               error

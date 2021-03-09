@@ -124,7 +124,7 @@ export const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
       ) {
         msgError(translate.t("group_alerts.invalidNOfVulns"));
       } else if (message === "Exception - Error Uploading File to S3") {
-        msgError(translate.t("group_alerts.error_textsad"));
+        msgError(translate.t("group_alerts.errorTextsad"));
       } else if (message === "Exception - Invalid Stream") {
         translate.t("group_alerts.invalidSchema");
         msgError(
@@ -205,7 +205,7 @@ export const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
       onError: (downloadError: ApolloError): void => {
         downloadError.graphQLErrors.forEach(
           ({ message }: GraphQLError): void => {
-            msgError(translate.t("group_alerts.error_textsad"));
+            msgError(translate.t("group_alerts.errorTextsad"));
             switch (message) {
               case "Exception - Error Uploading File to S3":
                 Logger.warning(
