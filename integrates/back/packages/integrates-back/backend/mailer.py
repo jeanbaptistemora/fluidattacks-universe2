@@ -612,5 +612,5 @@ async def send_mail_org_deletion(
         context,
         GENERAL_TAG,
         f'Organization deletion [{context["org_name"]}]',
-        'organization-deletion'
+        'organization_deletion'
     )

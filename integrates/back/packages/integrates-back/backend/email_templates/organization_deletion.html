@@ -1,0 +1,11 @@
+{% extends "layouts/fluid_attacks.html" %}
+{% block content %}
+<p>Hello {{ name }},</p>
+<br />
+<p>
+  The <strong>{{ org_name }}</strong> organization will be deleted at {{
+  deletion_date }}. To avoid deletion, the organization must have more than one
+  stakeholder and at least one group prior to the deletion date.
+</p>
+<br />
+{% endblock %}
