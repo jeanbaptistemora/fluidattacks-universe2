@@ -43,6 +43,7 @@ const bigGraphicSize: ComponentSize = {
 const allowedDocuments: string[] = [
   "meanTimeToRemediate",
   "meanTimeToRemediateNonTreated",
+  "riskOverTime",
 ];
 
 interface IComponentSizeProps {
