@@ -61,6 +61,11 @@ export const enTranslations: ResourceKey = {
       findingsByTag: "Finding by tags",
       groupsByTag: "Tags by groups",
     },
+    limitData: {
+      all: "All",
+      ninetyDays: "90",
+      thirtyDays: "30",
+    },
     pieChart: {
       resources: {
         footer: {

@@ -40,6 +40,10 @@ const bigGraphicSize: ComponentSize = {
   height: 400,
   width: 1000,
 };
+const allowedDocuments: string[] = [
+  "meanTimeToRemediate",
+  "meanTimeToRemediateNonTreated",
+];
 
 interface IComponentSizeProps {
   readonly height: number;
@@ -57,7 +61,8 @@ interface IReadonlyGraphicProps {
 
 function buildUrl(
   props: IReadonlyGraphicProps,
-  size: IComponentSizeProps
+  size: IComponentSizeProps,
+  subjectName: string
 ): string {
   const roundedHeight: number =
     pixelsSensitivity * Math.floor(size.height / pixelsSensitivity);
@@ -71,7 +76,7 @@ function buildUrl(
   url.searchParams.set("generatorName", props.generatorName);
   url.searchParams.set("generatorType", props.generatorType);
   url.searchParams.set("height", roundedHeight.toString());
-  url.searchParams.set("subject", props.subject);
+  url.searchParams.set("subject", subjectName);
   url.searchParams.set("width", roundedWidth.toString());
 
   return url.toString();
@@ -80,7 +85,16 @@ function buildUrl(
 export const Graphic: React.FC<IGraphicProps> = (
   props: Readonly<IGraphicProps>
 ): JSX.Element => {
-  const { bsHeight, className, footer, reportMode, subject, title } = props;
+  const {
+    bsHeight,
+    className,
+    documentName,
+    entity,
+    footer,
+    reportMode,
+    subject,
+    title,
+  } = props;
 
   // Hooks
   const fullRef: React.MutableRefObject<HTMLDivElement | null> = React.useRef(
@@ -105,6 +119,7 @@ export const Graphic: React.FC<IGraphicProps> = (
   const bodySize: ComponentSize = useComponentSize(bodyRef);
   const modalSize: ComponentSize = useComponentSize(modalBodyRef);
 
+  const [subjectName, setSubjectName] = React.useState(subject);
   const [expanded, setExpanded] = React.useState(reportMode);
   const [fullScreen, setFullScreen] = React.useState(false);
   const [iframeState, setIframeState] = React.useState("loading");
@@ -113,12 +128,18 @@ export const Graphic: React.FC<IGraphicProps> = (
 
   // Yet more hooks
   const iframeSrc: string = React.useMemo(
-    (): string => secureStore.retrieveBlob(buildUrl(props, bodySize)),
-    [bodySize, props, secureStore]
+    (): string =>
+      secureStore.retrieveBlob(
+        buildUrl({ ...props, subject: subjectName }, bodySize, subjectName)
+      ),
+    [bodySize, props, secureStore, subjectName]
   );
   const modalIframeSrc: string = React.useMemo(
-    (): string => secureStore.retrieveBlob(buildUrl(props, modalSize)),
-    [modalSize, props, secureStore]
+    (): string =>
+      secureStore.retrieveBlob(
+        buildUrl({ ...props, subject: subjectName }, modalSize, subjectName)
+      ),
+    [modalSize, props, secureStore, subjectName]
   );
 
   function panelOnMouseEnter(): void {
@@ -152,7 +173,22 @@ export const Graphic: React.FC<IGraphicProps> = (
     }
   }
   function buildFileName(size: IComponentSizeProps): string {
-    return `${subject}-${title}-${size.width}x${size.height}.html`;
+    return `${subjectName}-${title}-${size.width}x${size.height}.html`;
+  }
+  function changeTothirtyDays(): void {
+    setSubjectName(`${subject}_30`);
+    frameOnRefresh();
+  }
+  function changeToNinety(): void {
+    setSubjectName(`${subject}_90`);
+    frameOnRefresh();
+  }
+  function changeToAll(): void {
+    setSubjectName(subject);
+    frameOnRefresh();
+  }
+  function isDocumentAllowed(document: string): boolean {
+    return _.includes(allowedDocuments, document);
   }
 
   if (
@@ -169,9 +205,8 @@ export const Graphic: React.FC<IGraphicProps> = (
     headSize.height + glyphPadding + glyphSize / 2 - fontSize;
 
   const track: () => void = React.useCallback((): void => {
-    const { documentName, entity } = props;
     mixpanel.track("DownloadGraphic", { documentName, entity });
-  }, [props]);
+  }, [documentName, entity]);
 
   return (
     <React.Fragment>
@@ -185,7 +220,7 @@ export const Graphic: React.FC<IGraphicProps> = (
                   <a
                     className={"g-a"}
                     download={buildFileName(modalSize)}
-                    href={buildUrl(props, modalSize)}
+                    href={buildUrl(props, modalSize, subjectName)}
                     onClick={track}
                     rel={"noopener noreferrer"}
                     target={"_blank"}
@@ -239,11 +274,44 @@ export const Graphic: React.FC<IGraphicProps> = (
                     !reportMode &&
                     fullSize.width > minWidthToShowButtons && (
                       <ButtonGroup className={"fr"}>
+                        {isDocumentAllowed(documentName) ? (
+                          <React.Fragment>
+                            <GraphicButton onClick={changeToAll}>
+                              {subjectName === subject ? (
+                                <b>{translate.t("analytics.limitData.all")}</b>
+                              ) : (
+                                translate.t("analytics.limitData.all")
+                              )}
+                            </GraphicButton>
+                            <GraphicButton onClick={changeTothirtyDays}>
+                              {subjectName === `${subject}_30` ? (
+                                <b>
+                                  {translate.t(
+                                    "analytics.limitData.thirtyDays"
+                                  )}
+                                </b>
+                              ) : (
+                                translate.t("analytics.limitData.thirtyDays")
+                              )}
+                            </GraphicButton>
+                            <GraphicButton onClick={changeToNinety}>
+                              {subjectName === `${subject}_90` ? (
+                                <b>
+                                  {translate.t(
+                                    "analytics.limitData.ninetyDays"
+                                  )}
+                                </b>
+                              ) : (
+                                translate.t("analytics.limitData.ninetyDays")
+                              )}
+                            </GraphicButton>
+                          </React.Fragment>
+                        ) : undefined}
                         <GraphicButton>
                           <a
                             className={"g-a"}
                             download={buildFileName(bigGraphicSize)}
-                            href={buildUrl(props, bigGraphicSize)}
+                            href={buildUrl(props, bigGraphicSize, subjectName)}
                             onClick={track}
                             rel={"noopener noreferrer"}
                             target={"_blank"}
