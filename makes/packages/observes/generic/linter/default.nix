@@ -13,5 +13,5 @@ makeTemplate {
       "/makes/utils/lint-python"
     ];
   };
-  template = path "/makes/packages/observes/generic/linter/builder.sh";
+  template = path "/makes/packages/observes/generic/linter/template.sh";
 }

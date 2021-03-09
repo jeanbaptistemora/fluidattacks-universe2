@@ -68,7 +68,9 @@ melts.lint
 observes.config-streamer-zoho-crm-runtime
 observes.config-target-redshift-runtime
 observes.env.development.code-etl
+observes.env.runtime.code-etl
 observes.generic.linter
+observes.generic.tester
 observes.lint.code-etl
 observes.lint.dif-gitlab-etl
 observes.lint.postgres-client
