@@ -67,12 +67,6 @@ def _build_vulnerabilities_stream(
                 ))[0:8],
                 line=result.where,
                 path=result.what,
-                source=(
-                    result.integrates_metadata.source
-                    if (result.integrates_metadata and
-                        result.integrates_metadata.source)
-                    else core_model.VulnerabilitySourceEnum.INTEGRATES
-                ),
                 state=result.state,
             )
             for result in results

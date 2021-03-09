@@ -57,7 +57,6 @@ async def test_build_vulnerabilities_stream() -> None:
         - commit_hash: '00000000'
           line: '123'
           path: namespace/what
-          source: skims
           state: open
     """)[1:]
 
