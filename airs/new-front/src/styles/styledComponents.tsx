@@ -475,22 +475,34 @@ const PlayItButtonSection: StyledComponent<
 })``;
 
 const PlayItButtonContainer: StyledComponent<
-  "div",
+  "button",
   Record<string, unknown>
-> = styled.div.attrs({
-  className: `
-    roboto
-    f4
-    c-black-gray
-    justify-center
-    items-center
-    flex
-    t-tf-6-eio
-    hv-grow
-    w5
-    center
-  `,
-})``;
+> = styled.button.attrs(
+  (
+    props: React.ButtonHTMLAttributes<HTMLButtonElement>
+  ): {
+    className: string;
+    type: "button" | "reset" | "submit";
+  } => ({
+    className: `
+      roboto
+      f4
+      c-black-gray
+      justify-center
+      items-center
+      flex
+      t-tf-6-eio
+      outline-transparent
+      bg-transparent
+      bn
+      pointer
+      hv-grow
+      w5
+      center
+    `,
+    type: props.type ?? "button",
+  })
+)``;
 
 const PlayItButtonImage: StyledComponent<
   "img",

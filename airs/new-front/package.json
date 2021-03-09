@@ -33,6 +33,7 @@
     "gatsby-source-filesystem": "2.11.0",
     "gatsby-transformer-asciidoc": "1.10.0",
     "jest": "26.6.3",
+    "modal-video-custom": "1.0.2",
     "prop-types": "15.7.2",
     "react": "17.0.1",
     "react-dom": "17.0.1",
