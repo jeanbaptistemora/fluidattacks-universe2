@@ -7,6 +7,8 @@
 makeOci {
   config = {
     Env = [
+      "NIX_PATH=/nix/var/nix/profiles/per-user/root/channels"
+      "PATH=/bin:/nix/var/nix/profiles/default/bin"
       "SSL_CERT_FILE=${nixpkgs.cacert}/etc/ssl/certs/ca-bundle.crt"
       "USER=root"
     ];

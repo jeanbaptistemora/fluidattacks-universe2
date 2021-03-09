@@ -149,8 +149,9 @@ makes.review-mr:
 makes.test.instantiate:
   <<: *makes
   <<: *common_in_dev_branch
-  image: "${CI_REGISTRY_IMAGE}/makes:ci"
   script:
+    - nix-channel --add https://nixos.org/channels/nixpkgs-unstable
+    - nix-channel --update
     - nix-instantiate .
   stage: test-code
 
@@ -158,8 +159,9 @@ makes.test.profiles:
   <<: *makes
   <<: *common_in_dev_branch
   before_script:
-    - apk add --no-cache curl
-  image: "${CI_REGISTRY_IMAGE}/makes:ci"
+    - nix-channel --add https://nixos.org/channels/nixpkgs-unstable
+    - nix-channel --update
+    - nix-env -i curl
   script:
     - for profile in forces hacker melts reviews skims sorts;
       do
