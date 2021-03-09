@@ -3,6 +3,7 @@ from datetime import datetime
 from typing import (
     Dict,
     List,
+    Optional,
 )
 
 # Third party libraries
@@ -60,16 +61,25 @@ def translate_date(date_str: str) -> datetime:
 
 
 @alru_cache(maxsize=None, typed=True)
-async def get_group_document(group: str) -> Dict[str, Dict[str, float]]:
+async def get_group_document(
+    group: str,
+    days: Optional[int] = None
+) -> Dict[str, Dict[str, float]]:
     data: List[list] = []
     context = get_new_context()
     group_loader = context.group_all
+
+    data_name = 'remediated_over_time'
+    if days == 30:
+        data_name = f'{data_name}_30'
+    elif days == 90:
+        data_name = f'{data_name}_90'
 
     group_data = await group_loader.load(group)
     group_over_time = [
         # Last 12 weeks
         elements[-12:]
-        for elements in group_data['remediated_over_time']
+        for elements in group_data[data_name]
     ]
 
     if group_over_time:
@@ -116,8 +126,11 @@ async def get_group_document(group: str) -> Dict[str, Dict[str, float]]:
 
 async def get_many_groups_document(
     groups: str,
+    days: Optional[int] = None
 ) -> Dict[str, Dict[str, float]]:
-    group_documents = await collect(map(get_group_document, groups))
+    group_documents = await collect(
+        get_group_document(group, days) for group in groups
+    )
 
     all_dates: List[datetime] = sorted(set(
         date
@@ -241,6 +254,43 @@ async def generate_all():
                 entity='portfolio',
                 subject=f'{org_id}PORTFOLIO#{portfolio}',
             )
+
+    # Limit days
+    list_days: List[int] = [30, 90]
+    for days in list_days:
+        async for group in utils.iterate_groups():
+            utils.json_dump(
+                document=format_document(
+                    document=await get_group_document(group, days),
+                ),
+                entity='group',
+                subject=f'{group}_{days}',
+            )
+
+        async for org_id, _, org_groups in (
+            utils.iterate_organizations_and_groups()
+        ):
+            utils.json_dump(
+                document=format_document(
+                    document=await get_many_groups_document(org_groups, days),
+                ),
+                entity='organization',
+                subject=f'{org_id}_{days}',
+            )
+
+        async for org_id, org_name, _ in (
+            utils.iterate_organizations_and_groups()
+        ):
+            for portfolio, groups in await utils.get_portfolios_groups(
+                org_name
+            ):
+                utils.json_dump(
+                    document=format_document(
+                        document=await get_many_groups_document(groups, days),
+                    ),
+                    entity='portfolio',
+                    subject=f'{org_id}PORTFOLIO#{portfolio}_{days}',
+                )
 
 if __name__ == '__main__':
     run(generate_all())

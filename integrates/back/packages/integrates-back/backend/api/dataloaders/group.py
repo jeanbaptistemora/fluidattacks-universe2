@@ -87,6 +87,8 @@ async def _batch_load_fn(group_names: List[str]) -> List[GroupType]:
             organization=organization_id,
             project_status=status,
             remediated_over_time=group.get('remediated_over_time', []),
+            remediated_over_time_30=group.get('remediated_over_time_30', []),
+            remediated_over_time_90=group.get('remediated_over_time_90', []),
             subscription=subscription,
             tags=group.get('tag', []),
             total_treatment=group.get('total_treatment', {}),
