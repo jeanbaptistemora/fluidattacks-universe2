@@ -21,6 +21,7 @@ class Facet(NamedTuple):
 
 
 class Index(NamedTuple):
+    name: str
     primary_key: PrimaryKey
 
 

@@ -38,6 +38,7 @@ def load_indexes(model: Dict[str, Any]) -> Dict[str, Index]:
 
     return {
         index['IndexName']: Index(
+            name=index['IndexName'],
             primary_key=get_key(index['KeyAttributes'])
         )
         for index in data_model['GlobalSecondaryIndexes']
