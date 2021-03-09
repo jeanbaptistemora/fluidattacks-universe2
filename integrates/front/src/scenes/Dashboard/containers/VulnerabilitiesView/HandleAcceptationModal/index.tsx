@@ -188,7 +188,7 @@ const HandleAcceptationModal: React.FC<IHandleVulnsAcceptationModalProps> = (
       onCompleted: (data: IConfirmZeroRiskVulnResultAttr): void => {
         if (data.confirmZeroRiskVuln.success) {
           msgSuccess(
-            translate.t("group_alerts.confirmed_zero_risk_success"),
+            translate.t("group_alerts.confirmedZeroRiskSuccess"),
             translate.t("group_alerts.updatedTitle")
           );
           refetchData();

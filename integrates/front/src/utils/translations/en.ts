@@ -613,18 +613,18 @@ export const enTranslations: ResourceKey = {
     },
   },
   group_alerts: {
-    acceptation_approved: "Indefinite acceptation has been approved",
-    acceptation_rejected: "Indefinite acceptation has been rejected",
-    access_denied: "Access denied",
-    confirmed_zero_risk_success: "Zero risk vulnerability has been confirmed",
-    draft_already_approved: "This finding has already been approved",
-    draft_already_submitted: "This finding has already been submitted",
-    draft_not_submitted:
+    acceptationApproved: "Indefinite acceptation has been approved",
+    acceptationRejected: "Indefinite acceptation has been rejected",
+    accessDenied: "Access denied",
+    confirmedZeroRiskSuccess: "Zero risk vulnerability has been confirmed",
+    draftAlreadyApproved: "This finding has already been approved",
+    draftAlreadySubmitted: "This finding has already been submitted",
+    draftNotSubmitted:
       "This finding has not been submitted yet or it might've been rejected by someone else",
-    draft_without_vulns:
+    draftWithoutVulns:
       "This finding can not been approved without vulnerabilities",
+    errorNetwork: "Check your network connection",
     errorTextsad: "There is an error :(",
-    error_network: "Check your network connection",
     expiredInvitation: "The stakeholder has an expired invitation",
     fileTypeCsv: "The file must have .csv extension",
     fileTypeEvidence: "The image must be .png or .gif type",
@@ -853,26 +853,26 @@ export const enTranslations: ResourceKey = {
     },
   },
   registration: {
-    concurrent_session_message:
+    concurrentSessionMessage:
       "You already have an active session. If you proceed, that session will " +
       "be terminated.",
-    concurrent_session_title: "Active Session Detected",
-    continue_as_btn: "Continue as",
-    continue_btn: "Continue",
+    concurrentSessionTitle: "Active Session Detected",
+    continueAsBtn: "Continue as",
+    continueBtn: "Continue",
     greeting: "Hello",
-    logged_in_message:
+    loggedInMessage:
       "Please log out before trying to access with another account.",
-    logged_in_title: "You are already logged in",
+    loggedInTitle: "You are already logged in",
   },
   route: {
     pendingToDelete: "Group pending to delete",
   },
   search_findings: {
-    acceptation_buttons: {
+    acceptationButtons: {
       approve: "Approve Acceptation",
       reject: "Reject Acceptation",
     },
-    agent_token_section: {
+    agentTokenSection: {
       about: "Generate, reveal or update token for DevSecOps.",
       generate: "Manage Token",
       title: "DevSecOps Token",
@@ -880,7 +880,7 @@ export const enTranslations: ResourceKey = {
     alert: {
       attention: "Attention",
     },
-    critical_severity: "Critical",
+    criticalSeverity: "Critical",
     delete: {
       btn: {
         text: "Delete",
@@ -888,9 +888,9 @@ export const enTranslations: ResourceKey = {
       },
       justif: {
         duplicated: "It is duplicated",
-        false_positive: "It is a false positive",
+        falsePositive: "It is a false positive",
         label: "Justification",
-        not_required: "Finding not required",
+        notRequired: "Finding not required",
       },
       title: "Delete Finding",
     },
@@ -2070,7 +2070,7 @@ export const enTranslations: ResourceKey = {
   tag_indicator: {
     acceptedVulnerabilitiesBySeverity: "Accepted vulnerabilities by severity",
     acceptedVulnerabilitiesByUser: "Accepted vulnerabilities by user",
-    critical_severity: "Critical Severity",
+    criticalSeverity: "Critical Severity",
     findings_group: "Findings by group",
     high_severity: "High Severity",
     low_severity: "Low Severity",

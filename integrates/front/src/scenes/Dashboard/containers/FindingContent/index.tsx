@@ -127,12 +127,12 @@ const findingContent: React.FC = (): JSX.Element => {
           } else if (
             message === "Exception - This draft has already been submitted"
           ) {
-            msgError(translate.t("group_alerts.draft_already_submitted"));
+            msgError(translate.t("group_alerts.draftAlreadySubmitted"));
             void headerRefetch();
           } else if (
             message === "Exception - This draft has already been approved"
           ) {
-            msgError(translate.t("group_alerts.draft_already_approved"));
+            msgError(translate.t("group_alerts.draftAlreadyApproved"));
             void headerRefetch();
           } else {
             msgError(translate.t("group_alerts.errorTextsad"));
@@ -161,15 +161,15 @@ const findingContent: React.FC = (): JSX.Element => {
           ({ message }: GraphQLError): void => {
             switch (message) {
               case "Exception - This draft has already been approved":
-                msgError(translate.t("group_alerts.draft_already_approved"));
+                msgError(translate.t("group_alerts.draftAlreadyApproved"));
                 void headerRefetch();
                 break;
               case "Exception - The draft has not been submitted yet":
-                msgError(translate.t("group_alerts.draft_not_submitted"));
+                msgError(translate.t("group_alerts.draftNotSubmitted"));
                 void headerRefetch();
                 break;
               case "CANT_APPROVE_FINDING_WITHOUT_VULNS":
-                msgError(translate.t("group_alerts.draft_without_vulns"));
+                msgError(translate.t("group_alerts.draftWithoutVulns"));
                 break;
               default:
                 msgError(translate.t("group_alerts.errorTextsad"));
@@ -201,11 +201,11 @@ const findingContent: React.FC = (): JSX.Element => {
         rejectError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
           switch (message) {
             case "Exception - This draft has already been approved":
-              msgError(translate.t("group_alerts.draft_already_approved"));
+              msgError(translate.t("group_alerts.draftAlreadyApproved"));
               void headerRefetch();
               break;
             case "Exception - The draft has not been submitted yet":
-              msgError(translate.t("group_alerts.draft_not_submitted"));
+              msgError(translate.t("group_alerts.draftNotSubmitted"));
               void headerRefetch();
               break;
             default:
@@ -472,10 +472,10 @@ const findingContent: React.FC = (): JSX.Element => {
                 {translate.t("search_findings.delete.justif.duplicated")}
               </option>
               <option value={"FALSE_POSITIVE"}>
-                {translate.t("search_findings.delete.justif.false_positive")}
+                {translate.t("search_findings.delete.justif.falsePositive")}
               </option>
               <option value={"NOT_REQUIRED"}>
-                {translate.t("search_findings.delete.justif.not_required")}
+                {translate.t("search_findings.delete.justif.notRequired")}
               </option>
             </Field>
           </FormGroup>

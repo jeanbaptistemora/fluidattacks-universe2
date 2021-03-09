@@ -25,15 +25,15 @@ const agentToken: React.FC<IServicesProps> = (props: IServicesProps): JSX.Elemen
       <LastProjectSetting>
         <Flex>
           <h2>
-            {translate.t("search_findings.agent_token_section.title")}
+            {translate.t("search_findings.agentTokenSection.title")}
           </h2>
         </Flex>
         <ProjectScopeText>
-            {t("search_findings.agent_token_section.about")}
+            {t("search_findings.agentTokenSection.about")}
         </ProjectScopeText>
         <ButtonToolbar>
           <Button onClick={handleChange}>
-            {t("search_findings.agent_token_section.generate")}
+            {t("search_findings.agentTokenSection.generate")}
           </Button>
         </ButtonToolbar>
         <APITokenForcesModal groupName={groupName} open={isModalOpen} onClose={handleChange}/>

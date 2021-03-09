@@ -27,7 +27,7 @@ interface IFindingHeaderProps {
 const severityConfigs: Record<string, { color: string; text: string }> = {
   CRITICAL: {
     color: "#96030D",
-    text: translate.t("search_findings.critical_severity"),
+    text: translate.t("search_findings.criticalSeverity"),
   },
   HIGH: {
     color: "#FF1122",

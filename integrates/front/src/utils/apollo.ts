@@ -280,7 +280,7 @@ const errorLink: (history: History) => ApolloLink = (
 
         switch (statusCode) {
           case undefined:
-            msgError(translate.t("group_alerts.error_network"), "Offline");
+            msgError(translate.t("group_alerts.errorNetwork"), "Offline");
             break;
           case forbidden:
             // Django CSRF expired
@@ -311,7 +311,7 @@ const errorLink: (history: History) => ApolloLink = (
                   skipForwarding();
                 }
               }
-              msgError(translate.t("group_alerts.access_denied"));
+              msgError(translate.t("group_alerts.accessDenied"));
               history.replace("/home");
               break;
             default:
