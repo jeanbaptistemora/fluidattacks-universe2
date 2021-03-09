@@ -14,7 +14,6 @@ makeDerivation {
   searchPaths = {
     envPaths = [
       nixpkgs.nodejs
-      nixpkgs.bash
     ];
   };
 }
