@@ -6,7 +6,7 @@ function main {
   &&  echo '[INFO] Activating virtualenv' \
   &&  source "${out}/bin/activate" \
   &&  echo '[INFO] Installing' \
-  &&  python -m pip install \
+  &&  HOME=. python -m pip install \
         --requirement "${envRequirementsFile}" \
         --no-cache-dir \
   &&  echo '[INFO] Freezing' \
