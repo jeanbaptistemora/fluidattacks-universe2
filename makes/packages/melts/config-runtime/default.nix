@@ -84,9 +84,9 @@ makeTemplate {
       nixpkgs.openssh
       nixpkgs.python38
       nixpkgs.sops
+      pythonRequirements
     ];
     envPythonPaths = [
-      pythonRequirements
       (path "/melts")
     ];
     envPython38Paths = [
