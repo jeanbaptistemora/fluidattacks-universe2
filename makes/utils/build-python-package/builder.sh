@@ -8,7 +8,7 @@ function main {
   &&  echo '[INFO] Installing' \
   &&  pushd "$(mktemp -d)" \
     &&  copy "${envPackagePath}" . \
-    &&  python -m pip install --no-cache-dir . \
+    &&  HOME=. python -m pip install --no-cache-dir . \
   &&  popd \
   ||  return 1
 }
