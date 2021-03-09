@@ -61,12 +61,12 @@ const DeleteGroupModal: React.FC<IDeleteGroupModalProps> = (
             <React.Fragment>
               <ControlLabel>
                 {translate.t(
-                  "search_findings.services_table.delete_group.warning_title"
+                  "search_findings.services_table.delete_group.warningTitle"
                 )}
               </ControlLabel>
               <Alert>
                 {translate.t(
-                  "search_findings.services_table.delete_group.warning_body"
+                  "search_findings.services_table.delete_group.warningBody"
                 )}
               </Alert>
               <FormGroup>

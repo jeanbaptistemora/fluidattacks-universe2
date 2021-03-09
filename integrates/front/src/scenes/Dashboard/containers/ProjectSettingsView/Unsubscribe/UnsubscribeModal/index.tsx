@@ -59,10 +59,10 @@ const UnsubscribeModal: React.FC<IUnsubscribeModalProps> = (
           {({ handleSubmit, valid }: InjectedFormProps): JSX.Element => (
             <React.Fragment>
               <ControlLabel>
-                {t("search_findings.services_table.unsubscribe.warning_title")}
+                {t("search_findings.services_table.unsubscribe.warningTitle")}
               </ControlLabel>
               <Alert>
-                {t("search_findings.services_table.unsubscribe.warning_body")}
+                {t("search_findings.services_table.unsubscribe.warningBody")}
               </Alert>
               <FormGroup>
                 <ControlLabel>

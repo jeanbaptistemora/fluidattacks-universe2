@@ -33,7 +33,7 @@ const groupInformation: React.FC = (): JSX.Element => {
   const attributesDataset: Array<{ attribute: string; value: string }> = [
     {
       attribute: "Language",
-      value: translate.t(`search_findings.info_table.${data.project.language}`),
+      value: translate.t(`search_findings.infoTable.${data.project.language}`),
     },
   ];
   const tableHeaders: IHeaderConfig[] = [
@@ -52,7 +52,7 @@ const groupInformation: React.FC = (): JSX.Element => {
       <LastProjectSetting>
         <Flex>
           <h2>
-            {translate.t("search_findings.info_table.title")}
+            {translate.t("search_findings.infoTable.title")}
           </h2>
         </Flex>
         <DataTableNext

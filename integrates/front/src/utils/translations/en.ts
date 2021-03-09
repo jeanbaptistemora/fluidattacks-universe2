@@ -895,25 +895,25 @@ export const enTranslations: ResourceKey = {
       title: "Delete Finding",
     },
     discoveryDateLabel: "Discovery date",
-    draft_approved: "This finding was approved",
-    draft_status: {
+    draftApproved: "This finding was approved",
+    draftStatus: {
       created: "Created",
       rejected: "Rejected",
       submitted: "Submitted",
     },
-    environment_table: {
+    environmentTable: {
       environment: "Environment",
-      upload_date: "Since",
+      uploadDate: "Since",
     },
-    files_table: {
+    filesTable: {
       description: "Description",
       file: "File",
-      upload_date: "Since",
+      uploadDate: "Since",
     },
-    finding_deleted: "Finding {{findingId}} was deleted",
-    finding_rejected: "Finding {{findingId}} was rejected",
-    high_severity: "High",
-    info_table: {
+    findingDeleted: "Finding {{findingId}} was deleted",
+    findingRejected: "Finding {{findingId}} was rejected",
+    highSeverity: "High",
+    infoTable: {
       EN: "English",
       ES: "Spanish",
       attribute: "Attribute",
@@ -921,11 +921,11 @@ export const enTranslations: ResourceKey = {
       title: "Information",
       value: "Value",
     },
-    low_severity: "Low",
-    medium_severity: "Medium",
-    none_severity: "None",
+    lowSeverity: "Low",
+    mediumSeverity: "Medium",
+    noneSeverity: "None",
     openVulnsLabel: "Open vulnerabilities",
-    repositories_table: {
+    repositoriesTable: {
       state: "State",
     },
     services_table: {
@@ -935,11 +935,11 @@ export const enTranslations: ResourceKey = {
         delete_group: "Delete this group",
         type_group_name: "Please type the group name to procede.",
         warning: "Group deletion is a destructive action and cannot be undone.",
-        warning_body:
+        warningBody:
           "This action will immediately delete the group. " +
           "This will remove all of its data including findings and related vulnerabilities. " +
           "This is a destructive action and cannot be undone.",
-        warning_title: "Warning!",
+        warningTitle: "Warning!",
       },
       deletedsoon: "Scheduled to be deleted in 1 month",
       drills: "Drills",
@@ -947,11 +947,11 @@ export const enTranslations: ResourceKey = {
         drills_only_if_continuous:
           "Drills is only available in groups of type Continuous-Hacking",
         expected_group_name: "Expected: {{groupName}}",
-        forces_only_if_continuous:
+        forcesOnlyIfContinuous:
           "Forces is only available in groups of type Continuous-Hacking",
-        forces_only_if_drills: "Forces is only available when Drills is too",
-        organization_not_exists: "Target organization does not exist",
-        user_not_in_organization:
+        forcesOnlyIfDrills: "Forces is only available when Drills is too",
+        organizationNotExists: "Target organization does not exist",
+        userNotInOrganization:
           "User is not a member of the target organization",
       },
       forces: "Forces",
@@ -1002,10 +1002,10 @@ export const enTranslations: ResourceKey = {
         title: "Unsubscribe",
         type_group_name: "Please type the group name to procede.",
         warning: "Revoke access permissions to this group.",
-        warning_body:
+        warningBody:
           "This action will unsubscribe you from the group. " +
           "If you do not have more groups, you will be removed from integrates. ",
-        warning_title: "Warning!",
+        warningTitle: "Warning!",
       },
     },
     severityLabel: "Severity",
@@ -2072,10 +2072,10 @@ export const enTranslations: ResourceKey = {
     acceptedVulnerabilitiesByUser: "Accepted vulnerabilities by user",
     criticalSeverity: "Critical Severity",
     findings_group: "Findings by group",
-    high_severity: "High Severity",
-    low_severity: "Low Severity",
+    highSeverity: "High Severity",
+    lowSeverity: "Low Severity",
     mean_remediate: "Mean (average) days to remediate",
-    medium_severity: "Medium Severity",
+    mediumSeverity: "Medium Severity",
     open_findings_group: "Open findings by group",
     open_vuln: "open vulns.",
     open_vulns_groups: "Open vulnerabilities by group",

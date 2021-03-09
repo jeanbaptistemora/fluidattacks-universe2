@@ -13,9 +13,9 @@ export const formatDrafts: (dataset: Draft[]) => Draft[] = (
         SECURITY: "search_findings.tab_description.type.security",
       };
       const status: Record<string, string> = {
-        CREATED: "search_findings.draft_status.created",
-        REJECTED: "search_findings.draft_status.rejected",
-        SUBMITTED: "search_findings.draft_status.submitted",
+        CREATED: "search_findings.draftStatus.created",
+        REJECTED: "search_findings.draftStatus.rejected",
+        SUBMITTED: "search_findings.draftStatus.submitted",
       };
       const [reportDate] = draft.reportDate.split(" ");
       const currentState: string = translate.t(status[draft.currentState]);

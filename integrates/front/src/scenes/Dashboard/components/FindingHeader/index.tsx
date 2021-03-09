@@ -31,16 +31,16 @@ const severityConfigs: Record<string, { color: string; text: string }> = {
   },
   HIGH: {
     color: "#FF1122",
-    text: translate.t("search_findings.high_severity"),
+    text: translate.t("search_findings.highSeverity"),
   },
-  LOW: { color: "#FFBF00", text: translate.t("search_findings.low_severity") },
+  LOW: { color: "#FFBF00", text: translate.t("search_findings.lowSeverity") },
   MED: {
     color: "#FF7722",
-    text: translate.t("search_findings.medium_severity"),
+    text: translate.t("search_findings.mediumSeverity"),
   },
   NONE: {
     color: "#FF7722",
-    text: translate.t("search_findings.none_severity"),
+    text: translate.t("search_findings.noneSeverity"),
   },
 };
 

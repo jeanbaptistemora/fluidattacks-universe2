@@ -125,10 +125,10 @@ const services: React.FC<IServicesProps> = (props: IServicesProps): JSX.Element 
 
         switch (message) {
           case "Exception - Forces is only available when Drills is too":
-            msg = "search_findings.services_table.errors.forces_only_if_drills";
+            msg = "search_findings.services_table.errors.forcesOnlyIfDrills";
             break;
           case "Exception - Forces is only available in projects of type Continuous":
-            msg = "search_findings.services_table.errors.forces_only_if_continuous";
+            msg = "search_findings.services_table.errors.forcesOnlyIfContinuous";
             break;
           default:
             msg = "groupAlerts.errorTextsad";

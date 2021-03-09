@@ -187,21 +187,21 @@ const files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
   const tableHeaders: IHeaderConfig[] = [
     {
       dataField: "fileName",
-      header: translate.t("search_findings.files_table.file"),
+      header: translate.t("search_findings.filesTable.file"),
       onSort: sortState,
       width: "25%",
       wrapped: true,
     },
     {
       dataField: "description",
-      header: translate.t("search_findings.files_table.description"),
+      header: translate.t("search_findings.filesTable.description"),
       onSort: sortState,
       width: "50%",
       wrapped: true,
     },
     {
       dataField: "uploadDate",
-      header: translate.t("search_findings.files_table.upload_date"),
+      header: translate.t("search_findings.filesTable.uploadDate"),
       onSort: sortState,
       width: "25%",
       wrapped: true,
