@@ -443,7 +443,13 @@ async def test_iterate_organizations_and_groups():
             'himura': []
         },
         'ORG#c6cecc0e-bb92-4079-8b6d-c4e815c10bb1': {
-            'makimachi': ['metropolis', 'gotham', 'asgard']
+            'makimachi': [
+                'metropolis',
+                'deletegroup',
+                'gotham',
+                'asgard',
+                'setpendingdeletion'
+            ]
         },
         'ORG#956e9107-fd8d-49bc-b550-5609a7a1f6ac': {
             'kamiya': ['barranquilla', 'monteria']

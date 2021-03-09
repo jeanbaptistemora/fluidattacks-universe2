@@ -251,6 +251,42 @@
           }
         }
       }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "level": {
+            "S": "group"
+          },
+          "subject": {
+            "S": "integratesmanager@fluidattacks.com"
+          },
+          "object": {
+            "S": "setpendingdeletion"
+          },
+          "role": {
+            "S": "customeradmin"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "level": {
+            "S": "group"
+          },
+          "subject": {
+            "S": "integratesmanager@fluidattacks.com"
+          },
+          "object": {
+            "S": "deletegroup"
+          },
+          "role": {
+            "S": "customeradmin"
+          }
+        }
+      }
     }
   ]
 }

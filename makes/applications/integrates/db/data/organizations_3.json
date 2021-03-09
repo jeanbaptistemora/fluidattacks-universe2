@@ -242,6 +242,30 @@
           }
         }
       }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "pk": {
+            "S": "ORG#c6cecc0e-bb92-4079-8b6d-c4e815c10bb1"
+          },
+          "sk": {
+            "S": "GROUP#setpendingdeletion"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "pk": {
+            "S": "ORG#c6cecc0e-bb92-4079-8b6d-c4e815c10bb1"
+          },
+          "sk": {
+            "S": "GROUP#deletegroup"
+          }
+        }
+      }
     }
   ]
 }
