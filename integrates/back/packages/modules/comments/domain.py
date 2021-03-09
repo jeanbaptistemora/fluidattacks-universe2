@@ -16,14 +16,12 @@ from backend import (
     authz,
     util,
 )
-from backend.dal import (
-    comment as comment_dal,
-    finding as finding_dal
-)
+from backend.dal import finding as finding_dal
 from backend.typing import (
     Comment as CommentType,
     User as UserType
 )
+from comments import dal as comments_dal
 from newutils import datetime as datetime_utils
 
 
@@ -58,7 +56,7 @@ async def _get_comments(
             user_email,
             cast(Dict[str, str], comment)
         )
-        for comment in await comment_dal.get_comments(
+        for comment in await comments_dal.get_comments(
             comment_type,
             int(finding_id)
         )
@@ -122,11 +120,15 @@ async def create(
         'modified': today,
         'parent': comment_data.get('parent')
     }
-    success = await comment_dal.create(
+    success = await comments_dal.create(
         comment_id,
         comment_attributes
     )
     return (comment_id if success else None, success)
+
+
+async def delete(finding_id: int, user_id: int) -> bool:
+    return await comments_dal.delete(finding_id, user_id)
 
 
 async def fill_comment_data(
@@ -148,6 +150,10 @@ async def fill_comment_data(
         'modified': util.format_comment_date(data['modified']),
         'parent': int(data['parent'])
     }
+
+
+async def get(comment_type: str, element_id: int) -> List[CommentType]:
+    return await comments_dal.get_comments(comment_type, element_id)
 
 
 async def get_comments(

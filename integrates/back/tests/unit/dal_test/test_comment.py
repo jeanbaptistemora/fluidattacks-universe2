@@ -1,8 +1,10 @@
 import pytest
 
-from backend.dal.comment import (
-    delete, get_comments
+from comments.dal import (
+    delete,
+    get_comments
 )
+
 
 pytestmark = [
     pytest.mark.asyncio,

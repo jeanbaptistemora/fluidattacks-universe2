@@ -24,10 +24,7 @@ from starlette.datastructures import UploadFile
 # Local Libraries
 from back import settings
 from backend import authz, mailer, util
-from backend.dal import (
-    comment as comment_dal,
-    project as project_dal
-)
+from backend.dal import project as project_dal
 from backend.domain import (
     organization as org_domain,
     user as user_domain
@@ -352,10 +349,7 @@ async def add_comment(
     if parent != '0':
         event_comments = [
             str(comment.get('user_id'))
-            for comment in await comment_dal.get_comments(
-                'event',
-                int(event_id)
-            )
+            for comment in await comments_domain.get('event', int(event_id))
         ]
         if parent not in event_comments:
             raise InvalidCommentParent()
@@ -436,12 +430,10 @@ async def mask(event_id: str) -> bool:
         for file_name in list_evidences
     ])
 
-    list_comments = await comment_dal.get_comments('event', int(event_id))
+    list_comments = await comments_domain.get('event', int(event_id))
     mask_events_coroutines.extend([
-        comment_dal.delete(int(event_id), cast(int, comment['user_id']))
+        comments_domain.delete(int(event_id), int(comment['user_id']))
         for comment in list_comments
     ])
-
     success = all(await collect(mask_events_coroutines))
-
     return success

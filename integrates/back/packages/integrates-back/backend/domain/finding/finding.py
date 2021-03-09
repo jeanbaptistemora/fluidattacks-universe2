@@ -24,10 +24,7 @@ from backend import (
     mailer,
     util,
 )
-from backend.dal import (
-    comment as comment_dal,
-    finding as finding_dal,
-)
+from backend.dal import finding as finding_dal
 from backend.dal.helpers.dynamodb import start_context
 from backend.domain import (
     user as user_domain,
@@ -88,7 +85,7 @@ async def add_comment(
     if parent != '0':
         finding_comments = [
             str(comment.get('user_id'))
-            for comment in await comment_dal.get_comments(
+            for comment in await comments_domain.get(
                 str(comment_data.get('comment_type')),
                 int(finding_id))
         ]
@@ -530,11 +527,11 @@ async def mask_finding(context: Any, finding_id: str) -> bool:
     mask_finding_coroutines.append(evidence_dynamodb_coroutine)
 
     comments_and_observations = (
-        await comment_dal.get_comments('comment', int(finding_id)) +
-        await comment_dal.get_comments('observation', int(finding_id))
+        await comments_domain.get('comment', int(finding_id)) +
+        await comments_domain.get('observation', int(finding_id))
     )
     comments_coroutines = [
-        comment_dal.delete(int(finding_id), cast(int, comment['user_id']))
+        comments_domain.delete(int(finding_id), cast(int, comment['user_id']))
         for comment in comments_and_observations
     ]
     mask_finding_coroutines.extend(comments_coroutines)

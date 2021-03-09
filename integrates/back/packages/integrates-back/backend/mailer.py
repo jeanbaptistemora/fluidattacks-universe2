@@ -35,13 +35,13 @@ from backend.domain import (
 from backend.filters import (
     finding as finding_filters,
 )
-from backend.dal.comment import CommentType
 from backend.typing import (
     Event as EventType,
     Finding as FindingType,
     MailContent as MailContentType,
     Project as ProjectType
 )
+from comments.domain import CommentType
 from newutils import datetime as datetime_utils
 from __init__ import (
     BASE_URL,

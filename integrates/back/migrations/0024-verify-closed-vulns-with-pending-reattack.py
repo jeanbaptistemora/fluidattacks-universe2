@@ -8,12 +8,10 @@ can't be verified
 Execution Time: 2020-08-21 14:00:51 UTC-5
 Finalization Time: 2020-08-21 14:05:10 UTC-5
 """
-from collections import (
-    defaultdict,
-)
+import os
+from collections import defaultdict
 from datetime import datetime
 from time import time
-import os
 from typing import (
     Awaitable,
     Dict,
@@ -22,17 +20,16 @@ from typing import (
     cast,
 )
 
+import django
+import pytz
 from aioextensions import (
     collect,
     run,
 )
-import django
-from back import settings
 from more_itertools import chunked
-import pytz
 
+from back import settings
 from backend.dal import (
-    comment as comment_dal,
     finding as finding_dal,
     vulnerability as vuln_dal,
 )
@@ -44,6 +41,9 @@ from backend.domain import (
 from backend.typing import (
     Comment as CommentType,
 )
+from comments import dal as comments_dal
+
+
 django.setup()
 STAGE: str = os.environ['STAGE']
 
@@ -127,7 +127,7 @@ async def verify_closed_vulnerabilities(
         'modified': today,
         'parent': 0,
     }
-    coroutines.append(comment_dal.create(comment_id, comment_data))
+    coroutines.append(comments_dal.create(comment_id, comment_data))
     coroutines.extend(map(vuln_dal.verify_vulnerability, vulnerabilities))
     await collect(coroutines)
 

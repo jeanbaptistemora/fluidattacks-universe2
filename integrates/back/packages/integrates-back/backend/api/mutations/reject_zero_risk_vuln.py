@@ -35,10 +35,7 @@ async def mutate(
     user_info = await util.get_jwt_content(info.context)
     success = await vuln_domain.reject_zero_risk_vulnerabilities(
         finding_id,
-        user_info['user_email'],
-        ' '.join(
-            [user_info.get('first_name', ''), user_info.get('last_name', '')]
-        ),
+        user_info,
         justification,
         vulnerabilities
     )

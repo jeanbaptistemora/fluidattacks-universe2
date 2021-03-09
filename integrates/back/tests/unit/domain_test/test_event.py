@@ -6,7 +6,6 @@ from aniso8601 import parse_datetime
 from starlette.datastructures import UploadFile
 
 from backend.api import get_new_context
-from backend.dal import comment as comment_dal
 from backend.exceptions import (
     EventAlreadyClosed, EventNotFound, InvalidCommentParent,
     InvalidFileType, InvalidFileSize
@@ -14,6 +13,7 @@ from backend.exceptions import (
 from events import dal as events_dal
 from back.tests.unit.utils import create_dummy_session
 from graphql.type import GraphQLResolveInfo
+from comments import domain as comments_domain
 from events import domain as events_domain
 from newutils import datetime as datetime_utils
 
@@ -215,7 +215,7 @@ async def test_mask_event():
     evidence_prefix = f'unittesting/{event_id}'
 
     assert success
-    assert len(await comment_dal.get_comments('event', int(event_id))) >= 1
+    assert len(await comments_domain.get('event', int(event_id))) >= 1
     assert len(await events_dal.search_evidence(evidence_prefix)) >=1
 
     test_data = await events_domain.mask(event_id)
@@ -223,7 +223,7 @@ async def test_mask_event():
 
     assert isinstance(test_data, bool)
     assert test_data == expected_output
-    assert len(await comment_dal.get_comments('event', int(event_id))) == 0
+    assert len(await comments_domain.get('event', int(event_id))) == 0
     assert len(await events_dal.search_evidence(evidence_prefix)) == 0
 
     event = await events_domain.get_event(event_id)
