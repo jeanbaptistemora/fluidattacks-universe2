@@ -79,7 +79,7 @@ async def populate_orgs(data: List[Any]) -> bool:
     coroutines = []
     coroutines.extend([
         dal_organization.update(
-            org['id'],
+            f'ORG#{org["id"]}',
             org['name'],
             org['policy'],
         )
@@ -139,6 +139,14 @@ async def populate_policies(data: List[Any]) -> bool:
             ),
         )
         for policy in data
+    ])
+    coroutines.extend([
+        dal_group.update_access(
+            policy['subject'],
+            policy['object'],
+            {'has_access': True},
+        )
+        for policy in data if policy['level'] == 'group'
     ])
     return all(await collect(coroutines))
 

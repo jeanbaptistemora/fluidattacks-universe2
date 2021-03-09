@@ -15,6 +15,7 @@ TEST_GROUPS: Set[str] = {
     'grant_stakeholder_organization_access',
     'groups_with_forces',
     'old',
+    'organization',
     'organization_id',
     'update_organization_policies',
 }
