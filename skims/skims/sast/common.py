@@ -40,6 +40,8 @@ DANGER_METHODS_BY_ARGS_PROPAGATION: Set[str] = _complete_attrs_on_set({
     'java.nio.file.Paths.get',
     'org.apache.commons.codec.binary.Base64.decodeBase64',
     'org.apache.commons.codec.binary.Base64.encodeBase64',
+    'org.owasp.esapi.ESAPI.encoder.encodeForBase64',
+    'org.owasp.esapi.ESAPI.encoder.decodeForBase64',
     'Double.toString',
     'Float.toString',
     'Integer.toString',
@@ -53,6 +55,8 @@ DANGER_METHODS_STATIC: Set[str] = _complete_attrs_on_set({
     'java.util.Random.nextBoolean',
     'java.util.Random.nextDouble',
     'java.util.Random.nextGaussian',
+})
+DANGER_METHODS_STATIC_SIDE_EFFECTS = _complete_attrs_on_set({
     'java.util.Random.nextBytes',
 })
 DANGER_METHODS_BY_OBJ_NO_TYPE_ARGS_PROPAGATION: Set[

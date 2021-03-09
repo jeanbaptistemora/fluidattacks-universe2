@@ -19,6 +19,7 @@ from model import (
 )
 from sast.common import (
     build_attr_paths,
+    DANGER_METHODS_STATIC_SIDE_EFFECTS,
     DANGER_METHODS_BY_ARGS_PROPAGATION,
     DANGER_METHODS_BY_OBJ,
     DANGER_METHODS_BY_OBJ_NO_TYPE_ARGS_PROPAGATION,
@@ -63,11 +64,13 @@ def lookup_vars(
 ) -> Iterator[Union[
     graph_model.SyntaxStepAssignment,
     graph_model.SyntaxStepDeclaration,
+    graph_model.SyntaxStepSymbolLookup,
 ]]:
     for syntax_step in reversed(args.syntax_steps[0:args.syntax_step_index]):
         if isinstance(syntax_step, (
             graph_model.SyntaxStepAssignment,
             graph_model.SyntaxStepDeclaration,
+            graph_model.SyntaxStepSymbolLookup,
         )):
             yield syntax_step
 
@@ -91,9 +94,15 @@ def lookup_var_state_by_name(
 ) -> Optional[Union[
     graph_model.SyntaxStepAssignment,
     graph_model.SyntaxStepDeclaration,
+    graph_model.SyntaxStepSymbolLookup,
 ]]:
     for syntax_step in lookup_vars(args):
-        if syntax_step.var == var_name:
+        if (isinstance(syntax_step, (
+                graph_model.SyntaxStepDeclaration,
+                graph_model.SyntaxStepAssignment,
+        )) and syntax_step.var == var_name) or (
+                isinstance(syntax_step, graph_model.SyntaxStepSymbolLookup)
+                and syntax_step.symbol == var_name):
             return syntax_step
     return None
 
@@ -193,6 +202,10 @@ def _analyze_method_invocation(args: EvaluatorArgs, method: str) -> None:
         method_path in DANGER_METHODS_BY_OBJ_NO_TYPE_ARGS_PROPAGATION
         and args_danger
     )
+    if method in DANGER_METHODS_STATIC_SIDE_EFFECTS:
+        # functions that make its parameters vulnerable
+        for dep in args.dependencies:
+            dep.meta.danger = True
 
 
 def syntax_step_method_invocation(args: EvaluatorArgs) -> None:
