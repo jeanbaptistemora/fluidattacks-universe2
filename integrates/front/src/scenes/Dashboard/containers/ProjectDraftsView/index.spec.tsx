@@ -1,32 +1,34 @@
-import { MockedProvider, MockedResponse, wait } from "@apollo/react-testing";
-import { mount, ReactWrapper } from "enzyme";
-import { FetchMockStatic } from "fetch-mock";
-import { GraphQLError } from "graphql";
-import * as React from "react";
-// tslint:disable-next-line: no-submodule-imports
-import { act } from "react-dom/test-utils";
-import { Provider } from "react-redux";
-import { MemoryRouter, Route } from "react-router-dom";
-
-import { ProjectDraftsView } from "scenes/Dashboard/containers/ProjectDraftsView";
+import type { FetchMockStatic } from "fetch-mock";
 import { GET_DRAFTS } from "scenes/Dashboard/containers/ProjectDraftsView/queries";
+import { GraphQLError } from "graphql";
+import type { MockedResponse } from "@apollo/react-testing";
+import { ProjectDraftsView } from "scenes/Dashboard/containers/ProjectDraftsView";
+import { Provider } from "react-redux";
+import React from "react";
+import type { ReactWrapper } from "enzyme";
+import { act } from "react-dom/test-utils";
+import { mount } from "enzyme";
 import store from "store";
+import { MemoryRouter, Route } from "react-router-dom";
+import { MockedProvider, wait } from "@apollo/react-testing";
 
-const mockedFetch: FetchMockStatic = fetch as typeof fetch & FetchMockStatic;
+const mockedFetch: FetchMockStatic = fetch as FetchMockStatic & typeof fetch;
 const baseUrl: string = "https://spreadsheets.google.com/feeds/list";
 const spreadsheetId: string = "1L37WnF6enoC8Ws8vs9sr0G29qBLwbe-3ztbuopu1nvc";
-mockedFetch.mock(`${baseUrl}/${spreadsheetId}/1/public/values?alt=json&min-row=2`, {
-  body: {
-    feed: {
-      entry: [],
+mockedFetch.mock(
+  `${baseUrl}/${spreadsheetId}/1/public/values?alt=json&min-row=2`,
+  {
+    body: {
+      feed: {
+        entry: [],
+      },
     },
-  },
-  status: 200,
-});
+    status: 200,
+  }
+);
 
-describe("ProjectDraftsView", () => {
-
-  const mocks: ReadonlyArray<MockedResponse> = [
+describe("ProjectDraftsView", (): void => {
+  const mocks: readonly MockedResponse[] = [
     {
       request: {
         query: GET_DRAFTS,
@@ -37,24 +39,27 @@ describe("ProjectDraftsView", () => {
       result: {
         data: {
           project: {
-            drafts: [{
-              currentState: "",
-              description: "Xcross site scripting - login.",
-              id: "507046047",
-              isExploitable: true,
-              openVulnerabilities: 0,
-              releaseDate: "",
-              reportDate: "2019-05-23 21:19:29",
-              severityScore: 7.9,
-              title: "XCROSS SITE SCRIPTING",
-              type: "HYGIENE",
-            }],
+            drafts: [
+              {
+                currentState: "",
+                description: "Xcross site scripting - login.",
+                id: "507046047",
+                isExploitable: true,
+                openVulnerabilities: 0,
+                releaseDate: "",
+                reportDate: "2019-05-23 21:19:29",
+                severityScore: 7.9,
+                title: "XCROSS SITE SCRIPTING",
+                type: "HYGIENE",
+              },
+            ],
           },
         },
       },
-    }];
+    },
+  ];
 
-  const mockError: ReadonlyArray<MockedResponse> = [
+  const mockError: readonly MockedResponse[] = [
     {
       request: {
         query: GET_DRAFTS,
@@ -65,42 +70,65 @@ describe("ProjectDraftsView", () => {
       result: {
         errors: [new GraphQLError("Access denied")],
       },
-    }];
+    },
+  ];
 
-  it("should return a function", () => {
-    expect(typeof (ProjectDraftsView))
-      .toEqual("function");
+  it("should return a function", (): void => {
+    expect.hasAssertions();
+    expect(typeof ProjectDraftsView).toStrictEqual("function");
   });
 
-  it("should render a component", async () => {
+  it("should render a component", async (): Promise<void> => {
+    expect.hasAssertions();
+
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/groups/TEST/drafts"]}>
         <Provider store={store}>
-          <MockedProvider mocks={mocks} addTypename={false}>
-            <Route path={"/groups/:projectName/drafts"} component={ProjectDraftsView}/>
+          <MockedProvider addTypename={false} mocks={mocks}>
+            <Route
+              component={ProjectDraftsView}
+              path={"/groups/:projectName/drafts"}
+            />
           </MockedProvider>
         </Provider>
-      </MemoryRouter>,
+      </MemoryRouter>
     );
-    await act(async () => { await wait(0); wrapper.update(); });
-    expect(wrapper)
-      .toHaveLength(1);
+    await act(
+      async (): Promise<void> => {
+        await wait(0);
+        wrapper.update();
+      }
+    );
+
+    expect(wrapper).toHaveLength(1);
+
     wrapper.unmount();
   });
 
-  it("should render an error in component", async () => {
+  it("should render an error in component", async (): Promise<void> => {
+    expect.hasAssertions();
+
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/groups/TEST/drafts"]}>
         <Provider store={store}>
-          <MockedProvider mocks={mockError} addTypename={false}>
-            <Route path={"/groups/:projectName/drafts"} component={ProjectDraftsView}/>
+          <MockedProvider addTypename={false} mocks={mockError}>
+            <Route
+              component={ProjectDraftsView}
+              path={"/groups/:projectName/drafts"}
+            />
           </MockedProvider>
         </Provider>
-      </MemoryRouter>,
+      </MemoryRouter>
     );
-    await act(async () => { await wait(0); wrapper.update(); });
-    expect(wrapper)
-      .toHaveLength(1);
+    await act(
+      async (): Promise<void> => {
+        await wait(0);
+        wrapper.update();
+      }
+    );
+
+    expect(wrapper).toHaveLength(1);
+
     wrapper.unmount();
   });
 });
