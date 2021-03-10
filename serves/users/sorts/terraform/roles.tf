@@ -141,3 +141,8 @@ resource "aws_iam_role_policy" "sorts-prod_policy" {
   policy = data.aws_iam_policy_document.sorts_sagemaker_policy.json
   role   = aws_iam_role.sorts-prod.id
 }
+
+resource "aws_iam_role_policy_attachment" "sorts-prod_sagemaker_policy" {
+  role       = aws_iam_role.sorts-prod.id
+  policy_arn = "arn:aws:iam::aws:policy/AmazonSageMakerFullAccess"
+}
