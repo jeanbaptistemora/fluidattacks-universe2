@@ -8,12 +8,10 @@ from graphql.type.definition import GraphQLResolveInfo
 # Local
 from backend import util
 from backend.decorators import enforce_group_level_auth_async
-from backend.domain import (
-    user as user_domain,
-    forces as forces_domain,
-)
+from backend.domain import user as user_domain
 from backend.exceptions import InvalidExpirationTime
 from backend.typing import UpdateAccessTokenPayload
+from forces import domain as forces_domain
 from newutils import datetime as datetime_utils
 
 

@@ -1,6 +1,9 @@
 # Standard
 from datetime import datetime
-from typing import Any, List
+from typing import (
+    Any,
+    List,
+)
 
 # Third party
 from ariadne.utils import convert_kwargs_to_snake_case
@@ -13,9 +16,12 @@ from backend.decorators import (
     require_integrates,
     require_login,
 )
-from backend.domain import forces as forces_domain
-from backend.typing import ForcesExecution, ForcesExecutions
+from backend.typing import (
+    ForcesExecution,
+    ForcesExecutions,
+)
 from backend.util import datetime_utils
+from forces import domain as forces_domain
 
 
 @convert_kwargs_to_snake_case  # type: ignore

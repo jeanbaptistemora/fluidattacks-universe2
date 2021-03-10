@@ -16,7 +16,7 @@ import aioextensions
 
 # Local library
 from backend.domain import project as project_domain
-from backend.domain.forces import update_token
+from forces.domain import update_token
 
 
 async def get_old_forces_token(group: str) -> Optional[str]:

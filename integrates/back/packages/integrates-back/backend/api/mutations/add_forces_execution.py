@@ -1,5 +1,8 @@
 # Standard
-from typing import Any, Optional
+from typing import (
+    Any,
+    Optional,
+)
 
 # Third party
 from ariadne.utils import convert_kwargs_to_snake_case
@@ -9,8 +12,8 @@ from starlette.datastructures import UploadFile
 # Local
 from backend import util
 from backend.decorators import enforce_group_level_auth_async
-from backend.domain import forces as forces_domain
 from backend.typing import SimplePayload
+from forces import domain as forces_domain
 
 
 @convert_kwargs_to_snake_case  # type: ignore

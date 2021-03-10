@@ -28,9 +28,9 @@ from frozendict import frozendict
 from backend.domain import (
     organization as org_domain,
     project as group_domain,
-    forces as forces_domain,
     tag as portfolio_domain,
 )
+from forces import domain as forces_domain
 from newutils.encodings import safe_encode
 
 

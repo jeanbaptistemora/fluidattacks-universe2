@@ -1,10 +1,10 @@
 # Standard
-
-# Third party
 from typing import (
     cast,
     Optional,
 )
+
+# Third party
 from ariadne.utils import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
@@ -14,8 +14,8 @@ from backend.decorators import (
     enforce_group_level_auth_async,
     require_login,
 )
-from backend.domain import forces as forces_domain
 from backend.typing import Project as Group
+from forces import domain as forces_domain
 
 
 @convert_kwargs_to_snake_case  # type: ignore

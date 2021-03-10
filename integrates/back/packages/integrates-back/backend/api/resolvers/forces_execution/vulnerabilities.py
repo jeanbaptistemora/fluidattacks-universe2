@@ -5,8 +5,11 @@ from typing import cast
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local
-from backend.domain import forces as forces_domain
-from backend.typing import ExecutionVulnerabilities, ForcesExecution
+from backend.typing import (
+    ExecutionVulnerabilities,
+    ForcesExecution,
+)
+from forces import domain as forces_domain
 
 
 async def resolve(
