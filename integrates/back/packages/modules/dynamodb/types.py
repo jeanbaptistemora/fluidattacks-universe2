@@ -10,12 +10,10 @@ class PrimaryKey(NamedTuple):
     sort_key: str
 
 
-class Entity(NamedTuple):
-    primary_key: PrimaryKey
-
-
 class Facet(NamedTuple):
     attrs: Tuple[str, ...]
+    pk_alias: str
+    sk_alias: str
 
 
 class Index(NamedTuple):

@@ -1,5 +1,6 @@
 # Standard library
 from collections import defaultdict
+from functools import reduce
 from typing import (
     Dict,
     Optional,
@@ -14,7 +15,7 @@ from boto3.dynamodb.conditions import Key
 from dynamodb import operations, versioned
 from dynamodb.table import TABLE
 from dynamodb.types import (
-    Entity,
+    Facet,
     Item,
     PrimaryKey,
     RootHistoricCloning,
@@ -29,30 +30,6 @@ RESERVED_WORDS: Set[str] = {
     '#',
 }
 
-ENTITIES: Dict[str, Entity] = dict(
-    ROOT=Entity(
-        primary_key=PrimaryKey(
-            partition_key='GROUP#',
-            sort_key='ROOT#',
-        ),
-    ),
-)
-
-
-def validate_pkey_not_empty(*, key: str) -> None:
-    if not key:
-        raise ValueError('Partition key cannot be empty')
-
-
-def validate_entity(*, entity: str) -> None:
-    if entity not in ENTITIES:
-        raise ValueError(f'Invalid entity: {entity}')
-
-
-def validate_key_type(*, key: str) -> None:
-    if not isinstance(key, str):
-        raise TypeError(f'Expected str, got: {type(key)}')
-
 
 def validate_key_words(*, key: str) -> None:
     for word in RESERVED_WORDS:
@@ -62,29 +39,44 @@ def validate_key_words(*, key: str) -> None:
             )
 
 
+def build_composite_key(*, template: str, values: Dict[str, str]) -> str:
+    if values:
+        key_parts = tuple(
+            part
+            for part in template.split('#')
+            if part.islower()
+        )
+
+        return reduce(
+            lambda current, part: current.replace(part, values[part]),
+            key_parts,
+            template
+        )
+
+    return f'{template.split("#")[0]}#'
+
+
 def build_key(
     *,
-    entity: str,
-    partition_key: str,
-    sort_key: Tuple[str, ...]
+    facet: Facet,
+    pk_values: Dict[str, str],
+    sk_values: Dict[str, str]
 ) -> PrimaryKey:
-    validate_entity(entity=entity)
-    validate_pkey_not_empty(key=partition_key)
-    for key in {partition_key, *sort_key}:
-        validate_key_type(key=key)
+    for key in {*pk_values.values(), *sk_values.values()}:
         validate_key_words(key=key)
 
-    prefix = ENTITIES[entity].primary_key
-    composite_pkey: str = f'{prefix.partition_key}{partition_key}'
-    composite_skey: str = f'{prefix.sort_key}{"#".join(sort_key)}'
+    composite_pk: str = build_composite_key(
+        template=facet.pk_alias,
+        values=pk_values
+    )
+    composite_sk: str = build_composite_key(
+        template=facet.sk_alias,
+        values=sk_values
+    )
 
-    # >>> build_key(entity='ROOT', partition_key='group-1', sort_key='root-1')
-    # PrimaryKey(partition_key='GROUP#group-1', sort_key='ROOT#root-1')
-    # >>> build_key(entity='ROOT', partition_key='group-1', sort_key='')
-    # PrimaryKey(partition_key='GROUP#group-1', sort_key='')
     return PrimaryKey(
-        partition_key=composite_pkey,
-        sort_key=composite_skey,
+        partition_key=composite_pk,
+        sort_key=composite_sk,
     )
 
 
@@ -148,17 +140,17 @@ async def get_root(
     branch: str
 ) -> Optional[RootItem]:
     primary_key = build_key(
-        entity='ROOT',
-        partition_key=group_name,
-        sort_key=(url, branch)
+        facet=TABLE.facets['root_metadata'],
+        pk_values={'url': url, 'branch': branch},
+        sk_values={'name': group_name},
     )
 
     index = TABLE.indexes['inverted_index']
     key_structure = index.primary_key
     results = await operations.query(
         condition_expression=(
-            Key(key_structure.partition_key).eq(primary_key.partition_key) &
-            Key(key_structure.sort_key).begins_with(primary_key.sort_key)
+            Key(key_structure.partition_key).eq(primary_key.sort_key) &
+            Key(key_structure.sort_key).begins_with(primary_key.partition_key)
         ),
         facets=(
             TABLE.facets['root_metadata'],
@@ -171,7 +163,7 @@ async def get_root(
 
     if results:
         return build_root(
-            item_id=primary_key.sort_key,
+            item_id=primary_key.partition_key,
             key_structure=key_structure,
             raw_items=results
         )
@@ -181,17 +173,17 @@ async def get_root(
 
 async def get_roots(*, group_name: str) -> Tuple[RootItem, ...]:
     primary_key = build_key(
-        entity='ROOT',
-        partition_key=group_name,
-        sort_key=()
+        facet=TABLE.facets['root_metadata'],
+        pk_values={},
+        sk_values={'name': group_name},
     )
 
     index = TABLE.indexes['inverted_index']
     key_structure = index.primary_key
     results = await operations.query(
         condition_expression=(
-            Key(key_structure.partition_key).eq(primary_key.partition_key) &
-            Key(key_structure.sort_key).begins_with(primary_key.sort_key)
+            Key(key_structure.partition_key).eq(primary_key.sort_key) &
+            Key(key_structure.sort_key).begins_with(primary_key.partition_key)
         ),
         facets=(
             TABLE.facets['root_metadata'],
