@@ -192,4 +192,4 @@ and in fact, some of them are in the link:https://www.wechall.net/ranking[TOP100
 
 . [[r4]] link:https://resources.infosecinstitute.com/red-teaming-overview-assessment-methodology/#gref[Red Teaming Overview, Assessment & Methodology].
 
-. [[r5]] link:https://medium.com/@redteamwrangler/how-do-i-prepare-to-join-a-red-team-d74ffb5fdbe6[How to prepare to join a Red Team].
+. [[r5]] link:https://medium.com/@redteamwrangler/how-do-i-prepare-to-join-a-red-team-d74ffb5fdbe6[How Do I Prepare to Join a Red Team?].
