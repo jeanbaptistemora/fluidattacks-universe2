@@ -17,6 +17,9 @@ from aioextensions import (
 )
 
 # Local libraries
+from events import (
+    dal as dal_event,
+)
 from backend.dal import (
     finding as dal_finding,
     project as dal_group,
@@ -135,6 +138,19 @@ async def populate_vulnerabilities(data: List[Any]) -> bool:
     return all(await collect(coroutines))
 
 
+async def populate_events(data: List[Any]) -> bool:
+    coroutines: List[Awaitable[bool]] = []
+    coroutines.extend([
+        dal_event.create(
+            event['event_id'],
+            event['project_name'],
+            event,
+        )
+        for event in data
+    ])
+    return all(await collect(coroutines))
+
+
 async def populate_policies(data: List[Any]) -> bool:
     coroutines: List[Awaitable[bool]] = []
     coroutines.extend([
@@ -185,6 +201,10 @@ async def populate(data: Dict[str, Any]) -> bool:
     if 'vulnerabilities' in keys:
         success = success and \
             await populate_vulnerabilities(data['vulnerabilities'])
+
+    if 'events' in keys:
+        success = success and \
+            await populate_events(data['events'])
 
     if 'policies' in keys:
         success = success and \
