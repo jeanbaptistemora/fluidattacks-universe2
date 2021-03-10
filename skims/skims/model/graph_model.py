@@ -78,6 +78,13 @@ class SyntaxStepBinaryExpression(NamedTuple):
     type: str = 'SyntaxStepBinaryExpression'
 
 
+class SyntaxStepUnaryExpression(NamedTuple):
+    meta: SyntaxStepMeta
+
+    operator: str
+    type: str = 'SyntaxStepUnaryExpression'
+
+
 class SyntaxStepDeclaration(NamedTuple):
     meta: SyntaxStepMeta
     var: str
@@ -237,7 +244,12 @@ GRAPH_VULNERABILITY_PARAMETERS: Dict[
         cwe=('330',),
         desc_key='utils.model.finding.enum.f034.description',
         desc_params={}
-    )
+    ),
+    core_model.FindingEnum.F004: GraphVulnerabilityParameters(
+        cwe=('78',),
+        desc_key='utils.model.finding.enum.f004.description',
+        desc_params={}
+    ),
 }
 
 

@@ -119,6 +119,12 @@ def syntax_step_binary_expression(args: EvaluatorArgs) -> None:
     args.syntax_step.meta.danger = left.meta.danger or right.meta.danger
 
 
+def syntax_step_unary_expression(args: EvaluatorArgs) -> None:
+    src, = args.dependencies
+
+    args.syntax_step.meta.danger = src.meta.danger
+
+
 def syntax_step_declaration(args: EvaluatorArgs) -> None:
     # Analyze the arguments involved in the assignment
     args_danger = any(dep.meta.danger for dep in args.dependencies)
@@ -285,6 +291,7 @@ EVALUATORS: Dict[object, Evaluator] = {
     graph_model.SyntaxStepAssignment: syntax_step_assignment,
     graph_model.SyntaxStepArrayAccess: syntax_step_array_access,
     graph_model.SyntaxStepBinaryExpression: syntax_step_binary_expression,
+    graph_model.SyntaxStepUnaryExpression: syntax_step_unary_expression,
     graph_model.SyntaxStepDeclaration: syntax_step_declaration,
     graph_model.SyntaxStepFor: syntax_step_for,
     graph_model.SyntaxStepIf: syntax_step_if,

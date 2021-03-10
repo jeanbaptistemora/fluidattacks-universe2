@@ -116,6 +116,17 @@ def binary_expression(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
     )
 
 
+def unary_expression(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
+    op_id, exp_id = g.adj_ast(args.graph, args.n_id)
+
+    yield graph_model.SyntaxStepUnaryExpression(
+        meta=graph_model.SyntaxStepMeta.default(args.n_id, [
+            generic(args.fork_n_id(exp_id)),
+        ]),
+        operator=args.graph.nodes[op_id]['label_text'],
+    )
+
+
 def for_statement(args: SyntaxReaderArgs,) -> graph_model.SyntaxStepsLazy:
     match = g.match_ast(
         args.graph, args.n_id,
@@ -475,6 +486,17 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
         },
         syntax_readers=(
             binary_expression,
+        ),
+    ),
+    Dispatcher(
+        applicable_languages={
+            graph_model.GraphShardMetadataLanguage.JAVA,
+        },
+        applicable_node_label_types={
+            'unary_expression',
+        },
+        syntax_readers=(
+            unary_expression,
         ),
     ),
     Dispatcher(
