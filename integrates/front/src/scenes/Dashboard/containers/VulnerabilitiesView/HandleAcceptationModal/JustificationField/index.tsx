@@ -57,7 +57,7 @@ const JustificationField: React.FC<IJustificationFieldProps> = (
               </option>
               <option value={"Out of the scope"}>
                 {translate.t(
-                  "search_findings.tab_description.handle_acceptation_modal.zero_risk_justification.confirmation.out_of_the_scope"
+                  "search_findings.tab_description.handle_acceptation_modal.zero_risk_justification.confirmation.outOfTheScope"
                 )}
               </option>
             </React.Fragment>
@@ -71,7 +71,7 @@ const JustificationField: React.FC<IJustificationFieldProps> = (
               </option>
               <option value={"Complementary control"}>
                 {translate.t(
-                  "search_findings.tab_description.handle_acceptation_modal.zero_risk_justification.rejection.complementary_control"
+                  "search_findings.tab_description.handle_acceptation_modal.zero_risk_justification.rejection.complementaryControl"
                 )}
               </option>
             </React.Fragment>

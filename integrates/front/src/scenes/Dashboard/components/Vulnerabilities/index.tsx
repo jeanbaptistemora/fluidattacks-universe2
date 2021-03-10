@@ -266,10 +266,8 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
             <React.Fragment>
               <RowCenter>
                 <TooltipWrapper
-                  id={t("search_findings.tab_description.editVuln_tooltip.id")}
-                  message={t(
-                    "search_findings.tab_description.editVuln_tooltip"
-                  )}
+                  id={t("search_findings.tab_description.editVulnTooltip.id")}
+                  message={t("search_findings.tab_description.editVulnTooltip")}
                   placement={"top"}
                 >
                   <Button

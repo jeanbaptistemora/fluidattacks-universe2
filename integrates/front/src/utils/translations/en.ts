@@ -1053,15 +1053,15 @@ export const enTranslations: ResourceKey = {
       bts: "External BTS",
       btsPlaceholder:
         "https://gitlab.com/fluidattacks/integrates/-/issues/2084",
-      business_criticality: "Level",
-      cancel_verified: "Cancel",
-      cancel_verify: "Cancel",
-      compromised_attrs: {
+      businessCriticality: "Level",
+      cancelVerified: "Cancel",
+      cancelVerify: "Cancel",
+      compromisedAttrs: {
         text: "Compromised attributes",
         tooltip:
           "Type of information that can be disclosed by the vulnerability",
       },
-      compromised_records: {
+      compromisedRecords: {
         text: "Compromised records",
         tooltip: "Number of records in risk",
       },
@@ -1073,15 +1073,15 @@ export const enTranslations: ResourceKey = {
         text: "Description",
         tooltip: "Brief explanation of the vulnerability and how it works",
       },
-      download_vulnerabilities: "Download Vulnerabilities",
-      download_vulnerabilities_tooltip:
+      downloadVulnerabilities: "Download Vulnerabilities",
+      downloadVulnerabilitiesTooltip:
         "Download a yaml file with all the vulnerabilities of this finding",
       editVuln: "Edit vulnerabilities",
-      editVuln_tooltip: "Modify the treatment for the selected vulnerabilities",
+      editVulnTooltip: "Modify the treatment for the selected vulnerabilities",
       editable: {
         cancel: "Cancel",
-        cancel_tooltip: "Cancel changes",
-        editable_tooltip: "Modify the fields of the finding",
+        cancelTooltip: "Cancel changes",
+        editableTooltip: "Modify the fields of the finding",
         text: "Edit",
       },
       errorFileVuln: "Vulnerabilities file has errors",
@@ -1091,10 +1091,10 @@ export const enTranslations: ResourceKey = {
         zero_risk_justification: {
           confirmation: {
             fp: "FP",
-            out_of_the_scope: "Out of the scope",
+            outOfTheScope: "Out of the scope",
           },
           rejection: {
-            complementary_control: "Complementary control",
+            complementaryControl: "Complementary control",
             fn: "FN",
           },
         },
@@ -1246,7 +1246,7 @@ export const enTranslations: ResourceKey = {
       description_tooltip: "Brief explanation about the evidence",
       detail: "Detail",
       editable: "Edit",
-      editable_tooltip: "Modify the evidence for this finding",
+      editableTooltip: "Modify the evidence for this finding",
       evidence_exploit: "Exploitation evidence",
       remove: "Delete",
       remove_tooltip: "Delete this evidence",
@@ -1258,7 +1258,7 @@ export const enTranslations: ResourceKey = {
     },
     tab_exploit: {
       editable: "Edit",
-      editable_tooltip: "Modify the exploit script",
+      editableTooltip: "Modify the exploit script",
       tabTitle: "Exploit",
       tooltip: "Script to replicate the exploitation process using Asserts",
     },
@@ -1368,7 +1368,7 @@ export const enTranslations: ResourceKey = {
     },
     tab_records: {
       editable: "Edit",
-      editable_tooltip: "Modify the records for this finding",
+      editableTooltip: "Modify the records for this finding",
       tabTitle: "Records",
       tooltip:
         "Information that will be compromised or disclosed by exploiting the vulnerability",
@@ -1630,7 +1630,7 @@ export const enTranslations: ResourceKey = {
       },
       cvss_version: "CVSS Version",
       editable: "Edit",
-      editable_tooltip: "Modify severity metrics",
+      editableTooltip: "Modify severity metrics",
       exploitability: "Exploitability",
       exploitability_options: {
         conceptual: {

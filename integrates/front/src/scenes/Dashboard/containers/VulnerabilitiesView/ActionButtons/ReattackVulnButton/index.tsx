@@ -78,7 +78,7 @@ const ReattackVulnButton: React.FC<IReattackVulnButtonProps> = ({
               <React.Fragment>
                 <FontAwesomeIcon icon={faTimes} />
                 &nbsp;
-                {t("search_findings.tab_description.cancel_verify")}
+                {t("search_findings.tab_description.cancelVerify")}
               </React.Fragment>
             ) : (
               <React.Fragment>

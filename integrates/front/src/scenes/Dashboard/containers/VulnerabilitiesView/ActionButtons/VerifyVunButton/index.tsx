@@ -42,7 +42,7 @@ const VerifyVunButton: React.FC<IVerifyVunButtonProps> = ({
       {shouldRenderVerifyBtn ? (
         <TooltipWrapper
           displayClass={"dib"}
-          id={"search_findings.tab_vuln.buttons_tooltip.cancel_verify.id"}
+          id={"search_findings.tab_vuln.buttons_tooltip.cancelVerify.id"}
           message={
             isVerifying
               ? t("search_findings.tab_vuln.buttons_tooltip.cancel")
@@ -54,7 +54,7 @@ const VerifyVunButton: React.FC<IVerifyVunButtonProps> = ({
             {isVerifying ? (
               <React.Fragment>
                 <FontAwesomeIcon icon={faTimes} />
-                &nbsp;{t("search_findings.tab_description.cancel_verified")}
+                &nbsp;{t("search_findings.tab_description.cancelVerified")}
               </React.Fragment>
             ) : (
               <React.Fragment>

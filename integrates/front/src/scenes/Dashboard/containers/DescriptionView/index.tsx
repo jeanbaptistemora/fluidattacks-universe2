@@ -497,15 +497,15 @@ const DescriptionView: React.FC = (): JSX.Element => {
                       component={TextArea}
                       currentValue={dataset.compromisedAttributes}
                       id={
-                        "search_findings.tab_description.compromised_attrs.tooltip"
+                        "search_findings.tab_description.compromisedAttrs.tooltip"
                       }
                       label={translate.t(
-                        "search_findings.tab_description.compromised_attrs.text"
+                        "search_findings.tab_description.compromisedAttrs.text"
                       )}
                       name={"compromisedAttributes"}
                       renderAsEditable={isEditing}
                       tooltip={translate.t(
-                        "search_findings.tab_description.compromised_attrs.tooltip"
+                        "search_findings.tab_description.compromisedAttrs.tooltip"
                       )}
                       type={"text"}
                       validate={[
@@ -529,15 +529,15 @@ const DescriptionView: React.FC = (): JSX.Element => {
                         dataset.compromisedRecords
                       )}
                       id={
-                        "search_findings.tab_description.compromised_records.tooltip"
+                        "search_findings.tab_description.compromisedRecords.tooltip"
                       }
                       label={translate.t(
-                        "search_findings.tab_description.compromised_records.text"
+                        "search_findings.tab_description.compromisedRecords.text"
                       )}
                       name={"compromisedRecords"}
                       renderAsEditable={isEditing}
                       tooltip={translate.t(
-                        "search_findings.tab_description.compromised_records.tooltip"
+                        "search_findings.tab_description.compromisedRecords.tooltip"
                       )}
                       type={"number"}
                       validate={[required, numeric]}

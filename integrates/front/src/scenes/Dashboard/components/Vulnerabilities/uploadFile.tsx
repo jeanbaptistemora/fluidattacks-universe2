@@ -251,10 +251,10 @@ export const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
             <ButtonToolbarLeft>
               <TooltipWrapper
                 id={translate.t(
-                  "search_findings.tab_description.download_vulnerabilities_tooltip.id"
+                  "search_findings.tab_description.downloadVulnerabilitiesTooltip.id"
                 )}
                 message={translate.t(
-                  "search_findings.tab_description.download_vulnerabilities_tooltip"
+                  "search_findings.tab_description.downloadVulnerabilitiesTooltip"
                 )}
               >
                 <Button
@@ -264,7 +264,7 @@ export const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
                   <FluidIcon icon={"export"} />
                   &nbsp;
                   {translate.t(
-                    "search_findings.tab_description.download_vulnerabilities"
+                    "search_findings.tab_description.downloadVulnerabilities"
                   )}
                 </Button>
               </TooltipWrapper>

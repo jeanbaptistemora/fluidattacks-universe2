@@ -44,10 +44,10 @@ const ActionButtons: React.FC<IActionButtonsProps> = (
           message={
             isEditing
               ? translate.t(
-                  "search_findings.tab_description.editable.cancel_tooltip"
+                  "search_findings.tab_description.editable.cancelTooltip"
                 )
               : translate.t(
-                  "search_findings.tab_description.editable.editable_tooltip"
+                  "search_findings.tab_description.editable.editableTooltip"
                 )
           }
         >

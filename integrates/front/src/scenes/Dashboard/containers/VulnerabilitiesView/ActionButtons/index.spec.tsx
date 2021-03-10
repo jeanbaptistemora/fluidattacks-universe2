@@ -112,7 +112,7 @@ describe("ActionButtons", (): void => {
       .filterWhere((button: ReactWrapper): boolean =>
         button
           .text()
-          .includes(t("search_findings.tab_description.cancel_verify"))
+          .includes(t("search_findings.tab_description.cancelVerify"))
       );
 
     expect(cancelRequestButton).toHaveLength(1);

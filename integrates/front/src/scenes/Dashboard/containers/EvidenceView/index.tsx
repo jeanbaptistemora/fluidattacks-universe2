@@ -199,9 +199,9 @@ const EvidenceView: React.FC = (): JSX.Element => {
       <ButtonToolbarRow>
         <Can do={"backend_api_mutations_update_evidence_mutate"}>
           <TooltipWrapper
-            id={"search_findings.tab_evidence.editable_tooltip.id"}
+            id={"search_findings.tab_evidence.editableTooltip.id"}
             message={translate.t(
-              "search_findings.tab_evidence.editable_tooltip"
+              "search_findings.tab_evidence.editableTooltip"
             )}
           >
             <Button onClick={handleEditClick}>

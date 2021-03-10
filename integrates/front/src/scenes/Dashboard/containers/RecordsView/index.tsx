@@ -108,8 +108,8 @@ const recordsView: React.FC = (): JSX.Element => {
             <Col100 className={"pa0"}>
               <ButtonToolbarRow>
                 <TooltipWrapper
-                  id={translate.t("search_findings.tab_records.editable_tooltip.id")}
-                  message={translate.t("search_findings.tab_records.editable_tooltip")}
+                  id={translate.t("search_findings.tab_records.editableTooltip.id")}
+                  message={translate.t("search_findings.tab_records.editableTooltip")}
                 >
                   <Button className={"fr"} onClick={handleEditClick}>
                     <FluidIcon icon="edit" />&nbsp;{translate.t("search_findings.tab_records.editable")}

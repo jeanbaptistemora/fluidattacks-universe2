@@ -134,8 +134,8 @@ const severityView: React.FC = (): JSX.Element => {
             <Can do="backend_api_mutations_update_severity_mutate">
               <ButtonToolbarRow>
                 <TooltipWrapper
-                  id={translate.t("search_findings.tab_severity.editable_tooltip.id")}
-                  message={translate.t("search_findings.tab_severity.editable_tooltip")}
+                  id={translate.t("search_findings.tab_severity.editableTooltip.id")}
+                  message={translate.t("search_findings.tab_severity.editableTooltip")}
                 >
                   <Button onClick={handleEditClick}>
                     <FluidIcon icon="edit" />&nbsp;{translate.t("search_findings.tab_severity.editable")}
