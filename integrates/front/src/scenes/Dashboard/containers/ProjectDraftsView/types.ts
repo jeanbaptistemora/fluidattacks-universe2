@@ -1,6 +1,6 @@
 export interface IProjectDraftsAttr {
   project: {
-    drafts: Array<{
+    drafts: {
       currentState: string;
       description: string;
       id: string;
@@ -11,6 +11,6 @@ export interface IProjectDraftsAttr {
       severityScore: number;
       title: string;
       type: string;
-    }>;
+    }[];
   };
 }
