@@ -28,13 +28,13 @@ from backend.dal.subscriptions import NumericType
 from backend.domain import (
     analytics as analytics_domain,
     organization as org_domain,
-    tag as portfolio_domain,
 )
 from backend.services import has_access_to_project as has_access_to_group
 from newutils import (
     datetime as datetime_utils,
     reports,
 )
+from tags import domain as tags_domain
 
 
 logging.config.dictConfig(LOGGING)
@@ -185,7 +185,7 @@ async def can_subscribe_user_to_entity_report(
             organization_id=report_subject,
         )
     elif report_entity.lower() == 'portfolio':
-        success = await portfolio_domain.has_user_access(
+        success = await tags_domain.has_user_access(
             email=user_email,
             subject=report_subject,
         )

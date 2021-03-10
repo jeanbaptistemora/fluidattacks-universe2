@@ -10,14 +10,14 @@ from aiodataloader import DataLoader
 from aioextensions import collect
 
 # Local libraries
-from backend.domain import tag as tag_domain
 from backend.typing import Tag as TagType
+from tags import domain as tags_domain
 
 
 async def _batch_load_fn(organization_names: List[str]) -> List[List[TagType]]:
     tags: Dict[str, List[TagType]] = defaultdict(List[TagType])
     organizations_tags = await collect(
-        tag_domain.get_tags(organization_name)
+        tags_domain.get_tags(organization_name)
         for organization_name in organization_names
     )
 

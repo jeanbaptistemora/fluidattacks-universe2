@@ -25,11 +25,11 @@ from typing import (
 
 # Third party libraries
 import bugsnag
-from botocore.exceptions import ClientError
 from aioextensions import (
     collect,
     schedule,
 )
+from botocore.exceptions import ClientError
 
 # Local libraries
 from back.settings import (
@@ -46,12 +46,9 @@ from backend.domain import (
     finding as finding_domain,
     organization as org_domain,
     project as project_domain,
-    tag as tag_domain,
     vulnerability as vuln_domain,
 )
-from backend.filters import (
-    finding as finding_filters,
-)
+from backend.filters import finding as finding_filters
 from backend.typing import (
     Event as EventType,
     Finding as FindingType,
@@ -69,6 +66,7 @@ from newutils.findings import (
     get_state_actions,
     sort_historic_by_date,
 )
+from tags import domain as tags_domain
 from __init__ import (
     BASE_URL,
     FI_TEST_PROJECTS,
@@ -945,7 +943,7 @@ async def update_portfolios() -> None:
                 if tag['tag'] not in updated_tags
             ]
             await collect(
-                tag_domain.delete(org_name, str(tag)) for tag in deleted_tags
+                tags_domain.delete(org_name, str(tag)) for tag in deleted_tags
             )
         else:
             LOGGER.error(

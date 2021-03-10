@@ -28,10 +28,10 @@ from frozendict import frozendict
 from backend.domain import (
     organization as org_domain,
     project as group_domain,
-    tag as portfolio_domain,
 )
 from forces import domain as forces_domain
 from newutils.encodings import safe_encode
+from tags import domain as tags_domain
 
 
 PortfoliosGroups = NamedTuple('PortfoliosGroups', [
@@ -96,7 +96,7 @@ def get_vulnerability_source(vulnerability: Dict[str, str]) -> str:
 
 
 async def get_portfolios_groups(org_name: str) -> List[PortfoliosGroups]:
-    portfolios = await portfolio_domain.get_tags(
+    portfolios = await tags_domain.get_tags(
         org_name, ['tag', 'projects']
     )
 

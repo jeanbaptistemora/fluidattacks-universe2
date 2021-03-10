@@ -1,5 +1,8 @@
 # Standard
-from typing import Dict, List
+from typing import (
+    Dict,
+    List,
+)
 
 # Third party
 from graphql.type.definition import GraphQLResolveInfo
@@ -9,11 +12,11 @@ from backend import util
 from backend.decorators import require_login
 from backend.domain import (
     organization as org_domain,
-    tag as tag_domain,
     user as user_domain
 )
 from backend.exceptions import TagNotFound
 from backend.typing import Tag
+from tags import domain as tags_domain
 
 
 @require_login
@@ -32,13 +35,13 @@ async def resolve(
         org_id: str = await org_domain.get_id_for_group(user_groups[0])
         org_name: str = await org_domain.get_name_by_id(org_id)
 
-        allowed_tags: List[str] = await tag_domain.filter_allowed_tags(
+        allowed_tags: List[str] = await tags_domain.filter_allowed_tags(
             org_name,
             user_groups
         )
 
         if tag_name in allowed_tags:
-            tag = await tag_domain.get_attributes(org_name, tag_name)
+            tag = await tags_domain.get_attributes(org_name, tag_name)
 
             return {
                 'name': tag['tag'],

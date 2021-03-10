@@ -1,58 +1,37 @@
 # Standard library
-from functools import (
-    partial,
-)
-from io import (
-    BytesIO,
-)
 import base64
 import json
 import logging
 import os
 import string
-from typing import (
-    Union,
-)
+from functools import partial
+from io import BytesIO
+from typing import Union
 
 # Third party libraries
-from aioextensions import (
-    in_thread,
-)
-from ariadne import (
-    convert_camel_case_to_snake,
-)
+from aioextensions import in_thread
+from ariadne import convert_camel_case_to_snake
 import botocore.exceptions
-from PIL import (
-    Image,
-)
-
+from PIL import Image
 from starlette.requests import Request
 from starlette.responses import Response
 
 # Local libraries
 from back.app.views import templates
 from back.settings import LOGGING
-from backend.dal import (
-    analytics as analytics_dal,
-)
-from backend.dal.helpers.redis import (
-    redis_get_or_set_entity_attr,
-)
-from backend.domain import (
-    organization as organization_domain,
-    tag as portfolio_domain,
-)
-from backend.exceptions import DocumentNotFound
-from backend.services import (
-    has_access_to_project as has_access_to_group,
-)
 from backend import util
+from backend.dal import analytics as analytics_dal
+from backend.dal.helpers.redis import redis_get_or_set_entity_attr
+from backend.domain import organization as organization_domain
+from backend.exceptions import DocumentNotFound
+from backend.services import has_access_to_project as has_access_to_group
 from backend.typing import (
     GraphicsForEntityParameters,
     GraphicParameters,
     ReportParameters
 )
 from newutils.encodings import safe_encode
+from tags import domain as tags_domain
 
 
 logging.config.dictConfig(LOGGING)
@@ -164,7 +143,7 @@ async def handle_authz_claims(
         ):
             raise PermissionError('Access denied')
     elif params.entity == 'portfolio':
-        if not await portfolio_domain.has_user_access(email, subject):
+        if not await tags_domain.has_user_access(email, subject):
             raise PermissionError('Access denied')
     else:
         raise ValueError(f'Invalid entity: {params.entity}')
