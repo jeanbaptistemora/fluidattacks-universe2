@@ -92,12 +92,20 @@ async def populate_orgs(data: List[Any]) -> bool:
 
 async def populate_groups(data: List[Any]) -> bool:
     coroutines: List[Awaitable[bool]] = []
-    coroutines.extend([
-        dal_group.create(
-            group,
+    for group in data:
+        coroutines.append(
+            dal_group.create(
+                group,
+            ),
         )
-        for group in data
-    ])
+        for comment in group['comments']:
+            coroutines.append(
+                dal_group.add_comment(
+                    comment['project_name'],
+                    comment['email'],
+                    comment,
+                ),
+            )
     return all(await collect(coroutines))
 
 
