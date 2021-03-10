@@ -27,7 +27,6 @@ from dynamodb.types import (
 # Constants
 RESERVED_WORDS: Set[str] = {
     '#',
-    '/',
 }
 
 ENTITIES: Dict[str, Entity] = dict(
@@ -63,20 +62,21 @@ def validate_key_words(*, key: str) -> None:
             )
 
 
-def build_key(*, entity: str, partition_key: str, sort_key: str) -> PrimaryKey:
+def build_key(
+    *,
+    entity: str,
+    partition_key: str,
+    sort_key: Tuple[str, ...]
+) -> PrimaryKey:
     validate_entity(entity=entity)
     validate_pkey_not_empty(key=partition_key)
-    for key in {partition_key, sort_key}:
+    for key in {partition_key, *sort_key}:
         validate_key_type(key=key)
         validate_key_words(key=key)
 
     prefix = ENTITIES[entity].primary_key
     composite_pkey: str = f'{prefix.partition_key}{partition_key}'
-    composite_skey: str = (
-        f'{prefix.sort_key}{sort_key}'
-        if sort_key
-        else prefix.sort_key
-    )
+    composite_skey: str = f'{prefix.sort_key}{"#".join(sort_key)}'
 
     # >>> build_key(entity='ROOT', partition_key='group-1', sort_key='root-1')
     # PrimaryKey(partition_key='GROUP#group-1', sort_key='ROOT#root-1')
@@ -150,7 +150,7 @@ async def get_root(
     primary_key = build_key(
         entity='ROOT',
         partition_key=group_name,
-        sort_key=''.join([url, branch])
+        sort_key=(url, branch)
     )
 
     index = TABLE.indexes['inverted_index']
@@ -183,7 +183,7 @@ async def get_roots(*, group_name: str) -> Tuple[RootItem, ...]:
     primary_key = build_key(
         entity='ROOT',
         partition_key=group_name,
-        sort_key=''
+        sort_key=()
     )
 
     index = TABLE.indexes['inverted_index']

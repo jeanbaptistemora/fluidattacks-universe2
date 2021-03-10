@@ -16,8 +16,6 @@ class Entity(NamedTuple):
 
 class Facet(NamedTuple):
     attrs: Tuple[str, ...]
-    pk_prefix: str
-    sk_prefix: str
 
 
 class Index(NamedTuple):

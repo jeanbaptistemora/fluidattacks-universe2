@@ -7,20 +7,10 @@ from dynamodb.types import Facet, Index, PrimaryKey, Table
 from newutils.context import DB_MODEL_PATH
 
 
-def get_prefix(alias: str) -> str:
-    return alias.split('#')[0]
-
-
 def load_facets(model: Dict[str, Any]) -> Dict[str, Facet]:
     return {
         facet['FacetName']: Facet(
-            attrs=tuple(facet['NonKeyAttributes']),
-            pk_prefix=get_prefix(
-                facet['KeyAttributeAlias']['PartitionKeyAlias']
-            ),
-            sk_prefix=get_prefix(
-                facet['KeyAttributeAlias']['SortKeyAlias']
-            )
+            attrs=tuple(facet['NonKeyAttributes'])
         )
         for facet in model['DataModel'][0]['TableFacets']
     }
