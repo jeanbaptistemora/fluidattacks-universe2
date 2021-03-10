@@ -95,7 +95,7 @@ def build_root(
     historic_state = versioned.get_historic(
         item_id=item_id,
         key_structure=key_structure,
-        historic_prefix='HIST',
+        historic_prefix='STATE',
         raw_items=raw_items
     )
     metadata = versioned.get_metadata(
@@ -206,4 +206,64 @@ async def get_roots(*, group_name: str) -> Tuple[RootItem, ...]:
             raw_items=tuple(items)
         )
         for root_id, items in root_items.items()
+    )
+
+
+async def create_root(
+    *,
+    group_name: str,
+    metadata: RootMetadata,
+    cloning: RootHistoricCloning,
+    state: RootHistoricState,
+) -> None:
+    key_structure = TABLE.primary_key
+
+    metadata_key = build_key(
+        facet=TABLE.facets['root_metadata'],
+        pk_values={'url': metadata.url, 'branch': metadata.branch},
+        sk_values={'name': group_name},
+    )
+    initial_metadata = {
+        key_structure.partition_key: metadata_key.partition_key,
+        key_structure.sort_key: metadata_key.sort_key,
+        **dict(metadata._asdict())
+    }
+
+    historic_cloning_key = build_key(
+        facet=TABLE.facets['root_historic_cloning'],
+        pk_values={
+            'url': metadata.url,
+            'branch': metadata.branch,
+            'iso8601utc': cloning.modified_date
+        },
+        sk_values={'name': group_name},
+    )
+    initial_historic_cloning = {
+        key_structure.partition_key: historic_cloning_key.partition_key,
+        key_structure.sort_key: historic_cloning_key.sort_key,
+        **dict(cloning._asdict())
+    }
+
+    historic_state_key = build_key(
+        facet=TABLE.facets['root_historic_state'],
+        pk_values={
+            'url': metadata.url,
+            'branch': metadata.branch,
+            'iso8601utc': state.modified_date
+        },
+        sk_values={'name': group_name},
+    )
+    initial_historic_state = {
+        key_structure.partition_key: historic_state_key.partition_key,
+        key_structure.sort_key: historic_state_key.sort_key,
+        **dict(state._asdict())
+    }
+
+    await operations.batch_write_item(
+        items=(
+            initial_metadata,
+            initial_historic_cloning,
+            initial_historic_state
+        ),
+        table=TABLE
     )

@@ -110,7 +110,7 @@ async def batch_write_item(
     async with aioboto3.resource(**RESOURCE_OPTIONS) as resource:
         table_resource = await resource.Table(table.name)
         async with table_resource.batch_writer() as batch_writer:
-            await aioextensions.collect(
+            await aioextensions.collect(tuple(
                 batch_writer.put_item(Item=item)
                 for item in items
-            )
+            ))
