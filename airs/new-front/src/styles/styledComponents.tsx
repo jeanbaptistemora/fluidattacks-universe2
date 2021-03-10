@@ -547,7 +547,7 @@ const BannerContainer: StyledComponent<
   `,
 })``;
 
-const BannerInnerContainer: StyledComponent<
+const FullWidthContainer: StyledComponent<
   "div",
   Record<string, unknown>
 > = styled.div.attrs({
@@ -572,14 +572,96 @@ const BannerTitle: StyledComponent<
   `,
 })``;
 
+const PageContainer: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs({
+  className: `
+    roboto
+    mw-1366
+    ph-body
+    center
+    c-lightblack
+    pv5
+  `,
+})``;
+
+const HalfScreenContainer: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs({
+  className: `
+   w-50-l
+   ph0-ns
+   ph-body
+  `,
+})``;
+
+const HalfScreenContainerSpaced: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs({
+  className: `
+    w-50-l
+    ph-body
+  `,
+})``;
+
+const SolutionsSectionDescription: StyledComponent<
+  "ul",
+  Record<string, unknown>
+> = styled.ul.attrs({
+  className: `
+    tl
+    roboto
+    list
+    pl0
+    mw-20
+  `,
+})``;
+
+const BlackListItemSpaced: StyledComponent<
+  "li",
+  Record<string, unknown>
+> = styled.li.attrs({
+  className: `
+    c-fluid-bk
+    pv3
+  `,
+})``;
+
+const SolutionsSubtitle: StyledComponent<
+  "h3",
+  Record<string, unknown>
+> = styled.h3.attrs({
+  className: `
+    f3
+    fw6
+    mv0
+    underline-title
+  `,
+})``;
+
+const SolutionsParagraph: StyledComponent<
+  "p",
+  Record<string, unknown>
+> = styled.p.attrs({
+  className: `
+    f-1125
+    lh-2
+    fw3
+    mv0
+  `,
+})``;
+
 export {
   ArticleContainer,
   ArticleTitle,
   BannerContainer,
-  BannerInnerContainer,
   BannerTitle,
   BlackBigHeader,
   BlackBigParagraph,
+  BlackListItemSpaced,
   BlackSimpleParagraph,
   BreadcrumbContainer,
   BreadcrumbInnerContainer,
@@ -592,9 +674,12 @@ export {
   FontAwesomeContainerSmall,
   FooterInfoLinksContainer,
   FooterInfoLink,
+  FullWidthContainer,
   GetDemoContainer,
   GrayBigParagraph,
   GrayDash,
+  HalfScreenContainer,
+  HalfScreenContainerSpaced,
   PlayItButtonContainer,
   PlayItButtonImage,
   PlayItButtonSection,
@@ -612,5 +697,9 @@ export {
   NavbarLoginButton,
   NavbarRegularButton,
   PageArticle,
+  PageContainer,
+  SolutionsParagraph,
+  SolutionsSectionDescription,
+  SolutionsSubtitle,
   SubcategoryLink,
 };

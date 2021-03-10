@@ -9,18 +9,28 @@
 /* eslint @typescript-eslint/no-invalid-void-type:0 */
 /* eslint @typescript-eslint/no-confusing-void-expression:0 */
 /* eslint react/forbid-component-props: 0 */
+/* eslint import/no-namespace:0 */
 import { Breadcrumb } from "gatsby-plugin-breadcrumb";
 import { Layout } from "../components/layout";
 import { NavbarComponent } from "../components/navbar";
 import React from "react";
 import { Seo } from "../components/seo";
-import { graphql } from "gatsby";
+import * as devSecOpsImage from "../assets/images/solutions/solution-1.png";
 import {
+  ArticleContainer,
   BannerContainer,
-  BannerInnerContainer,
   BannerTitle,
+  BlackListItemSpaced,
+  FullWidthContainer,
+  HalfScreenContainer,
+  HalfScreenContainerSpaced,
   PageArticle,
+  PageContainer,
+  SolutionsParagraph,
+  SolutionsSectionDescription,
+  SolutionsSubtitle,
 } from "../styles/styledComponents";
+import { Link, graphql } from "gatsby";
 import "../assets/scss/index.scss";
 
 interface IQueryData {
@@ -90,10 +100,38 @@ const SolutionsIndex: React.FC<IQueryData> = ({
 
           <PageArticle>
             <BannerContainer className={banner}>
-              <BannerInnerContainer>
+              <FullWidthContainer>
                 <BannerTitle>{title}</BannerTitle>
-              </BannerInnerContainer>
+              </FullWidthContainer>
             </BannerContainer>
+            <ArticleContainer>
+              <PageContainer>
+                <FullWidthContainer className={"pv3 flex-l"}>
+                  <HalfScreenContainer className={"fl-l tl"}>
+                    <img alt={"devSecOps Solution"} src={devSecOpsImage} />
+                  </HalfScreenContainer>
+                  <HalfScreenContainerSpaced className={"fr-l"}>
+                    <SolutionsSectionDescription>
+                      <BlackListItemSpaced>
+                        <Link
+                          className={
+                            "c-fluid-bk underlined-animated no-underline mt0 mb3 t-all-5"
+                          }
+                          to={"."}>
+                          <SolutionsSubtitle>{"DevSecOps"}</SolutionsSubtitle>
+                        </Link>
+                        <SolutionsParagraph>
+                          {
+                            "You can integrate security into your DevOps approach at any time in \
+                             your SDLC and ensure your team’s accountability."
+                          }
+                        </SolutionsParagraph>
+                      </BlackListItemSpaced>
+                    </SolutionsSectionDescription>
+                  </HalfScreenContainerSpaced>
+                </FullWidthContainer>
+              </PageContainer>
+            </ArticleContainer>
           </PageArticle>
         </div>
       </Layout>

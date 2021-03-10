@@ -37,6 +37,7 @@ $white: rgba(255, 255, 255, 1);
 // Font Sizes
 .f-18 { font-size: 1.125rem; }
 .fheader { font-size: 2.25rem; }
+.f-1125 { font-size: 1.125rem; }
 
 // Height Classes
 .h-5 { height: 5rem; }
@@ -51,6 +52,9 @@ $white: rgba(255, 255, 255, 1);
 .hv-fluid-dkred { &:hover { color: $fluid-dark-red;} }
 .hv-grow { &:hover { transform: scale(1.05); } }
 .hv-rotate-360 { &:hover { transform: rotate(360deg); } }
+
+// Line Heights
+.lh-2 { line-height: 2; }
 
 // Margin classes
 .nt-5 { margin-top: -5px; }
@@ -72,6 +76,7 @@ $white: rgba(255, 255, 255, 1);
 // Big screen sizes
 @media screen and (min-width: 60em) {
   .bg-banner-sz { background-size: 100% 100%; }
+  .mw-20 { max-width: 20rem; }
   .ph-body { padding: 0 3.75rem; }
 }
 
@@ -87,6 +92,19 @@ $white: rgba(255, 255, 255, 1);
 
 // Animations
 .fadein { animation: fadein 0.5s; }
+
+.underlined-animated::after {
+  border-bottom: 4px solid $button-hover;
+  content: '';
+  display: block;
+  transition: width 0.5s;
+  width: 30%;
+}
+
+.underlined-animated:hover::after {
+  width: 60%;
+}
+
 
 .solutions-index:hover .solutions-content {
   display: block;
