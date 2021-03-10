@@ -98,3 +98,12 @@ DANGER_METHODS_BY_TYPE: Dict[str, Set[str]] = _complete_attrs_on_dict({
         'addCookie'
     },
 })
+DANGER_METHODS_BY_TYPE_ARGS_PROPAGATION: Dict[
+    str, Set[str]] = _complete_attrs_on_dict({
+        'java.util.List': {
+            'add',
+        },
+        'ProcessBuilder': {
+            'command',
+        }
+    })

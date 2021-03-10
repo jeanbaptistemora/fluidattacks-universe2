@@ -662,8 +662,10 @@ def yield_object_creation_expression(
             'new',
             'scoped_type_identifier',
             'argument_list',
+            'type_identifier',
         )
-
-        if (len(match) == 3 and (class_id := match['scoped_type_identifier'])
+        if (len(match) == 4
+                and ((class_id := match['scoped_type_identifier']) or
+                     (class_id := match['type_identifier']))
                 and graph.nodes[class_id]['label_text'] in identifiers):
             yield n_id

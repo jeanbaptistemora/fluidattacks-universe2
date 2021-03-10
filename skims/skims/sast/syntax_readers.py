@@ -270,16 +270,29 @@ def if_statement(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
 def local_variable_declaration(
     args: SyntaxReaderArgs,
 ) -> graph_model.SyntaxStepsLazy:
-    match = g.match_ast(args.graph, args.n_id, '__0__', 'variable_declarator')
-
+    match = g.match_ast(
+        args.graph,
+        args.n_id,
+        '__0__',
+        'variable_declarator',
+        'generic_type',
+    )
     # pylint: disable=used-before-assignment
     if (
         (var_type_id := (
             match['__0__']
         ))
-        and 'label_text' in args.graph.nodes[var_type_id]
+        and ('label_text' in args.graph.nodes[var_type_id]
+             or match['generic_type'])
         and (var_decl_id := match['variable_declarator'])
     ):
+        if generic_type := match['generic_type']:
+            match = g.match_ast(
+                args.graph,
+                generic_type,
+                'scoped_type_identifier'
+            )
+            var_type_id = match['scoped_type_identifier']
         match = g.match_ast(
             args.graph,
             var_decl_id,
@@ -381,23 +394,32 @@ def method_invocation(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
 def object_creation_expression(
     args: SyntaxReaderArgs,
 ) -> graph_model.SyntaxStepsLazy:
-    match = g.match_ast(args.graph, args.n_id, 'new', '__0__', 'argument_list')
-
+    graph = args.graph
+    match = g.match_ast(graph, args.n_id, 'new', '__0__', 'argument_list')
     # pylint: disable=used-before-assignment
     if (
+        # pylint: disable=too-many-boolean-expressions
         len(match) == 3
         and match['new']
         and (object_type_id := match['__0__'])
         and (args_id := match['argument_list'])
-        and ('label_text' in args.graph.nodes[object_type_id])
+        and ('label_text' in graph.nodes[object_type_id]
+             or graph.nodes[object_type_id]['label_type'] == 'generic_type')
     ):
+        if 'label_text' not in graph.nodes[object_type_id]:
+            match = g.match_ast(
+                graph,
+                object_type_id,
+                'scoped_type_identifier'
+            )
+            object_type_id = match['scoped_type_identifier']
         yield graph_model.SyntaxStepObjectInstantiation(
             meta=graph_model.SyntaxStepMeta.default(
                 args.n_id, dependencies_from_arguments(
                     args.fork_n_id(args_id),
                 ),
             ),
-            object_type=args.graph.nodes[object_type_id]['label_text'],
+            object_type=graph.nodes[object_type_id]['label_text'],
         )
     else:
         raise MissingCaseHandling(object_creation_expression, args)

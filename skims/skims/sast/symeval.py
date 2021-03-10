@@ -19,6 +19,7 @@ from model import (
 )
 from sast.common import (
     build_attr_paths,
+    DANGER_METHODS_BY_TYPE_ARGS_PROPAGATION,
     DANGER_METHODS_STATIC_SIDE_EFFECTS,
     DANGER_METHODS_BY_ARGS_PROPAGATION,
     DANGER_METHODS_BY_OBJ,
@@ -177,6 +178,51 @@ def syntax_step_literal(args: EvaluatorArgs) -> None:
         raise NotImplementedError()
 
 
+def _analyze_method_by_type_args_propagation_side_effects(
+    args: EvaluatorArgs,
+    method: str,
+) -> None:
+    # Functions that when called make the parent object vulnerable
+    args_danger = any(dep.meta.danger for dep in args.dependencies)
+
+    method_var, method_path = split_on_first_dot(method)
+    method_var_decl = lookup_var_dcl_by_name(args, method_var)
+    method_var_decl_type = (method_var_decl.var_type_base
+                            if method_var_decl else '')
+
+    if (method_path in DANGER_METHODS_BY_TYPE_ARGS_PROPAGATION.get(
+            method_var_decl_type, {}) and args_danger):
+        if method_var_decl:
+            method_var_decl.meta.danger = True
+
+
+def _analyze_method_by_type_args_propagation(
+    args: EvaluatorArgs,
+    method: str,
+) -> None:
+    # Functions that when called make the parent object vulnerable
+    args_danger = any(dep.meta.danger for dep in args.dependencies)
+
+    method_var, method_path = split_on_first_dot(method)
+    method_var_decl = lookup_var_dcl_by_name(args, method_var)
+    method_var_decl_type = (method_var_decl.var_type_base
+                            if method_var_decl else '')
+
+    if (method_path in DANGER_METHODS_BY_TYPE_ARGS_PROPAGATION.get(
+            method_var_decl_type, {}) and args_danger):
+        args.syntax_step.meta.danger = True
+
+
+def _analyze_method_static_side_effects(
+    args: EvaluatorArgs,
+    method: str,
+) -> None:
+    # functions that make its parameters vulnerable
+    if method in DANGER_METHODS_STATIC_SIDE_EFFECTS:
+        for dep in args.dependencies:
+            dep.meta.danger = True
+
+
 def _analyze_method_invocation(args: EvaluatorArgs, method: str) -> None:
     # Analyze the arguments involved in the method invocation
     args_danger = any(dep.meta.danger for dep in args.dependencies)
@@ -208,10 +254,9 @@ def _analyze_method_invocation(args: EvaluatorArgs, method: str) -> None:
         method_path in DANGER_METHODS_BY_OBJ_NO_TYPE_ARGS_PROPAGATION
         and args_danger
     )
-    if method in DANGER_METHODS_STATIC_SIDE_EFFECTS:
-        # functions that make its parameters vulnerable
-        for dep in args.dependencies:
-            dep.meta.danger = True
+    _analyze_method_static_side_effects(args, method)
+    _analyze_method_by_type_args_propagation(args, method)
+    _analyze_method_by_type_args_propagation_side_effects(args, method)
 
 
 def syntax_step_method_invocation(args: EvaluatorArgs) -> None:
