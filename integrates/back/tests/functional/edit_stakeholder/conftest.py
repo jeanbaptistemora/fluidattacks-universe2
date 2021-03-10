@@ -59,7 +59,6 @@ async def populate() -> bool:
                 'project_name': 'group1',
                 'description': '-',
                 'language': 'en',
-                'comments': [],
                 'historic_configuration': [{
                     'date': '2020-05-20 17:00:00',
                     'has_drills': False,

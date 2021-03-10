@@ -95,20 +95,12 @@ async def populate_orgs(data: List[Any]) -> bool:
 
 async def populate_groups(data: List[Any]) -> bool:
     coroutines: List[Awaitable[bool]] = []
-    for group in data:
-        coroutines.append(
-            dal_group.create(
-                group,
-            ),
+    coroutines.extend([
+        dal_group.create(
+            group,
         )
-        for comment in group['comments']:
-            coroutines.append(
-                dal_group.add_comment(
-                    comment['project_name'],
-                    comment['email'],
-                    comment,
-                ),
-            )
+        for group in data
+    ])
     return all(await collect(coroutines))
 
 
@@ -134,6 +126,19 @@ async def populate_vulnerabilities(data: List[Any]) -> bool:
             vulnerability,
         )
         for vulnerability in data
+    ])
+    return all(await collect(coroutines))
+
+
+async def populate_consultings(data: List[Any]) -> bool:
+    coroutines: List[Awaitable[bool]] = []
+    coroutines.extend([
+        dal_group.add_comment(
+            consulting['project_name'],
+            consulting['email'],
+            consulting,
+        )
+        for consulting in data
     ])
     return all(await collect(coroutines))
 
@@ -197,6 +202,10 @@ async def populate(data: Dict[str, Any]) -> bool:
     if 'findings' in keys:
         success = success and \
             await populate_findings(data['findings'])
+
+    if 'consultings' in keys:
+        success = success and \
+            await populate_consultings(data['consultings'])
 
     if 'vulnerabilities' in keys:
         success = success and \
