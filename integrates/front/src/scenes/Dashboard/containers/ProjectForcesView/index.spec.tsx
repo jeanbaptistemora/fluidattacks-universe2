@@ -1,20 +1,20 @@
-import { MockedProvider, MockedResponse } from "@apollo/react-testing";
-import { mount, ReactWrapper } from "enzyme";
-import { GraphQLError } from "graphql";
-import _ from "lodash";
-import * as React from "react";
-// tslint:disable-next-line: no-submodule-imports
-import { act } from "react-dom/test-utils";
-import { Provider } from "react-redux";
-import { MemoryRouter, Route } from "react-router-dom";
-import wait from "waait";
-
-import { ProjectForcesView } from "scenes/Dashboard/containers/ProjectForcesView";
 import { GET_FORCES_EXECUTIONS } from "scenes/Dashboard/containers/ProjectForcesView/queries";
+import { GraphQLError } from "graphql";
+import { MockedProvider } from "@apollo/react-testing";
+import type { MockedResponse } from "@apollo/react-testing";
+import { ProjectForcesView } from "scenes/Dashboard/containers/ProjectForcesView";
+import { Provider } from "react-redux";
+import React from "react";
+import type { ReactWrapper } from "enzyme";
+import _ from "lodash";
+import { act } from "react-dom/test-utils";
+import { mount } from "enzyme";
 import store from "store";
+import wait from "waait";
+import { MemoryRouter, Route } from "react-router-dom";
 
-describe("ForcesView", () => {
-  const mocks: ReadonlyArray<MockedResponse> = [
+describe("ForcesView", (): void => {
+  const mocks: readonly MockedResponse[] = [
     {
       request: {
         query: GET_FORCES_EXECUTIONS,
@@ -28,6 +28,7 @@ describe("ForcesView", () => {
             executions: [
               {
                 date: "2020-02-19T19:31:18+00:00",
+                // eslint-disable-next-line camelcase -- Possibly API related var
                 execution_id: "33e5d863252940edbfb144ede56d56cf",
                 exitCode: "1",
                 gitRepo: "Repository",
@@ -72,9 +73,10 @@ describe("ForcesView", () => {
           },
         },
       },
-    }];
+    },
+  ];
 
-  const mockError: ReadonlyArray<MockedResponse> = [
+  const mockError: readonly MockedResponse[] = [
     {
       request: {
         query: GET_FORCES_EXECUTIONS,
@@ -85,81 +87,123 @@ describe("ForcesView", () => {
       result: {
         errors: [new GraphQLError("Access denied")],
       },
-    }];
+    },
+  ];
 
-  it("should return a function", () => {
-    expect(typeof (ProjectForcesView))
-      .toEqual("function");
+  it("should return a function", (): void => {
+    expect.hasAssertions();
+    expect(typeof ProjectForcesView).toStrictEqual("function");
   });
 
-  it("should render an error in component", async () => {
+  it("should render an error in component", async (): Promise<void> => {
+    expect.hasAssertions();
+
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/unittesting/devsecops"]}>
         <Provider store={store}>
-          <MockedProvider mocks={mockError} addTypename={false}>
-            <Route component={ProjectForcesView} path={"/:projectName/devsecops"} />
+          <MockedProvider addTypename={false} mocks={mockError}>
+            <Route
+              component={ProjectForcesView}
+              path={"/:projectName/devsecops"}
+            />
           </MockedProvider>
         </Provider>
-      </MemoryRouter>,
+      </MemoryRouter>
     );
-    await act(async () => { await wait(0); wrapper.update(); });
-    expect(wrapper.find("Query")
-      .children())
-      .toHaveLength(0);
+    await act(
+      async (): Promise<void> => {
+        await wait(0);
+        wrapper.update();
+      }
+    );
+
+    expect(wrapper.find("Query").children()).toHaveLength(0);
   });
 
-  it("should render a component", async () => {
+  it("should render a component", (): void => {
+    expect.hasAssertions();
+
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/unittesting/devsecops"]}>
         <Provider store={store}>
-          <MockedProvider mocks={mocks} addTypename={false}>
-            <Route component={ProjectForcesView} path={"/:projectName/devsecops"} />
+          <MockedProvider addTypename={false} mocks={mocks}>
+            <Route
+              component={ProjectForcesView}
+              path={"/:projectName/devsecops"}
+            />
           </MockedProvider>
         </Provider>
-      </MemoryRouter>,
+      </MemoryRouter>
     );
-    expect(wrapper)
-      .toHaveLength(1);
+
+    expect(wrapper).toHaveLength(1);
   });
 
-  it("should render forces table", async () => {
+  it("should render forces table", async (): Promise<void> => {
+    expect.hasAssertions();
+
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/unittesting/devsecops"]}>
         <Provider store={store}>
-          <MockedProvider mocks={mocks} addTypename={false}>
-            <Route component={ProjectForcesView} path={"/:projectName/devsecops"} />
+          <MockedProvider addTypename={false} mocks={mocks}>
+            <Route
+              component={ProjectForcesView}
+              path={"/:projectName/devsecops"}
+            />
           </MockedProvider>
         </Provider>
-      </MemoryRouter>,
+      </MemoryRouter>
     );
-    await act(async () => { await wait(0); wrapper.update(); });
-    expect(wrapper.find("table"))
-      .toHaveLength(1);
-    expect(wrapper
-      .find("td")
-      .filterWhere((td: ReactWrapper) => _.includes(td.text(), "33e5d863252940edbfb144ede56d56cf")))
-      .toHaveLength(1);
+    await act(
+      async (): Promise<void> => {
+        await wait(0);
+        wrapper.update();
+      }
+    );
+
+    expect(wrapper.find("table")).toHaveLength(1);
+    expect(
+      wrapper
+        .find("td")
+        .filterWhere((td: ReactWrapper): boolean =>
+          _.includes(td.text(), "33e5d863252940edbfb144ede56d56cf")
+        )
+    ).toHaveLength(1);
   });
 
-  it("should render forces modal", async () => {
+  it("should render forces modal", async (): Promise<void> => {
+    expect.hasAssertions();
+
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/unittesting/devsecops"]}>
         <Provider store={store}>
-          <MockedProvider mocks={mocks} addTypename={false}>
-            <Route component={ProjectForcesView} path={"/:projectName/devsecops"} />
+          <MockedProvider addTypename={false} mocks={mocks}>
+            <Route
+              component={ProjectForcesView}
+              path={"/:projectName/devsecops"}
+            />
           </MockedProvider>
         </Provider>
-      </MemoryRouter>,
+      </MemoryRouter>
     );
-    await act(async () => { await wait(0); wrapper.update(); });
+    await act(
+      async (): Promise<void> => {
+        await wait(0);
+        wrapper.update();
+      }
+    );
     const row: ReactWrapper = wrapper
       .find("td")
-      .filterWhere((td: ReactWrapper) => _.includes(td.text(), "33e5d863252940edbfb144ede56d56cf"));
-    expect(row)
-      .toHaveLength(1);
+      .filterWhere((td: ReactWrapper): boolean =>
+        _.includes(td.text(), "33e5d863252940edbfb144ede56d56cf")
+      );
+
+    expect(row).toHaveLength(1);
+
     row.simulate("click");
-    expect(wrapper
-      .find("span"))
-      .toHaveLength(34);
+
+    const TEST_LENGTH = 34;
+
+    expect(wrapper.find("span")).toHaveLength(TEST_LENGTH);
   });
 });
