@@ -3,6 +3,7 @@
 # Standard library
 import base64
 from contextlib import contextmanager
+import re
 import os
 import stat
 import sys
@@ -37,6 +38,14 @@ from toolbox.constants import API_TOKEN
 from toolbox.api import integrates
 
 config_handler.set_global(length=25)
+
+
+def format_problem_message(problem: str) -> str:
+    fatal = re.search('(fatal:(.\n*)+)', problem)
+    message = fatal.groups()[0] if fatal else problem
+    if len(message) >= 400:
+        return message[:399]
+    return message
 
 
 def ls_remote(url: str) -> Dict[str, Any]:
@@ -186,7 +195,7 @@ def _ssh_repo_cloning(git_root: Dict[str, str]) -> Optional[Dict[str, str]]:
                 '-c',
                 ';'.join(
                     (f"ssh-add {shq(keyfile)}", f"git clone -b {shq(branch)} "
-                     f"--single-branch {shq(baseurl)}")),
+                     f'--single-branch {shq(baseurl)} "./{folder}"')),
             ]
 
             cmd = cmd_execute(command)
@@ -196,10 +205,11 @@ def _ssh_repo_cloning(git_root: Dict[str, str]) -> Optional[Dict[str, str]]:
                 problem = {'repo': repo_name, 'problem': cmd[1]}
 
     if problem:
+        message = format_problem_message(problem['problem'])
         utils.integrates.update_root_cloning_status(
             git_root['id'],
             'FAILED',
-            problem['problem'],
+            message,
         )
     else:
         utils.integrates.update_root_cloning_status(
@@ -236,22 +246,23 @@ def _http_repo_cloning(git_root: Dict[str, str]) -> Optional[Dict[str, str]]:
         except GitError as exc:
             LOGGER.error('%s/%s failed', repo_name, branch)
             LOGGER.error(exc)
-            problem = {'repo': repo_name, 'problem': exc}
+            problem = {'repo': repo_name, 'problem': exc.stderr}
     # validate if there is no problem with the baseurl
     elif not problem:
         try:
             Repo.clone_from(baseurl,
-                            repo_name,
+                            folder,
                             multi_options=[f'-b {branch}', '--single-branch'])
         except GitError as exc:
             LOGGER.error('%s/%s failed', repo_name, branch)
-            problem = {'repo': repo_name, 'problem': exc}
+            problem = {'repo': repo_name, 'problem': exc.stderr}
 
     if problem:
+        message = format_problem_message(problem['problem'])
         utils.integrates.update_root_cloning_status(
             git_root['id'],
             'FAILED',
-            problem['problem'],
+            message,
         )
     else:
         utils.integrates.update_root_cloning_status(
@@ -287,7 +298,10 @@ def repo_cloning(subs: str) -> bool:
 
     repos_fusion = os.listdir('.')
 
-    repo_names: list = [repo['url'].split('/')[-1] for repo in repositories]
+    repo_names: List[str] = [
+        repo['url'].split('/')[-1]
+        for repo in repositories
+    ]
 
     repo_difference = set(repos_fusion).difference(set(repo_names))
 
