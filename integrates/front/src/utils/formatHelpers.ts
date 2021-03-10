@@ -36,23 +36,23 @@ const formatDropdownField: (field: string) => string = (
   const translationParameters: Record<string, string> = {
     ACCEPTED: "search_findings.tab_description.treatment.accepted",
     ACCEPTED_UNDEFINED:
-      "search_findings.tab_description.treatment.accepted_undefined",
-    ANONYMOUS_INTERNET: "search_findings.tab_description.scenario.anon_inter",
-    ANONYMOUS_INTRANET: "search_findings.tab_description.scenario.anon_intra",
+      "search_findings.tab_description.treatment.acceptedUndefined",
+    ANONYMOUS_INTERNET: "search_findings.tab_description.scenario.anonInter",
+    ANONYMOUS_INTRANET: "search_findings.tab_description.scenario.anonIntra",
     ANYONE_INTERNET: "search_findings.tab_description.actor.anyInternet",
     ANYONE_WORKSTATION: "search_findings.tab_description.actor.anyStation",
     ANY_CUSTOMER: "search_findings.tab_description.actor.anyCustomer",
     ANY_EMPLOYEE: "search_findings.tab_description.actor.anyEmployee",
     APPLICATIONS: "search_findings.tab_description.ambit.applications",
     AUTHORIZED_USER_EXTRANET:
-      "search_findings.tab_description.scenario.auth_extra",
+      "search_findings.tab_description.scenario.authExtra",
     AUTHORIZED_USER_INTERNET:
-      "search_findings.tab_description.scenario.auth_inter",
+      "search_findings.tab_description.scenario.authInter",
     AUTHORIZED_USER_INTRANET:
-      "search_findings.tab_description.scenario.auth_intra",
+      "search_findings.tab_description.scenario.authIntra",
     DATABASES: "search_findings.tab_description.ambit.databases",
     INFRASTRUCTURE: "search_findings.tab_description.ambit.infra",
-    IN_PROGRESS: "search_findings.tab_description.treatment.in_progress",
+    IN_PROGRESS: "search_findings.tab_description.treatment.inProgress",
     NEW: "search_findings.tab_description.treatment.new",
     ONE_EMPLOYEE: "search_findings.tab_description.actor.oneEmployee",
     REJECTED: "search_findings.tab_description.treatment.rejected",
@@ -60,11 +60,11 @@ const formatDropdownField: (field: string) => string = (
     SOME_EMPLOYEES: "search_findings.tab_description.actor.someEmployee",
     SOURCE_CODE: "search_findings.tab_description.ambit.sourcecode",
     UNAUTHORIZED_USER_EXTRANET:
-      "search_findings.tab_description.scenario.unauth_extra",
+      "search_findings.tab_description.scenario.unauthExtra",
     UNAUTHORIZED_USER_INTERNET:
-      "search_findings.tab_description.scenario.unauth_inter",
+      "search_findings.tab_description.scenario.unauthInter",
     UNAUTHORIZED_USER_INTRANET:
-      "search_findings.tab_description.scenario.unauth_intra",
+      "search_findings.tab_description.scenario.unauthIntra",
   };
 
   return translationParameters[field];
@@ -82,20 +82,20 @@ const formatTreatment: (treatment: string, findingState: string) => string = (
         : "-",
     ACCEPTED_UNDEFINED:
       findingState === "open"
-        ? "search_findings.tab_description.treatment.accepted_undefined"
+        ? "search_findings.tab_description.treatment.acceptedUndefined"
         : "-",
     "ACCEPTED_UNDEFINED pending":
       findingState === "open"
         ? translate.t(
-            "search_findings.tab_description.treatment.accepted_undefined"
+            "search_findings.tab_description.treatment.acceptedUndefined"
           ) +
           translate.t(
-            "search_findings.tab_description.treatment.pending_approval"
+            "search_findings.tab_description.treatment.pendingApproval"
           )
         : "-",
     "IN PROGRESS":
       findingState === "open"
-        ? "search_findings.tab_description.treatment.in_progress"
+        ? "search_findings.tab_description.treatment.inProgress"
         : "-",
     NEW:
       findingState === "open"

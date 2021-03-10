@@ -268,7 +268,7 @@ export const VulnsView: React.FC = (): JSX.Element => {
                       </option>
                       <option value={"IN_PROGRESS"}>
                         {t(
-                          "search_findings.tab_description.treatment.in_progress"
+                          "search_findings.tab_description.treatment.inProgress"
                         )}
                       </option>
                       <option value={"ACCEPTED"}>
@@ -278,7 +278,7 @@ export const VulnsView: React.FC = (): JSX.Element => {
                       </option>
                       <option value={"ACCEPTED_UNDEFINED"}>
                         {t(
-                          "search_findings.tab_description.treatment.accepted_undefined"
+                          "search_findings.tab_description.treatment.acceptedUndefined"
                         )}
                       </option>
                     </Select>

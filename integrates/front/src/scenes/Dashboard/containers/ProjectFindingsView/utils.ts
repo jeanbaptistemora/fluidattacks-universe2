@@ -37,13 +37,13 @@ const formatTreatmentSummary: (
     indefinitelyAccepted
   },
     ${translate.t(
-      "search_findings.tab_description.treatment.in_progress"
+      "search_findings.tab_description.treatment.inProgress"
     )}: ${inProgress},
     ${translate.t(
       "search_findings.tab_description.treatment.accepted"
     )}: ${temporarilyAccepted},
     ${translate.t(
-      "search_findings.tab_description.treatment.accepted_undefined"
+      "search_findings.tab_description.treatment.acceptedUndefined"
     )}: ${indefinitelyAccepted}
   `;
 };

@@ -35,21 +35,21 @@ const TreatmentField: React.FC = (): JSX.Element => {
         {canHandleVulnsAcceptation ? (
           <option value={"ACCEPTED_UNDEFINED"}>
             {translate.t(
-              "search_findings.tab_description.treatment.accepted_undefined"
+              "search_findings.tab_description.treatment.acceptedUndefined"
             )}
           </option>
         ) : undefined}
         {canConfirmZeroRiskVuln ? (
           <option value={"CONFIRM_ZERO_RISK"}>
             {translate.t(
-              "search_findings.tab_description.treatment.confirm_zero_risk"
+              "search_findings.tab_description.treatment.confirmZeroRisk"
             )}
           </option>
         ) : undefined}
         {canRejectZeroRiskVuln ? (
           <option value={"REJECT_ZERO_RISK"}>
             {translate.t(
-              "search_findings.tab_description.treatment.reject_zero_risk"
+              "search_findings.tab_description.treatment.rejectZeroRisk"
             )}
           </option>
         ) : undefined}

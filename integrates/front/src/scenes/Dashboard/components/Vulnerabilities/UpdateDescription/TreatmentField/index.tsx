@@ -28,9 +28,7 @@ const TreatmentField: React.FC<ITreatmentFieldProps> = (
   const treatmentLabel: string =
     translate.t(formatDropdownField(lastTreatment.treatment)) +
     (isAcceptedUndefinedPendingToApproved
-      ? translate.t(
-          "search_findings.tab_description.treatment.pending_approval"
-        )
+      ? translate.t("search_findings.tab_description.treatment.pendingApproval")
       : "");
 
   return (
@@ -48,7 +46,7 @@ const TreatmentField: React.FC<ITreatmentFieldProps> = (
         <React.Fragment>
           <option value={"IN_PROGRESS"}>
             {translate.t(
-              "search_findings.tab_description.treatment.in_progress"
+              "search_findings.tab_description.treatment.inProgress"
             )}
           </option>
           <option value={"ACCEPTED"}>
@@ -56,7 +54,7 @@ const TreatmentField: React.FC<ITreatmentFieldProps> = (
           </option>
           <option value={"ACCEPTED_UNDEFINED"}>
             {translate.t(
-              "search_findings.tab_description.treatment.accepted_undefined"
+              "search_findings.tab_description.treatment.acceptedUndefined"
             )}
           </option>
         </React.Fragment>
@@ -64,7 +62,7 @@ const TreatmentField: React.FC<ITreatmentFieldProps> = (
       {canRequestZeroRiskVuln ? (
         <option value={"REQUEST_ZERO_RISK"}>
           {translate.t(
-            "search_findings.tab_description.treatment.request_zero_risk"
+            "search_findings.tab_description.treatment.requestZeroRisk"
           )}
         </option>
       ) : undefined}
