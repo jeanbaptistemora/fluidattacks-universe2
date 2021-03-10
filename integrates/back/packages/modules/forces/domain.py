@@ -17,11 +17,11 @@ from typing import (
 from starlette.datastructures import UploadFile
 
 # Local libraries
-from backend.dal import forces as forces_dal
 from backend.typing import (
     ExecutionVulnerabilities,
     ForcesExecution as ForcesExecutionType,
 )
+from forces import dal as forces_dal
 
 
 async def add_forces_execution(

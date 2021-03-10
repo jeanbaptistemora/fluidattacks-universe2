@@ -1,12 +1,12 @@
 import pytest
-from moto import mock_secretsmanager
 from botocore.exceptions import ClientError
-from backend.dal.forces import (
-    create_execution,
-    update_secret_token,
-    get_secret_token,
-)
+from moto import mock_secretsmanager
 
+from forces.dal import (
+    create_execution,
+    get_secret_token,
+    update_secret_token,
+)
 from newutils import datetime as datetime_utils
 
 
