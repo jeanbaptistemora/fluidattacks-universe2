@@ -1,9 +1,12 @@
-import pytest
 
 from decimal import Decimal
-from backend.dal.tag import (
-    update, get_attributes
+
+import pytest
+from tags.dal import (
+    get_attributes,
+    update,
 )
+
 
 pytestmark = [
     pytest.mark.asyncio,

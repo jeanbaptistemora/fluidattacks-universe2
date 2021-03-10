@@ -1,18 +1,25 @@
 import logging
+import logging.config
 from decimal import Decimal
-from typing import Dict, List, Optional, Union
+from typing import (
+    Dict,
+    List,
+    Optional,
+    Union,
+)
 
 from boto3.dynamodb.conditions import Key
 from botocore.exceptions import ClientError
-from backend.exceptions import UnavailabilityError
 
+from back.settings import LOGGING
 from backend.dal.helpers import dynamodb
+from backend.exceptions import UnavailabilityError
 from backend.typing import (
     DynamoDelete as DynamoDeleteType,
     DynamoQuery as DynamoQueryType,
     Tag as TagType
 )
-from back.settings import LOGGING
+
 
 logging.config.dictConfig(LOGGING)
 
@@ -36,10 +43,49 @@ async def delete(organization: str, tag: str) -> bool:
     return success
 
 
+async def get_attributes(
+    organization: str,
+    tag: str,
+    attributes: Optional[List[str]] = None
+) -> Dict[str, Union[List[str], str]]:
+    response = {}
+    item_attrs: DynamoQueryType = {
+        'KeyConditionExpression': (
+            Key('organization').eq(organization.lower()) &
+            Key('tag').eq(tag.lower())
+        ),
+    }
+    if attributes:
+        item_attrs['ProjectionExpression'] = ','.join(attributes)
+    response_items = await dynamodb.async_query(TABLE_NAME, item_attrs)
+    if response_items:
+        response = response_items[0]
+    return response
+
+
+async def get_tags(
+    organization: str,
+    attributes: Optional[List[str]]
+) -> List[TagType]:
+    tags: List[TagType] = []
+    query_attrs = {
+        'KeyConditionExpression': Key('organization').eq(organization)
+    }
+    if attributes:
+        projection = ','.join(attributes)
+        query_attrs.update({'ProjectionExpression': projection})
+    try:
+        tags = await dynamodb.async_query(TABLE_NAME, query_attrs)
+    except ClientError as ex:
+        raise UnavailabilityError() from ex
+    return tags
+
+
 async def update(
-        organization: str,
-        tag: str,
-        data: Dict[str, Union[List[str], Decimal]]) -> bool:
+    organization: str,
+    tag: str,
+    data: Dict[str, Union[List[str], Decimal]]
+) -> bool:
     success = False
     set_expression = ''
     remove_expression = ''
@@ -75,42 +121,3 @@ async def update(
     except ClientError as ex:
         LOGGER.exception(ex, extra={'extra': locals()})
     return success
-
-
-async def get_attributes(
-    organization: str,
-    tag: str,
-    attributes: Optional[List[str]] = None
-) -> Dict[str, Union[List[str], str]]:
-    response = {}
-    item_attrs: DynamoQueryType = {
-        'KeyConditionExpression': (
-            Key('organization').eq(organization.lower()) &
-            Key('tag').eq(tag.lower())
-        ),
-    }
-    if attributes:
-        item_attrs['ProjectionExpression'] = ','.join(attributes)
-    response_items = await dynamodb.async_query(TABLE_NAME, item_attrs)
-    if response_items:
-        response = response_items[0]
-    return response
-
-
-async def get_tags(
-        organization: str,
-        attributes: Optional[List[str]]) -> List[TagType]:
-    tags: List[TagType] = []
-
-    query_attrs = {
-        'KeyConditionExpression': Key('organization').eq(organization)
-    }
-    if attributes:
-        projection = ','.join(attributes)
-        query_attrs.update({'ProjectionExpression': projection})
-
-    try:
-        tags = await dynamodb.async_query(TABLE_NAME, query_attrs)
-    except ClientError as ex:
-        raise UnavailabilityError() from ex
-    return tags

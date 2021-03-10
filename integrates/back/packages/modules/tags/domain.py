@@ -1,4 +1,5 @@
 from contextlib import suppress
+from decimal import Decimal
 from typing import (
     cast,
     Dict,
@@ -10,16 +11,16 @@ from typing import (
 from aioextensions import collect
 
 from backend import authz
-from backend.dal import tag as tag_dal
 from backend.domain import (
     organization as org_domain,
     project as project_domain,
 )
 from backend.typing import Tag as TagType
+from tags import dal as tags_dal
 
 
 async def delete(organization: str, tag: str) -> bool:
-    return await tag_dal.delete(organization, tag)
+    return await tags_dal.delete(organization, tag)
 
 
 async def filter_allowed_tags(
@@ -52,14 +53,14 @@ async def get_attributes(
     tag: str,
     attributes: Optional[List[str]] = None
 ) -> Dict[str, Union[List[str], str]]:
-    return await tag_dal.get_attributes(organization, tag, attributes)
+    return await tags_dal.get_attributes(organization, tag, attributes)
 
 
 async def get_tags(
     organization: str,
     attributes: Optional[List[str]] = None
 ) -> List[TagType]:
-    return await tag_dal.get_tags(organization, attributes)
+    return await tags_dal.get_tags(organization, attributes)
 
 
 async def has_user_access(email: str, subject: str) -> bool:
@@ -98,3 +99,11 @@ async def is_tag_allowed(
         project.lower() in user_projects_tag
         for project in all_projects_tag.get('projects', [])
     )
+
+
+async def update(
+    organization: str,
+    tag: str,
+    data: Dict[str, Union[List[str], Decimal]]
+) -> bool:
+    return await tags_dal.update(organization, tag, data)

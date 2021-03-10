@@ -38,10 +38,7 @@ from back.settings import (
 )
 from backend import mailer
 from backend.api import get_new_context
-from backend.dal import (
-    project as project_dal,
-    tag as tag_dal,
-)
+from backend.dal import project as project_dal
 from backend.domain import (
     finding as finding_domain,
     organization as org_domain,
@@ -908,7 +905,7 @@ async def update_organization_indicators(
             tag, tags_dict, indicator_list + ['max_severity']
         )
         success.append(
-            await tag_dal.update(organization_name, tag, tag_info)
+            await tags_domain.update(organization_name, tag, tag_info)
         )
     return all(success), updated_tags
 
