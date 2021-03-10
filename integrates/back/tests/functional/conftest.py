@@ -11,6 +11,7 @@ import pytest
 TEST_GROUPS: Set[str] = {
     'create_organization',
     'create_project',
+    'edit_stakeholder',
     'edit_stakeholder_organization',
     'finding',
     'grant_stakeholder_organization_access',
