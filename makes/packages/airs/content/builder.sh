@@ -6,6 +6,7 @@ function main {
 
       copy "${envAirsNewFront}" new-front \
   &&  copy "${envAirsContent}" content \
+  &&  copy "${envAirsImages}" new-front/src/assets/images \
   &&  sed -i "s|https://fluidattacks.com/new-front|${url}|g" new-front/gatsby-config.js \
   &&  sed -i "s|pathPrefix: '/new-front'|pathPrefix: '${path}'|g" new-front/gatsby-config.js \
   &&  find content/pages -type f -name "*.adoc" -exec sed -i 's|:slug|:page-slug|g' {} + \

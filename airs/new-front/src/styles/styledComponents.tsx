@@ -538,8 +538,9 @@ const BannerContainer: StyledComponent<
 > = styled.div.attrs({
   className: `
     bg-banner-sz
+    nt-5
     cover
-    banner-height
+    h-banner
     justify-center
     items-center
     flex bg-center

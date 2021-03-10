@@ -16,7 +16,6 @@ import React from "react";
 import { Seo } from "../components/seo";
 import { graphql } from "gatsby";
 import {
-  ArticleContainer,
   BannerContainer,
   BannerInnerContainer,
   BannerTitle,
@@ -95,11 +94,6 @@ const SolutionsIndex: React.FC<IQueryData> = ({
                 <BannerTitle>{title}</BannerTitle>
               </BannerInnerContainer>
             </BannerContainer>
-            <ArticleContainer
-              dangerouslySetInnerHTML={{
-                __html: data.asciidoc.html,
-              }}
-            />
           </PageArticle>
         </div>
       </Layout>
