@@ -250,7 +250,7 @@ const services: React.FC<IServicesProps> = (props: IServicesProps): JSX.Element 
 
       if (values.confirmation !== groupName) {
         errorsFound.confirmation =
-          translate.t("search_findings.services_table.errors.expected_group_name", { groupName });
+          translate.t("search_findings.services_table.errors.expectedGroupName", { groupName });
       }
 
       return errorsFound;
@@ -308,7 +308,7 @@ const services: React.FC<IServicesProps> = (props: IServicesProps): JSX.Element 
                 headerTitle={translate.t("search_findings.services_table.modal.title")}
                 open={isModalOpen}
               >
-                <ControlLabel>{translate.t("search_findings.services_table.modal.changes_to_apply")}</ControlLabel>
+                <ControlLabel>{translate.t("search_findings.services_table.modal.changesToApply")}</ControlLabel>
                 <Well>
                   {computeConfirmationMessage(data, formValues)
                     .map((line: string) => <p key={line}>{line}</p>)}
@@ -318,7 +318,7 @@ const services: React.FC<IServicesProps> = (props: IServicesProps): JSX.Element 
                   <Field
                     name="comments"
                     component={TextArea}
-                    placeholder={translate.t("search_findings.services_table.modal.observations_placeholder")}
+                    placeholder={translate.t("search_findings.services_table.modal.observationsPlaceholder")}
                     type="text"
                     validate={[validTextField, maxLength250]}
                   />
@@ -343,12 +343,12 @@ const services: React.FC<IServicesProps> = (props: IServicesProps): JSX.Element 
                   <FormGroup>
                     <ControlLabel>{translate.t("search_findings.services_table.modal.warning")}</ControlLabel>
                     <Alert>
-                      {translate.t("search_findings.services_table.modal.warning_downgrade_integrates")}
+                      {translate.t("search_findings.services_table.modal.warningDowngradeIntegrates")}
                     </Alert>
                   </FormGroup>
                 ) : undefined}
                 <FormGroup>
-                  <ControlLabel>{translate.t("search_findings.services_table.modal.type_group_name")}</ControlLabel>
+                  <ControlLabel>{translate.t("search_findings.services_table.modal.typeGroupName")}</ControlLabel>
                   <Field
                     name="confirmation"
                     component={Text}

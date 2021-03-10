@@ -58,18 +58,16 @@ const DeleteGroup: React.FC = (): JSX.Element => {
     <React.StrictMode>
       <LastProjectSetting>
         <Flex>
-          <h2>
-            {t("search_findings.services_table.delete_group.delete_group")}
-          </h2>
+          <h2>{t("search_findings.services_table.deleteGroup.deleteGroup")}</h2>
         </Flex>
         <Row>
           <ProjectScopeText>
-            {t("search_findings.services_table.delete_group.warning")}
+            {t("search_findings.services_table.deleteGroup.warning")}
           </ProjectScopeText>
           <Col40>
             <ButtonToolbar>
               <Button onClick={handleChange}>
-                {t("search_findings.services_table.delete_group.delete_group")}
+                {t("search_findings.services_table.deleteGroup.deleteGroup")}
               </Button>
             </ButtonToolbar>
           </Col40>

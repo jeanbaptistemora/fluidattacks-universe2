@@ -931,9 +931,9 @@ export const enTranslations: ResourceKey = {
     services_table: {
       active: "Active",
       continuous: "Continuous Hacking",
-      delete_group: {
-        delete_group: "Delete this group",
-        type_group_name: "Please type the group name to procede.",
+      deleteGroup: {
+        deleteGroup: "Delete this group",
+        typeGroupName: "Please type the group name to procede.",
         warning: "Group deletion is a destructive action and cannot be undone.",
         warningBody:
           "This action will immediately delete the group. " +
@@ -944,9 +944,9 @@ export const enTranslations: ResourceKey = {
       deletedsoon: "Scheduled to be deleted in 1 month",
       drills: "Drills",
       errors: {
-        drills_only_if_continuous:
+        drillsOnlyIfContinuous:
           "Drills is only available in groups of type Continuous-Hacking",
-        expected_group_name: "Expected: {{groupName}}",
+        expectedGroupName: "Expected: {{groupName}}",
         forcesOnlyIfContinuous:
           "Forces is only available in groups of type Continuous-Hacking",
         forcesOnlyIfDrills: "Forces is only available when Drills is too",
@@ -960,8 +960,8 @@ export const enTranslations: ResourceKey = {
       integrates: "Integrates",
       modal: {
         budget: "Budget",
-        changes_to_apply: "Changes to apply",
-        confirm_changes: "Confirm Changes",
+        changesToApply: "Changes to apply",
+        confirmChanges: "Confirm Changes",
         continue: "Continue",
         diff: {
           as: "as",
@@ -974,15 +974,15 @@ export const enTranslations: ResourceKey = {
           "Please let us know the reason for downgrading your services",
         none: "None",
         observations: "Observations",
-        observations_placeholder:
+        observationsPlaceholder:
           "Please type here any observation you may have",
         other: "Other",
-        project_finalization: "Project Finalization",
-        project_suspension: "Project Suspension",
+        projectFinalization: "Project Finalization",
+        projectSuspension: "Project Suspension",
         title: "Change contracted services",
-        type_group_name: "Please type the group name to proceed",
+        typeGroupName: "Please type the group name to proceed",
         warning: "Warning",
-        warning_downgrade_integrates:
+        warningDowngradeIntegrates:
           "Disabling Integrates will immediately delete the group. " +
           "This will remove all of its data including findings and related vulnerabilities. " +
           "This is a destructive action and cannot be undone.",
@@ -1000,7 +1000,7 @@ export const enTranslations: ResourceKey = {
         success: "Unsubscription from {{groupName}} was successful",
         successTitle: "Success",
         title: "Unsubscribe",
-        type_group_name: "Please type the group name to procede.",
+        typeGroupName: "Please type the group name to procede.",
         warning: "Revoke access permissions to this group.",
         warningBody:
           "This action will unsubscribe you from the group. " +
@@ -1029,29 +1029,29 @@ export const enTranslations: ResourceKey = {
         any_employee: "Any employee of the organization",
         any_internet: "Anyone on Internet",
         any_station: "Anyone with access to the station",
-        one_employee: "Only one employee",
-        some_customer: "Only some customers of the organization",
-        some_employee: "Only some employees",
+        oneEmployee: "Only one employee",
+        someCustomer: "Only some customers of the organization",
+        someEmployee: "Only some employees",
         title: "Actor",
       },
-      affected_systems: {
+      affectedSystems: {
         text: "Affected systems",
         tooltip: "Project or application that contains the vulnerability",
       },
       analyst: "Hacker",
-      approval_message:
+      approvalMessage:
         "Remember that the indefinite acceptation of a finding requires the approval of a user with manager role",
-      approval_title: "Confirmation",
+      approvalTitle: "Confirmation",
       approve: "Approve",
       approve_all: "Approve all",
       approve_all_vulns: "Approve all pending vulnerabilities",
-      attack_vectors: {
+      attackVectors: {
         text: "Impacts",
         tooltip:
           "Malicious actions that can be performed by exploiting the vulnerability",
       },
       bts: "External BTS",
-      bts_placeholder:
+      btsPlaceholder:
         "https://gitlab.com/fluidattacks/integrates/-/issues/2084",
       business_criticality: "Level",
       cancel_verified: "Cancel",

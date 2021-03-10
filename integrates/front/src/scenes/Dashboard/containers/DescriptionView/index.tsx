@@ -352,15 +352,15 @@ const DescriptionView: React.FC = (): JSX.Element => {
                       component={TextArea}
                       currentValue={dataset.attackVectorDesc}
                       id={
-                        "search_findings.tab_description.attack_vectors.tooltip"
+                        "search_findings.tab_description.attackVectors.tooltip"
                       }
                       label={translate.t(
-                        "search_findings.tab_description.attack_vectors.text"
+                        "search_findings.tab_description.attackVectors.text"
                       )}
                       name={"attackVectorDesc"}
                       renderAsEditable={isEditing}
                       tooltip={translate.t(
-                        "search_findings.tab_description.attack_vectors.tooltip"
+                        "search_findings.tab_description.attackVectors.tooltip"
                       )}
                       type={"text"}
                       validate={[required, validTextField, maxImpactsLength]}
@@ -379,15 +379,15 @@ const DescriptionView: React.FC = (): JSX.Element => {
                       component={TextArea}
                       currentValue={dataset.affectedSystems}
                       id={
-                        "search_findings.tab_description.affected_systems.tooltip"
+                        "search_findings.tab_description.affectedSystems.tooltip"
                       }
                       label={translate.t(
-                        "search_findings.tab_description.affected_systems.text"
+                        "search_findings.tab_description.affectedSystems.text"
                       )}
                       name={"affectedSystems"}
                       renderAsEditable={isEditing}
                       tooltip={translate.t(
-                        "search_findings.tab_description.affected_systems.tooltip"
+                        "search_findings.tab_description.affectedSystems.tooltip"
                       )}
                       type={"text"}
                       validate={[

@@ -36,7 +36,7 @@ const UnsubscribeModal: React.FC<IUnsubscribeModalProps> = (
       ? {}
       : {
           confirmation: t(
-            "search_findings.services_table.errors.expected_group_name",
+            "search_findings.services_table.errors.expectedGroupName",
             { groupName }
           ),
         };
@@ -67,7 +67,7 @@ const UnsubscribeModal: React.FC<IUnsubscribeModalProps> = (
               <FormGroup>
                 <ControlLabel>
                   {t(
-                    "search_findings.services_table.unsubscribe.type_group_name"
+                    "search_findings.services_table.unsubscribe.typeGroupName"
                   )}
                 </ControlLabel>
                 <Field

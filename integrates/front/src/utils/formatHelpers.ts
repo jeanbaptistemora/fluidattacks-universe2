@@ -54,10 +54,10 @@ const formatDropdownField: (field: string) => string = (
     INFRASTRUCTURE: "search_findings.tab_description.ambit.infra",
     IN_PROGRESS: "search_findings.tab_description.treatment.in_progress",
     NEW: "search_findings.tab_description.treatment.new",
-    ONE_EMPLOYEE: "search_findings.tab_description.actor.one_employee",
+    ONE_EMPLOYEE: "search_findings.tab_description.actor.oneEmployee",
     REJECTED: "search_findings.tab_description.treatment.rejected",
-    SOME_CUSTOMERS: "search_findings.tab_description.actor.some_customer",
-    SOME_EMPLOYEES: "search_findings.tab_description.actor.some_employee",
+    SOME_CUSTOMERS: "search_findings.tab_description.actor.someCustomer",
+    SOME_EMPLOYEES: "search_findings.tab_description.actor.someEmployee",
     SOURCE_CODE: "search_findings.tab_description.ambit.sourcecode",
     UNAUTHORIZED_USER_EXTRANET:
       "search_findings.tab_description.scenario.unauth_extra",

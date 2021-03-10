@@ -41,7 +41,7 @@ const ExternalBtsField: React.FC<IExternalBtsFieldProps> = (
           label={translate.t("search_findings.tab_description.bts")}
           name={"externalBts"}
           placeholder={translate.t(
-            "search_findings.tab_description.bts_placeholder"
+            "search_findings.tab_description.btsPlaceholder"
           )}
           renderAsEditable={canUpdateVulnsTreatment}
           type={"text"}

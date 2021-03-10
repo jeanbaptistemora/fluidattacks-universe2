@@ -408,9 +408,9 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
       <React.StrictMode>
         <ConfirmDialog
           message={translate.t(
-            "search_findings.tab_description.approval_message"
+            "search_findings.tab_description.approvalMessage"
           )}
-          title={translate.t("search_findings.tab_description.approval_title")}
+          title={translate.t("search_findings.tab_description.approvalTitle")}
         >
           {(confirm: IConfirmFn): JSX.Element => {
             function handleSubmit(values: IUpdateTreatmentVulnAttr): void {
