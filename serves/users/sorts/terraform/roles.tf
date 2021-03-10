@@ -139,5 +139,5 @@ resource "aws_iam_role" "sorts-prod" {
 resource "aws_iam_role_policy" "sorts-prod_policy" {
   name   = "sorts-prod_policy"
   policy = data.aws_iam_policy_document.sorts_sagemaker_policy.json
-  role   = aws_iam_role.sorts_sagemaker.id
+  role   = aws_iam_role.sorts-prod.id
 }
