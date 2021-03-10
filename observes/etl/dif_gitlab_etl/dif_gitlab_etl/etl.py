@@ -205,14 +205,14 @@ def upload_data(
         log('info', f'Transforming page:{dpage.id.page}')
         cmd = (
             "echo '[INFO] Running tap' && "
-            f'tap-json > .singer < "{dpage.file.name}"'
+            f'observes-tap-json > .singer < "{dpage.file.name}"'
         )
         result = subprocess.check_output(cmd, shell=True)
         log('info', str(result))
         log('info', f'Uploading page:{dpage.id.page}')
         cmd = (
             "echo '[INFO] Running target' && "
-            "target-redshift "
+            "observes-target-redshift "
             f'--auth "{auth_file.name}" '
             "--schema-name 'gitlab-ci' "
             "< .singer"

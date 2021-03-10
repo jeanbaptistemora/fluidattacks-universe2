@@ -101,6 +101,7 @@ observes.scheduled.job.dif-gitlab-etl
 observes.scheduled.job.formstack-etl
 observes.scheduled.mailchimp-etl
 observes.scheduled.mixpanel-integrates-etl
+observes.scheduled.on-aws.dif-gitlab-etl
 observes.scheduled.on-aws.formstack-etl
 observes.scheduled.timedoctor-backup
 observes.scheduled.timedoctor-etl

@@ -2,6 +2,7 @@
 , buildPythonRequirements
 , makeTemplate
 , nixpkgs
+, packages
 , path
 , ...
 }:
@@ -54,6 +55,8 @@ makeTemplate {
     envPaths = [
       nixpkgs.git
       nixpkgs.python38Packages.psycopg2
+      packages.observes.tap-json
+      packages.observes.target-redshift
       pythonRequirements
       self
       streamerGitlab
