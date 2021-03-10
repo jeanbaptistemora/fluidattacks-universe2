@@ -32,6 +32,8 @@ src/scenes/Dashboard/**/*.*
 !src/scenes/Dashboard/containers/ProjectEventsView/**
 !src/scenes/Dashboard/containers/ProjectFindingsView/**
 !src/scenes/Dashboard/containers/ProjectForcesView/index.spec.tsx
+!src/scenes/Dashboard/containers/ProjectForcesView/queries.ts
+!src/scenes/Dashboard/containers/ProjectForcesView/types.ts
 !src/scenes/Dashboard/containers/ProjectSettingsView/DeleteGroup/**
 !src/scenes/Dashboard/containers/ProjectSettingsView/Unsubscribe/**
 !src/scenes/Dashboard/containers/TrackingView/**

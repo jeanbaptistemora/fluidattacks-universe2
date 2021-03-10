@@ -18,14 +18,14 @@ import { DataTableNext } from "components/DataTableNext";
 import { statusFormatter } from "components/DataTableNext/formatters";
 import { IHeaderConfig } from "components/DataTableNext/types";
 import { ContentTab } from "scenes/Dashboard/components/ContentTab";
+import styles from "scenes/Dashboard/containers/ProjectForcesView/index.css";
+import { GET_FORCES_EXECUTION } from "scenes/Dashboard/containers/ProjectForcesView/queries";
 import {
   IExecution,
   IExploitResult,
   IFoundVulnerabilities,
   IVulnerabilities,
-} from "scenes/Dashboard/containers/ProjectForcesView";
-import styles from "scenes/Dashboard/containers/ProjectForcesView/index.css";
-import { GET_FORCES_EXECUTION } from "scenes/Dashboard/containers/ProjectForcesView/queries";
+} from "scenes/Dashboard/containers/ProjectForcesView/types";
 import { Col33, Row, TabsContainer } from "styles/styledComponents";
 import { useStoredState } from "utils/hooks";
 import { translate } from "utils/translations/translate";

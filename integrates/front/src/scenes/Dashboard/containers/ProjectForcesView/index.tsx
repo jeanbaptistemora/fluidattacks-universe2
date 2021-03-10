@@ -16,48 +16,16 @@ import { IHeaderConfig } from "components/DataTableNext/types";
 import { Modal } from "components/Modal";
 import { Execution } from "scenes/Dashboard/containers/ProjectForcesView/execution";
 import { GET_FORCES_EXECUTIONS } from "scenes/Dashboard/containers/ProjectForcesView/queries";
+import type {
+  IExecution,
+  IFoundVulnerabilities,
+  IVulnerabilities,
+} from "scenes/Dashboard/containers/ProjectForcesView/types";
 import { ButtonToolbar, Col100, Row } from "styles/styledComponents";
 import { useStoredState } from "utils/hooks";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
-
-export interface IExploitResult {
-  exploitability: number;
-  kind: string;
-  state: string;
-  where: string;
-  who: string;
-}
-export interface IFoundVulnerabilities {
-  accepted: number;
-  closed: number;
-  open: number;
-  total: number;
-}
-
-export interface IVulnerabilities {
-  accepted: IExploitResult[];
-  closed: IExploitResult[];
-  numOfAcceptedVulnerabilities: number;
-  numOfClosedVulnerabilities: number;
-  numOfOpenVulnerabilities: number;
-  open: IExploitResult[];
-}
-
-export interface IExecution {
-  date: string;
-  execution_id: string;
-  exitCode: string;
-  foundVulnerabilities: IFoundVulnerabilities;
-  gitRepo: string;
-  kind: string;
-  log?: string;
-  projectName?: string;
-  status: string;
-  strictness: string;
-  vulnerabilities: IVulnerabilities;
-}
 
 const projectForcesView: React.FC = (): JSX.Element => {
   const { projectName } = useParams<{ projectName: string }>();
