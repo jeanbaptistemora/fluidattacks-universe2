@@ -166,6 +166,9 @@ integrates.back.test.functional.old:
   <<: *integrates_back_test_functional
   script: ./m integrates.back.test.functional old true
 
+integrates.back.test.functional.add_project_consult:
+  <<: *integrates_back_test_functional
+
 integrates.back.test.functional.create_organization:
   <<: *integrates_back_test_functional
 

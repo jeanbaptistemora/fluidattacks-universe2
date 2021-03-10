@@ -9,6 +9,7 @@ import pytest
 
 # Constants
 TEST_GROUPS: Set[str] = {
+    'add_project_consult',
     'create_organization',
     'create_project',
     'edit_stakeholder',
