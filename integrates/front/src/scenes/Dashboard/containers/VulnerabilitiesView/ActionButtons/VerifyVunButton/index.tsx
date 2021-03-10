@@ -36,7 +36,7 @@ const VerifyVunButton: React.FC<IVerifyVunButtonProps> = ({
       {isVerifying ? (
         <Button disabled={!areVulnsSelected} onClick={openModal}>
           <FluidIcon icon={"verified"} />
-          &nbsp;{t("search_findings.tab_description.mark_verified.text")}
+          &nbsp;{t("search_findings.tab_description.markVerified.text")}
         </Button>
       ) : undefined}
       {shouldRenderVerifyBtn ? (
@@ -46,7 +46,7 @@ const VerifyVunButton: React.FC<IVerifyVunButtonProps> = ({
           message={
             isVerifying
               ? t("search_findings.tab_vuln.buttons_tooltip.cancel")
-              : t("search_findings.tab_description.mark_verified.tooltip")
+              : t("search_findings.tab_description.markVerified.tooltip")
           }
           placement={"top"}
         >
@@ -59,7 +59,7 @@ const VerifyVunButton: React.FC<IVerifyVunButtonProps> = ({
             ) : (
               <React.Fragment>
                 <FluidIcon icon={"verified"} />
-                &nbsp;{t("search_findings.tab_description.mark_verified.text")}
+                &nbsp;{t("search_findings.tab_description.markVerified.text")}
               </React.Fragment>
             )}
           </Button>

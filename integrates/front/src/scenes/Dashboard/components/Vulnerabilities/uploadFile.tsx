@@ -285,10 +285,10 @@ export const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
             <ButtonToolbarLeft>
               <TooltipWrapper
                 id={translate.t(
-                  "search_findings.tab_description.update_vulnerabilities_tooltip.id"
+                  "search_findings.tab_description.updateVulnerabilitiesTooltip.id"
                 )}
                 message={translate.t(
-                  "search_findings.tab_description.update_vulnerabilities_tooltip"
+                  "search_findings.tab_description.updateVulnerabilitiesTooltip"
                 )}
               >
                 <Button disabled={loading} type={"submit"}>

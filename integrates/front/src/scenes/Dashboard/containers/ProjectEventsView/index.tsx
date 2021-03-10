@@ -199,7 +199,7 @@ const ProjectEventsView: React.FC = (): JSX.Element => {
     {
       align: "center",
       dataField: "closingDate",
-      header: translate.t("search_findings.tab_events.closing_date"),
+      header: translate.t("search_findings.tab_events.closingDate"),
       onSort: onSortState,
       width: "13%",
       wrapped: true,

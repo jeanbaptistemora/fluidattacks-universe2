@@ -271,7 +271,7 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
                       component={Text}
                       currentValue={data.event.affectedComponents}
                       label={translate.t(
-                        "search_findings.tab_events.affected_components"
+                        "search_findings.tab_events.affectedComponents"
                       )}
                       name={"affectedComponents"}
                       renderAsEditable={false}
@@ -284,7 +284,7 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
                     alignField={"horizontalWide"}
                     component={Text}
                     currentValue={data.event.accessibility}
-                    label={translate.t("search_findings.tab_events.event_in")}
+                    label={translate.t("search_findings.tab_events.eventIn")}
                     name={"accessibility"}
                     renderAsEditable={false}
                     type={"text"}

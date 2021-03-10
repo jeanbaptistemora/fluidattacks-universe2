@@ -1086,9 +1086,9 @@ export const enTranslations: ResourceKey = {
       },
       errorFileVuln: "Vulnerabilities file has errors",
       field: "Field",
-      handle_acceptation_modal: {
+      handleAcceptationModal: {
         title: "Observations",
-        zero_risk_justification: {
+        zeroRiskJustification: {
           confirmation: {
             fp: "FP",
             outOfTheScope: "Out of the scope",
@@ -1100,32 +1100,32 @@ export const enTranslations: ResourceKey = {
         },
       },
       inputs: "Inputs",
-      is_new: "New",
+      isNew: "New",
       line: "Line",
-      line_plural: "Lines",
-      mark_verified: {
+      linePlural: "Lines",
+      markVerified: {
         text: "Verify vulnerabilities",
         tooltip:
           "Assess whether the vulnerability was fixed or not in the current cycle",
       },
-      mark_verified_finding: "Verify finding",
+      markVerifiedFinding: "Verify finding",
       new: "New",
       old: "Old",
       path: "Path",
       port: "Port",
-      port_plural: "Ports",
+      portPlural: "Ports",
       recommendation: {
         text: "Recommendation",
         tooltip: "General suggestion to solve the vulnerability",
       },
-      remediation_modal: {
+      remediationModal: {
         justification: "Which was the applied solution?",
         message: "Verification will be requested for {{vulns}} vulnerabilities",
         observations: "What observations do you have?",
-        title_observations: "Observations",
-        title_request: "Justification",
+        titleObservations: "Observations",
+        titleRequest: "Justification",
       },
-      request_verify: {
+      requestVerify: {
         text: "Reattack",
         tooltip:
           "Request a new reattack cycle when the vulnerability is solved",
@@ -1183,22 +1183,22 @@ export const enTranslations: ResourceKey = {
         request_zero_risk: "Request zero risk",
         title: "Treatment",
       },
-      treatment_date: "Treatment Date",
-      treatment_historic: "Historic Treatment",
-      treatment_just: "Treatment justification",
-      treatment_mgr: "Treatment manager",
+      treatmentDate: "Treatment Date",
+      treatmentHistoric: "Historic Treatment",
+      treatmentJust: "Treatment justification",
+      treatmentMgr: "Treatment manager",
       type: {
         hygiene: "Hygiene",
         security: "Security",
         title: "Finding type",
       },
-      update_vulnerabilities: "Update Vulnerabilities",
-      update_vulnerabilities_tooltip:
+      updateVulnerabilitiesTooltip:
         "Modify the existing vulnerabilities using the selected yaml file",
+      update_vulnerabilities: "Update Vulnerabilities",
       verification: "Verification",
+      vulnApproval: "Vulnerability approval status was changed",
       vulnBatchLimit: "You can update up to {{count}} vulnerabilities at once",
       vulnDeleted: "Vulnerability deleted",
-      vuln_approval: "Vulnerability approval status was changed",
       weakness: {
         text: "Weakness",
         tooltip: "Related Common Weakness Enumeration (CWE) according to MITRE",
@@ -1208,17 +1208,17 @@ export const enTranslations: ResourceKey = {
     },
     tab_events: {
       affectation: "Affectation",
-      affected_components: "Affected components",
+      affectedComponents: "Affected components",
       analyst: "Hacker",
       client: "Client",
-      closing_date: "Closing date",
+      closingDate: "Closing date",
       comments: "Comments",
       date: "Date",
       description: "Description",
       edit: "Edit",
-      event_in: "Event present in",
+      eventIn: "Event present in",
       evidence: "Evidence",
-      fluid_group: "Fluid Attacks' Group",
+      fluidGroup: "Fluid Attacks' Group",
       id: "ID",
       resume: "Resume",
       status: "Status",
