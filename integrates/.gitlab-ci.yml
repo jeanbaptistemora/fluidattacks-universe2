@@ -385,6 +385,12 @@ integrates.scheduler.delete_imamura_stakeholders:
     refs: [schedules]
     variables: [$integrates_scheduler_delete_imamura_stakeholders]
 
+integrates.scheduler.delete_obsolete_groups:
+  <<: *integrates_scheduler
+  only:
+    refs: [schedules]
+    variables: [$integrates_scheduler_delete_obsolete_groups]
+
 integrates.scheduler.delete_obsolete_orgs:
   <<: *integrates_scheduler
   only:
