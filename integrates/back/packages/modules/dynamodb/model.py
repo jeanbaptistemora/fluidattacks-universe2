@@ -2,7 +2,6 @@
 from collections import defaultdict
 from typing import (
     Dict,
-    List,
     Optional,
     Set,
     Tuple
@@ -12,8 +11,7 @@ from typing import (
 from boto3.dynamodb.conditions import Key
 
 # Local
-from backend.dal.helpers import dynamodb
-from dynamodb import versioned
+from dynamodb import operations, versioned
 from dynamodb.table import TABLE
 from dynamodb.types import (
     Entity,
@@ -92,21 +90,25 @@ def build_key(*, entity: str, partition_key: str, sort_key: str) -> PrimaryKey:
 
 def build_root(
     *,
-    primary_key: PrimaryKey,
-    raw_items: List[Item],
+    item_id: str,
+    key_structure: PrimaryKey,
+    raw_items: Tuple[Item, ...],
 ) -> RootItem:
     historic_cloning = versioned.get_historic(
-        primary_key=primary_key,
-        historic_prefix='HIST',
-        raw_items=raw_items
-    )
-    historic_state = versioned.get_historic(
-        primary_key=primary_key,
+        item_id=item_id,
+        key_structure=key_structure,
         historic_prefix='CLON',
         raw_items=raw_items
     )
+    historic_state = versioned.get_historic(
+        item_id=item_id,
+        key_structure=key_structure,
+        historic_prefix='HIST',
+        raw_items=raw_items
+    )
     metadata = versioned.get_metadata(
-        primary_key=primary_key,
+        item_id=item_id,
+        key_structure=key_structure,
         raw_items=raw_items
     )
 
@@ -151,19 +153,28 @@ async def get_root(
         sort_key=''.join([url, branch])
     )
 
-    results = await dynamodb.async_query(
-        TABLE.name,
-        {
-            'IndexName': 'inverted_index',
-            'KeyConditionExpression': (
-                Key('sk').eq(primary_key.partition_key) &
-                Key('pk').begins_with(primary_key.sort_key)
-            )
-        }
+    index = TABLE.indexes['inverted_index']
+    key_structure = index.primary_key
+    results = await operations.query(
+        condition_expression=(
+            Key(key_structure.partition_key).eq(primary_key.partition_key) &
+            Key(key_structure.sort_key).begins_with(primary_key.sort_key)
+        ),
+        facets=(
+            TABLE.facets['root_metadata'],
+            TABLE.facets['root_historic'],
+            TABLE.facets['root_cloning_historic']
+        ),
+        index=index,
+        table=TABLE
     )
 
     if results:
-        return build_root(primary_key=primary_key, raw_items=results)
+        return build_root(
+            item_id=primary_key.sort_key,
+            key_structure=key_structure,
+            raw_items=results
+        )
 
     return None
 
@@ -175,23 +186,32 @@ async def get_roots(*, group_name: str) -> Tuple[RootItem, ...]:
         sort_key=''
     )
 
-    results = await dynamodb.async_query(
-        TABLE.name,
-        {
-            'IndexName': 'inverted_index',
-            'KeyConditionExpression': (
-                Key('sk').eq(primary_key.partition_key) &
-                Key('pk').begins_with(primary_key.sort_key)
-            )
-        }
+    index = TABLE.indexes['inverted_index']
+    key_structure = index.primary_key
+    results = await operations.query(
+        condition_expression=(
+            Key(key_structure.partition_key).eq(primary_key.partition_key) &
+            Key(key_structure.sort_key).begins_with(primary_key.sort_key)
+        ),
+        facets=(
+            TABLE.facets['root_metadata'],
+            TABLE.facets['root_historic'],
+            TABLE.facets['root_cloning_historic']
+        ),
+        index=index,
+        table=TABLE
     )
 
     root_items = defaultdict(lambda: [])
     for item in results:
-        root_id = '#'.join(item['sk'].split('#')[:2])
+        root_id = '#'.join(item[key_structure.sort_key].split('#')[:3])
         root_items[root_id].append(item)
 
     return tuple(
-        build_root(primary_key=primary_key, raw_items=items)
-        for items in root_items.values()
+        build_root(
+            item_id=root_id,
+            key_structure=key_structure,
+            raw_items=tuple(items)
+        )
+        for root_id, items in root_items.items()
     )

@@ -1,5 +1,5 @@
 # Standard
-from typing import Any, Dict, Optional, Tuple
+from typing import Any, Dict, Optional, Tuple, Union
 
 # Third party
 import aioboto3
@@ -47,12 +47,20 @@ def build_query_attrs(
     condition_expression: ConditionBase,
     facets: Tuple[Facet, ...],
     index: Optional[Index],
+    table: Table,
 ) -> Dict[str, Any]:
-    attrs = tuple({
+    facet_attrs = tuple({
         attr
         for facet in facets
         for attr in facet.attrs
     })
+    key_source: Union[Index, Table] = index if index else table
+    key_structure = key_source.primary_key
+    attrs = (
+        key_structure.partition_key,
+        key_structure.sort_key,
+        *facet_attrs
+    )
     basic_attrs = {
         'ExpressionAttributeNames': {f'#{attr}': attr for attr in attrs},
         'KeyConditionExpression': condition_expression,
@@ -78,6 +86,7 @@ async def query(
             condition_expression=condition_expression,
             facets=facets,
             index=index,
+            table=table
         )
         response = await table_resource.query(**query_attrs)
         items = response.get('Items', [])

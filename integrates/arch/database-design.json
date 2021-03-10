@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Mar 02, 2021, 09:10 AM",
+    "DateLastModified": "Mar 09, 2021, 04:43 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "2.0"
@@ -881,7 +881,9 @@
                 "S": "OPEN"
               },
               "tags": {
-                "SS": []
+                "SS": [
+                  "test"
+                ]
               },
               "modified_date": {
                 "S": "2021-02-15T14:01:16Z"
@@ -1017,16 +1019,14 @@
               },
               "results": {
                 "M": {
-                  "M": {
-                    "num_of_accepted_vulnerabilities": {
-                      "N": "0"
-                    },
-                    "num_of_closed_vulnerabilities": {
-                      "N": "238"
-                    },
-                    "num_of_open_vulnerabilities": {
-                      "N": "8"
-                    }
+                  "num_of_accepted_vulnerabilities": {
+                    "N": "0"
+                  },
+                  "num_of_closed_vulnerabilities": {
+                    "N": "238"
+                  },
+                  "num_of_open_vulnerabilities": {
+                    "N": "8"
                   }
                 }
               }
