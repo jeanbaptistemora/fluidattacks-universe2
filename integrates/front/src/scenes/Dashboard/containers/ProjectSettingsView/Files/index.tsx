@@ -84,7 +84,7 @@ const files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
       void refetch();
       mixpanel.track("RemoveProjectFiles");
       msgSuccess(
-        translate.t("search_findings.tab_resources.success_remove"),
+        translate.t("search_findings.tab_resources.successRemove"),
         translate.t("search_findings.tab_users.titleSuccess"),
       );
     },
@@ -161,7 +161,7 @@ const files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
       file.fileName === values.file[0].name);
 
     if (repeatedFiles.length > 0) {
-      msgError(translate.t("search_findings.tab_resources.repeated_item"));
+      msgError(translate.t("search_findings.tab_resources.repeatedItem"));
     } else {
       await uploadFile({
         variables: {
@@ -244,7 +244,7 @@ const files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
         striped={true}
       />
       <label>
-        <b>{translate.t("search_findings.tab_resources.total_files")}</b>{filesDataset.length}
+        <b>{translate.t("search_findings.tab_resources.totalFiles")}</b>{filesDataset.length}
       </label>
       <AddFilesModal
         isOpen={isAddModalOpen}

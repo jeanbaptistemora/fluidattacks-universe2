@@ -1390,7 +1390,7 @@ export const enTranslations: ResourceKey = {
         btnTooltip: "Add environments",
         text: "Environment",
       },
-      environments_title: "Environments",
+      environmentsTitle: "Environments",
       files: {
         btnTooltip: "Add a file",
         title: "Files",
@@ -1398,44 +1398,44 @@ export const enTranslations: ResourceKey = {
       groupToRemove:
         "Please type: <strong>{{projectName}}</strong>, to proceed",
       https: "HTTPS",
-      invalid_chars: "File name has invalid characters.",
-      modal_env_title: "Add environment information",
-      modal_file_title: "Add file",
-      modal_options_content: "What do you want to do with the file ",
-      modal_options_title: "File options",
-      modal_plus_btn: {
+      invalidChars: "File name has invalid characters.",
+      modalEnvTitle: "Add environment information",
+      modalFileTitle: "Add file",
+      modalOptionsContent: "What do you want to do with the file ",
+      modalOptionsTitle: "File options",
+      modalPlusBtn: {
         tooltip: "Add another repository",
       },
-      modal_repo_title: "Add repository information",
-      modal_trash_btn: {
+      modalRepoTitle: "Add repository information",
+      modalTrashBtn: {
         tooltip: "Remove information about this repository",
       },
-      no_file_upload: "Failed to upload the file",
-      no_selection: "You must select an item from the table.",
+      noFileUpload: "Failed to upload the file",
+      noSelection: "You must select an item from the table.",
       protocol: {
         label: "Protocol",
         tooltip: "Data transfer protocol",
       },
       removeGroup: "Delete Group",
-      remove_repository: "Remove",
-      repeated_input: "There are repeated values in the form",
-      repeated_item: "One or more items to add exist already.",
+      removeRepository: "Remove",
+      repeatedInput: "There are repeated values in the form",
+      repeatedItem: "One or more items to add exist already.",
       repository: {
         label: "Repository URL",
         tooltip: "Repository URL according to the protocol",
       },
       ssh: "SSH",
       success: "Item added successfully.",
-      success_change: "Item state changed successfully.",
-      success_remove: "Item removed successfully.",
+      successChange: "Item state changed successfully.",
+      successRemove: "Item removed successfully.",
       tags: {
         addTooltip: "Add a portfolio",
         removeTooltip: "Remove selected portfolio",
         title: "Portfolio",
       },
-      total_envs: "Total environments: ",
-      total_files: "Total files: ",
-      uploading_progress: "Uploading file...",
+      totalEnvs: "Total environments: ",
+      totalFiles: "Total files: ",
+      uploadingProgress: "Uploading file...",
       warningMessage:
         "Deleting the group will remove its findings and related vulnerabilities." +
         "<br /> Deleted groups cannot be restored.",
@@ -1567,19 +1567,19 @@ export const enTranslations: ResourceKey = {
       },
       complexity: "Access Complexity",
       complexity_options: {
-        high_complex:
+        highComplex:
           "High: Special conditions such as administrative access are required",
-        low_complex: "Low: No special conditions are required",
-        medium_complex:
+        lowComplex: "Low: No special conditions are required",
+        mediumComplex:
           "Medium: Some conditions such as system access are required",
       },
       confidence: "Confidence Level",
       confidence_options: {
         confirmed:
           "Confirmed: The vulnerability is recognized by the manufacturer",
-        not_confirm:
+        notConfirm:
           "Not confirmed: There are few sources that recognize vulnerability",
-        not_corrob:
+        notCorrob:
           "Not corroborated: Vulnerability is recognized by unofficial sources",
       },
       confidentiality: "Confidentiality Impact",
@@ -1784,8 +1784,8 @@ export const enTranslations: ResourceKey = {
             "provide steps to work around or otherwise mitigate the vulnerability.",
         },
       },
-      report_confidence: "Report Confidence",
-      report_confidence_options: {
+      reportConfidence: "Report Confidence",
+      reportConfidenceOptions: {
         confirmed: {
           text: "Confirmed",
           tooltip:
@@ -1921,7 +1921,7 @@ export const enTranslations: ResourceKey = {
       minutes_ago_plural: "{{count}} minutes ago",
       months_ago: "{{count}} month ago",
       months_ago_plural: "{{count}} months ago",
-      no_selection: "You must select an email from the table.",
+      noSelection: "You must select an email from the table.",
       remove_user_button: {
         text: "Remove",
         tooltip: "Remove an user from the group, first select one",

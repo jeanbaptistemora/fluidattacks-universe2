@@ -39,7 +39,7 @@ const addFilesModal: React.FC<IAddFilesModalProps> = (
     <React.StrictMode>
       <Modal
         headerTitle={translate.t(
-          "search_findings.tab_resources.modal_file_title"
+          "search_findings.tab_resources.modalFileTitle"
         )}
         open={isOpen}
       >

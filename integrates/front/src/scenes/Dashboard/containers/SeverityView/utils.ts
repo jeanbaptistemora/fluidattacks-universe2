@@ -93,9 +93,9 @@ export const castFieldsCVSS3: (
   };
 
   const reportConfidence: Record<string, string> = {
-    0.92: "search_findings.tab_severity.report_confidence_options.unknown.text",
-    0.96: "search_findings.tab_severity.report_confidence_options.reasonable.text",
-    1: "search_findings.tab_severity.report_confidence_options.confirmed.text",
+    0.92: "search_findings.tab_severity.reportConfidenceOptions.unknown.text",
+    0.96: "search_findings.tab_severity.reportConfidenceOptions.reasonable.text",
+    1: "search_findings.tab_severity.reportConfidenceOptions.confirmed.text",
   };
 
   const fields: ISeverityField[] = [
@@ -157,7 +157,7 @@ export const castFieldsCVSS3: (
       currentValue: dataset.reportConfidence,
       name: "reportConfidence",
       options: reportConfidence,
-      title: translate.t("search_findings.tab_severity.report_confidence"),
+      title: translate.t("search_findings.tab_severity.reportConfidence"),
     },
     {
       currentValue: dataset.privilegesRequired,

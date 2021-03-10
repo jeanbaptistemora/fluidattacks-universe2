@@ -61,7 +61,7 @@ const portfolio: React.FC<IPortfolioProps> = (props: IPortfolioProps): JSX.Eleme
       error.graphQLErrors.forEach(({ message }: GraphQLError): void => {
         switch (message) {
           case "Exception - One or more values already exist":
-            msgError(translate.t("search_findings.tab_resources.repeated_item"));
+            msgError(translate.t("search_findings.tab_resources.repeatedItem"));
             break;
           default:
             msgError(translate.t("groupAlerts.errorTextsad"));
@@ -76,7 +76,7 @@ const portfolio: React.FC<IPortfolioProps> = (props: IPortfolioProps): JSX.Eleme
       void refetch();
       mixpanel.track("RemoveTag");
       msgSuccess(
-        translate.t("search_findings.tab_resources.success_remove"),
+        translate.t("search_findings.tab_resources.successRemove"),
         translate.t("search_findings.tab_users.titleSuccess"),
       );
     },
@@ -101,9 +101,9 @@ const portfolio: React.FC<IPortfolioProps> = (props: IPortfolioProps): JSX.Eleme
       tagsDataset.filter(_.matches({ tagName: tag })).length > 0);
 
     if (repeatedInputs.length > 0) {
-      msgError(translate.t("search_findings.tab_resources.repeated_input"));
+      msgError(translate.t("search_findings.tab_resources.repeatedInput"));
     } else if (repeatedTags.length > 0) {
-      msgError(translate.t("search_findings.tab_resources.repeated_item"));
+      msgError(translate.t("search_findings.tab_resources.repeatedItem"));
     } else {
       closeAddModal();
       void addTags({
@@ -174,7 +174,7 @@ const portfolio: React.FC<IPortfolioProps> = (props: IPortfolioProps): JSX.Eleme
                   id={"portfolio-remove"}
                 >
                   <FontAwesomeIcon icon={faMinus} />&nbsp;
-                {translate.t("search_findings.tab_resources.remove_repository")}
+                {translate.t("search_findings.tab_resources.removeRepository")}
                 </Button>
               </TooltipWrapper>
             </Can>

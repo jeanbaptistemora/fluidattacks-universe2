@@ -308,7 +308,7 @@ const isValidFileName: Validator = (file: FileList): string | undefined => {
 
   return name.length <= 2 && validCharacters.test(fileName)
     ? undefined
-    : translate.t("search_findings.tab_resources.invalid_chars");
+    : translate.t("search_findings.tab_resources.invalidChars");
 };
 
 const isValidFileSize: (maxSize: number) => Validator = (

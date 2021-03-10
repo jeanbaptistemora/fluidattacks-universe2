@@ -11,7 +11,7 @@ export const renderUploadBar: React.FC<IAddFilesModalProps> = (
   return (
     <React.Fragment>
       <br />
-      {translate.t("search_findings.tab_resources.uploading_progress")}
+      {translate.t("search_findings.tab_resources.uploadingProgress")}
       <Meter>
         <ProgressBar theme={{ width: `${uploadProgress}%` }}>
           {`${uploadProgress}%`}
