@@ -1,12 +1,12 @@
-import { IHistoricTreatment } from "scenes/Dashboard/containers/DescriptionView/types";
+import type { IHistoricTreatment } from "scenes/Dashboard/containers/DescriptionView/types";
 
-export interface IProjectFindingsAttr {
+interface IProjectFindingsAttr {
   project: {
     findings: IFindingAttr[];
   };
 }
 
-export interface IFindingAttr {
+interface IFindingAttr {
   age: number;
   description: string;
   id: string;
@@ -20,15 +20,17 @@ export interface IFindingAttr {
   treatment: string;
   type: string;
   verified: boolean;
-  vulnerabilities: Array<{
+  vulnerabilities: {
     historicTreatment: IHistoricTreatment[];
     where: string;
     zeroRisk: string;
-  }>;
+  }[];
 }
 
-export interface IRequestProjectReportResult {
+interface IRequestProjectReportResult {
   requestProjectReport: {
     success: boolean;
   };
 }
+
+export { IProjectFindingsAttr, IFindingAttr, IRequestProjectReportResult };
