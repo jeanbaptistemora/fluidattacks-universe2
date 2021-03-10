@@ -36,7 +36,6 @@ let
   };
 in
 makeTemplate {
-  arguments = { };
   name = "code-etl-env-runtime";
   searchPaths = {
     envPaths = [
@@ -51,5 +50,4 @@ makeTemplate {
       self
     ];
   };
-  template = path "/makes/packages/observes/env/runtime/code-etl/template.sh";
 }

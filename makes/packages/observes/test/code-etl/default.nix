@@ -4,7 +4,7 @@
 , ...
 }:
 makeDerivation {
-  name = "observes-lint-code-etl";
+  name = "observes-test-code-etl";
   arguments = {
     envSrc = path "/observes/code_etl";
     envTestDir = "tests";
@@ -15,5 +15,5 @@ makeDerivation {
       packages.observes.env.development.code-etl
     ];
   };
-  builder = path "/makes/packages/observes/test/code-etl/builder.sh";
+  builder = path "/makes/packages/observes/generic/tester/test_builder.sh";
 }

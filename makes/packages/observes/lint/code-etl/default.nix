@@ -14,5 +14,5 @@ makeDerivation {
       packages.observes.env.development.code-etl
     ];
   };
-  builder = path "/makes/packages/observes/lint/code-etl/builder.sh";
+  builder = path "/makes/packages/observes/generic/linter/lint_builder.sh";
 }

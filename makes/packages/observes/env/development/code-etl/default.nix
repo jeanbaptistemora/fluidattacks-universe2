@@ -35,7 +35,6 @@ let
         "urllib3==1.26.3"
         "uvloop==0.15.2"
       ];
-      localRequirements = "/observes/code_etl";
     };
     python = nixpkgs.python38;
   };
@@ -60,5 +59,4 @@ makeTemplate {
       self
     ];
   };
-  template = path "/makes/packages/observes/env/development/code-etl/template.sh";
 }
