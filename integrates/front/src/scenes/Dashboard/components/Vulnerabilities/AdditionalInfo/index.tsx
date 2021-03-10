@@ -275,7 +275,7 @@ export const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
               <li>
                 <Row>
                   <Col40>
-                    <b>{t("search_findings.tab_description.zero_risk")}</b>
+                    <b>{t("search_findings.tab_description.zeroRisk")}</b>
                   </Col40>
                   <Col60>
                     <Label>{statusFormatter(vulnerability.zeroRisk)}</Label>

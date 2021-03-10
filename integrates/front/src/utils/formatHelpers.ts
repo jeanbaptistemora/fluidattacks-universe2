@@ -3,19 +3,19 @@ import { translate } from "utils/translations/translate";
 const castEventType: (field: string) => string = (field: string): string => {
   const eventType: Record<string, string> = {
     AUTHORIZATION_SPECIAL_ATTACK:
-      "search_findings.tab_events.type_values.auth_attack",
-    "Ambiente inestable": "search_findings.tab_events.type_values.uns_ambient",
+      "search_findings.tab_events.typeValues.authAttack",
+    "Ambiente inestable": "search_findings.tab_events.typeValues.unsAmbient",
     "Ambiente no accesible":
-      "search_findings.tab_events.type_values.inacc_ambient",
+      "search_findings.tab_events.typeValues.inaccAmbient",
     CLIENT_APPROVES_CHANGE_TOE:
-      "search_findings.tab_events.type_values.approv_change",
-    CLIENT_DETECTS_ATTACK: "search_findings.tab_events.type_values.det_attack",
+      "search_findings.tab_events.typeValues.approvChange",
+    CLIENT_DETECTS_ATTACK: "search_findings.tab_events.typeValues.detAttack",
     HIGH_AVAILABILITY_APPROVAL:
-      "search_findings.tab_events.type_values.high_approval",
+      "search_findings.tab_events.typeValues.highApproval",
     INCORRECT_MISSING_SUPPLIES:
-      "search_findings.tab_events.type_values.incor_supplies",
-    OTHER: "search_findings.tab_events.type_values.other",
-    TOE_DIFFERS_APPROVED: "search_findings.tab_events.type_values.toeDiffers",
+      "search_findings.tab_events.typeValues.incorSupplies",
+    OTHER: "search_findings.tab_events.typeValues.other",
+    TOE_DIFFERS_APPROVED: "search_findings.tab_events.typeValues.toeDiffers",
   };
 
   return eventType[field];
@@ -23,8 +23,8 @@ const castEventType: (field: string) => string = (field: string): string => {
 
 const castEventStatus: (field: string) => string = (field: string): string => {
   const eventStatus: Record<string, string> = {
-    CREATED: "search_findings.tab_events.status_values.unsolve",
-    SOLVED: "search_findings.tab_events.status_values.solve",
+    CREATED: "search_findings.tab_events.statusValues.unsolve",
+    SOLVED: "search_findings.tab_events.statusValues.solve",
   };
 
   return eventStatus[field];

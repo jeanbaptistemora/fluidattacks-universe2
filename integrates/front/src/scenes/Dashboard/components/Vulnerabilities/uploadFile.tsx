@@ -295,7 +295,7 @@ export const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
                   <FluidIcon icon={"import"} />
                   &nbsp;
                   {translate.t(
-                    "search_findings.tab_description.update_vulnerabilities"
+                    "search_findings.tab_description.updateVulnerabilities"
                   )}
                 </Button>
               </TooltipWrapper>

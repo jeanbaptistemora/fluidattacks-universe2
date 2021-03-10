@@ -164,8 +164,8 @@ const portfolio: React.FC<IPortfolioProps> = (props: IPortfolioProps): JSX.Eleme
             <Can do="backend_api_mutations_remove_group_tag_mutate">
               <TooltipWrapper
                 displayClass={"dib"}
-                id={"search_findings.tab_resources.tags.remove_tooltip.id"}
-                message={translate.t("search_findings.tab_resources.tags.remove_tooltip")}
+                id={"search_findings.tab_resources.tags.removeTooltip.id"}
+                message={translate.t("search_findings.tab_resources.tags.removeTooltip")}
                 placement="top"
               >
                 <Button

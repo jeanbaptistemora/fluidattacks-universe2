@@ -48,11 +48,9 @@ const renderForm: (props: IEvidenceImageProps) => JSX.Element = (
       />
       {props.isDescriptionEditable ? (
         <TooltipWrapper
-          id={translate.t(
-            "search_findings.tab_evidence.description_tooltip.id"
-          )}
+          id={translate.t("search_findings.tab_evidence.descriptionTooltip.id")}
           message={translate.t(
-            "search_findings.tab_evidence.description_tooltip"
+            "search_findings.tab_evidence.descriptionTooltip"
           )}
           placement={"right"}
         >
@@ -68,8 +66,8 @@ const renderForm: (props: IEvidenceImageProps) => JSX.Element = (
       {props.isRemovable === true ? (
         <ButtonToolbarLeft>
           <TooltipWrapper
-            id={translate.t("search_findings.tab_evidence.remove_tooltip.id")}
-            message={translate.t("search_findings.tab_evidence.remove_tooltip")}
+            id={translate.t("search_findings.tab_evidence.removeTooltip.id")}
+            message={translate.t("search_findings.tab_evidence.removeTooltip")}
           >
             <Button onClick={onDelete}>
               <FluidIcon icon={"delete"} />

@@ -148,7 +148,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
         if (result.deleteTags.success) {
           msgSuccess(
             translate.t(
-              "search_findings.tab_description.update_vulnerabilities"
+              "search_findings.tab_description.updateVulnerabilities"
             ),
             translate.t("groupAlerts.titleSuccess")
           );
@@ -250,7 +250,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
           });
           msgSuccess(
             translate.t(
-              "search_findings.tab_description.update_vulnerabilities"
+              "search_findings.tab_description.updateVulnerabilities"
             ),
             translate.t("groupAlerts.titleSuccess")
           );
