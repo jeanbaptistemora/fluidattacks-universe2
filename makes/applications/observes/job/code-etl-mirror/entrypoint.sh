@@ -1,33 +1,20 @@
 # shellcheck shell=bash
 
-source '__envUtilsBashLibAws__'
-source '__envUtilsBashLibSops__'
-source '__envUtilsBashLibGit__'
-
-export PATH="__envSopsBin__:${PATH:-}"
-export PATH="__envOpenSSH__:${PATH:-}"
-export PATH="__envFindUtils__:${PATH:-}"
-
 function job_code_mirror {
   local group="${1}"
-  local melts
-  local temp_file
-  local update_sync_date
-
+  local db_creds
 
       if test -z "${group}"
       then
             echo '[INFO] Please set the first argument to the group name' \
         &&  return 1
       fi \
-  &&  melts="__envMelts__" \
-  &&  update_sync_date="__envUpdateSyncDate__" \
-  &&  temp_file=$(mktemp) \
+  &&  db_creds=$(mktemp) \
   &&  aws_login_prod 'observes' \
   &&  sops_export_vars 'observes/secrets-prod.yaml' \
         analytics_auth_redshift \
   &&  echo '[INFO] Generating secret files' \
-  &&  echo "${analytics_auth_redshift}" > "${temp_file}" \
+  &&  echo "${analytics_auth_redshift}" > "${db_creds}" \
   &&  use_git_repo_services \
     &&  echo "[INFO] Working on ${group}" \
     &&  echo "[INFO] Cloning ${group} from source Git repository" \
@@ -35,14 +22,14 @@ function job_code_mirror {
     &&  export CI_COMMIT_REF_NAME='master' \
     &&  export PROD_AWS_ACCESS_KEY_ID="${AWS_ACCESS_KEY_ID}" \
     &&  export PROD_AWS_SECRET_ACCESS_KEY="${AWS_SECRET_ACCESS_KEY}" \
-    &&  { "${melts}" resources --clone-from-customer-git "${group}" || true;} \
+    &&  { melts resources --clone-from-customer-git "${group}" || true;} \
     &&  if find "groups/${group}/fusion/"* -maxdepth 0 -type d
         then
               echo '[INFO] Pushing repositories to S3' \
-          &&  "${melts}" drills --push-repos "${group}" \
+          &&  melts drills --push-repos "${group}" \
           &&  echo '[INFO] Updating last sync date' \
-          &&  "${update_sync_date}" compound-job \
-                --auth "${temp_file}" \
+          &&  observes-update-sync-date compound-job \
+                --auth "${db_creds}" \
                 --job "mirror" \
                 --child "${group}"
         else

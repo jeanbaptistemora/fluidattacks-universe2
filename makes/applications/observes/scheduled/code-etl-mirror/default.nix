@@ -6,7 +6,7 @@ let
   computeOnAws = import (path "/makes/utils/compute-on-aws") path nixpkgs;
   mirrorGroup = computeOnAws {
     attempts = 5;
-    command = [ "./m" "observes.code-etl-mirror" ];
+    command = [ "./m" "observes.job.code-etl-mirror" ];
     jobname = "code-etl-mirror";
     jobqueue = "spot_soon";
     name = "aws-batch-code-etl-mirror";
