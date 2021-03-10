@@ -1,4 +1,3 @@
-# sorts_sagemaker role definition
 data "aws_iam_policy_document" "sorts_sagemaker_assume_policy" {
   statement {
     sid    = "SageMakerAssumeRolePolicy"
@@ -18,6 +17,7 @@ data "aws_iam_policy_document" "sorts_sagemaker_assume_policy" {
 }
 
 data "aws_iam_policy_document" "sorts_sagemaker_policy" {
+  # S3 admin over Sorts bucket
   statement {
     effect = "Allow"
     actions = [
@@ -60,6 +60,7 @@ data "aws_iam_policy_document" "sorts_sagemaker_policy" {
     ]
   }
 
+  # CloudWatch logs access
   statement {
     effect = "Allow"
     actions = [
@@ -85,24 +86,6 @@ data "aws_iam_policy_document" "sorts_sagemaker_policy" {
   }
 }
 
-resource "aws_iam_role" "sorts_sagemaker" {
-  name               = "sorts_sagemaker"
-  assume_role_policy = data.aws_iam_policy_document.sorts_sagemaker_assume_policy.json
-
-  tags = {
-    "Name"               = "sorts_sagemaker"
-    "management:type"    = "production"
-    "management:product" = "serves"
-  }
-}
-
-resource "aws_iam_role_policy" "sorts_sagemaker_policy" {
-  name   = "sorts_sagemaker_policy"
-  policy = data.aws_iam_policy_document.sorts_sagemaker_policy.json
-  role   = aws_iam_role.sorts_sagemaker.id
-}
-
-# sorts-prod role definition
 data "aws_iam_policy_document" "sorts_prod_assume_policy" {
   statement {
     sid    = "OktaSAMLAccess"
@@ -125,6 +108,25 @@ data "aws_iam_policy_document" "sorts_prod_assume_policy" {
   }
 }
 
+# sorts_sagemaker role definition
+resource "aws_iam_role" "sorts_sagemaker" {
+  name               = "sorts_sagemaker"
+  assume_role_policy = data.aws_iam_policy_document.sorts_sagemaker_assume_policy.json
+
+  tags = {
+    "Name"               = "sorts_sagemaker"
+    "management:type"    = "production"
+    "management:product" = "serves"
+  }
+}
+
+resource "aws_iam_role_policy" "sorts_sagemaker_policy" {
+  name   = "sorts_sagemaker_policy"
+  policy = data.aws_iam_policy_document.sorts_sagemaker_policy.json
+  role   = aws_iam_role.sorts_sagemaker.id
+}
+
+# sorts-prod role definition
 resource "aws_iam_role" "sorts-prod" {
   name               = "sorts-prod"
   assume_role_policy = data.aws_iam_policy_document.sorts_prod_assume_policy.json
@@ -142,6 +144,7 @@ resource "aws_iam_role_policy" "sorts-prod_policy" {
   role   = aws_iam_role.sorts-prod.id
 }
 
+# SageMaker policy
 resource "aws_iam_role_policy_attachment" "sorts-prod_sagemaker_policy" {
   role       = aws_iam_role.sorts-prod.id
   policy_arn = "arn:aws:iam::aws:policy/AmazonSageMakerFullAccess"
