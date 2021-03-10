@@ -532,9 +532,51 @@ const GetDemoContainer: StyledComponent<
   `,
 })``;
 
+const BannerContainer: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs({
+  className: `
+    bg-banner-sz
+    cover
+    banner-height
+    justify-center
+    items-center
+    flex bg-center
+  `,
+})``;
+
+const BannerInnerContainer: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs({
+  className: `
+    w-100
+    center
+  `,
+})``;
+
+const BannerTitle: StyledComponent<
+  "h1",
+  Record<string, unknown>
+> = styled.h1.attrs({
+  className: `
+    white
+    fw7
+    f1
+    neue
+    tc
+    f-5-l
+    ma0
+  `,
+})``;
+
 export {
   ArticleContainer,
   ArticleTitle,
+  BannerContainer,
+  BannerInnerContainer,
+  BannerTitle,
   BlackBigHeader,
   BlackBigParagraph,
   BlackSimpleParagraph,
