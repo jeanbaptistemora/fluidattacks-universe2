@@ -48,6 +48,24 @@ def format_problem_message(problem: str) -> str:
     return message
 
 
+def manage_repo_diffs(
+    repositories: List[Dict[str, str]]
+) -> None:
+    repo_fusion = os.listdir('.')
+
+    repo_names = [
+        repo['url'].split('/')[-1]
+        for repo in repositories
+    ]
+
+    repo_difference = set(repo_fusion).difference(set(repo_names))
+
+    # delete repositories of fusion that are not in the config
+    for repo_dif in repo_difference:
+        LOGGER.info('Deleting %s', repo_dif)
+        shutil.rmtree(repo_dif)
+
+
 def ls_remote(url: str) -> Dict[str, Any]:
     remote_refs = {}
     remote = git.cmd.Git()
@@ -157,17 +175,21 @@ def repo_url(baseurl: str) -> str:
     return error
 
 
-def _ssh_repo_cloning(git_root: Dict[str, str]) -> Optional[Dict[str, str]]:
+def _ssh_repo_cloning(
+    git_root: Dict[str, str],
+) -> Optional[Dict[str, str]]:
     """ cloning or updated a repository ssh """
     baseurl = git_root['url']
     if 'source.developers.google' not in baseurl:
         baseurl = baseurl.replace('ssh://', '')
+
+    # handle urls special chars in branch names
     branch = urllib.parse.unquote(git_root['branch'])
 
     problem: Optional[Dict[str, Any]] = None
 
-    # handle urls special chars in branch names
     repo_name = baseurl.split('/')[-1]
+
     folder = repo_name
     with setup_ssh_key(baseurl) as keyfile:
         if os.path.isdir(folder):
@@ -220,7 +242,9 @@ def _ssh_repo_cloning(git_root: Dict[str, str]) -> Optional[Dict[str, str]]:
     return problem
 
 
-def _http_repo_cloning(git_root: Dict[str, str]) -> Optional[Dict[str, str]]:
+def _http_repo_cloning(
+    git_root: Dict[str, str],
+) -> Optional[Dict[str, str]]:
     """ cloning or updated a repository https """
     # script does not support vpns atm
     baseurl = git_root['url']
@@ -296,19 +320,7 @@ def repo_cloning(subs: str) -> bool:
         root for root in repo_request.data['project']['roots']
         if root['state'] == 'ACTIVE')
 
-    repos_fusion = os.listdir('.')
-
-    repo_names: List[str] = [
-        repo['url'].split('/')[-1]
-        for repo in repositories
-    ]
-
-    repo_difference = set(repos_fusion).difference(set(repo_names))
-
-    # delete repositories of fusion that are not in the config
-    for repo_dif in repo_difference:
-        LOGGER.info('Deleting %s', repo_dif)
-        shutil.rmtree(repo_dif)
+    manage_repo_diffs(repositories)
 
     utils.generic.aws_login('continuous-admin')
 

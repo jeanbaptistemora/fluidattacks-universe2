@@ -1,4 +1,5 @@
 { makeEntrypoint
+, nixpkgs
 , packages
 , path
 , ...
@@ -13,6 +14,9 @@ makeEntrypoint {
     envUtils = [
       "/makes/utils/aws"
       "/makes/utils/git"
+    ];
+    envPaths = [
+      nixpkgs.gnugrep
     ];
   };
   template = path "/makes/applications/melts/test/entrypoint.sh";
