@@ -1,5 +1,3 @@
-#! /usr/bin/env python3
-
 # Standard imports
 import os
 import csv
@@ -10,6 +8,9 @@ import urllib.parse
 
 # Third parties imports
 import requests
+
+# Local libraries
+from tap_zoho_analytics import streamer_csv
 
 
 def export_csv(
@@ -82,7 +83,8 @@ def cli():
         target=args.target,
         email=args.email, token=args.token,
         space=args.space, table=args.table)
-
+    if success:
+        streamer_csv.stream_csv(args.table)
     sys.exit(0 if success else 1)
 
 

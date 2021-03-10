@@ -217,6 +217,15 @@ observes.scheduled.dynamodb-integrates-etl-vulns:
     variables: [$observes_dynamodb_vulns]
   interruptible: false
 
+observes.scheduled.job.tap-zoho-analytics:
+  <<: *makes
+  tags: [autoscaling-analytics]
+  stage: analytics
+  only:
+    refs: [schedules]
+    variables: [$observes_zoho]
+  interruptible: false
+
 observes.scheduled.on-aws.dif-gitlab-etl:
   <<: *makes
   tags: [autoscaling]
@@ -339,15 +348,6 @@ observes.test.target-redshift:
   stage: test-code
 
 # disorganized jobs
-
-observes_zoho:
-  <<: *with_nix
-  tags: [autoscaling-analytics]
-  stage: analytics
-  only:
-    refs: [schedules]
-    variables: [$observes_zoho]
-  interruptible: false
 
 observes_timedoctor_refresh_token:
   <<: *with_nix

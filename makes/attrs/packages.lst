@@ -70,8 +70,10 @@ observes.config-streamer-zoho-crm-runtime
 observes.config-target-redshift-runtime
 observes.env.development.code-etl
 observes.env.development.dif-gitlab-etl
+observes.env.development.tap-zoho-analytics
 observes.env.runtime.code-etl
 observes.env.runtime.dif-gitlab-etl
+observes.env.runtime.tap-zoho-analytics
 observes.generic.linter
 observes.generic.runner
 observes.generic.tester

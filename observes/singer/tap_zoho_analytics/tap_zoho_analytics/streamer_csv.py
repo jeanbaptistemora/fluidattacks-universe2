@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 """Minimalistic yet complete Streamer for a CSV file."""
 
 import os
