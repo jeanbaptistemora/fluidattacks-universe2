@@ -367,8 +367,8 @@ const findingContent: React.FC = (): JSX.Element => {
                     icon={"icon pe-7s-notebook"}
                     id={"recordsItem"}
                     link={`${url}/records`}
-                    title={translate.t("search_findings.tab_records.tabTitle")}
-                    tooltip={translate.t("search_findings.tab_records.tooltip")}
+                    title={translate.t("search_findings.tabRecords.tabTitle")}
+                    tooltip={translate.t("search_findings.tabRecords.tooltip")}
                   />
                   <ContentTab
                     icon={"icon pe-7s-comment"}
@@ -385,10 +385,10 @@ const findingContent: React.FC = (): JSX.Element => {
                       id={"observationsItem"}
                       link={`${url}/observations`}
                       title={translate.t(
-                        "search_findings.tab_observations.tabTitle"
+                        "search_findings.tabObservations.tabTitle"
                       )}
                       tooltip={translate.t(
-                        "search_findings.tab_observations.tooltip"
+                        "search_findings.tabObservations.tooltip"
                       )}
                     />
                   </Can>

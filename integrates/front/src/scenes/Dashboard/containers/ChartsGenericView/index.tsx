@@ -705,7 +705,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                 generatorType={"c3"}
                 reportMode={reportMode}
                 subject={subject}
-                title={translate.t("tag_indicator.mean_remediate")}
+                title={translate.t("tag_indicator.meanRemediate")}
               />
             </Col100>
           </RowCenter>

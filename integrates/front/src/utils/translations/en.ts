@@ -1267,19 +1267,19 @@ export const enTranslations: ResourceKey = {
       cancelDeletion: "Cancel deletion",
       cancelGroupDeletion: "Cancel group deletion",
       closed: "Closed",
-      closed_percentage: "Closed vulnerabilities",
+      closedPercentage: "Closed vulnerabilities",
       commits: "Current month commits",
-      data_chart_accepted_closed: "Accepted + Closed",
-      data_chart_closed: "Closed",
-      data_chart_found: "Found",
-      data_chart_legend_vulnerabilities: "Vulnerabilities",
-      data_chart_legend_week: "Weeks",
+      dataChartAcceptedClosed: "Accepted + Closed",
+      dataChartClosed: "Closed",
+      dataChartFound: "Found",
+      dataChartLegendVulnerabilities: "Vulnerabilities",
+      dataChartLegendWeek: "Weeks",
       days: "days",
       forces: {
         builds: "builds",
         indicators: {
           builds: {
-            accepted_risk: {
+            acceptedRisk: {
               desc: "Security issues your team decided to live with",
               title: "Builds with accepted risk",
             },
@@ -1293,80 +1293,81 @@ export const enTranslations: ResourceKey = {
               title: "Protected builds",
             },
           },
-          has_forces: {
+          hasForces: {
             protected: "Protected by Forces",
-            protected_desc: "Forces helps you build a safe system",
+            protectedDesc: "Forces helps you build a safe system",
             title: "System status",
             unprotected: "Not protected by Forces",
-            unprotected_desc: "Vulnerable code may be deployed to production",
+            unprotectedDesc: "Vulnerable code may be deployed to production",
           },
-          service_use: {
+          serviceUse: {
             title: "Service usage",
             total: "times",
           },
           strictness: {
             strict: "Strict",
-            strict_desc: "Strict mode forces the fix of security issues",
+            strictDesc: "Strict mode forces the fix of security issues",
             title: "Ratio of builds in Strict mode",
           },
         },
-        sub_title: "Last 7 days",
+        subTitle: "Last 7 days",
         title: "Forces Analytics",
       },
-      git_title: "Git Analytics",
+      gitTitle: "Git Analytics",
       groupIsRemoving:
         "This group is expected to be removed on <strong>{{deletionDate}}</strong>" +
         "<br />Requested by <strong>{{userEmail}}</strong>",
-      group_title: "Group Analytics",
-      last_closing_vuln: {
+      groupTitle: "Group Analytics",
+      lastClosingVuln: {
         text: "Days since last closed vulnerability",
         tooltip: "Last time you fixed a vulnerability",
       },
-      max_open_severity: "Max open severity",
-      max_severity: "Max severity found",
-      mean_remediate: {
+      maxOpenSeverity: "Max open severity",
+      maxSeverity: "Max severity found",
+      meanRemediate: {
         text: "Mean time to remediate",
         tooltip:
           "Amount of time it will takes your development team to fix a vulnerability",
       },
       open: "Open",
-      pending_closing_check: {
+      pendingClosingCheck: {
         text: "Pending closing verification",
         tooltip:
           "Number of vulnerabilities you addressed and are pending for Fluid Attacks validation",
       },
       repositories: "Analyzed Repositories",
-      status_graph: "Status",
+      statusGraph: "Status",
       success: "Group deletion was cancelled successfully",
       tags: {
         modalTitle: "Add tags information",
       },
-      total_findings: {
+      totalFindings: {
         text: "Total Findings",
         tooltip: "Number of types of vulnerabilities that you have",
       },
-      total_vulnerabilitites: {
+      totalVulnerabilitites: {
         text: "Total Vulnerabilities",
         tooltip:
           "Number of times that the total findings types repeat within your system",
       },
       treatmentAccepted: "Temporarily accepted",
       treatmentAcceptedUndefined: "Eternally accepted",
-      treatment_graph: "Treatment",
-      treatment_inProgress: "In progress",
-      treatment_no_defined: "Not defined",
-      undefined_treatment: {
+      treatmentGraph: "Treatment",
+      treatmentInProgress: "In progress",
+      treatmentNoDefined: "Not defined",
+      undefinedTreatment: {
         text: "Open vulnerabilities with no defined treatment",
         tooltip:
           "Number of vulnerabilities that have a default treatment setting",
       },
     },
-    tab_observations: {
+    // eslint-disable-next-line sort-keys -- Temporal annotation during camelcase enforce
+    tabObservations: {
       tabTitle: "Observations",
       tooltip:
         "Space to review the finding and suggest adjustments. For internal purposes only",
     },
-    tab_records: {
+    tabRecords: {
       editable: "Edit",
       editableTooltip: "Modify the records for this finding",
       tabTitle: "Records",
@@ -1374,24 +1375,24 @@ export const enTranslations: ResourceKey = {
         "Information that will be compromised or disclosed by exploiting the vulnerability",
     },
     tab_resources: {
-      add_repository: "Add",
-      base_url_placeholder: "gitlab.com/fluidattacks/product.git",
+      addRepository: "Add",
+      baseUrlPlaceholder: "gitlab.com/fluidattacks/product.git",
       branch: {
         label: "Branch",
         tooltip: "Target branch",
       },
-      branch_placeholder: "master",
+      branchPlaceholder: "master",
       cannotRemove: "Cannot remove group, permission denied",
-      change_state: "Change state",
+      changeState: "Change state",
       description: "Description",
       download: "Download",
       environment: {
-        btn_tooltip: "Add environments",
+        btnTooltip: "Add environments",
         text: "Environment",
       },
       environments_title: "Environments",
       files: {
-        btn_tooltip: "Add a file",
+        btnTooltip: "Add a file",
         title: "Files",
       },
       groupToRemove:
@@ -2074,7 +2075,7 @@ export const enTranslations: ResourceKey = {
     findings_group: "Findings by group",
     highSeverity: "High Severity",
     lowSeverity: "Low Severity",
-    mean_remediate: "Mean (average) days to remediate",
+    meanRemediate: "Mean (average) days to remediate",
     mediumSeverity: "Medium Severity",
     open_findings_group: "Open findings by group",
     open_vuln: "open vulns.",

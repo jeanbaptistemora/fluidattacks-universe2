@@ -218,13 +218,13 @@ const files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
           <Col40 className={"pa0"}>
             <ButtonToolbar>
               <TooltipWrapper
-                id={"search_findings.tab_resources.files.btn_tooltip.id"}
-                message={translate.t("search_findings.tab_resources.files.btn_tooltip")}
+                id={"search_findings.tab_resources.files.btnTooltip.id"}
+                message={translate.t("search_findings.tab_resources.files.btnTooltip")}
                 placement="top"
               >
                 <Button onClick={openAddModal} id={"file-add"}>
                   <FontAwesomeIcon icon={faPlus} />&nbsp;
-                  {translate.t("search_findings.tab_resources.add_repository")}
+                  {translate.t("search_findings.tab_resources.addRepository")}
                 </Button>
               </TooltipWrapper>
             </ButtonToolbar>

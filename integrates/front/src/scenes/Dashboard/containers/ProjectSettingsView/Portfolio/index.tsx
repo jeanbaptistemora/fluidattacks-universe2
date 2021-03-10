@@ -157,7 +157,7 @@ const portfolio: React.FC<IPortfolioProps> = (props: IPortfolioProps): JSX.Eleme
               >
                 <Button onClick={openAddModal} id={"portfolio-add"}>
                   <FontAwesomeIcon icon={faPlus} />&nbsp;
-                {translate.t("search_findings.tab_resources.add_repository")}
+                {translate.t("search_findings.tab_resources.addRepository")}
                 </Button>
               </TooltipWrapper>
             </Can>
