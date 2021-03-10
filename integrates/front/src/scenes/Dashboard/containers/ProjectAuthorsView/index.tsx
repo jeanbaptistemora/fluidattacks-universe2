@@ -123,8 +123,7 @@ const ProjectAuthorsView: React.FC = (): JSX.Element => {
           <select className={styles.selectDate} onChange={handleDateChange}>
             {dateRange.map(
               (date: Date, index: number): JSX.Element => (
-                // eslint-disable-next-line react/no-array-index-key
-                <option key={index} value={date.toISOString()}>
+                <option key={index.toString()} value={date.toISOString()}>
                   {formatDate(date)}
                 </option>
               )

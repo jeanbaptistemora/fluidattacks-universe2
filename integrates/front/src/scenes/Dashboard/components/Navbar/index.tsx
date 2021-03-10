@@ -140,8 +140,7 @@ const NavbarComponent: React.FC = (): JSX.Element => {
       const link: string = pathData.slice(0, index + 2).join("/");
 
       return (
-        // eslint-disable-next-line react/no-array-index-key
-        <li key={index}>
+        <li key={index.toString()}>
           <Link to={`/${baseLink}/${link}`}>{stylizeBreadcrumbItem(item)}</Link>
         </li>
       );

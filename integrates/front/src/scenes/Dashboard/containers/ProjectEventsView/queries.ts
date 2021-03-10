@@ -1,7 +1,7 @@
-import { DocumentNode } from "graphql";
+import type { DocumentNode } from "graphql";
 import gql from "graphql-tag";
 
-export const GET_EVENTS: DocumentNode = gql`
+const GET_EVENTS: DocumentNode = gql`
   query GetEventsQuery($projectName: String!) {
     project(projectName: $projectName) {
       events {
@@ -17,36 +17,38 @@ export const GET_EVENTS: DocumentNode = gql`
   }
 `;
 
-export const CREATE_EVENT_MUTATION: DocumentNode = gql`
+const CREATE_EVENT_MUTATION: DocumentNode = gql`
   mutation CreateEventMutation(
-    $accessibility: [EventAccessibility]!,
-    $actionAfterBlocking: ActionsAfterBlocking!,
-    $actionBeforeBlocking: ActionsBeforeBlocking!,
-    $affectedComponents: [AffectedComponents],
-    $blockingHours: String,
-    $context: EventContext!,
-    $detail: String!,
-    $eventDate: DateTime!,
-    $eventType: EventType!,
-    $file: Upload,
-    $image: Upload,
+    $accessibility: [EventAccessibility]!
+    $actionAfterBlocking: ActionsAfterBlocking!
+    $actionBeforeBlocking: ActionsBeforeBlocking!
+    $affectedComponents: [AffectedComponents]
+    $blockingHours: String
+    $context: EventContext!
+    $detail: String!
+    $eventDate: DateTime!
+    $eventType: EventType!
+    $file: Upload
+    $image: Upload
     $projectName: String!
-    ) {
+  ) {
     createEvent(
-      accessibility: $accessibility,
-      actionAfterBlocking: $actionAfterBlocking,
-      actionBeforeBlocking: $actionBeforeBlocking,
-      affectedComponents: $affectedComponents,
-      blockingHours: $blockingHours,
-      context: $context,
-      detail: $detail,
-      eventDate: $eventDate,
-      eventType: $eventType,
-      file: $file,
-      image: $image,
+      accessibility: $accessibility
+      actionAfterBlocking: $actionAfterBlocking
+      actionBeforeBlocking: $actionBeforeBlocking
+      affectedComponents: $affectedComponents
+      blockingHours: $blockingHours
+      context: $context
+      detail: $detail
+      eventDate: $eventDate
+      eventType: $eventType
+      file: $file
+      image: $image
       projectName: $projectName
     ) {
       success
     }
   }
 `;
+
+export { CREATE_EVENT_MUTATION, GET_EVENTS };
