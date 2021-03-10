@@ -154,8 +154,8 @@ async def get_root(
         ),
         facets=(
             TABLE.facets['root_metadata'],
-            TABLE.facets['root_historic'],
-            TABLE.facets['root_cloning_historic']
+            TABLE.facets['root_historic_cloning'],
+            TABLE.facets['root_historic_state']
         ),
         index=index,
         table=TABLE
@@ -187,8 +187,8 @@ async def get_roots(*, group_name: str) -> Tuple[RootItem, ...]:
         ),
         facets=(
             TABLE.facets['root_metadata'],
-            TABLE.facets['root_historic'],
-            TABLE.facets['root_cloning_historic']
+            TABLE.facets['root_historic_cloning'],
+            TABLE.facets['root_historic_state']
         ),
         index=index,
         table=TABLE

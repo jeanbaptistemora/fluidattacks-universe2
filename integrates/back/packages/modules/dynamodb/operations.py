@@ -3,6 +3,7 @@ from typing import Any, Dict, Optional, Tuple, Union
 
 # Third party
 import aioboto3
+import aioextensions
 import botocore
 from boto3.dynamodb.conditions import ConditionBase
 
@@ -99,3 +100,17 @@ async def query(
             items += response.get('Items', [])
 
     return tuple(items)
+
+
+async def batch_write_item(
+    *,
+    items: Tuple[Item, ...],
+    table: Table,
+) -> None:
+    async with aioboto3.resource(**RESOURCE_OPTIONS) as resource:
+        table_resource = await resource.Table(table.name)
+        async with table_resource.batch_writer() as batch_writer:
+            await aioextensions.collect(
+                batch_writer.put_item(Item=item)
+                for item in items
+            )

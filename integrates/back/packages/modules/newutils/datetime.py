@@ -115,3 +115,7 @@ def get_as_epoch(date: datetime) -> int:
     epoch = int(date.timestamp())
 
     return epoch
+
+
+def get_iso_date() -> str:
+    return f'{datetime.utcnow().isoformat()}Z'
