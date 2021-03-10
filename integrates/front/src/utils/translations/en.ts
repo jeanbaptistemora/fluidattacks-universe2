@@ -1014,21 +1014,21 @@ export const enTranslations: ResourceKey = {
       open: "Open",
     },
     statusLabel: "Status",
-    tab_comments: {
-      tab_title: "Consulting",
+    tabComments: {
+      tabTitle: "Consulting",
       tooltip:
         "Space where all interested parties can share information about the finding",
     },
     tab_description: {
-      acceptance_date: "Temporarily accepted until",
-      acceptation_justification: "Acceptation Justification",
-      acceptation_user: "Acceptation User",
+      acceptanceDate: "Temporarily accepted until",
+      acceptationJustification: "Acceptation Justification",
+      acceptationUser: "Acceptation User",
       action: "Action",
       actor: {
-        any_customer: "Any customer of the organization",
-        any_employee: "Any employee of the organization",
-        any_internet: "Anyone on Internet",
-        any_station: "Anyone with access to the station",
+        anyCustomer: "Any customer of the organization",
+        anyEmployee: "Any employee of the organization",
+        anyInternet: "Anyone on Internet",
+        anyStation: "Anyone with access to the station",
         oneEmployee: "Only one employee",
         someCustomer: "Only some customers of the organization",
         someEmployee: "Only some employees",
@@ -1043,8 +1043,8 @@ export const enTranslations: ResourceKey = {
         "Remember that the indefinite acceptation of a finding requires the approval of a user with manager role",
       approvalTitle: "Confirmation",
       approve: "Approve",
-      approve_all: "Approve all",
-      approve_all_vulns: "Approve all pending vulnerabilities",
+      approveAll: "Approve all",
+      approveAllVulns: "Approve all pending vulnerabilities",
       attackVectors: {
         text: "Impacts",
         tooltip:
@@ -1066,9 +1066,9 @@ export const enTranslations: ResourceKey = {
         tooltip: "Number of records in risk",
       },
       delete: "Delete",
+      deleteAll: "Delete All",
+      deleteAllVulns: "Delete all pending vulnerabilities",
       deleteTags: "Delete Tags",
-      delete_all: "Delete All",
-      delete_all_vulns: "Delete all pending vulnerabilities",
       description: {
         text: "Description",
         tooltip: "Brief explanation of the vulnerability and how it works",
@@ -1158,7 +1158,7 @@ export const enTranslations: ResourceKey = {
           "Did Sorts guide you to the file where you found the vulnerability?",
       },
       state: "State",
-      tab_title: "Description",
+      tabTitle: "Description",
       tag: "Tags",
       threat: {
         text: "Threat",
@@ -1250,7 +1250,7 @@ export const enTranslations: ResourceKey = {
       evidence_exploit: "Exploitation evidence",
       remove: "Delete",
       remove_tooltip: "Delete this evidence",
-      tab_title: "Evidence",
+      tabTitle: "Evidence",
       tooltip:
         "Images or animation representing the exploitation process to support the existence of the finding",
       update: "Update",
@@ -1259,7 +1259,7 @@ export const enTranslations: ResourceKey = {
     tab_exploit: {
       editable: "Edit",
       editable_tooltip: "Modify the exploit script",
-      tab_title: "Exploit",
+      tabTitle: "Exploit",
       tooltip: "Script to replicate the exploitation process using Asserts",
     },
     tab_indicators: {
@@ -1362,14 +1362,14 @@ export const enTranslations: ResourceKey = {
       },
     },
     tab_observations: {
-      tab_title: "Observations",
+      tabTitle: "Observations",
       tooltip:
         "Space to review the finding and suggest adjustments. For internal purposes only",
     },
     tab_records: {
       editable: "Edit",
       editable_tooltip: "Modify the records for this finding",
-      tab_title: "Records",
+      tabTitle: "Records",
       tooltip:
         "Information that will be compromised or disclosed by exploiting the vulnerability",
     },
@@ -1851,7 +1851,7 @@ export const enTranslations: ResourceKey = {
         },
       },
       solve: "Mark as solved",
-      tab_title: "Severity",
+      tabTitle: "Severity",
       tooltip: "Assigned score according to CVSS 3.1 metrics",
       update: "Update",
       user_interaction: "User Interaction",
@@ -1890,7 +1890,7 @@ export const enTranslations: ResourceKey = {
       open: "Open",
       pending: "Pending",
       status: "Status",
-      tab_title: "Tracking",
+      tabTitle: "Tracking",
       tooltip:
         "Evolution of the finding over time: historical records, open/closed vulnerabilities, " +
         "and temporally/eternally accepted treatments",
@@ -1988,7 +1988,7 @@ export const enTranslations: ResourceKey = {
       status: "Status",
       status_tooltip:
         "Filter vulnerabilities based on their open / closed status",
-      tab_title: "Locations",
+      tabTitle: "Locations",
       tooltip: "Open / Closed vulnerabilities",
       verified: "Verified",
       vulnTable: {

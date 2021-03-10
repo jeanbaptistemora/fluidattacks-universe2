@@ -304,7 +304,7 @@ const findingContent: React.FC = (): JSX.Element => {
                     icon={"icon pe-7s-menu"}
                     id={"vulnItem"}
                     link={`${url}/locations`}
-                    title={translate.t("search_findings.tab_vuln.tab_title")}
+                    title={translate.t("search_findings.tab_vuln.tabTitle")}
                     tooltip={translate.t("search_findings.tab_vuln.tooltip")}
                   />
                   <ContentTab
@@ -312,7 +312,7 @@ const findingContent: React.FC = (): JSX.Element => {
                     id={"infoItem"}
                     link={`${url}/description`}
                     title={translate.t(
-                      "search_findings.tab_description.tab_title"
+                      "search_findings.tab_description.tabTitle"
                     )}
                     tooltip={translate.t(
                       "search_findings.tab_description.tooltip"
@@ -322,9 +322,7 @@ const findingContent: React.FC = (): JSX.Element => {
                     icon={"icon pe-7s-calculator"}
                     id={"cssv2Item"}
                     link={`${url}/severity`}
-                    title={translate.t(
-                      "search_findings.tab_severity.tab_title"
-                    )}
+                    title={translate.t("search_findings.tab_severity.tabTitle")}
                     tooltip={translate.t(
                       "search_findings.tab_severity.tooltip"
                     )}
@@ -333,9 +331,7 @@ const findingContent: React.FC = (): JSX.Element => {
                     icon={"icon pe-7s-photo"}
                     id={"evidenceItem"}
                     link={`${url}/evidence`}
-                    title={translate.t(
-                      "search_findings.tab_evidence.tab_title"
-                    )}
+                    title={translate.t("search_findings.tab_evidence.tabTitle")}
                     tooltip={translate.t(
                       "search_findings.tab_evidence.tooltip"
                     )}
@@ -350,7 +346,7 @@ const findingContent: React.FC = (): JSX.Element => {
                         id={"exploitItem"}
                         link={`${url}/exploit`}
                         title={translate.t(
-                          "search_findings.tab_exploit.tab_title"
+                          "search_findings.tab_exploit.tabTitle"
                         )}
                         tooltip={translate.t(
                           "search_findings.tab_exploit.tooltip"
@@ -362,9 +358,7 @@ const findingContent: React.FC = (): JSX.Element => {
                     icon={"icon pe-7s-graph1"}
                     id={"trackingItem"}
                     link={`${url}/tracking`}
-                    title={translate.t(
-                      "search_findings.tab_tracking.tab_title"
-                    )}
+                    title={translate.t("search_findings.tab_tracking.tabTitle")}
                     tooltip={translate.t(
                       "search_findings.tab_tracking.tooltip"
                     )}
@@ -373,19 +367,15 @@ const findingContent: React.FC = (): JSX.Element => {
                     icon={"icon pe-7s-notebook"}
                     id={"recordsItem"}
                     link={`${url}/records`}
-                    title={translate.t("search_findings.tab_records.tab_title")}
+                    title={translate.t("search_findings.tab_records.tabTitle")}
                     tooltip={translate.t("search_findings.tab_records.tooltip")}
                   />
                   <ContentTab
                     icon={"icon pe-7s-comment"}
                     id={"commentItem"}
                     link={`${url}/consulting`}
-                    title={translate.t(
-                      "search_findings.tab_comments.tab_title"
-                    )}
-                    tooltip={translate.t(
-                      "search_findings.tab_comments.tooltip"
-                    )}
+                    title={translate.t("search_findings.tabComments.tabTitle")}
+                    tooltip={translate.t("search_findings.tabComments.tooltip")}
                   />
                   <Can
                     do={"backend_api_resolvers_finding_observations_resolve"}
@@ -395,7 +385,7 @@ const findingContent: React.FC = (): JSX.Element => {
                       id={"observationsItem"}
                       link={`${url}/observations`}
                       title={translate.t(
-                        "search_findings.tab_observations.tab_title"
+                        "search_findings.tab_observations.tabTitle"
                       )}
                       tooltip={translate.t(
                         "search_findings.tab_observations.tooltip"

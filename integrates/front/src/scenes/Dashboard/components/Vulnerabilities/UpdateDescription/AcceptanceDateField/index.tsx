@@ -25,7 +25,7 @@ const AcceptanceDateField: React.FC<IAcceptanceDateFieldProps> = (
         <EditableField
           component={Date}
           currentValue={_.get(lastTreatment, "acceptanceDate", "-")}
-          label={translate.t("search_findings.tab_description.acceptance_date")}
+          label={translate.t("search_findings.tab_description.acceptanceDate")}
           name={"acceptanceDate"}
           renderAsEditable={canUpdateVulnsTreatment}
           type={"date"}
