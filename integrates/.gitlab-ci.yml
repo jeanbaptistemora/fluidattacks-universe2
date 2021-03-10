@@ -169,6 +169,9 @@ integrates.back.test.functional.old:
 integrates.back.test.functional.create_organization:
   <<: *integrates_back_test_functional
 
+integrates.back.test.functional.create_project:
+  <<: *integrates_back_test_functional
+
 integrates.back.test.functional.edit_stakeholder_organization:
   <<: *integrates_back_test_functional
 
@@ -214,6 +217,17 @@ integrates.coverage:
     - integrates.front.test
     - integrates.mobile.test
   stage: external
+
+integrates.back.structure:
+  <<: *makes
+  <<: *in_dev_branch_integrates
+  after_script:
+    - cp -Lr out/integrates-back-structure outputs
+  artifacts:
+    expire_in: 1 week
+    paths: [outputs]
+    when: always
+  stage: test-code
 
 integrates.front.deploy.dev:
   <<: *makes
