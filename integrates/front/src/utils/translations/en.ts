@@ -928,7 +928,7 @@ export const enTranslations: ResourceKey = {
     repositoriesTable: {
       state: "State",
     },
-    services_table: {
+    servicesTable: {
       active: "Active",
       continuous: "Continuous Hacking",
       deleteGroup: {

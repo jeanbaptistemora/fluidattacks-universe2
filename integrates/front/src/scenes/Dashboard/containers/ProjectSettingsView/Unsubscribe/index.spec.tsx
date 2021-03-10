@@ -84,8 +84,8 @@ describe("Unsubscribe from group", (): void => {
     );
 
     expect(msgSuccess).toHaveBeenCalledWith(
-      "search_findings.services_table.unsubscribe.success",
-      "search_findings.services_table.unsubscribe.successTitle"
+      "search_findings.servicesTable.unsubscribe.success",
+      "search_findings.servicesTable.unsubscribe.successTitle"
     );
   });
 });

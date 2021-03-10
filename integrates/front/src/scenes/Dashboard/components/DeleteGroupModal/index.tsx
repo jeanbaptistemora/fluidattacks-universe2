@@ -35,7 +35,7 @@ const DeleteGroupModal: React.FC<IDeleteGroupModalProps> = (
       ? {}
       : {
           confirmation: translate.t(
-            "search_findings.services_table.errors.expectedGroupName",
+            "search_findings.servicesTable.errors.expectedGroupName",
             { groupName }
           ),
         };
@@ -45,7 +45,7 @@ const DeleteGroupModal: React.FC<IDeleteGroupModalProps> = (
     <React.StrictMode>
       <Modal
         headerTitle={translate.t(
-          "search_findings.services_table.deleteGroup.deleteGroup"
+          "search_findings.servicesTable.deleteGroup.deleteGroup"
         )}
         open={isOpen}
       >
@@ -61,18 +61,18 @@ const DeleteGroupModal: React.FC<IDeleteGroupModalProps> = (
             <React.Fragment>
               <ControlLabel>
                 {translate.t(
-                  "search_findings.services_table.deleteGroup.warningTitle"
+                  "search_findings.servicesTable.deleteGroup.warningTitle"
                 )}
               </ControlLabel>
               <Alert>
                 {translate.t(
-                  "search_findings.services_table.deleteGroup.warningBody"
+                  "search_findings.servicesTable.deleteGroup.warningBody"
                 )}
               </Alert>
               <FormGroup>
                 <ControlLabel>
                   {translate.t(
-                    "search_findings.services_table.deleteGroup.typeGroupName"
+                    "search_findings.servicesTable.deleteGroup.typeGroupName"
                   )}
                 </ControlLabel>
                 <Field

@@ -28,10 +28,10 @@ const Unsubscribe: React.FC = (): JSX.Element => {
     {
       onCompleted: (): void => {
         msgSuccess(
-          t("search_findings.services_table.unsubscribe.success", {
+          t("search_findings.servicesTable.unsubscribe.success", {
             groupName: projectName,
           }),
-          t("search_findings.services_table.unsubscribe.successTitle")
+          t("search_findings.servicesTable.unsubscribe.successTitle")
         );
 
         push("/home");
@@ -62,16 +62,16 @@ const Unsubscribe: React.FC = (): JSX.Element => {
     <React.StrictMode>
       <LastProjectSetting>
         <Row>
-          <h2>{t("search_findings.services_table.unsubscribe.title")}</h2>
+          <h2>{t("search_findings.servicesTable.unsubscribe.title")}</h2>
         </Row>
         <Row>
           <ProjectScopeText>
-            {t("search_findings.services_table.unsubscribe.warning")}
+            {t("search_findings.servicesTable.unsubscribe.warning")}
           </ProjectScopeText>
           <Col40>
             <ButtonToolbar>
               <Button onClick={handleChange}>
-                {t("search_findings.services_table.unsubscribe.button")}
+                {t("search_findings.servicesTable.unsubscribe.button")}
               </Button>
             </ButtonToolbar>
           </Col40>

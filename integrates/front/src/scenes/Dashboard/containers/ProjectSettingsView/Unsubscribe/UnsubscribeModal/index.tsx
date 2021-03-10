@@ -36,7 +36,7 @@ const UnsubscribeModal: React.FC<IUnsubscribeModalProps> = (
       ? {}
       : {
           confirmation: t(
-            "search_findings.services_table.errors.expectedGroupName",
+            "search_findings.servicesTable.errors.expectedGroupName",
             { groupName }
           ),
         };
@@ -45,7 +45,7 @@ const UnsubscribeModal: React.FC<IUnsubscribeModalProps> = (
   return (
     <React.StrictMode>
       <Modal
-        headerTitle={t("search_findings.services_table.unsubscribe.title")}
+        headerTitle={t("search_findings.servicesTable.unsubscribe.title")}
         open={isOpen}
       >
         <GenericForm
@@ -59,16 +59,14 @@ const UnsubscribeModal: React.FC<IUnsubscribeModalProps> = (
           {({ handleSubmit, valid }: InjectedFormProps): JSX.Element => (
             <React.Fragment>
               <ControlLabel>
-                {t("search_findings.services_table.unsubscribe.warningTitle")}
+                {t("search_findings.servicesTable.unsubscribe.warningTitle")}
               </ControlLabel>
               <Alert>
-                {t("search_findings.services_table.unsubscribe.warningBody")}
+                {t("search_findings.servicesTable.unsubscribe.warningBody")}
               </Alert>
               <FormGroup>
                 <ControlLabel>
-                  {t(
-                    "search_findings.services_table.unsubscribe.typeGroupName"
-                  )}
+                  {t("search_findings.servicesTable.unsubscribe.typeGroupName")}
                 </ControlLabel>
                 <Field
                   component={Text}
