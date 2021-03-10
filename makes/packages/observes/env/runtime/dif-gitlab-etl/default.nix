@@ -30,7 +30,7 @@ let
     python = nixpkgs.python38;
   };
   streamerGitlab = buildPythonPackage {
-    name = "observes-dif-gitlab-etl";
+    name = "observes-streamer-gitlab";
     packagePath = path "/observes/singer/streamer_gitlab";
     python = nixpkgs.python38;
   };

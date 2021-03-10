@@ -78,11 +78,10 @@ makes.wait
 melts
 melts.test
 melts.vpn
+observes.bin.dif-gitlab-etl
 observes.code-etl-amend
 observes.code-etl-upload
-observes.dif-gitlab-etl
 observes.job.code-etl-mirror
-observes.job.dif-gitlab-etl
 observes.job.dynamodb-etl
 observes.job.dynamodb-forces-etl
 observes.job.dynamodb-table-etl
@@ -98,6 +97,7 @@ observes.scheduled.dynamodb-centralize
 observes.scheduled.dynamodb-forces-etl
 observes.scheduled.dynamodb-integrates-etl
 observes.scheduled.dynamodb-integrates-etl-vulns
+observes.scheduled.job.dif-gitlab-etl
 observes.scheduled.job.formstack-etl
 observes.scheduled.mailchimp-etl
 observes.scheduled.mixpanel-integrates-etl

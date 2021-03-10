@@ -73,6 +73,7 @@ observes.env.development.dif-gitlab-etl
 observes.env.runtime.code-etl
 observes.env.runtime.dif-gitlab-etl
 observes.generic.linter
+observes.generic.runner
 observes.generic.tester
 observes.lint.code-etl
 observes.lint.dif-gitlab-etl

@@ -16,7 +16,7 @@ function start_etl {
         analytics_auth_redshift \
   &&  echo '[INFO] Generating secret files' \
   &&  echo "${analytics_auth_redshift}" > "${db_creds}" \
-  &&  observes-dif-gitlab-etl start-etl "${projects[@]}" "${db_creds}"
+  &&  observes-bin-dif-gitlab-etl start-etl "${projects[@]}" "${db_creds}"
 }
 
 start_etl
