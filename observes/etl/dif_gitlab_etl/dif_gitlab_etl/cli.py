@@ -9,12 +9,12 @@ from typing import (
     IO, List,
 )
 
-# Third party libraries
+# Third-Party/Observes libraries
 import click
+from streamer_gitlab.log import log
 
 # Local libraries
 from dif_gitlab_etl import executer
-from streamer_gitlab.log import log
 
 
 @click.command()

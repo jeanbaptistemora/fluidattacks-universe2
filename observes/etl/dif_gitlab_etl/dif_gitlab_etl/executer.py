@@ -4,20 +4,14 @@ Supports the interface used by cli.
 """
 # Standard libraries
 from typing import (
-    Any, Callable,
+    Any,
+    Callable,
     Dict,
     List,
     Optional,
 )
-# Third party libraries
-# Local libraries
-from dif_gitlab_etl import db_client
-from dif_gitlab_etl import etl
-from dif_gitlab_etl import planner
-from dif_gitlab_etl.db_client import DbState
-from dif_gitlab_etl.etl import ExtractState
-from dif_gitlab_etl.utils import log
 
+# Third-Party/Observes libraries
 from streamer_gitlab import page_data
 from streamer_gitlab.api_client import (
     GitlabResource,
@@ -25,6 +19,14 @@ from streamer_gitlab.api_client import (
 )
 from streamer_gitlab.log import MaxRetriesReached
 from streamer_gitlab.page_data import PageData
+
+# Local libraries
+from dif_gitlab_etl import db_client
+from dif_gitlab_etl import etl
+from dif_gitlab_etl import planner
+from dif_gitlab_etl.db_client import DbState
+from dif_gitlab_etl.etl import ExtractState
+from dif_gitlab_etl.utils import log
 
 
 def specific_resources(project: str) -> List[GitlabResource]:

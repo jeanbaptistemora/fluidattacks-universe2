@@ -11,13 +11,7 @@ from typing import (
     NamedTuple,
     Optional,
 )
-# Third party libraries
-# Local libraries
-from dif_gitlab_etl import planner
-from dif_gitlab_etl.utils import (
-    error,
-    log,
-)
+# Third-Party/Observes libraries
 from streamer_gitlab import page_data
 from streamer_gitlab.api_client import (
     GitlabResource,
@@ -25,6 +19,13 @@ from streamer_gitlab.api_client import (
     GResourcePageRange,
 )
 from streamer_gitlab.page_data import PageData
+
+# Local libraries
+from dif_gitlab_etl import planner
+from dif_gitlab_etl.utils import (
+    error,
+    log,
+)
 
 
 class ExtractState(NamedTuple):
