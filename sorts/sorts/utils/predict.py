@@ -1,8 +1,5 @@
 # Standard libraries
-from typing import (
-    List,
-    Union,
-)
+from typing import List
 
 # Third-party libraries
 import numpy as np
@@ -13,25 +10,14 @@ from prettytable import (
     from_csv,
     PrettyTable,
 )
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.neural_network import MLPClassifier
-from sklearn.svm import LinearSVC
 
 # Local libraries
-from utils.logs import log
-from utils.static import (
+from sorts.typings import Model as ModelType
+from sorts.utils.logs import log
+from sorts.utils.static import (
     load_model,
     load_support_vector_machine,
 )
-
-
-Model = Union[
-    LinearSVC,
-    KNeighborsClassifier,
-    MLPClassifier,
-    RandomForestClassifier
-]
 
 
 def predict_vuln_prob(
@@ -42,7 +28,7 @@ def predict_vuln_prob(
 ) -> None:
     """Uses model to make predictions on the input and save them to CSV"""
     if scope == 'file':
-        model: Model = load_model()
+        model: ModelType = load_model()
         input_data = predict_df[model.feature_names + features]
         probability_prediction: ndarray = model.predict_proba(input_data)
     elif scope == 'commit':

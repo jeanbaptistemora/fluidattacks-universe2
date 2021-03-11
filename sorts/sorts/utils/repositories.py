@@ -20,7 +20,7 @@ from numpy import ndarray
 from pydriller.metrics.process.hunks_count import HunksCount
 
 # Local libraries
-from utils.logs import log_exception
+from sorts.utils.logs import log_exception
 
 
 STAT_REGEX = re.compile(
