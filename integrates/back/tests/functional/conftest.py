@@ -14,6 +14,7 @@ TEST_GROUPS: Set[str] = {
     'add_tags_mutation',
     'create_organization',
     'create_project',
+    'edit_group',
     'edit_stakeholder',
     'edit_stakeholder_organization',
     'finding',
