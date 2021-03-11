@@ -12,7 +12,6 @@ from typing import (
     List,
     Optional,
     Tuple,
-    Union
 )
 
 # Third-party Libraries
@@ -23,24 +22,14 @@ from botocore.exceptions import ClientError
 from joblib import dump
 from numpy import ndarray
 from pandas import DataFrame
-from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import (
     cross_validate,
     learning_curve
 )
 from sklearn.neighbors import KNeighborsClassifier
-from sklearn.neural_network import MLPClassifier
-from sklearn.svm import LinearSVC
 
-
-# Type Constants
-ScoreType = Tuple[float, float, float, None]
-ModelType = Union[
-    MLPClassifier,
-    RandomForestClassifier,
-    LinearSVC,
-    KNeighborsClassifier
-]
+# Local libraries
+from utils import Model as ModelType
 
 # Contants
 FEATURES_DICTS: Dict[str, str] = {
