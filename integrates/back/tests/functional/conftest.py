@@ -22,6 +22,7 @@ TEST_GROUPS: Set[str] = {
     'old',
     'organization',
     'organization_id',
+    'project',
     'remove_stakeholder_organization_access',
     'update_organization_policies',
 }

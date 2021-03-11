@@ -202,6 +202,9 @@ integrates.back.test.functional.organization:
 integrates.back.test.functional.organization_id:
   <<: *integrates_back_test_functional
 
+integrates.back.test.functional.project:
+  <<: *integrates_back_test_functional
+
 integrates.back.test.functional.remove_stakeholder_organization_access:
   <<: *integrates_back_test_functional
 
