@@ -1,12 +1,16 @@
 # Standard
-from typing import cast, Dict, List
+from typing import (
+    cast,
+    Dict,
+    List,
+)
 
 # Third party
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local
-from backend.domain import subscriptions as subscriptions_domain
 from backend.typing import Me
+from subscriptions import domain as subscriptions_domain
 
 
 async def resolve(

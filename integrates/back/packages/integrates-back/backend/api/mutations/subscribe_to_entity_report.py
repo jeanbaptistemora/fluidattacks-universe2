@@ -7,11 +7,10 @@ from ariadne import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local libraries
-from backend import util
-from backend.domain import subscriptions as subscriptions_domain
-from backend.typing import SimplePayload as SimplePayloadType
-
 from back.settings import LOGGING
+from backend import util
+from backend.typing import SimplePayload as SimplePayloadType
+from subscriptions import domain as subscriptions_domain
 
 
 logging.config.dictConfig(LOGGING)

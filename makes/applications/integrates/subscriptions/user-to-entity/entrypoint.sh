@@ -15,7 +15,7 @@ function main {
   &&  pushd integrates \
     &&  python3 \
           back/packages/integrates-back/cli/invoker.py \
-          backend.domain.subscriptions.trigger_user_to_entity_report \
+          subscriptions.domain.trigger_user_to_entity_report \
   &&  popd \
   ||  return 1
 }
