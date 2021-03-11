@@ -95,11 +95,13 @@ async def populate_orgs(data: List[Any]) -> bool:
 
 async def populate_groups(data: List[Any]) -> bool:
     coroutines: List[Awaitable[bool]] = []
+    data_dump: str = json.dumps(data)
+    data_parsed: List[Any] = json.loads(data_dump, parse_float=Decimal)
     coroutines.extend([
         dal_group.create(
             group,
         )
-        for group in data
+        for group in data_parsed
     ])
     return all(await collect(coroutines))
 
@@ -181,42 +183,34 @@ async def populate_policies(data: List[Any]) -> bool:
 
 
 async def populate(data: Dict[str, Any]) -> bool:
-    success: bool = False
     keys: List[str, str] = data.keys()
+    coroutines: List[Awaitable[bool]] = []
 
     if 'users' in keys:
-        success = await populate_users(data['users'])
+        coroutines.append(populate_users(data['users']))
 
     if 'names' in keys:
-        success = success and \
-            await populate_names(data['names'])
+        coroutines.append(populate_names(data['names']))
 
     if 'orgs' in keys:
-        success = success and \
-            await populate_orgs(data['orgs'])
+        coroutines.append(populate_orgs(data['orgs']))
 
     if 'groups' in keys:
-        success = success and \
-            await populate_groups(data['groups'])
+        coroutines.append(populate_groups(data['groups']))
 
     if 'findings' in keys:
-        success = success and \
-            await populate_findings(data['findings'])
+        coroutines.append(populate_findings(data['findings']))
 
     if 'consultings' in keys:
-        success = success and \
-            await populate_consultings(data['consultings'])
+        coroutines.append(populate_consultings(data['consultings']))
 
     if 'vulnerabilities' in keys:
-        success = success and \
-            await populate_vulnerabilities(data['vulnerabilities'])
+        coroutines.append(populate_vulnerabilities(data['vulnerabilities']))
 
     if 'events' in keys:
-        success = success and \
-            await populate_events(data['events'])
+        coroutines.append(populate_events(data['events']))
 
     if 'policies' in keys:
-        success = success and \
-            await populate_policies(data['policies'])
+        coroutines.append(populate_policies(data['policies']))
 
-    return success
+    return all(await collect(coroutines))
