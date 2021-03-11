@@ -17,6 +17,9 @@ function owasp {
   &&  python3.8 '__envSrcSkimsSkims__/benchmark/__init__.py' \
   &&  echo '[INFO] Cleaning environment' \
   &&  aws_s3_sync "${cache_local}" "${cache_remote}" \
+  &&  result_path="s3://skims.data/benchmark_result/$(date -u -Iminutes).csv" \
+  &&  echo "[INFO] Uploading results to ${result_path}" \
+  &&  aws s3 cp "${PRODUCED_RESULTS_CSV}" "${result_path}" \
   &&  rm -rf "${PRODUCED_RESULTS_CSV}" \
   ||  return 1
 }
