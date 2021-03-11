@@ -139,7 +139,6 @@ async def populate_roots(data: List[Any]) -> bool:
         dal_root.create(
             root['pk'],
             root,
-            root['sk'],
         )
         for root in data
     ])

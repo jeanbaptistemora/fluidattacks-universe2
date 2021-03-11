@@ -19,6 +19,7 @@ async def test_admin(populate: bool):
     finding: str = '475041521'
     draft: str = '475041531'
     event: str = '418900971'
+    root: str = 'ROOT#63298a73-9dff-46cf-b42d-9b2f01a56690'
     stakeholders: str = ['test1@gmail.com', 'test2@gmail.com']
     query = f'''
         query {{
@@ -53,6 +54,11 @@ async def test_admin(populate: bool):
                 }}
                 events {{
                     id
+                }}
+                roots {{
+                    ...on GitRoot {{
+                        id
+                    }}
                 }}
                 stakeholders {{
                     email
@@ -91,4 +97,5 @@ async def test_admin(populate: bool):
     assert finding in [finding['id'] for finding in result['data']['project']['findings']]
     assert draft in [draft['id'] for draft in result['data']['project']['drafts']]
     assert event in [event['id'] for event in result['data']['project']['events']]
+    assert root in [root['id'] for root in result['data']['project']['roots']]
     assert stakeholders == [stakeholder['email'] for stakeholder in result['data']['project']['stakeholders']]

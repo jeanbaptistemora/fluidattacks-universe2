@@ -45,16 +45,14 @@ async def get_roots_by_group(group_name: str) -> Tuple[Dict[str, Any], ...]:
 async def create(
     group_name: str,
     root_attributes: Dict[str, Any],
-    root_id: str = '',
 ) -> bool:
     success: bool = False
-    root_id = str(uuid.uuid4()) if root_id == '' else root_id
     try:
         await dynamodb.async_put_item(
             TABLE_NAME,
             {
                 'pk': f'GROUP#{group_name}',
-                'sk': f'ROOT#{root_id}',
+                'sk': f'ROOT#{uuid.uuid4()}',
                 **root_attributes
             }
         )

@@ -303,8 +303,8 @@ async def populate() -> bool:
         ],
         'roots': [
             {
-                'pk': 'group1',
-                'sk': '63298a73-9dff-46cf-b42d-9b2f01a56690',
+                'pk': 'GROUP#group1',
+                'sk': 'ROOT#63298a73-9dff-46cf-b42d-9b2f01a56690',
                 'kind': 'Git',
                 'branch': 'master',
                 'url': 'https://gitlab.com/fluidattacks/product',
