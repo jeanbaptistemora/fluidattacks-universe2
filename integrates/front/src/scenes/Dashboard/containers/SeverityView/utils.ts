@@ -51,19 +51,19 @@ export const castFieldsCVSS3: (
   };
 
   const userInteraction: Record<string, string> = {
-    0.62: "search_findings.tab_severity.user_interaction_options.required.text",
-    0.85: "search_findings.tab_severity.user_interaction_options.none.text",
+    0.62: "search_findings.tab_severity.userInteractionOptions.required.text",
+    0.85: "search_findings.tab_severity.userInteractionOptions.none.text",
   };
 
   const severityScope: Record<string, string> = {
-    0: "search_findings.tab_severity.severity_scope_options.unchanged.text",
-    1: "search_findings.tab_severity.severity_scope_options.changed.text",
+    0: "search_findings.tab_severity.severityScopeOptions.unchanged.text",
+    1: "search_findings.tab_severity.severityScopeOptions.changed.text",
   };
 
   const confidentialityImpact: Record<string, string> = {
-    0: "search_findings.tab_severity.confidentiality_impact_options.none.text",
-    0.22: "search_findings.tab_severity.confidentiality_impact_options.low.text",
-    0.56: "search_findings.tab_severity.confidentiality_impact_options.high.text",
+    0: "search_findings.tab_severity.confidentialityImpactOptions.none.text",
+    0.22: "search_findings.tab_severity.confidentialityImpactOptions.low.text",
+    0.56: "search_findings.tab_severity.confidentialityImpactOptions.high.text",
   };
 
   const integrityImpact: Record<string, string> = {
@@ -73,16 +73,16 @@ export const castFieldsCVSS3: (
   };
 
   const availabilityImpact: Record<string, string> = {
-    0: "search_findings.tab_severity.availability_impact_options.none.text",
-    0.22: "search_findings.tab_severity.availability_impact_options.low.text",
-    0.56: "search_findings.tab_severity.availability_impact_options.high.text",
+    0: "search_findings.tab_severity.availabilityImpactOptions.none.text",
+    0.22: "search_findings.tab_severity.availabilityImpactOptions.low.text",
+    0.56: "search_findings.tab_severity.availabilityImpactOptions.high.text",
   };
 
   const exploitability: Record<string, string> = {
-    0.91: "search_findings.tab_severity.exploitability_options.unproven.text",
-    0.94: "search_findings.tab_severity.exploitability_options.proofOfConcept.text",
-    0.97: "search_findings.tab_severity.exploitability_options.functional.text",
-    1: "search_findings.tab_severity.exploitability_options.high.text",
+    0.91: "search_findings.tab_severity.exploitabilityOptions.unproven.text",
+    0.94: "search_findings.tab_severity.exploitabilityOptions.proofOfConcept.text",
+    0.97: "search_findings.tab_severity.exploitabilityOptions.functional.text",
+    1: "search_findings.tab_severity.exploitabilityOptions.high.text",
   };
 
   const remediationLevel: Record<string, string> = {
@@ -115,19 +115,19 @@ export const castFieldsCVSS3: (
       currentValue: dataset.userInteraction,
       name: "userInteraction",
       options: userInteraction,
-      title: translate.t("search_findings.tab_severity.user_interaction"),
+      title: translate.t("search_findings.tab_severity.userInteraction"),
     },
     {
       currentValue: dataset.severityScope,
       name: "severityScope",
       options: severityScope,
-      title: translate.t("search_findings.tab_severity.severity_scope"),
+      title: translate.t("search_findings.tab_severity.severityScope"),
     },
     {
       currentValue: dataset.confidentialityImpact,
       name: "confidentialityImpact",
       options: confidentialityImpact,
-      title: translate.t("search_findings.tab_severity.confidentiality_impact"),
+      title: translate.t("search_findings.tab_severity.confidentialityImpact"),
     },
     {
       currentValue: dataset.integrityImpact,
@@ -139,7 +139,7 @@ export const castFieldsCVSS3: (
       currentValue: dataset.availabilityImpact,
       name: "availabilityImpact",
       options: availabilityImpact,
-      title: translate.t("search_findings.tab_severity.availability_impact"),
+      title: translate.t("search_findings.tab_severity.availabilityImpact"),
     },
     {
       currentValue: dataset.exploitability,
@@ -168,9 +168,9 @@ export const castFieldsCVSS3: (
   ];
 
   const confidentialityRequirement: Record<string, string> = {
-    0.5: "search_findings.tab_severity.confidentiality_requirement_options.low.text",
-    1: "search_findings.tab_severity.confidentiality_requirement_options.medium.text",
-    1.5: "search_findings.tab_severity.confidentiality_requirement_options.high.text",
+    0.5: "search_findings.tab_severity.confidentialityRequirementOptions.low.text",
+    1: "search_findings.tab_severity.confidentialityRequirementOptions.medium.text",
+    1.5: "search_findings.tab_severity.confidentialityRequirementOptions.high.text",
   };
 
   const integrityRequirement: Record<string, string> = {
@@ -180,9 +180,9 @@ export const castFieldsCVSS3: (
   };
 
   const availabilityRequirement: Record<string, string> = {
-    0.5: "search_findings.tab_severity.availability_requirement_options.low.text",
-    1: "search_findings.tab_severity.availability_requirement_options.medium.text",
-    1.5: "search_findings.tab_severity.availability_requirement_options.high.text",
+    0.5: "search_findings.tab_severity.availabilityRequirementOptions.low.text",
+    1: "search_findings.tab_severity.availabilityRequirementOptions.medium.text",
+    1.5: "search_findings.tab_severity.availabilityRequirementOptions.high.text",
   };
 
   const environmentFields: ISeverityField[] = [
@@ -191,7 +191,7 @@ export const castFieldsCVSS3: (
       name: "confidentialityRequirement",
       options: confidentialityRequirement,
       title: translate.t(
-        "search_findings.tab_severity.confidentiality_requirement"
+        "search_findings.tab_severity.confidentialityRequirement"
       ),
     },
     {
@@ -205,7 +205,7 @@ export const castFieldsCVSS3: (
       name: "availabilityRequirement",
       options: availabilityRequirement,
       title: translate.t(
-        "search_findings.tab_severity.availability_requirement"
+        "search_findings.tab_severity.availabilityRequirement"
       ),
     },
     {

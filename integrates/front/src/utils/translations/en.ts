@@ -1507,14 +1507,14 @@ export const enTranslations: ResourceKey = {
         },
       },
       authentication: "Authentication",
-      authentication_options: {
+      authenticationOptions: {
         multipleAuth: "Multiple: Multiple authentication points",
         noAuth: "None: Authentication is not required",
         singleAuth: "Single: Single authentication point",
       },
       availability: "Availability Impact",
-      availability_impact: "Availability Impact",
-      availability_impact_options: {
+      availabilityImpact: "Availability Impact",
+      availabilityImpactOptions: {
         high: {
           text: "High",
           tooltip:
@@ -1548,13 +1548,13 @@ export const enTranslations: ResourceKey = {
             "There is no impact to availability within the impacted component.",
         },
       },
-      availability_options: {
+      availabilityOptions: {
         complete: "Complete: There is a completely down target",
         none: "None: There is no impact",
         partial: "Partial: There is intermittency in the access to the target",
       },
-      availability_requirement: "Availability Requirement",
-      availability_requirement_options: {
+      availabilityRequirement: "Availability Requirement",
+      availabilityRequirementOptions: {
         high: {
           text: "High",
         },
@@ -1583,8 +1583,8 @@ export const enTranslations: ResourceKey = {
           "Not corroborated: Vulnerability is recognized by unofficial sources",
       },
       confidentiality: "Confidentiality Impact",
-      confidentiality_impact: "Confidentiality Impact",
-      confidentiality_impact_options: {
+      confidentialityImpact: "Confidentiality Impact",
+      confidentialityImpactOptions: {
         high: {
           text: "High",
           tooltip:
@@ -1611,14 +1611,14 @@ export const enTranslations: ResourceKey = {
             "There is no loss of confidentiality within the impacted component.",
         },
       },
-      confidentiality_options: {
+      confidentialityOptions: {
         complete:
           "Complete: Total control over information related with the target",
         none: "None: There is no impact",
         partial: "Partial: Access to information but no control over it",
       },
-      confidentiality_requirement: "Confidentiality Requirement",
-      confidentiality_requirement_options: {
+      confidentialityRequirement: "Confidentiality Requirement",
+      confidentialityRequirementOptions: {
         high: {
           text: "High",
         },
@@ -1633,7 +1633,7 @@ export const enTranslations: ResourceKey = {
       editable: "Edit",
       editableTooltip: "Modify severity metrics",
       exploitability: "Exploitability",
-      exploitability_options: {
+      exploitabilityOptions: {
         conceptual: {
           text: "Conceptual: There are laboratory tests",
         },
@@ -1824,15 +1824,15 @@ export const enTranslations: ResourceKey = {
         },
       },
       resolution: "Resolution Level",
-      resolution_options: {
+      resolutionOptions: {
         nonExistent: "Non-existent: There is no solution",
         official: "Official: There is an manufacturer available patch",
         palliative:
           "Palliative: There is a patch that was not published by the manufacturer",
         temporal: "Temporal: There are temporary solutions",
       },
-      severity_scope: "Scope",
-      severity_scope_options: {
+      severityScope: "Scope",
+      severityScopeOptions: {
         changed: {
           text: "Changed",
           tooltip:
@@ -1855,8 +1855,8 @@ export const enTranslations: ResourceKey = {
       tabTitle: "Severity",
       tooltip: "Assigned score according to CVSS 3.1 metrics",
       update: "Update",
-      user_interaction: "User Interaction",
-      user_interaction_options: {
+      userInteraction: "User Interaction",
+      userInteractionOptions: {
         none: {
           text: "None",
           tooltip:
@@ -2131,7 +2131,7 @@ export const enTranslations: ResourceKey = {
     revealToken: "Reveal Token",
     success: "Updated DevSecOps token",
     successfully: "DevSecOps token updated successfully",
-    tittle: "Manage DevSecOps token",
+    title: "Manage DevSecOps token",
     tokenNoExists: "A token could not be found for the group",
   },
   userModal: {

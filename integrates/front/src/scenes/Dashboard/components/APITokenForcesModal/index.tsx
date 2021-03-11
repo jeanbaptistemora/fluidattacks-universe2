@@ -70,7 +70,7 @@ const APITokenForcesModal: React.FC<IAPITokenForcesModalProps> = (
   }
 
   return (
-    <Modal headerTitle={translate.t("updateForcesToken.tittle")} open={open}>
+    <Modal headerTitle={translate.t("updateForcesToken.title")} open={open}>
       <GenericForm
         initialValues={{ sessionJwt: currentToken }}
         name={"updateForcesToken"}
