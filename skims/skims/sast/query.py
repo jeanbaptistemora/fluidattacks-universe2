@@ -136,10 +136,23 @@ def query_lazy(
                                 graph_shard.graph.nodes[untrusted_n_id],
                                 graph_shard.graph.nodes[syntax_step.meta.n_id],
                             )]
-                            if operator.eq(
+                            if (operator.eq(
                                 untrusted_n_attrs['label_input_type'],
                                 syntax_step_n_attrs.get('label_sink_type'),
-                            ) and syntax_step.meta.danger
+                                # For the route to be considered vulnerable, it
+                                # must be an untrusted node, the finding of its
+                                # sink must be in the findings that allow it
+                                # and the finding of its sink must be equal to
+                                # the finding of the current interaction
+                            ) or (operator.eq(
+                                  untrusted_n_attrs['label_input_type'],
+                                  core_model.UNTRUSTED_NODE)
+                                  and syntax_step_n_attrs.get(
+                                      'label_sink_type')
+                                  in core_model.ALLOW_UNTRSTED_NODES)
+                                and syntax_step_n_attrs.get(
+                                    'label_sink_type') == fin.name)
+                            and syntax_step.meta.danger
                         ],
                     )
 

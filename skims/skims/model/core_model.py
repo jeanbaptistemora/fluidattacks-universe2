@@ -6,6 +6,7 @@ from typing import (
     Dict,
     NamedTuple,
     Optional,
+    Set,
     Tuple,
 )
 
@@ -533,6 +534,13 @@ class FindingEnum(Enum):
 
 FINDING_ENUM_FROM_STR: Dict[str, FindingEnum] = {
     __finding.name: __finding for __finding in FindingEnum
+}
+
+UNTRUSTED_NODE: str = 'UNRTUSTED_NODE'
+
+ALLOW_UNTRSTED_NODES: Set[str] = {
+    FindingEnum.F004.name,
+    FindingEnum.F063_PATH_TRAVERSAL.name,
 }
 
 
