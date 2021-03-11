@@ -7,7 +7,7 @@ makeEntrypoint {
   arguments = { };
   searchPaths = {
     envPaths = [
-      packages.observes.service.timedoctor-tokens
+      packages.observes.bin.timedoctor-tokens
       packages.observes.update-sync-date
     ];
     envUtils = [
@@ -16,6 +16,6 @@ makeEntrypoint {
       "/makes/utils/sops"
     ];
   };
-  name = "observes-scheduled-timedoctor-refresh-token";
-  template = path "/makes/applications/observes/scheduled/timedoctor-refresh-token/entrypoint.sh";
+  name = "observes-scheduled-job-timedoctor-refresh-token";
+  template = path "/makes/applications/observes/scheduled/job/timedoctor-refresh-token/entrypoint.sh";
 }
