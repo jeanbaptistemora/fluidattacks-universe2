@@ -35,15 +35,15 @@ const EventHeader: (props: IEventHeaderProps) => JSX.Element = (
         <Col100>
           <EventHeaderGrid>
             <EventHeaderLabel>
-              {translate.t("search_findings.tab_events.id")}
+              {translate.t("search_findings.tabEvents.id")}
               <Label> {id} </Label>
             </EventHeaderLabel>
             <EventHeaderLabel>
-              {translate.t("search_findings.tab_events.date")}
+              {translate.t("search_findings.tabEvents.date")}
               <Label> {eventDate} </Label>
             </EventHeaderLabel>
             <EventHeaderLabel>
-              {translate.t("search_findings.tab_events.status")}
+              {translate.t("search_findings.tabEvents.status")}
               <Label> {tEventStatus} </Label>
             </EventHeaderLabel>
           </EventHeaderGrid>

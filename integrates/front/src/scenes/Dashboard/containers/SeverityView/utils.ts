@@ -8,14 +8,14 @@ const castPrivileges: (scope: string) => Record<string, string> = (
   scope: string
 ): Record<string, string> => {
   const privilegesRequiredScope: Record<string, string> = {
-    0.5: "search_findings.tab_severity.privileges_required_options.high.text",
-    0.68: "search_findings.tab_severity.privileges_required_options.low.text",
-    0.85: "search_findings.tab_severity.privileges_required_options.none.text",
+    0.5: "search_findings.tab_severity.privilegesRequiredOptions.high.text",
+    0.68: "search_findings.tab_severity.privilegesRequiredOptions.low.text",
+    0.85: "search_findings.tab_severity.privilegesRequiredOptions.none.text",
   };
   const privilegesRequiredNoScope: Record<string, string> = {
-    0.27: "search_findings.tab_severity.privileges_required_options.high.text",
-    0.62: "search_findings.tab_severity.privileges_required_options.low.text",
-    0.85: "search_findings.tab_severity.privileges_required_options.none.text",
+    0.27: "search_findings.tab_severity.privilegesRequiredOptions.high.text",
+    0.62: "search_findings.tab_severity.privilegesRequiredOptions.low.text",
+    0.85: "search_findings.tab_severity.privilegesRequiredOptions.none.text",
   };
   const privilegesOptions: Record<string, string> =
     parseInt(scope, 10) === 1
@@ -46,8 +46,8 @@ export const castFieldsCVSS3: (
   };
 
   const attackComplexity: Record<string, string> = {
-    0.44: "search_findings.tab_severity.attack_complexity_options.high.text",
-    0.77: "search_findings.tab_severity.attack_complexity_options.low.text",
+    0.44: "search_findings.tab_severity.attack_complexityOptions.high.text",
+    0.77: "search_findings.tab_severity.attack_complexityOptions.low.text",
   };
 
   const userInteraction: Record<string, string> = {
@@ -80,7 +80,7 @@ export const castFieldsCVSS3: (
 
   const exploitability: Record<string, string> = {
     0.91: "search_findings.tab_severity.exploitability_options.unproven.text",
-    0.94: "search_findings.tab_severity.exploitability_options.proof_of_concept.text",
+    0.94: "search_findings.tab_severity.exploitability_options.proofOfConcept.text",
     0.97: "search_findings.tab_severity.exploitability_options.functional.text",
     1: "search_findings.tab_severity.exploitability_options.high.text",
   };

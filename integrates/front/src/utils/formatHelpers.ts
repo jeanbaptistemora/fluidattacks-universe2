@@ -3,19 +3,19 @@ import { translate } from "utils/translations/translate";
 const castEventType: (field: string) => string = (field: string): string => {
   const eventType: Record<string, string> = {
     AUTHORIZATION_SPECIAL_ATTACK:
-      "search_findings.tab_events.typeValues.authAttack",
-    "Ambiente inestable": "search_findings.tab_events.typeValues.unsAmbient",
+      "search_findings.tabEvents.typeValues.authAttack",
+    "Ambiente inestable": "search_findings.tabEvents.typeValues.unsAmbient",
     "Ambiente no accesible":
-      "search_findings.tab_events.typeValues.inaccAmbient",
+      "search_findings.tabEvents.typeValues.inaccAmbient",
     CLIENT_APPROVES_CHANGE_TOE:
-      "search_findings.tab_events.typeValues.approvChange",
-    CLIENT_DETECTS_ATTACK: "search_findings.tab_events.typeValues.detAttack",
+      "search_findings.tabEvents.typeValues.approvChange",
+    CLIENT_DETECTS_ATTACK: "search_findings.tabEvents.typeValues.detAttack",
     HIGH_AVAILABILITY_APPROVAL:
-      "search_findings.tab_events.typeValues.highApproval",
+      "search_findings.tabEvents.typeValues.highApproval",
     INCORRECT_MISSING_SUPPLIES:
-      "search_findings.tab_events.typeValues.incorSupplies",
-    OTHER: "search_findings.tab_events.typeValues.other",
-    TOE_DIFFERS_APPROVED: "search_findings.tab_events.typeValues.toeDiffers",
+      "search_findings.tabEvents.typeValues.incorSupplies",
+    OTHER: "search_findings.tabEvents.typeValues.other",
+    TOE_DIFFERS_APPROVED: "search_findings.tabEvents.typeValues.toeDiffers",
   };
 
   return eventType[field];
@@ -23,8 +23,8 @@ const castEventType: (field: string) => string = (field: string): string => {
 
 const castEventStatus: (field: string) => string = (field: string): string => {
   const eventStatus: Record<string, string> = {
-    CREATED: "search_findings.tab_events.statusValues.unsolve",
-    SOLVED: "search_findings.tab_events.statusValues.solve",
+    CREATED: "search_findings.tabEvents.statusValues.unsolve",
+    SOLVED: "search_findings.tabEvents.statusValues.solve",
   };
 
   return eventStatus[field];

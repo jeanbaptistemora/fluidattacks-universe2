@@ -166,7 +166,7 @@ const severityView: React.FC = (): JSX.Element => {
                             alignField="horizontal"
                             component={Dropdown}
                             currentValue={"3.1"}
-                            label={translate.t("search_findings.tab_severity.cvss_version")}
+                            label={translate.t("search_findings.tab_severity.cvssVersion")}
                             name={"cvssVersion"}
                             renderAsEditable={isEditing}
                             validate={required}

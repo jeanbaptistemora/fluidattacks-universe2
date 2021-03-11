@@ -1,4 +1,4 @@
-/* eslint-disable camelcase */
+/* eslint-disable camelcase, sort-keys */
 /* Note: ESLint rule disabled temporally, as the conversion will be gradual */
 import type { ResourceKey } from "i18next";
 
@@ -1206,7 +1206,7 @@ export const enTranslations: ResourceKey = {
       where: "Where",
       zeroRisk: "Zero risk",
     },
-    tab_events: {
+    tabEvents: {
       affectation: "Affectation",
       affectedComponents: "Affected components",
       analyst: "Hacker",
@@ -1442,7 +1442,7 @@ export const enTranslations: ResourceKey = {
     },
     tab_severity: {
       attack_complexity: "Attack Complexity",
-      attack_complexity_options: {
+      attack_complexityOptions: {
         high: {
           text: "High",
           tooltip:
@@ -1566,7 +1566,7 @@ export const enTranslations: ResourceKey = {
         },
       },
       complexity: "Access Complexity",
-      complexity_options: {
+      complexityOptions: {
         highComplex:
           "High: Special conditions such as administrative access are required",
         lowComplex: "Low: No special conditions are required",
@@ -1574,7 +1574,7 @@ export const enTranslations: ResourceKey = {
           "Medium: Some conditions such as system access are required",
       },
       confidence: "Confidence Level",
-      confidence_options: {
+      confidenceOptions: {
         confirmed:
           "Confirmed: The vulnerability is recognized by the manufacturer",
         notConfirm:
@@ -1629,7 +1629,7 @@ export const enTranslations: ResourceKey = {
           text: "Medium",
         },
       },
-      cvss_version: "CVSS Version",
+      cvssVersion: "CVSS Version",
       editable: "Edit",
       editableTooltip: "Modify severity metrics",
       exploitability: "Exploitability",
@@ -1659,7 +1659,7 @@ export const enTranslations: ResourceKey = {
         improbable: {
           text: "Improbable: There is no exploit",
         },
-        proof_of_concept: {
+        proofOfConcept: {
           text: "Proof of Concept",
           tooltip:
             "<strong>Bad:</strong> " +
@@ -1729,7 +1729,7 @@ export const enTranslations: ResourceKey = {
       modified_severity_scope: "Modified Scope",
       modified_user_interaction: "Modified User Interaction",
       privileges_required: "Privileges Required",
-      privileges_required_options: {
+      privilegesRequiredOptions: {
         high: {
           text: "High",
           tooltip:

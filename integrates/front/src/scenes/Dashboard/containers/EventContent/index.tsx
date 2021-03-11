@@ -79,7 +79,7 @@ const EventContent: React.FC = (): JSX.Element => {
                   to={`${url}/description`}
                 >
                   <i className={"icon pe-7s-note2"} />
-                  &nbsp;{translate.t("search_findings.tab_events.description")}
+                  &nbsp;{translate.t("search_findings.tabEvents.description")}
                 </NavLink>
               </Tab>
               <Tab id={"evidenceTab"}>
@@ -88,7 +88,7 @@ const EventContent: React.FC = (): JSX.Element => {
                   to={`${url}/evidence`}
                 >
                   <i className={"icon pe-7s-note2"} />
-                  &nbsp;{translate.t("search_findings.tab_events.evidence")}
+                  &nbsp;{translate.t("search_findings.tabEvents.evidence")}
                 </NavLink>
               </Tab>
               <Tab id={"commentsTab"}>
@@ -97,7 +97,7 @@ const EventContent: React.FC = (): JSX.Element => {
                   to={`${url}/comments`}
                 >
                   <i className={"icon pe-7s-comment"} />
-                  &nbsp;{translate.t("search_findings.tab_events.comments")}
+                  &nbsp;{translate.t("search_findings.tabEvents.comments")}
                 </NavLink>
               </Tab>
             </TabsContainer>
