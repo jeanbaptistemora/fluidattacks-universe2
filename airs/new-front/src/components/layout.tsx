@@ -42,7 +42,7 @@ const Layout: React.FC<IChildrenProps> = ({
 
   return (
     <React.StrictMode>
-      <div className={"bg-graylight"}>
+      <div className={"bg-lightgray"}>
         <main>{children}</main>
         <footer>
           <MainFooterInfoContainer>

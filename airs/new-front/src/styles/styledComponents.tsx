@@ -300,7 +300,7 @@ const PageArticle: StyledComponent<
   Record<string, unknown>
 > = styled.article.attrs({
   className: `
-    bg-graylight
+    bg-lightgray
   `,
 })``;
 
@@ -674,17 +674,16 @@ const CenteredSpacedContainer: StyledComponent<
   `,
 })``;
 
-const BenefitTitle: StyledComponent<
-  "h2",
-  Record<string, unknown>
-> = styled.h2.attrs({
-  className: `
+const BlackH2: StyledComponent<"h2", Record<string, unknown>> = styled.h2.attrs(
+  {
+    className: `
     c-fluid-bk
     fw7
     f1
     tc
   `,
-})``;
+  }
+)``;
 
 const RegularRedButton: StyledComponent<
   "button",
@@ -708,14 +707,32 @@ const RegularRedButton: StyledComponent<
   `,
 })``;
 
+const SquaredCardContainer: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs({
+  className: `
+    counter-container
+    bg-white
+    shadowbox-blog
+    br3
+    dib-l
+    ph4
+    mh4-l
+    center
+    mv0-l
+    mv4
+  `,
+})``;
+
 export {
   ArticleContainer,
   ArticleTitle,
   BannerContainer,
   BannerTitle,
-  BenefitTitle,
   BlackBigHeader,
   BlackBigParagraph,
+  BlackH2,
   BlackListItemSpaced,
   BlackSimpleParagraph,
   BlackSolutionParagraph,
@@ -759,5 +776,6 @@ export {
   SolutionsParagraph,
   SolutionsSectionDescription,
   SolutionsSubtitle,
+  SquaredCardContainer,
   SubcategoryLink,
 };

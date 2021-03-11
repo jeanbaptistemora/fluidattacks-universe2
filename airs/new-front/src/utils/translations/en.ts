@@ -7,6 +7,17 @@ const pageTexts: ResourceKey = {
   solution: {
     belonging: "is one solution among all those belonging to our leading",
     benefits: "Benefits",
+    cards: {
+      hackers: "11",
+      hackersText: "hackers on average attacking your project",
+      percentage: "77%",
+      percentageText:
+        " of continuous hacking projects with" +
+        "at least one high or critical vulnerability",
+      vulnerabilities: "100k",
+      vulnerabilitiesText: "vulnerabilities discovered annually",
+    },
+    cardsTitle: "Fluid Attacks in Numbers",
   },
   solutions: {
     attackSimulation: {

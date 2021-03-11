@@ -1,13 +1,14 @@
 // Color Variables
 $black-gray: rgba(92, 92, 92, 1);
 $button-red: rgba(191, 38, 38, 1);
-$button-hover: rgba(255, 52, 53, 1);
-$darkshadow: rgba(176, 176, 176, 0.3);
+$hovered-red: rgba(255, 52, 53, 1);
+$dark-shadow: rgba(176, 176, 176, 0.3);
 $fluid-black: rgba(39, 39, 39, 1);
 $fluid-red: rgba(255, 52, 53, 1);
 $fluid-gray: rgba(176, 176, 176, 1);
 $fluid-dark-red: rgba(203, 50, 51, 1);
-$graylight: rgba(249, 249, 249, 1);
+$light-gray: rgba(249, 249, 249, 1);
+$shadow-gray: rgba(176, 176, 176, 0.1);
 $white: rgba(255, 255, 255, 1);
 
 // Rules
@@ -18,10 +19,13 @@ $white: rgba(255, 255, 255, 1);
 
 // Background Colors
 .bg-button-red { background-color: $button-red; }
-.bg-graylight { background-color: $graylight; }
+.bg-lightgray { background-color: $light-gray; }
 
 // Background Images
 .bg-solutions { background-image: url('../images/bg-solutions.png'); }
+
+// Box Shadow Classes
+.bs-btm-h-10 { box-shadow: 0 10px 10px $shadow-gray; }
 
 // Color classes
 .bc-fluid-red { border-color: $button-red; }
@@ -30,15 +34,17 @@ $white: rgba(255, 255, 255, 1);
 .c-dkred { color: $button-red; }
 .c-fluid-bk { color: $fluid-black; }
 .c-fluid-gray { color: $fluid-gray; }
+.c-hovered-red { color: $hovered-red; }
 
 // Fonts
 .roboto { font-family: 'Roboto', sans-serif; }
 .neue { font-family: neue-haas-grotesk-display, sans-serif; }
 
 // Font Sizes
-.f-18 { font-size: 1.125rem; }
-.fheader { font-size: 2.25rem; }
 .f-1125 { font-size: 1.125rem; }
+.f-18 { font-size: 1.125rem; }
+.f-375 { font-size: 3.75rem; }
+.fheader { font-size: 2.25rem; }
 
 // Height Classes
 .h-5 { height: 5rem; }
@@ -48,9 +54,9 @@ $white: rgba(255, 255, 255, 1);
 .h-section { height: 50rem; }
 
 // Hover changes classes
-.hv-bg-fluid-rd { &:hover { background-color: $button-hover; } }
-.hv-fluid-bd { &:hover { border-color: $button-hover;} }
-.hv-fluid-rd { &:hover { color: $button-hover; } }
+.hv-bg-fluid-rd { &:hover { background-color: $hovered-red; } }
+.hv-fluid-bd { &:hover { border-color: $hovered-red;} }
+.hv-fluid-rd { &:hover { color: $hovered-red; } }
 .hv-fluid-dkred { &:hover { color: $fluid-dark-red;} }
 .hv-grow { &:hover { transform: scale(1.05); } }
 .hv-rotate-360 { &:hover { transform: rotate(360deg); } }
@@ -96,7 +102,7 @@ $white: rgba(255, 255, 255, 1);
 .fadein { animation: fadein 0.5s; }
 
 .underlined-animated::after {
-  border-bottom: 4px solid $button-hover;
+  border-bottom: 4px solid $hovered-red;
   content: '';
   display: block;
   transition: width 0.5s;
@@ -120,8 +126,8 @@ $white: rgba(255, 255, 255, 1);
 
 .usecases-content,
 .solutions-content {
-  background-color: $graylight;
-  box-shadow: 0 20px 20px $darkshadow;
+  background-color: $light-gray;
+  box-shadow: 0 20px 20px $dark-shadow;
   display: none;
   min-width: 160px;
   position: absolute;
@@ -230,8 +236,13 @@ $white: rgba(255, 255, 255, 1);
 }
 
 .solution-benefits .sect2 h3::after {
-  border-bottom: 4px solid $button-hover;
+  border-bottom: 4px solid $hovered-red;
   content: '';
   display: block;
   width: 30%;
+}
+
+.counter-container {
+  height: 18.125rem;
+  width: 18.125rem;
 }

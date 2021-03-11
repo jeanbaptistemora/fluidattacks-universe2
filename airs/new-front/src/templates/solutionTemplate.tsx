@@ -15,11 +15,12 @@ import { Layout } from "../components/layout";
 import { NavbarComponent } from "../components/navbar";
 import React from "react";
 import { Seo } from "../components/seo";
+import { WhiteShadowedCard } from "../components/whiteShadowedCard";
 import { translate } from "../utils/translations/translate";
 import {
   BannerContainer,
   BannerTitle,
-  BenefitTitle,
+  BlackH2,
   BlackSolutionParagraph,
   CenteredSpacedContainer,
   FlexCenterItemsContainer,
@@ -114,7 +115,7 @@ const SolutionIndex: React.FC<IQueryData> = ({
                 </FlexCenterItemsContainer>
               </FullWidthContainer>
               <FullWidthContainer className={"pv4"}>
-                <BenefitTitle>{translate.t("solution.benefits")}</BenefitTitle>
+                <BlackH2>{translate.t("solution.benefits")}</BlackH2>
                 <FlexCenterItemsContainer
                   className={"solution-benefits flex-wrap"}
                   dangerouslySetInnerHTML={{
@@ -135,6 +136,23 @@ const SolutionIndex: React.FC<IQueryData> = ({
                     {translate.t("contactUs.contactFluidAttacks")}
                   </RegularRedButton>
                 </CenteredSpacedContainer>
+              </FullWidthContainer>
+              <FullWidthContainer className={"pv4"}>
+                <BlackH2>{translate.t("solution.cardsTitle")}</BlackH2>
+                <FlexCenterItemsContainer>
+                  <WhiteShadowedCard
+                    number={translate.t("solution.cards.vulnerabilities")}
+                    text={translate.t("solution.cards.vulnerabilitiesText")}
+                  />
+                  <WhiteShadowedCard
+                    number={translate.t("solution.cards.percentage")}
+                    text={translate.t("solution.cards.percentageText")}
+                  />
+                  <WhiteShadowedCard
+                    number={translate.t("solution.cards.hackers")}
+                    text={translate.t("solution.cards.hackersText")}
+                  />
+                </FlexCenterItemsContainer>
               </FullWidthContainer>
             </PageContainer>
           </PageArticle>
