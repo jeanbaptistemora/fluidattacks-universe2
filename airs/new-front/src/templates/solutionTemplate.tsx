@@ -16,10 +16,14 @@ import { NavbarComponent } from "../components/navbar";
 import React from "react";
 import { Seo } from "../components/seo";
 import { graphql } from "gatsby";
+import { translate } from "../utils/translations/translate";
 import {
   ArticleContainer,
   BannerContainer,
   BannerTitle,
+  BenefitTitle,
+  BlackSolutionParagraph,
+  FlexCenterItemsContainer,
   FullWidthContainer,
   PageArticle,
   PageContainer,
@@ -41,6 +45,7 @@ interface IQueryData {
         description: string;
         keywords: string;
         slug: string;
+        solution: string;
       };
     };
   };
@@ -96,7 +101,24 @@ const SolutionIndex: React.FC<IQueryData> = ({
               </FullWidthContainer>
             </BannerContainer>
             <ArticleContainer>
-              <PageContainer />
+              <PageContainer>
+                <FullWidthContainer className={"pv4"}>
+                  <FlexCenterItemsContainer className={"flex-wrap center"}>
+                    <div>
+                      <div className={"tl"}>
+                        <BlackSolutionParagraph>
+                          {data.asciidoc.pageAttributes.solution}
+                        </BlackSolutionParagraph>
+                      </div>
+                    </div>
+                  </FlexCenterItemsContainer>
+                </FullWidthContainer>
+                <FullWidthContainer className={"pv4"}>
+                  <BenefitTitle>
+                    {translate.t("solution.benefits")}
+                  </BenefitTitle>
+                </FullWidthContainer>
+              </PageContainer>
             </ArticleContainer>
           </PageArticle>
         </div>
@@ -118,10 +140,11 @@ export const query: void = graphql`
         slug
       }
       pageAttributes {
+        banner
         description
         keywords
         slug
-        banner
+        solution
       }
     }
   }

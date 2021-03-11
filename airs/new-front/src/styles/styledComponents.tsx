@@ -462,18 +462,6 @@ const BlackSimpleParagraph: StyledComponent<
   `,
 })``;
 
-const PlayItButtonSection: StyledComponent<
-  "div",
-  Record<string, unknown>
-> = styled.div.attrs({
-  className: `
-    h-section
-    justify-center
-    items-center
-    flex
-  `,
-})``;
-
 const PlayItButtonContainer: StyledComponent<
   "button",
   Record<string, unknown>
@@ -654,23 +642,73 @@ const SolutionsParagraph: StyledComponent<
   `,
 })``;
 
+const FlexCenterItemsContainer: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs({
+  className: `
+    flex
+    justify-center
+    items-center
+  `,
+})``;
+
+const BlackSolutionParagraph: StyledComponent<
+  "p",
+  Record<string, unknown>
+> = styled.p.attrs({
+  className: `
+    c-fluid-bk
+    fw3
+    f3
+    lh-2
+    tl
+  `,
+})``;
+
+const CenteredSpacedContainer: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs({
+  className: `
+    tc
+    pv3
+  `,
+})``;
+
+const BenefitTitle: StyledComponent<
+  "h2",
+  Record<string, unknown>
+> = styled.h2.attrs({
+  className: `
+    c-fluid-bk
+    fw7
+    f1
+    tc
+  `,
+})``;
+
 export {
   ArticleContainer,
   ArticleTitle,
   BannerContainer,
   BannerTitle,
+  BenefitTitle,
   BlackBigHeader,
   BlackBigParagraph,
   BlackListItemSpaced,
   BlackSimpleParagraph,
+  BlackSolutionParagraph,
   BreadcrumbContainer,
   BreadcrumbInnerContainer,
   BreadcrumbLink,
   BreadcrumbList,
   Break,
+  CenteredSpacedContainer,
   CopyrightContainer,
   CopyrightParagraph,
   Flex,
+  FlexCenterItemsContainer,
   FontAwesomeContainerSmall,
   FooterInfoLinksContainer,
   FooterInfoLink,
@@ -682,7 +720,6 @@ export {
   HalfScreenContainerSpaced,
   PlayItButtonContainer,
   PlayItButtonImage,
-  PlayItButtonSection,
   InnerFooterInfoContainer,
   InnerMainContentHome,
   MainContentHome,

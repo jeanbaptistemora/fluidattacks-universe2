@@ -195,3 +195,10 @@ $white: rgba(255, 255, 255, 1);
     margin: 0;
   }
 }
+
+.basic-link {
+  border-bottom: 1px solid $fluid-gray;
+  color: $fluid-black;
+  font-weight: 400;
+  text-decoration: none;
+}

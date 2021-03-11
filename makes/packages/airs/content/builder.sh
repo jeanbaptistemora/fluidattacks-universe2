@@ -15,6 +15,7 @@ function main {
   &&  find content/pages -type f -name "*.adoc" -exec sed -i "s|:keywords|:page-keywords|g" {} + \
   &&  find content/pages -type f -name "*.adoc" -exec sed -i "s|:template|:page-template|g" {} + \
   &&  find content/pages -type f -name "*.adoc" -exec sed -i "s|:banner|:page-banner|g" {} + \
+  &&  find content/pages -type f -name "*.adoc" -exec sed -i "s|:solution|:page-solution|g" {} + \
   &&  rm -rf \
         content/pages/about-us/clients \
         content/pages/products/defends \

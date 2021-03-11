@@ -15,6 +15,7 @@ import {
   BlackBigHeader,
   BlackBigParagraph,
   BlackSimpleParagraph,
+  FlexCenterItemsContainer,
   GetDemoContainer,
   GrayBigParagraph,
   InnerMainContentHome,
@@ -22,7 +23,6 @@ import {
   MainCoverHome,
   PlayItButtonContainer,
   PlayItButtonImage,
-  PlayItButtonSection,
 } from "../styles/styledComponents";
 import { Link, graphql } from "gatsby";
 import "../assets/scss/index.scss";
@@ -91,7 +91,7 @@ const Index: React.FC<IQueryData> = ({ data }: IQueryData): JSX.Element => {
               </InnerMainContentHome>
             </MainContentHome>
           </MainCoverHome>
-          <PlayItButtonSection>
+          <FlexCenterItemsContainer className={"h-section"}>
             <ModalVideo
               autoplay={true}
               channel={"youtube"}
@@ -104,7 +104,7 @@ const Index: React.FC<IQueryData> = ({ data }: IQueryData): JSX.Element => {
               <PlayItButtonImage src={playButton} />
               {"IT"}
             </PlayItButtonContainer>
-          </PlayItButtonSection>
+          </FlexCenterItemsContainer>
         </div>
       </Layout>
     </React.Fragment>

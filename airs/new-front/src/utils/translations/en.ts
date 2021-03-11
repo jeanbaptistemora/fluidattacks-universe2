@@ -1,6 +1,9 @@
 import type { ResourceKey } from "i18next";
 
 const pageTexts: ResourceKey = {
+  solution: {
+    benefits: "Benefits",
+  },
   solutions: {
     attackSimulation: {
       paragraph:
