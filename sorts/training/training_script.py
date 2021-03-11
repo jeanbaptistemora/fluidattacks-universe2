@@ -29,7 +29,7 @@ from sklearn.model_selection import (
 from sklearn.neighbors import KNeighborsClassifier
 
 # Local libraries
-from utils import Model as ModelType
+from sorts.typings import Model as ModelType
 
 # Contants
 FEATURES_DICTS: Dict[str, str] = {

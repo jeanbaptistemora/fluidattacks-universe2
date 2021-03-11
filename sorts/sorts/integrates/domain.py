@@ -12,8 +12,9 @@ from integrates.dal import (
     Vulnerability,
     VulnerabilityKindEnum,
 )
-from utils.logs import log
-from utils.static import read_allowed_names
+
+from sorts.utils.logs import log
+from sorts.utils.static import read_allowed_names
 
 
 def filter_allowed_files(

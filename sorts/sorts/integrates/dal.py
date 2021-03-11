@@ -13,7 +13,8 @@ from gql.transport.exceptions import TransportQueryError
 
 # Local libraries
 from integrates.graphql import client as graphql_client
-from utils.logs import (
+
+from sorts.utils.logs import (
     log,
     log_exception,
 )

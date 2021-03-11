@@ -19,11 +19,11 @@ from pandas import (
 )
 
 # Local libraries
-from utils.logs import (
+from sorts.utils.logs import (
     log,
     log_exception,
 )
-from utils.repositories import (
+from sorts.utils.repositories import (
     get_commit_date,
     get_commit_files,
     get_commit_hunks,

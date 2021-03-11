@@ -8,13 +8,14 @@ import click
 
 # Local libraries
 from integrates.graphql import create_session
-from predict.commit import prioritize as prioritize_commits
-from predict.file import prioritize as prioritize_files
-from training.commit import get_subscription_commit_metadata
-from training.file import get_subscription_file_metadata
-from utils.bugs import configure_bugsnag
-from utils.decorators import shield
-from utils.logs import log
+
+from sorts.predict.commit import prioritize as prioritize_commits
+from sorts.predict.file import prioritize as prioritize_files
+from sorts.training.commit import get_subscription_commit_metadata
+from sorts.training.file import get_subscription_file_metadata
+from sorts.utils.bugs import configure_bugsnag
+from sorts.utils.decorators import shield
+from sorts.utils.logs import log
 
 
 @click.command(

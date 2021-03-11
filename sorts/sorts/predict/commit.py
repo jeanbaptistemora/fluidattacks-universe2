@@ -12,13 +12,13 @@ from git.cmd import Git
 from pandas import DataFrame
 
 # Local libraries
-from features.commit import (
+from sorts.features.commit import (
     COMMIT_FEATURES,
     extract_features,
 )
-from utils.logs import log
-from utils.predict import predict_vuln_prob
-from utils.repositories import get_latest_commits
+from sorts.utils.logs import log
+from sorts.utils.predict import predict_vuln_prob
+from sorts.utils.repositories import get_latest_commits
 
 
 def get_subscription_commits_df(fusion_path: str) -> DataFrame:

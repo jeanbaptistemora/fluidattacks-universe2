@@ -7,11 +7,11 @@ import pandas as pd
 from pandas import DataFrame
 
 # Local libraries
-from features.file import extract_features
-from utils.logs import log
-from utils.predict import predict_vuln_prob
-from utils.repositories import get_repository_files
-from utils.static import (
+from sorts.features.file import extract_features
+from sorts.utils.logs import log
+from sorts.utils.predict import predict_vuln_prob
+from sorts.utils.repositories import get_repository_files
+from sorts.utils.static import (
     get_extensions_list,
     read_allowed_names,
 )

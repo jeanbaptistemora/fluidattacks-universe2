@@ -9,7 +9,7 @@ from typing import (
 import bugsnag
 
 # Local libraries
-from utils.bugs import META as BUGS_META
+from sorts.utils.bugs import META as BUGS_META
 
 
 # Private constantss

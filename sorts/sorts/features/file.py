@@ -21,17 +21,17 @@ from pandas import (
 from tqdm import tqdm
 
 # Local libraries
-from utils.logs import (
+from sorts.utils.logs import (
     log,
     log_exception,
 )
-from utils.repositories import (
+from sorts.utils.repositories import (
     get_log_file_metrics,
     get_repositories_log,
     GitMetrics,
     parse_git_shortstat,
 )
-from utils.static import get_extensions_list
+from sorts.utils.static import get_extensions_list
 
 
 FILE_FEATURES = [

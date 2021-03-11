@@ -15,10 +15,10 @@ from git.cmd import Git
 from pandas import DataFrame
 
 # Local libraries
-from features.commit import extract_features
-from integrates.domain import get_vulnerable_files
-from utils.logs import log
-from utils.repositories import (
+from sorts.features.commit import extract_features
+from sorts.integrates.domain import get_vulnerable_files
+from sorts.utils.logs import log
+from sorts.utils.repositories import (
     get_bad_repos,
     get_file_commit_history,
     get_repository_commit_history,
