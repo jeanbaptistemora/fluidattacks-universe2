@@ -26,6 +26,8 @@ type GitRoot implements IRoot {
   includesHealthCheck: Boolean!
   "Last time the root status was modified"
   lastStatusUpdate: DateTime!
+  "Nickname for the repository"
+  nickname: String!
   "Whether the root is active or not"
   state: ResourceState!
   "Repository URL"

@@ -5,6 +5,7 @@ from typing import (
     Dict,
     Optional,
     Tuple,
+    Set,
 )
 from urllib.parse import unquote
 
@@ -25,6 +26,7 @@ from backend.exceptions import (
     InvalidRootExclusion,
     PermissionDenied,
     RepeatedRoot,
+    RepeatedRootNickname,
     RepeatedValues,
     RootNotFound
 )
@@ -59,6 +61,7 @@ def format_root(root: Dict[str, Any]) -> Root:
             id=root['sk'],
             includes_health_check=root_state['includes_health_check'],
             last_status_update=root_state['date'],
+            nickname=root.get('nickname', ''),
             state=root_state['state'],
             url=root['url']
         )
@@ -121,6 +124,19 @@ async def _is_git_unique_in_org(org_id: str, url: str, branch: str) -> bool:
     return (url, branch) not in org_roots
 
 
+@newrelic.agent.function_trace()  # type: ignore
+async def _is_nickname_unique_in_group(group_name: str, nickname: str) -> bool:
+    group_roots = await get_roots_by_group(group_name)
+    nickname_roots: Set[str] = {
+        root.get('nickname', '')
+        for root in group_roots
+        if root['kind'] == 'Git'
+        and root['historic_state'][-1]['state'] == 'ACTIVE'
+    }
+
+    return nickname not in nickname_roots
+
+
 def _format_git_repo_url(raw_url: str) -> str:
     is_ssh: bool = (
         raw_url.startswith('ssh://')
@@ -135,15 +151,19 @@ def _format_git_repo_url(raw_url: str) -> str:
     return unquote(url)
 
 
+def format_root_nickname(nickname: str, url: str):
+    if nickname:
+        return nickname
+    # Return the repo name as nickname
+    return url.split('/')[-1]
+
+
 async def add_git_root(context: Any, user_email: str, **kwargs: Any) -> None:
     group_loader = context.group_all
     group_name: str = kwargs['group_name'].lower()
     url: str = _format_git_repo_url(kwargs['url'])
     branch: str = kwargs['branch']
-    is_valid: bool = (
-        validations.is_valid_url(url)
-        and validations.is_valid_git_branch(branch)
-    )
+    nickname: str = format_root_nickname(kwargs.get('nickname', ''), url)
 
     gitignore = kwargs['gitignore']
     enforcer = await authz.get_group_level_enforcer(user_email)
@@ -162,7 +182,10 @@ async def add_git_root(context: Any, user_email: str, **kwargs: Any) -> None:
         'message': 'root created'
     }
 
-    if is_valid:
+    if (
+        validations.is_valid_url(url)
+        and validations.is_valid_git_branch(branch)
+    ):
         group = await group_loader.load(group_name)
         initial_state: Dict[str, Any] = {
             'date': now_date,
@@ -178,8 +201,12 @@ async def add_git_root(context: Any, user_email: str, **kwargs: Any) -> None:
             'historic_state': [initial_state],
             'historic_cloning_status': [initial_cloning_status],
             'kind': 'Git',
-            'url': url
+            'nickname': nickname,
+            'url': url,
         }
+
+        if not await _is_nickname_unique_in_group(group_name, nickname):
+            raise RepeatedRootNickname()
 
         if await _is_git_unique_in_org(group['organization'], url, branch):
             await root_dal.create(group_name, root_attributes)

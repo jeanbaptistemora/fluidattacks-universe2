@@ -579,6 +579,15 @@ class RepeatedRoot(Exception):
         super(RepeatedRoot, self).__init__(msg)
 
 
+class RepeatedRootNickname(Exception):
+    """Exception to prevent repeated roots"""
+
+    def __init__(self) -> None:
+        """ Constructor """
+        msg = 'Exception - Active root with the same Nickname already exists'
+        super(RepeatedRootNickname, self).__init__(msg)
+
+
 class RepeatedValues(Exception):
     """Exception to prevent repeated values"""
 
