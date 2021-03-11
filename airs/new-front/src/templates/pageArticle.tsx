@@ -71,7 +71,7 @@ const DefaultPage: React.FC<IQueryData> = ({
       <Seo
         description={data.asciidoc.pageAttributes.description}
         keywords={data.asciidoc.pageAttributes.keywords}
-        title={title}
+        title={`${title} | Fluid Attacks`}
         url={data.asciidoc.pageAttributes.slug}
       />
 
