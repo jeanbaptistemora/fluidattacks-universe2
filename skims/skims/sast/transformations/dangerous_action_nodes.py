@@ -17,6 +17,7 @@ from utils import (
 def _mark_java(graph: graph_model.Graph) -> None:
     _mark_java_f063(graph)
     _mark_java_f034(graph)
+    _mark_java_f004(graph)
 
 
 def _mark_java_f063(graph: graph_model.Graph) -> None:
@@ -85,6 +86,33 @@ def _mark_java_f034(graph: graph_model.Graph) -> None:
                 core_model
                 .FindingEnum
                 .F034.name
+            )
+
+
+def _mark_java_f004(graph: graph_model.Graph) -> None:
+    identifiers: Set[str] = {*build_attr_paths('ProcessBuilder'), }
+
+    for n_id in g.yield_object_creation_expression(graph, identifiers):
+        graph.nodes[n_id]['label_sink_type'] = (
+            core_model
+            .FindingEnum
+            .F004
+            .name
+        )
+
+    for n_id in g.filter_nodes(
+        graph,
+        graph.nodes,
+        predicate=g.pred_has_labels(label_type='method_invocation'),
+    ):
+        if any((
+                _check_method_call(graph, n_id, 'exec'),
+                _check_method_call(graph, n_id, 'command'),
+        )):
+            graph.nodes[n_id]['label_sink_type'] = (
+                core_model
+                .FindingEnum
+                .F004.name
             )
 
 
