@@ -102,6 +102,12 @@ async def query(
     return tuple(items)
 
 
+async def put_item(*, item: Item, table: Table) -> None:
+    async with aioboto3.resource(**RESOURCE_OPTIONS) as resource:
+        table_resource = await resource.Table(table.name)
+        await table_resource.put_item(Item=item)
+
+
 async def batch_write_item(
     *,
     items: Tuple[Item, ...],

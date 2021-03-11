@@ -135,9 +135,9 @@ def build_root(
 
 async def get_root(
     *,
+    branch: str,
     group_name: str,
     url: str,
-    branch: str
 ) -> Optional[RootItem]:
     primary_key = build_key(
         facet=TABLE.facets['root_metadata'],
@@ -211,10 +211,10 @@ async def get_roots(*, group_name: str) -> Tuple[RootItem, ...]:
 
 async def create_root(
     *,
+    cloning: RootHistoricCloning,
     group_name: str,
     metadata: RootMetadata,
-    cloning: RootHistoricCloning,
-    state: RootHistoricState,
+    state: RootHistoricState
 ) -> None:
     key_structure = TABLE.primary_key
 
@@ -265,5 +265,61 @@ async def create_root(
             initial_historic_cloning,
             initial_historic_state
         ),
+        table=TABLE
+    )
+
+
+async def update_root_state(
+    *,
+    branch: str,
+    group_name: str,
+    state: RootHistoricState,
+    url: str
+) -> None:
+    key_structure = TABLE.primary_key
+    historic_state_key = build_key(
+        facet=TABLE.facets['root_historic_state'],
+        pk_values={
+            'url': url,
+            'branch': branch,
+            'iso8601utc': state.modified_date
+        },
+        sk_values={'name': group_name},
+    )
+
+    await operations.put_item(
+        item={
+            key_structure.partition_key: historic_state_key.partition_key,
+            key_structure.sort_key: historic_state_key.sort_key,
+            **dict(state._asdict())
+        },
+        table=TABLE
+    )
+
+
+async def update_root_cloning(
+    *,
+    branch: str,
+    cloning: RootHistoricCloning,
+    group_name: str,
+    url: str
+) -> None:
+    key_structure = TABLE.primary_key
+    historic_state_key = build_key(
+        facet=TABLE.facets['root_historic_cloning'],
+        pk_values={
+            'url': url,
+            'branch': branch,
+            'iso8601utc': cloning.modified_date
+        },
+        sk_values={'name': group_name},
+    )
+
+    await operations.put_item(
+        item={
+            key_structure.partition_key: historic_state_key.partition_key,
+            key_structure.sort_key: historic_state_key.sort_key,
+            **dict(cloning._asdict())
+        },
         table=TABLE
     )

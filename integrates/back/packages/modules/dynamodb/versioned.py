@@ -33,6 +33,4 @@ def get_historic(
         if item[key_structure.sort_key].startswith(historic_sort_key)
     )
 
-    return tuple(
-        sorted(historic, key=itemgetter(key_structure.sort_key), reverse=True)
-    )
+    return tuple(sorted(historic, key=itemgetter(key_structure.sort_key)))
