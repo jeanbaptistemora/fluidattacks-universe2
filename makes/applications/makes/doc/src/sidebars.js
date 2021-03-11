@@ -12,9 +12,32 @@ function getDocs(path) {
 }
 
 module.exports = {
-  Web: {
-    Web: getDocs('web'),
-  },
+  Web: [
+    'web/asm',
+    'web/organization',
+    {
+      type: 'category',
+      label: 'Groups',
+      items: [
+        'web/groups/vulnerabilities',
+        'web/groups/devsecops',
+        'web/groups/events',
+        'web/groups/consulting',
+        'web/groups/authors',
+        'web/groups/scope',
+      ],
+    },
+    {
+      type: 'category',
+      label: 'Vulnerabilities',
+      items: [
+        'web/vulnerabilities/vulnsmanagement',
+        'web/vulnerabilities/description',
+        'web/vulnerabilities/severity',
+      ],
+    },
+    'web/glossary',
+  ],
   Mobile: {
     Mobile: getDocs('mobile'),
   },

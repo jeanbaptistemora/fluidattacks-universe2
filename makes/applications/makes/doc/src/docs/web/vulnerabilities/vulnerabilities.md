@@ -1,8 +1,8 @@
 ---
-id: vulnerabilities
+id: vulnsmanagement
 title: Vulnerabilities management
 sidebar_label: Vulnerabilities management
-slug: /web/vulnerabilities
+slug: /web/vulnerabilities/vulnsmanagement
 ---
 
 ## Define treatments of vulnerabilities
@@ -14,20 +14,22 @@ Explanation for the process of defining treatments to vulnerabilities.
 When you have applied a solution for an existing vulnerability, you can request a
 reattack for us to validate this. This can be done by clicking on the Reattack
 button
-<img src="/static/img/reattack_button_enabled.png" alt="Enabled Reattack Button"/>
+
+![Enabled Reattack Button](/img/reattack_button_enabled.png)
 
 The button will deactivate until you select the vulnerabilities you want to reattack
-<img src="/static/img/reattack_button_unabled.png" alt="Unabled Reattack Button"/>
+
+![Disabled Reattack Button](/img/reattack_button_disabled.png)
 
 After selecting one or more vulnerabilities you can click on the Reattack button again,
 or you can click on Cancel to dismiss the process.
 
-<img src="/static/img/reattack_vulnselect.png" alt="Reatack vulnerabilities selected"/>
+![Reattack vulnerabilities selected](/img/reattack_vulnselect.png)
 
 The following form will appear, you can explain the solution applied and click on Proceed
 to finish the request or Cancel to dismiss it.
 
-<img src="/static/img/reattack_form.png" alt="Reattack Request Form"/>
+![Reattack Request Form](/img/reattack_form.png)
 
 When you finish requesting the reattack, our analysts will verify that the vulnerability
 was indeed solved and close or keep it open depending on the verification result.
