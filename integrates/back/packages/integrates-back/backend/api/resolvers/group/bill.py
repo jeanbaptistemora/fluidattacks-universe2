@@ -11,8 +11,8 @@ from backend.decorators import (
     enforce_group_level_auth_async,
     require_drills_white
 )
-from backend.domain import bill as bill_domain
 from backend.typing import Historic, Project as Group
+from bill import domain as bill_domain
 from newutils import datetime as datetime_utils
 
 

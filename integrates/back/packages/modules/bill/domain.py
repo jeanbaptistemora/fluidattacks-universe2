@@ -1,16 +1,15 @@
 # Standard library
-from datetime import datetime
 import io
 import csv
+from datetime import datetime
 from typing import (
     Dict,
     List,
 )
 
 # Local libraries
-from backend.dal import (
-    bill as bill_dal,
-)
+from backend.dal import bill as bill_dal
+
 
 # Columns we want to show to the customers, with their correct names
 # mapping to all possible names it may have in the data source
@@ -23,7 +22,10 @@ EXPECTED_COLUMNS: Dict[str, List[str]] = {
 
 
 async def get_authors_data(
-        *, date: datetime, group: str) -> List[Dict[str, str]]:
+    *,
+    date: datetime,
+    group: str
+) -> List[Dict[str, str]]:
     buffer: io.BytesIO = await bill_dal.get_bill_buffer(
         date=date, group=group
     )
