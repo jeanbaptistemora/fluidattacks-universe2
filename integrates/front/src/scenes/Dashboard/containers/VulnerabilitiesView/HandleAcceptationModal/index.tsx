@@ -140,7 +140,7 @@ const HandleAcceptationModal: React.FC<IHandleVulnsAcceptationModalProps> = (
       onCompleted: (data: IHandleVulnsAcceptationResultAttr): void => {
         if (data.handleVulnsAcceptation.success) {
           msgSuccess(
-            translate.t("search_findings.tab_vuln.alerts.acceptation_success"),
+            translate.t("search_findings.tab_vuln.alerts.acceptationSuccess"),
             translate.t("groupAlerts.updatedTitle")
           );
           refetchData();
@@ -153,7 +153,7 @@ const HandleAcceptationModal: React.FC<IHandleVulnsAcceptationModalProps> = (
             case "Exception - It cant handle acceptation without being requested":
               msgError(
                 translate.t(
-                  "search_findings.tab_vuln.alerts.acceptation_not_requested"
+                  "search_findings.tab_vuln.alerts.acceptationNotRequested"
                 )
               );
               break;

@@ -651,9 +651,7 @@ describe("Update Description component", (): void => {
     );
 
     expect(msgError).toHaveBeenCalledWith(
-      translate.t(
-        "search_findings.tab_vuln.alerts.maximum_number_of_acceptations"
-      )
+      translate.t("search_findings.tab_vuln.alerts.maximumNumberOfAcceptations")
     );
     expect(handleOnClose).not.toHaveBeenCalled();
   });

@@ -312,8 +312,8 @@ export const VulnsView: React.FC = (): JSX.Element => {
                 <SelectContainer>
                   <Small>{t("search_findings.tab_vuln.status")}</Small>
                   <TooltipWrapper
-                    id={"search_findings.tab_vuln.status_tooltip.id"}
-                    message={t("search_findings.tab_vuln.status_tooltip")}
+                    id={"search_findings.tab_vuln.statusTooltip.id"}
+                    message={t("search_findings.tab_vuln.statusTooltip")}
                   >
                     <Select
                       className={"black-40"}

@@ -51,7 +51,7 @@ describe("HandleAcceptationButtons", (): void => {
               button
                 .text()
                 .includes(
-                  t("search_findings.tab_vuln.buttons.handle_acceptation")
+                  t("search_findings.tab_vuln.buttons.handleAcceptation")
                 )
             )
           ).toHaveLength(1);

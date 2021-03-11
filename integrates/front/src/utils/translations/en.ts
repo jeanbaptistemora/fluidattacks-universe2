@@ -1904,31 +1904,31 @@ export const enTranslations: ResourceKey = {
       vulnerabilitiesFound: "Vulnerabilities found:",
     },
     tab_users: {
-      add_button: {
+      addButton: {
         text: "Add",
         tooltip: "Add a user to this group",
       },
-      days_ago: "{{count}} day ago",
-      days_ago_plural: "{{count}} days ago",
-      edit_button: {
+      daysAgo: "{{count}} day ago",
+      daysAgoPlural: "{{count}} days ago",
+      editButton: {
         text: "Edit",
         tooltip: "Select a user and edit their information",
       },
-      edit_stakeholder_title: "Edit stakeholder information",
-      hours_ago: "{{count}} hour ago",
-      hours_ago_plural: "{{count}} hours ago",
-      minutes_ago: "{{count}} minute ago",
-      minutes_ago_plural: "{{count}} minutes ago",
-      months_ago: "{{count}} month ago",
-      months_ago_plural: "{{count}} months ago",
+      editStakeholderTitle: "Edit stakeholder information",
+      hoursAgo: "{{count}} hour ago",
+      hoursAgoPlural: "{{count}} hours ago",
+      minutesAgo: "{{count}} minute ago",
+      minutesAgoPlural: "{{count}} minutes ago",
+      monthsAgo: "{{count}} month ago",
+      monthsAgoPlural: "{{count}} months ago",
       noSelection: "You must select an email from the table.",
-      remove_user_button: {
+      removeUserButton: {
         text: "Remove",
         tooltip: "Remove an user from the group, first select one",
       },
       success: ", an email will be sent to confirm the registration.",
-      success_admin: "Stakeholder information updated.",
-      success_delete: " was removed from this group.",
+      successAdmin: "Stakeholder information updated.",
+      successDelete: " was removed from this group.",
       textbox:
         "Enter the email of the person you wish to add, it must be " +
         "an Office 365 or Google email",
@@ -1937,13 +1937,13 @@ export const enTranslations: ResourceKey = {
     },
     tab_vuln: {
       alerts: {
-        acceptation_not_requested: "Indefinite acceptation is not requested",
-        acceptation_success: "Indefinite acceptation has been handled",
+        acceptationNotRequested: "Indefinite acceptation is not requested",
+        acceptationSuccess: "Indefinite acceptation has been handled",
         hasNewVulns:
           "The treatment is set as new, please select a treatment for the vulnerability.",
-        hasNewVulns_plural:
+        hasNewVulnsPlural:
           "The treatment on one or more vulnerabilities is set as new, please select a treatment for the vulnerabilities.",
-        maximum_number_of_acceptations:
+        maximumNumberOfAcceptations:
           "Vulnerability has been accepted the maximum number of times allowed by the organization",
         treatmentChange: "Vulnerability treatment will be changed",
         uploadFile: {
@@ -1954,13 +1954,13 @@ export const enTranslations: ResourceKey = {
       },
       buttons: {
         edit: "Bulk edit",
-        handle_acceptation: "Treatment Acceptation",
+        handleAcceptation: "Treatment Acceptation",
         reattack: "Reattack",
       },
       buttons_tooltip: {
         cancel: "Cancel",
         edit: "Modify the fields of the vulnerabilities",
-        handle_acceptation: "Approve/Reject treatment",
+        handleAcceptation: "Approve/Reject treatment",
       },
       close: "Close",
       closed: "Closed",
@@ -1987,7 +1987,7 @@ export const enTranslations: ResourceKey = {
       requested: "Requested",
       searchText: "Search Text",
       status: "Status",
-      status_tooltip:
+      statusTooltip:
         "Filter vulnerabilities based on their open / closed status",
       tabTitle: "Locations",
       tooltip: "Open / Closed vulnerabilities",
