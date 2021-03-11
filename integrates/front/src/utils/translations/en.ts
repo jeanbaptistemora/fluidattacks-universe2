@@ -1460,8 +1460,8 @@ export const enTranslations: ResourceKey = {
             "An attacker can expect repeatable success when attacking the vulnerable component.",
         },
       },
-      attack_vector: "Attack Vector",
-      attack_vector_options: {
+      attackVector: "Attack Vector",
+      attackVectorOptions: {
         adjacent: {
           text: "Adjacent network",
           tooltip:
@@ -1676,8 +1676,8 @@ export const enTranslations: ResourceKey = {
         },
       },
       integrity: "Integrity Impact",
-      integrity_impact: "Integrity Impact",
-      integrity_impact_options: {
+      integrityImpact: "Integrity Impact",
+      integrityImpactOptions: {
         high: {
           text: "High",
           tooltip:
@@ -1703,13 +1703,13 @@ export const enTranslations: ResourceKey = {
             "There is no loss of integrity within the impacted component.",
         },
       },
-      integrity_options: {
+      integrityOptions: {
         complete: "Complete: Posibility to modify all target information",
         none: "None: There is no impact",
         partial: "Partial: Posibility to modify some target information",
       },
-      integrity_requirement: "Integrity Requirement",
-      integrity_requirement_options: {
+      integrityRequirement: "Integrity Requirement",
+      integrityRequirementOptions: {
         high: {
           text: "High",
         },
@@ -1720,15 +1720,15 @@ export const enTranslations: ResourceKey = {
           text: "Medium",
         },
       },
-      modified_attackComplexity: "Modified Attack Complexity",
-      modified_attack_vector: "Modified Attack Vector",
-      modified_availability_impact: "Modified Availability Impact",
-      modified_confidentiality_impact: "Modified Confidentiality Impact",
-      modified_integrity_impact: "Modified Integrity Impact",
-      modified_privileges_required: "Modified Privileges Required",
-      modified_severity_scope: "Modified Scope",
-      modified_user_interaction: "Modified User Interaction",
-      privileges_required: "Privileges Required",
+      modifiedAttackComplexity: "Modified Attack Complexity",
+      modifiedAttackVector: "Modified Attack Vector",
+      modifiedAvailabilityImpact: "Modified Availability Impact",
+      modifiedConfidentialityImpact: "Modified Confidentiality Impact",
+      modifiedIntegrityImpact: "Modified Integrity Impact",
+      modifiedPrivilegesRequired: "Modified Privileges Required",
+      modifiedSeverityScope: "Modified Scope",
+      modifiedUserInteraction: "Modified User Interaction",
+      privilegesRequired: "Privileges Required",
       privilegesRequiredOptions: {
         high: {
           text: "High",
@@ -1825,7 +1825,7 @@ export const enTranslations: ResourceKey = {
       },
       resolution: "Resolution Level",
       resolution_options: {
-        non_existent: "Non-existent: There is no solution",
+        nonExistent: "Non-existent: There is no solution",
         official: "Official: There is an manufacturer available patch",
         palliative:
           "Palliative: There is a patch that was not published by the manufacturer",
@@ -1871,7 +1871,7 @@ export const enTranslations: ResourceKey = {
         },
       },
       vector: "Access Vector",
-      vector_options: {
+      vectorOptions: {
         adjacent: "Adjacent network: Exploitable from same network segment",
         local: "Local: Exploitable with local access to the target",
         network: "Network: Exploitable from Internet",
@@ -2115,7 +2115,7 @@ export const enTranslations: ResourceKey = {
     success: "Updated access token",
     successfully: "Token updated successfully",
     title: "Update access token",
-    token_created: "Token created at: ",
+    tokenCreated: "Token created at: ",
   },
   update_forces_token: {
     access_token: "DevSecOps token",

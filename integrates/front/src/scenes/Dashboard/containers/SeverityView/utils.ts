@@ -39,10 +39,10 @@ export const castFieldsCVSS3: (
   formValues: Record<string, string>
 ): ISeverityField[] => {
   const attackVector: Record<string, string> = {
-    0.2: "search_findings.tab_severity.attack_vector_options.physical.text",
-    0.55: "search_findings.tab_severity.attack_vector_options.local.text",
-    0.62: "search_findings.tab_severity.attack_vector_options.adjacent.text",
-    0.85: "search_findings.tab_severity.attack_vector_options.network.text",
+    0.2: "search_findings.tab_severity.attackVectorOptions.physical.text",
+    0.55: "search_findings.tab_severity.attackVectorOptions.local.text",
+    0.62: "search_findings.tab_severity.attackVectorOptions.adjacent.text",
+    0.85: "search_findings.tab_severity.attackVectorOptions.network.text",
   };
 
   const attackComplexity: Record<string, string> = {
@@ -67,9 +67,9 @@ export const castFieldsCVSS3: (
   };
 
   const integrityImpact: Record<string, string> = {
-    0: "search_findings.tab_severity.integrity_impact_options.none.text",
-    0.22: "search_findings.tab_severity.integrity_impact_options.low.text",
-    0.56: "search_findings.tab_severity.integrity_impact_options.high.text",
+    0: "search_findings.tab_severity.integrityImpactOptions.none.text",
+    0.22: "search_findings.tab_severity.integrityImpactOptions.low.text",
+    0.56: "search_findings.tab_severity.integrityImpactOptions.high.text",
   };
 
   const availabilityImpact: Record<string, string> = {
@@ -103,7 +103,7 @@ export const castFieldsCVSS3: (
       currentValue: dataset.attackVector,
       name: "attackVector",
       options: attackVector,
-      title: translate.t("search_findings.tab_severity.attack_vector"),
+      title: translate.t("search_findings.tab_severity.attackVector"),
     },
     {
       currentValue: dataset.attackComplexity,
@@ -133,7 +133,7 @@ export const castFieldsCVSS3: (
       currentValue: dataset.integrityImpact,
       name: "integrityImpact",
       options: integrityImpact,
-      title: translate.t("search_findings.tab_severity.integrity_impact"),
+      title: translate.t("search_findings.tab_severity.integrityImpact"),
     },
     {
       currentValue: dataset.availabilityImpact,
@@ -163,7 +163,7 @@ export const castFieldsCVSS3: (
       currentValue: dataset.privilegesRequired,
       name: "privilegesRequired",
       options: castPrivileges(formValues.severityScope),
-      title: translate.t("search_findings.tab_severity.privileges_required"),
+      title: translate.t("search_findings.tab_severity.privilegesRequired"),
     },
   ];
 
@@ -174,9 +174,9 @@ export const castFieldsCVSS3: (
   };
 
   const integrityRequirement: Record<string, string> = {
-    0.5: "search_findings.tab_severity.integrity_requirement_options.low.text",
-    1: "search_findings.tab_severity.integrity_requirement_options.medium.text",
-    1.5: "search_findings.tab_severity.integrity_requirement_options.high.text",
+    0.5: "search_findings.tab_severity.integrityRequirementOptions.low.text",
+    1: "search_findings.tab_severity.integrityRequirementOptions.medium.text",
+    1.5: "search_findings.tab_severity.integrityRequirementOptions.high.text",
   };
 
   const availabilityRequirement: Record<string, string> = {
@@ -198,7 +198,7 @@ export const castFieldsCVSS3: (
       currentValue: dataset.integrityRequirement,
       name: "integrityRequirement",
       options: integrityRequirement,
-      title: translate.t("search_findings.tab_severity.integrity_requirement"),
+      title: translate.t("search_findings.tab_severity.integrityRequirement"),
     },
     {
       currentValue: dataset.availabilityRequirement,
@@ -212,14 +212,14 @@ export const castFieldsCVSS3: (
       currentValue: dataset.modifiedAttackVector,
       name: "modifiedAttackVector",
       options: attackVector,
-      title: translate.t("search_findings.tab_severity.modified_attack_vector"),
+      title: translate.t("search_findings.tab_severity.modifiedAttackVector"),
     },
     {
       currentValue: dataset.modifiedAttackComplexity,
       name: "modifiedAttackComplexity",
       options: attackComplexity,
       title: translate.t(
-        "search_findings.tab_severity.modified_attackComplexity"
+        "search_findings.tab_severity.modifiedAttackComplexity"
       ),
     },
     {
@@ -227,23 +227,21 @@ export const castFieldsCVSS3: (
       name: "modifiedUserInteraction",
       options: userInteraction,
       title: translate.t(
-        "search_findings.tab_severity.modified_user_interaction"
+        "search_findings.tab_severity.modifiedUserInteraction"
       ),
     },
     {
       currentValue: dataset.modifiedSeverityScope,
       name: "modifiedSeverityScope",
       options: severityScope,
-      title: translate.t(
-        "search_findings.tab_severity.modified_severity_scope"
-      ),
+      title: translate.t("search_findings.tab_severity.modifiedSeverityScope"),
     },
     {
       currentValue: dataset.modifiedConfidentialityImpact,
       name: "modifiedConfidentialityImpact",
       options: confidentialityImpact,
       title: translate.t(
-        "search_findings.tab_severity.modified_confidentiality_impact"
+        "search_findings.tab_severity.modifiedConfidentialityImpact"
       ),
     },
     {
@@ -251,7 +249,7 @@ export const castFieldsCVSS3: (
       name: "modifiedIntegrityImpact",
       options: integrityImpact,
       title: translate.t(
-        "search_findings.tab_severity.modified_integrity_impact"
+        "search_findings.tab_severity.modifiedIntegrityImpact"
       ),
     },
     {
@@ -259,7 +257,7 @@ export const castFieldsCVSS3: (
       name: "modifiedAvailabilityImpact",
       options: availabilityImpact,
       title: translate.t(
-        "search_findings.tab_severity.modified_availability_impact"
+        "search_findings.tab_severity.modifiedAvailabilityImpact"
       ),
     },
   ];
@@ -273,7 +271,7 @@ export const castFieldsCVSS3: (
         name: "modifiedPrivilegesRequired",
         options: castPrivileges(formValues.modifiedSeverityScope),
         title: translate.t(
-          "search_findings.tab_severity.modified_privileges_required"
+          "search_findings.tab_severity.modifiedPrivilegesRequired"
         ),
       },
     ];

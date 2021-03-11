@@ -142,7 +142,7 @@ const APITokenModal: React.FC<IAPITokenModalProps> = (
               {!submitSucceeded && hasAPIToken && (
                 <Col100>
                   <ControlLabel>
-                    <b>{translate.t("update_access_token.token_created")}</b>
+                    <b>{translate.t("update_access_token.tokenCreated")}</b>
                     &nbsp;
                     {new Date(Number.parseInt(issuedAt, 10) * msToSec)
                       .toISOString()
