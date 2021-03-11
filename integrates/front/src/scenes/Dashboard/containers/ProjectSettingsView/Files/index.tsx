@@ -85,7 +85,7 @@ const files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
       mixpanel.track("RemoveProjectFiles");
       msgSuccess(
         translate.t("search_findings.tab_resources.successRemove"),
-        translate.t("search_findings.tab_users.titleSuccess"),
+        translate.t("search_findings.tabUsers.titleSuccess"),
       );
     },
     onError: ({ graphQLErrors }: ApolloError): void => {
@@ -119,7 +119,7 @@ const files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
       mixpanel.track("AddProjectFiles");
       msgSuccess(
         translate.t("search_findings.tab_resources.success"),
-        translate.t("search_findings.tab_users.titleSuccess"),
+        translate.t("search_findings.tabUsers.titleSuccess"),
       );
     },
     onError: (filesError: ApolloError): void => {

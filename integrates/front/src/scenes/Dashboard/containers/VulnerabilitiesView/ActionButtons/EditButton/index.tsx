@@ -30,7 +30,7 @@ const EditButton: React.FC<IEditButtonProps> = ({
           message={
             isEditing
               ? t("search_findings.tabDescription.save.tooltip")
-              : t("search_findings.tab_vuln.buttons_tooltip.edit")
+              : t("search_findings.tab_vuln.buttonsTooltip.edit")
           }
         >
           <Button

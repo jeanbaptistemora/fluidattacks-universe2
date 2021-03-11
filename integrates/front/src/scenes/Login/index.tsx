@@ -139,7 +139,7 @@ export const Login: React.FC = (): JSX.Element => {
         </LoginRow>
       </LoginGrid>
       <LoginDeploymentDate>
-        {t("sidebar.deployment_date")}&nbsp;
+        {t("sidebar.deploymentDate")}&nbsp;
         {deploymentDate}
       </LoginDeploymentDate>
       <LoginCommit>

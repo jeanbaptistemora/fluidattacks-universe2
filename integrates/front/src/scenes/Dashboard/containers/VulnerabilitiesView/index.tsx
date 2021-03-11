@@ -251,10 +251,10 @@ export const VulnsView: React.FC = (): JSX.Element => {
                   </Small>
                   <TooltipWrapper
                     id={
-                      "search_findings.tab_vuln.vulnTable.treatments_tooltip.id"
+                      "search_findings.tab_vuln.vulnTable.treatmentsTooltip.id"
                     }
                     message={t(
-                      "search_findings.tab_vuln.vulnTable.treatments_tooltip"
+                      "search_findings.tab_vuln.vulnTable.treatmentsTooltip"
                     )}
                   >
                     <Select
@@ -288,10 +288,10 @@ export const VulnsView: React.FC = (): JSX.Element => {
                   </Small>
                   <TooltipWrapper
                     id={
-                      "search_findings.tab_vuln.vulnTable.reattacks_tooltip.id"
+                      "search_findings.tab_vuln.vulnTable.reattacksTooltip.id"
                     }
                     message={t(
-                      "search_findings.tab_vuln.vulnTable.reattacks_tooltip"
+                      "search_findings.tab_vuln.vulnTable.reattacksTooltip"
                     )}
                   >
                     <Select

@@ -122,7 +122,7 @@ const sidebar: React.FC<ISidebarProps> = (
         )}
         <div className={style.version}>
           <small>
-            {translate.t("sidebar.deployment_date")}&nbsp;
+            {translate.t("sidebar.deploymentDate")}&nbsp;
             {process.env.INTEGRATES_DEPLOYMENT_DATE}
           </small>
         </div>

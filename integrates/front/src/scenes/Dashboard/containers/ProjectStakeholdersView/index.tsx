@@ -45,7 +45,7 @@ import { translate } from "utils/translations/translate";
 const tableHeaders: IHeaderConfig[] = [
   {
     dataField: "email",
-    header: translate.t("search_findings.users_table.usermail"),
+    header: translate.t("search_findings.usersTable.usermail"),
     width: "33%",
   },
   {
@@ -54,34 +54,34 @@ const tableHeaders: IHeaderConfig[] = [
       `userModal.roles.${value}`,
       { defaultValue: "-" },
     ),
-    header: translate.t("search_findings.users_table.userRole"),
+    header: translate.t("search_findings.usersTable.userRole"),
     width: "12%",
   },
   {
     dataField: "responsibility",
-    header: translate.t("search_findings.users_table.userResponsibility"),
+    header: translate.t("search_findings.usersTable.userResponsibility"),
     width: "12%",
   },
   {
     dataField: "phoneNumber",
-    header: translate.t("search_findings.users_table.phoneNumber"),
+    header: translate.t("search_findings.usersTable.phoneNumber"),
     width: "12%",
   },
   {
     dataField: "firstLogin",
-    header: translate.t("search_findings.users_table.firstlogin"),
+    header: translate.t("search_findings.usersTable.firstlogin"),
     width: "12%",
   },
   {
     dataField: "lastLogin",
     formatter: timeFromNow,
-    header: translate.t("search_findings.users_table.lastlogin"),
+    header: translate.t("search_findings.usersTable.lastlogin"),
     width: "12%",
   },
   {
     dataField: "invitationState",
     formatter: statusFormatter,
-    header: translate.t("search_findings.users_table.invitation"),
+    header: translate.t("search_findings.usersTable.invitation"),
     width: "7%",
   },
 ];
@@ -121,8 +121,8 @@ const projectStakeholdersView: React.FC = (): JSX.Element => {
         mixpanel.track("AddUserAccess");
         const { email } = mtResult.grantStakeholderAccess.grantedStakeholder;
         msgSuccess(
-          `${email} ${translate.t("search_findings.tab_users.success")}`,
-          translate.t("search_findings.tab_users.titleSuccess"),
+          `${email} ${translate.t("search_findings.tabUsers.success")}`,
+          translate.t("search_findings.tabUsers.titleSuccess"),
         );
       }
     },
@@ -170,8 +170,8 @@ const projectStakeholdersView: React.FC = (): JSX.Element => {
 
         mixpanel.track("EditUserAccess");
         msgSuccess(
-          translate.t("search_findings.tab_users.successAdmin"),
-          translate.t("search_findings.tab_users.titleSuccess"),
+          translate.t("search_findings.tabUsers.successAdmin"),
+          translate.t("search_findings.tabUsers.titleSuccess"),
         );
       }
     },
@@ -215,8 +215,8 @@ const projectStakeholdersView: React.FC = (): JSX.Element => {
         mixpanel.track("RemoveUserAccess");
         const { removedEmail } = mtResult.removeStakeholderAccess;
         msgSuccess(
-          `${removedEmail} ${translate.t("search_findings.tab_users.successDelete")}`,
-          translate.t("search_findings.tab_users.titleSuccess"),
+          `${removedEmail} ${translate.t("search_findings.tabUsers.successDelete")}`,
+          translate.t("search_findings.tabUsers.titleSuccess"),
         );
       }
     },
@@ -264,32 +264,32 @@ const projectStakeholdersView: React.FC = (): JSX.Element => {
                   <Can do="backend_api_mutations_grant_stakeholder_access_mutate">
                     <TooltipWrapper
                       displayClass={"dib"}
-                      id={"search_findings.tab_users.addButton.tooltip.id"}
-                      message={translate.t("search_findings.tab_users.addButton.tooltip")}
+                      id={"search_findings.tabUsers.addButton.tooltip.id"}
+                      message={translate.t("search_findings.tabUsers.addButton.tooltip")}
                     >
                       <Button id="addUser" onClick={openAddUserModal}>
                         <FontAwesomeIcon icon={faPlus} />
-                        &nbsp;{translate.t("search_findings.tab_users.addButton.text")}
+                        &nbsp;{translate.t("search_findings.tabUsers.addButton.text")}
                       </Button>
                     </TooltipWrapper>
                   </Can>
                   <Can do="backend_api_mutations_edit_stakeholder_mutate">
                     <TooltipWrapper
                       displayClass={"dib"}
-                      id={"search_findings.tab_users.editButton.tooltip.id"}
-                      message={translate.t("search_findings.tab_users.editButton.tooltip")}
+                      id={"search_findings.tabUsers.editButton.tooltip.id"}
+                      message={translate.t("search_findings.tabUsers.editButton.tooltip")}
                     >
                       <Button id="editUser" onClick={openEditUserModal} disabled={_.isEmpty(currentRow)}>
                         <FluidIcon icon="edit" />
-                        &nbsp;{translate.t("search_findings.tab_users.editButton.text")}
+                        &nbsp;{translate.t("search_findings.tabUsers.editButton.text")}
                       </Button>
                     </TooltipWrapper>
                   </Can>
                   <Can do="backend_api_mutations_remove_stakeholder_access_mutate">
                     <TooltipWrapper
                       displayClass={"dib"}
-                      id={"search_findings.tab_users.removeUserButton.tooltip.id"}
-                      message={translate.t("search_findings.tab_users.removeUserButton.tooltip")}
+                      id={"search_findings.tabUsers.removeUserButton.tooltip.id"}
+                      message={translate.t("search_findings.tabUsers.removeUserButton.tooltip")}
                     >
                       <Button
                         id="removeUser"
@@ -297,7 +297,7 @@ const projectStakeholdersView: React.FC = (): JSX.Element => {
                         disabled={_.isEmpty(currentRow) || removing}
                       >
                         <FontAwesomeIcon icon={faMinus} />
-                        &nbsp;{translate.t("search_findings.tab_users.removeUserButton.text")}
+                        &nbsp;{translate.t("search_findings.tabUsers.removeUserButton.text")}
                       </Button>
                     </TooltipWrapper>
                   </Can>
@@ -331,13 +331,13 @@ const projectStakeholdersView: React.FC = (): JSX.Element => {
         </Row>
         <AddUserModal
           action={userModalAction}
-          editTitle={translate.t("search_findings.tab_users.editStakeholderTitle")}
+          editTitle={translate.t("search_findings.tabUsers.editStakeholderTitle")}
           initialValues={userModalAction === "edit" ? currentRow : {}}
           onSubmit={handleSubmit}
           open={isUserModalOpen}
           onClose={closeUserModal}
           projectName={projectName}
-          title={translate.t("search_findings.tab_users.title")}
+          title={translate.t("search_findings.tabUsers.title")}
           type="user"
         />
       </div>

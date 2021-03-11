@@ -1903,7 +1903,7 @@ export const enTranslations: ResourceKey = {
       vulnerabilitiesClosed: "Vulnerabilities closed:",
       vulnerabilitiesFound: "Vulnerabilities found:",
     },
-    tab_users: {
+    tabUsers: {
       addButton: {
         text: "Add",
         tooltip: "Add a user to this group",
@@ -1957,7 +1957,7 @@ export const enTranslations: ResourceKey = {
         handleAcceptation: "Treatment Acceptation",
         reattack: "Reattack",
       },
-      buttons_tooltip: {
+      buttonsTooltip: {
         cancel: "Cancel",
         edit: "Modify the fields of the vulnerabilities",
         handleAcceptation: "Approve/Reject treatment",
@@ -2003,7 +2003,7 @@ export const enTranslations: ResourceKey = {
         more: "...",
         reattack: "Reattack: ",
         reattacks: "Reattacks",
-        reattacks_tooltip:
+        reattacksTooltip:
           "Filter vulnerabilities based on the status of their reattack requests",
         reportDate: "Report date",
         requester: "Requester",
@@ -2015,7 +2015,7 @@ export const enTranslations: ResourceKey = {
         treatmentJustification: "Justification",
         treatmentManager: "Manager",
         treatments: "Treatments",
-        treatments_tooltip:
+        treatmentsTooltip:
           "Filter vulnerabilities based on the treatment they were given",
         verification: "Last reattack",
         vulnType: {
@@ -2028,7 +2028,7 @@ export const enTranslations: ResourceKey = {
       },
       vulnerabilityInfo: "Vulnerability",
     },
-    users_table: {
+    usersTable: {
       firstlogin: "First login",
       invitation: "Invitation",
       lastlogin: "Last login",
@@ -2041,7 +2041,7 @@ export const enTranslations: ResourceKey = {
   },
   sidebar: {
     commit: "Commit:",
-    deployment_date: "Deploy date:",
+    deploymentDate: "Deploy date:",
     newOrganization: {
       modal: {
         invalidName: "Name specified for the organization is not allowed",
