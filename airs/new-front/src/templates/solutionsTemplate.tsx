@@ -173,7 +173,7 @@ const SolutionsIndex: React.FC<IQueryData> = ({
 export default SolutionsIndex;
 
 export const query: void = graphql`
-  query PageArticle($slug: String!) {
+  query SolutionsIndex($slug: String!) {
     asciidoc(fields: { slug: { eq: $slug } }) {
       document {
         title

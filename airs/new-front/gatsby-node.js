@@ -5,7 +5,8 @@ const { createFilePath } = require(`gatsby-source-filesystem`);
 const pagetemplate = path.resolve(`./src/templates/solutionsTemplate.tsx`);
 const defaultTemplate = path.resolve(`./src/templates/pageArticle.tsx`);
 
-const setTemplate = (template) => (result = `${template}Template.tsx`);
+const setTemplate = (template) =>
+  (result = path.resolve(`./src/templates/${template}Template.tsx`));
 
 /**
  * @param {*func} createPage
@@ -26,7 +27,7 @@ const PageMaker = (createPage) => {
         } else {
           createPage({
             path: post.node.pageAttributes.slug,
-            component: pagetemplate,
+            component: setTemplate(post.node.pageAttributes.template),
             context: {
               id: post.node.id,
               slug: `/${post.node.pageAttributes.slug}`,

@@ -9,6 +9,7 @@ function main {
   &&  copy "${envAirsImages}" new-front/src/assets/images \
   &&  sed -i "s|https://fluidattacks.com/new-front|${url}|g" new-front/gatsby-config.js \
   &&  sed -i "s|pathPrefix: '/new-front'|pathPrefix: '${path}'|g" new-front/gatsby-config.js \
+  &&  find content/pages -mindepth 1 ! -regex '^content/pages/solutions\(/.*\)?' -delete \
   &&  find content/pages -type f -name "*.adoc" -exec sed -i 's|:slug|:page-slug|g' {} + \
   &&  find content/pages -type f -name "*.adoc" -exec sed -i "s|:description|:page-description|g" {} + \
   &&  find content/pages -type f -name "*.adoc" -exec sed -i "s|:keywords|:page-keywords|g" {} + \
