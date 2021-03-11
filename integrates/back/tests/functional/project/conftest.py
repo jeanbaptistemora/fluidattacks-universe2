@@ -301,6 +301,38 @@ async def populate() -> bool:
                 'specific': '2321',
             },
         ],
+        'roots': [
+            {
+                'pk': 'group1',
+                'sk': '63298a73-9dff-46cf-b42d-9b2f01a56690',
+                'kind': 'Git',
+                'branch': 'master',
+                'url': 'https://gitlab.com/fluidattacks/product',
+                'historic_state': [
+                    {
+                        'date': '2020-11-19 08:37:10',
+                        'gitignore': [
+                            'bower_components/*',
+                            'node_modules/*',
+                        ],
+                        'environment': 'production',
+                        'environment_urls': [
+                            'https://integrates.fluidattacks.com',
+                        ],
+                        'includes_health_check': True,
+                        'state': 'ACTIVE',
+                        'user': 'test1@gmail.com',
+                    },
+                ],
+                'historic_cloning_status': [
+                    {
+                        'date': '2020-11-19 08:37:10',
+                        'status': 'UNKNOWN',
+                        'message': 'root creation',
+                    },
+                ],
+            },
+        ],
         'consultings': [
             {
                 'content': 'This is a test comment',

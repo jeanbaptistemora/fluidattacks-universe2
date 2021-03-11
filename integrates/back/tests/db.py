@@ -25,6 +25,7 @@ from backend.dal import (
     project as dal_group,
     available_name as dal_name,
     organization as dal_organization,
+    root as dal_root,
     user as dal_user,
     vulnerability as dal_vulnerability,
 )
@@ -132,6 +133,19 @@ async def populate_vulnerabilities(data: List[Any]) -> bool:
     return all(await collect(coroutines))
 
 
+async def populate_roots(data: List[Any]) -> bool:
+    coroutines: List[Awaitable[bool]] = []
+    coroutines.extend([
+        dal_root.create(
+            root['pk'],
+            root,
+            root['sk'],
+        )
+        for root in data
+    ])
+    return all(await collect(coroutines))
+
+
 async def populate_consultings(data: List[Any]) -> bool:
     coroutines: List[Awaitable[bool]] = []
     coroutines.extend([
@@ -206,6 +220,9 @@ async def populate(data: Dict[str, Any]) -> bool:
 
     if 'vulnerabilities' in keys:
         coroutines.append(populate_vulnerabilities(data['vulnerabilities']))
+
+    if 'roots' in keys:
+        coroutines.append(populate_roots(data['roots']))
 
     if 'events' in keys:
         coroutines.append(populate_events(data['events']))
