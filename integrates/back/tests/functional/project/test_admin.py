@@ -45,7 +45,7 @@ async def test_admin(populate: bool):
                 consulting {{
                     content
                 }}
-                findings {{
+                findings(filters: {{affectedSystems: "system1", actor: "SOME_CUSTOMERS"}}) {{
                     id
                 }}
                 drafts {{
