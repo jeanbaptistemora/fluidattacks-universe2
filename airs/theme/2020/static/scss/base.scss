@@ -380,6 +380,12 @@ $codeyellow: rgba(230, 219, 116, 1);
 }
 
 // Tachyons custom responsive classes
+@media screen and (max-width: 1320px) {
+  .empty-col {
+    display: none !important;
+  }
+}
+
 @media screen and (min-width: 960px) and (max-width: 1199px) {
   .w-footer-links { width: auto; }
   .w-footer-phrase { width: 50%; }

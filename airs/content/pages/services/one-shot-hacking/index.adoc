@@ -77,7 +77,7 @@ partial results, and overall progress.
 
 {nbsp} +
 
-[role="sect2 db-l dn"]
+[role="sect2 dib dn empty-col"]
 == {nbsp}
 
 {nbsp} +
