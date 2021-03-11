@@ -1,4 +1,4 @@
-export interface IProjectData {
+interface IProjectData {
   alert: {
     message: string;
     status: number;
@@ -11,6 +11,8 @@ export interface IProjectData {
   };
 }
 
-export interface IProjectRoute {
-  setUserRole(userRole: string | undefined): void;
+interface IProjectRoute {
+  setUserRole: (userRole: string | undefined) => void;
 }
+
+export { IProjectData, IProjectRoute };

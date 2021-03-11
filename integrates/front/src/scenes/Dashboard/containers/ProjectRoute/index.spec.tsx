@@ -1,14 +1,13 @@
-import { MockedProvider, MockedResponse, wait } from "@apollo/react-testing";
-import { shallow, ShallowWrapper } from "enzyme";
-import React from "react";
-// tslint:disable-next-line: no-submodule-imports
-import { act } from "react-dom/test-utils";
-
-import { ProjectRoute } from "scenes/Dashboard/containers/ProjectRoute";
 import { GET_GROUP_DATA } from "scenes/Dashboard/containers/ProjectRoute/queries";
+import type { MockedResponse } from "@apollo/react-testing";
+import { ProjectRoute } from "scenes/Dashboard/containers/ProjectRoute";
+import React from "react";
+import type { ShallowWrapper } from "enzyme";
+import { act } from "react-dom/test-utils";
+import { shallow } from "enzyme";
+import { MockedProvider, wait } from "@apollo/react-testing";
 
-describe("ProjectRoute", () => {
-
+describe("ProjectRoute", (): void => {
   const groupMock: Readonly<MockedResponse> = {
     request: {
       query: GET_GROUP_DATA,
@@ -32,20 +31,26 @@ describe("ProjectRoute", () => {
     },
   };
 
-  it("should return a function", () => {
-    expect(typeof (ProjectRoute))
-      .toEqual("function");
+  it("should return a function", (): void => {
+    expect.hasAssertions();
+    expect(typeof ProjectRoute).toStrictEqual("function");
   });
 
-  it("should render a component", async () => {
+  it("should render a component", async (): Promise<void> => {
+    expect.hasAssertions();
+
     const setUserRoleCallback: jest.Mock = jest.fn();
     const wrapper: ShallowWrapper = shallow(
-      <MockedProvider mocks={[groupMock]} addTypename={false}>
-        <ProjectRoute setUserRole={setUserRoleCallback}/>
-      </MockedProvider>,
+      <MockedProvider addTypename={false} mocks={[groupMock]}>
+        <ProjectRoute setUserRole={setUserRoleCallback} />
+      </MockedProvider>
     );
-    await act(async () => { await wait(0); });
-    expect(wrapper)
-      .toHaveLength(1);
+    await act(
+      async (): Promise<void> => {
+        await wait(0);
+      }
+    );
+
+    expect(wrapper).toHaveLength(1);
   });
 });
