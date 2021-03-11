@@ -15,22 +15,23 @@ import { Layout } from "../components/layout";
 import { NavbarComponent } from "../components/navbar";
 import React from "react";
 import { Seo } from "../components/seo";
+import { SolutionsIndexContent } from "../components/solutions/solutionsIndexContent";
+import { graphql } from "gatsby";
+import { translate } from "../utils/translations/translate";
+import * as attackSimulationImage from "../assets/images/solutions/solution-6.png";
 import * as devSecOpsImage from "../assets/images/solutions/solution-1.png";
+import * as ethicalHackingImage from "../assets/images/solutions/solution-4.png";
+import * as penetrationTestingImage from "../assets/images/solutions/solution-3.png";
+import * as redTeamingImage from "../assets/images/solutions/solution-5.png";
+import * as securityTestingImage from "../assets/images/solutions/solution-2.png";
 import {
   ArticleContainer,
   BannerContainer,
   BannerTitle,
-  BlackListItemSpaced,
   FullWidthContainer,
-  HalfScreenContainer,
-  HalfScreenContainerSpaced,
   PageArticle,
   PageContainer,
-  SolutionsParagraph,
-  SolutionsSectionDescription,
-  SolutionsSubtitle,
 } from "../styles/styledComponents";
-import { Link, graphql } from "gatsby";
 import "../assets/scss/index.scss";
 
 interface IQueryData {
@@ -106,30 +107,60 @@ const SolutionsIndex: React.FC<IQueryData> = ({
             </BannerContainer>
             <ArticleContainer>
               <PageContainer>
-                <FullWidthContainer className={"pv3 flex-l"}>
-                  <HalfScreenContainer className={"fl-l tl"}>
-                    <img alt={"devSecOps Solution"} src={devSecOpsImage} />
-                  </HalfScreenContainer>
-                  <HalfScreenContainerSpaced className={"fr-l"}>
-                    <SolutionsSectionDescription>
-                      <BlackListItemSpaced>
-                        <Link
-                          className={
-                            "c-fluid-bk underlined-animated no-underline mt0 mb3 t-all-5"
-                          }
-                          to={"."}>
-                          <SolutionsSubtitle>{"DevSecOps"}</SolutionsSubtitle>
-                        </Link>
-                        <SolutionsParagraph>
-                          {
-                            "You can integrate security into your DevOps approach at any time in \
-                             your SDLC and ensure your team’s accountability."
-                          }
-                        </SolutionsParagraph>
-                      </BlackListItemSpaced>
-                    </SolutionsSectionDescription>
-                  </HalfScreenContainerSpaced>
-                </FullWidthContainer>
+                <SolutionsIndexContent
+                  image={devSecOpsImage}
+                  imageAllignment={"fl-l tl"}
+                  paragraph={translate.t("solutions.devSecOps.paragraph")}
+                  paragraphAllignment={"fr-l"}
+                  subtitle={translate.t("solutions.devSecOps.subtitle")}
+                />
+
+                <SolutionsIndexContent
+                  image={securityTestingImage}
+                  imageAllignment={"fl-l tl"}
+                  paragraph={translate.t("solutions.securityTesting.paragraph")}
+                  paragraphAllignment={"fr-l"}
+                  subtitle={translate.t("solutions.securityTesting.subtitle")}
+                />
+
+                <SolutionsIndexContent
+                  image={penetrationTestingImage}
+                  imageAllignment={"fl-l tl"}
+                  padding={"pb6"}
+                  paragraph={translate.t(
+                    "solutions.penetrationTesting.paragraph"
+                  )}
+                  paragraphAllignment={"fr-l"}
+                  subtitle={translate.t(
+                    "solutions.penetrationTesting.subtitle"
+                  )}
+                />
+
+                <SolutionsIndexContent
+                  image={ethicalHackingImage}
+                  imageAllignment={"fr-l tl"}
+                  paragraph={translate.t("solutions.ethicalHacking.paragraph")}
+                  paragraphAllignment={"fl-l"}
+                  subtitle={translate.t("solutions.ethicalHacking.subtitle")}
+                />
+
+                <SolutionsIndexContent
+                  image={redTeamingImage}
+                  imageAllignment={"fr-l tl"}
+                  paragraph={translate.t("solutions.redTeaming.paragraph")}
+                  paragraphAllignment={"fl-l"}
+                  subtitle={translate.t("solutions.redTeaming.subtitle")}
+                />
+
+                <SolutionsIndexContent
+                  image={attackSimulationImage}
+                  imageAllignment={"fr-l tl"}
+                  paragraph={translate.t(
+                    "solutions.attackSimulation.paragraph"
+                  )}
+                  paragraphAllignment={"fl-l"}
+                  subtitle={translate.t("solutions.attackSimulation.subtitle")}
+                />
               </PageContainer>
             </ArticleContainer>
           </PageArticle>
