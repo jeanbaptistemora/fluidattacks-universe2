@@ -24,7 +24,7 @@ const TreatmentManagerField: React.FC<ITreatmentManagerFieldProps> = (
         <EditableField
           component={Dropdown}
           currentValue={_.get(lastTreatment, "treatmentManager", "")}
-          label={translate.t("search_findings.tab_description.treatmentMgr")}
+          label={translate.t("search_findings.tabDescription.treatmentMgr")}
           name={"treatmentManager"}
           renderAsEditable={canUpdateVulnsTreatment}
           type={"text"}

@@ -23,7 +23,7 @@ const TreatmentField: React.FC = (): JSX.Element => {
   return (
     <FormGroup>
       <ControlLabel>
-        <b>{translate.t("search_findings.tab_description.treatment.title")}</b>
+        <b>{translate.t("search_findings.tabDescription.treatment.title")}</b>
       </ControlLabel>
       <Field
         component={Dropdown}
@@ -35,21 +35,21 @@ const TreatmentField: React.FC = (): JSX.Element => {
         {canHandleVulnsAcceptation ? (
           <option value={"ACCEPTED_UNDEFINED"}>
             {translate.t(
-              "search_findings.tab_description.treatment.acceptedUndefined"
+              "search_findings.tabDescription.treatment.acceptedUndefined"
             )}
           </option>
         ) : undefined}
         {canConfirmZeroRiskVuln ? (
           <option value={"CONFIRM_ZERO_RISK"}>
             {translate.t(
-              "search_findings.tab_description.treatment.confirmZeroRisk"
+              "search_findings.tabDescription.treatment.confirmZeroRisk"
             )}
           </option>
         ) : undefined}
         {canRejectZeroRiskVuln ? (
           <option value={"REJECT_ZERO_RISK"}>
             {translate.t(
-              "search_findings.tab_description.treatment.rejectZeroRisk"
+              "search_findings.tabDescription.treatment.rejectZeroRisk"
             )}
           </option>
         ) : undefined}

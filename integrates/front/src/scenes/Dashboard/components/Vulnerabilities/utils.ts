@@ -100,7 +100,7 @@ const formatVulnerabilities: (
         translate.t(formatDropdownField(lastTreatment.treatment)) +
         (isPendingToApproval
           ? translate.t(
-              "search_findings.tab_description.treatment.pendingApproval"
+              "search_findings.tabDescription.treatment.pendingApproval"
             )
           : "");
       const [firstTreatment] = vulnerability.historicTreatment;

@@ -66,7 +66,7 @@ const ReattackVulnButton: React.FC<IReattackVulnButtonProps> = ({
           message={
             isRequestingReattack
               ? t("search_findings.tab_vuln.buttons_tooltip.cancel")
-              : t("search_findings.tab_description.requestVerify.tooltip")
+              : t("search_findings.tabDescription.requestVerify.tooltip")
           }
         >
           <Button
@@ -78,13 +78,13 @@ const ReattackVulnButton: React.FC<IReattackVulnButtonProps> = ({
               <React.Fragment>
                 <FontAwesomeIcon icon={faTimes} />
                 &nbsp;
-                {t("search_findings.tab_description.cancelVerify")}
+                {t("search_findings.tabDescription.cancelVerify")}
               </React.Fragment>
             ) : (
               <React.Fragment>
                 <FluidIcon icon={"verified"} />
                 &nbsp;
-                {t("search_findings.tab_description.requestVerify.text")}
+                {t("search_findings.tabDescription.requestVerify.text")}
               </React.Fragment>
             )}
           </Button>

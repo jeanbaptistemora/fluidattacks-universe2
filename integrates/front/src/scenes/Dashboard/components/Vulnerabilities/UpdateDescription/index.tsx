@@ -147,9 +147,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
       if (!_.isUndefined(result)) {
         if (result.deleteTags.success) {
           msgSuccess(
-            translate.t(
-              "search_findings.tab_description.updateVulnerabilities"
-            ),
+            translate.t("search_findings.tabDescription.updateVulnerabilities"),
             translate.t("groupAlerts.titleSuccess")
           );
         }
@@ -249,9 +247,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
             batchSize: vulnerabilities.length,
           });
           msgSuccess(
-            translate.t(
-              "search_findings.tab_description.updateVulnerabilities"
-            ),
+            translate.t("search_findings.tabDescription.updateVulnerabilities"),
             translate.t("groupAlerts.titleSuccess")
           );
           handleCloseModal();
@@ -408,9 +404,9 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
       <React.StrictMode>
         <ConfirmDialog
           message={translate.t(
-            "search_findings.tab_description.approvalMessage"
+            "search_findings.tabDescription.approvalMessage"
           )}
-          title={translate.t("search_findings.tab_description.approvalTitle")}
+          title={translate.t("search_findings.tabDescription.approvalTitle")}
         >
           {(confirm: IConfirmFn): JSX.Element => {
             function handleSubmit(values: IUpdateTreatmentVulnAttr): void {

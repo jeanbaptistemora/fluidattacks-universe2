@@ -251,10 +251,10 @@ export const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
             <ButtonToolbarLeft>
               <TooltipWrapper
                 id={translate.t(
-                  "search_findings.tab_description.downloadVulnerabilitiesTooltip.id"
+                  "search_findings.tabDescription.downloadVulnerabilitiesTooltip.id"
                 )}
                 message={translate.t(
-                  "search_findings.tab_description.downloadVulnerabilitiesTooltip"
+                  "search_findings.tabDescription.downloadVulnerabilitiesTooltip"
                 )}
               >
                 <Button
@@ -264,7 +264,7 @@ export const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
                   <FluidIcon icon={"export"} />
                   &nbsp;
                   {translate.t(
-                    "search_findings.tab_description.downloadVulnerabilities"
+                    "search_findings.tabDescription.downloadVulnerabilities"
                   )}
                 </Button>
               </TooltipWrapper>
@@ -285,17 +285,17 @@ export const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
             <ButtonToolbarLeft>
               <TooltipWrapper
                 id={translate.t(
-                  "search_findings.tab_description.updateVulnerabilitiesTooltip.id"
+                  "search_findings.tabDescription.updateVulnerabilitiesTooltip.id"
                 )}
                 message={translate.t(
-                  "search_findings.tab_description.updateVulnerabilitiesTooltip"
+                  "search_findings.tabDescription.updateVulnerabilitiesTooltip"
                 )}
               >
                 <Button disabled={loading} type={"submit"}>
                   <FluidIcon icon={"import"} />
                   &nbsp;
                   {translate.t(
-                    "search_findings.tab_description.updateVulnerabilities"
+                    "search_findings.tabDescription.updateVulnerabilities"
                   )}
                 </Button>
               </TooltipWrapper>

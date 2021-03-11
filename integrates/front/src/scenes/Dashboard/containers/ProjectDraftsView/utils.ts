@@ -9,8 +9,8 @@ export const formatDrafts: (dataset: Draft[]) => Draft[] = (
   dataset.map(
     (draft: Draft): Draft => {
       const typeParameters: Record<string, string> = {
-        HYGIENE: "search_findings.tab_description.type.hygiene",
-        SECURITY: "search_findings.tab_description.type.security",
+        HYGIENE: "search_findings.tabDescription.type.hygiene",
+        SECURITY: "search_findings.tabDescription.type.security",
       };
       const status: Record<string, string> = {
         CREATED: "search_findings.draftStatus.created",

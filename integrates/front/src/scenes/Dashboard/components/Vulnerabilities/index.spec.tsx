@@ -173,7 +173,7 @@ describe("VulnComponent", (): void => {
     const buttons: ReactWrapper = wrapper
       .find("Button")
       .filterWhere((button: ReactWrapper): boolean =>
-        button.text().includes(t("search_findings.tab_description.editVuln"))
+        button.text().includes(t("search_findings.tabDescription.editVuln"))
       );
 
     expect(buttons).toHaveLength(1);
@@ -234,7 +234,7 @@ describe("VulnComponent", (): void => {
     const buttons: ReactWrapper = wrapper
       .find("Button")
       .filterWhere((button: ReactWrapper): boolean =>
-        button.text().includes(t("search_findings.tab_description.editVuln"))
+        button.text().includes(t("search_findings.tabDescription.editVuln"))
       );
 
     expect(buttons).toHaveLength(0);

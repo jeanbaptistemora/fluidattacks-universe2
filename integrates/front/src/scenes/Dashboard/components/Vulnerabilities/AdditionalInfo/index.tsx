@@ -247,7 +247,7 @@ export const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
               <li>
                 <Row>
                   <Col40>
-                    <b>{t("search_findings.tab_description.tag")}</b>
+                    <b>{t("search_findings.tabDescription.tag")}</b>
                   </Col40>
                   <Col60>{vulnerability.tag}</Col60>
                 </Row>
@@ -256,7 +256,7 @@ export const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
                 <Row>
                   <Col40>
                     <b>
-                      {t("search_findings.tab_description.businessCriticality")}
+                      {t("search_findings.tabDescription.businessCriticality")}
                     </b>
                   </Col40>
                   <Col60>{vulnerability.severity}</Col60>
@@ -275,7 +275,7 @@ export const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
               <li>
                 <Row>
                   <Col40>
-                    <b>{t("search_findings.tab_description.zeroRisk")}</b>
+                    <b>{t("search_findings.tabDescription.zeroRisk")}</b>
                   </Col40>
                   <Col60>
                     <Label>{statusFormatter(vulnerability.zeroRisk)}</Label>
@@ -286,7 +286,7 @@ export const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
                 <li>
                   <Row>
                     <Col40>
-                      <b>{t("search_findings.tab_description.analyst")}</b>
+                      <b>{t("search_findings.tabDescription.analyst")}</b>
                     </Col40>
                     <Col60>{vulnerability.analyst}</Col60>
                   </Row>

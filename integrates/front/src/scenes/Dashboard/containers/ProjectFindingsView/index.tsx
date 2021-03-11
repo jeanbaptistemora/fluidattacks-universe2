@@ -349,7 +349,7 @@ const ProjectFindingsView: React.FC = (): JSX.Element => {
       align: "left",
       dataField: "treatment",
       formatter: treatmentFormatter,
-      header: translate.t("search_findings.tab_description.treatment.title"),
+      header: translate.t("search_findings.tabDescription.treatment.title"),
       onSort: onSortState,
       visible: checkedItems.treatment,
       width: "8%",

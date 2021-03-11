@@ -34,37 +34,37 @@ const formatDropdownField: (field: string) => string = (
   field: string
 ): string => {
   const translationParameters: Record<string, string> = {
-    ACCEPTED: "search_findings.tab_description.treatment.accepted",
+    ACCEPTED: "search_findings.tabDescription.treatment.accepted",
     ACCEPTED_UNDEFINED:
-      "search_findings.tab_description.treatment.acceptedUndefined",
-    ANONYMOUS_INTERNET: "search_findings.tab_description.scenario.anonInter",
-    ANONYMOUS_INTRANET: "search_findings.tab_description.scenario.anonIntra",
-    ANYONE_INTERNET: "search_findings.tab_description.actor.anyInternet",
-    ANYONE_WORKSTATION: "search_findings.tab_description.actor.anyStation",
-    ANY_CUSTOMER: "search_findings.tab_description.actor.anyCustomer",
-    ANY_EMPLOYEE: "search_findings.tab_description.actor.anyEmployee",
-    APPLICATIONS: "search_findings.tab_description.ambit.applications",
+      "search_findings.tabDescription.treatment.acceptedUndefined",
+    ANONYMOUS_INTERNET: "search_findings.tabDescription.scenario.anonInter",
+    ANONYMOUS_INTRANET: "search_findings.tabDescription.scenario.anonIntra",
+    ANYONE_INTERNET: "search_findings.tabDescription.actor.anyInternet",
+    ANYONE_WORKSTATION: "search_findings.tabDescription.actor.anyStation",
+    ANY_CUSTOMER: "search_findings.tabDescription.actor.anyCustomer",
+    ANY_EMPLOYEE: "search_findings.tabDescription.actor.anyEmployee",
+    APPLICATIONS: "search_findings.tabDescription.ambit.applications",
     AUTHORIZED_USER_EXTRANET:
-      "search_findings.tab_description.scenario.authExtra",
+      "search_findings.tabDescription.scenario.authExtra",
     AUTHORIZED_USER_INTERNET:
-      "search_findings.tab_description.scenario.authInter",
+      "search_findings.tabDescription.scenario.authInter",
     AUTHORIZED_USER_INTRANET:
-      "search_findings.tab_description.scenario.authIntra",
-    DATABASES: "search_findings.tab_description.ambit.databases",
-    INFRASTRUCTURE: "search_findings.tab_description.ambit.infra",
-    IN_PROGRESS: "search_findings.tab_description.treatment.inProgress",
-    NEW: "search_findings.tab_description.treatment.new",
-    ONE_EMPLOYEE: "search_findings.tab_description.actor.oneEmployee",
-    REJECTED: "search_findings.tab_description.treatment.rejected",
-    SOME_CUSTOMERS: "search_findings.tab_description.actor.someCustomer",
-    SOME_EMPLOYEES: "search_findings.tab_description.actor.someEmployee",
-    SOURCE_CODE: "search_findings.tab_description.ambit.sourcecode",
+      "search_findings.tabDescription.scenario.authIntra",
+    DATABASES: "search_findings.tabDescription.ambit.databases",
+    INFRASTRUCTURE: "search_findings.tabDescription.ambit.infra",
+    IN_PROGRESS: "search_findings.tabDescription.treatment.inProgress",
+    NEW: "search_findings.tabDescription.treatment.new",
+    ONE_EMPLOYEE: "search_findings.tabDescription.actor.oneEmployee",
+    REJECTED: "search_findings.tabDescription.treatment.rejected",
+    SOME_CUSTOMERS: "search_findings.tabDescription.actor.someCustomer",
+    SOME_EMPLOYEES: "search_findings.tabDescription.actor.someEmployee",
+    SOURCE_CODE: "search_findings.tabDescription.ambit.sourcecode",
     UNAUTHORIZED_USER_EXTRANET:
-      "search_findings.tab_description.scenario.unauthExtra",
+      "search_findings.tabDescription.scenario.unauthExtra",
     UNAUTHORIZED_USER_INTERNET:
-      "search_findings.tab_description.scenario.unauthInter",
+      "search_findings.tabDescription.scenario.unauthInter",
     UNAUTHORIZED_USER_INTRANET:
-      "search_findings.tab_description.scenario.unauthIntra",
+      "search_findings.tabDescription.scenario.unauthIntra",
   };
 
   return translationParameters[field];
@@ -78,28 +78,28 @@ const formatTreatment: (treatment: string, findingState: string) => string = (
     "-": "-",
     ACCEPTED:
       findingState === "open"
-        ? "search_findings.tab_description.treatment.accepted"
+        ? "search_findings.tabDescription.treatment.accepted"
         : "-",
     ACCEPTED_UNDEFINED:
       findingState === "open"
-        ? "search_findings.tab_description.treatment.acceptedUndefined"
+        ? "search_findings.tabDescription.treatment.acceptedUndefined"
         : "-",
     "ACCEPTED_UNDEFINED pending":
       findingState === "open"
         ? translate.t(
-            "search_findings.tab_description.treatment.acceptedUndefined"
+            "search_findings.tabDescription.treatment.acceptedUndefined"
           ) +
           translate.t(
-            "search_findings.tab_description.treatment.pendingApproval"
+            "search_findings.tabDescription.treatment.pendingApproval"
           )
         : "-",
     "IN PROGRESS":
       findingState === "open"
-        ? "search_findings.tab_description.treatment.inProgress"
+        ? "search_findings.tabDescription.treatment.inProgress"
         : "-",
     NEW:
       findingState === "open"
-        ? "search_findings.tab_description.treatment.new"
+        ? "search_findings.tabDescription.treatment.new"
         : "-",
   };
   const treatmentRes: string = translate.t(treatmentParameters[treatment]);

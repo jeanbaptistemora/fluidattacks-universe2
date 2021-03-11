@@ -332,7 +332,7 @@ const HandleAcceptationModal: React.FC<IHandleVulnsAcceptationModalProps> = (
     <React.StrictMode>
       <Modal
         headerTitle={translate.t(
-          "search_findings.tab_description.handleAcceptationModal.title"
+          "search_findings.tabDescription.handleAcceptationModal.title"
         )}
         open={true}
       >

@@ -312,10 +312,10 @@ const findingContent: React.FC = (): JSX.Element => {
                     id={"infoItem"}
                     link={`${url}/description`}
                     title={translate.t(
-                      "search_findings.tab_description.tabTitle"
+                      "search_findings.tabDescription.tabTitle"
                     )}
                     tooltip={translate.t(
-                      "search_findings.tab_description.tooltip"
+                      "search_findings.tabDescription.tooltip"
                     )}
                   />
                   <ContentTab

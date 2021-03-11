@@ -30,7 +30,7 @@ const JustificationField: React.FC<IJustificationFieldProps> = (
     <EditableField
       component={TextArea}
       currentValue={lastTreatment.justification as string}
-      label={translate.t("search_findings.tab_description.treatmentJust")}
+      label={translate.t("search_findings.tabDescription.treatmentJust")}
       name={"justification"}
       renderAsEditable={canUpdateVulnsTreatment || canRequestZeroRiskVuln}
       type={"text"}

@@ -26,10 +26,10 @@ const EditButton: React.FC<IEditButtonProps> = ({
       {shouldRenderEditBtn ? (
         <TooltipWrapper
           displayClass={"dib"}
-          id={"search_findings.tab_description.save_edit.tooltip.id"}
+          id={"search_findings.tabDescription.save_edit.tooltip.id"}
           message={
             isEditing
-              ? t("search_findings.tab_description.save.tooltip")
+              ? t("search_findings.tabDescription.save.tooltip")
               : t("search_findings.tab_vuln.buttons_tooltip.edit")
           }
         >
@@ -41,7 +41,7 @@ const EditButton: React.FC<IEditButtonProps> = ({
             {isEditing ? (
               <React.Fragment>
                 <FluidIcon icon={"loading"} />
-                &nbsp;{t("search_findings.tab_description.save.text")}
+                &nbsp;{t("search_findings.tabDescription.save.text")}
               </React.Fragment>
             ) : (
               <React.Fragment>

@@ -1019,7 +1019,7 @@ export const enTranslations: ResourceKey = {
       tooltip:
         "Space where all interested parties can share information about the finding",
     },
-    tab_description: {
+    tabDescription: {
       acceptanceDate: "Temporarily accepted until",
       acceptationJustification: "Acceptation Justification",
       acceptationUser: "Acceptation User",

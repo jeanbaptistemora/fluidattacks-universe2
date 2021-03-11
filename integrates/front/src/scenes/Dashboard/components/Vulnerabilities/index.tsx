@@ -94,7 +94,7 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
   function onDeleteVulnResult(deleteVulnResult: IDeleteVulnAttr): void {
     if (deleteVulnResult.deleteVulnerability.success) {
       msgSuccess(
-        t("search_findings.tab_description.vulnDeleted"),
+        t("search_findings.tabDescription.vulnDeleted"),
         t("groupAlerts.titleSuccess")
       );
     } else {
@@ -161,7 +161,7 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
     if (isSelect) {
       if (selectedVulnerabilities.length === batchLimit) {
         msgError(
-          t("search_findings.tab_description.vulnBatchLimit", {
+          t("search_findings.tabDescription.vulnBatchLimit", {
             count: batchLimit,
           })
         );
@@ -214,7 +214,7 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
       dataField: "id",
       deleteFunction: handleDeleteVulnerability,
       formatter: deleteFormatter,
-      header: t("search_findings.tab_description.action"),
+      header: t("search_findings.tabDescription.action"),
       visible: canDeleteVulns,
       width: "5%",
     },
@@ -247,7 +247,7 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
       />
       {isUpdateVulnOpen ? (
         <Modal
-          headerTitle={t("search_findings.tab_description.editVuln")}
+          headerTitle={t("search_findings.tabDescription.editVuln")}
           open={isUpdateVulnOpen}
         >
           <UpdateTreatmentModal
@@ -266,8 +266,8 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
             <React.Fragment>
               <RowCenter>
                 <TooltipWrapper
-                  id={t("search_findings.tab_description.editVulnTooltip.id")}
-                  message={t("search_findings.tab_description.editVulnTooltip")}
+                  id={t("search_findings.tabDescription.editVulnTooltip.id")}
+                  message={t("search_findings.tabDescription.editVulnTooltip")}
                   placement={"top"}
                 >
                   <Button
@@ -275,7 +275,7 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
                     onClick={openUpdateVulnModal}
                   >
                     <FluidIcon icon={"edit"} />
-                    {t("search_findings.tab_description.editVuln")}
+                    {t("search_findings.tabDescription.editVuln")}
                   </Button>
                 </TooltipWrapper>
               </RowCenter>

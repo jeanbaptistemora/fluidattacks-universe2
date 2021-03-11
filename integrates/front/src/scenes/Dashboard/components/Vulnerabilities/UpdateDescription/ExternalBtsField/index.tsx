@@ -38,10 +38,10 @@ const ExternalBtsField: React.FC<IExternalBtsFieldProps> = (
         <EditableField
           component={Text}
           currentValue={groupExternalBts(vulnerabilities)}
-          label={translate.t("search_findings.tab_description.bts")}
+          label={translate.t("search_findings.tabDescription.bts")}
           name={"externalBts"}
           placeholder={translate.t(
-            "search_findings.tab_description.btsPlaceholder"
+            "search_findings.tabDescription.btsPlaceholder"
           )}
           renderAsEditable={canUpdateVulnsTreatment}
           type={"text"}

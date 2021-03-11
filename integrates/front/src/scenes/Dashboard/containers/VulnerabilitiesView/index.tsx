@@ -264,21 +264,19 @@ export const VulnsView: React.FC = (): JSX.Element => {
                     >
                       <option value={""} />
                       <option value={"NEW"}>
-                        {t("search_findings.tab_description.treatment.new")}
+                        {t("search_findings.tabDescription.treatment.new")}
                       </option>
                       <option value={"IN_PROGRESS"}>
                         {t(
-                          "search_findings.tab_description.treatment.inProgress"
+                          "search_findings.tabDescription.treatment.inProgress"
                         )}
                       </option>
                       <option value={"ACCEPTED"}>
-                        {t(
-                          "search_findings.tab_description.treatment.accepted"
-                        )}
+                        {t("search_findings.tabDescription.treatment.accepted")}
                       </option>
                       <option value={"ACCEPTED_UNDEFINED"}>
                         {t(
-                          "search_findings.tab_description.treatment.acceptedUndefined"
+                          "search_findings.tabDescription.treatment.acceptedUndefined"
                         )}
                       </option>
                     </Select>
