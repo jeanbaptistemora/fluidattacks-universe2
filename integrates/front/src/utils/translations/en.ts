@@ -1240,7 +1240,7 @@ export const enTranslations: ResourceKey = {
         unsAmbient: "Unstable ambient",
       },
     },
-    tab_evidence: {
+    tabEvidence: {
       animationExploit: "Exploitation animation",
       date: "Date: ",
       descriptionTooltip: "Brief explanation about the evidence",
@@ -1256,13 +1256,13 @@ export const enTranslations: ResourceKey = {
       update: "Update",
       updateTooltip: "Update all modified evidences",
     },
-    tab_exploit: {
+    tabExploit: {
       editable: "Edit",
       editableTooltip: "Modify the exploit script",
       tabTitle: "Exploit",
       tooltip: "Script to replicate the exploitation process using Asserts",
     },
-    tab_indicators: {
+    tabIndicators: {
       authors: "Current month authors",
       cancelDeletion: "Cancel deletion",
       cancelGroupDeletion: "Cancel group deletion",
@@ -1441,8 +1441,8 @@ export const enTranslations: ResourceKey = {
         "<br /> Deleted groups cannot be restored.",
     },
     tab_severity: {
-      attack_complexity: "Attack Complexity",
-      attack_complexityOptions: {
+      attackComplexity: "Attack Complexity",
+      attackComplexityOptions: {
         high: {
           text: "High",
           tooltip:
@@ -1508,9 +1508,9 @@ export const enTranslations: ResourceKey = {
       },
       authentication: "Authentication",
       authentication_options: {
-        multiple_auth: "Multiple: Multiple authentication points",
-        no_auth: "None: Authentication is not required",
-        single_auth: "Single: Single authentication point",
+        multipleAuth: "Multiple: Multiple authentication points",
+        noAuth: "None: Authentication is not required",
+        singleAuth: "Single: Single authentication point",
       },
       availability: "Availability Impact",
       availability_impact: "Availability Impact",
@@ -1720,7 +1720,7 @@ export const enTranslations: ResourceKey = {
           text: "Medium",
         },
       },
-      modified_attack_complexity: "Modified Attack Complexity",
+      modified_attackComplexity: "Modified Attack Complexity",
       modified_attack_vector: "Modified Attack Vector",
       modified_availability_impact: "Modified Availability Impact",
       modified_confidentiality_impact: "Modified Confidentiality Impact",

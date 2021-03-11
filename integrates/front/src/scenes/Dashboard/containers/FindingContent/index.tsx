@@ -331,10 +331,8 @@ const findingContent: React.FC = (): JSX.Element => {
                     icon={"icon pe-7s-photo"}
                     id={"evidenceItem"}
                     link={`${url}/evidence`}
-                    title={translate.t("search_findings.tab_evidence.tabTitle")}
-                    tooltip={translate.t(
-                      "search_findings.tab_evidence.tooltip"
-                    )}
+                    title={translate.t("search_findings.tabEvidence.tabTitle")}
+                    tooltip={translate.t("search_findings.tabEvidence.tooltip")}
                   />
                   <Have I={"has_forces"}>
                     {hasExploit ||
@@ -346,10 +344,10 @@ const findingContent: React.FC = (): JSX.Element => {
                         id={"exploitItem"}
                         link={`${url}/exploit`}
                         title={translate.t(
-                          "search_findings.tab_exploit.tabTitle"
+                          "search_findings.tabExploit.tabTitle"
                         )}
                         tooltip={translate.t(
-                          "search_findings.tab_exploit.tooltip"
+                          "search_findings.tabExploit.tooltip"
                         )}
                       />
                     ) : undefined}

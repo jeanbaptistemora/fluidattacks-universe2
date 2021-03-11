@@ -48,9 +48,9 @@ const renderForm: (props: IEvidenceImageProps) => JSX.Element = (
       />
       {props.isDescriptionEditable ? (
         <TooltipWrapper
-          id={translate.t("search_findings.tab_evidence.descriptionTooltip.id")}
+          id={translate.t("search_findings.tabEvidence.descriptionTooltip.id")}
           message={translate.t(
-            "search_findings.tab_evidence.descriptionTooltip"
+            "search_findings.tabEvidence.descriptionTooltip"
           )}
           placement={"right"}
         >
@@ -66,12 +66,12 @@ const renderForm: (props: IEvidenceImageProps) => JSX.Element = (
       {props.isRemovable === true ? (
         <ButtonToolbarLeft>
           <TooltipWrapper
-            id={translate.t("search_findings.tab_evidence.removeTooltip.id")}
-            message={translate.t("search_findings.tab_evidence.removeTooltip")}
+            id={translate.t("search_findings.tabEvidence.removeTooltip.id")}
+            message={translate.t("search_findings.tabEvidence.removeTooltip")}
           >
             <Button onClick={onDelete}>
               <FluidIcon icon={"delete"} />
-              &nbsp;{translate.t("search_findings.tab_evidence.remove")}
+              &nbsp;{translate.t("search_findings.tabEvidence.remove")}
             </Button>
           </TooltipWrapper>
         </ButtonToolbarLeft>
@@ -111,7 +111,7 @@ const EvidenceImage: React.FC<IEvidenceImageProps> = (
           <div className={style.description}>
             <Row>
               <label>
-                <b>{translate.t("search_findings.tab_evidence.detail")}</b>
+                <b>{translate.t("search_findings.tabEvidence.detail")}</b>
               </label>
             </Row>
             <Row>
@@ -122,7 +122,7 @@ const EvidenceImage: React.FC<IEvidenceImageProps> = (
                   <EvidenceDescription>{description}</EvidenceDescription>
                   {_.isEmpty(date) ? undefined : (
                     <EvidenceDescription>
-                      {translate.t("search_findings.tab_evidence.date")}&nbsp;
+                      {translate.t("search_findings.tabEvidence.date")}&nbsp;
                       {date?.split(" ")[0]}
                     </EvidenceDescription>
                   )}

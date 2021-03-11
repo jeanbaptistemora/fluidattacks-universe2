@@ -91,7 +91,7 @@ const AddTagsModal: React.FC<IAddTagsModalProps> = (
     <React.StrictMode>
       <Modal
         headerTitle={translate.t(
-          "search_findings.tab_indicators.tags.modalTitle"
+          "search_findings.tabIndicators.tags.modalTitle"
         )}
         open={isOpen}
       >

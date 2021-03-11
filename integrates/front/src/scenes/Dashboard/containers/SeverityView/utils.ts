@@ -46,8 +46,8 @@ export const castFieldsCVSS3: (
   };
 
   const attackComplexity: Record<string, string> = {
-    0.44: "search_findings.tab_severity.attack_complexityOptions.high.text",
-    0.77: "search_findings.tab_severity.attack_complexityOptions.low.text",
+    0.44: "search_findings.tab_severity.attackComplexityOptions.high.text",
+    0.77: "search_findings.tab_severity.attackComplexityOptions.low.text",
   };
 
   const userInteraction: Record<string, string> = {
@@ -109,7 +109,7 @@ export const castFieldsCVSS3: (
       currentValue: dataset.attackComplexity,
       name: "attackComplexity",
       options: attackComplexity,
-      title: translate.t("search_findings.tab_severity.attack_complexity"),
+      title: translate.t("search_findings.tab_severity.attackComplexity"),
     },
     {
       currentValue: dataset.userInteraction,
@@ -219,7 +219,7 @@ export const castFieldsCVSS3: (
       name: "modifiedAttackComplexity",
       options: attackComplexity,
       title: translate.t(
-        "search_findings.tab_severity.modified_attack_complexity"
+        "search_findings.tab_severity.modified_attackComplexity"
       ),
     },
     {

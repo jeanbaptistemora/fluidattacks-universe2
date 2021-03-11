@@ -135,7 +135,7 @@ const recordsView: React.FC = (): JSX.Element => {
                   />
                   <Button className={"h-25"} type="submit" disabled={pristine || updateRes.loading}>
                     <FontAwesomeIcon icon={faCloudUploadAlt} />
-                    &nbsp;{translate.t("search_findings.tab_evidence.update")}
+                    &nbsp;{translate.t("search_findings.tabEvidence.update")}
                   </Button>
                 </ButtonToolbarRow>
               </React.Fragment>
@@ -147,7 +147,7 @@ const recordsView: React.FC = (): JSX.Element => {
             <Col100 className={"pa0"}>
               <Button className={"fr"} onClick={handleRemoveClick} disabled={removeRes.loading}>
                 <FluidIcon icon="delete" />
-                &nbsp;{translate.t("search_findings.tab_evidence.remove")}
+                &nbsp;{translate.t("search_findings.tabEvidence.remove")}
               </Button>
             </Col100>
           </Row>
