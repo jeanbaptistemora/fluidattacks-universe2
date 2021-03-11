@@ -1,6 +1,9 @@
 # Standard libraries
 from typing import (
+    Any,
+    Callable,
     Tuple,
+    TypeVar,
     Union
 )
 
@@ -18,3 +21,4 @@ Model = Union[
     LinearSVC,
     KNeighborsClassifier
 ]
+TFun = TypeVar('TFun', bound=Callable[..., Any])

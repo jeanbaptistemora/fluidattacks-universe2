@@ -7,19 +7,18 @@ from typing import (
     cast,
     Tuple,
     Type,
-    TypeVar,
 )
 
 # Third-party libraries
 from more_itertools import mark_ends
 
 # Local libraries
+from sorts.typings import TFun
 from sorts.utils.logs import log
 
 
 # Constants
 RAISE = object()
-TFun = TypeVar('TFun', bound=Callable[..., Any])
 
 
 class RetryAndFinallyReturn(Exception):
