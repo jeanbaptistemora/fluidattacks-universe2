@@ -226,6 +226,14 @@ observes.scheduled.job.tap-zoho-analytics:
     variables: [$observes_zoho]
   interruptible: false
 
+observes.scheduled.job.timedoctor-refresh-token:
+  <<: *with_nix
+  stage: analytics
+  only:
+    refs: [schedules]
+    variables: [$observes_timedoctor_refresh_token]
+  interruptible: false
+
 observes.scheduled.on-aws.dif-gitlab-etl:
   <<: *makes
   tags: [autoscaling]
@@ -346,13 +354,3 @@ observes.test.target-redshift:
   <<: *makes
   <<: *observes_in_dev_branch
   stage: test-code
-
-# disorganized jobs
-
-observes_timedoctor_refresh_token:
-  <<: *with_nix
-  stage: analytics
-  only:
-    refs: [schedules]
-    variables: [$observes_timedoctor_refresh_token]
-  interruptible: false

@@ -74,6 +74,7 @@ observes.env.development.tap-zoho-analytics
 observes.env.runtime.code-etl
 observes.env.runtime.dif-gitlab-etl
 observes.env.runtime.tap-zoho-analytics
+observes.env.runtime.timedoctor-tokens
 observes.generic.linter
 observes.generic.runner
 observes.generic.tester
