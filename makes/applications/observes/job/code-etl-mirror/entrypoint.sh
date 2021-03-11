@@ -22,11 +22,11 @@ function job_code_mirror {
     &&  export CI_COMMIT_REF_NAME='master' \
     &&  export PROD_AWS_ACCESS_KEY_ID="${AWS_ACCESS_KEY_ID}" \
     &&  export PROD_AWS_SECRET_ACCESS_KEY="${AWS_SECRET_ACCESS_KEY}" \
-    &&  { melts resources --clone-from-customer-git "${group}" || true;} \
+    &&  { USER=nobody melts resources --clone-from-customer-git "${group}" || true;} \
     &&  if find "groups/${group}/fusion/"* -maxdepth 0 -type d
         then
               echo '[INFO] Pushing repositories to S3' \
-          &&  melts drills --push-repos "${group}" \
+          &&  USER=nobody melts drills --push-repos "${group}" \
           &&  echo '[INFO] Updating last sync date' \
           &&  observes-update-sync-date compound-job \
                 --auth "${db_creds}" \
