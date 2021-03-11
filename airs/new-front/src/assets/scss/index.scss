@@ -17,6 +17,7 @@ $white: rgba(255, 255, 255, 1);
 }
 
 // Background Colors
+.bg-button-red { background-color: $button-red; }
 .bg-graylight { background-color: $graylight; }
 
 // Background Images
@@ -47,6 +48,7 @@ $white: rgba(255, 255, 255, 1);
 .h-section { height: 50rem; }
 
 // Hover changes classes
+.hv-bg-fluid-rd { &:hover { background-color: $button-hover; } }
 .hv-fluid-bd { &:hover { border-color: $button-hover;} }
 .hv-fluid-rd { &:hover { color: $button-hover; } }
 .hv-fluid-dkred { &:hover { color: $fluid-dark-red;} }
@@ -65,7 +67,7 @@ $white: rgba(255, 255, 255, 1);
 
 // Transitions
 .t-all-5 { transition: all 0.5s; }
-.t-all-3-ease { transition: all 0.3s ease;}
+.t-all-3-eio { transition: all 0.3s ease-in-out;}
 .t-tf-6-eio { transition: transform 0.6s ease-in-out; }
 
 // Width and Max Width classes
@@ -201,4 +203,35 @@ $white: rgba(255, 255, 255, 1);
   color: $fluid-black;
   font-weight: 400;
   text-decoration: none;
+}
+
+.solution-benefits {
+  .sect2 {
+    margin-left: auto;
+    margin-right: auto;
+    min-height: 420px;
+    padding: 0 2rem;
+    vertical-align: top;
+    width: 400px;
+
+    h3 {
+      color: $fluid-black;
+      font-size: 24px;
+      font-weight: 700;
+    }
+
+    p {
+      color: $fluid-black;
+      font-size: 18px;
+      font-weight: 300;
+      line-height: 36px;
+    }
+  }
+}
+
+.solution-benefits .sect2 h3::after {
+  border-bottom: 4px solid $button-hover;
+  content: '';
+  display: block;
+  width: 30%;
 }

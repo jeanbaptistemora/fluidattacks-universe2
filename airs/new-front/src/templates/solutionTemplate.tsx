@@ -15,19 +15,20 @@ import { Layout } from "../components/layout";
 import { NavbarComponent } from "../components/navbar";
 import React from "react";
 import { Seo } from "../components/seo";
-import { graphql } from "gatsby";
 import { translate } from "../utils/translations/translate";
 import {
-  ArticleContainer,
   BannerContainer,
   BannerTitle,
   BenefitTitle,
   BlackSolutionParagraph,
+  CenteredSpacedContainer,
   FlexCenterItemsContainer,
   FullWidthContainer,
   PageArticle,
   PageContainer,
+  RegularRedButton,
 } from "../styles/styledComponents";
+import { Link, graphql } from "gatsby";
 import "../assets/scss/index.scss";
 
 interface IQueryData {
@@ -100,26 +101,42 @@ const SolutionIndex: React.FC<IQueryData> = ({
                 <BannerTitle>{title}</BannerTitle>
               </FullWidthContainer>
             </BannerContainer>
-            <ArticleContainer>
-              <PageContainer>
-                <FullWidthContainer className={"pv4"}>
-                  <FlexCenterItemsContainer className={"flex-wrap center"}>
-                    <div>
-                      <div className={"tl"}>
-                        <BlackSolutionParagraph>
-                          {data.asciidoc.pageAttributes.solution}
-                        </BlackSolutionParagraph>
-                      </div>
+            <PageContainer>
+              <FullWidthContainer className={"pv4"}>
+                <FlexCenterItemsContainer className={"flex-wrap center"}>
+                  <div>
+                    <div className={"tl"}>
+                      <BlackSolutionParagraph className={"tl"}>
+                        {data.asciidoc.pageAttributes.solution}
+                      </BlackSolutionParagraph>
                     </div>
-                  </FlexCenterItemsContainer>
-                </FullWidthContainer>
-                <FullWidthContainer className={"pv4"}>
-                  <BenefitTitle>
-                    {translate.t("solution.benefits")}
-                  </BenefitTitle>
-                </FullWidthContainer>
-              </PageContainer>
-            </ArticleContainer>
+                  </div>
+                </FlexCenterItemsContainer>
+              </FullWidthContainer>
+              <FullWidthContainer className={"pv4"}>
+                <BenefitTitle>{translate.t("solution.benefits")}</BenefitTitle>
+                <FlexCenterItemsContainer
+                  className={"solution-benefits flex-wrap"}
+                  dangerouslySetInnerHTML={{
+                    __html: data.asciidoc.html,
+                  }}
+                />
+                <CenteredSpacedContainer>
+                  <BlackSolutionParagraph className={"tc"}>
+                    {`${title} ${translate.t("solution.belonging")} `}
+                    <Link className={"basic-link"} to={"."}>
+                      {"Continuous Hacking"}
+                    </Link>
+                    {" service"}
+                  </BlackSolutionParagraph>
+                </CenteredSpacedContainer>
+                <CenteredSpacedContainer>
+                  <RegularRedButton>
+                    {translate.t("contactUs.contactFluidAttacks")}
+                  </RegularRedButton>
+                </CenteredSpacedContainer>
+              </FullWidthContainer>
+            </PageContainer>
           </PageArticle>
         </div>
       </Layout>

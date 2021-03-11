@@ -8,6 +8,7 @@
 /* eslint import/no-default-export:0 */
 /* eslint @typescript-eslint/no-invalid-void-type:0 */
 /* eslint @typescript-eslint/no-confusing-void-expression:0 */
+/* eslint react/forbid-component-props: 0 */
 import { Breadcrumb } from "gatsby-plugin-breadcrumb";
 import { Layout } from "../components/layout";
 import { NavbarComponent } from "../components/navbar";
@@ -87,6 +88,7 @@ const DefaultPage: React.FC<IQueryData> = ({
           <PageArticle>
             <ArticleTitle>{title}</ArticleTitle>
             <ArticleContainer
+              className={"internal"}
               dangerouslySetInnerHTML={{
                 __html: data.asciidoc.html,
               }}

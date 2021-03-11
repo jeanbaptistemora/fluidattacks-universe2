@@ -1,7 +1,11 @@
 import type { ResourceKey } from "i18next";
 
 const pageTexts: ResourceKey = {
+  contactUs: {
+    contactFluidAttacks: "Contact Fluid Attacks",
+  },
   solution: {
+    belonging: "is one solution among all those belonging to our leading",
     benefits: "Benefits",
   },
   solutions: {

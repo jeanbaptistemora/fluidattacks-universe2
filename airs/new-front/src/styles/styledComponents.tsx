@@ -79,7 +79,7 @@ const NavbarContactButton: StyledComponent<
      ba
      hv-fluid-rd
      hv-fluid-bd
-     t-all-3-ease
+     t-all-3-eio
      c-dkred
      pointer
     `,
@@ -328,7 +328,6 @@ const ArticleContainer: StyledComponent<
   Record<string, unknown>
 > = styled.div.attrs({
   className: `
-    internal
     mw-1366
     ph-body
     center
@@ -662,7 +661,6 @@ const BlackSolutionParagraph: StyledComponent<
     fw3
     f3
     lh-2
-    tl
   `,
 })``;
 
@@ -685,6 +683,28 @@ const BenefitTitle: StyledComponent<
     fw7
     f1
     tc
+  `,
+})``;
+
+const RegularRedButton: StyledComponent<
+  "button",
+  Record<string, unknown>
+> = styled.button.attrs({
+  className: `
+    outline-transparent
+    bg-button-red
+    hv-bg-fluid-rd
+    pointer
+    white
+    pv3
+    ph4
+    fw7
+    f3
+    dib
+    t-all-3-eio
+    br2
+    bc-fluid-red
+    ba
   `,
 })``;
 
@@ -735,6 +755,7 @@ export {
   NavbarRegularButton,
   PageArticle,
   PageContainer,
+  RegularRedButton,
   SolutionsParagraph,
   SolutionsSectionDescription,
   SolutionsSubtitle,
