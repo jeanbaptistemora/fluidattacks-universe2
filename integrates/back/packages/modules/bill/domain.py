@@ -8,7 +8,7 @@ from typing import (
 )
 
 # Local libraries
-from backend.dal import bill as bill_dal
+from bill import dal as bill_dal
 
 
 # Columns we want to show to the customers, with their correct names
