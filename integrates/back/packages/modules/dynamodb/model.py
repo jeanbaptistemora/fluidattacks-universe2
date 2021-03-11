@@ -31,7 +31,7 @@ RESERVED_WORDS: Set[str] = {
 }
 
 
-def validate_key_words(*, key: str) -> None:
+def _validate_key_words(*, key: str) -> None:
     for word in RESERVED_WORDS:
         if word in key:
             raise ValueError(
@@ -39,7 +39,7 @@ def validate_key_words(*, key: str) -> None:
             )
 
 
-def build_composite_key(*, template: str, values: Dict[str, str]) -> str:
+def _build_composite_key(*, template: str, values: Dict[str, str]) -> str:
     if values:
         key_parts = tuple(
             part
@@ -56,20 +56,20 @@ def build_composite_key(*, template: str, values: Dict[str, str]) -> str:
     return f'{template.split("#")[0]}#'
 
 
-def build_key(
+def _build_key(
     *,
     facet: Facet,
     pk_values: Dict[str, str],
     sk_values: Dict[str, str]
 ) -> PrimaryKey:
     for key in {*pk_values.values(), *sk_values.values()}:
-        validate_key_words(key=key)
+        _validate_key_words(key=key)
 
-    composite_pk: str = build_composite_key(
+    composite_pk: str = _build_composite_key(
         template=facet.pk_alias,
         values=pk_values
     )
-    composite_sk: str = build_composite_key(
+    composite_sk: str = _build_composite_key(
         template=facet.sk_alias,
         values=sk_values
     )
@@ -80,7 +80,7 @@ def build_key(
     )
 
 
-def build_root(
+def _build_root(
     *,
     item_id: str,
     key_structure: PrimaryKey,
@@ -139,7 +139,7 @@ async def get_root(
     group_name: str,
     url: str,
 ) -> Optional[RootItem]:
-    primary_key = build_key(
+    primary_key = _build_key(
         facet=TABLE.facets['root_metadata'],
         pk_values={'url': url, 'branch': branch},
         sk_values={'name': group_name},
@@ -162,7 +162,7 @@ async def get_root(
     )
 
     if results:
-        return build_root(
+        return _build_root(
             item_id=primary_key.partition_key,
             key_structure=key_structure,
             raw_items=results
@@ -172,7 +172,7 @@ async def get_root(
 
 
 async def get_roots(*, group_name: str) -> Tuple[RootItem, ...]:
-    primary_key = build_key(
+    primary_key = _build_key(
         facet=TABLE.facets['root_metadata'],
         pk_values={},
         sk_values={'name': group_name},
@@ -200,7 +200,7 @@ async def get_roots(*, group_name: str) -> Tuple[RootItem, ...]:
         root_items[root_id].append(item)
 
     return tuple(
-        build_root(
+        _build_root(
             item_id=root_id,
             key_structure=key_structure,
             raw_items=tuple(items)
@@ -218,7 +218,7 @@ async def create_root(
 ) -> None:
     key_structure = TABLE.primary_key
 
-    metadata_key = build_key(
+    metadata_key = _build_key(
         facet=TABLE.facets['root_metadata'],
         pk_values={'url': metadata.url, 'branch': metadata.branch},
         sk_values={'name': group_name},
@@ -229,7 +229,7 @@ async def create_root(
         **dict(metadata._asdict())
     }
 
-    historic_cloning_key = build_key(
+    historic_cloning_key = _build_key(
         facet=TABLE.facets['root_historic_cloning'],
         pk_values={
             'url': metadata.url,
@@ -244,7 +244,7 @@ async def create_root(
         **dict(cloning._asdict())
     }
 
-    historic_state_key = build_key(
+    historic_state_key = _build_key(
         facet=TABLE.facets['root_historic_state'],
         pk_values={
             'url': metadata.url,
@@ -277,7 +277,7 @@ async def update_root_state(
     url: str
 ) -> None:
     key_structure = TABLE.primary_key
-    historic_state_key = build_key(
+    historic_state_key = _build_key(
         facet=TABLE.facets['root_historic_state'],
         pk_values={
             'url': url,
@@ -305,7 +305,7 @@ async def update_root_cloning(
     url: str
 ) -> None:
     key_structure = TABLE.primary_key
-    historic_state_key = build_key(
+    historic_state_key = _build_key(
         facet=TABLE.facets['root_historic_cloning'],
         pk_values={
             'url': url,
