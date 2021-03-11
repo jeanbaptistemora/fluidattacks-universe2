@@ -1,11 +1,5 @@
 # shellcheck shell=bash
 
-source '__envUtilsBashLibAws__'
-source '__envUtilsBashLibSops__'
-source '__envUtilsBashLibGit__'
-
-export PATH="__envMirrorGroupBin__:${PATH:-}"
-
 function list_services_groups {
   local store="${1}"
 
