@@ -1,12 +1,5 @@
 # shellcheck shell=bash
 
-source '__envUtilsBashLibAws__'
-source '__envUtilsBashLibSops__'
-source '__envUtilsBashLibGit__'
-
-export PATH="__envCodeEtlBin__:${PATH:-}"
-melts='__envMelts__'
-
 function job_code_upload {
   local group="${1}"
 
@@ -29,7 +22,7 @@ function job_code_upload {
             CI_COMMIT_REF_NAME='master' \
             PROD_AWS_ACCESS_KEY_ID="${AWS_ACCESS_KEY_ID}" \
             PROD_AWS_SECRET_ACCESS_KEY="${AWS_SECRET_ACCESS_KEY}" \
-            "${melts}" drills --pull-repos "${group}"
+            melts drills --pull-repos "${group}"
         then
               echo "[INFO] Apending mailmaps" \
           &&  shopt -s nullglob \
@@ -39,7 +32,7 @@ function job_code_upload {
                 ||  return 1
               done \
           &&  echo "[INFO] Executing ${group}" \
-          &&  code-etl upload-code \
+          &&  observes-bin-code-etl upload-code \
                 "${group}" \
                 "groups/${group}/fusion/"* \
           &&  shopt -u nullglob \

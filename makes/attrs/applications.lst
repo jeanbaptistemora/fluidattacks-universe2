@@ -78,6 +78,7 @@ makes.wait
 melts
 melts.test
 melts.vpn
+observes.bin.code-etl
 observes.bin.dif-gitlab-etl
 observes.bin.tap-zoho-analytics
 observes.bin.timedoctor-tokens
