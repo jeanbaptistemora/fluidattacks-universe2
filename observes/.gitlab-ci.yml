@@ -145,15 +145,6 @@ observes.scheduled.batch-stability:
   tags: [autoscaling]
   interruptible: false
 
-observes.scheduled.code-etl-compute-bills:
-  <<: *makes
-  only:
-    refs: [schedules]
-    variables: [$observes_code_compute_bills]
-  stage: analytics
-  tags: [autoscaling]
-  interruptible: false
-
 observes.scheduled.dynamodb-centralize:
   <<: *makes
   tags: [autoscaling-large]
@@ -188,6 +179,15 @@ observes.scheduled.dynamodb-integrates-etl-vulns:
   only:
     refs: [schedules]
     variables: [$observes_dynamodb_vulns]
+  interruptible: false
+
+observes.scheduled.job.code-etl-compute-bills:
+  <<: *makes
+  only:
+    refs: [schedules]
+    variables: [$observes_code_compute_bills]
+  stage: analytics
+  tags: [autoscaling]
   interruptible: false
 
 observes.scheduled.job.tap-zoho-analytics:

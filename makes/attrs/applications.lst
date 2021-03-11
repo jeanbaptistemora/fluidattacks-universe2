@@ -89,13 +89,13 @@ observes.job.dynamodb-table-etl
 observes.job.infra.apply
 observes.job.infra.test
 observes.scheduled.batch-stability
-observes.scheduled.code-etl-compute-bills
 observes.scheduled.dif-gitlab-etl
 observes.scheduled.dynamodb-centralize
 observes.scheduled.dynamodb-forces-etl
 observes.scheduled.dynamodb-integrates-etl
 observes.scheduled.dynamodb-integrates-etl-vulns
 observes.scheduled.job.code-etl-amend
+observes.scheduled.job.code-etl-compute-bills
 observes.scheduled.job.code-etl-mirror
 observes.scheduled.job.code-etl-upload
 observes.scheduled.job.dif-gitlab-etl

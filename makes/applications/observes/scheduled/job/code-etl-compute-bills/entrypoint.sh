@@ -1,10 +1,5 @@
 # shellcheck shell=bash
 
-source '__envUtilsBashLibAws__'
-source '__envUtilsBashLibSops__'
-
-export PATH="__envCodeEtlBin__:${PATH:-}"
-
 function job_compute_bills {
   local bucket_month
   local bucket_day
@@ -21,7 +16,7 @@ function job_compute_bills {
   &&  bucket_month="s3://continuous-data/bills/$(date +%Y)/$(date +%m)" \
   &&  bucket_day="s3://continuous-data/bills/$(date +%Y)/$(date +%m)/$(date +%d)" \
   &&  echo "[INFO] Temporary results folder: ${folder}" \
-  &&  code-etl compute-bills \
+  &&  observes-bin-code-etl compute-bills \
         "${folder}" \
         "$(date +%Y)" \
         "$(date +%m)" \

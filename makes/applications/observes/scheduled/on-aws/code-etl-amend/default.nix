@@ -10,7 +10,7 @@ computeOnAws {
   command = [ "./m" "observes.scheduled.job.code-etl-amend" ];
   jobname = "code-etl-amend";
   jobqueue = "spot_later";
-  name = "observes-scheduled-code-etl-amend";
+  name = "observes-scheduled-on-aws-code-etl-amend";
   product = "observes";
   secrets = [
     "GITLAB_API_TOKEN"
