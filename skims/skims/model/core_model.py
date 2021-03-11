@@ -538,9 +538,13 @@ FINDING_ENUM_FROM_STR: Dict[str, FindingEnum] = {
 
 UNTRUSTED_NODE: str = 'UNRTUSTED_NODE'
 
-ALLOW_UNTRSTED_NODES: Set[str] = {
-    FindingEnum.F004.name,
-    FindingEnum.F063_PATH_TRAVERSAL.name,
+ALLOW_UNTRUSTED_NODES: Set[FindingEnum] = {
+    FindingEnum.F004,
+    FindingEnum.F063_PATH_TRAVERSAL,
+}
+
+ALLOW_UNTRUSTED_NODES_STR: Set[str] = {
+    fing.name for fing in ALLOW_UNTRUSTED_NODES
 }
 
 

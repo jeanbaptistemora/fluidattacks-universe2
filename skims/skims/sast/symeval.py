@@ -132,7 +132,7 @@ def syntax_step_declaration(args: EvaluatorArgs) -> None:
 
     # Analyze if the binding itself is sensitive
     bind_danger = any((
-        args.finding == core_model.FindingEnum.F063_PATH_TRAVERSAL and any((
+        args.finding in core_model.ALLOW_UNTRUSTED_NODES and any((
             args.syntax_step.var_type in build_attr_paths(
                 'javax', 'servlet', 'http', 'HttpServletRequest'
             ),

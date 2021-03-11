@@ -65,7 +65,10 @@ def get_metadata(
                         core_model.FINDING_ENUM_FROM_STR.get(label) == finding
                         or (
                             label == core_model.UNTRUSTED_NODE
-                            and finding.name in core_model.ALLOW_UNTRSTED_NODES
+                            and finding.name in (
+                                core_model
+                                .ALLOW_UNTRUSTED_NODES_STR
+                            )
                         )
                     )
                 )

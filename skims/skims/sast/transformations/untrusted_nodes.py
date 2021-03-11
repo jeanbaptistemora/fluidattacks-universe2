@@ -17,11 +17,11 @@ from sast.common import (
 
 
 def _mark_java(graph: graph_model.Graph) -> None:
-    _mark_java_f063(graph)
+    _mark_java_request(graph)
     _mark_java_f034(graph)
 
 
-def _mark_java_f063(graph: graph_model.Graph) -> None:
+def _mark_java_request(graph: graph_model.Graph) -> None:
     for n_id in g.filter_nodes(
             graph,
             graph.nodes,
@@ -45,9 +45,7 @@ def _mark_java_f063(graph: graph_model.Graph) -> None:
                     }:
                         var_type_n_attrs['label_input_type'] = (
                             core_model
-                            .FindingEnum
-                            .F063_PATH_TRAVERSAL
-                            .name
+                            .UNTRUSTED_NODE
                         )
 
 

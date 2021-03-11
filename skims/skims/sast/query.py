@@ -149,7 +149,7 @@ def query_lazy(
                                   core_model.UNTRUSTED_NODE)
                                   and syntax_step_n_attrs.get(
                                       'label_sink_type')
-                                  in core_model.ALLOW_UNTRSTED_NODES)
+                                  in core_model.ALLOW_UNTRUSTED_NODES_STR)
                                 and syntax_step_n_attrs.get(
                                     'label_sink_type') == fin.name)
                             and syntax_step.meta.danger
