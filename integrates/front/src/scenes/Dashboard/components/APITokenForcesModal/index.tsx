@@ -51,13 +51,13 @@ const APITokenForcesModal: React.FC<IAPITokenForcesModalProps> = (
     const { clipboard } = navigator;
 
     if (_.isUndefined(clipboard)) {
-      msgError(translate.t("update_forces_token.copy.failed"));
+      msgError(translate.t("updateForcesToken.copy.failed"));
     } else {
       await clipboard.writeText(getTokenData?.project.forcesToken ?? "");
       document.execCommand("copy");
       msgSuccess(
-        translate.t("update_forces_token.copy.successfully"),
-        translate.t("update_forces_token.copy.success")
+        translate.t("updateForcesToken.copy.successfully"),
+        translate.t("updateForcesToken.copy.success")
       );
     }
   }, [getTokenData?.project.forcesToken]);
@@ -66,11 +66,11 @@ const APITokenForcesModal: React.FC<IAPITokenForcesModalProps> = (
     getTokenCalled &&
     !getTokenLoading
   ) {
-    msgError(translate.t("update_forces_token.token_no_exists"));
+    msgError(translate.t("updateForcesToken.tokenNoExists"));
   }
 
   return (
-    <Modal headerTitle={translate.t("update_forces_token.tittle")} open={open}>
+    <Modal headerTitle={translate.t("updateForcesToken.tittle")} open={open}>
       <GenericForm
         initialValues={{ sessionJwt: currentToken }}
         name={"updateForcesToken"}
@@ -80,7 +80,7 @@ const APITokenForcesModal: React.FC<IAPITokenForcesModalProps> = (
           <Row>
             <Col100>
               <ControlLabel>
-                <b>{translate.t("update_forces_token.access_token")}</b>
+                <b>{translate.t("updateForcesToken.accessToken")}</b>
               </ControlLabel>
               <Field
                 className={"noresize"} // eslint-disable-line react/forbid-component-props
@@ -92,10 +92,10 @@ const APITokenForcesModal: React.FC<IAPITokenForcesModalProps> = (
               />
               {/* eslint-disable-next-line @typescript-eslint/strict-boolean-expressions */}
               <Button disabled={!currentToken} onClick={handleCopy}>
-                {translate.t("update_forces_token.copy.copy")}
+                {translate.t("updateForcesToken.copy.copy")}
               </Button>
               <Button disabled={getTokenCalled} onClick={handleReveal}>
-                {translate.t("update_forces_token.reveal_token")}
+                {translate.t("updateForcesToken.revealToken")}
               </Button>
             </Col100>
           </Row>
@@ -104,7 +104,7 @@ const APITokenForcesModal: React.FC<IAPITokenForcesModalProps> = (
             <Col100>
               <ButtonToolbar>
                 <Button onClick={onClose}>
-                  {translate.t("update_forces_token.close")}
+                  {translate.t("updateForcesToken.close")}
                 </Button>
                 <Button
                   disabled={!getTokenCalled || getTokenLoading}
@@ -112,8 +112,8 @@ const APITokenForcesModal: React.FC<IAPITokenForcesModalProps> = (
                 >
                   {/* eslint-disable-next-line @typescript-eslint/strict-boolean-expressions */}
                   {currentToken
-                    ? translate.t("update_forces_token.reset")
-                    : translate.t("update_forces_token.generate")}
+                    ? translate.t("updateForcesToken.reset")
+                    : translate.t("updateForcesToken.generate")}
                 </Button>
               </ButtonToolbar>
             </Col100>

@@ -86,10 +86,10 @@ export const castFieldsCVSS3: (
   };
 
   const remediationLevel: Record<string, string> = {
-    0.95: "search_findings.tab_severity.remediation_level_options.official_fix.text",
-    0.96: "search_findings.tab_severity.remediation_level_options.temporary_fix.text",
-    0.97: "search_findings.tab_severity.remediation_level_options.workaround.text",
-    1: "search_findings.tab_severity.remediation_level_options.unavailable.text",
+    0.95: "search_findings.tab_severity.remediationLevelOptions.officialFix.text",
+    0.96: "search_findings.tab_severity.remediationLevelOptions.temporaryFix.text",
+    0.97: "search_findings.tab_severity.remediationLevelOptions.workaround.text",
+    1: "search_findings.tab_severity.remediationLevelOptions.unavailable.text",
   };
 
   const reportConfidence: Record<string, string> = {
@@ -151,7 +151,7 @@ export const castFieldsCVSS3: (
       currentValue: dataset.remediationLevel,
       name: "remediationLevel",
       options: remediationLevel,
-      title: translate.t("search_findings.tab_severity.remediation_level"),
+      title: translate.t("search_findings.tab_severity.remediationLevel"),
     },
     {
       currentValue: dataset.reportConfidence,

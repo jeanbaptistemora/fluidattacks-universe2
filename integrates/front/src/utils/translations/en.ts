@@ -1753,16 +1753,16 @@ export const enTranslations: ResourceKey = {
             "or files of the the vulnerable system to carry out an attack.",
         },
       },
-      remediation_level: "Remediation Level",
-      remediation_level_options: {
-        official_fix: {
+      remediationLevel: "Remediation Level",
+      remediationLevelOptions: {
+        officialFix: {
           text: "Official Fix",
           tooltip:
             "<strong>Good:</strong> " +
             "A complete vendor solution is available. " +
             "Either the vendor has issued an official patch, or an upgrade is available.",
         },
-        temporary_fix: {
+        temporaryFix: {
           text: "Temporary Fix",
           tooltip:
             "<strong>Bad:</strong> " +
@@ -2094,8 +2094,8 @@ export const enTranslations: ResourceKey = {
     vulnerabilitiesByType: "Vulnerabilities by type",
     vulns_groups: "Vulnerabilities by group",
   },
-  update_access_token: {
-    access_token: "Personal Access Token",
+  updateAccessToken: {
+    accessToken: "Personal Access Token",
     close: "Close",
     copy: {
       copy: "Copy",
@@ -2104,8 +2104,8 @@ export const enTranslations: ResourceKey = {
       successfully: "Token copied successfully",
     },
     delete: "Token invalidated successfully",
-    expiration_time: "Expiration date",
-    invalid_exp_time:
+    expirationTime: "Expiration date",
+    invalidExpTime:
       "Expiration time must be minor than six month and greater than current date",
     invalidate: "Revoke current token",
     invalidated: "Invalidated token",
@@ -2117,8 +2117,8 @@ export const enTranslations: ResourceKey = {
     title: "Update access token",
     tokenCreated: "Token created at: ",
   },
-  update_forces_token: {
-    access_token: "DevSecOps token",
+  updateForcesToken: {
+    accessToken: "DevSecOps token",
     close: "Close",
     copy: {
       copy: "Copy",
@@ -2128,11 +2128,11 @@ export const enTranslations: ResourceKey = {
     },
     generate: "Generate",
     reset: "Reset",
-    reveal_token: "Reveal Token",
+    revealToken: "Reveal Token",
     success: "Updated DevSecOps token",
     successfully: "DevSecOps token updated successfully",
     tittle: "Manage DevSecOps token",
-    token_no_exists: "A token could not be found for the group",
+    tokenNoExists: "A token could not be found for the group",
   },
   userModal: {
     emailPlaceholder: "someone@domain.com",

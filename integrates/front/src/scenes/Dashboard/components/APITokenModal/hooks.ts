@@ -41,8 +41,8 @@ const useUpdateAPIToken: (
         )
       );
       msgSuccess(
-        t("update_access_token.successfully"),
-        t("update_access_token.success")
+        t("updateAccessToken.successfully"),
+        t("updateAccessToken.success")
       );
     }
   };
@@ -52,7 +52,7 @@ const useUpdateAPIToken: (
     graphQLErrors.forEach((error: GraphQLError): void => {
       switch (error.message) {
         case "Exception - Invalid Expiration Time":
-          msgError(t("update_access_token.invalid_exp_time"));
+          msgError(t("updateAccessToken.invalidExpTime"));
           break;
         default:
           Logger.warning("An error occurred adding access token", error);
@@ -117,8 +117,8 @@ const useInvalidateAPIToken: (
     if (mtResult.invalidateAccessToken.success) {
       onClose();
       msgSuccess(
-        t("update_access_token.delete"),
-        t("update_access_token.invalidated")
+        t("updateAccessToken.delete"),
+        t("updateAccessToken.invalidated")
       );
       void refetch();
     }

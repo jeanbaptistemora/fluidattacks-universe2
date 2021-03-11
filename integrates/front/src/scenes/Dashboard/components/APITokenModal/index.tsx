@@ -76,21 +76,21 @@ const APITokenModal: React.FC<IAPITokenModalProps> = (
     const { clipboard } = navigator;
 
     if (_.isUndefined(clipboard)) {
-      msgError(translate.t("update_access_token.copy.failed"));
+      msgError(translate.t("updateAccessToken.copy.failed"));
     } else {
       await clipboard.writeText(
         mtResponse.data?.updateAccessToken.sessionJwt ?? ""
       );
       document.execCommand("copy");
       msgSuccess(
-        translate.t("update_access_token.copy.successfully"),
-        translate.t("update_access_token.copy.success")
+        translate.t("updateAccessToken.copy.successfully"),
+        translate.t("updateAccessToken.copy.success")
       );
     }
   }
 
   return (
-    <Modal headerTitle={translate.t("update_access_token.title")} open={open}>
+    <Modal headerTitle={translate.t("updateAccessToken.title")} open={open}>
       <GenericForm name={"updateAccessToken"} onSubmit={handleUpdateAPIToken}>
         {({ submitSucceeded }: InjectedFormProps): JSX.Element => (
           <React.Fragment>
@@ -99,9 +99,7 @@ const APITokenModal: React.FC<IAPITokenModalProps> = (
                 {!hasAPIToken && (
                   <FormGroup>
                     <ControlLabel>
-                      <b>
-                        {translate.t("update_access_token.expiration_time")}
-                      </b>
+                      <b>{translate.t("updateAccessToken.expirationTime")}</b>
                     </ControlLabel>
                     <Field
                       component={DateField}
@@ -117,10 +115,10 @@ const APITokenModal: React.FC<IAPITokenModalProps> = (
               <Row>
                 <Col100>
                   <ControlLabel>
-                    <b>{translate.t("update_access_token.message")}</b>
+                    <b>{translate.t("updateAccessToken.message")}</b>
                   </ControlLabel>
                   <ControlLabel>
-                    <b>{translate.t("update_access_token.access_token")}</b>
+                    <b>{translate.t("updateAccessToken.accessToken")}</b>
                   </ControlLabel>
                   <Field
                     // Allow to block resizing the TextArea
@@ -133,7 +131,7 @@ const APITokenModal: React.FC<IAPITokenModalProps> = (
                     type={"text"}
                   />
                   <Button onClick={handleCopy}>
-                    {translate.t("update_access_token.copy.copy")}
+                    {translate.t("updateAccessToken.copy.copy")}
                   </Button>
                 </Col100>
               </Row>
@@ -142,7 +140,7 @@ const APITokenModal: React.FC<IAPITokenModalProps> = (
               {!submitSucceeded && hasAPIToken && (
                 <Col100>
                   <ControlLabel>
-                    <b>{translate.t("update_access_token.tokenCreated")}</b>
+                    <b>{translate.t("updateAccessToken.tokenCreated")}</b>
                     &nbsp;
                     {new Date(Number.parseInt(issuedAt, 10) * msToSec)
                       .toISOString()
@@ -154,7 +152,7 @@ const APITokenModal: React.FC<IAPITokenModalProps> = (
                 <ButtonToolbarLeft>
                   {!submitSucceeded && hasAPIToken && (
                     <Button onClick={handleInvalidateAPIToken}>
-                      {translate.t("update_access_token.invalidate")}
+                      {translate.t("updateAccessToken.invalidate")}
                     </Button>
                   )}
                 </ButtonToolbarLeft>
@@ -165,7 +163,7 @@ const APITokenModal: React.FC<IAPITokenModalProps> = (
               <Col100>
                 <ButtonToolbar>
                   <Button onClick={onClose}>
-                    {translate.t("update_access_token.close")}
+                    {translate.t("updateAccessToken.close")}
                   </Button>
                   <Button disabled={hasAPIToken} type={"submit"}>
                     {translate.t("confirmmodal.proceed")}
