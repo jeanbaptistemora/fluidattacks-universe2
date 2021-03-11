@@ -69,6 +69,7 @@ makeTemplate {
     ];
     envPythonPaths = [
       (path "/sorts/sorts")
+      (path "/sorts")
     ];
     envPython38Paths = [
       pythonRequirements
