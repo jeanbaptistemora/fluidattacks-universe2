@@ -17,6 +17,6 @@ makeEntrypoint {
       "/makes/utils/sops"
     ];
   };
-  name = "observes-job-code-etl-mirror";
-  template = path "/makes/applications/observes/job/code-etl-mirror/entrypoint.sh";
+  name = "observes-scheduled-job-code-etl-mirror";
+  template = path "/makes/applications/observes/scheduled/job/code-etl-mirror/entrypoint.sh";
 }

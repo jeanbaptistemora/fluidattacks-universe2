@@ -6,7 +6,7 @@ let
   computeOnAws = import (path "/makes/utils/compute-on-aws") path nixpkgs;
   uploadGroup = computeOnAws {
     attempts = 5;
-    command = [ "./m" "observes.code-etl-upload" ];
+    command = [ "./m" "observes.scheduled.job.code-etl-upload" ];
     jobname = "code-etl-upload";
     jobqueue = "spot_later";
     name = "aws-batch-code-etl-upload";
@@ -30,6 +30,6 @@ makeEntrypoint {
     envUtilsBashLibGit = import (path "/makes/utils/git") path nixpkgs;
     envUtilsBashLibSops = import (path "/makes/utils/sops") path nixpkgs;
   };
-  name = "observes-scheduled-code-etl-upload";
-  template = path "/makes/applications/observes/scheduled/code-etl-upload/entrypoint.sh";
+  name = "observes-scheduled-on-aws-code-etl-upload";
+  template = path "/makes/applications/observes/scheduled/on-aws/code-etl-upload/entrypoint.sh";
 }

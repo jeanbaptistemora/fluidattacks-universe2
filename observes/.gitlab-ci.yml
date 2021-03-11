@@ -145,38 +145,11 @@ observes.scheduled.batch-stability:
   tags: [autoscaling]
   interruptible: false
 
-observes.scheduled.code-etl-amend:
-  <<: *makes
-  only:
-    refs: [schedules]
-    variables: [$observes_code_amend_authors_on_aws]
-  stage: analytics
-  tags: [autoscaling]
-  interruptible: false
-
 observes.scheduled.code-etl-compute-bills:
   <<: *makes
   only:
     refs: [schedules]
     variables: [$observes_code_compute_bills]
-  stage: analytics
-  tags: [autoscaling]
-  interruptible: false
-
-observes.scheduled.code-etl-mirror:
-  <<: *makes
-  only:
-    refs: [schedules]
-    variables: [$observes_code_mirror_all_groups_to_s3_on_aws]
-  stage: analytics
-  tags: [autoscaling]
-  interruptible: false
-
-observes.scheduled.code-etl-upload:
-  <<: *makes
-  only:
-    refs: [schedules]
-    variables: [$observes_code_upload_all_groups_on_aws]
   stage: analytics
   tags: [autoscaling]
   interruptible: false
@@ -232,6 +205,33 @@ observes.scheduled.job.timedoctor-refresh-token:
   only:
     refs: [schedules]
     variables: [$observes_timedoctor_refresh_token]
+  interruptible: false
+
+observes.scheduled.on-aws.code-etl-amend:
+  <<: *makes
+  only:
+    refs: [schedules]
+    variables: [$observes_code_amend_authors_on_aws]
+  stage: analytics
+  tags: [autoscaling]
+  interruptible: false
+
+observes.scheduled.on-aws.code-etl-mirror:
+  <<: *makes
+  only:
+    refs: [schedules]
+    variables: [$observes_code_mirror_all_groups_to_s3_on_aws]
+  stage: analytics
+  tags: [autoscaling]
+  interruptible: false
+
+observes.scheduled.on-aws.code-etl-upload:
+  <<: *makes
+  only:
+    refs: [schedules]
+    variables: [$observes_code_upload_all_groups_on_aws]
+  stage: analytics
+  tags: [autoscaling]
   interruptible: false
 
 observes.scheduled.on-aws.dif-gitlab-etl:

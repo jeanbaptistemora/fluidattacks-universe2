@@ -6,7 +6,7 @@ let
   computeOnAws = import (path "/makes/utils/compute-on-aws") path nixpkgs;
   mirrorGroup = computeOnAws {
     attempts = 5;
-    command = [ "./m" "observes.job.code-etl-mirror" ];
+    command = [ "./m" "observes.scheduled.job.code-etl-mirror" ];
     jobname = "code-etl-mirror";
     jobqueue = "spot_soon";
     name = "aws-batch-code-etl-mirror";
@@ -30,6 +30,6 @@ makeEntrypoint {
     envUtilsBashLibGit = import (path "/makes/utils/git") path nixpkgs;
     envUtilsBashLibSops = import (path "/makes/utils/sops") path nixpkgs;
   };
-  name = "observes-scheduled-code-etl-mirror";
-  template = path "/makes/applications/observes/scheduled/code-etl-mirror/entrypoint.sh";
+  name = "observes-scheduled-on-aws-code-etl-mirror";
+  template = path "/makes/applications/observes/scheduled/on-aws/code-etl-mirror/entrypoint.sh";
 }

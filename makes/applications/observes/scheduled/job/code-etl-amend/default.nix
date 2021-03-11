@@ -16,6 +16,6 @@ makeEntrypoint {
     envUtilsBashLibGit = import (path "/makes/utils/git") path nixpkgs;
     envUtilsBashLibSops = import (path "/makes/utils/sops") path nixpkgs;
   };
-  name = "observes-code-etl-amend";
-  template = path "/makes/applications/observes/code-etl-amend/entrypoint.sh";
+  name = "observes-scheduled-job-code-etl-amend";
+  template = path "/makes/applications/observes/scheduled/job/code-etl-amend/entrypoint.sh";
 }
