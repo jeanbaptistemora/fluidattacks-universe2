@@ -12,34 +12,27 @@ from boto3.dynamodb.conditions import Key
 
 # Local libraries
 from backend.dal.helpers import dynamodb
-from backend.typing import (
-    DynamoDelete,
-)
+from backend.typing import DynamoDelete
 from newutils.encodings import (
     key_to_mapping,
     mapping_to_key,
 )
+
 
 # Constants
 SUBSCRIPTIONS_TABLE = 'fi_subscriptions'
 NumericType = Union[Decimal, float, int]
 
 
-async def get_user_subscriptions(
-    *,
-    user_email: str,
-) -> List[Dict[Any, Any]]:
-    results = await dynamodb.async_query(
-        query_attrs=dict(
-            KeyConditionExpression=Key('pk').eq(mapping_to_key({
-                'meta': 'user',
-                'email': user_email,
-            })),
-        ),
-        table=SUBSCRIPTIONS_TABLE,
-    )
-
-    return _unpack_items(results)
+def _unpack_items(items: List[Dict[Any, Any]]) -> List[Dict[Any, Any]]:
+    return [
+        {
+            **item,
+            'pk': key_to_mapping(item['pk']),
+            'sk': key_to_mapping(item['sk']),
+        }
+        for item in items
+    ]
 
 
 async def get_subscriptions_to_entity_report(
@@ -56,7 +49,22 @@ async def get_subscriptions_to_entity_report(
         ),
         table=SUBSCRIPTIONS_TABLE,
     )
+    return _unpack_items(results)
 
+
+async def get_user_subscriptions(
+    *,
+    user_email: str,
+) -> List[Dict[Any, Any]]:
+    results = await dynamodb.async_query(
+        query_attrs=dict(
+            KeyConditionExpression=Key('pk').eq(mapping_to_key({
+                'meta': 'user',
+                'email': user_email,
+            })),
+        ),
+        table=SUBSCRIPTIONS_TABLE,
+    )
     return _unpack_items(results)
 
 
@@ -106,14 +114,3 @@ async def unsubscribe_user_to_entity_report(
         )),
         table=SUBSCRIPTIONS_TABLE,
     )
-
-
-def _unpack_items(items: List[Dict[Any, Any]]) -> List[Dict[Any, Any]]:
-    return [
-        {
-            **item,
-            'pk': key_to_mapping(item['pk']),
-            'sk': key_to_mapping(item['sk']),
-        }
-        for item in items
-    ]

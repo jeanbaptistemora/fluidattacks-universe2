@@ -21,11 +21,7 @@ from back.settings import (
     NOEXTRA
 )
 from backend import mailer
-from backend.dal import (
-    project as group_dal,
-    subscriptions as subscriptions_dal,
-)
-from backend.dal.subscriptions import NumericType
+from backend.dal import project as group_dal
 from backend.domain import (
     analytics as analytics_domain,
     organization as org_domain,
@@ -35,6 +31,8 @@ from newutils import (
     datetime as datetime_utils,
     reports,
 )
+from subscriptions import dal as subscriptions_dal
+from subscriptions.dal import NumericType
 from tags import domain as tags_domain
 
 

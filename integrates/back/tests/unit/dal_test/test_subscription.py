@@ -5,12 +5,12 @@ from decimal import Decimal
 import pytest
 
 # Local libraries
-from backend.dal.subscriptions import (
+from subscriptions.dal import (
     get_subscriptions_to_entity_report,
     get_user_subscriptions,
     subscribe_user_to_entity_report,
-
 )
+
 
 pytestmark = [
     pytest.mark.changes_db,
