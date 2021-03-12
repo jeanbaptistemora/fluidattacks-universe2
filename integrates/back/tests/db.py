@@ -96,8 +96,7 @@ async def populate_orgs(data: List[Any]) -> bool:
 
 async def populate_groups(data: List[Any]) -> bool:
     coroutines: List[Awaitable[bool]] = []
-    data_dump: str = json.dumps(data)
-    data_parsed: List[Any] = json.loads(data_dump, parse_float=Decimal)
+    data_parsed: List[Any] = json.loads(json.dumps(data), parse_float=Decimal)
     coroutines.extend([
         dal_group.create(
             group,
@@ -109,8 +108,7 @@ async def populate_groups(data: List[Any]) -> bool:
 
 async def populate_findings(data: List[Any]) -> bool:
     coroutines: List[Awaitable[bool]] = []
-    data_dump: str = json.dumps(data)
-    data_parsed: List[Any] = json.loads(data_dump, parse_float=Decimal)
+    data_parsed: List[Any] = json.loads(json.dumps(data), parse_float=Decimal)
     coroutines.extend([
         dal_finding.create(
             finding['finding_id'],
