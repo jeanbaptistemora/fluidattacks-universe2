@@ -10,10 +10,10 @@ from back.tests.functional.utils import (
 
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group('project')
-async def test_admin(populate: bool):
+async def test_analyst(populate: bool):
     assert populate
     context = get_new_context()
-    user: str = 'admin@gmail.com'
+    user: str = 'analyst@gmail.com'
     group: str = 'group1'
     consult: str = 'This is a test comment'
     finding: str = '475041521'
@@ -60,9 +60,6 @@ async def test_admin(populate: bool):
                         id
                     }}
                 }}
-                stakeholders {{
-                    email
-                }}
                 __typename
             }}
         }}
@@ -98,4 +95,3 @@ async def test_admin(populate: bool):
     assert draft in [draft['id'] for draft in result['data']['project']['drafts']]
     assert event in [event['id'] for event in result['data']['project']['events']]
     assert root in [root['id'] for root in result['data']['project']['roots']]
-    assert stakeholders == sorted([stakeholder['email'] for stakeholder in result['data']['project']['stakeholders']])
