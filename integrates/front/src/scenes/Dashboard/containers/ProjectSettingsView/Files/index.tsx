@@ -1,51 +1,56 @@
-/* tslint:disable:jsx-no-multiline-js
- * Disabling this rule is necessary for using components with render props
- */
-import { useMutation, useQuery } from "@apollo/react-hooks";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { ApolloError } from "apollo-client";
-import { GraphQLError } from "graphql";
-import _ from "lodash";
-import mixpanel from "mixpanel-browser";
-import React from "react";
-
-import { Button } from "components/Button";
-import { DataTableNext } from "components/DataTableNext";
-import { IHeaderConfig } from "components/DataTableNext/types";
-import { TooltipWrapper } from "components/TooltipWrapper";
 import { AddFilesModal } from "scenes/Dashboard/components/AddFilesModal";
+import type { ApolloError } from "apollo-client";
+import { Button } from "components/Button";
+import { Can } from "utils/authz/Can";
+import { DataTableNext } from "components/DataTableNext";
 import { FileOptionsModal } from "scenes/Dashboard/components/FileOptionsModal";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import type { GraphQLError } from "graphql";
+import type { IHeaderConfig } from "components/DataTableNext/types";
+import { Logger } from "utils/logger";
+import React from "react";
+import { TooltipWrapper } from "components/TooltipWrapper";
+import _ from "lodash";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import mixpanel from "mixpanel-browser";
+import { openUrl } from "utils/resourceHelpers";
+import { translate } from "utils/translations/translate";
+import { ButtonToolbar, Col40, Col60, Row } from "styles/styledComponents";
 import {
   DOWNLOAD_FILE_MUTATION,
   GET_FILES,
   REMOVE_FILE_MUTATION,
   UPLOAD_FILE_MUTATION,
 } from "scenes/Dashboard/containers/ProjectSettingsView/queries";
-import { ButtonToolbar, Col40, Col60, Row } from "styles/styledComponents";
-import { Can } from "utils/authz/Can";
-import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
-import { openUrl } from "utils/resourceHelpers";
-import { translate } from "utils/translations/translate";
+import { useMutation, useQuery } from "@apollo/react-hooks";
 
-export interface IFilesProps {
+interface IFilesProps {
   projectName: string;
 }
 
-const files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
+const Files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
+  const { projectName } = props;
+
   // State management
   const [isAddModalOpen, setAddModalOpen] = React.useState(false);
-  const openAddModal: (() => void) = (): void => { setAddModalOpen(true); };
-  const closeAddModal: (() => void) = (): void => { setAddModalOpen(false); };
+  const openAddModal: () => void = React.useCallback((): void => {
+    setAddModalOpen(true);
+  }, []);
+  const closeAddModal: () => void = React.useCallback((): void => {
+    setAddModalOpen(false);
+  }, []);
 
   const [isOptionsModalOpen, setOptionsModalOpen] = React.useState(false);
-  const closeOptionsModal: (() => void) = (): void => { setOptionsModalOpen(false); };
+  const closeOptionsModal: () => void = React.useCallback((): void => {
+    setOptionsModalOpen(false);
+  }, []);
 
   const [currentRow, setCurrentRow] = React.useState<Dictionary<string>>({});
-  const handleRowClick: ((_0: React.FormEvent, row: Dictionary<string>) => void) = (
-    _0: React.FormEvent, row: Dictionary<string>,
-  ): void => {
+  const handleRowClick: (
+    _0: React.FormEvent,
+    row: Dictionary<string>
+  ) => void = (_0: React.FormEvent, row: Dictionary<string>): void => {
     setCurrentRow(row);
     setOptionsModalOpen(true);
   };
@@ -60,7 +65,7 @@ const files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
         Logger.warning("An error occurred loading project files", error);
       });
     },
-    variables: { projectName: props.projectName },
+    variables: { projectName },
   });
 
   const [downloadFile] = useMutation(DOWNLOAD_FILE_MUTATION, {
@@ -75,7 +80,7 @@ const files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
     },
     variables: {
       filesData: JSON.stringify(currentRow.fileName),
-      projectName: props.projectName,
+      projectName,
     },
   });
 
@@ -85,7 +90,7 @@ const files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
       mixpanel.track("RemoveProjectFiles");
       msgSuccess(
         translate.t("search_findings.tabResources.successRemove"),
-        translate.t("search_findings.tabUsers.titleSuccess"),
+        translate.t("search_findings.tabUsers.titleSuccess")
       );
     },
     onError: ({ graphQLErrors }: ApolloError): void => {
@@ -95,55 +100,66 @@ const files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
       });
     },
   });
-  const handleRemoveFile: (() => void) = (): void => {
+  const handleRemoveFile: () => void = React.useCallback((): void => {
     closeOptionsModal();
     mixpanel.track("RemoveFile");
     void removeFile({
       variables: {
-        filesData: JSON.stringify({ fileName: currentRow.fileName }), projectName: props.projectName,
+        filesData: JSON.stringify({ fileName: currentRow.fileName }),
+        projectName: props.projectName,
       },
     });
-  };
+    // eslint-disable-next-line react/destructuring-assignment -- In conflict with previous declaration
+  }, [closeOptionsModal, currentRow.fileName, props.projectName, removeFile]);
 
-  const [uploadFile, { loading: uploading }] = useMutation(UPLOAD_FILE_MUTATION, {
-    context: {
-      fetchOptions: {
-        notifyUploadProgress: true,
-        onUploadProgress: (ev: ProgressEvent): void => {
-          setUploadProgress(_.round(ev.loaded / ev.total * 100));
+  const UPLOAD_PROGRESS_DIVIDER = 100;
+  const [uploadFile, { loading: uploading }] = useMutation(
+    UPLOAD_FILE_MUTATION,
+    {
+      context: {
+        fetchOptions: {
+          notifyUploadProgress: true,
+          onUploadProgress: (ev: ProgressEvent): void => {
+            setUploadProgress(
+              _.round((ev.loaded / ev.total) * UPLOAD_PROGRESS_DIVIDER)
+            );
+          },
         },
       },
-    },
-    onCompleted: (): void => {
-      void refetch();
-      mixpanel.track("AddProjectFiles");
-      msgSuccess(
-        translate.t("search_findings.tabResources.success"),
-        translate.t("search_findings.tabUsers.titleSuccess"),
-      );
-    },
-    onError: (filesError: ApolloError): void => {
-      filesError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
-        switch (message) {
-          case "Exception - Invalid field in form":
-            msgError(translate.t("validations.invalidValueInField"));
-            break;
-          case "Exception - Invalid characters":
-            msgError(translate.t("validations.invalid_char"));
-            break;
-          case "Exception - File infected":
-            msgError(translate.t("validations.infectedFile"));
-            break;
-          default:
-            msgError(translate.t("groupAlerts.errorTextsad"));
-            Logger.warning("An error occurred adding files to project", filesError);
-        }
-      });
-    },
-  });
+      onCompleted: (): void => {
+        void refetch();
+        mixpanel.track("AddProjectFiles");
+        msgSuccess(
+          translate.t("search_findings.tabResources.success"),
+          translate.t("search_findings.tabUsers.titleSuccess")
+        );
+      },
+      onError: (filesError: ApolloError): void => {
+        filesError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
+          switch (message) {
+            case "Exception - Invalid field in form":
+              msgError(translate.t("validations.invalidValueInField"));
+              break;
+            case "Exception - Invalid characters":
+              msgError(translate.t("validations.invalid_char"));
+              break;
+            case "Exception - File infected":
+              msgError(translate.t("validations.infectedFile"));
+              break;
+            default:
+              msgError(translate.t("groupAlerts.errorTextsad"));
+              Logger.warning(
+                "An error occurred adding files to project",
+                filesError
+              );
+          }
+        });
+      },
+    }
+  );
 
   if (_.isUndefined(data) || _.isEmpty(data)) {
-    return <React.Fragment />;
+    return <div />;
   }
 
   interface IFile {
@@ -152,13 +168,19 @@ const files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
     uploadDate: string;
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access -- DB queries use "any" type
   const filesDataset: IFile[] = JSON.parse(data.resources.files);
 
-  const handleUpload: ((values: { description: string; file: FileList }) => void) = async (
-    values: { description: string; file: FileList },
-  ): Promise<void> => {
-    const repeatedFiles: IFile[] = filesDataset.filter((file: IFile): boolean =>
-      file.fileName === values.file[0].name);
+  const handleUpload: (values: {
+    description: string;
+    file: FileList;
+  }) => void = async (values: {
+    description: string;
+    file: FileList;
+  }): Promise<void> => {
+    const repeatedFiles: IFile[] = filesDataset.filter(
+      (file: IFile): boolean => file.fileName === values.file[0].name
+    );
 
     if (repeatedFiles.length > 0) {
       msgError(translate.t("search_findings.tabResources.repeatedItem"));
@@ -166,10 +188,12 @@ const files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
       await uploadFile({
         variables: {
           file: values.file[0],
-          filesData: JSON.stringify([{
-            description: values.description,
-            fileName: values.file[0].name,
-          }]),
+          filesData: JSON.stringify([
+            {
+              description: values.description,
+              fileName: values.file[0].name,
+            },
+          ]),
           projectName: props.projectName,
         },
       });
@@ -177,8 +201,9 @@ const files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
     }
   };
 
-  const sortState: ((dataField: string, order: SortOrder) => void) = (
-    dataField: string, order: SortOrder,
+  const sortState: (dataField: string, order: SortOrder) => void = (
+    dataField: string,
+    order: SortOrder
   ): void => {
     const newSorted: Sorted = { dataField, order };
     sessionStorage.setItem("fileSort", JSON.stringify(newSorted));
@@ -211,19 +236,24 @@ const files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
   return (
     <React.StrictMode>
       <Row>
+        {/* eslint-disable-next-line react/forbid-component-props */}
         <Col60 className={"pa0"}>
           <h2>{translate.t("search_findings.tabResources.files.title")}</h2>
         </Col60>
-        <Can do="backend_api_mutations_add_files_mutate">
+        <Can do={"backend_api_mutations_add_files_mutate"}>
+          {/* eslint-disable-next-line react/forbid-component-props */}
           <Col40 className={"pa0"}>
             <ButtonToolbar>
               <TooltipWrapper
                 id={"search_findings.tabResources.files.btnTooltip.id"}
-                message={translate.t("search_findings.tabResources.files.btnTooltip")}
-                placement="top"
+                message={translate.t(
+                  "search_findings.tabResources.files.btnTooltip"
+                )}
+                placement={"top"}
               >
-                <Button onClick={openAddModal} id={"file-add"}>
-                  <FontAwesomeIcon icon={faPlus} />&nbsp;
+                <Button id={"file-add"} onClick={openAddModal}>
+                  <FontAwesomeIcon icon={faPlus} />
+                  &nbsp;
                   {translate.t("search_findings.tabResources.addRepository")}
                 </Button>
               </TooltipWrapper>
@@ -236,24 +266,25 @@ const files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
         dataset={filesDataset}
         defaultSorted={JSON.parse(_.get(sessionStorage, "fileSort", "{}"))}
         exportCsv={false}
-        search={true}
         headers={tableHeaders}
-        id="tblFiles"
+        id={"tblFiles"}
         pageSize={15}
         rowEvents={{ onClick: handleRowClick }}
+        search={true}
         striped={true}
       />
       <label>
-        <b>{translate.t("search_findings.tabResources.totalFiles")}</b>{filesDataset.length}
+        <b>{translate.t("search_findings.tabResources.totalFiles")}</b>
+        {filesDataset.length}
       </label>
       <AddFilesModal
         isOpen={isAddModalOpen}
-        onClose={closeAddModal}
-        onSubmit={handleUpload}
         isUploading={uploading}
+        onClose={closeAddModal}
+        onSubmit={handleUpload} // eslint-disable-line react/jsx-no-bind -- Unexpected behaviour with no-bind
         uploadProgress={uploadProgress}
       />
-      <Can do="backend_api_mutations_remove_files_mutate" passThrough={true}>
+      <Can do={"backend_api_mutations_remove_files_mutate"} passThrough={true}>
         {(canRemove: boolean): JSX.Element => (
           <FileOptionsModal
             canRemove={canRemove}
@@ -269,4 +300,4 @@ const files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
   );
 };
 
-export { files as Files };
+export { Files, IFilesProps };

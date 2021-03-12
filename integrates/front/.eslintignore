@@ -34,7 +34,7 @@ src/scenes/Dashboard/**/*.*
 !src/scenes/Dashboard/containers/ProjectForcesView/**
 !src/scenes/Dashboard/containers/ProjectRoute/**
 !src/scenes/Dashboard/containers/ProjectSettingsView/AgentToken/**
-!src/scenes/Dashboard/containers/ProjectSettingsView/Files/index.spec.tsx
+!src/scenes/Dashboard/containers/ProjectSettingsView/Files/**
 !src/scenes/Dashboard/containers/ProjectSettingsView/DeleteGroup/**
 !src/scenes/Dashboard/containers/ProjectSettingsView/Unsubscribe/**
 !src/scenes/Dashboard/containers/TrackingView/**
