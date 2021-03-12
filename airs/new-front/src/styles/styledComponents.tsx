@@ -725,10 +725,27 @@ const SquaredCardContainer: StyledComponent<
   `,
 })``;
 
+const BannerSubtitle: StyledComponent<
+  "h2",
+  Record<string, unknown>
+> = styled.h2.attrs({
+  className: `
+    white
+    f3-l
+    f5-m
+    f6
+    fw4
+    roboto
+    tc
+    ma0
+  `,
+})``;
+
 export {
   ArticleContainer,
   ArticleTitle,
   BannerContainer,
+  BannerSubtitle,
   BannerTitle,
   BlackBigHeader,
   BlackBigParagraph,

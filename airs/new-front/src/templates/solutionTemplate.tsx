@@ -30,7 +30,6 @@ import {
   RegularRedButton,
 } from "../styles/styledComponents";
 import { Link, graphql } from "gatsby";
-import "../assets/scss/index.scss";
 
 interface IQueryData {
   data: {

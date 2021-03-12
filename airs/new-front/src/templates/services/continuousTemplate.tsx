@@ -9,17 +9,23 @@
 /* eslint @typescript-eslint/no-invalid-void-type:0 */
 /* eslint @typescript-eslint/no-confusing-void-expression:0 */
 /* eslint react/forbid-component-props: 0 */
+/* eslint import/no-namespace:0 */
 import { Breadcrumb } from "gatsby-plugin-breadcrumb";
-import { Layout } from "../components/layout";
-import { NavbarComponent } from "../components/navbar";
+import { Layout } from "../../components/layout";
+import { NavbarComponent } from "../../components/navbar";
 import React from "react";
-import { Seo } from "../components/seo";
+import { Seo } from "../../components/seo";
 import { graphql } from "gatsby";
+import { translate } from "../../utils/translations/translate";
 import {
   ArticleContainer,
-  ArticleTitle,
+  BannerContainer,
+  BannerSubtitle,
+  BannerTitle,
+  FullWidthContainer,
   PageArticle,
-} from "../styles/styledComponents";
+  PageContainer,
+} from "../../styles/styledComponents";
 
 interface IQueryData {
   data: {
@@ -32,6 +38,7 @@ interface IQueryData {
         slug: string;
       };
       pageAttributes: {
+        banner?: string;
         description: string;
         keywords: string;
         slug: string;
@@ -52,7 +59,7 @@ interface IQueryData {
   };
 }
 
-const DefaultPage: React.FC<IQueryData> = ({
+const ContinuousHackingIndex: React.FC<IQueryData> = ({
   data,
   pageContext,
 }: IQueryData): JSX.Element => {
@@ -84,13 +91,17 @@ const DefaultPage: React.FC<IQueryData> = ({
           />
 
           <PageArticle>
-            <ArticleTitle>{title}</ArticleTitle>
-            <ArticleContainer
-              className={"internal"}
-              dangerouslySetInnerHTML={{
-                __html: data.asciidoc.html,
-              }}
-            />
+            <BannerContainer className={"bg-continuous"}>
+              <FullWidthContainer>
+                <BannerTitle>{title}</BannerTitle>
+                <BannerSubtitle>
+                  {translate.t("services.continuousHacking.subtitle")}
+                </BannerSubtitle>
+              </FullWidthContainer>
+            </BannerContainer>
+            <ArticleContainer>
+              <PageContainer />
+            </ArticleContainer>
           </PageArticle>
         </div>
       </Layout>
@@ -98,10 +109,10 @@ const DefaultPage: React.FC<IQueryData> = ({
   );
 };
 
-export default DefaultPage;
+export default ContinuousHackingIndex;
 
 export const query: void = graphql`
-  query PageArticleBySlug($slug: String!) {
+  query ContinuousHackingIndex($slug: String!) {
     asciidoc(fields: { slug: { eq: $slug } }) {
       document {
         title
@@ -111,6 +122,7 @@ export const query: void = graphql`
         slug
       }
       pageAttributes {
+        banner
         description
         keywords
         slug

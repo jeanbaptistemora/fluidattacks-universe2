@@ -32,7 +32,6 @@ import {
   PageArticle,
   PageContainer,
 } from "../styles/styledComponents";
-import "../assets/scss/index.scss";
 
 interface IQueryData {
   data: {

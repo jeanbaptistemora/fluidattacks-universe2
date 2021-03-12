@@ -4,6 +4,11 @@ const pageTexts: ResourceKey = {
   contactUs: {
     contactFluidAttacks: "Contact Fluid Attacks",
   },
+  services: {
+    continuousHacking: {
+      subTitle: "Effective Automation and Human Intelligence",
+    },
+  },
   solution: {
     belonging: "is one solution among all those belonging to our leading",
     benefits: "Benefits",
