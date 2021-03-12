@@ -15,8 +15,9 @@ from backend.decorators import (
     require_integrates,
     require_login
 )
-from backend.domain import resources as resources_domain
 from backend.typing import SimplePayload as SimplePayloadType
+from resources import domain as resources_domain
+
 
 LOGGER = logging.getLogger(__name__)
 

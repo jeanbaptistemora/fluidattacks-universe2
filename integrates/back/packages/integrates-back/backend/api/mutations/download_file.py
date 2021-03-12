@@ -14,9 +14,10 @@ from backend.decorators import (
     require_integrates,
     require_login
 )
-from backend.domain import resources as resources_domain
 from backend.typing import DownloadFilePayload as DownloadFilePayloadType
 from newutils import analytics
+from resources import domain as resources_domain
+
 
 LOGGER = logging.getLogger(__name__)
 

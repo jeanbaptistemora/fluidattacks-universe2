@@ -35,7 +35,6 @@ from backend.authz.policy import get_group_level_role
 from backend.dal import project as project_dal
 from backend.dal.helpers.dynamodb import start_context
 from backend.domain import (
-    resources as resources_domain,
     finding as finding_domain,
     user as user_domain,
     organization as org_domain,
@@ -73,6 +72,7 @@ from newutils import (
     validations,
 )
 from notifications import domain as notifications_domain
+from resources import domain as resources_domain
 
 
 logging.config.dictConfig(LOGGING)
