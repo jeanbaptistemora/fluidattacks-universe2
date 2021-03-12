@@ -181,6 +181,9 @@ integrates.back.test.functional.create_organization:
 integrates.back.test.functional.create_project:
   <<: *integrates_back_test_functional
 
+integrates.back.test.functional.download_vuln_file:
+  <<: *integrates_back_test_functional
+
 integrates.back.test.functional.edit_group:
   <<: *integrates_back_test_functional
 
