@@ -39,7 +39,6 @@ from backend.domain import (
     user as user_domain,
     organization as org_domain,
     vulnerability as vuln_domain,
-    available_name as available_name_domain
 )
 from backend.exceptions import (
     AlreadyPendingDeletion,
@@ -64,6 +63,7 @@ from backend.typing import (
 )
 from comments import domain as comments_domain
 from events import domain as events_domain
+from names import domain as names_domain
 from newutils import (
     comments as comments_utils,
     datetime as datetime_utils,
@@ -181,7 +181,7 @@ async def create_group(  # pylint: disable=too-many-arguments,too-many-locals
             has_integrates=True)
 
         is_group_avail, group_exists = await collect([
-            available_name_domain.exists(project_name, 'group'),
+            names_domain.exists(project_name, 'group'),
             project_dal.exists(project_name)
         ])
 
@@ -210,7 +210,7 @@ async def create_group(  # pylint: disable=too-many-arguments,too-many-locals
             if success:
                 await collect((
                     org_domain.add_group(org_id, project_name),
-                    available_name_domain.remove(project_name, 'group')
+                    names_domain.remove(project_name, 'group')
                 ))
                 # Admins are not granted access to the project
                 # they are omnipresent

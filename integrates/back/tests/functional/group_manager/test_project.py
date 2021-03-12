@@ -1,12 +1,13 @@
 import json
+
 import pytest
 
-from backend.domain.available_name import get_name
+from back.tests.functional.group_manager.utils import get_result
 from backend.exceptions import (
     NotPendingDeletion,
     UserNotInOrganization
 )
-from back.tests.functional.group_manager.utils import get_result
+from names.domain import get_name
 
 
 @pytest.mark.asyncio

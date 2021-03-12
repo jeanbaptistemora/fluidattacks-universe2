@@ -20,10 +20,7 @@ from backend import authz
 from backend.dal import (
     organization as org_dal,
 )
-from backend.domain import (
-    available_name as available_name_domain,
-    project as project_domain
-)
+from backend.domain import project as project_domain
 from backend.exceptions import (
     InvalidAcceptanceDays,
     InvalidAcceptanceSeverity,
@@ -34,6 +31,7 @@ from backend.exceptions import (
     UserNotInOrganization
 )
 from backend.typing import Organization as OrganizationType
+from names import domain as names_domain
 from newutils import (
     datetime as datetime_utils,
     stakeholders as stakeholders_utils,
@@ -98,11 +96,11 @@ async def add_user(organization_id: str, email: str, role: str) -> bool:
 async def create_organization(name: str, email: str) -> OrganizationType:
     new_organization: OrganizationType = {}
 
-    if not await available_name_domain.exists(name, 'organization'):
+    if not await names_domain.exists(name, 'organization'):
         raise InvalidOrganization()
 
     new_organization = await get_or_create(name, email)
-    await available_name_domain.remove(name, 'organization')
+    await names_domain.remove(name, 'organization')
     return new_organization
 
 

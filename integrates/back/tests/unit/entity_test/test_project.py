@@ -4,21 +4,21 @@ from typing import (
     Dict
 )
 import json
-import pytest
 
 # Third party libraries
+import pytest
 from ariadne import graphql
 
 # Local libraries
+from back.tests.unit.utils import create_dummy_session
 from backend.api import apply_context_attrs
 from backend.api.schema import SCHEMA
-from backend.domain.available_name import get_name
 from backend.exceptions import (
     NotPendingDeletion,
     PermissionDenied
 )
+from names.domain import get_name
 
-from back.tests.unit.utils import create_dummy_session
 
 pytestmark = pytest.mark.asyncio
 

@@ -10,8 +10,8 @@ from backend.decorators import (
     enforce_user_level_auth_async,
     require_login
 )
-from backend.domain import available_name as available_name_domain
 from backend.typing import InternalName
+from names import domain as names_domain
 
 
 @concurrent_decorators(
@@ -25,4 +25,4 @@ async def resolve(
 ) -> InternalName:
     entity: str = kwargs['entity']
 
-    return {'name': await available_name_domain.get_name(entity.lower())}
+    return {'name': await names_domain.get_name(entity.lower())}
