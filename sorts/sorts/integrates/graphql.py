@@ -1,8 +1,5 @@
 # Standard libraries
-from contextvars import (
-    ContextVar,
-    Token,
-)
+from contextvars import Token
 from contextlib import contextmanager
 from typing import Iterator
 
@@ -11,9 +8,8 @@ from gql.client import Client as GraphQLClient
 from gql.transport.requests import RequestsHTTPTransport
 from gql.transport.transport import Transport
 
-
-# State
-API_TOKEN: ContextVar[str] = ContextVar('API_TOKEN', default='')
+# Local libraries
+from sorts.constants import API_TOKEN
 
 
 @contextmanager

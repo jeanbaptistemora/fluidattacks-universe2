@@ -15,7 +15,6 @@ from typing import (
 )
 
 # Third-party Libraries
-import boto3
 import numpy as np
 import pandas as pd
 from botocore.exceptions import ClientError
@@ -29,6 +28,7 @@ from sklearn.model_selection import (
 from sklearn.neighbors import KNeighborsClassifier
 
 # Local libraries
+from sorts.constants import S3_BUCKET
 from sorts.typings import Model as ModelType
 
 # Contants
@@ -51,7 +51,6 @@ RESULT_HEADERS: List[str] = [
     'F1',
     'Overfit'
 ]
-S3_BUCKET = boto3.Session().resource('s3').Bucket('sorts')
 
 
 def get_features_combinations(features: List[str]) -> List[Tuple[str, ...]]:

@@ -5,14 +5,12 @@ import os
 import tempfile
 
 # Third-party Libraries
-import boto3
 import numpy as np
 import pandas as pd
 from pandas import DataFrame
 
-
-# Constants
-S3_BUCKET = boto3.resource('s3').Bucket('sorts')
+# Local libraries
+from sorts.constants import S3_BUCKET
 
 
 def main() -> None:
