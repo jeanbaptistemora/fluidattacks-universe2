@@ -28,10 +28,7 @@ from backend import (
     mailer,
     util,
 )
-from backend.dal import (
-    project as project_dal,
-    resources as resources_dal
-)
+from backend.dal import project as project_dal
 from backend.exceptions import InvalidFileSize
 from backend.typing import (
     MailContent as MailContentType,
@@ -41,6 +38,7 @@ from newutils import (
     datetime as datetime_utils,
     validations,
 )
+from resources import dal as resources_dal
 from __init__ import (
     BASE_URL,
     FI_MAIL_RESOURCERS,

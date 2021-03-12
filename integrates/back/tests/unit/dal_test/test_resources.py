@@ -1,7 +1,10 @@
 import pytest
 
-from backend.dal.project import get_attributes, update
-from backend.dal.resources import remove
+from backend.dal.project import (
+    get_attributes,
+    update,
+)
+from resources.dal import remove
 
 pytestmark = pytest.mark.asyncio
 
