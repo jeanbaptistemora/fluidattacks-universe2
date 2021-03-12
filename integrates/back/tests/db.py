@@ -17,18 +17,16 @@ from aioextensions import (
 )
 
 # Local libraries
-from events import (
-    dal as dal_event,
-)
 from backend.dal import (
     finding as dal_finding,
     project as dal_group,
-    available_name as dal_name,
     organization as dal_organization,
     root as dal_root,
     user as dal_user,
     vulnerability as dal_vulnerability,
 )
+from events import dal as dal_event
+from names import dal as names_dal
 
 
 async def populate_users(data: List[Any]) -> bool:
@@ -46,7 +44,7 @@ async def populate_users(data: List[Any]) -> bool:
 async def populate_names(data: List[Any]) -> bool:
     coroutines: List[Awaitable[bool]] = []
     coroutines.extend([
-        dal_name.create(
+        names_dal.create(
             name['name'],
             name['entity'],
         )

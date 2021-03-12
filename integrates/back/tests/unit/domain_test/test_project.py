@@ -1,47 +1,59 @@
+
+import pytest
 import time
 from decimal import Decimal
 from datetime import datetime
 
-from aioextensions import (
-    collect,
-)
-from pytz import timezone
+from aioextensions import collect
 from freezegun import freeze_time
-import pytest
+from pytz import timezone
 
+from back import settings
+from back.tests.unit.utils import create_dummy_session
 from backend.api import get_new_context
-from backend.dal.helpers import dynamodb
-from backend.domain.project import (
-    add_comment,
-    edit, validate_tags, is_alive,
-    get_pending_closing_check, get_last_closing_vuln_info, get_last_closing_date,
-    is_vulnerability_closed, get_max_open_severity,
-    get_open_vulnerability_date, get_mean_remediate, get_total_treatment,
-    get_users, get_description, get_pending_verification_findings,
-    list_comments, get_active_projects, get_managers, list_events,
-    get_alive_group_names, get_mean_remediate_severity,
-    remove_access, validate_project_services_config,
-    create_group, total_vulnerabilities,
-    get_open_vulnerabilities, get_closed_vulnerabilities, get_open_finding,
-    get_closers,
-    get_mean_remediate_non_treated,
-)
-from backend.exceptions import (
-    InvalidProjectServicesConfig, RepeatedValues
-)
 from backend.dal import (
     finding as finding_dal,
     project as project_dal,
     vulnerability as vuln_dal,
-    available_name as available_name_dal
 )
-
-from back import settings
-from back.tests.unit.utils import create_dummy_session
+from backend.dal.helpers import dynamodb
+from backend.domain.project import (
+    add_comment,
+    create_group,
+    edit,
+    get_active_projects,
+    get_alive_group_names,
+    get_closed_vulnerabilities,
+    get_closers,
+    get_description,
+    get_last_closing_date,
+    get_last_closing_vuln_info,
+    get_managers,
+    get_max_open_severity,
+    get_mean_remediate,
+    get_mean_remediate_non_treated,
+    get_mean_remediate_severity,
+    get_open_finding,
+    get_open_vulnerabilities,
+    get_open_vulnerability_date,
+    get_pending_closing_check,
+    get_pending_verification_findings,
+    get_total_treatment,
+    get_users,
+    is_alive,
+    is_vulnerability_closed,
+    list_comments,
+    list_events,
+    remove_access,
+    total_vulnerabilities,
+    validate_project_services_config,
+    validate_tags,
+)
+from backend.exceptions import InvalidProjectServicesConfig, RepeatedValues
 from graphql.type import GraphQLResolveInfo
-from newutils import (
-    datetime as datetime_utils,
-)
+from names import domain as names_domain
+from newutils import datetime as datetime_utils
+
 
 pytestmark = [
     pytest.mark.asyncio,
@@ -400,7 +412,7 @@ async def test_get_mean_remediate_severity():
 
 @pytest.mark.changes_db
 async def test_create_project_not_user_admin():
-    await available_name_dal.create('NEWAVAILABLENAME', 'group')
+    await names_domain.create('NEWAVAILABLENAME', 'group')
     user_email = 'integratesuser@gmail.com'
     user_role = 'customeradmin'
     test_data = await create_group(

@@ -1,7 +1,12 @@
 # standard imports
 import logging
+import logging.config
 import uuid
-from typing import List, Dict, Optional
+from typing import (
+    List,
+    Dict,
+    Optional,
+)
 
 # third-party imports
 import aioboto3
@@ -9,9 +14,10 @@ from boto3.dynamodb.conditions import Key
 from botocore.exceptions import ClientError
 
 # local imports
-from backend.exceptions import EmptyPoolName
-from backend.dal.helpers import dynamodb
 from back.settings import LOGGING
+from backend.dal.helpers import dynamodb
+from backend.exceptions import EmptyPoolName
+
 
 logging.config.dictConfig(LOGGING)
 
@@ -42,21 +48,45 @@ async def create(name: str, entity: str) -> bool:
     return resp
 
 
-async def remove(name: str, entity: str) -> bool:
+async def exists(name: str, entity: str) -> bool:
     """
-    Removes an available entity given its name
+    Returns True if the given entity name exists
     """
-    primary_keys = {'pk': f'AVAILABLE_{entity.upper()}',
-                    'sk': name.upper()}
-    resp = False
+    item_exists = False
     async with aioboto3.resource(**RESOURCE_OPTIONS) as dynamodb_resource:
         table = await dynamodb_resource.Table(TABLE_NAME)
-        try:
-            response = await table.delete_item(Key=primary_keys)
-            resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
-        except ClientError as ex:
-            LOGGER.exception(ex, extra={'extra': locals()})
-    return resp
+        response = await table.get_item(
+            Key={
+                'pk': f'AVAILABLE_{entity.upper()}',
+                'sk': name.upper()
+            }
+        )
+        item_exists = bool(response.get('Item', {}))
+    return item_exists
+
+
+async def get_all(entity: str) -> List[str]:
+    """
+    Returns all availale entity names
+    """
+    key_exp = Key('pk').eq(f'AVAILABLE_{entity.upper()}')
+    all_names = []
+    async with aioboto3.resource(**RESOURCE_OPTIONS) as dynamodb_resource:
+        table = await dynamodb_resource.Table(TABLE_NAME)
+        response = await table.query(
+            KeyConditionExpression=key_exp,
+            ProjectionExpression='sk'
+        )
+        all_available = response['Items']
+        while response.get('LastEvaluatedKey'):
+            response = await table.query(
+                ExclusiveStartKey=response['LastEvaluatedKey'],
+                KeyConditionExpression=key_exp,
+                ProjectionExpression='sk'
+            )
+            all_available += response['Items']
+        all_names = [available['sk'] for available in all_available]
+    return all_names
 
 
 async def get_one(entity: str) -> str:
@@ -99,42 +129,18 @@ async def get_one(entity: str) -> str:
     return name
 
 
-async def get_all(entity: str) -> List[str]:
+async def remove(name: str, entity: str) -> bool:
     """
-    Returns all availale entity names
+    Removes an available entity given its name
     """
-    key_exp = Key('pk').eq(f'AVAILABLE_{entity.upper()}')
-    all_names = []
+    primary_keys = {'pk': f'AVAILABLE_{entity.upper()}',
+                    'sk': name.upper()}
+    resp = False
     async with aioboto3.resource(**RESOURCE_OPTIONS) as dynamodb_resource:
         table = await dynamodb_resource.Table(TABLE_NAME)
-        response = await table.query(
-            KeyConditionExpression=key_exp,
-            ProjectionExpression='sk'
-        )
-        all_available = response['Items']
-        while response.get('LastEvaluatedKey'):
-            response = await table.query(
-                ExclusiveStartKey=response['LastEvaluatedKey'],
-                KeyConditionExpression=key_exp,
-                ProjectionExpression='sk'
-            )
-            all_available += response['Items']
-        all_names = [available['sk'] for available in all_available]
-    return all_names
-
-
-async def exists(name: str, entity: str) -> bool:
-    """
-    Returns True if the given entity name exists
-    """
-    item_exists = False
-    async with aioboto3.resource(**RESOURCE_OPTIONS) as dynamodb_resource:
-        table = await dynamodb_resource.Table(TABLE_NAME)
-        response = await table.get_item(
-            Key={
-                'pk': f'AVAILABLE_{entity.upper()}',
-                'sk': name.upper()
-            }
-        )
-        item_exists = bool(response.get('Item', {}))
-    return item_exists
+        try:
+            response = await table.delete_item(Key=primary_keys)
+            resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
+        except ClientError as ex:
+            LOGGER.exception(ex, extra={'extra': locals()})
+    return resp
