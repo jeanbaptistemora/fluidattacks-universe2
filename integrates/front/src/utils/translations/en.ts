@@ -1374,7 +1374,7 @@ export const enTranslations: ResourceKey = {
       tooltip:
         "Information that will be compromised or disclosed by exploiting the vulnerability",
     },
-    tab_resources: {
+    tabResources: {
       addRepository: "Add",
       baseUrlPlaceholder: "gitlab.com/fluidattacks/product.git",
       branch: {
@@ -1877,7 +1877,7 @@ export const enTranslations: ResourceKey = {
         network: "Network: Exploitable from Internet",
       },
     },
-    tab_tracking: {
+    tabTracking: {
       accepted: "Temporally accepted",
       acceptedUndefined: "Eternally accepted",
       closed: "Closed",
@@ -2077,7 +2077,7 @@ export const enTranslations: ResourceKey = {
     lowSeverity: "Low Severity",
     meanRemediate: "Mean (average) days to remediate",
     mediumSeverity: "Medium Severity",
-    open_findings_group: "Open findings by group",
+    openFindingsGroup: "Open findings by group",
     open_vuln: "open vulns.",
     open_vulns_groups: "Open vulnerabilities by group",
     remediated_accepted_vuln:

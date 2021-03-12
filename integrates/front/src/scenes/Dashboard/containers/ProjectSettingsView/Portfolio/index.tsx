@@ -53,7 +53,7 @@ const portfolio: React.FC<IPortfolioProps> = (props: IPortfolioProps): JSX.Eleme
       void refetch();
       mixpanel.track("AddProjectTags");
       msgSuccess(
-        translate.t("search_findings.tab_resources.success"),
+        translate.t("search_findings.tabResources.success"),
         translate.t("search_findings.tabUsers.titleSuccess"),
       );
     },
@@ -61,7 +61,7 @@ const portfolio: React.FC<IPortfolioProps> = (props: IPortfolioProps): JSX.Eleme
       error.graphQLErrors.forEach(({ message }: GraphQLError): void => {
         switch (message) {
           case "Exception - One or more values already exist":
-            msgError(translate.t("search_findings.tab_resources.repeatedItem"));
+            msgError(translate.t("search_findings.tabResources.repeatedItem"));
             break;
           default:
             msgError(translate.t("groupAlerts.errorTextsad"));
@@ -76,7 +76,7 @@ const portfolio: React.FC<IPortfolioProps> = (props: IPortfolioProps): JSX.Eleme
       void refetch();
       mixpanel.track("RemoveTag");
       msgSuccess(
-        translate.t("search_findings.tab_resources.successRemove"),
+        translate.t("search_findings.tabResources.successRemove"),
         translate.t("search_findings.tabUsers.titleSuccess"),
       );
     },
@@ -101,9 +101,9 @@ const portfolio: React.FC<IPortfolioProps> = (props: IPortfolioProps): JSX.Eleme
       tagsDataset.filter(_.matches({ tagName: tag })).length > 0);
 
     if (repeatedInputs.length > 0) {
-      msgError(translate.t("search_findings.tab_resources.repeatedInput"));
+      msgError(translate.t("search_findings.tabResources.repeatedInput"));
     } else if (repeatedTags.length > 0) {
-      msgError(translate.t("search_findings.tab_resources.repeatedItem"));
+      msgError(translate.t("search_findings.tabResources.repeatedItem"));
     } else {
       closeAddModal();
       void addTags({
@@ -135,7 +135,7 @@ const portfolio: React.FC<IPortfolioProps> = (props: IPortfolioProps): JSX.Eleme
   const tableHeaders: IHeaderConfig[] = [
     {
       dataField: "tagName",
-      header: translate.t("search_findings.tab_resources.tags.title"),
+      header: translate.t("search_findings.tabResources.tags.title"),
       onSort: sortState,
     },
   ];
@@ -144,28 +144,28 @@ const portfolio: React.FC<IPortfolioProps> = (props: IPortfolioProps): JSX.Eleme
     <React.StrictMode>
       <Row>
         <Col60 className={"pa0"}>
-          <h2>{translate.t("search_findings.tab_resources.tags.title")}<Badge>pro</Badge></h2>
+          <h2>{translate.t("search_findings.tabResources.tags.title")}<Badge>pro</Badge></h2>
         </Col60>
         <Col40 className={"pa0"}>
           <ButtonToolbar>
             <Can do="backend_api_mutations_add_group_tags_mutate">
               <TooltipWrapper
                 displayClass={"dib"}
-                id={"search_findings.tab_resources.tags.addTooltip.id"}
-                message={translate.t("search_findings.tab_resources.tags.addTooltip")}
+                id={"search_findings.tabResources.tags.addTooltip.id"}
+                message={translate.t("search_findings.tabResources.tags.addTooltip")}
                 placement="top"
               >
                 <Button onClick={openAddModal} id={"portfolio-add"}>
                   <FontAwesomeIcon icon={faPlus} />&nbsp;
-                {translate.t("search_findings.tab_resources.addRepository")}
+                {translate.t("search_findings.tabResources.addRepository")}
                 </Button>
               </TooltipWrapper>
             </Can>
             <Can do="backend_api_mutations_remove_group_tag_mutate">
               <TooltipWrapper
                 displayClass={"dib"}
-                id={"search_findings.tab_resources.tags.removeTooltip.id"}
-                message={translate.t("search_findings.tab_resources.tags.removeTooltip")}
+                id={"search_findings.tabResources.tags.removeTooltip.id"}
+                message={translate.t("search_findings.tabResources.tags.removeTooltip")}
                 placement="top"
               >
                 <Button
@@ -174,7 +174,7 @@ const portfolio: React.FC<IPortfolioProps> = (props: IPortfolioProps): JSX.Eleme
                   id={"portfolio-remove"}
                 >
                   <FontAwesomeIcon icon={faMinus} />&nbsp;
-                {translate.t("search_findings.tab_resources.removeRepository")}
+                {translate.t("search_findings.tabResources.removeRepository")}
                 </Button>
               </TooltipWrapper>
             </Can>

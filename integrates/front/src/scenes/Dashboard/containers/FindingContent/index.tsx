@@ -356,10 +356,8 @@ const findingContent: React.FC = (): JSX.Element => {
                     icon={"icon pe-7s-graph1"}
                     id={"trackingItem"}
                     link={`${url}/tracking`}
-                    title={translate.t("search_findings.tab_tracking.tabTitle")}
-                    tooltip={translate.t(
-                      "search_findings.tab_tracking.tooltip"
-                    )}
+                    title={translate.t("search_findings.tabTracking.tabTitle")}
+                    tooltip={translate.t("search_findings.tabTracking.tooltip")}
                   />
                   <ContentTab
                     icon={"icon pe-7s-notebook"}

@@ -84,7 +84,7 @@ const files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
       void refetch();
       mixpanel.track("RemoveProjectFiles");
       msgSuccess(
-        translate.t("search_findings.tab_resources.successRemove"),
+        translate.t("search_findings.tabResources.successRemove"),
         translate.t("search_findings.tabUsers.titleSuccess"),
       );
     },
@@ -118,7 +118,7 @@ const files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
       void refetch();
       mixpanel.track("AddProjectFiles");
       msgSuccess(
-        translate.t("search_findings.tab_resources.success"),
+        translate.t("search_findings.tabResources.success"),
         translate.t("search_findings.tabUsers.titleSuccess"),
       );
     },
@@ -161,7 +161,7 @@ const files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
       file.fileName === values.file[0].name);
 
     if (repeatedFiles.length > 0) {
-      msgError(translate.t("search_findings.tab_resources.repeatedItem"));
+      msgError(translate.t("search_findings.tabResources.repeatedItem"));
     } else {
       await uploadFile({
         variables: {
@@ -212,19 +212,19 @@ const files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
     <React.StrictMode>
       <Row>
         <Col60 className={"pa0"}>
-          <h2>{translate.t("search_findings.tab_resources.files.title")}</h2>
+          <h2>{translate.t("search_findings.tabResources.files.title")}</h2>
         </Col60>
         <Can do="backend_api_mutations_add_files_mutate">
           <Col40 className={"pa0"}>
             <ButtonToolbar>
               <TooltipWrapper
-                id={"search_findings.tab_resources.files.btnTooltip.id"}
-                message={translate.t("search_findings.tab_resources.files.btnTooltip")}
+                id={"search_findings.tabResources.files.btnTooltip.id"}
+                message={translate.t("search_findings.tabResources.files.btnTooltip")}
                 placement="top"
               >
                 <Button onClick={openAddModal} id={"file-add"}>
                   <FontAwesomeIcon icon={faPlus} />&nbsp;
-                  {translate.t("search_findings.tab_resources.addRepository")}
+                  {translate.t("search_findings.tabResources.addRepository")}
                 </Button>
               </TooltipWrapper>
             </ButtonToolbar>
@@ -244,7 +244,7 @@ const files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
         striped={true}
       />
       <label>
-        <b>{translate.t("search_findings.tab_resources.totalFiles")}</b>{filesDataset.length}
+        <b>{translate.t("search_findings.tabResources.totalFiles")}</b>{filesDataset.length}
       </label>
       <AddFilesModal
         isOpen={isAddModalOpen}

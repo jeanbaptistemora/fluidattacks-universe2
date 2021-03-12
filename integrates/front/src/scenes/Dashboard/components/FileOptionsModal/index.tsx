@@ -30,14 +30,14 @@ const fileOptionsModal: React.FC<IFileOptionsModalProps> = (
     <React.StrictMode>
       <Modal
         headerTitle={translate.t(
-          "search_findings.tab_resources.modalOptionsTitle"
+          "search_findings.tabResources.modalOptionsTitle"
         )}
         open={isOpen}
       >
         <Row>
           <Col100>
             <label>
-              {translate.t("search_findings.tab_resources.modalOptionsContent")}
+              {translate.t("search_findings.tabResources.modalOptionsContent")}
               <b>{fileName}</b>
               {"?"}
             </label>
@@ -49,9 +49,7 @@ const fileOptionsModal: React.FC<IFileOptionsModalProps> = (
                 <Button onClick={onDelete}>
                   <FontAwesomeIcon icon={faMinus} />
                   &nbsp;
-                  {translate.t(
-                    "search_findings.tab_resources.removeRepository"
-                  )}
+                  {translate.t("search_findings.tabResources.removeRepository")}
                 </Button>
               </Col33>
             ) : undefined}
@@ -59,7 +57,7 @@ const fileOptionsModal: React.FC<IFileOptionsModalProps> = (
               <Button onClick={onDownload}>
                 <FontAwesomeIcon icon={faDownload} />
                 &nbsp;
-                {translate.t("search_findings.tab_resources.download")}
+                {translate.t("search_findings.tabResources.download")}
               </Button>
             </Col33>
           </ButtonToolbarCenter>

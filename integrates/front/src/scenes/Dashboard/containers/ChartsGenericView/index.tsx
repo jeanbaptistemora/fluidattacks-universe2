@@ -484,7 +484,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                 generatorType={"c3"}
                 reportMode={reportMode}
                 subject={subject}
-                title={translate.t("tag_indicator.open_findings_group")}
+                title={translate.t("tag_indicator.openFindingsGroup")}
               />
             </Col100>
           </RowCenter>
