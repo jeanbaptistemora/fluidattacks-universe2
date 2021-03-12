@@ -17,10 +17,7 @@ from urllib3.util.url import parse_url, Url
 # Local
 from backend import authz
 from backend.dal import root as root_dal
-from backend.domain import (
-    notifications as notifications_domain,
-    organization as org_domain
-)
+from backend.domain import organization as org_domain
 from backend.exceptions import (
     InvalidParameter,
     InvalidRootExclusion,
@@ -41,6 +38,7 @@ from newutils import (
     datetime,
     validations,
 )
+from notifications import domain as notifications_domain
 
 
 def format_root(root: Dict[str, Any]) -> Root:

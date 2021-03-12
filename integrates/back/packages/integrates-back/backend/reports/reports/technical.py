@@ -16,7 +16,6 @@ from PIL import Image
 # Local libraries
 from back.settings import LOGGING
 from backend.dal import finding as finding_dal
-from backend.domain import notifications as notifications_domain
 from backend.exceptions import ErrorUploadingFileS3
 from backend.reports.it_report import ITReport
 from backend.reports.pdf import CreatorPDF
@@ -24,6 +23,7 @@ from backend.reports.secure_pdf import SecurePDF
 from backend.typing import Finding as FindingType
 from newutils import reports as reports_utils
 from newutils.passphrase import get_passphrase
+from notifications import domain as notifications_domain
 
 
 logging.config.dictConfig(LOGGING)

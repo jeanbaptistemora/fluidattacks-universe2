@@ -38,7 +38,6 @@ from backend.domain import (
     resources as resources_domain,
     finding as finding_domain,
     user as user_domain,
-    notifications as notifications_domain,
     organization as org_domain,
     vulnerability as vuln_domain,
     available_name as available_name_domain
@@ -73,6 +72,7 @@ from newutils import (
     stakeholders as stakeholders_utils,
     validations,
 )
+from notifications import domain as notifications_domain
 
 
 logging.config.dictConfig(LOGGING)

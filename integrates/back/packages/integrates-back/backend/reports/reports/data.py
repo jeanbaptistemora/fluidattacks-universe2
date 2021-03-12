@@ -16,11 +16,11 @@ from backend.dal.helpers.s3 import (
     download_file,
     list_files,
 )
-from backend.domain import notifications as notifications_domain
 from backend.reports.reports import technical as technical_report
 from backend.typing import Finding as FindingType
 from newutils import reports as reports_utils
 from newutils.passphrase import get_passphrase
+from notifications import domain as notifications_domain
 from __init__ import (
     FI_AWS_S3_BUCKET as EVIDENCES_BUCKET,
 )
