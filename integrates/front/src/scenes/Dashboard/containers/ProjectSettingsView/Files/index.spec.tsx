@@ -1,42 +1,45 @@
-import { MockedProvider, MockedResponse } from "@apollo/react-testing";
-import { PureAbility } from "@casl/ability";
-import { mount, ReactWrapper } from "enzyme";
+import { Files } from "scenes/Dashboard/containers/ProjectSettingsView/Files";
 import { GraphQLError } from "graphql";
-import * as React from "react";
-// tslint:disable-next-line: no-submodule-imports
-import { act } from "react-dom/test-utils";
+import type { IFilesProps } from "scenes/Dashboard/containers/ProjectSettingsView/Files";
+import { MockedProvider } from "@apollo/react-testing";
+import type { MockedResponse } from "@apollo/react-testing";
 import { Provider } from "react-redux";
+import { PureAbility } from "@casl/ability";
+import React from "react";
+import type { ReactWrapper } from "enzyme";
+import { act } from "react-dom/test-utils";
+import { authzPermissionsContext } from "utils/authz/config";
+import { mount } from "enzyme";
+import store from "store";
 import wait from "waait";
-
-import { Files, IFilesProps } from "scenes/Dashboard/containers/ProjectSettingsView/Files";
 import {
   DOWNLOAD_FILE_MUTATION,
   GET_FILES,
   REMOVE_FILE_MUTATION,
   UPLOAD_FILE_MUTATION,
 } from "scenes/Dashboard/containers/ProjectSettingsView/queries";
-import store from "store";
-import { authzPermissionsContext } from "utils/authz/config";
 import { msgError, msgSuccess } from "utils/notifications";
 
-jest.mock("../../../../../utils/notifications", () => {
-  const mockedNotifications: Dictionary = jest.requireActual("../../../../../utils/notifications");
-  mockedNotifications.msgError = jest.fn();
-  mockedNotifications.msgSuccess = jest.fn();
+jest.mock(
+  "../../../../../utils/notifications",
+  (): Dictionary => {
+    const mockedNotifications: Dictionary = jest.requireActual(
+      "../../../../../utils/notifications"
+    );
 
-  return mockedNotifications;
-});
+    mockedNotifications.msgError = jest.fn(); // eslint-disable-line fp/no-mutation, jest/prefer-spy-on
+    mockedNotifications.msgSuccess = jest.fn(); // eslint-disable-line fp/no-mutation, jest/prefer-spy-on
 
-describe("Files", () => {
-  afterEach(() => {
-    jest.clearAllMocks();
-  });
+    return mockedNotifications;
+  }
+);
 
+describe("Files", (): void => {
   const mockProps: IFilesProps = {
     projectName: "TEST",
   };
 
-  const mocksFiles: ReadonlyArray<MockedResponse> = [
+  const mocksFiles: readonly MockedResponse[] = [
     {
       request: {
         query: GET_FILES,
@@ -95,266 +98,391 @@ describe("Files", () => {
     },
   ];
 
-  it("should return a function", () => {
-    expect(typeof (Files))
-      .toEqual("function");
+  it("should return a function", (): void => {
+    expect.hasAssertions();
+    expect(typeof Files).toStrictEqual("function");
   });
 
-  it("should add a file", async () => {
-    const mocksMutation: ReadonlyArray<MockedResponse> = [{
-      request: {
-        query: UPLOAD_FILE_MUTATION,
-        variables:  {
-          file: {},
-          filesData: JSON.stringify([{
-            description: "Test description",
-            fileName: "image.png",
-          }]),
-          projectName: "TEST",
+  it("should add a file", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    const mocksMutation: readonly MockedResponse[] = [
+      {
+        request: {
+          query: UPLOAD_FILE_MUTATION,
+          variables: {
+            file: {},
+            filesData: JSON.stringify([
+              {
+                description: "Test description",
+                fileName: "image.png",
+              },
+            ]),
+            projectName: "TEST",
+          },
         },
+        result: { data: { addFiles: { success: true } } },
       },
-      result: { data: { addFiles : { success: true } } },
-    }];
+    ];
     const mockedPermissions: PureAbility<string> = new PureAbility([
       { action: "backend_api_mutations_add_files_mutate" },
     ]);
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
-        <MockedProvider mocks={mocksFiles.concat(mocksMutation)} addTypename={false}>
+        <MockedProvider
+          addTypename={false}
+          mocks={mocksFiles.concat(mocksMutation)}
+        >
           <authzPermissionsContext.Provider value={mockedPermissions}>
-            <Files {...mockProps} />
+            <Files projectName={mockProps.projectName} />
           </authzPermissionsContext.Provider>
         </MockedProvider>
-      </Provider>,
+      </Provider>
     );
-    await act(async () => { await wait(0); wrapper.update(); });
-    const addButton: ReactWrapper = wrapper.find("button")
-      .findWhere((element: ReactWrapper) => element.contains("Add"))
+    await act(
+      async (): Promise<void> => {
+        await wait(0);
+        wrapper.update();
+      }
+    );
+    const addButton: ReactWrapper = wrapper
+      .find("button")
+      .findWhere((element: ReactWrapper): boolean => element.contains("Add"))
       .at(0);
     addButton.simulate("click");
     const addFilesModal: ReactWrapper = wrapper.find("addFilesModal");
     const file: File = new File([""], "image.png", { type: "image/png" });
     const fileInput: ReactWrapper = addFilesModal
-      .find({name: "file"})
+      .find({ name: "file" })
       .at(0)
       .find("input");
-    fileInput.simulate("change", { target: { files: [ file ] } });
+    fileInput.simulate("change", { target: { files: [file] } });
     const descriptionInput: ReactWrapper = addFilesModal
-      .find({name: "description", type: "text"})
+      .find({ name: "description", type: "text" })
       .at(0)
       .find("textarea");
-    descriptionInput.simulate("change", { target: { value: "Test description" } });
-    const form: ReactWrapper = addFilesModal
-      .find("genericForm")
-      .at(0);
+    descriptionInput.simulate("change", {
+      target: { value: "Test description" },
+    });
+    const form: ReactWrapper = addFilesModal.find("genericForm").at(0);
     form.simulate("submit");
-    await act(async () => { await wait(0); wrapper.update(); });
-    expect(msgSuccess)
-      .toHaveBeenCalled();
+    await act(
+      async (): Promise<void> => {
+        await wait(0);
+        wrapper.update();
+      }
+    );
+
+    expect(msgSuccess).toHaveBeenCalled(); // eslint-disable-line jest/prefer-called-with
+
+    jest.clearAllMocks();
   });
 
-  it("should sort files", async () => {
+  it("should sort files", async (): Promise<void> => {
+    expect.hasAssertions();
+
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
-        <MockedProvider mocks={mocksFiles} addTypename={false}>
-          <Files {...mockProps} />
+        <MockedProvider addTypename={false} mocks={mocksFiles}>
+          <Files projectName={mockProps.projectName} />
         </MockedProvider>
-      </Provider>,
+      </Provider>
     );
-    await act(async () => { await wait(0); wrapper.update(); });
-    let firstRowInfo: ReactWrapper = wrapper
-      .find("SimpleRow")
-      .at(0);
-    expect(firstRowInfo.text())
-      .toEqual("test.zipTest2019-03-01 15:21");
-    const fileNameHeader: ReactWrapper = wrapper
-      .find({"aria-label": "File sortable"});
+    await act(
+      async (): Promise<void> => {
+        await wait(0);
+        wrapper.update();
+      }
+    );
+    const firstRowInfo: ReactWrapper = wrapper.find("SimpleRow").at(0);
+
+    expect(firstRowInfo.text()).toStrictEqual("test.zipTest2019-03-01 15:21");
+
+    const fileNameHeader: ReactWrapper = wrapper.find({
+      "aria-label": "File sortable",
+    });
     fileNameHeader.simulate("click");
     fileNameHeader.simulate("click");
-    firstRowInfo = wrapper
-      .find("SimpleRow")
-      .at(0);
-    expect(firstRowInfo.text())
-      .toEqual("shell.exeshell2019-04-24 14:56");
+    const firstRowInfo2: ReactWrapper = wrapper.find("SimpleRow").at(0);
+
+    expect(firstRowInfo2.text()).toStrictEqual(
+      "shell.exeshell2019-04-24 14:56"
+    );
+
+    jest.clearAllMocks();
   });
 
-  it("should remove a file", async () => {
-    const mocksMutation: ReadonlyArray<MockedResponse> = [{
-      request: {
-        query: REMOVE_FILE_MUTATION,
-        variables: {
-          filesData: JSON.stringify({
-            fileName: "test.zip",
-          }),
-          projectName: "TEST",
+  it("should remove a file", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    const mocksMutation: readonly MockedResponse[] = [
+      {
+        request: {
+          query: REMOVE_FILE_MUTATION,
+          variables: {
+            filesData: JSON.stringify({
+              fileName: "test.zip",
+            }),
+            projectName: "TEST",
+          },
         },
+        result: { data: { removeFiles: { success: true } } },
       },
-      result: { data: { removeFiles : { success: true } } },
-    }];
+    ];
     const mockedPermissions: PureAbility<string> = new PureAbility([
       { action: "backend_api_mutations_remove_files_mutate" },
     ]);
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
-        <MockedProvider mocks={mocksFiles.concat(mocksMutation)} addTypename={false}>
+        <MockedProvider
+          addTypename={false}
+          mocks={mocksFiles.concat(mocksMutation)}
+        >
           <authzPermissionsContext.Provider value={mockedPermissions}>
-            <Files {...mockProps} />
+            <Files projectName={mockProps.projectName} />
           </authzPermissionsContext.Provider>
         </MockedProvider>
-      </Provider>,
+      </Provider>
     );
-    await act(async () => { await wait(0); wrapper.update(); });
+    await act(
+      async (): Promise<void> => {
+        await wait(0);
+        wrapper.update();
+      }
+    );
     const fileInfo: ReactWrapper = wrapper
       .find("tr")
-      .findWhere((element: ReactWrapper) => element.contains("test.zip"))
+      .findWhere((element: ReactWrapper): boolean =>
+        element.contains("test.zip")
+      )
       .at(0);
     fileInfo.simulate("click");
     const fileOptionsModal: ReactWrapper = wrapper.find("fileOptionsModal");
     const removeButton: ReactWrapper = fileOptionsModal
       .find("button")
-      .findWhere((element: ReactWrapper) => element.contains("Remove"))
+      .findWhere((element: ReactWrapper): boolean => element.contains("Remove"))
       .at(0);
     removeButton.simulate("click");
-    await act(async () => { await wait(0); wrapper.update(); });
-    expect(msgSuccess)
-      .toHaveBeenCalled();
+    await act(
+      async (): Promise<void> => {
+        await wait(0);
+        wrapper.update();
+      }
+    );
+
+    expect(msgSuccess).toHaveBeenCalled(); // eslint-disable-line jest/prefer-called-with
+
+    jest.clearAllMocks();
   });
 
-  it("should download a file", async () => {
+  it("should download a file", async (): Promise<void> => {
+    expect.hasAssertions();
+
     const open: jest.Mock = jest.fn();
-    open.mockReturnValue({opener: ""});
-    window.open = open;
-    const mocksMutation: ReadonlyArray<MockedResponse> = [{
-      request: {
-        query: DOWNLOAD_FILE_MUTATION,
-        variables: {
-          filesData: JSON.stringify("test.zip"),
-          projectName: "TEST",
+    open.mockReturnValue({ opener: "" });
+    window.open = open; // eslint-disable-line fp/no-mutation
+    const mocksMutation: readonly MockedResponse[] = [
+      {
+        request: {
+          query: DOWNLOAD_FILE_MUTATION,
+          variables: {
+            filesData: JSON.stringify("test.zip"),
+            projectName: "TEST",
+          },
+        },
+        result: {
+          data: {
+            downloadFile: { success: true, url: "https://test.com/file" },
+          },
         },
       },
-      result: { data: { downloadFile : { success: true, url: "https://test.com/file" } } },
-    }];
+    ];
     const mockedPermissions: PureAbility<string> = new PureAbility([
       { action: "backend_api_mutations_remove_files_mutate" },
     ]);
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
-        <MockedProvider mocks={mocksFiles.concat(mocksMutation)} addTypename={false}>
+        <MockedProvider
+          addTypename={false}
+          mocks={mocksFiles.concat(mocksMutation)}
+        >
           <authzPermissionsContext.Provider value={mockedPermissions}>
-            <Files {...mockProps} />
+            <Files projectName={mockProps.projectName} />
           </authzPermissionsContext.Provider>
         </MockedProvider>
-      </Provider>,
+      </Provider>
     );
-    await act(async () => { await wait(0); wrapper.update(); });
-    const fileInfo: ReactWrapper = wrapper.find("tr")
-      .findWhere((element: ReactWrapper) => element.contains("test.zip"))
+    await act(
+      async (): Promise<void> => {
+        await wait(0);
+        wrapper.update();
+      }
+    );
+    const fileInfo: ReactWrapper = wrapper
+      .find("tr")
+      .findWhere((element: ReactWrapper): boolean =>
+        element.contains("test.zip")
+      )
       .at(0);
     fileInfo.simulate("click");
     const fileOptionsModal: ReactWrapper = wrapper.find("fileOptionsModal");
     const downloadButton: ReactWrapper = fileOptionsModal
       .find("button")
-      .findWhere((element: ReactWrapper) => element.contains("Download"))
+      .findWhere((element: ReactWrapper): boolean =>
+        element.contains("Download")
+      )
       .at(0);
     downloadButton.simulate("click");
-    await act(async () => { await wait(0); wrapper.update(); });
-    expect(open)
-      .toBeCalledWith("https://test.com/file", undefined, "noopener,noreferrer,");
+    await act(
+      async (): Promise<void> => {
+        await wait(0);
+        wrapper.update();
+      }
+    );
+
+    expect(open).toHaveBeenCalledWith(
+      "https://test.com/file",
+      undefined,
+      "noopener,noreferrer,"
+    );
+
+    jest.clearAllMocks();
   });
 
-  it("should handle errors when add a file", async () => {
-    const mocksMutation: ReadonlyArray<MockedResponse> = [{
-      request: {
-        query: UPLOAD_FILE_MUTATION,
-        variables:  {
-          file: {},
-          filesData: JSON.stringify([{
-            description: "Test description",
-            fileName: "image.png",
-          }]),
-          projectName: "TEST",
+  it("should handle errors when add a file", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    const mocksMutation: readonly MockedResponse[] = [
+      {
+        request: {
+          query: UPLOAD_FILE_MUTATION,
+          variables: {
+            file: {},
+            filesData: JSON.stringify([
+              {
+                description: "Test description",
+                fileName: "image.png",
+              },
+            ]),
+            projectName: "TEST",
+          },
+        },
+        result: {
+          errors: [
+            new GraphQLError("Access denied"),
+            new GraphQLError("Exception - Invalid field in form"),
+            new GraphQLError("Exception - Invalid characters"),
+          ],
         },
       },
-      result: { errors: [
-        new GraphQLError("Access denied"),
-        new GraphQLError("Exception - Invalid field in form"),
-        new GraphQLError("Exception - Invalid characters"),
-      ]},
-    }];
+    ];
     const mockedPermissions: PureAbility<string> = new PureAbility([
       { action: "backend_api_mutations_add_files_mutate" },
     ]);
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
-        <MockedProvider mocks={mocksFiles.concat(mocksMutation)} addTypename={false}>
+        <MockedProvider
+          addTypename={false}
+          mocks={mocksFiles.concat(mocksMutation)}
+        >
           <authzPermissionsContext.Provider value={mockedPermissions}>
-            <Files {...mockProps} />
+            <Files projectName={mockProps.projectName} />
           </authzPermissionsContext.Provider>
         </MockedProvider>
-      </Provider>,
+      </Provider>
     );
-    await act(async () => { await wait(0); wrapper.update(); });
-    const addButton: ReactWrapper = wrapper.find("button")
-      .findWhere((element: ReactWrapper) => element.contains("Add"))
+    await act(
+      async (): Promise<void> => {
+        await wait(0);
+        wrapper.update();
+      }
+    );
+    const addButton: ReactWrapper = wrapper
+      .find("button")
+      .findWhere((element: ReactWrapper): boolean => element.contains("Add"))
       .at(0);
     addButton.simulate("click");
     const addFilesModal: ReactWrapper = wrapper.find("addFilesModal");
     const file: File = new File([""], "image.png", { type: "image/png" });
     const fileInput: ReactWrapper = addFilesModal
-      .find({name: "file"})
+      .find({ name: "file" })
       .at(0)
       .find("input");
-    fileInput.simulate("change", { target: { files: [ file ] } });
+    fileInput.simulate("change", { target: { files: [file] } });
     const descriptionInput: ReactWrapper = addFilesModal
-      .find({name: "description", type: "text"})
+      .find({ name: "description", type: "text" })
       .at(0)
       .find("textarea");
-    descriptionInput.simulate("change", { target: { value: "Test description" } });
-    const form: ReactWrapper = addFilesModal
-      .find("genericForm")
-      .at(0);
+    descriptionInput.simulate("change", {
+      target: { value: "Test description" },
+    });
+    const form: ReactWrapper = addFilesModal.find("genericForm").at(0);
     form.simulate("submit");
-    await act(async () => { await wait(0); wrapper.update(); });
-    expect(msgError)
-      .toHaveBeenCalledTimes(3);
+    await act(
+      async (): Promise<void> => {
+        await wait(0);
+        wrapper.update();
+      }
+    );
+
+    const TEST_CALLING_TIMES = 3;
+
+    expect(msgError).toHaveBeenCalledTimes(TEST_CALLING_TIMES);
+
+    jest.clearAllMocks();
   });
 
-  it("should handle error when there are repeated files", async () => {
+  it("should handle error when there are repeated files", async (): Promise<void> => {
+    expect.hasAssertions();
+
     const mockedPermissions: PureAbility<string> = new PureAbility([
       { action: "backend_api_mutations_add_files_mutate" },
     ]);
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
-        <MockedProvider mocks={mocksFiles} addTypename={false}>
+        <MockedProvider addTypename={false} mocks={mocksFiles}>
           <authzPermissionsContext.Provider value={mockedPermissions}>
-            <Files {...mockProps} />
+            <Files projectName={mockProps.projectName} />
           </authzPermissionsContext.Provider>
         </MockedProvider>
-      </Provider>,
+      </Provider>
     );
-    await act(async () => { await wait(0); wrapper.update(); });
-    const addButton: ReactWrapper = wrapper.find("button")
-      .findWhere((element: ReactWrapper) => element.contains("Add"))
+    await act(
+      async (): Promise<void> => {
+        await wait(0);
+        wrapper.update();
+      }
+    );
+    const addButton: ReactWrapper = wrapper
+      .find("button")
+      .findWhere((element: ReactWrapper): boolean => element.contains("Add"))
       .at(0);
     addButton.simulate("click");
     const addFilesModal: ReactWrapper = wrapper.find("addFilesModal");
     const file: File = new File([""], "test.zip", { type: "application/zip" });
     const fileInput: ReactWrapper = addFilesModal
-      .find({name: "file"})
+      .find({ name: "file" })
       .at(0)
       .find("input");
-    fileInput.simulate("change", { target: { files: [ file ] } });
+    fileInput.simulate("change", { target: { files: [file] } });
     const descriptionInput: ReactWrapper = addFilesModal
-      .find({name: "description", type: "text"})
+      .find({ name: "description", type: "text" })
       .at(0)
       .find("textarea");
-    descriptionInput.simulate("change", { target: { value: "Test description" } });
-    const form: ReactWrapper = addFilesModal
-      .find("genericForm")
-      .at(0);
+    descriptionInput.simulate("change", {
+      target: { value: "Test description" },
+    });
+    const form: ReactWrapper = addFilesModal.find("genericForm").at(0);
     form.simulate("submit");
-    await act(async () => { await wait(0); wrapper.update(); });
-    expect(msgError)
-      .toHaveBeenCalled();
+    await act(
+      async (): Promise<void> => {
+        await wait(0);
+        wrapper.update();
+      }
+    );
+
+    expect(msgError).toHaveBeenCalled(); // eslint-disable-line jest/prefer-called-with
+
+    jest.clearAllMocks();
   });
 });
