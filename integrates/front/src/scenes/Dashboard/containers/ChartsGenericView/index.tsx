@@ -436,7 +436,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                 generatorType={"c3"}
                 reportMode={reportMode}
                 subject={subject}
-                title={translate.t("tag_indicator.remediated_vuln")}
+                title={translate.t("tagIndicator.remediatedVuln")}
               />
             </Col100>
           </RowCenter>
@@ -452,7 +452,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                 generatorType={"c3"}
                 reportMode={reportMode}
                 subject={subject}
-                title={translate.t("tag_indicator.remediated_accepted_vuln")}
+                title={translate.t("tagIndicator.remediatedAcceptedVuln")}
               />
             </Col100>
           </RowCenter>
@@ -468,7 +468,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                 generatorType={"c3"}
                 reportMode={reportMode}
                 subject={subject}
-                title={translate.t("tag_indicator.findings_group")}
+                title={translate.t("tagIndicator.findingsGroup")}
               />
             </Col100>
           </RowCenter>
@@ -484,7 +484,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                 generatorType={"c3"}
                 reportMode={reportMode}
                 subject={subject}
-                title={translate.t("tag_indicator.openFindingsGroup")}
+                title={translate.t("tagIndicator.openFindingsGroup")}
               />
             </Col100>
           </RowCenter>
@@ -500,7 +500,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                 generatorType={"c3"}
                 reportMode={reportMode}
                 subject={subject}
-                title={translate.t("tag_indicator.vulns_groups")}
+                title={translate.t("tagIndicator.vulnsGroups")}
               />
             </Col50>
             <Col50>
@@ -514,7 +514,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                 generatorType={"c3"}
                 reportMode={reportMode}
                 subject={subject}
-                title={translate.t("tag_indicator.open_vulns_groups")}
+                title={translate.t("tagIndicator.openVulnsGroups")}
               />
             </Col50>
           </RowCenter>
@@ -530,7 +530,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                 generatorType={"c3"}
                 reportMode={reportMode}
                 subject={subject}
-                title={translate.t("tag_indicator.topOldestFindings")}
+                title={translate.t("tagIndicator.topOldestFindings")}
               />
             </Col100>
           </RowCenter>
@@ -546,7 +546,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                 generatorType={"c3"}
                 reportMode={reportMode}
                 subject={subject}
-                title={translate.t("tag_indicator.undefined_title")}
+                title={translate.t("tagIndicator.undefinedTitle")}
               />
             </Col50>
             <Col50>
@@ -589,7 +589,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                 generatorType={"c3"}
                 reportMode={reportMode}
                 subject={subject}
-                title={translate.t("tag_indicator.vulnerabilitiesByTag")}
+                title={translate.t("tagIndicator.vulnerabilitiesByTag")}
               />
             </Col100>
           </RowCenter>
@@ -605,7 +605,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                 generatorType={"c3"}
                 reportMode={reportMode}
                 subject={subject}
-                title={translate.t("tag_indicator.vulnerabilitiesByLevel")}
+                title={translate.t("tagIndicator.vulnerabilitiesByLevel")}
               />
             </Col100>
           </RowCenter>
@@ -622,7 +622,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                 reportMode={reportMode}
                 subject={subject}
                 title={translate.t(
-                  "tag_indicator.acceptedVulnerabilitiesByUser"
+                  "tagIndicator.acceptedVulnerabilitiesByUser"
                 )}
               />
             </Col100>
@@ -639,7 +639,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                 generatorType={"c3"}
                 reportMode={reportMode}
                 subject={subject}
-                title={translate.t("tag_indicator.vulnerabilitiesByTreatments")}
+                title={translate.t("tagIndicator.vulnerabilitiesByTreatments")}
               />
             </Col50>
             <Col50>
@@ -653,7 +653,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                 generatorType={"c3"}
                 reportMode={reportMode}
                 subject={subject}
-                title={translate.t("tag_indicator.vulnerabilitiesByType")}
+                title={translate.t("tagIndicator.vulnerabilitiesByType")}
               />
             </Col50>
           </RowCenter>
@@ -669,9 +669,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                 generatorType={"c3"}
                 reportMode={reportMode}
                 subject={subject}
-                title={translate.t(
-                  "tag_indicator.topFindingsByVulnerabilities"
-                )}
+                title={translate.t("tagIndicator.topFindingsByVulnerabilities")}
               />
             </Col100>
           </RowCenter>
@@ -688,7 +686,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                 reportMode={reportMode}
                 subject={subject}
                 title={translate.t(
-                  "tag_indicator.acceptedVulnerabilitiesBySeverity"
+                  "tagIndicator.acceptedVulnerabilitiesBySeverity"
                 )}
               />
             </Col100>
@@ -705,7 +703,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                 generatorType={"c3"}
                 reportMode={reportMode}
                 subject={subject}
-                title={translate.t("tag_indicator.meanRemediate")}
+                title={translate.t("tagIndicator.meanRemediate")}
               />
             </Col100>
           </RowCenter>

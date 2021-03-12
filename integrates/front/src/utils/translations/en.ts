@@ -1,4 +1,4 @@
-/* eslint-disable camelcase, sort-keys */
+/* eslint-disable camelcase */
 /* Note: ESLint rule disabled temporally, as the conversion will be gradual */
 import type { ResourceKey } from "i18next";
 
@@ -2067,31 +2067,31 @@ export const enTranslations: ResourceKey = {
       tooltip: "Add a user",
     },
   },
-  tag_indicator: {
+  tagIndicator: {
     acceptedVulnerabilitiesBySeverity: "Accepted vulnerabilities by severity",
     acceptedVulnerabilitiesByUser: "Accepted vulnerabilities by user",
     criticalSeverity: "Critical Severity",
-    findings_group: "Findings by group",
+    findingsGroup: "Findings by group",
     highSeverity: "High Severity",
     lowSeverity: "Low Severity",
     meanRemediate: "Mean (average) days to remediate",
     mediumSeverity: "Medium Severity",
     openFindingsGroup: "Open findings by group",
-    open_vuln: "open vulns.",
-    open_vulns_groups: "Open vulnerabilities by group",
-    remediated_accepted_vuln:
+    openVuln: "open vulns.",
+    openVulnsGroups: "Open vulnerabilities by group",
+    remediatedAcceptedVuln:
       "How many vulnerabilities are remediated and accepted?",
-    remediated_vuln: "How many vulnerabilities are remediated (closed)?",
+    remediatedVuln: "How many vulnerabilities are remediated (closed)?",
     topFindingsByVulnerabilities: "Top findings (by open vulnerabilities)",
     topOldestFindings: "Top oldest findings",
-    total_vuln: "vulnerabilities",
-    undefined_title: "Treatmentless by group",
-    undefined_vuln: "undefined",
+    totalVuln: "vulnerabilities",
+    undefinedTitle: "Treatmentless by group",
+    undefinedVuln: "undefined",
     vulnerabilitiesByLevel: "Vulnerabilities by level",
     vulnerabilitiesByTag: "Vulnerabilities by tag",
     vulnerabilitiesByTreatments: "Vulnerabilities by treatments",
     vulnerabilitiesByType: "Vulnerabilities by type",
-    vulns_groups: "Vulnerabilities by group",
+    vulnsGroups: "Vulnerabilities by group",
   },
   updateAccessToken: {
     accessToken: "Personal Access Token",
@@ -2170,6 +2170,8 @@ export const enTranslations: ResourceKey = {
       "can not have Fluid Attacks staff",
     greaterDate: "The date must be today or before",
     infectedFile: "Our system detected that the uploaded file is infected",
+    invalidChar:
+      "Invalid characters, use: alphanumerics, spaces and punctuations",
     invalidCommentParent: "The comment parent is invalid",
     invalidEmailInField: "The email address inserted is not valid",
     invalidFieldLength: "The value inserted in one of the fields is too large",
@@ -2181,8 +2183,6 @@ export const enTranslations: ResourceKey = {
     invalidUrlField:
       "URL value cannot contain the following characters: {{chars}}",
     invalidValueInField: "The value inserted in one of the fields is not valid",
-    invalidChar:
-      "Invalid characters, use: alphanumerics, spaces and punctuations",
     lowerDate: "Invalid date",
     maxLength: "This field requires less than {{count}} characters",
     minLength: "This field requires at least {{count}} characters",
