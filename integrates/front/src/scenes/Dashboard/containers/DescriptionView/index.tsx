@@ -141,7 +141,7 @@ const DescriptionView: React.FC = (): JSX.Element => {
             msgError(translate.t("validations.invalidValueInField"));
             break;
           case "Exception - Invalid characters":
-            msgError(translate.t("validations.invalid_char"));
+            msgError(translate.t("validations.invalidChar"));
             break;
           default:
             msgError(translate.t("groupAlerts.errorTextsad"));

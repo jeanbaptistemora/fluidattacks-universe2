@@ -75,7 +75,7 @@ const handleMtError: (mtError: ApolloError) => void = (
         msgError(translate.t("validations.invalidValueInField"));
         break;
       case "Exception - Invalid characters":
-        msgError(translate.t("validations.invalid_char"));
+        msgError(translate.t("validations.invalidChar"));
         break;
       case "Exception - Invalid phone number in form":
         msgError(translate.t("validations.invalidPhoneNumberInField"));

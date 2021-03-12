@@ -48,7 +48,7 @@ const addFilesModal: React.FC<IAddFilesModalProps> = (
                 <div>
                   <label>
                     <RequiredField>{"*"} </RequiredField>
-                    {translate.t("validations.file_size", { count: 100 })}
+                    {translate.t("validations.fileSize", { count: 100 })}
                   </label>
                   <Field
                     component={FileInput}

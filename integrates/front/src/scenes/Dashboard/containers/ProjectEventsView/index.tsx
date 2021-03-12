@@ -294,7 +294,7 @@ const ProjectEventsView: React.FC = (): JSX.Element => {
     creationError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
       switch (message) {
         case "Exception - Invalid File Size":
-          msgError(translate.t("validations.file_size", { count: 10 }));
+          msgError(translate.t("validations.fileSize", { count: 10 }));
           break;
         case "Exception - Invalid File Type: EVENT_IMAGE":
           msgError(translate.t("group.events.form.wrongImageType"));

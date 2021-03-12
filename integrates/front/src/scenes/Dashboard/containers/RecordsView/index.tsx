@@ -61,7 +61,7 @@ const recordsView: React.FC = (): JSX.Element => {
           msgError(translate.t("groupAlerts.invalidStructure"));
           break;
         case "Exception - Invalid File Size":
-          msgError(translate.t("validations.file_size", { count: 1 }));
+          msgError(translate.t("validations.fileSize", { count: 1 }));
           break;
         case "Exception - Invalid File Type":
           msgError(translate.t("groupAlerts.fileTypeCsv"));

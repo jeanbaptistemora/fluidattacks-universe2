@@ -136,7 +136,7 @@ const projectStakeholdersView: React.FC = (): JSX.Element => {
             msgError(translate.t("validations.invalidValueInField"));
             break;
           case "Exception - Invalid characters":
-            msgError(translate.t("validations.invalid_char"));
+            msgError(translate.t("validations.invalidChar"));
             break;
           case "Exception - Invalid phone number in form":
             msgError(translate.t("validations.invalidPhoneNumberInField"));
@@ -146,14 +146,14 @@ const projectStakeholdersView: React.FC = (): JSX.Element => {
             break;
           case "Exception - Groups without an active Fluid Attacks service "
             + "can not have Fluid Attacks staff":
-            msgError(translate.t("validations.fluid_attacks_staff_without_fluid_attacks_service"));
+            msgError(translate.t("validations.fluidAttacksStaffWithoutFluidAttacksService"));
             break;
           case "Exception - Groups with any active Fluid Attacks service "
             + "can only have Hackers provided by Fluid Attacks":
-            msgError(translate.t("validations.no_fluid_attacks_hackers_in_fluid_attacks_service"));
+            msgError(translate.t("validations.noFluidAttacksHackersInFluidAttacksService"));
             break;
           case "Exception - The stakeholder has been granted access to the group previously":
-            msgError(translate.t("validations.stakeholder_has_group_access"));
+            msgError(translate.t("validations.stakeholderHasGroupAccess"));
             break;
           default:
             msgError(translate.t("groupAlerts.errorTextsad"));
@@ -182,18 +182,18 @@ const projectStakeholdersView: React.FC = (): JSX.Element => {
             msgError(translate.t("validations.invalidValueInField"));
             break;
           case "Exception - Invalid characters":
-            msgError(translate.t("validations.invalid_char"));
+            msgError(translate.t("validations.invalidChar"));
             break;
           case "Exception - Invalid phone number in form":
             msgError(translate.t("validations.invalidPhoneNumberInField"));
             break;
           case "Exception - Groups without an active Fluid Attacks service "
             + "can not have Fluid Attacks staff":
-            msgError(translate.t("validations.fluid_attacks_staff_without_fluid_attacks_service"));
+            msgError(translate.t("validations.fluidAttacksStaffWithoutFluidAttacksService"));
             break;
           case "Exception - Groups with any active Fluid Attacks service "
             + "can only have Hackers provided by Fluid Attacks":
-            msgError(translate.t("validations.no_fluid_attacks_hackers_in_fluid_attacks_service"));
+            msgError(translate.t("validations.noFluidAttacksHackersInFluidAttacksService"));
             break;
           case "Access denied or stakeholder not found":
             msgError(translate.t("groupAlerts.expiredInvitation"));

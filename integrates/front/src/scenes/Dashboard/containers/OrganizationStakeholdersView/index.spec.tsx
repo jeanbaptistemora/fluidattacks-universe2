@@ -866,7 +866,7 @@ describe("Organization users view", (): void => {
           wrapper.update();
 
           expect(msgError).toHaveBeenCalledWith(
-            translate.t("validations.invalid_char")
+            translate.t("validations.invalidChar")
           );
         });
       }

@@ -1361,7 +1361,6 @@ export const enTranslations: ResourceKey = {
           "Number of vulnerabilities that have a default treatment setting",
       },
     },
-    // eslint-disable-next-line sort-keys -- Temporal annotation during camelcase enforce
     tabObservations: {
       tabTitle: "Observations",
       tooltip:
@@ -2165,11 +2164,11 @@ export const enTranslations: ResourceKey = {
     draftTitle: "The title format is not valid",
     email: "The email format is not valid",
     excludeFormat: "Root name should not be included in the exception pattern",
-    file_size: "The file size must be less than {{count}}MB",
-    fluid_attacks_staff_without_fluid_attacks_service:
+    fileSize: "The file size must be less than {{count}}MB",
+    fluidAttacksStaffWithoutFluidAttacksService:
       "Groups without an active Fluid Attacks service " +
       "can not have Fluid Attacks staff",
-    greater_date: "The date must be today or before",
+    greaterDate: "The date must be today or before",
     infectedFile: "Our system detected that the uploaded file is infected",
     invalidCommentParent: "The comment parent is invalid",
     invalidEmailInField: "The email address inserted is not valid",
@@ -2182,22 +2181,22 @@ export const enTranslations: ResourceKey = {
     invalidUrlField:
       "URL value cannot contain the following characters: {{chars}}",
     invalidValueInField: "The value inserted in one of the fields is not valid",
-    invalid_char:
+    invalidChar:
       "Invalid characters, use: alphanumerics, spaces and punctuations",
-    lower_date: "Invalid date",
+    lowerDate: "Invalid date",
     maxLength: "This field requires less than {{count}} characters",
     minLength: "This field requires at least {{count}} characters",
-    no_fluid_attacks_hackers_in_fluid_attacks_service:
+    noFluidAttacksHackersInFluidAttacksService:
       "Groups with any active Fluid Attacks service " +
       "can only have Hackers provided by Fluid Attacks",
     numeric: "This field can only contain numbers",
     required: "Required field",
-    some_required: "Select at least one value",
-    stakeholder_has_group_access:
+    someRequired: "Select at least one value",
+    stakeholderHasGroupAccess:
       "The stakeholder has been granted access to the group previously",
     tags: "This field can only contain alphanumeric characters and dashes",
-    valid_date: "The date must be below six months",
-    valid_date_token: "The date must be below six months",
-    valid_session_date: "The session has expired",
+    validDate: "The date must be below six months",
+    validDateToken: "The date must be below six months",
+    validSessionDate: "The session has expired",
   },
 };

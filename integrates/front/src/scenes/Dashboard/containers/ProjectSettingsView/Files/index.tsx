@@ -141,7 +141,7 @@ const Files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
               msgError(translate.t("validations.invalidValueInField"));
               break;
             case "Exception - Invalid characters":
-              msgError(translate.t("validations.invalid_char"));
+              msgError(translate.t("validations.invalidChar"));
               break;
             case "Exception - File infected":
               msgError(translate.t("validations.infectedFile"));

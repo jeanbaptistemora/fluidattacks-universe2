@@ -74,7 +74,7 @@ const EvidenceView: React.FC = (): JSX.Element => {
             msgError(translate.t("validations.invalidValueInField"));
             break;
           case "Exception - Invalid characters":
-            msgError(translate.t("validations.invalid_char"));
+            msgError(translate.t("validations.invalidChar"));
             break;
           default:
             msgError(translate.t("groupAlerts.errorTextsad"));
@@ -92,7 +92,7 @@ const EvidenceView: React.FC = (): JSX.Element => {
       updateError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
         switch (message) {
           case "Exception - Invalid File Size":
-            msgError(translate.t("validations.file_size", { count: 10 }));
+            msgError(translate.t("validations.fileSize", { count: 10 }));
             break;
           case "Exception - Invalid File Type":
             msgError(translate.t("group.events.form.wrongImageType"));

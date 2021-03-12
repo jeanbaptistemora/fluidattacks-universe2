@@ -60,7 +60,7 @@ const setupSessionCheck: (expDate: string) => void = (expDate): void => {
   setTimeout((): void => {
     if (!state.active) {
       // eslint-disable-next-line no-alert -- Deliberate usage
-      alert(translate.t("validations.valid_session_date"));
+      alert(translate.t("validations.validSessionDate"));
     }
     location.replace(`https://${window.location.host}`);
   }, moment.utc(expDate).diff(moment.utc()));

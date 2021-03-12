@@ -103,9 +103,9 @@ export const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
           msgError(translate.t("groupAlerts.invalidSchema"));
         }
       } else if (message === "Exception - Invalid characters") {
-        msgError(translate.t("validations.invalid_char"));
+        msgError(translate.t("validations.invalidChar"));
       } else if (message === "Exception - Invalid File Size") {
-        msgError(translate.t("validations.file_size", { count: 1 }));
+        msgError(translate.t("validations.fileSize", { count: 1 }));
       } else if (message === "Exception - Invalid File Type") {
         msgError(translate.t("groupAlerts.fileTypeYaml"));
       } else if (message.includes("Exception - Error in path value")) {

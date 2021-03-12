@@ -53,7 +53,7 @@ const someRequired: Validator = (
   );
   const isValid: boolean = _.some(groupValues);
 
-  return isValid ? undefined : translate.t("validations.some_required");
+  return isValid ? undefined : translate.t("validations.someRequired");
 };
 
 const validEvidenceDescription: Validator = (
@@ -261,7 +261,7 @@ const dateTimeBeforeToday: Validator = (date: Moment): string | undefined => {
 
   return date.isSameOrBefore(today)
     ? undefined
-    : translate.t("validations.greater_date");
+    : translate.t("validations.greaterDate");
 };
 
 const isValidVulnsFile: Validator = (value: FileList): string | undefined => {
@@ -275,7 +275,7 @@ const isValidVulnsFile: Validator = (value: FileList): string | undefined => {
     _.last(file.name.split(".")) as string
   }`.toLowerCase();
   if (file.size > Number(MIB)) {
-    return translate.t("validations.file_size", { count: 1 });
+    return translate.t("validations.fileSize", { count: 1 });
   } else if (!_.includes([".yml", ".yaml"], fileType)) {
     return translate.t("groupAlerts.fileTypeYaml");
   }
@@ -318,7 +318,7 @@ const isValidFileSize: (maxSize: number) => Validator = (
 
   return _.isEmpty(file) || file[0].size < MIB * maxSize
     ? undefined
-    : translate.t("validations.file_size", { count: maxSize });
+    : translate.t("validations.fileSize", { count: maxSize });
 };
 
 const isValidDateAccessToken: Validator = (
@@ -333,7 +333,7 @@ const isValidDateAccessToken: Validator = (
   );
 
   if (date > sixMonthsLater) {
-    return translate.t("validations.valid_date_token");
+    return translate.t("validations.validDateToken");
   }
 
   return undefined;
@@ -344,7 +344,7 @@ const isLowerDate: Validator = (value: string): string | undefined => {
   const today: Date = new Date();
 
   if (date <= today) {
-    return translate.t("validations.lower_date");
+    return translate.t("validations.lowerDate");
   }
 
   return undefined;

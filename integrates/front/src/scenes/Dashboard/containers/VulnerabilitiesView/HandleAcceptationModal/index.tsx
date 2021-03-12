@@ -161,7 +161,7 @@ const HandleAcceptationModal: React.FC<IHandleVulnsAcceptationModalProps> = (
               msgError(translate.t("groupAlerts.noFound"));
               break;
             case "Exception - Invalid characters":
-              msgError(translate.t("validations.invalid_char"));
+              msgError(translate.t("validations.invalidChar"));
               break;
             default:
               msgError(translate.t("groupAlerts.errorTextsad"));
