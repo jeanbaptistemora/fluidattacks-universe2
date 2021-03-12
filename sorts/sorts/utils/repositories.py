@@ -20,19 +20,11 @@ from numpy import ndarray
 from pydriller.metrics.process.hunks_count import HunksCount
 
 # Local libraries
+from sorts.constants import (
+    RENAME_REGEX,
+    STAT_REGEX
+)
 from sorts.utils.logs import log_exception
-
-
-STAT_REGEX = re.compile(
-    r'([0-9]+ files? changed)?'
-    r'(, (?P<insertions>[0-9]+) insertions\(\+\))?'
-    r'(, (?P<deletions>[0-9]+) deletions\(\-\))?'
-)
-RENAME_REGEX = re.compile(
-    r'(?P<pre_path>.*)?'
-    r'{(?P<old_name>.*) => (?P<new_name>.*)}'
-    r'(?P<post_path>.*)?'
-)
 
 
 class GitMetrics(TypedDict):

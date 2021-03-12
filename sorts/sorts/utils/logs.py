@@ -9,15 +9,13 @@ from typing import (
 import bugsnag
 
 # Local libraries
+from sorts.constants import (
+    LOGGER,
+    LOGGER_HANDLER,
+    LOGGER_REMOTE,
+    LOGGER_REMOTE_HANDLER
+)
 from sorts.utils.bugs import META as BUGS_META
-
-
-# Private constantss
-_LOGGER_HANDLER: logging.StreamHandler = logging.StreamHandler()
-_LOGGER: logging.Logger = logging.getLogger('Sorts')
-
-_LOGGER_REMOTE_HANDLER = bugsnag.handlers.BugsnagHandler()
-_LOGGER_REMOTE: logging.Logger = logging.getLogger('Sorts.stability')
 
 
 class CustomFormatter(logging.Formatter):
@@ -45,26 +43,26 @@ class CustomFormatter(logging.Formatter):
 
 
 def configure() -> None:
-    _LOGGER_HANDLER.setStream(sys.stdout)
-    _LOGGER_HANDLER.setLevel(logging.INFO)
-    _LOGGER_HANDLER.setFormatter(CustomFormatter())
+    LOGGER_HANDLER.setStream(sys.stdout)
+    LOGGER_HANDLER.setLevel(logging.INFO)
+    LOGGER_HANDLER.setFormatter(CustomFormatter())
 
-    _LOGGER.setLevel(logging.INFO)
-    _LOGGER.addHandler(_LOGGER_HANDLER)
+    LOGGER.setLevel(logging.INFO)
+    LOGGER.addHandler(LOGGER_HANDLER)
 
-    _LOGGER_REMOTE_HANDLER.setLevel(logging.ERROR)
+    LOGGER_REMOTE_HANDLER.setLevel(logging.ERROR)
 
-    _LOGGER_REMOTE.setLevel(logging.ERROR)
-    _LOGGER_REMOTE.addHandler(_LOGGER_REMOTE_HANDLER)
+    LOGGER_REMOTE.setLevel(logging.ERROR)
+    LOGGER_REMOTE.addHandler(LOGGER_REMOTE_HANDLER)
 
 
 def set_level(level: int) -> None:
-    _LOGGER.setLevel(level)
-    _LOGGER_HANDLER.setLevel(level)
+    LOGGER.setLevel(level)
+    LOGGER_HANDLER.setLevel(level)
 
 
 def log(level: str, msg: str, *args: Any) -> None:
-    getattr(_LOGGER, level)(msg, *args)
+    getattr(LOGGER, level)(msg, *args)
 
 
 def log_exception(
