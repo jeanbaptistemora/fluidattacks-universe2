@@ -259,13 +259,13 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
           _.includes(
             String(updateError),
             translate.t(
-              "search_findings.tab_vuln.alerts.maximumNumberOfAcceptations"
+              "search_findings.tabVuln.alerts.maximumNumberOfAcceptations"
             )
           )
         ) {
           msgError(
             translate.t(
-              "search_findings.tab_vuln.alerts.maximumNumberOfAcceptations"
+              "search_findings.tabVuln.alerts.maximumNumberOfAcceptations"
             )
           );
         } else if (
@@ -284,9 +284,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
         } else if (
           _.includes(
             String(updateError),
-            translate.t(
-              "search_findings.tab_vuln.exceptions.severityOutOfRange"
-            )
+            translate.t("search_findings.tabVuln.exceptions.severityOutOfRange")
           )
         ) {
           msgError(
@@ -535,7 +533,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
                   <Alert>
                     {"*"}&nbsp;
                     {translate.t(
-                      "search_findings.tab_vuln.alerts.treatmentChange"
+                      "search_findings.tabVuln.alerts.treatmentChange"
                     )}
                   </Alert>
                 )}
@@ -547,10 +545,9 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
                 ) ? (
                   <Alert>
                     {"*"}&nbsp;
-                    {translate.t(
-                      "search_findings.tab_vuln.alerts.hasNewVulns",
-                      { count: vulnerabilities.length }
-                    )}
+                    {translate.t("search_findings.tabVuln.alerts.hasNewVulns", {
+                      count: vulnerabilities.length,
+                    })}
                   </Alert>
                 ) : undefined}
                 <hr />

@@ -42,10 +42,10 @@ const VerifyVunButton: React.FC<IVerifyVunButtonProps> = ({
       {shouldRenderVerifyBtn ? (
         <TooltipWrapper
           displayClass={"dib"}
-          id={"search_findings.tab_vuln.buttonsTooltip.cancelVerify.id"}
+          id={"search_findings.tabVuln.buttonsTooltip.cancelVerify.id"}
           message={
             isVerifying
-              ? t("search_findings.tab_vuln.buttonsTooltip.cancel")
+              ? t("search_findings.tabVuln.buttonsTooltip.cancel")
               : t("search_findings.tabDescription.markVerified.tooltip")
           }
           placement={"top"}

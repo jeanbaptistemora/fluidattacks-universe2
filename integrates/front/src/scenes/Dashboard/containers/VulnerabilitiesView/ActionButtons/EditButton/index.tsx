@@ -30,7 +30,7 @@ const EditButton: React.FC<IEditButtonProps> = ({
           message={
             isEditing
               ? t("search_findings.tabDescription.save.tooltip")
-              : t("search_findings.tab_vuln.buttonsTooltip.edit")
+              : t("search_findings.tabVuln.buttonsTooltip.edit")
           }
         >
           <Button
@@ -46,7 +46,7 @@ const EditButton: React.FC<IEditButtonProps> = ({
             ) : (
               <React.Fragment>
                 <FluidIcon icon={"edit"} />
-                &nbsp;{t("search_findings.tab_vuln.buttons.edit")}
+                &nbsp;{t("search_findings.tabVuln.buttons.edit")}
               </React.Fragment>
             )}
           </Button>

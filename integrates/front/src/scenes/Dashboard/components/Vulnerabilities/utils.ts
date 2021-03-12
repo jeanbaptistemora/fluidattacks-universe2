@@ -140,7 +140,7 @@ const formatVulnerabilities: (
           : "-",
         verification: shouldDisplayVerification ? verification : "",
         vulnType: translate.t(
-          `search_findings.tab_vuln.vulnTable.vulnType.${vulnerability.vulnType}`
+          `search_findings.tabVuln.vulnTable.vulnType.${vulnerability.vulnType}`
         ),
       };
     }

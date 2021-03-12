@@ -56,16 +56,16 @@ const ReattackVulnButton: React.FC<IReattackVulnButtonProps> = ({
         >
           <FluidIcon icon={"verified"} />
           &nbsp;
-          {t("search_findings.tab_vuln.buttons.reattack")}
+          {t("search_findings.tabVuln.buttons.reattack")}
         </Button>
       ) : undefined}
       {shouldRenderRequestVerifyBtn ? (
         <TooltipWrapper
           displayClass={"dib"}
-          id={"search_findings.tab_vuln.buttonsTooltip.cancel_reattack.id"}
+          id={"search_findings.tabVuln.buttonsTooltip.cancel_reattack.id"}
           message={
             isRequestingReattack
-              ? t("search_findings.tab_vuln.buttonsTooltip.cancel")
+              ? t("search_findings.tabVuln.buttonsTooltip.cancel")
               : t("search_findings.tabDescription.requestVerify.tooltip")
           }
         >

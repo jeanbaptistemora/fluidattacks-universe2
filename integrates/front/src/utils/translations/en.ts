@@ -1934,7 +1934,7 @@ export const enTranslations: ResourceKey = {
       title: "Add stakeholder to this group",
       titleSuccess: "Congratulations",
     },
-    tab_vuln: {
+    tabVuln: {
       alerts: {
         acceptationNotRequested: "Indefinite acceptation is not requested",
         acceptationSuccess: "Indefinite acceptation has been handled",

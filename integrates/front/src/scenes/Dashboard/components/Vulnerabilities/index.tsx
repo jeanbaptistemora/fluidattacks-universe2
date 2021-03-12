@@ -203,7 +203,7 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
     {
       dataField: "where",
       formatter: vulnerabilityInfo,
-      header: t("search_findings.tab_vuln.vulnTable.where"),
+      header: t("search_findings.tabVuln.vulnTable.where"),
       headerFormatter: filterFormatter,
       onSort: onSortVulns,
     },
@@ -291,7 +291,7 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
         </Col100>
       ) : undefined}
       <Modal
-        headerTitle={t("search_findings.tab_vuln.vulnerabilityInfo")}
+        headerTitle={t("search_findings.tabVuln.vulnerabilityInfo")}
         open={isAdditionalInfoOpen}
       >
         {_.isUndefined(currentRow) ? undefined : (
@@ -304,9 +304,9 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
                 icon={"icon pe-7s-graph3"}
                 id={"vulnerabilityDetailsTab"}
                 link={"/details"}
-                title={t("search_findings.tab_vuln.contentTab.details.title")}
+                title={t("search_findings.tabVuln.contentTab.details.title")}
                 tooltip={t(
-                  "search_findings.tab_vuln.contentTab.details.tooltip"
+                  "search_findings.tabVuln.contentTab.details.tooltip"
                 )}
               />
               {currentRow.currentState === "open" &&
@@ -319,10 +319,10 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
                   id={"vulnerabilityTreatmentsTab"}
                   link={"/treatments"}
                   title={t(
-                    "search_findings.tab_vuln.contentTab.treatments.title"
+                    "search_findings.tabVuln.contentTab.treatments.title"
                   )}
                   tooltip={t(
-                    "search_findings.tab_vuln.contentTab.treatments.tooltip"
+                    "search_findings.tabVuln.contentTab.treatments.tooltip"
                   )}
                 />
               ) : undefined}

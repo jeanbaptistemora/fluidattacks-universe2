@@ -79,17 +79,16 @@ export const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
           const listValuesFormated: string[] = Array.from(
             new Set(
               errorObject.values.map((valX: string): string =>
-                translate.t(
-                  "search_findings.tab_vuln.alerts.uploadFile.value",
-                  { pattern: valX }
-                )
+                translate.t("search_findings.tabVuln.alerts.uploadFile.value", {
+                  pattern: valX,
+                })
               )
             )
           );
           const listKeysFormated: string[] = Array.from(
             new Set(
               errorObject.keys.map((valY: string): string =>
-                translate.t("search_findings.tab_vuln.alerts.uploadFile.key", {
+                translate.t("search_findings.tabVuln.alerts.uploadFile.key", {
                   key: valY,
                 })
               )
@@ -128,9 +127,7 @@ export const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
       } else if (message === "Exception - Invalid Stream") {
         translate.t("groupAlerts.invalidSchema");
         msgError(
-          translate.t(
-            "search_findings.tab_vuln.alerts.uploadFile.invalidStream"
-          )
+          translate.t("search_findings.tabVuln.alerts.uploadFile.invalidStream")
         );
       } else {
         msgError(translate.t("groupAlerts.invalidSpecific"));

@@ -304,8 +304,8 @@ const findingContent: React.FC = (): JSX.Element => {
                     icon={"icon pe-7s-menu"}
                     id={"vulnItem"}
                     link={`${url}/locations`}
-                    title={translate.t("search_findings.tab_vuln.tabTitle")}
-                    tooltip={translate.t("search_findings.tab_vuln.tooltip")}
+                    title={translate.t("search_findings.tabVuln.tabTitle")}
+                    tooltip={translate.t("search_findings.tabVuln.tooltip")}
                   />
                   <ContentTab
                     icon={"icon pe-7s-note"}
