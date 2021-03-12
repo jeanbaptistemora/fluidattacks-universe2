@@ -312,6 +312,20 @@ data "aws_iam_policy_document" "integrates-prod-policy-data" {
     ]
   }
 
+  # Batch access
+  statement {
+    effect    = "Allow"
+    actions   = ["batch:ListJobs"]
+    resources = ["*"]
+  }
+  statement {
+    effect  = "Allow"
+    actions = ["batch:SubmitJob"]
+    resources = [
+      "arn:aws:batch:us-east-1:${data.aws_caller_identity.current.account_id}:job-definition/default",
+      "arn:aws:batch:us-east-1:${data.aws_caller_identity.current.account_id}:job-queue/spot*",
+    ]
+  }
 }
 
 resource "aws_iam_policy" "integrates-prod-policy" {
