@@ -257,6 +257,21 @@ resource "aws_dynamodb_table" "FI_toe" {
   name         = "FI_toe"
 }
 
+resource "aws_dynamodb_table" "FI_toe_lines" {
+  attribute {
+    name = "pk"
+    type = "S"
+  }
+  attribute {
+    name = "sk"
+    type = "S"
+  }
+  billing_mode = "PAY_PER_REQUEST"
+  hash_key     = "pk"
+  name         = "FI_toe_lines"
+  range_key    = "sk"
+}
+
 resource "aws_dynamodb_table" "FI_users" {
   attribute {
     name = "email"
