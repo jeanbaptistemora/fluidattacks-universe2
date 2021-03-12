@@ -79,6 +79,7 @@ observes.env.runtime.dif-gitlab-etl
 observes.env.runtime.migrate-tables
 observes.env.runtime.postgres-client
 observes.env.runtime.singer-io
+observes.env.runtime.streamer-dynamodb
 observes.env.runtime.tap-zoho-analytics
 observes.env.runtime.timedoctor-tokens
 observes.generic.linter
