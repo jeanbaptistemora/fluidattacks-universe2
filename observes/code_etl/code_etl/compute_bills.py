@@ -18,6 +18,7 @@ from typing import (
     Dict,
     Iterable,
     List,
+    Optional,
     Set,
     Tuple,
 )
@@ -28,7 +29,7 @@ from ratelimiter import RateLimiter
 from code_etl.utils import (
     COMMIT_HASH_SENTINEL,
     db_cursor,
-    log_sync,
+    get_log,
 )
 
 # Constants
@@ -43,13 +44,14 @@ SELECT_ALL: str = """
         TO_CHAR(seen_at, 'YYYY-MM') = %(seen_at)s
         AND hash != %(hash)s
 """
+LOG = get_log(__name__)
 
 # Types
 MonthData = Dict[str, Dict[str, List[Any]]]
 
 
 @RateLimiter(max_calls=60, period=60)
-def get_group_org(token: str, group: str) -> str:
+def get_group_org(token: str, group: str) -> Optional[str]:
     query = """
         query ObservesGetGroupOrganization($projectName: String!){
             project(projectName: $projectName){
@@ -68,12 +70,14 @@ def get_group_org(token: str, group: str) -> str:
         headers={'Authorization': f'Bearer {token}'}
     )
     data = result.json()
-    log_sync(
-        'debug', 'Group: %s; \nResponse: %s',
+    LOG.debug(
+        'Group: %s; \nResponse: %s',
         group,
         json.dumps(data, indent=4)
     )
-    return data['data']['project']['organization']
+    if data['data']['project']:
+        return data['data']['project']['organization']
+    return None
 
 
 def get_date_data(year: int, month: int) -> Tuple[MonthData, Set[str]]:
@@ -86,7 +90,7 @@ def get_date_data(year: int, month: int) -> Tuple[MonthData, Set[str]]:
 
     date: str = datetime(year, month, 1).strftime('%Y-%m')
 
-    log_sync('info', 'Computing bills for date: %s', date)
+    LOG.info('Computing bills for date: %s', date)
 
     with db_cursor() as cursor:
         cursor.execute(SELECT_ALL, dict(
@@ -104,7 +108,7 @@ def get_date_data(year: int, month: int) -> Tuple[MonthData, Set[str]]:
             data[actor][group].append(row)
             groups.add(group)
 
-    log_sync('info', 'Data: %s', json.dumps(data, indent=2))
+    LOG.info('Data: %s', json.dumps(data, indent=2))
 
     return data, groups
 
@@ -112,7 +116,7 @@ def get_date_data(year: int, month: int) -> Tuple[MonthData, Set[str]]:
 def groups_of_org(
     org: str,
     groups: Iterable[str],
-    get_org: Callable[[str], str]
+    get_org: Callable[[str], Optional[str]]
 ) -> Set[str]:
     return set(filter(lambda group: get_org(group) == org, groups))
 
@@ -121,7 +125,7 @@ def create_csv_file(
     folder: str,
     data: MonthData,
     group: str,
-    get_org: Callable[[str], str]
+    get_org: Callable[[str], Optional[str]]
 ) -> None:
     with open(os.path.join(folder, f'{group}.csv'), 'w') as file:
         writer = csv.DictWriter(
@@ -138,15 +142,19 @@ def create_csv_file(
 
         for actor, actor_groups in data.items():
             if group in actor_groups:
-                groups_contributed = groups_of_org(
-                    get_org(group), actor_groups, get_org
-                )
-                writer.writerow({
-                    'actor': actor,
-                    'groups': ', '.join(groups_contributed),
-                    'commit': actor_groups[group][-1]['hash'],
-                    'repository': actor_groups[group][-1]['repository'],
-                })
+                org = get_org(group)
+                if org:
+                    groups_contributed = groups_of_org(
+                        org, actor_groups, get_org
+                    )
+                    writer.writerow({
+                        'actor': actor,
+                        'groups': ', '.join(groups_contributed),
+                        'commit': actor_groups[group][-1]['hash'],
+                        'repository': actor_groups[group][-1]['repository'],
+                    })
+                else:
+                    LOG.warning('Skipped group contribution: %s', group)
 
 
 def main(
@@ -158,11 +166,11 @@ def main(
     data, groups = get_date_data(year, month)
 
     @lru_cache(maxsize=None)
-    def get_org(group: str) -> str:
+    def get_org(group: str) -> Optional[str]:
         return get_group_org(integrates_token, group)
 
     for group in groups:
-        log_sync('info', 'Creating bill for: %s', group)
+        LOG.info('Creating bill for: %s', group)
         create_csv_file(folder, data, group, get_org)
 
 
