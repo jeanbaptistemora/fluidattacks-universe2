@@ -15,7 +15,7 @@ import { Layout } from "../components/layout";
 import { NavbarComponent } from "../components/navbar";
 import React from "react";
 import { Seo } from "../components/seo";
-import { SolutionsIndexContent } from "../components/solutions/solutionsIndexContent";
+import { SolutionsIndexContent } from "../components/solutionsIndexContent";
 import { graphql } from "gatsby";
 import { translate } from "../utils/translations/translate";
 import * as attackSimulationImage from "../assets/images/solutions/solution-6.png";
@@ -110,6 +110,7 @@ const SolutionsIndex: React.FC<IQueryData> = ({
                 <SolutionsIndexContent
                   image={devSecOpsImage}
                   imageAllignment={"fl-l tl"}
+                  link={"/solutions/devsecops/"}
                   paragraph={translate.t("solutions.devSecOps.paragraph")}
                   paragraphAllignment={"fr-l"}
                   subtitle={translate.t("solutions.devSecOps.subtitle")}
@@ -118,6 +119,7 @@ const SolutionsIndex: React.FC<IQueryData> = ({
                 <SolutionsIndexContent
                   image={securityTestingImage}
                   imageAllignment={"fl-l tl"}
+                  link={"/solutions/security-testing/"}
                   paragraph={translate.t("solutions.securityTesting.paragraph")}
                   paragraphAllignment={"fr-l"}
                   subtitle={translate.t("solutions.securityTesting.subtitle")}
@@ -126,6 +128,7 @@ const SolutionsIndex: React.FC<IQueryData> = ({
                 <SolutionsIndexContent
                   image={penetrationTestingImage}
                   imageAllignment={"fl-l tl"}
+                  link={"/solutions/penetration-testing/"}
                   padding={"pb6"}
                   paragraph={translate.t(
                     "solutions.penetrationTesting.paragraph"
@@ -139,6 +142,7 @@ const SolutionsIndex: React.FC<IQueryData> = ({
                 <SolutionsIndexContent
                   image={ethicalHackingImage}
                   imageAllignment={"fr-l tl"}
+                  link={"/solutions/ethical-hacking/"}
                   paragraph={translate.t("solutions.ethicalHacking.paragraph")}
                   paragraphAllignment={"fl-l"}
                   subtitle={translate.t("solutions.ethicalHacking.subtitle")}
@@ -147,6 +151,7 @@ const SolutionsIndex: React.FC<IQueryData> = ({
                 <SolutionsIndexContent
                   image={redTeamingImage}
                   imageAllignment={"fr-l tl"}
+                  link={"/solutions/red-teaming/"}
                   paragraph={translate.t("solutions.redTeaming.paragraph")}
                   paragraphAllignment={"fl-l"}
                   subtitle={translate.t("solutions.redTeaming.subtitle")}
@@ -155,6 +160,7 @@ const SolutionsIndex: React.FC<IQueryData> = ({
                 <SolutionsIndexContent
                   image={attackSimulationImage}
                   imageAllignment={"fr-l tl"}
+                  link={"/solutions/attack-simulation/"}
                   paragraph={translate.t(
                     "solutions.attackSimulation.paragraph"
                   )}

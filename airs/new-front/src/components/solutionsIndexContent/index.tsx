@@ -14,6 +14,7 @@ import {
 interface IProps {
   image: string;
   imageAllignment: string;
+  link: string;
   subtitle: string;
   paragraph: string;
   paragraphAllignment: string;
@@ -23,6 +24,7 @@ interface IProps {
 const SolutionsIndexContent: React.FC<IProps> = ({
   image,
   imageAllignment,
+  link,
   subtitle,
   padding,
   paragraph,
@@ -40,7 +42,7 @@ const SolutionsIndexContent: React.FC<IProps> = ({
               className={
                 "c-fluid-bk underlined-animated no-underline mt0 mb3 t-all-5"
               }
-              to={"."}>
+              to={link}>
               <SolutionsSubtitle>{subtitle}</SolutionsSubtitle>
             </Link>
             <SolutionsParagraph>{paragraph}</SolutionsParagraph>

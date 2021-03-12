@@ -714,7 +714,7 @@ const SquaredCardContainer: StyledComponent<
   className: `
     counter-container
     bg-white
-    shadowbox-blog
+    bs-btm-h-10
     br3
     dib-l
     ph4
