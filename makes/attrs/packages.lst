@@ -72,6 +72,7 @@ observes.env.development.code-etl
 observes.env.development.dif-gitlab-etl
 observes.env.development.postgres-client
 observes.env.development.singer-io
+observes.env.development.streamer-gitlab
 observes.env.development.tap-zoho-analytics
 observes.env.runtime.batch-stability
 observes.env.runtime.code-etl
@@ -80,6 +81,7 @@ observes.env.runtime.migrate-tables
 observes.env.runtime.postgres-client
 observes.env.runtime.singer-io
 observes.env.runtime.streamer-dynamodb
+observes.env.runtime.streamer-gitlab
 observes.env.runtime.tap-zoho-analytics
 observes.env.runtime.timedoctor-tokens
 observes.generic.linter
