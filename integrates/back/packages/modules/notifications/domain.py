@@ -18,13 +18,13 @@ from graphql.type.definition import GraphQLResolveInfo
 
 # Local imports
 from backend import mailer
-from backend.dal import notifications as notifications_dal
 from backend.domain import (
     organization as org_domain,
     user as user_domain
 )
 from backend.typing import Finding as FindingType
 from newutils import datetime as datetime_utils
+from notifications import dal as notifications_dal
 from __init__ import (
     BASE_URL,
 )

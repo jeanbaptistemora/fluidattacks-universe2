@@ -1,6 +1,7 @@
 # Standard library
 import contextlib
 import logging
+import logging.config
 
 # Third party imports
 import requests
@@ -13,8 +14,11 @@ from exponent_server_sdk import (
     PushServerError
 )
 from zenpy import Zenpy
+from zenpy.lib.api_objects import (
+    Ticket,
+    User,
+)
 from zenpy.lib.exception import ZenpyException
-from zenpy.lib.api_objects import Ticket, User
 
 # Local imports
 from back.settings import LOGGING
@@ -24,23 +28,11 @@ from __init__ import (
     FI_ZENDESK_TOKEN,
 )
 
+
 logging.config.dictConfig(LOGGING)
 
 # Constants
 LOGGER = logging.getLogger(__name__)
-
-
-@contextlib.contextmanager
-def zendesk() -> Zenpy:
-    try:
-        yield Zenpy(
-            email=FI_ZENDESK_EMAIL,
-            subdomain=FI_ZENDESK_SUBDOMAIN,
-            token=FI_ZENDESK_TOKEN,
-        )
-    except ZenpyException as exception:
-        LOGGER.exception(exception, extra=dict(extra=locals()))
-        raise exception
 
 
 def create_ticket(
@@ -50,9 +42,7 @@ def create_ticket(
     requester_email: str,
 ) -> bool:
     success: bool = False
-
     try:
-
         with zendesk() as api:
             api.tickets.create(Ticket(
                 subject=subject,
@@ -62,7 +52,6 @@ def create_ticket(
                     email=requester_email,
                 ),
             ))
-
     except ZenpyException as exception:
         LOGGER.exception(exception, extra=dict(extra=locals()))
     else:
@@ -76,7 +65,6 @@ def create_ticket(
                     requester_email=requester_email,
                 )
             })
-
     return success
 
 
@@ -87,7 +75,6 @@ def send_push_notification(
     message: str
 ) -> None:
     client = PushClient()
-
     try:
         response: PushResponse = client.publish(
             PushMessage(
@@ -101,7 +88,6 @@ def send_push_notification(
                 to=token,
             )
         )
-
         try:
             response.validate_response()
             LOGGER.info(
@@ -123,3 +109,16 @@ def send_push_notification(
         PushServerError
     ) as ex:
         LOGGER.exception(ex)
+
+
+@contextlib.contextmanager
+def zendesk() -> Zenpy:
+    try:
+        yield Zenpy(
+            email=FI_ZENDESK_EMAIL,
+            subdomain=FI_ZENDESK_SUBDOMAIN,
+            token=FI_ZENDESK_TOKEN,
+        )
+    except ZenpyException as exception:
+        LOGGER.exception(exception, extra=dict(extra=locals()))
+        raise exception
