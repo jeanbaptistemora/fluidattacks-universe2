@@ -175,6 +175,9 @@ integrates.back.test.functional.add_project_consult:
 integrates.back.test.functional.add_tags_mutation:
   <<: *integrates_back_test_functional
 
+integrates.back.test.functional.create_event:
+  <<: *integrates_back_test_functional
+
 integrates.back.test.functional.create_organization:
   <<: *integrates_back_test_functional
 
