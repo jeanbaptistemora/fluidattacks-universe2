@@ -33,6 +33,7 @@ TEST_GROUPS: Set[str] = {
     'update_organization_policies',
     'upload_file_mutation',
     'verify_request_vuln',
+    'vulnerability',
 }
 
 

@@ -235,6 +235,9 @@ integrates.back.test.functional.upload_file_mutation:
 integrates.back.test.functional.verify_request_vuln:
   <<: *integrates_back_test_functional
 
+integrates.back.test.functional.vulnerability:
+  <<: *integrates_back_test_functional
+
 integrates.back.test.unit:
   <<: *makes
   <<: *in_dev_branch_integrates
