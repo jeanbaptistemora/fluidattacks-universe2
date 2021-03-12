@@ -14,6 +14,7 @@ TEST_GROUPS: Set[str] = {
     'add_tags_mutation',
     'create_organization',
     'create_project',
+    'delete_vulnerability',
     'download_vuln_file',
     'edit_group',
     'edit_stakeholder',
