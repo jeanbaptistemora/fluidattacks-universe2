@@ -150,10 +150,13 @@ def _format_git_repo_url(raw_url: str) -> str:
 
 
 def format_root_nickname(nickname: str, url: str):
+    nick = url.split('/')[-1]
     if nickname:
-        return nickname
+        nick = nickname
     # Return the repo name as nickname
-    return url.split('/')[-1]
+    if nick.endswith('.git'):
+        return nick[:-4]
+    return nick
 
 
 async def add_git_root(context: Any, user_email: str, **kwargs: Any) -> None:
@@ -350,22 +353,32 @@ def _is_active(root: Dict[str, Any]) -> bool:
 async def update_git_root(user_email: str, **kwargs: Any) -> None:
     root_id: str = kwargs['id']
     root: Dict[str, Any] = await get_root_by_id(root_id)
+    group_name: str = root['group_name']
     last_state: Dict[str, Any] = root['historic_state'][-1]
-    is_valid: bool = _is_active(root) and root['kind'] == 'Git'
 
+    nickname = format_root_nickname(
+        kwargs.get('nickname', ''),
+        root.get('nickname', '')
+    )
     gitignore = kwargs['gitignore']
     filter_changed: bool = gitignore != last_state['gitignore']
     enforcer = await authz.get_group_level_enforcer(user_email)
     if (
         filter_changed
-        and not enforcer(root['group_name'], 'update_git_root_filter')
+        and not enforcer(group_name, 'update_git_root_filter')
     ):
         raise PermissionDenied()
     if not validations.is_exclude_valid(gitignore, root['url']):
         raise InvalidRootExclusion()
 
-    if is_valid:
-        group_name: str = root['group_name']
+    if _is_active(root) and root['kind'] == 'Git':
+
+        if (
+            nickname != root.get('nickname', '') and
+            not await _is_nickname_unique_in_group(group_name, nickname)
+        ):
+            raise RepeatedRootNickname()
+
         new_state: Dict[str, Any] = {
             **last_state,
             'date': datetime.get_as_str(datetime.get_now()),
@@ -378,7 +391,10 @@ async def update_git_root(user_email: str, **kwargs: Any) -> None:
         await root_dal.update(
             group_name,
             root_id,
-            {'historic_state': [*root['historic_state'], new_state]}
+            {
+                'nickname': nickname,
+                'historic_state': [*root['historic_state'], new_state],
+            }
         )
         health_check_changed: bool = (
             kwargs['includes_health_check']
@@ -387,17 +403,17 @@ async def update_git_root(user_email: str, **kwargs: Any) -> None:
         if health_check_changed:
             if kwargs['includes_health_check']:
                 await notifications_domain.request_health_check(
-                    requester_email=user_email,
+                    branch=root['branch'],
                     group_name=group_name,
                     repo_url=root['url'],
-                    branch=root['branch']
+                    requester_email=user_email,
                 )
             else:
                 await notifications_domain.cancel_health_check(
-                    requester_email=user_email,
+                    branch=root['branch'],
                     group_name=group_name,
                     repo_url=root['url'],
-                    branch=root['branch']
+                    requester_email=user_email,
                 )
     else:
         raise InvalidParameter()

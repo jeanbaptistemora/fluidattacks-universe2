@@ -819,6 +819,7 @@ async def test_update_git_root() -> None:
           gitignore: []
           id: "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19"
           includesHealthCheck: false
+          nickname: "randomNick"
         ) {
           success
         }
@@ -838,6 +839,7 @@ async def test_update_git_root_nonexistent() -> None:
           gitignore: []
           id: "ROOT#some-thing"
           includesHealthCheck: false
+          nickname: "unique2"
         ) {
           success
         }
