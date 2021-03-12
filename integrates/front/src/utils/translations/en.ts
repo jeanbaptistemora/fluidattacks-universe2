@@ -1439,7 +1439,7 @@ export const enTranslations: ResourceKey = {
         "Deleting the group will remove its findings and related vulnerabilities." +
         "<br /> Deleted groups cannot be restored.",
     },
-    tab_severity: {
+    tabSeverity: {
       attackComplexity: "Attack Complexity",
       attackComplexityOptions: {
         high: {

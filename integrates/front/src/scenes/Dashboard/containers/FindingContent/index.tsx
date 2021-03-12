@@ -322,10 +322,8 @@ const findingContent: React.FC = (): JSX.Element => {
                     icon={"icon pe-7s-calculator"}
                     id={"cssv2Item"}
                     link={`${url}/severity`}
-                    title={translate.t("search_findings.tab_severity.tabTitle")}
-                    tooltip={translate.t(
-                      "search_findings.tab_severity.tooltip"
-                    )}
+                    title={translate.t("search_findings.tabSeverity.tabTitle")}
+                    tooltip={translate.t("search_findings.tabSeverity.tooltip")}
                   />
                   <ContentTab
                     icon={"icon pe-7s-photo"}

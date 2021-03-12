@@ -134,11 +134,11 @@ const severityView: React.FC = (): JSX.Element => {
             <Can do="backend_api_mutations_update_severity_mutate">
               <ButtonToolbarRow>
                 <TooltipWrapper
-                  id={translate.t("search_findings.tab_severity.editableTooltip.id")}
-                  message={translate.t("search_findings.tab_severity.editableTooltip")}
+                  id={translate.t("search_findings.tabSeverity.editableTooltip.id")}
+                  message={translate.t("search_findings.tabSeverity.editableTooltip")}
                 >
                   <Button onClick={handleEditClick}>
-                    <FluidIcon icon="edit" />&nbsp;{translate.t("search_findings.tab_severity.editable")}
+                    <FluidIcon icon="edit" />&nbsp;{translate.t("search_findings.tabSeverity.editable")}
                   </Button>
                 </TooltipWrapper>
               </ButtonToolbarRow>
@@ -157,7 +157,7 @@ const severityView: React.FC = (): JSX.Element => {
                       <ButtonToolbarRow>
                         <Button type="submit" disabled={pristine || mutationRes.loading}>
                           <FluidIcon icon="loading" />
-                          {translate.t("search_findings.tab_severity.update")}
+                          {translate.t("search_findings.tabSeverity.update")}
                         </Button>
                       </ButtonToolbarRow>
                       <Row>
@@ -166,7 +166,7 @@ const severityView: React.FC = (): JSX.Element => {
                             alignField="horizontal"
                             component={Dropdown}
                             currentValue={"3.1"}
-                            label={translate.t("search_findings.tab_severity.cvssVersion")}
+                            label={translate.t("search_findings.tabSeverity.cvssVersion")}
                             name={"cvssVersion"}
                             renderAsEditable={isEditing}
                             validate={required}

@@ -130,7 +130,7 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
     <React.StrictMode>
       <React.Fragment>
         <Modal
-          headerTitle={translate.t("search_findings.tab_severity.solve")}
+          headerTitle={translate.t("search_findings.tabSeverity.solve")}
           open={isSolvingModalOpen}
         >
           <GenericForm name={"solveEvent"} onSubmit={handleSubmit}>
@@ -202,7 +202,7 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
                     >
                       <FluidIcon icon={"verified"} />
                       &nbsp;
-                      {translate.t("search_findings.tab_severity.solve")}
+                      {translate.t("search_findings.tabSeverity.solve")}
                     </Button>
                   </Can>
                 </ButtonToolbar>
