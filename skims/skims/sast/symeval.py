@@ -110,8 +110,8 @@ def lookup_var_state_by_name(
 
 def syntax_step_assignment(args: EvaluatorArgs) -> None:
     src, = args.dependencies
-
-    args.syntax_step.meta.danger = src.meta.danger
+    if not args.syntax_step.meta.danger:
+        args.syntax_step.meta.danger = src.meta.danger
 
 
 def syntax_step_binary_expression(args: EvaluatorArgs) -> None:
@@ -152,12 +152,21 @@ def syntax_step_if(_args: EvaluatorArgs) -> None:
     pass
 
 
+def syntax_step_switch(_args: EvaluatorArgs) -> None:
+    pass
+
+
 def syntax_step_for(_args: EvaluatorArgs) -> None:
     pass
 
 
 def syntax_step_array_access(_args: EvaluatorArgs) -> None:
     pass
+
+
+def syntax_step_array_initialization(args: EvaluatorArgs) -> None:
+    args.syntax_step.meta.danger = any(dep.meta.danger
+                                       for dep in args.dependencies)
 
 
 def syntax_step_literal(args: EvaluatorArgs) -> None:
@@ -308,6 +317,11 @@ def syntax_step_object_instantiation(args: EvaluatorArgs) -> None:
                 'java', 'io', 'FileOutputStream'
             ),
         )),
+        args.finding == core_model.FindingEnum.F004 and any((
+            args.syntax_step.object_type in build_attr_paths(
+                'ProcessBuilder',
+            ),
+        )),
     ))
 
     instantiation_danger_no_args = any((
@@ -335,11 +349,14 @@ def syntax_step_symbol_lookup(args: EvaluatorArgs) -> None:
 EVALUATORS: Dict[object, Evaluator] = {
     graph_model.SyntaxStepAssignment: syntax_step_assignment,
     graph_model.SyntaxStepArrayAccess: syntax_step_array_access,
+    graph_model.SyntaxStepArrayInitialization:
+    syntax_step_array_initialization,
     graph_model.SyntaxStepBinaryExpression: syntax_step_binary_expression,
     graph_model.SyntaxStepUnaryExpression: syntax_step_unary_expression,
     graph_model.SyntaxStepDeclaration: syntax_step_declaration,
     graph_model.SyntaxStepFor: syntax_step_for,
     graph_model.SyntaxStepIf: syntax_step_if,
+    graph_model.SyntaxStepSwitch: syntax_step_switch,
     graph_model.SyntaxStepLiteral: syntax_step_literal,
     graph_model.SyntaxStepMethodInvocation: syntax_step_method_invocation,
     graph_model.SyntaxStepMethodInvocationChain:

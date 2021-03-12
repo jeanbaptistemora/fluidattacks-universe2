@@ -41346,6 +41346,31 @@
             "var_type": "int"
           }
         ],
+        "1038": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1038",
+              "value": null
+            },
+            "type": "SyntaxStepDeclaration",
+            "var": "yourAge",
+            "var_type": "String"
+          }
+        ],
+        "1043": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1043",
+              "value": null
+            },
+            "n_id_switch_block": "1049",
+            "type": "SyntaxStepSwitch"
+          }
+        ],
         "105": [
           {
             "meta": {
@@ -41870,6 +41895,138 @@
             "type": "SyntaxStepNoOp"
           }
         ],
+        "1229": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1236",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "0",
+            "value_type": "number"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1238",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "1",
+            "value_type": "number"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1240",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "2",
+            "value_type": "number"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1242",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "3",
+            "value_type": "number"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1244",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "4",
+            "value_type": "number"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1246",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "5",
+            "value_type": "number"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1248",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "6",
+            "value_type": "number"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1250",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "7",
+            "value_type": "number"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1252",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "8",
+            "value_type": "number"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1254",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "9",
+            "value_type": "number"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -10,
+              "n_id": "1234",
+              "value": null
+            },
+            "type": "SyntaxStepArrayInitialization"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "1229",
+              "value": null
+            },
+            "type": "SyntaxStepDeclaration",
+            "var": "nums",
+            "var_type": "int[]"
+          }
+        ],
         "124": [
           {
             "meta": {
@@ -42092,6 +42249,187 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          }
+        ],
+        "1318": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1327",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "1",
+            "value_type": "number"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1329",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "3",
+            "value_type": "number"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1331",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "7",
+            "value_type": "number"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1333",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "5",
+            "value_type": "number"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -4,
+              "n_id": "1325",
+              "value": null
+            },
+            "type": "SyntaxStepArrayInitialization"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1338",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "5",
+            "value_type": "number"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1340",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "8",
+            "value_type": "number"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1342",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "4",
+            "value_type": "number"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1344",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "6",
+            "value_type": "number"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -4,
+              "n_id": "1336",
+              "value": null
+            },
+            "type": "SyntaxStepArrayInitialization"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1349",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "7",
+            "value_type": "number"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1351",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "4",
+            "value_type": "number"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1353",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "2",
+            "value_type": "number"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1355",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "9",
+            "value_type": "number"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -4,
+              "n_id": "1347",
+              "value": null
+            },
+            "type": "SyntaxStepArrayInitialization"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -3,
+              "n_id": "1323",
+              "value": null
+            },
+            "type": "SyntaxStepArrayInitialization"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "1318",
+              "value": null
+            },
+            "type": "SyntaxStepDeclaration",
+            "var": "nums",
+            "var_type": "int[][]"
           }
         ],
         "132": [
@@ -44019,6 +44357,31 @@
             "var_type": "int"
           }
         ],
+        "426": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "426",
+              "value": null
+            },
+            "type": "SyntaxStepDeclaration",
+            "var": "yourAge",
+            "var_type": "String"
+          }
+        ],
+        "431": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "431",
+              "value": null
+            },
+            "n_id_switch_block": "437",
+            "type": "SyntaxStepSwitch"
+          }
+        ],
         "45": [
           {
             "meta": {
@@ -44039,6 +44402,61 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          }
+        ],
+        "49": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "56",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "1",
+            "value_type": "number"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "58",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "2",
+            "value_type": "number"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "60",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "3",
+            "value_type": "number"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -3,
+              "n_id": "54",
+              "value": null
+            },
+            "type": "SyntaxStepArrayInitialization"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "49",
+              "value": null
+            },
+            "type": "SyntaxStepDeclaration",
+            "var": "myNumbers",
+            "var_type": "int[]"
           }
         ],
         "570": [
@@ -44063,6 +44481,31 @@
             "type": "SyntaxStepDeclaration",
             "var": "age",
             "var_type": "int"
+          }
+        ],
+        "577": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "577",
+              "value": null
+            },
+            "type": "SyntaxStepDeclaration",
+            "var": "yourAge",
+            "var_type": "String"
+          }
+        ],
+        "582": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "582",
+              "value": null
+            },
+            "n_id_switch_block": "588",
+            "type": "SyntaxStepSwitch"
           }
         ],
         "63": [
@@ -44121,6 +44564,31 @@
             "type": "SyntaxStepDeclaration",
             "var": "age",
             "var_type": "int"
+          }
+        ],
+        "656": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "656",
+              "value": null
+            },
+            "type": "SyntaxStepDeclaration",
+            "var": "yourAge",
+            "var_type": "String"
+          }
+        ],
+        "661": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "661",
+              "value": null
+            },
+            "n_id_switch_block": "667",
+            "type": "SyntaxStepSwitch"
           }
         ],
         "736": [
@@ -44445,6 +44913,61 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          }
+        ],
+        "994": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1001",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "Vivek",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1003",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "Kavya",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1005",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "Aryan",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -3,
+              "n_id": "999",
+              "value": null
+            },
+            "type": "SyntaxStepArrayInitialization"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "994",
+              "value": null
+            },
+            "type": "SyntaxStepDeclaration",
+            "var": "people",
+            "var_type": "String[]"
           }
         ]
       }

@@ -105,5 +105,8 @@ DANGER_METHODS_BY_TYPE_ARGS_PROPAGATION: Dict[
         },
         'ProcessBuilder': {
             'command',
-        }
+        },
+        'Runtime': {
+            'exec',
+        },
     })

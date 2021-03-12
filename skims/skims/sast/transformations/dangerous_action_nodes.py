@@ -108,6 +108,7 @@ def _mark_java_f004(graph: graph_model.Graph) -> None:
         if any((
                 _check_method_call(graph, n_id, 'exec'),
                 _check_method_call(graph, n_id, 'command'),
+                _check_method_call(graph, n_id, 'start'),
         )):
             graph.nodes[n_id]['label_sink_type'] = (
                 core_model
