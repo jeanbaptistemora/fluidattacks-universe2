@@ -75,6 +75,7 @@ observes.env.development.tap-zoho-analytics
 observes.env.runtime.batch-stability
 observes.env.runtime.code-etl
 observes.env.runtime.dif-gitlab-etl
+observes.env.runtime.migrate-tables
 observes.env.runtime.postgres-client
 observes.env.runtime.tap-zoho-analytics
 observes.env.runtime.timedoctor-tokens
