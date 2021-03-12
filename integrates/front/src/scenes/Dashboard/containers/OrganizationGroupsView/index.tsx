@@ -171,7 +171,7 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
           <Row>
             <Col100>
               {/* eslint-disable-next-line react/forbid-component-props */}
-              <Row className={style.content}>
+              <Row>
                 <DataTableNext
                   bordered={true}
                   dataset={formatGroupData(data.organization.projects)}
