@@ -108,6 +108,7 @@ const SolutionsIndex: React.FC<IQueryData> = ({
             <ArticleContainer>
               <PageContainer>
                 <SolutionsIndexContent
+                  animation={"animate__slideInLeft"}
                   image={devSecOpsImage}
                   imageAllignment={"fl-l tl"}
                   link={"/solutions/devsecops/"}
@@ -117,6 +118,7 @@ const SolutionsIndex: React.FC<IQueryData> = ({
                 />
 
                 <SolutionsIndexContent
+                  animation={"animate__slideInLeft"}
                   image={securityTestingImage}
                   imageAllignment={"fl-l tl"}
                   link={"/solutions/security-testing/"}
@@ -126,6 +128,7 @@ const SolutionsIndex: React.FC<IQueryData> = ({
                 />
 
                 <SolutionsIndexContent
+                  animation={"animate__slideInLeft"}
                   image={penetrationTestingImage}
                   imageAllignment={"fl-l tl"}
                   link={"/solutions/penetration-testing/"}
@@ -140,6 +143,7 @@ const SolutionsIndex: React.FC<IQueryData> = ({
                 />
 
                 <SolutionsIndexContent
+                  animation={"animate__slideInRight"}
                   image={ethicalHackingImage}
                   imageAllignment={"fr-l tl"}
                   link={"/solutions/ethical-hacking/"}
@@ -149,6 +153,7 @@ const SolutionsIndex: React.FC<IQueryData> = ({
                 />
 
                 <SolutionsIndexContent
+                  animation={"animate__slideInRight"}
                   image={redTeamingImage}
                   imageAllignment={"fr-l tl"}
                   link={"/solutions/red-teaming/"}
@@ -158,6 +163,7 @@ const SolutionsIndex: React.FC<IQueryData> = ({
                 />
 
                 <SolutionsIndexContent
+                  animation={"animate__slideInRight"}
                   image={attackSimulationImage}
                   imageAllignment={"fr-l tl"}
                   link={"/solutions/attack-simulation/"}

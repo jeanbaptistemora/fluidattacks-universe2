@@ -937,6 +937,7 @@ buildNodeRequirements {
       "lodash.maxby@4.6.0"
       "lodash.memoize@4.1.2"
       "lodash.sortby@4.7.0"
+      "lodash.throttle@4.1.1"
       "lodash.uniq@4.5.0"
       "lodash.without@4.4.0"
       "lodash.zip@4.2.0"

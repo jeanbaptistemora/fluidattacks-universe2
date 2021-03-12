@@ -1,6 +1,7 @@
 /* eslint react/forbid-component-props: 0 */
 import { Link } from "gatsby";
 import React from "react";
+import ScrollAnimation from "react-animate-on-scroll";
 import {
   BlackListItemSpaced,
   FullWidthContainer,
@@ -12,6 +13,7 @@ import {
 } from "../../styles/styledComponents";
 
 interface IProps {
+  animation: string;
   image: string;
   imageAllignment: string;
   link: string;
@@ -22,6 +24,7 @@ interface IProps {
 }
 
 const SolutionsIndexContent: React.FC<IProps> = ({
+  animation,
   image,
   imageAllignment,
   link,
@@ -32,9 +35,11 @@ const SolutionsIndexContent: React.FC<IProps> = ({
 }: IProps): JSX.Element => (
   <FullWidthContainer className={"pv3 flex-l"}>
     <FullWidthContainer className={padding}>
-      <HalfScreenContainer className={imageAllignment}>
-        <img alt={"devSecOps Solution"} src={image} />
-      </HalfScreenContainer>
+      <ScrollAnimation animateIn={animation} animateOnce={true}>
+        <HalfScreenContainer className={imageAllignment}>
+          <img alt={"devSecOps Solution"} src={image} />
+        </HalfScreenContainer>
+      </ScrollAnimation>
       <HalfScreenContainerSpaced className={paragraphAllignment}>
         <SolutionsSectionDescription>
           <BlackListItemSpaced>
