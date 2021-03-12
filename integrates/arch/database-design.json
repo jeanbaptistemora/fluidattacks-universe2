@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Mar 09, 2021, 04:43 PM",
+    "DateLastModified": "Mar 12, 2021, 04:19 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "2.0"
@@ -670,7 +670,6 @@
               }
             }
           ],
-          "NonKeyAttributes": [],
           "DataAccess": {
             "MySql": {}
           }
@@ -1216,7 +1215,7 @@
           }
         },
         {
-          "FacetName": "root_historic_state",
+          "FacetName": "root_state",
           "KeyAttributeAlias": {
             "PartitionKeyAlias": "ROOT#url#branch#STATE#iso8601utc",
             "SortKeyAlias": "GROUP#name"
@@ -1270,7 +1269,61 @@
           }
         },
         {
-          "FacetName": "root_historic_cloning",
+          "FacetName": "root_historic_state",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "ROOT#url#branch",
+            "SortKeyAlias": "STATE#iso8601utc"
+          },
+          "TableData": [
+            {
+              "pk": {
+                "S": "ROOT#ssh://git@gitlab.com:fluidattacks/product#master"
+              },
+              "sk": {
+                "S": "STATE#2021-02-15T14:01:16Z"
+              },
+              "status": {
+                "S": "ACTIVE"
+              },
+              "modified_date": {
+                "S": "2021-02-15T14:01:16Z"
+              },
+              "environment": {
+                "S": "production"
+              },
+              "environment_urls": {
+                "SS": [
+                  "https://integrates.fluidattacks.com"
+                ]
+              },
+              "gitignore": {
+                "SS": [
+                  "!/integrates/"
+                ]
+              },
+              "includes_health_check": {
+                "BOOL": false
+              },
+              "modified_by": {
+                "S": "USER#test@fluidattacks.com"
+              }
+            }
+          ],
+          "NonKeyAttributes": [
+            "status",
+            "modified_date",
+            "environment",
+            "environment_urls",
+            "gitignore",
+            "includes_health_check",
+            "modified_by"
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
+        },
+        {
+          "FacetName": "root_cloning",
           "KeyAttributeAlias": {
             "PartitionKeyAlias": "ROOT#url#branch#CLON#iso8601utc",
             "SortKeyAlias": "GROUP#name"
@@ -1282,6 +1335,40 @@
               },
               "sk": {
                 "S": "GROUP#unittesting"
+              },
+              "status": {
+                "S": "UNKNOWN"
+              },
+              "reason": {
+                "S": "root created"
+              },
+              "modified_date": {
+                "S": "2021-02-15T14:01:16Z"
+              }
+            }
+          ],
+          "NonKeyAttributes": [
+            "status",
+            "reason",
+            "modified_date"
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
+        },
+        {
+          "FacetName": "root_historic_cloning",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "ROOT#url#branch",
+            "SortKeyAlias": "CLON#iso8601utc"
+          },
+          "TableData": [
+            {
+              "pk": {
+                "S": "ROOT#ssh://git@gitlab.com:fluidattacks/product#master"
+              },
+              "sk": {
+                "S": "CLON#2021-02-15T14:01:16Z"
               },
               "status": {
                 "S": "UNKNOWN"

@@ -10,7 +10,7 @@ from newutils.context import DB_MODEL_PATH
 def load_facets(model: Dict[str, Any]) -> Dict[str, Facet]:
     return {
         facet['FacetName']: Facet(
-            attrs=tuple(facet['NonKeyAttributes']),
+            attrs=tuple(facet.get('NonKeyAttributes', [])),
             pk_alias=facet['KeyAttributeAlias']['PartitionKeyAlias'],
             sk_alias=facet['KeyAttributeAlias']['SortKeyAlias']
         )
