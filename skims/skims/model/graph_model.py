@@ -106,6 +106,13 @@ class SyntaxStepIf(NamedTuple):
     type: str = 'SyntaxStepIf'
 
 
+class SyntaxStepSwitch(NamedTuple):
+    meta: SyntaxStepMeta
+    n_id_switch_block: Optional[NId]
+
+    type: str = 'SyntaxStepSwitch'
+
+
 class SyntaxStepFor(NamedTuple):
     meta: SyntaxStepMeta
     n_id_update: NId
@@ -148,6 +155,12 @@ class SyntaxStepObjectInstantiation(NamedTuple):
     object_type: str
 
     type: str = 'SyntaxStepObjectInstantiation'
+
+
+class SyntaxStepArrayInitialization(NamedTuple):
+    meta: SyntaxStepMeta
+
+    type: str = 'SyntaxStepArrayInitialization'
 
 
 class SyntaxStepArrayInstantiation(NamedTuple):

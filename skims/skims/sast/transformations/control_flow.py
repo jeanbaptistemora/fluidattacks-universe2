@@ -143,6 +143,42 @@ def _if_statement(
         graph.add_edge(n_id, next_id, **FALSE)
 
 
+def _switch_statement(
+    graph: graph_model.Graph,
+    n_id: str,
+    stack: Stack,
+) -> None:
+    # switch ( parenthesized_expression ) switch_block
+    match = g.match_ast(
+        graph, n_id,
+        'parenthesized_expression',
+        'switch_block',
+    )
+    match_blocks = g.match_ast(
+        graph,
+        match['switch_block'],
+    )
+    match_switch_blocks = {
+        key: value
+        for key, value in match_blocks.items()
+        if graph.nodes[value]['label_type'] == 'expression_statement'
+    }
+    next_id = _get_next_id(stack)
+
+    graph.add_edge(n_id, sorted(match_switch_blocks.values())[0], **ALWAYS)
+
+    for expresion_a, expresion_b in pairwise(
+            sorted(match_switch_blocks.values())):
+        if not expresion_b and next_id:
+            graph.add_edge(expresion_a, next_id, **ALWAYS)
+            break
+        if not expresion_b:
+            break
+        graph.add_edge(expresion_a, expresion_b, **ALWAYS)
+        _propagate_next_id_from_parent(stack)
+        _generic(graph, expresion_a, stack, edge_attrs=ALWAYS)
+
+
 def _link_to_last_node(
     graph: graph_model.Graph,
     n_id: str,

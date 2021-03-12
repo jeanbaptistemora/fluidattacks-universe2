@@ -244,6 +244,15 @@ def array_creation_expression(
         raise MissingCaseHandling(array_creation_expression, args)
 
 
+def array_initializer(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
+    # String[] a = {1,2}
+    yield graph_model.SyntaxStepArrayInitialization(
+        meta=graph_model.SyntaxStepMeta.default(
+            args.n_id,
+            dependencies_from_arguments(args.fork_n_id(args.n_id)),
+        ))
+
+
 def if_statement(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
     # if ( __0__ ) __1__ else __2__
     match = g.match_ast(
@@ -265,6 +274,31 @@ def if_statement(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
         n_id_false=match.get('__2__'),
         n_id_true=match.get('__1__'),
     )
+
+
+def switch_statement(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
+    # switch ( parenthesized_expression ) switch_block
+    match = g.match_ast(
+        args.graph, args.n_id,
+        'switch',
+        'parenthesized_expression',
+        'switch_block',
+    )
+    if ((parenthesized := match['parenthesized_expression'])
+            and (switch_block := match['switch_block'])):
+        match_expression = g.match_ast(
+            args.graph, parenthesized,
+            '__1__',
+        )
+        yield graph_model.SyntaxStepSwitch(
+            meta=graph_model.SyntaxStepMeta.default(
+                n_id=args.n_id,
+                dependencies=dependencies_from_arguments(
+                    args.fork_n_id(match_expression['__1__']),
+                ),
+            ),
+            n_id_switch_block=switch_block,
+        )
 
 
 def local_variable_declaration(
@@ -310,6 +344,13 @@ def local_variable_declaration(
                 meta=graph_model.SyntaxStepMeta.default(args.n_id, [
                     generic(args.fork_n_id(dependencies_id)),
                 ]),
+                var=args.graph.nodes[var_id]['label_text'],
+                var_type=args.graph.nodes[var_type_id]['label_text'],
+            )
+        elif var_id := match['identifier']:
+            # variable declared but not initialized
+            yield graph_model.SyntaxStepDeclaration(
+                meta=graph_model.SyntaxStepMeta.default(args.n_id, []),
                 var=args.graph.nodes[var_id]['label_text'],
                 var_type=args.graph.nodes[var_type_id]['label_text'],
             )
@@ -571,6 +612,17 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
             graph_model.GraphShardMetadataLanguage.JAVA,
         },
         applicable_node_label_types={
+            'switch_statement',
+        },
+        syntax_readers=(
+            switch_statement,
+        ),
+    ),
+    Dispatcher(
+        applicable_languages={
+            graph_model.GraphShardMetadataLanguage.JAVA,
+        },
+        applicable_node_label_types={
             'local_variable_declaration',
         },
         syntax_readers=(
@@ -630,6 +682,17 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
         },
         syntax_readers=(
             array_creation_expression,
+        ),
+    ),
+    Dispatcher(
+        applicable_languages={
+            graph_model.GraphShardMetadataLanguage.JAVA,
+        },
+        applicable_node_label_types={
+            'array_initializer',
+        },
+        syntax_readers=(
+            array_initializer,
         ),
     ),
     Dispatcher(
