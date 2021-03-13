@@ -5,7 +5,13 @@
 import functools
 import inspect
 import logging.config
-from typing import Any, Callable, cast, Dict, TypeVar
+from typing import (
+    Any,
+    Callable,
+    cast,
+    Dict,
+    TypeVar
+)
 
 # Third party libraries
 from aioextensions import (
@@ -18,22 +24,25 @@ from graphql import GraphQLError
 from back import settings
 from back.app.views import templates
 from back.settings import LOGGING
-from backend import authz, util
+from backend import (
+    authz,
+    util,
+)
 from backend.domain import (
     finding as finding_domain,
     organization as org_domain,
-    root as root_domain,
     vulnerability as vuln_domain
-)
-from backend.services import (
-    has_valid_access_token
 )
 from backend.exceptions import (
     FindingNotFound,
     InvalidAuthorization,
     UserNotInOrganization
 )
+from backend.services import (
+    has_valid_access_token
+)
 from newutils import function
+from roots import domain as roots_domain
 
 
 logging.config.dictConfig(LOGGING)
@@ -125,7 +134,7 @@ async def _resolve_from_vuln_id(context: Any, identifier: str) -> str:
 
 
 async def _resolve_from_root_id(root_id: str) -> str:
-    root: Dict[str, str] = await root_domain.get_root_by_id(root_id)
+    root: Dict[str, str] = await roots_domain.get_root_by_id(root_id)
     return root['group_name']
 
 

@@ -8,15 +8,23 @@ Finalization Time: 2020-12-04 11:01:55 UTC-5
 """
 # Standard
 import os
-from typing import Any, Dict, List, NamedTuple
+from typing import (
+    Any,
+    Dict,
+    List,
+    NamedTuple,
+)
 from urllib.parse import unquote
 
 # Third party
 import yaml
-from aioextensions import collect, run
+from aioextensions import (
+    collect,
+    run,
+)
 
 # Local
-from backend.domain import root as root_domain
+from roots import domain as roots_domain
 
 
 STAGE: str = os.environ['STAGE']
@@ -127,7 +135,7 @@ async def main() -> None:
             print(root['group_name'], root['url'], root['branch'])
     else:
         await collect(
-            root_domain.add_git_root('', **root)
+            roots_domain.add_git_root('', **root)
             for root in roots
         )
 

@@ -18,7 +18,8 @@ import yaml
 from aioextensions import collect, run
 
 # Local
-from backend.domain import project as group_domain, root as root_domain
+from backend.domain import project as group_domain
+from roots import domain as roots_domain
 
 
 STAGE: str = os.environ['STAGE']
@@ -118,7 +119,7 @@ async def update_envs(group_name: str) -> None:
     url, branch = await get_oldest_active_repo(group_name)
 
     if url and branch:
-        roots = await root_domain.get_roots_by_group(group_name)
+        roots = await roots_domain.get_roots_by_group(group_name)
         matching_root = next((
             root
             for root in roots
@@ -136,7 +137,7 @@ async def update_envs(group_name: str) -> None:
             if matching_root['historic_state'][-1]['state'] == 'ACTIVE':
                 if STAGE != 'test':
                     envs: List[str] = get_envs_by_group(group_name)
-                    await root_domain.update_git_environments(
+                    await roots_domain.update_git_environments(
                         user_email='',
                         root_id=matching_root['sk'],
                         environment_urls=envs

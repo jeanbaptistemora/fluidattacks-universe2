@@ -1,5 +1,8 @@
 # Standard
-from typing import Any, Dict
+from typing import (
+    Any,
+    Dict,
+)
 
 # Third party
 from ariadne.utils import convert_kwargs_to_snake_case
@@ -13,8 +16,8 @@ from backend.decorators import (
     rename_kwargs,
     require_login,
 )
-from backend.domain import root as root_domain
 from backend.typing import SimplePayload
+from roots import domain as roots_domain
 
 
 @convert_kwargs_to_snake_case  # type: ignore
@@ -32,7 +35,7 @@ async def mutate(
     user_info: Dict[str, str] = await util.get_jwt_content(info.context)
     user_email: str = user_info['user_email']
 
-    await root_domain.update_root_state(
+    await roots_domain.update_root_state(
         user_email,
         kwargs['id'],
         kwargs['state']

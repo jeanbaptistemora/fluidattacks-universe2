@@ -41,71 +41,26 @@ from newutils import (
 from notifications import domain as notifications_domain
 
 
-def format_root(root: Dict[str, Any]) -> Root:
-    root_state: Dict[str, Any] = root['historic_state'][-1]
-
-    if root['kind'] == 'Git':
-        cloning_status: Dict[str, Any] = root['historic_cloning_status'][-1]
-
-        return GitRoot(
-            branch=root['branch'],
-            cloning_status=GitRootCloningStatus(
-                status=cloning_status['status'],
-                message=cloning_status['message'],
-            ),
-            environment=root_state['environment'],
-            environment_urls=root_state['environment_urls'],
-            gitignore=root_state['gitignore'],
-            id=root['sk'],
-            includes_health_check=root_state['includes_health_check'],
-            last_status_update=root_state['date'],
-            nickname=root.get('nickname', ''),
-            state=root_state['state'],
-            url=root['url']
-        )
-
-    if root['kind'] == 'IP':
-        return IPRoot(
-            address=root_state['address'],
-            id=root['sk'],
-            port=root_state['port']
-        )
-
-    return URLRoot(
-        host=root_state['host'],
-        id=root['sk'],
-        path=root_state['path'],
-        port=root_state['port'],
-        protocol=root_state['protocol']
+def _format_git_repo_url(raw_url: str) -> str:
+    is_ssh: bool = (
+        raw_url.startswith('ssh://')
+        or bool(re.match(r'^\w+@.*', raw_url))
+    )
+    url = (
+        f'ssh://{raw_url}'
+        if is_ssh and not raw_url.startswith('ssh://')
+        else raw_url
     )
 
-
-async def get_root_by_id(root_id: str) -> Dict[str, Any]:
-    root: Optional[Dict[str, Any]] = await root_dal.get_root_by_id(root_id)
-
-    if root:
-        return {
-            **root,
-            'group_name': root['pk'].split('GROUP#')[-1],
-        }
-    raise RootNotFound()
+    return unquote(url)
 
 
-async def get_roots_by_group(group_name: str) -> Tuple[Dict[str, Any], ...]:
-    roots: Tuple[Dict[str, Any], ...] = await root_dal.get_roots_by_group(
-        group_name
-    )
-
-    return tuple(
-        {
-            **root,
-            'group_name': root['pk'].split('GROUP#')[-1],
-        }
-        for root in roots
-    )
+def _is_active(root: Dict[str, Any]) -> bool:
+    state: str = root['historic_state'][-1]['state']
+    return state == 'ACTIVE'
 
 
-@newrelic.agent.function_trace()  # type: ignore
+@newrelic.agent.function_trace()
 async def _is_git_unique_in_org(org_id: str, url: str, branch: str) -> bool:
     org_groups: Tuple[str, ...] = await org_domain.get_groups(org_id)
     org_roots: Tuple[Tuple[str, str], ...] = tuple(
@@ -122,7 +77,26 @@ async def _is_git_unique_in_org(org_id: str, url: str, branch: str) -> bool:
     return (url, branch) not in org_roots
 
 
-@newrelic.agent.function_trace()  # type: ignore
+@newrelic.agent.function_trace()
+async def _is_ip_unique_in_org(org_id: str, address: str, port: int) -> bool:
+    org_groups: Tuple[str, ...] = await org_domain.get_groups(org_id)
+    org_roots: Tuple[Tuple[str, int], ...] = tuple(
+        (
+            root['historic_state'][-1]['address'],
+            root['historic_state'][-1]['port']
+        )
+        for group_roots in await collect(
+            get_roots_by_group(group_name)
+            for group_name in org_groups
+        )
+        for root in group_roots
+        if root['kind'] == 'IP'
+    )
+
+    return (address, port) not in org_roots
+
+
+@newrelic.agent.function_trace()
 async def _is_nickname_unique_in_group(group_name: str, nickname: str) -> bool:
     group_roots = await get_roots_by_group(group_name)
     nickname_roots: Set[str] = {
@@ -135,28 +109,31 @@ async def _is_nickname_unique_in_group(group_name: str, nickname: str) -> bool:
     return nickname not in nickname_roots
 
 
-def _format_git_repo_url(raw_url: str) -> str:
-    is_ssh: bool = (
-        raw_url.startswith('ssh://')
-        or bool(re.match(r'^\w+@.*', raw_url))
+@newrelic.agent.function_trace()
+async def _is_url_unique_in_org(
+    org_id: str,
+    host: str,
+    path: str,
+    port: int,
+    protocol: str
+) -> bool:
+    org_groups: Tuple[str, ...] = await org_domain.get_groups(org_id)
+    org_roots: Tuple[Tuple[str, str, int, str], ...] = tuple(
+        (
+            root['historic_state'][-1]['host'],
+            root['historic_state'][-1]['path'],
+            root['historic_state'][-1]['port'],
+            root['historic_state'][-1]['protocol']
+        )
+        for group_roots in await collect(
+            get_roots_by_group(group_name)
+            for group_name in org_groups
+        )
+        for root in group_roots
+        if root['kind'] == 'URL'
     )
-    url = (
-        f'ssh://{raw_url}'
-        if is_ssh and not raw_url.startswith('ssh://')
-        else raw_url
-    )
 
-    return unquote(url)
-
-
-def format_root_nickname(nickname: str, url: str):
-    nick = url.split('/')[-1]
-    if nickname:
-        nick = nickname
-    # Return the repo name as nickname
-    if nick.endswith('.git'):
-        return nick[:-4]
-    return nick
+    return (host, path, port, protocol) not in org_roots
 
 
 async def add_git_root(context: Any, user_email: str, **kwargs: Any) -> None:
@@ -224,25 +201,6 @@ async def add_git_root(context: Any, user_email: str, **kwargs: Any) -> None:
         raise InvalidParameter()
 
 
-@newrelic.agent.function_trace()  # type: ignore
-async def _is_ip_unique_in_org(org_id: str, address: str, port: int) -> bool:
-    org_groups: Tuple[str, ...] = await org_domain.get_groups(org_id)
-    org_roots: Tuple[Tuple[str, int], ...] = tuple(
-        (
-            root['historic_state'][-1]['address'],
-            root['historic_state'][-1]['port']
-        )
-        for group_roots in await collect(
-            get_roots_by_group(group_name)
-            for group_name in org_groups
-        )
-        for root in group_roots
-        if root['kind'] == 'IP'
-    )
-
-    return (address, port) not in org_roots
-
-
 async def add_ip_root(context: Any, user_email: str, **kwargs: Any) -> None:
     group_loader = context.group_all
     group_name: str = kwargs['group_name'].lower()
@@ -273,33 +231,6 @@ async def add_ip_root(context: Any, user_email: str, **kwargs: Any) -> None:
             raise RepeatedValues()
     else:
         raise InvalidParameter()
-
-
-@newrelic.agent.function_trace()  # type: ignore
-async def _is_url_unique_in_org(
-    org_id: str,
-    host: str,
-    path: str,
-    port: int,
-    protocol: str
-) -> bool:
-    org_groups: Tuple[str, ...] = await org_domain.get_groups(org_id)
-    org_roots: Tuple[Tuple[str, str, int, str], ...] = tuple(
-        (
-            root['historic_state'][-1]['host'],
-            root['historic_state'][-1]['path'],
-            root['historic_state'][-1]['port'],
-            root['historic_state'][-1]['protocol']
-        )
-        for group_roots in await collect(
-            get_roots_by_group(group_name)
-            for group_name in org_groups
-        )
-        for root in group_roots
-        if root['kind'] == 'URL'
-    )
-
-    return (host, path, port, protocol) not in org_roots
 
 
 async def add_url_root(context: Any, user_email: str, **kwargs: Any) -> None:
@@ -345,9 +276,109 @@ async def add_url_root(context: Any, user_email: str, **kwargs: Any) -> None:
         raise InvalidParameter()
 
 
-def _is_active(root: Dict[str, Any]) -> bool:
-    state: str = root['historic_state'][-1]['state']
-    return state == 'ACTIVE'
+def format_root(root: Dict[str, Any]) -> Root:
+    root_state: Dict[str, Any] = root['historic_state'][-1]
+
+    if root['kind'] == 'Git':
+        cloning_status: Dict[str, Any] = root['historic_cloning_status'][-1]
+
+        return GitRoot(
+            branch=root['branch'],
+            cloning_status=GitRootCloningStatus(
+                status=cloning_status['status'],
+                message=cloning_status['message'],
+            ),
+            environment=root_state['environment'],
+            environment_urls=root_state['environment_urls'],
+            gitignore=root_state['gitignore'],
+            id=root['sk'],
+            includes_health_check=root_state['includes_health_check'],
+            last_status_update=root_state['date'],
+            nickname=root.get('nickname', ''),
+            state=root_state['state'],
+            url=root['url']
+        )
+
+    if root['kind'] == 'IP':
+        return IPRoot(
+            address=root_state['address'],
+            id=root['sk'],
+            port=root_state['port']
+        )
+
+    return URLRoot(
+        host=root_state['host'],
+        id=root['sk'],
+        path=root_state['path'],
+        port=root_state['port'],
+        protocol=root_state['protocol']
+    )
+
+
+def format_root_nickname(nickname: str, url: str) -> str:
+    nick = url.split('/')[-1]
+    if nickname:
+        nick = nickname
+    # Return the repo name as nickname
+    if nick.endswith('.git'):
+        return nick[:-4]
+    return nick
+
+
+async def get_root_by_id(root_id: str) -> Dict[str, Any]:
+    root: Optional[Dict[str, Any]] = await root_dal.get_root_by_id(root_id)
+
+    if root:
+        return {
+            **root,
+            'group_name': root['pk'].split('GROUP#')[-1],
+        }
+    raise RootNotFound()
+
+
+async def get_roots_by_group(group_name: str) -> Tuple[Dict[str, Any], ...]:
+    roots: Tuple[Dict[str, Any], ...] = await root_dal.get_roots_by_group(
+        group_name
+    )
+
+    return tuple(
+        {
+            **root,
+            'group_name': root['pk'].split('GROUP#')[-1],
+        }
+        for root in roots
+    )
+
+
+async def update_git_environments(
+    user_email: str,
+    root_id: str,
+    environment_urls: Tuple[str, ...]
+) -> None:
+    root: Dict[str, Any] = await get_root_by_id(root_id)
+    last_state: Dict[str, Any] = root['historic_state'][-1]
+    is_valid: bool = (
+        _is_active(root)
+        and root['kind'] == 'Git'
+        and all(validations.is_valid_url(url) for url in environment_urls)
+    )
+
+    if is_valid:
+        group_name: str = root['group_name']
+        new_state: Dict[str, Any] = {
+            **last_state,
+            'date': datetime.get_as_str(datetime.get_now()),
+            'environment_urls': environment_urls,
+            'user': user_email
+        }
+
+        await root_dal.update(
+            group_name,
+            root_id,
+            {'historic_state': [*root['historic_state'], new_state]}
+        )
+    else:
+        raise InvalidParameter()
 
 
 async def update_git_root(user_email: str, **kwargs: Any) -> None:
@@ -419,35 +450,27 @@ async def update_git_root(user_email: str, **kwargs: Any) -> None:
         raise InvalidParameter()
 
 
-async def update_git_environments(
-    user_email: str,
+async def update_root_cloning_status(
     root_id: str,
-    environment_urls: Tuple[str, ...]
+    status: str,
+    message: str,
 ) -> None:
+    validations.validate_field_length(message, 400)
     root: Dict[str, Any] = await get_root_by_id(root_id)
-    last_state: Dict[str, Any] = root['historic_state'][-1]
-    is_valid: bool = (
-        _is_active(root)
-        and root['kind'] == 'Git'
-        and all(validations.is_valid_url(url) for url in environment_urls)
-    )
+    last_status = root['historic_cloning_status'][-1]
 
-    if is_valid:
-        group_name: str = root['group_name']
-        new_state: Dict[str, Any] = {
-            **last_state,
+    if last_status['status'] != status:
+        new_status: Dict[str, Any] = {
+            'status': status,
             'date': datetime.get_as_str(datetime.get_now()),
-            'environment_urls': environment_urls,
-            'user': user_email
+            'message': message,
         }
 
         await root_dal.update(
-            group_name,
-            root_id,
-            {'historic_state': [*root['historic_state'], new_state]}
-        )
-    else:
-        raise InvalidParameter()
+            root['group_name'], root_id, {
+                'historic_cloning_status':
+                [*root['historic_cloning_status'], new_status]
+            })
 
 
 async def update_root_state(user_email: str, root_id: str, state: str) -> None:
@@ -482,26 +505,3 @@ async def update_root_state(user_email: str, root_id: str, state: str) -> None:
                     repo_url=root['url'],
                     branch=root['branch'],
                 )
-
-
-async def update_root_cloning_status(
-    root_id: str,
-    status: str,
-    message: str,
-) -> None:
-    validations.validate_field_length(message, 400)
-    root: Dict[str, Any] = await get_root_by_id(root_id)
-    last_status = root['historic_cloning_status'][-1]
-
-    if last_status['status'] != status:
-        new_status: Dict[str, Any] = {
-            'status': status,
-            'date': datetime.get_as_str(datetime.get_now()),
-            'message': message,
-        }
-
-        await root_dal.update(
-            root['group_name'], root_id, {
-                'historic_cloning_status':
-                [*root['historic_cloning_status'], new_status]
-            })

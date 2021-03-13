@@ -9,14 +9,14 @@ from aiodataloader import DataLoader
 from aioextensions import collect
 
 # Local
-from backend.domain import root as root_domain
 from backend.typing import Root
+from roots import domain as roots_domain
 
 
 async def get_roots_by_group(group_name: str) -> Tuple[Root, ...]:
     return tuple(
-        root_domain.format_root(root)
-        for root in await root_domain.get_roots_by_group(group_name)
+        roots_domain.format_root(root)
+        for root in await roots_domain.get_roots_by_group(group_name)
     )
 
 

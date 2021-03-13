@@ -12,8 +12,8 @@ from backend.decorators import (
     rename_kwargs,
     require_login,
 )
-from backend.domain import root as root_domain
 from backend.typing import SimplePayload
+from roots import domain as roots_domain
 
 
 @convert_kwargs_to_snake_case  # type: ignore
@@ -29,7 +29,7 @@ async def mutate(
     **kwargs: Any,
 ) -> SimplePayload:
 
-    await root_domain.update_root_cloning_status(
+    await roots_domain.update_root_cloning_status(
         kwargs['id'],
         kwargs['status'],
         kwargs['message'],
