@@ -1,10 +1,12 @@
 # shellcheck shell=bash
 
 function configure_nix {
-      mkdir -p "${out}/.config/nix" \
+      mkdir -p "${out}/home/makes/.config/nix" \
   &&  mkdir -p "${out}/etc/nix" \
+  &&  mkdir -p "${out}/nix/store/.links" \
+  &&  mkdir -p "${out}/nix/var" \
   &&  echo 'build-users-group =' | tee \
-        "${out}/.config/nix/nix.conf" \
+        "${out}/home/makes/.config/nix/nix.conf" \
         "${out}/etc/nix/nix.conf"
 }
 
@@ -28,7 +30,6 @@ function configure_product {
 function configure_users {
       mkdir -p "${out}/etc" \
   &&  mkdir -p "${out}/home/makes" \
-  &&  mkdir -p "${out}/home/root" \
   &&  mkdir -p "${out}/etc/pam.d" \
   &&  touch "${out}/etc/login.defs" \
   &&  echo "${envEtcGroup}" > "${out}/etc/group" \
@@ -47,7 +48,7 @@ function main {
 }
 
 function mirror {
-  copy "${envRoot}${1}" "${out}/product/${1}"
+  copy "${envSrc}${1}" "${out}/product/${1}"
 }
 
 main "${@}"

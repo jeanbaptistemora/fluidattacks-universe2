@@ -8,24 +8,25 @@ makeOci {
   config = {
     Env = [
       "GIT_SSL_CAINFO=/etc/ssl/certs/ca-bundle.crt"
-      "NIX_PATH=/nix/var/nix/profiles/per-user/root/channels"
+      "HOME=/home/makes"
+      "NIX_PATH=/nix/var/nix/profiles/per-user/makes/channels"
       "NIX_SSL_CERT_FILE=/etc/ssl/certs/ca-bundle.crt"
       "PATH=/bin:/nix/var/nix/profiles/default/bin"
       "SSL_CERT_FILE=/etc/ssl/certs/ca-bundle.crt"
       "SYSTEM_CERTIFICATE_PATH=/etc/ssl/certs/ca-bundle.crt"
-      "USER=root"
+      "USER=makes"
     ];
-    User = "root";
+    User = "makes:makes";
     WorkingDir = "/product";
   };
   contents = [
     (makeDerivation {
       arguments = {
         envEtcGroup = ''
-          root:x:0:
+          makes:x:0:
         '';
         envEtcGshadow = ''
-          root:*::
+          makes:*::
         '';
         envEtcPamdOther = ''
           account sufficient pam_unix.so
@@ -34,14 +35,12 @@ makeOci {
           session required pam_unix.so
         '';
         envEtcPasswd = ''
-          root:x:0:0::/home/root:${nixpkgs.bash}/bin/bash
-          makes:x:1000:0::/home/makes:${nixpkgs.bash}/bin/bash
+          makes:x:0:0::/home/makes:${nixpkgs.bash}/bin/bash
         '';
         envEtcShadow = ''
-          root:!x:::::::
           makes:!x:::::::
         '';
-        envRoot = path "/";
+        envSrc = path "/";
       };
       builder = path "/makes/packages/makes/oci/builder.sh";
       name = "makes-oci-customization-layer";
