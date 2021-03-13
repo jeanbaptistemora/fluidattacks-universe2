@@ -255,7 +255,7 @@ resource "aws_batch_job_definition" "default" {
   # This can be overridden on a per-job basis so let's add default values
   container_properties = jsonencode({
     command = ["./build.sh", "--help"]
-    image   = "registry.gitlab.com/fluidattacks/product/makes:batch"
+    image   = "registry.gitlab.com/fluidattacks/product/makes"
     memory  = 512
     vcpus   = 1
   })

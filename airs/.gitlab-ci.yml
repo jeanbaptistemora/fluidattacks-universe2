@@ -45,7 +45,7 @@
 
 .makes: &makes
   tags: [autoscaling]
-  image: "${CI_REGISTRY_IMAGE}/makes:ci"
+  image: "${CI_REGISTRY_IMAGE}/makes"
   needs: []
   interruptible: true
   script:

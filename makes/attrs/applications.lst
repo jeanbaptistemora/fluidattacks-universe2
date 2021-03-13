@@ -62,8 +62,6 @@ integrates.subscriptions.user-to-entity
 integrates.web.e2e
 makes.announce.bugsnag
 makes.attrs
-makes.deploy.oci.batch
-makes.deploy.oci.ci
 makes.doc
 makes.doc.deploy
 makes.doc.infra.apply
