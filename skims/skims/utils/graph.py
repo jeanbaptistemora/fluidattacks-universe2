@@ -421,7 +421,6 @@ def branches_cfg_finding(
                 n_id,
                 leaf_id,
             )
-            continue
 
 
 def import_graph_from_json(model: Any) -> Graph:
