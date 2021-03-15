@@ -1,21 +1,14 @@
 # Standard library
 from collections import defaultdict
-from functools import reduce
-from typing import (
-    Dict,
-    Optional,
-    Set,
-    Tuple
-)
+from typing import Optional, Tuple
 
 # Third party
 from boto3.dynamodb.conditions import Key
 
 # Local
-from dynamodb import operations, versioned
+from dynamodb import keys, operations, versioned
 from dynamodb.table import TABLE
 from dynamodb.types import (
-    Facet,
     Item,
     PrimaryKey,
     RootHistoricCloning,
@@ -23,61 +16,6 @@ from dynamodb.types import (
     RootItem,
     RootMetadata
 )
-
-
-# Constants
-RESERVED_WORDS: Set[str] = {
-    '#',
-}
-
-
-def _validate_key_words(*, key: str) -> None:
-    for word in RESERVED_WORDS:
-        if word in key:
-            raise ValueError(
-                f'Invalid key, got: {key} with invalid word: "{word}"'
-            )
-
-
-def _build_composite_key(*, template: str, values: Dict[str, str]) -> str:
-    if values:
-        key_parts = tuple(
-            part
-            for part in template.split('#')
-            if part.islower()
-        )
-
-        return reduce(
-            lambda current, part: current.replace(part, values[part]),
-            key_parts,
-            template
-        )
-
-    return f'{template.split("#")[0]}#'
-
-
-def _build_key(
-    *,
-    facet: Facet,
-    pk_values: Dict[str, str],
-    sk_values: Dict[str, str]
-) -> PrimaryKey:
-    for key in {*pk_values.values(), *sk_values.values()}:
-        _validate_key_words(key=key)
-
-    composite_pk: str = _build_composite_key(
-        template=facet.pk_alias,
-        values=pk_values
-    )
-    composite_sk: str = _build_composite_key(
-        template=facet.sk_alias,
-        values=sk_values
-    )
-
-    return PrimaryKey(
-        partition_key=composite_pk,
-        sort_key=composite_sk,
-    )
 
 
 def _build_root(
@@ -139,10 +77,9 @@ async def get_root(
     group_name: str,
     url: str,
 ) -> Optional[RootItem]:
-    primary_key = _build_key(
+    primary_key = keys.build_key(
         facet=TABLE.facets['root_metadata'],
-        pk_values={'url': url, 'branch': branch},
-        sk_values={'name': group_name},
+        values={'branch': branch, 'name': group_name, 'url': url},
     )
 
     index = TABLE.indexes['inverted_index']
@@ -172,10 +109,9 @@ async def get_root(
 
 
 async def get_roots(*, group_name: str) -> Tuple[RootItem, ...]:
-    primary_key = _build_key(
+    primary_key = keys.build_key(
         facet=TABLE.facets['root_metadata'],
-        pk_values={},
-        sk_values={'name': group_name},
+        values={'name': group_name},
     )
 
     index = TABLE.indexes['inverted_index']
@@ -218,10 +154,13 @@ async def create_root(
 ) -> None:
     key_structure = TABLE.primary_key
 
-    metadata_key = _build_key(
+    metadata_key = keys.build_key(
         facet=TABLE.facets['root_metadata'],
-        pk_values={'url': metadata.url, 'branch': metadata.branch},
-        sk_values={'name': group_name},
+        values={
+            'branch': metadata.branch,
+            'name': group_name,
+            'url': metadata.url
+        },
     )
     initial_metadata = {
         key_structure.partition_key: metadata_key.partition_key,
@@ -229,14 +168,14 @@ async def create_root(
         **dict(metadata._asdict())
     }
 
-    historic_cloning_key = _build_key(
+    historic_cloning_key = keys.build_key(
         facet=TABLE.facets['root_historic_cloning'],
-        pk_values={
-            'url': metadata.url,
+        values={
             'branch': metadata.branch,
-            'iso8601utc': cloning.modified_date
+            'iso8601utc': cloning.modified_date,
+            'name': group_name,
+            'url': metadata.url
         },
-        sk_values={'name': group_name},
     )
     initial_historic_cloning = {
         key_structure.partition_key: historic_cloning_key.partition_key,
@@ -244,14 +183,14 @@ async def create_root(
         **dict(cloning._asdict())
     }
 
-    historic_state_key = _build_key(
+    historic_state_key = keys.build_key(
         facet=TABLE.facets['root_historic_state'],
-        pk_values={
-            'url': metadata.url,
+        values={
             'branch': metadata.branch,
-            'iso8601utc': state.modified_date
+            'iso8601utc': state.modified_date,
+            'name': group_name,
+            'url': metadata.url
         },
-        sk_values={'name': group_name},
     )
     initial_historic_state = {
         key_structure.partition_key: historic_state_key.partition_key,
@@ -277,14 +216,14 @@ async def update_root_state(
     url: str
 ) -> None:
     key_structure = TABLE.primary_key
-    historic_state_key = _build_key(
+    historic_state_key = keys.build_key(
         facet=TABLE.facets['root_historic_state'],
-        pk_values={
-            'url': url,
+        values={
             'branch': branch,
-            'iso8601utc': state.modified_date
+            'iso8601utc': state.modified_date,
+            'name': group_name,
+            'url': url
         },
-        sk_values={'name': group_name},
     )
 
     await operations.put_item(
@@ -305,14 +244,14 @@ async def update_root_cloning(
     url: str
 ) -> None:
     key_structure = TABLE.primary_key
-    historic_state_key = _build_key(
+    historic_state_key = keys.build_key(
         facet=TABLE.facets['root_historic_cloning'],
-        pk_values={
-            'url': url,
+        values={
             'branch': branch,
-            'iso8601utc': cloning.modified_date
-        },
-        sk_values={'name': group_name},
+            'iso8601utc': cloning.modified_date,
+            'name': group_name,
+            'url': url
+        }
     )
 
     await operations.put_item(
