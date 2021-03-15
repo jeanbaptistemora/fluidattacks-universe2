@@ -19,19 +19,25 @@ async def test_analyst(populate: bool):
         {
             'id': '418900971',
             'projectName': 'group1',
+            'eventStatus': 'CREATED',
+            'evidence': 'evidence1',
             'detail': 'Integrates unit test1',
         },
         {
             'id': '418900980',
             'projectName': 'group1',
+            'eventStatus': 'CREATED',
+            'evidence': 'evidence2',
             'detail': 'Integrates unit test2',
         },
     ]
     query = f'''{{
         events(projectName: "{group}"){{
             id
+            eventStatus
             projectName
             detail
+            evidence
         }}
     }}'''
     data = {'query': query}
