@@ -118,6 +118,7 @@ reviews.lint
 reviews.runtime
 skims.config-development
 skims.config-runtime
+skims.dev
 skims.docs.build
 skims.lint
 skims.oci-build
