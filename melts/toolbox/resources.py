@@ -190,6 +190,9 @@ def _ssh_repo_cloning(
 
     repo_name = baseurl.split('/')[-1]
 
+    if repo_name.endswith('.git'):
+        repo_name = repo_name[0:-4]
+
     folder = repo_name
     with setup_ssh_key(baseurl) as keyfile:
         if os.path.isdir(folder):
@@ -249,6 +252,10 @@ def _http_repo_cloning(
     # script does not support vpns atm
     baseurl = git_root['url']
     repo_name = baseurl.split('/')[-1]
+
+    if repo_name.endswith('.git'):
+        repo_name = repo_name[0:-4]
+
     branch = git_root['branch']
 
     problem: Optional[Dict[str, Any]] = None
