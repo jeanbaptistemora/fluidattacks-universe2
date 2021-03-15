@@ -25,6 +25,7 @@ from backend.dal import (
     user as dal_user,
     vulnerability as dal_vulnerability,
 )
+from comments import dal as dal_comment
 from events import dal as dal_event
 from names import dal as names_dal
 
@@ -167,6 +168,18 @@ async def populate_events(data: List[Any]) -> bool:
     return all(await collect(coroutines))
 
 
+async def populate_comments(data: List[Any]) -> bool:
+    coroutines: List[Awaitable[bool]] = []
+    coroutines.extend([
+        dal_comment.create(
+            comment['user_id'],
+            comment,
+        )
+        for comment in data
+    ])
+    return all(await collect(coroutines))
+
+
 async def populate_policies(data: List[Any]) -> bool:
     coroutines: List[Awaitable[bool]] = []
     coroutines.extend([
@@ -221,6 +234,9 @@ async def populate(data: Dict[str, Any]) -> bool:
 
     if 'events' in keys:
         coroutines.append(populate_events(data['events']))
+
+    if 'comments' in keys:
+        coroutines.append(populate_comments(data['comments']))
 
     if 'policies' in keys:
         coroutines.append(populate_policies(data['policies']))
