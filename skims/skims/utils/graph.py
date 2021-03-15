@@ -22,9 +22,6 @@ from typing import (
 from jmespath import (
     search as jsh,
 )
-from more_itertools.recipes import (
-    pairwise,
-)
 import networkx as nx
 from func_timeout import (
     func_timeout,
@@ -158,6 +155,7 @@ def adj_ast(
     )
 
 
+@trace()
 def adj_cfg(
     graph: Graph,
     n_id: str,
@@ -245,23 +243,60 @@ def pred_cfg_lazy(
     yield from pred_lazy(graph, n_id, depth, label_cfg='CFG', **edge_attrs)
 
 
+@trace()
 def paths(
     graph: Graph,
     s_id: str,
     t_id: str,
     **edge_attrs: str,
-) -> Iterator[Tuple[str, ...]]:
-    paths_iterator: Iterator[List[str]] = filter(
-        # Paths whose edges have the required attributes
-        lambda path: all(
-            has_labels(graph[n_a_id][n_b_id], **edge_attrs)
-            for n_a_id, n_b_id in pairwise(path)
-        ),
-        # All paths going from source to target
-        nx.all_simple_paths(graph, s_id, t_id)
-    )
+) -> Tuple[Tuple[str, ...], ...]:
+    return tuple(_paths(graph, s_id, t_id, **edge_attrs))
 
-    yield from (tuple(path) for path in paths_iterator)
+
+def _paths(
+    graph: Graph,
+    s_id: str,
+    t_id: str,
+    **edge_attrs: str,
+) -> Iterator[Tuple[str, ...]]:
+    t_ids = {t_id}
+
+    if s_id in t_ids:
+        return
+
+    visited: Dict[str, None] = dict.fromkeys([s_id])
+    pending = [(s_id, iter(graph[s_id]))]
+
+    while pending:
+        pending_s_id, pending_ids = pending[-1]
+        child = next(pending_ids, None)
+
+        if child is None:
+            pending.pop()
+            visited.popitem()
+
+        elif len(visited) + 1 < len(graph):
+            if (
+                # Already visited
+                child in visited
+                # Does not match the criteria
+                or not has_labels(graph[pending_s_id][child], **edge_attrs)
+            ):
+                continue
+
+            if child in t_ids:
+                yield tuple(visited) + (child,)
+
+            visited[child] = None
+            if t_ids - set(visited):
+                pending.append((child, iter(graph[child])))
+            else:
+                visited.popitem()
+        else:
+            for n_id in (t_ids & (set(pending_ids) | {child})) - set(visited):
+                yield tuple(visited) + (n_id,)
+            pending.pop()
+            visited.popitem()
 
 
 def get_node_cfg_condition(graph: Graph, n_id: str) -> str:
