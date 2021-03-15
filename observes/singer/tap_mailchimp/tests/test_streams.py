@@ -1,5 +1,6 @@
 # Standard libraries
 import tempfile
+from typing import Union
 
 # Third party libraries
 
@@ -12,11 +13,15 @@ from singer_io.singer import (
     SingerSchema,
 )
 from tap_mailchimp import (
+    api,
     streams,
 )
 from tests import (
     mock_client,
 )
+
+
+AudienceId = Union[api.AudienceId]
 
 
 def test_all_audiences() -> None:
@@ -36,7 +41,7 @@ def test_all_audiences() -> None:
             list(filter(lambda x: isinstance(x, SingerRecord), singer_msgs))
         ))
         audiences = list(map(
-            lambda x: x['id'],
+            lambda x: AudienceId(x['id']),
             client.list_audiences().data['lists']
         ))
         # Assert

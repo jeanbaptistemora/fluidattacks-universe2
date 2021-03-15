@@ -2,6 +2,7 @@
 from typing import (
     Callable,
     NamedTuple,
+    Union,
 )
 
 # Third party libraries
@@ -21,9 +22,23 @@ from tap_mailchimp.common.objs import (
 LOG = utils.get_log(__name__)
 
 
+class AudienceId(NamedTuple):
+    str_id: str
+
+
+class AbsReportId(NamedTuple):
+    audience_id: AudienceId
+    str_id: str
+
+
+ItemId = Union[AudienceId, AbsReportId]
+
+
 class RawSource(NamedTuple):
     list_audiences: Callable[[Client], JSON]
-    get_audience: Callable[[Client, str], JSON]
+    get_audience: Callable[[Client, AudienceId], JSON]
+    list_abuse_reports: Callable[[Client, AudienceId], JSON]
+    get_abuse_report: Callable[[Client, AbsReportId], JSON]
 
 
 def _list_audiences(client: Client) -> JSON:
@@ -34,21 +49,22 @@ def _list_audiences(client: Client) -> JSON:
     return result
 
 
-def _get_audience(client: Client, audience_id: str) -> JSON:
-    return client.lists.get_list(audience_id)
+def _get_audience(client: Client, audience: AudienceId) -> JSON:
+    return client.lists.get_list(audience.str_id)
 
 
-def _list_abuse_reports(client: Client, audience_id: str) -> JSON:
-    return client.lists.get_list_abuse_reports(audience_id)
+def _list_abuse_reports(client: Client, audience: AudienceId) -> JSON:
+    result = client.lists.get_list_abuse_reports(
+        audience.str_id,
+        fields=['abuse_reports.id', 'total_items', '_links']
+    )
+    LOG.debug('_list_abuse_reports response: %s', result)
+    return result
 
 
-def _get_abuse_report(
-    client: Client,
-    audience_id: str,
-    report_id: str
-) -> JSON:
+def _get_abuse_report(client: Client, report: AbsReportId) -> JSON:
     return client.lists.get_list_abuse_report_details(
-        audience_id, report_id
+        report.audience_id.str_id, report.str_id
     )
 
 
@@ -67,5 +83,7 @@ def _get_members(client: Client, audience_id: str) -> JSON:
 def create_raw_source() -> RawSource:
     return RawSource(
         list_audiences=_list_audiences,
-        get_audience=_get_audience
+        get_audience=_get_audience,
+        list_abuse_reports=_list_abuse_reports,
+        get_abuse_report=_get_abuse_report
     )

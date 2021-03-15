@@ -17,6 +17,7 @@ from tap_mailchimp import (
 
 
 ApiClient = Union[api.ApiClient]
+AudienceId = Union[api.AudienceId]
 Credentials = Union[auth.Credentials]
 JSON = Union[common.objs.JSON]
 RawSource = Union[api.raw.RawSource]
@@ -28,10 +29,10 @@ def _list_audiences(client: Client) -> JSON:
         return json.load(data)['list_audiences']
 
 
-def _get_audience(client: Client, audience_id: str) -> JSON:
+def _get_audience(client: Client, audience: AudienceId) -> JSON:
     # pylint: disable=unused-argument
     with open('./tests/mock_data/audience.json') as data:
-        return json.load(data)['get_audience'][audience_id]
+        return json.load(data)['get_audience'][audience.str_id]
 
 
 def mock_creds() -> Credentials:
@@ -44,7 +45,9 @@ def mock_creds() -> Credentials:
 def mock_data_source() -> RawSource:
     return RawSource(
         list_audiences=_list_audiences,
-        get_audience=_get_audience
+        get_audience=_get_audience,
+        list_abuse_reports=lambda x: x,
+        get_abuse_report=lambda x: x,
     )
 
 

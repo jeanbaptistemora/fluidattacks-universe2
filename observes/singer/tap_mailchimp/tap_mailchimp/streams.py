@@ -24,6 +24,7 @@ from tap_mailchimp import (
 
 
 ApiClient = api.ApiClient
+AudienceId = api.AudienceId
 Credentials = api.Credentials
 
 
@@ -33,7 +34,7 @@ class SupportedStreams(Enum):
 
 def _emit_audience(
     client: ApiClient,
-    audience_id: str,
+    audience_id: AudienceId,
     target: Optional[IO[str]]
 ) -> None:
     target = target if target else sys.stdout
@@ -49,7 +50,7 @@ def _emit_audience(
 def all_audiences(client: ApiClient, target: Optional[IO[str]]) -> None:
     audiences_data = client.list_audiences().data['lists']
     if audiences_data:
-        audiences_id = map(lambda a: a['id'], audiences_data)
+        audiences_id = map(lambda a: AudienceId(a['id']), audiences_data)
         _emit_audience(client, next(audiences_id), target)
         map_obj = map(
             lambda id: _emit_audience(client, id, target),

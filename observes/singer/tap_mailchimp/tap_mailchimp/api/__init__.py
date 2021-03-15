@@ -24,6 +24,9 @@ from tap_mailchimp.api import (
 Credentials = auth.Credentials
 JSON = common.objs.JSON
 RawSource = raw_module.RawSource
+AudienceId = raw_module.AudienceId
+AbsReportId = raw_module.AbsReportId
+ItemId = raw_module.ItemId
 
 
 class ApiData(NamedTuple):
@@ -34,7 +37,9 @@ class ApiData(NamedTuple):
 
 class ApiClient(NamedTuple):
     list_audiences: Callable[[], ApiData]
-    get_audience: Callable[[str], ApiData]
+    get_audience: Callable[[AudienceId], ApiData]
+    list_abuse_reports: Callable[[AudienceId], ApiData]
+    get_abuse_report: Callable[[AbsReportId], ApiData]
 
 
 def _pop_if_exist(raw: JSON, key: str) -> Any:
@@ -66,6 +71,12 @@ def new_client_from_source(
         ),
         get_audience=lambda item_id: create_api_data(
             raw_source.get_audience(client, item_id)
+        ),
+        list_abuse_reports=lambda item_id: create_api_data(
+            raw_source.list_abuse_reports(client, item_id)
+        ),
+        get_abuse_report=lambda item_id: create_api_data(
+            raw_source.get_abuse_report(client, item_id)
         ),
     )
 
