@@ -30,6 +30,7 @@ interface IQueryData {
       };
       pageAttributes: {
         banner: string;
+        definition: string;
         description: string;
         keywords: string;
         slug: string;
@@ -91,6 +92,7 @@ const ContinuousHackingIndex: React.FC<IQueryData> = ({
 
           <ServicePage
             banner={data.asciidoc.pageAttributes.banner}
+            definition={data.asciidoc.pageAttributes.definition}
             isContinuous={isContinuous}
             subtitle={translate.t("service.subTitle")}
             title={title}
@@ -115,6 +117,7 @@ export const query: void = graphql`
       }
       pageAttributes {
         banner
+        definition
         description
         keywords
         slug
