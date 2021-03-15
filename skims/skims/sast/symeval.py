@@ -37,6 +37,9 @@ from utils.ctx import (
 from utils.encodings import (
     json_dump,
 )
+from utils.function import (
+    trace,
+)
 from utils.logs import (
     log_blocking,
 )
@@ -426,6 +429,7 @@ def eval_syntax_steps(
     return syntax_steps
 
 
+@trace()
 def get_possible_syntax_steps_from_path(
     graph_db: graph_model.GraphDB,
     *,
@@ -456,6 +460,7 @@ PossibleSyntaxStepsForFinding = Dict[str, PossibleSyntaxStepsForUntrustedNId]
 PossibleSyntaxSteps = Dict[str, Dict[str, PossibleSyntaxStepsForFinding]]
 
 
+@trace()
 def get_possible_syntax_steps_for_untrusted_n_id(
     graph_db: graph_model.GraphDB,
     *,
@@ -481,6 +486,7 @@ def get_possible_syntax_steps_for_untrusted_n_id(
     return syntax_steps_map
 
 
+@trace()
 def get_possible_syntax_steps_for_finding(
     graph_db: graph_model.GraphDB,
     finding: core_model.FindingEnum,
@@ -499,6 +505,7 @@ def get_possible_syntax_steps_for_finding(
     return syntax_steps_map
 
 
+@trace()
 def get_possible_syntax_steps(
     graph_db: graph_model.GraphDB,
 ) -> PossibleSyntaxSteps:

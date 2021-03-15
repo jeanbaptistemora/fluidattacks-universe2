@@ -400,6 +400,14 @@ def branches_cfg_finding(
     graph: Graph,
     n_id: NId,
     finding: core_model.FindingEnum
+) -> Tuple[Tuple[str, ...], ...]:
+    return tuple(_branches_cfg_finding(graph, n_id, finding))
+
+
+def _branches_cfg_finding(
+    graph: Graph,
+    n_id: NId,
+    finding: core_model.FindingEnum
 ) -> Iterator[Tuple[str, ...]]:
     # Compute all childs reachable from CFG edges
     c_ids = adj_cfg(graph, n_id, depth=-1)
