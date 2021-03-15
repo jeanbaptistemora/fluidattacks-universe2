@@ -21,6 +21,7 @@ TEST_GROUPS: Set[str] = {
     'edit_group',
     'edit_stakeholder',
     'edit_stakeholder_organization',
+    'event',
     'finding',
     'grant_stakeholder_organization_access',
     'groups_with_forces',
