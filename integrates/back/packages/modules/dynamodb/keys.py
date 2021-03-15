@@ -1,5 +1,4 @@
 # Standard
-from functools import reduce
 from typing import Dict, Set
 
 # Local
@@ -21,20 +20,15 @@ def _validate_key_words(*, key: str) -> None:
 
 
 def _build_composite_key(*, template: str, values: Dict[str, str]) -> str:
-    key_parts = tuple(part for part in template.split('#'))
-
-    return reduce(
-        lambda current, part: (
-            current +
-            (
-                f'{values[part]}#'
-                if part in values
-                else str()
-            ) if part.islower() else f'{part}#'
-        ),
-        key_parts,
-        str()
+    template_parts = tuple(part for part in template.split('#'))
+    key_parts = tuple(
+        part
+        if part.isupper()
+        else values.get(part)
+        for part in template_parts
     )
+
+    return '#'.join(part for part in key_parts if part)
 
 
 def build_key(*, facet: Facet, values: Dict[str, str]) -> PrimaryKey:
