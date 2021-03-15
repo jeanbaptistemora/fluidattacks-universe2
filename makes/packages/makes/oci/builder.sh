@@ -15,6 +15,16 @@ function configure_nss {
   &&  echo 'hosts: dns files' > "${out}/etc/nsswitch.conf"
 }
 
+function configure_ssh {
+  # Configure SSH, the host key verification is weakened on purpose because
+  # many jobs that run on this image connect to thousands of unknown providers
+
+      mkdir -p "${out}/home/makes/.ssh" \
+  &&  echo 'Host *' > "${out}/home/makes/.ssh/config" \
+  &&  echo '  StrictHostKeyChecking no' >> "${out}/home/makes/.ssh/config" \
+  &&  chmod 400 "${out}/home/makes/.ssh/config"
+}
+
 function configure_tmp {
       mkdir -p "${out}/tmp" \
   &&  mkdir -p "${out}/var/tmp"
@@ -43,6 +53,7 @@ function main {
       configure_nix \
   &&  configure_nss \
   &&  configure_product \
+  &&  configure_ssh \
   &&  configure_tmp \
   &&  configure_users
 }
