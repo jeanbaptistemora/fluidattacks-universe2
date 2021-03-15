@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Mar 15, 2021, 09:09 AM",
+    "DateLastModified": "Mar 15, 2021, 01:39 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "2.0"
@@ -249,6 +249,10 @@
         {
           "AttributeName": "files",
           "AttributeType": "SS"
+        },
+        {
+          "AttributeName": "nickname",
+          "AttributeType": "S"
         }
       ],
       "TableFacets": [
@@ -1252,6 +1256,9 @@
               },
               "modified_by": {
                 "S": "USER#test@fluidattacks.com"
+              },
+              "nickname": {
+                "S": "product"
               }
             }
           ],
@@ -1262,7 +1269,8 @@
             "environment_urls",
             "gitignore",
             "includes_health_check",
-            "modified_by"
+            "modified_by",
+            "nickname"
           ],
           "DataAccess": {
             "MySql": {}
@@ -1306,6 +1314,9 @@
               },
               "modified_by": {
                 "S": "USER#test@fluidattacks.com"
+              },
+              "nickname": {
+                "S": "product"
               }
             }
           ],
@@ -1316,7 +1327,8 @@
             "environment_urls",
             "gitignore",
             "includes_health_check",
-            "modified_by"
+            "modified_by",
+            "nickname"
           ],
           "DataAccess": {
             "MySql": {}

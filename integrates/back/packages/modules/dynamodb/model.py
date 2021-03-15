@@ -9,12 +9,19 @@ from boto3.dynamodb.conditions import Key
 from dynamodb import historics, keys, operations
 from dynamodb.table import TABLE
 from dynamodb.types import (
+    GitRootCloning,
+    GitRootItem,
+    GitRootMetadata,
+    GitRootState,
+    IPRootItem,
+    IPRootMetadata,
+    IPRootState,
     Item,
     PrimaryKey,
-    RootCloning,
-    RootState,
     RootItem,
-    RootMetadata
+    URLRootItem,
+    URLRootMetadata,
+    URLRootState
 )
 
 
@@ -24,12 +31,6 @@ def _build_root(
     key_structure: PrimaryKey,
     raw_items: Tuple[Item, ...],
 ) -> RootItem:
-    cloning = historics.get_latest(
-        item_id=item_id,
-        key_structure=key_structure,
-        historic_prefix='CLON',
-        raw_items=raw_items
-    )
     state = historics.get_latest(
         item_id=item_id,
         key_structure=key_structure,
@@ -42,26 +43,58 @@ def _build_root(
         raw_items=raw_items
     )
 
-    return RootItem(
-        cloning=RootCloning(
-            modified_date=cloning['modified_date'],
-            reason=cloning['reason'],
-            status=cloning['status']
-        ),
-        state=RootState(
-            environment_urls=state['environment_urls'],
-            environment=state['environment'],
-            gitignore=state['gitignore'],
-            includes_health_check=state['includes_health_check'],
+    if metadata['type'] == 'Git':
+        cloning = historics.get_latest(
+            item_id=item_id,
+            key_structure=key_structure,
+            historic_prefix='CLON',
+            raw_items=raw_items
+        )
+
+        return GitRootItem(
+            cloning=GitRootCloning(
+                modified_date=cloning['modified_date'],
+                reason=cloning['reason'],
+                status=cloning['status']
+            ),
+            state=GitRootState(
+                environment_urls=state['environment_urls'],
+                environment=state['environment'],
+                gitignore=state['gitignore'],
+                includes_health_check=state['includes_health_check'],
+                modified_by=state['modified_by'],
+                modified_date=state['modified_date'],
+                nickname=state['nickname'],
+                status=state['status']
+            ),
+            metadata=GitRootMetadata(
+                branch=metadata['branch'],
+                type=metadata['type'],
+                url=metadata['url']
+            )
+        )
+
+    if metadata['type'] == 'IP':
+        return IPRootItem(
+            state=IPRootState(
+                address=state['address'],
+                modified_by=state['modified_by'],
+                modified_date=state['modified_date'],
+                port=state['port']
+            ),
+            metadata=IPRootMetadata(type=metadata['type'])
+        )
+
+    return URLRootItem(
+        state=URLRootState(
+            host=state['host'],
             modified_by=state['modified_by'],
             modified_date=state['modified_date'],
-            status=state['status']
+            path=state['path'],
+            port=state['port'],
+            protocol=state['protocol']
         ),
-        metadata=RootMetadata(
-            branch=metadata['branch'],
-            type=metadata['type'],
-            url=metadata['url']
-        )
+        metadata=URLRootMetadata(type=metadata['type'])
     )
 
 
@@ -139,51 +172,45 @@ async def get_roots(*, group_name: str) -> Tuple[RootItem, ...]:
     )
 
 
-async def create_root(
-    *,
-    cloning: RootCloning,
-    group_name: str,
-    metadata: RootMetadata,
-    state: RootState
-) -> None:
+async def create_git_root(*, group_name: str, root: GitRootItem) -> None:
     key_structure = TABLE.primary_key
 
     metadata_key = keys.build_key(
         facet=TABLE.facets['root_metadata'],
         values={
-            'branch': metadata.branch,
+            'branch': root.metadata.branch,
             'name': group_name,
-            'url': metadata.url
+            'url': root.metadata.url
         },
     )
     initial_metadata = {
         key_structure.partition_key: metadata_key.partition_key,
         key_structure.sort_key: metadata_key.sort_key,
-        **dict(metadata._asdict())
+        **dict(root.metadata._asdict())
     }
 
     historic_cloning = historics.build_historic(
-        attributes=dict(cloning._asdict()),
+        attributes=dict(root.cloning._asdict()),
         historic_facet=TABLE.facets['root_historic_cloning'],
         key_structure=key_structure,
         key_values={
-            'branch': metadata.branch,
-            'iso8601utc': cloning.modified_date,
+            'branch': root.metadata.branch,
+            'iso8601utc': root.cloning.modified_date,
             'name': group_name,
-            'url': metadata.url
+            'url': root.metadata.url
         },
         latest_facet=TABLE.facets['root_cloning'],
     )
 
     historic_state = historics.build_historic(
-        attributes=dict(state._asdict()),
+        attributes=dict(root.state._asdict()),
         historic_facet=TABLE.facets['root_historic_state'],
         key_structure=key_structure,
         key_values={
-            'branch': metadata.branch,
-            'iso8601utc': state.modified_date,
+            'branch': root.metadata.branch,
+            'iso8601utc': root.state.modified_date,
             'name': group_name,
-            'url': metadata.url
+            'url': root.metadata.url
         },
         latest_facet=TABLE.facets['root_state'],
     )
@@ -198,11 +225,11 @@ async def create_root(
     )
 
 
-async def update_root_state(
+async def update_git_root_state(
     *,
     branch: str,
     group_name: str,
-    state: RootState,
+    state: GitRootState,
     url: str
 ) -> None:
     key_structure = TABLE.primary_key
@@ -222,10 +249,10 @@ async def update_root_state(
     await operations.batch_write_item(items=historic, table=TABLE)
 
 
-async def update_root_cloning(
+async def update_git_root_cloning(
     *,
     branch: str,
-    cloning: RootCloning,
+    cloning: GitRootCloning,
     group_name: str,
     url: str
 ) -> None:

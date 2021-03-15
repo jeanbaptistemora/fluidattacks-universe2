@@ -1,5 +1,5 @@
 # Standard
-from typing import Any, Dict, NamedTuple, Set, Tuple
+from typing import Any, Dict, NamedTuple, Set, Tuple, Union
 
 
 Item = Dict[str, Any]
@@ -28,29 +28,67 @@ class Table(NamedTuple):
     primary_key: PrimaryKey
 
 
-class RootMetadata(NamedTuple):
+class GitRootMetadata(NamedTuple):
     branch: str
     type: str
     url: str
 
 
-class RootCloning(NamedTuple):
+class GitRootCloning(NamedTuple):
     modified_date: str
     reason: str
     status: str
 
 
-class RootState(NamedTuple):
+class GitRootState(NamedTuple):
     environment_urls: Set[str]
     environment: str
     gitignore: Set[str]
     includes_health_check: bool
     modified_by: str
     modified_date: str
+    nickname: str
     status: str
 
 
-class RootItem(NamedTuple):
-    cloning: RootCloning
-    state: RootState
-    metadata: RootMetadata
+class GitRootItem(NamedTuple):
+    cloning: GitRootCloning
+    state: GitRootState
+    metadata: GitRootMetadata
+
+
+class IPRootMetadata(NamedTuple):
+    type: str
+
+
+class IPRootState(NamedTuple):
+    address: str
+    modified_by: str
+    modified_date: str
+    port: str
+
+
+class IPRootItem(NamedTuple):
+    state: IPRootState
+    metadata: IPRootMetadata
+
+
+class URLRootMetadata(NamedTuple):
+    type: str
+
+
+class URLRootState(NamedTuple):
+    host: str
+    modified_by: str
+    modified_date: str
+    path: str
+    port: str
+    protocol: str
+
+
+class URLRootItem(NamedTuple):
+    state: URLRootState
+    metadata: URLRootMetadata
+
+
+RootItem = Union[GitRootItem, IPRootItem, URLRootItem]

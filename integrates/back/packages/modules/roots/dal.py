@@ -4,10 +4,10 @@ from typing import Optional, Tuple
 # Local
 from dynamodb import model
 from dynamodb.types import (
-    RootHistoricCloning,
-    RootHistoricState,
-    RootItem,
-    RootMetadata
+    GitRootCloning,
+    GitRootItem,
+    GitRootState,
+    RootItem
 )
 
 
@@ -28,29 +28,22 @@ async def get_roots(*, group_name: str) -> Tuple[RootItem, ...]:
     return await model.get_roots(group_name=group_name)
 
 
-async def create_root(
+async def create_git_root(
     *,
-    cloning: RootHistoricCloning,
     group_name: str,
-    metadata: RootMetadata,
-    state: RootHistoricState
+    root: GitRootItem
 ) -> None:
-    await model.create_root(
-        cloning=cloning,
-        group_name=group_name,
-        metadata=metadata,
-        state=state
-    )
+    await model.create_git_root(group_name=group_name, root=root)
 
 
-async def update_root_state(
+async def update_git_root_state(
     *,
     branch: str,
     group_name: str,
-    state: RootHistoricState,
+    state: GitRootState,
     url: str
 ) -> None:
-    await model.update_root_state(
+    await model.update_git_root_state(
         branch=branch,
         group_name=group_name,
         state=state,
@@ -58,14 +51,14 @@ async def update_root_state(
     )
 
 
-async def update_root_cloning(
+async def update_git_root_cloning(
     *,
     branch: str,
-    cloning: RootHistoricCloning,
+    cloning: GitRootCloning,
     group_name: str,
     url: str
 ) -> None:
-    await model.update_root_cloning(
+    await model.update_git_root_cloning(
         branch=branch,
         cloning=cloning,
         group_name=group_name,
