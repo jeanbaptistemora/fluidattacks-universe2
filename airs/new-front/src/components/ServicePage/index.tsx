@@ -1,21 +1,27 @@
 /* eslint react/forbid-component-props: 0 */
+/* eslint fp/no-let: 0 */
 /* eslint fp/no-mutation: 0 */
 import { Link } from "gatsby";
 import React from "react";
 import type { StyledComponent } from "styled-components";
 import styled from "styled-components";
+import { translate } from "../../utils/translations/translate";
 import {
   BannerContainer,
   BannerSubtitle,
   BannerTitle,
+  BlackH2,
   FlexCenterItemsContainer,
   FullWidthContainer,
   PageArticle,
+  RegularRedButton,
 } from "../../styles/styledComponents";
 
 interface IProps {
   banner: string;
+  content: string;
   definition: string;
+  image: string;
   isContinuous: string;
   subtitle: string;
   title: string;
@@ -64,9 +70,33 @@ const DefinitionContainer: StyledComponent<
   `,
 })``;
 
+const CenteredContainer: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs({
+  className: `
+    w-100
+    pv4
+  `,
+})``;
+
+const OneShotBlackParagraph: StyledComponent<
+  "p",
+  Record<string, unknown>
+> = styled.p.attrs({
+  className: `
+    c-fluid-bk
+    fw7
+    f2
+    tc
+  `,
+})``;
+
 const ServicePage: React.FC<IProps> = ({
   banner,
+  content,
   definition,
+  image,
   isContinuous,
   subtitle,
   title,
@@ -80,12 +110,15 @@ const ServicePage: React.FC<IProps> = ({
     continuous: "c-fluid-bk",
     oneShot: "c-fluid-bk",
   };
+  let oneShotParagraph: string = "";
+
   if (isContinuous === "yes") {
     subMenuClasses.continuous = "bb bc-hovered-red bw2";
     linksClasses.oneShot = "c-fluid-gray hv-fluid-black";
   } else {
     subMenuClasses.oneShot = "bb bc-hovered-red bw2";
     linksClasses.continuous = "c-fluid-gray hv-fluid-black";
+    oneShotParagraph = translate.t("service.oneShotParagraph");
   }
 
   return (
@@ -116,7 +149,30 @@ const ServicePage: React.FC<IProps> = ({
       </FlexCenterItemsContainer>
 
       <ContentContainer>
-        <DefinitionContainer>{definition}</DefinitionContainer>
+        <DefinitionContainer>
+          {definition}
+
+          <div className={"center tc"}>
+            <Link to={"/contact-us/"}>
+              <RegularRedButton>{"Make an inquiry"}</RegularRedButton>
+            </Link>
+          </div>
+        </DefinitionContainer>
+        <CenteredContainer className={"tc mv4"}>
+          <img alt={title} className={"tc h5"} src={image} />
+        </CenteredContainer>
+      </ContentContainer>
+      <ContentContainer>
+        <CenteredContainer>
+          <BlackH2>{"Key Features"}</BlackH2>
+          <FlexCenterItemsContainer
+            className={"internal solution-benefits services-features flex-wrap"}
+            dangerouslySetInnerHTML={{
+              __html: content,
+            }}
+          />
+        </CenteredContainer>
+        <OneShotBlackParagraph>{oneShotParagraph}</OneShotBlackParagraph>
       </ContentContainer>
     </PageArticle>
   );

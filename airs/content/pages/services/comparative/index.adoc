@@ -10,7 +10,8 @@
 
 = Comparative
 
-{description} To this end we present the following table:
+Know the differences between continuous hacking and one-shot hacking offered by
+Fluid Attacks. To this end we present the following table:
 
 .Comparison between Continuous and One-Shot Hacking services.
 [role="tb-row"]

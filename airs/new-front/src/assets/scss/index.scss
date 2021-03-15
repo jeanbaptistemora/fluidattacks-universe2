@@ -8,8 +8,14 @@ $fluid-red: rgba(255, 52, 53, 1);
 $fluid-gray: rgba(176, 176, 176, 1);
 $fluid-dark-red: rgba(203, 50, 51, 1);
 $light-gray: rgba(249, 249, 249, 1);
+$lighter-gray: rgba(238, 238, 238, 1);
+$near-white: rgba(246, 246, 246, 1);
 $shadow-gray: rgba(176, 176, 176, 0.1);
+$soft-black: rgba(0, 0, 0, 0.1);
+$soft-gray: rgba(211, 211, 211, 1);
 $white: rgba(255, 255, 255, 1);
+$white-gray: rgba(230, 228, 228, 1);
+$whiter-gray: rgba(241, 241, 241, 1);
 
 // Rules
 @keyframes fadein {
@@ -183,6 +189,32 @@ $white: rgba(255, 255, 255, 1);
 }
 
 .internal {
+  font-weight: 600;
+  text-align: left;
+
+  b,
+  strong {
+    font-weight: 600;
+  }
+
+  code {
+    background-color: $lighter-gray;
+    border-radius: 3px;
+    font-family: monospace;
+    font-size: 18px;
+    font-weight: 400;
+    padding: 5px;
+  }
+
+  // Disabling this rule is necessary due to stylelint not recognizing the element as valid
+  // stylelint-disable-next-line selector-no-qualifying-type
+  code.hljs {
+    font-family: monospace;
+    font-size: 16px;
+    font-weight: 400;
+    padding: 30px;
+  }
+
   h1 {
     font-size: 3rem;
     line-height: 3rem;
@@ -205,6 +237,106 @@ $white: rgba(255, 255, 255, 1);
     font-size: 1.25rem;
     line-height: 1.25rem;
     margin: 0;
+  }
+
+  a:not(.link-hvred):not(.button-rules):not(.button-white):not(.button-asserts) {
+    border-bottom: 1px solid $fluid-gray;
+    color: $fluid-black;
+    font-weight: 400;
+    text-decoration: none;
+  }
+
+  .sub-btn {
+    font-weight: 100;
+  }
+
+  .button-rules {
+    background-color: $button-red;
+    border-radius: 0.25rem;
+    color: #fff;
+    cursor: pointer;
+    font-weight: 800;
+    padding-bottom: 0.5rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    padding-top: 0.5rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background-color: $hovered-red;
+      color: #fff;
+    }
+  }
+
+  p {
+    font-size: 1.125rem;
+    font-weight: 400;
+  }
+
+  .imageblock .content img {
+    display: block;
+    margin: auto;
+  }
+
+  .imageblock .title {
+    font-size: 0.875rem;
+    font-weight: 400;
+    padding-bottom: 4rem;
+    text-align: center;
+  }
+
+  blockquote {
+    background-color: $near-white;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.8rem;
+    padding: 1.5rem;
+  }
+
+  table.tableblock {
+    border-collapse: collapse;
+    border-color: $soft-black;
+    border-spacing: 0;
+    border-style: solid;
+    border-width: 1px;
+    display: block;
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    text-align: left;
+    width: max-content;
+
+    thead {
+      background-color: $white-gray;
+      font-size: 1.125rem;
+
+      th {
+        padding: 2rem;
+        text-align: center;
+      }
+    }
+
+    tbody {
+      vertical-align: top;
+    }
+
+    tbody tr {
+      background-color: $soft-gray;
+    }
+
+    tbody tr:nth-child(even) {
+      background-color: $whiter-gray;
+    }
+
+    tbody td {
+      padding: 2rem;
+    }
+  }
+
+  pre {
+    overflow-y: hidden;
+    white-space: pre;
   }
 }
 
@@ -250,3 +382,5 @@ $white: rgba(255, 255, 255, 1);
   height: 18.125rem;
   width: 18.125rem;
 }
+
+.services-features { .sect2 { min-height: 720px !important; } }

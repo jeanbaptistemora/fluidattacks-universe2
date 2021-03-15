@@ -5,6 +5,9 @@ const pageTexts: ResourceKey = {
     contactFluidAttacks: "Contact Fluid Attacks",
   },
   service: {
+    oneShotParagraph:
+      "If you want to achieve higher vulnerability remediation rates, we" +
+      "recommend our Continuous Hacking service",
     subTitle: "Effective Automation and Human Intelligence",
   },
   solution: {

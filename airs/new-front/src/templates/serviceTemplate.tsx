@@ -9,14 +9,17 @@
 /* eslint @typescript-eslint/no-invalid-void-type:0 */
 /* eslint @typescript-eslint/no-confusing-void-expression:0 */
 /* eslint fp/no-mutation: 0 */
+/* eslint import/no-namespace:0 */
 import { Breadcrumb } from "gatsby-plugin-breadcrumb";
 import { Layout } from "../components/layout";
 import { NavbarComponent } from "../components/navbar";
 import React from "react";
 import { Seo } from "../components/seo";
-import { ServicePage } from "../components/servicePage";
+import { ServicePage } from "../components/ServicePage";
 import { graphql } from "gatsby";
 import { translate } from "../utils/translations/translate";
+import * as continuousImage from "../assets/images/services/service-continuous.png";
+import * as oneShotImage from "../assets/images/services/service-one-shot.png";
 
 interface IQueryData {
   data: {
@@ -65,11 +68,14 @@ const ContinuousHackingIndex: React.FC<IQueryData> = ({
     .toUpperCase()}${title.slice(1).replace("-", "")}`;
 
   let isContinuous: string = "";
+  let image: string = "";
 
   if (data.asciidoc.pageAttributes.slug === "services/continuous-hacking/") {
     isContinuous = "yes";
+    image = continuousImage;
   } else {
     isContinuous = "no";
+    image = oneShotImage;
   }
 
   return (
@@ -92,7 +98,9 @@ const ContinuousHackingIndex: React.FC<IQueryData> = ({
 
           <ServicePage
             banner={data.asciidoc.pageAttributes.banner}
+            content={data.asciidoc.html}
             definition={data.asciidoc.pageAttributes.definition}
+            image={image}
             isContinuous={isContinuous}
             subtitle={translate.t("service.subTitle")}
             title={title}
