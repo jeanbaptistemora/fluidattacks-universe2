@@ -205,6 +205,9 @@ integrates.back.test.functional.edit_stakeholder_organization:
 integrates.back.test.functional.event:
   <<: *integrates_back_test_functional
 
+integrates.back.test.functional.events:
+  <<: *integrates_back_test_functional
+
 integrates.back.test.functional.finding:
   <<: *integrates_back_test_functional
 
