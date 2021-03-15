@@ -163,20 +163,19 @@ def _switch_statement(
         for key, value in match_blocks.items()
         if graph.nodes[value]['label_type'] == 'expression_statement'
     }
-    next_id = _get_next_id(stack)
 
-    graph.add_edge(n_id, sorted(match_switch_blocks.values())[0], **ALWAYS)
-
-    for expresion_a, expresion_b in pairwise(
-            sorted(match_switch_blocks.values())):
-        if not expresion_b and next_id:
-            graph.add_edge(expresion_a, next_id, **ALWAYS)
-            break
-        if not expresion_b:
-            break
-        graph.add_edge(expresion_a, expresion_b, **ALWAYS)
+    match_case_blocks = {
+        key: value
+        for key, value in match_blocks.items()
+        if graph.nodes[value]['label_type'] == 'switch_label'
+    }
+    cases_expression = zip(sorted(match_case_blocks.values()),
+                           sorted(match_switch_blocks.values()))
+    for case, expression in cases_expression:
+        graph.add_edge(n_id, case, **TRUE)
+        graph.add_edge(case, expression, **ALWAYS)
         _propagate_next_id_from_parent(stack)
-        _generic(graph, expresion_a, stack, edge_attrs=ALWAYS)
+        _generic(graph, expression, stack, edge_attrs=ALWAYS)
 
 
 def _link_to_last_node(
@@ -254,6 +253,8 @@ def _generic(
          _loop_statement),
         ({'if_statement'},
          _if_statement),
+        ({'switch_statement'},
+         _switch_statement),
         ({'method_declaration'},
          _link_to_last_node),
         ({'try_statement',
