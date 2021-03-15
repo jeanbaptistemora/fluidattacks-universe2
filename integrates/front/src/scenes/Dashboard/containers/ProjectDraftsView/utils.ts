@@ -9,13 +9,13 @@ export const formatDrafts: (dataset: Draft[]) => Draft[] = (
   dataset.map(
     (draft: Draft): Draft => {
       const typeParameters: Record<string, string> = {
-        HYGIENE: "search_findings.tabDescription.type.hygiene",
-        SECURITY: "search_findings.tabDescription.type.security",
+        HYGIENE: "searchFindings.tabDescription.type.hygiene",
+        SECURITY: "searchFindings.tabDescription.type.security",
       };
       const status: Record<string, string> = {
-        CREATED: "search_findings.draftStatus.created",
-        REJECTED: "search_findings.draftStatus.rejected",
-        SUBMITTED: "search_findings.draftStatus.submitted",
+        CREATED: "searchFindings.draftStatus.created",
+        REJECTED: "searchFindings.draftStatus.rejected",
+        SUBMITTED: "searchFindings.draftStatus.submitted",
       };
       const [reportDate] = draft.reportDate.split(" ");
       const currentState: string = translate.t(status[draft.currentState]);

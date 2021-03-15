@@ -42,8 +42,8 @@ const ActionButtons: React.FC<IActionButtonsProps> = ({
 }: IActionButtonsProps): JSX.Element => {
   const displayMessage: () => void = (): void => {
     msgInfo(
-      translate.t("search_findings.tabVuln.info.text"),
-      translate.t("search_findings.tabVuln.info.title"),
+      translate.t("searchFindings.tabVuln.info.text"),
+      translate.t("searchFindings.tabVuln.info.title"),
       !isRequestingReattack
     );
   };

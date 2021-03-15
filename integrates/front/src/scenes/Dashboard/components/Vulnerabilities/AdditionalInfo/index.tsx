@@ -81,12 +81,12 @@ export const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
         </RowCenter>
         <ul>
           <li>
-            <b>{t("search_findings.tabVuln.vulnTable.location")}</b>
+            <b>{t("searchFindings.tabVuln.vulnTable.location")}</b>
             <ul>
               <li>
                 <Row>
                   <Col40>
-                    <b>{t("search_findings.tabVuln.vulnTable.where")}</b>
+                    <b>{t("searchFindings.tabVuln.vulnTable.where")}</b>
                   </Col40>
                   <Col100>
                     <Field>{vulnerability.where}</Field>
@@ -102,7 +102,7 @@ export const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
               <li>
                 <Row>
                   <Col40>
-                    <b>{t("search_findings.tabVuln.vulnTable.specific")}</b>
+                    <b>{t("searchFindings.tabVuln.vulnTable.specific")}</b>
                   </Col40>
                   <Col60>{vulnerability.specific}</Col60>
                 </Row>
@@ -110,14 +110,14 @@ export const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
             </ul>
           </li>
           <li>
-            <b>{t("search_findings.tabVuln.vulnTable.reattacks")}</b>
+            <b>{t("searchFindings.tabVuln.vulnTable.reattacks")}</b>
             <ul>
               <li>
                 <Row>
                   <Col40>
                     <b>
                       {t(
-                        "search_findings.tabVuln.vulnTable.lastRequestedReattackDate"
+                        "searchFindings.tabVuln.vulnTable.lastRequestedReattackDate"
                       )}
                     </b>
                   </Col40>
@@ -127,7 +127,7 @@ export const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
               <li>
                 <Row>
                   <Col40>
-                    <b>{t("search_findings.tabVuln.vulnTable.requester")}</b>
+                    <b>{t("searchFindings.tabVuln.vulnTable.requester")}</b>
                   </Col40>
                   <Col60>{vulnerability.lastReattackRequester}</Col60>
                 </Row>
@@ -135,7 +135,7 @@ export const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
               <li>
                 <Row>
                   <Col40>
-                    <b>{t("search_findings.tabVuln.vulnTable.cycles")}</b>
+                    <b>{t("searchFindings.tabVuln.vulnTable.cycles")}</b>
                   </Col40>
                   <Col60>{vulnerability.cycles}</Col60>
                 </Row>
@@ -143,7 +143,7 @@ export const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
               <li>
                 <Row>
                   <Col40>
-                    <b>{t("search_findings.tabVuln.vulnTable.efficacy")}</b>
+                    <b>{t("searchFindings.tabVuln.vulnTable.efficacy")}</b>
                   </Col40>
                   <Col60>{vulnerability.efficacy}</Col60>
                 </Row>
@@ -151,13 +151,13 @@ export const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
             </ul>
           </li>
           <li>
-            <b>{t("search_findings.tabVuln.vulnTable.treatments")}</b>
+            <b>{t("searchFindings.tabVuln.vulnTable.treatments")}</b>
             <ul>
               <li>
                 <Row>
                   <Col40>
                     <b>
-                      {t("search_findings.tabVuln.vulnTable.currentTreatment")}
+                      {t("searchFindings.tabVuln.vulnTable.currentTreatment")}
                     </b>
                   </Col40>
                   <Col60>{vulnerability.treatment}</Col60>
@@ -167,7 +167,7 @@ export const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
                 <Row>
                   <Col40>
                     <b>
-                      {t("search_findings.tabVuln.vulnTable.treatmentManager")}
+                      {t("searchFindings.tabVuln.vulnTable.treatmentManager")}
                     </b>
                   </Col40>
                   <Col60>{vulnerability.treatmentManager}</Col60>
@@ -176,9 +176,7 @@ export const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
               <li>
                 <Row>
                   <Col40>
-                    <b>
-                      {t("search_findings.tabVuln.vulnTable.treatmentDate")}
-                    </b>
+                    <b>{t("searchFindings.tabVuln.vulnTable.treatmentDate")}</b>
                   </Col40>
                   <Col60>{vulnerability.treatmentDate}</Col60>
                 </Row>
@@ -188,7 +186,7 @@ export const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
                   <Col40>
                     <b>
                       {t(
-                        "search_findings.tabVuln.vulnTable.treatmentExpiration"
+                        "searchFindings.tabVuln.vulnTable.treatmentExpiration"
                       )}
                     </b>
                   </Col40>
@@ -200,7 +198,7 @@ export const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
                   <Col40>
                     <b>
                       {t(
-                        "search_findings.tabVuln.vulnTable.treatmentJustification"
+                        "searchFindings.tabVuln.vulnTable.treatmentJustification"
                       )}
                     </b>
                   </Col40>
@@ -213,7 +211,7 @@ export const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
                 <Row>
                   <Col40>
                     <b>
-                      {t("search_findings.tabVuln.vulnTable.treatmentChanges")}
+                      {t("searchFindings.tabVuln.vulnTable.treatmentChanges")}
                     </b>
                   </Col40>
                   <Col60>{vulnerability.treatmentChanges}</Col60>
@@ -222,12 +220,12 @@ export const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
             </ul>
           </li>
           <li>
-            <b>{t("search_findings.tabVuln.vulnTable.info")}</b>
+            <b>{t("searchFindings.tabVuln.vulnTable.info")}</b>
             <ul>
               <li>
                 <Row>
                   <Col40>
-                    <b>{t("search_findings.tabVuln.vulnTable.reportDate")}</b>
+                    <b>{t("searchFindings.tabVuln.vulnTable.reportDate")}</b>
                   </Col40>
                   <Col60>{vulnerability.reportDate}</Col60>
                 </Row>
@@ -236,7 +234,7 @@ export const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
                 <li>
                   <Row>
                     <Col40>
-                      <b>{t("search_findings.tabVuln.commitHash")}</b>
+                      <b>{t("searchFindings.tabVuln.commitHash")}</b>
                     </Col40>
                     <Col60>
                       <Field>{vulnerability.commitHash}</Field>
@@ -247,7 +245,7 @@ export const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
               <li>
                 <Row>
                   <Col40>
-                    <b>{t("search_findings.tabDescription.tag")}</b>
+                    <b>{t("searchFindings.tabDescription.tag")}</b>
                   </Col40>
                   <Col60>{vulnerability.tag}</Col60>
                 </Row>
@@ -256,7 +254,7 @@ export const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
                 <Row>
                   <Col40>
                     <b>
-                      {t("search_findings.tabDescription.businessCriticality")}
+                      {t("searchFindings.tabDescription.businessCriticality")}
                     </b>
                   </Col40>
                   <Col60>{vulnerability.severity}</Col60>
@@ -266,7 +264,7 @@ export const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
                 <Row>
                   <Col40>
                     <b>
-                      {t("search_findings.tabVuln.vulnTable.vulnType.title")}
+                      {t("searchFindings.tabVuln.vulnTable.vulnType.title")}
                     </b>
                   </Col40>
                   <Col60>{vulnerability.vulnType}</Col60>
@@ -275,7 +273,7 @@ export const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
               <li>
                 <Row>
                   <Col40>
-                    <b>{t("search_findings.tabDescription.zeroRisk")}</b>
+                    <b>{t("searchFindings.tabDescription.zeroRisk")}</b>
                   </Col40>
                   <Col60>
                     <Label>{statusFormatter(vulnerability.zeroRisk)}</Label>
@@ -286,7 +284,7 @@ export const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
                 <li>
                   <Row>
                     <Col40>
-                      <b>{t("search_findings.tabDescription.analyst")}</b>
+                      <b>{t("searchFindings.tabDescription.analyst")}</b>
                     </Col40>
                     <Col60>{vulnerability.analyst}</Col60>
                   </Row>
@@ -301,7 +299,7 @@ export const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
         <Col100>
           <ButtonToolbar>
             <Button id={"close-vuln-modal"} onClick={onClose}>
-              {t("search_findings.tabVuln.close")}
+              {t("searchFindings.tabVuln.close")}
             </Button>
           </ButtonToolbar>
         </Col100>

@@ -121,11 +121,11 @@ const EvidenceView: React.FC = (): JSX.Element => {
     ...data.finding.evidence,
     animation: {
       ...data.finding.evidence.animation,
-      description: translate.t("search_findings.tabEvidence.animationExploit"),
+      description: translate.t("searchFindings.tabEvidence.animationExploit"),
     },
     exploitation: {
       ...data.finding.evidence.exploitation,
-      description: translate.t("search_findings.tabEvidence.evidenceExploit"),
+      description: translate.t("searchFindings.tabEvidence.evidenceExploit"),
     },
   };
   const evidenceList: string[] = _.uniq([
@@ -197,12 +197,12 @@ const EvidenceView: React.FC = (): JSX.Element => {
       <ButtonToolbarRow>
         <Can do={"backend_api_mutations_update_evidence_mutate"}>
           <TooltipWrapper
-            id={"search_findings.tabEvidence.editableTooltip.id"}
-            message={translate.t("search_findings.tabEvidence.editableTooltip")}
+            id={"searchFindings.tabEvidence.editableTooltip.id"}
+            message={translate.t("searchFindings.tabEvidence.editableTooltip")}
           >
             <Button onClick={handleEditClick}>
               <FluidIcon icon={"edit"} />
-              &nbsp;{translate.t("search_findings.tabEvidence.editable")}
+              &nbsp;{translate.t("searchFindings.tabEvidence.editable")}
             </Button>
           </TooltipWrapper>
         </Can>
@@ -225,15 +225,15 @@ const EvidenceView: React.FC = (): JSX.Element => {
                 <ButtonToolbarRow>
                   <TooltipWrapper
                     id={translate.t(
-                      "search_findings.tabEvidence.updateTooltip.id"
+                      "searchFindings.tabEvidence.updateTooltip.id"
                     )}
                     message={translate.t(
-                      "search_findings.tabEvidence.updateTooltip"
+                      "searchFindings.tabEvidence.updateTooltip"
                     )}
                   >
                     <Button disabled={pristine} type={"submit"}>
                       <FluidIcon icon={"loading"} />
-                      &nbsp;{translate.t("search_findings.tabEvidence.update")}
+                      &nbsp;{translate.t("searchFindings.tabEvidence.update")}
                     </Button>
                   </TooltipWrapper>
                 </ButtonToolbarRow>

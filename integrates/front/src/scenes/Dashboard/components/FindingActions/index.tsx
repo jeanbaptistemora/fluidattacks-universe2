@@ -112,12 +112,12 @@ const findingActions: React.FC<IFindingActionsProps> = (
       <Can do={"backend_api_mutations_delete_finding_mutate"}>
         <TooltipWrapper
           displayClass={"dib"}
-          id={"search_findings.delete.btn.tooltip"}
-          message={translate.t("search_findings.delete.btn.tooltip")}
+          id={"searchFindings.delete.btn.tooltip"}
+          message={translate.t("searchFindings.delete.btn.tooltip")}
         >
           <Button onClick={onDelete}>
             <FluidIcon icon={"delete"} />
-            &nbsp;{translate.t("search_findings.delete.btn.text")}
+            &nbsp;{translate.t("searchFindings.delete.btn.text")}
           </Button>
         </TooltipWrapper>
       </Can>

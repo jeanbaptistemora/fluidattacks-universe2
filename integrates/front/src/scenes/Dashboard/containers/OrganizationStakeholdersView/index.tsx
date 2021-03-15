@@ -35,30 +35,30 @@ import { useMutation, useQuery } from "@apollo/react-hooks";
 const tableHeaders: IHeaderConfig[] = [
   {
     dataField: "email",
-    header: translate.t("search_findings.usersTable.usermail"),
+    header: translate.t("searchFindings.usersTable.usermail"),
     width: "38%",
   },
   {
     dataField: "role",
     formatter: (value: string): string =>
       translate.t(`userModal.roles.${value}`, { defaultValue: "-" }),
-    header: translate.t("search_findings.usersTable.userRole"),
+    header: translate.t("searchFindings.usersTable.userRole"),
     width: "15%",
   },
   {
     dataField: "phoneNumber",
-    header: translate.t("search_findings.usersTable.phoneNumber"),
+    header: translate.t("searchFindings.usersTable.phoneNumber"),
     width: "15%",
   },
   {
     dataField: "firstLogin",
-    header: translate.t("search_findings.usersTable.firstlogin"),
+    header: translate.t("searchFindings.usersTable.firstlogin"),
     width: "15%",
   },
   {
     dataField: "lastLogin",
     formatter: timeFromNow,
-    header: translate.t("search_findings.usersTable.lastlogin"),
+    header: translate.t("searchFindings.usersTable.lastlogin"),
     width: "15%",
   },
 ];

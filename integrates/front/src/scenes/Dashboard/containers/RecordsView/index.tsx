@@ -108,11 +108,11 @@ const recordsView: React.FC = (): JSX.Element => {
             <Col100 className={"pa0"}>
               <ButtonToolbarRow>
                 <TooltipWrapper
-                  id={translate.t("search_findings.tabRecords.editableTooltip.id")}
-                  message={translate.t("search_findings.tabRecords.editableTooltip")}
+                  id={translate.t("searchFindings.tabRecords.editableTooltip.id")}
+                  message={translate.t("searchFindings.tabRecords.editableTooltip")}
                 >
                   <Button className={"fr"} onClick={handleEditClick}>
-                    <FluidIcon icon="edit" />&nbsp;{translate.t("search_findings.tabRecords.editable")}
+                    <FluidIcon icon="edit" />&nbsp;{translate.t("searchFindings.tabRecords.editable")}
                   </Button>
                 </TooltipWrapper>
               </ButtonToolbarRow>
@@ -135,7 +135,7 @@ const recordsView: React.FC = (): JSX.Element => {
                   />
                   <Button className={"h-25"} type="submit" disabled={pristine || updateRes.loading}>
                     <FontAwesomeIcon icon={faCloudUploadAlt} />
-                    &nbsp;{translate.t("search_findings.tabEvidence.update")}
+                    &nbsp;{translate.t("searchFindings.tabEvidence.update")}
                   </Button>
                 </ButtonToolbarRow>
               </React.Fragment>
@@ -147,7 +147,7 @@ const recordsView: React.FC = (): JSX.Element => {
             <Col100 className={"pa0"}>
               <Button className={"fr"} onClick={handleRemoveClick} disabled={removeRes.loading}>
                 <FluidIcon icon="delete" />
-                &nbsp;{translate.t("search_findings.tabEvidence.remove")}
+                &nbsp;{translate.t("searchFindings.tabEvidence.remove")}
               </Button>
             </Col100>
           </Row>

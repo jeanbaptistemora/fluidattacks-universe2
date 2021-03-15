@@ -41,7 +41,7 @@ describe("ActionButtons", (): void => {
     expect(buttons).toHaveLength(1);
     expect(
       buttons.filterWhere((button: ReactWrapper): boolean =>
-        button.text().includes(t("search_findings.tabVuln.buttons.edit"))
+        button.text().includes(t("searchFindings.tabVuln.buttons.edit"))
       )
     ).toHaveLength(1);
   });
@@ -88,13 +88,13 @@ describe("ActionButtons", (): void => {
       (button: ReactWrapper): boolean =>
         button
           .text()
-          .includes(t("search_findings.tabDescription.requestVerify.tex"))
+          .includes(t("searchFindings.tabDescription.requestVerify.tex"))
     );
 
     expect(requestButton).toHaveLength(1);
     expect(
       buttons.filterWhere((button: ReactWrapper): boolean =>
-        button.text().includes(t("search_findings.tabVuln.buttons.edit"))
+        button.text().includes(t("searchFindings.tabVuln.buttons.edit"))
       )
     ).toHaveLength(1);
 
@@ -110,7 +110,7 @@ describe("ActionButtons", (): void => {
     const cancelRequestButton: ReactWrapper = wrapper
       .find("Button")
       .filterWhere((button: ReactWrapper): boolean =>
-        button.text().includes(t("search_findings.tabDescription.cancelVerify"))
+        button.text().includes(t("searchFindings.tabDescription.cancelVerify"))
       );
 
     expect(cancelRequestButton).toHaveLength(1);
@@ -118,7 +118,7 @@ describe("ActionButtons", (): void => {
       wrapper
         .find("Button")
         .filterWhere((button: ReactWrapper): boolean =>
-          button.text().includes(t("search_findings.tabVuln.buttons.edit"))
+          button.text().includes(t("searchFindings.tabVuln.buttons.edit"))
         )
     ).toHaveLength(0);
   });

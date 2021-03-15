@@ -150,7 +150,7 @@ const findingContent: React.FC = (): JSX.Element => {
       onCompleted: (result: { approveDraft: { success: boolean } }): void => {
         if (result.approveDraft.success) {
           msgSuccess(
-            translate.t("search_findings.draftApproved"),
+            translate.t("searchFindings.draftApproved"),
             translate.t("group.drafts.titleSuccess")
           );
           void headerRefetch();
@@ -191,7 +191,7 @@ const findingContent: React.FC = (): JSX.Element => {
       onCompleted: (result: { rejectDraft: { success: boolean } }): void => {
         if (result.rejectDraft.success) {
           msgSuccess(
-            translate.t("search_findings.findingRejected", { findingId }),
+            translate.t("searchFindings.findingRejected", { findingId }),
             translate.t("group.drafts.titleSuccess")
           );
           void headerRefetch();
@@ -224,7 +224,7 @@ const findingContent: React.FC = (): JSX.Element => {
       onCompleted: (result: { deleteFinding: { success: boolean } }): void => {
         if (result.deleteFinding.success) {
           msgSuccess(
-            translate.t("search_findings.findingDeleted", { findingId }),
+            translate.t("searchFindings.findingDeleted", { findingId }),
             translate.t("group.drafts.titleSuccess")
           );
           replace(`/groups/${projectName}/vulns`);
@@ -304,33 +304,33 @@ const findingContent: React.FC = (): JSX.Element => {
                     icon={"icon pe-7s-menu"}
                     id={"vulnItem"}
                     link={`${url}/locations`}
-                    title={translate.t("search_findings.tabVuln.tabTitle")}
-                    tooltip={translate.t("search_findings.tabVuln.tooltip")}
+                    title={translate.t("searchFindings.tabVuln.tabTitle")}
+                    tooltip={translate.t("searchFindings.tabVuln.tooltip")}
                   />
                   <ContentTab
                     icon={"icon pe-7s-note"}
                     id={"infoItem"}
                     link={`${url}/description`}
                     title={translate.t(
-                      "search_findings.tabDescription.tabTitle"
+                      "searchFindings.tabDescription.tabTitle"
                     )}
                     tooltip={translate.t(
-                      "search_findings.tabDescription.tooltip"
+                      "searchFindings.tabDescription.tooltip"
                     )}
                   />
                   <ContentTab
                     icon={"icon pe-7s-calculator"}
                     id={"cssv2Item"}
                     link={`${url}/severity`}
-                    title={translate.t("search_findings.tabSeverity.tabTitle")}
-                    tooltip={translate.t("search_findings.tabSeverity.tooltip")}
+                    title={translate.t("searchFindings.tabSeverity.tabTitle")}
+                    tooltip={translate.t("searchFindings.tabSeverity.tooltip")}
                   />
                   <ContentTab
                     icon={"icon pe-7s-photo"}
                     id={"evidenceItem"}
                     link={`${url}/evidence`}
-                    title={translate.t("search_findings.tabEvidence.tabTitle")}
-                    tooltip={translate.t("search_findings.tabEvidence.tooltip")}
+                    title={translate.t("searchFindings.tabEvidence.tabTitle")}
+                    tooltip={translate.t("searchFindings.tabEvidence.tooltip")}
                   />
                   <Have I={"has_forces"}>
                     {hasExploit ||
@@ -342,10 +342,10 @@ const findingContent: React.FC = (): JSX.Element => {
                         id={"exploitItem"}
                         link={`${url}/exploit`}
                         title={translate.t(
-                          "search_findings.tabExploit.tabTitle"
+                          "searchFindings.tabExploit.tabTitle"
                         )}
                         tooltip={translate.t(
-                          "search_findings.tabExploit.tooltip"
+                          "searchFindings.tabExploit.tooltip"
                         )}
                       />
                     ) : undefined}
@@ -354,22 +354,22 @@ const findingContent: React.FC = (): JSX.Element => {
                     icon={"icon pe-7s-graph1"}
                     id={"trackingItem"}
                     link={`${url}/tracking`}
-                    title={translate.t("search_findings.tabTracking.tabTitle")}
-                    tooltip={translate.t("search_findings.tabTracking.tooltip")}
+                    title={translate.t("searchFindings.tabTracking.tabTitle")}
+                    tooltip={translate.t("searchFindings.tabTracking.tooltip")}
                   />
                   <ContentTab
                     icon={"icon pe-7s-notebook"}
                     id={"recordsItem"}
                     link={`${url}/records`}
-                    title={translate.t("search_findings.tabRecords.tabTitle")}
-                    tooltip={translate.t("search_findings.tabRecords.tooltip")}
+                    title={translate.t("searchFindings.tabRecords.tabTitle")}
+                    tooltip={translate.t("searchFindings.tabRecords.tooltip")}
                   />
                   <ContentTab
                     icon={"icon pe-7s-comment"}
                     id={"commentItem"}
                     link={`${url}/consulting`}
-                    title={translate.t("search_findings.tabComments.tabTitle")}
-                    tooltip={translate.t("search_findings.tabComments.tooltip")}
+                    title={translate.t("searchFindings.tabComments.tabTitle")}
+                    tooltip={translate.t("searchFindings.tabComments.tooltip")}
                   />
                   <Can
                     do={"backend_api_resolvers_finding_observations_resolve"}
@@ -379,10 +379,10 @@ const findingContent: React.FC = (): JSX.Element => {
                       id={"observationsItem"}
                       link={`${url}/observations`}
                       title={translate.t(
-                        "search_findings.tabObservations.tabTitle"
+                        "searchFindings.tabObservations.tabTitle"
                       )}
                       tooltip={translate.t(
-                        "search_findings.tabObservations.tooltip"
+                        "searchFindings.tabObservations.tooltip"
                       )}
                     />
                   </Can>
@@ -438,13 +438,13 @@ const findingContent: React.FC = (): JSX.Element => {
         </Row>
       </div>
       <Modal
-        headerTitle={translate.t("search_findings.delete.title")}
+        headerTitle={translate.t("searchFindings.delete.title")}
         open={isDeleteModalOpen}
       >
         <GenericForm name={"deleteFinding"} onSubmit={handleDelete}>
           <FormGroup>
             <ControlLabel>
-              {translate.t("search_findings.delete.justif.label")}
+              {translate.t("searchFindings.delete.justif.label")}
             </ControlLabel>
             <Field
               component={Dropdown}
@@ -453,13 +453,13 @@ const findingContent: React.FC = (): JSX.Element => {
             >
               <option value={""} />
               <option value={"DUPLICATED"}>
-                {translate.t("search_findings.delete.justif.duplicated")}
+                {translate.t("searchFindings.delete.justif.duplicated")}
               </option>
               <option value={"FALSE_POSITIVE"}>
-                {translate.t("search_findings.delete.justif.falsePositive")}
+                {translate.t("searchFindings.delete.justif.falsePositive")}
               </option>
               <option value={"NOT_REQUIRED"}>
-                {translate.t("search_findings.delete.justif.notRequired")}
+                {translate.t("searchFindings.delete.justif.notRequired")}
               </option>
             </Field>
           </FormGroup>

@@ -147,7 +147,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
       if (!_.isUndefined(result)) {
         if (result.deleteTags.success) {
           msgSuccess(
-            translate.t("search_findings.tabDescription.updateVulnerabilities"),
+            translate.t("searchFindings.tabDescription.updateVulnerabilities"),
             translate.t("groupAlerts.titleSuccess")
           );
         }
@@ -178,7 +178,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
     dataTreatment: IUpdateTreatmentVulnAttr
   ): Promise<void> => {
     if (vulnerabilities.length === 0) {
-      msgError(translate.t("search_findings.tabResources.noSelection"));
+      msgError(translate.t("searchFindings.tabResources.noSelection"));
     } else {
       if (dataTreatment.tag !== undefined) {
         mixpanel.track("AddVulnerabilityTag");
@@ -247,7 +247,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
             batchSize: vulnerabilities.length,
           });
           msgSuccess(
-            translate.t("search_findings.tabDescription.updateVulnerabilities"),
+            translate.t("searchFindings.tabDescription.updateVulnerabilities"),
             translate.t("groupAlerts.titleSuccess")
           );
           handleCloseModal();
@@ -259,13 +259,13 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
           _.includes(
             String(updateError),
             translate.t(
-              "search_findings.tabVuln.alerts.maximumNumberOfAcceptations"
+              "searchFindings.tabVuln.alerts.maximumNumberOfAcceptations"
             )
           )
         ) {
           msgError(
             translate.t(
-              "search_findings.tabVuln.alerts.maximumNumberOfAcceptations"
+              "searchFindings.tabVuln.alerts.maximumNumberOfAcceptations"
             )
           );
         } else if (
@@ -284,7 +284,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
         } else if (
           _.includes(
             String(updateError),
-            translate.t("search_findings.tabVuln.exceptions.severityOutOfRange")
+            translate.t("searchFindings.tabVuln.exceptions.severityOutOfRange")
           )
         ) {
           msgError(
@@ -401,10 +401,8 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
     <React.StrictMode>
       <React.StrictMode>
         <ConfirmDialog
-          message={translate.t(
-            "search_findings.tabDescription.approvalMessage"
-          )}
-          title={translate.t("search_findings.tabDescription.approvalTitle")}
+          message={translate.t("searchFindings.tabDescription.approvalMessage")}
+          title={translate.t("searchFindings.tabDescription.approvalTitle")}
         >
           {(confirm: IConfirmFn): JSX.Element => {
             function handleSubmit(values: IUpdateTreatmentVulnAttr): void {
@@ -533,7 +531,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
                   <Alert>
                     {"*"}&nbsp;
                     {translate.t(
-                      "search_findings.tabVuln.alerts.treatmentChange"
+                      "searchFindings.tabVuln.alerts.treatmentChange"
                     )}
                   </Alert>
                 )}
@@ -545,7 +543,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
                 ) ? (
                   <Alert>
                     {"*"}&nbsp;
-                    {translate.t("search_findings.tabVuln.alerts.hasNewVulns", {
+                    {translate.t("searchFindings.tabVuln.alerts.hasNewVulns", {
                       count: vulnerabilities.length,
                     })}
                   </Alert>

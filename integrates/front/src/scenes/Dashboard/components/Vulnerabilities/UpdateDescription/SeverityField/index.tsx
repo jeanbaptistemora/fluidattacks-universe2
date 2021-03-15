@@ -35,7 +35,7 @@ const SeverityField: React.FC<ISeverityFieldProps> = (
             component={Text}
             currentValue={level}
             label={translate.t(
-              "search_findings.tabDescription.businessCriticality"
+              "searchFindings.tabDescription.businessCriticality"
             )}
             name={"severity"}
             renderAsEditable={canUpdateVulnsTreatment}

@@ -206,7 +206,7 @@ const DescriptionView: React.FC = (): JSX.Element => {
                       component={Dropdown}
                       currentValue={formatFindingType(dataset.type)}
                       label={translate.t(
-                        "search_findings.tabDescription.type.title"
+                        "searchFindings.tabDescription.type.title"
                       )}
                       name={"type"}
                       renderAsEditable={isEditing}
@@ -216,12 +216,12 @@ const DescriptionView: React.FC = (): JSX.Element => {
                       <option value={""} />
                       <option value={"SECURITY"}>
                         {translate.t(
-                          "search_findings.tabDescription.type.security"
+                          "searchFindings.tabDescription.type.security"
                         )}
                       </option>
                       <option value={"HYGIENE"}>
                         {translate.t(
-                          "search_findings.tabDescription.type.hygiene"
+                          "searchFindings.tabDescription.type.hygiene"
                         )}
                       </option>
                     </EditableField>
@@ -233,7 +233,7 @@ const DescriptionView: React.FC = (): JSX.Element => {
                   <FormGroup>
                     <ControlLabel>
                       <b>
-                        {translate.t("search_findings.tabDescription.analyst")}
+                        {translate.t("searchFindings.tabDescription.analyst")}
                       </b>
                     </ControlLabel>
                     <p className={"ma0"}>{dataset.analyst}</p>
@@ -246,16 +246,16 @@ const DescriptionView: React.FC = (): JSX.Element => {
                 <Row>
                   <Col100>
                     <TooltipWrapper
-                      id={"search_findings.tabDescription.title.tooltip"}
+                      id={"searchFindings.tabDescription.title.tooltip"}
                       message={translate.t(
-                        "search_findings.tabDescription.title.tooltip"
+                        "searchFindings.tabDescription.title.tooltip"
                       )}
                     >
                       <FormGroup>
                         <ControlLabel>
                           <b>
                             {translate.t(
-                              "search_findings.tabDescription.title.text"
+                              "searchFindings.tabDescription.title.text"
                             )}
                           </b>
                         </ControlLabel>
@@ -287,14 +287,14 @@ const DescriptionView: React.FC = (): JSX.Element => {
                     <EditableField
                       component={TextArea}
                       currentValue={dataset.description}
-                      id={"search_findings.tabDescription.description.tooltip"}
+                      id={"searchFindings.tabDescription.description.tooltip"}
                       label={translate.t(
-                        "search_findings.tabDescription.description.text"
+                        "searchFindings.tabDescription.description.text"
                       )}
                       name={"description"}
                       renderAsEditable={isEditing}
                       tooltip={translate.t(
-                        "search_findings.tabDescription.description.tooltip"
+                        "searchFindings.tabDescription.description.tooltip"
                       )}
                       type={"text"}
                       validate={[
@@ -318,14 +318,14 @@ const DescriptionView: React.FC = (): JSX.Element => {
                     <EditableField
                       component={TextArea}
                       currentValue={dataset.requirements}
-                      id={"search_findings.tabDescription.requirements.tooltip"}
+                      id={"searchFindings.tabDescription.requirements.tooltip"}
                       label={translate.t(
-                        "search_findings.tabDescription.requirements.text"
+                        "searchFindings.tabDescription.requirements.text"
                       )}
                       name={"requirements"}
                       renderAsEditable={isEditing}
                       tooltip={translate.t(
-                        "search_findings.tabDescription.requirements.tooltip"
+                        "searchFindings.tabDescription.requirements.tooltip"
                       )}
                       type={"text"}
                       validate={[
@@ -349,16 +349,14 @@ const DescriptionView: React.FC = (): JSX.Element => {
                     <EditableField
                       component={TextArea}
                       currentValue={dataset.attackVectorDesc}
-                      id={
-                        "search_findings.tabDescription.attackVectors.tooltip"
-                      }
+                      id={"searchFindings.tabDescription.attackVectors.tooltip"}
                       label={translate.t(
-                        "search_findings.tabDescription.attackVectors.text"
+                        "searchFindings.tabDescription.attackVectors.text"
                       )}
                       name={"attackVectorDesc"}
                       renderAsEditable={isEditing}
                       tooltip={translate.t(
-                        "search_findings.tabDescription.attackVectors.tooltip"
+                        "searchFindings.tabDescription.attackVectors.tooltip"
                       )}
                       type={"text"}
                       validate={[required, validTextField, maxImpactsLength]}
@@ -377,15 +375,15 @@ const DescriptionView: React.FC = (): JSX.Element => {
                       component={TextArea}
                       currentValue={dataset.affectedSystems}
                       id={
-                        "search_findings.tabDescription.affectedSystems.tooltip"
+                        "searchFindings.tabDescription.affectedSystems.tooltip"
                       }
                       label={translate.t(
-                        "search_findings.tabDescription.affectedSystems.text"
+                        "searchFindings.tabDescription.affectedSystems.text"
                       )}
                       name={"affectedSystems"}
                       renderAsEditable={isEditing}
                       tooltip={translate.t(
-                        "search_findings.tabDescription.affectedSystems.tooltip"
+                        "searchFindings.tabDescription.affectedSystems.tooltip"
                       )}
                       type={"text"}
                       validate={[
@@ -409,14 +407,14 @@ const DescriptionView: React.FC = (): JSX.Element => {
                     <EditableField
                       component={TextArea}
                       currentValue={dataset.threat}
-                      id={"search_findings.tabDescription.threat.tooltip"}
+                      id={"searchFindings.tabDescription.threat.tooltip"}
                       label={translate.t(
-                        "search_findings.tabDescription.threat.text"
+                        "searchFindings.tabDescription.threat.text"
                       )}
                       name={"threat"}
                       renderAsEditable={isEditing}
                       tooltip={translate.t(
-                        "search_findings.tabDescription.threat.tooltip"
+                        "searchFindings.tabDescription.threat.tooltip"
                       )}
                       type={"text"}
                       validate={[required, validTextField, maxThreatLength]}
@@ -434,14 +432,14 @@ const DescriptionView: React.FC = (): JSX.Element => {
                     <EditableField
                       component={TextArea}
                       currentValue={formatCweUrl(dataset.cweUrl)}
-                      id={"search_findings.tabDescription.weakness.tooltip"}
+                      id={"searchFindings.tabDescription.weakness.tooltip"}
                       label={translate.t(
-                        "search_findings.tabDescription.weakness.text"
+                        "searchFindings.tabDescription.weakness.text"
                       )}
                       name={"cweUrl"}
                       renderAsEditable={isEditing}
                       tooltip={translate.t(
-                        "search_findings.tabDescription.weakness.tooltip"
+                        "searchFindings.tabDescription.weakness.tooltip"
                       )}
                       type={"number"}
                       validate={[required, numeric]}
@@ -462,15 +460,15 @@ const DescriptionView: React.FC = (): JSX.Element => {
                       component={TextArea}
                       currentValue={dataset.recommendation}
                       id={
-                        "search_findings.tabDescription.recommendation.tooltip"
+                        "searchFindings.tabDescription.recommendation.tooltip"
                       }
                       label={translate.t(
-                        "search_findings.tabDescription.recommendation.text"
+                        "searchFindings.tabDescription.recommendation.text"
                       )}
                       name={"recommendation"}
                       renderAsEditable={isEditing}
                       tooltip={translate.t(
-                        "search_findings.tabDescription.recommendation.tooltip"
+                        "searchFindings.tabDescription.recommendation.tooltip"
                       )}
                       type={"text"}
                       validate={[
@@ -495,15 +493,15 @@ const DescriptionView: React.FC = (): JSX.Element => {
                       component={TextArea}
                       currentValue={dataset.compromisedAttributes}
                       id={
-                        "search_findings.tabDescription.compromisedAttrs.tooltip"
+                        "searchFindings.tabDescription.compromisedAttrs.tooltip"
                       }
                       label={translate.t(
-                        "search_findings.tabDescription.compromisedAttrs.text"
+                        "searchFindings.tabDescription.compromisedAttrs.text"
                       )}
                       name={"compromisedAttributes"}
                       renderAsEditable={isEditing}
                       tooltip={translate.t(
-                        "search_findings.tabDescription.compromisedAttrs.tooltip"
+                        "searchFindings.tabDescription.compromisedAttrs.tooltip"
                       )}
                       type={"text"}
                       validate={[
@@ -527,15 +525,15 @@ const DescriptionView: React.FC = (): JSX.Element => {
                         dataset.compromisedRecords
                       )}
                       id={
-                        "search_findings.tabDescription.compromisedRecords.tooltip"
+                        "searchFindings.tabDescription.compromisedRecords.tooltip"
                       }
                       label={translate.t(
-                        "search_findings.tabDescription.compromisedRecords.text"
+                        "searchFindings.tabDescription.compromisedRecords.text"
                       )}
                       name={"compromisedRecords"}
                       renderAsEditable={isEditing}
                       tooltip={translate.t(
-                        "search_findings.tabDescription.compromisedRecords.tooltip"
+                        "searchFindings.tabDescription.compromisedRecords.tooltip"
                       )}
                       type={"number"}
                       validate={[required, numeric]}
@@ -550,16 +548,16 @@ const DescriptionView: React.FC = (): JSX.Element => {
                 <Row>
                   <Col45>
                     <TooltipWrapper
-                      id={"search_findings.tabDescription.sorts.tooltip"}
+                      id={"searchFindings.tabDescription.sorts.tooltip"}
                       message={translate.t(
-                        "search_findings.tabDescription.sorts.tooltip"
+                        "searchFindings.tabDescription.sorts.tooltip"
                       )}
                     >
                       <FormGroup>
                         <ControlLabel>
                           <b>
                             {translate.t(
-                              "search_findings.tabDescription.sorts.text"
+                              "searchFindings.tabDescription.sorts.text"
                             )}
                           </b>
                         </ControlLabel>

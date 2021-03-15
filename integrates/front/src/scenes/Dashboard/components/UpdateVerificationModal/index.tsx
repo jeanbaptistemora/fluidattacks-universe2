@@ -290,7 +290,7 @@ const UpdateVerificationModal: React.FC<IUpdateVerificationModal> = (
         additionalInfo={
           isReattacking
             ? translate.t(
-                "search_findings.tabDescription.remediationModal.message",
+                "searchFindings.tabDescription.remediationModal.message",
                 { vulns: vulns.length }
               )
             : undefined
@@ -300,10 +300,10 @@ const UpdateVerificationModal: React.FC<IUpdateVerificationModal> = (
         message={
           isReattacking
             ? translate.t(
-                "search_findings.tabDescription.remediationModal.justification"
+                "searchFindings.tabDescription.remediationModal.justification"
               )
             : translate.t(
-                "search_findings.tabDescription.remediationModal.observations"
+                "searchFindings.tabDescription.remediationModal.observations"
               )
         }
         onClose={closeRemediationModal}
@@ -311,10 +311,10 @@ const UpdateVerificationModal: React.FC<IUpdateVerificationModal> = (
         title={
           isReattacking
             ? translate.t(
-                "search_findings.tabDescription.remediationModal.titleRequest"
+                "searchFindings.tabDescription.remediationModal.titleRequest"
               )
             : translate.t(
-                "search_findings.tabDescription.remediationModal.titleObservations"
+                "searchFindings.tabDescription.remediationModal.titleObservations"
               )
         }
       >

@@ -89,8 +89,8 @@ const Files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
       void refetch();
       mixpanel.track("RemoveProjectFiles");
       msgSuccess(
-        translate.t("search_findings.tabResources.successRemove"),
-        translate.t("search_findings.tabUsers.titleSuccess")
+        translate.t("searchFindings.tabResources.successRemove"),
+        translate.t("searchFindings.tabUsers.titleSuccess")
       );
     },
     onError: ({ graphQLErrors }: ApolloError): void => {
@@ -130,8 +130,8 @@ const Files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
         void refetch();
         mixpanel.track("AddProjectFiles");
         msgSuccess(
-          translate.t("search_findings.tabResources.success"),
-          translate.t("search_findings.tabUsers.titleSuccess")
+          translate.t("searchFindings.tabResources.success"),
+          translate.t("searchFindings.tabUsers.titleSuccess")
         );
       },
       onError: (filesError: ApolloError): void => {
@@ -183,7 +183,7 @@ const Files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
     );
 
     if (repeatedFiles.length > 0) {
-      msgError(translate.t("search_findings.tabResources.repeatedItem"));
+      msgError(translate.t("searchFindings.tabResources.repeatedItem"));
     } else {
       await uploadFile({
         variables: {
@@ -212,21 +212,21 @@ const Files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
   const tableHeaders: IHeaderConfig[] = [
     {
       dataField: "fileName",
-      header: translate.t("search_findings.filesTable.file"),
+      header: translate.t("searchFindings.filesTable.file"),
       onSort: sortState,
       width: "25%",
       wrapped: true,
     },
     {
       dataField: "description",
-      header: translate.t("search_findings.filesTable.description"),
+      header: translate.t("searchFindings.filesTable.description"),
       onSort: sortState,
       width: "50%",
       wrapped: true,
     },
     {
       dataField: "uploadDate",
-      header: translate.t("search_findings.filesTable.uploadDate"),
+      header: translate.t("searchFindings.filesTable.uploadDate"),
       onSort: sortState,
       width: "25%",
       wrapped: true,
@@ -238,23 +238,23 @@ const Files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
       <Row>
         {/* eslint-disable-next-line react/forbid-component-props */}
         <Col60 className={"pa0"}>
-          <h2>{translate.t("search_findings.tabResources.files.title")}</h2>
+          <h2>{translate.t("searchFindings.tabResources.files.title")}</h2>
         </Col60>
         <Can do={"backend_api_mutations_add_files_mutate"}>
           {/* eslint-disable-next-line react/forbid-component-props */}
           <Col40 className={"pa0"}>
             <ButtonToolbar>
               <TooltipWrapper
-                id={"search_findings.tabResources.files.btnTooltip.id"}
+                id={"searchFindings.tabResources.files.btnTooltip.id"}
                 message={translate.t(
-                  "search_findings.tabResources.files.btnTooltip"
+                  "searchFindings.tabResources.files.btnTooltip"
                 )}
                 placement={"top"}
               >
                 <Button id={"file-add"} onClick={openAddModal}>
                   <FontAwesomeIcon icon={faPlus} />
                   &nbsp;
-                  {translate.t("search_findings.tabResources.addRepository")}
+                  {translate.t("searchFindings.tabResources.addRepository")}
                 </Button>
               </TooltipWrapper>
             </ButtonToolbar>
@@ -274,7 +274,7 @@ const Files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
         striped={true}
       />
       <label>
-        <b>{translate.t("search_findings.tabResources.totalFiles")}</b>
+        <b>{translate.t("searchFindings.tabResources.totalFiles")}</b>
         {filesDataset.length}
       </label>
       <AddFilesModal

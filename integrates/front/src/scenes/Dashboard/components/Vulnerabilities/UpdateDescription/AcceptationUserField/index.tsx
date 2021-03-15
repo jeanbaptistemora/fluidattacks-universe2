@@ -25,7 +25,7 @@ const AcceptationUserField: React.FC<IAcceptationUserFieldProps> = (
         <FormGroup>
           <ControlLabel>
             <b>
-              {translate.t("search_findings.tabDescription.acceptationUser")}
+              {translate.t("searchFindings.tabDescription.acceptationUser")}
             </b>
           </ControlLabel>
           <p>{lastTreatment.user}</p>

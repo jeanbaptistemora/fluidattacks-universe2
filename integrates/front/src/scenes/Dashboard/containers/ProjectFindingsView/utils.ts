@@ -30,20 +30,20 @@ const formatTreatmentSummary: (
   ).length;
 
   return `
-    ${translate.t("search_findings.tabDescription.treatment.new")}: ${
+    ${translate.t("searchFindings.tabDescription.treatment.new")}: ${
     lastTreatments.length -
     inProgress -
     temporarilyAccepted -
     indefinitelyAccepted
   },
     ${translate.t(
-      "search_findings.tabDescription.treatment.inProgress"
+      "searchFindings.tabDescription.treatment.inProgress"
     )}: ${inProgress},
     ${translate.t(
-      "search_findings.tabDescription.treatment.accepted"
+      "searchFindings.tabDescription.treatment.accepted"
     )}: ${temporarilyAccepted},
     ${translate.t(
-      "search_findings.tabDescription.treatment.acceptedUndefined"
+      "searchFindings.tabDescription.treatment.acceptedUndefined"
     )}: ${indefinitelyAccepted}
   `;
 };
@@ -55,12 +55,12 @@ const formatFindings: (dataset: IFindingAttr[]) => IFindingAttr[] = (
     where: string;
   } => {
     const stateParameters: Record<string, string> = {
-      closed: "search_findings.status.closed",
-      open: "search_findings.status.open",
+      closed: "searchFindings.status.closed",
+      open: "searchFindings.status.open",
     };
     const typeParameters: Record<string, string> = {
-      HYGIENE: "search_findings.tabDescription.type.hygiene",
-      SECURITY: "search_findings.tabDescription.type.security",
+      HYGIENE: "searchFindings.tabDescription.type.hygiene",
+      SECURITY: "searchFindings.tabDescription.type.security",
     };
     const state: string = translate.t(stateParameters[finding.state]);
     const treatment: string =

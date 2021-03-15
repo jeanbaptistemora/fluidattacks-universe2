@@ -100,7 +100,7 @@ const formatVulnerabilities: (
         translate.t(formatDropdownField(lastTreatment.treatment)) +
         (isPendingToApproval
           ? translate.t(
-              "search_findings.tabDescription.treatment.pendingApproval"
+              "searchFindings.tabDescription.treatment.pendingApproval"
             )
           : "");
       const [firstTreatment] = vulnerability.historicTreatment;
@@ -140,7 +140,7 @@ const formatVulnerabilities: (
           : "-",
         verification: shouldDisplayVerification ? verification : "",
         vulnType: translate.t(
-          `search_findings.tabVuln.vulnTable.vulnType.${vulnerability.vulnType}`
+          `searchFindings.tabVuln.vulnTable.vulnType.${vulnerability.vulnType}`
         ),
       };
     }

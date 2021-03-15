@@ -27,14 +27,14 @@ const AgentToken: React.FC<IServicesProps> = (
     <React.StrictMode>
       <LastProjectSetting>
         <Flex>
-          <h2>{translate.t("search_findings.agentTokenSection.title")}</h2>
+          <h2>{translate.t("searchFindings.agentTokenSection.title")}</h2>
         </Flex>
         <ProjectScopeText>
-          {t("search_findings.agentTokenSection.about")}
+          {t("searchFindings.agentTokenSection.about")}
         </ProjectScopeText>
         <ButtonToolbar>
           <Button onClick={handleChange}>
-            {t("search_findings.agentTokenSection.generate")}
+            {t("searchFindings.agentTokenSection.generate")}
           </Button>
         </ButtonToolbar>
         <APITokenForcesModal

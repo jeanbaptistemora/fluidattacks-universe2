@@ -42,21 +42,19 @@ const trackingItem: React.FC<ITrackingItemProps> = (
         <div className={styles.content}>
           <p>
             {cycle > 0
-              ? `${translate.t("search_findings.tabTracking.cycle")}: ${cycle},`
-              : `${translate.t("search_findings.tabTracking.found")}`}
+              ? `${translate.t("searchFindings.tabTracking.cycle")}: ${cycle},`
+              : `${translate.t("searchFindings.tabTracking.found")}`}
             <br />
             {open > 0 ? (
               <TrackingLabel>
-                {translate.t(
-                  "search_findings.tabTracking.vulnerabilitiesFound"
-                )}
+                {translate.t("searchFindings.tabTracking.vulnerabilitiesFound")}
                 &nbsp;{open}
               </TrackingLabel>
             ) : undefined}
             {closed > 0 ? (
               <TrackingLabel>
                 {translate.t(
-                  "search_findings.tabTracking.vulnerabilitiesClosed"
+                  "searchFindings.tabTracking.vulnerabilitiesClosed"
                 )}
                 &nbsp;{closed}
               </TrackingLabel>
@@ -67,13 +65,13 @@ const trackingItem: React.FC<ITrackingItemProps> = (
                 <TrackingLabel>
                   {accepted > 0
                     ? translate.t(
-                        "search_findings.tabTracking.vulnerabilitiesAcceptedTreatment",
+                        "searchFindings.tabTracking.vulnerabilitiesAcceptedTreatment",
                         {
                           count: accepted,
                         }
                       )
                     : translate.t(
-                        "search_findings.tabTracking.vulnerabilitiesAcceptedUndefinedTreatment",
+                        "searchFindings.tabTracking.vulnerabilitiesAcceptedUndefinedTreatment",
                         {
                           count: acceptedUndefined,
                         }
@@ -81,12 +79,12 @@ const trackingItem: React.FC<ITrackingItemProps> = (
                 </TrackingLabel>
                 {_.isEmpty(justification) ? undefined : (
                   <TrackingLabel>
-                    {translate.t("search_findings.tabTracking.justification")}
+                    {translate.t("searchFindings.tabTracking.justification")}
                     &nbsp;{justification}
                   </TrackingLabel>
                 )}
                 <TrackingLabel>
-                  {translate.t("search_findings.tabTracking.manager")}
+                  {translate.t("searchFindings.tabTracking.manager")}
                   &nbsp;{manager}
                 </TrackingLabel>
               </React.Fragment>

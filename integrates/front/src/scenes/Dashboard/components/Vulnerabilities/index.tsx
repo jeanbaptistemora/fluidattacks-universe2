@@ -94,7 +94,7 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
   function onDeleteVulnResult(deleteVulnResult: IDeleteVulnAttr): void {
     if (deleteVulnResult.deleteVulnerability.success) {
       msgSuccess(
-        t("search_findings.tabDescription.vulnDeleted"),
+        t("searchFindings.tabDescription.vulnDeleted"),
         t("groupAlerts.titleSuccess")
       );
     } else {
@@ -161,7 +161,7 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
     if (isSelect) {
       if (selectedVulnerabilities.length === batchLimit) {
         msgError(
-          t("search_findings.tabDescription.vulnBatchLimit", {
+          t("searchFindings.tabDescription.vulnBatchLimit", {
             count: batchLimit,
           })
         );
@@ -203,7 +203,7 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
     {
       dataField: "where",
       formatter: vulnerabilityInfo,
-      header: t("search_findings.tabVuln.vulnTable.where"),
+      header: t("searchFindings.tabVuln.vulnTable.where"),
       headerFormatter: filterFormatter,
       onSort: onSortVulns,
     },
@@ -214,7 +214,7 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
       dataField: "id",
       deleteFunction: handleDeleteVulnerability,
       formatter: deleteFormatter,
-      header: t("search_findings.tabDescription.action"),
+      header: t("searchFindings.tabDescription.action"),
       visible: canDeleteVulns,
       width: "5%",
     },
@@ -247,7 +247,7 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
       />
       {isUpdateVulnOpen ? (
         <Modal
-          headerTitle={t("search_findings.tabDescription.editVuln")}
+          headerTitle={t("searchFindings.tabDescription.editVuln")}
           open={isUpdateVulnOpen}
         >
           <UpdateTreatmentModal
@@ -266,8 +266,8 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
             <React.Fragment>
               <RowCenter>
                 <TooltipWrapper
-                  id={t("search_findings.tabDescription.editVulnTooltip.id")}
-                  message={t("search_findings.tabDescription.editVulnTooltip")}
+                  id={t("searchFindings.tabDescription.editVulnTooltip.id")}
+                  message={t("searchFindings.tabDescription.editVulnTooltip")}
                   placement={"top"}
                 >
                   <Button
@@ -275,7 +275,7 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
                     onClick={openUpdateVulnModal}
                   >
                     <FluidIcon icon={"edit"} />
-                    {t("search_findings.tabDescription.editVuln")}
+                    {t("searchFindings.tabDescription.editVuln")}
                   </Button>
                 </TooltipWrapper>
               </RowCenter>
@@ -291,7 +291,7 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
         </Col100>
       ) : undefined}
       <Modal
-        headerTitle={t("search_findings.tabVuln.vulnerabilityInfo")}
+        headerTitle={t("searchFindings.tabVuln.vulnerabilityInfo")}
         open={isAdditionalInfoOpen}
       >
         {_.isUndefined(currentRow) ? undefined : (
@@ -304,10 +304,8 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
                 icon={"icon pe-7s-graph3"}
                 id={"vulnerabilityDetailsTab"}
                 link={"/details"}
-                title={t("search_findings.tabVuln.contentTab.details.title")}
-                tooltip={t(
-                  "search_findings.tabVuln.contentTab.details.tooltip"
-                )}
+                title={t("searchFindings.tabVuln.contentTab.details.title")}
+                tooltip={t("searchFindings.tabVuln.contentTab.details.tooltip")}
               />
               {currentRow.currentState === "open" &&
               isFindingReleased &&
@@ -319,10 +317,10 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
                   id={"vulnerabilityTreatmentsTab"}
                   link={"/treatments"}
                   title={t(
-                    "search_findings.tabVuln.contentTab.treatments.title"
+                    "searchFindings.tabVuln.contentTab.treatments.title"
                   )}
                   tooltip={t(
-                    "search_findings.tabVuln.contentTab.treatments.tooltip"
+                    "searchFindings.tabVuln.contentTab.treatments.tooltip"
                   )}
                 />
               ) : undefined}

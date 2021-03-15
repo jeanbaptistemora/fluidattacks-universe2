@@ -38,10 +38,8 @@ const HandleAcceptationButton: React.FC<IHandleAcceptationButtonProps> = ({
       {shouldRenderHandleAcceptationBtn ? (
         <TooltipWrapper
           displayClass={"dib"}
-          id={"search_findings.tabVuln.buttonsTooltip.handleAcceptation.id"}
-          message={t(
-            "search_findings.tabVuln.buttonsTooltip.handleAcceptation"
-          )}
+          id={"searchFindings.tabVuln.buttonsTooltip.handleAcceptation.id"}
+          message={t("searchFindings.tabVuln.buttonsTooltip.handleAcceptation")}
           placement={"top"}
         >
           <Button
@@ -51,7 +49,7 @@ const HandleAcceptationButton: React.FC<IHandleAcceptationButtonProps> = ({
             <React.Fragment>
               <FluidIcon icon={"verified"} />
               &nbsp;
-              {t("search_findings.tabVuln.buttons.handleAcceptation")}
+              {t("searchFindings.tabVuln.buttons.handleAcceptation")}
             </React.Fragment>
           </Button>
         </TooltipWrapper>

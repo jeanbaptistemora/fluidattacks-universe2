@@ -27,8 +27,8 @@ const DeleteGroup: React.FC = (): JSX.Element => {
   const [removeGroupMutation] = useMutation(REMOVE_GROUP_MUTATION, {
     onCompleted: (): void => {
       msgSuccess(
-        t("search_findings.servicesTable.success"),
-        t("search_findings.servicesTable.successTitle")
+        t("searchFindings.servicesTable.success"),
+        t("searchFindings.servicesTable.successTitle")
       );
 
       push("/home");
@@ -58,16 +58,16 @@ const DeleteGroup: React.FC = (): JSX.Element => {
     <React.StrictMode>
       <LastProjectSetting>
         <Flex>
-          <h2>{t("search_findings.servicesTable.deleteGroup.deleteGroup")}</h2>
+          <h2>{t("searchFindings.servicesTable.deleteGroup.deleteGroup")}</h2>
         </Flex>
         <Row>
           <ProjectScopeText>
-            {t("search_findings.servicesTable.deleteGroup.warning")}
+            {t("searchFindings.servicesTable.deleteGroup.warning")}
           </ProjectScopeText>
           <Col40>
             <ButtonToolbar>
               <Button onClick={handleChange}>
-                {t("search_findings.servicesTable.deleteGroup.deleteGroup")}
+                {t("searchFindings.servicesTable.deleteGroup.deleteGroup")}
               </Button>
             </ButtonToolbar>
           </Col40>

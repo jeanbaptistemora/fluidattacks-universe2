@@ -38,7 +38,7 @@ const addFilesModal: React.FC<IAddFilesModalProps> = (
   return (
     <React.StrictMode>
       <Modal
-        headerTitle={translate.t("search_findings.tabResources.modalFileTitle")}
+        headerTitle={translate.t("searchFindings.tabResources.modalFileTitle")}
         open={isOpen}
       >
         <GenericForm name={"addFiles"} onSubmit={onSubmit}>
@@ -60,7 +60,7 @@ const addFilesModal: React.FC<IAddFilesModalProps> = (
                 <div>
                   <label>
                     <RequiredField>{"*"} </RequiredField>
-                    {translate.t("search_findings.tabResources.description")}
+                    {translate.t("searchFindings.tabResources.description")}
                   </label>
                   <Field
                     component={TextArea}

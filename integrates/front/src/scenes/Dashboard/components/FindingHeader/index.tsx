@@ -27,27 +27,27 @@ interface IFindingHeaderProps {
 const severityConfigs: Record<string, { color: string; text: string }> = {
   CRITICAL: {
     color: "#96030D",
-    text: translate.t("search_findings.criticalSeverity"),
+    text: translate.t("searchFindings.criticalSeverity"),
   },
   HIGH: {
     color: "#FF1122",
-    text: translate.t("search_findings.highSeverity"),
+    text: translate.t("searchFindings.highSeverity"),
   },
-  LOW: { color: "#FFBF00", text: translate.t("search_findings.lowSeverity") },
+  LOW: { color: "#FFBF00", text: translate.t("searchFindings.lowSeverity") },
   MED: {
     color: "#FF7722",
-    text: translate.t("search_findings.mediumSeverity"),
+    text: translate.t("searchFindings.mediumSeverity"),
   },
   NONE: {
     color: "#FF7722",
-    text: translate.t("search_findings.noneSeverity"),
+    text: translate.t("searchFindings.noneSeverity"),
   },
 };
 
 const statusConfigs: Record<string, { icon: string; text: string }> = {
-  closed: { icon: okIcon, text: translate.t("search_findings.status.closed") },
+  closed: { icon: okIcon, text: translate.t("searchFindings.status.closed") },
   default: { icon: defaultIcon, text: "" },
-  open: { icon: failIcon, text: translate.t("search_findings.status.open") },
+  open: { icon: failIcon, text: translate.t("searchFindings.status.open") },
 };
 
 const FindingHeader: React.FC<IFindingHeaderProps> = (
@@ -104,7 +104,7 @@ const FindingHeader: React.FC<IFindingHeaderProps> = (
               </FindingHeaderDetail>
               <FindingHeaderDetail>
                 <FindingHeaderLabel>
-                  {translate.t("search_findings.severityLabel")}
+                  {translate.t("searchFindings.severityLabel")}
                 </FindingHeaderLabel>
                 <FindingHeaderIndicator>
                   <b>{severityText}</b>
@@ -117,7 +117,7 @@ const FindingHeader: React.FC<IFindingHeaderProps> = (
               </FindingHeaderDetail>
               <FindingHeaderDetail>
                 <FindingHeaderLabel>
-                  {translate.t("search_findings.statusLabel")}
+                  {translate.t("searchFindings.statusLabel")}
                 </FindingHeaderLabel>
                 <FindingHeaderIndicator>
                   <b>{statusText}</b>
@@ -135,7 +135,7 @@ const FindingHeader: React.FC<IFindingHeaderProps> = (
               </FindingHeaderDetail>
               <FindingHeaderDetail>
                 <FindingHeaderLabel>
-                  {translate.t("search_findings.openVulnsLabel")}
+                  {translate.t("searchFindings.openVulnsLabel")}
                 </FindingHeaderLabel>
                 <FindingHeaderIndicator>{openVulns}</FindingHeaderIndicator>
               </FindingHeaderDetail>
@@ -146,7 +146,7 @@ const FindingHeader: React.FC<IFindingHeaderProps> = (
               </FindingHeaderDetail>
               <FindingHeaderDetail>
                 <FindingHeaderLabel>
-                  {translate.t("search_findings.discoveryDateLabel")}
+                  {translate.t("searchFindings.discoveryDateLabel")}
                 </FindingHeaderLabel>
                 <FindingHeaderIndicator>{discoveryDate}</FindingHeaderIndicator>
               </FindingHeaderDetail>

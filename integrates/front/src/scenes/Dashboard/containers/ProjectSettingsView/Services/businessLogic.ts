@@ -25,15 +25,15 @@ const serviceStateToString: ((value: boolean | string | undefined) => string) =
 
 const serviceDiff: ((msg: string, old: string, now: string) => string) =
   (msg: string, old: string, now: string): string => {
-    const as: string = translate.t("search_findings.servicesTable.modal.diff.as");
-    const from: string = translate.t("search_findings.servicesTable.modal.diff.from");
-    const keep: string = translate.t("search_findings.servicesTable.modal.diff.keep");
-    const mod: string = translate.t("search_findings.servicesTable.modal.diff.mod");
-    const to: string = translate.t("search_findings.servicesTable.modal.diff.to");
+    const as: string = translate.t("searchFindings.servicesTable.modal.diff.as");
+    const from: string = translate.t("searchFindings.servicesTable.modal.diff.from");
+    const keep: string = translate.t("searchFindings.servicesTable.modal.diff.keep");
+    const mod: string = translate.t("searchFindings.servicesTable.modal.diff.mod");
+    const to: string = translate.t("searchFindings.servicesTable.modal.diff.to");
 
-    const msgString: string = translate.t(`search_findings.servicesTable.${msg}`);
-    const nowString: string = translate.t(`search_findings.servicesTable.${now}`);
-    const oldString: string = translate.t(`search_findings.servicesTable.${old}`);
+    const msgString: string = translate.t(`searchFindings.servicesTable.${msg}`);
+    const nowString: string = translate.t(`searchFindings.servicesTable.${now}`);
+    const oldString: string = translate.t(`searchFindings.servicesTable.${old}`);
 
     return now === old
       ? `${keep} ${msgString} ${as} ${nowString}`

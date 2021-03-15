@@ -238,7 +238,7 @@ export const VulnsView: React.FC = (): JSX.Element => {
             <Row>
               <RowFilters>
                 <SelectContainer>
-                  <Small>{t("search_findings.tabVuln.searchText")}</Small>
+                  <Small>{t("searchFindings.tabVuln.searchText")}</Small>
                   <SearchText
                     className={"black-40"}
                     defaultValue={textFilter}
@@ -247,14 +247,12 @@ export const VulnsView: React.FC = (): JSX.Element => {
                 </SelectContainer>
                 <SelectContainer>
                   <Small>
-                    {t("search_findings.tabVuln.vulnTable.treatments")}
+                    {t("searchFindings.tabVuln.vulnTable.treatments")}
                   </Small>
                   <TooltipWrapper
-                    id={
-                      "search_findings.tabVuln.vulnTable.treatmentsTooltip.id"
-                    }
+                    id={"searchFindings.tabVuln.vulnTable.treatmentsTooltip.id"}
                     message={t(
-                      "search_findings.tabVuln.vulnTable.treatmentsTooltip"
+                      "searchFindings.tabVuln.vulnTable.treatmentsTooltip"
                     )}
                   >
                     <Select
@@ -264,19 +262,19 @@ export const VulnsView: React.FC = (): JSX.Element => {
                     >
                       <option value={""} />
                       <option value={"NEW"}>
-                        {t("search_findings.tabDescription.treatment.new")}
+                        {t("searchFindings.tabDescription.treatment.new")}
                       </option>
                       <option value={"IN_PROGRESS"}>
                         {t(
-                          "search_findings.tabDescription.treatment.inProgress"
+                          "searchFindings.tabDescription.treatment.inProgress"
                         )}
                       </option>
                       <option value={"ACCEPTED"}>
-                        {t("search_findings.tabDescription.treatment.accepted")}
+                        {t("searchFindings.tabDescription.treatment.accepted")}
                       </option>
                       <option value={"ACCEPTED_UNDEFINED"}>
                         {t(
-                          "search_findings.tabDescription.treatment.acceptedUndefined"
+                          "searchFindings.tabDescription.treatment.acceptedUndefined"
                         )}
                       </option>
                     </Select>
@@ -284,12 +282,12 @@ export const VulnsView: React.FC = (): JSX.Element => {
                 </SelectContainer>
                 <SelectContainer>
                   <Small>
-                    {t("search_findings.tabVuln.vulnTable.reattacks")}
+                    {t("searchFindings.tabVuln.vulnTable.reattacks")}
                   </Small>
                   <TooltipWrapper
-                    id={"search_findings.tabVuln.vulnTable.reattacksTooltip.id"}
+                    id={"searchFindings.tabVuln.vulnTable.reattacksTooltip.id"}
                     message={t(
-                      "search_findings.tabVuln.vulnTable.reattacksTooltip"
+                      "searchFindings.tabVuln.vulnTable.reattacksTooltip"
                     )}
                   >
                     <Select
@@ -299,19 +297,19 @@ export const VulnsView: React.FC = (): JSX.Element => {
                     >
                       <option value={""} />
                       <option value={"Requested"}>
-                        {t("search_findings.tabVuln.requested")}
+                        {t("searchFindings.tabVuln.requested")}
                       </option>
                       <option value={"Verified"}>
-                        {t("search_findings.tabVuln.verified")}
+                        {t("searchFindings.tabVuln.verified")}
                       </option>
                     </Select>
                   </TooltipWrapper>
                 </SelectContainer>
                 <SelectContainer>
-                  <Small>{t("search_findings.tabVuln.status")}</Small>
+                  <Small>{t("searchFindings.tabVuln.status")}</Small>
                   <TooltipWrapper
-                    id={"search_findings.tabVuln.statusTooltip.id"}
-                    message={t("search_findings.tabVuln.statusTooltip")}
+                    id={"searchFindings.tabVuln.statusTooltip.id"}
+                    message={t("searchFindings.tabVuln.statusTooltip")}
                   >
                     <Select
                       className={"black-40"}
@@ -320,10 +318,10 @@ export const VulnsView: React.FC = (): JSX.Element => {
                     >
                       <option value={""} />
                       <option value={"open"}>
-                        {t("search_findings.tabVuln.open")}
+                        {t("searchFindings.tabVuln.open")}
                       </option>
                       <option value={"closed"}>
-                        {t("search_findings.tabVuln.closed")}
+                        {t("searchFindings.tabVuln.closed")}
                       </option>
                     </Select>
                   </TooltipWrapper>

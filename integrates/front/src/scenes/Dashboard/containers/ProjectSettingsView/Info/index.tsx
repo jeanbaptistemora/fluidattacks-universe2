@@ -32,7 +32,7 @@ const GroupInformation: React.FC = (): JSX.Element => {
       attribute: "Language",
       // Next annotations needed as DB queries use "any" type
       // eslint-disable-next-line @typescript-eslint/restrict-template-expressions, @typescript-eslint/no-unsafe-member-access
-      value: translate.t(`search_findings.infoTable.${data.project.language}`),
+      value: translate.t(`searchFindings.infoTable.${data.project.language}`),
     },
   ];
   const tableHeaders: IHeaderConfig[] = [
@@ -50,7 +50,7 @@ const GroupInformation: React.FC = (): JSX.Element => {
     <React.StrictMode>
       <LastProjectSetting>
         <Flex>
-          <h2>{translate.t("search_findings.infoTable.title")}</h2>
+          <h2>{translate.t("searchFindings.infoTable.title")}</h2>
         </Flex>
         <DataTableNext
           bordered={true}

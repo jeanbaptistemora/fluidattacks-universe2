@@ -148,7 +148,7 @@ const ProjectEventsView: React.FC = (): JSX.Element => {
     {
       align: "center",
       dataField: "id",
-      header: translate.t("search_findings.tabEvents.id"),
+      header: translate.t("searchFindings.tabEvents.id"),
       onSort: onSortState,
       width: "8%",
       wrapped: true,
@@ -156,7 +156,7 @@ const ProjectEventsView: React.FC = (): JSX.Element => {
     {
       align: "center",
       dataField: "eventDate",
-      header: translate.t("search_findings.tabEvents.date"),
+      header: translate.t("searchFindings.tabEvents.date"),
       onSort: onSortState,
       width: "10%",
       wrapped: true,
@@ -164,7 +164,7 @@ const ProjectEventsView: React.FC = (): JSX.Element => {
     {
       align: "center",
       dataField: "detail",
-      header: translate.t("search_findings.tabEvents.description"),
+      header: translate.t("searchFindings.tabEvents.description"),
       onSort: onSortState,
       width: "35%",
       wrapped: true,
@@ -177,7 +177,7 @@ const ProjectEventsView: React.FC = (): JSX.Element => {
         onFilter: onFilterType,
         options: optionType,
       }),
-      header: translate.t("search_findings.tabEvents.type"),
+      header: translate.t("searchFindings.tabEvents.type"),
       onSort: onSortState,
       width: "18%",
       wrapped: true,
@@ -191,7 +191,7 @@ const ProjectEventsView: React.FC = (): JSX.Element => {
         options: selectOptionsStatus,
       }),
       formatter: statusFormatter,
-      header: translate.t("search_findings.tabEvents.status"),
+      header: translate.t("searchFindings.tabEvents.status"),
       onSort: onSortState,
       width: "16%",
       wrapped: true,
@@ -199,7 +199,7 @@ const ProjectEventsView: React.FC = (): JSX.Element => {
     {
       align: "center",
       dataField: "closingDate",
-      header: translate.t("search_findings.tabEvents.closingDate"),
+      header: translate.t("searchFindings.tabEvents.closingDate"),
       onSort: onSortState,
       width: "13%",
       wrapped: true,
@@ -823,7 +823,7 @@ const ProjectEventsView: React.FC = (): JSX.Element => {
           )}
         </GenericForm>
       </Modal>
-      <p>{translate.t("search_findings.tabEvents.tableAdvice")}</p>
+      <p>{translate.t("searchFindings.tabEvents.tableAdvice")}</p>
       <DataTableNext
         bordered={true}
         dataset={formatEvents(data.project.events)}

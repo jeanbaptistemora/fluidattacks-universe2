@@ -109,8 +109,8 @@ const services: React.FC<IServicesProps> = (props: IServicesProps): JSX.Element 
     onCompleted: (): void => {
       mixpanel.track("EditGroupData", formValues);
       msgSuccess(
-        translate.t("search_findings.servicesTable.success"),
-        translate.t("search_findings.servicesTable.successTitle"),
+        translate.t("searchFindings.servicesTable.success"),
+        translate.t("searchFindings.servicesTable.successTitle"),
       );
 
       if (formValues.integrates) {
@@ -125,10 +125,10 @@ const services: React.FC<IServicesProps> = (props: IServicesProps): JSX.Element 
 
         switch (message) {
           case "Exception - Forces is only available when Drills is too":
-            msg = "search_findings.servicesTable.errors.forcesOnlyIfDrills";
+            msg = "searchFindings.servicesTable.errors.forcesOnlyIfDrills";
             break;
           case "Exception - Forces is only available in projects of type Continuous":
-            msg = "search_findings.servicesTable.errors.forcesOnlyIfContinuous";
+            msg = "searchFindings.servicesTable.errors.forcesOnlyIfContinuous";
             break;
           default:
             msg = "groupAlerts.errorTextsad";
@@ -168,13 +168,13 @@ const services: React.FC<IServicesProps> = (props: IServicesProps): JSX.Element 
   const tableHeaders: IHeaderConfig[] = [
     {
       dataField: "service",
-      header: translate.t("search_findings.servicesTable.service"),
+      header: translate.t("searchFindings.servicesTable.service"),
       width: "75%",
       wrapped: true,
     },
     {
       dataField: "status",
-      header: translate.t("search_findings.servicesTable.status"),
+      header: translate.t("searchFindings.servicesTable.status"),
       width: "25%",
       wrapped: true,
     },
@@ -203,7 +203,7 @@ const services: React.FC<IServicesProps> = (props: IServicesProps): JSX.Element 
   const servicesDataSet: Array<{ [key: string]: JSX.Element }> = [
     {
       service: (
-        <p>{translate.t("search_findings.servicesTable.type")}</p>
+        <p>{translate.t("searchFindings.servicesTable.type")}</p>
       ),
       status: (
         <Field
@@ -212,17 +212,17 @@ const services: React.FC<IServicesProps> = (props: IServicesProps): JSX.Element 
           onChange={handleSubscriptionTypeChange}
         >
           <option value="CONTINUOUS">
-            {translate.t("search_findings.servicesTable.continuous")}
+            {translate.t("searchFindings.servicesTable.continuous")}
           </option>
           <option value="ONESHOT">
-            {translate.t("search_findings.servicesTable.oneShot")}
+            {translate.t("searchFindings.servicesTable.oneShot")}
           </option>
         </Field>
       ),
     },
   ].concat(servicesList.map((element: IServicesDataSet) => ({
     service: (
-      <p>{translate.t(`search_findings.servicesTable.${element.service}`)}</p>
+      <p>{translate.t(`searchFindings.servicesTable.${element.service}`)}</p>
     ),
     status: (
       <React.Fragment>
@@ -232,9 +232,9 @@ const services: React.FC<IServicesProps> = (props: IServicesProps): JSX.Element 
             name={element.service}
             props={{
               id: element.id,
-              offlabel: translate.t("search_findings.servicesTable.inactive"),
+              offlabel: translate.t("searchFindings.servicesTable.inactive"),
               onChange: _.isUndefined(element.onChange) ? undefined : element.onChange,
-              onlabel: translate.t("search_findings.servicesTable.active"),
+              onlabel: translate.t("searchFindings.servicesTable.active"),
             }}
             type="checkbox"
           />
@@ -250,7 +250,7 @@ const services: React.FC<IServicesProps> = (props: IServicesProps): JSX.Element 
 
       if (values.confirmation !== groupName) {
         errorsFound.confirmation =
-          translate.t("search_findings.servicesTable.errors.expectedGroupName", { groupName });
+          translate.t("searchFindings.servicesTable.errors.expectedGroupName", { groupName });
       }
 
       return errorsFound;
@@ -261,7 +261,7 @@ const services: React.FC<IServicesProps> = (props: IServicesProps): JSX.Element 
       <div>
         <Row>
           <Col80 className={"pa0"}>
-            <h2>{translate.t("search_findings.servicesTable.services")}</h2>
+            <h2>{translate.t("searchFindings.servicesTable.services")}</h2>
           </Col80>
         </Row>
         <GenericForm
@@ -298,34 +298,34 @@ const services: React.FC<IServicesProps> = (props: IServicesProps): JSX.Element 
                   <Col100>
                     <ButtonToolbar>
                       <Button onClick={handleTblButtonClick}>
-                        {translate.t("search_findings.servicesTable.modal.continue")}
+                        {translate.t("searchFindings.servicesTable.modal.continue")}
                       </Button>
                     </ButtonToolbar>
                   </Col100>
                 </Row>
               )}
               <Modal
-                headerTitle={translate.t("search_findings.servicesTable.modal.title")}
+                headerTitle={translate.t("searchFindings.servicesTable.modal.title")}
                 open={isModalOpen}
               >
-                <ControlLabel>{translate.t("search_findings.servicesTable.modal.changesToApply")}</ControlLabel>
+                <ControlLabel>{translate.t("searchFindings.servicesTable.modal.changesToApply")}</ControlLabel>
                 <Well>
                   {computeConfirmationMessage(data, formValues)
                     .map((line: string) => <p key={line}>{line}</p>)}
                 </Well>
                 <FormGroup>
-                  <ControlLabel>{translate.t("search_findings.servicesTable.modal.observations")}</ControlLabel>
+                  <ControlLabel>{translate.t("searchFindings.servicesTable.modal.observations")}</ControlLabel>
                   <Field
                     name="comments"
                     component={TextArea}
-                    placeholder={translate.t("search_findings.servicesTable.modal.observationsPlaceholder")}
+                    placeholder={translate.t("searchFindings.servicesTable.modal.observationsPlaceholder")}
                     type="text"
                     validate={[validTextField, maxLength250]}
                   />
                 </FormGroup>
                 {isDowngradingServices(data, formValues) ? (
                   <FormGroup>
-                    <ControlLabel>{translate.t("search_findings.servicesTable.modal.downgrading")}</ControlLabel>
+                    <ControlLabel>{translate.t("searchFindings.servicesTable.modal.downgrading")}</ControlLabel>
                     <Field
                       name="reason"
                       component={Dropdown}
@@ -333,7 +333,7 @@ const services: React.FC<IServicesProps> = (props: IServicesProps): JSX.Element 
                     >
                       {downgradeReasons.map((reason: string) => (
                         <option value={reason} key={reason}>
-                          {translate.t(`search_findings.servicesTable.modal.${reason.toLowerCase()}`)}
+                          {translate.t(`searchFindings.servicesTable.modal.${reason.toLowerCase()}`)}
                         </option>
                       ))}
                     </Field>
@@ -341,14 +341,14 @@ const services: React.FC<IServicesProps> = (props: IServicesProps): JSX.Element 
                 ) : undefined}
                 {isDowngrading(true, formValues.integrates) ? (
                   <FormGroup>
-                    <ControlLabel>{translate.t("search_findings.servicesTable.modal.warning")}</ControlLabel>
+                    <ControlLabel>{translate.t("searchFindings.servicesTable.modal.warning")}</ControlLabel>
                     <Alert>
-                      {translate.t("search_findings.servicesTable.modal.warningDowngradeIntegrates")}
+                      {translate.t("searchFindings.servicesTable.modal.warningDowngradeIntegrates")}
                     </Alert>
                   </FormGroup>
                 ) : undefined}
                 <FormGroup>
-                  <ControlLabel>{translate.t("search_findings.servicesTable.modal.typeGroupName")}</ControlLabel>
+                  <ControlLabel>{translate.t("searchFindings.servicesTable.modal.typeGroupName")}</ControlLabel>
                   <Field
                     name="confirmation"
                     component={Text}

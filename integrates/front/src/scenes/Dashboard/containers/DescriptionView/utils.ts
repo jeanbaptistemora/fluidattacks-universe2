@@ -11,7 +11,7 @@ const formatCweUrl: (cweId: string) => string = (cweId: string): string =>
 const formatFindingType: (type: string) => string = (type: string): string =>
   _.isEmpty(type)
     ? "-"
-    : translate.t(`search_findings.tabDescription.type.${type.toLowerCase()}`);
+    : translate.t(`searchFindings.tabDescription.type.${type.toLowerCase()}`);
 
 const formatCompromisedRecords: (records: number) => string = (
   records: number

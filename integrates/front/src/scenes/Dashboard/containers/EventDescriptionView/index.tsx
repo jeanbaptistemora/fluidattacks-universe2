@@ -130,7 +130,7 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
     <React.StrictMode>
       <React.Fragment>
         <Modal
-          headerTitle={translate.t("search_findings.tabSeverity.solve")}
+          headerTitle={translate.t("searchFindings.tabSeverity.solve")}
           open={isSolvingModalOpen}
         >
           <GenericForm name={"solveEvent"} onSubmit={handleSubmit}>
@@ -202,7 +202,7 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
                     >
                       <FluidIcon icon={"verified"} />
                       &nbsp;
-                      {translate.t("search_findings.tabSeverity.solve")}
+                      {translate.t("searchFindings.tabSeverity.solve")}
                     </Button>
                   </Can>
                 </ButtonToolbar>
@@ -213,7 +213,7 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
                     alignField={"horizontalWide"}
                     component={Text}
                     currentValue={data.event.detail}
-                    label={translate.t("search_findings.tabEvents.description")}
+                    label={translate.t("searchFindings.tabEvents.description")}
                     name={"detail"}
                     renderAsEditable={false}
                     type={"text"}
@@ -224,7 +224,7 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
                     alignField={"horizontalWide"}
                     component={Text}
                     currentValue={data.event.client}
-                    label={translate.t("search_findings.tabEvents.client")}
+                    label={translate.t("searchFindings.tabEvents.client")}
                     name={"client"}
                     renderAsEditable={false}
                     type={"text"}
@@ -237,7 +237,7 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
                     alignField={"horizontalWide"}
                     component={Text}
                     currentValue={data.event.analyst}
-                    label={translate.t("search_findings.tabEvents.analyst")}
+                    label={translate.t("searchFindings.tabEvents.analyst")}
                     name={"analyst"}
                     renderAsEditable={false}
                     type={"text"}
@@ -252,7 +252,7 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
                         ? "-"
                         : data.event.affectation
                     }
-                    label={translate.t("search_findings.tabEvents.affectation")}
+                    label={translate.t("searchFindings.tabEvents.affectation")}
                     name={"affectation"}
                     renderAsEditable={false}
                     type={"text"}
@@ -267,7 +267,7 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
                       component={Text}
                       currentValue={data.event.affectedComponents}
                       label={translate.t(
-                        "search_findings.tabEvents.affectedComponents"
+                        "searchFindings.tabEvents.affectedComponents"
                       )}
                       name={"affectedComponents"}
                       renderAsEditable={false}
@@ -280,7 +280,7 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
                     alignField={"horizontalWide"}
                     component={Text}
                     currentValue={data.event.accessibility}
-                    label={translate.t("search_findings.tabEvents.eventIn")}
+                    label={translate.t("searchFindings.tabEvents.eventIn")}
                     name={"accessibility"}
                     renderAsEditable={false}
                     type={"text"}

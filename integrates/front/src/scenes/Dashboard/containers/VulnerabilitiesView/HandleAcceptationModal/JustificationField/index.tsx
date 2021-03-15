@@ -36,7 +36,7 @@ const JustificationField: React.FC<IJustificationFieldProps> = (
       <ControlLabel>
         <b>
           {translate.t(
-            "search_findings.tabDescription.remediationModal.observations"
+            "searchFindings.tabDescription.remediationModal.observations"
           )}
         </b>
       </ControlLabel>
@@ -52,12 +52,12 @@ const JustificationField: React.FC<IJustificationFieldProps> = (
             <React.Fragment>
               <option value={"FP"}>
                 {translate.t(
-                  "search_findings.tabDescription.handleAcceptationModal.zeroRiskJustification.confirmation.fp"
+                  "searchFindings.tabDescription.handleAcceptationModal.zeroRiskJustification.confirmation.fp"
                 )}
               </option>
               <option value={"Out of the scope"}>
                 {translate.t(
-                  "search_findings.tabDescription.handleAcceptationModal.zeroRiskJustification.confirmation.outOfTheScope"
+                  "searchFindings.tabDescription.handleAcceptationModal.zeroRiskJustification.confirmation.outOfTheScope"
                 )}
               </option>
             </React.Fragment>
@@ -66,12 +66,12 @@ const JustificationField: React.FC<IJustificationFieldProps> = (
             <React.Fragment>
               <option value={"FN"}>
                 {translate.t(
-                  "search_findings.tabDescription.handleAcceptationModal.zeroRiskJustification.rejection.fn"
+                  "searchFindings.tabDescription.handleAcceptationModal.zeroRiskJustification.rejection.fn"
                 )}
               </option>
               <option value={"Complementary control"}>
                 {translate.t(
-                  "search_findings.tabDescription.handleAcceptationModal.zeroRiskJustification.rejection.complementaryControl"
+                  "searchFindings.tabDescription.handleAcceptationModal.zeroRiskJustification.rejection.complementaryControl"
                 )}
               </option>
             </React.Fragment>

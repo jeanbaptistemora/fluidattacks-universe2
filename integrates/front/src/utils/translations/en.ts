@@ -867,7 +867,7 @@ export const enTranslations: ResourceKey = {
   route: {
     pendingToDelete: "Group pending to delete",
   },
-  search_findings: {
+  searchFindings: {
     acceptationButtons: {
       approve: "Approve Acceptation",
       reject: "Reject Acceptation",

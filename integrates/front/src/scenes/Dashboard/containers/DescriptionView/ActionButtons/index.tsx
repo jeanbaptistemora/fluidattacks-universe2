@@ -25,25 +25,25 @@ const ActionButtons: React.FC<IActionButtonsProps> = (
       <Can do={"backend_api_mutations_update_finding_description_mutate"}>
         {isEditing ? (
           <TooltipWrapper
-            id={"search_findings.tabDescription.save.tooltip.btn"}
-            message={translate.t("search_findings.tabDescription.save.tooltip")}
+            id={"searchFindings.tabDescription.save.tooltip.btn"}
+            message={translate.t("searchFindings.tabDescription.save.tooltip")}
           >
             <Button disabled={isPristine} onClick={onUpdate}>
               <FluidIcon icon={"loading"} />
               &nbsp;
-              {translate.t("search_findings.tabDescription.save.text")}
+              {translate.t("searchFindings.tabDescription.save.text")}
             </Button>
           </TooltipWrapper>
         ) : undefined}
         <TooltipWrapper
-          id={"search_findings.tabDescription.editable.cancel_edit_tooltip-btn"}
+          id={"searchFindings.tabDescription.editable.cancel_edit_tooltip-btn"}
           message={
             isEditing
               ? translate.t(
-                  "search_findings.tabDescription.editable.cancelTooltip"
+                  "searchFindings.tabDescription.editable.cancelTooltip"
                 )
               : translate.t(
-                  "search_findings.tabDescription.editable.editableTooltip"
+                  "searchFindings.tabDescription.editable.editableTooltip"
                 )
           }
         >
@@ -52,13 +52,13 @@ const ActionButtons: React.FC<IActionButtonsProps> = (
               <React.Fragment>
                 <FontAwesomeIcon icon={faTimes} />
                 &nbsp;
-                {translate.t("search_findings.tabDescription.editable.cancel")}
+                {translate.t("searchFindings.tabDescription.editable.cancel")}
               </React.Fragment>
             ) : (
               <React.Fragment>
                 <FluidIcon icon={"edit"} />
                 &nbsp;
-                {translate.t("search_findings.tabDescription.editable.text")}
+                {translate.t("searchFindings.tabDescription.editable.text")}
               </React.Fragment>
             )}
           </Button>

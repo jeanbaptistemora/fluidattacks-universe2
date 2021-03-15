@@ -209,15 +209,15 @@ const EventEvidenceView: React.FC = (): JSX.Element => {
                 <ButtonToolbarRow>
                   <TooltipWrapper
                     id={translate.t(
-                      "search_findings.tabEvidence.updateTooltip.id"
+                      "searchFindings.tabEvidence.updateTooltip.id"
                     )}
                     message={translate.t(
-                      "search_findings.tabEvidence.updateTooltip"
+                      "searchFindings.tabEvidence.updateTooltip"
                     )}
                   >
                     <Button disabled={pristine} type={"submit"}>
                       <FluidIcon icon={"loading"} />
-                      &nbsp;{translate.t("search_findings.tabEvidence.update")}
+                      &nbsp;{translate.t("searchFindings.tabEvidence.update")}
                     </Button>
                   </TooltipWrapper>
                 </ButtonToolbarRow>

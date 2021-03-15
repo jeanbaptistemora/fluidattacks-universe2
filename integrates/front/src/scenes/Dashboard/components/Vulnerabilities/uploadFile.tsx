@@ -79,7 +79,7 @@ export const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
           const listValuesFormated: string[] = Array.from(
             new Set(
               errorObject.values.map((valX: string): string =>
-                translate.t("search_findings.tabVuln.alerts.uploadFile.value", {
+                translate.t("searchFindings.tabVuln.alerts.uploadFile.value", {
                   pattern: valX,
                 })
               )
@@ -88,7 +88,7 @@ export const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
           const listKeysFormated: string[] = Array.from(
             new Set(
               errorObject.keys.map((valY: string): string =>
-                translate.t("search_findings.tabVuln.alerts.uploadFile.key", {
+                translate.t("searchFindings.tabVuln.alerts.uploadFile.key", {
                   key: valY,
                 })
               )
@@ -127,7 +127,7 @@ export const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
       } else if (message === "Exception - Invalid Stream") {
         translate.t("groupAlerts.invalidSchema");
         msgError(
-          translate.t("search_findings.tabVuln.alerts.uploadFile.invalidStream")
+          translate.t("searchFindings.tabVuln.alerts.uploadFile.invalidStream")
         );
       } else {
         msgError(translate.t("groupAlerts.invalidSpecific"));
@@ -248,10 +248,10 @@ export const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
             <ButtonToolbarLeft>
               <TooltipWrapper
                 id={translate.t(
-                  "search_findings.tabDescription.downloadVulnerabilitiesTooltip.id"
+                  "searchFindings.tabDescription.downloadVulnerabilitiesTooltip.id"
                 )}
                 message={translate.t(
-                  "search_findings.tabDescription.downloadVulnerabilitiesTooltip"
+                  "searchFindings.tabDescription.downloadVulnerabilitiesTooltip"
                 )}
               >
                 <Button
@@ -261,7 +261,7 @@ export const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
                   <FluidIcon icon={"export"} />
                   &nbsp;
                   {translate.t(
-                    "search_findings.tabDescription.downloadVulnerabilities"
+                    "searchFindings.tabDescription.downloadVulnerabilities"
                   )}
                 </Button>
               </TooltipWrapper>
@@ -282,17 +282,17 @@ export const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
             <ButtonToolbarLeft>
               <TooltipWrapper
                 id={translate.t(
-                  "search_findings.tabDescription.updateVulnerabilitiesTooltip.id"
+                  "searchFindings.tabDescription.updateVulnerabilitiesTooltip.id"
                 )}
                 message={translate.t(
-                  "search_findings.tabDescription.updateVulnerabilitiesTooltip"
+                  "searchFindings.tabDescription.updateVulnerabilitiesTooltip"
                 )}
               >
                 <Button disabled={loading} type={"submit"}>
                   <FluidIcon icon={"import"} />
                   &nbsp;
                   {translate.t(
-                    "search_findings.tabDescription.updateVulnerabilities"
+                    "searchFindings.tabDescription.updateVulnerabilities"
                   )}
                 </Button>
               </TooltipWrapper>

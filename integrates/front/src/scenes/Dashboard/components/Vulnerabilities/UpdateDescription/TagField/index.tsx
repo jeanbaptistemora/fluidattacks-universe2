@@ -34,7 +34,7 @@ const TagField: React.FC<ITagFieldProps> = (
       !hasNewVulnSelected ? (
         <FormGroup>
           <ControlLabel>
-            <b>{translate.t("search_findings.tabDescription.tag")}</b>
+            <b>{translate.t("searchFindings.tabDescription.tag")}</b>
           </ControlLabel>
           <Field
             component={TagInput}
