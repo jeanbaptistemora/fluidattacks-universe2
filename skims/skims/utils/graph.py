@@ -40,6 +40,9 @@ from model.graph_model import (
     NId,
     NIdPredicateFunction,
 )
+from utils.function import (
+    trace,
+)
 from utils.logs import log_blocking
 
 from utils.system import (
@@ -392,6 +395,7 @@ def branches_cfg(
     ))
 
 
+@trace()
 def branches_cfg_finding(
     graph: Graph,
     n_id: NId,

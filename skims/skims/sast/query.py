@@ -24,6 +24,9 @@ from utils.ctx import (
 from utils.encodings import (
     serialize_namespace_into_vuln,
 )
+from utils.function import (
+    trace,
+)
 from utils.string import (
     to_snippet_blocking,
 )
@@ -157,5 +160,6 @@ def query_lazy(
                     )
 
 
+@trace()
 def query(graph_db: graph_model.GraphDB) -> core_model.Vulnerabilities:
     return tuple(chain.from_iterable(query_lazy(graph_db)))

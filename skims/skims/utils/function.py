@@ -23,8 +23,12 @@ import aioextensions
 from more_itertools import (
     mark_ends,
 )
+import tracers.function
 
 # Local libraries
+from utils.ctx import (
+    CTX,
+)
 from utils.env import (
     guess_environment,
 )
@@ -163,6 +167,10 @@ def time_limited(
         return cast(TFun, wrapper)
 
     return decorator
+
+
+def trace() -> Callable[[TFun], TFun]:
+    return tracers.function.trace(enabled=CTX.debug)
 
 
 # Constants
