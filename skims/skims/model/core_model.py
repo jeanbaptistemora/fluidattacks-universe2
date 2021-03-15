@@ -536,7 +536,7 @@ FINDING_ENUM_FROM_STR: Dict[str, FindingEnum] = {
     __finding.name: __finding for __finding in FindingEnum
 }
 
-UNTRUSTED_NODE: str = 'UNRTUSTED_NODE'
+UNTRUSTED_NODE: str = 'UNTRUSTED_NODE'
 
 ALLOW_UNTRUSTED_NODES: Set[FindingEnum] = {
     FindingEnum.F004,
