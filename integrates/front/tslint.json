@@ -50,6 +50,7 @@
       "src/scenes/Dashboard/containers/ProjectSettingsView/Info/**",
       "src/scenes/Dashboard/containers/ProjectSettingsView/Portfolio/**",
       "src/scenes/Dashboard/containers/ProjectSettingsView/Services/businessLogic.ts",
+      "src/scenes/Dashboard/containers/ProjectSettingsView/Services/index.spec.tsx",
       "src/scenes/Dashboard/containers/ProjectSettingsView/Unsubscribe/**",
       "src/scenes/Dashboard/containers/TrackingView/**",
       "src/scenes/Dashboard/containers/VulnerabilitiesView/**",
