@@ -79,6 +79,7 @@ melts.test
 melts.vpn
 observes.bin.code-etl
 observes.bin.dif-gitlab-etl
+observes.bin.tap-mailchimp
 observes.bin.tap-zoho-analytics
 observes.bin.timedoctor-tokens
 observes.bin.update-project-variable
@@ -99,9 +100,9 @@ observes.scheduled.job.code-etl-mirror
 observes.scheduled.job.code-etl-upload
 observes.scheduled.job.dif-gitlab-etl
 observes.scheduled.job.formstack-etl
+observes.scheduled.job.mailchimp-etl
 observes.scheduled.job.tap-zoho-analytics
 observes.scheduled.job.timedoctor-refresh-token
-observes.scheduled.mailchimp-etl
 observes.scheduled.mixpanel-integrates-etl
 observes.scheduled.on-aws.code-etl-amend
 observes.scheduled.on-aws.code-etl-mirror

@@ -19,7 +19,7 @@ function start_etl {
       } > "${mailchimp_creds}" \
   &&  echo "${analytics_auth_redshift}" > "${db_creds}" \
   &&  echo '[INFO] Running tap' \
-  &&  observes-tap-mailchimp stream \
+  &&  observes-bin-tap-mailchimp stream \
         --creds-file "${mailchimp_creds}" \
         --stream-name 'all_audiences' \
         | observes-tap-json \

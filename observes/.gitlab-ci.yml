@@ -252,7 +252,7 @@ observes.scheduled.on-aws.formstack-etl:
     variables: [$observes_formstack]
   interruptible: false
 
-observes.scheduled.mailchimp-etl:
+observes.scheduled.job.mailchimp-etl:
   <<: *makes
   tags: [autoscaling-analytics]
   stage: analytics

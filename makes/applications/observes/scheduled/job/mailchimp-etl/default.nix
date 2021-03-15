@@ -8,7 +8,7 @@ makeEntrypoint {
     envPaths = [
       packages.observes.target-redshift
       packages.observes.tap-json
-      packages.observes.tap-mailchimp
+      packages.observes.bin.tap-mailchimp
 
     ];
     envUtils = [
@@ -16,6 +16,6 @@ makeEntrypoint {
       "/makes/utils/sops"
     ];
   };
-  name = "observes-scheduled-mailchimp-etl";
-  template = path "/makes/applications/observes/scheduled/mailchimp-etl/entrypoint.sh";
+  name = "observes-scheduled-job-mailchimp-etl";
+  template = path "/makes/applications/observes/scheduled/job/mailchimp-etl/entrypoint.sh";
 }
