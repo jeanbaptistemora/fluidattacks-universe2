@@ -1,41 +1,53 @@
-/* tslint:disable:jsx-no-multiline-js
- *
- * Disabling this rule is necessary for using components with render props
- */
-import { useMutation, useQuery } from "@apollo/react-hooks";
-import { ApolloError } from "apollo-client";
-import { GraphQLError } from "graphql";
-import _ from "lodash";
-import mixpanel from "mixpanel-browser";
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
-import { Dispatch } from "redux";
-import { change, EventWithDataHandler, Field, formValueSelector, InjectedFormProps, Validator } from "redux-form";
-
+import type { ApolloError } from "apollo-client";
 import { Button } from "components/Button";
 import { DataTableNext } from "components/DataTableNext";
-import { IHeaderConfig } from "components/DataTableNext/types";
-import { Modal } from "components/Modal";
+import type { Dispatch } from "redux";
+import { FormSwitchButton } from "utils/forms/fields/SwitchButton";
 import { GenericForm } from "scenes/Dashboard/components/GenericForm";
-import { EDIT_GROUP_DATA, GET_GROUP_DATA } from "scenes/Dashboard/containers/ProjectSettingsView/queries";
+import type { GraphQLError } from "graphql";
+import type { IHeaderConfig } from "components/DataTableNext/types";
+import { Logger } from "utils/logger";
+import { Modal } from "components/Modal";
+import React from "react";
+import _ from "lodash";
+import mixpanel from "mixpanel-browser";
+import { translate } from "utils/translations/translate";
+import { useHistory } from "react-router-dom";
+import {
+  Alert,
+  ButtonToolbar,
+  Col100,
+  Col80,
+  ControlLabel,
+  FormGroup,
+  Row,
+  Well,
+} from "styles/styledComponents";
+import { Dropdown, Text, TextArea } from "utils/forms/fields";
+import {
+  EDIT_GROUP_DATA,
+  GET_GROUP_DATA,
+} from "scenes/Dashboard/containers/ProjectSettingsView/queries";
+import type {
+  EventWithDataHandler,
+  InjectedFormProps,
+  Validator,
+} from "redux-form";
+import { Field, change, formValueSelector } from "redux-form";
+import type {
+  IFormData,
+  IServicesDataSet,
+  IServicesProps,
+} from "scenes/Dashboard/containers/ProjectSettingsView/Services/types";
 import {
   computeConfirmationMessage,
   isDowngrading,
   isDowngradingServices,
 } from "scenes/Dashboard/containers/ProjectSettingsView/Services/businessLogic";
-import {
-  IFormData,
-  IServicesDataSet,
-  IServicesProps,
-} from "scenes/Dashboard/containers/ProjectSettingsView/Services/types";
-import { Alert, ButtonToolbar, Col100, Col80, ControlLabel, FormGroup, Row, Well } from "styles/styledComponents";
-import { Dropdown, Text, TextArea } from "utils/forms/fields";
-import { FormSwitchButton } from "utils/forms/fields/SwitchButton";
-import { Logger } from "utils/logger";
-import { msgError, msgSuccess } from "utils/notifications";
-import { translate } from "utils/translations/translate";
 import { maxLength, required, validTextField } from "utils/validations";
+import { msgError, msgSuccess } from "utils/notifications";
+import { useDispatch, useSelector } from "react-redux";
+import { useMutation, useQuery } from "@apollo/react-hooks";
 
 const downgradeReasons: string[] = [
   "NONE",
@@ -48,27 +60,50 @@ const downgradeReasons: string[] = [
 const isContinuousType: (type: string) => boolean = (type: string): boolean =>
   _.isUndefined(type) ? false : type.toLowerCase() === "continuous";
 
-const maxLength250: Validator = maxLength(250);
+const MAX_LENGTH_VALIDATOR = 250;
+const maxLength250: Validator = maxLength(MAX_LENGTH_VALIDATOR);
 
-const services: React.FC<IServicesProps> = (props: IServicesProps): JSX.Element => {
+const Services: React.FC<IServicesProps> = (
+  props: IServicesProps
+): JSX.Element => {
   const { groupName } = props;
 
   // State management
   const { push } = useHistory();
   const dispatch: Dispatch = useDispatch();
-  const selector: (state: {}, ...fields: string[]) => IFormData = formValueSelector("editGroup");
-  const formValues: IFormData = useSelector((state: {}) =>
-    selector(state, "comments", "confirmation", "drills", "forces", "integrates", "reason", "type"));
+  const selector: (
+    state: Record<string, unknown>,
+    // eslint-disable-next-line fp/no-rest-parameters
+    ...fields: string[]
+  ) => IFormData = formValueSelector("editGroup");
+  const formValues: IFormData = useSelector(
+    (state: Record<string, unknown>): IFormData =>
+      selector(
+        state,
+        "comments",
+        "confirmation",
+        "drills",
+        "forces",
+        "integrates",
+        "reason",
+        "type"
+      )
+  );
   const [isModalOpen, setIsModalOpen] = React.useState(false);
 
   // Business Logic handlers
-  const handleSubscriptionTypeChange: EventWithDataHandler<React.ChangeEvent<string>> = (
-    _0: React.ChangeEvent<string> | undefined, subsType: string,
+  const handleSubscriptionTypeChange: EventWithDataHandler<
+    React.ChangeEvent<string>
+  > = React.useCallback(
+    (_0: React.ChangeEvent<string> | undefined, subsType: string): void => {
+      dispatch(change("editGroup", "drills", true));
+      dispatch(change("editGroup", "forces", isContinuousType(subsType)));
+    },
+    [dispatch]
+  );
+  const handleIntegratesBtnChange: (withIntegrates: boolean) => void = (
+    withIntegrates: boolean
   ): void => {
-    dispatch(change("editGroup", "drills", true));
-    dispatch(change("editGroup", "forces", isContinuousType(subsType)));
-  };
-  const handleIntegratesBtnChange: ((withIntegrates: boolean) => void) = (withIntegrates: boolean): void => {
     dispatch(change("editGroup", "integrates", withIntegrates));
 
     if (!withIntegrates) {
@@ -76,7 +111,9 @@ const services: React.FC<IServicesProps> = (props: IServicesProps): JSX.Element 
       dispatch(change("editGroup", "drills", false));
     }
   };
-  const handleDrillsBtnChange: ((withDrills: boolean) => void) = (withDrills: boolean): void => {
+  const handleDrillsBtnChange: (withDrills: boolean) => void = (
+    withDrills: boolean
+  ): void => {
     dispatch(change("editGroup", "drills", withDrills));
 
     if (withDrills) {
@@ -85,8 +122,16 @@ const services: React.FC<IServicesProps> = (props: IServicesProps): JSX.Element 
       dispatch(change("editGroup", "forces", false));
     }
   };
-  const handleForcesBtnChange: ((withForces: boolean) => void) = (withForces: boolean): void => {
-    dispatch(change("editGroup", "forces", isContinuousType(formValues.type) && withForces));
+  const handleForcesBtnChange: (withForces: boolean) => void = (
+    withForces: boolean
+  ): void => {
+    dispatch(
+      change(
+        "editGroup",
+        "forces",
+        isContinuousType(formValues.type) && withForces
+      )
+    );
 
     if (withForces) {
       dispatch(change("editGroup", "integrates", true));
@@ -95,7 +140,11 @@ const services: React.FC<IServicesProps> = (props: IServicesProps): JSX.Element 
   };
 
   // GraphQL Logic
-  const { data, loading: loadingGroupData, refetch: refetchGroupData } = useQuery(GET_GROUP_DATA, {
+  const {
+    data,
+    loading: loadingGroupData,
+    refetch: refetchGroupData,
+  } = useQuery(GET_GROUP_DATA, {
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
         msgError(translate.t("groupAlerts.errorTextsad"));
@@ -105,64 +154,67 @@ const services: React.FC<IServicesProps> = (props: IServicesProps): JSX.Element 
     variables: { groupName },
   });
 
-  const [editGroupData, { loading: submittingGroupData }] = useMutation(EDIT_GROUP_DATA, {
-    onCompleted: (): void => {
-      mixpanel.track("EditGroupData", formValues);
-      msgSuccess(
-        translate.t("searchFindings.servicesTable.success"),
-        translate.t("searchFindings.servicesTable.successTitle"),
-      );
+  const [editGroupData, { loading: submittingGroupData }] = useMutation(
+    EDIT_GROUP_DATA,
+    {
+      onCompleted: (): void => {
+        mixpanel.track("EditGroupData", formValues);
+        msgSuccess(
+          translate.t("searchFindings.servicesTable.success"),
+          translate.t("searchFindings.servicesTable.successTitle")
+        );
 
-      if (formValues.integrates) {
-        refetchGroupData({ groupName });
-      } else {
-        push("/home");
-      }
-    },
-    onError: (error: ApolloError): void => {
-      error.graphQLErrors.forEach(({ message }: GraphQLError): void => {
-        let msg: string;
-
-        switch (message) {
-          case "Exception - Forces is only available when Drills is too":
-            msg = "searchFindings.servicesTable.errors.forcesOnlyIfDrills";
-            break;
-          case "Exception - Forces is only available in projects of type Continuous":
-            msg = "searchFindings.servicesTable.errors.forcesOnlyIfContinuous";
-            break;
-          default:
-            msg = "groupAlerts.errorTextsad";
-            Logger.warning("An error occurred editing group services", error);
+        if (formValues.integrates) {
+          void refetchGroupData({ groupName });
+        } else {
+          push("/home");
         }
+      },
+      onError: (error: ApolloError): void => {
+        error.graphQLErrors.forEach(({ message }: GraphQLError): void => {
+          switch (message) {
+            case "Exception - Forces is only available when Drills is too":
+              msgError(
+                translate.t(
+                  "searchFindings.servicesTable.errors.forcesOnlyIfDrills"
+                )
+              );
+              break;
+            case "Exception - Forces is only available in projects of type Continuous":
+              msgError(
+                translate.t(
+                  "searchFindings.servicesTable.errors.forcesOnlyIfContinuous"
+                )
+              );
+              break;
+            default:
+              msgError(translate.t("groupAlerts.errorTextsad"));
+              Logger.warning("An error occurred editing group services", error);
+          }
+        });
+      },
+      variables: {
+        comments: formValues.comments,
+        groupName,
+        hasDrills: formValues.drills,
+        hasForces: formValues.forces,
+        hasIntegrates: formValues.integrates,
+        reason: formValues.reason,
+        subscription: formValues.type,
+      },
+    }
+  );
 
-        msgError(translate.t(msg));
-      });
-    },
-    variables: {
-      comments: formValues.comments,
-      groupName,
-      hasDrills: formValues.drills,
-      hasForces: formValues.forces,
-      hasIntegrates: formValues.integrates,
-      reason: formValues.reason,
-      subscription: formValues.type,
-    },
-  });
-
-  if (_.isUndefined(data) || _.isEmpty(data)) {
-    return <React.Fragment />;
-  }
-
-  const handleClose: (() => void) = (): void => {
+  const handleClose: () => void = React.useCallback((): void => {
     setIsModalOpen(false);
-  };
-  const handleFormSubmit: (() => void) = (): void => {
-    editGroupData();
+  }, []);
+  const handleFormSubmit: () => void = React.useCallback((): void => {
+    void editGroupData();
     setIsModalOpen(false);
-  };
-  const handleTblButtonClick: (() => void) = (): void => {
+  }, [editGroupData]);
+  const handleTblButtonClick: () => void = React.useCallback((): void => {
     setIsModalOpen(true);
-  };
+  }, []);
 
   // Rendered elements
   const tableHeaders: IHeaderConfig[] = [
@@ -200,32 +252,33 @@ const services: React.FC<IServicesProps> = (props: IServicesProps): JSX.Element 
     },
   ].filter((element: IServicesDataSet): boolean => element.canHave);
 
-  const servicesDataSet: Array<{ [key: string]: JSX.Element }> = [
+  const servicesDataSet: Record<string, JSX.Element>[] = [
     {
-      service: (
-        <p>{translate.t("searchFindings.servicesTable.type")}</p>
-      ),
+      service: <p>{translate.t("searchFindings.servicesTable.type")}</p>,
       status: (
         <Field
           component={Dropdown}
-          name="type"
+          name={"type"}
           onChange={handleSubscriptionTypeChange}
         >
-          <option value="CONTINUOUS">
+          <option value={"CONTINUOUS"}>
             {translate.t("searchFindings.servicesTable.continuous")}
           </option>
-          <option value="ONESHOT">
+          <option value={"ONESHOT"}>
             {translate.t("searchFindings.servicesTable.oneShot")}
           </option>
         </Field>
       ),
     },
-  ].concat(servicesList.map((element: IServicesDataSet) => ({
-    service: (
-      <p>{translate.t(`searchFindings.servicesTable.${element.service}`)}</p>
-    ),
-    status: (
-      <React.Fragment>
+  ].concat(
+    servicesList.map((element: IServicesDataSet): {
+      service: JSX.Element;
+      status: JSX.Element;
+    } => ({
+      service: (
+        <p>{translate.t(`searchFindings.servicesTable.${element.service}`)}</p>
+      ),
+      status: (
         <FormGroup>
           <Field
             component={FormSwitchButton}
@@ -233,142 +286,204 @@ const services: React.FC<IServicesProps> = (props: IServicesProps): JSX.Element 
             props={{
               id: element.id,
               offlabel: translate.t("searchFindings.servicesTable.inactive"),
-              onChange: _.isUndefined(element.onChange) ? undefined : element.onChange,
+              onChange: _.isUndefined(element.onChange)
+                ? undefined
+                : element.onChange,
               onlabel: translate.t("searchFindings.servicesTable.active"),
             }}
-            type="checkbox"
+            type={"checkbox"}
           />
         </FormGroup>
-      </React.Fragment>
-    ),
-   })));
+      ),
+    }))
+  );
 
   // Using form validation instead of field validation to avoid an infinite-loop error
-  const formValidations: (values: { confirmation: string }) => { confirmation?: string } =
+  const formValidations: (values: {
+    confirmation: string;
+  }) => { confirmation?: string } = React.useCallback(
     (values: { confirmation: string }): { confirmation?: string } => {
-      const errorsFound: { confirmation?: string } = {};
-
-      if (values.confirmation !== groupName) {
-        errorsFound.confirmation =
-          translate.t("searchFindings.servicesTable.errors.expectedGroupName", { groupName });
+      if (values.confirmation === groupName) {
+        return {};
       }
 
+      const errorsFound: { confirmation?: string } = {
+        confirmation: translate.t(
+          "searchFindings.servicesTable.errors.expectedGroupName",
+          { groupName }
+        ),
+      };
+
       return errorsFound;
-    };
+    },
+    [groupName]
+  );
+
+  if (_.isUndefined(data) || _.isEmpty(data)) {
+    return <div />;
+  }
 
   return (
     <React.StrictMode>
       <div>
         <Row>
+          {/* eslint-disable-next-line react/forbid-component-props */}
           <Col80 className={"pa0"}>
             <h2>{translate.t("searchFindings.servicesTable.services")}</h2>
           </Col80>
         </Row>
         <GenericForm
-          name="editGroup"
-          onSubmit={handleFormSubmit}
           initialValues={{
             comments: "",
             confirmation: "",
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
             drills: data.project.hasDrills,
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
             forces: data.project.hasForces,
             integrates: true,
             reason: "NONE",
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
             type: data.project.subscription.toUpperCase(),
           }}
+          name={"editGroup"}
+          onSubmit={handleFormSubmit}
           validate={formValidations}
         >
-          {({ handleSubmit, pristine, valid }: InjectedFormProps): JSX.Element => (
+          {({
+            handleSubmit,
+            pristine,
+            valid,
+          }: InjectedFormProps): JSX.Element => (
             <React.Fragment>
               <DataTableNext
                 bordered={true}
                 dataset={servicesDataSet}
                 exportCsv={false}
-                search={false}
                 headers={tableHeaders}
-                id="tblServices"
+                id={"tblServices"}
                 pageSize={5}
+                search={false}
                 striped={true}
               />
               {/* Intentionally hidden while loading/submitting to offer a better UX
-                *   this way the button does not twinkle and is visually stable
-                */}
-              {pristine || loadingGroupData || submittingGroupData ? undefined : (
+               *   this way the button does not twinkle and is visually stable
+               */}
+              {pristine ||
+              loadingGroupData ||
+              submittingGroupData ? undefined : (
                 <Row>
                   <Col100>
                     <ButtonToolbar>
                       <Button onClick={handleTblButtonClick}>
-                        {translate.t("searchFindings.servicesTable.modal.continue")}
+                        {translate.t(
+                          "searchFindings.servicesTable.modal.continue"
+                        )}
                       </Button>
                     </ButtonToolbar>
                   </Col100>
                 </Row>
               )}
               <Modal
-                headerTitle={translate.t("searchFindings.servicesTable.modal.title")}
+                headerTitle={translate.t(
+                  "searchFindings.servicesTable.modal.title"
+                )}
                 open={isModalOpen}
               >
-                <ControlLabel>{translate.t("searchFindings.servicesTable.modal.changesToApply")}</ControlLabel>
+                <ControlLabel>
+                  {translate.t(
+                    "searchFindings.servicesTable.modal.changesToApply"
+                  )}
+                </ControlLabel>
                 <Well>
-                  {computeConfirmationMessage(data, formValues)
-                    .map((line: string) => <p key={line}>{line}</p>)}
+                  {computeConfirmationMessage(data, formValues).map(
+                    (line: string): JSX.Element => (
+                      <p key={line}>{line}</p>
+                    )
+                  )}
                 </Well>
                 <FormGroup>
-                  <ControlLabel>{translate.t("searchFindings.servicesTable.modal.observations")}</ControlLabel>
+                  <ControlLabel>
+                    {translate.t(
+                      "searchFindings.servicesTable.modal.observations"
+                    )}
+                  </ControlLabel>
                   <Field
-                    name="comments"
                     component={TextArea}
-                    placeholder={translate.t("searchFindings.servicesTable.modal.observationsPlaceholder")}
-                    type="text"
+                    name={"comments"}
+                    placeholder={translate.t(
+                      "searchFindings.servicesTable.modal.observationsPlaceholder"
+                    )}
+                    type={"text"}
                     validate={[validTextField, maxLength250]}
                   />
                 </FormGroup>
                 {isDowngradingServices(data, formValues) ? (
                   <FormGroup>
-                    <ControlLabel>{translate.t("searchFindings.servicesTable.modal.downgrading")}</ControlLabel>
-                    <Field
-                      name="reason"
-                      component={Dropdown}
-                      type="text"
-                    >
-                      {downgradeReasons.map((reason: string) => (
-                        <option value={reason} key={reason}>
-                          {translate.t(`searchFindings.servicesTable.modal.${reason.toLowerCase()}`)}
-                        </option>
-                      ))}
+                    <ControlLabel>
+                      {translate.t(
+                        "searchFindings.servicesTable.modal.downgrading"
+                      )}
+                    </ControlLabel>
+                    <Field component={Dropdown} name={"reason"} type={"text"}>
+                      {downgradeReasons.map(
+                        (reason: string): JSX.Element => (
+                          <option key={reason} value={reason}>
+                            {translate.t(
+                              `searchFindings.servicesTable.modal.${_.camelCase(
+                                reason.toLowerCase()
+                              )}`
+                            )}
+                          </option>
+                        )
+                      )}
                     </Field>
                   </FormGroup>
                 ) : undefined}
                 {isDowngrading(true, formValues.integrates) ? (
                   <FormGroup>
-                    <ControlLabel>{translate.t("searchFindings.servicesTable.modal.warning")}</ControlLabel>
+                    <ControlLabel>
+                      {translate.t(
+                        "searchFindings.servicesTable.modal.warning"
+                      )}
+                    </ControlLabel>
                     <Alert>
-                      {translate.t("searchFindings.servicesTable.modal.warningDowngradeIntegrates")}
+                      {translate.t(
+                        "searchFindings.servicesTable.modal.warningDowngradeIntegrates"
+                      )}
                     </Alert>
                   </FormGroup>
                 ) : undefined}
                 <FormGroup>
-                  <ControlLabel>{translate.t("searchFindings.servicesTable.modal.typeGroupName")}</ControlLabel>
+                  <ControlLabel>
+                    {translate.t(
+                      "searchFindings.servicesTable.modal.typeGroupName"
+                    )}
+                  </ControlLabel>
                   <Field
-                    name="confirmation"
                     component={Text}
+                    name={"confirmation"}
                     placeholder={groupName.toLowerCase()}
-                    type="text"
+                    type={"text"}
                     validate={required}
                   />
                 </FormGroup>
                 <Alert>
-                  * {translate.t("organization.tabs.groups.newGroup.extraChargesMayApply")}
+                  {"* "}
+                  {translate.t(
+                    "organization.tabs.groups.newGroup.extraChargesMayApply"
+                  )}
                 </Alert>
                 <hr />
                 <Row>
                   <Col100>
                     <ButtonToolbar>
-                      <Button onClick={handleClose}>{translate.t("confirmmodal.cancel")}</Button>
+                      <Button onClick={handleClose}>
+                        {translate.t("confirmmodal.cancel")}
+                      </Button>
                       <Button
                         disabled={!valid}
                         onClick={handleSubmit}
-                        type="submit"
+                        type={"submit"}
                       >
                         {translate.t("confirmmodal.proceed")}
                       </Button>
@@ -384,4 +499,4 @@ const services: React.FC<IServicesProps> = (props: IServicesProps): JSX.Element 
   );
 };
 
-export { services as Services };
+export { Services };
