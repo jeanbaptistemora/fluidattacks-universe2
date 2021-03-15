@@ -152,7 +152,7 @@ export const AddUserModal: React.FC<IAddStakeholderModalProps> = (
                     (role: string): JSX.Element => (
                       <Can do={`grant_group_level_role:${role}`} key={role}>
                         <option value={role.toUpperCase()}>
-                          {translate.t(`userModal.roles.${role}`)}
+                          {translate.t(`userModal.roles.${_.camelCase(role)}`)}
                         </option>
                       </Can>
                     )
@@ -161,7 +161,7 @@ export const AddUserModal: React.FC<IAddStakeholderModalProps> = (
                     (role: string): JSX.Element => (
                       <Can do={`grant_user_level_role:${role}`} key={role}>
                         <option value={role.toUpperCase()}>
-                          {translate.t(`userModal.roles.${role}`)}
+                          {translate.t(`userModal.roles.${_.camelCase(role)}`)}
                         </option>
                       </Can>
                     )
@@ -169,7 +169,7 @@ export const AddUserModal: React.FC<IAddStakeholderModalProps> = (
                   {(organizationModal ? organizationLevelRoles : []).map(
                     (role: string): JSX.Element => (
                       <option key={role} value={role.toUpperCase()}>
-                        {translate.t(`userModal.roles.${role}`)}
+                        {translate.t(`userModal.roles.${_.camelCase(role)}`)}
                       </option>
                     )
                   )}

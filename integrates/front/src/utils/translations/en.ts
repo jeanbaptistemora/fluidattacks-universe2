@@ -1,5 +1,3 @@
-/* eslint-disable camelcase */
-/* Note: ESLint rule disabled temporally, as the conversion will be gradual */
 import type { ResourceKey } from "i18next";
 
 export const enTranslations: ResourceKey = {
@@ -2150,7 +2148,7 @@ export const enTranslations: ResourceKey = {
       customer: "User",
       customeradmin: "User Manager",
       executive: "Executive",
-      group_manager: "Group Manager",
+      groupManager: "Group Manager",
       resourcer: "Resourcer",
       reviewer: "Reviewer",
     },

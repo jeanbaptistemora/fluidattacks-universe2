@@ -139,7 +139,9 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
       align: "center",
       dataField: "userRole",
       formatter: (value: string): string =>
-        translate.t(`userModal.roles.${value}`, { defaultValue: "-" }),
+        translate.t(`userModal.roles.${_.camelCase(value)}`, {
+          defaultValue: "-",
+        }),
       header: "Role",
     },
   ];

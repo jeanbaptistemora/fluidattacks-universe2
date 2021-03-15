@@ -41,7 +41,9 @@ const tableHeaders: IHeaderConfig[] = [
   {
     dataField: "role",
     formatter: (value: string): string =>
-      translate.t(`userModal.roles.${value}`, { defaultValue: "-" }),
+      translate.t(`userModal.roles.${_.camelCase(value)}`, {
+        defaultValue: "-",
+      }),
     header: translate.t("searchFindings.usersTable.userRole"),
     width: "15%",
   },

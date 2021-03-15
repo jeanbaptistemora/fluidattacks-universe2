@@ -116,7 +116,7 @@ const sidebar: React.FC<ISidebarProps> = (
           <div className={style.version}>
             <small>
               {translate.t("sidebar.role")}&nbsp;
-              {translate.t(`userModal.roles.${userRole}`)}
+              {translate.t(`userModal.roles.${_.camelCase(userRole)}`)}
             </small>
           </div>
         )}
