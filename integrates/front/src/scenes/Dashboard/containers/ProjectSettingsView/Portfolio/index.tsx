@@ -1,40 +1,46 @@
-/* tslint:disable:jsx-no-multiline-js
- *
- * Disabling this rule is necessary for using components with render props
- */
-import { useMutation, useQuery } from "@apollo/react-hooks";
-import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { ApolloError, NetworkStatus } from "apollo-client";
-import { GraphQLError } from "graphql";
-import _ from "lodash";
-import mixpanel from "mixpanel-browser";
-import React from "react";
-
+import { AddTagsModal } from "scenes/Dashboard/components/AddTagsModal";
+import type { ApolloError } from "apollo-client";
 import { Badge } from "components/Badge";
 import { Button } from "components/Button";
+import { Can } from "utils/authz/Can";
 import { DataTableNext } from "components/DataTableNext";
-import { IHeaderConfig } from "components/DataTableNext/types";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import type { GraphQLError } from "graphql";
+import type { IHeaderConfig } from "components/DataTableNext/types";
+import { Logger } from "utils/logger";
+import { NetworkStatus } from "apollo-client";
+import React from "react";
 import { TooltipWrapper } from "components/TooltipWrapper";
-import { AddTagsModal } from "scenes/Dashboard/components/AddTagsModal";
-import { ADD_TAGS_MUTATION, GET_TAGS,
+import _ from "lodash";
+import mixpanel from "mixpanel-browser";
+import { translate } from "utils/translations/translate";
+import {
+  ADD_TAGS_MUTATION,
+  GET_TAGS,
   REMOVE_TAG_MUTATION,
 } from "scenes/Dashboard/containers/ProjectSettingsView/queries";
 import { ButtonToolbar, Col40, Col60, Row } from "styles/styledComponents";
-import { Can } from "utils/authz/Can";
-import { Logger } from "utils/logger";
+import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { msgError, msgSuccess } from "utils/notifications";
-import { translate } from "utils/translations/translate";
+import { useMutation, useQuery } from "@apollo/react-hooks";
 
-export interface IPortfolioProps {
+interface IPortfolioProps {
   projectName: string;
 }
 
-const portfolio: React.FC<IPortfolioProps> = (props: IPortfolioProps): JSX.Element => {
+const Portfolio: React.FC<IPortfolioProps> = (
+  props: IPortfolioProps
+): JSX.Element => {
+  const { projectName } = props;
+
   // State management
   const [isAddModalOpen, setAddModalOpen] = React.useState(false);
-  const openAddModal: (() => void) = (): void => { setAddModalOpen(true); };
-  const closeAddModal: (() => void) = (): void => { setAddModalOpen(false); };
+  const openAddModal: () => void = React.useCallback((): void => {
+    setAddModalOpen(true);
+  }, []);
+  const closeAddModal: () => void = React.useCallback((): void => {
+    setAddModalOpen(false);
+  }, []);
 
   const [currentRow, setCurrentRow] = React.useState<Dictionary<string>>({});
 
@@ -45,7 +51,7 @@ const portfolio: React.FC<IPortfolioProps> = (props: IPortfolioProps): JSX.Eleme
       msgError(translate.t("groupAlerts.errorTextsad"));
       Logger.warning("An error occurred loading project tags", error);
     },
-    variables: { projectName: props.projectName },
+    variables: { projectName },
   });
 
   const [addTags] = useMutation(ADD_TAGS_MUTATION, {
@@ -54,7 +60,7 @@ const portfolio: React.FC<IPortfolioProps> = (props: IPortfolioProps): JSX.Eleme
       mixpanel.track("AddProjectTags");
       msgSuccess(
         translate.t("searchFindings.tabResources.success"),
-        translate.t("searchFindings.tabUsers.titleSuccess"),
+        translate.t("searchFindings.tabUsers.titleSuccess")
       );
     },
     onError: (error: ApolloError): void => {
@@ -77,7 +83,7 @@ const portfolio: React.FC<IPortfolioProps> = (props: IPortfolioProps): JSX.Eleme
       mixpanel.track("RemoveTag");
       msgSuccess(
         translate.t("searchFindings.tabResources.successRemove"),
-        translate.t("searchFindings.tabUsers.titleSuccess"),
+        translate.t("searchFindings.tabUsers.titleSuccess")
       );
     },
     onError: ({ graphQLErrors }: ApolloError): void => {
@@ -88,17 +94,38 @@ const portfolio: React.FC<IPortfolioProps> = (props: IPortfolioProps): JSX.Eleme
     },
   });
 
+  const handleRemoveTag: () => void = React.useCallback((): void => {
+    void removeTag({
+      variables: {
+        projectName: props.projectName,
+        tagToRemove: currentRow.tagName,
+      },
+    });
+    setCurrentRow({});
+    // eslint-disable-next-line react/destructuring-assignment -- In conflict with previous declaration
+  }, [currentRow.tagName, props.projectName, removeTag]);
+
   if (_.isUndefined(data) || _.isEmpty(data)) {
-    return <React.Fragment />;
+    return <div />;
   }
 
-  const tagsDataset: Array<{ tagName: string }> = data.project.tags.map((tag: string) => ({ tagName: tag }));
+  const tagsDataset: {
+    tagName: string;
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call -- DB queries use "any" type
+  }[] = data.project.tags.map((tag: string): { tagName: string } => ({
+    tagName: tag,
+  }));
 
-  const handleTagsAdd: ((values: { tags: string[] }) => void) = (values: { tags: string[] }): void => {
-    const repeatedInputs: string[] = values.tags.filter((tag: string) =>
-      values.tags.filter(_.matches(tag)).length > 1);
-    const repeatedTags: string[] = values.tags.filter((tag: string) =>
-      tagsDataset.filter(_.matches({ tagName: tag })).length > 0);
+  const handleTagsAdd: (values: { tags: string[] }) => void = (values: {
+    tags: string[];
+  }): void => {
+    const repeatedInputs: string[] = values.tags.filter(
+      (tag: string): boolean => values.tags.filter(_.matches(tag)).length > 1
+    );
+    const repeatedTags: string[] = values.tags.filter(
+      (tag: string): boolean =>
+        tagsDataset.filter(_.matches({ tagName: tag })).length > 0
+    );
 
     if (repeatedInputs.length > 0) {
       msgError(translate.t("searchFindings.tabResources.repeatedInput"));
@@ -115,18 +142,9 @@ const portfolio: React.FC<IPortfolioProps> = (props: IPortfolioProps): JSX.Eleme
     }
   };
 
-  const handleRemoveTag: (() => void) = (): void => {
-    void removeTag({
-      variables: {
-        projectName: props.projectName,
-        tagToRemove: currentRow.tagName,
-      },
-    });
-    setCurrentRow({});
-  };
-
-  const sortState: ((dataField: string, order: SortOrder) => void) = (
-    dataField: string, order: SortOrder,
+  const sortState: (dataField: string, order: SortOrder) => void = (
+    dataField: string,
+    order: SortOrder
   ): void => {
     const newSorted: Sorted = { dataField, order };
     sessionStorage.setItem("portfolioSort", JSON.stringify(newSorted));
@@ -143,68 +161,91 @@ const portfolio: React.FC<IPortfolioProps> = (props: IPortfolioProps): JSX.Eleme
   return (
     <React.StrictMode>
       <Row>
+        {/* eslint-disable-next-line react/forbid-component-props */}
         <Col60 className={"pa0"}>
-          <h2>{translate.t("searchFindings.tabResources.tags.title")}<Badge>pro</Badge></h2>
+          <h2>
+            {translate.t("searchFindings.tabResources.tags.title")}
+            <Badge>{"pro"}</Badge>
+          </h2>
         </Col60>
+        {/* eslint-disable-next-line react/forbid-component-props */}
         <Col40 className={"pa0"}>
           <ButtonToolbar>
-            <Can do="backend_api_mutations_add_group_tags_mutate">
+            <Can do={"backend_api_mutations_add_group_tags_mutate"}>
               <TooltipWrapper
                 displayClass={"dib"}
                 id={"searchFindings.tabResources.tags.addTooltip.id"}
-                message={translate.t("searchFindings.tabResources.tags.addTooltip")}
-                placement="top"
+                message={translate.t(
+                  "searchFindings.tabResources.tags.addTooltip"
+                )}
+                placement={"top"}
               >
-                <Button onClick={openAddModal} id={"portfolio-add"}>
-                  <FontAwesomeIcon icon={faPlus} />&nbsp;
-                {translate.t("searchFindings.tabResources.addRepository")}
+                <Button id={"portfolio-add"} onClick={openAddModal}>
+                  <FontAwesomeIcon icon={faPlus} />
+                  &nbsp;
+                  {translate.t("searchFindings.tabResources.addRepository")}
                 </Button>
               </TooltipWrapper>
             </Can>
-            <Can do="backend_api_mutations_remove_group_tag_mutate">
+            <Can do={"backend_api_mutations_remove_group_tag_mutate"}>
               <TooltipWrapper
                 displayClass={"dib"}
                 id={"searchFindings.tabResources.tags.removeTooltip.id"}
-                message={translate.t("searchFindings.tabResources.tags.removeTooltip")}
-                placement="top"
+                message={translate.t(
+                  "searchFindings.tabResources.tags.removeTooltip"
+                )}
+                placement={"top"}
               >
                 <Button
-                  onClick={handleRemoveTag}
                   disabled={_.isEmpty(currentRow) || removing}
                   id={"portfolio-remove"}
+                  onClick={handleRemoveTag}
                 >
-                  <FontAwesomeIcon icon={faMinus} />&nbsp;
-                {translate.t("searchFindings.tabResources.removeRepository")}
+                  <FontAwesomeIcon icon={faMinus} />
+                  &nbsp;
+                  {translate.t("searchFindings.tabResources.removeRepository")}
                 </Button>
               </TooltipWrapper>
             </Can>
           </ButtonToolbar>
         </Col40>
       </Row>
-      <Can do="backend_api_mutations_remove_group_tag_mutate" passThrough={true}>
+      <Can
+        do={"backend_api_mutations_remove_group_tag_mutate"}
+        passThrough={true}
+      >
         {(canDelete: boolean): JSX.Element => (
           <DataTableNext
             bordered={true}
             dataset={tagsDataset}
-            defaultSorted={JSON.parse(_.get(sessionStorage, "portfolioSort", "{}"))}
+            defaultSorted={JSON.parse(
+              _.get(sessionStorage, "portfolioSort", "{}")
+            )}
             exportCsv={false}
-            search={false}
             headers={tableHeaders}
-            id="tblTags"
+            id={"tblTags"}
             pageSize={15}
-            striped={true}
+            search={false}
             selectionMode={{
               clickToSelect: canDelete,
               hideSelectColumn: !canDelete,
               mode: "radio",
-              onSelect: networkStatus === NetworkStatus.refetch || removing ? undefined : setCurrentRow,
+              onSelect:
+                networkStatus === NetworkStatus.refetch || removing
+                  ? undefined
+                  : setCurrentRow,
             }}
+            striped={true}
           />
         )}
       </Can>
-      <AddTagsModal isOpen={isAddModalOpen} onClose={closeAddModal} onSubmit={handleTagsAdd} />
+      <AddTagsModal
+        isOpen={isAddModalOpen}
+        onClose={closeAddModal}
+        onSubmit={handleTagsAdd} // eslint-disable-line react/jsx-no-bind -- Unexpected behaviour with no-bind
+      />
     </React.StrictMode>
   );
 };
 
-export { portfolio as Portfolio };
+export { Portfolio, IPortfolioProps };
