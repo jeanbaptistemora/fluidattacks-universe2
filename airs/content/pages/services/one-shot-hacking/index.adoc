@@ -3,6 +3,7 @@
 :keywords: Fluid Attacks, Services, Ethical Hacking, Security, Application, Vulnerabilities, One-Shot Hacking, Pentesting
 :template: services/one-shot
 :definition: We detect and report all vulnerability and security issues within one specific version of your application. The rigorous inspection carried out by our team allows us to detect all existing security issues with very low rates of false positives.
+:page-banner: bg-one-shot
 
 = One-Shot Hacking
 

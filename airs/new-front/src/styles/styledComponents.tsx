@@ -78,7 +78,7 @@ const NavbarContactButton: StyledComponent<
      bc-fluid-red
      ba
      hv-fluid-rd
-     hv-fluid-bd
+     hv-bd-fluid-red
      t-all-3-eio
      c-dkred
      pointer

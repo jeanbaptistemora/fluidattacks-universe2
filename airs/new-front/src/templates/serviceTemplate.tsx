@@ -4,28 +4,19 @@
  *Default exports are needed for pages used in nodes by default to create pages
  *like index.tsx or this one
  */
-/* eslint react/no-danger:0 */
 /* eslint import/no-default-export:0 */
+/* eslint fp/no-let: 0 */
 /* eslint @typescript-eslint/no-invalid-void-type:0 */
 /* eslint @typescript-eslint/no-confusing-void-expression:0 */
-/* eslint react/forbid-component-props: 0 */
-/* eslint import/no-namespace:0 */
+/* eslint fp/no-mutation: 0 */
 import { Breadcrumb } from "gatsby-plugin-breadcrumb";
-import { Layout } from "../../components/layout";
-import { NavbarComponent } from "../../components/navbar";
+import { Layout } from "../components/layout";
+import { NavbarComponent } from "../components/navbar";
 import React from "react";
-import { Seo } from "../../components/seo";
+import { Seo } from "../components/seo";
+import { ServicePage } from "../components/servicePage";
 import { graphql } from "gatsby";
-import { translate } from "../../utils/translations/translate";
-import {
-  ArticleContainer,
-  BannerContainer,
-  BannerSubtitle,
-  BannerTitle,
-  FullWidthContainer,
-  PageArticle,
-  PageContainer,
-} from "../../styles/styledComponents";
+import { translate } from "../utils/translations/translate";
 
 interface IQueryData {
   data: {
@@ -38,7 +29,7 @@ interface IQueryData {
         slug: string;
       };
       pageAttributes: {
-        banner?: string;
+        banner: string;
         description: string;
         keywords: string;
         slug: string;
@@ -72,6 +63,14 @@ const ContinuousHackingIndex: React.FC<IQueryData> = ({
     .charAt(0)
     .toUpperCase()}${title.slice(1).replace("-", "")}`;
 
+  let isContinuous: string = "";
+
+  if (data.asciidoc.pageAttributes.slug === "services/continuous-hacking/") {
+    isContinuous = "yes";
+  } else {
+    isContinuous = "no";
+  }
+
   return (
     <React.Fragment>
       <Seo
@@ -90,19 +89,12 @@ const ContinuousHackingIndex: React.FC<IQueryData> = ({
             crumbs={crumbs}
           />
 
-          <PageArticle>
-            <BannerContainer className={"bg-continuous"}>
-              <FullWidthContainer>
-                <BannerTitle>{title}</BannerTitle>
-                <BannerSubtitle>
-                  {translate.t("services.continuousHacking.subtitle")}
-                </BannerSubtitle>
-              </FullWidthContainer>
-            </BannerContainer>
-            <ArticleContainer>
-              <PageContainer />
-            </ArticleContainer>
-          </PageArticle>
+          <ServicePage
+            banner={data.asciidoc.pageAttributes.banner}
+            isContinuous={isContinuous}
+            subtitle={translate.t("service.subTitle")}
+            title={title}
+          />
         </div>
       </Layout>
     </React.Fragment>
