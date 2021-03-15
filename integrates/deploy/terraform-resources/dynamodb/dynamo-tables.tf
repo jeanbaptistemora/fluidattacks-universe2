@@ -1,3 +1,24 @@
+resource "aws_dynamodb_table" "async_processing" {
+  name         = "fi_async_processing"
+  billing_mode = "PAY_PER_REQUEST"
+  hash_key     = "pk"
+
+  attribute {
+    name = "pk"
+    type = "S"
+  }
+
+  point_in_time_recovery {
+    enabled = true
+  }
+
+  tags = {
+    "Name"               = "fi_async_processing"
+    "management:type"    = "production"
+    "management:product" = "integrates"
+  }
+}
+
 resource "aws_dynamodb_table" "authz" {
   name         = "fi_authz"
   billing_mode = "PAY_PER_REQUEST"

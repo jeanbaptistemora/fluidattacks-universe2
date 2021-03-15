@@ -11,6 +11,16 @@ provider "aws" {
   skip_requesting_account_id  = true
 }
 
+resource "aws_dynamodb_table" "fi_async_processing" {
+  attribute {
+    name = "pk"
+    type = "S"
+  }
+  billing_mode = "PAY_PER_REQUEST"
+  hash_key     = "pk"
+  name         = "fi_async_processing"
+}
+
 resource "aws_dynamodb_table" "fi_authz" {
   attribute {
     name = "subject"
