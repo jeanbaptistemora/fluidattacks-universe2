@@ -10,12 +10,7 @@ from sagemaker.sklearn import SKLearn
 from sagemaker.sklearn.estimator import SKLearn as SKLearnEstimator
 
 
-def deploy_training_job(model: str, delay: int) -> None:
-    # Incremental delay since SageMaker does not seem to process some
-    # training jobs when requested near the same time.
-    time.sleep(delay)
-
-    print(f'Deploying training job for {model}...')
+def get_estimator(model: str) -> SKLearnEstimator:
     sklearn_estimator: SKLearnEstimator = SKLearn(
         entry_point='training/training_script.py',
         framework_version='0.23-1',
@@ -33,6 +28,17 @@ def deploy_training_job(model: str, delay: int) -> None:
         ],
         debugger_hook_config=False
     )
+
+    return sklearn_estimator
+
+
+def deploy_training_job(model: str, delay: int) -> None:
+    # Incremental delay since SageMaker does not seem to process some
+    # training jobs when requested near the same time.
+    time.sleep(delay)
+
+    print(f'Deploying training job for {model}...')
+    sklearn_estimator: SKLearnEstimator = get_estimator(model)
     sklearn_estimator.fit({
         'train': 's3://sorts/training/binary_encoded_training_data.csv'
     })
