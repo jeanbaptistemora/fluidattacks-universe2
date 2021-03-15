@@ -6,13 +6,13 @@ from typing import Optional, Tuple
 from boto3.dynamodb.conditions import Key
 
 # Local
-from dynamodb import keys, operations, versioned
+from dynamodb import historics, keys, operations
 from dynamodb.table import TABLE
 from dynamodb.types import (
     Item,
     PrimaryKey,
-    RootHistoricCloning,
-    RootHistoricState,
+    RootCloning,
+    RootState,
     RootItem,
     RootMetadata
 )
@@ -24,44 +24,38 @@ def _build_root(
     key_structure: PrimaryKey,
     raw_items: Tuple[Item, ...],
 ) -> RootItem:
-    historic_cloning = versioned.get_historic(
+    cloning = historics.get_latest(
         item_id=item_id,
         key_structure=key_structure,
         historic_prefix='CLON',
         raw_items=raw_items
     )
-    historic_state = versioned.get_historic(
+    state = historics.get_latest(
         item_id=item_id,
         key_structure=key_structure,
         historic_prefix='STATE',
         raw_items=raw_items
     )
-    metadata = versioned.get_metadata(
+    metadata = historics.get_metadata(
         item_id=item_id,
         key_structure=key_structure,
         raw_items=raw_items
     )
 
     return RootItem(
-        historic_cloning=tuple(
-            RootHistoricCloning(
-                modified_date=item['modified_date'],
-                reason=item['reason'],
-                status=item['status']
-            )
-            for item in historic_cloning
+        cloning=RootCloning(
+            modified_date=cloning['modified_date'],
+            reason=cloning['reason'],
+            status=cloning['status']
         ),
-        historic_state=tuple(
-            RootHistoricState(
-                environment_urls=item['environment_urls'],
-                environment=item['environment'],
-                gitignore=item['gitignore'],
-                includes_health_check=item['includes_health_check'],
-                modified_by=item['modified_by'],
-                modified_date=item['modified_date'],
-                status=item['status']
-            )
-            for item in historic_state
+        state=RootState(
+            environment_urls=state['environment_urls'],
+            environment=state['environment'],
+            gitignore=state['gitignore'],
+            includes_health_check=state['includes_health_check'],
+            modified_by=state['modified_by'],
+            modified_date=state['modified_date'],
+            status=state['status']
         ),
         metadata=RootMetadata(
             branch=metadata['branch'],
@@ -90,9 +84,9 @@ async def get_root(
             Key(key_structure.sort_key).begins_with(primary_key.partition_key)
         ),
         facets=(
+            TABLE.facets['root_cloning'],
             TABLE.facets['root_metadata'],
-            TABLE.facets['root_historic_cloning'],
-            TABLE.facets['root_historic_state']
+            TABLE.facets['root_state']
         ),
         index=index,
         table=TABLE
@@ -122,9 +116,9 @@ async def get_roots(*, group_name: str) -> Tuple[RootItem, ...]:
             Key(key_structure.sort_key).begins_with(primary_key.partition_key)
         ),
         facets=(
+            TABLE.facets['root_cloning'],
             TABLE.facets['root_metadata'],
-            TABLE.facets['root_historic_cloning'],
-            TABLE.facets['root_historic_state']
+            TABLE.facets['root_state']
         ),
         index=index,
         table=TABLE
@@ -147,10 +141,10 @@ async def get_roots(*, group_name: str) -> Tuple[RootItem, ...]:
 
 async def create_root(
     *,
-    cloning: RootHistoricCloning,
+    cloning: RootCloning,
     group_name: str,
     metadata: RootMetadata,
-    state: RootHistoricState
+    state: RootState
 ) -> None:
     key_structure = TABLE.primary_key
 
@@ -168,41 +162,37 @@ async def create_root(
         **dict(metadata._asdict())
     }
 
-    historic_cloning_key = keys.build_key(
-        facet=TABLE.facets['root_historic_cloning'],
-        values={
+    historic_cloning = historics.build_historic(
+        attributes=dict(cloning._asdict()),
+        historic_facet=TABLE.facets['root_historic_cloning'],
+        key_structure=key_structure,
+        key_values={
             'branch': metadata.branch,
             'iso8601utc': cloning.modified_date,
             'name': group_name,
             'url': metadata.url
         },
+        latest_facet=TABLE.facets['root_cloning'],
     )
-    initial_historic_cloning = {
-        key_structure.partition_key: historic_cloning_key.partition_key,
-        key_structure.sort_key: historic_cloning_key.sort_key,
-        **dict(cloning._asdict())
-    }
 
-    historic_state_key = keys.build_key(
-        facet=TABLE.facets['root_historic_state'],
-        values={
+    historic_state = historics.build_historic(
+        attributes=dict(state._asdict()),
+        historic_facet=TABLE.facets['root_historic_state'],
+        key_structure=key_structure,
+        key_values={
             'branch': metadata.branch,
             'iso8601utc': state.modified_date,
             'name': group_name,
             'url': metadata.url
         },
+        latest_facet=TABLE.facets['root_state'],
     )
-    initial_historic_state = {
-        key_structure.partition_key: historic_state_key.partition_key,
-        key_structure.sort_key: historic_state_key.sort_key,
-        **dict(state._asdict())
-    }
 
     await operations.batch_write_item(
         items=(
             initial_metadata,
-            initial_historic_cloning,
-            initial_historic_state
+            *historic_cloning,
+            *historic_state
         ),
         table=TABLE
     )
@@ -212,53 +202,45 @@ async def update_root_state(
     *,
     branch: str,
     group_name: str,
-    state: RootHistoricState,
+    state: RootState,
     url: str
 ) -> None:
     key_structure = TABLE.primary_key
-    historic_state_key = keys.build_key(
-        facet=TABLE.facets['root_historic_state'],
-        values={
+    historic = historics.build_historic(
+        attributes=dict(state._asdict()),
+        historic_facet=TABLE.facets['root_historic_state'],
+        key_structure=key_structure,
+        key_values={
             'branch': branch,
             'iso8601utc': state.modified_date,
             'name': group_name,
             'url': url
         },
+        latest_facet=TABLE.facets['root_state'],
     )
 
-    await operations.put_item(
-        item={
-            key_structure.partition_key: historic_state_key.partition_key,
-            key_structure.sort_key: historic_state_key.sort_key,
-            **dict(state._asdict())
-        },
-        table=TABLE
-    )
+    await operations.batch_write_item(items=historic, table=TABLE)
 
 
 async def update_root_cloning(
     *,
     branch: str,
-    cloning: RootHistoricCloning,
+    cloning: RootCloning,
     group_name: str,
     url: str
 ) -> None:
     key_structure = TABLE.primary_key
-    historic_state_key = keys.build_key(
-        facet=TABLE.facets['root_historic_cloning'],
-        values={
+    historic = historics.build_historic(
+        attributes=dict(cloning._asdict()),
+        historic_facet=TABLE.facets['root_historic_cloning'],
+        key_structure=key_structure,
+        key_values={
             'branch': branch,
             'iso8601utc': cloning.modified_date,
             'name': group_name,
             'url': url
-        }
+        },
+        latest_facet=TABLE.facets['root_cloning'],
     )
 
-    await operations.put_item(
-        item={
-            key_structure.partition_key: historic_state_key.partition_key,
-            key_structure.sort_key: historic_state_key.sort_key,
-            **dict(cloning._asdict())
-        },
-        table=TABLE
-    )
+    await operations.batch_write_item(items=historic, table=TABLE)

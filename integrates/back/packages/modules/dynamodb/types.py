@@ -34,13 +34,13 @@ class RootMetadata(NamedTuple):
     url: str
 
 
-class RootHistoricCloning(NamedTuple):
+class RootCloning(NamedTuple):
     modified_date: str
     reason: str
     status: str
 
 
-class RootHistoricState(NamedTuple):
+class RootState(NamedTuple):
     environment_urls: Set[str]
     environment: str
     gitignore: Set[str]
@@ -51,6 +51,6 @@ class RootHistoricState(NamedTuple):
 
 
 class RootItem(NamedTuple):
-    historic_cloning: Tuple[RootHistoricCloning, ...]
-    historic_state: Tuple[RootHistoricState, ...]
+    cloning: RootCloning
+    state: RootState
     metadata: RootMetadata
