@@ -12,24 +12,29 @@ from sorts.constants import (
 )
 
 
+def get_best_model_name(model_name_file: str) -> str:
+    # Since the best model has a generic name for easier download,
+    # this TXT keeps track of the model name (class, f1, features)
+    # so the final artifact is only replaced if there has been
+    # an improvement
+    best_model: str = ''
+    S3_RESOURCE.Object(
+        S3_BUCKET_NAME,
+        'training-output/best_model.txt'
+    ).download_file(model_name_file)
+    with open(model_name_file) as file:
+        best_model = file.read()
+
+    return best_model
+
+
 def main() -> None:
     with tempfile.TemporaryDirectory() as tmp_dir:
-        best_previous_model: str = ''
         best_current_model: str = ''
         best_f1: int = 0
         model_name_file: str = os.path.join(tmp_dir, 'best_model.txt')
+        best_previous_model: str = get_best_model_name(model_name_file)
         for obj in S3_BUCKET.objects.filter(Prefix='training-output'):
-            # Since the best model has a generic name for easier download,
-            # this TXT keeps track of the model name (class, f1, features)
-            # so the final artifact is only replaced if there has been
-            # an improvement
-            if obj.key.endswith('.txt'):
-                S3_RESOURCE.Object(S3_BUCKET_NAME, obj.key).download_file(
-                    model_name_file
-                )
-                with open(model_name_file) as file:
-                    best_previous_model = file.read()
-
             if (
                 obj.key.endswith('.joblib')
                 and obj.key != 'training-output/model.joblib'
