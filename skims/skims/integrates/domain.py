@@ -64,7 +64,7 @@ def _build_vulnerabilities_stream(
                 commit_hash=get_repo_head_hash(deserialize_what_from_vuln(
                     core_model.VulnerabilityKindEnum.LINES,
                     result.what,
-                ))[0:8],
+                )),
                 line=result.where,
                 path=result.what,
                 state=result.state,

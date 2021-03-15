@@ -54,7 +54,7 @@ async def test_build_vulnerabilities_stream() -> None:
         )
     ) == dedent("""
         lines:
-        - commit_hash: '00000000'
+        - commit_hash: '0000000000000000000000000000000000000000'
           line: '123'
           path: namespace/what
           state: open
