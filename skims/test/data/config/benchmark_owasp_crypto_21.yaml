@@ -2,14 +2,5 @@ namespace: OWASP
 output: test/outputs/benchmark_owasp_crypto_21.csv
 path:
   include:
-  - BenchmarkTest02191.java
-  - BenchmarkTest02192.java
-  - BenchmarkTest02193.java
-  - BenchmarkTest02194.java
-  - BenchmarkTest02195.java
-  - BenchmarkTest02289.java
-  - BenchmarkTest02290.java
-  - BenchmarkTest02291.java
-  - BenchmarkTest02292.java
-  - BenchmarkTest02293.java
+  - BenchmarkTest00128.java
 working_dir: ../../owasp_benchmark/src/main/java/org/owasp/benchmark/testcode

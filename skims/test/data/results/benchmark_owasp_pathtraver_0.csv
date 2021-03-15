@@ -1,19 +1,6 @@
 title,what,where,cwe
 F060. Insecure exceptions,OWASP/BenchmarkTest00001.java,78,396
 F060. Insecure exceptions,OWASP/BenchmarkTest00001.java,89,396
-F060. Insecure exceptions,OWASP/BenchmarkTest00002.java,77,396
-F060. Insecure exceptions,OWASP/BenchmarkTest00002.java,85,396
-F060. Insecure exceptions,OWASP/BenchmarkTest00028.java,65,396
-F060. Insecure exceptions,OWASP/BenchmarkTest00028.java,73,396
-F060. Insecure exceptions,OWASP/BenchmarkTest00045.java,69,396
-F060. Insecure exceptions,OWASP/BenchmarkTest00062.java,84,396
-F060. Insecure exceptions,OWASP/BenchmarkTest00062.java,95,396
-F060. Insecure exceptions,OWASP/BenchmarkTest00063.java,85,396
-F060. Insecure exceptions,OWASP/BenchmarkTest00063.java,96,396
 F061. Errors without traceability,OWASP/BenchmarkTest00001.java,89,390
-F061. Errors without traceability,OWASP/BenchmarkTest00002.java,85,390
-F061. Errors without traceability,OWASP/BenchmarkTest00028.java,73,390
-F061. Errors without traceability,OWASP/BenchmarkTest00062.java,95,390
-F061. Errors without traceability,OWASP/BenchmarkTest00063.java,96,390
 F063. Lack of data validation - Path Traversal,OWASP/BenchmarkTest00001.java,71,22
 F063. Lack of data validation - Path Traversal,OWASP/BenchmarkTest00001.java,71,22

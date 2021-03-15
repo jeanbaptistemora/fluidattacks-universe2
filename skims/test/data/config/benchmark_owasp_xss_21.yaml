@@ -2,14 +2,5 @@ namespace: OWASP
 output: test/outputs/benchmark_owasp_xss_21.csv
 path:
   include:
-  - BenchmarkTest01343.java
-  - BenchmarkTest01344.java
-  - BenchmarkTest01345.java
-  - BenchmarkTest01346.java
-  - BenchmarkTest01347.java
-  - BenchmarkTest01348.java
-  - BenchmarkTest01349.java
-  - BenchmarkTest01350.java
-  - BenchmarkTest01351.java
-  - BenchmarkTest01352.java
+  - BenchmarkTest00157.java
 working_dir: ../../owasp_benchmark/src/main/java/org/owasp/benchmark/testcode

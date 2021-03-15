@@ -2,14 +2,5 @@ namespace: OWASP
 output: test/outputs/benchmark_owasp_trustbound_3.csv
 path:
   include:
-  - BenchmarkTest00755.java
-  - BenchmarkTest00756.java
-  - BenchmarkTest00757.java
-  - BenchmarkTest00758.java
-  - BenchmarkTest00759.java
-  - BenchmarkTest00833.java
-  - BenchmarkTest00834.java
-  - BenchmarkTest00835.java
-  - BenchmarkTest00836.java
-  - BenchmarkTest00922.java
+  - BenchmarkTest00098.java
 working_dir: ../../owasp_benchmark/src/main/java/org/owasp/benchmark/testcode

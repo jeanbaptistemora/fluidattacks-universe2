@@ -2,14 +2,5 @@ namespace: OWASP
 output: test/outputs/benchmark_owasp_hash_4.csv
 path:
   include:
-  - BenchmarkTest00464.java
-  - BenchmarkTest00465.java
-  - BenchmarkTest00466.java
-  - BenchmarkTest00531.java
-  - BenchmarkTest00532.java
-  - BenchmarkTest00533.java
-  - BenchmarkTest00534.java
-  - BenchmarkTest00535.java
-  - BenchmarkTest00536.java
-  - BenchmarkTest00537.java
+  - BenchmarkTest00046.java
 working_dir: ../../owasp_benchmark/src/main/java/org/owasp/benchmark/testcode

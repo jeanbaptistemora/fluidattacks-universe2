@@ -3,13 +3,4 @@ output: test/outputs/benchmark_owasp_trustbound_0.csv
 path:
   include:
   - BenchmarkTest00004.java
-  - BenchmarkTest00031.java
-  - BenchmarkTest00097.java
-  - BenchmarkTest00098.java
-  - BenchmarkTest00099.java
-  - BenchmarkTest00189.java
-  - BenchmarkTest00250.java
-  - BenchmarkTest00251.java
-  - BenchmarkTest00252.java
-  - BenchmarkTest00253.java
 working_dir: ../../owasp_benchmark/src/main/java/org/owasp/benchmark/testcode

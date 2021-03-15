@@ -2,14 +2,5 @@ namespace: OWASP
 output: test/outputs/benchmark_owasp_cmdi_15.csv
 path:
   include:
-  - BenchmarkTest01672.java
-  - BenchmarkTest01673.java
-  - BenchmarkTest01674.java
-  - BenchmarkTest01685.java
-  - BenchmarkTest01686.java
-  - BenchmarkTest01687.java
-  - BenchmarkTest01688.java
-  - BenchmarkTest01689.java
-  - BenchmarkTest01690.java
-  - BenchmarkTest01691.java
+  - BenchmarkTest00174.java
 working_dir: ../../owasp_benchmark/src/main/java/org/owasp/benchmark/testcode

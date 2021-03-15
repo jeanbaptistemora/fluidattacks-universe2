@@ -2,14 +2,5 @@ namespace: OWASP
 output: test/outputs/benchmark_owasp_xpathi_2.csv
 path:
   include:
-  - BenchmarkTest01562.java
-  - BenchmarkTest01632.java
-  - BenchmarkTest01633.java
-  - BenchmarkTest01734.java
-  - BenchmarkTest01735.java
-  - BenchmarkTest01736.java
-  - BenchmarkTest01821.java
-  - BenchmarkTest01892.java
-  - BenchmarkTest01893.java
-  - BenchmarkTest01894.java
+  - BenchmarkTest00118.java
 working_dir: ../../owasp_benchmark/src/main/java/org/owasp/benchmark/testcode

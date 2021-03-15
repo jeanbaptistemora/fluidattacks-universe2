@@ -3,13 +3,4 @@ output: test/outputs/benchmark_owasp_sqli_0.csv
 path:
   include:
   - BenchmarkTest00008.java
-  - BenchmarkTest00018.java
-  - BenchmarkTest00024.java
-  - BenchmarkTest00025.java
-  - BenchmarkTest00026.java
-  - BenchmarkTest00027.java
-  - BenchmarkTest00032.java
-  - BenchmarkTest00033.java
-  - BenchmarkTest00034.java
-  - BenchmarkTest00037.java
 working_dir: ../../owasp_benchmark/src/main/java/org/owasp/benchmark/testcode

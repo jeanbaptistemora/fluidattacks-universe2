@@ -184,11 +184,35 @@ def test_bad_integrates_api_token(test_group: str) -> None:
 @pytest.mark.skims_test_group('unittesting')
 @pytest.mark.parametrize('suite', [
     'lib_path',
-    'benchmark_owasp_pathtraver_0',
 ])
 def test_run_no_group(suite: str) -> None:
+    _run_no_group(suite)
+
+
+@pytest.mark.flaky(reruns=0)
+@pytest.mark.skims_test_group('benchmark_cmdi')
+@pytest.mark.parametrize('index', list(range(1)))
+def test_benchmark_cmdi(index: int) -> None:
+    _run_no_group(f'benchmark_owasp_cmdi_{index}')
+
+
+@pytest.mark.flaky(reruns=0)
+@pytest.mark.skims_test_group('benchmark_pathtraver')
+@pytest.mark.parametrize('index', list(range(1)))
+def test_benchmark_pathtraver(index: int) -> None:
+    _run_no_group(f'benchmark_owasp_pathtraver_{index}')
+
+
+@pytest.mark.flaky(reruns=0)
+@pytest.mark.skims_test_group('benchmark_weakrand')
+@pytest.mark.parametrize('index', list(range(1)))
+def test_benchmark_weakrand(index: int) -> None:
+    _run_no_group(f'benchmark_owasp_weakrand_{index}')
+
+
+def _run_no_group(suite: str) -> None:
     code, stdout, stderr = skims(get_suite_config(suite))
-    assert code == 0
+    assert code == 0, stdout
     assert '[INFO] Startup working dir is:' in stdout
     assert '[INFO] An output file has been written:' in stdout
     assert '[INFO] Files to be tested:' in stdout

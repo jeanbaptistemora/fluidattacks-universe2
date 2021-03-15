@@ -2,14 +2,5 @@ namespace: OWASP
 output: test/outputs/benchmark_owasp_weakrand_22.csv
 path:
   include:
-  - BenchmarkTest01197.java
-  - BenchmarkTest01198.java
-  - BenchmarkTest01199.java
-  - BenchmarkTest01200.java
-  - BenchmarkTest01201.java
-  - BenchmarkTest01202.java
-  - BenchmarkTest01271.java
-  - BenchmarkTest01272.java
-  - BenchmarkTest01273.java
-  - BenchmarkTest01274.java
+  - BenchmarkTest00163.java
 working_dir: ../../owasp_benchmark/src/main/java/org/owasp/benchmark/testcode

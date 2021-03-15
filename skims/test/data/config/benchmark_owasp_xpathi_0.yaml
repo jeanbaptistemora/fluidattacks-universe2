@@ -3,13 +3,4 @@ output: test/outputs/benchmark_owasp_xpathi_0.csv
 path:
   include:
   - BenchmarkTest00116.java
-  - BenchmarkTest00117.java
-  - BenchmarkTest00118.java
-  - BenchmarkTest00207.java
-  - BenchmarkTest00442.java
-  - BenchmarkTest00520.java
-  - BenchmarkTest00607.java
-  - BenchmarkTest00683.java
-  - BenchmarkTest00852.java
-  - BenchmarkTest00941.java
 working_dir: ../../owasp_benchmark/src/main/java/org/owasp/benchmark/testcode

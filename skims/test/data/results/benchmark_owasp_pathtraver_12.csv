@@ -1,8 +1,0 @@
-title,what,where,cwe
-F060. Insecure exceptions,OWASP/BenchmarkTest01161.java,66,396
-F060. Insecure exceptions,OWASP/BenchmarkTest01161.java,74,396
-F060. Insecure exceptions,OWASP/BenchmarkTest01238.java,59,396
-F060. Insecure exceptions,OWASP/BenchmarkTest01238.java,67,396
-F060. Insecure exceptions,OWASP/BenchmarkTest01239.java,65,396
-F061. Errors without traceability,OWASP/BenchmarkTest01161.java,74,390
-F061. Errors without traceability,OWASP/BenchmarkTest01238.java,67,390

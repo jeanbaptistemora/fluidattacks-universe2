@@ -19,7 +19,7 @@ from utils.encodings import (
 )
 
 # Constants
-FOLDER = '../../owasp_benchmark/src/main/java/org/owasp/benchmark/testcode'
+FOLDER = '../owasp_benchmark/src/main/java/org/owasp/benchmark/testcode'
 
 
 def get_tests_cases() -> Dict[str, List[str]]:
@@ -46,7 +46,7 @@ def main() -> None:
     for category, tests_cases in get_tests_cases().items():
         tests_cases.sort()
 
-        for index, batch in enumerate(chunked(tests_cases, n=10)):
+        for index, batch in enumerate(chunked(tests_cases, n=1)):
             suite = f'benchmark_owasp_{category}_{index}'
             suites.append(suite)
 
@@ -54,10 +54,10 @@ def main() -> None:
                 namespace='OWASP',
                 output=f'test/outputs/{suite}.csv',
                 path=dict(include=batch),
-                working_dir=FOLDER,
+                working_dir=f'../{FOLDER}',
             ))
 
-            with open(f'test/data/config/{suite}.yaml', 'w') as handle:
+            with open(f'skims/test/data/config/{suite}.yaml', 'w') as handle:
                 handle.write(content)
 
     print(json.dumps(suites, indent=2, sort_keys=True))

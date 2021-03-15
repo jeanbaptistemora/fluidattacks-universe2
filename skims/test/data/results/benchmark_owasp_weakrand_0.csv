@@ -1,9 +1,1 @@
 title,what,where,cwe
-F034. Insecure random number generation,BenchmarkTest00023.java,83,330
-F034. Insecure random number generation,BenchmarkTest00066.java,108,330
-F034. Insecure random number generation,BenchmarkTest00067.java,116,330
-F034. Insecure random number generation,BenchmarkTest00068.java,108,330
-F034. Insecure random number generation,BenchmarkTest00078.java,105,330
-F034. Insecure random number generation,BenchmarkTest00079.java,106,330
-F034. Insecure random number generation,BenchmarkTest00080.java,101,330
-F034. Insecure random number generation,BenchmarkTest00081.java,100,330

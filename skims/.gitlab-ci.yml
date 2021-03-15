@@ -103,6 +103,15 @@ skims.structure:
     - cp -r ~/.skims/debug skims/test/outputs || true
   stage: test-code
 
+skims.test.benchmark_cmdi:
+  <<: *skims_test
+
+skims.test.benchmark_pathtraver:
+  <<: *skims_test
+
+skims.test.benchmark_weakrand:
+  <<: *skims_test
+
 skims.test.functional:
   <<: *skims_test
   <<: *skims_in_master_branch

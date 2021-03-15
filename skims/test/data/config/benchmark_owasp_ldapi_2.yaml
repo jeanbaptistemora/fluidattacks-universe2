@@ -2,14 +2,5 @@ namespace: OWASP
 output: test/outputs/benchmark_owasp_ldapi_2.csv
 path:
   include:
-  - BenchmarkTest01242.java
-  - BenchmarkTest01243.java
-  - BenchmarkTest01326.java
-  - BenchmarkTest01327.java
-  - BenchmarkTest01402.java
-  - BenchmarkTest01490.java
-  - BenchmarkTest01491.java
-  - BenchmarkTest01492.java
-  - BenchmarkTest01501.java
-  - BenchmarkTest01568.java
+  - BenchmarkTest00044.java
 working_dir: ../../owasp_benchmark/src/main/java/org/owasp/benchmark/testcode

@@ -1,0 +1,6 @@
+namespace: OWASP
+output: test/outputs/benchmark_owasp_sqli_115.csv
+path:
+  include:
+  - BenchmarkTest00680.java
+working_dir: ../../owasp_benchmark/src/main/java/org/owasp/benchmark/testcode

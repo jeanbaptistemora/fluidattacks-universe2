@@ -2,14 +2,5 @@ namespace: OWASP
 output: test/outputs/benchmark_owasp_pathtraver_9.csv
 path:
   include:
-  - BenchmarkTest00957.java
-  - BenchmarkTest00958.java
-  - BenchmarkTest01025.java
-  - BenchmarkTest01026.java
-  - BenchmarkTest01027.java
-  - BenchmarkTest01028.java
-  - BenchmarkTest01029.java
-  - BenchmarkTest01030.java
-  - BenchmarkTest01031.java
-  - BenchmarkTest01032.java
+  - BenchmarkTest00063.java
 working_dir: ../../owasp_benchmark/src/main/java/org/owasp/benchmark/testcode

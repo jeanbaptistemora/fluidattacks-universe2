@@ -2,14 +2,5 @@ namespace: OWASP
 output: test/outputs/benchmark_owasp_securecookie_2.csv
 path:
   include:
-  - BenchmarkTest00903.java
-  - BenchmarkTest00904.java
-  - BenchmarkTest00977.java
-  - BenchmarkTest01061.java
-  - BenchmarkTest01062.java
-  - BenchmarkTest01134.java
-  - BenchmarkTest01185.java
-  - BenchmarkTest01186.java
-  - BenchmarkTest01187.java
-  - BenchmarkTest01280.java
+  - BenchmarkTest00088.java
 working_dir: ../../owasp_benchmark/src/main/java/org/owasp/benchmark/testcode

@@ -2,14 +2,5 @@ namespace: OWASP
 output: test/outputs/benchmark_owasp_sqli_47.csv
 path:
   include:
-  - BenchmarkTest02638.java
-  - BenchmarkTest02639.java
-  - BenchmarkTest02640.java
-  - BenchmarkTest02641.java
-  - BenchmarkTest02642.java
-  - BenchmarkTest02643.java
-  - BenchmarkTest02644.java
-  - BenchmarkTest02645.java
-  - BenchmarkTest02646.java
-  - BenchmarkTest02647.java
+  - BenchmarkTest00328.java
 working_dir: ../../owasp_benchmark/src/main/java/org/owasp/benchmark/testcode

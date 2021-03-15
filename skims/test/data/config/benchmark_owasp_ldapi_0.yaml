@@ -3,13 +3,4 @@ output: test/outputs/benchmark_owasp_ldapi_0.csv
 path:
   include:
   - BenchmarkTest00012.java
-  - BenchmarkTest00021.java
-  - BenchmarkTest00044.java
-  - BenchmarkTest00138.java
-  - BenchmarkTest00139.java
-  - BenchmarkTest00367.java
-  - BenchmarkTest00530.java
-  - BenchmarkTest00630.java
-  - BenchmarkTest00694.java
-  - BenchmarkTest00695.java
 working_dir: ../../owasp_benchmark/src/main/java/org/owasp/benchmark/testcode

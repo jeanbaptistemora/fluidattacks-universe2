@@ -1,0 +1,6 @@
+namespace: OWASP
+output: test/outputs/benchmark_owasp_cmdi_205.csv
+path:
+  include:
+  - BenchmarkTest02242.java
+working_dir: ../../owasp_benchmark/src/main/java/org/owasp/benchmark/testcode

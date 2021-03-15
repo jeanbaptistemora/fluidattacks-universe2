@@ -1,0 +1,6 @@
+namespace: OWASP
+output: test/outputs/benchmark_owasp_xpathi_34.csv
+path:
+  include:
+  - BenchmarkTest02457.java
+working_dir: ../../owasp_benchmark/src/main/java/org/owasp/benchmark/testcode

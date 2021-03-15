@@ -3,13 +3,4 @@ output: test/outputs/benchmark_owasp_cmdi_0.csv
 path:
   include:
   - BenchmarkTest00006.java
-  - BenchmarkTest00007.java
-  - BenchmarkTest00015.java
-  - BenchmarkTest00017.java
-  - BenchmarkTest00051.java
-  - BenchmarkTest00077.java
-  - BenchmarkTest00090.java
-  - BenchmarkTest00091.java
-  - BenchmarkTest00092.java
-  - BenchmarkTest00093.java
 working_dir: ../../owasp_benchmark/src/main/java/org/owasp/benchmark/testcode

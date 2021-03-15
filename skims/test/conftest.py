@@ -30,6 +30,9 @@ from utils.ctx import (
 
 # Constants
 TEST_GROUPS = {
+    'benchmark_cmdi',
+    'benchmark_pathtraver',
+    'benchmark_weakrand',
     'functional',
     'unittesting',
 }
