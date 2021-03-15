@@ -18,7 +18,18 @@ async def populate() -> bool:
     data: Dict[str, Any] = {
         'users': [
             {
-                'email': 'test1@gmail.com',
+                'email': 'admin@gmail.com',
+                'first_login': '',
+                'first_name': '',
+                'last_login': '',
+                'last_name': '',
+                'legal_remember': False,
+                'phone_number': '-',
+                'push_tokens': [],
+                'is_registered': True,
+            },
+            {
+                'email': 'analyst@gmail.com',
                 'first_login': '',
                 'first_name': '',
                 'last_login': '',
@@ -34,7 +45,8 @@ async def populate() -> bool:
                 'name': 'orgtest',
                 'id': '40f6da5f-4f66-4bf0-825b-a2d9748ad6db',
                 'users': [
-                    'test1@gmail.com',
+                    'admin@gmail.com',
+                    'analyst@gmail.com',
                 ],
                 'groups': [
                     'group1',
@@ -71,14 +83,14 @@ async def populate() -> bool:
                 'historic_state': [
                     {
                         'date': '2018-04-07 19:45:11',
-                        'analyst': 'test1@gmail.com',
+                        'analyst': 'admin@gmail.com',
                         'source': 'source_path',
                         'state': 'APPROVED',
                     },
                 ],
                 'effect_solution': 'solution',
                 'vulnerability': 'vulnerability',
-                'analyst': 'test1@gmail.com',
+                'analyst': 'admin@gmail.com',
                 'cvss_version': '3.1',
                 'exploitability': 0.94,
                 'finding': 'FIN.H.060. Insecure exceptions',
@@ -136,9 +148,27 @@ async def populate() -> bool:
         'policies': [
             {
                 'level': 'user',
-                'subject': 'test1@gmail.com',
+                'subject': 'admin@gmail.com',
                 'object': 'self',
                 'role': 'admin',
+            },
+            {
+                'level': 'user',
+                'subject': 'analyst@gmail.com',
+                'object': 'self',
+                'role': 'user',
+            },
+            {
+                'level': 'group',
+                'subject': 'analyst@gmail.com',
+                'object': 'group1',
+                'role': 'analyst',
+            },
+            {
+                'level': 'organization',
+                'subject': 'analyst@gmail.com',
+                'object': 'ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db',
+                'role': 'customer',
             },
         ],
     }

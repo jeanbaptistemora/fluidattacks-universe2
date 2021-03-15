@@ -14,10 +14,10 @@ from back.tests.functional.utils import (
 
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group('upload_file_mutation')
-async def test_admin(populate: bool):
+async def test_analyst(populate: bool):
     assert populate
     context = get_new_context()
-    user: str = 'admin@gmail.com'
+    user: str = 'analyst@gmail.com'
     finding: str = '475041513'
     path = os.path.dirname(os.path.abspath(__file__))
     filename: str = f'{path}/test-vulns.yaml'
