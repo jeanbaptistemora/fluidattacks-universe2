@@ -16,7 +16,6 @@ from urllib3.util.url import parse_url, Url
 
 # Local
 from backend import authz
-from backend.dal import root as root_dal
 from backend.domain import organization as org_domain
 from backend.exceptions import (
     InvalidParameter,
@@ -39,6 +38,7 @@ from newutils import (
     validations,
 )
 from notifications import domain as notifications_domain
+from roots import dal as roots_dal
 
 
 def _format_git_repo_url(raw_url: str) -> str:
@@ -187,7 +187,7 @@ async def add_git_root(context: Any, user_email: str, **kwargs: Any) -> None:
             raise RepeatedRootNickname()
 
         if await _is_git_unique_in_org(group['organization'], url, branch):
-            await root_dal.create(group_name, root_attributes)
+            await roots_dal.create_legacy(group_name, root_attributes)
             if kwargs['includes_health_check']:
                 await notifications_domain.request_health_check(
                     requester_email=user_email,
@@ -226,7 +226,7 @@ async def add_ip_root(context: Any, user_email: str, **kwargs: Any) -> None:
                 'historic_state': [initial_state],
                 'kind': 'IP'
             }
-            await root_dal.create(group_name, root_attributes)
+            await roots_dal.create_legacy(group_name, root_attributes)
         else:
             raise RepeatedValues()
     else:
@@ -269,7 +269,7 @@ async def add_url_root(context: Any, user_email: str, **kwargs: Any) -> None:
                 'historic_state': [initial_state],
                 'kind': 'URL'
             }
-            await root_dal.create(group_name, root_attributes)
+            await roots_dal.create_legacy(group_name, root_attributes)
         else:
             raise RepeatedValues()
     else:
@@ -326,7 +326,9 @@ def format_root_nickname(nickname: str, url: str) -> str:
 
 
 async def get_root_by_id(root_id: str) -> Dict[str, Any]:
-    root: Optional[Dict[str, Any]] = await root_dal.get_root_by_id(root_id)
+    root: Optional[Dict[str, Any]] = await roots_dal.get_root_by_id_legacy(
+        root_id
+    )
 
     if root:
         return {
@@ -337,9 +339,8 @@ async def get_root_by_id(root_id: str) -> Dict[str, Any]:
 
 
 async def get_roots_by_group(group_name: str) -> Tuple[Dict[str, Any], ...]:
-    roots: Tuple[Dict[str, Any], ...] = await root_dal.get_roots_by_group(
-        group_name
-    )
+    roots: Tuple[Dict[str, Any], ...] = await roots_dal\
+        .get_roots_by_group_legacy(group_name)
 
     return tuple(
         {
@@ -372,7 +373,7 @@ async def update_git_environments(
             'user': user_email
         }
 
-        await root_dal.update(
+        await roots_dal.update_legacy(
             group_name,
             root_id,
             {'historic_state': [*root['historic_state'], new_state]}
@@ -419,7 +420,7 @@ async def update_git_root(user_email: str, **kwargs: Any) -> None:
             'user': user_email
         }
 
-        await root_dal.update(
+        await roots_dal.update_legacy(
             group_name,
             root_id,
             {
@@ -466,7 +467,7 @@ async def update_root_cloning_status(
             'message': message,
         }
 
-        await root_dal.update(
+        await roots_dal.update_legacy(
             root['group_name'], root_id, {
                 'historic_cloning_status':
                 [*root['historic_cloning_status'], new_status]
@@ -485,7 +486,7 @@ async def update_root_state(user_email: str, root_id: str, state: str) -> None:
             'user': user_email,
         }
 
-        await root_dal.update(
+        await roots_dal.update_legacy(
             root['group_name'],
             root_id,
             {'historic_state': [*root['historic_state'], new_state]}

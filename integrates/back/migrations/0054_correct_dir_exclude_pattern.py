@@ -24,8 +24,8 @@ from aioextensions import (
 )
 
 # Local
-from backend.dal import root as root_dal
 from backend.domain.project import get_active_projects
+from roots import dal as roots_dal
 
 
 async def update_root(group_name: str, root: Dict[str, Any]) -> None:
@@ -44,7 +44,7 @@ async def update_root(group_name: str, root: Dict[str, Any]) -> None:
         'filter': filter_config,
     }
 
-    await root_dal.update(
+    await roots_dal.update_legacy(
         group_name, root['sk'],
         {'historic_state': [*root['historic_state'], new_state]}
     )
@@ -55,7 +55,7 @@ async def main() -> None:
     print(f'[INFO] Found {len(groups)} groups')
 
     for group_name in groups:
-        roots = await root_dal.get_roots_by_group(group_name)
+        roots = await roots_dal.get_roots_by_group_legacy(group_name)
         print(f'[INFO] Working on {group_name} with {len(roots)} roots')
         await collect(update_root(group_name, root) for root in roots)
 

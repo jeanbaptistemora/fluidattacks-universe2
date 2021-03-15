@@ -14,7 +14,7 @@ from typing import Any, Dict, List
 from aioextensions import collect, run
 
 # Local
-from backend.dal import root as root_dal
+from roots import dal as roots_dal
 
 
 STAGE: str = os.environ['STAGE']
@@ -33,7 +33,7 @@ async def split_paths_from_branch(
     if STAGE == 'test':
         print('[INFO] Will migrate', root['sk'], branch, url)
     else:
-        await root_dal.update(
+        await roots_dal.update_legacy(
             group_name,
             root['sk'],
             {'branch': branch, 'url': url}
@@ -45,7 +45,7 @@ async def main() -> None:
     print(f'[INFO] Found {len(groups)} groups')
     for group_name in groups:
         print(f'[INFO] Working on {group_name}')
-        roots = await root_dal.get_roots_by_group(group_name)
+        roots = await roots_dal.get_roots_by_group_legacy(group_name)
 
         await collect(
             split_paths_from_branch(group_name, root)

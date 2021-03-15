@@ -14,7 +14,7 @@ from typing import Any, Dict, List
 from aioextensions import collect, run
 
 # Local
-from backend.dal import root as root_dal
+from roots import dal as roots_dal
 
 
 STAGE: str = os.environ['STAGE']
@@ -40,7 +40,7 @@ async def update_filter(
         print('[INFO] Will migrate', len(states_to_update), 'for', root['sk'])
         print(states_to_update)
     else:
-        await root_dal.update(
+        await roots_dal.update_legacy(
             group_name,
             root['sk'],
             {'historic_state': states_to_update}
@@ -53,7 +53,7 @@ async def main() -> None:
 
     for group_name in groups:
         print(f'[INFO] Working on {group_name}')
-        roots = await root_dal.get_roots_by_group(group_name)
+        roots = await roots_dal.get_roots_by_group_legacy(group_name)
 
         await collect(
             update_filter(group_name, root)

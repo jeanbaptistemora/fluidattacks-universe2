@@ -14,7 +14,7 @@ from typing import Any, Dict, List
 from aioextensions import collect, run
 
 # Local libraries
-from backend.dal import project as group_dal, root as root_dal
+from roots import dal as roots_dal
 
 
 STAGE = os.environ['STAGE']
@@ -29,7 +29,7 @@ def exclude_filter(state: Dict[str, Any]) -> Dict[str, Any]:
 
 
 async def migrate(group_name: str) -> None:
-    group_roots = await root_dal.get_roots_by_group(group_name)
+    group_roots = await roots_dal.get_roots_by_group_legacy(group_name)
 
     if group_roots:
         if STAGE == 'test':
@@ -41,7 +41,7 @@ async def migrate(group_name: str) -> None:
             )
         else:
             await collect(
-                root_dal.update(
+                roots_dal.update_legacy(
                     group_name,
                     root['sk'],
                     {
