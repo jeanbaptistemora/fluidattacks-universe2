@@ -1,5 +1,5 @@
 # Standard
-from typing import Any, Dict, NamedTuple, Set, Tuple, Union
+from typing import Any, Dict, List, NamedTuple, Tuple, Union
 
 
 Item = Dict[str, Any]
@@ -41,9 +41,9 @@ class GitRootCloning(NamedTuple):
 
 
 class GitRootState(NamedTuple):
-    environment_urls: Set[str]
+    environment_urls: List[str]
     environment: str
-    gitignore: Set[str]
+    gitignore: List[str]
     includes_health_check: bool
     modified_by: str
     modified_date: str

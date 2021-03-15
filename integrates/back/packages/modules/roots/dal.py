@@ -1,13 +1,13 @@
 # Standard
 import logging
 import logging.config
-import uuid
 from typing import (
     Any,
     Dict,
     Optional,
     Tuple,
 )
+from uuid import uuid4
 
 # Third party
 from boto3.dynamodb.conditions import Key
@@ -42,7 +42,7 @@ async def create_legacy(
             LEGACY_TABLE_NAME,
             {
                 'pk': f'GROUP#{group_name}',
-                'sk': f'ROOT#{uuid.uuid4()}',
+                'sk': f'ROOT#{uuid4()}',
                 **root_attributes
             }
         )
@@ -60,13 +60,11 @@ async def create_git_root(*, group_name: str, root: GitRootItem) -> None:
 async def get_root(
     *,
     group_name: str,
-    url: str,
-    branch: str
+    uuid: str
 ) -> Optional[RootItem]:
     return await model.get_root(
         group_name=group_name,
-        url=url,
-        branch=branch
+        uuid=uuid
     )
 
 
@@ -137,29 +135,25 @@ async def update_legacy(
 
 async def update_git_root_cloning(
     *,
-    branch: str,
     cloning: GitRootCloning,
     group_name: str,
-    url: str
+    uuid: str
 ) -> None:
     await model.update_git_root_cloning(
-        branch=branch,
         cloning=cloning,
         group_name=group_name,
-        url=url
+        uuid=uuid
     )
 
 
 async def update_git_root_state(
     *,
-    branch: str,
     group_name: str,
     state: GitRootState,
-    url: str
+    uuid: str
 ) -> None:
     await model.update_git_root_state(
-        branch=branch,
         group_name=group_name,
         state=state,
-        url=url
+        uuid=uuid
     )

@@ -1,6 +1,7 @@
 # Standard library
 from collections import defaultdict
 from typing import Optional, Tuple
+from uuid import uuid4
 
 # Third party
 from boto3.dynamodb.conditions import Key
@@ -100,13 +101,12 @@ def _build_root(
 
 async def get_root(
     *,
-    branch: str,
     group_name: str,
-    url: str,
+    uuid: str,
 ) -> Optional[RootItem]:
     primary_key = keys.build_key(
         facet=TABLE.facets['root_metadata'],
-        values={'branch': branch, 'name': group_name, 'url': url},
+        values={'name': group_name, 'uuid': uuid},
     )
 
     index = TABLE.indexes['inverted_index']
@@ -157,9 +157,9 @@ async def get_roots(*, group_name: str) -> Tuple[RootItem, ...]:
         table=TABLE
     )
 
-    root_items = defaultdict(lambda: [])
+    root_items = defaultdict(list)
     for item in results:
-        root_id = '#'.join(item[key_structure.sort_key].split('#')[:3])
+        root_id = '#'.join(item[key_structure.sort_key].split('#')[:2])
         root_items[root_id].append(item)
 
     return tuple(
@@ -174,14 +174,11 @@ async def get_roots(*, group_name: str) -> Tuple[RootItem, ...]:
 
 async def create_git_root(*, group_name: str, root: GitRootItem) -> None:
     key_structure = TABLE.primary_key
+    uuid = str(uuid4())
 
     metadata_key = keys.build_key(
         facet=TABLE.facets['root_metadata'],
-        values={
-            'branch': root.metadata.branch,
-            'name': group_name,
-            'url': root.metadata.url
-        },
+        values={'name': group_name, 'uuid': uuid},
     )
     initial_metadata = {
         key_structure.partition_key: metadata_key.partition_key,
@@ -194,10 +191,9 @@ async def create_git_root(*, group_name: str, root: GitRootItem) -> None:
         historic_facet=TABLE.facets['root_historic_cloning'],
         key_structure=key_structure,
         key_values={
-            'branch': root.metadata.branch,
             'iso8601utc': root.cloning.modified_date,
             'name': group_name,
-            'url': root.metadata.url
+            'uuid': uuid
         },
         latest_facet=TABLE.facets['root_cloning'],
     )
@@ -207,10 +203,9 @@ async def create_git_root(*, group_name: str, root: GitRootItem) -> None:
         historic_facet=TABLE.facets['root_historic_state'],
         key_structure=key_structure,
         key_values={
-            'branch': root.metadata.branch,
             'iso8601utc': root.state.modified_date,
             'name': group_name,
-            'url': root.metadata.url
+            'uuid': uuid
         },
         latest_facet=TABLE.facets['root_state'],
     )
@@ -227,10 +222,9 @@ async def create_git_root(*, group_name: str, root: GitRootItem) -> None:
 
 async def update_git_root_state(
     *,
-    branch: str,
     group_name: str,
     state: GitRootState,
-    url: str
+    uuid: str
 ) -> None:
     key_structure = TABLE.primary_key
     historic = historics.build_historic(
@@ -238,10 +232,9 @@ async def update_git_root_state(
         historic_facet=TABLE.facets['root_historic_state'],
         key_structure=key_structure,
         key_values={
-            'branch': branch,
             'iso8601utc': state.modified_date,
             'name': group_name,
-            'url': url
+            'uuid': uuid
         },
         latest_facet=TABLE.facets['root_state'],
     )
@@ -251,10 +244,9 @@ async def update_git_root_state(
 
 async def update_git_root_cloning(
     *,
-    branch: str,
     cloning: GitRootCloning,
     group_name: str,
-    url: str
+    uuid: str
 ) -> None:
     key_structure = TABLE.primary_key
     historic = historics.build_historic(
@@ -262,10 +254,9 @@ async def update_git_root_cloning(
         historic_facet=TABLE.facets['root_historic_cloning'],
         key_structure=key_structure,
         key_values={
-            'branch': branch,
             'iso8601utc': cloning.modified_date,
             'name': group_name,
-            'url': url
+            'uuid': uuid
         },
         latest_facet=TABLE.facets['root_cloning'],
     )

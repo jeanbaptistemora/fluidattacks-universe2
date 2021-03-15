@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Mar 15, 2021, 01:39 PM",
+    "DateLastModified": "Mar 15, 2021, 05:25 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "2.0"
@@ -140,11 +140,11 @@
         },
         {
           "AttributeName": "environment_urls",
-          "AttributeType": "SS"
+          "AttributeType": "L"
         },
         {
           "AttributeName": "gitignore",
-          "AttributeType": "SS"
+          "AttributeType": "L"
         },
         {
           "AttributeName": "includes_health_check",
@@ -494,7 +494,7 @@
                 "S": "2021-02-15T14:01:16Z"
               },
               "modified_by": {
-                "S": "USER#test@fluidattacks.com"
+                "S": "test@fluidattacks.com"
               }
             }
           ],
@@ -579,7 +579,7 @@
                 "S": "2021-02-15T14:01:16Z"
               },
               "modified_by": {
-                "S": "USER#test@fluidattacks.com"
+                "S": "test@fluidattacks.com"
               },
               "files": {
                 "SS": [
@@ -621,7 +621,7 @@
                 "S": "2021-02-15T14:01:16Z"
               },
               "modified_by": {
-                "S": "USER#test@fluidattacks.com"
+                "S": "test@fluidattacks.com"
               },
               "content": {
                 "S": "comment"
@@ -638,7 +638,7 @@
                 "S": "2021-02-15T14:01:16Z"
               },
               "modified_by": {
-                "S": "USER#test@fluidattacks.com"
+                "S": "test@fluidattacks.com"
               },
               "parent_id": {
                 "S": "CMNT#8207c89a-27e2-4abe-9367-3ffea7856a4d"
@@ -708,7 +708,7 @@
                 "S": "2021-02-15T14:01:16Z"
               },
               "modified_by": {
-                "S": "USER#test@fluidattacks.com"
+                "S": "test@fluidattacks.com"
               },
               "evidences": {
                 "M": {}
@@ -790,7 +790,7 @@
                 "S": "2021-02-15T14:01:16Z"
               },
               "modified_by": {
-                "S": "USER#test@fluidattacks.com"
+                "S": "test@fluidattacks.com"
               },
               "content": {
                 "S": "comment"
@@ -810,7 +810,7 @@
                 "S": "2021-02-15T14:01:16Z"
               },
               "modified_by": {
-                "S": "USER#test@fluidattacks.com"
+                "S": "test@fluidattacks.com"
               },
               "content": {
                 "S": "comment"
@@ -892,7 +892,7 @@
                 "S": "2021-02-15T14:01:16Z"
               },
               "modified_by": {
-                "S": "USER#test@fluidattacks.com"
+                "S": "test@fluidattacks.com"
               }
             }
           ],
@@ -928,7 +928,7 @@
                 "S": "2021-02-15T14:01:16Z"
               },
               "modified_by": {
-                "S": "USER#test@fluidattacks.com"
+                "S": "test@fluidattacks.com"
               }
             }
           ],
@@ -965,7 +965,7 @@
                 "S": "2021-02-15T14:01:16Z"
               },
               "modified_by": {
-                "S": "USER#test@fluidattacks.com"
+                "S": "test@fluidattacks.com"
               },
               "consult_id": {
                 "S": "CMNT#8207c89a-27e2-4abe-9367-3ffea7856a4d"
@@ -1128,7 +1128,7 @@
                 "S": "2021-02-15T14:01:16Z"
               },
               "modified_by": {
-                "S": "USER#test@fluidattacks.com"
+                "S": "test@fluidattacks.com"
               },
               "evidences": {
                 "M": {}
@@ -1167,7 +1167,7 @@
                 "S": "2021-02-15T14:01:16Z"
               },
               "modified_by": {
-                "S": "USER#test@fluidattacks.com"
+                "S": "test@fluidattacks.com"
               },
               "content": {
                 "S": "comment"
@@ -1187,13 +1187,13 @@
         {
           "FacetName": "root_metadata",
           "KeyAttributeAlias": {
-            "PartitionKeyAlias": "ROOT#url#branch",
+            "PartitionKeyAlias": "ROOT#uuid",
             "SortKeyAlias": "GROUP#name"
           },
           "TableData": [
             {
               "pk": {
-                "S": "ROOT#ssh://git@gitlab.com:fluidattacks/product#master"
+                "S": "ROOT#73f2b757-5a61-4027-b00d-c6227f2163cf"
               },
               "sk": {
                 "S": "GROUP#unittesting"
@@ -1221,13 +1221,13 @@
         {
           "FacetName": "root_state",
           "KeyAttributeAlias": {
-            "PartitionKeyAlias": "ROOT#url#branch#STATE",
+            "PartitionKeyAlias": "ROOT#uuid#STATE",
             "SortKeyAlias": "GROUP#name"
           },
           "TableData": [
             {
               "pk": {
-                "S": "ROOT#ssh://git@gitlab.com:fluidattacks/product#master#STATE"
+                "S": "ROOT#73f2b757-5a61-4027-b00d-c6227f2163cf#STATE"
               },
               "sk": {
                 "S": "GROUP#unittesting"
@@ -1242,20 +1242,24 @@
                 "S": "production"
               },
               "environment_urls": {
-                "SS": [
-                  "https://integrates.fluidattacks.com"
+                "L": [
+                  {
+                    "S": "https://integrates.fluidattacks.com"
+                  }
                 ]
               },
               "gitignore": {
-                "SS": [
-                  "!/integrates/"
+                "L": [
+                  {
+                    "S": "!/integrates/"
+                  }
                 ]
               },
               "includes_health_check": {
                 "BOOL": false
               },
               "modified_by": {
-                "S": "USER#test@fluidattacks.com"
+                "S": "test@fluidattacks.com"
               },
               "nickname": {
                 "S": "product"
@@ -1279,16 +1283,16 @@
         {
           "FacetName": "root_historic_state",
           "KeyAttributeAlias": {
-            "PartitionKeyAlias": "ROOT#url#branch",
-            "SortKeyAlias": "ROOT#url#branch#STATE#iso8601utc"
+            "PartitionKeyAlias": "ROOT#uuid",
+            "SortKeyAlias": "ROOT#uuid#STATE#iso8601utc"
           },
           "TableData": [
             {
               "pk": {
-                "S": "ROOT#ssh://git@gitlab.com:fluidattacks/product#master"
+                "S": "ROOT#73f2b757-5a61-4027-b00d-c6227f2163cf"
               },
               "sk": {
-                "S": "ROOT#ssh://git@gitlab.com:fluidattacks/product#master#STATE#2021-02-15T14:01:16Z"
+                "S": "ROOT#73f2b757-5a61-4027-b00d-c6227f2163cf#STATE#2021-02-15T14:01:16Z"
               },
               "status": {
                 "S": "ACTIVE"
@@ -1300,20 +1304,24 @@
                 "S": "production"
               },
               "environment_urls": {
-                "SS": [
-                  "https://integrates.fluidattacks.com"
+                "L": [
+                  {
+                    "S": "https://integrates.fluidattacks.com"
+                  }
                 ]
               },
               "gitignore": {
-                "SS": [
-                  "!/integrates/"
+                "L": [
+                  {
+                    "S": "!/integrates/"
+                  }
                 ]
               },
               "includes_health_check": {
                 "BOOL": false
               },
               "modified_by": {
-                "S": "USER#test@fluidattacks.com"
+                "S": "test@fluidattacks.com"
               },
               "nickname": {
                 "S": "product"
@@ -1337,13 +1345,13 @@
         {
           "FacetName": "root_cloning",
           "KeyAttributeAlias": {
-            "PartitionKeyAlias": "ROOT#url#branch#CLON",
+            "PartitionKeyAlias": "ROOT#uuid#CLON",
             "SortKeyAlias": "GROUP#name"
           },
           "TableData": [
             {
               "pk": {
-                "S": "ROOT#ssh://git@gitlab.com:fluidattacks/product#master#CLON"
+                "S": "ROOT#73f2b757-5a61-4027-b00d-c6227f2163cf#CLON"
               },
               "sk": {
                 "S": "GROUP#unittesting"
@@ -1371,16 +1379,16 @@
         {
           "FacetName": "root_historic_cloning",
           "KeyAttributeAlias": {
-            "PartitionKeyAlias": "ROOT#url#branch",
-            "SortKeyAlias": "ROOT#url#branch#CLON#iso8601utc"
+            "PartitionKeyAlias": "ROOT#uuid",
+            "SortKeyAlias": "ROOT#uuid#CLON#iso8601utc"
           },
           "TableData": [
             {
               "pk": {
-                "S": "ROOT#ssh://git@gitlab.com:fluidattacks/product#master"
+                "S": "ROOT#73f2b757-5a61-4027-b00d-c6227f2163cf"
               },
               "sk": {
-                "S": "ROOT#ssh://git@gitlab.com:fluidattacks/product#master#CLON#2021-02-15T14:01:16Z"
+                "S": "ROOT#73f2b757-5a61-4027-b00d-c6227f2163cf#CLON#2021-02-15T14:01:16Z"
               },
               "status": {
                 "S": "UNKNOWN"

@@ -90,14 +90,14 @@ async def query(
             table=table
         )
         response = await table_resource.query(**query_attrs)
-        items = response.get('Items', [])
+        items = response.get('Items', list())
 
         while response.get('LastEvaluatedKey'):
             response = await table_resource.query(
                 **query_attrs,
                 ExclusiveStartKey=response.get('LastEvaluatedKey')
             )
-            items += response.get('Items', [])
+            items += response.get('Items', list())
 
     return tuple(items)
 
