@@ -17,10 +17,16 @@ async def test_analyst(populate: bool):
     group: str = 'group1'
     consult: str = 'This is a test comment'
     finding: str = '475041521'
-    draft: str = '475041531'
     event: str = '418900971'
     root: str = 'ROOT#63298a73-9dff-46cf-b42d-9b2f01a56690'
-    stakeholders: str = ['admin@gmail.com', 'analyst@gmail.com']
+    stakeholders: str = [
+        'admin@gmail.com',
+        'analyst@gmail.com',
+    ]
+    draft = {
+        'id': '475041531',
+        'title': 'FIN.H.060. Insecure exceptions',
+    }
     query = f'''
         query {{
             project(projectName: "{group}"){{
@@ -49,9 +55,6 @@ async def test_analyst(populate: bool):
                 findings(filters: {{affectedSystems: "system1", actor: "SOME_CUSTOMERS"}}) {{
                     id
                 }}
-                drafts {{
-                    id
-                }}
                 events {{
                     id
                 }}
@@ -59,6 +62,10 @@ async def test_analyst(populate: bool):
                     ...on GitRoot {{
                         id
                     }}
+                }}
+                drafts {{
+                    id
+                    title
                 }}
                 __typename
             }}
@@ -92,6 +99,6 @@ async def test_analyst(populate: bool):
     assert result['data']['project']['description'] == 'this is group1'
     assert consult in [consult['content'] for consult in result['data']['project']['consulting']]
     assert finding in [finding['id'] for finding in result['data']['project']['findings']]
-    assert draft in [draft['id'] for draft in result['data']['project']['drafts']]
     assert event in [event['id'] for event in result['data']['project']['events']]
     assert root in [root['id'] for root in result['data']['project']['roots']]
+    assert draft in result['data']['project']['drafts']
