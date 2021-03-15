@@ -113,6 +113,12 @@ class SyntaxStepSwitch(NamedTuple):
     type: str = 'SyntaxStepSwitch'
 
 
+class SyntaxStepParenthesizedExpression(NamedTuple):
+    meta: SyntaxStepMeta
+
+    type: str = 'SyntaxStepParenthesizedExpression'
+
+
 class SyntaxStepFor(NamedTuple):
     meta: SyntaxStepMeta
     n_id_update: NId

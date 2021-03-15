@@ -83,6 +83,7 @@ def assignment_expression(
     match = g.match_ast(
         args.graph,
         args.n_id,
+        'ternary_expression',
         '__0__',
         *assignment_operators,
         '__1__',
@@ -91,12 +92,30 @@ def assignment_expression(
 
     if (
         len(match) == 3
+        and not match.get('ternary_expression')
         and (var_id := match['__0__'])
         and (src_id := match['__1__'])
     ):
         yield graph_model.SyntaxStepAssignment(
             meta=graph_model.SyntaxStepMeta.default(args.n_id, [
                 generic(args.fork_n_id(src_id)),
+            ]),
+            var=args.graph.nodes[var_id]['label_text'],
+        )
+    elif ((ternary := match['ternary_expression'])
+          and (var_id := match['__0__'])):
+        # a = __0__ ? __1__ : __2__
+        match = g.match_ast(
+            args.graph,
+            ternary,
+            '?',
+            ':',
+            '__0__',
+        )
+        yield graph_model.SyntaxStepAssignment(
+            meta=graph_model.SyntaxStepMeta.default(args.n_id, [
+                generic(args.fork_n_id(match['__1__'])),
+                generic(args.fork_n_id(match['__2__'])),
             ]),
             var=args.graph.nodes[var_id]['label_text'],
         )
@@ -299,6 +318,21 @@ def switch_statement(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
             ),
             n_id_switch_block=switch_block,
         )
+
+
+def parenthesized_expression(
+    args: SyntaxReaderArgs,
+) -> graph_model.SyntaxStepsLazy:
+    match = g.match_ast(
+        args.graph, args.n_id,
+        '__1__',
+    )
+    yield graph_model.SyntaxStepParenthesizedExpression(
+        meta=graph_model.SyntaxStepMeta.default(
+            n_id=args.n_id,
+            dependencies=dependencies_from_arguments(args.fork_n_id(
+                match['__1__']), ),
+        ), )
 
 
 def local_variable_declaration(
@@ -523,8 +557,14 @@ def dependencies_from_arguments(
 ) -> List[graph_model.SyntaxSteps]:
     return [
         generic(args.fork_n_id(args_c_id))
-        for args_c_id in g.adj_ast(args.graph, args.n_id)[1:-1]
-        if args.graph.nodes[args_c_id]['label_type'] != ','
+        for args_c_id in g.adj_ast(args.graph, args.n_id)
+        if args.graph.nodes[args_c_id]['label_type'] not in {
+            ',',
+            '(',
+            ')',
+            '{',
+            '}',
+        }
     ]
 
 
@@ -605,6 +645,17 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
         },
         syntax_readers=(
             if_statement,
+        ),
+    ),
+    Dispatcher(
+        applicable_languages={
+            graph_model.GraphShardMetadataLanguage.JAVA,
+        },
+        applicable_node_label_types={
+            'parenthesized_expression',
+        },
+        syntax_readers=(
+            parenthesized_expression,
         ),
     ),
     Dispatcher(
@@ -729,9 +780,17 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
             'character_literal',
             'comment',
             'expression_statement',
+            'switch_label',
             'this',
             'try_statement',
             ';',
+            '-',
+            '+',
+            '*',
+            '/',
+            '%',
+            '(',
+            ')'
         )
     ],
 )

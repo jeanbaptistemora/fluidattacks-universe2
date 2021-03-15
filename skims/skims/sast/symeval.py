@@ -82,13 +82,30 @@ def lookup_vars(
 def lookup_var_dcl_by_name(
     args: EvaluatorArgs,
     var_name: str,
-) -> Optional[graph_model.SyntaxStepDeclaration]:
-    for syntax_step in lookup_vars(args):
-        if (
-            isinstance(syntax_step, graph_model.SyntaxStepDeclaration)
-            and syntax_step.var == var_name
-        ):
+) -> Optional[Union[graph_model.SyntaxStepDeclaration,
+                    graph_model.SyntaxStepSymbolLookup]]:
+
+    vars_lookup = list(var for var in lookup_vars(args)
+                       if isinstance(var, (
+                           graph_model.SyntaxStepDeclaration,
+                           graph_model.SyntaxStepSymbolLookup,
+                       )))
+    for syntax_step in vars_lookup:
+        if isinstance(syntax_step, graph_model.SyntaxStepDeclaration
+                      ) and syntax_step.var == var_name:
             return syntax_step
+        # SyntaxStepDeclaration may not be vulnerable, but a later assignment
+        # may be vulnerable
+        if isinstance(syntax_step, graph_model.SyntaxStepSymbolLookup
+                      ) and syntax_step.symbol == var_name:
+            for var in vars_lookup:
+                if isinstance(var, graph_model.SyntaxStepDeclaration
+                              ):
+                    if var.var == var_name:
+                        return graph_model.SyntaxStepDeclaration(
+                            meta=syntax_step.meta,
+                            var=var.var,
+                            var_type=var.var_type)
     return None
 
 
@@ -112,9 +129,9 @@ def lookup_var_state_by_name(
 
 
 def syntax_step_assignment(args: EvaluatorArgs) -> None:
-    src, = args.dependencies
+    args_danger = any(dep.meta.danger for dep in args.dependencies)
     if not args.syntax_step.meta.danger:
-        args.syntax_step.meta.danger = src.meta.danger
+        args.syntax_step.meta.danger = args_danger
 
 
 def syntax_step_binary_expression(args: EvaluatorArgs) -> None:
@@ -168,6 +185,11 @@ def syntax_step_array_access(_args: EvaluatorArgs) -> None:
 
 
 def syntax_step_array_initialization(args: EvaluatorArgs) -> None:
+    args.syntax_step.meta.danger = any(dep.meta.danger
+                                       for dep in args.dependencies)
+
+
+def syntax_step_parenthesized_expression(args: EvaluatorArgs) -> None:
     args.syntax_step.meta.danger = any(dep.meta.danger
                                        for dep in args.dependencies)
 
@@ -356,6 +378,8 @@ EVALUATORS: Dict[object, Evaluator] = {
     syntax_step_array_initialization,
     graph_model.SyntaxStepBinaryExpression: syntax_step_binary_expression,
     graph_model.SyntaxStepUnaryExpression: syntax_step_unary_expression,
+    graph_model.SyntaxStepParenthesizedExpression:
+    syntax_step_parenthesized_expression,
     graph_model.SyntaxStepDeclaration: syntax_step_declaration,
     graph_model.SyntaxStepFor: syntax_step_for,
     graph_model.SyntaxStepIf: syntax_step_if,
