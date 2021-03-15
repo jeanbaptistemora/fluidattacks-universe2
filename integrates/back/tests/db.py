@@ -205,40 +205,8 @@ async def populate_policies(data: List[Any]) -> bool:
 
 
 async def populate(data: Dict[str, Any]) -> bool:
-    keys: List[str, str] = data.keys()
     coroutines: List[Awaitable[bool]] = []
-
-    if 'users' in keys:
-        coroutines.append(populate_users(data['users']))
-
-    if 'names' in keys:
-        coroutines.append(populate_names(data['names']))
-
-    if 'orgs' in keys:
-        coroutines.append(populate_orgs(data['orgs']))
-
-    if 'groups' in keys:
-        coroutines.append(populate_groups(data['groups']))
-
-    if 'findings' in keys:
-        coroutines.append(populate_findings(data['findings']))
-
-    if 'consultings' in keys:
-        coroutines.append(populate_consultings(data['consultings']))
-
-    if 'vulnerabilities' in keys:
-        coroutines.append(populate_vulnerabilities(data['vulnerabilities']))
-
-    if 'roots' in keys:
-        coroutines.append(populate_roots(data['roots']))
-
-    if 'events' in keys:
-        coroutines.append(populate_events(data['events']))
-
-    if 'comments' in keys:
-        coroutines.append(populate_comments(data['comments']))
-
-    if 'policies' in keys:
-        coroutines.append(populate_policies(data['policies']))
-
+    functions: Dict[str, Any] = globals()
+    for name, dataset in data.items():
+        coroutines.append(functions[f'populate_{name}'](dataset))
     return all(await collect(coroutines))
