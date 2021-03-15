@@ -17,6 +17,7 @@ TEST_GROUPS: Set[str] = {
     'create_organization',
     'create_project',
     'delete_vulnerability',
+    'download_event_file',
     'download_vuln_file',
     'edit_group',
     'edit_stakeholder',
