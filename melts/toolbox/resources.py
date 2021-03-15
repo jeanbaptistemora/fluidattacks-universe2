@@ -82,6 +82,11 @@ def cmd_execute(cmnd: List[str], folder: str = '.') -> List[str]:
     """ Execute a cmd command in the folder """
     env_vars: Dict[str, str] = {
         'GIT_SSL_NO_VERIFY': '1',
+        'GIT_SSH_COMMAND': (
+            'ssh -o '
+            'UserKnownHostsFile=/dev/null -o '
+            'StrictHostKeyChecking=no'
+        ),
     }
     process = Popen(
         cmnd,
@@ -119,7 +124,7 @@ def has_vpn(code: Dict[str, str], subs: str) -> None:
 
 
 @contextmanager
-def setup_ssh_key(baseurl: str) -> Iterator[str]:
+def setup_ssh_key() -> Iterator[str]:
     try:
         credentials = utils.generic.get_sops_secret(
             'repo_key', '../config/secrets-prod.yaml', 'continuous-admin')
@@ -131,15 +136,17 @@ def setup_ssh_key(baseurl: str) -> Iterator[str]:
 
         os.chmod(keyfile.name, stat.S_IREAD)
 
-        # Avoid ssh warning prompt:
-        host = baseurl.split('@')[1].split(':')[0]
-        subprocess.getstatusoutput(
-            f"ssh-keyscan -H {host} >> ~/.ssh/known_hosts")
         yield keyfile.name
     finally:
         cmd_execute([
-            'ssh-agent', 'sh', '-c', ';'.join(
-                ('ssh-add -D', f'rm -f {shq(keyfile.name)}'))
+            'ssh-agent',
+            'sh',
+            '-c',
+            'ssh-add '
+            '-D; '
+            'rm '
+            '-f '
+            f'{shq(keyfile.name)}',
         ])
 
 
@@ -195,17 +202,20 @@ def _ssh_repo_cloning(
         repo_name = repo_name[0:-4]
 
     folder = repo_name
-    with setup_ssh_key(baseurl) as keyfile:
+
+    with setup_ssh_key() as keyfile:
         if os.path.isdir(folder):
             # Update already existing repo
             command = [
                 'ssh-agent',
                 'sh',
                 '-c',
-                ';'.join((
-                    f"ssh-add {shq(keyfile)}",
-                    f"git pull origin {shq(branch)}",
-                )),
+                'ssh-add '
+                f'{shq(keyfile)} '
+                'git '
+                'pull '
+                'origin '
+                f'{shq(branch)}',
             ]
 
             cmd = cmd_execute(command, folder)
@@ -219,9 +229,15 @@ def _ssh_repo_cloning(
                 'ssh-agent',
                 'sh',
                 '-c',
-                ';'.join(
-                    (f"ssh-add {shq(keyfile)}", f"git clone -b {shq(branch)} "
-                     f'--single-branch {shq(baseurl)} "./{folder}"')),
+                'ssh-add '
+                f'{shq(keyfile)}; '
+                'git '
+                'clone '
+                '-b '
+                f'{shq(branch)} '
+                '--single-branch '
+                f'{shq(baseurl)} '
+                f'{shq(folder)}',
             ]
 
             cmd = cmd_execute(command)
