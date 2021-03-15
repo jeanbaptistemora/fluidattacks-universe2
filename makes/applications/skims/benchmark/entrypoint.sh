@@ -17,10 +17,13 @@ function owasp {
   &&  python3.8 '__envSrcSkimsSkims__/benchmark/__init__.py' \
   &&  echo '[INFO] Cleaning environment' \
   &&  aws_s3_sync "${cache_local}" "${cache_remote}" \
-  &&  result_path="s3://skims.data/benchmark_result/$(date -u -Iminutes).csv" \
-  &&  echo "[INFO] Uploading results to ${result_path}" \
-  &&  aws s3 cp "${PRODUCED_RESULTS_CSV}" "${result_path}" \
-  &&  rm -rf "${PRODUCED_RESULTS_CSV}" \
+  &&  if test "${CI_COMMIT_REF_NAME}" = 'master'
+      then
+            result_path="s3://skims.data/benchmark_result/$(date -u -Iminutes).csv" \
+        &&  echo "[INFO] Uploading results to ${result_path}" \
+        &&  aws s3 cp "${PRODUCED_RESULTS_CSV}" "${result_path}" \
+        &&  rm -rf "${PRODUCED_RESULTS_CSV}"
+      fi \
   ||  return 1
 }
 
@@ -45,7 +48,10 @@ function upload {
 
 function main {
       owasp \
-  &&  upload
+  &&  if test "${CI_COMMIT_REF_NAME}" = 'master'
+      then
+        upload
+      fi
 }
 
 main "${@}"
