@@ -13,7 +13,7 @@ from back.tests.functional.utils import (
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group('upload_file_mutation')
+@pytest.mark.resolver_test_group('upload_file')
 async def test_analyst(populate: bool):
     assert populate
     context = get_new_context()

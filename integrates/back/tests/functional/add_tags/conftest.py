@@ -12,7 +12,7 @@ from back.tests import (
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group('add_tags_mutation')
+@pytest.mark.resolver_test_group('add_tags')
 @pytest.fixture(autouse=True, scope='session')
 async def populate() -> bool:
     data: Dict[str, Any] = {

@@ -12,7 +12,7 @@ from back.tests import (
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group('update_evidence_mutation')
+@pytest.mark.resolver_test_group('upload_file')
 @pytest.fixture(autouse=True, scope='session')
 async def populate() -> bool:
     data: Dict[str, Any] = {
@@ -85,7 +85,7 @@ async def populate() -> bool:
                         'date': '2018-04-07 19:45:11',
                         'analyst': 'admin@gmail.com',
                         'source': 'source_path',
-                        'state': 'CREATED',
+                        'state': 'APPROVED',
                     },
                 ],
                 'effect_solution': 'solution',

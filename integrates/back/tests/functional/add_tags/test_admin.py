@@ -10,7 +10,7 @@ from back.tests.functional.utils import (
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group('add_tags_mutation')
+@pytest.mark.resolver_test_group('add_tags')
 async def test_admin(populate: bool):
     assert populate
     context = get_new_context()

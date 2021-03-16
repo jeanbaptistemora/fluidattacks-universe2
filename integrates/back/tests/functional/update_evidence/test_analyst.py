@@ -13,11 +13,11 @@ from back.tests.functional.utils import (
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group('update_evidence_mutation')
-async def test_admin(populate: bool):
+@pytest.mark.resolver_test_group('update_evidence')
+async def test_analyst(populate: bool):
     assert populate
     context = get_new_context()
-    user: str = 'admin@gmail.com'
+    user: str = 'analyst@gmail.com'
     draft: str = '475041513'
     query = '''
         mutation UpdateEvidenceMutation(
