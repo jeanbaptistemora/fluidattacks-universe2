@@ -14,7 +14,7 @@ function owasp {
   &&  if test -n "${category}"
       then
             skims --debug "skims/test/data/config/benchmark_owasp_${category}.yaml" \
-        &&  mv "skims/test/outputs/benchmark_owasp_${category}.csv" 'results.csv'
+        &&  cp "skims/test/outputs/benchmark_owasp_${category}.csv" 'results.csv'
       else
             aws_login_prod 'skims' \
         &&  aws_s3_sync "${cache_remote}" "${cache_local}" \

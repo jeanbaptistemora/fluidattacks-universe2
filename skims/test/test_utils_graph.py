@@ -70,10 +70,11 @@ def test_branches_cfg() -> None:
     graph.add_edge('1', '2', label_cfg='CFG')
     graph.add_edge('2', '3', label_cfg='CFG')
     graph.add_edge('2', '4', label_cfg='CFG')
-    graph.add_edge('2', '5', label_cfg='CFG')
+    graph.add_edge('2', '5', label_ast='AST')
     graph.add_edge('3', '2', label_cfg='CFG')
+    graph.nodes['5']['label_sink_type'] = 'F004'
 
     assert g.branches_cfg(graph, '1', core_model.FindingEnum.F004) == (
+        ('1', '2'),
         ('1', '2', '4'),
-        ('1', '2', '5'),
     )

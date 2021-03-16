@@ -415,18 +415,28 @@ def branches_cfg(
     # Compute all childs reachable from CFG edges
     c_ids = adj_cfg(graph, n_id, depth=-1)
 
-    # Filter the ones that are leafs or sinks
+    # Filter the ones that are connected to a sink via the AST
     leaf_ids = (
-        x_id for x_id in c_ids
-        if graph.nodes[x_id].get('label_sink_type') == finding.name
-        or not adj_cfg(graph, x_id)
+        c_id
+        for c_id in c_ids
+        if (
+            # The node's sink match the finding name
+            graph.nodes[c_id].get('label_sink_type') == finding.name
+            # The node has an AST child that is a sink of the finding
+            or any(
+                graph.nodes[c_c_id].get('label_sink_type') == finding.name
+                for c_c_id in adj_ast(graph, c_id)
+            )
+            # The node is and leaf node
+            or not adj_cfg(graph, c_id)
+        )
     )
 
-    return tuple(sorted(
+    return tuple(sorted(set(
         path
         for leaf_id in leaf_ids
         for path in paths(graph, n_id, leaf_id, label_cfg='CFG')
-    ))
+    )))
 
 
 def import_graph_from_json(model: Any) -> Graph:

@@ -13,7 +13,6 @@ function main {
   &&  echo "[INFO] Running test suite with group: ${skims_test_group}" \
   &&  pushd skims \
     &&  pytest \
-          --assert plain \
           --capture tee-sys \
           --disable-pytest-warnings \
           --durations 10 \
