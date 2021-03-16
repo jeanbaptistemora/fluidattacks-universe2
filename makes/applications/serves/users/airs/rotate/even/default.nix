@@ -9,7 +9,7 @@ userRotateKeys {
   name = "serves-users-airs-rotate-even";
   product = "serves";
   target = "serves/users/airs/terraform";
-  secretsPath = "serves/secrets/production.yaml";
+  secretsPath = "makes/applications/serves/secrets/src/production.yaml";
   keys = {
     "aws_iam_access_key.web-prod-key-2" = {
       id = {

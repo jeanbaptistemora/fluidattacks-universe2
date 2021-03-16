@@ -8,7 +8,7 @@ let
   name = "serves-users-integrates-rotate-even";
   product = "serves";
   target = "serves/users/integrates/terraform";
-  secretsPath = "serves/secrets/production.yaml";
+  secretsPath = "makes/applications/serves/secrets/src/production.yaml";
   productionKeys = {
     "aws_iam_access_key.integrates-prod-key-2" = {
       id = {
