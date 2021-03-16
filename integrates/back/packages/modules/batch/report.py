@@ -1,0 +1,119 @@
+# Standard libraries
+import logging
+import logging.config
+from typing import Dict
+
+# Local libraries
+from back.settings import (
+    LOGGING,
+    NOEXTRA,
+)
+from backend import authz
+from backend.exceptions import ErrorUploadingFileS3
+from backend.reports import report
+from batch.types import BatchProcessing
+from batch.dal import (
+    delete_action,
+    is_action_by_key,
+)
+from newutils.reports import (
+    upload_report,
+    sign_url
+)
+from newutils.passphrase import get_passphrase
+from notifications import domain as notifications_domain
+
+logging.config.dictConfig(LOGGING)
+
+# Constants
+LOGGER = logging.getLogger(__name__)
+LOGGER_TRANSACTIONAL = logging.getLogger('transactional')
+
+
+async def get_report(*, item: BatchProcessing, passphrase: str) -> str:
+    try:
+        report_file_name = await report.get_group_report_url(
+            report_type=item.additional_info,
+            group_name=item.entity,
+            passphrase=passphrase,
+        )
+        uploaded_file_name = await upload_report(report_file_name)
+    except ErrorUploadingFileS3 as exc:
+        LOGGER.exception(
+            exc,
+            extra=dict(
+                extra=dict(
+                    group_name=item.entity,
+                    user_email=item.subject,
+                )
+            )
+        )
+        return ''
+    else:
+        return uploaded_file_name
+
+
+async def send_report(
+    *,
+    item: BatchProcessing,
+    passphrase: str,
+    report_type: str,
+    report_url: str,
+) -> None:
+    translations: Dict[str, str] = {
+        'XLS': 'Technical',
+    }
+    is_in_db = await is_action_by_key(key=item.key)
+    if is_in_db:
+        message = (
+            f'Send {item.additional_info} report requested by '
+            f'{item.subject} for group {item.entity}'
+        )
+        LOGGER_TRANSACTIONAL.info(':'.join([item.subject, message]), **NOEXTRA)
+        await notifications_domain.new_password_protected_report(
+            item.subject,
+            item.entity,
+            passphrase,
+            translations[report_type.upper()],
+            await sign_url(report_url),
+        )
+        await delete_action(
+            action_name=item.action_name,
+            additional_info=item.additional_info,
+            entity=item.entity,
+            subject=item.subject,
+            time=item.time,
+        )
+
+
+async def generate_report(*, item: BatchProcessing) -> None:
+    message = (
+        f'Processing {item.additional_info} report requested by '
+        f'{item.subject} for group {item.entity}'
+    )
+    LOGGER_TRANSACTIONAL.info(':'.join([item.subject, message]), **NOEXTRA)
+    enforcer = await authz.get_group_level_enforcer(item.subject)
+    if enforcer(
+        item.entity,
+        'backend_api_resolvers_query_report__get_url_group_report'
+    ):
+        passphrase = get_passphrase(4)
+        report_url = await get_report(item=item, passphrase=passphrase)
+        if report_url:
+            await send_report(
+                item=item,
+                passphrase=passphrase,
+                report_type=item.additional_info,
+                report_url=report_url,
+            )
+    else:
+        LOGGER.error(
+            'Access denied',
+            extra=dict(
+                extra=dict(
+                    action=item.action_name,
+                    group_name=item.entity,
+                    user_email=item.subject,
+                )
+            )
+        )

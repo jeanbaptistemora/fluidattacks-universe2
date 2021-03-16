@@ -53,6 +53,18 @@ async def delete_action(
     return False
 
 
+async def is_action_by_key(*, key: str) -> bool:
+    query_attrs = dict(
+        KeyConditionExpression=Key('pk').eq(key)
+    )
+    response_items = await dynamodb.async_query(TABLE_NAME, query_attrs)
+
+    if not response_items:
+        return False
+
+    return bool(response_items[0])
+
+
 async def get_action(
     *,
     action_name: str,

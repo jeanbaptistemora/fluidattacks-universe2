@@ -91,3 +91,37 @@ async def generate_group_report(
         raise RequestedReportError()
 
     return url
+
+
+async def get_group_report_url(
+    *,
+    report_type: str,
+    group_name: str,
+    passphrase: str,
+) -> Optional[str]:
+    context = get_new_context()
+    group_findings = await finding_domain.list_findings(
+        context, [group_name]
+    )
+    findings = await finding_domain.get_findings_async(group_findings[0])
+    findings = [
+        await in_process(
+            finding_domain.cast_new_vulnerabilities,
+            await vuln_domain.get_open_vuln_by_type(
+                context,
+                str(finding['findingId'])
+            ),
+            finding
+        )
+        for finding in findings
+    ]
+    findings_ord = util.ord_asc_by_criticality(findings)
+
+    if report_type == 'XLS':
+        return await technical_report.generate_xls_file(
+            context,
+            findings_ord=findings_ord,
+            passphrase=passphrase,
+        )
+
+    return None

@@ -25,6 +25,7 @@ integrates.back.deploy.prod
 integrates.back.destroy.eph
 integrates.back.test.functional
 integrates.back.test.unit
+integrates.batch
 integrates.cache
 integrates.charts.documents
 integrates.charts.snapshots
