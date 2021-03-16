@@ -68,12 +68,17 @@ async def get_root(
     )
 
 
-async def get_root_by_id_legacy(root_id: str) -> Optional[Dict[str, Any]]:
+async def get_root_by_id_legacy(
+    group_name: str,
+    root_id: str
+) -> Optional[Dict[str, Any]]:
     results = await dynamodb.async_query(
         LEGACY_TABLE_NAME,
         {
             'IndexName': 'roots_index',
-            'KeyConditionExpression': Key('sk').eq(root_id)
+            'KeyConditionExpression': (
+                Key('sk').eq(root_id) & Key('pk').eq(f'GROUP#{group_name}')
+            )
         }
     )
     return results[0] if results else None

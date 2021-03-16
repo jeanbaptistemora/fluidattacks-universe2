@@ -326,7 +326,7 @@ type Mutation {
 
   updateGitEnvironments(
     "Name of the group the root is associated with"
-    groupName: String
+    groupName: String!
     "ID of the root"
     id: ID!
     "URLs to access the environment"
@@ -339,7 +339,7 @@ type Mutation {
     "Repository paths to be ignored"
     gitignore: [String!]!
     "Name of the group the root is associated with"
-    groupName: String
+    groupName: String!
     "ID of the root"
     id: ID!
     "Analyze already existing code"
@@ -359,7 +359,7 @@ type Mutation {
 
   updateRootCloningStatus(
     "Name of the group the root is associated with"
-    groupName: String
+    groupName: String!
     "ID of the root"
     id: ID!
     "Whether the root is cloning or not"
@@ -370,7 +370,7 @@ type Mutation {
 
   updateRootState(
     "Name of the group the root is associated with"
-    groupName: String
+    groupName: String!
     "ID of the root"
     id: ID!
     "Whether the root is active or not"

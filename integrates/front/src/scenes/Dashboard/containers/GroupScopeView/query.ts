@@ -61,7 +61,7 @@ const ADD_GIT_ROOT: DocumentNode = gql`
 
 const UPDATE_GIT_ENVIRONMENTS: DocumentNode = gql`
   mutation UpdateGitEnvironments(
-    $groupName: String
+    $groupName: String!
     $id: ID!
     $environmentUrls: [String!]!
   ) {
@@ -79,7 +79,7 @@ const UPDATE_GIT_ROOT: DocumentNode = gql`
   mutation UpdateGitRoot(
     $environment: String!
     $gitignore: [String!]!
-    $groupName: String
+    $groupName: String!
     $id: ID!
     $includesHealthCheck: Boolean!
   ) {
@@ -97,7 +97,7 @@ const UPDATE_GIT_ROOT: DocumentNode = gql`
 
 const UPDATE_ROOT_STATE: DocumentNode = gql`
   mutation UpdateRootState(
-    $groupName: String
+    $groupName: String!
     $id: ID!
     $state: ResourceState!
   ) {

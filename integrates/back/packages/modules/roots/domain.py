@@ -325,16 +325,14 @@ def format_root_nickname(nickname: str, url: str) -> str:
     return nick
 
 
-async def get_root_by_id(root_id: str) -> Dict[str, Any]:
+async def get_root_by_id(group_name: str, root_id: str) -> Dict[str, Any]:
     root: Optional[Dict[str, Any]] = await roots_dal.get_root_by_id_legacy(
+        group_name,
         root_id
     )
 
     if root:
-        return {
-            **root,
-            'group_name': root['pk'].split('GROUP#')[-1],
-        }
+        return root
     raise RootNotFound()
 
 
@@ -353,10 +351,11 @@ async def get_roots_by_group(group_name: str) -> Tuple[Dict[str, Any], ...]:
 
 async def update_git_environments(
     user_email: str,
+    group_name: str,
     root_id: str,
     environment_urls: Tuple[str, ...]
 ) -> None:
-    root: Dict[str, Any] = await get_root_by_id(root_id)
+    root: Dict[str, Any] = await get_root_by_id(group_name, root_id)
     last_state: Dict[str, Any] = root['historic_state'][-1]
     is_valid: bool = (
         _is_active(root)
@@ -365,7 +364,6 @@ async def update_git_environments(
     )
 
     if is_valid:
-        group_name: str = root['group_name']
         new_state: Dict[str, Any] = {
             **last_state,
             'date': datetime_utils.get_as_str(datetime_utils.get_now()),
@@ -384,8 +382,8 @@ async def update_git_environments(
 
 async def update_git_root(user_email: str, **kwargs: Any) -> None:
     root_id: str = kwargs['id']
-    root: Dict[str, Any] = await get_root_by_id(root_id)
-    group_name: str = root['group_name']
+    group_name: str = kwargs['group_name']
+    root: Dict[str, Any] = await get_root_by_id(group_name, root_id)
     last_state: Dict[str, Any] = root['historic_state'][-1]
 
     nickname = format_root_nickname(
@@ -452,12 +450,13 @@ async def update_git_root(user_email: str, **kwargs: Any) -> None:
 
 
 async def update_root_cloning_status(
+    group_name: str,
     root_id: str,
     status: str,
     message: str,
 ) -> None:
     validations.validate_field_length(message, 400)
-    root: Dict[str, Any] = await get_root_by_id(root_id)
+    root: Dict[str, Any] = await get_root_by_id(group_name, root_id)
     last_status = root['historic_cloning_status'][-1]
 
     if last_status['status'] != status:
@@ -468,14 +467,19 @@ async def update_root_cloning_status(
         }
 
         await roots_dal.update_legacy(
-            root['group_name'], root_id, {
+            group_name, root_id, {
                 'historic_cloning_status':
                 [*root['historic_cloning_status'], new_status]
             })
 
 
-async def update_root_state(user_email: str, root_id: str, state: str) -> None:
-    root: Dict[str, Any] = await get_root_by_id(root_id)
+async def update_root_state(
+    user_email: str,
+    group_name: str,
+    root_id: str,
+    state: str
+) -> None:
+    root: Dict[str, Any] = await get_root_by_id(group_name, root_id)
     last_state: Dict[str, Any] = root['historic_state'][-1]
 
     if last_state['state'] != state:
@@ -487,7 +491,7 @@ async def update_root_state(user_email: str, root_id: str, state: str) -> None:
         }
 
         await roots_dal.update_legacy(
-            root['group_name'],
+            group_name,
             root_id,
             {'historic_state': [*root['historic_state'], new_state]}
         )
@@ -495,14 +499,14 @@ async def update_root_state(user_email: str, root_id: str, state: str) -> None:
             if state == 'ACTIVE':
                 await notifications_domain.request_health_check(
                     requester_email=user_email,
-                    group_name=root['group_name'],
+                    group_name=group_name,
                     repo_url=root['url'],
                     branch=root['branch'],
                 )
             else:
                 await notifications_domain.cancel_health_check(
                     requester_email=user_email,
-                    group_name=root['group_name'],
+                    group_name=group_name,
                     repo_url=root['url'],
                     branch=root['branch'],
                 )

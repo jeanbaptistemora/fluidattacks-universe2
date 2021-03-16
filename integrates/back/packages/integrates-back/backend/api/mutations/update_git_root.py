@@ -13,7 +13,6 @@ from backend import util
 from backend.decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
-    rename_kwargs,
     require_continuous,
     require_login
 )
@@ -22,13 +21,11 @@ from roots import domain as roots_domain
 
 
 @convert_kwargs_to_snake_case  # type: ignore
-@rename_kwargs({'id': 'root_id'})
 @concurrent_decorators(
     require_login,
     enforce_group_level_auth_async,
     require_continuous
 )
-@rename_kwargs({'root_id': 'id'})
 async def mutate(
     _parent: None,
     info: GraphQLResolveInfo,
