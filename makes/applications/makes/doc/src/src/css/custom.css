@@ -24,7 +24,7 @@
   padding: 0 var(--ifm-pre-padding);
 }
 
-img {
+p > img {
   width: auto;
   margin: auto;
   display: block;
