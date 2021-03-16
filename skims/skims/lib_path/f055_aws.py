@@ -159,8 +159,7 @@ def _cfn_instances_without_profile(
 ) -> core_model.Vulnerabilities:
     return get_vulnerabilities_from_aws_iterator_blocking(
         content=content,
-        description_key=('utils.model.finding.enum.F055_AWS.'
-                         'instances_without_profile'),
+        description_key='src.lib_path.f055_aws.instances_without_profile',
         finding=core_model.FindingEnum.F055_AWS,
         path=path,
         statements_iterator=_instances_without_role_iter_vulns(
@@ -175,7 +174,7 @@ def _cfn_public_buckets(
 ) -> core_model.Vulnerabilities:
     return get_vulnerabilities_from_aws_iterator_blocking(
         content=content,
-        description_key='utils.model.finding.enum.F055_AWS.public_buckets',
+        description_key='src.lib_path.f055_aws.public_buckets',
         finding=core_model.FindingEnum.F055_AWS,
         path=path,
         statements_iterator=_public_buckets_iterate_vulnerabilities(
@@ -190,8 +189,7 @@ def _cfn_unencrypted_volumes(
 ) -> core_model.Vulnerabilities:
     return get_vulnerabilities_from_aws_iterator_blocking(
         content=content,
-        description_key=('utils.model.finding.enum.'
-                         'F055_AWS.unencrypted_volumes'),
+        description_key='src.lib_path.f055_aws.unencrypted_volumes',
         finding=core_model.FindingEnum.F055_AWS,
         path=path,
         statements_iterator=_unencrypted_volume_iterate_vulnerabilities(
@@ -209,8 +207,7 @@ def _cfn_unencrypted_buckets(
 ) -> core_model.Vulnerabilities:
     return get_vulnerabilities_from_aws_iterator_blocking(
         content=content,
-        description_key=('utils.model.finding.enum.'
-                         'F055_AWS.unencrypted_buckets'),
+        description_key='src.lib_path.f055_aws.unencrypted_buckets',
         finding=core_model.FindingEnum.F055_AWS,
         path=path,
         statements_iterator=(bucket for bucket in iter_s3_buckets(template)
@@ -258,8 +255,7 @@ def _terraform_unencrypted_buckets(
 ) -> core_model.Vulnerabilities:
     return get_vulnerabilities_from_aws_iterator_blocking(
         content=content,
-        description_key=('utils.model.finding.enum.'
-                         'F055_AWS.unencrypted_buckets'),
+        description_key='src.lib_path.f055_aws.unencrypted_buckets',
         finding=core_model.FindingEnum.F055_AWS,
         path=path,
         statements_iterator=_unencrypted_buckets_iterate_vulnerabilities(
@@ -275,7 +271,7 @@ def _terraform_public_buckets(
 ) -> core_model.Vulnerabilities:
     return get_vulnerabilities_from_aws_iterator_blocking(
         content=content,
-        description_key='utils.model.finding.enum.F055_AWS.public_buckets',
+        description_key='src.lib_path.f055_aws.public_buckets',
         finding=core_model.FindingEnum.F055_AWS,
         path=path,
         statements_iterator=_public_buckets_iterate_vulnerabilities(
