@@ -432,11 +432,23 @@ def branches_cfg(
         )
     )
 
-    return tuple(sorted(set(
-        path
+    # All branches, may be duplicated, some branches may be prefix of others
+    branches = set(
+        (path, '-'.join(path))
         for leaf_id in target_ids
         for path in paths(graph, n_id, leaf_id, label_cfg='CFG')
-    )))
+    )
+
+    # Deduplicate, merge prefixes and return branches
+    return tuple(sorted(
+        path
+        for path, path_str in branches
+        if not any(
+            p_str.startswith(path_str)
+            for _, p_str in branches
+            if p_str != path_str
+        )
+    ))
 
 
 def import_graph_from_json(model: Any) -> Graph:

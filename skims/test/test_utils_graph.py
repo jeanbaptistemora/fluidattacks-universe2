@@ -75,6 +75,5 @@ def test_branches_cfg() -> None:
     graph.nodes['5']['label_sink_type'] = 'F004'
 
     assert g.branches_cfg(graph, '1', core_model.FindingEnum.F004) == (
-        ('1', '2'),
         ('1', '2', '4'),
     )
