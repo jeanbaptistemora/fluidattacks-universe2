@@ -35,6 +35,7 @@ from tap_mailchimp.api import (
 class SupportedStreams(Enum):
     AUDIENCES = 'AUDIENCES'
     ABUSE_REPORTS = 'ABUSE_REPORTS'
+    RECENT_ACTIVITY = 'RECENT_ACTIVITY'
 
 
 def _item_getter(
@@ -44,14 +45,16 @@ def _item_getter(
 ) -> ApiData:
     getter: Mapping[
         SupportedStreams,
-        Callable[[Any], ApiData]
+        Callable[[Any], ApiData],
     ] = {
         SupportedStreams.AUDIENCES: client.get_audience,
-        SupportedStreams.ABUSE_REPORTS: client.get_abuse_report
+        SupportedStreams.ABUSE_REPORTS: client.get_abuse_report,
+        SupportedStreams.RECENT_ACTIVITY: client.get_activity
     }
     id_type = {
         SupportedStreams.AUDIENCES: AudienceId,
-        SupportedStreams.ABUSE_REPORTS: AbsReportId
+        SupportedStreams.ABUSE_REPORTS: AbsReportId,
+        SupportedStreams.RECENT_ACTIVITY: AudienceId,
     }
     assert isinstance(item_id, id_type[stream])
     return getter[stream](item_id)
@@ -111,8 +114,7 @@ def _get_reports_id(
 def all_audiences(client: ApiClient, target: Optional[IO[str]]) -> None:
     stream = SupportedStreams.AUDIENCES
     audiences_id = _get_audiences_id(client)
-    if audiences_id:
-        _emit_items(client, stream, audiences_id, target)
+    _emit_items(client, stream, audiences_id, target)
 
 
 def all_abuse_reports(client: ApiClient, target: Optional[IO[str]]) -> None:
@@ -123,3 +125,9 @@ def all_abuse_reports(client: ApiClient, target: Optional[IO[str]]) -> None:
         audiences_id
     )))
     _emit_items(client, stream, reports_id, target)
+
+
+def recent_activity(client: ApiClient, target: Optional[IO[str]]) -> None:
+    stream = SupportedStreams.RECENT_ACTIVITY
+    audiences_id = _get_audiences_id(client)
+    _emit_items(client, stream, audiences_id, target)

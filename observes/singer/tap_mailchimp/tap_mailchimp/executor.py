@@ -15,7 +15,9 @@ from tap_mailchimp import (
 )
 from tap_mailchimp.api import (
     ApiClient,
-    Credentials
+)
+from tap_mailchimp.auth import (
+    Credentials,
 )
 from tap_mailchimp.streams import (
     SupportedStreams
@@ -27,7 +29,8 @@ _stream_executor: Mapping[
     Callable[[ApiClient, Optional[IO[str]]], None]
 ] = {
     SupportedStreams.AUDIENCES: streams.all_audiences,
-    SupportedStreams.ABUSE_REPORTS: streams.all_abuse_reports
+    SupportedStreams.ABUSE_REPORTS: streams.all_abuse_reports,
+    SupportedStreams.RECENT_ACTIVITY: streams.recent_activity
 }
 
 

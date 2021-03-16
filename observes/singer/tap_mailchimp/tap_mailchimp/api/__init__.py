@@ -1,4 +1,5 @@
 # Standard libraries
+from functools import partial
 from typing import (
     Any,
     Callable,
@@ -12,21 +13,21 @@ from mailchimp_marketing import (
 )
 
 # Local libraries
-from tap_mailchimp import (
-    auth,
-    common,
+from tap_mailchimp.common.objs import (
+    JSON,
 )
 from tap_mailchimp.api import (
     raw as raw_module,
 )
+from tap_mailchimp.auth import (
+    Credentials,
+)
 
 
-Credentials = auth.Credentials
-JSON = common.objs.JSON
-RawSource = raw_module.RawSource
-AudienceId = raw_module.AudienceId
 AbsReportId = raw_module.AbsReportId
+AudienceId = raw_module.AudienceId
 ItemId = raw_module.ItemId
+RawSource = raw_module.RawSource
 
 
 class ApiData(NamedTuple):
@@ -40,6 +41,7 @@ class ApiClient(NamedTuple):
     get_audience: Callable[[AudienceId], ApiData]
     list_abuse_reports: Callable[[AudienceId], ApiData]
     get_abuse_report: Callable[[AbsReportId], ApiData]
+    get_activity: Callable[[AudienceId], ApiData]
 
 
 def _pop_if_exist(raw: JSON, key: str) -> Any:
@@ -54,6 +56,20 @@ def create_api_data(raw: JSON) -> ApiData:
         links=links,
         total_items=total_items
     )
+
+
+def _get_activity(
+    raw_source: RawSource,
+    client: Client,
+    audience: AudienceId
+) -> ApiData:
+    result = create_api_data(
+        raw_source.get_activity(client, audience)
+    )
+    list_id = result.data['list_id']
+    for data in result.data['activity']:
+        data['list_id'] = list_id
+    return result
 
 
 def new_client_from_source(
@@ -78,6 +94,7 @@ def new_client_from_source(
         get_abuse_report=lambda item_id: create_api_data(
             raw_source.get_abuse_report(client, item_id)
         ),
+        get_activity=partial(_get_activity, raw_source, client)
     )
 
 
