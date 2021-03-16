@@ -1,7 +1,7 @@
 ---
 id: organization
-title: Organization
-sidebar_label: Organization
+title: Manage your organization
+sidebar_label: Manage your organization
 slug: /web/organization
 ---
 

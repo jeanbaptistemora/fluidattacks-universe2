@@ -17,7 +17,7 @@ module.exports = {
     'web/organization',
     {
       type: 'category',
-      label: 'Groups',
+      label: 'Manage your groups',
       items: [
         'web/groups/vulnerabilities',
         'web/groups/devsecops',
@@ -31,7 +31,7 @@ module.exports = {
       type: 'category',
       label: 'Vulnerabilities',
       items: [
-        'web/vulnerabilities/vulnsmanagement',
+        'web/vulnerabilities/management',
         'web/vulnerabilities/description',
         'web/vulnerabilities/severity',
       ],

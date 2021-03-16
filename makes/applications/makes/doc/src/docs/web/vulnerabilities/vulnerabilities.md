@@ -1,8 +1,8 @@
 ---
-id: vulnsmanagement
-title: Vulnerabilities management
-sidebar_label: Vulnerabilities management
-slug: /web/vulnerabilities/vulnsmanagement
+id: management
+title: Management
+sidebar_label: Management
+slug: /web/vulnerabilities/management
 ---
 
 ## Define treatments of vulnerabilities
