@@ -5,16 +5,12 @@ from os import environ
 import re
 
 # Third party libraries
-import boto3
 import bugsnag
 
 
 API_TOKEN: ContextVar[str] = ContextVar('API_TOKEN', default='')
 
 STATIC_DIR: str = environ['SORTS_STATIC_PATH']
-S3_BUCKET_NAME: str = 'sorts'
-S3_RESOURCE = boto3.resource('s3')
-S3_BUCKET = S3_RESOURCE.Bucket(S3_BUCKET_NAME)
 
 STAT_REGEX: re.Pattern = re.compile(
     r'([0-9]+ files? changed)?'

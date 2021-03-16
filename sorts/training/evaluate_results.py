@@ -5,7 +5,7 @@ import os
 import tempfile
 
 # Local libraries
-from sorts.constants import (
+from constants import (
     S3_BUCKET,
     S3_BUCKET_NAME,
     S3_RESOURCE

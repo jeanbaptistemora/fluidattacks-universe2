@@ -28,7 +28,7 @@ from sklearn.model_selection import (
 from sklearn.neighbors import KNeighborsClassifier
 
 # Local libraries
-from sorts.constants import S3_BUCKET
+from constants import S3_BUCKET
 from sorts.typings import Model as ModelType
 
 # Contants
