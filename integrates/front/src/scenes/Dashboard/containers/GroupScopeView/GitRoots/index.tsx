@@ -362,6 +362,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
             confirm((): void => {
               void updateRootState({
                 variables: {
+                  groupName,
                   id: row.id,
                   state: row.state === "ACTIVE" ? "INACTIVE" : "ACTIVE",
                 },

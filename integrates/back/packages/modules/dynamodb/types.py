@@ -53,8 +53,9 @@ class GitRootState(NamedTuple):
 
 class GitRootItem(NamedTuple):
     cloning: GitRootCloning
-    state: GitRootState
+    id: str
     metadata: GitRootMetadata
+    state: GitRootState
 
 
 class IPRootMetadata(NamedTuple):
@@ -69,8 +70,9 @@ class IPRootState(NamedTuple):
 
 
 class IPRootItem(NamedTuple):
-    state: IPRootState
+    id: str
     metadata: IPRootMetadata
+    state: IPRootState
 
 
 class URLRootMetadata(NamedTuple):
@@ -87,8 +89,9 @@ class URLRootState(NamedTuple):
 
 
 class URLRootItem(NamedTuple):
-    state: URLRootState
+    id: str
     metadata: URLRootMetadata
+    state: URLRootState
 
 
 RootItem = Union[GitRootItem, IPRootItem, URLRootItem]

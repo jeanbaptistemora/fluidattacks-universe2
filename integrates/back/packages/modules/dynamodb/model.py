@@ -1,7 +1,6 @@
 # Standard library
 from collections import defaultdict
 from typing import Optional, Tuple
-from uuid import uuid4
 
 # Third party
 from boto3.dynamodb.conditions import Key
@@ -58,6 +57,12 @@ def _build_root(
                 reason=cloning['reason'],
                 status=cloning['status']
             ),
+            id=metadata[key_structure.sort_key].split('#')[1],
+            metadata=GitRootMetadata(
+                branch=metadata['branch'],
+                type=metadata['type'],
+                url=metadata['url']
+            ),
             state=GitRootState(
                 environment_urls=state['environment_urls'],
                 environment=state['environment'],
@@ -67,26 +72,24 @@ def _build_root(
                 modified_date=state['modified_date'],
                 nickname=state['nickname'],
                 status=state['status']
-            ),
-            metadata=GitRootMetadata(
-                branch=metadata['branch'],
-                type=metadata['type'],
-                url=metadata['url']
             )
         )
 
     if metadata['type'] == 'IP':
         return IPRootItem(
+            id=metadata[key_structure.sort_key].split('#')[1],
+            metadata=IPRootMetadata(type=metadata['type']),
             state=IPRootState(
                 address=state['address'],
                 modified_by=state['modified_by'],
                 modified_date=state['modified_date'],
                 port=state['port']
-            ),
-            metadata=IPRootMetadata(type=metadata['type'])
+            )
         )
 
     return URLRootItem(
+        id=metadata[key_structure.sort_key].split('#')[1],
+        metadata=URLRootMetadata(type=metadata['type']),
         state=URLRootState(
             host=state['host'],
             modified_by=state['modified_by'],
@@ -94,8 +97,7 @@ def _build_root(
             path=state['path'],
             port=state['port'],
             protocol=state['protocol']
-        ),
-        metadata=URLRootMetadata(type=metadata['type'])
+        )
     )
 
 
@@ -174,11 +176,10 @@ async def get_roots(*, group_name: str) -> Tuple[RootItem, ...]:
 
 async def create_git_root(*, group_name: str, root: GitRootItem) -> None:
     key_structure = TABLE.primary_key
-    uuid = str(uuid4())
 
     metadata_key = keys.build_key(
         facet=TABLE.facets['root_metadata'],
-        values={'name': group_name, 'uuid': uuid},
+        values={'name': group_name, 'uuid': root.id},
     )
     initial_metadata = {
         key_structure.partition_key: metadata_key.partition_key,
@@ -193,7 +194,7 @@ async def create_git_root(*, group_name: str, root: GitRootItem) -> None:
         key_values={
             'iso8601utc': root.cloning.modified_date,
             'name': group_name,
-            'uuid': uuid
+            'uuid': root.id
         },
         latest_facet=TABLE.facets['root_cloning'],
     )
@@ -205,7 +206,7 @@ async def create_git_root(*, group_name: str, root: GitRootItem) -> None:
         key_values={
             'iso8601utc': root.state.modified_date,
             'name': group_name,
-            'uuid': uuid
+            'uuid': root.id
         },
         latest_facet=TABLE.facets['root_state'],
     )

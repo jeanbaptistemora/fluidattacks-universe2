@@ -460,6 +460,7 @@ describe("GroupScopeView", (): void => {
       request: {
         query: UPDATE_ROOT_STATE,
         variables: {
+          groupName: "unittesting",
           id: "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19",
           state: "INACTIVE",
         },
