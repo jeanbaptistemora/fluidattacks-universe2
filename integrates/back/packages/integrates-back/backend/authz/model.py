@@ -722,8 +722,6 @@ USER_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'backend_api_mutations_invalidate_cache_mutate',
             'backend_api_resolvers_query_groups_resolve',
             'backend_api_resolvers_query_internal_names_resolve',
-            'backend_api_resolvers_query_report__get_url_all_users',
-            'backend_api_resolvers_query_report__get_url_all_vulns',
             'backend_api_resolvers_query_user_list_groups_resolve',
             'backend_api_resolvers_query_groups_with_forces_resolve',
             'front_can_use_groups_searchbar',
