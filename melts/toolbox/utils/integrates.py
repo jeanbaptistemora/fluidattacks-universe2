@@ -119,18 +119,21 @@ def filter_groups_with_forces_as_json_str(groups: Tuple[str, ...]) -> bool:
 
 
 def update_root_cloning_status(
+    group_name: str,
     root_id: str,
     status: str,
     message: str,
 ) -> bool:
+    if status not in {'OK', 'FAILED', 'UNKNOWN'}:
+        raise ValueError(f'{status} is an invalid status')
+
     result = api.integrates.Mutations.update_cloning_status(
         API_TOKEN,
+        group_name,
         root_id,
         status,
         message,
     )
-    if status not in {'OK', 'FAILED', 'UNKNOWN'}:
-        raise ValueError(f'{status} is an ivalid status')
 
     if result.errors:
         LOGGER.error('An error has occurred updating the status: %s',

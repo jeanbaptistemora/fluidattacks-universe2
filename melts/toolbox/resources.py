@@ -176,6 +176,7 @@ def repo_url(baseurl: str) -> str:
 
 
 def _ssh_repo_cloning(
+    group_name: str,
     git_root: Dict[str, str],
 ) -> Optional[Dict[str, str]]:
     """ cloning or updated a repository ssh """
@@ -232,12 +233,14 @@ def _ssh_repo_cloning(
     if problem:
         message = format_problem_message(problem['problem'])
         utils.integrates.update_root_cloning_status(
+            group_name,
             git_root['id'],
             'FAILED',
             message,
         )
     else:
         utils.integrates.update_root_cloning_status(
+            group_name,
             git_root['id'],
             'OK',
             'Cloned successfully',
@@ -246,6 +249,7 @@ def _ssh_repo_cloning(
 
 
 def _http_repo_cloning(
+    group_name: str,
     git_root: Dict[str, str],
 ) -> Optional[Dict[str, str]]:
     """ cloning or updated a repository https """
@@ -291,12 +295,14 @@ def _http_repo_cloning(
     if problem:
         message = format_problem_message(problem['problem'])
         utils.integrates.update_root_cloning_status(
+            group_name,
             git_root['id'],
             'FAILED',
             message,
         )
     else:
         utils.integrates.update_root_cloning_status(
+            group_name,
             git_root['id'],
             'OK',
             'Cloned successfully',
@@ -342,9 +348,9 @@ def repo_cloning(subs: str) -> bool:
                 return
 
             if repo_type == 'ssh':
-                problem = _ssh_repo_cloning(git_root)
+                problem = _ssh_repo_cloning(subs, git_root)
             elif repo_type == 'https':
-                problem = _http_repo_cloning(git_root)
+                problem = _http_repo_cloning(subs, git_root)
             else:
                 LOGGER.info("Invalid git-type on group %s", subs)
                 problem = {

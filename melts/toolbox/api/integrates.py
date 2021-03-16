@@ -492,17 +492,20 @@ class Mutations:
     @staticmethod
     def update_cloning_status(
         api_token: str,
+        group_name: str,
         root_id: str,
         status: str,
         message: str,
     ) -> Response:
         query = """
             mutation MeltsUpdateRootCloningStatus(
+                $groupName: String!
                 $rootId: ID!
                 $status: CloningStatus!
                 $message: String!
             ) {
               updateRootCloningStatus(
+                groupName: $groupName
                 id: $rootId
                 status: $status
                 message: $message
@@ -512,6 +515,7 @@ class Mutations:
             }
         """
         params = {
+            'groupName': group_name,
             'rootId': root_id,
             'status': status,
             'message': message,
