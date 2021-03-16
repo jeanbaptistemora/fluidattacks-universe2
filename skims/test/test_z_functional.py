@@ -63,15 +63,15 @@ def skims(*args: str) -> Tuple[int, str, str]:
 
 
 def get_suite_config(suite: str) -> str:
-    return f'test/data/config/{suite}.yaml'
+    return f'skims/test/data/config/{suite}.yaml'
 
 
 def get_suite_expected_results(suite: str) -> str:
-    return f'test/data/results/{suite}.csv'
+    return f'skims/test/data/results/{suite}.csv'
 
 
 def get_suite_produced_results(suite: str) -> str:
-    return f'test/outputs/{suite}.csv'
+    return f'skims/test/outputs/{suite}.csv'
 
 
 def sorted_csv(lines: List[str]) -> List[str]:
@@ -302,8 +302,8 @@ async def test_should_report_vulns_to_namespace_verify(
     assert await get_group_data(test_group) == {
         # Finding, status, open vulnerabilities
         ('F117', 'APPROVED', (
-            ('namespace/test/data/lib_path/f117/MyJar.class', '1'),
-            ('namespace/test/data/lib_path/f117/MyJar.jar', '1'),
+            ('namespace/skims/test/data/lib_path/f117/MyJar.class', '1'),
+            ('namespace/skims/test/data/lib_path/f117/MyJar.jar', '1'),
         )),
     }
 
@@ -335,10 +335,10 @@ async def test_should_report_vulns_to_namespace2_verify(
     assert await get_group_data(test_group) == {
         # Finding, status, open vulnerabilities
         ('F117', 'APPROVED', (
-            ('namespace/test/data/lib_path/f117/MyJar.class', '1'),
-            ('namespace/test/data/lib_path/f117/MyJar.jar', '1'),
-            ('namespace2/test/data/lib_path/f117/MyJar.class', '1'),
-            ('namespace2/test/data/lib_path/f117/MyJar.jar', '1'),
+            ('namespace/skims/test/data/lib_path/f117/MyJar.class', '1'),
+            ('namespace/skims/test/data/lib_path/f117/MyJar.jar', '1'),
+            ('namespace2/skims/test/data/lib_path/f117/MyJar.class', '1'),
+            ('namespace2/skims/test/data/lib_path/f117/MyJar.jar', '1'),
         )),
     }
 
@@ -370,8 +370,8 @@ async def test_should_close_vulns_to_namespace_verify(
     assert await get_group_data(test_group) == {
         # Finding, status, open vulnerabilities
         ('F117', 'APPROVED', (
-            ('namespace2/test/data/lib_path/f117/MyJar.class', '1'),
-            ('namespace2/test/data/lib_path/f117/MyJar.jar', '1'),
+            ('namespace2/skims/test/data/lib_path/f117/MyJar.class', '1'),
+            ('namespace2/skims/test/data/lib_path/f117/MyJar.jar', '1'),
         )),
     }
 

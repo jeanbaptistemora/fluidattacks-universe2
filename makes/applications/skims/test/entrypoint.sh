@@ -11,18 +11,18 @@ function main {
   &&  aws_login_dev 'skims' \
   &&  aws_s3_sync "${cache_remote}" "${cache_local}" \
   &&  echo "[INFO] Running test suite with group: ${skims_test_group}" \
-  &&  pushd 'skims' \
+  &&  pushd skims \
     &&  pytest \
+          --assert plain \
           --capture tee-sys \
           --disable-pytest-warnings \
+          --durations 10 \
           --exitfirst \
           --reruns 10 \
+          --showlocals \
           --show-capture no \
           --skims-test-group "${skims_test_group}" \
-          --verbose \
-          --verbose \
-          --verbose \
-        < /dev/null \
+          -vvv \
   &&  popd \
   &&  echo '[INFO] Cleaning environment' \
   &&  aws_s3_sync "${cache_local}" "${cache_remote}" \

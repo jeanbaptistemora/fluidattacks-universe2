@@ -1,5 +1,5 @@
 {
-  "test/data/benchmark/owasp/BenchmarkTest00001.java": {
+  "skims/test/data/benchmark/owasp/BenchmarkTest00001.java": {
     "F001_JPA": {},
     "F004": {
       "234": {
@@ -6771,7 +6771,7 @@
     "F085": {},
     "F117": {}
   },
-  "test/data/benchmark/owasp/BenchmarkTest00008.java": {
+  "skims/test/data/benchmark/owasp/BenchmarkTest00008.java": {
     "F001_JPA": {},
     "F004": {
       "109": {
@@ -11497,7 +11497,7 @@
     "F085": {},
     "F117": {}
   },
-  "test/data/benchmark/owasp/BenchmarkTest00167.java": {
+  "skims/test/data/benchmark/owasp/BenchmarkTest00167.java": {
     "F001_JPA": {},
     "F004": {
       "109": {},
@@ -19344,7 +19344,7 @@
     "F085": {},
     "F117": {}
   },
-  "test/data/lib_path/f031_cwe378/Test.java": {
+  "skims/test/data/lib_path/f031_cwe378/Test.java": {
     "F001_JPA": {},
     "F004": {},
     "F009": {},
@@ -19366,7 +19366,7 @@
     "F085": {},
     "F117": {}
   },
-  "test/data/lib_path/f063_path_traversal/Test.java": {
+  "skims/test/data/lib_path/f063_path_traversal/Test.java": {
     "F001_JPA": {},
     "F004": {
       "24": {
@@ -19864,7 +19864,7 @@
     "F085": {},
     "F117": {}
   },
-  "test/data/sast/TestCFG.java": {
+  "skims/test/data/sast/TestCFG.java": {
     "F001_JPA": {},
     "F004": {},
     "F009": {},

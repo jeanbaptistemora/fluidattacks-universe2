@@ -16,7 +16,7 @@ from parse_hcl2.structure import (
 
 @pytest.mark.skims_test_group('unittesting')
 def test_iterate_resources() -> None:
-    with open('test/data/parse_hcl2/iam.tf') as file:
+    with open('skims/test/data/parse_hcl2/iam.tf') as file:
         model = load_blocking(file.read())
 
     assert len(tuple(
@@ -26,7 +26,7 @@ def test_iterate_resources() -> None:
 
 @pytest.mark.skims_test_group('unittesting')
 def test_iterate_iam_policy_documents() -> None:
-    with open('test/data/parse_hcl2/iam.tf') as file:
+    with open('skims/test/data/parse_hcl2/iam.tf') as file:
         model = load_blocking(file.read())
 
     assert tuple(iterate_iam_policy_documents(model)) == (

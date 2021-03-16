@@ -19,7 +19,7 @@ from utils.fs import (
 @run_decorator
 @pytest.mark.skims_test_group('unittesting')
 async def test_parse_csharp_success() -> None:
-    path = 'test/data/lib_path/f073/Test.cs'
+    path = 'skims/test/data/lib_path/f073/Test.cs'
     data = await parse(
         core_model.Grammar.CSHARP,
         content=await get_file_raw_content(path),
@@ -52,7 +52,7 @@ async def test_parse_csharp_success() -> None:
 @run_decorator
 @pytest.mark.skims_test_group('unittesting')
 async def test_parse_java9_success() -> None:
-    path = 'test/data/lib_path/f031_cwe378/Test.java'
+    path = 'skims/test/data/lib_path/f031_cwe378/Test.java'
     data = await parse(
         core_model.Grammar.JAVA9,
         content=await get_file_raw_content(path),
@@ -83,7 +83,7 @@ async def test_parse_java9_success() -> None:
 @run_decorator
 @pytest.mark.skims_test_group('unittesting')
 async def test_parse_scala_success() -> None:
-    path = 'test/data/lib_path/f073/Test.scala'
+    path = 'skims/test/data/lib_path/f073/Test.scala'
     data = await parse(
         core_model.Grammar.SCALA,
         content=await get_file_raw_content(path),
@@ -113,7 +113,7 @@ async def test_parse_scala_success() -> None:
 @run_decorator
 @pytest.mark.skims_test_group('unittesting')
 async def test_parse_fail() -> None:
-    path = 'test/data/lib_path/f011/yarn.lock'
+    path = 'skims/test/data/lib_path/f011/yarn.lock'
     for grammar in core_model.Grammar:
         data = await parse(
             grammar,

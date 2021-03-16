@@ -24,20 +24,20 @@ from utils.encodings import (
 async def test_graph_generation() -> None:
     # Test the GraphDB
     graph_db = await get_graph_db((
-        'test/data/lib_path/f031_cwe378/Test.java',
-        'test/data/lib_path/f063_path_traversal/Test.java',
-        'test/data/benchmark/owasp/BenchmarkTest00001.java',
-        'test/data/benchmark/owasp/BenchmarkTest00008.java',
-        'test/data/benchmark/owasp/BenchmarkTest00167.java',
-        'test/data/sast/TestCFG.java',
+        'skims/test/data/lib_path/f031_cwe378/Test.java',
+        'skims/test/data/lib_path/f063_path_traversal/Test.java',
+        'skims/test/data/benchmark/owasp/BenchmarkTest00001.java',
+        'skims/test/data/benchmark/owasp/BenchmarkTest00008.java',
+        'skims/test/data/benchmark/owasp/BenchmarkTest00167.java',
+        'skims/test/data/sast/TestCFG.java',
     ))
     graph_db_as_json_str = json_dumps(graph_db, indent=2, sort_keys=True)
 
     if SHOULD_UPDATE_TESTS:
-        with open('test/data/sast/root-graph.json', 'w') as handle:
+        with open('skims/test/data/sast/root-graph.json', 'w') as handle:
             handle.write(graph_db_as_json_str)
 
-    with open('test/data/sast/root-graph.json') as handle:
+    with open('skims/test/data/sast/root-graph.json') as handle:
         expected = handle.read()
 
     # Test SymEval
@@ -47,10 +47,12 @@ async def test_graph_generation() -> None:
     )
 
     if SHOULD_UPDATE_TESTS:
-        with open('test/data/sast/root-graph-syntax.json', 'w') as handle:
+        with open(
+            'skims/test/data/sast/root-graph-syntax.json', 'w',
+        ) as handle:
             handle.write(syntax_steps_as_json_str)
 
-    with open('test/data/sast/root-graph-syntax.json') as handle:
+    with open('skims/test/data/sast/root-graph-syntax.json') as handle:
         expected = handle.read()
 
     assert syntax_steps_as_json_str == expected

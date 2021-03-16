@@ -38,6 +38,7 @@ TEST_GROUPS = {
 }
 
 # Side effects
+os.chdir('..')
 create_test_context(debug=False)
 
 
@@ -123,8 +124,8 @@ def test_integrates_session(
 @pytest.fixture(autouse=True, scope='session')
 def test_prepare_cfn_json_data() -> None:
     for path in chain(
-        iglob('test/data/lib_path/**/*.yaml', recursive=True),
-        iglob('test/data/parse_cfn/**/*.yaml', recursive=True),
+        iglob('skims/test/data/lib_path/**/*.yaml', recursive=True),
+        iglob('skims/test/data/parse_cfn/**/*.yaml', recursive=True),
     ):
         # Take the yaml and dump it as json as is
         with open(path) as source, open(path + '.json', 'w') as target:

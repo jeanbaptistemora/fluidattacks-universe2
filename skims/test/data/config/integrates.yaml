@@ -1,6 +1,6 @@
 namespace: namespace
-output: test/outputs/integrates.csv
+output: skims/test/outputs/integrates.csv
 path:
   include:
-    - test/data/lib_path/f117
+    - skims/test/data/lib_path/f117
 timeout: 900

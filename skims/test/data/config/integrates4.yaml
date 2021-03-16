@@ -1,4 +1,4 @@
 namespace: namespace2
-output: test/outputs/integrates4.csv
+output: skims/test/outputs/integrates4.csv
 path: {}
 timeout: 900

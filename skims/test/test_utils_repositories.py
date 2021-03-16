@@ -19,10 +19,10 @@ def test_get_repo_head_hash() -> None:
         # Not exist
         ('/path-not-exists', DEFAULT_COMMIT),
         # Inside a repository, file
-        ('test/data/config/lib_path.yaml', head),
+        ('skims/test/data/config/lib_path.yaml', head),
         # Inside a repository, directory
-        ('test/data/parse_hcl2', head),
+        ('skims/test/data/parse_hcl2', head),
         # Inside a repsitory, not exists
-        ('test/path-not-exists', DEFAULT_COMMIT),
+        ('skims/test/path-not-exists', DEFAULT_COMMIT),
     ):
         assert get_repo_head_hash(path) == commit_hash, path

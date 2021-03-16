@@ -1,12 +1,12 @@
 language: EN
 namespace: namespace
-output: test/outputs/lib_path.csv
+output: skims/test/outputs/lib_path.csv
 path:
   include:
-    - test/data/lib_path
+    - skims/test/data/lib_path
 
     # Include and exclude skims to test the filter
-    - skims/
+    - integrates/
   exclude:
-    - glob(skims/**/*)
+    - glob(integrates/**/*)
 timeout: 900

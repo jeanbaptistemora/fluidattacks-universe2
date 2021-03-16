@@ -1,258 +1,258 @@
 title,what,where,cwe
-F001. SQL injection - Java Persistence API,namespace/test/data/lib_path/f001_jpa/java.java,23,89
-F001. SQL injection - Java Persistence API,namespace/test/data/lib_path/f001_jpa/java.java,26,89
-F001. SQL injection - Java Persistence API,namespace/test/data/lib_path/f001_jpa/java.java,36,89
-F001. SQL injection - Java Persistence API,namespace/test/data/lib_path/f001_jpa/java.java,39,89
-F001. SQL injection - Java Persistence API,namespace/test/data/lib_path/f001_jpa/java.java,42,89
-F001. SQL injection - Java Persistence API,namespace/test/data/lib_path/f001_jpa/java.java,45,89
-F009. Sensitive information in source code,namespace/test/data/lib_path/f009/Dockerfile,1,798
-F009. Sensitive information in source code,namespace/test/data/lib_path/f009/Dockerfile,2,798
-F009. Sensitive information in source code,namespace/test/data/lib_path/f009/java.properties,1,798
-F009. Sensitive information in source code,namespace/test/data/lib_path/f009/java.properties,2,798
-F009. Sensitive information in source code,namespace/test/data/lib_path/f009/java.properties,2,798
-F009. Sensitive information in source code,namespace/test/data/lib_path/f009/java.properties,4,798
-F009. Sensitive information in source code,namespace/test/data/lib_path/f009/java.properties,4,798
-F009. Sensitive information in source code,namespace/test/data/lib_path/f009/java.properties,8,798
-F009. Sensitive information in source code,namespace/test/data/lib_path/f009/javascript.js,3,798
-F009. Sensitive information in source code,namespace/test/data/lib_path/f009/javascript.js,4,798
-F009. Sensitive information in source code,namespace/test/data/lib_path/f009/javascript.js,5,798
-F009. Sensitive information in source code,namespace/test/data/lib_path/f009/javascript.js,6,798
-F009. Sensitive information in source code,namespace/test/data/lib_path/f009/javascript.js,7,798
-F009. Sensitive information in source code,namespace/test/data/lib_path/f009/javascript.js,8,798
-F009. Sensitive information in source code,namespace/test/data/lib_path/f009/secrets.yaml,1,798
-F009. Sensitive information in source code,namespace/test/data/lib_path/f009/secrets.yaml.json,1,798
-F011. Use of software with known vulnerabilities,namespace/test/data/lib_path/f011/package-lock.json (hoek v5.0.0) [CVE-2018-3728],6,937
-F011. Use of software with known vulnerabilities,namespace/test/data/lib_path/f011/package.json (hoek v^5.0.0) [CVE-2018-3728],5,937
-F011. Use of software with known vulnerabilities,namespace/test/data/lib_path/f011/package.json (jquery v0.*) [CVE-2011-4969],7,937
-F011. Use of software with known vulnerabilities,namespace/test/data/lib_path/f011/package.json (jquery v0.*) [CVE-2015-9251],7,937
-F011. Use of software with known vulnerabilities,namespace/test/data/lib_path/f011/package.json (jquery v0.*) [CVE-2017-16012],7,937
-F011. Use of software with known vulnerabilities,namespace/test/data/lib_path/f011/package.json (jquery v0.*) [CVE-2019-11358],7,937
-F011. Use of software with known vulnerabilities,namespace/test/data/lib_path/f011/package.json (jquery v0.*) [CVE-2020-7656],7,937
-F011. Use of software with known vulnerabilities,namespace/test/data/lib_path/f011/package.json (lodash v0.*) [CVE-2018-16487],6,937
-F011. Use of software with known vulnerabilities,namespace/test/data/lib_path/f011/package.json (lodash v0.*) [CVE-2018-3721],6,937
-F011. Use of software with known vulnerabilities,namespace/test/data/lib_path/f011/package.json (lodash v0.*) [CVE-2019-1010266],6,937
-F011. Use of software with known vulnerabilities,namespace/test/data/lib_path/f011/package.json (lodash v0.*) [CVE-2019-10744],6,937
-F011. Use of software with known vulnerabilities,namespace/test/data/lib_path/f011/package.json (lodash v0.*) [CVE-2020-8203],6,937
-F011. Use of software with known vulnerabilities,namespace/test/data/lib_path/f011/package.json (lodash v0.*) [github.com/lodash/lodash/issues/4874],6,937
-F022. Use of an insecure channel,namespace/test/data/lib_path/f022/java.properties,1,319
-F022. Use of an insecure channel,namespace/test/data/lib_path/f022/java.properties,4,319
-F031. Excessive privileges - AWS,namespace/test/data/lib_path/f031_aws/cfn_admin_policy_attached.yaml,10,250
-F031. Excessive privileges - AWS,namespace/test/data/lib_path/f031_aws/cfn_admin_policy_attached.yaml,6,250
-F031. Excessive privileges - AWS,namespace/test/data/lib_path/f031_aws/cfn_admin_policy_attached.yaml,8,250
-F031. Excessive privileges - AWS,namespace/test/data/lib_path/f031_aws/cfn_admin_policy_attached.yaml.json,11,250
-F031. Excessive privileges - AWS,namespace/test/data/lib_path/f031_aws/cfn_admin_policy_attached.yaml.json,7,250
-F031. Excessive privileges - AWS,namespace/test/data/lib_path/f031_aws/cfn_admin_policy_attached.yaml.json,9,250
-F031. Excessive privileges - AWS,namespace/test/data/lib_path/f031_aws/cfn_negative_statement.yaml,15,250
-F031. Excessive privileges - AWS,namespace/test/data/lib_path/f031_aws/cfn_negative_statement.yaml,18,250
-F031. Excessive privileges - AWS,namespace/test/data/lib_path/f031_aws/cfn_negative_statement.yaml,22,250
-F031. Excessive privileges - AWS,namespace/test/data/lib_path/f031_aws/cfn_negative_statement.yaml,23,250
-F031. Excessive privileges - AWS,namespace/test/data/lib_path/f031_aws/cfn_negative_statement.yaml,37,250
-F031. Excessive privileges - AWS,namespace/test/data/lib_path/f031_aws/cfn_negative_statement.yaml,38,250
-F031. Excessive privileges - AWS,namespace/test/data/lib_path/f031_aws/cfn_negative_statement.yaml.json,16,250
-F031. Excessive privileges - AWS,namespace/test/data/lib_path/f031_aws/cfn_negative_statement.yaml.json,20,250
-F031. Excessive privileges - AWS,namespace/test/data/lib_path/f031_aws/cfn_negative_statement.yaml.json,25,250
-F031. Excessive privileges - AWS,namespace/test/data/lib_path/f031_aws/cfn_negative_statement.yaml.json,26,250
-F031. Excessive privileges - AWS,namespace/test/data/lib_path/f031_aws/cfn_negative_statement.yaml.json,50,250
-F031. Excessive privileges - AWS,namespace/test/data/lib_path/f031_aws/cfn_negative_statement.yaml.json,51,250
-F031. Excessive privileges - AWS,namespace/test/data/lib_path/f031_aws/cfn_open_passrole.yaml,17,250
-F031. Excessive privileges - AWS,namespace/test/data/lib_path/f031_aws/cfn_open_passrole.yaml,18,250
-F031. Excessive privileges - AWS,namespace/test/data/lib_path/f031_aws/cfn_open_passrole.yaml,8,250
-F031. Excessive privileges - AWS,namespace/test/data/lib_path/f031_aws/cfn_open_passrole.yaml,9,250
-F031. Excessive privileges - AWS,namespace/test/data/lib_path/f031_aws/cfn_open_passrole.yaml.json,10,250
-F031. Excessive privileges - AWS,namespace/test/data/lib_path/f031_aws/cfn_open_passrole.yaml.json,11,250
-F031. Excessive privileges - AWS,namespace/test/data/lib_path/f031_aws/cfn_open_passrole.yaml.json,25,250
-F031. Excessive privileges - AWS,namespace/test/data/lib_path/f031_aws/cfn_open_passrole.yaml.json,26,250
-F031. Excessive privileges - AWS,namespace/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml,10,250
-F031. Excessive privileges - AWS,namespace/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml,11,250
-F031. Excessive privileges - AWS,namespace/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml,12,250
-F031. Excessive privileges - AWS,namespace/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml,13,250
-F031. Excessive privileges - AWS,namespace/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml,35,250
-F031. Excessive privileges - AWS,namespace/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml,36,250
-F031. Excessive privileges - AWS,namespace/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml,37,250
-F031. Excessive privileges - AWS,namespace/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml,38,250
-F031. Excessive privileges - AWS,namespace/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json,13,250
-F031. Excessive privileges - AWS,namespace/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json,14,250
-F031. Excessive privileges - AWS,namespace/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json,15,250
-F031. Excessive privileges - AWS,namespace/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json,17,250
-F031. Excessive privileges - AWS,namespace/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json,57,250
-F031. Excessive privileges - AWS,namespace/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json,58,250
-F031. Excessive privileges - AWS,namespace/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json,59,250
-F031. Excessive privileges - AWS,namespace/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json,61,250
-F031. Excessive privileges - AWS,namespace/test/data/lib_path/f031_aws/hcl2_admin_policy_attached.tf,23,250
-F031. Excessive privileges - AWS,namespace/test/data/lib_path/f031_aws/hcl2_admin_policy_attached.tf,33,250
-F031. Excessive privileges - AWS,namespace/test/data/lib_path/f031_aws/hcl2_admin_policy_attached.tf,38,250
-F031. Excessive privileges - AWS,namespace/test/data/lib_path/f031_aws/hcl2_negative_statement.tf,33,250
-F031. Excessive privileges - AWS,namespace/test/data/lib_path/f031_aws/hcl2_negative_statement.tf,5,250
-F031. Excessive privileges - AWS,namespace/test/data/lib_path/f031_aws/hcl2_open_passrole.tf,5,250
-F031. Excessive privileges - AWS,namespace/test/data/lib_path/f031_aws/hcl2_permissive_policy.tf,37,250
-F031. Excessive privileges - AWS,namespace/test/data/lib_path/f031_aws/hcl2_permissive_policy.tf,5,250
-F031. Excessive privileges - AWS,namespace/test/data/lib_path/f031_aws/hcl2_permissive_policy.tf,73,250
-F031. Excessive privileges - Temporary files,namespace/test/data/lib_path/f031_cwe378/Test.java,6,378
-F037. Technical information leak,namespace/test/data/lib_path/f037/javascript.js,20,200 + 209
-F037. Technical information leak,namespace/test/data/lib_path/f037/javascript.js,28,200 + 209
-F037. Technical information leak,namespace/test/data/lib_path/f037/javascript.js,36,200 + 209
-F037. Technical information leak,namespace/test/data/lib_path/f037/javascript.js,45,200 + 209
-F037. Technical information leak,namespace/test/data/lib_path/f037/javascript.js,6,200 + 209
-F052. Insecure encryption algorithm,namespace/test/data/lib_path/f052/csharp.cs,2,310 + 327
-F052. Insecure encryption algorithm,namespace/test/data/lib_path/f052/csharp.cs,3,310 + 327
-F052. Insecure encryption algorithm,namespace/test/data/lib_path/f052/csharp.cs,5,310 + 327
-F052. Insecure encryption algorithm,namespace/test/data/lib_path/f052/java.java,1,310 + 327
-F052. Insecure encryption algorithm,namespace/test/data/lib_path/f052/java.java,12,310 + 327
-F052. Insecure encryption algorithm,namespace/test/data/lib_path/f052/java.java,13,310 + 327
-F052. Insecure encryption algorithm,namespace/test/data/lib_path/f052/java.java,14,310 + 327
-F052. Insecure encryption algorithm,namespace/test/data/lib_path/f052/java.java,15,310 + 327
-F052. Insecure encryption algorithm,namespace/test/data/lib_path/f052/java.java,17,310 + 327
-F052. Insecure encryption algorithm,namespace/test/data/lib_path/f052/java.java,18,310 + 327
-F052. Insecure encryption algorithm,namespace/test/data/lib_path/f052/java.java,19,310 + 327
-F052. Insecure encryption algorithm,namespace/test/data/lib_path/f052/java.java,20,310 + 327
-F052. Insecure encryption algorithm,namespace/test/data/lib_path/f052/java.java,21,310 + 327
-F052. Insecure encryption algorithm,namespace/test/data/lib_path/f052/java.java,22,310 + 327
-F052. Insecure encryption algorithm,namespace/test/data/lib_path/f052/java.java,23,310 + 327
-F052. Insecure encryption algorithm,namespace/test/data/lib_path/f052/java.java,24,310 + 327
-F052. Insecure encryption algorithm,namespace/test/data/lib_path/f052/java.java,25,310 + 327
-F052. Insecure encryption algorithm,namespace/test/data/lib_path/f052/java.java,26,310 + 327
-F052. Insecure encryption algorithm,namespace/test/data/lib_path/f052/java.java,27,310 + 327
-F052. Insecure encryption algorithm,namespace/test/data/lib_path/f052/java.java,30,310 + 327
-F052. Insecure encryption algorithm,namespace/test/data/lib_path/f052/java.java,33,310 + 327
-F052. Insecure encryption algorithm,namespace/test/data/lib_path/f052/java.java,35,310 + 327
-F052. Insecure encryption algorithm,namespace/test/data/lib_path/f052/java.java,36,310 + 327
-F052. Insecure encryption algorithm,namespace/test/data/lib_path/f052/java.java,4,310 + 327
-F052. Insecure encryption algorithm,namespace/test/data/lib_path/f052/java.java,5,310 + 327
-F052. Insecure encryption algorithm,namespace/test/data/lib_path/f052/java.java,6,310 + 327
-F052. Insecure encryption algorithm,namespace/test/data/lib_path/f052/java.java,8,310 + 327
-F052. Insecure encryption algorithm,namespace/test/data/lib_path/f052/java.java,9,310 + 327
-F052. Insecure encryption algorithm,namespace/test/data/lib_path/f052/java.properties,2,310 + 327
-F052. Insecure encryption algorithm,namespace/test/data/lib_path/f052/java.properties,3,310 + 327
-F052. Insecure encryption algorithm,namespace/test/data/lib_path/f052/java.properties,4,310 + 327
-F052. Insecure encryption algorithm,namespace/test/data/lib_path/f052/java.properties,6,310 + 327
-F055. Insecure service configuration - AWS,namespace/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml,24,16
-F055. Insecure service configuration - AWS,namespace/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml,25,16
-F055. Insecure service configuration - AWS,namespace/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml,27,16
-F055. Insecure service configuration - AWS,namespace/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml,31,16
-F055. Insecure service configuration - AWS,namespace/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml,32,16
-F055. Insecure service configuration - AWS,namespace/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml,38,16
-F055. Insecure service configuration - AWS,namespace/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml,6,16
-F055. Insecure service configuration - AWS,namespace/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml,7,16
-F055. Insecure service configuration - AWS,namespace/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml,9,16
-F055. Insecure service configuration - AWS,namespace/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml.json,11,16
-F055. Insecure service configuration - AWS,namespace/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml.json,36,16
-F055. Insecure service configuration - AWS,namespace/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml.json,37,16
-F055. Insecure service configuration - AWS,namespace/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml.json,39,16
-F055. Insecure service configuration - AWS,namespace/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml.json,47,16
-F055. Insecure service configuration - AWS,namespace/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml.json,48,16
-F055. Insecure service configuration - AWS,namespace/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml.json,56,16
-F055. Insecure service configuration - AWS,namespace/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml.json,8,16
-F055. Insecure service configuration - AWS,namespace/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml.json,9,16
-F055. Insecure service configuration - AWS,namespace/test/data/lib_path/f047_aws/cfn_unrestricted_protocols.yaml,26,16
-F055. Insecure service configuration - AWS,namespace/test/data/lib_path/f047_aws/cfn_unrestricted_protocols.yaml,31,16
-F055. Insecure service configuration - AWS,namespace/test/data/lib_path/f047_aws/cfn_unrestricted_protocols.yaml,40,16
-F055. Insecure service configuration - AWS,namespace/test/data/lib_path/f047_aws/cfn_unrestricted_protocols.yaml,49,16
-F055. Insecure service configuration - AWS,namespace/test/data/lib_path/f047_aws/cfn_unrestricted_protocols.yaml,69,16
-F055. Insecure service configuration - AWS,namespace/test/data/lib_path/f047_aws/cfn_unrestricted_protocols.yaml,78,16
-F055. Insecure service configuration - AWS,namespace/test/data/lib_path/f047_aws/cfn_unrestricted_protocols.yaml,8,16
-F055. Insecure service configuration - AWS,namespace/test/data/lib_path/f047_aws/cfn_unrestricted_protocols.yaml.json,10,16
-F055. Insecure service configuration - AWS,namespace/test/data/lib_path/f047_aws/cfn_unrestricted_protocols.yaml.json,111,16
-F055. Insecure service configuration - AWS,namespace/test/data/lib_path/f047_aws/cfn_unrestricted_protocols.yaml.json,38,16
-F055. Insecure service configuration - AWS,namespace/test/data/lib_path/f047_aws/cfn_unrestricted_protocols.yaml.json,46,16
-F055. Insecure service configuration - AWS,namespace/test/data/lib_path/f047_aws/cfn_unrestricted_protocols.yaml.json,60,16
-F055. Insecure service configuration - AWS,namespace/test/data/lib_path/f047_aws/cfn_unrestricted_protocols.yaml.json,72,16
-F055. Insecure service configuration - AWS,namespace/test/data/lib_path/f047_aws/cfn_unrestricted_protocols.yaml.json,99,16
-F055. Insecure service configuration - AWS,namespace/test/data/lib_path/f047_aws/cnf_unrestricted_ports.yaml,37,16
-F055. Insecure service configuration - AWS,namespace/test/data/lib_path/f047_aws/cnf_unrestricted_ports.yaml,41,16
-F055. Insecure service configuration - AWS,namespace/test/data/lib_path/f047_aws/cnf_unrestricted_ports.yaml,55,16
-F055. Insecure service configuration - AWS,namespace/test/data/lib_path/f047_aws/cnf_unrestricted_ports.yaml,61,16
-F055. Insecure service configuration - AWS,namespace/test/data/lib_path/f047_aws/cnf_unrestricted_ports.yaml,7,16
-F055. Insecure service configuration - AWS,namespace/test/data/lib_path/f047_aws/cnf_unrestricted_ports.yaml,76,16
-F055. Insecure service configuration - AWS,namespace/test/data/lib_path/f047_aws/cnf_unrestricted_ports.yaml,79,16
-F055. Insecure service configuration - AWS,namespace/test/data/lib_path/f047_aws/cnf_unrestricted_ports.yaml,9,16
-F055. Insecure service configuration - AWS,namespace/test/data/lib_path/f047_aws/cnf_unrestricted_ports.yaml.json,109,16
-F055. Insecure service configuration - AWS,namespace/test/data/lib_path/f047_aws/cnf_unrestricted_ports.yaml.json,11,16
-F055. Insecure service configuration - AWS,namespace/test/data/lib_path/f047_aws/cnf_unrestricted_ports.yaml.json,112,16
-F055. Insecure service configuration - AWS,namespace/test/data/lib_path/f047_aws/cnf_unrestricted_ports.yaml.json,56,16
-F055. Insecure service configuration - AWS,namespace/test/data/lib_path/f047_aws/cnf_unrestricted_ports.yaml.json,61,16
-F055. Insecure service configuration - AWS,namespace/test/data/lib_path/f047_aws/cnf_unrestricted_ports.yaml.json,80,16
-F055. Insecure service configuration - AWS,namespace/test/data/lib_path/f047_aws/cnf_unrestricted_ports.yaml.json,88,16
-F055. Insecure service configuration - AWS,namespace/test/data/lib_path/f047_aws/cnf_unrestricted_ports.yaml.json,9,16
-F055. Insecure service configuration - AWS,namespace/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml,5,16
-F055. Insecure service configuration - AWS,namespace/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml.json,5,16
-F055. Insecure service configuration - AWS,namespace/test/data/lib_path/f055_aws/cfn_public_buckets.yaml,16,16
-F055. Insecure service configuration - AWS,namespace/test/data/lib_path/f055_aws/cfn_public_buckets.yaml,6,16
-F055. Insecure service configuration - AWS,namespace/test/data/lib_path/f055_aws/cfn_public_buckets.yaml.json,24,16
-F055. Insecure service configuration - AWS,namespace/test/data/lib_path/f055_aws/cfn_public_buckets.yaml.json,7,16
-F055. Insecure service configuration - AWS,namespace/test/data/lib_path/f055_aws/cfn_unencrypted_buckets.yaml,6,16
-F055. Insecure service configuration - AWS,namespace/test/data/lib_path/f055_aws/cfn_unencrypted_buckets.yaml.json,6,16
-F055. Insecure service configuration - AWS,namespace/test/data/lib_path/f055_aws/cfn_unencrypted_volumes.yaml,12,16
-F055. Insecure service configuration - AWS,namespace/test/data/lib_path/f055_aws/cfn_unencrypted_volumes.yaml,18,16
-F055. Insecure service configuration - AWS,namespace/test/data/lib_path/f055_aws/cfn_unencrypted_volumes.yaml,6,16
-F055. Insecure service configuration - AWS,namespace/test/data/lib_path/f055_aws/cfn_unencrypted_volumes.yaml.json,14,16
-F055. Insecure service configuration - AWS,namespace/test/data/lib_path/f055_aws/cfn_unencrypted_volumes.yaml.json,22,16
-F055. Insecure service configuration - AWS,namespace/test/data/lib_path/f055_aws/cfn_unencrypted_volumes.yaml.json,7,16
-F055. Insecure service configuration - AWS,namespace/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml,24,16
-F055. Insecure service configuration - AWS,namespace/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml,25,16
-F055. Insecure service configuration - AWS,namespace/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml,27,16
-F055. Insecure service configuration - AWS,namespace/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml,29,16
-F055. Insecure service configuration - AWS,namespace/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml,36,16
-F055. Insecure service configuration - AWS,namespace/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml,45,16
-F055. Insecure service configuration - AWS,namespace/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml,54,16
-F055. Insecure service configuration - AWS,namespace/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml,55,16
-F055. Insecure service configuration - AWS,namespace/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml,6,16
-F055. Insecure service configuration - AWS,namespace/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml,61,16
-F055. Insecure service configuration - AWS,namespace/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml.json,36,16
-F055. Insecure service configuration - AWS,namespace/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml.json,37,16
-F055. Insecure service configuration - AWS,namespace/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml.json,39,16
-F055. Insecure service configuration - AWS,namespace/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml.json,44,16
-F055. Insecure service configuration - AWS,namespace/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml.json,55,16
-F055. Insecure service configuration - AWS,namespace/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml.json,67,16
-F055. Insecure service configuration - AWS,namespace/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml.json,79,16
-F055. Insecure service configuration - AWS,namespace/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml.json,8,16
-F055. Insecure service configuration - AWS,namespace/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml.json,80,16
-F055. Insecure service configuration - AWS,namespace/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml.json,88,16
-F055. Insecure service configuration - AWS,namespace/test/data/lib_path/f055_aws/hcl2_public_buckets.tf,24,16
-F055. Insecure service configuration - AWS,namespace/test/data/lib_path/f055_aws/hcl2_unencrypted_buckets.tf,1,16
-F060. Insecure exceptions,namespace/test/data/lib_path/f031_cwe378/Test.java,7,396
-F060. Insecure exceptions,namespace/test/data/lib_path/f060/Test.java,11,397
-F060. Insecure exceptions,namespace/test/data/lib_path/f060/Test.java,12,397
-F060. Insecure exceptions,namespace/test/data/lib_path/f060/Test.java,4,397
-F060. Insecure exceptions,namespace/test/data/lib_path/f060/Test.java,5,397
-F060. Insecure exceptions,namespace/test/data/lib_path/f060/Test.java,7,397
-F060. Insecure exceptions,namespace/test/data/lib_path/f060/Test.java,8,397
-F060. Insecure exceptions,namespace/test/data/lib_path/f060/csharp.cs,2,396
-F060. Insecure exceptions,namespace/test/data/lib_path/f060/csharp.cs,3,396
-F060. Insecure exceptions,namespace/test/data/lib_path/f060/csharp.cs,4,396
-F060. Insecure exceptions,namespace/test/data/lib_path/f060/csharp.cs,5,396
-F060. Insecure exceptions,namespace/test/data/lib_path/f060/java.java,2,396
-F060. Insecure exceptions,namespace/test/data/lib_path/f060/java.java,3,396
-F060. Insecure exceptions,namespace/test/data/lib_path/f060/java.java,4,396
-F060. Insecure exceptions,namespace/test/data/lib_path/f060/java.java,5,396
-F060. Insecure exceptions,namespace/test/data/lib_path/f060/python.py,3,396
-F060. Insecure exceptions,namespace/test/data/lib_path/f060/python.py,5,396
-F060. Insecure exceptions,namespace/test/data/lib_path/f060/python.py,6,396
-F060. Insecure exceptions,namespace/test/data/lib_path/f060/swift.swift,7,396
-F060. Insecure exceptions,namespace/test/data/lib_path/f060/swift.swift,9,396
-F060. Insecure exceptions,namespace/test/data/lib_path/f061/swift.swift,7,396
-F061. Errors without traceability,namespace/test/data/lib_path/f031_cwe378/Test.java,7,390
-F061. Errors without traceability,namespace/test/data/lib_path/f061/csharp.cs,2,390
-F061. Errors without traceability,namespace/test/data/lib_path/f061/java.java,2,390
-F061. Errors without traceability,namespace/test/data/lib_path/f061/javascript.js,3,390
-F061. Errors without traceability,namespace/test/data/lib_path/f061/javascript.js,4,390
-F061. Errors without traceability,namespace/test/data/lib_path/f061/javascript.js,5,390
-F061. Errors without traceability,namespace/test/data/lib_path/f061/python.py,22,390
-F061. Errors without traceability,namespace/test/data/lib_path/f061/swift.swift,5,390
-F061. Errors without traceability,namespace/test/data/lib_path/f061/swift.swift,6,390
-F061. Errors without traceability,namespace/test/data/lib_path/f061/swift.swift,7,390
-F073. Conditional statement without a default option,namespace/test/data/lib_path/f073/Test.cs,20,478
-F073. Conditional statement without a default option,namespace/test/data/lib_path/f073/Test.cs,3,478
-F073. Conditional statement without a default option,namespace/test/data/lib_path/f073/Test.cs,41,478
-F073. Conditional statement without a default option,namespace/test/data/lib_path/f073/Test.cs,44,478
-F073. Conditional statement without a default option,namespace/test/data/lib_path/f073/Test.java,44,478
-F073. Conditional statement without a default option,namespace/test/data/lib_path/f073/Test.java,92,478
-F073. Conditional statement without a default option,namespace/test/data/lib_path/f073/Test2.java,23,478
-F073. Conditional statement without a default option,namespace/test/data/lib_path/f073/Test2.java,31,478
-F073. Conditional statement without a default option,namespace/test/data/lib_path/f073/javascript.js,3,478
-F073. Conditional statement without a default option,namespace/test/data/lib_path/f073/javascript.tsx,4,478
-F085. Sensitive data stored in the client-side storage,namespace/test/data/lib_path/f085/react.jsx,1,922
-F085. Sensitive data stored in the client-side storage,namespace/test/data/lib_path/f085/react.jsx,4,922
-F085. Sensitive data stored in the client-side storage,namespace/test/data/lib_path/f085/react.jsx,5,922
-F085. Sensitive data stored in the client-side storage,namespace/test/data/lib_path/f085/react.jsx,6,922
-F117. Unverifiable files,namespace/test/data/lib_path/f117/MyJar.class,1,377
-F117. Unverifiable files,namespace/test/data/lib_path/f117/MyJar.jar,1,377
+F001. SQL injection - Java Persistence API,namespace/skims/test/data/lib_path/f001_jpa/java.java,23,89
+F001. SQL injection - Java Persistence API,namespace/skims/test/data/lib_path/f001_jpa/java.java,26,89
+F001. SQL injection - Java Persistence API,namespace/skims/test/data/lib_path/f001_jpa/java.java,36,89
+F001. SQL injection - Java Persistence API,namespace/skims/test/data/lib_path/f001_jpa/java.java,39,89
+F001. SQL injection - Java Persistence API,namespace/skims/test/data/lib_path/f001_jpa/java.java,42,89
+F001. SQL injection - Java Persistence API,namespace/skims/test/data/lib_path/f001_jpa/java.java,45,89
+F009. Sensitive information in source code,namespace/skims/test/data/lib_path/f009/Dockerfile,1,798
+F009. Sensitive information in source code,namespace/skims/test/data/lib_path/f009/Dockerfile,2,798
+F009. Sensitive information in source code,namespace/skims/test/data/lib_path/f009/java.properties,1,798
+F009. Sensitive information in source code,namespace/skims/test/data/lib_path/f009/java.properties,2,798
+F009. Sensitive information in source code,namespace/skims/test/data/lib_path/f009/java.properties,2,798
+F009. Sensitive information in source code,namespace/skims/test/data/lib_path/f009/java.properties,4,798
+F009. Sensitive information in source code,namespace/skims/test/data/lib_path/f009/java.properties,4,798
+F009. Sensitive information in source code,namespace/skims/test/data/lib_path/f009/java.properties,8,798
+F009. Sensitive information in source code,namespace/skims/test/data/lib_path/f009/javascript.js,3,798
+F009. Sensitive information in source code,namespace/skims/test/data/lib_path/f009/javascript.js,4,798
+F009. Sensitive information in source code,namespace/skims/test/data/lib_path/f009/javascript.js,5,798
+F009. Sensitive information in source code,namespace/skims/test/data/lib_path/f009/javascript.js,6,798
+F009. Sensitive information in source code,namespace/skims/test/data/lib_path/f009/javascript.js,7,798
+F009. Sensitive information in source code,namespace/skims/test/data/lib_path/f009/javascript.js,8,798
+F009. Sensitive information in source code,namespace/skims/test/data/lib_path/f009/secrets.yaml,1,798
+F009. Sensitive information in source code,namespace/skims/test/data/lib_path/f009/secrets.yaml.json,1,798
+F011. Use of software with known vulnerabilities,namespace/skims/test/data/lib_path/f011/package-lock.json (hoek v5.0.0) [CVE-2018-3728],6,937
+F011. Use of software with known vulnerabilities,namespace/skims/test/data/lib_path/f011/package.json (hoek v^5.0.0) [CVE-2018-3728],5,937
+F011. Use of software with known vulnerabilities,namespace/skims/test/data/lib_path/f011/package.json (jquery v0.*) [CVE-2011-4969],7,937
+F011. Use of software with known vulnerabilities,namespace/skims/test/data/lib_path/f011/package.json (jquery v0.*) [CVE-2015-9251],7,937
+F011. Use of software with known vulnerabilities,namespace/skims/test/data/lib_path/f011/package.json (jquery v0.*) [CVE-2017-16012],7,937
+F011. Use of software with known vulnerabilities,namespace/skims/test/data/lib_path/f011/package.json (jquery v0.*) [CVE-2019-11358],7,937
+F011. Use of software with known vulnerabilities,namespace/skims/test/data/lib_path/f011/package.json (jquery v0.*) [CVE-2020-7656],7,937
+F011. Use of software with known vulnerabilities,namespace/skims/test/data/lib_path/f011/package.json (lodash v0.*) [CVE-2018-16487],6,937
+F011. Use of software with known vulnerabilities,namespace/skims/test/data/lib_path/f011/package.json (lodash v0.*) [CVE-2018-3721],6,937
+F011. Use of software with known vulnerabilities,namespace/skims/test/data/lib_path/f011/package.json (lodash v0.*) [CVE-2019-1010266],6,937
+F011. Use of software with known vulnerabilities,namespace/skims/test/data/lib_path/f011/package.json (lodash v0.*) [CVE-2019-10744],6,937
+F011. Use of software with known vulnerabilities,namespace/skims/test/data/lib_path/f011/package.json (lodash v0.*) [CVE-2020-8203],6,937
+F011. Use of software with known vulnerabilities,namespace/skims/test/data/lib_path/f011/package.json (lodash v0.*) [github.com/lodash/lodash/issues/4874],6,937
+F022. Use of an insecure channel,namespace/skims/test/data/lib_path/f022/java.properties,1,319
+F022. Use of an insecure channel,namespace/skims/test/data/lib_path/f022/java.properties,4,319
+F031. Excessive privileges - AWS,namespace/skims/test/data/lib_path/f031_aws/cfn_admin_policy_attached.yaml,10,250
+F031. Excessive privileges - AWS,namespace/skims/test/data/lib_path/f031_aws/cfn_admin_policy_attached.yaml,6,250
+F031. Excessive privileges - AWS,namespace/skims/test/data/lib_path/f031_aws/cfn_admin_policy_attached.yaml,8,250
+F031. Excessive privileges - AWS,namespace/skims/test/data/lib_path/f031_aws/cfn_admin_policy_attached.yaml.json,11,250
+F031. Excessive privileges - AWS,namespace/skims/test/data/lib_path/f031_aws/cfn_admin_policy_attached.yaml.json,7,250
+F031. Excessive privileges - AWS,namespace/skims/test/data/lib_path/f031_aws/cfn_admin_policy_attached.yaml.json,9,250
+F031. Excessive privileges - AWS,namespace/skims/test/data/lib_path/f031_aws/cfn_negative_statement.yaml,15,250
+F031. Excessive privileges - AWS,namespace/skims/test/data/lib_path/f031_aws/cfn_negative_statement.yaml,18,250
+F031. Excessive privileges - AWS,namespace/skims/test/data/lib_path/f031_aws/cfn_negative_statement.yaml,22,250
+F031. Excessive privileges - AWS,namespace/skims/test/data/lib_path/f031_aws/cfn_negative_statement.yaml,23,250
+F031. Excessive privileges - AWS,namespace/skims/test/data/lib_path/f031_aws/cfn_negative_statement.yaml,37,250
+F031. Excessive privileges - AWS,namespace/skims/test/data/lib_path/f031_aws/cfn_negative_statement.yaml,38,250
+F031. Excessive privileges - AWS,namespace/skims/test/data/lib_path/f031_aws/cfn_negative_statement.yaml.json,16,250
+F031. Excessive privileges - AWS,namespace/skims/test/data/lib_path/f031_aws/cfn_negative_statement.yaml.json,20,250
+F031. Excessive privileges - AWS,namespace/skims/test/data/lib_path/f031_aws/cfn_negative_statement.yaml.json,25,250
+F031. Excessive privileges - AWS,namespace/skims/test/data/lib_path/f031_aws/cfn_negative_statement.yaml.json,26,250
+F031. Excessive privileges - AWS,namespace/skims/test/data/lib_path/f031_aws/cfn_negative_statement.yaml.json,50,250
+F031. Excessive privileges - AWS,namespace/skims/test/data/lib_path/f031_aws/cfn_negative_statement.yaml.json,51,250
+F031. Excessive privileges - AWS,namespace/skims/test/data/lib_path/f031_aws/cfn_open_passrole.yaml,17,250
+F031. Excessive privileges - AWS,namespace/skims/test/data/lib_path/f031_aws/cfn_open_passrole.yaml,18,250
+F031. Excessive privileges - AWS,namespace/skims/test/data/lib_path/f031_aws/cfn_open_passrole.yaml,8,250
+F031. Excessive privileges - AWS,namespace/skims/test/data/lib_path/f031_aws/cfn_open_passrole.yaml,9,250
+F031. Excessive privileges - AWS,namespace/skims/test/data/lib_path/f031_aws/cfn_open_passrole.yaml.json,10,250
+F031. Excessive privileges - AWS,namespace/skims/test/data/lib_path/f031_aws/cfn_open_passrole.yaml.json,11,250
+F031. Excessive privileges - AWS,namespace/skims/test/data/lib_path/f031_aws/cfn_open_passrole.yaml.json,25,250
+F031. Excessive privileges - AWS,namespace/skims/test/data/lib_path/f031_aws/cfn_open_passrole.yaml.json,26,250
+F031. Excessive privileges - AWS,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml,10,250
+F031. Excessive privileges - AWS,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml,11,250
+F031. Excessive privileges - AWS,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml,12,250
+F031. Excessive privileges - AWS,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml,13,250
+F031. Excessive privileges - AWS,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml,35,250
+F031. Excessive privileges - AWS,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml,36,250
+F031. Excessive privileges - AWS,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml,37,250
+F031. Excessive privileges - AWS,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml,38,250
+F031. Excessive privileges - AWS,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json,13,250
+F031. Excessive privileges - AWS,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json,14,250
+F031. Excessive privileges - AWS,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json,15,250
+F031. Excessive privileges - AWS,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json,17,250
+F031. Excessive privileges - AWS,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json,57,250
+F031. Excessive privileges - AWS,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json,58,250
+F031. Excessive privileges - AWS,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json,59,250
+F031. Excessive privileges - AWS,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json,61,250
+F031. Excessive privileges - AWS,namespace/skims/test/data/lib_path/f031_aws/hcl2_admin_policy_attached.tf,23,250
+F031. Excessive privileges - AWS,namespace/skims/test/data/lib_path/f031_aws/hcl2_admin_policy_attached.tf,33,250
+F031. Excessive privileges - AWS,namespace/skims/test/data/lib_path/f031_aws/hcl2_admin_policy_attached.tf,38,250
+F031. Excessive privileges - AWS,namespace/skims/test/data/lib_path/f031_aws/hcl2_negative_statement.tf,33,250
+F031. Excessive privileges - AWS,namespace/skims/test/data/lib_path/f031_aws/hcl2_negative_statement.tf,5,250
+F031. Excessive privileges - AWS,namespace/skims/test/data/lib_path/f031_aws/hcl2_open_passrole.tf,5,250
+F031. Excessive privileges - AWS,namespace/skims/test/data/lib_path/f031_aws/hcl2_permissive_policy.tf,37,250
+F031. Excessive privileges - AWS,namespace/skims/test/data/lib_path/f031_aws/hcl2_permissive_policy.tf,5,250
+F031. Excessive privileges - AWS,namespace/skims/test/data/lib_path/f031_aws/hcl2_permissive_policy.tf,73,250
+F031. Excessive privileges - Temporary files,namespace/skims/test/data/lib_path/f031_cwe378/Test.java,6,378
+F037. Technical information leak,namespace/skims/test/data/lib_path/f037/javascript.js,20,200 + 209
+F037. Technical information leak,namespace/skims/test/data/lib_path/f037/javascript.js,28,200 + 209
+F037. Technical information leak,namespace/skims/test/data/lib_path/f037/javascript.js,36,200 + 209
+F037. Technical information leak,namespace/skims/test/data/lib_path/f037/javascript.js,45,200 + 209
+F037. Technical information leak,namespace/skims/test/data/lib_path/f037/javascript.js,6,200 + 209
+F052. Insecure encryption algorithm,namespace/skims/test/data/lib_path/f052/csharp.cs,2,310 + 327
+F052. Insecure encryption algorithm,namespace/skims/test/data/lib_path/f052/csharp.cs,3,310 + 327
+F052. Insecure encryption algorithm,namespace/skims/test/data/lib_path/f052/csharp.cs,5,310 + 327
+F052. Insecure encryption algorithm,namespace/skims/test/data/lib_path/f052/java.java,1,310 + 327
+F052. Insecure encryption algorithm,namespace/skims/test/data/lib_path/f052/java.java,12,310 + 327
+F052. Insecure encryption algorithm,namespace/skims/test/data/lib_path/f052/java.java,13,310 + 327
+F052. Insecure encryption algorithm,namespace/skims/test/data/lib_path/f052/java.java,14,310 + 327
+F052. Insecure encryption algorithm,namespace/skims/test/data/lib_path/f052/java.java,15,310 + 327
+F052. Insecure encryption algorithm,namespace/skims/test/data/lib_path/f052/java.java,17,310 + 327
+F052. Insecure encryption algorithm,namespace/skims/test/data/lib_path/f052/java.java,18,310 + 327
+F052. Insecure encryption algorithm,namespace/skims/test/data/lib_path/f052/java.java,19,310 + 327
+F052. Insecure encryption algorithm,namespace/skims/test/data/lib_path/f052/java.java,20,310 + 327
+F052. Insecure encryption algorithm,namespace/skims/test/data/lib_path/f052/java.java,21,310 + 327
+F052. Insecure encryption algorithm,namespace/skims/test/data/lib_path/f052/java.java,22,310 + 327
+F052. Insecure encryption algorithm,namespace/skims/test/data/lib_path/f052/java.java,23,310 + 327
+F052. Insecure encryption algorithm,namespace/skims/test/data/lib_path/f052/java.java,24,310 + 327
+F052. Insecure encryption algorithm,namespace/skims/test/data/lib_path/f052/java.java,25,310 + 327
+F052. Insecure encryption algorithm,namespace/skims/test/data/lib_path/f052/java.java,26,310 + 327
+F052. Insecure encryption algorithm,namespace/skims/test/data/lib_path/f052/java.java,27,310 + 327
+F052. Insecure encryption algorithm,namespace/skims/test/data/lib_path/f052/java.java,30,310 + 327
+F052. Insecure encryption algorithm,namespace/skims/test/data/lib_path/f052/java.java,33,310 + 327
+F052. Insecure encryption algorithm,namespace/skims/test/data/lib_path/f052/java.java,35,310 + 327
+F052. Insecure encryption algorithm,namespace/skims/test/data/lib_path/f052/java.java,36,310 + 327
+F052. Insecure encryption algorithm,namespace/skims/test/data/lib_path/f052/java.java,4,310 + 327
+F052. Insecure encryption algorithm,namespace/skims/test/data/lib_path/f052/java.java,5,310 + 327
+F052. Insecure encryption algorithm,namespace/skims/test/data/lib_path/f052/java.java,6,310 + 327
+F052. Insecure encryption algorithm,namespace/skims/test/data/lib_path/f052/java.java,8,310 + 327
+F052. Insecure encryption algorithm,namespace/skims/test/data/lib_path/f052/java.java,9,310 + 327
+F052. Insecure encryption algorithm,namespace/skims/test/data/lib_path/f052/java.properties,2,310 + 327
+F052. Insecure encryption algorithm,namespace/skims/test/data/lib_path/f052/java.properties,3,310 + 327
+F052. Insecure encryption algorithm,namespace/skims/test/data/lib_path/f052/java.properties,4,310 + 327
+F052. Insecure encryption algorithm,namespace/skims/test/data/lib_path/f052/java.properties,6,310 + 327
+F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml,24,16
+F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml,25,16
+F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml,27,16
+F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml,31,16
+F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml,32,16
+F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml,38,16
+F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml,6,16
+F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml,7,16
+F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml,9,16
+F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml.json,11,16
+F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml.json,36,16
+F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml.json,37,16
+F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml.json,39,16
+F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml.json,47,16
+F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml.json,48,16
+F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml.json,56,16
+F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml.json,8,16
+F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml.json,9,16
+F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f047_aws/cfn_unrestricted_protocols.yaml,26,16
+F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f047_aws/cfn_unrestricted_protocols.yaml,31,16
+F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f047_aws/cfn_unrestricted_protocols.yaml,40,16
+F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f047_aws/cfn_unrestricted_protocols.yaml,49,16
+F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f047_aws/cfn_unrestricted_protocols.yaml,69,16
+F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f047_aws/cfn_unrestricted_protocols.yaml,78,16
+F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f047_aws/cfn_unrestricted_protocols.yaml,8,16
+F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f047_aws/cfn_unrestricted_protocols.yaml.json,10,16
+F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f047_aws/cfn_unrestricted_protocols.yaml.json,111,16
+F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f047_aws/cfn_unrestricted_protocols.yaml.json,38,16
+F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f047_aws/cfn_unrestricted_protocols.yaml.json,46,16
+F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f047_aws/cfn_unrestricted_protocols.yaml.json,60,16
+F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f047_aws/cfn_unrestricted_protocols.yaml.json,72,16
+F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f047_aws/cfn_unrestricted_protocols.yaml.json,99,16
+F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f047_aws/cnf_unrestricted_ports.yaml,37,16
+F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f047_aws/cnf_unrestricted_ports.yaml,41,16
+F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f047_aws/cnf_unrestricted_ports.yaml,55,16
+F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f047_aws/cnf_unrestricted_ports.yaml,61,16
+F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f047_aws/cnf_unrestricted_ports.yaml,7,16
+F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f047_aws/cnf_unrestricted_ports.yaml,76,16
+F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f047_aws/cnf_unrestricted_ports.yaml,79,16
+F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f047_aws/cnf_unrestricted_ports.yaml,9,16
+F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f047_aws/cnf_unrestricted_ports.yaml.json,109,16
+F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f047_aws/cnf_unrestricted_ports.yaml.json,11,16
+F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f047_aws/cnf_unrestricted_ports.yaml.json,112,16
+F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f047_aws/cnf_unrestricted_ports.yaml.json,56,16
+F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f047_aws/cnf_unrestricted_ports.yaml.json,61,16
+F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f047_aws/cnf_unrestricted_ports.yaml.json,80,16
+F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f047_aws/cnf_unrestricted_ports.yaml.json,88,16
+F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f047_aws/cnf_unrestricted_ports.yaml.json,9,16
+F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml,5,16
+F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml.json,5,16
+F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f055_aws/cfn_public_buckets.yaml,16,16
+F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f055_aws/cfn_public_buckets.yaml,6,16
+F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f055_aws/cfn_public_buckets.yaml.json,24,16
+F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f055_aws/cfn_public_buckets.yaml.json,7,16
+F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f055_aws/cfn_unencrypted_buckets.yaml,6,16
+F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f055_aws/cfn_unencrypted_buckets.yaml.json,6,16
+F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f055_aws/cfn_unencrypted_volumes.yaml,12,16
+F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f055_aws/cfn_unencrypted_volumes.yaml,18,16
+F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f055_aws/cfn_unencrypted_volumes.yaml,6,16
+F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f055_aws/cfn_unencrypted_volumes.yaml.json,14,16
+F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f055_aws/cfn_unencrypted_volumes.yaml.json,22,16
+F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f055_aws/cfn_unencrypted_volumes.yaml.json,7,16
+F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml,24,16
+F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml,25,16
+F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml,27,16
+F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml,29,16
+F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml,36,16
+F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml,45,16
+F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml,54,16
+F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml,55,16
+F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml,6,16
+F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml,61,16
+F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml.json,36,16
+F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml.json,37,16
+F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml.json,39,16
+F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml.json,44,16
+F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml.json,55,16
+F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml.json,67,16
+F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml.json,79,16
+F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml.json,8,16
+F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml.json,80,16
+F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml.json,88,16
+F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f055_aws/hcl2_public_buckets.tf,24,16
+F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f055_aws/hcl2_unencrypted_buckets.tf,1,16
+F060. Insecure exceptions,namespace/skims/test/data/lib_path/f031_cwe378/Test.java,7,396
+F060. Insecure exceptions,namespace/skims/test/data/lib_path/f060/Test.java,11,397
+F060. Insecure exceptions,namespace/skims/test/data/lib_path/f060/Test.java,12,397
+F060. Insecure exceptions,namespace/skims/test/data/lib_path/f060/Test.java,4,397
+F060. Insecure exceptions,namespace/skims/test/data/lib_path/f060/Test.java,5,397
+F060. Insecure exceptions,namespace/skims/test/data/lib_path/f060/Test.java,7,397
+F060. Insecure exceptions,namespace/skims/test/data/lib_path/f060/Test.java,8,397
+F060. Insecure exceptions,namespace/skims/test/data/lib_path/f060/csharp.cs,2,396
+F060. Insecure exceptions,namespace/skims/test/data/lib_path/f060/csharp.cs,3,396
+F060. Insecure exceptions,namespace/skims/test/data/lib_path/f060/csharp.cs,4,396
+F060. Insecure exceptions,namespace/skims/test/data/lib_path/f060/csharp.cs,5,396
+F060. Insecure exceptions,namespace/skims/test/data/lib_path/f060/java.java,2,396
+F060. Insecure exceptions,namespace/skims/test/data/lib_path/f060/java.java,3,396
+F060. Insecure exceptions,namespace/skims/test/data/lib_path/f060/java.java,4,396
+F060. Insecure exceptions,namespace/skims/test/data/lib_path/f060/java.java,5,396
+F060. Insecure exceptions,namespace/skims/test/data/lib_path/f060/python.py,3,396
+F060. Insecure exceptions,namespace/skims/test/data/lib_path/f060/python.py,5,396
+F060. Insecure exceptions,namespace/skims/test/data/lib_path/f060/python.py,6,396
+F060. Insecure exceptions,namespace/skims/test/data/lib_path/f060/swift.swift,7,396
+F060. Insecure exceptions,namespace/skims/test/data/lib_path/f060/swift.swift,9,396
+F060. Insecure exceptions,namespace/skims/test/data/lib_path/f061/swift.swift,7,396
+F061. Errors without traceability,namespace/skims/test/data/lib_path/f031_cwe378/Test.java,7,390
+F061. Errors without traceability,namespace/skims/test/data/lib_path/f061/csharp.cs,2,390
+F061. Errors without traceability,namespace/skims/test/data/lib_path/f061/java.java,2,390
+F061. Errors without traceability,namespace/skims/test/data/lib_path/f061/javascript.js,3,390
+F061. Errors without traceability,namespace/skims/test/data/lib_path/f061/javascript.js,4,390
+F061. Errors without traceability,namespace/skims/test/data/lib_path/f061/javascript.js,5,390
+F061. Errors without traceability,namespace/skims/test/data/lib_path/f061/python.py,22,390
+F061. Errors without traceability,namespace/skims/test/data/lib_path/f061/swift.swift,5,390
+F061. Errors without traceability,namespace/skims/test/data/lib_path/f061/swift.swift,6,390
+F061. Errors without traceability,namespace/skims/test/data/lib_path/f061/swift.swift,7,390
+F073. Conditional statement without a default option,namespace/skims/test/data/lib_path/f073/Test.cs,20,478
+F073. Conditional statement without a default option,namespace/skims/test/data/lib_path/f073/Test.cs,3,478
+F073. Conditional statement without a default option,namespace/skims/test/data/lib_path/f073/Test.cs,41,478
+F073. Conditional statement without a default option,namespace/skims/test/data/lib_path/f073/Test.cs,44,478
+F073. Conditional statement without a default option,namespace/skims/test/data/lib_path/f073/Test.java,44,478
+F073. Conditional statement without a default option,namespace/skims/test/data/lib_path/f073/Test.java,92,478
+F073. Conditional statement without a default option,namespace/skims/test/data/lib_path/f073/Test2.java,23,478
+F073. Conditional statement without a default option,namespace/skims/test/data/lib_path/f073/Test2.java,31,478
+F073. Conditional statement without a default option,namespace/skims/test/data/lib_path/f073/javascript.js,3,478
+F073. Conditional statement without a default option,namespace/skims/test/data/lib_path/f073/javascript.tsx,4,478
+F085. Sensitive data stored in the client-side storage,namespace/skims/test/data/lib_path/f085/react.jsx,1,922
+F085. Sensitive data stored in the client-side storage,namespace/skims/test/data/lib_path/f085/react.jsx,4,922
+F085. Sensitive data stored in the client-side storage,namespace/skims/test/data/lib_path/f085/react.jsx,5,922
+F085. Sensitive data stored in the client-side storage,namespace/skims/test/data/lib_path/f085/react.jsx,6,922
+F117. Unverifiable files,namespace/skims/test/data/lib_path/f117/MyJar.class,1,377
+F117. Unverifiable files,namespace/skims/test/data/lib_path/f117/MyJar.jar,1,377

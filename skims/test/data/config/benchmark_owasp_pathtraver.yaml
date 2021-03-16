@@ -1,5 +1,5 @@
 namespace: OWASP
-output: test/outputs/benchmark_owasp_pathtraver.csv
+output: skims/test/outputs/benchmark_owasp_pathtraver.csv
 path:
   include:
   - BenchmarkTest00001.java
@@ -271,4 +271,4 @@ path:
   - BenchmarkTest02668.java
   - BenchmarkTest02669.java
   lib_path: false
-working_dir: ../../owasp_benchmark/src/main/java/org/owasp/benchmark/testcode
+working_dir: ../owasp_benchmark/src/main/java/org/owasp/benchmark/testcode

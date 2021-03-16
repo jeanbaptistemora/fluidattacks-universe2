@@ -55,7 +55,7 @@ EXPECTED = ({
 
 @pytest.mark.skims_test_group('unittesting')
 def test_iterate_iam_policy_documents_as_yml() -> None:
-    with open('test/data/parse_cfn/full.yaml') as file:
+    with open('skims/test/data/parse_cfn/full.yaml') as file:
         template = load(stream=file.read(), fmt='yaml')
     result = tuple(iterate_iam_policy_documents(template))
 
@@ -114,7 +114,7 @@ def test_iterate_iam_policy_documents_as_yml() -> None:
 
 @pytest.mark.skims_test_group('unittesting')
 def test_iterate_iam_policy_documents_as_json() -> None:
-    with open('test/data/parse_cfn/full.yaml.json') as file:
+    with open('skims/test/data/parse_cfn/full.yaml.json') as file:
         template = load(stream=file.read(), fmt='json')
 
     result = tuple(iterate_iam_policy_documents(template))

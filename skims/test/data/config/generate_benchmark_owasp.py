@@ -46,9 +46,9 @@ def main() -> None:
 
         content = yaml_dumps_blocking(dict(
             namespace='OWASP',
-            output=f'test/outputs/{suite}.csv',
+            output=f'skims/test/outputs/{suite}.csv',
             path=dict(include=tests_cases, lib_path=False),
-            working_dir=f'../{FOLDER}',
+            working_dir=FOLDER,
         ))
 
         with open(f'skims/test/data/config/{suite}.yaml', 'w') as handle:

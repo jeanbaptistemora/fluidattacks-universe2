@@ -16,7 +16,7 @@ from utils.fs import (
 @run_decorator
 @pytest.mark.skims_test_group('unittesting')
 async def test_parse_success() -> None:
-    path = 'test/data/lib_path/f034/javascript.js'
+    path = 'skims/test/data/lib_path/f034/javascript.js'
     data = await parse(
         content=await get_file_raw_content(path),
         path=path,
@@ -146,7 +146,7 @@ async def test_parse_success() -> None:
 @run_decorator
 @pytest.mark.skims_test_group('unittesting')
 async def test_parse_fail() -> None:
-    path = 'test/data/lib_path/f011/yarn.lock'
+    path = 'skims/test/data/lib_path/f011/yarn.lock'
     data = await parse(
         content=await get_file_raw_content(path),
         path=path,
