@@ -334,6 +334,30 @@ class FindingEnum(Enum):
         title='utils.model.finding.enum.F055_AWS.title',
         type=FindingTypeEnum.SECURITY,
     )
+    F055_AWS_MISSING_ENCRYPTION: FindingMetadata = FindingMetadata(
+        auto_approve=True,
+        cwe='311',
+        description='F055_AWS_MISSING_ENCRYPTION.description',
+        impact='F055_AWS_MISSING_ENCRYPTION.impact',
+        recommendation='F055_AWS_MISSING_ENCRYPTION.recommendation',
+        requirements='F055_AWS_MISSING_ENCRYPTION.requirements',
+        severity={
+            'attackComplexity': 0.77,
+            'attackVector': 0.55,
+            'availabilityImpact': 0.0,
+            'confidentialityImpact': 0.56,
+            'exploitability': 1.0,
+            'integrityImpact': 0.0,
+            'privilegesRequired': 0.85,
+            'remediationLevel': 0.95,
+            'reportConfidence': 1.0,
+            'severityScope': 1.0,
+            'userInteraction': 0.85,
+        },
+        threat='F055_AWS_MISSING_ENCRYPTION.threat',
+        title='F055_AWS_MISSING_ENCRYPTION.title',
+        type=FindingTypeEnum.SECURITY,
+    )
     F055_CORS: FindingMetadata = FindingMetadata(
         auto_approve=True,
         cwe='942',
