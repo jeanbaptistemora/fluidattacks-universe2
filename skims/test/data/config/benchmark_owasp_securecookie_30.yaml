@@ -1,6 +1,0 @@
-namespace: OWASP
-output: test/outputs/benchmark_owasp_securecookie_30.csv
-path:
-  include:
-  - BenchmarkTest01281.java
-working_dir: ../../owasp_benchmark/src/main/java/org/owasp/benchmark/testcode

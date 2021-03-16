@@ -8,11 +8,6 @@ from typing import (
     List,
 )
 
-# Third party libraries
-from more_itertools import (
-    chunked,
-)
-
 # Local libraries
 from utils.encodings import (
     yaml_dumps_blocking,
@@ -46,19 +41,18 @@ def main() -> None:
     for category, tests_cases in get_tests_cases().items():
         tests_cases.sort()
 
-        for index, batch in enumerate(chunked(tests_cases, n=1)):
-            suite = f'benchmark_owasp_{category}_{index}'
-            suites.append(suite)
+        suite = f'benchmark_owasp_{category}'
+        suites.append(suite)
 
-            content = yaml_dumps_blocking(dict(
-                namespace='OWASP',
-                output=f'test/outputs/{suite}.csv',
-                path=dict(include=batch),
-                working_dir=f'../{FOLDER}',
-            ))
+        content = yaml_dumps_blocking(dict(
+            namespace='OWASP',
+            output=f'test/outputs/{suite}.csv',
+            path=dict(include=tests_cases, lib_path=False),
+            working_dir=f'../{FOLDER}',
+        ))
 
-            with open(f'skims/test/data/config/{suite}.yaml', 'w') as handle:
-                handle.write(content)
+        with open(f'skims/test/data/config/{suite}.yaml', 'w') as handle:
+            handle.write(content)
 
     print(json.dumps(suites, indent=2, sort_keys=True))
 

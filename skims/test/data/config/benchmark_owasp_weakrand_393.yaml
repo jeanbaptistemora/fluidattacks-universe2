@@ -1,6 +1,0 @@
-namespace: OWASP
-output: test/outputs/benchmark_owasp_weakrand_393.csv
-path:
-  include:
-  - BenchmarkTest02117.java
-working_dir: ../../owasp_benchmark/src/main/java/org/owasp/benchmark/testcode

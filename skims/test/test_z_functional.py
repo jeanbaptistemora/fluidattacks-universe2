@@ -191,23 +191,20 @@ def test_run_no_group(suite: str) -> None:
 
 @pytest.mark.flaky(reruns=0)
 @pytest.mark.skims_test_group('benchmark_cmdi')
-@pytest.mark.parametrize('index', list(range(1)))
-def test_benchmark_cmdi(index: int) -> None:
-    _run_no_group(f'benchmark_owasp_cmdi_{index}')
+def test_benchmark_cmdi() -> None:
+    _run_no_group('benchmark_owasp_cmdi')
 
 
 @pytest.mark.flaky(reruns=0)
 @pytest.mark.skims_test_group('benchmark_pathtraver')
-@pytest.mark.parametrize('index', list(range(1)))
-def test_benchmark_pathtraver(index: int) -> None:
-    _run_no_group(f'benchmark_owasp_pathtraver_{index}')
+def test_benchmark_pathtraver() -> None:
+    _run_no_group('benchmark_owasp_pathtraver')
 
 
 @pytest.mark.flaky(reruns=0)
 @pytest.mark.skims_test_group('benchmark_weakrand')
-@pytest.mark.parametrize('index', list(range(1)))
-def test_benchmark_weakrand(index: int) -> None:
-    _run_no_group(f'benchmark_owasp_weakrand_{index}')
+def test_benchmark_weakrand() -> None:
+    _run_no_group('benchmark_owasp_weakrand')
 
 
 def _run_no_group(suite: str) -> None:

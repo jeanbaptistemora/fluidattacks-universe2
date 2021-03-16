@@ -1,6 +1,0 @@
-title,what,where,cwe
-F060. Insecure exceptions,OWASP/BenchmarkTest00001.java,78,396
-F060. Insecure exceptions,OWASP/BenchmarkTest00001.java,89,396
-F061. Errors without traceability,OWASP/BenchmarkTest00001.java,89,390
-F063. Lack of data validation - Path Traversal,OWASP/BenchmarkTest00001.java,71,22
-F063. Lack of data validation - Path Traversal,OWASP/BenchmarkTest00001.java,71,22

@@ -1,6 +1,0 @@
-namespace: OWASP
-output: test/outputs/benchmark_owasp_pathtraver_89.csv
-path:
-  include:
-  - BenchmarkTest00956.java
-working_dir: ../../owasp_benchmark/src/main/java/org/owasp/benchmark/testcode

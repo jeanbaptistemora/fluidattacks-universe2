@@ -1,6 +1,0 @@
-namespace: OWASP
-output: test/outputs/benchmark_owasp_xss_318.csv
-path:
-  include:
-  - BenchmarkTest02057.java
-working_dir: ../../owasp_benchmark/src/main/java/org/owasp/benchmark/testcode

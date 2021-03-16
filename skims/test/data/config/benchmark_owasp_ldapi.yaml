@@ -1,0 +1,65 @@
+namespace: OWASP
+output: test/outputs/benchmark_owasp_ldapi.csv
+path:
+  include:
+  - BenchmarkTest00012.java
+  - BenchmarkTest00021.java
+  - BenchmarkTest00044.java
+  - BenchmarkTest00138.java
+  - BenchmarkTest00139.java
+  - BenchmarkTest00367.java
+  - BenchmarkTest00530.java
+  - BenchmarkTest00630.java
+  - BenchmarkTest00694.java
+  - BenchmarkTest00695.java
+  - BenchmarkTest00701.java
+  - BenchmarkTest00860.java
+  - BenchmarkTest00861.java
+  - BenchmarkTest00947.java
+  - BenchmarkTest00948.java
+  - BenchmarkTest00959.java
+  - BenchmarkTest01023.java
+  - BenchmarkTest01024.java
+  - BenchmarkTest01154.java
+  - BenchmarkTest01241.java
+  - BenchmarkTest01242.java
+  - BenchmarkTest01243.java
+  - BenchmarkTest01326.java
+  - BenchmarkTest01327.java
+  - BenchmarkTest01402.java
+  - BenchmarkTest01490.java
+  - BenchmarkTest01491.java
+  - BenchmarkTest01492.java
+  - BenchmarkTest01501.java
+  - BenchmarkTest01568.java
+  - BenchmarkTest01569.java
+  - BenchmarkTest01743.java
+  - BenchmarkTest01753.java
+  - BenchmarkTest01754.java
+  - BenchmarkTest01755.java
+  - BenchmarkTest01756.java
+  - BenchmarkTest01831.java
+  - BenchmarkTest01832.java
+  - BenchmarkTest01902.java
+  - BenchmarkTest01903.java
+  - BenchmarkTest01909.java
+  - BenchmarkTest02025.java
+  - BenchmarkTest02036.java
+  - BenchmarkTest02037.java
+  - BenchmarkTest02104.java
+  - BenchmarkTest02114.java
+  - BenchmarkTest02115.java
+  - BenchmarkTest02116.java
+  - BenchmarkTest02196.java
+  - BenchmarkTest02208.java
+  - BenchmarkTest02299.java
+  - BenchmarkTest02305.java
+  - BenchmarkTest02306.java
+  - BenchmarkTest02376.java
+  - BenchmarkTest02384.java
+  - BenchmarkTest02472.java
+  - BenchmarkTest02553.java
+  - BenchmarkTest02571.java
+  - BenchmarkTest02572.java
+  lib_path: false
+working_dir: ../../owasp_benchmark/src/main/java/org/owasp/benchmark/testcode

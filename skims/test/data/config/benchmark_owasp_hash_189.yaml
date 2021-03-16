@@ -1,6 +1,0 @@
-namespace: OWASP
-output: test/outputs/benchmark_owasp_hash_189.csv
-path:
-  include:
-  - BenchmarkTest02121.java
-working_dir: ../../owasp_benchmark/src/main/java/org/owasp/benchmark/testcode

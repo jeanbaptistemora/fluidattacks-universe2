@@ -1,0 +1,41 @@
+namespace: OWASP
+output: test/outputs/benchmark_owasp_xpathi.csv
+path:
+  include:
+  - BenchmarkTest00116.java
+  - BenchmarkTest00117.java
+  - BenchmarkTest00118.java
+  - BenchmarkTest00207.java
+  - BenchmarkTest00442.java
+  - BenchmarkTest00520.java
+  - BenchmarkTest00607.java
+  - BenchmarkTest00683.java
+  - BenchmarkTest00852.java
+  - BenchmarkTest00941.java
+  - BenchmarkTest01013.java
+  - BenchmarkTest01014.java
+  - BenchmarkTest01223.java
+  - BenchmarkTest01224.java
+  - BenchmarkTest01225.java
+  - BenchmarkTest01316.java
+  - BenchmarkTest01397.java
+  - BenchmarkTest01478.java
+  - BenchmarkTest01479.java
+  - BenchmarkTest01561.java
+  - BenchmarkTest01562.java
+  - BenchmarkTest01632.java
+  - BenchmarkTest01633.java
+  - BenchmarkTest01734.java
+  - BenchmarkTest01735.java
+  - BenchmarkTest01736.java
+  - BenchmarkTest01821.java
+  - BenchmarkTest01892.java
+  - BenchmarkTest01893.java
+  - BenchmarkTest01894.java
+  - BenchmarkTest01974.java
+  - BenchmarkTest02100.java
+  - BenchmarkTest02189.java
+  - BenchmarkTest02370.java
+  - BenchmarkTest02457.java
+  lib_path: false
+working_dir: ../../owasp_benchmark/src/main/java/org/owasp/benchmark/testcode

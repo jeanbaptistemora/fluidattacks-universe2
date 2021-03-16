@@ -1,6 +1,0 @@
-namespace: OWASP
-output: test/outputs/benchmark_owasp_crypto_80.csv
-path:
-  include:
-  - BenchmarkTest00692.java
-working_dir: ../../owasp_benchmark/src/main/java/org/owasp/benchmark/testcode

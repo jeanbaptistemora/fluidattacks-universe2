@@ -1,6 +1,0 @@
-namespace: OWASP
-output: test/outputs/benchmark_owasp_ldapi_45.csv
-path:
-  include:
-  - BenchmarkTest02114.java
-working_dir: ../../owasp_benchmark/src/main/java/org/owasp/benchmark/testcode
