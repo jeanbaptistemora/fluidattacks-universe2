@@ -1,6 +1,7 @@
 # shellcheck shell=bash
 
 function owasp {
+  local category="${1:-}"
   local benchmark_local_repo="${PWD}/../owasp_benchmark"
   local cache_local="${HOME_IMPURE}/.skims/cache"
   local cache_remote="s3://skims.data/cache/owasp_benchmark"
@@ -9,17 +10,24 @@ function owasp {
 
       echo '[INFO] Creating staging area' \
   &&  copy '__envBenchmarkRepo__' "${benchmark_local_repo}" \
-  &&  aws_login_prod 'skims' \
-  &&  aws_s3_sync "${cache_remote}" "${cache_local}" \
   &&  echo '[INFO] Analyzing repository' \
-  &&  skims '__envSrcSkimsTest__/data/config/benchmark_owasp.yaml' \
-  &&  echo '[INFO] Computing score' \
-  &&  python3.8 '__envSrcSkimsSkims__/benchmark/__init__.py' \
-  &&  echo '[INFO] Cleaning environment' \
-  &&  aws_s3_sync "${cache_local}" "${cache_remote}" \
-  &&  if test "${CI_COMMIT_REF_NAME}" = 'master'
+  &&  if test -n "${category}"
       then
-            result_path="s3://skims.data/benchmark_result/$(date -u -Iminutes).csv" \
+            skims --debug "skims/test/data/config/benchmark_owasp_${category}.yaml" \
+        &&  mv "skims/test/outputs/benchmark_owasp_${category}.csv" 'results.csv'
+      else
+            aws_login_prod 'skims' \
+        &&  aws_s3_sync "${cache_remote}" "${cache_local}" \
+        &&  skims 'skims/test/data/config/benchmark_owasp.yaml' \
+        &&  aws_s3_sync "${cache_local}" "${cache_remote}"
+      fi \
+  &&  echo '[INFO] Computing score' \
+  &&  python3.8 'skims/skims/benchmark/__init__.py' \
+  &&  echo '[INFO] Cleaning environment' \
+  &&  if test -n "${category}"
+      then
+            aws_login_prod 'skims' \
+        &&  result_path="s3://skims.data/benchmark_result/$(date -u -Iminutes).csv" \
         &&  echo "[INFO] Uploading results to ${result_path}" \
         &&  aws s3 cp "${PRODUCED_RESULTS_CSV}" "${result_path}"
       fi \
@@ -47,8 +55,10 @@ function upload {
 }
 
 function main {
-      owasp \
-  &&  if test "${CI_COMMIT_REF_NAME}" = 'master'
+  local category="${1:-}"
+
+      owasp "${category}" \
+  &&  if test -z "${category}"
       then
         upload
       fi

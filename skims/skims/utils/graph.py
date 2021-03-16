@@ -149,7 +149,6 @@ def adj_ast(
     )
 
 
-@trace()
 def adj_cfg(
     graph: Graph,
     n_id: str,

@@ -8,8 +8,6 @@
 makeEntrypoint {
   arguments = {
     envBenchmarkRepo = skimsBenchmarkOwaspRepo;
-    envSrcSkimsSkims = path "/skims/skims";
-    envSrcSkimsTest = path "/skims/test";
   };
   name = "skims-benchmark";
   searchPaths = {
