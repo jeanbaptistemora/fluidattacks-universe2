@@ -259,6 +259,9 @@ integrates.back.test.functional.update_event_evidence:
 integrates.back.test.functional.update_organization_policies:
   <<: *integrates_back_test_functional
 
+integrates.back.test.functional.update_severity:
+  <<: *integrates_back_test_functional
+
 integrates.back.test.functional.upload_file_mutation:
   <<: *integrates_back_test_functional
 

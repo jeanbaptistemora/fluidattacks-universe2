@@ -41,6 +41,7 @@ TEST_GROUPS: Set[str] = {
     'solve_event',
     'update_event_evidence',
     'update_organization_policies',
+    'update_severity',
     'upload_file_mutation',
     'verify_request_vuln',
     'vulnerability',
