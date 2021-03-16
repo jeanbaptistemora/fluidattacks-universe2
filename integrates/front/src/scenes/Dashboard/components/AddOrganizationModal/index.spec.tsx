@@ -3,7 +3,6 @@ import { MockedProvider } from "@apollo/react-testing";
 import type { MockedResponse } from "@apollo/react-testing";
 import { Provider } from "react-redux";
 import React from "react";
-import type ReactRouterDom from "react-router-dom";
 import type { ReactWrapper } from "enzyme";
 import { act } from "react-dom/test-utils";
 import { mount } from "enzyme";
@@ -19,7 +18,7 @@ const mockHistoryPush: jest.Mock = jest.fn();
 jest.mock(
   "react-router-dom",
   (): Dictionary => {
-    const mockedRouter: typeof ReactRouterDom = jest.requireActual(
+    const mockedRouter: Dictionary<() => Dictionary> = jest.requireActual(
       "react-router-dom"
     );
 
