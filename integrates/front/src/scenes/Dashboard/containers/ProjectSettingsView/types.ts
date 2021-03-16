@@ -1,4 +1,4 @@
-export interface IProjectTagsAttr {
+interface IProjectTagsAttr {
   project: {
     deletionDate: string;
     name: string;
@@ -7,7 +7,7 @@ export interface IProjectTagsAttr {
   };
 }
 
-export interface IRemoveTagsAttr {
+interface IRemoveTagsAttr {
   removeTag: {
     project: {
       deletionDate: string;
@@ -19,7 +19,7 @@ export interface IRemoveTagsAttr {
   };
 }
 
-export interface IAddTagsAttr {
+interface IAddTagsAttr {
   addTags: {
     project: {
       deletionDate: string;
@@ -31,28 +31,28 @@ export interface IAddTagsAttr {
   };
 }
 
-export interface IHistoricState {
+interface IHistoricState {
   date: string;
   state: string;
   user: string;
 }
 
-export interface IRepositoriesAttr {
+interface IRepositoriesAttr {
   branch: string;
-  historic_state: IHistoricState[];
+  historicState: IHistoricState[];
   protocol: string;
   state: string;
   urlRepo: string;
 }
 
-export interface IResourcesAttr {
+interface IResourcesAttr {
   resources: {
     environments: string;
     repositories: string;
   };
 }
 
-export interface IUpdateRepoAttr {
+interface IUpdateRepoAttr {
   updateResources: {
     resources: {
       repositories: string;
@@ -61,7 +61,7 @@ export interface IUpdateRepoAttr {
   };
 }
 
-export interface IAddReposAttr {
+interface IAddReposAttr {
   addResources: {
     resources: {
       repositories: string;
@@ -70,13 +70,13 @@ export interface IAddReposAttr {
   };
 }
 
-export interface IEnvironmentsAttr {
-  historic_state: IHistoricState[];
+interface IEnvironmentsAttr {
+  historicState: IHistoricState[];
   state: string;
   urlEnv: string;
 }
 
-export interface IUpdateEnvAttr {
+interface IUpdateEnvAttr {
   updateResources: {
     resources: {
       environments: string;
@@ -85,7 +85,7 @@ export interface IUpdateEnvAttr {
   };
 }
 
-export interface IAddEnvAttr {
+interface IAddEnvAttr {
   addResources: {
     resources: {
       environments: string;
@@ -94,8 +94,23 @@ export interface IAddEnvAttr {
   };
 }
 
-export interface IGetProjectData {
+interface IGetProjectData {
   project: {
     deletionDate: string;
   };
 }
+
+export {
+  IProjectTagsAttr,
+  IRemoveTagsAttr,
+  IAddTagsAttr,
+  IHistoricState,
+  IRepositoriesAttr,
+  IResourcesAttr,
+  IUpdateRepoAttr,
+  IAddReposAttr,
+  IEnvironmentsAttr,
+  IUpdateEnvAttr,
+  IAddEnvAttr,
+  IGetProjectData,
+};
