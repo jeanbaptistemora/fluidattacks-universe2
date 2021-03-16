@@ -8,6 +8,6 @@ in
 terraformTest {
   name = "serves-users-integrates-test";
   product = "serves";
-  target = "serves/users/integrates/terraform";
+  target = "makes/applications/serves/users/integrates/src/terraform";
   secretsPath = "makes/applications/serves/secrets/src/development.yaml";
 }

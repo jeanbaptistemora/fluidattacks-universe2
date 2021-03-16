@@ -7,7 +7,7 @@ let
   userRotateKeys = import (path "/makes/utils/user-rotate-keys") path nixpkgs;
   name = "serves-users-integrates-rotate-odd";
   product = "serves";
-  target = "serves/users/integrates/terraform";
+  target = "makes/applications/serves/users/integrates/src/terraform";
   secretsPath = "makes/applications/serves/secrets/src/production.yaml";
   productionKeys = {
     "aws_iam_access_key.integrates-prod-key-1" = {

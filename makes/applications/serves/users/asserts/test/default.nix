@@ -8,5 +8,5 @@ in
 terraformTest {
   name = "serves-users-asserts-test";
   product = "serves";
-  target = "serves/users/asserts/terraform";
+  target = "makes/applications/serves/users/asserts/src/terraform";
 }

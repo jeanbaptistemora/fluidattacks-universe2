@@ -8,5 +8,5 @@ in
 terraformApply {
   name = "serves-users-forces-apply";
   product = "serves";
-  target = "serves/users/forces/terraform";
+  target = "makes/applications/serves/users/forces/src/terraform";
 }

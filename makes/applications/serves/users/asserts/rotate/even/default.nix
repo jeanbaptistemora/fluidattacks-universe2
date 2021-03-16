@@ -8,7 +8,7 @@ in
 userRotateKeys {
   name = "serves-users-asserts-rotate-even";
   product = "serves";
-  target = "serves/users/asserts/terraform";
+  target = "makes/applications/serves/users/asserts/src/terraform";
   keys = {
     "aws_iam_access_key.asserts-prod-key-2" = {
       id = {
