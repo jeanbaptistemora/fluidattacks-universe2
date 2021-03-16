@@ -32,6 +32,7 @@ _stream_executor: Mapping[
     SupportedStreams.ABUSE_REPORTS: streams.all_abuse_reports,
     SupportedStreams.RECENT_ACTIVITY: streams.recent_activity,
     SupportedStreams.TOP_CLIENTS: streams.top_clients,
+    SupportedStreams.MEMBERS: streams.all_members,
 }
 
 

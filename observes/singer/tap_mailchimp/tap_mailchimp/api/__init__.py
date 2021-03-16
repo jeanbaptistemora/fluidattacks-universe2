@@ -30,6 +30,7 @@ from tap_mailchimp.common.objs import (
 AbsReportId = raw_module.AbsReportId
 AudienceId = raw_module.AudienceId
 ItemId = raw_module.ItemId
+MemberId = raw_module.MemberId
 RawSource = raw_module.RawSource
 LOG = utils.get_log(__name__)
 
@@ -47,6 +48,8 @@ class ApiClient(NamedTuple):
     get_abuse_report: Callable[[AbsReportId], ApiData]
     get_activity: Callable[[AudienceId], Iterator[ApiData]]
     get_top_clients: Callable[[AudienceId], Iterator[ApiData]]
+    list_members: Callable[[AudienceId], Iterator[MemberId]]
+    get_member: Callable[[MemberId], ApiData]
 
 
 def _pop_if_exist(raw: JSON, key: str) -> Any:
@@ -129,6 +132,23 @@ def _list_abuse_reports(
     ))
 
 
+def _list_members(
+    raw_source: RawSource,
+    audience: AudienceId
+) -> Iterator[MemberId]:
+    result = create_api_data(
+        raw_source.list_members(audience)
+    )
+    data = result.data['members']
+    return iter(map(
+        lambda item: MemberId(
+            audience_id=audience,
+            str_id=item['id']
+        ),
+        data
+    ))
+
+
 def new_client_from_source(
     raw_source: RawSource
 ) -> ApiClient:
@@ -143,6 +163,10 @@ def new_client_from_source(
         ),
         get_activity=partial(_get_activity, raw_source),
         get_top_clients=partial(_get_top_clients, raw_source),
+        list_members=partial(_list_members, raw_source),
+        get_member=lambda item_id: create_api_data(
+            raw_source.get_member(item_id)
+        ),
     )
 
 

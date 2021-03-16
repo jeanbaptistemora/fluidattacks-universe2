@@ -30,12 +30,14 @@ from tap_mailchimp.api import (
     ApiData,
     AudienceId,
     ItemId,
+    MemberId,
 )
 
 
 class SupportedStreams(Enum):
     AUDIENCES = 'AUDIENCES'
     ABUSE_REPORTS = 'ABUSE_REPORTS'
+    MEMBERS = 'MEMBERS'
     RECENT_ACTIVITY = 'RECENT_ACTIVITY'
     TOP_CLIENTS = 'TOP_CLIENTS'
 
@@ -53,12 +55,14 @@ def _item_getter(
         SupportedStreams.ABUSE_REPORTS: client.get_abuse_report,
         SupportedStreams.RECENT_ACTIVITY: client.get_activity,
         SupportedStreams.TOP_CLIENTS: client.get_top_clients,
+        SupportedStreams.MEMBERS: client.get_member,
     }
     id_type = {
         SupportedStreams.AUDIENCES: AudienceId,
         SupportedStreams.ABUSE_REPORTS: AbsReportId,
         SupportedStreams.RECENT_ACTIVITY: AudienceId,
         SupportedStreams.TOP_CLIENTS: AudienceId,
+        SupportedStreams.MEMBERS: MemberId,
     }
     assert isinstance(item_id, id_type[stream])
     return getter[stream](item_id)
@@ -113,6 +117,16 @@ def all_abuse_reports(client: ApiClient, target: Optional[IO[str]]) -> None:
         audiences_id
     )))
     _emit_items(client, stream, reports_id, target)
+
+
+def all_members(client: ApiClient, target: Optional[IO[str]]) -> None:
+    stream = SupportedStreams.MEMBERS
+    audiences_id = client.list_audiences()
+    members_id: Iterator[MemberId] = chain.from_iterable(iter(map(
+        client.list_members,
+        audiences_id
+    )))
+    _emit_items(client, stream, members_id, target)
 
 
 def recent_activity(client: ApiClient, target: Optional[IO[str]]) -> None:
