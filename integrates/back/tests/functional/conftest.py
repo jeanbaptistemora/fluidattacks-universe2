@@ -40,6 +40,7 @@ TEST_GROUPS: Set[str] = {
     'request_verification_vuln',
     'solve_event',
     'update_event_evidence',
+    'update_evidence_description',
     'update_evidence_mutation',
     'update_organization_policies',
     'update_severity',
