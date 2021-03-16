@@ -8,5 +8,5 @@ in
 terraformApply {
   name = "serves-aws-sso-apply";
   product = "serves";
-  target = "serves/aws-sso/terraform";
+  target = "makes/applications/serves/aws-sso/src/terraform";
 }

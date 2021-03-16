@@ -8,6 +8,6 @@ in
 terraformApply {
   name = "serves-vpc-apply";
   product = "serves";
-  target = "serves/vpc/terraform";
+  target = "makes/applications/serves/vpc/src/terraform";
   secretsPath = "serves/secrets/production.yaml";
 }

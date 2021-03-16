@@ -8,6 +8,6 @@ in
 terraformApply {
   name = "serves-dns-apply";
   product = "serves";
-  target = "serves/dns/terraform";
+  target = "makes/applications/serves/dns/src/terraform";
   secretsPath = "serves/secrets/production.yaml";
 }
