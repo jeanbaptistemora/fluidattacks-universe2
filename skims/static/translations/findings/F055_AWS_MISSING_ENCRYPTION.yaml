@@ -1,0 +1,33 @@
+src.lib_path.f055_aws.unencrypted_volumes:
+  en: EC2 volumes are not encrypted or do not use customer-managed keys.
+  es: >
+    Los volúmenes EC2 no están cifrados o no usan claves administradas por el
+    cliente.
+src.lib_path.f055_aws.unencrypted_buckets:
+  en: S3 buckets do not use server-side encryption.
+  es: Los buckets S3 no usan cifrado del lado del servidor.
+F055_AWS_MISSING_ENCRYPTION.description:
+  en: Infrastructure is not encrypted.
+  es: La infrastructura no se encuentra cifrada.
+F055_AWS_MISSING_ENCRYPTION.impact:
+  en: >
+    Expose resources, processes and sensitive information that could be
+    compromised.
+  es: >
+    Exponer recursos, procesos e información sensible que podrían ser
+    comprometidos.
+F055_AWS_MISSING_ENCRYPTION.recommendation:
+  en: >
+    Encrypt infrastructure with server-side encryption or customer-managed keys
+  es: >
+    Cifrar la infrastructura con cifrado del lado del servidor o llaves
+    administradas por el usuario
+F055_AWS_MISSING_ENCRYPTION.requirements:
+  en: R185. Encrypt sensitive information.
+  es: R185. Cifrar información sensible.
+F055_AWS_MISSING_ENCRYPTION.threat:
+  en: Internal attacker with access to the configuration.
+  es: Atacante intnterno con acceso a la configuración.
+F055_AWS_MISSING_ENCRYPTION.title:
+  en: F055. Insecure service configuration - AWS Missing encryption
+  es: F055. Configuración insegura del servicio - AWS ausencía de cifrado

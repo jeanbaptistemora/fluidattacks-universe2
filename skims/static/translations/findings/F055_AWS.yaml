@@ -37,14 +37,6 @@ src.lib_path.f055_aws.public_buckets:
   es: >
     Los buckets S3 son accesibles públicamente para operaciones de lectura o
     escritura.
-src.lib_path.f055_aws.unencrypted_volumes:
-  en: EC2 volumes are not encrypted or do not use customer-managed keys.
-  es: >
-    Los volúmenes EC2 no están cifrados o no usan claves administradas por el
-    cliente.
-src.lib_path.f055_aws.unencrypted_buckets:
-  en: S3 buckets do not use server-side encryption.
-  es: Los buckets S3 no usan cifrado del lado del servidor.
 utils.model.finding.enum.F055_AWS.description:
   en: >
     The service uses insecure configurations that could compromise the data and
