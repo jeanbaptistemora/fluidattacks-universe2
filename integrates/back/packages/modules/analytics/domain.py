@@ -18,10 +18,10 @@ from starlette.requests import Request
 from starlette.responses import Response
 
 # Local libraries
+from analytics import dal as analytics_dal
 from back.app.views import templates
 from back.settings import LOGGING
 from backend import util
-from backend.dal import analytics as analytics_dal
 from backend.dal.helpers.redis import redis_get_or_set_entity_attr
 from backend.domain import organization as organization_domain
 from backend.exceptions import DocumentNotFound

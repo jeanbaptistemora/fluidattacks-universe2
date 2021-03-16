@@ -14,7 +14,7 @@ from __init__ import (
 )
 
 
-@apm.trace()  # type: ignore
+@apm.trace()
 async def get_document(key: str) -> str:
     key = f'{CI_COMMIT_REF_NAME}/documents/{key}'
 
@@ -34,7 +34,7 @@ async def get_document(key: str) -> str:
         return stream.read().decode()
 
 
-@apm.trace()  # type: ignore
+@apm.trace()
 async def get_snapshot(key: str) -> bytes:
     key = f'{CI_COMMIT_REF_NAME}/snapshots/{key}'
 
