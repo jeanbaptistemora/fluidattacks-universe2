@@ -1,7 +1,6 @@
 # Standard library
 from itertools import (
     chain,
-    filterfalse,
     product,
 )
 import os
@@ -40,7 +39,9 @@ from model.graph_model import (
 from utils.function import (
     trace,
 )
-from utils.logs import log_blocking
+from utils.logs import (
+    log_blocking,
+)
 
 from utils.system import (
     read_blocking,
@@ -413,33 +414,16 @@ def flows(
     )))
 
 
-def branches_cfg(
-    graph: Graph,
-    n_id: NId,
-) -> Tuple[Tuple[str, ...], ...]:
-    # Compute all childs reachable from CFG edges
-    c_ids = adj_cfg(graph, n_id, depth=-1)
-
-    # Filter the ones that are leafs
-    leaf_ids = filterfalse(lambda x_id: adj_cfg(graph, x_id), c_ids)
-
-    return tuple(sorted(
-        path
-        for leaf_id in leaf_ids
-        for path in paths(graph, n_id, leaf_id, label_cfg='CFG')
-    ))
-
-
 @trace()
-def branches_cfg_finding(
+def branches_cfg(
     graph: Graph,
     n_id: NId,
     finding: core_model.FindingEnum
 ) -> Tuple[Tuple[str, ...], ...]:
-    return tuple(_branches_cfg_finding(graph, n_id, finding))
+    return tuple(_branches_cfg(graph, n_id, finding))
 
 
-def _branches_cfg_finding(
+def _branches_cfg(
     graph: Graph,
     n_id: NId,
     finding: core_model.FindingEnum

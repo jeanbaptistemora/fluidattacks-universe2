@@ -500,7 +500,7 @@ def get_possible_syntax_steps_for_untrusted_n_id(
             shard=shard,
             path=path,
         )
-        for path in g.branches_cfg_finding(
+        for path in g.branches_cfg(
             graph=shard.graph,
             n_id=g.lookup_first_cfg_parent(shard.graph, untrusted_n_id),
             finding=finding
