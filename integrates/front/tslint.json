@@ -51,6 +51,7 @@
       "src/scenes/Dashboard/containers/ProjectSettingsView/Portfolio/**",
       "src/scenes/Dashboard/containers/ProjectSettingsView/Services/**",
       "src/scenes/Dashboard/containers/ProjectSettingsView/Unsubscribe/**",
+      "src/scenes/Dashboard/containers/RecordsView/index.spec.tsx",
       "src/scenes/Dashboard/containers/TrackingView/**",
       "src/scenes/Dashboard/containers/VulnerabilitiesView/**",
       "src/scenes/Registration/**"
