@@ -17,6 +17,9 @@ import click
 from utils.ctx import (
     CTX,
 )
+from utils.env import (
+    guess_environment,
+)
 from utils.function import (
     shield,
 )
@@ -82,11 +85,13 @@ def dispatch(
     )
 
     log_blocking('info', 'Success: %s', success)
-    log_to_remote_blocking(
-        execution_seconds=f'{time() - start_time}',
-        msg='Success' if success else 'Failure',
-        severity='info' if success else 'error',
-    )
+
+    if guess_environment() == 'production':
+        log_to_remote_blocking(
+            execution_seconds=f'{time() - start_time}',
+            msg='Success' if success else 'Failure',
+            severity='info' if success else 'error',
+        )
 
     sys.exit(0 if success else 1)
 

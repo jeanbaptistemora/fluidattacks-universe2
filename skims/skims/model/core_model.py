@@ -620,6 +620,8 @@ class NVDVulnerability(NamedTuple):
 class SkimsPathConfig(NamedTuple):
     exclude: Tuple[str, ...]
     include: Tuple[str, ...]
+    lib_path: bool
+    lib_root: bool
 
 
 class SkimsConfig(NamedTuple):

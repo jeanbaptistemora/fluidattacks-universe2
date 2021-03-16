@@ -170,7 +170,7 @@ def time_limited(
 
 
 def trace() -> Callable[[TFun], TFun]:
-    return tracers.function.trace(enabled=CTX.debug)
+    return tracers.function.trace(enabled=getattr(CTX, 'debug', False))
 
 
 # Constants

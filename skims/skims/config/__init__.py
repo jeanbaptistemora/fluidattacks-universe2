@@ -49,6 +49,8 @@ def load(group: Optional[str], path: str) -> core_model.SkimsConfig:
             path=core_model.SkimsPathConfig(
                 exclude=config_path.pop('exclude', ()),
                 include=config_path.pop('include', ()),
+                lib_path=config_path.pop('lib_path', True),
+                lib_root=config_path.pop('lib_root', True),
             ),
             start_dir=os.getcwd(),
             timeout=config.pop('timeout', None),
