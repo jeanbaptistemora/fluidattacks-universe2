@@ -262,6 +262,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
             variables: {
               environment,
               gitignore,
+              groupName,
               id,
               includesHealthCheck,
             },
@@ -276,9 +277,9 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
     values: IGitRootAttr
   ) => Promise<void> = React.useCallback(
     async ({ environmentUrls, id }): Promise<void> => {
-      await updateGitEnvs({ variables: { environmentUrls, id } });
+      await updateGitEnvs({ variables: { environmentUrls, groupName, id } });
     },
-    [updateGitEnvs]
+    [groupName, updateGitEnvs]
   );
 
   function handleChange(columnName: string): void {

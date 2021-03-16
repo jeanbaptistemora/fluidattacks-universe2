@@ -34,7 +34,7 @@ from backend.typing import (
     Root,
 )
 from newutils import (
-    datetime,
+    datetime as datetime_utils,
     validations,
 )
 from notifications import domain as notifications_domain
@@ -153,7 +153,7 @@ async def add_git_root(context: Any, user_email: str, **kwargs: Any) -> None:
     if not validations.is_exclude_valid(gitignore, url):
         raise InvalidRootExclusion()
 
-    now_date = datetime.get_as_str(datetime.get_now())
+    now_date = datetime_utils.get_as_str(datetime_utils.get_now())
     initial_cloning_status: Dict[str, Any] = {
         'date': now_date,
         'status': 'UNKNOWN',
@@ -216,7 +216,7 @@ async def add_ip_root(context: Any, user_email: str, **kwargs: Any) -> None:
         org_id = group['organization']
         initial_state: Dict[str, Any] = {
             'address': address,
-            'date': datetime.get_as_str(datetime.get_now()),
+            'date': datetime_utils.get_as_str(datetime_utils.get_now()),
             'port': port,
             'user': user_email
         }
@@ -251,7 +251,7 @@ async def add_url_root(context: Any, user_email: str, **kwargs: Any) -> None:
         group = await group_loader.load(group_name)
 
         initial_state: Dict[str, Any] = {
-            'date': datetime.get_as_str(datetime.get_now()),
+            'date': datetime_utils.get_as_str(datetime_utils.get_now()),
             'host': host,
             'path': path,
             'port': port,
@@ -368,7 +368,7 @@ async def update_git_environments(
         group_name: str = root['group_name']
         new_state: Dict[str, Any] = {
             **last_state,
-            'date': datetime.get_as_str(datetime.get_now()),
+            'date': datetime_utils.get_as_str(datetime_utils.get_now()),
             'environment_urls': environment_urls,
             'user': user_email
         }
@@ -413,7 +413,7 @@ async def update_git_root(user_email: str, **kwargs: Any) -> None:
 
         new_state: Dict[str, Any] = {
             **last_state,
-            'date': datetime.get_as_str(datetime.get_now()),
+            'date': datetime_utils.get_as_str(datetime_utils.get_now()),
             'environment': kwargs['environment'],
             'gitignore': gitignore,
             'includes_health_check': kwargs['includes_health_check'],
@@ -463,7 +463,7 @@ async def update_root_cloning_status(
     if last_status['status'] != status:
         new_status: Dict[str, Any] = {
             'status': status,
-            'date': datetime.get_as_str(datetime.get_now()),
+            'date': datetime_utils.get_as_str(datetime_utils.get_now()),
             'message': message,
         }
 
@@ -481,7 +481,7 @@ async def update_root_state(user_email: str, root_id: str, state: str) -> None:
     if last_state['state'] != state:
         new_state: Dict[str, Any] = {
             **last_state,
-            'date': datetime.get_as_str(datetime.get_now()),
+            'date': datetime_utils.get_as_str(datetime_utils.get_now()),
             'state': state,
             'user': user_email,
         }

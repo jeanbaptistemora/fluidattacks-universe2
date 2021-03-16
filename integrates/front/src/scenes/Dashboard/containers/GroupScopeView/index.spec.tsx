@@ -289,6 +289,7 @@ describe("GroupScopeView", (): void => {
         variables: {
           environment: "staging",
           gitignore: ["node_modules/*"],
+          groupName: "unittesting",
           id: "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19",
           includesHealthCheck: true,
         },

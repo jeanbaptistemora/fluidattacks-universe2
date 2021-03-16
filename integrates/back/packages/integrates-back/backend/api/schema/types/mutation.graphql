@@ -325,6 +325,8 @@ type Mutation {
   updateForcesAccessToken(projectName: String!): UpdateAccessTokenPayload!
 
   updateGitEnvironments(
+    "Name of the group the root is associated with"
+    groupName: String
     "ID of the root"
     id: ID!
     "URLs to access the environment"
@@ -336,6 +338,8 @@ type Mutation {
     environment: String!
     "Repository paths to be ignored"
     gitignore: [String!]!
+    "Name of the group the root is associated with"
+    groupName: String
     "ID of the root"
     id: ID!
     "Analyze already existing code"
@@ -354,6 +358,8 @@ type Mutation {
   ): SimplePayload!
 
   updateRootCloningStatus(
+    "Name of the group the root is associated with"
+    groupName: String
     "ID of the root"
     id: ID!
     "Whether the root is cloning or not"
@@ -363,6 +369,8 @@ type Mutation {
   ): SimplePayload!
 
   updateRootState(
+    "Name of the group the root is associated with"
+    groupName: String
     "ID of the root"
     id: ID!
     "Whether the root is active or not"

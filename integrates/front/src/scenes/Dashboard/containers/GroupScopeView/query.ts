@@ -60,8 +60,16 @@ const ADD_GIT_ROOT: DocumentNode = gql`
 `;
 
 const UPDATE_GIT_ENVIRONMENTS: DocumentNode = gql`
-  mutation UpdateGitEnvironments($id: ID!, $environmentUrls: [String!]!) {
-    updateGitEnvironments(id: $id, environmentUrls: $environmentUrls) {
+  mutation UpdateGitEnvironments(
+    $groupName: String
+    $id: ID!
+    $environmentUrls: [String!]!
+  ) {
+    updateGitEnvironments(
+      groupName: $groupName
+      id: $id
+      environmentUrls: $environmentUrls
+    ) {
       success
     }
   }
@@ -71,12 +79,14 @@ const UPDATE_GIT_ROOT: DocumentNode = gql`
   mutation UpdateGitRoot(
     $environment: String!
     $gitignore: [String!]!
+    $groupName: String
     $id: ID!
     $includesHealthCheck: Boolean!
   ) {
     updateGitRoot(
       environment: $environment
       gitignore: $gitignore
+      groupName: $groupName
       id: $id
       includesHealthCheck: $includesHealthCheck
     ) {
@@ -86,8 +96,12 @@ const UPDATE_GIT_ROOT: DocumentNode = gql`
 `;
 
 const UPDATE_ROOT_STATE: DocumentNode = gql`
-  mutation UpdateRootState($id: ID!, $state: ResourceState!) {
-    updateRootState(id: $id, state: $state) {
+  mutation UpdateRootState(
+    $groupName: String
+    $id: ID!
+    $state: ResourceState!
+  ) {
+    updateRootState(groupName: $groupName, id: $id, state: $state) {
       success
     }
   }
