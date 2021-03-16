@@ -1,45 +1,32 @@
 # Standard libraries
 import json
-from typing import (
-    Union,
-)
+
 # Third party libraries
-from mailchimp_marketing import (
-    Client,
-)
 
 # Local libraries
 from tap_mailchimp import (
     api,
-    auth,
-    common
+)
+from tap_mailchimp.api import (
+    ApiClient,
+    AudienceId,
+)
+from tap_mailchimp.api.raw import (
+    RawSource,
+)
+from tap_mailchimp.common.objs import (
+    JSON,
 )
 
 
-ApiClient = Union[api.ApiClient]
-AudienceId = Union[api.AudienceId]
-Credentials = Union[auth.Credentials]
-JSON = Union[common.objs.JSON]
-RawSource = Union[api.raw.RawSource]
-
-
-def _list_audiences(client: Client) -> JSON:
-    # pylint: disable=unused-argument
+def _list_audiences() -> JSON:
     with open('./tests/mock_data/audience.json') as data:
         return json.load(data)['list_audiences']
 
 
-def _get_audience(client: Client, audience: AudienceId) -> JSON:
-    # pylint: disable=unused-argument
+def _get_audience(audience: AudienceId) -> JSON:
     with open('./tests/mock_data/audience.json') as data:
         return json.load(data)['get_audience'][audience.str_id]
-
-
-def mock_creds() -> Credentials:
-    return auth.to_credentials({
-        'api_key': 'the_key',
-        'dc': 'the_prefix',
-    })
 
 
 def mock_data_source() -> RawSource:
@@ -50,8 +37,10 @@ def mock_data_source() -> RawSource:
         get_abuse_report=lambda x: x,
         get_activity=lambda x: x,
         get_top_clients=lambda x: x,
+        list_members=lambda x: x,
+        get_member=lambda x: x,
     )
 
 
 def new_client() -> ApiClient:
-    return api.new_client_from_source(mock_creds(), mock_data_source())
+    return api.new_client_from_source(mock_data_source())

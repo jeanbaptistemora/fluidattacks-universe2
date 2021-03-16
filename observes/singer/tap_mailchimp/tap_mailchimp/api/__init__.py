@@ -69,11 +69,10 @@ def create_api_data(raw: JSON) -> ApiData:
 
 def _get_activity(
     raw_source: RawSource,
-    client: Client,
     audience: AudienceId
 ) -> Iterator[ApiData]:
     result = create_api_data(
-        raw_source.get_activity(client, audience)
+        raw_source.get_activity(audience)
     )
     audience_id = result.data['list_id']
     for data in result.data['activity']:
@@ -88,11 +87,10 @@ def _get_activity(
 
 def _get_top_clients(
     raw_source: RawSource,
-    client: Client,
     audience: AudienceId
 ) -> Iterator[ApiData]:
     result = create_api_data(
-        raw_source.get_top_clients(client, audience)
+        raw_source.get_top_clients(audience)
     )
     audience_id = result.data['list_id']
     for data in result.data['clients']:
@@ -106,10 +104,9 @@ def _get_top_clients(
 
 def _list_audiences(
     raw_source: RawSource,
-    client: Client,
 ) -> Iterator[AudienceId]:
     result = create_api_data(
-        raw_source.list_audiences(client)
+        raw_source.list_audiences()
     )
     audiences_data = result.data['lists']
     return iter(map(lambda a: AudienceId(a['id']), audiences_data))
@@ -117,11 +114,10 @@ def _list_audiences(
 
 def _list_abuse_reports(
     raw_source: RawSource,
-    client: Client,
     audience: AudienceId
 ) -> Iterator[AbsReportId]:
     result = create_api_data(
-        raw_source.list_abuse_reports(client, audience)
+        raw_source.list_abuse_reports(audience)
     )
     data = result.data['abuse_reports']
     return iter(map(
@@ -134,28 +130,27 @@ def _list_abuse_reports(
 
 
 def new_client_from_source(
-    creds: Credentials,
     raw_source: RawSource
 ) -> ApiClient:
+    return ApiClient(
+        list_audiences=partial(_list_audiences, raw_source),
+        get_audience=lambda item_id: create_api_data(
+            raw_source.get_audience(item_id)
+        ),
+        list_abuse_reports=partial(_list_abuse_reports, raw_source),
+        get_abuse_report=lambda item_id: create_api_data(
+            raw_source.get_abuse_report(item_id)
+        ),
+        get_activity=partial(_get_activity, raw_source),
+        get_top_clients=partial(_get_top_clients, raw_source),
+    )
+
+
+def new_client(creds: Credentials) -> ApiClient:
     client = Client()
     client.set_config({
         'api_key': creds.api_key,
         'server': creds.dc
     })
-    return ApiClient(
-        list_audiences=partial(_list_audiences, raw_source, client),
-        get_audience=lambda item_id: create_api_data(
-            raw_source.get_audience(client, item_id)
-        ),
-        list_abuse_reports=partial(_list_abuse_reports, raw_source, client),
-        get_abuse_report=lambda item_id: create_api_data(
-            raw_source.get_abuse_report(client, item_id)
-        ),
-        get_activity=partial(_get_activity, raw_source, client),
-        get_top_clients=partial(_get_top_clients, raw_source, client),
-    )
-
-
-def new_client(creds: Credentials) -> ApiClient:
-    raw_source = raw_module.create_raw_source()
-    return new_client_from_source(creds, raw_source)
+    raw_source = raw_module.create_raw_source(client)
+    return new_client_from_source(raw_source)

@@ -1,4 +1,5 @@
 # Standard libraries
+from functools import partial
 from typing import (
     Callable,
     NamedTuple,
@@ -31,16 +32,23 @@ class AbsReportId(NamedTuple):
     str_id: str
 
 
-ItemId = Union[AudienceId, AbsReportId]
+class MemberId(NamedTuple):
+    audience_id: AudienceId
+    str_id: str
+
+
+ItemId = Union[AudienceId, AbsReportId, MemberId]
 
 
 class RawSource(NamedTuple):
-    list_audiences: Callable[[Client], JSON]
-    get_audience: Callable[[Client, AudienceId], JSON]
-    list_abuse_reports: Callable[[Client, AudienceId], JSON]
-    get_abuse_report: Callable[[Client, AbsReportId], JSON]
-    get_activity: Callable[[Client, AudienceId], JSON]
-    get_top_clients: Callable[[Client, AudienceId], JSON]
+    list_audiences: Callable[[], JSON]
+    get_audience: Callable[[AudienceId], JSON]
+    list_abuse_reports: Callable[[AudienceId], JSON]
+    get_abuse_report: Callable[[AbsReportId], JSON]
+    get_activity: Callable[[AudienceId], JSON]
+    get_top_clients: Callable[[AudienceId], JSON]
+    list_members: Callable[[], JSON]
+    get_member: Callable[[MemberId], JSON]
 
 
 def _list_audiences(client: Client) -> JSON:
@@ -78,16 +86,28 @@ def _get_clients(client: Client, audience_id: AudienceId) -> JSON:
     return client.lists.get_list_clients(audience_id.str_id)
 
 
-def _get_members(client: Client, audience_id: str) -> JSON:
-    return client.lists.get_list_members_info(audience_id)
+def _list_members(client: Client, audience_id: AudienceId) -> JSON:
+    return client.lists.get_list_members_info(
+        audience_id.str_id,
+        fields=['members.id', 'total_items', '_links']
+    )
 
 
-def create_raw_source() -> RawSource:
+def _get_member(client: Client, member_id: MemberId) -> JSON:
+    return client.lists.get_list_member(
+        member_id.audience_id.str_id,
+        member_id.str_id
+    )
+
+
+def create_raw_source(client: Client) -> RawSource:
     return RawSource(
-        list_audiences=_list_audiences,
-        get_audience=_get_audience,
-        list_abuse_reports=_list_abuse_reports,
-        get_abuse_report=_get_abuse_report,
-        get_activity=_get_activity,
-        get_top_clients=_get_clients
+        list_audiences=partial(_list_audiences, client),
+        get_audience=partial(_get_audience, client),
+        list_abuse_reports=partial(_list_abuse_reports, client),
+        get_abuse_report=partial(_get_abuse_report, client),
+        get_activity=partial(_get_activity, client),
+        get_top_clients=partial(_get_clients, client),
+        list_members=partial(_list_members, client),
+        get_member=partial(_get_member, client),
     )
