@@ -156,6 +156,11 @@ integrates.back.lint:
   <<: *in_dev_branch_integrates
   stage: lint-code
 
+integrates.back.security:
+  <<: *makes
+  <<: *in_dev_branch_integrates
+  stage: test-security
+
 .integrates.back.test.functional: &integrates_back_test_functional
   <<: *makes
   <<: *in_dev_branch_integrates
