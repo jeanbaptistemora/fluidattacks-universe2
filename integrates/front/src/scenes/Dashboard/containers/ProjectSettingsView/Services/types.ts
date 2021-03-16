@@ -1,4 +1,4 @@
-export interface IFormData {
+interface IFormData {
   comments: string;
   confirmation: string;
   drills: boolean;
@@ -9,7 +9,7 @@ export interface IFormData {
   type: string;
 }
 
-export interface IGroupData {
+interface IGroupData {
   project: {
     hasDrills: boolean;
     hasForces: boolean;
@@ -20,13 +20,15 @@ export interface IGroupData {
   };
 }
 
-export interface IServicesProps {
+interface IServicesProps {
   groupName: string;
 }
 
-export interface IServicesDataSet {
+interface IServicesDataSet {
   canHave: boolean;
   id: string;
-  onChange?: ((checked: boolean) => void);
+  onChange?: (checked: boolean) => void;
   service: string;
 }
+
+export { IFormData, IGroupData, IServicesDataSet, IServicesProps };
