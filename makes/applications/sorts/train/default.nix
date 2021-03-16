@@ -8,7 +8,7 @@ makeEntrypoint {
   name = "sorts-train";
   searchPaths = {
     envPaths = [ nixpkgs.python38 ];
-    envSources = [ packages.sorts.config-development ];
+    envSources = [ packages.sorts.config-runtime ];
     envUtils = [
       "/makes/utils/aws"
     ];
