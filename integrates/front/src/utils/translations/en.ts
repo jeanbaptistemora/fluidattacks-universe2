@@ -534,7 +534,7 @@ export const enTranslations: ResourceKey = {
             "Patterns that define which files should be ignored during the analysis",
           warning:
             "Vulnerabilities of various impact can exist in test directories. " +
-            "We recommend you do not exlude any part of your repository. " +
+            "We recommend you do not exclude any part of your repository. " +
             "Decide at your own risk.",
         },
         healthCheck: {
@@ -931,7 +931,7 @@ export const enTranslations: ResourceKey = {
       continuous: "Continuous Hacking",
       deleteGroup: {
         deleteGroup: "Delete this group",
-        typeGroupName: "Please type the group name to procede.",
+        typeGroupName: "Please type the group name to proceed.",
         warning: "Group deletion is a destructive action and cannot be undone.",
         warningBody:
           "This action will immediately delete the group. " +
@@ -998,7 +998,7 @@ export const enTranslations: ResourceKey = {
         success: "Unsubscription from {{groupName}} was successful",
         successTitle: "Success",
         title: "Unsubscribe",
-        typeGroupName: "Please type the group name to procede.",
+        typeGroupName: "Please type the group name to proceed.",
         warning: "Revoke access permissions to this group.",
         warningBody:
           "This action will unsubscribe you from the group. " +
@@ -1325,7 +1325,7 @@ export const enTranslations: ResourceKey = {
       meanRemediate: {
         text: "Mean time to remediate",
         tooltip:
-          "Amount of time it will takes your development team to fix a vulnerability",
+          "Amount of time it will take your development team to fix a vulnerability",
       },
       open: "Open",
       pendingClosingCheck: {
@@ -1346,7 +1346,7 @@ export const enTranslations: ResourceKey = {
       totalVulnerabilitites: {
         text: "Total Vulnerabilities",
         tooltip:
-          "Number of times that the total findings types repeat within your system",
+          "Number of times that the total finding types repeat within your system",
       },
       treatmentAccepted: "Temporarily accepted",
       treatmentAcceptedUndefined: "Eternally accepted",
@@ -1701,9 +1701,9 @@ export const enTranslations: ResourceKey = {
         },
       },
       integrityOptions: {
-        complete: "Complete: Posibility to modify all target information",
+        complete: "Complete: Possibility to modify all target information",
         none: "None: There is no impact",
-        partial: "Partial: Posibility to modify some target information",
+        partial: "Partial: Possibility to modify some target information",
       },
       integrityRequirement: "Integrity Requirement",
       integrityRequirementOptions: {
@@ -1747,7 +1747,7 @@ export const enTranslations: ResourceKey = {
           tooltip:
             "<strong>Worst:</strong> " +
             "The attacker is unauthorized prior to attack, and therefore does not require any access to settings " +
-            "or files of the the vulnerable system to carry out an attack.",
+            "or files of the vulnerable system to carry out an attack.",
         },
       },
       remediationLevel: "Remediation Level",
@@ -1823,7 +1823,7 @@ export const enTranslations: ResourceKey = {
       resolution: "Resolution Level",
       resolutionOptions: {
         nonExistent: "Non-existent: There is no solution",
-        official: "Official: There is an manufacturer available patch",
+        official: "Official: There is a manufacturer available patch",
         palliative:
           "Palliative: There is a patch that was not published by the manufacturer",
         temporal: "Temporal: There are temporary solutions",
@@ -1921,7 +1921,7 @@ export const enTranslations: ResourceKey = {
       noSelection: "You must select an email from the table.",
       removeUserButton: {
         text: "Remove",
-        tooltip: "Remove an user from the group, first select one",
+        tooltip: "Remove a user from the group, first select one",
       },
       success: ", an email will be sent to confirm the registration.",
       successAdmin: "Stakeholder information updated.",
@@ -2175,7 +2175,7 @@ export const enTranslations: ResourceKey = {
     invalidFieldLength: "The value inserted in one of the fields is too large",
     invalidPhoneNumberInField: "The phone number inserted is not valid",
     invalidTextBeginning:
-      "Field cannot begin with the followng character: {{ chars }}",
+      "Field cannot begin with the following character: {{ chars }}",
     invalidTextField:
       "Field cannot contain the following characters: {{chars}}",
     invalidUrlField:

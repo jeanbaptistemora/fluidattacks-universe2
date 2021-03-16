@@ -423,7 +423,7 @@ describe("Validations", (): void => {
     const feedbackLessThan: string | undefined = validTextField("<testfield");
 
     expect(feedbackEqual).toStrictEqual(
-      "Field cannot begin with the followng character: '='"
+      "Field cannot begin with the following character: '='"
     );
     expect(feedbackApos).toStrictEqual(
       "Field cannot contain the following characters: '''"

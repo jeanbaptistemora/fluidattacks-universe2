@@ -36,7 +36,7 @@ const ActionButtons: React.FC<IActionButtonsProps> = (
           </TooltipWrapper>
         ) : undefined}
         <TooltipWrapper
-          id={"searchFindings.tabDescription.editable.cancel_edit_tooltip-btn"}
+          id={"searchFindings.tabDescription.editable.cancelEditTooltip-btn"}
           message={
             isEditing
               ? translate.t(

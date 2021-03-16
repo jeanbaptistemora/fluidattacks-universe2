@@ -553,7 +553,7 @@ const ProjectFindingsView: React.FC = (): JSX.Element => {
                           </Button>
                         </TooltipWrapper>
                         <TooltipWrapper
-                          id={"group.findings.report.data_tooltip.id"}
+                          id={"group.findings.report.dataTooltip.id"}
                           message={translate.t(
                             "group.findings.report.dataTooltip"
                           )}

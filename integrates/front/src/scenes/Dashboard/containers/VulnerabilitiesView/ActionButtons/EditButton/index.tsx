@@ -26,7 +26,7 @@ const EditButton: React.FC<IEditButtonProps> = ({
       {shouldRenderEditBtn ? (
         <TooltipWrapper
           displayClass={"dib"}
-          id={"searchFindings.tabDescription.save_edit.tooltip.id"}
+          id={"searchFindings.tabDescription.saveEdit.tooltip.id"}
           message={
             isEditing
               ? t("searchFindings.tabDescription.save.tooltip")

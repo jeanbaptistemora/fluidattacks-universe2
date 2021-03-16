@@ -62,7 +62,7 @@ const ReattackVulnButton: React.FC<IReattackVulnButtonProps> = ({
       {shouldRenderRequestVerifyBtn ? (
         <TooltipWrapper
           displayClass={"dib"}
-          id={"searchFindings.tabVuln.buttonsTooltip.cancel_reattack.id"}
+          id={"searchFindings.tabVuln.buttonsTooltip.cancelReattack.id"}
           message={
             isRequestingReattack
               ? t("searchFindings.tabVuln.buttonsTooltip.cancel")
