@@ -1,0 +1,68 @@
+src.lib_path.f024_aws.unrestricted_protocols:
+  en: >
+    The ingress/egress rules of the SecurityGroup allow the use of all ip
+    protocols.
+  es: >
+    Las reglas ingress/egress de los SecurityGroup permiten el uso de todos los
+    protocolos ip.
+src.lib_path.f024_aws.allows_anyone_to_admin_ports:
+  en: >
+    The ingress rules of the SecurityGroups allow access to administrative
+    ports to everyone.
+  es: >
+    Las reglas ingress de los SecurityGroups permiten el acceso a puertos
+    administrativos a todo el mundo.
+src.lib_path.f024_aws.unrestricted_ports:
+  en: The ingress/egress rules of the SecurityGroup use port ranges.
+  es: Las reglas ingress/egress de los SecurityGroup usan rangos de puertos.
+src.lib_path.f024_aws.unrestricted_cidrs:
+  en: The ingress/egress rules of the SecurityGroup use cidrs open to everyone.
+  es: Las reglas ingress/egress de los SecurityGroup usan cidrs abiertos a todo el mundo.
+src.lib_path.f024_aws.security_group_without_egress:
+  en: Missing egress rules allows all egress traffic, explicitly define egress rules.
+  es: >
+    La falta de reglas de salida permite todo el tráfico de salida, defina
+    explícitamente las reglas de salida.
+src.lib_path.f024_aws.instances_without_profile:
+  en: EC2 instances require credentials to access other AWS services
+  es: Las instancias EC2 requieren credenciales para acceder a otros servicios AWS
+src.lib_path.f024_aws.public_buckets:
+  en: S3 buckets are publicly accessible for read or write operations.
+  es: Los buckets S3 son accesibles públicamente para operaciones de lectura o escritura.
+utils.model.finding.enum.F024_AWS.description:
+  en: >
+    The system’s network configuration does not properly limit access between
+    network segments. This allows employees from any office to access
+    administrative services of servers and other offices.
+    Alternatively, servers that are supposed to be accessed only from an
+    internal network are exposed to other network segments, such as the
+    internet.
+  es: >
+    La configuración de red del sistema no limita apropiadamente el acceso
+    entre segmentos de red. Esto permite que empleados desde cualquier oficina
+    accesen servicios administrativos de servicios y otras oficinas.
+    Alternativamente, los servidores que se espera sean accedidos solo desde
+    una red interna estan expuertos a otros segmentos de red, como Internet.
+utils.model.finding.enum.F024_AWS.impact:
+  en: Expose resources, processes and sensitive information that could be compromised.
+  es: Exponer recursos, procesos e información sensible que podrían ser comprometidos.
+utils.model.finding.enum.F024_AWS.recommendation:
+  en: >
+    Limit network segments, ports, IP addresses, network protocols, and
+    administrative services only to the required users.
+  es: >
+    Limitar los segmentos de red, puertos, direcciones IP, protocolos de red,
+    y servicios administrativos solamente a los usuarios requeridos.
+utils.model.finding.enum.F024_AWS.requirements:
+  en: |
+    - R255. Allow access only to the necessary ports.
+    - R266. Disable insecure functionalities.
+  es: |
+    - R255. Permitir el acceso solo a los puertos necesarios.
+    - R266. Deshabilitar funcionalidades inseguras.
+utils.model.finding.enum.F024_AWS.threat:
+  en: Anonymous attacker from Internet network.
+  es: Atacante anonimo desde red Internet.
+utils.model.finding.enum.F024_AWS.title:
+  en: F024. Unrestricted access between network segments - AWS
+  es: F024. Acceso no restringido entre segmentos de red - AWS
