@@ -14,6 +14,7 @@ from typing import (
     Iterator,
     Mapping,
     Optional,
+    Union,
 )
 
 # Third party libraries
@@ -43,10 +44,10 @@ def _item_getter(
     client: ApiClient,
     stream: SupportedStreams,
     item_id: ItemId
-) -> ApiData:
+) -> Union[ApiData, Iterator[ApiData]]:
     getter: Mapping[
         SupportedStreams,
-        Callable[[Any], ApiData],
+        Callable[[Any], Any],
     ] = {
         SupportedStreams.AUDIENCES: client.get_audience,
         SupportedStreams.ABUSE_REPORTS: client.get_abuse_report,
@@ -70,12 +71,15 @@ def _emit_item(
     target: Optional[IO[str]]
 ) -> None:
     target = target if target else sys.stdout
-    result = _item_getter(client, stream, item_id)
-    record = SingerRecord(
-        stream=stream.value.lower(),
-        record=result.data
-    )
-    factory.emit(record, target)
+    results = _item_getter(client, stream, item_id)
+    if isinstance(results, ApiData):
+        results = iter([results])
+    for result in results:
+        record = SingerRecord(
+            stream=stream.value.lower(),
+            record=result.data
+        )
+        factory.emit(record, target)
 
 
 def _emit_items(
@@ -95,36 +99,17 @@ def _emit_items(
     deque(map_obj, 0)
 
 
-def _get_audiences_id(client: ApiClient) -> Iterator[AudienceId]:
-    audiences_data = client.list_audiences().data['lists']
-    return iter(map(lambda a: AudienceId(a['id']), audiences_data))
-
-
-def _get_reports_id(
-    client: ApiClient,
-    audience: AudienceId
-) -> Iterator[AbsReportId]:
-    data = client.list_abuse_reports(audience).data['abuse_reports']
-    return iter(map(
-        lambda item: AbsReportId(
-            audience_id=audience,
-            str_id=item['id']
-        ),
-        data
-    ))
-
-
 def all_audiences(client: ApiClient, target: Optional[IO[str]]) -> None:
     stream = SupportedStreams.AUDIENCES
-    audiences_id = _get_audiences_id(client)
+    audiences_id = client.list_audiences()
     _emit_items(client, stream, audiences_id, target)
 
 
 def all_abuse_reports(client: ApiClient, target: Optional[IO[str]]) -> None:
     stream = SupportedStreams.ABUSE_REPORTS
-    audiences_id = _get_audiences_id(client)
+    audiences_id = client.list_audiences()
     reports_id: Iterator[AbsReportId] = chain.from_iterable(iter(map(
-        lambda audience: _get_reports_id(client, audience),
+        client.list_abuse_reports,
         audiences_id
     )))
     _emit_items(client, stream, reports_id, target)
@@ -132,11 +117,11 @@ def all_abuse_reports(client: ApiClient, target: Optional[IO[str]]) -> None:
 
 def recent_activity(client: ApiClient, target: Optional[IO[str]]) -> None:
     stream = SupportedStreams.RECENT_ACTIVITY
-    audiences_id = _get_audiences_id(client)
+    audiences_id = client.list_audiences()
     _emit_items(client, stream, audiences_id, target)
 
 
 def top_clients(client: ApiClient, target: Optional[IO[str]]) -> None:
     stream = SupportedStreams.TOP_CLIENTS
-    audiences_id = _get_audiences_id(client)
+    audiences_id = client.list_audiences()
     _emit_items(client, stream, audiences_id, target)

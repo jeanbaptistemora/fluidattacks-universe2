@@ -40,10 +40,7 @@ def test_all_audiences() -> None:
             lambda x: x.record,
             list(filter(lambda x: isinstance(x, SingerRecord), singer_msgs))
         ))
-        audiences = list(map(
-            lambda x: AudienceId(x['id']),
-            client.list_audiences().data['lists']
-        ))
+        audiences = client.list_audiences()
         # Assert
         assert n_schemas == 0
         for audience in audiences:
