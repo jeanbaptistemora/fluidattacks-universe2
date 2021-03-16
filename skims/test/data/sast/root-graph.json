@@ -12205,6 +12205,17 @@
             "type": "SyntaxStepNoOp"
           }
         ],
+        "300": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "300",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
         "62": [
           {
             "meta": {
@@ -42257,6 +42268,48 @@
             "type": "SyntaxStepMethodInvocation"
           }
         ],
+        "1174": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1179",
+              "value": null
+            },
+            "symbol": "counter",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1181",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "5",
+            "value_type": "number"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "1178",
+              "value": null
+            },
+            "operator": "<",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "1174",
+              "value": null
+            },
+            "type": "SyntaxStepParenthesizedExpression"
+          }
+        ],
         "1183": [
           {
             "meta": {
@@ -44182,6 +44235,48 @@
             "var_type": "int"
           }
         ],
+        "219": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "224",
+              "value": null
+            },
+            "symbol": "counter",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "226",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "5",
+            "value_type": "number"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "223",
+              "value": null
+            },
+            "operator": "<",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "219",
+              "value": null
+            },
+            "type": "SyntaxStepParenthesizedExpression"
+          }
+        ],
         "228": [
           {
             "meta": {
@@ -45902,6 +45997,48 @@
             "type": "SyntaxStepDeclaration",
             "var": "counter",
             "var_type": "int"
+          }
+        ],
+        "743": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "748",
+              "value": null
+            },
+            "symbol": "counter",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "750",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "5",
+            "value_type": "number"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "747",
+              "value": null
+            },
+            "operator": "<",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "743",
+              "value": null
+            },
+            "type": "SyntaxStepParenthesizedExpression"
           }
         ],
         "752": [

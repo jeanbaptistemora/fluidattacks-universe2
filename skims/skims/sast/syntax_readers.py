@@ -172,7 +172,29 @@ def for_statement(args: SyntaxReaderArgs,) -> graph_model.SyntaxStepsLazy:
             n_id_update=update,
         )
     else:
-        raise MissingCaseHandling(enhanced_for_statement, args)
+        raise MissingCaseHandling(for_statement, args)
+
+
+def while_statement(args: SyntaxReaderArgs,) -> graph_model.SyntaxStepsLazy:
+    match = g.match_ast(
+        args.graph, args.n_id,
+        'while',
+        'parenthesized_expression',
+        'block',
+    )
+    if (
+        len(match) == 3
+        and (expression := match['parenthesized_expression'])
+    ):
+        yield graph_model.SyntaxStepParenthesizedExpression(
+            meta=graph_model.SyntaxStepMeta.default(
+                args.n_id, dependencies_from_arguments(
+                    args.fork_n_id(expression),
+                ),
+            ),
+        )
+    else:
+        raise MissingCaseHandling(for_statement, args)
 
 
 def enhanced_for_statement(
@@ -341,14 +363,19 @@ def parenthesized_expression(
 ) -> graph_model.SyntaxStepsLazy:
     match = g.match_ast(
         args.graph, args.n_id,
-        '__1__',
+        'type_identifier',
+        '(',
+        ')',
+        '__0__',
     )
     yield graph_model.SyntaxStepParenthesizedExpression(
         meta=graph_model.SyntaxStepMeta.default(
             n_id=args.n_id,
-            dependencies=dependencies_from_arguments(args.fork_n_id(
-                match['__1__']), ),
-        ), )
+            dependencies=[
+                generic(args.fork_n_id(match['__0__'])),
+            ],
+        ),
+    )
 
 
 def catch_clause(
@@ -673,6 +700,17 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
             graph_model.GraphShardMetadataLanguage.JAVA,
         },
         applicable_node_label_types={
+            'while_statement',
+        },
+        syntax_readers=(
+            while_statement,
+        ),
+    ),
+    Dispatcher(
+        applicable_languages={
+            graph_model.GraphShardMetadataLanguage.JAVA,
+        },
+        applicable_node_label_types={
             'for_statement'
         },
         syntax_readers=(
@@ -851,6 +889,7 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
             'switch_label',
             'this',
             'try_statement',
+            'throw_statement',
             ';',
             '-',
             '+',
@@ -858,7 +897,8 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
             '/',
             '%',
             '(',
-            ')'
+            ')',
+            '.',
         )
     ],
 )
