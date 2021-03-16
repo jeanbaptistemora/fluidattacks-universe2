@@ -1,11 +1,11 @@
-export interface IRemoveStakeholderAttr {
+interface IRemoveStakeholderAttr {
   removeStakeholderAccess: {
     removedEmail: string;
     success: boolean;
   };
 }
 
-export interface IAddStakeholderAttr {
+interface IAddStakeholderAttr {
   grantStakeholderAccess: {
     grantedStakeholder: {
       email: string;
@@ -20,13 +20,13 @@ export interface IAddStakeholderAttr {
   };
 }
 
-export interface IGetStakeholdersAttrs {
+interface IGetStakeholdersAttrs {
   project: {
     stakeholders: IStakeholderAttrs[];
   };
 }
 
-export interface IStakeholderAttrs {
+interface IStakeholderAttrs {
   email: string;
   firstLogin: string;
   lastLogin: string;
@@ -37,7 +37,7 @@ export interface IStakeholderAttrs {
   role: string;
 }
 
-export interface IEditStakeholderAttr {
+interface IEditStakeholderAttr {
   editStakeholder: {
     modifiedStakeholder: {
       email: string;
@@ -45,3 +45,11 @@ export interface IEditStakeholderAttr {
     success: boolean;
   };
 }
+
+export {
+  IRemoveStakeholderAttr,
+  IAddStakeholderAttr,
+  IGetStakeholdersAttrs,
+  IStakeholderAttrs,
+  IEditStakeholderAttr,
+};

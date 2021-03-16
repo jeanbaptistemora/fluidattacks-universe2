@@ -1,9 +1,9 @@
-import { DocumentNode } from "graphql";
+import type { DocumentNode } from "graphql";
 import gql from "graphql-tag";
 
-export const GET_STAKEHOLDERS: DocumentNode = gql`
+const GET_STAKEHOLDERS: DocumentNode = gql`
   query GetStakeholdersQuery($projectName: String!) {
-    project(projectName: $projectName){
+    project(projectName: $projectName) {
       stakeholders {
         email
         invitationState
@@ -15,34 +15,35 @@ export const GET_STAKEHOLDERS: DocumentNode = gql`
       }
     }
   }
-  `;
+`;
 
-export const REMOVE_STAKEHOLDER_MUTATION: DocumentNode = gql`
-  mutation RemoveStakeholderAccessMutation($projectName: String!, $userEmail: String!, ) {
-    removeStakeholderAccess (
-      projectName: $projectName
-      userEmail: $userEmail
-    ) {
+const REMOVE_STAKEHOLDER_MUTATION: DocumentNode = gql`
+  mutation RemoveStakeholderAccessMutation(
+    $projectName: String!
+    $userEmail: String!
+  ) {
+    removeStakeholderAccess(projectName: $projectName, userEmail: $userEmail) {
       removedEmail
       success
     }
   }
-  `;
+`;
 
-export const ADD_STAKEHOLDER_MUTATION: DocumentNode = gql`
+const ADD_STAKEHOLDER_MUTATION: DocumentNode = gql`
   mutation GrantStakeholderMutation(
-    $email: String!,
-    $phoneNumber: String,
-    $projectName: String,
-    $responsibility: String,
+    $email: String!
+    $phoneNumber: String
+    $projectName: String
+    $responsibility: String
     $role: StakeholderRole!
+  ) {
+    grantStakeholderAccess(
+      email: $email
+      phoneNumber: $phoneNumber
+      projectName: $projectName
+      responsibility: $responsibility
+      role: $role
     ) {
-    grantStakeholderAccess (
-      email: $email,
-      phoneNumber: $phoneNumber,
-      projectName: $projectName,
-      responsibility: $responsibility,
-      role: $role) {
       success
       grantedStakeholder {
         email
@@ -54,24 +55,31 @@ export const ADD_STAKEHOLDER_MUTATION: DocumentNode = gql`
       }
     }
   }
-  `;
+`;
 
-export const EDIT_STAKEHOLDER_MUTATION: DocumentNode = gql`
+const EDIT_STAKEHOLDER_MUTATION: DocumentNode = gql`
   mutation EditStakeholderMutation(
-    $email: String!,
-    $phoneNumber: String!,
-    $projectName: String!,
-    $responsibility: String!,
+    $email: String!
+    $phoneNumber: String!
+    $projectName: String!
+    $responsibility: String!
     $role: StakeholderRole!
-    ) {
-    editStakeholder (
-      email: $email,
-      phoneNumber: $phoneNumber,
-      projectName: $projectName,
-      responsibility: $responsibility,
+  ) {
+    editStakeholder(
+      email: $email
+      phoneNumber: $phoneNumber
+      projectName: $projectName
+      responsibility: $responsibility
       role: $role
     ) {
       success
     }
   }
-  `;
+`;
+
+export {
+  GET_STAKEHOLDERS,
+  REMOVE_STAKEHOLDER_MUTATION,
+  ADD_STAKEHOLDER_MUTATION,
+  EDIT_STAKEHOLDER_MUTATION,
+};
