@@ -52,7 +52,7 @@ async def _get_url_group_report(
         return await report.generate_group_report(
             report_type,
             user_email,
-            context=info.context,
+            context=info.context.loaders,
             lang=lang,
             project_findings=finding_ids,
             project_name=group_name,

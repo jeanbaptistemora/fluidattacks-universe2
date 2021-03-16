@@ -1,5 +1,5 @@
 # Standard library
-from typing import Any
+from typing import Any, Optional
 
 # Third party libraries
 from aioextensions import (
@@ -8,6 +8,7 @@ from aioextensions import (
 )
 
 # Local libraries
+from backend.api import get_new_context
 from backend.domain import (
     finding as finding_domain,
     project as project_domain,
@@ -66,7 +67,7 @@ async def generate_group_report(
     elif report_type == 'XLS':
         schedule(
             technical_report.generate_xls(
-                context.loaders,
+                context,
                 findings_ord=findings_ord,
                 group_name=project_name,
                 user_email=user_email,
@@ -76,7 +77,7 @@ async def generate_group_report(
     elif report_type == 'DATA':
         schedule(
             data_report.generate(
-                context=context.loaders,
+                context=context,
                 findings_ord=findings_ord,
                 group=project_name,
                 group_description=description,
