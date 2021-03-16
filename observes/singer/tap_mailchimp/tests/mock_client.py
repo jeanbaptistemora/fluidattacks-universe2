@@ -49,6 +49,7 @@ def mock_data_source() -> RawSource:
         list_abuse_reports=lambda x: x,
         get_abuse_report=lambda x: x,
         get_activity=lambda x: x,
+        get_top_clients=lambda x: x,
     )
 
 

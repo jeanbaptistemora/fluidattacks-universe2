@@ -36,6 +36,7 @@ class SupportedStreams(Enum):
     AUDIENCES = 'AUDIENCES'
     ABUSE_REPORTS = 'ABUSE_REPORTS'
     RECENT_ACTIVITY = 'RECENT_ACTIVITY'
+    TOP_CLIENTS = 'TOP_CLIENTS'
 
 
 def _item_getter(
@@ -49,12 +50,14 @@ def _item_getter(
     ] = {
         SupportedStreams.AUDIENCES: client.get_audience,
         SupportedStreams.ABUSE_REPORTS: client.get_abuse_report,
-        SupportedStreams.RECENT_ACTIVITY: client.get_activity
+        SupportedStreams.RECENT_ACTIVITY: client.get_activity,
+        SupportedStreams.TOP_CLIENTS: client.get_top_clients,
     }
     id_type = {
         SupportedStreams.AUDIENCES: AudienceId,
         SupportedStreams.ABUSE_REPORTS: AbsReportId,
         SupportedStreams.RECENT_ACTIVITY: AudienceId,
+        SupportedStreams.TOP_CLIENTS: AudienceId,
     }
     assert isinstance(item_id, id_type[stream])
     return getter[stream](item_id)
@@ -129,5 +132,11 @@ def all_abuse_reports(client: ApiClient, target: Optional[IO[str]]) -> None:
 
 def recent_activity(client: ApiClient, target: Optional[IO[str]]) -> None:
     stream = SupportedStreams.RECENT_ACTIVITY
+    audiences_id = _get_audiences_id(client)
+    _emit_items(client, stream, audiences_id, target)
+
+
+def top_clients(client: ApiClient, target: Optional[IO[str]]) -> None:
+    stream = SupportedStreams.TOP_CLIENTS
     audiences_id = _get_audiences_id(client)
     _emit_items(client, stream, audiences_id, target)

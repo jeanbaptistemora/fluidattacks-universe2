@@ -42,6 +42,7 @@ class ApiClient(NamedTuple):
     list_abuse_reports: Callable[[AudienceId], ApiData]
     get_abuse_report: Callable[[AbsReportId], ApiData]
     get_activity: Callable[[AudienceId], ApiData]
+    get_top_clients: Callable[[AudienceId], ApiData]
 
 
 def _pop_if_exist(raw: JSON, key: str) -> Any:
@@ -94,7 +95,10 @@ def new_client_from_source(
         get_abuse_report=lambda item_id: create_api_data(
             raw_source.get_abuse_report(client, item_id)
         ),
-        get_activity=partial(_get_activity, raw_source, client)
+        get_activity=partial(_get_activity, raw_source, client),
+        get_top_clients=lambda item_id: create_api_data(
+            raw_source.get_top_clients(client, item_id)
+        ),
     )
 
 

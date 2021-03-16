@@ -40,6 +40,7 @@ class RawSource(NamedTuple):
     list_abuse_reports: Callable[[Client, AudienceId], JSON]
     get_abuse_report: Callable[[Client, AbsReportId], JSON]
     get_activity: Callable[[Client, AudienceId], JSON]
+    get_top_clients: Callable[[Client, AudienceId], JSON]
 
 
 def _list_audiences(client: Client) -> JSON:
@@ -73,8 +74,8 @@ def _get_activity(client: Client, audience_id: AudienceId) -> JSON:
     return client.lists.get_list_recent_activity(audience_id.str_id)
 
 
-def _get_clients(client: Client, audience_id: str) -> JSON:
-    return client.lists.get_list_clients(audience_id)
+def _get_clients(client: Client, audience_id: AudienceId) -> JSON:
+    return client.lists.get_list_clients(audience_id.str_id)
 
 
 def _get_members(client: Client, audience_id: str) -> JSON:
@@ -88,4 +89,5 @@ def create_raw_source() -> RawSource:
         list_abuse_reports=_list_abuse_reports,
         get_abuse_report=_get_abuse_report,
         get_activity=_get_activity,
+        get_top_clients=_get_clients
     )
