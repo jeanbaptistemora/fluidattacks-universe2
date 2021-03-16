@@ -47,6 +47,7 @@
       "src/scenes/Dashboard/containers/ProjectSettingsView/**",
       "src/scenes/Dashboard/containers/ProjectStakeholdersView/**",
       "src/scenes/Dashboard/containers/RecordsView/**",
+      "src/scenes/Dashboard/containers/SeverityView/index.spec.tsx",
       "src/scenes/Dashboard/containers/TrackingView/**",
       "src/scenes/Dashboard/containers/VulnerabilitiesView/**",
       "src/scenes/Registration/**"
