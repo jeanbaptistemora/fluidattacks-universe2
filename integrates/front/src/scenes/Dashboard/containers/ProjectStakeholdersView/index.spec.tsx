@@ -1,42 +1,43 @@
-import { MockedProvider, MockedResponse } from "@apollo/react-testing";
-import { PureAbility } from "@casl/ability";
 import { DataTableNext } from "components/DataTableNext";
-import { timeFromNow } from "components/DataTableNext/formatters";
-import { ITableProps } from "components/DataTableNext/types";
-import { mount, ReactWrapper } from "enzyme";
 import { GraphQLError } from "graphql";
-import * as React from "react";
-// tslint:disable-next-line: no-submodule-imports
-import { act } from "react-dom/test-utils";
-import { Provider } from "react-redux";
-import { MemoryRouter, Route } from "react-router";
-import wait from "waait";
-
+import type { ITableProps } from "components/DataTableNext/types";
+import { MockedProvider } from "@apollo/react-testing";
+import type { MockedResponse } from "@apollo/react-testing";
 import { ProjectStakeholdersView } from "scenes/Dashboard/containers/ProjectStakeholdersView";
+import { Provider } from "react-redux";
+import { PureAbility } from "@casl/ability";
+import React from "react";
+import type { ReactWrapper } from "enzyme";
+import { act } from "react-dom/test-utils";
+import { authzPermissionsContext } from "utils/authz/config";
+import { mount } from "enzyme";
+import store from "store";
+import { timeFromNow } from "components/DataTableNext/formatters";
+import wait from "waait";
 import {
   ADD_STAKEHOLDER_MUTATION,
   EDIT_STAKEHOLDER_MUTATION,
   GET_STAKEHOLDERS,
   REMOVE_STAKEHOLDER_MUTATION,
 } from "scenes/Dashboard/containers/ProjectStakeholdersView/queries";
-import store from "store";
-import { authzPermissionsContext } from "utils/authz/config";
+import { MemoryRouter, Route } from "react-router";
 import { msgError, msgSuccess } from "utils/notifications";
 
-jest.mock("../../../../utils/notifications", () => {
-  const mockedNotifications: Dictionary = jest.requireActual("../../../../utils/notifications");
-  mockedNotifications.msgSuccess = jest.fn();
-  mockedNotifications.msgError = jest.fn();
+jest.mock(
+  "../../../../utils/notifications",
+  (): Dictionary => {
+    const mockedNotifications: Dictionary = jest.requireActual(
+      "../../../../utils/notifications"
+    );
+    mockedNotifications.msgSuccess = jest.fn(); // eslint-disable-line fp/no-mutation, jest/prefer-spy-on
+    mockedNotifications.msgError = jest.fn(); // eslint-disable-line fp/no-mutation, jest/prefer-spy-on
 
-  return mockedNotifications;
-});
+    return mockedNotifications;
+  }
+);
 
-describe("Project users view", () => {
-  afterEach(() => {
-    jest.clearAllMocks();
-  });
-
-  const mocks: ReadonlyArray<MockedResponse> = [
+describe("Project users view", (): void => {
+  const mocks: readonly MockedResponse[] = [
     {
       request: {
         query: GET_STAKEHOLDERS,
@@ -98,7 +99,7 @@ describe("Project users view", () => {
     },
   ];
 
-  const mockError: ReadonlyArray<MockedResponse> = [
+  const mockError: readonly MockedResponse[] = [
     {
       request: {
         query: GET_STAKEHOLDERS,
@@ -112,41 +113,53 @@ describe("Project users view", () => {
     },
   ];
 
-  it("should return a function", () => {
-    expect(typeof (ProjectStakeholdersView))
-      .toEqual("function");
+  it("should return a function", (): void => {
+    expect.hasAssertions();
+    expect(typeof ProjectStakeholdersView).toStrictEqual("function");
   });
 
-  it("should render an error in component", async () => {
+  it("should render an error in component", async (): Promise<void> => {
+    expect.hasAssertions();
+
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/groups/TEST/stakeholders"]}>
         <Provider store={store}>
-          <MockedProvider mocks={mockError} addTypename={false}>
-            <Route path={"/groups/:projectName/stakeholders"} component={ProjectStakeholdersView}/>
+          <MockedProvider addTypename={false} mocks={mockError}>
+            <Route
+              component={ProjectStakeholdersView}
+              path={"/groups/:projectName/stakeholders"}
+            />
           </MockedProvider>
         </Provider>
-      </MemoryRouter>,
+      </MemoryRouter>
     );
     await wait(0);
-    expect(wrapper)
-      .toHaveLength(1);
+
+    expect(wrapper).toHaveLength(1);
+
+    jest.clearAllMocks();
   });
 
-  it("should display all group stakeholder columns", async () => {
+  it("should display all group stakeholder columns", async (): Promise<void> => {
+    expect.hasAssertions();
+
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/groups/TEST/stakeholders"]}>
         <Provider store={store}>
-          <MockedProvider mocks={mocks} addTypename={false}>
-            <Route path={"/groups/:projectName/stakeholders"} component={ProjectStakeholdersView}/>
+          <MockedProvider addTypename={false} mocks={mocks}>
+            <Route
+              component={ProjectStakeholdersView}
+              path={"/groups/:projectName/stakeholders"}
+            />
           </MockedProvider>
         </Provider>
-      </MemoryRouter>,
+      </MemoryRouter>
     );
     await act(
       async (): Promise<void> => {
         await wait(0);
         wrapper.update();
-      },
+      }
     );
 
     const stakeholderTable: ReactWrapper<ITableProps> = wrapper
@@ -155,162 +168,209 @@ describe("Project users view", () => {
 
     const tableHeader: ReactWrapper = stakeholderTable.find("Header");
 
-    expect(tableHeader.text())
-      .toContain("Stakeholder email");
-    expect(tableHeader.text())
-      .toContain("Role");
-    expect(tableHeader.text())
-      .toContain("Responsibility");
-    expect(tableHeader.text())
-      .toContain("Phone Number");
-    expect(tableHeader.text())
-      .toContain("First login");
-    expect(tableHeader.text())
-      .toContain("Last login");
-    expect(tableHeader.text())
-      .toContain("Invitation");
+    expect(tableHeader.text()).toContain("Stakeholder email");
+    expect(tableHeader.text()).toContain("Role");
+    expect(tableHeader.text()).toContain("Responsibility");
+    expect(tableHeader.text()).toContain("Phone Number");
+    expect(tableHeader.text()).toContain("First login");
+    expect(tableHeader.text()).toContain("Last login");
+    expect(tableHeader.text()).toContain("Invitation");
 
     const firstRow: ReactWrapper = stakeholderTable.find("RowAggregator");
 
-    expect(firstRow.text())
-      .toContain("user@gmail.com");
-    expect(firstRow.text())
-      .toContain("User");
-    expect(firstRow.text())
-      .toContain("Test responsibility");
-    expect(firstRow.text())
-      .toContain("+573123210121");
-    expect(firstRow.text())
-      .toContain("2017-09-05 15:00:00");
-    expect(firstRow.text())
-      .toContain(timeFromNow("2017-10-29 13:40:37"));
-    expect(firstRow.text())
-      .toContain("Confirmed");
+    expect(firstRow.text()).toContain("user@gmail.com");
+    expect(firstRow.text()).toContain("User");
+    expect(firstRow.text()).toContain("Test responsibility");
+    expect(firstRow.text()).toContain("+573123210121");
+    expect(firstRow.text()).toContain("2017-09-05 15:00:00");
+    expect(firstRow.text()).toContain(timeFromNow("2017-10-29 13:40:37"));
+    expect(firstRow.text()).toContain("Confirmed");
+
+    jest.clearAllMocks();
   });
 
-  it("should render an add stakeholder component", async () => {
+  it("should render an add stakeholder component", async (): Promise<void> => {
+    expect.hasAssertions();
+
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/groups/TEST/stakeholders"]}>
         <Provider store={store}>
-          <MockedProvider mocks={mocks} addTypename={false}>
-            <Route path={"/groups/:projectName/stakeholders"} component={ProjectStakeholdersView}/>
+          <MockedProvider addTypename={false} mocks={mocks}>
+            <Route
+              component={ProjectStakeholdersView}
+              path={"/groups/:projectName/stakeholders"}
+            />
           </MockedProvider>
         </Provider>
-      </MemoryRouter>,
+      </MemoryRouter>
     );
     await wait(0);
-    expect(wrapper)
-      .toHaveLength(1);
+
+    expect(wrapper).toHaveLength(1);
+
+    jest.clearAllMocks();
   });
 
-  it("should render an edit stakeholder component", async () => {
+  it("should render an edit stakeholder component", async (): Promise<void> => {
+    expect.hasAssertions();
+
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/groups/TEST/stakeholders"]}>
         <Provider store={store}>
-          <MockedProvider mocks={mocks} addTypename={false}>
-            <Route path={"/groups/:projectName/stakeholders"} component={ProjectStakeholdersView}/>
+          <MockedProvider addTypename={false} mocks={mocks}>
+            <Route
+              component={ProjectStakeholdersView}
+              path={"/groups/:projectName/stakeholders"}
+            />
           </MockedProvider>
         </Provider>
-      </MemoryRouter>,
+      </MemoryRouter>
     );
     await wait(0);
-    expect(wrapper)
-      .toHaveLength(1);
+
+    expect(wrapper).toHaveLength(1);
+
+    jest.clearAllMocks();
   });
 
-  it("should open a modal to add stakeholder", async () => {
+  it("should open a modal to add stakeholder", async (): Promise<void> => {
+    expect.hasAssertions();
+
     const mockedPermissions: PureAbility<string> = new PureAbility([
       { action: "backend_api_mutations_grant_stakeholder_access_mutate" },
     ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/groups/TEST/stakeholders"]}>
         <Provider store={store}>
-          <MockedProvider mocks={mocks} addTypename={false}>
+          <MockedProvider addTypename={false} mocks={mocks}>
             <authzPermissionsContext.Provider value={mockedPermissions}>
-              <Route path={"/groups/:projectName/stakeholders"} component={ProjectStakeholdersView}/>
+              <Route
+                component={ProjectStakeholdersView}
+                path={"/groups/:projectName/stakeholders"}
+              />
             </authzPermissionsContext.Provider>
           </MockedProvider>
         </Provider>
-      </MemoryRouter>,
+      </MemoryRouter>
     );
-    await act(async () => { await wait(0); wrapper.update(); });
-    let addUserModal: ReactWrapper = wrapper
+    await act(
+      async (): Promise<void> => {
+        await wait(0);
+        wrapper.update();
+      }
+    );
+    const addUserModal: ReactWrapper = wrapper
       .find("ModalBase")
-      .find({open: true, headerTitle: "Add stakeholder to this group"});
-    expect(addUserModal)
-      .toHaveLength(0);
-    const addButton: ReactWrapper = wrapper.find("button")
-      .findWhere((element: ReactWrapper) => element.contains("Add"))
+      .find({ headerTitle: "Add stakeholder to this group", open: true });
+
+    expect(addUserModal).toHaveLength(0);
+
+    const addButton: ReactWrapper = wrapper
+      .find("button")
+      .findWhere((element: ReactWrapper): boolean => element.contains("Add"))
       .at(0);
     addButton.simulate("click");
-    await act(async () => { await wait(0); wrapper.update(); });
-    addUserModal = wrapper
+    await act(
+      async (): Promise<void> => {
+        await wait(0);
+        wrapper.update();
+      }
+    );
+    const addUserModal2: ReactWrapper = wrapper
       .find("ModalBase")
-      .find({open: true, headerTitle: "Add stakeholder to this group"});
-    expect(addUserModal)
-      .toHaveLength(1);
+      .find({ headerTitle: "Add stakeholder to this group", open: true });
+
+    expect(addUserModal2).toHaveLength(1);
+
+    jest.clearAllMocks();
   });
 
-  it("should open a modal to edit stakeholder", async () => {
+  it("should open a modal to edit stakeholder", async (): Promise<void> => {
+    expect.hasAssertions();
+
     const mockedPermissions: PureAbility<string> = new PureAbility([
       { action: "backend_api_mutations_edit_stakeholder_mutate" },
     ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/groups/TEST/stakeholders"]}>
         <Provider store={store}>
-          <MockedProvider mocks={mocks} addTypename={false}>
+          <MockedProvider addTypename={false} mocks={mocks}>
             <authzPermissionsContext.Provider value={mockedPermissions}>
-              <Route path={"/groups/:projectName/stakeholders"} component={ProjectStakeholdersView}/>
+              <Route
+                component={ProjectStakeholdersView}
+                path={"/groups/:projectName/stakeholders"}
+              />
             </authzPermissionsContext.Provider>
           </MockedProvider>
         </Provider>
-      </MemoryRouter>,
+      </MemoryRouter>
     );
-    await act(async () => { await wait(0); wrapper.update(); });
-    let editUserModal: ReactWrapper = wrapper
+    await act(
+      async (): Promise<void> => {
+        await wait(0);
+        wrapper.update();
+      }
+    );
+    const editUserModal: ReactWrapper = wrapper
       .find("ModalBase")
-      .find({open: true, headerTitle: "Edit stakeholder information"});
-    expect(editUserModal)
-      .toHaveLength(0);
-    const userInfo: ReactWrapper = wrapper.find("tr")
-      .findWhere((element: ReactWrapper) => element.contains("user@gmail.com"))
+      .find({ headerTitle: "Edit stakeholder information", open: true });
+
+    expect(editUserModal).toHaveLength(0);
+
+    const userInfo: ReactWrapper = wrapper
+      .find("tr")
+      .findWhere((element: ReactWrapper): boolean =>
+        element.contains("user@gmail.com")
+      )
       .at(0);
     userInfo.simulate("click");
-    const addButton: ReactWrapper = wrapper.find("button")
-      .findWhere((element: ReactWrapper) => element.contains("Edit"))
+    const addButton: ReactWrapper = wrapper
+      .find("button")
+      .findWhere((element: ReactWrapper): boolean => element.contains("Edit"))
       .at(0);
     addButton.simulate("click");
-    await act(async () => { await wait(0); wrapper.update(); });
-    editUserModal = wrapper
+    await act(
+      async (): Promise<void> => {
+        await wait(0);
+        wrapper.update();
+      }
+    );
+    const editUserModal2: ReactWrapper = wrapper
       .find("ModalBase")
-      .find({open: true, headerTitle: "Edit stakeholder information"});
-    expect(editUserModal)
-      .toHaveLength(1);
+      .find({ headerTitle: "Edit stakeholder information", open: true });
+
+    expect(editUserModal2).toHaveLength(1);
+
+    jest.clearAllMocks();
   });
 
-  it("should add stakeholder to the project", async () => {
-    const mocksMutation: ReadonlyArray<MockedResponse> = [{
-      request: {
-        query: ADD_STAKEHOLDER_MUTATION,
-        variables: {
-          email: "unittest@test.com",
-          phoneNumber: "+573123210123",
-          projectName: "TEST",
-          responsibility: "Project Manager",
-          role: "ANALYST",
+  it("should add stakeholder to the project", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    const mocksMutation: readonly MockedResponse[] = [
+      {
+        request: {
+          query: ADD_STAKEHOLDER_MUTATION,
+          variables: {
+            email: "unittest@test.com",
+            phoneNumber: "+573123210123",
+            projectName: "TEST",
+            responsibility: "Project Manager",
+            role: "ANALYST",
+          },
         },
-      },
-      result: {
-        data: {
-          grantStakeholderAccess: {
-            grantedStakeholder: {
-              email: "unittest@test.com",
+        result: {
+          data: {
+            grantStakeholderAccess: {
+              grantedStakeholder: {
+                email: "unittest@test.com",
+              },
+              success: true,
             },
-            success: true,
           },
         },
       },
-    }];
+    ];
     const mockedPermissions: PureAbility<string> = new PureAbility([
       { action: "backend_api_mutations_grant_stakeholder_access_mutate" },
       { action: "grant_group_level_role:analyst" },
@@ -318,119 +378,178 @@ describe("Project users view", () => {
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/groups/TEST/stakeholders"]}>
         <Provider store={store}>
-          <MockedProvider mocks={mocks.concat(mocksMutation)} addTypename={false}>
+          <MockedProvider
+            addTypename={false}
+            mocks={mocks.concat(mocksMutation)}
+          >
             <authzPermissionsContext.Provider value={mockedPermissions}>
-              <Route path={"/groups/:projectName/stakeholders"} component={ProjectStakeholdersView}/>
+              <Route
+                component={ProjectStakeholdersView}
+                path={"/groups/:projectName/stakeholders"}
+              />
             </authzPermissionsContext.Provider>
           </MockedProvider>
         </Provider>
-      </MemoryRouter>,
+      </MemoryRouter>
     );
-    await act(async () => { await wait(0); wrapper.update(); });
-    const addButton: ReactWrapper = wrapper.find("button")
-      .findWhere((element: ReactWrapper) => element.contains("Add"))
+    await act(
+      async (): Promise<void> => {
+        await wait(0);
+        wrapper.update();
+      }
+    );
+    const addButton: ReactWrapper = wrapper
+      .find("button")
+      .findWhere((element: ReactWrapper): boolean => element.contains("Add"))
       .at(0);
     addButton.simulate("click");
-    let addUserModal: ReactWrapper = wrapper
+    const addUserModal: ReactWrapper = wrapper
       .find("ModalBase")
-      .find({open: true, headerTitle: "Add stakeholder to this group"});
-    expect(addUserModal)
-      .toHaveLength(1);
+      .find({ headerTitle: "Add stakeholder to this group", open: true });
+
+    expect(addUserModal).toHaveLength(1);
+
     const emailInput: ReactWrapper = addUserModal
-      .find({name: "email", type: "text"})
+      .find({ name: "email", type: "text" })
       .at(0)
       .find("input");
     emailInput.simulate("change", { target: { value: "unittest@test.com" } });
     const phoneNumberInput: ReactWrapper = addUserModal
-      .find({name: "phoneNumber", type: "text"})
+      .find({ name: "phoneNumber", type: "text" })
       .at(0)
       .find("input");
     phoneNumberInput.simulate("change", { target: { value: "+573123210123" } });
     const responsibilityInput: ReactWrapper = addUserModal
-      .find({name: "responsibility", type: "text"})
+      .find({ name: "responsibility", type: "text" })
       .at(0)
       .find("input");
-    responsibilityInput.simulate("change", { target: { value: "Project Manager" } });
-    const select: ReactWrapper = addUserModal.find("select")
-      .findWhere((element: ReactWrapper) => element.contains("Analyst"))
+    responsibilityInput.simulate("change", {
+      target: { value: "Project Manager" },
+    });
+    const select: ReactWrapper = addUserModal
+      .find("select")
+      .findWhere((element: ReactWrapper): boolean =>
+        element.contains("Analyst")
+      )
       .at(0);
     select.simulate("change", { target: { value: "ANALYST" } });
-    const form: ReactWrapper = addUserModal
-      .find("genericForm")
-      .at(0);
+    const form: ReactWrapper = addUserModal.find("genericForm").at(0);
     form.simulate("submit");
-    await act(async () => { await wait(0); wrapper.update(); });
-    addUserModal = wrapper
+    await act(
+      async (): Promise<void> => {
+        await wait(0);
+        wrapper.update();
+      }
+    );
+    const addUserModal2: ReactWrapper = wrapper
       .find("ModalBase")
-      .find({open: true, headerTitle: "Add stakeholder to this group"});
-    expect(addUserModal)
-      .toHaveLength(0);
-    expect(msgSuccess)
-      .toHaveBeenCalled();
+      .find({ headerTitle: "Add stakeholder to this group", open: true });
+
+    expect(addUserModal2).toHaveLength(0);
+    expect(msgSuccess).toHaveBeenCalled(); // eslint-disable-line jest/prefer-called-with
+
+    jest.clearAllMocks();
   });
 
-  it("should remove stakeholder from the project", async () => {
-    const mocksMutation: ReadonlyArray<MockedResponse> = [{
-      request: {
-        query: REMOVE_STAKEHOLDER_MUTATION,
-        variables: {
-          projectName: "TEST",
-          userEmail: "user@gmail.com",
+  it("should remove stakeholder from the project", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    const mocksMutation: readonly MockedResponse[] = [
+      {
+        request: {
+          query: REMOVE_STAKEHOLDER_MUTATION,
+          variables: {
+            projectName: "TEST",
+            userEmail: "user@gmail.com",
+          },
+        },
+        result: {
+          data: {
+            removeStakeholderAccess: {
+              removedEmail: "user@gmail.com",
+              success: true,
+            },
+          },
         },
       },
-      result: { data: { removeStakeholderAccess : { success: true, removedEmail: "user@gmail.com" } } },
-    }];
+    ];
     const mockedPermissions: PureAbility<string> = new PureAbility([
       { action: "backend_api_mutations_remove_stakeholder_access_mutate" },
     ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/groups/TEST/stakeholders"]}>
         <Provider store={store}>
-          <MockedProvider mocks={mocks.concat(mocksMutation)} addTypename={false}>
+          <MockedProvider
+            addTypename={false}
+            mocks={mocks.concat(mocksMutation)}
+          >
             <authzPermissionsContext.Provider value={mockedPermissions}>
-              <Route path={"/groups/:projectName/stakeholders"} component={ProjectStakeholdersView}/>
+              <Route
+                component={ProjectStakeholdersView}
+                path={"/groups/:projectName/stakeholders"}
+              />
             </authzPermissionsContext.Provider>
           </MockedProvider>
         </Provider>
-      </MemoryRouter>,
+      </MemoryRouter>
     );
-    await act(async () => { await wait(0); wrapper.update(); });
-    const userInfo: ReactWrapper = wrapper.find("tr")
-      .findWhere((element: ReactWrapper) => element.contains("user@gmail.com"))
+    await act(
+      async (): Promise<void> => {
+        await wait(0);
+        wrapper.update();
+      }
+    );
+    const userInfo: ReactWrapper = wrapper
+      .find("tr")
+      .findWhere((element: ReactWrapper): boolean =>
+        element.contains("user@gmail.com")
+      )
       .at(0);
     userInfo.simulate("click");
-    const removeButton: ReactWrapper = wrapper.find("button")
-      .findWhere((element: ReactWrapper) => element.contains("Remove"))
+    const removeButton: ReactWrapper = wrapper
+      .find("button")
+      .findWhere((element: ReactWrapper): boolean => element.contains("Remove"))
       .at(0);
     removeButton.simulate("click");
-    await act(async () => { await wait(0); wrapper.update(); });
-    expect(msgSuccess)
-      .toHaveBeenCalled();
+    await act(
+      async (): Promise<void> => {
+        await wait(0);
+        wrapper.update();
+      }
+    );
+
+    expect(msgSuccess).toHaveBeenCalled(); // eslint-disable-line jest/prefer-called-with
+
+    jest.clearAllMocks();
   });
 
-  it("should edit stakeholder from the project", async () => {
-    const mocksMutation: ReadonlyArray<MockedResponse> = [{
-      request: {
-        query: EDIT_STAKEHOLDER_MUTATION,
-        variables: {
-          email: "user@gmail.com",
-          phoneNumber: "+573123210123",
-          projectName: "TEST",
-          responsibility: "Project Manager",
-          role: "ANALYST",
+  it("should edit stakeholder from the project", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    const mocksMutation: readonly MockedResponse[] = [
+      {
+        request: {
+          query: EDIT_STAKEHOLDER_MUTATION,
+          variables: {
+            email: "user@gmail.com",
+            phoneNumber: "+573123210123",
+            projectName: "TEST",
+            responsibility: "Project Manager",
+            role: "ANALYST",
+          },
         },
-      },
-      result: {
-        data: {
-          editStakeholder : {
-            modifiedStakeholder: {
-              email: "user@gmail.com",
+        result: {
+          data: {
+            editStakeholder: {
+              modifiedStakeholder: {
+                email: "user@gmail.com",
+              },
+              success: true,
             },
-            success: true,
           },
         },
       },
-    }];
+    ];
     const mockedPermissions: PureAbility<string> = new PureAbility([
       { action: "backend_api_mutations_edit_stakeholder_mutate" },
       { action: "grant_group_level_role:analyst" },
@@ -438,81 +557,116 @@ describe("Project users view", () => {
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/groups/TEST/stakeholders"]}>
         <Provider store={store}>
-          <MockedProvider mocks={mocks.concat(mocksMutation)} addTypename={false}>
+          <MockedProvider
+            addTypename={false}
+            mocks={mocks.concat(mocksMutation)}
+          >
             <authzPermissionsContext.Provider value={mockedPermissions}>
-              <Route path={"/groups/:projectName/stakeholders"} component={ProjectStakeholdersView}/>
+              <Route
+                component={ProjectStakeholdersView}
+                path={"/groups/:projectName/stakeholders"}
+              />
             </authzPermissionsContext.Provider>
           </MockedProvider>
         </Provider>
-      </MemoryRouter>,
+      </MemoryRouter>
     );
-    await act(async () => { await wait(0); wrapper.update(); });
-    const userInfo: ReactWrapper = wrapper.find("tr")
-      .findWhere((element: ReactWrapper) => element.contains("user@gmail.com"))
+    await act(
+      async (): Promise<void> => {
+        await wait(0);
+        wrapper.update();
+      }
+    );
+    const userInfo: ReactWrapper = wrapper
+      .find("tr")
+      .findWhere((element: ReactWrapper): boolean =>
+        element.contains("user@gmail.com")
+      )
       .at(0);
     userInfo.simulate("click");
-    const editButton: ReactWrapper = wrapper.find("button")
-      .findWhere((element: ReactWrapper) => element.contains("Edit"))
+    const editButton: ReactWrapper = wrapper
+      .find("button")
+      .findWhere((element: ReactWrapper): boolean => element.contains("Edit"))
       .at(0);
     editButton.simulate("click");
-    let editUserModal: ReactWrapper = wrapper
+    const editUserModal: ReactWrapper = wrapper
       .find("ModalBase")
-      .find({open: true, headerTitle: "Edit stakeholder information"});
-    expect(editUserModal)
-      .toHaveLength(1);
+      .find({ headerTitle: "Edit stakeholder information", open: true });
+
+    expect(editUserModal).toHaveLength(1);
+
     const phoneNumberInput: ReactWrapper = editUserModal
-      .find({name: "phoneNumber", type: "text"})
+      .find({ name: "phoneNumber", type: "text" })
       .at(0)
       .find("input");
     phoneNumberInput.simulate("change", { target: { value: "+573123210123" } });
     const responsibilityInput: ReactWrapper = editUserModal
-      .find({name: "responsibility", type: "text"})
+      .find({ name: "responsibility", type: "text" })
       .at(0)
       .find("input");
-    responsibilityInput.simulate("change", { target: { value: "Project Manager" } });
-    const select: ReactWrapper = editUserModal.find("select")
-      .findWhere((element: ReactWrapper) => element.contains("Analyst"))
+    responsibilityInput.simulate("change", {
+      target: { value: "Project Manager" },
+    });
+    const select: ReactWrapper = editUserModal
+      .find("select")
+      .findWhere((element: ReactWrapper): boolean =>
+        element.contains("Analyst")
+      )
       .at(0);
     select.simulate("change", { target: { value: "ANALYST" } });
-    const form: ReactWrapper = editUserModal
-      .find("genericForm")
-      .at(0);
+    const form: ReactWrapper = editUserModal.find("genericForm").at(0);
     form.simulate("submit");
-    await act(async () => { await wait(0); wrapper.update(); });
-    editUserModal = wrapper
+    await act(
+      async (): Promise<void> => {
+        await wait(0);
+        wrapper.update();
+      }
+    );
+    const editUserModal2: ReactWrapper = wrapper
       .find("ModalBase")
-      .find({open: true, headerTitle: "Edit stakeholder information"});
-    expect(editUserModal)
-      .toHaveLength(0);
-    expect(msgSuccess)
-      .toHaveBeenCalled();
+      .find({ headerTitle: "Edit stakeholder information", open: true });
+
+    expect(editUserModal2).toHaveLength(0);
+    expect(msgSuccess).toHaveBeenCalled(); // eslint-disable-line jest/prefer-called-with
+
+    jest.clearAllMocks();
   });
 
-  it("should handle errors when add stakeholder to the project", async () => {
-    const mocksMutation: ReadonlyArray<MockedResponse> = [{
-      request: {
-        query: ADD_STAKEHOLDER_MUTATION,
-        variables: {
-          email: "unittest@test.com",
-          phoneNumber: "+573123210123",
-          projectName: "TEST",
-          responsibility: "Project Manager",
-          role: "ANALYST",
+  it("should handle errors when add stakeholder to the project", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    const mocksMutation: readonly MockedResponse[] = [
+      {
+        request: {
+          query: ADD_STAKEHOLDER_MUTATION,
+          variables: {
+            email: "unittest@test.com",
+            phoneNumber: "+573123210123",
+            projectName: "TEST",
+            responsibility: "Project Manager",
+            role: "ANALYST",
+          },
+        },
+        result: {
+          errors: [
+            new GraphQLError("Access denied"),
+            new GraphQLError("Exception - Email is not valid"),
+            new GraphQLError("Exception - Invalid field in form"),
+            new GraphQLError("Exception - Invalid characters"),
+            new GraphQLError("Exception - Invalid phone number in form"),
+            new GraphQLError("Exception - Invalid email address in form"),
+            new GraphQLError(
+              "Exception - Groups without an active Fluid Attacks service " +
+                "can not have Fluid Attacks staff"
+            ),
+            new GraphQLError(
+              "Exception - Groups with any active Fluid Attacks service " +
+                "can only have Hackers provided by Fluid Attacks"
+            ),
+          ],
         },
       },
-      result: { errors: [
-        new GraphQLError("Access denied"),
-        new GraphQLError("Exception - Email is not valid"),
-        new GraphQLError("Exception - Invalid field in form"),
-        new GraphQLError("Exception - Invalid characters"),
-        new GraphQLError("Exception - Invalid phone number in form"),
-        new GraphQLError("Exception - Invalid email address in form"),
-        new GraphQLError("Exception - Groups without an active Fluid Attacks service "
-                         + "can not have Fluid Attacks staff"),
-        new GraphQLError("Exception - Groups with any active Fluid Attacks service "
-                         + "can only have Hackers provided by Fluid Attacks"),
-      ]},
-    }];
+    ];
     const mockedPermissions: PureAbility<string> = new PureAbility([
       { action: "backend_api_mutations_grant_stakeholder_access_mutate" },
       { action: "grant_group_level_role:analyst" },
@@ -520,119 +674,179 @@ describe("Project users view", () => {
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/groups/TEST/stakeholders"]}>
         <Provider store={store}>
-          <MockedProvider mocks={mocks.concat(mocksMutation)} addTypename={false}>
+          <MockedProvider
+            addTypename={false}
+            mocks={mocks.concat(mocksMutation)}
+          >
             <authzPermissionsContext.Provider value={mockedPermissions}>
-              <Route path={"/groups/:projectName/stakeholders"} component={ProjectStakeholdersView}/>
+              <Route
+                component={ProjectStakeholdersView}
+                path={"/groups/:projectName/stakeholders"}
+              />
             </authzPermissionsContext.Provider>
           </MockedProvider>
         </Provider>
-      </MemoryRouter>,
+      </MemoryRouter>
     );
-    await act(async () => { await wait(0); wrapper.update(); });
-    const addButton: ReactWrapper = wrapper.find("button")
-      .findWhere((element: ReactWrapper) => element.contains("Add"))
+    await act(
+      async (): Promise<void> => {
+        await wait(0);
+        wrapper.update();
+      }
+    );
+    const addButton: ReactWrapper = wrapper
+      .find("button")
+      .findWhere((element: ReactWrapper): boolean => element.contains("Add"))
       .at(0);
     addButton.simulate("click");
-    let addUserModal: ReactWrapper = wrapper
+    const addUserModal: ReactWrapper = wrapper
       .find("ModalBase")
-      .find({open: true, headerTitle: "Add stakeholder to this group"});
-    expect(addUserModal)
-      .toHaveLength(1);
+      .find({ headerTitle: "Add stakeholder to this group", open: true });
+
+    expect(addUserModal).toHaveLength(1);
+
     const emailInput: ReactWrapper = addUserModal
-      .find({name: "email", type: "text"})
+      .find({ name: "email", type: "text" })
       .at(0)
       .find("input");
     emailInput.simulate("change", { target: { value: "unittest@test.com" } });
     const phoneNumberInput: ReactWrapper = addUserModal
-      .find({name: "phoneNumber", type: "text"})
+      .find({ name: "phoneNumber", type: "text" })
       .at(0)
       .find("input");
     phoneNumberInput.simulate("change", { target: { value: "+573123210123" } });
     const responsibilityInput: ReactWrapper = addUserModal
-      .find({name: "responsibility", type: "text"})
+      .find({ name: "responsibility", type: "text" })
       .at(0)
       .find("input");
-    responsibilityInput.simulate("change", { target: { value: "Project Manager" } });
-    const select: ReactWrapper = addUserModal.find("select")
-      .findWhere((element: ReactWrapper) => element.contains("Analyst"))
+    responsibilityInput.simulate("change", {
+      target: { value: "Project Manager" },
+    });
+    const select: ReactWrapper = addUserModal
+      .find("select")
+      .findWhere((element: ReactWrapper): boolean =>
+        element.contains("Analyst")
+      )
       .at(0);
     select.simulate("change", { target: { value: "ANALYST" } });
-    const form: ReactWrapper = addUserModal
-      .find("genericForm")
-      .at(0);
+    const form: ReactWrapper = addUserModal.find("genericForm").at(0);
     form.simulate("submit");
-    await act(async () => { await wait(0); wrapper.update(); });
-    addUserModal = wrapper
+    await act(
+      async (): Promise<void> => {
+        await wait(0);
+        wrapper.update();
+      }
+    );
+    const addUserModal2: ReactWrapper = wrapper
       .find("ModalBase")
-      .find({open: true, headerTitle: "Add stakeholder to this group"});
-    expect(addUserModal)
-      .toHaveLength(0);
-    expect(msgError)
-      .toHaveBeenCalledTimes(8);
+      .find({ headerTitle: "Add stakeholder to this group", open: true });
+
+    const TEST_TIMES_CALLED = 8;
+
+    expect(addUserModal2).toHaveLength(0);
+    expect(msgError).toHaveBeenCalledTimes(TEST_TIMES_CALLED);
+
+    jest.clearAllMocks();
   });
 
-  it("should handle error when remove stakeholder from the project", async () => {
-    const mocksMutation: ReadonlyArray<MockedResponse> = [{
-      request: {
-        query: REMOVE_STAKEHOLDER_MUTATION,
-        variables: {
-          projectName: "TEST",
-          userEmail: "user@gmail.com",
+  it("should handle error when remove stakeholder from the project", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    const mocksMutation: readonly MockedResponse[] = [
+      {
+        request: {
+          query: REMOVE_STAKEHOLDER_MUTATION,
+          variables: {
+            projectName: "TEST",
+            userEmail: "user@gmail.com",
+          },
         },
+        result: { errors: [new GraphQLError("Access denied")] },
       },
-      result: { errors: [new GraphQLError("Access denied")] },
-    }];
+    ];
     const mockedPermissions: PureAbility<string> = new PureAbility([
       { action: "backend_api_mutations_remove_stakeholder_access_mutate" },
     ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/groups/TEST/stakeholders"]}>
         <Provider store={store}>
-          <MockedProvider mocks={mocks.concat(mocksMutation)} addTypename={false}>
+          <MockedProvider
+            addTypename={false}
+            mocks={mocks.concat(mocksMutation)}
+          >
             <authzPermissionsContext.Provider value={mockedPermissions}>
-              <Route path={"/groups/:projectName/stakeholders"} component={ProjectStakeholdersView}/>
+              <Route
+                component={ProjectStakeholdersView}
+                path={"/groups/:projectName/stakeholders"}
+              />
             </authzPermissionsContext.Provider>
           </MockedProvider>
         </Provider>
-      </MemoryRouter>,
+      </MemoryRouter>
     );
-    await act(async () => { await wait(0); wrapper.update(); });
-    const userInfo: ReactWrapper = wrapper.find("tr")
-      .findWhere((element: ReactWrapper) => element.contains("user@gmail.com"))
+    await act(
+      async (): Promise<void> => {
+        await wait(0);
+        wrapper.update();
+      }
+    );
+    const userInfo: ReactWrapper = wrapper
+      .find("tr")
+      .findWhere((element: ReactWrapper): boolean =>
+        element.contains("user@gmail.com")
+      )
       .at(0);
     userInfo.simulate("click");
-    const removeButton: ReactWrapper = wrapper.find("button")
-      .findWhere((element: ReactWrapper) => element.contains("Remove"))
+    const removeButton: ReactWrapper = wrapper
+      .find("button")
+      .findWhere((element: ReactWrapper): boolean => element.contains("Remove"))
       .at(0);
     removeButton.simulate("click");
-    await act(async () => { await wait(0); wrapper.update(); });
-    expect(msgError)
-      .toHaveBeenCalled();
+    await act(
+      async (): Promise<void> => {
+        await wait(0);
+        wrapper.update();
+      }
+    );
+
+    expect(msgError).toHaveBeenCalled(); // eslint-disable-line jest/prefer-called-with
+
+    jest.clearAllMocks();
   });
 
-  it("should handle error when edit stakeholder from the project", async () => {
-    const mocksMutation: ReadonlyArray<MockedResponse> = [{
-      request: {
-        query: EDIT_STAKEHOLDER_MUTATION,
-        variables: {
-          email: "user@gmail.com",
-          phoneNumber: "+573123210123",
-          projectName: "TEST",
-          responsibility: "Project Manager",
-          role: "ANALYST",
+  it("should handle error when edit stakeholder from the project", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    const mocksMutation: readonly MockedResponse[] = [
+      {
+        request: {
+          query: EDIT_STAKEHOLDER_MUTATION,
+          variables: {
+            email: "user@gmail.com",
+            phoneNumber: "+573123210123",
+            projectName: "TEST",
+            responsibility: "Project Manager",
+            role: "ANALYST",
+          },
+        },
+        result: {
+          errors: [
+            new GraphQLError("Access denied"),
+            new GraphQLError("Exception - Invalid field in form"),
+            new GraphQLError("Exception - Invalid characters"),
+            new GraphQLError("Exception - Invalid phone number in form"),
+            new GraphQLError(
+              "Exception - Groups without an active Fluid Attacks service " +
+                "can not have Fluid Attacks staff"
+            ),
+            new GraphQLError(
+              "Exception - Groups with any active Fluid Attacks service " +
+                "can only have Hackers provided by Fluid Attacks"
+            ),
+          ],
         },
       },
-      result: { errors: [
-        new GraphQLError("Access denied"),
-        new GraphQLError("Exception - Invalid field in form"),
-        new GraphQLError("Exception - Invalid characters"),
-        new GraphQLError("Exception - Invalid phone number in form"),
-        new GraphQLError("Exception - Groups without an active Fluid Attacks service "
-                         + "can not have Fluid Attacks staff"),
-        new GraphQLError("Exception - Groups with any active Fluid Attacks service "
-                         + "can only have Hackers provided by Fluid Attacks"),
-      ]},
-    }];
+    ];
     const mockedPermissions: PureAbility<string> = new PureAbility([
       { action: "backend_api_mutations_edit_stakeholder_mutate" },
       { action: "grant_group_level_role:analyst" },
@@ -640,53 +854,82 @@ describe("Project users view", () => {
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/groups/TEST/stakeholders"]}>
         <Provider store={store}>
-          <MockedProvider mocks={mocks.concat(mocksMutation)} addTypename={false}>
+          <MockedProvider
+            addTypename={false}
+            mocks={mocks.concat(mocksMutation)}
+          >
             <authzPermissionsContext.Provider value={mockedPermissions}>
-              <Route path={"/groups/:projectName/stakeholders"} component={ProjectStakeholdersView}/>
+              <Route
+                component={ProjectStakeholdersView}
+                path={"/groups/:projectName/stakeholders"}
+              />
             </authzPermissionsContext.Provider>
           </MockedProvider>
         </Provider>
-      </MemoryRouter>,
+      </MemoryRouter>
     );
-    await act(async () => { await wait(0); wrapper.update(); });
-    const userInfo: ReactWrapper = wrapper.find("tr")
-      .findWhere((element: ReactWrapper) => element.contains("user@gmail.com"))
+    await act(
+      async (): Promise<void> => {
+        await wait(0);
+        wrapper.update();
+      }
+    );
+    const userInfo: ReactWrapper = wrapper
+      .find("tr")
+      .findWhere((element: ReactWrapper): boolean =>
+        element.contains("user@gmail.com")
+      )
       .at(0);
     userInfo.simulate("click");
-    const editButton: ReactWrapper = wrapper.find("button")
-      .findWhere((element: ReactWrapper) => element.contains("Edit"))
+    const editButton: ReactWrapper = wrapper
+      .find("button")
+      .findWhere((element: ReactWrapper): boolean => element.contains("Edit"))
       .at(0);
     editButton.simulate("click");
-    let editUserModal: ReactWrapper = wrapper
-      .find("ModalBase")
-      .find({open: true, headerTitle: "Edit stakeholder information"});
-    expect(editUserModal)
-      .toHaveLength(1);
+    const editUserModal: ReactWrapper = wrapper.find("ModalBase").find({
+      headerTitle: "Edit stakeholder information",
+      open: true,
+    });
+
+    expect(editUserModal).toHaveLength(1);
+
     const phoneNumberInput: ReactWrapper = editUserModal
-      .find({name: "phoneNumber", type: "text"})
+      .find({ name: "phoneNumber", type: "text" })
       .at(0)
       .find("input");
     phoneNumberInput.simulate("change", { target: { value: "+573123210123" } });
     const responsibilityInput: ReactWrapper = editUserModal
-      .find({name: "responsibility", type: "text"})
+      .find({ name: "responsibility", type: "text" })
       .at(0)
       .find("input");
-    responsibilityInput.simulate("change", { target: { value: "Project Manager" } });
-    const select: ReactWrapper = editUserModal.find("select")
-      .findWhere((element: ReactWrapper) => element.contains("Analyst"))
+    responsibilityInput.simulate("change", {
+      target: { value: "Project Manager" },
+    });
+    const select: ReactWrapper = editUserModal
+      .find("select")
+      .findWhere((element: ReactWrapper): boolean =>
+        element.contains("Analyst")
+      )
       .at(0);
     select.simulate("change", { target: { value: "ANALYST" } });
-    const form: ReactWrapper = editUserModal
-      .find("genericForm")
-      .at(0);
+    const form: ReactWrapper = editUserModal.find("genericForm").at(0);
     form.simulate("submit");
-    await act(async () => { await wait(0); wrapper.update(); });
-    editUserModal = wrapper
-      .find("ModalBase")
-      .find({open: true, headerTitle: "Edit stakeholder information"});
-    expect(editUserModal)
-      .toHaveLength(0);
-    expect(msgError)
-      .toHaveBeenCalledTimes(6);
+    await act(
+      async (): Promise<void> => {
+        await wait(0);
+        wrapper.update();
+      }
+    );
+    const editUserModal2: ReactWrapper = wrapper.find("ModalBase").find({
+      headerTitle: "Edit stakeholder information",
+      open: true,
+    });
+
+    const TEST_TIMES_CALLED = 6;
+
+    expect(editUserModal2).toHaveLength(0);
+    expect(msgError).toHaveBeenCalledTimes(TEST_TIMES_CALLED);
+
+    jest.clearAllMocks();
   });
 });

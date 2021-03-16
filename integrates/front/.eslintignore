@@ -34,6 +34,7 @@ src/scenes/Dashboard/**/*.*
 !src/scenes/Dashboard/containers/ProjectForcesView/**
 !src/scenes/Dashboard/containers/ProjectRoute/**
 !src/scenes/Dashboard/containers/ProjectSettingsView/**
+!src/scenes/Dashboard/containers/ProjectStakeholdersView/index.spec.tsx
 !src/scenes/Dashboard/containers/RecordsView/**
 !src/scenes/Dashboard/containers/TrackingView/**
 !src/scenes/Dashboard/containers/VulnerabilitiesView/**
