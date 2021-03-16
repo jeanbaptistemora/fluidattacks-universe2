@@ -1,46 +1,43 @@
-/* tslint:disable:jsx-no-multiline-js
- *
- * NO-MULTILINE-JS: Disabling this rule is necessary for the sake of
-  * readability of the code in graphql queries
- */
-import { useMutation, useQuery } from "@apollo/react-hooks";
-import { PureAbility } from "@casl/ability";
-import { useAbility } from "@casl/react";
-import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { ApolloError } from "apollo-client";
-import { GraphQLError } from "graphql";
-import _ from "lodash";
-import mixpanel from "mixpanel-browser";
-import React from "react";
-import { useParams } from "react-router";
-
-import { Button } from "components/Button";
-import { DataTableNext } from "components/DataTableNext";
-import { statusFormatter, timeFromNow } from "components/DataTableNext/formatters";
-import { IHeaderConfig } from "components/DataTableNext/types";
-import { FluidIcon } from "components/FluidIcon";
-import { TooltipWrapper } from "components/TooltipWrapper";
 import { AddUserModal } from "scenes/Dashboard/components/AddUserModal";
+import type { ApolloError } from "apollo-client";
+import { Button } from "components/Button";
+import { Can } from "utils/authz/Can";
+import { DataTableNext } from "components/DataTableNext";
+import { FluidIcon } from "components/FluidIcon";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import type { GraphQLError } from "graphql";
+import type { IHeaderConfig } from "components/DataTableNext/types";
+import { Logger } from "utils/logger";
+import type { PureAbility } from "@casl/ability";
+import React from "react";
+import { TooltipWrapper } from "components/TooltipWrapper";
+import _ from "lodash";
+import { authzPermissionsContext } from "utils/authz/config";
+import mixpanel from "mixpanel-browser";
+import { translate } from "utils/translations/translate";
+import { useAbility } from "@casl/react";
+import { useParams } from "react-router";
 import {
   ADD_STAKEHOLDER_MUTATION,
   EDIT_STAKEHOLDER_MUTATION,
   GET_STAKEHOLDERS,
   REMOVE_STAKEHOLDER_MUTATION,
 } from "scenes/Dashboard/containers/ProjectStakeholdersView/queries";
-import {
+import { ButtonToolbar, Col100, Row } from "styles/styledComponents";
+import type {
   IAddStakeholderAttr,
   IEditStakeholderAttr,
   IGetStakeholdersAttrs,
   IRemoveStakeholderAttr,
   IStakeholderAttrs,
 } from "scenes/Dashboard/containers/ProjectStakeholdersView/types";
-import { ButtonToolbar, Col100, Row } from "styles/styledComponents";
-import { Can } from "utils/authz/Can";
-import { authzPermissionsContext } from "utils/authz/config";
-import { Logger } from "utils/logger";
+import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { msgError, msgSuccess } from "utils/notifications";
-import { translate } from "utils/translations/translate";
+import {
+  statusFormatter,
+  timeFromNow,
+} from "components/DataTableNext/formatters";
+import { useMutation, useQuery } from "@apollo/react-hooks";
 
 const tableHeaders: IHeaderConfig[] = [
   {
@@ -50,10 +47,10 @@ const tableHeaders: IHeaderConfig[] = [
   },
   {
     dataField: "role",
-    formatter: (value: string) => translate.t(
-      `userModal.roles.${_.camelCase(value)}`,
-      { defaultValue: "-" },
-    ),
+    formatter: (value: string): string =>
+      translate.t(`userModal.roles.${_.camelCase(value)}`, {
+        defaultValue: "-",
+      }),
     header: translate.t("searchFindings.usersTable.userRole"),
     width: "12%",
   },
@@ -86,25 +83,27 @@ const tableHeaders: IHeaderConfig[] = [
   },
 ];
 
-const projectStakeholdersView: React.FC = (): JSX.Element => {
+const ProjectStakeholdersView: React.FC = (): JSX.Element => {
   const { projectName } = useParams<{ projectName: string }>();
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
 
   // State management
   const [currentRow, setCurrentRow] = React.useState<Dictionary<string>>({});
   const [isUserModalOpen, setUserModalOpen] = React.useState(false);
-  const [userModalAction, setuserModalAction] = React.useState<"add" | "edit">("add");
-  const openAddUserModal: (() => void) = (): void => {
+  const [userModalAction, setuserModalAction] = React.useState<"add" | "edit">(
+    "add"
+  );
+  const openAddUserModal: () => void = React.useCallback((): void => {
     setuserModalAction("add");
     setUserModalOpen(true);
-  };
-  const openEditUserModal: (() => void) = (): void => {
+  }, []);
+  const openEditUserModal: () => void = React.useCallback((): void => {
     setuserModalAction("edit");
     setUserModalOpen(true);
-  };
-  const closeUserModal: (() => void) = (): void => {
+  }, []);
+  const closeUserModal: () => void = React.useCallback((): void => {
     setUserModalOpen(false);
-  };
+  }, []);
 
   // GraphQL operations
   const { data, refetch } = useQuery(GET_STAKEHOLDERS, {
@@ -122,7 +121,7 @@ const projectStakeholdersView: React.FC = (): JSX.Element => {
         const { email } = mtResult.grantStakeholderAccess.grantedStakeholder;
         msgSuccess(
           `${email} ${translate.t("searchFindings.tabUsers.success")}`,
-          translate.t("searchFindings.tabUsers.titleSuccess"),
+          translate.t("searchFindings.tabUsers.titleSuccess")
         );
       }
     },
@@ -144,20 +143,31 @@ const projectStakeholdersView: React.FC = (): JSX.Element => {
           case "Exception - Invalid email address in form":
             msgError(translate.t("validations.invalidEmailInField"));
             break;
-          case "Exception - Groups without an active Fluid Attacks service "
-            + "can not have Fluid Attacks staff":
-            msgError(translate.t("validations.fluidAttacksStaffWithoutFluidAttacksService"));
+          case "Exception - Groups without an active Fluid Attacks service " +
+            "can not have Fluid Attacks staff":
+            msgError(
+              translate.t(
+                "validations.fluidAttacksStaffWithoutFluidAttacksService"
+              )
+            );
             break;
-          case "Exception - Groups with any active Fluid Attacks service "
-            + "can only have Hackers provided by Fluid Attacks":
-            msgError(translate.t("validations.noFluidAttacksHackersInFluidAttacksService"));
+          case "Exception - Groups with any active Fluid Attacks service " +
+            "can only have Hackers provided by Fluid Attacks":
+            msgError(
+              translate.t(
+                "validations.noFluidAttacksHackersInFluidAttacksService"
+              )
+            );
             break;
           case "Exception - The stakeholder has been granted access to the group previously":
             msgError(translate.t("validations.stakeholderHasGroupAccess"));
             break;
           default:
             msgError(translate.t("groupAlerts.errorTextsad"));
-            Logger.warning("An error occurred adding stakeholder to project", grantError);
+            Logger.warning(
+              "An error occurred adding stakeholder to project",
+              grantError
+            );
         }
       });
     },
@@ -171,7 +181,7 @@ const projectStakeholdersView: React.FC = (): JSX.Element => {
         mixpanel.track("EditUserAccess");
         msgSuccess(
           translate.t("searchFindings.tabUsers.successAdmin"),
-          translate.t("searchFindings.tabUsers.titleSuccess"),
+          translate.t("searchFindings.tabUsers.titleSuccess")
         );
       }
     },
@@ -187,13 +197,21 @@ const projectStakeholdersView: React.FC = (): JSX.Element => {
           case "Exception - Invalid phone number in form":
             msgError(translate.t("validations.invalidPhoneNumberInField"));
             break;
-          case "Exception - Groups without an active Fluid Attacks service "
-            + "can not have Fluid Attacks staff":
-            msgError(translate.t("validations.fluidAttacksStaffWithoutFluidAttacksService"));
+          case "Exception - Groups without an active Fluid Attacks service " +
+            "can not have Fluid Attacks staff":
+            msgError(
+              translate.t(
+                "validations.fluidAttacksStaffWithoutFluidAttacksService"
+              )
+            );
             break;
-          case "Exception - Groups with any active Fluid Attacks service "
-            + "can only have Hackers provided by Fluid Attacks":
-            msgError(translate.t("validations.noFluidAttacksHackersInFluidAttacksService"));
+          case "Exception - Groups with any active Fluid Attacks service " +
+            "can only have Hackers provided by Fluid Attacks":
+            msgError(
+              translate.t(
+                "validations.noFluidAttacksHackersInFluidAttacksService"
+              )
+            );
             break;
           case "Access denied or stakeholder not found":
             msgError(translate.t("groupAlerts.expiredInvitation"));
@@ -207,97 +225,141 @@ const projectStakeholdersView: React.FC = (): JSX.Element => {
     },
   });
 
-  const [removeStakeholderAccess, { loading: removing }] = useMutation(REMOVE_STAKEHOLDER_MUTATION, {
-    onCompleted: (mtResult: IRemoveStakeholderAttr): void => {
-      if (mtResult.removeStakeholderAccess.success) {
-        void refetch();
+  const [removeStakeholderAccess, { loading: removing }] = useMutation(
+    REMOVE_STAKEHOLDER_MUTATION,
+    {
+      onCompleted: (mtResult: IRemoveStakeholderAttr): void => {
+        if (mtResult.removeStakeholderAccess.success) {
+          void refetch();
 
-        mixpanel.track("RemoveUserAccess");
-        const { removedEmail } = mtResult.removeStakeholderAccess;
-        msgSuccess(
-          `${removedEmail} ${translate.t("searchFindings.tabUsers.successDelete")}`,
-          translate.t("searchFindings.tabUsers.titleSuccess"),
-        );
+          mixpanel.track("RemoveUserAccess");
+          const { removedEmail } = mtResult.removeStakeholderAccess;
+          msgSuccess(
+            `${removedEmail} ${translate.t(
+              "searchFindings.tabUsers.successDelete"
+            )}`,
+            translate.t("searchFindings.tabUsers.titleSuccess")
+          );
+        }
+      },
+      onError: (removeError: ApolloError): void => {
+        msgError(translate.t("groupAlerts.errorTextsad"));
+        Logger.warning("An error occurred removing user", removeError);
+      },
+    }
+  );
+
+  const handleSubmit: (
+    values: IGetStakeholdersAttrs
+  ) => void = React.useCallback(
+    (values: IGetStakeholdersAttrs): void => {
+      closeUserModal();
+      if (userModalAction === "add") {
+        void grantStakeholderAccess({
+          variables: {
+            ...values,
+            projectName,
+          },
+        });
+      } else {
+        void editStakeholder({
+          variables: {
+            ...values,
+            projectName,
+          },
+        });
       }
     },
-    onError: (removeError: ApolloError): void => {
-      msgError(translate.t("groupAlerts.errorTextsad"));
-      Logger.warning("An error occurred removing user", removeError);
-    },
-  });
+    [
+      closeUserModal,
+      editStakeholder,
+      grantStakeholderAccess,
+      projectName,
+      userModalAction,
+    ]
+  );
 
-  const handleSubmit: ((values: IGetStakeholdersAttrs) => void) = (values: IGetStakeholdersAttrs): void => {
-    closeUserModal();
-    if (userModalAction === "add") {
-      void grantStakeholderAccess({ variables: {
-          ...values,
-          projectName,
-      } });
-    } else {
-      void editStakeholder({ variables: {
-          ...values,
-          projectName,
-      } });
-    }
-  };
-
-  const handleRemoveUser: (() => void) = (): void => {
-    void removeStakeholderAccess({ variables: { projectName, userEmail: currentRow.email } });
+  const handleRemoveUser: () => void = React.useCallback((): void => {
+    void removeStakeholderAccess({
+      variables: { projectName, userEmail: currentRow.email },
+    });
     setCurrentRow({});
     setuserModalAction("add");
-  };
+  }, [currentRow.email, projectName, removeStakeholderAccess]);
 
   if (_.isUndefined(data) || _.isEmpty(data)) {
-    return <React.Fragment />;
+    return <div />;
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access -- DB queries use "any" type
   const stakeholdersList: IStakeholderAttrs[] = data.project.stakeholders;
 
   return (
     <React.StrictMode>
-      <div id="users" className="tab-pane cont active" >
+      <div className={"tab-pane cont active"} id={"users"}>
         <Row>
           <Col100>
             <Row>
               <Col100>
                 <ButtonToolbar>
-                  <Can do="backend_api_mutations_grant_stakeholder_access_mutate">
+                  <Can
+                    do={"backend_api_mutations_grant_stakeholder_access_mutate"}
+                  >
                     <TooltipWrapper
                       displayClass={"dib"}
                       id={"searchFindings.tabUsers.addButton.tooltip.id"}
-                      message={translate.t("searchFindings.tabUsers.addButton.tooltip")}
+                      message={translate.t(
+                        "searchFindings.tabUsers.addButton.tooltip"
+                      )}
                     >
-                      <Button id="addUser" onClick={openAddUserModal}>
+                      <Button id={"addUser"} onClick={openAddUserModal}>
                         <FontAwesomeIcon icon={faPlus} />
-                        &nbsp;{translate.t("searchFindings.tabUsers.addButton.text")}
+                        &nbsp;
+                        {translate.t("searchFindings.tabUsers.addButton.text")}
                       </Button>
                     </TooltipWrapper>
                   </Can>
-                  <Can do="backend_api_mutations_edit_stakeholder_mutate">
+                  <Can do={"backend_api_mutations_edit_stakeholder_mutate"}>
                     <TooltipWrapper
                       displayClass={"dib"}
                       id={"searchFindings.tabUsers.editButton.tooltip.id"}
-                      message={translate.t("searchFindings.tabUsers.editButton.tooltip")}
+                      message={translate.t(
+                        "searchFindings.tabUsers.editButton.tooltip"
+                      )}
                     >
-                      <Button id="editUser" onClick={openEditUserModal} disabled={_.isEmpty(currentRow)}>
-                        <FluidIcon icon="edit" />
-                        &nbsp;{translate.t("searchFindings.tabUsers.editButton.text")}
+                      <Button
+                        disabled={_.isEmpty(currentRow)}
+                        id={"editUser"}
+                        onClick={openEditUserModal}
+                      >
+                        <FluidIcon icon={"edit"} />
+                        &nbsp;
+                        {translate.t("searchFindings.tabUsers.editButton.text")}
                       </Button>
                     </TooltipWrapper>
                   </Can>
-                  <Can do="backend_api_mutations_remove_stakeholder_access_mutate">
+                  <Can
+                    do={
+                      "backend_api_mutations_remove_stakeholder_access_mutate"
+                    }
+                  >
                     <TooltipWrapper
                       displayClass={"dib"}
                       id={"searchFindings.tabUsers.removeUserButton.tooltip.id"}
-                      message={translate.t("searchFindings.tabUsers.removeUserButton.tooltip")}
+                      message={translate.t(
+                        "searchFindings.tabUsers.removeUserButton.tooltip"
+                      )}
                     >
                       <Button
-                        id="removeUser"
-                        onClick={handleRemoveUser}
                         disabled={_.isEmpty(currentRow) || removing}
+                        id={"removeUser"}
+                        onClick={handleRemoveUser}
                       >
                         <FontAwesomeIcon icon={faMinus} />
-                        &nbsp;{translate.t("searchFindings.tabUsers.removeUserButton.text")}
+                        &nbsp;
+                        {translate.t(
+                          "searchFindings.tabUsers.removeUserButton.text"
+                        )}
                       </Button>
                     </TooltipWrapper>
                   </Can>
@@ -308,22 +370,26 @@ const projectStakeholdersView: React.FC = (): JSX.Element => {
             <Row>
               <Col100>
                 <DataTableNext
-                  id="tblUsers"
                   bordered={true}
                   dataset={stakeholdersList}
                   exportCsv={true}
                   headers={tableHeaders}
+                  id={"tblUsers"}
                   pageSize={10}
                   search={true}
-                  striped={true}
                   selectionMode={{
                     clickToSelect: true,
                     hideSelectColumn:
-                      permissions.cannot("backend_api_mutations_edit_stakeholder_mutate")
-                      || permissions.cannot("backend_api_mutations_remove_stakeholder_access_mutate"),
+                      permissions.cannot(
+                        "backend_api_mutations_edit_stakeholder_mutate"
+                      ) ||
+                      permissions.cannot(
+                        "backend_api_mutations_remove_stakeholder_access_mutate"
+                      ),
                     mode: "radio",
                     onSelect: setCurrentRow,
                   }}
+                  striped={true}
                 />
               </Col100>
             </Row>
@@ -331,18 +397,20 @@ const projectStakeholdersView: React.FC = (): JSX.Element => {
         </Row>
         <AddUserModal
           action={userModalAction}
-          editTitle={translate.t("searchFindings.tabUsers.editStakeholderTitle")}
+          editTitle={translate.t(
+            "searchFindings.tabUsers.editStakeholderTitle"
+          )}
           initialValues={userModalAction === "edit" ? currentRow : {}}
+          onClose={closeUserModal}
           onSubmit={handleSubmit}
           open={isUserModalOpen}
-          onClose={closeUserModal}
           projectName={projectName}
           title={translate.t("searchFindings.tabUsers.title")}
-          type="user"
+          type={"user"}
         />
       </div>
     </React.StrictMode>
   );
 };
 
-export { projectStakeholdersView as ProjectStakeholdersView };
+export { ProjectStakeholdersView };
