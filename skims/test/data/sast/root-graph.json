@@ -20438,11 +20438,29 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
+              "n_id": "409",
+              "value": null
+            },
+            "symbol": "cookies",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "411",
+              "value": null
+            },
+            "symbol": "i",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
               "n_id": "408",
               "value": null
             },
-            "n_id_index": "411",
-            "n_id_object": "409",
             "type": "SyntaxStepArrayAccess"
           },
           {
@@ -42666,11 +42684,29 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
+              "n_id": "1285",
+              "value": null
+            },
+            "symbol": "nums",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1287",
+              "value": null
+            },
+            "symbol": "i",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
               "n_id": "1284",
               "value": null
             },
-            "n_id_index": "1287",
-            "n_id_object": "1285",
             "type": "SyntaxStepArrayAccess"
           },
           {
@@ -42754,11 +42790,29 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
+              "n_id": "1309",
+              "value": null
+            },
+            "symbol": "nums",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1311",
+              "value": null
+            },
+            "symbol": "i",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
               "n_id": "1308",
               "value": null
             },
-            "n_id_index": "1311",
-            "n_id_object": "1309",
             "type": "SyntaxStepArrayAccess"
           },
           {
@@ -43153,11 +43207,48 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
+              "n_id": "1415",
+              "value": null
+            },
+            "symbol": "nums",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1417",
+              "value": null
+            },
+            "symbol": "i",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "1414",
+              "value": null
+            },
+            "type": "SyntaxStepArrayAccess"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1420",
+              "value": null
+            },
+            "symbol": "j",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
               "n_id": "1413",
               "value": null
             },
-            "n_id_index": "1420",
-            "n_id_object": "1414",
             "type": "SyntaxStepArrayAccess"
           },
           {
@@ -45524,11 +45615,30 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
+              "n_id": "71",
+              "value": null
+            },
+            "symbol": "myNumbers",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "73",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "10",
+            "value_type": "number"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
               "n_id": "70",
               "value": null
             },
-            "n_id_index": "73",
-            "n_id_object": "71",
             "type": "SyntaxStepArrayAccess"
           },
           {

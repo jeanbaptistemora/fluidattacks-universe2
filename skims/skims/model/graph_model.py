@@ -194,8 +194,6 @@ class SyntaxStepSymbolLookup(NamedTuple):
 
 class SyntaxStepArrayAccess(NamedTuple):
     meta: SyntaxStepMeta
-    n_id_object: str
-    n_id_index: str
 
     type: str = 'SyntaxStepArrayAccess'
 

@@ -24,7 +24,7 @@ function owasp {
   &&  echo '[INFO] Computing score' \
   &&  python3.8 'skims/skims/benchmark/__init__.py' \
   &&  echo '[INFO] Cleaning environment' \
-  &&  if test -n "${category}"
+  &&  if test -z "${category}"
       then
             aws_login_prod 'skims' \
         &&  result_path="s3://skims.data/benchmark_result/$(date -u -Iminutes).csv" \

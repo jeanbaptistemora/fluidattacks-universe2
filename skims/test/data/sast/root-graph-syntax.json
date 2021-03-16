@@ -20352,11 +20352,29 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
+              "n_id": "409",
+              "value": null
+            },
+            "symbol": "cookies",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "411",
+              "value": null
+            },
+            "symbol": "i",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
               "n_id": "408",
               "value": null
             },
-            "n_id_index": "411",
-            "n_id_object": "409",
             "type": "SyntaxStepArrayAccess"
           },
           {
@@ -20979,11 +20997,29 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
+              "n_id": "409",
+              "value": null
+            },
+            "symbol": "cookies",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "411",
+              "value": null
+            },
+            "symbol": "i",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
               "n_id": "408",
               "value": null
             },
-            "n_id_index": "411",
-            "n_id_object": "409",
             "type": "SyntaxStepArrayAccess"
           },
           {
@@ -21615,11 +21651,29 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
+              "n_id": "409",
+              "value": null
+            },
+            "symbol": "cookies",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "411",
+              "value": null
+            },
+            "symbol": "i",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
               "n_id": "408",
               "value": null
             },
-            "n_id_index": "411",
-            "n_id_object": "409",
             "type": "SyntaxStepArrayAccess"
           },
           {
@@ -22435,11 +22489,29 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
+              "n_id": "409",
+              "value": null
+            },
+            "symbol": "cookies",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "411",
+              "value": null
+            },
+            "symbol": "i",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
               "n_id": "408",
               "value": null
             },
-            "n_id_index": "411",
-            "n_id_object": "409",
             "type": "SyntaxStepArrayAccess"
           },
           {
@@ -23295,11 +23367,29 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
+              "n_id": "409",
+              "value": null
+            },
+            "symbol": "cookies",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "411",
+              "value": null
+            },
+            "symbol": "i",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
               "n_id": "408",
               "value": null
             },
-            "n_id_index": "411",
-            "n_id_object": "409",
             "type": "SyntaxStepArrayAccess"
           },
           {
@@ -24173,11 +24263,29 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
+              "n_id": "409",
+              "value": null
+            },
+            "symbol": "cookies",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "411",
+              "value": null
+            },
+            "symbol": "i",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
               "n_id": "408",
               "value": null
             },
-            "n_id_index": "411",
-            "n_id_object": "409",
             "type": "SyntaxStepArrayAccess"
           },
           {
@@ -25071,11 +25179,29 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
+              "n_id": "409",
+              "value": null
+            },
+            "symbol": "cookies",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "411",
+              "value": null
+            },
+            "symbol": "i",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
               "n_id": "408",
               "value": null
             },
-            "n_id_index": "411",
-            "n_id_object": "409",
             "type": "SyntaxStepArrayAccess"
           },
           {
@@ -25650,11 +25776,29 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
+              "n_id": "409",
+              "value": null
+            },
+            "symbol": "cookies",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "411",
+              "value": null
+            },
+            "symbol": "i",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
               "n_id": "408",
               "value": null
             },
-            "n_id_index": "411",
-            "n_id_object": "409",
             "type": "SyntaxStepArrayAccess"
           },
           {
@@ -26238,11 +26382,29 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
+              "n_id": "409",
+              "value": null
+            },
+            "symbol": "cookies",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "411",
+              "value": null
+            },
+            "symbol": "i",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
               "n_id": "408",
               "value": null
             },
-            "n_id_index": "411",
-            "n_id_object": "409",
             "type": "SyntaxStepArrayAccess"
           },
           {
@@ -27010,11 +27172,29 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
+              "n_id": "409",
+              "value": null
+            },
+            "symbol": "cookies",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "411",
+              "value": null
+            },
+            "symbol": "i",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
               "n_id": "408",
               "value": null
             },
-            "n_id_index": "411",
-            "n_id_object": "409",
             "type": "SyntaxStepArrayAccess"
           },
           {
@@ -27822,11 +28002,29 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
+              "n_id": "409",
+              "value": null
+            },
+            "symbol": "cookies",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "411",
+              "value": null
+            },
+            "symbol": "i",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
               "n_id": "408",
               "value": null
             },
-            "n_id_index": "411",
-            "n_id_object": "409",
             "type": "SyntaxStepArrayAccess"
           },
           {
@@ -28652,11 +28850,29 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
+              "n_id": "409",
+              "value": null
+            },
+            "symbol": "cookies",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "411",
+              "value": null
+            },
+            "symbol": "i",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
               "n_id": "408",
               "value": null
             },
-            "n_id_index": "411",
-            "n_id_object": "409",
             "type": "SyntaxStepArrayAccess"
           },
           {
@@ -29502,11 +29718,29 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
+              "n_id": "409",
+              "value": null
+            },
+            "symbol": "cookies",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "411",
+              "value": null
+            },
+            "symbol": "i",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
               "n_id": "408",
               "value": null
             },
-            "n_id_index": "411",
-            "n_id_object": "409",
             "type": "SyntaxStepArrayAccess"
           },
           {
@@ -30011,11 +30245,29 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
+              "n_id": "409",
+              "value": null
+            },
+            "symbol": "cookies",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "411",
+              "value": null
+            },
+            "symbol": "i",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
               "n_id": "408",
               "value": null
             },
-            "n_id_index": "411",
-            "n_id_object": "409",
             "type": "SyntaxStepArrayAccess"
           },
           {
@@ -30529,11 +30781,29 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
+              "n_id": "409",
+              "value": null
+            },
+            "symbol": "cookies",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "411",
+              "value": null
+            },
+            "symbol": "i",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
               "n_id": "408",
               "value": null
             },
-            "n_id_index": "411",
-            "n_id_object": "409",
             "type": "SyntaxStepArrayAccess"
           },
           {
@@ -31231,11 +31501,29 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
+              "n_id": "409",
+              "value": null
+            },
+            "symbol": "cookies",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "411",
+              "value": null
+            },
+            "symbol": "i",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
               "n_id": "408",
               "value": null
             },
-            "n_id_index": "411",
-            "n_id_object": "409",
             "type": "SyntaxStepArrayAccess"
           },
           {
@@ -31973,11 +32261,29 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
+              "n_id": "409",
+              "value": null
+            },
+            "symbol": "cookies",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "411",
+              "value": null
+            },
+            "symbol": "i",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
               "n_id": "408",
               "value": null
             },
-            "n_id_index": "411",
-            "n_id_object": "409",
             "type": "SyntaxStepArrayAccess"
           },
           {
@@ -32733,11 +33039,29 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
+              "n_id": "409",
+              "value": null
+            },
+            "symbol": "cookies",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "411",
+              "value": null
+            },
+            "symbol": "i",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
               "n_id": "408",
               "value": null
             },
-            "n_id_index": "411",
-            "n_id_object": "409",
             "type": "SyntaxStepArrayAccess"
           },
           {

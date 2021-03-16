@@ -184,8 +184,8 @@ def syntax_step_catch_clause(_args: EvaluatorArgs) -> None:
     pass
 
 
-def syntax_step_array_access(_args: EvaluatorArgs) -> None:
-    pass
+def syntax_step_array_access(args: EvaluatorArgs) -> None:
+    args.syntax_step.meta.danger = args.dependencies[1].meta.danger
 
 
 def syntax_step_array_initialization(args: EvaluatorArgs) -> None:

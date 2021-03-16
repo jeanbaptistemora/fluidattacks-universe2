@@ -216,17 +216,20 @@ def identifier(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
 
 
 def array_access(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
-    match = g.match_ast(
-        args.graph,
-        args.n_id,
-        '__0__',
-        '__2__',
-    )
-    yield graph_model.SyntaxStepArrayAccess(
-        meta=graph_model.SyntaxStepMeta.default(args.n_id),
-        n_id_index=match['__2__'],
-        n_id_object=match['__0__'],
-    )
+    match = g.match_ast(args.graph, args.n_id, '__0__', '__2__')
+
+    if (
+        (n_id_object := match['__0__'])
+        and (n_id_index := match['__2__'])
+    ):
+        yield graph_model.SyntaxStepArrayAccess(
+            meta=graph_model.SyntaxStepMeta.default(args.n_id, [
+                generic(args.fork_n_id(n_id_object)),
+                generic(args.fork_n_id(n_id_index)),
+            ]),
+        )
+    else:
+        raise MissingCaseHandling(array_access, args)
 
 
 def array_creation_expression(
