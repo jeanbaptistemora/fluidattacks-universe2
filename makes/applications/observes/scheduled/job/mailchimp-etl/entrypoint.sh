@@ -21,7 +21,7 @@ function start_etl {
   &&  echo '[INFO] Running tap' \
   &&  observes-bin-tap-mailchimp stream \
         --creds-file "${mailchimp_creds}" \
-        --stream-name 'audiences' \
+        --all-streams \
         | observes-tap-json \
         > .singer \
   &&  echo '[INFO] Running target' \

@@ -123,11 +123,3 @@ def all_abuse_reports(client: ApiClient, target: Optional[IO[str]]) -> None:
         audiences_id
     )))
     _emit_items(client, stream, reports_id, target)
-
-
-stream_executor: Mapping[
-    SupportedStreams,
-    Callable[[ApiClient, Optional[IO[str]]], None]
-] = {
-    SupportedStreams.AUDIENCES: all_audiences
-}

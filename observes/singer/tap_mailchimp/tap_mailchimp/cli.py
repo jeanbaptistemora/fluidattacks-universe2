@@ -3,6 +3,7 @@ import json
 from typing import (
     AnyStr,
     IO,
+    Optional,
 )
 
 # Third party libraries
@@ -10,31 +11,38 @@ import click
 
 # Local libraries
 from tap_mailchimp import (
-    api,
     auth,
-    streams
+    executor,
 )
-
-
-ApiClient = api.ApiClient
-Credentials = auth.Credentials
-stream_executor = streams.stream_executor
-SupportedStreams = streams.SupportedStreams
+from tap_mailchimp.auth import (
+    Credentials
+)
+from tap_mailchimp.streams import (
+    SupportedStreams
+)
 
 
 @click.command()
 @click.option('--creds-file', type=click.File('r'), required=True)
+@click.option('--all-streams', is_flag=True, default=False)
 @click.option(
-    '--stream-name',
+    '--name',
     type=click.Choice(
         [x.value for x in iter(SupportedStreams)],
         case_sensitive=False),
-    required=True
+    required=False,
+    default=None
 )
-def stream(creds_file: IO[AnyStr], stream_name: str) -> None:
+def stream(
+    creds_file: IO[AnyStr],
+    name: Optional[str],
+    all_streams: bool
+) -> None:
     creds: Credentials = auth.to_credentials(json.load(creds_file))
-    client: ApiClient = api.new_client(creds)
-    stream_executor[SupportedStreams(stream_name)](client, None)
+    if all_streams:
+        executor.stream_all(creds)
+    elif name:
+        executor.stream(creds, name)
 
 
 @click.group()
