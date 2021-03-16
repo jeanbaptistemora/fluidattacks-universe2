@@ -125,6 +125,16 @@ F052. Insecure encryption algorithm,namespace/skims/test/data/lib_path/f052/java
 F052. Insecure encryption algorithm,namespace/skims/test/data/lib_path/f052/java.properties,3,310 + 327
 F052. Insecure encryption algorithm,namespace/skims/test/data/lib_path/f052/java.properties,4,310 + 327
 F052. Insecure encryption algorithm,namespace/skims/test/data/lib_path/f052/java.properties,6,310 + 327
+F055. Insecure service configuration - AWS Missing encryption,namespace/skims/test/data/lib_path/f055_aws/cfn_unencrypted_buckets.yaml,6,311
+F055. Insecure service configuration - AWS Missing encryption,namespace/skims/test/data/lib_path/f055_aws/cfn_unencrypted_buckets.yaml.json,6,311
+F055. Insecure service configuration - AWS Missing encryption,namespace/skims/test/data/lib_path/f055_aws/cfn_unencrypted_volumes.yaml,12,311
+F055. Insecure service configuration - AWS Missing encryption,namespace/skims/test/data/lib_path/f055_aws/cfn_unencrypted_volumes.yaml,18,311
+F055. Insecure service configuration - AWS Missing encryption,namespace/skims/test/data/lib_path/f055_aws/cfn_unencrypted_volumes.yaml,6,311
+F055. Insecure service configuration - AWS Missing encryption,namespace/skims/test/data/lib_path/f055_aws/cfn_unencrypted_volumes.yaml.json,14,311
+F055. Insecure service configuration - AWS Missing encryption,namespace/skims/test/data/lib_path/f055_aws/cfn_unencrypted_volumes.yaml.json,22,311
+F055. Insecure service configuration - AWS Missing encryption,namespace/skims/test/data/lib_path/f055_aws/cfn_unencrypted_volumes.yaml.json,7,311
+F055. Insecure service configuration - AWS Missing encryption,namespace/skims/test/data/lib_path/f055_aws/hcl2_public_buckets.tf,24,311
+F055. Insecure service configuration - AWS Missing encryption,namespace/skims/test/data/lib_path/f055_aws/hcl2_unencrypted_buckets.tf,1,311
 F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml,24,16
 F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml,25,16
 F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml,27,16
@@ -179,14 +189,6 @@ F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f0
 F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f055_aws/cfn_public_buckets.yaml,6,16
 F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f055_aws/cfn_public_buckets.yaml.json,24,16
 F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f055_aws/cfn_public_buckets.yaml.json,7,16
-F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f055_aws/cfn_unencrypted_buckets.yaml,6,16
-F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f055_aws/cfn_unencrypted_buckets.yaml.json,6,16
-F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f055_aws/cfn_unencrypted_volumes.yaml,12,16
-F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f055_aws/cfn_unencrypted_volumes.yaml,18,16
-F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f055_aws/cfn_unencrypted_volumes.yaml,6,16
-F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f055_aws/cfn_unencrypted_volumes.yaml.json,14,16
-F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f055_aws/cfn_unencrypted_volumes.yaml.json,22,16
-F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f055_aws/cfn_unencrypted_volumes.yaml.json,7,16
 F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml,24,16
 F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml,25,16
 F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml,27,16
@@ -207,8 +209,6 @@ F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f0
 F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml.json,8,16
 F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml.json,80,16
 F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml.json,88,16
-F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f055_aws/hcl2_public_buckets.tf,24,16
-F055. Insecure service configuration - AWS,namespace/skims/test/data/lib_path/f055_aws/hcl2_unencrypted_buckets.tf,1,16
 F060. Insecure exceptions,namespace/skims/test/data/lib_path/f031_cwe378/Test.java,7,396
 F060. Insecure exceptions,namespace/skims/test/data/lib_path/f060/Test.java,11,397
 F060. Insecure exceptions,namespace/skims/test/data/lib_path/f060/Test.java,12,397
