@@ -24,7 +24,7 @@ module.exports = {
     {
       resolve: "gatsby-source-filesystem",
       options: {
-        path: "../content/pages",
+        path: "content/pages",
         name: "pages",
       },
     },
@@ -32,7 +32,7 @@ module.exports = {
       resolve: "gatsby-transformer-asciidoc",
       options: {
         attributes: {
-          imagesdir: "../content/pages",
+          imagesdir: "content/pages",
           showtitle: true,
         },
       },

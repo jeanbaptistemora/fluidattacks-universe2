@@ -10,7 +10,7 @@ import { NavbarComponent } from "../components/navbar";
 import React from "react";
 import { Seo } from "../components/seo";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
-import * as playButton from "../assets/images/home/play-video.svg";
+import * as playButton from "../../static/images/home/play-video.svg";
 import {
   BlackBigHeader,
   BlackBigParagraph,
@@ -25,7 +25,6 @@ import {
   PlayItButtonImage,
 } from "../styles/styledComponents";
 import { Link, graphql } from "gatsby";
-import "../assets/scss/index.scss";
 import "modal-video-custom/scss/modal-video.scss";
 
 interface IQueryData {

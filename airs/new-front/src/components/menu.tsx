@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "gatsby";
 import React from "react";
 import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
-import * as fluidAttacksLogo from "../assets/images/logo-fluid-attacks.png";
+import * as fluidAttacksLogo from "../../static/images/logo-fluid-attacks.png";
 import {
   FontAwesomeContainerSmall,
   MenuButton,

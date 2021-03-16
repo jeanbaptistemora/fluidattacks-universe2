@@ -1,3 +1,3 @@
 import "gatsby-plugin-breadcrumb/gatsby-plugin-breadcrumb.css";
-import "./src/assets/scss/index.scss";
+import "./static/scss/index.scss";
 import "animate.css/animate.min.css";

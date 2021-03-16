@@ -3,7 +3,7 @@
 import { Helmet } from "react-helmet";
 import PropTypes from "prop-types";
 import React from "react";
-import * as favicon from "../assets/images/favicon.png";
+import * as favicon from "../../static/images/favicon.png";
 
 interface IMetaItem {
   content: string;

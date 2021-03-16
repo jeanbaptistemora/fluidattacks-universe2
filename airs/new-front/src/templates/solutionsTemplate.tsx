@@ -18,12 +18,12 @@ import { Seo } from "../components/seo";
 import { SolutionsIndexContent } from "../components/solutionsIndexContent";
 import { graphql } from "gatsby";
 import { translate } from "../utils/translations/translate";
-import * as attackSimulationImage from "../assets/images/solutions/solution-6.png";
-import * as devSecOpsImage from "../assets/images/solutions/solution-1.png";
-import * as ethicalHackingImage from "../assets/images/solutions/solution-4.png";
-import * as penetrationTestingImage from "../assets/images/solutions/solution-3.png";
-import * as redTeamingImage from "../assets/images/solutions/solution-5.png";
-import * as securityTestingImage from "../assets/images/solutions/solution-2.png";
+import * as attackSimulationImage from "../../static/images/solutions/solution-6.png";
+import * as devSecOpsImage from "../../static/images/solutions/solution-1.png";
+import * as ethicalHackingImage from "../../static/images/solutions/solution-4.png";
+import * as penetrationTestingImage from "../../static/images/solutions/solution-3.png";
+import * as redTeamingImage from "../../static/images/solutions/solution-5.png";
+import * as securityTestingImage from "../../static/images/solutions/solution-2.png";
 import {
   ArticleContainer,
   BannerContainer,
