@@ -5,10 +5,9 @@ from starlette.requests import Request
 from starlette.responses import Response
 
 # Local libraries
-from backend import util
-from backend.domain import analytics as analytics_domain
-
 import back.app.utils as utils
+from analytics import domain as analytics_domain
+from backend import util
 
 
 async def graphic(request: Request) -> Response:

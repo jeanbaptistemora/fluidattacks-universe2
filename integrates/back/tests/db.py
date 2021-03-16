@@ -26,8 +26,8 @@ from backend.dal import (
 )
 from comments import dal as dal_comment
 from events import dal as dal_event
-from names import dal as names_dal
-from roots import dal as roots_dal
+from names import dal as dal_names
+from roots import dal as dal_roots
 
 
 async def populate_users(data: List[Any]) -> bool:
@@ -45,7 +45,7 @@ async def populate_users(data: List[Any]) -> bool:
 async def populate_names(data: List[Any]) -> bool:
     coroutines: List[Awaitable[bool]] = []
     coroutines.extend([
-        names_dal.create(
+        dal_names.create(
             name['name'],
             name['entity'],
         )
@@ -133,7 +133,7 @@ async def populate_vulnerabilities(data: List[Any]) -> bool:
 async def populate_roots(data: List[Any]) -> bool:
     coroutines: List[Awaitable[bool]] = []
     coroutines.extend([
-        roots_dal.create_legacy(
+        dal_roots.create_legacy(
             root['pk'],
             root,
         )

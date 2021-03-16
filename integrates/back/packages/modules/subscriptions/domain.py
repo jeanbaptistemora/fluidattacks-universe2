@@ -16,16 +16,14 @@ from urllib.parse import quote_plus
 import botocore.exceptions
 
 # Local libraries
+from analytics import domain as analytics_domain
 from back.settings import (
     LOGGING,
     NOEXTRA
 )
 from backend import mailer
 from backend.dal import project as group_dal
-from backend.domain import (
-    analytics as analytics_domain,
-    organization as org_domain,
-)
+from backend.domain import organization as org_domain
 from backend.services import has_access_to_project as has_access_to_group
 from newutils import (
     datetime as datetime_utils,

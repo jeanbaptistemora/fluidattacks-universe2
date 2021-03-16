@@ -60,12 +60,12 @@
       when: never
     - when: always
 
-.analytics_template: &analytics_template
+.charts_template: &charts_template
   <<: *makes
   artifacts:
     expire_in: 1 week
     paths:
-      - integrates/analytics
+      - integrates/charts
     when: on_success
   stage: analytics
   tags: [autoscaling]
@@ -84,33 +84,33 @@
     - ./m integrates.mobile.ota
   stage: pre-build
 
-integrates.analytics.documents-dev:
-  <<: *analytics_template
+integrates.charts.documents-dev:
+  <<: *charts_template
   <<: *in_dev_branch_integrates
   parallel: 4
-  script: [./m integrates.analytics.documents dev]
+  script: [./m integrates.charts.documents dev]
 
-integrates.analytics.documents-prod-schedule:
-  <<: *analytics_template
+integrates.charts.documents-prod-schedule:
+  <<: *charts_template
   interruptible: false
   only:
     refs: [schedules]
-    variables: [$integrates_analytics_make_documents_prod_schedule]
+    variables: [$integrates_charts_make_documents_prod_schedule]
   parallel: 10
-  script: [./m integrates.analytics.documents prod]
+  script: [./m integrates.charts.documents prod]
 
-integrates.analytics.lint:
+integrates.charts.lint:
   <<: *makes
   <<: *in_dev_branch_integrates
   stage: lint-code
 
-integrates.analytics.snapshots-prod:
-  <<: *analytics_template
+integrates.charts.snapshots-prod:
+  <<: *charts_template
   interruptible: false
   only:
     refs: [schedules]
-    variables: [$analytics]
-  script: [./m integrates.analytics.snapshots prod]
+    variables: [$charts]
+  script: [./m integrates.charts.snapshots prod]
 
 integrates.back.authz-matrix:
   <<: *makes

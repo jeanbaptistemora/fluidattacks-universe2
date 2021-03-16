@@ -18,8 +18,6 @@ forces.oci-deploy-ephemeral
 forces.process-groups
 forces.test
 forces.test-container
-integrates.analytics.documents
-integrates.analytics.snapshots
 integrates.back
 integrates.back.authz-matrix
 integrates.back.deploy.dev
@@ -28,6 +26,8 @@ integrates.back.destroy.eph
 integrates.back.test.functional
 integrates.back.test.unit
 integrates.cache
+integrates.charts.documents
+integrates.charts.snapshots
 integrates.coverage
 integrates.db
 integrates.db.migration
