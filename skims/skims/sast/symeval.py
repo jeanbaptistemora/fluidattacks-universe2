@@ -180,11 +180,20 @@ def syntax_step_for(_args: EvaluatorArgs) -> None:
     pass
 
 
+def syntax_step_catch_clause(_args: EvaluatorArgs) -> None:
+    pass
+
+
 def syntax_step_array_access(_args: EvaluatorArgs) -> None:
     pass
 
 
 def syntax_step_array_initialization(args: EvaluatorArgs) -> None:
+    args.syntax_step.meta.danger = any(dep.meta.danger
+                                       for dep in args.dependencies)
+
+
+def syntax_step_array_instantiation(args: EvaluatorArgs) -> None:
     args.syntax_step.meta.danger = any(dep.meta.danger
                                        for dep in args.dependencies)
 
@@ -376,7 +385,10 @@ EVALUATORS: Dict[object, Evaluator] = {
     graph_model.SyntaxStepArrayAccess: syntax_step_array_access,
     graph_model.SyntaxStepArrayInitialization:
     syntax_step_array_initialization,
+    graph_model.SyntaxStepArrayInstantiation:
+    syntax_step_array_instantiation,
     graph_model.SyntaxStepBinaryExpression: syntax_step_binary_expression,
+    graph_model.SyntaxStepCatchClause: syntax_step_catch_clause,
     graph_model.SyntaxStepUnaryExpression: syntax_step_unary_expression,
     graph_model.SyntaxStepParenthesizedExpression:
     syntax_step_parenthesized_expression,

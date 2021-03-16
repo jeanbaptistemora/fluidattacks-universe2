@@ -259,6 +259,19 @@ def array_creation_expression(
             ),
             array_type=args.graph.nodes[object_type_id]['label_text'],
         )
+    elif (
+        len(match) == 5
+        and match['new']
+        and (object_type_id := match['__0__'])
+        and (match['__1__'])
+        and (initializer := match['__2__'])
+    ):
+        yield graph_model.SyntaxStepArrayInstantiation(
+            meta=graph_model.SyntaxStepMeta.default(args.n_id, [
+                generic(args.fork_n_id(initializer)),
+            ]),
+            array_type=args.graph.nodes[object_type_id]['label_text'],
+        )
     else:
         raise MissingCaseHandling(array_creation_expression, args)
 
@@ -333,6 +346,45 @@ def parenthesized_expression(
             dependencies=dependencies_from_arguments(args.fork_n_id(
                 match['__1__']), ),
         ), )
+
+
+def catch_clause(
+    args: SyntaxReaderArgs,
+) -> graph_model.SyntaxStepsLazy:
+    match = g.match_ast(
+        args.graph, args.n_id,
+        'catch',
+        'catch_formal_parameter',
+        'block',
+    )
+    if (
+        len(match) == 5
+        and (parameter := match['catch_formal_parameter'])
+        and (block := match['block'])
+    ):
+        match = g.match_ast(
+            args.graph,
+            parameter,
+            'catch_type',
+            'identifier',
+        )
+        match_type = g.match_ast(
+            args.graph,
+            match['catch_type'],
+            '__0__',
+        )
+        yield graph_model.SyntaxStepCatchClause(
+            meta=graph_model.SyntaxStepMeta.default(
+                n_id=args.n_id,
+                dependencies=dependencies_from_arguments(
+                    args.fork_n_id(block),
+                ),
+            ),
+            var=args.graph.nodes[match['identifier']]['label_text'],
+            catch_type=match_type['__0__'],
+        )
+    else:
+        raise MissingCaseHandling(local_variable_declaration, args)
 
 
 def local_variable_declaration(
@@ -653,9 +705,21 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
         },
         applicable_node_label_types={
             'parenthesized_expression',
+            'cast_expression',
         },
         syntax_readers=(
             parenthesized_expression,
+        ),
+    ),
+    Dispatcher(
+        applicable_languages={
+            graph_model.GraphShardMetadataLanguage.JAVA,
+        },
+        applicable_node_label_types={
+            'catch_clause',
+        },
+        syntax_readers=(
+            catch_clause,
         ),
     ),
     Dispatcher(
@@ -780,6 +844,7 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
             'character_literal',
             'comment',
             'expression_statement',
+            'return_statement',
             'switch_label',
             'this',
             'try_statement',

@@ -119,6 +119,15 @@ class SyntaxStepParenthesizedExpression(NamedTuple):
     type: str = 'SyntaxStepParenthesizedExpression'
 
 
+class SyntaxStepCatchClause(NamedTuple):
+    meta: SyntaxStepMeta
+
+    catch_type: str
+    var: str
+
+    type: str = 'SyntaxStepParenthesizedExpression'
+
+
 class SyntaxStepFor(NamedTuple):
     meta: SyntaxStepMeta
     n_id_update: NId

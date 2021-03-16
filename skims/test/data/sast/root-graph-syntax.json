@@ -524,6 +524,218 @@
             "type": "SyntaxStepDeclaration",
             "var": "b",
             "var_type": "byte[]"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "417",
+              "value": null
+            },
+            "symbol": "b",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "411",
+              "value": null
+            },
+            "method": "fis.read",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "406",
+              "value": null
+            },
+            "type": "SyntaxStepDeclaration",
+            "var": "size",
+            "var_type": "int"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "420",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": true,
+              "dependencies": 0,
+              "n_id": "422",
+              "value": null
+            },
+            "method": "response.getWriter",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "436",
+              "value": "The beginning of file: '"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "The beginning of file: '",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "439",
+              "value": null
+            },
+            "method": "org.owasp.esapi.ESAPI.encoder",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": true,
+              "dependencies": 0,
+              "n_id": "450",
+              "value": null
+            },
+            "symbol": "fileName",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "438",
+              "value": null
+            },
+            "method": ".encodeForHTML",
+            "type": "SyntaxStepMethodInvocationChain"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "435",
+              "value": null
+            },
+            "operator": "+",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "453",
+              "value": "' is:\\n\\n"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "' is:\\n\\n",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "434",
+              "value": null
+            },
+            "operator": "+",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "456",
+              "value": null
+            },
+            "method": "org.owasp.esapi.ESAPI.encoder",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "472",
+              "value": null
+            },
+            "symbol": "b",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "474",
+              "value": 0.0
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "0",
+            "value_type": "number"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "476",
+              "value": null
+            },
+            "symbol": "size",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -3,
+              "n_id": "467",
+              "value": null
+            },
+            "object_type": "String",
+            "type": "SyntaxStepObjectInstantiation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "455",
+              "value": null
+            },
+            "method": ".encodeForHTML",
+            "type": "SyntaxStepMethodInvocationChain"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "433",
+              "value": null
+            },
+            "operator": "+",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "421",
+              "value": null
+            },
+            "method": ".println",
+            "type": "SyntaxStepMethodInvocationChain"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "480",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
           }
         ],
         "223-246-248-249-250-258-259-272-279-288-290-298-300-319-321-322-341-342-348-355-362-364-482-547": [
@@ -910,6 +1122,35 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "492",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "508",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "catch_type": "487",
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "482",
+              "value": null
+            },
+            "type": "SyntaxStepParenthesizedExpression",
+            "var": "e"
           }
         ],
         "223-246-248-249-250-258-259-272-279-288-290-298-300-348-355-362-364-366-367-374-375-376-392-393-406-420-421-480": [
@@ -1356,6 +1597,218 @@
             "type": "SyntaxStepDeclaration",
             "var": "b",
             "var_type": "byte[]"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "417",
+              "value": null
+            },
+            "symbol": "b",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "411",
+              "value": null
+            },
+            "method": "fis.read",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "406",
+              "value": null
+            },
+            "type": "SyntaxStepDeclaration",
+            "var": "size",
+            "var_type": "int"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "420",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": true,
+              "dependencies": 0,
+              "n_id": "422",
+              "value": null
+            },
+            "method": "response.getWriter",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "436",
+              "value": "The beginning of file: '"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "The beginning of file: '",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "439",
+              "value": null
+            },
+            "method": "org.owasp.esapi.ESAPI.encoder",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "450",
+              "value": null
+            },
+            "symbol": "fileName",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "438",
+              "value": null
+            },
+            "method": ".encodeForHTML",
+            "type": "SyntaxStepMethodInvocationChain"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "435",
+              "value": null
+            },
+            "operator": "+",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "453",
+              "value": "' is:\\n\\n"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "' is:\\n\\n",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "434",
+              "value": null
+            },
+            "operator": "+",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "456",
+              "value": null
+            },
+            "method": "org.owasp.esapi.ESAPI.encoder",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "472",
+              "value": null
+            },
+            "symbol": "b",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "474",
+              "value": 0.0
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "0",
+            "value_type": "number"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "476",
+              "value": null
+            },
+            "symbol": "size",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -3,
+              "n_id": "467",
+              "value": null
+            },
+            "object_type": "String",
+            "type": "SyntaxStepObjectInstantiation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "455",
+              "value": null
+            },
+            "method": ".encodeForHTML",
+            "type": "SyntaxStepMethodInvocationChain"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "433",
+              "value": null
+            },
+            "operator": "+",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "421",
+              "value": null
+            },
+            "method": ".println",
+            "type": "SyntaxStepMethodInvocationChain"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "480",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
           }
         ],
         "223-246-248-249-250-258-259-272-279-288-290-298-300-348-355-362-364-482-547": [
@@ -1665,6 +2118,35 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "492",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "508",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "catch_type": "487",
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "482",
+              "value": null
+            },
+            "type": "SyntaxStepParenthesizedExpression",
+            "var": "e"
           }
         ],
         "223-246-248-249-250-258-259-272-279-288-290-348-355-362-364-366-367-374-375-376-392-393-406-420-421-480": [
@@ -2060,6 +2542,218 @@
             "type": "SyntaxStepDeclaration",
             "var": "b",
             "var_type": "byte[]"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "417",
+              "value": null
+            },
+            "symbol": "b",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "411",
+              "value": null
+            },
+            "method": "fis.read",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "406",
+              "value": null
+            },
+            "type": "SyntaxStepDeclaration",
+            "var": "size",
+            "var_type": "int"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "420",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": true,
+              "dependencies": 0,
+              "n_id": "422",
+              "value": null
+            },
+            "method": "response.getWriter",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "436",
+              "value": "The beginning of file: '"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "The beginning of file: '",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "439",
+              "value": null
+            },
+            "method": "org.owasp.esapi.ESAPI.encoder",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "450",
+              "value": null
+            },
+            "symbol": "fileName",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "438",
+              "value": null
+            },
+            "method": ".encodeForHTML",
+            "type": "SyntaxStepMethodInvocationChain"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "435",
+              "value": null
+            },
+            "operator": "+",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "453",
+              "value": "' is:\\n\\n"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "' is:\\n\\n",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "434",
+              "value": null
+            },
+            "operator": "+",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "456",
+              "value": null
+            },
+            "method": "org.owasp.esapi.ESAPI.encoder",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "472",
+              "value": null
+            },
+            "symbol": "b",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "474",
+              "value": 0.0
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "0",
+            "value_type": "number"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "476",
+              "value": null
+            },
+            "symbol": "size",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -3,
+              "n_id": "467",
+              "value": null
+            },
+            "object_type": "String",
+            "type": "SyntaxStepObjectInstantiation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "455",
+              "value": null
+            },
+            "method": ".encodeForHTML",
+            "type": "SyntaxStepMethodInvocationChain"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "433",
+              "value": null
+            },
+            "operator": "+",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "421",
+              "value": null
+            },
+            "method": ".println",
+            "type": "SyntaxStepMethodInvocationChain"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "480",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
           }
         ],
         "223-246-248-249-250-258-259-272-279-288-290-348-355-362-364-482-547": [
@@ -2318,6 +3012,35 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "492",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "508",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "catch_type": "487",
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "482",
+              "value": null
+            },
+            "type": "SyntaxStepParenthesizedExpression",
+            "var": "e"
           }
         ],
         "223-246-248-249-250-258-259-272-279-348-355-362-364-366-367-374-375-376-392-393-406-420-421-480": [
@@ -2683,6 +3406,218 @@
             "type": "SyntaxStepDeclaration",
             "var": "b",
             "var_type": "byte[]"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "417",
+              "value": null
+            },
+            "symbol": "b",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "411",
+              "value": null
+            },
+            "method": "fis.read",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "406",
+              "value": null
+            },
+            "type": "SyntaxStepDeclaration",
+            "var": "size",
+            "var_type": "int"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "420",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": true,
+              "dependencies": 0,
+              "n_id": "422",
+              "value": null
+            },
+            "method": "response.getWriter",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "436",
+              "value": "The beginning of file: '"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "The beginning of file: '",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "439",
+              "value": null
+            },
+            "method": "org.owasp.esapi.ESAPI.encoder",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "450",
+              "value": null
+            },
+            "symbol": "fileName",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "438",
+              "value": null
+            },
+            "method": ".encodeForHTML",
+            "type": "SyntaxStepMethodInvocationChain"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "435",
+              "value": null
+            },
+            "operator": "+",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "453",
+              "value": "' is:\\n\\n"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "' is:\\n\\n",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "434",
+              "value": null
+            },
+            "operator": "+",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "456",
+              "value": null
+            },
+            "method": "org.owasp.esapi.ESAPI.encoder",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "472",
+              "value": null
+            },
+            "symbol": "b",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "474",
+              "value": 0.0
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "0",
+            "value_type": "number"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "476",
+              "value": null
+            },
+            "symbol": "size",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -3,
+              "n_id": "467",
+              "value": null
+            },
+            "object_type": "String",
+            "type": "SyntaxStepObjectInstantiation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "455",
+              "value": null
+            },
+            "method": ".encodeForHTML",
+            "type": "SyntaxStepMethodInvocationChain"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "433",
+              "value": null
+            },
+            "operator": "+",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "421",
+              "value": null
+            },
+            "method": ".println",
+            "type": "SyntaxStepMethodInvocationChain"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "480",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
           }
         ],
         "223-246-248-249-250-258-259-272-279-348-355-362-364-482-547": [
@@ -2911,6 +3846,35 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "492",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "508",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "catch_type": "487",
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "482",
+              "value": null
+            },
+            "type": "SyntaxStepParenthesizedExpression",
+            "var": "e"
           }
         ]
       },
@@ -3393,6 +4357,218 @@
             "type": "SyntaxStepDeclaration",
             "var": "b",
             "var_type": "byte[]"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "417",
+              "value": null
+            },
+            "symbol": "b",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "411",
+              "value": null
+            },
+            "method": "fis.read",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "406",
+              "value": null
+            },
+            "type": "SyntaxStepDeclaration",
+            "var": "size",
+            "var_type": "int"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "420",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "422",
+              "value": null
+            },
+            "method": "response.getWriter",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "436",
+              "value": "The beginning of file: '"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "The beginning of file: '",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "439",
+              "value": null
+            },
+            "method": "org.owasp.esapi.ESAPI.encoder",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "450",
+              "value": null
+            },
+            "symbol": "fileName",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "438",
+              "value": null
+            },
+            "method": ".encodeForHTML",
+            "type": "SyntaxStepMethodInvocationChain"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "435",
+              "value": null
+            },
+            "operator": "+",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "453",
+              "value": "' is:\\n\\n"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "' is:\\n\\n",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "434",
+              "value": null
+            },
+            "operator": "+",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "456",
+              "value": null
+            },
+            "method": "org.owasp.esapi.ESAPI.encoder",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "472",
+              "value": null
+            },
+            "symbol": "b",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "474",
+              "value": 0.0
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "0",
+            "value_type": "number"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "476",
+              "value": null
+            },
+            "symbol": "size",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -3,
+              "n_id": "467",
+              "value": null
+            },
+            "object_type": "String",
+            "type": "SyntaxStepObjectInstantiation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "455",
+              "value": null
+            },
+            "method": ".encodeForHTML",
+            "type": "SyntaxStepMethodInvocationChain"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "433",
+              "value": null
+            },
+            "operator": "+",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "421",
+              "value": null
+            },
+            "method": ".println",
+            "type": "SyntaxStepMethodInvocationChain"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "480",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
           }
         ]
       }
@@ -3927,6 +5103,218 @@
             "type": "SyntaxStepDeclaration",
             "var": "b",
             "var_type": "byte[]"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "417",
+              "value": null
+            },
+            "symbol": "b",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "411",
+              "value": null
+            },
+            "method": "fis.read",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "406",
+              "value": null
+            },
+            "type": "SyntaxStepDeclaration",
+            "var": "size",
+            "var_type": "int"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "420",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": true,
+              "dependencies": 0,
+              "n_id": "422",
+              "value": null
+            },
+            "method": "response.getWriter",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "436",
+              "value": "The beginning of file: '"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "The beginning of file: '",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "439",
+              "value": null
+            },
+            "method": "org.owasp.esapi.ESAPI.encoder",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": true,
+              "dependencies": 0,
+              "n_id": "450",
+              "value": null
+            },
+            "symbol": "fileName",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "438",
+              "value": null
+            },
+            "method": ".encodeForHTML",
+            "type": "SyntaxStepMethodInvocationChain"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "435",
+              "value": null
+            },
+            "operator": "+",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "453",
+              "value": "' is:\\n\\n"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "' is:\\n\\n",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "434",
+              "value": null
+            },
+            "operator": "+",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "456",
+              "value": null
+            },
+            "method": "org.owasp.esapi.ESAPI.encoder",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "472",
+              "value": null
+            },
+            "symbol": "b",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "474",
+              "value": 0.0
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "0",
+            "value_type": "number"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "476",
+              "value": null
+            },
+            "symbol": "size",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -3,
+              "n_id": "467",
+              "value": null
+            },
+            "object_type": "String",
+            "type": "SyntaxStepObjectInstantiation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "455",
+              "value": null
+            },
+            "method": ".encodeForHTML",
+            "type": "SyntaxStepMethodInvocationChain"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "433",
+              "value": null
+            },
+            "operator": "+",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "421",
+              "value": null
+            },
+            "method": ".println",
+            "type": "SyntaxStepMethodInvocationChain"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "480",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
           }
         ],
         "223-246-248-249-250-258-259-272-279-288-290-298-300-319-321-322-341-342-348-355-362-364-482-547": [
@@ -4313,6 +5701,35 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "492",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "508",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "catch_type": "487",
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "482",
+              "value": null
+            },
+            "type": "SyntaxStepParenthesizedExpression",
+            "var": "e"
           }
         ],
         "223-246-248-249-250-258-259-272-279-288-290-298-300-348-355-362-364-366-367-374-375-376-392-393-406-420-421-480": [
@@ -4759,6 +6176,218 @@
             "type": "SyntaxStepDeclaration",
             "var": "b",
             "var_type": "byte[]"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "417",
+              "value": null
+            },
+            "symbol": "b",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "411",
+              "value": null
+            },
+            "method": "fis.read",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "406",
+              "value": null
+            },
+            "type": "SyntaxStepDeclaration",
+            "var": "size",
+            "var_type": "int"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "420",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": true,
+              "dependencies": 0,
+              "n_id": "422",
+              "value": null
+            },
+            "method": "response.getWriter",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "436",
+              "value": "The beginning of file: '"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "The beginning of file: '",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "439",
+              "value": null
+            },
+            "method": "org.owasp.esapi.ESAPI.encoder",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "450",
+              "value": null
+            },
+            "symbol": "fileName",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "438",
+              "value": null
+            },
+            "method": ".encodeForHTML",
+            "type": "SyntaxStepMethodInvocationChain"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "435",
+              "value": null
+            },
+            "operator": "+",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "453",
+              "value": "' is:\\n\\n"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "' is:\\n\\n",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "434",
+              "value": null
+            },
+            "operator": "+",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "456",
+              "value": null
+            },
+            "method": "org.owasp.esapi.ESAPI.encoder",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "472",
+              "value": null
+            },
+            "symbol": "b",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "474",
+              "value": 0.0
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "0",
+            "value_type": "number"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "476",
+              "value": null
+            },
+            "symbol": "size",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -3,
+              "n_id": "467",
+              "value": null
+            },
+            "object_type": "String",
+            "type": "SyntaxStepObjectInstantiation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "455",
+              "value": null
+            },
+            "method": ".encodeForHTML",
+            "type": "SyntaxStepMethodInvocationChain"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "433",
+              "value": null
+            },
+            "operator": "+",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "421",
+              "value": null
+            },
+            "method": ".println",
+            "type": "SyntaxStepMethodInvocationChain"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "480",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
           }
         ],
         "223-246-248-249-250-258-259-272-279-288-290-298-300-348-355-362-364-482-547": [
@@ -5068,6 +6697,35 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "492",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "508",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "catch_type": "487",
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "482",
+              "value": null
+            },
+            "type": "SyntaxStepParenthesizedExpression",
+            "var": "e"
           }
         ],
         "223-246-248-249-250-258-259-272-279-288-290-348-355-362-364-366-367-374-375-376-392-393-406-420-421-480": [
@@ -5463,6 +7121,218 @@
             "type": "SyntaxStepDeclaration",
             "var": "b",
             "var_type": "byte[]"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "417",
+              "value": null
+            },
+            "symbol": "b",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "411",
+              "value": null
+            },
+            "method": "fis.read",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "406",
+              "value": null
+            },
+            "type": "SyntaxStepDeclaration",
+            "var": "size",
+            "var_type": "int"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "420",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": true,
+              "dependencies": 0,
+              "n_id": "422",
+              "value": null
+            },
+            "method": "response.getWriter",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "436",
+              "value": "The beginning of file: '"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "The beginning of file: '",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "439",
+              "value": null
+            },
+            "method": "org.owasp.esapi.ESAPI.encoder",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "450",
+              "value": null
+            },
+            "symbol": "fileName",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "438",
+              "value": null
+            },
+            "method": ".encodeForHTML",
+            "type": "SyntaxStepMethodInvocationChain"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "435",
+              "value": null
+            },
+            "operator": "+",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "453",
+              "value": "' is:\\n\\n"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "' is:\\n\\n",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "434",
+              "value": null
+            },
+            "operator": "+",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "456",
+              "value": null
+            },
+            "method": "org.owasp.esapi.ESAPI.encoder",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "472",
+              "value": null
+            },
+            "symbol": "b",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "474",
+              "value": 0.0
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "0",
+            "value_type": "number"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "476",
+              "value": null
+            },
+            "symbol": "size",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -3,
+              "n_id": "467",
+              "value": null
+            },
+            "object_type": "String",
+            "type": "SyntaxStepObjectInstantiation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "455",
+              "value": null
+            },
+            "method": ".encodeForHTML",
+            "type": "SyntaxStepMethodInvocationChain"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "433",
+              "value": null
+            },
+            "operator": "+",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "421",
+              "value": null
+            },
+            "method": ".println",
+            "type": "SyntaxStepMethodInvocationChain"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "480",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
           }
         ],
         "223-246-248-249-250-258-259-272-279-288-290-348-355-362-364-482-547": [
@@ -5721,6 +7591,35 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "492",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "508",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "catch_type": "487",
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "482",
+              "value": null
+            },
+            "type": "SyntaxStepParenthesizedExpression",
+            "var": "e"
           }
         ],
         "223-246-248-249-250-258-259-272-279-348-355-362-364-366-367-374-375-376-392-393-406-420-421-480": [
@@ -6086,6 +7985,218 @@
             "type": "SyntaxStepDeclaration",
             "var": "b",
             "var_type": "byte[]"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "417",
+              "value": null
+            },
+            "symbol": "b",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "411",
+              "value": null
+            },
+            "method": "fis.read",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "406",
+              "value": null
+            },
+            "type": "SyntaxStepDeclaration",
+            "var": "size",
+            "var_type": "int"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "420",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": true,
+              "dependencies": 0,
+              "n_id": "422",
+              "value": null
+            },
+            "method": "response.getWriter",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "436",
+              "value": "The beginning of file: '"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "The beginning of file: '",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "439",
+              "value": null
+            },
+            "method": "org.owasp.esapi.ESAPI.encoder",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "450",
+              "value": null
+            },
+            "symbol": "fileName",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "438",
+              "value": null
+            },
+            "method": ".encodeForHTML",
+            "type": "SyntaxStepMethodInvocationChain"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "435",
+              "value": null
+            },
+            "operator": "+",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "453",
+              "value": "' is:\\n\\n"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "' is:\\n\\n",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "434",
+              "value": null
+            },
+            "operator": "+",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "456",
+              "value": null
+            },
+            "method": "org.owasp.esapi.ESAPI.encoder",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "472",
+              "value": null
+            },
+            "symbol": "b",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "474",
+              "value": 0.0
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "0",
+            "value_type": "number"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "476",
+              "value": null
+            },
+            "symbol": "size",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -3,
+              "n_id": "467",
+              "value": null
+            },
+            "object_type": "String",
+            "type": "SyntaxStepObjectInstantiation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "455",
+              "value": null
+            },
+            "method": ".encodeForHTML",
+            "type": "SyntaxStepMethodInvocationChain"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "433",
+              "value": null
+            },
+            "operator": "+",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "421",
+              "value": null
+            },
+            "method": ".println",
+            "type": "SyntaxStepMethodInvocationChain"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "480",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
           }
         ],
         "223-246-248-249-250-258-259-272-279-348-355-362-364-482-547": [
@@ -6314,6 +8425,35 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "492",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "508",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "catch_type": "487",
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "482",
+              "value": null
+            },
+            "type": "SyntaxStepParenthesizedExpression",
+            "var": "e"
           }
         ]
       },
@@ -7630,6 +9770,135 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "275",
+              "value": null
+            },
+            "symbol": "org.owasp.benchmark.helpers.DatabaseHelper.hideSQLErrors",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "271",
+              "value": null
+            },
+            "n_id_false": "300",
+            "n_id_true": "277",
+            "type": "SyntaxStepIf"
+          },
+          {
+            "catch_type": "266",
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "261",
+              "value": null
+            },
+            "type": "SyntaxStepParenthesizedExpression",
+            "var": "e"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "269",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "275",
+              "value": null
+            },
+            "symbol": "org.owasp.benchmark.helpers.DatabaseHelper.hideSQLErrors",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "271",
+              "value": null
+            },
+            "n_id_false": "300",
+            "n_id_true": "277",
+            "type": "SyntaxStepIf"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "277",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "279",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": true,
+              "dependencies": 0,
+              "n_id": "281",
+              "value": null
+            },
+            "method": "response.getWriter",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "292",
+              "value": "Error processing request."
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "Error processing request.",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "280",
+              "value": null
+            },
+            "method": ".println",
+            "type": "SyntaxStepMethodInvocationChain"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "294",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "295",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
           }
         ],
         "98-121-123-124-125-133-134-141-157-159-160-171-173-174-175-188-189-202-204-261-269-271-300": [
@@ -7993,6 +10262,68 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "275",
+              "value": null
+            },
+            "symbol": "org.owasp.benchmark.helpers.DatabaseHelper.hideSQLErrors",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "271",
+              "value": null
+            },
+            "n_id_false": "300",
+            "n_id_true": "277",
+            "type": "SyntaxStepIf"
+          },
+          {
+            "catch_type": "266",
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "261",
+              "value": null
+            },
+            "type": "SyntaxStepParenthesizedExpression",
+            "var": "e"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "269",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "275",
+              "value": null
+            },
+            "symbol": "org.owasp.benchmark.helpers.DatabaseHelper.hideSQLErrors",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "271",
+              "value": null
+            },
+            "n_id_false": "300",
+            "n_id_true": "277",
+            "type": "SyntaxStepIf"
           }
         ],
         "98-121-123-124-125-133-134-141-173-174-175-188-189-202-204-206-219-233-246-247-259": [
@@ -8734,6 +11065,135 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "275",
+              "value": null
+            },
+            "symbol": "org.owasp.benchmark.helpers.DatabaseHelper.hideSQLErrors",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "271",
+              "value": null
+            },
+            "n_id_false": "300",
+            "n_id_true": "277",
+            "type": "SyntaxStepIf"
+          },
+          {
+            "catch_type": "266",
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "261",
+              "value": null
+            },
+            "type": "SyntaxStepParenthesizedExpression",
+            "var": "e"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "269",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "275",
+              "value": null
+            },
+            "symbol": "org.owasp.benchmark.helpers.DatabaseHelper.hideSQLErrors",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "271",
+              "value": null
+            },
+            "n_id_false": "300",
+            "n_id_true": "277",
+            "type": "SyntaxStepIf"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "277",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "279",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": true,
+              "dependencies": 0,
+              "n_id": "281",
+              "value": null
+            },
+            "method": "response.getWriter",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "292",
+              "value": "Error processing request."
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "Error processing request.",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "280",
+              "value": null
+            },
+            "method": ".println",
+            "type": "SyntaxStepMethodInvocationChain"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "294",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "295",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
           }
         ],
         "98-121-123-124-125-133-134-141-173-174-175-188-189-202-204-261-269-271-300": [
@@ -9039,6 +11499,68 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "275",
+              "value": null
+            },
+            "symbol": "org.owasp.benchmark.helpers.DatabaseHelper.hideSQLErrors",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "271",
+              "value": null
+            },
+            "n_id_false": "300",
+            "n_id_true": "277",
+            "type": "SyntaxStepIf"
+          },
+          {
+            "catch_type": "266",
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "261",
+              "value": null
+            },
+            "type": "SyntaxStepParenthesizedExpression",
+            "var": "e"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "269",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "275",
+              "value": null
+            },
+            "symbol": "org.owasp.benchmark.helpers.DatabaseHelper.hideSQLErrors",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "271",
+              "value": null
+            },
+            "n_id_false": "300",
+            "n_id_true": "277",
+            "type": "SyntaxStepIf"
           }
         ]
       },
@@ -9997,6 +12519,135 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "275",
+              "value": null
+            },
+            "symbol": "org.owasp.benchmark.helpers.DatabaseHelper.hideSQLErrors",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "271",
+              "value": null
+            },
+            "n_id_false": "300",
+            "n_id_true": "277",
+            "type": "SyntaxStepIf"
+          },
+          {
+            "catch_type": "266",
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "261",
+              "value": null
+            },
+            "type": "SyntaxStepParenthesizedExpression",
+            "var": "e"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "269",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "275",
+              "value": null
+            },
+            "symbol": "org.owasp.benchmark.helpers.DatabaseHelper.hideSQLErrors",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "271",
+              "value": null
+            },
+            "n_id_false": "300",
+            "n_id_true": "277",
+            "type": "SyntaxStepIf"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "277",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "279",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": true,
+              "dependencies": 0,
+              "n_id": "281",
+              "value": null
+            },
+            "method": "response.getWriter",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "292",
+              "value": "Error processing request."
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "Error processing request.",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "280",
+              "value": null
+            },
+            "method": ".println",
+            "type": "SyntaxStepMethodInvocationChain"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "294",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "295",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
           }
         ],
         "98-121-123-124-125-133-134-141-157-159-160-171-173-174-175-188-189-202-204-261-269-271-300": [
@@ -10360,6 +13011,68 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "275",
+              "value": null
+            },
+            "symbol": "org.owasp.benchmark.helpers.DatabaseHelper.hideSQLErrors",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "271",
+              "value": null
+            },
+            "n_id_false": "300",
+            "n_id_true": "277",
+            "type": "SyntaxStepIf"
+          },
+          {
+            "catch_type": "266",
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "261",
+              "value": null
+            },
+            "type": "SyntaxStepParenthesizedExpression",
+            "var": "e"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "269",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "275",
+              "value": null
+            },
+            "symbol": "org.owasp.benchmark.helpers.DatabaseHelper.hideSQLErrors",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "271",
+              "value": null
+            },
+            "n_id_false": "300",
+            "n_id_true": "277",
+            "type": "SyntaxStepIf"
           }
         ],
         "98-121-123-124-125-133-134-141-173-174-175-188-189-202-204-206-219-233-246-247-259": [
@@ -11101,6 +13814,135 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "275",
+              "value": null
+            },
+            "symbol": "org.owasp.benchmark.helpers.DatabaseHelper.hideSQLErrors",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "271",
+              "value": null
+            },
+            "n_id_false": "300",
+            "n_id_true": "277",
+            "type": "SyntaxStepIf"
+          },
+          {
+            "catch_type": "266",
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "261",
+              "value": null
+            },
+            "type": "SyntaxStepParenthesizedExpression",
+            "var": "e"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "269",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "275",
+              "value": null
+            },
+            "symbol": "org.owasp.benchmark.helpers.DatabaseHelper.hideSQLErrors",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "271",
+              "value": null
+            },
+            "n_id_false": "300",
+            "n_id_true": "277",
+            "type": "SyntaxStepIf"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "277",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "279",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": true,
+              "dependencies": 0,
+              "n_id": "281",
+              "value": null
+            },
+            "method": "response.getWriter",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "292",
+              "value": "Error processing request."
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "Error processing request.",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "280",
+              "value": null
+            },
+            "method": ".println",
+            "type": "SyntaxStepMethodInvocationChain"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "294",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "295",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
           }
         ],
         "98-121-123-124-125-133-134-141-173-174-175-188-189-202-204-261-269-271-300": [
@@ -11406,6 +14248,68 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "275",
+              "value": null
+            },
+            "symbol": "org.owasp.benchmark.helpers.DatabaseHelper.hideSQLErrors",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "271",
+              "value": null
+            },
+            "n_id_false": "300",
+            "n_id_true": "277",
+            "type": "SyntaxStepIf"
+          },
+          {
+            "catch_type": "266",
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "261",
+              "value": null
+            },
+            "type": "SyntaxStepParenthesizedExpression",
+            "var": "e"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "269",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "275",
+              "value": null
+            },
+            "symbol": "org.owasp.benchmark.helpers.DatabaseHelper.hideSQLErrors",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "271",
+              "value": null
+            },
+            "n_id_false": "300",
+            "n_id_true": "277",
+            "type": "SyntaxStepIf"
           }
         ]
       },

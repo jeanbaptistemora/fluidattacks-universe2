@@ -76,6 +76,9 @@ DANGER_METHODS_BY_OBJ: Dict[str, Set[str]] = _complete_attrs_on_dict({
     'java.util.Map': {
         'get',
     },
+    'java.util.List': {
+        'get',
+    },
 })
 DANGER_METHODS_BY_TYPE: Dict[str, Set[str]] = _complete_attrs_on_dict({
     'javax.servlet.http.Cookie': {

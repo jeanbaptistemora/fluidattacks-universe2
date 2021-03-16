@@ -7734,6 +7734,37 @@
             "type": "SyntaxStepNoOp"
           }
         ],
+        "482": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "492",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "508",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "catch_type": "487",
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "482",
+              "value": null
+            },
+            "type": "SyntaxStepParenthesizedExpression",
+            "var": "e"
+          }
+        ],
         "490": [
           {
             "meta": {
@@ -12029,6 +12060,40 @@
             "type": "SyntaxStepNoOp"
           }
         ],
+        "261": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "275",
+              "value": null
+            },
+            "symbol": "org.owasp.benchmark.helpers.DatabaseHelper.hideSQLErrors",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "271",
+              "value": null
+            },
+            "n_id_false": "300",
+            "n_id_true": "277",
+            "type": "SyntaxStepIf"
+          },
+          {
+            "catch_type": "266",
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "261",
+              "value": null
+            },
+            "type": "SyntaxStepParenthesizedExpression",
+            "var": "e"
+          }
+        ],
         "269": [
           {
             "meta": {
@@ -12124,6 +12189,17 @@
               "danger": false,
               "dependencies": 0,
               "n_id": "294",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "295": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "295",
               "value": null
             },
             "type": "SyntaxStepNoOp"
@@ -22175,6 +22251,19 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          }
+        ],
+        "51": [
+          {
+            "catch_type": "56",
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "51",
+              "value": null
+            },
+            "type": "SyntaxStepParenthesizedExpression",
+            "var": "e"
           }
         ],
         "59": [
@@ -43365,6 +43454,28 @@
             "var_type": "int"
           }
         ],
+        "1470": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1480",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "catch_type": "1475",
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "1470",
+              "value": null
+            },
+            "type": "SyntaxStepParenthesizedExpression",
+            "var": "e"
+          }
+        ],
         "1478": [
           {
             "meta": {
@@ -43418,6 +43529,28 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          }
+        ],
+        "1489": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1499",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "catch_type": "1494",
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "1489",
+              "value": null
+            },
+            "type": "SyntaxStepParenthesizedExpression",
+            "var": "e2"
           }
         ],
         "1497": [
@@ -43530,6 +43663,28 @@
             "type": "SyntaxStepDeclaration",
             "var": "j",
             "var_type": "int"
+          }
+        ],
+        "1521": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1531",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "catch_type": "1526",
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "1521",
+              "value": null
+            },
+            "type": "SyntaxStepParenthesizedExpression",
+            "var": "e"
           }
         ],
         "1529": [
@@ -45770,6 +45925,70 @@
             "type": "SyntaxStepDeclaration",
             "var": "counter",
             "var_type": "int"
+          }
+        ],
+        "78": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "93",
+              "value": null
+            },
+            "method": "e.toString",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "101",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "Error",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "92",
+              "value": null
+            },
+            "operator": "==",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "88",
+              "value": null
+            },
+            "n_id_false": null,
+            "n_id_true": "103",
+            "type": "SyntaxStepIf"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "116",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "catch_type": "83",
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "78",
+              "value": null
+            },
+            "type": "SyntaxStepParenthesizedExpression",
+            "var": "e"
           }
         ],
         "86": [
