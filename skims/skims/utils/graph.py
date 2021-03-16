@@ -22,10 +22,6 @@ from jmespath import (
     search as jsh,
 )
 import networkx as nx
-from func_timeout import (
-    func_timeout,
-    FunctionTimedOut,
-)
 
 # Local libraries
 from model import core_model
@@ -38,9 +34,6 @@ from model.graph_model import (
 )
 from utils.function import (
     trace,
-)
-from utils.logs import (
-    log_blocking,
 )
 
 from utils.system import (
@@ -420,14 +413,6 @@ def branches_cfg(
     n_id: NId,
     finding: core_model.FindingEnum
 ) -> Tuple[Tuple[str, ...], ...]:
-    return tuple(_branches_cfg(graph, n_id, finding))
-
-
-def _branches_cfg(
-    graph: Graph,
-    n_id: NId,
-    finding: core_model.FindingEnum
-) -> Iterator[Tuple[str, ...]]:
     # Compute all childs reachable from CFG edges
     c_ids = adj_cfg(graph, n_id, depth=-1)
 
@@ -437,21 +422,12 @@ def _branches_cfg(
         if graph.nodes[x_id].get('label_sink_type') == finding.name
         or not adj_cfg(graph, x_id)
     )
-    for leaf_id in leaf_ids:
-        try:
-            all_paths = func_timeout(
-                20,
-                tuple,
-                args=(paths(graph, n_id, leaf_id, label_cfg='CFG'), ),
-            )
-            yield from all_paths
-        except FunctionTimedOut:
-            log_blocking(
-                'debug',
-                'The paths beetwing %s and %s cannot be analyzed',
-                n_id,
-                leaf_id,
-            )
+
+    return tuple(sorted(
+        path
+        for leaf_id in leaf_ids
+        for path in paths(graph, n_id, leaf_id, label_cfg='CFG')
+    ))
 
 
 def import_graph_from_json(model: Any) -> Graph:
