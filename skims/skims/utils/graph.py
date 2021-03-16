@@ -416,7 +416,7 @@ def branches_cfg(
     c_ids = adj_cfg(graph, n_id, depth=-1)
 
     # Filter the ones that are connected to a sink via the AST
-    leaf_ids = (
+    target_ids = tuple(
         c_id
         for c_id in c_ids
         if (
@@ -425,7 +425,7 @@ def branches_cfg(
             # The node has an AST child that is a sink of the finding
             or any(
                 graph.nodes[c_c_id].get('label_sink_type') == finding.name
-                for c_c_id in adj_ast(graph, c_id)
+                for c_c_id in adj_ast(graph, c_id, depth=-1)
             )
             # The node is and leaf node
             or not adj_cfg(graph, c_id)
@@ -434,7 +434,7 @@ def branches_cfg(
 
     return tuple(sorted(set(
         path
-        for leaf_id in leaf_ids
+        for leaf_id in target_ids
         for path in paths(graph, n_id, leaf_id, label_cfg='CFG')
     )))
 
