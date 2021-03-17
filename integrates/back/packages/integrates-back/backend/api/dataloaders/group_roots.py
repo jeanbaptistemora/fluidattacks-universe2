@@ -15,7 +15,7 @@ from roots import domain as roots_domain
 
 async def get_roots_by_group(group_name: str) -> Tuple[Root, ...]:
     return tuple(
-        roots_domain.format_root(root)
+        roots_domain.format_root_legacy(root)
         for root in await roots_domain.get_roots_by_group(group_name)
     )
 

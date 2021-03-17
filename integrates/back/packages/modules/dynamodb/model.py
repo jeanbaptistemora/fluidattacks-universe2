@@ -70,7 +70,7 @@ def _build_root(
                 includes_health_check=state['includes_health_check'],
                 modified_by=state['modified_by'],
                 modified_date=state['modified_date'],
-                nickname=state['nickname'],
+                nickname=state.get('nickname', str()),
                 status=state['status']
             )
         )
@@ -104,11 +104,11 @@ def _build_root(
 async def get_root(
     *,
     group_name: str,
-    uuid: str,
+    root_id: str,
 ) -> Optional[RootItem]:
     primary_key = keys.build_key(
         facet=TABLE.facets['root_metadata'],
-        values={'name': group_name, 'uuid': uuid},
+        values={'name': group_name, 'uuid': root_id},
     )
 
     index = TABLE.indexes['inverted_index']
@@ -224,8 +224,8 @@ async def create_git_root(*, group_name: str, root: GitRootItem) -> None:
 async def update_git_root_state(
     *,
     group_name: str,
-    state: GitRootState,
-    uuid: str
+    root_id: str,
+    state: GitRootState
 ) -> None:
     key_structure = TABLE.primary_key
     historic = historics.build_historic(
@@ -235,7 +235,7 @@ async def update_git_root_state(
         key_values={
             'iso8601utc': state.modified_date,
             'name': group_name,
-            'uuid': uuid
+            'uuid': root_id
         },
         latest_facet=TABLE.facets['root_state'],
     )
@@ -247,7 +247,7 @@ async def update_git_root_cloning(
     *,
     cloning: GitRootCloning,
     group_name: str,
-    uuid: str
+    root_id: str
 ) -> None:
     key_structure = TABLE.primary_key
     historic = historics.build_historic(
@@ -257,7 +257,7 @@ async def update_git_root_cloning(
         key_values={
             'iso8601utc': cloning.modified_date,
             'name': group_name,
-            'uuid': uuid
+            'uuid': root_id
         },
         latest_facet=TABLE.facets['root_cloning'],
     )

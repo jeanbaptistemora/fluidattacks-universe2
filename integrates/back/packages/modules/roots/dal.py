@@ -60,11 +60,11 @@ async def create_git_root(*, group_name: str, root: GitRootItem) -> None:
 async def get_root(
     *,
     group_name: str,
-    uuid: str
+    root_id: str
 ) -> Optional[RootItem]:
     return await model.get_root(
         group_name=group_name,
-        uuid=uuid
+        root_id=root_id
     )
 
 
@@ -142,23 +142,23 @@ async def update_git_root_cloning(
     *,
     cloning: GitRootCloning,
     group_name: str,
-    uuid: str
+    root_id: str
 ) -> None:
     await model.update_git_root_cloning(
         cloning=cloning,
         group_name=group_name,
-        uuid=uuid
+        root_id=root_id
     )
 
 
 async def update_git_root_state(
     *,
     group_name: str,
-    state: GitRootState,
-    uuid: str
+    root_id: str,
+    state: GitRootState
 ) -> None:
     await model.update_git_root_state(
         group_name=group_name,
         state=state,
-        uuid=uuid
+        root_id=root_id
     )

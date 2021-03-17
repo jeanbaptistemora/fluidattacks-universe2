@@ -33,12 +33,65 @@ from backend.typing import (
     URLRoot,
     Root,
 )
+from dynamodb.types import (
+    GitRootItem,
+    IPRootItem,
+    RootItem
+)
 from newutils import (
     datetime as datetime_utils,
     validations,
 )
 from notifications import domain as notifications_domain
 from roots import dal as roots_dal
+
+
+def format_root(root: RootItem) -> Root:
+    if isinstance(root, GitRootItem):
+        return GitRoot(
+            branch=root.metadata.branch,
+            cloning_status=GitRootCloningStatus(
+                status=root.cloning.status,
+                message=root.cloning.reason,
+            ),
+            environment=root.state.environment,
+            environment_urls=root.state.environment_urls,
+            gitignore=root.state.gitignore,
+            id=root.id,
+            includes_health_check=root.state.includes_health_check,
+            last_status_update=root.state.modified_date,
+            nickname=root.state.nickname,
+            state=root.state.status,
+            url=root.metadata.url
+        )
+
+    if isinstance(root, IPRootItem):
+        return IPRoot(
+            address=root.state.address,
+            id=root.id,
+            port=root.state.port
+        )
+
+    return URLRoot(
+        host=root.state.host,
+        id=root.id,
+        path=root.state.path,
+        port=root.state.port,
+        protocol=root.state.protocol
+    )
+
+
+async def get_root(*, group_name: str, root_id: str) -> RootItem:
+    root = await roots_dal.get_root(group_name=group_name, root_id=root_id)
+
+    if root:
+        return root
+
+    raise RootNotFound()
+
+
+async def get_roots(*, group_name: str) -> Tuple[RootItem, ...]:
+    return await roots_dal.get_roots(group_name=group_name)
 
 
 def _format_git_repo_url(raw_url: str) -> str:
@@ -276,7 +329,7 @@ async def add_url_root(context: Any, user_email: str, **kwargs: Any) -> None:
         raise InvalidParameter()
 
 
-def format_root(root: Dict[str, Any]) -> Root:
+def format_root_legacy(root: Dict[str, Any]) -> Root:
     root_state: Dict[str, Any] = root['historic_state'][-1]
 
     if root['kind'] == 'Git':
