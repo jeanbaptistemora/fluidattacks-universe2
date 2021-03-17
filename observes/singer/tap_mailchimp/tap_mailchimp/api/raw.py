@@ -32,12 +32,22 @@ class AbsReportId(NamedTuple):
     str_id: str
 
 
+class GrowthHistId(NamedTuple):
+    audience_id: AudienceId
+    str_id: str
+
+
 class MemberId(NamedTuple):
     audience_id: AudienceId
     str_id: str
 
 
-ItemId = Union[AudienceId, AbsReportId, MemberId]
+ItemId = Union[
+    AudienceId,
+    AbsReportId,
+    GrowthHistId,
+    MemberId,
+]
 
 
 class RawSource(NamedTuple):
@@ -49,6 +59,8 @@ class RawSource(NamedTuple):
     get_top_clients: Callable[[AudienceId], JSON]
     list_members: Callable[[AudienceId], JSON]
     get_member: Callable[[MemberId], JSON]
+    list_growth_hist: Callable[[AudienceId], JSON]
+    get_growth_hist: Callable[[GrowthHistId], JSON]
 
 
 def _list_audiences(client: Client) -> JSON:
@@ -101,6 +113,20 @@ def _get_member(client: Client, member_id: MemberId) -> JSON:
     )
 
 
+def _list_growth_hist(client: Client, audience_id: AudienceId) -> JSON:
+    return client.lists.get_list_growth_history(
+        audience_id.str_id,
+        fields=['history.month', 'total_items', '_links']
+    )
+
+
+def _get_growth_hist(client: Client, ghist_id: GrowthHistId) -> JSON:
+    return client.lists.get_list_growth_history_by_month(
+        ghist_id.audience_id.str_id,
+        ghist_id.str_id
+    )
+
+
 def create_raw_source(client: Client) -> RawSource:
     return RawSource(
         list_audiences=partial(_list_audiences, client),
@@ -111,4 +137,6 @@ def create_raw_source(client: Client) -> RawSource:
         get_top_clients=partial(_get_clients, client),
         list_members=partial(_list_members, client),
         get_member=partial(_get_member, client),
+        list_growth_hist=partial(_list_growth_hist, client),
+        get_growth_hist=partial(_get_growth_hist, client),
     )
