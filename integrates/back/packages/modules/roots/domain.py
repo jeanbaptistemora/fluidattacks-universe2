@@ -9,6 +9,7 @@ from typing import (
     Set,
 )
 from urllib.parse import unquote
+from uuid import uuid4
 
 # Third party
 import newrelic.agent
@@ -35,7 +36,9 @@ from backend.typing import (
     Root,
 )
 from dynamodb.types import (
+    GitRootCloning,
     GitRootItem,
+    GitRootMetadata,
     GitRootState,
     IPRootItem,
     RootItem
@@ -137,7 +140,7 @@ async def _is_git_unique_in_org_legacy(
 
 
 @newrelic.agent.function_trace()
-async def is_git_unique_in_org(org_id: str, url: str, branch: str) -> bool:
+async def _is_git_unique_in_org(org_id: str, url: str, branch: str) -> bool:
     org_groups = await org_domain.get_groups(org_id)
     org_roots = tuple(
         (root.metadata.url, root.metadata.branch)
@@ -189,7 +192,7 @@ async def _is_nickname_unique_in_group_legacy(
 
 
 @newrelic.agent.function_trace()
-async def is_nickname_unique_in_group(group_name: str, nickname: str) -> bool:
+async def _is_nickname_unique_in_group(group_name: str, nickname: str) -> bool:
     group_roots = await get_roots(group_name=group_name)
     nickname_roots = {
         root.state.nickname
@@ -228,7 +231,11 @@ async def _is_url_unique_in_org(
     return (host, path, port, protocol) not in org_roots
 
 
-async def add_git_root(context: Any, user_email: str, **kwargs: Any) -> None:
+async def add_git_root_legacy(
+    context: Any,
+    user_email: str,
+    **kwargs: Any
+) -> None:
     group_loader = context.group_all
     group_name: str = kwargs['group_name'].lower()
     url: str = _format_git_repo_url(kwargs['url'])
@@ -295,6 +302,70 @@ async def add_git_root(context: Any, user_email: str, **kwargs: Any) -> None:
             raise RepeatedRoot()
     else:
         raise InvalidParameter()
+
+
+async def add_git_root(context: Any, user_email: str, **kwargs: Any) -> None:
+    group_loader = context.group_all
+    group_name: str = kwargs['group_name'].lower()
+    url: str = _format_git_repo_url(kwargs['url'])
+    branch: str = kwargs['branch']
+    nickname: str = format_root_nickname(kwargs.get('nickname', ''), url)
+
+    gitignore = kwargs['gitignore']
+    enforcer = await authz.get_group_level_enforcer(user_email)
+    if (
+        gitignore
+        and not enforcer(group_name, 'update_git_root_filter')
+    ):
+        raise PermissionDenied()
+    if not validations.is_exclude_valid(gitignore, url):
+        raise InvalidRootExclusion()
+
+    if not (
+        validations.is_valid_url(url)
+        and validations.is_valid_git_branch(branch)
+    ):
+        raise InvalidParameter()
+
+    if not await _is_nickname_unique_in_group(group_name, nickname):
+        raise RepeatedRootNickname()
+
+    group = await group_loader.load(group_name)
+    if not await _is_git_unique_in_org(group['organization'], url, branch):
+        raise RepeatedRoot()
+
+    root = GitRootItem(
+        cloning=GitRootCloning(
+            modified_date=datetime_utils.get_iso_date(),
+            reason='root created',
+            status='UNKNOWN'
+        ),
+        id=str(uuid4()),
+        metadata=GitRootMetadata(
+            branch=branch,
+            type='Git',
+            url=url
+        ),
+        state=GitRootState(
+            environment_urls=list(),
+            environment=kwargs['environment'],
+            gitignore=gitignore,
+            includes_health_check=kwargs['includes_health_check'],
+            modified_by=user_email,
+            modified_date=datetime_utils.get_iso_date(),
+            nickname=nickname,
+            status='ACTIVE'
+        )
+    )
+    await roots_dal.create_git_root(group_name=group_name, root=root)
+
+    if kwargs['includes_health_check']:
+        await notifications_domain.request_health_check(
+            branch=root.metadata.branch,
+            group_name=group_name,
+            repo_url=root.metadata.url,
+            requester_email=user_email,
+        )
 
 
 async def add_ip_root(context: Any, user_email: str, **kwargs: Any) -> None:
