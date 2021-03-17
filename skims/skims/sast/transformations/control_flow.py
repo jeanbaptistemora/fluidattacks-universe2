@@ -148,34 +148,36 @@ def _switch_statement(
     n_id: str,
     stack: Stack,
 ) -> None:
-    # switch ( parenthesized_expression ) switch_block
-    match = g.match_ast(
-        graph, n_id,
-        'parenthesized_expression',
-        'switch_block',
+    # switch parenthesized_expression switch_block
+    switch_block = g.adj_ast(graph, n_id)[2]
+    switch_steps = tuple(
+        (c_id, graph.nodes[c_id])
+        for c_id in g.adj_ast(graph, switch_block)[1:-1]
     )
-    match_blocks = g.match_ast(
-        graph,
-        match['switch_block'],
-    )
-    match_switch_blocks = {
-        key: value
-        for key, value in match_blocks.items()
-        if graph.nodes[value]['label_type'] == 'expression_statement'
-    }
 
-    match_case_blocks = {
-        key: value
-        for key, value in match_blocks.items()
-        if graph.nodes[value]['label_type'] == 'switch_label'
-    }
-    cases_expression = zip(sorted(match_case_blocks.values()),
-                           sorted(match_switch_blocks.values()))
-    for case, expression in cases_expression:
-        graph.add_edge(n_id, case, **TRUE)
-        graph.add_edge(case, expression, **ALWAYS)
+    switch_flows = []
+    for index, (c_id, c_attrs) in enumerate(switch_steps):
+        if c_attrs['label_type'] == 'switch_label':
+            switch_flows.append([c_id])
+            for c_c_id, c_c_attrs in switch_steps[index + 1:]:
+                if c_c_attrs['label_type'] != 'switch_label':
+                    switch_flows[-1].append(c_c_id)
+                if c_c_attrs['label_type'] == 'break_statement':
+                    break
+
+    for stmt_ids in switch_flows:
+        # Link to the first statement in the block
+        graph.add_edge(n_id, stmt_ids[0], **MAYBE)
+
+        # Walk pairs of elements
+        for stmt_a_id, stmt_b_id in pairwise(stmt_ids):
+            # Mark as next_id the next statement in chain
+            _set_next_id(stack, stmt_b_id)
+            _generic(graph, stmt_a_id, stack, edge_attrs=ALWAYS)
+
+        # Link recursively the last statement in the block
         _propagate_next_id_from_parent(stack)
-        _generic(graph, expression, stack, edge_attrs=ALWAYS)
+        _generic(graph, stmt_ids[-1], stack, edge_attrs=ALWAYS)
 
 
 def _link_to_last_node(
