@@ -7,7 +7,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Layout } from "../components/layout";
 import ModalVideo from "modal-video-custom";
 import { NavbarComponent } from "../components/navbar";
-import React from "react";
 import { Seo } from "../components/seo";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import * as playButton from "../../static/images/home/play-video.svg";
@@ -25,6 +24,7 @@ import {
   PlayItButtonImage,
 } from "../styles/styledComponents";
 import { Link, graphql } from "gatsby";
+import React, { useState } from "react";
 import "modal-video-custom/scss/modal-video.scss";
 
 interface IQueryData {
@@ -43,7 +43,7 @@ interface IQueryData {
 }
 
 const Index: React.FC<IQueryData> = ({ data }: IQueryData): JSX.Element => {
-  const [isOpen, setOpen] = React.useState(false);
+  const [isOpen, setOpen] = useState(false);
   const handleClose: () => void = (): void => setOpen(false);
   const handleOpen: () => void = (): void => setOpen(true);
 

@@ -1,8 +1,8 @@
 /* eslint import/no-namespace:0 */
 /* eslint @typescript-eslint/no-non-null-assertion:0 */
 import { Helmet } from "react-helmet";
-import PropTypes from "prop-types"; // eslint-disable-line import/default
 import React from "react";
+import { string } from "prop-types"; // eslint-disable-line import/default
 import * as favicon from "../../static/images/favicon.png";
 
 interface IMetaItem {
@@ -122,12 +122,12 @@ const Seo: React.FC<ISeoProps> = ({
 
 // eslint-disable-next-line fp/no-mutation
 Seo.propTypes = {
-  author: PropTypes.string,
-  description: PropTypes.string,
-  image: PropTypes.string,
-  keywords: PropTypes.string,
-  title: PropTypes.string,
-  url: PropTypes.string,
+  author: string,
+  description: string,
+  image: string,
+  keywords: string,
+  title: string,
+  url: string,
 };
 
 // eslint-disable-next-line fp/no-mutation
