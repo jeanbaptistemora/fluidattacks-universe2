@@ -9,10 +9,9 @@ import type { GraphQLError } from "graphql";
 import type { IHeaderConfig } from "components/DataTableNext/types";
 import { Logger } from "utils/logger";
 import { NetworkStatus } from "apollo-client";
-import React from "react";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import _ from "lodash";
-import mixpanel from "mixpanel-browser";
+import { track } from "mixpanel-browser";
 import { translate } from "utils/translations/translate";
 import {
   ADD_TAGS_MUTATION,
@@ -20,6 +19,7 @@ import {
   REMOVE_TAG_MUTATION,
 } from "scenes/Dashboard/containers/ProjectSettingsView/queries";
 import { ButtonToolbar, Col40, Col60, Row } from "styles/styledComponents";
+import React, { useCallback, useState } from "react";
 import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { msgError, msgSuccess } from "utils/notifications";
 import { useMutation, useQuery } from "@apollo/react-hooks";
@@ -34,15 +34,15 @@ const Portfolio: React.FC<IPortfolioProps> = (
   const { projectName } = props;
 
   // State management
-  const [isAddModalOpen, setAddModalOpen] = React.useState(false);
-  const openAddModal: () => void = React.useCallback((): void => {
+  const [isAddModalOpen, setAddModalOpen] = useState(false);
+  const openAddModal: () => void = useCallback((): void => {
     setAddModalOpen(true);
   }, []);
-  const closeAddModal: () => void = React.useCallback((): void => {
+  const closeAddModal: () => void = useCallback((): void => {
     setAddModalOpen(false);
   }, []);
 
-  const [currentRow, setCurrentRow] = React.useState<Dictionary<string>>({});
+  const [currentRow, setCurrentRow] = useState<Dictionary<string>>({});
 
   // GraphQL operations
   const { data, refetch, networkStatus } = useQuery(GET_TAGS, {
@@ -57,7 +57,7 @@ const Portfolio: React.FC<IPortfolioProps> = (
   const [addTags] = useMutation(ADD_TAGS_MUTATION, {
     onCompleted: (): void => {
       void refetch();
-      mixpanel.track("AddProjectTags");
+      track("AddProjectTags");
       msgSuccess(
         translate.t("searchFindings.tabResources.success"),
         translate.t("searchFindings.tabUsers.titleSuccess")
@@ -80,7 +80,7 @@ const Portfolio: React.FC<IPortfolioProps> = (
   const [removeTag, { loading: removing }] = useMutation(REMOVE_TAG_MUTATION, {
     onCompleted: (): void => {
       void refetch();
-      mixpanel.track("RemoveTag");
+      track("RemoveTag");
       msgSuccess(
         translate.t("searchFindings.tabResources.successRemove"),
         translate.t("searchFindings.tabUsers.titleSuccess")
@@ -94,7 +94,7 @@ const Portfolio: React.FC<IPortfolioProps> = (
     },
   });
 
-  const handleRemoveTag: () => void = React.useCallback((): void => {
+  const handleRemoveTag: () => void = useCallback((): void => {
     void removeTag({
       variables: {
         projectName: props.projectName,

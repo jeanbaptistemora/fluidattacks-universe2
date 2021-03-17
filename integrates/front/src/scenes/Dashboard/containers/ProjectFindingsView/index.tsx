@@ -11,12 +11,11 @@ import { Logger } from "utils/logger";
 import { Modal } from "components/Modal";
 import { Query } from "@apollo/react-components";
 import type { QueryResult } from "@apollo/react-common";
-import React from "react";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { Trans } from "react-i18next";
 import _ from "lodash";
 import { formatFindings } from "scenes/Dashboard/containers/ProjectFindingsView/utils";
-import mixpanel from "mixpanel-browser";
+import { track } from "mixpanel-browser";
 import { translate } from "utils/translations/translate";
 import { useLazyQuery } from "@apollo/react-hooks";
 import { useStoredState } from "utils/hooks";
@@ -34,6 +33,7 @@ import type {
   IFindingAttr,
   IProjectFindingsAttr,
 } from "scenes/Dashboard/containers/ProjectFindingsView/types";
+import React, { useCallback, useState } from "react";
 import {
   faFileArchive,
   faFileExcel,
@@ -63,11 +63,11 @@ const ProjectFindingsView: React.FC = (): JSX.Element => {
   const { push } = useHistory();
 
   // State management
-  const [isReportsModalOpen, setReportsModalOpen] = React.useState(false);
-  const openReportsModal: () => void = React.useCallback((): void => {
+  const [isReportsModalOpen, setReportsModalOpen] = useState(false);
+  const openReportsModal: () => void = useCallback((): void => {
     setReportsModalOpen(true);
   }, []);
-  const closeReportsModal: () => void = React.useCallback((): void => {
+  const closeReportsModal: () => void = useCallback((): void => {
     setReportsModalOpen(false);
   }, []);
 
@@ -160,7 +160,7 @@ const ProjectFindingsView: React.FC = (): JSX.Element => {
     },
   ];
 
-  const handleChange: (columnName: string) => void = React.useCallback(
+  const handleChange: (columnName: string) => void = useCallback(
     (columnName: string): void => {
       if (
         Object.values(checkedItems).filter((val: boolean): boolean => val)
@@ -182,7 +182,7 @@ const ProjectFindingsView: React.FC = (): JSX.Element => {
     },
     [checkedItems, setCheckedItems]
   );
-  const handleUpdateFilter: () => void = React.useCallback((): void => {
+  const handleUpdateFilter: () => void = useCallback((): void => {
     setFilterEnabled(!isFilterEnabled);
   }, [isFilterEnabled, setFilterEnabled]);
 
@@ -196,7 +196,7 @@ const ProjectFindingsView: React.FC = (): JSX.Element => {
     push(`/groups/${projectName}/vulns/${rowInfo.id}/locations`);
   };
 
-  const handleQryErrors: (error: ApolloError) => void = React.useCallback(
+  const handleQryErrors: (error: ApolloError) => void = useCallback(
     ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
         msgError(translate.t("groupAlerts.errorTextsad"));
@@ -425,7 +425,7 @@ const ProjectFindingsView: React.FC = (): JSX.Element => {
               ? "XLS"
               : "DATA";
 
-            mixpanel.track("GroupReportRequest", { reportType });
+            track("GroupReportRequest", { reportType });
 
             requestProjectReport({
               variables: {

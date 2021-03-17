@@ -7,7 +7,6 @@ import type { GraphQLError } from "graphql";
 import { Logger } from "utils/logger";
 import { ProjectContent } from "scenes/Dashboard/containers/ProjectContent";
 import type { PureAbility } from "@casl/ability";
-import React from "react";
 import _ from "lodash";
 import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
@@ -16,6 +15,7 @@ import type {
   IProjectData,
   IProjectRoute,
 } from "scenes/Dashboard/containers/ProjectRoute/types";
+import React, { useContext, useEffect } from "react";
 import {
   Redirect,
   Route,
@@ -35,17 +35,15 @@ const ProjectRoute: React.FC<IProjectRoute> = (
   }>();
   const { path } = useRouteMatch();
 
-  const attributes: PureAbility<string> = React.useContext(authzGroupContext);
-  const permissions: PureAbility<string> = React.useContext(
-    authzPermissionsContext
-  );
+  const attributes: PureAbility<string> = useContext(authzGroupContext);
+  const permissions: PureAbility<string> = useContext(authzPermissionsContext);
 
   // Side effects
   const onProjectChange: () => void = (): void => {
     attributes.update([]);
     permissions.update([]);
   };
-  React.useEffect(onProjectChange, [attributes, permissions, projectName]);
+  useEffect(onProjectChange, [attributes, permissions, projectName]);
 
   // GraphQL operations
   useQuery(GET_USER_PERMISSIONS, {

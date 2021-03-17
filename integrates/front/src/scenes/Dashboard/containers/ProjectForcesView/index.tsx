@@ -7,7 +7,6 @@ import type { GraphQLError } from "graphql";
 import type { IHeaderConfig } from "components/DataTableNext/types";
 import { Logger } from "utils/logger";
 import { Modal } from "components/Modal";
-import React from "react";
 import _ from "lodash";
 import { msgError } from "utils/notifications";
 import { statusFormatter } from "components/DataTableNext/formatters";
@@ -20,6 +19,7 @@ import type {
   IExecution,
   IFoundVulnerabilities,
 } from "scenes/Dashboard/containers/ProjectForcesView/types";
+import React, { useCallback, useState } from "react";
 import { dateFilter, selectFilter } from "react-bootstrap-table2-filter";
 
 const ProjectForcesView: React.FC = (): JSX.Element => {
@@ -71,13 +71,12 @@ const ProjectForcesView: React.FC = (): JSX.Element => {
     false
   );
 
-  const [currentRow, updateRow] = React.useState(defaultCurrentRow);
-  const [
-    isExecutionDetailsModalOpen,
-    setExecutionDetailsModalOpen,
-  ] = React.useState(false);
+  const [currentRow, updateRow] = useState(defaultCurrentRow);
+  const [isExecutionDetailsModalOpen, setExecutionDetailsModalOpen] = useState(
+    false
+  );
 
-  const handleUpdateFilter: () => void = React.useCallback((): void => {
+  const handleUpdateFilter: () => void = useCallback((): void => {
     setFilterEnabled(!isFilterEnabled);
   }, [isFilterEnabled, setFilterEnabled]);
 
@@ -208,7 +207,7 @@ const ProjectForcesView: React.FC = (): JSX.Element => {
     setExecutionDetailsModalOpen(true);
   };
 
-  const closeSeeExecutionDetailsModal: () => void = React.useCallback((): void => {
+  const closeSeeExecutionDetailsModal: () => void = useCallback((): void => {
     setExecutionDetailsModalOpen(false);
   }, []);
 

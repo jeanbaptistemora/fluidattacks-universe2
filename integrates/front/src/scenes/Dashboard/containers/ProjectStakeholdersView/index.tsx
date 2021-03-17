@@ -9,11 +9,10 @@ import type { GraphQLError } from "graphql";
 import type { IHeaderConfig } from "components/DataTableNext/types";
 import { Logger } from "utils/logger";
 import type { PureAbility } from "@casl/ability";
-import React from "react";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import _ from "lodash";
 import { authzPermissionsContext } from "utils/authz/config";
-import mixpanel from "mixpanel-browser";
+import { track } from "mixpanel-browser";
 import { translate } from "utils/translations/translate";
 import { useAbility } from "@casl/react";
 import { useParams } from "react-router";
@@ -31,6 +30,7 @@ import type {
   IRemoveStakeholderAttr,
   IStakeholderAttrs,
 } from "scenes/Dashboard/containers/ProjectStakeholdersView/types";
+import React, { useCallback, useState } from "react";
 import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { msgError, msgSuccess } from "utils/notifications";
 import {
@@ -88,20 +88,18 @@ const ProjectStakeholdersView: React.FC = (): JSX.Element => {
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
 
   // State management
-  const [currentRow, setCurrentRow] = React.useState<Dictionary<string>>({});
-  const [isUserModalOpen, setUserModalOpen] = React.useState(false);
-  const [userModalAction, setuserModalAction] = React.useState<"add" | "edit">(
-    "add"
-  );
-  const openAddUserModal: () => void = React.useCallback((): void => {
+  const [currentRow, setCurrentRow] = useState<Dictionary<string>>({});
+  const [isUserModalOpen, setUserModalOpen] = useState(false);
+  const [userModalAction, setuserModalAction] = useState<"add" | "edit">("add");
+  const openAddUserModal: () => void = useCallback((): void => {
     setuserModalAction("add");
     setUserModalOpen(true);
   }, []);
-  const openEditUserModal: () => void = React.useCallback((): void => {
+  const openEditUserModal: () => void = useCallback((): void => {
     setuserModalAction("edit");
     setUserModalOpen(true);
   }, []);
-  const closeUserModal: () => void = React.useCallback((): void => {
+  const closeUserModal: () => void = useCallback((): void => {
     setUserModalOpen(false);
   }, []);
 
@@ -117,7 +115,7 @@ const ProjectStakeholdersView: React.FC = (): JSX.Element => {
     onCompleted: (mtResult: IAddStakeholderAttr): void => {
       if (mtResult.grantStakeholderAccess.success) {
         void refetch();
-        mixpanel.track("AddUserAccess");
+        track("AddUserAccess");
         const { email } = mtResult.grantStakeholderAccess.grantedStakeholder;
         msgSuccess(
           `${email} ${translate.t("searchFindings.tabUsers.success")}`,
@@ -178,7 +176,7 @@ const ProjectStakeholdersView: React.FC = (): JSX.Element => {
       if (mtResult.editStakeholder.success) {
         void refetch();
 
-        mixpanel.track("EditUserAccess");
+        track("EditUserAccess");
         msgSuccess(
           translate.t("searchFindings.tabUsers.successAdmin"),
           translate.t("searchFindings.tabUsers.titleSuccess")
@@ -232,7 +230,7 @@ const ProjectStakeholdersView: React.FC = (): JSX.Element => {
         if (mtResult.removeStakeholderAccess.success) {
           void refetch();
 
-          mixpanel.track("RemoveUserAccess");
+          track("RemoveUserAccess");
           const { removedEmail } = mtResult.removeStakeholderAccess;
           msgSuccess(
             `${removedEmail} ${translate.t(
@@ -249,9 +247,7 @@ const ProjectStakeholdersView: React.FC = (): JSX.Element => {
     }
   );
 
-  const handleSubmit: (
-    values: IGetStakeholdersAttrs
-  ) => void = React.useCallback(
+  const handleSubmit: (values: IGetStakeholdersAttrs) => void = useCallback(
     (values: IGetStakeholdersAttrs): void => {
       closeUserModal();
       if (userModalAction === "add") {
@@ -279,7 +275,7 @@ const ProjectStakeholdersView: React.FC = (): JSX.Element => {
     ]
   );
 
-  const handleRemoveUser: () => void = React.useCallback((): void => {
+  const handleRemoveUser: () => void = useCallback((): void => {
     void removeStakeholderAccess({
       variables: { projectName, userEmail: currentRow.email },
     });

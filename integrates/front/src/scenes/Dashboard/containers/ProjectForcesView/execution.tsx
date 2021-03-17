@@ -2,7 +2,6 @@ import { ContentTab } from "scenes/Dashboard/components/ContentTab";
 import { DataTableNext } from "components/DataTableNext";
 import { GET_FORCES_EXECUTION } from "scenes/Dashboard/containers/ProjectForcesView/queries";
 import type { IHeaderConfig } from "components/DataTableNext/types";
-import React from "react";
 import type { ReactElement } from "react";
 import SyntaxHighlighter from "react-syntax-highlighter/dist/esm/light";
 import _ from "lodash";
@@ -21,6 +20,7 @@ import type {
   IVulnerabilities,
 } from "scenes/Dashboard/containers/ProjectForcesView/types";
 import { MemoryRouter, Route } from "react-router";
+import React, { useCallback } from "react";
 
 const Execution: React.FC<IExecution> = (
   props: Readonly<IExecution>
@@ -43,7 +43,7 @@ const Execution: React.FC<IExecution> = (
     },
   });
 
-  const handleUpdateFilter: () => void = React.useCallback((): void => {
+  const handleUpdateFilter: () => void = useCallback((): void => {
     setFilterEnabled(!isFilterEnabled);
   }, [isFilterEnabled, setFilterEnabled]);
 

@@ -8,9 +8,8 @@ import type { GraphQLError } from "graphql";
 import type { IHeaderConfig } from "components/DataTableNext/types";
 import { Logger } from "utils/logger";
 import { Modal } from "components/Modal";
-import React from "react";
 import _ from "lodash";
-import mixpanel from "mixpanel-browser";
+import { track } from "mixpanel-browser";
 import { translate } from "utils/translations/translate";
 import { useHistory } from "react-router-dom";
 import {
@@ -39,6 +38,7 @@ import type {
   IServicesDataSet,
   IServicesProps,
 } from "scenes/Dashboard/containers/ProjectSettingsView/Services/types";
+import React, { useCallback, useState } from "react";
 import {
   computeConfirmationMessage,
   isDowngrading,
@@ -89,12 +89,12 @@ const Services: React.FC<IServicesProps> = (
         "type"
       )
   );
-  const [isModalOpen, setIsModalOpen] = React.useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   // Business Logic handlers
   const handleSubscriptionTypeChange: EventWithDataHandler<
     React.ChangeEvent<string>
-  > = React.useCallback(
+  > = useCallback(
     (_0: React.ChangeEvent<string> | undefined, subsType: string): void => {
       dispatch(change("editGroup", "drills", true));
       dispatch(change("editGroup", "forces", isContinuousType(subsType)));
@@ -158,7 +158,7 @@ const Services: React.FC<IServicesProps> = (
     EDIT_GROUP_DATA,
     {
       onCompleted: (): void => {
-        mixpanel.track("EditGroupData", formValues);
+        track("EditGroupData", formValues);
         msgSuccess(
           translate.t("searchFindings.servicesTable.success"),
           translate.t("searchFindings.servicesTable.successTitle")
@@ -205,14 +205,14 @@ const Services: React.FC<IServicesProps> = (
     }
   );
 
-  const handleClose: () => void = React.useCallback((): void => {
+  const handleClose: () => void = useCallback((): void => {
     setIsModalOpen(false);
   }, []);
-  const handleFormSubmit: () => void = React.useCallback((): void => {
+  const handleFormSubmit: () => void = useCallback((): void => {
     void editGroupData();
     setIsModalOpen(false);
   }, [editGroupData]);
-  const handleTblButtonClick: () => void = React.useCallback((): void => {
+  const handleTblButtonClick: () => void = useCallback((): void => {
     setIsModalOpen(true);
   }, []);
 
@@ -301,7 +301,7 @@ const Services: React.FC<IServicesProps> = (
   // Using form validation instead of field validation to avoid an infinite-loop error
   const formValidations: (values: {
     confirmation: string;
-  }) => { confirmation?: string } = React.useCallback(
+  }) => { confirmation?: string } = useCallback(
     (values: { confirmation: string }): { confirmation?: string } => {
       if (values.confirmation === groupName) {
         return {};

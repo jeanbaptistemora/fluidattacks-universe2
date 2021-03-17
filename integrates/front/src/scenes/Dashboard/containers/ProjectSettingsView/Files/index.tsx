@@ -8,12 +8,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { GraphQLError } from "graphql";
 import type { IHeaderConfig } from "components/DataTableNext/types";
 import { Logger } from "utils/logger";
-import React from "react";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import _ from "lodash";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import mixpanel from "mixpanel-browser";
 import { openUrl } from "utils/resourceHelpers";
+import { track } from "mixpanel-browser";
 import { translate } from "utils/translations/translate";
 import { ButtonToolbar, Col40, Col60, Row } from "styles/styledComponents";
 import {
@@ -22,6 +21,7 @@ import {
   REMOVE_FILE_MUTATION,
   UPLOAD_FILE_MUTATION,
 } from "scenes/Dashboard/containers/ProjectSettingsView/queries";
+import React, { useCallback, useState } from "react";
 import { msgError, msgSuccess } from "utils/notifications";
 import { useMutation, useQuery } from "@apollo/react-hooks";
 
@@ -33,20 +33,20 @@ const Files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
   const { projectName } = props;
 
   // State management
-  const [isAddModalOpen, setAddModalOpen] = React.useState(false);
-  const openAddModal: () => void = React.useCallback((): void => {
+  const [isAddModalOpen, setAddModalOpen] = useState(false);
+  const openAddModal: () => void = useCallback((): void => {
     setAddModalOpen(true);
   }, []);
-  const closeAddModal: () => void = React.useCallback((): void => {
+  const closeAddModal: () => void = useCallback((): void => {
     setAddModalOpen(false);
   }, []);
 
-  const [isOptionsModalOpen, setOptionsModalOpen] = React.useState(false);
-  const closeOptionsModal: () => void = React.useCallback((): void => {
+  const [isOptionsModalOpen, setOptionsModalOpen] = useState(false);
+  const closeOptionsModal: () => void = useCallback((): void => {
     setOptionsModalOpen(false);
   }, []);
 
-  const [currentRow, setCurrentRow] = React.useState<Dictionary<string>>({});
+  const [currentRow, setCurrentRow] = useState<Dictionary<string>>({});
   const handleRowClick: (
     _0: React.FormEvent,
     row: Dictionary<string>
@@ -55,7 +55,7 @@ const Files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
     setOptionsModalOpen(true);
   };
 
-  const [uploadProgress, setUploadProgress] = React.useState(0);
+  const [uploadProgress, setUploadProgress] = useState(0);
 
   // GraphQL operations
   const { data, refetch } = useQuery(GET_FILES, {
@@ -87,7 +87,7 @@ const Files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
   const [removeFile] = useMutation(REMOVE_FILE_MUTATION, {
     onCompleted: (): void => {
       void refetch();
-      mixpanel.track("RemoveProjectFiles");
+      track("RemoveProjectFiles");
       msgSuccess(
         translate.t("searchFindings.tabResources.successRemove"),
         translate.t("searchFindings.tabUsers.titleSuccess")
@@ -100,9 +100,9 @@ const Files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
       });
     },
   });
-  const handleRemoveFile: () => void = React.useCallback((): void => {
+  const handleRemoveFile: () => void = useCallback((): void => {
     closeOptionsModal();
-    mixpanel.track("RemoveFile");
+    track("RemoveFile");
     void removeFile({
       variables: {
         filesData: JSON.stringify({ fileName: currentRow.fileName }),
@@ -128,7 +128,7 @@ const Files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
       },
       onCompleted: (): void => {
         void refetch();
-        mixpanel.track("AddProjectFiles");
+        track("AddProjectFiles");
         msgSuccess(
           translate.t("searchFindings.tabResources.success"),
           translate.t("searchFindings.tabUsers.titleSuccess")
