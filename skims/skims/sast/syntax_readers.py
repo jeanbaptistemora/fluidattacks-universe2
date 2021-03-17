@@ -125,8 +125,8 @@ def binary_expression(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
 
     yield graph_model.SyntaxStepBinaryExpression(
         meta=graph_model.SyntaxStepMeta.default(args.n_id, [
-            generic(args.fork_n_id(l_id)),
             generic(args.fork_n_id(r_id)),
+            generic(args.fork_n_id(l_id)),
         ]),
         operator=args.graph.nodes[op_id]['label_text'],
     )

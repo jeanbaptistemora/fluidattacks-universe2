@@ -1,4 +1,5 @@
 # Standard library
+import contextlib
 from copy import (
     deepcopy,
 )
@@ -139,12 +140,17 @@ def syntax_step_binary_expression(args: EvaluatorArgs) -> None:
     left, right = args.dependencies
 
     args.syntax_step.meta.danger = left.meta.danger or right.meta.danger
-    args.syntax_step.meta.value = {
-        '*': operator.mul,
-    }.get(args.syntax_step.operator, lambda _, __: None)(
-        left.meta.value,
-        right.meta.value,
-    )
+
+    with contextlib.suppress(TypeError):
+        args.syntax_step.meta.value = {
+            '+': operator.add,
+            '>': operator.gt,
+            '*': operator.mul,
+            '-': operator.sub,
+        }.get(args.syntax_step.operator, lambda _, __: None)(
+            left.meta.value,
+            right.meta.value,
+        )
 
 
 def syntax_step_unary_expression(args: EvaluatorArgs) -> None:
@@ -173,7 +179,7 @@ def syntax_step_declaration(args: EvaluatorArgs) -> None:
 
     # Local context
     args.syntax_step.meta.danger = bind_danger or args_danger
-    if args.dependencies:
+    if len(args.dependencies) == 1:
         args.syntax_step.meta.value = args.dependencies[0].meta.value
 
 
@@ -208,8 +214,11 @@ def syntax_step_array_instantiation(args: EvaluatorArgs) -> None:
 
 
 def syntax_step_parenthesized_expression(args: EvaluatorArgs) -> None:
-    args.syntax_step.meta.danger = any(dep.meta.danger
-                                       for dep in args.dependencies)
+    args.syntax_step.meta.danger = any(
+        dep.meta.danger for dep in args.dependencies
+    )
+    if len(args.dependencies) == 1:
+        args.syntax_step.meta.value = args.dependencies[0].meta.value
 
 
 def syntax_step_literal(args: EvaluatorArgs) -> None:
@@ -394,8 +403,10 @@ def syntax_step_ternary(args: EvaluatorArgs) -> None:
 
     if predicate.meta.value is True:
         args.syntax_step.meta.danger = left.meta.danger
+        args.syntax_step.meta.value = left.meta.value
     elif predicate.meta.value is False:
         args.syntax_step.meta.danger = right.meta.danger
+        args.syntax_step.meta.value = right.meta.value
     elif predicate.meta.value is None:
         args.syntax_step.meta.danger = left.meta.danger or right.meta.danger
     else:

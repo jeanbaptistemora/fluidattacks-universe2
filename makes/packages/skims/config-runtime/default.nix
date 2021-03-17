@@ -97,7 +97,7 @@ makeTemplate {
           envSrcSkimsStatic = path "/skims/static";
           envSrcSkimsVendor = path "/skims/vendor";
           envSrcTreeSitter = fetchzip {
-            url = "https://github.com/kamadorueda/tree-sitter-java/archive/318b7bca0f703541e6f1061e20962015da28f444.tar.gz";
+            url = "https://github.com/fluidattacks/tree-sitter-java/archive/318b7bca0f703541e6f1061e20962015da28f444.tar.gz";
             sha256 = "7lLHvA9lv5CTO/gJ+KBmRIVFQ5bTYQPlMhqrrIcRdno=";
           };
         };
