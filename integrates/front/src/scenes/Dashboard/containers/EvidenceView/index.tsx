@@ -12,7 +12,6 @@ import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import type { GraphQLError } from "graphql";
 import { Logger } from "utils/logger";
 import { NetworkStatus } from "apollo-client";
-import React from "react";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import _ from "lodash";
 import { faImage } from "@fortawesome/free-solid-svg-icons";
@@ -30,6 +29,7 @@ import {
   UPDATE_EVIDENCE_MUTATION,
 } from "scenes/Dashboard/containers/EvidenceView/queries";
 import type { InjectedFormProps, Validator } from "redux-form";
+import React, { useCallback, useState } from "react";
 import { isValidFileSize, validEvidenceImage } from "utils/validations";
 import { useMutation, useQuery } from "@apollo/react-hooks";
 
@@ -37,12 +37,12 @@ const EvidenceView: React.FC = (): JSX.Element => {
   const { findingId } = useParams<{ findingId: string }>();
 
   // State management
-  const [isEditing, setEditing] = React.useState(false);
-  const handleEditClick: () => void = React.useCallback((): void => {
+  const [isEditing, setEditing] = useState(false);
+  const handleEditClick: () => void = useCallback((): void => {
     setEditing(!isEditing);
   }, [isEditing]);
 
-  const [lightboxIndex, setLightboxIndex] = React.useState(-1);
+  const [lightboxIndex, setLightboxIndex] = useState(-1);
 
   // GraphQL operations
   const { data, networkStatus, refetch } = useQuery(GET_FINDING_EVIDENCES, {

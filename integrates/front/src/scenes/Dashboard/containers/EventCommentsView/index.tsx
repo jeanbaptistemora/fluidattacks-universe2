@@ -3,7 +3,6 @@ import { Comments } from "scenes/Dashboard/components/Comments/index";
 import type { GraphQLError } from "graphql";
 import type { IAuthContext } from "utils/auth";
 import { Logger } from "utils/logger";
-import React from "react";
 import _ from "lodash";
 import { authContext } from "utils/auth";
 import { msgError } from "utils/notifications";
@@ -19,6 +18,7 @@ import type {
   ILoadCallback,
   IPostCallback,
 } from "scenes/Dashboard/components/Comments/types";
+import React, { useCallback, useContext } from "react";
 import { useMutation, useQuery } from "@apollo/react-hooks";
 
 interface IEventConsultingData {
@@ -29,9 +29,9 @@ interface IEventConsultingData {
 
 const EventCommentsView: React.FC = (): JSX.Element => {
   const { eventId } = useParams<{ eventId: string }>();
-  const { userEmail }: IAuthContext = React.useContext(authContext);
+  const { userEmail }: IAuthContext = useContext(authContext);
 
-  const handleErrors: (error: ApolloError) => void = React.useCallback(
+  const handleErrors: (error: ApolloError) => void = useCallback(
     ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
         msgError(translate.t("groupAlerts.errorTextsad"));
@@ -50,7 +50,7 @@ const EventCommentsView: React.FC = (): JSX.Element => {
     }
   );
 
-  const getData: (callback: ILoadCallback) => void = React.useCallback(
+  const getData: (callback: ILoadCallback) => void = useCallback(
     (callbackFn: (cData: ICommentStructure[]) => void): void => {
       if (!_.isUndefined(data)) {
         callbackFn(
@@ -98,7 +98,7 @@ const EventCommentsView: React.FC = (): JSX.Element => {
   const handlePost: (
     comment: ICommentStructure,
     callbackFn: IPostCallback
-  ) => void = React.useCallback(
+  ) => void = useCallback(
     (comment: ICommentStructure, callbackFn: IPostCallback): void => {
       interface IMutationResult {
         data: {

@@ -8,7 +8,6 @@ import type { GraphQLError } from "graphql";
 import type { IEventHeaderProps } from "scenes/Dashboard/components/EventHeader";
 import { Logger } from "utils/logger";
 import { NavLink } from "react-router-dom";
-import React from "react";
 import _ from "lodash";
 import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
@@ -21,6 +20,7 @@ import {
   TabContent,
   TabsContainer,
 } from "styles/styledComponents";
+import React, { useCallback } from "react";
 import {
   Redirect,
   Route,
@@ -40,7 +40,7 @@ const EventContent: React.FC = (): JSX.Element => {
   // Side effects
   useTabTracking("Event");
 
-  const handleErrors: (error: ApolloError) => void = React.useCallback(
+  const handleErrors: (error: ApolloError) => void = useCallback(
     ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
         msgError(translate.t("groupAlerts.errorTextsad"));

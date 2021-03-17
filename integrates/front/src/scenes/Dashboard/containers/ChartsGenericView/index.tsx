@@ -1,7 +1,6 @@
 /* eslint-disable react/forbid-component-props, fp/no-rest-parameters, react/jsx-props-no-spreading */
 import { ChartsGenericViewExtras } from "scenes/Dashboard/containers/ChartsGenericView/components/Extras";
 import { Graphic } from "graphics/components/Graphic";
-import React from "react";
 import styles from "scenes/Dashboard/containers/ChartsGenericView/index.css";
 import { translate } from "utils/translations/translate";
 import { Col100, Col25, Col33, Col50 } from "./components/ChartCols";
@@ -16,6 +15,7 @@ import {
   Row,
   RowCenter,
 } from "styles/styledComponents";
+import React, { useCallback, useState } from "react";
 
 const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
   props: IChartsGenericViewProps
@@ -25,13 +25,13 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
   const [
     isForcesDescriptionExpanded,
     setIsForcesDescriptionExpanded,
-  ] = React.useState(reportMode);
+  ] = useState(reportMode);
 
-  const forcesPanelOnEnter: () => void = React.useCallback((): void => {
+  const forcesPanelOnEnter: () => void = useCallback((): void => {
     setIsForcesDescriptionExpanded(true);
   }, []);
 
-  const forcesPanelOnLeave: () => void = React.useCallback((): void => {
+  const forcesPanelOnLeave: () => void = useCallback((): void => {
     setIsForcesDescriptionExpanded(reportMode);
   }, [reportMode]);
 

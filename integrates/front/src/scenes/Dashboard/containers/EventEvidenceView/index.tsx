@@ -13,7 +13,6 @@ import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import type { GraphQLError } from "graphql";
 import { Logger } from "utils/logger";
 import { NetworkStatus } from "apollo-client";
-import React from "react";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import _ from "lodash";
 import globalStyle from "styles/global.css";
@@ -28,6 +27,7 @@ import {
   UPDATE_EVIDENCE_MUTATION,
 } from "scenes/Dashboard/containers/EventEvidenceView/queries";
 import type { InjectedFormProps, Validator } from "redux-form";
+import React, { useCallback, useState } from "react";
 import { faFile, faImage } from "@fortawesome/free-solid-svg-icons";
 import {
   isValidFileSize,
@@ -40,12 +40,12 @@ const EventEvidenceView: React.FC = (): JSX.Element => {
   const { eventId } = useParams<{ eventId: string }>();
 
   // State management
-  const [isEditing, setEditing] = React.useState(false);
-  const handleEditClick: () => void = React.useCallback((): void => {
+  const [isEditing, setEditing] = useState(false);
+  const handleEditClick: () => void = useCallback((): void => {
     setEditing(!isEditing);
   }, [isEditing]);
 
-  const [lightboxIndex, setLightboxIndex] = React.useState(-1);
+  const [lightboxIndex, setLightboxIndex] = useState(-1);
 
   // GraphQL operations
   const { data, networkStatus, refetch } = useQuery(GET_EVENT_EVIDENCES, {
@@ -109,9 +109,7 @@ const EventEvidenceView: React.FC = (): JSX.Element => {
     },
   });
 
-  const handleUpdate: (
-    values: Record<string, unknown>
-  ) => void = React.useCallback(
+  const handleUpdate: (values: Record<string, unknown>) => void = useCallback(
     async (values: Record<string, unknown>): Promise<void> => {
       setEditing(false);
 
@@ -142,7 +140,7 @@ const EventEvidenceView: React.FC = (): JSX.Element => {
     [eventId, refetch, updateEvidence]
   );
 
-  const openImage: () => void = React.useCallback((): void => {
+  const openImage: () => void = useCallback((): void => {
     if (!isEditing && !isRefetching) {
       setLightboxIndex(0);
     }
@@ -156,12 +154,12 @@ const EventEvidenceView: React.FC = (): JSX.Element => {
     }
   };
 
-  const removeImage: () => void = React.useCallback((): void => {
+  const removeImage: () => void = useCallback((): void => {
     setEditing(false);
     void removeEvidence({ variables: { eventId, evidenceType: "IMAGE" } });
   }, [eventId, removeEvidence]);
 
-  const removeFile: () => void = React.useCallback((): void => {
+  const removeFile: () => void = useCallback((): void => {
     setEditing(false);
     void removeEvidence({ variables: { eventId, evidenceType: "FILE" } });
   }, [eventId, removeEvidence]);

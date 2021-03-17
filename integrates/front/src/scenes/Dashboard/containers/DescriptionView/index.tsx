@@ -8,7 +8,6 @@ import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import type { GraphQLError } from "graphql";
 import { Logger } from "utils/logger";
 import type { PureAbility } from "@casl/ability";
-import React from "react";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import _ from "lodash";
 import { authzPermissionsContext } from "utils/authz/config";
@@ -33,6 +32,7 @@ import type {
   IFindingDescriptionData,
   IFindingDescriptionVars,
 } from "scenes/Dashboard/containers/DescriptionView/types";
+import React, { useCallback, useState } from "react";
 import {
   formatCompromisedRecords,
   formatCweUrl,
@@ -91,8 +91,8 @@ const DescriptionView: React.FC = (): JSX.Element => {
     isPristine("editDescription")(state)
   );
 
-  const [isEditing, setEditing] = React.useState(false);
-  const toggleEdit: () => void = React.useCallback((): void => {
+  const [isEditing, setEditing] = useState(false);
+  const toggleEdit: () => void = useCallback((): void => {
     if (!isDescriptionPristine) {
       dispatch(reset("editDescription"));
     }
@@ -153,7 +153,7 @@ const DescriptionView: React.FC = (): JSX.Element => {
 
   const handleDescriptionSubmit: (
     values: Dictionary<string>
-  ) => Promise<void> = React.useCallback(
+  ) => Promise<void> = useCallback(
     async (values: Dictionary<string>): Promise<void> => {
       setEditing(false);
       await updateDescription({
@@ -167,7 +167,7 @@ const DescriptionView: React.FC = (): JSX.Element => {
     [findingId, updateDescription]
   );
 
-  const handleSubmit: () => void = React.useCallback((): void => {
+  const handleSubmit: () => void = useCallback((): void => {
     if (!isDescriptionPristine) {
       dispatch(submit("editDescription"));
     }

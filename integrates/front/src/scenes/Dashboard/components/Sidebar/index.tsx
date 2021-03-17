@@ -2,13 +2,13 @@ import { Badge } from "components/Badge";
 import { slide as BurgerMenu } from "react-burger-menu";
 import { Can } from "utils/authz/Can";
 import Media from "react-media";
-import React from "react";
 import { TooltipWrapper } from "components/TooltipWrapper/index";
 import _ from "lodash";
 import logo from "resources/integrates_sidebar.svg";
 import style from "scenes/Dashboard/components/Sidebar/index.css";
 import { translate } from "utils/translations/translate";
 import { useHistory } from "react-router-dom";
+import React, { useCallback } from "react";
 
 interface ISidebarProps {
   userEmail: string;
@@ -33,7 +33,7 @@ const sidebar: React.FC<ISidebarProps> = (
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const { push } = useHistory();
   // eslint-disable-next-line react-hooks/rules-of-hooks
-  const handleLogoClick: () => void = React.useCallback((): void => {
+  const handleLogoClick: () => void = useCallback((): void => {
     push("/home");
   }, [push]);
 

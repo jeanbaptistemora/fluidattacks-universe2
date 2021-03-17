@@ -10,7 +10,6 @@ import type { GraphQLError } from "graphql";
 import type { InjectedFormProps } from "redux-form";
 import { Logger } from "utils/logger";
 import { Modal } from "components/Modal";
-import React from "react";
 import _ from "lodash";
 import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
@@ -28,6 +27,7 @@ import {
   GET_EVENT_DESCRIPTION,
   SOLVE_EVENT_MUTATION,
 } from "scenes/Dashboard/containers/EventDescriptionView/queries";
+import React, { useCallback, useState } from "react";
 import {
   dateTimeBeforeToday,
   numeric,
@@ -53,15 +53,15 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
   const { eventId } = useParams<{ eventId: string }>();
 
   // State management
-  const [isSolvingModalOpen, setSolvingModalOpen] = React.useState(false);
-  const openSolvingModal: () => void = React.useCallback((): void => {
+  const [isSolvingModalOpen, setSolvingModalOpen] = useState(false);
+  const openSolvingModal: () => void = useCallback((): void => {
     setSolvingModalOpen(true);
   }, []);
-  const closeSolvingModal: () => void = React.useCallback((): void => {
+  const closeSolvingModal: () => void = useCallback((): void => {
     setSolvingModalOpen(false);
   }, []);
 
-  const handleErrors: (error: ApolloError) => void = React.useCallback(
+  const handleErrors: (error: ApolloError) => void = useCallback(
     ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
         msgError(translate.t("groupAlerts.errorTextsad"));
@@ -107,9 +107,7 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
     }
   );
 
-  const handleSubmit: (
-    values: Record<string, unknown>
-  ) => void = React.useCallback(
+  const handleSubmit: (values: Record<string, unknown>) => void = useCallback(
     (values: Record<string, unknown>): void => {
       void solveEvent({ variables: { eventId, ...values } });
       closeSolvingModal();
@@ -117,7 +115,7 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
     [eventId, closeSolvingModal, solveEvent]
   );
 
-  const handleDescriptionSubmit: () => void = React.useCallback(
+  const handleDescriptionSubmit: () => void = useCallback(
     (): void => undefined,
     []
   );
