@@ -1,4 +1,4 @@
-export interface ISeverityAttr {
+interface ISeverityAttr {
   finding: {
     cvssVersion: string;
     id: string;
@@ -29,7 +29,7 @@ export interface ISeverityAttr {
   };
 }
 
-export interface IUpdateSeverityAttr {
+interface IUpdateSeverityAttr {
   updateSeverity: {
     finding: {
       cvssVersion: string;
@@ -62,10 +62,12 @@ export interface IUpdateSeverityAttr {
   };
 }
 
-export interface ISeverityField {
+interface ISeverityField {
   currentValue: string;
   name: string;
-  options: {[value: string]: string};
+  options: Record<string, string>;
   title: string;
   tooltip?: string;
 }
+
+export { ISeverityAttr, IUpdateSeverityAttr, ISeverityField };

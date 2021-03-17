@@ -1,24 +1,19 @@
-import { DocumentNode } from "graphql";
+import type { DocumentNode } from "graphql";
 import gql from "graphql-tag";
 
-export const GET_SEVERITY: DocumentNode = gql`
+const GET_SEVERITY: DocumentNode = gql`
   query GetSeverityQuery($identifier: String!) {
-    finding(identifier: $identifier){
+    finding(identifier: $identifier) {
       id
       cvssVersion
       severity
     }
   }
-  `;
+`;
 
-export const UPDATE_SEVERITY_MUTATION: DocumentNode = gql`
-  mutation UpdateSeverityMutation(
-      $findingId: String!,
-      $data: GenericScalar!) {
-    updateSeverity (
-      findingId: $findingId,
-      data: $data
-    ) {
+const UPDATE_SEVERITY_MUTATION: DocumentNode = gql`
+  mutation UpdateSeverityMutation($findingId: String!, $data: GenericScalar!) {
+    updateSeverity(findingId: $findingId, data: $data) {
       success
       finding {
         cvssVersion
@@ -26,4 +21,6 @@ export const UPDATE_SEVERITY_MUTATION: DocumentNode = gql`
       }
     }
   }
-  `;
+`;
+
+export { GET_SEVERITY, UPDATE_SEVERITY_MUTATION };
