@@ -14,6 +14,11 @@ from typing import (
     Union,
 )
 
+# Third party libraries
+from more_itertools import (
+    padnone,
+)
+
 # Local libraries
 from model import (
     core_model,
@@ -57,6 +62,7 @@ class StopEvaluation(Exception):
 class EvaluatorArgs(NamedTuple):
     dependencies: graph_model.SyntaxSteps
     finding: core_model.FindingEnum
+    n_id_next: graph_model.NId
     syntax_step: graph_model.SyntaxStep
     syntax_step_index: int
     syntax_steps: graph_model.SyntaxSteps
@@ -183,8 +189,18 @@ def syntax_step_declaration(args: EvaluatorArgs) -> None:
         args.syntax_step.meta.value = args.dependencies[0].meta.value
 
 
-def syntax_step_if(_args: EvaluatorArgs) -> None:
-    pass
+def syntax_step_if(args: EvaluatorArgs) -> None:
+    predicate, = args.dependencies
+
+    if args.n_id_next and ((
+        predicate.meta.value is True
+        and args.n_id_next != args.syntax_step.n_id_true
+    ) or (
+        predicate.meta.value is False
+        and args.n_id_next != args.syntax_step.n_id_false
+    )):
+        # We are walking a path that should not happen
+        raise StopEvaluation('Execution flow cannot go this way')
 
 
 def syntax_step_switch(_args: EvaluatorArgs) -> None:
@@ -471,6 +487,7 @@ def eval_syntax_steps(
     shard: graph_model.GraphShard,
     syntax_steps: graph_model.SyntaxSteps,
     n_id: graph_model.NId,
+    n_id_next: graph_model.NId,
 ) -> graph_model.SyntaxSteps:
     if n_id not in shard.syntax:
         # We were not able to fully understand this node syntax
@@ -488,6 +505,7 @@ def eval_syntax_steps(
             evaluator(EvaluatorArgs(
                 dependencies=get_dependencies(syntax_step_index, syntax_steps),
                 finding=finding,
+                n_id_next=n_id_next,
                 syntax_step=syntax_step,
                 syntax_step_index=syntax_step_index,
                 syntax_steps=syntax_steps,
@@ -509,7 +527,10 @@ def get_possible_syntax_steps_from_path(
 ) -> graph_model.SyntaxSteps:
     syntax_steps: graph_model.SyntaxSteps = []
 
-    for n_id in path:
+    path_next = padnone(path)
+    next(path_next)
+
+    for n_id, n_id_next in zip(path, path_next):
         try:
             eval_syntax_steps(
                 _=graph_db,
@@ -517,6 +538,7 @@ def get_possible_syntax_steps_from_path(
                 shard=shard,
                 syntax_steps=syntax_steps,
                 n_id=n_id,
+                n_id_next=n_id_next,
             )
         except StopEvaluation as exc:
             log_blocking('debug', str(exc))
