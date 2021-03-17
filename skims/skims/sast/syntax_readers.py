@@ -1,3 +1,4 @@
+# pylint: disable=too-many-lines
 # Standard library
 from __future__ import (
     annotations,
@@ -331,6 +332,32 @@ def if_statement(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
         n_id_false=match.get('__2__'),
         n_id_true=match.get('__1__'),
     )
+
+
+def resource(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
+    match = g.match_ast(
+        args.graph,
+        args.n_id,
+        '__0__',
+        'identifier',
+        '=',
+        '__1__',
+    )
+
+    if (
+        (var_type_id := match['__0__'])
+        and (var_id := match['identifier'])
+        and (var_src_id := match['__1__'])
+    ):
+        yield graph_model.SyntaxStepDeclaration(
+            meta=graph_model.SyntaxStepMeta.default(args.n_id, [
+                generic(args.fork_n_id(var_src_id)),
+            ]),
+            var=args.graph.nodes[var_id]['label_text'],
+            var_type=args.graph.nodes[var_type_id]['label_text'],
+        )
+    else:
+        raise MissingCaseHandling(resource, args)
 
 
 def switch_statement(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
@@ -867,6 +894,17 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
             literal,
         ),
     ),
+    Dispatcher(
+        applicable_languages={
+            graph_model.GraphShardMetadataLanguage.JAVA,
+        },
+        applicable_node_label_types={
+            'resource',
+        },
+        syntax_readers=(
+            resource,
+        ),
+    ),
     *[
         Dispatcher(
             applicable_languages={
@@ -885,10 +923,12 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
             'character_literal',
             'comment',
             'expression_statement',
+            'resource_specification',
             'return_statement',
             'switch_label',
             'this',
             'try_statement',
+            'try_with_resources_statement',
             'throw_statement',
             ';',
             '-',

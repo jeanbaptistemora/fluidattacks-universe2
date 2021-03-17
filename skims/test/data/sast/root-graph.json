@@ -43983,6 +43983,28 @@
             "type": "SyntaxStepNoOp"
           }
         ],
+        "1567": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1567",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "1569": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1569",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
         "1570": [
           {
             "meta": {
@@ -43992,6 +44014,30 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          }
+        ],
+        "1571": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1575",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "0",
+            "value_type": "number"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "1571",
+              "value": null
+            },
+            "type": "SyntaxStepDeclaration",
+            "var": "r",
+            "var_type": "T"
           }
         ],
         "1576": [
