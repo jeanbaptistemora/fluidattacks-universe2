@@ -15,7 +15,7 @@ of the several types of reports about all the vulnerabilities the group has.
 In this table you will find the vulnerabilities categorized by their **type** and
 you can organize them by clicking on the various columns that will be described here
 
-![Vulnerability Table First Half](/img/vulns_table_1h.png)
+![Vulnerability Table First Half](/img/web/groups/vulnerabilities/vulns_table_1h.png)
 
 - **Age(days):** This column shows the amount of days passed since that specific
 type of vulnerability was first found.
@@ -31,7 +31,7 @@ categorize them in various groups. This column represents such categorization.
 [CVSS](/web/glossary/#cvss "Common Vulnerability Scoring System") standard to assign
 each score.
 
-![Vulnerability Table Second Half](/img/vulns_table_2h.png)
+![Vulnerability Table Second Half](/img/web/groups/vulnerabilities/vulns_table_2h.png)
 
 - **Open:** This column shows the amount of vulnerabilities that currently haven't
 been resolved.
@@ -55,11 +55,11 @@ all of them.
 In the vulnerabilities tab, you can also request several reports about the
 vulnerabilities by clicking the **Reports** button seen in the following image
 
-![Reports Button](/img/reports_button.png)
+![Reports Button](/img/web/groups/vulnerabilities/reports_button.png)
 
 When you click on it, the following window will show up
 
-![Reports Modal](/img/reports_modal.png)
+![Reports Modal](/img/web/groups/vulnerabilities/reports_modal.png)
 
 There are three types of report you can request:
 
@@ -76,7 +76,7 @@ Lastly, as you can see in the image, in order to download the report you need
 to check your e-mail and click on the **Download** button you can see in the
 following image
 
-![Reports Mail](/img/reports_mail.png)
+![Reports Mail](/img/web/groups/vulnerabilities/reports_mail.png)
 
 The downloaded file will be protected with a passphrase which will be sent to
 your mobile device. You can check the documentation for our
