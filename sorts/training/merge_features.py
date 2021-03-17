@@ -10,7 +10,7 @@ import pandas as pd
 from pandas import DataFrame
 
 # Local libraries
-from constants import S3_BUCKET
+from training.constants import S3_BUCKET
 
 
 def main() -> None:

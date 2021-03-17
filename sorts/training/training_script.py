@@ -28,10 +28,10 @@ from sklearn.model_selection import (
 from sklearn.neighbors import KNeighborsClassifier
 
 # Local libraries
-from constants import S3_BUCKET
 from sorts.typings import Model as ModelType
+from training.constants import S3_BUCKET
 
-# Contants
+# Constants
 FEATURES_DICTS: Dict[str, str] = {
     'num_commits': 'CM',
     'num_unique_authors': 'AU',
