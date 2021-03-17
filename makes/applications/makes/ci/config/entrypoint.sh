@@ -18,9 +18,9 @@ function main {
   )
 
       echo '[INFO] Exporting secrets' \
-  &&  aws_login_prod serves \
+  &&  aws_login_prod makes \
   &&  sops_export_vars makes/applications/serves/secrets/src/production.yaml "${secrets_to_replace[@]}" \
-  &&  pushd makes/applications/serves/ci/src \
+  &&  pushd makes/applications/makes/ci/src \
     &&  echo '[INFO] Creating temporary files' \
     &&  tmp_file_1="$(mktemp)" \
     &&  tmp_file_2="$(mktemp)" \

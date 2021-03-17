@@ -6,7 +6,7 @@ let
   makeEntrypoint = import (path "/makes/utils/make-entrypoint") path nixpkgs;
 in
 makeEntrypoint {
-  name = "serves-ci-config";
+  name = "makes-ci-config";
   searchPaths = {
     envPaths = [
       nixpkgs.gnugrep
@@ -19,5 +19,5 @@ makeEntrypoint {
       "/makes/utils/sops"
     ];
   };
-  template = path "/makes/applications/serves/ci/config/entrypoint.sh";
+  template = path "/makes/applications/makes/ci/config/entrypoint.sh";
 }

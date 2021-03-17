@@ -54,41 +54,6 @@ makes.test.serves:
   <<: *serves_in_master_branch
   stage: test-code
 
-serves.ci.apply:
-  <<: *makes
-  <<: *serves_in_master_branch
-  stage: deploy-infra
-
-serves.ci.config:
-  <<: *makes
-  <<: *serves_in_master_branch
-  stage: deploy-infra
-
-serves.ci.test:
-  <<: *makes
-  <<: *serves_in_dev_branch
-  stage: test-infra
-
-serves.compute.apply:
-  <<: *makes
-  <<: *serves_in_master_branch
-  stage: deploy-infra
-
-serves.compute.test:
-  <<: *makes
-  <<: *serves_in_dev_branch
-  stage: test-infra
-
-serves.dns.apply:
-  <<: *makes
-  <<: *serves_in_master_branch
-  stage: deploy-infra
-
-serves.dns.test:
-  <<: *makes
-  <<: *serves_in_dev_branch
-  stage: test-infra
-
 serves.secrets.apply:
   <<: *makes
   <<: *serves_in_master_branch

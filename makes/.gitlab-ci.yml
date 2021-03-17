@@ -58,3 +58,38 @@ makes.aws-sso.test:
   <<: *makes
   <<: *makes_in_dev_branch
   stage: test-infra
+
+makes.ci.apply:
+  <<: *makes
+  <<: *makes_in_master_branch
+  stage: deploy-infra
+
+makes.ci.config:
+  <<: *makes
+  <<: *makes_in_master_branch
+  stage: deploy-infra
+
+makes.ci.test:
+  <<: *makes
+  <<: *makes_in_dev_branch
+  stage: test-infra
+
+makes.compute.apply:
+  <<: *makes
+  <<: *makes_in_master_branch
+  stage: deploy-infra
+
+makes.compute.test:
+  <<: *makes
+  <<: *makes_in_dev_branch
+  stage: test-infra
+
+makes.dns.apply:
+  <<: *makes
+  <<: *makes_in_master_branch
+  stage: deploy-infra
+
+makes.dns.test:
+  <<: *makes
+  <<: *makes_in_dev_branch
+  stage: test-infra
