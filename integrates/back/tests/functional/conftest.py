@@ -39,6 +39,7 @@ TEST_GROUPS: Set[str] = {
     'remove_tag',
     'request_verification_vuln',
     'solve_event',
+    'submit_draft',
     'update_event_evidence',
     'update_evidence',
     'update_evidence_description',

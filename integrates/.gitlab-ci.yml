@@ -258,6 +258,9 @@ integrates.back.test.functional.request_verification_vuln:
 integrates.back.test.functional.solve_event:
   <<: *integrates_back_test_functional
 
+integrates.back.test.functional.submit_draft:
+  <<: *integrates_back_test_functional
+
 integrates.back.test.functional.update_event_evidence:
   <<: *integrates_back_test_functional
 
