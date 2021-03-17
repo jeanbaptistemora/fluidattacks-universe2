@@ -94,6 +94,34 @@ makes.dns.test:
   <<: *makes_in_dev_branch
   stage: test-infra
 
+makes.doc.deploy.dev:
+  <<: *makes
+  <<: *makes_in_dev_branch
+  stage: deploy-app
+  script: ./m makes.doc.deploy dev
+  environment:
+    name: doc/${CI_COMMIT_REF_NAME}
+    url: https://doc-dev.fluidattacks.com/${CI_COMMIT_REF_NAME}/
+
+makes.doc.deploy.prod:
+  <<: *makes
+  <<: *makes_in_master_branch
+  stage: deploy-app
+  script: ./m makes.doc.deploy prod
+  environment:
+    name: doc/${CI_COMMIT_REF_NAME}
+    url: https://doc.fluidattacks.com/
+
+makes.doc.infra.apply:
+  <<: *makes
+  <<: *makes_in_master_branch
+  stage: deploy-infra
+
+makes.doc.infra.test:
+  <<: *makes
+  <<: *makes_in_dev_branch
+  stage: test-infra
+
 makes.secrets.apply:
   <<: *makes
   <<: *makes_in_master_branch
