@@ -18,8 +18,8 @@ import { Seo } from "../components/seo";
 import { ServicePage } from "../components/ServicePage";
 import { graphql } from "gatsby";
 import { translate } from "../utils/translations/translate";
-import * as continuousImage from "../../static/images/services/service-continuous.png";
-import * as oneShotImage from "../../static/images/services/service-one-shot.png";
+import * as continuousImage from "../../static/images/services/service-continuous.png"; // eslint-disable-line import/no-unresolved
+import * as oneShotImage from "../../static/images/services/service-one-shot.png"; // eslint-disable-line import/no-unresolved
 
 interface IQueryData {
   data: {

@@ -1,7 +1,7 @@
 /* eslint import/no-namespace:0 */
 /* eslint @typescript-eslint/no-non-null-assertion:0 */
 import { Helmet } from "react-helmet";
-import PropTypes from "prop-types";
+import PropTypes from "prop-types"; // eslint-disable-line import/default
 import React from "react";
 import * as favicon from "../../static/images/favicon.png";
 
