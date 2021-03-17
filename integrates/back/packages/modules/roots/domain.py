@@ -304,6 +304,29 @@ async def add_git_root_legacy(
         raise InvalidParameter()
 
 
+async def _notify_health_check(
+    *,
+    group_name: str,
+    request: bool,
+    root: GitRootItem,
+    user_email: str
+) -> None:
+    if request:
+        await notifications_domain.request_health_check(
+            branch=root.metadata.branch,
+            group_name=group_name,
+            repo_url=root.metadata.url,
+            requester_email=user_email,
+        )
+    else:
+        await notifications_domain.cancel_health_check(
+            branch=root.metadata.branch,
+            group_name=group_name,
+            repo_url=root.metadata.url,
+            requester_email=user_email,
+        )
+
+
 async def add_git_root(context: Any, user_email: str, **kwargs: Any) -> None:
     group_loader = context.group_all
     group_name: str = kwargs['group_name'].lower()
@@ -360,11 +383,11 @@ async def add_git_root(context: Any, user_email: str, **kwargs: Any) -> None:
     await roots_dal.create_git_root(group_name=group_name, root=root)
 
     if kwargs['includes_health_check']:
-        await notifications_domain.request_health_check(
-            branch=root.metadata.branch,
+        await _notify_health_check(
             group_name=group_name,
-            repo_url=root.metadata.url,
-            requester_email=user_email,
+            request=True,
+            root=root,
+            user_email=user_email
         )
 
 
@@ -650,7 +673,7 @@ async def update_git_root(user_email: str, **kwargs: Any) -> None:
         raise InvalidParameter()
 
 
-async def update_root_cloning_status(
+async def update_root_cloning_status_legacy(
     group_name: str,
     root_id: str,
     status: str,
@@ -674,7 +697,31 @@ async def update_root_cloning_status(
             })
 
 
-async def update_root_state(
+async def update_root_cloning_status(
+    group_name: str,
+    root_id: str,
+    status: str,
+    message: str,
+) -> None:
+    validations.validate_field_length(message, 400)
+    root = await get_root(group_name=group_name, root_id=root_id)
+
+    if not isinstance(root, GitRootItem):
+        raise InvalidParameter()
+
+    if root.cloning.status != status:
+        await roots_dal.update_git_root_cloning(
+            cloning=GitRootCloning(
+                modified_date=datetime_utils.get_iso_date(),
+                reason=message,
+                status=status
+            ),
+            group_name=group_name,
+            root_id=root_id
+        )
+
+
+async def update_root_state_legacy(
     user_email: str,
     group_name: str,
     root_id: str,
@@ -711,3 +758,39 @@ async def update_root_state(
                     repo_url=root['url'],
                     branch=root['branch'],
                 )
+
+
+async def update_root_state(
+    user_email: str,
+    group_name: str,
+    root_id: str,
+    state: str
+) -> None:
+    root = await get_root(group_name=group_name, root_id=root_id)
+
+    if not isinstance(root, GitRootItem):
+        raise InvalidParameter()
+
+    if root.state.status != state:
+        await roots_dal.update_git_root_state(
+            group_name=group_name,
+            root_id=root_id,
+            state=GitRootState(
+                environment_urls=root.state.environment_urls,
+                environment=root.state.environment,
+                gitignore=root.state.gitignore,
+                includes_health_check=root.state.includes_health_check,
+                modified_by=user_email,
+                modified_date=datetime_utils.get_iso_date(),
+                nickname=root.state.nickname,
+                status=state
+            )
+        )
+
+        if root.state.includes_health_check:
+            await _notify_health_check(
+                group_name=group_name,
+                request=state == 'ACTIVE',
+                root=root,
+                user_email=user_email
+            )
