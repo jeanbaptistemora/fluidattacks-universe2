@@ -9,5 +9,5 @@ terraformApply {
   name = "makes-dns-apply";
   product = "makes";
   target = "makes/applications/makes/dns/src/terraform";
-  secretsPath = "makes/applications/serves/secrets/src/production.yaml";
+  secretsPath = "makes/applications/makes/secrets/src/production.yaml";
 }

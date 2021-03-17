@@ -9,5 +9,5 @@ terraformTest {
   name = "serves-users-integrates-test";
   product = "serves";
   target = "makes/applications/serves/users/integrates/src/terraform";
-  secretsPath = "makes/applications/serves/secrets/src/development.yaml";
+  secretsPath = "makes/applications/makes/secrets/src/development.yaml";
 }

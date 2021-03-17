@@ -83,6 +83,8 @@ makes.lint
 makes.lint-commit-msg
 makes.profiles
 makes.review-mr
+makes.secrets.apply
+makes.secrets.test
 makes.wait
 melts
 melts.test
@@ -138,8 +140,6 @@ observes.tap-toe-files
 observes.target-redshift
 observes.update-sync-date
 reviews
-serves.secrets.apply
-serves.secrets.test
 serves.users.airs.apply
 serves.users.airs.rotate.even
 serves.users.airs.rotate.odd

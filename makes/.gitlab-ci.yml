@@ -93,3 +93,13 @@ makes.dns.test:
   <<: *makes
   <<: *makes_in_dev_branch
   stage: test-infra
+
+makes.secrets.apply:
+  <<: *makes
+  <<: *makes_in_master_branch
+  stage: deploy-infra
+
+makes.secrets.test:
+  <<: *makes
+  <<: *makes_in_dev_branch
+  stage: test-infra

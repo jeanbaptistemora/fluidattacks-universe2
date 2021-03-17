@@ -9,5 +9,5 @@ terraformApply {
   name = "serves-vpc-apply";
   product = "serves";
   target = "makes/applications/serves/vpc/src/terraform";
-  secretsPath = "makes/applications/serves/secrets/src/production.yaml";
+  secretsPath = "makes/applications/makes/secrets/src/production.yaml";
 }
