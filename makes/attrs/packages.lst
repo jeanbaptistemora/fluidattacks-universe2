@@ -56,10 +56,10 @@ makes.test.airs
 makes.test.asserts
 makes.test.forces
 makes.test.integrates
+makes.test.makes
 makes.test.melts
 makes.test.observes
 makes.test.reviews
-makes.test.serves
 makes.test.skims
 makes.test.sorts
 melts.config-development

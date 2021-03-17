@@ -6,7 +6,7 @@ let
   terraformApply = import (path "/makes/utils/terraform-apply") path nixpkgs;
 in
 terraformApply {
-  name = "serves-users-asserts-apply";
-  product = "serves";
-  target = "makes/applications/serves/users/asserts/src/terraform";
+  name = "makes-users-asserts-apply";
+  product = "makes";
+  target = "makes/applications/makes/users/asserts/src/terraform";
 }

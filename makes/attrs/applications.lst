@@ -125,6 +125,8 @@ makes.users.sorts.apply
 makes.users.sorts.rotate.even
 makes.users.sorts.rotate.odd
 makes.users.sorts.test
+makes.vpc.apply
+makes.vpc.test
 makes.wait
 melts
 melts.test
@@ -180,8 +182,6 @@ observes.tap-toe-files
 observes.target-redshift
 observes.update-sync-date
 reviews
-serves.vpc.apply
-serves.vpc.test
 skims
 skims.benchmark
 skims.benchmark-on-aws
