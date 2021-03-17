@@ -21,6 +21,11 @@ def _mark_java(graph: graph_model.Graph) -> None:
 
 
 def _mark_java_f063(graph: graph_model.Graph) -> None:
+    _mark_java_f063_obj_creation_exp(graph)
+    _mark_java_f063_method_call(graph)
+
+
+def _mark_java_f063_obj_creation_exp(graph: graph_model.Graph) -> None:
     identifiers: Set[str] = {
         *build_attr_paths('java', 'io', 'File'),
         *build_attr_paths('java', 'io', 'FileInputStream'),
@@ -34,6 +39,28 @@ def _mark_java_f063(graph: graph_model.Graph) -> None:
             .F063_PATH_TRAVERSAL
             .name
         )
+
+
+def _mark_java_f063_method_call(graph: graph_model.Graph) -> None:
+    for n_id in g.filter_nodes(graph, graph.nodes, g.pred_has_labels(
+        label_type='method_invocation',
+    )):
+        match = g.match_ast(graph, n_id, 'field_access', 'identifier')
+
+        if (
+            (class_id := match['field_access'])
+            and (method_id := match['identifier'])
+        ):
+            if (
+                graph.nodes[class_id]['label_text'] == 'java.nio.file.Files'
+                and graph.nodes[method_id]['label_text'] == 'newInputStream'
+            ) or (
+                graph.nodes[class_id]['label_text'] == 'java.nio.file.Paths'
+                and graph.nodes[method_id]['label_text'] == 'get'
+            ):
+                graph.nodes[n_id]['label_sink_type'] = (
+                    core_model.FindingEnum.F063_PATH_TRAVERSAL.name
+                )
 
 
 def _check_method_call(
