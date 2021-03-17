@@ -103,3 +103,203 @@ makes.secrets.test:
   <<: *makes
   <<: *makes_in_dev_branch
   stage: test-infra
+
+makes.users.airs.apply:
+  <<: *makes
+  <<: *makes_in_master_branch
+  stage: deploy-infra
+
+makes.users.airs.rotate.even:
+  <<: *makes
+  <<: *makes_in_schedule_users_rotate_even
+  stage: rotation
+
+makes.users.airs.rotate.odd:
+  <<: *makes
+  <<: *makes_in_schedule_users_rotate_odd
+  stage: rotation
+
+makes.users.airs.test:
+  <<: *makes
+  <<: *makes_in_dev_branch
+  stage: test-infra
+
+makes.users.asserts.apply:
+  <<: *makes
+  <<: *makes_in_master_branch
+  stage: deploy-infra
+
+makes.users.asserts.rotate.even:
+  <<: *makes
+  <<: *makes_in_schedule_users_rotate_even
+  stage: rotation
+
+makes.users.asserts.rotate.odd:
+  <<: *makes
+  <<: *makes_in_schedule_users_rotate_odd
+  stage: rotation
+
+makes.users.asserts.test:
+  <<: *makes
+  <<: *makes_in_dev_branch
+  stage: test-infra
+
+makes.users.forces.apply:
+  <<: *makes
+  <<: *makes_in_master_branch
+  stage: deploy-infra
+
+makes.users.forces.rotate.even:
+  <<: *makes
+  <<: *makes_in_schedule_users_rotate_even
+  stage: rotation
+
+makes.users.forces.rotate.odd:
+  <<: *makes
+  <<: *makes_in_schedule_users_rotate_odd
+  stage: rotation
+
+makes.users.forces.test:
+  <<: *makes
+  <<: *makes_in_dev_branch
+  stage: test-infra
+
+makes.users.integrates.apply:
+  <<: *makes
+  <<: *makes_in_master_branch
+  stage: deploy-infra
+
+makes.users.integrates.rotate.even:
+  <<: *makes
+  <<: *makes_in_schedule_users_rotate_even
+  stage: rotation
+
+makes.users.integrates.rotate.odd:
+  <<: *makes
+  <<: *makes_in_schedule_users_rotate_odd
+  stage: rotation
+
+makes.users.integrates.test:
+  <<: *makes
+  <<: *makes_in_dev_branch
+  stage: test-infra
+
+makes.users.melts.apply:
+  <<: *makes
+  <<: *makes_in_master_branch
+  stage: deploy-infra
+
+makes.users.melts.rotate.even:
+  <<: *makes
+  <<: *makes_in_schedule_users_rotate_even
+  stage: rotation
+
+makes.users.melts.rotate.odd:
+  <<: *makes
+  <<: *makes_in_schedule_users_rotate_odd
+  stage: rotation
+
+makes.users.melts.test:
+  <<: *makes
+  <<: *makes_in_dev_branch
+  stage: test-infra
+
+makes.users.observes.apply:
+  <<: *makes
+  <<: *makes_in_master_branch
+  stage: deploy-infra
+
+makes.users.observes.rotate.even:
+  <<: *makes
+  <<: *makes_in_schedule_users_rotate_even
+  stage: rotation
+
+makes.users.observes.rotate.odd:
+  <<: *makes
+  <<: *makes_in_schedule_users_rotate_odd
+  stage: rotation
+
+makes.users.observes.test:
+  <<: *makes
+  <<: *makes_in_dev_branch
+  stage: test-infra
+
+makes.users.serves.apply:
+  <<: *makes
+  <<: *makes_in_master_branch
+  stage: deploy-infra
+
+makes.users.serves.rotate.even:
+  <<: *makes
+  <<: *makes_in_schedule_users_rotate_even
+  stage: rotation
+
+makes.users.serves.rotate.odd:
+  <<: *makes
+  <<: *makes_in_schedule_users_rotate_odd
+  stage: rotation
+
+makes.users.serves.test:
+  <<: *makes
+  <<: *makes_in_dev_branch
+  stage: test-infra
+
+makes.users.services.apply:
+  <<: *makes
+  <<: *makes_in_master_branch
+  stage: deploy-infra
+
+makes.users.services.rotate.even:
+  <<: *makes
+  <<: *makes_in_schedule_users_rotate_even
+  stage: rotation
+
+makes.users.services.rotate.odd:
+  <<: *makes
+  <<: *makes_in_schedule_users_rotate_odd
+  stage: rotation
+
+makes.users.services.test:
+  <<: *makes
+  <<: *makes_in_dev_branch
+  stage: test-infra
+
+makes.users.skims.apply:
+  <<: *makes
+  <<: *makes_in_master_branch
+  stage: deploy-infra
+
+makes.users.skims.rotate.even:
+  <<: *makes
+  <<: *makes_in_schedule_users_rotate_even
+  stage: rotation
+
+makes.users.skims.rotate.odd:
+  <<: *makes
+  <<: *makes_in_schedule_users_rotate_odd
+  stage: rotation
+
+makes.users.skims.test:
+  <<: *makes
+  <<: *makes_in_dev_branch
+  stage: test-infra
+
+makes.users.sorts.apply:
+  <<: *makes
+  <<: *makes_in_master_branch
+  stage: deploy-infra
+
+makes.users.sorts.rotate.even:
+  <<: *makes
+  <<: *makes_in_schedule_users_rotate_even
+  stage: rotation
+
+makes.users.sorts.rotate.odd:
+  <<: *makes
+  <<: *makes_in_schedule_users_rotate_odd
+  stage: rotation
+
+makes.users.sorts.test:
+  <<: *makes
+  <<: *makes_in_dev_branch
+  stage: test-infra
