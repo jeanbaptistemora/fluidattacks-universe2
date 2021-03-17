@@ -13,6 +13,7 @@ TEST_GROUPS: Set[str] = {
     'add_git_root',
     'add_project_consult',
     'add_tags',
+    'approve_draft',
     'create_draft',
     'create_event',
     'create_organization',
