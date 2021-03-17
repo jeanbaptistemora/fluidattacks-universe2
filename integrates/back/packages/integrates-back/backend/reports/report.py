@@ -3,6 +3,7 @@ from typing import Any, Optional
 
 # Third party libraries
 from aioextensions import (
+    collect,
     in_process,
     schedule,
 )
@@ -104,18 +105,22 @@ async def get_group_report_url(
         context, [group_name]
     )
     findings = await finding_domain.get_findings_async(group_findings[0])
-    findings = [
-        await in_process(
-            finding_domain.cast_new_vulnerabilities,
-            await vuln_domain.get_open_vuln_by_type(
-                context,
-                str(finding['findingId'])
-            ),
-            finding
+    format_vulns = await collect([
+        vuln_domain.get_open_vuln_by_type(
+            context,
+            str(finding['findingId'])
         )
         for finding in findings
-    ]
-    findings_ord = util.ord_asc_by_criticality(findings)
+    ])
+    format_findings = await collect([
+        in_process(
+            finding_domain.cast_new_vulnerabilities,
+            format_vuln,
+            finding
+        )
+        for finding, format_vuln in zip(findings, format_vulns)
+    ])
+    findings_ord = util.ord_asc_by_criticality(list(format_findings))
 
     if report_type == 'XLS':
         return await technical_report.generate_xls_file(
