@@ -1,6 +1,7 @@
-import React from "react";
-import moment from "moment";
+import type React from "react";
+import { createContext } from "react";
 import { translate } from "utils/translations/translate";
+import { utc } from "moment";
 
 interface IUser {
   userEmail: string;
@@ -11,7 +12,7 @@ interface IAuthContext extends IUser {
   setUser?: React.Dispatch<React.SetStateAction<IUser>>;
 }
 
-const authContext: React.Context<IAuthContext> = React.createContext({
+const authContext: React.Context<IAuthContext> = createContext({
   userEmail: "",
   userName: "",
 });
@@ -63,7 +64,7 @@ const setupSessionCheck: (expDate: string) => void = (expDate): void => {
       alert(translate.t("validations.validSessionDate"));
     }
     location.replace(`https://${window.location.host}`);
-  }, moment.utc(expDate).diff(moment.utc()));
+  }, utc(expDate).diff(utc()));
 };
 
 export { authContext, IAuthContext, setupSessionCheck };

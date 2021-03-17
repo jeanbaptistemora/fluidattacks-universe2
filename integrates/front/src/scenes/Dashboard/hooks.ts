@@ -4,9 +4,10 @@ import type { GraphQLError } from "graphql";
 import type { IAddStakeholderAttr } from "scenes/Dashboard/types";
 import { Logger } from "utils/logger";
 import type { MutationFunction } from "@apollo/react-common";
-import React from "react";
+import type React from "react";
 import _ from "lodash";
 import { useMutation } from "@apollo/react-hooks";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { msgError, msgSuccess } from "utils/notifications";
 
@@ -22,7 +23,7 @@ export const useAddStakeholder: () => readonly [
   const { t } = useTranslation();
 
   // Handle modal state
-  const [isOpen, toggle] = React.useState(false);
+  const [isOpen, toggle] = useState(false);
 
   // Handle mutation results
   const handleOnSuccess: (mtResult: IAddStakeholderAttr) => void = (

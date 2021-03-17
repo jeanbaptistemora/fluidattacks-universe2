@@ -18,11 +18,9 @@ import { OrganizationContent } from "scenes/Dashboard/containers/OrganizationCon
 import { OrganizationRedirect } from "scenes/Dashboard/containers/OrganizationRedirectView";
 import { ProjectRoute } from "scenes/Dashboard/containers/ProjectRoute";
 import type { PureAbility } from "@casl/ability";
-import React from "react";
 import { ScrollUpButton } from "components/ScrollUpButton";
 import { Sidebar } from "scenes/Dashboard/components/Sidebar";
 import { TagContent } from "scenes/Dashboard/containers/TagContent";
-import mixpanel from "mixpanel-browser";
 import { msgError } from "utils/notifications";
 import style from "scenes/Dashboard/index.css";
 import { translate } from "utils/translations/translate";
@@ -32,6 +30,7 @@ import {
   ACKNOWLEDGE_CONCURRENT_SESSION,
   GET_USER,
 } from "scenes/Dashboard/queries";
+import React, { useCallback, useContext, useState } from "react";
 import { Redirect, Route, Switch, useLocation } from "react-router-dom";
 import { authContext, setupSessionCheck } from "utils/auth";
 import {
@@ -41,6 +40,7 @@ import {
   groupLevelPermissions,
   organizationLevelPermissions,
 } from "utils/authz/config";
+import { identify, people, register, reset } from "mixpanel-browser";
 import { initializeDelighted, initializeZendesk } from "utils/widgets";
 import { useMutation, useQuery } from "@apollo/react-hooks";
 
@@ -51,7 +51,7 @@ export const Dashboard: React.FC = (): JSX.Element => {
   const groupRegex: string = ":projectName([a-zA-Z0-9]+)";
   const tagRegex: string = ":tagName([a-zA-Z0-9-_ ]+)";
 
-  const checkLoginReferrer = React.useCallback((): boolean => {
+  const checkLoginReferrer = useCallback((): boolean => {
     const loginReferrers = [
       "https://integrates.fluidattacks.com/",
       "https://account.live.com/",
@@ -66,16 +66,16 @@ export const Dashboard: React.FC = (): JSX.Element => {
     return isLogin || isGoogleLogin;
   }, []);
 
-  const { userEmail }: IAuthContext = React.useContext(authContext);
+  const { userEmail }: IAuthContext = useContext(authContext);
 
-  const [userRole, setUserRole] = React.useState<string | undefined>(undefined);
+  const [userRole, setUserRole] = useState<string | undefined>(undefined);
 
-  const [isTokenModalOpen, setTokenModalOpen] = React.useState(false);
-  const openTokenModal: () => void = React.useCallback((): void => {
+  const [isTokenModalOpen, setTokenModalOpen] = useState(false);
+  const openTokenModal: () => void = useCallback((): void => {
     setTokenModalOpen(true);
   }, []);
 
-  const closeTokenModal: () => void = React.useCallback((): void => {
+  const closeTokenModal: () => void = useCallback((): void => {
     setTokenModalOpen(false);
   }, []);
 
@@ -84,54 +84,48 @@ export const Dashboard: React.FC = (): JSX.Element => {
     isUserModalOpen,
     toggleUserModal,
   ] = useAddStakeholder();
-  const handleAddUserSubmit: (
-    values: IStakeholderAttrs
-  ) => void = React.useCallback(
+  const handleAddUserSubmit: (values: IStakeholderAttrs) => void = useCallback(
     (values: IStakeholderAttrs): void => {
       void addStakeholder({ variables: values });
     },
     [addStakeholder]
   );
 
-  const openUserModal: () => void = React.useCallback((): void => {
+  const openUserModal: () => void = useCallback((): void => {
     toggleUserModal(true);
   }, [toggleUserModal]);
-  const closeUserModal: () => void = React.useCallback((): void => {
+  const closeUserModal: () => void = useCallback((): void => {
     toggleUserModal(false);
   }, [toggleUserModal]);
 
-  const [isOrganizationModalOpen, setOrganizationModalOpen] = React.useState(
-    false
-  );
-  const openOrganizationModal: () => void = React.useCallback((): void => {
+  const [isOrganizationModalOpen, setOrganizationModalOpen] = useState(false);
+  const openOrganizationModal: () => void = useCallback((): void => {
     setOrganizationModalOpen(true);
   }, []);
-  const closeOrganizationModal: () => void = React.useCallback((): void => {
+  const closeOrganizationModal: () => void = useCallback((): void => {
     setOrganizationModalOpen(false);
   }, []);
 
-  const permissions: PureAbility<string> = React.useContext(
-    authzPermissionsContext
-  );
+  const permissions: PureAbility<string> = useContext(authzPermissionsContext);
 
-  const user: Required<IAuthContext> = React.useContext(
+  const user: Required<IAuthContext> = useContext(
     authContext as React.Context<Required<IAuthContext>>
   );
 
-  const [isCtSessionModalOpen, setCtSessionModalOpen] = React.useState(false);
-  const [isLegalModalOpen, setLegalModalOpen] = React.useState(false);
+  const [isCtSessionModalOpen, setCtSessionModalOpen] = useState(false);
+  const [isLegalModalOpen, setLegalModalOpen] = useState(false);
 
   const { data } = useQuery<IUser>(GET_USER, {
     onCompleted: ({ me }): void => {
       user.setUser({ userEmail: me.userEmail, userName: me.userName });
       Bugsnag.setUser(me.userEmail, me.userEmail, me.userName);
-      mixpanel.identify(me.userEmail);
-      mixpanel.register({
+      identify(me.userEmail);
+      register({
         User: me.userName,
         // eslint-disable-next-line camelcase -- It is possibly required for the API
         integrates_user_email: me.userEmail,
       });
-      mixpanel.people.set({ $email: me.userEmail, $name: me.userName });
+      people.set({ $email: me.userEmail, $name: me.userName });
       initializeDelighted(me.userEmail, me.userName);
       initializeZendesk(me.userEmail, me.userName);
       setupSessionCheck(me.sessionExpiration);
@@ -180,7 +174,7 @@ export const Dashboard: React.FC = (): JSX.Element => {
     },
   });
 
-  const handleConcurrent: () => void = React.useCallback((): void => {
+  const handleConcurrent: () => void = useCallback((): void => {
     setCtSessionModalOpen(false);
     if (!(data?.me.remember ?? false) && checkLoginReferrer()) {
       setLegalModalOpen(true);
@@ -188,7 +182,7 @@ export const Dashboard: React.FC = (): JSX.Element => {
     void acknowledgeConcurrent();
   }, [data?.me.remember, checkLoginReferrer, acknowledgeConcurrent]);
 
-  const handleAccept: (remember: boolean) => void = React.useCallback(
+  const handleAccept: (remember: boolean) => void = useCallback(
     (remember: boolean): void => {
       setLegalModalOpen(false);
       void acceptLegal({ variables: { remember } });
@@ -202,7 +196,7 @@ export const Dashboard: React.FC = (): JSX.Element => {
         {(confirm: IConfirmFn): React.ReactNode => {
           function handleLogout(): void {
             confirm((): void => {
-              mixpanel.reset();
+              reset();
               location.assign("/logout");
             });
           }

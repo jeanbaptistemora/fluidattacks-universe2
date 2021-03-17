@@ -5,11 +5,10 @@
 
 import { Col100 } from "styles/styledComponents";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
 import _ from "lodash";
 import logo from "resources/integrates.svg";
-import mixpanel from "mixpanel-browser";
 import style from "scenes/Login/index.css";
+import { track } from "mixpanel-browser";
 import { useTranslation } from "react-i18next";
 import {
   LoginButton,
@@ -21,6 +20,7 @@ import {
   TwoFaButton,
   TwoFacol,
 } from "./components";
+import React, { useEffect } from "react";
 import { Slide, toast } from "react-toastify";
 import {
   faBitbucket,
@@ -54,7 +54,7 @@ export const Login: React.FC = (): JSX.Element => {
   }
 
   // Show 2FA Notification
-  React.useEffect((): void => {
+  useEffect((): void => {
     toast.info(
       <div className={"pa1-ns"}>
         <div className={style.twoP}>
@@ -92,15 +92,15 @@ export const Login: React.FC = (): JSX.Element => {
 
   // Event handlers
   function handleBitbucketLogin(): void {
-    mixpanel.track("Login Bitbucket");
+    track("Login Bitbucket");
     window.location.assign("/dblogin");
   }
   function handleGoogleLogin(): void {
-    mixpanel.track("Login Google");
+    track("Login Google");
     window.location.assign("/dglogin");
   }
   function handleMicrosoftLogin(): void {
-    mixpanel.track("Login Azure");
+    track("Login Azure");
     window.location.assign("/dalogin");
   }
 

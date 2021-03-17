@@ -8,7 +8,7 @@ import { ApolloProvider as BaseApolloProvider } from "@apollo/react-hooks";
 import type { ErrorResponse } from "apollo-link-error";
 import { Logger } from "utils/logger";
 import type { NormalizedCacheObject } from "apollo-cache-inmemory";
-import React from "react";
+import type React from "react";
 import { RetryLink } from "apollo-link-retry";
 import { WebSocketLink } from "apollo-link-ws";
 import _ from "lodash";
@@ -36,6 +36,7 @@ import {
   IntrospectionFragmentMatcher,
 } from "apollo-cache-inmemory";
 import type { ServerError, ServerParseError } from "apollo-link-http-common";
+import { createElement, useMemo } from "react";
 
 interface IHandledErrorAttr {
   graphQLErrors?: readonly GraphQLError[];
@@ -356,7 +357,7 @@ const ApolloProvider: React.FC<ProviderProps> = (
   props: ProviderProps
 ): JSX.Element => {
   const history: History = useHistory();
-  const client: ApolloClient<NormalizedCacheObject> = React.useMemo(
+  const client: ApolloClient<NormalizedCacheObject> = useMemo(
     (): ApolloClient<NormalizedCacheObject> =>
       new ApolloClient({
         cache: getCache(),
@@ -378,7 +379,7 @@ const ApolloProvider: React.FC<ProviderProps> = (
     []
   );
 
-  return React.createElement(BaseApolloProvider, { client, ...props });
+  return createElement(BaseApolloProvider, { client, ...props });
 };
 
 export { getCache, useApolloNetworkStatus, ApolloProvider };
