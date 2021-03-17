@@ -32,6 +32,7 @@ from backend.typing import (
     ReportParameters
 )
 from newutils.encodings import safe_encode
+from newutils.context import CHARTS_LOGO_PATH
 from tags import domain as tags_domain
 
 
@@ -41,12 +42,11 @@ logging.config.dictConfig(LOGGING)
 LOGGER = logging.getLogger(__name__)
 ALLOWED_CHARS_IN_PARAMS: str = string.ascii_letters + string.digits + '#-'
 ENTITIES = {'group', 'organization', 'portfolio'}
-IMAGE_PATH: str = 'reports/resources/themes/logo.png'
 TRANSPARENCY_RATIO: float = 0.40
 
 
 def add_watermark(base_image: Image) -> bytes:
-    watermark: Image = clarify(IMAGE_PATH)
+    watermark: Image = clarify(CHARTS_LOGO_PATH)
     watermark_width, watermark_height = watermark.size
     width = max(base_image.width, watermark_width)
     height = max(base_image.height, watermark_height)
@@ -69,17 +69,10 @@ def add_watermark(base_image: Image) -> bytes:
 
 
 def clarify(image_path: str) -> Image:
-    path_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    if not os.path.exists(
-        os.path.abspath(os.path.join(path_dir, image_path))
-    ):
-        raise FileNotFoundError(
-            os.path.abspath(os.path.join(path_dir, image_path))
-        )
+    if not os.path.exists(image_path):
+        raise FileNotFoundError(image_path)
 
-    watermark = Image.open(
-        os.path.abspath(os.path.join(path_dir, image_path))
-    )
+    watermark = Image.open(image_path)
     watermark_mask = watermark.convert('L').point(
         lambda x: x * TRANSPARENCY_RATIO
     )

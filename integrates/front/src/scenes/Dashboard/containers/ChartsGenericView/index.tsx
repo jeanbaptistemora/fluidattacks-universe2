@@ -343,7 +343,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                 <Graphic
                   bsHeight={160}
                   className={"g2"}
-                  documentName={"resources"}
+                  documentName={"rootResources"}
                   documentType={"pieChart"}
                   entity={entity}
                   footer={

@@ -24,6 +24,7 @@ function main {
         &&  return 1
       fi \
   &&  export INTEGRATES_DB_MODEL_PATH='__envIntegrates__/arch/database-design.json' \
+  &&  export CHARTS_LOGO_PATH='__envIntegrates__/back/packages/integrates-back/backend/reports/resources/themes/logo.png' \
   &&  export STARTDIR="${PWD}" \
   &&  if ! test -e 'integrates'
       then
