@@ -50,9 +50,38 @@ you accept the risks that comes with it until a selected date.
 you don't intend to solve the vulnerability, but this time you accept the
 risks that come with it eternally.
 
-## Zero risk vulnerability
+You will need to provide certain additional information about the
+vulnerability and its selected treatment, this information will differ slightly
+depending on which treatment is given:
 
-Explanation for the process of requesting zero risks.
+- **Treatment justification:** Here you can state the reasons for giving this
+treatment to the selected vulnerability.
+- **Tags:** Assign a label or labels to the vulnerability for an easier time
+managing and finding them.
+- **Level:** You can use this field to assign a level of priority when solving
+vulnerabilities.
+- **Treatment manager:** This will be the user of the group in charge of making
+sure that the vulnerability receives a solution, which means this information
+is only given when the treatment assigned is **In progress**.
+- **Temporarily accepted until:** This information is for when the treatment given
+is **Temporarily accepted** in order to know the number of days that you accept
+the risk of the vulnerability being open, when this time is over you will need
+to set the treatment once again.
+
+### Zero risk vulnerability
+
+There is a special treatment that you can give to any reported vulnerabilities which
+is called **zero risk**, which means that according to analysis and consideration
+taken by your organization, this vulnerability poses no threat. In order to make
+a Zero Risk request you can take the same steps taken to assign a normal treatment.
+
+![Request Zero Risk](/img/web/vulnerabilities/management/request_zero_risk.png)
+
+After choosing to give a Zero Risk treatment to the selected vulnerability you
+only need to add a treatment justification, this information will be used by us
+to consider whether the vulnerability actually poses no threat at all, in which
+case the vulnerability will be deleted, however, if we still consider there is a risk,
+then it will remain reported.
 
 ## Request reattack
 
@@ -79,14 +108,16 @@ to finish the request or Cancel to dismiss it.
 When you finish requesting the reattack, our analysts will verify that the vulnerability
 was indeed solved and close or keep it open depending on the verification result.
 
-## Explain Records
+## Tracking your vulnerabilities
 
-Explain the Records tab.
+As time passes and your project changes, it becomes necessary to have an efficient way
+of knowing how has a type of vulnerability evolved over time. This can be visualized
+in the **Tracking** tab available within each type of vulnerability.
 
-## Explain Exploit
+![Vulnerability Tracking Tab](/img/web/vulnerabilities/management/vulnerabilities_tracking.png)
 
-Explain the Exploit tab.
-
-## Explain Tracking
-
-Explain the Tracking tab.
+The information than can be seen here will be divided in cycles based on the date
+of the change and the type of change that occured. Here you will be able to
+visualize the amount of vulnerabilities that were opened/closed in a specific date
+and also the treatment that a set amount of vulnerabilities were given in a
+specific date, mentioning its justification and treatment manager.
