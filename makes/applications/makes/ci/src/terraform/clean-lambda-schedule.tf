@@ -6,7 +6,7 @@ resource "aws_cloudwatch_event_rule" "every-hour" {
   tags = {
     "Name"               = "every--hour"
     "management:type"    = "production"
-    "management:product" = "serves"
+    "management:product" = "makes"
   }
 }
 

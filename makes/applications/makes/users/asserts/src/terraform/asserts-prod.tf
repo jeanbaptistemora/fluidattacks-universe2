@@ -5,7 +5,7 @@ resource "aws_iam_user" "asserts-prod" {
   tags = {
     "Name"               = "asserts-prod"
     "management:type"    = "production"
-    "management:product" = "serves"
+    "management:product" = "makes"
   }
 }
 

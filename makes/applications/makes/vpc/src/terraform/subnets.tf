@@ -6,7 +6,7 @@ resource "aws_subnet" "subnet-autoscaling-ci" {
   tags = {
     "Name"               = "autoscaling-ci"
     "management:type"    = "production"
-    "management:product" = "serves"
+    "management:product" = "makes"
   }
 }
 
@@ -18,6 +18,6 @@ resource "aws_subnet" "subnet-common" {
   tags = {
     "Name"               = "common"
     "management:type"    = "production"
-    "management:product" = "serves"
+    "management:product" = "makes"
   }
 }

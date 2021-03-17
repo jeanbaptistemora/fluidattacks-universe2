@@ -5,7 +5,7 @@ resource "aws_iam_user" "continuous-prod" {
   tags = {
     "Name"               = "continuous-prod"
     "management:type"    = "production"
-    "management:product" = "serves"
+    "management:product" = "makes"
   }
 }
 

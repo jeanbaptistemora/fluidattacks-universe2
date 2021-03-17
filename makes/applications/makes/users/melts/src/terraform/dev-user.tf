@@ -87,7 +87,7 @@ resource "aws_iam_user" "melts-dev" {
   tags = {
     "Name"               = "melts-dev"
     "management:type"    = "production"
-    "management:product" = "serves"
+    "management:product" = "makes"
   }
 }
 

@@ -5,7 +5,7 @@ resource "aws_iam_user" "sorts_prod" {
   tags = {
     "Name"               = "sorts_prod"
     "management:type"    = "production"
-    "management:product" = "serves"
+    "management:product" = "makes"
   }
 }
 
@@ -16,6 +16,6 @@ resource "aws_iam_user" "sorts_dev" {
   tags = {
     "Name"               = "sorts_dev"
     "management:type"    = "production"
-    "management:product" = "serves"
+    "management:product" = "makes"
   }
 }

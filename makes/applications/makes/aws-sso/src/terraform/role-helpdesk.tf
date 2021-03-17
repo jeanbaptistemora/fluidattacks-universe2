@@ -31,7 +31,7 @@ resource "aws_iam_role" "helpdesk-role" {
   tags = {
     "Name"               = "helpdesk"
     "management:type"    = "production"
-    "management:product" = "serves"
+    "management:product" = "makes"
   }
 }
 

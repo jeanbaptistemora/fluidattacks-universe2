@@ -23,6 +23,6 @@ resource "aws_security_group" "cloudflare" {
   tags = {
     "Name"               = "CloudFlare"
     "management:type"    = "production"
-    "management:product" = "serves"
+    "management:product" = "makes"
   }
 }

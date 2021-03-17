@@ -42,7 +42,7 @@ resource "aws_iam_role" "autoscaling-clean" {
   tags = {
     "Name"               = "autoscaling-clean"
     "management:type"    = "production"
-    "management:product" = "serves"
+    "management:product" = "makes"
   }
 }
 
@@ -72,6 +72,6 @@ resource "aws_lambda_function" "autoscaling-clean" {
   tags = {
     "Name"               = "autoscaling-clean"
     "management:type"    = "production"
-    "management:product" = "serves"
+    "management:product" = "makes"
   }
 }

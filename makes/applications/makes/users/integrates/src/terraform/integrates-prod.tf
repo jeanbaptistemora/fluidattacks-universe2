@@ -7,7 +7,7 @@ resource "aws_iam_user" "integrates-prod" {
   tags = {
     "Name"               = "integrates-prod"
     "management:type"    = "production"
-    "management:product" = "serves"
+    "management:product" = "makes"
   }
 }
 

@@ -5,7 +5,7 @@ resource "aws_iam_user" "skims_prod" {
   tags = {
     "Name"               = "skims_prod"
     "management:type"    = "production"
-    "management:product" = "serves"
+    "management:product" = "makes"
   }
 }
 
@@ -16,6 +16,6 @@ resource "aws_iam_user" "skims_dev" {
   tags = {
     "Name"               = "skims_dev"
     "management:type"    = "production"
-    "management:product" = "serves"
+    "management:product" = "makes"
   }
 }

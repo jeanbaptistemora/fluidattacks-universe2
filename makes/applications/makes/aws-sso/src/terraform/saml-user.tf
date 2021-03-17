@@ -19,7 +19,7 @@ resource "aws_iam_user" "okta-access-user" {
   tags = {
     "Name"               = "okta-access-user"
     "management:type"    = "production"
-    "management:product" = "serves"
+    "management:product" = "makes"
   }
 }
 

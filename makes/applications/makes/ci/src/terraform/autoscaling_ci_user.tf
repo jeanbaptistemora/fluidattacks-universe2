@@ -41,7 +41,7 @@ resource "aws_iam_user" "autoscaling_ci_user" {
   tags = {
     "Name"               = "autoscaling-ci"
     "management:type"    = "production"
-    "management:product" = "serves"
+    "management:product" = "makes"
   }
 }
 

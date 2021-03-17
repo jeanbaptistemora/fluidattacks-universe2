@@ -5,7 +5,7 @@ resource "aws_iam_user" "forces_prod" {
   tags = {
     "Name"               = "forces_prod"
     "management:type"    = "production"
-    "management:product" = "serves"
+    "management:product" = "makes"
   }
 }
 
@@ -16,6 +16,6 @@ resource "aws_iam_user" "forces_dev" {
   tags = {
     "Name"               = "forces_dev"
     "management:type"    = "production"
-    "management:product" = "serves"
+    "management:product" = "makes"
   }
 }

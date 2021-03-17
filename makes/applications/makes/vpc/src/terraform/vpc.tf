@@ -6,7 +6,7 @@ resource "aws_vpc" "fluid-vpc" {
   tags = {
     "Name"               = "fluid-vpc"
     "management:type"    = "production"
-    "management:product" = "serves"
+    "management:product" = "makes"
   }
 }
 
@@ -16,7 +16,7 @@ resource "aws_internet_gateway" "fluid-vpc" {
   tags = {
     "Name"               = "fluid-vpc"
     "management:type"    = "production"
-    "management:product" = "serves"
+    "management:product" = "makes"
   }
 }
 

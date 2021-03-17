@@ -111,7 +111,7 @@ resource "aws_kms_key" "key-serves-development" {
   tags = {
     "Name"               = "serves-development"
     "management:type"    = "production"
-    "management:product" = "serves"
+    "management:product" = "makes"
   }
 }
 

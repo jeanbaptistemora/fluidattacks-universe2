@@ -6,7 +6,7 @@ resource "aws_iam_role" "serves-admin-role" {
   tags = {
     "Name"               = "serves-admin"
     "management:type"    = "production"
-    "management:product" = "serves"
+    "management:product" = "makes"
   }
 }
 

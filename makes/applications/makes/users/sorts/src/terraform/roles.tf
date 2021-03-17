@@ -116,7 +116,7 @@ resource "aws_iam_role" "sorts_sagemaker" {
   tags = {
     "Name"               = "sorts_sagemaker"
     "management:type"    = "production"
-    "management:product" = "serves"
+    "management:product" = "makes"
   }
 }
 
@@ -134,7 +134,7 @@ resource "aws_iam_role" "sorts-prod" {
   tags = {
     "Name"               = "sorts-prod"
     "management:type"    = "production"
-    "management:product" = "serves"
+    "management:product" = "makes"
   }
 }
 

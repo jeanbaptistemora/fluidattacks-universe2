@@ -27,7 +27,7 @@ resource "aws_iam_role" "finance-role" {
   tags = {
     "Name"               = "finance"
     "management:type"    = "production"
-    "management:product" = "serves"
+    "management:product" = "makes"
   }
 }
 

@@ -108,7 +108,7 @@ resource "aws_kms_key" "key-serves-production" {
   tags = {
     "Name"               = "serves-production"
     "management:type"    = "production"
-    "management:product" = "serves"
+    "management:product" = "makes"
   }
 }
 
