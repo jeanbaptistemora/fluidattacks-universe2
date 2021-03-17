@@ -29,6 +29,7 @@ from tap_mailchimp.common.objs import (
 
 AbsReportId = raw_module.AbsReportId
 AudienceId = raw_module.AudienceId
+GrowthHistId = raw_module.GrowthHistId
 ItemId = raw_module.ItemId
 MemberId = raw_module.MemberId
 RawSource = raw_module.RawSource
@@ -50,6 +51,8 @@ class ApiClient(NamedTuple):
     get_top_clients: Callable[[AudienceId], Iterator[ApiData]]
     list_members: Callable[[AudienceId], Iterator[MemberId]]
     get_member: Callable[[MemberId], ApiData]
+    list_growth_hist: Callable[[AudienceId], Iterator[GrowthHistId]]
+    get_growth_hist: Callable[[GrowthHistId], ApiData]
 
 
 def _pop_if_exist(raw: JSON, key: str) -> Any:
@@ -152,6 +155,23 @@ def _list_members(
     ))
 
 
+def _list_growth_hist(
+    raw_source: RawSource,
+    audience: AudienceId
+) -> Iterator[GrowthHistId]:
+    result = create_api_data(
+        raw_source.list_growth_hist(audience)
+    )
+    data = result.data['history']
+    return iter(map(
+        lambda item: GrowthHistId(
+            audience_id=audience,
+            str_id=item['month']
+        ),
+        data
+    ))
+
+
 def new_client_from_source(
     raw_source: RawSource
 ) -> ApiClient:
@@ -170,6 +190,10 @@ def new_client_from_source(
         get_member=lambda item_id: create_api_data(
             raw_source.get_member(item_id)
         ),
+        list_growth_hist=partial(_list_growth_hist, raw_source),
+        get_growth_hist=lambda item_id: create_api_data(
+            raw_source.get_growth_hist(item_id)
+        )
     )
 
 

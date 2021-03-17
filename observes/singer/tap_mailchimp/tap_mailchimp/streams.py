@@ -29,6 +29,7 @@ from tap_mailchimp.api import (
     ApiClient,
     ApiData,
     AudienceId,
+    GrowthHistId,
     ItemId,
     MemberId,
 )
@@ -40,6 +41,7 @@ class SupportedStreams(Enum):
     MEMBERS = 'MEMBERS'
     RECENT_ACTIVITY = 'RECENT_ACTIVITY'
     TOP_CLIENTS = 'TOP_CLIENTS'
+    GROWTH_HISTORY = 'GROWTH_HISTORY'
 
 
 def _item_getter(
@@ -56,6 +58,7 @@ def _item_getter(
         SupportedStreams.RECENT_ACTIVITY: client.get_activity,
         SupportedStreams.TOP_CLIENTS: client.get_top_clients,
         SupportedStreams.MEMBERS: client.get_member,
+        SupportedStreams.GROWTH_HISTORY: client.get_growth_hist,
     }
     id_type = {
         SupportedStreams.AUDIENCES: AudienceId,
@@ -63,6 +66,7 @@ def _item_getter(
         SupportedStreams.RECENT_ACTIVITY: AudienceId,
         SupportedStreams.TOP_CLIENTS: AudienceId,
         SupportedStreams.MEMBERS: MemberId,
+        SupportedStreams.GROWTH_HISTORY: GrowthHistId,
     }
     assert isinstance(item_id, id_type[stream])
     return getter[stream](item_id)
@@ -117,6 +121,16 @@ def all_abuse_reports(client: ApiClient, target: Optional[IO[str]]) -> None:
         audiences_id
     )))
     _emit_items(client, stream, reports_id, target)
+
+
+def all_growth_history(client: ApiClient, target: Optional[IO[str]]) -> None:
+    stream = SupportedStreams.GROWTH_HISTORY
+    audiences_id = client.list_audiences()
+    histories_id: Iterator[GrowthHistId] = chain.from_iterable(iter(map(
+        client.list_growth_hist,
+        audiences_id
+    )))
+    _emit_items(client, stream, histories_id, target)
 
 
 def all_members(client: ApiClient, target: Optional[IO[str]]) -> None:
