@@ -54,16 +54,6 @@ makes.test.serves:
   <<: *serves_in_master_branch
   stage: test-code
 
-serves.aws-sso.apply:
-  <<: *makes
-  <<: *serves_in_master_branch
-  stage: deploy-infra
-
-serves.aws-sso.test:
-  <<: *makes
-  <<: *serves_in_dev_branch
-  stage: test-infra
-
 serves.ci.apply:
   <<: *makes
   <<: *serves_in_master_branch

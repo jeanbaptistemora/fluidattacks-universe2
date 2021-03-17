@@ -63,6 +63,8 @@ integrates.subscriptions.user-to-entity
 integrates.web.e2e
 makes.announce.bugsnag
 makes.attrs
+makes.aws-sso.apply
+makes.aws-sso.test
 makes.deploy.oci
 makes.doc
 makes.doc.deploy
@@ -129,8 +131,6 @@ observes.tap-toe-files
 observes.target-redshift
 observes.update-sync-date
 reviews
-serves.aws-sso.apply
-serves.aws-sso.test
 serves.ci.apply
 serves.ci.config
 serves.ci.test

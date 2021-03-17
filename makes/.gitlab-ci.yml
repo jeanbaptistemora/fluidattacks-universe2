@@ -1,0 +1,60 @@
+.makes: &makes
+  tags: [autoscaling]
+  image: "${CI_REGISTRY_IMAGE}/makes"
+  needs: []
+  interruptible: true
+  script:
+    - ./m "${CI_JOB_NAME% *}"
+  variables:
+    GIT_DEPTH: 5
+
+.makes_commit_pattern: &makes_commit_pattern '$CI_COMMIT_TITLE =~ /^(all|makes)/'
+
+.makes_in_dev_branch: &makes_in_dev_branch
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "master"'
+      when: never
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      when: never
+    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+      when: never
+    - if: '$CI_PIPELINE_SOURCE == "trigger"'
+      when: never
+    - if: *makes_commit_pattern
+
+.makes_in_master_branch: &makes_in_master_branch
+  resource_group: "${CI_JOB_NAME}"
+  rules:
+    - if: '$CI_COMMIT_BRANCH != "master"'
+      when: never
+    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+      when: never
+    - if: '$CI_PIPELINE_SOURCE == "trigger"'
+      when: never
+    - if: *makes_commit_pattern
+
+.makes_in_schedule_users_rotate_even: &makes_in_schedule_users_rotate_even
+  rules:
+    - if: '$CI_PIPELINE_SOURCE != "schedule"'
+      when: never
+    - if: '$makes_users_rotate_even != "defined"'
+      when: never
+    - when: always
+
+.makes_in_schedule_users_rotate_odd: &makes_in_schedule_users_rotate_odd
+  rules:
+    - if: '$CI_PIPELINE_SOURCE != "schedule"'
+      when: never
+    - if: '$makes_users_rotate_odd != "defined"'
+      when: never
+    - when: always
+
+makes.aws-sso.apply:
+  <<: *makes
+  <<: *makes_in_master_branch
+  stage: deploy-infra
+
+makes.aws-sso.test:
+  <<: *makes
+  <<: *makes_in_dev_branch
+  stage: test-infra

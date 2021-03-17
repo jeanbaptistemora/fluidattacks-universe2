@@ -6,7 +6,7 @@ let
   terraformTest = import (path "/makes/utils/terraform-test") path nixpkgs;
 in
 terraformTest {
-  name = "serves-aws-sso-test";
-  product = "serves";
-  target = "makes/applications/serves/aws-sso/src/terraform";
+  name = "makes-aws-sso-test";
+  product = "makes";
+  target = "makes/applications/makes/aws-sso/src/terraform";
 }

@@ -6,7 +6,7 @@ let
   terraformApply = import (path "/makes/utils/terraform-apply") path nixpkgs;
 in
 terraformApply {
-  name = "serves-aws-sso-apply";
-  product = "serves";
-  target = "makes/applications/serves/aws-sso/src/terraform";
+  name = "makes-aws-sso-apply";
+  product = "makes";
+  target = "makes/applications/makes/aws-sso/src/terraform";
 }
