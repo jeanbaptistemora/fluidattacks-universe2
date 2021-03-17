@@ -1,6 +1,6 @@
 :slug: exchange-server-hack/
 :date: 2021-03-12
-:subtitle: Hafnium and others exploit 4 zero-day vulnerabilities
+:subtitle: Hafnium exploits four zero-day vulnerabilities
 :category: attacks
 :tags: cybersecurity, software, vulnerability, hacking, application, discovery
 :image: cover.png
@@ -26,13 +26,13 @@ to a Chinese state-sponsored group.
 These cybercriminals took advantage
 of four zero-day vulnerabilities in that software
 and have exploited them to break into many organizations,
-primarily in the U.S.
+primarily in the United States.
 In this post, we will examine several details
 that are known so far about this incident.
 
-== Microsoft Exchange Server (MES)?
+== What is Microsoft Exchange Server?
 
-MES is a link:https://services.dartmouth.edu/TDClient/1806/Portal/KB/ArticleDet?ID=64504["software that provides] the back end
+Microsoft Exchange Server (MES) is a link:https://services.dartmouth.edu/TDClient/1806/Portal/KB/ArticleDet?ID=64504["software that provides] the back end
 to an integrated system for email, calendaring, messaging, and tasks."
 (Outlook, instead, is the app installed on your desktop that,
 like other email clients, can be synchronized with MES
@@ -60,16 +60,16 @@ Microsoft said it is a modern and skilled team
 with a history of attacks against Office 365 users.
 Indeed, it is a Chinese group
 but "primarily operates from leased virtual private servers (VPS)
-in the [U.S.]," link:https://www.zdnet.com/article/update-immediately-microsoft-rushes-out-patches-for-exchange-server-zero-day-attacks/[said Tung in ZDNet].
+in the United States," link:https://www.zdnet.com/article/update-immediately-microsoft-rushes-out-patches-for-exchange-server-zero-day-attacks/[said Tung in ZDNet].
 
 These attackers could access users' mailboxes, extract content,
 and install backdoors on compromised servers for persistent access
 and control through such security flaws in the software.
 Their first reported attacks impacted higher education
 and research institutions, law firms, policy think tanks, defense contractors,
-and NGOs, mainly in the U.S.
+and NGOs, mainly in the United States.
 The situation looked thornier when the investigation revealed attacks
-against the same country's government agencies.
+against the U.S. government agencies.
 Curiously, these critical vulnerabilities' exploitation
 could affect servers running MES 2013, 2016, and 2019
 (on-premises products) _but not_ Exchange Online (cloud-hosted service).
@@ -83,7 +83,7 @@ could also quickly target unpatched systems.
 (link:https://www.zdnet.com/article/everything-you-need-to-know-about-microsoft-exchange-server-hack/[It seems] this has already happened.)
 On March 3, the U.S. Cybersecurity & Infrastructure Security Agency (CISA)
 issued link:https://cyber.dhs.gov/ed/21-02/[an emergency directive] regarding the matter.
-It asked all government agencies to comply with the application of patches,
+It asked all government agencies to comply with the installation of patches,
 especially if there were no indicators of compromise
 in their networks and systems.
 Otherwise, they should "disconnect their Microsoft Exchange on-premises servers
@@ -92,7 +92,7 @@ link:https://www.zdnet.com/article/cisa-issues-emergency-directive-to-agencies-d
 
 The next day, link:https://us-cert.cisa.gov/ncas/current-activity/2021/03/04/update-alert-mitigating-microsoft-exchange-server-vulnerabilities[CISA updated the alert],
 reporting they were "aware of threat actors using open source tools
-to search for vulnerable [MES]"
+to search for vulnerable [MESs]"
 and that agencies needed to look for signs of suspicious behavior
 from at least September 1, 2020.
 Then, link:https://us-cert.cisa.gov/ncas/current-activity/2021/03/06/microsoft-ioc-detection-tool-exchange-server-vulnerabilities[on March 6, CISA recommended] that agencies
@@ -102,31 +102,32 @@ Around those days, Chris Krebs,
 who was director of CISA until link:https://www.cnbc.com/2020/11/17/trump-says-us-cybersecurity-chief-chris-krebs-has-been-terminated.html[Trump fired him],
 link:https://twitter.com/C_C_Krebs/status/1368004411545579525[posted on his Twitter account] an intriguing question:
 "Is this a flex in the early days of the Biden admin to test their resolve?"
-In fact, if we go to CNN Politics, we can find a post with this title:
+In fact, if we go to CNN Politics, we can find a post titled:
 link:https://edition.cnn.com/2021/03/06/politics/microsoft-hack-task-force/index.html["Biden administration expected] to form [a] task force
 to deal with Microsoft hack linked to China."
 
 .Photo by link:https://unsplash.com/@pineapple[Pineapple Supply Co.] on Unsplash.
 image::four.png[Four]
 
-== What about the 4 flaws?
+== What are the four flaws?
 
 The four MES zero-day vulnerabilities
 involved in this case are officially tracked as
 link:https://msrc.microsoft.com/update-guide/vulnerability/CVE-2021-26855[CVE-2021-26855], link:https://msrc.microsoft.com/update-guide/vulnerability/CVE-2021-26857[CVE-2021-26857], link:https://msrc.microsoft.com/update-guide/vulnerability/CVE-2021-26858[CVE-2021-26858], and link:https://msrc.microsoft.com/update-guide/vulnerability/CVE-2021-27065[CVE-2021-27065].
-The discovery of the former (also known as link:https://proxylogon.com/[ProxyLogon]) and the latter
-is attributed to the researcher "Orange Tsai" of link:https://devco.re/en/about/[Devcore],
+The discovery of the first one (also known as link:https://proxylogon.com/[ProxyLogon])
+and the last one is attributed to the researcher
+"Orange Tsai" of link:https://devco.re/en/about/[Devcore],
 a team of professionals who in October 2020
 started reviewing MES security.
 
-- CVE-2021-26855 (CVSS 9.1) is a Server-Side Request Forgery (SSRF)
+- *CVE-2021-26855* (CVSS 9.1) is a Server-Side Request Forgery (SSRF)
 vulnerability that allows link:https://www.zdnet.com/article/update-immediately-microsoft-rushes-out-patches-for-exchange-server-zero-day-attacks/["the attacker to] send arbitrary HTTP requests
 and authenticate as the Exchange server."
-- CVE-2021-26857 (CVSS 7.8) "is an insecure deserialization vulnerability
+- *CVE-2021-26857* (CVSS 7.8) "is an insecure deserialization vulnerability
 in the Unified Messaging service."
 It allows attackers to "run code as SYSTEM on the Exchange server,"
-but if they combine it with another flaw or use stolen credentials.
-- CVE-2021-26858 (CVSS 7.8) and CVE-2021-27065 (CVSS 7.8)
+only if they combine it with another flaw or use stolen credentials.
+- *CVE-2021-26858* (CVSS 7.8) and *CVE-2021-27065* (CVSS 7.8)
 are post-authentication arbitrary file write vulnerabilities.
 "If Hafnium could authenticate with the Exchange server,
 then they could use [any of these vulnerabilities]
@@ -135,7 +136,7 @@ to write a file to any path on the server."
 According to several sources, attackers can carry out attacks
 using one or more of the above flaws.
 Therefore, they can write and deploy backdoor 'web shells' on the servers
-and have footholds to execute further attacks.
+and have a foothold to execute further attacks.
 (Web shells are small, easy-to-use link:https://www.zdnet.com/article/update-immediately-microsoft-rushes-out-patches-for-exchange-server-zero-day-attacks/["scripts that provide] a basic interface
 for remote access to a compromised system.")
 These can involve stealing credentials, installing malware
@@ -156,8 +157,8 @@ public utilities and police, fire and rescue units."
 
 It is currently quite worrying how slowly different companies
 and government agencies are patching their systems.
-Some even consider that there may be more severe results in this hack
-attributed to the Chinese than in the one related to SolarWinds.
+Some even consider that there may be more severe results from this hack
+attributed to the Chinese than from the one related to SolarWinds.
 As the cybersecurity expert link:https://krebsonsecurity.com/2021/03/at-least-30000-u-s-organizations-newly-hacked-via-holes-in-microsofts-email-software/[Brian Krebs has said],
 "By all accounts, rooting out these intruders is going to require
 an unprecedented and urgent nationwide clean-up effort."
