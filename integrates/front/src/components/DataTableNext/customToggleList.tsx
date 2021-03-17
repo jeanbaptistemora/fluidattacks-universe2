@@ -8,7 +8,6 @@ import type { ColumnToggle } from "react-bootstrap-table2-toolkit";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { ICustomToggleProps } from "components/DataTableNext/types";
 import { Modal } from "components/Modal";
-import React from "react";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import _ from "lodash";
 import { faCog } from "@fortawesome/free-solid-svg-icons";
@@ -20,6 +19,7 @@ import {
   Row,
   RowCenter,
 } from "styles/styledComponents";
+import React, { useState } from "react";
 
 export const CustomToggleList: React.FC<ICustomToggleProps> = (
   // Readonly utility type doesn't work on deeply nested types
@@ -31,7 +31,7 @@ export const CustomToggleList: React.FC<ICustomToggleProps> = (
     propsTable: { onColumnToggle: sideEffects },
     propsToggle: { columns, toggles, onColumnToggle },
   } = props;
-  const [hidden, setHidden] = React.useState(false);
+  const [hidden, setHidden] = useState(false);
   function handleOpenTableSetClick(): void {
     setHidden(true);
   }

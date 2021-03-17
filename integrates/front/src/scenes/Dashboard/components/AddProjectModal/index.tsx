@@ -7,7 +7,6 @@ import type { GraphQLError } from "graphql";
 import type { InjectedFormProps } from "redux-form";
 import { Logger } from "utils/logger";
 import { Modal } from "components/Modal";
-import React from "react";
 import { SwitchButton } from "components/SwitchButton";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import _ from "lodash";
@@ -36,6 +35,7 @@ import type {
   MutationResult,
   QueryResult,
 } from "@apollo/react-common";
+import React, { useState } from "react";
 import {
   alphaNumeric,
   maxLength,
@@ -72,12 +72,12 @@ const AddProjectModal: React.FC<IAddProjectModalProps> = (
 ): JSX.Element => {
   const { isOpen, onClose, organization } = props;
   // State management
-  const [hasDrills, setHasDrills] = React.useState(true);
-  const [hasForces, setHasForces] = React.useState(true);
+  const [hasDrills, setHasDrills] = useState(true);
+  const [hasForces, setHasForces] = useState(true);
 
-  const [canHaveForces, setCanHaveForces] = React.useState(true);
+  const [canHaveForces, setCanHaveForces] = useState(true);
 
-  const [subscriptionType, setSubscriptionType] = React.useState("CONTINUOUS");
+  const [subscriptionType, setSubscriptionType] = useState("CONTINUOUS");
 
   function handleProjectNameError({ graphQLErrors }: ApolloError): void {
     onClose();

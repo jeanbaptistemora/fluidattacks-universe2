@@ -7,7 +7,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { IGraphicProps } from "graphics/types";
 import type { ISecureStoreConfig } from "utils/secureStore";
 import { Modal } from "components/Modal";
-import React from "react";
 import _ from "lodash";
 import { track as mixpanelTrack } from "mixpanel-browser";
 import { secureStoreContext } from "utils/secureStore";
@@ -23,6 +22,13 @@ import {
   GraphicPanelCollapseFooter,
   GraphicPanelCollapseHeader,
 } from "styles/styledComponents";
+import React, {
+  useCallback,
+  useContext,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import {
   faDownload,
   faExpandArrowsAlt,
@@ -98,19 +104,15 @@ export const Graphic: React.FC<IGraphicProps> = (
   } = props;
 
   // Hooks
-  const fullRef: React.MutableRefObject<HTMLDivElement | null> = React.useRef(
+  const fullRef: React.MutableRefObject<HTMLDivElement | null> = useRef(null);
+  const headRef: React.MutableRefObject<HTMLDivElement | null> = useRef(null);
+  const bodyRef: React.MutableRefObject<HTMLIFrameElement | null> = useRef(
     null
   );
-  const headRef: React.MutableRefObject<HTMLDivElement | null> = React.useRef(
+  const modalRef: React.MutableRefObject<HTMLIFrameElement | null> = useRef(
     null
   );
-  const bodyRef: React.MutableRefObject<HTMLIFrameElement | null> = React.useRef(
-    null
-  );
-  const modalRef: React.MutableRefObject<HTMLIFrameElement | null> = React.useRef(
-    null
-  );
-  const modalBodyRef: React.MutableRefObject<HTMLIFrameElement | null> = React.useRef(
+  const modalBodyRef: React.MutableRefObject<HTMLIFrameElement | null> = useRef(
     null
   );
 
@@ -120,22 +122,22 @@ export const Graphic: React.FC<IGraphicProps> = (
   const bodySize: ComponentSize = useComponentSize(bodyRef);
   const modalSize: ComponentSize = useComponentSize(modalBodyRef);
 
-  const [subjectName, setSubjectName] = React.useState(subject);
-  const [expanded, setExpanded] = React.useState(reportMode);
-  const [fullScreen, setFullScreen] = React.useState(false);
-  const [iframeState, setIframeState] = React.useState("loading");
+  const [subjectName, setSubjectName] = useState(subject);
+  const [expanded, setExpanded] = useState(reportMode);
+  const [fullScreen, setFullScreen] = useState(false);
+  const [iframeState, setIframeState] = useState("loading");
 
-  const secureStore: ISecureStoreConfig = React.useContext(secureStoreContext);
+  const secureStore: ISecureStoreConfig = useContext(secureStoreContext);
 
   // Yet more hooks
-  const iframeSrc: string = React.useMemo(
+  const iframeSrc: string = useMemo(
     (): string =>
       secureStore.retrieveBlob(
         buildUrl({ ...props, subject: subjectName }, bodySize, subjectName)
       ),
     [bodySize, props, secureStore, subjectName]
   );
-  const modalIframeSrc: string = React.useMemo(
+  const modalIframeSrc: string = useMemo(
     (): string =>
       secureStore.retrieveBlob(
         buildUrl({ ...props, subject: subjectName }, modalSize, subjectName)
@@ -205,7 +207,7 @@ export const Graphic: React.FC<IGraphicProps> = (
   const glyphSizeTop: number =
     headSize.height + glyphPadding + glyphSize / 2 - fontSize;
 
-  const track: () => void = React.useCallback((): void => {
+  const track: () => void = useCallback((): void => {
     mixpanelTrack("DownloadGraphic", { documentName, entity });
   }, [documentName, entity]);
 

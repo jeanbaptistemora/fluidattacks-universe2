@@ -1,10 +1,9 @@
-/* eslint-disable react/forbid-component-props, react/jsx-props-no-spreading*/
-import React from "react";
+/* eslint-disable react/forbid-component-props */
 import type { StyledComponent } from "styled-components";
 import style from "./index.css";
 import styled from "styled-components";
-
 import { ModalBody, ModalHeader, ModalTitle } from "styles/styledComponents";
+import React, { useEffect } from "react";
 
 interface IModalProps {
   children: React.ReactNode;
@@ -46,7 +45,7 @@ const ModalBase: React.FC<IModalProps> = (
 ): JSX.Element => {
   const { children, headerTitle, size = "" } = props;
 
-  React.useEffect((): (() => void) => {
+  useEffect((): (() => void) => {
     document.body.style.setProperty("overflow", "hidden");
 
     return function cleanup(): void {

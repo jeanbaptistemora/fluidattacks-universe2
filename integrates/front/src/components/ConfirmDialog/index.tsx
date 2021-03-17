@@ -1,9 +1,9 @@
 import { Button } from "components/Button";
 import { Modal } from "components/Modal";
-import React from "react";
 import _ from "lodash";
 import { translate } from "utils/translations/translate";
 import { ButtonToolbar, Col100, Row } from "styles/styledComponents";
+import React, { useState } from "react";
 
 interface IConfirmFn {
   (confirmCallback: () => void, cancelCallback?: () => void): void;
@@ -19,15 +19,15 @@ const ConfirmDialog: React.FC<IConfirmDialogProps> = (
   props: Readonly<IConfirmDialogProps>
 ): JSX.Element => {
   const { children, title, message } = props;
-  const [isOpen, setOpen] = React.useState(false);
+  const [isOpen, setOpen] = useState(false);
   const [
     confirmCallback,
     setConfirmCallback,
-  ] = React.useState((): (() => void) => (): void => undefined);
+  ] = useState((): (() => void) => (): void => undefined);
   const [
     cancelCallback,
     setCancelCallback,
-  ] = React.useState((): (() => void) => (): void => undefined);
+  ] = useState((): (() => void) => (): void => undefined);
 
   const confirm: IConfirmFn = (
     confirmFn: () => void,

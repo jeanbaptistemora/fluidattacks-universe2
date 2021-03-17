@@ -3,15 +3,15 @@ import { Dashboard } from "scenes/Dashboard";
 import { Login } from "scenes/Login";
 import type { NetworkStatus } from "react-apollo-network-status";
 import { Preloader } from "components/Preloader";
-import React from "react";
-import ReactDOM from "react-dom";
 import { Provider as ReduxProvider } from "react-redux";
 import { ToastContainer } from "react-toastify";
 import { authContext } from "utils/auth";
 import { getEnvironment } from "utils/environment";
+import { render } from "react-dom";
 import store from "store";
 import { ApolloProvider, useApolloNetworkStatus } from "utils/apollo";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
+import React, { createElement, useState } from "react";
 import {
   authzPermissionsContext,
   userLevelPermissions,
@@ -29,7 +29,7 @@ const App: React.FC = (): JSX.Element => {
   const isLoading: boolean =
     status.numPendingQueries > 0 || status.numPendingMutations > 0;
 
-  const [user, setUser] = React.useState({ userEmail: "", userName: "" });
+  const [user, setUser] = useState({ userEmail: "", userName: "" });
 
   return (
     <React.StrictMode>
@@ -76,4 +76,4 @@ if (getEnvironment() !== "production") {
   mixpanelDisable();
 }
 
-ReactDOM.render(React.createElement(App), document.getElementById("root"));
+render(createElement(App), document.getElementById("root"));

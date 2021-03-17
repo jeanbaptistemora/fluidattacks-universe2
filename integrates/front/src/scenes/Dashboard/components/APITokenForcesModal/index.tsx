@@ -2,7 +2,6 @@ import { Button } from "components/Button";
 import { Field } from "redux-form";
 import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import { Modal } from "components/Modal";
-import React from "react";
 import { TextArea } from "utils/forms/fields";
 import _ from "lodash";
 import { translate } from "utils/translations/translate";
@@ -12,6 +11,7 @@ import {
   ControlLabel,
   Row,
 } from "styles/styledComponents";
+import React, { useCallback } from "react";
 import { msgError, msgSuccess } from "utils/notifications";
 import {
   useGetAPIToken,
@@ -41,13 +41,13 @@ const APITokenForcesModal: React.FC<IAPITokenForcesModalProps> = (
     ? updateResponse.data.updateForcesAccessToken.sessionJwt
     : getTokenData?.project.forcesToken;
 
-  const handleUpdateAPIToken: () => void = React.useCallback((): void => {
+  const handleUpdateAPIToken: () => void = useCallback((): void => {
     void updateApiToken({ variables: { groupName } });
   }, [groupName, updateApiToken]);
-  const handleReveal: () => void = React.useCallback((): void => {
+  const handleReveal: () => void = useCallback((): void => {
     void getApiToken(); // eslint-disable-line @typescript-eslint/no-confusing-void-expression
   }, [getApiToken]);
-  const handleCopy: () => Promise<void> = React.useCallback(async (): Promise<void> => {
+  const handleCopy: () => Promise<void> = useCallback(async (): Promise<void> => {
     const { clipboard } = navigator;
 
     if (_.isUndefined(clipboard)) {
