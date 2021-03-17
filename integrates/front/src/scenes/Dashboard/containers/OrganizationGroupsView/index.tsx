@@ -8,7 +8,6 @@ import { GET_ORGANIZATION_GROUPS } from "scenes/Dashboard/containers/Organizatio
 import type { GraphQLError } from "graphql";
 import type { IHeaderConfig } from "components/DataTableNext/types";
 import { Logger } from "utils/logger";
-import React from "react";
 import { TooltipWrapper } from "components/TooltipWrapper/index";
 import _ from "lodash";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
@@ -23,6 +22,7 @@ import type {
   IGroupData,
   IOrganizationGroupsProps,
 } from "scenes/Dashboard/containers/OrganizationGroupsView/types";
+import React, { useCallback, useState } from "react";
 import { useHistory, useParams, useRouteMatch } from "react-router-dom";
 
 const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
@@ -34,9 +34,9 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
   const { push } = useHistory();
 
   // State management
-  const [isProjectModalOpen, setProjectModalOpen] = React.useState(false);
+  const [isProjectModalOpen, setProjectModalOpen] = useState(false);
 
-  const openNewProjectModal: () => void = React.useCallback((): void => {
+  const openNewProjectModal: () => void = useCallback((): void => {
     setProjectModalOpen(true);
   }, []);
 
@@ -59,7 +59,7 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
   });
 
   // State management
-  const closeNewProjectModal: () => void = React.useCallback((): void => {
+  const closeNewProjectModal: () => void = useCallback((): void => {
     setProjectModalOpen(false);
     void refetchGroups();
   }, [refetchGroups]);

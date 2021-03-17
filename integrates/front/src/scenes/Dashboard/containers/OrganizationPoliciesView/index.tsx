@@ -9,11 +9,10 @@ import type { GraphQLError } from "graphql";
 import type { IHeaderConfig } from "components/DataTableNext/types";
 import type { InjectedFormProps } from "redux-form";
 import { Logger } from "utils/logger";
-import React from "react";
 import { Text } from "utils/forms/fields";
 import _ from "lodash";
-import mixpanel from "mixpanel-browser";
 import style from "scenes/Dashboard/containers/OrganizationPoliciesView/index.css";
+import { track } from "mixpanel-browser";
 import { translate } from "utils/translations/translate";
 import { useParams } from "react-router";
 import { useSelector } from "react-redux";
@@ -27,6 +26,7 @@ import type {
   IOrganizationPolicies,
   IPoliciesFormData,
 } from "scenes/Dashboard/containers/OrganizationPoliciesView/types";
+import React, { useCallback } from "react";
 import { msgError, msgSuccess } from "utils/notifications";
 import { useMutation, useQuery } from "@apollo/react-hooks";
 
@@ -73,7 +73,7 @@ const OrganizationPolicies: React.FC<IOrganizationPolicies> = (
     UPDATE_ORGANIZATION_POLICIES,
     {
       onCompleted: (): void => {
-        mixpanel.track("UpdateOrganizationPolicies", formValues);
+        track("UpdateOrganizationPolicies", formValues);
         msgSuccess(
           translate.t("organization.tabs.policies.success"),
           translate.t("organization.tabs.policies.successTitle")
@@ -230,7 +230,7 @@ const OrganizationPolicies: React.FC<IOrganizationPolicies> = (
     },
   ];
 
-  const handleFormSubmit: () => void = React.useCallback((): void => {
+  const handleFormSubmit: () => void = useCallback((): void => {
     void savePolicies();
   }, [savePolicies]);
 

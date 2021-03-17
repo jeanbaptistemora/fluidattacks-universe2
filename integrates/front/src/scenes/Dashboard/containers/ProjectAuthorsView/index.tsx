@@ -4,7 +4,6 @@ import { GET_BILL } from "scenes/Dashboard/containers/ProjectAuthorsView/queries
 import type { GraphQLError } from "graphql";
 import type { IHeaderConfig } from "components/DataTableNext/types";
 import { Logger } from "utils/logger";
-import React from "react";
 import type { ReactElement } from "react";
 import _ from "lodash";
 import { msgError } from "utils/notifications";
@@ -17,6 +16,7 @@ import type {
   IBillDeveloper,
   IData,
 } from "scenes/Dashboard/containers/ProjectAuthorsView/types";
+import React, { useCallback, useState } from "react";
 
 const ProjectAuthorsView: React.FC = (): JSX.Element => {
   const now: Date = new Date();
@@ -27,7 +27,7 @@ const ProjectAuthorsView: React.FC = (): JSX.Element => {
     (month: number): Date => new Date(thisYear, thisMonth - month)
   );
 
-  const [billDate, setBillDate] = React.useState(dateRange[0].toISOString());
+  const [billDate, setBillDate] = useState(dateRange[0].toISOString());
 
   const formatText: (value: string) => ReactElement<Text> = (
     value: string
@@ -49,7 +49,7 @@ const ProjectAuthorsView: React.FC = (): JSX.Element => {
 
   const handleDateChange: (
     event: React.ChangeEvent<HTMLSelectElement>
-  ) => void = React.useCallback(
+  ) => void = useCallback(
     (event: React.ChangeEvent<HTMLSelectElement>): void => {
       setBillDate(event.target.value);
     },

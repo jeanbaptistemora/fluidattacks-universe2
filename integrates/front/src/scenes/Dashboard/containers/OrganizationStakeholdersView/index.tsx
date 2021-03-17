@@ -7,11 +7,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { GraphQLError } from "graphql";
 import type { IHeaderConfig } from "components/DataTableNext/types";
 import { Logger } from "utils/logger";
-import React from "react";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import _ from "lodash";
-import mixpanel from "mixpanel-browser";
 import { timeFromNow } from "components/DataTableNext/formatters";
+import { track } from "mixpanel-browser";
 import { translate } from "utils/translations/translate";
 import { useParams } from "react-router";
 import {
@@ -28,6 +27,7 @@ import type {
   IRemoveStakeholderAttrs,
   IStakeholderAttrs,
 } from "scenes/Dashboard/containers/OrganizationStakeholdersView/types";
+import React, { useCallback, useState } from "react";
 import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { msgError, msgSuccess } from "utils/notifications";
 import { useMutation, useQuery } from "@apollo/react-hooks";
@@ -102,23 +102,21 @@ const OrganizationStakeholders: React.FC<IOrganizationStakeholders> = (
   const { organizationName } = useParams<{ organizationName: string }>();
 
   // State management
-  const [currentRow, setCurrentRow] = React.useState<Dictionary<string>>({});
-  const [isStakeholderModalOpen, setStakeholderModalOpen] = React.useState(
-    false
-  );
-  const [stakeholderModalAction, setStakeholderModalAction] = React.useState<
+  const [currentRow, setCurrentRow] = useState<Dictionary<string>>({});
+  const [isStakeholderModalOpen, setStakeholderModalOpen] = useState(false);
+  const [stakeholderModalAction, setStakeholderModalAction] = useState<
     "add" | "edit"
   >("add");
 
-  const openAddStakeholderModal: () => void = React.useCallback((): void => {
+  const openAddStakeholderModal: () => void = useCallback((): void => {
     setStakeholderModalAction("add");
     setStakeholderModalOpen(true);
   }, []);
-  const openEditStakeholderModal: () => void = React.useCallback((): void => {
+  const openEditStakeholderModal: () => void = useCallback((): void => {
     setStakeholderModalAction("edit");
     setStakeholderModalOpen(true);
   }, []);
-  const closeStakeholderModal: () => void = React.useCallback((): void => {
+  const closeStakeholderModal: () => void = useCallback((): void => {
     setStakeholderModalOpen(false);
   }, []);
 
@@ -144,7 +142,7 @@ const OrganizationStakeholders: React.FC<IOrganizationStakeholders> = (
     onCompleted: (mtResult: IAddStakeholderAttrs): void => {
       if (mtResult.grantStakeholderOrganizationAccess.success) {
         void refetchStakeholders();
-        mixpanel.track("AddUserOrganzationAccess", {
+        track("AddUserOrganzationAccess", {
           Organization: organizationName,
         });
         const {
@@ -169,7 +167,7 @@ const OrganizationStakeholders: React.FC<IOrganizationStakeholders> = (
         } = mtResult.editStakeholderOrganization.modifiedStakeholder;
         void refetchStakeholders();
 
-        mixpanel.track("EditUserOrganizationAccess", {
+        track("EditUserOrganizationAccess", {
           Organization: organizationName,
         });
         msgSuccess(
@@ -190,7 +188,7 @@ const OrganizationStakeholders: React.FC<IOrganizationStakeholders> = (
         if (mtResult.removeStakeholderOrganizationAccess.success) {
           void refetchStakeholders();
 
-          mixpanel.track("RemoveUserOrganizationAccess", {
+          track("RemoveUserOrganizationAccess", {
             Organization: organizationName,
           });
           msgSuccess(
@@ -210,7 +208,7 @@ const OrganizationStakeholders: React.FC<IOrganizationStakeholders> = (
   );
 
   // Auxiliary elements
-  const handleSubmit: (values: IStakeholderAttrs) => void = React.useCallback(
+  const handleSubmit: (values: IStakeholderAttrs) => void = useCallback(
     (values: IStakeholderAttrs): void => {
       closeStakeholderModal();
       if (stakeholderModalAction === "add") {
@@ -238,7 +236,7 @@ const OrganizationStakeholders: React.FC<IOrganizationStakeholders> = (
     ]
   );
 
-  const handleRemoveStakeholder: () => void = React.useCallback((): void => {
+  const handleRemoveStakeholder: () => void = useCallback((): void => {
     void removeStakeholderAccess({
       variables: {
         organizationId,

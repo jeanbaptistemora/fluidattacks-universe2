@@ -9,16 +9,15 @@ import type { GraphQLError } from "graphql";
 import type { IHeaderConfig } from "components/DataTableNext/types";
 import { Logger } from "utils/logger";
 import { Modal } from "components/Modal";
-import React from "react";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import _ from "lodash";
 import { castEventType } from "utils/formatHelpers";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { formatEvents } from "scenes/Dashboard/containers/ProjectEventsView/utils";
 import globalStyle from "styles/global.css";
-import mixpanel from "mixpanel-browser";
 import { selectFilter } from "react-bootstrap-table2-filter";
 import { statusFormatter } from "components/DataTableNext/formatters";
+import { track } from "mixpanel-browser";
 import { translate } from "utils/translations/translate";
 import { useSelector } from "react-redux";
 import {
@@ -44,6 +43,7 @@ import {
 } from "utils/forms/fields";
 import { Field, FormSection, formValueSelector } from "redux-form";
 import type { InjectedFormProps, Validator } from "redux-form";
+import React, { useCallback, useState } from "react";
 import {
   dateTimeBeforeToday,
   isValidFileSize,
@@ -124,7 +124,7 @@ const ProjectEventsView: React.FC = (): JSX.Element => {
       value: translate.t(castEventType("OTHER")),
     },
   ];
-  const [optionType, setOptionType] = React.useState(selectOptionType);
+  const [optionType, setOptionType] = useState(selectOptionType);
 
   const onSortState: (dataField: string, order: SortOrder) => void = (
     dataField: string,
@@ -243,17 +243,17 @@ const ProjectEventsView: React.FC = (): JSX.Element => {
     _0: React.FormEvent<HTMLButtonElement>,
     rowInfo: { id: string }
   ): void => {
-    mixpanel.track("ReadEvent");
+    track("ReadEvent");
     push(`/groups/${projectName}/events/${rowInfo.id}/description`);
   };
 
-  const [isEventModalOpen, setEventModalOpen] = React.useState(false);
+  const [isEventModalOpen, setEventModalOpen] = useState(false);
 
-  const openNewEventModal: () => void = React.useCallback((): void => {
+  const openNewEventModal: () => void = useCallback((): void => {
     setEventModalOpen(true);
   }, []);
 
-  const closeNewEventModal: () => void = React.useCallback((): void => {
+  const closeNewEventModal: () => void = useCallback((): void => {
     setEventModalOpen(false);
   }, []);
 
@@ -317,7 +317,7 @@ const ProjectEventsView: React.FC = (): JSX.Element => {
     onError: handleCreationError,
   });
 
-  const handleSubmit: (values: IFormValues) => void = React.useCallback(
+  const handleSubmit: (values: IFormValues) => void = useCallback(
     (values: IFormValues): void => {
       const selectedAccessibility: string[] = Object.keys(values.accessibility)
         .filter((key: string): boolean => values.accessibility[key])

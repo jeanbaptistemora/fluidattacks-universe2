@@ -11,7 +11,6 @@ import type { IProjectDraftsAttr } from "scenes/Dashboard/containers/ProjectDraf
 import type { InjectedFormProps } from "redux-form";
 import { Logger } from "utils/logger";
 import { Modal } from "components/Modal";
-import React from "react";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import _ from "lodash";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
@@ -29,6 +28,7 @@ import {
   CREATE_DRAFT_MUTATION,
   GET_DRAFTS,
 } from "scenes/Dashboard/containers/ProjectDraftsView/queries";
+import React, { useCallback, useEffect, useState } from "react";
 import { msgError, msgSuccess } from "utils/notifications";
 import { required, validDraftTitle } from "utils/validations";
 import { useHistory, useParams } from "react-router-dom";
@@ -48,13 +48,13 @@ const ProjectDraftsView: React.FC = (): JSX.Element => {
     push(`/groups/${projectName}/drafts/${rowInfo.id}/locations`);
   };
 
-  const [isDraftModalOpen, setDraftModalOpen] = React.useState(false);
+  const [isDraftModalOpen, setDraftModalOpen] = useState(false);
 
-  const openNewDraftModal: () => void = React.useCallback((): void => {
+  const openNewDraftModal: () => void = useCallback((): void => {
     setDraftModalOpen(true);
   }, []);
 
-  const closeNewDraftModal: () => void = React.useCallback((): void => {
+  const closeNewDraftModal: () => void = useCallback((): void => {
     setDraftModalOpen(false);
   }, []);
 
@@ -138,7 +138,7 @@ const ProjectDraftsView: React.FC = (): JSX.Element => {
     title: string;
     type: string;
   }
-  const [suggestions, setSuggestions] = React.useState<ISuggestion[]>([]);
+  const [suggestions, setSuggestions] = useState<ISuggestion[]>([]);
   const titleSuggestions: string[] = suggestions.map(
     (suggestion: ISuggestion): string => suggestion.title
   );
@@ -185,7 +185,7 @@ const ProjectDraftsView: React.FC = (): JSX.Element => {
         Logger.error("An error occurred getting draft suggestions", error);
       });
   };
-  React.useEffect(onMount, []);
+  useEffect(onMount, []);
 
   const handleQryError: (error: ApolloError) => void = ({
     graphQLErrors,
@@ -237,7 +237,7 @@ const ProjectDraftsView: React.FC = (): JSX.Element => {
     }
   );
 
-  const handleSubmit: (values: { title: string }) => void = React.useCallback(
+  const handleSubmit: (values: { title: string }) => void = useCallback(
     (values: { title: string }): void => {
       const [matchingSuggestion] = suggestions.filter(
         (suggestion: ISuggestion): boolean => suggestion.title === values.title

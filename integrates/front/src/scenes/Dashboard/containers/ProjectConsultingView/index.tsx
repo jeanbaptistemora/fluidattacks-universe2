@@ -3,11 +3,10 @@ import { Comments } from "scenes/Dashboard/components/Comments/index";
 import type { GraphQLError } from "graphql";
 import type { IAuthContext } from "utils/auth";
 import { Logger } from "utils/logger";
-import React from "react";
 import _ from "lodash";
 import { authContext } from "utils/auth";
-import mixpanel from "mixpanel-browser";
 import { msgError } from "utils/notifications";
+import { track } from "mixpanel-browser";
 import { translate } from "utils/translations/translate";
 import { useParams } from "react-router";
 import {
@@ -19,6 +18,7 @@ import type {
   ILoadCallback,
   IPostCallback,
 } from "scenes/Dashboard/components/Comments/types";
+import React, { useCallback, useContext } from "react";
 import { useMutation, useQuery } from "@apollo/react-hooks";
 
 interface IProjectConsultingData {
@@ -29,7 +29,7 @@ interface IProjectConsultingData {
 
 const ProjectConsultingView: React.FC = (): JSX.Element => {
   const { projectName } = useParams<{ projectName: string }>();
-  const { userEmail }: IAuthContext = React.useContext(authContext);
+  const { userEmail }: IAuthContext = useContext(authContext);
 
   const handleAddConsultError: (addCommentError: ApolloError) => void = (
     addCommentError: ApolloError
@@ -66,7 +66,7 @@ const ProjectConsultingView: React.FC = (): JSX.Element => {
     }
   );
 
-  const getData: (callback: ILoadCallback) => void = React.useCallback(
+  const getData: (callback: ILoadCallback) => void = useCallback(
     (callbackFn: (cData: ICommentStructure[]) => void): void => {
       if (!_.isUndefined(data)) {
         callbackFn(
@@ -92,7 +92,7 @@ const ProjectConsultingView: React.FC = (): JSX.Element => {
   const handlePost: (
     consult: ICommentStructure,
     callbackFn: IPostCallback
-  ) => void = React.useCallback(
+  ) => void = useCallback(
     (consult: ICommentStructure, callbackFn: IPostCallback): void => {
       interface IMutationResult {
         data: {
@@ -102,7 +102,7 @@ const ProjectConsultingView: React.FC = (): JSX.Element => {
           };
         };
       }
-      mixpanel.track("AddGroupComment", { projectName });
+      track("AddGroupComment", { projectName });
       void addConsult({ variables: { projectName, ...consult } }).then(
         (mtResult: unknown | null): void => {
           const result: IMutationResult["data"] = (mtResult as IMutationResult)

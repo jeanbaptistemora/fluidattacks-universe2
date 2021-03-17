@@ -4,20 +4,20 @@ import { DeleteGroup } from "scenes/Dashboard/containers/ProjectSettingsView/Del
 import { Files } from "scenes/Dashboard/containers/ProjectSettingsView/Files";
 import { GroupInformation } from "scenes/Dashboard/containers/ProjectSettingsView/Info";
 import { Portfolio } from "scenes/Dashboard/containers/ProjectSettingsView/Portfolio";
-import React from "react";
 import { Services } from "scenes/Dashboard/containers/ProjectSettingsView/Services";
 import { Unsubscribe } from "./Unsubscribe";
-import mixpanel from "mixpanel-browser";
+import { track } from "mixpanel-browser";
 import { useParams } from "react-router";
+import React, { useEffect } from "react";
 
 const ProjectSettingsView: React.FC = (): JSX.Element => {
   const { projectName } = useParams<{ projectName: string }>();
 
   // Side effects
   const onMount: () => void = (): void => {
-    mixpanel.track("ProjectResources");
+    track("ProjectResources");
   };
-  React.useEffect(onMount, []);
+  useEffect(onMount, []);
 
   return (
     <React.StrictMode>

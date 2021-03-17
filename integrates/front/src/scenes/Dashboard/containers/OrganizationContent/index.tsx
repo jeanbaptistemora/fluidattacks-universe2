@@ -36,7 +36,7 @@ import type {
   IOrganizationContent,
   IOrganizationPermission,
 } from "scenes/Dashboard/containers/OrganizationContent/types";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import {
   Redirect,
   Route,
@@ -60,7 +60,7 @@ const OrganizationContent: React.FC<IOrganizationContent> = (
   const onOrganizationChange: () => void = (): void => {
     permissions.update([]);
   };
-  React.useEffect(onOrganizationChange, [organizationName, permissions]);
+  useEffect(onOrganizationChange, [organizationName, permissions]);
 
   // GraphQL Operations
   const { data: basicData } = useQuery(GET_ORGANIZATION_ID, {

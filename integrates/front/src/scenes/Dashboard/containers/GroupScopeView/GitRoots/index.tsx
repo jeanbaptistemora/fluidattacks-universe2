@@ -13,14 +13,13 @@ import type { IConfirmFn } from "components/ConfirmDialog";
 import type { IGitRootAttr } from "../types";
 import { Logger } from "utils/logger";
 import type { PureAbility } from "@casl/ability";
-import React from "react";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import _ from "lodash";
 import { authzPermissionsContext } from "utils/authz/config";
-import mixpanel from "mixpanel-browser";
 import { msgError } from "utils/notifications";
 import { selectFilter } from "react-bootstrap-table2-filter";
 import style from "./index.css";
+import { track } from "mixpanel-browser";
 import { useAbility } from "@casl/react";
 import { useMutation } from "@apollo/react-hooks";
 import { useStoredState } from "utils/hooks";
@@ -31,6 +30,7 @@ import {
   UPDATE_GIT_ROOT,
   UPDATE_ROOT_STATE,
 } from "../query";
+import React, { useCallback, useState } from "react";
 import {
   changeFormatter,
   dateFormatter,
@@ -67,36 +67,36 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
   const { t } = useTranslation();
 
   // State management
-  const [isManagingRoot, setManagingRoot] = React.useState<
+  const [isManagingRoot, setManagingRoot] = useState<
     false | { mode: "ADD" | "EDIT" }
   >(false);
 
-  const openAddModal: () => void = React.useCallback((): void => {
+  const openAddModal: () => void = useCallback((): void => {
     setManagingRoot({ mode: "ADD" });
   }, []);
 
-  const openEditModal: () => void = React.useCallback((): void => {
+  const openEditModal: () => void = useCallback((): void => {
     setManagingRoot({ mode: "EDIT" });
   }, []);
 
-  const closeModal: () => void = React.useCallback((): void => {
+  const closeModal: () => void = useCallback((): void => {
     setManagingRoot(false);
   }, []);
 
-  const [currentRow, setCurrentRow] = React.useState<IGitRootAttr | undefined>(
+  const [currentRow, setCurrentRow] = useState<IGitRootAttr | undefined>(
     undefined
   );
 
   const editDisabled: boolean =
     currentRow === undefined || currentRow.state === "INACTIVE";
 
-  const [isManagingEnvs, setManagingEnvs] = React.useState(false);
+  const [isManagingEnvs, setManagingEnvs] = useState(false);
 
-  const openEnvsModal: () => void = React.useCallback((): void => {
+  const openEnvsModal: () => void = useCallback((): void => {
     setManagingEnvs(true);
   }, []);
 
-  const closeEnvsModal: () => void = React.useCallback((): void => {
+  const closeEnvsModal: () => void = useCallback((): void => {
     setManagingEnvs(false);
   }, []);
 
@@ -228,11 +228,9 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
   // Event handlers
   const handleRowSelect: (
     row: IGitRootAttr
-  ) => void = React.useCallback(setCurrentRow, [setCurrentRow]);
+  ) => void = useCallback(setCurrentRow, [setCurrentRow]);
 
-  const handleGitSubmit: (
-    values: IGitRootAttr
-  ) => Promise<void> = React.useCallback(
+  const handleGitSubmit: (values: IGitRootAttr) => Promise<void> = useCallback(
     async (values): Promise<void> => {
       const {
         branch,
@@ -245,7 +243,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
 
       if (isManagingRoot !== false) {
         if (isManagingRoot.mode === "ADD") {
-          mixpanel.track("AddGitRoot");
+          track("AddGitRoot");
           await addGitRoot({
             variables: {
               branch,
@@ -257,7 +255,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
             },
           });
         } else {
-          mixpanel.track("EditGitRoot");
+          track("EditGitRoot");
           await updateGitRoot({
             variables: {
               environment,
@@ -273,9 +271,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
     [addGitRoot, groupName, isManagingRoot, updateGitRoot]
   );
 
-  const handleEnvsSubmit: (
-    values: IGitRootAttr
-  ) => Promise<void> = React.useCallback(
+  const handleEnvsSubmit: (values: IGitRootAttr) => Promise<void> = useCallback(
     async ({ environmentUrls, id }): Promise<void> => {
       await updateGitEnvs({ variables: { environmentUrls, groupName, id } });
     },

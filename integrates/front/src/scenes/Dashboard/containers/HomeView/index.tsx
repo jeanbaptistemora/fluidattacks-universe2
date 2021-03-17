@@ -3,12 +3,12 @@ import type { ApolloError } from "apollo-client";
 import { GET_USER_ORGANIZATIONS } from "scenes/Dashboard/components/Navbar/queries";
 import type { GraphQLError } from "graphql";
 import { Logger } from "utils/logger";
-import React from "react";
 import _ from "lodash";
 import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 import { useQuery } from "@apollo/react-hooks";
 import { useStoredState } from "utils/hooks";
+import React, { useCallback, useEffect } from "react";
 import { Redirect, Switch, useHistory } from "react-router-dom";
 
 const HomeView: React.FC = (): JSX.Element => {
@@ -20,7 +20,7 @@ const HomeView: React.FC = (): JSX.Element => {
 
   const savedUrl: string = _.get(localStorage, "start_url");
   const { push } = useHistory();
-  const loadSavedUrl: () => void = React.useCallback((): void => {
+  const loadSavedUrl: () => void = useCallback((): void => {
     localStorage.removeItem("start_url");
     push(savedUrl);
   }, [push, savedUrl]);
@@ -57,7 +57,7 @@ const HomeView: React.FC = (): JSX.Element => {
     return false;
   };
 
-  React.useEffect((): void => {
+  useEffect((): void => {
     loadSavedUrl();
   }, [loadSavedUrl]);
 
