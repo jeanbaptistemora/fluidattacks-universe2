@@ -20,7 +20,6 @@ import { Logger } from "utils/logger";
 import { Modal } from "components/Modal";
 import type { PureAbility } from "@casl/ability";
 import type { QueryResult } from "@apollo/react-common";
-import React from "react";
 import { RecordsView } from "scenes/Dashboard/containers/RecordsView/index";
 import { SeverityView } from "scenes/Dashboard/containers/SeverityView/index";
 import { TrackingView } from "scenes/Dashboard/containers/TrackingView/index";
@@ -48,6 +47,7 @@ import {
   TabContent,
   TabsContainer,
 } from "styles/styledComponents";
+import React, { useCallback, useState } from "react";
 import {
   Redirect,
   Route,
@@ -74,11 +74,11 @@ const findingContent: React.FC = (): JSX.Element => {
   useTabTracking("Finding");
 
   // State management
-  const [isDeleteModalOpen, setDeleteModalOpen] = React.useState(false);
-  const openDeleteModal: () => void = React.useCallback((): void => {
+  const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
+  const openDeleteModal: () => void = useCallback((): void => {
     setDeleteModalOpen(true);
   }, []);
-  const closeDeleteModal: () => void = React.useCallback((): void => {
+  const closeDeleteModal: () => void = useCallback((): void => {
     setDeleteModalOpen(false);
   }, []);
 
@@ -239,9 +239,7 @@ const findingContent: React.FC = (): JSX.Element => {
     }
   );
 
-  const handleDelete: (values: {
-    justification: string;
-  }) => void = React.useCallback(
+  const handleDelete: (values: { justification: string }) => void = useCallback(
     (values: { justification: string }): void => {
       void deleteFinding({
         variables: { findingId, justification: values.justification },

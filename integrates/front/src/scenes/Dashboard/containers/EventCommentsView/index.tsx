@@ -6,8 +6,8 @@ import { Logger } from "utils/logger";
 import React from "react";
 import _ from "lodash";
 import { authContext } from "utils/auth";
-import mixpanel from "mixpanel-browser";
 import { msgError } from "utils/notifications";
+import { track } from "mixpanel-browser";
 import { translate } from "utils/translations/translate";
 import { useParams } from "react-router";
 import {
@@ -108,7 +108,7 @@ const EventCommentsView: React.FC = (): JSX.Element => {
           };
         };
       }
-      mixpanel.track("AddEventComment", { eventId });
+      track("AddEventComment", { eventId });
       void addComment({ variables: { eventId, ...comment } }).then(
         (mtResult: unknown | null): void => {
           const result: IMutationResult["data"] = (mtResult as IMutationResult)

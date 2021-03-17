@@ -9,7 +9,7 @@ import type { PureAbility } from "@casl/ability";
 import React from "react";
 import { RemediationModal } from "scenes/Dashboard/components/RemediationModal/index";
 import { changeVulnStateFormatter } from "components/DataTableNext/formatters";
-import mixpanel from "mixpanel-browser";
+import { track } from "mixpanel-browser";
 import { translate } from "utils/translations/translate";
 import { useAbility } from "@casl/react";
 import { useMutation } from "@apollo/react-hooks";
@@ -189,7 +189,7 @@ const UpdateVerificationModal: React.FC<IUpdateVerificationModal> = (
           (vuln: IVulnData): string => vuln.id
         );
 
-        mixpanel.track("RequestReattack");
+        track("RequestReattack");
         requestVerification({
           variables: {
             findingId,

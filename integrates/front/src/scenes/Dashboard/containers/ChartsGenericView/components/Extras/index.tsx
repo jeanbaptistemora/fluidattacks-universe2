@@ -6,8 +6,8 @@ import { Logger } from "utils/logger";
 import React from "react";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import _ from "lodash";
-import mixpanel from "mixpanel-browser";
 import styles from "scenes/Dashboard/containers/ChartsGenericView/index.css";
+import { track } from "mixpanel-browser";
 import { translate } from "utils/translations/translate";
 import {
   ButtonToolbarCenter,
@@ -100,7 +100,7 @@ const ChartsGenericViewExtras: React.FC<IChartsGenericViewProps> = (
   const subscribeDropdownOnSelect: (key: string) => void = (
     key: string
   ): void => {
-    mixpanel.track(`Analytics${key === "never" ? "Uns" : "S"}ubscribe`);
+    track(`Analytics${key === "never" ? "Uns" : "S"}ubscribe`);
     void subscribe({
       variables: {
         frequency: key.toUpperCase(),

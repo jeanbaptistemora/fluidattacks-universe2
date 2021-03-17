@@ -9,7 +9,7 @@ import type { ISecureStoreConfig } from "utils/secureStore";
 import { Modal } from "components/Modal";
 import React from "react";
 import _ from "lodash";
-import mixpanel from "mixpanel-browser";
+import { track as mixpanelTrack } from "mixpanel-browser";
 import { secureStoreContext } from "utils/secureStore";
 import styles from "graphics/components/Graphic/index.css";
 import { translate } from "utils/translations/translate";
@@ -206,7 +206,7 @@ export const Graphic: React.FC<IGraphicProps> = (
     headSize.height + glyphPadding + glyphSize / 2 - fontSize;
 
   const track: () => void = React.useCallback((): void => {
-    mixpanel.track("DownloadGraphic", { documentName, entity });
+    mixpanelTrack("DownloadGraphic", { documentName, entity });
   }, [documentName, entity]);
 
   return (

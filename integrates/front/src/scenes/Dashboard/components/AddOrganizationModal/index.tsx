@@ -9,7 +9,7 @@ import React from "react";
 import { Text } from "utils/forms/fields";
 import { TooltipWrapper } from "components/TooltipWrapper/index";
 import _ from "lodash";
-import mixpanel from "mixpanel-browser";
+import { track } from "mixpanel-browser";
 import { translate } from "utils/translations/translate";
 import { useHistory } from "react-router-dom";
 import {
@@ -69,7 +69,7 @@ const AddOrganizationModal: React.FC<IAddOrganizationModalProps> = (
       onCompleted: (result: IAddOrganizationMtProps): void => {
         if (result.createOrganization.success) {
           onClose();
-          mixpanel.track("NewOrganization", {
+          track("NewOrganization", {
             OrganizationId: result.createOrganization.organization.id,
             OrganizationName: result.createOrganization.organization.name,
           });
@@ -106,7 +106,7 @@ const AddOrganizationModal: React.FC<IAddOrganizationModalProps> = (
   );
 
   function handleSubmit(values: { name: string }): void {
-    mixpanel.track("AddOrganization");
+    track("AddOrganization");
     void createOrganization({ variables: { name: values.name } });
   }
 

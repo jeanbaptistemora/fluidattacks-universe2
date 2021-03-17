@@ -17,9 +17,9 @@ import { TooltipWrapper } from "components/TooltipWrapper";
 import _ from "lodash";
 import { faImage } from "@fortawesome/free-solid-svg-icons";
 import globalStyle from "styles/global.css";
-import mixpanel from "mixpanel-browser";
 import { msgError } from "utils/notifications";
 import styles from "scenes/Dashboard/containers/EvidenceView/index.css";
+import { track } from "mixpanel-browser";
 import { translate } from "utils/translations/translate";
 import { useParams } from "react-router";
 import { ButtonToolbarRow, Row } from "styles/styledComponents";
@@ -245,7 +245,7 @@ const EvidenceView: React.FC = (): JSX.Element => {
                     const evidence: IEvidenceItem = evidenceImages[name];
 
                     const handleRemove: () => void = (): void => {
-                      mixpanel.track("RemoveEvidence");
+                      track("RemoveEvidence");
                       setEditing(false);
                       void removeEvidence({
                         variables: {

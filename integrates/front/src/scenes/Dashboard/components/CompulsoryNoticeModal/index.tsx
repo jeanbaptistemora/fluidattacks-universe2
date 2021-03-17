@@ -3,9 +3,9 @@ import { Checkbox } from "utils/forms/fields";
 import { Field } from "redux-form";
 import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import { Modal } from "components/Modal";
-import React from "react";
 import { translate } from "utils/translations/translate";
 import { ButtonToolbar, Col100, Row } from "styles/styledComponents";
+import React, { useCallback } from "react";
 
 interface ICompulsoryNoticeProps {
   content: string;
@@ -18,9 +18,7 @@ export const CompulsoryNotice: React.FC<ICompulsoryNoticeProps> = (
 ): JSX.Element => {
   const { open, content, onAccept } = props;
 
-  const handleSubmit: (values: {
-    remember: boolean;
-  }) => void = React.useCallback(
+  const handleSubmit: (values: { remember: boolean }) => void = useCallback(
     (values: { remember: boolean }): void => {
       onAccept(values.remember);
     },

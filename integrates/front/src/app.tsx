@@ -9,7 +9,6 @@ import { Provider as ReduxProvider } from "react-redux";
 import { ToastContainer } from "react-toastify";
 import { authContext } from "utils/auth";
 import { getEnvironment } from "utils/environment";
-import mixpanel from "mixpanel-browser";
 import store from "store";
 import { ApolloProvider, useApolloNetworkStatus } from "utils/apollo";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
@@ -17,6 +16,10 @@ import {
   authzPermissionsContext,
   userLevelPermissions,
 } from "utils/authz/config";
+import {
+  disable as mixpanelDisable,
+  init as mixpanelInit,
+} from "mixpanel-browser";
 import { secureStore, secureStoreContext } from "utils/secureStore";
 import "react-toastify/dist/ReactToastify.min.css";
 import "tachyons/css/tachyons.min.css";
@@ -68,9 +71,9 @@ if (extendedModule.hot !== undefined) {
   extendedModule.hot.accept();
 }
 
-mixpanel.init("7a7ceb75ff1eed29f976310933d1cc3e");
+mixpanelInit("7a7ceb75ff1eed29f976310933d1cc3e");
 if (getEnvironment() !== "production") {
-  mixpanel.disable();
+  mixpanelDisable();
 }
 
 ReactDOM.render(React.createElement(App), document.getElementById("root"));

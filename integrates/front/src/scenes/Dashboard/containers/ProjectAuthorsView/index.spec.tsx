@@ -1,6 +1,5 @@
 import { GET_BILL } from "scenes/Dashboard/containers/ProjectAuthorsView/queries";
 import { GraphQLError } from "graphql";
-import MockDate from "mockdate";
 import { MockedProvider } from "@apollo/react-testing";
 import type { MockedResponse } from "@apollo/react-testing";
 import { ProjectAuthorsView } from "scenes/Dashboard/containers/ProjectAuthorsView";
@@ -10,6 +9,7 @@ import type { ReactWrapper } from "enzyme";
 import _ from "lodash";
 import { act } from "react-dom/test-utils";
 import { mount } from "enzyme";
+import { set } from "mockdate";
 import store from "store";
 import wait from "waait";
 import { MemoryRouter, Route } from "react-router";
@@ -17,7 +17,7 @@ import { MemoryRouter, Route } from "react-router";
 describe("AuthorsView", (): void => {
   const TEST_DATE = 2020;
   const date: Date = new Date(TEST_DATE, 0);
-  MockDate.set(date);
+  set(date);
   const mocks: readonly MockedResponse[] = [
     {
       request: {

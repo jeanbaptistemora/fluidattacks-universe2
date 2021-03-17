@@ -22,7 +22,7 @@ import { TreatmentField } from "./TreatmentField";
 import { TreatmentManagerField } from "./TreatmentManagerField";
 import _ from "lodash";
 import { authContext } from "utils/auth";
-import mixpanel from "mixpanel-browser";
+import { track } from "mixpanel-browser";
 import { translate } from "utils/translations/translate";
 import { useAbility } from "@casl/react";
 import {
@@ -181,10 +181,10 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
       msgError(translate.t("searchFindings.tabResources.noSelection"));
     } else {
       if (dataTreatment.tag !== undefined) {
-        mixpanel.track("AddVulnerabilityTag");
+        track("AddVulnerabilityTag");
       }
       if (dataTreatment.severity !== undefined) {
-        mixpanel.track("AddVulnerabilityLevel");
+        track("AddVulnerabilityLevel");
       }
       try {
         setRunning(true);
@@ -243,7 +243,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
         );
 
         if (areAllMutationValid.every(Boolean)) {
-          mixpanel.track("UpdatedTreatmentVulnerabilities", {
+          track("UpdatedTreatmentVulnerabilities", {
             batchSize: vulnerabilities.length,
           });
           msgSuccess(

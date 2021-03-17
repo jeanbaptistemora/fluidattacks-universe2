@@ -5,7 +5,6 @@ import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import type { IGitRootAttr } from "../types";
 import type { InjectedFormProps } from "redux-form";
 import { Modal } from "components/Modal";
-import React from "react";
 import { SwitchButton } from "components/SwitchButton";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import _ from "lodash";
@@ -23,6 +22,7 @@ import {
 } from "styles/styledComponents";
 import { ArrayField, Checkbox, Text } from "utils/forms/fields";
 import { Field, formValueSelector } from "redux-form";
+import React, { useState } from "react";
 import { checked, excludeFormat, required } from "utils/validations";
 
 interface IGitModalProps {
@@ -64,7 +64,7 @@ const GitModal: React.FC<IGitModalProps> = ({
       selector(state, "filter.exclude")
   );
 
-  const [confirmHealthCheck, setConfirmHealthCheck] = React.useState(
+  const [confirmHealthCheck, setConfirmHealthCheck] = useState(
     initialValues.includesHealthCheck
   );
 
