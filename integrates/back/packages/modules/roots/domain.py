@@ -3,6 +3,7 @@ import re
 from typing import (
     Any,
     Dict,
+    List,
     Optional,
     Tuple,
     Set,
@@ -35,6 +36,7 @@ from backend.typing import (
 )
 from dynamodb.types import (
     GitRootItem,
+    GitRootState,
     IPRootItem,
     RootItem
 )
@@ -114,7 +116,11 @@ def _is_active(root: Dict[str, Any]) -> bool:
 
 
 @newrelic.agent.function_trace()
-async def _is_git_unique_in_org(org_id: str, url: str, branch: str) -> bool:
+async def _is_git_unique_in_org_legacy(
+    org_id: str,
+    url: str,
+    branch: str
+) -> bool:
     org_groups: Tuple[str, ...] = await org_domain.get_groups(org_id)
     org_roots: Tuple[Tuple[str, str], ...] = tuple(
         (root['url'], root['branch'])
@@ -125,6 +131,23 @@ async def _is_git_unique_in_org(org_id: str, url: str, branch: str) -> bool:
         for root in group_roots
         if root['kind'] == 'Git'
         and root['historic_state'][-1]['state'] == 'ACTIVE'
+    )
+
+    return (url, branch) not in org_roots
+
+
+@newrelic.agent.function_trace()
+async def is_git_unique_in_org(org_id: str, url: str, branch: str) -> bool:
+    org_groups = await org_domain.get_groups(org_id)
+    org_roots = tuple(
+        (root.metadata.url, root.metadata.branch)
+        for group_roots in await collect(tuple(
+            get_roots(group_name=group_name)
+            for group_name in org_groups
+        ))
+        for root in group_roots
+        if isinstance(root, GitRootItem)
+        and root.state.status == 'ACTIVE'
     )
 
     return (url, branch) not in org_roots
@@ -150,13 +173,29 @@ async def _is_ip_unique_in_org(org_id: str, address: str, port: int) -> bool:
 
 
 @newrelic.agent.function_trace()
-async def _is_nickname_unique_in_group(group_name: str, nickname: str) -> bool:
+async def _is_nickname_unique_in_group_legacy(
+    group_name: str,
+    nickname: str
+) -> bool:
     group_roots = await get_roots_by_group(group_name)
     nickname_roots: Set[str] = {
         root.get('nickname', '')
         for root in group_roots
         if root['kind'] == 'Git'
         and root['historic_state'][-1]['state'] == 'ACTIVE'
+    }
+
+    return nickname not in nickname_roots
+
+
+@newrelic.agent.function_trace()
+async def is_nickname_unique_in_group(group_name: str, nickname: str) -> bool:
+    group_roots = await get_roots(group_name=group_name)
+    nickname_roots = {
+        root.state.nickname
+        for root in group_roots
+        if isinstance(root, GitRootItem)
+        and root.state.status == 'ACTIVE'
     }
 
     return nickname not in nickname_roots
@@ -236,10 +275,14 @@ async def add_git_root(context: Any, user_email: str, **kwargs: Any) -> None:
             'url': url,
         }
 
-        if not await _is_nickname_unique_in_group(group_name, nickname):
+        if not await _is_nickname_unique_in_group_legacy(group_name, nickname):
             raise RepeatedRootNickname()
 
-        if await _is_git_unique_in_org(group['organization'], url, branch):
+        if await _is_git_unique_in_org_legacy(
+            group['organization'],
+            url,
+            branch
+        ):
             await roots_dal.create_legacy(group_name, root_attributes)
             if kwargs['includes_health_check']:
                 await notifications_domain.request_health_check(
@@ -402,7 +445,7 @@ async def get_roots_by_group(group_name: str) -> Tuple[Dict[str, Any], ...]:
     )
 
 
-async def update_git_environments(
+async def update_git_environments_legacy(
     user_email: str,
     group_name: str,
     root_id: str,
@@ -433,6 +476,40 @@ async def update_git_environments(
         raise InvalidParameter()
 
 
+async def update_git_environments(
+    user_email: str,
+    group_name: str,
+    root_id: str,
+    environment_urls: List[str]
+) -> None:
+    root = await get_root(group_name=group_name, root_id=root_id)
+
+    if not isinstance(root, GitRootItem):
+        raise InvalidParameter()
+
+    is_valid: bool = (
+        root.state.status == 'ACTIVE'
+        and all(validations.is_valid_url(url) for url in environment_urls)
+    )
+    if not is_valid:
+        raise InvalidParameter()
+
+    await roots_dal.update_git_root_state(
+        group_name=group_name,
+        root_id=root_id,
+        state=GitRootState(
+            environment_urls=environment_urls,
+            environment=root.state.environment,
+            gitignore=root.state.gitignore,
+            includes_health_check=root.state.includes_health_check,
+            modified_by=user_email,
+            modified_date=datetime_utils.get_iso_date(),
+            nickname=root.state.nickname,
+            status=root.state.status
+        )
+    )
+
+
 async def update_git_root(user_email: str, **kwargs: Any) -> None:
     root_id: str = kwargs['id']
     group_name: str = kwargs['group_name']
@@ -458,7 +535,7 @@ async def update_git_root(user_email: str, **kwargs: Any) -> None:
 
         if (
             nickname != root.get('nickname', '') and
-            not await _is_nickname_unique_in_group(group_name, nickname)
+            not await _is_nickname_unique_in_group_legacy(group_name, nickname)
         ):
             raise RepeatedRootNickname()
 
