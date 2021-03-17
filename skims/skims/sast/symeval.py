@@ -2,6 +2,7 @@
 from copy import (
     deepcopy,
 )
+import operator
 from typing import (
     Callable,
     Dict,
@@ -138,6 +139,12 @@ def syntax_step_binary_expression(args: EvaluatorArgs) -> None:
     left, right = args.dependencies
 
     args.syntax_step.meta.danger = left.meta.danger or right.meta.danger
+    args.syntax_step.meta.value = {
+        '*': operator.mul,
+    }.get(args.syntax_step.operator, lambda _, __: None)(
+        left.meta.value,
+        right.meta.value,
+    )
 
 
 def syntax_step_unary_expression(args: EvaluatorArgs) -> None:
@@ -166,6 +173,8 @@ def syntax_step_declaration(args: EvaluatorArgs) -> None:
 
     # Local context
     args.syntax_step.meta.danger = bind_danger or args_danger
+    if args.dependencies:
+        args.syntax_step.meta.value = args.dependencies[0].meta.value
 
 
 def syntax_step_if(_args: EvaluatorArgs) -> None:
