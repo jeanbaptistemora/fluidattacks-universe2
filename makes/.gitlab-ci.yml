@@ -122,6 +122,16 @@ makes.doc.infra.test:
   <<: *makes_in_dev_branch
   stage: test-infra
 
+makes.k8s.apply:
+  <<: *makes
+  <<: *makes_in_master_branch
+  stage: deploy-infra
+
+makes.k8s.test:
+  <<: *makes
+  <<: *makes_in_dev_branch
+  stage: test-infra
+
 makes.secrets.apply:
   <<: *makes
   <<: *makes_in_master_branch

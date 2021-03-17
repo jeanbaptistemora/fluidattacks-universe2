@@ -40,8 +40,6 @@ integrates.infra.backup.apply
 integrates.infra.backup.test
 integrates.infra.cache-db.apply
 integrates.infra.cache-db.test
-integrates.infra.cluster.apply
-integrates.infra.cluster.test
 integrates.infra.database.apply
 integrates.infra.database.test
 integrates.infra.front.apply
@@ -78,6 +76,8 @@ makes.doc.deploy
 makes.doc.infra.apply
 makes.doc.infra.test
 makes.done
+makes.k8s.apply
+makes.k8s.test
 makes.kill-port
 makes.lint
 makes.lint-commit-msg

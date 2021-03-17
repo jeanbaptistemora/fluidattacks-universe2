@@ -4,13 +4,13 @@
 , ...
 }:
 makeEntrypoint {
-  name = "integrates-infra-cluster-apply";
+  name = "makes-k8s-apply";
   searchPaths = {
     envPaths = [
       (terraformApply {
         name = "terraform-apply";
         product = "integrates";
-        target = "integrates/deploy/cluster/terraform";
+        target = "makes/applications/makes/k8s/src/terraform";
       })
     ];
     envUtils = [
@@ -18,5 +18,5 @@ makeEntrypoint {
       "/makes/utils/sops"
     ];
   };
-  template = path "/makes/applications/integrates/infra/cluster/apply/entrypoint.sh";
+  template = path "/makes/applications/makes/k8s/apply/entrypoint.sh";
 }

@@ -369,16 +369,6 @@ integrates.infra.cache-db.test:
   <<: *in_dev_branch_integrates
   stage: test-infra
 
-integrates.infra.cluster.apply:
-  <<: *makes
-  <<: *in_master_branch_integrates
-  stage: deploy-infra
-
-integrates.infra.cluster.test:
-  <<: *makes
-  <<: *in_dev_branch_integrates
-  stage: test-infra
-
 integrates.infra.database.apply:
   <<: *makes
   <<: *in_master_branch_integrates
