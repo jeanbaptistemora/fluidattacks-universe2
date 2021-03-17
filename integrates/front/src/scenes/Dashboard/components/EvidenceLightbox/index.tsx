@@ -1,5 +1,5 @@
 import Lightbox from "react-image-lightbox";
-import React from "react";
+import React, { useCallback } from "react";
 import "react-image-lightbox/style.css";
 
 interface IEvidenceLightboxProps {
@@ -13,16 +13,16 @@ const EvidenceLightbox: React.FC<IEvidenceLightboxProps> = (
 ): JSX.Element => {
   const { index, evidenceImages } = props;
   const nextIndex: number = (index + 1) % evidenceImages.length;
-  const moveNext: () => void = React.useCallback((): void => {
+  const moveNext: () => void = useCallback((): void => {
     props.onChange(nextIndex);
   }, [props, nextIndex]);
   const previousIndex: number =
     (index + evidenceImages.length - 1) % evidenceImages.length;
-  const movePrevious: () => void = React.useCallback((): void => {
+  const movePrevious: () => void = useCallback((): void => {
     props.onChange(previousIndex);
   }, [props, previousIndex]);
 
-  const adjustZoom: () => void = React.useCallback((): void => {
+  const adjustZoom: () => void = useCallback((): void => {
     /**
      * As a workaround to a bug in react-image-lightbox,
      * we need trigger the resize event for it to properly calculate the image scale
@@ -34,7 +34,7 @@ const EvidenceLightbox: React.FC<IEvidenceLightboxProps> = (
     document.body.style.overflow = "hidden"; // eslint-disable-line fp/no-mutation
   }, []);
 
-  const closeImage: () => void = React.useCallback((): void => {
+  const closeImage: () => void = useCallback((): void => {
     document.body.style.removeProperty("overflow");
     props.onChange(-1);
   }, [props]);

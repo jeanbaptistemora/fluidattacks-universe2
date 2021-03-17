@@ -10,7 +10,6 @@ import type { IDeleteVulnAttr } from "../DeleteVulnerability/types";
 import type { IHeaderConfig } from "components/DataTableNext/types";
 import { Modal } from "components/Modal";
 import type { PureAbility } from "@casl/ability";
-import React from "react";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { UpdateTreatmentModal } from "./UpdateDescription";
 import { UploadVulnerabilities } from "./uploadFile";
@@ -28,6 +27,7 @@ import type {
   IVulnRowAttr,
 } from "scenes/Dashboard/components/Vulnerabilities/types";
 import { MemoryRouter, Route } from "react-router";
+import React, { useEffect, useState } from "react";
 import { RowCenter, TabsContainer } from "styles/styledComponents";
 import {
   formatVulnerabilities,
@@ -65,14 +65,14 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
     isEditing &&
     permissions.can("backend_api_mutations_delete_vulnerability_mutate");
 
-  const [selectedVulnerabilities, setSelectedVulnerabilities] = React.useState<
+  const [selectedVulnerabilities, setSelectedVulnerabilities] = useState<
     IVulnRowAttr[]
   >([]);
-  const [vulnerabilityId, setVulnerabilityId] = React.useState("");
-  const [isUpdateVulnOpen, setUpdateVulnOpen] = React.useState(false);
-  const [isDeleteVulnOpen, setDeleteVulnOpen] = React.useState(false);
-  const [isAdditionalInfoOpen, setAdditionalInfoOpen] = React.useState(false);
-  const [currentRow, updateRow] = React.useState<IVulnRowAttr>();
+  const [vulnerabilityId, setVulnerabilityId] = useState("");
+  const [isUpdateVulnOpen, setUpdateVulnOpen] = useState(false);
+  const [isDeleteVulnOpen, setDeleteVulnOpen] = useState(false);
+  const [isAdditionalInfoOpen, setAdditionalInfoOpen] = useState(false);
+  const [currentRow, updateRow] = useState<IVulnRowAttr>();
 
   function openAdditionalInfoModal(
     _0: React.FormEvent,
@@ -121,7 +121,7 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
     onVulnSelect(selectedVulnerabilities, clearSelectedVulns);
   }
 
-  React.useEffect(onVulnSelection, [selectedVulnerabilities, onVulnSelect]);
+  useEffect(onVulnSelection, [selectedVulnerabilities, onVulnSelect]);
 
   const batchLimit: number = 50;
 

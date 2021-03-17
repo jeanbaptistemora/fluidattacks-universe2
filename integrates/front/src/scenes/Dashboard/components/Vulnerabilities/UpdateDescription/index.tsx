@@ -15,7 +15,6 @@ import type { IHistoricTreatment } from "scenes/Dashboard/containers/Description
 import { JustificationField } from "./JustificationField";
 import { Logger } from "utils/logger";
 import type { PureAbility } from "@casl/ability";
-import React from "react";
 import { SeverityField } from "./SeverityField";
 import { TagField } from "./TagField";
 import { TreatmentField } from "./TreatmentField";
@@ -51,6 +50,7 @@ import type {
   IUpdateTreatmentVulnAttr,
   IVulnDataTypeAttr,
 } from "scenes/Dashboard/components/Vulnerabilities/types";
+import React, { useContext, useState } from "react";
 import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
 import { formValueSelector, isPristine, submit } from "redux-form";
 import {
@@ -71,7 +71,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
   handleClearSelected,
   handleCloseModal,
 }: IUpdateTreatmentModalProps): JSX.Element => {
-  const { userEmail }: IAuthContext = React.useContext(authContext);
+  const { userEmail }: IAuthContext = useContext(authContext);
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
   const canRetrieveAnalyst: boolean = permissions.can(
     "backend_api_resolvers_vulnerability_analyst_resolve"
@@ -90,7 +90,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
   );
   const groupPermissions: PureAbility<string> = useAbility(authzGroupContext);
   const canGetExploit: boolean = groupPermissions.can("has_forces");
-  const [isRunning, setRunning] = React.useState(false);
+  const [isRunning, setRunning] = useState(false);
 
   const vulnsTags: string[][] = vulnerabilities.map(
     (vuln: IVulnDataTypeAttr): string[] => sortTags(vuln.tag)

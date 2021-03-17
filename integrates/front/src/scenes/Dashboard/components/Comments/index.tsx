@@ -1,6 +1,6 @@
 import $ from "jquery";
 import type { ICommentsProps } from "scenes/Dashboard/components/Comments/types";
-import React from "react";
+import React, { useEffect } from "react";
 import "jquery-comments_brainkit";
 import "jquery-comments_brainkit/css/jquery-comments.css";
 
@@ -34,7 +34,7 @@ const Comments: React.FC<ICommentsProps> = (
   };
   // Annotation needed for avoiding improper behaviour of callbacks
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  React.useEffect(onMount, [id]);
+  useEffect(onMount, [id]);
 
   return (
     <React.StrictMode>

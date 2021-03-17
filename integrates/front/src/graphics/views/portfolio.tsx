@@ -1,7 +1,7 @@
 import { ChartsForPortfolioView } from "scenes/Dashboard/containers/ChartsForPortfolioView";
-import React from "react";
-import ReactDOM from "react-dom";
+import { render } from "react-dom";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
+import React, { createElement } from "react";
 import { secureStore, secureStoreContext } from "utils/secureStore";
 
 const App: React.FC = (): JSX.Element => (
@@ -16,4 +16,4 @@ const App: React.FC = (): JSX.Element => (
   </React.StrictMode>
 );
 
-ReactDOM.render(React.createElement(App), document.getElementById("root"));
+render(createElement(App), document.getElementById("root"));

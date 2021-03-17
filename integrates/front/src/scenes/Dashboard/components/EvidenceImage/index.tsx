@@ -1,6 +1,5 @@
 import { Button } from "components/Button/index";
 import { FluidIcon } from "components/FluidIcon";
-import React from "react";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import type { Validator } from "redux-form";
 import _ from "lodash";
@@ -14,6 +13,7 @@ import {
 } from "styles/styledComponents";
 import { Field, FormSection } from "redux-form";
 import { FileInput, TextArea } from "utils/forms/fields";
+import React, { cloneElement, useCallback } from "react";
 import { validEvidenceDescription, validTextField } from "utils/validations";
 
 /* eslint-disable react/require-default-props, react/no-unused-prop-types */
@@ -82,7 +82,7 @@ const EvidenceImage: React.FC<IEvidenceImageProps> = (
   props: IEvidenceImageProps
 ): JSX.Element => {
   const { content, isEditing, description, date, onClick } = props;
-  const handleClick: () => void = React.useCallback((): void => {
+  const handleClick: () => void = useCallback((): void => {
     onClick();
   }, [onClick]);
 
@@ -100,7 +100,7 @@ const EvidenceImage: React.FC<IEvidenceImageProps> = (
                 src={content}
               />
             ) : (
-              React.cloneElement(content, {
+              cloneElement(content, {
                 className: style.img,
                 onClick: handleClick,
               })

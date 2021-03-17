@@ -6,7 +6,6 @@ import type { GraphQLError } from "graphql";
 import type { IHeaderConfig } from "components/DataTableNext/types";
 import { Logger } from "utils/logger";
 import type { PureAbility } from "@casl/ability";
-import React from "react";
 import { RemediationModal } from "scenes/Dashboard/components/RemediationModal/index";
 import { changeVulnStateFormatter } from "components/DataTableNext/formatters";
 import { track } from "mixpanel-browser";
@@ -21,6 +20,7 @@ import {
   REQUEST_VERIFICATION_VULN,
   VERIFY_VULNERABILITIES,
 } from "scenes/Dashboard/components/UpdateVerificationModal/queries";
+import React, { useCallback, useState } from "react";
 import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
 import { msgError, msgSuccess } from "utils/notifications";
 
@@ -66,8 +66,8 @@ const UpdateVerificationModal: React.FC<IUpdateVerificationModal> = (
   const canDisplayExploit: boolean = groupPermissions.can("has_forces");
 
   // State management
-  const [vulnerabilitiesList, setVulnerabilities] = React.useState(vulns);
-  const closeRemediationModal: () => void = React.useCallback((): void => {
+  const [vulnerabilitiesList, setVulnerabilities] = useState(vulns);
+  const closeRemediationModal: () => void = useCallback((): void => {
     handleCloseModal();
   }, [handleCloseModal]);
 
@@ -182,7 +182,7 @@ const UpdateVerificationModal: React.FC<IUpdateVerificationModal> = (
 
   const handleSubmit: (values: {
     treatmentJustification: string;
-  }) => void = React.useCallback(
+  }) => void = useCallback(
     (values: { treatmentJustification: string }): void => {
       if (isReattacking) {
         const vulnerabilitiesId: string[] = vulns.map(

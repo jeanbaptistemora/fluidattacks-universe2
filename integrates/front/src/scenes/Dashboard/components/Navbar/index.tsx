@@ -9,7 +9,6 @@ import type { GraphQLError } from "graphql";
 import { Logger } from "utils/logger";
 import { MenuItem } from "components/DropdownButton";
 import { NewsWidget } from "scenes/Dashboard/components/NewsWidget";
-import React from "react";
 import { SplitButton } from "./components/splitbutton";
 import { Text } from "utils/forms/fields";
 import { TooltipWrapper } from "components/TooltipWrapper";
@@ -33,6 +32,7 @@ import {
   NavSplitButtonContainer,
 } from "styles/styledComponents";
 import { Link, useHistory, useLocation } from "react-router-dom";
+import React, { useCallback, useEffect } from "react";
 
 const NavbarComponent: React.FC = (): JSX.Element => {
   const { push } = useHistory();
@@ -66,9 +66,7 @@ const NavbarComponent: React.FC = (): JSX.Element => {
   );
 
   // Auxiliary Operations
-  const handleOrganizationChange: (
-    eventKey: string
-  ) => void = React.useCallback(
+  const handleOrganizationChange: (eventKey: string) => void = useCallback(
     (eventKey: string): void => {
       if (eventKey !== lastOrganization.name) {
         setLastOrganization({ name: eventKey });
@@ -80,12 +78,12 @@ const NavbarComponent: React.FC = (): JSX.Element => {
     },
     [lastOrganization.name, push, setLastOrganization]
   );
-  const handleOrganizationClick: () => void = React.useCallback((): void => {
+  const handleOrganizationClick: () => void = useCallback((): void => {
     push(`/orgs/${lastOrganization.name}/`);
   }, [lastOrganization.name, push]);
   const handleSearchSubmit: (values: {
     projectName: string;
-  }) => void = React.useCallback(
+  }) => void = useCallback(
     (values: { projectName: string }): void => {
       const projectName: string = values.projectName.toLowerCase();
       if (!_.isEmpty(projectName)) {
@@ -105,7 +103,7 @@ const NavbarComponent: React.FC = (): JSX.Element => {
     }, HANDLE_BLUR_EVENT_TIMEOUT);
     child.removeEventListener("blur", (): void => undefined);
   };
-  const showItems: () => void = React.useCallback((): void => {
+  const showItems: () => void = useCallback((): void => {
     const element: Element = document.querySelector(".splitItems") as Element;
     const child: HTMLElement = element.firstChild as HTMLElement;
     const elementStyle: CSSStyleDeclaration = window.getComputedStyle(element);
@@ -127,7 +125,7 @@ const NavbarComponent: React.FC = (): JSX.Element => {
             nameA.name > nameB.name ? 1 : -1
         );
 
-  React.useEffect((): void => {
+  useEffect((): void => {
     void refetchOrganizationList();
     setLastOrganization({ name: pathOrganization });
     // Annotation needed as adding the dependencies creates a memory leak
