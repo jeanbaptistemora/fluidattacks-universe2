@@ -380,6 +380,19 @@ def syntax_step_symbol_lookup(args: EvaluatorArgs) -> None:
         args.syntax_step.meta.value = dcl.meta.value
 
 
+def syntax_step_ternary(args: EvaluatorArgs) -> None:
+    predicate, left, right = args.dependencies
+
+    if predicate.meta.value is True:
+        args.syntax_step.meta.danger = left.meta.danger
+    elif predicate.meta.value is False:
+        args.syntax_step.meta.danger = right.meta.danger
+    elif predicate.meta.value is None:
+        args.syntax_step.meta.danger = left.meta.danger or right.meta.danger
+    else:
+        raise NotImplementedError(predicate.meta.value)
+
+
 EVALUATORS: Dict[object, Evaluator] = {
     graph_model.SyntaxStepAssignment: syntax_step_assignment,
     graph_model.SyntaxStepArrayAccess: syntax_step_array_access,
@@ -404,6 +417,7 @@ EVALUATORS: Dict[object, Evaluator] = {
     graph_model.SyntaxStepObjectInstantiation:
     syntax_step_object_instantiation,
     graph_model.SyntaxStepSymbolLookup: syntax_step_symbol_lookup,
+    graph_model.SyntaxStepTernary: syntax_step_ternary,
 }
 
 

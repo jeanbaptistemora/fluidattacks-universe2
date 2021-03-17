@@ -256,6 +256,7 @@ ALLOWED_FACTORIES: Dict[type, Dict[str, Any]] = {
                 graph_model.SyntaxStepSwitch,
                 graph_model.SyntaxStepParenthesizedExpression,
                 graph_model.SyntaxStepSymbolLookup,
+                graph_model.SyntaxStepTernary,
                 graph_model.SyntaxStepUnaryExpression,
                 core_model.SkimsVulnerabilityMetadata,
                 core_model.Vulnerability,

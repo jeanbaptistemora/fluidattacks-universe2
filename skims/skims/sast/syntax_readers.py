@@ -84,18 +84,17 @@ def assignment_expression(
     match = g.match_ast(
         args.graph,
         args.n_id,
-        'ternary_expression',
         '__0__',
-        *assignment_operators,
         '__1__',
+        '__2__',
     )
-    match = {key: value for key, value in match.items() if value is not None}
 
+    # pylint: disable=used-before-assignment
     if (
-        len(match) == 3
-        and not match.get('ternary_expression')
-        and (var_id := match['__0__'])
-        and (src_id := match['__1__'])
+        (var_id := match['__0__'])
+        and (op_id := match['__1__'])
+        and (args.graph.nodes[op_id]['label_text'] in assignment_operators)
+        and (src_id := match['__2__'])
     ):
         yield graph_model.SyntaxStepAssignment(
             meta=graph_model.SyntaxStepMeta.default(args.n_id, [
@@ -103,25 +102,22 @@ def assignment_expression(
             ]),
             var=args.graph.nodes[var_id]['label_text'],
         )
-    elif ((ternary := match['ternary_expression'])
-          and (var_id := match['__0__'])):
-        # a = __0__ ? __1__ : __2__
-        match = g.match_ast(
-            args.graph,
-            ternary,
-            '?',
-            ':',
-            '__0__',
-        )
-        yield graph_model.SyntaxStepAssignment(
-            meta=graph_model.SyntaxStepMeta.default(args.n_id, [
-                generic(args.fork_n_id(match['__1__'])),
-                generic(args.fork_n_id(match['__2__'])),
-            ]),
-            var=args.graph.nodes[var_id]['label_text'],
-        )
     else:
         raise MissingCaseHandling(assignment_expression, args)
+
+
+def ternary_expression(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
+    match = g.match_ast(
+        args.graph, args.n_id, '__0__', '?', '__1__', ':', '__2__',
+    )
+
+    yield graph_model.SyntaxStepTernary(
+        meta=graph_model.SyntaxStepMeta.default(args.n_id, [
+            generic(args.fork_n_id(match['__2__'])),
+            generic(args.fork_n_id(match['__1__'])),
+            generic(args.fork_n_id(match['__0__'])),
+        ]),
+    )
 
 
 def binary_expression(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
@@ -694,6 +690,17 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
             graph_model.GraphShardMetadataLanguage.JAVA,
         },
         applicable_node_label_types={
+            'ternary_expression',
+        },
+        syntax_readers=(
+            ternary_expression,
+        ),
+    ),
+    Dispatcher(
+        applicable_languages={
+            graph_model.GraphShardMetadataLanguage.JAVA,
+        },
+        applicable_node_label_types={
             'binary_expression',
         },
         syntax_readers=(
@@ -923,6 +930,7 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
             'character_literal',
             'comment',
             'expression_statement',
+            'finally_clause',
             'resource_specification',
             'return_statement',
             'switch_label',

@@ -192,6 +192,12 @@ class SyntaxStepSymbolLookup(NamedTuple):
     type: str = 'SyntaxStepSymbolLookup'
 
 
+class SyntaxStepTernary(NamedTuple):
+    meta: SyntaxStepMeta
+
+    type: str = 'SyntaxStepTernary'
+
+
 class SyntaxStepArrayAccess(NamedTuple):
     meta: SyntaxStepMeta
 
