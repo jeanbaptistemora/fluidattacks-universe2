@@ -2,7 +2,8 @@ data "aws_caller_identity" "current" {}
 variable "aws_access_key" {}
 variable "aws_secret_key" {}
 variable "newrelic_license_key" {}
-variable "cloudflare_api_token" {}
+variable "cloudflare_email" {}
+variable "cloudflare_api_key" {}
 
 data "cloudflare_zones" "fluidattacks_com" {
   filter {

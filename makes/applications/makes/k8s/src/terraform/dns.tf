@@ -138,8 +138,12 @@ resource "kubernetes_deployment" "external_dns_cloudflare" {
           ]
 
           env {
-            name  = "CF_API_TOKEN"
-            value = var.cloudflare_api_token
+            name  = "CF_API_EMAIL"
+            value = var.cloudflare_email
+          }
+          env {
+            name  = "CF_API_KEY"
+            value = var.cloudflare_api_key
           }
         }
       }

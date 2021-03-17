@@ -9,7 +9,7 @@ makeEntrypoint {
     envPaths = [
       (terraformApply {
         name = "terraform-apply";
-        product = "integrates";
+        product = "makes";
         target = "makes/applications/makes/k8s/src/terraform";
       })
     ];
