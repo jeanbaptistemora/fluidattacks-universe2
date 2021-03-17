@@ -243,7 +243,8 @@ def _generic(
 
     for types, walker in (
         ({'block',
-          'expression_statement'},
+          'expression_statement',
+          'resource_specification'},
          _step_by_step),
         ({'catch_clause'},
          _link_to_last_node),
