@@ -31,39 +31,6 @@ import {
 } from "../styles/styledComponents";
 import { Link, graphql } from "gatsby";
 
-interface IQueryData {
-  data: {
-    asciidoc: {
-      document: {
-        title: string;
-      };
-      html: string;
-      fields: {
-        slug: string;
-      };
-      pageAttributes: {
-        banner?: string;
-        description: string;
-        keywords: string;
-        slug: string;
-        solution: string;
-      };
-    };
-  };
-  pageContext: {
-    breadcrumb: {
-      location: string;
-      crumbs: [
-        {
-          pathname: string;
-          crumbLabel: string;
-        }
-      ];
-    };
-    slug: string;
-  };
-}
-
 const SolutionIndex: React.FC<IQueryData> = ({
   data,
   pageContext,

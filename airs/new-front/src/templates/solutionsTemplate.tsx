@@ -33,38 +33,6 @@ import {
   PageContainer,
 } from "../styles/styledComponents";
 
-interface IQueryData {
-  data: {
-    asciidoc: {
-      document: {
-        title: string;
-      };
-      html: string;
-      fields: {
-        slug: string;
-      };
-      pageAttributes: {
-        banner?: string;
-        description: string;
-        keywords: string;
-        slug: string;
-      };
-    };
-  };
-  pageContext: {
-    breadcrumb: {
-      location: string;
-      crumbs: [
-        {
-          pathname: string;
-          crumbLabel: string;
-        }
-      ];
-    };
-    slug: string;
-  };
-}
-
 const SolutionsIndex: React.FC<IQueryData> = ({
   data,
   pageContext,
@@ -78,7 +46,7 @@ const SolutionsIndex: React.FC<IQueryData> = ({
     .charAt(0)
     .toUpperCase()}${title.slice(1).replace("-", "")}`;
 
-  const banner: string = data.asciidoc.pageAttributes.banner as string;
+  const { banner } = data.asciidoc.pageAttributes;
 
   return (
     <React.Fragment>

@@ -21,39 +21,6 @@ import { translate } from "../utils/translations/translate";
 import * as continuousImage from "../../static/images/services/service-continuous.png"; // eslint-disable-line import/no-unresolved
 import * as oneShotImage from "../../static/images/services/service-one-shot.png"; // eslint-disable-line import/no-unresolved
 
-interface IQueryData {
-  data: {
-    asciidoc: {
-      document: {
-        title: string;
-      };
-      html: string;
-      fields: {
-        slug: string;
-      };
-      pageAttributes: {
-        banner: string;
-        definition: string;
-        description: string;
-        keywords: string;
-        slug: string;
-      };
-    };
-  };
-  pageContext: {
-    breadcrumb: {
-      location: string;
-      crumbs: [
-        {
-          pathname: string;
-          crumbLabel: string;
-        }
-      ];
-    };
-    slug: string;
-  };
-}
-
 const ContinuousHackingIndex: React.FC<IQueryData> = ({
   data,
   pageContext,

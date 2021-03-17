@@ -12,6 +12,7 @@
 import { Breadcrumb } from "gatsby-plugin-breadcrumb";
 import { Layout } from "../components/layout";
 import { NavbarComponent } from "../components/navbar";
+import { PageHeader } from "../components/PageHeader";
 import React from "react";
 import { Seo } from "../components/seo";
 import { graphql } from "gatsby";
@@ -20,37 +21,6 @@ import {
   ArticleTitle,
   PageArticle,
 } from "../styles/styledComponents";
-
-interface IQueryData {
-  data: {
-    asciidoc: {
-      document: {
-        title: string;
-      };
-      html: string;
-      fields: {
-        slug: string;
-      };
-      pageAttributes: {
-        description: string;
-        keywords: string;
-        slug: string;
-      };
-    };
-  };
-  pageContext: {
-    breadcrumb: {
-      location: string;
-      crumbs: [
-        {
-          pathname: string;
-          crumbLabel: string;
-        }
-      ];
-    };
-    slug: string;
-  };
-}
 
 const DefaultPage: React.FC<IQueryData> = ({
   data,
@@ -64,6 +34,10 @@ const DefaultPage: React.FC<IQueryData> = ({
   const customCrumbLabel: string = `${title
     .charAt(0)
     .toUpperCase()}${title.slice(1).replace("-", "")}`;
+
+  const hasBanner: boolean =
+    typeof data.asciidoc.pageAttributes.banner === "string";
+  const isCareers: boolean = data.asciidoc.pageAttributes.slug === "careers/";
 
   return (
     <React.Fragment>
@@ -84,7 +58,15 @@ const DefaultPage: React.FC<IQueryData> = ({
           />
 
           <PageArticle>
-            <ArticleTitle>{title}</ArticleTitle>
+            <PageHeader
+              banner={data.asciidoc.pageAttributes.banner}
+              pageWithBanner={hasBanner}
+              slug={data.asciidoc.pageAttributes.slug}
+              subtext={data.asciidoc.pageAttributes.subtext}
+              subtitle={data.asciidoc.pageAttributes.subtitle}
+              title={title}
+            />
+            {isCareers ? <ArticleTitle>{title}</ArticleTitle> : undefined}
             <ArticleContainer
               className={"internal"}
               dangerouslySetInnerHTML={{
@@ -111,9 +93,12 @@ export const query: void = graphql`
         slug
       }
       pageAttributes {
+        banner
         description
         keywords
         slug
+        subtext
+        subtitle
       }
     }
   }
