@@ -57,16 +57,17 @@ def _pop_if_exist(raw: JSON, key: str) -> Any:
 
 
 def create_api_data(raw: JSON) -> ApiData:
+    raw_copy = raw.copy()
     try:
-        links = raw.pop('_links')[0]
-        total_items = _pop_if_exist(raw, 'total_items')
+        links = raw_copy.pop('_links')[0]
+        total_items = _pop_if_exist(raw_copy, 'total_items')
         return ApiData(
-            data=raw,
+            data=raw_copy,
             links=links,
             total_items=total_items
         )
     except KeyError as error:
-        LOG.debug('Bad json: %s', raw)
+        LOG.debug('Bad json: %s', raw_copy)
         raise error
 
 
@@ -77,14 +78,15 @@ def _get_activity(
     result = create_api_data(
         raw_source.get_activity(audience)
     )
+    activity = result.data['activity'].copy()
     audience_id = result.data['list_id']
-    for data in result.data['activity']:
+    for data in activity:
         data['list_id'] = audience_id
         if '_links' not in data:
             data['_links'] = [{}]
     return iter(map(
         create_api_data,
-        result.data['activity']
+        activity
     ))
 
 
@@ -95,13 +97,14 @@ def _get_top_clients(
     result = create_api_data(
         raw_source.get_top_clients(audience)
     )
+    clients = result.data['clients'].copy()
     audience_id = result.data['list_id']
-    for data in result.data['clients']:
+    for data in clients:
         data['list_id'] = audience_id
         data['_links'] = [{}]
     return iter(map(
         create_api_data,
-        result.data['clients']
+        clients
     ))
 
 

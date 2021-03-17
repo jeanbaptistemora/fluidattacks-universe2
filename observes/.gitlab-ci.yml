@@ -200,7 +200,7 @@ observes.scheduled.job.tap-zoho-analytics:
   interruptible: false
 
 observes.scheduled.job.timedoctor-refresh-token:
-  <<: *with_nix
+  <<: *makes
   stage: analytics
   only:
     refs: [schedules]
