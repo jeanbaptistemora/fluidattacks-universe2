@@ -6,16 +6,16 @@ let
   userRotateKeys = import (path "/makes/utils/user-rotate-keys") path nixpkgs;
 in
 userRotateKeys {
-  name = "makes-users-serves-rotate-odd";
+  name = "makes-users-makes-rotate-odd";
   product = "makes";
-  target = "makes/applications/makes/users/serves/src/terraform";
+  target = "makes/applications/makes/users/makes/src/terraform";
   keys = {
     "aws_iam_access_key.dev-key-1" = {
       id = {
         gitlab = [
           {
             project_id = "20741933";
-            key_id = "SERVES_DEV_AWS_ACCESS_KEY_ID";
+            key_id = "MAKES_DEV_AWS_ACCESS_KEY_ID";
             masked = true;
             protected = false;
           }
@@ -28,7 +28,7 @@ userRotateKeys {
         gitlab = [
           {
             project_id = "20741933";
-            key_id = "SERVES_DEV_AWS_SECRET_ACCESS_KEY";
+            key_id = "MAKES_DEV_AWS_SECRET_ACCESS_KEY";
             masked = true;
             protected = false;
           }

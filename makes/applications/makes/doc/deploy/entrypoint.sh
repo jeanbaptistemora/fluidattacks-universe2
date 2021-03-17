@@ -17,7 +17,7 @@ function main {
         &&  return 1
       fi \
   &&  pushd "${src}" \
-    &&  "aws_login_${env}" serves \
+    &&  "aws_login_${env}" makes \
     &&  copy "__envRuntime__/node_modules" node_modules \
     &&  chmod +x node_modules/.bin/* \
     &&  npm run build \

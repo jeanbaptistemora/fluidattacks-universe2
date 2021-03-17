@@ -101,6 +101,10 @@ makes.users.integrates.apply
 makes.users.integrates.rotate.even
 makes.users.integrates.rotate.odd
 makes.users.integrates.test
+makes.users.makes.apply
+makes.users.makes.rotate.even
+makes.users.makes.rotate.odd
+makes.users.makes.test
 makes.users.melts.apply
 makes.users.melts.rotate.even
 makes.users.melts.rotate.odd
@@ -109,10 +113,6 @@ makes.users.observes.apply
 makes.users.observes.rotate.even
 makes.users.observes.rotate.odd
 makes.users.observes.test
-makes.users.serves.apply
-makes.users.serves.rotate.even
-makes.users.serves.rotate.odd
-makes.users.serves.test
 makes.users.services.apply
 makes.users.services.rotate.even
 makes.users.services.rotate.odd
