@@ -9,14 +9,14 @@ const NavbarContainer: StyledComponent<
   Record<string, unknown>
 > = styled.div.attrs({
   className: `
-   cssmenu
-   lh-solid
-   h-navbar
-   cover
-   w-100
-   top-0
-   z-max
-   t-all-5
+    cssmenu
+    lh-solid
+    h-navbar
+    cover
+    w-100
+    top-0
+    z-max
+    t-all-5
   `,
 })``;
 
@@ -42,11 +42,11 @@ const NavbarList: StyledComponent<
   Record<string, unknown>
 > = styled.ul.attrs({
   className: `
-   list
-   ma0
-   pa0
-   overflow-hidden
-   h-navbar
+    list
+    ma0
+    pa0
+    overflow-hidden
+    h-navbar
   `,
 })``;
 
@@ -55,11 +55,11 @@ const MenuButton: StyledComponent<
   Record<string, unknown>
 > = styled.li.attrs({
   className: `
-     relative
-     fl
-     pv4
-     mv1
-    `,
+    relative
+    fl
+    pv4
+    mv1
+  `,
 })``;
 
 const NavbarContactButton: StyledComponent<
@@ -67,22 +67,22 @@ const NavbarContactButton: StyledComponent<
   Record<string, unknown>
 > = styled.button.attrs({
   className: `
-     outline-transparent
-     fw7
-     f-18
-     br2
-     bw1
-     ph2
-     pv2
-     bg-white
-     bc-fluid-red
-     ba
-     hv-fluid-rd
-     hv-bd-fluid-red
-     t-all-3-eio
-     c-dkred
-     pointer
-    `,
+    outline-transparent
+    fw7
+    f-18
+    br2
+    bw1
+    ph2
+    pv2
+    bg-white
+    bc-fluid-red
+    ba
+    hv-fluid-rd
+    hv-bd-fluid-red
+    t-all-3-eio
+    c-dkred
+    pointer
+  `,
 })``;
 
 const NavbarLoginButton: StyledComponent<
@@ -90,18 +90,18 @@ const NavbarLoginButton: StyledComponent<
   Record<string, unknown>
 > = styled.button.attrs({
   className: `
-     outline-transparent
-     c-dkred
-     fw7
-     f-18
-     ba
-     b--white
-     bw1
-     ph0
-     pv2
-     hv-fluid-rd
-     bg-transparent
-     pointer
+    outline-transparent
+    c-dkred
+    fw7
+    f-18
+    ba
+    b--white
+    bw1
+    ph0
+    pv2
+    hv-fluid-rd
+    bg-transparent
+    pointer
   `,
 })``;
 
@@ -110,17 +110,17 @@ const NavbarRegularButton: StyledComponent<
   Record<string, unknown>
 > = styled.button.attrs({
   className: `
-  outline-transparent
-  fw4
-  f-18
-  ba
-  b--transparent
-  bw1
-  ph0
-  pv2
-  hv-fluid-rd
-  bg-transparent
-  pointer
+    outline-transparent
+    fw4
+    f-18
+    ba
+    b--transparent
+    bw1
+    ph0
+    pv2
+    hv-fluid-rd
+    bg-transparent
+    pointer
   `,
 })``;
 
@@ -134,7 +134,7 @@ const NavbarSubcategory: StyledComponent<
     br--bottom
     pt4
     fadein
-    `,
+  `,
 })``;
 
 const SubcategoryLink: StyledComponent<
@@ -144,7 +144,7 @@ const SubcategoryLink: StyledComponent<
   className: `
     f-18
     fw4
-    `,
+  `,
 })``;
 
 const CopyrightParagraph: StyledComponent<
@@ -152,7 +152,7 @@ const CopyrightParagraph: StyledComponent<
   Record<string, unknown>
 > = styled.p.attrs({
   className: `
-    c-fluid-bk
+    c-fluid-gray
     b
     f6
     fw2
@@ -171,7 +171,6 @@ const MainFooterInfoContainer: StyledComponent<
     mb0-m
     mb3
     ph3
-    bg-white
   `,
 })``;
 
@@ -183,7 +182,7 @@ const InnerFooterInfoContainer: StyledComponent<
     mw-1366
     ph-body
     center
-    h3
+    pv3
   `,
 })``;
 
@@ -194,7 +193,7 @@ const CopyrightContainer: StyledComponent<
   className: `
     tc
     nb3
-    fl-l
+    justify-center
   `,
 })``;
 
@@ -204,11 +203,10 @@ const FooterInfoLinksContainer: StyledComponent<
 > = styled.div.attrs({
   className: `
     h2
-    bg-white
     b
     tc
     pv3
-    fr-l
+    justify-center
   `,
 })``;
 
@@ -217,7 +215,7 @@ const FooterInfoLink: StyledComponent<
   Record<string, unknown>
 > = styled.a.attrs({
   className: `
-    c-fluid-gray
+    c-blue-gray
     f6
     fw2
     mt2
@@ -232,7 +230,7 @@ const GrayDash: StyledComponent<
   Record<string, unknown>
 > = styled.span.attrs({
   className: `
-    c-fluid-gray
+    c-blue-gray
     f6
   `,
 })``;
@@ -242,8 +240,8 @@ const BreadcrumbContainer: StyledComponent<
   Record<string, unknown>
 > = styled.div.attrs({
   className: `
-  pv0
-  mt-body
+    pv0
+    mt-body
   `,
 })``;
 
@@ -359,12 +357,12 @@ const MainCoverHome: StyledComponent<
   Record<string, unknown>
 > = styled.div.attrs({
   className: `
-  flex-ns
-  items-center
-  cover-m
-  cover-s
-  bg-banner-sz
-  h-section
+    flex-ns
+    items-center
+    cover-m
+    cover-s
+    bg-banner-sz
+    h-section
   `,
 })`
   background-image: url(${coverMainHome});
@@ -578,9 +576,9 @@ const HalfScreenContainer: StyledComponent<
   Record<string, unknown>
 > = styled.div.attrs({
   className: `
-   w-50-l
-   ph0-ns
-   ph-body
+    w-50-l
+    ph0-ns
+    ph-body
   `,
 })``;
 

@@ -1,7 +1,9 @@
 // Color Variables
 $black-gray: rgba(92, 92, 92, 1);
+$blue-gray: rgba(92, 92, 112, 1);
 $button-red: rgba(191, 38, 38, 1);
 $hovered-red: rgba(255, 52, 53, 1);
+$darker-blue: rgba(28, 28, 34, 1);
 $dark-shadow: rgba(176, 176, 176, 0.3);
 $fluid-black: rgba(39, 39, 39, 1);
 $fluid-red: rgba(255, 52, 53, 1);
@@ -25,6 +27,7 @@ $whiter-gray: rgba(241, 241, 241, 1);
 
 // Background Colors
 .bg-button-red { background-color: $button-red; }
+.bg-darker-blue { background-color: $darker-blue; }
 .bg-lightgray { background-color: $light-gray; }
 
 // Background Images
@@ -79,6 +82,7 @@ $whiter-gray: rgba(241, 241, 241, 1);
 .bc-fluid-red { border-color: $button-red; }
 .bc-hovered-red { border-color: $hovered-red; }
 .c-black-gray { color: $black-gray; }
+.c-blue-gray { color: $blue-gray; }
 .c-dkred { color: $button-red; }
 .c-fluid-bk { color: $fluid-black; }
 .c-fluid-gray { color: $fluid-gray; }
