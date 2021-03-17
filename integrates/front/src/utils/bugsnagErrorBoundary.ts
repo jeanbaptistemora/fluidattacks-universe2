@@ -3,13 +3,13 @@ import BugsnagPluginReact from "@bugsnag/plugin-react";
 import type { Error } from "@bugsnag/core/types/event";
 import type { Event } from "@bugsnag/core";
 import { Logger } from "./logger";
-import React from "react";
 import _ from "lodash";
 import { getEnvironment } from "utils/environment";
 import type {
   BugsnagErrorBoundary,
   BugsnagPluginReactResult,
 } from "@bugsnag/plugin-react";
+import React, { Fragment } from "react";
 
 const noSpaceLeftOnDevice: (error: Error) => boolean = (
   error: Error
@@ -54,7 +54,7 @@ const reactPlugin: BugsnagPluginReactResult | undefined = Bugsnag.getPlugin(
 );
 
 const bugsnagErrorBoundary: BugsnagErrorBoundary = _.isUndefined(reactPlugin)
-  ? React.Fragment
+  ? Fragment
   : reactPlugin.createErrorBoundary(React);
 
 export { bugsnagErrorBoundary as BugsnagErrorBoundary };

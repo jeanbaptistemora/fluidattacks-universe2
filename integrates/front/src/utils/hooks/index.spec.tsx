@@ -1,8 +1,7 @@
-/* eslint-disable react/no-multi-comp */
-import React from "react";
 import { act } from "react-dom/test-utils";
 import mixpanel from "mixpanel-browser";
 import { MemoryRouter, useHistory } from "react-router";
+import React, { createElement, useCallback } from "react";
 import type { ReactWrapper, ShallowWrapper } from "enzyme";
 import { mount, shallow } from "enzyme";
 import { useStoredState, useTabTracking } from "utils/hooks";
@@ -35,9 +34,7 @@ describe("Custom utility hooks", (): void => {
     it("should render with fallback value", (): void => {
       expect.hasAssertions();
 
-      const wrapper: ShallowWrapper = shallow(
-        React.createElement(TestComponent)
-      );
+      const wrapper: ShallowWrapper = shallow(createElement(TestComponent));
 
       expect(wrapper.find("p").at(0).text()).toStrictEqual("fallback");
     });
@@ -47,9 +44,7 @@ describe("Custom utility hooks", (): void => {
 
       sessionStorage.setItem("message", JSON.stringify("stored"));
       sessionStorage.setItem("sortOrder", JSON.stringify({ order: "dsc" }));
-      const wrapper: ShallowWrapper = shallow(
-        React.createElement(TestComponent)
-      );
+      const wrapper: ShallowWrapper = shallow(createElement(TestComponent));
 
       expect(wrapper.find("p").at(0).text()).toStrictEqual("stored");
       expect(wrapper.find("p").at(1).text()).toStrictEqual("dsc");
@@ -76,11 +71,12 @@ describe("Custom utility hooks", (): void => {
   });
 
   describe("useTabTracking", (): void => {
+    // eslint-disable-next-line react/no-multi-comp
     const TestComponent: React.FC = (): JSX.Element => {
       const { push } = useHistory();
       useTabTracking("Group");
 
-      const handleClick: () => void = React.useCallback((): void => {
+      const handleClick: () => void = useCallback((): void => {
         push("/groups/grp2/scope");
       }, [push]);
 

@@ -2,7 +2,6 @@ import { Logger } from "utils/logger";
 import type { Moment } from "moment";
 import type { Validator } from "redux-form";
 import _ from "lodash";
-import moment from "moment";
 import { translate } from "utils/translations/translate";
 import {
   hasLengthGreaterThan,
@@ -12,6 +11,7 @@ import {
   isRequired,
   matchesPattern,
 } from "revalidate";
+import moment, { isMoment } from "moment";
 
 const required: Validator = isRequired({
   message: translate.t("validations.required"),
@@ -215,7 +215,7 @@ const isValidVulnSeverity: Validator = (value: string): string | undefined => {
 const validDatetime: Validator = (
   value?: Moment | string
 ): string | undefined =>
-  moment.isMoment(value) ? undefined : translate.t("validations.datetime");
+  isMoment(value) ? undefined : translate.t("validations.datetime");
 
 const getFileExtension: (file: File) => string = (file: File): string => {
   const splittedName: string[] = file.name.split(".");

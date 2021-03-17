@@ -4,8 +4,16 @@
   useful life expires.
 */
 import { Logger } from "utils/logger";
-import React from "react";
-import sjcl from "sjcl";
+import type React from "react";
+import { createContext } from "react";
+import type sjcl from "sjcl";
+import {
+  random,
+  codec as sjclCodec,
+  decrypt as sjclDecrypt,
+  encrypt as sjclEncrypt,
+  hash as sjclHash,
+} from "sjcl";
 
 /*
  * Secrets declared in this file live as much as the dashboard tab is open
@@ -18,11 +26,11 @@ const secretsLifespanInMiliseconds: number = secretsLifespan * secondsInMs;
 const wordsNumber: number = 8;
 
 // Secrets
-let secretKey: sjcl.BitArray = sjcl.random.randomWords(wordsNumber);
+let secretKey: sjcl.BitArray = random.randomWords(wordsNumber);
 
 // Secrets generation
 const generateSecrets: () => void = (): void => {
-  secretKey = sjcl.random.randomWords(wordsNumber);
+  secretKey = random.randomWords(wordsNumber);
 };
 
 // Secrets rotation
@@ -33,13 +41,13 @@ declare type iFrameReferenceType = React.MutableRefObject<HTMLIFrameElement | nu
 
 // Implementation
 const decrypt: (ciphertext: string) => string = (ciphertext: string): string =>
-  sjcl.decrypt(secretKey, JSON.parse(ciphertext));
+  sjclDecrypt(secretKey, JSON.parse(ciphertext));
 
 const encrypt: (plaintext: string) => string = (plaintext: string): string =>
-  JSON.stringify(sjcl.encrypt(secretKey, plaintext));
+  JSON.stringify(sjclEncrypt(secretKey, plaintext));
 
 const hash: (input: string) => string = (input: string): string =>
-  sjcl.codec.hex.fromBits(sjcl.hash.sha256.hash(input));
+  sjclCodec.hex.fromBits(sjclHash.sha256.hash(input));
 
 const storeBlob: (
   identifier: string,
@@ -121,7 +129,7 @@ const secureStore: ISecureStoreConfig = {
   storeIframeContent,
 };
 
-const secureStoreContext: React.Context<ISecureStoreConfig> = React.createContext(
+const secureStoreContext: React.Context<ISecureStoreConfig> = createContext(
   secureStore
 );
 

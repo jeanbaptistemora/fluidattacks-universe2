@@ -1,4 +1,3 @@
-import React from "react";
 import { WithContext as ReactTags } from "react-tag-input";
 import type { Tag } from "react-tag-input";
 import { ValidationError } from "styles/styledComponents";
@@ -6,6 +5,7 @@ import _ from "lodash";
 import style from "utils/forms/index.css";
 import { translate } from "utils/translations/translate";
 import { validTextField } from "utils/validations";
+import React, { useEffect, useState } from "react";
 import type { WrappedFieldInputProps, WrappedFieldProps } from "redux-form";
 
 interface ITagInputProps extends WrappedFieldProps {
@@ -22,9 +22,9 @@ export const TagInput: React.FC<ITagInputProps> = (
   const { value, onChange } = input;
 
   // Hooks
-  const [tagsInput, setTagsInput] = React.useState<Tag[]>([]);
-  const [tagsError, setTagsError] = React.useState(false);
-  React.useEffect((): void => {
+  const [tagsInput, setTagsInput] = useState<Tag[]>([]);
+  const [tagsError, setTagsError] = useState(false);
+  useEffect((): void => {
     const tags: Tag[] = value
       .split(",")
       .filter((inputTag: string): boolean => !_.isEmpty(inputTag))

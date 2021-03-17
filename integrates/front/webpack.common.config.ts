@@ -1,6 +1,7 @@
+import { EnvironmentPlugin } from "webpack";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
 import path from "path";
-import webpack from "webpack";
+import type webpack from "webpack";
 
 export const commonConfig: webpack.Configuration = {
   entry: {
@@ -59,7 +60,7 @@ export const commonConfig: webpack.Configuration = {
     new MiniCssExtractPlugin({
       filename: "[name]-style.min.css",
     }),
-    new webpack.EnvironmentPlugin([
+    new EnvironmentPlugin([
       "CI_COMMIT_SHA",
       "CI_COMMIT_SHORT_SHA",
       "INTEGRATES_DEPLOYMENT_DATE",

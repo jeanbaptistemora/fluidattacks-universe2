@@ -1,7 +1,8 @@
-import React from "react";
+import type React from "react";
 import _ from "lodash";
-import mixpanel from "mixpanel-browser";
+import { track } from "mixpanel-browser";
 import { useLocation } from "react-router";
+import { useEffect, useState } from "react";
 
 // Wrapper for React.useState that persists using the Web Storage API
 function useStoredState<T>(
@@ -17,7 +18,7 @@ function useStoredState<T>(
       : (JSON.parse(storedState) as T);
   };
 
-  const [state, setState] = React.useState<T>(loadInitialState);
+  const [state, setState] = useState<T>(loadInitialState);
 
   const setAndStore: React.Dispatch<React.SetStateAction<T>> = (
     value: React.SetStateAction<T>
@@ -34,12 +35,12 @@ const useTabTracking: (containerName: string) => void = (
 ): void => {
   const { pathname } = useLocation();
 
-  React.useEffect((): void => {
+  useEffect((): void => {
     const lastElements: number = -2;
     const [id, tabName] = pathname.split("/").slice(lastElements);
 
     if (tabName) {
-      mixpanel.track(`${containerName}${_.capitalize(tabName)}`, { id });
+      track(`${containerName}${_.capitalize(tabName)}`, { id });
     }
   }, [containerName, pathname]);
 };

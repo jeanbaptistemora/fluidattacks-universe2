@@ -1,5 +1,6 @@
+import { HotModuleReplacementPlugin } from "webpack";
 import { commonConfig } from "./webpack.common.config";
-import webpack from "webpack";
+import type webpack from "webpack";
 
 const devConfig: webpack.Configuration = {
   ...commonConfig,
@@ -50,10 +51,7 @@ const devConfig: webpack.Configuration = {
     ...commonConfig.output,
     publicPath: "https://localhost:3000/dashboard/",
   },
-  plugins: [
-    ...(commonConfig.plugins as []),
-    new webpack.HotModuleReplacementPlugin(),
-  ],
+  plugins: [...(commonConfig.plugins as []), new HotModuleReplacementPlugin()],
 };
 
 export = devConfig;
