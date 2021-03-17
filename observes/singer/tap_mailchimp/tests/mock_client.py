@@ -41,6 +41,8 @@ def mock_data_source() -> RawSource:
         get_member=lambda x: x,
         list_growth_hist=lambda x: x,
         get_growth_hist=lambda x: x,
+        list_interest_catg=lambda x: x,
+        get_interest_catg=lambda x: x,
     )
 
 

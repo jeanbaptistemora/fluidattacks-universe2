@@ -37,6 +37,11 @@ class GrowthHistId(NamedTuple):
     str_id: str
 
 
+class InterestCatgId(NamedTuple):
+    audience_id: AudienceId
+    str_id: str
+
+
 class MemberId(NamedTuple):
     audience_id: AudienceId
     str_id: str
@@ -61,6 +66,8 @@ class RawSource(NamedTuple):
     get_member: Callable[[MemberId], JSON]
     list_growth_hist: Callable[[AudienceId], JSON]
     get_growth_hist: Callable[[GrowthHistId], JSON]
+    list_interest_catg: Callable[[AudienceId], JSON]
+    get_interest_catg: Callable[[InterestCatgId], JSON]
 
 
 def _list_audiences(client: Client) -> JSON:
@@ -71,22 +78,22 @@ def _list_audiences(client: Client) -> JSON:
     return result
 
 
-def _get_audience(client: Client, audience: AudienceId) -> JSON:
-    return client.lists.get_list(audience.str_id)
+def _get_audience(client: Client, audience_id: AudienceId) -> JSON:
+    return client.lists.get_list(audience_id.str_id)
 
 
-def _list_abuse_reports(client: Client, audience: AudienceId) -> JSON:
+def _list_abuse_reports(client: Client, audience_id: AudienceId) -> JSON:
     result = client.lists.get_list_abuse_reports(
-        audience.str_id,
+        audience_id.str_id,
         fields=['abuse_reports.id', 'total_items', '_links']
     )
     LOG.debug('_list_abuse_reports response: %s', result)
     return result
 
 
-def _get_abuse_report(client: Client, report: AbsReportId) -> JSON:
+def _get_abuse_report(client: Client, report_id: AbsReportId) -> JSON:
     return client.lists.get_list_abuse_report_details(
-        report.audience_id.str_id, report.str_id
+        report_id.audience_id.str_id, report_id.str_id
     )
 
 
@@ -127,6 +134,20 @@ def _get_growth_hist(client: Client, ghist_id: GrowthHistId) -> JSON:
     )
 
 
+def _list_interest_catg(client: Client, audience_id: AudienceId) -> JSON:
+    return client.lists.get_list_interest_categories(
+        audience_id.str_id,
+        fields=['categories.id', 'total_items', '_links']
+    )
+
+
+def _get_interest_catg(client: Client, interest_id: InterestCatgId) -> JSON:
+    return client.lists.get_interest_category(
+        interest_id.audience_id.str_id,
+        interest_id.str_id
+    )
+
+
 def create_raw_source(client: Client) -> RawSource:
     return RawSource(
         list_audiences=partial(_list_audiences, client),
@@ -139,4 +160,6 @@ def create_raw_source(client: Client) -> RawSource:
         get_member=partial(_get_member, client),
         list_growth_hist=partial(_list_growth_hist, client),
         get_growth_hist=partial(_get_growth_hist, client),
+        list_interest_catg=partial(_list_interest_catg, client),
+        get_interest_catg=partial(_get_interest_catg, client),
     )
