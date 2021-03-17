@@ -11,12 +11,11 @@ import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import type { GraphQLError } from "graphql";
 import type { InjectedFormProps } from "redux-form";
 import { Logger } from "utils/logger";
-import React from "react";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import _ from "lodash";
 import globalStyle from "styles/global.css";
-import mixpanel from "mixpanel-browser";
 import { msgError } from "utils/notifications";
+import { track } from "mixpanel-browser";
 import { translate } from "utils/translations/translate";
 import { useParams } from "react-router";
 import {
@@ -29,6 +28,7 @@ import {
   REMOVE_EVIDENCE_MUTATION,
   UPDATE_EVIDENCE_MUTATION,
 } from "scenes/Dashboard/containers/EvidenceView/queries";
+import React, { useCallback, useState } from "react";
 import { faCloudUploadAlt, faList } from "@fortawesome/free-solid-svg-icons";
 import { required, validRecordsFile } from "utils/validations";
 import { useMutation, useQuery } from "@apollo/react-hooks";
@@ -36,8 +36,8 @@ import { useMutation, useQuery } from "@apollo/react-hooks";
 const RecordsView: React.FC = (): JSX.Element => {
   const { findingId } = useParams<{ findingId: string }>();
 
-  const [isEditing, setEditing] = React.useState(false);
-  const handleEditClick: () => void = React.useCallback((): void => {
+  const [isEditing, setEditing] = useState(false);
+  const handleEditClick: () => void = useCallback((): void => {
     setEditing(!isEditing);
   }, [isEditing]);
 
@@ -92,9 +92,7 @@ const RecordsView: React.FC = (): JSX.Element => {
     onError: handleUpdateError,
   });
 
-  const handleSubmit: (values: {
-    filename: FileList;
-  }) => void = React.useCallback(
+  const handleSubmit: (values: { filename: FileList }) => void = useCallback(
     (values: { filename: FileList }): void => {
       setEditing(false);
       void updateRecords({
@@ -113,8 +111,8 @@ const RecordsView: React.FC = (): JSX.Element => {
     onError: handleRemoveErrors,
   });
 
-  const handleRemoveClick: () => void = React.useCallback((): void => {
-    mixpanel.track("RemoveRecords");
+  const handleRemoveClick: () => void = useCallback((): void => {
+    track("RemoveRecords");
     setEditing(false);
     void removeRecords({ variables: { evidenceId: "RECORDS", findingId } });
   }, [findingId, removeRecords]);

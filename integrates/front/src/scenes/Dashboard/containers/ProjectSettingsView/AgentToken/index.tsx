@@ -9,7 +9,7 @@ import {
   LastProjectSetting,
   ProjectScopeText,
 } from "styles/styledComponents";
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 
 const AgentToken: React.FC<IServicesProps> = (
   props: IServicesProps
@@ -19,7 +19,7 @@ const AgentToken: React.FC<IServicesProps> = (
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const handleChange: () => void = React.useCallback((): void => {
+  const handleChange: () => void = useCallback((): void => {
     setIsModalOpen(!isModalOpen);
   }, [isModalOpen]);
 

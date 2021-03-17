@@ -3,7 +3,7 @@ import { Button } from "components/Button";
 import { Logger } from "utils/logger";
 import { UNSUBSCRIBE_FROM_GROUP_MUTATION } from "./UnsubscribeModal/queries";
 import { UnsubscribeModal } from "./UnsubscribeModal";
-import mixpanel from "mixpanel-browser";
+import { track } from "mixpanel-browser";
 import { useMutation } from "@apollo/react-hooks";
 import { useTranslation } from "react-i18next";
 import {
@@ -53,7 +53,7 @@ const Unsubscribe: React.FC = (): JSX.Element => {
   }
 
   function handleSubmit(): void {
-    mixpanel.track("UnsubscribeFromGroup");
+    track("UnsubscribeFromGroup");
     void unsubscribeFromGroupMutation();
     setIsModalOpen(!isModalOpen);
   }

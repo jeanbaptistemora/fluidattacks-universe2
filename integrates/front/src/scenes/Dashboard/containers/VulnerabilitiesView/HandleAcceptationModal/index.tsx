@@ -10,7 +10,6 @@ import { JustificationField } from "./JustificationField";
 import { Logger } from "utils/logger";
 import { Modal } from "components/Modal";
 import type { PureAbility } from "@casl/ability";
-import React from "react";
 import { TreatmentField } from "./TreatmentField";
 import { ZeroRiskConfirmationTable } from "./ZeroRiskConfirmationTable";
 import { ZeroRiskRejectionTable } from "./ZeroRiskRejectionTable";
@@ -31,6 +30,7 @@ import type {
   IRejectZeroRiskVulnResultAttr,
   IVulnDataAttr,
 } from "scenes/Dashboard/containers/VulnerabilitiesView/HandleAcceptationModal/types";
+import React, { useEffect, useState } from "react";
 import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
 import { formValueSelector, submit } from "redux-form";
 import {
@@ -66,17 +66,11 @@ const HandleAcceptationModal: React.FC<IHandleVulnsAcceptationModalProps> = (
 
   const dispatch: Dispatch = useDispatch();
 
-  const [acceptationVulns, setAcceptationVulns] = React.useState<
-    IVulnDataAttr[]
-  >([]);
-  const [acceptedVulns, setAcceptedVulns] = React.useState<IVulnDataAttr[]>([]);
-  const [rejectedVulns, setRejectedVulns] = React.useState<IVulnDataAttr[]>([]);
-  const [hasAcceptedVulns, setHasAcceptedVulns] = React.useState<boolean>(
-    false
-  );
-  const [hasRejectedVulns, setHasRejectedVulns] = React.useState<boolean>(
-    false
-  );
+  const [acceptationVulns, setAcceptationVulns] = useState<IVulnDataAttr[]>([]);
+  const [acceptedVulns, setAcceptedVulns] = useState<IVulnDataAttr[]>([]);
+  const [rejectedVulns, setRejectedVulns] = useState<IVulnDataAttr[]>([]);
+  const [hasAcceptedVulns, setHasAcceptedVulns] = useState<boolean>(false);
+  const [hasRejectedVulns, setHasRejectedVulns] = useState<boolean>(false);
 
   const formValues: Dictionary<string> = useSelector(
     (state: Record<string, unknown>): Dictionary<string> =>
@@ -108,7 +102,7 @@ const HandleAcceptationModal: React.FC<IHandleVulnsAcceptationModalProps> = (
       setAcceptationVulns([]);
     }
   };
-  React.useEffect(onTreatmentChange, [
+  useEffect(onTreatmentChange, [
     isAcceptedUndefinedSelected,
     isConfirmZeroRiskSelected,
     isRejectZeroRiskSelected,
@@ -131,7 +125,7 @@ const HandleAcceptationModal: React.FC<IHandleVulnsAcceptationModalProps> = (
     setHasAcceptedVulns(newAcceptedVulns.length !== 0);
     setHasRejectedVulns(newRejectedVulns.length !== 0);
   };
-  React.useEffect(onAcceptationVulnsChange, [acceptationVulns]);
+  useEffect(onAcceptationVulnsChange, [acceptationVulns]);
 
   // GraphQL operations
   const [handleAcceptation, { loading: handlingAcceptation }] = useMutation(

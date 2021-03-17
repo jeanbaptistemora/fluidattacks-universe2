@@ -1,11 +1,11 @@
 import { ButtonToolbarRow } from "styles/styledComponents";
 import { EditButton } from "./EditButton";
 import { HandleAcceptationButton } from "./HandleAcceptationButton";
-import React from "react";
 import { ReattackVulnButton } from "./ReattackVulnButton";
 import { VerifyVunButton } from "./VerifyVunButton";
 import { msgInfo } from "utils/notifications";
 import { translate } from "utils/translations/translate";
+import React, { useEffect } from "react";
 
 interface IActionButtonsProps {
   areVulnsSelected: boolean;
@@ -47,7 +47,7 @@ const ActionButtons: React.FC<IActionButtonsProps> = ({
       !isRequestingReattack
     );
   };
-  React.useEffect(displayMessage, [isRequestingReattack]);
+  useEffect(displayMessage, [isRequestingReattack]);
 
   return (
     <ButtonToolbarRow>

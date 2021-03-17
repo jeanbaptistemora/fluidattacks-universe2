@@ -3,7 +3,7 @@ import { Button } from "components/Button";
 import { DeleteGroupModal } from "scenes/Dashboard/components/DeleteGroupModal";
 import { Logger } from "utils/logger";
 import { REMOVE_GROUP_MUTATION } from "scenes/Dashboard/components/DeleteGroupModal/queries";
-import mixpanel from "mixpanel-browser";
+import { track } from "mixpanel-browser";
 import { useMutation } from "@apollo/react-hooks";
 import { useTranslation } from "react-i18next";
 import {
@@ -49,7 +49,7 @@ const DeleteGroup: React.FC = (): JSX.Element => {
   }
 
   function handleSubmit(): void {
-    mixpanel.track("DeleteGroup");
+    track("DeleteGroup");
     void removeGroupMutation();
     setIsModalOpen(!isModalOpen);
   }

@@ -10,14 +10,13 @@ import type { GraphQLError } from "graphql";
 import type { InjectedFormProps } from "redux-form";
 import { Logger } from "utils/logger";
 import type { PureAbility } from "@casl/ability";
-import React from "react";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import _ from "lodash";
 import { calcCVSSv3 } from "utils/cvss";
 import { castFieldsCVSS3 } from "scenes/Dashboard/containers/SeverityView/utils";
 import { formValueSelector } from "redux-form";
-import mixpanel from "mixpanel-browser";
 import { required } from "utils/validations";
+import { track } from "mixpanel-browser";
 import { translate } from "utils/translations/translate";
 import { useAbility } from "@casl/react";
 import { useParams } from "react-router";
@@ -32,6 +31,7 @@ import type {
   ISeverityField,
   IUpdateSeverityAttr,
 } from "scenes/Dashboard/containers/SeverityView/types";
+import React, { useCallback, useState } from "react";
 import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
 import { msgError, msgSuccess } from "utils/notifications";
 import { useMutation, useQuery } from "@apollo/react-hooks";
@@ -41,7 +41,7 @@ const SeverityView: React.FC = (): JSX.Element => {
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
   const groupPermissions: PureAbility<string> = useAbility(authzGroupContext);
 
-  const [isEditing, setEditing] = React.useState(false);
+  const [isEditing, setEditing] = useState(false);
 
   const selector: (
     state: Record<string, unknown>,
@@ -67,7 +67,7 @@ const SeverityView: React.FC = (): JSX.Element => {
     variables: { identifier: findingId },
   });
 
-  const handleEditClick: () => void = React.useCallback((): void => {
+  const handleEditClick: () => void = useCallback((): void => {
     setEditing(!isEditing);
     if (!_.isUndefined(data)) {
       const severityScore: string = Number(
@@ -91,7 +91,7 @@ const SeverityView: React.FC = (): JSX.Element => {
           translate.t("groupAlerts.updated"),
           translate.t("groupAlerts.updatedTitle")
         );
-        mixpanel.track("UpdateSeverity");
+        track("UpdateSeverity");
       }
     }
   };
@@ -124,7 +124,7 @@ const SeverityView: React.FC = (): JSX.Element => {
 
   const handleUpdateSeverity: (
     values: Record<string, unknown>
-  ) => void = React.useCallback(
+  ) => void = useCallback(
     (values: Record<string, unknown>): void => {
       setEditing(false);
       void updateSeverity({
@@ -136,7 +136,7 @@ const SeverityView: React.FC = (): JSX.Element => {
 
   const handleFormChange: (
     values: ISeverityAttr["finding"]["severity"]
-  ) => void = React.useCallback(
+  ) => void = useCallback(
     (values: ISeverityAttr["finding"]["severity"]): void => {
       const severityScore: string = Number(calcCVSSv3(values)).toFixed(2);
       client.writeData({

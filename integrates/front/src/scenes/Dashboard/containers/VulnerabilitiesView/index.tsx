@@ -11,7 +11,6 @@ import { HandleAcceptationModal } from "scenes/Dashboard/containers/Vulnerabilit
 import type { IGetFindingVulnInfoAttr } from "scenes/Dashboard/containers/VulnerabilitiesView/types";
 import { Logger } from "utils/logger";
 import type { PureAbility } from "@casl/ability";
-import React from "react";
 import type { StyledComponent } from "styled-components";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { UpdateVerificationModal } from "scenes/Dashboard/components/UpdateVerificationModal";
@@ -30,6 +29,7 @@ import type {
   IVulnDataTypeAttr,
   IVulnRowAttr,
 } from "scenes/Dashboard/components/Vulnerabilities/types";
+import React, { useCallback, useState } from "react";
 import {
   filterCurrentStatus,
   filterText,
@@ -87,11 +87,11 @@ export const VulnsView: React.FC = (): JSX.Element => {
     "backend_api_resolvers_finding_zero_risk_resolve"
   );
 
-  const [treatmentFilter, setTreatmentFilter] = React.useState("");
-  const [currentStatusFilter, setCurrentStatusFilter] = React.useState("");
-  const [verificationFilter, setVerificationFilter] = React.useState("");
-  const [textFilter, setTextFilter] = React.useState("");
-  const [isOpen, setOpen] = React.useState(false);
+  const [treatmentFilter, setTreatmentFilter] = useState("");
+  const [currentStatusFilter, setCurrentStatusFilter] = useState("");
+  const [verificationFilter, setVerificationFilter] = useState("");
+  const [textFilter, setTextFilter] = useState("");
+  const [isOpen, setOpen] = useState(false);
   function toggleModal(): void {
     setOpen(true);
   }
@@ -99,12 +99,12 @@ export const VulnsView: React.FC = (): JSX.Element => {
   const [
     isHandleAcceptationModalOpen,
     setHandleAcceptationModalOpen,
-  ] = React.useState(false);
+  ] = useState(false);
   function toggleHandleAcceptationModal(): void {
     setHandleAcceptationModalOpen(!isHandleAcceptationModalOpen);
   }
 
-  const [remediationModalConfig, setRemediationModalConfig] = React.useState<{
+  const [remediationModalConfig, setRemediationModalConfig] = useState<{
     vulnerabilities: IVulnDataTypeAttr[];
     clearSelected: () => void;
   }>({
@@ -114,7 +114,7 @@ export const VulnsView: React.FC = (): JSX.Element => {
   const openRemediationModal: (
     vulnerabilities: IVulnDataTypeAttr[],
     clearSelected: () => void
-  ) => void = React.useCallback(
+  ) => void = useCallback(
     (vulnerabilities: IVulnDataTypeAttr[], clearSelected: () => void): void => {
       setRemediationModalConfig({ clearSelected, vulnerabilities });
     },
@@ -124,15 +124,15 @@ export const VulnsView: React.FC = (): JSX.Element => {
   function closeRemediationModal(): void {
     setOpen(false);
   }
-  const [isEditing, setEditing] = React.useState(false);
+  const [isEditing, setEditing] = useState(false);
   function toggleEdit(): void {
     setEditing(!isEditing);
   }
-  const [isRequestingVerify, setRequestingVerify] = React.useState(false);
+  const [isRequestingVerify, setRequestingVerify] = useState(false);
   function toggleRequestVerify(): void {
     setRequestingVerify(!isRequestingVerify);
   }
-  const [isVerifying, setVerifying] = React.useState(false);
+  const [isVerifying, setVerifying] = useState(false);
   function toggleVerify(): void {
     setVerifying(!isVerifying);
   }
