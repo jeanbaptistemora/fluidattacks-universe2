@@ -1,6 +1,7 @@
 { buildPythonRequirements
 , makeTemplate
 , nixpkgs
+, path
 , ...
 }:
 let
@@ -48,6 +49,9 @@ makeTemplate {
   searchPaths = {
     envLibraries = [ nixpkgs.gcc.cc.lib ];
     envPaths = [ pythonRequirements ];
+    envPythonPaths = [
+      (path "/sorts/training")
+    ];
     envPython38Paths = [ pythonRequirements ];
   };
 }
