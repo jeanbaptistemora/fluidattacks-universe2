@@ -604,7 +604,7 @@ async def update_git_environments(
     )
 
 
-async def update_git_root(user_email: str, **kwargs: Any) -> None:
+async def update_git_root_legacy(user_email: str, **kwargs: Any) -> None:
     root_id: str = kwargs['id']
     group_name: str = kwargs['group_name']
     root: Dict[str, Any] = await get_root_by_id(group_name, root_id)
@@ -671,6 +671,66 @@ async def update_git_root(user_email: str, **kwargs: Any) -> None:
                 )
     else:
         raise InvalidParameter()
+
+
+async def update_git_root(user_email: str, **kwargs: Any) -> None:
+    root_id: str = kwargs['id']
+    group_name: str = kwargs['group_name']
+    root = await get_root(group_name=group_name, root_id=root_id)
+
+    if not isinstance(root, GitRootItem):
+        raise InvalidParameter()
+
+    gitignore = kwargs['gitignore']
+    filter_changed: bool = gitignore != root.state.gitignore
+    enforcer = await authz.get_group_level_enforcer(user_email)
+    if (
+        filter_changed
+        and not enforcer(group_name, 'update_git_root_filter')
+    ):
+        raise PermissionDenied()
+    if not validations.is_exclude_valid(gitignore, root.metadata.url):
+        raise InvalidRootExclusion()
+
+    if root.state.status != 'ACTIVE':
+        raise InvalidParameter()
+
+    nickname = format_root_nickname(
+        kwargs.get('nickname', ''),
+        root.state.nickname
+    )
+    if (
+        nickname != root.state.nickname and
+        not await _is_nickname_unique_in_group(group_name, nickname)
+    ):
+        raise RepeatedRootNickname()
+
+    await roots_dal.update_git_root_state(
+        group_name=group_name,
+        root_id=root_id,
+        state=GitRootState(
+            environment_urls=root.state.environment_urls,
+            environment=kwargs['environment'],
+            gitignore=gitignore,
+            includes_health_check=kwargs['includes_health_check'],
+            modified_by=user_email,
+            modified_date=datetime_utils.get_iso_date(),
+            nickname=root.state.nickname,
+            status=root.state.status
+        )
+    )
+
+    health_check_changed: bool = (
+        kwargs['includes_health_check']
+        != root.state.includes_health_check
+    )
+    if health_check_changed:
+        await _notify_health_check(
+            group_name=group_name,
+            request=kwargs['includes_health_check'],
+            root=root,
+            user_email=user_email
+        )
 
 
 async def update_root_cloning_status_legacy(
