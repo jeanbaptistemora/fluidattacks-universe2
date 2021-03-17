@@ -54,7 +54,7 @@ makeTemplate {
             "ruamel.yaml==0.16.10"
             "semver==2.10.2"
             "tracers==20.7.17562"
-            "tree-sitter==0.2.1"
+            "tree-sitter==0.19.0"
             "uvloop==0.14.0"
           ];
           inherited = [
@@ -97,8 +97,8 @@ makeTemplate {
           envSrcSkimsStatic = path "/skims/static";
           envSrcSkimsVendor = path "/skims/vendor";
           envSrcTreeSitter = fetchzip {
-            url = "https://github.com/tree-sitter/tree-sitter-java/archive/f7b62ac33d63bea56ce202ace107aaa4285e50af.tar.gz";
-            sha256 = "qz8u75CvWrVph9vZM5hfERpyc7NJF8Cxm7oFnVc6cEk=";
+            url = "https://github.com/tree-sitter/tree-sitter-java/archive/bd6186c24d5eb13b4623efac9d944dcc095c0dad.tar.gz";
+            sha256 = "//+cev/D6Ye6kgwpKiBOJ3MyvPJ/IVKcS+yfdGEc0hc=";
           };
         };
         name = "skims-config-context-file";
