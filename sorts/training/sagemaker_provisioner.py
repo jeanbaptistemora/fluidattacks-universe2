@@ -13,6 +13,7 @@ from sagemaker.sklearn.estimator import SKLearn as SKLearnEstimator
 def get_estimator(model: str) -> SKLearnEstimator:
     sklearn_estimator: SKLearnEstimator = SKLearn(
         entry_point='training/training_script.py',
+        dependencies=['sorts/sorts'],
         framework_version='0.23-1',
         instance_type="ml.m5.2xlarge",
         instance_count=1,
