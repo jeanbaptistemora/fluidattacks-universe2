@@ -18,12 +18,7 @@ from back.settings import LOGGING
 from backend.dal.helpers import dynamodb
 from backend.exceptions import UnavailabilityError
 from dynamodb import model
-from dynamodb.types import (
-    GitRootCloning,
-    GitRootItem,
-    GitRootState,
-    RootItem
-)
+from dynamodb.types import GitRootCloning, GitRootState, RootItem
 
 
 # Constants
@@ -53,8 +48,8 @@ async def create_legacy(
     return success
 
 
-async def create_git_root(*, group_name: str, root: GitRootItem) -> None:
-    await model.create_git_root(group_name=group_name, root=root)
+async def create_root(*, group_name: str, root: RootItem) -> None:
+    await model.create_root(group_name=group_name, root=root)
 
 
 async def get_root(

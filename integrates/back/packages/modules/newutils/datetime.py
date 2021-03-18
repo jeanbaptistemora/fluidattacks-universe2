@@ -1,5 +1,5 @@
 # pylint: disable=too-many-arguments
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 import pytz
 
@@ -14,10 +14,10 @@ iso_format: str = '%Y-%m-%d %H:%M:%S'
 def get_from_str(
     date_str: str,
     date_format: str = iso_format,
-    timezone: str = settings.TIME_ZONE,
+    zone: str = settings.TIME_ZONE,
 ) -> datetime:
     unaware_datetime = datetime.strptime(date_str, date_format)
-    return pytz.timezone(timezone).localize(unaware_datetime, is_dst=False)
+    return pytz.timezone(zone).localize(unaware_datetime, is_dst=False)
 
 
 def get_as_str(
@@ -27,8 +27,8 @@ def get_as_str(
     return date.strftime(date_format)
 
 
-def get_now(timezone: str = settings.TIME_ZONE) -> datetime:
-    return datetime.now(tz=pytz.timezone(timezone))
+def get_now(zone: str = settings.TIME_ZONE) -> datetime:
+    return datetime.now(tz=pytz.timezone(zone))
 
 
 def get_utc_timestamp() -> float:
@@ -54,9 +54,9 @@ def get_now_plus_delta(
     minutes: float = 0,
     hours: float = 0,
     weeks: float = 0,
-    timezone: str = settings.TIME_ZONE,
+    zone: str = settings.TIME_ZONE,
 ) -> datetime:
-    now = get_now(timezone=timezone)
+    now = get_now(zone=zone)
     now_plus_delta = get_plus_delta(
         now,
         days=days,
@@ -89,9 +89,9 @@ def get_now_minus_delta(
     minutes: float = 0,
     hours: float = 0,
     weeks: float = 0,
-    timezone: str = settings.TIME_ZONE,
+    zone: str = settings.TIME_ZONE,
 ) -> datetime:
-    now = get_now(timezone=timezone)
+    now = get_now(zone=zone)
     now_minus_delta = get_minus_delta(
         now,
         days=days,
@@ -118,4 +118,4 @@ def get_as_epoch(date: datetime) -> int:
 
 
 def get_iso_date() -> str:
-    return f'{datetime.utcnow().isoformat()}Z'
+    return datetime.now(tz=timezone.utc).isoformat()

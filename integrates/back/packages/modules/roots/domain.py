@@ -380,7 +380,7 @@ async def add_git_root(context: Any, user_email: str, **kwargs: Any) -> None:
             status='ACTIVE'
         )
     )
-    await roots_dal.create_git_root(group_name=group_name, root=root)
+    await roots_dal.create_root(group_name=group_name, root=root)
 
     if kwargs['includes_health_check']:
         await _notify_health_check(

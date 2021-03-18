@@ -174,7 +174,7 @@ async def get_roots(*, group_name: str) -> Tuple[RootItem, ...]:
     )
 
 
-async def create_git_root(*, group_name: str, root: GitRootItem) -> None:
+async def create_root(*, group_name: str, root: RootItem) -> None:
     key_structure = TABLE.primary_key
 
     metadata_key = keys.build_key(
@@ -186,18 +186,6 @@ async def create_git_root(*, group_name: str, root: GitRootItem) -> None:
         key_structure.sort_key: metadata_key.sort_key,
         **dict(root.metadata._asdict())
     }
-
-    historic_cloning = historics.build_historic(
-        attributes=dict(root.cloning._asdict()),
-        historic_facet=TABLE.facets['root_historic_cloning'],
-        key_structure=key_structure,
-        key_values={
-            'iso8601utc': root.cloning.modified_date,
-            'name': group_name,
-            'uuid': root.id
-        },
-        latest_facet=TABLE.facets['root_cloning'],
-    )
 
     historic_state = historics.build_historic(
         attributes=dict(root.state._asdict()),
@@ -211,14 +199,26 @@ async def create_git_root(*, group_name: str, root: GitRootItem) -> None:
         latest_facet=TABLE.facets['root_state'],
     )
 
-    await operations.batch_write_item(
-        items=(
-            initial_metadata,
-            *historic_cloning,
-            *historic_state
-        ),
-        table=TABLE
-    )
+    items = (initial_metadata, *historic_state)
+
+    if isinstance(root, GitRootItem):
+        historic_cloning = historics.build_historic(
+            attributes=dict(root.cloning._asdict()),
+            historic_facet=TABLE.facets['root_historic_cloning'],
+            key_structure=key_structure,
+            key_values={
+                'iso8601utc': root.cloning.modified_date,
+                'name': group_name,
+                'uuid': root.id
+            },
+            latest_facet=TABLE.facets['root_cloning'],
+        )
+        await operations.batch_write_item(
+            items=(*items, *historic_cloning),
+            table=TABLE
+        )
+    else:
+        await operations.batch_write_item(items=items, table=TABLE)
 
 
 async def update_git_root_state(

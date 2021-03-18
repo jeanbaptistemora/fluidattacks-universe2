@@ -92,7 +92,6 @@ async def populate_orgs(data: List[Any]) -> bool:
     return success
 
 
-
 async def populate_groups(data: List[Any]) -> bool:
     coroutines: List[Awaitable[bool]] = []
     data_parsed: List[Any] = json.loads(json.dumps(data), parse_float=Decimal)
