@@ -10,11 +10,13 @@ from graphql.type.definition import GraphQLResolveInfo
 # Local
 from backend import util
 from backend.decorators import require_login
-from backend.domain import organization as org_domain
+from backend.domain import (
+    organization as org_domain,
+    user as user_domain
+)
 from backend.exceptions import TagNotFound
 from backend.typing import Tag
 from tags import domain as tags_domain
-from users import domain as users_domain
 
 
 @require_login
@@ -27,7 +29,7 @@ async def resolve(
 
     user_data: Dict[str, str] = await util.get_jwt_content(info.context)
     user_email: str = user_data['user_email']
-    user_groups: List[str] = await users_domain.get_projects(user_email)
+    user_groups: List[str] = await user_domain.get_projects(user_email)
 
     if user_groups:
         org_id: str = await org_domain.get_id_for_group(user_groups[0])

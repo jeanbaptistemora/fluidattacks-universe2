@@ -3,9 +3,11 @@
 from typing import Dict, cast
 
 from backend import authz, util
-from backend.domain import finding as finding_domain
+from backend.domain import (
+    finding as finding_domain,
+    user as user_domain
+)
 from events import domain as events_domain
-from users import domain as users_domain
 
 
 async def has_access_to_project(email: str, group: str) -> bool:
@@ -32,7 +34,7 @@ async def has_valid_access_token(
     """ Verify if has active access token and match. """
     access_token = cast(
         Dict[str, str],
-        await users_domain.get_data(email, 'access_token')
+        await user_domain.get_data(email, 'access_token')
     )
     resp = False
     if context and access_token:

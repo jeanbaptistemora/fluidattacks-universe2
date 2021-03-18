@@ -16,7 +16,10 @@ from backend.decorators import (
     require_integrates,
     require_login
 )
-from backend.domain import project as group_domain
+from backend.domain import (
+    project as group_domain,
+    user as user_domain,
+)
 from backend.exceptions import StakeholderNotFound
 from backend.typing import (
     Invitation as InvitationType,
@@ -24,7 +27,6 @@ from backend.typing import (
 )
 from newutils import user as user_utils
 from newutils.validations import validate_fluidattacks_staff_on_group
-from users import domain as users_domain
 
 
 logging.config.dictConfig(LOGGING)
@@ -57,7 +59,7 @@ async def _update_stakeholder(
             if await authz.grant_group_level_role(
                 modified_email, group_name, modified_role
             ):
-                success = await users_domain.edit_user_information(
+                success = await user_domain.edit_user_information(
                     info.context, updated_data, group_name
                 )
             else:

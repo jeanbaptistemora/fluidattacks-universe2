@@ -41,12 +41,12 @@ from backend.decorators import authenticate_session
 from backend.domain import (
     project as group_domain,
     organization as org_domain,
+    user as user_domain,
 )
 from backend.exceptions import (
     ExpiredToken,
     SecureAccessException,
 )
-from users import domain as users_domain
 from __init__ import (
     FI_ENVIRONMENT,
     FI_STARLETTE_SESSION_KEY
@@ -105,8 +105,9 @@ async def confirm_access(request: Request) -> HTMLResponse:
         project_access = await group_domain.get_access_by_url_token(url_token)
 
         if project_access:
-            success = await users_domain\
-                .complete_register_for_group_invitation(project_access)
+            success = await user_domain.complete_register_for_group_invitation(
+                project_access
+            )
             if success:
                 response = await templates.valid_invitation(
                     request,

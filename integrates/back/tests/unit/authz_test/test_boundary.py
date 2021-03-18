@@ -8,7 +8,9 @@ import pytest
 
 # Local libraries
 from backend import authz
-
+from backend.domain import (
+    user as user_domain,
+)
 
 # Constants
 pytestmark = [

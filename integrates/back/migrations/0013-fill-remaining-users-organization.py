@@ -31,7 +31,7 @@ from backend.domain.project import get_attributes as get_project_attributes
 from backend.domain.organization import (
     get_id_by_name as get_organization_id_by_name
 )
-from users.domain import get_projects as get_user_projects
+from backend.domain.user import get_projects as get_user_projects
 from __init__ import FI_COMMUNITY_PROJECTS
 
 

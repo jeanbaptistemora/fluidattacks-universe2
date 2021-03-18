@@ -18,18 +18,20 @@ from graphql.type.definition import GraphQLResolveInfo
 
 # Local imports
 from backend import mailer
-from backend.domain import organization as org_domain
+from backend.domain import (
+    organization as org_domain,
+    user as user_domain
+)
 from backend.typing import Finding as FindingType
 from newutils import datetime as datetime_utils
 from notifications import dal as notifications_dal
-from users import domain as users_domain
 from __init__ import (
     BASE_URL,
 )
 
 
 async def _get_recipient_first_name_async(email: str) -> str:
-    first_name = await users_domain.get_data(email, 'first_name')
+    first_name = await user_domain.get_data(email, 'first_name')
     if not first_name:
         first_name = email.split('@')[0]
     else:
@@ -287,7 +289,7 @@ async def send_push_notification(
     title: str,
     message: str
 ) -> None:
-    user_attrs: dict = await users_domain.get_attributes(
+    user_attrs: dict = await user_domain.get_attributes(
         user_email, ['push_tokens'])
     tokens: List[str] = user_attrs.get('push_tokens', [])
 
@@ -296,4 +298,4 @@ async def send_push_notification(
             notifications_dal.send_push_notification(
                 user_email, token, title, message)
         except DeviceNotRegisteredError:
-            users_domain.remove_push_token(user_email, token)
+            user_domain.remove_push_token(user_email, token)

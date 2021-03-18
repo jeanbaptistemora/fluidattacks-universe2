@@ -10,11 +10,13 @@ from graphql.type.definition import GraphQLResolveInfo
 
 # Local libraries
 from backend.decorators import require_organization_access
+from backend.domain import (
+    user as user_domain
+)
 from backend.typing import (
     Me as MeType,
     Tag as TagType
 )
-from users import domain as users_domain
 
 
 @convert_kwargs_to_snake_case  # type: ignore
@@ -32,7 +34,7 @@ async def resolve(
 
     organization = await organization_loader.load(organization_id)
     org_tags = await organization_tags_loader.load(organization['name'])
-    user_groups = await users_domain.get_projects(
+    user_groups = await user_domain.get_projects(
         user_email,
         organization_id=organization_id
     )

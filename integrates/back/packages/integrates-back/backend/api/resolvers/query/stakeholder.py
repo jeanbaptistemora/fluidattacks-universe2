@@ -12,10 +12,9 @@ from backend.decorators import (
     enforce_organization_level_auth_async,
     require_login
 )
-from backend.domain import project as group_domain
+from backend.domain import project as group_domain, user as stakeholder_domain
 from backend.exceptions import InvalidParameter, StakeholderNotFound
 from backend.typing import Stakeholder
-from users import domain as stakeholders_domain
 
 
 @enforce_organization_level_auth_async
@@ -24,7 +23,7 @@ async def _resolve_for_organization(
     email: str,
     organization_id: str,
 ) -> Stakeholder:
-    stakeholder: Stakeholder = await stakeholders_domain.get_by_email(email)
+    stakeholder: Stakeholder = await stakeholder_domain.get_by_email(email)
     org_role: str = await authz.get_organization_level_role(
         email,
         organization_id
@@ -46,7 +45,7 @@ async def _resolve_for_group(
     email: str,
     group_name: str,
 ) -> Stakeholder:
-    stakeholder: Stakeholder = await stakeholders_domain.get_by_email(email)
+    stakeholder: Stakeholder = await stakeholder_domain.get_by_email(email)
     group_role: str = await authz.get_group_level_role(email, group_name)
 
     if group_role:

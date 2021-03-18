@@ -8,11 +8,11 @@ from graphql.type.definition import GraphQLResolveInfo
 # Local libraries
 from backend import util
 from backend.decorators import require_login
+from backend.domain import user as user_domain
 from backend.exceptions import InvalidExpirationTime
 from backend.typing import (
     UpdateAccessTokenPayload as UpdateAccessTokenPayloadType
 )
-from users import domain as users_domain
 
 
 @convert_kwargs_to_snake_case  # type: ignore
@@ -25,7 +25,7 @@ async def mutate(
     user_info = await util.get_jwt_content(info.context)
     email = user_info['user_email']
     try:
-        result = await users_domain.update_access_token(
+        result = await user_domain.update_access_token(
             email,
             expiration_time,
             first_name=user_info['first_name'],

@@ -7,8 +7,8 @@ from aioextensions import collect
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local
+from backend.domain import user as user_domain
 from backend.typing import Project as Group, Stakeholder
-from users import domain as users_domain
 
 
 async def resolve(
@@ -19,8 +19,8 @@ async def resolve(
     email: str = cast(str, parent['email'])
 
     active, inactive = await collect([
-        users_domain.get_projects(email),
-        users_domain.get_projects(email, active=False)
+        user_domain.get_projects(email),
+        user_domain.get_projects(email, active=False)
     ])
     user_groups: List[str] = active + inactive
 
