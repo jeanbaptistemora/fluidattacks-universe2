@@ -1,6 +1,9 @@
 # Standard libraries
 import tempfile
-from typing import Union
+from typing import (
+    cast,
+    Union,
+)
 
 # Third party libraries
 
@@ -37,7 +40,7 @@ def test_all_audiences() -> None:
             list(filter(lambda x: isinstance(x, SingerSchema), singer_msgs))
         )
         raw_records = list(map(
-            lambda x: x.record,
+            lambda x: cast(SingerRecord, x).record,
             list(filter(lambda x: isinstance(x, SingerRecord), singer_msgs))
         ))
         audiences = client.list_audiences()

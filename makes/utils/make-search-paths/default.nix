@@ -10,6 +10,7 @@ let
 in
 { envClassPaths ? [ ]
 , envLibraries ? [ ]
+, envMypy38Paths ? [ ]
 , envNodeBinaries ? [ ]
 , envNodeLibraries ? [ ]
 , envPaths ? [ ]
@@ -40,6 +41,10 @@ makeTemplate {
       {
         derivations = envLibraries;
         generator = export "LD_LIBRARY_PATH" "/lib64";
+      }
+      {
+        derivations = envMypy38Paths;
+        generator = export "MYPYPATH" "/lib/python3.8/site-packages";
       }
       {
         derivations = envNodeBinaries;

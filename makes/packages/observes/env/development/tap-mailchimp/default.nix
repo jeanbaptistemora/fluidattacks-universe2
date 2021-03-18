@@ -60,5 +60,10 @@ makeTemplate {
       singerIO
       self
     ];
+    envMypy38Paths = [
+      logger
+      singerIO
+      self
+    ];
   };
 }

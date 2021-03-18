@@ -2,6 +2,7 @@
 import logging
 import sys
 from typing import (
+    Any,
     IO,
 )
 
@@ -11,7 +12,7 @@ from bugsnag.handlers import BugsnagHandler
 
 # Local libraries
 
-def configure(**kargs) -> None:
+def configure(**kargs: Any) -> None:
     bugsnag.configure(
         api_key='13748c4b5f6807a89f327c0f54fe6c7a',
         **kargs
