@@ -394,6 +394,58 @@ def resource(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
         raise MissingCaseHandling(resource, args)
 
 
+def cast_expression(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
+    match = g.match_ast(
+        args.graph,
+        args.n_id,
+        'type_identifier',
+        'scoped_type_identifier',
+        '(',
+        ')',
+        '__0__',
+    )
+    type_cast_id = match['type_identifier'] or match['scoped_type_identifier']
+    if (len(match) == 5 and (statement := match['__0__'])):
+        yield graph_model.SyntaxStepCastExpression(
+            meta=graph_model.SyntaxStepMeta.default(
+                n_id=args.n_id,
+                dependencies=[
+                    generic(args.fork_n_id(statement)),
+                ],
+            ),
+            cast_type=args.graph.nodes[type_cast_id]['label_text']
+        )
+    else:
+        raise MissingCaseHandling(cast_expression, args)
+
+
+def instanceof_expression(
+        args: SyntaxReaderArgs,
+) -> graph_model.SyntaxStepsLazy:
+    match = g.match_ast(
+        args.graph,
+        args.n_id,
+        'type_identifier',
+        'instanceof',
+        'scoped_type_identifier',
+        '__0__',
+    )
+    type_of_id = match['type_identifier'] or match['scoped_type_identifier']
+
+    if (len(match) == 4 and (statement := match['__0__'])):
+        yield graph_model.SyntaxStepInstanceofExpression(
+            meta=graph_model.SyntaxStepMeta.default(
+                n_id=args.n_id,
+                dependencies=[
+                    generic(args.fork_n_id(statement)),
+                ],
+            ),
+            instanceof_type=args.graph.nodes[type_of_id]['label_text'],
+        )
+    else:
+        raise MissingCaseHandling(instanceof_expression, args)
+
+
 def parenthesized_expression(
     args: SyntaxReaderArgs,
 ) -> graph_model.SyntaxStepsLazy:
@@ -793,10 +845,31 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
         },
         applicable_node_label_types={
             'parenthesized_expression',
-            'cast_expression',
         },
         syntax_readers=(
             parenthesized_expression,
+        ),
+    ),
+    Dispatcher(
+        applicable_languages={
+            graph_model.GraphShardMetadataLanguage.JAVA,
+        },
+        applicable_node_label_types={
+            'cast_expression',
+        },
+        syntax_readers=(
+            cast_expression,
+        ),
+    ),
+    Dispatcher(
+        applicable_languages={
+            graph_model.GraphShardMetadataLanguage.JAVA,
+        },
+        applicable_node_label_types={
+            'instanceof_expression',
+        },
+        syntax_readers=(
+            instanceof_expression,
         ),
     ),
     Dispatcher(
@@ -952,6 +1025,7 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
         for applicable_node_label_type in (
             'block',
             'break_statement',
+            'continue_statement',
             'comment',
             'expression_statement',
             'finally_clause',

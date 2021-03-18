@@ -506,6 +506,25 @@ def syntax_step_ternary(args: EvaluatorArgs) -> None:
         raise NotImplementedError(predicate.meta.value)
 
 
+def syntax_step_cast_expression(args: EvaluatorArgs) -> None:
+    args.syntax_step.meta.danger = any(
+        dep.meta.danger for dep in args.dependencies
+    )
+    if len(args.dependencies) == 1:
+        args.syntax_step.meta.value = args.dependencies[0].meta.value
+
+
+def syntax_step_instanceof_expression(args: EvaluatorArgs) -> None:
+    if isinstance(args.dependencies[0], graph_model.SyntaxStepSymbolLookup):
+        if var_declaration := lookup_var_dcl_by_name(
+            args,
+            args.dependencies[0].symbol,
+        ):
+            args.syntax_step.meta.value = (
+                var_declaration.var_type == args.syntax_step.instanceof_type
+            )
+
+
 EVALUATORS: Dict[object, Evaluator] = {
     graph_model.SyntaxStepAssignment: syntax_step_assignment,
     graph_model.SyntaxStepArrayAccess: syntax_step_array_access,
@@ -514,6 +533,7 @@ EVALUATORS: Dict[object, Evaluator] = {
     graph_model.SyntaxStepArrayInstantiation:
     syntax_step_array_instantiation,
     graph_model.SyntaxStepBinaryExpression: syntax_step_binary_expression,
+    graph_model.SyntaxStepCastExpression: syntax_step_cast_expression,
     graph_model.SyntaxStepCatchClause: syntax_step_catch_clause,
     graph_model.SyntaxStepUnaryExpression: syntax_step_unary_expression,
     graph_model.SyntaxStepParenthesizedExpression:
@@ -521,6 +541,8 @@ EVALUATORS: Dict[object, Evaluator] = {
     graph_model.SyntaxStepDeclaration: syntax_step_declaration,
     graph_model.SyntaxStepFor: syntax_step_for,
     graph_model.SyntaxStepIf: syntax_step_if,
+    graph_model.SyntaxStepInstanceofExpression:
+    syntax_step_instanceof_expression,
     graph_model.SyntaxStepSwitch: syntax_step_switch_label,
     graph_model.SyntaxStepSwitchLabelCase: syntax_step_switch_label_case,
     graph_model.SyntaxStepSwitchLabelDefault: syntax_step_switch_label_default,

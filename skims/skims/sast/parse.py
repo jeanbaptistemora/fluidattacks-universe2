@@ -126,6 +126,7 @@ def _build_ast_graph(
                 'scoped_identifier',
                 'scoped_type_identifier',
                 'this',
+                'type_identifier',
             },
         )):
             # Consider it a final node, extract the text from it

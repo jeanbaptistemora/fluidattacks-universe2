@@ -130,6 +130,20 @@ class SyntaxStepParenthesizedExpression(NamedTuple):
     type: str = 'SyntaxStepParenthesizedExpression'
 
 
+class SyntaxStepCastExpression(NamedTuple):
+    meta: SyntaxStepMeta
+    cast_type: str
+
+    type: str = 'SyntaxStepCastExpression'
+
+
+class SyntaxStepInstanceofExpression(NamedTuple):
+    meta: SyntaxStepMeta
+    instanceof_type: str
+
+    type: str = 'SyntaxStepInstanceofExpression'
+
+
 class SyntaxStepCatchClause(NamedTuple):
     meta: SyntaxStepMeta
 

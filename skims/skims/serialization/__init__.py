@@ -244,6 +244,8 @@ ALLOWED_FACTORIES: Dict[type, Dict[str, Any]] = {
                 graph_model.SyntaxStepArrayInitialization,
                 graph_model.SyntaxStepAssignment,
                 graph_model.SyntaxStepBinaryExpression,
+                graph_model.SyntaxStepCastExpression,
+                graph_model.SyntaxStepInstanceofExpression,
                 graph_model.SyntaxStepCatchClause,
                 graph_model.SyntaxStepDeclaration,
                 graph_model.SyntaxStepIf,
