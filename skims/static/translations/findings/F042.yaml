@@ -1,0 +1,34 @@
+utils.model.finding.enum.f042.description:
+  en: >
+    El sistema no establece los atributos de seguridad para las cookies
+    sensibles, lo que podría hacer que se envíen en texto plano o sean
+    visualizadas por usuarios no autorizados del lado del cliente.
+  es: >
+    The system does not set security attributes for sensitive cookies,
+    which could cause them to be sent in plain text or disclosed by
+    unauthorized users on the client side.
+utils.model.finding.enum.f042.impact:
+  en: |
+    - Send plain text session cookies through insecure channels
+  es: |
+    - Enviar cookies de sesión en texto plano a través de canales inseguro
+utils.model.finding.enum.f042.recommendation:
+  en: >
+    The application must set the corresponding security attributes when cookies
+    are generated.
+  es: >
+    La aplicación debe establecer los correspondientes atributos de seguridad
+    cuando se generan las cookies.
+utils.model.finding.enum.f042.requirements:
+  en: >
+    R029 The session cookies of web applications must have security attributes
+    (HttpOnly, Secure, SameSite) and prefixes (e.g., __Host-).
+  es: >
+    R029 Las cookies de sesión de las aplicaciones web deben tener atributos
+    de seguridad (HttpOnly, Secure, SameSite) y prefijos (por ejemplo, __Host-).
+utils.model.finding.enum.f042.threat:
+  en: Unauthenticated attacker from the Internet.
+  es: Atacante no autenticado desde Internet.
+utils.model.finding.enum.f042.title:
+  en: F042. Insecurely generated cookies
+  es: F042. Cookies generadas de forma insegura
