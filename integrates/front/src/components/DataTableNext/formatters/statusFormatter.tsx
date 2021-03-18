@@ -12,44 +12,49 @@ const StatusFormatter: StyledComponent<
   className: "b br0 dib pa2 white",
 })``;
 
+const statusGrayColor: string[] = ["Requested", "Unknown"];
+const statusGreenColor: string[] = [
+  "Active",
+  "Closed",
+  "Confirmed",
+  "Enabled",
+  "Ok",
+  "Secure",
+  "Solved",
+  "Submitted",
+  "Success",
+  "Verified (closed)",
+];
+const statusOrangeColor: string[] = [
+  "Accepted",
+  "Created",
+  "Pending",
+  "Partially closed",
+];
+const statusRedColor: string[] = [
+  "Disabled",
+  "Failed",
+  "Inactive",
+  "Open",
+  "Rejected",
+  "Unsolved",
+  "Unregistered",
+  "Verified (open)",
+  "Vulnerable",
+];
+
 const getBgColor: (value: string) => string = (value: string): string => {
-  switch (value) {
-    // Gray
-    case "Requested":
-    case "Unknown":
-      return "bg-lbl-gray";
-    // Green
-    case "Active":
-    case "Closed":
-    case "Confirmed":
-    case "Enabled":
-    case "Ok":
-    case "Secure":
-    case "Solved":
-    case "Submitted":
-    case "Success":
-    case "Verified (closed)":
-      return "bg-lbl-green";
-    // Orange
-    case "Accepted":
-    case "Created":
-    case "Pending":
-    case "Partially closed":
-      return "bg-lbl-yellow";
-    // Red
-    case "Disabled":
-    case "Failed":
-    case "Inactive":
-    case "Open":
-    case "Rejected":
-    case "Unsolved":
-    case "Unregistered":
-    case "Verified (open)":
-    case "Vulnerable":
-      return "bg-lbl-red";
-    default:
-      return "";
+  if (statusGrayColor.includes(value)) {
+    return "bg-lbl-gray";
+  } else if (statusGreenColor.includes(value)) {
+    return "bg-lbl-green";
+  } else if (statusOrangeColor.includes(value)) {
+    return "bg-lbl-yellow";
+  } else if (statusRedColor.includes(value)) {
+    return "bg-lbl-red";
   }
+
+  return "";
 };
 
 const statusFormatter: (value: string) => JSX.Element = (

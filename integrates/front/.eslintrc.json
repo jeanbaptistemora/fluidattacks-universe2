@@ -48,7 +48,7 @@
   "rules": {
     "camelcase": "error",
     "capitalized-comments": ["error", "always", { "ignoreConsecutiveComments": true }],
-    "complexity": "off",
+    "complexity": "error",
     "eqeqeq": ["error", "smart"],
     "func-style": ["error", "declaration", { "allowArrowFunctions": true }],
     /*
