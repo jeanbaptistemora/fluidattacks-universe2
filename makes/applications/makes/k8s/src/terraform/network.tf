@@ -5,11 +5,11 @@ resource "aws_subnet" "region_a" {
   map_public_ip_on_launch = true
 
   tags = {
-    "Name"                                      = "integrates-cluster-1"
+    "Name"                                      = "makes-cluster-1"
     "kubernetes.io/cluster/${var.cluster_name}" = "shared"
     "kubernetes.io/role/elb"                    = "1"
     "management:type"                           = "production"
-    "management:product"                        = "integrates"
+    "management:product"                        = "makes"
   }
 }
 
@@ -20,11 +20,11 @@ resource "aws_subnet" "region_b" {
   map_public_ip_on_launch = true
 
   tags = {
-    "Name"                                      = "integrates-cluster-2"
+    "Name"                                      = "makes-cluster-2"
     "kubernetes.io/cluster/${var.cluster_name}" = "shared"
     "kubernetes.io/role/elb"                    = "1"
     "management:type"                           = "production"
-    "management:product"                        = "integrates"
+    "management:product"                        = "makes"
   }
 }
 
@@ -35,10 +35,10 @@ resource "aws_subnet" "region_d" {
   map_public_ip_on_launch = true
 
   tags = {
-    "Name"                                      = "integrates-cluster-3"
+    "Name"                                      = "makes-cluster-3"
     "kubernetes.io/cluster/${var.cluster_name}" = "shared"
     "kubernetes.io/role/elb"                    = "1"
     "management:type"                           = "production"
-    "management:product"                        = "integrates"
+    "management:product"                        = "makes"
   }
 }

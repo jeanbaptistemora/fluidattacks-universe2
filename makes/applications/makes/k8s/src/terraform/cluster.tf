@@ -21,7 +21,7 @@ module "eks" {
     "GithubRepo"         = "terraform-aws-eks"
     "GithubOrg"          = "terraform-aws-modules"
     "management:type"    = "production"
-    "management:product" = "integrates"
+    "management:product" = "makes"
   }
 
   vpc_id = var.fluid_vpc_id

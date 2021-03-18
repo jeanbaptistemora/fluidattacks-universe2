@@ -12,8 +12,8 @@ module "alb_ingress_controller" {
   aws_resource_name_prefix           = ""
 
   aws_tags = {
-    "Name"               = "integrates-cluster-alb"
+    "Name"               = "makes-cluster-alb"
     "management:type"    = "production"
-    "management:product" = "integrates"
+    "management:product" = "makes"
   }
 }
