@@ -31,6 +31,10 @@ def get_now(zone: str = settings.TIME_ZONE) -> datetime:
     return datetime.now(tz=pytz.timezone(zone))
 
 
+def get_now_as_str(zone: str = settings.TIME_ZONE) -> str:
+    return get_as_str(get_now(zone))
+
+
 def get_utc_timestamp() -> float:
     return datetime.now().timestamp()
 

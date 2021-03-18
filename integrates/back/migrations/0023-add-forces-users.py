@@ -13,12 +13,11 @@ from aioextensions import run
 from botocore.exceptions import ClientError
 
 # Local library
-from backend.dal.project import get_active_projects
-from backend.domain.project import get_many_groups
 from backend.api.resolvers import user
 from backend.api.resolvers.user import _create_new_user
-from backend.domain import (
-    user as user_domain, )
+from backend.dal.project import get_active_projects
+from backend.domain.project import get_many_groups
+from users import domain as users_domain
 
 
 async def main() -> None:
@@ -35,7 +34,7 @@ async def main() -> None:
         try:
             success = await _create_new_user(
                 context=dict(),
-                email=user_domain.format_forces_user_email(group_name),
+                email=users_domain.format_forces_user_email(group_name),
                 responsibility='Forces service user',
                 role='service_forces',
                 phone_number='',

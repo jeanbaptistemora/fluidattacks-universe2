@@ -14,12 +14,10 @@ from backend.decorators import (
     require_login,
     require_organization_access
 )
-from backend.domain import (
-    organization as org_domain,
-    user as user_domain,
-)
+from backend.domain import organization as org_domain
 from backend.exceptions import UserNotInOrganization
 from backend.typing import EditStakeholderPayload
+from users import domain as users_domain
 
 
 @convert_kwargs_to_snake_case  # type: ignore
@@ -58,7 +56,7 @@ async def mutate(
         user_email,
         new_role
     ):
-        success = await user_domain.edit_user_information(
+        success = await users_domain.edit_user_information(
             info.context,
             {
                 'email': user_email,

@@ -5,8 +5,8 @@ from typing import cast
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local
-from backend.domain import user as user_domain
 from backend.typing import Me
+from users import domain as users_domain
 
 
 async def resolve(
@@ -16,7 +16,7 @@ async def resolve(
 ) -> bool:
     user_email: str = cast(str, parent['user_email'])
     is_concurrent_session: bool = bool(
-        await user_domain.get_data(user_email, 'is_concurrent_session')
+        await users_domain.get_data(user_email, 'is_concurrent_session')
     )
 
     return is_concurrent_session

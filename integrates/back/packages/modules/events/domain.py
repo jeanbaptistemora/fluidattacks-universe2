@@ -25,10 +25,7 @@ from starlette.datastructures import UploadFile
 from back import settings
 from backend import authz, mailer, util
 from backend.dal import project as project_dal
-from backend.domain import (
-    organization as org_domain,
-    user as user_domain
-)
+from backend.domain import organization as org_domain
 from backend.exceptions import (
     EventAlreadyClosed,
     EventNotFound,
@@ -50,6 +47,7 @@ from newutils import (
     events as events_utils,
     validations,
 )
+from users import domain as users_domain
 from __init__ import (
     BASE_URL,
     FI_MAIL_CONTINUOUS,
@@ -353,7 +351,7 @@ async def add_comment(
         ]
         if parent not in event_comments:
             raise InvalidCommentParent()
-    user_data = await user_domain.get(user_email)
+    user_data = await users_domain.get(user_email)
     user_data['user_email'] = user_data.pop('email')
     success = await comments_domain.create(event_id, comment_data, user_data)
     del comment_data['user_id']

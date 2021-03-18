@@ -5,6 +5,7 @@ import pytest
 from datetime import datetime, timedelta
 
 from boto3 import client
+import pytz
 from graphql.language.ast import (
     FieldNode,
     ObjectFieldNode,
@@ -32,6 +33,7 @@ from backend.util import (
     get_field_parameters,
 )
 from newutils import (
+    datetime as datetime_utils,
     encodings,
     token as token_helper,
 )
@@ -45,6 +47,15 @@ from __init__ import (
 pytestmark = [
     pytest.mark.asyncio,
 ]
+
+
+def test_get_current_date():
+    tzn = pytz.timezone(settings.TIME_ZONE)
+    today = datetime.now(tz=tzn)
+    date = today.strftime('%Y-%m-%d %H:%M')
+    test_data = datetime_utils.get_now_as_str()[:-3]
+    assert isinstance(test_data, str)
+    assert test_data == date
 
 
 def test_ord_asc_by_criticality():

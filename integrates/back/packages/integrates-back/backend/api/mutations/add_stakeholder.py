@@ -7,15 +7,15 @@ from ariadne.utils import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local
+from back.settings import LOGGING
 from backend import authz, mailer, util
 from backend.decorators import (
     concurrent_decorators,
     enforce_user_level_auth_async,
     require_login
 )
-from backend.domain import user as user_domain
 from backend.typing import AddStakeholderPayload, MailContent
-from back.settings import LOGGING
+from users import domain as users_domain
 
 
 logging.config.dictConfig(LOGGING)
@@ -42,7 +42,7 @@ async def mutate(
     )
 
     if role in allowed_roles_to_grant:
-        new_user = await user_domain.create_without_project(
+        new_user = await users_domain.create_without_project(
             email=email,
             role=role,
             phone_number=phone_number,
