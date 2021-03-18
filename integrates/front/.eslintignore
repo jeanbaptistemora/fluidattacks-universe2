@@ -38,6 +38,7 @@ src/scenes/Dashboard/**/*.*
 !src/scenes/Dashboard/containers/RecordsView/**
 !src/scenes/Dashboard/containers/SeverityView/**
 !src/scenes/Dashboard/containers/TagContent/index.spec.tsx
+!src/scenes/Dashboard/containers/TagContent/index.tsx
 !src/scenes/Dashboard/containers/TrackingView/**
 !src/scenes/Dashboard/containers/VulnerabilitiesView/**
 src/**/*.css.d.ts
