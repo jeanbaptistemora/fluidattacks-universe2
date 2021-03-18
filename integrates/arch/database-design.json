@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Mar 18, 2021, 05:18 PM",
+    "DateLastModified": "Mar 18, 2021, 06:44 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "2.0"
@@ -273,6 +273,26 @@
         {
           "AttributeName": "protocol",
           "AttributeType": "S"
+        },
+        {
+          "AttributeName": "comments",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "loc",
+          "AttributeType": "N"
+        },
+        {
+          "AttributeName": "modified_commit",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "tested_date",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "tested_lines",
+          "AttributeType": "N"
         }
       ],
       "TableFacets": [
@@ -1433,6 +1453,52 @@
             "status",
             "reason",
             "modified_date"
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
+        },
+        {
+          "FacetName": "root_toe_lines",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "GROUP#group_name",
+            "SortKeyAlias": "ROOT#root_id#FILENAME#filename"
+          },
+          "TableData": [
+            {
+              "pk": {
+                "S": "GROUP#unittesting"
+              },
+              "sk": {
+                "S": "ROOT#73f2b757-5a61-4027-b00d-c6227f2163cf#FILENAME#product/test/test.config"
+              },
+              "modified_date": {
+                "S": "2020-11-19 08:37:10"
+              },
+              "comments": {
+                "S": "comment test"
+              },
+              "loc": {
+                "N": "111"
+              },
+              "modified_commit": {
+                "S": "983466z"
+              },
+              "tested_date": {
+                "S": "2021-02-28 11:54:12"
+              },
+              "tested_lines": {
+                "N": "172"
+              }
+            }
+          ],
+          "NonKeyAttributes": [
+            "modified_date",
+            "comments",
+            "loc",
+            "modified_commit",
+            "tested_date",
+            "tested_lines"
           ],
           "DataAccess": {
             "MySql": {}
