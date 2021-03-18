@@ -3,7 +3,9 @@ import re
 from datetime import datetime
 from typing import (
     Any,
+    Awaitable,
     cast,
+    Dict,
     List,
     Union
 )
@@ -23,7 +25,10 @@ from backend.dal import (
     user as user_dal,
 )
 from backend.dal.helpers import dynamodb
-from backend.domain import organization as org_domain
+from backend.domain import (
+    project as project_domain,
+    organization as org_domain,
+)
 from backend.exceptions import (
     InvalidPushToken,
     InvalidExpirationTime,
@@ -52,6 +57,47 @@ async def acknowledge_concurrent_session(email: str) -> bool:
 async def add_phone_to_user(email: str, phone: str) -> bool:
     """ Update user phone number. """
     return await user_dal.update(email, {'phone': phone})
+
+
+async def edit_user_information(
+    context: Any,
+    modified_user_data: Dict[str, str],
+    project_name: str
+) -> bool:
+    coroutines: List[Awaitable[bool]] = []
+    email = modified_user_data['email']
+    phone = modified_user_data['phone_number']
+    responsibility = modified_user_data['responsibility']
+    success: bool = False
+
+    if responsibility:
+        if len(responsibility) <= 50:
+            coroutines.append(
+                project_domain.update_access(
+                    email,
+                    project_name,
+                    {'responsibility': responsibility}
+                )
+            )
+        else:
+            util.cloudwatch_log(
+                context,
+                f'Security: {email} Attempted to add responsibility to '
+                f'project{project_name} bypassing validation'
+            )
+
+    if phone and validate_phone_field(phone):
+        coroutines.append(add_phone_to_user(email, phone))
+    else:
+        util.cloudwatch_log(
+            context,
+            f'Security: {email} Attempted to edit '
+            f'user phone bypassing validation'
+        )
+
+    if coroutines:
+        success = all(await collect(coroutines))
+    return success
 
 
 def get_current_date() -> str:

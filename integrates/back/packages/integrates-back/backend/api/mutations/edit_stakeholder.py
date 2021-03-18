@@ -16,7 +16,10 @@ from backend.decorators import (
     require_integrates,
     require_login
 )
-from backend.domain import project as group_domain
+from backend.domain import (
+    project as group_domain,
+    user as user_domain,
+)
 from backend.exceptions import StakeholderNotFound
 from backend.typing import (
     Invitation as InvitationType,
@@ -56,7 +59,7 @@ async def _update_stakeholder(
             if await authz.grant_group_level_role(
                 modified_email, group_name, modified_role
             ):
-                success = await user_utils.modify_user_information(
+                success = await user_domain.edit_user_information(
                     info.context, updated_data, group_name
                 )
             else:

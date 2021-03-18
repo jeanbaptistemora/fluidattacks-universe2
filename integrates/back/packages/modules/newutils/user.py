@@ -2,11 +2,8 @@
 import logging
 import secrets
 from typing import (
-    Any,
-    Awaitable,
     Dict,
-    List,
-    cast
+    cast,
 )
 
 # Third party libraries
@@ -75,40 +72,6 @@ async def _add_acess(
         )
 
     return result
-
-
-async def modify_user_information(
-    context: Any,
-    modified_user_data: Dict[str, str],
-    project_name: str
-) -> bool:
-    success = False
-    email = modified_user_data['email']
-    responsibility = modified_user_data['responsibility']
-    phone = modified_user_data['phone_number']
-    coroutines: List[Awaitable[bool]] = []
-
-    if responsibility:
-        coroutines.append(_add_acess(
-            responsibility,
-            email,
-            project_name,
-            context
-        ))
-
-    if phone and validate_phone_field(phone):
-        coroutines.append(
-            user_domain.add_phone_to_user(email, phone)
-        )
-        success = all(await collect(coroutines))
-    else:
-        util.cloudwatch_log(
-            context,
-            f'Security: {email} Attempted to edit '
-            f'user phone bypassing validation'
-        )
-
-    return success
 
 
 async def complete_register_for_group_invitation(
