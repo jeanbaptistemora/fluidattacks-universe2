@@ -203,7 +203,7 @@ def syntax_step_if(args: EvaluatorArgs) -> None:
         raise StopEvaluation('Execution flow cannot go this way')
 
 
-def syntax_step_switch(_args: EvaluatorArgs) -> None:
+def syntax_step_switch_label(_args: EvaluatorArgs) -> None:
     pass
 
 
@@ -444,7 +444,9 @@ EVALUATORS: Dict[object, Evaluator] = {
     graph_model.SyntaxStepDeclaration: syntax_step_declaration,
     graph_model.SyntaxStepFor: syntax_step_for,
     graph_model.SyntaxStepIf: syntax_step_if,
-    graph_model.SyntaxStepSwitch: syntax_step_switch,
+    graph_model.SyntaxStepSwitch: syntax_step_switch_label,
+    graph_model.SyntaxStepSwitchLabelCase: syntax_step_no_op,
+    graph_model.SyntaxStepSwitchLabelDefault: syntax_step_no_op,
     graph_model.SyntaxStepLiteral: syntax_step_literal,
     graph_model.SyntaxStepMethodInvocation: syntax_step_method_invocation,
     graph_model.SyntaxStepMethodInvocationChain:

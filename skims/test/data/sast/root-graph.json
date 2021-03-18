@@ -42002,10 +42002,97 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
+              "n_id": "1089",
+              "value": null
+            },
+            "type": "SyntaxStepSwitchLabelDefault"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1074",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "6",
+            "value_type": "number"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "1072",
+              "value": null
+            },
+            "type": "SyntaxStepSwitchLabelCase"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1070",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "5",
+            "value_type": "number"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "1068",
+              "value": null
+            },
+            "type": "SyntaxStepSwitchLabelCase"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1053",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "3",
+            "value_type": "number"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "1051",
+              "value": null
+            },
+            "type": "SyntaxStepSwitchLabelCase"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1047",
+              "value": null
+            },
+            "symbol": "age",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "1045",
+              "value": null
+            },
+            "type": "SyntaxStepParenthesizedExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -5,
               "n_id": "1043",
               "value": null
             },
-            "n_id_switch_block": "1049",
             "type": "SyntaxStepSwitch"
           }
         ],
@@ -42025,10 +42112,21 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
+              "n_id": "1053",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "3",
+            "value_type": "number"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
               "n_id": "1051",
               "value": null
             },
-            "type": "SyntaxStepNoOp"
+            "type": "SyntaxStepSwitchLabelCase"
           }
         ],
         "1055": [
@@ -42115,10 +42213,21 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
+              "n_id": "1070",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "5",
+            "value_type": "number"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
               "n_id": "1068",
               "value": null
             },
-            "type": "SyntaxStepNoOp"
+            "type": "SyntaxStepSwitchLabelCase"
           }
         ],
         "1072": [
@@ -42126,10 +42235,21 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
+              "n_id": "1074",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "6",
+            "value_type": "number"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
               "n_id": "1072",
               "value": null
             },
-            "type": "SyntaxStepNoOp"
+            "type": "SyntaxStepSwitchLabelCase"
           }
         ],
         "1076": [
@@ -42196,7 +42316,7 @@
               "n_id": "1089",
               "value": null
             },
-            "type": "SyntaxStepNoOp"
+            "type": "SyntaxStepSwitchLabelDefault"
           }
         ],
         "1092": [
@@ -45527,10 +45647,97 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
+              "n_id": "553",
+              "value": null
+            },
+            "type": "SyntaxStepSwitchLabelDefault"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "538",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "3",
+            "value_type": "number"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "536",
+              "value": null
+            },
+            "type": "SyntaxStepSwitchLabelCase"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "458",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "2",
+            "value_type": "number"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "456",
+              "value": null
+            },
+            "type": "SyntaxStepSwitchLabelCase"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "441",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "1",
+            "value_type": "number"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "439",
+              "value": null
+            },
+            "type": "SyntaxStepSwitchLabelCase"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "435",
+              "value": null
+            },
+            "symbol": "age",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "433",
+              "value": null
+            },
+            "type": "SyntaxStepParenthesizedExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -5,
               "n_id": "431",
               "value": null
             },
-            "n_id_switch_block": "437",
             "type": "SyntaxStepSwitch"
           }
         ],
@@ -45539,10 +45746,21 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
+              "n_id": "441",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "1",
+            "value_type": "number"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
               "n_id": "439",
               "value": null
             },
-            "type": "SyntaxStepNoOp"
+            "type": "SyntaxStepSwitchLabelCase"
           }
         ],
         "443": [
@@ -45617,10 +45835,21 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
+              "n_id": "458",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "2",
+            "value_type": "number"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
               "n_id": "456",
               "value": null
             },
-            "type": "SyntaxStepNoOp"
+            "type": "SyntaxStepSwitchLabelCase"
           }
         ],
         "460": [
@@ -45984,10 +46213,21 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
+              "n_id": "538",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "3",
+            "value_type": "number"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
               "n_id": "536",
               "value": null
             },
-            "type": "SyntaxStepNoOp"
+            "type": "SyntaxStepSwitchLabelCase"
           }
         ],
         "540": [
@@ -46054,7 +46294,7 @@
               "n_id": "553",
               "value": null
             },
-            "type": "SyntaxStepNoOp"
+            "type": "SyntaxStepSwitchLabelDefault"
           }
         ],
         "556": [
@@ -46155,10 +46395,97 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
+              "n_id": "632",
+              "value": null
+            },
+            "type": "SyntaxStepSwitchLabelDefault"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "620",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "3",
+            "value_type": "number"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "618",
+              "value": null
+            },
+            "type": "SyntaxStepSwitchLabelCase"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "606",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "2",
+            "value_type": "number"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "604",
+              "value": null
+            },
+            "type": "SyntaxStepSwitchLabelCase"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "592",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "1",
+            "value_type": "number"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "590",
+              "value": null
+            },
+            "type": "SyntaxStepSwitchLabelCase"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "586",
+              "value": null
+            },
+            "symbol": "age",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "584",
+              "value": null
+            },
+            "type": "SyntaxStepParenthesizedExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -5,
               "n_id": "582",
               "value": null
             },
-            "n_id_switch_block": "588",
             "type": "SyntaxStepSwitch"
           }
         ],
@@ -46167,10 +46494,21 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
+              "n_id": "592",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "1",
+            "value_type": "number"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
               "n_id": "590",
               "value": null
             },
-            "type": "SyntaxStepNoOp"
+            "type": "SyntaxStepSwitchLabelCase"
           }
         ],
         "594": [
@@ -46223,10 +46561,21 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
+              "n_id": "606",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "2",
+            "value_type": "number"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
               "n_id": "604",
               "value": null
             },
-            "type": "SyntaxStepNoOp"
+            "type": "SyntaxStepSwitchLabelCase"
           }
         ],
         "608": [
@@ -46279,10 +46628,21 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
+              "n_id": "620",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "3",
+            "value_type": "number"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
               "n_id": "618",
               "value": null
             },
-            "type": "SyntaxStepNoOp"
+            "type": "SyntaxStepSwitchLabelCase"
           }
         ],
         "622": [
@@ -46349,7 +46709,7 @@
               "n_id": "632",
               "value": null
             },
-            "type": "SyntaxStepNoOp"
+            "type": "SyntaxStepSwitchLabelDefault"
           }
         ],
         "635": [
@@ -46492,10 +46852,157 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
+              "n_id": "719",
+              "value": null
+            },
+            "type": "SyntaxStepSwitchLabelDefault"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "704",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "6",
+            "value_type": "number"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "702",
+              "value": null
+            },
+            "type": "SyntaxStepSwitchLabelCase"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "700",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "5",
+            "value_type": "number"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "698",
+              "value": null
+            },
+            "type": "SyntaxStepSwitchLabelCase"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "696",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "4",
+            "value_type": "number"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "694",
+              "value": null
+            },
+            "type": "SyntaxStepSwitchLabelCase"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "679",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "3",
+            "value_type": "number"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "677",
+              "value": null
+            },
+            "type": "SyntaxStepSwitchLabelCase"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "675",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "2",
+            "value_type": "number"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "673",
+              "value": null
+            },
+            "type": "SyntaxStepSwitchLabelCase"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "671",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "1",
+            "value_type": "number"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "669",
+              "value": null
+            },
+            "type": "SyntaxStepSwitchLabelCase"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "665",
+              "value": null
+            },
+            "symbol": "age",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "663",
+              "value": null
+            },
+            "type": "SyntaxStepParenthesizedExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -8,
               "n_id": "661",
               "value": null
             },
-            "n_id_switch_block": "667",
             "type": "SyntaxStepSwitch"
           }
         ],
@@ -46504,10 +47011,21 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
+              "n_id": "671",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "1",
+            "value_type": "number"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
               "n_id": "669",
               "value": null
             },
-            "type": "SyntaxStepNoOp"
+            "type": "SyntaxStepSwitchLabelCase"
           }
         ],
         "673": [
@@ -46515,10 +47033,21 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
+              "n_id": "675",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "2",
+            "value_type": "number"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
               "n_id": "673",
               "value": null
             },
-            "type": "SyntaxStepNoOp"
+            "type": "SyntaxStepSwitchLabelCase"
           }
         ],
         "677": [
@@ -46526,10 +47055,21 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
+              "n_id": "679",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "3",
+            "value_type": "number"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
               "n_id": "677",
               "value": null
             },
-            "type": "SyntaxStepNoOp"
+            "type": "SyntaxStepSwitchLabelCase"
           }
         ],
         "681": [
@@ -46593,10 +47133,21 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
+              "n_id": "696",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "4",
+            "value_type": "number"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
               "n_id": "694",
               "value": null
             },
-            "type": "SyntaxStepNoOp"
+            "type": "SyntaxStepSwitchLabelCase"
           }
         ],
         "698": [
@@ -46604,10 +47155,21 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
+              "n_id": "700",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "5",
+            "value_type": "number"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
               "n_id": "698",
               "value": null
             },
-            "type": "SyntaxStepNoOp"
+            "type": "SyntaxStepSwitchLabelCase"
           }
         ],
         "702": [
@@ -46615,10 +47177,21 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
+              "n_id": "704",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "6",
+            "value_type": "number"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
               "n_id": "702",
               "value": null
             },
-            "type": "SyntaxStepNoOp"
+            "type": "SyntaxStepSwitchLabelCase"
           }
         ],
         "706": [
@@ -46685,7 +47258,7 @@
               "n_id": "719",
               "value": null
             },
-            "type": "SyntaxStepNoOp"
+            "type": "SyntaxStepSwitchLabelDefault"
           }
         ],
         "722": [

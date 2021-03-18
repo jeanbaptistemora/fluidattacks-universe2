@@ -132,6 +132,44 @@ def binary_expression(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
     )
 
 
+def switch_statement(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
+    # switch parenthesized_expression switch_block
+    switch_c_ids = g.adj_ast(args.graph, args.n_id)
+    switch_pred_id = switch_c_ids[1]
+    switch_block_id = switch_c_ids[2]
+    switch_label_ids = tuple(
+        c_id
+        for c_id in g.adj_ast(args.graph, switch_block_id)[1:-1]
+        if args.graph.nodes[c_id]['label_type'] == 'switch_label'
+    )
+
+    yield graph_model.SyntaxStepSwitch(
+        meta=graph_model.SyntaxStepMeta.default(args.n_id, [
+            generic(args.fork_n_id(switch_label_id))
+            for switch_label_id in reversed(switch_label_ids)
+        ] + [
+            generic(args.fork_n_id(switch_pred_id)),
+        ]),
+    )
+
+
+def switch_label(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
+    match = g.match_ast(args.graph, args.n_id)
+
+    if len(match) == 3:
+        yield graph_model.SyntaxStepSwitchLabelCase(
+            meta=graph_model.SyntaxStepMeta.default(args.n_id, [
+                generic(args.fork_n_id(match['__1__'])),
+            ]),
+        )
+    elif len(match) == 2:
+        yield graph_model.SyntaxStepSwitchLabelDefault(
+            meta=graph_model.SyntaxStepMeta.default(args.n_id),
+        )
+    else:
+        raise MissingCaseHandling(switch_label, args)
+
+
 def unary_expression(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
     op_id, exp_id = g.adj_ast(args.graph, args.n_id)
 
@@ -354,31 +392,6 @@ def resource(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
         )
     else:
         raise MissingCaseHandling(resource, args)
-
-
-def switch_statement(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
-    # switch ( parenthesized_expression ) switch_block
-    match = g.match_ast(
-        args.graph, args.n_id,
-        'switch',
-        'parenthesized_expression',
-        'switch_block',
-    )
-    if ((parenthesized := match['parenthesized_expression'])
-            and (switch_block := match['switch_block'])):
-        match_expression = g.match_ast(
-            args.graph, parenthesized,
-            '__1__',
-        )
-        yield graph_model.SyntaxStepSwitch(
-            meta=graph_model.SyntaxStepMeta.default(
-                n_id=args.n_id,
-                dependencies=dependencies_from_arguments(
-                    args.fork_n_id(match_expression['__1__']),
-                ),
-            ),
-            n_id_switch_block=switch_block,
-        )
 
 
 def parenthesized_expression(
@@ -813,6 +826,17 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
             graph_model.GraphShardMetadataLanguage.JAVA,
         },
         applicable_node_label_types={
+            'switch_label',
+        },
+        syntax_readers=(
+            switch_label,
+        ),
+    ),
+    Dispatcher(
+        applicable_languages={
+            graph_model.GraphShardMetadataLanguage.JAVA,
+        },
+        applicable_node_label_types={
             'local_variable_declaration',
         },
         syntax_readers=(
@@ -933,7 +957,6 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
             'finally_clause',
             'resource_specification',
             'return_statement',
-            'switch_label',
             'this',
             'try_statement',
             'try_with_resources_statement',

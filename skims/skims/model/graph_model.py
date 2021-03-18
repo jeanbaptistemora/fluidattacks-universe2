@@ -108,9 +108,20 @@ class SyntaxStepIf(NamedTuple):
 
 class SyntaxStepSwitch(NamedTuple):
     meta: SyntaxStepMeta
-    n_id_switch_block: Optional[NId]
 
     type: str = 'SyntaxStepSwitch'
+
+
+class SyntaxStepSwitchLabelCase(NamedTuple):
+    meta: SyntaxStepMeta
+
+    type: str = 'SyntaxStepSwitchLabelCase'
+
+
+class SyntaxStepSwitchLabelDefault(NamedTuple):
+    meta: SyntaxStepMeta
+
+    type: str = 'SyntaxStepSwitchLabelDefault'
 
 
 class SyntaxStepParenthesizedExpression(NamedTuple):
