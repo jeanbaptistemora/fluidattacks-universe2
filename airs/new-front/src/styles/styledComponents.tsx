@@ -171,6 +171,8 @@ const MainFooterInfoContainer: StyledComponent<
     mb0-m
     mb3
     ph3
+    w-100
+    center
   `,
 })``;
 

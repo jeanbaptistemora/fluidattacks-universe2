@@ -88,6 +88,9 @@ $whiter-gray: rgba(241, 241, 241, 1);
 .c-fluid-gray { color: $fluid-gray; }
 .c-hovered-red { color: $hovered-red; }
 
+// Display classes
+.display-none { display: none; }
+
 // Fonts
 .roboto { font-family: 'Roboto', sans-serif; }
 .neue { font-family: neue-haas-grotesk-display, sans-serif; }
@@ -139,6 +142,11 @@ $whiter-gray: rgba(241, 241, 241, 1);
   .bg-banner-sz { background-size: 100% 100%; }
   .mw-20 { max-width: 20rem; }
   .ph-body { padding: 0 3.75rem; }
+}
+
+@media screen and (min-width: 1200px) {
+  .dib-xl { display: inline-block !important; }
+  .df-l { display: flex; }
 }
 
 // Medium screen sizes
