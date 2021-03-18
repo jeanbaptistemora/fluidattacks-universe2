@@ -46,9 +46,7 @@
     }
   },
   "rules": {
-    "camelcase": "error",
     "capitalized-comments": ["error", "always", { "ignoreConsecutiveComments": true }],
-    "complexity": "error",
     "eqeqeq": ["error", "smart"],
     "func-style": ["error", "declaration", { "allowArrowFunctions": true }],
     /*
@@ -65,23 +63,16 @@
     "max-params": "off",
     "max-statements": "off",
     "multiline-comment-style": ["error", "starred-block"],
-    "no-alert": "error",
-    "no-console": "error",
     /*
     * Replaced by @typescript-eslint/no-duplicate-imports to avoid
     * conflicts with type imports
     * https://github.com/typescript-eslint/typescript-eslint/issues/2315
     */
     "no-duplicate-imports": "off",
-    "no-else-return": "error",
-    "no-implicit-coercion": "error",
-    "no-lonely-if": "error",
-    "no-negated-condition": "error",
     /*
      * Rules regarding the ternary op are disabled, as it is common its usage in React
      */
     "no-nested-ternary": "off",
-    "no-shadow": "error",
     "no-ternary": "off",
     /*
      * This rule is deactivated as the codebase uses extensivelly "undefined"
@@ -94,29 +85,18 @@
      * Exception to the next rule: The variable "__typename" is required by Apollo Library
      */
     "no-underscore-dangle": ["error", { "allow": ["__typename"] }],
-    "no-unneeded-ternary": "error",
-    "no-useless-concat": "error",
-    "no-useless-rename": "error",
     "no-void": ["error", { "allowAsStatement": true }],
-    "object-shorthand": "error",
     "one-var": ["error", "never"],
     "padding-line-between-statements": [
       "error",
       { "blankLine": "always", "prev": "*", "next": "return" }
     ],
-    "prefer-destructuring": "error",
-    "prefer-named-capture-group": "error",
-    "prefer-exponentiation-operator": "error",
-    "prefer-template": "error",
-    "require-unicode-regexp": "error",
-    "sort-keys": "error",
     "sort-imports": [
       "error",
       {
         "memberSyntaxSortOrder": ["single", "all", "multiple", "none"]
       }
     ],
-    "spaced-comment": "error",
     "prettier/prettier": [
       "error",
       {},
