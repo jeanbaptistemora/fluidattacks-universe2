@@ -40,5 +40,6 @@ makeDerivation {
     envLocation = location;
   };
   builder = path "/makes/utils/make-entrypoint/builder.sh";
+  local = true;
   inherit name;
 }

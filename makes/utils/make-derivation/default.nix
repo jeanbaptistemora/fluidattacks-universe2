@@ -5,6 +5,7 @@ path: pkgs:
 
 { arguments ? { }
 , builder
+, local ? false
 , name
 , searchPaths ? { }
 }:
@@ -44,4 +45,7 @@ builtins.derivation (arguments' // {
   builder = "${pkgs.bash}/bin/bash";
   inherit name;
   system = "x86_64-linux";
+} // pkgs.lib.optionalAttrs local {
+  allowSubstitutes = false;
+  preferLocalBuild = true;
 })

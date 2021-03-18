@@ -42,5 +42,6 @@ makeDerivation {
       '';
   };
   builder = path "/makes/utils/make-template/builder.sh";
+  local = true;
   inherit name;
 }
