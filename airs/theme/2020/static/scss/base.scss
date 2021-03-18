@@ -196,6 +196,7 @@ $codeyellow: rgba(230, 219, 116, 1);
 .bg-menu-systems { background-image: url('../../images/menu/bg-menu-systems.png'); }
 .bg-menu-aboutus { background-image: url('../../images/menu/bg-menu-aboutus.png'); }
 .footer-logo { margin-left: 1.5rem; }
+.drop-resources { filter: drop-shadow(0 30px 30px rgba(46, 46, 56, 0.8)); }
 
 .bg-card1 {
   background-image: url('../../images/resources/card1.png');
@@ -383,6 +384,12 @@ $codeyellow: rgba(230, 219, 116, 1);
 @media screen and (max-width: 1320px) {
   .empty-col {
     display: none !important;
+  }
+}
+
+@media screen and (min-width: 1076px) {
+  .asserts-img-col {
+    float: left !important;
   }
 }
 
