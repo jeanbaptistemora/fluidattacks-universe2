@@ -24,7 +24,16 @@ module.exports = {
         'web/groups/events',
         'web/groups/consulting',
         'web/groups/authors',
-        'web/groups/scope',
+        {
+          type: 'category',
+          label: 'Scope',
+          items: [
+            'web/groups/scope/introduction',
+            'web/groups/scope/gitroots',
+            'web/groups/scope/files',
+            'web/groups/scope/portfolio',
+          ],
+        },
       ],
     },
     {
