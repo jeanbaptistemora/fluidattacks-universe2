@@ -33,7 +33,8 @@ _stream_executor: Mapping[
     SupportedStreams.RECENT_ACTIVITY: streams.recent_activity,
     SupportedStreams.TOP_CLIENTS: streams.top_clients,
     SupportedStreams.MEMBERS: streams.all_members,
-    SupportedStreams.GROWTH_HISTORY: streams.all_growth_history
+    SupportedStreams.GROWTH_HISTORY: streams.all_growth_history,
+    SupportedStreams.INTEREST_CATEGORY: streams.all_interest_category,
 }
 
 

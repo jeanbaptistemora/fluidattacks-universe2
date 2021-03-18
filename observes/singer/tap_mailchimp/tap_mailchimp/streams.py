@@ -30,6 +30,7 @@ from tap_mailchimp.api import (
     ApiData,
     AudienceId,
     GrowthHistId,
+    InterestCatgId,
     ItemId,
     MemberId,
 )
@@ -42,6 +43,7 @@ class SupportedStreams(Enum):
     RECENT_ACTIVITY = 'RECENT_ACTIVITY'
     TOP_CLIENTS = 'TOP_CLIENTS'
     GROWTH_HISTORY = 'GROWTH_HISTORY'
+    INTEREST_CATEGORY = 'INTEREST_CATEGORY'
 
 
 def _item_getter(
@@ -59,6 +61,7 @@ def _item_getter(
         SupportedStreams.TOP_CLIENTS: client.get_top_clients,
         SupportedStreams.MEMBERS: client.get_member,
         SupportedStreams.GROWTH_HISTORY: client.get_growth_hist,
+        SupportedStreams.INTEREST_CATEGORY: client.get_interest_catg,
     }
     id_type = {
         SupportedStreams.AUDIENCES: AudienceId,
@@ -67,9 +70,14 @@ def _item_getter(
         SupportedStreams.TOP_CLIENTS: AudienceId,
         SupportedStreams.MEMBERS: MemberId,
         SupportedStreams.GROWTH_HISTORY: GrowthHistId,
+        SupportedStreams.INTEREST_CATEGORY: InterestCatgId,
     }
-    assert isinstance(item_id, id_type[stream])
-    return getter[stream](item_id)
+    if isinstance(item_id, id_type[stream]):
+        return getter[stream](item_id)
+    raise TypeError(
+        f'Expected type `{id_type[stream]}` '
+        f'but recieved `{type(item_id)}`'
+    )
 
 
 def _emit_item(
@@ -153,3 +161,16 @@ def top_clients(client: ApiClient, target: Optional[IO[str]]) -> None:
     stream = SupportedStreams.TOP_CLIENTS
     audiences_id = client.list_audiences()
     _emit_items(client, stream, audiences_id, target)
+
+
+def all_interest_category(
+    client: ApiClient,
+    target: Optional[IO[str]]
+) -> None:
+    stream = SupportedStreams.INTEREST_CATEGORY
+    audiences_id = client.list_audiences()
+    interest_catgs_id: Iterator[InterestCatgId] = chain.from_iterable(iter(map(
+        client.list_interest_catg,
+        audiences_id
+    )))
+    _emit_items(client, stream, interest_catgs_id, target)

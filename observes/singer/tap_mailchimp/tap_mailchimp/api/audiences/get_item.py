@@ -16,6 +16,7 @@ from tap_mailchimp.api.common.raw import (
     AbsReportId,
     AudienceId,
     GrowthHistId,
+    InterestCatgId,
     MemberId,
     RawSource,
 )
@@ -91,4 +92,13 @@ def get_growth_hist(
 ) -> ApiData:
     return api_data.create_api_data(
         raw_source.get_growth_hist(ghist)
+    )
+
+
+def get_interest_catg(
+    raw_source: RawSource,
+    interest_catg: InterestCatgId,
+) -> ApiData:
+    return api_data.create_api_data(
+        raw_source.get_interest_catg(interest_catg)
     )

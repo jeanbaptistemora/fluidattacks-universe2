@@ -30,6 +30,7 @@ from tap_mailchimp.api.common.raw import (
     AudienceId,
     GrowthHistId,
     ItemId,
+    InterestCatgId,
     MemberId,
     RawSource,
 )
@@ -51,6 +52,8 @@ class ApiClient(NamedTuple):
     get_member: Callable[[MemberId], ApiData]
     list_growth_hist: Callable[[AudienceId], Iterator[GrowthHistId]]
     get_growth_hist: Callable[[GrowthHistId], ApiData]
+    list_interest_catg: Callable[[AudienceId], Iterator[InterestCatgId]]
+    get_interest_catg: Callable[[InterestCatgId], ApiData]
 
 
 def new_client_from_source(
@@ -67,6 +70,8 @@ def new_client_from_source(
         get_member=partial(get_item.get_member, raw_source),
         list_growth_hist=partial(list_items.list_growth_hist, raw_source),
         get_growth_hist=partial(get_item.get_growth_hist, raw_source),
+        list_interest_catg=partial(list_items.list_interest_catg, raw_source),
+        get_interest_catg=partial(get_item.get_interest_catg, raw_source),
     )
 
 
@@ -87,6 +92,7 @@ __all__ = [
     'AudienceId',
     'GrowthHistId',
     'ItemId',
+    'InterestCatgId',
     'MemberId',
     'RawSource',
 ]

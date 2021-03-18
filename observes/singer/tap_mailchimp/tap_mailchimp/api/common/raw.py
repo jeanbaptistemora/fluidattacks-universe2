@@ -51,6 +51,7 @@ ItemId = Union[
     AudienceId,
     AbsReportId,
     GrowthHistId,
+    InterestCatgId,
     MemberId,
 ]
 

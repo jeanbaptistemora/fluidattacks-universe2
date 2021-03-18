@@ -7,7 +7,13 @@ import sys
 # Local libraries
 
 
-def get_log(name: str, min_lvl: int = logging.INFO) -> logging.Logger:
+def get_log(
+    name: str,
+    min_lvl: int = logging.INFO,
+    debug: bool = False
+) -> logging.Logger:
+    if debug and min_lvl > logging.DEBUG:
+        min_lvl = logging.DEBUG
     logger_format: str = '[%(levelname)s] %(message)s'
     logger_formatter: logging.Formatter = logging.Formatter(logger_format)
 

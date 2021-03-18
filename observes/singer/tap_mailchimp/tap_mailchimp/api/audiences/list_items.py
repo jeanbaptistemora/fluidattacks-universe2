@@ -6,6 +6,9 @@ from typing import (
 # Third party libraries
 
 # Local libraries
+from tap_mailchimp import (
+    utils
+)
 from tap_mailchimp.api.common import (
     api_data,
 )
@@ -13,9 +16,12 @@ from tap_mailchimp.api.common.raw import (
     AbsReportId,
     AudienceId,
     GrowthHistId,
+    InterestCatgId,
     MemberId,
     RawSource,
 )
+
+LOG = utils.get_log(__name__)
 
 
 def list_audiences(
@@ -74,6 +80,24 @@ def list_growth_hist(
         lambda item: GrowthHistId(
             audience_id=audience,
             str_id=item['month']
+        ),
+        data
+    ))
+
+
+def list_interest_catg(
+    raw_source: RawSource,
+    audience: AudienceId
+) -> Iterator[InterestCatgId]:
+    result = api_data.create_api_data(
+        raw_source.list_interest_catg(audience)
+    )
+    LOG.debug('list_interest_catg result: %s', result)
+    data = result.data['categories']
+    return iter(map(
+        lambda item: InterestCatgId(
+            audience_id=audience,
+            str_id=item['id']
         ),
         data
     ))
