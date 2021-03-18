@@ -30,7 +30,6 @@ from backend import authz
 from backend.domain import (
     organization as org_domain,
     project as project_domain,
-    user as user_domain
 )
 from backend.filters import (
     finding as finding_filters,
@@ -42,7 +41,10 @@ from backend.typing import (
     Project as ProjectType
 )
 from comments.domain import CommentType
-from newutils import datetime as datetime_utils
+from newutils import (
+    datetime as datetime_utils,
+    mailer as mailer_utils,
+)
 from __init__ import (
     BASE_URL,
     FI_MAIL_REVIEWERS,
@@ -118,16 +120,6 @@ def _remove_test_projects(
     return context
 
 
-async def _get_recipient_first_name_async(email: str) -> str:
-    first_name = await user_domain.get_data(email, 'first_name')
-    if not first_name:
-        first_name = email.split('@')[0]
-    else:
-        # First name exists in database
-        pass
-    return str(first_name)
-
-
 async def _get_sqs_email_message_async(
     context: MailContentType,
     email_to: List[str],
@@ -148,7 +140,7 @@ async def _get_sqs_email_message_async(
             'merge_vars': []
         }
         for email in email_to:
-            fname_mail = await _get_recipient_first_name_async(email)
+            fname_mail = await mailer_utils.get_recipient_first_name(email)
             merge_var = {
                 'rcpt': email,
                 'vars': [{'name': 'fname', 'content': fname_mail}]
@@ -228,7 +220,7 @@ async def _send_mail_async_new(
     template_name: str
 ) -> None:
     mandrill_client = mandrill.Mandrill(API_KEY)
-    first_name = await _get_recipient_first_name_async(email_to)
+    first_name = await mailer_utils.get_recipient_first_name(email_to)
     year = datetime_utils.get_as_str(
         datetime_utils.get_now(), '%Y'
     )

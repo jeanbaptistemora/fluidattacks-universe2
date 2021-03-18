@@ -24,7 +24,7 @@ from backend.exceptions import StakeholderHasGroupAccess
 from backend.typing import (
     GrantStakeholderAccessPayload as GrantStakeholderAccessPayloadType,
 )
-from newutils import user as user_utils
+from newutils import groups as groups_utils
 
 
 logging.config.dictConfig(LOGGING)
@@ -67,7 +67,7 @@ async def mutate(
         )
 
     if new_user_role in allowed_roles_to_grant:
-        success = await user_utils.invite_to_group(
+        success = await groups_utils.invite_to_group(
             email=new_user_email,
             responsibility=new_user_responsibility,
             role=new_user_role,

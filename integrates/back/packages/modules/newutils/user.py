@@ -1,38 +1,10 @@
 # Standard libraries
-import logging
-import secrets
-from typing import (
-    Dict,
-    cast,
-)
-
-# Third party libraries
-import bugsnag
-from aioextensions import (
-    collect,
-    schedule
-)
-from graphql.type.definition import GraphQLResolveInfo
+from typing import Dict
 
 # Local libraries
-from back.settings import LOGGING
-from backend import (
-    authz,
-    mailer,
-    util
-)
-from backend.dal.helpers.redis import redis_del_by_deps_soon
-from backend.domain import (
-    organization as org_domain,
-    project as group_domain,
-    user as user_domain
-)
-from backend.typing import (
-    Invitation as InvitationType,
-    MailContent as MailContentType,
-    ProjectAccess as ProjectAccessType,
-)
-from newutils import datetime as datetime_utils
+from backend import authz
+from backend.domain import project as group_domain
+from backend.typing import Invitation as InvitationType
 from newutils.validations import (
     validate_alphanumeric_field,
     validate_email_address,
@@ -40,105 +12,6 @@ from newutils.validations import (
     validate_fluidattacks_staff_on_group,
     validate_phone_field
 )
-from __init__ import BASE_URL
-
-
-logging.config.dictConfig(LOGGING)
-
-# Constants
-LOGGER = logging.getLogger(__name__)
-
-
-async def _add_acess(
-    responsibility: str,
-    email: str,
-    project_name: str,
-    context: object
-) -> bool:
-    result = False
-    if len(responsibility) <= 50:
-        result = await group_domain.update_access(
-            email,
-            project_name,
-            {
-                'responsibility': responsibility
-            }
-        )
-    else:
-        util.cloudwatch_log(
-            context,
-            f'Security: {email} Attempted to add responsibility to '
-            f'project{project_name} bypassing validation'
-        )
-
-    return result
-
-
-async def complete_register_for_group_invitation(
-    project_access: ProjectAccessType
-) -> bool:
-    success = False
-    invitation = cast(InvitationType, project_access['invitation'])
-
-    if invitation['is_used']:
-        bugsnag.notify(Exception('Token already used'), severity='warning')
-    user_email = cast(str, project_access['user_email'])
-    group_name = cast(str, project_access['project_name'])
-    updated_invitation = invitation.copy()
-    updated_invitation['is_used'] = True
-    responsibility = cast(str, invitation['responsibility'])
-    phone_number = cast(str, invitation['phone_number'])
-    role = cast(str, invitation['role'])
-    success = await group_domain.update_access(
-        user_email,
-        group_name,
-        {
-            'expiration_time': None,
-            'has_access': True,
-            'invitation': updated_invitation,
-            'responsibility': responsibility,
-        }
-    )
-
-    success = success and await authz.grant_group_level_role(
-        user_email, group_name, role
-    )
-
-    organization_id = await org_domain.get_id_for_group(group_name)
-    if not await org_domain.has_user_access(organization_id, user_email):
-        success = success and await org_domain.add_user(
-            organization_id,
-            user_email,
-            'customer'
-        )
-
-    if await user_domain.get_data(user_email, 'email'):
-        success = success and await user_domain.add_phone_to_user(
-            user_email,
-            phone=phone_number
-        )
-    else:
-        success = success and await user_domain.create(
-            user_email,
-            {
-                'phone': phone_number
-            }
-        )
-
-    if not await user_domain.is_registered(user_email):
-        success = success and all(await collect((
-            user_domain.register(user_email),
-            authz.grant_user_level_role(user_email, 'customer')
-        )))
-
-    if success:
-        redis_del_by_deps_soon(
-            'confirm_access',
-            group_name=group_name,
-            organization_id=organization_id,
-        )
-
-    return success
 
 
 async def update_invited_stakeholder(
@@ -171,90 +44,6 @@ async def update_invited_stakeholder(
                 'invitation': new_invitation,
 
             }
-        )
-
-    return success
-
-
-async def invite_to_group(
-    email: str,
-    responsibility: str,
-    role: str,
-    phone_number: str,
-    group_name: str,
-) -> bool:
-    success = False
-    if (
-        validate_field_length(responsibility, 50)
-        and validate_alphanumeric_field(responsibility)
-        and validate_phone_field(phone_number)
-        and validate_email_address(email)
-        and await validate_fluidattacks_staff_on_group(group_name, email, role)
-    ):
-        expiration_time = datetime_utils.get_as_epoch(
-            datetime_utils.get_now_plus_delta(weeks=1)
-        )
-        url_token = secrets.token_urlsafe(64)
-        success = await group_domain.update_access(
-            email,
-            group_name,
-            {
-                'expiration_time': expiration_time,
-                'has_access': False,
-                'invitation': {
-                    'is_used': False,
-                    'phone_number': phone_number,
-                    'responsibility': responsibility,
-                    'role': role,
-                    'url_token': url_token,
-                },
-
-            }
-        )
-        description = await group_domain.get_description(
-            group_name.lower()
-        )
-        project_url = f'{BASE_URL}/confirm_access/{url_token}'
-        mail_to = [email]
-        email_context: MailContentType = {
-            'admin': email,
-            'project': group_name,
-            'project_description': description,
-            'project_url': project_url,
-        }
-        schedule(mailer.send_mail_access_granted(mail_to, email_context))
-
-    return success
-
-
-async def create_forces_user(
-    info: GraphQLResolveInfo,
-    group_name: str
-) -> bool:
-    user_email = user_domain.format_forces_user_email(group_name)
-    success = await invite_to_group(
-        email=user_email,
-        responsibility='Forces service user',
-        role='service_forces',
-        phone_number='',
-        group_name=group_name
-    )
-
-    # Give permissions directly, no confirmation required
-    project_access = await group_domain.get_user_access(
-        user_email, group_name
-    )
-    success = success and await complete_register_for_group_invitation(
-        project_access
-    )
-
-    if not success:
-        LOGGER.error(
-            'Couldn\'t grant access to project',
-            extra={
-                'extra': info.context,
-                'username': group_name
-            },
         )
 
     return success

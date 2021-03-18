@@ -23,7 +23,6 @@ from backend.domain import (
 )
 from backend.exceptions import PermissionDenied
 from backend.typing import SimplePayload as SimplePayloadType
-from newutils.user import create_forces_user
 
 
 @convert_kwargs_to_snake_case  # type: ignore
@@ -69,7 +68,7 @@ async def mutate(  # pylint: disable=too-many-arguments
         )
 
     if success and has_forces:
-        await create_forces_user(info, group_name)
+        await user_domain.create_forces_user(info, group_name)
     elif (
         success and not has_forces and has_integrates and
         await user_domain.ensure_user_exists(

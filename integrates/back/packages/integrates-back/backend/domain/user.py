@@ -1,4 +1,6 @@
 # Standard Libraries
+import logging
+import logging.config
 import re
 from datetime import datetime
 from typing import (
@@ -12,9 +14,12 @@ from typing import (
 
 # Third libraries
 import aioboto3
+import bugsnag
 from aioextensions import collect
+from graphql.type.definition import GraphQLResolveInfo
 
 # Local libraries
+from back.settings import LOGGING
 from backend import (
     authz,
     util,
@@ -25,6 +30,7 @@ from backend.dal import (
     user as user_dal,
 )
 from backend.dal.helpers import dynamodb
+from backend.dal.helpers.redis import redis_del_by_deps_soon
 from backend.domain import (
     project as project_domain,
     organization as org_domain,
@@ -34,12 +40,15 @@ from backend.exceptions import (
     InvalidExpirationTime,
 )
 from backend.typing import (
+    Invitation as InvitationType,
+    ProjectAccess as ProjectAccessType,
     User as UserType,
     UpdateAccessTokenPayload as UpdateAccessTokenPayloadType,
 )
 from newutils import (
     apm,
     datetime as datetime_utils,
+    groups as groups_utils,
     token as token_helper,
 )
 from newutils.validations import (
@@ -47,6 +56,12 @@ from newutils.validations import (
     validate_phone_field,
 )
 from __init__ import FI_DEFAULT_ORG
+
+
+logging.config.dictConfig(LOGGING)
+
+# Constants
+LOGGER = logging.getLogger(__name__)
 
 
 async def acknowledge_concurrent_session(email: str) -> bool:
@@ -57,6 +72,97 @@ async def acknowledge_concurrent_session(email: str) -> bool:
 async def add_phone_to_user(email: str, phone: str) -> bool:
     """ Update user phone number. """
     return await user_dal.update(email, {'phone': phone})
+
+
+async def complete_register_for_group_invitation(
+    project_access: ProjectAccessType
+) -> bool:
+    coroutines: List[Awaitable[bool]] = []
+    success: bool = False
+    invitation = cast(InvitationType, project_access['invitation'])
+    if invitation['is_used']:
+        bugsnag.notify(Exception('Token already used'), severity='warning')
+
+    group_name = cast(str, project_access['project_name'])
+    phone_number = cast(str, invitation['phone_number'])
+    responsibility = cast(str, invitation['responsibility'])
+    role = cast(str, invitation['role'])
+    user_email = cast(str, project_access['user_email'])
+    updated_invitation = invitation.copy()
+    updated_invitation['is_used'] = True
+
+    coroutines.extend([
+        project_domain.update_access(
+            user_email,
+            group_name,
+            {
+                'expiration_time': None,
+                'has_access': True,
+                'invitation': updated_invitation,
+                'responsibility': responsibility,
+            }
+        ),
+        authz.grant_group_level_role(user_email, group_name, role)
+    ])
+
+    organization_id = await org_domain.get_id_for_group(group_name)
+    if not await org_domain.has_user_access(organization_id, user_email):
+        coroutines.append(
+            org_domain.add_user(organization_id, user_email, 'customer')
+        )
+
+    if await get_data(user_email, 'email'):
+        coroutines.append(add_phone_to_user(user_email, phone_number))
+    else:
+        coroutines.append(create(user_email, {'phone': phone_number}))
+
+    if not await is_registered(user_email):
+        coroutines.extend([
+            register(user_email),
+            authz.grant_user_level_role(user_email, 'customer')
+        ])
+
+    success = all(await collect(coroutines))
+    if success:
+        redis_del_by_deps_soon(
+            'confirm_access',
+            group_name=group_name,
+            organization_id=organization_id,
+        )
+    return success
+
+
+async def create_forces_user(
+    info: GraphQLResolveInfo,
+    group_name: str
+) -> bool:
+    user_email = format_forces_user_email(group_name)
+    success = await groups_utils.invite_to_group(
+        email=user_email,
+        responsibility='Forces service user',
+        role='service_forces',
+        phone_number='',
+        group_name=group_name
+    )
+
+    # Give permissions directly, no confirmation required
+    project_access = await project_domain.get_user_access(
+        user_email, group_name
+    )
+    success = (
+        success and
+        await complete_register_for_group_invitation(project_access)
+    )
+
+    if not success:
+        LOGGER.error(
+            'Couldn\'t grant access to project',
+            extra={
+                'extra': info.context,
+                'username': group_name
+            },
+        )
+    return success
 
 
 async def edit_user_information(
