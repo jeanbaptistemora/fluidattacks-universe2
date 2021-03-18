@@ -210,7 +210,6 @@ async def _is_nickname_unique_in_group_legacy(
         root.get('nickname', '')
         for root in group_roots
         if root['kind'] == 'Git'
-        and root['historic_state'][-1]['state'] == 'ACTIVE'
     }
 
     return nickname not in nickname_roots
@@ -223,7 +222,6 @@ async def _is_nickname_unique_in_group(group_name: str, nickname: str) -> bool:
         root.state.nickname
         for root in group_roots
         if isinstance(root, GitRootItem)
-        and root.state.status == 'ACTIVE'
     }
 
     return nickname not in nickname_roots
