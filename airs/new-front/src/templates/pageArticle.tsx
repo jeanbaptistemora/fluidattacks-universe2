@@ -11,7 +11,7 @@
 /* eslint react/forbid-component-props: 0 */
 import { Breadcrumb } from "gatsby-plugin-breadcrumb";
 import { Layout } from "../components/layout";
-import { NavbarComponent } from "../components/navbar";
+import { NavbarComponent } from "../components/Navbar";
 import { PageHeader } from "../components/PageHeader";
 import React from "react";
 import { Seo } from "../components/seo";

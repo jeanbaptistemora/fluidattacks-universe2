@@ -12,10 +12,10 @@
 /* eslint import/no-namespace:0 */
 import { Breadcrumb } from "gatsby-plugin-breadcrumb";
 import { Layout } from "../components/layout";
-import { NavbarComponent } from "../components/navbar";
+import { NavbarComponent } from "../components/Navbar";
 import React from "react";
 import { Seo } from "../components/seo";
-import { SolutionsIndexContent } from "../components/solutionsIndexContent";
+import { SolutionsIndexContent } from "../components/SolutionsIndexContent";
 import { graphql } from "gatsby";
 import { translate } from "../utils/translations/translate";
 import * as attackSimulationImage from "../../static/images/solutions/solution-6.png"; // eslint-disable-line import/no-unresolved

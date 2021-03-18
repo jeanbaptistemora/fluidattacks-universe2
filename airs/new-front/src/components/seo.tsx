@@ -3,7 +3,7 @@
 import { Helmet } from "react-helmet";
 import React from "react";
 import { string } from "prop-types"; // eslint-disable-line import/default
-import * as favicon from "../../static/images/favicon.png";
+import * as favicon from "../../static/images/favicon.png"; // eslint-disable-line import/no-unresolved
 
 interface IMetaItem {
   content: string;

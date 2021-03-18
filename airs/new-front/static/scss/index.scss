@@ -178,6 +178,7 @@ $whiter-gray: rgba(241, 241, 241, 1);
 }
 
 @media screen and (min-width: 1200px) {
+  .db-xl { display: block; }
   .dib-xl { display: inline-block !important; }
   .df-l { display: flex; }
   .fl-xl { float: left; }

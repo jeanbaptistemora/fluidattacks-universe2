@@ -95,7 +95,7 @@ const NavbarLoginButton: StyledComponent<
     fw7
     f-18
     ba
-    b--white
+    b--transparent
     bw1
     ph0
     pv2

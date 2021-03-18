@@ -4,31 +4,18 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "gatsby";
 import React from "react";
 import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
-import * as fluidAttacksLogo from "../../static/images/logo-fluid-attacks.png";
+import * as fluidAttacksLogo from "../../../../static/images/logo-fluid-attacks.png";
 import {
   FontAwesomeContainerSmall,
-  MenuButton,
   NavbarContactButton,
   NavbarList,
   NavbarLoginButton,
   NavbarRegularButton,
   NavbarSubcategory,
-} from "../styles/styledComponents";
+} from "../../../styles/styledComponents";
 
-export const NavbarItems: React.FC = (): JSX.Element => (
+const NavbarItems: React.FC = (): JSX.Element => (
   <NavbarList className={"roboto"} id={"navbar_list"}>
-    <MenuButton>
-      <div className={"lower"}>
-        <span className={"pointer dib h2-l"} id={"openbtn"}>
-          <img
-            alt={"Menu open icon"}
-            className={"w2"}
-            src={"https://fluidattacks.com/theme/images/menu.svg"}
-          />
-        </span>
-      </div>
-    </MenuButton>
-
     <li className={"fl"}>
       <Link className={"db tc pa1 no-underline"} to={"/"}>
         <img
@@ -79,9 +66,7 @@ export const NavbarItems: React.FC = (): JSX.Element => (
         </NavbarRegularButton>
       </Link>
 
-      <NavbarSubcategory
-        // eslint-disable-next-line react/forbid-component-props
-        className={"solutions-content"}>
+      <NavbarSubcategory className={"solutions-content"}>
         <Link className={"f-18 fw4"} to={"/solutions/devsecops/"}>
           {"DevSecOps"}
         </Link>
@@ -128,9 +113,7 @@ export const NavbarItems: React.FC = (): JSX.Element => (
         </NavbarRegularButton>
       </Link>
 
-      <NavbarSubcategory
-        // eslint-disable-next-line react/forbid-component-props
-        className={"usecases-content"}>
+      <NavbarSubcategory className={"usecases-content"}>
         <Link className={"f-18 fw4"} to={"/services/continuous-hacking/"}>
           {"Continuous Hacking"}
         </Link>
@@ -146,3 +129,5 @@ export const NavbarItems: React.FC = (): JSX.Element => (
     </li>
   </NavbarList>
 );
+
+export { NavbarItems };

@@ -6,7 +6,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Layout } from "../components/layout";
 import ModalVideo from "modal-video-custom";
-import { NavbarComponent } from "../components/navbar";
+import { NavbarComponent } from "../components/Navbar";
 import { Seo } from "../components/seo";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import * as playButton from "../../static/images/home/play-video.svg";

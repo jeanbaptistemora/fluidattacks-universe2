@@ -1,11 +1,11 @@
-import { NavbarItems } from "./menu";
+import { NavbarItems } from "./NavbarItems";
 
 import React from "react";
 
 import {
   NavbarContainer,
   NavbarInnerContainer,
-} from "../styles/styledComponents";
+} from "../../styles/styledComponents";
 
 export const NavbarComponent: React.FC = (): JSX.Element => (
   <NavbarContainer id={"navbar"}>
