@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Mar 15, 2021, 05:25 PM",
+    "DateLastModified": "Mar 18, 2021, 05:18 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "2.0"
@@ -252,6 +252,26 @@
         },
         {
           "AttributeName": "nickname",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "address",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "port",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "host",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "path",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "protocol",
           "AttributeType": "S"
         }
       ],
@@ -1274,7 +1294,11 @@
             "gitignore",
             "includes_health_check",
             "modified_by",
-            "nickname"
+            "nickname",
+            "address",
+            "host",
+            "path",
+            "protocol"
           ],
           "DataAccess": {
             "MySql": {}
@@ -1336,7 +1360,11 @@
             "gitignore",
             "includes_health_check",
             "modified_by",
-            "nickname"
+            "nickname",
+            "address",
+            "host",
+            "path",
+            "protocol"
           ],
           "DataAccess": {
             "MySql": {}

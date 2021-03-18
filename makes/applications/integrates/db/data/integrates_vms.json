@@ -1,0 +1,224 @@
+{
+  "integrates_vms": [
+    {
+      "PutRequest": {
+        "Item": {
+          "pk": { "S": "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19" },
+          "sk": { "S": "GROUP#unittesting" },
+          "type": { "S": "Git" },
+          "branch": { "S": "master" },
+          "url": { "S": "https://gitlab.com/fluidattacks/product" }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "pk": { "S": "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19#STATE" },
+          "sk": { "S": "GROUP#unittesting" },
+          "status": { "S": "ACTIVE" },
+          "modified_date": { "S": "2020-11-19T13:37:10+00:00" },
+          "environment": { "S": "production" },
+          "environment_urls": {
+            "L": [{ "S": "https://integrates.fluidattacks.com" }]
+          },
+          "gitignore": {
+            "L": [{ "S": "bower_components/*" }, { "S": "node_modules/*" }]
+          },
+          "includes_health_check": { "BOOL": true },
+          "modified_by": { "S": "jdoe@fluidattacks.com" }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "pk": { "S": "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19" },
+          "sk": {
+            "S": "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19#STATE#2020-11-19T13:37:10+00:00"
+          },
+          "status": { "S": "ACTIVE" },
+          "modified_date": { "S": "2020-11-19T13:37:10+00:00" },
+          "environment": { "S": "production" },
+          "environment_urls": {
+            "L": [{ "S": "https://integrates.fluidattacks.com" }]
+          },
+          "gitignore": {
+            "L": [{ "S": "bower_components/*" }, { "S": "node_modules/*" }]
+          },
+          "includes_health_check": { "BOOL": true },
+          "modified_by": { "S": "jdoe@fluidattacks.com" }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "pk": { "S": "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19#CLON" },
+          "sk": { "S": "GROUP#unittesting" },
+          "status": { "S": "UNKNOWN" },
+          "reason": { "S": "root creation" },
+          "modified_date": { "S": "2020-11-19T13:37:10+00:00" }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "pk": { "S": "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19" },
+          "sk": {
+            "S": "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19#CLON#2020-11-19T13:37:10+00:00"
+          },
+          "status": { "S": "UNKNOWN" },
+          "reason": { "S": "root creation" },
+          "modified_date": { "S": "2020-11-19T13:37:10+00:00" }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "pk": { "S": "ROOT#765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a" },
+          "sk": { "S": "GROUP#unittesting" },
+          "type": { "S": "Git" },
+          "branch": { "S": "develop" },
+          "url": { "S": "https://gitlab.com/fluidattacks/integrates" }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "pk": { "S": "ROOT#765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a#STATE" },
+          "sk": { "S": "GROUP#unittesting" },
+          "status": { "S": "ACTIVE" },
+          "modified_date": { "S": "2020-11-19T13:39:56+00:00" },
+          "environment": { "S": "QA" },
+          "environment_urls": { "L": [] },
+          "gitignore": {
+            "L": [{ "S": "bower_components/*" }, { "S": "node_modules/*" }]
+          },
+          "includes_health_check": { "BOOL": false },
+          "modified_by": { "S": "jdoe@fluidattacks.com" }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "pk": { "S": "ROOT#765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a#CLON" },
+          "sk": { "S": "GROUP#unittesting" },
+          "status": { "S": "UNKNOWN" },
+          "reason": { "S": "root creation" },
+          "modified_date": { "S": "2020-11-19T13:37:10+00:00" }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "pk": { "S": "ROOT#765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a" },
+          "sk": {
+            "S": "ROOT#765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a#CLON#2020-11-19T13:37:10+00:00"
+          },
+          "status": { "S": "UNKNOWN" },
+          "reason": { "S": "root creation" },
+          "modified_date": { "S": "2020-11-19T13:37:10+00:00" }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "pk": { "S": "ROOT#765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a" },
+          "sk": {
+            "S": "ROOT#765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a#STATE#2020-11-19T13:39:56+00:00"
+          },
+          "status": { "S": "ACTIVE" },
+          "modified_date": { "S": "2020-11-19T13:39:56+00:00" },
+          "environment": { "S": "QA" },
+          "environment_urls": { "L": [] },
+          "gitignore": {
+            "L": [{ "S": "bower_components/*" }, { "S": "node_modules/*" }]
+          },
+          "includes_health_check": { "BOOL": false },
+          "modified_by": { "S": "jdoe@fluidattacks.com" }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "pk": { "S": "ROOT#d312f0b9-da49-4d2b-a881-bed438875e99" },
+          "sk": { "S": "GROUP#unittesting" },
+          "type": { "S": "IP" }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "pk": { "S": "ROOT#d312f0b9-da49-4d2b-a881-bed438875e99#STATE" },
+          "sk": { "S": "GROUP#unittesting" },
+          "address": { "S": "127.0.0.1" },
+          "modified_by": { "S": "jdoe@fluidattacks.com" },
+          "modified_date": { "S": "2020-11-19T13:44:37+00:00" },
+          "port": { "S": "8080" }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "pk": { "S": "ROOT#d312f0b9-da49-4d2b-a881-bed438875e99" },
+          "sk": {
+            "S": "ROOT#d312f0b9-da49-4d2b-a881-bed438875e99#STATE#2020-11-19T13:44:37+00:00"
+          },
+          "address": { "S": "127.0.0.1" },
+          "modified_by": { "S": "jdoe@fluidattacks.com" },
+          "modified_date": { "S": "2020-11-19T13:44:37+00:00" },
+          "port": { "S": "8080" }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "pk": { "S": "ROOT#8493c82f-2860-4902-86fa-75b0fef76034" },
+          "sk": { "S": "GROUP#unittesting" },
+          "type": { "S": "URL" }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "pk": { "S": "ROOT#8493c82f-2860-4902-86fa-75b0fef76034#STATE" },
+          "sk": { "S": "GROUP#unittesting" },
+          "host": { "S": "integrates.fluidattacks.com" },
+          "modified_by": { "S": "jdoe@fluidattacks.com" },
+          "modified_date": { "S": "2020-11-19T13:45:55+00:00" },
+          "path": { "S": "/" },
+          "port": { "S": "443" },
+          "protocol": { "S": "HTTPS" }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "pk": { "S": "ROOT#8493c82f-2860-4902-86fa-75b0fef76034" },
+          "sk": {
+            "S": "ROOT#8493c82f-2860-4902-86fa-75b0fef76034#STATE#2020-11-19T13:45:55+00:00"
+          },
+          "host": { "S": "integrates.fluidattacks.com" },
+          "modified_by": { "S": "jdoe@fluidattacks.com" },
+          "modified_date": { "S": "2020-11-19T13:45:55+00:00" },
+          "path": { "S": "/" },
+          "port": { "S": "443" },
+          "protocol": { "S": "HTTPS" }
+        }
+      }
+    }
+  ]
+}
