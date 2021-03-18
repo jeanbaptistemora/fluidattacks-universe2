@@ -16,6 +16,7 @@ let
       ];
       inherited = [
         "attrs==20.3.0"
+        "bugsnag==4.0.2"
         "certifi==2020.12.5"
         "chardet==4.0.0"
         "idna==2.10"
@@ -29,8 +30,14 @@ let
         "six==1.15.0"
         "toml==0.10.2"
         "urllib3==1.26.3"
+        "WebOb==1.8.7"
       ];
     };
+    python = nixpkgs.python38;
+  };
+  logger = buildPythonPackage {
+    name = "observes-utils-logger";
+    packagePath = path "/observes/common/utils_logger";
     python = nixpkgs.python38;
   };
   singerIO = buildPythonPackage {
@@ -48,6 +55,7 @@ makeTemplate {
   name = "observes-env-development-tap-mailchimp";
   searchPaths = {
     envPython38Paths = [
+      logger
       pythonRequirements
       singerIO
       self
