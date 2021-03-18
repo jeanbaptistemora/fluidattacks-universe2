@@ -8,6 +8,7 @@ import uuid
 import importlib
 
 from typing import Dict
+from jinja2 import select_autoescape
 import jinja2
 import matplotlib
 
@@ -99,7 +100,8 @@ class CreatorPDF():
         template_loader = jinja2.FileSystemLoader(searchpath=searchpath)
         template_env = jinja2.Environment(
             loader=template_loader,
-            autoescape=jinja2.select_autoescape(['html', 'xml'])
+            autoescape=select_autoescape(['html', 'xml'],
+                                         default=True)
         )
         template = template_env.get_template(self.proj_tpl)
         tpl_name = self.tpl_dir + ':id_IT.tpl'.replace(':id', project)

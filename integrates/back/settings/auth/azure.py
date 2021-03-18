@@ -10,7 +10,8 @@ CLIENT_SECRET = FI_AZUREAD_OAUTH2_SECRET
 AUTHZ_URL = (
     'https://login.microsoftonline.com/common/oauth2/v2.0/authorize'
 )
-TOKEN_URL = 'https://login.microsoftonline.com/common/oauth2/v2.0/token'
+TOKEN_URL = ('https://login.microsoftonline.com/'  # nosec
+             'common/oauth2/v2.0/token')
 API_BASE_URL = 'https://graph.microsoft.com/'
 API_USERINFO_BASE_URL = f'{API_BASE_URL}oidc/userinfo'
 SCOPE = 'openid email profile'

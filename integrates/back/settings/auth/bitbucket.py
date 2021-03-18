@@ -5,7 +5,8 @@ from __init__ import (
 
 
 BITBUCKET_AUTZ_URL = 'https://bitbucket.org/site/oauth2/authorize'
-BITBUCKET_ACCESS_TOKEN_URL = 'https://bitbucket.org/site/oauth2/access_token'
+BITBUCKET_ACCESS_TOKEN_URL = ('https://bitbucket.org/'  # nosec
+                              'site/oauth2/access_token')
 BITBUCKET_API_BASE_URL = 'https://api.bitbucket.org/2.0/'
 BITBUCKET_USERINFO_ENDPOINT_URL = 'https://api.bitbucket.org/2.0/user'
 BITBUCKET_ARGS = dict(

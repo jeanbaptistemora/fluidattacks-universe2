@@ -24,7 +24,7 @@ async def get_old_forces_token(group: str) -> Optional[str]:
         'secretsmanager',
         aws_access_key_id='serves_prod_key',
         aws_secret_access_key='serves_prod_secret',
-    )
+    )  # nosec
     try:
         response = await aioextensions.in_thread(
             client.get_secret_value,

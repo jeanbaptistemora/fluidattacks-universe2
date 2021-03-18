@@ -36,7 +36,7 @@ class SecurePDF():
     secure_pdf_username = ''
     secure_pdf_usermail = ''
     secure_pdf_filename = ''
-    passphrase = ''
+    passphrase = ''  # nosec
 
     def __init__(self, passphrase: str):
         """Class constructor."""
