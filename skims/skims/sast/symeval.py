@@ -385,8 +385,19 @@ def _analyze_method_invocation_values(args: EvaluatorArgs) -> None:
 
     if dcl := lookup_var_state_by_name(args, method_var):
         if isinstance(dcl.meta.value, str) and method_path == 'charAt':
-            index, = args.dependencies
-            args.syntax_step.meta.value = dcl.meta.value[int(index.meta.value)]
+            index = int(args.dependencies[0].meta.value)
+            args.syntax_step.meta.value = dcl.meta.value[index]
+        if isinstance(dcl.meta.value, list):
+            if method_path == 'add':
+                dcl.meta.value.append(args.dependencies[0])
+            elif method_path == 'remove':
+                index = int(args.dependencies[0].meta.value)
+                dcl.meta.value.pop(index)
+            elif method_path == 'get':
+                index = int(args.dependencies[0].meta.value)
+                args.syntax_step.meta.value = dcl.meta.value[index]
+                args.syntax_step.meta.danger = \
+                    dcl.meta.value[index].meta.danger
 
 
 def syntax_step_method_invocation(args: EvaluatorArgs) -> None:
@@ -564,10 +575,8 @@ def eval_syntax_steps(
     syntax_step_index = len(syntax_steps)
     syntax_steps.extend(deepcopy(shard.syntax[n_id]))
 
-    for syntax_step_index, syntax_step in enumerate(
-        syntax_steps[syntax_step_index:],
-        start=syntax_step_index,
-    ):
+    while syntax_step_index < len(syntax_steps):
+        syntax_step = syntax_steps[syntax_step_index]
         syntax_step_type = type(syntax_step)
         if evaluator := EVALUATORS.get(syntax_step_type):
             evaluator(EvaluatorArgs(
@@ -581,6 +590,8 @@ def eval_syntax_steps(
         else:
             # We are not able to evaluate this step
             raise StopEvaluation(f'Missing evaluator, {syntax_step_type}')
+
+        syntax_step_index += 1
 
     return syntax_steps
 
