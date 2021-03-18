@@ -7,6 +7,8 @@ from typing import (
 )
 
 # Third party libraries
+import aioboto3
+from aioextensions import collect
 from boto3.dynamodb.conditions import Key
 from botocore.exceptions import ClientError
 
@@ -15,6 +17,17 @@ from back.settings import LOGGING
 from backend.dal.helpers import dynamodb
 from backend.typing import DynamoDelete
 from batch.types import BatchProcessing
+from newutils.context import (
+    AWS_DYNAMODB_ACCESS_KEY,
+    AWS_DYNAMODB_SECRET_KEY,
+    AWS_SESSION_TOKEN,
+    CI_COMMIT_REF_NAME,
+    ENVIRONMENT
+)
+from newutils.datetime import (
+    get_as_epoch,
+    get_now,
+)
 from newutils.encodings import safe_encode
 
 logging.config.dictConfig(LOGGING)
@@ -132,9 +145,105 @@ async def put_action_to_dynamodb(
                 additional_info=additional_info,
                 entity=entity,
                 subject=subject,
+                time=time,
             ),
             table=TABLE_NAME,
         )
     except ClientError as exc:
         LOGGER.exception(exc, extra=dict(extra=locals()))
     return False
+
+
+async def put_action_to_batch(
+    *,
+    action_name: str,
+    entity: str,
+    subject: str,
+    time: str,
+    additional_info: str,
+) -> bool:
+    env: str = 'DEV' if ENVIRONMENT == 'development' else 'PROD'
+    try:
+        resource_options = dict(
+            service_name='batch',
+            aws_access_key_id=AWS_DYNAMODB_ACCESS_KEY,
+            aws_secret_access_key=AWS_DYNAMODB_SECRET_KEY,
+            aws_session_token=AWS_SESSION_TOKEN,
+        )
+        async with aioboto3.client(**resource_options) as batch:
+            await batch.submit_job(
+                jobName='integrates-asynchronous-processing',
+                jobQueue='spot_now',
+                jobDefinition='default',
+                containerOverrides={
+                    'vcpus': 2,
+                    'command': [
+                        './m',
+                        'integrates.batch',
+                        env.lower(),
+                        action_name,
+                        subject,
+                        entity,
+                        time,
+                        additional_info,
+                    ],
+                    'environment': [
+                        {
+                            'name': 'AWS_SESSION_TOKEN',
+                            'value': AWS_SESSION_TOKEN
+                        },
+                        {
+                            'name': 'CI',
+                            'value': 'true'
+                        },
+                        {
+                            'name': 'CI_COMMIT_REF_NAME',
+                            'value': CI_COMMIT_REF_NAME
+                        },
+                        {
+                            'name': f'INTEGRATES_{env}_AWS_ACCESS_KEY_ID',
+                            'value': AWS_DYNAMODB_ACCESS_KEY
+                        },
+                        {
+                            'name': f'INTEGRATES_{env}_AWS_SECRET_ACCESS_KEY',
+                            'value': AWS_DYNAMODB_SECRET_KEY
+                        },
+                    ],
+                    'memory': 7200,
+                },
+                retryStrategy={
+                    'attempts': 1,
+                },
+                timeout={
+                    'attemptDurationSeconds': 3600
+                },
+            )
+    except ClientError as exc:
+        LOGGER.exception(exc, extra=dict(extra=locals()))
+        return False
+    else:
+        return True
+
+
+async def put_action(
+    *,
+    action_name: str,
+    entity: str,
+    subject: str,
+    additional_info: str,
+) -> bool:
+    time: str = str(get_as_epoch(get_now()))
+    action = dict(
+        action_name=action_name,
+        entity=entity,
+        subject=subject,
+        time=time,
+        additional_info=additional_info,
+    )
+
+    return all(
+        await collect((
+            put_action_to_batch(**action),
+            put_action_to_dynamodb(**action)
+        ))
+    )
