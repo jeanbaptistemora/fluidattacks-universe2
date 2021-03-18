@@ -91,6 +91,40 @@ module "eks" {
         }
       ]
     },
+    {
+      name                    = "ci"
+      override_instance_types = ["c5d.large"]
+      kubelet_extra_args      = "--node-labels=node.kubernetes.io/lifecycle=spot"
+      kubelet_extra_args      = "--node-labels=worker_group=ci"
+      public_ip               = true
+
+      asg_min_size = 1
+      asg_max_size = 200
+
+      root_volume_type = "gp3"
+      root_volume_size = 10
+      root_encrypted   = true
+      ebs_optimized    = true
+
+      spot_allocation_strategy = "lowest-price"
+      spot_instance_pools      = 5
+      spot_max_price           = "" # Defaults to on-demand price
+
+      userdata_template_file = file("init.sh")
+
+      tags = [
+        {
+          "key"                 = "k8s.io/cluster-autoscaler/enabled"
+          "propagate_at_launch" = "false"
+          "value"               = "true"
+        },
+        {
+          "key"                 = "k8s.io/cluster-autoscaler/${var.cluster_name}"
+          "propagate_at_launch" = "false"
+          "value"               = "true"
+        }
+      ]
+    },
   ]
 
   map_roles    = var.map_roles
