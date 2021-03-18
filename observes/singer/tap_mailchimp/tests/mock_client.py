@@ -11,7 +11,7 @@ from tap_mailchimp.api import (
     ApiClient,
     AudienceId,
 )
-from tap_mailchimp.api.raw import (
+from tap_mailchimp.api.common.raw import (
     RawSource,
 )
 from tap_mailchimp.common.objs import (
