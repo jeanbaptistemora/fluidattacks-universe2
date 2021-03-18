@@ -510,8 +510,11 @@ export const enTranslations: ResourceKey = {
         edit: "Edit root",
         editTooltip: "Edit the selected git root",
         errors: {
-          duplicate:
-            "An active root with the same URL/branch already exists " +
+          duplicateNickname:
+            "An active root with the same Nickname already exists " +
+            "please type a new nickname",
+          duplicateUrl:
+            "An active root with the same URL/Branch already exists " +
             "within the organization",
         },
         lastStatusUpdate: "Last status update",
@@ -553,6 +556,9 @@ export const enTranslations: ResourceKey = {
           },
           environment: "Environment kind",
           environmentHint: "(Production, QA or other)",
+          nickname: "Nickname",
+          nicknameHint:
+            "Nickname must be unique and different from the repository name",
           title: "Git repository",
           url: "URL",
         },
@@ -2188,6 +2194,7 @@ export const enTranslations: ResourceKey = {
       "Groups with any active Fluid Attacks service " +
       "can only have Hackers provided by Fluid Attacks",
     numeric: "This field can only contain numbers",
+    requireNickname: "Nickname already exist",
     required: "Required field",
     someRequired: "Select at least one value",
     stakeholderHasGroupAccess:

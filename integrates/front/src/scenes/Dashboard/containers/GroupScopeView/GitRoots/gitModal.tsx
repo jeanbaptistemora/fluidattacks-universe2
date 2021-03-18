@@ -3,7 +3,6 @@ import { Can } from "utils/authz/Can";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import type { IGitRootAttr } from "../types";
-import type { InjectedFormProps } from "redux-form";
 import { Modal } from "components/Modal";
 import { SwitchButton } from "components/SwitchButton";
 import { TooltipWrapper } from "components/TooltipWrapper";
@@ -22,11 +21,16 @@ import {
 } from "styles/styledComponents";
 import { ArrayField, Checkbox, Text } from "utils/forms/fields";
 import { Field, formValueSelector } from "redux-form";
-import React, { useState } from "react";
+import type {
+  InjectedFormProps,
+  Validator as ValidatorField,
+} from "redux-form";
+import React, { useCallback, useState } from "react";
 import { checked, excludeFormat, required } from "utils/validations";
 
 interface IGitModalProps {
   initialValues: IGitRootAttr | undefined;
+  nicknames: string[];
   onClose: () => void;
   onSubmit: (values: IGitRootAttr) => Promise<void>;
 }
@@ -44,15 +48,48 @@ const GitModal: React.FC<IGitModalProps> = ({
     gitignore: [],
     id: "",
     includesHealthCheck: false,
+    nickname: "",
     state: "ACTIVE",
     url: "",
   },
+  nicknames,
   onClose,
   onSubmit,
 }: IGitModalProps): JSX.Element => {
   const isEditing: boolean = initialValues.url !== "";
 
+  const [isDuplicated, setIsDuplicated] = useState(false);
+
   const { t } = useTranslation();
+
+  const duplicated: (field: string) => ValidatorField = useCallback(
+    (field: string): ValidatorField => {
+      const repoName: string = field
+        ? field.split("/").slice(-1)[0].replace(".git", "")
+        : "";
+      const { nickname: initialNickname } = initialValues;
+      if (nicknames.includes(repoName) && initialNickname !== repoName) {
+        setIsDuplicated(true);
+      } else {
+        setIsDuplicated(false);
+      }
+
+      return required(field) as ValidatorField;
+    },
+    [initialValues, nicknames]
+  );
+
+  const requireNickname: (field: string) => ValidatorField = useCallback(
+    (field: string): ValidatorField => {
+      const { nickname: initialNickname } = initialValues;
+      if (nicknames.includes(field) && initialNickname !== field) {
+        return t("validations.requireNickname");
+      }
+
+      return required(field) as ValidatorField;
+    },
+    [initialValues, nicknames, t]
+  );
 
   // State management
   const selector: (
@@ -100,7 +137,7 @@ const GitModal: React.FC<IGitModalProps> = ({
                       disabled={isEditing}
                       name={"url"}
                       type={"text"}
-                      validate={required}
+                      validate={duplicated}
                     />
                   </div>
                   <div className={"w-30"}>
@@ -117,6 +154,27 @@ const GitModal: React.FC<IGitModalProps> = ({
                     />
                   </div>
                 </div>
+                <br />
+                {isDuplicated ? (
+                  <React.Fragment>
+                    <div className={"flex"}>
+                      <div className={"w-100"}>
+                        <ControlLabel>
+                          <RequiredField>{"*"}&nbsp;</RequiredField>
+                          {t("group.scope.git.repo.nickname")}
+                        </ControlLabel>
+                        <Field
+                          component={Text}
+                          name={"nickname"}
+                          placeholder={t("group.scope.git.repo.nicknameHint")}
+                          type={"text"}
+                          validate={requireNickname}
+                        />
+                      </div>
+                    </div>
+                    <br />
+                  </React.Fragment>
+                ) : undefined}
                 <div className={"flex"}>
                   <div className={"w-100"}>
                     <ControlLabel>
@@ -132,6 +190,7 @@ const GitModal: React.FC<IGitModalProps> = ({
                     />
                   </div>
                 </div>
+                <br />
               </fieldset>
               <fieldset className={"bn"}>
                 <legend className={"f3 b"}>

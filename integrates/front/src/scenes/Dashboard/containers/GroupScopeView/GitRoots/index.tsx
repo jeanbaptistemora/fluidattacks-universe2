@@ -66,6 +66,8 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
   const { t } = useTranslation();
 
+  const nicknames: string[] = roots.map((root): string => root.nickname);
+
   // State management
   const [isManagingRoot, setManagingRoot] = useState<
     false | { mode: "ADD" | "EDIT" }
@@ -113,6 +115,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
       "filter.exclude": true,
       "filter.include": true,
       lastStatusUpdate: true,
+      nickname: false,
       state: true,
       url: true,
     },
@@ -158,8 +161,11 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
           case "Exception - Error empty value is not valid":
             msgError(t("group.scope.git.errors.invalid"));
             break;
+          case "Exception - Active root with the same Nickname already exists":
+            msgError(t("group.scope.common.errors.duplicateNickname"));
+            break;
           case "Exception - Active root with the same URL/branch already exists":
-            msgError(t("group.scope.common.errors.duplicate"));
+            msgError(t("group.scope.common.errors.duplicateUrl"));
             break;
           case "Exception - Root name should not be included in the exception pattern":
             msgError(t("group.scope.git.errors.rootInGitignore"));
@@ -238,6 +244,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
         gitignore,
         id,
         includesHealthCheck,
+        nickname,
         url,
       } = values;
 
@@ -251,6 +258,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
               gitignore,
               groupName,
               includesHealthCheck,
+              nickname,
               url,
             },
           });
@@ -263,6 +271,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
               groupName,
               id,
               includesHealthCheck,
+              nickname,
             },
           });
         }
@@ -387,6 +396,11 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
                     width: "5%",
                   },
                   {
+                    dataField: "nickname",
+                    header: "Nickname",
+                    visible: checkedItems.nickname,
+                  },
+                  {
                     dataField: "environment",
                     header: t("group.scope.git.repo.environment"),
                     visible: checkedItems.environment,
@@ -424,7 +438,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
                       : statusFormatter,
                     header: t("group.scope.common.state"),
                     visible: checkedItems.state,
-                    width: "15%",
+                    width: "10%",
                   },
                   {
                     align: "center",
@@ -477,6 +491,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
           initialValues={
             isManagingRoot.mode === "EDIT" ? currentRow : undefined
           }
+          nicknames={nicknames}
           onClose={closeModal}
           onSubmit={handleGitSubmit}
         />

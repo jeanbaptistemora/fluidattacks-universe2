@@ -17,6 +17,7 @@ const GET_ROOTS: DocumentNode = gql`
           id
           includesHealthCheck
           lastStatusUpdate
+          nickname
           state
           url
         }
@@ -44,6 +45,7 @@ const ADD_GIT_ROOT: DocumentNode = gql`
     $gitignore: [String!]!
     $groupName: String!
     $includesHealthCheck: Boolean!
+    $nickname: String!
     $url: String!
   ) {
     addGitRoot(
@@ -52,6 +54,7 @@ const ADD_GIT_ROOT: DocumentNode = gql`
       gitignore: $gitignore
       groupName: $groupName
       includesHealthCheck: $includesHealthCheck
+      nickname: $nickname
       url: $url
     ) {
       success
@@ -82,6 +85,7 @@ const UPDATE_GIT_ROOT: DocumentNode = gql`
     $groupName: String!
     $id: ID!
     $includesHealthCheck: Boolean!
+    $nickname: String!
   ) {
     updateGitRoot(
       environment: $environment
@@ -89,6 +93,7 @@ const UPDATE_GIT_ROOT: DocumentNode = gql`
       groupName: $groupName
       id: $id
       includesHealthCheck: $includesHealthCheck
+      nickname: $nickname
     ) {
       success
     }

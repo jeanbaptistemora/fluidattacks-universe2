@@ -91,6 +91,7 @@ describe("GitRoots", (): void => {
         >
           <GitModal
             initialValues={undefined}
+            nicknames={[]}
             onClose={handleClose}
             onSubmit={handleSubmit}
           />

@@ -10,6 +10,7 @@ interface IGitRootAttr {
   gitignore: string[];
   includesHealthCheck: boolean;
   id: string;
+  nickname: string;
   state: "ACTIVE" | "INACTIVE";
   url: string;
 }
