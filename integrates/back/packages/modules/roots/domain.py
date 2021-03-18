@@ -33,7 +33,7 @@ from backend.typing import (
     GitRootCloningStatus,
     IPRoot,
     URLRoot,
-    Root,
+    Root
 )
 from dynamodb.types import (
     GitRootCloning,
@@ -41,6 +41,8 @@ from dynamodb.types import (
     GitRootMetadata,
     GitRootState,
     IPRootItem,
+    IPRootMetadata,
+    IPRootState,
     RootItem
 )
 from newutils import (
@@ -157,7 +159,11 @@ async def _is_git_unique_in_org(org_id: str, url: str, branch: str) -> bool:
 
 
 @newrelic.agent.function_trace()
-async def _is_ip_unique_in_org(org_id: str, address: str, port: int) -> bool:
+async def _is_ip_unique_in_org_legacy(
+    org_id: str,
+    address: str,
+    port: int
+) -> bool:
     org_groups: Tuple[str, ...] = await org_domain.get_groups(org_id)
     org_roots: Tuple[Tuple[str, int], ...] = tuple(
         (
@@ -170,6 +176,22 @@ async def _is_ip_unique_in_org(org_id: str, address: str, port: int) -> bool:
         )
         for root in group_roots
         if root['kind'] == 'IP'
+    )
+
+    return (address, port) not in org_roots
+
+
+@newrelic.agent.function_trace()
+async def _is_ip_unique_in_org(org_id: str, address: str, port: str) -> bool:
+    org_groups = await org_domain.get_groups(org_id)
+    org_roots = tuple(
+        (root.state.address, root.state.port)
+        for group_roots in await collect(
+            get_roots(group_name=group_name)
+            for group_name in org_groups
+        )
+        for root in group_roots
+        if isinstance(root, IPRootItem)
     )
 
     return (address, port) not in org_roots
@@ -391,7 +413,11 @@ async def add_git_root(context: Any, user_email: str, **kwargs: Any) -> None:
         )
 
 
-async def add_ip_root(context: Any, user_email: str, **kwargs: Any) -> None:
+async def add_ip_root_legacy(
+    context: Any,
+    user_email: str,
+    **kwargs: Any
+) -> None:
     group_loader = context.group_all
     group_name: str = kwargs['group_name'].lower()
     address: str = kwargs['address']
@@ -411,7 +437,7 @@ async def add_ip_root(context: Any, user_email: str, **kwargs: Any) -> None:
             'user': user_email
         }
 
-        if await _is_ip_unique_in_org(org_id, address, port):
+        if await _is_ip_unique_in_org_legacy(org_id, address, port):
             root_attributes: Dict[str, Any] = {
                 'historic_state': [initial_state],
                 'kind': 'IP'
@@ -421,6 +447,38 @@ async def add_ip_root(context: Any, user_email: str, **kwargs: Any) -> None:
             raise RepeatedValues()
     else:
         raise InvalidParameter()
+
+
+async def add_ip_root(context: Any, user_email: str, **kwargs: Any) -> None:
+    group_loader = context.group_all
+    group_name: str = kwargs['group_name'].lower()
+    address: str = kwargs['address']
+    port = str(kwargs['port'])
+    is_valid: bool = (
+        validations.is_valid_ip(address)
+        and 0 <= int(port) <= 65535
+    )
+
+    if not is_valid:
+        raise InvalidParameter()
+
+    group = await group_loader.load(group_name)
+    org_id = group['organization']
+
+    if not await _is_ip_unique_in_org(org_id, address, port):
+        raise RepeatedValues()
+
+    root = IPRootItem(
+        id=str(uuid4()),
+        metadata=IPRootMetadata(type='IP'),
+        state=IPRootState(
+            address=address,
+            modified_by=user_email,
+            modified_date=datetime_utils.get_iso_date(),
+            port=port
+        )
+    )
+    await roots_dal.create_root(group_name=group_name, root=root)
 
 
 async def add_url_root(context: Any, user_email: str, **kwargs: Any) -> None:
