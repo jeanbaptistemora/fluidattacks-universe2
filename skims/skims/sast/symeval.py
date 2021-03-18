@@ -336,11 +336,21 @@ def _analyze_method_invocation(args: EvaluatorArgs, method: str) -> None:
     _analyze_method_by_type_args_propagation_side_effects(args, method)
 
 
+def _analyze_method_invocation_values(args: EvaluatorArgs) -> None:
+    method_var, method_path = split_on_first_dot(args.syntax_step.method)
+
+    if dcl := lookup_var_state_by_name(args, method_var):
+        if isinstance(dcl.meta.value, str) and method_path == 'charAt':
+            index, = args.dependencies
+            args.syntax_step.meta.value = dcl.meta.value[int(index.meta.value)]
+
+
 def syntax_step_method_invocation(args: EvaluatorArgs) -> None:
     # Analyze if the method itself is untrusted
     method = args.syntax_step.method
 
     _analyze_method_invocation(args, method)
+    _analyze_method_invocation_values(args)
 
 
 def syntax_step_method_invocation_chain(args: EvaluatorArgs) -> None:
