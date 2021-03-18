@@ -1,7 +1,5 @@
 # shellcheck shell=bash
 
-source '__envUtilsBashLibPython__'
-
 function lint_python_module {
   # If you do `import XXX` in your python code and the structure is like this:
   #   /path/to/XXX
@@ -10,9 +8,7 @@ function lint_python_module {
   # then module_path is /path/to/XXX
   local module_path="${1}"
 
-      make_python_path '3.8' \
-        '__envPythonRequirements__' \
-  &&  module_name="$(basename "${1#*-}")" \
+      module_name="$(basename "${1#*-}")" \
   &&  echo "[INFO] Running mypy over: ${module_path}, module ${module_name}" \
   &&  if ! test -e "${module_path}/py.typed"
       then
@@ -45,9 +41,7 @@ function lint_python_imports {
   # Then site-packages path is /path/to
   local site_packages_path="${2}"
 
-      make_python_path '3.8' \
-        '__envPythonRequirements__' \
-  && pushd "${site_packages_path}" \
+      pushd "${site_packages_path}" \
     &&  lint-imports --config "${config}" \
   &&  popd \
   ||  return 1

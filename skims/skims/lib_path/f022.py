@@ -54,7 +54,7 @@ def _java_properties_unencrypted_transport(
             ) and not (
                 'localhost' in val
                 or '127.0.0.1' in val
-                or '0.0.0.0' in val
+                or '0.0.0.0' in val  # nosec
             ):
                 yield line_no, 0
 
