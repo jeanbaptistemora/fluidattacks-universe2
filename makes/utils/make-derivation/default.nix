@@ -8,6 +8,7 @@ path: pkgs:
 , local ? false
 , name
 , searchPaths ? { }
+, sha256 ? null
 }:
 let
   nix = import (path "/makes/utils/nix") path pkgs;
@@ -48,4 +49,8 @@ builtins.derivation (arguments' // {
 } // pkgs.lib.optionalAttrs local {
   allowSubstitutes = false;
   preferLocalBuild = true;
+} // pkgs.lib.optionalAttrs (sha256 != null) {
+  outputHash = sha256;
+  outputHashAlgo = "sha256";
+  outputHashMode = "recursive";
 })
