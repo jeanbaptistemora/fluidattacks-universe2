@@ -170,6 +170,11 @@ def syntax_step_unary_expression(args: EvaluatorArgs) -> None:
 
 
 def syntax_step_declaration(args: EvaluatorArgs) -> None:
+    _syntax_step_declaration_danger(args)
+    _syntax_step_declaration_values(args)
+
+
+def _syntax_step_declaration_danger(args: EvaluatorArgs) -> None:
     # Analyze the arguments involved in the assignment
     args_danger = any(dep.meta.danger for dep in args.dependencies)
 
@@ -189,6 +194,9 @@ def syntax_step_declaration(args: EvaluatorArgs) -> None:
 
     # Local context
     args.syntax_step.meta.danger = bind_danger or args_danger
+
+
+def _syntax_step_declaration_values(args: EvaluatorArgs) -> None:
     if len(args.dependencies) == 1:
         args.syntax_step.meta.value = args.dependencies[0].meta.value
 
@@ -415,6 +423,11 @@ def syntax_step_no_op(args: EvaluatorArgs) -> None:
 
 
 def syntax_step_object_instantiation(args: EvaluatorArgs) -> None:
+    _syntax_step_object_instantiation_danger(args)
+    _syntax_step_object_instantiation_values(args)
+
+
+def _syntax_step_object_instantiation_danger(args: EvaluatorArgs) -> None:
     # Analyze the arguments involved in the instantiation
     args_danger = any(dep.meta.danger for dep in args.dependencies)
 
@@ -451,6 +464,13 @@ def syntax_step_object_instantiation(args: EvaluatorArgs) -> None:
         args.syntax_step.meta.danger = args_danger if args else True
     else:
         args.syntax_step.meta.danger = args_danger
+
+
+def _syntax_step_object_instantiation_values(args: EvaluatorArgs) -> None:
+    if args.syntax_step.object_type in build_attr_paths(
+        'java', 'util', 'ArrayList',
+    ):
+        args.syntax_step.meta.value = []
 
 
 def syntax_step_symbol_lookup(args: EvaluatorArgs) -> None:
