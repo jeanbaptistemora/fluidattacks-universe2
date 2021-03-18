@@ -31,7 +31,16 @@ module.exports = {
       type: 'category',
       label: 'Vulnerabilities',
       items: [
-        'web/vulnerabilities/management',
+        {
+          type: 'category',
+          label: 'Management',
+          items: [
+            'web/vulnerabilities/management/introduction',
+            'web/vulnerabilities/management/treatments',
+            'web/vulnerabilities/management/reattacks',
+            'web/vulnerabilities/management/tracking',
+          ],
+        },
         'web/vulnerabilities/description',
         'web/vulnerabilities/severity',
       ],
