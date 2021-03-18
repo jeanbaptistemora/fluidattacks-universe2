@@ -26,6 +26,7 @@ from model import (
 )
 from sast.common import (
     build_attr_paths,
+    DANGER_METHODS_BY_TYPE_AND_VALUE,
     DANGER_METHODS_BY_TYPE_ARGS_PROPAGATION,
     DANGER_METHODS_STATIC_SIDE_EFFECTS,
     DANGER_METHODS_BY_ARGS_PROPAGATION,
@@ -378,6 +379,11 @@ def _analyze_method_invocation(args: EvaluatorArgs, method: str) -> None:
     _analyze_method_static_side_effects(args, method)
     _analyze_method_by_type_args_propagation(args, method)
     _analyze_method_by_type_args_propagation_side_effects(args, method)
+
+    if methods := DANGER_METHODS_BY_TYPE_AND_VALUE.get(method_var_decl_type):
+        parameters = {param.meta.value for param in args.dependencies}
+        if parameters.intersection(methods.get(method_path, set())):
+            args.syntax_step.meta.danger = True
 
 
 def _analyze_method_invocation_values(args: EvaluatorArgs) -> None:

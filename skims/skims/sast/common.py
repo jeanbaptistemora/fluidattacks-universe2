@@ -1,5 +1,6 @@
 # Standard library
 from typing import (
+    Any,
     Dict,
     Set,
     Tuple,
@@ -17,7 +18,7 @@ def split_on_first_dot(string: str) -> Tuple[str, str]:
     return portions[0], ''
 
 
-def _complete_attrs_on_dict(data: Dict[str, Set[str]]) -> Dict[str, Set[str]]:
+def _complete_attrs_on_dict(data: Dict[str, Any]) -> Dict[str, Any]:
     return {
         attr: value
         for path, value in data.items()
@@ -101,6 +102,15 @@ DANGER_METHODS_BY_TYPE: Dict[str, Set[str]] = _complete_attrs_on_dict({
         'addCookie'
     },
 })
+
+DANGER_METHODS_BY_TYPE_AND_VALUE: Dict[str, Dict[
+    str, Any]] = _complete_attrs_on_dict({
+        'javax.servlet.http.Cookie': {
+            'setSecure': {
+                False,
+            },
+        },
+    })
 DANGER_METHODS_BY_TYPE_ARGS_PROPAGATION: Dict[
     str, Set[str]] = _complete_attrs_on_dict({
         'java.util.List': {

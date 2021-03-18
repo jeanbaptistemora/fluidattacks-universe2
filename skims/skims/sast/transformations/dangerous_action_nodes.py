@@ -18,6 +18,7 @@ def _mark_java(graph: graph_model.Graph) -> None:
     _mark_java_f063(graph)
     _mark_java_f034(graph)
     _mark_java_f004(graph)
+    _mark_java_f042(graph)
 
 
 def _mark_java_f063(graph: graph_model.Graph) -> None:
@@ -141,6 +142,20 @@ def _mark_java_f004(graph: graph_model.Graph) -> None:
                 core_model
                 .FindingEnum
                 .F004.name
+            )
+
+
+def _mark_java_f042(graph: graph_model.Graph) -> None:
+    for n_id in g.filter_nodes(
+            graph,
+            graph.nodes,
+            predicate=g.pred_has_labels(label_type='method_invocation'),
+    ):
+        if any((_check_method_call(graph, n_id, 'setSecure'), )):
+            graph.nodes[n_id]['label_sink_type'] = (
+                core_model
+                .FindingEnum
+                .F042.name
             )
 
 

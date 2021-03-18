@@ -588,6 +588,7 @@ UNTRUSTED_NODE: str = 'UNTRUSTED_NODE'
 
 ALLOW_UNTRUSTED_NODES: Set[FindingEnum] = {
     FindingEnum.F004,
+    FindingEnum.F042,
     FindingEnum.F063_PATH_TRAVERSAL,
 }
 
