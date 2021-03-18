@@ -36,6 +36,7 @@ TEST_GROUPS: Set[str] = {
     'project',
     'reject_draft',
     'remove_event_evidence',
+    'remove_evidence',
     'remove_group',
     'remove_stakeholder_organization_access',
     'remove_tag',
