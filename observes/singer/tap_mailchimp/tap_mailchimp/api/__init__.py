@@ -15,6 +15,9 @@ from mailchimp_marketing import (
 from tap_mailchimp import (
     utils
 )
+from tap_mailchimp.api.audiences import (
+    list_items
+)
 from tap_mailchimp.api.common import (
     api_data,
     raw as raw_module,
@@ -87,86 +90,25 @@ def _get_top_clients(
     ))
 
 
-def _list_audiences(
-    raw_source: RawSource,
-) -> Iterator[AudienceId]:
-    result = api_data.create_api_data(
-        raw_source.list_audiences()
-    )
-    audiences_data = result.data['lists']
-    return iter(map(lambda a: AudienceId(a['id']), audiences_data))
-
-
-def _list_abuse_reports(
-    raw_source: RawSource,
-    audience: AudienceId
-) -> Iterator[AbsReportId]:
-    result = api_data.create_api_data(
-        raw_source.list_abuse_reports(audience)
-    )
-    data = result.data['abuse_reports']
-    return iter(map(
-        lambda item: AbsReportId(
-            audience_id=audience,
-            str_id=item['id']
-        ),
-        data
-    ))
-
-
-def _list_members(
-    raw_source: RawSource,
-    audience: AudienceId
-) -> Iterator[MemberId]:
-    result = api_data.create_api_data(
-        raw_source.list_members(audience)
-    )
-    data = result.data['members']
-    return iter(map(
-        lambda item: MemberId(
-            audience_id=audience,
-            str_id=item['id']
-        ),
-        data
-    ))
-
-
-def _list_growth_hist(
-    raw_source: RawSource,
-    audience: AudienceId
-) -> Iterator[GrowthHistId]:
-    result = api_data.create_api_data(
-        raw_source.list_growth_hist(audience)
-    )
-    data = result.data['history']
-    return iter(map(
-        lambda item: GrowthHistId(
-            audience_id=audience,
-            str_id=item['month']
-        ),
-        data
-    ))
-
-
 def new_client_from_source(
     raw_source: RawSource
 ) -> ApiClient:
     return ApiClient(
-        list_audiences=partial(_list_audiences, raw_source),
+        list_audiences=partial(list_items.list_audiences, raw_source),
         get_audience=lambda item_id: api_data.create_api_data(
             raw_source.get_audience(item_id)
         ),
-        list_abuse_reports=partial(_list_abuse_reports, raw_source),
+        list_abuse_reports=partial(list_items.list_abuse_reports, raw_source),
         get_abuse_report=lambda item_id: api_data.create_api_data(
             raw_source.get_abuse_report(item_id)
         ),
         get_activity=partial(_get_activity, raw_source),
         get_top_clients=partial(_get_top_clients, raw_source),
-        list_members=partial(_list_members, raw_source),
+        list_members=partial(list_items.list_members, raw_source),
         get_member=lambda item_id: api_data.create_api_data(
             raw_source.get_member(item_id)
         ),
-        list_growth_hist=partial(_list_growth_hist, raw_source),
+        list_growth_hist=partial(list_items.list_growth_hist, raw_source),
         get_growth_hist=lambda item_id: api_data.create_api_data(
             raw_source.get_growth_hist(item_id)
         )
