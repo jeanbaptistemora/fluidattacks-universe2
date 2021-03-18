@@ -627,7 +627,7 @@ def literal(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
             value=n_attrs['label_text'],
             value_type='null',
         )
-    elif n_attrs_label_type == 'string_literal':
+    elif n_attrs_label_type in {'character_literal', 'string_literal'}:
         yield graph_model.SyntaxStepLiteral(
             meta=graph_model.SyntaxStepMeta.default(args.n_id),
             value=n_attrs['label_text'][1:-1],
@@ -890,6 +890,7 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
             graph_model.GraphShardMetadataLanguage.JAVA,
         },
         applicable_node_label_types={
+            'character_literal',
             'decimal_integer_literal',
             'false',
             'floating_point_type',
@@ -927,7 +928,6 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
         for applicable_node_label_type in (
             'block',
             'break_statement',
-            'character_literal',
             'comment',
             'expression_statement',
             'finally_clause',

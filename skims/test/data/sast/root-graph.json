@@ -20170,7 +20170,9 @@
               "n_id": "316",
               "value": null
             },
-            "type": "SyntaxStepNoOp"
+            "type": "SyntaxStepLiteral",
+            "value": ".",
+            "value_type": "string"
           },
           {
             "meta": {

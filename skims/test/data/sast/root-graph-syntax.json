@@ -14770,9 +14770,11 @@
               "danger": false,
               "dependencies": 0,
               "n_id": "316",
-              "value": null
+              "value": "."
             },
-            "type": "SyntaxStepNoOp"
+            "type": "SyntaxStepLiteral",
+            "value": ".",
+            "value_type": "string"
           },
           {
             "meta": {
@@ -15686,9 +15688,11 @@
               "danger": false,
               "dependencies": 0,
               "n_id": "316",
-              "value": null
+              "value": "."
             },
-            "type": "SyntaxStepNoOp"
+            "type": "SyntaxStepLiteral",
+            "value": ".",
+            "value_type": "string"
           },
           {
             "meta": {
@@ -16554,9 +16558,11 @@
               "danger": false,
               "dependencies": 0,
               "n_id": "316",
-              "value": null
+              "value": "."
             },
-            "type": "SyntaxStepNoOp"
+            "type": "SyntaxStepLiteral",
+            "value": ".",
+            "value_type": "string"
           },
           {
             "meta": {
@@ -17352,9 +17358,11 @@
               "danger": false,
               "dependencies": 0,
               "n_id": "316",
-              "value": null
+              "value": "."
             },
-            "type": "SyntaxStepNoOp"
+            "type": "SyntaxStepLiteral",
+            "value": ".",
+            "value_type": "string"
           },
           {
             "meta": {
@@ -18070,9 +18078,11 @@
               "danger": false,
               "dependencies": 0,
               "n_id": "316",
-              "value": null
+              "value": "."
             },
-            "type": "SyntaxStepNoOp"
+            "type": "SyntaxStepLiteral",
+            "value": ".",
+            "value_type": "string"
           },
           {
             "meta": {
