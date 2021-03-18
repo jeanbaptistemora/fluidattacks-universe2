@@ -11,7 +11,7 @@ const headLinksStyles: string = `
   c-fluid-gray
   f4
   roboto
-  fw3
+  fw4
   mt0-l
   no-underline
   hv-fluid-dkred

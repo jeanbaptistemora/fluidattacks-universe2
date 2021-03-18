@@ -10,8 +10,8 @@ interface IProps {
 const bodyLinkStyles: string = `
   c-blue-gray
   roboto
-  f5
-  fw2
+  f6
+  fw4
   no-underline
   hv-fluid-dkred
 `;

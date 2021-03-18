@@ -30,6 +30,7 @@ const LinksContainer: StyledComponent<
     v-top
     tl
     mh2
+    lh-2
   `,
 })``;
 

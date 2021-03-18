@@ -25,6 +25,9 @@ $whiter-gray: rgba(241, 241, 241, 1);
   to { opacity: 1; }
 }
 
+// Allignments
+.text-center { text-align: center; }
+
 // Background Colors
 .bg-button-red { background-color: $button-red; }
 .bg-darker-blue { background-color: $darker-blue; }
@@ -74,6 +77,35 @@ $whiter-gray: rgba(241, 241, 241, 1);
 .bg-menu-systems { background-image: url('../images/menu/bg-menu-systems.png'); }
 .bg-menu-aboutus { background-image: url('../images/menu/bg-menu-aboutus.png'); }
 
+.bg-card1 {
+  background-image: url('../images/resources/card1.png');
+  height: 200px;
+}
+
+.bg-card3 {
+  background-image: url('../images/resources/card3.png');
+  height: 200px;
+}
+
+.bg-card8 {
+  background-image: url('../images/resources/card8.png');
+  height: 200px;
+}
+
+.bg-card9 {
+  background-image: url('../images/resources/card9.png');
+  height: 200px;
+}
+
+.bg-card11 {
+  background-image: url('../images/resources/card11.png');
+  height: 200px;
+}
+.bg-faq { background-image: url('../images/faq/cover-faq.png'); }
+.bg-compliance { background-image: url('../images/compliance/cover-compliance.png'); }
+.bg-compliance-internal { background-image: url('../images/compliance/cover-internal-compliance.png'); }
+.bg-systems { background-image: url('../images/systems/cover-systems.png'); }
+
 // Box Shadow Classes
 .bs-btm-h-10 { box-shadow: 0 10px 10px $shadow-gray; }
 
@@ -121,6 +153,7 @@ $whiter-gray: rgba(241, 241, 241, 1);
 .lh-2 { line-height: 2; }
 
 // Margin classes
+.ml-15 { margin-left: 1.5rem; }
 .nt-5 { margin-top: -5px; }
 
 // Padding classes
@@ -147,6 +180,7 @@ $whiter-gray: rgba(241, 241, 241, 1);
 @media screen and (min-width: 1200px) {
   .dib-xl { display: inline-block !important; }
   .df-l { display: flex; }
+  .fl-xl { float: left; }
 }
 
 // Medium screen sizes

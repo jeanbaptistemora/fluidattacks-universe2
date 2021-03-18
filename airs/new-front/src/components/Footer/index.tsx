@@ -1,5 +1,6 @@
 import { InfoSection } from "./InfoSection";
 import { LinksSection } from "./LinksSection";
+import { LogosSection } from "./LogosSection";
 import React from "react";
 import type { StyledComponent } from "styled-components";
 import styled from "styled-components";
@@ -32,13 +33,13 @@ const MainFooterContainer: StyledComponent<
     pb4
     pt4-ns
     pt2
-    display-none
   `,
 })``;
 
 const Footer: React.FC = (): JSX.Element => (
   <DarkBlueFooter>
     <MainFooterContainer>
+      <LogosSection />
       <LinksSection />
       <MainFooterInfoContainer>
         <InnerFooterInfoContainer>
