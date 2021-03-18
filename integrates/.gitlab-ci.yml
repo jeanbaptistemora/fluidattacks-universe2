@@ -276,6 +276,9 @@ integrates.back.test.functional.update_evidence:
 integrates.back.test.functional.update_evidence_description:
   <<: *integrates_back_test_functional
 
+integrates.back.test.functional.update_finding_description:
+  <<: *integrates_back_test_functional
+
 integrates.back.test.functional.update_organization_policies:
   <<: *integrates_back_test_functional
 

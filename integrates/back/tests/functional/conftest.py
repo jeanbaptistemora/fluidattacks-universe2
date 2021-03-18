@@ -45,6 +45,7 @@ TEST_GROUPS: Set[str] = {
     'update_event_evidence',
     'update_evidence',
     'update_evidence_description',
+    'update_finding_description',
     'update_organization_policies',
     'update_severity',
     'upload_file',
