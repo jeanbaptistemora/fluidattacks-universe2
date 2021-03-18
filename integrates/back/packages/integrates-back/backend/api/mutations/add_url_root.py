@@ -34,6 +34,10 @@ async def mutate(
     user_info: Dict[str, str] = await util.get_jwt_content(info.context)
     user_email: str = user_info['user_email']
 
-    await roots_domain.add_url_root(info.context.loaders, user_email, **kwargs)
+    await roots_domain.add_url_root_legacy(
+        info.context.loaders,
+        user_email,
+        **kwargs
+    )
 
     return SimplePayload(success=True)
