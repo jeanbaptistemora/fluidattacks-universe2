@@ -59,6 +59,10 @@ class StopEvaluation(Exception):
     pass
 
 
+class ImpossiblePath(StopEvaluation):
+    pass
+
+
 class EvaluatorArgs(NamedTuple):
     dependencies: graph_model.SyntaxSteps
     finding: core_model.FindingEnum
@@ -200,10 +204,42 @@ def syntax_step_if(args: EvaluatorArgs) -> None:
         and args.n_id_next != args.syntax_step.n_id_false
     )):
         # We are walking a path that should not happen
-        raise StopEvaluation('Execution flow cannot go this way')
+        raise ImpossiblePath()
 
 
-def syntax_step_switch_label(_args: EvaluatorArgs) -> None:
+def syntax_step_switch_label(args: EvaluatorArgs) -> None:
+    pred, *cases = args.dependencies
+
+    # We don't know the value of the predicate so let's stop here
+    if pred.meta.value is None:
+        return
+
+    switch_n_id_next = None
+
+    # Follow every `case X:` in search of the next_id
+    for case in cases:
+        if isinstance(case, graph_model.SyntaxStepSwitchLabelCase):
+            if case.meta.value == pred.meta.value:
+                switch_n_id_next = case.meta.n_id
+                break
+
+    # Follow every `default:` in search of the next_id
+    if switch_n_id_next is None:
+        for case in cases:
+            if isinstance(case, graph_model.SyntaxStepSwitchLabelDefault):
+                switch_n_id_next = case.meta.n_id
+                break
+
+    if switch_n_id_next is not None and args.n_id_next != switch_n_id_next:
+        # We are walking a path that should not happen
+        raise ImpossiblePath()
+
+
+def syntax_step_switch_label_case(args: EvaluatorArgs) -> None:
+    args.syntax_step.meta.value = args.dependencies[0].meta.value
+
+
+def syntax_step_switch_label_default(_args: EvaluatorArgs) -> None:
     pass
 
 
@@ -455,8 +491,8 @@ EVALUATORS: Dict[object, Evaluator] = {
     graph_model.SyntaxStepFor: syntax_step_for,
     graph_model.SyntaxStepIf: syntax_step_if,
     graph_model.SyntaxStepSwitch: syntax_step_switch_label,
-    graph_model.SyntaxStepSwitchLabelCase: syntax_step_no_op,
-    graph_model.SyntaxStepSwitchLabelDefault: syntax_step_no_op,
+    graph_model.SyntaxStepSwitchLabelCase: syntax_step_switch_label_case,
+    graph_model.SyntaxStepSwitchLabelDefault: syntax_step_switch_label_default,
     graph_model.SyntaxStepLiteral: syntax_step_literal,
     graph_model.SyntaxStepMethodInvocation: syntax_step_method_invocation,
     graph_model.SyntaxStepMethodInvocationChain:
@@ -552,6 +588,8 @@ def get_possible_syntax_steps_from_path(
                 n_id=n_id,
                 n_id_next=n_id_next,
             )
+        except ImpossiblePath:
+            break
         except StopEvaluation as exc:
             log_blocking('debug', str(exc))
             break
