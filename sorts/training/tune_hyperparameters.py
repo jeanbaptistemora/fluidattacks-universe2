@@ -20,7 +20,11 @@ def deploy_hyperparameter_tuning_job() -> None:
     with tempfile.TemporaryDirectory() as tmp_dir:
         model_name_file: str = os.path.join(tmp_dir, 'best_model.txt')
         model: str = get_best_model_name(model_name_file)
-    estimator: SKLearnEstimator = get_estimator(model)
+    estimator: SKLearnEstimator = get_estimator(
+        model,
+        training_script='training/training_script_tuning.py'
+    )
+
     tuner = HyperparameterTuner(
         estimator,
         metric_definitions=[
@@ -30,7 +34,7 @@ def deploy_hyperparameter_tuning_job() -> None:
             {'Name': 'overfit', 'Regex': 'Overfit: (.*?)%'}
         ],
         objective_metric_name='fscore',
-        objective_type='Minimize',
+        objective_type='Maximize',
         hyperparameter_ranges={
             'activation': CategoricalParameter(['tanh', 'relu'])
         }
