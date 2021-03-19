@@ -60,8 +60,8 @@ DANGER_METHODS_STATIC: Set[str] = _complete_attrs_on_set({
 DANGER_METHODS_STATIC_SIDE_EFFECTS = _complete_attrs_on_set({
     'java.util.Random.nextBytes',
 })
-DANGER_METHODS_BY_OBJ_NO_TYPE_ARGS_PROPAGATION: Set[
-    str] = _complete_attrs_on_set({
+DANGER_METHODS_BY_OBJ_NO_TYPE_ARGS_PROPAGATION: Set[str] = \
+    _complete_attrs_on_set({
         'getSession.setAttribute',
         'toString.substring',
         'addCookie',
@@ -79,6 +79,11 @@ DANGER_METHODS_BY_OBJ: Dict[str, Set[str]] = _complete_attrs_on_dict({
     },
     'java.util.List': {
         'get',
+    },
+})
+DANGER_METHODS_BY_OBJ_ARGS: Dict[str, Set[str]] = _complete_attrs_on_dict({
+    'org.owasp.benchmark.helpers.ThingInterface': {
+        'doSomething',
     },
 })
 DANGER_METHODS_BY_TYPE: Dict[str, Set[str]] = _complete_attrs_on_dict({

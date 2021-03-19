@@ -26,6 +26,7 @@ from model import (
 )
 from sast.common import (
     build_attr_paths,
+    DANGER_METHODS_BY_OBJ_ARGS,
     DANGER_METHODS_BY_TYPE_AND_VALUE,
     DANGER_METHODS_BY_TYPE_ARGS_PROPAGATION,
     DANGER_METHODS_STATIC_SIDE_EFFECTS,
@@ -363,6 +364,10 @@ def _analyze_method_invocation(args: EvaluatorArgs, method: str) -> None:
         method_path in DANGER_METHODS_BY_OBJ.get(method_var_decl_type, {})
         and method_var_decl
         and method_var_decl.meta.danger
+    ) or (
+        # Know functions that propagate danger if args are dangerous
+        method_path in DANGER_METHODS_BY_OBJ_ARGS.get(method_var_decl_type, {})
+        and args_danger
     ) or (
         # Known functions that propagate args danger
         method in DANGER_METHODS_BY_ARGS_PROPAGATION
