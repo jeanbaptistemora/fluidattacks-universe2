@@ -13,7 +13,7 @@ from backend.typing import Root
 from roots import domain as roots_domain
 
 
-async def get_roots_by_group(group_name: str) -> Tuple[Root, ...]:
+async def get_roots(*, group_name: str) -> Tuple[Root, ...]:
     return tuple(
         roots_domain.format_root_legacy(root)
         for root in await roots_domain.get_roots_by_group(group_name)
@@ -28,6 +28,6 @@ class GroupRootsLoader(DataLoader):  # type: ignore
         group_names: Tuple[str, ...]
     ) -> Tuple[Tuple[Root, ...], ...]:
         return cast(Tuple[Tuple[Root, ...], ...], await collect(
-            get_roots_by_group(group_name)
+            get_roots(group_name=group_name)
             for group_name in group_names
         ))

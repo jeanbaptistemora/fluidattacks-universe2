@@ -34,10 +34,11 @@ def _convert_to_iso(date: str) -> str:
 
 
 async def _migrate_cloning(
-    cloning: List[Dict[str, Any]],
     group_name: str,
-    root_id: str
+    root_id: str,
+    legacy_root: Dict[str, Any]
 ) -> None:
+    cloning = legacy_root['historic_cloning_status']
     await collect(tuple(
         roots_dal.update_git_root_cloning(
             cloning=GitRootCloning(
@@ -65,8 +66,9 @@ async def _migrate_cloning(
 async def _migrate_state(
     group_name: str,
     root_id: str,
-    state: List[Dict[str, Any]]
+    legacy_root: Dict[str, Any]
 ) -> None:
+    state = legacy_root['historic_state']
     await collect(tuple(
         roots_dal.update_git_root_state(
             group_name=group_name,
@@ -78,7 +80,7 @@ async def _migrate_state(
                 includes_health_check=item['includes_health_check'],
                 modified_by=item['user'],
                 modified_date=_convert_to_iso(item['date']),
-                nickname=item.get('nickname'),
+                nickname=legacy_root['nickname'],
                 status=item['state']
             )
         )
@@ -95,7 +97,7 @@ async def _migrate_state(
             includes_health_check=state[-1]['includes_health_check'],
             modified_by=state[-1]['user'],
             modified_date=_convert_to_iso(state[-1]['date']),
-            nickname=state[-1].get('nickname'),
+            nickname=legacy_root['nickname'],
             status=state[-1]['state']
         )
     )
@@ -125,14 +127,14 @@ async def _migrate_root(legacy_root: Dict[str, Any]) -> None:
             includes_health_check=state[0]['includes_health_check'],
             modified_by=state[0]['user'],
             modified_date=_convert_to_iso(state[0]['date']),
-            nickname=state[0].get('nickname'),
+            nickname=legacy_root['nickname'],
             status=state[0]['state']
         )
     )
 
-    await roots_dal.create_git_root(group_name=group_name, root=root)
-    await _migrate_cloning(cloning, group_name, root_id)
-    await _migrate_state(group_name, root_id, state)
+    await roots_dal.create_root(group_name=group_name, root=root)
+    await _migrate_cloning(group_name, root_id, legacy_root)
+    await _migrate_state(group_name, root_id, legacy_root)
 
 
 async def main() -> None:

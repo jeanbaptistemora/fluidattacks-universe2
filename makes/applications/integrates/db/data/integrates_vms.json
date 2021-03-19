@@ -95,9 +95,7 @@
           "modified_date": { "S": "2020-11-19T13:39:56+00:00" },
           "environment": { "S": "QA" },
           "environment_urls": { "L": [] },
-          "gitignore": {
-            "L": [{ "S": "bower_components/*" }, { "S": "node_modules/*" }]
-          },
+          "gitignore": { "L": [] },
           "includes_health_check": { "BOOL": false },
           "modified_by": { "S": "jdoe@fluidattacks.com" }
         }
@@ -150,7 +148,7 @@
       "PutRequest": {
         "Item": {
           "pk": { "S": "ROOT#d312f0b9-da49-4d2b-a881-bed438875e99" },
-          "sk": { "S": "GROUP#unittesting" },
+          "sk": { "S": "GROUP#oneshottest" },
           "type": { "S": "IP" }
         }
       }
@@ -159,7 +157,7 @@
       "PutRequest": {
         "Item": {
           "pk": { "S": "ROOT#d312f0b9-da49-4d2b-a881-bed438875e99#STATE" },
-          "sk": { "S": "GROUP#unittesting" },
+          "sk": { "S": "GROUP#oneshottest" },
           "address": { "S": "127.0.0.1" },
           "modified_by": { "S": "jdoe@fluidattacks.com" },
           "modified_date": { "S": "2020-11-19T13:44:37+00:00" },
@@ -185,7 +183,7 @@
       "PutRequest": {
         "Item": {
           "pk": { "S": "ROOT#8493c82f-2860-4902-86fa-75b0fef76034" },
-          "sk": { "S": "GROUP#unittesting" },
+          "sk": { "S": "GROUP#oneshottest" },
           "type": { "S": "URL" }
         }
       }
@@ -194,7 +192,7 @@
       "PutRequest": {
         "Item": {
           "pk": { "S": "ROOT#8493c82f-2860-4902-86fa-75b0fef76034#STATE" },
-          "sk": { "S": "GROUP#unittesting" },
+          "sk": { "S": "GROUP#oneshottest" },
           "host": { "S": "integrates.fluidattacks.com" },
           "modified_by": { "S": "jdoe@fluidattacks.com" },
           "modified_date": { "S": "2020-11-19T13:45:55+00:00" },

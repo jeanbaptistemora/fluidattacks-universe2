@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Mar 18, 2021, 06:44 PM",
+    "DateLastModified": "Mar 19, 2021, 08:59 AM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "2.0"
@@ -1316,6 +1316,7 @@
             "modified_by",
             "nickname",
             "address",
+            "port",
             "host",
             "path",
             "protocol"
@@ -1328,7 +1329,7 @@
           "FacetName": "root_historic_state",
           "KeyAttributeAlias": {
             "PartitionKeyAlias": "ROOT#uuid",
-            "SortKeyAlias": "ROOT#uuid#STATE#iso8601utc"
+            "SortKeyAlias": "STATE#iso8601utc"
           },
           "TableData": [
             {
@@ -1336,7 +1337,7 @@
                 "S": "ROOT#73f2b757-5a61-4027-b00d-c6227f2163cf"
               },
               "sk": {
-                "S": "ROOT#73f2b757-5a61-4027-b00d-c6227f2163cf#STATE#2021-02-15T14:01:16Z"
+                "S": "STATE#2021-02-15T14:01:16Z"
               },
               "status": {
                 "S": "ACTIVE"
@@ -1382,6 +1383,7 @@
             "modified_by",
             "nickname",
             "address",
+            "port",
             "host",
             "path",
             "protocol"
@@ -1428,7 +1430,7 @@
           "FacetName": "root_historic_cloning",
           "KeyAttributeAlias": {
             "PartitionKeyAlias": "ROOT#uuid",
-            "SortKeyAlias": "ROOT#uuid#CLON#iso8601utc"
+            "SortKeyAlias": "CLON#iso8601utc"
           },
           "TableData": [
             {
@@ -1436,7 +1438,7 @@
                 "S": "ROOT#73f2b757-5a61-4027-b00d-c6227f2163cf"
               },
               "sk": {
-                "S": "ROOT#73f2b757-5a61-4027-b00d-c6227f2163cf#CLON#2021-02-15T14:01:16Z"
+                "S": "CLON#2021-02-15T14:01:16Z"
               },
               "status": {
                 "S": "UNKNOWN"

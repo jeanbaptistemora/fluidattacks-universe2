@@ -92,7 +92,10 @@ def format_root(root: RootItem) -> Root:
 
 
 async def get_root(*, group_name: str, root_id: str) -> RootItem:
-    root = await roots_dal.get_root(group_name=group_name, root_id=root_id)
+    # Temporarily needed for backwards compatibility
+    r_id = root_id.split('#')[1] if root_id.startswith('ROOT#') else root_id
+
+    root = await roots_dal.get_root(group_name=group_name, root_id=r_id)
 
     if root:
         return root

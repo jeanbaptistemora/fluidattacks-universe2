@@ -19,10 +19,6 @@ async def test_analyst(populate: bool):
     finding: str = '475041521'
     event: str = '418900971'
     root: str = 'ROOT#63298a73-9dff-46cf-b42d-9b2f01a56690'
-    stakeholders: str = [
-        'admin@gmail.com',
-        'analyst@gmail.com',
-    ]
     draft = {
         'id': '475041531',
         'title': 'FIN.H.060. Insecure exceptions',
