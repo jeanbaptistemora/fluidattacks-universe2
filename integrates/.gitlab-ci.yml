@@ -288,6 +288,9 @@ integrates.back.test.functional.update_evidence_description:
 integrates.back.test.functional.update_finding_description:
   <<: *integrates_back_test_functional
 
+integrates.back.test.functional.update_forces_access_token:
+  <<: *integrates_back_test_functional
+
 integrates.back.test.functional.update_organization_policies:
   <<: *integrates_back_test_functional
 
