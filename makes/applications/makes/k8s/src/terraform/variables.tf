@@ -16,6 +16,9 @@ data "aws_security_group" "cloudflare" {
 data "aws_eks_cluster" "cluster" {
   name = module.eks.cluster_id
 }
+data "local_file" "ci_init" {
+  filename = "init.sh"
+}
 data "aws_eks_cluster_auth" "cluster" {
   name = module.eks.cluster_id
 }
@@ -61,7 +64,6 @@ variable "map_roles" {
     },
   ]
 }
-
 variable "map_users" {
   description = "Additional IAM users to add to the aws-auth configmap."
   type = list(object({

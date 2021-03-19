@@ -110,7 +110,7 @@ module "eks" {
       spot_instance_pools      = 5
       spot_max_price           = "" # Defaults to on-demand price
 
-      pre_userdata = file("init.sh")
+      pre_userdata = data.local_file.ci_init.content
 
       tags = [
         {
