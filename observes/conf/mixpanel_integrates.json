@@ -47,6 +47,7 @@
     "GroupDrafts",
     "GroupEvents",
     "GroupIndicators",
+    "GroupReportRequest",
     "GroupScope",
     "GroupStakeholders",
     "GroupVulns",
