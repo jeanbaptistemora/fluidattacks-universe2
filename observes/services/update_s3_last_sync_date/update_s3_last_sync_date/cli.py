@@ -11,6 +11,7 @@ from update_s3_last_sync_date import db_client
 
 SINGLE_JOBS = frozenset([
     'formstack',
+    'mailchimp',
     'mixpanel_integrates',
     'timedoctor_backup',
     'timedoctor_etl',

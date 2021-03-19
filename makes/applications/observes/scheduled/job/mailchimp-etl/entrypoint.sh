@@ -28,8 +28,11 @@ function start_etl {
   &&  observes-target-redshift \
         --auth "${db_creds}" \
         --drop-schema \
-        --schema-name "mailchimp_test" \
-        < .singer
+        --schema-name 'mailchimp' \
+        < .singer \
+  &&  observes-update-sync-date single-job \
+        --auth "${db_creds}" \
+        --job 'mailchimp'
 }
 
 start_etl
