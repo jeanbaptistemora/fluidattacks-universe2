@@ -94,12 +94,14 @@ def test_group(
 ) -> Iterator[str]:
     # Create 2 groups on Integrates and assign them to your branch
     mapping: Dict[str, str] = {
+        'daguirreatfluid': 'corrientes',
+        'drestrepoatfluid': 'tacna',
         'kamadoatfluid': 'worcester',
         'master': 'wausau',
-        'drestrepoatfluid': 'tacna',
     } if os.environ.get('CI') else {
-        'kamadoatfluid': 'magdalena',
+        'daguirreatfluid': 'wayne',
         'drestrepoatfluid': 'jessup',
+        'kamadoatfluid': 'magdalena',
         'master': 'djibo',
     }
 

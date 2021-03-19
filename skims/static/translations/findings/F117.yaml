@@ -17,10 +17,10 @@ utils.model.finding.enum.f117.impact:
     - Dificultar el proceso de versionamiento y auditoría de seguridad.
     - Introducir vulnerabilidades de versiones pasadas de archivos en el repositorio.
 utils.model.finding.enum.f117.recommendation:
-  en: >
+  en: |
     - Remove the files that should not be versioned from the repository.
     - Include the affected extensions in the .gitignore file.
-  es: >
+  es: |
     - Remover los archivos que no deberían ser versionados en el repositorio de código.
     - Incluir las extensiones afectadas en el archivo .gitignore.
 utils.model.finding.enum.f117.requirements:
