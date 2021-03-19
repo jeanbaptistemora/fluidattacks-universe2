@@ -18,7 +18,6 @@ def _mark_java(graph: graph_model.Graph) -> None:
     _mark_java_f063(graph)
     _mark_java_f034(graph)
     _mark_java_f004(graph)
-    _mark_java_f042(graph)
 
 
 def _mark_java_f063(graph: graph_model.Graph) -> None:

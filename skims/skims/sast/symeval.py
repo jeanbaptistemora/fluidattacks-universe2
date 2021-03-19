@@ -1,5 +1,4 @@
 # Standard library
-import contextlib
 from copy import (
     deepcopy,
 )
@@ -27,14 +26,15 @@ from model import (
 from sast.common import (
     build_attr_paths,
     DANGER_METHODS_BY_OBJ_ARGS,
+    DANGER_METHODS_BY_TYPE_ARGS_PROPAGATION_BY_FINDING,
     DANGER_METHODS_BY_TYPE_AND_VALUE,
     DANGER_METHODS_BY_TYPE_ARGS_PROPAGATION,
-    DANGER_METHODS_STATIC_SIDE_EFFECTS,
+    DANGER_METHODS_STATIC_SIDE_EFFECTS_BY_FINDING,
     DANGER_METHODS_BY_ARGS_PROPAGATION,
     DANGER_METHODS_BY_OBJ,
     DANGER_METHODS_BY_OBJ_NO_TYPE_ARGS_PROPAGATION,
     DANGER_METHODS_BY_TYPE,
-    DANGER_METHODS_STATIC,
+    DANGER_METHODS_STATIC_BY_FINDING,
     split_on_first_dot,
 )
 from utils import (
@@ -153,12 +153,18 @@ def syntax_step_binary_expression(args: EvaluatorArgs) -> None:
 
     args.syntax_step.meta.danger = left.meta.danger or right.meta.danger
 
-    with contextlib.suppress(TypeError):
+    if left.meta.value is not None and right.meta.value is not None:
         args.syntax_step.meta.value = {
             '+': operator.add,
-            '>': operator.gt,
-            '*': operator.mul,
             '-': operator.sub,
+            '*': operator.mul,
+            '/': operator.truediv,
+            '<': operator.lt,
+            '<=': operator.le,
+            '==': operator.eq,
+            '!=': operator.ne,
+            '>': operator.gt,
+            '>=': operator.ge,
         }.get(args.syntax_step.operator, lambda _, __: None)(
             left.meta.value,
             right.meta.value,
@@ -187,11 +193,6 @@ def _syntax_step_declaration_danger(args: EvaluatorArgs) -> None:
                 'javax', 'servlet', 'http', 'HttpServletRequest'
             ),
         )),
-        args.finding == core_model.FindingEnum.F034 and any((
-            args.syntax_step.var_type in build_attr_paths(
-                'javax', 'servlet', 'http', 'Cookie'
-            ),
-        )) and args_danger,
     ))
 
     # Local context
@@ -335,13 +336,20 @@ def _analyze_method_by_type_args_propagation(
             method_var_decl_type, {}) and args_danger):
         args.syntax_step.meta.danger = True
 
+    danger_methods = DANGER_METHODS_BY_TYPE_ARGS_PROPAGATION_BY_FINDING.get(
+        args.finding.name, {})
+    if (method_path in danger_methods.get(
+            method_var_decl_type, {}) and args_danger):
+        args.syntax_step.meta.danger = True
+
 
 def _analyze_method_static_side_effects(
     args: EvaluatorArgs,
     method: str,
 ) -> None:
     # functions that make its parameters vulnerable
-    if method in DANGER_METHODS_STATIC_SIDE_EFFECTS:
+    if method in DANGER_METHODS_STATIC_SIDE_EFFECTS_BY_FINDING.get(
+            args.finding.name, set()):
         for dep in args.dependencies:
             dep.meta.danger = True
 
@@ -374,7 +382,8 @@ def _analyze_method_invocation(args: EvaluatorArgs, method: str) -> None:
         and args_danger
     ) or (
         # Known static functions that no require args danger
-        method in DANGER_METHODS_STATIC
+        method in DANGER_METHODS_STATIC_BY_FINDING.get(args.finding.name,
+                                                       set())
     ) or (
         # functions for which the type of the variable cannot be obtained,
         # but which propagate args danger
@@ -387,8 +396,11 @@ def _analyze_method_invocation(args: EvaluatorArgs, method: str) -> None:
 
     if methods := DANGER_METHODS_BY_TYPE_AND_VALUE.get(method_var_decl_type):
         parameters = {param.meta.value for param in args.dependencies}
-        if parameters.intersection(methods.get(method_path, set())):
-            args.syntax_step.meta.danger = True
+        if (
+            parameters.intersection(methods.get(method_path, set()))
+            and method_var_decl
+        ):
+            method_var_decl.meta.danger = True
 
 
 def _analyze_method_invocation_values(args: EvaluatorArgs) -> None:

@@ -3185,7 +3185,6 @@
           "127": {
             "label_c": 3,
             "label_l": 39,
-            "label_sink_type": "F042",
             "label_type": "method_invocation"
           },
           "128": {
@@ -6447,9 +6446,7 @@
               "187"
             ],
             "F037": [],
-            "F042": [
-              "127"
-            ],
+            "F042": [],
             "F052": [],
             "F055_AWS_MISSING_ENCRYPTION": [],
             "F055_CORS": [],
@@ -18402,7 +18399,6 @@
           "529": {
             "label_c": 4,
             "label_l": 89,
-            "label_sink_type": "F042",
             "label_type": "method_invocation"
           },
           "53": {
@@ -19455,9 +19451,7 @@
               "585"
             ],
             "F037": [],
-            "F042": [
-              "529"
-            ],
+            "F042": [],
             "F052": [],
             "F055_AWS_MISSING_ENCRYPTION": [],
             "F055_CORS": [],
