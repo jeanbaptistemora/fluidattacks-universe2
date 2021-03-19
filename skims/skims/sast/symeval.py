@@ -570,6 +570,12 @@ def syntax_step_symbol_lookup(args: EvaluatorArgs) -> None:
         args.syntax_step.meta.value = dcl.meta.value
 
 
+def syntax_step_return(args: EvaluatorArgs) -> None:
+    returned, = args.dependencies
+    args.syntax_step.meta.danger = returned.meta.danger
+    args.syntax_step.meta.value = returned.meta.value
+
+
 def syntax_step_ternary(args: EvaluatorArgs) -> None:
     predicate, left, right = args.dependencies
 
@@ -632,7 +638,7 @@ EVALUATORS: Dict[object, Evaluator] = {
     graph_model.SyntaxStepNoOp: syntax_step_no_op,
     graph_model.SyntaxStepObjectInstantiation:
     syntax_step_object_instantiation,
-    graph_model.SyntaxStepReturn: syntax_step_no_op,
+    graph_model.SyntaxStepReturn: syntax_step_return,
     graph_model.SyntaxStepSymbolLookup: syntax_step_symbol_lookup,
     graph_model.SyntaxStepTernary: syntax_step_ternary,
 }
