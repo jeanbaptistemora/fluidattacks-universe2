@@ -1,25 +1,25 @@
-import { useQuery } from "@apollo/react-hooks";
-import { ApolloError } from "apollo-client";
+import type { ApolloError } from "apollo-client";
 import { DataTableNext } from "components/DataTableNext";
-import { IHeaderConfig } from "components/DataTableNext/types";
-import { GraphQLError } from "graphql";
-import _ from "lodash";
-import React from "react";
-import { useHistory, useParams } from "react-router";
-import { PORTFOLIO_GROUP_QUERY } from "scenes/Dashboard/containers/TagContent/TagGroup/queries";
-import { Row } from "styles/styledComponents";
+import type { GraphQLError } from "graphql";
+import type { IHeaderConfig } from "components/DataTableNext/types";
 import { Logger } from "utils/logger";
+import { PORTFOLIO_GROUP_QUERY } from "scenes/Dashboard/containers/TagContent/TagGroup/queries";
+import React from "react";
+import { Row } from "styles/styledComponents";
+import _ from "lodash";
 import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
+import { useQuery } from "@apollo/react-hooks";
+import { useHistory, useParams } from "react-router";
 
 interface IPortfolio {
   tag: {
     name: string;
-    projects: Array<{description: string; name: string}>;
+    projects: { description: string; name: string }[];
   };
 }
 
-const tagsGroup: React.FC = (): JSX.Element => {
+const TagsGroup: React.FC = (): JSX.Element => {
   const { tagName } = useParams<{ tagName: string }>();
   const { data } = useQuery<IPortfolio>(PORTFOLIO_GROUP_QUERY, {
     onError: ({ graphQLErrors }: ApolloError): void => {
@@ -37,30 +37,36 @@ const tagsGroup: React.FC = (): JSX.Element => {
     { dataField: "description", header: "Description" },
   ];
 
-  const handleRowTagClick: ((event: React.FormEvent<HTMLButtonElement>, rowInfo: { name: string }) => void) = (
-    _0: React.FormEvent<HTMLButtonElement>, rowInfo: { name: string },
+  const handleRowTagClick: (
+    event: React.FormEvent<HTMLButtonElement>,
+    rowInfo: { name: string }
+  ) => void = (
+    _0: React.FormEvent<HTMLButtonElement>,
+    rowInfo: { name: string }
   ): void => {
     push(`/groups/${rowInfo.name.toLowerCase()}/analytics`);
   };
 
-  if (_.isUndefined(data) || _.isEmpty(data)) { return <React.Fragment />; }
+  if (_.isUndefined(data) || _.isEmpty(data)) {
+    return <div />;
+  }
 
   return (
-    <React.Fragment>
+    <div>
       <Row>
         <DataTableNext
           bordered={true}
           dataset={data.tag.projects}
           exportCsv={false}
           headers={tableHeaders}
-          id="tblProjectsTag"
+          id={"tblProjectsTag"}
           pageSize={10}
           rowEvents={{ onClick: handleRowTagClick }}
           search={true}
         />
       </Row>
-    </React.Fragment>
+    </div>
   );
 };
 
-export { tagsGroup as TagsGroup };
+export { TagsGroup };
