@@ -268,8 +268,6 @@ async def update_git_root_cloning(
 
 async def update_git_root_toe_lines(
     *,
-    group_name: str,
-    root_id: str,
     root_toe_lines: GitRootToeLines
 ) -> None:
     key_structure = TABLE.primary_key
@@ -278,8 +276,8 @@ async def update_git_root_toe_lines(
         facet=facet,
         values={
             'filename': root_toe_lines.filename,
-            'group_name': group_name,
-            'root_id': root_id,
+            'group_name': root_toe_lines.group_name,
+            'root_id': root_toe_lines.root_id,
         },
     )
     toe_lines = {

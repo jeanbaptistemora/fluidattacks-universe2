@@ -21,8 +21,6 @@ LOGGER = logging.getLogger(__name__)
 async def update(root_toe_lines: GitRootToeLines) -> None:
     try:
         await model.update_git_root_toe_lines(
-            group_name=root_toe_lines.group_name,
-            root_id=root_toe_lines.root_id,
             root_toe_lines=root_toe_lines
         )
     except ClientError as ex:
