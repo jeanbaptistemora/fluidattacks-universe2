@@ -1,13 +1,6 @@
 # Standard
 import re
-from typing import (
-    Any,
-    Dict,
-    List,
-    Optional,
-    Tuple,
-    Set,
-)
+from typing import Any, Dict, List, Optional, Tuple
 from urllib.parse import unquote
 from uuid import uuid4
 
@@ -157,21 +150,6 @@ async def _is_ip_unique_in_org(org_id: str, address: str, port: str) -> bool:
     )
 
     return (address, port) not in org_roots
-
-
-@newrelic.agent.function_trace()
-async def _is_nickname_unique_in_group_legacy(
-    group_name: str,
-    nickname: str
-) -> bool:
-    group_roots = await get_roots_by_group(group_name)
-    nickname_roots: Set[str] = {
-        root.get('nickname', '')
-        for root in group_roots
-        if root['kind'] == 'Git'
-    }
-
-    return nickname not in nickname_roots
 
 
 @newrelic.agent.function_trace()
@@ -585,75 +563,6 @@ async def update_git_environments(
             status=root.state.status
         )
     )
-
-
-async def update_git_root_legacy(user_email: str, **kwargs: Any) -> None:
-    root_id: str = kwargs['id']
-    group_name: str = kwargs['group_name']
-    root: Dict[str, Any] = await get_root_by_id(group_name, root_id)
-    last_state: Dict[str, Any] = root['historic_state'][-1]
-
-    nickname = format_root_nickname(
-        kwargs.get('nickname', ''),
-        root.get('nickname', '')
-    )
-    gitignore = kwargs['gitignore']
-    filter_changed: bool = gitignore != last_state['gitignore']
-    enforcer = await authz.get_group_level_enforcer(user_email)
-    if (
-        filter_changed
-        and not enforcer(group_name, 'update_git_root_filter')
-    ):
-        raise PermissionDenied()
-    if not validations.is_exclude_valid(gitignore, root['url']):
-        raise InvalidRootExclusion()
-
-    if _is_active(root) and root['kind'] == 'Git':
-
-        if (
-            nickname != root.get('nickname', '') and
-            not await _is_nickname_unique_in_group_legacy(group_name, nickname)
-        ):
-            raise RepeatedRootNickname()
-
-        new_state: Dict[str, Any] = {
-            **last_state,
-            'date': datetime_utils.get_as_str(datetime_utils.get_now()),
-            'environment': kwargs['environment'],
-            'gitignore': gitignore,
-            'includes_health_check': kwargs['includes_health_check'],
-            'user': user_email
-        }
-
-        await roots_dal.update_legacy(
-            group_name,
-            root_id,
-            {
-                'nickname': nickname,
-                'historic_state': [*root['historic_state'], new_state],
-            }
-        )
-        health_check_changed: bool = (
-            kwargs['includes_health_check']
-            != last_state['includes_health_check']
-        )
-        if health_check_changed:
-            if kwargs['includes_health_check']:
-                await notifications_domain.request_health_check(
-                    branch=root['branch'],
-                    group_name=group_name,
-                    repo_url=root['url'],
-                    requester_email=user_email,
-                )
-            else:
-                await notifications_domain.cancel_health_check(
-                    branch=root['branch'],
-                    group_name=group_name,
-                    repo_url=root['url'],
-                    requester_email=user_email,
-                )
-    else:
-        raise InvalidParameter()
 
 
 async def update_git_root(user_email: str, **kwargs: Any) -> None:
