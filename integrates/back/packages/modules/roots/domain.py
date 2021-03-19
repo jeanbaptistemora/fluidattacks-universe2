@@ -350,45 +350,6 @@ async def add_url_root(context: Any, user_email: str, **kwargs: Any) -> None:
     await roots_dal.create_root(group_name=group_name, root=root)
 
 
-def format_root_legacy(root: Dict[str, Any]) -> Root:
-    root_state: Dict[str, Any] = root['historic_state'][-1]
-
-    if root['kind'] == 'Git':
-        cloning_status: Dict[str, Any] = root['historic_cloning_status'][-1]
-
-        return GitRoot(
-            branch=root['branch'],
-            cloning_status=GitRootCloningStatus(
-                status=cloning_status['status'],
-                message=cloning_status['message'],
-            ),
-            environment=root_state['environment'],
-            environment_urls=root_state['environment_urls'],
-            gitignore=root_state['gitignore'],
-            id=root['sk'],
-            includes_health_check=root_state['includes_health_check'],
-            last_status_update=root_state['date'],
-            nickname=root.get('nickname', ''),
-            state=root_state['state'],
-            url=root['url']
-        )
-
-    if root['kind'] == 'IP':
-        return IPRoot(
-            address=root_state['address'],
-            id=root['sk'],
-            port=root_state['port']
-        )
-
-    return URLRoot(
-        host=root_state['host'],
-        id=root['sk'],
-        path=root_state['path'],
-        port=root_state['port'],
-        protocol=root_state['protocol']
-    )
-
-
 def format_root_nickname(nickname: str, url: str) -> str:
     nick = url.split('/')[-1]
     if nickname:
@@ -421,37 +382,6 @@ async def get_roots_by_group(group_name: str) -> Tuple[Dict[str, Any], ...]:
         }
         for root in roots
     )
-
-
-async def update_git_environments_legacy(
-    user_email: str,
-    group_name: str,
-    root_id: str,
-    environment_urls: Tuple[str, ...]
-) -> None:
-    root: Dict[str, Any] = await get_root_by_id(group_name, root_id)
-    last_state: Dict[str, Any] = root['historic_state'][-1]
-    is_valid: bool = (
-        _is_active(root)
-        and root['kind'] == 'Git'
-        and all(validations.is_valid_url(url) for url in environment_urls)
-    )
-
-    if is_valid:
-        new_state: Dict[str, Any] = {
-            **last_state,
-            'date': datetime_utils.get_as_str(datetime_utils.get_now()),
-            'environment_urls': environment_urls,
-            'user': user_email
-        }
-
-        await roots_dal.update_legacy(
-            group_name,
-            root_id,
-            {'historic_state': [*root['historic_state'], new_state]}
-        )
-    else:
-        raise InvalidParameter()
 
 
 async def update_git_environments(
@@ -546,30 +476,6 @@ async def update_git_root(user_email: str, **kwargs: Any) -> None:
             root=root,
             user_email=user_email
         )
-
-
-async def update_root_cloning_status_legacy(
-    group_name: str,
-    root_id: str,
-    status: str,
-    message: str,
-) -> None:
-    validations.validate_field_length(message, 400)
-    root: Dict[str, Any] = await get_root_by_id(group_name, root_id)
-    last_status = root['historic_cloning_status'][-1]
-
-    if last_status['status'] != status:
-        new_status: Dict[str, Any] = {
-            'status': status,
-            'date': datetime_utils.get_as_str(datetime_utils.get_now()),
-            'message': message,
-        }
-
-        await roots_dal.update_legacy(
-            group_name, root_id, {
-                'historic_cloning_status':
-                [*root['historic_cloning_status'], new_status]
-            })
 
 
 async def update_root_cloning_status(
