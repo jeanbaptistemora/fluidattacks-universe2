@@ -144,29 +144,6 @@ async def _is_git_unique_in_org(org_id: str, url: str, branch: str) -> bool:
 
 
 @newrelic.agent.function_trace()
-async def _is_ip_unique_in_org_legacy(
-    org_id: str,
-    address: str,
-    port: int
-) -> bool:
-    org_groups: Tuple[str, ...] = await org_domain.get_groups(org_id)
-    org_roots: Tuple[Tuple[str, int], ...] = tuple(
-        (
-            root['historic_state'][-1]['address'],
-            root['historic_state'][-1]['port']
-        )
-        for group_roots in await collect(
-            get_roots_by_group(group_name)
-            for group_name in org_groups
-        )
-        for root in group_roots
-        if root['kind'] == 'IP'
-    )
-
-    return (address, port) not in org_roots
-
-
-@newrelic.agent.function_trace()
 async def _is_ip_unique_in_org(org_id: str, address: str, port: str) -> bool:
     org_groups = await org_domain.get_groups(org_id)
     org_roots = tuple(
@@ -348,42 +325,6 @@ async def add_git_root(context: Any, user_email: str, **kwargs: Any) -> None:
             root=root,
             user_email=user_email
         )
-
-
-async def add_ip_root_legacy(
-    context: Any,
-    user_email: str,
-    **kwargs: Any
-) -> None:
-    group_loader = context.group_all
-    group_name: str = kwargs['group_name'].lower()
-    address: str = kwargs['address']
-    port: int = kwargs['port']
-    is_valid: bool = (
-        validations.is_valid_ip(address)
-        and 0 <= int(port) <= 65535
-    )
-
-    if is_valid:
-        group = await group_loader.load(group_name)
-        org_id = group['organization']
-        initial_state: Dict[str, Any] = {
-            'address': address,
-            'date': datetime_utils.get_as_str(datetime_utils.get_now()),
-            'port': port,
-            'user': user_email
-        }
-
-        if await _is_ip_unique_in_org_legacy(org_id, address, port):
-            root_attributes: Dict[str, Any] = {
-                'historic_state': [initial_state],
-                'kind': 'IP'
-            }
-            await roots_dal.create_legacy(group_name, root_attributes)
-        else:
-            raise RepeatedValues()
-    else:
-        raise InvalidParameter()
 
 
 async def add_ip_root(context: Any, user_email: str, **kwargs: Any) -> None:

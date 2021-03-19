@@ -70,7 +70,7 @@ def _build_root(
                 includes_health_check=state['includes_health_check'],
                 modified_by=state['modified_by'],
                 modified_date=state['modified_date'],
-                nickname=state.get('nickname', str()),
+                nickname=state['nickname'],
                 status=state['status']
             )
         )

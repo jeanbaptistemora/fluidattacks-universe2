@@ -26,7 +26,8 @@
             "L": [{ "S": "bower_components/*" }, { "S": "node_modules/*" }]
           },
           "includes_health_check": { "BOOL": true },
-          "modified_by": { "S": "jdoe@fluidattacks.com" }
+          "modified_by": { "S": "jdoe@fluidattacks.com" },
+          "nickname": { "S": "product" }
         }
       }
     },
@@ -47,7 +48,8 @@
             "L": [{ "S": "bower_components/*" }, { "S": "node_modules/*" }]
           },
           "includes_health_check": { "BOOL": true },
-          "modified_by": { "S": "jdoe@fluidattacks.com" }
+          "modified_by": { "S": "jdoe@fluidattacks.com" },
+          "nickname": { "S": "product" }
         }
       }
     },
@@ -97,7 +99,8 @@
           "environment_urls": { "L": [] },
           "gitignore": { "L": [] },
           "includes_health_check": { "BOOL": false },
-          "modified_by": { "S": "jdoe@fluidattacks.com" }
+          "modified_by": { "S": "jdoe@fluidattacks.com" },
+          "nickname": { "S": "integrates_1" }
         }
       }
     },
@@ -140,7 +143,8 @@
             "L": [{ "S": "bower_components/*" }, { "S": "node_modules/*" }]
           },
           "includes_health_check": { "BOOL": false },
-          "modified_by": { "S": "jdoe@fluidattacks.com" }
+          "modified_by": { "S": "jdoe@fluidattacks.com" },
+          "nickname": { "S": "integrates_1" }
         }
       }
     },
