@@ -53,6 +53,7 @@ from backend.typing import (
     MailContent as MailContentType,
     Project as ProjectType,
 )
+from batch import dal as batch_dal
 from events import domain as events_domain
 from newutils import datetime as datetime_utils
 from newutils.groups import (
@@ -487,6 +488,23 @@ async def get_new_vulnerabilities() -> None:
         get_group_new_vulnerabilities(context, group)
         for group in groups
     ])
+
+
+async def requeue_actions() -> None:
+    pending_actions = await batch_dal.get_actions()
+    await collect(
+        [
+            batch_dal.put_action_to_batch(
+                action_name=action.action_name,
+                entity=action.entity,
+                subject=action.subject,
+                time=action.time,
+                additional_info=action.additional_info,
+            )
+            for action in pending_actions
+        ],
+        workers=20
+    )
 
 
 async def send_treatment_change() -> None:

@@ -518,6 +518,12 @@ integrates.scheduler.update_portfolios:
     refs: [schedules]
     variables: [$integrates_scheduler_update_portfolios]
 
+integrates.scheduler.requeue_actions:
+  <<: *integrates_scheduler
+  only:
+    refs: [schedules]
+    variables: [$integrates_scheduler_requeue_actions]
+
 integrates.scheduler.send_treatment_change:
   <<: *integrates_scheduler
   only:
