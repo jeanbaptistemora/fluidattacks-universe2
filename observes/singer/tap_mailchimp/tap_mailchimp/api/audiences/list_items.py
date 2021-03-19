@@ -1,6 +1,6 @@
 # Standard libraries
 from typing import (
-    Iterator,
+    Iterator, Optional,
 )
 
 # Third party libraries
@@ -22,11 +22,26 @@ from tap_mailchimp.api.common.raw import (
 LOG = utils_logger.get_log(__name__)
 
 
+def _list_items_alert(ref: str, total: Optional[int]) -> None:
+    if total is None:
+        LOG.error('total_items is missing at `%s`', ref)
+    elif total > 10:
+        LOG.error(
+            'Data at `%s` suprassed max handled items (%s > 1000)',
+            ref,
+            total
+        )
+
+
 def list_audiences(
     raw_source: RawSource,
 ) -> Iterator[AudienceId]:
     result = api_data.create_api_data(
         raw_source.list_audiences()
+    )
+    _list_items_alert(
+        'list_audiences',
+        result.total_items
     )
     audiences_data = result.data['lists']
     return iter(map(lambda a: AudienceId(a['id']), audiences_data))
@@ -38,6 +53,10 @@ def list_abuse_reports(
 ) -> Iterator[AbsReportId]:
     result = api_data.create_api_data(
         raw_source.list_abuse_reports(audience)
+    )
+    _list_items_alert(
+        f'list_abuse_reports {audience}',
+        result.total_items
     )
     data = result.data['abuse_reports']
     return iter(map(
@@ -56,6 +75,10 @@ def list_members(
     result = api_data.create_api_data(
         raw_source.list_members(audience)
     )
+    _list_items_alert(
+        f'list_members {audience}',
+        result.total_items
+    )
     data = result.data['members']
     return iter(map(
         lambda item: MemberId(
@@ -73,6 +96,10 @@ def list_growth_hist(
     result = api_data.create_api_data(
         raw_source.list_growth_hist(audience)
     )
+    _list_items_alert(
+        f'list_growth_hist {audience}',
+        result.total_items
+    )
     data = result.data['history']
     return iter(map(
         lambda item: GrowthHistId(
@@ -89,6 +116,10 @@ def list_interest_catg(
 ) -> Iterator[InterestCatgId]:
     result = api_data.create_api_data(
         raw_source.list_interest_catg(audience)
+    )
+    _list_items_alert(
+        f'list_interest_catg {audience}',
+        result.total_items
     )
     LOG.debug('list_interest_catg result: %s', result)
     data = result.data['categories']
