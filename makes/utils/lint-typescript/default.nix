@@ -4,16 +4,8 @@ let
 in
 makeTemplate {
   arguments = {
-    envTypescriptRequirements = {
-      dependencies = [ ];
-      name = "lint-typescript";
-      requirements = {
-        direct = [
-        ];
-        inherited = [
-        ];
-      };
-    };
+    envConfig = path "/makes/utils/lint-typescript/";
   };
+  name = "utils-bash-lib-lint-typescript";
   template = path "/makes/utils/lint-typescript/template.sh";
 }
