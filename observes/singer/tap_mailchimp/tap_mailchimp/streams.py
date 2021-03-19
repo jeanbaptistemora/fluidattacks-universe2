@@ -39,11 +39,12 @@ from tap_mailchimp.api import (
 class SupportedStreams(Enum):
     AUDIENCES = 'AUDIENCES'
     ABUSE_REPORTS = 'ABUSE_REPORTS'
+    GROWTH_HISTORY = 'GROWTH_HISTORY'
+    INTEREST_CATEGORY = 'INTEREST_CATEGORY'
+    LOCATIONS = 'LOCATIONS'
     MEMBERS = 'MEMBERS'
     RECENT_ACTIVITY = 'RECENT_ACTIVITY'
     TOP_CLIENTS = 'TOP_CLIENTS'
-    GROWTH_HISTORY = 'GROWTH_HISTORY'
-    INTEREST_CATEGORY = 'INTEREST_CATEGORY'
 
 
 def _item_getter(
@@ -57,20 +58,22 @@ def _item_getter(
     ] = {
         SupportedStreams.AUDIENCES: client.get_audience,
         SupportedStreams.ABUSE_REPORTS: client.get_abuse_report,
-        SupportedStreams.RECENT_ACTIVITY: client.get_activity,
-        SupportedStreams.TOP_CLIENTS: client.get_top_clients,
-        SupportedStreams.MEMBERS: client.get_member,
         SupportedStreams.GROWTH_HISTORY: client.get_growth_hist,
         SupportedStreams.INTEREST_CATEGORY: client.get_interest_catg,
+        SupportedStreams.LOCATIONS: client.get_audience_locations,
+        SupportedStreams.MEMBERS: client.get_member,
+        SupportedStreams.RECENT_ACTIVITY: client.get_activity,
+        SupportedStreams.TOP_CLIENTS: client.get_top_clients,
     }
     id_type = {
         SupportedStreams.AUDIENCES: AudienceId,
         SupportedStreams.ABUSE_REPORTS: AbsReportId,
-        SupportedStreams.RECENT_ACTIVITY: AudienceId,
-        SupportedStreams.TOP_CLIENTS: AudienceId,
-        SupportedStreams.MEMBERS: MemberId,
         SupportedStreams.GROWTH_HISTORY: GrowthHistId,
         SupportedStreams.INTEREST_CATEGORY: InterestCatgId,
+        SupportedStreams.LOCATIONS: AudienceId,
+        SupportedStreams.MEMBERS: MemberId,
+        SupportedStreams.RECENT_ACTIVITY: AudienceId,
+        SupportedStreams.TOP_CLIENTS: AudienceId,
     }
     if isinstance(item_id, id_type[stream]):
         return getter[stream](item_id)
@@ -174,3 +177,12 @@ def all_interest_category(
         audiences_id
     )))
     _emit_items(client, stream, interest_catgs_id, target)
+
+
+def all_locations(
+    client: ApiClient,
+    target: Optional[IO[str]]
+) -> None:
+    stream = SupportedStreams.LOCATIONS
+    audiences_id = client.list_audiences()
+    _emit_items(client, stream, audiences_id, target)

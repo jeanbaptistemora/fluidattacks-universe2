@@ -33,11 +33,12 @@ _stream_executor: Mapping[
 ] = {
     SupportedStreams.AUDIENCES: streams.all_audiences,
     SupportedStreams.ABUSE_REPORTS: streams.all_abuse_reports,
-    SupportedStreams.RECENT_ACTIVITY: streams.recent_activity,
-    SupportedStreams.TOP_CLIENTS: streams.top_clients,
-    SupportedStreams.MEMBERS: streams.all_members,
     SupportedStreams.GROWTH_HISTORY: streams.all_growth_history,
     SupportedStreams.INTEREST_CATEGORY: streams.all_interest_category,
+    SupportedStreams.LOCATIONS: streams.all_locations,
+    SupportedStreams.MEMBERS: streams.all_members,
+    SupportedStreams.RECENT_ACTIVITY: streams.recent_activity,
+    SupportedStreams.TOP_CLIENTS: streams.top_clients,
 }
 
 

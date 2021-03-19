@@ -67,6 +67,7 @@ class RawSource(NamedTuple):
     get_growth_hist: Callable[[GrowthHistId], JSON]
     list_interest_catg: Callable[[AudienceId], JSON]
     get_interest_catg: Callable[[InterestCatgId], JSON]
+    get_audience_locations: Callable[[AudienceId], JSON]
 
 
 def _list_audiences(client: Client) -> JSON:
@@ -147,6 +148,10 @@ def _get_interest_catg(client: Client, interest_id: InterestCatgId) -> JSON:
     )
 
 
+def _get_audience_locations(client: Client, audience_id: AudienceId) -> JSON:
+    return client.lists.get_list_locations(audience_id.str_id)
+
+
 def create_raw_source(client: Client) -> RawSource:
     return RawSource(
         list_audiences=partial(_list_audiences, client),
@@ -161,4 +166,5 @@ def create_raw_source(client: Client) -> RawSource:
         get_growth_hist=partial(_get_growth_hist, client),
         list_interest_catg=partial(_list_interest_catg, client),
         get_interest_catg=partial(_get_interest_catg, client),
+        get_audience_locations=partial(_get_audience_locations, client)
     )

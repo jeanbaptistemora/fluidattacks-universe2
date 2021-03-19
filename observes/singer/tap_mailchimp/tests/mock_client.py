@@ -43,6 +43,7 @@ def mock_data_source() -> RawSource:
         get_growth_hist=lambda x: x,  # type: ignore
         list_interest_catg=lambda x: x,  # type: ignore
         get_interest_catg=lambda x: x,  # type: ignore
+        get_audience_locations=lambda x: x,  # type: ignore
     )
 
 

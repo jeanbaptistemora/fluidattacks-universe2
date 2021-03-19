@@ -102,3 +102,21 @@ def get_interest_catg(
     return api_data.create_api_data(
         raw_source.get_interest_catg(interest_catg)
     )
+
+
+def get_audience_locations(
+    raw_source: RawSource,
+    audience: AudienceId,
+) -> Iterator[ApiData]:
+    result = api_data.create_api_data(
+        raw_source.get_audience_locations(audience)
+    )
+    locations = result.data['locations'].copy()
+    audience_id = result.data['list_id']
+    for data in locations:
+        data['list_id'] = audience_id
+        data['_links'] = [{}]
+    return iter(map(
+        api_data.create_api_data,
+        locations
+    ))

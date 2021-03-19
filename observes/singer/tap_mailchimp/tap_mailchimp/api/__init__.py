@@ -52,6 +52,7 @@ class ApiClient(NamedTuple):
     get_growth_hist: Callable[[GrowthHistId], ApiData]
     list_interest_catg: Callable[[AudienceId], Iterator[InterestCatgId]]
     get_interest_catg: Callable[[InterestCatgId], ApiData]
+    get_audience_locations: Callable[[AudienceId], Iterator[ApiData]]
 
 
 def new_client_from_source(
@@ -70,6 +71,9 @@ def new_client_from_source(
         get_growth_hist=partial(get_item.get_growth_hist, raw_source),
         list_interest_catg=partial(list_items.list_interest_catg, raw_source),
         get_interest_catg=partial(get_item.get_interest_catg, raw_source),
+        get_audience_locations=partial(
+            get_item.get_audience_locations, raw_source
+        ),
     )
 
 
