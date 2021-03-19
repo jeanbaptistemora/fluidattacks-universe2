@@ -1,14 +1,16 @@
-export interface IOrganizationPortfoliosProps {
+interface IOrganizationPortfoliosProps {
   portfolios: IPortfolios[];
 }
 
-export interface IPortfolios {
+interface IPortfolios {
   name: string;
-  projects: Array<{ name: string }>;
+  projects: { name: string }[];
 }
 
-export interface IPortfoliosTable {
-    groups: string;
-    n_groups: number;
-    portfolio: string;
+interface IPortfoliosTable {
+  groups: string;
+  nGroups: number;
+  portfolio: string;
 }
+
+export { IOrganizationPortfoliosProps, IPortfolios, IPortfoliosTable };

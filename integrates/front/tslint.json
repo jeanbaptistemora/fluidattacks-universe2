@@ -36,6 +36,7 @@
       "src/scenes/Dashboard/containers/OrganizationPoliciesView/**",
       "src/scenes/Dashboard/containers/OrganizationRedirectView/**",
       "src/scenes/Dashboard/containers/OrganizationStakeholdersView/**",
+      "src/scenes/Dashboard/containers/OrganizationPortfoliosView/**",
       "src/scenes/Dashboard/containers/ProjectAuthorsView/**",
       "src/scenes/Dashboard/containers/ProjectConsultingView/**",
       "src/scenes/Dashboard/containers/ProjectContent/**",
