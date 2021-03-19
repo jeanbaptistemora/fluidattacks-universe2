@@ -32,6 +32,7 @@ from utils.ctx import (
 TEST_GROUPS = {
     'benchmark_cmdi',
     'benchmark_pathtraver',
+    'benchmark_securecookie',
     'benchmark_weakrand',
     'functional',
     'unittesting',

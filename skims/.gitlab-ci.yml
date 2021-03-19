@@ -112,6 +112,9 @@ skims.test.benchmark_pathtraver:
 skims.test.benchmark_weakrand:
   <<: *skims_test
 
+skims.test.benchmark_securecookie:
+  <<: *skims_test
+
 skims.test.functional:
   <<: *skims_test
   <<: *skims_in_master_branch
