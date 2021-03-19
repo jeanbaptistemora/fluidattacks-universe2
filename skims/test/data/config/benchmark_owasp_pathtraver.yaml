@@ -10,7 +10,7 @@ path:
   - BenchmarkTest00045.java
   - BenchmarkTest00060.java
   - BenchmarkTest00061.java
-  - BenchmarkTest00062.java # hard
+  - BenchmarkTest00062.java
   - BenchmarkTest00063.java
   - BenchmarkTest00064.java
   - BenchmarkTest00065.java

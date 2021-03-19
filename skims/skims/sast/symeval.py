@@ -390,20 +390,36 @@ def _analyze_method_invocation_values(args: EvaluatorArgs) -> None:
     method_var, method_path = split_on_first_dot(args.syntax_step.method)
 
     if dcl := lookup_var_state_by_name(args, method_var):
-        if isinstance(dcl.meta.value, str) and method_path == 'charAt':
-            index = int(args.dependencies[0].meta.value)
-            args.syntax_step.meta.value = dcl.meta.value[index]
+        if isinstance(dcl.meta.value, str):
+            _analyze_method_invocation_values_str(args, dcl, method_path)
         if isinstance(dcl.meta.value, list):
-            if method_path == 'add':
-                dcl.meta.value.append(args.dependencies[0])
-            elif method_path == 'remove':
-                index = int(args.dependencies[0].meta.value)
-                dcl.meta.value.pop(index)
-            elif method_path == 'get':
-                index = int(args.dependencies[0].meta.value)
-                args.syntax_step.meta.value = dcl.meta.value[index]
-                args.syntax_step.meta.danger = \
-                    dcl.meta.value[index].meta.danger
+            _analyze_method_invocation_values_list(args, dcl, method_path)
+
+
+def _analyze_method_invocation_values_str(
+    args: EvaluatorArgs,
+    dcl: graph_model.SyntaxStep,
+    method_path: str,
+) -> None:
+    if method_path == 'charAt':
+        index = int(args.dependencies[0].meta.value)
+        args.syntax_step.meta.value = dcl.meta.value[index]
+
+
+def _analyze_method_invocation_values_list(
+    args: EvaluatorArgs,
+    dcl: graph_model.SyntaxStep,
+    method_path: str,
+) -> None:
+    if method_path == 'add':
+        dcl.meta.value.append(args.dependencies[0])
+    elif method_path == 'remove':
+        index = int(args.dependencies[0].meta.value)
+        dcl.meta.value.pop(index)
+    elif method_path == 'get':
+        index = int(args.dependencies[0].meta.value)
+        args.syntax_step.meta.value = dcl.meta.value[index]
+        args.syntax_step.meta.danger = dcl.meta.value[index].meta.danger
 
 
 def syntax_step_method_invocation(args: EvaluatorArgs) -> None:
@@ -484,10 +500,12 @@ def _syntax_step_object_instantiation_danger(args: EvaluatorArgs) -> None:
 
 
 def _syntax_step_object_instantiation_values(args: EvaluatorArgs) -> None:
-    if args.syntax_step.object_type in build_attr_paths(
-        'java', 'util', 'ArrayList',
-    ):
+    object_type: str = args.syntax_step.object_type
+
+    if object_type in build_attr_paths('java', 'util', 'ArrayList'):
         args.syntax_step.meta.value = []
+    elif object_type in build_attr_paths('java', 'util', 'HashMap'):
+        args.syntax_step.meta.value = {}
 
 
 def syntax_step_symbol_lookup(args: EvaluatorArgs) -> None:
