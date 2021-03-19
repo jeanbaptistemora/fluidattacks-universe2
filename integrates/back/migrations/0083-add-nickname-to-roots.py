@@ -5,11 +5,12 @@ This migration add the nickname value to each root
 if found any duplicate adds a number to difference
 each nickname.
 
-Execution Time:
-Finalization Time:
+Execution Time:    2021-03-19 at 09:24:06 UTC-05
+Finalization Time: 2021-03-19 at 09:35:09 UTC-05
 """
 # Standard
 import os
+import time
 from typing import Any, Dict, List, Set
 
 # Third party
@@ -49,7 +50,7 @@ async def update_filter(
     await roots_dal.update_legacy(
         group_name,
         root['sk'],
-        {'nickname': nickname}
+        {'nickname': format_nickname}
     )
 
     return nickname
@@ -75,4 +76,11 @@ async def main() -> None:
 
 
 if __name__ == '__main__':
+    execution_time = time.strftime(
+        'Execution Time:    %Y-%m-%d at %H:%M:%S UTC%Z'
+    )
     run(main())
+    finalization_time = time.strftime(
+        'Finalization Time: %Y-%m-%d at %H:%M:%S UTC%Z'
+    )
+    print(f'{execution_time}\n{finalization_time}')
