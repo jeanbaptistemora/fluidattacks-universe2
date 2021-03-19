@@ -1,6 +1,6 @@
 # Standard
 import re
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Dict, List, Tuple
 from urllib.parse import unquote
 from uuid import uuid4
 
@@ -360,30 +360,6 @@ def format_root_nickname(nickname: str, url: str) -> str:
     return nick
 
 
-async def get_root_by_id(group_name: str, root_id: str) -> Dict[str, Any]:
-    root: Optional[Dict[str, Any]] = await roots_dal.get_root_by_id_legacy(
-        group_name,
-        root_id
-    )
-
-    if root:
-        return root
-    raise RootNotFound()
-
-
-async def get_roots_by_group(group_name: str) -> Tuple[Dict[str, Any], ...]:
-    roots: Tuple[Dict[str, Any], ...] = await roots_dal\
-        .get_roots_by_group_legacy(group_name)
-
-    return tuple(
-        {
-            **root,
-            'group_name': root['pk'].split('GROUP#')[-1],
-        }
-        for root in roots
-    )
-
-
 async def update_git_environments(
     user_email: str,
     group_name: str,
@@ -500,45 +476,6 @@ async def update_root_cloning_status(
             group_name=group_name,
             root_id=root_id
         )
-
-
-async def update_root_state_legacy(
-    user_email: str,
-    group_name: str,
-    root_id: str,
-    state: str
-) -> None:
-    root: Dict[str, Any] = await get_root_by_id(group_name, root_id)
-    last_state: Dict[str, Any] = root['historic_state'][-1]
-
-    if last_state['state'] != state:
-        new_state: Dict[str, Any] = {
-            **last_state,
-            'date': datetime_utils.get_as_str(datetime_utils.get_now()),
-            'state': state,
-            'user': user_email,
-        }
-
-        await roots_dal.update_legacy(
-            group_name,
-            root_id,
-            {'historic_state': [*root['historic_state'], new_state]}
-        )
-        if last_state['includes_health_check']:
-            if state == 'ACTIVE':
-                await notifications_domain.request_health_check(
-                    requester_email=user_email,
-                    group_name=group_name,
-                    repo_url=root['url'],
-                    branch=root['branch'],
-                )
-            else:
-                await notifications_domain.cancel_health_check(
-                    requester_email=user_email,
-                    group_name=group_name,
-                    repo_url=root['url'],
-                    branch=root['branch'],
-                )
 
 
 async def update_root_state(

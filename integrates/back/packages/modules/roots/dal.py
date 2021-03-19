@@ -7,7 +7,6 @@ from typing import (
     Optional,
     Tuple,
 )
-from uuid import uuid4
 
 # Third party
 from boto3.dynamodb.conditions import Key
@@ -25,27 +24,6 @@ from dynamodb.types import GitRootCloning, GitRootState, RootItem
 logging.config.dictConfig(LOGGING)
 LOGGER: logging.Logger = logging.getLogger(__name__)
 LEGACY_TABLE_NAME: str = 'fi_roots'
-
-
-async def create_legacy(
-    group_name: str,
-    root_attributes: Dict[str, Any],
-) -> bool:
-    success: bool = False
-    try:
-        await dynamodb.async_put_item(
-            LEGACY_TABLE_NAME,
-            {
-                'pk': f'GROUP#{group_name}',
-                'sk': f'ROOT#{uuid4()}',
-                **root_attributes
-            }
-        )
-        success = True
-    except ClientError as ex:
-        LOGGER.exception(ex, extra={'extra': locals()})
-        raise UnavailabilityError() from ex
-    return success
 
 
 async def create_root(*, group_name: str, root: RootItem) -> None:
