@@ -13,6 +13,7 @@ from dynamodb.types import (
     GitRootItem,
     GitRootMetadata,
     GitRootState,
+    GitRootToeLines,
     IPRootItem,
     IPRootMetadata,
     IPRootState,
@@ -263,3 +264,31 @@ async def update_git_root_cloning(
     )
 
     await operations.batch_write_item(items=historic, table=TABLE)
+
+
+async def update_git_root_toe_lines(
+    *,
+    group_name: str,
+    root_id: str,
+    root_toe_lines: GitRootToeLines
+) -> None:
+    key_structure = TABLE.primary_key
+    facet = TABLE.facets['root_toe_lines']
+    toe_lines_key = keys.build_key(
+        facet=facet,
+        values={
+            'filename': root_toe_lines.filename,
+            'group_name': group_name,
+            'root_id': root_id,
+        },
+    )
+    toe_lines = {
+        key_structure.partition_key: toe_lines_key.partition_key,
+        key_structure.sort_key: toe_lines_key.sort_key,
+        **dict(root_toe_lines._asdict())
+    }
+    await operations.put_item(
+        facet=facet,
+        item=toe_lines,
+        table=TABLE
+    )
