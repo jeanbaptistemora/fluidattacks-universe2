@@ -18,7 +18,7 @@ async def test_admin(populate: bool):
     consult: str = 'This is a test comment'
     finding: str = '475041521'
     event: str = '418900971'
-    root: str = 'ROOT#63298a73-9dff-46cf-b42d-9b2f01a56690'
+    root: str = '63298a73-9dff-46cf-b42d-9b2f01a56690'
     draft = {
         'id': '475041531',
         'title': 'FIN.H.060. Insecure exceptions',

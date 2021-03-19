@@ -22,4 +22,4 @@ async def test_get_root_id_by_filename():
         'product/integrates/test.config.json',
         group_roots
     )
-    assert root_id == 'ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19'
+    assert root_id == '4039d098-ffc5-4984-8ed3-eb17bca98e19'

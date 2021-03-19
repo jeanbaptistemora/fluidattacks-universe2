@@ -34,7 +34,7 @@ async def mutate(
     user_info: Dict[str, str] = await util.get_jwt_content(info.context)
     user_email: str = user_info['user_email']
 
-    await roots_domain.add_git_root_legacy(
+    await roots_domain.add_git_root(
         info.context.loaders,
         user_email,
         **kwargs

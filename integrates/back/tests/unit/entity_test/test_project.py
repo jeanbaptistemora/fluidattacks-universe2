@@ -497,7 +497,7 @@ async def test_get_roots() -> None:
         {
             '__typename': 'URLRoot',
             'host': 'integrates.fluidattacks.com',
-            'id': 'ROOT#8493c82f-2860-4902-86fa-75b0fef76034',
+            'id': '8493c82f-2860-4902-86fa-75b0fef76034',
             'path': '/',
             'port': 443,
             'protocol': 'HTTPS'
@@ -505,7 +505,7 @@ async def test_get_roots() -> None:
         {
             '__typename': 'IPRoot',
             'address': '127.0.0.1',
-            'id': 'ROOT#d312f0b9-da49-4d2b-a881-bed438875e99',
+            'id': 'd312f0b9-da49-4d2b-a881-bed438875e99',
             'port': 8080
         }
     ]
@@ -521,7 +521,7 @@ async def test_get_roots() -> None:
                 'bower_components/*',
                 'node_modules/*'
             ],
-            'id': 'ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19',
+            'id': '4039d098-ffc5-4984-8ed3-eb17bca98e19',
             'includesHealthCheck': True,
             'url': 'https://gitlab.com/fluidattacks/product'
         },
@@ -531,7 +531,7 @@ async def test_get_roots() -> None:
             'environment': 'QA',
             'environmentUrls': [],
             'gitignore': [],
-            'id': 'ROOT#765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a',
+            'id': '765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a',
             'includesHealthCheck': False,
             'url': 'https://gitlab.com/fluidattacks/integrates'
         }

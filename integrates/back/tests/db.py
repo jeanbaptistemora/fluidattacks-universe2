@@ -25,6 +25,7 @@ from backend.dal import (
     vulnerability as dal_vulnerability,
 )
 from comments import dal as dal_comment
+from dynamodb.types import RootItem
 from events import dal as dal_event
 from names import dal as dal_names
 from roots import dal as dal_roots
@@ -129,16 +130,13 @@ async def populate_vulnerabilities(data: List[Any]) -> bool:
     return all(await collect(coroutines))
 
 
-async def populate_roots(data: List[Any]) -> bool:
-    coroutines: List[Awaitable[bool]] = []
-    coroutines.extend([
-        dal_roots.create_legacy(
-            root['pk'],
-            root,
-        )
-        for root in data
-    ])
-    return all(await collect(coroutines))
+async def populate_roots(data: Tuple[Tuple[str, RootItem], ...]) -> bool:
+    await collect(tuple(
+        dal_roots.create_root(group_name=group_name, root=root)
+        for group_name, root in data
+    ))
+
+    return True
 
 
 async def populate_consultings(data: List[Any]) -> bool:

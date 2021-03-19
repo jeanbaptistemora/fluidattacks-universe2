@@ -26,7 +26,7 @@ async def mutate(
     **kwargs: Any,
 ) -> SimplePayload:
 
-    await roots_domain.update_root_cloning_status_legacy(
+    await roots_domain.update_root_cloning_status(
         kwargs['group_name'],
         kwargs['id'],
         kwargs['status'],

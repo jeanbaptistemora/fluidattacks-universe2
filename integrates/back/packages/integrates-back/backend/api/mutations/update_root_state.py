@@ -32,7 +32,7 @@ async def mutate(
     user_info: Dict[str, str] = await util.get_jwt_content(info.context)
     user_email: str = user_info['user_email']
 
-    await roots_domain.update_root_state_legacy(
+    await roots_domain.update_root_state(
         user_email,
         kwargs['group_name'],
         kwargs['id'],

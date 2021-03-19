@@ -9,6 +9,12 @@ from typing import (
 from back.tests import (
     db,
 )
+from dynamodb.types import (
+    GitRootCloning,
+    GitRootItem,
+    GitRootMetadata,
+    GitRootState
+)
 
 
 @pytest.mark.asyncio
@@ -301,38 +307,39 @@ async def populate() -> bool:
                 'specific': '2321',
             },
         ],
-        'roots': [
-            {
-                'pk': 'GROUP#group1',
-                'sk': 'ROOT#63298a73-9dff-46cf-b42d-9b2f01a56690',
-                'kind': 'Git',
-                'branch': 'master',
-                'url': 'https://gitlab.com/fluidattacks/product',
-                'historic_state': [
-                    {
-                        'date': '2020-11-19 08:37:10',
-                        'gitignore': [
+        'roots': (
+            (
+                'group1',
+                GitRootItem(
+                    cloning=GitRootCloning(
+                        modified_date='2020-11-19T13:37:10+00:00',
+                        reason='root creation',
+                        status='UNKNOWN'
+                    ),
+                    id='63298a73-9dff-46cf-b42d-9b2f01a56690',
+                    metadata=GitRootMetadata(
+                        branch='master',
+                        type='Git',
+                        url='https://gitlab.com/fluidattacks/product'
+                    ),
+                    state=GitRootState(
+                        environment_urls=[
+                            'https://integrates.fluidattacks.com'
+                        ],
+                        environment='production',
+                        gitignore=[
                             'bower_components/*',
-                            'node_modules/*',
+                            'node_modules/*'
                         ],
-                        'environment': 'production',
-                        'environment_urls': [
-                            'https://integrates.fluidattacks.com',
-                        ],
-                        'includes_health_check': True,
-                        'state': 'ACTIVE',
-                        'user': 'admin@gmail.com',
-                    },
-                ],
-                'historic_cloning_status': [
-                    {
-                        'date': '2020-11-19 08:37:10',
-                        'status': 'UNKNOWN',
-                        'message': 'root creation',
-                    },
-                ],
-            },
-        ],
+                        includes_health_check=True,
+                        modified_by='admin@gmail.com',
+                        modified_date='2020-11-19T13:37:10+00:00',
+                        nickname='',
+                        status='ACTIVE'
+                    )
+                )
+            ),
+        ),
         'consultings': [
             {
                 'content': 'This is a test comment',
