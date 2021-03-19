@@ -737,12 +737,12 @@ PossibleSyntaxSteps = Dict[str, Dict[str, PossibleSyntaxStepsForFinding]]
 
 
 @trace()
-def get_possible_syntax_steps_for_untrusted_n_id(
+def get_possible_syntax_steps_for_n_id(
     graph_db: graph_model.GraphDB,
     *,
     finding: core_model.FindingEnum,
+    n_id: graph_model.NId,
     shard: graph_model.GraphShard,
-    untrusted_n_id: graph_model.NId,
 ) -> PossibleSyntaxStepsForUntrustedNId:
     syntax_steps_map: PossibleSyntaxStepsForUntrustedNId = {
         # Path identifier -> syntax_steps
@@ -754,7 +754,7 @@ def get_possible_syntax_steps_for_untrusted_n_id(
         )
         for path in g.branches_cfg(
             graph=shard.graph,
-            n_id=g.lookup_first_cfg_parent(shard.graph, untrusted_n_id),
+            n_id=g.lookup_first_cfg_parent(shard.graph, n_id),
             finding=finding
         )
     }
@@ -769,11 +769,11 @@ def get_possible_syntax_steps_for_finding(
     shard: graph_model.GraphShard,
 ) -> PossibleSyntaxStepsForFinding:
     syntax_steps_map: PossibleSyntaxStepsForFinding = {
-        untrusted_n_id: get_possible_syntax_steps_for_untrusted_n_id(
+        untrusted_n_id: get_possible_syntax_steps_for_n_id(
             graph_db,
             finding=finding,
+            n_id=untrusted_n_id,
             shard=shard,
-            untrusted_n_id=untrusted_n_id,
         )
         for untrusted_n_id in shard.metadata.nodes.untrusted[finding.name]
     }

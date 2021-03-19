@@ -6418,10 +6418,10 @@
           "classes": {
             ".BenchmarkTest00001": {
               "methods": {
-                "doGet": {
+                ".doGet": {
                   "n_id": "62"
                 },
-                "doPost": {
+                ".doPost": {
                   "n_id": "223"
                 }
               },
@@ -11451,10 +11451,10 @@
           "classes": {
             ".BenchmarkTest00008": {
               "methods": {
-                "doGet": {
+                ".doGet": {
                   "n_id": "62"
                 },
-                "doPost": {
+                ".doPost": {
                   "n_id": "98"
                 }
               },
@@ -19422,10 +19422,10 @@
           "classes": {
             ".BenchmarkTest00167": {
               "methods": {
-                "doGet": {
+                ".doGet": {
                   "n_id": "62"
                 },
-                "doPost": {
+                ".doPost": {
                   "n_id": "98"
                 }
               },
@@ -22147,7 +22147,7 @@
           "classes": {
             ".Test": {
               "methods": {
-                "main": {
+                ".main": {
                   "n_id": "13"
                 }
               },
@@ -23582,7 +23582,7 @@
           "classes": {
             ".Test": {
               "methods": {
-                "doPost": {
+                ".doPost": {
                   "n_id": "13"
                 }
               },
@@ -41522,7 +41522,7 @@
           "classes": {
             ".Test": {
               "methods": {
-                "main": {
+                ".main": {
                   "n_id": "17"
                 }
               },

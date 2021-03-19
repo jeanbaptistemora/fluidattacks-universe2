@@ -154,7 +154,7 @@ def get_metadata_java_class_methods(
                 match = g.match_ast(graph, c_id, 'identifier')
 
                 if identifier_id := match['identifier']:
-                    name = graph.nodes[identifier_id]['label_text']
+                    name = '.' + graph.nodes[identifier_id]['label_text']
                     methods[name] = GraphShardMetadataJavaClassMethod(
                         n_id=c_id,
                     )
