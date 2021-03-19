@@ -1,4 +1,4 @@
-# shellcheck disable=SC2148
+# shellcheck shell=bash
 # Make disk gpt and create partition
 yum install -y parted
 parted /dev/nvme1n1 --script -- mklabel gpt
