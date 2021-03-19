@@ -1,39 +1,51 @@
-import { MockedProvider, MockedResponse } from "@apollo/react-testing";
-import { mount, ReactWrapper } from "enzyme";
 import { GraphQLError } from "graphql";
-import React from "react";
-// tslint:disable-next-line: no-submodule-imports
-import { act } from "react-dom/test-utils";
-import { Provider } from "react-redux";
-import { MemoryRouter, Route } from "react-router";
-import { TagsGroup } from "scenes/Dashboard/containers/TagContent/TagGroup";
+import { MockedProvider } from "@apollo/react-testing";
+import type { MockedResponse } from "@apollo/react-testing";
 import { PORTFOLIO_GROUP_QUERY } from "scenes/Dashboard/containers/TagContent/TagGroup/queries";
-import store from "store/index";
+import { Provider } from "react-redux";
+import React from "react";
+import type { ReactWrapper } from "enzyme";
+import { TagsGroup } from "scenes/Dashboard/containers/TagContent/TagGroup";
+import { act } from "react-dom/test-utils";
+import { mount } from "enzyme";
 import { msgError } from "utils/notifications";
+import store from "store/index";
 import { translate } from "utils/translations/translate";
 import waitForExpect from "wait-for-expect";
+import { MemoryRouter, Route } from "react-router";
 
 const mockHistoryPush: jest.Mock = jest.fn();
-jest.mock("react-router", (): Dictionary => {
-  const mockedRouter: Dictionary<() => Dictionary> = jest.requireActual("react-router");
+jest.mock(
+  "react-router",
+  (): Dictionary => {
+    const mockedRouter: Dictionary<() => Dictionary> = jest.requireActual(
+      "react-router"
+    );
 
-  return {
-    ...mockedRouter,
-    useHistory: (): Dictionary => ({
-      ...mockedRouter.useHistory(),
-      push: mockHistoryPush,
-    }),
-  };
-});
-jest.mock("../../../../../utils/notifications", (): Dictionary => {
-  const mockedNotifications: Dictionary = jest.requireActual("../../../../../utils/notifications");
-  mockedNotifications.msgError = jest.fn();
+    return {
+      ...mockedRouter,
+      useHistory: (): Dictionary => ({
+        ...mockedRouter.useHistory(),
+        push: mockHistoryPush,
+      }),
+    };
+  }
+);
+jest.mock(
+  "../../../../../utils/notifications",
+  (): Dictionary => {
+    const mockedNotifications: Dictionary = jest.requireActual(
+      "../../../../../utils/notifications"
+    );
+    // eslint-disable-next-line jest/prefer-spy-on, fp/no-mutation
+    mockedNotifications.msgError = jest.fn();
 
-  return mockedNotifications;
-});
+    return mockedNotifications;
+  }
+);
 
-describe("Portfolio Groups", () => {
-  const mockedResult: Array<{description: string; name: string}> = [
+describe("Portfolio Groups", (): void => {
+  const mockedResult: { description: string; name: string }[] = [
     {
       description: "test1 description",
       name: "test1",
@@ -73,65 +85,83 @@ describe("Portfolio Groups", () => {
     },
   };
 
-  it("should return a function", () => {
-    expect(typeof TagsGroup)
-      .toStrictEqual("function");
+  it("should return a function", (): void => {
+    expect.hasAssertions();
+
+    expect(typeof TagsGroup).toStrictEqual("function");
   });
 
-  it("should render a component", async () => {
+  it("should render a component", async (): Promise<void> => {
+    expect.hasAssertions();
+
     const wrapper: ReactWrapper = mount(
-      <MemoryRouter initialEntries={["/orgs/okada/portfolios/test-projects/groups"]}>
+      <MemoryRouter
+        initialEntries={["/orgs/okada/portfolios/test-projects/groups"]}
+      >
         <Provider store={store}>
-          <MockedProvider mocks={[portfolioQuery]} addTypename={false}>
-            <Route path="/orgs/:organizationName/portfolios/:tagName/groups" component={TagsGroup} />
+          <MockedProvider addTypename={false} mocks={[portfolioQuery]}>
+            <Route
+              component={TagsGroup}
+              path={"/orgs/:organizationName/portfolios/:tagName/groups"}
+            />
           </MockedProvider>
         </Provider>
-      </MemoryRouter>,
+      </MemoryRouter>
     );
 
-    await act(async () => {
-      await waitForExpect(() => {
-        wrapper.update();
+    await act(
+      async (): Promise<void> => {
+        await waitForExpect((): void => {
+          wrapper.update();
 
-        expect(wrapper)
-          .toHaveLength(1);
-        expect(wrapper.find("table"))
-          .toHaveLength(1);
-      });
-    });
+          expect(wrapper).toHaveLength(1);
+          expect(wrapper.find("table")).toHaveLength(1);
+        });
+      }
+    );
 
     const table: ReactWrapper = wrapper.find("table");
     const tableBody: ReactWrapper = table.find("tbody");
     const rows: ReactWrapper = tableBody.find("tr");
 
-    expect(rows)
-      .toHaveLength(mockedResult.length);
-    rows.at(0)
-      .simulate("click");
-    expect(mockHistoryPush)
-      .toBeCalledWith("/groups/test1/analytics");
+    expect(rows).toHaveLength(mockedResult.length);
+
+    rows.at(0).simulate("click");
+
+    expect(mockHistoryPush).toHaveBeenCalledWith("/groups/test1/analytics");
   });
 
-  it("should render an error in component", async () => {
+  it("should render an error in component", async (): Promise<void> => {
+    expect.hasAssertions();
+
     const wrapper: ReactWrapper = mount(
-      <MemoryRouter initialEntries={["/orgs/okada/portfolios/another-tag/groups"]}>
+      <MemoryRouter
+        initialEntries={["/orgs/okada/portfolios/another-tag/groups"]}
+      >
         <Provider store={store}>
-          <MockedProvider mocks={[portfolioQueryError]} addTypename={false}>
-            <Route path="/orgs/:organizationName/portfolios/:tagName/groups" component={TagsGroup} />
+          <MockedProvider addTypename={false} mocks={[portfolioQueryError]}>
+            <Route
+              component={TagsGroup}
+              path={"/orgs/:organizationName/portfolios/:tagName/groups"}
+            />
           </MockedProvider>
         </Provider>
-      </MemoryRouter>,
+      </MemoryRouter>
     );
 
-    await act(async () => {
-      await waitForExpect(() => {
-        wrapper.update();
+    await act(
+      async (): Promise<void> => {
+        expect.hasAssertions();
 
-        expect(wrapper)
-          .toHaveLength(1);
-        expect(msgError)
-          .toBeCalledWith(translate.t("groupAlerts.errorTextsad"));
-      });
-    });
+        await waitForExpect((): void => {
+          wrapper.update();
+
+          expect(wrapper).toHaveLength(1);
+          expect(msgError).toHaveBeenCalledWith(
+            translate.t("groupAlerts.errorTextsad")
+          );
+        });
+      }
+    );
   });
 });
