@@ -201,6 +201,9 @@ integrates.back.test.functional.create_organization:
 integrates.back.test.functional.create_project:
   <<: *integrates_back_test_functional
 
+integrates.back.test.functional.delete_finding:
+  <<: *integrates_back_test_functional
+
 integrates.back.test.functional.delete_vulnerability:
   <<: *integrates_back_test_functional
 
