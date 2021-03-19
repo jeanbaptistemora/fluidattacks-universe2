@@ -53,14 +53,14 @@ const APITokenForcesModal: React.FC<IAPITokenForcesModalProps> = (
     if (_.isUndefined(clipboard)) {
       msgError(translate.t("updateForcesToken.copy.failed"));
     } else {
-      await clipboard.writeText(getTokenData?.project.forcesToken ?? "");
+      await clipboard.writeText(currentToken ?? "");
       document.execCommand("copy");
       msgSuccess(
         translate.t("updateForcesToken.copy.successfully"),
         translate.t("updateForcesToken.copy.success")
       );
     }
-  }, [getTokenData?.project.forcesToken]);
+  }, [currentToken]);
   if (
     !getTokenData?.project.forcesToken && // eslint-disable-line @typescript-eslint/strict-boolean-expressions
     getTokenCalled &&
