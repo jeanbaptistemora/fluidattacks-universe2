@@ -818,7 +818,7 @@ async def test_update_git_root() -> None:
           environment: "staging"
           gitignore: []
           groupName: "unittesting"
-          id: "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19"
+          id: "4039d098-ffc5-4984-8ed3-eb17bca98e19"
           includesHealthCheck: false
           nickname: "randomNick"
         ) {
@@ -839,7 +839,7 @@ async def test_update_git_root_nonexistent() -> None:
           environment: "Test"
           gitignore: []
           groupName: "unittesting"
-          id: "ROOT#some-thing"
+          id: "some-thing"
           includesHealthCheck: false
           nickname: "unique2"
         ) {
@@ -859,7 +859,7 @@ async def test_update_git_environments() -> None:
       mutation {
         updateGitEnvironments(
           groupName: "unittesting"
-          id: "ROOT#765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a"
+          id: "765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a"
           environmentUrls: ["https://integrates.fluidattacks.com/"]
         ) {
           success
@@ -878,7 +878,7 @@ async def test_update_root_cloning_status() -> None:
     mutation {
       updateRootCloningStatus(
         groupName: "unittesting"
-        id: "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19"
+        id: "4039d098-ffc5-4984-8ed3-eb17bca98e19"
         status: OK
         message: "root update test"
       ) {
@@ -898,7 +898,7 @@ async def test_update_root_cloning_status_nonexistent() -> None:
     mutation {
       updateRootCloningStatus(
         groupName: "unittesting"
-        id: "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e199"
+        id: "4039d098-ffc5-4984-8ed3-eb17bca98e199"
         status: OK
         message: "root update test"
       ) {
@@ -918,7 +918,7 @@ async def test_update_root_state() -> None:
       mutation {
         updateRootState(
           groupName: "unittesting"
-          id: "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19"
+          id: "4039d098-ffc5-4984-8ed3-eb17bca98e19"
           state: INACTIVE
         ) {
           success
@@ -936,7 +936,7 @@ async def test_update_root_state_nonexistent() -> None:
       mutation {
         updateRootState(
           groupName: "unittesting"
-          id: "ROOT#some-thing"
+          id: "some-thing"
           state: INACTIVE
         ) {
           success

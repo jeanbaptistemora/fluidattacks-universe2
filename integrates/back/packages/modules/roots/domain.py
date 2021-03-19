@@ -7,7 +7,7 @@ from uuid import uuid4
 # Third party
 import newrelic.agent
 from aioextensions import collect
-from urllib3.util.url import parse_url, Url
+from urllib3.util.url import parse_url
 
 # Local
 from backend import authz
@@ -85,10 +85,7 @@ def format_root(root: RootItem) -> Root:
 
 
 async def get_root(*, group_name: str, root_id: str) -> RootItem:
-    # Temporarily needed for backwards compatibility
-    r_id = root_id.split('#')[1] if root_id.startswith('ROOT#') else root_id
-
-    root = await roots_dal.get_root(group_name=group_name, root_id=r_id)
+    root = await roots_dal.get_root(group_name=group_name, root_id=root_id)
 
     if root:
         return root
@@ -162,33 +159,6 @@ async def _is_nickname_unique_in_group(group_name: str, nickname: str) -> bool:
     }
 
     return nickname not in nickname_roots
-
-
-@newrelic.agent.function_trace()
-async def _is_url_unique_in_org_legacy(
-    org_id: str,
-    host: str,
-    path: str,
-    port: int,
-    protocol: str
-) -> bool:
-    org_groups: Tuple[str, ...] = await org_domain.get_groups(org_id)
-    org_roots: Tuple[Tuple[str, str, int, str], ...] = tuple(
-        (
-            root['historic_state'][-1]['host'],
-            root['historic_state'][-1]['path'],
-            root['historic_state'][-1]['port'],
-            root['historic_state'][-1]['protocol']
-        )
-        for group_roots in await collect(
-            get_roots_by_group(group_name)
-            for group_name in org_groups
-        )
-        for root in group_roots
-        if root['kind'] == 'URL'
-    )
-
-    return (host, path, port, protocol) not in org_roots
 
 
 @newrelic.agent.function_trace()
@@ -335,53 +305,6 @@ async def add_ip_root(context: Any, user_email: str, **kwargs: Any) -> None:
         )
     )
     await roots_dal.create_root(group_name=group_name, root=root)
-
-
-async def add_url_root_legacy(
-    context: Any,
-    user_email: str,
-    **kwargs: Any
-) -> None:
-    group_loader = context.group_all
-    group_name: str = kwargs['group_name'].lower()
-    url_attributes: Url = parse_url(kwargs['url'])
-    is_valid: bool = (
-        validations.is_valid_url(kwargs['url'])
-        and url_attributes.scheme in {'http', 'https'}
-    )
-
-    if is_valid:
-        host: str = url_attributes.host
-        path: str = url_attributes.path or '/'
-        default_port: int = 443 if url_attributes.scheme == 'https' else 80
-        port: int = url_attributes.port or default_port
-        protocol: str = url_attributes.scheme.upper()
-        group = await group_loader.load(group_name)
-
-        initial_state: Dict[str, Any] = {
-            'date': datetime_utils.get_as_str(datetime_utils.get_now()),
-            'host': host,
-            'path': path,
-            'port': port,
-            'protocol': protocol,
-            'user': user_email
-        }
-        if await _is_url_unique_in_org_legacy(
-            group['organization'],
-            host,
-            path,
-            port,
-            protocol
-        ):
-            root_attributes: Dict[str, Any] = {
-                'historic_state': [initial_state],
-                'kind': 'URL'
-            }
-            await roots_dal.create_legacy(group_name, root_attributes)
-        else:
-            raise RepeatedValues()
-    else:
-        raise InvalidParameter()
 
 
 async def add_url_root(context: Any, user_email: str, **kwargs: Any) -> None:
