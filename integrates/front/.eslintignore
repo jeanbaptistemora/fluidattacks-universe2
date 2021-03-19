@@ -1,5 +1,4 @@
 # List of ignored files/dirs by the new linter
 
-src/scenes/Dashboard/**/*.*
 src/**/*.css.d.ts
 src/**/*.d.ts
