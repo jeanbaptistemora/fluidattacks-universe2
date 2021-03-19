@@ -2,6 +2,7 @@
 /* eslint react/forbid-component-props: 0 */
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "gatsby";
+import { Menu } from "../Menu";
 import React from "react";
 import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 import * as fluidAttacksLogo from "../../../../static/images/logo-fluid-attacks.png";
@@ -16,6 +17,8 @@ import {
 
 const NavbarItems: React.FC = (): JSX.Element => (
   <NavbarList className={"roboto"} id={"navbar_list"}>
+    <Menu />
+
     <li className={"fl"}>
       <Link className={"db tc pa1 no-underline"} to={"/"}>
         <img
@@ -26,13 +29,13 @@ const NavbarItems: React.FC = (): JSX.Element => (
       </Link>
     </li>
 
-    <li className={"relative fr pv4 db-l dn"}>
+    <li className={"fr pv4 db-l dn"}>
       <Link className={"no-underline"} to={"/contact-us/"}>
         <NavbarContactButton>{"Contact"}</NavbarContactButton>
       </Link>
     </li>
 
-    <li className={"relative fr mr3 pr2 pv4 db-l dn"}>
+    <li className={"fr mr3 pr2 pv4 db-l dn"}>
       <Link
         className={"no-underline"}
         to={"https://integrates.fluidattacks.com/"}>
@@ -40,17 +43,17 @@ const NavbarItems: React.FC = (): JSX.Element => (
       </Link>
     </li>
 
-    <li className={"relative fr mr4 pv3 mv1 db-l dn"}>
+    <li className={"fr mr4 pv3 mv1 db-l dn"}>
       <div className={"h3 w1 b--moon-gray br"} />
     </li>
 
-    <li className={"db-xl display-none relative fr mr3 pv4"}>
+    <li className={"db-xl display-none fr mr3 pv4"}>
       <Link className={"no-underline"} to={"/blog/"}>
         <NavbarRegularButton>{"Blog"}</NavbarRegularButton>
       </Link>
     </li>
 
-    <li className={"db-xl display-none relative fr mr3 pr2 pv4"}>
+    <li className={"db-xl display-none fr mr3 pr2 pv4"}>
       <Link className={"no-underline"} to={"/resources/"}>
         <NavbarRegularButton>{"Resources"}</NavbarRegularButton>
       </Link>

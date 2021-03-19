@@ -176,7 +176,7 @@ const MainFooterInfoContainer: StyledComponent<
   `,
 })``;
 
-const InnerFooterInfoContainer: StyledComponent<
+const CenteredMaxWidthContainer: StyledComponent<
   "div",
   Record<string, unknown>
 > = styled.div.attrs({
@@ -184,7 +184,6 @@ const InnerFooterInfoContainer: StyledComponent<
     mw-1366
     ph-body
     center
-    pv3
   `,
 })``;
 
@@ -741,6 +740,16 @@ const BannerSubtitle: StyledComponent<
   `,
 })``;
 
+const SocialMediaLink: StyledComponent<
+  "a",
+  Record<string, unknown>
+> = styled.a.attrs({
+  className: `
+    pr3
+    no-underline
+  `,
+})``;
+
 export {
   ArticleContainer,
   ArticleTitle,
@@ -774,7 +783,7 @@ export {
   HalfScreenContainerSpaced,
   PlayItButtonContainer,
   PlayItButtonImage,
-  InnerFooterInfoContainer,
+  CenteredMaxWidthContainer,
   InnerMainContentHome,
   MainContentHome,
   MainCoverHome,
@@ -790,6 +799,7 @@ export {
   PageArticle,
   PageContainer,
   RegularRedButton,
+  SocialMediaLink,
   SolutionsParagraph,
   SolutionsSectionDescription,
   SolutionsSubtitle,

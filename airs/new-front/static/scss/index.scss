@@ -197,6 +197,18 @@ $whiter-gray: rgba(241, 241, 241, 1);
 // Animations
 .fadein { animation: fadein 0.5s; }
 
+.menulink::after {
+  border-bottom: 1px solid $white;
+  content: '';
+  display: block;
+  transition: width 0.5s;
+  width: 0;
+}
+
+.menulink:hover::after {
+  width: 100%;
+}
+
 .underlined-animated::after {
   border-bottom: 4px solid $hovered-red;
   content: '';

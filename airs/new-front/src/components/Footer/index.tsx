@@ -1,3 +1,4 @@
+/* eslint react/forbid-component-props: 0 */
 import { InfoSection } from "./InfoSection";
 import { LinksSection } from "./LinksSection";
 import { LogosSection } from "./LogosSection";
@@ -5,7 +6,7 @@ import React from "react";
 import type { StyledComponent } from "styled-components";
 import styled from "styled-components";
 import {
-  InnerFooterInfoContainer,
+  CenteredMaxWidthContainer,
   MainFooterInfoContainer,
 } from "../../styles/styledComponents";
 
@@ -42,9 +43,9 @@ const Footer: React.FC = (): JSX.Element => (
       <LogosSection />
       <LinksSection />
       <MainFooterInfoContainer>
-        <InnerFooterInfoContainer>
+        <CenteredMaxWidthContainer className={"pv3"}>
           <InfoSection />
-        </InnerFooterInfoContainer>
+        </CenteredMaxWidthContainer>
       </MainFooterInfoContainer>
     </MainFooterContainer>
   </DarkBlueFooter>
