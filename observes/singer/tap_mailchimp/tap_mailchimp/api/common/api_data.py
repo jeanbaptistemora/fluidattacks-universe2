@@ -8,15 +8,13 @@ from typing import (
 # Third party libraries
 
 # Local libraries
-from tap_mailchimp import (
-    utils
-)
+import utils_logger
 from tap_mailchimp.common.objs import (
     JSON,
 )
 
 
-LOG = utils.get_log(__name__)
+LOG = utils_logger.get_log(__name__)
 
 
 class ApiData(NamedTuple):

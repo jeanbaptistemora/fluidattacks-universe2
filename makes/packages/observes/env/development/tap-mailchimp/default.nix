@@ -54,6 +54,9 @@ in
 makeTemplate {
   name = "observes-env-development-tap-mailchimp";
   searchPaths = {
+    envPaths = [
+      pythonRequirements
+    ];
     envPython38Paths = [
       logger
       pythonRequirements

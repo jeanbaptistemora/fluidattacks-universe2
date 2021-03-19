@@ -9,9 +9,10 @@ from typing import (
 # Third party libraries
 
 # Local libraries
+import utils_logger
 from tap_mailchimp import (
     api,
-    streams
+    streams,
 )
 from tap_mailchimp.api import (
     ApiClient,
@@ -23,6 +24,8 @@ from tap_mailchimp.streams import (
     SupportedStreams
 )
 
+
+LOG = utils_logger.get_log(__name__)
 
 _stream_executor: Mapping[
     SupportedStreams,
@@ -39,8 +42,10 @@ _stream_executor: Mapping[
 
 
 def stream(creds: Credentials, name: str) -> None:
+    target_stream = SupportedStreams(name)
+    LOG.info('Executing stream: %s', target_stream)
     client: ApiClient = api.new_client(creds)
-    _stream_executor[SupportedStreams(name)](client, None)
+    _stream_executor[target_stream](client, None)
 
 
 def stream_all(creds: Credentials) -> None:

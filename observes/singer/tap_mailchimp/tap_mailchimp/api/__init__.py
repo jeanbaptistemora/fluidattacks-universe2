@@ -12,9 +12,7 @@ from mailchimp_marketing import (
 )
 
 # Local libraries
-from tap_mailchimp import (
-    utils
-)
+import utils_logger
 from tap_mailchimp.api.audiences import (
     get_item,
     list_items,
@@ -38,7 +36,7 @@ from tap_mailchimp.auth import (
     Credentials,
 )
 
-LOG = utils.get_log(__name__)
+LOG = utils_logger.get_log(__name__)
 
 
 class ApiClient(NamedTuple):

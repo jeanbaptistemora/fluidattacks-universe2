@@ -6,9 +6,7 @@ from typing import (
 # Third party libraries
 
 # Local libraries
-from tap_mailchimp import (
-    utils
-)
+import utils_logger
 from tap_mailchimp.api.common import (
     api_data,
 )
@@ -21,7 +19,7 @@ from tap_mailchimp.api.common.raw import (
     RawSource,
 )
 
-LOG = utils.get_log(__name__)
+LOG = utils_logger.get_log(__name__)
 
 
 def list_audiences(
