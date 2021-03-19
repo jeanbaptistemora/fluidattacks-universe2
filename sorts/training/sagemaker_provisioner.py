@@ -10,10 +10,13 @@ from sagemaker.sklearn import SKLearn
 from sagemaker.sklearn.estimator import SKLearn as SKLearnEstimator
 
 
-def get_estimator(model: str) -> SKLearnEstimator:
+def get_estimator(
+    model: str,
+    training_script: str = 'training/training_script.py'
+) -> SKLearnEstimator:
     sklearn_estimator: SKLearnEstimator = SKLearn(
-        entry_point='training/training_script.py',
-        dependencies=['sorts/sorts'],
+        entry_point=training_script,
+        dependencies=['sorts', 'training'],
         framework_version='0.23-1',
         instance_type="ml.m5.2xlarge",
         instance_count=1,
