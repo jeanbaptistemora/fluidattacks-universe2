@@ -102,10 +102,38 @@ async def query(
     return tuple(items)
 
 
-async def put_item(*, item: Item, table: Table) -> None:
+def _build_facet_item(
+    *,
+    facet: Facet,
+    item: Item,
+    table: Table,
+) -> Item:
+    key_structure = table.primary_key
+    attrs = (
+        key_structure.partition_key,
+        key_structure.sort_key,
+        *facet.attrs
+    )
+    return {
+        attr: item[attr]
+        for attr in attrs
+    }
+
+
+async def put_item(
+    *,
+    facet: Facet,
+    item: Item,
+    table: Table
+) -> None:
     async with aioboto3.resource(**RESOURCE_OPTIONS) as resource:
         table_resource = await resource.Table(table.name)
-        await table_resource.put_item(Item=item)
+        facet_item = _build_facet_item(
+            facet=facet,
+            item=item,
+            table=table
+        )
+        await table_resource.put_item(Item=facet_item)
 
 
 async def batch_write_item(
