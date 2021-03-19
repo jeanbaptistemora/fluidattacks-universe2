@@ -37,7 +37,7 @@ async def main() -> None:
         )
         if not item:
             return
-        if action == 'report' and additional_info == 'XLS':
+        if action == 'report' and additional_info in {'PDF', 'XLS'}:
             await generate_report(item=item)
         else:
             LOGGER.error('Invalid action', extra=dict(extra=locals()))

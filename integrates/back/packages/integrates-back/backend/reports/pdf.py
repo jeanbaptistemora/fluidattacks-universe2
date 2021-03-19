@@ -198,10 +198,8 @@ class CreatorPDF():
             colors=colors
         )
         axis('equal')
-        pie_filename = 'finding_graph_:prj.png'.replace(':prj', project)
-        hard_path = self.tpl_img_path
-        hard_path += pie_filename
-        savefig(hard_path, bbox_inches='tight', transparent=True, dpi=100)
+        pie_filename = f'{self.tpl_img_path}/finding_graph_{project}.png'
+        savefig(pie_filename, bbox_inches='tight', transparent=True, dpi=100)
         cla()
         clf()
         close('all')
@@ -232,9 +230,9 @@ class CreatorPDF():
                 finding['state'] = words['fin_status_closed']
                 finding['treatment'] = '-'
 
-        main_pie_filename = 'image::../images/' \
+        main_pie_filename = 'image::' \
             + main_pie_filename \
-            + '[width=300, align="center"]'
+            + '[width=300, align=center]'
         main_tables = make_vuln_table(findings, words)
         fluid_tpl_content = self.make_content(words)
         access_vector = get_access_vector(findings[0])

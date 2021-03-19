@@ -97,6 +97,7 @@ async def get_group_report_url(
     report_type: str,
     group_name: str,
     passphrase: str,
+    user_email: str,
 ) -> Optional[str]:
     context = get_new_context()
     group_findings = await finding_domain.list_findings(
@@ -119,12 +120,22 @@ async def get_group_report_url(
         for finding, format_vuln in zip(findings, format_vulns)
     ])
     findings_ord = util.ord_asc_by_criticality(list(format_findings))
+    description = await project_domain.get_description(group_name)
 
     if report_type == 'XLS':
         return await technical_report.generate_xls_file(
             context,
             findings_ord=findings_ord,
             passphrase=passphrase,
+        )
+    if report_type == 'PDF':
+        return await technical_report.generate_pdf_file(
+            description=description,
+            findings_ord=findings_ord,
+            group_name=group_name,
+            lang='en',
+            passphrase=passphrase,
+            user_email=user_email,
         )
 
     return None

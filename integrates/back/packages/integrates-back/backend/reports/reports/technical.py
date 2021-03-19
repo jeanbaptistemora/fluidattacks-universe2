@@ -6,6 +6,7 @@ from typing import (
     cast,
     Dict,
     List,
+    Set,
 )
 
 # Third party libraries
@@ -44,7 +45,7 @@ def convert_evidences_to_png(
             img_id = evidence['id'].split('/')[-1]
             new_name = img_id.split('.')[0]
             evidence['id'] = new_name
-            evidence['name'] = f'image::{tempdir}/{new_name}[align="center"]'
+            evidence['name'] = f'image::{tempdir}/{new_name}[align=center]'
             img = Image.open(f'{tempdir}/{img_id}')
             img.save(f'{tempdir}/{new_name}', 'png', optimize=True)
             img.close()
@@ -184,6 +185,9 @@ async def download_evidences_for_pdf(
     for finding in findings:
         folder_name = f'{finding["projectName"]}/{finding["findingId"]}'
         evidences = cast(Dict[str, Dict[str, str]], finding['evidence'])
+        evidences_s3: Set[str] = set(
+            await finding_dal.search_evidence(folder_name)
+        )
         evidence_set: List[Dict[str, str]] = [
             {
                 'id': f'{folder_name}/{evidences[ev_item]["url"]}',
@@ -191,6 +195,7 @@ async def download_evidences_for_pdf(
             }
             for ev_item in evidences
             if evidences[ev_item]['url']
+            and f'{folder_name}/{evidences[ev_item]["url"]}' in evidences_s3
         ]
 
         if evidence_set:

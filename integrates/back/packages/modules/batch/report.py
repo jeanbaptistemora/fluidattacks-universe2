@@ -36,6 +36,7 @@ async def get_report(*, item: BatchProcessing, passphrase: str) -> str:
             report_type=item.additional_info,
             group_name=item.entity,
             passphrase=passphrase,
+            user_email=item.subject,
         )
         uploaded_file_name = await upload_report(report_file_name)
     except ErrorUploadingFileS3 as exc:
@@ -62,6 +63,7 @@ async def send_report(
 ) -> None:
     translations: Dict[str, str] = {
         'XLS': 'Technical',
+        'PDF': 'Executive',
     }
     is_in_db = await is_action_by_key(key=item.key)
     if is_in_db:
