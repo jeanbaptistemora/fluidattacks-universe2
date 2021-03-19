@@ -390,10 +390,30 @@ def _analyze_method_invocation_values(args: EvaluatorArgs) -> None:
     method_var, method_path = split_on_first_dot(args.syntax_step.method)
 
     if dcl := lookup_var_state_by_name(args, method_var):
+        if isinstance(dcl.meta.value, dict):
+            _analyze_method_invocation_values_dict(args, dcl, method_path)
         if isinstance(dcl.meta.value, str):
             _analyze_method_invocation_values_str(args, dcl, method_path)
         if isinstance(dcl.meta.value, list):
             _analyze_method_invocation_values_list(args, dcl, method_path)
+
+
+def _analyze_method_invocation_values_dict(
+    args: EvaluatorArgs,
+    dcl: graph_model.SyntaxStep,
+    method_path: str,
+) -> None:
+    if method_path == 'put':
+        value, key = args.dependencies
+        dcl.meta.value[key.meta.value] = value
+    elif method_path == 'get':
+        key = args.dependencies[0]
+        args.syntax_step.meta.value = dcl.meta.value.get(key.meta.value)
+        args.syntax_step.meta.danger = (
+            dcl.meta.value[key.meta.value].meta.danger
+            if key.meta.value in dcl.meta.value
+            else False
+        )
 
 
 def _analyze_method_invocation_values_str(

@@ -6,6 +6,8 @@ F004. Remote command execution,OWASP/BenchmarkTest00017.java,65,78
 F004. Remote command execution,OWASP/BenchmarkTest00077.java,98,78
 F004. Remote command execution,OWASP/BenchmarkTest00091.java,74,78
 F004. Remote command execution,OWASP/BenchmarkTest00092.java,93,78
+F004. Remote command execution,OWASP/BenchmarkTest00172.java,67,78
+F004. Remote command execution,OWASP/BenchmarkTest00173.java,66,78
 F004. Remote command execution,OWASP/BenchmarkTest00176.java,65,78
 F004. Remote command execution,OWASP/BenchmarkTest00293.java,75,78
 F004. Remote command execution,OWASP/BenchmarkTest00294.java,75,78
@@ -29,5 +31,8 @@ F004. Remote command execution,OWASP/BenchmarkTest00573.java,70,78
 F004. Remote command execution,OWASP/BenchmarkTest00574.java,76,78
 F004. Remote command execution,OWASP/BenchmarkTest00575.java,84,78
 F004. Remote command execution,OWASP/BenchmarkTest00731.java,65,78
+F004. Remote command execution,OWASP/BenchmarkTest00740.java,65,78
 F004. Remote command execution,OWASP/BenchmarkTest00815.java,78,78
+F004. Remote command execution,OWASP/BenchmarkTest00816.java,83,78
 F004. Remote command execution,OWASP/BenchmarkTest00823.java,81,78
+F004. Remote command execution,OWASP/BenchmarkTest00824.java,92,78
