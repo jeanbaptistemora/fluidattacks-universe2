@@ -68,6 +68,8 @@ class ImpossiblePath(StopEvaluation):
 class EvaluatorArgs(NamedTuple):
     dependencies: graph_model.SyntaxSteps
     finding: core_model.FindingEnum
+    graph_db: graph_model.GraphDB
+    shard: graph_model.GraphShard
     n_id_next: graph_model.NId
     syntax_step: graph_model.SyntaxStep
     syntax_step_index: int
@@ -139,6 +141,20 @@ def lookup_var_state_by_name(
                 isinstance(syntax_step, graph_model.SyntaxStepSymbolLookup)
                 and syntax_step.symbol == var_name):
             return syntax_step
+    return None
+
+
+def lookup_java_class(
+    args: EvaluatorArgs,
+    class_name: str,
+) -> Optional[graph_model.GraphShardMetadataJavaClass]:
+    # First lookup the class in the current shard
+    for class_path, class_data in args.shard.metadata.java.classes.items():
+        qualified = args.shard.metadata.java.package + class_path
+
+        if qualified.endswith(f'.{class_name}'):
+            return class_data
+
     return None
 
 
@@ -473,8 +489,8 @@ def syntax_step_method_invocation_chain(args: EvaluatorArgs) -> None:
 
     for dep in args.dependencies:
         if isinstance(dep, (
-                graph_model.SyntaxStepMethodInvocation,
-                graph_model.SyntaxStepObjectInstantiation,
+            graph_model.SyntaxStepMethodInvocation,
+            graph_model.SyntaxStepObjectInstantiation,
         )):
             parent = dep
     if not parent:
@@ -543,6 +559,8 @@ def _syntax_step_object_instantiation_values(args: EvaluatorArgs) -> None:
         args.syntax_step.meta.value = []
     elif object_type in build_attr_paths('java', 'util', 'HashMap'):
         args.syntax_step.meta.value = {}
+    elif java_class := lookup_java_class(args, object_type):
+        args.syntax_step.meta.value = java_class
 
 
 def syntax_step_symbol_lookup(args: EvaluatorArgs) -> None:
@@ -643,7 +661,7 @@ def get_dependencies(
 
 
 def eval_syntax_steps(
-    _: graph_model.GraphDB,
+    graph_db: graph_model.GraphDB,
     *,
     finding: core_model.FindingEnum,
     shard: graph_model.GraphShard,
@@ -665,6 +683,8 @@ def eval_syntax_steps(
             evaluator(EvaluatorArgs(
                 dependencies=get_dependencies(syntax_step_index, syntax_steps),
                 finding=finding,
+                graph_db=graph_db,
+                shard=shard,
                 n_id_next=n_id_next,
                 syntax_step=syntax_step,
                 syntax_step_index=syntax_step_index,
@@ -695,7 +715,7 @@ def get_possible_syntax_steps_from_path(
     for n_id, n_id_next in zip(path, path_next):
         try:
             eval_syntax_steps(
-                _=graph_db,
+                graph_db=graph_db,
                 finding=finding,
                 shard=shard,
                 syntax_steps=syntax_steps,
