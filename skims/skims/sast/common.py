@@ -80,6 +80,9 @@ DANGER_METHODS_BY_OBJ: Dict[str, Set[str]] = _complete_attrs_on_dict({
     'java.util.List': {
         'get',
     },
+    'org.owasp.benchmark.helpers.SeparateClassRequest': {
+        'getTheParameter',
+    },
 })
 DANGER_METHODS_BY_OBJ_ARGS: Dict[str, Set[str]] = _complete_attrs_on_dict({
     'org.owasp.benchmark.helpers.ThingInterface': {

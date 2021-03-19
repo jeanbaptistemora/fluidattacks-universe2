@@ -4,6 +4,7 @@ F063. Lack of data validation - Path Traversal,OWASP/BenchmarkTest00001.java,71,
 F063. Lack of data validation - Path Traversal,OWASP/BenchmarkTest00002.java,72,22
 F063. Lack of data validation - Path Traversal,OWASP/BenchmarkTest00011.java,56,22
 F063. Lack of data validation - Path Traversal,OWASP/BenchmarkTest00028.java,60,22
+F063. Lack of data validation - Path Traversal,OWASP/BenchmarkTest00040.java,50,22
 F063. Lack of data validation - Path Traversal,OWASP/BenchmarkTest00045.java,63,22
 F063. Lack of data validation - Path Traversal,OWASP/BenchmarkTest00060.java,71,22
 F063. Lack of data validation - Path Traversal,OWASP/BenchmarkTest00061.java,71,22
@@ -39,6 +40,13 @@ F063. Lack of data validation - Path Traversal,OWASP/BenchmarkTest00526.java,64,
 F063. Lack of data validation - Path Traversal,OWASP/BenchmarkTest00527.java,65,22
 F063. Lack of data validation - Path Traversal,OWASP/BenchmarkTest00528.java,80,22
 F063. Lack of data validation - Path Traversal,OWASP/BenchmarkTest00529.java,69,22
+F063. Lack of data validation - Path Traversal,OWASP/BenchmarkTest00619.java,61,22
+F063. Lack of data validation - Path Traversal,OWASP/BenchmarkTest00623.java,55,22
+F063. Lack of data validation - Path Traversal,OWASP/BenchmarkTest00624.java,58,22
+F063. Lack of data validation - Path Traversal,OWASP/BenchmarkTest00624.java,58,22
+F063. Lack of data validation - Path Traversal,OWASP/BenchmarkTest00627.java,61,22
+F063. Lack of data validation - Path Traversal,OWASP/BenchmarkTest00629.java,61,22
+F063. Lack of data validation - Path Traversal,OWASP/BenchmarkTest00629.java,62,22
 F063. Lack of data validation - Path Traversal,OWASP/BenchmarkTest00696.java,72,22
 F063. Lack of data validation - Path Traversal,OWASP/BenchmarkTest00697.java,57,22
 F063. Lack of data validation - Path Traversal,OWASP/BenchmarkTest00698.java,54,22
