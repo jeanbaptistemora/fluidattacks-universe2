@@ -2,6 +2,9 @@
 from copy import (
     deepcopy,
 )
+from itertools import (
+    chain,
+)
 import operator
 from typing import (
     Callable,
@@ -15,6 +18,7 @@ from typing import (
 
 # Third party libraries
 from more_itertools import (
+    mark_ends,
     padnone,
 )
 
@@ -155,6 +159,38 @@ def lookup_java_class(
         if qualified.endswith(f'.{class_name}'):
             return class_data
 
+    return None
+
+
+def eval_method(
+    args: EvaluatorArgs,
+    method_n_id: graph_model.NId,
+    method_arguments: graph_model.SyntaxSteps,
+) -> Optional[graph_model.SyntaxStep]:
+    for syntax_steps in get_possible_syntax_steps_for_n_id(
+        args.graph_db,
+        finding=args.finding,
+        n_id=method_n_id,
+        overriden_syntax_steps=list(reversed(method_arguments)),
+        shard=args.shard,
+    ).values():
+        # Attempt to return the dangerous syntax step
+        for syntax_step in reversed(syntax_steps):
+            if (
+                isinstance(syntax_step, graph_model.SyntaxStepReturn)
+                and syntax_step.meta.danger
+            ):
+                return syntax_step
+
+        # If none of them match attempt to return the one that has value
+        for syntax_step in reversed(syntax_steps):
+            if (
+                isinstance(syntax_step, graph_model.SyntaxStepReturn)
+                and syntax_step.meta.value is not None
+            ):
+                return syntax_step
+
+    # Return a default value
     return None
 
 
@@ -484,24 +520,20 @@ def syntax_step_method_invocation(args: EvaluatorArgs) -> None:
 
 
 def syntax_step_method_invocation_chain(args: EvaluatorArgs) -> None:
-    method = args.syntax_step.method
-    parent: Optional[graph_model.SyntaxStepMethodInvocation] = None
+    *method_arguments, parent = args.dependencies
 
-    for dep in args.dependencies:
-        if isinstance(dep, (
-            graph_model.SyntaxStepMethodInvocation,
-            graph_model.SyntaxStepObjectInstantiation,
-        )):
-            parent = dep
-    if not parent:
-        return None
-
-    if isinstance(parent, graph_model.SyntaxStepMethodInvocation):
-        method = parent.method + method
+    if isinstance(parent.meta.value, graph_model.GraphShardMetadataJavaClass):
+        if args.syntax_step.method in parent.meta.value.methods:
+            method = parent.meta.value.methods[args.syntax_step.method]
+            if return_step := eval_method(args, method.n_id, method_arguments):
+                args.syntax_step.meta.danger = return_step.meta.danger
+                args.syntax_step.meta.value = return_step.meta.value
+    elif isinstance(parent, graph_model.SyntaxStepMethodInvocation):
+        method = parent.method + args.syntax_step.method
+        _analyze_method_invocation(args, method)
     elif isinstance(parent, graph_model.SyntaxStepObjectInstantiation):
-        method = parent.object_type + method
-    _analyze_method_invocation(args, method)
-    return None
+        method = parent.object_type + args.syntax_step.method
+        _analyze_method_invocation(args, method)
 
 
 def syntax_step_no_op(args: EvaluatorArgs) -> None:
@@ -671,6 +703,7 @@ def eval_syntax_steps(
     graph_db: graph_model.GraphDB,
     *,
     finding: core_model.FindingEnum,
+    overriden_syntax_steps: graph_model.SyntaxSteps,
     shard: graph_model.GraphShard,
     syntax_steps: graph_model.SyntaxSteps,
     n_id: graph_model.NId,
@@ -681,7 +714,10 @@ def eval_syntax_steps(
         raise StopEvaluation(f'Missing Syntax Reader, {shard.path} @ {n_id}')
 
     syntax_step_index = len(syntax_steps)
-    syntax_steps.extend(deepcopy(shard.syntax[n_id]))
+    syntax_steps.extend(chain(
+        overriden_syntax_steps,
+        deepcopy(shard.syntax[n_id])[len(overriden_syntax_steps):],
+    ))
 
     while syntax_step_index < len(syntax_steps):
         syntax_step = syntax_steps[syntax_step_index]
@@ -711,6 +747,7 @@ def get_possible_syntax_steps_from_path(
     graph_db: graph_model.GraphDB,
     *,
     finding: core_model.FindingEnum,
+    overriden_syntax_steps: graph_model.SyntaxSteps,
     shard: graph_model.GraphShard,
     path: Tuple[str, ...],
 ) -> graph_model.SyntaxSteps:
@@ -719,11 +756,12 @@ def get_possible_syntax_steps_from_path(
     path_next = padnone(path)
     next(path_next)
 
-    for n_id, n_id_next in zip(path, path_next):
+    for first, _, (n_id, n_id_next) in mark_ends(zip(path, path_next)):
         try:
             eval_syntax_steps(
                 graph_db=graph_db,
                 finding=finding,
+                overriden_syntax_steps=overriden_syntax_steps if first else [],
                 shard=shard,
                 syntax_steps=syntax_steps,
                 n_id=n_id,
@@ -749,6 +787,7 @@ def get_possible_syntax_steps_for_n_id(
     *,
     finding: core_model.FindingEnum,
     n_id: graph_model.NId,
+    overriden_syntax_steps: Optional[graph_model.SyntaxSteps] = None,
     shard: graph_model.GraphShard,
 ) -> PossibleSyntaxStepsForUntrustedNId:
     syntax_steps_map: PossibleSyntaxStepsForUntrustedNId = {
@@ -756,6 +795,7 @@ def get_possible_syntax_steps_for_n_id(
         '-'.join(path): get_possible_syntax_steps_from_path(
             graph_db,
             finding=finding,
+            overriden_syntax_steps=overriden_syntax_steps or [],
             shard=shard,
             path=path,
         )
