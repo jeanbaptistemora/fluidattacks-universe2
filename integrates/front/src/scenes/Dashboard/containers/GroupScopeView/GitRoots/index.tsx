@@ -224,9 +224,15 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
       setCurrentRow(undefined);
     },
     onError: ({ graphQLErrors }: ApolloError): void => {
-      msgError(t("groupAlerts.errorTextsad"));
       graphQLErrors.forEach((error: GraphQLError): void => {
-        Logger.error("Couldn't update root state", error);
+        switch (error.message) {
+          case "Exception - Active root with the same URL/branch already exists":
+            msgError(t("group.scope.common.errors.duplicateUrl"));
+            break;
+          default:
+            msgError(t("groupAlerts.errorTextsad"));
+            Logger.error("Couldn't update root state", error);
+        }
       });
     },
   });

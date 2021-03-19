@@ -1,11 +1,12 @@
 # Standard
 import re
-from typing import Any, Dict, List, Tuple
+from typing import Any, List, Tuple
 from urllib.parse import unquote
 from uuid import uuid4
 
 # Third party
 import newrelic.agent
+from aiodataloader import DataLoader
 from aioextensions import collect
 from urllib3.util.url import parse_url
 
@@ -109,11 +110,6 @@ def _format_git_repo_url(raw_url: str) -> str:
     )
 
     return unquote(url)
-
-
-def _is_active(root: Dict[str, Any]) -> bool:
-    state: str = root['historic_state'][-1]['state']
-    return state == 'ACTIVE'
 
 
 @newrelic.agent.function_trace()
@@ -479,6 +475,7 @@ async def update_root_cloning_status(
 
 
 async def update_root_state(
+    context: Any,
     user_email: str,
     group_name: str,
     root_id: str,
@@ -490,6 +487,18 @@ async def update_root_state(
         raise InvalidParameter()
 
     if root.state.status != state:
+        group_loader: DataLoader = context.group_all
+        group = await group_loader.load(group_name)
+        if (
+            state == 'ACTIVE'
+            and not await _is_git_unique_in_org(
+                group['organization'],
+                root.metadata.url,
+                root.metadata.branch
+            )
+        ):
+            raise RepeatedRoot()
+
         await roots_dal.update_git_root_state(
             group_name=group_name,
             root_id=root_id,

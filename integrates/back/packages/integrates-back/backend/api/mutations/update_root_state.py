@@ -33,6 +33,7 @@ async def mutate(
     user_email: str = user_info['user_email']
 
     await roots_domain.update_root_state(
+        info.context.loaders,
         user_email,
         kwargs['group_name'],
         kwargs['id'],
