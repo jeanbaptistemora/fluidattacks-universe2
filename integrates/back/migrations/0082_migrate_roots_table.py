@@ -2,8 +2,8 @@
 This migration moves items from fi_roots to the new single-table
 integrates_vms
 
-Execution Time:
-Finalization Time:
+Execution Time:    2021-03-19 at 11:01:10 UTC-05
+Finalization Time: 2021-03-19 at 11:13:17 UTC-05
 """
 # Standard libraries
 import time

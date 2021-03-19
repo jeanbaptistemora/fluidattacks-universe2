@@ -127,27 +127,6 @@ def _is_active(root: Dict[str, Any]) -> bool:
 
 
 @newrelic.agent.function_trace()
-async def _is_git_unique_in_org_legacy(
-    org_id: str,
-    url: str,
-    branch: str
-) -> bool:
-    org_groups: Tuple[str, ...] = await org_domain.get_groups(org_id)
-    org_roots: Tuple[Tuple[str, str], ...] = tuple(
-        (root['url'], root['branch'])
-        for group_roots in await collect(
-            get_roots_by_group(group_name)
-            for group_name in org_groups
-        )
-        for root in group_roots
-        if root['kind'] == 'Git'
-        and root['historic_state'][-1]['state'] == 'ACTIVE'
-    )
-
-    return (url, branch) not in org_roots
-
-
-@newrelic.agent.function_trace()
 async def _is_git_unique_in_org(org_id: str, url: str, branch: str) -> bool:
     org_groups = await org_domain.get_groups(org_id)
     org_roots = tuple(
@@ -282,79 +261,6 @@ async def _is_url_unique_in_org(
     )
 
     return (host, path, port, protocol) not in org_roots
-
-
-async def add_git_root_legacy(
-    context: Any,
-    user_email: str,
-    **kwargs: Any
-) -> None:
-    group_loader = context.group_all
-    group_name: str = kwargs['group_name'].lower()
-    url: str = _format_git_repo_url(kwargs['url'])
-    branch: str = kwargs['branch']
-    nickname: str = format_root_nickname(kwargs.get('nickname', ''), url)
-
-    gitignore = kwargs['gitignore']
-    enforcer = await authz.get_group_level_enforcer(user_email)
-    if (
-        gitignore
-        and not enforcer(group_name, 'update_git_root_filter')
-    ):
-        raise PermissionDenied()
-    if not validations.is_exclude_valid(gitignore, url):
-        raise InvalidRootExclusion()
-
-    now_date = datetime_utils.get_as_str(datetime_utils.get_now())
-    initial_cloning_status: Dict[str, Any] = {
-        'date': now_date,
-        'status': 'UNKNOWN',
-        'message': 'root created'
-    }
-
-    if (
-        validations.is_valid_url(url)
-        and validations.is_valid_git_branch(branch)
-    ):
-        group = await group_loader.load(group_name)
-        initial_state: Dict[str, Any] = {
-            'date': now_date,
-            'environment': kwargs['environment'],
-            'environment_urls': [],
-            'gitignore': gitignore,
-            'includes_health_check': kwargs['includes_health_check'],
-            'state': 'ACTIVE',
-            'user': user_email
-        }
-        root_attributes: Dict[str, Any] = {
-            'branch': branch,
-            'historic_state': [initial_state],
-            'historic_cloning_status': [initial_cloning_status],
-            'kind': 'Git',
-            'nickname': nickname,
-            'url': url,
-        }
-
-        if not await _is_nickname_unique_in_group_legacy(group_name, nickname):
-            raise RepeatedRootNickname()
-
-        if await _is_git_unique_in_org_legacy(
-            group['organization'],
-            url,
-            branch
-        ):
-            await roots_dal.create_legacy(group_name, root_attributes)
-            if kwargs['includes_health_check']:
-                await notifications_domain.request_health_check(
-                    requester_email=user_email,
-                    group_name=group_name,
-                    repo_url=url,
-                    branch=branch
-                )
-        else:
-            raise RepeatedRoot()
-    else:
-        raise InvalidParameter()
 
 
 async def _notify_health_check(
