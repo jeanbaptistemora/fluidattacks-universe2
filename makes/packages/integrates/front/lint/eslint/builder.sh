@@ -8,7 +8,6 @@ function main {
     &&  ./node_modules/.bin/tsc -p tsconfig.json \
     &&  ./node_modules/.bin/eslint . --ext .js,.ts,.tsx --format codeframe \
   &&  popd \
-  && echo_env_config \
   ||  return 1
 }
 
