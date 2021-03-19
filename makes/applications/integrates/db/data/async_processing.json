@@ -23,6 +23,54 @@
           }
         }
       }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "pk": {
+            "S": "31363136313136333438.504446.696e74656772617465736d616e6167657240676d61696c2e636f6d.7265706f7274.756e697474657374696e67"
+          },
+          "action_name": {
+            "S": "report"
+          },
+          "additional_info": {
+            "S": "PDF"
+          },
+          "entity": {
+            "S": "unittesting"
+          },
+          "subject": {
+            "S": "integratesmanager@gmail.com"
+          },
+          "time": {
+            "S": "1616116348"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "pk": {
+            "S": "31363136313136333438.44415441.696e74656772617465736d616e6167657240676d61696c2e636f6d.7265706f7274.756e697474657374696e67"
+          },
+          "action_name": {
+            "S": "report"
+          },
+          "additional_info": {
+            "S": "DATA"
+          },
+          "entity": {
+            "S": "unittesting"
+          },
+          "subject": {
+            "S": "integratesmanager@gmail.com"
+          },
+          "time": {
+            "S": "1616116348"
+          }
+        }
+      }
     }
   ]
 }

@@ -188,10 +188,13 @@ async def put_action_to_batch(
                         additional_info,
                     ],
                     'environment': [
-                        {
-                            'name': 'AWS_SESSION_TOKEN',
-                            'value': AWS_SESSION_TOKEN
-                        },
+                        *(
+                            [{
+                                'name': 'AWS_SESSION_TOKEN',
+                                'value': AWS_SESSION_TOKEN
+                            }]
+                            if AWS_SESSION_TOKEN else []
+                        ),
                         {
                             'name': 'CI',
                             'value': 'true'

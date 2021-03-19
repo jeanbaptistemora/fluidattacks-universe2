@@ -21,6 +21,7 @@ from backend.reports.reports import (
     technical as technical_report,
 )
 from backend import util
+from batch import dal as batch_dal
 from newutils.reports import patch_loop_exception_handler
 
 
@@ -66,15 +67,12 @@ async def generate_group_report(
         )
         success = True
     elif report_type == 'XLS':
-        schedule(
-            technical_report.generate_xls(
-                context,
-                findings_ord=findings_ord,
-                group_name=project_name,
-                user_email=user_email,
-            )
+        success = await batch_dal.put_action(
+            action_name='report',
+            entity=project_name,
+            subject=user_email,
+            additional_info=report_type,
         )
-        success = True
     elif report_type == 'DATA':
         schedule(
             data_report.generate(
