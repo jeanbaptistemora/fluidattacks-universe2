@@ -45,14 +45,6 @@ async def validate_fluidattacks_staff_on_group(
                 'only have Hackers provided by Fluid Attacks'
             )
 
-    group_is_fluidattacks_customer: bool = enforcer('is_fluidattacks_customer')
-
-    if not group_is_fluidattacks_customer and is_user_at_fluidattacks:
-        raise UnexpectedUserRole(
-            'Groups without an active Fluid Attacks service can '
-            'not have Fluid Attacks staff'
-        )
-
     return True
 
 
