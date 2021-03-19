@@ -394,6 +394,16 @@ def resource(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
         raise MissingCaseHandling(resource, args)
 
 
+def return_statement(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
+    return_id = g.adj_ast(args.graph, args.n_id)[1]
+
+    yield graph_model.SyntaxStepReturn(
+        meta=graph_model.SyntaxStepMeta.default(args.n_id, [
+            generic(args.fork_n_id(return_id)),
+        ]),
+    )
+
+
 def cast_expression(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
     match = g.match_ast(
         args.graph,
@@ -1010,6 +1020,17 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
             resource,
         ),
     ),
+    Dispatcher(
+        applicable_languages={
+            graph_model.GraphShardMetadataLanguage.JAVA,
+        },
+        applicable_node_label_types={
+            'return_statement',
+        },
+        syntax_readers=(
+            return_statement,
+        ),
+    ),
     *[
         Dispatcher(
             applicable_languages={
@@ -1030,7 +1051,6 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
             'expression_statement',
             'finally_clause',
             'resource_specification',
-            'return_statement',
             'this',
             'try_statement',
             'try_with_resources_statement',

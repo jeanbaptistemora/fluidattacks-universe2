@@ -210,6 +210,12 @@ class SyntaxStepArrayInstantiation(NamedTuple):
     type: str = 'SyntaxStepArrayInstantiation'
 
 
+class SyntaxStepReturn(NamedTuple):
+    meta: SyntaxStepMeta
+
+    type: str = 'SyntaxStepReturn'
+
+
 class SyntaxStepSymbolLookup(NamedTuple):
     meta: SyntaxStepMeta
     symbol: str

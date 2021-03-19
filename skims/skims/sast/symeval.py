@@ -632,6 +632,7 @@ EVALUATORS: Dict[object, Evaluator] = {
     graph_model.SyntaxStepNoOp: syntax_step_no_op,
     graph_model.SyntaxStepObjectInstantiation:
     syntax_step_object_instantiation,
+    graph_model.SyntaxStepReturn: syntax_step_no_op,
     graph_model.SyntaxStepSymbolLookup: syntax_step_symbol_lookup,
     graph_model.SyntaxStepTernary: syntax_step_ternary,
 }

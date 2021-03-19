@@ -12224,10 +12224,19 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "295",
+              "n_id": "297",
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "295",
+              "value": null
+            },
+            "type": "SyntaxStepReturn"
           }
         ],
         "300": [

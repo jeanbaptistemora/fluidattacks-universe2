@@ -255,6 +255,7 @@ ALLOWED_FACTORIES: Dict[type, Dict[str, Any]] = {
                 graph_model.SyntaxStepMethodInvocationChain,
                 graph_model.SyntaxStepNoOp,
                 graph_model.SyntaxStepObjectInstantiation,
+                graph_model.SyntaxStepReturn,
                 graph_model.SyntaxStepSwitch,
                 graph_model.SyntaxStepSwitchLabelCase,
                 graph_model.SyntaxStepSwitchLabelDefault,
