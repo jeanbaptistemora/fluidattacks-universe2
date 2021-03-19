@@ -24,7 +24,6 @@ runners:
   config: |
     [[runners]]
       name = "ci"
-      url = "https://gitlab.com/"
       [runners.docker]
         cpus = "2"
         memory = "4000m"

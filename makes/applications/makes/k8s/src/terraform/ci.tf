@@ -44,6 +44,7 @@ resource "kubernetes_secret" "registration_token" {
 
   data = {
     "runner-registration-token" = var.ci_registration_token
+    "runner-token"              = ""
   }
 
   type = "Opaque"
@@ -52,11 +53,11 @@ resource "kubernetes_secret" "registration_token" {
 resource "helm_release" "ci" {
   name       = "ci"
   repository = "https://charts.gitlab.io"
-  chart      = "gitlab/gitlab-runner"
+  chart      = "gitlab-runner"
   version    = "0.27.0-rc1"
   namespace  = "kube-system"
 
   values = [
-    data.local_file.ci_values.content
+    data.local_file.ci_config.content
   ]
 }
