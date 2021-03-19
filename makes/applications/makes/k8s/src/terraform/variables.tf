@@ -1,9 +1,11 @@
 data "aws_caller_identity" "current" {}
 variable "aws_access_key" {}
 variable "aws_secret_key" {}
-variable "newrelic_license_key" {}
 variable "cloudflare_email" {}
 variable "cloudflare_api_key" {}
+variable "newrelic_license_key" {
+  default = "default value for test"
+}
 variable "ci_cache_access_key" {
   default = "default value for test"
 }
