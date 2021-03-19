@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "cache_bucket" {
-  bucket        = "ci-cache"
+  bucket        = "ci-cache.fluidattacks.com"
   acl           = "private"
   force_destroy = true
 
@@ -16,8 +16,47 @@ resource "aws_s3_bucket" "cache_bucket" {
   }
 
   tags = {
-    "Name"               = "ci-cache"
+    "Name"               = "ci-cache.fluidattacks.com"
     "management:type"    = "production"
     "management:product" = "makes"
   }
+}
+
+resource "kubernetes_secret" "cache_creds" {
+  metadata {
+    name      = "ci-cache-creds"
+    namespace = "kube-system"
+  }
+
+  data = {
+    accesskey = var.ci_cache_access_key
+    secretkey = var.ci_cache_secret_key
+  }
+
+  type = "Opaque"
+}
+
+resource "kubernetes_secret" "registration_token" {
+  metadata {
+    name      = "ci-registration-token"
+    namespace = "kube-system"
+  }
+
+  data = {
+    "runner-registration-token" = var.ci_registration_token
+  }
+
+  type = "Opaque"
+}
+
+resource "helm_release" "ci" {
+  name       = "ci"
+  repository = "https://charts.gitlab.io"
+  chart      = "gitlab/gitlab-runner"
+  version    = "0.27.0-rc1"
+  namespace  = "kube-system"
+
+  values = [
+    data.local_file.ci_values.content
+  ]
 }

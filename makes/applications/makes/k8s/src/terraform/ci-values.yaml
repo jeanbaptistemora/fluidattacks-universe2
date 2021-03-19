@@ -40,7 +40,7 @@ runners:
         Shared = true
         [runners.cache.s3]
           ServerAddress = "s3.amazonaws.com"
-          BucketName = "autoscaling-ci-cache"
+          BucketName = "ci-cache.fluidattacks.com"
           BucketLocation = "us-east-1"
           Insecure = false
       [runners.kubernetes]

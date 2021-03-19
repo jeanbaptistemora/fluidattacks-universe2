@@ -4,6 +4,15 @@ variable "aws_secret_key" {}
 variable "newrelic_license_key" {}
 variable "cloudflare_email" {}
 variable "cloudflare_api_key" {}
+variable "ci_cache_access_key" {
+  default = "default value for test"
+}
+variable "ci_cache_secret_key" {
+  default = "default value for test"
+}
+variable "ci_registration_token" {
+  default = "default value for test"
+}
 
 data "cloudflare_zones" "fluidattacks_com" {
   filter {
@@ -17,7 +26,10 @@ data "aws_eks_cluster" "cluster" {
   name = module.eks.cluster_id
 }
 data "local_file" "ci_init" {
-  filename = "init.sh"
+  filename = "ci-init.sh"
+}
+data "local_file" "ci_values" {
+  filename = "ci-values.yaml"
 }
 data "aws_eks_cluster_auth" "cluster" {
   name = module.eks.cluster_id
