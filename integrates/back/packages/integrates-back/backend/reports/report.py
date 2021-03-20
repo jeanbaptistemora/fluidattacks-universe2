@@ -55,18 +55,7 @@ async def generate_group_report(
     findings_ord = util.ord_asc_by_criticality(findings)
 
     patch_loop_exception_handler(user_email, project_name, report_type)
-    if report_type == 'PDF':
-        schedule(
-            technical_report.generate_pdf(
-                description=description,
-                findings_ord=findings_ord,
-                group_name=project_name,
-                lang=parameters.get('lang', 'en'),
-                user_email=user_email,
-            )
-        )
-        success = True
-    elif report_type == 'XLS':
+    if report_type in {'PDF', 'XLS'}:
         success = await batch_dal.put_action(
             action_name='report',
             entity=project_name,
