@@ -2,6 +2,7 @@
 import logging
 import logging.config
 from typing import Dict
+import os
 
 # Local libraries
 from back.settings import (
@@ -52,6 +53,9 @@ async def get_report(*, item: BatchProcessing, passphrase: str) -> str:
         return ''
     else:
         return uploaded_file_name
+    finally:
+        if os.path.exists(report_file_name):
+            os.unlink(report_file_name)
 
 
 async def send_report(
@@ -62,8 +66,9 @@ async def send_report(
     report_url: str,
 ) -> None:
     translations: Dict[str, str] = {
-        'XLS': 'Technical',
+        'DATA': 'Group Data',
         'PDF': 'Executive',
+        'XLS': 'Technical',
     }
     is_in_db = await is_action_by_key(key=item.key)
     if is_in_db:

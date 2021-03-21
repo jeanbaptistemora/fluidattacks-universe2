@@ -5,7 +5,6 @@ from typing import Any, Optional
 from aioextensions import (
     collect,
     in_process,
-    schedule,
 )
 
 # Local libraries
@@ -49,30 +48,15 @@ async def generate_group_report(
         )
         for finding in findings
     ]
-    description = await project_domain.get_description(
-        str(project_name).lower()
-    )
-    findings_ord = util.ord_asc_by_criticality(findings)
 
     patch_loop_exception_handler(user_email, project_name, report_type)
-    if report_type in {'PDF', 'XLS'}:
+    if report_type in {'DATA', 'PDF', 'XLS'}:
         success = await batch_dal.put_action(
             action_name='report',
             entity=project_name,
             subject=user_email,
             additional_info=report_type,
         )
-    elif report_type == 'DATA':
-        schedule(
-            data_report.generate(
-                context=context,
-                findings_ord=findings_ord,
-                group=project_name,
-                group_description=description,
-                requester_email=user_email,
-            )
-        )
-        success = True
     if success:
         url = f'The report will be sent to {user_email} shortly'
     else:
@@ -125,6 +109,15 @@ async def get_group_report_url(
             lang='en',
             passphrase=passphrase,
             user_email=user_email,
+        )
+    if report_type == 'DATA':
+        return await data_report.generate(
+            context=context,
+            findings_ord=findings_ord,
+            group=group_name,
+            group_description=description,
+            passphrase=passphrase,
+            requester_email=user_email,
         )
 
     return None

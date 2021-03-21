@@ -1,12 +1,10 @@
 # Standard library
-import contextlib
 import os
 import subprocess
 import tempfile
 from typing import (
     Any,
     Dict,
-    Iterator,
     List,
 )
 from uuid import uuid4
@@ -18,9 +16,6 @@ from backend.dal.helpers.s3 import (
 )
 from backend.reports.reports import technical as technical_report
 from backend.typing import Finding as FindingType
-from newutils import reports as reports_utils
-from newutils.passphrase import get_passphrase
-from notifications import domain as notifications_domain
 from __init__ import (
     FI_AWS_S3_BUCKET as EVIDENCES_BUCKET,
 )
@@ -32,10 +27,9 @@ async def generate(
     findings_ord: List[Dict[str, FindingType]],
     group: str,
     group_description: str,
+    passphrase: str,
     requester_email: str,
-) -> None:
-    passphrase = get_passphrase(4)
-
+) -> str:
     with tempfile.TemporaryDirectory() as directory:
         await _append_pdf_report(
             directory=directory,
@@ -56,21 +50,10 @@ async def generate(
             group=group,
         )
 
-        with _encrypted_zip_file(
+        return _encrypted_zip_file(
             passphrase=passphrase,
             source_contents=_get_directory_contents(directory),
-        ) as file:
-            signed_url = await reports_utils.sign_url(
-                await reports_utils.upload_report(file)
-            )
-
-            await notifications_domain.new_password_protected_report(
-                file_link=signed_url,
-                file_type='Group Data',
-                passphrase=passphrase,
-                project_name=group,
-                user_email=requester_email,
-            )
+        )
 
 
 async def _append_pdf_report(
@@ -135,15 +118,15 @@ async def _append_evidences(
             target_name = os.path.join(directory, target_folders[extension])
             os.makedirs(target_name, exist_ok=True)
             target_name = os.path.join(target_name, os.path.basename(key))
-            await download_file(EVIDENCES_BUCKET, key, target_name)
+            if not os.path.isdir(target_name):
+                await download_file(EVIDENCES_BUCKET, key, target_name)
 
 
-@contextlib.contextmanager
 def _encrypted_zip_file(
     *,
     passphrase: str,
     source_contents: List[str],
-) -> Iterator[str]:
+) -> str:
     # This value must be sanitized because it needs to be passed as OS command
     if not all(word.isalpha() for word in passphrase.split(' ')):
         raise ValueError(
@@ -168,10 +151,7 @@ def _encrypted_zip_file(
         check=True,
     )
 
-    try:
-        yield target
-    finally:
-        os.unlink(target)
+    return target
 
 
 def _get_directory_contents(directory: str) -> List[str]:
