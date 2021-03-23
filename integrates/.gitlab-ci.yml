@@ -276,6 +276,9 @@ integrates.back.test.functional.solve_event:
 integrates.back.test.functional.submit_draft:
   <<: *integrates_back_test_functional
 
+integrates.back.test.functional.unsubscribe_from_group:
+  <<: *integrates_back_test_functional
+
 integrates.back.test.functional.update_event_evidence:
   <<: *integrates_back_test_functional
 
