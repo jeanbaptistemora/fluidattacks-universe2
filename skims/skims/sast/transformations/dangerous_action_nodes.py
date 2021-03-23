@@ -21,6 +21,7 @@ def _append_label_skink(
 ) -> None:
     if sink := graph.nodes[n_id].get('label_sink_type'):
         sink += f',{label}'
+        graph.nodes[n_id]['label_sink_type'] = sink
     else:
         graph.nodes[n_id]['label_sink_type'] = label
 

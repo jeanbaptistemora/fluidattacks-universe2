@@ -46,7 +46,8 @@ def get_metadata(
                     for n_id in graph.nodes
                     for label in [graph.nodes[n_id].get('label_sink_type')]
                     if label
-                    and core_model.FINDING_ENUM_FROM_STR[label] == finding
+                    for _label in label.split(',')
+                    if core_model.FINDING_ENUM_FROM_STR[_label] == finding
                 )
                 for finding in core_model.FindingEnum
             },

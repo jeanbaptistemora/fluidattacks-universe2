@@ -421,10 +421,16 @@ def branches_cfg(
         for c_id in c_ids
         if (
             # The node's sink match the finding name
-            graph.nodes[c_id].get('label_sink_type') == finding.name
+            finding.name in graph.nodes[c_id].get(
+                'label_sink_type',
+                str(),
+            ).split(',')
             # The node has an AST child that is a sink of the finding
             or any(
-                graph.nodes[c_c_id].get('label_sink_type') == finding.name
+                finding.name in graph.nodes[c_c_id].get(
+                    'label_sink_type',
+                    str(),
+                ).split(',')
                 for c_c_id in adj_ast(graph, c_id, depth=-1)
             )
             # The node is and leaf node
