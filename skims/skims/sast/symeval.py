@@ -768,10 +768,10 @@ def get_possible_syntax_steps_from_path(
                 n_id_next=n_id_next,
             )
         except ImpossiblePath:
-            break
+            return []
         except StopEvaluation as exc:
             log_blocking('debug', str(exc))
-            break
+            return syntax_steps
 
     return syntax_steps
 

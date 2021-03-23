@@ -363,8 +363,8 @@ def if_statement(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
                 args.fork_n_id(match['__0__']),
             ),
         ),
-        n_id_false=match.get('__2__'),
-        n_id_true=match.get('__1__'),
+        n_id_false=match['__2__'] or g.adj_cfg(args.graph, args.n_id)[1],
+        n_id_true=match['__1__'],
     )
 
 
