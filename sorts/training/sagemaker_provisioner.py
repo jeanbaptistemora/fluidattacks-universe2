@@ -12,7 +12,7 @@ from sagemaker.sklearn.estimator import SKLearn as SKLearnEstimator
 
 def get_estimator(
     model: str,
-    training_script: str = 'training/training_script.py'
+    training_script: str = 'training/training_script/train.py'
 ) -> SKLearnEstimator:
     sklearn_estimator: SKLearnEstimator = SKLearn(
         entry_point=training_script,

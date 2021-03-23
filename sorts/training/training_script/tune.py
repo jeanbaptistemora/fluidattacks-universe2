@@ -25,7 +25,7 @@ from sklearn.model_selection import (
 from sorts.constants import ModelType
 from training.constants import S3_BUCKET
 from training.evaluate_results import get_best_model_name
-from training.training_script import is_overfit
+from training.training_script.train import is_overfit
 
 # Constants
 FEATURES_DICTS: Dict[str, str] = {
