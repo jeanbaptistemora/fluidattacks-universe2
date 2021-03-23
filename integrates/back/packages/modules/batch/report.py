@@ -32,6 +32,7 @@ LOGGER_TRANSACTIONAL = logging.getLogger('transactional')
 
 
 async def get_report(*, item: BatchProcessing, passphrase: str) -> str:
+    report_file_name: str = ''
     try:
         report_file_name = await report.get_group_report_url(
             report_type=item.additional_info,

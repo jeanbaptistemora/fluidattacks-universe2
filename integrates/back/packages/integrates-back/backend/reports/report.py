@@ -1,5 +1,5 @@
 # Standard library
-from typing import Any, Optional
+from typing import Optional
 
 # Third party libraries
 from aioextensions import (
@@ -14,55 +14,11 @@ from backend.domain import (
     project as project_domain,
     vulnerability as vuln_domain,
 )
-from backend.exceptions import RequestedReportError
 from backend.reports.reports import (
     data as data_report,
     technical as technical_report,
 )
 from backend import util
-from batch import dal as batch_dal
-from newutils.reports import patch_loop_exception_handler
-
-
-async def generate_group_report(
-    report_type: str,
-    user_email: str,
-    **parameters: Any
-) -> str:
-    context = parameters['context']
-    project_findings = parameters.get('project_findings', [])
-    project_name = str(parameters.get('project_name'))
-
-    success = False
-    url = ''
-
-    findings = await finding_domain.get_findings_async(project_findings)
-    findings = [
-        await in_process(
-            finding_domain.cast_new_vulnerabilities,
-            await vuln_domain.get_open_vuln_by_type(
-                context,
-                str(finding['findingId'])
-            ),
-            finding
-        )
-        for finding in findings
-    ]
-
-    patch_loop_exception_handler(user_email, project_name, report_type)
-    if report_type in {'DATA', 'PDF', 'XLS'}:
-        success = await batch_dal.put_action(
-            action_name='report',
-            entity=project_name,
-            subject=user_email,
-            additional_info=report_type,
-        )
-    if success:
-        url = f'The report will be sent to {user_email} shortly'
-    else:
-        raise RequestedReportError()
-
-    return url
 
 
 async def get_group_report_url(

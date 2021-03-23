@@ -2,11 +2,9 @@
 import logging
 from typing import (
     Dict,
-    List
 )
 
 # Third party libraries
-from aiodataloader import DataLoader
 from ariadne.utils import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
@@ -19,8 +17,8 @@ from backend.decorators import (
 from backend.exceptions import (
     RequestedReportError
 )
-from backend.reports import report
 from backend.typing import Report
+from batch import dal as batch_dal
 from back.settings import LOGGING
 
 
@@ -30,46 +28,24 @@ LOGGER = logging.getLogger(__name__)
 
 @enforce_group_level_auth_async
 async def _get_url_group_report(
-    info: GraphQLResolveInfo,
-    lang: str,
+    _info: GraphQLResolveInfo,
     report_type: str,
     user_email: str,
     group_name: str
 ) -> str:
-    group_findings_loader: DataLoader = info.context.loaders.group_findings
-    finding_ids: List[str] = [
-        finding['id']
-        for finding in await group_findings_loader.load(group_name)
-    ]
+    url: str = ''
+    success: bool = await batch_dal.put_action(
+        action_name='report',
+        entity=group_name,
+        subject=user_email,
+        additional_info=report_type,
+    )
+    if success:
+        url = f'The report will be sent to {user_email} shortly'
+    else:
+        raise RequestedReportError()
 
-    try:
-        util.cloudwatch_log(
-            info.context,
-            f'Security: {report_type} report requested by {user_email} for '
-            f'group {group_name}'
-        )
-
-        return await report.generate_group_report(
-            report_type,
-            user_email,
-            context=info.context.loaders,
-            lang=lang,
-            project_findings=finding_ids,
-            project_name=group_name,
-        )
-    except RequestedReportError as ex:
-        LOGGER.exception(
-            ex,
-            extra={
-                'extra': {
-                    'report_type': report_type,
-                    'project_name': group_name,
-                    'user_email': user_email
-                }
-            }
-        )
-
-        raise ex
+    return url
 
 
 @convert_kwargs_to_snake_case  # type: ignore
@@ -81,15 +57,12 @@ async def resolve(
 ) -> Report:
     user_info: Dict[str, str] = await util.get_jwt_content(info.context)
     user_email: str = user_info['user_email']
-
     group_name: str = kwargs['project_name']
-    lang: str = kwargs.get('lang', 'en')
     report_type: str = kwargs['report_type']
 
     return {
         'url': await _get_url_group_report(
             info,
-            lang,
             report_type,
             user_email,
             group_name=group_name,
