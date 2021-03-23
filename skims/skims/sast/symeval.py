@@ -162,6 +162,22 @@ def lookup_java_class(
     return None
 
 
+def lookup_java_method(
+    args: EvaluatorArgs,
+    method_name: str,
+) -> Optional[graph_model.GraphShardMetadataJavaClassMethod]:
+    # First lookup the class in the current shard
+    for class_path, class_data in args.shard.metadata.java.classes.items():
+        for method_path, method_data in class_data.methods.items():
+            qualified = \
+                args.shard.metadata.java.package + class_path + method_path
+
+            if qualified.endswith(f'.{method_name}'):
+                return method_data
+
+    return None
+
+
 def eval_method(
     args: EvaluatorArgs,
     method_n_id: graph_model.NId,
@@ -466,6 +482,10 @@ def _analyze_method_invocation_values(args: EvaluatorArgs) -> None:
             _analyze_method_invocation_values_str(args, dcl, method_path)
         if isinstance(dcl.meta.value, list):
             _analyze_method_invocation_values_list(args, dcl, method_path)
+    elif method := lookup_java_method(args, args.syntax_step.method):
+        if return_step := eval_method(args, method.n_id, args.dependencies):
+            args.syntax_step.meta.danger = return_step.meta.danger
+            args.syntax_step.meta.value = return_step.meta.value
 
 
 def _analyze_method_invocation_values_dict(
