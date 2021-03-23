@@ -1,46 +1,52 @@
+// eslint-disable-next-line import/no-named-as-default
+import Constants from "expo-constants";
+import type { Manifest } from "expo-updates";
 import { MaterialIcons } from "@expo/vector-icons";
-import { default as Constants } from "expo-constants";
-import * as Updates from "expo-updates";
-import React from "react";
+import { manifest } from "expo-updates";
+import { styles } from "./styles";
 import { useTranslation } from "react-i18next";
 import { Alert, Linking, View } from "react-native";
+import React, { useCallback } from "react";
 
-import { styles } from "./styles";
+const manifestConst: Manifest = manifest as Manifest;
+const manifestExtra: Record<string, string> =
+  manifestConst.extra === undefined
+    ? {
+        commitSha: "",
+        commitShaShort: "",
+        deploymentDate: "",
+      }
+    : (manifestConst.extra as Record<string, string>);
 
-const manifest: Updates.Manifest = Updates.manifest as Updates.Manifest;
-const manifestExtra: Record<string, string> = manifest.extra === undefined
-  ? {
-      commitSha: "",
-      commitShaShort: "",
-      deploymentDate: "",
-    }
-  : manifest.extra as Record<string, string>;
-
-const about: React.FC = (): JSX.Element => {
+const About: React.FC = (): JSX.Element => {
   const { t } = useTranslation();
-  const displayDialog: (() => void) = (): void => {
+  const displayDialog: () => void = useCallback((): void => {
     Alert.alert(
       "Integrates",
-      `${t("about.bin")} ${Constants.nativeAppVersion}`
-      + `\n${t("about.deploymentDate")} ${manifestExtra.deploymentDate}`
-      + `\n${t("about.commit")} ${manifestExtra.commitShaShort}`,
+      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+      `${t("about.bin")} ${Constants.nativeAppVersion}` +
+        `\n${t("about.deploymentDate")} ${manifestExtra.deploymentDate}` +
+        `\n${t("about.commit")} ${manifestExtra.commitShaShort}`,
       [
         {
-          onPress: (): Promise<string> => Linking.openURL(
-            `https://gitlab.com/fluidattacks/product/-/tree/${manifestExtra.commitSha}`,
-          ),
+          onPress: async (): Promise<string> =>
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+            Linking.openURL(
+              `https://gitlab.com/fluidattacks/product/-/tree/${manifestExtra.commitSha}`
+            ),
           text: "Commit Details",
         },
         { text: "Ok" },
-      ],
+      ]
     );
-  };
+  }, [t]);
 
   return (
+    // eslint-disable-next-line react/forbid-component-props
     <View style={styles.container}>
       <MaterialIcons
-        color="#808080"
-        name="info-outline"
+        color={"#808080"}
+        name={"info-outline"}
         onPress={displayDialog}
         size={15}
       />
@@ -48,4 +54,4 @@ const about: React.FC = (): JSX.Element => {
   );
 };
 
-export { about as About };
+export { About };

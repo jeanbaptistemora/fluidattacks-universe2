@@ -1,31 +1,33 @@
-import { MaterialIcons } from "@expo/vector-icons";
-import { mount, ReactWrapper } from "enzyme";
-import React from "react";
+import { About } from ".";
 import { Alert } from "react-native";
-
-import { About } from "./index";
+import { MaterialIcons } from "@expo/vector-icons";
+import React from "react";
+import type { ReactWrapper } from "enzyme";
+import { mount } from "enzyme";
 
 describe("About", (): void => {
-
   it("should return a function", (): void => {
-    expect(typeof (About))
-      .toEqual("function");
+    expect.hasAssertions();
+
+    expect(typeof About).toStrictEqual("function");
   });
 
   it("should display dialog", (): void => {
+    expect.hasAssertions();
+
     jest.mock("react-native/Libraries/Alert/Alert");
 
     const wrapper: ReactWrapper = mount(<About />);
 
-    expect(wrapper)
-      .toHaveLength(1);
+    expect(wrapper).toHaveLength(1);
 
     const aboutBtn: ReactWrapper<
       React.ComponentProps<typeof MaterialIcons>
     > = wrapper.find(MaterialIcons);
 
     (aboutBtn.invoke("onPress") as () => void)();
-    expect(Alert.alert)
-      .toHaveBeenCalled();
+
+    // eslint-disable-next-line jest/prefer-called-with
+    expect(Alert.alert).toHaveBeenCalled();
   });
 });
