@@ -106,7 +106,7 @@ const NavbarItems: React.FC = (): JSX.Element => (
       </NavbarSubcategory>
     </li>
 
-    <li className={"db-l dn fr mr3 pr2 pv4 usecases-index"}>
+    <li className={"db-l dn fr mr3 pr2 pv4 services-index"}>
       <Link className={"no-underline"} to={"/services/continuous-hacking/"}>
         <NavbarRegularButton>
           {"Services"}
@@ -116,7 +116,7 @@ const NavbarItems: React.FC = (): JSX.Element => (
         </NavbarRegularButton>
       </Link>
 
-      <NavbarSubcategory className={"usecases-content"}>
+      <NavbarSubcategory className={"services-content"}>
         <Link className={"f-18 fw4"} to={"/services/continuous-hacking/"}>
           {"Continuous Hacking"}
         </Link>

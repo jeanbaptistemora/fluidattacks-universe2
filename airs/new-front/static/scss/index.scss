@@ -9,6 +9,7 @@ $fluid-black: rgba(39, 39, 39, 1);
 $fluid-red: rgba(255, 52, 53, 1);
 $fluid-gray: rgba(176, 176, 176, 1);
 $fluid-dark-red: rgba(203, 50, 51, 1);
+$gray-black: rgba(0, 0, 0, 0.8);
 $light-gray: rgba(249, 249, 249, 1);
 $lighter-gray: rgba(238, 238, 238, 1);
 $near-white: rgba(246, 246, 246, 1);
@@ -31,6 +32,7 @@ $whiter-gray: rgba(241, 241, 241, 1);
 // Background Colors
 .bg-button-red { background-color: $button-red; }
 .bg-darker-blue { background-color: $darker-blue; }
+.bg-gray-black { background-color: $gray-black; }
 .bg-lightgray { background-color: $light-gray; }
 
 // Background Images
@@ -79,27 +81,27 @@ $whiter-gray: rgba(241, 241, 241, 1);
 
 .bg-card1 {
   background-image: url('../images/resources/card1.png');
-  height: 200px;
+  min-height: 200px;
 }
 
 .bg-card3 {
   background-image: url('../images/resources/card3.png');
-  height: 200px;
+  min-height: 200px;
 }
 
 .bg-card8 {
   background-image: url('../images/resources/card8.png');
-  height: 200px;
+  min-height: 200px;
 }
 
 .bg-card9 {
   background-image: url('../images/resources/card9.png');
-  height: 200px;
+  min-height: 200px;
 }
 
 .bg-card11 {
   background-image: url('../images/resources/card11.png');
-  height: 200px;
+  min-height: 200px;
 }
 .bg-faq { background-image: url('../images/faq/cover-faq.png'); }
 .bg-compliance { background-image: url('../images/compliance/cover-compliance.png'); }
@@ -134,11 +136,12 @@ $whiter-gray: rgba(241, 241, 241, 1);
 .fheader { font-size: 2.25rem; }
 
 // Height Classes
-.h-5 { height: 5rem; }
-.h-29 { height: 29rem; }
-.h-banner { height: 350px; }
-.h-navbar { height: 6.5rem; }
-.h-section { height: 50rem; }
+.h-5 { min-height: 5rem; }
+.h-29 { min-height: 29rem; }
+.h-banner { min-height: 350px; }
+.h-navbar { min-height: 6.5rem; }
+.h-section { min-height: 50rem; }
+.min-h-25 { min-height: 25%; }
 
 // Hover changes classes
 .hv-fluid-black { &:hover { color: $fluid-black;} }
@@ -164,6 +167,7 @@ $whiter-gray: rgba(241, 241, 241, 1);
 .t-all-5 { transition: all 0.5s; }
 .t-all-3-eio { transition: all 0.3s ease-in-out;}
 .t-tf-6-eio { transition: transform 0.6s ease-in-out; }
+.t-color-2 { transition: color 0.2s; }
 
 // Width and Max Width classes
 .mw-1366 { max-width: 1366px; }
@@ -226,13 +230,13 @@ $whiter-gray: rgba(241, 241, 241, 1);
   display: block;
 }
 
-.usecases-index:hover .usecases-content {
+.services-index:hover .services-content {
   display: block;
 }
 
 // Custom elements
 
-.usecases-content,
+.services-content,
 .solutions-content {
   background-color: $light-gray;
   box-shadow: 0 20px 20px $dark-shadow;
@@ -477,8 +481,23 @@ $whiter-gray: rgba(241, 241, 241, 1);
 }
 
 .counter-container {
-  height: 18.125rem;
+  min-height: 18.125rem;
   width: 18.125rem;
 }
 
 .services-features { .sect2 { min-height: 720px !important; } }
+
+.services-title:checked~.services-list {
+  animation: fadein 0.5s;
+  display: block;
+}
+
+.solutions-title:checked~.solutions-list {
+  animation: fadein 0.5s;
+  display: block;
+}
+
+.aboutus-title:checked~.aboutus-list {
+  animation: fadein 0.5s;
+  display: block;
+}

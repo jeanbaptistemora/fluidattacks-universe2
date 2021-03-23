@@ -1,7 +1,7 @@
 import type { StyledComponent } from "styled-components";
 import styled from "styled-components";
 
-const MenuInnerContainer: StyledComponent<
+const MenuDesktopInnerContainer: StyledComponent<
   "div",
   Record<string, unknown>
 > = styled.div.attrs({
@@ -116,7 +116,7 @@ const MenuSectionContainer: StyledComponent<
   `,
 })``;
 
-const MenuSectionList: StyledComponent<
+const MenuDesktopSectionList: StyledComponent<
   "ul",
   Record<string, unknown>
 > = styled.ul.attrs({
@@ -182,11 +182,11 @@ export {
   CloseMenuButtonContainer,
   FlexMenuItems,
   HalfWidthContainer,
-  QuarterHeightContainer,
-  MenuInnerContainer,
+  MenuDesktopInnerContainer,
+  MenuDesktopSectionList,
   MenuSectionContainer,
-  MenuSectionList,
   MenuSidebar,
+  QuarterHeightContainer,
   SidebarList,
   SidebarListContainer,
   SidebarListItem,
