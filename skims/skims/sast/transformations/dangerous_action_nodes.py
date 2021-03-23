@@ -159,7 +159,7 @@ def _mark_java_f042(graph: graph_model.Graph) -> None:
             graph.nodes,
             predicate=g.pred_has_labels(label_type='method_invocation'),
     ):
-        if any((_check_method_call(graph, n_id, 'setSecure'), )):
+        if any((_check_method_call(graph, n_id, 'addCookie'), )):
             _append_label_skink(graph, n_id, core_model.FindingEnum.F042.name)
 
 

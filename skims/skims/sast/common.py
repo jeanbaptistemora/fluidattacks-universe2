@@ -51,7 +51,7 @@ DANGER_METHODS_BY_ARGS_PROPAGATION: Set[str] = _complete_attrs_on_set({
     'Integer.toString',
     'Long.toString',
 })
-DANGER_METHODS_STATIC_BY_FINDING: Dict[str, Set[str]] = {
+DANGER_METHODS_STATIC_FINDING: Dict[str, Set[str]] = {
     core_model.FindingEnum.F034.name:
     _complete_attrs_on_set({
         'java.lang.Math.random',
@@ -63,18 +63,20 @@ DANGER_METHODS_STATIC_BY_FINDING: Dict[str, Set[str]] = {
         'java.util.Random.nextGaussian',
     }),
 }
-DANGER_METHODS_STATIC_SIDE_EFFECTS_BY_FINDING: Dict[str, Set[str]] = {
+DANGER_METHODS_STATIC_SIDE_EFFECTS_FINDING: Dict[str, Set[str]] = {
     core_model.FindingEnum.F034.name:
     _complete_attrs_on_set({
         'java.util.Random.nextBytes',
     }),
 }
-DANGER_METHODS_BY_OBJ_NO_TYPE_ARGS_PROPAGATION: Set[str] = \
+DANGER_METHODS_BY_OBJ_NO_TYPE_ARGS_PROPAGATION_FIDING: Dict[str, Set[str]] = {
+    core_model.FindingEnum.F034.name:
     _complete_attrs_on_set({
         'getSession.setAttribute',
         'toString.substring',
         'addCookie',
     })
+}
 DANGER_METHODS_BY_OBJ: Dict[str, Set[str]] = _complete_attrs_on_dict({
     'java.lang.String': {
         'getBytes',
@@ -114,29 +116,32 @@ DANGER_METHODS_BY_TYPE: Dict[str, Set[str]] = _complete_attrs_on_dict({
         'getParameterValues',
         'getQueryString',
     },
-    'javax.servlet.http.HttpServletResponse': {
-        'getWriter',
-        'addCookie',
-    },
 })
 
-DANGER_METHODS_BY_TYPE_AND_VALUE: Dict[str, Dict[
-    str, Any]] = _complete_attrs_on_dict({
+DANGER_METHODS_BY_TYPE_AND_VALUE_FINDING: Dict[str, Dict[str, Any]] = {
+    core_model.FindingEnum.F042.name:
+    _complete_attrs_on_dict({
         'javax.servlet.http.Cookie': {
             'setSecure': {
                 False,
             },
         },
     })
+}
 DANGER_METHODS_BY_TYPE_ARGS_PROPAGATION: Dict[
     str, Set[str]] = _complete_attrs_on_dict({
         'java.util.List': {
             'add',
         },
     })
-DANGER_METHODS_BY_TYPE_ARGS_PROPAGATION_BY_FINDING: Dict[str, Dict[
+DANGER_METHODS_BY_TYPE_ARGS_PROPAGATION_FINDING: Dict[str, Dict[
     str, Set[str]]] = {
-        core_model.FindingEnum.F042: _complete_attrs_on_dict({
+        core_model.FindingEnum.F042.name: _complete_attrs_on_dict({
+            'javax.servlet.http.HttpServletResponse': {
+                'addCookie',
+            },
+        }),
+        core_model.FindingEnum.F034.name: _complete_attrs_on_dict({
             'javax.servlet.http.HttpServletResponse': {
                 'addCookie',
             },

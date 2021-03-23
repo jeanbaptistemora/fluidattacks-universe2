@@ -30,15 +30,15 @@ from model import (
 from sast.common import (
     build_attr_paths,
     DANGER_METHODS_BY_OBJ_ARGS,
-    DANGER_METHODS_BY_TYPE_ARGS_PROPAGATION_BY_FINDING,
-    DANGER_METHODS_BY_TYPE_AND_VALUE,
+    DANGER_METHODS_BY_TYPE_ARGS_PROPAGATION_FINDING,
+    DANGER_METHODS_BY_TYPE_AND_VALUE_FINDING,
     DANGER_METHODS_BY_TYPE_ARGS_PROPAGATION,
-    DANGER_METHODS_STATIC_SIDE_EFFECTS_BY_FINDING,
+    DANGER_METHODS_STATIC_SIDE_EFFECTS_FINDING,
     DANGER_METHODS_BY_ARGS_PROPAGATION,
     DANGER_METHODS_BY_OBJ,
-    DANGER_METHODS_BY_OBJ_NO_TYPE_ARGS_PROPAGATION,
+    DANGER_METHODS_BY_OBJ_NO_TYPE_ARGS_PROPAGATION_FIDING,
     DANGER_METHODS_BY_TYPE,
-    DANGER_METHODS_STATIC_BY_FINDING,
+    DANGER_METHODS_STATIC_FINDING,
     split_on_first_dot,
 )
 from utils import (
@@ -404,7 +404,7 @@ def _analyze_method_by_type_args_propagation(
             method_var_decl_type, {}) and args_danger):
         args.syntax_step.meta.danger = True
 
-    danger_methods = DANGER_METHODS_BY_TYPE_ARGS_PROPAGATION_BY_FINDING.get(
+    danger_methods = DANGER_METHODS_BY_TYPE_ARGS_PROPAGATION_FINDING.get(
         args.finding.name, {})
     if (method_path in danger_methods.get(
             method_var_decl_type, {}) and args_danger):
@@ -416,7 +416,7 @@ def _analyze_method_static_side_effects(
     method: str,
 ) -> None:
     # functions that make its parameters vulnerable
-    if method in DANGER_METHODS_STATIC_SIDE_EFFECTS_BY_FINDING.get(
+    if method in DANGER_METHODS_STATIC_SIDE_EFFECTS_FINDING.get(
             args.finding.name, set()):
         for dep in args.dependencies:
             dep.meta.danger = True
@@ -451,19 +451,28 @@ def _analyze_method_invocation(args: EvaluatorArgs, method: str) -> None:
         and args_danger
     ) or (
         # Known static functions that no require args danger
-        method in DANGER_METHODS_STATIC_BY_FINDING.get(args.finding.name,
-                                                       set())
+        method in DANGER_METHODS_STATIC_FINDING.get(
+            args.finding.name,
+            set(),
+        )
     ) or (
         # functions for which the type of the variable cannot be obtained,
         # but which propagate args danger
-        method_path in DANGER_METHODS_BY_OBJ_NO_TYPE_ARGS_PROPAGATION
+        method_path
+        and method_path in
+        DANGER_METHODS_BY_OBJ_NO_TYPE_ARGS_PROPAGATION_FIDING.get(
+            args.finding.name, str())
         and args_danger
     )
     _analyze_method_static_side_effects(args, method)
     _analyze_method_by_type_args_propagation(args, method)
     _analyze_method_by_type_args_propagation_side_effects(args, method)
 
-    if methods := DANGER_METHODS_BY_TYPE_AND_VALUE.get(method_var_decl_type):
+    # function calls with parameters that make the object vulnerable
+    if methods := DANGER_METHODS_BY_TYPE_AND_VALUE_FINDING.get(
+            args.finding.name,
+            dict(),
+    ).get(method_var_decl_type):
         parameters = {param.meta.value for param in args.dependencies}
         if (
             parameters.intersection(methods.get(method_path, set()))

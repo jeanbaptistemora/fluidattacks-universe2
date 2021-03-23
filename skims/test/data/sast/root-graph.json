@@ -3185,7 +3185,6 @@
           "127": {
             "label_c": 3,
             "label_l": 39,
-            "label_sink_type": "F042",
             "label_type": "method_invocation"
           },
           "128": {
@@ -3562,7 +3561,7 @@
           "187": {
             "label_c": 3,
             "label_l": 42,
-            "label_sink_type": "F034",
+            "label_sink_type": "F034,F042",
             "label_type": "method_invocation"
           },
           "188": {
@@ -6448,7 +6447,7 @@
             ],
             "F037": [],
             "F042": [
-              "127"
+              "187"
             ],
             "F052": [],
             "F055_AWS_MISSING_ENCRYPTION": [],
@@ -18411,7 +18410,6 @@
           "529": {
             "label_c": 4,
             "label_l": 89,
-            "label_sink_type": "F042",
             "label_type": "method_invocation"
           },
           "53": {
@@ -18768,7 +18766,7 @@
           "585": {
             "label_c": 4,
             "label_l": 94,
-            "label_sink_type": "F034",
+            "label_sink_type": "F034,F042",
             "label_type": "method_invocation"
           },
           "586": {
@@ -19465,7 +19463,7 @@
             ],
             "F037": [],
             "F042": [
-              "529"
+              "585"
             ],
             "F052": [],
             "F055_AWS_MISSING_ENCRYPTION": [],
