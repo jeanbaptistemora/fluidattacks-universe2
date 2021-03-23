@@ -1,41 +1,44 @@
-import _ from "lodash";
+import { Avatar as PaperAvatar } from "react-native-paper";
 import React from "react";
-import { Avatar } from "react-native-paper";
 
 /** User avatar */
 interface IAvatarProps {
-  photoUrl?: string;
+  photoUrl?: string; // eslint-disable-line react/require-default-props
   size: number;
   userName: string;
 }
 
 const maxInitials: number = 2;
-const getInitials: ((name: string) => string) = (name: string): string => name
-  .split(" ")
-  .splice(0, maxInitials)
-  .map((word: string): string => word
-    .charAt(0)
-    .toUpperCase())
-  .join("");
+const getInitials: (name: string) => string = (name: string): string =>
+  // eslint-disable-next-line fp/no-mutating-methods
+  name
+    .split(" ")
+    .splice(0, maxInitials)
+    .map((word: string): string => word.charAt(0).toUpperCase())
+    .join("");
 
-const avatar: React.FC<IAvatarProps> = (props: IAvatarProps): JSX.Element => (
+const Avatar: React.FC<IAvatarProps> = ({
+  photoUrl,
+  size,
+  userName,
+}: IAvatarProps): JSX.Element => (
   <React.StrictMode>
-    {props.photoUrl === undefined ? (
-      <Avatar.Text
+    {photoUrl === undefined ? (
+      <PaperAvatar.Text
         accessibilityComponentType={undefined}
         accessibilityTraits={undefined}
-        size={props.size}
-        label={getInitials(props.userName)}
+        label={getInitials(userName)}
+        size={size}
       />
     ) : (
-      <Avatar.Image
+      <PaperAvatar.Image
         accessibilityComponentType={undefined}
         accessibilityTraits={undefined}
-        size={props.size}
-        source={{ uri: props.photoUrl }}
+        size={size}
+        source={{ uri: photoUrl }}
       />
     )}
   </React.StrictMode>
 );
 
-export { avatar as Avatar };
+export { Avatar };

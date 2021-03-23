@@ -4,3 +4,4 @@ src/**/*.css.d.ts
 src/**/*.d.ts
 src/components/**/*.*
 !src/components/About/**
+!src/components/Avatar/**
