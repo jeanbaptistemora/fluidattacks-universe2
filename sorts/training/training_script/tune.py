@@ -24,7 +24,8 @@ from training.constants import (
 )
 from training.evaluate_results import get_best_model_name
 from training.training_script.utils import (
-    get_model_performance_metrics
+    get_model_performance_metrics,
+    split_training_data
 )
 
 
@@ -39,29 +40,6 @@ def get_model_features() -> Tuple[str, ...]:
             inv_features_dict[key]
             for key in best_model.upper().split('.')[0].split('-')[2:5]
         )
-
-
-def split_training_data(
-    training_df: DataFrame,
-    feature_list: Tuple[str, ...]
-) -> Tuple[DataFrame, DataFrame]:
-    """Read the training data in two DataFrames for training purposes"""
-    # Separate the labels from the features in the training data
-    filtered_df = pd.concat(
-        [
-            # Include labels
-            training_df.iloc[:, 0],
-            # Include features
-            training_df.loc[:, feature_list],
-            # Include all extensions
-            training_df.loc[
-                :,
-                training_df.columns.str.startswith('extension_')
-            ]
-        ],
-        axis=1)
-    filtered_df.dropna(inplace=True)
-    return filtered_df.iloc[:, 1:], filtered_df.iloc[:, 0]
 
 
 def load_training_data(training_dir: str) -> DataFrame:

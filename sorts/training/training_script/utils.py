@@ -6,6 +6,7 @@ from typing import (
 # Third party libraries
 import numpy as np
 from numpy import ndarray
+import pandas as pd
 from pandas import DataFrame
 from sklearn.model_selection import (
     cross_validate,
@@ -62,9 +63,34 @@ def get_model_performance_metrics(
         n_jobs=-1,
         random_state=42
     )
+
     return (
         scores['test_precision'].mean() * 100,
         scores['test_recall'].mean() * 100,
         scores['test_f1'].mean() * 100,
         is_overfit(train_results, test_results) * 100
     )
+
+
+def split_training_data(
+    training_df: DataFrame,
+    feature_list: Tuple[str, ...]
+) -> Tuple[DataFrame, DataFrame]:
+    """Read the training data in two DataFrames for training purposes"""
+    # Separate the labels from the features in the training data
+    filtered_df = pd.concat(
+        [
+            # Include labels
+            training_df.iloc[:, 0],
+            # Include features
+            training_df.loc[:, feature_list],
+            # Include all extensions
+            training_df.loc[
+                :,
+                training_df.columns.str.startswith('extension_')
+            ]
+        ],
+        axis=1)
+    filtered_df.dropna(inplace=True)
+
+    return filtered_df.iloc[:, 1:], filtered_df.iloc[:, 0]

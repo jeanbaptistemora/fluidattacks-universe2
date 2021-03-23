@@ -30,6 +30,7 @@ from training.constants import (
 )
 from training.training_script.utils import (
     get_model_performance_metrics,
+    split_training_data
 )
 
 
@@ -136,29 +137,6 @@ def save_best_model_to_s3(
             S3_BUCKET.Object(
                 f'training-output/{model_name}.joblib'
             ).upload_file(local_file)
-
-
-def split_training_data(
-    training_df: DataFrame,
-    feature_list: Tuple[str, ...]
-) -> Tuple[DataFrame, DataFrame]:
-    """Read the training data in two DataFrames for training purposes"""
-    # Separate the labels from the features in the training data
-    filtered_df = pd.concat(
-        [
-            # Include labels
-            training_df.iloc[:, 0],
-            # Include features
-            training_df.loc[:, feature_list],
-            # Include all extensions
-            training_df.loc[
-                :,
-                training_df.columns.str.startswith('extension_')
-            ]
-        ],
-        axis=1)
-    filtered_df.dropna(inplace=True)
-    return filtered_df.iloc[:, 1:], filtered_df.iloc[:, 0]
 
 
 def train_model(
