@@ -1,4 +1,4 @@
-:description: Unlike other AsciiDoc pages in this repository, this file aims to provide better insight about the Fluid Attacks web repository, it's main files, paths and features, the main dependencies used to add new changes and usefull overall information about the repository.
+:description: This file aims to provide insight about the Fluid Attacks web repository, the main dependencies used to add new changes and usefull overall information.
 :keywords: Web, Repository, Fluid Attacks, Guidelines, Readme, Features
 :author: Oscar Eduardo Prado
 :date: 2019-10-19
