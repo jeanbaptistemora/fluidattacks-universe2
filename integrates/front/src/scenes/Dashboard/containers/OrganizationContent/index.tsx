@@ -157,9 +157,7 @@ const OrganizationContent: React.FC<IOrganizationContent> = (
                       "organization.tabs.portfolios.tooltip"
                     )}
                   />
-                ) : (
-                  <div />
-                )}
+                ) : null}
                 <Can
                   do={"backend_api_resolvers_organization_stakeholders_resolve"}
                 >
