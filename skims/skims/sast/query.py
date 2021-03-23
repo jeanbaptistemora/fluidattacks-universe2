@@ -145,13 +145,16 @@ def query_lazy(
                                 # and the finding of its sink must be equal to
                                 # the finding of the current interaction
                             ) or (operator.eq(
-                                  untrusted_n_attrs['label_input_type'],
-                                  core_model.UNTRUSTED_NODE)
-                                  and syntax_step_n_attrs.get(
-                                      'label_sink_type')
-                                  in core_model.ALLOW_UNTRUSTED_NODES_STR)
-                                and syntax_step_n_attrs.get(
-                                    'label_sink_type') == fin.name)
+                                untrusted_n_attrs['label_input_type'],
+                                core_model.UNTRUSTED_NODE,
+                            ) and set(
+                                syntax_step_n_attrs.get(
+                                    'label_sink_type',
+                                    str(),
+                                ).split(',')).intersection(
+                                    core_model.ALLOW_UNTRUSTED_NODES_STR))
+                                and fin.name in syntax_step_n_attrs.get(
+                                    'label_sink_type', str()))
                             and syntax_step.meta.danger
                         ],
                     )

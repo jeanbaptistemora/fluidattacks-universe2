@@ -136,6 +136,11 @@ DANGER_METHODS_BY_TYPE_ARGS_PROPAGATION: Dict[
     })
 DANGER_METHODS_BY_TYPE_ARGS_PROPAGATION_BY_FINDING: Dict[str, Dict[
     str, Set[str]]] = {
+        core_model.FindingEnum.F042: _complete_attrs_on_dict({
+            'javax.servlet.http.HttpServletResponse': {
+                'addCookie',
+            },
+        }),
         core_model.FindingEnum.F004.name:
         _complete_attrs_on_dict({
             'ProcessBuilder': {

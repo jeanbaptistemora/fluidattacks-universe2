@@ -14,10 +14,22 @@ from utils import (
 )
 
 
+def _append_label_skink(
+    graph: graph_model.Graph,
+    n_id: str,
+    label: str,
+) -> None:
+    if sink := graph.nodes[n_id].get('label_sink_type'):
+        sink += f',{label}'
+    else:
+        graph.nodes[n_id]['label_sink_type'] = label
+
+
 def _mark_java(graph: graph_model.Graph) -> None:
     _mark_java_f063(graph)
     _mark_java_f034(graph)
     _mark_java_f004(graph)
+    _mark_java_f042(graph)
 
 
 def _mark_java_f063(graph: graph_model.Graph) -> None:
@@ -109,11 +121,7 @@ def _mark_java_f034(graph: graph_model.Graph) -> None:
                 _check_method_call(graph, n_id, 'getSession', 'setAttribute'),
                 _check_method_call(graph, n_id, 'addCookie'),
         )):
-            graph.nodes[n_id]['label_sink_type'] = (
-                core_model
-                .FindingEnum
-                .F034.name
-            )
+            _append_label_skink(graph, n_id, core_model.FindingEnum.F034.name)
 
 
 def _mark_java_f004(graph: graph_model.Graph) -> None:
@@ -151,11 +159,7 @@ def _mark_java_f042(graph: graph_model.Graph) -> None:
             predicate=g.pred_has_labels(label_type='method_invocation'),
     ):
         if any((_check_method_call(graph, n_id, 'setSecure'), )):
-            graph.nodes[n_id]['label_sink_type'] = (
-                core_model
-                .FindingEnum
-                .F042.name
-            )
+            _append_label_skink(graph, n_id, core_model.FindingEnum.F042.name)
 
 
 def mark(
