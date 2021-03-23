@@ -1,6 +1,7 @@
 # Standard libraries
 from typing import (
-    Iterator, Optional,
+    Iterator,
+    Optional,
 )
 
 # Third party libraries
@@ -23,11 +24,12 @@ LOG = utils_logger.get_log(__name__)
 
 
 def _list_items_alert(ref: str, total: Optional[int]) -> None:
+    max_items = 1000
     if total is None:
         LOG.error('total_items is missing at `%s`', ref)
-    elif total > 10:
+    elif total > max_items:
         LOG.error(
-            'Data at `%s` suprassed max handled items (%s > 1000)',
+            'Data at `%s` suprassed max handled items (%s > max_items)',
             ref,
             total
         )

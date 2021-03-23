@@ -30,6 +30,10 @@ class AbsReportId(NamedTuple):
     str_id: str
 
 
+class CampaignId(NamedTuple):
+    str_id: str
+
+
 class GrowthHistId(NamedTuple):
     audience_id: AudienceId
     str_id: str
@@ -68,6 +72,8 @@ class RawSource(NamedTuple):
     list_interest_catg: Callable[[AudienceId], JSON]
     get_interest_catg: Callable[[InterestCatgId], JSON]
     get_audience_locations: Callable[[AudienceId], JSON]
+    list_campaigns: Callable[[], JSON]
+    get_campaigns: Callable[[CampaignId], JSON]
 
 
 def _list_audiences(client: Client) -> JSON:
@@ -157,6 +163,19 @@ def _get_audience_locations(client: Client, audience_id: AudienceId) -> JSON:
     return client.lists.get_list_locations(audience_id.str_id)
 
 
+def _list_campaigns(client: Client) -> JSON:
+    result = client.campaigns.list(
+        fields=['campaigns.id', 'total_items', '_links'],
+        count=1000,
+    )
+    LOG.debug('_list_campaigns response: %s', result)
+    return result
+
+
+def _get_campaigns(client: Client, campaign_id: CampaignId) -> JSON:
+    return client.campaigns.get(campaign_id.str_id)
+
+
 def create_raw_source(client: Client) -> RawSource:
     return RawSource(
         list_audiences=partial(_list_audiences, client),
@@ -171,5 +190,8 @@ def create_raw_source(client: Client) -> RawSource:
         get_growth_hist=partial(_get_growth_hist, client),
         list_interest_catg=partial(_list_interest_catg, client),
         get_interest_catg=partial(_get_interest_catg, client),
-        get_audience_locations=partial(_get_audience_locations, client)
+        get_audience_locations=partial(_get_audience_locations, client),
+        list_campaigns=partial(_list_campaigns, client),
+        get_campaigns=partial(_get_campaigns, client),
+
     )
