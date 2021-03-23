@@ -13,10 +13,8 @@ from mailchimp_marketing import (
 
 # Local libraries
 import utils_logger
-from tap_mailchimp.api.audiences import (
-    get_item,
-    list_items,
-)
+import tap_mailchimp.api.audiences as audiences
+import tap_mailchimp.api.campaigns as campaigns
 from tap_mailchimp.api.common import (
     raw as raw_module,
 )
@@ -26,6 +24,7 @@ from tap_mailchimp.api.common.api_data import (
 from tap_mailchimp.api.common.raw import (
     AbsReportId,
     AudienceId,
+    CampaignId,
     GrowthHistId,
     ItemId,
     InterestCatgId,
@@ -53,26 +52,58 @@ class ApiClient(NamedTuple):
     list_interest_catg: Callable[[AudienceId], Iterator[InterestCatgId]]
     get_interest_catg: Callable[[InterestCatgId], ApiData]
     get_audience_locations: Callable[[AudienceId], Iterator[ApiData]]
+    list_campaigns: Callable[[], Iterator[CampaignId]]
+    get_campaign: Callable[[CampaignId], ApiData]
 
 
 def new_client_from_source(
     raw_source: RawSource
 ) -> ApiClient:
     return ApiClient(
-        list_audiences=partial(list_items.list_audiences, raw_source),
-        get_audience=partial(get_item.get_audience, raw_source),
-        list_abuse_reports=partial(list_items.list_abuse_reports, raw_source),
-        get_abuse_report=partial(get_item.get_abuse_report, raw_source),
-        get_activity=partial(get_item.get_activity, raw_source),
-        get_top_clients=partial(get_item.get_top_clients, raw_source),
-        list_members=partial(list_items.list_members, raw_source),
-        get_member=partial(get_item.get_member, raw_source),
-        list_growth_hist=partial(list_items.list_growth_hist, raw_source),
-        get_growth_hist=partial(get_item.get_growth_hist, raw_source),
-        list_interest_catg=partial(list_items.list_interest_catg, raw_source),
-        get_interest_catg=partial(get_item.get_interest_catg, raw_source),
+        list_audiences=partial(
+            audiences.list_items.list_audiences, raw_source
+        ),
+        get_audience=partial(
+            audiences.get_item.get_audience, raw_source
+        ),
+        list_abuse_reports=partial(
+            audiences.list_items.list_abuse_reports, raw_source
+        ),
+        get_abuse_report=partial(
+            audiences.get_item.get_abuse_report, raw_source
+        ),
+        get_activity=partial(
+            audiences.get_item.get_activity, raw_source
+        ),
+        get_top_clients=partial(
+            audiences.get_item.get_top_clients, raw_source
+        ),
+        list_members=partial(
+            audiences.list_items.list_members, raw_source
+        ),
+        get_member=partial(
+            audiences.get_item.get_member, raw_source
+        ),
+        list_growth_hist=partial(
+            audiences.list_items.list_growth_hist, raw_source
+        ),
+        get_growth_hist=partial(
+            audiences.get_item.get_growth_hist, raw_source
+        ),
+        list_interest_catg=partial(
+            audiences.list_items.list_interest_catg, raw_source
+        ),
+        get_interest_catg=partial(
+            audiences.get_item.get_interest_catg, raw_source
+        ),
         get_audience_locations=partial(
-            get_item.get_audience_locations, raw_source
+            audiences.get_item.get_audience_locations, raw_source
+        ),
+        list_campaigns=partial(
+            campaigns.list_items.list_campaigns, raw_source
+        ),
+        get_campaign=partial(
+            campaigns.get_item.get_campaign, raw_source
         ),
     )
 
@@ -92,6 +123,7 @@ __all__ = [
     'AbsReportId',
     'ApiData',
     'AudienceId',
+    'CampaignId',
     'GrowthHistId',
     'ItemId',
     'InterestCatgId',

@@ -52,6 +52,7 @@ class MemberId(NamedTuple):
 ItemId = Union[
     AudienceId,
     AbsReportId,
+    CampaignId,
     GrowthHistId,
     InterestCatgId,
     MemberId,

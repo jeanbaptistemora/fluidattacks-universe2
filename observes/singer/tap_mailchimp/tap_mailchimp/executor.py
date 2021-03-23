@@ -39,6 +39,7 @@ _stream_executor: Mapping[
     SupportedStreams.MEMBERS: streams.all_members,
     SupportedStreams.RECENT_ACTIVITY: streams.recent_activity,
     SupportedStreams.TOP_CLIENTS: streams.top_clients,
+    SupportedStreams.CAMPAIGNS: streams.all_campaigns,
 }
 
 

@@ -29,6 +29,7 @@ from tap_mailchimp.api import (
     ApiClient,
     ApiData,
     AudienceId,
+    CampaignId,
     GrowthHistId,
     InterestCatgId,
     ItemId,
@@ -39,6 +40,7 @@ from tap_mailchimp.api import (
 class SupportedStreams(Enum):
     AUDIENCES = 'AUDIENCES'
     ABUSE_REPORTS = 'ABUSE_REPORTS'
+    CAMPAIGNS = 'CAMPAIGNS'
     GROWTH_HISTORY = 'GROWTH_HISTORY'
     INTEREST_CATEGORY = 'INTEREST_CATEGORY'
     LOCATIONS = 'LOCATIONS'
@@ -64,6 +66,7 @@ def _item_getter(
         SupportedStreams.MEMBERS: client.get_member,
         SupportedStreams.RECENT_ACTIVITY: client.get_activity,
         SupportedStreams.TOP_CLIENTS: client.get_top_clients,
+        SupportedStreams.CAMPAIGNS: client.get_campaign,
     }
     id_type = {
         SupportedStreams.AUDIENCES: AudienceId,
@@ -74,6 +77,7 @@ def _item_getter(
         SupportedStreams.MEMBERS: MemberId,
         SupportedStreams.RECENT_ACTIVITY: AudienceId,
         SupportedStreams.TOP_CLIENTS: AudienceId,
+        SupportedStreams.CAMPAIGNS: CampaignId,
     }
     if isinstance(item_id, id_type[stream]):
         return getter[stream](item_id)
@@ -186,3 +190,12 @@ def all_locations(
     stream = SupportedStreams.LOCATIONS
     audiences_id = client.list_audiences()
     _emit_items(client, stream, audiences_id, target)
+
+
+def all_campaigns(
+    client: ApiClient,
+    target: Optional[IO[str]]
+) -> None:
+    stream = SupportedStreams.CAMPAIGNS
+    campaigns_id = client.list_campaigns()
+    _emit_items(client, stream, campaigns_id, target)
