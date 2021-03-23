@@ -47,7 +47,8 @@ const SolutionsIndexContent: React.FC<IProps> = ({
               className={
                 "c-fluid-bk underlined-animated no-underline mt0 mb3 t-all-5"
               }
-              to={link}>
+              to={link}
+            >
               <SolutionsSubtitle>{subtitle}</SolutionsSubtitle>
             </Link>
             <SolutionsParagraph>{paragraph}</SolutionsParagraph>

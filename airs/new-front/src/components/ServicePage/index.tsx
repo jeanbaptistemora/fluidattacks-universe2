@@ -134,14 +134,16 @@ const ServicePage: React.FC<IProps> = ({
           <SubmenuListItem className={subMenuClasses.continuous}>
             <Link
               className={`${linksClasses.continuous} f4 roboto fw7 no-underline`}
-              to={"/services/continuous-hacking/"}>
+              to={"/services/continuous-hacking/"}
+            >
               {"Continuous Hacking"}
             </Link>
           </SubmenuListItem>
           <SubmenuListItem className={subMenuClasses.oneShot}>
             <Link
               className={`${linksClasses.oneShot} f4 roboto fw7 no-underline`}
-              to={"/services/one-shot-hacking/"}>
+              to={"/services/one-shot-hacking/"}
+            >
               {"One-Shot Hacking"}
             </Link>
           </SubmenuListItem>

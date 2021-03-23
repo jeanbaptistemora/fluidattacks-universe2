@@ -96,7 +96,8 @@ const Menu: React.FC = (): JSX.Element => {
       <MenuDesktopContainer>
         <MenuDesktopInnerContainer
           className={isOpen ? "" : "dn"}
-          id={"mySidenavXl"}>
+          id={"mySidenavXl"}
+        >
           <CenteredMaxWidthContainer className={"flex"}>
             <CloseMenuButtonContainer>
               <CloseMenuButton onClick={toggle}>

@@ -38,7 +38,8 @@ const NavbarItems: React.FC = (): JSX.Element => (
     <li className={"fr mr3 pr2 pv4 db-l dn"}>
       <Link
         className={"no-underline"}
-        to={"https://integrates.fluidattacks.com/"}>
+        to={"https://integrates.fluidattacks.com/"}
+      >
         <NavbarLoginButton>{"Login"}</NavbarLoginButton>
       </Link>
     </li>
@@ -100,7 +101,8 @@ const NavbarItems: React.FC = (): JSX.Element => (
 
         <Link
           className={"f-18 fw4"}
-          to={"/solutions/vulnerability-management/"}>
+          to={"/solutions/vulnerability-management/"}
+        >
           {"Vulnerability Management"}
         </Link>
       </NavbarSubcategory>

@@ -14,7 +14,8 @@ const SocialMedia: React.FC = (): JSX.Element => (
       <img alt={"Instagram Logo"} src={instagramLogo} />
     </SocialMediaLink>
     <SocialMediaLink
-      href={"https://www.facebook.com/Fluid-Attacks-267692397253577/"}>
+      href={"https://www.facebook.com/Fluid-Attacks-267692397253577/"}
+    >
       <img alt={"Facebook Logo"} src={facebookLogo} />
     </SocialMediaLink>
     <SocialMediaLink href={"https://www.linkedin.com/company/fluidattacks/"}>

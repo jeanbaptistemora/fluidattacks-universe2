@@ -79,7 +79,8 @@ const Index: React.FC<IQueryData> = ({ data }: IQueryData): JSX.Element => {
                   </BlackSimpleParagraph>
                   <Link
                     className={"roboto f5 c-fluid-bk fw3 no-underline"}
-                    to={"/contact-us/"}>
+                    to={"/contact-us/"}
+                  >
                     {"Get a Demo"}
                     <FontAwesomeIcon
                       className={"c-dkred mh1 dib"}
