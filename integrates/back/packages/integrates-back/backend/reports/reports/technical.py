@@ -20,14 +20,10 @@ from PIL import (
 # Local libraries
 from back.settings import LOGGING
 from backend.dal import finding as finding_dal
-from backend.exceptions import ErrorUploadingFileS3
 from backend.reports.it_report import ITReport
 from backend.reports.pdf import CreatorPDF
 from backend.reports.secure_pdf import SecurePDF
 from backend.typing import Finding as FindingType
-from newutils import reports as reports_utils
-from newutils.passphrase import get_passphrase
-from notifications import domain as notifications_domain
 
 logging.config.dictConfig(LOGGING)
 
@@ -90,49 +86,6 @@ async def generate_pdf_file(
     return report_filename
 
 
-async def generate_pdf(
-    *,
-    description: str,
-    findings_ord: List[Dict[str, FindingType]],
-    group_name: str,
-    lang: str,
-    user_email: str
-) -> None:
-    passphrase = get_passphrase(4)
-
-    report_filename = await generate_pdf_file(
-        description=description,
-        findings_ord=findings_ord,
-        group_name=group_name,
-        lang=lang,
-        passphrase=passphrase,
-        user_email=user_email,
-    )
-
-    try:
-        uploaded_file_name = await reports_utils.upload_report(
-            report_filename
-        )
-    except ErrorUploadingFileS3 as ex:
-        LOGGER.error(
-            ex,
-            extra={
-                'extra': {
-                    'group_name': group_name,
-                    'user_email': user_email,
-                }
-            }
-        )
-    else:
-        await notifications_domain.new_password_protected_report(
-            user_email,
-            group_name,
-            passphrase,
-            'Executive',
-            await reports_utils.sign_url(uploaded_file_name),
-        )
-
-
 async def generate_xls_file(
     context: Any,
     findings_ord: List[Dict[str, FindingType]],
@@ -154,44 +107,6 @@ async def generate_xls_file(
     os.rename(f'{filepath}-pwd', filepath)
 
     return filepath
-
-
-async def generate_xls(
-    context: Any,
-    findings_ord: List[Dict[str, FindingType]],
-    group_name: str,
-    user_email: str,
-) -> None:
-    passphrase = get_passphrase(4)
-
-    report_filename = await generate_xls_file(
-        context,
-        findings_ord=findings_ord,
-        passphrase=passphrase,
-    )
-
-    try:
-        uploaded_file_name = await reports_utils.upload_report(
-            report_filename
-        )
-    except ErrorUploadingFileS3 as ex:
-        LOGGER.error(
-            ex,
-            extra={
-                'extra': {
-                    'group_name': group_name,
-                    'user_email': user_email,
-                }
-            }
-        )
-    else:
-        await notifications_domain.new_password_protected_report(
-            user_email,
-            group_name,
-            passphrase,
-            'Technical',
-            await reports_utils.sign_url(uploaded_file_name),
-        )
 
 
 async def download_evidences_for_pdf(

@@ -1,5 +1,4 @@
 # Standard libraries
-import logging
 from typing import (
     Dict,
 )
@@ -19,11 +18,6 @@ from backend.exceptions import (
 )
 from backend.typing import Report
 from batch import dal as batch_dal
-from back.settings import LOGGING
-
-
-logging.config.dictConfig(LOGGING)
-LOGGER = logging.getLogger(__name__)
 
 
 @enforce_group_level_auth_async
