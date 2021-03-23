@@ -40,6 +40,16 @@ from toolbox.api import integrates
 config_handler.set_global(length=25)
 
 
+def format_repo_problem(
+    nickname: str,
+    branch: str,
+    problem: str,
+) -> Dict[str, str]:
+    LOGGER.error('%s/%s failed', nickname, branch)
+    LOGGER.error(problem)
+    return {'repo': nickname, 'problem': problem}
+
+
 def format_problem_message(problem: str) -> str:
     fatal = re.search('(fatal:(.\n*)+)', problem)
     message = fatal.groups()[0] if fatal else problem
@@ -217,9 +227,7 @@ def _ssh_repo_cloning(
 
             cmd = cmd_execute(command, folder)
             if len(cmd[0]) == 0 and 'fatal' in cmd[1]:
-                LOGGER.error('%s/%s failed', nickname, branch)
-                LOGGER.error(cmd[1])
-                problem = {'nickname': nickname, 'problem': cmd[1]}
+                problem = format_repo_problem(nickname, branch, cmd[1])
         else:
             # Clone repo:
             command = [
@@ -239,9 +247,7 @@ def _ssh_repo_cloning(
 
             cmd = cmd_execute(command)
             if len(cmd[0]) == 0 and 'fatal' in cmd[1]:
-                LOGGER.error('%s/%s failed', nickname, branch)
-                LOGGER.error(cmd[1])
-                problem = {'nickname': nickname, 'problem': cmd[1]}
+                problem = format_repo_problem(nickname, branch, cmd[1])
 
     if problem:
         message = format_problem_message(problem['problem'])
@@ -277,9 +283,7 @@ def _http_repo_cloning(
     # check if user has access to current repository
     baseurl = repo_url(git_root['url'])
     if 'fatal:' in baseurl:
-        LOGGER.error('%s/%s failed', nickname, branch)
-        LOGGER.error(baseurl)
-        problem = {'repo': nickname, 'problem': baseurl}
+        problem = format_repo_problem(nickname, branch, baseurl)
 
     branch = git_root['branch']
     folder = nickname
@@ -289,9 +293,7 @@ def _http_repo_cloning(
             git_repo = git.Repo(folder, search_parent_directories=True)
             git_repo.remotes.origin.pull()
         except GitError as exc:
-            LOGGER.error('%s/%s failed', nickname, branch)
-            LOGGER.error(exc)
-            problem = {'nickname': nickname, 'problem': exc.stderr}
+            problem = format_repo_problem(nickname, branch, exc.stderr)
     # validate if there is no problem with the baseurl
     elif not problem:
         try:
@@ -299,8 +301,7 @@ def _http_repo_cloning(
                             folder,
                             multi_options=[f'-b {branch}', '--single-branch'])
         except GitError as exc:
-            LOGGER.error('%s/%s failed', nickname, branch)
-            problem = {'repo': nickname, 'problem': exc.stderr}
+            problem = format_repo_problem(nickname, branch, exc.stderr)
 
     if problem:
         message = format_problem_message(problem['problem'])
@@ -359,14 +360,8 @@ def repo_cloning(subs: str) -> bool:
 
             if repo_type == 'ssh':
                 problem = _ssh_repo_cloning(subs, git_root)
-            elif repo_type == 'https':
-                problem = _http_repo_cloning(subs, git_root)
             else:
-                LOGGER.info("Invalid git-type on group %s", subs)
-                problem = {
-                    'repo': git_root['url'],
-                    'problem': f'Invalid git-type on group {subs}'
-                }
+                problem = _http_repo_cloning(subs, git_root)
             if problem:
                 problems.append(problem)
             else:

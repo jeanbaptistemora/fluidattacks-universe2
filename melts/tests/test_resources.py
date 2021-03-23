@@ -27,3 +27,18 @@ def test_toolbox_get_fingerprint(relocate: Any) -> None:
     assert not resources.get_fingerprint('testfinger')
     os.rmdir(os.path.join('groups/testfinger', "fusion"))
     os.rmdir(os.path.join('groups', "testfinger"))
+
+
+def test_format_repo_problem(relocate: Any) -> None:
+    """Regression test to format problems."""
+    expected_repo_problem = {
+        'repo': 'repo_test',
+        'problem': 'test',
+    }
+    expected_repo_problem_bad = {
+        'nickname': 'repo_test',
+        'problem': 'test',
+    }
+    repo_problem = resources.format_repo_problem('repo_test', 'master', 'test')
+    assert repo_problem == expected_repo_problem
+    assert repo_problem != expected_repo_problem_bad

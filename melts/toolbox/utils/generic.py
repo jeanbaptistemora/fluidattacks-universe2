@@ -429,7 +429,7 @@ def okta_aws_login(profile: str = 'default') -> bool:
 
     _write_aws_credentials(profile, key_info)
     if profile == DEFAULT_PROFILE:
-        client = boto3.client('sts', profile=DEFAULT_PROFILE)
+        client = boto3.client('sts')
         profile = client.get_caller_identity()['Arn'].split('/')[1]
         _write_aws_credentials(profile, key_info, delete_default=True)
     _set_aws_env_creds(profile)
