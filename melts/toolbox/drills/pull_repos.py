@@ -26,10 +26,10 @@ from toolbox.utils.integrates import (
 
 
 def notify_out_of_scope(
-    repo_name: str,
+    nickname: str,
     gitignore: str,
 ) -> bool:
-    LOGGER.info('Please remember the scope for : %s', repo_name)
+    LOGGER.info('Please remember the scope for : %s', nickname)
     for line in gitignore:
         LOGGER.info('    - %s', line)
 
@@ -78,25 +78,25 @@ def delete_out_of_scope_files(group: str) -> bool:
 
     for root in get_filter_rules(group):
         # Get the expected repo name from the URL
-        repo_name = get_repo_from_url(root['url'])
-        expected_repositories.add(repo_name)
+        nickname = root['nickname']
+        expected_repositories.add(nickname)
 
         spec_ignore = pathspec.PathSpec.from_lines('gitwildmatch',
                                                    root['gitignore'])
 
         # Display to the user the Scope
         notify_out_of_scope(
-            repo_name,
+            nickname,
             root['gitignore'],
         )
 
         # Compute what files should be deleted according to the scope rules
-        path_to_repo = os.path.join('groups', group, 'fusion', repo_name)
+        path_to_repo = os.path.join('groups', group, 'fusion', nickname)
         for path in utils.file.iter_rel_paths(path_to_repo):
             if match_file(spec_ignore.patterns, path):
                 if path.startswith('.git/'):
                     continue
-                path_to_delete = os.path.join(path_to_fusion, repo_name, path)
+                path_to_delete = os.path.join(path_to_fusion, nickname, path)
                 if os.path.isfile(path_to_delete):
                     os.unlink(path_to_delete)
                 elif os.path.isdir(path_to_delete):

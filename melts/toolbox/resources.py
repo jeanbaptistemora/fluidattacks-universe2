@@ -53,12 +53,12 @@ def manage_repo_diffs(
 ) -> None:
     repo_fusion = os.listdir('.')
 
-    repo_names = [
-        repo['url'].split('/')[-1]
+    repo_nicknames = [
+        repo['nickname']
         for repo in repositories
     ]
 
-    repo_difference = set(repo_fusion).difference(set(repo_names))
+    repo_difference = set(repo_fusion).difference(set(repo_nicknames))
 
     # delete repositories of fusion that are not in the config
     for repo_dif in repo_difference:
@@ -196,12 +196,9 @@ def _ssh_repo_cloning(
 
     problem: Optional[Dict[str, Any]] = None
 
-    repo_name = baseurl.split('/')[-1]
+    nickname = git_root['nickname']
 
-    if repo_name.endswith('.git'):
-        repo_name = repo_name[0:-4]
-
-    folder = repo_name
+    folder = nickname
 
     with setup_ssh_key() as keyfile:
         if os.path.isdir(folder):
@@ -220,9 +217,9 @@ def _ssh_repo_cloning(
 
             cmd = cmd_execute(command, folder)
             if len(cmd[0]) == 0 and 'fatal' in cmd[1]:
-                LOGGER.error('%s/%s failed', repo_name, branch)
+                LOGGER.error('%s/%s failed', nickname, branch)
                 LOGGER.error(cmd[1])
-                problem = {'repo': repo_name, 'problem': cmd[1]}
+                problem = {'nickname': nickname, 'problem': cmd[1]}
         else:
             # Clone repo:
             command = [
@@ -242,9 +239,9 @@ def _ssh_repo_cloning(
 
             cmd = cmd_execute(command)
             if len(cmd[0]) == 0 and 'fatal' in cmd[1]:
-                LOGGER.error('%s/%s failed', repo_name, branch)
+                LOGGER.error('%s/%s failed', nickname, branch)
                 LOGGER.error(cmd[1])
-                problem = {'repo': repo_name, 'problem': cmd[1]}
+                problem = {'nickname': nickname, 'problem': cmd[1]}
 
     if problem:
         message = format_problem_message(problem['problem'])
@@ -271,10 +268,7 @@ def _http_repo_cloning(
     """ cloning or updated a repository https """
     # script does not support vpns atm
     baseurl = git_root['url']
-    repo_name = baseurl.split('/')[-1]
-
-    if repo_name.endswith('.git'):
-        repo_name = repo_name[0:-4]
+    nickname = git_root['nickname']
 
     branch = git_root['branch']
 
@@ -283,21 +277,21 @@ def _http_repo_cloning(
     # check if user has access to current repository
     baseurl = repo_url(git_root['url'])
     if 'fatal:' in baseurl:
-        LOGGER.error('%s/%s failed', repo_name, branch)
+        LOGGER.error('%s/%s failed', nickname, branch)
         LOGGER.error(baseurl)
-        problem = {'repo': repo_name, 'problem': baseurl}
+        problem = {'repo': nickname, 'problem': baseurl}
 
     branch = git_root['branch']
-    folder = repo_name
+    folder = nickname
     if os.path.isdir(folder):
         # Update already existing repo
         try:
             git_repo = git.Repo(folder, search_parent_directories=True)
             git_repo.remotes.origin.pull()
         except GitError as exc:
-            LOGGER.error('%s/%s failed', repo_name, branch)
+            LOGGER.error('%s/%s failed', nickname, branch)
             LOGGER.error(exc)
-            problem = {'repo': repo_name, 'problem': exc.stderr}
+            problem = {'nickname': nickname, 'problem': exc.stderr}
     # validate if there is no problem with the baseurl
     elif not problem:
         try:
@@ -305,8 +299,8 @@ def _http_repo_cloning(
                             folder,
                             multi_options=[f'-b {branch}', '--single-branch'])
         except GitError as exc:
-            LOGGER.error('%s/%s failed', repo_name, branch)
-            problem = {'repo': repo_name, 'problem': exc.stderr}
+            LOGGER.error('%s/%s failed', nickname, branch)
+            problem = {'repo': nickname, 'problem': exc.stderr}
 
     if problem:
         message = format_problem_message(problem['problem'])

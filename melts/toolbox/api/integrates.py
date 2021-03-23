@@ -318,6 +318,7 @@ class Queries:
                   ...on GitRoot{
                     id
                     branch
+                    nickname
                     url
                     state
                   }
@@ -340,6 +341,7 @@ class Queries:
                 roots {
                   ...on GitRoot{
                     id
+                    nickname
                     url
                     gitignore
                   }
