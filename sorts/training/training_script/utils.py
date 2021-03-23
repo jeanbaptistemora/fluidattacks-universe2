@@ -1,9 +1,14 @@
 # Standard libraries
+import csv
+import os
+import tempfile
 from typing import (
+    List,
     Tuple
 )
 
 # Third party libraries
+from botocore.exceptions import ClientError
 import numpy as np
 from numpy import ndarray
 import pandas as pd
@@ -16,6 +21,7 @@ from sklearn.model_selection import (
 
 # Local libraries
 from sorts.typings import Model as ModelType
+from training.constants import S3_BUCKET
 
 
 def is_overfit(train_results: ndarray, test_results: ndarray) -> float:
@@ -94,3 +100,19 @@ def split_training_data(
     filtered_df.dropna(inplace=True)
 
     return filtered_df.iloc[:, 1:], filtered_df.iloc[:, 0]
+
+
+def get_previous_training_results(results_filename: str) -> List[List[str]]:
+    previous_results: List[List[str]] = []
+    with tempfile.TemporaryDirectory() as tmp_dir:
+        local_file: str = os.path.join(tmp_dir, results_filename)
+        remote_file: str = f'training-output/{results_filename}'
+        try:
+            S3_BUCKET.Object(remote_file).download_file(local_file)
+            with open(local_file, 'r') as csv_file:
+                csv_reader = csv.reader(csv_file)
+                previous_results.extend(csv_reader)
+        except ClientError:
+            pass
+
+    return previous_results

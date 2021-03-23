@@ -2,8 +2,8 @@
 
 # Standard Libraries
 import argparse
-import csv
 import os
+import csv
 import tempfile
 import time
 from itertools import combinations
@@ -16,7 +16,6 @@ from typing import (
 
 # Third-party Libraries
 import pandas as pd
-from botocore.exceptions import ClientError
 from joblib import dump
 from pandas import DataFrame
 from sklearn.neighbors import KNeighborsClassifier
@@ -30,6 +29,7 @@ from training.constants import (
 )
 from training.training_script.utils import (
     get_model_performance_metrics,
+    get_previous_training_results,
     split_training_data
 )
 
@@ -46,21 +46,6 @@ def get_model_instance(model_class: ModelType) -> ModelType:
     if model_class != KNeighborsClassifier:
         default_args = {'random_state': 42}
     return model_class(**default_args)
-
-
-def get_previous_training_results(results_filename: str) -> List[List[str]]:
-    previous_results: List[List[str]] = []
-    with tempfile.TemporaryDirectory() as tmp_dir:
-        local_file: str = os.path.join(tmp_dir, results_filename)
-        remote_file: str = f'training-output/{results_filename}'
-        try:
-            S3_BUCKET.Object(remote_file).download_file(local_file)
-            with open(local_file, 'r') as csv_file:
-                csv_reader = csv.reader(csv_file)
-                previous_results.extend(csv_reader)
-        except ClientError:
-            pass
-    return previous_results
 
 
 def get_tried_combinations(

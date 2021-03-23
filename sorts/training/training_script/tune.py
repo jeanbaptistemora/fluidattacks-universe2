@@ -1,6 +1,5 @@
 # Standard libraries
 import argparse
-import csv
 import os
 import tempfile
 import time
@@ -12,16 +11,12 @@ from typing import (
 )
 
 # Third party Libraries
-from botocore.exceptions import ClientError
 import pandas as pd
 from pandas import DataFrame
 
 # Local libraries
 from sorts.constants import ModelType
-from training.constants import (
-    FEATURES_DICTS,
-    S3_BUCKET
-)
+from training.constants import FEATURES_DICTS
 from training.evaluate_results import get_best_model_name
 from training.training_script.utils import (
     get_model_performance_metrics,
@@ -85,21 +80,6 @@ def train_model(
         f'{metrics[3]:.1f}'
     ]
     return training_output
-
-
-def get_previous_training_results(results_filename: str) -> List[List[str]]:
-    previous_results: List[List[str]] = []
-    with tempfile.TemporaryDirectory() as tmp_dir:
-        local_file: str = os.path.join(tmp_dir, results_filename)
-        remote_file: str = f'training-output/{results_filename}'
-        try:
-            S3_BUCKET.Object(remote_file).download_file(local_file)
-            with open(local_file, 'r') as csv_file:
-                csv_reader = csv.reader(csv_file)
-                previous_results.extend(csv_reader)
-        except ClientError:
-            pass
-    return previous_results
 
 
 def main() -> None:
