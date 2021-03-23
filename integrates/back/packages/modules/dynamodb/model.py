@@ -266,6 +266,60 @@ async def update_git_root_cloning(
     await operations.batch_write_item(items=historic, table=TABLE)
 
 
+def _build_git_root_toe_lines(
+    *,
+    group_name: str,
+    key_structure: PrimaryKey,
+    item: Item,
+) -> GitRootToeLines:
+    sort_key_items = item[key_structure.sort_key].split('#')
+    root_id = sort_key_items[1]
+    filename = sort_key_items[3]
+    return GitRootToeLines(
+        comments=item['comments'],
+        filename=filename,
+        group_name=group_name,
+        loc=item['loc'],
+        modified_commit=item['modified_commit'],
+        modified_date=item['modified_date'],
+        root_id=root_id,
+        tested_date=item['tested_date'],
+        tested_lines=item['tested_lines'],
+    )
+
+
+async def get_toe_lines_by_root(
+    *,
+    group_name: str,
+    root_id: str
+) -> Tuple[GitRootToeLines, ...]:
+    primary_key = keys.build_key(
+        facet=TABLE.facets['root_toe_lines'],
+        values={'group_name': group_name, 'root_id': root_id},
+    )
+    key_structure = TABLE.primary_key
+    root_key = '#'.join(primary_key.sort_key.split('#')[:2])
+    results = await operations.query(
+        condition_expression=(
+            Key(key_structure.partition_key).eq(primary_key.partition_key) &
+            Key(key_structure.sort_key).begins_with(root_key)
+        ),
+        facets=(
+            TABLE.facets['root_toe_lines'],
+        ),
+        index=None,
+        table=TABLE
+    )
+    return tuple(
+        _build_git_root_toe_lines(
+            group_name=group_name,
+            key_structure=key_structure,
+            item=item
+        )
+        for item in results
+    )
+
+
 async def update_git_root_toe_lines(
     *,
     root_toe_lines: GitRootToeLines
