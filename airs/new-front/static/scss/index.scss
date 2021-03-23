@@ -191,11 +191,13 @@ $whiter-gray: rgba(241, 241, 241, 1);
 // Medium screen sizes
 @media screen and (min-width: 30em) and (max-width: 60em) {
   .fheader { font-size: 3.5rem; }
+  .nt-125 { margin-top: -0.125rem; }
 }
 
 // Small screen sizes
 @media screen and (max-width: 30em) {
   .cover-s { background-size: cover; }
+  .nt-125 { margin-top: -0.125rem; }
 }
 
 // Animations

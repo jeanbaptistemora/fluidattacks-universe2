@@ -41,7 +41,7 @@ const MenuDesktop: React.FC = (): JSX.Element => (
                 {"Continuous Hacking"}
               </Link>
             </li>
-            <li className={"m1"}>
+            <li className={"mv1"}>
               <Link
                 className={"menulink white roboto no-underline nowrap"}
                 to={"/services/one-shot-hacking/"}
@@ -49,7 +49,7 @@ const MenuDesktop: React.FC = (): JSX.Element => (
                 {"One-Shot Hacking"}
               </Link>
             </li>
-            <li className={"m1"}>
+            <li className={"mv1"}>
               <Link
                 className={"menulink white roboto no-underline nowrap"}
                 to={"/services/comparative/"}
@@ -77,7 +77,7 @@ const MenuDesktop: React.FC = (): JSX.Element => (
                 {"Web Applications"}
               </Link>
             </li>
-            <li className={"m1"}>
+            <li className={"mv1"}>
               <Link
                 className={"menulink white roboto no-underline nowrap"}
                 to={"/systems/mobile-apps/"}
@@ -85,7 +85,7 @@ const MenuDesktop: React.FC = (): JSX.Element => (
                 {"Mobile Applications"}
               </Link>
             </li>
-            <li className={"m1"}>
+            <li className={"mv1"}>
               <Link
                 className={"menulink white roboto no-underline nowrap"}
                 to={"/systems/thick-clients/"}
@@ -93,7 +93,7 @@ const MenuDesktop: React.FC = (): JSX.Element => (
                 {"Thick Clients"}
               </Link>
             </li>
-            <li className={"m1"}>
+            <li className={"mv1"}>
               <Link
                 className={"menulink white roboto no-underline nowrap"}
                 to={"/systems/apis/"}
@@ -101,7 +101,7 @@ const MenuDesktop: React.FC = (): JSX.Element => (
                 {"API's and Microservices"}
               </Link>
             </li>
-            <li className={"m1"}>
+            <li className={"mv1"}>
               <Link
                 className={"menulink white roboto no-underline nowrap"}
                 to={"/systems/cloud-infrastructure/"}
@@ -109,7 +109,7 @@ const MenuDesktop: React.FC = (): JSX.Element => (
                 {"Cloud Infrastructure"}
               </Link>
             </li>
-            <li className={"m1"}>
+            <li className={"mv1"}>
               <Link
                 className={"menulink white roboto no-underline nowrap"}
                 to={"/systems/networks-and-hosts/"}
@@ -117,7 +117,7 @@ const MenuDesktop: React.FC = (): JSX.Element => (
                 {"Networks and Hosts"}
               </Link>
             </li>
-            <li className={"m1"}>
+            <li className={"mv1"}>
               <Link
                 className={"menulink white roboto no-underline nowrap"}
                 to={"/systems/iot/"}
@@ -125,7 +125,7 @@ const MenuDesktop: React.FC = (): JSX.Element => (
                 {"Internet of Things"}
               </Link>
             </li>
-            <li className={"m1"}>
+            <li className={"mv1"}>
               <Link
                 className={"menulink white roboto no-underline nowrap"}
                 to={"/systems/ot/"}
@@ -155,7 +155,7 @@ const MenuDesktop: React.FC = (): JSX.Element => (
                 {"DevSecOps"}
               </Link>
             </li>
-            <li className={"m1"}>
+            <li className={"mv1"}>
               <Link
                 className={"menulink white roboto no-underline nowrap"}
                 to={"/solutions/security-testing/"}
@@ -163,7 +163,7 @@ const MenuDesktop: React.FC = (): JSX.Element => (
                 {"Security Testing"}
               </Link>
             </li>
-            <li className={"m1"}>
+            <li className={"mv1"}>
               <Link
                 className={"menulink white roboto no-underline nowrap"}
                 to={"/solutions/penetration-testing/"}
@@ -171,7 +171,7 @@ const MenuDesktop: React.FC = (): JSX.Element => (
                 {"Penetration Testing"}
               </Link>
             </li>
-            <li className={"m1"}>
+            <li className={"mv1"}>
               <Link
                 className={"menulink white roboto no-underline nowrap"}
                 to={"/solutions/ethical-hacking/"}
@@ -179,7 +179,7 @@ const MenuDesktop: React.FC = (): JSX.Element => (
                 {"Ethical Hacking"}
               </Link>
             </li>
-            <li className={"m1"}>
+            <li className={"mv1"}>
               <Link
                 className={"menulink white roboto no-underline nowrap"}
                 to={"/solutions/red-teaming/"}
@@ -187,7 +187,7 @@ const MenuDesktop: React.FC = (): JSX.Element => (
                 {"Red Teaming"}
               </Link>
             </li>
-            <li className={"m1"}>
+            <li className={"mv1"}>
               <Link
                 className={"menulink white roboto no-underline nowrap"}
                 to={"/solutions/attack-simulation/"}
@@ -195,7 +195,7 @@ const MenuDesktop: React.FC = (): JSX.Element => (
                 {"Attack Simulation"}
               </Link>
             </li>
-            <li className={"m1"}>
+            <li className={"mv1"}>
               <Link
                 className={"menulink white roboto no-underline nowrap"}
                 to={"/solutions/secure-code-review/"}
@@ -203,7 +203,7 @@ const MenuDesktop: React.FC = (): JSX.Element => (
                 {"Secure Code Review"}
               </Link>
             </li>
-            <li className={"m1"}>
+            <li className={"mv1"}>
               <Link
                 className={"menulink white roboto no-underline nowrap"}
                 to={"/solutions/vulnerability-management/"}
@@ -231,7 +231,7 @@ const MenuDesktop: React.FC = (): JSX.Element => (
                 {"Clients"}
               </Link>
             </li>
-            <li className={"m1"}>
+            <li className={"mv1"}>
               <Link
                 className={"menulink white roboto no-underline nowrap"}
                 to={"/about-us/differentiators/"}
@@ -239,7 +239,7 @@ const MenuDesktop: React.FC = (): JSX.Element => (
                 {"Differentiators"}
               </Link>
             </li>
-            <li className={"m1"}>
+            <li className={"mv1"}>
               <Link
                 className={"menulink white roboto no-underline nowrap"}
                 to={"/about-us/values/"}
@@ -247,7 +247,7 @@ const MenuDesktop: React.FC = (): JSX.Element => (
                 {"Values"}
               </Link>
             </li>
-            <li className={"m1"}>
+            <li className={"mv1"}>
               <Link
                 className={"menulink white roboto no-underline nowrap"}
                 to={"/about-us/reviews/"}
@@ -255,7 +255,7 @@ const MenuDesktop: React.FC = (): JSX.Element => (
                 {"Reviews"}
               </Link>
             </li>
-            <li className={"m1"}>
+            <li className={"mv1"}>
               <Link
                 className={"menulink white roboto no-underline nowrap"}
                 to={"/about-us/resources/"}
@@ -263,7 +263,7 @@ const MenuDesktop: React.FC = (): JSX.Element => (
                 {"Resources"}
               </Link>
             </li>
-            <li className={"m1"}>
+            <li className={"mv1"}>
               <Link
                 className={"menulink white roboto no-underline nowrap"}
                 to={"/about-us/events/"}
@@ -271,7 +271,7 @@ const MenuDesktop: React.FC = (): JSX.Element => (
                 {"Events"}
               </Link>
             </li>
-            <li className={"m1"}>
+            <li className={"mv1"}>
               <Link
                 className={"menulink white roboto no-underline nowrap"}
                 to={"/about-us/people/"}
@@ -279,7 +279,7 @@ const MenuDesktop: React.FC = (): JSX.Element => (
                 {"People"}
               </Link>
             </li>
-            <li className={"m1"}>
+            <li className={"mv1"}>
               <Link
                 className={"menulink white roboto no-underline nowrap"}
                 to={"/about-us/security/"}

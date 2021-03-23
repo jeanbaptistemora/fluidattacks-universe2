@@ -3,6 +3,7 @@
 /* eslint import/no-unresolved:0 */
 /* eslint react/jsx-no-bind:0 */
 import { MenuDesktop } from "./MenuDesktop";
+import { MenuMobile } from "./MenuMobile";
 import type { StyledComponent } from "styled-components";
 import styled from "styled-components";
 import * as closeMenuIcon from "../../../../static/images/cross.png";
@@ -114,6 +115,7 @@ const Menu: React.FC = (): JSX.Element => {
       </MenuDesktopContainer>
       <MenuMobileContainer>
         <MenuMobileInnerContainer style={{ width: isOpen ? "100%" : "0" }}>
+          <MenuMobile />
           <CloseMenuMobileContainer>
             <CloseMenuMobile onClick={toggle} />
           </CloseMenuMobileContainer>
