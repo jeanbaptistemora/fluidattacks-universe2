@@ -412,6 +412,7 @@ def _analyze_method_invocation(args: EvaluatorArgs, method: str) -> None:
 
     method_var, method_path = split_on_first_dot(method)
     method_var_decl = lookup_var_dcl_by_name(args, method_var)
+    method_var_state = lookup_var_state_by_name(args, method_var)
     method_var_decl_type = (
         method_var_decl.var_type_base if method_var_decl else ''
     )
@@ -422,8 +423,8 @@ def _analyze_method_invocation(args: EvaluatorArgs, method: str) -> None:
     ) or (
         # Know functions that propagate danger if object is dangerous
         method_path in DANGER_METHODS_BY_OBJ.get(method_var_decl_type, {})
-        and method_var_decl
-        and method_var_decl.meta.danger
+        and method_var_state
+        and method_var_state.meta.danger
     ) or (
         # Know functions that propagate danger if args are dangerous
         method_path in DANGER_METHODS_BY_OBJ_ARGS.get(method_var_decl_type, {})
@@ -713,9 +714,10 @@ def eval_syntax_steps(
         # We were not able to fully understand this node syntax
         raise StopEvaluation(f'Missing Syntax Reader, {shard.path} @ {n_id}')
 
-    syntax_step_index = len(syntax_steps)
+    syntax_step_index = len(syntax_steps) + 2 * len(overriden_syntax_steps)
     syntax_steps.extend(chain(
-        overriden_syntax_steps,
+        deepcopy(shard.syntax[n_id])[:len(overriden_syntax_steps)],
+        deepcopy(overriden_syntax_steps),
         deepcopy(shard.syntax[n_id])[len(overriden_syntax_steps):],
     ))
 
