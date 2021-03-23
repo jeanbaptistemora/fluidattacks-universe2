@@ -15,12 +15,12 @@ def get_root_id_by_filename(
     filename: str,
     group_roots: Tuple[Root, ...]
 ) -> str:
-    file_root_dir = filename.split('/')[0]
+    root_nickname = filename.split('/')[0]
     file_name_root_ids = [
         root.id
         for root in group_roots
         if isinstance(root, GitRoot)
-        and root.url.split('/')[-1] == file_root_dir
+        and root.nickname == root_nickname
     ]
     if not file_name_root_ids:
         raise RootNotFound()
