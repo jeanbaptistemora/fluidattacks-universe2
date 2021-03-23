@@ -84,7 +84,7 @@ describe("LoginView", (): void => {
 
     expect(wrapper)
       .toHaveLength(1);
-    expect(wrapper.find("logo")
+    expect(wrapper.find("Logo")
       .length)
       .toBeGreaterThan(0);
     expect(wrapper.find("googleButton"))
