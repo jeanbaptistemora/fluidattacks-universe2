@@ -1,15 +1,14 @@
 # Standard libraries
 from typing import (
     Iterator,
-    Optional,
 )
 
 # Third party libraries
 
 # Local libraries
-import utils_logger
 from tap_mailchimp.api.common import (
     api_data,
+    list_items_alert,
 )
 from tap_mailchimp.api.common.raw import (
     AbsReportId,
@@ -20,20 +19,6 @@ from tap_mailchimp.api.common.raw import (
     RawSource,
 )
 
-LOG = utils_logger.get_log(__name__)
-
-
-def _list_items_alert(ref: str, total: Optional[int]) -> None:
-    max_items = 1000
-    if total is None:
-        LOG.error('total_items is missing at `%s`', ref)
-    elif total > max_items:
-        LOG.error(
-            'Data at `%s` suprassed max handled items (%s > max_items)',
-            ref,
-            total
-        )
-
 
 def list_audiences(
     raw_source: RawSource,
@@ -41,7 +26,7 @@ def list_audiences(
     result = api_data.create_api_data(
         raw_source.list_audiences()
     )
-    _list_items_alert(
+    list_items_alert(
         'list_audiences',
         result.total_items
     )
@@ -51,12 +36,12 @@ def list_audiences(
 
 def list_abuse_reports(
     raw_source: RawSource,
-    audience: AudienceId
+    audience: AudienceId,
 ) -> Iterator[AbsReportId]:
     result = api_data.create_api_data(
         raw_source.list_abuse_reports(audience)
     )
-    _list_items_alert(
+    list_items_alert(
         f'list_abuse_reports {audience}',
         result.total_items
     )
@@ -72,12 +57,12 @@ def list_abuse_reports(
 
 def list_members(
     raw_source: RawSource,
-    audience: AudienceId
+    audience: AudienceId,
 ) -> Iterator[MemberId]:
     result = api_data.create_api_data(
         raw_source.list_members(audience)
     )
-    _list_items_alert(
+    list_items_alert(
         f'list_members {audience}',
         result.total_items
     )
@@ -93,12 +78,12 @@ def list_members(
 
 def list_growth_hist(
     raw_source: RawSource,
-    audience: AudienceId
+    audience: AudienceId,
 ) -> Iterator[GrowthHistId]:
     result = api_data.create_api_data(
         raw_source.list_growth_hist(audience)
     )
-    _list_items_alert(
+    list_items_alert(
         f'list_growth_hist {audience}',
         result.total_items
     )
@@ -114,16 +99,15 @@ def list_growth_hist(
 
 def list_interest_catg(
     raw_source: RawSource,
-    audience: AudienceId
+    audience: AudienceId,
 ) -> Iterator[InterestCatgId]:
     result = api_data.create_api_data(
         raw_source.list_interest_catg(audience)
     )
-    _list_items_alert(
+    list_items_alert(
         f'list_interest_catg {audience}',
         result.total_items
     )
-    LOG.debug('list_interest_catg result: %s', result)
     data = result.data['categories']
     return iter(map(
         lambda item: InterestCatgId(

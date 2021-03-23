@@ -73,7 +73,7 @@ class RawSource(NamedTuple):
     get_interest_catg: Callable[[InterestCatgId], JSON]
     get_audience_locations: Callable[[AudienceId], JSON]
     list_campaigns: Callable[[], JSON]
-    get_campaigns: Callable[[CampaignId], JSON]
+    get_campaign: Callable[[CampaignId], JSON]
 
 
 def _list_audiences(client: Client) -> JSON:
@@ -172,7 +172,7 @@ def _list_campaigns(client: Client) -> JSON:
     return result
 
 
-def _get_campaigns(client: Client, campaign_id: CampaignId) -> JSON:
+def _get_campaign(client: Client, campaign_id: CampaignId) -> JSON:
     return client.campaigns.get(campaign_id.str_id)
 
 
@@ -192,6 +192,6 @@ def create_raw_source(client: Client) -> RawSource:
         get_interest_catg=partial(_get_interest_catg, client),
         get_audience_locations=partial(_get_audience_locations, client),
         list_campaigns=partial(_list_campaigns, client),
-        get_campaigns=partial(_get_campaigns, client),
+        get_campaign=partial(_get_campaign, client),
 
     )
