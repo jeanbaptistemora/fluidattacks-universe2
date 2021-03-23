@@ -15,16 +15,10 @@ from typing import (
 )
 
 # Third-party Libraries
-import numpy as np
 import pandas as pd
 from botocore.exceptions import ClientError
 from joblib import dump
-from numpy import ndarray
 from pandas import DataFrame
-from sklearn.model_selection import (
-    cross_validate,
-    learning_curve
-)
 from sklearn.neighbors import KNeighborsClassifier
 
 # Local libraries
@@ -33,6 +27,9 @@ from training.constants import (
     FEATURES_DICTS,
     RESULT_HEADERS,
     S3_BUCKET
+)
+from training.training_script.utils import (
+    get_model_performance_metrics,
 )
 
 
@@ -48,36 +45,6 @@ def get_model_instance(model_class: ModelType) -> ModelType:
     if model_class != KNeighborsClassifier:
         default_args = {'random_state': 42}
     return model_class(**default_args)
-
-
-def get_model_metrics(
-    model: ModelType,
-    features: DataFrame,
-    labels: DataFrame
-) -> Tuple[float, float, float, float]:
-    """Get performance metrics to compare different models"""
-    scores = cross_validate(
-        model,
-        features,
-        labels,
-        scoring=['precision', 'recall', 'f1'],
-        n_jobs=-1
-    )
-    _, train_results, test_results = learning_curve(
-        model,
-        features,
-        labels,
-        scoring='f1',
-        train_sizes=np.linspace(0.1, 1, 30),
-        n_jobs=-1,
-        random_state=42
-    )
-    return (
-        scores['test_precision'].mean() * 100,
-        scores['test_recall'].mean() * 100,
-        scores['test_f1'].mean() * 100,
-        is_overfit(train_results, test_results) * 100
-    )
 
 
 def get_previous_training_results(results_filename: str) -> List[List[str]]:
@@ -114,28 +81,6 @@ def get_tried_combinations(
                 ])
             )
     return tried_combinations
-
-
-def is_overfit(train_results: ndarray, test_results: ndarray) -> float:
-    """Calculate how much the model got biased by the training data"""
-    train_results_means: ndarray = train_results.mean(axis=1)
-    test_results_means: ndarray = test_results.mean(axis=1)
-    perc_diff: ndarray = (
-        (train_results_means - test_results_means) / train_results_means
-    )
-    row: int = 0
-    tolerance: float = 0.002
-    goal: int = 4
-    for i in range(len(perc_diff) - 1):
-        progress: float = abs(perc_diff[i + 1] - perc_diff[i])
-        if progress < tolerance:
-            row += 1
-        else:
-            row = 0
-        if row == goal:
-            min_overfit: ndarray = perc_diff[i - row - 1:i]
-            return float(min_overfit.mean())
-    return float(perc_diff.mean())
 
 
 def load_training_data(training_dir: str) -> DataFrame:
@@ -243,7 +188,7 @@ def train_model(
         train_x, train_y = split_training_data(training_data, combination)
 
         model = get_model_instance(model_class)
-        metrics = get_model_metrics(
+        metrics = get_model_performance_metrics(
             model,
             train_x,
             train_y

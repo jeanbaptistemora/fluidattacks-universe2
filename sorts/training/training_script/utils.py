@@ -1,0 +1,70 @@
+# Standard libraries
+from typing import (
+    Tuple
+)
+
+# Third party libraries
+import numpy as np
+from numpy import ndarray
+from pandas import DataFrame
+from sklearn.model_selection import (
+    cross_validate,
+    learning_curve
+)
+
+
+# Local libraries
+from sorts.typings import Model as ModelType
+
+
+def is_overfit(train_results: ndarray, test_results: ndarray) -> float:
+    """Calculate how much the model got biased by the training data"""
+    train_results_means: ndarray = train_results.mean(axis=1)
+    test_results_means: ndarray = test_results.mean(axis=1)
+    perc_diff: ndarray = (
+        (train_results_means - test_results_means) / train_results_means
+    )
+    row: int = 0
+    tolerance: float = 0.002
+    goal: int = 4
+    for i in range(len(perc_diff) - 1):
+        progress: float = abs(perc_diff[i + 1] - perc_diff[i])
+        if progress < tolerance:
+            row += 1
+        else:
+            row = 0
+        if row == goal:
+            min_overfit: ndarray = perc_diff[i - row - 1:i]
+            return float(min_overfit.mean())
+
+    return float(perc_diff.mean())
+
+
+def get_model_performance_metrics(
+    model: ModelType,
+    features: DataFrame,
+    labels: DataFrame
+) -> Tuple[float, float, float, float]:
+    """Get performance metrics to compare different models"""
+    scores = cross_validate(
+        model,
+        features,
+        labels,
+        scoring=['precision', 'recall', 'f1'],
+        n_jobs=-1
+    )
+    _, train_results, test_results = learning_curve(
+        model,
+        features,
+        labels,
+        scoring='f1',
+        train_sizes=np.linspace(0.1, 1, 30),
+        n_jobs=-1,
+        random_state=42
+    )
+    return (
+        scores['test_precision'].mean() * 100,
+        scores['test_recall'].mean() * 100,
+        scores['test_f1'].mean() * 100,
+        is_overfit(train_results, test_results) * 100
+    )

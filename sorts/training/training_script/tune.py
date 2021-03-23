@@ -12,14 +12,9 @@ from typing import (
 )
 
 # Third party Libraries
-import numpy as np
 from botocore.exceptions import ClientError
 import pandas as pd
 from pandas import DataFrame
-from sklearn.model_selection import (
-    cross_validate,
-    learning_curve
-)
 
 # Local libraries
 from sorts.constants import ModelType
@@ -28,7 +23,9 @@ from training.constants import (
     S3_BUCKET
 )
 from training.evaluate_results import get_best_model_name
-from training.training_script.train import is_overfit
+from training.training_script.utils import (
+    get_model_performance_metrics
+)
 
 
 def get_model_features() -> Tuple[str, ...]:
@@ -42,35 +39,6 @@ def get_model_features() -> Tuple[str, ...]:
             inv_features_dict[key]
             for key in best_model.upper().split('.')[0].split('-')[2:5]
         )
-
-
-def get_model_performance_metrics(
-    model: ModelType,
-    features: DataFrame,
-    labels: DataFrame
-) -> Tuple[float, float, float, float]:
-    scores = cross_validate(
-        model,
-        features,
-        labels,
-        scoring=['precision', 'recall', 'f1'],
-        n_jobs=-1
-    )
-    _, train_results, test_results = learning_curve(
-        model,
-        features,
-        labels,
-        scoring='f1',
-        train_sizes=np.linspace(0.1, 1, 30),
-        n_jobs=-1,
-        random_state=42
-    )
-    return (
-        scores['test_precision'].mean() * 100,
-        scores['test_recall'].mean() * 100,
-        scores['test_f1'].mean() * 100,
-        is_overfit(train_results, test_results) * 100
-    )
 
 
 def split_training_data(
