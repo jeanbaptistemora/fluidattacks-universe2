@@ -23,22 +23,12 @@ from sklearn.model_selection import (
 
 # Local libraries
 from sorts.constants import ModelType
-from training.constants import S3_BUCKET
+from training.constants import (
+    FEATURES_DICTS,
+    S3_BUCKET
+)
 from training.evaluate_results import get_best_model_name
 from training.training_script.train import is_overfit
-
-# Constants
-FEATURES_DICTS: Dict[str, str] = {
-    'num_commits': 'CM',
-    'num_unique_authors': 'AU',
-    'file_age': 'FA',
-    'midnight_commits': 'MC',
-    'risky_commits': 'RC',
-    'seldom_contributors': 'SC',
-    'num_lines': 'LC',
-    'busy_file': 'BF',
-    'commit_frequency': 'CF'
-}
 
 
 def get_model_features() -> Tuple[str, ...]:

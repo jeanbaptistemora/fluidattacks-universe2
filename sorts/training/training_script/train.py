@@ -29,28 +29,11 @@ from sklearn.neighbors import KNeighborsClassifier
 
 # Local libraries
 from sorts.typings import Model as ModelType
-from training.constants import S3_BUCKET
-
-# Constants
-FEATURES_DICTS: Dict[str, str] = {
-    'num_commits': 'CM',
-    'num_unique_authors': 'AU',
-    'file_age': 'FA',
-    'midnight_commits': 'MC',
-    'risky_commits': 'RC',
-    'seldom_contributors': 'SC',
-    'num_lines': 'LC',
-    'busy_file': 'BF',
-    'commit_frequency': 'CF'
-}
-RESULT_HEADERS: List[str] = [
-    'Model',
-    'Features',
-    'Precision',
-    'Recall',
-    'F1',
-    'Overfit'
-]
+from training.constants import (
+    FEATURES_DICTS,
+    RESULT_HEADERS,
+    S3_BUCKET
+)
 
 
 def get_features_combinations(features: List[str]) -> List[Tuple[str, ...]]:
