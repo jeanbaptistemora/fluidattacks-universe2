@@ -11,4 +11,7 @@ makeDerivation {
   };
   builder = path "/makes/packages/airs/lint/code/builder.sh";
   name = "airs-lint-code";
+  searchPaths = {
+    envUtils = [ "/makes/utils/lint-typescript" ];
+  };
 }
