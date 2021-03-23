@@ -5,6 +5,9 @@ from aioextensions import (
 import pytest
 
 # Local libraries
+from model import (
+    core_model,
+)
 from sast.parse import (
     get_graph_db,
 )
@@ -41,7 +44,10 @@ async def test_graph_generation() -> None:
         expected = handle.read()
 
     # Test SymEval
-    syntax_steps = get_possible_syntax_steps(graph_db)
+    syntax_steps = {
+        finding.name: get_possible_syntax_steps(graph_db, finding)
+        for finding in core_model.FindingEnum
+    }
     syntax_steps_as_json_str = json_dumps(
         syntax_steps, indent=2, sort_keys=True,
     )

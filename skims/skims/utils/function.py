@@ -26,9 +26,6 @@ from more_itertools import (
 import tracers.function
 
 # Local libraries
-from utils.ctx import (
-    CTX,
-)
 from utils.env import (
     guess_environment,
 )
@@ -170,7 +167,7 @@ def time_limited(
 
 
 def trace() -> Callable[[TFun], TFun]:
-    return tracers.function.trace(enabled=getattr(CTX, 'debug', False))
+    return tracers.function.trace(enabled=False)
 
 
 # Constants

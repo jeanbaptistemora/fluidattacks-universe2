@@ -64,7 +64,7 @@ async def analyze(
     queries: graph_model.Queries = (
         *f060.QUERIES,
         *f073.QUERIES,
-        query.query,
+        *query.QUERIES,
     )
     queries_len: int = len(queries)
 

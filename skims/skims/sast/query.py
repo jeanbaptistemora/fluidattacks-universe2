@@ -103,65 +103,95 @@ def get_vulnerabilities_from_n_ids(
 
 def query_lazy(
     graph_db: graph_model.GraphDB,
+    finding: core_model.FindingEnum,
 ) -> Iterator[core_model.Vulnerabilities]:
-    for shard_path, possible_syntax_steps_for_shard_path in (
-        get_possible_syntax_steps(graph_db).items()
+    for shard_path, possible_syntax_steps_for_finding in (
+        get_possible_syntax_steps(graph_db, finding).items()
     ):
-        for finding_str, possible_syntax_steps_for_finding in (
-            possible_syntax_steps_for_shard_path.items()
+        for untrusted_n_id, possible_syntax_steps_for_untrusted_n_id in (
+            possible_syntax_steps_for_finding.items()
         ):
-            for untrusted_n_id, possible_syntax_steps_for_untrusted_n_id in (
-                possible_syntax_steps_for_finding.items()
+            for syntax_steps in (
+                possible_syntax_steps_for_untrusted_n_id.values()
             ):
-                for syntax_steps in (
-                    possible_syntax_steps_for_untrusted_n_id.values()
-                ):
-                    fin = core_model.FINDING_ENUM_FROM_STR[finding_str]
-                    params = graph_model.GRAPH_VULNERABILITY_PARAMETERS[fin]
+                fin = core_model.FINDING_ENUM_FROM_STR[finding.name]
+                params = graph_model.GRAPH_VULNERABILITY_PARAMETERS[fin]
 
-                    yield get_vulnerabilities_from_n_ids(
-                        cwe=params.cwe,
-                        desc_key=params.desc_key,
-                        desc_params=params.desc_params,
-                        finding=fin,
-                        graph_shard_nodes=[
-                            (graph_shard, syntax_step.meta.n_id)
-                            for syntax_step in syntax_steps
-                            for graph_shard in [
-                                graph_db.shards[
-                                    graph_db.shards_by_path[shard_path]
-                                ],
-                            ]
-                            for untrusted_n_attrs, syntax_step_n_attrs in [(
-                                graph_shard.graph.nodes[untrusted_n_id],
-                                graph_shard.graph.nodes[syntax_step.meta.n_id],
-                            )]
-                            if (operator.contains(
-                                syntax_step_n_attrs.get(
-                                    'label_sink_type',
-                                    str(),
-                                ).split(','),
-                                untrusted_n_attrs['label_input_type'],
-                                # For the route to be considered vulnerable, it
-                                # must be an untrusted node, the finding of its
-                                # sink must be in the findings that allow it
-                                # and the finding of its sink must be equal to
-                                # the finding of the current interaction
-                            ) or (operator.eq(
-                                untrusted_n_attrs['label_input_type'],
-                                core_model.UNTRUSTED_NODE,
-                            ) and (set(
-                                syntax_step_n_attrs.get(
-                                    'label_sink_type',
-                                    str(),
-                                ).split(',')).intersection(
-                                    core_model.ALLOW_UNTRUSTED_NODES_STR))
-                            ) and fin.name in syntax_step_n_attrs.get(
-                                'label_sink_type', str()).split(','))
-                            and syntax_step.meta.danger
-                        ],
-                    )
+                yield get_vulnerabilities_from_n_ids(
+                    cwe=params.cwe,
+                    desc_key=params.desc_key,
+                    desc_params=params.desc_params,
+                    finding=fin,
+                    graph_shard_nodes=[
+                        (graph_shard, syntax_step.meta.n_id)
+                        for syntax_step in syntax_steps
+                        for graph_shard in [
+                            graph_db.shards[
+                                graph_db.shards_by_path[shard_path]
+                            ],
+                        ]
+                        for untrusted_n_attrs, syntax_step_n_attrs in [(
+                            graph_shard.graph.nodes[untrusted_n_id],
+                            graph_shard.graph.nodes[syntax_step.meta.n_id],
+                        )]
+                        if (operator.contains(
+                            syntax_step_n_attrs.get(
+                                'label_sink_type',
+                                str(),
+                            ).split(','),
+                            untrusted_n_attrs['label_input_type'],
+                            # For the route to be considered vulnerable, it
+                            # must be an untrusted node, the finding of its
+                            # sink must be in the findings that allow it
+                            # and the finding of its sink must be equal to
+                            # the finding of the current interaction
+                        ) or (operator.eq(
+                            untrusted_n_attrs['label_input_type'],
+                            core_model.UNTRUSTED_NODE,
+                        ) and (set(
+                            syntax_step_n_attrs.get(
+                                'label_sink_type',
+                                str(),
+                            ).split(',')).intersection(
+                                core_model.ALLOW_UNTRUSTED_NODES_STR))
+                        ) and fin.name in syntax_step_n_attrs.get(
+                            'label_sink_type', str()).split(','))
+                        and syntax_step.meta.danger
+                    ],
+                )
 
 
-def query(graph_db: graph_model.GraphDB) -> core_model.Vulnerabilities:
-    return tuple(chain.from_iterable(query_lazy(graph_db)))
+def query(
+    graph_db: graph_model.GraphDB,
+    finding: core_model.FindingEnum,
+) -> core_model.Vulnerabilities:
+    return tuple(chain.from_iterable(query_lazy(graph_db, finding)))
+
+
+def query_f004(graph_db: graph_model.GraphDB) -> core_model.Vulnerabilities:
+    return query(graph_db, core_model.FindingEnum.F004)
+
+
+def query_f034(graph_db: graph_model.GraphDB) -> core_model.Vulnerabilities:
+    return query(graph_db, core_model.FindingEnum.F034)
+
+
+def query_f042(graph_db: graph_model.GraphDB) -> core_model.Vulnerabilities:
+    return query(graph_db, core_model.FindingEnum.F042)
+
+
+def query_f063_pt(graph_db: graph_model.GraphDB) -> core_model.Vulnerabilities:
+    return query(graph_db, core_model.FindingEnum.F063_PATH_TRAVERSAL)
+
+
+def query_f073(graph_db: graph_model.GraphDB) -> core_model.Vulnerabilities:
+    return query(graph_db, core_model.FindingEnum.F073)
+
+
+QUERIES: graph_model.Queries = (
+    query_f004,
+    query_f034,
+    query_f042,
+    query_f063_pt,
+    query_f073,
+)

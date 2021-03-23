@@ -809,7 +809,7 @@ def get_possible_syntax_steps_from_path(
 
 PossibleSyntaxStepsForUntrustedNId = Dict[str, graph_model.SyntaxSteps]
 PossibleSyntaxStepsForFinding = Dict[str, PossibleSyntaxStepsForUntrustedNId]
-PossibleSyntaxSteps = Dict[str, Dict[str, PossibleSyntaxStepsForFinding]]
+PossibleSyntaxSteps = Dict[str, PossibleSyntaxStepsForFinding]
 
 
 @trace()
@@ -862,21 +862,19 @@ def get_possible_syntax_steps_for_finding(
 @trace()
 def get_possible_syntax_steps(
     graph_db: graph_model.GraphDB,
+    finding: core_model.FindingEnum,
 ) -> PossibleSyntaxSteps:
     syntax_steps_map: PossibleSyntaxSteps = {
-        shard.path: {
-            finding.name: get_possible_syntax_steps_for_finding(
-                graph_db=graph_db,
-                finding=finding,
-                shard=shard,
-            )
-            for finding in core_model.FindingEnum
-        }
+        shard.path: get_possible_syntax_steps_for_finding(
+            graph_db=graph_db,
+            finding=finding,
+            shard=shard,
+        )
         for shard in graph_db.shards
     }
 
     if CTX.debug:
-        output = get_debug_path('tree-sitter-syntax-steps')
+        output = get_debug_path(f'tree-sitter-syntax-steps-{finding.name}')
         with open(f'{output}.json', 'w') as handle:
             json_dump(syntax_steps_map, handle, indent=2, sort_keys=True)
 
