@@ -6,6 +6,7 @@
 !src/components/About/**
 !src/components/Avatar/**
 !src/components/Logo/**
+!src/components/Preloader/**
 !src/utils/notifications.ts
 !src/app.tsx
 !src/index.spec.tsx

@@ -287,7 +287,7 @@ describe("LoginView", (): void => {
     });
 
     expect(wrapper
-      .find("preloader")
+      .find("Preloader")
       .prop("visible"))
       .toEqual(false);
   });

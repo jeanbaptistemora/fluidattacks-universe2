@@ -1,10 +1,7 @@
 import React from "react";
-import { Image, View } from "react-native";
-
-// tslint:disable-next-line: no-default-import
-import { default as loadingGif } from "../../../assets/loading.gif";
-
+import loadingGif from "../../../assets/loading.gif";
 import { styles } from "./styles";
+import { Image, View } from "react-native";
 
 /**
  * Preloader component props
@@ -13,10 +10,17 @@ interface IPreloaderProps {
   visible: boolean;
 }
 
-const preloader: React.FC<IPreloaderProps> = (props: IPreloaderProps): JSX.Element => (
+const Preloader: React.FC<IPreloaderProps> = ({
+  visible,
+}: IPreloaderProps): JSX.Element => (
+  // Needed to override default styles
+  // eslint-disable-next-line react/forbid-component-props
   <View style={styles.container}>
-    {props.visible ? <Image source={loadingGif} style={styles.loadingGif} /> : undefined}
+    {visible ? (
+      // eslint-disable-next-line react/forbid-component-props
+      <Image source={loadingGif} style={styles.loadingGif} />
+    ) : undefined}
   </View>
 );
 
-export { preloader as Preloader };
+export { Preloader };
