@@ -2,6 +2,7 @@
 , buildPythonRequirements
 , makeTemplate
 , nixpkgs
+, packages
 , path
 , ...
 }:
@@ -10,7 +11,6 @@ let
     name = "observes-env-development-tap-mailchimp-python";
     requirements = {
       direct = [
-        "aioextensions==20.11.1621472"
         "click==7.1.2"
         "mailchimp-marketing==3.0.31"
         "pytest==6.2.2"
@@ -65,6 +65,7 @@ makeTemplate {
     ];
     envPython38Paths = [
       logger
+      packages.observes.env.development.paginator.python
       paginator
       pythonRequirements
       singerIO
@@ -72,6 +73,7 @@ makeTemplate {
     ];
     envMypy38Paths = [
       logger
+      packages.observes.env.development.paginator.python
       paginator
       singerIO
       self
