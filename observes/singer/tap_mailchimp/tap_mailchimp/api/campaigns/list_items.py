@@ -1,4 +1,5 @@
 # Standard libraries
+import logging
 from typing import (
     Iterator,
 )
@@ -6,7 +7,6 @@ from typing import (
 # Third party libraries
 
 # Local libraries
-import utils_logger
 from tap_mailchimp.api.common import (
     api_data,
     list_items_alert,
@@ -16,7 +16,8 @@ from tap_mailchimp.api.common.raw import (
     RawSource,
 )
 
-LOG = utils_logger.get_log(__name__)
+
+LOG = logging.getLogger(__name__)
 
 
 def list_campaigns(

@@ -1,4 +1,5 @@
 # Standard libraries
+import logging
 from functools import partial
 from typing import (
     Callable,
@@ -12,7 +13,6 @@ from mailchimp_marketing import (
 )
 
 # Local libraries
-import utils_logger
 import tap_mailchimp.api.audiences as audiences
 import tap_mailchimp.api.campaigns as campaigns
 from tap_mailchimp.api.common import (
@@ -35,7 +35,8 @@ from tap_mailchimp.auth import (
     Credentials,
 )
 
-LOG = utils_logger.get_log(__name__)
+
+LOG = logging.getLogger(__name__)
 
 
 class ApiClient(NamedTuple):

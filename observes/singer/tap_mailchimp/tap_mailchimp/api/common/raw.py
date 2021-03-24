@@ -1,5 +1,8 @@
 # Standard libraries
-from functools import partial
+import logging
+from functools import (
+    partial,
+)
 from typing import (
     Callable,
     NamedTuple,
@@ -12,13 +15,12 @@ from mailchimp_marketing import (
 )
 
 # Local libraries
-import utils_logger
 from tap_mailchimp.common.objs import (
     JSON,
 )
 
 
-LOG = utils_logger.get_log(__name__)
+LOG = logging.getLogger(__name__)
 
 
 class AudienceId(NamedTuple):

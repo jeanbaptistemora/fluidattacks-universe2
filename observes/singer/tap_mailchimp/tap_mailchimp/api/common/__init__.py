@@ -1,4 +1,5 @@
 # Standard libraries
+import logging
 from typing import (
     Optional,
 )
@@ -6,9 +7,9 @@ from typing import (
 # Third party libraries
 
 # Local libraries
-import utils_logger
 
-LOG = utils_logger.get_log(__name__)
+
+LOG = logging.getLogger(__name__)
 
 
 def list_items_alert(ref: str, total: Optional[int]) -> None:

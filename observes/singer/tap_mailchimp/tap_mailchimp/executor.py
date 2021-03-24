@@ -1,4 +1,5 @@
 # Standard libraries
+import logging
 from typing import (
     Callable,
     IO,
@@ -9,7 +10,6 @@ from typing import (
 # Third party libraries
 
 # Local libraries
-import utils_logger
 from tap_mailchimp import (
     api,
     streams,
@@ -25,7 +25,7 @@ from tap_mailchimp.streams import (
 )
 
 
-LOG = utils_logger.get_log(__name__)
+LOG = logging.getLogger(__name__)
 
 _stream_executor: Mapping[
     SupportedStreams,
@@ -52,5 +52,6 @@ def stream(creds: Credentials, name: str) -> None:
 
 def stream_all(creds: Credentials) -> None:
     client: ApiClient = api.new_client(creds)
-    for _, executor in _stream_executor.items():
+    for target_stream, executor in _stream_executor.items():
+        LOG.info('Executing stream: %s', target_stream)
         executor(client, None)

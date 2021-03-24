@@ -19,7 +19,7 @@ def configure(**kargs: Any) -> None:
     )
 
 
-def get_log(
+def main_log(
     name: str,
     min_lvl: int = logging.INFO,
     min_bug_lvl: int = logging.ERROR,
@@ -28,7 +28,8 @@ def get_log(
 ) -> logging.Logger:
     if debug and min_lvl > logging.DEBUG:
         min_lvl = logging.DEBUG
-    logger_format: str = '[%(levelname)s] %(message)s'
+    prefix = '%(name)s> ' if debug else ''
+    logger_format: str = prefix + '[%(levelname)s] %(message)s'
     logger_formatter: logging.Formatter = logging.Formatter(logger_format)
 
     logger_handler: logging.Handler = logging.StreamHandler(target_file)
