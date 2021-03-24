@@ -44,8 +44,8 @@ let
     revision = if (builtins.hasAttr "rev" self) then self.rev else "dirty";
     system = "x86_64-linux";
     skimsBenchmarkOwaspRepo = fetchzip {
-      url = "https://github.com/owasp/benchmark/archive/9a0c25a5f8443245c676965d20d22d5f93da3f99.tar.gz";
-      sha256 = "QwtG90KPleNRU9DrNYTdBlcjR6vcmLTiC6G57x1Ayw4=";
+      url = "https://github.com/owasp/benchmark/archive/b38d197949f775b3c165029bda9dc6bd890265fb.tar.gz";
+      sha256 = "vAWzTEc48sny46Y+hsv7yw1gNoQ9rBO6JL07RejRoUw=";
     };
 
     # Nix packages
