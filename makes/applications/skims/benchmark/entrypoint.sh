@@ -2,6 +2,7 @@
 
 function owasp {
   local category="${1:-}"
+  local extra_flags=( "${@:2}" )
   local benchmark_local_repo="${PWD}/../owasp_benchmark"
   local cache_local="${HOME_IMPURE}/.skims/cache"
   local cache_remote="s3://skims.data/cache/owasp_benchmark"
@@ -13,7 +14,7 @@ function owasp {
   &&  echo '[INFO] Analyzing repository' \
   &&  if test -n "${category}"
       then
-            skims --debug "skims/test/data/config/benchmark_owasp_${category}.yaml" \
+            skims "${extra_flags[@]}" "skims/test/data/config/benchmark_owasp_${category}.yaml" \
         &&  cp "skims/test/outputs/benchmark_owasp_${category}.csv" 'results.csv'
       else
             aws_login_prod 'skims' \
@@ -56,8 +57,9 @@ function upload {
 
 function main {
   local category="${1:-}"
+  local extra_flags=( "${@:2}" )
 
-      owasp "${category}" \
+      owasp "${category}" "${extra_flags[@]}" \
   &&  if test -z "${category}"
       then
         upload

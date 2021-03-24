@@ -17,20 +17,36 @@ from utils import (
 def _append_label_skink(
     graph: graph_model.Graph,
     n_id: str,
-    label: str,
+    finding: core_model.FindingEnum,
 ) -> None:
     if sink := graph.nodes[n_id].get('label_sink_type'):
-        sink += f',{label}'
+        sink += f',{finding.name}'
         graph.nodes[n_id]['label_sink_type'] = sink
     else:
-        graph.nodes[n_id]['label_sink_type'] = label
+        graph.nodes[n_id]['label_sink_type'] = finding.name
 
 
 def _mark_java(graph: graph_model.Graph) -> None:
-    _mark_java_f063(graph)
-    _mark_java_f034(graph)
+    _mark_java_f001(graph)
     _mark_java_f004(graph)
+    _mark_java_f034(graph)
     _mark_java_f042(graph)
+    _mark_java_f063(graph)
+
+
+def _mark_java_f001(graph: graph_model.Graph) -> None:
+    dagerous_functions: Set[str] = {
+        'executeQuery',
+    }
+
+    for n_id in g.filter_nodes(graph, graph.nodes, g.pred_has_labels(
+        label_type='method_invocation',
+    )):
+        for c_id in g.adj_ast(graph, n_id):
+            if graph.nodes[c_id].get('label_text') in dagerous_functions:
+                _append_label_skink(
+                    graph, n_id, core_model.FindingEnum.F001_JAVA_SQL,
+                )
 
 
 def _mark_java_f063(graph: graph_model.Graph) -> None:
@@ -122,7 +138,7 @@ def _mark_java_f034(graph: graph_model.Graph) -> None:
                 _check_method_call(graph, n_id, 'getSession', 'setAttribute'),
                 _check_method_call(graph, n_id, 'addCookie'),
         )):
-            _append_label_skink(graph, n_id, core_model.FindingEnum.F034.name)
+            _append_label_skink(graph, n_id, core_model.FindingEnum.F034)
 
 
 def _mark_java_f004(graph: graph_model.Graph) -> None:
@@ -160,7 +176,7 @@ def _mark_java_f042(graph: graph_model.Graph) -> None:
             predicate=g.pred_has_labels(label_type='method_invocation'),
     ):
         if any((_check_method_call(graph, n_id, 'addCookie'), )):
-            _append_label_skink(graph, n_id, core_model.FindingEnum.F042.name)
+            _append_label_skink(graph, n_id, core_model.FindingEnum.F042)
 
 
 def mark(

@@ -10551,6 +10551,7 @@
           "238": {
             "label_c": 37,
             "label_l": 59,
+            "label_sink_type": "F001_JAVA_SQL",
             "label_type": "method_invocation"
           },
           "239": {
@@ -11472,7 +11473,9 @@
         "language": "java",
         "nodes": {
           "dangerous_action": {
-            "F001_JAVA_SQL": [],
+            "F001_JAVA_SQL": [
+              "238"
+            ],
             "F001_JPA": [],
             "F004": [],
             "F008": [],
