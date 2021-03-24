@@ -109,10 +109,13 @@ skims.test.benchmark_cmdi:
 skims.test.benchmark_pathtraver:
   <<: *skims_test
 
-skims.test.benchmark_weakrand:
+skims.test.benchmark_securecookie:
   <<: *skims_test
 
-skims.test.benchmark_securecookie:
+skims.test.benchmark_sqli:
+  <<: *skims_test
+
+skims.test.benchmark_weakrand:
   <<: *skims_test
 
 skims.test.functional:

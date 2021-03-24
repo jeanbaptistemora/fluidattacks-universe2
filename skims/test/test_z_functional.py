@@ -202,15 +202,21 @@ def test_benchmark_pathtraver() -> None:
 
 
 @pytest.mark.flaky(reruns=0)
-@pytest.mark.skims_test_group('benchmark_weakrand')
-def test_benchmark_weakrand() -> None:
-    _run_no_group('benchmark_owasp_weakrand')
-
-
-@pytest.mark.flaky(reruns=0)
 @pytest.mark.skims_test_group('benchmark_securecookie')
 def test_benchmark_securecookie() -> None:
     _run_no_group('benchmark_owasp_securecookie')
+
+
+@pytest.mark.flaky(reruns=0)
+@pytest.mark.skims_test_group('benchmark_sqli')
+def test_benchmark_sqli() -> None:
+    _run_no_group('benchmark_owasp_sqli')
+
+
+@pytest.mark.flaky(reruns=0)
+@pytest.mark.skims_test_group('benchmark_weakrand')
+def test_benchmark_weakrand() -> None:
+    _run_no_group('benchmark_owasp_weakrand')
 
 
 def _run_no_group(suite: str) -> None:

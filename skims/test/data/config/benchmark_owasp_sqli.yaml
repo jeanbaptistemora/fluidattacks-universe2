@@ -507,5 +507,6 @@ path:
   - BenchmarkTest02739.java
   - BenchmarkTest02740.java
   lib_path: false
-  lib_root: []
+  lib_root:
+  - F001_JAVA_SQL
 working_dir: ../owasp_benchmark/src/main/java/org/owasp/benchmark/testcode

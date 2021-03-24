@@ -44,6 +44,7 @@ def main() -> None:
     categories = {
         'cmdi': [core_model.FindingEnum.F004.name],
         'pathtraver': [core_model.FindingEnum.F063_PATH_TRAVERSAL.name],
+        'sqli': [core_model.FindingEnum.F001_JAVA_SQL.name],
         'securecookie': [core_model.FindingEnum.F042.name],
         'weakrand': [core_model.FindingEnum.F034.name],
     }
