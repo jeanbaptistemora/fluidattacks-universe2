@@ -40,6 +40,7 @@ def _mark_java_f001(graph: graph_model.Graph) -> None:
         'execute',
         'executeQuery',
         'executeUpdate',
+        'query',
         'queryForObject',
         'queryForRowSet',
     }

@@ -122,6 +122,7 @@ def _build_ast_graph(
                 'character_literal',
                 'field_access',
                 'floating_point_type',
+                'generic_type',
                 'integral_type',
                 'scoped_identifier',
                 'scoped_type_identifier',

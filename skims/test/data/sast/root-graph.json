@@ -22271,6 +22271,19 @@
       },
       "path": "skims/test/data/lib_path/f031_cwe378/Test.java",
       "syntax": {
+        "13": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "21",
+              "value": null
+            },
+            "type": "SyntaxStepDeclaration",
+            "var": "args",
+            "var_type": "String[]"
+          }
+        ],
         "25": [
           {
             "meta": {
@@ -44626,6 +44639,19 @@
             },
             "method": "System.out.println",
             "type": "SyntaxStepMethodInvocation"
+          }
+        ],
+        "17": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "25",
+              "value": null
+            },
+            "type": "SyntaxStepDeclaration",
+            "var": "args",
+            "var_type": "String[ ]"
           }
         ],
         "177": [
