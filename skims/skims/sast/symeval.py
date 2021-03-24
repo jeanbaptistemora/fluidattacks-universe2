@@ -480,7 +480,7 @@ def _analyze_method_invocation(args: EvaluatorArgs, method: str) -> None:
     ).get(method_var_decl_type):
         parameters = {param.meta.value for param in args.dependencies}
         if (
-            parameters.intersection(methods.get(method_path, set()))
+            parameters.issubset(methods.get(method_path, set()))
             and method_var_decl
         ):
             method_var_decl.meta.danger = True

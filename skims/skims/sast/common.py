@@ -133,6 +133,15 @@ DANGER_METHODS_BY_TYPE: Dict[str, Set[str]] = _complete_attrs_on_dict({
 })
 
 DANGER_METHODS_BY_TYPE_AND_VALUE_FINDING: Dict[str, Dict[str, Any]] = {
+    core_model.FindingEnum.F008.name:
+    _complete_attrs_on_dict({
+        'javax.servlet.http.HttpServletResponse': {
+            'setHeader': {
+                'X-XSS-Protection',
+                '0',
+            },
+        },
+    }),
     core_model.FindingEnum.F042.name:
     _complete_attrs_on_dict({
         'javax.servlet.http.Cookie': {
@@ -140,7 +149,7 @@ DANGER_METHODS_BY_TYPE_AND_VALUE_FINDING: Dict[str, Dict[str, Any]] = {
                 False,
             },
         },
-    })
+    }),
 }
 DANGER_METHODS_BY_TYPE_ARGS_PROPAGATION: Dict[
     str, Set[str]] = _complete_attrs_on_dict({
@@ -159,6 +168,9 @@ DANGER_METHODS_BY_TYPE_ARGS_PROPAGATION_FINDING: Dict[str, Dict[
             'javax.servlet.http.HttpServletResponse': {
                 'addCookie',
             },
+            'javax.servlet.http.HttpServletRequest': {
+                'getSession.setAttribute',
+            },
         }),
         core_model.FindingEnum.F004.name:
         _complete_attrs_on_dict({
@@ -167,6 +179,11 @@ DANGER_METHODS_BY_TYPE_ARGS_PROPAGATION_FINDING: Dict[str, Dict[
             },
             'Runtime': {
                 'exec',
+            },
+        }),
+        core_model.FindingEnum.F008.name: _complete_attrs_on_dict({
+            'javax.servlet.http.HttpServletResponse': {
+                'getWriter.format',
             },
         }),
 }
