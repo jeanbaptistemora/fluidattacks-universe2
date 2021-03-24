@@ -168,3 +168,31 @@ async def update_item(
             Key=dict(key._asdict()),
             UpdateExpression=f'SET {update_attrs}'
         )
+
+
+def _build_delete_attrs(
+    *,
+    primary_key: PrimaryKey,
+    table: Table
+) -> Dict[str, Any]:
+    key_structure = table.primary_key
+    return {
+        'Key': {
+            key_structure.partition_key: primary_key.partition_key,
+            key_structure.sort_key: primary_key.sort_key,
+        }
+    }
+
+
+async def delete_item(
+    *,
+    primary_key: PrimaryKey,
+    table: Table
+) -> None:
+    async with aioboto3.resource(**RESOURCE_OPTIONS) as resource:
+        table_resource = await resource.Table(table.name)
+        delete_attrs = _build_delete_attrs(
+            primary_key=primary_key,
+            table=table
+        )
+        await table_resource.delete_item(**delete_attrs)
