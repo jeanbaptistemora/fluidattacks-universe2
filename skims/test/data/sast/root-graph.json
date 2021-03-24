@@ -3863,7 +3863,7 @@
           },
           "234": {
             "label_c": 21,
-            "label_input_type": "F063_PATH_TRAVERSAL,F042,F004",
+            "label_input_type": "F001_JAVA_SQL,F004,F042,F063_PATH_TRAVERSAL",
             "label_l": 48,
             "label_text": "HttpServletRequest",
             "label_type": "type_identifier"
@@ -6246,7 +6246,7 @@
           },
           "73": {
             "label_c": 20,
-            "label_input_type": "F063_PATH_TRAVERSAL,F042,F004",
+            "label_input_type": "F001_JAVA_SQL,F004,F042,F063_PATH_TRAVERSAL",
             "label_l": 35,
             "label_text": "HttpServletRequest",
             "label_type": "type_identifier"
@@ -6536,7 +6536,10 @@
             "547"
           ],
           "untrusted": {
-            "F001_JAVA_SQL": [],
+            "F001_JAVA_SQL": [
+              "73",
+              "234"
+            ],
             "F001_JPA": [],
             "F004": [
               "73",
@@ -9733,7 +9736,7 @@
           },
           "109": {
             "label_c": 24,
-            "label_input_type": "F063_PATH_TRAVERSAL,F042,F004",
+            "label_input_type": "F001_JAVA_SQL,F004,F042,F063_PATH_TRAVERSAL",
             "label_l": 40,
             "label_text": "HttpServletRequest",
             "label_type": "type_identifier"
@@ -11286,7 +11289,7 @@
           },
           "73": {
             "label_c": 23,
-            "label_input_type": "F063_PATH_TRAVERSAL,F042,F004",
+            "label_input_type": "F001_JAVA_SQL,F004,F042,F063_PATH_TRAVERSAL",
             "label_l": 35,
             "label_text": "HttpServletRequest",
             "label_type": "type_identifier"
@@ -11542,7 +11545,10 @@
             "300"
           ],
           "untrusted": {
-            "F001_JAVA_SQL": [],
+            "F001_JAVA_SQL": [
+              "73",
+              "109"
+            ],
             "F001_JPA": [],
             "F004": [
               "73",
@@ -15765,7 +15771,7 @@
           },
           "109": {
             "label_c": 21,
-            "label_input_type": "F063_PATH_TRAVERSAL,F042,F004",
+            "label_input_type": "F001_JAVA_SQL,F004,F042,F063_PATH_TRAVERSAL",
             "label_l": 40,
             "label_text": "HttpServletRequest",
             "label_type": "type_identifier"
@@ -19272,7 +19278,7 @@
           },
           "73": {
             "label_c": 20,
-            "label_input_type": "F063_PATH_TRAVERSAL,F042,F004",
+            "label_input_type": "F001_JAVA_SQL,F004,F042,F063_PATH_TRAVERSAL",
             "label_l": 35,
             "label_text": "HttpServletRequest",
             "label_type": "type_identifier"
@@ -19571,7 +19577,10 @@
             "653"
           ],
           "untrusted": {
-            "F001_JAVA_SQL": [],
+            "F001_JAVA_SQL": [
+              "73",
+              "109"
+            ],
             "F001_JPA": [],
             "F004": [
               "73",
@@ -23133,7 +23142,7 @@
           },
           "24": {
             "label_c": 22,
-            "label_input_type": "F063_PATH_TRAVERSAL,F042,F004",
+            "label_input_type": "F001_JAVA_SQL,F004,F042,F063_PATH_TRAVERSAL",
             "label_l": 5,
             "label_text": "HttpServletRequest",
             "label_type": "type_identifier"
@@ -23668,7 +23677,9 @@
             "95"
           ],
           "untrusted": {
-            "F001_JAVA_SQL": [],
+            "F001_JAVA_SQL": [
+              "24"
+            ],
             "F001_JPA": [],
             "F004": [
               "24"

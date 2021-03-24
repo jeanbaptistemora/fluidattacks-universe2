@@ -34,11 +34,12 @@ def _mark_java(graph: graph_model.Graph) -> None:
 
 
 def _mark_java_request(graph: graph_model.Graph) -> None:
-    findins_no_trust_requests = {
+    findins_no_trust_requests = (
+        core_model.FindingEnum.F001_JAVA_SQL.name,
         core_model.FindingEnum.F004.name,
         core_model.FindingEnum.F042.name,
         core_model.FindingEnum.F063_PATH_TRAVERSAL.name,
-    }
+    )
     untrusted_types = {
         'HttpServletRequest',
     }

@@ -152,6 +152,12 @@ def query(
     return tuple(chain.from_iterable(query_lazy(graph_db, finding)))
 
 
+def query_f001_java_sql(
+    graph_db: graph_model.GraphDB,
+) -> core_model.Vulnerabilities:
+    return query(graph_db, core_model.FindingEnum.F001_JAVA_SQL)
+
+
 def query_f004(graph_db: graph_model.GraphDB) -> core_model.Vulnerabilities:
     return query(graph_db, core_model.FindingEnum.F004)
 
@@ -169,6 +175,7 @@ def query_f063_pt(graph_db: graph_model.GraphDB) -> core_model.Vulnerabilities:
 
 
 QUERIES: graph_model.Queries = (
+    (core_model.FindingEnum.F001_JAVA_SQL, query_f001_java_sql),
     (core_model.FindingEnum.F004, query_f004),
     (core_model.FindingEnum.F034, query_f034),
     (core_model.FindingEnum.F042, query_f042),
