@@ -35,6 +35,7 @@ TEST_GROUPS = {
     'benchmark_securecookie',
     'benchmark_sqli',
     'benchmark_weakrand',
+    'benchmark_xss',
     'functional',
     'unittesting',
 }

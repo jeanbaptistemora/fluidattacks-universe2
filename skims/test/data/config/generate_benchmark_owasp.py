@@ -47,6 +47,7 @@ def main() -> None:
         'sqli': [core_model.FindingEnum.F001_JAVA_SQL.name],
         'securecookie': [core_model.FindingEnum.F042.name],
         'weakrand': [core_model.FindingEnum.F034.name],
+        'xss': [core_model.FindingEnum.F008.name],
     }
 
     for category, tests_cases in get_tests_cases().items():

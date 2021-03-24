@@ -219,6 +219,12 @@ def test_benchmark_weakrand() -> None:
     _run_no_group('benchmark_owasp_weakrand')
 
 
+@pytest.mark.flaky(reruns=0)
+@pytest.mark.skims_test_group('benchmark_xss')
+def test_benchmark_xss() -> None:
+    _run_no_group('benchmark_owasp_xss')
+
+
 def _run_no_group(suite: str) -> None:
     code, stdout, stderr = skims(get_suite_config(suite))
     assert code == 0, stdout
