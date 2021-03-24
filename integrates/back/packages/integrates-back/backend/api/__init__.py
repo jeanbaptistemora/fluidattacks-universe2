@@ -48,6 +48,7 @@ from backend.api.dataloaders.organization_stakeholders import (
 from backend.api.dataloaders.organization_tags import (
     OrganizationTagsLoader
 )
+from backend.api.dataloaders.root_toe_lines import RootToeLinesLoader
 from backend.api.dataloaders.vulnerability import VulnerabilityLoader
 
 from back import settings
@@ -73,6 +74,7 @@ class Dataloaders(NamedTuple):
     organization: OrganizationLoader
     organization_stakeholders: OrganizationStakeholdersLoader
     organization_tags: OrganizationTagsLoader
+    root_toe_lines: RootToeLinesLoader
     vulnerability: VulnerabilityLoader
 
 
@@ -108,6 +110,7 @@ def get_new_context() -> Dataloaders:
         organization=OrganizationLoader(),
         organization_stakeholders=OrganizationStakeholdersLoader(),
         organization_tags=OrganizationTagsLoader(),
+        root_toe_lines=RootToeLinesLoader(),
         vulnerability=VulnerabilityLoader()
     )
 
