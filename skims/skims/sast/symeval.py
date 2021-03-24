@@ -602,9 +602,17 @@ def _syntax_step_object_instantiation_danger(args: EvaluatorArgs) -> None:
                 'ProcessBuilder',
             ),
         )),
+        args.syntax_step.object_type in {
+            'java', 'lang', 'StringBuilder',
+        },
     ))
 
     instantiation_danger_no_args = any((
+        args.finding == core_model.FindingEnum.F008 and any((
+            args.syntax_step.object_type in build_attr_paths(
+                'org', 'owasp', 'benchmark', 'helpers', 'SeparateClassRequest'
+            ),
+        )),
         args.finding == core_model.FindingEnum.F034 and any((
             args.syntax_step.object_type in build_attr_paths(
                 'java', 'util', 'Random'

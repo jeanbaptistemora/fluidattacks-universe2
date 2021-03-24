@@ -62,7 +62,12 @@ def _mark_java_f008(graph: graph_model.Graph) -> None:
         predicate=g.pred_has_labels(label_type='method_invocation'),
     ):
         if any((
+                _check_method_call(graph, n_id, 'format'),
                 _check_method_call(graph, n_id, 'getWriter', 'format'),
+                _check_method_call(graph, n_id, 'getWriter', 'print'),
+                _check_method_call(graph, n_id, 'getWriter', 'printf'),
+                _check_method_call(graph, n_id, 'getWriter', 'println'),
+                _check_method_call(graph, n_id, 'getWriter', 'write'),
         )):
             _append_label_skink(graph, n_id, core_model.FindingEnum.F008)
 

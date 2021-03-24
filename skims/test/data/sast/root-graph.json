@@ -5053,6 +5053,7 @@
           "421": {
             "label_c": 11,
             "label_l": 74,
+            "label_sink_type": "F008",
             "label_type": "method_invocation"
           },
           "422": {
@@ -5606,6 +5607,7 @@
           "509": {
             "label_c": 13,
             "label_l": 80,
+            "label_sink_type": "F008",
             "label_type": "method_invocation"
           },
           "51": {
@@ -6436,7 +6438,10 @@
             "F001_JAVA_SQL": [],
             "F001_JPA": [],
             "F004": [],
-            "F008": [],
+            "F008": [
+              "421",
+              "509"
+            ],
             "F009": [],
             "F011": [],
             "F020": [],
@@ -10826,6 +10831,7 @@
           "280": {
             "label_c": 17,
             "label_l": 64,
+            "label_sink_type": "F008",
             "label_type": "method_invocation"
           },
           "281": {
@@ -11484,7 +11490,9 @@
             ],
             "F001_JPA": [],
             "F004": [],
-            "F008": [],
+            "F008": [
+              "280"
+            ],
             "F009": [],
             "F011": [],
             "F020": [],
@@ -18172,6 +18180,7 @@
           "488": {
             "label_c": 4,
             "label_l": 83,
+            "label_sink_type": "F008",
             "label_type": "method_invocation"
           },
           "489": {
@@ -18853,6 +18862,7 @@
           "595": {
             "label_c": 4,
             "label_l": 95,
+            "label_sink_type": "F008",
             "label_type": "method_invocation"
           },
           "596": {
@@ -19131,6 +19141,7 @@
           "639": {
             "label_c": 3,
             "label_l": 101,
+            "label_sink_type": "F008",
             "label_type": "method_invocation"
           },
           "64": {
@@ -19474,7 +19485,11 @@
             "F001_JAVA_SQL": [],
             "F001_JPA": [],
             "F004": [],
-            "F008": [],
+            "F008": [
+              "488",
+              "595",
+              "639"
+            ],
             "F009": [],
             "F011": [],
             "F020": [],

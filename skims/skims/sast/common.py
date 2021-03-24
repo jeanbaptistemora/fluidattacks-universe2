@@ -84,7 +84,14 @@ DANGER_METHODS_BY_OBJ_NO_TYPE_ARGS_PROPAGATION_FIDING: Dict[str, Set[str]] = {
 DANGER_METHODS_BY_OBJ: Dict[str, Set[str]] = _complete_attrs_on_dict({
     'java.lang.String': {
         'getBytes',
+        'split',
         'substring',
+        'toCharArray',
+    },
+    'java.lang.StringBuilder': {
+        'append',
+        'append.toString',
+        'toString',
     },
     'java.sql.CallableStatement': {
         'executeQuery',
@@ -157,6 +164,9 @@ DANGER_METHODS_BY_TYPE_AND_VALUE_FINDING: Dict[str, Dict[str, Any]] = {
 }
 DANGER_METHODS_BY_TYPE_ARGS_PROPAGATION: Dict[
     str, Set[str]] = _complete_attrs_on_dict({
+        'java.io.PrintWriter': {
+            'format',
+        },
         'java.util.List': {
             'add',
         },
@@ -188,6 +198,10 @@ DANGER_METHODS_BY_TYPE_ARGS_PROPAGATION_FINDING: Dict[str, Dict[
         core_model.FindingEnum.F008.name: _complete_attrs_on_dict({
             'javax.servlet.http.HttpServletResponse': {
                 'getWriter.format',
+                'getWriter.print',
+                'getWriter.printf',
+                'getWriter.println',
+                'getWriter.write',
             },
         }),
 }
