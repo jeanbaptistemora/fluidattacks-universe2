@@ -266,6 +266,25 @@ async def update_git_root_cloning(
     await operations.batch_write_item(items=historic, table=TABLE)
 
 
+async def delete_git_root_toe_lines(
+    *,
+    root_toe_lines: GitRootToeLines
+) -> None:
+    facet = TABLE.facets['root_toe_lines']
+    toe_lines_key = keys.build_key(
+        facet=facet,
+        values={
+            'filename': root_toe_lines.filename,
+            'group_name': root_toe_lines.group_name,
+            'root_id': root_toe_lines.root_id,
+        },
+    )
+    await operations.delete_item(
+        primary_key=toe_lines_key,
+        table=TABLE
+    )
+
+
 def _build_git_root_toe_lines(
     *,
     group_name: str,
