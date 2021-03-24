@@ -46,6 +46,30 @@ class FindingMetadata(NamedTuple):
 
 
 class FindingEnum(Enum):
+    F001_JAVA_SQL: FindingMetadata = FindingMetadata(
+        auto_approve=False,
+        cwe='89',
+        description='utils.model.finding.enum.F001_JAVA_SQL.description',
+        impact='utils.model.finding.enum.F001_JAVA_SQL.impact',
+        recommendation='utils.model.finding.enum.F001_JAVA_SQL.recommendation',
+        requirements='utils.model.finding.enum.F001_JAVA_SQL.requirements',
+        severity={
+            'attackComplexity': 0.77,
+            'attackVector': 0.85,
+            'availabilityImpact': 0.56,
+            'confidentialityImpact': 0.56,
+            'exploitability': 0.94,
+            'integrityImpact': 0.56,
+            'privilegesRequired': 0.62,
+            'remediationLevel': 1.0,
+            'reportConfidence': 0.96,
+            'severityScope': 0.0,
+            'userInteraction': 0.85,
+        },
+        threat='utils.model.finding.enum.F001_JAVA_SQL.threat',
+        title='utils.model.finding.enum.F001_JAVA_SQL.title',
+        type=FindingTypeEnum.SECURITY,
+    )
     F001_JPA: FindingMetadata = FindingMetadata(
         auto_approve=True,
         cwe='89',

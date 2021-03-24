@@ -6433,6 +6433,7 @@
         "language": "java",
         "nodes": {
           "dangerous_action": {
+            "F001_JAVA_SQL": [],
             "F001_JPA": [],
             "F004": [],
             "F008": [],
@@ -6535,6 +6536,7 @@
             "547"
           ],
           "untrusted": {
+            "F001_JAVA_SQL": [],
             "F001_JPA": [],
             "F004": [
               "73",
@@ -11470,6 +11472,7 @@
         "language": "java",
         "nodes": {
           "dangerous_action": {
+            "F001_JAVA_SQL": [],
             "F001_JPA": [],
             "F004": [],
             "F008": [],
@@ -11536,6 +11539,7 @@
             "300"
           ],
           "untrusted": {
+            "F001_JAVA_SQL": [],
             "F001_JPA": [],
             "F004": [
               "73",
@@ -19452,6 +19456,7 @@
         "language": "java",
         "nodes": {
           "dangerous_action": {
+            "F001_JAVA_SQL": [],
             "F001_JPA": [],
             "F004": [],
             "F008": [],
@@ -19563,6 +19568,7 @@
             "653"
           ],
           "untrusted": {
+            "F001_JAVA_SQL": [],
             "F001_JPA": [],
             "F004": [
               "73",
@@ -22178,6 +22184,7 @@
         "language": "java",
         "nodes": {
           "dangerous_action": {
+            "F001_JAVA_SQL": [],
             "F001_JPA": [],
             "F004": [],
             "F008": [],
@@ -22214,6 +22221,7 @@
             "59"
           ],
           "untrusted": {
+            "F001_JAVA_SQL": [],
             "F001_JPA": [],
             "F004": [],
             "F008": [],
@@ -23615,6 +23623,7 @@
         "language": "java",
         "nodes": {
           "dangerous_action": {
+            "F001_JAVA_SQL": [],
             "F001_JPA": [],
             "F004": [],
             "F008": [],
@@ -23656,6 +23665,7 @@
             "95"
           ],
           "untrusted": {
+            "F001_JAVA_SQL": [],
             "F001_JPA": [],
             "F004": [
               "24"
@@ -41561,6 +41571,7 @@
         "language": "java",
         "nodes": {
           "dangerous_action": {
+            "F001_JAVA_SQL": [],
             "F001_JPA": [],
             "F004": [],
             "F008": [],
@@ -41870,6 +41881,7 @@
             "1587"
           ],
           "untrusted": {
+            "F001_JAVA_SQL": [],
             "F001_JPA": [],
             "F004": [],
             "F008": [],
