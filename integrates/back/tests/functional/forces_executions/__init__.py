@@ -25,6 +25,8 @@ async def query(
                 fromDate: "2020-02-01T00:00:00Z",
                 toDate: "2020-02-28T23:59:59Z"
             ) {{
+                fromDate
+                toDate
                 executions {{
                     projectName
                     execution_id

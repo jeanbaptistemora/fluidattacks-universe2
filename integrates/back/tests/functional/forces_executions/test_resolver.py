@@ -18,6 +18,8 @@ async def test_admin(populate: bool):
         group='group-1',
     )
     executions = result['data']['forcesExecutions']['executions']
+    assert result['data']['forcesExecutions']['fromDate'] == '2020-02-01 00:00:00+00:00'
+    assert result['data']['forcesExecutions']['toDate'] == '2020-02-28 23:59:59+00:00'
     assert executions[0]['date'] == '2020-02-05T00:00:00-05:00'
     assert executions[0]['exitCode'] == '1'
     assert executions[0]['gitBranch'] == 'master'
@@ -37,6 +39,8 @@ async def test_analyst(populate: bool):
         group='group-1',
     )
     executions = result['data']['forcesExecutions']['executions']
+    assert result['data']['forcesExecutions']['fromDate'] == '2020-02-01 00:00:00+00:00'
+    assert result['data']['forcesExecutions']['toDate'] == '2020-02-28 23:59:59+00:00'
     assert executions[0]['date'] == '2020-02-05T00:00:00-05:00'
     assert executions[0]['exitCode'] == '1'
     assert executions[0]['gitBranch'] == 'master'
