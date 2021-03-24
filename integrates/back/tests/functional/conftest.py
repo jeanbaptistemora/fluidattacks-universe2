@@ -29,6 +29,7 @@ TEST_GROUPS: Set[str] = {
     'event',
     'events',
     'finding',
+    'forces_executions',
     'grant_stakeholder_organization_access',
     'groups_with_forces',
     'internal_names',

@@ -24,11 +24,13 @@ from backend.dal import (
     user as dal_user,
     vulnerability as dal_vulnerability,
 )
+from newutils.datetime import get_from_str
 from comments import dal as dal_comment
 from dynamodb.types import RootItem
 from events import dal as dal_event
 from names import dal as dal_names
 from roots import dal as dal_roots
+from forces import dal as dal_forces
 
 
 async def populate_users(data: List[Any]) -> bool:
@@ -200,6 +202,17 @@ async def populate_policies(data: List[Any]) -> bool:
     ])
     return all(await collect(coroutines))
 
+async def populate_executions(data: List[Any]) -> bool:
+    coroutines: List[Awaitable[bool]] = []
+    for execution in data:
+        execution['date'] = get_from_str(execution['date'],date_format='%Y-%m-%dT%H:%M:%SZ')
+    coroutines.extend([
+        dal_forces.create_execution(
+            **execution
+        )
+        for execution in data
+    ])
+    return all(await collect(coroutines))
 
 async def populate(data: Dict[str, Any]) -> bool:
     coroutines: List[Awaitable[bool]] = []
