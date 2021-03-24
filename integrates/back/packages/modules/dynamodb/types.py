@@ -107,3 +107,32 @@ class URLRootItem(NamedTuple):
 
 
 RootItem = Union[GitRootItem, IPRootItem, URLRootItem]
+
+
+class FindingMetadata(NamedTuple):
+    name: str
+    description: str
+    type: str
+    evidences: Dict[str, str]
+    affected_components: str
+    cvss: Dict[str, float]
+    recommendation: str
+    requirements: str
+    threat: str
+    using_sorts: bool
+    cwe: str
+    attack_vector: str
+
+
+class FindingState(NamedTuple):
+    status: str
+    reason: str
+    modified_date: str
+    modified_by: str
+    source: str
+
+
+class FindingItem(NamedTuple):
+    id: str
+    metadata: FindingMetadata
+    state: FindingState

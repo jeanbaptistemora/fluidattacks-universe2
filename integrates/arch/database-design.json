@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Mar 24, 2021, 08:25 AM",
+    "DateLastModified": "Mar 24, 2021, 11:18 AM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "2.0"
@@ -180,7 +180,7 @@
         },
         {
           "AttributeName": "affected_components",
-          "AttributeType": "SS"
+          "AttributeType": "S"
         },
         {
           "AttributeName": "accessibility",
@@ -204,7 +204,7 @@
         },
         {
           "AttributeName": "requirements",
-          "AttributeType": "SS"
+          "AttributeType": "S"
         },
         {
           "AttributeName": "threat",
@@ -725,9 +725,7 @@
                 "M": {}
               },
               "affected_components": {
-                "SS": [
-                  "web app"
-                ]
+                "S": "web app"
               },
               "cvss": {
                 "M": {}
@@ -736,9 +734,7 @@
                 "S": "Consider changing the date-user standard."
               },
               "requirements": {
-                "SS": [
-                  "REQ.0132. The system must require passphrases to be at least 4 words long and allow them to have 64 characters or more."
-                ]
+                "S": "REQ.0132. The system must require passphrases to be at least 4 words long and allow them to have 64 characters or more."
               },
               "threat": {
                 "S": "External attacker with access"
@@ -1164,10 +1160,7 @@
                 "N": "1"
               },
               "affected_components": {
-                "SS": [
-                  "Inestabilidad del ToE",
-                  "Indisponibilidad del ToE"
-                ]
+                "S": "Inestabilidad del ToE"
               },
               "accessibility": {
                 "S": "Ambiente"
