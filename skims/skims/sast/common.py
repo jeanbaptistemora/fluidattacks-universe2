@@ -102,6 +102,9 @@ DANGER_METHODS_BY_OBJ_ARGS: Dict[str, Set[str]] = _complete_attrs_on_dict({
     'java.sql.Connection': {
         'prepareCall',
     },
+    'java.sql.Statement': {
+        'executeUpdate',
+    },
     'org.owasp.benchmark.helpers.ThingInterface': {
         'doSomething',
     },

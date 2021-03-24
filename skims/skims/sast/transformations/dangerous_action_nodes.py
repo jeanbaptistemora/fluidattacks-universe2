@@ -37,6 +37,7 @@ def _mark_java(graph: graph_model.Graph) -> None:
 def _mark_java_f001(graph: graph_model.Graph) -> None:
     dagerous_functions: Set[str] = {
         'executeQuery',
+        'executeUpdate',
     }
 
     for n_id in g.filter_nodes(graph, graph.nodes, g.pred_has_labels(
