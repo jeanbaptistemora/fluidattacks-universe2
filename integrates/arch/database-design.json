@@ -701,84 +701,6 @@
           }
         },
         {
-          "FacetName": "finding_state",
-          "KeyAttributeAlias": {
-            "PartitionKeyAlias": "FIN#finding_uuid#STATE",
-            "SortKeyAlias": "ROOT#root_uuid"
-          },
-          "TableData": [
-            {
-              "pk": {
-                "S": "FIN#a0fddb36-ac0d-4a58-969f-b13194af61c2#STATE"
-              },
-              "sk": {
-                "S": "ROOT#73f2b757-5a61-4027-b00d-c6227f2163cf"
-              },
-              "status": {
-                "S": "CREATED"
-              },
-              "modified_date": {
-                "S": "2021-02-15T14:01:16Z"
-              },
-              "modified_by": {
-                "S": "test@fluidattacks.com"
-              },
-              "source": {
-                "S": "skims"
-              }
-            }
-          ],
-          "NonKeyAttributes": [
-            "status",
-            "reason",
-            "modified_date",
-            "modified_by",
-            "source"
-          ],
-          "DataAccess": {
-            "MySql": {}
-          }
-        },
-        {
-          "FacetName": "finding_historic_state",
-          "KeyAttributeAlias": {
-            "PartitionKeyAlias": "FIN#uuid",
-            "SortKeyAlias": "STATE#iso8601utc"
-          },
-          "TableData": [
-            {
-              "pk": {
-                "S": "FIN#a0fddb36-ac0d-4a58-969f-b13194af61c2"
-              },
-              "sk": {
-                "S": "STATE#2021-02-15T14:01:16Z"
-              },
-              "status": {
-                "S": "CREATED"
-              },
-              "modified_date": {
-                "S": "2021-02-15T14:01:16Z"
-              },
-              "modified_by": {
-                "S": "test@fluidattacks.com"
-              },
-              "source": {
-                "S": "skims"
-              }
-            }
-          ],
-          "NonKeyAttributes": [
-            "status",
-            "reason",
-            "modified_date",
-            "modified_by",
-            "source"
-          ],
-          "DataAccess": {
-            "MySql": {}
-          }
-        },
-        {
           "FacetName": "finding_comment",
           "KeyAttributeAlias": {
             "PartitionKeyAlias": "FIN#uuid",
@@ -920,25 +842,27 @@
           }
         },
         {
-          "FacetName": "vulnerability_historic_state",
+          "FacetName": "vulnerability_state",
           "KeyAttributeAlias": {
-            "PartitionKeyAlias": "VULN#uuid#STATE#iso8601utc",
-            "SortKeyAlias": "FIN#uuid"
+            "PartitionKeyAlias": "VULN#vuln_uuid#STATE",
+            "SortKeyAlias": "ROOT#root_uuid"
           },
           "TableData": [
             {
               "pk": {
-                "S": "VULN#3098e835-833c-48f7-aa76-12ea884e871f#STATE#2021-02-15T14:01:16Z"
+                "S": "VULN#3098e835-833c-48f7-aa76-12ea884e871f#STATE"
               },
               "sk": {
-                "S": "FIN#a0fddb36-ac0d-4a58-969f-b13194af61c2"
+                "S": "ROOT#73f2b757-5a61-4027-b00d-c6227f2163cf"
               },
               "status": {
                 "S": "OPEN"
               },
               "tags": {
-                "SS": [
-                  "test"
+                "L": [
+                  {
+                    "S": "test"
+                  }
                 ]
               },
               "modified_date": {
@@ -946,6 +870,9 @@
               },
               "modified_by": {
                 "S": "test@fluidattacks.com"
+              },
+              "source": {
+                "S": "skims"
               }
             }
           ],
@@ -954,7 +881,55 @@
             "tags",
             "reason",
             "modified_date",
-            "modified_by"
+            "modified_by",
+            "source"
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
+        },
+        {
+          "FacetName": "vulnerability_historic_state",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "VULN#uuid",
+            "SortKeyAlias": "STATE#iso8601utc"
+          },
+          "TableData": [
+            {
+              "pk": {
+                "S": "VULN#3098e835-833c-48f7-aa76-12ea884e871f"
+              },
+              "sk": {
+                "S": "STATE#2021-02-15T14:01:16Z"
+              },
+              "status": {
+                "S": "OPEN"
+              },
+              "tags": {
+                "L": [
+                  {
+                    "S": "test"
+                  }
+                ]
+              },
+              "modified_date": {
+                "S": "2021-02-15T14:01:16Z"
+              },
+              "modified_by": {
+                "S": "test@fluidattacks.com"
+              },
+              "source": {
+                "S": "skims"
+              }
+            }
+          ],
+          "NonKeyAttributes": [
+            "status",
+            "tags",
+            "reason",
+            "modified_date",
+            "modified_by",
+            "source"
           ],
           "DataAccess": {
             "MySql": {}
