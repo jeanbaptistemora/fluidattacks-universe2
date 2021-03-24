@@ -82,6 +82,9 @@ DANGER_METHODS_BY_OBJ: Dict[str, Set[str]] = _complete_attrs_on_dict({
         'getBytes',
         'substring',
     },
+    'java.sql.CallableStatement': {
+        'executeQuery',
+    },
     'java.util.Enumeration': {
         'nextElement',
     },
@@ -96,6 +99,9 @@ DANGER_METHODS_BY_OBJ: Dict[str, Set[str]] = _complete_attrs_on_dict({
     },
 })
 DANGER_METHODS_BY_OBJ_ARGS: Dict[str, Set[str]] = _complete_attrs_on_dict({
+    'java.sql.Connection': {
+        'prepareCall',
+    },
     'org.owasp.benchmark.helpers.ThingInterface': {
         'doSomething',
     },

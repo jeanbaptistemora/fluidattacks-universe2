@@ -296,27 +296,34 @@ GRAPH_VULNERABILITY_PARAMETERS: Dict[
     core_model.FindingEnum,
     GraphVulnerabilityParameters,
 ] = {
-    core_model.FindingEnum.F063_PATH_TRAVERSAL: (
+    core_model.FindingEnum.F001_JAVA_SQL: (
         GraphVulnerabilityParameters(
-            cwe=('22',),
-            desc_key='src.lib_path.f063_path_traversal.description',
+            cwe=('89',),
+            desc_key='src.lib_path.F001_JAVA_SQL.user_controled_param',
             desc_params={},
         )
-    ),
-    core_model.FindingEnum.F034: GraphVulnerabilityParameters(
-        cwe=('330',),
-        desc_key='utils.model.finding.enum.f034.description',
-        desc_params={}
     ),
     core_model.FindingEnum.F004: GraphVulnerabilityParameters(
         cwe=('78',),
         desc_key='utils.model.finding.enum.f004.description',
         desc_params={}
     ),
+    core_model.FindingEnum.F034: GraphVulnerabilityParameters(
+        cwe=('330',),
+        desc_key='utils.model.finding.enum.f034.description',
+        desc_params={}
+    ),
     core_model.FindingEnum.F042: GraphVulnerabilityParameters(
         cwe=('614',),
         desc_key='utils.model.finding.enum.f042.description',
         desc_params={}
+    ),
+    core_model.FindingEnum.F063_PATH_TRAVERSAL: (
+        GraphVulnerabilityParameters(
+            cwe=('22',),
+            desc_key='src.lib_path.f063_path_traversal.description',
+            desc_params={},
+        )
     ),
 }
 

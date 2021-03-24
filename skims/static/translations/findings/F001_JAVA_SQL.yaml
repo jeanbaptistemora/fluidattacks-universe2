@@ -1,4 +1,4 @@
-src.lib_path.F001_JAVA_SQL.java_like:
+src.lib_path.F001_JAVA_SQL.user_controled_param:
   en: >
     Uso de parametros controlados por el atacante para realizar consultas a
     la base de datos
