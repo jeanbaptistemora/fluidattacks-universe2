@@ -879,3 +879,38 @@ def get_possible_syntax_steps(
             json_dump(syntax_steps_map, handle, indent=2, sort_keys=True)
 
     return syntax_steps_map
+
+
+class PossibleSyntaxStepLinear(NamedTuple):
+    shard_path: str
+    syntax_steps: graph_model.SyntaxSteps
+    untrusted_n_id: graph_model.NId
+
+
+@trace()
+def get_possible_syntax_steps_linear(
+    graph_db: graph_model.GraphDB,
+    finding: core_model.FindingEnum,
+) -> Iterator[PossibleSyntaxStepLinear]:
+    possible_syntax_steps: Tuple[PossibleSyntaxStepLinear, ...] = tuple(
+        PossibleSyntaxStepLinear(
+            shard_path=shard_path,
+            syntax_steps=syntax_steps,
+            untrusted_n_id=untrusted_n_id,
+        )
+        for shard_path, syntax_steps_for_finding in (
+            get_possible_syntax_steps(graph_db, finding).items()
+        )
+        for untrusted_n_id, syntax_steps_for_untrusted_n_id in (
+            syntax_steps_for_finding.items()
+        )
+        for syntax_steps in syntax_steps_for_untrusted_n_id.values()
+    )
+    possible_syntax_steps_len = len(possible_syntax_steps)
+
+    for index, possible_syntax_step in enumerate(possible_syntax_steps, 1):
+        log_blocking(
+            'info', '%s: Evaluating code flow %s / %s',
+            finding.name, index, possible_syntax_steps_len,
+        )
+        yield possible_syntax_step

@@ -16,7 +16,7 @@ from model import (
     graph_model,
 )
 from sast.symeval import (
-    get_possible_syntax_steps,
+    get_possible_syntax_steps_linear,
 )
 from utils.ctx import (
     CTX,
@@ -124,38 +124,33 @@ def query_lazy(
     graph_db: graph_model.GraphDB,
     finding: core_model.FindingEnum,
 ) -> Iterator[core_model.Vulnerabilities]:
-    for shard_path, possible_syntax_steps_for_finding in (
-        get_possible_syntax_steps(graph_db, finding).items()
+    for syntax_steps in get_possible_syntax_steps_linear(
+        graph_db,
+        finding,
     ):
-        for untrusted_n_id, possible_syntax_steps_for_untrusted_n_id in (
-            possible_syntax_steps_for_finding.items()
-        ):
-            for syntax_steps in (
-                possible_syntax_steps_for_untrusted_n_id.values()
-            ):
-                params = graph_model.GRAPH_VULNERABILITY_PARAMETERS[finding]
+        params = graph_model.GRAPH_VULNERABILITY_PARAMETERS[finding]
 
-                yield get_vulnerabilities_from_n_ids(
-                    cwe=params.cwe,
-                    desc_key=params.desc_key,
-                    desc_params=params.desc_params,
-                    finding=finding,
-                    graph_shard_nodes=[
-                        (graph_shard, syntax_step.meta.n_id)
-                        for graph_shard in [
-                            graph_db.shards[
-                                graph_db.shards_by_path[shard_path]
-                            ],
-                        ]
-                        for syntax_step in syntax_steps
-                        if _is_vulnerable(
-                            finding,
-                            syntax_step,
-                            graph_shard.graph.nodes[syntax_step.meta.n_id],
-                            graph_shard.graph.nodes[untrusted_n_id],
-                        )
+        yield get_vulnerabilities_from_n_ids(
+            cwe=params.cwe,
+            desc_key=params.desc_key,
+            desc_params=params.desc_params,
+            finding=finding,
+            graph_shard_nodes=[
+                (graph_shard, syntax_step.meta.n_id)
+                for graph_shard in [
+                    graph_db.shards[
+                        graph_db.shards_by_path[syntax_steps.shard_path]
                     ],
+                ]
+                for syntax_step in syntax_steps.syntax_steps
+                if _is_vulnerable(
+                    finding,
+                    syntax_step,
+                    graph_shard.graph.nodes[syntax_step.meta.n_id],
+                    graph_shard.graph.nodes[syntax_steps.untrusted_n_id],
                 )
+            ],
+        )
 
 
 def query(
