@@ -1,72 +1,70 @@
-import { mount, ReactWrapper } from "enzyme";
-import React from "react";
+import { Header } from ".";
 import { I18nextProvider } from "react-i18next";
-import { Text } from "react-native-paper";
-
+import React from "react";
+import type { ReactWrapper } from "enzyme";
+import type { Text } from "react-native-paper";
 import { i18next } from "../../../utils/translations/translate";
-
-import { Header } from "./index";
+import { mount } from "enzyme";
 
 describe("Header", (): void => {
-
   it("should return a function", (): void => {
-    expect(typeof (Header))
-      .toEqual("function");
+    expect.hasAssertions();
+
+    expect(typeof Header).toStrictEqual("function");
   });
 
   it("should render", (): void => {
+    expect.hasAssertions();
+
     const wrapper: ReactWrapper = mount(
       <I18nextProvider i18n={i18next}>
         <Header
+          onLogout={jest.fn()}
           user={{
             email: "jdoe@mail.com",
             firstName: "John",
             fullName: "John Doe",
             photoUrl: "https://test.com/image.png",
           }}
-          onLogout={jest.fn()}
         />
-      </I18nextProvider>,
+      </I18nextProvider>
     );
 
-    expect(wrapper)
-      .toHaveLength(1);
-    expect(wrapper.find("Image").length)
-      .toBeGreaterThan(1);
-    expect(wrapper.text())
-      .toContain("John Doe");
-    expect(wrapper.text())
-      .toContain("jdoe@mail.com");
+    expect(wrapper).toHaveLength(1);
+    expect(wrapper.find("Image").length).toBeGreaterThan(1);
+    expect(wrapper.text()).toContain("John Doe");
+    expect(wrapper.text()).toContain("jdoe@mail.com");
   });
 
   it("should execute logout callback", (): void => {
+    expect.hasAssertions();
+
     const logoutMock: jest.Mock = jest.fn();
     const wrapper: ReactWrapper = mount(
       <I18nextProvider i18n={i18next}>
         <Header
+          onLogout={logoutMock}
           user={{
             email: "jdoe@mail.com",
             firstName: "John",
             fullName: "John Doe",
             photoUrl: "https://test.com/image.png",
           }}
-          onLogout={logoutMock}
         />
-      </I18nextProvider>,
+      </I18nextProvider>
     );
 
-    expect(wrapper)
-      .toHaveLength(1);
+    expect(wrapper).toHaveLength(1);
 
-    const logoutBtn: ReactWrapper<React.ComponentProps<typeof Text>> = wrapper
-      .find({ children: "Logout" })
-      .at(0);
+    const logoutBtn: ReactWrapper<
+      React.ComponentProps<typeof Text>
+    > = wrapper.find({ children: "Logout" }).at(0);
 
-    expect(logoutBtn)
-      .toHaveLength(1);
+    expect(logoutBtn).toHaveLength(1);
 
     (logoutBtn.invoke("onPress") as () => void)();
-    expect(logoutMock)
-      .toHaveBeenCalled();
+
+    // eslint-disable-next-line jest/prefer-called-with
+    expect(logoutMock).toHaveBeenCalled();
   });
 });

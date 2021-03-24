@@ -1,8 +1,10 @@
-import { default as Constants } from "expo-constants";
+// eslint-disable-next-line import/no-named-as-default
+import Constants from "expo-constants";
 import { StyleSheet } from "react-native";
 
 export const styles: Record<
-  string, Record<string, unknown>
+  string,
+  Record<string, unknown>
 > = StyleSheet.create({
   actions: {
     marginLeft: "auto",

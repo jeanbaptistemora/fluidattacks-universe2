@@ -1,21 +1,20 @@
-import _ from "lodash";
-import React from "react";
-import { useTranslation } from "react-i18next";
-import { View } from "react-native";
-import { Appbar, Text, useTheme } from "react-native-paper";
-
+// Needed to override default styles
+/* eslint-disable react/forbid-component-props */
 import { Avatar } from "../../../components/Avatar";
-import { IUser } from "../../../utils/socialAuth";
-
+import type { IUser } from "../../../utils/socialAuth";
+import React from "react";
+import { View } from "react-native";
 import { styles } from "./styles";
+import { useTranslation } from "react-i18next";
+import { Appbar, Text, useTheme } from "react-native-paper";
 
 /** App header */
 interface IHeaderProps {
   user: IUser;
-  onLogout(): void;
+  onLogout: () => void;
 }
 
-const header: React.FC<IHeaderProps> = (props: IHeaderProps): JSX.Element => {
+const Header: React.FC<IHeaderProps> = (props: IHeaderProps): JSX.Element => {
   const { user, onLogout } = props;
   const { colors } = useTheme();
   const { t } = useTranslation();
@@ -24,27 +23,23 @@ const header: React.FC<IHeaderProps> = (props: IHeaderProps): JSX.Element => {
     <React.StrictMode>
       <View style={[styles.container, { backgroundColor: colors.background }]}>
         <View style={styles.avatar}>
-          <Avatar
-            photoUrl={user.photoUrl}
-            size={40}
-            userName={user.fullName}
-          />
+          <Avatar photoUrl={user.photoUrl} size={40} userName={user.fullName} />
         </View>
         <Appbar.Content
           accessibilityComponentType={undefined}
           accessibilityTraits={undefined}
           color={colors.text}
-          title={user.fullName}
-          titleStyle={styles.name}
           subtitle={user.email}
           subtitleStyle={styles.email}
+          title={user.fullName}
+          titleStyle={styles.name}
         />
         <View style={styles.actions}>
           <Text
             accessibilityComponentType={undefined}
             accessibilityTraits={undefined}
-            style={styles.logout}
             onPress={onLogout}
+            style={styles.logout}
           >
             {t("common.logout")}
           </Text>
@@ -54,4 +49,4 @@ const header: React.FC<IHeaderProps> = (props: IHeaderProps): JSX.Element => {
   );
 };
 
-export { header as Header };
+export { Header };

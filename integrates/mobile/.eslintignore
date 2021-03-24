@@ -10,3 +10,4 @@
 !src/utils/notifications.ts
 !src/app.tsx
 !src/index.spec.tsx
+!src/containers/DashboardView/Header/**
