@@ -1,0 +1,9 @@
+[tool.poetry]
+name = "paginator"
+version = "0.1.1"
+description = ""
+authors = ["Product Team <development@fluidattacks.com>"]
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"

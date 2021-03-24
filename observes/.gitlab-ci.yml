@@ -76,6 +76,11 @@ observes.lint.dif-gitlab-etl:
   <<: *observes_in_dev_branch
   stage: lint-code
 
+observes.lint.paginator:
+  <<: *makes
+  <<: *observes_in_dev_branch
+  stage: lint-code
+
 observes.lint.postgres-client:
   <<: *makes
   <<: *observes_in_dev_branch
