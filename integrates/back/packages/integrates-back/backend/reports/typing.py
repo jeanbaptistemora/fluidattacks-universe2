@@ -227,6 +227,8 @@ class PDFWordlistEn(Wordlist):
         'treat_status_wor', 'New')
     TREAT_STATUS_ASU: WordlistItem = WordlistItem(
         'treat_status_asu', 'Temporarily Accepted')
+    TREAT_ETERNALLY_ASU: WordlistItem = WordlistItem(
+        'treat_ete_asu', 'Eternally Accepted')
     TREAT_STATUS_REM: WordlistItem = WordlistItem(
         'treat_status_rem', 'In Progress')
     FIN_STATUS_OPEN: WordlistItem = WordlistItem(

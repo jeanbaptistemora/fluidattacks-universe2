@@ -32,6 +32,7 @@ async def generate(
 ) -> str:
     with tempfile.TemporaryDirectory() as directory:
         await _append_pdf_report(
+            context=context,
             directory=directory,
             findings_ord=findings_ord,
             group=group,
@@ -58,6 +59,7 @@ async def generate(
 
 async def _append_pdf_report(
     *,
+    context: Any,
     directory: str,
     findings_ord: List[Dict[str, FindingType]],
     group: str,
@@ -67,6 +69,7 @@ async def _append_pdf_report(
 ) -> None:
     # Generate the PDF report
     report_filename = await technical_report.generate_pdf_file(
+        context=context,
         description=group_description,
         findings_ord=findings_ord,
         group_name=group,

@@ -65,6 +65,7 @@ def convert_evidences_to_png(
 
 async def generate_pdf_file(
     *,
+    context: Any,
     description: str,
     findings_ord: List[Dict[str, FindingType]],
     group_name: str,
@@ -78,7 +79,9 @@ async def generate_pdf_file(
         pdf_maker = CreatorPDF(lang, 'tech', tempdir)
         await download_evidences_for_pdf(findings_ord, tempdir)
         convert_evidences_to_png(findings_ord, tempdir, group_name)
-        pdf_maker.tech(findings_ord, group_name, description, user_email)
+        await pdf_maker.tech(
+            findings_ord, group_name, description, user_email, context
+        )
     report_filename = await secure_pdf.create_full(
         user_email, pdf_maker.out_name, group_name
     )

@@ -3,7 +3,16 @@ import itertools
 import logging
 from datetime import datetime
 from operator import itemgetter
-from typing import Any, Iterable, List, Dict, Union, cast
+from typing import (
+    Any,
+    Counter,
+    Iterable,
+    Dict,
+    List,
+    NamedTuple,
+    Union,
+    cast,
+)
 
 from back.settings import LOGGING
 from backend.dal import vulnerability as vuln_dal
@@ -19,6 +28,12 @@ logging.config.dictConfig(LOGGING)
 
 # Constants
 LOGGER = logging.getLogger(__name__)
+Treatments = NamedTuple('Treatments', [
+    ('ACCEPTED', int),
+    ('ACCEPTED_UNDEFINED', int),
+    ('IN_PROGRESS', int),
+    ('NEW', int),
+])
 
 
 def format_data(vuln: Dict[str, FindingType]) -> Dict[str, FindingType]:
@@ -225,3 +240,20 @@ def get_report_dates(
     ]
 
     return report_dates
+
+
+def get_treatments(
+    vulnerabilities: List[Dict[str, FindingType]]
+) -> Treatments:
+    treatment_counter = Counter([
+        vuln['historic_treatment'][-1]['treatment']
+        for vuln in vulnerabilities
+        if vuln['historic_state'][-1]['state'] == 'open'
+    ])
+
+    return Treatments(
+        ACCEPTED=treatment_counter['ACCEPTED'],
+        ACCEPTED_UNDEFINED=treatment_counter['ACCEPTED_UNDEFINED'],
+        IN_PROGRESS=treatment_counter['IN PROGRESS'],
+        NEW=treatment_counter['NEW'],
+    )

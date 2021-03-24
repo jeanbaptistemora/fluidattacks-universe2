@@ -59,6 +59,7 @@ async def get_group_report_url(
         )
     if report_type == 'PDF':
         return await technical_report.generate_pdf_file(
+            context=context,
             description=description,
             findings_ord=findings_ord,
             group_name=group_name,

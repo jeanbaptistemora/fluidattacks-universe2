@@ -7,12 +7,13 @@ import subprocess
 import uuid
 import importlib
 
-from typing import Dict
+from typing import Dict, List
 from jinja2 import select_autoescape
 import jinja2
 import matplotlib
 
 from backend.reports.typing import PDFWordlistEn
+from newutils.vulnerabilities import get_treatments
 
 from __init__ import (
     BASE_URL,
@@ -92,9 +93,9 @@ class CreatorPDF():
             zip(PDFWordlistEn.keys(), PDFWordlistEn.labels())
         )
 
-    def tech(self, data, project, description, user):
+    async def tech(self, data, project, description, user, context):  # noqa pylint: disable=too-many-arguments
         """ Create the template to render and apply the context. """
-        self.fill_project(data, project, description, user)
+        await self.fill_project(data, project, description, user, context)
         self.out_name = str(uuid.uuid4()) + '.pdf'
         searchpath = self.path
         template_loader = jinja2.FileSystemLoader(searchpath=searchpath)
@@ -205,7 +206,7 @@ class CreatorPDF():
         close('all')
         return pie_filename
 
-    def fill_project(self, findings, project, description, user):  # noqa pylint: disable=too-many-locals
+    async def fill_project(self, findings, project, description, user, context):  # noqa pylint: disable=too-many-arguments,too-many-locals
         """ Add project information. """
         words = self.wordlist[self.lang]
         full_project = description
@@ -215,17 +216,33 @@ class CreatorPDF():
         version = 'v1.0'
         team_mail = 'engineering@fluidattacks.com'
         main_pie_filename = self.make_pie_finding(findings, project, words)
-        for finding in findings:  # Fix para viejos hallazgos de formstack
-            if 'treatment' not in finding:
-                finding['treatment'] = words['treat_status_wor']
-            elif finding['treatment'] == 'NEW':
-                finding['treatment'] = words['treat_status_wor']
-            elif finding['treatment'] == 'ACCEPTED':
-                finding['treatment'] = words['treat_status_asu']
-            elif finding['treatment'] == 'IN PROGRESS':
-                finding['treatment'] = words['treat_status_rem']
+        finding_vulns_loader = context.finding_vulns_nzr
+        vulnerabilities = await finding_vulns_loader.load_many([
+            finding['findingId'] for finding in findings
+        ])
+        for finding, vulns in zip(findings, vulnerabilities):
+            treatment = get_treatments(vulns)
+            treatments: List[str] = []
+            if treatment.ACCEPTED > 0:
+                treatments.append(
+                    f'{words["treat_status_asu"]}: {treatment.ACCEPTED}'
+                )
+            if treatment.ACCEPTED_UNDEFINED > 0:
+                treatments.append(
+                    f'{words["treat_ete_asu"]}: {treatment.ACCEPTED_UNDEFINED}'
+                )
+            if treatment.IN_PROGRESS > 0:
+                treatments.append(
+                    f'{words["treat_status_rem"]}: {treatment.IN_PROGRESS}'
+                )
+            if treatment.NEW > 0:
+                treatments.append(
+                    f'{words["treat_status_wor"]}: {treatment.NEW}'
+                )
+
             if int(finding['openVulnerabilities']) > 0:
                 finding['state'] = words['fin_status_open']
+                finding['treatment'] = '\n'.join(sorted(treatments))
             else:
                 finding['state'] = words['fin_status_closed']
                 finding['treatment'] = '-'
