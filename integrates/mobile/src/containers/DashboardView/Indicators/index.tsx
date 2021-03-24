@@ -1,16 +1,21 @@
+// Needed to override styles
+/* eslint-disable react/forbid-component-props */
+import Border from "../../../../assets/percentBorder.svg";
+import type { IOrganization } from "../types";
 import { MaterialIcons } from "@expo/vector-icons";
-import _ from "lodash";
 import React from "react";
-import { Trans, useTranslation } from "react-i18next";
-import { View } from "react-native";
-import { Headline, Subheading, Text, Title, useTheme } from "react-native-paper";
 import { SvgCss } from "react-native-svg";
-
-// tslint:disable-next-line: no-default-import
-import { default as Border } from "../../../../assets/percentBorder.svg";
-import { IOrganization } from "../types";
-
+import { View } from "react-native";
+import _ from "lodash";
 import { styles } from "./styles";
+import {
+  Headline,
+  Subheading,
+  Text,
+  Title,
+  useTheme,
+} from "react-native-paper";
+import { Trans, useTranslation } from "react-i18next";
 
 /** Indicators data structure */
 interface IIndicators {
@@ -19,22 +24,23 @@ interface IIndicators {
   total: number;
 }
 
-type CalcIndicatorsFn = ((
+// eslint-disable-next-line @typescript-eslint/no-type-alias
+type CalcIndicatorsFn = (
   org: IOrganization,
-  kind: "current" | "previous",
-) => IIndicators);
+  kind: "current" | "previous"
+) => IIndicators;
 
 const calcIndicators: CalcIndicatorsFn = (
   org: IOrganization,
-  kind: "current" | "previous",
+  kind: "current" | "previous"
 ): IIndicators => {
   const closedVulns: number = org.analytics[kind].closed;
 
   const totalVulns: number =
-    org.analytics[kind].open
-    + org.analytics[kind].closed;
+    org.analytics[kind].open + org.analytics[kind].closed;
 
-  const remediationPercentage: number = (closedVulns / totalVulns * 100);
+  const percentage = 100;
+  const remediationPercentage: number = (closedVulns / totalVulns) * percentage;
 
   return {
     closed: closedVulns,
@@ -48,8 +54,8 @@ interface IIndicatorsProps {
   org: IOrganization;
 }
 
-const indicators: React.FC<IIndicatorsProps> = (
-  props: IIndicatorsProps,
+const Indicators: React.FC<IIndicatorsProps> = (
+  props: IIndicatorsProps
 ): JSX.Element => {
   const { org } = props;
   const { colors } = useTheme();
@@ -58,12 +64,14 @@ const indicators: React.FC<IIndicatorsProps> = (
   const { totalGroups } = org.analytics;
   const current: IIndicators = calcIndicators(org, "current");
   const previous: IIndicators = calcIndicators(org, "previous");
-  const percentageDiff: number =
-    parseFloat((current.percentage - previous.percentage).toFixed(1));
+  const percentageDiff: number = parseFloat(
+    (current.percentage - previous.percentage).toFixed(1)
+  );
 
-  const color: string = percentageDiff === 0
-    ? colors.text
-    : percentageDiff > 0
+  const color: string =
+    percentageDiff === 0
+      ? colors.text
+      : percentageDiff > 0
       ? "#0F9D58"
       : "#DB4437";
 
@@ -71,29 +79,29 @@ const indicators: React.FC<IIndicatorsProps> = (
     <View style={styles.container}>
       <Title>{_.capitalize(org.name)}</Title>
       <View style={styles.percentageContainer}>
-        <SvgCss xml={Border} width={220} height={220} />
+        <SvgCss height={220} width={220} xml={Border} />
         <Text
           accessibilityComponentType={undefined}
           accessibilityTraits={undefined}
           style={styles.percentageText}
         >
-          {parseFloat(current.percentage.toFixed(1))}%
+          {parseFloat(current.percentage.toFixed(1))}
+          {"%"}
         </Text>
       </View>
       <View style={styles.remediationContainer}>
         <View style={styles.diff}>
-          {percentageDiff === 0
-            ? <MaterialIcons name="remove" size={24} color={color} />
-            : percentageDiff > 0
-              ? <MaterialIcons name="arrow-upward" size={24} color={color} />
-              : <MaterialIcons
-                name="arrow-downward"
-                size={24}
-                color={color}
-              />
-          }
+          {percentageDiff === 0 ? (
+            <MaterialIcons color={color} name={"remove"} size={24} />
+          ) : percentageDiff > 0 ? (
+            <MaterialIcons color={color} name={"arrow-upward"} size={24} />
+          ) : (
+            <MaterialIcons color={color} name={"arrow-downward"} size={24} />
+          )}
           <Title style={{ color }}>
-            {percentageDiff > 0 ? "+" : undefined}{percentageDiff}%
+            {percentageDiff > 0 ? "+" : undefined}
+            {percentageDiff}
+            {"%"}
           </Title>
         </View>
         <Text
@@ -106,7 +114,7 @@ const indicators: React.FC<IIndicatorsProps> = (
           {t("dashboard.remediated")}
         </Headline>
         <Subheading>
-          <Trans i18nKey="dashboard.vulnsFound" count={totalGroups}>
+          <Trans count={totalGroups} i18nKey={"dashboard.vulnsFound"}>
             <Title>{{ totalVulns: current.total.toLocaleString() }}</Title>
           </Trans>
         </Subheading>
@@ -115,4 +123,4 @@ const indicators: React.FC<IIndicatorsProps> = (
   );
 };
 
-export { indicators as Indicators };
+export { Indicators };

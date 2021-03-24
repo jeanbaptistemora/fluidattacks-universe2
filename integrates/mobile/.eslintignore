@@ -11,3 +11,4 @@
 !src/app.tsx
 !src/index.spec.tsx
 !src/containers/DashboardView/Header/**
+!src/containers/DashboardView/Indicators/**
