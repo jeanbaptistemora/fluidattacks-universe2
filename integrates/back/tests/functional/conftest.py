@@ -48,6 +48,7 @@ TEST_GROUPS: Set[str] = {
     'solve_event',
     'submit_draft',
     'unsubscribe_from_group',
+    'update_access_token',
     'update_event_evidence',
     'update_evidence',
     'update_evidence_description',
