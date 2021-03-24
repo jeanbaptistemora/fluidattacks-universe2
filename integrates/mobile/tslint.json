@@ -9,7 +9,8 @@
       "node_modules",
       "src/components/About/**",
       "src/components/Avatar/**",
-      "src/components/Logo/**"
+      "src/components/Logo/**",
+      "src/index.spec.tsx"
     ]
   },
   "rules": {

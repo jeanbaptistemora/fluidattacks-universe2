@@ -6,3 +6,4 @@
 !src/components/About/**
 !src/components/Avatar/**
 !src/components/Logo/**
+!src/index.spec.tsx
