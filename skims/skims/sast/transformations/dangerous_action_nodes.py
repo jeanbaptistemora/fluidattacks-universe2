@@ -41,6 +41,7 @@ def _mark_java_f001(graph: graph_model.Graph) -> None:
         'executeQuery',
         'executeUpdate',
         'queryForObject',
+        'queryForRowSet',
     }
 
     for n_id in g.filter_nodes(graph, graph.nodes, g.pred_has_labels(

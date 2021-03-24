@@ -45,6 +45,7 @@ DANGER_METHODS_BY_ARGS_PROPAGATION: Set[str] = _complete_attrs_on_set({
     'org.apache.commons.codec.binary.Base64.decodeBase64',
     'org.apache.commons.codec.binary.Base64.encodeBase64',
     'org.owasp.benchmark.helpers.DatabaseHelper.JDBCtemplate.queryForObject',
+    'org.owasp.benchmark.helpers.DatabaseHelper.JDBCtemplate.queryForRowSet',
     'org.owasp.esapi.ESAPI.encoder.encodeForBase64',
     'org.owasp.esapi.ESAPI.encoder.decodeForBase64',
     'Double.toString',
