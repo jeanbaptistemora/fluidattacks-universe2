@@ -1,4 +1,4 @@
-import { ResourceLanguage } from "i18next";
+import type { ResourceLanguage } from "i18next";
 
 export const enTranslations: ResourceLanguage = {
   about: {
@@ -26,7 +26,9 @@ export const enTranslations: ResourceLanguage = {
     diff: "Compared to last rolling week",
     remediated: "Remediated vulnerabilities",
     vulnsFound: "of <0>{{totalVulns}}</0> found in <0>{{count}}</0> system",
-    vulnsFound_plural: "of <0>{{totalVulns}}</0> found in <0>{{count}}</0> systems",
+    // eslint-disable-next-line camelcase -- Suffix "_plural" used by i18next lib
+    vulnsFound_plural:
+      "of <0>{{totalVulns}}</0> found in <0>{{count}}</0> systems",
   },
   lock: {
     btn: "Authenticate",

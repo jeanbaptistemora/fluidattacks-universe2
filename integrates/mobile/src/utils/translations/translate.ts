@@ -1,10 +1,8 @@
-import { locale } from "expo-localization";
+import { LOGGER } from "../logger";
+import { enTranslations } from "./en";
 import i18next from "i18next";
 import { initReactI18next } from "react-i18next";
-
-import { LOGGER } from "../logger";
-
-import { enTranslations } from "./en";
+import { locale } from "expo-localization";
 
 i18next
   .use(initReactI18next)
@@ -20,6 +18,7 @@ i18next
   })
   .catch((error: Error): void => {
     LOGGER.warning("Couldn't initialize translations", error);
+    // eslint-disable-next-line fp/no-throw
     throw error;
   });
 

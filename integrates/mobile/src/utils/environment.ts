@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-named-default -- Needed for using manifest correctly
 import { default as Constants } from "expo-constants";
 
 /**
@@ -12,7 +13,7 @@ export const getEnvironment: () => IEnvironment = (): IEnvironment => {
   const { hostUri, releaseChannel } = Constants.manifest;
 
   if (__DEV__ || releaseChannel === "local") {
-    const hostAddress: string = (hostUri as string).split(":")[0];
+    const [hostAddress] = (hostUri as string).split(":");
 
     return {
       name: "development",
@@ -23,7 +24,7 @@ export const getEnvironment: () => IEnvironment = (): IEnvironment => {
   if ((releaseChannel as string).endsWith("atfluid")) {
     return {
       name: "ephemeral",
-      url: `https://${releaseChannel}.integrates.fluidattacks.com`,
+      url: `https://${releaseChannel as string}.integrates.fluidattacks.com`,
     };
   }
 
@@ -34,5 +35,6 @@ export const getEnvironment: () => IEnvironment = (): IEnvironment => {
     };
   }
 
+  // eslint-disable-next-line fp/no-throw
   throw new TypeError("Couldn't identify environment");
 };
