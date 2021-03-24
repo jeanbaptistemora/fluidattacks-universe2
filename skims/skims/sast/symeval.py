@@ -255,8 +255,13 @@ def _syntax_step_declaration_danger(args: EvaluatorArgs) -> None:
     args_danger = any(dep.meta.danger for dep in args.dependencies)
 
     # Analyze if the binding itself is sensitive
+    no_trust_findings = {
+        core_model.FindingEnum.F004,
+        core_model.FindingEnum.F042,
+        core_model.FindingEnum.F063_PATH_TRAVERSAL,
+    }
     bind_danger = any((
-        args.finding in core_model.ALLOW_UNTRUSTED_NODES and any((
+        args.finding in no_trust_findings and any((
             args.syntax_step.var_type in build_attr_paths(
                 'javax', 'servlet', 'http', 'HttpServletRequest'
             ),

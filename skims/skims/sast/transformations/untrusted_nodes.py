@@ -16,12 +16,32 @@ from sast.common import (
 )
 
 
+def _append_label_input(
+    graph: graph_model.Graph,
+    n_id: str,
+    label: str,
+) -> None:
+    if sink := graph.nodes[n_id].get('label_input_type'):
+        sink += f',{label}'
+        graph.nodes[n_id]['label_input_type'] = sink
+    else:
+        graph.nodes[n_id]['label_input_type'] = label
+
+
 def _mark_java(graph: graph_model.Graph) -> None:
     _mark_java_request(graph)
     _mark_java_f034(graph)
 
 
 def _mark_java_request(graph: graph_model.Graph) -> None:
+    findins_no_trust_requests = {
+        core_model.FindingEnum.F004.name,
+        core_model.FindingEnum.F042.name,
+        core_model.FindingEnum.F063_PATH_TRAVERSAL.name,
+    }
+    untrusted_types = {
+        'HttpServletRequest',
+    }
     for n_id in g.filter_nodes(
             graph,
             graph.nodes,
@@ -33,19 +53,17 @@ def _mark_java_request(graph: graph_model.Graph) -> None:
                     params_id,
                     'formal_parameter',
             ):
-                for var_type_id in g.get_ast_childs(
-                        graph,
-                        param_id,
-                        'type_identifier',
-                ):
-                    var_type_n_attrs = graph.nodes[var_type_id]
-
-                    if var_type_n_attrs['label_text'] in {
-                            'HttpServletRequest',
-                    }:
-                        var_type_n_attrs['label_input_type'] = (
-                            core_model
-                            .UNTRUSTED_NODE
+                untrusted_params = (type_id for type_id in g.get_ast_childs(
+                    graph,
+                    param_id,
+                    'type_identifier',
+                ) if graph.nodes[type_id]['label_text'] in untrusted_types)
+                for var_type_id in untrusted_params:
+                    for finding in findins_no_trust_requests:
+                        _append_label_input(
+                            graph,
+                            var_type_id,
+                            finding,
                         )
 
 

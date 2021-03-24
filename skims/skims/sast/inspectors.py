@@ -62,15 +62,10 @@ def get_metadata(
                     for n_id in graph.nodes
                     for label in [graph.nodes[n_id].get('label_input_type')]
                     if label
-                    and (
-                        core_model.FINDING_ENUM_FROM_STR.get(label) == finding
-                        or (
-                            label == core_model.UNTRUSTED_NODE
-                            and finding.name in (
-                                core_model
-                                .ALLOW_UNTRUSTED_NODES_STR
-                            )
-                        )
+                    and any(
+                        core_model.FINDING_ENUM_FROM_STR.get(label_find) ==
+                        finding
+                        for label_find in label.split(',')
                     )
                 )
                 for finding in core_model.FindingEnum

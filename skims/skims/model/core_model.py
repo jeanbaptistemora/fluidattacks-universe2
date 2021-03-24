@@ -632,18 +632,6 @@ FINDING_ENUM_FROM_STR: Dict[str, FindingEnum] = {
     __finding.name: __finding for __finding in FindingEnum
 }
 
-UNTRUSTED_NODE: str = 'UNTRUSTED_NODE'
-
-ALLOW_UNTRUSTED_NODES: Set[FindingEnum] = {
-    FindingEnum.F004,
-    FindingEnum.F042,
-    FindingEnum.F063_PATH_TRAVERSAL,
-}
-
-ALLOW_UNTRUSTED_NODES_STR: Set[str] = {
-    fing.name for fing in ALLOW_UNTRUSTED_NODES
-}
-
 
 class FindingEvidenceIDEnum(Enum):
     ANIMATION: str = 'ANIMATION'

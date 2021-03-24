@@ -3863,7 +3863,7 @@
           },
           "234": {
             "label_c": 21,
-            "label_input_type": "UNTRUSTED_NODE",
+            "label_input_type": "F063_PATH_TRAVERSAL,F042,F004",
             "label_l": 48,
             "label_text": "HttpServletRequest",
             "label_type": "type_identifier"
@@ -6246,7 +6246,7 @@
           },
           "73": {
             "label_c": 20,
-            "label_input_type": "UNTRUSTED_NODE",
+            "label_input_type": "F063_PATH_TRAVERSAL,F042,F004",
             "label_l": 35,
             "label_text": "HttpServletRequest",
             "label_type": "type_identifier"
@@ -9733,7 +9733,7 @@
           },
           "109": {
             "label_c": 24,
-            "label_input_type": "UNTRUSTED_NODE",
+            "label_input_type": "F063_PATH_TRAVERSAL,F042,F004",
             "label_l": 40,
             "label_text": "HttpServletRequest",
             "label_type": "type_identifier"
@@ -11285,7 +11285,7 @@
           },
           "73": {
             "label_c": 23,
-            "label_input_type": "UNTRUSTED_NODE",
+            "label_input_type": "F063_PATH_TRAVERSAL,F042,F004",
             "label_l": 35,
             "label_text": "HttpServletRequest",
             "label_type": "type_identifier"
@@ -15762,7 +15762,7 @@
           },
           "109": {
             "label_c": 21,
-            "label_input_type": "UNTRUSTED_NODE",
+            "label_input_type": "F063_PATH_TRAVERSAL,F042,F004",
             "label_l": 40,
             "label_text": "HttpServletRequest",
             "label_type": "type_identifier"
@@ -19269,7 +19269,7 @@
           },
           "73": {
             "label_c": 20,
-            "label_input_type": "UNTRUSTED_NODE",
+            "label_input_type": "F063_PATH_TRAVERSAL,F042,F004",
             "label_l": 35,
             "label_text": "HttpServletRequest",
             "label_type": "type_identifier"
@@ -23130,7 +23130,7 @@
           },
           "24": {
             "label_c": 22,
-            "label_input_type": "UNTRUSTED_NODE",
+            "label_input_type": "F063_PATH_TRAVERSAL,F042,F004",
             "label_l": 5,
             "label_text": "HttpServletRequest",
             "label_type": "type_identifier"
