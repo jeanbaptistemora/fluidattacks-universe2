@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Mar 23, 2021, 11:26 AM",
+    "DateLastModified": "Mar 24, 2021, 08:25 AM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "2.0"
@@ -699,15 +699,15 @@
           }
         },
         {
-          "FacetName": "finding_state",
+          "FacetName": "finding_metadata",
           "KeyAttributeAlias": {
-            "PartitionKeyAlias": "FIN#uuid#STATE",
-            "SortKeyAlias": "ROOT#uuid"
+            "PartitionKeyAlias": "FIN#finding_uuid",
+            "SortKeyAlias": "ROOT#root_uuid"
           },
           "TableData": [
             {
               "pk": {
-                "S": "FIN#a0fddb36-ac0d-4a58-969f-b13194af61c2#STATE"
+                "S": "FIN#a0fddb36-ac0d-4a58-969f-b13194af61c2"
               },
               "sk": {
                 "S": "ROOT#73f2b757-5a61-4027-b00d-c6227f2163cf"
@@ -720,15 +720,6 @@
               },
               "type": {
                 "S": "SECURITY"
-              },
-              "status": {
-                "S": "CREATED"
-              },
-              "modified_date": {
-                "S": "2021-02-15T14:01:16Z"
-              },
-              "modified_by": {
-                "S": "test@fluidattacks.com"
               },
               "evidences": {
                 "M": {}
@@ -752,9 +743,6 @@
               "threat": {
                 "S": "External attacker with access"
               },
-              "source": {
-                "S": "skims"
-              },
               "using_sorts": {
                 "BOOL": false
               },
@@ -770,20 +758,54 @@
             "name",
             "description",
             "type",
-            "status",
-            "reason",
-            "modified_date",
-            "modified_by",
             "evidences",
             "affected_components",
             "cvss",
             "recommendation",
             "requirements",
             "threat",
-            "source",
             "using_sorts",
             "cwe",
             "attack_vector"
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
+        },
+        {
+          "FacetName": "finding_state",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "FIN#finding_uuid#STATE",
+            "SortKeyAlias": "ROOT#root_uuid"
+          },
+          "TableData": [
+            {
+              "pk": {
+                "S": "FIN#a0fddb36-ac0d-4a58-969f-b13194af61c2#STATE"
+              },
+              "sk": {
+                "S": "ROOT#73f2b757-5a61-4027-b00d-c6227f2163cf"
+              },
+              "status": {
+                "S": "CREATED"
+              },
+              "modified_date": {
+                "S": "2021-02-15T14:01:16Z"
+              },
+              "modified_by": {
+                "S": "test@fluidattacks.com"
+              },
+              "source": {
+                "S": "skims"
+              }
+            }
+          ],
+          "NonKeyAttributes": [
+            "status",
+            "reason",
+            "modified_date",
+            "modified_by",
+            "source"
           ],
           "DataAccess": {
             "MySql": {}
@@ -803,15 +825,6 @@
               "sk": {
                 "S": "STATE#2021-02-15T14:01:16Z"
               },
-              "name": {
-                "S": "F035. Weak credential policy"
-              },
-              "description": {
-                "S": "Passwords set as date-user could be easily guessed"
-              },
-              "type": {
-                "S": "SECURITY"
-              },
               "status": {
                 "S": "CREATED"
               },
@@ -821,60 +834,17 @@
               "modified_by": {
                 "S": "test@fluidattacks.com"
               },
-              "evidences": {
-                "M": {}
-              },
-              "affected_components": {
-                "SS": [
-                  "web app"
-                ]
-              },
-              "cvss": {
-                "M": {}
-              },
-              "recommendation": {
-                "S": "Consider changing the date-user standard."
-              },
-              "requirements": {
-                "SS": [
-                  "REQ.0132. The system must require passphrases to be at least 4 words long and allow them to have 64 characters or more."
-                ]
-              },
-              "threat": {
-                "S": "External attacker with access"
-              },
               "source": {
                 "S": "skims"
-              },
-              "using_sorts": {
-                "BOOL": false
-              },
-              "cwe": {
-                "S": "521"
-              },
-              "attack_vector": {
-                "S": "Guess passwords"
               }
             }
           ],
           "NonKeyAttributes": [
-            "name",
-            "description",
-            "type",
             "status",
             "reason",
             "modified_date",
             "modified_by",
-            "evidences",
-            "affected_components",
-            "cvss",
-            "recommendation",
-            "requirements",
-            "threat",
-            "source",
-            "using_sorts",
-            "cwe",
-            "attack_vector"
+            "source"
           ],
           "DataAccess": {
             "MySql": {}
