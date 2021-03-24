@@ -43,5 +43,5 @@ def java_switch_without_default(
 # Constants
 FINDING: core_model.FindingEnum = core_model.FindingEnum.F073
 QUERIES: graph_model.Queries = (
-    java_switch_without_default,
+    (FINDING, java_switch_without_default),
 )

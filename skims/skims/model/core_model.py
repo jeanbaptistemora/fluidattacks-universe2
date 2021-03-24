@@ -697,6 +697,10 @@ class SkimsPathConfig(NamedTuple):
     lib_root: bool
 
 
+class SkimsConfigPathLibroot(NamedTuple):
+    findings: Set[FindingEnum] = set(FindingEnum)
+
+
 class SkimsConfig(NamedTuple):
     group: Optional[str]
     language: LocalesEnum

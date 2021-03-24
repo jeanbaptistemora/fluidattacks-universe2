@@ -47,7 +47,7 @@ def create_test_context(debug: bool = True) -> None:
             include=(),
             exclude=(),
             lib_path=True,
-            lib_root=True,
+            lib_root=core_model.SkimsConfigPathLibroot(),
         ),
         start_dir=os.getcwd(),
         timeout=None,

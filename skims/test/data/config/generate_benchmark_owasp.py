@@ -9,6 +9,9 @@ from typing import (
 )
 
 # Local libraries
+from model import (
+    core_model,
+)
 from utils.encodings import (
     yaml_dumps_blocking,
 )
@@ -38,6 +41,13 @@ def get_tests_cases() -> Dict[str, List[str]]:
 
 def main() -> None:
     suites: List[str] = []
+    categories = {
+        'cmdi': [core_model.FindingEnum.F004.name],
+        'pathtraver': [core_model.FindingEnum.F063_PATH_TRAVERSAL.name],
+        'securecookie': [core_model.FindingEnum.F042.name],
+        'weakrand': [core_model.FindingEnum.F034.name],
+    }
+
     for category, tests_cases in get_tests_cases().items():
         tests_cases.sort()
 
@@ -47,7 +57,11 @@ def main() -> None:
         content = yaml_dumps_blocking(dict(
             namespace='OWASP',
             output=f'skims/test/outputs/{suite}.csv',
-            path=dict(include=tests_cases, lib_path=False),
+            path=dict(
+                include=tests_cases,
+                lib_path=False,
+                lib_root=categories.get(category, [])
+            ),
             working_dir=FOLDER,
         ))
 

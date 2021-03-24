@@ -73,7 +73,7 @@ async def execute_skims(token: Optional[str]) -> bool:
               if CTX.config.path.lib_path
               else []),
             *([analyze_root(stores=stores)]
-              if CTX.config.path.lib_root
+              if CTX.config.path.lib_root.findings
               else []),
         )),
         CTX.config.timeout,

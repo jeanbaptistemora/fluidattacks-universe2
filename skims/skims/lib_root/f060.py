@@ -68,5 +68,5 @@ def java_declaration_of_throws_for_generic_exception(
 # Constants
 FINDING: core_model.FindingEnum = core_model.FindingEnum.F060
 QUERIES: graph_model.Queries = (
-    java_declaration_of_throws_for_generic_exception,
+    (FINDING, java_declaration_of_throws_for_generic_exception),
 )

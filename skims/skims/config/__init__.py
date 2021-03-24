@@ -1,6 +1,7 @@
 # Standard library
 import os
 from typing import (
+    Any,
     Optional,
 )
 
@@ -16,6 +17,20 @@ from utils.logs import (
 )
 
 
+def load_path_lib_root(config_path: Any) -> core_model.SkimsConfigPathLibroot:
+    if 'lib_root' in config_path:
+        model = core_model.SkimsConfigPathLibroot(
+            findings={
+                getattr(core_model.FindingEnum, finding)
+                for finding in config_path.pop('lib_root')
+            },
+        )
+    else:
+        model = core_model.SkimsConfigPathLibroot()
+
+    return model
+
+
 def load(group: Optional[str], path: str) -> core_model.SkimsConfig:
     template = confuse.Configuration('skims', read=False)
     template.set_file(path)
@@ -29,6 +44,8 @@ def load(group: Optional[str], path: str) -> core_model.SkimsConfig:
             'path': confuse.Template({
                 'exclude': confuse.Sequence(confuse.String()),
                 'include': confuse.Sequence(confuse.String()),
+                'lib_path': confuse.OneOf([True, False], default=True),
+                'lib_root': confuse.Sequence(confuse.String()),
             }),
             'timeout': confuse.Number(),
             'working_dir': confuse.String(),
@@ -50,7 +67,7 @@ def load(group: Optional[str], path: str) -> core_model.SkimsConfig:
                 exclude=config_path.pop('exclude', ()),
                 include=config_path.pop('include', ()),
                 lib_path=config_path.pop('lib_path', True),
-                lib_root=config_path.pop('lib_root', True),
+                lib_root=load_path_lib_root(config_path),
             ),
             start_dir=os.getcwd(),
             timeout=config.pop('timeout', None),

@@ -76,7 +76,8 @@ async def analyze(
             partial(in_process, query),
             SHIELD,
         )(graph_db)
-        for query in queries
+        for finding, query in queries
+        if finding in CTX.config.path.lib_root.findings
     ), workers=CPU_CORES)
 
     for idx, vulnerabilities_lazy in enumerate(

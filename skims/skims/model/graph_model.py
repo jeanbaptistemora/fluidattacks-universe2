@@ -330,4 +330,4 @@ GraphShardNode = Tuple[GraphShard, NId]
 GraphShardNodes = Iterable[GraphShardNode]
 
 Query = Callable[[Graph], core_model.Vulnerabilities]
-Queries = Tuple[Query, ...]
+Queries = Tuple[Tuple[core_model.FindingEnum, Query], ...]
