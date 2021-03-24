@@ -8,7 +8,7 @@ import botocore
 from boto3.dynamodb.conditions import ConditionBase
 
 # Local
-from dynamodb.types import Facet, Index, Item, Table
+from dynamodb.types import Facet, Index, Item, PrimaryKey, Table
 from newutils.context import (
     AWS_DYNAMODB_ACCESS_KEY,
     AWS_DYNAMODB_SECRET_KEY,
@@ -19,7 +19,7 @@ from newutils.context import (
 )
 
 
-def get_resource_options() -> Dict[str, Optional[str]]:
+def _get_resource_options() -> Dict[str, Optional[str]]:
     basic_options = {
         'service_name': 'dynamodb',
         'aws_access_key_id': AWS_DYNAMODB_ACCESS_KEY,
@@ -40,10 +40,10 @@ def get_resource_options() -> Dict[str, Optional[str]]:
     return basic_options
 
 
-RESOURCE_OPTIONS = get_resource_options()
+RESOURCE_OPTIONS = _get_resource_options()
 
 
-def build_query_attrs(
+def _build_query_attrs(
     *,
     condition_expression: ConditionBase,
     facets: Tuple[Facet, ...],
@@ -83,7 +83,7 @@ async def query(
 ) -> Tuple[Item, ...]:
     async with aioboto3.resource(**RESOURCE_OPTIONS) as resource:
         table_resource = await resource.Table(table.name)
-        query_attrs = build_query_attrs(
+        query_attrs = _build_query_attrs(
             condition_expression=condition_expression,
             facets=facets,
             index=index,
@@ -148,3 +148,23 @@ async def batch_write_item(
                 batch_writer.put_item(Item=item)
                 for item in items
             ))
+
+
+async def update_item(
+    *,
+    item: Item,
+    key: PrimaryKey,
+    table: Table
+) -> None:
+    async with aioboto3.resource(**RESOURCE_OPTIONS) as resource:
+        table_resource = await resource.Table(table.name)
+        update_attrs = ','.join(f'#{attr} = :{attr}' for attr in item)
+        table_resource.update_item(
+            ExpressionAttributeNames={f'#{attr}': attr for attr in item},
+            ExpressionAttributeValues={
+                f':{attr}': value
+                for (attr, value) in item.items()
+            },
+            Key=dict(key._asdict()),
+            UpdateExpression=f'SET {update_attrs}'
+        )
