@@ -57,11 +57,10 @@ const TitleVertical: StyledComponent<
     c-black-gray
     f5
     mh0
+    wm-tb-rl
     mb7-l
   `,
-})`
-  writing-mode: tb-rl;
-`;
+})``;
 
 const SectionDefinition: StyledComponent<
   "p",

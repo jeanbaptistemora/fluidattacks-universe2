@@ -144,6 +144,7 @@ $whiter-gray: rgba(241, 241, 241, 1);
 .min-h-25 { min-height: 25%; }
 .h-460 { min-height: 460px; }
 .h-600 { min-height: 600px; }
+.h-700 { min-height: 700px; }
 
 // Hover changes classes
 .hv-fluid-black { &:hover { color: $fluid-black;} }
@@ -173,6 +174,9 @@ $whiter-gray: rgba(241, 241, 241, 1);
 
 // Width and Max Width classes
 .mw-1366 { max-width: 1366px; }
+
+// Writing moce classes
+.wm-tb-rl { writing-mode: tb-rl; }
 
 // Media queries
 

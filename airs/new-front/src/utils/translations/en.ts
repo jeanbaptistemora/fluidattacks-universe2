@@ -10,8 +10,8 @@ const pageTexts: ResourceKey = {
       "BUSINESS, OFFERING THE COMBINED ADVANTAGES OF HUMAN KNOWLEDGE," +
       "AUTOMATION AND AI.",
     homeSmallPhrase:
-      "We provide speed, precision and scalability to hacking" +
-      "projects, helping you comply with industry standards like PCI DSS," +
+      "We provide speed, precision and scalability to hacking " +
+      "projects, helping you comply with industry standards like PCI DSS, " +
       "OWASP, GDPR, HIPAA, NIST, among others.",
   },
   contactUs: {
