@@ -1,14 +1,15 @@
-import { registerRootComponent } from "expo";
-import * as SecureStore from "expo-secure-store";
-import _ from "lodash";
-import React from "react";
+import { ApolloProvider } from "./utils/apollo";
+import { BugsnagErrorBoundary } from "./utils/bugsnagErrorBoundary";
+import type { ColorSchemeName } from "react-native";
+import { DashboardView } from "./containers/DashboardView";
 import { I18nextProvider } from "react-i18next";
-import { ColorSchemeName, StatusBar, useColorScheme, View } from "react-native";
-import {
-  DarkTheme,
-  DefaultTheme,
-  Provider as PaperProvider,
-} from "react-native-paper";
+import { LockView } from "./containers/LockView";
+import { LoginView } from "./containers/LoginView";
+import { WelcomeView } from "./containers/WelcomeView";
+import _ from "lodash";
+import { getItemAsync } from "expo-secure-store";
+import { i18next } from "./utils/translations/translate";
+import { registerRootComponent } from "expo";
 import {
   BackButton,
   NativeRouter,
@@ -16,14 +17,13 @@ import {
   Route,
   Switch,
 } from "react-router-native";
-
-import { DashboardView } from "./containers/DashboardView";
-import { LockView } from "./containers/LockView";
-import { LoginView } from "./containers/LoginView";
-import { WelcomeView } from "./containers/WelcomeView";
-import { ApolloProvider } from "./utils/apollo";
-import { BugsnagErrorBoundary } from "./utils/bugsnagErrorBoundary";
-import { i18next } from "./utils/translations/translate";
+import {
+  DarkTheme,
+  DefaultTheme,
+  Provider as PaperProvider,
+} from "react-native-paper";
+import React, { useEffect, useState } from "react";
+import { StatusBar, View, useColorScheme } from "react-native";
 
 const lightTheme: ReactNativePaper.Theme = {
   ...DefaultTheme,
@@ -44,46 +44,40 @@ const darkTheme: ReactNativePaper.Theme = {
   },
 };
 
-/* tslint:disable-next-line: variable-name
-* The root component name must be 'App' for fast refresh to work properly
-* export/import aliases won't work
-*/
-export const App: React.FunctionComponent = (): JSX.Element => {
+const App: React.FunctionComponent = (): JSX.Element => {
   const colorScheme: ColorSchemeName = useColorScheme();
 
   // State management
-  const [
-    isLoggedIn,
-    setLoggedIn,
-  ] = React.useState<boolean | undefined>(undefined);
+  const [isLoggedIn, setLoggedIn] = useState<boolean | undefined>(undefined);
 
   // Side effects
-  const checkAuth: (() => void) = async (): Promise<void> => {
+  const checkAuth: () => void = async (): Promise<void> => {
     try {
-      const token: string | null =
-        await SecureStore.getItemAsync("integrates_session");
-      const authState: string | null =
-        await SecureStore.getItemAsync("authState");
-      setLoggedIn(_.isNil(token) || _.isNil(authState) ? false : true);
+      const token: string | null = await getItemAsync("integrates_session");
+      const authState: string | null = await getItemAsync("authState");
+      setLoggedIn(!(_.isNil(token) || _.isNil(authState)));
     } catch {
       setLoggedIn(false);
     }
   };
 
-  const onMount: (() => void) = (): void => {
+  const onMount: () => void = (): void => {
     checkAuth();
   };
 
-  React.useEffect(onMount, []);
+  useEffect(onMount, []);
 
-  const theme: ReactNativePaper.Theme = colorScheme === "dark"
-    ? darkTheme
-    : lightTheme;
-  const rootView: JSX.Element = isLoggedIn === undefined
-    ? <View style={{ backgroundColor: theme.colors.background, flex: 1 }} />
-    : isLoggedIn
-      ? <Redirect to="/Lock" />
-      : <Redirect to="/Login" />;
+  const theme: ReactNativePaper.Theme =
+    colorScheme === "dark" ? darkTheme : lightTheme;
+  const rootView: JSX.Element =
+    isLoggedIn === undefined ? (
+      // eslint-disable-next-line react/forbid-component-props
+      <View style={{ backgroundColor: theme.colors.background, flex: 1 }} />
+    ) : isLoggedIn ? (
+      <Redirect to={"/Lock"} />
+    ) : (
+      <Redirect to={"/Login"} />
+    );
 
   return (
     <React.StrictMode>
@@ -92,23 +86,29 @@ export const App: React.FunctionComponent = (): JSX.Element => {
           <PaperProvider theme={theme}>
             <I18nextProvider i18n={i18next}>
               <StatusBar
-                backgroundColor="transparent"
-                barStyle={colorScheme === "dark"
-                  ? "light-content"
-                  : "dark-content"}
+                backgroundColor={"transparent"}
+                barStyle={
+                  colorScheme === "dark" ? "light-content" : "dark-content"
+                }
                 translucent={true}
               />
               <ApolloProvider>
                 <BackButton>
                   <Switch>
-                    <Route path="/" exact={true}>{rootView}</Route>
-                    <Route path="/Lock" component={LockView} exact={true} />
-                    <Route path="/Login" component={LoginView} exact={true} />
-                    <Route path="/Welcome" component={WelcomeView} exact={true} />
+                    <Route exact={true} path={"/"}>
+                      {rootView}
+                    </Route>
+                    <Route component={LockView} exact={true} path={"/Lock"} />
+                    <Route component={LoginView} exact={true} path={"/Login"} />
                     <Route
-                      path="/Dashboard"
+                      component={WelcomeView}
+                      exact={true}
+                      path={"/Welcome"}
+                    />
+                    <Route
                       component={DashboardView}
                       exact={true}
+                      path={"/Dashboard"}
                     />
                   </Switch>
                 </BackButton>
@@ -122,3 +122,5 @@ export const App: React.FunctionComponent = (): JSX.Element => {
 };
 
 registerRootComponent(App);
+
+export { App };
