@@ -1,15 +1,24 @@
-import { default as Constants } from "expo-constants";
-import * as Notifications from "expo-notifications";
-import * as Permissions from "expo-permissions";
-import { Platform } from "react-native";
-
+// eslint-disable-next-line import/no-named-as-default -- Needed for accessing isDevice correctly
+import Constants from "expo-constants";
+import type { ExpoPushToken } from "expo-notifications";
 import { LOGGER } from "./logger";
+import { Platform } from "react-native";
+import {
+  NOTIFICATIONS,
+  PermissionStatus,
+  askAsync,
+  getAsync,
+} from "expo-permissions";
+import {
+  getExpoPushTokenAsync,
+  setNotificationChannelGroupAsync,
+} from "expo-notifications";
 
 const getToken: () => Promise<string> = async (): Promise<string> => {
-  const token: Notifications.ExpoPushToken = await Notifications.getExpoPushTokenAsync();
+  const token: ExpoPushToken = await getExpoPushTokenAsync();
 
   if (Platform.OS === "android") {
-    await Notifications.setNotificationChannelGroupAsync("default", {
+    await setNotificationChannelGroupAsync("default", {
       name: "Integrates notifications",
     });
   }
@@ -25,20 +34,18 @@ export const getPushToken: () => Promise<string> = async (): Promise<string> => 
    */
   if (Constants.isDevice) {
     try {
-      const { status: currentStatus } = await Permissions.getAsync(
-        Permissions.NOTIFICATIONS,
-      );
+      const { status: currentStatus } = await getAsync(NOTIFICATIONS);
 
-      if (currentStatus === Permissions.PermissionStatus.GRANTED) {
-        return getToken();
+      if (currentStatus === PermissionStatus.GRANTED) {
+        return await getToken();
       }
 
-      const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+      const { status } = await askAsync(NOTIFICATIONS);
 
-      if (status === Permissions.PermissionStatus.GRANTED) {
-        return getToken();
+      if (status === PermissionStatus.GRANTED) {
+        return await getToken();
       }
-    } catch (error) {
+    } catch (error: unknown) {
       LOGGER.error("Couldn't get push token", error);
     }
 
