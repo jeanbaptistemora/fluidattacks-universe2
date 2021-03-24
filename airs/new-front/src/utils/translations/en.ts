@@ -2,7 +2,14 @@ import type { ResourceKey } from "i18next";
 
 const pageTexts: ResourceKey = {
   aboutUs: {
-    homePhrase:
+    homeBlackPhrase:
+      "WE GO BEYOND AUTOMATION. TECHNOLOGY IS NOT ENOUGH TO MAKE YOUR" +
+      "APPLICATION SECURE.",
+    homeGrayPhrase:
+      "FLUID ATTACKS PERFORMS COMPREHENSIVE HACKING AT THE SPEED OF YOUR" +
+      "BUSINESS, OFFERING THE COMBINED ADVANTAGES OF HUMAN KNOWLEDGE," +
+      "AUTOMATION AND AI.",
+    homeSmallPhrase:
       "We provide speed, precision and scalability to hacking" +
       "projects, helping you comply with industry standards like PCI DSS," +
       "OWASP, GDPR, HIPAA, NIST, among others.",
