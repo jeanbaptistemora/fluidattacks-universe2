@@ -11,7 +11,6 @@ from typing import (
 )
 
 # Third party Libraries
-import pandas as pd
 from pandas import DataFrame
 
 # Local libraries
@@ -20,6 +19,7 @@ from training.constants import FEATURES_DICTS
 from training.evaluate_results import get_best_model_name
 from training.training_script.utils import (
     get_model_performance_metrics,
+    load_training_data,
     split_training_data
 )
 
@@ -35,17 +35,6 @@ def get_model_features() -> Tuple[str, ...]:
             inv_features_dict[key]
             for key in best_model.upper().split('.')[0].split('-')[2:5]
         )
-
-
-def load_training_data(training_dir: str) -> DataFrame:
-    """Load a DataFrame with the training data in CSV format stored in S3"""
-    input_files: List[str] = [
-        os.path.join(training_dir, file) for file in os.listdir(training_dir)
-    ]
-    raw_data: List[DataFrame] = [
-        pd.read_csv(file, engine="python") for file in input_files
-    ]
-    return pd.concat(raw_data)
 
 
 def train_model(

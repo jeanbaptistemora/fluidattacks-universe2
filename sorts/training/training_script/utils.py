@@ -116,3 +116,15 @@ def get_previous_training_results(results_filename: str) -> List[List[str]]:
             pass
 
     return previous_results
+
+
+def load_training_data(training_dir: str) -> DataFrame:
+    """Load a DataFrame with the training data in CSV format stored in S3"""
+    input_files: List[str] = [
+        os.path.join(training_dir, file) for file in os.listdir(training_dir)
+    ]
+    raw_data: List[DataFrame] = [
+        pd.read_csv(file, engine="python") for file in input_files
+    ]
+
+    return pd.concat(raw_data)

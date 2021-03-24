@@ -15,7 +15,6 @@ from typing import (
 )
 
 # Third-party Libraries
-import pandas as pd
 from joblib import dump
 from pandas import DataFrame
 from sklearn.neighbors import KNeighborsClassifier
@@ -30,6 +29,7 @@ from training.constants import (
 from training.training_script.utils import (
     get_model_performance_metrics,
     get_previous_training_results,
+    load_training_data,
     split_training_data
 )
 
@@ -67,17 +67,6 @@ def get_tried_combinations(
                 ])
             )
     return tried_combinations
-
-
-def load_training_data(training_dir: str) -> DataFrame:
-    """Load a DataFrame with the training data in CSV format stored in S3"""
-    input_files: List[str] = [
-        os.path.join(training_dir, file) for file in os.listdir(training_dir)
-    ]
-    raw_data: List[DataFrame] = [
-        pd.read_csv(file, engine="python") for file in input_files
-    ]
-    return pd.concat(raw_data)
 
 
 def save_best_model_to_s3(
