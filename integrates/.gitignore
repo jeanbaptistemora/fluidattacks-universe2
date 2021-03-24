@@ -10,8 +10,8 @@
 /.Cache
 /.DB
 /.Storage
-/analytics/collector/**/*.png
-/analytics/generators/**/*.json
+/charts/collector/**/*.png
+/charts/generators/**/*.json
 /app
 /back/packages/integrates-back/backend/reports/tpls/*.tpl
 /build

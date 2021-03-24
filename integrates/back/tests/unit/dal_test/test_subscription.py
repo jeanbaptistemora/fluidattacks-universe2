@@ -1,5 +1,6 @@
 # Standard library
 from decimal import Decimal
+import os
 
 # Third party libraries
 import pytest
@@ -10,12 +11,16 @@ from subscriptions.dal import (
     get_user_subscriptions,
     subscribe_user_to_entity_report,
 )
+from newutils.context import CHARTS_LOGO_PATH
 
 
 pytestmark = [
-    pytest.mark.changes_db,
     pytest.mark.asyncio,
 ]
+
+
+async def test_image_path():
+    assert os.path.exists(CHARTS_LOGO_PATH)
 
 
 @pytest.mark.changes_db
