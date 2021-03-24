@@ -1,9 +1,28 @@
 # Standard libraries
-from typing import Tuple
+from itertools import chain
+from typing import Any, Tuple
 
 # Local libraries
 from toe.lines import dal as toe_lines_dal
 from dynamodb.types import GitRootToeLines
+
+
+async def get_by_group(
+    loaders: Any,
+    group_name: str
+) -> Tuple[GitRootToeLines, ...]:
+    group_roots_loader = loaders.group_roots
+    group_roots = await group_roots_loader.load(group_name)
+    group_roots_ids = [
+        root.id
+        for root in group_roots
+    ]
+    root_toe_lines_loader = loaders.root_toe_lines
+    root_toe_lines = await root_toe_lines_loader.load_many(
+        zip([group_name] * len(group_roots_ids), group_roots_ids)
+    )
+
+    return tuple(chain.from_iterable(root_toe_lines))
 
 
 async def get_by_root(
