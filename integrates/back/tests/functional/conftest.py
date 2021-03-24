@@ -44,6 +44,7 @@ TEST_GROUPS: Set[str] = {
     'remove_stakeholder_organization_access',
     'remove_tag',
     'request_verification_vuln',
+    'sign_in',
     'solve_event',
     'submit_draft',
     'unsubscribe_from_group',
