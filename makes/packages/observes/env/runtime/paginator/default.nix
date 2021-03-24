@@ -1,21 +1,12 @@
 { buildPythonPackage
-, buildPythonRequirements
 , makeTemplate
 , nixpkgs
+, packages
 , path
 , ...
 }:
 let
-  pythonRequirements = buildPythonRequirements {
-    name = "observes-env-runtime-paginator-python";
-    requirements = {
-      direct = [
-        "aioextensions==20.11.1621472"
-      ];
-      inherited = [ ];
-    };
-    python = nixpkgs.python38;
-  };
+  pythonRequirements = packages.observes.env.runtime.paginator.python;
   self = buildPythonPackage {
     name = "observes-paginator";
     packagePath = path "/observes/common/paginator";
