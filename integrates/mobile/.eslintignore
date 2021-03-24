@@ -1,7 +1,7 @@
 # List of ignored files/dirs by the new linter
 
-src/**/*.css.d.ts
-src/**/*.d.ts
-src/components/**/*.*
+**/*.*
+**/*.css.d.ts
+**/*.d.ts
 !src/components/About/**
 !src/components/Avatar/**

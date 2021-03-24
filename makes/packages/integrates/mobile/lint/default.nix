@@ -16,5 +16,6 @@ makeDerivation {
       nixpkgs.bash
       nixpkgs.nodejs-12_x
     ];
+    envUtils = [ "/makes/utils/lint-typescript" ];
   };
 }
