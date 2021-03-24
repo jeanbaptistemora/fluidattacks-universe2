@@ -30,7 +30,7 @@ from model import (
 )
 from sast import (
     parse,
-    query,
+    query as sast_query,
 )
 from state.ephemeral import (
     EphemeralStore,
@@ -61,10 +61,14 @@ async def analyze(
     )
 
     graph_db = await parse.get_graph_db(tuple(unique_paths))
-    queries: graph_model.Queries = (
-        *f060.QUERIES,
-        *f073.QUERIES,
-        *query.QUERIES,
+    queries: graph_model.Queries = tuple(
+        (finding, query)
+        for finding, query in (
+            *f060.QUERIES,
+            *f073.QUERIES,
+            *sast_query.QUERIES,
+        )
+        if finding in CTX.config.path.lib_root.findings
     )
     queries_len: int = len(queries)
 
@@ -76,8 +80,7 @@ async def analyze(
             partial(in_process, query),
             SHIELD,
         )(graph_db)
-        for finding, query in queries
-        if finding in CTX.config.path.lib_root.findings
+        for _, query in queries
     ), workers=CPU_CORES)
 
     for idx, vulnerabilities_lazy in enumerate(

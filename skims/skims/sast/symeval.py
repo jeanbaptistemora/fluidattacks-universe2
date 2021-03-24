@@ -892,7 +892,7 @@ def get_possible_syntax_steps_linear(
     graph_db: graph_model.GraphDB,
     finding: core_model.FindingEnum,
 ) -> Iterator[PossibleSyntaxStepLinear]:
-    possible_syntax_steps: Tuple[PossibleSyntaxStepLinear, ...] = tuple(
+    yield from (
         PossibleSyntaxStepLinear(
             shard_path=shard_path,
             syntax_steps=syntax_steps,
@@ -906,11 +906,3 @@ def get_possible_syntax_steps_linear(
         )
         for syntax_steps in syntax_steps_for_untrusted_n_id.values()
     )
-    possible_syntax_steps_len = len(possible_syntax_steps)
-
-    for index, possible_syntax_step in enumerate(possible_syntax_steps, 1):
-        log_blocking(
-            'info', '%s: Evaluating code flow %s / %s',
-            finding.name, index, possible_syntax_steps_len,
-        )
-        yield possible_syntax_step
