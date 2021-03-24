@@ -21,7 +21,7 @@ const VideoSection: React.FC = (): JSX.Element => {
   }
 
   return (
-    <FlexCenterItemsContainer className={"h-section"}>
+    <FlexCenterItemsContainer className={"h-460"}>
       <ModalVideo
         autoplay={true}
         channel={"youtube"}

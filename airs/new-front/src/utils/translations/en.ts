@@ -1,6 +1,12 @@
 import type { ResourceKey } from "i18next";
 
 const pageTexts: ResourceKey = {
+  aboutUs: {
+    homePhrase:
+      "We provide speed, precision and scalability to hacking" +
+      "projects, helping you comply with industry standards like PCI DSS," +
+      "OWASP, GDPR, HIPAA, NIST, among others.",
+  },
   contactUs: {
     contactFluidAttacks: "Contact Fluid Attacks",
   },
