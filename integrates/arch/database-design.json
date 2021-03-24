@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Mar 24, 2021, 11:18 AM",
+    "DateLastModified": "Mar 24, 2021, 03:10 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "2.0"
@@ -84,7 +84,7 @@
         },
         {
           "AttributeName": "tags",
-          "AttributeType": "SS"
+          "AttributeType": "L"
         },
         {
           "AttributeName": "reason",
@@ -602,8 +602,10 @@
                 "S": "ACTIVE"
               },
               "tags": {
-                "SS": [
-                  "test"
+                "L": [
+                  {
+                    "S": "test"
+                  }
                 ]
               },
               "reason": {
@@ -693,76 +695,6 @@
             "modified_by",
             "parent_id",
             "content"
-          ],
-          "DataAccess": {
-            "MySql": {}
-          }
-        },
-        {
-          "FacetName": "finding_metadata",
-          "KeyAttributeAlias": {
-            "PartitionKeyAlias": "FIN#finding_uuid",
-            "SortKeyAlias": "ROOT#root_uuid"
-          },
-          "TableData": [
-            {
-              "pk": {
-                "S": "FIN#a0fddb36-ac0d-4a58-969f-b13194af61c2"
-              },
-              "sk": {
-                "S": "ROOT#73f2b757-5a61-4027-b00d-c6227f2163cf"
-              },
-              "name": {
-                "S": "F035. Weak credential policy"
-              },
-              "description": {
-                "S": "Passwords set as date-user could be easily guessed"
-              },
-              "type": {
-                "S": "SECURITY"
-              },
-              "evidences": {
-                "M": {}
-              },
-              "affected_components": {
-                "S": "web app"
-              },
-              "cvss": {
-                "M": {}
-              },
-              "recommendation": {
-                "S": "Consider changing the date-user standard."
-              },
-              "requirements": {
-                "S": "REQ.0132. The system must require passphrases to be at least 4 words long and allow them to have 64 characters or more."
-              },
-              "threat": {
-                "S": "External attacker with access"
-              },
-              "using_sorts": {
-                "BOOL": false
-              },
-              "cwe": {
-                "S": "521"
-              },
-              "attack_vector": {
-                "S": "Guess passwords"
-              }
-            }
-          ],
-          "NonKeyAttributes": [
-            "name",
-            "description",
-            "type",
-            "evidences",
-            "affected_components",
-            "cvss",
-            "recommendation",
-            "requirements",
-            "threat",
-            "using_sorts",
-            "cwe",
-            "attack_vector"
           ],
           "DataAccess": {
             "MySql": {}
@@ -908,8 +840,8 @@
         {
           "FacetName": "vulnerability_metadata",
           "KeyAttributeAlias": {
-            "PartitionKeyAlias": "VULN#uuid",
-            "SortKeyAlias": "FIN#uuid"
+            "PartitionKeyAlias": "VULN#vuln_uuid",
+            "SortKeyAlias": "ROOT#root_uuid"
           },
           "TableData": [
             {
@@ -917,7 +849,40 @@
                 "S": "VULN#3098e835-833c-48f7-aa76-12ea884e871f"
               },
               "sk": {
-                "S": "FIN#a0fddb36-ac0d-4a58-969f-b13194af61c2"
+                "S": "ROOT#73f2b757-5a61-4027-b00d-c6227f2163cf"
+              },
+              "name": {
+                "S": "F035. Weak credential policy"
+              },
+              "description": {
+                "S": "Passwords set as date-user could be easily guessed"
+              },
+              "evidences": {
+                "M": {}
+              },
+              "affected_components": {
+                "S": "web app"
+              },
+              "cvss": {
+                "M": {}
+              },
+              "recommendation": {
+                "S": "Consider changing the date-user standard."
+              },
+              "requirements": {
+                "S": "REQ.0132. The system must require passphrases to be at least 4 words long and allow them to have 64 characters or more."
+              },
+              "threat": {
+                "S": "External attacker with access"
+              },
+              "using_sorts": {
+                "BOOL": false
+              },
+              "cwe": {
+                "S": "521"
+              },
+              "attack_vector": {
+                "S": "Guess passwords"
               },
               "type": {
                 "S": "lines"
@@ -934,6 +899,17 @@
             }
           ],
           "NonKeyAttributes": [
+            "name",
+            "description",
+            "evidences",
+            "affected_components",
+            "cvss",
+            "recommendation",
+            "requirements",
+            "threat",
+            "using_sorts",
+            "cwe",
+            "attack_vector",
             "type",
             "source",
             "where",
