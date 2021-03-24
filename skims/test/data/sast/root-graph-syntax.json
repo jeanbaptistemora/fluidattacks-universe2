@@ -7470,6 +7470,14 @@
     },
     "skims/test/data/sast/TestCFG.java": {}
   },
+  "F008": {
+    "skims/test/data/benchmark/owasp/BenchmarkTest00001.java": {},
+    "skims/test/data/benchmark/owasp/BenchmarkTest00008.java": {},
+    "skims/test/data/benchmark/owasp/BenchmarkTest00167.java": {},
+    "skims/test/data/lib_path/f031_cwe378/Test.java": {},
+    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
+    "skims/test/data/sast/TestCFG.java": {}
+  },
   "F009": {
     "skims/test/data/benchmark/owasp/BenchmarkTest00001.java": {},
     "skims/test/data/benchmark/owasp/BenchmarkTest00008.java": {},

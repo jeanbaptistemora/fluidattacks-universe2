@@ -1,0 +1,34 @@
+utils.model.finding.enum.f008.description:
+  es: >
+    The web application dynamically generates web content
+    without validating the source of the potentially untrusted data.
+  en: >
+    La aplicación web genera contenido web dinámico
+    sin validar el origen de los datos potencialmente maliciosos.
+utils.model.finding.enum.f008.impact:
+  en: >
+    - Generate web pages that could contain malicious scripts injected into
+      untrusted data.
+  es: >
+    - Generar páginas web que podrían contener scripts maliciosos inyectados en
+      datos que no son de confianza.
+utils.model.finding.enum.f008.recommendation:
+  en: >
+    Perform input data validations on the server-side to avoid common script
+    injection attacks.
+  es: >
+    Realice la validaciones de datos de entrada en el lado del servidor para
+    evitar los ataques mas comunes de inyección de scripts.
+utils.model.finding.enum.f008.requirements:
+  en: >
+    - R173 The system must discard all potentially harmful information received
+      via data inputs.
+  es: >
+    - R173 El sistema debe descartar toda la información potencialmente insegura
+      que sea recibida por entradas de datos.
+utils.model.finding.enum.f008.threat:
+  en: Authenticated attacker from the Internet.
+  es: Atacante autenticado desde Internet.
+utils.model.finding.enum.f008.title:
+  en: F008. Reflected cross-site scripting
+  es: F008. Cross site scripting reflejado
