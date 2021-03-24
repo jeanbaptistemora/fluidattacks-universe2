@@ -15,6 +15,9 @@ from mailchimp_marketing import (
 )
 
 # Local libraries
+from paginator import (
+    PageId,
+)
 from tap_mailchimp.common.objs import (
     JSON,
 )
@@ -79,10 +82,14 @@ class RawSource(NamedTuple):
     get_campaign: Callable[[CampaignId], JSON]
 
 
-def _list_audiences(client: Client) -> JSON:
+DEFAULT_PAGE = PageId(page=0, per_page=1000)
+
+
+def _list_audiences(client: Client, page_id: PageId = DEFAULT_PAGE) -> JSON:
     result = client.lists.get_all_lists(
         fields=['lists.id', 'total_items', '_links'],
-        count=1000,
+        count=page_id.per_page,
+        offset=page_id.page * page_id.per_page
     )
     LOG.debug('_list_audiences response: %s', result)
     return result
@@ -92,11 +99,14 @@ def _get_audience(client: Client, audience_id: AudienceId) -> JSON:
     return client.lists.get_list(audience_id.str_id)
 
 
-def _list_abuse_reports(client: Client, audience_id: AudienceId) -> JSON:
+def _list_abuse_reports(
+    client: Client, audience_id: AudienceId, page_id: PageId = DEFAULT_PAGE
+) -> JSON:
     result = client.lists.get_list_abuse_reports(
         audience_id.str_id,
         fields=['abuse_reports.id', 'total_items', '_links'],
-        count=1000,
+        count=page_id.per_page,
+        offset=page_id.page * page_id.per_page
     )
     LOG.debug('_list_abuse_reports response: %s', result)
     return result
@@ -116,11 +126,14 @@ def _get_clients(client: Client, audience_id: AudienceId) -> JSON:
     return client.lists.get_list_clients(audience_id.str_id)
 
 
-def _list_members(client: Client, audience_id: AudienceId) -> JSON:
+def _list_members(
+    client: Client, audience_id: AudienceId, page_id: PageId = DEFAULT_PAGE
+) -> JSON:
     return client.lists.get_list_members_info(
         audience_id.str_id,
         fields=['members.id', 'total_items', '_links'],
-        count=1000,
+        count=page_id.per_page,
+        offset=page_id.page * page_id.per_page
     )
 
 
@@ -132,11 +145,14 @@ def _get_member(client: Client, member_id: MemberId) -> JSON:
     )
 
 
-def _list_growth_hist(client: Client, audience_id: AudienceId) -> JSON:
+def _list_growth_hist(
+    client: Client, audience_id: AudienceId, page_id: PageId = DEFAULT_PAGE
+) -> JSON:
     return client.lists.get_list_growth_history(
         audience_id.str_id,
         fields=['history.month', 'total_items', '_links'],
-        count=1000,
+        count=page_id.per_page,
+        offset=page_id.page * page_id.per_page
     )
 
 
@@ -147,11 +163,14 @@ def _get_growth_hist(client: Client, ghist_id: GrowthHistId) -> JSON:
     )
 
 
-def _list_interest_catg(client: Client, audience_id: AudienceId) -> JSON:
+def _list_interest_catg(
+    client: Client, audience_id: AudienceId, page_id: PageId = DEFAULT_PAGE
+) -> JSON:
     return client.lists.get_list_interest_categories(
         audience_id.str_id,
         fields=['categories.id', 'total_items', '_links'],
-        count=1000,
+        count=page_id.per_page,
+        offset=page_id.page * page_id.per_page
     )
 
 
@@ -166,10 +185,11 @@ def _get_audience_locations(client: Client, audience_id: AudienceId) -> JSON:
     return client.lists.get_list_locations(audience_id.str_id)
 
 
-def _list_campaigns(client: Client) -> JSON:
+def _list_campaigns(client: Client, page_id: PageId = DEFAULT_PAGE) -> JSON:
     result = client.campaigns.list(
         fields=['campaigns.id', 'total_items', '_links'],
-        count=1000,
+        count=page_id.per_page,
+        offset=page_id.page * page_id.per_page
     )
     LOG.debug('_list_campaigns response: %s', result)
     return result

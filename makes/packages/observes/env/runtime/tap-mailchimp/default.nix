@@ -10,6 +10,7 @@ let
     name = "observes-env-runtime-tap-mailchimp-python";
     requirements = {
       direct = [
+        "aioextensions==20.11.1621472"
         "click==7.1.2"
         "mailchimp-marketing==3.0.31"
       ];
@@ -27,14 +28,19 @@ let
     };
     python = nixpkgs.python38;
   };
-  singerIO = buildPythonPackage {
-    name = "observes-singer-io";
-    packagePath = path "/observes/common/singer_io";
-    python = nixpkgs.python38;
-  };
   logger = buildPythonPackage {
     name = "observes-utils-logger";
     packagePath = path "/observes/common/utils_logger";
+    python = nixpkgs.python38;
+  };
+  paginator = buildPythonPackage {
+    name = "observes-paginator";
+    packagePath = path "/observes/common/paginator";
+    python = nixpkgs.python38;
+  };
+  singerIO = buildPythonPackage {
+    name = "observes-singer-io";
+    packagePath = path "/observes/common/singer_io";
     python = nixpkgs.python38;
   };
   self = buildPythonPackage {
@@ -48,6 +54,7 @@ makeTemplate {
   searchPaths = {
     envPython38Paths = [
       logger
+      paginator
       pythonRequirements
       singerIO
       self
