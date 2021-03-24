@@ -503,3 +503,11 @@ $whiter-gray: rgba(241, 241, 241, 1);
   animation: fadein 0.5s;
   display: block;
 }
+
+.demo-button {
+  &:hover {
+    p {
+      padding-right: 0.5rem;
+    }
+  }
+}

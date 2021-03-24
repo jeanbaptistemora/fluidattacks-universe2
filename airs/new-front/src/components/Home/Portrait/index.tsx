@@ -2,6 +2,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "gatsby";
 import React from "react";
+import ScrollAnimation from "react-animate-on-scroll";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import {
   BlackBigHeader,
@@ -18,11 +19,13 @@ const Portrait: React.FC = (): JSX.Element => (
   <MainCoverHome>
     <MainContentHome>
       <InnerMainContentHome>
-        <BlackBigHeader>{"CONTINUOUS HACKING"}</BlackBigHeader>
-        <BlackBigParagraph>{"BY HUMAN EXPERTS"}</BlackBigParagraph>
-        <GrayBigParagraph>
-          {"FAST, ACCURATE AND COST-EFFECTIVE"}
-        </GrayBigParagraph>
+        <ScrollAnimation animateIn={"animate__fadeInUp"} animateOnce={true}>
+          <BlackBigHeader>{"CONTINUOUS HACKING"}</BlackBigHeader>
+          <BlackBigParagraph>{"BY HUMAN EXPERTS"}</BlackBigParagraph>
+          <GrayBigParagraph>
+            {"FAST, ACCURATE AND COST-EFFECTIVE"}
+          </GrayBigParagraph>
+        </ScrollAnimation>
         <GetDemoContainer>
           <BlackSimpleParagraph className={"mb2"}>
             {
@@ -32,13 +35,19 @@ const Portrait: React.FC = (): JSX.Element => (
             }
           </BlackSimpleParagraph>
           <Link
-            className={"roboto f5 c-fluid-bk fw3 no-underline"}
+            className={
+              "demo-button roboto f5 c-fluid-bk fw3 no-underline t-all-3-eio"
+            }
             to={"/contact-us/"}
           >
-            {"Get a Demo"}
+            <p className={"fl ma0 t-all-3-eio"}>{"Get a Demo"}</p>
             <FontAwesomeIcon
-              className={"c-dkred mh1 dib"}
+              className={"c-dkred dib t-all-3-eio"}
               icon={faArrowRight}
+              style={{
+                marginLeft: "0.25rem",
+                marginRight: "0.25rem",
+              }}
             />
           </Link>
         </GetDemoContainer>
