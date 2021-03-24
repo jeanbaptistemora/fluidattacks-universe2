@@ -1,19 +1,12 @@
 # Standard library
-from functools import (
-    partial,
-)
 from typing import (
-    Awaitable,
     Dict,
-    Iterable,
     Set,
 )
 
 # Third party libraries
 from aioextensions import (
-    CPU_CORES,
-    in_process,
-    resolve,
+    in_thread,
 )
 
 # Local imports
@@ -26,7 +19,6 @@ from lib_root import (
 )
 from model import (
     core_model,
-    graph_model,
 )
 from sast import (
     parse,
@@ -42,7 +34,6 @@ from utils.fs import (
     resolve_paths,
 )
 from utils.function import (
-    pipe,
     shield,
 )
 from utils.logs import (
@@ -61,8 +52,8 @@ async def analyze(
     )
 
     graph_db = await parse.get_graph_db(tuple(unique_paths))
-    queries: graph_model.Queries = tuple(
-        (finding, query)
+    queries = tuple(
+        query
         for finding, query in (
             *f060.QUERIES,
             *f073.QUERIES,
@@ -72,25 +63,13 @@ async def analyze(
     )
     queries_len: int = len(queries)
 
-    # Query the root with different methods in a CPU cluster
-    vulnerabilities_lazy_iterator: Iterable[
-        Awaitable[core_model.Vulnerabilities],
-    ] = resolve((
-        pipe(
-            partial(in_process, query),
-            SHIELD,
-        )(graph_db)
-        for _, query in queries
-    ), workers=CPU_CORES)
-
-    for idx, vulnerabilities_lazy in enumerate(
-        vulnerabilities_lazy_iterator, start=1,
-    ):
+    for idx, query in enumerate(queries, start=1):
         await log('info', 'Executing query %s of %s', idx, queries_len)
 
-        vulnerabilities: core_model.Vulnerabilities = (
-            await vulnerabilities_lazy
-        )
+        # Ideally should be in_process but memory requirements constraint us
+        # for now
+        vulnerabilities: core_model.Vulnerabilities = \
+            await SHIELD(in_thread)(query, graph_db)
 
         for vulnerability in vulnerabilities:
             await stores[vulnerability.finding].store(vulnerability)
