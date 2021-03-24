@@ -7,6 +7,7 @@
   "linterOptions": {
     "exclude": [
       "node_modules",
+      "src/*.*",
       "src/components/About/**",
       "src/components/Avatar/**",
       "src/components/Logo/**",
