@@ -1,54 +1,53 @@
-import {
-  ApolloError,
-  NetworkStatus,
-  useMutation,
-  useQuery,
-} from "@apollo/client";
-import * as Notifications from "expo-notifications";
-import { GraphQLError } from "graphql";
-/* tslint:disable: no-import-side-effect no-submodule-imports
- * Necessary polyfill due to a bug in RN for android
- * @see https://github.com/facebook/react-native/issues/19410
- */
-import "intl";
-import "intl/locale-data/jsonp/en-US";
-import "intl/locale-data/jsonp/es-CO";
-// tslint:enable
+// Allow some necesary mutations/side effects
+/* eslint-disable fp/no-let */
+/* eslint-disable @typescript-eslint/init-declarations */
+/* eslint-disable fp/no-mutation */
+// Needed to override styles
+/* eslint-disable react/forbid-component-props */
+import { About } from "../../components/About";
+import type { ApolloError } from "@apollo/client";
+import type { GraphQLError } from "graphql";
+import { Header } from "./Header";
+import type { IAuthState } from "../../utils/socialAuth";
+import { Indicators } from "./Indicators";
+import { LOGGER } from "../../utils/logger";
+import { Logo } from "../../components/Logo";
+import { Preloader } from "../../components/Preloader";
 import _ from "lodash";
-import React from "react";
+import { getPushToken } from "../../utils/notifications";
+import { logout } from "../../utils/socialAuth";
+import { styles } from "./styles";
+import { useHistory } from "react-router-native";
 import { useTranslation } from "react-i18next";
+import wait from "waait";
+import { ADD_PUSH_TOKEN_MUTATION, ORGS_QUERY } from "./queries";
 import {
   Alert,
   Animated,
   AppState,
-  AppStateStatus,
   Dimensions,
   Platform,
-  ScrollViewProps,
   View,
 } from "react-native";
+import type { AppStateStatus, ScrollViewProps } from "react-native";
 import { Headline, useTheme } from "react-native-paper";
-import { useHistory } from "react-router-native";
-import wait from "waait";
+import type { IOrganization, IOrgsResult } from "./types";
+import { NetworkStatus, useMutation, useQuery } from "@apollo/client";
+import type { Notification, NotificationResponse } from "expo-notifications";
+import React, { useEffect, useRef } from "react";
+import {
+  addNotificationReceivedListener,
+  addNotificationResponseReceivedListener,
+} from "expo-notifications";
+import "intl";
+import "intl/locale-data/jsonp/en-US";
+import "intl/locale-data/jsonp/es-CO";
 
-import { About } from "../../components/About";
-import { Logo } from "../../components/Logo";
-import { Preloader } from "../../components/Preloader";
-import { LOGGER } from "../../utils/logger";
-import { getPushToken } from "../../utils/notifications";
-import { IAuthState, logout } from "../../utils/socialAuth";
-
-import { Header } from "./Header";
-import { Indicators } from "./Indicators";
-import { ADD_PUSH_TOKEN_MUTATION, ORGS_QUERY } from "./queries";
-import { styles } from "./styles";
-import { IOrganization, IOrgsResult } from "./types";
-
-const hasAnalytics: ((organization: IOrganization) => boolean) = (
-  organization: IOrganization,
+const hasAnalytics: (organization: IOrganization) => boolean = (
+  organization: IOrganization
 ): boolean => !_.isNil(organization.analytics);
 
-const dashboardView: React.FunctionComponent = (): JSX.Element => {
+const DashboardView: React.FunctionComponent = (): JSX.Element => {
   const history: ReturnType<typeof useHistory> = useHistory();
   const { user } = history.location.state as IAuthState;
   const { colors } = useTheme();
@@ -56,29 +55,32 @@ const dashboardView: React.FunctionComponent = (): JSX.Element => {
   const { width } = Dimensions.get("window");
 
   // State management
-  const scrollPosition: Animated.Value = React.useRef(
-    new Animated.Value(0)).current;
+  const scrollPosition: Animated.Value = useRef(new Animated.Value(0)).current;
   const currentPage: Animated.AnimatedDivision = Animated.divide(
-    scrollPosition, width);
+    scrollPosition,
+    width
+  );
 
   // GraphQL operations
   const { client, data, networkStatus, refetch } = useQuery<IOrgsResult>(
-    ORGS_QUERY, {
-    errorPolicy: "all",
-    notifyOnNetworkStatusChange: true,
-    onError: ({ graphQLErrors }: ApolloError): void => {
-      graphQLErrors.forEach((error: GraphQLError): void => {
-        switch (error.message) {
-          case "Exception - Document not found":
-            // Ignore orgs without analytics
-            break;
-          default:
-            LOGGER.warning("An error occurred loading dashboard data", error);
-            Alert.alert(t("common.error.title"), t("common.error.msg"));
-        }
-      });
-    },
-  });
+    ORGS_QUERY,
+    {
+      errorPolicy: "all",
+      notifyOnNetworkStatusChange: true,
+      onError: ({ graphQLErrors }: ApolloError): void => {
+        graphQLErrors.forEach((error: GraphQLError): void => {
+          switch (error.message) {
+            case "Exception - Document not found":
+              // Ignore orgs without analytics
+              break;
+            default:
+              LOGGER.warning("An error occurred loading dashboard data", error);
+              Alert.alert(t("common.error.title"), t("common.error.msg"));
+          }
+        });
+      },
+    }
+  );
 
   const [addPushToken] = useMutation(ADD_PUSH_TOKEN_MUTATION, {
     onError: ({ graphQLErrors }: ApolloError): void => {
@@ -93,7 +95,7 @@ const dashboardView: React.FunctionComponent = (): JSX.Element => {
   let locked: boolean = false;
 
   const handleAppStateChange: (state: AppStateStatus) => void = async (
-    state: AppStateStatus,
+    state: AppStateStatus
   ): Promise<void> => {
     if (state === "active") {
       await wait(1);
@@ -114,14 +116,14 @@ const dashboardView: React.FunctionComponent = (): JSX.Element => {
       const minutesInSec: number = 60;
       const secondsInMs: number = 1000;
 
-      lockTimerId = setTimeout(
-        (): void => { locked = true; history.replace("/"); },
-        minutesToLock * minutesInSec * secondsInMs,
-      );
+      lockTimerId = setTimeout((): void => {
+        locked = true;
+        history.replace("/");
+      }, minutesToLock * minutesInSec * secondsInMs);
     }
   };
 
-  const registerPushToken: (() => void) = async (): Promise<void> => {
+  const registerPushToken: () => void = async (): Promise<void> => {
     const token: string = await getPushToken();
 
     if (!_.isEmpty(token)) {
@@ -129,30 +131,30 @@ const dashboardView: React.FunctionComponent = (): JSX.Element => {
     }
   };
 
-  const handleIncomingNotifs: (event: Notifications.Notification) => void = (
-    notification: Notifications.Notification,
+  const handleIncomingNotifs: (event: Notification) => void = (
+    notification: Notification
   ): void => {
     const { body, title } = notification.request.content;
 
     if (body !== null && title !== null) {
       // Alerts won't open immediatly after opening the app (RN 0.63 bug)
       const delay: number = Platform.select({ android: 100, default: 0 });
-      setTimeout((): void => { Alert.alert(title, body); }, delay);
+      setTimeout((): void => {
+        Alert.alert(title, body);
+      }, delay);
     }
   };
 
-  const onMount: (() => void) = (): (() => void) => {
+  const onMount: () => void = (): (() => void) => {
     AppState.addEventListener("change", handleAppStateChange);
-    type Subscription = ReturnType<
-      typeof Notifications.addNotificationReceivedListener
-    >;
+    type Subscription = ReturnType<typeof addNotificationReceivedListener>;
     const notificationListeners: Subscription[] = [
-      Notifications.addNotificationResponseReceivedListener(
-        ({ notification }: Notifications.NotificationResponse): void => {
+      addNotificationResponseReceivedListener(
+        ({ notification }: NotificationResponse): void => {
           handleIncomingNotifs(notification);
-        },
+        }
       ),
-      Notifications.addNotificationReceivedListener(handleIncomingNotifs),
+      addNotificationReceivedListener(handleIncomingNotifs),
     ];
     registerPushToken();
 
@@ -163,7 +165,8 @@ const dashboardView: React.FunctionComponent = (): JSX.Element => {
       });
     };
   };
-  React.useEffect(onMount, []);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(onMount, []);
   const emptyOrg: IOrganization = {
     analytics: {
       current: { closed: 0, open: 0 },
@@ -179,7 +182,7 @@ const dashboardView: React.FunctionComponent = (): JSX.Element => {
       : _.sortBy(data.me.organizations.filter(hasAnalytics), "name");
 
   // Event handlers
-  const handleLogout: (() => void) = async (): Promise<void> => {
+  const handleLogout: () => void = async (): Promise<void> => {
     await logout();
     client.stop();
     await client.clearStore();
@@ -187,52 +190,60 @@ const dashboardView: React.FunctionComponent = (): JSX.Element => {
   };
 
   const handleScroll: ScrollViewProps["onScroll"] = Animated.event(
-    [{ nativeEvent: { contentOffset: { x: scrollPosition } } }],
-    { useNativeDriver: true },
+    [{ nativeEvent: { contentOffset: { xPos: scrollPosition } } }],
+    { useNativeDriver: true }
   );
 
   return (
     <React.StrictMode>
-      <Header user={user} onLogout={handleLogout} />
+      {/* Unexpected behavior with no-bind */}
+      {/* eslint-disable-next-line react/jsx-no-bind */}
+      <Header onLogout={handleLogout} user={user} />
       <View style={[styles.container, { backgroundColor: colors.background }]}>
         <Animated.ScrollView
-          decelerationRate="fast"
+          decelerationRate={"fast"}
           horizontal={true}
           onScroll={handleScroll}
           pagingEnabled={true}
           scrollEventThrottle={16}
           showsHorizontalScrollIndicator={false}
-          snapToAlignment="center"
+          snapToAlignment={"center"}
           style={styles.scrollContainer}
         >
-          {orgs.map((org: IOrganization): JSX.Element => (
-            <Indicators key={org.name} org={org} />
-          ))}
+          {orgs.map(
+            (org: IOrganization): JSX.Element => (
+              <Indicators key={org.name} org={org} />
+            )
+          )}
         </Animated.ScrollView>
         <View style={styles.dotsContainer}>
-          {orgs.map((_0: IOrganization, index: number): JSX.Element => {
-            const opacityScale: number = 0.3;
-            const opacity: Animated.AnimatedInterpolation =
-              currentPage.interpolate({
-                inputRange: [index - 1, index, index + 1],
-                outputRange: [opacityScale, 1, opacityScale],
-              });
+          {orgs.map(
+            (_0: IOrganization, index: number): JSX.Element => {
+              const opacityScale: number = 0.3;
+              const opacity: Animated.AnimatedInterpolation = currentPage.interpolate(
+                {
+                  inputRange: [index - 1, index, index + 1],
+                  outputRange: [opacityScale, 1, opacityScale],
+                }
+              );
 
-            return (
-              <Animated.View key={index} style={{ opacity }}>
-                <Headline>&bull;</Headline>
-              </Animated.View>
-            );
-          })}
+              return (
+                <Animated.View key={index.toString()} style={{ opacity }}>
+                  {/* Needed to properly render the html bullet over the logo*/}
+                  {/* eslint-disable-next-line react/jsx-no-literals*/}
+                  <Headline>&bull;</Headline>
+                </Animated.View>
+              );
+            }
+          )}
         </View>
         <Preloader
-          visible={[
-            NetworkStatus.loading,
-            NetworkStatus.refetch,
-          ].includes(networkStatus)}
+          visible={[NetworkStatus.loading, NetworkStatus.refetch].includes(
+            networkStatus
+          )}
         />
         <View style={styles.bottom}>
-          <Logo width={180} height={40} fill={colors.text} />
+          <Logo fill={colors.text} height={40} width={180} />
           <About />
         </View>
       </View>
@@ -240,4 +251,4 @@ const dashboardView: React.FunctionComponent = (): JSX.Element => {
   );
 };
 
-export { dashboardView as DashboardView };
+export { DashboardView };
