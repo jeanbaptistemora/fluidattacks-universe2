@@ -1,6 +1,7 @@
 # Standard libraries
 import argparse
 import os
+import csv
 import tempfile
 import time
 from typing import (
@@ -15,7 +16,10 @@ from pandas import DataFrame
 
 # Local libraries
 from sorts.constants import ModelType
-from training.constants import FEATURES_DICTS
+from training.constants import (
+    FEATURES_DICTS,
+    S3_BUCKET
+)
 from training.evaluate_results import get_best_model_name
 from training.training_script.utils import (
     get_model_performance_metrics,
@@ -68,6 +72,7 @@ def train_model(
         f'{metrics[2]:.1f}',
         f'{metrics[3]:.1f}'
     ]
+
     return training_output
 
 
@@ -94,10 +99,17 @@ def main() -> None:
 
     model: str = args.model
     model_class: Optional[ModelType] = globals().get(model)
-    _ = train_model(
+    training_output = train_model(
         model_class,
         args.train
     )
+    results_filename: str = f'{model.lower()}_train_results.csv'
+    with open(results_filename, 'w', newline='') as results_file:
+        csv_writer = csv.writer(results_file)
+        csv_writer.writerows(training_output)
+    S3_BUCKET \
+        .Object(f'training-output/{results_filename}')\
+        .upload_file(results_filename)
 
 
 if __name__ == '__main__':
