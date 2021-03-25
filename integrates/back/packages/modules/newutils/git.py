@@ -14,4 +14,11 @@ def clone_services_repository(path: str) -> None:
         f'https://{SERVICES_GITLAB_API_USER}:{SERVICES_GITLAB_API_TOKEN}'
         '@gitlab.com/fluidattacks/services.git'
     )
-    Repo.clone_from(repo_url, path, branch='master')
+    Repo.clone_from(
+        repo_url,
+        path,
+        multi_options=[
+            '-b master',
+            '--single-branch'
+        ]
+    )
