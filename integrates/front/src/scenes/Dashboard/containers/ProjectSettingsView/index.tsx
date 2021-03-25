@@ -3,6 +3,7 @@ import { Can } from "utils/authz/Can";
 import { DeleteGroup } from "scenes/Dashboard/containers/ProjectSettingsView/DeleteGroup";
 import { Files } from "scenes/Dashboard/containers/ProjectSettingsView/Files";
 import { GroupInformation } from "scenes/Dashboard/containers/ProjectSettingsView/Info";
+import { Have } from "utils/authz/Have";
 import { Portfolio } from "scenes/Dashboard/containers/ProjectSettingsView/Portfolio";
 import { Services } from "scenes/Dashboard/containers/ProjectSettingsView/Services";
 import { Unsubscribe } from "./Unsubscribe";
@@ -33,7 +34,9 @@ const ProjectSettingsView: React.FC = (): JSX.Element => {
         </Can>
         <GroupInformation />
         <Can do={"backend_api_resolvers_group_forces_token_resolve"}>
-          <AgentToken groupName={projectName} />
+          <Have I={"has_forces"}>
+            <AgentToken groupName={projectName} />
+          </Have>
         </Can>
         <Can do={"backend_api_mutations_unsubscribe_from_group_mutate"}>
           <React.Fragment>
