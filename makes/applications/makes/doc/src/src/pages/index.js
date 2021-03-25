@@ -11,21 +11,23 @@ const features = [
     title: 'Web',
     description: (
       <>
-        Web description
+        Here are our UI guides for the Attack Surface Manager
       </>
     ),
+    link: 'web'
   },
   {
     title: 'API',
     description: (
       <>
-        API description
+        Utilize our API for sending and getting data quickly and efficiently
       </>
     ),
+    link: 'api'
   },
 ];
 
-function Feature({imageUrl, title, description}) {
+function Feature({imageUrl, title, description, link}) {
   const imgUrl = useBaseUrl(imageUrl);
   return (
     <div className={clsx('col col--4', styles.feature)}>
@@ -34,8 +36,10 @@ function Feature({imageUrl, title, description}) {
           <img className={styles.featureImage} src={imgUrl} alt={title} />
         </div>
       )}
+      <a className={styles.button} href={link}>
       <h3>{title}</h3>
       <p>{description}</p>
+      </a>
     </div>
   );
 }
@@ -45,7 +49,7 @@ function Home() {
   const {siteConfig = {}} = context;
   return (
     <Layout
-      title={`Hello from ${siteConfig.title}`}
+      title={`${siteConfig.title}`}
       description="Description will go into a meta tag in <head />">
       <main>
         {features && features.length > 0 && (
