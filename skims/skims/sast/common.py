@@ -21,6 +21,13 @@ def split_on_first_dot(string: str) -> Tuple[str, str]:
     return portions[0], ''
 
 
+def split_on_last_dot(string: str) -> Tuple[str, str]:
+    portions = string.rsplit('.', maxsplit=1)
+    if len(portions) == 2:
+        return portions[0], portions[1]
+    return portions[0], ''
+
+
 def _complete_attrs_on_dict(data: Dict[str, Any]) -> Dict[str, Any]:
     return {
         attr: value
@@ -44,15 +51,6 @@ DANGER_METHODS_BY_ARGS_PROPAGATION: Set[str] = complete_attrs_on_set({
     'java.nio.file.Paths.get',
     'org.apache.commons.codec.binary.Base64.decodeBase64',
     'org.apache.commons.codec.binary.Base64.encodeBase64',
-    'org.owasp.benchmark.helpers.DatabaseHelper.JDBCtemplate.batchUpdate',
-    'org.owasp.benchmark.helpers.DatabaseHelper.JDBCtemplate.execute',
-    'org.owasp.benchmark.helpers.DatabaseHelper.JDBCtemplate.query',
-    'org.owasp.benchmark.helpers.DatabaseHelper.JDBCtemplate.queryForInt',
-    'org.owasp.benchmark.helpers.DatabaseHelper.JDBCtemplate.queryForList',
-    'org.owasp.benchmark.helpers.DatabaseHelper.JDBCtemplate.queryForLong',
-    'org.owasp.benchmark.helpers.DatabaseHelper.JDBCtemplate.queryForMap',
-    'org.owasp.benchmark.helpers.DatabaseHelper.JDBCtemplate.queryForObject',
-    'org.owasp.benchmark.helpers.DatabaseHelper.JDBCtemplate.queryForRowSet',
     'org.springframework.jdbc.core.JdbcTemplate.batchUpdate',
     'org.springframework.jdbc.core.JdbcTemplate.execute',
     'org.springframework.jdbc.core.JdbcTemplate.query',

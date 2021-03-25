@@ -6421,7 +6421,9 @@
             ".BenchmarkTest00001": {
               "fields": {
                 ".serialVersionUID": {
-                  "n_id": "58"
+                  "n_id": "58",
+                  "var": "serialVersionUID",
+                  "var_type": "long"
                 }
               },
               "methods": {
@@ -11481,7 +11483,9 @@
             ".BenchmarkTest00008": {
               "fields": {
                 ".serialVersionUID": {
-                  "n_id": "58"
+                  "n_id": "58",
+                  "var": "serialVersionUID",
+                  "var_type": "long"
                 }
               },
               "methods": {
@@ -19488,7 +19492,9 @@
             ".BenchmarkTest00167": {
               "fields": {
                 ".serialVersionUID": {
-                  "n_id": "58"
+                  "n_id": "58",
+                  "var": "serialVersionUID",
+                  "var_type": "long"
                 }
               },
               "methods": {

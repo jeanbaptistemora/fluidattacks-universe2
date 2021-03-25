@@ -138,12 +138,25 @@ def get_metadata_java_class_fields(
 
     if class_body_id := g.match_ast_d(graph, n_id, 'class_body'):
         for c_id in g.adj(graph, class_body_id):
-            if graph.nodes[c_id]['label_type'] == 'field_declaration':
-                if dcl_id := g.match_ast_d(graph, c_id, 'variable_declarator'):
-                    if id_id := g.match_ast_d(graph, dcl_id, '__0__'):
-                        name = '.' + graph.nodes[id_id]['label_text']
-                        methods[name] = \
-                            graph_model.GraphShardMetadataJavaClassField(id_id)
+            if not graph.nodes[c_id]['label_type'] == 'field_declaration':
+                continue
+
+            match = g.match_ast(
+                graph, c_id,
+                'modifiers', '__0__', 'variable_declarator', ';',
+            )
+
+            if (
+                (type_id := match['__0__'])
+                and (dcl_id := match['variable_declarator'])
+                and (id_id := g.match_ast_d(graph, dcl_id, '__0__'))
+            ):
+                name = '.' + graph.nodes[id_id]['label_text']
+                methods[name] = graph_model.GraphShardMetadataJavaClassField(
+                    n_id=id_id,
+                    var=graph.nodes[id_id]['label_text'],
+                    var_type=graph.nodes[type_id]['label_text'],
+                )
 
     return methods
 

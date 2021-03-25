@@ -41,6 +41,7 @@ from sast.common import (
     DANGER_METHODS_BY_TYPE,
     DANGER_METHODS_STATIC_FINDING,
     split_on_first_dot,
+    split_on_last_dot,
 )
 from utils import (
     graph as g,
@@ -159,6 +160,37 @@ def lookup_java_class(
 
         if qualified.endswith(f'.{class_name}'):
             return class_data
+
+    return None
+
+
+def _lookup_java_field_in_shard(
+    shard: graph_model.GraphShard,
+    field_name: str,
+) -> Optional[graph_model.GraphShardMetadataJavaClassField]:
+    for class_path, class_data in shard.metadata.java.classes.items():
+        for field_path, field_data in class_data.fields.items():
+            qualified = shard.metadata.java.package + class_path + field_path
+
+            if qualified == field_name:
+                return field_data
+
+    return None
+
+
+def lookup_java_field(
+    args: EvaluatorArgs,
+    field_name: str,
+) -> Optional[graph_model.GraphShardMetadataJavaClassField]:
+    # First lookup in the current shard
+    if data := _lookup_java_field_in_shard(args.shard, field_name):
+        return data
+
+    # Now lookoup in other shards different than the current shard
+    for shard in args.graph_db.shards:
+        if shard.path != args.shard.path:
+            if data := _lookup_java_field_in_shard(shard, field_name):
+                return data
 
     return None
 
@@ -436,11 +468,15 @@ def _analyze_method_invocation(args: EvaluatorArgs, method: str) -> None:
     args_danger = any(dep.meta.danger for dep in args.dependencies)
 
     method_var, method_path = split_on_first_dot(method)
+    method_field, method_name = split_on_last_dot(args.syntax_step.method)
     method_var_decl = lookup_var_dcl_by_name(args, method_var)
     method_var_state = lookup_var_state_by_name(args, method_var)
     method_var_decl_type = (
         method_var_decl.var_type_base if method_var_decl else ''
     )
+
+    if field := lookup_java_field(args, method_field):
+        method = f'{field.var_type}.{method_name}'
 
     args.syntax_step.meta.danger = (
         # Known function to return user controlled data
