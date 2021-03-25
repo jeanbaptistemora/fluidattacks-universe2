@@ -29,6 +29,7 @@ $whiter-gray: rgba(241, 241, 241, 1);
 // Allignments
 .text-center { text-align: center; }
 
+
 // Background Colors
 .bg-button-red { background-color: $button-red; }
 .bg-darker-blue { background-color: $darker-blue; }
@@ -142,6 +143,7 @@ $whiter-gray: rgba(241, 241, 241, 1);
 .h-navbar { min-height: 6.5rem; }
 .h-section { min-height: 50rem; }
 .min-h-25 { min-height: 25%; }
+.h-400 { min-height: 400px; }
 .h-460 { min-height: 460px; }
 .h-600 { min-height: 600px; }
 .h-700 { min-height: 700px; }
@@ -166,6 +168,9 @@ $whiter-gray: rgba(241, 241, 241, 1);
 .ph-body { padding: 0 1.875rem; }
 .pa-50 { padding: 50%; }
 
+// Scroll Behavior classes
+.scroll-smooth { scroll-behavior: smooth; }
+
 // Transitions
 .t-all-5 { transition: all 0.5s; }
 .t-all-3-eio { transition: all 0.3s ease-in-out;}
@@ -174,6 +179,7 @@ $whiter-gray: rgba(241, 241, 241, 1);
 
 // Width and Max Width classes
 .mw-1366 { max-width: 1366px; }
+.w-300 { width: 300px; }
 
 // Writing moce classes
 .wm-tb-rl { writing-mode: tb-rl; }
@@ -513,7 +519,16 @@ $whiter-gray: rgba(241, 241, 241, 1);
 .demo-button {
   &:hover {
     p {
-      padding-right: 0.5rem;
+      padding-left: -0.5rem;
+      padding-right: 1rem;
     }
   }
+}
+
+.slide-show::-webkit-scrollbar {
+  width: 12px;
+}
+
+.slide-show::-webkit-scrollbar-track {
+  display: none;
 }

@@ -17,6 +17,10 @@ const pageTexts: ResourceKey = {
   contactUs: {
     contactFluidAttacks: "Contact Fluid Attacks",
   },
+  continuousHacking: {
+    phraseHome: "MULTIPLE SOLUTIONS, ONE SERVICE",
+    titleHome: "CONTINUOUS HACKING:",
+  },
   service: {
     oneShotParagraph:
       "If you want to achieve higher vulnerability remediation rates, we" +
