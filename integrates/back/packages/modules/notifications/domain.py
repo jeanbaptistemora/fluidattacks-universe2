@@ -298,4 +298,4 @@ async def send_push_notification(
             notifications_dal.send_push_notification(
                 user_email, token, title, message)
         except DeviceNotRegisteredError:
-            user_domain.remove_push_token(user_email, token)
+            await user_domain.remove_push_token(user_email, token)
