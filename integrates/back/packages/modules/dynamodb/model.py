@@ -268,15 +268,17 @@ async def update_git_root_cloning(
 
 async def delete_git_root_toe_lines(
     *,
-    root_toe_lines: GitRootToeLines
+    filename: str,
+    group_name: str,
+    root_id: str
 ) -> None:
     facet = TABLE.facets['root_toe_lines']
     toe_lines_key = keys.build_key(
         facet=facet,
         values={
-            'filename': root_toe_lines.filename,
-            'group_name': root_toe_lines.group_name,
-            'root_id': root_toe_lines.root_id,
+            'filename': filename,
+            'group_name': group_name,
+            'root_id': root_id,
         },
     )
     await operations.delete_item(

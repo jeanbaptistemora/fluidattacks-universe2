@@ -19,8 +19,23 @@ logging.config.dictConfig(LOGGING)
 LOGGER = logging.getLogger(__name__)
 
 
+async def delete(
+    filename: str,
+    group_name: str,
+    root_id: str
+) -> None:
+    try:
+        await model.delete_git_root_toe_lines(
+            filename=filename,
+            group_name=group_name,
+            root_id=root_id
+        )
+    except ClientError as ex:
+        LOGGER.exception(ex, extra={'extra': locals()})
+        raise UnavailabilityError() from ex
+
+
 async def get_by_root(
-    *,
     group_name: str,
     root_id: str
 ) -> Tuple[GitRootToeLines, ...]:

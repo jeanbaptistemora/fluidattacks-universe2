@@ -236,32 +236,6 @@ URLRoot = NamedTuple(
     ]
 )
 Root = Union[GitRoot, IPRoot, URLRoot]
-ToeLines = NamedTuple(
-    'ToeLines',
-    [
-        ('comments', str),
-        ('filename', str),
-        ('loc', int),
-        ('modified_commit', str),
-        ('modified_date', str),
-        ('root_id', str),
-        ('tested_date', str),
-        ('tested_lines', int),
-    ]
-)
-DalToeLines = NamedTuple(
-    'DalToeLines',
-    [
-        ('comments', str),
-        ('loc', int),
-        ('modified_commit', str),
-        ('modified_date', str),
-        ('pk', str),
-        ('sk', str),
-        ('tested_date', str),
-        ('tested_lines', int),
-    ]
-)
 
 # Analytics
 GraphicParameters = NamedTuple(

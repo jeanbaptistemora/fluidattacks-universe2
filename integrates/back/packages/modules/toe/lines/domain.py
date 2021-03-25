@@ -36,8 +36,8 @@ async def get_by_root(
     root_id: str
 ) -> Tuple[GitRootToeLines, ...]:
     return await toe_lines_dal.get_by_root(
-        group_name=group_name,
-        root_id=root_id
+        group_name,
+        root_id
     )
 
 
