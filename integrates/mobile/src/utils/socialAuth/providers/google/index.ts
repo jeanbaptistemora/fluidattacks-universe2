@@ -1,26 +1,25 @@
+import type { IAuthResult } from "../..";
+import { LOGGER } from "../../../logger";
+import { Platform } from "react-native";
+import _ from "lodash";
 import {
   AuthRequest,
-  AuthSessionResult,
-  DiscoveryDocument,
+  Prompt,
+  ResponseType,
   exchangeCodeAsync,
   fetchDiscoveryAsync,
   fetchUserInfoAsync,
   makeRedirectUri,
-  Prompt,
-  ResponseType,
   revokeAsync,
 } from "expo-auth-session";
-import { AppOwnership, default as Constants } from "expo-constants";
-import _ from "lodash";
-import { Platform } from "react-native";
-
-import { IAuthResult } from "../..";
+import type { AuthSessionResult, DiscoveryDocument } from "expo-auth-session";
+// eslint-disable-next-line import/no-named-as-default -- Needed for correct usage of NativeConstants.appOwnership
+import Constants, { AppOwnership } from "expo-constants";
 import {
   GOOGLE_CLIENT_ID_ANDROID,
   GOOGLE_CLIENT_ID_DEV,
   GOOGLE_CLIENT_ID_IOS,
 } from "../../../constants";
-import { LOGGER } from "../../../logger";
 
 const inExpoClient: boolean = Constants.appOwnership === AppOwnership.Expo;
 
@@ -38,18 +37,17 @@ const getRedirectUri: () => string = (): string =>
     useProxy: inExpoClient,
   });
 
-const getDiscovery: () => Promise<DiscoveryDocument> = async (): Promise<
-  DiscoveryDocument
-> => fetchDiscoveryAsync("https://accounts.google.com");
+const getDiscovery: () => Promise<DiscoveryDocument> = async (): Promise<DiscoveryDocument> =>
+  fetchDiscoveryAsync("https://accounts.google.com");
 
 const getAccessToken: (
   discovery: DiscoveryDocument,
   params: Record<string, string>,
-  request: AuthRequest,
+  request: AuthRequest
 ) => Promise<string> = async (
   discovery: DiscoveryDocument,
   params: Record<string, string>,
-  request: AuthRequest,
+  request: AuthRequest
 ): Promise<string> => {
   if (inExpoClient) {
     return params.access_token;
@@ -60,19 +58,18 @@ const getAccessToken: (
       clientId,
       code: params.code,
       extraParams: {
+        // eslint-disable-next-line camelcase -- Required by API
         code_verifier: request.codeVerifier as string,
       },
       redirectUri: getRedirectUri(),
     },
-    { tokenEndpoint: discovery.tokenEndpoint },
+    { tokenEndpoint: discovery.tokenEndpoint }
   );
 
   return accessToken;
 };
 
-const authWithGoogle: () => Promise<IAuthResult> = async (): Promise<
-  IAuthResult
-> => {
+const authWithGoogle: () => Promise<IAuthResult> = async (): Promise<IAuthResult> => {
   try {
     const discovery: DiscoveryDocument = await getDiscovery();
     const request: AuthRequest = new AuthRequest({
@@ -90,19 +87,19 @@ const authWithGoogle: () => Promise<IAuthResult> = async (): Promise<
 
     const logInResult: AuthSessionResult = await request.promptAsync(
       discovery,
-      { useProxy: inExpoClient },
+      { useProxy: inExpoClient }
     );
 
     if (logInResult.type === "success") {
       const accessToken: string = await getAccessToken(
         discovery,
         logInResult.params,
-        request,
+        request
       );
 
       const userProps: Record<string, string> = await fetchUserInfoAsync(
         { accessToken },
-        { userInfoEndpoint: discovery.userInfoEndpoint },
+        { userInfoEndpoint: discovery.userInfoEndpoint }
       );
 
       return {
@@ -118,7 +115,7 @@ const authWithGoogle: () => Promise<IAuthResult> = async (): Promise<
         },
       };
     }
-  } catch (error) {
+  } catch (error: unknown) {
     LOGGER.error("Couldn't authenticate with Google", error);
   }
 
@@ -126,16 +123,16 @@ const authWithGoogle: () => Promise<IAuthResult> = async (): Promise<
 };
 
 const logoutFromGoogle: (authToken: string) => void = async (
-  authToken: string,
+  authToken: string
 ): Promise<void> => {
   try {
     const discovery: DiscoveryDocument = await getDiscovery();
 
     await revokeAsync(
       { token: authToken },
-      { revocationEndpoint: discovery.revocationEndpoint },
+      { revocationEndpoint: discovery.revocationEndpoint }
     );
-  } catch (error) {
+  } catch (error: unknown) {
     LOGGER.warning("Couldn't revoke google session", error);
   }
 };
