@@ -1,29 +1,27 @@
-import { IAuthResult } from "../..";
+/* eslint-disable @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires */
+import type { IAuthResult } from "../..";
 
 describe("Microsoft OAuth2 provider", (): void => {
-  beforeEach((): void => {
+  it("should perform auth code grant flow", async (): Promise<void> => {
+    expect.hasAssertions();
+
     jest.resetModules();
     jest.mock("expo-auth-session");
-  });
-
-  it("should perform auth code grant flow", async (): Promise<void> => {
     const {
       AuthRequest,
       exchangeCodeAsync,
       fetchDiscoveryAsync,
       fetchUserInfoAsync,
-      // tslint:disable-next-line: no-require-imports
     } = require("expo-auth-session") as Record<string, jest.Mock>;
     AuthRequest.mockImplementation(
       (): Record<string, jest.Mock> => ({
-        promptAsync: jest.fn()
-        .mockResolvedValue({
+        promptAsync: jest.fn().mockResolvedValue({
           errorCode: "",
           params: { code: "codeToExchange" },
           type: "success",
           url: "",
         }),
-      }),
+      })
     );
 
     exchangeCodeAsync.mockResolvedValue({
@@ -38,18 +36,16 @@ describe("Microsoft OAuth2 provider", (): void => {
 
     fetchUserInfoAsync.mockResolvedValue({
       email: "personal@domain.com",
-      family_name: "DOE",
-      given_name: "JOHN",
+      family_name: "DOE", // eslint-disable-line camelcase -- Required by auth API
+      given_name: "JOHN", // eslint-disable-line camelcase -- Required by auth API
       name: "JOHN DOE",
     });
 
-    // tslint:disable-next-line: no-require-imports
     const { authWithMicrosoft } = require(".") as {
-      authWithMicrosoft(): Promise<IAuthResult>;
+      authWithMicrosoft: () => Promise<IAuthResult>;
     };
 
-    expect(await authWithMicrosoft())
-    .toEqual({
+    expect(await authWithMicrosoft()).toStrictEqual({
       authProvider: "MICROSOFT",
       authToken: "exchangedAccessToken",
       type: "success",
@@ -62,14 +58,13 @@ describe("Microsoft OAuth2 provider", (): void => {
     });
 
     fetchUserInfoAsync.mockResolvedValue({
-      family_name: "DOE",
-      given_name: "JOHN",
+      family_name: "DOE", // eslint-disable-line camelcase -- Required by auth API
+      given_name: "JOHN", // eslint-disable-line camelcase -- Required by auth API
       name: "JOHN DOE",
       upn: "business@domain.com",
     });
 
-    expect(await authWithMicrosoft())
-    .toEqual({
+    expect(await authWithMicrosoft()).toStrictEqual({
       authProvider: "MICROSOFT",
       authToken: "exchangedAccessToken",
       type: "success",
@@ -83,23 +78,26 @@ describe("Microsoft OAuth2 provider", (): void => {
   });
 
   it("should gracefully handle errors", async (): Promise<void> => {
-    const {
-      AuthRequest,
-      // tslint:disable-next-line: no-require-imports
-    } = require("expo-auth-session") as Record<string, jest.Mock>;
+    expect.hasAssertions();
+
+    jest.resetModules();
+    jest.mock("expo-auth-session");
+
+    const { AuthRequest } = require("expo-auth-session") as Record<
+      string,
+      jest.Mock
+    >;
     AuthRequest.mockImplementation(
       (): Record<string, jest.Mock> => ({
-        promptAsync: jest.fn()
-        .mockRejectedValue(new Error()),
-      }),
+        promptAsync: jest.fn().mockRejectedValue(new Error()),
+      })
     );
 
-    // tslint:disable-next-line: no-require-imports
     const { authWithMicrosoft } = require(".") as {
-      authWithMicrosoft(): Promise<IAuthResult>;
+      authWithMicrosoft: () => Promise<IAuthResult>;
     };
     const result: IAuthResult = await authWithMicrosoft();
-    expect(result)
-    .toEqual({ type: "cancel" });
+
+    expect(result).toStrictEqual({ type: "cancel" });
   });
 });
