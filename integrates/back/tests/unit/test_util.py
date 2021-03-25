@@ -1,9 +1,18 @@
 from __future__ import absolute_import
 import os
-import time
 import pytest
-from datetime import datetime, timedelta
+import time
+from datetime import (
+    datetime,
+    timedelta,
+)
+from typing import (
+    Dict,
+    List,
+    Union,
+)
 
+import pytz
 from boto3 import client
 from graphql.language.ast import (
     FieldNode,
@@ -15,6 +24,7 @@ from graphql.language.ast import (
 )
 
 from back import settings
+from back.app.utils import create_user
 from back.tests.unit.utils import create_dummy_simple_session
 from backend.dal import session as session_dal
 from backend.dal.helpers.redis import (
@@ -22,14 +32,19 @@ from backend.dal.helpers.redis import (
     redis_del_entity_attr,
     redis_set_entity_attr,
 )
+from backend.domain import user as user_domain
 from backend.exceptions import ExpiredToken
 from backend.util import (
-    ord_asc_by_criticality,
     assert_file_mime,
-    get_jwt_content, iterate_s3_keys, replace_all,
-    list_to_dict, camelcase_to_snakecase, is_valid_format,
     calculate_hash_token,
+    camelcase_to_snakecase,
     get_field_parameters,
+    get_jwt_content,
+    is_valid_format,
+    iterate_s3_keys,
+    list_to_dict,
+    ord_asc_by_criticality,
+    replace_all,
 )
 from newutils import (
     encodings,
@@ -409,3 +424,33 @@ def test_get_field_parameters__argument_with_fieldnode_as_value__regression():
     )
 
     assert {} == get_field_parameters(field_node)
+
+
+@pytest.mark.changes_db
+async def test_create_user():
+    timezone = pytz.timezone(settings.TIME_ZONE)
+
+    async def get_user_attrs(
+        email: str,
+        attrs: List[str]
+    ) -> Dict[str, Union[str, datetime]]:
+        user_attrs = await user_domain.get_attributes(email, attrs)
+        if 'last_login' in user_attrs:
+            user_attrs['last_login'] = timezone.localize(
+                datetime.strptime(
+                    user_attrs['last_login'],
+                    '%Y-%m-%d %H:%M:%S'
+                )
+            )
+        return user_attrs
+
+    now: datetime = datetime.now(tz=timezone)
+    email: str = 'integratescustomer@fluidattacks.com'
+    user_info = await get_user_attrs(email, ['registered', 'last_login'])
+    assert user_info['registered']
+    assert user_info['last_login'] < now
+
+    time.sleep(1)
+    await create_user({'email': email})
+    user_info = await get_user_attrs(email, ['last_login'])
+    assert user_info['last_login'] > now
