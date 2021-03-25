@@ -7,7 +7,8 @@ from itertools import (
     chain,
 )
 from typing import (
-    Callable, Dict,
+    Callable,
+    Dict,
     Iterator,
     TypeVar,
 )
@@ -21,7 +22,6 @@ from paginator import (
 )
 from tap_mailchimp.api.common import (
     api_data,
-    list_items_alert,
 )
 from tap_mailchimp.api.common.api_data import (
     ApiData,
@@ -105,60 +105,48 @@ def list_members(
     raw_source: RawSource,
     audience: AudienceId,
 ) -> Iterator[MemberId]:
-    result = api_data.create_api_data(
-        raw_source.list_members(audience)
-    )
-    list_items_alert(
-        f'list_members {audience}',
-        result.total_items
-    )
-    data = result.data['members']
-    return iter(map(
-        lambda item: MemberId(
+    def id_builder(item: Dict[str, str]) -> MemberId:
+        return MemberId(
             audience_id=audience,
             str_id=item['id']
-        ),
-        data
-    ))
+        )
+
+    return _list_items(
+        partial(raw_source.list_members, audience),
+        'members',
+        id_builder
+    )
 
 
 def list_growth_hist(
     raw_source: RawSource,
     audience: AudienceId,
 ) -> Iterator[GrowthHistId]:
-    result = api_data.create_api_data(
-        raw_source.list_growth_hist(audience)
-    )
-    list_items_alert(
-        f'list_growth_hist {audience}',
-        result.total_items
-    )
-    data = result.data['history']
-    return iter(map(
-        lambda item: GrowthHistId(
+    def id_builder(item: Dict[str, str]) -> GrowthHistId:
+        return GrowthHistId(
             audience_id=audience,
             str_id=item['month']
-        ),
-        data
-    ))
+        )
+
+    return _list_items(
+        partial(raw_source.list_growth_hist, audience),
+        'history',
+        id_builder
+    )
 
 
 def list_interest_catg(
     raw_source: RawSource,
     audience: AudienceId,
 ) -> Iterator[InterestCatgId]:
-    result = api_data.create_api_data(
-        raw_source.list_interest_catg(audience)
-    )
-    list_items_alert(
-        f'list_interest_catg {audience}',
-        result.total_items
-    )
-    data = result.data['categories']
-    return iter(map(
-        lambda item: InterestCatgId(
+    def id_builder(item: Dict[str, str]) -> InterestCatgId:
+        return InterestCatgId(
             audience_id=audience,
             str_id=item['id']
-        ),
-        data
-    ))
+        )
+
+    return _list_items(
+        partial(raw_source.list_interest_catg, audience),
+        'categories',
+        id_builder
+    )
