@@ -55,7 +55,7 @@ module "eks" {
         {
           "key"                 = "k8s.io/cluster-autoscaler/${var.cluster_name}"
           "propagate_at_launch" = "false"
-          "value"               = "true"
+          "value"               = "owned"
         }
       ]
     },
