@@ -1,35 +1,37 @@
+// Needed to override styles
+/* eslint-disable react/forbid-component-props */
+import BitbucketLogo from "../../../../assets/bitbucket-logo.png";
 import React from "react";
+import { styles } from "./styles";
 import { useTranslation } from "react-i18next";
 import { Image, Text, TouchableOpacity } from "react-native";
-
-import {
-  // tslint:disable-next-line: no-default-import
-  default as BitbucketLogo,
-} from "../../../../assets/bitbucket-logo.png";
-
-import { styles } from "./styles";
 
 /**
  * Bitbucket Sign In button
  * @see https://atlassian.design/foundations/
  */
-export interface IBitbucketButtonProps {
+interface IBitbucketButtonProps {
+  // Needed to avoid defaultProps mutations
+  // eslint-disable-next-line react/require-default-props
   disabled?: boolean;
-  onPress(): void;
+  onPress: () => void;
 }
 
-const bitbucketButton: React.FC<IBitbucketButtonProps> = (
-  props: IBitbucketButtonProps,
+const BitbucketButton: React.FC<IBitbucketButtonProps> = (
+  props: IBitbucketButtonProps
 ): JSX.Element => {
   const { t } = useTranslation();
+  const { disabled } = props;
 
   return (
     <React.StrictMode>
       <TouchableOpacity
         style={[
           styles.container,
-          props.disabled === true ? styles.disabled : undefined,
+          disabled === true ? styles.disabled : undefined,
         ]}
+        // We need props spreading in order to pass down props to the button.
+        // eslint-disable-next-line react/jsx-props-no-spreading
         {...props}
       >
         <Image source={BitbucketLogo} style={styles.icon} />
@@ -39,4 +41,4 @@ const bitbucketButton: React.FC<IBitbucketButtonProps> = (
   );
 };
 
-export { bitbucketButton as BitbucketButton };
+export { BitbucketButton, IBitbucketButtonProps };
