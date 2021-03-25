@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Mar 24, 2021, 03:10 PM",
+    "DateLastModified": "Mar 24, 2021, 05:16 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "2.0"
@@ -701,18 +701,18 @@
           }
         },
         {
-          "FacetName": "finding_comment",
+          "FacetName": "vulnerability_comment",
           "KeyAttributeAlias": {
-            "PartitionKeyAlias": "FIN#uuid",
-            "SortKeyAlias": "CMNT#uuid"
+            "PartitionKeyAlias": "CMNT#comment_uuid",
+            "SortKeyAlias": "VULN#vuln_uuid"
           },
           "TableData": [
             {
               "pk": {
-                "S": "FIN#a0fddb36-ac0d-4a58-969f-b13194af61c2"
+                "S": "CMNT#8707b47e-6fe7-4099-b3cf-961508bb4c41"
               },
               "sk": {
-                "S": "CMNT#8707b47e-6fe7-4099-b3cf-961508bb4c41"
+                "S": "VULN#3098e835-833c-48f7-aa76-12ea884e871f"
               },
               "type": {
                 "S": "CONSULT"
@@ -729,10 +729,10 @@
             },
             {
               "pk": {
-                "S": "FIN#a0fddb36-ac0d-4a58-969f-b13194af61c2"
+                "S": "CMNT#729ec222-23ff-4918-b2f5-b30fc9cd98f7"
               },
               "sk": {
-                "S": "CMNT#729ec222-23ff-4918-b2f5-b30fc9cd98f7"
+                "S": "VULN#3098e835-833c-48f7-aa76-12ea884e871f"
               },
               "type": {
                 "S": "OBSERVATION"

@@ -109,30 +109,34 @@ class URLRootItem(NamedTuple):
 RootItem = Union[GitRootItem, IPRootItem, URLRootItem]
 
 
-class FindingMetadata(NamedTuple):
-    name: str
-    description: str
-    type: str
-    evidences: Dict[str, str]
+class VulnerabilityMetadata(NamedTuple):
     affected_components: str
+    attack_vector: str
     cvss: Dict[str, float]
+    cwe: str
+    description: str
+    evidences: Dict[str, str]
+    name: str
     recommendation: str
     requirements: str
-    threat: str
-    using_sorts: bool
-    cwe: str
-    attack_vector: str
-
-
-class FindingState(NamedTuple):
-    status: str
-    reason: str
-    modified_date: str
-    modified_by: str
     source: str
+    specific: str
+    threat: str
+    type: str
+    using_sorts: bool
+    where: str
 
 
-class FindingItem(NamedTuple):
+class VulnerabilityState(NamedTuple):
+    modified_by: str
+    modified_date: str
+    reason: str
+    source: str
+    status: str
+    tags: List[str]
+
+
+class VulnerabilityItem(NamedTuple):
     id: str
-    metadata: FindingMetadata
-    state: FindingState
+    metadata: VulnerabilityMetadata
+    state: VulnerabilityState
