@@ -19,7 +19,7 @@ pytestmark = [
 ]
 
 
-async def test_image_path():
+def test_image_path():
     assert os.path.exists(CHARTS_LOGO_PATH)
 
 
