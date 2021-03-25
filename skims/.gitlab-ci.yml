@@ -112,6 +112,12 @@ skims.test.benchmark_pathtraver:
 skims.test.benchmark_securecookie:
   <<: *skims_test
 
+skims.test.benchmark_xss:
+  <<: *skims_test
+
+skims.test.benchmark_xpathi:
+  <<: *skims_test
+
 skims.test.benchmark_sqli:
   <<: *skims_test
 

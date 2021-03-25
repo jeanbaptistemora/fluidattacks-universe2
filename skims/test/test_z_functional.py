@@ -220,6 +220,12 @@ def test_benchmark_weakrand() -> None:
 
 
 @pytest.mark.flaky(reruns=0)
+@pytest.mark.skims_test_group('benchmark_xpathi')
+def test_benchmark_xpathi() -> None:
+    _run_no_group('benchmark_owasp_xpathi')
+
+
+@pytest.mark.flaky(reruns=0)
 @pytest.mark.skims_test_group('benchmark_xss')
 def test_benchmark_xss() -> None:
     _run_no_group('benchmark_owasp_xss')

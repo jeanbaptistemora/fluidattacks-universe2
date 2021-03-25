@@ -1,0 +1,16 @@
+title,what,where,cwe
+F021. XPath Injection,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00207.java,70,643
+F021. XPath Injection,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00442.java,67,643
+F021. XPath Injection,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00607.java,76,643
+F021. XPath Injection,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01223.java,66,643
+F021. XPath Injection,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01224.java,66,643
+F021. XPath Injection,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01316.java,59,643
+F021. XPath Injection,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01478.java,73,643
+F021. XPath Injection,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01561.java,60,643
+F021. XPath Injection,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01734.java,73,643
+F021. XPath Injection,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01736.java,73,643
+F021. XPath Injection,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01892.java,76,643
+F021. XPath Injection,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01894.java,76,643
+F021. XPath Injection,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01974.java,64,643
+F021. XPath Injection,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02100.java,66,643
+F021. XPath Injection,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02189.java,59,643
