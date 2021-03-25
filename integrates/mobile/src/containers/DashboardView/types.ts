@@ -1,7 +1,7 @@
 /**
  * Organization attributes
  */
-export interface IOrganization {
+interface IOrganization {
   analytics: {
     current: {
       closed: number;
@@ -19,8 +19,10 @@ export interface IOrganization {
 /**
  * Query data response type
  */
-export interface IOrgsResult {
+interface IOrgsResult {
   me: {
     organizations: IOrganization[];
   };
 }
+
+export { IOrganization, IOrgsResult };
