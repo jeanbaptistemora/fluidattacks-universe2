@@ -35,6 +35,9 @@ from model.graph_model import (
 from utils.function import (
     trace,
 )
+from utils.logs import (
+    log_blocking,
+)
 
 from utils.system import (
     read_blocking,
@@ -48,13 +51,14 @@ ROOT_NODE: str = '1'
 def to_svg(graph: Graph, path: str) -> bool:
     nx.drawing.nx_agraph.write_dot(graph, path)
 
-    code, stdout, stderr = read_blocking('dot', '-O', '-T', 'svg', path)
+    code, _, stderr = read_blocking('dot', '-O', '-T', 'svg', path)
 
     if code == 0:
         os.unlink(path)
         return True
 
-    raise SystemError(f'stdout: {stdout.decode()}, stderr: {stderr.decode()}')
+    log_blocking('debug', 'Error while generating svg: %s', stderr.decode())
+    return False
 
 
 def has_labels(n_attrs: NAttrs, **expected_attrs: str) -> bool:

@@ -251,6 +251,10 @@ class GraphShardMetadataJavaClass(NamedTuple):
     n_id: NId
 
 
+class GraphShardMetadataJavaField(NamedTuple):
+    n_id: NId
+
+
 class GraphShardMetadataJava(NamedTuple):
     classes: Dict[str, GraphShardMetadataJavaClass]
     package: str

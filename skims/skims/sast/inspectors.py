@@ -11,35 +11,27 @@ from utils import (
 )
 from model import (
     core_model,
-)
-from model.graph_model import (
-    Graph,
-    GraphShardMetadata,
-    GraphShardMetadataJava,
-    GraphShardMetadataJavaClass,
-    GraphShardMetadataJavaClassMethod,
-    GraphShardMetadataLanguage,
-    GraphShardMetadataNodes,
+    graph_model,
 )
 
 
 def get_metadata(
-    graph: Graph,
-    language: GraphShardMetadataLanguage,
-) -> GraphShardMetadata:
+    graph: graph_model.Graph,
+    language: graph_model.GraphShardMetadataLanguage,
+) -> graph_model.GraphShardMetadata:
 
     metadata: Dict[str, Optional[Any]] = {
         'java': None,
     }
 
-    if language == GraphShardMetadataLanguage.JAVA:
+    if language == graph_model.GraphShardMetadataLanguage.JAVA:
         metadata['java'] = get_metadata_java(graph)
     else:
         raise NotImplementedError()
 
-    return GraphShardMetadata(
+    return graph_model.GraphShardMetadata(
         language=language,
-        nodes=GraphShardMetadataNodes(
+        nodes=graph_model.GraphShardMetadataNodes(
             dangerous_action={
                 finding.name: tuple(
                     n_id
@@ -75,17 +67,19 @@ def get_metadata(
     )
 
 
-def get_metadata_java(graph: Graph) -> GraphShardMetadataJava:
+def get_metadata_java(
+    graph: graph_model.Graph,
+) -> graph_model.GraphShardMetadataJava:
     classes = get_metadata_java_classes(graph)
     package = get_metadata_java_package(graph)
 
-    return GraphShardMetadataJava(
+    return graph_model.GraphShardMetadataJava(
         classes=classes,
         package=package,
     )
 
 
-def get_metadata_java_package(graph: Graph) -> str:
+def get_metadata_java_package(graph: graph_model.Graph) -> str:
     package: str = ''
 
     match = g.match_ast(graph, g.ROOT_NODE, 'package_declaration')
@@ -102,11 +96,11 @@ def get_metadata_java_package(graph: Graph) -> str:
 
 
 def get_metadata_java_classes(
-    graph: Graph,
+    graph: graph_model.Graph,
     n_id: str = g.ROOT_NODE,
     namespace: str = '',
-) -> Dict[str, GraphShardMetadataJavaClass]:
-    classes: Dict[str, GraphShardMetadataJavaClass] = {}
+) -> Dict[str, graph_model.GraphShardMetadataJavaClass]:
+    classes: Dict[str, graph_model.GraphShardMetadataJavaClass] = {}
 
     for c_id in g.adj_ast(graph, n_id):
         if graph.nodes[c_id]['label_type'] == 'class_declaration':
@@ -114,15 +108,15 @@ def get_metadata_java_classes(
 
             if class_identifier_id := match['__0__']:
                 name = graph.nodes[class_identifier_id]['label_text']
-                name_qualified = namespace + '.' + name
-                classes[name_qualified] = GraphShardMetadataJavaClass(
+                qualified = namespace + '.' + name
+                classes[qualified] = graph_model.GraphShardMetadataJavaClass(
                     n_id=c_id,
                     methods=get_metadata_java_class_methods(graph, c_id),
                 )
 
                 # Recurse to get the class members
                 classes.update(get_metadata_java_classes(
-                    graph, c_id, name_qualified,
+                    graph, c_id, qualified,
                 ))
             else:
                 raise NotImplementedError()
@@ -136,10 +130,10 @@ def get_metadata_java_classes(
 
 
 def get_metadata_java_class_methods(
-    graph: Graph,
+    graph: graph_model.Graph,
     n_id: str,
-) -> Dict[str, GraphShardMetadataJavaClassMethod]:
-    methods: Dict[str, GraphShardMetadataJavaClassMethod] = {}
+) -> Dict[str, graph_model.GraphShardMetadataJavaClassMethod]:
+    methods: Dict[str, graph_model.GraphShardMetadataJavaClassMethod] = {}
 
     match = g.match_ast(graph, n_id, 'class_body')
 
@@ -151,8 +145,7 @@ def get_metadata_java_class_methods(
 
                 if identifier_id := match['identifier']:
                     name = '.' + graph.nodes[identifier_id]['label_text']
-                    methods[name] = GraphShardMetadataJavaClassMethod(
-                        n_id=c_id,
-                    )
+                    methods[name] = \
+                        graph_model.GraphShardMetadataJavaClassMethod(c_id)
 
     return methods
