@@ -174,7 +174,9 @@ def _mark_java_f034(graph: graph_model.Graph) -> None:
 
 
 def _mark_java_f004(graph: graph_model.Graph) -> None:
-    identifiers: Set[str] = {*build_attr_paths('ProcessBuilder'), }
+    identifiers: Set[str] = {
+        *build_attr_paths('java', 'lang', 'ProcessBuilder'),
+    }
 
     for n_id in g.yield_object_creation_expression(graph, identifiers):
         graph.nodes[n_id]['label_sink_type'] = (

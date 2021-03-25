@@ -29,6 +29,7 @@ from model import (
 )
 from sast.common import (
     build_attr_paths,
+    complete_attrs_on_set,
     DANGER_METHODS_BY_OBJ_ARGS,
     DANGER_METHODS_BY_TYPE_ARGS_PROPAGATION_FINDING,
     DANGER_METHODS_BY_TYPE_AND_VALUE_FINDING,
@@ -261,13 +262,13 @@ def _syntax_step_declaration_danger(args: EvaluatorArgs) -> None:
         core_model.FindingEnum.F042,
         core_model.FindingEnum.F063_PATH_TRAVERSAL,
     }
-    bind_danger = any((
-        args.finding in no_trust_findings and any((
-            args.syntax_step.var_type in build_attr_paths(
-                'javax', 'servlet', 'http', 'HttpServletRequest'
-            ),
-        )),
-    ))
+    danger_types = {
+        'javax.servlet.http.HttpServletRequest'
+    }
+    bind_danger = (
+        args.finding in no_trust_findings
+        and args.syntax_step.var_type in complete_attrs_on_set(danger_types)
+    )
 
     # Local context
     args.syntax_step.meta.danger = bind_danger or args_danger
@@ -585,41 +586,50 @@ def _syntax_step_object_instantiation_danger(args: EvaluatorArgs) -> None:
     # Analyze the arguments involved in the instantiation
     args_danger = any(dep.meta.danger for dep in args.dependencies)
 
-    # Analyze if the object being instantiated is dangerous
-    instantiation_danger = any((
-        args.finding == core_model.FindingEnum.F063_PATH_TRAVERSAL and any((
-            args.syntax_step.object_type in build_attr_paths(
-                'java', 'io', 'File'
-            ),
-            args.syntax_step.object_type in build_attr_paths(
-                'java', 'io', 'FileInputStream'
-            ),
-            args.syntax_step.object_type in build_attr_paths(
-                'java', 'io', 'FileOutputStream'
-            ),
-        )),
-        args.finding == core_model.FindingEnum.F004 and any((
-            args.syntax_step.object_type in build_attr_paths(
-                'ProcessBuilder',
-            ),
-        )),
-        args.syntax_step.object_type in {
-            'java', 'lang', 'StringBuilder',
+    _danger_instances_by_finding = {
+        core_model.FindingEnum.F063_PATH_TRAVERSAL.name: {
+            'java.io.File',
+            'java.io.FileInputStream',
+            'java.io.FileOutputStream',
         },
-    ))
+        core_model.FindingEnum.F004.name: {
+            'java.lang.ProcessBuilder',
+        }
+    }
+    _danger_instances_no_args_by_finding = {
+        core_model.FindingEnum.F034.name: {
+            'java.util.Random',
+        }
+    }
+    _danger_instances = {
+        'java.lang.StringBuilder',
+        'org.owasp.benchmark.helpers.SeparateClassRequest',
+    }
 
-    instantiation_danger_no_args = any((
-        args.finding == core_model.FindingEnum.F008 and any((
-            args.syntax_step.object_type in build_attr_paths(
-                'org', 'owasp', 'benchmark', 'helpers', 'SeparateClassRequest'
-            ),
-        )),
-        args.finding == core_model.FindingEnum.F034 and any((
-            args.syntax_step.object_type in build_attr_paths(
-                'java', 'util', 'Random'
-            ),
-        )),
-    ))
+    danger_instances_by_finding = {
+        find: complete_attrs_on_set(instances)
+        for find, instances in _danger_instances_by_finding.items()
+    }
+    danger_instances_no_args_by_finding = {
+        find: complete_attrs_on_set(instances)
+        for find, instances in _danger_instances_no_args_by_finding.items()
+    }
+    danger_instances = complete_attrs_on_set(_danger_instances)
+
+    # Analyze if the object being instantiated is dangerous
+    object_type: str = args.syntax_step.object_type
+    instantiation_danger = (
+        object_type in danger_instances_by_finding.get(
+            args.finding.name, set())
+        or object_type in danger_instances
+    )
+    # Analyze instances of objects that are vulnerable and do not
+    # require any parameters
+    instantiation_danger_no_args = (
+        object_type
+        in danger_instances_no_args_by_finding.get(args.finding.name, set())
+    )
+
     if instantiation_danger_no_args:
         args.syntax_step.meta.danger = True
     elif instantiation_danger:

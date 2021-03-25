@@ -29,7 +29,7 @@ def _complete_attrs_on_dict(data: Dict[str, Any]) -> Dict[str, Any]:
     }
 
 
-def _complete_attrs_on_set(data: Set[str]) -> Set[str]:
+def complete_attrs_on_set(data: Set[str]) -> Set[str]:
     return {
         attr
         for path in data
@@ -38,7 +38,7 @@ def _complete_attrs_on_set(data: Set[str]) -> Set[str]:
 
 
 # Constants
-DANGER_METHODS_BY_ARGS_PROPAGATION: Set[str] = _complete_attrs_on_set({
+DANGER_METHODS_BY_ARGS_PROPAGATION: Set[str] = complete_attrs_on_set({
     'java.net.URLDecoder.decode',
     'java.nio.file.Files.newInputStream',
     'java.nio.file.Paths.get',
@@ -71,7 +71,7 @@ DANGER_METHODS_BY_ARGS_PROPAGATION: Set[str] = _complete_attrs_on_set({
 })
 DANGER_METHODS_STATIC_FINDING: Dict[str, Set[str]] = {
     core_model.FindingEnum.F034.name:
-    _complete_attrs_on_set({
+    complete_attrs_on_set({
         'java.lang.Math.random',
         'java.util.Random.nextFloat',
         'java.util.Random.nextInt',
@@ -83,13 +83,13 @@ DANGER_METHODS_STATIC_FINDING: Dict[str, Set[str]] = {
 }
 DANGER_METHODS_STATIC_SIDE_EFFECTS_FINDING: Dict[str, Set[str]] = {
     core_model.FindingEnum.F034.name:
-    _complete_attrs_on_set({
+    complete_attrs_on_set({
         'java.util.Random.nextBytes',
     }),
 }
 DANGER_METHODS_BY_OBJ_NO_TYPE_ARGS_PROPAGATION_FIDING: Dict[str, Set[str]] = {
     core_model.FindingEnum.F034.name:
-    _complete_attrs_on_set({
+    complete_attrs_on_set({
         'getSession.setAttribute',
         'toString.substring',
         'addCookie',
