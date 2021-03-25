@@ -16,34 +16,10 @@ const features = [
     ),
   },
   {
-    title: 'Mobile',
-    description: (
-      <>
-        Mobile description
-      </>
-    ),
-  },
-  {
     title: 'API',
     description: (
       <>
         API description
-      </>
-    ),
-  },
-  {
-    title: 'Agent',
-    description: (
-      <>
-        Agent description
-      </>
-    ),
-  },
-  {
-    title: 'Framework',
-    description: (
-      <>
-        Framework description
       </>
     ),
   },

@@ -14,16 +14,12 @@ function getDocs(path) {
 module.exports = {
   Web: [
     'web/asm',
-    'web/organization',
     {
       type: 'category',
       label: 'Manage your groups',
       items: [
         'web/groups/vulnerabilities',
-        'web/groups/devsecops',
-        'web/groups/events',
         'web/groups/consulting',
-        'web/groups/authors',
         {
           type: 'category',
           label: 'Scope',
@@ -50,8 +46,6 @@ module.exports = {
             'web/vulnerabilities/management/tracking',
           ],
         },
-        'web/vulnerabilities/description',
-        'web/vulnerabilities/severity',
       ],
     },
     'web/glossary',

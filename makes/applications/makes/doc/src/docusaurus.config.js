@@ -26,27 +26,9 @@ module.exports = {
           position: 'left',
         },
         {
-          to: 'mobile/',
-          activeBasePath: 'mobile/',
-          label: 'Mobile',
-          position: 'left',
-        },
-        {
           to: 'api/',
           activeBasePath: 'api/',
           label: 'API',
-          position: 'left',
-        },
-        {
-          to: 'agent/',
-          activeBasePath: 'agent/',
-          label: 'Agent',
-          position: 'left',
-        },
-        {
-          to: 'framework/',
-          activeBasePath: 'framework/',
-          label: 'Framework',
           position: 'left',
         },
       ],
