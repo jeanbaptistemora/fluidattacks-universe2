@@ -326,6 +326,14 @@ def match_ast(
     return nodes
 
 
+def match_ast_d(
+    graph: Graph,
+    n_id: str,
+    label_type: str,
+) -> Optional[str]:
+    return match_ast(graph, n_id, label_type)[label_type]
+
+
 def match_ast_group(
     graph: Graph,
     n_id: str,

@@ -6419,6 +6419,11 @@
         "java": {
           "classes": {
             ".BenchmarkTest00001": {
+              "fields": {
+                ".serialVersionUID": {
+                  "n_id": "58"
+                }
+              },
               "methods": {
                 ".doGet": {
                   "n_id": "62"
@@ -11469,6 +11474,11 @@
         "java": {
           "classes": {
             ".BenchmarkTest00008": {
+              "fields": {
+                ".serialVersionUID": {
+                  "n_id": "58"
+                }
+              },
               "methods": {
                 ".doGet": {
                   "n_id": "62"
@@ -19466,6 +19476,11 @@
         "java": {
           "classes": {
             ".BenchmarkTest00167": {
+              "fields": {
+                ".serialVersionUID": {
+                  "n_id": "58"
+                }
+              },
               "methods": {
                 ".doGet": {
                   "n_id": "62"
@@ -22207,6 +22222,7 @@
         "java": {
           "classes": {
             ".Test": {
+              "fields": {},
               "methods": {
                 ".main": {
                   "n_id": "13"
@@ -23659,6 +23675,7 @@
         "java": {
           "classes": {
             ".Test": {
+              "fields": {},
               "methods": {
                 ".doPost": {
                   "n_id": "13"
@@ -41607,6 +41624,7 @@
         "java": {
           "classes": {
             ".Test": {
+              "fields": {},
               "methods": {
                 ".main": {
                   "n_id": "17"
@@ -41615,6 +41633,7 @@
               "n_id": "10"
             },
             ".Test.InnerTest": {
+              "fields": {},
               "methods": {},
               "n_id": "1589"
             }

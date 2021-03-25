@@ -242,16 +242,17 @@ class Graph(nx.DiGraph):
 GraphSyntax = Dict[NId, SyntaxSteps]
 
 
+class GraphShardMetadataJavaClassField(NamedTuple):
+    n_id: NId
+
+
 class GraphShardMetadataJavaClassMethod(NamedTuple):
     n_id: NId
 
 
 class GraphShardMetadataJavaClass(NamedTuple):
+    fields: Dict[str, GraphShardMetadataJavaClassField]
     methods: Dict[str, GraphShardMetadataJavaClassMethod]
-    n_id: NId
-
-
-class GraphShardMetadataJavaField(NamedTuple):
     n_id: NId
 
 
