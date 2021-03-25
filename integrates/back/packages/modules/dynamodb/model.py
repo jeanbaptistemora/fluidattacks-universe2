@@ -22,7 +22,10 @@ from dynamodb.types import (
     RootItem,
     URLRootItem,
     URLRootMetadata,
-    URLRootState
+    URLRootState,
+    VulnerabilityItem,
+    VulnerabilityMetadata,
+    VulnerabilityState
 )
 
 
@@ -32,15 +35,15 @@ def _build_root(
     key_structure: PrimaryKey,
     raw_items: Tuple[Item, ...],
 ) -> RootItem:
+    metadata = historics.get_metadata(
+        item_id=item_id,
+        key_structure=key_structure,
+        raw_items=raw_items
+    )
     state = historics.get_latest(
         item_id=item_id,
         key_structure=key_structure,
         historic_prefix='STATE',
-        raw_items=raw_items
-    )
-    metadata = historics.get_metadata(
-        item_id=item_id,
-        key_structure=key_structure,
         raw_items=raw_items
     )
 
@@ -364,4 +367,91 @@ async def update_git_root_toe_lines(
         facet=facet,
         item=toe_lines,
         table=TABLE
+    )
+
+
+def _build_vuln(
+    *,
+    item_id: str,
+    key_structure: PrimaryKey,
+    raw_items: Tuple[Item, ...],
+) -> VulnerabilityItem:
+    metadata = historics.get_metadata(
+        item_id=item_id,
+        key_structure=key_structure,
+        raw_items=raw_items
+    )
+    state = historics.get_latest(
+        item_id=item_id,
+        key_structure=key_structure,
+        historic_prefix='STATE',
+        raw_items=raw_items
+    )
+
+    return VulnerabilityItem(
+        id=metadata[key_structure.sort_key].split('#')[1],
+        metadata=VulnerabilityMetadata(
+            affected_components=metadata['affected_components'],
+            attack_vector=metadata['attack_vector'],
+            cvss=metadata['cvss'],
+            cwe=metadata['cwe'],
+            description=metadata['description'],
+            evidences=metadata['evidences'],
+            name=metadata['name'],
+            recommendation=metadata['recommendation'],
+            requirements=metadata['requirements'],
+            source=metadata['source'],
+            specific=metadata['specific'],
+            threat=metadata['threat'],
+            type=metadata['type'],
+            using_sorts=metadata['using_sorts'],
+            where=metadata['where']
+        ),
+        state=VulnerabilityState(
+            modified_by=state['modified_by'],
+            modified_date=state['modified_date'],
+            reason=state['reason'],
+            source=state['source'],
+            status=state['status'],
+            tags=state['tags']
+        )
+    )
+
+
+async def get_vulnerabilities(
+    *,
+    root: GitRootItem
+) -> Tuple[VulnerabilityItem, ...]:
+    primary_key = keys.build_key(
+        facet=TABLE.facets['vulnerability_metadata'],
+        values={'root_uuid': root.id},
+    )
+
+    index = TABLE.indexes['inverted_index']
+    key_structure = index.primary_key
+    results = await operations.query(
+        condition_expression=(
+            Key(key_structure.partition_key).eq(primary_key.sort_key) &
+            Key(key_structure.sort_key).begins_with(primary_key.partition_key)
+        ),
+        facets=(
+            TABLE.facets['vulnerability_metadata'],
+            TABLE.facets['vulnerability_state']
+        ),
+        index=index,
+        table=TABLE
+    )
+
+    vuln_items = defaultdict(list)
+    for item in results:
+        vuln_id = '#'.join(item[key_structure.sort_key].split('#')[:2])
+        vuln_items[vuln_id].append(item)
+
+    return tuple(
+        _build_vuln(
+            item_id=vuln_id,
+            key_structure=key_structure,
+            raw_items=tuple(items)
+        )
+        for vuln_id, items in vuln_items.items()
     )
