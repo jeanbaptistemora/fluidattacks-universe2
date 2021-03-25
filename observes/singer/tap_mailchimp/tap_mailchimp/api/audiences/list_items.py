@@ -1,14 +1,26 @@
 # Standard libraries
+import math
+from itertools import (
+    chain,
+)
 from typing import (
+    Callable,
     Iterator,
 )
 
 # Third party libraries
 
 # Local libraries
+import paginator
+from paginator import (
+    PageId,
+)
 from tap_mailchimp.api.common import (
     api_data,
     list_items_alert,
+)
+from tap_mailchimp.api.common.api_data import (
+    ApiData,
 )
 from tap_mailchimp.api.common.raw import (
     AbsReportId,
@@ -20,18 +32,34 @@ from tap_mailchimp.api.common.raw import (
 )
 
 
+MAX_PER_PAGE = 1000
+
+
+class NoneTotal(Exception):
+    pass
+
+
 def list_audiences(
     raw_source: RawSource,
 ) -> Iterator[AudienceId]:
-    result = api_data.create_api_data(
-        raw_source.list_audiences()
+    getter: Callable[[PageId], ApiData] = (
+        lambda page: api_data.create_api_data(
+            raw_source.list_audiences(page)
+        )
     )
-    list_items_alert(
-        'list_audiences',
-        result.total_items
-    )
-    audiences_data = result.data['lists']
-    return iter(map(lambda a: AudienceId(a['id']), audiences_data))
+    test_page = getter(PageId(page=0, per_page=1))
+    chunk_size = MAX_PER_PAGE
+    if test_page.total_items is None:
+        raise NoneTotal()
+    total_pages = math.ceil(test_page.total_items / chunk_size)
+    pages = paginator.new_page_range(range(total_pages), chunk_size)
+    results: Iterator[ApiData] = paginator.get_pages(pages, getter)
+
+    def extract_aud_ids(a_data: ApiData) -> Iterator[AudienceId]:
+        audiences_data = a_data.data['lists']
+        return iter(map(lambda a: AudienceId(a['id']), audiences_data))
+
+    return chain.from_iterable(map(extract_aud_ids, results))
 
 
 def list_abuse_reports(

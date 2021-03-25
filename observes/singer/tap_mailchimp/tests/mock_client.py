@@ -4,6 +4,9 @@ import json
 # Third party libraries
 
 # Local libraries
+from paginator import (
+    PageId,
+)
 from tap_mailchimp import (
     api,
 )
@@ -19,7 +22,7 @@ from tap_mailchimp.common.objs import (
 )
 
 
-def _list_audiences() -> JSON:
+def _list_audiences(page: PageId) -> JSON:  # pylint: disable=unused-argument
     with open('./tests/mock_data/audience.json') as data:
         return json.load(data)['list_audiences']
 

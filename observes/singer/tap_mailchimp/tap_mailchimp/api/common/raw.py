@@ -65,7 +65,7 @@ ItemId = Union[
 
 
 class RawSource(NamedTuple):
-    list_audiences: Callable[[], JSON]
+    list_audiences: Callable[[PageId], JSON]
     get_audience: Callable[[AudienceId], JSON]
     list_abuse_reports: Callable[[AudienceId], JSON]
     get_abuse_report: Callable[[AbsReportId], JSON]
@@ -91,7 +91,7 @@ def _list_audiences(client: Client, page_id: PageId = DEFAULT_PAGE) -> JSON:
         count=page_id.per_page,
         offset=page_id.page * page_id.per_page
     )
-    LOG.debug('_list_audiences response: %s', result)
+    LOG.debug('_list_audiences (%s) response: %s', page_id, result)
     return result
 
 
