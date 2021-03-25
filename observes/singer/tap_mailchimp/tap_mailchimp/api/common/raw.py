@@ -88,6 +88,7 @@ class RawSource(NamedTuple):
     get_campaign: Callable[[CampaignId], JSON]
     list_feedbacks: Callable[[CampaignId, PageId], JSON]
     get_feedback: Callable[[FeedbackId], JSON]
+    get_checklist: Callable[[CampaignId], JSON]
 
 
 DEFAULT_PAGE = PageId(page=0, per_page=1000)
@@ -225,6 +226,12 @@ def _get_feedback(client: Client, feedback_id: FeedbackId) -> JSON:
     )
 
 
+def _get_checklist(
+    client: Client, campaign_id: CampaignId
+) -> JSON:
+    return client.campaigns.get_send_checklist(campaign_id.str_id)
+
+
 def create_raw_source(client: Client) -> RawSource:
     return RawSource(
         list_audiences=partial(_list_audiences, client),
@@ -244,4 +251,5 @@ def create_raw_source(client: Client) -> RawSource:
         get_campaign=partial(_get_campaign, client),
         list_feedbacks=partial(_list_feedbacks, client),
         get_feedback=partial(_get_feedback, client),
+        get_checklist=partial(_get_checklist, client),
     )

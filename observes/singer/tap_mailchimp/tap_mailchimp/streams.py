@@ -43,6 +43,7 @@ class SupportedStreams(Enum):
     AUDIENCES = 'AUDIENCES'
     ABUSE_REPORTS = 'ABUSE_REPORTS'
     CAMPAIGNS = 'CAMPAIGNS'
+    CHECKLIST = 'CHECKLIST'
     FEEDBACK = 'FEEDBACK'
     GROWTH_HISTORY = 'GROWTH_HISTORY'
     INTEREST_CATEGORY = 'INTEREST_CATEGORY'
@@ -70,6 +71,7 @@ def _item_getter(
         SupportedStreams.RECENT_ACTIVITY: client.get_activity,
         SupportedStreams.TOP_CLIENTS: client.get_top_clients,
         SupportedStreams.CAMPAIGNS: client.get_campaign,
+        SupportedStreams.CHECKLIST: client.get_checklist,
         SupportedStreams.FEEDBACK: client.get_feedback,
     }
     id_type = {
@@ -82,6 +84,7 @@ def _item_getter(
         SupportedStreams.RECENT_ACTIVITY: AudienceId,
         SupportedStreams.TOP_CLIENTS: AudienceId,
         SupportedStreams.CAMPAIGNS: CampaignId,
+        SupportedStreams.CHECKLIST: CampaignId,
         SupportedStreams.FEEDBACK: FeedbackId,
     }
     if isinstance(item_id, id_type[stream]):
@@ -202,6 +205,15 @@ def all_campaigns(
     target: Optional[IO[str]]
 ) -> None:
     stream = SupportedStreams.CAMPAIGNS
+    campaigns_id = client.list_campaigns()
+    _emit_items(client, stream, campaigns_id, target)
+
+
+def all_checklists(
+    client: ApiClient,
+    target: Optional[IO[str]]
+) -> None:
+    stream = SupportedStreams.CHECKLIST
     campaigns_id = client.list_campaigns()
     _emit_items(client, stream, campaigns_id, target)
 

@@ -51,6 +51,7 @@ def mock_data_source() -> RawSource:
         get_campaign=lambda x: x,  # type: ignore
         list_feedbacks=lambda x: x,  # type: ignore
         get_feedback=lambda x: x,  # type: ignore
+        get_checklist=lambda x: x,  # type: ignore
     )
 
 

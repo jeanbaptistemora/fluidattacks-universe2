@@ -32,3 +32,12 @@ def get_feedback(
     return api_data.create_api_data(
         raw_source.get_feedback(feedback_id)
     )
+
+
+def get_checklist(
+    raw_source: RawSource,
+    campaign: CampaignId,
+) -> ApiData:
+    return api_data.create_api_data(
+        raw_source.get_checklist(campaign)
+    )

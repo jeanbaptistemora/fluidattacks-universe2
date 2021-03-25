@@ -40,6 +40,7 @@ _stream_executor: Mapping[
     SupportedStreams.RECENT_ACTIVITY: streams.recent_activity,
     SupportedStreams.TOP_CLIENTS: streams.top_clients,
     SupportedStreams.CAMPAIGNS: streams.all_campaigns,
+    SupportedStreams.CHECKLIST: streams.all_checklists,
     SupportedStreams.FEEDBACK: streams.all_feedback,
 }
 
