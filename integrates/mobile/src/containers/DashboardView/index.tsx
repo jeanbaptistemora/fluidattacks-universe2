@@ -165,6 +165,7 @@ const DashboardView: React.FunctionComponent = (): JSX.Element => {
       });
     };
   };
+  // We only want this to run when the component mounts.
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(onMount, []);
   const emptyOrg: IOrganization = {

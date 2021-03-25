@@ -13,3 +13,5 @@
 !src/containers/DashboardView/**
 !src/containers/DashboardView/Header/**
 !src/containers/DashboardView/Indicators/**
+!src/containers/LockView/index.tsx
+!src/containers/LockView/styles.ts

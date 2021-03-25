@@ -1,37 +1,36 @@
-import * as LocalAuthentication from "expo-local-authentication";
-import * as SecureStore from "expo-secure-store";
-import React from "react";
-import { useTranslation } from "react-i18next";
-import { Image, View } from "react-native";
-import { Button, Headline, useTheme } from "react-native-paper";
-import { useHistory } from "react-router-native";
-
-// tslint:disable-next-line: no-default-import
-import { default as FluidIcon } from "../../../assets/notification.png";
-
+// Needed to override styles
+/* eslint-disable react/forbid-component-props */
+import FluidIcon from "../../../assets/notification.png";
+import { authenticateAsync } from "expo-local-authentication";
+import { getItemAsync } from "expo-secure-store";
 import { styles } from "./styles";
+import { useHistory } from "react-router-native";
+import { useTranslation } from "react-i18next";
+import { Button, Headline, useTheme } from "react-native-paper";
+import { Image, View } from "react-native";
+import React, { useEffect } from "react";
 
-const lockView: React.FC = (): JSX.Element => {
+const LockView: React.FC = (): JSX.Element => {
   const history: ReturnType<typeof useHistory> = useHistory();
   const { colors } = useTheme();
   const { t } = useTranslation();
 
   // Side effects
-  const promptBiometricAuth: (() => void) = async (): Promise<void> => {
-    const authState: string =
-      await SecureStore.getItemAsync("authState") as string;
-    const { success } = await LocalAuthentication.authenticateAsync();
+  const promptBiometricAuth: () => void = async (): Promise<void> => {
+    const authState: string = (await getItemAsync("authState")) as string;
+    const { success } = await authenticateAsync();
 
     if (success) {
       history.replace("/Dashboard", JSON.parse(authState));
     }
   };
 
-  const onMount: (() => void) = (): void => {
+  const onMount: () => void = (): void => {
     promptBiometricAuth();
   };
-
-  React.useEffect(onMount, []);
+  // We only want this to run when the component mounts.
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(onMount, []);
 
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>
@@ -40,7 +39,8 @@ const lockView: React.FC = (): JSX.Element => {
       <Button
         accessibilityComponentType={undefined}
         accessibilityTraits={undefined}
-        mode="text"
+        mode={"text"}
+        // eslint-disable-next-line react/jsx-no-bind -- Needed to allow auth
         onPress={promptBiometricAuth}
       >
         {t("lock.btn")}
@@ -49,4 +49,4 @@ const lockView: React.FC = (): JSX.Element => {
   );
 };
 
-export { lockView as LockView };
+export { LockView };
