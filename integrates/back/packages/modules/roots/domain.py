@@ -22,13 +22,6 @@ from backend.exceptions import (
     RepeatedValues,
     RootNotFound
 )
-from backend.typing import (
-    GitRoot,
-    GitRootCloningStatus,
-    IPRoot,
-    URLRoot,
-    Root
-)
 from dynamodb.types import (
     GitRootCloning,
     GitRootItem,
@@ -48,6 +41,7 @@ from newutils import (
 )
 from notifications import domain as notifications_domain
 from roots import dal as roots_dal
+from roots.types import GitRoot, GitRootCloningStatus, IPRoot, URLRoot, Root
 
 
 def format_root(root: RootItem) -> Root:
@@ -521,3 +515,21 @@ async def update_root_state(
                 root=root,
                 user_email=user_email
             )
+
+
+def get_root_id_by_filename(
+    filename: str,
+    group_roots: Tuple[Root, ...]
+) -> str:
+    root_nickname = filename.split('/')[0]
+    file_name_root_ids = [
+        root.id
+        for root in group_roots
+        if isinstance(root, GitRoot)
+        and root.nickname == root_nickname
+    ]
+
+    if not file_name_root_ids:
+        raise RootNotFound()
+
+    return file_name_root_ids[0]

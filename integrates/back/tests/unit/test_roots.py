@@ -3,9 +3,7 @@ import pytest
 
 # Local libraries
 from backend.api import get_new_context
-from newutils import (
-    roots as roots_utils,
-)
+from roots import domain as roots_domain
 
 # Constants
 pytestmark = [
@@ -18,7 +16,7 @@ async def test_get_root_id_by_filename():
     group_name = 'unittesting'
     group_roots_loader = loaders.group_roots
     group_roots = await group_roots_loader.load(group_name)
-    root_id = roots_utils.get_root_id_by_filename(
+    root_id = roots_domain.get_root_id_by_filename(
         'product/integrates/test.config.json',
         group_roots
     )

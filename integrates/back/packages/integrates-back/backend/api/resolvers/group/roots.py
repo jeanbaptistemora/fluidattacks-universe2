@@ -6,7 +6,8 @@ from aiodataloader import DataLoader
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local
-from backend.typing import Project as Group, Root
+from backend.typing import Project as Group
+from roots.types import Root
 
 
 async def resolve(

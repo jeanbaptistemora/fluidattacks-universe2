@@ -53,7 +53,6 @@ from backend.typing import (
     Historic as HistoricType,
     MailContent as MailContentType,
     Project as ProjectType,
-    Root,
 )
 from batch import dal as batch_dal
 from dynamodb.types import (
@@ -62,7 +61,6 @@ from dynamodb.types import (
 from events import domain as events_domain
 from newutils import (
     datetime as datetime_utils,
-    roots as roots_utils,
 )
 from newutils.groups import (
     has_integrates_services,
@@ -72,6 +70,8 @@ from newutils.findings import (
     get_state_actions,
     sort_historic_by_date,
 )
+from roots import domain as roots_domain
+from roots.types import Root
 from tags import domain as tags_domain
 from __init__ import (
     BASE_URL,
@@ -1347,7 +1347,7 @@ def _get_group_toe_lines_from_cvs(
                 except ValueError:
                     new_toe_lines[field_name] = default_value
 
-            new_toe_lines['root_id'] = roots_utils.get_root_id_by_filename(
+            new_toe_lines['root_id'] = roots_domain.get_root_id_by_filename(
                 row['filename'],
                 group_roots
             )

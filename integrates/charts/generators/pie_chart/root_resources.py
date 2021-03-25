@@ -11,9 +11,9 @@ from aioextensions import run
 
 # Local libraries
 from backend.api import get_new_context
-from backend.typing import GitRoot
 from charts import utils
 from charts.colors import OTHER
+from roots.types import GitRoot
 
 
 Resources = NamedTuple('Resources', [

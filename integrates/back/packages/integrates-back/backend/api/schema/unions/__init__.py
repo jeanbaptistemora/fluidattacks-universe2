@@ -6,7 +6,7 @@ from ariadne import UnionType
 from graphql.type.definition import GraphQLAbstractType, GraphQLResolveInfo
 
 # Local
-from backend.typing import GitRoot, IPRoot, URLRoot, Root
+from roots.types import GitRoot, IPRoot, URLRoot, Root
 
 
 def resolve_root_type(

@@ -9,8 +9,8 @@ from aiodataloader import DataLoader
 from aioextensions import collect
 
 # Local
-from backend.typing import Root
 from roots import domain as roots_domain
+from roots.types import Root
 
 
 async def get_roots(*, group_name: str) -> Tuple[Root, ...]:

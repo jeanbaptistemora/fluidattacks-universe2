@@ -185,57 +185,6 @@ ExecuteSkimsPayload = NamedTuple('ExecuteSkimsPayload', [
     ('success', bool),
     ('pipeline_url', str),
 ])
-IntegrationEnvironment = NamedTuple(
-    'IntegrationEnvironment',
-    [
-        ('kind', str),
-        ('url', Optional[str])
-    ]
-)
-
-GitRootCloningStatus = NamedTuple(
-    'GitRootCloningStatus',
-    [
-        ('status', str),
-        ('message', str),
-    ],
-)
-
-GitRoot = NamedTuple(
-    'GitRoot',
-    [
-        ('branch', str),
-        ('cloning_status', GitRootCloningStatus),
-        ('environment', str),
-        ('environment_urls', List[str]),
-        ('gitignore', List[str]),
-        ('id', str),
-        ('includes_health_check', bool),
-        ('last_status_update', str),
-        ('nickname', str),
-        ('state', str),
-        ('url', str)
-    ]
-)
-IPRoot = NamedTuple(
-    'IPRoot',
-    [
-        ('address', str),
-        ('id', str),
-        ('port', int)
-    ]
-)
-URLRoot = NamedTuple(
-    'URLRoot',
-    [
-        ('host', str),
-        ('id', str),
-        ('path', str),
-        ('port', int),
-        ('protocol', str)
-    ]
-)
-Root = Union[GitRoot, IPRoot, URLRoot]
 
 # Analytics
 GraphicParameters = NamedTuple(
