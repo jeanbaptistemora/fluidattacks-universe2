@@ -1,21 +1,20 @@
+import type { IAuthResult } from "../..";
+import { LOGGER } from "../../../logger";
+import _ from "lodash";
 import {
   AuthRequest,
-  AuthSessionResult,
-  DiscoveryDocument,
-  fetchUserInfoAsync,
-  makeRedirectUri,
   Prompt,
   ResponseType,
+  fetchUserInfoAsync,
+  makeRedirectUri,
 } from "expo-auth-session";
-import { AppOwnership, default as Constants } from "expo-constants";
-import _ from "lodash";
-
-import { IAuthResult } from "../..";
+import type { AuthSessionResult, DiscoveryDocument } from "expo-auth-session";
 import {
   BITBUCKET_CLIENT_ID_DEV,
   BITBUCKET_CLIENT_ID_PROD,
 } from "../../../constants";
-import { LOGGER } from "../../../logger";
+// eslint-disable-next-line import/no-named-as-default -- Needed for correct usage of NativeConstants.appOwnership
+import Constants, { AppOwnership } from "expo-constants";
 
 const inExpoClient: boolean = Constants.appOwnership === AppOwnership.Expo;
 
@@ -36,9 +35,7 @@ const getDiscovery: () => DiscoveryDocument = (): DiscoveryDocument => ({
   userInfoEndpoint: "https://api.bitbucket.org/2.0/user",
 });
 
-const authWithBitbucket: () => Promise<IAuthResult> = async (): Promise<
-  IAuthResult
-> => {
+const authWithBitbucket: () => Promise<IAuthResult> = async (): Promise<IAuthResult> => {
   try {
     const discovery: DiscoveryDocument = getDiscovery();
     const request: AuthRequest = new AuthRequest({
@@ -52,7 +49,7 @@ const authWithBitbucket: () => Promise<IAuthResult> = async (): Promise<
 
     const logInResult: AuthSessionResult = await request.promptAsync(
       discovery,
-      { useProxy: inExpoClient },
+      { useProxy: inExpoClient }
     );
 
     if (logInResult.type === "success") {
@@ -63,8 +60,8 @@ const authWithBitbucket: () => Promise<IAuthResult> = async (): Promise<
        * @see https://developer.atlassian.com/bitbucket/api/2/reference/resource/user
        */
       interface IUserProps {
-        account_id: string;
-        display_name: string;
+        account_id: string; // eslint-disable-line camelcase -- Required by auth API
+        display_name: string; // eslint-disable-line camelcase -- Required by auth API
         links: {
           avatar: {
             href: string;
@@ -74,7 +71,7 @@ const authWithBitbucket: () => Promise<IAuthResult> = async (): Promise<
       }
       const userProps: IUserProps = (await fetchUserInfoAsync(
         { accessToken },
-        { userInfoEndpoint: discovery.userInfoEndpoint },
+        { userInfoEndpoint: discovery.userInfoEndpoint }
       )) as IUserProps;
 
       /**
@@ -82,20 +79,20 @@ const authWithBitbucket: () => Promise<IAuthResult> = async (): Promise<
        * @see https://developer.atlassian.com/bitbucket/api/2/reference/resource/user/emails
        */
       interface IEmails {
-        values: Array<{
+        values: {
           email: string;
-          is_primary: boolean;
-        }>;
+          is_primary: boolean; // eslint-disable-line camelcase -- Required by auth API
+        }[];
       }
       const emailsResponse: Response = await fetch(
         "https://api.bitbucket.org/2.0/user/emails",
-        { headers: { Authorization: `Bearer ${accessToken}` } },
+        { headers: { Authorization: `Bearer ${accessToken}` } }
       );
       const {
         values: emails,
       }: IEmails = (await emailsResponse.json()) as IEmails;
       const { email: primaryEmail } = emails.find(
-        (email: IEmails["values"][0]): boolean => email.is_primary,
+        (email: IEmails["values"][0]): boolean => email.is_primary
       ) as IEmails["values"][0];
 
       return {
@@ -110,8 +107,8 @@ const authWithBitbucket: () => Promise<IAuthResult> = async (): Promise<
         },
       };
     }
-  } catch (error) {
-    LOGGER.error("Couldn't authenticate with Bitbucket", { ...error });
+  } catch (error: unknown) {
+    LOGGER.error("Couldn't authenticate with Bitbucket", error);
   }
 
   return { type: "cancel" };
