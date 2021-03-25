@@ -30,6 +30,7 @@ def _mark_java(graph: graph_model.Graph) -> None:
     _mark_java_f001(graph)
     _mark_java_f004(graph)
     _mark_java_f008(graph)
+    _mark_java_f021(graph)
     _mark_java_f034(graph)
     _mark_java_f042(graph)
     _mark_java_f063(graph)
@@ -79,6 +80,19 @@ def _mark_java_f008(graph: graph_model.Graph) -> None:
                 _check_method_call(graph, n_id, 'getWriter', 'write'),
         )):
             _append_label_skink(graph, n_id, core_model.FindingEnum.F008)
+
+
+def _mark_java_f021(graph: graph_model.Graph) -> None:
+    for n_id in g.filter_nodes(
+        graph,
+        graph.nodes,
+        predicate=g.pred_has_labels(label_type='method_invocation'),
+    ):
+        if any((
+                _check_method_call(graph, n_id, 'compile'),
+                _check_method_call(graph, n_id, 'evaluate'),
+        )):
+            _append_label_skink(graph, n_id, core_model.FindingEnum.F021)
 
 
 def _mark_java_f063(graph: graph_model.Graph) -> None:

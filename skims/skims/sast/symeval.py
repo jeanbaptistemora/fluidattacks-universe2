@@ -259,6 +259,7 @@ def _syntax_step_declaration_danger(args: EvaluatorArgs) -> None:
     no_trust_findings = {
         core_model.FindingEnum.F001_JAVA_SQL,
         core_model.FindingEnum.F004,
+        core_model.FindingEnum.F021,
         core_model.FindingEnum.F042,
         core_model.FindingEnum.F063_PATH_TRAVERSAL,
     }

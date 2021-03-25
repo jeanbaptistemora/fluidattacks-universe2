@@ -38,6 +38,7 @@ def _mark_java_request(graph: graph_model.Graph) -> None:
         core_model.FindingEnum.F001_JAVA_SQL.name,
         core_model.FindingEnum.F004.name,
         core_model.FindingEnum.F008.name,
+        core_model.FindingEnum.F021.name,
         core_model.FindingEnum.F042.name,
         core_model.FindingEnum.F063_PATH_TRAVERSAL.name,
     )

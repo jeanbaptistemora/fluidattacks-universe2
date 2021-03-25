@@ -143,6 +143,10 @@ DANGER_METHODS_BY_OBJ_ARGS: Dict[str, Set[str]] = _complete_attrs_on_dict({
     'org.owasp.benchmark.helpers.ThingInterface': {
         'doSomething',
     },
+    'javax.xml.xpath.XPath': {
+        'evaluate',
+        'compile',
+    }
 })
 DANGER_METHODS_BY_TYPE: Dict[str, Set[str]] = _complete_attrs_on_dict({
     'javax.servlet.http.Cookie': {

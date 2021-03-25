@@ -3863,7 +3863,7 @@
           },
           "234": {
             "label_c": 21,
-            "label_input_type": "F001_JAVA_SQL,F004,F008,F042,F063_PATH_TRAVERSAL",
+            "label_input_type": "F001_JAVA_SQL,F004,F008,F021,F042,F063_PATH_TRAVERSAL",
             "label_l": 48,
             "label_text": "HttpServletRequest",
             "label_type": "type_identifier"
@@ -6248,7 +6248,7 @@
           },
           "73": {
             "label_c": 20,
-            "label_input_type": "F001_JAVA_SQL,F004,F008,F042,F063_PATH_TRAVERSAL",
+            "label_input_type": "F001_JAVA_SQL,F004,F008,F021,F042,F063_PATH_TRAVERSAL",
             "label_l": 35,
             "label_text": "HttpServletRequest",
             "label_type": "type_identifier"
@@ -6563,7 +6563,10 @@
             "F009": [],
             "F011": [],
             "F020": [],
-            "F021": [],
+            "F021": [
+              "73",
+              "234"
+            ],
             "F022": [],
             "F024_AWS": [],
             "F031_AWS": [],
@@ -9751,7 +9754,7 @@
           },
           "109": {
             "label_c": 24,
-            "label_input_type": "F001_JAVA_SQL,F004,F008,F042,F063_PATH_TRAVERSAL",
+            "label_input_type": "F001_JAVA_SQL,F004,F008,F021,F042,F063_PATH_TRAVERSAL",
             "label_l": 40,
             "label_text": "HttpServletRequest",
             "label_type": "type_identifier"
@@ -11305,7 +11308,7 @@
           },
           "73": {
             "label_c": 23,
-            "label_input_type": "F001_JAVA_SQL,F004,F008,F042,F063_PATH_TRAVERSAL",
+            "label_input_type": "F001_JAVA_SQL,F004,F008,F021,F042,F063_PATH_TRAVERSAL",
             "label_l": 35,
             "label_text": "HttpServletRequest",
             "label_type": "type_identifier"
@@ -11585,7 +11588,10 @@
             "F009": [],
             "F011": [],
             "F020": [],
-            "F021": [],
+            "F021": [
+              "73",
+              "109"
+            ],
             "F022": [],
             "F024_AWS": [],
             "F031_AWS": [],
@@ -15799,7 +15805,7 @@
           },
           "109": {
             "label_c": 21,
-            "label_input_type": "F001_JAVA_SQL,F004,F008,F042,F063_PATH_TRAVERSAL",
+            "label_input_type": "F001_JAVA_SQL,F004,F008,F021,F042,F063_PATH_TRAVERSAL",
             "label_l": 40,
             "label_text": "HttpServletRequest",
             "label_type": "type_identifier"
@@ -19309,7 +19315,7 @@
           },
           "73": {
             "label_c": 20,
-            "label_input_type": "F001_JAVA_SQL,F004,F008,F042,F063_PATH_TRAVERSAL",
+            "label_input_type": "F001_JAVA_SQL,F004,F008,F021,F042,F063_PATH_TRAVERSAL",
             "label_l": 35,
             "label_text": "HttpServletRequest",
             "label_type": "type_identifier"
@@ -19634,7 +19640,10 @@
             "F009": [],
             "F011": [],
             "F020": [],
-            "F021": [],
+            "F021": [
+              "73",
+              "109"
+            ],
             "F022": [],
             "F024_AWS": [],
             "F031_AWS": [],
@@ -23203,7 +23212,7 @@
           },
           "24": {
             "label_c": 22,
-            "label_input_type": "F001_JAVA_SQL,F004,F008,F042,F063_PATH_TRAVERSAL",
+            "label_input_type": "F001_JAVA_SQL,F004,F008,F021,F042,F063_PATH_TRAVERSAL",
             "label_l": 5,
             "label_text": "HttpServletRequest",
             "label_type": "type_identifier"
@@ -23753,7 +23762,9 @@
             "F009": [],
             "F011": [],
             "F020": [],
-            "F021": [],
+            "F021": [
+              "24"
+            ],
             "F022": [],
             "F024_AWS": [],
             "F031_AWS": [],
