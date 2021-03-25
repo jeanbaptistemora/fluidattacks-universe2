@@ -6,7 +6,7 @@
 :image: cover.png
 :alt: Snake checking a code
 :description: What are the potential problems of untyped objects in Python? Here we work on the importance of checking types before running the code and how mypy can help.
-:keywords: Functional paradigm, Object-oriented, Stateless, Type Checking, Python, Duck Typing, Mypy, Ethical Hacking, Pentesting
+:keywords: Functional Paradigm, Object Oriented, Stateless, Type Checking, Python, Duck Typing, Mypy, Ethical Hacking, Pentesting
 :author: Oswaldo Parada
 :writer: oparada
 :name: Oswaldo José Parada Cuadros
@@ -103,7 +103,8 @@ we managed to "cheat" the function to add strings instead of integers.
 I know this does not say much
 or that it is not enough to create an entire library in Python.
 But I will show you the destructive potential of this feature
-with another example using the same <<adding-integers, _add_integers_>> function:
+with another example using the same
+<<adding-integers, _add_integers_>> function:
 
 .A more complex application with no variable typing.
 [source, Python]
@@ -121,7 +122,8 @@ apples_sale(3, 20) # 69.6
 
 # Nothing bad until here, but what if we…
 
-apples_sale('3','20') # TypeError: can't multiply sequence by non-int of type 'str'
+apples_sale('3','20') # TypeError: can't multiply
+sequence by non-int of type 'str'
 ----
 
 Now you can cry.
@@ -251,8 +253,10 @@ and run mypy again:
 ----
 $ python3 -m mypy  add_integer_method.py
 
-# add_integer_method.py:4: error: Argument 1 to "add_integers" has incompatible type "str"; expected "int"
-# add_integer_method.py:4: error: Argument 2 to "add_integers" has incompatible type "str"; expected "int"
+# add_integer_method.py:4: error: Argument 1 to "add_integers"
+has incompatible type "str"; expected "int"
+# add_integer_method.py:4: error: Argument 2 to "add_integers"
+has incompatible type "str"; expected "int"
 ----
 
 Eureka! mypy was able to discover that we set a string
