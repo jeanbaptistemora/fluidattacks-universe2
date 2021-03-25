@@ -1,0 +1,30 @@
+utils.model.finding.enum.f021.description:
+  en: >
+    Dynamic XPath statements are generated without the required data validation.
+  es: >
+    Se generan sentencias XPath dinámicas sin la validación requerida de datos.
+utils.model.finding.enum.f021.impact:
+  en: Inject queries to obtain sensitive information without authorization
+  es: Inyectar queries para obtener información sensible sin autorizacion
+utils.model.finding.enum.f021.recommendation:
+  en: >
+    Perform input data validations on the server-side to avoid common injection
+    attacks.
+  es: >
+    Realizar la validaciones de datos de entrada en el lado del servidor para
+    evitar los ataques mas comunes de inyección.
+utils.model.finding.enum.f021.requirements:
+  en: >
+    R173. The system must discard all potentially harmful information received
+    via data inputs.
+  es: >
+    R173. El sistema debe descartar toda la información potencialmente insegura
+    que sea recibida por entradas de datos.
+utils.model.finding.enum.f021.threat:
+  en: >
+    Autenticated attacker from the Internet.
+  es: >
+    Atacante autenticado desde Internet.
+utils.model.finding.enum.f021.title:
+  en: F021. XPath Injection
+  es: F021. Inyección de XPath
