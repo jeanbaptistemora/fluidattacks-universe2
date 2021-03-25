@@ -1,5 +1,8 @@
 # Standard libraries
 import logging
+from functools import (
+    partial,
+)
 from typing import (
     Dict,
     Iterator,
@@ -13,6 +16,7 @@ from tap_mailchimp.api.common import (
 )
 from tap_mailchimp.api.common.raw import (
     CampaignId,
+    FeedbackId,
     RawSource,
 )
 
@@ -31,5 +35,22 @@ def list_campaigns(
     return list_items(
         raw_source.list_campaigns,
         'campaigns',
+        id_builder
+    )
+
+
+def list_feedbacks(
+    raw_source: RawSource,
+    campaign_id: CampaignId,
+) -> Iterator[FeedbackId]:
+    def id_builder(item: Dict[str, str]) -> FeedbackId:
+        return FeedbackId(
+            campaign_id=campaign_id,
+            str_id=item['feedback_id']
+        )
+
+    return list_items(
+        partial(raw_source.list_feedbacks, campaign_id),
+        'feedback',
         id_builder
     )

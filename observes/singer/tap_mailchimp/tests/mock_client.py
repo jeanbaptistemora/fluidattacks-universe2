@@ -49,6 +49,8 @@ def mock_data_source() -> RawSource:
         get_audience_locations=lambda x: x,  # type: ignore
         list_campaigns=lambda x: x,  # type: ignore
         get_campaign=lambda x: x,  # type: ignore
+        list_feedbacks=lambda x: x,  # type: ignore
+        get_feedback=lambda x: x,  # type: ignore
     )
 
 

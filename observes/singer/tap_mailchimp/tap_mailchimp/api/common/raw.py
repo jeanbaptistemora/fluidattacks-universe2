@@ -39,6 +39,11 @@ class CampaignId(NamedTuple):
     str_id: str
 
 
+class FeedbackId(NamedTuple):
+    campaign_id: CampaignId
+    str_id: str
+
+
 class GrowthHistId(NamedTuple):
     audience_id: AudienceId
     str_id: str
@@ -80,6 +85,8 @@ class RawSource(NamedTuple):
     get_audience_locations: Callable[[AudienceId], JSON]
     list_campaigns: Callable[[PageId], JSON]
     get_campaign: Callable[[CampaignId], JSON]
+    list_feedbacks: Callable[[CampaignId, PageId], JSON]
+    get_feedback: Callable[[FeedbackId], JSON]
 
 
 DEFAULT_PAGE = PageId(page=0, per_page=1000)
@@ -199,6 +206,24 @@ def _get_campaign(client: Client, campaign_id: CampaignId) -> JSON:
     return client.campaigns.get(campaign_id.str_id)
 
 
+def _list_feedbacks(
+    client: Client, campaign_id: CampaignId, page_id: PageId
+) -> JSON:
+    return client.campaigns.get_feedback(
+        campaign_id.str_id,
+        fields=['feedback.feedback_id', 'total_items', '_links'],
+        count=page_id.per_page,
+        offset=page_id.page * page_id.per_page
+    )
+
+
+def _get_feedback(client: Client, feedback_id: FeedbackId) -> JSON:
+    return client.campaigns.get_feedback_message(
+        feedback_id.campaign_id.str_id,
+        feedback_id.str_id,
+    )
+
+
 def create_raw_source(client: Client) -> RawSource:
     return RawSource(
         list_audiences=partial(_list_audiences, client),
@@ -216,5 +241,6 @@ def create_raw_source(client: Client) -> RawSource:
         get_audience_locations=partial(_get_audience_locations, client),
         list_campaigns=partial(_list_campaigns, client),
         get_campaign=partial(_get_campaign, client),
-
+        list_feedbacks=partial(_list_feedbacks, client),
+        get_feedback=partial(_get_feedback, client),
     )

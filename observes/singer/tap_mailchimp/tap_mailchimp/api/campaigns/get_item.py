@@ -11,6 +11,7 @@ from tap_mailchimp.api.common.api_data import (
 )
 from tap_mailchimp.api.common.raw import (
     CampaignId,
+    FeedbackId,
     RawSource,
 )
 
@@ -21,4 +22,13 @@ def get_campaign(
 ) -> ApiData:
     return api_data.create_api_data(
         raw_source.get_campaign(campaign)
+    )
+
+
+def get_feedback(
+    raw_source: RawSource,
+    feedback_id: FeedbackId,
+) -> ApiData:
+    return api_data.create_api_data(
+        raw_source.get_feedback(feedback_id)
     )
