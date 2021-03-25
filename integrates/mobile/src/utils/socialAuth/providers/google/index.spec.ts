@@ -1,13 +1,14 @@
-import { IAuthResult } from "../..";
+/* eslint-disable @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires, camelcase */
+import type { IAuthResult } from "../..";
 
 const mockConstants: (values: Record<string, string>) => void = (
-  values: Record<string, string>,
+  values: Record<string, string>
 ): void => {
   jest.doMock(
     "expo-constants",
-    (): Record<string, {}> => {
-      const constants: Record<string, {}> = jest.requireActual(
-        "expo-constants",
+    (): Record<string, unknown> => {
+      const constants: Record<string, unknown> = jest.requireActual(
+        "expo-constants"
       );
 
       return {
@@ -19,17 +20,16 @@ const mockConstants: (values: Record<string, string>) => void = (
         },
         ...values,
       };
-    },
+    }
   );
 };
 
 describe("Google OAuth2 provider", (): void => {
-  beforeEach((): void => {
+  it("should perform auth code grant flow", async (): Promise<void> => {
+    expect.hasAssertions();
+
     jest.resetModules();
     jest.mock("expo-auth-session");
-  });
-
-  it("should perform auth code grant flow", async (): Promise<void> => {
     mockConstants({ appOwnership: "standalone" });
 
     const {
@@ -37,18 +37,16 @@ describe("Google OAuth2 provider", (): void => {
       exchangeCodeAsync,
       fetchDiscoveryAsync,
       fetchUserInfoAsync,
-      // tslint:disable-next-line: no-require-imports
     } = require("expo-auth-session") as Record<string, jest.Mock>;
     AuthRequest.mockImplementation(
       (): Record<string, jest.Mock> => ({
-        promptAsync: jest.fn()
-        .mockResolvedValue({
+        promptAsync: jest.fn().mockResolvedValue({
           errorCode: "",
           params: { code: "codeToExchange" },
           type: "success",
           url: "",
         }),
-      }),
+      })
     );
 
     exchangeCodeAsync.mockResolvedValue({
@@ -70,13 +68,12 @@ describe("Google OAuth2 provider", (): void => {
       sub: "000000000000000000000",
     });
 
-    // tslint:disable-next-line: no-require-imports
     const { authWithGoogle } = require(".") as {
-      authWithGoogle(): Promise<IAuthResult>;
+      authWithGoogle: () => Promise<IAuthResult>;
     };
     const result: IAuthResult = await authWithGoogle();
-    expect(result)
-    .toEqual({
+
+    expect(result).toStrictEqual({
       authProvider: "GOOGLE",
       authToken: "exchangedToken",
       type: "success",
@@ -91,24 +88,26 @@ describe("Google OAuth2 provider", (): void => {
   });
 
   it("should perform implicit flow", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    jest.resetModules();
+    jest.mock("expo-auth-session");
     mockConstants({ appOwnership: "expo" });
 
     const {
       AuthRequest,
       fetchDiscoveryAsync,
       fetchUserInfoAsync,
-      // tslint:disable-next-line: no-require-imports
     } = require("expo-auth-session") as Record<string, jest.Mock>;
     AuthRequest.mockImplementation(
       (): Record<string, jest.Mock> => ({
-        promptAsync: jest.fn()
-        .mockResolvedValue({
+        promptAsync: jest.fn().mockResolvedValue({
           errorCode: "",
           params: { access_token: "accessToken" },
           type: "success",
           url: "",
         }),
-      }),
+      })
     );
 
     fetchDiscoveryAsync.mockResolvedValue({
@@ -126,13 +125,12 @@ describe("Google OAuth2 provider", (): void => {
       sub: "000000000000000000000",
     });
 
-    // tslint:disable-next-line: no-require-imports
     const { authWithGoogle } = require(".") as {
-      authWithGoogle(): Promise<IAuthResult>;
+      authWithGoogle: () => Promise<IAuthResult>;
     };
     const result: IAuthResult = await authWithGoogle();
-    expect(result)
-    .toEqual({
+
+    expect(result).toStrictEqual({
       authProvider: "GOOGLE",
       authToken: "accessToken",
       type: "success",
@@ -147,23 +145,26 @@ describe("Google OAuth2 provider", (): void => {
   });
 
   it("should gracefully handle errors", async (): Promise<void> => {
-    const {
-      AuthRequest,
-      // tslint:disable-next-line: no-require-imports
-    } = require("expo-auth-session") as Record<string, jest.Mock>;
+    expect.hasAssertions();
+
+    jest.resetModules();
+    jest.mock("expo-auth-session");
+
+    const { AuthRequest } = require("expo-auth-session") as Record<
+      string,
+      jest.Mock
+    >;
     AuthRequest.mockImplementation(
       (): Record<string, jest.Mock> => ({
-        promptAsync: jest.fn()
-        .mockRejectedValue(new Error()),
-      }),
+        promptAsync: jest.fn().mockRejectedValue(new Error()),
+      })
     );
 
-    // tslint:disable-next-line: no-require-imports
     const { authWithGoogle } = require(".") as {
-      authWithGoogle(): Promise<IAuthResult>;
+      authWithGoogle: () => Promise<IAuthResult>;
     };
     const result: IAuthResult = await authWithGoogle();
-    expect(result)
-    .toEqual({ type: "cancel" });
+
+    expect(result).toStrictEqual({ type: "cancel" });
   });
 });
