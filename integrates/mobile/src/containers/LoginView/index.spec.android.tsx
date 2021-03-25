@@ -81,7 +81,7 @@ describe("LoginView", (): void => {
     await act(async (): Promise<void> => { await wait(0); wrapper.update(); });
 
     expect(wrapper
-      .find("googleButton")
+      .find("GoogleButton")
       .at(0)
       .prop("disabled"))
       .toEqual(false);

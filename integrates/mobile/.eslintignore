@@ -15,3 +15,4 @@
 !src/containers/DashboardView/Indicators/**
 !src/containers/LockView/**
 !src/containers/LoginView/BitbucketButton/**
+!src/containers/LoginView/GoogleButton/**

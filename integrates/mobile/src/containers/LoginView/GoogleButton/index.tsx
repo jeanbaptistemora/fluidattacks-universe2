@@ -1,28 +1,37 @@
+// Needed to override styles
+/* eslint-disable react/forbid-component-props */
+import GoogleLogo from "../../../../assets/google-logo.png";
 import React from "react";
+import { styles } from "./styles";
 import { useTranslation } from "react-i18next";
 import { Image, Text, TouchableOpacity } from "react-native";
-
-// tslint:disable-next-line: no-default-import
-import { default as GoogleLogo } from "../../../../assets/google-logo.png";
-
-import { styles } from "./styles";
 
 /**
  * Google Sign In button
  * @see https://developers.google.com/identity/branding-guidelines
  */
-export interface IGoogleButtonProps {
+interface IGoogleButtonProps {
+  // Needed to avoid defaultProps mutations
+  // eslint-disable-next-line react/require-default-props
   disabled?: boolean;
-  onPress(): void;
+  onPress: () => void;
 }
 
-const googleButton: React.FC<IGoogleButtonProps> = (props: IGoogleButtonProps): JSX.Element => {
+const GoogleButton: React.FC<IGoogleButtonProps> = (
+  props: IGoogleButtonProps
+): JSX.Element => {
   const { t } = useTranslation();
+  const { disabled } = props;
 
   return (
     <React.StrictMode>
       <TouchableOpacity
-        style={[styles.container, props.disabled === true ? styles.disabled : undefined]}
+        style={[
+          styles.container,
+          disabled === true ? styles.disabled : undefined,
+        ]}
+        // We need props spreading in order to pass down props to the button.
+        // eslint-disable-next-line react/jsx-props-no-spreading
         {...props}
       >
         <Image source={GoogleLogo} style={styles.icon} />
@@ -32,4 +41,4 @@ const googleButton: React.FC<IGoogleButtonProps> = (props: IGoogleButtonProps): 
   );
 };
 
-export { googleButton as GoogleButton };
+export { GoogleButton, IGoogleButtonProps };
