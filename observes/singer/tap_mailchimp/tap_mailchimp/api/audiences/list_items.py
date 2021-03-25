@@ -1,11 +1,15 @@
 # Standard libraries
 import math
+from functools import (
+    partial,
+)
 from itertools import (
     chain,
 )
 from typing import (
-    Callable,
+    Callable, Dict,
     Iterator,
+    TypeVar,
 )
 
 # Third party libraries
@@ -21,6 +25,9 @@ from tap_mailchimp.api.common import (
 )
 from tap_mailchimp.api.common.api_data import (
     ApiData,
+)
+from tap_mailchimp.common.objs import (
+    JSON,
 )
 from tap_mailchimp.api.common.raw import (
     AbsReportId,
@@ -39,12 +46,17 @@ class NoneTotal(Exception):
     pass
 
 
-def list_audiences(
-    raw_source: RawSource,
-) -> Iterator[AudienceId]:
+SomeId = TypeVar('SomeId')
+
+
+def _list_items(
+    raw_list: Callable[[PageId], JSON],
+    items_list_key: str,
+    id_builder: Callable[[Dict[str, str]], SomeId]
+) -> Iterator[SomeId]:
     getter: Callable[[PageId], ApiData] = (
         lambda page: api_data.create_api_data(
-            raw_source.list_audiences(page)
+            raw_list(page)
         )
     )
     test_page = getter(PageId(page=0, per_page=1))
@@ -55,32 +67,38 @@ def list_audiences(
     pages = paginator.new_page_range(range(total_pages), chunk_size)
     results: Iterator[ApiData] = paginator.get_pages(pages, getter)
 
-    def extract_aud_ids(a_data: ApiData) -> Iterator[AudienceId]:
-        audiences_data = a_data.data['lists']
-        return iter(map(lambda a: AudienceId(a['id']), audiences_data))
+    def extract_aud_ids(a_data: ApiData) -> Iterator[SomeId]:
+        audiences_data = a_data.data[items_list_key]
+        return iter(map(id_builder, audiences_data))
 
     return chain.from_iterable(map(extract_aud_ids, results))
+
+
+def list_audiences(
+    raw_source: RawSource,
+) -> Iterator[AudienceId]:
+    return _list_items(
+        raw_source.list_audiences,
+        'lists',
+        lambda item: AudienceId(item['id'])
+    )
 
 
 def list_abuse_reports(
     raw_source: RawSource,
     audience: AudienceId,
 ) -> Iterator[AbsReportId]:
-    result = api_data.create_api_data(
-        raw_source.list_abuse_reports(audience)
-    )
-    list_items_alert(
-        f'list_abuse_reports {audience}',
-        result.total_items
-    )
-    data = result.data['abuse_reports']
-    return iter(map(
-        lambda item: AbsReportId(
+    def id_builder(item: Dict[str, str]) -> AbsReportId:
+        return AbsReportId(
             audience_id=audience,
             str_id=item['id']
-        ),
-        data
-    ))
+        )
+
+    return _list_items(
+        partial(raw_source.list_abuse_reports, audience),
+        'abuse_reports',
+        id_builder
+    )
 
 
 def list_members(

@@ -22,7 +22,7 @@ from tap_mailchimp.common.objs import (
 )
 
 
-def _list_audiences(page: PageId) -> JSON:  # pylint: disable=unused-argument
+def _list_audiences(_page: PageId) -> JSON:
     with open('./tests/mock_data/audience.json') as data:
         return json.load(data)['list_audiences']
 

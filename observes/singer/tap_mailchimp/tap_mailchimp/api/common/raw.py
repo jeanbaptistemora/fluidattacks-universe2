@@ -67,7 +67,7 @@ ItemId = Union[
 class RawSource(NamedTuple):
     list_audiences: Callable[[PageId], JSON]
     get_audience: Callable[[AudienceId], JSON]
-    list_abuse_reports: Callable[[AudienceId], JSON]
+    list_abuse_reports: Callable[[AudienceId, PageId], JSON]
     get_abuse_report: Callable[[AbsReportId], JSON]
     get_activity: Callable[[AudienceId], JSON]
     get_top_clients: Callable[[AudienceId], JSON]
