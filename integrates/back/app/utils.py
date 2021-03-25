@@ -1,9 +1,18 @@
 # Standard library
-from datetime import datetime, timedelta
-from typing import Any, Dict
+from datetime import (
+    datetime,
+    timedelta,
+)
+from typing import (
+    Any,
+    Dict,
+)
 
 # Third party libraries
-from aioextensions import collect, schedule
+from aioextensions import (
+    collect,
+    schedule,
+)
 from authlib.integrations.starlette_client import OAuth
 from starlette.requests import Request
 from starlette.responses import HTMLResponse
@@ -13,21 +22,20 @@ from back import settings
 from backend import (
     authz,
     mailer,
-    util
+    util,
 )
 from backend.dal.helpers.redis import redis_set_entity_attr
-from backend.domain import (
-    user as user_domain,
-    project as group_domain,
-)
+from backend.domain import project as group_domain
 from newutils import (
     analytics,
-    token as token_helper
+    datetime as datetime_utils,
+    token as token_helper,
 )
+from users import domain as users_domain
 from __init__ import (
     FI_COMMUNITY_PROJECTS,
     FI_MAIL_CONTINUOUS,
-    FI_MAIL_PROJECTS
+    FI_MAIL_PROJECTS,
 )
 
 
@@ -124,7 +132,7 @@ async def autoenroll_user(email: str) -> None:
     new_user_user_level_role: str = 'customer'
     new_user_group_level_role: str = 'customer'
 
-    await user_domain.create_without_project(
+    await users_domain.create_without_project(
         email=email,
         role=new_user_user_level_role
     )
@@ -145,7 +153,7 @@ async def create_user(user: Dict[str, str]) -> None:
     last_name = user.get('family_name', '')[:29]
     email = user['email'].lower()
 
-    today = user_domain.get_current_date()
+    today = datetime_utils.get_now_as_str()
     data_dict = {
         'first_name': first_name,
         'last_login': today,
@@ -153,7 +161,7 @@ async def create_user(user: Dict[str, str]) -> None:
         'date_joined': today
     }
 
-    if not await user_domain.is_registered(email):
+    if not await users_domain.is_registered(email):
         await analytics.mixpanel_track(email, 'Register')
         await autoenroll_user(email)
 
@@ -166,13 +174,13 @@ async def create_user(user: Dict[str, str]) -> None:
                 }
             )
         )
-        await user_domain.update_multiple_user_attributes(
+        await users_domain.update_multiple_user_attributes(
             email, data_dict
         )
     else:
-        if await user_domain.get_data(email, 'first_name'):
-            await user_domain.update_last_login(email)
+        if await users_domain.get_data(email, 'first_name'):
+            await users_domain.update_last_login(email)
         else:
-            await user_domain.update_multiple_user_attributes(
+            await users_domain.update_multiple_user_attributes(
                 email, data_dict
             )

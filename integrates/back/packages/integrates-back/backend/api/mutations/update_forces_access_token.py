@@ -8,11 +8,11 @@ from graphql.type.definition import GraphQLResolveInfo
 # Local
 from backend import util
 from backend.decorators import enforce_group_level_auth_async
-from backend.domain import user as user_domain
 from backend.exceptions import InvalidExpirationTime
 from backend.typing import UpdateAccessTokenPayload
 from forces import domain as forces_domain
 from newutils import datetime as datetime_utils
+from users import domain as users_domain
 
 
 @convert_kwargs_to_snake_case  # type: ignore
@@ -24,8 +24,8 @@ async def mutate(
 ) -> UpdateAccessTokenPayload:
     user_info = await util.get_jwt_content(info.context)
 
-    user_email = user_domain.format_forces_user_email(project_name)
-    if not await user_domain.ensure_user_exists(user_email):
+    user_email = users_domain.format_forces_user_email(project_name)
+    if not await users_domain.ensure_user_exists(user_email):
         util.cloudwatch_log(
             info.context,
             (
@@ -39,7 +39,7 @@ async def mutate(
         datetime_utils.get_now_plus_delta(days=180).timestamp()
     )
     try:
-        result = await user_domain.update_access_token(
+        result = await users_domain.update_access_token(
             user_email,
             expiration_time,
         )

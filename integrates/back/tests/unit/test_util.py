@@ -14,6 +14,7 @@ from typing import (
 
 import pytz
 from boto3 import client
+import pytz
 from graphql.language.ast import (
     FieldNode,
     ObjectFieldNode,
@@ -32,7 +33,6 @@ from backend.dal.helpers.redis import (
     redis_del_entity_attr,
     redis_set_entity_attr,
 )
-from backend.domain import user as user_domain
 from backend.exceptions import ExpiredToken
 from backend.util import (
     assert_file_mime,
@@ -47,9 +47,11 @@ from backend.util import (
     replace_all,
 )
 from newutils import (
+    datetime as datetime_utils,
     encodings,
     token as token_helper,
 )
+from users import domain as users_domain
 from __init__ import (
     FI_AWS_S3_ACCESS_KEY,
     FI_AWS_S3_SECRET_KEY,
@@ -60,6 +62,15 @@ from __init__ import (
 pytestmark = [
     pytest.mark.asyncio,
 ]
+
+
+def test_get_current_date():
+    tzn = pytz.timezone(settings.TIME_ZONE)
+    today = datetime.now(tz=tzn)
+    date = today.strftime('%Y-%m-%d %H:%M')
+    test_data = datetime_utils.get_now_as_str()[:-3]
+    assert isinstance(test_data, str)
+    assert test_data == date
 
 
 def test_ord_asc_by_criticality():
@@ -434,7 +445,7 @@ async def test_create_user():
         email: str,
         attrs: List[str]
     ) -> Dict[str, Union[str, datetime]]:
-        user_attrs = await user_domain.get_attributes(email, attrs)
+        user_attrs = await users_domain.get_attributes(email, attrs)
         if 'last_login' in user_attrs:
             user_attrs['last_login'] = timezone.localize(
                 datetime.strptime(

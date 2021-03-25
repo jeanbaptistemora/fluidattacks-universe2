@@ -17,12 +17,10 @@ from backend.decorators import (
     require_integrates,
     turn_args_into_kwargs
 )
-from backend.domain import (
-    project as group_domain,
-    user as user_domain
-)
+from backend.domain import project as group_domain
 from backend.exceptions import PermissionDenied
 from backend.typing import SimplePayload as SimplePayloadType
+from users import domain as users_domain
 
 
 @convert_kwargs_to_snake_case  # type: ignore
@@ -68,17 +66,17 @@ async def mutate(  # pylint: disable=too-many-arguments
         )
 
     if success and has_forces:
-        await user_domain.create_forces_user(info, group_name)
+        await users_domain.create_forces_user(info, group_name)
     elif (
         success and not has_forces and has_integrates and
-        await user_domain.ensure_user_exists(
-            user_domain.format_forces_user_email(group_name)
+        await users_domain.ensure_user_exists(
+            users_domain.format_forces_user_email(group_name)
         )
     ):
         await group_domain.remove_user_access(
             loaders,
             group_name,
-            user_domain.format_forces_user_email(group_name)
+            users_domain.format_forces_user_email(group_name)
         )
     if success:
         loaders.group_all.clear(group_name)

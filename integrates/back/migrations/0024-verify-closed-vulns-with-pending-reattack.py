@@ -35,13 +35,11 @@ from backend.dal import (
 )
 from backend.domain import (
     project as group_domain,
-    user as user_domain,
     vulnerability as vuln_domain,
 )
-from backend.typing import (
-    Comment as CommentType,
-)
+from backend.typing import Comment as CommentType
 from comments import dal as comments_dal
+from users import domain as users_domain
 
 
 django.setup()
@@ -71,7 +69,7 @@ async def should_verify_closed_vulnerabilities(group: str) -> None:
             if STAGE == 'apply':
                 name_attrs = cast(
                     Dict[str, str],
-                    await user_domain.get_attributes(
+                    await users_domain.get_attributes(
                         email, ['first_name', 'last_name']
                     )
                 )

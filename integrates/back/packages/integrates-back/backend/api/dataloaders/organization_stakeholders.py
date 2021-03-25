@@ -11,15 +11,15 @@ from aioextensions import collect
 
 # Local libraries
 from backend import authz
-from backend.domain import (
-    organization as org_domain,
-    user as stakeholder_domain
-)
+from backend.domain import organization as org_domain
 from backend.typing import Stakeholder as StakeholderType
+from users import domain as stakeholders_domain
 
 
 async def _get_stakeholder(email: str, org_id: str) -> StakeholderType:
-    stakeholder: StakeholderType = await stakeholder_domain.get_by_email(email)
+    stakeholder: StakeholderType = await stakeholders_domain.get_by_email(
+        email
+    )
     org_role: str = await authz.get_organization_level_role(email, org_id)
 
     return {**stakeholder, 'responsibility': '', 'role': org_role}

@@ -36,7 +36,6 @@ from backend.dal import project as project_dal
 from backend.dal.helpers.dynamodb import start_context
 from backend.domain import (
     finding as finding_domain,
-    user as user_domain,
     organization as org_domain,
     vulnerability as vuln_domain,
 )
@@ -73,6 +72,7 @@ from newutils import (
 )
 from notifications import domain as notifications_domain
 from resources import domain as resources_domain
+from users import domain as users_domain
 
 
 logging.config.dictConfig(LOGGING)
@@ -107,6 +107,10 @@ async def add_comment(
         if parent not in project_comments:
             raise InvalidCommentParent()
     return await project_dal.add_comment(project_name, email, comment_data)
+
+
+async def can_user_access(project: str, role: str) -> bool:
+    return await project_dal.can_user_access(project, role)
 
 
 def send_comment_mail(
@@ -529,7 +533,7 @@ async def remove_user_access(
         org_id = group['organization']
         has_org_access = await org_domain.has_user_access(org_id, email)
         has_groups_in_org = bool(
-            await user_domain.get_projects(email, organization_id=org_id)
+            await users_domain.get_projects(email, organization_id=org_id)
         )
         if has_org_access and not has_groups_in_org:
             success = success and await org_domain.remove_user(
@@ -539,7 +543,7 @@ async def remove_user_access(
             )
 
         has_groups = bool(
-            await user_domain.get_projects(email)
+            await users_domain.get_projects(email)
         )
         if not has_groups:
             success = success and await stakeholders_utils.remove(email)
@@ -1246,7 +1250,7 @@ async def format_stakeholder(
     email: str,
     group_name: str
 ) -> StakeholderType:
-    stakeholder: StakeholderType = await user_domain.get_by_email(email)
+    stakeholder: StakeholderType = await users_domain.get_by_email(email)
     project_access = await get_user_access(
         email,
         group_name

@@ -26,10 +26,7 @@ from backend import (
 )
 from backend.dal import finding as finding_dal
 from backend.dal.helpers.dynamodb import start_context
-from backend.domain import (
-    user as user_domain,
-    vulnerability as vuln_domain
-)
+from backend.domain import vulnerability as vuln_domain
 from backend.exceptions import (
     FindingNotFound,
     InvalidCommentParent,
@@ -54,6 +51,7 @@ from newutils import (
     validations,
     vulnerabilities as vuln_utils,
 )
+from users import domain as users_domain
 
 
 async def add_comment(
@@ -92,7 +90,7 @@ async def add_comment(
         if parent not in finding_comments:
             raise InvalidCommentParent()
 
-    user_data = await user_domain.get(user_email)
+    user_data = await users_domain.get(user_email)
     user_data['user_email'] = user_data.pop('email')
     success = await comments_domain.create(finding_id, comment_data, user_data)
     return success[1]

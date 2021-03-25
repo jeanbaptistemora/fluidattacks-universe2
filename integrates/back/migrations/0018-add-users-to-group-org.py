@@ -23,8 +23,8 @@ from backend.dal import organization as org_dal
 from backend.domain import (
     organization as org_domain,
     project as group_domain,
-    user as user_domain
 )
+from users import domain as users_domain
 from __init__ import FI_COMMUNITY_PROJECTS, FI_TEST_PROJECTS
 
 
@@ -51,7 +51,7 @@ async def main() -> None:
             group_org_name = await org_domain.get_name_by_id(group_org_id)
             group_users = await in_thread(group_domain.get_users, group)
             user_orgs = await collect(
-                user_domain.get_attributes(
+                users_domain.get_attributes(
                     user,
                     ['organization']
                 )
