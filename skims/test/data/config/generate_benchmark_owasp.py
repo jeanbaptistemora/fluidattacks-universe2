@@ -17,13 +17,15 @@ from utils.encodings import (
 )
 
 # Constants
-FOLDER = '../owasp_benchmark/src/main/java/org/owasp/benchmark/testcode'
+FOLDER = '../owasp_benchmark'
 
 
 def get_tests_cases() -> Dict[str, List[str]]:
     tests = {}
     pattern = re.compile(r'@WebServlet\(value="/(\w+)-', flags=re.MULTILINE)
-    test_files = sorted(glob.glob(f'{FOLDER}/*.java'))
+    test_files = sorted(glob.glob(
+        f'{FOLDER}/src/main/java/org/owasp/benchmark/testcode/*.java',
+    ))
 
     for test_file in test_files:
         with open(test_file) as handle:
@@ -32,7 +34,7 @@ def get_tests_cases() -> Dict[str, List[str]]:
         if match := pattern.search(content):
             category = match.group(1)
             tests.setdefault(category, [])
-            tests[category].append(os.path.basename(test_file))
+            tests[category].append(os.path.relpath(test_file, FOLDER))
         else:
             raise Exception(content)
 
@@ -49,6 +51,9 @@ def main() -> None:
         'weakrand': [core_model.FindingEnum.F034.name],
         'xss': [core_model.FindingEnum.F008.name],
     }
+    extra_files: List[str] = [
+        'src/main/java/org/owasp/benchmark/helpers/DatabaseHelper.java'
+    ]
 
     for category, tests_cases in get_tests_cases().items():
         tests_cases.sort()
@@ -60,7 +65,7 @@ def main() -> None:
             namespace='OWASP',
             output=f'skims/test/outputs/{suite}.csv',
             path=dict(
-                include=tests_cases,
+                include=extra_files + tests_cases,
                 lib_path=False,
                 lib_root=categories.get(category, [])
             ),
