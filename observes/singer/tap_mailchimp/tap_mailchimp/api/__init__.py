@@ -56,6 +56,8 @@ class ApiClient(NamedTuple):
     get_audience_locations: Callable[[AudienceId], Iterator[ApiData]]
     list_campaigns: Callable[[], Iterator[CampaignId]]
     get_campaign: Callable[[CampaignId], ApiData]
+    list_feedbacks: Callable[[CampaignId], Iterator[FeedbackId]]
+    get_feedback: Callable[[FeedbackId], ApiData]
 
 
 def new_client_from_source(
@@ -106,6 +108,12 @@ def new_client_from_source(
         ),
         get_campaign=partial(
             campaigns.get_item.get_campaign, raw_source
+        ),
+        list_feedbacks=partial(
+            campaigns.list_items.list_feedbacks, raw_source
+        ),
+        get_feedback=partial(
+            campaigns.get_item.get_feedback, raw_source
         ),
     )
 

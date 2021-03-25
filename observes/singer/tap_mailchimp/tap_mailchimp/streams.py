@@ -10,6 +10,7 @@ from itertools import (
 from typing import (
     Any,
     Callable,
+    cast,
     IO,
     Iterator,
     Mapping,
@@ -30,6 +31,7 @@ from tap_mailchimp.api import (
     ApiData,
     AudienceId,
     CampaignId,
+    FeedbackId,
     GrowthHistId,
     InterestCatgId,
     ItemId,
@@ -41,6 +43,7 @@ class SupportedStreams(Enum):
     AUDIENCES = 'AUDIENCES'
     ABUSE_REPORTS = 'ABUSE_REPORTS'
     CAMPAIGNS = 'CAMPAIGNS'
+    FEEDBACK = 'FEEDBACK'
     GROWTH_HISTORY = 'GROWTH_HISTORY'
     INTEREST_CATEGORY = 'INTEREST_CATEGORY'
     LOCATIONS = 'LOCATIONS'
@@ -67,6 +70,7 @@ def _item_getter(
         SupportedStreams.RECENT_ACTIVITY: client.get_activity,
         SupportedStreams.TOP_CLIENTS: client.get_top_clients,
         SupportedStreams.CAMPAIGNS: client.get_campaign,
+        SupportedStreams.FEEDBACK: client.get_feedback,
     }
     id_type = {
         SupportedStreams.AUDIENCES: AudienceId,
@@ -78,6 +82,7 @@ def _item_getter(
         SupportedStreams.RECENT_ACTIVITY: AudienceId,
         SupportedStreams.TOP_CLIENTS: AudienceId,
         SupportedStreams.CAMPAIGNS: CampaignId,
+        SupportedStreams.FEEDBACK: FeedbackId,
     }
     if isinstance(item_id, id_type[stream]):
         return getter[stream](item_id)
@@ -111,10 +116,10 @@ def _emit_items(
     items_id: Iterator[ItemId],
     target: Optional[IO[str]]
 ) -> None:
-    first_item = next(items_id, None)
-    if not first_item:
+    first_item: Optional[ItemId] = next(items_id, None)
+    if first_item is None:
         return
-    _emit_item(client, stream, first_item, target)
+    _emit_item(client, stream, cast(ItemId, first_item), target)
     map_obj = map(
         lambda id: _emit_item(client, stream, id, target),
         items_id
@@ -199,3 +204,16 @@ def all_campaigns(
     stream = SupportedStreams.CAMPAIGNS
     campaigns_id = client.list_campaigns()
     _emit_items(client, stream, campaigns_id, target)
+
+
+def all_feedback(
+    client: ApiClient,
+    target: Optional[IO[str]]
+) -> None:
+    stream = SupportedStreams.FEEDBACK
+    campaigns_id = client.list_campaigns()
+    feedbacks_id: Iterator[FeedbackId] = chain.from_iterable(iter(map(
+        client.list_feedbacks,
+        campaigns_id
+    )))
+    _emit_items(client, stream, feedbacks_id, target)
