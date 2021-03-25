@@ -15,14 +15,16 @@ from typing import (
 from pandas import DataFrame
 
 # Local libraries
-from sorts.constants import ModelType
+from sorts.typings import Model as ModelType
 from training.constants import (
     FEATURES_DICTS,
+    RESULT_HEADERS,
     S3_BUCKET
 )
 from training.evaluate_results import get_best_model_name
 from training.training_script.utils import (
     get_model_performance_metrics,
+    get_previous_training_results,
     load_training_data,
     split_training_data
 )
@@ -43,12 +45,16 @@ def get_model_features() -> Tuple[str, ...]:
 
 def train_model(
     model_class: ModelType,
-    training_dir: str
+    training_dir: str,
+    previous_results: List[List[str]]
 ) -> List[List[str]]:
     model_features: Tuple[str, ...] = get_model_features()
     start_time: float = time.time()
 
     training_data: DataFrame = load_training_data(training_dir)
+    training_output: List[List[str]] = (
+        previous_results if previous_results else [RESULT_HEADERS]
+    )
     train_x, train_y = split_training_data(training_data, model_features)
 
     model = model_class()
@@ -64,14 +70,14 @@ def train_model(
     print(f'Recall: {metrics[1]}%')
     print(f'F1-Score: {metrics[2]}%')
     print(f'Overfit: {metrics[3]}%')
-    training_output = [
+    training_output.append([
         model.__class__.__name__,
         ' '.join(FEATURES_DICTS[feature] for feature in model_features),
         f'{metrics[0]:.1f}',
         f'{metrics[1]:.1f}',
         f'{metrics[2]:.1f}',
         f'{metrics[3]:.1f}'
-    ]
+    ])
 
     return training_output
 
@@ -99,11 +105,16 @@ def main() -> None:
 
     model: str = args.model
     model_class: Optional[ModelType] = globals().get(model)
+
+    results_filename: str = f'{model.lower().split("-")[0]}_train_results.csv'
+    previous_results = get_previous_training_results(results_filename)
+
     training_output = train_model(
         model_class,
-        args.train
+        args.train,
+        previous_results
     )
-    results_filename: str = f'{model.lower()}_train_results.csv'
+
     with open(results_filename, 'w', newline='') as results_file:
         csv_writer = csv.writer(results_file)
         csv_writer.writerows(training_output)
