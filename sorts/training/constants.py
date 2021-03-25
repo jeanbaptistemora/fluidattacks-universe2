@@ -6,6 +6,10 @@ from typing import (
 
 # Third party libraries
 import boto3
+from sklearn.neural_network import MLPClassifier
+
+# Local libraries
+from sorts.typings import Model as ModelType
 
 
 S3_BUCKET_NAME: str = 'sorts'
@@ -31,3 +35,6 @@ RESULT_HEADERS: List[str] = [
     'F1',
     'Overfit'
 ]
+MODELS: Dict[str, ModelType] = {
+    'mlpclassifier': MLPClassifier
+}

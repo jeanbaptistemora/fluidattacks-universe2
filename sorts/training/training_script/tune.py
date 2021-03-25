@@ -18,6 +18,7 @@ from pandas import DataFrame
 from sorts.typings import Model as ModelType
 from training.constants import (
     FEATURES_DICTS,
+    MODELS,
     RESULT_HEADERS,
     S3_BUCKET
 )
@@ -104,7 +105,7 @@ def main() -> None:
     args = parser.parse_args()
 
     model: str = args.model
-    model_class: Optional[ModelType] = globals().get(model)
+    model_class: Optional[ModelType] = MODELS[model.split('-')[0]]
 
     results_filename: str = f'{model.lower().split("-")[0]}_train_results.csv'
     previous_results = get_previous_training_results(results_filename)
