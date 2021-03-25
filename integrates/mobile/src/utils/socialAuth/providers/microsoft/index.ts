@@ -1,21 +1,22 @@
+import type { IAuthResult } from "../..";
+import { LOGGER } from "../../../logger";
+import { MICROSOFT_CLIENT_ID } from "../../../constants";
+import _ from "lodash";
 import {
   AuthRequest,
-  AuthSessionResult,
-  DiscoveryDocument,
+  Prompt,
+  ResponseType,
   exchangeCodeAsync,
   fetchDiscoveryAsync,
   fetchUserInfoAsync,
   makeRedirectUri,
-  Prompt,
-  ResponseType,
   revokeAsync,
+} from "expo-auth-session";
+import type {
+  AuthSessionResult,
+  DiscoveryDocument,
   TokenResponse,
 } from "expo-auth-session";
-import _ from "lodash";
-
-import { IAuthResult } from "../..";
-import { MICROSOFT_CLIENT_ID } from "../../../constants";
-import { LOGGER } from "../../../logger";
 
 const clientId: string = MICROSOFT_CLIENT_ID;
 
@@ -26,11 +27,9 @@ const getRedirectUri: () => string = (): string =>
     useProxy: false,
   });
 
-const getDiscovery: () => Promise<DiscoveryDocument> = async (): Promise<
-  DiscoveryDocument
-> => {
+const getDiscovery: () => Promise<DiscoveryDocument> = async (): Promise<DiscoveryDocument> => {
   const baseDocument: DiscoveryDocument = await fetchDiscoveryAsync(
-    "https://login.microsoftonline.com/common/v2.0/",
+    "https://login.microsoftonline.com/common/v2.0/"
   );
 
   return {
@@ -42,27 +41,25 @@ const getDiscovery: () => Promise<DiscoveryDocument> = async (): Promise<
 const getTokenResponse: (
   discovery: DiscoveryDocument,
   params: Record<string, string>,
-  request: AuthRequest,
+  request: AuthRequest
 ) => Promise<TokenResponse> = async (
   discovery: DiscoveryDocument,
   params: Record<string, string>,
-  request: AuthRequest,
+  request: AuthRequest
 ): Promise<TokenResponse> =>
   exchangeCodeAsync(
     {
       clientId,
       code: params.code,
       extraParams: {
-        code_verifier: request.codeVerifier as string,
+        code_verifier: request.codeVerifier as string, // eslint-disable-line camelcase -- Defined by API
       },
       redirectUri: getRedirectUri(),
     },
-    { tokenEndpoint: discovery.tokenEndpoint },
+    { tokenEndpoint: discovery.tokenEndpoint }
   );
 
-const authWithMicrosoft: () => Promise<IAuthResult> = async (): Promise<
-  IAuthResult
-> => {
+const authWithMicrosoft: () => Promise<IAuthResult> = async (): Promise<IAuthResult> => {
   try {
     const discovery: DiscoveryDocument = await getDiscovery();
     const request: AuthRequest = new AuthRequest({
@@ -76,14 +73,14 @@ const authWithMicrosoft: () => Promise<IAuthResult> = async (): Promise<
 
     const logInResult: AuthSessionResult = await request.promptAsync(
       discovery,
-      { useProxy: false },
+      { useProxy: false }
     );
 
     if (logInResult.type === "success") {
       const { accessToken } = await getTokenResponse(
         discovery,
         logInResult.params,
-        request,
+        request
       );
 
       /**
@@ -92,7 +89,7 @@ const authWithMicrosoft: () => Promise<IAuthResult> = async (): Promise<
        */
       const userProps: Record<string, string> = await fetchUserInfoAsync(
         { accessToken },
-        { userInfoEndpoint: discovery.userInfoEndpoint },
+        { userInfoEndpoint: discovery.userInfoEndpoint }
       );
 
       return {
@@ -107,25 +104,25 @@ const authWithMicrosoft: () => Promise<IAuthResult> = async (): Promise<
         },
       };
     }
-  } catch (error) {
-    LOGGER.error("Couldn't authenticate with Microsoft", { ...error });
+  } catch (error: unknown) {
+    LOGGER.error("Couldn't authenticate with Microsoft", error);
   }
 
   return { type: "cancel" };
 };
 
 const logoutFromMicrosoft: (authToken: string) => void = async (
-  authToken: string,
+  authToken: string
 ): Promise<void> => {
   try {
     const discovery: DiscoveryDocument = await getDiscovery();
 
     await revokeAsync(
       { token: authToken },
-      { revocationEndpoint: discovery.revocationEndpoint },
+      { revocationEndpoint: discovery.revocationEndpoint }
     );
-  } catch (error) {
-    LOGGER.warning("Couldn't revoke microsoft session", { ...error });
+  } catch (error: unknown) {
+    LOGGER.warning("Couldn't revoke microsoft session", error);
   }
 };
 
