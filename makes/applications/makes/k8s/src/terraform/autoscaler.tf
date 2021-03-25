@@ -7,9 +7,10 @@ data "aws_iam_policy_document" "autoscaler" {
       "autoscaling:DescribeAutoScalingGroups",
       "autoscaling:DescribeAutoScalingInstances",
       "autoscaling:DescribeLaunchConfigurations",
+      "autoscaling:DescribeTags",
       "autoscaling:SetDesiredCapacity",
       "autoscaling:TerminateInstanceInAutoScalingGroup",
-      "autoscaling:DescribeTags",
+      "autoscaling:UpdateAutoScalingGroup",
       "ec2:DescribeLaunchTemplateVersions",
     ]
 
