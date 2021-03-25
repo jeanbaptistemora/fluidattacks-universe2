@@ -114,7 +114,8 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
       environmentUrls: false,
       "filter.exclude": true,
       "filter.include": true,
-      lastStatusUpdate: true,
+      lastCloningStatusUpdate: true,
+      lastStateStatusUpdate: false,
       nickname: false,
       state: true,
       url: true,
@@ -448,10 +449,10 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
                   },
                   {
                     align: "center",
-                    dataField: "lastStatusUpdate",
+                    dataField: "lastStateStatusUpdate",
                     formatter: dateFormatter,
-                    header: t("group.scope.common.lastStatusUpdate"),
-                    visible: checkedItems.lastStatusUpdate,
+                    header: t("group.scope.common.lastStateStatusUpdate"),
+                    visible: checkedItems.lastStateStatusUpdate,
                   },
                   {
                     align: "center",
@@ -465,6 +466,13 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
                     header: t("group.scope.git.repo.cloning.status"),
                     visible: checkedItems["cloningStatus.status"],
                     width: "15%",
+                  },
+                  {
+                    align: "center",
+                    dataField: "lastCloningStatusUpdate",
+                    formatter: dateFormatter,
+                    header: t("group.scope.common.lastCloningStatusUpdate"),
+                    visible: checkedItems.lastCloningStatusUpdate,
                   },
                   {
                     dataField: "cloningStatus.message",

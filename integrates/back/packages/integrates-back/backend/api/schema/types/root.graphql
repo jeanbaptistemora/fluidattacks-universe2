@@ -24,8 +24,12 @@ type GitRoot implements IRoot {
   id: ID!
   "Analyze already existing code"
   includesHealthCheck: Boolean!
+  "Last time the root cloning state was modified"
+  lastCloningStatusUpdate: DateTime!
   "Last time the root status was modified"
-  lastStatusUpdate: DateTime!
+  lastStateStatusUpdate: DateTime!
+  "Last time the root status was modified"
+  lastStatusUpdate: DateTime! @deprecated(reason: "Use `lastStateStatusUpdate`.")
   "Nickname for the repository"
   nickname: String!
   "Whether the root is active or not"

@@ -15,7 +15,8 @@ class GitRoot(NamedTuple):
     gitignore: List[str]
     id: str
     includes_health_check: bool
-    last_status_update: str
+    last_cloning_status_update: str
+    last_state_status_update: str
     nickname: str
     state: str
     url: str
