@@ -243,7 +243,7 @@ const SolutionsSection: React.FC = (): JSX.Element => {
         <ContinuousPhrase className={"c-fluid-bk"}>
           {translate.t("continuousHacking.titleHome")}
         </ContinuousPhrase>
-        <ContinuousPhrase className={"c-black-gray"}>
+        <ContinuousPhrase className={"c-fluid-gray"}>
           {translate.t("continuousHacking.phraseHome")}
         </ContinuousPhrase>
       </ContinuousContainer>

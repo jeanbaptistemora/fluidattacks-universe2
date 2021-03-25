@@ -143,6 +143,7 @@ $whiter-gray: rgba(241, 241, 241, 1);
 .h-navbar { min-height: 6.5rem; }
 .h-section { min-height: 50rem; }
 .min-h-25 { min-height: 25%; }
+.h-300 { min-height: 300px; }
 .h-400 { min-height: 400px; }
 .h-460 { min-height: 460px; }
 .h-600 { min-height: 600px; }
@@ -519,7 +520,7 @@ $whiter-gray: rgba(241, 241, 241, 1);
 .demo-button {
   &:hover {
     p {
-      padding-left: -0.5rem;
+      margin-left: -0.5rem;
       padding-right: 1rem;
     }
   }

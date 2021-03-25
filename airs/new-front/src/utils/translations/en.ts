@@ -21,6 +21,11 @@ const pageTexts: ResourceKey = {
     phraseHome: "MULTIPLE SOLUTIONS, ONE SERVICE",
     titleHome: "CONTINUOUS HACKING:",
   },
+  ebook: {
+    download: "Download eBook now",
+    phrase: "HACKING WITH SPEED AND PRESISION",
+    question: "ARE YOU GOING FAST IN THE WRONG DIRECTION?",
+  },
   service: {
     oneShotParagraph:
       "If you want to achieve higher vulnerability remediation rates, we" +

@@ -42,12 +42,8 @@ const Portrait: React.FC = (): JSX.Element => (
           >
             <p className={"fl ma0 t-all-3-eio"}>{"Get a Demo"}</p>
             <FontAwesomeIcon
-              className={"c-dkred dib t-all-3-eio"}
+              className={"c-dkred dib t-all-3-eio mh1"}
               icon={faArrowRight}
-              style={{
-                marginLeft: "0.25rem",
-                marginRight: "0.25rem",
-              }}
             />
           </Link>
         </GetDemoContainer>
