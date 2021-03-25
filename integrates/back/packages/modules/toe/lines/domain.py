@@ -13,6 +13,18 @@ from toe.lines import dal as toe_lines_dal
 from dynamodb.types import GitRootToeLines
 
 
+async def delete(
+    filename: str,
+    group_name: str,
+    root_id: str
+) -> None:
+    await toe_lines_dal.delete(
+        filename,
+        group_name,
+        root_id
+    )
+
+
 async def get_by_group(
     loaders: Any,
     group_name: str
