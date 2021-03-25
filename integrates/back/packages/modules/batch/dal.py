@@ -162,7 +162,8 @@ async def put_action_to_batch(
     time: str,
     additional_info: str,
 ) -> bool:
-    env: str = 'DEV' if ENVIRONMENT == 'development' else 'PROD'
+    if ENVIRONMENT == 'development':
+        return True
     try:
         resource_options = dict(
             service_name='batch',
@@ -180,7 +181,7 @@ async def put_action_to_batch(
                     'command': [
                         './m',
                         'integrates.batch',
-                        env.lower(),
+                        'prod',
                         action_name,
                         subject,
                         entity,
@@ -188,13 +189,6 @@ async def put_action_to_batch(
                         additional_info,
                     ],
                     'environment': [
-                        *(
-                            [{
-                                'name': 'AWS_SESSION_TOKEN',
-                                'value': AWS_SESSION_TOKEN
-                            }]
-                            if AWS_SESSION_TOKEN else []
-                        ),
                         {
                             'name': 'CI',
                             'value': 'true'
@@ -204,11 +198,11 @@ async def put_action_to_batch(
                             'value': CI_COMMIT_REF_NAME
                         },
                         {
-                            'name': f'INTEGRATES_{env}_AWS_ACCESS_KEY_ID',
+                            'name': 'INTEGRATES_PROD_AWS_ACCESS_KEY_ID',
                             'value': AWS_DYNAMODB_ACCESS_KEY
                         },
                         {
-                            'name': f'INTEGRATES_{env}_AWS_SECRET_ACCESS_KEY',
+                            'name': 'INTEGRATES_PROD_AWS_SECRET_ACCESS_KEY',
                             'value': AWS_DYNAMODB_SECRET_KEY
                         },
                     ],
