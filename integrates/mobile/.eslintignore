@@ -10,8 +10,6 @@
 !src/utils/notifications.ts
 !src/app.tsx
 !src/index.spec.tsx
-!src/containers/DashboardView/index.tsx
-!src/containers/DashboardView/styles.tsx
-!src/containers/DashboardView/types.tsx
+!src/containers/DashboardView/**
 !src/containers/DashboardView/Header/**
 !src/containers/DashboardView/Indicators/**
