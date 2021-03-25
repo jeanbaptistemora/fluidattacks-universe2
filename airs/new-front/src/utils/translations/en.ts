@@ -14,6 +14,15 @@ const pageTexts: ResourceKey = {
       "projects, helping you comply with industry standards like PCI DSS, " +
       "OWASP, GDPR, HIPAA, NIST, among others.",
   },
+  clients: {
+    definition:
+      "Since 2001, we have helped our clients manage their cybersecurity " +
+      "risks, ensuring that systems which are critical to their operations " +
+      "are safe for their users. Our security experts specialize in " +
+      "continuous hacking on apps, infrastructure and source code, covering " +
+      "all software development stages.",
+    titleHome: "CLIENTS WHO TRUST OUR TEAM",
+  },
   contactUs: {
     contactFluidAttacks: "Contact Fluid Attacks",
   },
@@ -23,7 +32,7 @@ const pageTexts: ResourceKey = {
   },
   ebook: {
     download: "Download eBook now",
-    phrase: "HACKING WITH SPEED AND PRESISION",
+    phrase: "HACKING WITH SPEED AND PREcISION",
     question: "ARE YOU GOING FAST IN THE WRONG DIRECTION?",
   },
   service: {

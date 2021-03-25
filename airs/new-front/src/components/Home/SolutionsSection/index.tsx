@@ -179,12 +179,18 @@ const SolutionsSection: React.FC = (): JSX.Element => {
         <QuarterWidthContainer className={"db-l dn tr"}>
           <ArrowButton onClick={scrollLeft}>
             <FontAwesomeContainerSmall>
-              <FontAwesomeIcon className={"f3"} icon={faAngleLeft} />
+              <FontAwesomeIcon
+                className={"f3 c-black-gray"}
+                icon={faAngleLeft}
+              />
             </FontAwesomeContainerSmall>
           </ArrowButton>
           <ArrowButton onClick={scrollRight}>
             <FontAwesomeContainerSmall>
-              <FontAwesomeIcon className={"f3"} icon={faAngleRight} />
+              <FontAwesomeIcon
+                className={"f3 c-black-gray"}
+                icon={faAngleRight}
+              />
             </FontAwesomeContainerSmall>
           </ArrowButton>
         </QuarterWidthContainer>

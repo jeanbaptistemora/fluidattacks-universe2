@@ -79,6 +79,7 @@ $whiter-gray: rgba(241, 241, 241, 1);
 .bg-menu-solutions { background-image: url('../images/menu/bg-menu-solutions.png'); }
 .bg-menu-systems { background-image: url('../images/menu/bg-menu-systems.png'); }
 .bg-menu-aboutus { background-image: url('../images/menu/bg-menu-aboutus.png'); }
+.bg-clients-home { background-image: url('../images/clients-home.png'); }
 
 .bg-card1 {
   background-image: url('../images/resources/card1.png');
@@ -146,6 +147,7 @@ $whiter-gray: rgba(241, 241, 241, 1);
 .h-300 { min-height: 300px; }
 .h-400 { min-height: 400px; }
 .h-460 { min-height: 460px; }
+.h-500 { min-height: 500px; }
 .h-600 { min-height: 600px; }
 .h-700 { min-height: 700px; }
 
@@ -180,7 +182,7 @@ $whiter-gray: rgba(241, 241, 241, 1);
 
 // Width and Max Width classes
 .mw-1366 { max-width: 1366px; }
-.w-300 { width: 300px; }
+.mw-376 { max-width: 376px; }
 
 // Writing moce classes
 .wm-tb-rl { writing-mode: tb-rl; }

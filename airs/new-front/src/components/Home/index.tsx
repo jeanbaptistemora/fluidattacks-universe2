@@ -1,4 +1,5 @@
 import { AboutUsSection } from "./AboutUsSection";
+import { ClientsSection } from "./ClientsSection";
 import { EbookSection } from "./EbookSection";
 import { Portrait } from "./Portrait";
 import React from "react";
@@ -12,6 +13,7 @@ const Home: React.FC = (): JSX.Element => (
     <AboutUsSection />
     <SolutionsSection />
     <EbookSection />
+    <ClientsSection />
   </React.Fragment>
 );
 
