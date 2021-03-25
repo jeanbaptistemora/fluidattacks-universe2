@@ -16,6 +16,14 @@ module.exports = {
     'web/asm',
     {
       type: 'category',
+      label: 'Manage your organization',
+      items: [
+        'web/organization/analyticsp1',
+        'web/organization/analyticsp2',
+      ],
+    },
+    {
+      type: 'category',
       label: 'Manage your groups',
       items: [
         'web/groups/vulnerabilities',
