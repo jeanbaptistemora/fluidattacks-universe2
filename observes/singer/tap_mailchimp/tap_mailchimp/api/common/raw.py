@@ -78,7 +78,7 @@ class RawSource(NamedTuple):
     list_interest_catg: Callable[[AudienceId, PageId], JSON]
     get_interest_catg: Callable[[InterestCatgId], JSON]
     get_audience_locations: Callable[[AudienceId], JSON]
-    list_campaigns: Callable[[], JSON]
+    list_campaigns: Callable[[PageId], JSON]
     get_campaign: Callable[[CampaignId], JSON]
 
 

@@ -1,6 +1,7 @@
 # Standard libraries
 import logging
 from typing import (
+    Dict,
     Iterator,
 )
 
@@ -8,8 +9,7 @@ from typing import (
 
 # Local libraries
 from tap_mailchimp.api.common import (
-    api_data,
-    list_items_alert,
+    list_items,
 )
 from tap_mailchimp.api.common.raw import (
     CampaignId,
@@ -23,18 +23,13 @@ LOG = logging.getLogger(__name__)
 def list_campaigns(
     raw_source: RawSource,
 ) -> Iterator[CampaignId]:
-    result = api_data.create_api_data(
-        raw_source.list_campaigns()
-    )
-    list_items_alert(
-        'list_campaigns',
-        result.total_items
-    )
-    LOG.debug('list_campaigns result: %s', result)
-    data = result.data['campaigns']
-    return iter(map(
-        lambda item: CampaignId(
+    def id_builder(item: Dict[str, str]) -> CampaignId:
+        return CampaignId(
             str_id=item['id']
-        ),
-        data
-    ))
+        )
+
+    return list_items(
+        raw_source.list_campaigns,
+        'campaigns',
+        id_builder
+    )

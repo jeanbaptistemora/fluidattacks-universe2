@@ -7,7 +7,7 @@ from itertools import (
 from typing import (
     Callable,
     Dict,
-    Iterator, Optional,
+    Iterator,
     TypeVar,
 )
 
@@ -36,18 +36,6 @@ SomeId = TypeVar('SomeId')
 
 class NoneTotal(Exception):
     pass
-
-
-def list_items_alert(ref: str, total: Optional[int]) -> None:
-    max_items = 1000
-    if total is None:
-        LOG.error('total_items is missing at `%s`', ref)
-    elif total > max_items:
-        LOG.error(
-            'Data at `%s` suprassed max handled items (%s > max_items)',
-            ref,
-            total
-        )
 
 
 def list_items(
