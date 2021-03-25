@@ -23,6 +23,7 @@ TEST_GROUPS: Set[str] = {
     'delete_vulnerability',
     'download_event_file',
     'download_vuln_file',
+    'download_file',
     'edit_group',
     'edit_stakeholder',
     'edit_stakeholder_organization',

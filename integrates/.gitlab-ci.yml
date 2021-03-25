@@ -213,6 +213,9 @@ integrates.back.test.functional.download_event_file:
 integrates.back.test.functional.download_vuln_file:
   <<: *integrates_back_test_functional
 
+integrates.back.test.functional.download_file:
+  <<: *integrates_back_test_functional
+
 integrates.back.test.functional.edit_group:
   <<: *integrates_back_test_functional
 
