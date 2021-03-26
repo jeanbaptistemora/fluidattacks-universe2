@@ -15,6 +15,7 @@ from typing import (
 # Third party libraries
 from aioextensions import (
     in_thread,
+    rate_limited,
     resolve,
 )
 
@@ -77,12 +78,20 @@ def _iter_over_async(
 
 def get_pages(
     page_range: PageRange,
-    getter: Callable[[PageId], Data]
+    getter: Callable[[PageId], Data],
 ) -> Iterator[Data]:
+
+    @rate_limited(
+        max_calls=5,
+        max_calls_period=1,
+        min_seconds_between_calls=0.2,
+    )
+    async def get_page(page: PageId) -> Data:
+        return await in_thread(getter, page)
 
     async def pages() -> AsyncGenerator[Data, None]:
         jobs = map(
-            lambda page: in_thread(getter, page),
+            get_page,
             page_range.pages()
         )
         for item in resolve(jobs, worker_greediness=10):
