@@ -19,6 +19,7 @@ from lib_root import (
 )
 from model import (
     core_model,
+    graph_model,
 )
 from sast import (
     parse,
@@ -52,8 +53,8 @@ async def analyze(
     )
 
     graph_db = await parse.get_graph_db(tuple(unique_paths))
-    queries = tuple(
-        query
+    queries: graph_model.Queries = tuple(
+        (finding, query)
         for finding, query in (
             *f060.QUERIES,
             *f073.QUERIES,
@@ -63,8 +64,11 @@ async def analyze(
     )
     queries_len: int = len(queries)
 
-    for idx, query in enumerate(queries, start=1):
-        await log('info', 'Executing query %s of %s', idx, queries_len)
+    for idx, (finding, query) in enumerate(queries, start=1):
+        await log(
+            'info', 'Executing query %s of %s, finding %s',
+            idx, queries_len, finding.name,
+        )
 
         # Ideally should be in_process but memory requirements constraint us
         # for now

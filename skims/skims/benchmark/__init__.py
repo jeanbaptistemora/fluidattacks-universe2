@@ -80,6 +80,7 @@ def load_benchmark_skims_results() -> Dict[str, List[Result]]:
 
 
 def load_skims_results() -> Score:
+    errors_per_category: Dict[Optional[str], int] = {}
     false_negatives: int = 0
     false_positives: int = 0
     true_negatives: int = 0
@@ -114,10 +115,12 @@ def load_skims_results() -> Score:
                 success = True
                 true_negatives += 1
 
-        if not success:
+        errors_per_category.setdefault(result.category, 0)
+        if not success and errors_per_category[result.category] < 3:
+            errors_per_category[result.category] += 1
             log_blocking(
                 'error',
-                'test: %s\nskims: %s\nreal: %s\n',
+                '%s, skims: %s, expected: %s',
                 test,
                 skims_results,
                 result,
