@@ -1,6 +1,7 @@
 // Color Variables
 $black-gray: rgba(92, 92, 92, 1);
 $blue-gray: rgba(92, 92, 112, 1);
+$gray-64: rgba(64, 64, 79, 1);
 $button-red: rgba(191, 38, 38, 1);
 $hovered-red: rgba(255, 52, 53, 1);
 $darker-blue: rgba(28, 28, 34, 1);
@@ -114,6 +115,7 @@ $whiter-gray: rgba(241, 241, 241, 1);
 .bs-btm-h-10 { box-shadow: 0 10px 10px $shadow-gray; }
 
 // Color classes
+.bc-gray-64 { border-color: $gray-64; }
 .bc-black-gray { border-color: $black-gray; }
 .bc-fluid-red { border-color: $button-red; }
 .bc-hovered-red { border-color: $hovered-red; }

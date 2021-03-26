@@ -25,6 +25,11 @@ const pageTexts: ResourceKey = {
   },
   contactUs: {
     contactFluidAttacks: "Contact Fluid Attacks",
+    follow: "FOLLOW US",
+    formButton: "Make your inquiry",
+    formMessage: "FILL OUT OUR FORM TO GET IN TOUCH",
+    subTitle: "TALK TO OUR EXPERTS",
+    subscribeMessage: "SUBSCRIBE TO OUR NEWSLETTER",
   },
   continuousHacking: {
     phraseHome: "MULTIPLE SOLUTIONS, ONE SERVICE",
