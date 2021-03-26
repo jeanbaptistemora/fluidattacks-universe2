@@ -7,7 +7,6 @@ import time
 from typing import (
     Dict,
     List,
-    Optional,
     Tuple
 )
 
@@ -105,13 +104,13 @@ def main() -> None:
     args = parser.parse_args()
 
     model: str = args.model
-    model_class: Optional[ModelType] = MODELS[model.split('-')[0]]
+    model_class: ModelType = MODELS[model.split('-')[0]]
 
     results_filename: str = f'{model.lower().split("-")[0]}_train_results.csv'
     previous_results = get_previous_training_results(results_filename)
 
     training_output = train_model(
-        model_class,
+        model_class(activation=args.activation),
         args.train,
         previous_results
     )

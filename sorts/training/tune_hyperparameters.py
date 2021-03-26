@@ -27,6 +27,7 @@ def deploy_hyperparameter_tuning_job() -> None:
 
     tuner = HyperparameterTuner(
         estimator,
+        max_jobs=2,
         metric_definitions=[
             {'Name': 'precision', 'Regex': 'Precision: (.*?)%'},
             {'Name': 'recall', 'Regex': 'Recall: (.*?)%'},
@@ -43,6 +44,10 @@ def deploy_hyperparameter_tuning_job() -> None:
     tuner.fit({
         'train': 's3://sorts/training/binary_encoded_training_data.csv'
     })
+
+    # Here we get the best hyperparameters combination.
+    # We can evaluate them and make desitions from here.
+    _ = tuner.best_estimator().hyperparameters()
 
 
 if __name__ == '__main__':
