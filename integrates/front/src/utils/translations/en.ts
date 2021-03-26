@@ -517,8 +517,8 @@ export const enTranslations: ResourceKey = {
             "An active root with the same URL/Branch already exists " +
             "within the organization",
         },
-        lastCloningStatusUpdate: "Last cloning status update",
-        lastStateStatusUpdate: "Last state status update",
+        lastCloningStatusUpdate: "Last cloning update",
+        lastStateStatusUpdate: "Last state update",
         state: "State",
       },
       git: {

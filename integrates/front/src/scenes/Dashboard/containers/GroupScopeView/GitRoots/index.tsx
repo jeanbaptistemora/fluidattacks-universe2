@@ -465,7 +465,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
                     formatter: statusFormatter,
                     header: t("group.scope.git.repo.cloning.status"),
                     visible: checkedItems["cloningStatus.status"],
-                    width: "15%",
+                    width: "7%",
                   },
                   {
                     align: "center",
@@ -478,6 +478,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
                     dataField: "cloningStatus.message",
                     header: t("group.scope.git.repo.cloning.message"),
                     visible: checkedItems["cloningStatus.message"],
+                    width: "15%",
                   },
                 ]}
                 id={"tblGitRoots"}
