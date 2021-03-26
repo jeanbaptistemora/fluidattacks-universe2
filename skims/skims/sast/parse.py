@@ -207,7 +207,11 @@ def parse_one(
             language=language,
             _=version,
         )
-    except ParsingError:
+    except (
+        KeyError,
+        ParsingError,
+        ValueError,
+    ):
         log_blocking('warning', 'Unable to parse: %s, ignoring', path)
         return None
 
