@@ -1,5 +1,10 @@
 # Standard libraries
 import csv
+import glob
+import logging
+import logging.config
+import re
+import tempfile
 from typing import (
     Any,
     Callable,
@@ -7,17 +12,37 @@ from typing import (
     Tuple,
 )
 
+# Third party libraries
+from aioextensions import (
+    collect,
+    in_process,
+)
+
 # Local libraries
+from back.settings import (
+    LOGGING,
+    NOEXTRA
+)
+from backend.api import get_new_context
+from backend.exceptions import (
+    GroupNameNotFound,
+)
 from dynamodb.types import (
     GitRootToeLines,
 )
 from newutils import (
     bugsnag as bugsnag_utils,
     datetime as datetime_utils,
+    git as git_utils,
 )
 from roots import domain as roots_domain
 from roots.types import Root
+from toe.lines import domain as toe_lines_domain
 
+
+# Constants
+logging.config.dictConfig(LOGGING)
+LOGGER = logging.getLogger(__name__)
 
 bugsnag_utils.start_scheduler_session()
 
@@ -107,3 +132,81 @@ def _get_toe_lines_to_remove(
             toe_lines.filename
         ) not in cvs_group_toe_lines_ids
     ])
+
+
+async def update_toe_lines_from_csv(
+    loaders: Any,
+    group_name: str,
+    lines_csv_path: str
+) -> None:
+    group_roots_loader = loaders.group_roots
+    group_roots = await group_roots_loader.load(group_name)
+    group_toe_lines = await toe_lines_domain.get_by_group(
+        loaders, group_name
+    )
+    cvs_group_toe_lines = await in_process(
+        _get_group_toe_lines_from_cvs,
+        lines_csv_path,
+        group_name,
+        group_roots
+    )
+    toe_lines_to_update = await in_process(
+        _get_toe_lines_to_update,
+        group_toe_lines,
+        cvs_group_toe_lines
+    )
+    await collect([
+        toe_lines_domain.update(toe_lines)
+        for toe_lines in toe_lines_to_update
+    ])
+    toe_lines_to_remove = await in_process(
+        _get_toe_lines_to_remove,
+        group_toe_lines,
+        cvs_group_toe_lines
+    )
+    await collect([
+        toe_lines_domain.delete(
+            toe_lines.filename,
+            toe_lines.group_name,
+            toe_lines.root_id
+        )
+        for toe_lines in toe_lines_to_remove
+    ])
+
+
+def _get_group_name(
+    tmpdirname: str,
+    lines_csv_path: str
+) -> str:
+    group_match = re.match(
+        pattern=fr'{tmpdirname}/groups/(\w+)',
+        string=lines_csv_path
+    )
+    if not group_match:
+        raise GroupNameNotFound()
+
+    return group_match.groups('1')[0]
+
+
+async def main() -> None:
+    """Update the root toe lines from services repository"""
+    msg = '[scheduler]: toe_lines_etl is running'
+    LOGGER.info(msg, **NOEXTRA)
+    loaders = get_new_context()
+    with tempfile.TemporaryDirectory() as tmpdirname:
+        git_utils.clone_services_repository(tmpdirname)
+        lines_csv_glob = f'{tmpdirname}/groups/*/toe/lines.csv'
+        lines_cvs_paths = glob.glob(lines_csv_glob)
+        lines_csv_group_names = [
+            _get_group_name(tmpdirname, lines_cvs_path)
+            for lines_cvs_path in lines_cvs_paths
+        ]
+        await collect([
+            update_toe_lines_from_csv(
+                loaders,
+                group_name,
+                lines_csv_path
+            )
+            for lines_csv_path, group_name
+            in zip(lines_cvs_paths, lines_csv_group_names)
+        ])

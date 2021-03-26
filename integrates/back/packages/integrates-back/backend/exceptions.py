@@ -732,3 +732,12 @@ class InvalidSource(Exception):
         """ Constructor """
         msg = 'Exception - Invalid source'
         super(InvalidSource, self).__init__(msg)
+
+
+class GroupNameNotFound(Exception):
+    """Exception to control if the group name has been found."""
+
+    def __init__(self) -> None:
+        """ Constructor """
+        msg = 'Exception - Group name has not been found'
+        super(GroupNameNotFound, self).__init__(msg)
