@@ -69,3 +69,14 @@ def _get_group_toe_lines_from_cvs(
             group_toe_lines.append(GitRootToeLines(**new_toe_lines))
 
     return tuple(group_toe_lines)
+
+
+def _get_toe_lines_to_update(
+    group_toe_lines: Tuple[GitRootToeLines, ...],
+    cvs_group_toe_lines: Tuple[GitRootToeLines, ...]
+) -> Tuple[GitRootToeLines, ...]:
+    return tuple([
+        toe_lines
+        for toe_lines in cvs_group_toe_lines
+        if toe_lines not in group_toe_lines
+    ])
