@@ -156,16 +156,21 @@ async def update_item(
     key: PrimaryKey,
     table: Table
 ) -> None:
+    key_structure = table.primary_key
+    update_attrs = ','.join(f'#{attr} = :{attr}' for attr in item)
+
     async with aioboto3.resource(**RESOURCE_OPTIONS) as resource:
         table_resource = await resource.Table(table.name)
-        update_attrs = ','.join(f'#{attr} = :{attr}' for attr in item)
         table_resource.update_item(
             ExpressionAttributeNames={f'#{attr}': attr for attr in item},
             ExpressionAttributeValues={
                 f':{attr}': value
-                for (attr, value) in item.items()
+                for attr, value in item.items()
             },
-            Key=dict(key._asdict()),
+            Key={
+                key_structure.partition_key: key.partition_key,
+                key_structure.sort_key: key.sort_key
+            },
             UpdateExpression=f'SET {update_attrs}'
         )
 

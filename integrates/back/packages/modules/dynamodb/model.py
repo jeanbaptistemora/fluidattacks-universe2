@@ -418,6 +418,41 @@ def _build_vuln(
     )
 
 
+async def get_vulnerability(
+    *,
+    root: GitRootItem,
+    vuln_id: str
+) -> Optional[VulnerabilityItem]:
+    primary_key = keys.build_key(
+        facet=TABLE.facets['vulnerability_metadata'],
+        values={'root_uuid': root.id, 'vuln_uuid': vuln_id},
+    )
+
+    index = TABLE.indexes['inverted_index']
+    key_structure = index.primary_key
+    results = await operations.query(
+        condition_expression=(
+            Key(key_structure.partition_key).eq(primary_key.sort_key) &
+            Key(key_structure.sort_key).begins_with(primary_key.partition_key)
+        ),
+        facets=(
+            TABLE.facets['vulnerability_metadata'],
+            TABLE.facets['vulnerability_state']
+        ),
+        index=index,
+        table=TABLE
+    )
+
+    if results:
+        return _build_vuln(
+            item_id=primary_key.partition_key,
+            key_structure=key_structure,
+            raw_items=results
+        )
+
+    return None
+
+
 async def get_vulnerabilities(
     *,
     root: GitRootItem
