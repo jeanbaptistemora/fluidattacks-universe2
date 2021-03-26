@@ -16,3 +16,4 @@
 !src/containers/LockView/**
 !src/containers/LoginView/BitbucketButton/**
 !src/containers/LoginView/GoogleButton/**
+!src/containers/LoginView/MicrosoftButton/**

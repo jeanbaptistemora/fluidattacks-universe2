@@ -1,28 +1,37 @@
+// Needed to override styles
+/* eslint-disable react/forbid-component-props */
+import MicrosoftLogo from "../../../../assets/microsoft-logo.png";
 import React from "react";
+import { styles } from "./styles";
 import { useTranslation } from "react-i18next";
 import { Image, Text, TouchableOpacity } from "react-native";
-
-// tslint:disable-next-line: no-default-import
-import { default as MicrosoftLogo } from "../../../../assets/microsoft-logo.png";
-
-import { styles } from "./styles";
 
 /**
  * Microsoft Sign In button
  * @see https://docs.microsoft.com/en-us/azure/active-directory/develop/howto-add-branding-in-azure-ad-apps
  */
-export interface IMicrosoftButtonProps {
+interface IMicrosoftButtonProps {
+  // Needed to avoid defaultProps mutations
+  // eslint-disable-next-line react/require-default-props
   disabled?: boolean;
-  onPress(): void;
+  onPress: () => void;
 }
 
-const microsoftButton: React.FC<IMicrosoftButtonProps> = (props: IMicrosoftButtonProps): JSX.Element => {
+const MicrosoftButton: React.FC<IMicrosoftButtonProps> = (
+  props: IMicrosoftButtonProps
+): JSX.Element => {
   const { t } = useTranslation();
+  const { disabled } = props;
 
   return (
     <React.StrictMode>
       <TouchableOpacity
-        style={[styles.container, props.disabled === true ? styles.disabled : undefined]}
+        style={[
+          styles.container,
+          disabled === true ? styles.disabled : undefined,
+        ]}
+        // We need props spreading in order to pass down props to the button.
+        // eslint-disable-next-line react/jsx-props-no-spreading
         {...props}
       >
         <Image source={MicrosoftLogo} style={styles.icon} />
@@ -32,4 +41,4 @@ const microsoftButton: React.FC<IMicrosoftButtonProps> = (props: IMicrosoftButto
   );
 };
 
-export { microsoftButton as MicrosoftButton };
+export { MicrosoftButton, IMicrosoftButtonProps };
