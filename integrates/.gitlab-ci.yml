@@ -240,6 +240,9 @@ integrates.back.test.functional.finding:
 integrates.back.test.functional.forces_executions:
   <<: *integrates_back_test_functional
 
+integrates.back.test.functional.grant_stakeholder_access:
+  <<: *integrates_back_test_functional
+
 integrates.back.test.functional.grant_stakeholder_organization_access:
   <<: *integrates_back_test_functional
 
