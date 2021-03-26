@@ -38,6 +38,7 @@ module.exports = {
             'web/groups/scope/portfolio',
           ],
         },
+        'web/groups/deleting-unsubscribing',
       ],
     },
     {
