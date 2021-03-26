@@ -4,7 +4,7 @@
 , ...
 }:
 makeDerivation {
-  name = "observes-lint-dif-gitlab-etl";
+  name = "observes-test-dif-gitlab-etl";
   arguments = {
     envSrc = path "/observes/etl/dif_gitlab_etl";
     envTestDir = "tests";

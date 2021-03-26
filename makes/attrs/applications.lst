@@ -133,6 +133,7 @@ melts.test
 melts.vpn
 observes.bin.code-etl
 observes.bin.dif-gitlab-etl
+observes.bin.streamer-zoho-crm
 observes.bin.tap-mailchimp
 observes.bin.tap-zoho-analytics
 observes.bin.timedoctor-tokens
@@ -175,7 +176,6 @@ observes.streamer-zoho-crm
 observes.tap-csv
 observes.tap-formstack
 observes.tap-json
-observes.tap-mailchimp
 observes.tap-mixpanel
 observes.tap-timedoctor
 observes.tap-toe-files

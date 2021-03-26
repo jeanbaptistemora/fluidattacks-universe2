@@ -55,10 +55,18 @@ in
 makeTemplate {
   name = "observes-env-development-streamer-zoho-crm";
   searchPaths = {
+    envPaths = [
+      nixpkgs.postgresql
+      pythonRequirements
+    ];
     envPython38Paths = [
       nixpkgs.python38Packages.psycopg2
       pythonRequirements
       postgresClient
+      singerIO
+      self
+    ];
+    envMypy38Paths = [
       singerIO
       self
     ];
