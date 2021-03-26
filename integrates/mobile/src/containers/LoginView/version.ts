@@ -1,8 +1,8 @@
-import { AndroidManifest, default as Constants } from "expo-constants";
-import _ from "lodash";
-import { Platform } from "react-native";
-
+import type { AndroidManifest } from "expo-constants";
+// Needed for correct usage of AndroidManifest
+import Constants from "expo-constants"; // eslint-disable-line import/no-named-as-default
 import { LOGGER } from "../../utils/logger";
+import { Platform } from "react-native";
 
 const getVersionFromPlaystore: () => Promise<string> = async (): Promise<string> => {
   const androidManifest: AndroidManifest = Constants.manifest
@@ -10,7 +10,7 @@ const getVersionFromPlaystore: () => Promise<string> = async (): Promise<string>
 
   const baseURL: string = "https://play.google.com/store/apps/details";
   const response: Response = await fetch(
-    `${baseURL}?id=${androidManifest.package}`,
+    `${baseURL}?id=${androidManifest.package as string}`
   );
 
   if (response.ok) {
@@ -21,7 +21,8 @@ const getVersionFromPlaystore: () => Promise<string> = async (): Promise<string>
 
     return html.substring(index + startOffset, index + endOffset);
   }
-
+  // Needed for the test
+  // eslint-disable-next-line fp/no-throw
   throw Error(`Received HTTP status ${response.status}`);
 };
 
@@ -34,7 +35,7 @@ export const getOutdatedStatus: () => Promise<boolean> = async (): Promise<boole
     });
 
     return localVersion !== remoteVersion;
-  } catch (error) {
+  } catch (error: unknown) {
     LOGGER.warning("Couldn't retrieve remote version", error);
 
     return false;

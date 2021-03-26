@@ -1,33 +1,34 @@
-import { mount, ReactWrapper } from "enzyme";
-import { FetchMockStatic } from "fetch-mock";
-import React from "react";
-// tslint:disable-next-line: no-submodule-imports
-import { act } from "react-dom/test-utils";
+import type { FetchMockStatic } from "fetch-mock";
 import { I18nextProvider } from "react-i18next";
 import { Linking } from "react-native";
-import { Button, Provider as PaperProvider } from "react-native-paper";
+import { LoginView } from ".";
 import { NativeRouter } from "react-router-native";
-import wait from "waait";
-
-import { i18next } from "../../utils/translations/translate";
-
-import { LoginView } from "./index";
+import React from "react";
+import type { ReactWrapper } from "enzyme";
+import { act } from "react-dom/test-utils";
 import { getOutdatedStatus } from "./version";
+import { i18next } from "../../utils/translations/translate";
+import { mount } from "enzyme";
+import wait from "waait";
+import { Button, Provider as PaperProvider } from "react-native-paper";
 
-jest.mock("expo-constants", (): Record<string, unknown> => ({
-  ...jest.requireActual("expo-constants"),
-  manifest: {
-    ...jest.requireActual<Record<string, Record<string, unknown>>>(
-      "expo-constants",
-    ).manifest,
-    android: {
-      package: "com.fluidattacks.integrates",
+jest.mock(
+  "expo-constants",
+  (): Record<string, unknown> => ({
+    ...jest.requireActual("expo-constants"),
+    manifest: {
+      ...jest.requireActual<Record<string, Record<string, unknown>>>(
+        "expo-constants"
+      ).manifest,
+      android: {
+        package: "com.fluidattacks.integrates",
+      },
     },
-  },
-  nativeAppVersion: "21.02.01912",
-}));
+    nativeAppVersion: "21.02.01912",
+  })
+);
 
-const mockedFetch: FetchMockStatic = fetch as typeof fetch & FetchMockStatic;
+const mockedFetch: FetchMockStatic = fetch as FetchMockStatic & typeof fetch;
 
 const mockVersion: (options: {
   httpStatus: number;
@@ -54,47 +55,52 @@ const mockVersion: (options: {
         "</div>",
       ].join(""),
       status: httpStatus,
-    },
+    }
   );
 };
 
 describe("LoginView", (): void => {
-  afterEach((): void => {
+  it("should not display update dialog", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    mockVersion({ httpStatus: 200, version: "21.02.01912" });
+    const wrapper: ReactWrapper = mount(
+      <PaperProvider>
+        <I18nextProvider i18n={i18next}>
+          <NativeRouter initialEntries={["/"]}>
+            <LoginView />
+          </NativeRouter>
+        </I18nextProvider>
+      </PaperProvider>
+    );
+
+    expect(wrapper).toHaveLength(1);
+
+    await act(
+      async (): Promise<void> => {
+        await wait(0);
+        wrapper.update();
+      }
+    );
+
+    expect(wrapper.find("GoogleButton").at(0).prop("disabled")).toStrictEqual(
+      false
+    );
+    expect(wrapper.find("Dialog").at(0).prop("visible")).toStrictEqual(false);
+
     jest.clearAllMocks();
     mockedFetch.reset();
   });
 
-  it("should not display update dialog", async (): Promise<void> => {
-    mockVersion({ version: "21.02.01912", httpStatus: 200 });
-    const wrapper: ReactWrapper = mount(
-      <PaperProvider>
-        <I18nextProvider i18n={i18next}>
-          <NativeRouter initialEntries={["/"]}>
-            <LoginView />
-          </NativeRouter>
-        </I18nextProvider>
-      </PaperProvider>,
-    );
-    expect(wrapper)
-      .toHaveLength(1);
-
-    await act(async (): Promise<void> => { await wait(0); wrapper.update(); });
-
-    expect(wrapper
-      .find("GoogleButton")
-      .at(0)
-      .prop("disabled"))
-      .toEqual(false);
-    expect(wrapper
-      .find("Dialog")
-      .at(0)
-      .prop("visible"))
-      .toEqual(false);
-  });
-
   it("should open google play store", async (): Promise<void> => {
-    mockVersion({ version: "21.01.00000", httpStatus: 200 });
-    (Linking.openURL as jest.Mock).mockImplementation((): Promise<void> => Promise.resolve());
+    expect.hasAssertions();
+
+    mockVersion({ httpStatus: 200, version: "21.01.00000" });
+    // To avoid having the linter break the test after an autofix
+    // eslint-disable-next-line @typescript-eslint/promise-function-async
+    (Linking.openURL as jest.Mock).mockImplementation(
+      async (): Promise<void> => Promise.resolve()
+    );
 
     const wrapper: ReactWrapper = mount(
       <PaperProvider>
@@ -103,51 +109,74 @@ describe("LoginView", (): void => {
             <LoginView />
           </NativeRouter>
         </I18nextProvider>
-      </PaperProvider>,
+      </PaperProvider>
     );
-    expect(wrapper)
-      .toHaveLength(1);
 
-    await act(async (): Promise<void> => { await wait(0); wrapper.update(); });
+    expect(wrapper).toHaveLength(1);
 
-    const dialog: ReactWrapper = wrapper
-      .find("Dialog");
-    expect(dialog
-      .prop("visible"))
-      .toEqual(true);
+    await act(
+      async (): Promise<void> => {
+        await wait(0);
+        wrapper.update();
+      }
+    );
 
-    const updateBtn: ReactWrapper<React.ComponentProps<typeof Button>> = dialog
-      .find<React.ComponentProps<typeof Button>>(Button)
-      .at(0);
+    const dialog: ReactWrapper = wrapper.find("Dialog");
+
+    expect(dialog.prop("visible")).toStrictEqual(true);
+
+    const updateBtn: ReactWrapper<
+      React.ComponentProps<typeof Button>
+    > = dialog.find<React.ComponentProps<typeof Button>>(Button).at(0);
 
     await (updateBtn.invoke("onPress") as () => Promise<void>)();
-    await act(async (): Promise<void> => { await wait(1); wrapper.update(); });
+    await act(
+      async (): Promise<void> => {
+        await wait(1);
+        wrapper.update();
+      }
+    );
     const { openURL } = Linking;
-    expect(openURL)
-      .toHaveBeenCalled();
+
+    expect(openURL).toHaveBeenCalledTimes(1);
+
+    jest.clearAllMocks();
+    mockedFetch.reset();
   });
 
   it("should report up to date", async (): Promise<void> => {
-    mockVersion({ version: "21.02.01912", httpStatus: 200 });
+    expect.hasAssertions();
+
+    mockVersion({ httpStatus: 200, version: "21.02.01912" });
     const isOutdated: boolean = await getOutdatedStatus();
 
-    expect(isOutdated)
-      .toBe(false);
+    expect(isOutdated).toBe(false);
+
+    jest.clearAllMocks();
+    mockedFetch.reset();
   });
 
   it("should report outdated", async (): Promise<void> => {
-    mockVersion({ version: "21.01.00000", httpStatus: 200 });
+    expect.hasAssertions();
+
+    mockVersion({ httpStatus: 200, version: "21.01.00000" });
     const isOutdated: boolean = await getOutdatedStatus();
 
-    expect(isOutdated)
-      .toBe(true);
+    expect(isOutdated).toBe(true);
+
+    jest.clearAllMocks();
+    mockedFetch.reset();
   });
 
   it("should gracefully fallback when it fails to retrieve version", async (): Promise<void> => {
-    mockVersion({ version: "", httpStatus: 400 });
+    expect.hasAssertions();
+
+    mockVersion({ httpStatus: 400, version: "" });
     const isOutdated: boolean = await getOutdatedStatus();
 
-    expect(isOutdated)
-      .toBe(false);
+    expect(isOutdated).toBe(false);
+
+    jest.clearAllMocks();
+    mockedFetch.reset();
   });
 });

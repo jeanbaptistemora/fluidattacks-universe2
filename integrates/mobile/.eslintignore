@@ -19,3 +19,5 @@
 !src/containers/LoginView/MicrosoftButton/**
 !src/containers/LoginView/index.tsx
 !src/containers/LoginView/styles.ts
+!src/containers/LoginView/index.spec.android.tsx
+!src/containers/LoginView/version.ts
