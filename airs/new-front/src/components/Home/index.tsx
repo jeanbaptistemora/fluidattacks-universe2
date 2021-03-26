@@ -3,6 +3,7 @@ import { ClientsSection } from "./ClientsSection";
 import { ContactSection } from "./ContactSection";
 import { EbookSection } from "./EbookSection";
 import { Portrait } from "./Portrait";
+import { QualitySection } from "./QualitySection";
 import React from "react";
 import { SolutionsSection } from "./SolutionsSection";
 import { VideoSection } from "./VideoSection";
@@ -16,6 +17,7 @@ const Home: React.FC = (): JSX.Element => (
     <EbookSection />
     <ClientsSection />
     <ContactSection />
+    <QualitySection />
   </React.Fragment>
 );
 

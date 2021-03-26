@@ -68,6 +68,7 @@ const RedButton: StyledComponent<
   Record<string, unknown>
 > = styled.button.attrs({
   className: `
+    roboto
     w-auto-l
     w-100
     outline-transparent
