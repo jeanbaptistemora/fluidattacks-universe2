@@ -80,3 +80,26 @@ def _get_toe_lines_to_update(
         for toe_lines in cvs_group_toe_lines
         if toe_lines not in group_toe_lines
     ])
+
+
+def _get_toe_lines_to_remove(
+    group_toe_lines: Tuple[GitRootToeLines, ...],
+    cvs_group_toe_lines: Tuple[GitRootToeLines, ...]
+) -> Tuple[GitRootToeLines, ...]:
+    cvs_group_toe_lines_ids = [
+        (
+            toe_lines.group_name,
+            toe_lines.root_id,
+            toe_lines.filename
+        )
+        for toe_lines in cvs_group_toe_lines
+    ]
+    return tuple([
+        toe_lines
+        for toe_lines in group_toe_lines
+        if (
+            toe_lines.group_name,
+            toe_lines.root_id,
+            toe_lines.filename
+        ) not in cvs_group_toe_lines_ids
+    ])
