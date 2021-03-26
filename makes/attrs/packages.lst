@@ -91,6 +91,8 @@ observes.env.runtime.streamer-zoho-crm
 observes.env.runtime.tap-mailchimp
 observes.env.runtime.tap-zoho-analytics
 observes.env.runtime.timedoctor-tokens
+observes.env.tap-mixpanel.runtime
+observes.env.tap-mixpanel.runtime.python
 observes.generic.linter
 observes.generic.runner
 observes.generic.tester
