@@ -14,6 +14,7 @@ let
         "click==7.1.2"
         "mailchimp-marketing==3.0.31"
         "pytest==6.2.2"
+        "ratelimiter==1.2.0"
       ];
       inherited = [
         "attrs==20.3.0"

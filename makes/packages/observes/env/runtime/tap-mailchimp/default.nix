@@ -13,6 +13,7 @@ let
       direct = [
         "click==7.1.2"
         "mailchimp-marketing==3.0.31"
+        "ratelimiter==1.2.0"
       ];
       inherited = [
         "bugsnag==4.0.2"

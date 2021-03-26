@@ -13,6 +13,7 @@ from typing import (
 from mailchimp_marketing import (
     Client,
 )
+from ratelimiter import RateLimiter
 
 # Local libraries
 from paginator import (
@@ -91,6 +92,7 @@ class RawSource(NamedTuple):
     get_checklist: Callable[[CampaignId], JSON]
 
 
+@RateLimiter(max_calls=5, period=1)
 def _list_audiences(client: Client, page_id: PageId) -> JSON:
     result = client.lists.get_all_lists(
         fields=['lists.id', 'total_items', '_links'],
@@ -101,10 +103,12 @@ def _list_audiences(client: Client, page_id: PageId) -> JSON:
     return result
 
 
+@RateLimiter(max_calls=5, period=1)
 def _get_audience(client: Client, audience_id: AudienceId) -> JSON:
     return client.lists.get_list(audience_id.str_id)
 
 
+@RateLimiter(max_calls=5, period=1)
 def _list_abuse_reports(
     client: Client, audience_id: AudienceId, page_id: PageId
 ) -> JSON:
@@ -118,20 +122,24 @@ def _list_abuse_reports(
     return result
 
 
+@RateLimiter(max_calls=5, period=1)
 def _get_abuse_report(client: Client, report_id: AbsReportId) -> JSON:
     return client.lists.get_list_abuse_report_details(
         report_id.audience_id.str_id, report_id.str_id
     )
 
 
+@RateLimiter(max_calls=5, period=1)
 def _get_activity(client: Client, audience_id: AudienceId) -> JSON:
     return client.lists.get_list_recent_activity(audience_id.str_id)
 
 
+@RateLimiter(max_calls=5, period=1)
 def _get_clients(client: Client, audience_id: AudienceId) -> JSON:
     return client.lists.get_list_clients(audience_id.str_id)
 
 
+@RateLimiter(max_calls=5, period=1)
 def _list_members(
     client: Client, audience_id: AudienceId, page_id: PageId
 ) -> JSON:
@@ -148,6 +156,7 @@ def _list_members(
     return result
 
 
+@RateLimiter(max_calls=5, period=1)
 def _get_member(client: Client, member_id: MemberId) -> JSON:
     result = client.lists.get_list_member(
         member_id.audience_id.str_id,
@@ -158,6 +167,7 @@ def _get_member(client: Client, member_id: MemberId) -> JSON:
     return result
 
 
+@RateLimiter(max_calls=5, period=1)
 def _list_growth_hist(
     client: Client, audience_id: AudienceId, page_id: PageId
 ) -> JSON:
@@ -169,6 +179,7 @@ def _list_growth_hist(
     )
 
 
+@RateLimiter(max_calls=5, period=1)
 def _get_growth_hist(client: Client, ghist_id: GrowthHistId) -> JSON:
     return client.lists.get_list_growth_history_by_month(
         ghist_id.audience_id.str_id,
@@ -176,6 +187,7 @@ def _get_growth_hist(client: Client, ghist_id: GrowthHistId) -> JSON:
     )
 
 
+@RateLimiter(max_calls=5, period=1)
 def _list_interest_catg(
     client: Client, audience_id: AudienceId, page_id: PageId
 ) -> JSON:
@@ -187,6 +199,7 @@ def _list_interest_catg(
     )
 
 
+@RateLimiter(max_calls=5, period=1)
 def _get_interest_catg(client: Client, interest_id: InterestCatgId) -> JSON:
     return client.lists.get_interest_category(
         interest_id.audience_id.str_id,
@@ -194,10 +207,12 @@ def _get_interest_catg(client: Client, interest_id: InterestCatgId) -> JSON:
     )
 
 
+@RateLimiter(max_calls=5, period=1)
 def _get_audience_locations(client: Client, audience_id: AudienceId) -> JSON:
     return client.lists.get_list_locations(audience_id.str_id)
 
 
+@RateLimiter(max_calls=5, period=1)
 def _list_campaigns(client: Client, page_id: PageId) -> JSON:
     result = client.campaigns.list(
         fields=['campaigns.id', 'total_items', '_links'],
@@ -208,10 +223,12 @@ def _list_campaigns(client: Client, page_id: PageId) -> JSON:
     return result
 
 
+@RateLimiter(max_calls=5, period=1)
 def _get_campaign(client: Client, campaign_id: CampaignId) -> JSON:
     return client.campaigns.get(campaign_id.str_id)
 
 
+@RateLimiter(max_calls=5, period=1)
 def _list_feedbacks(
     client: Client, campaign_id: CampaignId, page_id: PageId
 ) -> JSON:
@@ -223,6 +240,7 @@ def _list_feedbacks(
     )
 
 
+@RateLimiter(max_calls=5, period=1)
 def _get_feedback(client: Client, feedback_id: FeedbackId) -> JSON:
     return client.campaigns.get_feedback_message(
         feedback_id.campaign_id.str_id,
@@ -230,6 +248,7 @@ def _get_feedback(client: Client, feedback_id: FeedbackId) -> JSON:
     )
 
 
+@RateLimiter(max_calls=5, period=1)
 def _get_checklist(
     client: Client, campaign_id: CampaignId
 ) -> JSON:
