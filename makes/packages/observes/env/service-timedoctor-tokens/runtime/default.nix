@@ -1,6 +1,7 @@
 { buildPythonPackage
 , makeTemplate
 , nixpkgs
+, packages
 , path
 , ...
 }:
