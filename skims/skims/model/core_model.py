@@ -578,6 +578,34 @@ class FindingEnum(Enum):
         title='utils.model.finding.enum.F063_PATH_TRAVERSAL.title',
         type=FindingTypeEnum.SECURITY,
     )
+    F063_TRUSTBOUND: FindingMetadata = FindingMetadata(
+        auto_approve=False,
+        cwe='501',
+        description='utils.model.finding.enum.f063_trustbound.description',
+        impact='utils.model.finding.enum.f063_trustbound.impact',
+        recommendation=(
+            'utils.model.finding.enum.f063_trustbound.recommendation'
+        ),
+        requirements=(
+            'utils.model.finding.enum.f063_trustbound.requirements'
+        ),
+        severity={
+            'attackComplexity': 0.44,
+            'attackVector': 0.85,
+            'availabilityImpact': 0.0,
+            'confidentialityImpact': 0.0,
+            'exploitability': 0.91,
+            'integrityImpact': 0.22,
+            'privilegesRequired': 0.62,
+            'remediationLevel': 1.0,
+            'reportConfidence': 0.92,
+            'severityScope': 0.0,
+            'userInteraction': 0.85
+        },
+        threat='utils.model.finding.enum.f063_trustbound.threat',
+        title='utils.model.finding.enum.f063_trustbound.title',
+        type=FindingTypeEnum.HYGIENE,
+    )
     F073: FindingMetadata = FindingMetadata(
         auto_approve=True,
         cwe='478',

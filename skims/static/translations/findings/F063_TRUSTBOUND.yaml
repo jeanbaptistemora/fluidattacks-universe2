@@ -1,0 +1,34 @@
+utils.model.finding.enum.f063_trustbound.description:
+  en: >
+    The system mixes trusted and untrusted data in the same data structure or
+    structured message.
+  es: >
+    El sistema mezcla datos confiables y no confiables en la misma estructura de
+    datos o mensaje estructurado.
+utils.model.finding.enum.f063_trustbound.impact:
+  en: >
+    Pushing data into critical data structures, which could lead to some types
+    of injections.
+  es: >
+    Introducir datos a estructuras de datos críticas, lo que podría provocar
+    algunos tipos de inyecciones.
+utils.model.finding.enum.f063_trustbound.recommendation:
+  en: >
+    - Prevent the use of untrusted data in critical data structures or
+      structured messages.
+  es: >
+    - Prevenir el uso de datos no confiables en estructuras de datos críticas o
+      mensajes estructurados.
+utils.model.finding.enum.f063_trustbound.requirements:
+  en: >
+    R173. The system must discard/filter all potentially harmful information
+    received via data inputs.
+  es: >
+    R173. El sistema debe descartar/filtrar toda la información potencialmente
+    insegura que sea recibida por entradas de datos.
+utils.model.finding.enum.f063_trustbound.threat:
+  en: Autenticated attacker from the Internet.
+  es: Atacante autenticado desde Internet.
+utils.model.finding.enum.f063_trustbound.title:
+  en: F063. Lack of data validation - Trust boundary violation
+  es: F063. Falta de validación de datos - Trust boundary violation
