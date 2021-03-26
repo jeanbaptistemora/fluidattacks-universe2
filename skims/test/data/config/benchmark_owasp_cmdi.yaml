@@ -3,6 +3,7 @@ output: skims/test/outputs/benchmark_owasp_cmdi.csv
 path:
   include:
   - src/main/java/org/owasp/benchmark/helpers/DatabaseHelper.java
+  - src/main/java/org/owasp/benchmark/helpers/SeparateClassRequest.java
   - src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00006.java
   - src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00007.java
   - src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00015.java

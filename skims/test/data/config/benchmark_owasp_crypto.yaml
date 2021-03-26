@@ -3,6 +3,7 @@ output: skims/test/outputs/benchmark_owasp_crypto.csv
 path:
   include:
   - src/main/java/org/owasp/benchmark/helpers/DatabaseHelper.java
+  - src/main/java/org/owasp/benchmark/helpers/SeparateClassRequest.java
   - src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00005.java
   - src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00019.java
   - src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00020.java

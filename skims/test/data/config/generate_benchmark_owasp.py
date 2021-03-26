@@ -54,7 +54,8 @@ def main() -> None:
         'xss': [core_model.FindingEnum.F008.name],
     }
     extra_files: List[str] = [
-        'src/main/java/org/owasp/benchmark/helpers/DatabaseHelper.java'
+        'src/main/java/org/owasp/benchmark/helpers/DatabaseHelper.java',
+        'src/main/java/org/owasp/benchmark/helpers/SeparateClassRequest.java',
     ]
 
     for category, tests_cases in get_tests_cases().items():
