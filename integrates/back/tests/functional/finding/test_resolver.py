@@ -33,6 +33,40 @@ async def test_admin(populate: bool):
     finding_type: str = 'SECURITY'
     observation_content: str = "This is a observation test"
     consult_content: str = "This is a comenting test"
+    tracking: Dict[str, Any] =  {
+        'tracking': [
+            {
+                'cycle': 0,
+                'open': 1,
+                'closed': 0,
+                'date': '2018-04-07',
+                'accepted': 0,
+                'accepted_undefined': 0,
+                'manager': '',
+                'justification': ''
+            },
+            {
+                'cycle': 1,
+                'open': 0,
+                'closed': 1,
+                'date': '2018-04-07',
+                'accepted': 0,
+                'accepted_undefined': 0,
+                'manager': '',
+                'justification': ''
+            },
+            {
+                'cycle': 2,
+                'open': 0,
+                'closed': 0,
+                'date': '2018-04-08',
+                'accepted': 1,
+                'accepted_undefined': 0,
+                'manager': 'anything@gmail.com',
+                'justification': 'justification'
+            }
+        ]
+    }
     result: Dict[str, Any] = await query(
         user='admin@gmail.com',
         finding=finding_id,
@@ -63,6 +97,7 @@ async def test_admin(populate: bool):
     assert result['data']['finding']['type'] == finding_type
     assert result['data']['finding']['observations'] == []
     assert result['data']['finding']['consulting'] == []
+    assert result['data']['finding']['tracking'] == tracking.get('tracking')
 
 
 @pytest.mark.asyncio
@@ -88,6 +123,40 @@ async def test_analyst(populate: bool):
     finding_type: str = 'SECURITY'
     observation_content: str = "This is a observation test"
     consult_content: str = "This is a comenting test"
+    tracking: Dict[str, Any] =  {
+        'tracking': [
+            {
+                'cycle': 0,
+                'open': 1,
+                'closed': 0,
+                'date': '2018-04-07',
+                'accepted': 0,
+                'accepted_undefined': 0,
+                'manager': '',
+                'justification': ''
+            },
+            {
+                'cycle': 1,
+                'open': 0,
+                'closed': 1,
+                'date': '2018-04-07',
+                'accepted': 0,
+                'accepted_undefined': 0,
+                'manager': '',
+                'justification': ''
+            },
+            {
+                'cycle': 2,
+                'open': 0,
+                'closed': 0,
+                'date': '2018-04-08',
+                'accepted': 1,
+                'accepted_undefined': 0,
+                'manager': 'anything@gmail.com',
+                'justification': 'justification'
+            }
+        ]
+    }
     result: Dict[str, Any] = await query(
         user='analyst@gmail.com',
         finding=finding_id,
@@ -118,3 +187,4 @@ async def test_analyst(populate: bool):
     assert result['data']['finding']['type'] == finding_type
     assert result['data']['finding']['observations'] == []
     assert result['data']['finding']['consulting'] == []
+    assert result['data']['finding']['tracking'] == tracking.get('tracking')

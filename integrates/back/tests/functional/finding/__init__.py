@@ -41,6 +41,7 @@ async def query(
                 btsUrl
                 risk
                 type
+                tracking
                 observations{{
                     content
                 }}
