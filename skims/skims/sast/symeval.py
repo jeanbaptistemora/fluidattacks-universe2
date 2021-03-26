@@ -953,9 +953,9 @@ def get_possible_syntax_steps(
 
 
 class PossibleSyntaxStepLinear(NamedTuple):
+    finding: core_model.FindingEnum
     shard_path: str
     syntax_steps: graph_model.SyntaxSteps
-    untrusted_n_id: graph_model.NId
 
 
 @trace()
@@ -965,15 +965,13 @@ def get_possible_syntax_steps_linear(
 ) -> Iterator[PossibleSyntaxStepLinear]:
     yield from (
         PossibleSyntaxStepLinear(
+            finding=finding,
             shard_path=shard_path,
             syntax_steps=syntax_steps,
-            untrusted_n_id=untrusted_n_id,
         )
         for shard_path, syntax_steps_for_finding in (
             get_possible_syntax_steps(graph_db, finding).items()
         )
-        for untrusted_n_id, syntax_steps_for_untrusted_n_id in (
-            syntax_steps_for_finding.items()
-        )
-        for syntax_steps in syntax_steps_for_untrusted_n_id.values()
+        for syntax_steps_for_n_id in syntax_steps_for_finding.values()
+        for syntax_steps in syntax_steps_for_n_id.values()
     )

@@ -102,15 +102,14 @@ def get_vulnerabilities_from_n_ids(
 
 
 def _is_vulnerable(
+    finding: core_model.FindingEnum,
     syntax_step: graph_model.SyntaxStep,
     syntax_step_n_attrs: graph_model.NAttrs,
-    untrusted_n_attrs: graph_model.NAttrs,
 ) -> bool:
     sinks: Set[str] = \
         set(syntax_step_n_attrs.get('label_sink_type', str()).split(','))
-    inputs: Set[str] = set(untrusted_n_attrs['label_input_type'].split(','))
 
-    return syntax_step.meta.danger is True and bool(inputs.intersection(sinks))
+    return syntax_step.meta.danger is True and finding.name in sinks
 
 
 def query_lazy(
@@ -137,9 +136,9 @@ def query_lazy(
                 ]
                 for syntax_step in syntax_steps.syntax_steps
                 if _is_vulnerable(
+                    syntax_steps.finding,
                     syntax_step,
                     graph_shard.graph.nodes[syntax_step.meta.n_id],
-                    graph_shard.graph.nodes[syntax_steps.untrusted_n_id],
                 )
             ],
         )

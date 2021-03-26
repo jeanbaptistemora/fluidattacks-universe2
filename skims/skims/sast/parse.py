@@ -225,9 +225,7 @@ def parse_one(
     )
 
 
-async def parse_many(paths: Tuple[str, ...]) -> AsyncIterable[
-    Optional[GraphShard],
-]:
+async def parse_many(paths: Tuple[str, ...]) -> AsyncIterable[GraphShard]:
     for graph_lazy in resolve((
         in_process(
             parse_one,
@@ -254,11 +252,10 @@ async def get_graph_db(paths: Tuple[str, ...]) -> GraphDB:
     index = 0
     async for shard in parse_many(paths):
         index += 1
-        if shard:
-            await log('info', 'Generated shard %s: %s', index, shard.path)
+        await log('info', 'Generated shard %s: %s', index, shard.path)
 
-            graph_db.shards.append(shard)
-            graph_db.shards_by_path[shard.path] = index - 1
+        graph_db.shards.append(shard)
+        graph_db.shards_by_path[shard.path] = index - 1
 
     if CTX.debug:
         output = get_debug_path('tree-sitter')
