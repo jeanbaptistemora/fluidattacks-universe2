@@ -91,7 +91,13 @@ DANGER_METHODS_BY_OBJ_NO_TYPE_ARGS_PROPAGATION_FIDING: Dict[str, Set[str]] = {
         'getSession.setAttribute',
         'toString.substring',
         'addCookie',
-    })
+    }),
+    core_model.FindingEnum.F063_TRUSTBOUND.name:
+    complete_attrs_on_set({
+        'org.apache.commons.lang.StringEscapeUtils.escapeHtml',
+        'org.springframework.web.util.HtmlUtils.htmlEscape',
+        'org.owasp.esapi.ESAPI.encoder.encodeForHTML',
+    }),
 }
 DANGER_METHODS_BY_OBJ: Dict[str, Set[str]] = _complete_attrs_on_dict({
     'java.lang.String': {
@@ -223,6 +229,12 @@ DANGER_METHODS_BY_TYPE_ARGS_PROPAGATION_FINDING: Dict[str, Dict[
                 'getWriter.printf',
                 'getWriter.println',
                 'getWriter.write',
+            },
+        }),
+        core_model.FindingEnum.F063_TRUSTBOUND.name: _complete_attrs_on_dict({
+            'javax.servlet.http.HttpServletRequest': {
+                'getSession.putValue',
+                'getSession.setAttribute',
             },
         }),
 }

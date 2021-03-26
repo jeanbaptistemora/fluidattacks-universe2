@@ -342,6 +342,13 @@ GRAPH_VULNERABILITY_PARAMETERS: Dict[
             desc_params={},
         )
     ),
+    core_model.FindingEnum.F063_TRUSTBOUND: (
+        GraphVulnerabilityParameters(
+            cwe=('501',),
+            desc_key='utils.model.finding.enum.f063_trustbound.description',
+            desc_params={},
+        )
+    ),
 }
 
 

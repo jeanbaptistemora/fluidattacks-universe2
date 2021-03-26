@@ -295,6 +295,7 @@ def _syntax_step_declaration_danger(args: EvaluatorArgs) -> None:
         core_model.FindingEnum.F021,
         core_model.FindingEnum.F042,
         core_model.FindingEnum.F063_PATH_TRAVERSAL,
+        core_model.FindingEnum.F063_TRUSTBOUND,
     }
     danger_types = {
         'javax.servlet.http.HttpServletRequest'

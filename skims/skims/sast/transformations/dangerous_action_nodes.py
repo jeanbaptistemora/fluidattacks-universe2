@@ -33,7 +33,8 @@ def _mark_java(graph: graph_model.Graph) -> None:
     _mark_java_f021(graph)
     _mark_java_f034(graph)
     _mark_java_f042(graph)
-    _mark_java_f063(graph)
+    _mark_java_f063_pt(graph)
+    _mark_java_f063_tb(graph)
 
 
 def _mark_java_f001(graph: graph_model.Graph) -> None:
@@ -63,6 +64,36 @@ def _mark_java_f001(graph: graph_model.Graph) -> None:
                 _append_label_skink(
                     graph, n_id, core_model.FindingEnum.F001_JAVA_SQL,
                 )
+
+
+def _mark_java_f004(graph: graph_model.Graph) -> None:
+    identifiers: Set[str] = {
+        *build_attr_paths('java', 'lang', 'ProcessBuilder'),
+    }
+
+    for n_id in g.yield_object_creation_expression(graph, identifiers):
+        graph.nodes[n_id]['label_sink_type'] = (
+            core_model
+            .FindingEnum
+            .F004
+            .name
+        )
+
+    for n_id in g.filter_nodes(
+        graph,
+        graph.nodes,
+        predicate=g.pred_has_labels(label_type='method_invocation'),
+    ):
+        if any((
+                _check_method_call(graph, n_id, 'exec'),
+                _check_method_call(graph, n_id, 'command'),
+                _check_method_call(graph, n_id, 'start'),
+        )):
+            graph.nodes[n_id]['label_sink_type'] = (
+                core_model
+                .FindingEnum
+                .F004.name
+            )
 
 
 def _mark_java_f008(graph: graph_model.Graph) -> None:
@@ -95,12 +126,52 @@ def _mark_java_f021(graph: graph_model.Graph) -> None:
             _append_label_skink(graph, n_id, core_model.FindingEnum.F021)
 
 
-def _mark_java_f063(graph: graph_model.Graph) -> None:
-    _mark_java_f063_obj_creation_exp(graph)
-    _mark_java_f063_method_call(graph)
+def _mark_java_f034(graph: graph_model.Graph) -> None:
+    for n_id in g.filter_nodes(
+        graph,
+        graph.nodes,
+        predicate=g.pred_has_labels(label_type='method_invocation'),
+    ):
+        if any((
+                _check_method_call(graph, n_id, 'getSession', 'setAttribute'),
+                _check_method_call(graph, n_id, 'addCookie'),
+        )):
+            _append_label_skink(graph, n_id, core_model.FindingEnum.F034)
 
 
-def _mark_java_f063_obj_creation_exp(graph: graph_model.Graph) -> None:
+def _mark_java_f042(graph: graph_model.Graph) -> None:
+    for n_id in g.filter_nodes(
+            graph,
+            graph.nodes,
+            predicate=g.pred_has_labels(label_type='method_invocation'),
+    ):
+        if any((_check_method_call(graph, n_id, 'addCookie'), )):
+            _append_label_skink(graph, n_id, core_model.FindingEnum.F042)
+
+
+def _mark_java_f063_pt(graph: graph_model.Graph) -> None:
+    _mark_java_f063_pt_obj_creation_exp(graph)
+    _mark_java_f063_pt_method_call(graph)
+
+
+def _mark_java_f063_tb(graph: graph_model.Graph) -> None:
+    for n_id in g.filter_nodes(
+            graph,
+            graph.nodes,
+            predicate=g.pred_has_labels(label_type='method_invocation'),
+    ):
+        if any((
+                _check_method_call(graph, n_id, 'putValue'),
+                _check_method_call(graph, n_id, 'setAttribute'),
+        )):
+            _append_label_skink(
+                graph,
+                n_id,
+                core_model.FindingEnum.F063_TRUSTBOUND,
+            )
+
+
+def _mark_java_f063_pt_obj_creation_exp(graph: graph_model.Graph) -> None:
     identifiers: Set[str] = {
         *build_attr_paths('java', 'io', 'File'),
         *build_attr_paths('java', 'io', 'FileInputStream'),
@@ -116,7 +187,7 @@ def _mark_java_f063_obj_creation_exp(graph: graph_model.Graph) -> None:
         )
 
 
-def _mark_java_f063_method_call(graph: graph_model.Graph) -> None:
+def _mark_java_f063_pt_method_call(graph: graph_model.Graph) -> None:
     for n_id in g.filter_nodes(graph, graph.nodes, g.pred_has_labels(
         label_type='method_invocation',
     )):
@@ -172,59 +243,6 @@ def _check_method_call(
                 )
 
     return False
-
-
-def _mark_java_f034(graph: graph_model.Graph) -> None:
-    for n_id in g.filter_nodes(
-        graph,
-        graph.nodes,
-        predicate=g.pred_has_labels(label_type='method_invocation'),
-    ):
-        if any((
-                _check_method_call(graph, n_id, 'getSession', 'setAttribute'),
-                _check_method_call(graph, n_id, 'addCookie'),
-        )):
-            _append_label_skink(graph, n_id, core_model.FindingEnum.F034)
-
-
-def _mark_java_f004(graph: graph_model.Graph) -> None:
-    identifiers: Set[str] = {
-        *build_attr_paths('java', 'lang', 'ProcessBuilder'),
-    }
-
-    for n_id in g.yield_object_creation_expression(graph, identifiers):
-        graph.nodes[n_id]['label_sink_type'] = (
-            core_model
-            .FindingEnum
-            .F004
-            .name
-        )
-
-    for n_id in g.filter_nodes(
-        graph,
-        graph.nodes,
-        predicate=g.pred_has_labels(label_type='method_invocation'),
-    ):
-        if any((
-                _check_method_call(graph, n_id, 'exec'),
-                _check_method_call(graph, n_id, 'command'),
-                _check_method_call(graph, n_id, 'start'),
-        )):
-            graph.nodes[n_id]['label_sink_type'] = (
-                core_model
-                .FindingEnum
-                .F004.name
-            )
-
-
-def _mark_java_f042(graph: graph_model.Graph) -> None:
-    for n_id in g.filter_nodes(
-            graph,
-            graph.nodes,
-            predicate=g.pred_has_labels(label_type='method_invocation'),
-    ):
-        if any((_check_method_call(graph, n_id, 'addCookie'), )):
-            _append_label_skink(graph, n_id, core_model.FindingEnum.F042)
 
 
 def mark(
