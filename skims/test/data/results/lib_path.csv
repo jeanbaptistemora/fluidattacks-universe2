@@ -5,6 +5,12 @@ F001. SQL injection - Java Persistence API,namespace/skims/test/data/lib_path/f0
 F001. SQL injection - Java Persistence API,namespace/skims/test/data/lib_path/f001_jpa/java.java,39,89
 F001. SQL injection - Java Persistence API,namespace/skims/test/data/lib_path/f001_jpa/java.java,42,89
 F001. SQL injection - Java Persistence API,namespace/skims/test/data/lib_path/f001_jpa/java.java,45,89
+F001. SQL injection - Java SQL API,namespace/skims/test/data/lib_path/f063_path_traversal/Test.java,13,89
+F001. SQL injection - Java SQL API,namespace/skims/test/data/lib_path/f063_path_traversal/Test.java,13,89
+F004. Remote command execution,namespace/skims/test/data/lib_path/f063_path_traversal/Test.java,13,78
+F004. Remote command execution,namespace/skims/test/data/lib_path/f063_path_traversal/Test.java,13,78
+F008. Reflected cross-site scripting,namespace/skims/test/data/lib_path/f063_path_traversal/Test.java,13,79
+F008. Reflected cross-site scripting,namespace/skims/test/data/lib_path/f063_path_traversal/Test.java,13,79
 F009. Sensitive information in source code,namespace/skims/test/data/lib_path/f009/Dockerfile,1,798
 F009. Sensitive information in source code,namespace/skims/test/data/lib_path/f009/Dockerfile,2,798
 F009. Sensitive information in source code,namespace/skims/test/data/lib_path/f009/java.properties,1,798
@@ -34,6 +40,8 @@ F011. Use of software with known vulnerabilities,namespace/skims/test/data/lib_p
 F011. Use of software with known vulnerabilities,namespace/skims/test/data/lib_path/f011/package.json (lodash v0.*) [CVE-2019-10744],6,937
 F011. Use of software with known vulnerabilities,namespace/skims/test/data/lib_path/f011/package.json (lodash v0.*) [CVE-2020-8203],6,937
 F011. Use of software with known vulnerabilities,namespace/skims/test/data/lib_path/f011/package.json (lodash v0.*) [github.com/lodash/lodash/issues/4874],6,937
+F021. XPath Injection,namespace/skims/test/data/lib_path/f063_path_traversal/Test.java,13,643
+F021. XPath Injection,namespace/skims/test/data/lib_path/f063_path_traversal/Test.java,13,643
 F022. Use of an insecure channel,namespace/skims/test/data/lib_path/f022/java.properties,1,319
 F022. Use of an insecure channel,namespace/skims/test/data/lib_path/f022/java.properties,4,319
 F024. Unrestricted access between network segments - AWS,namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml,24,16
@@ -162,11 +170,14 @@ F031. Excessive privileges - AWS,namespace/skims/test/data/lib_path/f031_aws/hcl
 F031. Excessive privileges - AWS,namespace/skims/test/data/lib_path/f031_aws/hcl2_permissive_policy.tf,5,250
 F031. Excessive privileges - AWS,namespace/skims/test/data/lib_path/f031_aws/hcl2_permissive_policy.tf,73,250
 F031. Excessive privileges - Temporary files,namespace/skims/test/data/lib_path/f031_cwe378/Test.java,6,378
+F034. Insecure random number generation,namespace/skims/test/data/lib_path/f034/Test.java,11,330
 F037. Technical information leak,namespace/skims/test/data/lib_path/f037/javascript.js,20,200 + 209
 F037. Technical information leak,namespace/skims/test/data/lib_path/f037/javascript.js,28,200 + 209
 F037. Technical information leak,namespace/skims/test/data/lib_path/f037/javascript.js,36,200 + 209
 F037. Technical information leak,namespace/skims/test/data/lib_path/f037/javascript.js,45,200 + 209
 F037. Technical information leak,namespace/skims/test/data/lib_path/f037/javascript.js,6,200 + 209
+F042. Insecurely generated cookies,namespace/skims/test/data/lib_path/f063_path_traversal/Test.java,13,614
+F042. Insecurely generated cookies,namespace/skims/test/data/lib_path/f063_path_traversal/Test.java,13,614
 F052. Insecure encryption algorithm,namespace/skims/test/data/lib_path/f052/csharp.cs,2,310 + 327
 F052. Insecure encryption algorithm,namespace/skims/test/data/lib_path/f052/csharp.cs,3,310 + 327
 F052. Insecure encryption algorithm,namespace/skims/test/data/lib_path/f052/csharp.cs,5,310 + 327
@@ -239,6 +250,10 @@ F061. Errors without traceability,namespace/skims/test/data/lib_path/f061/python
 F061. Errors without traceability,namespace/skims/test/data/lib_path/f061/swift.swift,5,390
 F061. Errors without traceability,namespace/skims/test/data/lib_path/f061/swift.swift,6,390
 F061. Errors without traceability,namespace/skims/test/data/lib_path/f061/swift.swift,7,390
+F063. Lack of data validation - Path Traversal,namespace/skims/test/data/lib_path/f063_path_traversal/Test.java,13,22
+F063. Lack of data validation - Path Traversal,namespace/skims/test/data/lib_path/f063_path_traversal/Test.java,13,22
+F063. Lack of data validation - Trust boundary violation,namespace/skims/test/data/lib_path/f063_path_traversal/Test.java,13,501
+F063. Lack of data validation - Trust boundary violation,namespace/skims/test/data/lib_path/f063_path_traversal/Test.java,13,501
 F073. Conditional statement without a default option,namespace/skims/test/data/lib_path/f073/Test.cs,20,478
 F073. Conditional statement without a default option,namespace/skims/test/data/lib_path/f073/Test.cs,3,478
 F073. Conditional statement without a default option,namespace/skims/test/data/lib_path/f073/Test.cs,41,478

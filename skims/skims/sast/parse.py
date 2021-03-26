@@ -60,6 +60,7 @@ from utils.graph import (
 )
 from utils.logs import (
     log,
+    log_blocking,
 )
 from utils.string import (
     get_debug_path,
@@ -181,10 +182,7 @@ def _parse_one_cached(
     untrusted_nodes.mark(graph, language)
     styles.add(graph)
 
-    syntax = syntax_readers.read_from_graph(
-        graph,
-        language,
-    )
+    syntax = syntax_readers.read_from_graph(graph, language)
     metadata = inspectors.get_metadata(graph, language)
 
     return GraphShardCacheable(
@@ -199,18 +197,19 @@ def parse_one(
     language: GraphShardMetadataLanguage,
     path: str,
     version: int = 20,
-) -> GraphShard:
-    if language == GraphShardMetadataLanguage.NOT_SUPPORTED:
-        raise ParsingError()
-
+) -> Optional[GraphShard]:
     with open(os.path.join(CTX.config.working_dir, path), 'rb') as handle:
         content = handle.read()
 
-    graph = _parse_one_cached(
-        content=content,
-        language=language,
-        _=version,
-    )
+    try:
+        graph = _parse_one_cached(
+            content=content,
+            language=language,
+            _=version,
+        )
+    except ParsingError:
+        log_blocking('warning', 'Unable to parse: %s, ignoring', path)
+        return None
 
     if CTX.debug:
         output = get_debug_path('tree-sitter-' + path)
@@ -229,23 +228,18 @@ def parse_one(
 async def parse_many(paths: Tuple[str, ...]) -> AsyncIterable[
     Optional[GraphShard],
 ]:
-    graphs_lazy = resolve((
+    for graph_lazy in resolve((
         in_process(
             parse_one,
-            language=decide_language(path),
+            language=language,
             path=path,
         )
         for path in paths
-    ), workers=CPU_CORES)
-
-    for graph_lazy, path in zip(
-        graphs_lazy, paths,
-    ):
-        try:
-            yield await graph_lazy
-        except ParsingError:
-            await log('warning', 'Unable to parse: %s, ignoring', path)
-            yield None
+        for language in [decide_language(path)]
+        if language != GraphShardMetadataLanguage.NOT_SUPPORTED
+    ), workers=CPU_CORES):
+        if graph_shard := await graph_lazy:
+            yield graph_shard
 
 
 async def get_graph_db(paths: Tuple[str, ...]) -> GraphDB:
@@ -258,14 +252,10 @@ async def get_graph_db(paths: Tuple[str, ...]) -> GraphDB:
     )
 
     index = 0
-    index_max: int = len(paths)
     async for shard in parse_many(paths):
         index += 1
         if shard:
-            await log(
-                'info', 'Generated graph shard %s of %s: %s',
-                index, index_max, shard.path,
-            )
+            await log('info', 'Generated shard %s: %s', index, shard.path)
 
             graph_db.shards.append(shard)
             graph_db.shards_by_path[shard.path] = index - 1
