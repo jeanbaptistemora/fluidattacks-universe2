@@ -1,30 +1,28 @@
-import { ApolloError, useMutation } from "@apollo/client";
-import * as SecureStore from "expo-secure-store";
-import _ from "lodash";
-import React from "react";
+import type { ApolloError } from "@apollo/client";
+import { Avatar } from "../../components/Avatar";
+import type { IAuthState } from "../../utils/socialAuth";
+import type { ISignInResult } from "./types";
+import { LOGGER } from "../../utils/logger";
+import { Preloader } from "../../components/Preloader";
+import { SIGN_IN_MUTATION } from "./queries";
+import { logout } from "../../utils/socialAuth";
+import { setItemAsync } from "expo-secure-store";
+import { styles } from "./styles";
+import { useHistory } from "react-router-native";
+import { useMutation } from "@apollo/client";
 import { useTranslation } from "react-i18next";
 import { Alert, View } from "react-native";
+import React, { useEffect } from "react";
 import { Text, useTheme } from "react-native-paper";
-import { useHistory } from "react-router-native";
 
-import { Avatar } from "../../components/Avatar";
-import { Preloader } from "../../components/Preloader";
-import { LOGGER } from "../../utils/logger";
-import { IAuthState, logout } from "../../utils/socialAuth";
-
-import { SIGN_IN_MUTATION } from "./queries";
-import { styles } from "./styles";
-import { ISignInResult } from "./types";
-
-const welcomeView: React.FunctionComponent = (): JSX.Element => {
+const WelcomeView: React.FunctionComponent = (): JSX.Element => {
   const history: ReturnType<typeof useHistory> = useHistory();
-  const {
-    authProvider, authToken, user,
-  } = history.location.state as IAuthState;
+  const { authProvider, authToken, user } = history.location
+    .state as IAuthState;
   const { colors } = useTheme();
   const { t } = useTranslation();
 
-  const handleLogout: (() => void) = async (): Promise<void> => {
+  const handleLogout: () => void = async (): Promise<void> => {
     await logout();
     history.replace("/Login");
   };
@@ -33,9 +31,7 @@ const welcomeView: React.FunctionComponent = (): JSX.Element => {
   const [signIn, { loading }] = useMutation(SIGN_IN_MUTATION, {
     onCompleted: async (result: ISignInResult): Promise<void> => {
       if (result.signIn.success) {
-        await SecureStore.setItemAsync(
-          "integrates_session",
-          result.signIn.sessionJwt);
+        await setItemAsync("integrates_session", result.signIn.sessionJwt);
         history.replace("/Dashboard", { user });
       } else {
         LOGGER.error("Unsuccessful API auth", result);
@@ -52,17 +48,19 @@ const welcomeView: React.FunctionComponent = (): JSX.Element => {
   });
 
   // Side effects
-  const onMount: (() => void) = (): void => {
-    const executeMutation: (() => void) = async (): Promise<void> => {
+  const onMount: () => void = (): void => {
+    const executeMutation: () => void = async (): Promise<void> => {
       await signIn();
     };
     executeMutation();
   };
-  React.useEffect(onMount, []);
+  useEffect(onMount, [signIn]);
 
   return (
     <React.StrictMode>
+      {/* eslint-disable-next-line react/forbid-component-props */}
       <View style={[styles.container, { backgroundColor: colors.background }]}>
+        {/* eslint-disable-next-line react/forbid-component-props */}
         <View style={styles.profilePicture}>
           <Avatar
             photoUrl={user.photoUrl}
@@ -73,9 +71,11 @@ const welcomeView: React.FunctionComponent = (): JSX.Element => {
         <Text
           accessibilityComponentType={undefined}
           accessibilityTraits={undefined}
+          // eslint-disable-next-line react/forbid-component-props
           style={styles.greeting}
         >
-          {t("welcome.greetingText")} {user.firstName}!
+          {t("welcome.greetingText")} {user.firstName}
+          {"!"}
         </Text>
         <Preloader visible={loading} />
       </View>
@@ -83,4 +83,4 @@ const welcomeView: React.FunctionComponent = (): JSX.Element => {
   );
 };
 
-export { welcomeView as WelcomeView };
+export { WelcomeView };
