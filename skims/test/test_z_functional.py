@@ -196,6 +196,12 @@ def test_benchmark_cmdi() -> None:
 
 
 @pytest.mark.flaky(reruns=0)
+@pytest.mark.skims_test_group('benchmark_ldapi')
+def test_benchmark_ldapi() -> None:
+    _run_no_group('benchmark_owasp_ldapi')
+
+
+@pytest.mark.flaky(reruns=0)
 @pytest.mark.skims_test_group('benchmark_pathtraver')
 def test_benchmark_pathtraver() -> None:
     _run_no_group('benchmark_owasp_pathtraver')

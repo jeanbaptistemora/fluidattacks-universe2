@@ -31,6 +31,7 @@ from utils.ctx import (
 # Constants
 TEST_GROUPS = {
     'benchmark_cmdi',
+    'benchmark_ldapi',
     'benchmark_pathtraver',
     'benchmark_securecookie',
     'benchmark_sqli',

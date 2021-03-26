@@ -64,5 +64,6 @@ path:
   - src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02571.java
   - src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02572.java
   lib_path: false
-  lib_root: []
+  lib_root:
+  - F107
 working_dir: ../owasp_benchmark

@@ -45,6 +45,7 @@ def main() -> None:
     suites: List[str] = []
     categories = {
         'cmdi': [core_model.FindingEnum.F004.name],
+        'ldapi': [core_model.FindingEnum.F107.name],
         'pathtraver': [core_model.FindingEnum.F063_PATH_TRAVERSAL.name],
         'sqli': [core_model.FindingEnum.F001_JAVA_SQL.name],
         'securecookie': [core_model.FindingEnum.F042.name],
