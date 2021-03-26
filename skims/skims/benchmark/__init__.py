@@ -1,6 +1,7 @@
 # Standard library
 import os
 import csv
+import glob
 import json
 from typing import (
     Any,
@@ -65,16 +66,18 @@ def load_benchmark_expected_results() -> Dict[str, Result]:
 
 
 def load_benchmark_skims_results() -> Dict[str, List[Result]]:
-    with open(os.environ['PRODUCED_RESULTS_CSV']) as file:
-        mapping: Dict[str, List[Result]] = {}
-        for row in csv.DictReader(file):
-            what = os.path.basename(row['what'])
-            mapping.setdefault(what, [])
-            mapping[what].append(Result(
-                category=None,
-                cwe=tuple(row['cwe'].split(' + ')),
-                is_vulnerable=True,
-            ))
+    mapping: Dict[str, List[Result]] = {}
+
+    for path in glob.glob("skims/test/outputs/benchmark_owasp_*.csv"):
+        with open(path) as file:
+            for row in csv.DictReader(file):
+                what = os.path.basename(row['what'])
+                mapping.setdefault(what, [])
+                mapping[what].append(Result(
+                    category=None,
+                    cwe=tuple(row['cwe'].split(' + ')),
+                    is_vulnerable=True,
+                ))
 
     return mapping
 

@@ -4,35 +4,24 @@ function owasp {
   local category="${1:-}"
   local extra_flags=( "${@:2}" )
   local benchmark_local_repo="${PWD}/../owasp_benchmark"
-  local cache_local="${HOME_IMPURE}/.skims/cache"
-  local cache_remote="s3://skims.data/cache/owasp_benchmark"
   export EXPECTED_RESULTS_CSV="${benchmark_local_repo}/expectedresults-1.2.csv"
-  export PRODUCED_RESULTS_CSV="${PWD}/results.csv"
 
       echo '[INFO] Creating staging area' \
   &&  copy '__envBenchmarkRepo__' "${benchmark_local_repo}" \
   &&  echo '[INFO] Analyzing repository' \
+  &&  rm -rf 'skims/test/outputs/'* \
   &&  if test -n "${category}"
       then
-            skims "${extra_flags[@]}" "skims/test/data/config/benchmark_owasp_${category}.yaml" \
-        &&  cp "skims/test/outputs/benchmark_owasp_${category}.csv" 'results.csv'
+        skims "${extra_flags[@]}" "skims/test/data/config/benchmark_owasp_${category}.yaml"
       else
-            aws_login_prod 'skims' \
-        &&  aws_s3_sync "${cache_remote}" "${cache_local}" \
-        &&  skims 'skims/test/data/config/benchmark_owasp.yaml' \
-        &&  aws_s3_sync "${cache_local}" "${cache_remote}"
+        for config in "skims/test/data/config/benchmark_owasp_"*".yaml"
+        do
+              skims "${config}" \
+          ||  return 1
+        done
       fi \
   &&  echo '[INFO] Computing score' \
   &&  python3.8 'skims/skims/benchmark/__init__.py' \
-  &&  echo '[INFO] Cleaning environment' \
-  &&  if test -z "${category}"
-      then
-            aws_login_prod 'skims' \
-        &&  result_path="s3://skims.data/benchmark_result/$(date -u -Iminutes).csv" \
-        &&  echo "[INFO] Uploading results to ${result_path}" \
-        &&  aws s3 cp "${PRODUCED_RESULTS_CSV}" "${result_path}"
-      fi \
-  &&  rm -rf "${PRODUCED_RESULTS_CSV}" \
   ||  return 1
 }
 
@@ -51,8 +40,7 @@ function upload {
         --auth "${analytics_auth_redshift_file}" \
         --drop-schema \
         --schema-name 'skims_benchmark' \
-        < '.singer' \
-  &&  rm -rf '.singer' 'benchmark.json'
+        < '.singer'
 }
 
 function main {
