@@ -98,6 +98,10 @@ LOGGING = {
             'handlers': ['console'],
             'level': 'INFO',
         },
+        'schedulers': {
+            'handlers': ['bugsnag', 'console'],
+            'level': 'INFO'
+        },
         'transactional': {
             'handlers': ['console', 'watchtower'],
             'level': 'INFO'

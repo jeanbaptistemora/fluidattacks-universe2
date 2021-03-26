@@ -12,10 +12,14 @@ from dynamodb.types import (
     GitRootToeLines,
 )
 from newutils import (
+    bugsnag as bugsnag_utils,
     datetime as datetime_utils,
 )
 from roots import domain as roots_domain
 from roots.types import Root
+
+
+bugsnag_utils.start_scheduler_session()
 
 
 def _format_date(date_str: str) -> str:

@@ -18,7 +18,6 @@ def clone_services_repository(path: str) -> None:
         repo_url,
         path,
         multi_options=[
-            '-b master',
-            '--single-branch'
+            '--depth=1',
         ]
     )
