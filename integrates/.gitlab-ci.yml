@@ -267,6 +267,9 @@ integrates.back.test.functional.remove_event_evidence:
 integrates.back.test.functional.remove_evidence:
   <<: *integrates_back_test_functional
 
+integrates.back.test.functional.remove_files:
+  <<: *integrates_back_test_functional
+
 integrates.back.test.functional.remove_group:
   <<: *integrates_back_test_functional
 
