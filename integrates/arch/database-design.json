@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Mar 24, 2021, 05:16 PM",
+    "DateLastModified": "Mar 26, 2021, 05:21 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "2.0"
@@ -1449,7 +1449,7 @@
           "FacetName": "root_toe_lines",
           "KeyAttributeAlias": {
             "PartitionKeyAlias": "GROUP#group_name",
-            "SortKeyAlias": "ROOT#root_id#FILENAME#filename"
+            "SortKeyAlias": "LINES#ROOT#root_id#FILENAME#filename"
           },
           "TableData": [
             {
@@ -1457,7 +1457,7 @@
                 "S": "GROUP#unittesting"
               },
               "sk": {
-                "S": "ROOT#73f2b757-5a61-4027-b00d-c6227f2163cf#FILENAME#product/test/test.config"
+                "S": "LINES#ROOT#73f2b757-5a61-4027-b00d-c6227f2163cf#FILENAME#product/test/test.config"
               },
               "modified_date": {
                 "S": "2020-11-19 08:37:10"

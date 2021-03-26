@@ -297,8 +297,8 @@ def _build_git_root_toe_lines(
     item: Item,
 ) -> GitRootToeLines:
     sort_key_items = item[key_structure.sort_key].split('#')
-    root_id = sort_key_items[1]
-    filename = sort_key_items[3]
+    root_id = sort_key_items[2]
+    filename = sort_key_items[4]
     return GitRootToeLines(
         comments=item['comments'],
         filename=filename,
@@ -322,7 +322,7 @@ async def get_toe_lines_by_root(
         values={'group_name': group_name, 'root_id': root_id},
     )
     key_structure = TABLE.primary_key
-    root_key = '#'.join(primary_key.sort_key.split('#')[:2])
+    root_key = '#'.join(primary_key.sort_key.split('#')[:-1])
     results = await operations.query(
         condition_expression=(
             Key(key_structure.partition_key).eq(primary_key.partition_key) &
