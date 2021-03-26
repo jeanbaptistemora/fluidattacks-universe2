@@ -916,7 +916,15 @@ def get_possible_syntax_steps_for_finding(
             n_id=untrusted_n_id,
             shard=shard,
         )
-        for untrusted_n_id in shard.metadata.nodes.untrusted[finding.name]
+        for untrusted_n_id in shard.graph.nodes
+        if 'label_input_type' in shard.graph.nodes[untrusted_n_id]
+        if any(
+            core_model.FINDING_ENUM_FROM_STR[label] == finding
+            for label in (
+                shard.graph.nodes[untrusted_n_id]['label_input_type']
+                .split(',')
+            )
+        )
     }
 
     return syntax_steps_map

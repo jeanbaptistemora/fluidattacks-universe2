@@ -10,7 +10,6 @@ from utils import (
     graph as g,
 )
 from model import (
-    core_model,
     graph_model,
 )
 
@@ -31,22 +30,6 @@ def get_metadata(
 
     return graph_model.GraphShardMetadata(
         language=language,
-        nodes=graph_model.GraphShardMetadataNodes(
-            untrusted={
-                finding.name: tuple(
-                    n_id
-                    for n_id in graph.nodes
-                    for label in [graph.nodes[n_id].get('label_input_type')]
-                    if label
-                    and any(
-                        core_model.FINDING_ENUM_FROM_STR.get(label_find) ==
-                        finding
-                        for label_find in label.split(',')
-                    )
-                )
-                for finding in core_model.FindingEnum
-            },
-        ),
         **metadata,
     )
 

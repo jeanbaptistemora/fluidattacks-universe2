@@ -6439,60 +6439,7 @@
           },
           "package": "org.owasp.benchmark.testcode"
         },
-        "language": "java",
-        "nodes": {
-          "untrusted": {
-            "F001_JAVA_SQL": [
-              "73",
-              "234"
-            ],
-            "F001_JPA": [],
-            "F004": [
-              "73",
-              "234"
-            ],
-            "F008": [
-              "73",
-              "234"
-            ],
-            "F009": [],
-            "F011": [],
-            "F020": [],
-            "F021": [
-              "73",
-              "234"
-            ],
-            "F022": [],
-            "F024_AWS": [],
-            "F031_AWS": [],
-            "F031_CWE378": [],
-            "F034": [
-              "398"
-            ],
-            "F037": [],
-            "F042": [
-              "73",
-              "234"
-            ],
-            "F052": [],
-            "F055_AWS_MISSING_ENCRYPTION": [],
-            "F055_CORS": [],
-            "F059": [],
-            "F060": [],
-            "F061": [],
-            "F063_PATH_TRAVERSAL": [
-              "73",
-              "234"
-            ],
-            "F063_TRUSTBOUND": [
-              "73",
-              "234"
-            ],
-            "F073": [],
-            "F085": [],
-            "F117": []
-          }
-        }
+        "language": "java"
       },
       "path": "skims/test/data/benchmark/owasp/BenchmarkTest00001.java",
       "syntax": {
@@ -11398,58 +11345,7 @@
           },
           "package": "org.owasp.benchmark.testcode"
         },
-        "language": "java",
-        "nodes": {
-          "untrusted": {
-            "F001_JAVA_SQL": [
-              "73",
-              "109"
-            ],
-            "F001_JPA": [],
-            "F004": [
-              "73",
-              "109"
-            ],
-            "F008": [
-              "73",
-              "109"
-            ],
-            "F009": [],
-            "F011": [],
-            "F020": [],
-            "F021": [
-              "73",
-              "109"
-            ],
-            "F022": [],
-            "F024_AWS": [],
-            "F031_AWS": [],
-            "F031_CWE378": [],
-            "F034": [],
-            "F037": [],
-            "F042": [
-              "73",
-              "109"
-            ],
-            "F052": [],
-            "F055_AWS_MISSING_ENCRYPTION": [],
-            "F055_CORS": [],
-            "F059": [],
-            "F060": [],
-            "F061": [],
-            "F063_PATH_TRAVERSAL": [
-              "73",
-              "109"
-            ],
-            "F063_TRUSTBOUND": [
-              "73",
-              "109"
-            ],
-            "F073": [],
-            "F085": [],
-            "F117": []
-          }
-        }
+        "language": "java"
       },
       "path": "skims/test/data/benchmark/owasp/BenchmarkTest00008.java",
       "syntax": {
@@ -19339,60 +19235,7 @@
           },
           "package": "org.owasp.benchmark.testcode"
         },
-        "language": "java",
-        "nodes": {
-          "untrusted": {
-            "F001_JAVA_SQL": [
-              "73",
-              "109"
-            ],
-            "F001_JPA": [],
-            "F004": [
-              "73",
-              "109"
-            ],
-            "F008": [
-              "73",
-              "109"
-            ],
-            "F009": [],
-            "F011": [],
-            "F020": [],
-            "F021": [
-              "73",
-              "109"
-            ],
-            "F022": [],
-            "F024_AWS": [],
-            "F031_AWS": [],
-            "F031_CWE378": [],
-            "F034": [
-              "245"
-            ],
-            "F037": [],
-            "F042": [
-              "73",
-              "109"
-            ],
-            "F052": [],
-            "F055_AWS_MISSING_ENCRYPTION": [],
-            "F055_CORS": [],
-            "F059": [],
-            "F060": [],
-            "F061": [],
-            "F063_PATH_TRAVERSAL": [
-              "73",
-              "109"
-            ],
-            "F063_TRUSTBOUND": [
-              "73",
-              "109"
-            ],
-            "F073": [],
-            "F085": [],
-            "F117": []
-          }
-        }
+        "language": "java"
       },
       "path": "skims/test/data/benchmark/owasp/BenchmarkTest00167.java",
       "syntax": {
@@ -21970,37 +21813,7 @@
           },
           "package": ""
         },
-        "language": "java",
-        "nodes": {
-          "untrusted": {
-            "F001_JAVA_SQL": [],
-            "F001_JPA": [],
-            "F004": [],
-            "F008": [],
-            "F009": [],
-            "F011": [],
-            "F020": [],
-            "F021": [],
-            "F022": [],
-            "F024_AWS": [],
-            "F031_AWS": [],
-            "F031_CWE378": [],
-            "F034": [],
-            "F037": [],
-            "F042": [],
-            "F052": [],
-            "F055_AWS_MISSING_ENCRYPTION": [],
-            "F055_CORS": [],
-            "F059": [],
-            "F060": [],
-            "F061": [],
-            "F063_PATH_TRAVERSAL": [],
-            "F063_TRUSTBOUND": [],
-            "F073": [],
-            "F085": [],
-            "F117": []
-          }
-        }
+        "language": "java"
       },
       "path": "skims/test/data/lib_path/f031_cwe378/Test.java",
       "syntax": {
@@ -23388,51 +23201,7 @@
           },
           "package": ""
         },
-        "language": "java",
-        "nodes": {
-          "untrusted": {
-            "F001_JAVA_SQL": [
-              "24"
-            ],
-            "F001_JPA": [],
-            "F004": [
-              "24"
-            ],
-            "F008": [
-              "24"
-            ],
-            "F009": [],
-            "F011": [],
-            "F020": [],
-            "F021": [
-              "24"
-            ],
-            "F022": [],
-            "F024_AWS": [],
-            "F031_AWS": [],
-            "F031_CWE378": [],
-            "F034": [],
-            "F037": [],
-            "F042": [
-              "24"
-            ],
-            "F052": [],
-            "F055_AWS_MISSING_ENCRYPTION": [],
-            "F055_CORS": [],
-            "F059": [],
-            "F060": [],
-            "F061": [],
-            "F063_PATH_TRAVERSAL": [
-              "24"
-            ],
-            "F063_TRUSTBOUND": [
-              "24"
-            ],
-            "F073": [],
-            "F085": [],
-            "F117": []
-          }
-        }
+        "language": "java"
       },
       "path": "skims/test/data/lib_path/f063_path_traversal/Test.java",
       "syntax": {
@@ -41306,37 +41075,7 @@
           },
           "package": ""
         },
-        "language": "java",
-        "nodes": {
-          "untrusted": {
-            "F001_JAVA_SQL": [],
-            "F001_JPA": [],
-            "F004": [],
-            "F008": [],
-            "F009": [],
-            "F011": [],
-            "F020": [],
-            "F021": [],
-            "F022": [],
-            "F024_AWS": [],
-            "F031_AWS": [],
-            "F031_CWE378": [],
-            "F034": [],
-            "F037": [],
-            "F042": [],
-            "F052": [],
-            "F055_AWS_MISSING_ENCRYPTION": [],
-            "F055_CORS": [],
-            "F059": [],
-            "F060": [],
-            "F061": [],
-            "F063_PATH_TRAVERSAL": [],
-            "F063_TRUSTBOUND": [],
-            "F073": [],
-            "F085": [],
-            "F117": []
-          }
-        }
+        "language": "java"
       },
       "path": "skims/test/data/sast/TestCFG.java",
       "syntax": {
