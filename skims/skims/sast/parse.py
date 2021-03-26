@@ -181,14 +181,11 @@ def _parse_one_cached(
     untrusted_nodes.mark(graph, language)
     styles.add(graph)
 
-    graph_shard_metadata = inspectors.get_metadata(graph, language)
-
     return GraphShardCacheable(
         graph=graph,
-        metadata=graph_shard_metadata,
+        metadata=inspectors.get_metadata(graph, language),
         syntax=syntax_readers.read_from_graph(
             graph,
-            graph_shard_metadata,
             language,
         )
     )

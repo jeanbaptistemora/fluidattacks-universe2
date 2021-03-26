@@ -1084,14 +1084,13 @@ def linearize_syntax_steps(
 
 def read_from_graph(
     graph: graph_model.Graph,
-    graph_shard_metadata: graph_model.GraphShardMetadata,
     language: graph_model.GraphShardMetadataLanguage,
 ) -> graph_model.GraphSyntax:
     graph_syntax: graph_model.GraphSyntax = {}
 
     # Read the syntax of every node in the graph, if possible
-    for n_id in graph_shard_metadata.nodes.in_cfg:
-        if n_id not in graph_syntax:
+    for n_id in graph.nodes:
+        if n_id not in graph_syntax and g.is_connected_to_cfg(graph, n_id):
             with contextlib.suppress(MissingSyntaxReader):
                 graph_syntax[n_id] = generic(SyntaxReaderArgs(
                     graph=graph,
