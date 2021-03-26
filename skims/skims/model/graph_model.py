@@ -342,6 +342,13 @@ GRAPH_VULNERABILITY_PARAMETERS: Dict[
             desc_params={},
         )
     ),
+    core_model.FindingEnum.F107: (
+        GraphVulnerabilityParameters(
+            cwe=('90',),
+            desc_key='utils.model.finding.enum.f107.description',
+            desc_params={},
+        )
+    ),
 }
 
 

@@ -237,4 +237,12 @@ DANGER_METHODS_BY_TYPE_ARGS_PROPAGATION_FINDING: Dict[str, Dict[
                 'getSession.setAttribute',
             },
         }),
+        core_model.FindingEnum.F107.name: _complete_attrs_on_dict({
+            'javax.naming.directory.InitialDirContext': {
+                'search',
+            },
+            'javax.naming.directory.DirContext': {
+                'search',
+            },
+        }),
 }

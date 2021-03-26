@@ -35,6 +35,7 @@ def _mark_java(graph: graph_model.Graph) -> None:
     _mark_java_f042(graph)
     _mark_java_f063_pt(graph)
     _mark_java_f063_tb(graph)
+    _mark_java_f107(graph)
 
 
 def _mark_java_f001(graph: graph_model.Graph) -> None:
@@ -207,6 +208,16 @@ def _mark_java_f063_pt_method_call(graph: graph_model.Graph) -> None:
                 graph.nodes[n_id]['label_sink_type'] = (
                     core_model.FindingEnum.F063_PATH_TRAVERSAL.name
                 )
+
+
+def _mark_java_f107(graph: graph_model.Graph) -> None:
+    for n_id in g.filter_nodes(
+            graph,
+            graph.nodes,
+            predicate=g.pred_has_labels(label_type='method_invocation'),
+    ):
+        if any((_check_method_call(graph, n_id, 'search'), )):
+            _append_label_skink(graph, n_id, core_model.FindingEnum.F107)
 
 
 def _check_method_call(

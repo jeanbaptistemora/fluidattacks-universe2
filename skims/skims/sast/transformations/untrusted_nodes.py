@@ -42,6 +42,7 @@ def _mark_java_request(graph: graph_model.Graph) -> None:
         core_model.FindingEnum.F042.name,
         core_model.FindingEnum.F063_PATH_TRAVERSAL.name,
         core_model.FindingEnum.F063_TRUSTBOUND.name,
+        core_model.FindingEnum.F107.name,
     )
     untrusted_types = {
         'HttpServletRequest',
