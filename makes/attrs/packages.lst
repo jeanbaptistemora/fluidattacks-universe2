@@ -61,6 +61,7 @@ makes.test.observes
 makes.test.reviews
 makes.test.skims
 makes.test.sorts
+makes.vscode
 melts.config-development
 melts.config-runtime
 melts.lib

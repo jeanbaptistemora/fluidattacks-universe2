@@ -49,7 +49,11 @@ let
     };
 
     # Nix packages
-    nixpkgs = import nixpkgsSource { inherit system; config.android_sdk.accept_license = true; };
+    nixpkgs = import nixpkgsSource {
+      config.allowUnfree = true;
+      config.android_sdk.accept_license = true;
+      inherit system;
+    };
     nixpkgs2 = import nixpkgsSource2 { inherit system; };
 
     # Makes utilities
