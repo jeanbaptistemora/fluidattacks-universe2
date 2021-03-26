@@ -103,14 +103,15 @@ def main() -> None:
     parser.add_argument('--activation', type=str, default='')
     args = parser.parse_args()
 
-    model: str = args.model
-    model_class: ModelType = MODELS[model.split('-')[0]]
+    model_name: str = args.model.split('-')[0]
+    model_class: ModelType = MODELS[model_name]
+    model: ModelType = model_class(activation=args.activation)
 
-    results_filename: str = f'{model.lower().split("-")[0]}_train_results.csv'
+    results_filename: str = f'{model_name}_train_results.csv'
     previous_results = get_previous_training_results(results_filename)
 
     training_output = train_model(
-        model_class(activation=args.activation),
+        model,
         args.train,
         previous_results
     )
