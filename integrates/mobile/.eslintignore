@@ -17,3 +17,5 @@
 !src/containers/LoginView/BitbucketButton/**
 !src/containers/LoginView/GoogleButton/**
 !src/containers/LoginView/MicrosoftButton/**
+!src/containers/LoginView/index.tsx
+!src/containers/LoginView/styles.ts
