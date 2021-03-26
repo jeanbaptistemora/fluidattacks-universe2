@@ -91,10 +91,7 @@ class RawSource(NamedTuple):
     get_checklist: Callable[[CampaignId], JSON]
 
 
-DEFAULT_PAGE = PageId(page=0, per_page=1000)
-
-
-def _list_audiences(client: Client, page_id: PageId = DEFAULT_PAGE) -> JSON:
+def _list_audiences(client: Client, page_id: PageId) -> JSON:
     result = client.lists.get_all_lists(
         fields=['lists.id', 'total_items', '_links'],
         count=page_id.per_page,
@@ -109,7 +106,7 @@ def _get_audience(client: Client, audience_id: AudienceId) -> JSON:
 
 
 def _list_abuse_reports(
-    client: Client, audience_id: AudienceId, page_id: PageId = DEFAULT_PAGE
+    client: Client, audience_id: AudienceId, page_id: PageId
 ) -> JSON:
     result = client.lists.get_list_abuse_reports(
         audience_id.str_id,
@@ -117,7 +114,7 @@ def _list_abuse_reports(
         count=page_id.per_page,
         offset=page_id.page * page_id.per_page
     )
-    LOG.debug('_list_abuse_reports response: %s', result)
+    LOG.debug('_list_abuse_reports response: %s', str(result)[:200])
     return result
 
 
@@ -136,26 +133,33 @@ def _get_clients(client: Client, audience_id: AudienceId) -> JSON:
 
 
 def _list_members(
-    client: Client, audience_id: AudienceId, page_id: PageId = DEFAULT_PAGE
+    client: Client, audience_id: AudienceId, page_id: PageId
 ) -> JSON:
-    return client.lists.get_list_members_info(
+    result = client.lists.get_list_members_info(
         audience_id.str_id,
         fields=['members.id', 'total_items', '_links'],
         count=page_id.per_page,
         offset=page_id.page * page_id.per_page
     )
+    LOG.debug(
+        '_list_members(%s, %s) response: %s',
+        audience_id, page_id, str(result)[:200]
+    )
+    return result
 
 
 def _get_member(client: Client, member_id: MemberId) -> JSON:
-    return client.lists.get_list_member(
+    result = client.lists.get_list_member(
         member_id.audience_id.str_id,
         member_id.str_id,
         exclude_fields=['tags']
     )
+    LOG.debug('_get_member(%s) response: %s', member_id, result)
+    return result
 
 
 def _list_growth_hist(
-    client: Client, audience_id: AudienceId, page_id: PageId = DEFAULT_PAGE
+    client: Client, audience_id: AudienceId, page_id: PageId
 ) -> JSON:
     return client.lists.get_list_growth_history(
         audience_id.str_id,
@@ -173,7 +177,7 @@ def _get_growth_hist(client: Client, ghist_id: GrowthHistId) -> JSON:
 
 
 def _list_interest_catg(
-    client: Client, audience_id: AudienceId, page_id: PageId = DEFAULT_PAGE
+    client: Client, audience_id: AudienceId, page_id: PageId
 ) -> JSON:
     return client.lists.get_list_interest_categories(
         audience_id.str_id,
@@ -194,7 +198,7 @@ def _get_audience_locations(client: Client, audience_id: AudienceId) -> JSON:
     return client.lists.get_list_locations(audience_id.str_id)
 
 
-def _list_campaigns(client: Client, page_id: PageId = DEFAULT_PAGE) -> JSON:
+def _list_campaigns(client: Client, page_id: PageId) -> JSON:
     result = client.campaigns.list(
         fields=['campaigns.id', 'total_items', '_links'],
         count=page_id.per_page,

@@ -85,7 +85,7 @@ def get_pages(
             lambda page: in_thread(getter, page),
             page_range.pages()
         )
-        for item in resolve(jobs):
+        for item in resolve(jobs, worker_greediness=10):
             yield await item
 
     loop = asyncio.get_event_loop()
