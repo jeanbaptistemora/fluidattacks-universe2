@@ -118,6 +118,9 @@ skims.test.benchmark_xss:
 skims.test.benchmark_xpathi:
   <<: *skims_test
 
+skims.test.benchmark_trustbound:
+  <<: *skims_test
+
 skims.test.benchmark_sqli:
   <<: *skims_test
 

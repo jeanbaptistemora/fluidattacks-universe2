@@ -214,6 +214,12 @@ def test_benchmark_sqli() -> None:
 
 
 @pytest.mark.flaky(reruns=0)
+@pytest.mark.skims_test_group('benchmark_trustbound')
+def test_benchmark_trustbound() -> None:
+    _run_no_group('benchmark_owasp_trustbound')
+
+
+@pytest.mark.flaky(reruns=0)
 @pytest.mark.skims_test_group('benchmark_weakrand')
 def test_benchmark_weakrand() -> None:
     _run_no_group('benchmark_owasp_weakrand')

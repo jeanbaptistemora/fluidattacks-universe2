@@ -34,6 +34,7 @@ TEST_GROUPS = {
     'benchmark_pathtraver',
     'benchmark_securecookie',
     'benchmark_sqli',
+    'benchmark_trustbound',
     'benchmark_weakrand',
     'benchmark_xpathi',
     'benchmark_xss',

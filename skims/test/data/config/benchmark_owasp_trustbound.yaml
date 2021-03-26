@@ -130,5 +130,6 @@ path:
   - src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02725.java
   - src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02726.java
   lib_path: false
-  lib_root: []
+  lib_root:
+  - F063_TRUSTBOUND
 working_dir: ../owasp_benchmark
