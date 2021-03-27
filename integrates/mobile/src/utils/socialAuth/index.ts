@@ -1,14 +1,12 @@
 import Bugsnag from "@bugsnag/expo";
-import * as SecureStore from "expo-secure-store";
-import _ from "lodash";
-
 import { LOGGER } from "../logger";
-
+import _ from "lodash";
 import { logoutFromGoogle } from "./providers/google";
 import { logoutFromMicrosoft } from "./providers/microsoft";
+import { deleteItemAsync, getItemAsync } from "expo-secure-store";
 
 /** Normalized user properties */
-export interface IUser {
+interface IUser {
   email: string;
   firstName: string;
   fullName: string;
@@ -17,19 +15,19 @@ export interface IUser {
 }
 
 /** Auth data provided after login */
-export interface IAuthState {
+interface IAuthState {
   authProvider: "BITBUCKET" | "GOOGLE" | "MICROSOFT";
   authToken: string;
   user: IUser;
 }
 
-export type IAuthResult =
-  | { type: "cancel" }
-  | (IAuthState & { type: "success" });
+// Avoid breaking functionality
+// eslint-disable-next-line @typescript-eslint/no-type-alias
+type IAuthResult = { type: "cancel" } | (IAuthState & { type: "success" });
 
-export const logout: () => Promise<void> = async (): Promise<void> => {
-  await SecureStore.deleteItemAsync("integrates_session");
-  const authState: string | null = await SecureStore.getItemAsync("authState");
+const logout: () => Promise<void> = async (): Promise<void> => {
+  await deleteItemAsync("integrates_session");
+  const authState: string | null = await getItemAsync("authState");
   const { authProvider, authToken }: Record<string, string> = _.isNil(authState)
     ? { authProvider: "", authToken: "" }
     : (JSON.parse(authState) as Record<string, string>);
@@ -47,10 +45,11 @@ export const logout: () => Promise<void> = async (): Promise<void> => {
     default:
       LOGGER.error("Unsupported provider", authProvider);
   }
-  await SecureStore.deleteItemAsync("authState");
+  await deleteItemAsync("authState");
   Bugsnag.setUser("", "", "");
 };
 
+export { IUser, IAuthState, IAuthResult, logout };
 export { authWithGoogle } from "./providers/google";
 export { authWithMicrosoft } from "./providers/microsoft";
 export { authWithBitbucket } from "./providers/bitbucket";
