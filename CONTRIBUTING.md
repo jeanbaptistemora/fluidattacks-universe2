@@ -50,6 +50,16 @@ so read it completely and execute commands as you read
             &&  source out/makes-dev-integrates-back
             ```
 
+    - **Observes**
+
+        - **Tap Mixpanel**
+
+            ```bash
+                cd /path/to/fluidattacks/product/repo \
+            &&  ./m makes.dev.observes.tap-mixpanel \
+            &&  source out/makes-dev-observes-tap-mixpanel
+            ```
+
     - **Skims**
 
         ```bash
