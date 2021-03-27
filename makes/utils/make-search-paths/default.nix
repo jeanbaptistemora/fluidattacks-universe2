@@ -71,6 +71,10 @@ makeTemplate {
         generator = export "PYTHONPATH" "/lib/python3.8/site-packages";
       }
       {
+        derivations = [ (path "/makes/utils/common/template.sh") ];
+        generator = source;
+      }
+      {
         derivations = envSources;
         generator = source;
       }

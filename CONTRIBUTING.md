@@ -36,6 +36,20 @@ so read it completely and execute commands as you read
     All the programs and tools that you open from within the Bash Shell will
     be able to see the configurations we made
 
+    - **Integrates**
+
+        - **Back**
+
+            ```bash
+            # Replace the following values with real ones
+            export INTEGRATES_DEV_AWS_ACCESS_KEY_ID='test'
+            export INTEGRATES_DEV_AWS_SECRET_ACCESS_KEY='test'
+
+                cd /path/to/fluidattacks/product/repo \
+            &&  ./m makes.dev.integrates.back \
+            &&  source out/makes-dev-integrates-back
+            ```
+
     - **Skims**
 
         ```bash

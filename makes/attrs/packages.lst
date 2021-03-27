@@ -47,6 +47,7 @@ integrates.secrets.list
 integrates.web.e2e.lint
 integrates.web.e2e.pypi
 makes.commitlint
+makes.dev.integrates.back
 makes.dev.skims
 makes.dev.vscode
 makes.doc.runtime
