@@ -73,23 +73,21 @@ so read it completely and execute commands as you read
         &&  source out/makes-dev-skims
         ```
 
-1. **Other tools**
+1. **Code editor**
 
-    - Code editor:
+    We highly recommend you use Visual Studio Code because most of the team use it and works very well for our purpose
 
-      We highly recommend you use Visual Studio Code because most of the team use it and works very well for our purpose
+    You can install it with:
+    `$ nix-env -i makes-dev-vscode -f /path/to/fluidattacks/product/repo`
 
-      You can install it with:
-      `$ nix-env -i makes-dev-vscode -f /path/to/fluidattacks/product/repo`
+1. **Others tools**:
 
-    - Others:
+    awscli, curl, kubectl, vim, python, nodejs, git, ghc, jq, etc
 
-      awscli, curl, kubectl, vim, python, nodejs, git, ghc, jq, etc
+    You can install them with:
+    `$ nix-env -i $tool_name`
 
-      You can install them with:
-      `$ nix-env -i $tool_name`
-
-      For example: `$ nix-env -i awscli`
+    For example: `$ nix-env -i awscli`
 
 1. **Openining the environment**
 
