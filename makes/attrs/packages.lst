@@ -47,7 +47,8 @@ integrates.secrets.list
 integrates.web.e2e.lint
 integrates.web.e2e.pypi
 makes.commitlint
-makes.dev
+makes.dev.skims
+makes.dev.vscode
 makes.doc.runtime
 makes.oci
 makes.test
@@ -61,7 +62,6 @@ makes.test.observes
 makes.test.reviews
 makes.test.skims
 makes.test.sorts
-makes.vscode
 melts.config-development
 melts.config-runtime
 melts.lib
@@ -136,7 +136,6 @@ reviews.lint
 reviews.runtime
 skims.config-development
 skims.config-runtime
-skims.dev
 skims.docs.build
 skims.lint
 skims.oci-build
