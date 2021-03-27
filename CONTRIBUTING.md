@@ -3,7 +3,7 @@
 ## Development environments
 
 We want to be able to launch:
-- Bash Shell (Terminal)
+- Bash shell (Terminal)
 - Code editor
 
 And start developing X product with:
@@ -17,20 +17,25 @@ so read it completely and execute commands as you read
 
 1. **Concepts**
 
-    The `~/.bashrc` file is a script that is loaded everytime you open a shell.
-    Functions, variables, and commands we place on the `~/.bashrc` will help us configuring the shell environment automatically. The commands that we open in the shell after the `~/.bashrc` is loaded (for example the code editor) will inherit such shell configurations
+    The `~/.bashrc` file is a script that is loaded everytime you open a Bash shell.
+    Functions, variables, and commands we place on the `~/.bashrc` will help us to
+    configure the environment automatically.
+    The commands that we open in the shell after the `~/.bashrc` is loaded
+    (or `$ source ~/.bashrc`-ed),
+    for example the code editor, will inherit such shell configurations
 
 1. **Nix**
 
     The tool that powers it all, install it as explained in
-    [Nix's download page](https://nixos.org/download.html):
+    [Nix's download page](https://nixos.org/download.html)
 
 1. **Product dependencies**
 
-    Below snippets should be added to the end of your `~/.bashrc`,
-    we highly recommend using only one snippet at a time
+    Below snippets should be added to the end of your `~/.bashrc`.
+    We highly recommend you to only use one snippet at a time because
+    different products can overlap with each other
 
-    Everytime you modify the bashrc you should execute `$ source ~/.bashrc`,
+    Everytime you modify the `~/.bashrc` you should execute `$ source ~/.bashrc`,
     otherwise changes won't be visible
 
     All the programs and tools that you open from within the Bash Shell will
@@ -72,7 +77,7 @@ so read it completely and execute commands as you read
 
     - Code editor:
 
-      We highly recommend you use visual-studio-code because most of the team uses it and works very well for our purpose
+      We highly recommend you use Visual Studio Code because most of the team use it and works very well for our purpose
 
       You can install it with:
       `$ nix-env -i makes-dev-vscode -f /path/to/fluidattacks/product/repo`
@@ -92,5 +97,5 @@ so read it completely and execute commands as you read
     execute `$ code`, and the code editor will be able to auto-complete,
     jump-to-definition, etc
 
-    Additionally your shell will be able to locate the dependencies of the product,
+    Additionally your Bash shell will be able to locate the dependencies of the product,
     in case you need to debug
