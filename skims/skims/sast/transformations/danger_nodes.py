@@ -7,9 +7,11 @@ from model import (
     core_model,
     graph_model,
 )
-from sast.common import (
-    build_attr_paths,
+from sast.syntax_readers.utils import (
     get_dependencies,
+)
+from utils.string import (
+    build_attr_paths,
 )
 
 

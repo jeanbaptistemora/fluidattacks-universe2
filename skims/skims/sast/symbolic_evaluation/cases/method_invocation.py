@@ -1,20 +1,14 @@
 # Local libraries
+from typing import (
+    Any,
+    Dict,
+    Set,
+)
 from model import (
     graph_model,
 )
-from sast.common import (
-    DANGER_METHODS_BY_ARGS_PROPAGATION,
-    DANGER_METHODS_BY_OBJ,
-    DANGER_METHODS_BY_OBJ_ARGS,
-    DANGER_METHODS_BY_OBJ_NO_TYPE_ARGS_PROPAGATION_FIDING,
-    DANGER_METHODS_BY_TYPE,
-    DANGER_METHODS_BY_TYPE_AND_VALUE_FINDING,
-    DANGER_METHODS_BY_TYPE_ARGS_PROPAGATION,
-    DANGER_METHODS_BY_TYPE_ARGS_PROPAGATION_FINDING,
-    DANGER_METHODS_STATIC_FINDING,
-    DANGER_METHODS_STATIC_SIDE_EFFECTS_FINDING,
-    split_on_first_dot,
-    split_on_last_dot,
+from model import (
+    core_model,
 )
 from sast.symbolic_evaluation.types import (
     EvaluatorArgs,
@@ -27,6 +21,214 @@ from sast.symbolic_evaluation.utils.java import (
     lookup_java_field,
     lookup_java_method,
 )
+from utils.string import (
+    build_attr_paths,
+    complete_attrs_on_set,
+    split_on_first_dot,
+    split_on_last_dot,
+)
+
+
+def _complete_attrs_on_dict(data: Dict[str, Any]) -> Dict[str, Any]:
+    return {
+        attr: value
+        for path, value in data.items()
+        for attr in build_attr_paths(*path.split('.'))
+    }
+
+
+DANGER_METHODS_BY_ARGS_PROPAGATION: Set[str] = complete_attrs_on_set({
+    'java.net.URLDecoder.decode',
+    'java.nio.file.Files.newInputStream',
+    'java.nio.file.Paths.get',
+    'org.apache.commons.codec.binary.Base64.decodeBase64',
+    'org.apache.commons.codec.binary.Base64.encodeBase64',
+    'org.springframework.jdbc.core.JdbcTemplate.batchUpdate',
+    'org.springframework.jdbc.core.JdbcTemplate.execute',
+    'org.springframework.jdbc.core.JdbcTemplate.query',
+    'org.springframework.jdbc.core.JdbcTemplate.queryForInt',
+    'org.springframework.jdbc.core.JdbcTemplate.queryForList',
+    'org.springframework.jdbc.core.JdbcTemplate.queryForLong',
+    'org.springframework.jdbc.core.JdbcTemplate.queryForMap',
+    'org.springframework.jdbc.core.JdbcTemplate.queryForObject',
+    'org.springframework.jdbc.core.JdbcTemplate.queryForRowSet',
+    'org.owasp.esapi.ESAPI.encoder.encodeForBase64',
+    'org.owasp.esapi.ESAPI.encoder.decodeForBase64',
+    'Double.toString',
+    'Float.toString',
+    'Integer.toString',
+    'Long.toString',
+})
+DANGER_METHODS_STATIC_FINDING: Dict[str, Set[str]] = {
+    core_model.FindingEnum.F034.name: complete_attrs_on_set({
+        'java.lang.Math.random',
+        'java.util.Random.nextFloat',
+        'java.util.Random.nextInt',
+        'java.util.Random.nextLong',
+        'java.util.Random.nextBoolean',
+        'java.util.Random.nextDouble',
+        'java.util.Random.nextGaussian',
+    }),
+}
+DANGER_METHODS_STATIC_SIDE_EFFECTS_FINDING: Dict[str, Set[str]] = {
+    core_model.FindingEnum.F034.name: complete_attrs_on_set({
+        'java.util.Random.nextBytes',
+    }),
+}
+DANGER_METHODS_BY_OBJ_NO_TYPE_ARGS_PROPAGATION_FIDING: Dict[str, Set[str]] = {
+    core_model.FindingEnum.F034.name: complete_attrs_on_set({
+        'getSession.setAttribute',
+        'toString.substring',
+        'addCookie',
+    }),
+    core_model.FindingEnum.F063_TRUSTBOUND.name: complete_attrs_on_set({
+        'org.apache.commons.lang.StringEscapeUtils.escapeHtml',
+        'org.springframework.web.util.HtmlUtils.htmlEscape',
+        'org.owasp.esapi.ESAPI.encoder.encodeForHTML',
+    }),
+}
+DANGER_METHODS_BY_OBJ: Dict[str, Set[str]] = _complete_attrs_on_dict({
+    'java.lang.String': {
+        'getBytes',
+        'split',
+        'substring',
+        'toCharArray',
+    },
+    'java.lang.StringBuilder': {
+        'append',
+        'append.toString',
+        'toString',
+    },
+    'java.sql.CallableStatement': {
+        'executeQuery',
+    },
+    'java.sql.PreparedStatement': {
+        'execute',
+    },
+    'java.util.Enumeration': {
+        'nextElement',
+    },
+    'java.util.Map': {
+        'get',
+    },
+    'java.util.List': {
+        'get',
+    },
+    'org.owasp.benchmark.helpers.SeparateClassRequest': {
+        'getTheParameter',
+    },
+})
+DANGER_METHODS_BY_OBJ_ARGS: Dict[str, Set[str]] = _complete_attrs_on_dict({
+    'java.sql.Connection': {
+        'prepareCall',
+        'prepareStatement',
+    },
+    'java.sql.Statement': {
+        'addBatch',
+        'execute',
+        'executeBatch',
+        'executeLargeBatch',
+        'executeLargeUpdate',
+        'executeQuery',
+        'executeUpdate',
+    },
+    'org.owasp.benchmark.helpers.ThingInterface': {
+        'doSomething',
+    },
+    'javax.xml.xpath.XPath': {
+        'evaluate',
+        'compile',
+    }
+})
+DANGER_METHODS_BY_TYPE: Dict[str, Set[str]] = _complete_attrs_on_dict({
+    'javax.servlet.http.Cookie': {
+        'getName',
+        'getValue',
+    },
+    'javax.servlet.http.HttpServletRequest': {
+        'getCookies',
+        'getHeader',
+        'getHeaderNames',
+        'getHeaders',
+        'getParameter',
+        'getParameterMap',
+        'getParameterNames',
+        'getParameterValues',
+        'getQueryString',
+    },
+})
+DANGER_METHODS_BY_TYPE_AND_VALUE_FINDING: Dict[str, Dict[str, Any]] = {
+    core_model.FindingEnum.F008.name: _complete_attrs_on_dict({
+        'javax.servlet.http.HttpServletResponse': {
+            'setHeader': {
+                'X-XSS-Protection',
+                '0',
+            },
+        },
+    }),
+    core_model.FindingEnum.F042.name: _complete_attrs_on_dict({
+        'javax.servlet.http.Cookie': {
+            'setSecure': {
+                False,
+            },
+        },
+    }),
+}
+DANGER_METHODS_BY_TYPE_ARGS_PROPAGATION: Dict[str, Set[str]] = \
+    _complete_attrs_on_dict({
+        'java.io.PrintWriter': {
+            'format',
+        },
+        'java.util.List': {
+            'add',
+        },
+    })
+DANGER_METHODS_BY_TYPE_ARGS_PROPAG_FINDING: Dict[str, Dict[str, Set[str]]] = {
+    core_model.FindingEnum.F042.name: _complete_attrs_on_dict({
+        'javax.servlet.http.HttpServletResponse': {
+            'addCookie',
+        },
+    }),
+    core_model.FindingEnum.F034.name: _complete_attrs_on_dict({
+        'javax.servlet.http.HttpServletResponse': {
+            'addCookie',
+        },
+        'javax.servlet.http.HttpServletRequest': {
+            'getSession.setAttribute',
+        },
+    }),
+    core_model.FindingEnum.F004.name: _complete_attrs_on_dict({
+        'ProcessBuilder': {
+            'command',
+        },
+        'Runtime': {
+            'exec',
+        },
+    }),
+    core_model.FindingEnum.F008.name: _complete_attrs_on_dict({
+        'javax.servlet.http.HttpServletResponse': {
+            'getWriter.format',
+            'getWriter.print',
+            'getWriter.printf',
+            'getWriter.println',
+            'getWriter.write',
+        },
+    }),
+    core_model.FindingEnum.F063_TRUSTBOUND.name: _complete_attrs_on_dict({
+        'javax.servlet.http.HttpServletRequest': {
+            'getSession.putValue',
+            'getSession.setAttribute',
+        },
+    }),
+    core_model.FindingEnum.F107.name: _complete_attrs_on_dict({
+        'javax.naming.directory.InitialDirContext': {
+            'search',
+        },
+        'javax.naming.directory.DirContext': {
+            'search',
+        },
+    }),
+}
 
 
 def evaluate(args: EvaluatorArgs) -> None:
@@ -207,7 +409,7 @@ def analyze_method_by_type_args_propagation(
             method_var_decl_type, {}) and args_danger):
         args.syntax_step.meta.danger = True
 
-    danger_methods = DANGER_METHODS_BY_TYPE_ARGS_PROPAGATION_FINDING.get(
+    danger_methods = DANGER_METHODS_BY_TYPE_ARGS_PROPAG_FINDING.get(
         args.finding.name, {})
     if (method_path in danger_methods.get(
             method_var_decl_type, {}) and args_danger):

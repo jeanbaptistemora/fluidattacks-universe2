@@ -2,15 +2,15 @@
 from model import (
     core_model,
 )
-from sast.common import (
-    build_attr_paths,
-    complete_attrs_on_set,
-)
 from sast.symbolic_evaluation.types import (
     EvaluatorArgs,
 )
 from sast.symbolic_evaluation.utils.java import (
     lookup_java_class,
+)
+from utils.string import (
+    build_attr_paths,
+    complete_attrs_on_set,
 )
 
 

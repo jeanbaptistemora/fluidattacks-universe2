@@ -2,11 +2,11 @@
 from model import (
     core_model,
 )
-from sast.common import (
-    complete_attrs_on_set,
-)
 from sast.symbolic_evaluation.types import (
     EvaluatorArgs,
+)
+from utils.string import (
+    complete_attrs_on_set,
 )
 
 

@@ -24,9 +24,6 @@ from model import (
     core_model,
     graph_model,
 )
-from sast.common import (
-    get_dependencies,
-)
 from sast.symbolic_evaluation.cases import (
     array_access,
     array_initialization,
@@ -55,6 +52,9 @@ from sast.symbolic_evaluation.types import (
     EvaluatorArgs,
     ImpossiblePath,
     StopEvaluation,
+)
+from sast.syntax_readers.utils import (
+    get_dependencies,
 )
 from utils import (
     graph as g,
