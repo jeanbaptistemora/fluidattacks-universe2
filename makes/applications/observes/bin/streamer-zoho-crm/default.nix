@@ -14,7 +14,7 @@ makeEntrypoint {
     ];
     envSources = [
       packages.observes.generic.runner
-      packages.observes.env.runtime.tap-mailchimp
+      packages.observes.env.streamer-zoho-crm.runtime
     ];
   };
   name = "observes-bin-streamer-zoho-crm";

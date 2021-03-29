@@ -11,7 +11,7 @@ makeDerivation {
   searchPaths = {
     envSources = [
       packages.observes.generic.linter
-      packages.observes.env.development.streamer-zoho-crm
+      packages.observes.env.streamer-zoho-crm.development
     ];
   };
   builder = path "/makes/packages/observes/generic/linter/lint_builder.sh";

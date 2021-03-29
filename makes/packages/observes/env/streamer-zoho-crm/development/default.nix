@@ -1,30 +1,16 @@
 { buildPythonPackage
-, buildPythonRequirements
 , makeTemplate
 , nixpkgs
+, packages
 , path
 , ...
 }:
 let
-  pythonRequirements = buildPythonRequirements {
-    name = "observes-env-runtime-streamer-zoho-crm-python";
-    requirements = {
-      direct = [
-        "click==7.1.2"
-        "ratelimiter==1.2.0"
-        "requests==2.25.0"
-      ];
-      inherited = [
-        "certifi==2020.12.5"
-        "chardet==3.0.4"
-        "idna==2.10"
-        "urllib3==1.26.3"
-      ];
-    };
-    python = nixpkgs.python38;
-  };
+  pkgEnv = packages.observes.env.streamer-zoho-crm;
+  pythonDevReqs = pkgEnv.development.python;
+  pythonRunReqs = pkgEnv.runtime.python;
   postgresClient = buildPythonPackage {
-    name = "observes-streamer-zoho-crm";
+    name = "observes-postgres-client";
     packagePath = path "/observes/common/postgres_client";
     python = nixpkgs.python38;
   };
@@ -40,12 +26,21 @@ let
   };
 in
 makeTemplate {
-  name = "observes-env-runtime-streamer-zoho-crm";
+  name = "observes-env-development-streamer-zoho-crm";
   searchPaths = {
+    envPaths = [
+      nixpkgs.postgresql
+      pythonDevReqs
+    ];
     envPython38Paths = [
       nixpkgs.python38Packages.psycopg2
-      pythonRequirements
+      pythonDevReqs
+      pythonRunReqs
       postgresClient
+      singerIO
+      self
+    ];
+    envMypy38Paths = [
       singerIO
       self
     ];
