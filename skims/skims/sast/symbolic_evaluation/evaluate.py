@@ -5,7 +5,6 @@ from copy import (
 from itertools import (
     chain,
 )
-import operator
 from typing import (
     Dict,
     Iterator,
@@ -26,36 +25,36 @@ from model import (
     graph_model,
 )
 from sast.common import (
-    build_attr_paths,
-    complete_attrs_on_set,
-    DANGER_METHODS_BY_OBJ_ARGS,
-    DANGER_METHODS_BY_TYPE_ARGS_PROPAGATION_FINDING,
-    DANGER_METHODS_BY_TYPE_AND_VALUE_FINDING,
-    DANGER_METHODS_BY_TYPE_ARGS_PROPAGATION,
-    DANGER_METHODS_STATIC_SIDE_EFFECTS_FINDING,
-    DANGER_METHODS_BY_ARGS_PROPAGATION,
-    DANGER_METHODS_BY_OBJ,
-    DANGER_METHODS_BY_OBJ_NO_TYPE_ARGS_PROPAGATION_FIDING,
-    DANGER_METHODS_BY_TYPE,
-    DANGER_METHODS_STATIC_FINDING,
     get_dependencies,
-    split_on_first_dot,
-    split_on_last_dot,
+)
+from sast.symbolic_evaluation.cases import (
+    array_access,
+    array_initialization,
+    array_instantiation,
+    assignment,
+    binary_expression,
+    cast_expression,
+    declaration,
+    if_,
+    instanceof_expression,
+    literal,
+    method_invocation_chain,
+    method_invocation,
+    no_op,
+    object_instantiation,
+    parenthesized_expression,
+    return_,
+    switch_label_case,
+    switch_label,
+    symbol_lookup,
+    ternary,
+    unary_expression,
 )
 from sast.symbolic_evaluation.types import (
     Evaluator,
     EvaluatorArgs,
     ImpossiblePath,
     StopEvaluation,
-)
-from sast.symbolic_evaluation.utils.java import (
-    lookup_java_class,
-    lookup_java_field,
-    lookup_java_method,
-)
-from sast.symbolic_evaluation.utils.generic import (
-    lookup_var_dcl_by_name,
-    lookup_var_state_by_name,
 )
 from utils import (
     graph as g,
@@ -109,518 +108,55 @@ def eval_method(
     return None
 
 
-def syntax_step_assignment(args: EvaluatorArgs) -> None:
-    args_danger = any(dep.meta.danger for dep in args.dependencies)
-    if not args.syntax_step.meta.danger:
-        args.syntax_step.meta.danger = args_danger
-
-
-def syntax_step_binary_expression(args: EvaluatorArgs) -> None:
-    left, right = args.dependencies
-
-    args.syntax_step.meta.danger = left.meta.danger or right.meta.danger
-
-    if left.meta.value is not None and right.meta.value is not None:
-        args.syntax_step.meta.value = {
-            '+': operator.add,
-            '-': operator.sub,
-            '*': operator.mul,
-            '/': operator.truediv,
-            '<': operator.lt,
-            '<=': operator.le,
-            '==': operator.eq,
-            '!=': operator.ne,
-            '>': operator.gt,
-            '>=': operator.ge,
-        }.get(args.syntax_step.operator, lambda _, __: None)(
-            left.meta.value,
-            right.meta.value,
-        )
-
-
-def syntax_step_unary_expression(args: EvaluatorArgs) -> None:
-    src, = args.dependencies
-
-    args.syntax_step.meta.danger = src.meta.danger
-
-
-def syntax_step_declaration(args: EvaluatorArgs) -> None:
-    _syntax_step_declaration_danger(args)
-    _syntax_step_declaration_values(args)
-
-
-def _syntax_step_declaration_danger(args: EvaluatorArgs) -> None:
-    # Analyze the arguments involved in the assignment
-    args_danger = any(dep.meta.danger for dep in args.dependencies)
-
-    # Analyze if the binding itself is sensitive
-    no_trust_findings = {
-        core_model.FindingEnum.F001_JAVA_SQL,
-        core_model.FindingEnum.F004,
-        core_model.FindingEnum.F008,
-        core_model.FindingEnum.F021,
-        core_model.FindingEnum.F042,
-        core_model.FindingEnum.F063_PATH_TRAVERSAL,
-        core_model.FindingEnum.F063_TRUSTBOUND,
-        core_model.FindingEnum.F107,
-    }
-    danger_types = {
-        'javax.servlet.http.HttpServletRequest'
-    }
-    bind_danger = (
-        args.finding in no_trust_findings
-        and args.syntax_step.var_type in complete_attrs_on_set(danger_types)
-    )
-
-    # Local context
-    args.syntax_step.meta.danger = bind_danger or args_danger
-
-
-def _syntax_step_declaration_values(args: EvaluatorArgs) -> None:
-    if len(args.dependencies) == 1:
-        args.syntax_step.meta.value = args.dependencies[0].meta.value
-
-
-def syntax_step_if(args: EvaluatorArgs) -> None:
-    predicate, = args.dependencies
-
-    if args.n_id_next and ((
-        predicate.meta.value is True
-        and args.n_id_next != args.syntax_step.n_id_true
-    ) or (
-        predicate.meta.value is False
-        and args.n_id_next != args.syntax_step.n_id_false
-    )):
-        # We are walking a path that should not happen
-        raise ImpossiblePath()
-
-
-def syntax_step_switch_label(args: EvaluatorArgs) -> None:
-    pred, *cases = args.dependencies
-
-    # We don't know the value of the predicate so let's stop here
-    if pred.meta.value is None:
-        return
-
-    switch_n_id_next = None
-
-    # Follow every `case X:` in search of the next_id
-    for case in cases:
-        if isinstance(case, graph_model.SyntaxStepSwitchLabelCase):
-            if case.meta.value == pred.meta.value:
-                switch_n_id_next = case.meta.n_id
-                break
-
-    # Follow every `default:` in search of the next_id
-    if switch_n_id_next is None:
-        for case in cases:
-            if isinstance(case, graph_model.SyntaxStepSwitchLabelDefault):
-                switch_n_id_next = case.meta.n_id
-                break
-
-    if switch_n_id_next is not None and args.n_id_next != switch_n_id_next:
-        # We are walking a path that should not happen
-        raise ImpossiblePath()
-
-
-def syntax_step_switch_label_case(args: EvaluatorArgs) -> None:
-    args.syntax_step.meta.value = args.dependencies[0].meta.value
-
-
-def syntax_step_array_access(args: EvaluatorArgs) -> None:
-    args.syntax_step.meta.danger = args.dependencies[1].meta.danger
-
-
-def syntax_step_array_initialization(args: EvaluatorArgs) -> None:
-    args.syntax_step.meta.danger = any(dep.meta.danger
-                                       for dep in args.dependencies)
-
-
-def syntax_step_array_instantiation(args: EvaluatorArgs) -> None:
-    args.syntax_step.meta.danger = any(dep.meta.danger
-                                       for dep in args.dependencies)
-
-
-def syntax_step_parenthesized_expression(args: EvaluatorArgs) -> None:
-    args.syntax_step.meta.danger = any(
-        dep.meta.danger for dep in args.dependencies
-    )
-    if len(args.dependencies) == 1:
-        args.syntax_step.meta.value = args.dependencies[0].meta.value
-
-
-def syntax_step_literal(args: EvaluatorArgs) -> None:
-    if args.syntax_step.value_type in {
-        'boolean',
-        'null',
-    }:
-        args.syntax_step.meta.value = {
-            'false': False,
-            'null': None,
-            'true': True,
-        }[args.syntax_step.value]
-    elif args.syntax_step.value_type == 'number':
-        args.syntax_step.meta.value = float(args.syntax_step.value)
-    elif args.syntax_step.value_type == 'string':
-        args.syntax_step.meta.value = args.syntax_step.value
-    else:
-        raise NotImplementedError()
-
-
-def _analyze_method_by_type_args_propagation_side_effects(
-    args: EvaluatorArgs,
-    method: str,
-) -> None:
-    # Functions that when called make the parent object vulnerable
-    args_danger = any(dep.meta.danger for dep in args.dependencies)
-
-    method_var, method_path = split_on_first_dot(method)
-    method_var_decl = lookup_var_dcl_by_name(args, method_var)
-    method_var_decl_type = (method_var_decl.var_type_base
-                            if method_var_decl else '')
-
-    if (method_path in DANGER_METHODS_BY_TYPE_ARGS_PROPAGATION.get(
-            method_var_decl_type, {}) and args_danger):
-        if method_var_decl:
-            method_var_decl.meta.danger = True
-
-
-def _analyze_method_by_type_args_propagation(
-    args: EvaluatorArgs,
-    method: str,
-) -> None:
-    # Functions that when called make the parent object vulnerable
-    args_danger = any(dep.meta.danger for dep in args.dependencies)
-
-    method_var, method_path = split_on_first_dot(method)
-    method_var_decl = lookup_var_dcl_by_name(args, method_var)
-    method_var_decl_type = (method_var_decl.var_type_base
-                            if method_var_decl else '')
-
-    if (method_path in DANGER_METHODS_BY_TYPE_ARGS_PROPAGATION.get(
-            method_var_decl_type, {}) and args_danger):
-        args.syntax_step.meta.danger = True
-
-    danger_methods = DANGER_METHODS_BY_TYPE_ARGS_PROPAGATION_FINDING.get(
-        args.finding.name, {})
-    if (method_path in danger_methods.get(
-            method_var_decl_type, {}) and args_danger):
-        args.syntax_step.meta.danger = True
-
-
-def _analyze_method_static_side_effects(
-    args: EvaluatorArgs,
-    method: str,
-) -> None:
-    # functions that make its parameters vulnerable
-    if method in DANGER_METHODS_STATIC_SIDE_EFFECTS_FINDING.get(
-            args.finding.name, set()):
-        for dep in args.dependencies:
-            dep.meta.danger = True
-
-
-def _analyze_method_invocation(args: EvaluatorArgs, method: str) -> None:
-    # Analyze the arguments involved in the method invocation
-    args_danger = any(dep.meta.danger for dep in args.dependencies)
-
-    method_var, method_path = split_on_first_dot(method)
-    method_field, method_name = split_on_last_dot(args.syntax_step.method)
-    method_var_decl = lookup_var_dcl_by_name(args, method_var)
-    method_var_state = lookup_var_state_by_name(args, method_var)
-    method_var_decl_type = (
-        method_var_decl.var_type_base if method_var_decl else ''
-    )
-
-    if field := lookup_java_field(args, method_field):
-        method = f'{field.var_type}.{method_name}'
-
-    args.syntax_step.meta.danger = (
-        # Known function to return user controlled data
-        method_path in DANGER_METHODS_BY_TYPE.get(method_var_decl_type, {})
-    ) or (
-        # Know functions that propagate danger if object is dangerous
-        method_path in DANGER_METHODS_BY_OBJ.get(method_var_decl_type, {})
-        and method_var_state
-        and method_var_state.meta.danger
-    ) or (
-        # Know functions that propagate danger if args are dangerous
-        method_path in DANGER_METHODS_BY_OBJ_ARGS.get(method_var_decl_type, {})
-        and args_danger
-    ) or (
-        # Known functions that propagate args danger
-        method in DANGER_METHODS_BY_ARGS_PROPAGATION
-        and args_danger
-    ) or (
-        # Known static functions that no require args danger
-        method in DANGER_METHODS_STATIC_FINDING.get(
-            args.finding.name,
-            set(),
-        )
-    ) or (
-        # functions for which the type of the variable cannot be obtained,
-        # but which propagate args danger
-        method_path
-        and method_path in
-        DANGER_METHODS_BY_OBJ_NO_TYPE_ARGS_PROPAGATION_FIDING.get(
-            args.finding.name, str())
-        and args_danger
-    )
-    _analyze_method_static_side_effects(args, method)
-    _analyze_method_by_type_args_propagation(args, method)
-    _analyze_method_by_type_args_propagation_side_effects(args, method)
-
-    # function calls with parameters that make the object vulnerable
-    if methods := DANGER_METHODS_BY_TYPE_AND_VALUE_FINDING.get(
-            args.finding.name,
-            dict(),
-    ).get(method_var_decl_type):
-        parameters = {param.meta.value for param in args.dependencies}
-        if (
-            parameters.issubset(methods.get(method_path, set()))
-            and method_var_decl
-        ):
-            method_var_decl.meta.danger = True
-
-
-def _analyze_method_invocation_values(args: EvaluatorArgs) -> None:
-    method_var, method_path = split_on_first_dot(args.syntax_step.method)
-
-    if dcl := lookup_var_state_by_name(args, method_var):
-        if isinstance(dcl.meta.value, dict):
-            _analyze_method_invocation_values_dict(args, dcl, method_path)
-        if isinstance(dcl.meta.value, str):
-            _analyze_method_invocation_values_str(args, dcl, method_path)
-        if isinstance(dcl.meta.value, list):
-            _analyze_method_invocation_values_list(args, dcl, method_path)
-    elif method := lookup_java_method(args, args.syntax_step.method):
-        if return_step := eval_method(args, method.n_id, args.dependencies):
-            args.syntax_step.meta.danger = return_step.meta.danger
-            args.syntax_step.meta.value = return_step.meta.value
-
-
-def _analyze_method_invocation_values_dict(
-    args: EvaluatorArgs,
-    dcl: graph_model.SyntaxStep,
-    method_path: str,
-) -> None:
-    if method_path == 'put':
-        value, key = args.dependencies
-        dcl.meta.value[key.meta.value] = value
-    elif method_path == 'get':
-        key = args.dependencies[0]
-        args.syntax_step.meta.value = dcl.meta.value.get(key.meta.value)
-        args.syntax_step.meta.danger = (
-            dcl.meta.value[key.meta.value].meta.danger
-            if key.meta.value in dcl.meta.value
-            else False
-        )
-
-
-def _analyze_method_invocation_values_str(
-    args: EvaluatorArgs,
-    dcl: graph_model.SyntaxStep,
-    method_path: str,
-) -> None:
-    if method_path == 'charAt':
-        index = int(args.dependencies[0].meta.value)
-        args.syntax_step.meta.value = dcl.meta.value[index]
-
-
-def _analyze_method_invocation_values_list(
-    args: EvaluatorArgs,
-    dcl: graph_model.SyntaxStep,
-    method_path: str,
-) -> None:
-    if method_path == 'add':
-        dcl.meta.value.append(args.dependencies[0])
-    elif method_path == 'remove':
-        index = int(args.dependencies[0].meta.value)
-        dcl.meta.value.pop(index)
-    elif method_path == 'get':
-        index = int(args.dependencies[0].meta.value)
-        args.syntax_step.meta.value = dcl.meta.value[index]
-        args.syntax_step.meta.danger = dcl.meta.value[index].meta.danger
-
-
-def syntax_step_method_invocation(args: EvaluatorArgs) -> None:
-    # Analyze if the method itself is untrusted
-    method = args.syntax_step.method
-
-    _analyze_method_invocation(args, method)
-    _analyze_method_invocation_values(args)
-
-
-def syntax_step_method_invocation_chain(args: EvaluatorArgs) -> None:
-    *method_arguments, parent = args.dependencies
-
-    if isinstance(parent.meta.value, graph_model.GraphShardMetadataJavaClass):
-        if args.syntax_step.method in parent.meta.value.methods:
-            method = parent.meta.value.methods[args.syntax_step.method]
-            if return_step := eval_method(args, method.n_id, method_arguments):
-                args.syntax_step.meta.danger = return_step.meta.danger
-                args.syntax_step.meta.value = return_step.meta.value
-    elif isinstance(parent, graph_model.SyntaxStepMethodInvocation):
-        method = parent.method + args.syntax_step.method
-        _analyze_method_invocation(args, method)
-    elif isinstance(parent, graph_model.SyntaxStepObjectInstantiation):
-        method = parent.object_type + args.syntax_step.method
-        _analyze_method_invocation(args, method)
-
-
-def syntax_step_no_op(args: EvaluatorArgs) -> None:
-    args.syntax_step.meta.danger = False
-
-
-def syntax_step_object_instantiation(args: EvaluatorArgs) -> None:
-    _syntax_step_object_instantiation_danger(args)
-    _syntax_step_object_instantiation_values(args)
-
-
-def _syntax_step_object_instantiation_danger(args: EvaluatorArgs) -> None:
-    # Analyze the arguments involved in the instantiation
-    args_danger = any(dep.meta.danger for dep in args.dependencies)
-
-    _danger_instances_by_finding = {
-        core_model.FindingEnum.F063_PATH_TRAVERSAL.name: {
-            'java.io.File',
-            'java.io.FileInputStream',
-            'java.io.FileOutputStream',
-        },
-        core_model.FindingEnum.F004.name: {
-            'java.lang.ProcessBuilder',
-        }
-    }
-    _danger_instances_no_args_by_finding = {
-        core_model.FindingEnum.F034.name: {
-            'java.util.Random',
-        }
-    }
-    _danger_instances = {
-        'java.lang.StringBuilder',
-        'org.owasp.benchmark.helpers.SeparateClassRequest',
-    }
-
-    danger_instances_by_finding = {
-        find: complete_attrs_on_set(instances)
-        for find, instances in _danger_instances_by_finding.items()
-    }
-    danger_instances_no_args_by_finding = {
-        find: complete_attrs_on_set(instances)
-        for find, instances in _danger_instances_no_args_by_finding.items()
-    }
-    danger_instances = complete_attrs_on_set(_danger_instances)
-
-    # Analyze if the object being instantiated is dangerous
-    object_type: str = args.syntax_step.object_type
-    instantiation_danger = (
-        object_type in danger_instances_by_finding.get(
-            args.finding.name, set())
-        or object_type in danger_instances
-    )
-    # Analyze instances of objects that are vulnerable and do not
-    # require any parameters
-    instantiation_danger_no_args = (
-        object_type
-        in danger_instances_no_args_by_finding.get(args.finding.name, set())
-    )
-
-    if instantiation_danger_no_args:
-        args.syntax_step.meta.danger = True
-    elif instantiation_danger:
-        args.syntax_step.meta.danger = args_danger if args else True
-    else:
-        args.syntax_step.meta.danger = args_danger
-
-
-def _syntax_step_object_instantiation_values(args: EvaluatorArgs) -> None:
-    object_type: str = args.syntax_step.object_type
-
-    if object_type in build_attr_paths('java', 'util', 'ArrayList'):
-        args.syntax_step.meta.value = []
-    elif object_type in build_attr_paths('java', 'util', 'HashMap'):
-        args.syntax_step.meta.value = {}
-    elif java_class := lookup_java_class(args, object_type):
-        args.syntax_step.meta.value = java_class
-
-
-def syntax_step_symbol_lookup(args: EvaluatorArgs) -> None:
-    if dcl := lookup_var_state_by_name(args, args.syntax_step.symbol):
-        # Found it!
-        args.syntax_step.meta.danger = dcl.meta.danger
-        args.syntax_step.meta.value = dcl.meta.value
-
-
-def syntax_step_return(args: EvaluatorArgs) -> None:
-    returned, = args.dependencies
-    args.syntax_step.meta.danger = returned.meta.danger
-    args.syntax_step.meta.value = returned.meta.value
-
-
-def syntax_step_ternary(args: EvaluatorArgs) -> None:
-    predicate, left, right = args.dependencies
-
-    if predicate.meta.value is True:
-        args.syntax_step.meta.danger = left.meta.danger
-        args.syntax_step.meta.value = left.meta.value
-    elif predicate.meta.value is False:
-        args.syntax_step.meta.danger = right.meta.danger
-        args.syntax_step.meta.value = right.meta.value
-    elif predicate.meta.value is None:
-        args.syntax_step.meta.danger = left.meta.danger or right.meta.danger
-    else:
-        raise NotImplementedError(predicate.meta.value)
-
-
-def syntax_step_cast_expression(args: EvaluatorArgs) -> None:
-    args.syntax_step.meta.danger = any(
-        dep.meta.danger for dep in args.dependencies
-    )
-    if len(args.dependencies) == 1:
-        args.syntax_step.meta.value = args.dependencies[0].meta.value
-
-
-def syntax_step_instanceof_expression(args: EvaluatorArgs) -> None:
-    if isinstance(args.dependencies[0], graph_model.SyntaxStepSymbolLookup):
-        if var_declaration := lookup_var_dcl_by_name(
-            args,
-            args.dependencies[0].symbol,
-        ):
-            args.syntax_step.meta.value = (
-                var_declaration.var_type == args.syntax_step.instanceof_type
-            )
-
-
 EVALUATORS: Dict[object, Evaluator] = {
-    graph_model.SyntaxStepAssignment: syntax_step_assignment,
-    graph_model.SyntaxStepArrayAccess: syntax_step_array_access,
+    graph_model.SyntaxStepAssignment:
+    assignment.evaluate,
+    graph_model.SyntaxStepArrayAccess:
+    array_access.evaluate,
     graph_model.SyntaxStepArrayInitialization:
-    syntax_step_array_initialization,
+    array_initialization.evaluate,
     graph_model.SyntaxStepArrayInstantiation:
-    syntax_step_array_instantiation,
-    graph_model.SyntaxStepBinaryExpression: syntax_step_binary_expression,
-    graph_model.SyntaxStepCastExpression: syntax_step_cast_expression,
-    graph_model.SyntaxStepCatchClause: syntax_step_no_op,
-    graph_model.SyntaxStepUnaryExpression: syntax_step_unary_expression,
+    array_instantiation.evaluate,
+    graph_model.SyntaxStepBinaryExpression:
+    binary_expression.evaluate,
+    graph_model.SyntaxStepCastExpression:
+    cast_expression.evaluate,
+    graph_model.SyntaxStepCatchClause:
+    no_op.evaluate,
+    graph_model.SyntaxStepUnaryExpression:
+    unary_expression.evaluate,
     graph_model.SyntaxStepParenthesizedExpression:
-    syntax_step_parenthesized_expression,
-    graph_model.SyntaxStepDeclaration: syntax_step_declaration,
-    graph_model.SyntaxStepFor: syntax_step_no_op,
-    graph_model.SyntaxStepIf: syntax_step_if,
+    parenthesized_expression.evaluate,
+    graph_model.SyntaxStepDeclaration:
+    declaration.evaluate,
+    graph_model.SyntaxStepFor:
+    no_op.evaluate,
+    graph_model.SyntaxStepIf:
+    if_.evaluate,
     graph_model.SyntaxStepInstanceofExpression:
-    syntax_step_instanceof_expression,
-    graph_model.SyntaxStepSwitch: syntax_step_switch_label,
-    graph_model.SyntaxStepSwitchLabelCase: syntax_step_switch_label_case,
-    graph_model.SyntaxStepSwitchLabelDefault: syntax_step_no_op,
-    graph_model.SyntaxStepLiteral: syntax_step_literal,
-    graph_model.SyntaxStepMethodInvocation: syntax_step_method_invocation,
+    instanceof_expression.evaluate,
+    graph_model.SyntaxStepSwitch:
+    switch_label.evaluate,
+    graph_model.SyntaxStepSwitchLabelCase:
+    switch_label_case.evaluate,
+    graph_model.SyntaxStepSwitchLabelDefault:
+    no_op.evaluate,
+    graph_model.SyntaxStepLiteral:
+    literal.evaluate,
+    graph_model.SyntaxStepMethodInvocation:
+    method_invocation.evaluate,
     graph_model.SyntaxStepMethodInvocationChain:
-    syntax_step_method_invocation_chain,
-    graph_model.SyntaxStepNoOp: syntax_step_no_op,
+    method_invocation_chain.evaluate,
+    graph_model.SyntaxStepNoOp:
+    no_op.evaluate,
     graph_model.SyntaxStepObjectInstantiation:
-    syntax_step_object_instantiation,
-    graph_model.SyntaxStepReturn: syntax_step_return,
-    graph_model.SyntaxStepSymbolLookup: syntax_step_symbol_lookup,
-    graph_model.SyntaxStepTernary: syntax_step_ternary,
+    object_instantiation.evaluate,
+    graph_model.SyntaxStepReturn:
+    return_.evaluate,
+    graph_model.SyntaxStepSymbolLookup:
+    symbol_lookup.evaluate,
+    graph_model.SyntaxStepTernary:
+    ternary.evaluate,
 }
 
 
@@ -650,6 +186,7 @@ def eval_syntax_steps(
         syntax_step_type = type(syntax_step)
         if evaluator := EVALUATORS.get(syntax_step_type):
             evaluator(EvaluatorArgs(
+                eval_method=eval_method,
                 dependencies=get_dependencies(syntax_step_index, syntax_steps),
                 finding=finding,
                 graph_db=graph_db,

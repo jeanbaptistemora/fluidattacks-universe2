@@ -1,5 +1,6 @@
 # Standard librari
 from typing import (
+    Any,
     Callable,
     NamedTuple,
 )
@@ -21,6 +22,10 @@ class ImpossiblePath(StopEvaluation):
 
 class EvaluatorArgs(NamedTuple):
     dependencies: graph_model.SyntaxSteps
+    eval_method: Callable[
+        [Any, graph_model.NId, graph_model.SyntaxSteps],
+        None,
+    ]
     finding: core_model.FindingEnum
     graph_db: graph_model.GraphDB
     shard: graph_model.GraphShard
