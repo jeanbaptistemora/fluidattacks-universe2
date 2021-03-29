@@ -11,6 +11,7 @@ from typing import (
 )
 
 # Third party Libraries
+from joblib import dump
 from pandas import DataFrame
 
 # Local libraries
@@ -104,6 +105,7 @@ def main() -> None:
     args = parser.parse_args()
 
     model_name: str = args.model.split('-')[0]
+    model_features: Tuple[str, ...] = get_model_features()
     model_class: ModelType = MODELS[model_name]
     model: ModelType = model_class(activation=args.activation)
 
@@ -122,6 +124,22 @@ def main() -> None:
     S3_BUCKET \
         .Object(f'training-output/{results_filename}')\
         .upload_file(results_filename)
+
+    with tempfile.TemporaryDirectory() as tmp_dir:
+        model_name_list = [
+            type(model).__name__.lower(),
+            training_output[3],
+            model_features,
+            'tune',
+            args.activation
+        ]
+        model_file_name: str = '-'.join(model_name_list)
+        print(model_file_name)
+        local_file: str = os.path.join(tmp_dir, f'{model_file_name}.joblib')
+        dump(model, local_file)
+        S3_BUCKET.Object(
+            f'training-output/{model_file_name}.joblib'
+        ).upload_file(local_file)
 
 
 if __name__ == '__main__':
