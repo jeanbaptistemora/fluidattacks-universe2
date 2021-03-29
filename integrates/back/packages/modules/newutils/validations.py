@@ -1,14 +1,5 @@
-import os
 import re
-from ipaddress import ip_address
 from typing import List
-from urllib.parse import (
-    unquote_plus,
-    urlparse,
-    ParseResult
-)
-
-from git import Git, GitCommandError
 
 from backend import authz
 from backend.exceptions import (
@@ -143,45 +134,3 @@ def validate_phone_field(phone_field: str) -> bool:
     if re.match((r'(^\+\d+$)|(^\d+$)|(^$)|(^-$)'), phone_field):
         return True
     raise InvalidField('phone number')
-
-
-def is_valid_url(url: str) -> bool:
-    url_attributes: ParseResult = urlparse(url)
-
-    return bool(url_attributes.netloc and url_attributes.scheme)
-
-
-def is_valid_git_branch(branch_name: str) -> bool:
-    try:
-        Git().check_ref_format('--branch', branch_name)
-        return True
-    except GitCommandError:
-        return False
-
-
-def is_valid_ip(address: str) -> bool:
-    try:
-        ip_address(address)
-        return True
-    except ValueError:
-        return False
-
-
-def is_exclude_valid(exclude_patterns: List[str], url: str) -> bool:
-    is_valid: bool = True
-
-    # Get repository name
-    url_obj = urlparse(url)
-    url_path = unquote_plus(url_obj.path)
-    repo_name = os.path.basename(url_path)
-    if repo_name.endswith('.git'):
-        repo_name = repo_name[0:-4]
-
-    for pattern in exclude_patterns:
-        pattern_as_list: List[str] = pattern.lower().split('/')
-        if (
-            repo_name in pattern_as_list
-            and pattern_as_list.index(repo_name) == 0
-        ):
-            is_valid = False
-    return is_valid

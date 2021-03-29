@@ -37,10 +37,10 @@ from dynamodb.types import (
 )
 from newutils import (
     datetime as datetime_utils,
-    validations,
+    validations as validation_utils
 )
 from notifications import domain as notifications_domain
-from roots import dal as roots_dal
+from roots import dal as roots_dal, validations
 from roots.types import GitRoot, GitRootCloningStatus, IPRoot, URLRoot, Root
 
 
@@ -451,7 +451,7 @@ async def update_root_cloning_status(
     status: str,
     message: str,
 ) -> None:
-    validations.validate_field_length(message, 400)
+    validation_utils.validate_field_length(message, 400)
     root = await get_root(group_name=group_name, root_id=root_id)
 
     if not isinstance(root, GitRootItem):
