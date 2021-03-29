@@ -25,11 +25,21 @@ const castPrivileges: (scope: string) => Record<string, string> = (
   return privilegesOptions;
 };
 
+const attackComplexityBgColor: Record<string, string> = {
+  0.44: "bg-lbl-yellow",
+  0.77: "bg-dark-red",
+};
+
+const attackComplexityOptions: Record<string, string> = {
+  0.44: "searchFindings.tabSeverity.attackComplexityOptions.high.text",
+  0.77: "searchFindings.tabSeverity.attackComplexityOptions.low.text",
+};
+
 /**
  * Values were taken from:
  * @see https://www.first.org/cvss/specification-document#7-4-Metric-Values
  */
-export const castFieldsCVSS3: (
+const castFieldsCVSS3: (
   dataset: ISeverityAttr["finding"]["severity"],
   isEditing: boolean,
   formValues: Record<string, string>
@@ -43,11 +53,6 @@ export const castFieldsCVSS3: (
     0.55: "searchFindings.tabSeverity.attackVectorOptions.local.text",
     0.62: "searchFindings.tabSeverity.attackVectorOptions.adjacent.text",
     0.85: "searchFindings.tabSeverity.attackVectorOptions.network.text",
-  };
-
-  const attackComplexity: Record<string, string> = {
-    0.44: "searchFindings.tabSeverity.attackComplexityOptions.high.text",
-    0.77: "searchFindings.tabSeverity.attackComplexityOptions.low.text",
   };
 
   const userInteraction: Record<string, string> = {
@@ -108,7 +113,7 @@ export const castFieldsCVSS3: (
     {
       currentValue: dataset.attackComplexity,
       name: "attackComplexity",
-      options: attackComplexity,
+      options: attackComplexityOptions,
       title: translate.t("searchFindings.tabSeverity.attackComplexity"),
     },
     {
@@ -215,7 +220,7 @@ export const castFieldsCVSS3: (
     {
       currentValue: dataset.modifiedAttackComplexity,
       name: "modifiedAttackComplexity",
-      options: attackComplexity,
+      options: attackComplexityOptions,
       title: translate.t("searchFindings.tabSeverity.modifiedAttackComplexity"),
     },
     {
@@ -270,4 +275,11 @@ export const castFieldsCVSS3: (
   }
 
   return fields;
+};
+
+export {
+  attackComplexityBgColor,
+  attackComplexityOptions,
+  castFieldsCVSS3,
+  castPrivileges,
 };
