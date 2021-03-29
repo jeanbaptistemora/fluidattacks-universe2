@@ -61,3 +61,17 @@ def list_items(
         return iter(map(id_builder, audiences_data))
 
     return chain.from_iterable(map(extract_aud_ids, results))
+
+
+def list_unsupported_pagination(
+    raw_list: Callable[[], JSON],
+    items_list_key: str,
+    id_builder: Callable[[Dict[str, str]], SomeId],
+) -> Iterator[SomeId]:
+    result = api_data.create_api_data(raw_list())
+    if result.total_items is None:
+        raise NoneTotal()
+    data_list = result.data[items_list_key]
+    if result.total_items > len(data_list):
+        LOG.error('Unsupported pagination request miss some items')
+    return iter(map(id_builder, data_list))

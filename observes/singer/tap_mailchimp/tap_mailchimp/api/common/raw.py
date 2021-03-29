@@ -87,7 +87,7 @@ class RawSource(NamedTuple):
     get_audience_locations: Callable[[AudienceId], JSON]
     list_campaigns: Callable[[PageId], JSON]
     get_campaign: Callable[[CampaignId], JSON]
-    list_feedbacks: Callable[[CampaignId, PageId], JSON]
+    list_feedbacks: Callable[[CampaignId], JSON]
     get_feedback: Callable[[FeedbackId], JSON]
     get_checklist: Callable[[CampaignId], JSON]
 
@@ -163,7 +163,6 @@ def _get_member(client: Client, member_id: MemberId) -> JSON:
         member_id.str_id,
         exclude_fields=['tags']
     )
-    LOG.debug('_get_member(%s) response: %s', member_id, result)
     return result
 
 
@@ -230,14 +229,14 @@ def _get_campaign(client: Client, campaign_id: CampaignId) -> JSON:
 
 @RateLimiter(max_calls=5, period=1)
 def _list_feedbacks(
-    client: Client, campaign_id: CampaignId, page_id: PageId
+    client: Client, campaign_id: CampaignId
 ) -> JSON:
-    return client.campaigns.get_feedback(
+    result = client.campaigns.get_feedback(
         campaign_id.str_id,
         fields=['feedback.feedback_id', 'total_items', '_links'],
-        count=page_id.per_page,
-        offset=page_id.page * page_id.per_page
     )
+    LOG.debug('_list_feedbacks response: %s', result)
+    return result
 
 
 @RateLimiter(max_calls=5, period=1)

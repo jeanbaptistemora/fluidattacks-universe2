@@ -13,6 +13,7 @@ from typing import (
 # Local libraries
 from tap_mailchimp.api.common import (
     list_items,
+    list_unsupported_pagination,
 )
 from tap_mailchimp.api.common.raw import (
     CampaignId,
@@ -49,7 +50,7 @@ def list_feedbacks(
             str_id=item['feedback_id']
         )
 
-    return list_items(
+    return list_unsupported_pagination(
         partial(raw_source.list_feedbacks, campaign_id),
         'feedback',
         id_builder
