@@ -26,8 +26,11 @@ def _append_label_skink(
         graph.nodes[n_id]['label_sink_type'] = finding.name
 
 
-def _mark_java(graph: graph_model.Graph) -> None:
-    _mark_java_f001(graph)
+def _mark_java(
+    graph: graph_model.Graph,
+    syntax: graph_model.GraphSyntax,
+) -> None:
+    _mark_java_f001(graph, syntax)
     _mark_java_f004(graph)
     _mark_java_f008(graph)
     _mark_java_f021(graph)
@@ -38,8 +41,11 @@ def _mark_java(graph: graph_model.Graph) -> None:
     _mark_java_f107(graph)
 
 
-def _mark_java_f001(graph: graph_model.Graph) -> None:
-    dagerous_functions: Set[str] = {
+def _mark_java_f001(
+    graph: graph_model.Graph,
+    syntax: graph_model.GraphSyntax,
+) -> None:
+    dangerous_methods: Set[str] = {
         'addBatch',
         'batchUpdate',
         'execute',
@@ -57,14 +63,16 @@ def _mark_java_f001(graph: graph_model.Graph) -> None:
         'queryForRowSet',
     }
 
-    for n_id in g.filter_nodes(graph, graph.nodes, g.pred_has_labels(
-        label_type='method_invocation',
-    )):
-        for c_id in g.adj_ast(graph, n_id):
-            if graph.nodes[c_id].get('label_text') in dagerous_functions:
-                _append_label_skink(
-                    graph, n_id, core_model.FindingEnum.F001_JAVA_SQL,
-                )
+    for syntax_steps in syntax.values():
+        for syntax_step in syntax_steps:
+            if isinstance(syntax_step, graph_model.SyntaxStepMethodInvocation):
+                method = syntax_step.method.rsplit('.', maxsplit=1)[-1]
+                if method in dangerous_methods:
+                    _append_label_skink(
+                        graph,
+                        syntax_step.meta.n_id,
+                        core_model.FindingEnum.F001_JAVA_SQL,
+                    )
 
 
 def _mark_java_f004(graph: graph_model.Graph) -> None:
@@ -259,6 +267,7 @@ def _check_method_call(
 def mark(
     graph: graph_model.Graph,
     language: graph_model.GraphShardMetadataLanguage,
+    syntax: graph_model.GraphSyntax,
 ) -> None:
     if language == graph_model.GraphShardMetadataLanguage.JAVA:
-        _mark_java(graph)
+        _mark_java(graph, syntax)

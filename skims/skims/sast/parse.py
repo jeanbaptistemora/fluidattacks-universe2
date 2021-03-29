@@ -219,7 +219,7 @@ def _parse_one_cached(
     control_flow.add(graph)
     syntax = syntax_readers.read_from_graph(graph, language)
 
-    dangerous_action_nodes.mark(graph, language)
+    dangerous_action_nodes.mark(graph, language, syntax)
     untrusted_nodes.mark(graph, language)
     styles.add(graph)
 
