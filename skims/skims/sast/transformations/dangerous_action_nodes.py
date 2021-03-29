@@ -47,7 +47,6 @@ def _mark_java(
         'queryForObject',
         'queryForRowSet',
     })
-    _mark_java_f004_objects(graph)
     _mark_java_methods(core_model.FindingEnum.F004, graph, syntax, {
         'command',
         'exec',
@@ -73,7 +72,6 @@ def _mark_java(
         'addCookie',
         'evaluate',
     })
-    _mark_java_f063_pt(graph)
     _mark_java_methods(core_model.FindingEnum.F063_TRUSTBOUND, graph, syntax, {
         'putValue',
         'setAttribute',
@@ -81,41 +79,15 @@ def _mark_java(
     _mark_java_methods(core_model.FindingEnum.F107, graph, syntax, {
         'search',
     })
-
-
-def _mark_java_f004_objects(graph: graph_model.Graph) -> None:
-    identifiers: Set[str] = {
+    _mark_java_obj(core_model.FindingEnum.F004, graph, syntax, {
         *build_attr_paths('java', 'lang', 'ProcessBuilder'),
-    }
-
-    for n_id in g.yield_object_creation_expression(graph, identifiers):
-        graph.nodes[n_id]['label_sink_type'] = (
-            core_model
-            .FindingEnum
-            .F004
-            .name
-        )
-
-
-def _mark_java_f063_pt(graph: graph_model.Graph) -> None:
-    _mark_java_f063_pt_obj_creation_exp(graph)
-    _mark_java_f063_pt_method_call(graph)
-
-
-def _mark_java_f063_pt_obj_creation_exp(graph: graph_model.Graph) -> None:
-    identifiers: Set[str] = {
+    })
+    _mark_java_obj(core_model.FindingEnum.F063_PATH_TRAVERSAL, graph, syntax, {
         *build_attr_paths('java', 'io', 'File'),
         *build_attr_paths('java', 'io', 'FileInputStream'),
         *build_attr_paths('java', 'io', 'FileOutputStream'),
-    }
-
-    for n_id in g.yield_object_creation_expression(graph, identifiers):
-        graph.nodes[n_id]['label_sink_type'] = (
-            core_model
-            .FindingEnum
-            .F063_PATH_TRAVERSAL
-            .name
-        )
+    })
+    _mark_java_f063_pt_method_call(graph)
 
 
 def _mark_java_f063_pt_method_call(graph: graph_model.Graph) -> None:
@@ -168,6 +140,21 @@ def _mark_java_methods(
                     method = parent_method + '.' + method
 
                 if method in dangerous_methods:
+                    _append_label_skink(graph, syntax_step.meta.n_id, finding)
+
+
+def _mark_java_obj(
+    finding: core_model.FindingEnum,
+    graph: graph_model.Graph,
+    graph_syntax: graph_model.SyntaxSteps,
+    dangerous_types: Set[str],
+) -> None:
+    for syntax_steps in graph_syntax.values():
+        for syntax_step in syntax_steps:
+            if isinstance(syntax_step, (
+                graph_model.SyntaxStepObjectInstantiation,
+            )):
+                if syntax_step.object_type in dangerous_types:
                     _append_label_skink(graph, syntax_step.meta.n_id, finding)
 
 
