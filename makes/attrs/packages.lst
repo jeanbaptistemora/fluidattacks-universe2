@@ -104,10 +104,14 @@ observes.env.tap-csv.runtime
 observes.env.tap-csv.runtime.python
 observes.env.tap-formstack.runtime
 observes.env.tap-formstack.runtime.python
+observes.env.tap-git.runtime
+observes.env.tap-json.runtime
 observes.env.tap-mixpanel.development
 observes.env.tap-mixpanel.development.python
 observes.env.tap-mixpanel.runtime
 observes.env.tap-mixpanel.runtime.python
+observes.env.tap-timedoctor.runtime
+observes.env.tap-toe-files.runtime
 observes.generic.linter
 observes.generic.runner
 observes.generic.tester
