@@ -3909,12 +3909,12 @@
             "label_c": 21,
             "label_field_name": "235",
             "label_field_type": "234",
+            "label_input_type": "F001_JAVA_SQL,F004,F008,F021,F042,F063_PATH_TRAVERSAL,F063_TRUSTBOUND,F107",
             "label_l": 48,
             "label_type": "formal_parameter"
           },
           "234": {
             "label_c": 21,
-            "label_input_type": "F001_JAVA_SQL,F004,F008,F021,F042,F063_PATH_TRAVERSAL,F063_TRUSTBOUND,F107",
             "label_l": 48,
             "label_text": "HttpServletRequest",
             "label_type": "type_identifier"
@@ -6461,12 +6461,12 @@
             "label_c": 20,
             "label_field_name": "74",
             "label_field_type": "73",
+            "label_input_type": "F001_JAVA_SQL,F004,F008,F021,F042,F063_PATH_TRAVERSAL,F063_TRUSTBOUND,F107",
             "label_l": 35,
             "label_type": "formal_parameter"
           },
           "73": {
             "label_c": 20,
-            "label_input_type": "F001_JAVA_SQL,F004,F008,F021,F042,F063_PATH_TRAVERSAL,F063_TRUSTBOUND,F107",
             "label_l": 35,
             "label_text": "HttpServletRequest",
             "label_type": "type_identifier"
@@ -9825,12 +9825,12 @@
             "label_c": 24,
             "label_field_name": "110",
             "label_field_type": "109",
+            "label_input_type": "F001_JAVA_SQL,F004,F008,F021,F042,F063_PATH_TRAVERSAL,F063_TRUSTBOUND,F107",
             "label_l": 40,
             "label_type": "formal_parameter"
           },
           "109": {
             "label_c": 24,
-            "label_input_type": "F001_JAVA_SQL,F004,F008,F021,F042,F063_PATH_TRAVERSAL,F063_TRUSTBOUND,F107",
             "label_l": 40,
             "label_text": "HttpServletRequest",
             "label_type": "type_identifier"
@@ -11474,12 +11474,12 @@
             "label_c": 23,
             "label_field_name": "74",
             "label_field_type": "73",
+            "label_input_type": "F001_JAVA_SQL,F004,F008,F021,F042,F063_PATH_TRAVERSAL,F063_TRUSTBOUND,F107",
             "label_l": 35,
             "label_type": "formal_parameter"
           },
           "73": {
             "label_c": 23,
-            "label_input_type": "F001_JAVA_SQL,F004,F008,F021,F042,F063_PATH_TRAVERSAL,F063_TRUSTBOUND,F107",
             "label_l": 35,
             "label_text": "HttpServletRequest",
             "label_type": "type_identifier"
@@ -15865,12 +15865,12 @@
             "label_c": 21,
             "label_field_name": "110",
             "label_field_type": "109",
+            "label_input_type": "F001_JAVA_SQL,F004,F008,F021,F042,F063_PATH_TRAVERSAL,F063_TRUSTBOUND,F107",
             "label_l": 40,
             "label_type": "formal_parameter"
           },
           "109": {
             "label_c": 21,
-            "label_input_type": "F001_JAVA_SQL,F004,F008,F021,F042,F063_PATH_TRAVERSAL,F063_TRUSTBOUND,F107",
             "label_l": 40,
             "label_text": "HttpServletRequest",
             "label_type": "type_identifier"
@@ -19642,12 +19642,12 @@
             "label_c": 20,
             "label_field_name": "74",
             "label_field_type": "73",
+            "label_input_type": "F001_JAVA_SQL,F004,F008,F021,F042,F063_PATH_TRAVERSAL,F063_TRUSTBOUND,F107",
             "label_l": 35,
             "label_type": "formal_parameter"
           },
           "73": {
             "label_c": 20,
-            "label_input_type": "F001_JAVA_SQL,F004,F008,F021,F042,F063_PATH_TRAVERSAL,F063_TRUSTBOUND,F107",
             "label_l": 35,
             "label_text": "HttpServletRequest",
             "label_type": "type_identifier"
@@ -23344,12 +23344,12 @@
             "label_c": 22,
             "label_field_name": "25",
             "label_field_type": "24",
+            "label_input_type": "F001_JAVA_SQL,F004,F008,F021,F042,F063_PATH_TRAVERSAL,F063_TRUSTBOUND,F107",
             "label_l": 5,
             "label_type": "formal_parameter"
           },
           "24": {
             "label_c": 22,
-            "label_input_type": "F001_JAVA_SQL,F004,F008,F021,F042,F063_PATH_TRAVERSAL,F063_TRUSTBOUND,F107",
             "label_l": 5,
             "label_text": "HttpServletRequest",
             "label_type": "type_identifier"

@@ -53,7 +53,7 @@ def _mark_java_inputs(
 ) -> None:
     findings = core_model.FindingEnum
 
-    _mark_java_array_input(findings.F034, graph, syntax, {
+    _mark_array_input(findings.F034, graph, syntax, {
         'byte',
     })
     for finding in (
@@ -66,13 +66,13 @@ def _mark_java_inputs(
         findings.F063_TRUSTBOUND,
         findings.F107,
     ):
-        _mark_java_function_arg(finding, graph, syntax, build_attr_paths(
+        _mark_function_arg(finding, graph, syntax, build_attr_paths(
             'javax', 'servlet', 'http', 'HttpServletRequest',
         ))
-    _mark_java_methods_input(findings.F034, graph, syntax, {
+    _mark_methods_input(findings.F034, graph, syntax, {
         'java.lang.Math.random',
     })
-    _mark_java_obj_inst_input(findings.F034, graph, syntax, {
+    _mark_obj_inst_input(findings.F034, graph, syntax, {
         *build_attr_paths('java', 'util', 'Random'),
     })
 
@@ -83,7 +83,7 @@ def _mark_java_sinks(
 ) -> None:
     findings = core_model.FindingEnum
 
-    _mark_java_methods_sink(findings.F001_JAVA_SQL, graph, syntax, {
+    _mark_methods_sink(findings.F001_JAVA_SQL, graph, syntax, {
         'addBatch',
         'batchUpdate',
         'execute',
@@ -100,12 +100,12 @@ def _mark_java_sinks(
         'queryForObject',
         'queryForRowSet',
     })
-    _mark_java_methods_sink(findings.F004, graph, syntax, {
+    _mark_methods_sink(findings.F004, graph, syntax, {
         'command',
         'exec',
         'start',
     })
-    _mark_java_methods_sink(findings.F008, graph, syntax, {
+    _mark_methods_sink(findings.F008, graph, syntax, {
         'format',
         'getWriter.format',
         'getWriter.print',
@@ -113,40 +113,40 @@ def _mark_java_sinks(
         'getWriter.println',
         'getWriter.write',
     })
-    _mark_java_methods_sink(findings.F021, graph, syntax, {
+    _mark_methods_sink(findings.F021, graph, syntax, {
         'compile',
         'evaluate',
     })
-    _mark_java_methods_sink(findings.F034, graph, syntax, {
+    _mark_methods_sink(findings.F034, graph, syntax, {
         'getSession.setAttribute',
         'addCookie',
     })
-    _mark_java_methods_sink(findings.F042, graph, syntax, {
+    _mark_methods_sink(findings.F042, graph, syntax, {
         'addCookie',
         'evaluate',
     })
-    _mark_java_methods_sink(findings.F063_PATH_TRAVERSAL, graph, syntax, {
+    _mark_methods_sink(findings.F063_PATH_TRAVERSAL, graph, syntax, {
         'java.nio.file.Files.newInputStream',
         'java.nio.file.Paths.get',
     })
-    _mark_java_methods_sink(findings.F063_TRUSTBOUND, graph, syntax, {
+    _mark_methods_sink(findings.F063_TRUSTBOUND, graph, syntax, {
         'putValue',
         'setAttribute',
     })
-    _mark_java_methods_sink(findings.F107, graph, syntax, {
+    _mark_methods_sink(findings.F107, graph, syntax, {
         'search',
     })
-    _mark_java_obj_inst_sink(findings.F004, graph, syntax, {
+    _mark_obj_inst_sink(findings.F004, graph, syntax, {
         *build_attr_paths('java', 'lang', 'ProcessBuilder'),
     })
-    _mark_java_obj_inst_sink(findings.F063_PATH_TRAVERSAL, graph, syntax, {
+    _mark_obj_inst_sink(findings.F063_PATH_TRAVERSAL, graph, syntax, {
         *build_attr_paths('java', 'io', 'File'),
         *build_attr_paths('java', 'io', 'FileInputStream'),
         *build_attr_paths('java', 'io', 'FileOutputStream'),
     })
 
 
-def _mark_java_array(
+def _mark_array(
     finding: core_model.FindingEnum,
     graph: graph_model.Graph,
     graph_syntax: graph_model.SyntaxSteps,
@@ -163,13 +163,13 @@ def _mark_java_array(
                     continue
 
 
-def _mark_java_array_input(
+def _mark_array_input(
     finding: core_model.FindingEnum,
     graph: graph_model.Graph,
     graph_syntax: graph_model.SyntaxSteps,
     types: Set[str],
 ) -> None:
-    _mark_java_array(
+    _mark_array(
         finding,
         graph,
         graph_syntax,
@@ -178,7 +178,7 @@ def _mark_java_array_input(
     )
 
 
-def _mark_java_function_arg(
+def _mark_function_arg(
     finding: core_model.FindingEnum,
     graph: graph_model.Graph,
     graph_syntax: graph_model.SyntaxSteps,
@@ -191,7 +191,7 @@ def _mark_java_function_arg(
                     _append_label_input(graph, syntax_step.meta.n_id, finding)
 
 
-def _mark_java_methods(
+def _mark_methods(
     finding: core_model.FindingEnum,
     graph: graph_model.Graph,
     graph_syntax: graph_model.SyntaxSteps,
@@ -226,13 +226,13 @@ def _mark_java_methods(
                     marker(graph, syntax_step.meta.n_id, finding)
 
 
-def _mark_java_methods_input(
+def _mark_methods_input(
     finding: core_model.FindingEnum,
     graph: graph_model.Graph,
     graph_syntax: graph_model.SyntaxSteps,
     methods: Set[str],
 ) -> None:
-    _mark_java_methods(
+    _mark_methods(
         finding,
         graph,
         graph_syntax,
@@ -241,13 +241,13 @@ def _mark_java_methods_input(
     )
 
 
-def _mark_java_methods_sink(
+def _mark_methods_sink(
     finding: core_model.FindingEnum,
     graph: graph_model.Graph,
     graph_syntax: graph_model.SyntaxSteps,
     methods: Set[str],
 ) -> None:
-    _mark_java_methods(
+    _mark_methods(
         finding,
         graph,
         graph_syntax,
@@ -256,7 +256,7 @@ def _mark_java_methods_sink(
     )
 
 
-def _mark_java_obj_inst(
+def _mark_obj_inst(
     finding: core_model.FindingEnum,
     graph: graph_model.Graph,
     graph_syntax: graph_model.SyntaxSteps,
@@ -272,13 +272,13 @@ def _mark_java_obj_inst(
                     marker(graph, syntax_step.meta.n_id, finding)
 
 
-def _mark_java_obj_inst_input(
+def _mark_obj_inst_input(
     finding: core_model.FindingEnum,
     graph: graph_model.Graph,
     graph_syntax: graph_model.SyntaxSteps,
     types: Set[str],
 ) -> None:
-    _mark_java_obj_inst(
+    _mark_obj_inst(
         finding,
         graph,
         graph_syntax,
@@ -287,13 +287,13 @@ def _mark_java_obj_inst_input(
     )
 
 
-def _mark_java_obj_inst_sink(
+def _mark_obj_inst_sink(
     finding: core_model.FindingEnum,
     graph: graph_model.Graph,
     graph_syntax: graph_model.SyntaxSteps,
     types: Set[str],
 ) -> None:
-    _mark_java_obj_inst(
+    _mark_obj_inst(
         finding,
         graph,
         graph_syntax,
