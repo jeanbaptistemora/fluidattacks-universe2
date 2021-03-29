@@ -276,6 +276,9 @@ integrates.back.test.functional.remove_files:
 integrates.back.test.functional.remove_group:
   <<: *integrates_back_test_functional
 
+integrates.back.test.functional.remove_stakeholder_access:
+  <<: *integrates_back_test_functional
+
 integrates.back.test.functional.remove_stakeholder_organization_access:
   <<: *integrates_back_test_functional
 
