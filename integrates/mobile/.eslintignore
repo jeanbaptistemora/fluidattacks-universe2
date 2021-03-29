@@ -2,6 +2,3 @@
 
 **/*.css.d.ts
 **/*.d.ts
-babel.config.js
-jestSetup.ts
-jest.config.js
