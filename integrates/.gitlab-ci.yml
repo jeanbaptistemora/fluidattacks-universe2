@@ -294,6 +294,9 @@ integrates.back.test.functional.sign_in:
 integrates.back.test.functional.solve_event:
   <<: *integrates_back_test_functional
 
+integrates.back.test.functional.stakeholder:
+  <<: *integrates_back_test_functional
+
 integrates.back.test.functional.submit_draft:
   <<: *integrates_back_test_functional
 

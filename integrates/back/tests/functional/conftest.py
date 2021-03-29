@@ -51,6 +51,7 @@ TEST_GROUPS: Set[str] = {
     'resources',
     'sign_in',
     'solve_event',
+    'stakeholder',
     'submit_draft',
     'unsubscribe_from_group',
     'update_access_token',
