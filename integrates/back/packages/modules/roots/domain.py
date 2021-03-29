@@ -14,6 +14,7 @@ from urllib3.util.url import parse_url
 from backend import authz
 from backend.domain import organization as org_domain
 from backend.exceptions import (
+    InvalidChar,
     InvalidParameter,
     InvalidRootExclusion,
     PermissionDenied,
@@ -147,6 +148,7 @@ async def _is_nickname_unique_in_group(group_name: str, nickname: str) -> bool:
         root.state.nickname
         for root in group_roots
         if isinstance(root, GitRootItem)
+        and root.state.status == 'ACTIVE'
     }
 
     return nickname not in nickname_roots
@@ -211,6 +213,8 @@ async def add_git_root(context: Any, user_email: str, **kwargs: Any) -> None:
 
     gitignore = kwargs['gitignore']
     enforcer = await authz.get_group_level_enforcer(user_email)
+    if not validations.validate_nickname(nickname):
+        raise InvalidChar()
     if (
         gitignore
         and not enforcer(group_name, 'update_git_root_filter')
@@ -411,6 +415,10 @@ async def update_git_root(user_email: str, **kwargs: Any) -> None:
         kwargs.get('nickname', ''),
         root.state.nickname
     )
+
+    if not validations.validate_nickname(nickname):
+        raise InvalidChar()
+
     if (
         nickname != root.state.nickname and
         not await _is_nickname_unique_in_group(group_name, nickname)
@@ -427,7 +435,7 @@ async def update_git_root(user_email: str, **kwargs: Any) -> None:
             includes_health_check=kwargs['includes_health_check'],
             modified_by=user_email,
             modified_date=datetime_utils.get_iso_date(),
-            nickname=root.state.nickname,
+            nickname=nickname,
             status=root.state.status
         )
     )

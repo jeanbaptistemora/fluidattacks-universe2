@@ -1,5 +1,6 @@
 # Standard
 import os
+import re
 from ipaddress import ip_address
 from typing import List
 from urllib.parse import ParseResult, unquote_plus, urlparse
@@ -48,3 +49,9 @@ def is_valid_ip(address: str) -> bool:
         return True
     except ValueError:
         return False
+
+
+def validate_nickname(nickname: str) -> bool:
+    if re.search('/', nickname):
+        return False
+    return True
