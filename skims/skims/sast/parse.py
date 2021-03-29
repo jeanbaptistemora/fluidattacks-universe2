@@ -37,10 +37,10 @@ from model.graph_model import (
 from sast import (
     inspectors,
 )
-from sast.syntax_readers import (
+from sast_syntax_readers import (
     generate as generate_syntax_readers,
 )
-from sast.transformations import (
+from sast_transformations import (
     control_flow,
     danger_nodes,
     styles,

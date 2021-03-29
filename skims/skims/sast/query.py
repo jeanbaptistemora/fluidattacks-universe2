@@ -15,7 +15,7 @@ from model import (
     core_model,
     graph_model,
 )
-from sast.symbolic_evaluation.evaluate import (
+from sast_symbolic_evaluation.evaluate import (
     get_possible_syntax_steps_linear,
 )
 from utils.ctx import (
