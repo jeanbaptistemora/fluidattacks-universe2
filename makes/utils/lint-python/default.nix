@@ -50,6 +50,7 @@ let
 in
 makeTemplate {
   arguments = {
+    envSettingsImports = path "/makes/utils/lint-python/settings-imports.py";
     envSettingsMypy = path "/makes/utils/lint-python/settings-mypy.cfg";
     envSettingsProspector = path "/makes/utils/lint-python/settings-prospector.yaml";
   };

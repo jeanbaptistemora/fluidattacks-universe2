@@ -42,6 +42,7 @@ function lint_python_imports {
   local site_packages_path="${2}"
 
       pushd "${site_packages_path}" \
+    &&  python '__envSettingsImports__' "${site_packages_path}" "${config}" \
     &&  lint-imports --config "${config}" \
   &&  popd \
   ||  return 1
