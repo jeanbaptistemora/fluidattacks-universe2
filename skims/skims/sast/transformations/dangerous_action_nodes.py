@@ -12,7 +12,7 @@ from sast.common import (
 )
 
 
-def _append_label_skink(
+def _append_label_sink(
     graph: graph_model.Graph,
     n_id: str,
     finding: core_model.FindingEnum,
@@ -110,7 +110,7 @@ def _mark_java_methods(
                     method in dangerous_methods or
                     syntax_step.method in dangerous_methods
                 ):
-                    _append_label_skink(graph, syntax_step.meta.n_id, finding)
+                    _append_label_sink(graph, syntax_step.meta.n_id, finding)
                     continue
 
             if isinstance(syntax_step, (
@@ -123,7 +123,7 @@ def _mark_java_methods(
                     method = parent_method + '.' + method
 
                 if method in dangerous_methods:
-                    _append_label_skink(graph, syntax_step.meta.n_id, finding)
+                    _append_label_sink(graph, syntax_step.meta.n_id, finding)
 
 
 def _mark_java_obj_inst(
@@ -138,7 +138,7 @@ def _mark_java_obj_inst(
                 graph_model.SyntaxStepObjectInstantiation,
             )):
                 if syntax_step.object_type in dangerous_types:
-                    _append_label_skink(graph, syntax_step.meta.n_id, finding)
+                    _append_label_sink(graph, syntax_step.meta.n_id, finding)
 
 
 def mark(

@@ -19,13 +19,12 @@ from sast.common import (
 def _append_label_input(
     graph: graph_model.Graph,
     n_id: str,
-    label: str,
+    finding: core_model.FindingEnum,
 ) -> None:
-    if sink := graph.nodes[n_id].get('label_input_type'):
-        sink += f',{label}'
-        graph.nodes[n_id]['label_input_type'] = sink
+    if 'label_input_type' in graph.nodes[n_id]:
+        graph.nodes[n_id]['label_input_type'] += f',{finding.name}'
     else:
-        graph.nodes[n_id]['label_input_type'] = label
+        graph.nodes[n_id]['label_input_type'] = finding.name
 
 
 def _mark_java(graph: graph_model.Graph) -> None:
@@ -35,14 +34,14 @@ def _mark_java(graph: graph_model.Graph) -> None:
 
 def _mark_java_request(graph: graph_model.Graph) -> None:
     findins_no_trust_requests = (
-        core_model.FindingEnum.F001_JAVA_SQL.name,
-        core_model.FindingEnum.F004.name,
-        core_model.FindingEnum.F008.name,
-        core_model.FindingEnum.F021.name,
-        core_model.FindingEnum.F042.name,
-        core_model.FindingEnum.F063_PATH_TRAVERSAL.name,
-        core_model.FindingEnum.F063_TRUSTBOUND.name,
-        core_model.FindingEnum.F107.name,
+        core_model.FindingEnum.F001_JAVA_SQL,
+        core_model.FindingEnum.F004,
+        core_model.FindingEnum.F008,
+        core_model.FindingEnum.F021,
+        core_model.FindingEnum.F042,
+        core_model.FindingEnum.F063_PATH_TRAVERSAL,
+        core_model.FindingEnum.F063_TRUSTBOUND,
+        core_model.FindingEnum.F107,
     )
     untrusted_types = {
         'HttpServletRequest',
