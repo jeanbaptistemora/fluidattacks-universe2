@@ -46,10 +46,10 @@ def get_model_features() -> Tuple[str, ...]:
 
 def train_model(
     model_class: ModelType,
+    model_features: Tuple[str, ...],
     training_dir: str,
     previous_results: List[List[str]]
 ) -> List[List[str]]:
-    model_features: Tuple[str, ...] = get_model_features()
     start_time: float = time.time()
 
     training_data: DataFrame = load_training_data(training_dir)
@@ -114,6 +114,7 @@ def main() -> None:
 
     training_output = train_model(
         model,
+        model_features,
         args.train,
         previous_results
     )
@@ -134,7 +135,6 @@ def main() -> None:
             args.activation
         ]
         model_file_name: str = '-'.join(model_name_list)
-        print(model_file_name)
         local_file: str = os.path.join(tmp_dir, f'{model_file_name}.joblib')
         dump(model, local_file)
         S3_BUCKET.Object(
