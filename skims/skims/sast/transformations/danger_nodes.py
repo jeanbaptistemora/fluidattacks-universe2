@@ -1,5 +1,6 @@
 # Local libraries
 from typing import (
+    Callable,
     Set,
 )
 from model import (
@@ -24,6 +25,12 @@ def _append_label(
         graph.nodes[n_id][label] = finding.name
 
 
+AppendLabelType = Callable[
+    [graph_model.Graph, str, core_model.FindingEnum],
+    None
+]
+
+
 def _append_label_input(
     graph: graph_model.Graph,
     n_id: str,
@@ -46,6 +53,9 @@ def _mark_java_inputs(
 ) -> None:
     findings = core_model.FindingEnum
 
+    _mark_java_obj_inst_input(findings.F034, graph, syntax, {
+        *build_attr_paths('java', 'util', 'Random'),
+    })
     for finding in (
         findings.F001_JAVA_SQL,
         findings.F004,
@@ -67,7 +77,7 @@ def _mark_java_sinks(
 ) -> None:
     findings = core_model.FindingEnum
 
-    _mark_java_methods(findings.F001_JAVA_SQL, graph, syntax, {
+    _mark_java_methods_sink(findings.F001_JAVA_SQL, graph, syntax, {
         'addBatch',
         'batchUpdate',
         'execute',
@@ -84,12 +94,12 @@ def _mark_java_sinks(
         'queryForObject',
         'queryForRowSet',
     })
-    _mark_java_methods(findings.F004, graph, syntax, {
+    _mark_java_methods_sink(findings.F004, graph, syntax, {
         'command',
         'exec',
         'start',
     })
-    _mark_java_methods(findings.F008, graph, syntax, {
+    _mark_java_methods_sink(findings.F008, graph, syntax, {
         'format',
         'getWriter.format',
         'getWriter.print',
@@ -97,33 +107,33 @@ def _mark_java_sinks(
         'getWriter.println',
         'getWriter.write',
     })
-    _mark_java_methods(findings.F021, graph, syntax, {
+    _mark_java_methods_sink(findings.F021, graph, syntax, {
         'compile',
         'evaluate',
     })
-    _mark_java_methods(findings.F034, graph, syntax, {
+    _mark_java_methods_sink(findings.F034, graph, syntax, {
         'getSession.setAttribute',
         'addCookie',
     })
-    _mark_java_methods(findings.F042, graph, syntax, {
+    _mark_java_methods_sink(findings.F042, graph, syntax, {
         'addCookie',
         'evaluate',
     })
-    _mark_java_methods(findings.F063_PATH_TRAVERSAL, graph, syntax, {
+    _mark_java_methods_sink(findings.F063_PATH_TRAVERSAL, graph, syntax, {
         'java.nio.file.Files.newInputStream',
         'java.nio.file.Paths.get',
     })
-    _mark_java_methods(findings.F063_TRUSTBOUND, graph, syntax, {
+    _mark_java_methods_sink(findings.F063_TRUSTBOUND, graph, syntax, {
         'putValue',
         'setAttribute',
     })
-    _mark_java_methods(findings.F107, graph, syntax, {
+    _mark_java_methods_sink(findings.F107, graph, syntax, {
         'search',
     })
-    _mark_java_obj_inst(findings.F004, graph, syntax, {
+    _mark_java_obj_inst_sink(findings.F004, graph, syntax, {
         *build_attr_paths('java', 'lang', 'ProcessBuilder'),
     })
-    _mark_java_obj_inst(findings.F063_PATH_TRAVERSAL, graph, syntax, {
+    _mark_java_obj_inst_sink(findings.F063_PATH_TRAVERSAL, graph, syntax, {
         *build_attr_paths('java', 'io', 'File'),
         *build_attr_paths('java', 'io', 'FileInputStream'),
         *build_attr_paths('java', 'io', 'FileOutputStream'),
@@ -147,7 +157,8 @@ def _mark_java_methods(
     finding: core_model.FindingEnum,
     graph: graph_model.Graph,
     graph_syntax: graph_model.SyntaxSteps,
-    dangerous_methods: Set[str],
+    methods: Set[str],
+    marker: AppendLabelType,
 ) -> None:
     for syntax_steps in graph_syntax.values():
         for index, syntax_step in enumerate(syntax_steps):
@@ -158,10 +169,10 @@ def _mark_java_methods(
                 method = syntax_step.method.rsplit('.', maxsplit=1)[-1]
 
                 if (
-                    method in dangerous_methods or
-                    syntax_step.method in dangerous_methods
+                    method in methods or
+                    syntax_step.method in methods
                 ):
-                    _append_label_sink(graph, syntax_step.meta.n_id, finding)
+                    marker(graph, syntax_step.meta.n_id, finding)
                     continue
 
             if isinstance(syntax_step, (
@@ -173,23 +184,84 @@ def _mark_java_methods(
                     parent_method = parent.method.rsplit('.', maxsplit=1)[-1]
                     method = parent_method + '.' + method
 
-                if method in dangerous_methods:
-                    _append_label_sink(graph, syntax_step.meta.n_id, finding)
+                if method in methods:
+                    marker(graph, syntax_step.meta.n_id, finding)
+
+
+def _mark_java_methods_input(
+    finding: core_model.FindingEnum,
+    graph: graph_model.Graph,
+    graph_syntax: graph_model.SyntaxSteps,
+    methods: Set[str],
+) -> None:
+    _mark_java_methods(
+        finding,
+        graph,
+        graph_syntax,
+        methods,
+        _append_label_input,
+    )
+
+
+def _mark_java_methods_sink(
+    finding: core_model.FindingEnum,
+    graph: graph_model.Graph,
+    graph_syntax: graph_model.SyntaxSteps,
+    methods: Set[str],
+) -> None:
+    _mark_java_methods(
+        finding,
+        graph,
+        graph_syntax,
+        methods,
+        _append_label_sink,
+    )
 
 
 def _mark_java_obj_inst(
     finding: core_model.FindingEnum,
     graph: graph_model.Graph,
     graph_syntax: graph_model.SyntaxSteps,
-    dangerous_types: Set[str],
+    types: Set[str],
+    marker: AppendLabelType,
 ) -> None:
     for syntax_steps in graph_syntax.values():
         for syntax_step in syntax_steps:
             if isinstance(syntax_step, (
                 graph_model.SyntaxStepObjectInstantiation,
             )):
-                if syntax_step.object_type in dangerous_types:
-                    _append_label_sink(graph, syntax_step.meta.n_id, finding)
+                if syntax_step.object_type in types:
+                    marker(graph, syntax_step.meta.n_id, finding)
+
+
+def _mark_java_obj_inst_input(
+    finding: core_model.FindingEnum,
+    graph: graph_model.Graph,
+    graph_syntax: graph_model.SyntaxSteps,
+    types: Set[str],
+) -> None:
+    _mark_java_obj_inst(
+        finding,
+        graph,
+        graph_syntax,
+        types,
+        _append_label_input,
+    )
+
+
+def _mark_java_obj_inst_sink(
+    finding: core_model.FindingEnum,
+    graph: graph_model.Graph,
+    graph_syntax: graph_model.SyntaxSteps,
+    types: Set[str],
+) -> None:
+    _mark_java_obj_inst(
+        finding,
+        graph,
+        graph_syntax,
+        types,
+        _append_label_sink,
+    )
 
 
 def mark(

@@ -21,16 +21,9 @@ def _mark_java(graph: graph_model.Graph) -> None:
 
 
 def _mark_java_f034(graph: graph_model.Graph) -> None:
-    identifier_objects: Set[str] = {
-        *build_attr_paths('java', 'util', 'Random'),
-    }
     identifier_methos: Set[str] = {
         *build_attr_paths('java', 'lang', 'Math'),
     }
-
-    for n_id in g.yield_object_creation_expression(graph, identifier_objects):
-        graph.nodes[n_id][
-            'label_input_type'] = core_model.FindingEnum.F034.name
 
     for n_id in g.filter_nodes(
             graph,
