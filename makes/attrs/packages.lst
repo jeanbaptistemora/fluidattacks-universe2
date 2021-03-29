@@ -102,6 +102,8 @@ observes.env.tap-csv.development
 observes.env.tap-csv.development.python
 observes.env.tap-csv.runtime
 observes.env.tap-csv.runtime.python
+observes.env.tap-formstack.runtime
+observes.env.tap-formstack.runtime.python
 observes.env.tap-mixpanel.development
 observes.env.tap-mixpanel.development.python
 observes.env.tap-mixpanel.runtime
