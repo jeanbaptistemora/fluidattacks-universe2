@@ -2,7 +2,6 @@
 import logging
 import logging.config
 import re
-from datetime import datetime
 from typing import (
     Any,
     Awaitable,
@@ -32,21 +31,16 @@ from backend.domain import (
     organization as org_domain,
     project as project_domain,
 )
-from backend.exceptions import (
-    InvalidExpirationTime,
-    InvalidPushToken,
-)
+from backend.exceptions import InvalidPushToken
 from backend.typing import (
     Invitation as InvitationType,
     ProjectAccess as ProjectAccessType,
-    UpdateAccessTokenPayload as UpdateAccessTokenPayloadType,
     User as UserType,
 )
 from newutils import (
     apm,
     datetime as datetime_utils,
     groups as groups_utils,
-    token as token_helper,
 )
 from newutils.validations import (
     validate_email_address,
@@ -361,11 +355,6 @@ async def register(email: str) -> bool:
     return await user_dal.update(email, {'registered': True})
 
 
-async def remove_access_token(email: str) -> bool:
-    """ Remove access token attribute """
-    return await user_dal.update(email, {'access_token': None})
-
-
 async def remove_push_token(user_email: str, push_token: str) -> bool:
     user_attrs: dict = await get_attributes(user_email, ['push_tokens'])
     tokens: List[str] = list(
@@ -379,44 +368,6 @@ async def remove_push_token(user_email: str, push_token: str) -> bool:
 
 async def update(email: str, data_attr: str, name_attr: str) -> bool:
     return await user_dal.update(email, {name_attr: data_attr})
-
-
-async def update_access_token(
-    email: str,
-    expiration_time: int,
-    **kwargs_token: Any
-) -> UpdateAccessTokenPayloadType:
-    """ Update access token """
-    token_data = util.calculate_hash_token()
-    session_jwt = ''
-    success = False
-
-    if util.is_valid_expiration_time(expiration_time):
-        iat = int(datetime.utcnow().timestamp())
-        session_jwt = token_helper.new_encoded_jwt(
-            {
-                'user_email': email,
-                'jti': token_data['jti'],
-                'iat': iat,
-                'exp': expiration_time,
-                'sub': 'api_token',
-                **kwargs_token
-            },
-            api=True
-        )
-        access_token = {
-            'iat': iat,
-            'jti': token_data['jti_hashed'],
-            'salt': token_data['salt']
-        }
-        success = await user_dal.update(email, {'access_token': access_token})
-    else:
-        raise InvalidExpirationTime()
-
-    return UpdateAccessTokenPayloadType(
-        success=success,
-        session_jwt=session_jwt
-    )
 
 
 async def update_legal_remember(email: str, remember: bool) -> bool:
