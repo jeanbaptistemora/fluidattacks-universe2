@@ -5,7 +5,14 @@ import type { StyledComponent } from "styled-components";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import styled from "styled-components";
 import { useTranslation } from "react-i18next";
-import { attackComplexityBgColor, attackComplexityOptions } from "../utils";
+import {
+  attackComplexityBgColor,
+  attackComplexityOptions,
+  attackVectorBgColor,
+  attackVectorOptions,
+  availabilityImpactBgColor,
+  availabilityImpactOptions,
+} from "../utils";
 
 const Row: StyledComponent<"div", Record<string, unknown>> = styled.div.attrs<{
   className: string;
@@ -31,7 +38,9 @@ const FlexCol: StyledComponent<
 export const SeverityContent: React.FC<
   ISeverityAttr["finding"]["severity"]
 > = ({
+  attackVector,
   attackComplexity,
+  availabilityImpact,
 }: ISeverityAttr["finding"]["severity"]): JSX.Element => {
   const { t } = useTranslation();
 
@@ -46,7 +55,21 @@ export const SeverityContent: React.FC<
         </Row>
         <Row>
           <FlexCol>
-            <Col />
+            <Col>
+              <TooltipWrapper
+                id={"attackVectorTooltip"}
+                message={t(
+                  attackVectorOptions[attackVector].replace(/text/u, "tooltip")
+                )}
+              >
+                <SeverityTile
+                  color={attackVectorBgColor[attackVector]}
+                  name={"attackVector"}
+                  value={attackVector}
+                  valueText={t(attackVectorOptions[attackVector])}
+                />
+              </TooltipWrapper>
+            </Col>
             <Col>
               <TooltipWrapper
                 id={"attackComplexityTooltip"}
@@ -71,7 +94,24 @@ export const SeverityContent: React.FC<
         </Row>
         <Row>
           <FlexCol>
-            <Col />
+            <Col>
+              <TooltipWrapper
+                id={"availabilityImpactTooltip"}
+                message={t(
+                  availabilityImpactOptions[availabilityImpact].replace(
+                    /text/u,
+                    "tooltip"
+                  )
+                )}
+              >
+                <SeverityTile
+                  color={availabilityImpactBgColor[availabilityImpact]}
+                  name={"availabilityImpact"}
+                  value={availabilityImpact}
+                  valueText={t(availabilityImpactOptions[availabilityImpact])}
+                />
+              </TooltipWrapper>
+            </Col>
             <Col />
             <Col />
           </FlexCol>

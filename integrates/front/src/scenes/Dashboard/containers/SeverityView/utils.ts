@@ -35,6 +35,32 @@ const attackComplexityOptions: Record<string, string> = {
   0.77: "searchFindings.tabSeverity.attackComplexityOptions.low.text",
 };
 
+const attackVectorBgColor: Record<string, string> = {
+  0.2: "bg-lbl-yellow",
+  0.55: "bg-orange",
+  0.62: "bg-red",
+  0.85: "bg-dark-red",
+};
+
+const attackVectorOptions: Record<string, string> = {
+  0.2: "searchFindings.tabSeverity.attackVectorOptions.physical.text",
+  0.55: "searchFindings.tabSeverity.attackVectorOptions.local.text",
+  0.62: "searchFindings.tabSeverity.attackVectorOptions.adjacent.text",
+  0.85: "searchFindings.tabSeverity.attackVectorOptions.network.text",
+};
+
+const availabilityImpactBgColor: Record<string, string> = {
+  0: "bg-lbl-green",
+  0.22: "bg-lbl-yellow",
+  0.56: "bg-dark-red",
+};
+
+const availabilityImpactOptions: Record<string, string> = {
+  0: "searchFindings.tabSeverity.availabilityImpactOptions.none.text",
+  0.22: "searchFindings.tabSeverity.availabilityImpactOptions.low.text",
+  0.56: "searchFindings.tabSeverity.availabilityImpactOptions.high.text",
+};
+
 /**
  * Values were taken from:
  * @see https://www.first.org/cvss/specification-document#7-4-Metric-Values
@@ -48,13 +74,6 @@ const castFieldsCVSS3: (
   isEditing: boolean,
   formValues: Record<string, string>
 ): ISeverityField[] => {
-  const attackVector: Record<string, string> = {
-    0.2: "searchFindings.tabSeverity.attackVectorOptions.physical.text",
-    0.55: "searchFindings.tabSeverity.attackVectorOptions.local.text",
-    0.62: "searchFindings.tabSeverity.attackVectorOptions.adjacent.text",
-    0.85: "searchFindings.tabSeverity.attackVectorOptions.network.text",
-  };
-
   const userInteraction: Record<string, string> = {
     0.62: "searchFindings.tabSeverity.userInteractionOptions.required.text",
     0.85: "searchFindings.tabSeverity.userInteractionOptions.none.text",
@@ -75,12 +94,6 @@ const castFieldsCVSS3: (
     0: "searchFindings.tabSeverity.integrityImpactOptions.none.text",
     0.22: "searchFindings.tabSeverity.integrityImpactOptions.low.text",
     0.56: "searchFindings.tabSeverity.integrityImpactOptions.high.text",
-  };
-
-  const availabilityImpact: Record<string, string> = {
-    0: "searchFindings.tabSeverity.availabilityImpactOptions.none.text",
-    0.22: "searchFindings.tabSeverity.availabilityImpactOptions.low.text",
-    0.56: "searchFindings.tabSeverity.availabilityImpactOptions.high.text",
   };
 
   const exploitability: Record<string, string> = {
@@ -107,7 +120,7 @@ const castFieldsCVSS3: (
     {
       currentValue: dataset.attackVector,
       name: "attackVector",
-      options: attackVector,
+      options: attackVectorOptions,
       title: translate.t("searchFindings.tabSeverity.attackVector"),
     },
     {
@@ -143,7 +156,7 @@ const castFieldsCVSS3: (
     {
       currentValue: dataset.availabilityImpact,
       name: "availabilityImpact",
-      options: availabilityImpact,
+      options: availabilityImpactOptions,
       title: translate.t("searchFindings.tabSeverity.availabilityImpact"),
     },
     {
@@ -214,7 +227,7 @@ const castFieldsCVSS3: (
     {
       currentValue: dataset.modifiedAttackVector,
       name: "modifiedAttackVector",
-      options: attackVector,
+      options: attackVectorOptions,
       title: translate.t("searchFindings.tabSeverity.modifiedAttackVector"),
     },
     {
@@ -252,7 +265,7 @@ const castFieldsCVSS3: (
     {
       currentValue: dataset.modifiedAvailabilityImpact,
       name: "modifiedAvailabilityImpact",
-      options: availabilityImpact,
+      options: availabilityImpactOptions,
       title: translate.t(
         "searchFindings.tabSeverity.modifiedAvailabilityImpact"
       ),
@@ -280,6 +293,10 @@ const castFieldsCVSS3: (
 export {
   attackComplexityBgColor,
   attackComplexityOptions,
+  attackVectorBgColor,
+  attackVectorOptions,
+  availabilityImpactBgColor,
+  availabilityImpactOptions,
   castFieldsCVSS3,
   castPrivileges,
 };

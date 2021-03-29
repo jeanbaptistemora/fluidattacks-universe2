@@ -3,6 +3,13 @@ import { ReactSVG } from "react-svg";
 import _ from "lodash";
 import attackComplexityHigh from "resources/attackComplexityHigh.svg";
 import attackComplexityLow from "resources/attackComplexityLow.svg";
+import attackVectorAdjacent from "resources/attackVectorAdjacent.svg";
+import attackVectorLocal from "resources/attackVectorLocal.svg";
+import attackVectorNetwork from "resources/attackVectorNetwork.svg";
+import attackVectorPhysical from "resources/attackVectorPhysical.svg";
+import availabilityImpactHigh from "resources/availabilityImpactHigh.svg";
+import availabilityImpactLow from "resources/availabilityImpactLow.svg";
+import availabilityImpactNone from "resources/availabilityImpactNone.svg";
 import { useTranslation } from "react-i18next";
 
 interface ISeverityTile {
@@ -15,6 +22,13 @@ interface ISeverityTile {
 const severityImages: Record<string, string> = {
   attackComplexityHigh,
   attackComplexityLow,
+  attackVectorAdjacent,
+  attackVectorLocal,
+  attackVectorNetwork,
+  attackVectorPhysical,
+  availabilityImpactHigh,
+  availabilityImpactLow,
+  availabilityImpactNone,
 };
 
 export const SeverityTile: React.FC<ISeverityTile> = ({
