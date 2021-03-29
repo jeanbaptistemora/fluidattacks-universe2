@@ -49,7 +49,7 @@ bugsnag_utils.start_scheduler_session()
 
 def _format_date(date_str: str) -> str:
     date = datetime_utils.get_from_str(date_str, date_format='%Y-%m-%d')
-    formated_date_str = datetime_utils.get_as_str(date)
+    formated_date_str = date.isoformat()
 
     return formated_date_str
 
