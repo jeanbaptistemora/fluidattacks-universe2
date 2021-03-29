@@ -40,7 +40,7 @@ from sast import (
 )
 from sast.transformations import (
     control_flow,
-    dangerous_action_nodes,
+    danger_nodes,
     styles,
     untrusted_nodes,
 )
@@ -218,7 +218,7 @@ def _parse_one_cached(
     graph: Graph = _build_ast_graph(content, language, raw_tree)
     control_flow.add(graph)
     syntax = syntax_readers.read_from_graph(graph, language)
-    dangerous_action_nodes.mark(graph, language, syntax)
+    danger_nodes.mark(graph, language, syntax)
 
     untrusted_nodes.mark(graph, language)
     styles.add(graph)

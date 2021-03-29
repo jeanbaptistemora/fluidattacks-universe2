@@ -12,18 +12,56 @@ from sast.common import (
 )
 
 
+def _append_label(
+    graph: graph_model.Graph,
+    n_id: str,
+    label: str,
+    finding: core_model.FindingEnum,
+) -> None:
+    if label in graph.nodes[n_id]:
+        graph.nodes[n_id][label] += f',{finding.name}'
+    else:
+        graph.nodes[n_id][label] = finding.name
+
+
+def _append_label_input(
+    graph: graph_model.Graph,
+    n_id: str,
+    finding: core_model.FindingEnum,
+) -> None:
+    _append_label(graph, n_id, 'label_input_type', finding)
+
+
 def _append_label_sink(
     graph: graph_model.Graph,
     n_id: str,
     finding: core_model.FindingEnum,
 ) -> None:
-    if 'label_sink_type' in graph.nodes[n_id]:
-        graph.nodes[n_id]['label_sink_type'] += f',{finding.name}'
-    else:
-        graph.nodes[n_id]['label_sink_type'] = finding.name
+    _append_label(graph, n_id, 'label_sink_type', finding)
 
 
-def _mark_java(
+def _mark_java_inputs(
+    graph: graph_model.Graph,
+    syntax: graph_model.GraphSyntax,
+) -> None:
+    findings = core_model.FindingEnum
+
+    for finding in (
+        findings.F001_JAVA_SQL,
+        findings.F004,
+        findings.F008,
+        findings.F021,
+        findings.F042,
+        findings.F063_PATH_TRAVERSAL,
+        findings.F063_TRUSTBOUND,
+        findings.F107,
+    ):
+        _mark_java_function_arg(finding, graph, syntax, build_attr_paths(
+            'javax', 'servlet', 'http', 'HttpServletRequest',
+        ))
+
+
+def _mark_java_sinks(
     graph: graph_model.Graph,
     syntax: graph_model.GraphSyntax,
 ) -> None:
@@ -92,6 +130,19 @@ def _mark_java(
     })
 
 
+def _mark_java_function_arg(
+    finding: core_model.FindingEnum,
+    graph: graph_model.Graph,
+    graph_syntax: graph_model.SyntaxSteps,
+    dangerous_types: Set[str],
+) -> None:
+    for syntax_steps in graph_syntax.values():
+        for syntax_step in syntax_steps:
+            if isinstance(syntax_step, graph_model.SyntaxStepDeclaration):
+                if syntax_step.var_type in dangerous_types:
+                    _append_label_input(graph, syntax_step.meta.n_id, finding)
+
+
 def _mark_java_methods(
     finding: core_model.FindingEnum,
     graph: graph_model.Graph,
@@ -147,4 +198,5 @@ def mark(
     syntax: graph_model.GraphSyntax,
 ) -> None:
     if language == graph_model.GraphShardMetadataLanguage.JAVA:
-        _mark_java(graph, syntax)
+        _mark_java_inputs(graph, syntax)
+        _mark_java_sinks(graph, syntax)

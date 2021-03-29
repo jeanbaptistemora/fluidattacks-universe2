@@ -16,59 +16,8 @@ from sast.common import (
 )
 
 
-def _append_label_input(
-    graph: graph_model.Graph,
-    n_id: str,
-    finding: core_model.FindingEnum,
-) -> None:
-    if 'label_input_type' in graph.nodes[n_id]:
-        graph.nodes[n_id]['label_input_type'] += f',{finding.name}'
-    else:
-        graph.nodes[n_id]['label_input_type'] = finding.name
-
-
 def _mark_java(graph: graph_model.Graph) -> None:
-    _mark_java_request(graph)
     _mark_java_f034(graph)
-
-
-def _mark_java_request(graph: graph_model.Graph) -> None:
-    findins_no_trust_requests = (
-        core_model.FindingEnum.F001_JAVA_SQL,
-        core_model.FindingEnum.F004,
-        core_model.FindingEnum.F008,
-        core_model.FindingEnum.F021,
-        core_model.FindingEnum.F042,
-        core_model.FindingEnum.F063_PATH_TRAVERSAL,
-        core_model.FindingEnum.F063_TRUSTBOUND,
-        core_model.FindingEnum.F107,
-    )
-    untrusted_types = {
-        'HttpServletRequest',
-    }
-    for n_id in g.filter_nodes(
-            graph,
-            graph.nodes,
-            predicate=g.pred_has_labels(label_type='method_declaration'),
-    ):
-        for params_id in g.get_ast_childs(graph, n_id, 'formal_parameters'):
-            for param_id in g.get_ast_childs(
-                    graph,
-                    params_id,
-                    'formal_parameter',
-            ):
-                untrusted_params = (type_id for type_id in g.get_ast_childs(
-                    graph,
-                    param_id,
-                    'type_identifier',
-                ) if graph.nodes[type_id]['label_text'] in untrusted_types)
-                for var_type_id in untrusted_params:
-                    for finding in findins_no_trust_requests:
-                        _append_label_input(
-                            graph,
-                            var_type_id,
-                            finding,
-                        )
 
 
 def _mark_java_f034(graph: graph_model.Graph) -> None:
