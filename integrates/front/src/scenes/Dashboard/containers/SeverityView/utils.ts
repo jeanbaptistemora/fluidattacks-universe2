@@ -61,6 +61,20 @@ const availabilityImpactOptions: Record<string, string> = {
   0.56: "searchFindings.tabSeverity.availabilityImpactOptions.high.text",
 };
 
+const exploitabilityBgColor: Record<string, string> = {
+  0.91: "bg-lbl-yellow",
+  0.94: "bg-orange",
+  0.97: "bg-red",
+  1: "bg-dark-red",
+};
+
+const exploitabilityOptions: Record<string, string> = {
+  0.91: "searchFindings.tabSeverity.exploitabilityOptions.unproven.text",
+  0.94: "searchFindings.tabSeverity.exploitabilityOptions.proofOfConcept.text",
+  0.97: "searchFindings.tabSeverity.exploitabilityOptions.functional.text",
+  1: "searchFindings.tabSeverity.exploitabilityOptions.high.text",
+};
+
 /**
  * Values were taken from:
  * @see https://www.first.org/cvss/specification-document#7-4-Metric-Values
@@ -94,13 +108,6 @@ const castFieldsCVSS3: (
     0: "searchFindings.tabSeverity.integrityImpactOptions.none.text",
     0.22: "searchFindings.tabSeverity.integrityImpactOptions.low.text",
     0.56: "searchFindings.tabSeverity.integrityImpactOptions.high.text",
-  };
-
-  const exploitability: Record<string, string> = {
-    0.91: "searchFindings.tabSeverity.exploitabilityOptions.unproven.text",
-    0.94: "searchFindings.tabSeverity.exploitabilityOptions.proofOfConcept.text",
-    0.97: "searchFindings.tabSeverity.exploitabilityOptions.functional.text",
-    1: "searchFindings.tabSeverity.exploitabilityOptions.high.text",
   };
 
   const remediationLevel: Record<string, string> = {
@@ -162,7 +169,7 @@ const castFieldsCVSS3: (
     {
       currentValue: dataset.exploitability,
       name: "exploitability",
-      options: exploitability,
+      options: exploitabilityOptions,
       title: translate.t("searchFindings.tabSeverity.exploitability"),
     },
     {
@@ -299,4 +306,6 @@ export {
   availabilityImpactOptions,
   castFieldsCVSS3,
   castPrivileges,
+  exploitabilityBgColor,
+  exploitabilityOptions,
 };

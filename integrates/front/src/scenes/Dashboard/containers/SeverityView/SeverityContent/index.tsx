@@ -12,6 +12,9 @@ import {
   attackVectorOptions,
   availabilityImpactBgColor,
   availabilityImpactOptions,
+  castPrivileges,
+  exploitabilityBgColor,
+  exploitabilityOptions,
 } from "../utils";
 
 const Row: StyledComponent<"div", Record<string, unknown>> = styled.div.attrs<{
@@ -41,8 +44,21 @@ export const SeverityContent: React.FC<
   attackVector,
   attackComplexity,
   availabilityImpact,
+  exploitability,
+  privilegesRequired,
+  severityScope,
 }: ISeverityAttr["finding"]["severity"]): JSX.Element => {
   const { t } = useTranslation();
+
+  function getPrivilegesRequiredColor(value: string): string {
+    if (t(castPrivileges(severityScope)[value]) === "None") {
+      return "bg-dark-red";
+    } else if (t(castPrivileges(severityScope)[value]) === "Low") {
+      return "bg-orange";
+    }
+
+    return "bg-lbl-yellow";
+  }
 
   return (
     <React.StrictMode>
@@ -50,7 +66,26 @@ export const SeverityContent: React.FC<
         <Row>
           <FlexCol>
             <Col />
-            <Col />
+            <Col>
+              <TooltipWrapper
+                id={"privilegesRequiredTooltip"}
+                message={t(
+                  castPrivileges(severityScope)[privilegesRequired].replace(
+                    /text/u,
+                    "tooltip"
+                  )
+                )}
+              >
+                <SeverityTile
+                  color={getPrivilegesRequiredColor(privilegesRequired)}
+                  name={"privilegesRequired"}
+                  value={privilegesRequired}
+                  valueText={t(
+                    castPrivileges(severityScope)[privilegesRequired]
+                  )}
+                />
+              </TooltipWrapper>
+            </Col>
           </FlexCol>
         </Row>
         <Row>
@@ -88,7 +123,24 @@ export const SeverityContent: React.FC<
                 />
               </TooltipWrapper>
             </Col>
-            <Col />
+            <Col>
+              <TooltipWrapper
+                id={"exploitabilityTooltip"}
+                message={t(
+                  exploitabilityOptions[exploitability].replace(
+                    /text/u,
+                    "tooltip"
+                  )
+                )}
+              >
+                <SeverityTile
+                  color={exploitabilityBgColor[exploitability]}
+                  name={"exploitability"}
+                  value={exploitability}
+                  valueText={t(exploitabilityOptions[exploitability])}
+                />
+              </TooltipWrapper>
+            </Col>
             <Col />
           </FlexCol>
         </Row>

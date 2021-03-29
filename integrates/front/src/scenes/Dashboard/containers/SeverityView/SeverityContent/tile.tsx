@@ -10,6 +10,13 @@ import attackVectorPhysical from "resources/attackVectorPhysical.svg";
 import availabilityImpactHigh from "resources/availabilityImpactHigh.svg";
 import availabilityImpactLow from "resources/availabilityImpactLow.svg";
 import availabilityImpactNone from "resources/availabilityImpactNone.svg";
+import exploitabilityFunctional from "resources/exploitabilityFunctional.svg";
+import exploitabilityHigh from "resources/exploitabilityHigh.svg";
+import exploitabilityProof from "resources/exploitabilityProof.svg";
+import exploitabilityUnproven from "resources/exploitabilityUnproven.svg";
+import privilegesRequiredHigh from "resources/privilegesRequiredHigh.svg";
+import privilegesRequiredLow from "resources/privilegesRequiredLow.svg";
+import privilegesRequiredNone from "resources/privilegesRequiredNone.svg";
 import { useTranslation } from "react-i18next";
 
 interface ISeverityTile {
@@ -29,6 +36,13 @@ const severityImages: Record<string, string> = {
   availabilityImpactHigh,
   availabilityImpactLow,
   availabilityImpactNone,
+  exploitabilityFunctional,
+  exploitabilityHigh,
+  exploitabilityProof,
+  exploitabilityUnproven,
+  privilegesRequiredHigh,
+  privilegesRequiredLow,
+  privilegesRequiredNone,
 };
 
 export const SeverityTile: React.FC<ISeverityTile> = ({
