@@ -94,91 +94,18 @@ async def get_roots(*, group_name: str) -> Tuple[RootItem, ...]:
     return await roots_dal.get_roots(group_name=group_name)
 
 
-def _format_git_repo_url(raw_url: str) -> str:
-    is_ssh: bool = (
-        raw_url.startswith('ssh://')
-        or bool(re.match(r'^\w+@.*', raw_url))
-    )
-    url = (
-        f'ssh://{raw_url}'
-        if is_ssh and not raw_url.startswith('ssh://')
-        else raw_url
-    )
-
-    return unquote(url)
-
-
 @newrelic.agent.function_trace()
-async def _is_git_unique_in_org(org_id: str, url: str, branch: str) -> bool:
+async def get_org_roots(*, org_id: str) -> Tuple[RootItem, ...]:
     org_groups = await org_domain.get_groups(org_id)
-    org_roots = tuple(
-        (root.metadata.url, root.metadata.branch)
+
+    return tuple(
+        root
         for group_roots in await collect(tuple(
             get_roots(group_name=group_name)
             for group_name in org_groups
         ))
         for root in group_roots
-        if isinstance(root, GitRootItem)
-        and root.state.status == 'ACTIVE'
     )
-
-    return (url, branch) not in org_roots
-
-
-@newrelic.agent.function_trace()
-async def _is_ip_unique_in_org(org_id: str, address: str, port: str) -> bool:
-    org_groups = await org_domain.get_groups(org_id)
-    org_roots = tuple(
-        (root.state.address, root.state.port)
-        for group_roots in await collect(
-            get_roots(group_name=group_name)
-            for group_name in org_groups
-        )
-        for root in group_roots
-        if isinstance(root, IPRootItem)
-    )
-
-    return (address, port) not in org_roots
-
-
-@newrelic.agent.function_trace()
-async def _is_nickname_unique_in_group(group_name: str, nickname: str) -> bool:
-    group_roots = await get_roots(group_name=group_name)
-    nickname_roots = {
-        root.state.nickname
-        for root in group_roots
-        if isinstance(root, GitRootItem)
-        and root.state.status == 'ACTIVE'
-    }
-
-    return nickname not in nickname_roots
-
-
-@newrelic.agent.function_trace()
-async def _is_url_unique_in_org(
-    org_id: str,
-    host: str,
-    path: str,
-    port: str,
-    protocol: str
-) -> bool:
-    org_groups = await org_domain.get_groups(org_id)
-    org_roots = tuple(
-        (
-            root.state.host,
-            root.state.path,
-            root.state.port,
-            root.state.protocol
-        )
-        for group_roots in await collect(
-            get_roots(group_name=group_name)
-            for group_name in org_groups
-        )
-        for root in group_roots
-        if isinstance(root, URLRootItem)
-    )
-
-    return (host, path, port, protocol) not in org_roots
 
 
 async def _notify_health_check(
@@ -202,6 +129,20 @@ async def _notify_health_check(
             repo_url=root.metadata.url,
             requester_email=user_email,
         )
+
+
+def _format_git_repo_url(raw_url: str) -> str:
+    is_ssh: bool = (
+        raw_url.startswith('ssh://')
+        or bool(re.match(r'^\w+@.*', raw_url))
+    )
+    url = (
+        f'ssh://{raw_url}'
+        if is_ssh and not raw_url.startswith('ssh://')
+        else raw_url
+    )
+
+    return unquote(url)
 
 
 async def add_git_root(context: Any, user_email: str, **kwargs: Any) -> None:
@@ -229,11 +170,18 @@ async def add_git_root(context: Any, user_email: str, **kwargs: Any) -> None:
     ):
         raise InvalidParameter()
 
-    if not await _is_nickname_unique_in_group(group_name, nickname):
+    if not validations.is_nickname_unique(
+        nickname,
+        await get_roots(group_name=group_name)
+    ):
         raise RepeatedRootNickname()
 
     group = await group_loader.load(group_name)
-    if not await _is_git_unique_in_org(group['organization'], url, branch):
+    if not validations.is_git_unique(
+        url,
+        branch,
+        await get_org_roots(org_id=group['organization'])
+    ):
         raise RepeatedRoot()
 
     root = GitRootItem(
@@ -284,9 +232,12 @@ async def add_ip_root(context: Any, user_email: str, **kwargs: Any) -> None:
         raise InvalidParameter()
 
     group = await group_loader.load(group_name)
-    org_id = group['organization']
 
-    if not await _is_ip_unique_in_org(org_id, address, port):
+    if not validations.is_ip_unique(
+        address,
+        port,
+        await get_org_roots(org_id=group['organization'])
+    ):
         raise RepeatedValues()
 
     root = IPRootItem(
@@ -321,12 +272,12 @@ async def add_url_root(context: Any, user_email: str, **kwargs: Any) -> None:
     protocol: str = url_attributes.scheme.upper()
     group = await group_loader.load(group_name)
 
-    if not await _is_url_unique_in_org(
-        group['organization'],
+    if not validations.is_url_unique(
         host,
         path,
         port,
-        protocol
+        protocol,
+        await get_org_roots(org_id=group['organization'])
     ):
         raise RepeatedValues()
 
@@ -420,8 +371,11 @@ async def update_git_root(user_email: str, **kwargs: Any) -> None:
         raise InvalidChar()
 
     if (
-        nickname != root.state.nickname and
-        not await _is_nickname_unique_in_group(group_name, nickname)
+        nickname != root.state.nickname
+        and not validations.is_nickname_unique(
+            nickname,
+            await get_roots(group_name=group_name)
+        )
     ):
         raise RepeatedRootNickname()
 
@@ -494,10 +448,10 @@ async def update_root_state(
         group = await group_loader.load(group_name)
         if (
             state == 'ACTIVE'
-            and not await _is_git_unique_in_org(
-                group['organization'],
+            and not validations.is_git_unique(
                 root.metadata.url,
-                root.metadata.branch
+                root.metadata.branch,
+                await get_org_roots(org_id=group['organization'])
             )
         ):
             raise RepeatedRoot()
