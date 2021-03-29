@@ -2,10 +2,12 @@
 from itertools import (
     count,
 )
+import json
 import os
 from typing import (
     Any,
     AsyncIterable,
+    Dict,
     Iterator,
     Optional,
     Tuple,
@@ -75,8 +77,31 @@ Language.build_library(LANGUAGES_SO, [
 ])
 
 
+def get_java_fields() -> Dict[str, Tuple[str, ...]]:
+    with open(f'{TREE_SITTER_JAVA}/src/node-types.json') as handle:
+        java_fields: Dict[str, Tuple[str, ...]] = {
+            node['type']: fields
+            for node in json.load(handle)
+            for fields in [tuple(node.get('fields', {}))]
+            if fields
+        }
+
+    return java_fields
+
+
 class ParsingError(Exception):
     pass
+
+
+JAVA_FIELDS: Dict[str, Tuple[str, ...]] = get_java_fields()
+
+
+def hash_node(node: Node) -> int:
+    return hash((
+        node.end_point,
+        node.start_point,
+        node.type,
+    ))
 
 
 def _build_ast_graph(
@@ -88,6 +113,7 @@ def _build_ast_graph(
     _edge_index: Optional[str] = None,
     _graph: Optional[Graph] = None,
     _parent: Optional[str] = None,
+    _parent_fields: Optional[Dict[int, str]] = None,
 ) -> Graph:
     # Handle first level of recurssion, where _graph is None
     _counter = map(str, count(1)) if _counter is None else _counter
@@ -117,6 +143,9 @@ def _build_ast_graph(
                 label_index=_edge_index,
             )
 
+            if field := (_parent_fields or {}).get(hash_node(obj)):
+                _graph.nodes[_parent][f'label_field_{field}'] = n_id
+
         if not obj.children or any((
             language == GraphShardMetadataLanguage.JAVA and obj.type in {
                 'array_type',
@@ -137,6 +166,15 @@ def _build_ast_graph(
                 obj.end_byte
             ].decode('latin-1')
         else:
+            parent_fields: Dict[int, str] = {}
+            if language == GraphShardMetadataLanguage.JAVA:
+                parent_fields = {
+                    hash_node(child): field
+                    for field in JAVA_FIELDS.get(obj.type, ())
+                    for child in [obj.child_by_field_name(field)]
+                    if child
+                }
+
             # It's not a final node, recurse
             for edge_index, child in enumerate(obj.children):
                 _build_ast_graph(
@@ -147,6 +185,7 @@ def _build_ast_graph(
                     _edge_index=str(edge_index),
                     _graph=_graph,
                     _parent=n_id,
+                    _parent_fields=parent_fields,
                 )
 
     else:

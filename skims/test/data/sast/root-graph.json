@@ -3030,6 +3030,8 @@
           },
           "102": {
             "label_c": 42,
+            "label_field_arguments": "105",
+            "label_field_type": "104",
             "label_l": 37,
             "label_type": "object_creation_expression"
           },
@@ -3098,6 +3100,9 @@
           },
           "113": {
             "label_c": 3,
+            "label_field_arguments": "117",
+            "label_field_name": "116",
+            "label_field_object": "114",
             "label_l": 38,
             "label_type": "method_invocation"
           },
@@ -3132,6 +3137,9 @@
           },
           "119": {
             "label_c": 24,
+            "label_field_left": "120",
+            "label_field_operator": "121",
+            "label_field_right": "122",
             "label_l": 38,
             "label_type": "binary_expression"
           },
@@ -3184,6 +3192,9 @@
           },
           "127": {
             "label_c": 3,
+            "label_field_arguments": "131",
+            "label_field_name": "130",
+            "label_field_object": "128",
             "label_l": 39,
             "label_type": "method_invocation"
           },
@@ -3247,6 +3258,9 @@
           },
           "137": {
             "label_c": 3,
+            "label_field_arguments": "141",
+            "label_field_name": "140",
+            "label_field_object": "138",
             "label_l": 40,
             "label_type": "method_invocation"
           },
@@ -3287,6 +3301,9 @@
           },
           "143": {
             "label_c": 22,
+            "label_field_arguments": "147",
+            "label_field_name": "146",
+            "label_field_object": "144",
             "label_l": 40,
             "label_type": "method_invocation"
           },
@@ -3349,6 +3366,9 @@
           },
           "153": {
             "label_c": 3,
+            "label_field_arguments": "157",
+            "label_field_name": "156",
+            "label_field_object": "154",
             "label_l": 41,
             "label_type": "method_invocation"
           },
@@ -3383,6 +3403,9 @@
           },
           "159": {
             "label_c": 24,
+            "label_field_arguments": "181",
+            "label_field_name": "180",
+            "label_field_object": "160",
             "label_l": 41,
             "label_type": "method_invocation"
           },
@@ -3394,6 +3417,8 @@
           },
           "160": {
             "label_c": 24,
+            "label_field_arguments": "163",
+            "label_field_type": "162",
             "label_l": 41,
             "label_type": "object_creation_expression"
           },
@@ -3422,11 +3447,17 @@
           },
           "165": {
             "label_c": 41,
+            "label_field_arguments": "175",
+            "label_field_name": "174",
+            "label_field_object": "166",
             "label_l": 41,
             "label_type": "method_invocation"
           },
           "166": {
             "label_c": 41,
+            "label_field_arguments": "170",
+            "label_field_name": "169",
+            "label_field_object": "167",
             "label_l": 41,
             "label_type": "method_invocation"
           },
@@ -3560,6 +3591,9 @@
           },
           "187": {
             "label_c": 3,
+            "label_field_arguments": "191",
+            "label_field_name": "190",
+            "label_field_object": "188",
             "label_l": 42,
             "label_sink_type": "F034,F042",
             "label_type": "method_invocation"
@@ -3618,6 +3652,8 @@
           },
           "196": {
             "label_c": 3,
+            "label_field_declarator": "198",
+            "label_field_type": "197",
             "label_l": 43,
             "label_type": "local_variable_declaration"
           },
@@ -3629,6 +3665,8 @@
           },
           "198": {
             "label_c": 35,
+            "label_field_name": "199",
+            "label_field_value": "201",
             "label_l": 43,
             "label_type": "variable_declarator"
           },
@@ -3658,6 +3696,9 @@
           },
           "201": {
             "label_c": 40,
+            "label_field_arguments": "205",
+            "label_field_name": "204",
+            "label_field_object": "202",
             "label_l": 43,
             "label_type": "method_invocation"
           },
@@ -3721,6 +3762,9 @@
           },
           "211": {
             "label_c": 3,
+            "label_field_arguments": "215",
+            "label_field_name": "214",
+            "label_field_object": "212",
             "label_l": 44,
             "label_type": "method_invocation"
           },
@@ -3797,6 +3841,10 @@
           },
           "223": {
             "label_c": 2,
+            "label_field_body": "246",
+            "label_field_name": "230",
+            "label_field_parameters": "231",
+            "label_field_type": "229",
             "label_l": 47,
             "label_type": "method_declaration"
           },
@@ -3807,6 +3855,7 @@
           },
           "225": {
             "label_c": 2,
+            "label_field_name": "227",
             "label_l": 47,
             "label_type": "marker_annotation"
           },
@@ -3858,6 +3907,8 @@
           },
           "233": {
             "label_c": 21,
+            "label_field_name": "235",
+            "label_field_type": "234",
             "label_l": 48,
             "label_type": "formal_parameter"
           },
@@ -3882,6 +3933,8 @@
           },
           "237": {
             "label_c": 49,
+            "label_field_name": "239",
+            "label_field_type": "238",
             "label_l": 48,
             "label_type": "formal_parameter"
           },
@@ -3968,6 +4021,9 @@
           },
           "250": {
             "label_c": 3,
+            "label_field_arguments": "254",
+            "label_field_name": "253",
+            "label_field_object": "251",
             "label_l": 50,
             "label_type": "method_invocation"
           },
@@ -4020,6 +4076,8 @@
           },
           "259": {
             "label_c": 3,
+            "label_field_declarator": "261",
+            "label_field_type": "260",
             "label_l": 53,
             "label_type": "local_variable_declaration"
           },
@@ -4037,6 +4095,8 @@
           },
           "261": {
             "label_c": 31,
+            "label_field_name": "262",
+            "label_field_value": "264",
             "label_l": 53,
             "label_type": "variable_declarator"
           },
@@ -4054,6 +4114,9 @@
           },
           "264": {
             "label_c": 44,
+            "label_field_arguments": "268",
+            "label_field_name": "267",
+            "label_field_object": "265",
             "label_l": 53,
             "label_type": "method_invocation"
           },
@@ -4105,6 +4168,8 @@
           },
           "272": {
             "label_c": 3,
+            "label_field_declarator": "274",
+            "label_field_type": "273",
             "label_l": 55,
             "label_type": "local_variable_declaration"
           },
@@ -4116,6 +4181,8 @@
           },
           "274": {
             "label_c": 10,
+            "label_field_name": "275",
+            "label_field_value": "277",
             "label_l": 55,
             "label_type": "variable_declarator"
           },
@@ -4145,6 +4212,8 @@
           },
           "279": {
             "label_c": 3,
+            "label_field_condition": "281",
+            "label_field_consequence": "288",
             "label_l": 56,
             "label_type": "if_statement"
           },
@@ -4173,6 +4242,9 @@
           },
           "283": {
             "label_c": 7,
+            "label_field_left": "284",
+            "label_field_operator": "285",
+            "label_field_right": "286",
             "label_l": 56,
             "label_type": "binary_expression"
           },
@@ -4219,6 +4291,10 @@
           },
           "290": {
             "label_c": 4,
+            "label_field_body": "298",
+            "label_field_name": "294",
+            "label_field_type": "293",
+            "label_field_value": "296",
             "label_l": 57,
             "label_type": "enhanced_for_statement"
           },
@@ -4288,6 +4364,8 @@
           },
           "300": {
             "label_c": 5,
+            "label_field_condition": "302",
+            "label_field_consequence": "319",
             "label_l": 58,
             "label_type": "if_statement"
           },
@@ -4310,11 +4388,17 @@
           },
           "304": {
             "label_c": 9,
+            "label_field_arguments": "314",
+            "label_field_name": "313",
+            "label_field_object": "305",
             "label_l": 58,
             "label_type": "method_invocation"
           },
           "305": {
             "label_c": 9,
+            "label_field_arguments": "309",
+            "label_field_name": "308",
+            "label_field_object": "306",
             "label_l": 58,
             "label_type": "method_invocation"
           },
@@ -4343,6 +4427,9 @@
           },
           "31": {
             "label_c": 1,
+            "label_field_body": "49",
+            "label_field_name": "45",
+            "label_field_superclass": "46",
             "label_l": 29,
             "label_type": "class_declaration"
           },
@@ -4422,6 +4509,9 @@
           },
           "322": {
             "label_c": 6,
+            "label_field_left": "323",
+            "label_field_operator": "324",
+            "label_field_right": "325",
             "label_l": 59,
             "label_type": "assignment_expression"
           },
@@ -4439,6 +4529,9 @@
           },
           "325": {
             "label_c": 14,
+            "label_field_arguments": "329",
+            "label_field_name": "328",
+            "label_field_object": "326",
             "label_l": 59,
             "label_type": "method_invocation"
           },
@@ -4467,6 +4560,8 @@
           },
           "33": {
             "label_c": 1,
+            "label_field_arguments": "36",
+            "label_field_name": "35",
             "label_l": 29,
             "label_type": "annotation"
           },
@@ -4478,6 +4573,9 @@
           },
           "331": {
             "label_c": 41,
+            "label_field_arguments": "335",
+            "label_field_name": "334",
+            "label_field_object": "332",
             "label_l": 59,
             "label_type": "method_invocation"
           },
@@ -4583,6 +4681,8 @@
           },
           "348": {
             "label_c": 9,
+            "label_field_declarator": "350",
+            "label_field_type": "349",
             "label_l": 66,
             "label_type": "local_variable_declaration"
           },
@@ -4600,6 +4700,8 @@
           },
           "350": {
             "label_c": 16,
+            "label_field_name": "351",
+            "label_field_value": "353",
             "label_l": 66,
             "label_type": "variable_declarator"
           },
@@ -4629,6 +4731,8 @@
           },
           "355": {
             "label_c": 9,
+            "label_field_declarator": "357",
+            "label_field_type": "356",
             "label_l": 67,
             "label_type": "local_variable_declaration"
           },
@@ -4640,6 +4744,8 @@
           },
           "357": {
             "label_c": 33,
+            "label_field_name": "358",
+            "label_field_value": "360",
             "label_l": 67,
             "label_type": "variable_declarator"
           },
@@ -4674,6 +4780,7 @@
           },
           "362": {
             "label_c": 9,
+            "label_field_body": "364",
             "label_l": 69,
             "label_type": "try_statement"
           },
@@ -4701,6 +4808,9 @@
           },
           "367": {
             "label_c": 11,
+            "label_field_left": "368",
+            "label_field_operator": "369",
+            "label_field_right": "370",
             "label_l": 70,
             "label_type": "assignment_expression"
           },
@@ -4724,6 +4834,9 @@
           },
           "370": {
             "label_c": 22,
+            "label_field_left": "371",
+            "label_field_operator": "372",
+            "label_field_right": "373",
             "label_l": 70,
             "label_type": "binary_expression"
           },
@@ -4758,6 +4871,9 @@
           },
           "376": {
             "label_c": 11,
+            "label_field_left": "377",
+            "label_field_operator": "378",
+            "label_field_right": "379",
             "label_l": 71,
             "label_type": "assignment_expression"
           },
@@ -4775,12 +4891,16 @@
           },
           "379": {
             "label_c": 17,
+            "label_field_arguments": "382",
+            "label_field_type": "381",
             "label_l": 71,
             "label_sink_type": "F063_PATH_TRAVERSAL",
             "label_type": "object_creation_expression"
           },
           "38": {
             "label_c": 13,
+            "label_field_key": "39",
+            "label_field_value": "41",
             "label_l": 29,
             "label_type": "element_value_pair"
           },
@@ -4809,6 +4929,8 @@
           },
           "384": {
             "label_c": 45,
+            "label_field_arguments": "387",
+            "label_field_type": "386",
             "label_l": 71,
             "label_sink_type": "F063_PATH_TRAVERSAL",
             "label_type": "object_creation_expression"
@@ -4868,6 +4990,8 @@
           },
           "393": {
             "label_c": 11,
+            "label_field_declarator": "395",
+            "label_field_type": "394",
             "label_l": 72,
             "label_type": "local_variable_declaration"
           },
@@ -4879,6 +5003,8 @@
           },
           "395": {
             "label_c": 18,
+            "label_field_name": "396",
+            "label_field_value": "398",
             "label_l": 72,
             "label_type": "variable_declarator"
           },
@@ -4896,6 +5022,8 @@
           },
           "398": {
             "label_c": 22,
+            "label_field_dimensions": "401",
+            "label_field_type": "400",
             "label_input_type": "F034",
             "label_l": 72,
             "label_type": "array_creation_expression"
@@ -4955,6 +5083,8 @@
           },
           "406": {
             "label_c": 11,
+            "label_field_declarator": "408",
+            "label_field_type": "407",
             "label_l": 73,
             "label_type": "local_variable_declaration"
           },
@@ -4966,6 +5096,8 @@
           },
           "408": {
             "label_c": 15,
+            "label_field_name": "409",
+            "label_field_value": "411",
             "label_l": 73,
             "label_type": "variable_declarator"
           },
@@ -4989,6 +5121,9 @@
           },
           "411": {
             "label_c": 22,
+            "label_field_arguments": "415",
+            "label_field_name": "414",
+            "label_field_object": "412",
             "label_l": 73,
             "label_type": "method_invocation"
           },
@@ -5052,12 +5187,18 @@
           },
           "421": {
             "label_c": 11,
+            "label_field_arguments": "431",
+            "label_field_name": "430",
+            "label_field_object": "422",
             "label_l": 74,
             "label_sink_type": "F008",
             "label_type": "method_invocation"
           },
           "422": {
             "label_c": 11,
+            "label_field_arguments": "426",
+            "label_field_name": "425",
+            "label_field_object": "423",
             "label_l": 74,
             "label_type": "method_invocation"
           },
@@ -5127,16 +5268,25 @@
           },
           "433": {
             "label_c": 13,
+            "label_field_left": "434",
+            "label_field_operator": "454",
+            "label_field_right": "455",
             "label_l": 75,
             "label_type": "binary_expression"
           },
           "434": {
             "label_c": 13,
+            "label_field_left": "435",
+            "label_field_operator": "452",
+            "label_field_right": "453",
             "label_l": 75,
             "label_type": "binary_expression"
           },
           "435": {
             "label_c": 13,
+            "label_field_left": "436",
+            "label_field_operator": "437",
+            "label_field_right": "438",
             "label_l": 75,
             "label_type": "binary_expression"
           },
@@ -5154,11 +5304,17 @@
           },
           "438": {
             "label_c": 42,
+            "label_field_arguments": "448",
+            "label_field_name": "447",
+            "label_field_object": "439",
             "label_l": 75,
             "label_type": "method_invocation"
           },
           "439": {
             "label_c": 42,
+            "label_field_arguments": "443",
+            "label_field_name": "442",
+            "label_field_object": "440",
             "label_l": 75,
             "label_type": "method_invocation"
           },
@@ -5264,11 +5420,17 @@
           },
           "455": {
             "label_c": 31,
+            "label_field_arguments": "465",
+            "label_field_name": "464",
+            "label_field_object": "456",
             "label_l": 76,
             "label_type": "method_invocation"
           },
           "456": {
             "label_c": 31,
+            "label_field_arguments": "460",
+            "label_field_name": "459",
+            "label_field_object": "457",
             "label_l": 76,
             "label_type": "method_invocation"
           },
@@ -5337,6 +5499,8 @@
           },
           "467": {
             "label_c": 77,
+            "label_field_arguments": "470",
+            "label_field_type": "469",
             "label_l": 76,
             "label_type": "object_creation_expression"
           },
@@ -5437,6 +5601,7 @@
           },
           "482": {
             "label_c": 11,
+            "label_field_body": "490",
             "label_l": 78,
             "label_type": "catch_clause"
           },
@@ -5454,6 +5619,7 @@
           },
           "485": {
             "label_c": 18,
+            "label_field_name": "488",
             "label_l": 78,
             "label_type": "catch_formal_parameter"
           },
@@ -5503,6 +5669,9 @@
           },
           "493": {
             "label_c": 13,
+            "label_field_arguments": "497",
+            "label_field_name": "496",
+            "label_field_object": "494",
             "label_l": 79,
             "label_type": "method_invocation"
           },
@@ -5537,6 +5706,9 @@
           },
           "499": {
             "label_c": 32,
+            "label_field_left": "500",
+            "label_field_operator": "504",
+            "label_field_right": "505",
             "label_l": 79,
             "label_type": "binary_expression"
           },
@@ -5554,6 +5726,9 @@
           },
           "500": {
             "label_c": 32,
+            "label_field_left": "501",
+            "label_field_operator": "502",
+            "label_field_right": "503",
             "label_l": 79,
             "label_type": "binary_expression"
           },
@@ -5606,17 +5781,25 @@
           },
           "509": {
             "label_c": 13,
+            "label_field_arguments": "519",
+            "label_field_name": "518",
+            "label_field_object": "510",
             "label_l": 80,
             "label_sink_type": "F008",
             "label_type": "method_invocation"
           },
           "51": {
             "label_c": 2,
+            "label_field_declarator": "57",
+            "label_field_type": "56",
             "label_l": 32,
             "label_type": "field_declaration"
           },
           "510": {
             "label_c": 13,
+            "label_field_arguments": "514",
+            "label_field_name": "513",
+            "label_field_object": "511",
             "label_l": 80,
             "label_type": "method_invocation"
           },
@@ -5685,6 +5868,9 @@
           },
           "521": {
             "label_c": 15,
+            "label_field_left": "522",
+            "label_field_operator": "523",
+            "label_field_right": "524",
             "label_l": 81,
             "label_type": "binary_expression"
           },
@@ -5702,11 +5888,17 @@
           },
           "524": {
             "label_c": 20,
+            "label_field_arguments": "534",
+            "label_field_name": "533",
+            "label_field_object": "525",
             "label_l": 82,
             "label_type": "method_invocation"
           },
           "525": {
             "label_c": 20,
+            "label_field_arguments": "529",
+            "label_field_name": "528",
+            "label_field_object": "526",
             "label_l": 82,
             "label_type": "method_invocation"
           },
@@ -5776,6 +5968,9 @@
           },
           "536": {
             "label_c": 66,
+            "label_field_arguments": "540",
+            "label_field_name": "539",
+            "label_field_object": "537",
             "label_l": 82,
             "label_type": "method_invocation"
           },
@@ -5874,6 +6069,8 @@
           },
           "551": {
             "label_c": 13,
+            "label_field_condition": "553",
+            "label_field_consequence": "560",
             "label_l": 85,
             "label_type": "if_statement"
           },
@@ -5896,6 +6093,9 @@
           },
           "555": {
             "label_c": 17,
+            "label_field_left": "556",
+            "label_field_operator": "557",
+            "label_field_right": "558",
             "label_l": 85,
             "label_type": "binary_expression"
           },
@@ -5942,6 +6142,7 @@
           },
           "562": {
             "label_c": 17,
+            "label_field_body": "564",
             "label_l": 86,
             "label_type": "try_statement"
           },
@@ -5969,6 +6170,9 @@
           },
           "567": {
             "label_c": 21,
+            "label_field_arguments": "571",
+            "label_field_name": "570",
+            "label_field_object": "568",
             "label_l": 87,
             "label_type": "method_invocation"
           },
@@ -5986,6 +6190,8 @@
           },
           "57": {
             "label_c": 28,
+            "label_field_name": "58",
+            "label_field_value": "60",
             "label_l": 32,
             "label_type": "variable_declarator"
           },
@@ -6025,6 +6231,9 @@
           },
           "576": {
             "label_c": 21,
+            "label_field_left": "577",
+            "label_field_operator": "578",
+            "label_field_right": "579",
             "label_l": 88,
             "label_type": "assignment_expression"
           },
@@ -6066,6 +6275,7 @@
           },
           "582": {
             "label_c": 19,
+            "label_field_body": "590",
             "label_l": 89,
             "label_type": "catch_clause"
           },
@@ -6083,6 +6293,7 @@
           },
           "585": {
             "label_c": 26,
+            "label_field_name": "588",
             "label_l": 89,
             "label_type": "catch_formal_parameter"
           },
@@ -6182,6 +6393,10 @@
           },
           "62": {
             "label_c": 2,
+            "label_field_body": "85",
+            "label_field_name": "69",
+            "label_field_parameters": "70",
+            "label_field_type": "68",
             "label_l": 34,
             "label_type": "method_declaration"
           },
@@ -6192,6 +6407,7 @@
           },
           "64": {
             "label_c": 2,
+            "label_field_name": "66",
             "label_l": 34,
             "label_type": "marker_annotation"
           },
@@ -6243,6 +6459,8 @@
           },
           "72": {
             "label_c": 20,
+            "label_field_name": "74",
+            "label_field_type": "73",
             "label_l": 35,
             "label_type": "formal_parameter"
           },
@@ -6267,6 +6485,8 @@
           },
           "76": {
             "label_c": 48,
+            "label_field_name": "78",
+            "label_field_type": "77",
             "label_l": 35,
             "label_type": "formal_parameter"
           },
@@ -6341,6 +6561,9 @@
           },
           "88": {
             "label_c": 3,
+            "label_field_arguments": "92",
+            "label_field_name": "91",
+            "label_field_object": "89",
             "label_l": 36,
             "label_type": "method_invocation"
           },
@@ -6399,6 +6622,8 @@
           },
           "97": {
             "label_c": 3,
+            "label_field_declarator": "99",
+            "label_field_type": "98",
             "label_l": 37,
             "label_type": "local_variable_declaration"
           },
@@ -6410,6 +6635,8 @@
           },
           "99": {
             "label_c": 29,
+            "label_field_name": "100",
+            "label_field_value": "102",
             "label_l": 37,
             "label_type": "variable_declarator"
           }
@@ -9549,6 +9776,7 @@
           },
           "100": {
             "label_c": 5,
+            "label_field_name": "102",
             "label_l": 39,
             "label_type": "marker_annotation"
           },
@@ -9595,6 +9823,8 @@
           },
           "108": {
             "label_c": 24,
+            "label_field_name": "110",
+            "label_field_type": "109",
             "label_l": 40,
             "label_type": "formal_parameter"
           },
@@ -9624,6 +9854,8 @@
           },
           "112": {
             "label_c": 52,
+            "label_field_name": "114",
+            "label_field_type": "113",
             "label_l": 40,
             "label_type": "formal_parameter"
           },
@@ -9704,6 +9936,9 @@
           },
           "125": {
             "label_c": 9,
+            "label_field_arguments": "129",
+            "label_field_name": "128",
+            "label_field_object": "126",
             "label_l": 42,
             "label_type": "method_invocation"
           },
@@ -9762,6 +9997,8 @@
           },
           "134": {
             "label_c": 9,
+            "label_field_declarator": "136",
+            "label_field_type": "135",
             "label_l": 45,
             "label_type": "local_variable_declaration"
           },
@@ -9773,6 +10010,8 @@
           },
           "136": {
             "label_c": 16,
+            "label_field_name": "137",
+            "label_field_value": "139",
             "label_l": 45,
             "label_type": "variable_declarator"
           },
@@ -9808,6 +10047,8 @@
           },
           "141": {
             "label_c": 9,
+            "label_field_condition": "143",
+            "label_field_consequence": "157",
             "label_l": 46,
             "label_type": "if_statement"
           },
@@ -9830,11 +10071,17 @@
           },
           "145": {
             "label_c": 13,
+            "label_field_left": "146",
+            "label_field_operator": "154",
+            "label_field_right": "155",
             "label_l": 46,
             "label_type": "binary_expression"
           },
           "146": {
             "label_c": 13,
+            "label_field_arguments": "150",
+            "label_field_name": "149",
+            "label_field_object": "147",
             "label_l": 46,
             "label_type": "method_invocation"
           },
@@ -9926,6 +10173,9 @@
           },
           "160": {
             "label_c": 13,
+            "label_field_left": "161",
+            "label_field_operator": "162",
+            "label_field_right": "163",
             "label_l": 47,
             "label_type": "assignment_expression"
           },
@@ -9943,6 +10193,9 @@
           },
           "163": {
             "label_c": 21,
+            "label_field_arguments": "167",
+            "label_field_name": "166",
+            "label_field_object": "164",
             "label_l": 47,
             "label_type": "method_invocation"
           },
@@ -10018,6 +10271,9 @@
           },
           "175": {
             "label_c": 9,
+            "label_field_left": "176",
+            "label_field_operator": "177",
+            "label_field_right": "178",
             "label_l": 51,
             "label_type": "assignment_expression"
           },
@@ -10035,6 +10291,9 @@
           },
           "178": {
             "label_c": 17,
+            "label_field_arguments": "182",
+            "label_field_name": "181",
+            "label_field_object": "179",
             "label_l": 51,
             "label_type": "method_invocation"
           },
@@ -10105,6 +10364,8 @@
           },
           "189": {
             "label_c": 9,
+            "label_field_declarator": "191",
+            "label_field_type": "190",
             "label_l": 54,
             "label_type": "local_variable_declaration"
           },
@@ -10121,6 +10382,8 @@
           },
           "191": {
             "label_c": 16,
+            "label_field_name": "192",
+            "label_field_value": "194",
             "label_l": 54,
             "label_type": "variable_declarator"
           },
@@ -10138,11 +10401,17 @@
           },
           "194": {
             "label_c": 22,
+            "label_field_left": "195",
+            "label_field_operator": "199",
+            "label_field_right": "200",
             "label_l": 54,
             "label_type": "binary_expression"
           },
           "195": {
             "label_c": 22,
+            "label_field_left": "196",
+            "label_field_operator": "197",
+            "label_field_right": "198",
             "label_l": 54,
             "label_type": "binary_expression"
           },
@@ -10196,6 +10465,7 @@
           },
           "202": {
             "label_c": 9,
+            "label_field_body": "204",
             "label_l": 56,
             "label_type": "try_statement"
           },
@@ -10218,6 +10488,8 @@
           },
           "206": {
             "label_c": 13,
+            "label_field_declarator": "208",
+            "label_field_type": "207",
             "label_l": 57,
             "label_type": "local_variable_declaration"
           },
@@ -10229,6 +10501,8 @@
           },
           "208": {
             "label_c": 33,
+            "label_field_name": "209",
+            "label_field_value": "211",
             "label_l": 57,
             "label_type": "variable_declarator"
           },
@@ -10252,6 +10526,9 @@
           },
           "211": {
             "label_c": 46,
+            "label_field_arguments": "215",
+            "label_field_name": "214",
+            "label_field_object": "212",
             "label_l": 57,
             "label_type": "method_invocation"
           },
@@ -10298,6 +10575,8 @@
           },
           "219": {
             "label_c": 13,
+            "label_field_declarator": "221",
+            "label_field_type": "220",
             "label_l": 58,
             "label_type": "local_variable_declaration"
           },
@@ -10315,6 +10594,8 @@
           },
           "221": {
             "label_c": 40,
+            "label_field_name": "222",
+            "label_field_value": "224",
             "label_l": 58,
             "label_type": "variable_declarator"
           },
@@ -10332,6 +10613,9 @@
           },
           "224": {
             "label_c": 52,
+            "label_field_arguments": "228",
+            "label_field_name": "227",
+            "label_field_object": "225",
             "label_l": 58,
             "label_type": "method_invocation"
           },
@@ -10389,6 +10673,8 @@
           },
           "233": {
             "label_c": 13,
+            "label_field_declarator": "235",
+            "label_field_type": "234",
             "label_l": 59,
             "label_type": "local_variable_declaration"
           },
@@ -10400,6 +10686,8 @@
           },
           "235": {
             "label_c": 32,
+            "label_field_name": "236",
+            "label_field_value": "238",
             "label_l": 59,
             "label_type": "variable_declarator"
           },
@@ -10417,6 +10705,9 @@
           },
           "238": {
             "label_c": 37,
+            "label_field_arguments": "242",
+            "label_field_name": "241",
+            "label_field_object": "239",
             "label_l": 59,
             "label_sink_type": "F001_JAVA_SQL",
             "label_type": "method_invocation"
@@ -10475,6 +10766,9 @@
           },
           "247": {
             "label_c": 13,
+            "label_field_arguments": "251",
+            "label_field_name": "250",
+            "label_field_object": "248",
             "label_l": 60,
             "label_type": "method_invocation"
           },
@@ -10569,6 +10863,7 @@
           },
           "261": {
             "label_c": 11,
+            "label_field_body": "269",
             "label_l": 62,
             "label_type": "catch_clause"
           },
@@ -10586,6 +10881,7 @@
           },
           "264": {
             "label_c": 18,
+            "label_field_name": "267",
             "label_l": 62,
             "label_type": "catch_formal_parameter"
           },
@@ -10630,6 +10926,9 @@
           },
           "271": {
             "label_c": 13,
+            "label_field_alternative": "300",
+            "label_field_condition": "273",
+            "label_field_consequence": "277",
             "label_l": 63,
             "label_type": "if_statement"
           },
@@ -10686,12 +10985,18 @@
           },
           "280": {
             "label_c": 17,
+            "label_field_arguments": "290",
+            "label_field_name": "289",
+            "label_field_object": "281",
             "label_l": 64,
             "label_sink_type": "F008",
             "label_type": "method_invocation"
           },
           "281": {
             "label_c": 17,
+            "label_field_arguments": "285",
+            "label_field_name": "284",
+            "label_field_object": "282",
             "label_l": 64,
             "label_type": "method_invocation"
           },
@@ -10830,6 +11135,8 @@
           },
           "302": {
             "label_c": 24,
+            "label_field_arguments": "305",
+            "label_field_type": "304",
             "label_l": 69,
             "label_type": "object_creation_expression"
           },
@@ -10876,6 +11183,9 @@
           },
           "31": {
             "label_c": 1,
+            "label_field_body": "49",
+            "label_field_name": "45",
+            "label_field_superclass": "46",
             "label_l": 29,
             "label_type": "class_declaration"
           },
@@ -10904,6 +11214,8 @@
           },
           "33": {
             "label_c": 1,
+            "label_field_arguments": "36",
+            "label_field_name": "35",
             "label_l": 29,
             "label_type": "annotation"
           },
@@ -10932,6 +11244,8 @@
           },
           "38": {
             "label_c": 13,
+            "label_field_key": "39",
+            "label_field_value": "41",
             "label_l": 29,
             "label_type": "element_value_pair"
           },
@@ -11019,6 +11333,8 @@
           },
           "51": {
             "label_c": 5,
+            "label_field_declarator": "57",
+            "label_field_type": "56",
             "label_l": 32,
             "label_type": "field_declaration"
           },
@@ -11053,6 +11369,8 @@
           },
           "57": {
             "label_c": 31,
+            "label_field_name": "58",
+            "label_field_value": "60",
             "label_l": 32,
             "label_type": "variable_declarator"
           },
@@ -11088,6 +11406,10 @@
           },
           "62": {
             "label_c": 5,
+            "label_field_body": "85",
+            "label_field_name": "69",
+            "label_field_parameters": "70",
+            "label_field_type": "68",
             "label_l": 34,
             "label_type": "method_declaration"
           },
@@ -11098,6 +11420,7 @@
           },
           "64": {
             "label_c": 5,
+            "label_field_name": "66",
             "label_l": 34,
             "label_type": "marker_annotation"
           },
@@ -11149,6 +11472,8 @@
           },
           "72": {
             "label_c": 23,
+            "label_field_name": "74",
+            "label_field_type": "73",
             "label_l": 35,
             "label_type": "formal_parameter"
           },
@@ -11173,6 +11498,8 @@
           },
           "76": {
             "label_c": 51,
+            "label_field_name": "78",
+            "label_field_type": "77",
             "label_l": 35,
             "label_type": "formal_parameter"
           },
@@ -11247,6 +11574,8 @@
           },
           "88": {
             "label_c": 9,
+            "label_field_arguments": "90",
+            "label_field_name": "89",
             "label_l": 36,
             "label_type": "method_invocation"
           },
@@ -11311,6 +11640,10 @@
           },
           "98": {
             "label_c": 5,
+            "label_field_body": "121",
+            "label_field_name": "105",
+            "label_field_parameters": "106",
+            "label_field_type": "104",
             "label_l": 39,
             "label_type": "method_declaration"
           },
@@ -15483,6 +15816,7 @@
           },
           "100": {
             "label_c": 2,
+            "label_field_name": "102",
             "label_l": 39,
             "label_type": "marker_annotation"
           },
@@ -15529,6 +15863,8 @@
           },
           "108": {
             "label_c": 21,
+            "label_field_name": "110",
+            "label_field_type": "109",
             "label_l": 40,
             "label_type": "formal_parameter"
           },
@@ -15558,6 +15894,8 @@
           },
           "112": {
             "label_c": 49,
+            "label_field_name": "114",
+            "label_field_type": "113",
             "label_l": 40,
             "label_type": "formal_parameter"
           },
@@ -15632,6 +15970,9 @@
           },
           "124": {
             "label_c": 3,
+            "label_field_arguments": "128",
+            "label_field_name": "127",
+            "label_field_object": "125",
             "label_l": 41,
             "label_type": "method_invocation"
           },
@@ -15690,6 +16031,8 @@
           },
           "133": {
             "label_c": 3,
+            "label_field_declarator": "135",
+            "label_field_type": "134",
             "label_l": 43,
             "label_type": "local_variable_declaration"
           },
@@ -15701,6 +16044,8 @@
           },
           "135": {
             "label_c": 10,
+            "label_field_name": "136",
+            "label_field_value": "138",
             "label_l": 43,
             "label_type": "variable_declarator"
           },
@@ -15736,6 +16081,8 @@
           },
           "140": {
             "label_c": 3,
+            "label_field_condition": "142",
+            "label_field_consequence": "156",
             "label_l": 44,
             "label_type": "if_statement"
           },
@@ -15758,11 +16105,17 @@
           },
           "144": {
             "label_c": 7,
+            "label_field_left": "145",
+            "label_field_operator": "153",
+            "label_field_right": "154",
             "label_l": 44,
             "label_type": "binary_expression"
           },
           "145": {
             "label_c": 7,
+            "label_field_arguments": "149",
+            "label_field_name": "148",
+            "label_field_object": "146",
             "label_l": 44,
             "label_type": "method_invocation"
           },
@@ -15848,6 +16201,9 @@
           },
           "159": {
             "label_c": 4,
+            "label_field_left": "160",
+            "label_field_operator": "161",
+            "label_field_right": "162",
             "label_l": 45,
             "label_type": "assignment_expression"
           },
@@ -15871,6 +16227,9 @@
           },
           "162": {
             "label_c": 12,
+            "label_field_arguments": "166",
+            "label_field_name": "165",
+            "label_field_object": "163",
             "label_l": 45,
             "label_type": "method_invocation"
           },
@@ -15946,6 +16305,9 @@
           },
           "174": {
             "label_c": 3,
+            "label_field_left": "175",
+            "label_field_operator": "176",
+            "label_field_right": "177",
             "label_l": 49,
             "label_type": "assignment_expression"
           },
@@ -15963,6 +16325,9 @@
           },
           "177": {
             "label_c": 11,
+            "label_field_arguments": "181",
+            "label_field_name": "180",
+            "label_field_object": "178",
             "label_l": 49,
             "label_type": "method_invocation"
           },
@@ -16033,6 +16398,8 @@
           },
           "188": {
             "label_c": 3,
+            "label_field_declarator": "190",
+            "label_field_type": "189",
             "label_l": 52,
             "label_type": "local_variable_declaration"
           },
@@ -16049,6 +16416,8 @@
           },
           "190": {
             "label_c": 10,
+            "label_field_name": "191",
+            "label_field_value": "193",
             "label_l": 52,
             "label_type": "variable_declarator"
           },
@@ -16078,6 +16447,8 @@
           },
           "195": {
             "label_c": 3,
+            "label_field_condition": "197",
+            "label_field_consequence": "204",
             "label_l": 53,
             "label_type": "if_statement"
           },
@@ -16100,6 +16471,9 @@
           },
           "199": {
             "label_c": 7,
+            "label_field_left": "200",
+            "label_field_operator": "201",
+            "label_field_right": "202",
             "label_l": 53,
             "label_type": "binary_expression"
           },
@@ -16157,6 +16531,9 @@
           },
           "207": {
             "label_c": 4,
+            "label_field_left": "208",
+            "label_field_operator": "209",
+            "label_field_right": "210",
             "label_l": 54,
             "label_type": "assignment_expression"
           },
@@ -16180,6 +16557,8 @@
           },
           "210": {
             "label_c": 10,
+            "label_field_arguments": "213",
+            "label_field_type": "212",
             "label_l": 54,
             "label_type": "object_creation_expression"
           },
@@ -16208,6 +16587,9 @@
           },
           "215": {
             "label_c": 22,
+            "label_field_arguments": "219",
+            "label_field_name": "218",
+            "label_field_object": "216",
             "label_l": 54,
             "label_type": "method_invocation"
           },
@@ -16248,6 +16630,9 @@
           },
           "221": {
             "label_c": 4,
+            "label_field_arguments": "225",
+            "label_field_name": "224",
+            "label_field_object": "222",
             "label_l": 55,
             "label_type": "method_invocation"
           },
@@ -16282,6 +16667,9 @@
           },
           "227": {
             "label_c": 57,
+            "label_field_arguments": "231",
+            "label_field_name": "230",
+            "label_field_object": "228",
             "label_l": 55,
             "label_type": "method_invocation"
           },
@@ -16357,6 +16745,8 @@
           },
           "239": {
             "label_c": 3,
+            "label_field_declarator": "241",
+            "label_field_type": "240",
             "label_l": 59,
             "label_type": "local_variable_declaration"
           },
@@ -16374,6 +16764,8 @@
           },
           "241": {
             "label_c": 8,
+            "label_field_name": "242",
+            "label_field_value": "244",
             "label_l": 59,
             "label_type": "variable_declarator"
           },
@@ -16391,11 +16783,16 @@
           },
           "244": {
             "label_c": 12,
+            "label_field_arguments": "253",
+            "label_field_name": "252",
+            "label_field_object": "245",
             "label_l": 59,
             "label_type": "method_invocation"
           },
           "245": {
             "label_c": 12,
+            "label_field_arguments": "248",
+            "label_field_type": "247",
             "label_input_type": "F034",
             "label_l": 59,
             "label_type": "object_creation_expression"
@@ -16472,6 +16869,8 @@
           },
           "257": {
             "label_c": 3,
+            "label_field_declarator": "259",
+            "label_field_type": "258",
             "label_l": 60,
             "label_type": "local_variable_declaration"
           },
@@ -16483,6 +16882,8 @@
           },
           "259": {
             "label_c": 10,
+            "label_field_name": "260",
+            "label_field_value": "262",
             "label_l": 60,
             "label_type": "variable_declarator"
           },
@@ -16506,6 +16907,9 @@
           },
           "262": {
             "label_c": 26,
+            "label_field_arguments": "266",
+            "label_field_name": "265",
+            "label_field_object": "263",
             "label_l": 60,
             "label_type": "method_invocation"
           },
@@ -16563,6 +16967,8 @@
           },
           "271": {
             "label_c": 3,
+            "label_field_declarator": "273",
+            "label_field_type": "272",
             "label_l": 62,
             "label_type": "local_variable_declaration"
           },
@@ -16574,6 +16980,8 @@
           },
           "273": {
             "label_c": 10,
+            "label_field_name": "274",
+            "label_field_value": "276",
             "label_l": 62,
             "label_type": "variable_declarator"
           },
@@ -16603,6 +17011,8 @@
           },
           "278": {
             "label_c": 3,
+            "label_field_declarator": "280",
+            "label_field_type": "279",
             "label_l": 63,
             "label_type": "local_variable_declaration"
           },
@@ -16620,6 +17030,8 @@
           },
           "280": {
             "label_c": 10,
+            "label_field_name": "281",
+            "label_field_value": "283",
             "label_l": 63,
             "label_type": "variable_declarator"
           },
@@ -16637,11 +17049,17 @@
           },
           "283": {
             "label_c": 26,
+            "label_field_arguments": "293",
+            "label_field_name": "292",
+            "label_field_object": "284",
             "label_l": 63,
             "label_type": "method_invocation"
           },
           "284": {
             "label_c": 26,
+            "label_field_arguments": "288",
+            "label_field_name": "287",
+            "label_field_object": "285",
             "label_l": 63,
             "label_type": "method_invocation"
           },
@@ -16723,6 +17141,8 @@
           },
           "297": {
             "label_c": 3,
+            "label_field_declarator": "299",
+            "label_field_type": "298",
             "label_l": 64,
             "label_type": "local_variable_declaration"
           },
@@ -16734,6 +17154,8 @@
           },
           "299": {
             "label_c": 10,
+            "label_field_name": "300",
+            "label_field_value": "302",
             "label_l": 64,
             "label_type": "variable_declarator"
           },
@@ -16762,6 +17184,9 @@
           },
           "302": {
             "label_c": 27,
+            "label_field_arguments": "306",
+            "label_field_name": "305",
+            "label_field_object": "303",
             "label_l": 64,
             "label_type": "method_invocation"
           },
@@ -16796,21 +17221,33 @@
           },
           "308": {
             "label_c": 51,
+            "label_field_left": "309",
+            "label_field_operator": "320",
+            "label_field_right": "321",
             "label_l": 64,
             "label_type": "binary_expression"
           },
           "309": {
             "label_c": 51,
+            "label_field_left": "310",
+            "label_field_operator": "318",
+            "label_field_right": "319",
             "label_l": 64,
             "label_type": "binary_expression"
           },
           "31": {
             "label_c": 1,
+            "label_field_body": "49",
+            "label_field_name": "45",
+            "label_field_superclass": "46",
             "label_l": 29,
             "label_type": "class_declaration"
           },
           "310": {
             "label_c": 51,
+            "label_field_arguments": "314",
+            "label_field_name": "313",
+            "label_field_object": "311",
             "label_l": 64,
             "label_type": "method_invocation"
           },
@@ -16880,6 +17317,9 @@
           },
           "321": {
             "label_c": 84,
+            "label_field_arguments": "325",
+            "label_field_name": "324",
+            "label_field_object": "322",
             "label_l": 64,
             "label_type": "method_invocation"
           },
@@ -16932,6 +17372,8 @@
           },
           "33": {
             "label_c": 1,
+            "label_field_arguments": "36",
+            "label_field_name": "35",
             "label_l": 29,
             "label_type": "annotation"
           },
@@ -16942,6 +17384,9 @@
           },
           "331": {
             "label_c": 3,
+            "label_field_left": "332",
+            "label_field_operator": "333",
+            "label_field_right": "334",
             "label_l": 65,
             "label_type": "assignment_expression"
           },
@@ -16971,6 +17416,8 @@
           },
           "336": {
             "label_c": 3,
+            "label_field_declarator": "338",
+            "label_field_type": "337",
             "label_l": 67,
             "label_type": "local_variable_declaration"
           },
@@ -16982,6 +17429,8 @@
           },
           "338": {
             "label_c": 10,
+            "label_field_name": "339",
+            "label_field_value": "341",
             "label_l": 67,
             "label_type": "variable_declarator"
           },
@@ -17005,6 +17454,9 @@
           },
           "341": {
             "label_c": 23,
+            "label_field_left": "342",
+            "label_field_operator": "343",
+            "label_field_right": "344",
             "label_l": 67,
             "label_type": "binary_expression"
           },
@@ -17034,6 +17486,8 @@
           },
           "346": {
             "label_c": 3,
+            "label_field_declarator": "348",
+            "label_field_type": "347",
             "label_l": 69,
             "label_type": "local_variable_declaration"
           },
@@ -17045,6 +17499,8 @@
           },
           "348": {
             "label_c": 11,
+            "label_field_name": "349",
+            "label_field_value": "351",
             "label_l": 69,
             "label_type": "variable_declarator"
           },
@@ -17080,6 +17536,8 @@
           },
           "353": {
             "label_c": 3,
+            "label_field_declarator": "355",
+            "label_field_type": "354",
             "label_l": 70,
             "label_type": "local_variable_declaration"
           },
@@ -17091,6 +17549,8 @@
           },
           "355": {
             "label_c": 31,
+            "label_field_name": "356",
+            "label_field_value": "358",
             "label_l": 70,
             "label_type": "variable_declarator"
           },
@@ -17108,6 +17568,9 @@
           },
           "358": {
             "label_c": 41,
+            "label_field_arguments": "362",
+            "label_field_name": "361",
+            "label_field_object": "359",
             "label_l": 70,
             "label_type": "method_invocation"
           },
@@ -17159,6 +17622,8 @@
           },
           "366": {
             "label_c": 3,
+            "label_field_condition": "368",
+            "label_field_consequence": "375",
             "label_l": 71,
             "label_type": "if_statement"
           },
@@ -17187,6 +17652,9 @@
           },
           "370": {
             "label_c": 7,
+            "label_field_left": "371",
+            "label_field_operator": "372",
+            "label_field_right": "373",
             "label_l": 71,
             "label_type": "binary_expression"
           },
@@ -17227,6 +17695,10 @@
           },
           "377": {
             "label_c": 4,
+            "label_field_body": "401",
+            "label_field_condition": "387",
+            "label_field_init": "380",
+            "label_field_update": "397",
             "label_l": 72,
             "label_type": "for_statement"
           },
@@ -17244,11 +17716,15 @@
           },
           "38": {
             "label_c": 13,
+            "label_field_key": "39",
+            "label_field_value": "41",
             "label_l": 29,
             "label_type": "element_value_pair"
           },
           "380": {
             "label_c": 9,
+            "label_field_declarator": "382",
+            "label_field_type": "381",
             "label_l": 72,
             "label_type": "local_variable_declaration"
           },
@@ -17260,6 +17736,8 @@
           },
           "382": {
             "label_c": 13,
+            "label_field_name": "383",
+            "label_field_value": "385",
             "label_l": 72,
             "label_type": "variable_declarator"
           },
@@ -17289,11 +17767,16 @@
           },
           "387": {
             "label_c": 20,
+            "label_field_left": "388",
+            "label_field_operator": "391",
+            "label_field_right": "392",
             "label_l": 72,
             "label_type": "binary_expression"
           },
           "388": {
             "label_c": 20,
+            "label_field_operand": "390",
+            "label_field_operator": "389",
             "label_l": 72,
             "label_type": "unary_expression"
           },
@@ -17323,6 +17806,9 @@
           },
           "392": {
             "label_c": 34,
+            "label_field_left": "393",
+            "label_field_operator": "394",
+            "label_field_right": "395",
             "label_l": 72,
             "label_type": "binary_expression"
           },
@@ -17398,6 +17884,8 @@
           },
           "403": {
             "label_c": 5,
+            "label_field_declarator": "405",
+            "label_field_type": "404",
             "label_l": 73,
             "label_type": "local_variable_declaration"
           },
@@ -17409,6 +17897,8 @@
           },
           "405": {
             "label_c": 31,
+            "label_field_name": "406",
+            "label_field_value": "408",
             "label_l": 73,
             "label_type": "variable_declarator"
           },
@@ -17426,6 +17916,8 @@
           },
           "408": {
             "label_c": 40,
+            "label_field_array": "409",
+            "label_field_index": "411",
             "label_l": 73,
             "label_type": "array_access"
           },
@@ -17467,6 +17959,8 @@
           },
           "414": {
             "label_c": 5,
+            "label_field_condition": "416",
+            "label_field_consequence": "433",
             "label_l": 74,
             "label_type": "if_statement"
           },
@@ -17489,6 +17983,9 @@
           },
           "418": {
             "label_c": 9,
+            "label_field_arguments": "422",
+            "label_field_name": "421",
+            "label_field_object": "419",
             "label_l": 74,
             "label_type": "method_invocation"
           },
@@ -17529,6 +18026,9 @@
           },
           "424": {
             "label_c": 27,
+            "label_field_arguments": "428",
+            "label_field_name": "427",
+            "label_field_object": "425",
             "label_l": 74,
             "label_type": "method_invocation"
           },
@@ -17598,6 +18098,8 @@
           },
           "435": {
             "label_c": 6,
+            "label_field_condition": "437",
+            "label_field_consequence": "467",
             "label_l": 75,
             "label_type": "if_statement"
           },
@@ -17620,6 +18122,9 @@
           },
           "439": {
             "label_c": 10,
+            "label_field_arguments": "449",
+            "label_field_name": "448",
+            "label_field_object": "440",
             "label_l": 75,
             "label_type": "method_invocation"
           },
@@ -17631,6 +18136,9 @@
           },
           "440": {
             "label_c": 10,
+            "label_field_arguments": "444",
+            "label_field_name": "443",
+            "label_field_object": "441",
             "label_l": 75,
             "label_type": "method_invocation"
           },
@@ -17700,11 +18208,17 @@
           },
           "451": {
             "label_c": 35,
+            "label_field_arguments": "461",
+            "label_field_name": "460",
+            "label_field_object": "452",
             "label_l": 75,
             "label_type": "method_invocation"
           },
           "452": {
             "label_c": 35,
+            "label_field_arguments": "456",
+            "label_field_name": "455",
+            "label_field_object": "453",
             "label_l": 75,
             "label_type": "method_invocation"
           },
@@ -17819,6 +18333,9 @@
           },
           "470": {
             "label_c": 7,
+            "label_field_left": "471",
+            "label_field_operator": "472",
+            "label_field_right": "473",
             "label_l": 76,
             "label_type": "assignment_expression"
           },
@@ -17872,6 +18389,9 @@
           },
           "479": {
             "label_c": 3,
+            "label_field_alternative": "511",
+            "label_field_condition": "481",
+            "label_field_consequence": "485",
             "label_l": 82,
             "label_type": "if_statement"
           },
@@ -17928,12 +18448,18 @@
           },
           "488": {
             "label_c": 4,
+            "label_field_arguments": "498",
+            "label_field_name": "497",
+            "label_field_object": "489",
             "label_l": 83,
             "label_sink_type": "F008",
             "label_type": "method_invocation"
           },
           "489": {
             "label_c": 4,
+            "label_field_arguments": "493",
+            "label_field_name": "492",
+            "label_field_object": "490",
             "label_l": 83,
             "label_type": "method_invocation"
           },
@@ -18014,11 +18540,17 @@
           },
           "500": {
             "label_c": 4,
+            "label_field_left": "501",
+            "label_field_operator": "505",
+            "label_field_right": "506",
             "label_l": 84,
             "label_type": "binary_expression"
           },
           "501": {
             "label_c": 4,
+            "label_field_left": "502",
+            "label_field_operator": "503",
+            "label_field_right": "504",
             "label_l": 84,
             "label_type": "binary_expression"
           },
@@ -18072,6 +18604,8 @@
           },
           "51": {
             "label_c": 2,
+            "label_field_declarator": "57",
+            "label_field_type": "56",
             "label_l": 32,
             "label_type": "field_declaration"
           },
@@ -18094,6 +18628,8 @@
           },
           "513": {
             "label_c": 4,
+            "label_field_declarator": "515",
+            "label_field_type": "514",
             "label_l": 88,
             "label_type": "local_variable_declaration"
           },
@@ -18105,6 +18641,8 @@
           },
           "515": {
             "label_c": 30,
+            "label_field_name": "516",
+            "label_field_value": "518",
             "label_l": 88,
             "label_type": "variable_declarator"
           },
@@ -18122,6 +18660,8 @@
           },
           "518": {
             "label_c": 43,
+            "label_field_arguments": "521",
+            "label_field_type": "520",
             "label_l": 88,
             "label_type": "object_creation_expression"
           },
@@ -18190,6 +18730,9 @@
           },
           "529": {
             "label_c": 4,
+            "label_field_arguments": "533",
+            "label_field_name": "532",
+            "label_field_object": "530",
             "label_l": 89,
             "label_type": "method_invocation"
           },
@@ -18253,6 +18796,9 @@
           },
           "539": {
             "label_c": 4,
+            "label_field_arguments": "543",
+            "label_field_name": "542",
+            "label_field_object": "540",
             "label_l": 90,
             "label_type": "method_invocation"
           },
@@ -18316,6 +18862,9 @@
           },
           "549": {
             "label_c": 4,
+            "label_field_arguments": "553",
+            "label_field_name": "552",
+            "label_field_object": "550",
             "label_l": 91,
             "label_type": "method_invocation"
           },
@@ -18356,6 +18905,9 @@
           },
           "555": {
             "label_c": 23,
+            "label_field_arguments": "559",
+            "label_field_name": "558",
+            "label_field_object": "556",
             "label_l": 91,
             "label_type": "method_invocation"
           },
@@ -18431,12 +18983,18 @@
           },
           "567": {
             "label_c": 4,
+            "label_field_arguments": "577",
+            "label_field_name": "576",
+            "label_field_object": "568",
             "label_l": 93,
             "label_sink_type": "F034,F063_TRUSTBOUND",
             "label_type": "method_invocation"
           },
           "568": {
             "label_c": 4,
+            "label_field_arguments": "572",
+            "label_field_name": "571",
+            "label_field_object": "569",
             "label_l": 93,
             "label_type": "method_invocation"
           },
@@ -18448,6 +19006,8 @@
           },
           "57": {
             "label_c": 28,
+            "label_field_name": "58",
+            "label_field_value": "60",
             "label_l": 32,
             "label_type": "variable_declarator"
           },
@@ -18546,6 +19106,9 @@
           },
           "585": {
             "label_c": 4,
+            "label_field_arguments": "589",
+            "label_field_name": "588",
+            "label_field_object": "586",
             "label_l": 94,
             "label_sink_type": "F034,F042",
             "label_type": "method_invocation"
@@ -18610,12 +19173,18 @@
           },
           "595": {
             "label_c": 4,
+            "label_field_arguments": "605",
+            "label_field_name": "604",
+            "label_field_object": "596",
             "label_l": 95,
             "label_sink_type": "F008",
             "label_type": "method_invocation"
           },
           "596": {
             "label_c": 4,
+            "label_field_arguments": "600",
+            "label_field_name": "599",
+            "label_field_object": "597",
             "label_l": 95,
             "label_type": "method_invocation"
           },
@@ -18691,16 +19260,25 @@
           },
           "607": {
             "label_c": 5,
+            "label_field_left": "608",
+            "label_field_operator": "633",
+            "label_field_right": "634",
             "label_l": 96,
             "label_type": "binary_expression"
           },
           "608": {
             "label_c": 5,
+            "label_field_left": "609",
+            "label_field_operator": "625",
+            "label_field_right": "626",
             "label_l": 96,
             "label_type": "binary_expression"
           },
           "609": {
             "label_c": 5,
+            "label_field_left": "610",
+            "label_field_operator": "623",
+            "label_field_right": "624",
             "label_l": 96,
             "label_type": "binary_expression"
           },
@@ -18712,11 +19290,17 @@
           },
           "610": {
             "label_c": 5,
+            "label_field_left": "611",
+            "label_field_operator": "615",
+            "label_field_right": "616",
             "label_l": 96,
             "label_type": "binary_expression"
           },
           "611": {
             "label_c": 5,
+            "label_field_left": "612",
+            "label_field_operator": "613",
+            "label_field_right": "614",
             "label_l": 96,
             "label_type": "binary_expression"
           },
@@ -18746,6 +19330,9 @@
           },
           "616": {
             "label_c": 51,
+            "label_field_arguments": "620",
+            "label_field_name": "619",
+            "label_field_object": "617",
             "label_l": 96,
             "label_type": "method_invocation"
           },
@@ -18769,6 +19356,10 @@
           },
           "62": {
             "label_c": 2,
+            "label_field_body": "85",
+            "label_field_name": "69",
+            "label_field_parameters": "70",
+            "label_field_type": "68",
             "label_l": 34,
             "label_type": "method_declaration"
           },
@@ -18809,6 +19400,9 @@
           },
           "626": {
             "label_c": 30,
+            "label_field_arguments": "630",
+            "label_field_name": "629",
+            "label_field_object": "627",
             "label_l": 97,
             "label_type": "method_invocation"
           },
@@ -18889,17 +19483,24 @@
           },
           "639": {
             "label_c": 3,
+            "label_field_arguments": "649",
+            "label_field_name": "648",
+            "label_field_object": "640",
             "label_l": 101,
             "label_sink_type": "F008",
             "label_type": "method_invocation"
           },
           "64": {
             "label_c": 2,
+            "label_field_name": "66",
             "label_l": 34,
             "label_type": "marker_annotation"
           },
           "640": {
             "label_c": 3,
+            "label_field_arguments": "644",
+            "label_field_name": "643",
+            "label_field_object": "641",
             "label_l": 101,
             "label_type": "method_invocation"
           },
@@ -19039,6 +19640,8 @@
           },
           "72": {
             "label_c": 20,
+            "label_field_name": "74",
+            "label_field_type": "73",
             "label_l": 35,
             "label_type": "formal_parameter"
           },
@@ -19063,6 +19666,8 @@
           },
           "76": {
             "label_c": 48,
+            "label_field_name": "78",
+            "label_field_type": "77",
             "label_l": 35,
             "label_type": "formal_parameter"
           },
@@ -19137,6 +19742,8 @@
           },
           "88": {
             "label_c": 3,
+            "label_field_arguments": "90",
+            "label_field_name": "89",
             "label_l": 36,
             "label_type": "method_invocation"
           },
@@ -19201,6 +19808,10 @@
           },
           "98": {
             "label_c": 2,
+            "label_field_body": "121",
+            "label_field_name": "105",
+            "label_field_parameters": "106",
+            "label_field_type": "104",
             "label_l": 39,
             "label_type": "method_declaration"
           },
@@ -21457,6 +22068,10 @@
           },
           "13": {
             "label_c": 5,
+            "label_field_body": "25",
+            "label_field_name": "18",
+            "label_field_parameters": "19",
+            "label_field_type": "17",
             "label_l": 4,
             "label_type": "method_declaration"
           },
@@ -21507,6 +22122,8 @@
           },
           "21": {
             "label_c": 29,
+            "label_field_name": "23",
+            "label_field_type": "22",
             "label_l": 4,
             "label_type": "formal_parameter"
           },
@@ -21541,6 +22158,7 @@
           },
           "27": {
             "label_c": 9,
+            "label_field_body": "29",
             "label_l": 5,
             "label_type": "try_statement"
           },
@@ -21574,6 +22192,9 @@
           },
           "32": {
             "label_c": 9,
+            "label_field_arguments": "36",
+            "label_field_name": "35",
+            "label_field_object": "33",
             "label_l": 6,
             "label_type": "method_invocation"
           },
@@ -21608,6 +22229,9 @@
           },
           "38": {
             "label_c": 28,
+            "label_field_arguments": "42",
+            "label_field_name": "41",
+            "label_field_object": "39",
             "label_l": 6,
             "label_type": "method_invocation"
           },
@@ -21696,6 +22320,7 @@
           },
           "51": {
             "label_c": 11,
+            "label_field_body": "59",
             "label_l": 7,
             "label_type": "catch_clause"
           },
@@ -21713,6 +22338,7 @@
           },
           "54": {
             "label_c": 18,
+            "label_field_name": "57",
             "label_l": 7,
             "label_type": "catch_formal_parameter"
           },
@@ -21746,6 +22372,8 @@
           },
           "6": {
             "label_c": 1,
+            "label_field_body": "11",
+            "label_field_name": "10",
             "label_l": 3,
             "label_type": "class_declaration"
           },
@@ -22539,6 +23167,8 @@
           },
           "100": {
             "label_c": 35,
+            "label_field_arguments": "103",
+            "label_field_type": "102",
             "label_l": 13,
             "label_sink_type": "F063_PATH_TRAVERSAL",
             "label_type": "object_creation_expression"
@@ -22568,6 +23198,8 @@
           },
           "105": {
             "label_c": 63,
+            "label_field_arguments": "108",
+            "label_field_type": "107",
             "label_l": 13,
             "label_sink_type": "F063_PATH_TRAVERSAL",
             "label_type": "object_creation_expression"
@@ -22644,6 +23276,10 @@
           },
           "13": {
             "label_c": 3,
+            "label_field_body": "36",
+            "label_field_name": "20",
+            "label_field_parameters": "21",
+            "label_field_type": "19",
             "label_l": 4,
             "label_type": "method_declaration"
           },
@@ -22654,6 +23290,7 @@
           },
           "15": {
             "label_c": 3,
+            "label_field_name": "17",
             "label_l": 4,
             "label_type": "marker_annotation"
           },
@@ -22705,6 +23342,8 @@
           },
           "23": {
             "label_c": 22,
+            "label_field_name": "25",
+            "label_field_type": "24",
             "label_l": 5,
             "label_type": "formal_parameter"
           },
@@ -22729,6 +23368,8 @@
           },
           "27": {
             "label_c": 50,
+            "label_field_name": "29",
+            "label_field_type": "28",
             "label_l": 5,
             "label_type": "formal_parameter"
           },
@@ -22815,6 +23456,9 @@
           },
           "40": {
             "label_c": 5,
+            "label_field_arguments": "44",
+            "label_field_name": "43",
+            "label_field_object": "41",
             "label_l": 7,
             "label_type": "method_invocation"
           },
@@ -22879,6 +23523,8 @@
           },
           "50": {
             "label_c": 5,
+            "label_field_declarator": "52",
+            "label_field_type": "51",
             "label_l": 10,
             "label_type": "local_variable_declaration"
           },
@@ -22890,6 +23536,8 @@
           },
           "52": {
             "label_c": 33,
+            "label_field_name": "53",
+            "label_field_value": "55",
             "label_l": 10,
             "label_type": "variable_declarator"
           },
@@ -22907,6 +23555,9 @@
           },
           "55": {
             "label_c": 45,
+            "label_field_arguments": "59",
+            "label_field_name": "58",
+            "label_field_object": "56",
             "label_l": 10,
             "label_type": "method_invocation"
           },
@@ -22935,6 +23586,8 @@
           },
           "6": {
             "label_c": 1,
+            "label_field_body": "11",
+            "label_field_name": "10",
             "label_l": 3,
             "label_type": "class_declaration"
           },
@@ -22958,6 +23611,8 @@
           },
           "63": {
             "label_c": 5,
+            "label_field_declarator": "65",
+            "label_field_type": "64",
             "label_l": 11,
             "label_type": "local_variable_declaration"
           },
@@ -22969,6 +23624,8 @@
           },
           "65": {
             "label_c": 12,
+            "label_field_name": "66",
+            "label_field_value": "68",
             "label_l": 11,
             "label_type": "variable_declarator"
           },
@@ -22986,6 +23643,9 @@
           },
           "68": {
             "label_c": 20,
+            "label_field_arguments": "72",
+            "label_field_name": "71",
+            "label_field_object": "69",
             "label_l": 11,
             "label_type": "method_invocation"
           },
@@ -23025,6 +23685,9 @@
           },
           "74": {
             "label_c": 47,
+            "label_field_arguments": "78",
+            "label_field_name": "77",
+            "label_field_object": "75",
             "label_l": 11,
             "label_type": "method_invocation"
           },
@@ -23095,6 +23758,8 @@
           },
           "85": {
             "label_c": 5,
+            "label_field_declarator": "87",
+            "label_field_type": "86",
             "label_l": 12,
             "label_type": "local_variable_declaration"
           },
@@ -23106,6 +23771,8 @@
           },
           "87": {
             "label_c": 12,
+            "label_field_name": "88",
+            "label_field_value": "90",
             "label_l": 12,
             "label_type": "variable_declarator"
           },
@@ -23129,6 +23796,9 @@
           },
           "90": {
             "label_c": 23,
+            "label_field_left": "91",
+            "label_field_operator": "92",
+            "label_field_right": "93",
             "label_l": 12,
             "label_type": "binary_expression"
           },
@@ -23158,6 +23828,8 @@
           },
           "95": {
             "label_c": 5,
+            "label_field_declarator": "97",
+            "label_field_type": "96",
             "label_l": 13,
             "label_type": "local_variable_declaration"
           },
@@ -23169,6 +23841,8 @@
           },
           "97": {
             "label_c": 29,
+            "label_field_name": "98",
+            "label_field_value": "100",
             "label_l": 13,
             "label_type": "variable_declarator"
           },
@@ -31956,6 +32630,8 @@
           },
           "10": {
             "label_c": 1,
+            "label_field_body": "15",
+            "label_field_name": "14",
             "label_l": 4,
             "label_type": "class_declaration"
           },
@@ -32015,6 +32691,10 @@
           },
           "1008": {
             "label_c": 5,
+            "label_field_body": "1016",
+            "label_field_name": "1012",
+            "label_field_type": "1011",
+            "label_field_value": "1014",
             "label_l": 150,
             "label_type": "enhanced_for_statement"
           },
@@ -32084,6 +32764,9 @@
           },
           "1019": {
             "label_c": 7,
+            "label_field_arguments": "1023",
+            "label_field_name": "1022",
+            "label_field_object": "1020",
             "label_l": 151,
             "label_type": "method_invocation"
           },
@@ -32124,6 +32807,9 @@
           },
           "1025": {
             "label_c": 26,
+            "label_field_left": "1026",
+            "label_field_operator": "1027",
+            "label_field_right": "1028",
             "label_l": 151,
             "label_type": "binary_expression"
           },
@@ -32164,6 +32850,8 @@
           },
           "1031": {
             "label_c": 7,
+            "label_field_declarator": "1033",
+            "label_field_type": "1032",
             "label_l": 152,
             "label_type": "local_variable_declaration"
           },
@@ -32175,6 +32863,8 @@
           },
           "1033": {
             "label_c": 11,
+            "label_field_name": "1034",
+            "label_field_value": "1036",
             "label_l": 152,
             "label_type": "variable_declarator"
           },
@@ -32204,6 +32894,8 @@
           },
           "1038": {
             "label_c": 7,
+            "label_field_declarator": "1040",
+            "label_field_type": "1039",
             "label_l": 153,
             "label_type": "local_variable_declaration"
           },
@@ -32221,6 +32913,7 @@
           },
           "1040": {
             "label_c": 14,
+            "label_field_name": "1041",
             "label_l": 153,
             "label_type": "variable_declarator"
           },
@@ -32238,6 +32931,8 @@
           },
           "1043": {
             "label_c": 7,
+            "label_field_body": "1049",
+            "label_field_condition": "1045",
             "label_l": 154,
             "label_type": "switch_statement"
           },
@@ -32316,6 +33011,9 @@
           },
           "1056": {
             "label_c": 17,
+            "label_field_arguments": "1060",
+            "label_field_name": "1059",
+            "label_field_object": "1057",
             "label_l": 155,
             "label_type": "method_invocation"
           },
@@ -32339,6 +33037,9 @@
           },
           "106": {
             "label_c": 9,
+            "label_field_arguments": "110",
+            "label_field_name": "109",
+            "label_field_object": "107",
             "label_l": 14,
             "label_type": "method_invocation"
           },
@@ -32447,6 +33148,9 @@
           },
           "1077": {
             "label_c": 17,
+            "label_field_arguments": "1081",
+            "label_field_name": "1080",
+            "label_field_object": "1078",
             "label_l": 158,
             "label_type": "method_invocation"
           },
@@ -32550,6 +33254,9 @@
           },
           "1093": {
             "label_c": 18,
+            "label_field_arguments": "1097",
+            "label_field_name": "1096",
+            "label_field_object": "1094",
             "label_l": 160,
             "label_type": "method_invocation"
           },
@@ -32641,6 +33348,10 @@
           },
           "1107": {
             "label_c": 5,
+            "label_field_body": "1126",
+            "label_field_condition": "1117",
+            "label_field_init": "1110",
+            "label_field_update": "1122",
             "label_l": 165,
             "label_type": "for_statement"
           },
@@ -32664,6 +33375,8 @@
           },
           "1110": {
             "label_c": 9,
+            "label_field_declarator": "1112",
+            "label_field_type": "1111",
             "label_l": 165,
             "label_type": "local_variable_declaration"
           },
@@ -32675,6 +33388,8 @@
           },
           "1112": {
             "label_c": 13,
+            "label_field_name": "1113",
+            "label_field_value": "1115",
             "label_l": 165,
             "label_type": "variable_declarator"
           },
@@ -32704,6 +33419,9 @@
           },
           "1117": {
             "label_c": 18,
+            "label_field_left": "1118",
+            "label_field_operator": "1119",
+            "label_field_right": "1120",
             "label_l": 165,
             "label_type": "binary_expression"
           },
@@ -32773,6 +33491,8 @@
           },
           "1128": {
             "label_c": 6,
+            "label_field_condition": "1130",
+            "label_field_consequence": "1137",
             "label_l": 166,
             "label_type": "if_statement"
           },
@@ -32801,6 +33521,9 @@
           },
           "1132": {
             "label_c": 9,
+            "label_field_left": "1133",
+            "label_field_operator": "1134",
+            "label_field_right": "1135",
             "label_l": 166,
             "label_type": "binary_expression"
           },
@@ -32852,6 +33575,9 @@
           },
           "1140": {
             "label_c": 7,
+            "label_field_arguments": "1144",
+            "label_field_name": "1143",
+            "label_field_object": "1141",
             "label_l": 168,
             "label_type": "method_invocation"
           },
@@ -32938,6 +33664,9 @@
           },
           "1154": {
             "label_c": 6,
+            "label_field_arguments": "1158",
+            "label_field_name": "1157",
+            "label_field_object": "1155",
             "label_l": 171,
             "label_type": "method_invocation"
           },
@@ -32977,6 +33706,9 @@
           },
           "1160": {
             "label_c": 25,
+            "label_field_left": "1161",
+            "label_field_operator": "1162",
+            "label_field_right": "1163",
             "label_l": 171,
             "label_type": "binary_expression"
           },
@@ -33018,6 +33750,8 @@
           },
           "1167": {
             "label_c": 5,
+            "label_field_declarator": "1169",
+            "label_field_type": "1168",
             "label_l": 174,
             "label_type": "local_variable_declaration"
           },
@@ -33029,11 +33763,16 @@
           },
           "1169": {
             "label_c": 9,
+            "label_field_name": "1170",
+            "label_field_value": "1172",
             "label_l": 174,
             "label_type": "variable_declarator"
           },
           "117": {
             "label_c": 7,
+            "label_field_arguments": "121",
+            "label_field_name": "120",
+            "label_field_object": "118",
             "label_l": 16,
             "label_type": "method_invocation"
           },
@@ -33063,6 +33802,8 @@
           },
           "1174": {
             "label_c": 5,
+            "label_field_body": "1183",
+            "label_field_condition": "1176",
             "label_l": 175,
             "label_type": "while_statement"
           },
@@ -33085,6 +33826,9 @@
           },
           "1178": {
             "label_c": 11,
+            "label_field_left": "1179",
+            "label_field_operator": "1180",
+            "label_field_right": "1181",
             "label_l": 175,
             "label_type": "binary_expression"
           },
@@ -33131,6 +33875,8 @@
           },
           "1185": {
             "label_c": 6,
+            "label_field_condition": "1187",
+            "label_field_consequence": "1194",
             "label_l": 176,
             "label_type": "if_statement"
           },
@@ -33153,6 +33899,9 @@
           },
           "1189": {
             "label_c": 9,
+            "label_field_left": "1190",
+            "label_field_operator": "1191",
+            "label_field_right": "1192",
             "label_l": 176,
             "label_type": "binary_expression"
           },
@@ -33204,6 +33953,9 @@
           },
           "1197": {
             "label_c": 7,
+            "label_field_arguments": "1201",
+            "label_field_name": "1200",
+            "label_field_object": "1198",
             "label_l": 178,
             "label_type": "method_invocation"
           },
@@ -33301,6 +34053,9 @@
           },
           "1211": {
             "label_c": 9,
+            "label_field_arguments": "1215",
+            "label_field_name": "1214",
+            "label_field_object": "1212",
             "label_l": 181,
             "label_type": "method_invocation"
           },
@@ -33335,6 +34090,9 @@
           },
           "1217": {
             "label_c": 28,
+            "label_field_left": "1218",
+            "label_field_operator": "1219",
+            "label_field_right": "1220",
             "label_l": 181,
             "label_type": "binary_expression"
           },
@@ -33410,6 +34168,8 @@
           },
           "1229": {
             "label_c": 5,
+            "label_field_declarator": "1231",
+            "label_field_type": "1230",
             "label_l": 185,
             "label_type": "local_variable_declaration"
           },
@@ -33427,6 +34187,8 @@
           },
           "1231": {
             "label_c": 11,
+            "label_field_name": "1232",
+            "label_field_value": "1234",
             "label_l": 185,
             "label_type": "variable_declarator"
           },
@@ -33593,6 +34355,10 @@
           },
           "1257": {
             "label_c": 5,
+            "label_field_body": "1276",
+            "label_field_condition": "1267",
+            "label_field_init": "1260",
+            "label_field_update": "1272",
             "label_l": 186,
             "label_type": "for_statement"
           },
@@ -33610,11 +34376,15 @@
           },
           "126": {
             "label_c": 5,
+            "label_field_condition": "128",
+            "label_field_consequence": "132",
             "label_l": 19,
             "label_type": "if_statement"
           },
           "1260": {
             "label_c": 10,
+            "label_field_declarator": "1262",
+            "label_field_type": "1261",
             "label_l": 186,
             "label_type": "local_variable_declaration"
           },
@@ -33626,6 +34396,8 @@
           },
           "1262": {
             "label_c": 14,
+            "label_field_name": "1263",
+            "label_field_value": "1265",
             "label_l": 186,
             "label_type": "variable_declarator"
           },
@@ -33655,6 +34427,9 @@
           },
           "1267": {
             "label_c": 21,
+            "label_field_left": "1268",
+            "label_field_operator": "1269",
+            "label_field_right": "1270",
             "label_l": 186,
             "label_type": "binary_expression"
           },
@@ -33724,6 +34499,8 @@
           },
           "1278": {
             "label_c": 6,
+            "label_field_condition": "1280",
+            "label_field_consequence": "1294",
             "label_l": 187,
             "label_type": "if_statement"
           },
@@ -33751,16 +34528,24 @@
           },
           "1282": {
             "label_c": 10,
+            "label_field_left": "1283",
+            "label_field_operator": "1291",
+            "label_field_right": "1292",
             "label_l": 187,
             "label_type": "binary_expression"
           },
           "1283": {
             "label_c": 10,
+            "label_field_left": "1284",
+            "label_field_operator": "1289",
+            "label_field_right": "1290",
             "label_l": 187,
             "label_type": "binary_expression"
           },
           "1284": {
             "label_c": 10,
+            "label_field_array": "1285",
+            "label_field_index": "1287",
             "label_l": 187,
             "label_type": "array_access"
           },
@@ -33877,6 +34662,9 @@
           },
           "1301": {
             "label_c": 6,
+            "label_field_arguments": "1305",
+            "label_field_name": "1304",
+            "label_field_object": "1302",
             "label_l": 190,
             "label_type": "method_invocation"
           },
@@ -33911,11 +34699,16 @@
           },
           "1307": {
             "label_c": 25,
+            "label_field_left": "1308",
+            "label_field_operator": "1313",
+            "label_field_right": "1314",
             "label_l": 190,
             "label_type": "binary_expression"
           },
           "1308": {
             "label_c": 25,
+            "label_field_array": "1309",
+            "label_field_index": "1311",
             "label_l": 190,
             "label_type": "array_access"
           },
@@ -33981,6 +34774,8 @@
           },
           "1318": {
             "label_c": 2,
+            "label_field_declarator": "1320",
+            "label_field_type": "1319",
             "label_l": 193,
             "label_type": "local_variable_declaration"
           },
@@ -33997,6 +34792,8 @@
           },
           "1320": {
             "label_c": 10,
+            "label_field_name": "1321",
+            "label_field_value": "1323",
             "label_l": 193,
             "label_type": "variable_declarator"
           },
@@ -34183,6 +34980,9 @@
           },
           "135": {
             "label_c": 7,
+            "label_field_arguments": "139",
+            "label_field_name": "138",
+            "label_field_object": "136",
             "label_l": 21,
             "label_type": "method_invocation"
           },
@@ -34242,6 +35042,8 @@
           },
           "1359": {
             "label_c": 2,
+            "label_field_declarator": "1361",
+            "label_field_type": "1360",
             "label_l": 196,
             "label_type": "local_variable_declaration"
           },
@@ -34259,6 +35061,8 @@
           },
           "1361": {
             "label_c": 6,
+            "label_field_name": "1362",
+            "label_field_value": "1364",
             "label_l": 196,
             "label_type": "variable_declarator"
           },
@@ -34288,6 +35092,10 @@
           },
           "1366": {
             "label_c": 2,
+            "label_field_body": "1385",
+            "label_field_condition": "1376",
+            "label_field_init": "1369",
+            "label_field_update": "1381",
             "label_l": 198,
             "label_type": "for_statement"
           },
@@ -34305,6 +35113,8 @@
           },
           "1369": {
             "label_c": 7,
+            "label_field_declarator": "1371",
+            "label_field_type": "1370",
             "label_l": 198,
             "label_type": "local_variable_declaration"
           },
@@ -34322,6 +35132,8 @@
           },
           "1371": {
             "label_c": 11,
+            "label_field_name": "1372",
+            "label_field_value": "1374",
             "label_l": 198,
             "label_type": "variable_declarator"
           },
@@ -34351,6 +35163,9 @@
           },
           "1376": {
             "label_c": 18,
+            "label_field_left": "1377",
+            "label_field_operator": "1378",
+            "label_field_right": "1379",
             "label_l": 198,
             "label_type": "binary_expression"
           },
@@ -34420,6 +35235,10 @@
           },
           "1387": {
             "label_c": 3,
+            "label_field_body": "1406",
+            "label_field_condition": "1397",
+            "label_field_init": "1390",
+            "label_field_update": "1402",
             "label_l": 199,
             "label_type": "for_statement"
           },
@@ -34442,6 +35261,8 @@
           },
           "1390": {
             "label_c": 8,
+            "label_field_declarator": "1392",
+            "label_field_type": "1391",
             "label_l": 199,
             "label_type": "local_variable_declaration"
           },
@@ -34453,6 +35274,8 @@
           },
           "1392": {
             "label_c": 12,
+            "label_field_name": "1393",
+            "label_field_value": "1395",
             "label_l": 199,
             "label_type": "variable_declarator"
           },
@@ -34482,6 +35305,9 @@
           },
           "1397": {
             "label_c": 19,
+            "label_field_left": "1398",
+            "label_field_operator": "1399",
+            "label_field_right": "1400",
             "label_l": 199,
             "label_type": "binary_expression"
           },
@@ -34557,6 +35383,8 @@
           },
           "1408": {
             "label_c": 4,
+            "label_field_condition": "1410",
+            "label_field_consequence": "1425",
             "label_l": 200,
             "label_type": "if_statement"
           },
@@ -34585,16 +35413,23 @@
           },
           "1412": {
             "label_c": 8,
+            "label_field_left": "1413",
+            "label_field_operator": "1422",
+            "label_field_right": "1423",
             "label_l": 200,
             "label_type": "binary_expression"
           },
           "1413": {
             "label_c": 8,
+            "label_field_array": "1414",
+            "label_field_index": "1420",
             "label_l": 200,
             "label_type": "array_access"
           },
           "1414": {
             "label_c": 8,
+            "label_field_array": "1415",
+            "label_field_index": "1417",
             "label_l": 200,
             "label_type": "array_access"
           },
@@ -34682,6 +35517,9 @@
           },
           "1428": {
             "label_c": 5,
+            "label_field_arguments": "1432",
+            "label_field_name": "1431",
+            "label_field_object": "1429",
             "label_l": 201,
             "label_type": "method_invocation"
           },
@@ -34722,26 +35560,41 @@
           },
           "1434": {
             "label_c": 6,
+            "label_field_left": "1435",
+            "label_field_operator": "1448",
+            "label_field_right": "1449",
             "label_l": 202,
             "label_type": "binary_expression"
           },
           "1435": {
             "label_c": 6,
+            "label_field_left": "1436",
+            "label_field_operator": "1446",
+            "label_field_right": "1447",
             "label_l": 202,
             "label_type": "binary_expression"
           },
           "1436": {
             "label_c": 6,
+            "label_field_left": "1437",
+            "label_field_operator": "1444",
+            "label_field_right": "1445",
             "label_l": 202,
             "label_type": "binary_expression"
           },
           "1437": {
             "label_c": 6,
+            "label_field_left": "1438",
+            "label_field_operator": "1442",
+            "label_field_right": "1443",
             "label_l": 202,
             "label_type": "binary_expression"
           },
           "1438": {
             "label_c": 6,
+            "label_field_left": "1439",
+            "label_field_operator": "1440",
+            "label_field_right": "1441",
             "label_l": 202,
             "label_type": "binary_expression"
           },
@@ -34753,6 +35606,10 @@
           },
           "144": {
             "label_c": 7,
+            "label_field_body": "163",
+            "label_field_condition": "154",
+            "label_field_init": "147",
+            "label_field_update": "159",
             "label_l": 22,
             "label_type": "for_statement"
           },
@@ -34871,6 +35728,7 @@
           },
           "1458": {
             "label_c": 3,
+            "label_field_body": "1460",
             "label_l": 208,
             "label_type": "try_statement"
           },
@@ -34899,6 +35757,8 @@
           },
           "1462": {
             "label_c": 8,
+            "label_field_declarator": "1464",
+            "label_field_type": "1463",
             "label_l": 208,
             "label_type": "local_variable_declaration"
           },
@@ -34910,6 +35770,8 @@
           },
           "1464": {
             "label_c": 12,
+            "label_field_name": "1465",
+            "label_field_value": "1467",
             "label_l": 208,
             "label_type": "variable_declarator"
           },
@@ -34945,11 +35807,14 @@
           },
           "147": {
             "label_c": 11,
+            "label_field_declarator": "149",
+            "label_field_type": "148",
             "label_l": 22,
             "label_type": "local_variable_declaration"
           },
           "1470": {
             "label_c": 20,
+            "label_field_body": "1478",
             "label_l": 208,
             "label_type": "catch_clause"
           },
@@ -34967,6 +35832,7 @@
           },
           "1473": {
             "label_c": 27,
+            "label_field_name": "1476",
             "label_l": 208,
             "label_type": "catch_formal_parameter"
           },
@@ -35017,6 +35883,8 @@
           },
           "1481": {
             "label_c": 33,
+            "label_field_arguments": "1483",
+            "label_field_name": "1482",
             "label_l": 208,
             "label_type": "method_invocation"
           },
@@ -35063,11 +35931,14 @@
           },
           "1489": {
             "label_c": 42,
+            "label_field_body": "1497",
             "label_l": 208,
             "label_type": "catch_clause"
           },
           "149": {
             "label_c": 15,
+            "label_field_name": "150",
+            "label_field_value": "152",
             "label_l": 22,
             "label_type": "variable_declarator"
           },
@@ -35085,6 +35956,7 @@
           },
           "1492": {
             "label_c": 49,
+            "label_field_name": "1495",
             "label_l": 208,
             "label_type": "catch_formal_parameter"
           },
@@ -35140,6 +36012,8 @@
           },
           "1500": {
             "label_c": 57,
+            "label_field_arguments": "1502",
+            "label_field_name": "1501",
             "label_l": 208,
             "label_type": "method_invocation"
           },
@@ -35192,6 +36066,7 @@
           },
           "1509": {
             "label_c": 3,
+            "label_field_body": "1511",
             "label_l": 209,
             "label_type": "try_statement"
           },
@@ -35220,6 +36095,8 @@
           },
           "1513": {
             "label_c": 8,
+            "label_field_declarator": "1515",
+            "label_field_type": "1514",
             "label_l": 209,
             "label_type": "local_variable_declaration"
           },
@@ -35231,6 +36108,8 @@
           },
           "1515": {
             "label_c": 12,
+            "label_field_name": "1516",
+            "label_field_value": "1518",
             "label_l": 209,
             "label_type": "variable_declarator"
           },
@@ -35272,6 +36151,7 @@
           },
           "1521": {
             "label_c": 20,
+            "label_field_body": "1529",
             "label_l": 209,
             "label_type": "catch_clause"
           },
@@ -35289,6 +36169,7 @@
           },
           "1524": {
             "label_c": 27,
+            "label_field_name": "1527",
             "label_l": 209,
             "label_type": "catch_formal_parameter"
           },
@@ -35339,6 +36220,8 @@
           },
           "1532": {
             "label_c": 33,
+            "label_field_arguments": "1534",
+            "label_field_name": "1533",
             "label_l": 209,
             "label_type": "method_invocation"
           },
@@ -35385,6 +36268,9 @@
           },
           "154": {
             "label_c": 20,
+            "label_field_left": "155",
+            "label_field_operator": "156",
+            "label_field_right": "157",
             "label_l": 22,
             "label_type": "binary_expression"
           },
@@ -35396,6 +36282,7 @@
           },
           "1541": {
             "label_c": 3,
+            "label_field_body": "1543",
             "label_l": 210,
             "label_type": "try_statement"
           },
@@ -35418,6 +36305,8 @@
           },
           "1545": {
             "label_c": 8,
+            "label_field_declarator": "1547",
+            "label_field_type": "1546",
             "label_l": 210,
             "label_type": "local_variable_declaration"
           },
@@ -35429,6 +36318,8 @@
           },
           "1547": {
             "label_c": 12,
+            "label_field_name": "1548",
+            "label_field_value": "1550",
             "label_l": 210,
             "label_type": "variable_declarator"
           },
@@ -35497,6 +36388,8 @@
           },
           "1558": {
             "label_c": 29,
+            "label_field_arguments": "1560",
+            "label_field_name": "1559",
             "label_l": 210,
             "label_type": "method_invocation"
           },
@@ -35555,6 +36448,8 @@
           },
           "1567": {
             "label_c": 3,
+            "label_field_body": "1577",
+            "label_field_resources": "1569",
             "label_l": 211,
             "label_type": "try_with_resources_statement"
           },
@@ -35583,6 +36478,9 @@
           },
           "1571": {
             "label_c": 8,
+            "label_field_name": "1573",
+            "label_field_type": "1572",
+            "label_field_value": "1575",
             "label_l": 211,
             "label_type": "resource"
           },
@@ -35629,6 +36527,8 @@
           },
           "1579": {
             "label_c": 18,
+            "label_field_declarator": "1581",
+            "label_field_type": "1580",
             "label_l": 211,
             "label_type": "local_variable_declaration"
           },
@@ -35646,6 +36546,8 @@
           },
           "1581": {
             "label_c": 22,
+            "label_field_name": "1582",
+            "label_field_value": "1584",
             "label_l": 211,
             "label_type": "variable_declarator"
           },
@@ -35693,6 +36595,8 @@
           },
           "1589": {
             "label_c": 3,
+            "label_field_body": "1594",
+            "label_field_name": "1593",
             "label_l": 214,
             "label_type": "class_declaration"
           },
@@ -35789,6 +36693,9 @@
           },
           "166": {
             "label_c": 8,
+            "label_field_arguments": "170",
+            "label_field_name": "169",
+            "label_field_object": "167",
             "label_l": 23,
             "label_type": "method_invocation"
           },
@@ -35812,6 +36719,10 @@
           },
           "17": {
             "label_c": 3,
+            "label_field_body": "29",
+            "label_field_name": "22",
+            "label_field_parameters": "23",
+            "label_field_type": "21",
             "label_l": 6,
             "label_type": "method_declaration"
           },
@@ -35828,6 +36739,9 @@
           },
           "172": {
             "label_c": 27,
+            "label_field_left": "173",
+            "label_field_operator": "174",
+            "label_field_right": "175",
             "label_l": 23,
             "label_type": "binary_expression"
           },
@@ -35880,6 +36794,9 @@
           },
           "180": {
             "label_c": 5,
+            "label_field_alternative": "200",
+            "label_field_condition": "182",
+            "label_field_consequence": "186",
             "label_l": 27,
             "label_type": "if_statement"
           },
@@ -35930,6 +36847,9 @@
           },
           "189": {
             "label_c": 6,
+            "label_field_arguments": "193",
+            "label_field_name": "192",
+            "label_field_object": "190",
             "label_l": 29,
             "label_type": "method_invocation"
           },
@@ -36027,6 +36947,9 @@
           },
           "203": {
             "label_c": 7,
+            "label_field_arguments": "207",
+            "label_field_name": "206",
+            "label_field_object": "204",
             "label_l": 33,
             "label_type": "method_invocation"
           },
@@ -36085,6 +37008,8 @@
           },
           "212": {
             "label_c": 7,
+            "label_field_declarator": "214",
+            "label_field_type": "213",
             "label_l": 34,
             "label_type": "local_variable_declaration"
           },
@@ -36096,6 +37021,8 @@
           },
           "214": {
             "label_c": 11,
+            "label_field_name": "215",
+            "label_field_value": "217",
             "label_l": 34,
             "label_type": "variable_declarator"
           },
@@ -36125,6 +37052,8 @@
           },
           "219": {
             "label_c": 7,
+            "label_field_body": "228",
+            "label_field_condition": "221",
             "label_l": 35,
             "label_type": "while_statement"
           },
@@ -36153,6 +37082,9 @@
           },
           "223": {
             "label_c": 13,
+            "label_field_left": "224",
+            "label_field_operator": "225",
+            "label_field_right": "226",
             "label_l": 35,
             "label_type": "binary_expression"
           },
@@ -36203,6 +37135,9 @@
           },
           "231": {
             "label_c": 11,
+            "label_field_arguments": "235",
+            "label_field_name": "234",
+            "label_field_object": "232",
             "label_l": 36,
             "label_type": "method_invocation"
           },
@@ -36237,6 +37172,9 @@
           },
           "237": {
             "label_c": 30,
+            "label_field_left": "238",
+            "label_field_operator": "239",
+            "label_field_right": "240",
             "label_l": 36,
             "label_type": "binary_expression"
           },
@@ -36306,6 +37244,10 @@
           },
           "248": {
             "label_c": 11,
+            "label_field_body": "267",
+            "label_field_condition": "258",
+            "label_field_init": "251",
+            "label_field_update": "263",
             "label_l": 38,
             "label_type": "for_statement"
           },
@@ -36317,6 +37259,8 @@
           },
           "25": {
             "label_c": 27,
+            "label_field_name": "27",
+            "label_field_type": "26",
             "label_l": 6,
             "label_type": "formal_parameter"
           },
@@ -36328,6 +37272,8 @@
           },
           "251": {
             "label_c": 15,
+            "label_field_declarator": "253",
+            "label_field_type": "252",
             "label_l": 38,
             "label_type": "local_variable_declaration"
           },
@@ -36339,6 +37285,8 @@
           },
           "253": {
             "label_c": 19,
+            "label_field_name": "254",
+            "label_field_value": "256",
             "label_l": 38,
             "label_type": "variable_declarator"
           },
@@ -36368,6 +37316,9 @@
           },
           "258": {
             "label_c": 24,
+            "label_field_left": "259",
+            "label_field_operator": "260",
+            "label_field_right": "261",
             "label_l": 38,
             "label_type": "binary_expression"
           },
@@ -36448,6 +37399,9 @@
           },
           "270": {
             "label_c": 13,
+            "label_field_arguments": "274",
+            "label_field_name": "273",
+            "label_field_object": "271",
             "label_l": 39,
             "label_type": "method_invocation"
           },
@@ -36482,16 +37436,25 @@
           },
           "276": {
             "label_c": 32,
+            "label_field_left": "277",
+            "label_field_operator": "284",
+            "label_field_right": "285",
             "label_l": 39,
             "label_type": "binary_expression"
           },
           "277": {
             "label_c": 32,
+            "label_field_left": "278",
+            "label_field_operator": "282",
+            "label_field_right": "283",
             "label_l": 39,
             "label_type": "binary_expression"
           },
           "278": {
             "label_c": 32,
+            "label_field_left": "279",
+            "label_field_operator": "280",
+            "label_field_right": "281",
             "label_l": 39,
             "label_type": "binary_expression"
           },
@@ -36557,6 +37520,9 @@
           },
           "288": {
             "label_c": 13,
+            "label_field_alternative": "307",
+            "label_field_condition": "290",
+            "label_field_consequence": "300",
             "label_l": 40,
             "label_type": "if_statement"
           },
@@ -36584,11 +37550,17 @@
           },
           "292": {
             "label_c": 17,
+            "label_field_left": "293",
+            "label_field_operator": "297",
+            "label_field_right": "298",
             "label_l": 40,
             "label_type": "binary_expression"
           },
           "293": {
             "label_c": 17,
+            "label_field_left": "294",
+            "label_field_operator": "295",
+            "label_field_right": "296",
             "label_l": 40,
             "label_type": "binary_expression"
           },
@@ -36698,6 +37670,8 @@
           },
           "31": {
             "label_c": 5,
+            "label_field_declarator": "33",
+            "label_field_type": "32",
             "label_l": 7,
             "label_type": "local_variable_declaration"
           },
@@ -36726,6 +37700,9 @@
           },
           "314": {
             "label_c": 13,
+            "label_field_arguments": "318",
+            "label_field_name": "317",
+            "label_field_object": "315",
             "label_l": 45,
             "label_type": "method_invocation"
           },
@@ -36766,16 +37743,25 @@
           },
           "320": {
             "label_c": 32,
+            "label_field_left": "321",
+            "label_field_operator": "328",
+            "label_field_right": "329",
             "label_l": 45,
             "label_type": "binary_expression"
           },
           "321": {
             "label_c": 32,
+            "label_field_left": "322",
+            "label_field_operator": "326",
+            "label_field_right": "327",
             "label_l": 45,
             "label_type": "binary_expression"
           },
           "322": {
             "label_c": 32,
+            "label_field_left": "323",
+            "label_field_operator": "324",
+            "label_field_right": "325",
             "label_l": 45,
             "label_type": "binary_expression"
           },
@@ -36823,6 +37809,8 @@
           },
           "33": {
             "label_c": 13,
+            "label_field_name": "34",
+            "label_field_value": "36",
             "label_l": 7,
             "label_type": "variable_declarator"
           },
@@ -36846,6 +37834,8 @@
           },
           "333": {
             "label_c": 9,
+            "label_field_condition": "335",
+            "label_field_consequence": "342",
             "label_l": 47,
             "label_type": "if_statement"
           },
@@ -36868,6 +37858,9 @@
           },
           "337": {
             "label_c": 13,
+            "label_field_left": "338",
+            "label_field_operator": "339",
+            "label_field_right": "340",
             "label_l": 47,
             "label_type": "binary_expression"
           },
@@ -36942,6 +37935,9 @@
           },
           "349": {
             "label_c": 9,
+            "label_field_arguments": "353",
+            "label_field_name": "352",
+            "label_field_object": "350",
             "label_l": 50,
             "label_type": "method_invocation"
           },
@@ -37018,6 +38014,9 @@
           },
           "360": {
             "label_c": 5,
+            "label_field_alternative": "383",
+            "label_field_condition": "362",
+            "label_field_consequence": "369",
             "label_l": 54,
             "label_type": "if_statement"
           },
@@ -37040,6 +38039,9 @@
           },
           "364": {
             "label_c": 8,
+            "label_field_left": "365",
+            "label_field_operator": "366",
+            "label_field_right": "367",
             "label_l": 54,
             "label_type": "assignment_expression"
           },
@@ -37091,6 +38093,9 @@
           },
           "372": {
             "label_c": 6,
+            "label_field_arguments": "376",
+            "label_field_name": "375",
+            "label_field_object": "373",
             "label_l": 56,
             "label_type": "method_invocation"
           },
@@ -37137,6 +38142,8 @@
           },
           "38": {
             "label_c": 5,
+            "label_field_declarator": "40",
+            "label_field_type": "39",
             "label_l": 8,
             "label_type": "local_variable_declaration"
           },
@@ -37160,6 +38167,9 @@
           },
           "383": {
             "label_c": 10,
+            "label_field_alternative": "406",
+            "label_field_condition": "385",
+            "label_field_consequence": "392",
             "label_l": 58,
             "label_type": "if_statement"
           },
@@ -37182,6 +38192,9 @@
           },
           "387": {
             "label_c": 13,
+            "label_field_left": "388",
+            "label_field_operator": "389",
+            "label_field_right": "390",
             "label_l": 58,
             "label_type": "assignment_expression"
           },
@@ -37233,6 +38246,9 @@
           },
           "395": {
             "label_c": 6,
+            "label_field_arguments": "399",
+            "label_field_name": "398",
+            "label_field_object": "396",
             "label_l": 60,
             "label_type": "method_invocation"
           },
@@ -37267,6 +38283,8 @@
           },
           "40": {
             "label_c": 12,
+            "label_field_name": "41",
+            "label_field_value": "43",
             "label_l": 8,
             "label_type": "variable_declarator"
           },
@@ -37324,6 +38342,9 @@
           },
           "409": {
             "label_c": 6,
+            "label_field_arguments": "413",
+            "label_field_name": "412",
+            "label_field_object": "410",
             "label_l": 64,
             "label_type": "method_invocation"
           },
@@ -37388,6 +38409,8 @@
           },
           "419": {
             "label_c": 5,
+            "label_field_declarator": "421",
+            "label_field_type": "420",
             "label_l": 67,
             "label_type": "local_variable_declaration"
           },
@@ -37405,6 +38428,8 @@
           },
           "421": {
             "label_c": 9,
+            "label_field_name": "422",
+            "label_field_value": "424",
             "label_l": 67,
             "label_type": "variable_declarator"
           },
@@ -37434,6 +38459,8 @@
           },
           "426": {
             "label_c": 5,
+            "label_field_declarator": "428",
+            "label_field_type": "427",
             "label_l": 68,
             "label_type": "local_variable_declaration"
           },
@@ -37445,6 +38472,7 @@
           },
           "428": {
             "label_c": 12,
+            "label_field_name": "429",
             "label_l": 68,
             "label_type": "variable_declarator"
           },
@@ -37468,6 +38496,8 @@
           },
           "431": {
             "label_c": 5,
+            "label_field_body": "437",
+            "label_field_condition": "433",
             "label_l": 69,
             "label_type": "switch_statement"
           },
@@ -37547,6 +38577,9 @@
           },
           "444": {
             "label_c": 18,
+            "label_field_arguments": "448",
+            "label_field_name": "447",
+            "label_field_object": "445",
             "label_l": 70,
             "label_type": "method_invocation"
           },
@@ -37581,6 +38614,7 @@
           },
           "45": {
             "label_c": 5,
+            "label_field_body": "47",
             "label_l": 9,
             "label_type": "try_statement"
           },
@@ -37666,6 +38700,9 @@
           },
           "463": {
             "label_c": 18,
+            "label_field_arguments": "467",
+            "label_field_name": "466",
+            "label_field_object": "464",
             "label_l": 73,
             "label_type": "method_invocation"
           },
@@ -37723,6 +38760,10 @@
           },
           "472": {
             "label_c": 18,
+            "label_field_body": "491",
+            "label_field_condition": "482",
+            "label_field_init": "475",
+            "label_field_update": "487",
             "label_l": 74,
             "label_type": "for_statement"
           },
@@ -37740,6 +38781,8 @@
           },
           "475": {
             "label_c": 22,
+            "label_field_declarator": "477",
+            "label_field_type": "476",
             "label_l": 74,
             "label_type": "local_variable_declaration"
           },
@@ -37751,6 +38794,8 @@
           },
           "477": {
             "label_c": 26,
+            "label_field_name": "478",
+            "label_field_value": "480",
             "label_l": 74,
             "label_type": "variable_declarator"
           },
@@ -37786,6 +38831,9 @@
           },
           "482": {
             "label_c": 31,
+            "label_field_left": "483",
+            "label_field_operator": "484",
+            "label_field_right": "485",
             "label_l": 74,
             "label_type": "binary_expression"
           },
@@ -37832,6 +38880,8 @@
           },
           "49": {
             "label_c": 7,
+            "label_field_declarator": "51",
+            "label_field_type": "50",
             "label_l": 10,
             "label_type": "local_variable_declaration"
           },
@@ -37859,6 +38909,9 @@
           },
           "494": {
             "label_c": 19,
+            "label_field_arguments": "498",
+            "label_field_name": "497",
+            "label_field_object": "495",
             "label_l": 75,
             "label_type": "method_invocation"
           },
@@ -37905,6 +38958,9 @@
           },
           "500": {
             "label_c": 38,
+            "label_field_left": "501",
+            "label_field_operator": "502",
+            "label_field_right": "503",
             "label_l": 75,
             "label_type": "binary_expression"
           },
@@ -37940,6 +38996,8 @@
           },
           "506": {
             "label_c": 19,
+            "label_field_condition": "508",
+            "label_field_consequence": "515",
             "label_l": 76,
             "label_type": "if_statement"
           },
@@ -37962,11 +39020,16 @@
           },
           "51": {
             "label_c": 13,
+            "label_field_name": "52",
+            "label_field_value": "54",
             "label_l": 10,
             "label_type": "variable_declarator"
           },
           "510": {
             "label_c": 23,
+            "label_field_left": "511",
+            "label_field_operator": "512",
+            "label_field_right": "513",
             "label_l": 76,
             "label_type": "binary_expression"
           },
@@ -38047,6 +39110,9 @@
           },
           "523": {
             "label_c": 18,
+            "label_field_arguments": "527",
+            "label_field_name": "526",
+            "label_field_object": "524",
             "label_l": 80,
             "label_type": "method_invocation"
           },
@@ -38161,6 +39227,9 @@
           },
           "541": {
             "label_c": 18,
+            "label_field_arguments": "545",
+            "label_field_name": "544",
+            "label_field_object": "542",
             "label_l": 83,
             "label_type": "method_invocation"
           },
@@ -38258,6 +39327,9 @@
           },
           "557": {
             "label_c": 18,
+            "label_field_arguments": "561",
+            "label_field_name": "560",
+            "label_field_object": "558",
             "label_l": 85,
             "label_type": "method_invocation"
           },
@@ -38345,6 +39417,8 @@
           },
           "570": {
             "label_c": 5,
+            "label_field_declarator": "572",
+            "label_field_type": "571",
             "label_l": 89,
             "label_type": "local_variable_declaration"
           },
@@ -38356,6 +39430,8 @@
           },
           "572": {
             "label_c": 9,
+            "label_field_name": "573",
+            "label_field_value": "575",
             "label_l": 89,
             "label_type": "variable_declarator"
           },
@@ -38385,6 +39461,8 @@
           },
           "577": {
             "label_c": 5,
+            "label_field_declarator": "579",
+            "label_field_type": "578",
             "label_l": 90,
             "label_type": "local_variable_declaration"
           },
@@ -38396,6 +39474,7 @@
           },
           "579": {
             "label_c": 12,
+            "label_field_name": "580",
             "label_l": 90,
             "label_type": "variable_declarator"
           },
@@ -38419,6 +39498,8 @@
           },
           "582": {
             "label_c": 5,
+            "label_field_body": "588",
+            "label_field_condition": "584",
             "label_l": 91,
             "label_type": "switch_statement"
           },
@@ -38498,6 +39579,9 @@
           },
           "595": {
             "label_c": 18,
+            "label_field_arguments": "599",
+            "label_field_name": "598",
+            "label_field_object": "596",
             "label_l": 92,
             "label_type": "method_invocation"
           },
@@ -38589,6 +39673,9 @@
           },
           "609": {
             "label_c": 18,
+            "label_field_arguments": "613",
+            "label_field_name": "612",
+            "label_field_object": "610",
             "label_l": 93,
             "label_type": "method_invocation"
           },
@@ -38681,6 +39768,9 @@
           },
           "623": {
             "label_c": 18,
+            "label_field_arguments": "627",
+            "label_field_name": "626",
+            "label_field_object": "624",
             "label_l": 94,
             "label_type": "method_invocation"
           },
@@ -38760,6 +39850,9 @@
           },
           "636": {
             "label_c": 18,
+            "label_field_arguments": "640",
+            "label_field_name": "639",
+            "label_field_object": "637",
             "label_l": 95,
             "label_type": "method_invocation"
           },
@@ -38783,6 +39876,9 @@
           },
           "64": {
             "label_c": 7,
+            "label_field_arguments": "68",
+            "label_field_name": "67",
+            "label_field_object": "65",
             "label_l": 11,
             "label_type": "method_invocation"
           },
@@ -38840,6 +39936,8 @@
           },
           "649": {
             "label_c": 2,
+            "label_field_declarator": "651",
+            "label_field_type": "650",
             "label_l": 99,
             "label_type": "local_variable_declaration"
           },
@@ -38857,6 +39955,8 @@
           },
           "651": {
             "label_c": 6,
+            "label_field_name": "652",
+            "label_field_value": "654",
             "label_l": 99,
             "label_type": "variable_declarator"
           },
@@ -38886,6 +39986,8 @@
           },
           "656": {
             "label_c": 2,
+            "label_field_declarator": "658",
+            "label_field_type": "657",
             "label_l": 100,
             "label_type": "local_variable_declaration"
           },
@@ -38897,6 +39999,7 @@
           },
           "658": {
             "label_c": 9,
+            "label_field_name": "659",
             "label_l": 100,
             "label_type": "variable_declarator"
           },
@@ -38920,6 +40023,8 @@
           },
           "661": {
             "label_c": 2,
+            "label_field_body": "667",
+            "label_field_condition": "663",
             "label_l": 101,
             "label_type": "switch_statement"
           },
@@ -39050,6 +40155,9 @@
           },
           "682": {
             "label_c": 11,
+            "label_field_arguments": "686",
+            "label_field_name": "685",
+            "label_field_object": "683",
             "label_l": 104,
             "label_type": "method_invocation"
           },
@@ -39165,6 +40273,8 @@
           },
           "70": {
             "label_c": 26,
+            "label_field_array": "71",
+            "label_field_index": "73",
             "label_l": 11,
             "label_type": "array_access"
           },
@@ -39210,6 +40320,9 @@
           },
           "707": {
             "label_c": 11,
+            "label_field_arguments": "711",
+            "label_field_name": "710",
+            "label_field_object": "708",
             "label_l": 108,
             "label_type": "method_invocation"
           },
@@ -39313,6 +40426,9 @@
           },
           "723": {
             "label_c": 12,
+            "label_field_arguments": "727",
+            "label_field_name": "726",
+            "label_field_object": "724",
             "label_l": 110,
             "label_type": "method_invocation"
           },
@@ -39394,6 +40510,8 @@
           },
           "736": {
             "label_c": 5,
+            "label_field_declarator": "738",
+            "label_field_type": "737",
             "label_l": 114,
             "label_type": "local_variable_declaration"
           },
@@ -39405,6 +40523,8 @@
           },
           "738": {
             "label_c": 9,
+            "label_field_name": "739",
+            "label_field_value": "741",
             "label_l": 114,
             "label_type": "variable_declarator"
           },
@@ -39440,6 +40560,8 @@
           },
           "743": {
             "label_c": 5,
+            "label_field_body": "752",
+            "label_field_condition": "745",
             "label_l": 115,
             "label_type": "while_statement"
           },
@@ -39462,6 +40584,9 @@
           },
           "747": {
             "label_c": 11,
+            "label_field_left": "748",
+            "label_field_operator": "749",
+            "label_field_right": "750",
             "label_l": 115,
             "label_type": "binary_expression"
           },
@@ -39513,6 +40638,9 @@
           },
           "755": {
             "label_c": 9,
+            "label_field_arguments": "759",
+            "label_field_name": "758",
+            "label_field_object": "756",
             "label_l": 116,
             "label_type": "method_invocation"
           },
@@ -39553,6 +40681,9 @@
           },
           "761": {
             "label_c": 28,
+            "label_field_left": "762",
+            "label_field_operator": "763",
+            "label_field_right": "764",
             "label_l": 116,
             "label_type": "binary_expression"
           },
@@ -39628,6 +40759,8 @@
           },
           "773": {
             "label_c": 5,
+            "label_field_declarator": "775",
+            "label_field_type": "774",
             "label_l": 120,
             "label_type": "local_variable_declaration"
           },
@@ -39639,6 +40772,8 @@
           },
           "775": {
             "label_c": 9,
+            "label_field_name": "776",
+            "label_field_value": "778",
             "label_l": 120,
             "label_type": "variable_declarator"
           },
@@ -39668,11 +40803,14 @@
           },
           "78": {
             "label_c": 7,
+            "label_field_body": "86",
             "label_l": 12,
             "label_type": "catch_clause"
           },
           "780": {
             "label_c": 5,
+            "label_field_body": "782",
+            "label_field_condition": "951",
             "label_l": 121,
             "label_type": "do_statement"
           },
@@ -39700,6 +40838,9 @@
           },
           "785": {
             "label_c": 9,
+            "label_field_arguments": "789",
+            "label_field_name": "788",
+            "label_field_object": "786",
             "label_l": 122,
             "label_type": "method_invocation"
           },
@@ -39740,6 +40881,9 @@
           },
           "791": {
             "label_c": 28,
+            "label_field_left": "792",
+            "label_field_operator": "793",
+            "label_field_right": "794",
             "label_l": 122,
             "label_type": "binary_expression"
           },
@@ -39815,6 +40959,10 @@
           },
           "802": {
             "label_c": 9,
+            "label_field_body": "821",
+            "label_field_condition": "812",
+            "label_field_init": "805",
+            "label_field_update": "817",
             "label_l": 124,
             "label_type": "for_statement"
           },
@@ -39832,6 +40980,8 @@
           },
           "805": {
             "label_c": 13,
+            "label_field_declarator": "807",
+            "label_field_type": "806",
             "label_l": 124,
             "label_type": "local_variable_declaration"
           },
@@ -39843,6 +40993,8 @@
           },
           "807": {
             "label_c": 17,
+            "label_field_name": "808",
+            "label_field_value": "810",
             "label_l": 124,
             "label_type": "variable_declarator"
           },
@@ -39860,6 +41012,7 @@
           },
           "81": {
             "label_c": 14,
+            "label_field_name": "84",
             "label_l": 12,
             "label_type": "catch_formal_parameter"
           },
@@ -39877,6 +41030,9 @@
           },
           "812": {
             "label_c": 22,
+            "label_field_left": "813",
+            "label_field_operator": "814",
+            "label_field_right": "815",
             "label_l": 124,
             "label_type": "binary_expression"
           },
@@ -39950,6 +41106,9 @@
           },
           "824": {
             "label_c": 11,
+            "label_field_arguments": "828",
+            "label_field_name": "827",
+            "label_field_object": "825",
             "label_l": 125,
             "label_type": "method_invocation"
           },
@@ -39990,6 +41149,9 @@
           },
           "830": {
             "label_c": 30,
+            "label_field_left": "831",
+            "label_field_operator": "832",
+            "label_field_right": "833",
             "label_l": 125,
             "label_type": "binary_expression"
           },
@@ -40025,6 +41187,10 @@
           },
           "836": {
             "label_c": 13,
+            "label_field_body": "855",
+            "label_field_condition": "846",
+            "label_field_init": "839",
+            "label_field_update": "851",
             "label_l": 126,
             "label_type": "for_statement"
           },
@@ -40042,6 +41208,8 @@
           },
           "839": {
             "label_c": 17,
+            "label_field_declarator": "841",
+            "label_field_type": "840",
             "label_l": 126,
             "label_type": "local_variable_declaration"
           },
@@ -40059,6 +41227,8 @@
           },
           "841": {
             "label_c": 21,
+            "label_field_name": "842",
+            "label_field_value": "844",
             "label_l": 126,
             "label_type": "variable_declarator"
           },
@@ -40088,6 +41258,9 @@
           },
           "846": {
             "label_c": 26,
+            "label_field_left": "847",
+            "label_field_operator": "848",
+            "label_field_right": "849",
             "label_l": 126,
             "label_type": "binary_expression"
           },
@@ -40157,6 +41330,8 @@
           },
           "857": {
             "label_c": 15,
+            "label_field_declarator": "859",
+            "label_field_type": "858",
             "label_l": 127,
             "label_type": "local_variable_declaration"
           },
@@ -40168,6 +41343,8 @@
           },
           "859": {
             "label_c": 19,
+            "label_field_name": "860",
+            "label_field_value": "862",
             "label_l": 127,
             "label_type": "variable_declarator"
           },
@@ -40202,6 +41379,8 @@
           },
           "864": {
             "label_c": 15,
+            "label_field_body": "873",
+            "label_field_condition": "866",
             "label_l": 128,
             "label_type": "while_statement"
           },
@@ -40224,6 +41403,9 @@
           },
           "868": {
             "label_c": 21,
+            "label_field_left": "869",
+            "label_field_operator": "870",
+            "label_field_right": "871",
             "label_l": 128,
             "label_type": "binary_expression"
           },
@@ -40270,6 +41452,8 @@
           },
           "875": {
             "label_c": 17,
+            "label_field_condition": "877",
+            "label_field_consequence": "884",
             "label_l": 129,
             "label_type": "if_statement"
           },
@@ -40292,11 +41476,16 @@
           },
           "879": {
             "label_c": 20,
+            "label_field_left": "880",
+            "label_field_operator": "881",
+            "label_field_right": "882",
             "label_l": 129,
             "label_type": "binary_expression"
           },
           "88": {
             "label_c": 7,
+            "label_field_condition": "90",
+            "label_field_consequence": "103",
             "label_l": 13,
             "label_type": "if_statement"
           },
@@ -40342,6 +41531,9 @@
           },
           "887": {
             "label_c": 19,
+            "label_field_arguments": "891",
+            "label_field_name": "890",
+            "label_field_object": "888",
             "label_l": 131,
             "label_type": "method_invocation"
           },
@@ -40439,6 +41631,9 @@
           },
           "901": {
             "label_c": 19,
+            "label_field_arguments": "905",
+            "label_field_name": "904",
+            "label_field_object": "902",
             "label_l": 134,
             "label_type": "method_invocation"
           },
@@ -40473,6 +41668,9 @@
           },
           "907": {
             "label_c": 38,
+            "label_field_left": "908",
+            "label_field_operator": "909",
+            "label_field_right": "910",
             "label_l": 134,
             "label_type": "binary_expression"
           },
@@ -40542,6 +41740,8 @@
           },
           "918": {
             "label_c": 17,
+            "label_field_condition": "920",
+            "label_field_consequence": "927",
             "label_l": 136,
             "label_type": "if_statement"
           },
@@ -40553,6 +41753,9 @@
           },
           "92": {
             "label_c": 11,
+            "label_field_left": "93",
+            "label_field_operator": "100",
+            "label_field_right": "101",
             "label_l": 13,
             "label_type": "binary_expression"
           },
@@ -40569,6 +41772,9 @@
           },
           "922": {
             "label_c": 21,
+            "label_field_left": "923",
+            "label_field_operator": "924",
+            "label_field_right": "925",
             "label_l": 136,
             "label_type": "binary_expression"
           },
@@ -40614,6 +41820,9 @@
           },
           "93": {
             "label_c": 11,
+            "label_field_arguments": "97",
+            "label_field_name": "96",
+            "label_field_object": "94",
             "label_l": 13,
             "label_type": "method_invocation"
           },
@@ -40648,6 +41857,9 @@
           },
           "935": {
             "label_c": 15,
+            "label_field_arguments": "939",
+            "label_field_name": "938",
+            "label_field_object": "936",
             "label_l": 140,
             "label_type": "method_invocation"
           },
@@ -40688,6 +41900,9 @@
           },
           "941": {
             "label_c": 34,
+            "label_field_left": "942",
+            "label_field_operator": "943",
+            "label_field_right": "944",
             "label_l": 140,
             "label_type": "binary_expression"
           },
@@ -40764,6 +41979,9 @@
           },
           "953": {
             "label_c": 13,
+            "label_field_left": "954",
+            "label_field_operator": "955",
+            "label_field_right": "956",
             "label_l": 143,
             "label_type": "binary_expression"
           },
@@ -40799,6 +42017,10 @@
           },
           "959": {
             "label_c": 5,
+            "label_field_body": "978",
+            "label_field_condition": "969",
+            "label_field_init": "962",
+            "label_field_update": "974",
             "label_l": 145,
             "label_type": "for_statement"
           },
@@ -40822,6 +42044,8 @@
           },
           "962": {
             "label_c": 9,
+            "label_field_declarator": "964",
+            "label_field_type": "963",
             "label_l": 145,
             "label_type": "local_variable_declaration"
           },
@@ -40833,6 +42057,8 @@
           },
           "964": {
             "label_c": 13,
+            "label_field_name": "965",
+            "label_field_value": "967",
             "label_l": 145,
             "label_type": "variable_declarator"
           },
@@ -40862,6 +42088,9 @@
           },
           "969": {
             "label_c": 18,
+            "label_field_left": "970",
+            "label_field_operator": "971",
+            "label_field_right": "972",
             "label_l": 145,
             "label_type": "binary_expression"
           },
@@ -40941,6 +42170,9 @@
           },
           "981": {
             "label_c": 8,
+            "label_field_arguments": "985",
+            "label_field_name": "984",
+            "label_field_object": "982",
             "label_l": 146,
             "label_type": "method_invocation"
           },
@@ -40975,6 +42207,9 @@
           },
           "987": {
             "label_c": 27,
+            "label_field_left": "988",
+            "label_field_operator": "989",
+            "label_field_right": "990",
             "label_l": 146,
             "label_type": "binary_expression"
           },
@@ -41022,6 +42257,8 @@
           },
           "994": {
             "label_c": 5,
+            "label_field_declarator": "996",
+            "label_field_type": "995",
             "label_l": 149,
             "label_type": "local_variable_declaration"
           },
@@ -41033,6 +42270,8 @@
           },
           "996": {
             "label_c": 14,
+            "label_field_name": "997",
+            "label_field_value": "999",
             "label_l": 149,
             "label_type": "variable_declarator"
           },
