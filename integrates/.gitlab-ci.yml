@@ -78,6 +78,14 @@
   stage: scheduler
   tags: [autoscaling-large]
 
+.integrates_schedulers: &integrates_schedulers
+  <<: *makes
+  interruptible: false
+  script:
+    - ./m integrates.scheduler prod "schedulers.${CI_JOB_NAME/integrates.scheduler./}.main"
+  stage: scheduler
+  tags: [autoscaling-large]
+
 .integrates_mobile_ota_deploy: &integrates_mobile_ota_deploy
   <<: *makes
   script:
@@ -574,6 +582,12 @@ integrates.scheduler.send_unsolved_to_all:
   only:
     refs: [schedules]
     variables: [$integrates_scheduler_send_unsolved_to_all]
+
+integrates.scheduler.toe_lines_etl:
+  <<: *integrates_schedulers
+  only:
+    refs: [schedules]
+    variables: [$integrates_scheduler_toe_lines_etl]
 
 integrates.secrets.lint:
   <<: *makes
