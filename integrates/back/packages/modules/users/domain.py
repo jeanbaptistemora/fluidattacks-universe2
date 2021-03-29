@@ -1,6 +1,4 @@
 # Standard Libraries
-import logging
-import logging.config
 import re
 from typing import (
     Any,
@@ -14,10 +12,8 @@ from typing import (
 # Third libraries
 import bugsnag
 from aioextensions import collect
-from graphql.type.definition import GraphQLResolveInfo
 
 # Local libraries
-from back.settings import LOGGING
 from backend import (
     authz,
     util,
@@ -40,19 +36,12 @@ from backend.typing import (
 from newutils import (
     apm,
     datetime as datetime_utils,
-    groups as groups_utils,
 )
 from newutils.validations import (
     validate_email_address,
     validate_phone_field,
 )
 from __init__ import FI_DEFAULT_ORG
-
-
-logging.config.dictConfig(LOGGING)
-
-# Constants
-LOGGER = logging.getLogger(__name__)
 
 
 async def acknowledge_concurrent_session(email: str) -> bool:
@@ -141,39 +130,6 @@ async def create(email: str, data: UserType) -> bool:
     return await user_dal.create(email, data)
 
 
-async def create_forces_user(
-    info: GraphQLResolveInfo,
-    group_name: str
-) -> bool:
-    user_email = format_forces_user_email(group_name)
-    success = await groups_utils.invite_to_group(
-        email=user_email,
-        responsibility='Forces service user',
-        role='service_forces',
-        phone_number='',
-        group_name=group_name
-    )
-
-    # Give permissions directly, no confirmation required
-    project_access = await project_domain.get_user_access(
-        user_email, group_name
-    )
-    success = (
-        success and
-        await complete_register_for_group_invitation(project_access)
-    )
-
-    if not success:
-        LOGGER.error(
-            'Couldn\'t grant access to project',
-            extra={
-                'extra': info.context,
-                'username': group_name
-            },
-        )
-    return success
-
-
 async def create_without_project(
     email: str,
     role: str,
@@ -250,10 +206,6 @@ async def edit_user_information(
 
 async def ensure_user_exists(email: str) -> bool:
     return bool(await user_dal.get(email))
-
-
-def format_forces_user_email(project_name: str) -> str:
-    return f'forces.{project_name}@fluidattacks.com'
 
 
 async def get(email: str) -> UserType:
@@ -339,12 +291,6 @@ async def get_projects(
             if project in org_groups
         ]
     return user_projects
-
-
-def is_forces_user(email: str) -> bool:
-    """Ensure that is an forces user."""
-    pattern = r'forces.(?P<group>\w+)@fluidattacks.com'
-    return bool(re.match(pattern, email))
 
 
 async def is_registered(email: str) -> bool:

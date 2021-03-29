@@ -21,6 +21,10 @@ from backend.domain import project as group_domain
 from backend.exceptions import PermissionDenied
 from backend.typing import SimplePayload as SimplePayloadType
 from users import domain as users_domain
+from users.domainnew.forces import (
+    create_forces_user,
+    format_forces_user_email,
+)
 
 
 @convert_kwargs_to_snake_case  # type: ignore
@@ -66,17 +70,17 @@ async def mutate(  # pylint: disable=too-many-arguments
         )
 
     if success and has_forces:
-        await users_domain.create_forces_user(info, group_name)
+        await create_forces_user(info, group_name)
     elif (
         success and not has_forces and has_integrates and
         await users_domain.ensure_user_exists(
-            users_domain.format_forces_user_email(group_name)
+            format_forces_user_email(group_name)
         )
     ):
         await group_domain.remove_user_access(
             loaders,
             group_name,
-            users_domain.format_forces_user_email(group_name)
+            format_forces_user_email(group_name)
         )
     if success:
         loaders.group_all.clear(group_name)
