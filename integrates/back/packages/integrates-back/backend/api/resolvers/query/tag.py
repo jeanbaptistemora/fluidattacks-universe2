@@ -14,7 +14,7 @@ from backend.domain import organization as org_domain
 from backend.exceptions import TagNotFound
 from backend.typing import Tag
 from tags import domain as tags_domain
-from users.domainnew.group import get_groups
+from users.domain.group import get_groups
 
 
 @require_login

@@ -15,7 +15,7 @@ from backend.decorators import (
     require_login
 )
 from backend.typing import AddStakeholderPayload, MailContent
-from users.domainnew.group import create_without_group
+from users.domain.group import create_without_group
 
 
 logging.config.dictConfig(LOGGING)

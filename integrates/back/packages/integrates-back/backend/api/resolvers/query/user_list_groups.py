@@ -14,7 +14,7 @@ from backend.decorators import (
     require_login,
 )
 from backend.typing import Project as Group
-from users.domainnew.group import get_groups
+from users.domain.group import get_groups
 
 
 @convert_kwargs_to_snake_case  # type: ignore

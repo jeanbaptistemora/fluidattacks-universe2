@@ -73,7 +73,7 @@ from newutils import (
 from notifications import domain as notifications_domain
 from resources import domain as resources_domain
 from users import domain as users_domain
-from users.domainnew.group import get_groups
+from users.domain.group import get_groups
 
 
 logging.config.dictConfig(LOGGING)

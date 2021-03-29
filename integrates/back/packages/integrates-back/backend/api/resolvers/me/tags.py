@@ -14,7 +14,7 @@ from backend.typing import (
     Me as MeType,
     Tag as TagType
 )
-from users.domainnew.group import get_groups
+from users.domain.group import get_groups
 
 
 @convert_kwargs_to_snake_case  # type: ignore

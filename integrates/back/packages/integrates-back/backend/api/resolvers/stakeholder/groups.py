@@ -8,7 +8,7 @@ from graphql.type.definition import GraphQLResolveInfo
 
 # Local
 from backend.typing import Project as Group, Stakeholder
-from users.domainnew.group import get_groups
+from users.domain.group import get_groups
 
 
 async def resolve(

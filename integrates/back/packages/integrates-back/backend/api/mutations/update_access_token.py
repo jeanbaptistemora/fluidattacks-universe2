@@ -12,7 +12,7 @@ from backend.exceptions import InvalidExpirationTime
 from backend.typing import (
     UpdateAccessTokenPayload as UpdateAccessTokenPayloadType
 )
-from users.domainnew.token import update_access_token
+from users.domain.token import update_access_token
 
 
 @convert_kwargs_to_snake_case  # type: ignore

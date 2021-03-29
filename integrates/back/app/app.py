@@ -46,7 +46,7 @@ from backend.exceptions import (
     ExpiredToken,
     SecureAccessException,
 )
-from users.domainnew.group import complete_register_for_group_invitation
+from users.domain.group import complete_register_for_group_invitation
 from __init__ import (
     FI_ENVIRONMENT,
     FI_STARLETTE_SESSION_KEY

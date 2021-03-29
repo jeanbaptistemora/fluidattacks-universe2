@@ -32,7 +32,7 @@ from newutils import (
     token as token_helper,
 )
 from users import domain as users_domain
-from users.domainnew.group import create_without_group
+from users.domain.group import create_without_group
 from __init__ import (
     FI_COMMUNITY_PROJECTS,
     FI_MAIL_CONTINUOUS,

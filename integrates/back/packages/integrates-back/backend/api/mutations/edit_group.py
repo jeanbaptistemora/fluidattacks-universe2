@@ -21,7 +21,7 @@ from backend.domain import project as group_domain
 from backend.exceptions import PermissionDenied
 from backend.typing import SimplePayload as SimplePayloadType
 from users import domain as users_domain
-from users.domainnew.forces import (
+from users.domain.forces import (
     create_forces_user,
     format_forces_user_email,
 )

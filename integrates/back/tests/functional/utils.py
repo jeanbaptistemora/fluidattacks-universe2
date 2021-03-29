@@ -17,7 +17,7 @@ from backend.api import (
 )
 from backend.api.schema import SCHEMA
 from backend.domain import project as domain_group
-from users.domainnew.group import complete_register_for_group_invitation
+from users.domain.group import complete_register_for_group_invitation
 
 
 async def complete_register(

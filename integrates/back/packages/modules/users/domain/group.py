@@ -32,7 +32,7 @@ from newutils.validations import (
     validate_email_address,
     validate_phone_field,
 )
-from users import domain as users_domain
+from users.domain import core as users_core
 from __init__ import FI_DEFAULT_ORG
 
 
@@ -73,18 +73,18 @@ async def complete_register_for_group_invitation(
             org_domain.add_user(organization_id, user_email, 'customer')
         )
 
-    if await users_domain.get_data(user_email, 'email'):
+    if await users_core.get_data(user_email, 'email'):
         coroutines.append(
-            users_domain.add_phone_to_user(user_email, phone_number)
+            users_core.add_phone_to_user(user_email, phone_number)
         )
     else:
         coroutines.append(
-            users_domain.create(user_email, {'phone': phone_number})
+            users_core.create(user_email, {'phone': phone_number})
         )
 
-    if not await users_domain.is_registered(user_email):
+    if not await users_core.is_registered(user_email):
         coroutines.extend([
-            users_domain.register(user_email),
+            users_core.register(user_email),
             authz.grant_user_level_role(user_email, 'customer')
         ])
 
@@ -118,7 +118,7 @@ async def create_without_group(
         success = all(
             await collect([
                 authz.grant_user_level_role(email, role),
-                users_domain.create(email, new_user_data)
+                users_core.create(email, new_user_data)
             ])
         )
         org = await org_domain.get_or_create(FI_DEFAULT_ORG, email)
@@ -155,7 +155,7 @@ async def edit_user_information(
             )
 
     if phone and validate_phone_field(phone):
-        coroutines.append(users_domain.add_phone_to_user(email, phone))
+        coroutines.append(users_core.add_phone_to_user(email, phone))
     else:
         util.cloudwatch_log(
             context,

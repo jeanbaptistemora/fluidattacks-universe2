@@ -7,10 +7,7 @@ from typing import (
 )
 
 # Local libraries
-from backend.dal import (
-    organization as org_dal,
-    user as user_dal,
-)
+from backend.dal import user as user_dal
 from backend.exceptions import InvalidPushToken
 from backend.typing import User as UserType
 from newutils import datetime as datetime_utils
@@ -97,10 +94,6 @@ async def get_data(email: str, attr: str) -> Union[str, UserType]:
     if data_attr and attr in data_attr:
         return cast(UserType, data_attr[attr])
     return str()
-
-
-async def get_organizations(email: str) -> List[str]:
-    return await org_dal.get_ids_for_user(email)
 
 
 async def is_registered(email: str) -> bool:

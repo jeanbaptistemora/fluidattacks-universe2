@@ -12,7 +12,7 @@ from backend.decorators import enforce_organization_level_auth_async
 from backend.domain import organization as org_domain
 from backend.typing import GrantStakeholderAccessPayload
 from users import domain as users_domain
-from users.domainnew.group import create_without_group
+from users.domain.group import create_without_group
 
 
 @convert_kwargs_to_snake_case  # type: ignore

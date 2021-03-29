@@ -9,7 +9,7 @@ from graphql.type.definition import GraphQLResolveInfo
 from backend import util
 from backend.decorators import require_login
 from backend.typing import SimplePayload as SimplePayloadType
-from users.domainnew.token import remove_access_token
+from users.domain.token import remove_access_token
 
 
 @convert_kwargs_to_snake_case  # type: ignore

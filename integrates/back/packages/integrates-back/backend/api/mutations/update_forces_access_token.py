@@ -13,8 +13,8 @@ from backend.typing import UpdateAccessTokenPayload
 from forces import domain as forces_domain
 from newutils import datetime as datetime_utils
 from users import domain as users_domain
-from users.domainnew.forces import format_forces_user_email
-from users.domainnew.token import update_access_token
+from users.domain.forces import format_forces_user_email
+from users.domain.token import update_access_token
 
 
 @convert_kwargs_to_snake_case  # type: ignore

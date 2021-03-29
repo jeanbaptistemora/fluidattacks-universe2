@@ -24,7 +24,7 @@ from backend.typing import (
 )
 from newutils import user as user_utils
 from newutils.validations import validate_fluidattacks_staff_on_group
-from users.domainnew.group import edit_user_information
+from users.domain.group import edit_user_information
 
 
 logging.config.dictConfig(LOGGING)
