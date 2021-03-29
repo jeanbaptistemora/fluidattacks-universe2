@@ -42,7 +42,6 @@ from sast.transformations import (
     control_flow,
     danger_nodes,
     styles,
-    untrusted_nodes,
 )
 from state.cache import (
     CACHE_1SEC,
@@ -220,7 +219,6 @@ def _parse_one_cached(
     syntax = syntax_readers.read_from_graph(graph, language)
     danger_nodes.mark(graph, language, syntax)
 
-    untrusted_nodes.mark(graph, language)
     styles.add(graph)
 
     metadata = inspectors.get_metadata(graph, language)

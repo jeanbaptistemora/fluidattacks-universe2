@@ -53,6 +53,9 @@ def _mark_java_inputs(
 ) -> None:
     findings = core_model.FindingEnum
 
+    _mark_java_array_input(findings.F034, graph, syntax, {
+        'byte',
+    })
     for finding in (
         findings.F001_JAVA_SQL,
         findings.F004,
@@ -141,6 +144,38 @@ def _mark_java_sinks(
         *build_attr_paths('java', 'io', 'FileInputStream'),
         *build_attr_paths('java', 'io', 'FileOutputStream'),
     })
+
+
+def _mark_java_array(
+    finding: core_model.FindingEnum,
+    graph: graph_model.Graph,
+    graph_syntax: graph_model.SyntaxSteps,
+    types: Set[str],
+    marker: AppendLabelType,
+) -> None:
+    for syntax_steps in graph_syntax.values():
+        for syntax_step in syntax_steps:
+            if isinstance(syntax_step, (
+                graph_model.SyntaxStepArrayInstantiation,
+            )):
+                if syntax_step.array_type in types:
+                    marker(graph, syntax_step.meta.n_id, finding)
+                    continue
+
+
+def _mark_java_array_input(
+    finding: core_model.FindingEnum,
+    graph: graph_model.Graph,
+    graph_syntax: graph_model.SyntaxSteps,
+    types: Set[str],
+) -> None:
+    _mark_java_array(
+        finding,
+        graph,
+        graph_syntax,
+        types,
+        _append_label_input,
+    )
 
 
 def _mark_java_function_arg(
