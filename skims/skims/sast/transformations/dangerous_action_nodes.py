@@ -8,6 +8,7 @@ from model import (
 )
 from sast.common import (
     build_attr_paths,
+    get_dependencies,
 )
 from utils import (
     graph as g,
@@ -19,9 +20,8 @@ def _append_label_skink(
     n_id: str,
     finding: core_model.FindingEnum,
 ) -> None:
-    if sink := graph.nodes[n_id].get('label_sink_type'):
-        sink += f',{finding.name}'
-        graph.nodes[n_id]['label_sink_type'] = sink
+    if 'label_sink_type' in graph.nodes[n_id]:
+        graph.nodes[n_id]['label_sink_type'] += f',{finding.name}'
     else:
         graph.nodes[n_id]['label_sink_type'] = finding.name
 
@@ -53,12 +53,22 @@ def _mark_java(
         'exec',
         'start',
     })
-    _mark_java_f008(graph)
+    _mark_java_methods(core_model.FindingEnum.F008, graph, syntax, {
+        'format',
+        'getWriter.format',
+        'getWriter.print',
+        'getWriter.printf',
+        'getWriter.println',
+        'getWriter.write',
+    })
     _mark_java_methods(core_model.FindingEnum.F021, graph, syntax, {
         'compile',
         'evaluate',
     })
-    _mark_java_f034(graph)
+    _mark_java_methods(core_model.FindingEnum.F034, graph, syntax, {
+        'getSession.setAttribute',
+        'addCookie',
+    })
     _mark_java_methods(core_model.FindingEnum.F042, graph, syntax, {
         'addCookie',
         'evaluate',
@@ -85,36 +95,6 @@ def _mark_java_f004_objects(graph: graph_model.Graph) -> None:
             .F004
             .name
         )
-
-
-def _mark_java_f008(graph: graph_model.Graph) -> None:
-    for n_id in g.filter_nodes(
-        graph,
-        graph.nodes,
-        predicate=g.pred_has_labels(label_type='method_invocation'),
-    ):
-        if any((
-                _check_method_call(graph, n_id, 'format'),
-                _check_method_call(graph, n_id, 'getWriter', 'format'),
-                _check_method_call(graph, n_id, 'getWriter', 'print'),
-                _check_method_call(graph, n_id, 'getWriter', 'printf'),
-                _check_method_call(graph, n_id, 'getWriter', 'println'),
-                _check_method_call(graph, n_id, 'getWriter', 'write'),
-        )):
-            _append_label_skink(graph, n_id, core_model.FindingEnum.F008)
-
-
-def _mark_java_f034(graph: graph_model.Graph) -> None:
-    for n_id in g.filter_nodes(
-        graph,
-        graph.nodes,
-        predicate=g.pred_has_labels(label_type='method_invocation'),
-    ):
-        if any((
-                _check_method_call(graph, n_id, 'getSession', 'setAttribute'),
-                _check_method_call(graph, n_id, 'addCookie'),
-        )):
-            _append_label_skink(graph, n_id, core_model.FindingEnum.F034)
 
 
 def _mark_java_f063_pt(graph: graph_model.Graph) -> None:
@@ -160,42 +140,6 @@ def _mark_java_f063_pt_method_call(graph: graph_model.Graph) -> None:
                 )
 
 
-def _check_method_call(
-    graph: graph_model.Graph,
-    n_id: graph_model.NId,
-    *call_identifiers: str,
-) -> bool:
-    """
-    Check if a node is the call of the method specified in the identifiers
-    """
-    match = g.match_ast_group(
-        graph,
-        n_id,
-        'identifier',
-        'method_invocation',
-    )
-    if identifier := match.get('identifier'):
-        identifiers = {
-            graph.nodes[iden].get('label_text')
-            for iden in identifier
-        }
-        if len(call_identifiers) == 1 and call_identifiers[0] in identifiers:
-            return True
-
-        if call_identifiers[-1] not in identifiers:
-            return False
-        for inx, call in enumerate(reversed(call_identifiers)):
-            if call in identifiers and (method :=
-                                        match.get('method_invocation')):
-                return _check_method_call(
-                    graph,
-                    method.pop(),
-                    *call_identifiers[:-inx + 1],
-                )
-
-    return False
-
-
 def _mark_java_methods(
     finding: core_model.FindingEnum,
     graph: graph_model.Graph,
@@ -203,12 +147,26 @@ def _mark_java_methods(
     dangerous_methods: Set[str],
 ) -> None:
     for syntax_steps in graph_syntax.values():
-        for syntax_step in syntax_steps:
+        for index, syntax_step in enumerate(syntax_steps):
             if isinstance(syntax_step, (
                 graph_model.SyntaxStepMethodInvocation,
                 graph_model.SyntaxStepMethodInvocationChain,
             )):
                 method = syntax_step.method.rsplit('.', maxsplit=1)[-1]
+
+                if method in dangerous_methods:
+                    _append_label_skink(graph, syntax_step.meta.n_id, finding)
+                    continue
+
+            if isinstance(syntax_step, (
+                graph_model.SyntaxStepMethodInvocationChain,
+            )):
+                *_, parent = get_dependencies(index, syntax_steps)
+
+                if isinstance(parent, graph_model.SyntaxStepMethodInvocation):
+                    parent_method = parent.method.rsplit('.', maxsplit=1)[-1]
+                    method = parent_method + '.' + method
+
                 if method in dangerous_methods:
                     _append_label_skink(graph, syntax_step.meta.n_id, finding)
 

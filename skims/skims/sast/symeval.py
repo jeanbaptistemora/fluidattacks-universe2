@@ -40,6 +40,7 @@ from sast.common import (
     DANGER_METHODS_BY_OBJ_NO_TYPE_ARGS_PROPAGATION_FIDING,
     DANGER_METHODS_BY_TYPE,
     DANGER_METHODS_STATIC_FINDING,
+    get_dependencies,
     split_on_first_dot,
     split_on_last_dot,
 )
@@ -768,29 +769,6 @@ EVALUATORS: Dict[object, Evaluator] = {
     graph_model.SyntaxStepSymbolLookup: syntax_step_symbol_lookup,
     graph_model.SyntaxStepTernary: syntax_step_ternary,
 }
-
-
-def get_dependencies(
-    syntax_step_index: int,
-    syntax_steps: graph_model.SyntaxSteps,
-) -> graph_model.SyntaxSteps:
-    dependencies: graph_model.SyntaxSteps = []
-    dependencies_depth: int = 0
-    dependencies_expected_length: int = (
-        -syntax_steps[syntax_step_index].meta.dependencies
-    )
-
-    while len(dependencies) < dependencies_expected_length:
-        syntax_step_index -= 1
-
-        if dependencies_depth:
-            dependencies_depth += 1
-        else:
-            dependencies.append(syntax_steps[syntax_step_index])
-
-        dependencies_depth += syntax_steps[syntax_step_index].meta.dependencies
-
-    return dependencies
 
 
 def eval_syntax_steps(

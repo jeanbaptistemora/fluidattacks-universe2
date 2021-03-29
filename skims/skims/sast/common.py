@@ -7,7 +7,10 @@ from typing import (
 )
 
 # Local library
-from model import core_model
+from model import (
+    core_model,
+    graph_model,
+)
 
 
 def build_attr_paths(*attrs: str) -> Set[str]:
@@ -246,3 +249,26 @@ DANGER_METHODS_BY_TYPE_ARGS_PROPAGATION_FINDING: Dict[str, Dict[
             },
         }),
 }
+
+
+def get_dependencies(
+    syntax_step_index: int,
+    syntax_steps: graph_model.SyntaxSteps,
+) -> graph_model.SyntaxSteps:
+    dependencies: graph_model.SyntaxSteps = []
+    dependencies_depth: int = 0
+    dependencies_expected_length: int = (
+        -syntax_steps[syntax_step_index].meta.dependencies
+    )
+
+    while len(dependencies) < dependencies_expected_length:
+        syntax_step_index -= 1
+
+        if dependencies_depth:
+            dependencies_depth += 1
+        else:
+            dependencies.append(syntax_steps[syntax_step_index])
+
+        dependencies_depth += syntax_steps[syntax_step_index].meta.dependencies
+
+    return dependencies
