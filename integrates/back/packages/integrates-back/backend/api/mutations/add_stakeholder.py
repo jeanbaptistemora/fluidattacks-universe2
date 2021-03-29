@@ -15,7 +15,7 @@ from backend.decorators import (
     require_login
 )
 from backend.typing import AddStakeholderPayload, MailContent
-from users import domain as users_domain
+from users.domainnew.group import create_without_group
 
 
 logging.config.dictConfig(LOGGING)
@@ -42,7 +42,7 @@ async def mutate(
     )
 
     if role in allowed_roles_to_grant:
-        new_user = await users_domain.create_without_project(
+        new_user = await create_without_group(
             email=email,
             role=role,
             phone_number=phone_number,

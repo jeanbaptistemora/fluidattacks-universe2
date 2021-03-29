@@ -32,6 +32,7 @@ from newutils import (
     token as token_helper,
 )
 from users import domain as users_domain
+from users.domainnew.group import create_without_group
 from __init__ import (
     FI_COMMUNITY_PROJECTS,
     FI_MAIL_CONTINUOUS,
@@ -132,7 +133,7 @@ async def autoenroll_user(email: str) -> None:
     new_user_user_level_role: str = 'customer'
     new_user_group_level_role: str = 'customer'
 
-    await users_domain.create_without_project(
+    await create_without_group(
         email=email,
         role=new_user_user_level_role
     )

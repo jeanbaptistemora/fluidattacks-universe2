@@ -14,7 +14,7 @@ from backend.decorators import (
     require_login,
 )
 from backend.typing import Project as Group
-from users import domain as users_domain
+from users.domainnew.group import get_groups
 
 
 @convert_kwargs_to_snake_case  # type: ignore
@@ -30,8 +30,8 @@ async def resolve(
     user_email: str = kwargs['user_email']
 
     active, inactive = await collect([
-        users_domain.get_projects(user_email),
-        users_domain.get_projects(user_email, active=False)
+        get_groups(user_email),
+        get_groups(user_email, active=False)
     ])
     user_groups = active + inactive
 

@@ -73,6 +73,7 @@ from newutils import (
 from notifications import domain as notifications_domain
 from resources import domain as resources_domain
 from users import domain as users_domain
+from users.domainnew.group import get_groups
 
 
 logging.config.dictConfig(LOGGING)
@@ -533,7 +534,7 @@ async def remove_user_access(
         org_id = group['organization']
         has_org_access = await org_domain.has_user_access(org_id, email)
         has_groups_in_org = bool(
-            await users_domain.get_projects(email, organization_id=org_id)
+            await get_groups(email, organization_id=org_id)
         )
         if has_org_access and not has_groups_in_org:
             success = success and await org_domain.remove_user(
@@ -543,7 +544,7 @@ async def remove_user_access(
             )
 
         has_groups = bool(
-            await users_domain.get_projects(email)
+            await get_groups(email)
         )
         if not has_groups:
             success = success and await stakeholders_utils.remove(email)

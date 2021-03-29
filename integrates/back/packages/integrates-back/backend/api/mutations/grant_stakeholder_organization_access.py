@@ -12,6 +12,7 @@ from backend.decorators import enforce_organization_level_auth_async
 from backend.domain import organization as org_domain
 from backend.typing import GrantStakeholderAccessPayload
 from users import domain as users_domain
+from users.domainnew.group import create_without_group
 
 
 @convert_kwargs_to_snake_case  # type: ignore
@@ -42,7 +43,7 @@ async def mutate(
     user_created = False
     user_exists = bool(await users_domain.get_data(user_email, 'email'))
     if not user_exists:
-        user_created = await users_domain.create_without_project(
+        user_created = await create_without_group(
             user_email,
             'customer',
             user_phone_number

@@ -8,7 +8,7 @@ from graphql.type.definition import GraphQLResolveInfo
 
 # Local
 from backend.typing import Project as Group, Stakeholder
-from users import domain as users_domain
+from users.domainnew.group import get_groups
 
 
 async def resolve(
@@ -19,8 +19,8 @@ async def resolve(
     email: str = cast(str, parent['email'])
 
     active, inactive = await collect([
-        users_domain.get_projects(email),
-        users_domain.get_projects(email, active=False)
+        get_groups(email),
+        get_groups(email, active=False)
     ])
     user_groups: List[str] = active + inactive
 

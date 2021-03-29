@@ -10,7 +10,7 @@ from graphql.type.definition import GraphQLResolveInfo
 from back.settings import LOGGING
 from backend.domain import project as group_domain
 from newutils import groups as groups_utils
-from users.domain import complete_register_for_group_invitation
+from .group import complete_register_for_group_invitation
 
 
 logging.config.dictConfig(LOGGING)

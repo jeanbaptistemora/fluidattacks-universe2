@@ -31,7 +31,7 @@ from backend.domain.project import get_attributes as get_project_attributes
 from backend.domain.organization import (
     get_id_by_name as get_organization_id_by_name
 )
-from users.domain import get_projects as get_user_projects
+from users.domainew.group import get_grops as get_user_groups
 from __init__ import FI_COMMUNITY_PROJECTS
 
 
@@ -97,7 +97,7 @@ async def main() -> None:
     users_without_org: List[str] = await get_users_without_organization()
     autoenrolled_users: List[str] = await get_autoenrolled_users()
     for user in users_without_org + autoenrolled_users:
-        projects: List[str] = await get_user_projects(user)
+        projects: List[str] = await get_user_groups(user)
         projects = list(
             filter(
                 lambda project: project not in FI_COMMUNITY_PROJECTS,

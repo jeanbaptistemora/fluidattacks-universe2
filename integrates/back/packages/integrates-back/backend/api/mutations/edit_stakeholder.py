@@ -24,7 +24,7 @@ from backend.typing import (
 )
 from newutils import user as user_utils
 from newutils.validations import validate_fluidattacks_staff_on_group
-from users import domain as users_domain
+from users.domainnew.group import edit_user_information
 
 
 logging.config.dictConfig(LOGGING)
@@ -57,7 +57,7 @@ async def _update_stakeholder(
             if await authz.grant_group_level_role(
                 modified_email, group_name, modified_role
             ):
-                success = await users_domain.edit_user_information(
+                success = await edit_user_information(
                     info.context, updated_data, group_name
                 )
             else:

@@ -17,7 +17,7 @@ from backend.decorators import (
 from backend.domain import organization as org_domain
 from backend.exceptions import UserNotInOrganization
 from backend.typing import EditStakeholderPayload
-from users import domain as users_domain
+from users.domainnew.group import edit_user_information
 
 
 @convert_kwargs_to_snake_case  # type: ignore
@@ -56,7 +56,7 @@ async def mutate(
         user_email,
         new_role
     ):
-        success = await users_domain.edit_user_information(
+        success = await edit_user_information(
             info.context,
             {
                 'email': user_email,
