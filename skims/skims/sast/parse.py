@@ -36,7 +36,9 @@ from model.graph_model import (
 )
 from sast import (
     inspectors,
-    syntax_readers,
+)
+from sast.syntax_readers import (
+    generate as generate_syntax_readers,
 )
 from sast.transformations import (
     control_flow,
@@ -216,9 +218,8 @@ def _parse_one_cached(
 
     graph: Graph = _build_ast_graph(content, language, raw_tree)
     control_flow.add(graph)
-    syntax = syntax_readers.read_from_graph(graph, language)
+    syntax = generate_syntax_readers.read_from_graph(graph, language)
     danger_nodes.mark(graph, language, syntax)
-
     styles.add(graph)
 
     metadata = inspectors.get_metadata(graph, language)
