@@ -30,22 +30,7 @@ def _mark_java(
     graph: graph_model.Graph,
     syntax: graph_model.GraphSyntax,
 ) -> None:
-    _mark_java_f001(graph, syntax)
-    _mark_java_f004(graph)
-    _mark_java_f008(graph)
-    _mark_java_f021(graph)
-    _mark_java_f034(graph)
-    _mark_java_f042(graph)
-    _mark_java_f063_pt(graph)
-    _mark_java_f063_tb(graph)
-    _mark_java_f107(graph)
-
-
-def _mark_java_f001(
-    graph: graph_model.Graph,
-    syntax: graph_model.GraphSyntax,
-) -> None:
-    dangerous_methods: Set[str] = {
+    _mark_java_methods(core_model.FindingEnum.F001_JAVA_SQL, graph, syntax, {
         'addBatch',
         'batchUpdate',
         'execute',
@@ -61,21 +46,34 @@ def _mark_java_f001(
         'queryForMap',
         'queryForObject',
         'queryForRowSet',
-    }
+    })
+    _mark_java_f004_objects(graph)
+    _mark_java_methods(core_model.FindingEnum.F004, graph, syntax, {
+        'command',
+        'exec',
+        'start',
+    })
+    _mark_java_f008(graph)
+    _mark_java_methods(core_model.FindingEnum.F021, graph, syntax, {
+        'compile',
+        'evaluate',
+    })
+    _mark_java_f034(graph)
+    _mark_java_methods(core_model.FindingEnum.F042, graph, syntax, {
+        'addCookie',
+        'evaluate',
+    })
+    _mark_java_f063_pt(graph)
+    _mark_java_methods(core_model.FindingEnum.F063_TRUSTBOUND, graph, syntax, {
+        'putValue',
+        'setAttribute',
+    })
+    _mark_java_methods(core_model.FindingEnum.F107, graph, syntax, {
+        'search',
+    })
 
-    for syntax_steps in syntax.values():
-        for syntax_step in syntax_steps:
-            if isinstance(syntax_step, graph_model.SyntaxStepMethodInvocation):
-                method = syntax_step.method.rsplit('.', maxsplit=1)[-1]
-                if method in dangerous_methods:
-                    _append_label_skink(
-                        graph,
-                        syntax_step.meta.n_id,
-                        core_model.FindingEnum.F001_JAVA_SQL,
-                    )
 
-
-def _mark_java_f004(graph: graph_model.Graph) -> None:
+def _mark_java_f004_objects(graph: graph_model.Graph) -> None:
     identifiers: Set[str] = {
         *build_attr_paths('java', 'lang', 'ProcessBuilder'),
     }
@@ -87,22 +85,6 @@ def _mark_java_f004(graph: graph_model.Graph) -> None:
             .F004
             .name
         )
-
-    for n_id in g.filter_nodes(
-        graph,
-        graph.nodes,
-        predicate=g.pred_has_labels(label_type='method_invocation'),
-    ):
-        if any((
-                _check_method_call(graph, n_id, 'exec'),
-                _check_method_call(graph, n_id, 'command'),
-                _check_method_call(graph, n_id, 'start'),
-        )):
-            graph.nodes[n_id]['label_sink_type'] = (
-                core_model
-                .FindingEnum
-                .F004.name
-            )
 
 
 def _mark_java_f008(graph: graph_model.Graph) -> None:
@@ -122,19 +104,6 @@ def _mark_java_f008(graph: graph_model.Graph) -> None:
             _append_label_skink(graph, n_id, core_model.FindingEnum.F008)
 
 
-def _mark_java_f021(graph: graph_model.Graph) -> None:
-    for n_id in g.filter_nodes(
-        graph,
-        graph.nodes,
-        predicate=g.pred_has_labels(label_type='method_invocation'),
-    ):
-        if any((
-                _check_method_call(graph, n_id, 'compile'),
-                _check_method_call(graph, n_id, 'evaluate'),
-        )):
-            _append_label_skink(graph, n_id, core_model.FindingEnum.F021)
-
-
 def _mark_java_f034(graph: graph_model.Graph) -> None:
     for n_id in g.filter_nodes(
         graph,
@@ -148,36 +117,9 @@ def _mark_java_f034(graph: graph_model.Graph) -> None:
             _append_label_skink(graph, n_id, core_model.FindingEnum.F034)
 
 
-def _mark_java_f042(graph: graph_model.Graph) -> None:
-    for n_id in g.filter_nodes(
-            graph,
-            graph.nodes,
-            predicate=g.pred_has_labels(label_type='method_invocation'),
-    ):
-        if any((_check_method_call(graph, n_id, 'addCookie'), )):
-            _append_label_skink(graph, n_id, core_model.FindingEnum.F042)
-
-
 def _mark_java_f063_pt(graph: graph_model.Graph) -> None:
     _mark_java_f063_pt_obj_creation_exp(graph)
     _mark_java_f063_pt_method_call(graph)
-
-
-def _mark_java_f063_tb(graph: graph_model.Graph) -> None:
-    for n_id in g.filter_nodes(
-            graph,
-            graph.nodes,
-            predicate=g.pred_has_labels(label_type='method_invocation'),
-    ):
-        if any((
-                _check_method_call(graph, n_id, 'putValue'),
-                _check_method_call(graph, n_id, 'setAttribute'),
-        )):
-            _append_label_skink(
-                graph,
-                n_id,
-                core_model.FindingEnum.F063_TRUSTBOUND,
-            )
 
 
 def _mark_java_f063_pt_obj_creation_exp(graph: graph_model.Graph) -> None:
@@ -218,16 +160,6 @@ def _mark_java_f063_pt_method_call(graph: graph_model.Graph) -> None:
                 )
 
 
-def _mark_java_f107(graph: graph_model.Graph) -> None:
-    for n_id in g.filter_nodes(
-            graph,
-            graph.nodes,
-            predicate=g.pred_has_labels(label_type='method_invocation'),
-    ):
-        if any((_check_method_call(graph, n_id, 'search'), )):
-            _append_label_skink(graph, n_id, core_model.FindingEnum.F107)
-
-
 def _check_method_call(
     graph: graph_model.Graph,
     n_id: graph_model.NId,
@@ -262,6 +194,23 @@ def _check_method_call(
                 )
 
     return False
+
+
+def _mark_java_methods(
+    finding: core_model.FindingEnum,
+    graph: graph_model.Graph,
+    graph_syntax: graph_model.SyntaxSteps,
+    dangerous_methods: Set[str],
+) -> None:
+    for syntax_steps in graph_syntax.values():
+        for syntax_step in syntax_steps:
+            if isinstance(syntax_step, (
+                graph_model.SyntaxStepMethodInvocation,
+                graph_model.SyntaxStepMethodInvocationChain,
+            )):
+                method = syntax_step.method.rsplit('.', maxsplit=1)[-1]
+                if method in dangerous_methods:
+                    _append_label_skink(graph, syntax_step.meta.n_id, finding)
 
 
 def mark(
