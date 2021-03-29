@@ -3,6 +3,7 @@ from __future__ import (
     annotations,
 )
 from typing import (
+    Any,
     Callable,
     NamedTuple,
     Set,
@@ -22,12 +23,14 @@ from utils.logs import (
 
 
 class SyntaxReaderArgs(NamedTuple):
+    generic: Callable[[Any], graph_model.SyntaxSteps]
     graph: graph_model.Graph
     language: graph_model.GraphShardMetadataLanguage
     n_id: graph_model.NId
 
     def fork_n_id(self, n_id: graph_model.NId) -> SyntaxReaderArgs:
         return SyntaxReaderArgs(
+            generic=self.generic,
             graph=self.graph,
             language=self.language,
             n_id=n_id,

@@ -19,6 +19,9 @@ from sast.syntax_readers.types import (
     MissingSyntaxReader,
     SyntaxReaderArgs,
 )
+from sast.syntax_readers.java import (
+    ternary_expression,
+)
 from utils import graph as g
 from utils.logs import log_blocking
 
@@ -63,20 +66,6 @@ def assignment_expression(
         )
     else:
         raise MissingCaseHandling(assignment_expression, args)
-
-
-def ternary_expression(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
-    match = g.match_ast(
-        args.graph, args.n_id, '__0__', '?', '__1__', ':', '__2__',
-    )
-
-    yield graph_model.SyntaxStepTernary(
-        meta=graph_model.SyntaxStepMeta.default(args.n_id, [
-            generic(args.fork_n_id(match['__2__'])),
-            generic(args.fork_n_id(match['__1__'])),
-            generic(args.fork_n_id(match['__0__'])),
-        ]),
-    )
 
 
 def binary_expression(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
@@ -697,7 +686,7 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
             'ternary_expression',
         },
         syntax_readers=(
-            ternary_expression,
+            ternary_expression.reader,
         ),
     ),
     Dispatcher(
@@ -1052,6 +1041,7 @@ def read_from_graph(
         if n_id not in graph_syntax and g.is_connected_to_cfg(graph, n_id):
             with contextlib.suppress(MissingSyntaxReader):
                 graph_syntax[n_id] = generic(SyntaxReaderArgs(
+                    generic=generic,
                     graph=graph,
                     language=language,
                     n_id=n_id,
