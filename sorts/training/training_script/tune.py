@@ -128,8 +128,10 @@ def main() -> None:
     with tempfile.TemporaryDirectory() as tmp_dir:
         model_name_list = [
             type(model).__name__.lower(),
-            training_output[3],
-            model_features,
+            f'{float(training_output[-1][4]):.0f}',
+            '-'.join([
+                FEATURES_DICTS[feature].lower() for feature in model_features
+            ]),
             'tune',
             args.activation
         ]
