@@ -1,8 +1,3 @@
-# Standar libraries
-from typing import (
-    Set,
-)
-
 # Local libraries
 from model import (
     core_model,
@@ -11,9 +6,6 @@ from model import (
 from utils import (
     graph as g,
 )
-from sast.common import (
-    build_attr_paths,
-)
 
 
 def _mark_java(graph: graph_model.Graph) -> None:
@@ -21,45 +13,6 @@ def _mark_java(graph: graph_model.Graph) -> None:
 
 
 def _mark_java_f034(graph: graph_model.Graph) -> None:
-    identifier_methos: Set[str] = {
-        *build_attr_paths('java', 'lang', 'Math'),
-    }
-
-    for n_id in g.filter_nodes(
-            graph,
-            graph.nodes,
-            predicate=g.pred_has_labels(label_type='method_invocation'),
-    ):
-        match = g.match_ast_group(
-            graph,
-            n_id,
-            'field_access',
-            'identifier',
-            'argument_list',
-        )
-        if (field_access := match['field_access']) and len(field_access) == 1:
-            if graph.nodes[list(field_access)
-                           [0]]['label_text'] in identifier_methos:
-                graph.nodes[n_id]['label_input_type'] = (
-                    core_model
-                    .FindingEnum
-                    .F034
-                    .name
-                )
-        elif (identifier := match.get('identifier', list())) and len(
-                identifier) > 1:
-            identifiers = {
-                graph.nodes[iden].get('label_text')
-                for iden in identifier
-            }
-            if identifier_methos.intersection(identifiers):
-                graph.nodes[n_id]['label_input_type'] = (
-                    core_model
-                    .FindingEnum
-                    .F034
-                    .name
-                )
-
     for n_id in g.filter_nodes(
             graph,
             graph.nodes,

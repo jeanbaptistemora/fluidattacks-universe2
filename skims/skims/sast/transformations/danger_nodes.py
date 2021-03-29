@@ -53,9 +53,6 @@ def _mark_java_inputs(
 ) -> None:
     findings = core_model.FindingEnum
 
-    _mark_java_obj_inst_input(findings.F034, graph, syntax, {
-        *build_attr_paths('java', 'util', 'Random'),
-    })
     for finding in (
         findings.F001_JAVA_SQL,
         findings.F004,
@@ -69,6 +66,12 @@ def _mark_java_inputs(
         _mark_java_function_arg(finding, graph, syntax, build_attr_paths(
             'javax', 'servlet', 'http', 'HttpServletRequest',
         ))
+    _mark_java_methods_input(findings.F034, graph, syntax, {
+        'java.lang.Math.random',
+    })
+    _mark_java_obj_inst_input(findings.F034, graph, syntax, {
+        *build_attr_paths('java', 'util', 'Random'),
+    })
 
 
 def _mark_java_sinks(
