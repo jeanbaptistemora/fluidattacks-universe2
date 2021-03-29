@@ -7,13 +7,11 @@ from itertools import (
 )
 import operator
 from typing import (
-    Callable,
     Dict,
     Iterator,
     NamedTuple,
     Optional,
     Tuple,
-    Union,
 )
 
 # Third party libraries
@@ -44,6 +42,21 @@ from sast.common import (
     split_on_first_dot,
     split_on_last_dot,
 )
+from sast.symbolic_evaluation.types import (
+    Evaluator,
+    EvaluatorArgs,
+    ImpossiblePath,
+    StopEvaluation,
+)
+from sast.symbolic_evaluation.utils.java import (
+    lookup_java_class,
+    lookup_java_field,
+    lookup_java_method,
+)
+from sast.symbolic_evaluation.utils.generic import (
+    lookup_var_dcl_by_name,
+    lookup_var_state_by_name,
+)
 from utils import (
     graph as g,
 )
@@ -62,154 +75,6 @@ from utils.logs import (
 from utils.string import (
     get_debug_path,
 )
-
-
-class StopEvaluation(Exception):
-    pass
-
-
-class ImpossiblePath(StopEvaluation):
-    pass
-
-
-class EvaluatorArgs(NamedTuple):
-    dependencies: graph_model.SyntaxSteps
-    finding: core_model.FindingEnum
-    graph_db: graph_model.GraphDB
-    shard: graph_model.GraphShard
-    n_id_next: graph_model.NId
-    syntax_step: graph_model.SyntaxStep
-    syntax_step_index: int
-    syntax_steps: graph_model.SyntaxSteps
-
-
-Evaluator = Callable[[EvaluatorArgs], None]
-
-
-def lookup_vars(
-    args: EvaluatorArgs,
-) -> Iterator[Union[
-    graph_model.SyntaxStepAssignment,
-    graph_model.SyntaxStepDeclaration,
-    graph_model.SyntaxStepSymbolLookup,
-]]:
-    for syntax_step in reversed(args.syntax_steps[0:args.syntax_step_index]):
-        if isinstance(syntax_step, (
-            graph_model.SyntaxStepAssignment,
-            graph_model.SyntaxStepDeclaration,
-            graph_model.SyntaxStepSymbolLookup,
-        )):
-            yield syntax_step
-
-
-def lookup_var_dcl_by_name(
-    args: EvaluatorArgs,
-    var_name: str,
-) -> Optional[Union[graph_model.SyntaxStepDeclaration,
-                    graph_model.SyntaxStepSymbolLookup]]:
-
-    vars_lookup = list(var for var in lookup_vars(args)
-                       if isinstance(var, (
-                           graph_model.SyntaxStepDeclaration,
-                           graph_model.SyntaxStepSymbolLookup,
-                       )))
-    for syntax_step in vars_lookup:
-        if isinstance(syntax_step, graph_model.SyntaxStepDeclaration
-                      ) and syntax_step.var == var_name:
-            return syntax_step
-        # SyntaxStepDeclaration may not be vulnerable, but a later assignment
-        # may be vulnerable
-        if isinstance(syntax_step, graph_model.SyntaxStepSymbolLookup
-                      ) and syntax_step.symbol == var_name:
-            for var in vars_lookup:
-                if isinstance(var, graph_model.SyntaxStepDeclaration
-                              ):
-                    if var.var == var_name:
-                        return graph_model.SyntaxStepDeclaration(
-                            meta=syntax_step.meta,
-                            var=var.var,
-                            var_type=var.var_type)
-    return None
-
-
-def lookup_var_state_by_name(
-    args: EvaluatorArgs,
-    var_name: str,
-) -> Optional[Union[
-    graph_model.SyntaxStepAssignment,
-    graph_model.SyntaxStepDeclaration,
-    graph_model.SyntaxStepSymbolLookup,
-]]:
-    for syntax_step in lookup_vars(args):
-        if (isinstance(syntax_step, (
-                graph_model.SyntaxStepDeclaration,
-                graph_model.SyntaxStepAssignment,
-        )) and syntax_step.var == var_name) or (
-                isinstance(syntax_step, graph_model.SyntaxStepSymbolLookup)
-                and syntax_step.symbol == var_name):
-            return syntax_step
-    return None
-
-
-def lookup_java_class(
-    args: EvaluatorArgs,
-    class_name: str,
-) -> Optional[graph_model.GraphShardMetadataJavaClass]:
-    # First lookup the class in the current shard
-    for class_path, class_data in args.shard.metadata.java.classes.items():
-        qualified = args.shard.metadata.java.package + class_path
-
-        if qualified.endswith(f'.{class_name}'):
-            return class_data
-
-    return None
-
-
-def _lookup_java_field_in_shard(
-    shard: graph_model.GraphShard,
-    field_name: str,
-) -> Optional[graph_model.GraphShardMetadataJavaClassField]:
-    for class_path, class_data in shard.metadata.java.classes.items():
-        for field_path, field_data in class_data.fields.items():
-            qualified = shard.metadata.java.package + class_path + field_path
-
-            if qualified == field_name:
-                return field_data
-
-    return None
-
-
-def lookup_java_field(
-    args: EvaluatorArgs,
-    field_name: str,
-) -> Optional[graph_model.GraphShardMetadataJavaClassField]:
-    # First lookup in the current shard
-    if data := _lookup_java_field_in_shard(args.shard, field_name):
-        return data
-
-    # Now lookoup in other shards different than the current shard
-    for shard in args.graph_db.shards:
-        if shard.path != args.shard.path:
-            if data := _lookup_java_field_in_shard(shard, field_name):
-                return data
-
-    return None
-
-
-def lookup_java_method(
-    args: EvaluatorArgs,
-    method_name: str,
-) -> Optional[graph_model.GraphShardMetadataJavaClassMethod]:
-    # First lookup the class in the current shard
-    for class_path, class_data in args.shard.metadata.java.classes.items():
-        for method_path, method_data in class_data.methods.items():
-            qualified = \
-                args.shard.metadata.java.package + class_path + method_path
-
-            if qualified.endswith(f'.{method_name}'):
-                return method_data
-
-    return None
 
 
 def eval_method(
@@ -360,18 +225,6 @@ def syntax_step_switch_label(args: EvaluatorArgs) -> None:
 
 def syntax_step_switch_label_case(args: EvaluatorArgs) -> None:
     args.syntax_step.meta.value = args.dependencies[0].meta.value
-
-
-def syntax_step_switch_label_default(_args: EvaluatorArgs) -> None:
-    pass
-
-
-def syntax_step_for(_args: EvaluatorArgs) -> None:
-    pass
-
-
-def syntax_step_catch_clause(_args: EvaluatorArgs) -> None:
-    pass
 
 
 def syntax_step_array_access(args: EvaluatorArgs) -> None:
@@ -746,18 +599,18 @@ EVALUATORS: Dict[object, Evaluator] = {
     syntax_step_array_instantiation,
     graph_model.SyntaxStepBinaryExpression: syntax_step_binary_expression,
     graph_model.SyntaxStepCastExpression: syntax_step_cast_expression,
-    graph_model.SyntaxStepCatchClause: syntax_step_catch_clause,
+    graph_model.SyntaxStepCatchClause: syntax_step_no_op,
     graph_model.SyntaxStepUnaryExpression: syntax_step_unary_expression,
     graph_model.SyntaxStepParenthesizedExpression:
     syntax_step_parenthesized_expression,
     graph_model.SyntaxStepDeclaration: syntax_step_declaration,
-    graph_model.SyntaxStepFor: syntax_step_for,
+    graph_model.SyntaxStepFor: syntax_step_no_op,
     graph_model.SyntaxStepIf: syntax_step_if,
     graph_model.SyntaxStepInstanceofExpression:
     syntax_step_instanceof_expression,
     graph_model.SyntaxStepSwitch: syntax_step_switch_label,
     graph_model.SyntaxStepSwitchLabelCase: syntax_step_switch_label_case,
-    graph_model.SyntaxStepSwitchLabelDefault: syntax_step_switch_label_default,
+    graph_model.SyntaxStepSwitchLabelDefault: syntax_step_no_op,
     graph_model.SyntaxStepLiteral: syntax_step_literal,
     graph_model.SyntaxStepMethodInvocation: syntax_step_method_invocation,
     graph_model.SyntaxStepMethodInvocationChain:

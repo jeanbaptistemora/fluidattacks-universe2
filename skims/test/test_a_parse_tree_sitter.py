@@ -11,7 +11,7 @@ from model import (
 from sast.parse import (
     get_graph_db,
 )
-from sast.symeval import (
+from sast.symbolic_evaluation.evaluate import (
     get_possible_syntax_steps,
 )
 from utils.ctx import (
