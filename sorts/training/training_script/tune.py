@@ -45,7 +45,7 @@ def get_model_features() -> Tuple[str, ...]:
 
 
 def train_model(
-    model_class: ModelType,
+    model: ModelType,
     model_features: Tuple[str, ...],
     training_dir: str,
     previous_results: List[List[str]]
@@ -58,7 +58,6 @@ def train_model(
     )
     train_x, train_y = split_training_data(training_data, model_features)
 
-    model = model_class()
     metrics = get_model_performance_metrics(
         model,
         train_x,
