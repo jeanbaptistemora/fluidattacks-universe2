@@ -126,6 +126,7 @@ observes.generic.runner
 observes.generic.tester
 observes.lint.code-etl
 observes.lint.dif-gitlab-etl
+observes.lint.job-last-success
 observes.lint.paginator
 observes.lint.postgres-client
 observes.lint.service-batch-stability
@@ -138,7 +139,6 @@ observes.lint.tap-formstack
 observes.lint.tap-mailchimp
 observes.lint.tap-mixpanel
 observes.lint.target-redshift
-observes.lint.update-sync-date
 observes.test.code-etl
 observes.test.dif-gitlab-etl
 observes.test.postgres-client

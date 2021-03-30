@@ -76,6 +76,11 @@ observes.lint.dif-gitlab-etl:
   <<: *observes_in_dev_branch
   stage: lint-code
 
+observes.lint.job-last-success:
+  <<: *makes
+  <<: *observes_in_dev_branch
+  stage: lint-code
+
 observes.lint.paginator:
   <<: *makes
   <<: *observes_in_dev_branch
@@ -132,11 +137,6 @@ observes.lint.tap-mixpanel:
   stage: lint-code
 
 observes.lint.target-redshift:
-  <<: *makes
-  <<: *observes_in_dev_branch
-  stage: lint-code
-
-observes.lint.update-sync-date:
   <<: *makes
   <<: *observes_in_dev_branch
   stage: lint-code

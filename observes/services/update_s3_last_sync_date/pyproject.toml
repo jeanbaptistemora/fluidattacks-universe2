@@ -2,15 +2,7 @@
 name = "update_s3_last_sync_date"
 version = "0.1.0"
 description = ""
-authors = ["Daniel Murcia <dmurcia@fluidattacks.com>"]
-
-[tool.poetry.dependencies]
-python = "3.8.2"
-click = "7.1.2"
-psycopg2 = "2.8.6"
-
-[tool.poetry.dev-dependencies]
-pytest = "5.2"
+authors = ["Product Team <development@fluidattacks.com>"]
 
 [build-system]
 requires = ["poetry>=0.12"]
