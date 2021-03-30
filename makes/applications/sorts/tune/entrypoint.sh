@@ -8,6 +8,8 @@ function main {
   &&  pushd sorts \
     &&  echo "[INFO] Tuning best model hyperparamters..." \
     &&  python3.8 training/tune_hyperparameters.py \
+    &&  echo "[INFO] Evaluating resulting artifacts..." \
+    &&  python3.8 training/evaluate_results.py \
   &&  popd \
   || return 1
 }
