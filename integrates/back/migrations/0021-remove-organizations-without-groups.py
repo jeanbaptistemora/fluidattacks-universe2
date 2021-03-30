@@ -11,7 +11,7 @@ import os
 
 from aioextensions import run
 
-from backend.domain import organization as org_domain
+from organizations import domain as orgs_domain
 
 
 STAGE: str = os.environ['STAGE']
@@ -19,12 +19,12 @@ STAGE: str = os.environ['STAGE']
 
 async def main() -> None:
     async for org_id, org_name, groups in \
-            org_domain.iterate_organizations_and_groups():
+            orgs_domain.iterate_organizations_and_groups():
         if not groups:
             if STAGE == 'test':
                 print(f'Organization {org_name} will be deleted')
             else:
-                await org_domain.delete_organization(org_id)
+                await orgs_domain.delete_organization(org_id)
 
 
 if __name__ == '__main__':

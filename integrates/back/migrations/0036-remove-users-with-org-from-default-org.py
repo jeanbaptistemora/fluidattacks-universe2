@@ -5,31 +5,28 @@ that already have another org.
 Execution Time:    2020-12-01 at 14:41:39 UTC-05
 Finalization Time: 2020-12-01 at 14:46:30 UTC-05
 """
+import csv
 import time
 import os
-import csv
-
-from typing import List, cast
 from asyncio import run
-
-from aioextensions import (
-    collect,
+from typing import (
+    cast,
+    List,
 )
 
-from backend.dal import (
-    organization as org_dal
-)
-from backend.domain import (
-    organization as org_domain
-)
+from aioextensions import collect
+
+from backend.dal import organization as org_dal
 from backend.exceptions import UserNotInOrganization
+from organizations import domain as orgs_domain
+
 
 STAGE: str = os.environ['STAGE']
 
 
 async def remove_user_from_imamura(user: str, org_id: str) -> bool:
     try:
-        success: bool = cast(bool, await org_domain.remove_user(org_id, user))
+        success: bool = cast(bool, await orgs_domain.remove_user(org_id, user))
         if success:
             print(f'[INFO] User {user} removed from imamura')
         else:

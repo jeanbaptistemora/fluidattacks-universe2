@@ -1,7 +1,7 @@
 # Standard libraries
 from typing import (
     Dict,
-    List
+    List,
 )
 
 # Third party libraries
@@ -9,8 +9,8 @@ from aiodataloader import DataLoader
 from aioextensions import collect
 
 # Local libraries
-from backend.domain import organization as org_domain
 from backend.typing import Organization as OrganizationType
+from organizations import domain as orgs_domain
 
 
 async def _batch_load_fn(
@@ -18,7 +18,7 @@ async def _batch_load_fn(
 ) -> List[OrganizationType]:
     organizations: Dict[str, OrganizationType] = {}
     organizations_by_id = await collect([
-        org_domain.get_by_id(organization_id)
+        orgs_domain.get_by_id(organization_id)
         for organization_id in organization_ids
     ])
 

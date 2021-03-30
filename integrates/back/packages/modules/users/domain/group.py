@@ -17,10 +17,7 @@ from backend import (
     util,
 )
 from backend.dal.helpers.redis import redis_del_by_deps_soon
-from backend.domain import (
-    organization as org_domain,
-    project as group_domain,
-)
+from backend.domain import project as group_domain
 from backend.typing import (
     Invitation as InvitationType,
     ProjectAccess as GroupAccessType,
@@ -31,6 +28,7 @@ from newutils.validations import (
     validate_email_address,
     validate_phone_field,
 )
+from organizations import domain as orgs_domain
 from users import dal as users_dal
 from users.domain import core as users_core
 from __init__ import FI_DEFAULT_ORG
@@ -67,10 +65,10 @@ async def complete_register_for_group_invitation(
         authz.grant_group_level_role(user_email, group_name, role)
     ])
 
-    organization_id = await org_domain.get_id_for_group(group_name)
-    if not await org_domain.has_user_access(organization_id, user_email):
+    organization_id = await orgs_domain.get_id_for_group(group_name)
+    if not await orgs_domain.has_user_access(organization_id, user_email):
         coroutines.append(
-            org_domain.add_user(organization_id, user_email, 'customer')
+            orgs_domain.add_user(organization_id, user_email, 'customer')
         )
 
     if await users_core.get_data(user_email, 'email'):
@@ -121,9 +119,9 @@ async def create_without_group(
                 users_core.create(email, new_user_data)
             ])
         )
-        org = await org_domain.get_or_create(FI_DEFAULT_ORG, email)
-        if not await org_domain.has_user_access(str(org['id']), email):
-            await org_domain.add_user(str(org['id']), email, 'customer')
+        org = await orgs_domain.get_or_create(FI_DEFAULT_ORG, email)
+        if not await orgs_domain.has_user_access(str(org['id']), email):
+            await orgs_domain.add_user(str(org['id']), email, 'customer')
     return success
 
 
@@ -188,7 +186,7 @@ async def get_groups(
     ]
 
     if organization_id:
-        org_groups = await org_domain.get_groups(organization_id)
+        org_groups = await orgs_domain.get_groups(organization_id)
         user_groups = [
             group
             for group in user_groups

@@ -23,16 +23,19 @@ from starlette.datastructures import UploadFile
 
 # Local Libraries
 from back import settings
-from backend import authz, mailer, util
+from backend import (
+    authz,
+    mailer,
+    util,
+)
 from backend.dal import project as project_dal
-from backend.domain import organization as org_domain
 from backend.exceptions import (
     EventAlreadyClosed,
     EventNotFound,
     InvalidCommentParent,
     InvalidDate,
     InvalidFileSize,
-    InvalidFileType
+    InvalidFileType,
 )
 from backend.typing import (
     Comment as CommentType,
@@ -47,13 +50,14 @@ from newutils import (
     events as events_utils,
     validations,
 )
+from organizations import domain as orgs_domain
 from users import domain as users_domain
 from __init__ import (
     BASE_URL,
     FI_MAIL_CONTINUOUS,
     FI_MAIL_PRODUCTION,
     FI_MAIL_PROJECTS,
-    FI_MAIL_REVIEWERS
+    FI_MAIL_REVIEWERS,
 )
 
 
@@ -170,7 +174,7 @@ async def _send_new_event_mail(  # pylint: disable=too-many-arguments
 ) -> None:
     recipients = await project_dal.list_project_managers(group_name)
     recipients.append(analyst)
-    org_name = await org_domain.get_name_by_id(org_id)
+    org_name = await orgs_domain.get_name_by_id(org_id)
     if subscription == 'oneshot':
         recipients.append(FI_MAIL_PROJECTS)
     elif subscription == 'continuous':

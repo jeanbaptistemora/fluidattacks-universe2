@@ -8,8 +8,8 @@ from graphql.type.definition import GraphQLResolveInfo
 # Local
 from backend import util
 from backend.decorators import require_login
-from backend.domain import organization as org_domain
 from backend.typing import CreateOrganizationPayload, Organization
+from organizations import domain as orgs_domain
 
 
 # Constants
@@ -30,7 +30,7 @@ async def mutate(
         user_email,
         name
     )
-    organization: Organization = await org_domain.create_organization(
+    organization: Organization = await orgs_domain.create_organization(
         name,
         user_email
     )

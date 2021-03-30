@@ -11,8 +11,8 @@ from backend.decorators import (
     require_login,
     require_organization_access
 )
-from backend.domain import organization as org_domain
 from backend.typing import Organization
+from organizations import domain as orgs_domain
 
 
 @convert_kwargs_to_snake_case  # type: ignore
@@ -26,6 +26,6 @@ async def resolve(
     **kwargs: str
 ) -> Organization:
     org_id: str = kwargs['organization_id']
-    organization: Organization = await org_domain.get_by_id(org_id)
+    organization: Organization = await orgs_domain.get_by_id(org_id)
 
     return organization

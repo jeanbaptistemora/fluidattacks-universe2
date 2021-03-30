@@ -7,8 +7,8 @@ from graphql.type.definition import GraphQLResolveInfo
 from backend import util
 from backend.dal.helpers.redis import redis_del_by_deps_soon
 from backend.decorators import enforce_organization_level_auth_async
-from backend.domain import organization as org_domain
 from backend.typing import SimplePayload
+from organizations import domain as orgs_domain
 
 
 @convert_kwargs_to_snake_case  # type: ignore
@@ -21,9 +21,9 @@ async def mutate(
 ) -> SimplePayload:
     user_data = await util.get_jwt_content(info.context)
     requester_email = user_data['user_email']
-    organization_name = await org_domain.get_name_by_id(organization_id)
+    organization_name = await orgs_domain.get_name_by_id(organization_id)
 
-    success: bool = await org_domain.remove_user(
+    success: bool = await orgs_domain.remove_user(
         info.context.loaders,
         organization_id,
         user_email.lower()

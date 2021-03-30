@@ -8,8 +8,8 @@ from graphql.type.definition import GraphQLResolveInfo
 # Local
 from backend import util
 from backend.decorators import enforce_organization_level_auth_async
-from backend.domain import organization as org_domain
 from backend.typing import SimplePayload
+from organizations import domain as orgs_domain
 
 
 @convert_kwargs_to_snake_case  # type: ignore
@@ -24,7 +24,7 @@ async def mutate(
 
     organization_id = parameters.pop('organization_id')
     organization_name = parameters.pop('organization_name')
-    success: bool = await org_domain.update_policies(
+    success: bool = await orgs_domain.update_policies(
         organization_id,
         organization_name,
         user_email,

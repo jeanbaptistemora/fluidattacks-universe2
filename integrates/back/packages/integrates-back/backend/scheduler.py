@@ -41,7 +41,6 @@ from backend.api import get_new_context
 from backend.dal import project as project_dal
 from backend.domain import (
     finding as finding_domain,
-    organization as org_domain,
     project as project_domain,
     vulnerability as vuln_domain,
 )
@@ -55,17 +54,14 @@ from backend.typing import (
 )
 from batch import dal as batch_dal
 from events import domain as events_domain
-from newutils import (
-    datetime as datetime_utils,
-)
-from newutils.groups import (
-    has_integrates_services,
-)
+from newutils import datetime as datetime_utils
+from newutils.groups import has_integrates_services
 from newutils.findings import (
     filter_by_date,
     get_state_actions,
     sort_historic_by_date,
 )
+from organizations import domain as orgs_domain
 from tags import domain as tags_domain
 from __init__ import (
     BASE_URL,
@@ -935,7 +931,7 @@ async def update_portfolios() -> None:
     context = get_new_context()
     group_loader = context.group_all
     async for _, org_name, org_groups in \
-            org_domain.iterate_organizations_and_groups():
+            orgs_domain.iterate_organizations_and_groups():
         org_tags = await context.organization_tags.load(org_name)
         org_groups_attrs = await group_loader.load_many(
             list(org_groups)
@@ -1053,12 +1049,12 @@ async def delete_obsolete_orgs() -> None:
     LOGGER.info(msg, **NOEXTRA)
     today = datetime_utils.get_now().date()
     email = 'integrates@fluidattacks.com'
-    async for org_id, org_name in org_domain.iterate_organizations():
+    async for org_id, org_name in orgs_domain.iterate_organizations():
         org_pending_deletion_date_str = (
-            await org_domain.get_pending_deletion_date_str(org_id)
+            await orgs_domain.get_pending_deletion_date_str(org_id)
         )
-        org_users = await org_domain.get_users(org_id)
-        org_groups = await org_domain.get_groups(org_id)
+        org_users = await orgs_domain.get_users(org_id)
+        org_groups = await orgs_domain.get_groups(org_id)
         if len(org_users) <= 1 or len(org_groups) == 0:
             if org_pending_deletion_date_str:
                 org_pending_deletion_date = datetime_utils.get_from_str(
@@ -1067,7 +1063,7 @@ async def delete_obsolete_orgs() -> None:
                 if org_pending_deletion_date.date() <= today:
                     msg = f'- organization: {org_name} will be deleted'
                     LOGGER.info(msg, **NOEXTRA)
-                    await org_domain.delete_organization(
+                    await orgs_domain.delete_organization(
                         get_new_context(),
                         org_id,
                         email
@@ -1076,7 +1072,7 @@ async def delete_obsolete_orgs() -> None:
                 new_org_pending_deletion_date_str = datetime_utils.get_as_str(
                     datetime_utils.get_now_plus_delta(days=60)
                 )
-                await org_domain.update_pending_deletion_date(
+                await orgs_domain.update_pending_deletion_date(
                     org_id,
                     org_name,
                     new_org_pending_deletion_date_str
@@ -1091,7 +1087,7 @@ async def delete_obsolete_orgs() -> None:
                         }
                     )
         else:
-            await org_domain.update_pending_deletion_date(
+            await orgs_domain.update_pending_deletion_date(
                 org_id,
                 org_name,
                 None
@@ -1106,7 +1102,7 @@ async def delete_imamura_stakeholders() -> None:
     msg = '[scheduler]: delete_imamura_stakeholders is running'
     LOGGER.info(msg, **NOEXTRA)
     org_name = 'imamura'
-    org_id = await org_domain.get_id_by_name(org_name)
+    org_id = await orgs_domain.get_id_by_name(org_name)
     loaders = get_new_context()
     organization_stakeholders_loader = loaders.organization_stakeholders
     org_stakeholders = await organization_stakeholders_loader.load(org_id)
@@ -1124,7 +1120,7 @@ async def delete_imamura_stakeholders() -> None:
         )
     ]
     inactive_stakeholder_orgs = await collect([
-        org_domain.get_user_organizations(inactive_stakeholder['email'])
+        orgs_domain.get_user_organizations(inactive_stakeholder['email'])
         for inactive_stakeholder in inactive_stakeholders
     ])
     stakeholders_to_delete = [
@@ -1134,7 +1130,7 @@ async def delete_imamura_stakeholders() -> None:
         if len(orgs) == 1
     ]
     await collect([
-        org_domain.remove_user(
+        orgs_domain.remove_user(
             loaders,
             org_id,
             stakeholder_to_delete['email']
@@ -1226,11 +1222,11 @@ async def _delete_groups(
         ).date() <= today
     ]
     groups_to_delete_org_ids = await collect([
-        org_domain.get_id_for_group(group_to_delete['project_name'])
+        orgs_domain.get_id_for_group(group_to_delete['project_name'])
         for group_to_delete in groups_to_delete
     ])
     success = all(await collect([
-        org_domain.remove_group(
+        orgs_domain.remove_group(
             loaders,
             org_id,
             group['project_name'],

@@ -1,11 +1,11 @@
 # Standard library
+import html
 from typing import (
     cast,
     Dict,
     List,
     Union,
 )
-import html
 
 # Third party imports
 from aiodataloader import DataLoader
@@ -18,10 +18,10 @@ from graphql.type.definition import GraphQLResolveInfo
 
 # Local imports
 from backend import mailer
-from backend.domain import organization as org_domain
 from backend.typing import Finding as FindingType
 from newutils import datetime as datetime_utils
 from notifications import dal as notifications_dal
+from organizations import domain as orgs_domain
 from users import domain as users_domain
 from __init__ import (
     BASE_URL,
@@ -246,8 +246,8 @@ async def request_zero_risk_vuln(
     finding_loader: DataLoader = info.context.loaders.finding
     finding: Dict[str, FindingType] = await finding_loader.load(finding_id)
     group_name = cast(str, finding.get('project_name', ''))
-    org_id = await org_domain.get_id_for_group(group_name)
-    org_name = await org_domain.get_name_by_id(org_id)
+    org_id = await orgs_domain.get_id_for_group(group_name)
+    org_name = await orgs_domain.get_name_by_id(org_id)
     finding_title = cast(str, finding.get('title', ''))
     finding_type = cast(str, finding.get('type', ''))
     finding_url = (

@@ -1,10 +1,18 @@
 # Standard libraries
 from typing import Dict
 
+# Third-party libraries
+from aioextensions import collect
+
 # Local libraries
 from backend import authz
+from backend.dal.helpers.dynamodb import async_delete_item
+from backend.dal import session as session_dal
 from backend.domain import project as group_domain
-from backend.typing import Invitation as InvitationType
+from backend.typing import (
+    DynamoDelete as DynamoDeleteType,
+    Invitation as InvitationType,
+)
 from newutils.validations import (
     validate_alphanumeric_field,
     validate_email_address,
@@ -12,6 +20,24 @@ from newutils.validations import (
     validate_fluidattacks_staff_on_group,
     validate_phone_field
 )
+
+
+# Constants
+USER_TABLE: str = 'FI_users'
+
+
+async def remove_stakeholder(email: str) -> bool:
+    success = all(
+        await collect([
+            authz.revoke_user_level_role(email),
+            async_delete_item(
+                USER_TABLE,
+                DynamoDeleteType(Key={'email': email.lower()})
+            )
+        ])
+    )
+    await session_dal.logout(email)
+    return success
 
 
 async def update_invited_stakeholder(

@@ -5,9 +5,7 @@ Execution Time:    2021-01-21 at 09:25:39 UTC-05
 Finalization Time: 2021-01-21 at 09:26:08 UTC-05
 """
 # Standard library
-from typing import (
-    cast,
-)
+from typing import cast
 
 # Third party libraries
 from aioextensions import (
@@ -17,15 +15,14 @@ from aioextensions import (
 from boto3.dynamodb.conditions import Key
 
 # Local libraries
-from backend.dal.helpers import dynamodb
 from backend.dal import(
     project as group_dal,
     organization as org_dal,
 )
-from backend.domain import(
-    organization as org_domain,
-    project as group_domain,
-)
+from backend.dal.helpers import dynamodb
+from backend.domain import project as group_domain
+from organizations import domain as orgs_domain
+
 
 FINDINGS_TABLE = 'FI_findings'
 ORG_TABLE = 'fi_organizations'
@@ -67,7 +64,7 @@ async def main() -> None:
     group_names = await group_dal.get_alive_projects()
     group_org_ids = await collect(
         [
-            org_domain.get_id_for_group(group_name)
+            orgs_domain.get_id_for_group(group_name)
             for group_name in group_names
         ],
         workers=64

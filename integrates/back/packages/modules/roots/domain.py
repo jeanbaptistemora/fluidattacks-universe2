@@ -1,6 +1,10 @@
 # Standard
 import re
-from typing import Any, List, Tuple
+from typing import (
+    Any,
+    List,
+    Tuple,
+)
 from urllib.parse import unquote
 from uuid import uuid4
 
@@ -12,7 +16,6 @@ from urllib3.util.url import parse_url
 
 # Local
 from backend import authz
-from backend.domain import organization as org_domain
 from backend.exceptions import (
     InvalidChar,
     InvalidParameter,
@@ -41,8 +44,18 @@ from newutils import (
     validations as validation_utils
 )
 from notifications import domain as notifications_domain
-from roots import dal as roots_dal, validations
-from roots.types import GitRoot, GitRootCloningStatus, IPRoot, URLRoot, Root
+from organizations import domain as orgs_domain
+from roots import (
+    dal as roots_dal,
+    validations,
+)
+from roots.types import (
+    GitRoot,
+    GitRootCloningStatus,
+    IPRoot,
+    Root,
+    URLRoot,
+)
 
 
 def format_root(root: RootItem) -> Root:
@@ -97,7 +110,7 @@ async def get_roots(*, group_name: str) -> Tuple[RootItem, ...]:
 
 @newrelic.agent.function_trace()
 async def get_org_roots(*, org_id: str) -> Tuple[RootItem, ...]:
-    org_groups = await org_domain.get_groups(org_id)
+    org_groups = await orgs_domain.get_groups(org_id)
 
     return tuple(
         root

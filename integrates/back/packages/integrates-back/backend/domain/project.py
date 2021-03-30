@@ -36,7 +36,6 @@ from backend.dal import project as project_dal
 from backend.dal.helpers.dynamodb import start_context
 from backend.domain import (
     finding as finding_domain,
-    organization as org_domain,
     vulnerability as vuln_domain,
 )
 from backend.exceptions import (
@@ -67,9 +66,11 @@ from newutils import (
     comments as comments_utils,
     datetime as datetime_utils,
     findings as finding_utils,
+    user as user_utils,
     validations,
 )
 from notifications import domain as notifications_domain
+from organizations import domain as orgs_domain
 from resources import domain as resources_domain
 from users import domain as users_domain
 from users.domain.group import get_groups
@@ -189,8 +190,8 @@ async def create_group(  # pylint: disable=too-many-arguments,too-many-locals
             project_dal.exists(project_name)
         ])
 
-        org_id = await org_domain.get_id_by_name(organization)
-        if not await org_domain.has_user_access(org_id, user_email):
+        org_id = await orgs_domain.get_id_by_name(organization)
+        if not await orgs_domain.has_user_access(org_id, user_email):
             raise UserNotInOrganization(org_id)
 
         if is_group_avail and not group_exists:
@@ -213,7 +214,7 @@ async def create_group(  # pylint: disable=too-many-arguments,too-many-locals
             success = await project_dal.create(project)
             if success:
                 await collect((
-                    org_domain.add_group(org_id, project_name),
+                    orgs_domain.add_group(org_id, project_name),
                     names_domain.remove(project_name, 'group')
                 ))
                 # Admins are not granted access to the project
@@ -307,7 +308,7 @@ async def edit(
         group_loader = context.group_all
         group = await group_loader.load(group_name)
         org_id = group['organization']
-        success = success and await org_domain.remove_group(
+        success = success and await orgs_domain.remove_group(
             context,
             organization_id=org_id,
             group_name=group_name,
@@ -531,12 +532,12 @@ async def remove_user_access(
         group_loader = context.group
         group = await group_loader.load(group_name)
         org_id = group['organization']
-        has_org_access = await org_domain.has_user_access(org_id, email)
+        has_org_access = await orgs_domain.has_user_access(org_id, email)
         has_groups_in_org = bool(
             await get_groups(email, organization_id=org_id)
         )
         if has_org_access and not has_groups_in_org:
-            success = success and await org_domain.remove_user(
+            success = success and await orgs_domain.remove_user(
                 context,
                 org_id,
                 email
@@ -546,7 +547,7 @@ async def remove_user_access(
             await get_groups(email)
         )
         if not has_groups:
-            success = success and await users_domain.remove_stakeholder(email)
+            success = success and await user_utils.remove_stakeholder(email)
 
     return success
 

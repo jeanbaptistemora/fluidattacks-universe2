@@ -10,13 +10,13 @@ from typing import (
     Callable,
     cast,
     Dict,
-    TypeVar
+    TypeVar,
 )
 
 # Third party libraries
 from aioextensions import (
     collect,
-    schedule
+    schedule,
 )
 from graphql import GraphQLError
 
@@ -30,18 +30,16 @@ from backend import (
 )
 from backend.domain import (
     finding as finding_domain,
-    organization as org_domain,
     vulnerability as vuln_domain
 )
 from backend.exceptions import (
     FindingNotFound,
     InvalidAuthorization,
-    UserNotInOrganization
+    UserNotInOrganization,
 )
-from backend.services import (
-    has_valid_access_token
-)
+from backend.services import has_valid_access_token
 from newutils import function
+from organizations import domain as orgs_domain
 
 
 logging.config.dictConfig(LOGGING)
@@ -232,7 +230,7 @@ def enforce_organization_level_auth_async(func: TVar) -> TVar:
         organization_id = (
             organization_identifier
             if organization_identifier.startswith('ORG#')
-            else await org_domain.get_id_by_name(organization_identifier)
+            else await orgs_domain.get_id_by_name(organization_identifier)
         )
         user_data = await util.get_jwt_content(context)
 
@@ -390,12 +388,12 @@ def require_organization_access(func: TVar) -> TVar:
         organization_id = (
             organization_identifier
             if organization_identifier.startswith('ORG#')
-            else await org_domain.get_id_by_name(organization_identifier)
+            else await orgs_domain.get_id_by_name(organization_identifier)
         )
 
         role, has_access = await collect([
             authz.get_organization_level_role(user_email, organization_id),
-            org_domain.has_user_access(organization_id, user_email)
+            orgs_domain.has_user_access(organization_id, user_email)
         ])
 
         if role != 'admin' and not has_access:

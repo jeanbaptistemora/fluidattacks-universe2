@@ -19,16 +19,16 @@ import botocore.exceptions
 from analytics import domain as analytics_domain
 from back.settings import (
     LOGGING,
-    NOEXTRA
+    NOEXTRA,
 )
 from backend import mailer
 from backend.dal import project as group_dal
-from backend.domain import organization as org_domain
 from backend.services import has_access_to_project as has_access_to_group
 from newutils import (
     datetime as datetime_utils,
     reports,
 )
+from organizations import domain as orgs_domain
 from subscriptions import dal as subscriptions_dal
 from subscriptions.dal import NumericType
 from tags import domain as tags_domain
@@ -55,7 +55,7 @@ async def can_subscribe_user_to_entity_report(
             report_subject.lower(),
         )
     elif report_entity.lower() == 'organization':
-        success = await org_domain.has_user_access(
+        success = await orgs_domain.has_user_access(
             email=user_email,
             organization_id=report_subject,
         )
@@ -189,7 +189,7 @@ async def send_user_to_entity_report(
     else:
         report_entity = report_entity.lower()
         if report_entity == 'organization':
-            report_subject = await org_domain.get_name_by_id(report_subject)
+            report_subject = await orgs_domain.get_name_by_id(report_subject)
         elif report_entity == 'portfolio':
             report_subject = report_subject.split('PORTFOLIO#')[-1]
 

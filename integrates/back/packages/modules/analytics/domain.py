@@ -23,16 +23,16 @@ from back.app.views import templates
 from back.settings import LOGGING
 from backend import util
 from backend.dal.helpers.redis import redis_get_or_set_entity_attr
-from backend.domain import organization as organization_domain
 from backend.exceptions import DocumentNotFound
 from backend.services import has_access_to_project as has_access_to_group
 from backend.typing import (
     GraphicsForEntityParameters,
     GraphicParameters,
-    ReportParameters
+    ReportParameters,
 )
 from newutils.encodings import safe_encode
 from newutils.context import CHARTS_LOGO_PATH
+from organizations import domain as orgs_domain
 from tags import domain as tags_domain
 
 
@@ -174,7 +174,7 @@ async def handle_authz_claims(
         ):
             raise PermissionError('Access denied')
     elif params.entity == 'organization':
-        if not await organization_domain.has_user_access(
+        if not await orgs_domain.has_user_access(
             email=email,
             organization_id=subject,
         ):

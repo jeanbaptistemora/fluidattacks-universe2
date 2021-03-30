@@ -14,7 +14,7 @@ from starlette.middleware.sessions import SessionMiddleware
 from starlette.requests import Request
 from starlette.responses import (
     HTMLResponse,
-    RedirectResponse
+    RedirectResponse,
 )
 from starlette.routing import Mount, Route
 from starlette.staticfiles import StaticFiles
@@ -27,7 +27,7 @@ from back.app.views import (
     auth,
     charts,
     evidence,
-    templates
+    templates,
 )
 from back.settings.queue import (
     get_task,
@@ -38,18 +38,16 @@ from backend.api.schema import SCHEMA
 from backend.dal import session as session_dal
 from backend.dal.helpers.redis import redis_del_entity_attr
 from backend.decorators import authenticate_session
-from backend.domain import (
-    project as group_domain,
-    organization as org_domain,
-)
+from backend.domain import project as group_domain
 from backend.exceptions import (
     ExpiredToken,
     SecureAccessException,
 )
+from organizations import domain as orgs_domain
 from users.domain.group import complete_register_for_group_invitation
 from __init__ import (
     FI_ENVIRONMENT,
-    FI_STARLETTE_SESSION_KEY
+    FI_STARLETTE_SESSION_KEY,
 )
 
 
@@ -63,7 +61,7 @@ async def app(request: Request) -> HTMLResponse:
             if FI_ENVIRONMENT == 'production':
                 await session_dal.check_session_web_validity(request)
 
-            if not await org_domain.get_user_organizations(email):
+            if not await orgs_domain.get_user_organizations(email):
                 response = templates.unauthorized(request)
             else:
                 response = templates.main_app(request)

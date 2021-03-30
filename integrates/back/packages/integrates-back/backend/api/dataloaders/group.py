@@ -2,7 +2,7 @@
 from typing import (
     cast,
     Dict,
-    List
+    List,
 )
 
 # Third party libraries
@@ -10,11 +10,9 @@ from aiodataloader import DataLoader
 from aioextensions import collect
 
 # Local libraries
-from backend.domain import (
-    project as group_domain,
-    organization as org_domain
-)
+from backend.domain import project as group_domain
 from backend.typing import Project as GroupType
+from organizations import domain as orgs_domain
 
 
 async def _batch_load_fn(group_names: List[str]) -> List[GroupType]:
@@ -22,7 +20,7 @@ async def _batch_load_fn(group_names: List[str]) -> List[GroupType]:
     groups_by_names: List[GroupType] = \
         await group_domain.get_many_groups(group_names)
     organization_ids = await collect([
-        org_domain.get_id_for_group(group_name)
+        orgs_domain.get_id_for_group(group_name)
         for group_name in group_names
     ])
 

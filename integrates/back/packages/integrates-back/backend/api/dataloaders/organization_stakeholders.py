@@ -2,7 +2,7 @@
 from typing import (
     cast,
     List,
-    Tuple
+    Tuple,
 )
 
 # Third party libraries
@@ -11,8 +11,8 @@ from aioextensions import collect
 
 # Local libraries
 from backend import authz
-from backend.domain import organization as org_domain
 from backend.typing import Stakeholder as StakeholderType
+from organizations import domain as orgs_domain
 from users import domain as stakeholders_domain
 
 
@@ -29,7 +29,7 @@ async def get_stakeholders_by_organization(
     organization_id: str
 ) -> Tuple[StakeholderType, ...]:
     org_stakeholders_emails: List[str] = \
-        await org_domain.get_users(organization_id)
+        await orgs_domain.get_users(organization_id)
     org_stakeholders = await collect(
         _get_stakeholder(email, organization_id)
         for email in org_stakeholders_emails

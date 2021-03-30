@@ -26,10 +26,10 @@ from backend.dal.organization import (
     get_by_id as get_organization_attributes,
     get_by_id_old as get_organization_attributes_old
 )
-from backend.domain.organization import (
-    get_id_by_name as get_organization_id_by_name
-)
 from backend.domain.project import get_attributes as get_project_attributes
+from organizations.domain import (
+    get_id_by_name as get_organization_id_by_name,
+)
 from users.dal import update as update_user
 from users.domain.group import get_groups as get_user_groups
 from __init__ import FI_COMMUNITY_PROJECTS

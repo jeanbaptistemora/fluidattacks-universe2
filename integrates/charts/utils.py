@@ -18,19 +18,15 @@ from typing import (
     Type,
     Union,
 )
-from urllib.parse import (
-    urlparse,
-)
+from urllib.parse import urlparse
 
 from frozendict import frozendict
 
 # Third party libraries
-from backend.domain import (
-    organization as org_domain,
-    project as group_domain,
-)
+from backend.domain import project as group_domain
 from forces import domain as forces_domain
 from newutils.encodings import safe_encode
+from organizations import domain as orgs_domain
 from tags import domain as tags_domain
 
 
@@ -124,7 +120,7 @@ async def iterate_organizations_and_groups() -> AsyncIterator[
     """Yield (org_id, org_name, org_groups) non-concurrently generated."""
     groups: Set[str] = set(await group_domain.get_alive_group_names())
     async for org_id, org_name, org_groups in (
-        org_domain.iterate_organizations_and_groups()
+        orgs_domain.iterate_organizations_and_groups()
     ):
         log_info(f'Working on org: {org_id} ({org_name}) {org_groups}')
 

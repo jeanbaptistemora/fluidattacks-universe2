@@ -7,22 +7,16 @@ from graphql.type.definition import GraphQLResolveInfo
 
 # Local libraries
 from backend import util
-from backend.dal.helpers.redis import (
-    redis_del_by_deps_soon,
-)
+from backend.dal.helpers.redis import redis_del_by_deps_soon
 from backend.decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
     require_integrates,
     require_login
 )
-from backend.domain import (
-    project as group_domain,
-    organization as org_domain,
-)
-from backend.typing import (
-    SimplePayload as SimplePayloadType
-)
+from backend.domain import project as group_domain
+from backend.typing import SimplePayload as SimplePayloadType
+from organizations import domain as orgs_domain
 
 
 @convert_kwargs_to_snake_case  # type: ignore
@@ -45,7 +39,7 @@ async def mutate(
     )
 
     if success:
-        group_org_id = await org_domain.get_id_for_group(group_name)
+        group_org_id = await orgs_domain.get_id_for_group(group_name)
         redis_del_by_deps_soon(
             'unsubscribe_from_group',
             group_name=group_name,

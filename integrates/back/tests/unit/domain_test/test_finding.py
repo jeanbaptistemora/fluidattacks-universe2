@@ -1,11 +1,14 @@
 import os
 import pytest
-import pytz
 import time
-from datetime import datetime, timedelta
-
-from asgiref.sync import async_to_sync
 from collections import namedtuple
+from datetime import (
+    datetime,
+    timedelta,
+)
+
+import pytz
+from asgiref.sync import async_to_sync
 from freezegun import freeze_time
 from graphql.type import GraphQLResolveInfo
 from starlette.datastructures import UploadFile
@@ -17,25 +20,27 @@ from backend.api import get_new_context
 from backend.dal import finding as finding_dal
 from backend.domain.finding import (
     add_comment,
+    approve_draft,
     get_tracking_vulnerabilities,
-    validate_evidence, mask_finding,
-    approve_draft, list_findings,
-    list_drafts
+    list_findings,
+    list_drafts,
+    mask_finding,
+    validate_evidence,
 )
-from backend.domain.vulnerability import list_vulnerabilities_async
-from backend.domain.organization import get_max_acceptance_days
+from backend.domain.vulnerability import (
+    list_vulnerabilities_async,
+    validate_treatment_change,
+)
 from backend.exceptions import (
     InvalidAcceptanceDays,
     InvalidAcceptanceSeverity,
-    InvalidDateFormat,
     InvalidDate,
+    InvalidDateFormat,
     InvalidFileType,
-    InvalidNumberAcceptations
+    InvalidNumberAcceptations,
 )
-from newutils import (
-    datetime as datetime_utils,
-    findings as findings_utils,
-)
+from organizations.domain import get_max_acceptance_days
+from newutils import datetime as datetime_utils
 
 
 pytestmark = [
@@ -315,7 +320,7 @@ async def test_validate_acceptance_severity():
         'acceptance_date': acceptance_date
     }
     with pytest.raises(InvalidAcceptanceSeverity):
-        assert await findings_utils.validate_treatment_change(
+        assert await validate_treatment_change(
             info_to_check,
             org_id,
             values_accepted,
@@ -350,7 +355,7 @@ async def test_validate_number_acceptations():
         'acceptance_date': acceptance_date
     }
     with pytest.raises(InvalidNumberAcceptations):
-        assert await findings_utils.validate_treatment_change(
+        assert await validate_treatment_change(
             info_to_check,
             org_id,
             values_accepted,

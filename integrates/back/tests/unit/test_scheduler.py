@@ -16,12 +16,6 @@ from backend.dal.finding import get_finding
 from backend.dal.vulnerability import get as get_vuln
 from backend.domain import project as group_domain
 from backend.domain.finding import get_findings_by_group
-from backend.domain.organization import (
-    get_id_by_name,
-    get_pending_deletion_date_str,
-    iterate_organizations,
-    update_pending_deletion_date,
-)
 from backend.domain.vulnerability import list_vulnerabilities_async
 from backend.scheduler import (
     calculate_vulnerabilities,
@@ -48,6 +42,12 @@ from backend.scheduler import (
 )
 from dynamodb.types import GitRootToeLines
 from newutils import datetime as datetime_utils
+from organizations.domain import (
+    get_id_by_name,
+    get_pending_deletion_date_str,
+    iterate_organizations,
+    update_pending_deletion_date,
+)
 from toe.lines import domain as toe_lines_domain
 from schedulers import toe_lines_etl
 from users import dal as users_dal

@@ -4,13 +4,19 @@ import io
 import itertools
 import logging
 import logging.config
-from decimal import Decimal
-from typing import Any, Counter, Dict, List, Union, cast, Tuple, Optional, Set
+from typing import (
+    Any,
+    cast,
+    Counter,
+    Dict,
+    List,
+    Optional,
+    Set,
+    Tuple,
+)
 
 from aioextensions import (
-    collect,
     in_process,
-    in_thread,
     schedule,
 )
 from backports import csv
@@ -18,42 +24,38 @@ from magic import Magic
 from starlette.datastructures import UploadFile
 
 from back.settings import LOGGING
-from backend import mailer, util
+from backend import (
+    mailer,
+    util,
+)
 from backend.dal import (
     finding as finding_dal,
     project as project_dal
 )
-from backend.domain import (
-    organization as org_domain,
-    project as project_domain
-)
+from backend.domain import project as project_domain
 from backend.exceptions import (
     FindingNotFound,
-    InvalidAcceptanceDays,
     InvalidDateFormat,
-    InvalidAcceptanceSeverity,
     InvalidFileStructure,
-    InvalidNumberAcceptations
 )
-from backend.filters import (
-    finding as finding_filters,
-)
+from backend.filters import finding as finding_filters
 from backend.typing import (
     Action,
-    Finding as FindingType,
-    MailContent as MailContentType,
-    Historic as HistoricType,
     Datetime,
+    Finding as FindingType,
+    Historic as HistoricType,
+    MailContent as MailContentType,
 )
 from newutils import (
     cvss,
     datetime as datetime_utils,
-    forms as forms_utils
+    forms as forms_utils,
 )
 from __init__ import (
     BASE_URL,
-    FI_MAIL_REVIEWERS
+    FI_MAIL_REVIEWERS,
 )
+
 
 logging.config.dictConfig(LOGGING)
 
@@ -722,119 +724,6 @@ def validate_acceptance_date(values: Dict[str, str]) -> bool:
         else:
             raise InvalidDateFormat()
     return valid
-
-
-async def validate_acceptance_days(
-    values: Dict[str, str],
-    organization: str
-) -> bool:
-    """
-    Check that the date during which the finding will be temporarily accepted
-    complies with organization settings
-    """
-    valid: bool = True
-    is_valid_acceptance_date = await in_thread(
-        validate_acceptance_date,
-        values
-    )
-    if values.get('treatment') == 'ACCEPTED' and is_valid_acceptance_date:
-        today = datetime_utils.get_now()
-        acceptance_date = datetime_utils.get_from_str(
-            values['acceptance_date']
-        )
-        acceptance_days = Decimal((acceptance_date - today).days)
-        max_acceptance_days = await org_domain.get_max_acceptance_days(
-            organization
-        )
-        if (max_acceptance_days and acceptance_days > max_acceptance_days) or \
-                acceptance_days < 0:
-            raise InvalidAcceptanceDays(
-                'Chosen date is either in the past or exceeds '
-                'the maximum number of days allowed by the organization'
-            )
-    return valid
-
-
-async def validate_acceptance_severity(
-    values: Dict[str, str],
-    severity: float,
-    organization_id: str
-) -> bool:
-    """
-    Check that the severity of the finding to temporaryly accept is inside
-    the range set by the organization
-    """
-    valid: bool = True
-    if values.get('treatment') == 'ACCEPTED':
-        current_limits: List[Decimal] = await collect(
-            func(organization_id)
-            for func in [
-                org_domain.get_min_acceptance_severity,
-                org_domain.get_max_acceptance_severity
-            ]
-        )
-        if not (current_limits[0] <=
-                Decimal(severity).quantize(Decimal('0.1')) <=
-                current_limits[1]):
-            raise InvalidAcceptanceSeverity(str(severity))
-    return valid
-
-
-async def validate_number_acceptations(
-    values: Dict[str, str],
-    historic_treatment: HistoricType,
-    organization_id: str
-) -> bool:
-    """
-    Check that a finding to temporarily accept does not exceed the maximum
-    number of acceptations the organization set
-    """
-    valid: bool = True
-    if values['treatment'] == 'ACCEPTED':
-        current_max_number_acceptations_info = (
-            await org_domain.get_current_max_number_acceptations_info(
-                organization_id
-            )
-        )
-        max_acceptations = cast(
-            Optional[Decimal],
-            current_max_number_acceptations_info.get('max_number_acceptations')
-        )
-        current_acceptations: int = sum(
-            1 for item in historic_treatment
-            if item['treatment'] == 'ACCEPTED'
-        )
-        if max_acceptations and current_acceptations + 1 > max_acceptations:
-            raise InvalidNumberAcceptations(cast(str, current_acceptations))
-    return valid
-
-
-async def validate_treatment_change(
-    info_to_check: Dict[str, Union[float, HistoricType, str]],
-    organization: str,
-    values: Dict[str, str],
-) -> bool:
-    validate_acceptance_days_coroutine = validate_acceptance_days(
-        values, organization
-    )
-    validate_acceptance_severity_coroutine = validate_acceptance_severity(
-        values,
-        cast(float, info_to_check['severity']),
-        organization
-    )
-    validate_number_acceptations_coroutine = validate_number_acceptations(
-        values,
-        cast(HistoricType, info_to_check['historic_treatment']),
-        organization
-    )
-
-    return all(
-        await collect([
-            validate_acceptance_days_coroutine,
-            validate_acceptance_severity_coroutine,
-            validate_number_acceptations_coroutine
-        ])
-    )
 
 
 def format_finding(

@@ -13,19 +13,21 @@ from typing import (
     List
 )
 
+import bugsnag
 from aioextensions import (
     collect,
     in_thread,
     run,
 )
-import bugsnag
+
 from backend.dal import organization as org_dal
-from backend.domain import (
-    organization as org_domain,
-    project as group_domain,
-)
+from backend.domain import project as group_domain
+from organizations import domain as orgs_domain
 from users import domain as users_domain
-from __init__ import FI_COMMUNITY_PROJECTS, FI_TEST_PROJECTS
+from __init__ import (
+    FI_COMMUNITY_PROJECTS,
+    FI_TEST_PROJECTS,
+)
 
 
 STAGE: str = os.environ['STAGE']
@@ -48,7 +50,7 @@ async def main() -> None:
                 ['organization']
             )
             group_org_id = group_org_id['organization']
-            group_org_name = await org_domain.get_name_by_id(group_org_id)
+            group_org_name = await orgs_domain.get_name_by_id(group_org_id)
             group_users = await in_thread(group_domain.get_users, group)
             user_orgs = await collect(
                 users_domain.get_attributes(

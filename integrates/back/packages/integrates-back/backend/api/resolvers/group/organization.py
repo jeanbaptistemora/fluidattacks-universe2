@@ -5,8 +5,8 @@ from typing import cast
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local
-from backend.domain import organization as org_domain
 from backend.typing import Project as Group
+from organizations import domain as orgs_domain
 
 
 async def resolve(
@@ -15,6 +15,6 @@ async def resolve(
     **_kwargs: None
 ) -> str:
     group_name: str = cast(str, parent['name'])
-    org_id: str = await org_domain.get_id_for_group(group_name)
+    org_id: str = await orgs_domain.get_id_for_group(group_name)
 
-    return cast(str, await org_domain.get_name_by_id(org_id))
+    return cast(str, await orgs_domain.get_name_by_id(org_id))

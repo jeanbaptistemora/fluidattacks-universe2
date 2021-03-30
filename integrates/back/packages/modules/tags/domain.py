@@ -11,11 +11,9 @@ from typing import (
 from aioextensions import collect
 
 from backend import authz
-from backend.domain import (
-    organization as org_domain,
-    project as project_domain,
-)
+from backend.domain import project as project_domain
 from backend.typing import Tag as TagType
+from organizations import domain as orgs_domain
 from tags import dal as tags_dal
 
 
@@ -66,12 +64,12 @@ async def get_tags(
 async def has_user_access(email: str, subject: str) -> bool:
     with suppress(ValueError):
         org_id, portfolio = subject.split('PORTFOLIO#')
-        org_name = await org_domain.get_name_by_id(org_id)
+        org_name = await orgs_domain.get_name_by_id(org_id)
         portfolio_info = await get_attributes(
             org_name, portfolio, ['projects']
         )
         org_access, group_access = await collect((
-            org_domain.has_user_access(
+            orgs_domain.has_user_access(
                 email=email,
                 organization_id=org_id
             ),

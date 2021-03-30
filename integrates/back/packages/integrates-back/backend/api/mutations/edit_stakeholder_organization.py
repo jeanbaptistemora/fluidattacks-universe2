@@ -14,9 +14,9 @@ from backend.decorators import (
     require_login,
     require_organization_access
 )
-from backend.domain import organization as org_domain
 from backend.exceptions import UserNotInOrganization
 from backend.typing import EditStakeholderPayload
+from organizations import domain as orgs_domain
 from users.domain.group import edit_user_information
 
 
@@ -34,7 +34,7 @@ async def mutate(
     success: bool = False
 
     organization_id: str = str(parameters.get('organization_id'))
-    organization_name: str = await org_domain.get_name_by_id(organization_id)
+    organization_name: str = await orgs_domain.get_name_by_id(organization_id)
     requester_data = await util.get_jwt_content(info.context)
     requester_email = requester_data['user_email']
 
@@ -42,7 +42,7 @@ async def mutate(
     new_phone_number: str = str(parameters.get('phone_number'))
     new_role: str = str(parameters.get('role')).lower()
 
-    if not await org_domain.has_user_access(organization_id, user_email):
+    if not await orgs_domain.has_user_access(organization_id, user_email):
         util.cloudwatch_log(
             info.context,
             f'Security: Stakeholder {requester_email} attempted to edit '
@@ -51,7 +51,7 @@ async def mutate(
         )
         raise UserNotInOrganization()
 
-    if await org_domain.add_user(
+    if await orgs_domain.add_user(
         organization_id,
         user_email,
         new_role

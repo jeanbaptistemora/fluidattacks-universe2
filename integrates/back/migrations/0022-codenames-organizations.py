@@ -10,7 +10,7 @@ import os
 from typing import (
     Any,
     Dict,
-    List
+    List,
 )
 
 import aioboto3
@@ -18,8 +18,8 @@ from aioextensions import run
 from boto3.dynamodb.conditions import Attr
 
 from backend.dal.helpers import dynamodb
-from backend.domain import organization as org_domain
 from backend.typing import DynamoDelete as DynamoDeleteType
+from organizations import domain as orgs_domain
 
 
 STAGE: str = os.environ['STAGE']
@@ -51,7 +51,7 @@ async def dynamo_async_scan(
 
 
 async def main() -> None:
-    async for org_id, org_name in org_domain.iterate_organizations():
+    async for org_id, org_name in orgs_domain.iterate_organizations():
         if org_name in ORGANIZATION_CODENAME_MAP:
             new_org_name = ORGANIZATION_CODENAME_MAP[org_name].lower()
             new_item: Dict[str, str] = {

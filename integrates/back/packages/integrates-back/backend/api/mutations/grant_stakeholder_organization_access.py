@@ -9,8 +9,8 @@ from graphql.type.definition import GraphQLResolveInfo
 from backend import util
 from backend.dal.helpers.redis import redis_del_by_deps
 from backend.decorators import enforce_organization_level_auth_async
-from backend.domain import organization as org_domain
 from backend.typing import GrantStakeholderAccessPayload
+from organizations import domain as orgs_domain
 from users import domain as users_domain
 from users.domain.group import create_without_group
 
@@ -25,7 +25,7 @@ async def mutate(
     success: bool = False
 
     organization_id = str(parameters.get('organization_id'))
-    organization_name = await org_domain.get_name_by_id(organization_id)
+    organization_name = await orgs_domain.get_name_by_id(organization_id)
 
     requester_data = await util.get_jwt_content(info.context)
     requester_email = requester_data['user_email']
@@ -34,7 +34,7 @@ async def mutate(
     user_phone_number = str(parameters.get('phone_number'))
     user_role = str(parameters.get('role')).lower()
 
-    user_added = await org_domain.add_user(
+    user_added = await orgs_domain.add_user(
         organization_id,
         user_email,
         user_role

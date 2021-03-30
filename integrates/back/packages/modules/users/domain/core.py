@@ -3,15 +3,10 @@ import re
 from typing import (
     cast,
     List,
-    Union
+    Union,
 )
 
-# Third-party libraries
-from aioextensions import collect
-
 # Local libraries
-from backend import authz
-from backend.dal import session as session_dal
 from backend.exceptions import InvalidPushToken
 from backend.typing import User as UserType
 from newutils import datetime as datetime_utils
@@ -118,17 +113,6 @@ async def remove_push_token(user_email: str, push_token: str) -> bool:
         )
     )
     return await users_dal.update(user_email, {'push_tokens': tokens})
-
-
-async def remove_stakeholder(email: str) -> bool:
-    success = all(
-        await collect([
-            authz.revoke_user_level_role(email),
-            users_dal.delete(email)
-        ])
-    )
-    await session_dal.logout(email)
-    return success
 
 
 async def update(email: str, data_attr: str, name_attr: str) -> bool:

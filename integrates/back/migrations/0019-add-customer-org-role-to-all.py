@@ -11,7 +11,7 @@ import os
 from typing import (
     Any,
     Dict,
-    List
+    List,
 )
 
 import aioboto3
@@ -23,8 +23,8 @@ from boto3.dynamodb.conditions import Attr
 
 from backend import authz
 from backend.dal.helpers import dynamodb
-from backend.domain import organization as org_domain
 from backend.typing import Organization as OrganizationType
+from organizations import domain as orgs_domain
 
 
 RESOURCE_OPTIONS = dynamodb.RESOURCE_OPTIONS
@@ -70,7 +70,7 @@ async def main() -> None:
     for org_user in await get_all_organization_users():
         organization_id: str = str(org_user['pk'])
         user_email: str = str(org_user['sk']).split('#')[1]
-        organization_name = await org_domain.get_name_by_id(organization_id)
+        organization_name = await orgs_domain.get_name_by_id(organization_id)
         if STAGE == 'test':
             await log(
                 f'User {user_email} will be added as customer in '
