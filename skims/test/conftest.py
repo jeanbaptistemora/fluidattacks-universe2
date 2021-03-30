@@ -104,11 +104,13 @@ def test_group(
         'drestrepoatfluid': 'tacna',
         'kamadoatfluid': 'worcester',
         'master': 'wausau',
+        'opradoatfluid': "corrientes",
     } if os.environ.get('CI') else {
         'daguirreatfluid': 'wayne',
         'drestrepoatfluid': 'jessup',
         'kamadoatfluid': 'magdalena',
         'master': 'djibo',
+        'opradoatfluid': "wayne",
     }
 
     yield mapping[test_branch]
