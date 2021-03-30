@@ -31,6 +31,12 @@ module.exports = {
           label: 'API',
           position: 'left',
         },
+        {
+          to: 'rules/',
+          activeBasePath: 'rules/',
+          label: 'Rules',
+          position: 'left',
+        },
       ],
     },
     footer: {

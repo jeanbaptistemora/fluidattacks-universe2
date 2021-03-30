@@ -65,6 +65,15 @@ module.exports = {
   API: {
     API: getDocs('api'),
   },
+  Rules: [
+    {
+      type: 'category',
+      label: 'Credentials',
+      items: [
+        'rules/credentials/r126',
+      ],
+    },
+  ],
   Agent: {
     Agent: getDocs('agent'),
   },
