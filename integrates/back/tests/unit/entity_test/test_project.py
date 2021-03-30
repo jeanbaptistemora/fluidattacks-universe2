@@ -538,6 +538,62 @@ async def test_get_roots() -> None:
     ]
 
 
+async def test_get_toe_lines() -> None:
+    query = '''
+      query {
+        project(projectName: "unittesting"){
+          name
+          roots{
+            ... on GitRoot {
+              id
+              toeLines {
+                filename
+                modifiedDate
+                modifiedCommit
+                loc
+                testedDate
+                testedLines
+                comments
+              }
+            }
+          }
+        }
+      }
+    '''
+    result = await _get_result_async({'query': query})
+    assert 'errors' not in result
+    assert result['data']['project']['roots'] == [
+      {
+        'id': '4039d098-ffc5-4984-8ed3-eb17bca98e19',
+        'toeLines': [
+          {
+            'filename': 'product/test/test.config',
+            'modifiedDate': '2019-08-01T00:00:00-05:00',
+            'modifiedCommit': '983466z',
+            'loc': 8,
+            'testedDate': '2021-02-28T00:00:00-05:00',
+            'testedLines': 4,
+            'comments': 'comment test'
+          }
+        ]
+      },
+      {
+        'id': '765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a',
+        'toeLines': [
+          {
+            'filename': 'integrates_1/test2/test.sh',
+            'modifiedDate': '2020-11-19T00:00:00-05:00',
+            'modifiedCommit': '273412t',
+            'loc': 120,
+            'testedDate': '2021-01-20T00:00:00-05:00',
+            'testedLines': 172,
+            'comments': 'comment test'
+          }
+        ]
+      }
+    ]
+
+
 async def test_add_git_root_black() -> None:
     query = '''
       mutation {
