@@ -15,6 +15,10 @@ import {
   castPrivileges,
   exploitabilityBgColor,
   exploitabilityOptions,
+  integrityImpactBgColor,
+  integrityImpactOptions,
+  remediationLevelBgColor,
+  remediationLevelOptions,
   severityScopeBgColor,
   severityScopeOptions,
   userInteractionBgColor,
@@ -48,9 +52,11 @@ export const SeverityContent: React.FC<
   attackVector,
   attackComplexity,
   availabilityImpact,
-  privilegesRequired,
-  severityScope,
   exploitability,
+  integrityImpact,
+  privilegesRequired,
+  remediationLevel,
+  severityScope,
   userInteraction,
 }: ISeverityAttr["finding"]["severity"]): JSX.Element => {
   const { t } = useTranslation();
@@ -203,13 +209,47 @@ export const SeverityContent: React.FC<
                 />
               </TooltipWrapper>
             </Col>
-            <Col />
+            <Col>
+              <TooltipWrapper
+                id={"integrityImpactTooltip"}
+                message={t(
+                  integrityImpactOptions[integrityImpact].replace(
+                    /text/u,
+                    "tooltip"
+                  )
+                )}
+              >
+                <SeverityTile
+                  color={integrityImpactBgColor[integrityImpact]}
+                  name={"integrityImpact"}
+                  value={integrityImpact}
+                  valueText={t(integrityImpactOptions[integrityImpact])}
+                />
+              </TooltipWrapper>
+            </Col>
             <Col />
           </FlexCol>
         </Row>
         <Row>
           <FlexCol>
-            <Col />
+            <Col>
+              <TooltipWrapper
+                id={"remediationLevelTooltip"}
+                message={t(
+                  remediationLevelOptions[remediationLevel].replace(
+                    /text/u,
+                    "tooltip"
+                  )
+                )}
+              >
+                <SeverityTile
+                  color={remediationLevelBgColor[remediationLevel]}
+                  name={"remediationLevel"}
+                  value={remediationLevel}
+                  valueText={t(remediationLevelOptions[remediationLevel])}
+                />
+              </TooltipWrapper>
+            </Col>
             <Col />
           </FlexCol>
         </Row>

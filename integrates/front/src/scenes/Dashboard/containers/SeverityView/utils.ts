@@ -75,6 +75,32 @@ const exploitabilityOptions: Record<string, string> = {
   1: "searchFindings.tabSeverity.exploitabilityOptions.high.text",
 };
 
+const integrityImpactBgColor: Record<string, string> = {
+  0: "bg-lbl-green",
+  0.22: "bg-lbl-yellow",
+  0.56: "bg-dark-red",
+};
+
+const integrityImpactOptions: Record<string, string> = {
+  0: "searchFindings.tabSeverity.integrityImpactOptions.none.text",
+  0.22: "searchFindings.tabSeverity.integrityImpactOptions.low.text",
+  0.56: "searchFindings.tabSeverity.integrityImpactOptions.high.text",
+};
+
+const remediationLevelBgColor: Record<string, string> = {
+  0.95: "bg-lbl-green",
+  0.96: "bg-lbl-yellow",
+  0.97: "bg-orange",
+  1: "bg-dark-red",
+};
+
+const remediationLevelOptions: Record<string, string> = {
+  0.95: "searchFindings.tabSeverity.remediationLevelOptions.officialFix.text",
+  0.96: "searchFindings.tabSeverity.remediationLevelOptions.temporaryFix.text",
+  0.97: "searchFindings.tabSeverity.remediationLevelOptions.workaround.text",
+  1: "searchFindings.tabSeverity.remediationLevelOptions.unavailable.text",
+};
+
 const severityScopeBgColor: Record<string, string> = {
   0: "bg-lbl-yellow",
   1: "bg-dark-red",
@@ -112,19 +138,6 @@ const castFieldsCVSS3: (
     0: "searchFindings.tabSeverity.confidentialityImpactOptions.none.text",
     0.22: "searchFindings.tabSeverity.confidentialityImpactOptions.low.text",
     0.56: "searchFindings.tabSeverity.confidentialityImpactOptions.high.text",
-  };
-
-  const integrityImpact: Record<string, string> = {
-    0: "searchFindings.tabSeverity.integrityImpactOptions.none.text",
-    0.22: "searchFindings.tabSeverity.integrityImpactOptions.low.text",
-    0.56: "searchFindings.tabSeverity.integrityImpactOptions.high.text",
-  };
-
-  const remediationLevel: Record<string, string> = {
-    0.95: "searchFindings.tabSeverity.remediationLevelOptions.officialFix.text",
-    0.96: "searchFindings.tabSeverity.remediationLevelOptions.temporaryFix.text",
-    0.97: "searchFindings.tabSeverity.remediationLevelOptions.workaround.text",
-    1: "searchFindings.tabSeverity.remediationLevelOptions.unavailable.text",
   };
 
   const reportConfidence: Record<string, string> = {
@@ -167,7 +180,7 @@ const castFieldsCVSS3: (
     {
       currentValue: dataset.integrityImpact,
       name: "integrityImpact",
-      options: integrityImpact,
+      options: integrityImpactOptions,
       title: translate.t("searchFindings.tabSeverity.integrityImpact"),
     },
     {
@@ -185,7 +198,7 @@ const castFieldsCVSS3: (
     {
       currentValue: dataset.remediationLevel,
       name: "remediationLevel",
-      options: remediationLevel,
+      options: remediationLevelOptions,
       title: translate.t("searchFindings.tabSeverity.remediationLevel"),
     },
     {
@@ -276,7 +289,7 @@ const castFieldsCVSS3: (
     {
       currentValue: dataset.modifiedIntegrityImpact,
       name: "modifiedIntegrityImpact",
-      options: integrityImpact,
+      options: integrityImpactOptions,
       title: translate.t("searchFindings.tabSeverity.modifiedIntegrityImpact"),
     },
     {
@@ -318,6 +331,10 @@ export {
   castPrivileges,
   exploitabilityBgColor,
   exploitabilityOptions,
+  integrityImpactBgColor,
+  integrityImpactOptions,
+  remediationLevelBgColor,
+  remediationLevelOptions,
   severityScopeBgColor,
   severityScopeOptions,
   userInteractionBgColor,

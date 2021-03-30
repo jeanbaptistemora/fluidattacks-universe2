@@ -14,9 +14,16 @@ import exploitabilityFunctional from "resources/exploitabilityFunctional.svg";
 import exploitabilityHigh from "resources/exploitabilityHigh.svg";
 import exploitabilityProof from "resources/exploitabilityProof.svg";
 import exploitabilityUnproven from "resources/exploitabilityUnproven.svg";
+import integrityImpactHigh from "resources/integrityHigh.svg";
+import integrityImpactLow from "resources/integrityLow.svg";
+import integrityImpactNone from "resources/integrityNone.svg";
 import privilegesRequiredHigh from "resources/privilegesRequiredHigh.svg";
 import privilegesRequiredLow from "resources/privilegesRequiredLow.svg";
 import privilegesRequiredNone from "resources/privilegesRequiredNone.svg";
+import remediationLevelOfficial from "resources/remediationLevelOfficial.svg";
+import remediationLevelTemporary from "resources/remediationLevelTemporary.svg";
+import remediationLevelUnavailable from "resources/remediationLevelUnavailable.svg";
+import remediationLevelWorkaround from "resources/remediationLevelWorkaround.svg";
 import severityScopeChanged from "resources/severityScopeChanged.svg";
 import severityScopeUnchanged from "resources/severityScopeUnchanged.svg";
 import { useTranslation } from "react-i18next";
@@ -44,9 +51,16 @@ const severityImages: Record<string, string> = {
   exploitabilityHigh,
   exploitabilityProof,
   exploitabilityUnproven,
+  integrityImpactHigh,
+  integrityImpactLow,
+  integrityImpactNone,
   privilegesRequiredHigh,
   privilegesRequiredLow,
   privilegesRequiredNone,
+  remediationLevelOfficial,
+  remediationLevelTemporary,
+  remediationLevelUnavailable,
+  remediationLevelWorkaround,
   severityScopeChanged,
   severityScopeUnchanged,
   userInteractionNone,
