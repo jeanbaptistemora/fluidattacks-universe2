@@ -16,8 +16,8 @@ function job_zoho_prepare {
   &&  observes-bin-streamer-zoho-crm init-db "${db_creds}" \
   &&  observes-bin-streamer-zoho-crm create-jobs "${zoho_creds}" "${db_creds}" \
   &&  observes-update-sync-date single-job \
-          --auth "${db_creds}" \
-          --job 'zoho_crm_prepare'
+        --auth "${db_creds}" \
+        --job 'zoho_crm_prepare'
 }
 
 job_zoho_prepare
