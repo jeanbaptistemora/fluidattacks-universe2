@@ -113,6 +113,18 @@ const remediationLevelOptions: Record<string, string> = {
   1: "searchFindings.tabSeverity.remediationLevelOptions.unavailable.text",
 };
 
+const reportConfidenceBgColor: Record<string, string> = {
+  0.92: "bg-lbl-yellow",
+  0.96: "bg-orange",
+  1: "bg-dark-red",
+};
+
+const reportConfidenceOptions: Record<string, string> = {
+  0.92: "searchFindings.tabSeverity.reportConfidenceOptions.unknown.text",
+  0.96: "searchFindings.tabSeverity.reportConfidenceOptions.reasonable.text",
+  1: "searchFindings.tabSeverity.reportConfidenceOptions.confirmed.text",
+};
+
 const severityScopeBgColor: Record<string, string> = {
   0: "bg-lbl-yellow",
   1: "bg-dark-red",
@@ -146,12 +158,6 @@ const castFieldsCVSS3: (
   isEditing: boolean,
   formValues: Record<string, string>
 ): ISeverityField[] => {
-  const reportConfidence: Record<string, string> = {
-    0.92: "searchFindings.tabSeverity.reportConfidenceOptions.unknown.text",
-    0.96: "searchFindings.tabSeverity.reportConfidenceOptions.reasonable.text",
-    1: "searchFindings.tabSeverity.reportConfidenceOptions.confirmed.text",
-  };
-
   const fields: ISeverityField[] = [
     {
       currentValue: dataset.attackVector,
@@ -210,7 +216,7 @@ const castFieldsCVSS3: (
     {
       currentValue: dataset.reportConfidence,
       name: "reportConfidence",
-      options: reportConfidence,
+      options: reportConfidenceOptions,
       title: translate.t("searchFindings.tabSeverity.reportConfidence"),
     },
     {
@@ -343,6 +349,8 @@ export {
   integrityImpactOptions,
   remediationLevelBgColor,
   remediationLevelOptions,
+  reportConfidenceBgColor,
+  reportConfidenceOptions,
   severityScopeBgColor,
   severityScopeOptions,
   userInteractionBgColor,

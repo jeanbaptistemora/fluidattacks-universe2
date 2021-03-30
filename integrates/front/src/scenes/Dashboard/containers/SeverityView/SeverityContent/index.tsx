@@ -21,6 +21,8 @@ import {
   integrityImpactOptions,
   remediationLevelBgColor,
   remediationLevelOptions,
+  reportConfidenceBgColor,
+  reportConfidenceOptions,
   severityScopeBgColor,
   severityScopeOptions,
   userInteractionBgColor,
@@ -59,6 +61,7 @@ export const SeverityContent: React.FC<
   integrityImpact,
   privilegesRequired,
   remediationLevel,
+  reportConfidence,
   severityScope,
   userInteraction,
 }: ISeverityAttr["finding"]["severity"]): JSX.Element => {
@@ -272,7 +275,24 @@ export const SeverityContent: React.FC<
                 />
               </TooltipWrapper>
             </Col>
-            <Col />
+            <Col>
+              <TooltipWrapper
+                id={"reportConfidenceTooltip"}
+                message={t(
+                  reportConfidenceOptions[reportConfidence].replace(
+                    /text/u,
+                    "tooltip"
+                  )
+                )}
+              >
+                <SeverityTile
+                  color={reportConfidenceBgColor[reportConfidence]}
+                  name={"reportConfidence"}
+                  value={reportConfidence}
+                  valueText={t(reportConfidenceOptions[reportConfidence])}
+                />
+              </TooltipWrapper>
+            </Col>
           </FlexCol>
         </Row>
       </div>

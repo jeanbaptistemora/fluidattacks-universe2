@@ -27,6 +27,9 @@ import remediationLevelOfficial from "resources/remediationLevelOfficial.svg";
 import remediationLevelTemporary from "resources/remediationLevelTemporary.svg";
 import remediationLevelUnavailable from "resources/remediationLevelUnavailable.svg";
 import remediationLevelWorkaround from "resources/remediationLevelWorkaround.svg";
+import reportConfidenceConfirmed from "resources/reportConfidenceConfirmed.svg";
+import reportConfidenceReasonable from "resources/reportConfidenceReasonable.svg";
+import reportConfidenceUnknown from "resources/reportConfidenceUnknown.svg";
 import severityScopeChanged from "resources/severityScopeChanged.svg";
 import severityScopeUnchanged from "resources/severityScopeUnchanged.svg";
 import { useTranslation } from "react-i18next";
@@ -67,6 +70,9 @@ const severityImages: Record<string, string> = {
   remediationLevelTemporary,
   remediationLevelUnavailable,
   remediationLevelWorkaround,
+  reportConfidenceConfirmed,
+  reportConfidenceReasonable,
+  reportConfidenceUnknown,
   severityScopeChanged,
   severityScopeUnchanged,
   userInteractionNone,
