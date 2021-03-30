@@ -65,9 +65,6 @@ from utils.ctx import (
 from utils.encodings import (
     json_dump,
 )
-from utils.function import (
-    trace,
-)
 from utils.logs import (
     log_blocking,
 )
@@ -205,7 +202,6 @@ def eval_syntax_steps(
     return syntax_steps
 
 
-@trace()
 def get_possible_syntax_steps_from_path(
     graph_db: graph_model.GraphDB,
     *,
@@ -244,7 +240,6 @@ PossibleSyntaxStepsForFinding = Dict[str, PossibleSyntaxStepsForUntrustedNId]
 PossibleSyntaxSteps = Dict[str, PossibleSyntaxStepsForFinding]
 
 
-@trace()
 def get_possible_syntax_steps_for_n_id(
     graph_db: graph_model.GraphDB,
     *,
@@ -272,7 +267,6 @@ def get_possible_syntax_steps_for_n_id(
     return syntax_steps_map
 
 
-@trace()
 def get_possible_syntax_steps_for_finding(
     graph_db: graph_model.GraphDB,
     finding: core_model.FindingEnum,
@@ -289,17 +283,13 @@ def get_possible_syntax_steps_for_finding(
         if 'label_input_type' in shard.graph.nodes[untrusted_n_id]
         if any(
             core_model.FINDING_ENUM_FROM_STR[label] == finding
-            for label in (
-                shard.graph.nodes[untrusted_n_id]['label_input_type']
-                .split(',')
-            )
+            for label in shard.graph.nodes[untrusted_n_id]['label_input_type']
         )
     }
 
     return syntax_steps_map
 
 
-@trace()
 def get_possible_syntax_steps(
     graph_db: graph_model.GraphDB,
     finding: core_model.FindingEnum,
@@ -327,7 +317,6 @@ class PossibleSyntaxStepLinear(NamedTuple):
     syntax_steps: graph_model.SyntaxSteps
 
 
-@trace()
 def get_possible_syntax_steps_linear(
     graph_db: graph_model.GraphDB,
     finding: core_model.FindingEnum,

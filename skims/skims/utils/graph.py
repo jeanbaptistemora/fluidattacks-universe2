@@ -1,7 +1,6 @@
 # Standard library
 from itertools import (
     chain,
-    product,
 )
 import os
 from typing import (
@@ -31,9 +30,6 @@ from model.graph_model import (
     NAttrsPredicateFunction,
     NId,
     NIdPredicateFunction,
-)
-from utils.function import (
-    trace,
 )
 from utils.logs import (
     log_blocking,
@@ -240,7 +236,6 @@ def pred_cfg_lazy(
     yield from pred_lazy(graph, n_id, depth, label_cfg='CFG', **edge_attrs)
 
 
-@trace()
 def paths(
     graph: Graph,
     s_id: str,
@@ -387,38 +382,6 @@ def lookup_first_cfg_parent(
     return cast(str, n_id)
 
 
-def flows(
-    graph: Graph,
-    *,
-    input_type: str,
-    sink_type: str,
-) -> Tuple[Tuple[int, Tuple[str, ...]], ...]:
-    return tuple(enumerate(sorted(
-        path
-        for s_id, t_id in product(
-            # Inputs
-            filter_nodes(
-                graph,
-                graph.nodes,
-                pred_has_labels(label_input_type=input_type),
-            ),
-            # Sinks
-            filter_nodes(
-                graph,
-                graph.nodes,
-                pred_has_labels(label_sink_type=sink_type),
-            ),
-        )
-        for path in paths(
-            graph,
-            lookup_first_cfg_parent(graph, s_id),
-            lookup_first_cfg_parent(graph, t_id),
-            label_cfg='CFG',
-        )
-    )))
-
-
-@trace()
 def branches_cfg(
     graph: Graph,
     n_id: NId,
@@ -433,16 +396,10 @@ def branches_cfg(
         for c_id in c_ids
         if (
             # The node's sink match the finding name
-            finding.name in graph.nodes[c_id].get(
-                'label_sink_type',
-                str(),
-            ).split(',')
+            finding.name in graph.nodes[c_id].get('label_sink_type', {})
             # The node has an AST child that is a sink of the finding
             or any(
-                finding.name in graph.nodes[c_c_id].get(
-                    'label_sink_type',
-                    str(),
-                ).split(',')
+                finding.name in graph.nodes[c_c_id].get('label_sink_type', {})
                 for c_c_id in adj_ast(graph, c_id, depth=-1)
             )
             # The node is and leaf node
@@ -474,6 +431,10 @@ def import_graph_from_json(model: Any) -> Graph:
 
     for n_id, n_attrs in model['nodes'].items():
         graph.add_node(n_id, **n_attrs)
+        for csv_label in ('label_input_type', 'label_sink_type'):
+            if csv_label in graph.nodes[n_id]:
+                graph.nodes[n_id][csv_label] = \
+                    set(graph.nodes[n_id][csv_label].split(','))
 
     for n_id_from, n_id_from_value in model['edges'].items():
         for n_id_to, edge_attrs in n_id_from_value.items():
@@ -494,6 +455,11 @@ def export_graph_as_json(
 
     for n_id, n_attrs in graph.nodes.items():
         data['nodes'][n_id] = n_attrs.copy()
+        for csv_label in ('label_input_type', 'label_sink_type'):
+            if csv_label in data['nodes'][n_id]:
+                data['nodes'][n_id][csv_label] = ','.join(sorted(
+                    data['nodes'][n_id][csv_label]
+                ))
 
         if not include_styles:
             for attr in ignored_attrs:

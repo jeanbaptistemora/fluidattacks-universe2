@@ -22,9 +22,9 @@ def _append_label(
     finding: core_model.FindingEnum,
 ) -> None:
     if label in graph.nodes[n_id]:
-        graph.nodes[n_id][label] += f',{finding.name}'
+        graph.nodes[n_id][label].add(finding.name)
     else:
-        graph.nodes[n_id][label] = finding.name
+        graph.nodes[n_id][label] = {finding.name}
 
 
 AppendLabelType = Callable[

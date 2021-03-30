@@ -45,9 +45,6 @@ from sast_transformations import (
     danger_nodes,
     styles,
 )
-from state.cache import (
-    CACHE_1SEC,
-)
 from utils.ctx import (
     CTX,
     STATE_FOLDER,
@@ -204,7 +201,6 @@ def decide_language(path: str) -> GraphShardMetadataLanguage:
     return language
 
 
-@CACHE_1SEC
 def _parse_one_cached(
     *,
     content: bytes,
