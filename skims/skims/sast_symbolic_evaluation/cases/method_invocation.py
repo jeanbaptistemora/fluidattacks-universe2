@@ -5,10 +5,8 @@ from typing import (
     Set,
 )
 from model import (
-    graph_model,
-)
-from model import (
     core_model,
+    graph_model,
 )
 from sast_symbolic_evaluation.types import (
     EvaluatorArgs,

@@ -154,6 +154,8 @@ EVALUATORS: Dict[object, Evaluator] = {
     symbol_lookup.evaluate,
     graph_model.SyntaxStepTernary:
     ternary.evaluate,
+    graph_model.SyntaxStepThis:
+    no_op.evaluate,
 }
 
 

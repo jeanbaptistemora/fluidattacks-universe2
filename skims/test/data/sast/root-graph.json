@@ -20378,7 +20378,7 @@
               "n_id": "285",
               "value": null
             },
-            "type": "SyntaxStepNoOp"
+            "type": "SyntaxStepThis"
           },
           {
             "meta": {
