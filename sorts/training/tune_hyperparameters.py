@@ -27,7 +27,7 @@ def deploy_hyperparameter_tuning_job() -> None:
 
     tuner = HyperparameterTuner(
         estimator,
-        max_jobs=2,
+        max_jobs=4,
         metric_definitions=[
             {'Name': 'precision', 'Regex': 'Precision: (.*?)%'},
             {'Name': 'recall', 'Regex': 'Recall: (.*?)%'},
@@ -37,7 +37,12 @@ def deploy_hyperparameter_tuning_job() -> None:
         objective_metric_name='fscore',
         objective_type='Maximize',
         hyperparameter_ranges={
-            'activation': CategoricalParameter(['tanh', 'relu'])
+            'activation': CategoricalParameter([
+                'relu',
+                'tanh',
+                'identity',
+                'logistic'
+            ])
         }
     )
 
