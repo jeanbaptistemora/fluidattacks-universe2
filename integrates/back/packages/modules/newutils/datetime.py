@@ -6,6 +6,7 @@ import pytz
 from back import settings
 
 
+DEFAULT_ISO_STR = '2000-01-01T00:00:00-05:00'
 DEFAULT_STR = '2000-01-01 00:00:00'
 TZN = pytz.timezone(settings.TIME_ZONE)
 iso_format: str = '%Y-%m-%d %H:%M:%S'

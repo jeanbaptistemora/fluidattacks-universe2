@@ -26,6 +26,7 @@ from back.settings import (
 from backend.api import get_new_context
 from backend.exceptions import (
     GroupNameNotFound,
+    RootNotFound,
 )
 from dynamodb.types import (
     GitRootToeLines,
@@ -59,7 +60,7 @@ def _get_group_toe_lines_from_cvs(
     group_name: str,
     group_roots: Tuple[Root, ...]
 ) -> Tuple[GitRootToeLines, ...]:
-    default_date = datetime_utils.DEFAULT_STR
+    default_date = datetime_utils.DEFAULT_ISO_STR
     lines_csv_fields: List[Tuple[str, Callable, Any, str]] = [
         # field_name, field_formater, field_default_value, cvs_field_name,
         ('filename', str, '', 'filename'),
@@ -90,10 +91,17 @@ def _get_group_toe_lines_from_cvs(
                 except ValueError:
                     new_toe_lines[field_name] = default_value
 
-            new_toe_lines['root_id'] = roots_domain.get_root_id_by_filename(
-                row['filename'],
-                group_roots
-            )
+            try:
+                new_toe_lines['root_id'] = (
+                    roots_domain.get_root_id_by_filename(
+                        row['filename'],
+                        group_roots
+                    )
+                )
+            except RootNotFound as ex:
+                LOGGER.exception(ex, extra={'extra': locals()})
+                raise ex
+
             new_toe_lines['group_name'] = group_name
             group_toe_lines.append(GitRootToeLines(**new_toe_lines))
 
