@@ -6,11 +6,8 @@
 , ...
 }:
 let
-  postgresClient = buildPythonPackage {
-    name = "observes-postgres-client";
-    packagePath = path "/observes/common/postgres_client";
-    python = nixpkgs.python38;
-  };
+  env = packages.observes.env;
+  pkgEnv = env.service-migrate-tables;
   self = buildPythonPackage {
     name = "observes-service-migrate-tables";
     packagePath = path "/observes/services/migrate_tables";
@@ -20,13 +17,11 @@ in
 makeTemplate {
   name = "observes-env-service-migrate-tables-runtime";
   searchPaths = {
-    envPaths = [
-      nixpkgs.python38Packages.psycopg2
+    envSources = [
+      env.runtime.postgres-client
     ];
     envPython38Paths = [
-      nixpkgs.python38Packages.psycopg2
-      packages.observes.env.service-migrate-tables.runtime.python
-      postgresClient
+      pkgEnv.runtime.python
       self
     ];
   };

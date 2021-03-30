@@ -6,12 +6,8 @@
 , ...
 }:
 let
-  pythonEnv = packages.observes.env.tap-csv.development.python;
-  singerIO = buildPythonPackage {
-    name = "observes-singer-io";
-    packagePath = path "/observes/common/singer_io";
-    python = nixpkgs.python38;
-  };
+  env = packages.observes.env;
+  pkgEnv = env.tap-csv;
   self = buildPythonPackage {
     name = "observes-tap-csv";
     packagePath = path "/observes/singer/tap_csv";
@@ -21,12 +17,14 @@ in
 makeTemplate {
   name = "observes-env-tap-csv-development";
   searchPaths = {
+    envSources = [
+      pkgEnv.runtime
+    ];
     envPaths = [
-      pythonEnv
+      pkgEnv.development.python
     ];
     envPython38Paths = [
-      pythonEnv
-      singerIO
+      pkgEnv.development.python
       self
     ];
   };

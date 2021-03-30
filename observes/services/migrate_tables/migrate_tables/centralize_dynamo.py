@@ -3,14 +3,18 @@ from typing import (
     IO,
     List,
 )
+
 # Third party libraries
+
 # Local libraries
-from migrate_tables import utils
 from postgres_client import client as client_module
 from postgres_client.client import Client
 from postgres_client.schema import Schema
 from postgres_client.schema import operations as schema_ops
 from postgres_client.schema import factory as schema_factory
+
+# Self libraries
+from migrate_tables import utils
 
 
 LOG = utils.get_log(__name__)
