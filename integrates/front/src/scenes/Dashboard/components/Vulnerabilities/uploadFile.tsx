@@ -129,6 +129,10 @@ export const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
         msgError(
           translate.t("searchFindings.tabVuln.alerts.uploadFile.invalidStream")
         );
+      } else if (message === "Exception - Access denied or root not found") {
+        msgError(
+          translate.t("searchFindings.tabVuln.alerts.uploadFile.invalidRoot")
+        );
       } else {
         msgError(translate.t("groupAlerts.invalidSpecific"));
         Logger.warning(message);

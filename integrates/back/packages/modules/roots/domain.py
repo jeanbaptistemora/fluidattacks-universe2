@@ -513,19 +513,17 @@ def get_root_id_by_filename(
     return file_name_root_ids[0]
 
 
-async def get_root_by_repo_name(
+async def get_root_by_nickname(
     *,
     group_name: str,
-    repo_branch: str,
-    repo_name: str
+    repo_nickname: str
 ) -> GitRootItem:
     try:
         return next(
             root
             for root in await get_roots(group_name=group_name)
             if isinstance(root, GitRootItem)
-            and repo_branch == root.metadata.branch
-            and repo_name in root.metadata.url
+            and root.state.nickname == repo_nickname
         )
     except StopIteration:
         raise RootNotFound()
