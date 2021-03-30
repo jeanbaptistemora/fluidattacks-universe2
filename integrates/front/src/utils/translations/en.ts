@@ -238,6 +238,12 @@ export const enTranslations: ResourceKey = {
       },
     },
   },
+  comments: {
+    editorPlaceholder: "Add your comment here",
+    noComments: "No comments",
+    reply: "Reply",
+    send: "Send",
+  },
   confirmmodal: {
     cancel: "Cancel",
     message: "Are you sure?",
