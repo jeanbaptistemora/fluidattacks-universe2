@@ -17,7 +17,11 @@ import exploitabilityUnproven from "resources/exploitabilityUnproven.svg";
 import privilegesRequiredHigh from "resources/privilegesRequiredHigh.svg";
 import privilegesRequiredLow from "resources/privilegesRequiredLow.svg";
 import privilegesRequiredNone from "resources/privilegesRequiredNone.svg";
+import severityScopeChanged from "resources/severityScopeChanged.svg";
+import severityScopeUnchanged from "resources/severityScopeUnchanged.svg";
 import { useTranslation } from "react-i18next";
+import userInteractionNone from "resources/userInteractionNone.svg";
+import userInteractionRequired from "resources/userInteractionRequired.svg";
 
 interface ISeverityTile {
   color: string;
@@ -43,6 +47,10 @@ const severityImages: Record<string, string> = {
   privilegesRequiredHigh,
   privilegesRequiredLow,
   privilegesRequiredNone,
+  severityScopeChanged,
+  severityScopeUnchanged,
+  userInteractionNone,
+  userInteractionRequired,
 };
 
 export const SeverityTile: React.FC<ISeverityTile> = ({

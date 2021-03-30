@@ -75,6 +75,26 @@ const exploitabilityOptions: Record<string, string> = {
   1: "searchFindings.tabSeverity.exploitabilityOptions.high.text",
 };
 
+const severityScopeBgColor: Record<string, string> = {
+  0: "bg-lbl-yellow",
+  1: "bg-dark-red",
+};
+
+const severityScopeOptions: Record<string, string> = {
+  0: "searchFindings.tabSeverity.severityScopeOptions.unchanged.text",
+  1: "searchFindings.tabSeverity.severityScopeOptions.changed.text",
+};
+
+const userInteractionBgColor: Record<string, string> = {
+  0.62: "bg-lbl-yellow",
+  0.85: "bg-dark-red",
+};
+
+const userInteractionOptions: Record<string, string> = {
+  0.62: "searchFindings.tabSeverity.userInteractionOptions.required.text",
+  0.85: "searchFindings.tabSeverity.userInteractionOptions.none.text",
+};
+
 /**
  * Values were taken from:
  * @see https://www.first.org/cvss/specification-document#7-4-Metric-Values
@@ -88,16 +108,6 @@ const castFieldsCVSS3: (
   isEditing: boolean,
   formValues: Record<string, string>
 ): ISeverityField[] => {
-  const userInteraction: Record<string, string> = {
-    0.62: "searchFindings.tabSeverity.userInteractionOptions.required.text",
-    0.85: "searchFindings.tabSeverity.userInteractionOptions.none.text",
-  };
-
-  const severityScope: Record<string, string> = {
-    0: "searchFindings.tabSeverity.severityScopeOptions.unchanged.text",
-    1: "searchFindings.tabSeverity.severityScopeOptions.changed.text",
-  };
-
   const confidentialityImpact: Record<string, string> = {
     0: "searchFindings.tabSeverity.confidentialityImpactOptions.none.text",
     0.22: "searchFindings.tabSeverity.confidentialityImpactOptions.low.text",
@@ -139,13 +149,13 @@ const castFieldsCVSS3: (
     {
       currentValue: dataset.userInteraction,
       name: "userInteraction",
-      options: userInteraction,
+      options: userInteractionOptions,
       title: translate.t("searchFindings.tabSeverity.userInteraction"),
     },
     {
       currentValue: dataset.severityScope,
       name: "severityScope",
-      options: severityScope,
+      options: severityScopeOptions,
       title: translate.t("searchFindings.tabSeverity.severityScope"),
     },
     {
@@ -246,13 +256,13 @@ const castFieldsCVSS3: (
     {
       currentValue: dataset.modifiedUserInteraction,
       name: "modifiedUserInteraction",
-      options: userInteraction,
+      options: userInteractionOptions,
       title: translate.t("searchFindings.tabSeverity.modifiedUserInteraction"),
     },
     {
       currentValue: dataset.modifiedSeverityScope,
       name: "modifiedSeverityScope",
-      options: severityScope,
+      options: severityScopeOptions,
       title: translate.t("searchFindings.tabSeverity.modifiedSeverityScope"),
     },
     {
@@ -308,4 +318,8 @@ export {
   castPrivileges,
   exploitabilityBgColor,
   exploitabilityOptions,
+  severityScopeBgColor,
+  severityScopeOptions,
+  userInteractionBgColor,
+  userInteractionOptions,
 };

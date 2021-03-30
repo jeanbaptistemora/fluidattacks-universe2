@@ -15,6 +15,10 @@ import {
   castPrivileges,
   exploitabilityBgColor,
   exploitabilityOptions,
+  severityScopeBgColor,
+  severityScopeOptions,
+  userInteractionBgColor,
+  userInteractionOptions,
 } from "../utils";
 
 const Row: StyledComponent<"div", Record<string, unknown>> = styled.div.attrs<{
@@ -44,9 +48,10 @@ export const SeverityContent: React.FC<
   attackVector,
   attackComplexity,
   availabilityImpact,
-  exploitability,
   privilegesRequired,
   severityScope,
+  exploitability,
+  userInteraction,
 }: ISeverityAttr["finding"]["severity"]): JSX.Element => {
   const { t } = useTranslation();
 
@@ -65,7 +70,24 @@ export const SeverityContent: React.FC<
       <div className={"flex flex-wrap items-center h-100 w-100"}>
         <Row>
           <FlexCol>
-            <Col />
+            <Col>
+              <TooltipWrapper
+                id={"userInteractionTooltip"}
+                message={t(
+                  userInteractionOptions[userInteraction].replace(
+                    /text/u,
+                    "tooltip"
+                  )
+                )}
+              >
+                <SeverityTile
+                  color={userInteractionBgColor[userInteraction]}
+                  name={"userInteraction"}
+                  value={userInteraction}
+                  valueText={t(userInteractionOptions[userInteraction])}
+                />
+              </TooltipWrapper>
+            </Col>
             <Col>
               <TooltipWrapper
                 id={"privilegesRequiredTooltip"}
@@ -141,7 +163,24 @@ export const SeverityContent: React.FC<
                 />
               </TooltipWrapper>
             </Col>
-            <Col />
+            <Col>
+              <TooltipWrapper
+                id={"severityScopeTooltip"}
+                message={t(
+                  severityScopeOptions[severityScope].replace(
+                    /text/u,
+                    "tooltip"
+                  )
+                )}
+              >
+                <SeverityTile
+                  color={severityScopeBgColor[severityScope]}
+                  name={"severityScope"}
+                  value={severityScope}
+                  valueText={t(severityScopeOptions[severityScope])}
+                />
+              </TooltipWrapper>
+            </Col>
           </FlexCol>
         </Row>
         <Row>
