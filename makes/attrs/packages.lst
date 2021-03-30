@@ -119,6 +119,8 @@ observes.env.tap-toe-files.runtime
 observes.env.target-redshift.development
 observes.env.target-redshift.development.python
 observes.env.target-redshift.runtime
+observes.env.utils-logger.runtime
+observes.env.utils-logger.runtime.python
 observes.generic.linter
 observes.generic.runner
 observes.generic.tester

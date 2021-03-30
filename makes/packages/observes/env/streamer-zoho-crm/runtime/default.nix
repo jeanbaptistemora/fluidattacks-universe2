@@ -6,18 +6,8 @@
 , ...
 }:
 let
-  pkgEnv = packages.observes.env.streamer-zoho-crm;
-  pythonRunReqs = pkgEnv.runtime.python;
-  postgresClient = buildPythonPackage {
-    name = "observes-streamer-zoho-crm";
-    packagePath = path "/observes/common/postgres_client";
-    python = nixpkgs.python38;
-  };
-  singerIO = buildPythonPackage {
-    name = "observes-singer-io";
-    packagePath = path "/observes/common/singer_io";
-    python = nixpkgs.python38;
-  };
+  env = packages.observes.env;
+  pkgEnv = env.streamer-zoho-crm;
   self = buildPythonPackage {
     name = "observes-streamer-zoho-crm";
     packagePath = path "/observes/singer/streamer_zoho_crm";
@@ -27,11 +17,13 @@ in
 makeTemplate {
   name = "observes-env-streamer-zoho-crm-runtime";
   searchPaths = {
+    envSources = [
+      env.runtime.postgres-client
+      env.runtime.singer-io
+      env.utils-logger.runtime
+    ];
     envPython38Paths = [
-      nixpkgs.python38Packages.psycopg2
-      pythonRunReqs
-      postgresClient
-      singerIO
+      pkgEnv.runtime.python
       self
     ];
   };
