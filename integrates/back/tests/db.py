@@ -21,7 +21,6 @@ from backend.dal import (
     finding as dal_finding,
     project as dal_group,
     organization as dal_organization,
-    user as dal_user,
     vulnerability as dal_vulnerability,
 )
 from newutils.datetime import get_from_str
@@ -31,12 +30,13 @@ from events import dal as dal_event
 from names import dal as dal_names
 from roots import dal as dal_roots
 from forces import dal as dal_forces
+from users import dal as dal_users
 
 
 async def populate_users(data: List[Any]) -> bool:
     coroutines: List[Awaitable[bool]] = []
     coroutines.extend([
-        dal_user.create(
+        dal_users.create(
             user['email'],
             user,
         )
@@ -182,8 +182,8 @@ async def populate_comments(data: List[Any]) -> bool:
 async def populate_policies(data: List[Any]) -> bool:
     coroutines: List[Awaitable[bool]] = []
     coroutines.extend([
-        dal_user.put_subject_policy(
-            dal_user.SubjectPolicy(
+        dal_users.put_subject_policy(
+            dal_users.SubjectPolicy(
                 level=policy['level'],
                 subject=policy['subject'],
                 object=policy['object'],

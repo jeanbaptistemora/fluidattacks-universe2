@@ -16,7 +16,6 @@ from backend import (
     authz,
     util,
 )
-from backend.dal import user as user_dal
 from backend.dal.helpers.redis import redis_del_by_deps_soon
 from backend.domain import (
     organization as org_domain,
@@ -32,6 +31,7 @@ from newutils.validations import (
     validate_email_address,
     validate_phone_field,
 )
+from users import dal as users_dal
 from users.domain import core as users_core
 from __init__ import FI_DEFAULT_ORG
 
@@ -175,7 +175,7 @@ async def get_groups(
     organization_id: str = ''
 ) -> List[str]:
     user_groups: List[str] = []
-    groups = await user_dal.get_projects(user_email, active)
+    groups = await users_dal.get_groups(user_email, active)
     group_level_roles = await authz.get_group_level_roles(user_email, groups)
     can_access_list = await collect(
         group_domain.can_user_access(group, role)

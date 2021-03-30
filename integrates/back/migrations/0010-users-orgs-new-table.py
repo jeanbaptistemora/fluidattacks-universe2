@@ -16,14 +16,12 @@ import uuid
 
 import bugsnag
 import django
+from asgiref.sync import async_to_sync
+
+from backend.dal import organization as org_dal
+from users import dal as users_dal
 
 django.setup()
-
-from asgiref.sync import async_to_sync
-from backend.dal import (
-    organization as org_dal,
-    user as user_dal
-)
 
 STAGE: str = os.environ['STAGE']
 
@@ -39,7 +37,7 @@ def main() -> None:
     Assign organization to every user
     """
     log('Starting migration 0009')
-    all_users = user_dal.get_all(
+    all_users = users_dal.get_all(
         filter_exp= (
             'attribute_exists(company) and '
             'attribute_not_exists(organization)'
@@ -70,7 +68,7 @@ def main() -> None:
         else:
             if not org:
                 org = async_to_sync(org_dal.create)(org_name)
-            success : bool = user_dal.update(
+            success : bool = users_dal.update(
                 data={'organization': org['id']},
                 email=user_email)
             if success:

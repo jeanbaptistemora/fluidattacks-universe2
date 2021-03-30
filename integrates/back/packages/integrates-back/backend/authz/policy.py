@@ -21,15 +21,13 @@ from aioextensions import (
 
 # Local imports
 from back.settings import LOGGING
-from backend.dal import (
-    project as project_dal,
-    user as user_dal,
-)
+from backend.dal import project as project_dal
 from backend.dal.helpers.redis import (
     redis_del_by_deps,
     redis_get_or_set_entity_attr,
 )
 from newutils import function
+from users import dal as users_dal
 from .model import (
     get_user_level_roles_model,
     get_group_level_roles_model,
@@ -76,7 +74,7 @@ async def _get_subject_policies(subject: str) -> Tuple[
 ]:
     policies: Tuple[Tuple[str, str, str], ...] = tuple(
         (policy.level, policy.object, policy.role)
-        for policy in await user_dal.get_subject_policies(subject)
+        for policy in await users_dal.get_subject_policies(subject)
         if policy.subject == subject
     )
 
@@ -126,7 +124,7 @@ async def get_cached_subject_policies(
 
 async def get_group_level_role(email: str, group: str) -> str:
     # Admins are granted access to all groups
-    subject_policy = await user_dal.get_subject_policy(email, group)
+    subject_policy = await users_dal.get_subject_policy(email, group)
     group_role: str = subject_policy.role
 
     # Please always make the query at the end
@@ -138,7 +136,7 @@ async def get_group_level_role(email: str, group: str) -> str:
 
 async def get_organization_level_role(email: str, organization_id: str) -> str:
     # Admins are granted access to all organizations
-    subject_policy = await user_dal.get_subject_policy(
+    subject_policy = await users_dal.get_subject_policy(
         email, organization_id.lower()
     )
     organization_role: str = subject_policy.role
@@ -170,16 +168,15 @@ async def get_group_level_roles(
 
 
 async def get_user_level_role(email: str) -> str:
-    user_policy = await user_dal.get_subject_policy(email, 'self')
-
-    return user_policy.role
+    user_policy = await users_dal.get_subject_policy(email, 'self')
+    return str(user_policy.role)
 
 
 async def grant_group_level_role(email: str, group: str, role: str) -> bool:
     if role not in get_group_level_roles_model(email):
         raise ValueError(f'Invalid role value: {role}')
 
-    policy = user_dal.SubjectPolicy(
+    policy = users_dal.SubjectPolicy(
         level='group',
         subject=email,
         object=group,
@@ -188,7 +185,7 @@ async def grant_group_level_role(email: str, group: str, role: str) -> bool:
 
     success: bool = False
     coroutines: List[Awaitable[bool]] = []
-    coroutines.append(user_dal.put_subject_policy(policy))
+    coroutines.append(users_dal.put_subject_policy(policy))
 
     # If there is no user-level role for this user add one
     if not await get_user_level_role(email):
@@ -209,7 +206,7 @@ async def grant_organization_level_role(
     if role not in get_organization_level_roles_model(email):
         raise ValueError(f'Invalid role value: {role}')
 
-    policy = user_dal.SubjectPolicy(
+    policy = users_dal.SubjectPolicy(
         level='organization',
         subject=email,
         object=organization,
@@ -218,7 +215,7 @@ async def grant_organization_level_role(
 
     success: bool = False
     coroutines: List[Awaitable[bool]] = []
-    coroutines.append(user_dal.put_subject_policy(policy))
+    coroutines.append(users_dal.put_subject_policy(policy))
 
     # If there is no user-level role for this user add one
     if not await get_user_level_role(email):
@@ -238,14 +235,14 @@ async def grant_user_level_role(email: str, role: str) -> bool:
     if role not in get_user_level_roles_model(email):
         raise ValueError(f'Invalid role value: {role}')
 
-    policy = user_dal.SubjectPolicy(
+    policy = users_dal.SubjectPolicy(
         level='user',
         subject=email,
         object='self',
         role=role,
     )
 
-    return (await user_dal.put_subject_policy(policy) and
+    return (await users_dal.put_subject_policy(policy) and
             await revoke_cached_subject_policies(email))
 
 
@@ -271,16 +268,16 @@ async def revoke_cached_subject_policies(subject: str) -> bool:
 
 
 async def revoke_group_level_role(email: str, group: str) -> bool:
-    return (await user_dal.delete_subject_policy(email, group) and
+    return (await users_dal.delete_subject_policy(email, group) and
             await revoke_cached_subject_policies(email))
 
 
 async def revoke_organization_level_role(
         email: str, organization_id: str) -> bool:
-    return (await user_dal.delete_subject_policy(email, organization_id) and
+    return (await users_dal.delete_subject_policy(email, organization_id) and
             await revoke_cached_subject_policies(email))
 
 
 async def revoke_user_level_role(email: str) -> bool:
-    return (await user_dal.delete_subject_policy(email, 'self') and
+    return (await users_dal.delete_subject_policy(email, 'self') and
             await revoke_cached_subject_policies(email))

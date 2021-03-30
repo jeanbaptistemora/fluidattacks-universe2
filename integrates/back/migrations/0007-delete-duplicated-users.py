@@ -6,17 +6,16 @@ Execution Time: 2020-06-02 19:07 UTC-5
 Finalization Time: 2020-06-02 19:12 UTC-5
 """
 import os
-from typing import (
-    List,
-)
+from typing import List
 
 import bugsnag
 import django
-from backend.dal.user import (
+from boto3.dynamodb.conditions import Attr
+
+from users.dal import (
     delete as delete_dynamo_user,
     get_all as get_all_dynamo_users
 )
-from boto3.dynamodb.conditions import Attr
 
 # Allows to import Django Apps
 django.setup()

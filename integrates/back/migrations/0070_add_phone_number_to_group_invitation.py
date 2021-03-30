@@ -6,9 +6,7 @@ Finalization Time: 2021-02-08 at 11:36:19 UTC-05
 """
 # Standard library
 from pprint import pprint
-from typing import (
-    cast,
-)
+from typing import cast
 
 # Third party libraries
 from aioextensions import (
@@ -19,15 +17,10 @@ from boto3.dynamodb.conditions import Attr
 
 # Local libraries
 from backend.dal.helpers import dynamodb
-from backend.dal import (
-    user as user_dal,
-)
-from backend.domain import (
-    project as group_domain,
-)
-from backend.typing import (
-    ProjectAccess as ProjectAccessType,
-)
+from backend.domain import project as group_domain
+from backend.typing import ProjectAccess as ProjectAccessType
+from users import dal as users_dal
+
 
 TABLE_ACCESS_NAME = 'FI_project_access'
 
@@ -40,7 +33,7 @@ async def add_phone_number_to_group_invitation(
     group_name = project_access['project_name']
     invitation = project_access['invitation']
     new_invitation = invitation.copy()
-    stakeholder = await user_dal.get(user_email)
+    stakeholder = await users_dal.get(user_email)
     phone_number = stakeholder.get('phone', '')
     new_invitation['phone_number'] = phone_number
 

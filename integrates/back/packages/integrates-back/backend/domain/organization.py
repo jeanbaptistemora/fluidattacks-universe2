@@ -32,10 +32,8 @@ from backend.exceptions import (
 )
 from backend.typing import Organization as OrganizationType
 from names import domain as names_domain
-from newutils import (
-    datetime as datetime_utils,
-    stakeholders as stakeholders_utils,
-)
+from newutils import datetime as datetime_utils
+from users.domain import remove_stakeholder
 
 
 logging.config.dictConfig(LOGGING)
@@ -295,7 +293,7 @@ async def remove_user(context: Any, organization_id: str, email: str) -> bool:
         await get_user_organizations(email)
     )
     if not has_orgs:
-        user_removed = user_removed and await stakeholders_utils.remove(email)
+        user_removed = user_removed and await remove_stakeholder(email)
 
     return user_removed and role_removed and groups_removed
 

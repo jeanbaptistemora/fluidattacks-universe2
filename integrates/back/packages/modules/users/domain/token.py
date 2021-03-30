@@ -4,17 +4,17 @@ from typing import Any
 
 # Local libraries
 from backend import util
-from backend.dal import user as user_dal
 from backend.exceptions import InvalidExpirationTime
 from backend.typing import (
     UpdateAccessTokenPayload as UpdateAccessTokenPayloadType,
 )
 from newutils import token as token_utils
+from users import dal as users_dal
 
 
 async def remove_access_token(email: str) -> bool:
     """ Remove access token attribute """
-    return await user_dal.update(email, {'access_token': None})
+    return await users_dal.update(email, {'access_token': None})
 
 
 async def update_access_token(
@@ -45,7 +45,7 @@ async def update_access_token(
             'jti': token_data['jti_hashed'],
             'salt': token_data['salt']
         }
-        success = await user_dal.update(email, {'access_token': access_token})
+        success = await users_dal.update(email, {'access_token': access_token})
     else:
         raise InvalidExpirationTime()
 

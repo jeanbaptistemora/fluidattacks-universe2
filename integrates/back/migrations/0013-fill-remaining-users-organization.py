@@ -14,11 +14,11 @@ from typing import (
 )
 
 import aioboto3
+import bugsnag
 from aioextensions import (
     in_thread,
     run,
 )
-import bugsnag
 from boto3.dynamodb.conditions import Attr, Not
 
 from backend.dal.helpers import dynamodb
@@ -26,12 +26,12 @@ from backend.dal.organization import (
     get_by_id as get_organization_attributes,
     get_by_id_old as get_organization_attributes_old
 )
-from backend.dal.user import update as update_user
-from backend.domain.project import get_attributes as get_project_attributes
 from backend.domain.organization import (
     get_id_by_name as get_organization_id_by_name
 )
-from users.domainew.group import get_grops as get_user_groups
+from backend.domain.project import get_attributes as get_project_attributes
+from users.dal import update as update_user
+from users.domain.group import get_groups as get_user_groups
 from __init__ import FI_COMMUNITY_PROJECTS
 
 

@@ -6,21 +6,26 @@ from typing import (
     Union
 )
 
+# Third-party libraries
+from aioextensions import collect
+
 # Local libraries
-from backend.dal import user as user_dal
+from backend import authz
+from backend.dal import session as session_dal
 from backend.exceptions import InvalidPushToken
 from backend.typing import User as UserType
 from newutils import datetime as datetime_utils
+from users import dal as users_dal
 
 
 async def acknowledge_concurrent_session(email: str) -> bool:
     """ Acknowledge termination of concurrent session """
-    return await user_dal.update(email, {'is_concurrent_session': False})
+    return await users_dal.update(email, {'is_concurrent_session': False})
 
 
 async def add_phone_to_user(email: str, phone: str) -> bool:
     """ Update user phone number. """
-    return await user_dal.update(email, {'phone': phone})
+    return await users_dal.update(email, {'phone': phone})
 
 
 async def add_push_token(user_email: str, push_token: str) -> bool:
@@ -30,7 +35,7 @@ async def add_push_token(user_email: str, push_token: str) -> bool:
     user_attrs: dict = await get_attributes(user_email, ['push_tokens'])
     tokens: List[str] = user_attrs.get('push_tokens', [])
     if push_token not in tokens:
-        return await user_dal.update(
+        return await users_dal.update(
             user_email,
             {'push_tokens': tokens + [push_token]}
         )
@@ -38,24 +43,24 @@ async def add_push_token(user_email: str, push_token: str) -> bool:
 
 
 async def create(email: str, data: UserType) -> bool:
-    return await user_dal.create(email, data)
+    return await users_dal.create(email, data)
 
 
 async def delete(email: str) -> bool:
-    return await user_dal.delete(email)
+    return await users_dal.delete(email)
 
 
 async def ensure_user_exists(email: str) -> bool:
-    return bool(await user_dal.get(email))
+    return bool(await users_dal.get(email))
 
 
 async def get(email: str) -> UserType:
-    return await user_dal.get(email)
+    return await users_dal.get(email)
 
 
 async def get_attributes(email: str, data: List[str]) -> UserType:
     """ Get attributes of a user. """
-    return await user_dal.get_attributes(email, data)
+    return await users_dal.get_attributes(email, data)
 
 
 async def get_by_email(email: str) -> UserType:
@@ -70,7 +75,7 @@ async def get_by_email(email: str) -> UserType:
         'push_tokens': [],
         'is_registered': True
     }
-    user: UserType = await user_dal.get(email)
+    user: UserType = await users_dal.get(email)
     if user:
         stakeholder_data.update({
             'email': user['email'],
@@ -101,7 +106,7 @@ async def is_registered(email: str) -> bool:
 
 
 async def register(email: str) -> bool:
-    return await user_dal.update(email, {'registered': True})
+    return await users_dal.update(email, {'registered': True})
 
 
 async def remove_push_token(user_email: str, push_token: str) -> bool:
@@ -112,20 +117,31 @@ async def remove_push_token(user_email: str, push_token: str) -> bool:
             user_attrs.get('push_tokens', [])
         )
     )
-    return await user_dal.update(user_email, {'push_tokens': tokens})
+    return await users_dal.update(user_email, {'push_tokens': tokens})
+
+
+async def remove_stakeholder(email: str) -> bool:
+    success = all(
+        await collect([
+            authz.revoke_user_level_role(email),
+            users_dal.delete(email)
+        ])
+    )
+    await session_dal.logout(email)
+    return success
 
 
 async def update(email: str, data_attr: str, name_attr: str) -> bool:
-    return await user_dal.update(email, {name_attr: data_attr})
+    return await users_dal.update(email, {name_attr: data_attr})
 
 
 async def update_legal_remember(email: str, remember: bool) -> bool:
     """ Remember legal notice acceptance """
-    return await user_dal.update(email, {'legal_remember': remember})
+    return await users_dal.update(email, {'legal_remember': remember})
 
 
 async def update_last_login(email: str) -> bool:
-    return await user_dal.update(
+    return await users_dal.update(
         str(email), {'last_login': datetime_utils.get_now_as_str()}
     )
 
@@ -134,4 +150,4 @@ async def update_multiple_user_attributes(
     email: str,
     data_dict: UserType
 ) -> bool:
-    return await user_dal.update(email, data_dict)
+    return await users_dal.update(email, data_dict)

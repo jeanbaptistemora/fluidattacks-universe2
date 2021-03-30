@@ -15,16 +15,16 @@ from typing import (
 )
 
 import aioboto3
+import bugsnag
 from aioextensions import (
     collect,
     in_thread,
     run,
 )
-import bugsnag
 from boto3.dynamodb.conditions import Attr, Key
 
 from backend.dal.helpers import dynamodb
-from backend.dal.user import update as update_user
+from users.dal import update as update_user
 
 
 INTEGRATES_TABLE = 'integrates'

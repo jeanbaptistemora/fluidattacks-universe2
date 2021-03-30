@@ -9,19 +9,17 @@ Finalization Time: 2020-07-16 10:53:00 UTC-5
 """
 import os
 
+import bugsnag
 from aioextensions import (
     collect,
     in_thread,
     run,
 )
-import bugsnag
 from boto3.dynamodb.conditions import Attr
 from more_itertools import chunked
 
-from backend.dal import (
-    project as group_dal,
-    user as user_dal
-)
+from backend.dal import project as group_dal
+from users import dal as users_dal
 
 
 STAGE: str = os.environ['STAGE']
@@ -39,7 +37,7 @@ async def main() -> None:
         Attr('organization').exists() |
         Attr('company').exists()
     )
-    users = await in_thread(user_dal.get_all, user_filter, 'email')
+    users = await in_thread(users_dal.get_all, user_filter, 'email')
 
 
     if STAGE == 'test':
@@ -63,7 +61,7 @@ async def main() -> None:
         for user_chunk in chunked(users, 40):
             await collect(
                 in_thread(
-                    user_dal.update,
+                    users_dal.update,
                     user['email'],
                     {'company': None, 'organization': None}
                 )

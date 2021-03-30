@@ -67,7 +67,6 @@ from newutils import (
     comments as comments_utils,
     datetime as datetime_utils,
     findings as finding_utils,
-    stakeholders as stakeholders_utils,
     validations,
 )
 from notifications import domain as notifications_domain
@@ -547,7 +546,7 @@ async def remove_user_access(
             await get_groups(email)
         )
         if not has_groups:
-            success = success and await stakeholders_utils.remove(email)
+            success = success and await users_domain.remove_stakeholder(email)
 
     return success
 

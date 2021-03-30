@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import os
-import shutil
 import pytest
+import shutil
 from collections import OrderedDict
 from decimal import Decimal
 from unittest.mock import patch
@@ -14,40 +14,43 @@ from back.tests.unit.utils import create_dummy_simple_session
 from backend.api import get_new_context
 from backend.dal.finding import get_finding
 from backend.dal.vulnerability import get as get_vuln
-from backend.dal import (
-    user as user_dal,
-)
-from backend.domain import (
-    project as group_domain,
-)
+from backend.domain import project as group_domain
+from backend.domain.finding import get_findings_by_group
 from backend.domain.organization import (
     get_id_by_name,
     get_pending_deletion_date_str,
     iterate_organizations,
     update_pending_deletion_date,
 )
-from backend.domain.finding import get_findings_by_group
 from backend.domain.vulnerability import list_vulnerabilities_async
 from backend.scheduler import (
-    is_not_a_fluidattacks_email, remove_fluid_from_recipients,
-    is_a_unsolved_event, get_unsolved_events,
-    extract_info_from_event_dict, get_finding_url,
-    get_status_vulns_by_time_range, create_weekly_date, get_accepted_vulns,
-    get_by_time_range, create_register_by_week, create_data_format_chart,
-    get_first_week_dates, get_date_last_vulns,
-    create_msj_finding_pending, format_vulnerabilities,
-    get_project_indicators,
+    calculate_vulnerabilities,
+    create_data_format_chart,
+    create_msj_finding_pending,
+    create_register_by_week,
+    create_weekly_date,
     delete_imamura_stakeholders,
-    delete_obsolete_orgs,
     delete_obsolete_groups,
-    calculate_vulnerabilities
+    delete_obsolete_orgs,
+    extract_info_from_event_dict,
+    format_vulnerabilities,
+    get_accepted_vulns,
+    get_by_time_range,
+    get_date_last_vulns,
+    get_finding_url,
+    get_first_week_dates,
+    get_project_indicators,
+    get_status_vulns_by_time_range,
+    get_unsolved_events,
+    is_a_unsolved_event,
+    is_not_a_fluidattacks_email,
+    remove_fluid_from_recipients,
 )
-from dynamodb.types import (
-    GitRootToeLines,
-)
+from dynamodb.types import GitRootToeLines
 from newutils import datetime as datetime_utils
 from toe.lines import domain as toe_lines_domain
 from schedulers import toe_lines_etl
+from users import dal as users_dal
 
 
 pytestmark = [
@@ -309,12 +312,12 @@ async def test_delete_imamura_stakeholders():
         'deleteimamura@fluidattacks.com',
         'nodeleteimamura@fluidattacks.com',
     ]
-    delete_stakeholder = await user_dal.get(
+    delete_stakeholder = await users_dal.get(
         'deleteimamura@fluidattacks.com'
     )
     delete_stakeholder_exists = bool(delete_stakeholder)
     assert delete_stakeholder_exists
-    nodelete_stakeholder = await user_dal.get(
+    nodelete_stakeholder = await users_dal.get(
         'nodeleteimamura@fluidattacks.com'
     )
     nodelete_stakeholder_exists = bool(nodelete_stakeholder)
@@ -330,12 +333,12 @@ async def test_delete_imamura_stakeholders():
         for stakeholder in org_stakeholders
     ]
     assert org_stakeholders_emails == ['nodeleteimamura@fluidattacks.com']
-    delete_stakeholder = await user_dal.get(
+    delete_stakeholder = await users_dal.get(
         'deleteimamura@fluidattacks.com'
     )
     delete_stakeholder_exists = bool(delete_stakeholder)
     assert not delete_stakeholder_exists
-    nodelete_stakeholder = await user_dal.get(
+    nodelete_stakeholder = await users_dal.get(
         'nodeleteimamura@fluidattacks.com'
     )
     nodelete_stakeholder_exists = bool(nodelete_stakeholder)
@@ -391,7 +394,7 @@ async def test_toe_lines_etl():
         dirname = os.path.dirname(__file__)
         filename = os.path.join(dirname, 'mock/test_lines.csv')
         os.makedirs(f'{path}/groups/unittesting/toe')
-        shutil.copy2(filename, f'{path}/groups/unittesting/toe/lines.csv') 
+        shutil.copy2(filename, f'{path}/groups/unittesting/toe/lines.csv')
 
     group_name = 'unittesting'
     loaders = get_new_context()

@@ -25,9 +25,9 @@ from backend.typing import (
     Project as ProjectType,
     ProjectAccess as ProjectAccessType,
 )
-from backend.dal.user import get_user_name
 from events.dal import TABLE_NAME as EVENTS_TABLE_NAME
 from newutils import datetime as datetime_utils
+from users.dal import get_user_name
 
 
 logging.config.dictConfig(LOGGING)

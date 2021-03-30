@@ -41,10 +41,8 @@ from backend.typing import (
     Project as ProjectType
 )
 from comments.domain import CommentType
-from newutils import (
-    datetime as datetime_utils,
-    mailer as mailer_utils,
-)
+from newutils import datetime as datetime_utils
+from users import domain as users_domain
 from __init__ import (
     BASE_URL,
     FI_MAIL_REVIEWERS,
@@ -140,7 +138,7 @@ async def _get_sqs_email_message_async(
             'merge_vars': []
         }
         for email in email_to:
-            fname_mail = await mailer_utils.get_recipient_first_name(email)
+            fname_mail = await get_recipient_first_name(email)
             merge_var = {
                 'rcpt': email,
                 'vars': [{'name': 'fname', 'content': fname_mail}]
@@ -220,7 +218,7 @@ async def _send_mail_async_new(
     template_name: str
 ) -> None:
     mandrill_client = mandrill.Mandrill(API_KEY)
-    first_name = await mailer_utils.get_recipient_first_name(email_to)
+    first_name = await get_recipient_first_name(email_to)
     year = datetime_utils.get_as_str(
         datetime_utils.get_now(), '%Y'
     )
@@ -316,6 +314,14 @@ async def _send_mail_immediately(
     }})
 
     return success
+
+
+async def get_recipient_first_name(email: str) -> str:
+    first_name = email.split('@')[0]
+    user_attr = await users_domain.get_attributes(email, ['first_name'])
+    if user_attr and user_attr.get('first_name'):
+        first_name = user_attr['first_name']
+    return str(first_name)
 
 
 async def send_comment_mail(  # pylint: disable=too-many-locals
