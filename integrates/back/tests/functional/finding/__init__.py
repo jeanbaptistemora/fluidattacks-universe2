@@ -21,6 +21,32 @@ async def query(
     query: str = f'''
         query {{
             finding(identifier: "{finding}"){{
+                id
+                projectName
+                releaseDate
+                severity
+                cvssVersion
+                state
+                lastVulnerability
+                remediated
+                age
+                isExploitable
+                severityScore
+                reportDate
+                historicState
+                currentState
+                newRemediated
+                verified
+                analyst
+                portsVulns {{
+                    specific
+                }}
+                inputsVulns {{
+                    specific
+                }}
+                linesVulns {{
+                    specific
+                }}
                 consulting {{
                     content
                 }}
@@ -50,6 +76,7 @@ async def query(
                 }}
                 openVulnerabilities
                 closedVulnerabilities
+                __typename
             }}
         }}
     '''
