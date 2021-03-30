@@ -106,6 +106,9 @@ skims.structure:
 skims.test.benchmark_cmdi:
   <<: *skims_test
 
+skims.test.benchmark_hash:
+  <<: *skims_test
+
 skims.test.benchmark_pathtraver:
   <<: *skims_test
 

@@ -279,12 +279,14 @@ def attempt_java_security_msgdigest(args: EvaluatorArgs) -> bool:
     return False
 
 
-def attempt_the_old_way(args: EvaluatorArgs) -> None:
+def attempt_the_old_way(args: EvaluatorArgs) -> bool:
     # Analyze if the method itself is untrusted
     method = args.syntax_step.method
 
     analyze_method_invocation(args, method)
     analyze_method_invocation_values(args)
+
+    return False
 
 
 def analyze_method_invocation(args: EvaluatorArgs, method: str) -> None:
