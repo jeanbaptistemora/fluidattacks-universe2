@@ -25,6 +25,15 @@ const features = [
     ),
     link: 'api'
   },
+  {
+    title: 'Rules',
+    description: (
+      <>
+        List of security requirements considered by our organization
+      </>
+    ),
+    link: 'rules'
+  },
 ];
 
 function Feature({imageUrl, title, description, link}) {
