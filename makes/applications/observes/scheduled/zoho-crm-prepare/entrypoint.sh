@@ -1,16 +1,10 @@
 # shellcheck shell=bash
 
-source '__envUtilsBashLibAws__'
-source '__envUtilsBashLibSops__'
-
 function job_zoho_prepare {
   local db_creds
-  local streamer_zoho_crm
   local zoho_creds
 
-  streamer_zoho_crm="__envStreamerZohoCrm__" \
-  &&  update_sync_date="__envUpdateSyncDate__" \
-  &&  db_creds=$(mktemp) \
+      db_creds=$(mktemp) \
   &&  zoho_creds=$(mktemp) \
   &&  aws_login_prod 'observes' \
   &&  sops_export_vars 'observes/secrets-prod.yaml' \
@@ -19,9 +13,9 @@ function job_zoho_prepare {
   &&  echo '[INFO] Generating secret files' \
   &&  echo "${zoho_crm_bulk_creator_creds}" > "${zoho_creds}" \
   &&  echo "${analytics_auth_redshift}" > "${db_creds}" \
-  &&  "${streamer_zoho_crm}" init-db "${db_creds}" \
-  &&  "${streamer_zoho_crm}" create-jobs "${zoho_creds}" "${db_creds}" \
-  &&  "${update_sync_date}" single-job \
+  &&  observes-bin-streamer-zoho-crm init-db "${db_creds}" \
+  &&  observes-bin-streamer-zoho-crm create-jobs "${zoho_creds}" "${db_creds}" \
+  &&  observes-update-sync-date single-job \
           --auth "${db_creds}" \
           --job 'zoho_crm_prepare'
 }

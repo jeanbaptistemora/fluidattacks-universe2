@@ -1,18 +1,18 @@
-{ applications
-, nixpkgs
+{ makeEntrypoint
+, packages
 , path
 , ...
 }:
-let
-  nixPkgs = nixpkgs;
-  makeEntrypoint = import (path "/makes/utils/make-entrypoint") path nixPkgs;
-in
 makeEntrypoint {
-  arguments = {
-    envStreamerZohoCrm = applications.observes.streamer-zoho-crm;
-    envUpdateSyncDate = applications.observes.update-sync-date;
-    envUtilsBashLibAws = import (path "/makes/utils/aws") path nixPkgs;
-    envUtilsBashLibSops = import (path "/makes/utils/sops") path nixPkgs;
+  searchPaths = {
+    envPaths = [
+      packages.observes.bin.streamer-zoho-crm
+      packages.observes.update-sync-date
+    ];
+    envUtils = [
+      "/makes/utils/aws"
+      "/makes/utils/sops"
+    ];
   };
   name = "observes-scheduled-zoho-crm-prepare";
   template = path "/makes/applications/observes/scheduled/zoho-crm-prepare/entrypoint.sh";
