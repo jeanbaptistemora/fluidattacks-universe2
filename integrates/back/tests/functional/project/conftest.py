@@ -316,6 +316,7 @@ async def populate() -> bool:
                         reason='root creation',
                         status='UNKNOWN'
                     ),
+                    group_name='group1',
                     id='63298a73-9dff-46cf-b42d-9b2f01a56690',
                     metadata=GitRootMetadata(
                         branch='master',

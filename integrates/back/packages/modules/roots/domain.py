@@ -56,6 +56,7 @@ def format_root(root: RootItem) -> Root:
             environment=root.state.environment,
             environment_urls=root.state.environment_urls,
             gitignore=root.state.gitignore,
+            group_name=root.group_name,
             id=root.id,
             includes_health_check=root.state.includes_health_check,
             last_cloning_status_update=root.cloning.modified_date,
@@ -190,6 +191,7 @@ async def add_git_root(context: Any, user_email: str, **kwargs: Any) -> None:
             reason='root created',
             status='UNKNOWN'
         ),
+        group_name=group_name,
         id=str(uuid4()),
         metadata=GitRootMetadata(
             branch=branch,

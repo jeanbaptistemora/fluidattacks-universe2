@@ -1,0 +1,10 @@
+"ToeLines type definition"
+type ToeLines {
+  comments: String
+  filename: String
+  loc: Int
+  modifiedCommit: String
+  modifiedDate: String
+  testedDate: String
+  testedLines: Int
+}

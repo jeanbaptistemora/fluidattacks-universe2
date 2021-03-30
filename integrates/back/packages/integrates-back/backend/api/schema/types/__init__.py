@@ -23,8 +23,10 @@ from .organization import ORGANIZATION
 from .query import QUERY
 from .report import REPORT
 from .resource import RESOURCE
+from .root import GITROOT
 from .stakeholder import STAKEHOLDER
 from .tag import TAG
+from .toe_lines import TOELINES
 from .treatment import TREATMENT
 from .verification import VERIFICATION
 from .vulnerability import VULNERABILITY
@@ -41,6 +43,7 @@ TYPES: Tuple[ObjectType, ...] = (
     FINDING,
     FORCES_EXECUTION,
     FORCES_EXECUTIONS,
+    GITROOT,
     GROUP,
     INTERNAL_NAME,
     ME,
@@ -51,6 +54,7 @@ TYPES: Tuple[ObjectType, ...] = (
     RESOURCE,
     STAKEHOLDER,
     TAG,
+    TOELINES,
     TREATMENT,
     VERIFICATION,
     VULNERABILITY,

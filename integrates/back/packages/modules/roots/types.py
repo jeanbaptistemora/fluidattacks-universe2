@@ -13,6 +13,7 @@ class GitRoot(NamedTuple):
     environment_urls: List[str]
     environment: str
     gitignore: List[str]
+    group_name: str
     id: str
     includes_health_check: bool
     last_cloning_status_update: str

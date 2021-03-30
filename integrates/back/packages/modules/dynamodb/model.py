@@ -31,6 +31,7 @@ from dynamodb.types import (
 
 def _build_root(
     *,
+    group_name: str,
     item_id: str,
     key_structure: PrimaryKey,
     raw_items: Tuple[Item, ...],
@@ -61,6 +62,7 @@ def _build_root(
                 reason=cloning['reason'],
                 status=cloning['status']
             ),
+            group_name=group_name,
             id=metadata[key_structure.sort_key].split('#')[1],
             metadata=GitRootMetadata(
                 branch=metadata['branch'],
@@ -133,6 +135,7 @@ async def get_root(
 
     if results:
         return _build_root(
+            group_name=group_name,
             item_id=primary_key.partition_key,
             key_structure=key_structure,
             raw_items=results
@@ -170,6 +173,7 @@ async def get_roots(*, group_name: str) -> Tuple[RootItem, ...]:
 
     return tuple(
         _build_root(
+            group_name=group_name,
             item_id=root_id,
             key_structure=key_structure,
             raw_items=tuple(items)

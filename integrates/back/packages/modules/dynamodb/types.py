@@ -65,6 +65,7 @@ class GitRootToeLines(NamedTuple):
 
 class GitRootItem(NamedTuple):
     cloning: GitRootCloning
+    group_name: str
     id: str
     metadata: GitRootMetadata
     state: GitRootState
