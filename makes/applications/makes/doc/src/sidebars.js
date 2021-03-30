@@ -75,9 +75,10 @@ module.exports = {
       ],
     },
   ],
-  Agent: {
-    Agent: getDocs('agent'),
-  },
+  Agent: [
+    'agent/introduction',
+    'agent/installation',
+  ],
   Framework: {
     Framework: getDocs('framework'),
   },

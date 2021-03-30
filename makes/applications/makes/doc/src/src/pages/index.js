@@ -26,6 +26,15 @@ const features = [
     link: 'api'
   },
   {
+    title: 'Agent',
+    description: (
+      <>
+        The DevSecOps Agent you can use for breaking your build in case your system is vulnerable
+      </>
+    ),
+    link: 'agent'
+  },
+  {
     title: 'Rules',
     description: (
       <>
