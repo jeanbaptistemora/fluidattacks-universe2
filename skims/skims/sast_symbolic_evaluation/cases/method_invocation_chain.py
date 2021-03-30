@@ -11,9 +11,11 @@ from sast_symbolic_evaluation.types import (
 
 
 def evaluate(args: EvaluatorArgs) -> None:
+    # pylint: disable=expression-not-assigned
     (
         attempt_java_this_get_class(args) or
         attempt_java_this_get_class_get_class_loader(args) or
+        attempt_java_class_loader_get_resource_as_stream(args) or
         attempt_the_old_way(args)
     )
 
@@ -43,6 +45,25 @@ def attempt_java_this_get_class_get_class_loader(
     if parent.meta.value == JAVA_THIS_GET_CLASS:
         if args.syntax_step.method == '.getClassLoader':
             args.syntax_step.meta.value = JAVA_CLASS_LOADER
+            return True
+
+    return False
+
+
+def attempt_java_class_loader_get_resource_as_stream(
+    args: EvaluatorArgs,
+) -> bool:
+    *parent_arguments, parent = args.dependencies
+
+    if (
+        parent.meta.value == JAVA_CLASS_LOADER
+        and args.syntax_step.method == '.getResourceAsStream'
+        and len(parent_arguments) == 1
+        and isinstance(parent_arguments[0], graph_model.SyntaxStepLiteral)
+    ):
+        arg1 = parent_arguments[0]
+        if rsrc := args.graph_db.context.java_resources.get(arg1.meta.value):
+            args.syntax_step.meta.value = rsrc
             return True
 
     return False
