@@ -4,6 +4,7 @@ path:
   include:
   - src/main/java/org/owasp/benchmark/helpers/DatabaseHelper.java
   - src/main/java/org/owasp/benchmark/helpers/SeparateClassRequest.java
+  - src/main/resources/benchmark.properties
   - src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00016.java
   - src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00087.java
   - src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00088.java

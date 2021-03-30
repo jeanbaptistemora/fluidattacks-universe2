@@ -58,6 +58,7 @@ def main() -> None:
     extra_files: List[str] = [
         'src/main/java/org/owasp/benchmark/helpers/DatabaseHelper.java',
         'src/main/java/org/owasp/benchmark/helpers/SeparateClassRequest.java',
+        'src/main/resources/benchmark.properties',
     ]
 
     for category, tests_cases in get_tests_cases().items():
