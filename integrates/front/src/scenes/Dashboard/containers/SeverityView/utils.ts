@@ -61,6 +61,18 @@ const availabilityImpactOptions: Record<string, string> = {
   0.56: "searchFindings.tabSeverity.availabilityImpactOptions.high.text",
 };
 
+const confidentialityImpactBgColor: Record<string, string> = {
+  0: "bg-lbl-green",
+  0.22: "bg-lbl-yellow",
+  0.56: "bg-dark-red",
+};
+
+const confidentialityImpactOptions: Record<string, string> = {
+  0: "searchFindings.tabSeverity.confidentialityImpactOptions.none.text",
+  0.22: "searchFindings.tabSeverity.confidentialityImpactOptions.low.text",
+  0.56: "searchFindings.tabSeverity.confidentialityImpactOptions.high.text",
+};
+
 const exploitabilityBgColor: Record<string, string> = {
   0.91: "bg-lbl-yellow",
   0.94: "bg-orange",
@@ -134,12 +146,6 @@ const castFieldsCVSS3: (
   isEditing: boolean,
   formValues: Record<string, string>
 ): ISeverityField[] => {
-  const confidentialityImpact: Record<string, string> = {
-    0: "searchFindings.tabSeverity.confidentialityImpactOptions.none.text",
-    0.22: "searchFindings.tabSeverity.confidentialityImpactOptions.low.text",
-    0.56: "searchFindings.tabSeverity.confidentialityImpactOptions.high.text",
-  };
-
   const reportConfidence: Record<string, string> = {
     0.92: "searchFindings.tabSeverity.reportConfidenceOptions.unknown.text",
     0.96: "searchFindings.tabSeverity.reportConfidenceOptions.reasonable.text",
@@ -174,7 +180,7 @@ const castFieldsCVSS3: (
     {
       currentValue: dataset.confidentialityImpact,
       name: "confidentialityImpact",
-      options: confidentialityImpact,
+      options: confidentialityImpactOptions,
       title: translate.t("searchFindings.tabSeverity.confidentialityImpact"),
     },
     {
@@ -281,7 +287,7 @@ const castFieldsCVSS3: (
     {
       currentValue: dataset.modifiedConfidentialityImpact,
       name: "modifiedConfidentialityImpact",
-      options: confidentialityImpact,
+      options: confidentialityImpactOptions,
       title: translate.t(
         "searchFindings.tabSeverity.modifiedConfidentialityImpact"
       ),
@@ -329,6 +335,8 @@ export {
   availabilityImpactOptions,
   castFieldsCVSS3,
   castPrivileges,
+  confidentialityImpactBgColor,
+  confidentialityImpactOptions,
   exploitabilityBgColor,
   exploitabilityOptions,
   integrityImpactBgColor,

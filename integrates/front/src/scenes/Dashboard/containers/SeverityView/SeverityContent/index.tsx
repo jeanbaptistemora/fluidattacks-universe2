@@ -13,6 +13,8 @@ import {
   availabilityImpactBgColor,
   availabilityImpactOptions,
   castPrivileges,
+  confidentialityImpactBgColor,
+  confidentialityImpactOptions,
   exploitabilityBgColor,
   exploitabilityOptions,
   integrityImpactBgColor,
@@ -52,6 +54,7 @@ export const SeverityContent: React.FC<
   attackVector,
   attackComplexity,
   availabilityImpact,
+  confidentialityImpact,
   exploitability,
   integrityImpact,
   privilegesRequired,
@@ -227,7 +230,26 @@ export const SeverityContent: React.FC<
                 />
               </TooltipWrapper>
             </Col>
-            <Col />
+            <Col>
+              <TooltipWrapper
+                id={"confidentialityImpactTooltip"}
+                message={t(
+                  confidentialityImpactOptions[confidentialityImpact].replace(
+                    /text/u,
+                    "tooltip"
+                  )
+                )}
+              >
+                <SeverityTile
+                  color={confidentialityImpactBgColor[confidentialityImpact]}
+                  name={"confidentialityImpact"}
+                  value={confidentialityImpact}
+                  valueText={t(
+                    confidentialityImpactOptions[confidentialityImpact]
+                  )}
+                />
+              </TooltipWrapper>
+            </Col>
           </FlexCol>
         </Row>
         <Row>

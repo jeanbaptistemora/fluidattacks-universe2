@@ -10,6 +10,9 @@ import attackVectorPhysical from "resources/attackVectorPhysical.svg";
 import availabilityImpactHigh from "resources/availabilityImpactHigh.svg";
 import availabilityImpactLow from "resources/availabilityImpactLow.svg";
 import availabilityImpactNone from "resources/availabilityImpactNone.svg";
+import confidentialityImpactHigh from "resources/confidentialityHigh.svg";
+import confidentialityImpactLow from "resources/confidentialityLow.svg";
+import confidentialityImpactNone from "resources/confidentialityNone.svg";
 import exploitabilityFunctional from "resources/exploitabilityFunctional.svg";
 import exploitabilityHigh from "resources/exploitabilityHigh.svg";
 import exploitabilityProof from "resources/exploitabilityProof.svg";
@@ -47,6 +50,9 @@ const severityImages: Record<string, string> = {
   availabilityImpactHigh,
   availabilityImpactLow,
   availabilityImpactNone,
+  confidentialityImpactHigh,
+  confidentialityImpactLow,
+  confidentialityImpactNone,
   exploitabilityFunctional,
   exploitabilityHigh,
   exploitabilityProof,
