@@ -44,6 +44,7 @@ from sast_syntax_readers.java import (
     switch_label as java_switch_label,
     switch_statement as java_switch_statement,
     ternary_expression as java_ternary_expression,
+    this as java_this,
     unary_expression as java_unary_expression,
     while_statement as java_while_statement,
 )
@@ -360,6 +361,17 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
             java_return_statement.reader,
         ),
     ),
+    Dispatcher(
+        applicable_languages={
+            graph_model.GraphShardMetadataLanguage.JAVA,
+        },
+        applicable_node_label_types={
+            'this',
+        },
+        syntax_readers=(
+            java_this.reader,
+        ),
+    ),
     *[
         Dispatcher(
             applicable_languages={
@@ -381,7 +393,6 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
             'expression_statement',
             'finally_clause',
             'resource_specification',
-            'this',
             'try_statement',
             'try_with_resources_statement',
             'throw_statement',

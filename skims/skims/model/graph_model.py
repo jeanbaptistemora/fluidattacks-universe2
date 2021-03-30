@@ -229,6 +229,12 @@ class SyntaxStepTernary(NamedTuple):
     type: str = 'SyntaxStepTernary'
 
 
+class SyntaxStepThis(NamedTuple):
+    meta: SyntaxStepMeta
+
+    type: str = 'SyntaxStepThis'
+
+
 class SyntaxStepArrayAccess(NamedTuple):
     meta: SyntaxStepMeta
 
@@ -326,6 +332,11 @@ GRAPH_VULNERABILITY_PARAMETERS: Dict[
     core_model.FindingEnum.F042: GraphVulnerabilityParameters(
         cwe=('614',),
         desc_key='utils.model.finding.enum.f042.description',
+        desc_params={}
+    ),
+    core_model.FindingEnum.F052: GraphVulnerabilityParameters(
+        cwe=('328',),
+        desc_key='utils.model.finding.enum.F052.description',
         desc_params={}
     ),
     core_model.FindingEnum.F063_PATH_TRAVERSAL: (
