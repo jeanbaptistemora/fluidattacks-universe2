@@ -150,7 +150,7 @@ async def add_git_root(context: Any, user_email: str, **kwargs: Any) -> None:
     group_name: str = kwargs['group_name'].lower()
     url: str = _format_git_repo_url(kwargs['url'])
     branch: str = kwargs['branch']
-    nickname: str = format_root_nickname(kwargs.get('nickname', ''), url)
+    nickname: str = _format_root_nickname(kwargs.get('nickname', ''), url)
 
     gitignore = kwargs['gitignore']
     enforcer = await authz.get_group_level_enforcer(user_email)
@@ -296,7 +296,7 @@ async def add_url_root(context: Any, user_email: str, **kwargs: Any) -> None:
     await roots_dal.create_root(group_name=group_name, root=root)
 
 
-def format_root_nickname(nickname: str, url: str) -> str:
+def _format_root_nickname(nickname: str, url: str) -> str:
     nick = url.split('/')[-1]
     if nickname:
         nick = nickname
@@ -362,7 +362,7 @@ async def update_git_root(user_email: str, **kwargs: Any) -> None:
     if root.state.status != 'ACTIVE':
         raise InvalidParameter()
 
-    nickname = format_root_nickname(
+    nickname = _format_root_nickname(
         kwargs.get('nickname', ''),
         root.state.nickname
     )
@@ -496,3 +496,21 @@ def get_root_id_by_filename(
         raise RootNotFound()
 
     return file_name_root_ids[0]
+
+
+async def get_root_by_repo_name(
+    *,
+    group_name: str,
+    repo_branch: str,
+    repo_name: str
+) -> GitRootItem:
+    try:
+        return next(
+            root
+            for root in await get_roots(group_name=group_name)
+            if isinstance(root, GitRootItem)
+            and repo_branch == root.metadata.branch
+            and repo_name in root.metadata.url
+        )
+    except StopIteration:
+        raise RootNotFound()

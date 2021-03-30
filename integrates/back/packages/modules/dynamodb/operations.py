@@ -109,12 +109,7 @@ async def query(
     return tuple(items)
 
 
-def _build_facet_item(
-    *,
-    facet: Facet,
-    item: Item,
-    table: Table,
-) -> Item:
+def _build_facet_item(*, facet: Facet, item: Item, table: Table) -> Item:
     key_structure = table.primary_key
     attrs = (
         key_structure.partition_key,
@@ -127,12 +122,7 @@ def _build_facet_item(
     }
 
 
-async def put_item(
-    *,
-    facet: Facet,
-    item: Item,
-    table: Table
-) -> None:
+async def put_item(*, facet: Facet, item: Item, table: Table) -> None:
     async with aioboto3.resource(**RESOURCE_OPTIONS) as resource:
         table_resource: TableResource = await resource.Table(table.name)
         facet_item = _build_facet_item(
@@ -143,11 +133,7 @@ async def put_item(
         await table_resource.put_item(Item=facet_item)
 
 
-async def batch_write_item(
-    *,
-    items: Tuple[Item, ...],
-    table: Table,
-) -> None:
+async def batch_write_item(*, items: Tuple[Item, ...], table: Table) -> None:
     async with aioboto3.resource(**RESOURCE_OPTIONS) as resource:
         table_resource: TableResource = await resource.Table(table.name)
         async with table_resource.batch_writer() as batch_writer:
@@ -157,12 +143,7 @@ async def batch_write_item(
             ))
 
 
-async def update_item(
-    *,
-    item: Item,
-    key: PrimaryKey,
-    table: Table
-) -> None:
+async def update_item(*, item: Item, key: PrimaryKey, table: Table) -> None:
     key_structure = table.primary_key
     update_attrs = ','.join(f'#{attr} = :{attr}' for attr in item)
 
@@ -183,11 +164,7 @@ async def update_item(
         )
 
 
-async def delete_item(
-    *,
-    primary_key: PrimaryKey,
-    table: Table
-) -> None:
+async def delete_item(*, primary_key: PrimaryKey, table: Table) -> None:
     key_structure = table.primary_key
 
     async with aioboto3.resource(**RESOURCE_OPTIONS) as resource:

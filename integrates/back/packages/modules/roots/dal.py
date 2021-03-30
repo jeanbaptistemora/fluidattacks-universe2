@@ -18,11 +18,7 @@ async def create_root(*, group_name: str, root: RootItem) -> None:
     await model.create_root(group_name=group_name, root=root)
 
 
-async def get_root(
-    *,
-    group_name: str,
-    root_id: str
-) -> Optional[RootItem]:
+async def get_root(*, group_name: str, root_id: str) -> Optional[RootItem]:
     return await model.get_root(
         group_name=group_name,
         root_id=root_id
