@@ -71,6 +71,7 @@ module.exports = {
       label: 'Credentials',
       items: [
         'rules/credentials/r126',
+        'rules/credentials/r127',
       ],
     },
   ],
