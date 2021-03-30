@@ -1,5 +1,6 @@
 # Standard libraries
 import json
+import logging
 from getpass import getpass
 from typing import (
     Any,
@@ -17,11 +18,10 @@ from postgres_client.connection import (
     DatabaseID,
     Credentials as DbCredentials,
 )
-from streamer_zoho_crm import utils
 
 
 ACCOUNTS_URL = 'https://accounts.zoho.com'  # for US region
-LOG = utils.get_log(__name__)
+LOG = logging.getLogger(__name__)
 
 
 class Credentials(NamedTuple):

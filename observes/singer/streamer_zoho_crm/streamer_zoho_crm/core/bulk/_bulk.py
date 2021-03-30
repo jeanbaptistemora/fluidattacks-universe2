@@ -1,11 +1,11 @@
 # Standard libraries
+import logging
 from typing import (
     FrozenSet,
     Tuple,
 )
 # Third party libraries
 # Local libraries
-from streamer_zoho_crm import utils
 from streamer_zoho_crm.api import (
     ApiClient,
 )
@@ -17,7 +17,7 @@ from streamer_zoho_crm.api.bulk import (
 from streamer_zoho_crm.db import Client as DbClient
 
 
-LOG = utils.get_log(__name__)
+LOG = logging.getLogger(__name__)
 
 
 def create_bulk_job(

@@ -122,9 +122,10 @@ def init_db(db_id: DatabaseID, db_creds: DbCredentials) -> None:
             result VARCHAR DEFAULT NULL
         );
     """
-    actions: List[CursorExeAction] = list(
-        map(db_client.cursor.execute, [create_schema, create_table])
-    )
+    actions: List[CursorExeAction] = list(map(
+        lambda query: db_client.cursor.execute(query, None),
+        [create_schema, create_table]
+    ))
     try:
         for action in actions:
             action.act()

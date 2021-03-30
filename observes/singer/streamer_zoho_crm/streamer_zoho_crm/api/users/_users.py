@@ -1,10 +1,10 @@
 # Standard libraries
 import json
+import logging
 # Third party libraries
 import requests
 from ratelimiter import RateLimiter
 # Local libraries
-from streamer_zoho_crm import utils
 from streamer_zoho_crm.api.common import (
     API_URL,
     DataPageInfo,
@@ -18,7 +18,7 @@ from streamer_zoho_crm.api.users._objs import (
 
 
 API_ENDPOINT = API_URL + '/crm/v2/users'
-LOG = utils.get_log(__name__)
+LOG = logging.getLogger(__name__)
 rate_limiter = RateLimiter(max_calls=10, period=60)
 
 

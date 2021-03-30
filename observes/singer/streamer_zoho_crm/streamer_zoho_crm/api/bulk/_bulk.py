@@ -1,5 +1,6 @@
 # Standard libraries
 import json
+import logging
 import tempfile
 from typing import Optional
 from zipfile import ZipFile
@@ -7,7 +8,6 @@ from zipfile import ZipFile
 import requests
 from ratelimiter import RateLimiter
 # Local libraries
-from streamer_zoho_crm import utils
 from streamer_zoho_crm.api.bulk._objs import (
     BulkData,
     BulkJob,
@@ -21,7 +21,7 @@ from streamer_zoho_crm.api.common import (
 
 
 API_ENDPOINT = API_URL + '/crm/bulk/v2/read'
-LOG = utils.get_log(__name__)
+LOG = logging.getLogger(__name__)
 rate_limiter = RateLimiter(max_calls=10, period=60)
 
 

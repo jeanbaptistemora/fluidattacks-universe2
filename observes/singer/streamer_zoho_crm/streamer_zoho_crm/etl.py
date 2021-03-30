@@ -1,4 +1,5 @@
 # Standard libraries
+import logging
 import tempfile
 from typing import (
     FrozenSet,
@@ -17,7 +18,6 @@ from singer_io.singer import SingerRecord
 from streamer_zoho_crm import (
     db,
     api,
-    utils,
 )
 from streamer_zoho_crm import core
 from streamer_zoho_crm.api import (
@@ -38,7 +38,7 @@ from streamer_zoho_crm.core import (
 from streamer_zoho_crm.db import Client as DbClient
 
 ALL_MODULES = frozenset(ModuleName)
-LOG = utils.get_log(__name__)
+LOG = logging.getLogger(__name__)
 
 
 class TypeFieldDict(TypedDict):
