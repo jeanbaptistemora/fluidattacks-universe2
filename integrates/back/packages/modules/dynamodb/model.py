@@ -331,7 +331,6 @@ async def get_toe_lines_by_root(
         facets=(
             TABLE.facets['root_toe_lines'],
         ),
-        index=None,
         table=TABLE
     )
     return tuple(

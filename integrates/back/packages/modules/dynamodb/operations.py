@@ -6,6 +6,7 @@ import aioboto3
 import aioextensions
 import botocore
 from boto3.dynamodb.conditions import ConditionBase
+from boto3.dynamodb.table import TableResource
 
 # Local
 from dynamodb.types import Facet, Index, Item, PrimaryKey, Table
@@ -43,10 +44,11 @@ def _get_resource_options() -> Dict[str, Optional[str]]:
 RESOURCE_OPTIONS = _get_resource_options()
 
 
-def _build_query_attrs(
+def _build_query_args(
     *,
     condition_expression: ConditionBase,
     facets: Tuple[Facet, ...],
+    filter_expression: Optional[ConditionBase],
     index: Optional[Index],
     table: Table,
 ) -> Dict[str, Any]:
@@ -62,39 +64,44 @@ def _build_query_attrs(
         key_structure.sort_key,
         *facet_attrs
     )
-    basic_attrs = {
+    query_args = {
         'ExpressionAttributeNames': {f'#{attr}': attr for attr in attrs},
+        'FilterExpression': filter_expression,
+        'IndexName': index.name if index else None,
         'KeyConditionExpression': condition_expression,
         'ProjectionExpression': ','.join([f'#{attr}' for attr in attrs])
     }
 
-    if index:
-        return {**basic_attrs, 'IndexName': index.name}
-
-    return basic_attrs
+    return {
+        key: value
+        for key, value in query_args.items()
+        if value is not None
+    }
 
 
 async def query(
     *,
     condition_expression: ConditionBase,
     facets: Tuple[Facet, ...],
-    index: Optional[Index],
+    filter_expression: Optional[ConditionBase] = None,
+    index: Optional[Index] = None,
     table: Table
 ) -> Tuple[Item, ...]:
     async with aioboto3.resource(**RESOURCE_OPTIONS) as resource:
-        table_resource = await resource.Table(table.name)
-        query_attrs = _build_query_attrs(
+        table_resource: TableResource = await resource.Table(table.name)
+        query_args = _build_query_args(
             condition_expression=condition_expression,
             facets=facets,
+            filter_expression=filter_expression,
             index=index,
             table=table
         )
-        response = await table_resource.query(**query_attrs)
+        response = await table_resource.query(**query_args)
         items = response.get('Items', list())
 
         while response.get('LastEvaluatedKey'):
             response = await table_resource.query(
-                **query_attrs,
+                **query_args,
                 ExclusiveStartKey=response.get('LastEvaluatedKey')
             )
             items += response.get('Items', list())
@@ -127,7 +134,7 @@ async def put_item(
     table: Table
 ) -> None:
     async with aioboto3.resource(**RESOURCE_OPTIONS) as resource:
-        table_resource = await resource.Table(table.name)
+        table_resource: TableResource = await resource.Table(table.name)
         facet_item = _build_facet_item(
             facet=facet,
             item=item,
@@ -142,7 +149,7 @@ async def batch_write_item(
     table: Table,
 ) -> None:
     async with aioboto3.resource(**RESOURCE_OPTIONS) as resource:
-        table_resource = await resource.Table(table.name)
+        table_resource: TableResource = await resource.Table(table.name)
         async with table_resource.batch_writer() as batch_writer:
             await aioextensions.collect(tuple(
                 batch_writer.put_item(Item=item)
@@ -160,8 +167,9 @@ async def update_item(
     update_attrs = ','.join(f'#{attr} = :{attr}' for attr in item)
 
     async with aioboto3.resource(**RESOURCE_OPTIONS) as resource:
-        table_resource = await resource.Table(table.name)
-        table_resource.update_item(
+        table_resource: TableResource = await resource.Table(table.name)
+
+        await table_resource.update_item(
             ExpressionAttributeNames={f'#{attr}': attr for attr in item},
             ExpressionAttributeValues={
                 f':{attr}': value
@@ -175,29 +183,19 @@ async def update_item(
         )
 
 
-def _build_delete_attrs(
-    *,
-    primary_key: PrimaryKey,
-    table: Table
-) -> Dict[str, Any]:
-    key_structure = table.primary_key
-    return {
-        'Key': {
-            key_structure.partition_key: primary_key.partition_key,
-            key_structure.sort_key: primary_key.sort_key,
-        }
-    }
-
-
 async def delete_item(
     *,
     primary_key: PrimaryKey,
     table: Table
 ) -> None:
+    key_structure = table.primary_key
+
     async with aioboto3.resource(**RESOURCE_OPTIONS) as resource:
-        table_resource = await resource.Table(table.name)
-        delete_attrs = _build_delete_attrs(
-            primary_key=primary_key,
-            table=table
+        table_resource: TableResource = await resource.Table(table.name)
+
+        await table_resource.delete_item(
+            Key={
+                key_structure.partition_key: primary_key.partition_key,
+                key_structure.sort_key: primary_key.sort_key,
+            }
         )
-        await table_resource.delete_item(**delete_attrs)
