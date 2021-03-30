@@ -1,5 +1,18 @@
-{ path, ... } @ attrs:
-let
-  observes = import (path "/makes/libs/observes") attrs;
-in
-observes.jobs.lint.serviceBatchStability
+{ makeDerivation
+, path
+, packages
+, ...
+}:
+makeDerivation {
+  name = "observes-lint-service-batch-stability";
+  arguments = {
+    envSrc = path "/observes/services/batch_stability";
+  };
+  searchPaths = {
+    envSources = [
+      packages.observes.generic.linter
+      packages.observes.env.runtime.batch-stability
+    ];
+  };
+  builder = path "/makes/packages/observes/generic/linter/lint_builder.sh";
+}
