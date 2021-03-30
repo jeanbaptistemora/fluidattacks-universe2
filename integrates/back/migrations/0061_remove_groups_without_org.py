@@ -15,13 +15,13 @@ from aioextensions import (
 from boto3.dynamodb.conditions import Key
 
 # Local libraries
-from backend.dal import(
-    project as group_dal,
-    organization as org_dal,
-)
+from backend.dal importproject as group_dal
 from backend.dal.helpers import dynamodb
 from backend.domain import project as group_domain
-from organizations import domain as orgs_domain
+from organizations import (
+    dal as orgs_dal,
+    domain as orgs_domain,
+)
 
 
 FINDINGS_TABLE = 'FI_findings'
@@ -42,7 +42,7 @@ async def remove_group_from_organization_table(
     org_id: str,
     group_name: str
 ) -> bool:
-    success = cast(bool, await org_dal.remove_group(org_id, group_name))
+    success = cast(bool, await orgs_dal.remove_group(org_id, group_name))
     print(f'{group_name} was removed from org table')
 
     return success

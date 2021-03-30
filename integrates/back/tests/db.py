@@ -20,16 +20,16 @@ from aioextensions import (
 from backend.dal import (
     finding as dal_finding,
     project as dal_group,
-    organization as dal_organization,
     vulnerability as dal_vulnerability,
 )
 from newutils.datetime import get_from_str
 from comments import dal as dal_comment
 from dynamodb.types import RootItem
 from events import dal as dal_event
+from forces import dal as dal_forces
 from names import dal as dal_names
 from roots import dal as dal_roots
-from forces import dal as dal_forces
+from organizations import dal as dal_organizations
 from users import dal as dal_users
 
 
@@ -62,21 +62,21 @@ async def populate_orgs(data: List[Any]) -> bool:
     coroutines: List[Awaitable[bool]] = []
     for org in data:
         coroutines.append(
-            dal_organization.create(
+            dal_organizations.create(
                 org['name'],
                 org['id'],
             )
         )
         for user in org['users']:
             coroutines.append(
-                dal_organization.add_user(
+                dal_organizations.add_user(
                     f'ORG#{org["id"]}',
                     user,
                 )
             )
         for group in org['groups']:
             coroutines.append(
-                dal_organization.add_group(
+                dal_organizations.add_group(
                     f'ORG#{org["id"]}',
                     group,
                 )
@@ -84,7 +84,7 @@ async def populate_orgs(data: List[Any]) -> bool:
     success = all(await collect(coroutines))
     coroutines = []
     coroutines.extend([
-        dal_organization.update(
+        dal_organizations.update(
             f'ORG#{org["id"]}',
             org['name'],
             org['policy'],

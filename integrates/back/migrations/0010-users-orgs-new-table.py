@@ -18,7 +18,7 @@ import bugsnag
 import django
 from asgiref.sync import async_to_sync
 
-from backend.dal import organization as org_dal
+from organizations import dal as orgs_dal
 from users import dal as users_dal
 
 django.setup()
@@ -51,7 +51,7 @@ def main() -> None:
     for user in all_users:
         user_email = user.get('email')
         org_name = user.get('company').lower()
-        org = async_to_sync(org_dal.get)(org_name)
+        org = async_to_sync(orgs_dal.get)(org_name)
         if STAGE == 'test':
             log('---\nUser: {}'.format(user_email))
             if org:
@@ -67,7 +67,7 @@ def main() -> None:
             log(f'pk: {org["id"]}\nsk: {org["name"]}')
         else:
             if not org:
-                org = async_to_sync(org_dal.create)(org_name)
+                org = async_to_sync(orgs_dal.create)(org_name)
             success : bool = users_dal.update(
                 data={'organization': org['id']},
                 email=user_email)

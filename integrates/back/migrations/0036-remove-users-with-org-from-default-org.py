@@ -16,9 +16,11 @@ from typing import (
 
 from aioextensions import collect
 
-from backend.dal import organization as org_dal
 from backend.exceptions import UserNotInOrganization
-from organizations import domain as orgs_domain
+from organizations import (
+    dal as orgs_dal,
+    domain as orgs_domain,
+)
 
 
 STAGE: str = os.environ['STAGE']
@@ -40,7 +42,7 @@ async def remove_user_from_imamura(user: str, org_id: str) -> bool:
 async def main() -> None:
     print(f'[INFO] Starting migration 0036')
     user_emails: List[str] = []
-    org = await org_dal.get_by_name('imamura', ['id'])
+    org = await orgs_dal.get_by_name('imamura', ['id'])
     with open('back/migrations/users.csv', newline='') as csvfile:
         reader = csv.DictReader(csvfile)
         for row in reader:

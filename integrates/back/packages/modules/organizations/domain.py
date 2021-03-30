@@ -21,7 +21,6 @@ from graphql import GraphQLError
 # Local libraries
 from back.settings import LOGGING
 from backend import authz
-from backend.dal import organization as org_dal
 from backend.domain import project as group_domain
 from backend.exceptions import (
     InvalidAcceptanceDays,
@@ -38,6 +37,7 @@ from newutils import (
     datetime as datetime_utils,
     user as user_utils,
 )
+from organizations import dal as orgs_dal
 
 
 logging.config.dictConfig(LOGGING)
@@ -136,7 +136,7 @@ async def _get_new_policies(
 
 
 async def add_group(organization_id: str, group: str) -> bool:
-    success = await org_dal.add_group(organization_id, group)
+    success = await orgs_dal.add_group(organization_id, group)
     if success:
         users = await get_users(organization_id)
         users_roles = await collect(
@@ -160,7 +160,7 @@ async def add_group(organization_id: str, group: str) -> bool:
 
 async def add_user(organization_id: str, email: str, role: str) -> bool:
     success = (
-        await org_dal.add_user(organization_id, email) and
+        await orgs_dal.add_user(organization_id, email) and
         await authz.grant_organization_level_role(
             email,
             organization_id,
@@ -216,7 +216,7 @@ async def delete_organization(
     organization_name = await get_name_by_id(organization_id)
     success = (
         success and
-        await org_dal.delete(organization_id, organization_name)
+        await orgs_dal.delete(organization_id, organization_name)
     )
     return success
 
@@ -254,14 +254,14 @@ def format_organization(organization: OrganizationType) -> OrganizationType:
 
 
 async def get_by_id(org_id: str) -> OrganizationType:
-    organization: OrganizationType = await org_dal.get_by_id(org_id)
+    organization: OrganizationType = await orgs_dal.get_by_id(org_id)
     if organization:
         return format_organization(organization)
     raise OrganizationNotFound()
 
 
 async def get_by_name(name: str) -> OrganizationType:
-    organization: OrganizationType = await org_dal.get_by_name(name.lower())
+    organization: OrganizationType = await orgs_dal.get_by_name(name.lower())
     if organization:
         return format_organization(organization)
     raise OrganizationNotFound()
@@ -282,13 +282,13 @@ async def get_current_max_number_acceptations_info(
 
 async def get_groups(organization_id: str) -> Tuple[str, ...]:
     """Return a tuple of group names for the provided organization."""
-    return tuple(await org_dal.get_groups(organization_id))
+    return tuple(await orgs_dal.get_groups(organization_id))
 
 
 async def get_historic_max_number_acceptations(
     organization_id: str
 ) -> List[Dict[str, Union[Decimal, None, str]]]:
-    org_result = await org_dal.get_by_id(
+    org_result = await orgs_dal.get_by_id(
         organization_id,
         ['historic_max_number_acceptations']
     )
@@ -300,7 +300,7 @@ async def get_historic_max_number_acceptations(
 
 
 async def get_id_by_name(organization_name: str) -> str:
-    result: OrganizationType = await org_dal.get_by_name(
+    result: OrganizationType = await orgs_dal.get_by_name(
         organization_name.lower(),
         ['id']
     )
@@ -310,13 +310,13 @@ async def get_id_by_name(organization_name: str) -> str:
 
 
 async def get_id_for_group(group_name: str) -> str:
-    return await org_dal.get_id_for_group(group_name)
+    return await orgs_dal.get_id_for_group(group_name)
 
 
 async def get_max_acceptance_days(organization_id: str) -> Optional[Decimal]:
     result = cast(
         Dict[str, Decimal],
-        await org_dal.get_by_id(organization_id, ['max_acceptance_days'])
+        await orgs_dal.get_by_id(organization_id, ['max_acceptance_days'])
     )
     return result.get('max_acceptance_days', None)
 
@@ -324,7 +324,7 @@ async def get_max_acceptance_days(organization_id: str) -> Optional[Decimal]:
 async def get_max_acceptance_severity(organization_id: str) -> Decimal:
     result = cast(
         Dict[str, Decimal],
-        await org_dal.get_by_id(organization_id, ['max_acceptance_severity'])
+        await orgs_dal.get_by_id(organization_id, ['max_acceptance_severity'])
     )
     return result.get('max_acceptance_severity', DEFAULT_MAX_SEVERITY)
 
@@ -332,13 +332,13 @@ async def get_max_acceptance_severity(organization_id: str) -> Decimal:
 async def get_min_acceptance_severity(organization_id: str) -> Decimal:
     result = cast(
         Dict[str, Decimal],
-        await org_dal.get_by_id(organization_id, ['min_acceptance_severity'])
+        await orgs_dal.get_by_id(organization_id, ['min_acceptance_severity'])
     )
     return result.get('min_acceptance_severity', DEFAULT_MIN_SEVERITY)
 
 
 async def get_name_by_id(organization_id: str) -> str:
-    result: OrganizationType = await org_dal.get_by_id(
+    result: OrganizationType = await orgs_dal.get_by_id(
         organization_id,
         ['name']
     )
@@ -359,11 +359,11 @@ async def get_or_create(
     org_role: str = 'customer'
     organization_name = organization_name.lower().strip()
 
-    org = await org_dal.get_by_name(organization_name, ['id', 'name'])
+    org = await orgs_dal.get_by_name(organization_name, ['id', 'name'])
     if org:
         has_access = await has_user_access(str(org['id']), email)
     else:
-        org = await org_dal.create(organization_name)
+        org = await orgs_dal.create(organization_name)
         org_created = True
         org_role = 'customeradmin'
 
@@ -375,26 +375,26 @@ async def get_or_create(
 async def get_pending_deletion_date_str(organization_id: str) -> Optional[str]:
     result = cast(
         Dict[str, str],
-        await org_dal.get_by_id(organization_id, ['pending_deletion_date'])
+        await orgs_dal.get_by_id(organization_id, ['pending_deletion_date'])
     )
     return result.get('pending_deletion_date')
 
 
 async def get_user_organizations(email: str) -> List[str]:
-    return await org_dal.get_ids_for_user(email)
+    return await orgs_dal.get_ids_for_user(email)
 
 
 async def get_users(organization_id: str) -> List[str]:
-    return await org_dal.get_users(organization_id)
+    return await orgs_dal.get_users(organization_id)
 
 
 async def has_group(organization_id: str, group_name: str) -> bool:
-    return await org_dal.has_group(organization_id, group_name)
+    return await orgs_dal.has_group(organization_id, group_name)
 
 
 async def has_user_access(organization_id: str, email: str) -> bool:
     return (
-        await org_dal.has_user_access(organization_id, email) or
+        await orgs_dal.has_user_access(organization_id, email) or
         await authz.get_organization_level_role(
             email,
             organization_id
@@ -404,7 +404,7 @@ async def has_user_access(organization_id: str, email: str) -> bool:
 
 async def iterate_organizations() -> AsyncIterator[Tuple[str, str]]:
     """Yield pairs of (organization_id, organization_name)."""
-    async for org_id, org_name in org_dal.iterate_organizations():
+    async for org_id, org_name in orgs_dal.iterate_organizations():
         yield org_id, org_name
 
 
@@ -412,7 +412,7 @@ async def iterate_organizations_and_groups() -> AsyncIterator[
     Tuple[str, str, Tuple[str, ...]]
 ]:
     """Yield (org_id, org_name, org_groups) non-concurrently generated."""
-    async for org_id, org_name in org_dal.iterate_organizations():
+    async for org_id, org_name in orgs_dal.iterate_organizations():
         yield org_id, org_name, await get_groups(org_id)
 
 
@@ -425,7 +425,7 @@ async def remove_group(
     success = all(
         [
             await group_domain.delete_project(context, group_name, email),
-            await org_dal.remove_group(organization_id, group_name)
+            await orgs_dal.remove_group(organization_id, group_name)
         ]
     )
     return success
@@ -435,7 +435,7 @@ async def remove_user(context: Any, organization_id: str, email: str) -> bool:
     if not await has_user_access(organization_id, email):
         raise UserNotInOrganization()
 
-    user_removed = await org_dal.remove_user(organization_id, email)
+    user_removed = await orgs_dal.remove_user(organization_id, email)
     role_removed = await authz.revoke_organization_level_role(
         email,
         organization_id
@@ -470,7 +470,7 @@ async def update_pending_deletion_date(
 ) -> bool:
     """ Update pending deletion date """
     values: OrganizationType = {'pending_deletion_date': pending_deletion_date}
-    success = await org_dal.update(
+    success = await orgs_dal.update(
         organization_id,
         organization_name,
         values
@@ -523,7 +523,7 @@ async def update_policies(
         success = True
         new_policies = await _get_new_policies(organization_id, email, values)
         if new_policies:
-            success = await org_dal.update(
+            success = await orgs_dal.update(
                 organization_id,
                 organization_name,
                 new_policies

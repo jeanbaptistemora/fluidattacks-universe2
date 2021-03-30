@@ -10,7 +10,7 @@ import os
 from typing import (
     Dict,
     List,
-    Union
+    Union,
 )
 
 import aioboto3
@@ -22,11 +22,11 @@ from aioextensions import (
 from boto3.dynamodb.conditions import Attr, Not
 
 from backend.dal.helpers import dynamodb
-from backend.dal.organization import (
+from backend.domain.project import get_attributes as get_project_attributes
+from organizations.dal import (
     get_by_id as get_organization_attributes,
     get_by_id_old as get_organization_attributes_old
 )
-from backend.domain.project import get_attributes as get_project_attributes
 from organizations.domain import (
     get_id_by_name as get_organization_id_by_name,
 )

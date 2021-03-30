@@ -20,9 +20,11 @@ from aioextensions import (
     run,
 )
 
-from backend.dal import organization as org_dal
 from backend.domain import project as group_domain
-from organizations import domain as orgs_domain
+from organizations import (
+    dal as orgs_dal,
+    domain as orgs_domain,
+)
 from users import domain as users_domain
 from __init__ import (
     FI_COMMUNITY_PROJECTS,
@@ -75,7 +77,7 @@ async def main() -> None:
                 )
             else:
                 await collect(
-                    org_dal.add_user(group_org_id, user)
+                    orgs_dal.add_user(group_org_id, user)
                     for user, user_org in zip(group_users, user_orgs)
                     if user_org != group_org_id and
                         group_org_id not in users_already_added.get(user, [])

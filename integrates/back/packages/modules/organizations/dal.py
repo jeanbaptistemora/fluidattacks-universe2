@@ -1,5 +1,6 @@
 # standard imports
 import logging
+import logging.config
 import uuid
 from typing import (
     AsyncIterator,
@@ -16,6 +17,7 @@ from boto3.dynamodb.conditions import Key
 from botocore.exceptions import ClientError
 
 # local imports
+from back.settings import LOGGING
 from backend.dal.helpers.dynamodb import (
     async_delete_item as dynamo_async_delete_item,
     async_query as dynamo_async_query,
@@ -33,7 +35,7 @@ from backend.typing import (
     DynamoQuery as DynamoQueryType,
     Organization as OrganizationType
 )
-from back.settings import LOGGING
+
 
 logging.config.dictConfig(LOGGING)
 
@@ -42,25 +44,25 @@ LOGGER = logging.getLogger(__name__)
 TABLE_NAME = 'fi_organizations'
 
 
-def _map_keys_to_domain(org: OrganizationType) -> OrganizationType:
+def _map_attributes_to_dal(attrs: List[str]) -> List[str]:
     """
-    Map DynamoDB keys to a human-readable form
+    Map domain attributes to its DynamoDB representation
     """
     mapping = {
-        'pk': 'id',
-        'sk': 'name'
+        'id': 'pk',
+        'name': 'sk'
     }
-    mapped_org = {
-        key: org[key]
-        for key in org
-        if key not in mapping
-    }
-    mapped_org.update({
-        mapping[key]: org[key]
-        for key in org
-        if key in mapping
-    })
-    return mapped_org
+    mapped_attrs = [
+        attr
+        for attr in attrs
+        if attr not in mapping
+    ]
+    mapped_attrs.extend([
+        mapping[attr]
+        for attr in attrs
+        if attr in mapping
+    ])
+    return mapped_attrs
 
 
 def _map_keys_to_dal(org: OrganizationType) -> OrganizationType:
@@ -84,25 +86,25 @@ def _map_keys_to_dal(org: OrganizationType) -> OrganizationType:
     return mapped_org
 
 
-def _map_attributes_to_dal(attrs: List[str]) -> List[str]:
+def _map_keys_to_domain(org: OrganizationType) -> OrganizationType:
     """
-    Map domain attributes to its DynamoDB representation
+    Map DynamoDB keys to a human-readable form
     """
     mapping = {
-        'id': 'pk',
-        'name': 'sk'
+        'pk': 'id',
+        'sk': 'name'
     }
-    mapped_attrs = [
-        attr
-        for attr in attrs
-        if attr not in mapping
-    ]
-    mapped_attrs.extend([
-        mapping[attr]
-        for attr in attrs
-        if attr in mapping
-    ])
-    return mapped_attrs
+    mapped_org = {
+        key: org[key]
+        for key in org
+        if key not in mapping
+    }
+    mapped_org.update({
+        mapping[key]: org[key]
+        for key in org
+        if key in mapping
+    })
+    return mapped_org
 
 
 async def add_group(organization_id: str, group: str) -> bool:
@@ -142,14 +144,15 @@ async def create(
     if org_exists:
         raise InvalidOrganization()
 
-    organization_id = str(uuid.uuid4()) \
-        if organization_id == '' \
+    organization_id = (
+        str(uuid.uuid4())
+        if organization_id == ''
         else organization_id
+    )
     new_item: OrganizationType = {
         'pk': f'ORG#{organization_id}',
         'sk': f'INFO#{organization_name.lower().strip()}'
     }
-
     try:
         await dynamo_async_put_item(TABLE_NAME, new_item)
         new_item.update({'sk': organization_name.lower().strip()})
@@ -171,42 +174,6 @@ async def delete(organization_id: str, organization_name: str) -> bool:
     )
     try:
         success = await dynamo_async_delete_item(TABLE_NAME, item)
-    except ClientError as ex:
-        raise UnavailabilityError() from ex
-    return success
-
-
-async def remove_group(organization_id: str, group_name: str) -> bool:
-    """
-    Delete a group from an organization
-    """
-    success: bool = False
-    group_item = DynamoDeleteType(
-        Key={
-            'pk': organization_id,
-            'sk': f'GROUP#{group_name.lower().strip()}'
-        }
-    )
-    try:
-        success = await dynamo_async_delete_item(TABLE_NAME, group_item)
-    except ClientError as ex:
-        raise UnavailabilityError() from ex
-    return success
-
-
-async def remove_user(organization_id: str, email: str) -> bool:
-    """
-    Remove a user from an organization
-    """
-    success: bool = False
-    user_item = DynamoDeleteType(
-        Key={
-            'pk': organization_id,
-            'sk': f'USER#{email.lower().strip()}'
-        }
-    )
-    try:
-        success = await dynamo_async_delete_item(TABLE_NAME, user_item)
     except ClientError as ex:
         raise UnavailabilityError() from ex
     return success
@@ -241,7 +208,6 @@ async def get_by_id(
     if attributes:
         projection = ','.join(_map_attributes_to_dal(attributes))
         query_attrs.update({'ProjectionExpression': projection})
-
     try:
         response_item = await dynamo_async_query(TABLE_NAME, query_attrs)
         if response_item:
@@ -288,20 +254,28 @@ async def get_by_name(
     return _map_keys_to_domain(organization)
 
 
-async def get_many_by_id(
-    organization_ids: List[str],
-    attributes: Optional[List[str]] = None
-) -> List[OrganizationType]:
+async def get_groups(organization_id: str) -> List[str]:
     """
-    Use the organization ID to fetch general information about it
+    Return a list of the names of all the groups that belong to an
+    organization
     """
-    return cast(
-        List[OrganizationType],
-        await collect(
-            get_by_id(org_id, attributes)
-            for org_id in organization_ids
+    groups: List[str] = []
+    query_attrs = {
+        'KeyConditionExpression': (
+            Key('pk').eq(organization_id) &
+            Key('sk').begins_with('GROUP#')
         )
-    )
+    }
+    try:
+        response_items = await dynamo_async_query(TABLE_NAME, query_attrs)
+        if response_items:
+            groups = [
+                item['sk'].split('#')[1]
+                for item in response_items
+            ]
+    except ClientError as ex:
+        raise UnavailabilityError() from ex
+    return groups
 
 
 async def get_id_for_group(group_name: str) -> str:
@@ -346,28 +320,20 @@ async def get_ids_for_user(email: str) -> List[str]:
     return organization_ids
 
 
-async def get_groups(organization_id: str) -> List[str]:
+async def get_many_by_id(
+    organization_ids: List[str],
+    attributes: Optional[List[str]] = None
+) -> List[OrganizationType]:
     """
-    Return a list of the names of all the groups that belong to an
-    organization
+    Use the organization ID to fetch general information about it
     """
-    groups: List[str] = []
-    query_attrs = {
-        'KeyConditionExpression': (
-            Key('pk').eq(organization_id) &
-            Key('sk').begins_with('GROUP#')
+    return cast(
+        List[OrganizationType],
+        await collect(
+            get_by_id(org_id, attributes)
+            for org_id in organization_ids
         )
-    }
-    try:
-        response_items = await dynamo_async_query(TABLE_NAME, query_attrs)
-        if response_items:
-            groups = [
-                item['sk'].split('#')[1]
-                for item in response_items
-            ]
-    except ClientError as ex:
-        raise UnavailabilityError() from ex
-    return groups
+    )
 
 
 async def get_users(organization_id: str) -> List[str]:
@@ -422,6 +388,63 @@ async def has_user_access(organization_id: str, email: str) -> bool:
     return has_access
 
 
+async def iterate_organizations() -> AsyncIterator[Tuple[str, str]]:
+    """Yield (org_id, org_name) non-concurrently generated. """
+    async with dynamodb_client() as client:
+        async for response in client.get_paginator('scan').paginate(
+            ExpressionAttributeNames={
+                '#pk': 'pk',
+                '#sk': 'sk',
+            },
+            ExpressionAttributeValues={
+                ':pk': {'S': 'ORG#'},
+                ':sk': {'S': 'INFO#'},
+            },
+            FilterExpression=(
+                'begins_with(#pk, :pk) and begins_with(#sk, :sk)'
+            ),
+            TableName=TABLE_NAME,
+        ):
+            for item in response['Items']:
+                yield item['pk']['S'], item['sk']['S'].lstrip('INFO#')
+
+
+async def remove_group(organization_id: str, group_name: str) -> bool:
+    """
+    Delete a group from an organization
+    """
+    success: bool = False
+    group_item = DynamoDeleteType(
+        Key={
+            'pk': organization_id,
+            'sk': f'GROUP#{group_name.lower().strip()}'
+        }
+    )
+    try:
+        success = await dynamo_async_delete_item(TABLE_NAME, group_item)
+    except ClientError as ex:
+        raise UnavailabilityError() from ex
+    return success
+
+
+async def remove_user(organization_id: str, email: str) -> bool:
+    """
+    Remove a user from an organization
+    """
+    success: bool = False
+    user_item = DynamoDeleteType(
+        Key={
+            'pk': organization_id,
+            'sk': f'USER#{email.lower().strip()}'
+        }
+    )
+    try:
+        success = await dynamo_async_delete_item(TABLE_NAME, user_item)
+    except ClientError as ex:
+        raise UnavailabilityError() from ex
+    return success
+
+
 async def update(
     organization_id: str,
     organization_name: str,
@@ -465,24 +488,3 @@ async def update(
     except ClientError as ex:
         raise UnavailabilityError() from ex
     return success
-
-
-async def iterate_organizations() -> AsyncIterator[Tuple[str, str]]:
-    """Yield (org_id, org_name) non-concurrently generated. """
-    async with dynamodb_client() as client:
-        async for response in client.get_paginator('scan').paginate(
-            ExpressionAttributeNames={
-                '#pk': 'pk',
-                '#sk': 'sk',
-            },
-            ExpressionAttributeValues={
-                ':pk': {'S': 'ORG#'},
-                ':sk': {'S': 'INFO#'},
-            },
-            FilterExpression=(
-                'begins_with(#pk, :pk) and begins_with(#sk, :sk)'
-            ),
-            TableName=TABLE_NAME,
-        ):
-            for item in response['Items']:
-                yield item['pk']['S'], item['sk']['S'].lstrip('INFO#')
