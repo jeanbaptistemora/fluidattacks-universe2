@@ -130,6 +130,9 @@ def _mark_java_sinks(
         'addCookie',
         'evaluate',
     })
+    _mark_methods_sink(findings.F052, graph, syntax, {
+        'java.security.MessageDigest.getInstance',
+    })
     _mark_methods_sink(findings.F063_PATH_TRAVERSAL, graph, syntax, {
         'java.nio.file.Files.newInputStream',
         'java.nio.file.Paths.get',
