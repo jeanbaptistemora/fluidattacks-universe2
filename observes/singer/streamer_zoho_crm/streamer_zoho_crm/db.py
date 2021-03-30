@@ -25,6 +25,9 @@ from streamer_zoho_crm.api.bulk import (
 )
 
 
+SCHEMA = 'zoho_crm'
+
+
 class Client(NamedTuple):
     get_bulk_jobs: Callable[[], FrozenSet[BulkJob]]
     save_bulk_job: Callable[[BulkJob], None]
@@ -100,9 +103,6 @@ def update_bulk_job(
         )
     )
     exe_action.act()
-
-
-SCHEMA = 'zoho_crm'
 
 
 def init_db(db_id: DatabaseID, db_creds: DbCredentials) -> None:

@@ -50,12 +50,10 @@ def update_all(
         [id for id, s in need_update]
     )
     LOG.info('Updating %s jobs status', len(need_update))
-    list(
-        map(
-            db_client.update_bulk_job,
-            frozenset(filter(lambda job: job.id in need_update_ids, jobs))
-        )
-    )
+    list(map(
+        db_client.update_bulk_job,
+        frozenset(filter(lambda job: job.id in need_update_ids, updated_jobs))
+    ))
 
 
 def get_bulk_data(

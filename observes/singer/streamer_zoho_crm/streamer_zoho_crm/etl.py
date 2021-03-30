@@ -66,10 +66,11 @@ def creation_phase(
     try:
         bulk_utils: BulkUtils = core_client.bulk
         jobs: FrozenSet[BulkJob] = bulk_utils.get_all()
-        banned: FrozenSet[BulkJob] = frozenset(
-            filter(lambda x: x.state.upper() != 'COMPLETED', jobs)
+        triggered_modules: FrozenSet[ModuleName] = frozenset(
+            map(lambda x: x.module, jobs)
         )
-        for module in set(target_modules) - banned:
+        bulk_utils.update_all()
+        for module in target_modules - triggered_modules:
             bulk_utils.create(module, 1)
     finally:
         db_client.close()
