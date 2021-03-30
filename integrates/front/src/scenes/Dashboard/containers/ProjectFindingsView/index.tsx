@@ -6,18 +6,16 @@ import { DataTableNext } from "components/DataTableNext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import GoogleplayBadge from "resources/googleplay_badge.svg";
 import type { GraphQLError } from "graphql";
+import type { IFindingAttr } from "scenes/Dashboard/containers/ProjectFindingsView/types";
 import type { IHeaderConfig } from "components/DataTableNext/types";
 import { Logger } from "utils/logger";
 import { Modal } from "components/Modal";
-import { Query } from "@apollo/react-components";
-import type { QueryResult } from "@apollo/react-common";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { Trans } from "react-i18next";
 import _ from "lodash";
 import { formatFindings } from "scenes/Dashboard/containers/ProjectFindingsView/utils";
 import { track } from "mixpanel-browser";
 import { translate } from "utils/translations/translate";
-import { useLazyQuery } from "@apollo/react-hooks";
 import { useStoredState } from "utils/hooks";
 import {
   ButtonToolbar,
@@ -29,10 +27,6 @@ import {
   GET_FINDINGS,
   REQUEST_PROJECT_REPORT,
 } from "scenes/Dashboard/containers/ProjectFindingsView/queries";
-import type {
-  IFindingAttr,
-  IProjectFindingsAttr,
-} from "scenes/Dashboard/containers/ProjectFindingsView/types";
 import React, { useCallback, useState } from "react";
 import {
   faFileArchive,
@@ -47,6 +41,7 @@ import {
 import { msgError, msgSuccess } from "utils/notifications";
 import { selectFilter, textFilter } from "react-bootstrap-table2-filter";
 import { useHistory, useParams } from "react-router-dom";
+import { useLazyQuery, useQuery } from "@apollo/react-hooks";
 
 const ProjectFindingsView: React.FC = (): JSX.Element => {
   const TIMEZONE_OFFSET = 60000;
@@ -399,194 +394,174 @@ const ProjectFindingsView: React.FC = (): JSX.Element => {
     },
   ];
 
+  const { data } = useQuery(GET_FINDINGS, {
+    onError: handleQryErrors,
+    variables: { projectName },
+  });
+
+  const handleRequestProjectReport: (
+    event: React.MouseEvent<HTMLElement>
+  ) => void = (event: React.MouseEvent<HTMLElement>): void => {
+    const target: HTMLElement = event.currentTarget as HTMLElement;
+    const icon: SVGElement | null = target.querySelector("svg");
+    if (icon !== null) {
+      const reportType: string = (icon.attributes.getNamedItem("data-icon")
+        ?.value as string).includes("pdf")
+        ? "PDF"
+        : (icon.attributes.getNamedItem("data-icon")?.value as string).includes(
+            "excel"
+          )
+        ? "XLS"
+        : "DATA";
+
+      track("GroupReportRequest", { reportType });
+
+      requestProjectReport({
+        variables: {
+          projectName,
+          reportType,
+        },
+      });
+      setReportsModalOpen(false);
+    }
+  };
+
+  if (_.isUndefined(data) || _.isEmpty(data)) {
+    return <div />;
+  }
+
   return (
-    <Query
-      onError={handleQryErrors}
-      query={GET_FINDINGS}
-      variables={{ projectName }}
-    >
-      {({ data }: QueryResult<IProjectFindingsAttr>): JSX.Element => {
-        if (_.isUndefined(data) || _.isEmpty(data)) {
-          return <div />;
-        }
-
-        const handleRequestProjectReport: (
-          event: React.MouseEvent<HTMLElement>
-        ) => void = (event: React.MouseEvent<HTMLElement>): void => {
-          const target: HTMLElement = event.currentTarget as HTMLElement;
-          const icon: SVGElement | null = target.querySelector("svg");
-          if (icon !== null) {
-            const reportType: string = (icon.attributes.getNamedItem(
-              "data-icon"
-            )?.value as string).includes("pdf")
-              ? "PDF"
-              : (icon.attributes.getNamedItem("data-icon")
-                  ?.value as string).includes("excel")
-              ? "XLS"
-              : "DATA";
-
-            track("GroupReportRequest", { reportType });
-
-            requestProjectReport({
-              variables: {
-                projectName,
-                reportType,
-              },
-            });
-            setReportsModalOpen(false);
-          }
-        };
-
-        return (
-          <React.StrictMode>
-            <Can I={"backend_api_resolvers_query_report__get_url_group_report"}>
-              <Row>
-                <Col100>
-                  <ButtonToolbarCenter>
-                    <TooltipWrapper
-                      id={"group.findings.report.btn.tooltip.id"}
-                      message={translate.t("group.findings.report.btn.tooltip")}
+    <React.StrictMode>
+      <Can I={"backend_api_resolvers_query_report__get_url_group_report"}>
+        <Row>
+          <Col100>
+            <ButtonToolbarCenter>
+              <TooltipWrapper
+                id={"group.findings.report.btn.tooltip.id"}
+                message={translate.t("group.findings.report.btn.tooltip")}
+              >
+                <Button id={"reports"} onClick={openReportsModal}>
+                  {translate.t("group.findings.report.btn.text")}
+                </Button>
+              </TooltipWrapper>
+            </ButtonToolbarCenter>
+          </Col100>
+        </Row>
+      </Can>
+      <p>{translate.t("group.findings.helpLabel")}</p>
+      <DataTableNext
+        bordered={true}
+        columnToggle={true}
+        csvFilename={`${projectName}-findings-${currentDate}.csv`}
+        // The type was already defined in the schema
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+        dataset={formatFindings(data.project.findings)}
+        defaultSorted={JSON.parse(_.get(sessionStorage, "findingSort", "{}"))}
+        exportCsv={false}
+        headers={tableHeaders}
+        id={"tblFindings"}
+        isFilterEnabled={isFilterEnabled}
+        onColumnToggle={handleChange}
+        onUpdateEnableFilter={handleUpdateFilter}
+        pageSize={15}
+        rowEvents={{ onClick: goToFinding }}
+        search={true}
+        striped={true}
+        tableSize={"largeTable"}
+      />
+      <Modal
+        headerTitle={translate.t("group.findings.report.modalTitle")}
+        open={isReportsModalOpen}
+      >
+        {/* eslint-disable-next-line react/forbid-component-props */}
+        <Row className={"tc"}>
+          <Col100>
+            <Trans>
+              <p>{translate.t("group.findings.report.techDescription")}</p>
+            </Trans>
+            <p>
+              <a
+                href={"https://apps.apple.com/us/app/integrates/id1470450298"}
+                rel={"nofollow noopener noreferrer"}
+                target={"_blank"}
+              >
+                <img alt={""} height={"40"} src={AppstoreBadge} width={"140"} />
+              </a>
+              <a
+                href={
+                  "https://play.google.com/store/apps/details?id=com.fluidattacks.integrates"
+                }
+                rel={"nofollow noopener noreferrer"}
+                target={"_blank"}
+              >
+                <img
+                  alt={""}
+                  height={"40"}
+                  src={GoogleplayBadge}
+                  width={"140"}
+                />
+              </a>
+            </p>
+            <br />
+            <Row>
+              <Col100>
+                <ButtonToolbarCenter>
+                  <TooltipWrapper
+                    id={"group.findings.report.pdfTooltip.id"}
+                    message={translate.t("group.findings.report.pdfTooltip")}
+                  >
+                    <Button
+                      id={"report-pdf"}
+                      // eslint-disable-next-line react/jsx-no-bind -- Needed due to nested callback
+                      onClick={handleRequestProjectReport}
                     >
-                      <Button id={"reports"} onClick={openReportsModal}>
-                        {translate.t("group.findings.report.btn.text")}
-                      </Button>
-                    </TooltipWrapper>
-                  </ButtonToolbarCenter>
-                </Col100>
-              </Row>
-            </Can>
-            <p>{translate.t("group.findings.helpLabel")}</p>
-            <DataTableNext
-              bordered={true}
-              columnToggle={true}
-              csvFilename={`${projectName}-findings-${currentDate}.csv`}
-              dataset={formatFindings(data.project.findings)}
-              defaultSorted={JSON.parse(
-                _.get(sessionStorage, "findingSort", "{}")
-              )}
-              exportCsv={false}
-              headers={tableHeaders}
-              id={"tblFindings"}
-              isFilterEnabled={isFilterEnabled}
-              onColumnToggle={handleChange}
-              onUpdateEnableFilter={handleUpdateFilter}
-              pageSize={15}
-              rowEvents={{ onClick: goToFinding }}
-              search={true}
-              striped={true}
-              tableSize={"largeTable"}
-            />
-            <Modal
-              headerTitle={translate.t("group.findings.report.modalTitle")}
-              open={isReportsModalOpen}
-            >
-              {/* eslint-disable-next-line react/forbid-component-props */}
-              <Row className={"tc"}>
-                <Col100>
-                  <Trans>
-                    <p>
-                      {translate.t("group.findings.report.techDescription")}
-                    </p>
-                  </Trans>
-                  <p>
-                    <a
-                      href={
-                        "https://apps.apple.com/us/app/integrates/id1470450298"
-                      }
-                      rel={"nofollow noopener noreferrer"}
-                      target={"_blank"}
-                    >
-                      <img
-                        alt={""}
-                        height={"40"}
-                        src={AppstoreBadge}
-                        width={"140"}
-                      />
-                    </a>
-                    <a
-                      href={
-                        "https://play.google.com/store/apps/details?id=com.fluidattacks.integrates"
-                      }
-                      rel={"nofollow noopener noreferrer"}
-                      target={"_blank"}
-                    >
-                      <img
-                        alt={""}
-                        height={"40"}
-                        src={GoogleplayBadge}
-                        width={"140"}
-                      />
-                    </a>
-                  </p>
-                  <br />
-                  <Row>
-                    <Col100>
-                      <ButtonToolbarCenter>
-                        <TooltipWrapper
-                          id={"group.findings.report.pdfTooltip.id"}
-                          message={translate.t(
-                            "group.findings.report.pdfTooltip"
-                          )}
-                        >
-                          <Button
-                            id={"report-pdf"}
-                            // eslint-disable-next-line react/jsx-no-bind -- Needed due to nested callback
-                            onClick={handleRequestProjectReport}
-                          >
-                            <FontAwesomeIcon icon={faFilePdf} />
-                            {translate.t("group.findings.report.pdf")}
-                          </Button>
-                        </TooltipWrapper>
-                        <TooltipWrapper
-                          id={"group.findings.report.xlsTooltip.id"}
-                          message={translate.t(
-                            "group.findings.report.xlsTooltip"
-                          )}
-                        >
-                          <Button
-                            id={"report-excel"}
-                            // eslint-disable-next-line react/jsx-no-bind -- Needed due to nested callback
-                            onClick={handleRequestProjectReport}
-                          >
-                            <FontAwesomeIcon icon={faFileExcel} />
-                            {translate.t("group.findings.report.xls")}
-                          </Button>
-                        </TooltipWrapper>
-                        <TooltipWrapper
-                          id={"group.findings.report.dataTooltip.id"}
-                          message={translate.t(
-                            "group.findings.report.dataTooltip"
-                          )}
-                        >
-                          <Button
-                            id={"report-zip"}
-                            // eslint-disable-next-line react/jsx-no-bind -- Needed due to nested callback
-                            onClick={handleRequestProjectReport}
-                          >
-                            <FontAwesomeIcon icon={faFileArchive} />
-                            {translate.t("group.findings.report.data")}
-                          </Button>
-                        </TooltipWrapper>
-                      </ButtonToolbarCenter>
-                    </Col100>
-                  </Row>
-                </Col100>
-              </Row>
-              <hr />
-              <Row>
-                <Col100>
-                  <ButtonToolbar>
-                    <Button onClick={closeReportsModal}>
-                      {translate.t("group.findings.report.modalClose")}
+                      <FontAwesomeIcon icon={faFilePdf} />
+                      {translate.t("group.findings.report.pdf")}
                     </Button>
-                  </ButtonToolbar>
-                </Col100>
-              </Row>
-            </Modal>
-          </React.StrictMode>
-        );
-      }}
-    </Query>
+                  </TooltipWrapper>
+                  <TooltipWrapper
+                    id={"group.findings.report.xlsTooltip.id"}
+                    message={translate.t("group.findings.report.xlsTooltip")}
+                  >
+                    <Button
+                      id={"report-excel"}
+                      // eslint-disable-next-line react/jsx-no-bind -- Needed due to nested callback
+                      onClick={handleRequestProjectReport}
+                    >
+                      <FontAwesomeIcon icon={faFileExcel} />
+                      {translate.t("group.findings.report.xls")}
+                    </Button>
+                  </TooltipWrapper>
+                  <TooltipWrapper
+                    id={"group.findings.report.dataTooltip.id"}
+                    message={translate.t("group.findings.report.dataTooltip")}
+                  >
+                    <Button
+                      id={"report-zip"}
+                      // eslint-disable-next-line react/jsx-no-bind -- Needed due to nested callback
+                      onClick={handleRequestProjectReport}
+                    >
+                      <FontAwesomeIcon icon={faFileArchive} />
+                      {translate.t("group.findings.report.data")}
+                    </Button>
+                  </TooltipWrapper>
+                </ButtonToolbarCenter>
+              </Col100>
+            </Row>
+          </Col100>
+        </Row>
+        <hr />
+        <Row>
+          <Col100>
+            <ButtonToolbar>
+              <Button onClick={closeReportsModal}>
+                {translate.t("group.findings.report.modalClose")}
+              </Button>
+            </ButtonToolbar>
+          </Col100>
+        </Row>
+      </Modal>
+    </React.StrictMode>
   );
 };
 
