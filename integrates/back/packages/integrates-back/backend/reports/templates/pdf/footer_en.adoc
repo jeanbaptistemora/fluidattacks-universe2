@@ -1,4 +1,4 @@
-Copyright © 2019 Fluid Attacks
+Copyright © 2021 Fluid Attacks
 
 All rights reserved. This document contains information proprietary
 of Fluid Attacks. The client is only allowed to use such information for documentation
