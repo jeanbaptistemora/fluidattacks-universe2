@@ -6,7 +6,7 @@
 , ...
 }:
 let
-  pkgEnv = packages.observes.env;
+  env = packages.observes.env;
   self = buildPythonPackage {
     name = "observes-target-redshift";
     packagePath = path "/observes/singer/target_redshift_2";
@@ -17,8 +17,8 @@ makeTemplate {
   name = "observes-env-target-redshift-runtime";
   searchPaths = {
     envSources = [
-      pkgEnv.runtime.singer-io
-      pkgEnv.runtime.postgres-client
+      env.runtime.singer-io
+      env.runtime.postgres-client
     ];
     envPython38Paths = [
       nixpkgs.python38Packages.psycopg2
