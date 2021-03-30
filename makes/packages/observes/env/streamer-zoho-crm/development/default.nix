@@ -26,7 +26,7 @@ let
   };
 in
 makeTemplate {
-  name = "observes-env-development-streamer-zoho-crm";
+  name = "observes-env-streamer-zoho-crm-development";
   searchPaths = {
     envPaths = [
       nixpkgs.postgresql

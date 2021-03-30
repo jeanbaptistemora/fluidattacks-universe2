@@ -8,13 +8,13 @@
 let
   pkgEnv = packages.observes.env;
   self = buildPythonPackage {
-    name = "observes-streamer-zoho-crm";
-    packagePath = path "/observes/singer/streamer_zoho_crm";
+    name = "observes-target-redshift";
+    packagePath = path "/observes/singer/target_redshift_2";
     python = nixpkgs.python38;
   };
 in
 makeTemplate {
-  name = "observes-env-runtime-streamer-zoho-crm";
+  name = "observes-env-target-redshift-runtime";
   searchPaths = {
     envSources = [
       pkgEnv.runtime.singer-io

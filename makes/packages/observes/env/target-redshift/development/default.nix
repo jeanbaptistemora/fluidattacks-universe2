@@ -15,7 +15,7 @@ let
   };
 in
 makeTemplate {
-  name = "observes-env-development-target-redshift";
+  name = "observes-env-target-redshift-development";
   searchPaths = {
     envSources = [
       packages.observes.env.runtime.singer-io

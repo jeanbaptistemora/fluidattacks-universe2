@@ -79,6 +79,8 @@ observes.env.development.singer-io
 observes.env.development.streamer-gitlab
 observes.env.development.tap-mailchimp
 observes.env.development.tap-zoho-analytics
+observes.env.job-last-success.runtime
+observes.env.job-last-success.runtime.python
 observes.env.runtime.batch-stability
 observes.env.runtime.code-etl
 observes.env.runtime.dif-gitlab-etl

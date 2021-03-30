@@ -25,7 +25,7 @@ let
   };
 in
 makeTemplate {
-  name = "observes-env-runtime-streamer-zoho-crm";
+  name = "observes-env-streamer-zoho-crm-runtime";
   searchPaths = {
     envPython38Paths = [
       nixpkgs.python38Packages.psycopg2
