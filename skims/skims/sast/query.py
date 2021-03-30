@@ -24,9 +24,6 @@ from utils.ctx import (
 from utils.encodings import (
     serialize_namespace_into_vuln,
 )
-from utils.function import (
-    trace,
-)
 from utils.string import (
     to_snippet_blocking,
 )
@@ -104,7 +101,6 @@ def get_vulnerabilities_from_n_ids(
     )
 
 
-@trace()
 def _is_vulnerable(
     finding: core_model.FindingEnum,
     syntax_step: graph_model.SyntaxStep,
@@ -147,7 +143,6 @@ def query_lazy(
         )
 
 
-@trace()
 def query(
     graph_db: graph_model.GraphDB,
     finding: core_model.FindingEnum,

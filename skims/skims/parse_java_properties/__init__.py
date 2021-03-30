@@ -34,3 +34,17 @@ def load(
                 mapping[line_no] = (key, val)
 
     return mapping
+
+
+def load_as_dict(
+    content: str,
+    include_comments: bool = False,
+    exclude_protected_values: bool = False,
+) -> Dict[str, str]:
+    data: Dict[str, str] = dict(load(
+        content,
+        include_comments,
+        exclude_protected_values,
+    ).values())
+
+    return data
