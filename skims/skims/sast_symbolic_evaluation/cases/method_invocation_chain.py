@@ -18,6 +18,7 @@ from sast_symbolic_evaluation.types import (
 def evaluate(args: EvaluatorArgs) -> None:
     (
         attempt_java_this_get_class(args) or
+        attempt_java_this_get_class_get_class_loader(args) or
         attempt_the_old_way(args)
     )
 
@@ -31,6 +32,20 @@ def attempt_java_this_get_class(args: EvaluatorArgs) -> Optional[bool]:
     if isinstance(parent, graph_model.SyntaxStepThis):
         if args.syntax_step.method == '.getClass':
             args.syntax_step.meta.value = JAVA_THIS_GET_CLASS
+            return True
+
+
+JAVA_CLASS_LOADER: str = 'java.ClassLoader()'
+
+
+def attempt_java_this_get_class_get_class_loader(
+    args: EvaluatorArgs,
+) -> Optional[bool]:
+    *_, parent = args.dependencies
+
+    if parent.meta.value == JAVA_THIS_GET_CLASS:
+        if args.syntax_step.method == '.getClassLoader':
+            args.syntax_step.meta.value = JAVA_CLASS_LOADER
             return True
 
 
