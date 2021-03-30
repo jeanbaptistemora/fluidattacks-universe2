@@ -425,9 +425,6 @@ async def send_group_treatment_change(
 
 async def get_group_new_vulnerabilities(context: Any, group_name: str) -> None:
     group_findings_loader = context.group_findings
-    msg = 'Info: Getting new vulnerabilities'
-    LOGGER.info(msg, extra={'extra': locals()})
-    fin_attrs = {'finding_id', 'project_name', 'finding'}
     mail_context: MailContentType = {
         'updated_findings': list(),
         'no_treatment_findings': list()
@@ -609,7 +606,7 @@ async def create_msj_finding_pending(
     ]
     if open_vulns:
         context = get_new_context()
-        days = finding_domain.get_finding_age(context, finding_id)
+        days = await finding_domain.get_finding_age(context, finding_id)
         finding_name = f'{act_finding["finding"]} -{days} day(s)-'
         result = finding_name
     else:
