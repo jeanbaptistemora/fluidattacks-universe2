@@ -1,5 +1,19 @@
-{ path, ... } @ attrs:
-let
-  observes = import (path "/makes/libs/observes") attrs;
-in
-observes.jobs.test.tapCsvDev
+{ makeDerivation
+, path
+, packages
+, ...
+}:
+makeDerivation {
+  name = "observes-test-tap-csv";
+  arguments = {
+    envSrc = path "/observes/singer/tap_csv";
+    envTestDir = "tests";
+  };
+  searchPaths = {
+    envSources = [
+      packages.observes.generic.tester
+      packages.observes.env.tap-csv.development
+    ];
+  };
+  builder = path "/makes/packages/observes/generic/tester/test_builder.sh";
+}

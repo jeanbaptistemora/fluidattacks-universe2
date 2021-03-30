@@ -43,6 +43,9 @@ in
 makeTemplate {
   name = "observes-env-development-streamer-gitlab";
   searchPaths = {
+    envPaths = [
+      pythonRequirements
+    ];
     envPython38Paths = [
       pythonRequirements
       self

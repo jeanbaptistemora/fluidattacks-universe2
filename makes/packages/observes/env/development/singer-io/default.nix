@@ -33,6 +33,9 @@ in
 makeTemplate {
   name = "observes-env-development-singer-io";
   searchPaths = {
+    envPaths = [
+      pythonRequirements
+    ];
     envPython38Paths = [
       pythonRequirements
       self

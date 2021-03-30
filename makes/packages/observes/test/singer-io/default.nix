@@ -1,5 +1,19 @@
-{ path, ... } @ attrs:
-let
-  observes = import (path "/makes/libs/observes") attrs;
-in
-observes.jobs.test.singerIOdev
+{ makeDerivation
+, path
+, packages
+, ...
+}:
+makeDerivation {
+  name = "observes-test-singer-io";
+  arguments = {
+    envSrc = path "/observes/common/singer_io";
+    envTestDir = "tests";
+  };
+  searchPaths = {
+    envSources = [
+      packages.observes.generic.tester
+      packages.observes.env.development.singer-io
+    ];
+  };
+  builder = path "/makes/packages/observes/generic/tester/test_builder.sh";
+}
