@@ -8,6 +8,9 @@ from model import (
     core_model,
     graph_model,
 )
+from model import (
+    core_model,
+)
 from sast_symbolic_evaluation.types import (
     EvaluatorArgs,
 )
@@ -227,17 +230,21 @@ DANGER_METHODS_BY_TYPE_ARGS_PROPAG_FINDING: Dict[str, Dict[str, Set[str]]] = {
         },
     }),
 }
+WEAK_CIPHERS: Set[str] = {
+    'md5',
+}
 
 
 def evaluate(args: EvaluatorArgs) -> None:
     # pylint: disable=expression-not-assigned
     (
         attempt_java_util_properties_methods(args)
+        or attempt_java_security_msgdigest(args)
         or attempt_the_old_way(args)
     )
 
 
-def attempt_java_util_properties_methods(args) -> bool:
+def attempt_java_util_properties_methods(args: EvaluatorArgs) -> bool:
     method_var, method_path = split_on_first_dot(args.syntax_step.method)
 
     if dcl := lookup_var_dcl_by_name(args, method_var):
@@ -252,6 +259,22 @@ def attempt_java_util_properties_methods(args) -> bool:
                         args.dependencies[-2].meta.value,
                     )
             return True
+
+    return False
+
+
+def attempt_java_security_msgdigest(args: EvaluatorArgs) -> bool:
+    if (
+        args.finding == core_model.FindingEnum.F052
+        and args.syntax_step.method in {
+            'java.security.MessageDigest.getInstance',
+        }
+        and len(args.dependencies) == 1
+        and isinstance(args.dependencies[-1].meta.value, str)
+    ):
+        args.syntax_step.meta.danger = \
+            args.dependencies[-1].meta.value.lower() in WEAK_CIPHERS
+        return True
 
     return False
 
