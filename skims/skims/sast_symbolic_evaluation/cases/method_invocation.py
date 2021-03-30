@@ -230,6 +230,27 @@ DANGER_METHODS_BY_TYPE_ARGS_PROPAG_FINDING: Dict[str, Dict[str, Set[str]]] = {
 
 
 def evaluate(args: EvaluatorArgs) -> None:
+    # pylint: disable=expression-not-assigned
+    (
+        attempt_java_util_properties_load(args)
+        or attempt_the_old_way(args)
+    )
+
+
+def attempt_java_util_properties_load(args) -> bool:
+    method_var, method_path = split_on_first_dot(args.syntax_step.method)
+
+    if dcl := lookup_var_dcl_by_name(args, method_var):
+        if dcl.var_type in build_attr_paths('java', 'util', 'Properties'):
+            if method_path == 'load':
+                if len(args.dependencies) == 1:
+                    dcl.meta.value = args.dependencies[0].meta.value
+            return True
+
+    return False
+
+
+def attempt_the_old_way(args: EvaluatorArgs) -> None:
     # Analyze if the method itself is untrusted
     method = args.syntax_step.method
 
