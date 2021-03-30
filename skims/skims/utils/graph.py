@@ -393,7 +393,7 @@ def branches_cfg(
     # Filter the ones that are connected to a sink via the AST
     target_ids = tuple(
         c_id
-        for c_id in c_ids
+        for c_id in chain([n_id], c_ids)
         if (
             # The node's sink match the finding name
             finding.name in graph.nodes[c_id].get('label_sink_type', {})
@@ -411,7 +411,11 @@ def branches_cfg(
     branches = set(
         (path, '-'.join(path))
         for leaf_id in target_ids
-        for path in paths(graph, n_id, leaf_id, label_cfg='CFG')
+        for path in (
+            [(n_id,)]
+            if n_id == leaf_id
+            else paths(graph, n_id, leaf_id, label_cfg='CFG')
+        )
     )
 
     # Deduplicate, merge prefixes and return branches

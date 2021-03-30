@@ -8,9 +8,6 @@ from model import (
     core_model,
     graph_model,
 )
-from model import (
-    core_model,
-)
 from sast_symbolic_evaluation.types import (
     EvaluatorArgs,
 )
@@ -232,6 +229,7 @@ DANGER_METHODS_BY_TYPE_ARGS_PROPAG_FINDING: Dict[str, Dict[str, Set[str]]] = {
 }
 WEAK_CIPHERS: Set[str] = {
     'md5',
+    'sha1',
 }
 
 
@@ -269,7 +267,7 @@ def attempt_java_security_msgdigest(args: EvaluatorArgs) -> bool:
         and args.syntax_step.method in {
             'java.security.MessageDigest.getInstance',
         }
-        and len(args.dependencies) == 1
+        and len(args.dependencies) >= 1
         and isinstance(args.dependencies[-1].meta.value, str)
     ):
         args.syntax_step.meta.danger = \
