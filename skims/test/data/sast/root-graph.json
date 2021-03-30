@@ -1,4 +1,7 @@
 {
+  "context": {
+    "java_resources": {}
+  },
   "shards": [
     {
       "graph": {

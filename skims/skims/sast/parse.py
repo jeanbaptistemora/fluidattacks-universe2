@@ -30,12 +30,16 @@ from tree_sitter import (
 from model.graph_model import (
     Graph,
     GraphDB,
+    GraphDBContext,
     GraphShard,
     GraphShardCacheable,
     GraphShardMetadataLanguage,
 )
 from sast import (
     inspectors,
+)
+from sast.context import (
+    java_resources,
 )
 from sast_syntax_readers import (
     generate as generate_syntax_readers,
@@ -284,6 +288,9 @@ async def get_graph_db(paths: Tuple[str, ...]) -> GraphDB:
     paths = tuple(sorted(paths))
 
     graph_db = GraphDB(
+        context=GraphDBContext(
+            java_resources=java_resources.load(paths),
+        ),
         shards=[],
         shards_by_path={},
     )

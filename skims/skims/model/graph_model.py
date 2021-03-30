@@ -363,7 +363,12 @@ GRAPH_VULNERABILITY_PARAMETERS: Dict[
 }
 
 
+class GraphDBContext(NamedTuple):
+    java_resources: Dict[str, Dict[str, str]]
+
+
 class GraphDB(NamedTuple):
+    context: GraphDBContext
     shards: List[GraphShard]
     shards_by_path: Dict[str, int]
 

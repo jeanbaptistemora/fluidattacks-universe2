@@ -1,8 +1,3 @@
-# Standard library
-from typing import (
-    Optional,
-)
-
 # Local libraries
 from model import (
     graph_model,
@@ -26,7 +21,7 @@ def evaluate(args: EvaluatorArgs) -> None:
 JAVA_THIS_GET_CLASS: str = 'java.this.getClass()'
 
 
-def attempt_java_this_get_class(args: EvaluatorArgs) -> Optional[bool]:
+def attempt_java_this_get_class(args: EvaluatorArgs) -> bool:
     *_, parent = args.dependencies
 
     if isinstance(parent, graph_model.SyntaxStepThis):
@@ -34,13 +29,15 @@ def attempt_java_this_get_class(args: EvaluatorArgs) -> Optional[bool]:
             args.syntax_step.meta.value = JAVA_THIS_GET_CLASS
             return True
 
+    return False
+
 
 JAVA_CLASS_LOADER: str = 'java.ClassLoader()'
 
 
 def attempt_java_this_get_class_get_class_loader(
     args: EvaluatorArgs,
-) -> Optional[bool]:
+) -> bool:
     *_, parent = args.dependencies
 
     if parent.meta.value == JAVA_THIS_GET_CLASS:
@@ -48,8 +45,10 @@ def attempt_java_this_get_class_get_class_loader(
             args.syntax_step.meta.value = JAVA_CLASS_LOADER
             return True
 
+    return False
 
-def attempt_the_old_way(args: EvaluatorArgs) -> Optional[bool]:
+
+def attempt_the_old_way(args: EvaluatorArgs) -> bool:
     *method_arguments, parent = args.dependencies
 
     if isinstance(parent.meta.value, graph_model.GraphShardMetadataJavaClass):
@@ -71,3 +70,5 @@ def attempt_the_old_way(args: EvaluatorArgs) -> Optional[bool]:
         method = parent.object_type + args.syntax_step.method
         analyze_method_invocation(args, method)
         return True
+
+    return False
