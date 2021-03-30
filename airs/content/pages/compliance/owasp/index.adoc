@@ -7,7 +7,35 @@
 
 = OWASP
 
-== What is the OWASP?
+=== How can Fluid Attacks help with OWASP compliance?
+
+[role="fw3 f3 lh-2"]
+Ensuring compliance with up-to-date security standards may become a complicated
+issue for diverse organizations that use continually evolving information
+technology for their businesses.
+Fluid Attacks recognizes this and offers you comprehensive testing and analysis
+to determine whether your company is effectively complying with all
+corresponding security requirements.
+
+[role="fw3 f3 lh-2"]
+Although Fluid Attacks’ link:../../services/continuous-hacking/[Continuous Hacking, role=basic-link] service goes beyond the OWASP Top 10 Web Application Security Risk,
+testing around 200 technical security requirements in each of your projects,
+we can guarantee the detection of all vulnerabilities
+in your software associated with such risks.
+In addition, we provide you with reliable reports
+so that your team can take the necessary steps
+to adjust and maintain your information systems in line with such requirements.
+
+[role="fw3 f3 lh-2"]
+All our security testing is based on link:../../products/rules/[​Rules, role=basic-link],
+which is a set of security requirements
+written by us in a comprehensible manner,
+using several international standards as a reference.
+It allows you to parameterize the assessments
+we make to your systems and determine what your company agrees to comply with
+and what would be considered a vulnerability.
+
+=== What is the OWASP?
 
 [role="fw3 f3 lh-2"]
 The Open Web Application Security Project (link:https://owasp.org/[OWASP, role=basic-link]), of which Fluid Attacks is a
@@ -19,7 +47,7 @@ advantage of the available information. Their repository is useful for companies
 that develop or manage web applications, since it relies on the knowledge of
 many global community members with extensive experience in cybersecurity.
 
-== What is the OWASP Top 10?
+=== What is the OWASP Top 10?
 
 [role="fw3 f3 lh-2"]
 The OWASP Top 10 refers to a cybersecurity guide by the OWASP community that is
@@ -29,9 +57,10 @@ lists the ten most common and critical security risks in web applications and
 provides practical information for their prevention or remediation.
 
 [role="fw3 f3 lh-2"]
-The idea with this ranking is to help reduce the presence of flaws in web
-applications that can be easily exploited and generate terrible impact.
-Organizations should always be careful not to bring into production applications
+The idea with this ranking is to help reduce the presence of flaws
+in web applications that can be easily exploited and generate terrible impact.
+Organizations should always be careful
+not to bring into production applications
 with vulnerabilities related to these security risks, making sure to pay
 attention to the most prevalent risks in their specific industry sector.
 Here we show you the current list of risks with a brief description of each one
@@ -66,7 +95,8 @@ obtaining it for illegal activities.
 
 [role="fw3 f3 lh-2"]
 link:https://owasp.org/www-project-top-ten/2017/A4_2017-XML_External_Entities_(XXE)[In this case, role=basic-link], attackers exploit weak configurations in a
-web application that parses XML input but does not properly handle references to
+web application that parses XML input
+but does not properly handle references to
 external entities, which can be used to exfiltrate documents, execute code
 remotely or perform denial-of-service attacks.
 
@@ -83,17 +113,17 @@ operate as any user, including administrators.
 ==== Security Misconfiguration
 
 [role="fw3 f3 lh-2"]
-link:https://owasp.org/www-project-top-ten/2017/A6_2017-Security_Misconfiguration[This misconfiguration refers, role=basic-link] to the inappropriate implementation of controls for
-the application’s security, resulting in the exposure of error messages
+link:https://owasp.org/www-project-top-ten/2017/A6_2017-Security_Misconfiguration[This misconfiguration refers, role=basic-link] to the inappropriate implementation of controls
+for the application’s security, resulting in the exposure of error messages
 containing sensitive data and the use of non-updated systems or components.
 
 [role="w-40-l"]
 ==== Cross-Site Scripting XSS
 
 [role="fw3 f3 lh-2"]
-link:https://owasp.org/www-project-top-ten/2017/A7_2017-Cross-Site_Scripting_(XSS)[Attackers can inject, role=basic-link] client-side scripts into the web application to change its
-behavior, modify what is displayed to the users or redirect the users to
-malicious websites.
+link:https://owasp.org/www-project-top-ten/2017/A7_2017-Cross-Site_Scripting_(XSS)[Attackers can inject, role=basic-link] client-side scripts into the web application
+to change its behavior, modify what is displayed to the users
+or redirect the users to malicious websites.
 
 [role="w-40-l"]
 ==== Insecure Deserialization
@@ -101,8 +131,8 @@ malicious websites.
 [role="fw3 f3 lh-2"]
 link:https://owasp.org/www-project-top-ten/2017/A8_2017-Insecure_Deserialization[Deserialization, the opposite, role=basic-link] process to serialization, consists in converting
 strings of bytes into data structures that the application can use.
-Deserialization weaknesses allow the attacker to execute code in the web application
-remotely and manipulate serialized objects as desired.
+Deserialization weaknesses allow the attacker to execute code
+in the web application remotely and manipulate serialized objects as desired.
 
 [role="w-40-l"]
 ==== Using Components with Known Vulnerabilities
@@ -120,28 +150,3 @@ vulnerabilities leads to having an application exposed to exploitation.
 link:https://owasp.org/www-project-top-ten/2017/A10_2017-Insufficient_Logging%2526Monitoring[Many companies do, role=basic-link] not frequently log and monitor their applications’ activities.
 Usually, data breaches are detected after months, when the attackers have
 already done a lot of damage.
-
-=== How can Fluid Attacks help with OWASP compliance?
-
-[role="fw3 f3 lh-2"]
-Ensuring compliance with up-to-date security standards may become a complicated
-issue for diverse organizations that use continually evolving information
-technology for their businesses.
-Fluid Attacks recognizes this and offers you comprehensive testing and analysis
-to determine whether your company is effectively complying with all
-corresponding security requirements.
-
-[role="fw3 f3 lh-2"]
-Although Fluid Attacks’ link:../../services/continuous-hacking/[Continuous Hacking, role=basic-link] service goes beyond the OWASP Top
-10 Web Application Security Risk, ​testing around 200 technical security
-requirements in each of your projects, we can guarantee the detection of all
-vulnerabilities in your software associated with such risks. ​In addition, we
-provide you with reliable reports so that your team can take the necessary steps
-to adjust and maintain your information systems in line with such requirements.
-
-[role="fw3 f3 lh-2"]
-All our security testing is based on link:../../products/rules/[​Rules, role=basic-link], which is a set of security
-requirements written by us in a comprehensible manner, using several
-international standards as a reference. It allows you to parameterize the
-assessments we make to your systems and determine what your company agrees to
-comply with and what would be considered a vulnerability.
