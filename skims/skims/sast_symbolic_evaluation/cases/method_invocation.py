@@ -68,7 +68,7 @@ STATIC_FINDING: Dict[str, Set[str]] = {
         'java.util.Random.nextGaussian',
     }),
 }
-STATIC_SIDE_EFFECTS_FINDING: Dict[str, Set[str]] = {
+STATIC_SIDE_EFFECTS: Dict[str, Set[str]] = {
     core_model.FindingEnum.F034.name: complete_attrs_on_set({
         'java.util.Random.nextBytes',
     }),
@@ -345,6 +345,14 @@ def attempt_static(args: EvaluatorArgs, method: str) -> bool:
     return False
 
 
+def attempt_static_side_effects(args: EvaluatorArgs, method: str) -> bool:
+    if method in STATIC_SIDE_EFFECTS.get(args.finding.name, {}):
+        for dep in args.dependencies:
+            dep.meta.danger = True
+        return True
+    return False
+
+
 def attempt_by_type(args: EvaluatorArgs, method: str) -> bool:
     method_var, method_path = split_on_first_dot(method)
 
@@ -377,7 +385,8 @@ def analyze_method_invocation(args: EvaluatorArgs, method: str) -> None:
         attempt_by_obj(args, method) or
         attempt_by_obj_args(args, method) or
         attempt_by_type(args, method) or
-        attempt_static(args, method)
+        attempt_static(args, method) or
+        attempt_static_side_effects(args, method)
     ):
         return
 
@@ -387,7 +396,6 @@ def analyze_method_invocation(args: EvaluatorArgs, method: str) -> None:
         method_var_decl.var_type_base if method_var_decl else ''
     )
 
-    analyze_method_static_side_effects(args, method)
     analyze_method_by_type_args_propagation(args, method)
     analyze_method_by_type_args_propagation_side_effects(args, method)
 
@@ -464,17 +472,6 @@ def analyze_method_invocation_values_list(
         index = int(args.dependencies[0].meta.value)
         args.syntax_step.meta.value = dcl.meta.value[index]
         args.syntax_step.meta.danger = dcl.meta.value[index].meta.danger
-
-
-def analyze_method_static_side_effects(
-    args: EvaluatorArgs,
-    method: str,
-) -> None:
-    # functions that make its parameters vulnerable
-    if method in STATIC_SIDE_EFFECTS_FINDING.get(
-            args.finding.name, set()):
-        for dep in args.dependencies:
-            dep.meta.danger = True
 
 
 def analyze_method_by_type_args_propagation_side_effects(
