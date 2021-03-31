@@ -1,14 +1,14 @@
 ---
 id: api-token
-title: API Access Token for ASM
-sidebar_label: API Access Token for ASM
+title: Accessing ASM via API
+sidebar_label: Accessing ASM via API
 slug: /api
 ---
 
 The ASM app allows users to make requests directly to our GraphQL API.
 You can do this by using one of the following methods:
 
-### Browser method
+### Using the GraphQL playground
 
 1. Log in to https://integrates.fluidattacks.com
 2. Open https://integrates.fluidattacks.com/api
@@ -30,23 +30,25 @@ and refresh the https://integrates.fluidattacks.com/api page.
 If you want your session to last more than 40 minutes, you can use an API Token as
 shown below.
 
-### API Token method
+### Using the ASM API Token
 
-1. Generate the API Token from the web application using the `API` option in the
+1. Log in to https://integrates.fluidattacks.com
+
+2. Generate the API Token from the web application using the `API` option in the
 left panel:
 
 ![ASM API Button](/img/api/api-token/app_highlight_apibutton.png)
 
-2. Select an expiration date up to six months after the creation date:
+3. Select an expiration date up to six months after the creation date:
 
 ![API Token Modal](/img/api/api-token/api_token_modal.png)
 
-3. After clicking the “Proceed” button, you will see a string labeled “Access Token”.
+4. After clicking the “Proceed” button, you will see a string labeled “Access Token”.
 This will be your API Token:
 
 ![Generated API Token in App](/img/api/api-token/app_apitoken_generated.png)
 
-4. Store this token safely, as it is the only time you will see it. With it, you can
+5. Store this token safely, as it is the only time you will see it. With it, you can
 do the same things that you usually do on the Integrates web application.
 
 You can also generate the API Token using the next GraphQL mutation on

@@ -85,4 +85,14 @@ module.exports = {
   Framework: {
     Framework: getDocs('framework'),
   },
+  Devs: [
+    'devs/commit-mr-guidelines',
+    {
+      type: 'category',
+      label: 'Integrates',
+      items: [
+        'devs/integrates/integrates-front',
+      ]
+    },
+  ],
 };

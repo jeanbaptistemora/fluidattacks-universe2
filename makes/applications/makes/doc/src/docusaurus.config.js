@@ -43,6 +43,12 @@ module.exports = {
           label: 'Rules',
           position: 'left',
         },
+        {
+          to: 'devs/',
+          activeBasePath: 'devs/',
+          label: 'Devs',
+          position: 'left',
+        },
       ],
     },
     footer: {

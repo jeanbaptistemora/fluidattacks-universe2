@@ -43,6 +43,15 @@ const features = [
     ),
     link: 'rules'
   },
+  {
+    title: 'Devs',
+    description: (
+      <>
+        Information, guides and tips useful to our production team in the development of products
+      </>
+    ),
+    link: 'devs'
+  },
 ];
 
 function Feature({imageUrl, title, description, link}) {
