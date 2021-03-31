@@ -50,5 +50,8 @@ makeTemplate {
       pythonRequirements
       self
     ];
+    envMypy38Paths = [
+      self
+    ];
   };
 }
