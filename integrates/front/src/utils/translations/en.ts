@@ -622,6 +622,17 @@ export const enTranslations: ResourceKey = {
         tooltip: "Add, edit, and remove users from this group",
       },
     },
+    toe: {
+      lines: {
+        comments: "Comments",
+        filename: "Filename",
+        loc: "Loc",
+        modifiedCommit: "Modified commit",
+        modifiedDate: "Modified date",
+        testedDate: "Tested date",
+        testedLines: "Tested lines",
+      },
+    },
   },
   groupAlerts: {
     acceptationApproved: "Indefinite acceptation has been approved",
