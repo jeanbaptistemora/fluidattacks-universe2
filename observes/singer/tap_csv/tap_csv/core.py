@@ -80,7 +80,7 @@ def translate_values(
 ) -> Dict[str, Any]:
     """Translates type names into JSON SCHEMA value."""
     transform: Dict[ColumnType, Callable[[str], Any]] = {
-        ColumnType.STRING: lambda x: x,
+        ColumnType.STRING: str,
         ColumnType.NUMBER: lambda x: float(x) if x else None,
         ColumnType.DATE_TIME: lambda x: x,
         ColumnType.FLOAT: lambda x: float(x) if x else None,
@@ -88,8 +88,8 @@ def translate_values(
         ColumnType.INT: lambda x: int(x) if x else None,
     }
     cast_function: Callable[[str, str], Any] = (
-        lambda _, y: auto_cast(y) if auto_type
-        else lambda x, y: transform[field_type[x]](y)
+        lambda x, y: auto_cast(y) if auto_type
+        else transform[field_type[x]](y)
     )
     new_field_value = map(
         lambda x: (x[0], cast_function(x[0], x[1])),
@@ -108,9 +108,11 @@ def try_cast(cast: Callable[[str], Any], data: str) -> Any:
 def auto_cast(data: str) -> Any:
     test_casts: List[Callable[[str], Any]] = [
         lambda x: str(x) if int(x) > pow(10, 12) else int(x),
-        float,
+        lambda x: float(x)
+        if x.lower() != 'nan' or x == 'NaN' else None,
         lambda x: x.lower() == 'true'
         if x.lower() == 'false' or x.lower() == 'true' else None,
+        str
     ]
     cast: Callable[[Callable[[str], Any]], Any] = lambda c: try_cast(c, data)
     return next(

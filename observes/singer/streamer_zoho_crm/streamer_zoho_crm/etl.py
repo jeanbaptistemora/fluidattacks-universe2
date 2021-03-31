@@ -46,6 +46,10 @@ class TypeFieldDict(TypedDict):
     data_type: str
 
 
+class MissingModuleData(Exception):
+    pass
+
+
 def initialize(
     db_id: DatabaseID,
     db_creds: DbCredentials,
@@ -79,9 +83,10 @@ def creation_phase(
 def jobs_map(bulk_utils: BulkUtils) -> Mapping[str, BulkJob]:
     bulk_utils.update_all()
     jobs: FrozenSet[BulkJob] = bulk_utils.get_all()
-    id_job_map: FrozenSet[Tuple[str, BulkJob]] = frozenset(
-        map(lambda j: (j.id, j), jobs)
-    )
+    id_job_map: FrozenSet[Tuple[str, BulkJob]] = frozenset(map(
+        lambda j: (j.id, j),
+        filter(lambda j: j.state.upper() == 'COMPLETED', jobs)
+    ))
     return dict(id_job_map)
 
 
@@ -125,6 +130,12 @@ def extraction_phase(
     core_api: CoreClient
 ) -> None:
     id_job_map: Mapping[str, BulkJob] = jobs_map(core_api.bulk)
+    ready_modules = frozenset(
+        map(lambda x: x.module, id_job_map.values())
+    )
+    missing = ALL_MODULES - ready_modules
+    if missing:
+        raise MissingModuleData(str(missing))
     data: FrozenSet[BulkData] = core_api.bulk.extract_data(
         frozenset(id_job_map.keys())
     )
