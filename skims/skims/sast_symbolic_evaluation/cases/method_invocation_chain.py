@@ -16,7 +16,9 @@ def evaluate(args: EvaluatorArgs) -> None:
         attempt_java_this_get_class(args) or
         attempt_java_this_get_class_get_class_loader(args) or
         attempt_java_class_loader_get_resource_as_stream(args) or
-        attempt_the_old_way(args)
+        attempt_metadata_java_class(args) or
+        attempt_as_method_invocation(args) or
+        attempt_as_object_instantiation(args)
     )
 
 
@@ -69,7 +71,7 @@ def attempt_java_class_loader_get_resource_as_stream(
     return False
 
 
-def attempt_the_old_way(args: EvaluatorArgs) -> bool:
+def attempt_metadata_java_class(args: EvaluatorArgs) -> bool:
     *method_arguments, parent = args.dependencies
 
     if isinstance(parent.meta.value, graph_model.GraphShardMetadataJavaClass):
@@ -82,10 +84,22 @@ def attempt_the_old_way(args: EvaluatorArgs) -> bool:
                 args.syntax_step.meta.value = return_step.meta.value
                 return True
 
+    return False
+
+
+def attempt_as_method_invocation(args: EvaluatorArgs) -> bool:
+    *_, parent = args.dependencies
+
     if isinstance(parent, graph_model.SyntaxStepMethodInvocation):
         method = parent.method + args.syntax_step.method
         analyze_method_invocation(args, method)
         return True
+
+    return False
+
+
+def attempt_as_object_instantiation(args: EvaluatorArgs) -> bool:
+    *_, parent = args.dependencies
 
     if isinstance(parent, graph_model.SyntaxStepObjectInstantiation):
         method = parent.object_type + args.syntax_step.method
