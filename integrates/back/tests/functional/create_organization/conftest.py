@@ -24,7 +24,18 @@ async def populate() -> bool:
         ],
         'users': [
             {
-                'email': 'test1@test1.com',
+                'email': 'admin@gmail.com',
+                'first_login': '',
+                'first_name': '',
+                'last_login': '',
+                'last_name': '',
+                'legal_remember': False,
+                'phone_number': '-',
+                'push_tokens': [],
+                'is_registered': True,
+            },
+            {
+                'email': 'analyst@gmail.com',
                 'first_login': '',
                 'first_name': '',
                 'last_login': '',
@@ -38,9 +49,21 @@ async def populate() -> bool:
         'policies': [
             {
                 'level': 'user',
-                'subject': 'test1@test1.com',
+                'subject': 'admin@gmail.com',
                 'object': 'self',
                 'role': 'admin',
+            },
+            {
+                'level': 'user',
+                'subject': 'analyst@gmail.com',
+                'object': 'self',
+                'role': 'user',
+            },
+            {
+                'level': 'group',
+                'subject': 'analyst@gmail.com',
+                'object': 'group1',
+                'role': 'analyst',
             },
         ]
     }

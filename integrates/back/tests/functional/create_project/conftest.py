@@ -24,7 +24,18 @@ async def populate() -> bool:
         ],
         'users': [
             {
-                'email': 'test1@gmail.com',
+                'email': 'admin@gmail.com',
+                'first_login': '',
+                'first_name': '',
+                'last_login': '',
+                'last_name': '',
+                'legal_remember': False,
+                'phone_number': '-',
+                'push_tokens': [],
+                'is_registered': True,
+            },
+            {
+                'email': 'analyst@gmail.com',
                 'first_login': '',
                 'first_name': '',
                 'last_login': '',
@@ -40,7 +51,8 @@ async def populate() -> bool:
                 'name': 'orgtest',
                 'id': '40f6da5f-4f66-4bf0-825b-a2d9748ad6db',
                 'users': [
-                    'test1@gmail.com',
+                    'admin@gmail.com',
+                    'analyst@gmail.com',
                 ],
                 'groups': [],
                 'policy': {},
@@ -49,9 +61,27 @@ async def populate() -> bool:
         'policies': [
             {
                 'level': 'user',
-                'subject': 'test1@gmail.com',
+                'subject': 'admin@gmail.com',
                 'object': 'self',
                 'role': 'admin',
+            },
+            {
+                'level': 'user',
+                'subject': 'analyst@gmail.com',
+                'object': 'self',
+                'role': 'user',
+            },
+            {
+                'level': 'group',
+                'subject': 'analyst@gmail.com',
+                'object': 'group1',
+                'role': 'analyst',
+            },
+            {
+                'level': 'organization',
+                'subject': 'analyst@gmail.com',
+                'object': 'ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db',
+                'role': 'customer',
             },
         ]
     }
