@@ -35,7 +35,7 @@ def _complete_attrs_on_dict(data: Dict[str, Any]) -> Dict[str, Any]:
     }
 
 
-DANGER_METHODS_BY_ARGS_PROPAGATION: Set[str] = complete_attrs_on_set({
+BY_ARGS_PROPAGATION: Set[str] = complete_attrs_on_set({
     'java.net.URLDecoder.decode',
     'java.nio.file.Files.newInputStream',
     'java.nio.file.Paths.get',
@@ -57,7 +57,7 @@ DANGER_METHODS_BY_ARGS_PROPAGATION: Set[str] = complete_attrs_on_set({
     'Integer.toString',
     'Long.toString',
 })
-DANGER_METHODS_STATIC_FINDING: Dict[str, Set[str]] = {
+STATIC_FINDING: Dict[str, Set[str]] = {
     core_model.FindingEnum.F034.name: complete_attrs_on_set({
         'java.lang.Math.random',
         'java.util.Random.nextFloat',
@@ -68,12 +68,12 @@ DANGER_METHODS_STATIC_FINDING: Dict[str, Set[str]] = {
         'java.util.Random.nextGaussian',
     }),
 }
-DANGER_METHODS_STATIC_SIDE_EFFECTS_FINDING: Dict[str, Set[str]] = {
+STATIC_SIDE_EFFECTS_FINDING: Dict[str, Set[str]] = {
     core_model.FindingEnum.F034.name: complete_attrs_on_set({
         'java.util.Random.nextBytes',
     }),
 }
-DANGER_METHODS_BY_OBJ_NO_TYPE_ARGS_PROPAGATION_FIDING: Dict[str, Set[str]] = {
+BY_OBJ_NO_TYPE_ARGS_PROPAGATION_FIDING: Dict[str, Set[str]] = {
     core_model.FindingEnum.F034.name: complete_attrs_on_set({
         'getSession.setAttribute',
         'toString.substring',
@@ -85,7 +85,7 @@ DANGER_METHODS_BY_OBJ_NO_TYPE_ARGS_PROPAGATION_FIDING: Dict[str, Set[str]] = {
         'org.owasp.esapi.ESAPI.encoder.encodeForHTML',
     }),
 }
-DANGER_METHODS_BY_OBJ: Dict[str, Set[str]] = _complete_attrs_on_dict({
+BY_OBJ: Dict[str, Set[str]] = _complete_attrs_on_dict({
     'java.lang.String': {
         'getBytes',
         'split',
@@ -116,7 +116,7 @@ DANGER_METHODS_BY_OBJ: Dict[str, Set[str]] = _complete_attrs_on_dict({
         'getTheParameter',
     },
 })
-DANGER_METHODS_BY_OBJ_ARGS: Dict[str, Set[str]] = _complete_attrs_on_dict({
+BY_OBJ_ARGS: Dict[str, Set[str]] = _complete_attrs_on_dict({
     'java.sql.Connection': {
         'prepareCall',
         'prepareStatement',
@@ -138,7 +138,7 @@ DANGER_METHODS_BY_OBJ_ARGS: Dict[str, Set[str]] = _complete_attrs_on_dict({
         'compile',
     }
 })
-DANGER_METHODS_BY_TYPE: Dict[str, Set[str]] = _complete_attrs_on_dict({
+BY_TYPE: Dict[str, Set[str]] = _complete_attrs_on_dict({
     'javax.servlet.http.Cookie': {
         'getName',
         'getValue',
@@ -155,7 +155,7 @@ DANGER_METHODS_BY_TYPE: Dict[str, Set[str]] = _complete_attrs_on_dict({
         'getQueryString',
     },
 })
-DANGER_METHODS_BY_TYPE_AND_VALUE_FINDING: Dict[str, Dict[str, Any]] = {
+BY_TYPE_AND_VALUE_FINDING: Dict[str, Dict[str, Any]] = {
     core_model.FindingEnum.F008.name: _complete_attrs_on_dict({
         'javax.servlet.http.HttpServletResponse': {
             'setHeader': {
@@ -172,16 +172,15 @@ DANGER_METHODS_BY_TYPE_AND_VALUE_FINDING: Dict[str, Dict[str, Any]] = {
         },
     }),
 }
-DANGER_METHODS_BY_TYPE_ARGS_PROPAGATION: Dict[str, Set[str]] = \
-    _complete_attrs_on_dict({
-        'java.io.PrintWriter': {
-            'format',
-        },
-        'java.util.List': {
-            'add',
-        },
-    })
-DANGER_METHODS_BY_TYPE_ARGS_PROPAG_FINDING: Dict[str, Dict[str, Set[str]]] = {
+BY_TYPE_ARGS_PROPAGATION: Dict[str, Set[str]] = _complete_attrs_on_dict({
+    'java.io.PrintWriter': {
+        'format',
+    },
+    'java.util.List': {
+        'add',
+    },
+})
+BY_TYPE_ARGS_PROPAG_FINDING: Dict[str, Dict[str, Set[str]]] = {
     core_model.FindingEnum.F042.name: _complete_attrs_on_dict({
         'javax.servlet.http.HttpServletResponse': {
             'addCookie',
@@ -236,9 +235,9 @@ WEAK_CIPHERS: Set[str] = {
 def evaluate(args: EvaluatorArgs) -> None:
     # pylint: disable=expression-not-assigned
     (
-        attempt_java_util_properties_methods(args)
-        or attempt_java_security_msgdigest(args)
-        or attempt_the_old_way(args)
+        attempt_java_util_properties_methods(args) or
+        attempt_java_security_msgdigest(args) or
+        attempt_the_old_way(args)
     )
 
 
@@ -277,6 +276,36 @@ def attempt_java_security_msgdigest(args: EvaluatorArgs) -> bool:
     return False
 
 
+def attempt_by_obj(args: EvaluatorArgs, method: str) -> bool:
+    method_var, method_path = split_on_first_dot(method)
+
+    # pylint: disable=used-before-assignment
+    if (
+        (method_var_decl := lookup_var_dcl_by_name(args, method_var)) and
+        (method_path in BY_OBJ.get(method_var_decl.var_type_base, {})) and
+        (method_var_state := lookup_var_state_by_name(args, method_var)) and
+        (method_var_state.meta.danger)
+    ):
+        args.syntax_step.meta.danger = True
+        return True
+
+    return False
+
+
+def attempt_by_type(args: EvaluatorArgs, method: str) -> bool:
+    method_var, method_path = split_on_first_dot(method)
+
+    # pylint: disable=used-before-assignment
+    if (
+        (method_var_decl := lookup_var_dcl_by_name(args, method_var)) and
+        (method_path in BY_TYPE.get(method_var_decl.var_type_base, {}))
+    ):
+        args.syntax_step.meta.danger = True
+        return True
+
+    return False
+
+
 def attempt_the_old_way(args: EvaluatorArgs) -> bool:
     # Analyze if the method itself is untrusted
     method = args.syntax_step.method
@@ -291,10 +320,16 @@ def analyze_method_invocation(args: EvaluatorArgs, method: str) -> None:
     # Analyze the arguments involved in the method invocation
     args_danger = any(dep.meta.danger for dep in args.dependencies)
 
+    # pylint: disable=expression-not-assigned
+    if (
+        attempt_by_obj(args, method) or
+        attempt_by_type(args, method)
+    ):
+        return
+
     method_var, method_path = split_on_first_dot(method)
     method_field, method_name = split_on_last_dot(args.syntax_step.method)
     method_var_decl = lookup_var_dcl_by_name(args, method_var)
-    method_var_state = lookup_var_state_by_name(args, method_var)
     method_var_decl_type = (
         method_var_decl.var_type_base if method_var_decl else ''
     )
@@ -303,24 +338,16 @@ def analyze_method_invocation(args: EvaluatorArgs, method: str) -> None:
         method = f'{field.var_type}.{method_name}'
 
     args.syntax_step.meta.danger = (
-        # Known function to return user controlled data
-        method_path in DANGER_METHODS_BY_TYPE.get(method_var_decl_type, {})
-    ) or (
-        # Know functions that propagate danger if object is dangerous
-        method_path in DANGER_METHODS_BY_OBJ.get(method_var_decl_type, {})
-        and method_var_state
-        and method_var_state.meta.danger
-    ) or (
         # Know functions that propagate danger if args are dangerous
-        method_path in DANGER_METHODS_BY_OBJ_ARGS.get(method_var_decl_type, {})
+        method_path in BY_OBJ_ARGS.get(method_var_decl_type, {})
         and args_danger
     ) or (
         # Known functions that propagate args danger
-        method in DANGER_METHODS_BY_ARGS_PROPAGATION
+        method in BY_ARGS_PROPAGATION
         and args_danger
     ) or (
         # Known static functions that no require args danger
-        method in DANGER_METHODS_STATIC_FINDING.get(
+        method in STATIC_FINDING.get(
             args.finding.name,
             set(),
         )
@@ -329,7 +356,7 @@ def analyze_method_invocation(args: EvaluatorArgs, method: str) -> None:
         # but which propagate args danger
         method_path
         and method_path in
-        DANGER_METHODS_BY_OBJ_NO_TYPE_ARGS_PROPAGATION_FIDING.get(
+        BY_OBJ_NO_TYPE_ARGS_PROPAGATION_FIDING.get(
             args.finding.name, str())
         and args_danger
     )
@@ -338,7 +365,7 @@ def analyze_method_invocation(args: EvaluatorArgs, method: str) -> None:
     analyze_method_by_type_args_propagation_side_effects(args, method)
 
     # function calls with parameters that make the object vulnerable
-    if methods := DANGER_METHODS_BY_TYPE_AND_VALUE_FINDING.get(
+    if methods := BY_TYPE_AND_VALUE_FINDING.get(
             args.finding.name,
             dict(),
     ).get(method_var_decl_type):
@@ -417,7 +444,7 @@ def analyze_method_static_side_effects(
     method: str,
 ) -> None:
     # functions that make its parameters vulnerable
-    if method in DANGER_METHODS_STATIC_SIDE_EFFECTS_FINDING.get(
+    if method in STATIC_SIDE_EFFECTS_FINDING.get(
             args.finding.name, set()):
         for dep in args.dependencies:
             dep.meta.danger = True
@@ -435,7 +462,7 @@ def analyze_method_by_type_args_propagation_side_effects(
     method_var_decl_type = (method_var_decl.var_type_base
                             if method_var_decl else '')
 
-    if (method_path in DANGER_METHODS_BY_TYPE_ARGS_PROPAGATION.get(
+    if (method_path in BY_TYPE_ARGS_PROPAGATION.get(
             method_var_decl_type, {}) and args_danger):
         if method_var_decl:
             method_var_decl.meta.danger = True
@@ -453,11 +480,11 @@ def analyze_method_by_type_args_propagation(
     method_var_decl_type = (method_var_decl.var_type_base
                             if method_var_decl else '')
 
-    if (method_path in DANGER_METHODS_BY_TYPE_ARGS_PROPAGATION.get(
+    if (method_path in BY_TYPE_ARGS_PROPAGATION.get(
             method_var_decl_type, {}) and args_danger):
         args.syntax_step.meta.danger = True
 
-    danger_methods = DANGER_METHODS_BY_TYPE_ARGS_PROPAG_FINDING.get(
+    danger_methods = BY_TYPE_ARGS_PROPAG_FINDING.get(
         args.finding.name, {})
     if (method_path in danger_methods.get(
             method_var_decl_type, {}) and args_danger):
