@@ -10,7 +10,6 @@ from itertools import combinations
 from typing import (
     Dict,
     List,
-    Optional,
     Tuple,
 )
 
@@ -186,7 +185,7 @@ def main() -> None:
     args = parser.parse_args()
 
     model: str = args.model
-    model_class: Optional[ModelType] = globals().get(model)
+    model_class: ModelType = args.model
     if model_class:
         results_filename: str = f'{model.lower()}_train_results.csv'
         previous_results = get_previous_training_results(results_filename)
