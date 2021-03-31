@@ -57,6 +57,7 @@ async def test_build_vulnerabilities_stream() -> None:
         - commit_hash: '0000000000000000000000000000000000000000'
           line: '123'
           path: namespace/what
+          repo_nickname: test
           state: open
     """)[1:]
 

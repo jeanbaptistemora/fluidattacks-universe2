@@ -811,6 +811,7 @@ class IntegratesVulnerabilitiesLines(NamedTuple):
     commit_hash: str
     line: str
     path: str
+    repo_nickname: str
     state: VulnerabilityStateEnum
 
 

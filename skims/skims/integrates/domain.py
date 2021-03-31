@@ -29,6 +29,9 @@ from model import (
 from state.ephemeral import (
     EphemeralStore,
 )
+from utils.ctx import (
+    CTX,
+)
 from utils.encodings import (
     deserialize_what_from_vuln,
     yaml_dumps,
@@ -67,6 +70,7 @@ def _build_vulnerabilities_stream(
                 )),
                 line=result.where,
                 path=result.what,
+                repo_nickname=CTX.config.namespace,
                 state=result.state,
             )
             for result in results
