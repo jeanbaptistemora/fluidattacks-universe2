@@ -276,6 +276,21 @@ def attempt_java_security_msgdigest(args: EvaluatorArgs) -> bool:
     return False
 
 
+def attempt_by_args_propagation(args: EvaluatorArgs, method: str) -> bool:
+    method_field, method_name = split_on_last_dot(args.syntax_step.method)
+    if field := lookup_java_field(args, method_field):
+        method = f'{field.var_type}.{method_name}'
+
+    if (
+        (method in BY_ARGS_PROPAGATION) and
+        any(dep.meta.danger for dep in args.dependencies)
+    ):
+        args.syntax_step.meta.danger = True
+        return True
+
+    return False
+
+
 def attempt_by_obj(args: EvaluatorArgs, method: str) -> bool:
     method_var, method_path = split_on_first_dot(method)
 
@@ -289,6 +304,28 @@ def attempt_by_obj(args: EvaluatorArgs, method: str) -> bool:
         args.syntax_step.meta.danger = True
         return True
 
+    return False
+
+
+def attempt_by_obj_args(args: EvaluatorArgs, method: str) -> bool:
+    method_var, method_path = split_on_first_dot(method)
+
+    # pylint: disable=used-before-assignment
+    if (
+        (method_var_decl := lookup_var_dcl_by_name(args, method_var)) and
+        (method_path in BY_OBJ_ARGS.get(method_var_decl.var_type_base, {})) and
+        any(dep.meta.danger for dep in args.dependencies)
+    ):
+        args.syntax_step.meta.danger = True
+        return True
+
+    return False
+
+
+def attempt_static(args: EvaluatorArgs, method: str) -> bool:
+    if method in STATIC_FINDING.get(args.finding.name, {}):
+        args.syntax_step.meta.danger = True
+        return True
     return False
 
 
@@ -322,36 +359,21 @@ def analyze_method_invocation(args: EvaluatorArgs, method: str) -> None:
 
     # pylint: disable=expression-not-assigned
     if (
+        attempt_by_args_propagation(args, method) or
         attempt_by_obj(args, method) or
-        attempt_by_type(args, method)
+        attempt_by_obj_args(args, method) or
+        attempt_by_type(args, method) or
+        attempt_static(args, method)
     ):
         return
 
     method_var, method_path = split_on_first_dot(method)
-    method_field, method_name = split_on_last_dot(args.syntax_step.method)
     method_var_decl = lookup_var_dcl_by_name(args, method_var)
     method_var_decl_type = (
         method_var_decl.var_type_base if method_var_decl else ''
     )
 
-    if field := lookup_java_field(args, method_field):
-        method = f'{field.var_type}.{method_name}'
-
     args.syntax_step.meta.danger = (
-        # Know functions that propagate danger if args are dangerous
-        method_path in BY_OBJ_ARGS.get(method_var_decl_type, {})
-        and args_danger
-    ) or (
-        # Known functions that propagate args danger
-        method in BY_ARGS_PROPAGATION
-        and args_danger
-    ) or (
-        # Known static functions that no require args danger
-        method in STATIC_FINDING.get(
-            args.finding.name,
-            set(),
-        )
-    ) or (
         # functions for which the type of the variable cannot be obtained,
         # but which propagate args danger
         method_path
