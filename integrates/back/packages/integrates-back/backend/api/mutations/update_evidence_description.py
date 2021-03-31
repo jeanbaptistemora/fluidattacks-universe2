@@ -6,19 +6,17 @@ from ariadne.utils import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local
+from back.settings import LOGGING
 from backend import util
-from backend.dal.helpers.redis import (
-    redis_del_by_deps_soon,
-)
+from backend.dal.helpers.redis import redis_del_by_deps_soon
 from backend.decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
     require_integrates,
     require_login
 )
-from backend.domain import finding as finding_domain
 from backend.typing import SimplePayload
-from back.settings import LOGGING
+from findings import domain as findings_domain
 
 
 logging.config.dictConfig(LOGGING)
@@ -40,7 +38,7 @@ async def mutate(
 ) -> SimplePayload:
     success = False
     try:
-        success = await finding_domain.update_evidence_description(
+        success = await findings_domain.update_evidence_description(
             finding_id, evidence_id, description
         )
         if success:

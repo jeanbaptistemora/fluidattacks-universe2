@@ -5,8 +5,8 @@ Execution Time: 2021-01-08 18:38:32 UTC-5
 Finalization Time: 2020-01-08 19:03:16 UTC-5
 """
 # Standard library
-from itertools import chain
 import os
+from itertools import chain
 from typing import (
     Dict,
     List,
@@ -20,20 +20,16 @@ from aioextensions import (
 from more_itertools import chunked
 
 # Local libraries
-from backend.domain.finding.draft import (
-    get_drafts_by_group,
-)
-from backend.domain.finding.finding import (
+from backend.domain.project import get_alive_projects
+from backend.typing import Finding
+from findings.domain.core import (
     delete_vulnerabilities,
     get_findings_by_group,
     is_deleted,
 )
-from backend.domain.project import (
-    get_alive_projects,
-)
-from backend.typing import (
-    Finding,
-)
+from findings.domain.draft import get_drafts_by_group
+
+
 STAGE: str = os.environ['STAGE']
 
 

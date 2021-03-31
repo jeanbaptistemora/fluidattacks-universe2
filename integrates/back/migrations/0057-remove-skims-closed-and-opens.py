@@ -38,13 +38,13 @@ Execution Time:    2021-01-17 at 16:30:22 UTC-05
 Finalization Time: 2021-01-17 at 16:50:35 UTC-05
 """
 # Standard library
-from itertools import chain
 import os
 import time
+from itertools import chain
 from typing import (
+    cast,
     Dict,
     List,
-    cast,
 )
 
 # Third party libraries
@@ -59,10 +59,7 @@ from more_itertools import chunked
 from backend.api.dataloaders.project import ProjectLoader as GroupLoader
 from backend.dal import vulnerability as vuln_dal
 from backend.domain.project import get_active_projects
-from backend.domain import (
-    vulnerability as vulnerability_domain,
-    finding as finding_domain
-)
+from backend.domain import vulnerability as vulnerability_domain
 from backend.typing import Vulnerability
 from newutils import findings as finding_utils
 

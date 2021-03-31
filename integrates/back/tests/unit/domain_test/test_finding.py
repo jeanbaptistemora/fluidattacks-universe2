@@ -18,15 +18,6 @@ from back.tests.unit.utils import create_dummy_session
 from backend import mailer
 from backend.api import get_new_context
 from backend.dal import finding as finding_dal
-from backend.domain.finding import (
-    add_comment,
-    approve_draft,
-    get_tracking_vulnerabilities,
-    list_findings,
-    list_drafts,
-    mask_finding,
-    validate_evidence,
-)
 from backend.domain.vulnerability import (
     list_vulnerabilities_async,
     validate_treatment_change,
@@ -38,6 +29,15 @@ from backend.exceptions import (
     InvalidDateFormat,
     InvalidFileType,
     InvalidNumberAcceptations,
+)
+from findings.domain import (
+    add_comment,
+    approve_draft,
+    get_tracking_vulnerabilities,
+    list_drafts,
+    list_findings,
+    mask_finding,
+    validate_evidence,
 )
 from organizations.domain import get_max_acceptance_days
 from newutils import datetime as datetime_utils

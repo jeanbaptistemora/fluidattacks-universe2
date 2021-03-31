@@ -7,17 +7,15 @@ from graphql.type.definition import GraphQLResolveInfo
 from starlette.datastructures import UploadFile
 
 # Local
-from backend.dal.helpers.redis import (
-    redis_del_by_deps,
-)
+from backend.dal.helpers.redis import redis_del_by_deps
 from backend.decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
     require_integrates,
     require_login
 )
-from backend.domain import finding as finding_domain
 from backend.typing import SimplePayload
+from findings import domain as findings_domain
 
 
 @convert_kwargs_to_snake_case  # type: ignore
@@ -35,7 +33,7 @@ async def mutate(
     finding_id: str = kwargs['finding_id']
     evidence_id: str = kwargs['evidence_id']
 
-    success: bool = await finding_domain.validate_and_upload_evidence(
+    success: bool = await findings_domain.validate_and_upload_evidence(
         finding_id,
         evidence_id,
         file

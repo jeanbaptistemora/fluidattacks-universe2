@@ -28,16 +28,14 @@ from backend import (
     authz,
     util,
 )
-from backend.domain import (
-    finding as finding_domain,
-    vulnerability as vuln_domain
-)
+from backend.domain import vulnerability as vuln_domain
 from backend.exceptions import (
     FindingNotFound,
     InvalidAuthorization,
     UserNotInOrganization,
 )
 from backend.services import has_valid_access_token
+from findings import domain as findings_domain
 from newutils import function
 from organizations import domain as orgs_domain
 
@@ -430,7 +428,7 @@ def require_finding_access(func: TVar) -> TVar:
 
         finding_loader = context.loaders.finding
         finding = await finding_loader.load(finding_id)
-        if finding_domain.is_deleted(finding):
+        if findings_domain.is_deleted(finding):
             raise FindingNotFound()
 
         return await _func(*args, **kwargs)

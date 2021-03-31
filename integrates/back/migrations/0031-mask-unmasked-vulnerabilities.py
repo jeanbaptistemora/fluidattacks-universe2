@@ -4,20 +4,18 @@ Execution Time:    2020-10-19 13:20:56 UTC-5
 Finalization Time: 2020-10-19 13:21:24 UTC-5
 """
 
-from asyncio import run
 import os
+from asyncio import run
 from typing import (
-    List,
     cast,
+    List,
 )
 
-from backend.domain import (
-    finding as finding_domain,
-    vulnerability as vuln_domain
-)
-from aioextensions import (
-    collect,
-)
+from aioextensions import collect
+
+from backend.domain import vulnerability as vuln_domain
+from findings import domain as findings_domain
+
 
 STAGE: str = os.environ['STAGE']
 ENVIRONMENT: str = os.environ['ENVIRONMENT']
@@ -46,7 +44,7 @@ async def main() -> None:
                 )
     else:
         are_findings_masked = all(await collect(
-            finding_domain.mask_finding(finding_id)
+            findings_domain.mask_finding(finding_id)
             for finding_id in findings
         ))
         if are_findings_masked:

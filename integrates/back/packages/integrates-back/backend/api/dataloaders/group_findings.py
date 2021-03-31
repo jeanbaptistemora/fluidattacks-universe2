@@ -9,8 +9,8 @@ from aiodataloader import DataLoader
 from aioextensions import collect
 
 # Local libraries
-from backend.domain.project import finding_domain
 from backend.typing import Finding
+from findings import domain as findings_domain
 
 
 class GroupFindingsLoader(DataLoader):  # type: ignore
@@ -23,7 +23,7 @@ class GroupFindingsLoader(DataLoader):  # type: ignore
         return cast(
             List[List[Finding]],
             await collect([
-                finding_domain.get_findings_by_group(
+                findings_domain.get_findings_by_group(
                     group_name,
                     include_deleted=True
                 )

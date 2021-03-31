@@ -1,5 +1,11 @@
-# pylint:disable=too-many-branches
-from typing import Dict, List, Union, cast, Optional, Any
+from typing import (
+    Any,
+    cast,
+    Dict,
+    List,
+    Optional,
+    Union,
+)
 
 from starlette.datastructures import UploadFile
 
@@ -7,15 +13,124 @@ from backend import util
 from backend.dal import finding as finding_dal
 from backend.exceptions import (
     EvidenceNotFound,
+    InvalidFileSize,
     InvalidFileType,
-    InvalidFileSize
 )
 from newutils import (
     datetime as datetime_utils,
     findings as finding_utils,
     validations,
 )
-from .finding import get_finding
+from .core import get_finding
+
+
+async def remove_evidence(evidence_name: str, finding_id: str) -> bool:
+    finding = await get_finding(finding_id)
+    group_name = finding['projectName']
+    files = cast(List[Dict[str, str]], finding.get('files', []))
+    success = False
+
+    evidence: Dict[str, str] = next(
+        (item for item in files if item['name'] == evidence_name),
+        dict()
+    )
+    if not evidence:
+        raise EvidenceNotFound()
+
+    evidence_id = str(evidence.get('file_url', ''))
+    full_name = f'{group_name}/{finding_id}/{evidence_id}'
+    if await finding_dal.remove_evidence(full_name):
+        index = files.index(evidence)
+        del files[index]
+        success = await finding_dal.update(finding_id, {'files': files})
+    return success
+
+
+async def update_evidence(
+    finding_id: str,
+    evidence_type: str,
+    file: UploadFile
+) -> bool:
+    finding = await get_finding(finding_id)
+    files = cast(List[Dict[str, str]], finding.get('files', []))
+    group_name = str(finding.get('projectName', ''))
+    today = datetime_utils.get_now_as_str()
+    success = False
+
+    if evidence_type == 'fileRecords':
+        old_file_name: str = next(
+            (
+                item['file_url']
+                for item in files
+                if item['name'] == 'fileRecords'
+            ),
+            ''
+        )
+        if old_file_name != '':
+            old_records = await finding_utils.get_records_from_file(
+                group_name,
+                finding_id,
+                old_file_name
+            )
+            if old_records:
+                file = await finding_utils.append_records_to_file(
+                    cast(List[Dict[str, str]], old_records),
+                    file
+                )
+                file.open()
+
+    evidence_id = f'{group_name}-{finding_id}-{evidence_type}'
+    full_name = f'{group_name}/{finding_id}/{evidence_id}'
+    if await finding_dal.save_evidence(file, full_name):
+        evidence: Union[Dict[str, str], List[Optional[Any]]] = next(
+            (item for item in files if item['name'] == evidence_type),
+            []
+        )
+        if evidence:
+            index = files.index(cast(Dict[str, str], evidence))
+            success = await finding_dal.update(
+                finding_id,
+                {
+                    f'files[{index}].file_url': evidence_id,
+                    f'files[{index}].upload_date': today
+                }
+            )
+        else:
+            success = await finding_dal.list_append(
+                finding_id,
+                'files',
+                [{
+                    'name': evidence_type,
+                    'file_url': evidence_id,
+                    'upload_date': today,
+                }]
+            )
+    return success
+
+
+async def update_evidence_description(
+    finding_id: str,
+    evidence_type: str,
+    description: str
+) -> bool:
+    validations.validate_fields(cast(List[str], [description]))
+    finding = await get_finding(finding_id)
+    files = cast(List[Dict[str, str]], finding.get('files', []))
+    success = False
+
+    evidence: Union[Dict[str, str], List[Optional[Any]]] = next(
+        (item for item in files if item['name'] == evidence_type),
+        []
+    )
+    if evidence:
+        index = files.index(cast(Dict[str, str], evidence))
+        success = await finding_dal.update(
+            finding_id,
+            {f'files[{index}].description': description}
+        )
+    else:
+        raise EvidenceNotFound()
+    return success
 
 
 async def validate_and_upload_evidence(
@@ -29,133 +144,7 @@ async def validate_and_upload_evidence(
     return success
 
 
-async def update_evidence(
-    finding_id: str,
-    evidence_type: str,
-    file: UploadFile
-) -> bool:
-    finding = await get_finding(finding_id)
-    files = cast(List[Dict[str, str]], finding.get('files', []))
-    project_name = str(finding.get('projectName', ''))
-    today = datetime_utils.get_as_str(datetime_utils.get_now())
-    success = False
-
-    if evidence_type == 'fileRecords':
-        old_file_name: str = next(
-            (
-                item['file_url']
-                for item in files
-                if item['name'] == 'fileRecords'
-            ), ''
-        )
-        if old_file_name != '':
-            old_records = await finding_utils.get_records_from_file(
-                project_name, finding_id, old_file_name)
-            if old_records:
-                file = await finding_utils.append_records_to_file(cast(
-                    List[Dict[str, str]],
-                    old_records
-                ), file)
-                file.open()
-
-    evidence_id = f'{project_name}-{finding_id}-{evidence_type}'
-    full_name = f'{project_name}/{finding_id}/{evidence_id}'
-
-    if await finding_dal.save_evidence(file, full_name):
-        evidence: Union[Dict[str, str], List[Optional[Any]]] = next(
-            (
-                item
-                for item in files
-                if item['name'] == evidence_type
-            ), []
-        )
-        if evidence:
-            index = files.index(cast(Dict[str, str], evidence))
-            success = await finding_dal.update(
-                finding_id,
-                {f'files[{index}].file_url': evidence_id,
-                 f'files[{index}].upload_date': today}
-            )
-        else:
-            success = await finding_dal.list_append(
-                finding_id,
-                'files',
-                [{
-                    'name': evidence_type,
-                    'file_url': evidence_id,
-                    'upload_date': today,
-                }]
-            )
-
-    return success
-
-
-async def update_evidence_description(
-        finding_id: str,
-        evidence_type: str,
-        description: str) -> bool:
-    validations.validate_fields(cast(List[str], [description]))
-    finding = await get_finding(finding_id)
-    files = cast(
-        List[Dict[str, str]],
-        finding.get('files', [])
-    )
-    success = False
-
-    evidence: Union[Dict[str, str], List[Optional[Any]]] = next(
-        (
-            item
-            for item in files
-            if item['name'] == evidence_type
-        ), []
-    )
-    if evidence:
-        index = files.index(cast(Dict[str, str], evidence))
-        success = await finding_dal.update(
-            finding_id,
-            {f'files[{index}].description': description}
-        )
-    else:
-        raise EvidenceNotFound()
-
-    return success
-
-
-async def remove_evidence(evidence_name: str, finding_id: str) -> bool:
-    finding = await get_finding(finding_id)
-    project_name = finding['projectName']
-    files = cast(
-        List[Dict[str, str]],
-        finding.get('files', [])
-    )
-    success = False
-
-    evidence: Dict[str, str] = next(
-        (
-            item
-            for item in files
-            if item['name'] == evidence_name
-        ), dict()
-    )
-    if not evidence:
-        raise EvidenceNotFound()
-
-    evidence_id = str(evidence.get('file_url', ''))
-    full_name = f'{project_name}/{finding_id}/{evidence_id}'
-
-    if await finding_dal.remove_evidence(full_name):
-        index = files.index(evidence)
-        del files[index]
-        success = await finding_dal.update(
-            finding_id, {'files': files})
-
-    return success
-
-
-async def validate_evidence(
-    evidence_id: str,
-    file: UploadFile
-) -> bool:
+async def validate_evidence(evidence_id: str, file: UploadFile) -> bool:
     mib = 1048576
     success = False
     allowed_mimes = []
@@ -177,5 +166,4 @@ async def validate_evidence(
         success = True
     else:
         raise InvalidFileSize()
-
     return success

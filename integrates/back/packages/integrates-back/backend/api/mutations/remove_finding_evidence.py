@@ -5,17 +5,15 @@ from graphql.type.definition import GraphQLResolveInfo
 
 # Local libraries
 from backend import util
-from backend.dal.helpers.redis import (
-    redis_del_by_deps_soon,
-)
+from backend.dal.helpers.redis import redis_del_by_deps_soon
 from backend.decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
     require_integrates,
     require_login
 )
-from backend.domain import finding as finding_domain
 from backend.typing import SimpleFindingPayload as SimpleFindingPayloadType
+from findings import domain as findings_domain
 
 
 @convert_kwargs_to_snake_case  # type: ignore
@@ -31,7 +29,7 @@ async def mutate(
     finding_id: str
 ) -> SimpleFindingPayloadType:
     """Resolve remove_evidence mutation."""
-    success = await finding_domain.remove_evidence(evidence_id, finding_id)
+    success = await findings_domain.remove_evidence(evidence_id, finding_id)
 
     if success:
         info.context.loaders.finding.clear(finding_id)

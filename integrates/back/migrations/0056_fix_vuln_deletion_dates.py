@@ -8,8 +8,8 @@ Finalization Time: 2021-01-15 at 08:00:00 UTC-05
 """
 # Standard library
 import copy
-from datetime import datetime
 import os
+from datetime import datetime
 from pprint import pprint
 from typing import (
     Dict,
@@ -23,11 +23,8 @@ from aioextensions import (
 )
 
 # Local libraries
-from backend.dal import(
-    vulnerability as vuln_dal,
-)
+from backend.dal import vulnerability as vuln_dal
 from backend.domain import (
-    finding as finding_domain,
     project as group_domain,
     vulnerability as vuln_domain,
 )
@@ -35,6 +32,7 @@ from backend.typing import (
     Finding as FindingType,
     Vulnerability as VulnerabilityType,
 )
+from findings import domain as findings_domain
 from newutils import datetime as datetime_utils
 
 
@@ -105,7 +103,7 @@ async def fix_vuln_deletion_dates_for_group(
     group_name: str
 ) -> bool:
     attrs = {'finding_id', 'historic_state'}
-    group_findings = await finding_domain.get_findings_by_group(
+    group_findings = await findings_domain.get_findings_by_group(
         group_name, attrs, include_deleted=True
     )
     success = all(await collect(

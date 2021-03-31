@@ -1,6 +1,6 @@
 # Standard libraries
-from typing import Any
 from time import time
+from typing import Any
 
 # Third party libraries
 from ariadne.utils import convert_kwargs_to_snake_case
@@ -8,18 +8,16 @@ from graphql.type.definition import GraphQLResolveInfo
 
 # Local libraries
 from backend import util
-from backend.dal.helpers.redis import (
-    redis_del_by_deps_soon,
-)
+from backend.dal.helpers.redis import redis_del_by_deps_soon
 from backend.decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
     require_integrates,
     require_login
 )
-from backend.domain import finding as finding_domain
 from backend.exceptions import PermissionDenied
 from backend.typing import AddConsultPayload as AddConsultPayloadType
+from findings import domain as findings_domain
 from newutils import datetime as datetime_utils
 
 
@@ -61,7 +59,7 @@ async def mutate(
         'modified': current_time,
     }
     try:
-        success = await finding_domain.add_comment(
+        success = await findings_domain.add_comment(
             info,
             user_email,
             comment_data,
@@ -77,7 +75,7 @@ async def mutate(
     if success:
         redis_del_by_deps_soon('add_finding_consult', finding_id=finding_id)
         if content.strip() not in {'#external', '#internal'}:
-            finding_domain.send_comment_mail(
+            findings_domain.send_comment_mail(
                 user_email,
                 comment_data,
                 finding

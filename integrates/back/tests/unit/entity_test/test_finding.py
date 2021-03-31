@@ -1,4 +1,8 @@
 # Standard libraries
+import json
+import os
+import pytest
+import time
 from collections import OrderedDict
 from datetime import (
   datetime,
@@ -7,12 +11,8 @@ from datetime import (
 from typing import (
     Any,
     Dict,
-    Optional
+    Optional,
 )
-import json
-import os
-import time
-import pytest
 
 # Third party libraries
 from ariadne import graphql
@@ -22,20 +22,18 @@ from jose import jwt
 from starlette.datastructures import UploadFile
 
 # Local libraries
+from back.tests.unit.utils import create_dummy_session
 from backend import util
 from backend.api import (
   apply_context_attrs,
+  Dataloaders,
   get_new_context,
-  Dataloaders
 )
 from backend.api.schema import SCHEMA
-from backend.dal import (
-  finding as finding_dal,
-)
-from backend.domain.finding import get_finding
+from backend.dal import finding as finding_dal
 from backend.domain.project import get_open_vulnerabilities
 from backend.exceptions import FindingNotFound, NotVerificationRequested
-from back.tests.unit.utils import create_dummy_session
+from findings.domain import get_finding
 
 pytestmark = pytest.mark.asyncio
 

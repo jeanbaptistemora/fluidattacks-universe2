@@ -4,13 +4,13 @@
 # Standard libraries
 import logging
 import logging.config
-from itertools import chain
 from collections import (
-    OrderedDict,
     defaultdict,
+    OrderedDict,
 )
 from datetime import datetime
 from decimal import Decimal
+from itertools import chain
 from typing import (
     Any,
     Callable,
@@ -40,7 +40,6 @@ from backend import mailer
 from backend.api import get_new_context
 from backend.dal import project as project_dal
 from backend.domain import (
-    finding as finding_domain,
     project as project_domain,
     vulnerability as vuln_domain,
 )
@@ -54,6 +53,7 @@ from backend.typing import (
 )
 from batch import dal as batch_dal
 from events import domain as events_domain
+from findings import domain as findings_domain
 from newutils import datetime as datetime_utils
 from newutils.groups import has_integrates_services
 from newutils.findings import (
@@ -412,7 +412,7 @@ async def send_group_treatment_change(
     payload_data = {'group_name': group_name}
     msg = 'Info: Getting treatment change'
     LOGGER.info(msg, extra={'extra': payload_data})
-    findings = await finding_domain.list_findings(context, [group_name])
+    findings = await findings_domain.list_findings(context, [group_name])
     await collect(
         vuln_domain.send_treatment_change_mail(context, finding_id, min_date)
         for finding_id in findings[0]
@@ -602,7 +602,7 @@ async def create_msj_finding_pending(
     ]
     if open_vulns:
         context = get_new_context()
-        days = await finding_domain.get_finding_age(context, finding_id)
+        days = await findings_domain.get_finding_age(context, finding_id)
         finding_name = f'{act_finding["finding"]} -{days} day(s)-'
         result = finding_name
     else:
@@ -674,9 +674,9 @@ async def get_new_releases() -> None:  # pylint: disable=too-many-locals
         for group in groups
         if group not in test_groups
     ]
-    list_drafts = await finding_domain.list_drafts(groups)
+    list_drafts = await findings_domain.list_drafts(groups)
     group_drafts = await collect(
-        finding_domain.get_findings_async(drafts)
+        findings_domain.get_findings_async(drafts)
         for drafts in list_drafts
     )
     for group_name, finding_requests in zip(groups, group_drafts):

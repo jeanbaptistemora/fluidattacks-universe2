@@ -7,17 +7,15 @@ from graphql.type.definition import GraphQLResolveInfo
 
 # Local
 from backend import util
-from backend.dal.helpers.redis import (
-    redis_del_by_deps_soon,
-)
+from backend.dal.helpers.redis import redis_del_by_deps_soon
 from backend.decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
     require_integrates,
     require_login
 )
-from backend.domain import finding as finding_domain
 from backend.typing import SimplePayload
+from findings import domain as findings_domain
 from newutils import findings as finding_utils
 
 
@@ -37,7 +35,7 @@ async def mutate(
     finding_data = await finding_loader.load(finding_id)
     group_name = finding_data['project_name']
 
-    success = await finding_domain.delete_finding(
+    success = await findings_domain.delete_finding(
         info.context,
         finding_id,
         justification
@@ -53,7 +51,7 @@ async def mutate(
             'FALSE_POSITIVE': 'It is a false positive',
             'NOT_REQUIRED': 'Finding not required',
         }
-        finding_domain.send_finding_mail(
+        findings_domain.send_finding_mail(
             info.context.loaders,
             finding_utils.send_finding_delete_mail,
             finding_id,

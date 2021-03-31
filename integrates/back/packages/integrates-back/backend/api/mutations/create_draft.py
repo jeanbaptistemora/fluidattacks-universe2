@@ -13,8 +13,8 @@ from backend.decorators import (
     require_integrates,
     require_login
 )
-from backend.domain import finding as finding_domain
 from backend.typing import SimplePayload
+from findings import domain as findings_domain
 
 
 @convert_kwargs_to_snake_case  # type: ignore
@@ -30,7 +30,7 @@ async def mutate(
     title: str,
     **kwargs: Any
 ) -> SimplePayload:
-    success: bool = await finding_domain.create_draft(
+    success: bool = await findings_domain.create_draft(
         info,
         project_name,
         title,

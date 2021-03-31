@@ -13,9 +13,9 @@ from typing import (
     cast,
     Dict,
     List,
+    Optional,
     Tuple,
     Union,
-    Optional
 )
 
 import simplejson as json
@@ -34,10 +34,7 @@ from backend import (
 from backend.authz.policy import get_group_level_role
 from backend.dal import project as project_dal
 from backend.dal.helpers.dynamodb import start_context
-from backend.domain import (
-    finding as finding_domain,
-    vulnerability as vuln_domain,
-)
+from backend.domain import vulnerability as vuln_domain
 from backend.exceptions import (
     AlreadyPendingDeletion,
     GroupNotFound,
@@ -46,7 +43,7 @@ from backend.exceptions import (
     InvalidProjectName,
     InvalidProjectServicesConfig,
     RepeatedValues,
-    UserNotInOrganization
+    UserNotInOrganization,
 )
 from backend.filters import stakeholder as stakeholder_filters
 from backend.typing import (
@@ -54,13 +51,14 @@ from backend.typing import (
     Finding as FindingType,
     Historic as HistoricType,
     Invitation as InvitationType,
-    Stakeholder as StakeholderType,
     Project as ProjectType,
     ProjectAccess as ProjectAccessType,
-    Vulnerability as VulnerabilityType
+    Stakeholder as StakeholderType,
+    Vulnerability as VulnerabilityType,
 )
 from comments import domain as comments_domain
 from events import domain as events_domain
+from findings import domain as findings_domain
 from names import domain as names_domain
 from newutils import (
     comments as comments_utils,
@@ -398,19 +396,19 @@ async def get_historic_deletion(project_name: str) -> HistoricType:
 
 async def remove_resources(context: Any, project_name: str) -> bool:
     are_users_removed = await remove_all_users_access(context, project_name)
-    group_findings = await finding_domain.list_findings(
+    group_findings = await findings_domain.list_findings(
         context,
         [project_name],
         include_deleted=True
     )
-    group_drafts = await finding_domain.list_drafts(
+    group_drafts = await findings_domain.list_drafts(
         [project_name], include_deleted=True
     )
     findings_and_drafts = (
         group_findings[0] + group_drafts[0]
     )
     are_findings_masked = all(await collect(
-        finding_domain.mask_finding(context, finding_id)
+        findings_domain.mask_finding(context, finding_id)
         for finding_id in findings_and_drafts
     ))
     events = await list_events(project_name)
@@ -591,7 +589,7 @@ async def total_vulnerabilities(
     """Get total vulnerabilities in new format."""
     finding = {'openVulnerabilities': 0, 'closedVulnerabilities': 0}
     finding_vulns_loader = context.finding_vulns
-    if await finding_domain.validate_finding(finding_id):
+    if await findings_domain.validate_finding(finding_id):
         vulnerabilities = await finding_vulns_loader.load(finding_id)
         last_approved_status = await collect([
             in_process(vuln_domain.get_last_status, vuln)
@@ -613,12 +611,12 @@ async def get_pending_verification_findings(
     project_name: str
 ) -> List[Dict[str, FindingType]]:
     """Gets findings pending for verification"""
-    findings_ids = await finding_domain.list_findings(
+    findings_ids = await findings_domain.list_findings(
         context,
         [project_name]
     )
     are_pending_verifications = await collect([
-        finding_domain.is_pending_verification(context, finding_id)
+        findings_domain.is_pending_verification(context, finding_id)
         for finding_id in findings_ids[0]
     ])
     pending_to_verify_ids = [
@@ -654,7 +652,7 @@ async def get_last_closing_vuln_info(
     finding_vulns_loader = context.finding_vulns_nzr
 
     validate_findings = await collect(
-        finding_domain.validate_finding(str(finding['finding_id']))
+        findings_domain.validate_finding(str(finding['finding_id']))
         for finding in findings
     )
     validated_findings = [
@@ -903,7 +901,7 @@ async def get_total_treatment(
     finding_vulns_loader = context.finding_vulns_nzr
 
     validate_findings = await collect(
-        finding_domain.validate_finding(str(finding['finding_id']))
+        findings_domain.validate_finding(str(finding['finding_id']))
         for finding in findings
     )
     validated_findings = [
@@ -943,7 +941,7 @@ async def get_mean_remediate_non_treated(
     group_name: str,
     min_date: Optional[date] = None
 ) -> Decimal:
-    findings = await finding_domain.get_findings_by_group(group_name)
+    findings = await findings_domain.get_findings_by_group(group_name)
     vulnerabilities = await vuln_domain.list_vulnerabilities_async(
         [str(finding['finding_id']) for finding in findings],
         include_requested_zero_risk=True,

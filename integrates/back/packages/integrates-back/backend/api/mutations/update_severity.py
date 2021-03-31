@@ -7,17 +7,15 @@ from graphql.type.definition import GraphQLResolveInfo
 
 # Local
 from backend import util
-from backend.dal.helpers.redis import (
-    redis_del_by_deps_soon,
-)
+from backend.dal.helpers.redis import redis_del_by_deps_soon
 from backend.decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
     require_integrates,
     require_login
 )
-from backend.domain import finding as finding_domain
 from backend.typing import SimpleFindingPayload
+from findings import domain as findings_domain
 
 
 @convert_kwargs_to_snake_case  # type: ignore
@@ -38,7 +36,7 @@ async def mutate(
     finding_data = await finding_loader.load(finding_id)
     group_name = finding_data['project_name']
     success = False
-    success = await finding_domain.save_severity(data)
+    success = await findings_domain.save_severity(data)
     if success:
         info.context.loaders.finding.clear(finding_id)
         redis_del_by_deps_soon(

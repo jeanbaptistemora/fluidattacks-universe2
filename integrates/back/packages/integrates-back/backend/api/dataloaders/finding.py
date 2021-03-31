@@ -1,13 +1,16 @@
 # pylint: disable=method-hidden
 
 from collections import defaultdict
-from typing import cast, Dict, List
+from typing import (
+    cast,
+    Dict,
+    List,
+)
 
 from aiodataloader import DataLoader
 
-from backend.domain import finding as finding_domain
-
 from backend.typing import Finding as FindingType
+from findings import domain as findings_domain
 
 
 async def _batch_load_fn(
@@ -16,7 +19,7 @@ async def _batch_load_fn(
     findings: Dict[str, Dict[str, FindingType]] = \
         defaultdict(Dict[str, FindingType])
 
-    fins = await finding_domain.get_findings_async(finding_ids)
+    fins = await findings_domain.get_findings_async(finding_ids)
 
     for finding in fins:
         finding_id: str = cast(str, finding['findingId'])

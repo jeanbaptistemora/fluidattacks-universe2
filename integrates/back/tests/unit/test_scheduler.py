@@ -15,7 +15,6 @@ from backend.api import get_new_context
 from backend.dal.finding import get_finding
 from backend.dal.vulnerability import get as get_vuln
 from backend.domain import project as group_domain
-from backend.domain.finding import get_findings_by_group
 from backend.domain.vulnerability import list_vulnerabilities_async
 from backend.scheduler import (
     calculate_vulnerabilities,
@@ -41,6 +40,7 @@ from backend.scheduler import (
     remove_fluid_from_recipients,
 )
 from dynamodb.types import GitRootToeLines
+from findings.domain import get_findings_by_group
 from newutils import datetime as datetime_utils
 from organizations.domain import (
     get_id_by_name,

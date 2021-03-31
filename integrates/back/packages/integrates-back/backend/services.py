@@ -1,10 +1,16 @@
 """ Integrates services definition """
 
-from typing import Dict, cast
+from typing import (
+    cast,
+    Dict,
+)
 
-from backend import authz, util
-from backend.domain import finding as finding_domain
+from backend import (
+    authz,
+    util,
+)
 from events import domain as events_domain
+from findings import domain as findings_domain
 from users import domain as users_domain
 
 
@@ -15,7 +21,7 @@ async def has_access_to_project(email: str, group: str) -> bool:
 
 async def has_access_to_finding(email: str, finding_id: str) -> bool:
     """ Verify if the user has access to a finding submission. """
-    finding = await finding_domain.get_finding(finding_id)
+    finding = await findings_domain.get_finding(finding_id)
     group = cast(str, finding.get('projectName', ''))
     return await has_access_to_project(email, group)
 

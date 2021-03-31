@@ -1,13 +1,16 @@
 # Standard
-from typing import cast, List
+from typing import (
+    cast,
+    List,
+)
 
 # Third party
 from aiodataloader import DataLoader
 from aioextensions import collect
 
 # Local
-from backend.domain.project import finding_domain
 from backend.typing import Finding
+from findings import domain as findings_domain
 
 
 class GroupDraftsLoader(DataLoader):  # type: ignore
@@ -20,7 +23,7 @@ class GroupDraftsLoader(DataLoader):  # type: ignore
         return cast(
             List[List[Finding]],
             await collect(
-                finding_domain.get_drafts_by_group(group_name)
+                findings_domain.get_drafts_by_group(group_name)
                 for group_name in group_names
             )
         )

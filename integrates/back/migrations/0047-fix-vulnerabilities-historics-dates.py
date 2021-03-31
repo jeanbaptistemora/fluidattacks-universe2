@@ -25,13 +25,13 @@ Execution Time:    2020-12-20 at 14:07:09 UTC-05
 Finalization Time: 2020-12-20 at 14:52:04 UTC-05
 """
 # Standard library
-from itertools import chain
 import os
 import time
+from itertools import chain
 from typing import (
+    cast,
     Dict,
     List,
-    cast,
 )
 
 # Third party libraries
@@ -46,11 +46,9 @@ from more_itertools import chunked
 from backend.api.dataloaders.project import ProjectLoader as GroupLoader
 from backend.dal import vulnerability as vuln_dal
 from backend.domain.project import get_active_projects
-from backend.domain import (
-    vulnerability as vulnerability_domain,
-    finding as finding_domain
-)
+from backend.domain import vulnerability as vulnerability_domain
 from backend.typing import Vulnerability
+from findings import domain as findings_domain
 from newutils import findings as finding_utils
 
 
@@ -326,7 +324,7 @@ async def fix_vulns(finding: str) -> None:
     ]
     filter_dates.sort()
     if not filter_dates:
-        finding_data = await finding_domain.get_finding(finding)
+        finding_data = await findings_domain.get_finding(finding)
         historic_state = cast(
             List[Dict[str, str]],
             finding_data.get('historic_state', [])

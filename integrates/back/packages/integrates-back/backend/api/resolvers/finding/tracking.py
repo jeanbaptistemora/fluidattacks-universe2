@@ -1,22 +1,22 @@
 # Standard
-from functools import (
-    partial,
+from functools import partial
+from typing import (
+    cast,
+    Dict,
+    List,
 )
-from typing import cast, Dict, List
 
 from aiodataloader import DataLoader
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local
-from backend.dal.helpers.redis import (
-    redis_get_or_set_entity_attr,
-)
-from backend.domain import finding as finding_domain
+from backend.dal.helpers.redis import redis_get_or_set_entity_attr
 from backend.filters import finding as finding_filters
 from backend.typing import (
+    Finding,
     Tracking as TrackingItem,
-    Finding
 )
+from findings import domain as findings_domain
 
 
 async def resolve(
@@ -49,7 +49,7 @@ async def resolve_no_cache(
 
         return cast(
             List[TrackingItem],
-            finding_domain.get_tracking_vulnerabilities(vulns)
+            findings_domain.get_tracking_vulnerabilities(vulns)
         )
 
     return []

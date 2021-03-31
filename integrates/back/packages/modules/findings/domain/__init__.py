@@ -1,5 +1,26 @@
-# pylint:disable=cyclic-import
-# Local imports
+from .core import (
+    add_comment,
+    cast_new_vulnerabilities,
+    delete_finding,
+    get,
+    get_finding,
+    get_finding_age,
+    get_finding_last_vuln_report,
+    get_finding_open_age,
+    get_findings_async,
+    get_findings_by_group,
+    get_group,
+    get_tracking_vulnerabilities,
+    is_deleted,
+    is_pending_verification,
+    list_findings,
+    mask_finding,
+    save_severity,
+    send_comment_mail,
+    send_finding_mail,
+    update_description,
+    validate_finding,
+)
 from .draft import (
     approve_draft,
     create_draft,
@@ -15,32 +36,9 @@ from .evidence import (
     validate_and_upload_evidence,
     validate_evidence,
 )
-from .finding import (
-    add_comment,
-    cast_new_vulnerabilities,
-    delete_finding,
-    get,
-    get_finding,
-    get_finding_age,
-    get_finding_last_vuln_report,
-    get_finding_open_age,
-    get_findings_async,
-    get_findings_by_group,
-    get_project,
-    get_tracking_vulnerabilities,
-    is_deleted,
-    is_pending_verification,
-    list_findings,
-    mask_finding,
-    save_severity,
-    send_comment_mail,
-    send_finding_mail,
-    update_description,
-    validate_finding,
-)
 
 __all__ = [
-    # finding-related
+    # core
     'add_comment',
     'cast_new_vulnerabilities',
     'delete_finding',
@@ -51,7 +49,7 @@ __all__ = [
     'get_finding_open_age',
     'get_findings_async',
     'get_findings_by_group',
-    'get_project',
+    'get_group',
     'get_tracking_vulnerabilities',
     'is_deleted',
     'is_pending_verification',
@@ -72,9 +70,9 @@ __all__ = [
     'submit_draft',
 
     # evidences
+    'remove_evidence',
     'update_evidence',
     'update_evidence_description',
-    'remove_evidence',
     'validate_and_upload_evidence',
     'validate_evidence',
 ]

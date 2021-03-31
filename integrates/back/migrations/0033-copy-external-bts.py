@@ -23,17 +23,15 @@ from more_itertools import chunked
 
 # Local libraries
 from backend.dal import vulnerability as vuln_dal
-from backend.domain.finding import (
-    get_findings_async,
-)
 from backend.domain.project import (
     get_active_projects,
     list_findings,
 )
-from backend.domain.vulnerability import (
-    list_vulnerabilities_async,
-)
+from backend.domain.vulnerability import list_vulnerabilities_async
 from backend.typing import Finding
+from findings.domain import get_findings_async
+
+
 STAGE: str = os.environ['STAGE']
 
 

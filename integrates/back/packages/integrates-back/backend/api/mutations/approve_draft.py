@@ -7,17 +7,15 @@ from graphql.type.definition import GraphQLResolveInfo
 
 # Local
 from backend import util
-from backend.dal.helpers.redis import (
-    redis_del_by_deps_soon,
-)
+from backend.dal.helpers.redis import redis_del_by_deps_soon
 from backend.decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
     require_integrates,
     require_login
 )
-from backend.domain import finding as finding_domain
 from backend.typing import ApproveDraftPayload
+from findings import domain as findings_domain
 
 
 @convert_kwargs_to_snake_case  # type: ignore
@@ -34,9 +32,9 @@ async def mutate(
     """Resolve approve_draft mutation."""
     user_info = await util.get_jwt_content(info.context)
     reviewer_email = user_info['user_email']
-    group_name = await finding_domain.get_project(draft_id)
+    group_name = await findings_domain.get_group(draft_id)
 
-    success, release_date = await finding_domain.approve_draft(
+    success, release_date = await findings_domain.approve_draft(
         info.context,
         draft_id,
         reviewer_email

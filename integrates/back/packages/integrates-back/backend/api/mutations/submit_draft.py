@@ -7,17 +7,15 @@ from graphql.type.definition import GraphQLResolveInfo
 
 # Local
 from backend import util
-from backend.dal.helpers.redis import (
-    redis_del_by_deps_soon,
-)
+from backend.dal.helpers.redis import redis_del_by_deps_soon
 from backend.decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
     require_integrates,
     require_login
 )
-from backend.domain import finding as finding_domain
 from backend.typing import SimplePayload
+from findings import domain as findings_domain
 from newutils import findings as finding_utils
 
 
@@ -34,7 +32,7 @@ async def mutate(
 ) -> SimplePayload:
     user_info = await util.get_jwt_content(info.context)
     analyst_email = user_info['user_email']
-    success = await finding_domain.submit_draft(
+    success = await findings_domain.submit_draft(
         info.context,
         finding_id,
         analyst_email
@@ -45,7 +43,7 @@ async def mutate(
         redis_del_by_deps_soon('submit_draft', finding_id=finding_id)
         finding_loader = info.context.loaders.finding
         finding = await finding_loader.load(finding_id)
-        finding_domain.send_finding_mail(
+        findings_domain.send_finding_mail(
             info.context.loaders,
             finding_utils.send_new_draft_mail,
             finding_id,

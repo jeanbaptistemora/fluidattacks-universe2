@@ -12,9 +12,9 @@ from async_lru import alru_cache
 
 # Local libraries
 from backend.api import get_new_context
-from backend.domain.finding import get_finding_open_age
 from charts import utils
 from charts.colors import RISK
+from findings.domain import get_finding_open_age
 
 
 @alru_cache(maxsize=None, typed=True)
