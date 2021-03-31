@@ -82,6 +82,39 @@ def train_model(
     return training_output
 
 
+def update_results_csv(filename: str, results: List[List[str]]) -> None:
+    with open(filename, 'w', newline='') as results_file:
+        csv_writer = csv.writer(results_file)
+        csv_writer.writerows(results)
+    S3_BUCKET \
+        .Object(f'training-output/{filename}')\
+        .upload_file(filename)
+
+
+def save_model(
+    model: ModelType,
+    f1_score: float,
+    model_features: Tuple[str, ...],
+    activation: str
+) -> None:
+    with tempfile.TemporaryDirectory() as tmp_dir:
+        model_name_list = [
+            type(model).__name__.lower(),
+            f'{f1_score:.0f}',
+            '-'.join([
+                FEATURES_DICTS[feature].lower() for feature in model_features
+            ]),
+            'tune',
+            activation
+        ]
+        model_file_name: str = '-'.join(model_name_list)
+        local_file: str = os.path.join(tmp_dir, f'{model_file_name}.joblib')
+        dump(model, local_file)
+        S3_BUCKET.Object(
+            f'training-output/{model_file_name}.joblib'
+        ).upload_file(local_file)
+
+
 def main() -> None:  # pylint: disable=too-many-locals
     parser = argparse.ArgumentParser()
     parser.add_argument(
@@ -122,29 +155,13 @@ def main() -> None:  # pylint: disable=too-many-locals
     )
     training_output[-1] += [', '.join(hyperparameters_to_tune)]
 
-    with open(results_filename, 'w', newline='') as results_file:
-        csv_writer = csv.writer(results_file)
-        csv_writer.writerows(training_output)
-    S3_BUCKET \
-        .Object(f'training-output/{results_filename}')\
-        .upload_file(results_filename)
-
-    with tempfile.TemporaryDirectory() as tmp_dir:
-        model_name_list = [
-            type(model).__name__.lower(),
-            f'{float(training_output[-1][4]):.0f}',
-            '-'.join([
-                FEATURES_DICTS[feature].lower() for feature in model_features
-            ]),
-            'tune',
-            args.activation
-        ]
-        model_file_name: str = '-'.join(model_name_list)
-        local_file: str = os.path.join(tmp_dir, f'{model_file_name}.joblib')
-        dump(model, local_file)
-        S3_BUCKET.Object(
-            f'training-output/{model_file_name}.joblib'
-        ).upload_file(local_file)
+    update_results_csv(results_filename, training_output)
+    save_model(
+        model,
+        float(training_output[-1][4]),
+        model_features,
+        args.activation
+    )
 
 
 if __name__ == '__main__':
