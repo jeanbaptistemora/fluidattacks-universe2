@@ -874,7 +874,7 @@ async def test_update_git_root() -> None:
           environment: "staging"
           gitignore: []
           groupName: "unittesting"
-          id: "4039d098-ffc5-4984-8ed3-eb17bca98e19"
+          id: "765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a"
           includesHealthCheck: false
           nickname: "randomNick"
         ) {

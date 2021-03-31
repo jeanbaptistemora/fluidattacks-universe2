@@ -3,3 +3,4 @@ lines:
   line: '1234'
   path: path/to/file/file4.py
   state: open
+  repo_nickname: product
