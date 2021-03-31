@@ -22,6 +22,7 @@ import { translate } from "utils/translations/translate";
 import { useAbility } from "@casl/react";
 import { useParams } from "react-router";
 import { useSelector } from "react-redux";
+import { validateValues } from "./SeverityContent/utils";
 import { ButtonToolbarRow, Col100, Row } from "styles/styledComponents";
 import {
   GET_SEVERITY,
@@ -177,6 +178,7 @@ const SeverityView: React.FC = (): JSX.Element => {
             </Can>
             <br />
             {isEditing ||
+            !validateValues(data.finding.severity) ||
             data.finding.severityScore <= 0 ||
             data.finding.cvssVersion !== "3.1" ? (
               <GenericForm

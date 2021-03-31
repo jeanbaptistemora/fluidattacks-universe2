@@ -1,5 +1,6 @@
 import { GET_SEVERITY } from "scenes/Dashboard/containers/SeverityView/queries";
 import { GraphQLError } from "graphql";
+import type { ISeverityAttr } from "./types";
 import { MockedProvider } from "@apollo/react-testing";
 import type { MockedResponse } from "@apollo/react-testing";
 import { Provider } from "react-redux";
@@ -11,6 +12,7 @@ import { act } from "react-dom/test-utils";
 import { authzPermissionsContext } from "utils/authz/config";
 import { mount } from "enzyme";
 import store from "store";
+import { useTranslation } from "react-i18next";
 import wait from "waait";
 import { MemoryRouter, Route } from "react-router-dom";
 
@@ -81,6 +83,7 @@ describe("SeverityView", (): void => {
   it("should render a component", async (): Promise<void> => {
     expect.hasAssertions();
 
+    const { t } = useTranslation();
     const mockedPermissions: PureAbility<string> = new PureAbility([
       { action: "backend_api_mutations_update_severity_mutate" },
     ]);
@@ -106,6 +109,24 @@ describe("SeverityView", (): void => {
     );
 
     expect(wrapper).toHaveLength(1);
+
+    const numberOfTiles: number = 11;
+    const severityTiles: ReactWrapper = wrapper.find({
+      className: "sc-jQbIHB pa1 w-100 mb3-l mb2-m mb1-ns",
+    });
+    const reportConfidence: ReactWrapper = severityTiles.last();
+
+    type resultType = Dictionary<{ finding: ISeverityAttr["finding"] }>;
+
+    expect(severityTiles).toHaveLength(numberOfTiles);
+    expect(reportConfidence.find("small").last().text()).toStrictEqual(
+      String(
+        (mocks[0].result as resultType).data.finding.severity.reportConfidence
+      )
+    );
+    expect(reportConfidence.find("b").first().text()).toStrictEqual(
+      t("searchFindings.tabSeverity.reportConfidence")
+    );
 
     const editButton: ReactWrapper = wrapper
       .find("button")
