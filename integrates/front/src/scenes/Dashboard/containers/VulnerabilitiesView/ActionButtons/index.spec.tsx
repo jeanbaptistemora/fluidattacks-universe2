@@ -13,10 +13,9 @@ describe("ActionButtons", (): void => {
     expect(typeof ActionButtons).toStrictEqual("function");
   });
 
-  it("should render a component", (): void => {
+  it("should render a component without permissions", (): void => {
     expect.hasAssertions();
 
-    const { t } = useTranslation();
     const wrapper: ReactWrapper = mount(
       <ActionButtons
         areVulnsSelected={false}
@@ -33,7 +32,46 @@ describe("ActionButtons", (): void => {
         openModal={jest.fn()}
         state={"open"}
         subscription={""}
-      />
+      />,
+      {
+        wrappingComponent: authzPermissionsContext.Provider,
+        wrappingComponentProps: { value: new PureAbility([]) },
+      }
+    );
+    const buttons: ReactWrapper = wrapper.find("Button");
+
+    expect(wrapper).toHaveLength(1);
+    expect(buttons).toHaveLength(0);
+  });
+
+  it("should render a component", (): void => {
+    expect.hasAssertions();
+
+    const { t } = useTranslation();
+    const mockedPermissions: PureAbility<string> = new PureAbility([
+      { action: "backend_api_mutations_update_vulns_treatment_mutate" },
+    ]);
+    const wrapper: ReactWrapper = mount(
+      <ActionButtons
+        areVulnsSelected={false}
+        isEditing={false}
+        isFindingReleased={true}
+        isReattackRequestedInAllVuln={false}
+        isRequestingReattack={false}
+        isVerified={false}
+        isVerifying={false}
+        onEdit={jest.fn()}
+        onRequestReattack={jest.fn()}
+        onVerify={jest.fn()}
+        openHandleAcceptation={jest.fn()}
+        openModal={jest.fn()}
+        state={"open"}
+        subscription={""}
+      />,
+      {
+        wrappingComponent: authzPermissionsContext.Provider,
+        wrappingComponentProps: { value: mockedPermissions },
+      }
     );
     const buttons: ReactWrapper = wrapper.find("Button");
 
@@ -56,6 +94,7 @@ describe("ActionButtons", (): void => {
         action:
           "backend_api_mutations_request_verification_vulnerability_mutate",
       },
+      { action: "backend_api_mutations_update_vulns_treatment_mutate" },
     ]);
     const wrapper: ReactWrapper = mount(
       <ActionButtons
