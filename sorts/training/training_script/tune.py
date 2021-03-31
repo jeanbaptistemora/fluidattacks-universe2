@@ -82,7 +82,7 @@ def train_model(
     return training_output
 
 
-def main() -> None:
+def main() -> None:  # pylint: disable=too-many-locals
     parser = argparse.ArgumentParser()
     parser.add_argument(
         '--output-data-dir',
@@ -103,6 +103,9 @@ def main() -> None:
     parser.add_argument('--activation', type=str, default='')
     args = parser.parse_args()
 
+    # We compile here all hyperparameters selected for tuning
+    hyperparameters_to_tune: List[str] = [args.activation]
+
     model_name: str = args.model.split('-')[0]
     model_features: Tuple[str, ...] = get_model_features()
     model_class: ModelType = MODELS[model_name]
@@ -117,6 +120,7 @@ def main() -> None:
         args.train,
         previous_results
     )
+    training_output[-1] += [', '.join(hyperparameters_to_tune)]
 
     with open(results_filename, 'w', newline='') as results_file:
         csv_writer = csv.writer(results_file)
