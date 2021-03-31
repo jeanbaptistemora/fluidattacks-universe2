@@ -27,6 +27,8 @@ makeDerivation {
   name = "integrates-back-structure";
   searchPaths = {
     envPaths = [
+      nixpkgs.findutils
+      nixpkgs.gnused
       nixpkgs.graphviz
       nixpkgs.python37
       pythonRequirements
