@@ -371,16 +371,6 @@ describe("Organization groups view", (): void => {
       </MemoryRouter>
     );
 
-    await act(
-      async (): Promise<void> => {
-        await waitForExpect((): void => {
-          wrapper.update();
-
-          expect(wrapper.find(AddProjectModal).prop("isOpen")).toBe(false);
-        });
-      }
-    );
-
     const newGroupButton: ReactWrapper = wrapper.find("button").first();
     newGroupButton.simulate("click");
 
@@ -388,8 +378,6 @@ describe("Organization groups view", (): void => {
       async (): Promise<void> => {
         await waitForExpect((): void => {
           wrapper.update();
-
-          expect(wrapper.find(AddProjectModal).prop("isOpen")).toBe(true);
 
           expect(
             wrapper
@@ -422,8 +410,6 @@ describe("Organization groups view", (): void => {
       async (): Promise<void> => {
         await waitForExpect((): void => {
           wrapper.update();
-
-          expect(wrapper.find(AddProjectModal).prop("isOpen")).toBe(false);
 
           expect(wrapper.find("tr")).toHaveLength(4);
         });

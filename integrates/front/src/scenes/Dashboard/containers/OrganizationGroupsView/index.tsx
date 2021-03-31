@@ -187,11 +187,13 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
                 />
               </Row>
             </Col100>
-            <AddProjectModal
-              isOpen={isProjectModalOpen}
-              onClose={closeNewProjectModal}
-              organization={organizationName}
-            />
+            {isProjectModalOpen ? (
+              <AddProjectModal
+                isOpen={true}
+                onClose={closeNewProjectModal}
+                organization={organizationName}
+              />
+            ) : undefined}
           </Row>
         )}
       </div>
