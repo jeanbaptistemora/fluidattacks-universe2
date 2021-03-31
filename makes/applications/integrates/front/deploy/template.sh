@@ -14,6 +14,7 @@ function deploy {
   local branch="${3}"
   local bugsnag_key='99a64555a50340cfa856f6623c6bf35d'
   local deployment_date
+  export CI_COMMIT_REF_NAME
   export CI_COMMIT_SHA
   export CI_COMMIT_SHORT_SHA
 
@@ -22,6 +23,7 @@ function deploy {
     &&  mkdir -p app/static \
     &&  copy "__envCompiledFront__/output/app/static" app/static \
     &&  deployment_date="$(date -u '+%FT%H:%M:%SZ')" \
+    &&  _replace app '__CI_COMMIT_REF_NAME__' "${branch}" \
     &&  _replace app '__CI_COMMIT_SHA__' "${CI_COMMIT_SHA}" \
     &&  _replace app '__CI_COMMIT_SHORT_SHA__' "${CI_COMMIT_SHORT_SHA}" \
     &&  _replace app '__INTEGRATES_DEPLOYMENT_DATE__' "${deployment_date}" \
