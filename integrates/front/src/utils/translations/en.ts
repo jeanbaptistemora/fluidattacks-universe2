@@ -1403,6 +1403,9 @@ export const enTranslations: ResourceKey = {
       environmentsTitle: "Environments",
       files: {
         btnTooltip: "Add a file",
+        confirm: {
+          title: "Remove File",
+        },
         title: "Files",
       },
       groupToRemove:

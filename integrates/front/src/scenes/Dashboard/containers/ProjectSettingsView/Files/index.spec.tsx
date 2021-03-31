@@ -263,6 +263,15 @@ describe("Files", (): void => {
       .findWhere((element: ReactWrapper): boolean => element.contains("Remove"))
       .at(0);
     removeButton.simulate("click");
+
+    const proceedButton: ReactWrapper = wrapper
+      .find("ConfirmDialog")
+      .find("Button")
+      .filterWhere((element: ReactWrapper): boolean =>
+        element.contains("Proceed")
+      );
+    proceedButton.first().simulate("click");
+
     await act(
       async (): Promise<void> => {
         await wait(0);
@@ -270,7 +279,7 @@ describe("Files", (): void => {
       }
     );
 
-    expect(msgSuccess).toHaveBeenCalled(); // eslint-disable-line jest/prefer-called-with
+    expect(msgSuccess).toHaveBeenCalledTimes(1);
 
     jest.clearAllMocks();
   });

@@ -1,5 +1,7 @@
 import { Button } from "components/Button";
+import { ConfirmDialog } from "components/ConfirmDialog";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import type { IConfirmFn } from "components/ConfirmDialog";
 import { Modal } from "components/Modal";
 import React from "react";
 import { translate } from "utils/translations/translate";
@@ -34,44 +36,64 @@ const fileOptionsModal: React.FC<IFileOptionsModalProps> = (
         )}
         open={isOpen}
       >
-        <Row>
-          <Col100>
-            <label>
-              {translate.t("searchFindings.tabResources.modalOptionsContent")}
-              <b>{fileName}</b>
-              {"?"}
-            </label>
-          </Col100>
-          <ButtonToolbarCenter>
-            <br />
-            {canRemove ? (
-              <Col33>
-                <Button onClick={onDelete}>
-                  <FontAwesomeIcon icon={faMinus} />
-                  &nbsp;
-                  {translate.t("searchFindings.tabResources.removeRepository")}
-                </Button>
-              </Col33>
-            ) : undefined}
-            <Col33>
-              <Button onClick={onDownload}>
-                <FontAwesomeIcon icon={faDownload} />
-                &nbsp;
-                {translate.t("searchFindings.tabResources.download")}
-              </Button>
-            </Col33>
-          </ButtonToolbarCenter>
-        </Row>
-        <hr />
-        <Row>
-          <Col100>
-            <ButtonToolbar>
-              <Button onClick={onClose}>
-                {translate.t("confirmmodal.cancel")}
-              </Button>
-            </ButtonToolbar>
-          </Col100>
-        </Row>
+        <ConfirmDialog
+          title={translate.t("searchFindings.tabResources.files.confirm.title")}
+        >
+          {(confirm: IConfirmFn): JSX.Element => {
+            function onConfirmDelete(): void {
+              confirm((): void => {
+                onDelete();
+              });
+            }
+
+            return (
+              <React.Fragment>
+                <Row>
+                  <Col100>
+                    <label>
+                      {translate.t(
+                        "searchFindings.tabResources.modalOptionsContent"
+                      )}
+                      <b>{fileName}</b>
+                      {"?"}
+                    </label>
+                  </Col100>
+                  <ButtonToolbarCenter>
+                    <br />
+                    {canRemove ? (
+                      <Col33>
+                        <Button onClick={onConfirmDelete}>
+                          <FontAwesomeIcon icon={faMinus} />
+                          &nbsp;
+                          {translate.t(
+                            "searchFindings.tabResources.removeRepository"
+                          )}
+                        </Button>
+                      </Col33>
+                    ) : undefined}
+                    <Col33>
+                      <Button onClick={onDownload}>
+                        <FontAwesomeIcon icon={faDownload} />
+                        &nbsp;
+                        {translate.t("searchFindings.tabResources.download")}
+                      </Button>
+                    </Col33>
+                  </ButtonToolbarCenter>
+                </Row>
+                <hr />
+                <Row>
+                  <Col100>
+                    <ButtonToolbar>
+                      <Button onClick={onClose}>
+                        {translate.t("confirmmodal.cancel")}
+                      </Button>
+                    </ButtonToolbar>
+                  </Col100>
+                </Row>
+              </React.Fragment>
+            );
+          }}
+        </ConfirmDialog>
       </Modal>
     </React.StrictMode>
   );
