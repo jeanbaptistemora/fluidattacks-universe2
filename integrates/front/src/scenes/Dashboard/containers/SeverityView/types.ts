@@ -26,6 +26,7 @@ interface ISeverityAttr {
       severityScope: string;
       userInteraction: string;
     };
+    severityScore: number;
   };
 }
 

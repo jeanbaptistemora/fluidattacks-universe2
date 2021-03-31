@@ -6,6 +6,7 @@ const GET_SEVERITY: DocumentNode = gql`
     finding(identifier: $identifier) {
       id
       cvssVersion
+      severityScore
       severity
     }
   }

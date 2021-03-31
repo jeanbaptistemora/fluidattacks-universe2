@@ -26,7 +26,7 @@ describe("SeverityView", (): void => {
       result: {
         data: {
           finding: {
-            cvssVersion: "3",
+            cvssVersion: "3.1",
             id: "468603225",
             severity: {
               attackComplexity: 0.77,
@@ -52,6 +52,7 @@ describe("SeverityView", (): void => {
               severityScope: 1,
               userInteraction: 0.85,
             },
+            severityScore: 2.9,
           },
         },
       },
@@ -80,14 +81,19 @@ describe("SeverityView", (): void => {
   it("should render a component", async (): Promise<void> => {
     expect.hasAssertions();
 
+    const mockedPermissions: PureAbility<string> = new PureAbility([
+      { action: "backend_api_mutations_update_severity_mutate" },
+    ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/TEST/vulns/438679960/severity"]}>
         <Provider store={store}>
           <MockedProvider addTypename={false} mocks={mocks}>
-            <Route
-              component={SeverityView}
-              path={"/:projectName/vulns/:findingId/severity"}
-            />
+            <authzPermissionsContext.Provider value={mockedPermissions}>
+              <Route
+                component={SeverityView}
+                path={"/:projectName/vulns/:findingId/severity"}
+              />
+            </authzPermissionsContext.Provider>
           </MockedProvider>
         </Provider>
       </MemoryRouter>
@@ -100,8 +106,25 @@ describe("SeverityView", (): void => {
     );
 
     expect(wrapper).toHaveLength(1);
+
+    const editButton: ReactWrapper = wrapper
+      .find("button")
+      .findWhere((element: ReactWrapper): boolean => element.contains("Edit"))
+      .at(0);
+
+    expect(editButton).toHaveLength(1);
+
+    editButton.simulate("click");
+
+    await act(
+      async (): Promise<void> => {
+        await wait(0);
+        wrapper.update();
+      }
+    );
+
     expect(wrapper.text()).toContain(
-      "1.00 | High: Exploit is not required or it can be automated"
+      "High: Exploit is not required or it can be automated"
     );
   });
 

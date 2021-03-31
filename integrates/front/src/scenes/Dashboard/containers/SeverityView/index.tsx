@@ -10,6 +10,7 @@ import type { GraphQLError } from "graphql";
 import type { InjectedFormProps } from "redux-form";
 import { Logger } from "utils/logger";
 import type { PureAbility } from "@casl/ability";
+import { SeverityContent } from "scenes/Dashboard/containers/SeverityView/SeverityContent/index";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import _ from "lodash";
 import { calcCVSSv3 } from "utils/cvss";
@@ -175,101 +176,100 @@ const SeverityView: React.FC = (): JSX.Element => {
               </ButtonToolbarRow>
             </Can>
             <br />
-            <GenericForm
-              initialValues={{
-                ...data.finding.severity,
-                cvssVersion: data.finding.cvssVersion,
-              }}
-              name={"editSeverity"}
-              onChange={handleFormChange}
-              onSubmit={handleUpdateSeverity}
-            >
-              {({ pristine }: InjectedFormProps): React.ReactNode => (
-                <React.Fragment>
-                  {isEditing ? (
-                    <React.Fragment>
-                      <ButtonToolbarRow>
-                        <Button
-                          disabled={pristine || mutationRes.loading}
-                          type={"submit"}
-                        >
-                          <FluidIcon icon={"loading"} />
-                          {translate.t("searchFindings.tabSeverity.update")}
-                        </Button>
-                      </ButtonToolbarRow>
-                      <Row>
-                        <EditableField
-                          alignField={"horizontal"}
-                          component={Dropdown}
-                          currentValue={"3.1"}
-                          label={translate.t(
-                            "searchFindings.tabSeverity.cvssVersion"
-                          )}
-                          name={"cvssVersion"}
-                          renderAsEditable={isEditing}
-                          // eslint-disable-next-line react/forbid-component-props
-                          style={
-                            "background-color: 000;" as React.CSSProperties
-                          }
-                          validate={required}
-                        >
-                          <option value={""} />
-                          <option value={"3.1"}>{"3.1"}</option>
-                        </EditableField>
-                      </Row>
-                    </React.Fragment>
-                  ) : undefined}
-                  {castFieldsCVSS3(
-                    data.finding.severity,
-                    isEditing,
-                    formValues
-                  ).map(
-                    (field: ISeverityField, index: number): JSX.Element => {
-                      const currentOption: string =
-                        field.options[field.currentValue];
-
-                      return (
-                        <Row key={index.toString()}>
+            {isEditing ||
+            data.finding.severityScore <= 0 ||
+            data.finding.cvssVersion !== "3.1" ? (
+              <GenericForm
+                initialValues={{
+                  ...data.finding.severity,
+                  cvssVersion: data.finding.cvssVersion,
+                }}
+                name={"editSeverity"}
+                onChange={handleFormChange}
+                onSubmit={handleUpdateSeverity}
+              >
+                {({ pristine }: InjectedFormProps): React.ReactNode => (
+                  <React.Fragment>
+                    {isEditing ? (
+                      <React.Fragment>
+                        <ButtonToolbarRow>
+                          <Button
+                            disabled={pristine || mutationRes.loading}
+                            type={"submit"}
+                          >
+                            <FluidIcon icon={"loading"} />
+                            {translate.t("searchFindings.tabSeverity.update")}
+                          </Button>
+                        </ButtonToolbarRow>
+                        <Row>
                           <EditableField
                             alignField={"horizontal"}
                             component={Dropdown}
-                            currentValue={`${Number(field.currentValue).toFixed(
-                              2
-                            )} | ${translate.t(currentOption)}`}
-                            id={`Row${index}`}
-                            label={field.title}
-                            name={field.name}
+                            currentValue={"3.1"}
+                            label={translate.t(
+                              "searchFindings.tabSeverity.cvssVersion"
+                            )}
+                            name={"cvssVersion"}
                             renderAsEditable={isEditing}
-                            // eslint-disable-next-line react/forbid-component-props
-                            style={
-                              "background-color: 000;" as React.CSSProperties
-                            }
-                            tooltip={
-                              _.isEmpty(currentOption)
-                                ? undefined
-                                : translate.t(
-                                    currentOption.replace(/text/u, "tooltip")
-                                  )
-                            }
                             validate={required}
                           >
                             <option value={""} />
-                            {_.map(
-                              field.options,
-                              (text: string, value: string): JSX.Element => (
-                                <option key={text} value={value}>
-                                  {translate.t(text)}
-                                </option>
-                              )
-                            )}
+                            <option value={"3.1"}>{"3.1"}</option>
                           </EditableField>
                         </Row>
-                      );
-                    }
-                  )}
-                </React.Fragment>
-              )}
-            </GenericForm>
+                      </React.Fragment>
+                    ) : undefined}
+                    {castFieldsCVSS3(
+                      data.finding.severity,
+                      isEditing,
+                      formValues
+                    ).map(
+                      (field: ISeverityField, index: number): JSX.Element => {
+                        const currentOption: string =
+                          field.options[field.currentValue];
+
+                        return (
+                          <Row key={index.toString()}>
+                            <EditableField
+                              alignField={"horizontal"}
+                              component={Dropdown}
+                              currentValue={`${Number(
+                                field.currentValue
+                              ).toFixed(2)} | ${translate.t(currentOption)}`}
+                              id={`Row${index}`}
+                              label={field.title}
+                              name={field.name}
+                              renderAsEditable={isEditing}
+                              tooltip={
+                                _.isEmpty(currentOption)
+                                  ? undefined
+                                  : translate.t(
+                                      currentOption.replace(/text/u, "tooltip")
+                                    )
+                              }
+                              validate={required}
+                            >
+                              <option value={""} />
+                              {_.map(
+                                field.options,
+                                (text: string, value: string): JSX.Element => (
+                                  <option key={text} value={value}>
+                                    {translate.t(text)}
+                                  </option>
+                                )
+                              )}
+                            </EditableField>
+                          </Row>
+                        );
+                      }
+                    )}
+                  </React.Fragment>
+                )}
+              </GenericForm>
+            ) : (
+              /* eslint-disable-next-line react/jsx-props-no-spreading -- Preferred for readability */
+              <SeverityContent {...data.finding.severity} />
+            )}
           </React.Fragment>
         </Col100>
       </Row>

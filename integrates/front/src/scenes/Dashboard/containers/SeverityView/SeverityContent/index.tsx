@@ -32,13 +32,13 @@ import {
 const Row: StyledComponent<"div", Record<string, unknown>> = styled.div.attrs<{
   className: string;
 }>({
-  className: "w-100-m w-25-ns pa2",
+  className: "w-100-m w-25-ns pa1",
 })``;
 
 const Col: StyledComponent<"div", Record<string, unknown>> = styled.div.attrs<{
   className: string;
 }>({
-  className: "pa2 w-100 mb3-l mb2-m mb1-ns",
+  className: "pa1 w-100 mb3-l mb2-m mb1-ns",
 })``;
 
 const FlexCol: StyledComponent<
