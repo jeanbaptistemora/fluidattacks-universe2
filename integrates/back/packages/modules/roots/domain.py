@@ -17,12 +17,10 @@ from urllib3.util.url import parse_url
 # Local
 from backend import authz
 from backend.exceptions import (
-    InvalidChar,
     InvalidParameter,
     InvalidRootExclusion,
     PermissionDenied,
     RepeatedRoot,
-    RepeatedRootNickname,
     RepeatedValues,
     RootNotFound
 )
@@ -168,8 +166,13 @@ async def add_git_root(context: Any, user_email: str, **kwargs: Any) -> None:
 
     gitignore = kwargs['gitignore']
     enforcer = await authz.get_group_level_enforcer(user_email)
-    if not validations.validate_nickname(nickname):
-        raise InvalidChar()
+
+    validations.validate_nickname(nickname)
+    validations.validate_nickname_is_unique(
+        nickname,
+        await get_roots(group_name=group_name)
+    )
+
     if (
         gitignore
         and not enforcer(group_name, 'update_git_root_filter')
@@ -183,12 +186,6 @@ async def add_git_root(context: Any, user_email: str, **kwargs: Any) -> None:
         and validations.is_valid_git_branch(branch)
     ):
         raise InvalidParameter()
-
-    if not validations.is_nickname_unique(
-        nickname,
-        await get_roots(group_name=group_name)
-    ):
-        raise RepeatedRootNickname()
 
     group = await group_loader.load(group_name)
     if not validations.is_git_unique(
@@ -314,9 +311,9 @@ async def add_url_root(context: Any, user_email: str, **kwargs: Any) -> None:
 
 
 def _format_root_nickname(nickname: str, url: str) -> str:
-    nick = url.split('/')[-1]
+    nick = unquote(url).split('/')[-1]
     if nickname:
-        nick = nickname
+        nick = unquote(nickname)
     # Return the repo name as nickname
     if nick.endswith('.git'):
         return nick[:-4]
@@ -384,17 +381,11 @@ async def update_git_root(user_email: str, **kwargs: Any) -> None:
         root.state.nickname
     )
 
-    if not validations.validate_nickname(nickname):
-        raise InvalidChar()
-
-    if (
-        nickname != root.state.nickname
-        and not validations.is_nickname_unique(
-            nickname,
-            await get_roots(group_name=group_name)
-        )
-    ):
-        raise RepeatedRootNickname()
+    validations.validate_nickname(nickname)
+    validations.validate_nickname_is_unique(
+        nickname,
+        await get_roots(group_name=group_name)
+    )
 
     await roots_dal.update_git_root_state(
         group_name=group_name,

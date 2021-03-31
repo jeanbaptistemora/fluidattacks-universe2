@@ -1,6 +1,5 @@
 # Standard
 import os
-import re
 from ipaddress import ip_address
 from typing import List, Tuple
 from urllib.parse import ParseResult, unquote_plus, urlparse
@@ -10,6 +9,7 @@ from git import Git, GitCommandError
 
 # Local
 from dynamodb.types import GitRootItem, IPRootItem, RootItem, URLRootItem
+from backend.exceptions import InvalidChar, RepeatedRootNickname
 
 
 def is_exclude_valid(exclude_patterns: List[str], url: str) -> bool:
@@ -46,16 +46,17 @@ def is_valid_git_branch(branch_name: str) -> bool:
         return False
 
 
-def is_nickname_unique(
+def validate_nickname_is_unique(
     nickname: str,
     roots: Tuple[RootItem, ...]
-) -> bool:
-    return nickname not in {
+) -> None:
+    if (nickname in {
         root.state.nickname
         for root in roots
         if isinstance(root, GitRootItem)
         and root.state.status == 'ACTIVE'
-    }
+    }):
+        raise RepeatedRootNickname()
 
 
 def is_git_unique(
@@ -110,7 +111,6 @@ def is_url_unique(
     )
 
 
-def validate_nickname(nickname: str) -> bool:
-    if re.search('/', nickname):
-        return False
-    return True
+def validate_nickname(nickname: str) -> None:
+    if '/' in nickname:
+        raise InvalidChar()
