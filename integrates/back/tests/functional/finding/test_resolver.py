@@ -6,12 +6,16 @@ from typing import (
     List,
 )
 
+# Third party libraries
+from freezegun import freeze_time
+
 # Local libraries
 from . import query
 
 
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group('finding')
+@freeze_time('2021-03-31')
 async def test_admin(populate: bool):
     assert populate
     identifier: str = '475041513'
