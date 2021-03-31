@@ -1,5 +1,6 @@
 import type { ApolloError } from "apollo-client";
 import { Comments } from "scenes/Dashboard/components/Comments/index";
+import { CommentsRefac } from "scenes/Dashboard/components/CommentsRefac/index";
 import type { GraphQLError } from "graphql";
 import type { IAuthContext } from "utils/auth";
 import { Logger } from "utils/logger";
@@ -130,6 +131,9 @@ const ProjectConsultingView: React.FC = (): JSX.Element => {
         onLoad={getData}
         onPostComment={handlePost}
       />
+      {userEmail.endsWith("@fluidattacks.com") ? (
+        <CommentsRefac onLoad={getData} onPostComment={handlePost} />
+      ) : null}
     </React.StrictMode>
   );
 };
