@@ -73,7 +73,7 @@ STATIC_SIDE_EFFECTS_FINDING: Dict[str, Set[str]] = {
         'java.util.Random.nextBytes',
     }),
 }
-BY_OBJ_NO_TYPE_ARGS_PROPAGATION_FIDING: Dict[str, Set[str]] = {
+BY_OBJ_NO_TYPE_ARGS_PROPAG: Dict[str, Set[str]] = {
     core_model.FindingEnum.F034.name: complete_attrs_on_set({
         'getSession.setAttribute',
         'toString.substring',
@@ -276,6 +276,22 @@ def attempt_java_security_msgdigest(args: EvaluatorArgs) -> bool:
     return False
 
 
+def attempt_by_args_propagation_no_type(
+    args: EvaluatorArgs,
+    method: str,
+) -> bool:
+    _, method_path = split_on_first_dot(method)
+
+    if (
+        method_path in BY_OBJ_NO_TYPE_ARGS_PROPAG.get(args.finding.name, {})
+        and any(dep.meta.danger for dep in args.dependencies)
+    ):
+        args.syntax_step.meta.danger = True
+        return True
+
+    return False
+
+
 def attempt_by_args_propagation(args: EvaluatorArgs, method: str) -> bool:
     method_field, method_name = split_on_last_dot(args.syntax_step.method)
     if field := lookup_java_field(args, method_field):
@@ -354,12 +370,10 @@ def attempt_the_old_way(args: EvaluatorArgs) -> bool:
 
 
 def analyze_method_invocation(args: EvaluatorArgs, method: str) -> None:
-    # Analyze the arguments involved in the method invocation
-    args_danger = any(dep.meta.danger for dep in args.dependencies)
-
-    # pylint: disable=expression-not-assigned
+    # pylint: disable=expression-not-assigned,too-many-boolean-expressions
     if (
         attempt_by_args_propagation(args, method) or
+        attempt_by_args_propagation_no_type(args, method) or
         attempt_by_obj(args, method) or
         attempt_by_obj_args(args, method) or
         attempt_by_type(args, method) or
@@ -373,15 +387,6 @@ def analyze_method_invocation(args: EvaluatorArgs, method: str) -> None:
         method_var_decl.var_type_base if method_var_decl else ''
     )
 
-    args.syntax_step.meta.danger = (
-        # functions for which the type of the variable cannot be obtained,
-        # but which propagate args danger
-        method_path
-        and method_path in
-        BY_OBJ_NO_TYPE_ARGS_PROPAGATION_FIDING.get(
-            args.finding.name, str())
-        and args_danger
-    )
     analyze_method_static_side_effects(args, method)
     analyze_method_by_type_args_propagation(args, method)
     analyze_method_by_type_args_propagation_side_effects(args, method)
