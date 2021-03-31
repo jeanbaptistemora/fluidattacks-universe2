@@ -5,11 +5,15 @@
 
 import { Col100 } from "styles/styledComponents";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import _ from "lodash";
 import logo from "resources/integrates.svg";
 import style from "scenes/Login/index.css";
 import { track } from "mixpanel-browser";
 import { useTranslation } from "react-i18next";
+import {
+  CI_COMMIT_SHA,
+  CI_COMMIT_SHORT_SHA,
+  INTEGRATES_DEPLOYMENT_DATE,
+} from "utils/ctx";
 import {
   LoginButton,
   LoginCommit,
@@ -30,17 +34,6 @@ import {
 
 export const Login: React.FC = (): JSX.Element => {
   const { t } = useTranslation();
-  const deploymentDate: string = _.isString(
-    process.env.INTEGRATES_DEPLOYMENT_DATE
-  )
-    ? process.env.INTEGRATES_DEPLOYMENT_DATE
-    : "";
-  const commitSha: string = _.isString(process.env.CI_COMMIT_SHA)
-    ? process.env.CI_COMMIT_SHA
-    : "";
-  const commitShaShort: string = _.isString(process.env.CI_COMMIT_SHORT_SHA)
-    ? process.env.CI_COMMIT_SHORT_SHA
-    : "";
 
   // Event handlers 2FA notification Buttons
   function handleNotificationGoogle(): void {
@@ -140,16 +133,16 @@ export const Login: React.FC = (): JSX.Element => {
       </LoginGrid>
       <LoginDeploymentDate>
         {t("sidebar.deploymentDate")}&nbsp;
-        {deploymentDate}
+        {INTEGRATES_DEPLOYMENT_DATE}
       </LoginDeploymentDate>
       <LoginCommit>
         {t("sidebar.commit")}&nbsp;
         <a
-          href={`https://gitlab.com/fluidattacks/product/-/tree/${commitSha}`}
+          href={`https://gitlab.com/fluidattacks/product/-/tree/${CI_COMMIT_SHA}`}
           rel={"noreferrer"}
           target={"_blank"}
         >
-          {commitShaShort}
+          {CI_COMMIT_SHORT_SHA}
         </a>
       </LoginCommit>
     </LoginContainer>

@@ -8,6 +8,11 @@ import logo from "resources/integrates_sidebar.svg";
 import style from "scenes/Dashboard/components/Sidebar/index.css";
 import { translate } from "utils/translations/translate";
 import { useHistory } from "react-router-dom";
+import {
+  CI_COMMIT_SHA,
+  CI_COMMIT_SHORT_SHA,
+  INTEGRATES_DEPLOYMENT_DATE,
+} from "utils/ctx";
 import React, { useCallback } from "react";
 
 interface ISidebarProps {
@@ -123,7 +128,7 @@ const sidebar: React.FC<ISidebarProps> = (
         <div className={style.version}>
           <small>
             {translate.t("sidebar.deploymentDate")}&nbsp;
-            {process.env.INTEGRATES_DEPLOYMENT_DATE}
+            {INTEGRATES_DEPLOYMENT_DATE}
           </small>
         </div>
         <div className={style.version}>
@@ -131,11 +136,11 @@ const sidebar: React.FC<ISidebarProps> = (
             {translate.t("sidebar.commit")}&nbsp;
             <a
               // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-              href={`https://gitlab.com/fluidattacks/product/-/tree/${process.env.CI_COMMIT_SHA}`}
+              href={`https://gitlab.com/fluidattacks/product/-/tree/${CI_COMMIT_SHA}`}
               rel={"noopener noreferrer"}
               target={"_blank"}
             >
-              {process.env.CI_COMMIT_SHORT_SHA}
+              {CI_COMMIT_SHORT_SHA}
             </a>
           </small>
         </div>

@@ -2,15 +2,7 @@ import OptimizeCssAssetsPlugin from "optimize-css-assets-webpack-plugin";
 import TerserPlugin from "terser-webpack-plugin";
 import { commonConfig } from "./webpack.common.config";
 import type webpack from "webpack";
-
-const branchName: string =
-  process.env.CI_COMMIT_REF_NAME === undefined
-    ? "master"
-    : process.env.CI_COMMIT_REF_NAME;
-const bucketName: string =
-  branchName === "master"
-    ? "integrates.front.production.fluidattacks.com"
-    : "integrates.front.development.fluidattacks.com";
+import { CI_COMMIT_REF_NAME, INTEGRATES_BUCKET_NAME } from "./src/utils/ctx";
 
 const prodConfig: webpack.Configuration = {
   ...commonConfig,
@@ -29,7 +21,7 @@ const prodConfig: webpack.Configuration = {
             options: {
               name: "[hash].[ext]",
               outputPath: "img/",
-              publicPath: `https://${bucketName}/${branchName}/static/dashboard/img/`,
+              publicPath: `https://${INTEGRATES_BUCKET_NAME}/${CI_COMMIT_REF_NAME}/static/dashboard/img/`,
             },
           },
         ],

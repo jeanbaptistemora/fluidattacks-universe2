@@ -14,9 +14,6 @@ function deploy {
   local branch="${3}"
   local bugsnag_key='99a64555a50340cfa856f6623c6bf35d'
   local deployment_date
-  export CI_COMMIT_REF_NAME
-  export CI_COMMIT_SHA
-  export CI_COMMIT_SHORT_SHA
 
       "aws_login_${env}" integrates \
   &&  pushd integrates \
@@ -26,6 +23,7 @@ function deploy {
     &&  _replace app '__CI_COMMIT_REF_NAME__' "${branch}" \
     &&  _replace app '__CI_COMMIT_SHA__' "${CI_COMMIT_SHA}" \
     &&  _replace app '__CI_COMMIT_SHORT_SHA__' "${CI_COMMIT_SHORT_SHA}" \
+    &&  _replace app '__INTEGRATES_BUCKET_NAME__' "integrates.front.${endpoint}.fluidattacks.com" \
     &&  _replace app '__INTEGRATES_DEPLOYMENT_DATE__' "${deployment_date}" \
     &&  aws_s3_sync \
           app \
