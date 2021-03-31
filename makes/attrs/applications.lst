@@ -134,7 +134,11 @@ melts.vpn
 observes.bin.code-etl
 observes.bin.dif-gitlab-etl
 observes.bin.streamer-zoho-crm
+observes.bin.tap-csv
+observes.bin.tap-formstack
 observes.bin.tap-mailchimp
+observes.bin.tap-mixpanel
+observes.bin.tap-timedoctor
 observes.bin.tap-zoho-analytics
 observes.bin.timedoctor-tokens
 observes.bin.update-project-variable
