@@ -10,7 +10,7 @@ makeEntrypoint {
   searchPaths = {
     envSources = [
       packages.observes.generic.runner
-      packages.observes.env.runtime.batch-stability
+      packages.observes.env.service-batch-stability.runtime
     ];
   };
   name = "observes-bin-service-batch-stability";

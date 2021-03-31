@@ -141,15 +141,6 @@ observes.lint.target-redshift:
   <<: *observes_in_dev_branch
   stage: lint-code
 
-observes.scheduled.batch-stability:
-  <<: *makes
-  only:
-    refs: [schedules]
-    variables: [$observes_batch_stability]
-  stage: analytics
-  tags: [autoscaling]
-  interruptible: false
-
 observes.scheduled.dynamodb-centralize:
   <<: *makes
   tags: [autoscaling-large]
@@ -184,6 +175,15 @@ observes.scheduled.dynamodb-integrates-etl-vulns:
   only:
     refs: [schedules]
     variables: [$observes_dynamodb_vulns]
+  interruptible: false
+
+observes.scheduled.job.batch-stability:
+  <<: *makes
+  only:
+    refs: [schedules]
+    variables: [$observes_batch_stability]
+  stage: analytics
+  tags: [autoscaling]
   interruptible: false
 
 observes.scheduled.job.code-etl-compute-bills:
