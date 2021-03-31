@@ -78,7 +78,7 @@ so read it completely and execute commands as you read
     We highly recommend you use Visual Studio Code because most of the team use it and works very well for our purpose
 
     You can install it with:
-    `$ nix-env -i vscode-with-extensions -f /path/to/fluidattacks/product/repo`
+    `$ NIXPKGS_ALLOW_UNFREE=1 nix-env -i vscode-with-extensions -f /path/to/fluidattacks/product/repo`
 
 1. **Others tools**:
 

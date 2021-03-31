@@ -1,4 +1,4 @@
-{ nixpkgs
+{ nixpkgs3
 , ...
 }:
 let
@@ -6,6 +6,8 @@ let
     builtins.trace
       "https://marketplace.visualstudio.com/items?itemName=${publisher}.${name} ${version}"
       { inherit name publisher sha256 version; };
+
+  nixpkgs = nixpkgs3;
 in
 nixpkgs.vscode-with-extensions.override {
   vscodeExtensions = nixpkgs.vscode-utils.extensionsFromVscodeMarketplace [

@@ -1,6 +1,7 @@
 { self
 , nixpkgsSource
 , nixpkgsSource2
+, nixpkgsSource3
 , ...
 }:
 let
@@ -55,6 +56,10 @@ let
       inherit system;
     };
     nixpkgs2 = import nixpkgsSource2 { inherit system; };
+    nixpkgs3 = import nixpkgsSource3 {
+      config.allowUnfree = true;
+      inherit system;
+    };
 
     # Makes utilities
     buildNodeRequirements = importUtility "build-node-requirements";
