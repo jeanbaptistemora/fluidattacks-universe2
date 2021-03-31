@@ -1,8 +1,8 @@
 ---
-id: analyticsp2
-title: Analytics - Part 2
-sidebar_label: Analytics - Part 2
-slug: /web/organization/analyticsp2
+id: analytics-generic
+title: Generic Analytics
+sidebar_label: Generic Analytics
+slug: /web/organization/analytics-generic
 ---
 
 ### Findings being re-attacked

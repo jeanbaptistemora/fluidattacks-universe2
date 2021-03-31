@@ -2,7 +2,7 @@
 id: basics-api
 title: 'Basics: API'
 sidebar_label: 'Basics: API'
-slug: /api
+slug: /api/basics-api
 ---
 
 This post will help you use the API,
@@ -13,7 +13,8 @@ you can skip ahead to the API Token post:
 
 - The first step is to get some GraphQL knowledge,
   how it works and how to make queries to a GraphQL endpoint,
-  you can do it in this Introduction in the official GraphQL site.
+  you can do it in this [Introduction](https://graphql.org/learn/)
+  in the official GraphQL site. 
 
 - It is recommended that before you face the API,
   learn how to make Queries and Mutations

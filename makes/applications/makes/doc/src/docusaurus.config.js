@@ -32,6 +32,12 @@ module.exports = {
           position: 'left',
         },
         {
+          to: 'agent/',
+          activeBasePath: 'agent/',
+          label: 'Agent',
+          position: 'left',
+        },
+        {
           to: 'rules/',
           activeBasePath: 'rules/',
           label: 'Rules',

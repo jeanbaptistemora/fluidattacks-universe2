@@ -1,8 +1,8 @@
 ---
-id: analyticsp1
-title: Analytics - Part 1
-sidebar_label: Analytics - Part 1
-slug: /web/organization/analyticsp1
+id: analytics-vulnerabilities
+title: Vulnerability Analytics
+sidebar_label: Vulnerability Analytics
+slug: /web/organization/analytics-vulnerabilities
 ---
 
 The analytics section of your organization contains many graphs related to

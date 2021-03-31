@@ -18,8 +18,8 @@ module.exports = {
       type: 'category',
       label: 'Manage your organization',
       items: [
-        'web/organization/analyticsp1',
-        'web/organization/analyticsp2',
+        'web/organization/analytics-vulnerabilities',
+        'web/organization/analytics-generic',
       ],
     },
     {
@@ -62,9 +62,10 @@ module.exports = {
   Mobile: {
     Mobile: getDocs('mobile'),
   },
-  API: {
-    API: getDocs('api'),
-  },
+  API: [
+    'api/api-token',
+    'api/basics-api',
+  ],
   Rules: [
     {
       type: 'category',
