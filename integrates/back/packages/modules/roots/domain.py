@@ -222,7 +222,7 @@ async def add_git_root(context: Any, user_email: str, **kwargs: Any) -> None:
             status='ACTIVE'
         )
     )
-    await roots_dal.create_root(group_name=group_name, root=root)
+    await roots_dal.create_root(root=root)
 
     if kwargs['includes_health_check']:
         await _notify_health_check(
@@ -256,6 +256,7 @@ async def add_ip_root(context: Any, user_email: str, **kwargs: Any) -> None:
         raise RepeatedValues()
 
     root = IPRootItem(
+        group_name=group_name,
         id=str(uuid4()),
         metadata=IPRootMetadata(type='IP'),
         state=IPRootState(
@@ -265,7 +266,7 @@ async def add_ip_root(context: Any, user_email: str, **kwargs: Any) -> None:
             port=port
         )
     )
-    await roots_dal.create_root(group_name=group_name, root=root)
+    await roots_dal.create_root(root=root)
 
 
 async def add_url_root(context: Any, user_email: str, **kwargs: Any) -> None:
@@ -297,6 +298,7 @@ async def add_url_root(context: Any, user_email: str, **kwargs: Any) -> None:
         raise RepeatedValues()
 
     root = URLRootItem(
+        group_name=group_name,
         id=str(uuid4()),
         metadata=URLRootMetadata(type='URL'),
         state=URLRootState(
@@ -308,7 +310,7 @@ async def add_url_root(context: Any, user_email: str, **kwargs: Any) -> None:
             protocol=protocol
         )
     )
-    await roots_dal.create_root(group_name=group_name, root=root)
+    await roots_dal.create_root(root=root)
 
 
 def _format_root_nickname(nickname: str, url: str) -> str:

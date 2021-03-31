@@ -83,6 +83,7 @@ class IPRootState(NamedTuple):
 
 
 class IPRootItem(NamedTuple):
+    group_name: str
     id: str
     metadata: IPRootMetadata
     state: IPRootState
@@ -102,6 +103,7 @@ class URLRootState(NamedTuple):
 
 
 class URLRootItem(NamedTuple):
+    group_name: str
     id: str
     metadata: URLRootMetadata
     state: URLRootState

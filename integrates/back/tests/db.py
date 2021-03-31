@@ -132,10 +132,10 @@ async def populate_vulnerabilities(data: List[Any]) -> bool:
     return all(await collect(coroutines))
 
 
-async def populate_roots(data: Tuple[Tuple[str, RootItem], ...]) -> bool:
+async def populate_roots(data: Tuple[RootItem, ...]) -> bool:
     await collect(tuple(
-        dal_roots.create_root(group_name=group_name, root=root)
-        for group_name, root in data
+        dal_roots.create_root(root=root)
+        for root in data
     ))
 
     return True
@@ -202,10 +202,12 @@ async def populate_policies(data: List[Any]) -> bool:
     ])
     return all(await collect(coroutines))
 
+
 async def populate_executions(data: List[Any]) -> bool:
     coroutines: List[Awaitable[bool]] = []
     for execution in data:
-        execution['date'] = get_from_str(execution['date'],date_format='%Y-%m-%dT%H:%M:%SZ')
+        execution['date'] = get_from_str(
+            execution['date'], date_format='%Y-%m-%dT%H:%M:%SZ')
     coroutines.extend([
         dal_forces.create_execution(
             **execution
@@ -213,6 +215,7 @@ async def populate_executions(data: List[Any]) -> bool:
         for execution in data
     ])
     return all(await collect(coroutines))
+
 
 async def populate(data: Dict[str, Any]) -> bool:
     coroutines: List[Awaitable[bool]] = []

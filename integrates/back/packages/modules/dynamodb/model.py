@@ -83,6 +83,7 @@ def _build_root(
 
     if metadata['type'] == 'IP':
         return IPRootItem(
+            group_name=group_name,
             id=metadata[key_structure.sort_key].split('#')[1],
             metadata=IPRootMetadata(type=metadata['type']),
             state=IPRootState(
@@ -94,6 +95,7 @@ def _build_root(
         )
 
     return URLRootItem(
+        group_name=group_name,
         id=metadata[key_structure.sort_key].split('#')[1],
         metadata=URLRootMetadata(type=metadata['type']),
         state=URLRootState(
@@ -182,12 +184,12 @@ async def get_roots(*, group_name: str) -> Tuple[RootItem, ...]:
     )
 
 
-async def create_root(*, group_name: str, root: RootItem) -> None:
+async def create_root(*, root: RootItem) -> None:
     key_structure = TABLE.primary_key
 
     metadata_key = keys.build_key(
         facet=TABLE.facets['root_metadata'],
-        values={'name': group_name, 'uuid': root.id},
+        values={'name': root.group_name, 'uuid': root.id},
     )
     initial_metadata = {
         key_structure.partition_key: metadata_key.partition_key,
@@ -201,7 +203,7 @@ async def create_root(*, group_name: str, root: RootItem) -> None:
         key_structure=key_structure,
         key_values={
             'iso8601utc': root.state.modified_date,
-            'name': group_name,
+            'name': root.group_name,
             'uuid': root.id
         },
         latest_facet=TABLE.facets['root_state'],
@@ -216,7 +218,7 @@ async def create_root(*, group_name: str, root: RootItem) -> None:
             key_structure=key_structure,
             key_values={
                 'iso8601utc': root.cloning.modified_date,
-                'name': group_name,
+                'name': root.group_name,
                 'uuid': root.id
             },
             latest_facet=TABLE.facets['root_cloning'],
