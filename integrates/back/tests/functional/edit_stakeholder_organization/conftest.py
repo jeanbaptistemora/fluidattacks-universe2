@@ -21,8 +21,8 @@ async def populate() -> bool:
                 'name': 'orgtest',
                 'id': '40f6da5f-4f66-4bf0-825b-a2d9748ad6db',
                 'users': [
-                    'test1@gmail.com',
-                    'test2@gmail.com',
+                    'admin@gmail.com',
+                    'analyst@gmail.com',
                 ],
                 'groups': [],
                 'policy': {},
@@ -30,7 +30,7 @@ async def populate() -> bool:
         ],
         'users': [
             {
-                'email': 'test1@gmail.com',
+                'email': 'admin@gmail.com',
                 'first_login': '',
                 'first_name': '',
                 'last_login': '',
@@ -41,7 +41,7 @@ async def populate() -> bool:
                 'is_registered': True,
             },
             {
-                'email': 'test2@gmail.com',
+                'email': 'analyst@gmail.com',
                 'first_login': '',
                 'first_name': '',
                 'last_login': '',
@@ -55,25 +55,25 @@ async def populate() -> bool:
         'policies': [
             {
                 'level': 'user',
-                'subject': 'test1@gmail.com',
+                'subject': 'admin@gmail.com',
                 'object': 'self',
                 'role': 'admin',
             },
             {
                 'level': 'organization',
-                'subject': 'test1@gmail.com',
+                'subject': 'admin@gmail.com',
                 'object': 'ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db',
                 'role': 'customeradmin',
             },
             {
                 'level': 'user',
-                'subject': 'test2@gmail.com',
+                'subject': 'analyst@gmail.com',
                 'object': 'self',
                 'role': 'user',
             },
             {
                 'level': 'organization',
-                'subject': 'test2@gmail.com',
+                'subject': 'analyst@gmail.com',
                 'object': 'ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db',
                 'role': 'customer',
             },
