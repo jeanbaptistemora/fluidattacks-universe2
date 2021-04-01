@@ -4,6 +4,7 @@ import {
   attackComplexityOptions,
   attackVectorOptions,
   availabilityImpactOptions,
+  castPrivileges,
   confidentialityImpactOptions,
   exploitabilityOptions,
   integrityImpactOptions,
@@ -13,6 +14,10 @@ import {
   userInteractionOptions,
 } from "../utils";
 
+interface ISeverityValidation {
+  value: string;
+  options: Record<string, string>;
+}
 function validateValues(
   severity: ISeverityAttr["finding"]["severity"]
 ): boolean {
@@ -23,38 +28,31 @@ function validateValues(
     confidentialityImpact,
     exploitability,
     integrityImpact,
+    privilegesRequired,
     remediationLevel,
     reportConfidence,
     severityScope,
     userInteraction,
   } = severity;
 
-  return (
-    _.includes(Object.keys(attackVectorOptions), String(attackVector)) &&
-    _.includes(
-      Object.keys(attackComplexityOptions),
-      String(attackComplexity)
-    ) &&
-    _.includes(
-      Object.keys(availabilityImpactOptions),
-      String(availabilityImpact)
-    ) &&
-    _.includes(
-      Object.keys(confidentialityImpactOptions),
-      String(confidentialityImpact)
-    ) &&
-    _.includes(Object.keys(exploitabilityOptions), String(exploitability)) &&
-    _.includes(Object.keys(integrityImpactOptions), String(integrityImpact)) &&
-    _.includes(
-      Object.keys(remediationLevelOptions),
-      String(remediationLevel)
-    ) &&
-    _.includes(
-      Object.keys(reportConfidenceOptions),
-      String(reportConfidence)
-    ) &&
-    _.includes(Object.keys(severityScopeOptions), String(severityScope)) &&
-    _.includes(Object.keys(userInteractionOptions), String(userInteraction))
+  const optionsList: ISeverityValidation[] = [
+    { options: attackComplexityOptions, value: attackComplexity },
+    { options: attackVectorOptions, value: attackVector },
+    { options: availabilityImpactOptions, value: availabilityImpact },
+    { options: confidentialityImpactOptions, value: confidentialityImpact },
+    { options: exploitabilityOptions, value: exploitability },
+    { options: integrityImpactOptions, value: integrityImpact },
+    { options: castPrivileges(severityScope), value: privilegesRequired },
+    { options: remediationLevelOptions, value: remediationLevel },
+    { options: reportConfidenceOptions, value: reportConfidence },
+    { options: severityScopeOptions, value: severityScope },
+    { options: userInteractionOptions, value: userInteraction },
+  ];
+
+  return _.every(
+    _.map(optionsList, (optionsItem: ISeverityValidation): boolean =>
+      _.includes(Object.keys(optionsItem.options), String(optionsItem.value))
+    )
   );
 }
 
