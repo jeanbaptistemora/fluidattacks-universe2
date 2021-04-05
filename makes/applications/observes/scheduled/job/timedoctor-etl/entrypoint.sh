@@ -42,7 +42,7 @@ function job_timedoctor {
         --drop-schema \
         --schema-name 'timedoctor' \
         < .singer \
-  &&  observes-update-sync-date single-job \
+  &&  observes-bin-service-job-last-success single-job \
         --auth "${db_creds}" \
         --job 'timedoctor_etl'
 }

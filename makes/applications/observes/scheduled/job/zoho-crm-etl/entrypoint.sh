@@ -22,7 +22,7 @@ function job_zoho_crm {
         --schema-name 'zoho_crm' \
         --drop-schema \
         < .singer \
-  &&  observes-update-sync-date single-job \
+  &&  observes-bin-service-job-last-success single-job \
         --auth "${db_creds}" \
         --job "zoho_crm_etl"
 }

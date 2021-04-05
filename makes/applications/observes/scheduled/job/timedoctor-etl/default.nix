@@ -16,7 +16,7 @@ makeEntrypoint {
       nixPkgs.jq
       packages.observes.bin.tap-timedoctor
       packages.observes.target-redshift
-      packages.observes.update-sync-date
+      packages.observes.bin.service.job-last-success
     ];
     envUtils = [
       "/makes/utils/aws"

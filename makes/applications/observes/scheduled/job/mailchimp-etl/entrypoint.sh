@@ -30,7 +30,7 @@ function start_etl {
         --drop-schema \
         --schema-name 'mailchimp' \
         < .singer \
-  &&  observes-update-sync-date single-job \
+  &&  observes-bin-service-job-last-success single-job \
         --auth "${db_creds}" \
         --job 'mailchimp'
 }

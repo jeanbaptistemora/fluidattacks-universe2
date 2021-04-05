@@ -9,7 +9,7 @@ makeEntrypoint {
       packages.observes.target-redshift
       packages.observes.tap-json
       packages.observes.bin.tap-mailchimp
-      packages.observes.update-sync-date
+      packages.observes.bin.service.job-last-success
     ];
     envUtils = [
       "/makes/utils/aws"

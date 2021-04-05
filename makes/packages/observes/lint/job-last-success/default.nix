@@ -6,7 +6,7 @@
 makeDerivation {
   name = "observes-lint-job-last-success";
   arguments = {
-    envSrc = path "/observes/services/update_s3_last_sync_date";
+    envSrc = path "/observes/services/job_last_success";
   };
   searchPaths = {
     envSources = [

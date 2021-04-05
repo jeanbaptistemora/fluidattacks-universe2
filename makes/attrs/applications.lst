@@ -181,7 +181,6 @@ observes.scheduled.on-aws.formstack-etl
 observes.streamer-dynamodb
 observes.tap-json
 observes.target-redshift
-observes.update-sync-date
 reviews
 skims
 skims.benchmark

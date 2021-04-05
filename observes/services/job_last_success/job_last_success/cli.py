@@ -6,7 +6,7 @@ from typing import IO
 import click
 
 # Local libraries
-from update_s3_last_sync_date import db_client
+from job_last_success import db_client
 
 
 SINGLE_JOBS = frozenset([

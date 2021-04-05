@@ -1,26 +1,26 @@
-{ buildPythonPackage
-, makeTemplate
+{ makeTemplate
 , nixpkgs
 , packages
 , path
 , ...
 }:
 let
-  pkgEnv = packages.observes.env.job-last-success;
-  pythonRunReqs = pkgEnv.runtime.python;
-  self = buildPythonPackage {
-    name = "observes-job-last-success";
-    packagePath = path "/observes/services/update_s3_last_sync_date";
-    python = nixpkgs.python38;
-  };
+  env = packages.observes.env;
+  pkgEnv = env.job-last-success;
+  self = path "/observes/services/job_last_success";
 in
 makeTemplate {
   name = "observes-env-job-last-success-runtime";
   searchPaths = {
+    envPaths = [
+      pkgEnv.runtime.python
+    ];
+    envPythonPaths = [
+      self
+    ];
     envPython38Paths = [
       nixpkgs.python38Packages.psycopg2
-      pythonRunReqs
-      self
+      pkgEnv.runtime.python
     ];
   };
 }

@@ -50,7 +50,7 @@ function job_timedoctor_backup {
   &&  cont_folder=$(< s3_files.json jq -r '.folder_name') \
   &&  aws s3 cp wl.singer "s3://${bucket}/${cont_folder}/${wl_file}" \
   &&  aws s3 cp ca.singer "s3://${bucket}/${cont_folder}/${ca_file}" \
-  &&  observes-update-sync-date single-job \
+  &&  observes-bin-service-job-last-success single-job \
         --auth "${db_creds}" \
         --job 'timedoctor_backup'
 }

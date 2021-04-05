@@ -28,7 +28,7 @@ function job_code_mirror {
               echo '[INFO] Pushing repositories to S3' \
           &&  USER=nobody melts drills --push-repos "${group}" \
           &&  echo '[INFO] Updating last sync date' \
-          &&  observes-update-sync-date compound-job \
+          &&  observes-bin-service-job-last-success compound-job \
                 --auth "${db_creds}" \
                 --job "mirror" \
                 --child "${group}"

@@ -9,7 +9,7 @@ makeEntrypoint {
     envPaths = [
       nixpkgs.findutils
       packages.melts
-      packages.observes.update-sync-date
+      packages.observes.bin.service.job-last-success
     ];
     envUtils = [
       "/makes/utils/aws"

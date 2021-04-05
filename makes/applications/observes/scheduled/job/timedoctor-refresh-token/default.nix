@@ -8,7 +8,7 @@ makeEntrypoint {
   searchPaths = {
     envPaths = [
       packages.observes.bin.timedoctor-tokens
-      packages.observes.update-sync-date
+      packages.observes.bin.service.job-last-success
     ];
     envUtils = [
       "/makes/utils/aws"

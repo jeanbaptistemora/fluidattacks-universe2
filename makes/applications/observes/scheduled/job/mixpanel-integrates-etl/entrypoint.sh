@@ -29,7 +29,7 @@ function job_mixpanel_integrates {
         --drop-schema \
         --schema-name "mixpanel_integrates" \
         < .singer \
-  &&  observes-update-sync-date single-job \
+  &&  observes-bin-service-job-last-success single-job \
           --auth "${db_creds}" \
           --job 'mixpanel_integrates'
 }

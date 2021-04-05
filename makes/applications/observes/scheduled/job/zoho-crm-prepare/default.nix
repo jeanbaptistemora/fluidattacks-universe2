@@ -7,7 +7,7 @@ makeEntrypoint {
   searchPaths = {
     envPaths = [
       packages.observes.bin.streamer-zoho-crm
-      packages.observes.update-sync-date
+      packages.observes.bin.service.job-last-success
     ];
     envUtils = [
       "/makes/utils/aws"

@@ -10,7 +10,7 @@ makeEntrypoint {
       packages.observes.streamer-dynamodb
       packages.observes.tap-json
       packages.observes.target-redshift
-      packages.observes.update-sync-date
+      packages.observes.bin.service.job-last-success
     ];
     envUtils = [
       "/makes/utils/aws"

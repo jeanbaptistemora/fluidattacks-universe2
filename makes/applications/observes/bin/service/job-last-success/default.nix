@@ -5,7 +5,7 @@
 }:
 makeEntrypoint {
   arguments = {
-    envEntrypoint = "from update_s3_last_sync_date.cli import main";
+    envEntrypoint = "from job_last_success.cli import main";
   };
   searchPaths = {
     envSources = [

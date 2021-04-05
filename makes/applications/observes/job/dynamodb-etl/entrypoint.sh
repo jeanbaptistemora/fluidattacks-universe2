@@ -39,7 +39,7 @@ function dynamodb_etl {
         --drop-schema \
         --schema-name "${schema}" \
         < .singer \
-  &&  observes-update-sync-date compound-job \
+  &&  observes-bin-service-job-last-success compound-job \
         --auth "${db_creds}" \
         --job "dynamo" \
         --child "${schema#dynamodb_}"

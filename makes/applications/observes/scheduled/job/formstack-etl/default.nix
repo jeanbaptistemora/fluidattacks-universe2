@@ -8,7 +8,7 @@ makeEntrypoint {
     envPaths = [
       packages.observes.bin.tap-formstack
       packages.observes.target-redshift
-      packages.observes.update-sync-date
+      packages.observes.bin.service.job-last-success
     ];
     envUtils = [
       "/makes/utils/aws"
