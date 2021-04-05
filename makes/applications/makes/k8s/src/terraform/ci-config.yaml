@@ -25,8 +25,6 @@ runners:
     [[runners]]
       name = "ci"
       [runners.docker]
-        cpus = "2"
-        memory = "4000m"
         dns = ["1.1.1.1", "8.8.4.4", "8.8.8.8"]
         tls_verify = false
         image = "docker"
@@ -43,10 +41,16 @@ runners:
           BucketLocation = "us-east-1"
           Insecure = false
       [runners.kubernetes]
+        cpu_request = "1200m"
+        memory_request = "2500Mi"
+        helper_cpu_request = "1m"
+        helper_memory_request = "1Mi"
         privileged = false
         allow_privilege_escalation = false
         [runners.kubernetes.node_selector]
           worker_group = "ci"
+        [dns_config]
+          nameservers = ["1.1.1.1", "8.8.4.4", "8.8.8.8"]
   cache:
     secretName: ci-cache-creds
   executor: kubernetes
