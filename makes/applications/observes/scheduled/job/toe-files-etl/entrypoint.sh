@@ -12,7 +12,7 @@ function start_etl {
   &&  echo '[INFO] Cloning services repository' \
   &&  use_git_repo_services \
   &&  echo '[INFO] Running tap' \
-  &&  observes-tap-toe-files \
+  &&  observes-bin-tap-toe-files \
         > .jsonstream \
   &&  echo '[INFO] Running tap json' \
   &&  observes-tap-json  \

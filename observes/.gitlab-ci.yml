@@ -248,6 +248,15 @@ observes.scheduled.job.timedoctor-refresh-token:
     variables: [$observes_timedoctor_refresh_token]
   interruptible: false
 
+observes.scheduled.job.toe-files-etl:
+  <<: *makes
+  tags: [autoscaling-analytics]
+  stage: analytics
+  only:
+    refs: [schedules]
+    variables: [$observes_services_toe]
+  interruptible: false
+
 observes.scheduled.job.zoho-crm-etl:
   <<: *makes
   tags: [autoscaling-analytics]
@@ -309,15 +318,6 @@ observes.scheduled.on-aws.formstack-etl:
   only:
     refs: [schedules]
     variables: [$observes_formstack]
-  interruptible: false
-
-observes.scheduled.toe-files-etl:
-  <<: *makes
-  tags: [autoscaling-analytics]
-  stage: analytics
-  only:
-    refs: [schedules]
-    variables: [$observes_services_toe]
   interruptible: false
 
 observes.test.code-etl:

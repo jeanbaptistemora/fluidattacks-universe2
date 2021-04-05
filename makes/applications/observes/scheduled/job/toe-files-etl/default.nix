@@ -6,7 +6,7 @@
 makeEntrypoint {
   searchPaths = {
     envPaths = [
-      packages.observes.tap-toe-files
+      packages.observes.bin.tap-toe-files
       packages.observes.tap-json
       packages.observes.target-redshift
     ];
@@ -16,6 +16,6 @@ makeEntrypoint {
       "/makes/utils/sops"
     ];
   };
-  name = "observes-scheduled-toe-files-etl";
-  template = path "/makes/applications/observes/scheduled/toe-files-etl/entrypoint.sh";
+  name = "observes-scheduled-job-toe-files-etl";
+  template = path "/makes/applications/observes/scheduled/job/toe-files-etl/entrypoint.sh";
 }

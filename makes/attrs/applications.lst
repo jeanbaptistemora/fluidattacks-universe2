@@ -170,6 +170,7 @@ observes.scheduled.job.tap-zoho-analytics
 observes.scheduled.job.timedoctor-backup
 observes.scheduled.job.timedoctor-etl
 observes.scheduled.job.timedoctor-refresh-token
+observes.scheduled.job.toe-files-etl
 observes.scheduled.job.zoho-crm-etl
 observes.scheduled.job.zoho-crm-prepare
 observes.scheduled.on-aws.code-etl-amend
@@ -177,10 +178,8 @@ observes.scheduled.on-aws.code-etl-mirror
 observes.scheduled.on-aws.code-etl-upload
 observes.scheduled.on-aws.dif-gitlab-etl
 observes.scheduled.on-aws.formstack-etl
-observes.scheduled.toe-files-etl
 observes.streamer-dynamodb
 observes.tap-json
-observes.tap-toe-files
 observes.target-redshift
 observes.update-sync-date
 reviews
