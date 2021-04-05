@@ -252,7 +252,7 @@ class CreatorPDF():
             + '[width=300, align=center]'
         main_tables = make_vuln_table(findings, words)
         fluid_tpl_content = self.make_content(words)
-        access_vector = get_access_vector(findings[0])
+        access_vector = get_access_vector(findings[0]) if findings else ''
         self.context = {
             'full_project': full_project.upper(),
             'team': team,
@@ -428,10 +428,23 @@ def make_vuln_table(findings, words):
                 finding['finding']
             ])
             top += 1
-    vuln_table[0][2] = vuln_table[0][1] * 100 / float(len(findings))
-    vuln_table[1][2] = vuln_table[1][1] * 100 / float(len(findings))
-    vuln_table[2][2] = vuln_table[2][1] * 100 / float(len(findings))
-    vuln_table[3][2] = vuln_table[3][1] * 100 / float(len(findings))
+    number_of_findings: float = float(len(findings))
+    vuln_table[0][2] = (
+        vuln_table[0][1] * 100 / number_of_findings
+        if number_of_findings != 0 else 0.0
+    )
+    vuln_table[1][2] = (
+        vuln_table[1][1] * 100 / number_of_findings
+        if number_of_findings != 0 else 0.0
+    )
+    vuln_table[2][2] = (
+        vuln_table[2][1] * 100 / number_of_findings
+        if number_of_findings != 0 else 0.0
+    )
+    vuln_table[3][2] = (
+        vuln_table[3][1] * 100 / number_of_findings
+        if number_of_findings != 0 else 0.0
+    )
     vuln_table[0][2] = '{0:.2f}%'.format(vuln_table[0][2])
     vuln_table[1][2] = '{0:.2f}%'.format(vuln_table[1][2])
     vuln_table[2][2] = '{0:.2f}%'.format(vuln_table[2][2])
