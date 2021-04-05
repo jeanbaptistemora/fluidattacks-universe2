@@ -87,7 +87,7 @@ def update_results_csv(filename: str, results: List[List[str]]) -> None:
         csv_writer = csv.writer(results_file)
         csv_writer.writerows(results)
     S3_BUCKET \
-        .Object(f'training-output/{filename}')\
+        .Object(f'training-output/results/{filename}')\
         .upload_file(filename)
 
 

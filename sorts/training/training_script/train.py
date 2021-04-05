@@ -198,7 +198,7 @@ def main() -> None:
             csv_writer = csv.writer(results_file)
             csv_writer.writerows(training_output)
         S3_BUCKET\
-            .Object(f'training-output/{results_filename}')\
+            .Object(f'training-output/results/{results_filename}')\
             .upload_file(results_filename)
         save_best_model_to_s3(model_class, args.train, training_output)
 
