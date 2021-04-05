@@ -134,10 +134,11 @@ def main() -> None:  # pylint: disable=too-many-locals
     )
     parser.add_argument('--model', type=str, default='')
     parser.add_argument('--activation', type=str, default='')
+    parser.add_argument('--solver', type=str, default='')
     args = parser.parse_args()
 
     # We compile here all hyperparameters selected for tuning
-    hyperparameters_to_tune: List[str] = [args.activation]
+    hyperparameters_to_tune: List[str] = [args.activation, args.solver]
 
     model_name: str = args.model.split('-')[0]
     model_features: Tuple[str, ...] = get_model_features()

@@ -42,6 +42,11 @@ def deploy_hyperparameter_tuning_job() -> None:
                 'tanh',
                 'identity',
                 'logistic'
+            ]),
+            'solver': CategoricalParameter([
+                'lbfgs',
+                'sgd',
+                'adam'
             ])
         }
     )
