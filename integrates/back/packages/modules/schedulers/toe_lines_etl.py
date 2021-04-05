@@ -21,7 +21,6 @@ from aioextensions import (
 # Local libraries
 from back.settings import (
     LOGGING,
-    NOEXTRA
 )
 from backend.api import get_new_context
 from backend.exceptions import (
@@ -198,8 +197,6 @@ def _get_group_name(
 
 async def main() -> None:
     """Update the root toe lines from services repository"""
-    msg = '[scheduler]: toe_lines_etl is running'
-    LOGGER.info(msg, **NOEXTRA)
     loaders = get_new_context()
     with tempfile.TemporaryDirectory() as tmpdirname:
         git_utils.clone_services_repository(tmpdirname)

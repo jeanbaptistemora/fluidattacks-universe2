@@ -409,9 +409,6 @@ async def send_group_treatment_change(
     group_name: str,
     min_date: datetime
 ) -> None:
-    payload_data = {'group_name': group_name}
-    msg = 'Info: Getting treatment change'
-    LOGGER.info(msg, extra={'extra': payload_data})
     findings = await findings_domain.list_findings(context, [group_name])
     await collect(
         vuln_domain.send_treatment_change_mail(context, finding_id, min_date)
@@ -576,11 +573,6 @@ def format_vulnerabilities(
         finding_text = f'{act_finding["finding"]} ({delta})'
     else:
         finding_text = ''
-        message = (
-            f'Finding {act_finding["finding_id"]} of project '
-            f'{act_finding["project_name"]} has no changes during the week'
-        )
-        LOGGER.info(message, **NOEXTRA)
     return finding_text
 
 
@@ -847,20 +839,15 @@ async def update_group_indicators(group_name: str) -> None:
     payload_data = {
         'group_name': group_name
     }
-    msg = 'Info: Updating indicators'
-    LOGGER.info(msg, extra={'extra': payload_data})
     indicators = await get_project_indicators(group_name)
     try:
         response = await project_dal.update(
             group_name,
             indicators
         )
-        if response:
-            msg = 'Info: Updated indicators'
-            LOGGER.info(msg, extra={'extra': payload_data})
-        else:
+        if not response:
             msg = 'Error: An error ocurred updating indicators in the database'
-            LOGGER.info(msg, extra={'extra': payload_data})
+            LOGGER.error(msg, extra={'extra': payload_data})
     except ClientError as ex:
         LOGGER.exception(ex, extra={'extra': payload_data})
 
@@ -927,7 +914,6 @@ async def update_portfolios() -> None:
     """
     Update portfolios metrics
     """
-    LOGGER.info('[scheduler]: updating portfolios indicators', **NOEXTRA)
     context = get_new_context()
     group_loader = context.group_all
     async for _, org_name, org_groups in \
@@ -967,10 +953,6 @@ async def reset_group_expired_accepted_findings(
     group_name: str,
     today: str
 ) -> None:
-    LOGGER.info(
-        'Resetting expired accepted findings',
-        extra={'extra': locals()}
-    )
     finding_vulns_loader = context.finding_vulns
     group_findings_loader = context.group_findings
 
@@ -1045,8 +1027,6 @@ def scheduler_send_mail(
 
 async def delete_obsolete_orgs() -> None:
     """ Delete obsolete organizations """
-    msg = '[scheduler]: delete_obsolete_orgs is running'
-    LOGGER.info(msg, **NOEXTRA)
     today = datetime_utils.get_now().date()
     email = 'integrates@fluidattacks.com'
     async for org_id, org_name in orgs_domain.iterate_organizations():
@@ -1099,8 +1079,6 @@ async def delete_imamura_stakeholders() -> None:
     Delete stakeholders if only have access to imamura,
     and there are no logins in the last 60 days
     """
-    msg = '[scheduler]: delete_imamura_stakeholders is running'
-    LOGGER.info(msg, **NOEXTRA)
     org_name = 'imamura'
     org_id = await orgs_domain.get_id_by_name(org_name)
     loaders = get_new_context()
@@ -1242,8 +1220,6 @@ async def delete_obsolete_groups() -> None:
     """
     Delete groups without users, findings nor Fluid Attacks services enabled
     """
-    msg = '[scheduler]: delete_obsolete_groups is running'
-    LOGGER.info(msg, **NOEXTRA)
     loaders = get_new_context()
     group_findings_loader = loaders.group_findings
     group_stakeholders_loader = loaders.group_stakeholders

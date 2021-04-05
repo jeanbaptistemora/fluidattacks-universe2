@@ -5,6 +5,7 @@ import logging
 from html import escape
 from typing import (
     cast,
+    Any,
     Dict,
     List,
     Optional,
@@ -15,6 +16,7 @@ from typing import (
 import aioboto3
 from aioextensions import (
     collect,
+    in_thread,
     schedule,
 )
 import botocore
@@ -25,7 +27,7 @@ from jinja2 import (
 )
 
 # Local libraries
-from back.settings import LOGGING
+from back import settings
 from backend import authz
 from backend.domain import project as project_domain
 from backend.filters import finding as finding_filters
@@ -49,13 +51,14 @@ from __init__ import (
     SQS_QUEUE_URL,
 )
 
-logging.config.dictConfig(LOGGING)
+logging.config.dictConfig(settings.LOGGING)
 
 # Constants
 API_KEY = FI_MANDRILL_API_KEY
 COMMENTS_TAG = ['comments']
 GENERAL_TAG = ['general']
 LOGGER = logging.getLogger(__name__)
+LOGGER_TRANSACTIONAL = logging.getLogger('transactional')
 VERIFY_TAG = ['verify']
 VULNERABILITIES_TAG = ['vulnerabilities']
 QUEUE_URL = SQS_QUEUE_URL
@@ -177,7 +180,7 @@ async def _send_mail_async(
                 region_name='us-east-1'
             )
             async with aioboto3.client(**resource_options) as sqs:
-                LOGGER.info(
+                await log(
                     '[mailer]: sending to SQS',
                     extra={
                         'extra': {
@@ -190,7 +193,7 @@ async def _send_mail_async(
                     MessageBody=json.dumps(sqs_message),
                     MessageGroupId=template_name
                 )
-                LOGGER.info(
+                await log(
                     '[mailer]: mail sent',
                     extra={
                         'extra': {
@@ -234,7 +237,7 @@ async def _send_mail_async_new(
         }],
     }
     mandrill_client.messages.send(message=message)
-    LOGGER.info(
+    await log(
         '[mailer]: mail sent',
         extra={
             'extra': {
@@ -272,7 +275,7 @@ async def _send_mail_immediately(
     tags: List[str],
     template_name: str,
 ) -> bool:
-    LOGGER.info('[mailer]: _send_mail_immediately', extra={'extra': {
+    await log('[mailer]: _send_mail_immediately', extra={'extra': {
         'context': context,
         'email_to': email_to,
         'template_name': template_name,
@@ -302,7 +305,7 @@ async def _send_mail_immediately(
         # Mail should not be sent if is a test project
         success = True
 
-    LOGGER.info('[mailer]: _send_mail_immediately', extra={'extra': {
+    await log('[mailer]: _send_mail_immediately', extra={'extra': {
         'email_to': email_to,
         'result': result,
         'success': success,
@@ -438,8 +441,8 @@ async def send_mail_new_draft(
 
 
 async def send_mail_analytics(*email_to: str, **context: str) -> None:
-    LOGGER.info(
-        '[mailer]: send_mail_analytics',
+    await log(
+        ':'.join([*list(email_to), '[mailer]: send_mail_analytics']),
         extra={
             'extra': {
                 'context': context,
@@ -621,3 +624,7 @@ async def send_mail_group_deletion(
         f'Group deletion [{context["group_name"]}]',
         'group_deletion'
     )
+
+
+async def log(msg: str, **kwargs: Any) -> None:
+    await in_thread(LOGGER_TRANSACTIONAL.info, msg, **kwargs)
