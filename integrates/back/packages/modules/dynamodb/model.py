@@ -13,7 +13,7 @@ from dynamodb.types import (
     GitRootItem,
     GitRootMetadata,
     GitRootState,
-    GitRootToeLines,
+    GitRootToeLinesItem,
     IPRootItem,
     IPRootMetadata,
     IPRootState,
@@ -301,11 +301,11 @@ def _build_git_root_toe_lines(
     group_name: str,
     key_structure: PrimaryKey,
     item: Item,
-) -> GitRootToeLines:
+) -> GitRootToeLinesItem:
     sort_key_items = item[key_structure.sort_key].split('#')
     root_id = sort_key_items[2]
     filename = sort_key_items[4]
-    return GitRootToeLines(
+    return GitRootToeLinesItem(
         comments=item['comments'],
         filename=filename,
         group_name=group_name,
@@ -322,7 +322,7 @@ async def get_toe_lines_by_root(
     *,
     group_name: str,
     root_id: str
-) -> Tuple[GitRootToeLines, ...]:
+) -> Tuple[GitRootToeLinesItem, ...]:
     primary_key = keys.build_key(
         facet=TABLE.facets['root_toe_lines'],
         values={'group_name': group_name, 'root_id': root_id},
@@ -351,7 +351,7 @@ async def get_toe_lines_by_root(
 
 async def update_git_root_toe_lines(
     *,
-    root_toe_lines: GitRootToeLines
+    root_toe_lines: GitRootToeLinesItem
 ) -> None:
     key_structure = TABLE.primary_key
     facet = TABLE.facets['root_toe_lines']

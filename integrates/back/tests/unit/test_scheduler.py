@@ -38,7 +38,7 @@ from backend.scheduler import (
     is_not_a_fluidattacks_email,
     remove_fluid_from_recipients,
 )
-from dynamodb.types import GitRootToeLines
+from data_containers.toe_lines import GitRootToeLines
 from findings.dal import get_finding
 from findings.domain import get_findings_by_group
 from newutils import datetime as datetime_utils

@@ -6,7 +6,7 @@ from aiodataloader import DataLoader
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local
-from dynamodb.types import GitRootToeLines
+from data_containers.toe_lines import GitRootToeLines
 from roots.types import GitRoot
 
 

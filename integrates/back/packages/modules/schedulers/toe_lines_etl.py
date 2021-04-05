@@ -27,9 +27,7 @@ from backend.exceptions import (
     GroupNameNotFound,
     RootNotFound,
 )
-from dynamodb.types import (
-    GitRootToeLines,
-)
+from data_containers.toe_lines import GitRootToeLines
 from newutils import (
     bugsnag as bugsnag_utils,
     datetime as datetime_utils,

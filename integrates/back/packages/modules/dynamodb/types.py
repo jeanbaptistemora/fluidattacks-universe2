@@ -51,7 +51,7 @@ class GitRootState(NamedTuple):
     status: str
 
 
-class GitRootToeLines(NamedTuple):
+class GitRootToeLinesItem(NamedTuple):
     comments: str
     filename: str
     group_name: str

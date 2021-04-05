@@ -9,8 +9,8 @@ from typing import (
 )
 
 # Local libraries
+from data_containers.toe_lines import GitRootToeLines
 from toe.lines import dal as toe_lines_dal
-from dynamodb.types import GitRootToeLines
 
 
 async def delete(
