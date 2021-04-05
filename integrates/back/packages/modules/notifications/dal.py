@@ -33,6 +33,7 @@ logging.config.dictConfig(LOGGING)
 
 # Constants
 LOGGER = logging.getLogger(__name__)
+LOGGER_TRANSACTIONAL = logging.getLogger('transactional')
 
 
 def create_ticket(
@@ -56,15 +57,16 @@ def create_ticket(
         LOGGER.exception(exception, extra=dict(extra=locals()))
     else:
         success = True
-        LOGGER.info(
-            'Zendesk ticket created',
+        LOGGER_TRANSACTIONAL.info(
+            ': '.join((requester_email, 'Zendesk ticket created')),
             extra={
                 'extra': dict(
                     subject=subject,
                     description=description,
                     requester_email=requester_email,
                 )
-            })
+            }
+        )
     return success
 
 
@@ -90,8 +92,11 @@ def send_push_notification(
         )
         try:
             response.validate_response()
-            LOGGER.info(
-                '[notifier]: push notification sent successfully',
+            LOGGER_TRANSACTIONAL.info(
+                ': '.join((
+                    user_email,
+                    '[notifier]: push notification sent successfully'
+                )),
                 extra={
                     'extra': {
                         'email': user_email,
