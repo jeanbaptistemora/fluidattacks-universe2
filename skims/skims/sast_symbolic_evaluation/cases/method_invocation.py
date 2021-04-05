@@ -452,7 +452,7 @@ def analyze_method_invocation_values(args: EvaluatorArgs) -> None:
             analyze_method_invocation_values_list(args, dcl, method_path)
     elif method := lookup_java_method(args, args.syntax_step.method):
         if return_step := args.eval_method(
-            args, method.n_id, args.dependencies,
+            args, method[1].n_id, args.dependencies, method[0],
         ):
             args.syntax_step.meta.danger = return_step.meta.danger
             args.syntax_step.meta.value = return_step.meta.value

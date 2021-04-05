@@ -1,6 +1,7 @@
 # Standard library
 from typing import (
     Optional,
+    Tuple,
 )
 
 # Local libraries
@@ -12,16 +13,33 @@ from sast_symbolic_evaluation.types import (
 )
 
 
+def _lookup_java_class_in_shard(
+    shard: graph_model.GraphShard,
+    class_name: str,
+) -> Optional[graph_model.GraphShardMetadataJavaClass]:
+    # First lookup the class in the current shard
+    for class_path, class_data in shard.metadata.java.classes.items():
+        qualified = shard.metadata.java.package + class_path
+
+        if class_name == qualified or qualified.endswith(f'.{class_name}'):
+            return class_data
+
+    return None
+
+
 def lookup_java_class(
     args: EvaluatorArgs,
     class_name: str,
 ) -> Optional[graph_model.GraphShardMetadataJavaClass]:
-    # First lookup the class in the current shard
-    for class_path, class_data in args.shard.metadata.java.classes.items():
-        qualified = args.shard.metadata.java.package + class_path
+    # First lookup in the current shard
+    if data := _lookup_java_class_in_shard(args.shard, class_name):
+        return data
 
-        if qualified.endswith(f'.{class_name}'):
-            return class_data
+    # Now lookoup in other shards different than the current shard
+    for shard in args.graph_db.shards:
+        if shard.path != args.shard.path:
+            if data := _lookup_java_class_in_shard(shard, class_name):
+                return data
 
     return None
 
@@ -64,9 +82,9 @@ def _lookup_java_method_in_shard(
     # First lookup the class in the current shard
     for class_path, class_data in shard.metadata.java.classes.items():
         for method_path, method_data in class_data.methods.items():
-            qualified = shard.metadata.java.package + class_path + method_path
+            canon = shard.metadata.java.package + class_path + method_path
 
-            if qualified.endswith(f'.{method_name}'):
+            if canon == method_name or canon.endswith(f'.{method_name}'):
                 return method_data
 
     return None
@@ -75,15 +93,18 @@ def _lookup_java_method_in_shard(
 def lookup_java_method(
     args: EvaluatorArgs,
     method_name: str,
-) -> Optional[graph_model.GraphShardMetadataJavaClassMethod]:
+) -> Optional[Tuple[
+    graph_model.GraphShard,
+    graph_model.GraphShardMetadataJavaClassMethod,
+]]:
     # First lookup in the current shard
     if data := _lookup_java_method_in_shard(args.shard, method_name):
-        return data
+        return args.shard, data
 
     # Now lookoup in other shards different than the current shard
     for shard in args.graph_db.shards:
         if shard.path != args.shard.path:
             if data := _lookup_java_method_in_shard(shard, method_name):
-                return data
+                return shard, data
 
     return None

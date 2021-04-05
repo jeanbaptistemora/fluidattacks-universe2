@@ -78,7 +78,7 @@ def attempt_metadata_java_class(args: EvaluatorArgs) -> bool:
         if args.syntax_step.method in parent.meta.value.methods:
             method = parent.meta.value.methods[args.syntax_step.method]
             if return_step := args.eval_method(
-                args, method.n_id, method_arguments,
+                args, method.n_id, method_arguments, args.shard,
             ):
                 args.syntax_step.meta.danger = return_step.meta.danger
                 args.syntax_step.meta.value = return_step.meta.value

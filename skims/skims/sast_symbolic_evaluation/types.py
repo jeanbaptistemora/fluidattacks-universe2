@@ -23,7 +23,12 @@ class ImpossiblePath(StopEvaluation):
 class EvaluatorArgs(NamedTuple):
     dependencies: graph_model.SyntaxSteps
     eval_method: Callable[
-        [Any, graph_model.NId, graph_model.SyntaxSteps],
+        [
+            Any,
+            graph_model.NId,
+            graph_model.SyntaxSteps,
+            graph_model.GraphShard,
+        ],
         None,
     ]
     finding: core_model.FindingEnum

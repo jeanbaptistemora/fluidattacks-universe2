@@ -77,14 +77,17 @@ def eval_method(
     args: EvaluatorArgs,
     method_n_id: graph_model.NId,
     method_arguments: graph_model.SyntaxSteps,
+    shard: graph_model.GraphShard,
 ) -> Optional[graph_model.SyntaxStep]:
-    for syntax_steps in get_possible_syntax_steps_for_n_id(
+    possible_syntax_steps = get_possible_syntax_steps_for_n_id(
         args.graph_db,
         finding=args.finding,
         n_id=method_n_id,
         overriden_syntax_steps=list(reversed(method_arguments)),
-        shard=args.shard,
-    ).values():
+        shard=shard,
+    ).values()
+
+    for syntax_steps in possible_syntax_steps:
         # Attempt to return the dangerous syntax step
         for syntax_step in reversed(syntax_steps):
             if (
@@ -99,6 +102,12 @@ def eval_method(
                 isinstance(syntax_step, graph_model.SyntaxStepReturn)
                 and syntax_step.meta.value is not None
             ):
+                return syntax_step
+
+    # If non of them match return whatever one
+    for syntax_steps in possible_syntax_steps:
+        for syntax_step in reversed(syntax_steps):
+            if isinstance(syntax_step, graph_model.SyntaxStepReturn):
                 return syntax_step
 
     # Return a default value

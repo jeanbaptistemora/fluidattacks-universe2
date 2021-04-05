@@ -58,6 +58,8 @@ def main() -> None:
     extra_files: List[str] = [
         'src/main/java/org/owasp/benchmark/helpers/DatabaseHelper.java',
         'src/main/java/org/owasp/benchmark/helpers/SeparateClassRequest.java',
+        'src/main/java/org/owasp/benchmark/helpers/Thing1.java',
+        'src/main/java/org/owasp/benchmark/helpers/Thing2.java',
         'src/main/java/org/owasp/benchmark/helpers/ThingFactory.java',
         'src/main/resources/benchmark.properties',
     ]
