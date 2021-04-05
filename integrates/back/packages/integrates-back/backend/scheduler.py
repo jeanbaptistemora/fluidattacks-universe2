@@ -473,8 +473,6 @@ async def get_group_new_vulnerabilities(context: Any, group_name: str) -> None:
 async def get_new_vulnerabilities() -> None:
     """Summary mail send with the findings of a project."""
     context = get_new_context()
-    msg = '[scheduler]: get_new_vulnerabilities is running'
-    LOGGER.warning(msg, **NOEXTRA)
     groups = await project_domain.get_active_projects()
     await collect([
         get_group_new_vulnerabilities(context, group)
@@ -604,8 +602,6 @@ async def create_msj_finding_pending(
 
 async def get_remediated_findings() -> None:
     """Summary mail send with findings that have not been verified yet."""
-    msg = '[scheduler]: get_remediated_findings is running'
-    LOGGER.warning(msg, extra=dict(extra=None))
     active_projects = await project_domain.get_active_projects()
     findings = []
     pending_verification_findings = await collect(
@@ -643,9 +639,6 @@ async def get_remediated_findings() -> None:
             )
         except (TypeError, KeyError) as ex:
             LOGGER.exception(ex, extra={'extra': locals()})
-    else:
-        msg = '[scheduler]: There are no findings to verify'
-        LOGGER.warning(msg, extra=dict(extra=None))
 
 
 async def get_new_releases() -> None:  # pylint: disable=too-many-locals
@@ -653,8 +646,6 @@ async def get_new_releases() -> None:  # pylint: disable=too-many-locals
     context = get_new_context()
     group_loader = context.group_all
     organization_loader = context.organization
-    msg = '[scheduler]: get_new_releases is running'
-    LOGGER.warning(msg, extra=dict(extra=None))
     test_groups = FI_TEST_PROJECTS.split(',')
     groups = await project_domain.get_active_projects()
     email_context: MailContentType = (
@@ -722,16 +713,11 @@ async def get_new_releases() -> None:  # pylint: disable=too-many-locals
             mail_to,
             email_context
         )
-    else:
-        msg = '[scheduler]: There are no new drafts'
-        LOGGER.warning(msg, extra=dict(extra=None))
 
 
 async def send_unsolved_to_all() -> None:
     """Send email with unsolved events to all projects """
     context = get_new_context()
-    msg = '[scheduler]: send_unsolved_to_all is running'
-    LOGGER.warning(msg, extra=dict(extra=None))
     projects = await project_domain.get_active_projects()
     await collect(
         send_unsolved_events_email(context, project)
@@ -854,8 +840,6 @@ async def update_group_indicators(group_name: str) -> None:
 
 async def update_indicators() -> None:
     """Update in dynamo indicators."""
-    msg = '[scheduler]: update_indicators is running'
-    LOGGER.warning(msg, **NOEXTRA)
     groups = await project_domain.get_active_projects()
     await collect(map(update_group_indicators, groups), workers=20)
 
@@ -1001,8 +985,6 @@ async def reset_group_expired_accepted_findings(
 
 async def reset_expired_accepted_findings() -> None:
     """ Update treatment if acceptance date expires """
-    msg = '[scheduler]: reset_expired_accepted_findings is running'
-    LOGGER.warning(msg, **NOEXTRA)
     today = datetime_utils.get_as_str(
         datetime_utils.get_now()
     )
