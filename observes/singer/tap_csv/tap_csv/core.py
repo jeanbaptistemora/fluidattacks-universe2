@@ -109,7 +109,8 @@ def auto_cast(data: str) -> Any:
     test_casts: List[Callable[[str], Any]] = [
         lambda x: str(x) if int(x) > pow(10, 12) else int(x),
         lambda x: float(x)
-        if x.lower() != 'nan' or x == 'NaN' else None,
+        if (x.lower() != 'nan' or x == 'NaN')
+        and float(x) != float('inf') else None,
         lambda x: x.lower() == 'true'
         if x.lower() == 'false' or x.lower() == 'true' else None,
         str
