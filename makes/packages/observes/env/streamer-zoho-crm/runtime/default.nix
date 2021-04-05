@@ -17,6 +17,9 @@ in
 makeTemplate {
   name = "observes-env-streamer-zoho-crm-runtime";
   searchPaths = {
+    envPaths = [
+      pkgEnv.runtime.python
+    ];
     envSources = [
       env.runtime.postgres-client
       env.runtime.singer-io

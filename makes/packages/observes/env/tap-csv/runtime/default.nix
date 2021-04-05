@@ -17,6 +17,9 @@ in
 makeTemplate {
   name = "observes-env-tap-csv-runtime";
   searchPaths = {
+    envPaths = [
+      pkgEnv.runtime.python
+    ];
     envSources = [
       env.runtime.singer-io
     ];

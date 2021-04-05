@@ -14,7 +14,7 @@ function job_zoho_crm {
   &&  echo "${zoho_crm_etl_creds}" > "${zoho_creds}" \
   &&  echo "${analytics_auth_redshift}" > "${db_creds}" \
   &&  observes-bin-streamer-zoho-crm stream "${zoho_creds}" "${db_creds}" \
-        | observes-tap-csv \
+        | observes-bin-tap-csv \
         | observes-tap-json \
         > .singer \
   &&  observes-target-redshift \
