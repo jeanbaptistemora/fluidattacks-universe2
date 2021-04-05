@@ -371,6 +371,7 @@ class GraphDB(NamedTuple):
     context: GraphDBContext
     shards: List[GraphShard]
     shards_by_path: Dict[str, int]
+    shards_by_class: Dict[str, str]
 
     def shards_by_path_f(self, path: str) -> GraphShard:
         return self.shards[self.shards_by_path[path]]

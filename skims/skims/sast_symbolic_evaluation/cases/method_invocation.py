@@ -113,9 +113,6 @@ BY_OBJ: Dict[str, Set[str]] = _complete_attrs_on_dict({
     'java.util.List': {
         'get',
     },
-    'org.owasp.benchmark.helpers.SeparateClassRequest': {
-        'getTheParameter',
-    },
 })
 BY_OBJ_ARGS: Dict[str, Set[str]] = _complete_attrs_on_dict({
     'java.sql.Connection': {
@@ -434,6 +431,13 @@ def attempt_by_type(args: EvaluatorArgs, method: str) -> bool:
         args.syntax_step.meta.danger = True
         return True
 
+    if (
+        (method_var_decl := lookup_java_field(args, method_var)) and
+        (method_path in BY_TYPE.get(method_var_decl.var_type, {}))
+    ):
+        args.syntax_step.meta.danger = True
+        return True
+
     return False
 
 
@@ -458,8 +462,37 @@ def analyze_method_invocation(args: EvaluatorArgs, method: str) -> None:
         attempt_by_type_and_value_finding(args, method) or
         attempt_by_type_args_propagation(args, method) or
         attempt_static(args, method) or
-        attempt_static_side_effects(args, method)
+        attempt_static_side_effects(args, method) or
+        analyze_method_invocation_external(args, method)
     )
+
+
+def analyze_method_invocation_external(
+    args: EvaluatorArgs,
+    method: str,
+) -> bool:
+    method_var, method_path = split_on_first_dot(method)
+    method_var_decl = lookup_var_dcl_by_name(args, method_var)
+    if method_var_decl and (
+        _method := lookup_java_method(
+            args,
+            method_path,
+            method_var_decl.var_type,
+        )
+    ):
+        if args.shard.path != _method.shard_path and (
+            return_step := args.eval_method(
+                args,
+                _method.metadata.n_id,
+                args.dependencies,
+                args.graph_db.shards_by_path_f(_method.shard_path),
+            )
+        ):
+            args.syntax_step.meta.danger = return_step.meta.danger
+            args.syntax_step.meta.value = return_step.meta.value
+            return True
+
+    return False
 
 
 def analyze_method_invocation_values(args: EvaluatorArgs) -> None:
@@ -477,7 +510,7 @@ def analyze_method_invocation_values(args: EvaluatorArgs) -> None:
             args,
             method.metadata.n_id,
             args.dependencies,
-            args.graph_db.shards_by_path_f(method.shard_path),
+            args.shard,
         ):
             args.syntax_step.meta.danger = return_step.meta.danger
             args.syntax_step.meta.value = return_step.meta.value

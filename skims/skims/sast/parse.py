@@ -293,6 +293,7 @@ async def get_graph_db(paths: Tuple[str, ...]) -> GraphDB:
         ),
         shards=[],
         shards_by_path={},
+        shards_by_class={},
     )
 
     index = 0
@@ -302,6 +303,12 @@ async def get_graph_db(paths: Tuple[str, ...]) -> GraphDB:
 
         graph_db.shards.append(shard)
         graph_db.shards_by_path[shard.path] = index - 1
+
+    for shard in graph_db.shards:
+        graph_db.shards_by_class.update({
+            f'{shard.metadata.java.package}{_class}': shard.path
+            for _class in shard.metadata.java.classes
+        })
 
     if CTX.debug:
         output = get_debug_path('tree-sitter')

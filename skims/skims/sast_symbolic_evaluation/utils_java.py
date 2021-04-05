@@ -59,7 +59,9 @@ def _lookup_java_field_in_shard(
         for field_path, field_data in class_data.fields.items():
             qualified = shard.metadata.java.package + class_path + field_path
 
-            if qualified == field_name:
+            if qualified == field_name or (
+                field_name and qualified.endswith(field_name)
+            ):
                 return field_data
 
     return None
@@ -100,6 +102,7 @@ def _lookup_java_method_in_shard(
 def lookup_java_method(
     args: EvaluatorArgs,
     method_name: str,
+    method_class: Optional[str] = None,
 ) -> Optional[LookedUpJavaMethod]:
     # First lookup in the current shard
     if data := _lookup_java_method_in_shard(args.shard, method_name):
@@ -108,13 +111,15 @@ def lookup_java_method(
             shard_path=args.shard.path,
         )
 
-    # Now lookoup in other shards different than the current shard
-    for shard in args.graph_db.shards:
-        if shard.path != args.shard.path:
-            if data := _lookup_java_method_in_shard(shard, method_name):
-                return LookedUpJavaMethod(
-                    metadata=data,
-                    shard_path=shard.path,
-                )
+    # Now lookup in other shards different than the current shard
+    if method_class and (
+        shard_path := args.graph_db.shards_by_class.get(method_class)
+    ):
+        shard = args.graph_db.shards_by_path_f(shard_path)
+        if data := _lookup_java_method_in_shard(shard, method_name):
+            return LookedUpJavaMethod(
+                metadata=data,
+                shard_path=shard.path,
+            )
 
     return None
