@@ -57,17 +57,33 @@ def lookup_java_field(
     return None
 
 
+def _lookup_java_method_in_shard(
+    shard: graph_model.GraphShard,
+    method_name: str,
+) -> Optional[graph_model.GraphShardMetadataJavaClassMethod]:
+    # First lookup the class in the current shard
+    for class_path, class_data in shard.metadata.java.classes.items():
+        for method_path, method_data in class_data.methods.items():
+            qualified = shard.metadata.java.package + class_path + method_path
+
+            if qualified.endswith(f'.{method_name}'):
+                return method_data
+
+    return None
+
+
 def lookup_java_method(
     args: EvaluatorArgs,
     method_name: str,
 ) -> Optional[graph_model.GraphShardMetadataJavaClassMethod]:
-    # First lookup the class in the current shard
-    for class_path, class_data in args.shard.metadata.java.classes.items():
-        for method_path, method_data in class_data.methods.items():
-            qualified = \
-                args.shard.metadata.java.package + class_path + method_path
+    # First lookup in the current shard
+    if data := _lookup_java_method_in_shard(args.shard, method_name):
+        return data
 
-            if qualified.endswith(f'.{method_name}'):
-                return method_data
+    # Now lookoup in other shards different than the current shard
+    for shard in args.graph_db.shards:
+        if shard.path != args.shard.path:
+            if data := _lookup_java_method_in_shard(shard, method_name):
+                return data
 
     return None
