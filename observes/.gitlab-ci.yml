@@ -141,15 +141,6 @@ observes.lint.target-redshift:
   <<: *observes_in_dev_branch
   stage: lint-code
 
-observes.scheduled.dynamodb-centralize:
-  <<: *makes
-  tags: [autoscaling-large]
-  stage: analytics
-  only:
-    refs: [schedules]
-    variables: [$observes_dynamodb_centralize]
-  interruptible: false
-
 observes.scheduled.dynamodb-forces-etl:
   <<: *makes
   tags: [autoscaling-analytics]
@@ -193,6 +184,15 @@ observes.scheduled.job.code-etl-compute-bills:
     variables: [$observes_code_compute_bills]
   stage: analytics
   tags: [autoscaling]
+  interruptible: false
+
+observes.scheduled.job.dynamodb-centralize:
+  <<: *makes
+  tags: [autoscaling-large]
+  stage: analytics
+  only:
+    refs: [schedules]
+    variables: [$observes_dynamodb_centralize]
   interruptible: false
 
 observes.scheduled.job.tap-zoho-analytics:

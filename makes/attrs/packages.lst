@@ -83,7 +83,6 @@ observes.env.job-last-success.runtime
 observes.env.job-last-success.runtime.python
 observes.env.runtime.code-etl
 observes.env.runtime.dif-gitlab-etl
-observes.env.runtime.migrate-tables
 observes.env.runtime.paginator
 observes.env.runtime.paginator.python
 observes.env.runtime.postgres-client

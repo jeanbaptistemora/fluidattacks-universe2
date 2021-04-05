@@ -10,7 +10,7 @@ makeEntrypoint {
   searchPaths = {
     envSources = [
       packages.observes.generic.runner
-      packages.observes.env.runtime.migrate-tables
+      packages.observes.env.service-migrate-tables.runtime
     ];
   };
   name = "observes-bin-service-migrate-tables";

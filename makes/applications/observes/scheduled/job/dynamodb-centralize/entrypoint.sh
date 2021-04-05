@@ -10,7 +10,7 @@ function dynamodb_centralize {
   &&  echo '[INFO] Generating secret files' \
   &&  echo "${analytics_auth_redshift}" > "${db_creds}" \
   &&  echo '[INFO] Running centralizer' \
-  &&  observes-service-migrate-tables centralize-dynamo-schemas \
+  &&  observes-bin-service-migrate-tables centralize-dynamo-schemas \
         --db-auth "${db_creds}" \
         --dymo-tables './observes/conf/awsdynamodb.json' \
         --schema 'dynamodb'

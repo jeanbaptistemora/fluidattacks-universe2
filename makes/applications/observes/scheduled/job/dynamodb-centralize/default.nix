@@ -7,13 +7,13 @@ makeEntrypoint {
   arguments = { };
   searchPaths = {
     envPaths = [
-      packages.observes.service.migrate-tables
+      packages.observes.bin.service.migrate-tables
     ];
     envUtils = [
       "/makes/utils/aws"
       "/makes/utils/sops"
     ];
   };
-  name = "observes-scheduled-dynamodb-centralize";
-  template = path "/makes/applications/observes/scheduled/dynamodb-centralize/entrypoint.sh";
+  name = "observes-scheduled-job-dynamodb-centralize";
+  template = path "/makes/applications/observes/scheduled/job/dynamodb-centralize/entrypoint.sh";
 }
