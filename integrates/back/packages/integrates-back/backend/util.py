@@ -172,12 +172,10 @@ async def get_jwt_content(context) -> Dict[str, str]:  # noqa: MC0001
         LOGGER.exception(ex, extra={'extra': context})
         raise InvalidAuthorization()
     except jwt.JWTClaimsError as ex:
-        LOGGER.info('Security: Invalid token claims', **settings.NOEXTRA)
-        LOGGER.warning(ex, extra={'extra': context})
+        LOGGER.exception(ex, extra={'extra': context})
         raise InvalidAuthorization()
     except JWTError as ex:
-        LOGGER.info('Security: Invalid token', **settings.NOEXTRA)
-        LOGGER.warning(ex, extra={'extra': context})
+        LOGGER.exception(ex, extra={'extra': context})
         raise InvalidAuthorization()
     except InvalidJWEData:
         raise InvalidAuthorization()

@@ -34,7 +34,6 @@ from botocore.exceptions import ClientError
 # Local libraries
 from back.settings import (
     LOGGING,
-    NOEXTRA
 )
 from backend import mailer
 from backend.api import get_new_context
@@ -1023,8 +1022,6 @@ async def delete_obsolete_orgs() -> None:
                     org_pending_deletion_date_str
                 )
                 if org_pending_deletion_date.date() <= today:
-                    msg = f'- organization: {org_name} will be deleted'
-                    LOGGER.info(msg, **NOEXTRA)
                     await orgs_domain.delete_organization(
                         get_new_context(),
                         org_id,
