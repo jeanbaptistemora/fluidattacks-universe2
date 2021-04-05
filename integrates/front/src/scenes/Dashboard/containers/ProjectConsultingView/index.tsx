@@ -132,7 +132,7 @@ const ProjectConsultingView: React.FC = (): JSX.Element => {
         onLoad={getData}
         onPostComment={handlePost}
       />
-      {userEmail.endsWith("@fluidattacks.com") ? (
+      {userEmail === "integratesmanager@fluidattacks.com" ? (
         <CommentsRefac onLoad={getData} onPostComment={handlePost} />
       ) : null}
     </React.StrictMode>
