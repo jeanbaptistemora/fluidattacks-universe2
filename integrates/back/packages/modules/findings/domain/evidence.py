@@ -1,3 +1,8 @@
+# Standard libraries
+import io
+import itertools
+import logging
+import logging.config
 from typing import (
     Any,
     cast,
@@ -7,21 +12,83 @@ from typing import (
     Union,
 )
 
+# Third-party libraries
+from backports import csv
+from magic import Magic
 from starlette.datastructures import UploadFile
 
+# Local libraries
+from back.settings import LOGGING
 from backend import util
-from backend.dal import finding as finding_dal
 from backend.exceptions import (
     EvidenceNotFound,
     InvalidFileSize,
     InvalidFileType,
 )
+from findings import dal as findings_dal
 from newutils import (
     datetime as datetime_utils,
     findings as finding_utils,
     validations,
 )
 from .core import get_finding
+
+
+logging.config.dictConfig(LOGGING)
+
+# Constants
+LOGGER = logging.getLogger(__name__)
+
+
+async def download_evidence_file(
+    group_name: str,
+    finding_id: str,
+    file_name: str
+) -> str:
+    file_id = '/'.join([group_name.lower(), finding_id, file_name])
+    file_exists = await findings_dal.search_evidence(file_id)
+    if file_exists:
+        start = file_id.find(finding_id) + len(finding_id)
+        localfile = f'/tmp{file_id[start:]}'
+        ext = {'.py': '.tmp'}
+        tmp_filepath = util.replace_all(localfile, ext)
+        await findings_dal.download_evidence(file_id, tmp_filepath)
+        return cast(str, tmp_filepath)
+    raise Exception('Evidence not found')
+
+
+async def get_exploit_from_file(
+    group_name: str,
+    finding_id: str,
+    file_name: str
+) -> str:
+    file_path = await download_evidence_file(group_name, finding_id, file_name)
+    file_content = ''
+    with open(file_path, 'r') as exploit_file:
+        file_content = exploit_file.read()
+    return file_content
+
+
+async def get_records_from_file(
+    group_name: str,
+    finding_id: str,
+    file_name: str
+) -> List[Dict[object, object]]:
+    file_path = await download_evidence_file(group_name, finding_id, file_name)
+    file_content = []
+    encoding = Magic(mime_encoding=True).from_file(file_path)
+    try:
+        with io.open(file_path, mode='r', encoding=encoding) as records_file:
+            csv_reader = csv.reader(records_file)
+            max_rows = 1000
+            headers = next(csv_reader)
+            file_content = [
+                util.list_to_dict(headers, row)
+                for row in itertools.islice(csv_reader, max_rows)
+            ]
+    except (csv.Error, LookupError, UnicodeDecodeError) as ex:
+        LOGGER.exception(ex, extra={'extra': locals()})
+    return file_content
 
 
 async def remove_evidence(evidence_name: str, finding_id: str) -> bool:
@@ -39,10 +106,10 @@ async def remove_evidence(evidence_name: str, finding_id: str) -> bool:
 
     evidence_id = str(evidence.get('file_url', ''))
     full_name = f'{group_name}/{finding_id}/{evidence_id}'
-    if await finding_dal.remove_evidence(full_name):
+    if await findings_dal.remove_evidence(full_name):
         index = files.index(evidence)
         del files[index]
-        success = await finding_dal.update(finding_id, {'files': files})
+        success = await findings_dal.update(finding_id, {'files': files})
     return success
 
 
@@ -67,7 +134,7 @@ async def update_evidence(
             ''
         )
         if old_file_name != '':
-            old_records = await finding_utils.get_records_from_file(
+            old_records = await get_records_from_file(
                 group_name,
                 finding_id,
                 old_file_name
@@ -81,14 +148,14 @@ async def update_evidence(
 
     evidence_id = f'{group_name}-{finding_id}-{evidence_type}'
     full_name = f'{group_name}/{finding_id}/{evidence_id}'
-    if await finding_dal.save_evidence(file, full_name):
+    if await findings_dal.save_evidence(file, full_name):
         evidence: Union[Dict[str, str], List[Optional[Any]]] = next(
             (item for item in files if item['name'] == evidence_type),
             []
         )
         if evidence:
             index = files.index(cast(Dict[str, str], evidence))
-            success = await finding_dal.update(
+            success = await findings_dal.update(
                 finding_id,
                 {
                     f'files[{index}].file_url': evidence_id,
@@ -96,7 +163,7 @@ async def update_evidence(
                 }
             )
         else:
-            success = await finding_dal.list_append(
+            success = await findings_dal.list_append(
                 finding_id,
                 'files',
                 [{
@@ -124,7 +191,7 @@ async def update_evidence_description(
     )
     if evidence:
         index = files.index(cast(Dict[str, str], evidence))
-        success = await finding_dal.update(
+        success = await findings_dal.update(
             finding_id,
             {f'files[{index}].description': description}
         )

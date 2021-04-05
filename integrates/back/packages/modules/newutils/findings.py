@@ -1,5 +1,4 @@
-# pylint: disable=too-many-lines
-
+# Standard libraries
 import io
 import itertools
 import logging
@@ -15,26 +14,24 @@ from typing import (
     Tuple,
 )
 
+# Third-party libraries
 from aioextensions import (
     in_process,
     schedule,
 )
-from backports import csv
-from magic import Magic
+from boto3.dynamodb.conditions import Key
 from starlette.datastructures import UploadFile
 
+# Local libraries
 from back.settings import LOGGING
 from backend import (
     mailer,
     util,
 )
-from backend.dal import (
-    finding as finding_dal,
-    project as project_dal
-)
-from backend.domain import project as project_domain
+from backend.dal import project as group_dal
+from backend.dal.helpers import dynamodb
+from backend.domain import project as group_domain
 from backend.exceptions import (
-    FindingNotFound,
     InvalidDateFormat,
     InvalidFileStructure,
 )
@@ -76,57 +73,14 @@ CVSS_PARAMETERS = {
         'mod_impact_factor_7': 13, 'mod_impact_factor_8': 0.9731
     }
 }
+FINDINGS_TABLE: str = 'FI_findings'
 LOGGER = logging.getLogger(__name__)
 
 
-def get_evidence(
-    name: str,
-    items: List[Dict[str, str]],
-    finding: Dict[str, FindingType],
-) -> Dict[str, str]:
-    date_str: str = (
-        finding_filters.get_approval_date(finding)
-        or finding_filters.get_creation_date(finding)
-    )
-    release_date = datetime_utils.get_from_str(date_str)
-    evidence = [
-        {
-            'url': item['file_url'],
-            'description': item.get('description', ''),
-            'date': (
-                item['upload_date']
-                if datetime_utils.get_from_str(
-                    item.get('upload_date', datetime_utils.DEFAULT_STR)
-                ) > release_date else date_str
-            )
-        }
-        for item in items
-        if item['name'] == name
-    ]
-
-    return evidence[0] if evidence else {'url': '', 'description': ''}
-
-
-async def download_evidence_file(
-        project_name: str,
-        finding_id: str,
-        file_name: str) -> str:
-    file_id = '/'.join([project_name.lower(), finding_id, file_name])
-    file_exists = await finding_dal.search_evidence(file_id)
-
-    if file_exists:
-        start = file_id.find(finding_id) + len(finding_id)
-        localfile = '/tmp' + file_id[start:]
-        ext = {'.py': '.tmp'}
-        tmp_filepath = util.replace_all(localfile, ext)
-        await finding_dal.download_evidence(file_id, tmp_filepath)
-        return cast(str, tmp_filepath)
-    raise Exception('Evidence not found')
-
-
 async def append_records_to_file(
-        records: List[Dict[str, str]],
-        new_file: UploadFile) -> UploadFile:
+    records: List[Dict[str, str]],
+    new_file: UploadFile
+) -> UploadFile:
     header = records[0].keys()
     values = [
         list(v)
@@ -165,61 +119,6 @@ async def append_records_to_file(
     return uploaded_file
 
 
-async def get_attributes(
-        finding_id: str,
-        attributes: List[str]) -> Dict[str, FindingType]:
-    if 'finding_id' not in attributes:
-        attributes = [*attributes, 'finding_id']
-    response = await finding_dal.get_attributes(finding_id, attributes)
-    if not response:
-        raise FindingNotFound()
-    return response
-
-
-async def get_records_from_file(
-        project_name: str,
-        finding_id: str,
-        file_name: str) -> List[Dict[object, object]]:
-    file_path = await download_evidence_file(
-        project_name,
-        finding_id,
-        file_name
-    )
-    file_content = []
-    encoding = Magic(mime_encoding=True).from_file(file_path)
-
-    try:
-        with io.open(file_path, mode='r', encoding=encoding) as records_file:
-            csv_reader = csv.reader(records_file)
-            max_rows = 1000
-            headers = next(csv_reader)
-            file_content = [
-                util.list_to_dict(headers, row)
-                for row in itertools.islice(csv_reader, max_rows)
-            ]
-    except (csv.Error, LookupError, UnicodeDecodeError) as ex:
-        LOGGER.exception(ex, extra={'extra': locals()})
-
-    return file_content
-
-
-async def get_exploit_from_file(
-        project_name: str,
-        finding_id: str,
-        file_name: str) -> str:
-    file_path = await download_evidence_file(
-        project_name,
-        finding_id,
-        file_name
-    )
-    file_content = ''
-
-    with open(file_path, 'r') as exploit_file:
-        file_content = exploit_file.read()
-
-    return file_content
-
-
 def clean_deleted_state(
     vuln: Dict[str, FindingType]
 ) -> Dict[str, FindingType]:
@@ -227,125 +126,27 @@ def clean_deleted_state(
         List[Dict[str, str]],
         vuln.get('historic_state', [])
     )
-    new_historic = list(filter(
-        lambda historic: historic.get('state') != 'DELETED',
-        historic_state
-    ))
+    new_historic = list(
+        filter(
+            lambda historic: historic.get('state') != 'DELETED',
+            historic_state
+        )
+    )
     vuln['historic_state'] = new_historic
     return vuln
-
-
-def get_item_date(
-    item: Any
-) -> Datetime:
-    return datetime_utils.get_from_str(
-        item['date'].split(' ')[0],
-        '%Y-%m-%d'
-    )
 
 
 def filter_by_date(
     historic_items: List[Dict[str, str]],
     cycle_date: Datetime
 ) -> List[Dict[str, str]]:
-    return list(filter(
-        lambda historic:
-            historic.get('date') and get_item_date(historic) <= cycle_date,
-        historic_items
-    ))
-
-
-def get_vuln_state_action(historic_state: HistoricType) -> List[Action]:
-    actions: List[Action] = [
-        Action(
-            action=state['state'],
-            date=state['date'].split(' ')[0],
-            justification='',
-            manager='',
-            times=1,
-        )
-        for state in historic_state
-    ]
-
-    return list({action.date: action for action in actions}.values())
-
-
-def get_vuln_treatment_actions(
-    historic_treatment: HistoricType
-) -> List[Action]:
-    actions: List[Action] = [
-        Action(
-            action=treatment['treatment'],
-            date=treatment['date'].split(' ')[0],
-            justification=treatment['justification'],
-            manager=treatment['treatment_manager'],
-            times=1,
-        )
-        for treatment in historic_treatment
-        if treatment['treatment'] in {'ACCEPTED', 'ACCEPTED_UNDEFINED'} and
-        treatment.get('acceptance_status') not in {'REJECTED', 'SUBMITTED'}
-    ]
-
-    return list({action.date: action for action in actions}.values())
-
-
-def get_state_actions(vulns: List[Dict[str, FindingType]]) -> List[Action]:
-    states_actions = list(
-        itertools.chain.from_iterable(
-            get_vuln_state_action(
-                sort_historic_by_date(vuln['historic_state'])
-            )
-            for vuln in vulns
+    return list(
+        filter(
+            lambda historic:
+                historic.get('date') and get_item_date(historic) <= cycle_date,
+            historic_items
         )
     )
-    actions = [
-        action._replace(times=times)
-        for action, times in Counter(states_actions).most_common()
-    ]
-
-    return actions
-
-
-def get_treatment_actions(vulns: List[Dict[str, FindingType]]) -> List[Action]:
-    treatments_actions = list(
-        itertools.chain.from_iterable(
-            get_vuln_treatment_actions(
-                sort_historic_by_date(vuln['historic_treatment'])
-            )
-            for vuln in vulns
-        )
-    )
-    actions = [
-        action._replace(times=times)
-        for action, times in Counter(treatments_actions).most_common()
-    ]
-
-    return actions
-
-
-def sort_historic_by_date(
-    historic: Any
-) -> HistoricType:
-    historic_sort = sorted(historic, key=lambda i: i['date'])
-    return historic_sort
-
-
-def get_sorted_historics(
-    vuln: Dict[str, FindingType]
-) -> Tuple[List[Dict[str, str]], List[Dict[str, str]]]:
-    historic_treatment = cast(
-        List[Dict[str, str]],
-        vuln.get('historic_treatment', [])
-    )
-    historic_state = cast(
-        List[Dict[str, str]],
-        vuln.get('historic_state', [])
-    )
-
-    sorted_historic = sort_historic_by_date(historic_state)
-    sorted_treatment = sort_historic_by_date(historic_treatment)
-
-    return sorted_historic, sorted_treatment
 
 
 # pylint: disable=simplifiable-if-expression
@@ -373,8 +174,8 @@ def format_data(finding: Dict[str, FindingType]) -> Dict[str, FindingType]:
     )
     finding['remediated'] = (
         historic_verification and
-        historic_verification[-1].get('status') == 'REQUESTED' and
-        not historic_verification[-1].get('vulns', [])
+        historic_verification[-1].get('status') == 'REQUESTED' and not
+        historic_verification[-1].get('vulns', [])
     )
 
     finding_files = cast(List[Dict[str, str]], finding.get('files', []))
@@ -427,44 +228,112 @@ def format_data(finding: Dict[str, FindingType]) -> Dict[str, FindingType]:
         base_score,
         str(finding['cvssVersion'])
     )
-
     return finding
 
 
-async def mask_treatment(
-        finding_id: str,
-        historic_treatment: List[Dict[str, str]]) -> bool:
-    historic = [
+def format_finding(
+    finding: Dict[str, FindingType],
+    attrs: Optional[Set[str]] = None
+) -> Dict[str, FindingType]:
+    """Returns the data in the format expected by default resolvers"""
+    formated_finding = finding.copy()
+    if not attrs or 'finding_id' in attrs:
+        formated_finding['id'] = finding['finding_id']
+    if not attrs or 'finding' in attrs:
+        formated_finding['title'] = finding['finding']
+    if not attrs or 'historic_state' in attrs:
+        formated_finding['historic_state'] = finding.get('historic_state', [])
+    return formated_finding
+
+
+def get_date_with_format(item: Dict[str, str]) -> str:
+    return str(item.get('date', '')).split(' ')[0]
+
+
+def get_evidence(
+    name: str,
+    items: List[Dict[str, str]],
+    finding: Dict[str, FindingType],
+) -> Dict[str, str]:
+    date_str: str = (
+        finding_filters.get_approval_date(finding) or
+        finding_filters.get_creation_date(finding)
+    )
+    release_date = datetime_utils.get_from_str(date_str)
+    evidence = [
         {
-            **treatment,
-            'user': 'Masked',
-            'justification': 'Masked',
-            'treatment': 'Masked'
+            'date': (
+                item['upload_date']
+                if datetime_utils.get_from_str(
+                    item.get('upload_date', datetime_utils.DEFAULT_STR)
+                ) > release_date
+                else date_str
+            ),
+            'description': item.get('description', ''),
+            'url': item['file_url']
         }
+        for item in items
+        if item['name'] == name
+    ]
+    return evidence[0] if evidence else {'url': '', 'description': ''}
+
+
+def get_first_historic_item_date(historic: List[Dict[str, str]]) -> str:
+    date: str = ''
+    if historic:
+        date = get_date_with_format(historic[0])
+    return date
+
+
+def get_historic_dates(vuln: Dict[str, FindingType]) -> List[str]:
+    historic_treatment = cast(
+        List[Dict[str, str]],
+        vuln['historic_treatment']
+    )
+    historic_state = cast(
+        List[Dict[str, str]],
+        vuln['historic_state']
+    )
+    treatment_dates = [
+        get_date_with_format(treatment)
         for treatment in historic_treatment
     ]
-    return await finding_dal.update(
-        finding_id,
-        {'historic_treatment': historic}
-    )
-
-
-async def mask_verification(
-        finding_id: str,
-        historic_verification: List[Dict[str, str]]) -> bool:
-    historic = [
-        {**treatment, 'user': 'Masked', 'status': 'Masked'}
-        for treatment in historic_verification
+    state_dates = [
+        get_date_with_format(state)
+        for state in historic_state
+        if state.get('state', '') in {'open', 'closed'}
     ]
-    return await finding_dal.update(
-        finding_id,
-        {'historic_verification': historic}
+    return treatment_dates + state_dates
+
+
+async def get_historic_verification(
+    finding_id: str
+) -> List[Dict[str, FindingType]]:
+    historic_verification: List[Dict[str, FindingType]] = []
+    query_attrs = {
+        'KeyConditionExpression': Key('finding_id').eq(finding_id),
+        'ProjectionExpression': 'historic_verification'
+    }
+    response_items = cast(
+        List[Dict[str, FindingType]],
+        await dynamodb.async_query(FINDINGS_TABLE, query_attrs)
     )
+    if response_items:
+        historic_verification = response_items[0].get(
+            'historic_verification',
+            []
+        )
+    return historic_verification
+
+
+def get_item_date(item: Any) -> Datetime:
+    return datetime_utils.get_from_str(item['date'].split(' ')[0], '%Y-%m-%d')
 
 
 def get_reattack_requesters(
-        historic_verification: List[Dict[str, str]],
-        vulnerabilities: List[str]) -> List[str]:
+    historic_verification: List[Dict[str, str]],
+    vulnerabilities: List[str]
+) -> List[str]:
     historic_verification = list(reversed(historic_verification))
     users: List[str] = []
     for verification in historic_verification:
@@ -477,8 +346,109 @@ def get_reattack_requesters(
                 users.append(str(verification.get('user', '')))
         if not vulnerabilities:
             break
-
     return list(set(users))
+
+
+def get_sorted_historics(
+    vuln: Dict[str, FindingType]
+) -> Tuple[List[Dict[str, str]], List[Dict[str, str]]]:
+    historic_treatment = cast(
+        List[Dict[str, str]],
+        vuln.get('historic_treatment', [])
+    )
+    historic_state = cast(
+        List[Dict[str, str]],
+        vuln.get('historic_state', [])
+    )
+    sorted_historic = sort_historic_by_date(historic_state)
+    sorted_treatment = sort_historic_by_date(historic_treatment)
+    return sorted_historic, sorted_treatment
+
+
+def get_state_actions(vulns: List[Dict[str, FindingType]]) -> List[Action]:
+    states_actions = list(
+        itertools.chain.from_iterable(
+            get_vuln_state_action(
+                sort_historic_by_date(vuln['historic_state'])
+            )
+            for vuln in vulns
+        )
+    )
+    actions = [
+        action._replace(times=times)
+        for action, times in Counter(states_actions).most_common()
+    ]
+    return actions
+
+
+def get_tracking_dates(
+    vulnerabilities: List[Dict[str, FindingType]]
+) -> List[str]:
+    """Remove vulnerabilities that changes in the same day."""
+    vuln_casted: List[List[str]] = [
+        get_historic_dates(vuln)
+        for vuln in vulnerabilities
+    ]
+    new_casted: List[str] = sorted(
+        list(
+            {
+                date
+                for dates in vuln_casted
+                for date in dates
+            }
+        )
+    )
+    return new_casted
+
+
+def get_treatment_actions(vulns: List[Dict[str, FindingType]]) -> List[Action]:
+    treatments_actions = list(
+        itertools.chain.from_iterable(
+            get_vuln_treatment_actions(
+                sort_historic_by_date(vuln['historic_treatment'])
+            )
+            for vuln in vulns
+        )
+    )
+    actions = [
+        action._replace(times=times)
+        for action, times in Counter(treatments_actions).most_common()
+    ]
+    return actions
+
+
+def get_vuln_state_action(historic_state: HistoricType) -> List[Action]:
+    actions: List[Action] = [
+        Action(
+            action=state['state'],
+            date=state['date'].split(' ')[0],
+            justification='',
+            manager='',
+            times=1,
+        )
+        for state in historic_state
+    ]
+    return list({action.date: action for action in actions}.values())
+
+
+def get_vuln_treatment_actions(
+    historic_treatment: HistoricType
+) -> List[Action]:
+    actions: List[Action] = [
+        Action(
+            action=treatment['treatment'],
+            date=treatment['date'].split(' ')[0],
+            justification=treatment['justification'],
+            manager=treatment['treatment_manager'],
+            times=1,
+        )
+        for treatment in historic_treatment
+        if (
+            treatment['treatment'] in {'ACCEPTED', 'ACCEPTED_UNDEFINED'} and
+            treatment.get('acceptance_status') not in {'REJECTED', 'SUBMITTED'}
+        )
+    ]
+    return list({action.date: action for action in actions}.values())
 
 
 async def send_finding_verified_email(  # pylint: disable=too-many-arguments
@@ -495,9 +465,7 @@ async def send_finding_verified_email(  # pylint: disable=too-many-arguments
     org_id = group['organization']
     organization = await organization_loader.load(org_id)
     org_name = organization['name']
-    all_recipients = await project_domain.get_users_to_notify(
-        group_name
-    )
+    all_recipients = await group_domain.get_users_to_notify(group_name)
     recipients = await in_process(
         get_reattack_requesters,
         historic_verification,
@@ -506,7 +474,6 @@ async def send_finding_verified_email(  # pylint: disable=too-many-arguments
     recipients = [
         recipient for recipient in recipients if recipient in all_recipients
     ]
-
     schedule(
         mailer.send_mail_verified_finding(
             recipients,
@@ -524,119 +491,9 @@ async def send_finding_verified_email(  # pylint: disable=too-many-arguments
     )
 
 
-def get_date_with_format(
-    item: Dict[str, str]
-) -> str:
-    return str(item.get('date', '')).split(' ')[0]
-
-
-def get_first_historic_item_date(
-    historic: List[Dict[str, str]]
-) -> str:
-    if historic:
-        return get_date_with_format(historic[0])
-    return ''
-
-
-def get_historic_dates(
-    vuln: Dict[str, FindingType]
-) -> List[str]:
-    historic_treatment = cast(
-        List[Dict[str, str]], vuln['historic_treatment']
-    )
-    historic_state = cast(List[Dict[str, str]], vuln['historic_state'])
-
-    treatment_dates = [
-        get_date_with_format(treatment)
-        for treatment in historic_treatment
-    ]
-    state_dates = [
-        get_date_with_format(state)
-        for state in historic_state
-        if state.get('state', '') in {'open', 'closed'}
-    ]
-    return treatment_dates + state_dates
-
-
-def get_tracking_dates(
-    vulnerabilities: List[Dict[str, FindingType]]
-) -> List[str]:
-    """Remove vulnerabilities that changes in the same day."""
-    vuln_casted: List[List[str]] = [
-        get_historic_dates(vuln)
-        for vuln in vulnerabilities
-    ]
-
-    new_casted: List[str] = sorted(list(
-        {
-            date
-            for dates in vuln_casted
-            for date in dates
-        }
-    ))
-
-    return new_casted
-
-
-async def send_finding_delete_mail(  # pylint: disable=too-many-arguments
-    context: Any,
-    finding_id: str,
-    finding_name: str,
-    project_name: str,
-    discoverer_email: str,
-    justification: str
-) -> None:
-    del context
-    recipients = FI_MAIL_REVIEWERS.split(',')
-
-    schedule(
-        mailer.send_mail_delete_finding(
-            recipients,
-            {
-                'mail_analista': discoverer_email,
-                'name_finding': finding_name,
-                'id_finding': finding_id,
-                'description': justification,
-                'project': project_name,
-            }
-        )
-    )
-
-
-async def send_remediation_email(  # pylint: disable=too-many-arguments
-    context: Any,
-    user_email: str,
-    finding_id: str,
-    finding_name: str,
-    group_name: str,
-    justification: str
-) -> None:
-    group_loader = context.group_all
-    organization_loader = context.organization
-    group = await group_loader.load(group_name)
-    org_id = group['organization']
-    organization = await organization_loader.load(org_id)
-    org_name = organization['name']
-    recipients = await project_domain.get_closers(
-        group_name
-    )
-    schedule(
-        mailer.send_mail_remediate_finding(
-            recipients,
-            {
-                'project': group_name.lower(),
-                'organization': org_name,
-                'finding_name': finding_name,
-                'finding_url': (
-                    f'{BASE_URL}/orgs/{org_name}/groups/{group_name}'
-                    f'/vulns/{finding_id}/locations'
-                ),
-                'finding_id': finding_id,
-                'user_email': user_email,
-                'solution_description': justification
-            }
-        )
-    )
+def sort_historic_by_date(historic: Any) -> HistoricType:
+    historic_sort = sorted(historic, key=lambda i: i['date'])
+    return historic_sort
 
 
 async def send_draft_reject_mail(  # pylint: disable=too-many-arguments
@@ -667,9 +524,30 @@ async def send_draft_reject_mail(  # pylint: disable=too-many-arguments
         'project': group_name,
         'organization': org_name
     }
+    schedule(mailer.send_mail_reject_draft(recipients, email_context))
+
+
+async def send_finding_delete_mail(  # pylint: disable=too-many-arguments
+    context: Any,
+    finding_id: str,
+    finding_name: str,
+    group_name: str,
+    discoverer_email: str,
+    justification: str
+) -> None:
+    del context
+    recipients = FI_MAIL_REVIEWERS.split(',')
+
     schedule(
-        mailer.send_mail_reject_draft(
-            recipients, email_context
+        mailer.send_mail_delete_finding(
+            recipients,
+            {
+                'mail_analista': discoverer_email,
+                'name_finding': finding_name,
+                'id_finding': finding_id,
+                'description': justification,
+                'project': group_name,
+            }
         )
     )
 
@@ -688,8 +566,7 @@ async def send_new_draft_mail(
     organization = await organization_loader.load(org_id)
     org_name = organization['name']
     recipients = FI_MAIL_REVIEWERS.split(',')
-    recipients += await project_dal.list_internal_managers(group_name)
-
+    recipients += await group_dal.list_internal_managers(group_name)
     email_context: MailContentType = {
         'analyst_email': analyst_email,
         'finding_id': finding_id,
@@ -701,8 +578,40 @@ async def send_new_draft_mail(
         'project': group_name,
         'organization': org_name
     }
+    schedule(mailer.send_mail_new_draft(recipients, email_context))
+
+
+async def send_remediation_email(  # pylint: disable=too-many-arguments
+    context: Any,
+    user_email: str,
+    finding_id: str,
+    finding_name: str,
+    group_name: str,
+    justification: str
+) -> None:
+    group_loader = context.group_all
+    organization_loader = context.organization
+    group = await group_loader.load(group_name)
+    org_id = group['organization']
+    organization = await organization_loader.load(org_id)
+    org_name = organization['name']
+    recipients = await group_domain.get_closers(group_name)
     schedule(
-        mailer.send_mail_new_draft(recipients, email_context)
+        mailer.send_mail_remediate_finding(
+            recipients,
+            {
+                'project': group_name.lower(),
+                'organization': org_name,
+                'finding_name': finding_name,
+                'finding_url': (
+                    f'{BASE_URL}/orgs/{org_name}/groups/{group_name}'
+                    f'/vulns/{finding_id}/locations'
+                ),
+                'finding_id': finding_id,
+                'user_email': user_email,
+                'solution_description': justification
+            }
+        )
     )
 
 
@@ -713,9 +622,7 @@ def validate_acceptance_date(values: Dict[str, str]) -> bool:
     valid: bool = True
     if values['treatment'] == 'ACCEPTED':
         if values.get("acceptance_date"):
-            today = datetime_utils.get_as_str(
-                datetime_utils.get_now()
-            )
+            today = datetime_utils.get_now_as_str()
             values['acceptance_date'] = (
                 f'{values["acceptance_date"].split()[0]} {today.split()[1]}'
             )
@@ -724,21 +631,3 @@ def validate_acceptance_date(values: Dict[str, str]) -> bool:
         else:
             raise InvalidDateFormat()
     return valid
-
-
-def format_finding(
-    finding: Dict[str, FindingType],
-    attrs: Optional[Set[str]] = None
-) -> Dict[str, FindingType]:
-    """Returns the data in the format expected by default resolvers"""
-    formated_finding = finding.copy()
-    if not attrs or 'finding_id' in attrs:
-        formated_finding['id'] = finding['finding_id']
-    if not attrs or 'finding' in attrs:
-        formated_finding['title'] = finding['finding']
-    if not attrs or 'historic_state' in attrs:
-        formated_finding['historic_state'] = (
-            finding.get('historic_state', [])
-        )
-
-    return formated_finding

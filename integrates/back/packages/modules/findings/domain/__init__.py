@@ -3,6 +3,7 @@ from .core import (
     cast_new_vulnerabilities,
     delete_finding,
     get,
+    get_attributes,
     get_finding,
     get_finding_age,
     get_finding_last_vuln_report,
@@ -30,6 +31,9 @@ from .draft import (
     submit_draft
 )
 from .evidence import (
+    download_evidence_file,
+    get_exploit_from_file,
+    get_records_from_file,
     remove_evidence,
     update_evidence,
     update_evidence_description,
@@ -43,6 +47,7 @@ __all__ = [
     'cast_new_vulnerabilities',
     'delete_finding',
     'get',
+    'get_attributes',
     'get_finding',
     'get_finding_age',
     'get_finding_last_vuln_report',
@@ -70,6 +75,9 @@ __all__ = [
     'submit_draft',
 
     # evidences
+    'download_evidence_file',
+    'get_exploit_from_file',
+    'get_records_from_file',
     'remove_evidence',
     'update_evidence',
     'update_evidence_description',

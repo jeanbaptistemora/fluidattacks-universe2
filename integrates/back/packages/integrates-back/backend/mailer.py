@@ -32,12 +32,12 @@ from backend import authz
 from backend.domain import project as project_domain
 from backend.filters import finding as finding_filters
 from backend.typing import (
+    Comment as CommentType,
     Event as EventType,
     Finding as FindingType,
     MailContent as MailContentType,
     Project as ProjectType
 )
-from comments.domain import CommentType
 from newutils import datetime as datetime_utils
 from organizations import domain as orgs_domain
 from users import domain as users_domain

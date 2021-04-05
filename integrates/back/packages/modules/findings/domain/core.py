@@ -23,7 +23,6 @@ from backend import (
     mailer,
     util,
 )
-from backend.dal import finding as finding_dal
 from backend.dal.helpers.dynamodb import start_context
 from backend.domain import vulnerability as vuln_domain
 from backend.exceptions import (
@@ -42,6 +41,7 @@ from backend.typing import (
     Tracking as TrackingItem,
 )
 from comments import domain as comments_domain
+from findings import dal as findings_dal
 from newutils import (
     comments as comments_utils,
     cvss,
@@ -173,7 +173,7 @@ async def delete_finding(
             'analyst': analyst,
             'source': source,
         })
-        success = await finding_dal.update(
+        success = await findings_dal.update(
             finding_id,
             {'historic_state': submission_history}
         )
@@ -229,15 +229,27 @@ async def get(
     finding_id: str,
     table: aioboto3.session.Session.client
 ) -> Dict[str, FindingType]:
-    finding = await finding_dal.get(finding_id, table)
+    finding = await findings_dal.get(finding_id, table)
     if not finding or not await validate_finding(finding=finding):
         raise FindingNotFound()
     return finding_utils.format_data(finding)
 
 
+async def get_attributes(
+    finding_id: str,
+    attributes: List[str]
+) -> Dict[str, FindingType]:
+    if 'finding_id' not in attributes:
+        attributes = [*attributes, 'finding_id']
+    response = await findings_dal.get_attributes(finding_id, attributes)
+    if not response:
+        raise FindingNotFound()
+    return response
+
+
 async def get_finding(finding_id: str) -> Dict[str, FindingType]:
     """Retrieves and formats finding attributes"""
-    finding = await finding_dal.get_finding(finding_id)
+    finding = await findings_dal.get_finding(finding_id)
     if not finding or not await validate_finding(finding=finding):
         raise FindingNotFound()
     return finding_utils.format_data(finding)
@@ -283,7 +295,7 @@ async def get_findings_async(
     """Retrieves all attributes for the requested findings"""
     async with AsyncExitStack() as stack:
         resource = await stack.enter_async_context(start_context())
-        table = await resource.Table(finding_dal.TABLE_NAME)
+        table = await resource.Table(findings_dal.TABLE_NAME)
         findings = await collect(
             get(finding_id, table)
             for finding_id in finding_ids
@@ -298,7 +310,7 @@ async def get_findings_by_group(
 ) -> List[Dict[str, FindingType]]:
     if attrs and 'historic_state' not in attrs:
         attrs.add('historic_state')
-    findings = await finding_dal.get_findings_by_group(group_name, attrs)
+    findings = await findings_dal.get_findings_by_group(group_name, attrs)
     findings = finding_filters.filter_non_created_findings(findings)
     findings = finding_filters.filter_non_rejected_findings(findings)
     findings = finding_filters.filter_non_submitted_findings(findings)
@@ -312,9 +324,7 @@ async def get_findings_by_group(
 
 
 async def get_group(finding_id: str) -> str:
-    attribute = await finding_utils.get_attributes(
-        finding_id, ['project_name']
-    )
+    attribute = await get_attributes(finding_id, ['project_name'])
     return str(attribute.get('project_name'))
 
 
@@ -417,7 +427,7 @@ async def list_findings(
 
 
 async def mask_finding(context: Any, finding_id: str) -> bool:
-    finding = await finding_dal.get_finding(finding_id)
+    finding = await findings_dal.get_finding(finding_id)
     finding = finding_utils.format_data(finding)
     historic_verification = cast(
         List[Dict[str, str]],
@@ -438,25 +448,25 @@ async def mask_finding(context: Any, finding_id: str) -> bool:
     ]
     mask_finding_coroutines = []
     mask_finding_coroutines.append(
-        finding_dal.update(
+        findings_dal.update(
             finding_id,
             {attr: 'Masked' for attr in attrs_to_mask}
         )
     )
     mask_finding_coroutines.append(
-        finding_utils.mask_verification(finding_id, historic_verification)
+        mask_verification(finding_id, historic_verification)
     )
 
-    list_evidences_files = await finding_dal.search_evidence(
+    list_evidences_files = await findings_dal.search_evidence(
         f'{finding["projectName"]}/{finding_id}'
     )
     evidence_s3_coroutines = [
-        finding_dal.remove_evidence(file_name)
+        findings_dal.remove_evidence(file_name)
         for file_name in list_evidences_files
     ]
     mask_finding_coroutines.extend(evidence_s3_coroutines)
 
-    evidence_dynamodb_coroutine = finding_dal.update(
+    evidence_dynamodb_coroutine = findings_dal.update(
         finding_id,
         {
             'files': [
@@ -491,12 +501,30 @@ async def mask_finding(context: Any, finding_id: str) -> bool:
     return all(await collect(mask_finding_coroutines))
 
 
+async def mask_verification(
+    finding_id: str,
+    historic_verification: List[Dict[str, str]]
+) -> bool:
+    historic = [
+        {
+            **treatment,
+            'status': 'Masked',
+            'user': 'Masked'
+        }
+        for treatment in historic_verification
+    ]
+    return await findings_dal.update(
+        finding_id,
+        {'historic_verification': historic}
+    )
+
+
 async def save_severity(finding: Dict[str, FindingType]) -> bool:
     """Organize severity metrics to save in dynamo."""
     cvss_version: str = str(finding.get('cvssVersion', ''))
     cvss_parameters = finding_utils.CVSS_PARAMETERS[cvss_version]
     severity = cvss.calculate_severity(cvss_version, finding, cvss_parameters)
-    response = await finding_dal.update(str(finding.get('id', '')), severity)
+    response = await findings_dal.update(str(finding.get('id', '')), severity)
     return response
 
 
@@ -557,7 +585,7 @@ async def update_description(
         r'^F[0-9]{3}\. .+',
         str(updated_values.get('finding', ''))
     ):
-        return await finding_dal.update(finding_id, updated_values)
+        return await findings_dal.update(finding_id, updated_values)
     raise InvalidDraftTitle()
 
 
@@ -567,5 +595,5 @@ async def validate_finding(
 ) -> bool:
     """Validate if a finding is not deleted."""
     if not finding:
-        finding = await finding_dal.get_finding(str(finding_id))
-    return not is_deleted(cast(Dict[str, FindingType], finding))
+        finding = await findings_dal.get_finding(str(finding_id))
+    return not is_deleted(finding)

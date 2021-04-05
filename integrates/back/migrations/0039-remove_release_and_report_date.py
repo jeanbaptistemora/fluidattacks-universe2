@@ -5,17 +5,16 @@ Execution Time: 2020-12-07 16:00:25 UTC-5
 Finalization Time: 2020-12-07 16:28:09 UTC-5
 """
 # Standard library
-from asyncio import run
 import os
+from asyncio import run
 
 # Third party library
-from aioextensions import (
-    collect,
-)
+from aioextensions import collect
 
 # Local
 from backend.dal.helpers import dynamodb
-from backend.dal.finding import update
+from findings.dal import update
+
 
 STAGE: str = os.environ['STAGE']
 FINDINGS_TABLE = 'FI_findings'

@@ -63,7 +63,6 @@ from names import domain as names_domain
 from newutils import (
     comments as comments_utils,
     datetime as datetime_utils,
-    findings as finding_utils,
     user as user_utils,
     validations,
 )
@@ -628,7 +627,7 @@ async def get_pending_verification_findings(
         if are_pending_verification
     ]
     pending_to_verify = await collect(
-        finding_utils.get_attributes(
+        findings_domain.get_attributes(
             finding_id,
             ['finding', 'finding_id', 'project_name']
         ) for finding_id in pending_to_verify_ids

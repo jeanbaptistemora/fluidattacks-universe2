@@ -6,9 +6,7 @@ Finalization Time: 2021-03-01 at 10:08:58 UTC-05
 """
 # Standard libraries
 import copy
-from pprint import (
-    pprint,
-)
+from pprint import pprint
 from typing import (
     Dict,
     cast,
@@ -21,16 +19,13 @@ from aioextensions import (
 )
 
 # Local libraries
-from backend.dal.helpers import (
-    dynamodb,
-)
-from backend.dal import (
-    finding as finding_dal,
-)
+from backend.dal.helpers import dynamodb
 from backend.typing import (
     Finding,
     Historic,
 )
+from findings import dal as findings_dal
+
 
 FINDING_TABLE: str = 'FI_findings'
 
@@ -50,7 +45,7 @@ async def remove_origin_from_historic_state(
             del state_info['origin']
 
     if to_update:
-        success = await finding_dal.update(
+        success = await findings_dal.update(
             finding_id,
             {
                 'historic_state': historic_state

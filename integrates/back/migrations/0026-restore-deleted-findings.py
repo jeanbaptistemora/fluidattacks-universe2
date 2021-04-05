@@ -26,22 +26,18 @@
 #
 
 # Standard library
-from asyncio import run
 import os
+from asyncio import run
 from pprint import pprint
-from typing import (
-    Any,
-)
+from typing import Any
 
 # Third party library
 import aioboto3
-from aioextensions import (
-    collect,
-)
-import dateutil.parser
+from aioextensions import collect
 
 from backend.dal.helpers import dynamodb
-from backend.dal.finding import update
+from findings.dal import update
+
 
 STAGE: str = os.environ['STAGE']
 FINDINGS_TABLE = 'FI_findings'

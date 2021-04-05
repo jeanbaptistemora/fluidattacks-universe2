@@ -2,14 +2,16 @@ import os
 import pytest
 from collections import OrderedDict
 
-from backend.dal.finding import get_finding
-from newutils.findings import (
+from findings.dal import get_finding
+from findings.domain import (
     download_evidence_file,
+    get_exploit_from_file,
+    get_records_from_file,
+)
+from newutils.findings import (
     format_data,
     get_evidence,
-    get_exploit_from_file,
     get_reattack_requesters,
-    get_records_from_file,
 )
 
 

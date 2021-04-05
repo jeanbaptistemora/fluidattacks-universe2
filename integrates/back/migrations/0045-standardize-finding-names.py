@@ -5,10 +5,10 @@ Execution Time:    2020-12-15 at 22:57:50 UTC-05
 Finalization Time: 2020-12-15 at 23:00:25 UTC-05
 """
 # Standard library
-from itertools import chain
 import os
 import re
 import time
+from itertools import chain
 from typing import (
     Dict,
     List,
@@ -22,11 +22,13 @@ from aioextensions import (
 from more_itertools import chunked
 
 # Local libraries
-from backend.api.dataloaders.project import ProjectLoader as GroupLoader
+from backend.api.dataloaders.group import GroupLoader
 from backend.api.dataloaders.finding import FindingLoader
-from backend.dal import finding as finding_dal
 from backend.domain.project import get_active_projects
 from backend.typing import Finding
+from findings import dal as findings_dal
+
+
 STAGE: str = os.environ['STAGE']
 
 
@@ -51,7 +53,7 @@ async def _standardize_finding_name(
         new_title = finding_title.replace(is_old.group(), replace_val)
         if STAGE == 'apply':
             print(f'[INFO] Updating name for finding {finding_id}')
-            await finding_dal.update(
+            await findings_dal.update(
                 finding_id,
                 {'finding': new_title}
             )

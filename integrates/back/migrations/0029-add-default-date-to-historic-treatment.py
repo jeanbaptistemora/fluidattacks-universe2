@@ -5,15 +5,17 @@ Execution Time:    2020-09-10 17:29:15 UTC-5
 Finalization Time: 2020-09-10 18:23:20 UTC-5
 """
 
-from asyncio import run
 import copy
 import os
+from asyncio import run
 from pprint import pprint
 from typing import Any
+
 import aioboto3
 
 from backend.dal.helpers import dynamodb
-from backend.dal.finding import update
+from findings.dal import update
+
 
 STAGE: str = os.environ['STAGE']
 FINDINGS_TABLE = 'FI_findings'

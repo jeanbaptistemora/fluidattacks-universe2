@@ -9,12 +9,10 @@ Finalization Time: 2021-03-04 at 09:27:43 UTC-05
 # Standard libraries
 import copy
 import time
-from pprint import (
-    pprint,
-)
+from pprint import pprint
 from typing import (
-    Dict,
     cast,
+    Dict,
 )
 
 # Third party libraries
@@ -22,21 +20,17 @@ from aioextensions import (
     collect,
     run,
 )
+from boto3.dynamodb.conditions import Attr, Key
 
 # Local libraries
-from backend.dal.helpers import (
-    dynamodb,
-)
-from backend.dal import (
-    finding as finding_dal,
-    vulnerability as vuln_dal
-)
+from backend.dal.helpers import dynamodb
+from backend.dal import vulnerability as vuln_dal
 from backend.typing import (
     Finding,
     Historic,
 )
+from findings import dal as findings_dal
 
-from boto3.dynamodb.conditions import Attr, Key
 
 FINDINGS_TABLE: str = 'FI_findings'
 FINDINGS_TABLE_COPY: str = 'fi_findings_copy2'
@@ -79,7 +73,7 @@ async def restore_historic_state(
 
     if to_update:
         if type_item == 'finding':
-            success = await finding_dal.update(
+            success = await findings_dal.update(
                 finding_id,
                 {
                     'historic_state': historic_state

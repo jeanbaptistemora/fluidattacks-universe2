@@ -30,10 +30,11 @@ from backend.api import (
   get_new_context,
 )
 from backend.api.schema import SCHEMA
-from backend.dal import finding as finding_dal
 from backend.domain.project import get_open_vulnerabilities
 from backend.exceptions import FindingNotFound, NotVerificationRequested
+from findings import dal as findings_dal
 from findings.domain import get_finding
+
 
 pytestmark = pytest.mark.asyncio
 
@@ -502,7 +503,7 @@ async def test_delete_finding():
     assert 'errors' not in result
     assert 'success' in result['data']['deleteFinding']
     assert result['data']['deleteFinding']['success']
-    finding = await finding_dal.get_finding('560175507')
+    finding = await findings_dal.get_finding('560175507')
     historic_state = finding['historic_state']
     assert historic_state == [
       {

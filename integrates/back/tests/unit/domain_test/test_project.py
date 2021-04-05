@@ -6,13 +6,13 @@ from datetime import datetime
 
 from aioextensions import collect
 from freezegun import freeze_time
+from graphql.type import GraphQLResolveInfo
 from pytz import timezone
 
 from back import settings
 from back.tests.unit.utils import create_dummy_session
 from backend.api import get_new_context
 from backend.dal import (
-    finding as finding_dal,
     project as project_dal,
     vulnerability as vuln_dal,
 )
@@ -49,8 +49,11 @@ from backend.domain.project import (
     validate_project_services_config,
     validate_tags,
 )
-from backend.exceptions import InvalidProjectServicesConfig, RepeatedValues
-from graphql.type import GraphQLResolveInfo
+from backend.exceptions import (
+    InvalidProjectServicesConfig,
+    RepeatedValues,
+)
+from findings import dal as findings_dal
 from names import domain as names_domain
 from newutils import datetime as datetime_utils
 
@@ -106,7 +109,7 @@ async def test_get_last_closing_vuln():
     findings_to_get = ['463558592', '422286126']
     context = get_new_context()
     findings = await collect(
-        finding_dal.get_finding(finding_id)
+        findings_dal.get_finding(finding_id)
         for finding_id in findings_to_get
     )
     test_data = await get_last_closing_vuln_info(context, findings)
@@ -167,7 +170,7 @@ async def test_is_vulnerability_closed():
 async def test_get_max_open_severity():
     findings_to_get = ['463558592', '422286126']
     findings = await collect(
-        finding_dal.get_finding(finding_id)
+        findings_dal.get_finding(finding_id)
         for finding_id in findings_to_get
     )
     test_data = await get_max_open_severity(get_new_context(), findings)
@@ -261,7 +264,7 @@ async def test_get_total_treatment():
     context = get_new_context()
     findings_to_get = ['463558592', '422286126']
     findings = await collect(
-        finding_dal.get_finding(finding_id)
+        findings_dal.get_finding(finding_id)
         for finding_id in findings_to_get
     )
     test_data = await get_total_treatment(context, findings)

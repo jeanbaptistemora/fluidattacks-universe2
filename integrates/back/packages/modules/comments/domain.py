@@ -16,19 +16,22 @@ from backend import (
     authz,
     util,
 )
-from backend.dal import finding as finding_dal
 from backend.typing import (
     Comment as CommentType,
+    Finding as FindingType,
     User as UserType
 )
 from comments import dal as comments_dal
-from newutils import datetime as datetime_utils
+from newutils import (
+    datetime as datetime_utils,
+    findings as findings_utils,
+)
 
 
 def _fill_vuln_info(
     comment: Dict[str, str],
     vulns_ids: List[str],
-    vulns: List[Dict[str, finding_dal.FindingType]]
+    vulns: List[Dict[str, FindingType]]
 ) -> CommentType:
     selected_vulns = [
         vuln.get('where')
@@ -169,13 +172,8 @@ async def get_comments(
         finding_id,
         user_email
     )
-    finding_attr = await finding_dal.get_attributes(
-        finding_id,
-        ['historic_verification']
-    )
-    historic_verification = cast(
-        List[Dict[str, finding_dal.FindingType]],
-        finding_attr.get('historic_verification', [])
+    historic_verification = await findings_utils.get_historic_verification(
+        finding_id
     )
     verified = [
         verification

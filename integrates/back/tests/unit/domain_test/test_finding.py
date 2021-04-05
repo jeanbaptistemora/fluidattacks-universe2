@@ -17,7 +17,6 @@ from back import settings
 from back.tests.unit.utils import create_dummy_session
 from backend import mailer
 from backend.api import get_new_context
-from backend.dal import finding as finding_dal
 from backend.domain.vulnerability import (
     list_vulnerabilities_async,
     validate_treatment_change,
@@ -30,6 +29,7 @@ from backend.exceptions import (
     InvalidFileType,
     InvalidNumberAcceptations,
 )
+from findings import dal as findings_dal
 from findings.domain import (
     add_comment,
     approve_draft,
@@ -250,7 +250,7 @@ async def test_mask_finding():
     assert isinstance(test_data, bool)
     assert test_data == expected_output
 
-    finding = await finding_dal.get_finding(finding_id)
+    finding = await findings_dal.get_finding(finding_id)
     assert finding.get('vulnerability', '') == 'Masked'
     assert finding.get('files', [{}])[-1].get('file_url', '') == 'Masked'
     assert finding.get('effect_solution', '') == 'Masked'

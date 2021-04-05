@@ -5,22 +5,21 @@ Execution Time: 2020-12-09 15:29:18 UTC-5
 Finalization Time: 2020-12-09 15:46:37 UTC-5
 """
 # Standard library
-from asyncio import run
 import copy
 import os
+from asyncio import run
 from pprint import pprint
 
 # Third party library
-from aioextensions import (
-    collect,
-)
+from aioextensions import collect
 
 # Local
 from backend.dal.helpers import dynamodb
-from backend.dal.finding import update
 from backend.domain.project import get_active_projects
 from backend.domain.vulnerability import list_vulnerabilities_async
-from backend.utils.datetime import DEFAULT_STR
+from findings.dal import update
+from newutils.datetime import DEFAULT_STR
+
 
 STAGE: str = os.environ['STAGE']
 FINDINGS_TABLE = 'FI_findings'

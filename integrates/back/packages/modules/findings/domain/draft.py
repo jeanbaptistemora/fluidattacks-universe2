@@ -15,7 +15,6 @@ from aioextensions import collect
 from graphql.type.definition import GraphQLResolveInfo
 
 from backend import util
-from backend.dal import finding as finding_dal
 from backend.domain import vulnerability as vuln_domain
 from backend.exceptions import (
     AlreadyApproved,
@@ -30,6 +29,7 @@ from backend.typing import (
     Finding as FindingType,
     User as UserType,
 )
+from findings import dal as findings_dal
 from newutils import (
     datetime as datetime_utils,
     findings as finding_utils,
@@ -71,7 +71,7 @@ async def approve_draft(
                     'source': util.get_source(context),
                     'state': 'APPROVED'
                 })
-                finding_update_success = await finding_dal.update(
+                finding_update_success = await findings_dal.update(
                     draft_id,
                     {'historic_state': history}
                 )
@@ -132,7 +132,7 @@ async def create_draft(
     })
 
     if re.match(r'^F[0-9]{3}\. .+', title):
-        return await finding_dal.create(finding_id, group_name, finding_attrs)
+        return await findings_dal.create(finding_id, group_name, finding_attrs)
     raise InvalidDraftTitle()
 
 
@@ -143,7 +143,7 @@ async def get_drafts_by_group(
 ) -> List[Dict[str, FindingType]]:
     if attrs and 'historic_state' not in attrs:
         attrs.add('historic_state')
-    findings = await finding_dal.get_findings_by_group(group_name, attrs)
+    findings = await findings_dal.get_findings_by_group(group_name, attrs)
     findings = finding_filters.filter_non_approved_findings(findings)
     if not include_deleted:
         findings = finding_filters.filter_non_deleted_findings(findings)
@@ -208,7 +208,7 @@ async def reject_draft(
                 'source': source,
                 'state': 'REJECTED'
             })
-            success = await finding_dal.update(
+            success = await findings_dal.update(
                 draft_id,
                 {'historic_state': history}
             )
@@ -269,7 +269,7 @@ async def submit_draft(  # pylint: disable=too-many-locals
                     'source': source,
                     'state': 'SUBMITTED'
                 })
-                success = await finding_dal.update(
+                success = await findings_dal.update(
                     finding_id,
                     {'historic_state': history}
                 )

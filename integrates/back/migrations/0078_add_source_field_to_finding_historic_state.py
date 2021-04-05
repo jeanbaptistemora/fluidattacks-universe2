@@ -7,9 +7,7 @@ Finalization Time: 2021-02-26 at 13:36:41 UTC-05
 """
 # Standard libraries
 import copy
-from pprint import (
-    pprint,
-)
+from pprint import pprint
 from typing import (
     Dict,
     cast,
@@ -20,21 +18,15 @@ from aioextensions import (
     collect,
     run,
 )
-from boto3.dynamodb.conditions import (
-    Key,
-)
+from boto3.dynamodb.conditions import Key
 
 # Local libraries
-from backend.dal.helpers import (
-    dynamodb,
-)
-from backend.dal import (
-    finding as finding_dal,
-)
+from backend.dal.helpers import dynamodb
 from backend.typing import (
     Finding,
     Historic,
 )
+from findings import dal as findings_dal
 from newutils import datetime as datetime_utils
 
 
@@ -90,7 +82,7 @@ async def add_source_field_to_historic_state(
                 finding_state_info['source'] = 'integrates'
 
     if to_update:
-        success = await finding_dal.update(
+        success = await findings_dal.update(
             finding_id,
             {
                 'historic_state': finding_historic_state

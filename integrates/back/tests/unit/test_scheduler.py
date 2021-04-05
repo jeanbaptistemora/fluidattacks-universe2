@@ -12,7 +12,6 @@ from jose import jwt
 from back import settings
 from back.tests.unit.utils import create_dummy_simple_session
 from backend.api import get_new_context
-from backend.dal.finding import get_finding
 from backend.dal.vulnerability import get as get_vuln
 from backend.domain import project as group_domain
 from backend.domain.vulnerability import list_vulnerabilities_async
@@ -40,6 +39,7 @@ from backend.scheduler import (
     remove_fluid_from_recipients,
 )
 from dynamodb.types import GitRootToeLines
+from findings.dal import get_finding
 from findings.domain import get_findings_by_group
 from newutils import datetime as datetime_utils
 from organizations.domain import (

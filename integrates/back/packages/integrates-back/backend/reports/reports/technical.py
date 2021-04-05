@@ -19,11 +19,12 @@ from PIL import (
 
 # Local libraries
 from back.settings import LOGGING
-from backend.dal import finding as finding_dal
 from backend.reports.it_report import ITReport
 from backend.reports.pdf import CreatorPDF
 from backend.reports.secure_pdf import SecurePDF
 from backend.typing import Finding as FindingType
+from findings import dal as findings_dal
+
 
 logging.config.dictConfig(LOGGING)
 
@@ -125,7 +126,7 @@ async def download_evidences_for_pdf(
         folder_name = f'{finding["projectName"]}/{finding["findingId"]}'
         evidences = cast(Dict[str, Dict[str, str]], finding['evidence'])
         evidences_s3: Set[str] = set(
-            await finding_dal.search_evidence(folder_name)
+            await findings_dal.search_evidence(folder_name)
         )
         evidence_set: List[Dict[str, str]] = [
             {
@@ -142,7 +143,7 @@ async def download_evidences_for_pdf(
             for evidence in evidence_set:
                 evidence_id_2 = str(evidence['id']).split('/')[2]
                 try:
-                    await finding_dal.download_evidence(
+                    await findings_dal.download_evidence(
                         evidence['id'],
                         f'{tempdir}/{evidence_id_2}',
                     )

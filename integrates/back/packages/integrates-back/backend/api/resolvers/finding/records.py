@@ -1,18 +1,19 @@
 # Standard
-from functools import (
-    partial,
+from functools import partial
+from typing import (
+    cast,
+    Dict,
+    List,
+    Optional,
 )
-from typing import cast, Dict, List, Optional
 
 # Third party
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local
-from backend.dal.helpers.redis import (
-    redis_get_or_set_entity_attr,
-)
+from backend.dal.helpers.redis import redis_get_or_set_entity_attr
 from backend.typing import Finding
-from newutils import findings as finding_utils
+from findings.domain import get_records_from_file
 
 
 async def resolve(
@@ -44,11 +45,7 @@ async def resolve_no_cache(
     if records_url:
         return cast(
             List[Dict[object, object]],
-            await finding_utils.get_records_from_file(
-                group_name,
-                finding_id,
-                records_url
-            )
+            await get_records_from_file(group_name, finding_id, records_url)
         )
 
     return []

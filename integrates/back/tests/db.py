@@ -18,7 +18,6 @@ from aioextensions import (
 
 # Local libraries
 from backend.dal import (
-    finding as dal_finding,
     project as dal_group,
     vulnerability as dal_vulnerability,
 )
@@ -26,6 +25,7 @@ from newutils.datetime import get_from_str
 from comments import dal as dal_comment
 from dynamodb.types import RootItem
 from events import dal as dal_event
+from findings import dal as dal_findings
 from forces import dal as dal_forces
 from names import dal as dal_names
 from roots import dal as dal_roots
@@ -111,7 +111,7 @@ async def populate_findings(data: List[Any]) -> bool:
     coroutines: List[Awaitable[bool]] = []
     data_parsed: List[Any] = json.loads(json.dumps(data), parse_float=Decimal)
     coroutines.extend([
-        dal_finding.create(
+        dal_findings.create(
             finding['finding_id'],
             finding['project_name'],
             finding,

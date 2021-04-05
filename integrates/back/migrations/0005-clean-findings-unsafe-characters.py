@@ -20,16 +20,15 @@ from typing import (
     Optional,
 )
 
+import bugsnag
+
 # Setup Django environment to import functions
 PROJECT_PATH: str = '/usr/src/app'
 sys.path.append(PROJECT_PATH)
 os.chdir(PROJECT_PATH)
 
-import bugsnag
 from backend import util
-from backend.dal.finding import (
-    TABLE as FINDINGS_TABLE
-)
+from findings.dal import TABLE_NAME as FINDINGS_TABLE
 
 
 STRINGS_TO_REPLACE: Dict[str, Dict[str, str]] = {

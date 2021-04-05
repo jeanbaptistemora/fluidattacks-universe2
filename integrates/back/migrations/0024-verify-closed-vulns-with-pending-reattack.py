@@ -29,16 +29,14 @@ from aioextensions import (
 from more_itertools import chunked
 
 from back import settings
-from backend.dal import (
-    finding as finding_dal,
-    vulnerability as vuln_dal,
-)
+from backend.dal import vulnerability as vuln_dal
 from backend.domain import (
     project as group_domain,
     vulnerability as vuln_domain,
 )
 from backend.typing import Comment as CommentType
 from comments import dal as comments_dal
+from findings import dal as findings_dal
 from users import domain as users_domain
 
 
@@ -93,7 +91,7 @@ async def verify_closed_vulnerabilities(
     group: str,
 ) -> None:
     coroutines: List[Awaitable[bool]] = []
-    finding = await finding_dal.get_finding(finding_id)
+    finding = await findings_dal.get_finding(finding_id)
     vulnerabilities = await vuln_domain.get_by_ids(closed_vulns)
     tzn = pytz.timezone(settings.TIME_ZONE)
     today = datetime.now(tz=tzn).today().strftime('%Y-%m-%d %H:%M:%S')
@@ -111,7 +109,7 @@ async def verify_closed_vulnerabilities(
         'vulns': closed_vulns
     })
     coroutines.append(
-        finding_dal.update(
+        findings_dal.update(
             finding_id, {'historic_verification': historic_verification}
         )
     )

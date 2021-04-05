@@ -8,10 +8,8 @@ Finalization Time:  2020-06-16 15:21 UTC-5
 import os
 from typing import List
 
-from backend.dal import (
-    finding as finding_dal,
-    project as project_dal,
-)
+from backend.dal import project as project_dal
+from findings import dal as findings_dal
 from __init__ import FI_TEST_PROJECTS
 
 
@@ -25,19 +23,19 @@ def clean_finding_evidences(group_name: str) -> None:
         project_dal.list_findings(group_name, should_list_deleted=True)
 
     for finding_id in findings:
-        finding = finding_dal.get_finding(finding_id)
+        finding = findings_dal.get_finding(finding_id)
         evidence_prefix = f'{group_name}/{finding_id}'
         files = [file_name.get('file_url', '')
                  for file_name in finding.get('files', [])]
         files = [f'{evidence_prefix}/{file_name}' for file_name in files]
-        for file_name in finding_dal.search_evidence(evidence_prefix):
+        for file_name in findings_dal.search_evidence(evidence_prefix):
             if file_name not in files and \
                file_name != f'{group_name}/{finding_id}/':
                 if STAGE == 'test':
                     print(f'orphan evidence file_name: {file_name}')
                 else:
                     print(f'removing evidence file_name: {file_name}')
-                    finding_dal.remove_evidence(file_name)
+                    findings_dal.remove_evidence(file_name)
 
 
 def main() -> None:
