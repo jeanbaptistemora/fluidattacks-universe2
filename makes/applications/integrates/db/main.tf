@@ -201,27 +201,6 @@ resource "aws_dynamodb_table" "FI_projects" {
   name         = "FI_projects"
 }
 
-resource "aws_dynamodb_table" "fi_roots" {
-  attribute {
-    name = "pk"
-    type = "S"
-  }
-  attribute {
-    name = "sk"
-    type = "S"
-  }
-  billing_mode = "PAY_PER_REQUEST"
-  global_secondary_index {
-    hash_key        = "sk"
-    name            = "roots_index"
-    projection_type = "ALL"
-    range_key       = "pk"
-  }
-  hash_key  = "pk"
-  name      = "fi_roots"
-  range_key = "sk"
-}
-
 resource "aws_dynamodb_table" "fi_subscriptions" {
   attribute {
     name = "pk"
