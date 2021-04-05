@@ -365,6 +365,27 @@ def attempt_by_type_args_propagation(args: EvaluatorArgs, method: str) -> bool:
     return False
 
 
+def attempt_by_type_and_value_finding(
+    args: EvaluatorArgs,
+    method: str,
+) -> bool:
+    # function calls with parameters that make the object vulnerable
+    method_var, method_path = split_on_first_dot(method)
+    method_var_decl = lookup_var_dcl_by_name(args, method_var)
+
+    if method_var_decl and (methods := (
+        BY_TYPE_AND_VALUE_FINDING
+        .get(args.finding.name, {})
+        .get(method_var_decl.var_type_base)
+    )):
+        parameters = {param.meta.value for param in args.dependencies}
+        if parameters.issubset(methods.get(method_path, set())):
+            method_var_decl.meta.danger = True
+            return True
+
+    return False
+
+
 def attempt_static(args: EvaluatorArgs, method: str) -> bool:
     if method in STATIC_FINDING.get(args.finding.name, {}):
         args.syntax_step.meta.danger = True
@@ -406,35 +427,17 @@ def attempt_the_old_way(args: EvaluatorArgs) -> bool:
 
 def analyze_method_invocation(args: EvaluatorArgs, method: str) -> None:
     # pylint: disable=expression-not-assigned,too-many-boolean-expressions
-    if (
+    (
         attempt_by_args_propagation(args, method) or
         attempt_by_args_propagation_no_type(args, method) or
         attempt_by_obj(args, method) or
         attempt_by_obj_args(args, method) or
         attempt_by_type(args, method) or
+        attempt_by_type_and_value_finding(args, method) or
         attempt_by_type_args_propagation(args, method) or
         attempt_static(args, method) or
         attempt_static_side_effects(args, method)
-    ):
-        return
-
-    method_var, method_path = split_on_first_dot(method)
-    method_var_decl = lookup_var_dcl_by_name(args, method_var)
-    method_var_decl_type = (
-        method_var_decl.var_type_base if method_var_decl else ''
     )
-
-    # function calls with parameters that make the object vulnerable
-    if methods := BY_TYPE_AND_VALUE_FINDING.get(
-            args.finding.name,
-            dict(),
-    ).get(method_var_decl_type):
-        parameters = {param.meta.value for param in args.dependencies}
-        if (
-            parameters.issubset(methods.get(method_path, set()))
-            and method_var_decl
-        ):
-            method_var_decl.meta.danger = True
 
 
 def analyze_method_invocation_values(args: EvaluatorArgs) -> None:
