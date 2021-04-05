@@ -10,16 +10,17 @@
 /* eslint @typescript-eslint/no-confusing-void-expression:0 */
 /* eslint fp/no-mutation: 0 */
 /* eslint import/no-namespace:0 */
-import { Breadcrumb } from "gatsby-plugin-breadcrumb";
-import { Layout } from "../components/layout";
-import { NavbarComponent } from "../components/Navbar";
-import React from "react";
-import { Seo } from "../components/seo";
-import { ServicePage } from "../components/ServicePage";
 import { graphql } from "gatsby";
-import { translate } from "../utils/translations/translate";
+import { Breadcrumb } from "gatsby-plugin-breadcrumb";
+import React from "react";
+
 import * as continuousImage from "../../static/images/services/service-continuous.png"; // eslint-disable-line import/no-unresolved
 import * as oneShotImage from "../../static/images/services/service-one-shot.png"; // eslint-disable-line import/no-unresolved
+import { Layout } from "../components/layout";
+import { NavbarComponent } from "../components/Navbar";
+import { Seo } from "../components/seo";
+import { ServicePage } from "../components/ServicePage";
+import { translate } from "../utils/translations/translate";
 
 const ContinuousHackingIndex: React.FC<IQueryData> = ({
   data,

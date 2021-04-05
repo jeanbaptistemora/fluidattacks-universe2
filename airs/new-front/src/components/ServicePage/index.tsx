@@ -5,7 +5,7 @@ import { Link } from "gatsby";
 import React from "react";
 import type { StyledComponent } from "styled-components";
 import styled from "styled-components";
-import { translate } from "../../utils/translations/translate";
+
 import {
   BannerContainer,
   BannerSubtitle,
@@ -16,6 +16,7 @@ import {
   PageArticle,
   RegularRedButton,
 } from "../../styles/styledComponents";
+import { translate } from "../../utils/translations/translate";
 
 interface IProps {
   banner: string;

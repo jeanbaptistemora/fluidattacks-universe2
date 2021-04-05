@@ -4,6 +4,7 @@
 import React from "react";
 import type { StyledComponent } from "styled-components";
 import styled from "styled-components";
+
 import * as clutchReview from "../../../../static/images/clutch-review.png";
 import * as owaspLogo from "../../../../static/images/owasp-logo.png";
 

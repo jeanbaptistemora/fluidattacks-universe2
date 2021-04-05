@@ -2,10 +2,13 @@
 /* eslint react/forbid-component-props: 0 */
 /* eslint import/no-unresolved:0 */
 /* eslint react/jsx-no-bind:0 */
-import { MenuDesktop } from "./MenuDesktop";
-import { MenuMobile } from "./MenuMobile";
+import React, { useState } from "react";
 import type { StyledComponent } from "styled-components";
 import styled from "styled-components";
+
+import { MenuDesktop } from "./MenuDesktop";
+import { MenuMobile } from "./MenuMobile";
+
 import * as closeMenuIcon from "../../../../static/images/cross.png";
 import {
   CenteredMaxWidthContainer,
@@ -16,7 +19,6 @@ import {
   CloseMenuButtonContainer,
   MenuDesktopInnerContainer,
 } from "../styles/navbarStyledComponents";
-import React, { useState } from "react";
 
 const MenuDesktopContainer: StyledComponent<
   "div",

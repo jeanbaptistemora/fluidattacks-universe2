@@ -4,10 +4,12 @@
 /* eslint fp/no-mutation:0 */
 /* eslint import/no-namespace:0 */
 /* eslint react/jsx-no-bind:0 */
+import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React, { useEffect, useState } from "react";
 import type { StyledComponent } from "styled-components";
 import styled from "styled-components";
-import { translate } from "../../../utils/translations/translate";
+
 import * as logoAvianca from "../../../../static/images/about-us/clients/logo-avianca.png";
 import * as logoBancoGeneral from "../../../../static/images/about-us/clients/logo-banco-general.png";
 import * as logoBancoIndustrial from "../../../../static/images/about-us/clients/logo-banco-industrial.png";
@@ -25,8 +27,7 @@ import {
   BannerContainer,
   FontAwesomeContainerSmall,
 } from "../../../styles/styledComponents";
-import React, { useEffect, useState } from "react";
-import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
+import { translate } from "../../../utils/translations/translate";
 
 const Container: StyledComponent<
   "div",

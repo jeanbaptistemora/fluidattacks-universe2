@@ -1,9 +1,10 @@
 /* eslint react/forbid-component-props: 0 */
+import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "gatsby";
 import React from "react";
 import ScrollAnimation from "react-animate-on-scroll";
-import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+
 import {
   BlackBigHeader,
   BlackBigParagraph,

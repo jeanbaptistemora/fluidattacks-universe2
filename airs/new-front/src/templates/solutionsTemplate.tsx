@@ -10,20 +10,20 @@
 /* eslint @typescript-eslint/no-confusing-void-expression:0 */
 /* eslint react/forbid-component-props: 0 */
 /* eslint import/no-namespace:0 */
+import { graphql } from "gatsby";
 import { Breadcrumb } from "gatsby-plugin-breadcrumb";
+import React from "react";
+
+import * as devSecOpsImage from "../../static/images/solutions/solution-1.png"; // eslint-disable-line import/no-unresolved
+import * as securityTestingImage from "../../static/images/solutions/solution-2.png"; // eslint-disable-line import/no-unresolved
+import * as penetrationTestingImage from "../../static/images/solutions/solution-3.png"; // eslint-disable-line import/no-unresolved
+import * as ethicalHackingImage from "../../static/images/solutions/solution-4.png"; // eslint-disable-line import/no-unresolved
+import * as redTeamingImage from "../../static/images/solutions/solution-5.png"; // eslint-disable-line import/no-unresolved
+import * as attackSimulationImage from "../../static/images/solutions/solution-6.png"; // eslint-disable-line import/no-unresolved
 import { Layout } from "../components/layout";
 import { NavbarComponent } from "../components/Navbar";
-import React from "react";
 import { Seo } from "../components/seo";
 import { SolutionsIndexContent } from "../components/SolutionsIndexContent";
-import { graphql } from "gatsby";
-import { translate } from "../utils/translations/translate";
-import * as attackSimulationImage from "../../static/images/solutions/solution-6.png"; // eslint-disable-line import/no-unresolved
-import * as devSecOpsImage from "../../static/images/solutions/solution-1.png"; // eslint-disable-line import/no-unresolved
-import * as ethicalHackingImage from "../../static/images/solutions/solution-4.png"; // eslint-disable-line import/no-unresolved
-import * as penetrationTestingImage from "../../static/images/solutions/solution-3.png"; // eslint-disable-line import/no-unresolved
-import * as redTeamingImage from "../../static/images/solutions/solution-5.png"; // eslint-disable-line import/no-unresolved
-import * as securityTestingImage from "../../static/images/solutions/solution-2.png"; // eslint-disable-line import/no-unresolved
 import {
   ArticleContainer,
   BannerContainer,
@@ -32,6 +32,7 @@ import {
   PageArticle,
   PageContainer,
 } from "../styles/styledComponents";
+import { translate } from "../utils/translations/translate";
 
 const SolutionsIndex: React.FC<IQueryData> = ({
   data,

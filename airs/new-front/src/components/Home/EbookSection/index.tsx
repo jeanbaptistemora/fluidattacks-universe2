@@ -1,10 +1,11 @@
 /* eslint react/forbid-component-props: 0 */
+import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "gatsby";
 import React from "react";
 import type { StyledComponent } from "styled-components";
-import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
+
 import { translate } from "../../../utils/translations/translate";
 
 const Container: StyledComponent<

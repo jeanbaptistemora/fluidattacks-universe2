@@ -1,8 +1,9 @@
 /* eslint import/no-namespace:0 */
 /* eslint @typescript-eslint/no-non-null-assertion:0 */
-import { Helmet } from "react-helmet";
-import React from "react";
 import { string } from "prop-types"; // eslint-disable-line import/default
+import React from "react";
+import { Helmet } from "react-helmet";
+
 import * as favicon from "../../static/images/favicon.png"; // eslint-disable-line import/no-unresolved
 
 interface IMetaItem {

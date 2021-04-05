@@ -1,8 +1,9 @@
-import { BodyLink } from "./BodyLink";
-import { HeadLink } from "./HeadLink";
 import React from "react";
 import type { StyledComponent } from "styled-components";
 import styled from "styled-components";
+
+import { BodyLink } from "./BodyLink";
+import { HeadLink } from "./HeadLink";
 
 const FooterMenuContainer: StyledComponent<
   "div",

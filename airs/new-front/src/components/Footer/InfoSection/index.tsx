@@ -1,6 +1,7 @@
 /* eslint react/forbid-component-props: 0 */
 import { Link } from "gatsby";
 import React from "react";
+
 import {
   CopyrightContainer,
   CopyrightParagraph,

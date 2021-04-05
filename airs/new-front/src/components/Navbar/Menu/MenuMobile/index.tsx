@@ -1,15 +1,16 @@
 /* eslint import/no-namespace:0 */
 /* eslint react/forbid-component-props: 0 */
 /* eslint import/no-unresolved:0 */
-import { FontAwesomeContainerSmall } from "../../../../styles/styledComponents";
+import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "gatsby";
 import React from "react";
-import { SocialMedia } from "../../../SocialMedia";
 import type { StyledComponent } from "styled-components";
-import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
+
 import * as fluidAttacksLogoMobile from "../../../../../static/images/logo-fluid-mobile.png";
+import { FontAwesomeContainerSmall } from "../../../../styles/styledComponents";
+import { SocialMedia } from "../../../SocialMedia";
 
 const SidebarContainer: StyledComponent<
   "div",

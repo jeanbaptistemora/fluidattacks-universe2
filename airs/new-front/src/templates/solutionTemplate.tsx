@@ -10,13 +10,14 @@
 /* eslint @typescript-eslint/no-confusing-void-expression:0 */
 /* eslint react/forbid-component-props: 0 */
 /* eslint import/no-namespace:0 */
+import { Link, graphql } from "gatsby";
 import { Breadcrumb } from "gatsby-plugin-breadcrumb";
+import React from "react";
+
 import { Layout } from "../components/layout";
 import { NavbarComponent } from "../components/Navbar";
-import React from "react";
 import { Seo } from "../components/seo";
 import { WhiteShadowedCard } from "../components/WhiteShadowedCard";
-import { translate } from "../utils/translations/translate";
 import {
   BannerContainer,
   BannerTitle,
@@ -29,7 +30,7 @@ import {
   PageContainer,
   RegularRedButton,
 } from "../styles/styledComponents";
-import { Link, graphql } from "gatsby";
+import { translate } from "../utils/translations/translate";
 
 const SolutionIndex: React.FC<IQueryData> = ({
   data,

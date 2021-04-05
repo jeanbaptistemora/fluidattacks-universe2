@@ -5,12 +5,13 @@ import { Link } from "gatsby";
 import React from "react";
 import type { StyledComponent } from "styled-components";
 import styled from "styled-components";
-import { translate } from "../../../utils/translations/translate";
+
 import * as facebookIcon from "../../../../static/images/footer/icon-fb-dark.svg";
 import * as instagramIcon from "../../../../static/images/footer/icon-ig-dark.svg";
 import * as linkedinIcon from "../../../../static/images/footer/icon-linkedin-dark.svg";
 import * as twitterIcon from "../../../../static/images/footer/icon-tw-dark.svg";
 import * as youtubeIcon from "../../../../static/images/footer/icon-yt-dark.svg";
+import { translate } from "../../../utils/translations/translate";
 
 const BlueBackground: StyledComponent<
   "div",

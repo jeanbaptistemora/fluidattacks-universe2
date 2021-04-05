@@ -9,13 +9,14 @@
 /* eslint @typescript-eslint/no-invalid-void-type:0 */
 /* eslint @typescript-eslint/no-confusing-void-expression:0 */
 /* eslint react/forbid-component-props: 0 */
+import { graphql } from "gatsby";
 import { Breadcrumb } from "gatsby-plugin-breadcrumb";
+import React from "react";
+
 import { Layout } from "../components/layout";
 import { NavbarComponent } from "../components/Navbar";
 import { PageHeader } from "../components/PageHeader";
-import React from "react";
 import { Seo } from "../components/seo";
-import { graphql } from "gatsby";
 import {
   ArticleContainer,
   ArticleTitle,

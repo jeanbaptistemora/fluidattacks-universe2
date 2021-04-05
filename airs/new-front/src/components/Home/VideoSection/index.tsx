@@ -2,13 +2,14 @@
 /* eslint import/no-namespace:0 */
 /* eslint react/jsx-no-bind:0 */
 import ModalVideo from "modal-video-custom";
+import React, { useState } from "react";
+
 import * as playButton from "../../../../static/images/home/play-video.svg";
 import {
   FlexCenterItemsContainer,
   PlayItButtonContainer,
   PlayItButtonImage,
 } from "../../../styles/styledComponents";
-import React, { useState } from "react";
 
 const VideoSection: React.FC = (): JSX.Element => {
   const [isOpen, setOpen] = useState(false);

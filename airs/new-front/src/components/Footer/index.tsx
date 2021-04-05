@@ -1,10 +1,12 @@
 /* eslint react/forbid-component-props: 0 */
-import { InfoSection } from "./InfoSection";
-import { LinksSection } from "./LinksSection";
-import { LogosSection } from "./LogosSection";
 import React from "react";
 import type { StyledComponent } from "styled-components";
 import styled from "styled-components";
+
+import { InfoSection } from "./InfoSection";
+import { LinksSection } from "./LinksSection";
+import { LogosSection } from "./LogosSection";
+
 import {
   CenteredMaxWidthContainer,
   MainFooterInfoContainer,

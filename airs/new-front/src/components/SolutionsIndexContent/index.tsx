@@ -2,6 +2,7 @@
 import { Link } from "gatsby";
 import React from "react";
 import ScrollAnimation from "react-animate-on-scroll";
+
 import {
   BlackListItemSpaced,
   FullWidthContainer,

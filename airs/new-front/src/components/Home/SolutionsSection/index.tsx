@@ -4,12 +4,13 @@
 /* eslint fp/no-mutation:0 */
 /* eslint import/no-namespace:0 */
 /* eslint react/jsx-no-bind:0 */
-import { FontAwesomeContainerSmall } from "../../../styles/styledComponents";
+import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "gatsby";
+import React, { useEffect, useState } from "react";
 import type { StyledComponent } from "styled-components";
 import styled from "styled-components";
-import { translate } from "../../../utils/translations/translate";
+
 import * as solution1 from "../../../../static/images/solutions/img01.png";
 import * as solution2 from "../../../../static/images/solutions/img02.png";
 import * as solution3 from "../../../../static/images/solutions/img03.png";
@@ -18,8 +19,8 @@ import * as solution5 from "../../../../static/images/solutions/img05.png";
 import * as solution6 from "../../../../static/images/solutions/img06.png";
 import * as solution7 from "../../../../static/images/solutions/img07.png";
 import * as solution8 from "../../../../static/images/solutions/img08.png";
-import React, { useEffect, useState } from "react";
-import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeContainerSmall } from "../../../styles/styledComponents";
+import { translate } from "../../../utils/translations/translate";
 
 const Container: StyledComponent<
   "div",

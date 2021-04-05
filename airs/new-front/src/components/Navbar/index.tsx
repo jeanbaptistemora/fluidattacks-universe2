@@ -1,6 +1,6 @@
-import { NavbarItems } from "./NavbarItems";
-
 import React from "react";
+
+import { NavbarItems } from "./NavbarItems";
 
 import {
   NavbarContainer,

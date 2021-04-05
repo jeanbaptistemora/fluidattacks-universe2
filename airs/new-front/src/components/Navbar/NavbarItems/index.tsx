@@ -1,10 +1,10 @@
 /* eslint import/no-namespace:0 */
 /* eslint react/forbid-component-props: 0 */
+import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "gatsby";
-import { Menu } from "../Menu";
 import React from "react";
-import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
+
 import * as fluidAttacksLogo from "../../../../static/images/logo-fluid-attacks.png";
 import {
   FontAwesomeContainerSmall,
@@ -14,6 +14,7 @@ import {
   NavbarRegularButton,
   NavbarSubcategory,
 } from "../../../styles/styledComponents";
+import { Menu } from "../Menu";
 
 const NavbarItems: React.FC = (): JSX.Element => (
   <NavbarList className={"roboto"} id={"navbar_list"}>

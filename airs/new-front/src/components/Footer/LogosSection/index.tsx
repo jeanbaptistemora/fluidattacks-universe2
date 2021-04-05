@@ -1,10 +1,11 @@
 /* eslint import/no-namespace:0 */
 /* eslint react/forbid-component-props: 0 */
-import { FullWidthContainer } from "../../../styles/styledComponents";
 import React from "react";
 import type { StyledComponent } from "styled-components";
 import styled from "styled-components";
+
 import * as fluidAttacksLogo from "../../../../static/images/logo-fluid-attacks-dark.png";
+import { FullWidthContainer } from "../../../styles/styledComponents";
 
 const FluidLogoContainer: StyledComponent<
   "div",

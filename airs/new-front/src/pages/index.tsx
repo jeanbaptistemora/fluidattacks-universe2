@@ -1,11 +1,13 @@
 /* eslint @typescript-eslint/no-invalid-void-type:0 */
 /* eslint @typescript-eslint/no-confusing-void-expression:0 */
+import { graphql } from "gatsby";
+import React from "react";
+
 import { Home } from "../components/Home";
 import { Layout } from "../components/layout";
 import { NavbarComponent } from "../components/Navbar";
-import React from "react";
 import { Seo } from "../components/seo";
-import { graphql } from "gatsby";
+
 import "modal-video-custom/scss/modal-video.scss";
 
 interface IQueryData {

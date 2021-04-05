@@ -3,9 +3,10 @@
 /* eslint import/no-unresolved:0 */
 import { Link } from "gatsby";
 import React from "react";
-import { SocialMedia } from "../../../SocialMedia";
+
 import * as fluidAttacksLogo from "../../../../../static/images/logo-fluid-attacks.png";
 import * as menuSelector from "../../../../../static/images/menu/selector.png";
+import { SocialMedia } from "../../../SocialMedia";
 import {
   BlackWeightedParagraph,
   FlexMenuItems,
