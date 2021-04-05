@@ -25,7 +25,7 @@ function dynamodb_etl {
   &&  echo "${analytics_auth_redshift}" > "${db_creds}" \
   &&  echo '[INFO] Running streamer' \
   &&  mkdir ./logs \
-  &&  observes-streamer-dynamodb \
+  &&  observes-bin-streamer-dynamodb \
         --auth "${dynamo_creds}" \
         --conf "${conf}" > .stream \
   &&  echo '[INFO] Running tap' \

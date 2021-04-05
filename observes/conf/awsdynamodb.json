@@ -9,6 +9,7 @@
     "FI_users",
     "FI_vulnerabilities",
     "FI_weekly_report",
+    "fi_authz",
     "fi_project_comments",
     "fi_organizations",
     "fi_events",

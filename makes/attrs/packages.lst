@@ -87,7 +87,6 @@ observes.env.runtime.paginator
 observes.env.runtime.paginator.python
 observes.env.runtime.postgres-client
 observes.env.runtime.singer-io
-observes.env.runtime.streamer-dynamodb
 observes.env.runtime.streamer-gitlab
 observes.env.runtime.tap-mailchimp
 observes.env.runtime.tap-zoho-analytics
@@ -97,6 +96,8 @@ observes.env.service-migrate-tables.runtime
 observes.env.service-migrate-tables.runtime.python
 observes.env.service-timedoctor-tokens.runtime
 observes.env.service-timedoctor-tokens.runtime.python
+observes.env.streamer-dynamodb.runtime
+observes.env.streamer-dynamodb.runtime.python
 observes.env.streamer-zoho-crm.development
 observes.env.streamer-zoho-crm.development.python
 observes.env.streamer-zoho-crm.runtime

@@ -1,5 +1,4 @@
 { makeEntrypoint
-, nixpkgs
 , packages
 , path
 , ...
@@ -9,12 +8,9 @@ makeEntrypoint {
     envEntrypoint = "from streamer_dynamodb import main";
   };
   searchPaths = {
-    envPaths = [
-      nixpkgs.python38
-    ];
     envSources = [
       packages.observes.generic.runner
-      packages.observes.env.runtime.streamer-dynamodb
+      packages.observes.env.streamer-dynamodb.runtime
     ];
   };
   name = "observes-bin-streamer-dynamodb";

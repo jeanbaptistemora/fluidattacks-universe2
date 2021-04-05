@@ -7,10 +7,10 @@ makeEntrypoint {
   arguments = { };
   searchPaths = {
     envPaths = [
-      packages.observes.streamer-dynamodb
+      packages.observes.bin.service.job-last-success
+      packages.observes.bin.streamer-dynamodb
       packages.observes.tap-json
       packages.observes.target-redshift
-      packages.observes.bin.service.job-last-success
     ];
     envUtils = [
       "/makes/utils/aws"

@@ -178,7 +178,6 @@ observes.scheduled.on-aws.code-etl-mirror
 observes.scheduled.on-aws.code-etl-upload
 observes.scheduled.on-aws.dif-gitlab-etl
 observes.scheduled.on-aws.formstack-etl
-observes.streamer-dynamodb
 observes.tap-json
 observes.target-redshift
 reviews
