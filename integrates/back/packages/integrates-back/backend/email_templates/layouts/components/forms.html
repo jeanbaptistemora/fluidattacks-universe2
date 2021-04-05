@@ -1,28 +1,11 @@
 {# Generic Go to button: rounded and centered #}
 {% macro go_to_button(text, url) %}
-<table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnButtonBlock" style="min-width:100%;">
-  <tbody class="mcnButtonBlockOuter">
-    <tr>
-      <td style="padding-top:0; padding-right:18px; padding-bottom:18px; padding-left:18px;" valign="top" align="center"
-        class="mcnButtonBlockInner">
-        <table border="0" cellpadding="0" cellspacing="0" class="mcnButtonContentContainer"
-          style="border-collapse: separate !important;border-radius: 14px;background-color: #EC4444;">
-          <tbody>
-            <tr>
-              <td align="center" valign="middle" class="mcnButtonContent"
-                style="font-family: Arial; font-size: 16px; padding: 15px;">
-                <a class="mcnButton " title="Go to the event" href="{{ url }}" target="_blank"
-                  style="font-weight: bold;letter-spacing: normal;line-height: 100%;text-align: center;text-decoration: none;color: #FFFFFF;">
-                  {{ text }}
-                </a>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </td>
-    </tr>
-  </tbody>
-</table>
+<div class="fl center">
+  <a class="link white bg-red pa3 fl tc b sans-serif br4 dim pointer" title="{{ text }}" href="{{ url }}"
+    target="_blank">
+    {{ text }}
+  </a>
+</div>
 {% endmacro %}
 
 {# Generic gray text area #}

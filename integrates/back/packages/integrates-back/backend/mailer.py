@@ -241,7 +241,7 @@ async def _send_mail_async_new(
         '[mailer]: mail sent',
         extra={
             'extra': {
-                'message': json.dumps(message),
+                'message': json.dumps(subject),
                 'MessageGroupId': template_name,
             }
         }
