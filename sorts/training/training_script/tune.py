@@ -95,7 +95,7 @@ def save_model(
     model: ModelType,
     f1_score: float,
     model_features: Tuple[str, ...],
-    activation: str
+    tuned_hyperparameters: List[str]
 ) -> None:
     with tempfile.TemporaryDirectory() as tmp_dir:
         model_name_list = [
@@ -105,7 +105,7 @@ def save_model(
                 FEATURES_DICTS[feature].lower() for feature in model_features
             ]),
             'tune',
-            activation
+            '-'.join(tuned_hyperparameters)
         ]
         model_file_name: str = '-'.join(model_name_list)
         local_file: str = os.path.join(tmp_dir, f'{model_file_name}.joblib')
@@ -160,7 +160,7 @@ def main() -> None:  # pylint: disable=too-many-locals
         model,
         float(training_output[-1][4]),
         model_features,
-        args.activation
+        hyperparameters_to_tune
     )
 
 
