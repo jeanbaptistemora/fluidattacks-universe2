@@ -1,16 +1,17 @@
+import { useQuery } from "@apollo/react-hooks";
 import type { ApolloError } from "apollo-client";
-import { DataTableNext } from "components/DataTableNext";
-import { GET_GROUP_DATA } from "scenes/Dashboard/containers/ProjectSettingsView/queries";
 import type { GraphQLError } from "graphql";
-import type { IHeaderConfig } from "components/DataTableNext/types";
-import { Logger } from "utils/logger";
-import React from "react";
 import _ from "lodash";
+import React from "react";
+import { useParams } from "react-router-dom";
+
+import { DataTableNext } from "components/DataTableNext";
+import type { IHeaderConfig } from "components/DataTableNext/types";
+import { GET_GROUP_DATA } from "scenes/Dashboard/containers/ProjectSettingsView/queries";
+import { Flex, LastProjectSetting } from "styles/styledComponents";
+import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
-import { useParams } from "react-router-dom";
-import { useQuery } from "@apollo/react-hooks";
-import { Flex, LastProjectSetting } from "styles/styledComponents";
 
 const GroupInformation: React.FC = (): JSX.Element => {
   const { projectName } = useParams<{ projectName: string }>();

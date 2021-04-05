@@ -3,12 +3,13 @@
   We need className to override default styles and props spreading in
   order to pass down props to react-bootstrap DropdownButton.
 */
-import { ButtonGroup } from "styles/styledComponents";
+import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import type { StyledComponent } from "styled-components";
-import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
+
+import { ButtonGroup } from "styles/styledComponents";
 
 interface ISplitButtonProps {
   content: React.ReactNode;

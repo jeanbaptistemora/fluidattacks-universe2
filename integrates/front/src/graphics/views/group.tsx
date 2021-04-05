@@ -1,7 +1,8 @@
-import { ChartsForGroupView } from "scenes/Dashboard/containers/ChartsForGroupView";
+import React, { createElement } from "react";
 import { render } from "react-dom";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import React, { createElement } from "react";
+
+import { ChartsForGroupView } from "scenes/Dashboard/containers/ChartsForGroupView";
 import { secureStore, secureStoreContext } from "utils/secureStore";
 
 const App: React.FC = (): JSX.Element => (

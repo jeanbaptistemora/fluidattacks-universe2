@@ -1,10 +1,11 @@
+import { faDownload, faMinus } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React from "react";
+
 import { Button } from "components/Button";
 import { ConfirmDialog } from "components/ConfirmDialog";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { IConfirmFn } from "components/ConfirmDialog";
 import { Modal } from "components/Modal";
-import React from "react";
-import { translate } from "utils/translations/translate";
 import {
   ButtonToolbar,
   ButtonToolbarCenter,
@@ -12,7 +13,7 @@ import {
   Col33,
   Row,
 } from "styles/styledComponents";
-import { faDownload, faMinus } from "@fortawesome/free-solid-svg-icons";
+import { translate } from "utils/translations/translate";
 
 interface IFileOptionsModalProps {
   canRemove: boolean;

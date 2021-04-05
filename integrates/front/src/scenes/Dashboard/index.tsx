@@ -1,37 +1,37 @@
-import { APITokenModal } from "scenes/Dashboard/components/APITokenModal";
+import { useMutation, useQuery } from "@apollo/react-hooks";
+import Bugsnag from "@bugsnag/js";
+import type { PureAbility } from "@casl/ability";
+import type { ApolloError } from "apollo-client";
+import type { GraphQLError } from "graphql";
+import { identify, people, register, reset } from "mixpanel-browser";
+import React, { useCallback, useContext, useState } from "react";
+import { Redirect, Route, Switch, useLocation } from "react-router-dom";
+
+import { ConfirmDialog } from "components/ConfirmDialog";
+import type { IConfirmFn } from "components/ConfirmDialog";
+import { ScrollUpButton } from "components/ScrollUpButton";
 import { AddOrganizationModal } from "scenes/Dashboard/components/AddOrganizationModal";
 import { AddUserModal } from "scenes/Dashboard/components/AddUserModal";
-import type { ApolloError } from "apollo-client";
-import Bugsnag from "@bugsnag/js";
+import { APITokenModal } from "scenes/Dashboard/components/APITokenModal";
 import { CompulsoryNotice } from "scenes/Dashboard/components/CompulsoryNoticeModal";
 import { ConcurrentSessionNotice } from "scenes/Dashboard/components/ConcurrentSessionNoticeModal";
-import { ConfirmDialog } from "components/ConfirmDialog";
-import type { GraphQLError } from "graphql";
-import { HomeView } from "scenes/Dashboard/containers/HomeView";
-import type { IAuthContext } from "utils/auth";
-import type { IConfirmFn } from "components/ConfirmDialog";
-import type { IStakeholderAttrs } from "scenes/Dashboard/containers/ProjectStakeholdersView/types";
-import type { IUser } from "scenes/Dashboard/types";
-import { Logger } from "utils/logger";
 import { Navbar } from "scenes/Dashboard/components/Navbar";
+import { Sidebar } from "scenes/Dashboard/components/Sidebar";
+import { HomeView } from "scenes/Dashboard/containers/HomeView";
 import { OrganizationContent } from "scenes/Dashboard/containers/OrganizationContent";
 import { OrganizationRedirect } from "scenes/Dashboard/containers/OrganizationRedirectView";
 import { ProjectRoute } from "scenes/Dashboard/containers/ProjectRoute";
-import type { PureAbility } from "@casl/ability";
-import { ScrollUpButton } from "components/ScrollUpButton";
-import { Sidebar } from "scenes/Dashboard/components/Sidebar";
+import type { IStakeholderAttrs } from "scenes/Dashboard/containers/ProjectStakeholdersView/types";
 import { TagContent } from "scenes/Dashboard/containers/TagContent";
-import { msgError } from "utils/notifications";
-import style from "scenes/Dashboard/index.css";
-import { translate } from "utils/translations/translate";
 import { useAddStakeholder } from "scenes/Dashboard/hooks";
+import style from "scenes/Dashboard/index.css";
 import {
   ACCEPT_LEGAL_MUTATION,
   ACKNOWLEDGE_CONCURRENT_SESSION,
   GET_USER,
 } from "scenes/Dashboard/queries";
-import React, { useCallback, useContext, useState } from "react";
-import { Redirect, Route, Switch, useLocation } from "react-router-dom";
+import type { IUser } from "scenes/Dashboard/types";
+import type { IAuthContext } from "utils/auth";
 import { authContext, setupSessionCheck } from "utils/auth";
 import {
   authzGroupContext,
@@ -40,9 +40,10 @@ import {
   groupLevelPermissions,
   organizationLevelPermissions,
 } from "utils/authz/config";
-import { identify, people, register, reset } from "mixpanel-browser";
+import { Logger } from "utils/logger";
+import { msgError } from "utils/notifications";
+import { translate } from "utils/translations/translate";
 import { initializeDelighted, initializeZendesk } from "utils/widgets";
-import { useMutation, useQuery } from "@apollo/react-hooks";
 
 export const Dashboard: React.FC = (): JSX.Element => {
   const { hash } = useLocation();

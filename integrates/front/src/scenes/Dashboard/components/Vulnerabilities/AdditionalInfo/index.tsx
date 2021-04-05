@@ -1,14 +1,15 @@
-import { Button } from "components/Button";
-import type { IHistoricTreatment } from "../../../containers/DescriptionView/types";
-import type { IVulnRowAttr } from "scenes/Dashboard/components/Vulnerabilities/types";
-import { PointStatus } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
-import React from "react";
-import type { StyledComponent } from "styled-components";
 import _ from "lodash";
-import { getLastTreatment } from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription/utils";
-import { statusFormatter } from "components/DataTableNext/formatters";
-import styled from "styled-components";
+import React from "react";
 import { useTranslation } from "react-i18next";
+import type { StyledComponent } from "styled-components";
+import styled from "styled-components";
+
+import type { IHistoricTreatment } from "../../../containers/DescriptionView/types";
+import { Button } from "components/Button";
+import { statusFormatter } from "components/DataTableNext/formatters";
+import { PointStatus } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
+import type { IVulnRowAttr } from "scenes/Dashboard/components/Vulnerabilities/types";
+import { getLastTreatment } from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription/utils";
 import {
   ButtonToolbar,
   Col100,

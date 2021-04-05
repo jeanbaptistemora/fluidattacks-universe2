@@ -1,24 +1,25 @@
-import type { ApolloError } from "apollo-client";
-import { ChartsForPortfolioView } from "scenes/Dashboard/containers/ChartsForPortfolioView";
-import { ContentTab } from "scenes/Dashboard/components/ContentTab";
-import { GET_ORGANIZATION_ID } from "scenes/Dashboard/containers/OrganizationContent/queries";
-import type { GraphQLError } from "graphql";
-import { Logger } from "utils/logger";
-import React from "react";
-import { TagsGroup } from "scenes/Dashboard/containers/TagContent/TagGroup";
-import _ from "lodash";
-import globalStyle from "styles/global.css";
-import { msgError } from "utils/notifications";
-import { translate } from "utils/translations/translate";
 import { useQuery } from "@apollo/react-hooks";
+import type { ApolloError } from "apollo-client";
+import type { GraphQLError } from "graphql";
+import _ from "lodash";
+import React from "react";
+import { useParams, useRouteMatch } from "react-router";
+import { Redirect, Route, Switch } from "react-router-dom";
+
+import { ContentTab } from "scenes/Dashboard/components/ContentTab";
+import { ChartsForPortfolioView } from "scenes/Dashboard/containers/ChartsForPortfolioView";
+import { GET_ORGANIZATION_ID } from "scenes/Dashboard/containers/OrganizationContent/queries";
+import { TagsGroup } from "scenes/Dashboard/containers/TagContent/TagGroup";
+import globalStyle from "styles/global.css";
 import {
   Col100,
   Row,
   StickyContainer,
   TabsContainer,
 } from "styles/styledComponents";
-import { Redirect, Route, Switch } from "react-router-dom";
-import { useParams, useRouteMatch } from "react-router";
+import { Logger } from "utils/logger";
+import { msgError } from "utils/notifications";
+import { translate } from "utils/translations/translate";
 
 const TagContent: React.FC = (): JSX.Element => {
   const { organizationName } = useParams<{ organizationName: string }>();

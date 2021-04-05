@@ -1,9 +1,10 @@
-import { act } from "react-dom/test-utils";
-import mixpanel from "mixpanel-browser";
-import { MemoryRouter, useHistory } from "react-router";
-import React, { createElement, useCallback } from "react";
 import type { ReactWrapper, ShallowWrapper } from "enzyme";
 import { mount, shallow } from "enzyme";
+import mixpanel from "mixpanel-browser";
+import React, { createElement, useCallback } from "react";
+import { act } from "react-dom/test-utils";
+import { MemoryRouter, useHistory } from "react-router";
+
 import { useStoredState, useTabTracking } from "utils/hooks";
 
 describe("Custom utility hooks", (): void => {

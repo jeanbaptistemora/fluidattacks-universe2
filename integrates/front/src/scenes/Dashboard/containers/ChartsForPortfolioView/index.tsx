@@ -1,8 +1,9 @@
-import { ChartsGenericView } from "scenes/Dashboard/containers/ChartsGenericView";
-import type { IChartsForPortfolioViewProps } from "scenes/Dashboard/containers/ChartsForPortfolioView/types";
-import React from "react";
 import _ from "lodash";
+import React from "react";
 import { useLocation, useParams } from "react-router";
+
+import type { IChartsForPortfolioViewProps } from "scenes/Dashboard/containers/ChartsForPortfolioView/types";
+import { ChartsGenericView } from "scenes/Dashboard/containers/ChartsGenericView";
 
 const ChartsForPortfolioView: React.FC<IChartsForPortfolioViewProps> = (
   props: IChartsForPortfolioViewProps

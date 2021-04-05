@@ -1,22 +1,23 @@
-import type { ApolloError } from "apollo-client";
-import { DataTableNext } from "components/DataTableNext";
-import { GET_TOE_LINES } from "scenes/Dashboard/containers/GroupToeLinesView/queries";
-import type { GraphQLError } from "graphql";
-import type { IHeaderConfig } from "components/DataTableNext/types";
-import { Logger } from "utils/logger";
-import _ from "lodash";
-import { dateFilter } from "react-bootstrap-table2-filter";
-import moment from "moment";
-import { translate } from "utils/translations/translate";
-import { useParams } from "react-router-dom";
 import { useQuery } from "@apollo/react-hooks";
-import { useStoredState } from "utils/hooks";
+import type { ApolloError } from "apollo-client";
+import type { GraphQLError } from "graphql";
+import _ from "lodash";
+import moment from "moment";
+import React, { useCallback } from "react";
+import { dateFilter } from "react-bootstrap-table2-filter";
+import { useParams } from "react-router-dom";
+
+import { DataTableNext } from "components/DataTableNext";
+import type { IHeaderConfig } from "components/DataTableNext/types";
+import { GET_TOE_LINES } from "scenes/Dashboard/containers/GroupToeLinesView/queries";
 import type {
   IGitRootAttr,
   IToeLinesAttr,
   IToeLinesData,
 } from "scenes/Dashboard/containers/GroupToeLinesView/types";
-import React, { useCallback } from "react";
+import { useStoredState } from "utils/hooks";
+import { Logger } from "utils/logger";
+import { translate } from "utils/translations/translate";
 
 const GroupToeLinesView: React.FC = (): JSX.Element => {
   const { projectName: groupName } = useParams<{ projectName: string }>();

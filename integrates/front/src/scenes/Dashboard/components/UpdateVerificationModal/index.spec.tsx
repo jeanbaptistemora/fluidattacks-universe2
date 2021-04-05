@@ -1,20 +1,21 @@
-import { GET_FINDING_HEADER } from "scenes/Dashboard/containers/FindingContent/queries";
-import { GET_FINDING_VULN_INFO } from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
-import { GraphQLError } from "graphql";
 import { MockedProvider } from "@apollo/react-testing";
 import type { MockedResponse } from "@apollo/react-testing";
-import { Provider } from "react-redux";
-import React from "react";
 import type { ReactWrapper } from "enzyme";
-import { UpdateVerificationModal } from "scenes/Dashboard/components/UpdateVerificationModal";
-import { act } from "react-dom/test-utils";
 import { mount } from "enzyme";
-import store from "store";
+import { GraphQLError } from "graphql";
+import React from "react";
+import { act } from "react-dom/test-utils";
+import { Provider } from "react-redux";
 import wait from "waait";
+
+import { UpdateVerificationModal } from "scenes/Dashboard/components/UpdateVerificationModal";
 import {
   REQUEST_VERIFICATION_VULN,
   VERIFY_VULNERABILITIES,
 } from "scenes/Dashboard/components/UpdateVerificationModal/queries";
+import { GET_FINDING_HEADER } from "scenes/Dashboard/containers/FindingContent/queries";
+import { GET_FINDING_VULN_INFO } from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
+import store from "store";
 
 describe("update verification component", (): void => {
   const mocksVulns: MockedResponse = {

@@ -1,33 +1,35 @@
-import { Field } from "redux-form";
-import { GET_FINDING_HEADER } from "../../FindingContent/queries";
-import { GET_FINDING_VULN_INFO } from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
-import { GraphQLError } from "graphql";
-import { HandleAcceptationModal } from "scenes/Dashboard/containers/VulnerabilitiesView/HandleAcceptationModal/index";
-import type { IJustificationFieldProps } from "./JustificationField/types";
-import type { IVulnerabilitiesAttr } from "../types";
-import type { IZeroRiskConfirmationTableProps } from "./ZeroRiskConfirmationTable/types";
-import type { IZeroRiskRejectionTableProps } from "./ZeroRiskRejectionTable/types";
-import { JustificationField } from "./JustificationField";
 import type { MockedResponse } from "@apollo/react-testing";
-import type { PropsWithChildren } from "react";
-import { Provider } from "react-redux";
+import { MockedProvider, wait } from "@apollo/react-testing";
 import { PureAbility } from "@casl/ability";
-import React from "react";
 import type { ReactWrapper } from "enzyme";
+import { mount } from "enzyme";
+import { GraphQLError } from "graphql";
+import type { PropsWithChildren } from "react";
+import React from "react";
+import { act } from "react-dom/test-utils";
+import { Provider } from "react-redux";
+import { Field } from "redux-form";
+import waitForExpect from "wait-for-expect";
+
+import { JustificationField } from "./JustificationField";
+import type { IJustificationFieldProps } from "./JustificationField/types";
 import { TreatmentField } from "./TreatmentField";
 import { ZeroRiskConfirmationTable } from "./ZeroRiskConfirmationTable";
+import type { IZeroRiskConfirmationTableProps } from "./ZeroRiskConfirmationTable/types";
 import { ZeroRiskRejectionTable } from "./ZeroRiskRejectionTable";
-import { act } from "react-dom/test-utils";
-import { authzPermissionsContext } from "utils/authz/config";
-import { mount } from "enzyme";
-import store from "store";
-import waitForExpect from "wait-for-expect";
+import type { IZeroRiskRejectionTableProps } from "./ZeroRiskRejectionTable/types";
+
+import { GET_FINDING_HEADER } from "../../FindingContent/queries";
+import type { IVulnerabilitiesAttr } from "../types";
+import { HandleAcceptationModal } from "scenes/Dashboard/containers/VulnerabilitiesView/HandleAcceptationModal/index";
 import {
   CONFIRM_ZERO_RISK_VULN,
   HANDLE_VULNS_ACCEPTATION,
   REJECT_ZERO_RISK_VULN,
 } from "scenes/Dashboard/containers/VulnerabilitiesView/HandleAcceptationModal/queries";
-import { MockedProvider, wait } from "@apollo/react-testing";
+import { GET_FINDING_VULN_INFO } from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
+import store from "store";
+import { authzPermissionsContext } from "utils/authz/config";
 import { msgError, msgSuccess } from "utils/notifications";
 
 jest.mock(

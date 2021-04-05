@@ -1,7 +1,8 @@
-import React from "react";
 import type { ShallowWrapper } from "enzyme";
-import { TrackingItem } from "scenes/Dashboard/components/TrackingItem";
 import { shallow } from "enzyme";
+import React from "react";
+
+import { TrackingItem } from "scenes/Dashboard/components/TrackingItem";
 
 describe("TrackingItem", (): void => {
   it("should return a function", (): void => {

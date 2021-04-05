@@ -1,6 +1,8 @@
-import React from "react";
-import { ReactSVG } from "react-svg";
 import _ from "lodash";
+import React from "react";
+import { useTranslation } from "react-i18next";
+import { ReactSVG } from "react-svg";
+
 import attackComplexityHigh from "resources/attackComplexityHigh.svg";
 import attackComplexityLow from "resources/attackComplexityLow.svg";
 import attackVectorAdjacent from "resources/attackVectorAdjacent.svg";
@@ -32,7 +34,6 @@ import reportConfidenceReasonable from "resources/reportConfidenceReasonable.svg
 import reportConfidenceUnknown from "resources/reportConfidenceUnknown.svg";
 import severityScopeChanged from "resources/severityScopeChanged.svg";
 import severityScopeUnchanged from "resources/severityScopeUnchanged.svg";
-import { useTranslation } from "react-i18next";
 import userInteractionNone from "resources/userInteractionNone.svg";
 import userInteractionRequired from "resources/userInteractionRequired.svg";
 

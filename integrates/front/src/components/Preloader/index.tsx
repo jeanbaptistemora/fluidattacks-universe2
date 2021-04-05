@@ -1,7 +1,8 @@
 import React from "react";
 import type { StyledComponent } from "styled-components";
-import loadingAnim from "resources/loading.gif";
 import styled from "styled-components";
+
+import loadingAnim from "resources/loading.gif";
 
 const StyledDiv: StyledComponent<
   "div",

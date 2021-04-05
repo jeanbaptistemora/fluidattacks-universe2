@@ -1,17 +1,38 @@
+import { useMutation, useQuery } from "@apollo/react-hooks";
 import type { ApolloError } from "apollo-client";
-import { Button } from "components/Button";
-import { DataTableNext } from "components/DataTableNext";
-import type { Dispatch } from "redux";
-import { FormSwitchButton } from "utils/forms/fields/SwitchButton";
-import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import type { GraphQLError } from "graphql";
-import type { IHeaderConfig } from "components/DataTableNext/types";
-import { Logger } from "utils/logger";
-import { Modal } from "components/Modal";
 import _ from "lodash";
 import { track } from "mixpanel-browser";
-import { translate } from "utils/translations/translate";
+import React, { useCallback, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
+import type { Dispatch } from "redux";
+import type {
+  EventWithDataHandler,
+  InjectedFormProps,
+  Validator,
+} from "redux-form";
+import { Field, change, formValueSelector } from "redux-form";
+
+import { Button } from "components/Button";
+import { DataTableNext } from "components/DataTableNext";
+import type { IHeaderConfig } from "components/DataTableNext/types";
+import { Modal } from "components/Modal";
+import { GenericForm } from "scenes/Dashboard/components/GenericForm";
+import {
+  EDIT_GROUP_DATA,
+  GET_GROUP_DATA,
+} from "scenes/Dashboard/containers/ProjectSettingsView/queries";
+import {
+  computeConfirmationMessage,
+  isDowngrading,
+  isDowngradingServices,
+} from "scenes/Dashboard/containers/ProjectSettingsView/Services/businessLogic";
+import type {
+  IFormData,
+  IServicesDataSet,
+  IServicesProps,
+} from "scenes/Dashboard/containers/ProjectSettingsView/Services/types";
 import {
   Alert,
   ButtonToolbar,
@@ -23,31 +44,11 @@ import {
   Well,
 } from "styles/styledComponents";
 import { Dropdown, Text, TextArea } from "utils/forms/fields";
-import {
-  EDIT_GROUP_DATA,
-  GET_GROUP_DATA,
-} from "scenes/Dashboard/containers/ProjectSettingsView/queries";
-import type {
-  EventWithDataHandler,
-  InjectedFormProps,
-  Validator,
-} from "redux-form";
-import { Field, change, formValueSelector } from "redux-form";
-import type {
-  IFormData,
-  IServicesDataSet,
-  IServicesProps,
-} from "scenes/Dashboard/containers/ProjectSettingsView/Services/types";
-import React, { useCallback, useState } from "react";
-import {
-  computeConfirmationMessage,
-  isDowngrading,
-  isDowngradingServices,
-} from "scenes/Dashboard/containers/ProjectSettingsView/Services/businessLogic";
-import { maxLength, required, validTextField } from "utils/validations";
+import { FormSwitchButton } from "utils/forms/fields/SwitchButton";
+import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
-import { useDispatch, useSelector } from "react-redux";
-import { useMutation, useQuery } from "@apollo/react-hooks";
+import { translate } from "utils/translations/translate";
+import { maxLength, required, validTextField } from "utils/validations";
 
 const downgradeReasons: string[] = [
   "NONE",

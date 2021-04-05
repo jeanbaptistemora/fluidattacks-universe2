@@ -1,13 +1,15 @@
-import type { IVulnRowAttr } from "./types";
 import { PureAbility } from "@casl/ability";
-import React from "react";
 import type { ReactWrapper } from "enzyme";
-import { VulnComponent } from "scenes/Dashboard/components/Vulnerabilities";
-import { act } from "react-dom/test-utils";
-import { authzPermissionsContext } from "utils/authz/config";
-import moment from "moment";
 import { mount } from "enzyme";
+import moment from "moment";
+import React from "react";
+import { act } from "react-dom/test-utils";
 import { useTranslation } from "react-i18next";
+
+import type { IVulnRowAttr } from "./types";
+
+import { VulnComponent } from "scenes/Dashboard/components/Vulnerabilities";
+import { authzPermissionsContext } from "utils/authz/config";
 
 describe("VulnComponent", (): void => {
   const numberOfDaysOldThanAWeek: number = 12;

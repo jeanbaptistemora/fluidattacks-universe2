@@ -1,25 +1,22 @@
-import type { ApolloError } from "apollo-client";
-import { Button } from "components/Button";
-import { Can } from "utils/authz/Can";
-import { Field } from "redux-form";
-import { FluidIcon } from "components/FluidIcon";
-import { GET_USER_ORGANIZATIONS } from "scenes/Dashboard/components/Navbar/queries";
-import { GenericForm } from "scenes/Dashboard/components/GenericForm";
-import type { GraphQLError } from "graphql";
-import { Logger } from "utils/logger";
-import { MenuItem } from "components/DropdownButton";
-import { NewsWidget } from "scenes/Dashboard/components/NewsWidget";
-import { SplitButton } from "./components/splitbutton";
-import { Text } from "utils/forms/fields";
-import { TooltipWrapper } from "components/TooltipWrapper";
-import _ from "lodash";
-import { alphaNumeric } from "utils/validations";
-import { msgError } from "utils/notifications";
-import { stylizeBreadcrumbItem } from "scenes/Dashboard/components/Navbar/utils";
-import { translate } from "utils/translations/translate";
 import { useQuery } from "@apollo/react-hooks";
-import { useStoredState } from "utils/hooks";
+import type { ApolloError } from "apollo-client";
+import type { GraphQLError } from "graphql";
+import _ from "lodash";
+import React, { useCallback, useEffect } from "react";
 import { withRouter } from "react-router";
+import { Link, useHistory, useLocation } from "react-router-dom";
+import { Field } from "redux-form";
+
+import { SplitButton } from "./components/splitbutton";
+
+import { Button } from "components/Button";
+import { MenuItem } from "components/DropdownButton";
+import { FluidIcon } from "components/FluidIcon";
+import { TooltipWrapper } from "components/TooltipWrapper";
+import { GenericForm } from "scenes/Dashboard/components/GenericForm";
+import { GET_USER_ORGANIZATIONS } from "scenes/Dashboard/components/Navbar/queries";
+import { stylizeBreadcrumbItem } from "scenes/Dashboard/components/Navbar/utils";
+import { NewsWidget } from "scenes/Dashboard/components/NewsWidget";
 import {
   BreadCrumb,
   Col100,
@@ -31,8 +28,13 @@ import {
   NavBarHeader,
   NavSplitButtonContainer,
 } from "styles/styledComponents";
-import { Link, useHistory, useLocation } from "react-router-dom";
-import React, { useCallback, useEffect } from "react";
+import { Can } from "utils/authz/Can";
+import { Text } from "utils/forms/fields";
+import { useStoredState } from "utils/hooks";
+import { Logger } from "utils/logger";
+import { msgError } from "utils/notifications";
+import { translate } from "utils/translations/translate";
+import { alphaNumeric } from "utils/validations";
 
 const NavbarComponent: React.FC = (): JSX.Element => {
   const { push } = useHistory();

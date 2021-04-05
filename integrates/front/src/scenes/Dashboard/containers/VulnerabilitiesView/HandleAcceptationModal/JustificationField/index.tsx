@@ -1,13 +1,15 @@
-import type { ConfigurableValidator } from "revalidate";
-import { Field } from "redux-form";
-import type { IJustificationFieldProps } from "./types";
 import type { PureAbility } from "@casl/ability";
-import React from "react";
-import { authzPermissionsContext } from "utils/authz/config";
-import { translate } from "utils/translations/translate";
 import { useAbility } from "@casl/react";
+import React from "react";
+import { Field } from "redux-form";
+import type { ConfigurableValidator } from "revalidate";
+
+import type { IJustificationFieldProps } from "./types";
+
 import { ControlLabel, FormGroup } from "styles/styledComponents";
+import { authzPermissionsContext } from "utils/authz/config";
 import { Dropdown, TextArea } from "utils/forms/fields";
+import { translate } from "utils/translations/translate";
 import { maxLength, required, validTextField } from "utils/validations";
 
 const MAX_TREATMENT_JUSTIFICATION_LENGTH: number = 200;

@@ -1,14 +1,31 @@
+import { useMutation, useQuery } from "@apollo/react-hooks";
+import {
+  faChartBar,
+  faDownload,
+  faHourglassHalf,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { ApolloError } from "apollo-client";
+import type { ExecutionResult, GraphQLError } from "graphql";
+import _ from "lodash";
+import { track } from "mixpanel-browser";
+import React from "react";
+
 import { Badge } from "components/Badge";
 import { Button } from "components/Button";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Logger } from "utils/logger";
-import React from "react";
+import { DropdownButton, MenuItem } from "components/DropdownButton";
 import { TooltipWrapper } from "components/TooltipWrapper";
-import _ from "lodash";
 import styles from "scenes/Dashboard/containers/ChartsGenericView/index.css";
-import { track } from "mixpanel-browser";
-import { translate } from "utils/translations/translate";
+import {
+  SUBSCRIBE_TO_ENTITY_REPORT,
+  SUBSCRIPTIONS_TO_ENTITY_REPORT,
+} from "scenes/Dashboard/containers/ChartsGenericView/queries";
+import type {
+  EntityType,
+  IChartsGenericViewProps,
+  ISubscriptionToEntityReport,
+  ISubscriptionsToEntityReport,
+} from "scenes/Dashboard/containers/ChartsGenericView/types";
 import {
   ButtonToolbarCenter,
   Col100,
@@ -17,25 +34,9 @@ import {
   PanelBody,
   Row,
 } from "styles/styledComponents";
-import { DropdownButton, MenuItem } from "components/DropdownButton";
-import type {
-  EntityType,
-  IChartsGenericViewProps,
-  ISubscriptionToEntityReport,
-  ISubscriptionsToEntityReport,
-} from "scenes/Dashboard/containers/ChartsGenericView/types";
-import type { ExecutionResult, GraphQLError } from "graphql";
-import {
-  SUBSCRIBE_TO_ENTITY_REPORT,
-  SUBSCRIPTIONS_TO_ENTITY_REPORT,
-} from "scenes/Dashboard/containers/ChartsGenericView/queries";
-import {
-  faChartBar,
-  faDownload,
-  faHourglassHalf,
-} from "@fortawesome/free-solid-svg-icons";
+import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
-import { useMutation, useQuery } from "@apollo/react-hooks";
+import { translate } from "utils/translations/translate";
 
 const frequencies: string[] = ["daily", "weekly", "monthly", "never"];
 

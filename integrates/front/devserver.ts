@@ -2,9 +2,10 @@
   --------
   We need console methods for easy debugging during development.
 */
-import WebpackDevServer from "webpack-dev-server";
-import devConfig from "./webpack.dev.config";
 import webpack from "webpack";
+import WebpackDevServer from "webpack-dev-server";
+
+import devConfig from "./webpack.dev.config";
 
 const HOST: string = "localhost";
 const PORT: number = 3000;

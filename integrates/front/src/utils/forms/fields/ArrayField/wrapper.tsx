@@ -1,9 +1,10 @@
-import { Button } from "components/Button";
+import { faPlus, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import type { IArrayProps } from ".";
 import React from "react";
 import type { WrappedFieldArrayProps } from "redux-form";
-import { faPlus, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+
+import type { IArrayProps } from ".";
+import { Button } from "components/Button";
 
 const ArrayWrapper: React.FC<WrappedFieldArrayProps> = (
   props: WrappedFieldArrayProps

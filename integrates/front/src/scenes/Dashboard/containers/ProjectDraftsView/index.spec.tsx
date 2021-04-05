@@ -1,16 +1,17 @@
-import type { FetchMockStatic } from "fetch-mock";
-import { GET_DRAFTS } from "scenes/Dashboard/containers/ProjectDraftsView/queries";
-import { GraphQLError } from "graphql";
 import type { MockedResponse } from "@apollo/react-testing";
-import { ProjectDraftsView } from "scenes/Dashboard/containers/ProjectDraftsView";
-import { Provider } from "react-redux";
-import React from "react";
-import type { ReactWrapper } from "enzyme";
-import { act } from "react-dom/test-utils";
-import { mount } from "enzyme";
-import store from "store";
-import { MemoryRouter, Route } from "react-router-dom";
 import { MockedProvider, wait } from "@apollo/react-testing";
+import type { ReactWrapper } from "enzyme";
+import { mount } from "enzyme";
+import type { FetchMockStatic } from "fetch-mock";
+import { GraphQLError } from "graphql";
+import React from "react";
+import { act } from "react-dom/test-utils";
+import { Provider } from "react-redux";
+import { MemoryRouter, Route } from "react-router-dom";
+
+import { ProjectDraftsView } from "scenes/Dashboard/containers/ProjectDraftsView";
+import { GET_DRAFTS } from "scenes/Dashboard/containers/ProjectDraftsView/queries";
+import store from "store";
 
 const mockedFetch: FetchMockStatic = fetch as FetchMockStatic & typeof fetch;
 const baseUrl: string = "https://spreadsheets.google.com/feeds/list";

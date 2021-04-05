@@ -1,7 +1,8 @@
-import type { Column } from "react-bootstrap-table-next";
-import { Flex } from "styles/styledComponents";
 import React from "react";
 import type { ReactElement } from "react";
+import type { Column } from "react-bootstrap-table-next";
+
+import { Flex } from "styles/styledComponents";
 
 export const filterFormatter: (
   column: Column,

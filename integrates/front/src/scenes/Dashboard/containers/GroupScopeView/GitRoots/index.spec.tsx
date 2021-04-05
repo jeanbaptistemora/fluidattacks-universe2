@@ -1,18 +1,20 @@
-import { Button } from "components/Button";
-import { ButtonToolbar } from "styles/styledComponents";
+import { MockedProvider } from "@apollo/react-testing";
+import { PureAbility } from "@casl/ability";
+import type { ReactWrapper } from "enzyme";
+import { mount } from "enzyme";
+import React from "react";
+import { act } from "react-dom/test-utils";
+import { Provider } from "react-redux";
+
 import { EnvsModal } from "./envsModal";
 import { GitModal } from "./gitModal";
+
 import { GitRoots } from ".";
-import { MockedProvider } from "@apollo/react-testing";
-import { Provider } from "react-redux";
-import { PureAbility } from "@casl/ability";
-import React from "react";
-import type { ReactWrapper } from "enzyme";
+import { Button } from "components/Button";
 import { SwitchButton } from "components/SwitchButton";
-import { act } from "react-dom/test-utils";
-import { authzPermissionsContext } from "utils/authz/config";
-import { mount } from "enzyme";
 import store from "store";
+import { ButtonToolbar } from "styles/styledComponents";
+import { authzPermissionsContext } from "utils/authz/config";
 
 describe("GitRoots", (): void => {
   it("should return a function", (): void => {

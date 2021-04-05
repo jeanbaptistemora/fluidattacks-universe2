@@ -1,10 +1,11 @@
-import type { ISeverityAttr } from "../types";
 import React from "react";
-import { SeverityTile } from "./tile";
-import type { StyledComponent } from "styled-components";
-import { TooltipWrapper } from "components/TooltipWrapper";
-import styled from "styled-components";
 import { useTranslation } from "react-i18next";
+import type { StyledComponent } from "styled-components";
+import styled from "styled-components";
+
+import { SeverityTile } from "./tile";
+
+import type { ISeverityAttr } from "../types";
 import {
   attackComplexityBgColor,
   attackComplexityOptions,
@@ -28,6 +29,7 @@ import {
   userInteractionBgColor,
   userInteractionOptions,
 } from "../utils";
+import { TooltipWrapper } from "components/TooltipWrapper";
 
 const Row: StyledComponent<"div", Record<string, unknown>> = styled.div.attrs<{
   className: string;

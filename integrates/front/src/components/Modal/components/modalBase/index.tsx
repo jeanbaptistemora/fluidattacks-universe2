@@ -1,9 +1,11 @@
 /* eslint-disable react/forbid-component-props */
-import type { StyledComponent } from "styled-components";
-import style from "./index.css";
-import styled from "styled-components";
-import { ModalBody, ModalHeader, ModalTitle } from "styles/styledComponents";
 import React, { useEffect } from "react";
+import type { StyledComponent } from "styled-components";
+import styled from "styled-components";
+
+import style from "./index.css";
+
+import { ModalBody, ModalHeader, ModalTitle } from "styles/styledComponents";
 
 interface IModalProps {
   children: React.ReactNode;

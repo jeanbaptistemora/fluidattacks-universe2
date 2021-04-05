@@ -1,9 +1,10 @@
-import { Badge } from "components/Badge";
-import type { Column } from "react-bootstrap-table-next";
 import React from "react";
 import type { ReactElement } from "react";
+import type { Column } from "react-bootstrap-table-next";
 import type { StyledComponent } from "styled-components";
 import styled from "styled-components";
+
+import { Badge } from "components/Badge";
 
 const BadgeContainer: StyledComponent<
   "div",

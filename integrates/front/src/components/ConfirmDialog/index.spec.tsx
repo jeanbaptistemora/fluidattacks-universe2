@@ -1,9 +1,10 @@
+import type { ReactWrapper } from "enzyme";
+import { mount } from "enzyme";
+import React from "react";
+
 import { Button } from "components/Button";
 import { ConfirmDialog } from "components/ConfirmDialog";
 import type { IConfirmFn } from "components/ConfirmDialog";
-import React from "react";
-import type { ReactWrapper } from "enzyme";
-import { mount } from "enzyme";
 
 describe("ConfirmDialog", (): void => {
   it("should return a fuction", (): void => {

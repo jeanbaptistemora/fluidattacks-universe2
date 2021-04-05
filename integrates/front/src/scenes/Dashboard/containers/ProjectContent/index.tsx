@@ -1,8 +1,9 @@
-import { Can } from "utils/authz/Can";
-import { ChartsForGroupView } from "scenes/Dashboard/containers/ChartsForGroupView";
-import { ContentTab } from "scenes/Dashboard/components/ContentTab";
+import React from "react";
+import { Redirect, Route, Switch, useRouteMatch } from "react-router-dom";
+
 import { GroupScopeView } from "../GroupScopeView";
-import { Have } from "utils/authz/Have";
+import { ContentTab } from "scenes/Dashboard/components/ContentTab";
+import { ChartsForGroupView } from "scenes/Dashboard/containers/ChartsForGroupView";
 import { ProjectAuthorsView } from "scenes/Dashboard/containers/ProjectAuthorsView";
 import { ProjectConsultingView } from "scenes/Dashboard/containers/ProjectConsultingView/index";
 import { ProjectDraftsView } from "scenes/Dashboard/containers/ProjectDraftsView";
@@ -10,17 +11,17 @@ import { ProjectEventsView } from "scenes/Dashboard/containers/ProjectEventsView
 import { ProjectFindingsView } from "scenes/Dashboard/containers/ProjectFindingsView/index";
 import { ProjectForcesView } from "scenes/Dashboard/containers/ProjectForcesView";
 import { ProjectStakeholdersView } from "scenes/Dashboard/containers/ProjectStakeholdersView/index";
-import React from "react";
 import globalStyle from "styles/global.css";
-import { translate } from "utils/translations/translate";
-import { useTabTracking } from "utils/hooks";
 import {
   Col100,
   Row,
   StickyContainer,
   TabsContainer,
 } from "styles/styledComponents";
-import { Redirect, Route, Switch, useRouteMatch } from "react-router-dom";
+import { Can } from "utils/authz/Can";
+import { Have } from "utils/authz/Have";
+import { useTabTracking } from "utils/hooks";
+import { translate } from "utils/translations/translate";
 
 const ProjectContent: React.FC = (): JSX.Element => {
   const { path, url } = useRouteMatch<{ path: string; url: string }>();

@@ -1,13 +1,15 @@
-import type { ConfigurableValidator } from "revalidate";
-import { EditableField } from "scenes/Dashboard/components/EditableField";
-import type { IExternalBtsFieldProps } from "./types";
 import type { PureAbility } from "@casl/ability";
-import React from "react";
-import { Text } from "utils/forms/fields";
-import { authzPermissionsContext } from "utils/authz/config";
-import { groupExternalBts } from "../utils";
-import { translate } from "utils/translations/translate";
 import { useAbility } from "@casl/react";
+import React from "react";
+import type { ConfigurableValidator } from "revalidate";
+
+import type { IExternalBtsFieldProps } from "./types";
+
+import { groupExternalBts } from "../utils";
+import { EditableField } from "scenes/Dashboard/components/EditableField";
+import { authzPermissionsContext } from "utils/authz/config";
+import { Text } from "utils/forms/fields";
+import { translate } from "utils/translations/translate";
 import { maxLength, validUrlField } from "utils/validations";
 
 const MAX_BTS_LENGTH: number = 80;

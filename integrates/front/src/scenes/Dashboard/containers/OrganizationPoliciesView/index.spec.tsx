@@ -1,24 +1,25 @@
-import { GraphQLError } from "graphql";
-import type { IOrganizationPolicies } from "scenes/Dashboard/containers/OrganizationPoliciesView/types";
 import { MockedProvider } from "@apollo/react-testing";
 import type { MockedResponse } from "@apollo/react-testing";
-import { OrganizationPolicies } from "scenes/Dashboard/containers/OrganizationPoliciesView";
-import { Provider } from "react-redux";
 import { PureAbility } from "@casl/ability";
-import React from "react";
 import type { ReactWrapper } from "enzyme";
-import { act } from "react-dom/test-utils";
-import { authzPermissionsContext } from "utils/authz/config";
 import { mount } from "enzyme";
-import store from "store";
-import { translate } from "utils/translations/translate";
+import { GraphQLError } from "graphql";
+import React from "react";
+import { act } from "react-dom/test-utils";
+import { Provider } from "react-redux";
+import { MemoryRouter, Route } from "react-router";
 import waitForExpect from "wait-for-expect";
+
+import { OrganizationPolicies } from "scenes/Dashboard/containers/OrganizationPoliciesView";
 import {
   GET_ORGANIZATION_POLICIES,
   UPDATE_ORGANIZATION_POLICIES,
 } from "scenes/Dashboard/containers/OrganizationPoliciesView/queries";
-import { MemoryRouter, Route } from "react-router";
+import type { IOrganizationPolicies } from "scenes/Dashboard/containers/OrganizationPoliciesView/types";
+import store from "store";
+import { authzPermissionsContext } from "utils/authz/config";
 import { msgError, msgSuccess } from "utils/notifications";
+import { translate } from "utils/translations/translate";
 
 jest.mock(
   "../../../../utils/notifications",

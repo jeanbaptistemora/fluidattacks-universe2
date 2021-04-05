@@ -3,33 +3,25 @@
   We need className to override default styles from react-boostrap.
 */
 
-import { ActionButtons } from "scenes/Dashboard/containers/VulnerabilitiesView/ActionButtons";
-import type { ApolloError } from "apollo-client";
-import { GET_FINDING_VULN_INFO } from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
-import type { GraphQLError } from "graphql";
-import { HandleAcceptationModal } from "scenes/Dashboard/containers/VulnerabilitiesView/HandleAcceptationModal";
-import type { IGetFindingVulnInfoAttr } from "scenes/Dashboard/containers/VulnerabilitiesView/types";
-import { Logger } from "utils/logger";
+import { useQuery } from "@apollo/react-hooks";
 import type { PureAbility } from "@casl/ability";
+import { useAbility } from "@casl/react";
+import type { ApolloError } from "apollo-client";
+import type { GraphQLError } from "graphql";
+import _ from "lodash";
+import React, { useCallback, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { useParams } from "react-router";
 import type { StyledComponent } from "styled-components";
+import styled from "styled-components";
+
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { UpdateVerificationModal } from "scenes/Dashboard/components/UpdateVerificationModal";
 import { VulnComponent } from "scenes/Dashboard/components/Vulnerabilities";
-import _ from "lodash";
-import { authzPermissionsContext } from "utils/authz/config";
-import { msgError } from "utils/notifications";
-import style from "utils/forms/index.css";
-import styled from "styled-components";
-import { useAbility } from "@casl/react";
-import { useParams } from "react-router";
-import { useQuery } from "@apollo/react-hooks";
-import { useTranslation } from "react-i18next";
-import { Col100, Row } from "styles/styledComponents";
 import type {
   IVulnDataTypeAttr,
   IVulnRowAttr,
 } from "scenes/Dashboard/components/Vulnerabilities/types";
-import React, { useCallback, useState } from "react";
 import {
   filterCurrentStatus,
   filterText,
@@ -37,6 +29,15 @@ import {
   filterVerification,
   filterZeroRisk,
 } from "scenes/Dashboard/components/Vulnerabilities/utils";
+import { ActionButtons } from "scenes/Dashboard/containers/VulnerabilitiesView/ActionButtons";
+import { HandleAcceptationModal } from "scenes/Dashboard/containers/VulnerabilitiesView/HandleAcceptationModal";
+import { GET_FINDING_VULN_INFO } from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
+import type { IGetFindingVulnInfoAttr } from "scenes/Dashboard/containers/VulnerabilitiesView/types";
+import { Col100, Row } from "styles/styledComponents";
+import { authzPermissionsContext } from "utils/authz/config";
+import style from "utils/forms/index.css";
+import { Logger } from "utils/logger";
+import { msgError } from "utils/notifications";
 
 const RowFilters: StyledComponent<
   "div",

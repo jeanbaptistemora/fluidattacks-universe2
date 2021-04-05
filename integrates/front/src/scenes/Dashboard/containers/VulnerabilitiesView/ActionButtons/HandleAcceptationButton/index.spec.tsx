@@ -1,12 +1,13 @@
-import { HandleAcceptationButton } from ".";
 import { PureAbility } from "@casl/ability";
-import React from "react";
 import type { ReactWrapper } from "enzyme";
-import { act } from "react-dom/test-utils";
-import { authzPermissionsContext } from "utils/authz/config";
 import { mount } from "enzyme";
+import React from "react";
+import { act } from "react-dom/test-utils";
 import { useTranslation } from "react-i18next";
 import waitForExpect from "wait-for-expect";
+
+import { HandleAcceptationButton } from ".";
+import { authzPermissionsContext } from "utils/authz/config";
 
 describe("HandleAcceptationButtons", (): void => {
   it("should return a function", (): void => {

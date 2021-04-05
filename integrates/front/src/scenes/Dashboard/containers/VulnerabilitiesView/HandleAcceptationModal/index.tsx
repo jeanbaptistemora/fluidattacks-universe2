@@ -1,23 +1,28 @@
-import { AcceptedUndefinedTable } from "./AcceptedUndefinedTable";
-import type { ApolloError } from "apollo-client";
-import { Button } from "components/Button";
-import type { Dispatch } from "redux";
-import { GET_FINDING_HEADER } from "../../FindingContent/queries";
-import { GET_FINDING_VULN_INFO } from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
-import { GenericForm } from "scenes/Dashboard/components/GenericForm";
-import type { GraphQLError } from "graphql";
-import { JustificationField } from "./JustificationField";
-import { Logger } from "utils/logger";
-import { Modal } from "components/Modal";
+import { useMutation } from "@apollo/react-hooks";
 import type { PureAbility } from "@casl/ability";
+import { useAbility } from "@casl/react";
+import type { ApolloError } from "apollo-client";
+import type { GraphQLError } from "graphql";
+import _ from "lodash";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import type { Dispatch } from "redux";
+import { formValueSelector, submit } from "redux-form";
+
+import { AcceptedUndefinedTable } from "./AcceptedUndefinedTable";
+import { JustificationField } from "./JustificationField";
 import { TreatmentField } from "./TreatmentField";
 import { ZeroRiskConfirmationTable } from "./ZeroRiskConfirmationTable";
 import { ZeroRiskRejectionTable } from "./ZeroRiskRejectionTable";
-import _ from "lodash";
-import { translate } from "utils/translations/translate";
-import { useAbility } from "@casl/react";
-import { useMutation } from "@apollo/react-hooks";
-import { ButtonToolbar, Col100, Col50, Row } from "styles/styledComponents";
+
+import { GET_FINDING_HEADER } from "../../FindingContent/queries";
+import {
+  getRequestedZeroRiskVulns,
+  getVulnsPendingOfAcceptation,
+} from "../utils";
+import { Button } from "components/Button";
+import { Modal } from "components/Modal";
+import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import {
   CONFIRM_ZERO_RISK_VULN,
   HANDLE_VULNS_ACCEPTATION,
@@ -30,15 +35,12 @@ import type {
   IRejectZeroRiskVulnResultAttr,
   IVulnDataAttr,
 } from "scenes/Dashboard/containers/VulnerabilitiesView/HandleAcceptationModal/types";
-import React, { useEffect, useState } from "react";
+import { GET_FINDING_VULN_INFO } from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
+import { ButtonToolbar, Col100, Col50, Row } from "styles/styledComponents";
 import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
-import { formValueSelector, submit } from "redux-form";
-import {
-  getRequestedZeroRiskVulns,
-  getVulnsPendingOfAcceptation,
-} from "../utils";
+import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
-import { useDispatch, useSelector } from "react-redux";
+import { translate } from "utils/translations/translate";
 
 const HandleAcceptationModal: React.FC<IHandleVulnsAcceptationModalProps> = (
   props: IHandleVulnsAcceptationModalProps

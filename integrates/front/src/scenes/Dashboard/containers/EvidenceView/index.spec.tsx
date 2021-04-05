@@ -1,15 +1,16 @@
-import { EvidenceView } from "scenes/Dashboard/containers/EvidenceView";
-import { GET_FINDING_EVIDENCES } from "scenes/Dashboard/containers/EvidenceView/queries";
 import { MockedProvider } from "@apollo/react-testing";
 import type { MockedResponse } from "@apollo/react-testing";
-import { Provider } from "react-redux";
-import React from "react";
 import type { ReactWrapper } from "enzyme";
-import { act } from "react-dom/test-utils";
 import { mount } from "enzyme";
-import store from "store";
-import wait from "waait";
+import React from "react";
+import { act } from "react-dom/test-utils";
+import { Provider } from "react-redux";
 import { MemoryRouter, Route } from "react-router";
+import wait from "waait";
+
+import { EvidenceView } from "scenes/Dashboard/containers/EvidenceView";
+import { GET_FINDING_EVIDENCES } from "scenes/Dashboard/containers/EvidenceView/queries";
+import store from "store";
 
 describe("FindingEvidenceView", (): void => {
   const mocks: readonly MockedResponse[] = [

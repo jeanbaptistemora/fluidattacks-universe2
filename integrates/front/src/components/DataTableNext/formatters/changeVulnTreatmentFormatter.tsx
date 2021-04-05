@@ -1,5 +1,6 @@
-import type { IHeaderConfig } from "components/DataTableNext/types";
 import React from "react";
+
+import type { IHeaderConfig } from "components/DataTableNext/types";
 import { SwitchButton } from "components/SwitchButton";
 
 export const changeVulnTreatmentFormatter: (

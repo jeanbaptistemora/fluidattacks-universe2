@@ -1,8 +1,8 @@
-import { translate } from "utils/translations/translate";
 import type {
   ISeverityAttr,
   ISeverityField,
 } from "scenes/Dashboard/containers/SeverityView/types";
+import { translate } from "utils/translations/translate";
 
 const castPrivileges: (scope: string) => Record<string, string> = (
   scope: string

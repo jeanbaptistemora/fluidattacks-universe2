@@ -1,16 +1,17 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access, @typescript-eslint/restrict-template-expressions */
 /* Note: ESLint annotations needed ad DB queries use "any" type */
+import { useQuery } from "@apollo/react-hooks";
 import type { ApolloError } from "apollo-client";
-import { GET_ENTITY_ORGANIZATION } from "scenes/Dashboard/containers/OrganizationRedirectView/queries";
 import type { GraphQLError } from "graphql";
+import _ from "lodash";
+import React from "react";
+import { Redirect, Switch, useLocation, useParams } from "react-router";
+
+import { GET_ENTITY_ORGANIZATION } from "scenes/Dashboard/containers/OrganizationRedirectView/queries";
 import type { IOrganizationRedirectProps } from "scenes/Dashboard/containers/OrganizationRedirectView/types";
 import { Logger } from "utils/logger";
-import React from "react";
-import _ from "lodash";
 import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
-import { useQuery } from "@apollo/react-hooks";
-import { Redirect, Switch, useLocation, useParams } from "react-router";
 
 const OrganizationRedirect: React.FC<IOrganizationRedirectProps> = (
   props: IOrganizationRedirectProps

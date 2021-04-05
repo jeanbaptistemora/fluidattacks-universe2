@@ -1,6 +1,6 @@
+import _ from "lodash";
 import React from "react";
 import type { StyledComponent } from "styled-components";
-import _ from "lodash";
 import styled from "styled-components";
 
 const StatusFormatter: StyledComponent<

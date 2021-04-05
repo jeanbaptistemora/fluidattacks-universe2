@@ -1,11 +1,12 @@
+import React from "react";
+
 import { Button } from "components/Button";
+import { ConfirmDialog } from "components/ConfirmDialog";
+import type { IConfirmFn } from "components/ConfirmDialog";
+import { FluidIcon } from "components/FluidIcon";
+import { TooltipWrapper } from "components/TooltipWrapper";
 import { ButtonToolbar } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
-import { ConfirmDialog } from "components/ConfirmDialog";
-import { FluidIcon } from "components/FluidIcon";
-import type { IConfirmFn } from "components/ConfirmDialog";
-import React from "react";
-import { TooltipWrapper } from "components/TooltipWrapper";
 import { translate } from "utils/translations/translate";
 
 interface IFindingActionsProps {

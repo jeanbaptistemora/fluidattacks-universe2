@@ -1,11 +1,14 @@
-import type { ApolloError } from "apollo-client";
-import { Button } from "components/Button";
-import { Logger } from "utils/logger";
-import { UNSUBSCRIBE_FROM_GROUP_MUTATION } from "./UnsubscribeModal/queries";
-import { UnsubscribeModal } from "./UnsubscribeModal";
-import { track } from "mixpanel-browser";
 import { useMutation } from "@apollo/react-hooks";
+import type { ApolloError } from "apollo-client";
+import { track } from "mixpanel-browser";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useHistory, useParams } from "react-router-dom";
+
+import { UnsubscribeModal } from "./UnsubscribeModal";
+import { UNSUBSCRIBE_FROM_GROUP_MUTATION } from "./UnsubscribeModal/queries";
+
+import { Button } from "components/Button";
 import {
   ButtonToolbar,
   Col40,
@@ -13,9 +16,8 @@ import {
   ProjectScopeText,
   Row,
 } from "styles/styledComponents";
-import React, { useState } from "react";
+import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
-import { useHistory, useParams } from "react-router-dom";
 
 const Unsubscribe: React.FC = (): JSX.Element => {
   const { projectName } = useParams<{ projectName: string }>();

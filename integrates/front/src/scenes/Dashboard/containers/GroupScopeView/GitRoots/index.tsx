@@ -1,42 +1,44 @@
-import type { ApolloError } from "apollo-client";
-import { Button } from "components/Button";
-import { ButtonToolbarRow } from "styles/styledComponents";
-import { Can } from "utils/authz/Can";
-import { ConfirmDialog } from "components/ConfirmDialog";
-import { DataTableNext } from "components/DataTableNext";
-import { EnvsModal } from "./envsModal";
-import { FluidIcon } from "components/FluidIcon";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { GitModal } from "./gitModal";
-import type { GraphQLError } from "graphql";
-import type { IConfirmFn } from "components/ConfirmDialog";
-import type { IGitRootAttr } from "../types";
-import { Logger } from "utils/logger";
-import type { PureAbility } from "@casl/ability";
-import { TooltipWrapper } from "components/TooltipWrapper";
-import _ from "lodash";
-import { authzPermissionsContext } from "utils/authz/config";
-import { msgError } from "utils/notifications";
-import { selectFilter } from "react-bootstrap-table2-filter";
-import style from "./index.css";
-import { track } from "mixpanel-browser";
-import { useAbility } from "@casl/react";
 import { useMutation } from "@apollo/react-hooks";
-import { useStoredState } from "utils/hooks";
+import type { PureAbility } from "@casl/ability";
+import { useAbility } from "@casl/react";
+import { faCloud, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import type { ApolloError } from "apollo-client";
+import type { GraphQLError } from "graphql";
+import _ from "lodash";
+import { track } from "mixpanel-browser";
+import React, { useCallback, useState } from "react";
+import { selectFilter } from "react-bootstrap-table2-filter";
 import { useTranslation } from "react-i18next";
+
+import { EnvsModal } from "./envsModal";
+import { GitModal } from "./gitModal";
+import style from "./index.css";
+
 import {
   ADD_GIT_ROOT,
   UPDATE_GIT_ENVIRONMENTS,
   UPDATE_GIT_ROOT,
   UPDATE_ROOT_STATE,
 } from "../query";
-import React, { useCallback, useState } from "react";
+import type { IGitRootAttr } from "../types";
+import { Button } from "components/Button";
+import { ConfirmDialog } from "components/ConfirmDialog";
+import type { IConfirmFn } from "components/ConfirmDialog";
+import { DataTableNext } from "components/DataTableNext";
 import {
   changeFormatter,
   dateFormatter,
   statusFormatter,
 } from "components/DataTableNext/formatters";
-import { faCloud, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { FluidIcon } from "components/FluidIcon";
+import { TooltipWrapper } from "components/TooltipWrapper";
+import { ButtonToolbarRow } from "styles/styledComponents";
+import { Can } from "utils/authz/Can";
+import { authzPermissionsContext } from "utils/authz/config";
+import { useStoredState } from "utils/hooks";
+import { Logger } from "utils/logger";
+import { msgError } from "utils/notifications";
 
 const formatList: (list: string[]) => JSX.Element = (list): JSX.Element => (
   <p>

@@ -1,7 +1,8 @@
-import { DeleteGroupModal } from "scenes/Dashboard/components/DeleteGroupModal";
-import React from "react";
 import type { ShallowWrapper } from "enzyme";
 import { shallow } from "enzyme";
+import React from "react";
+
+import { DeleteGroupModal } from "scenes/Dashboard/components/DeleteGroupModal";
 
 const functionMock: () => void = (): void => undefined;
 

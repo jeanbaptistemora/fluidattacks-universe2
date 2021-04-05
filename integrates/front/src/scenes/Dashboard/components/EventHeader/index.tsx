@@ -1,5 +1,5 @@
 import React from "react";
-import { translate } from "utils/translations/translate";
+
 import {
   Col100,
   EventHeaderGrid,
@@ -8,6 +8,7 @@ import {
   Row,
 } from "styles/styledComponents";
 import { castEventStatus, castEventType } from "utils/formatHelpers";
+import { translate } from "utils/translations/translate";
 
 interface IEventHeaderProps {
   eventDate: string;

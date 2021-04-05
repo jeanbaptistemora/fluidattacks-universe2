@@ -1,5 +1,5 @@
-import { translate } from "utils/translations/translate";
 import { castEventStatus, castEventType } from "utils/formatHelpers";
+import { translate } from "utils/translations/translate";
 
 interface IEventConfig {
   eventStatus: string;

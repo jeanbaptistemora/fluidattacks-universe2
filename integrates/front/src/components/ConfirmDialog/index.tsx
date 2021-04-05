@@ -1,9 +1,10 @@
+import _ from "lodash";
+import React, { useState } from "react";
+
 import { Button } from "components/Button";
 import { Modal } from "components/Modal";
-import _ from "lodash";
-import { translate } from "utils/translations/translate";
 import { ButtonToolbar, Col100, Row } from "styles/styledComponents";
-import React, { useState } from "react";
+import { translate } from "utils/translations/translate";
 
 interface IConfirmFn {
   (confirmCallback: () => void, cancelCallback?: () => void): void;

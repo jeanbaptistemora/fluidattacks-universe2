@@ -1,7 +1,8 @@
-import { HorizontalBar } from "react-chartjs-2";
-import React from "react";
-import style from "scenes/Dashboard/components/HorizontalBarIndicator/index.css";
 import type { ChartData, ChartOptions } from "chart.js";
+import React from "react";
+import { HorizontalBar } from "react-chartjs-2";
+
+import style from "scenes/Dashboard/components/HorizontalBarIndicator/index.css";
 
 interface IStackedBarProps {
   data: ChartData;

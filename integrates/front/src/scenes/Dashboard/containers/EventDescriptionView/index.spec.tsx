@@ -1,18 +1,19 @@
-import { EventDescriptionView } from "scenes/Dashboard/containers/EventDescriptionView";
-import { GET_EVENT_DESCRIPTION } from "scenes/Dashboard/containers/EventDescriptionView/queries";
 import { MockedProvider } from "@apollo/react-testing";
 import type { MockedResponse } from "@apollo/react-testing";
-import { Provider } from "react-redux";
 import { PureAbility } from "@casl/ability";
-import React from "react";
 import type { ReactWrapper } from "enzyme";
-import _ from "lodash";
-import { act } from "react-dom/test-utils";
-import { authzPermissionsContext } from "utils/authz/config";
 import { mount } from "enzyme";
-import store from "store";
-import wait from "waait";
+import _ from "lodash";
+import React from "react";
+import { act } from "react-dom/test-utils";
+import { Provider } from "react-redux";
 import { MemoryRouter, Route } from "react-router";
+import wait from "waait";
+
+import { EventDescriptionView } from "scenes/Dashboard/containers/EventDescriptionView";
+import { GET_EVENT_DESCRIPTION } from "scenes/Dashboard/containers/EventDescriptionView/queries";
+import store from "store";
+import { authzPermissionsContext } from "utils/authz/config";
 
 describe("EventDescriptionView", (): void => {
   const mocks: readonly MockedResponse[] = [

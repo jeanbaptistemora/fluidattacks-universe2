@@ -1,11 +1,12 @@
-import { Button } from "components/Button";
-import { Checkbox } from "utils/forms/fields";
-import { Field } from "redux-form";
-import { GenericForm } from "scenes/Dashboard/components/GenericForm";
-import { Modal } from "components/Modal";
-import { translate } from "utils/translations/translate";
-import { ButtonToolbar, Col100, Row } from "styles/styledComponents";
 import React, { useCallback } from "react";
+import { Field } from "redux-form";
+
+import { Button } from "components/Button";
+import { Modal } from "components/Modal";
+import { GenericForm } from "scenes/Dashboard/components/GenericForm";
+import { ButtonToolbar, Col100, Row } from "styles/styledComponents";
+import { Checkbox } from "utils/forms/fields";
+import { translate } from "utils/translations/translate";
 
 interface ICompulsoryNoticeProps {
   content: string;

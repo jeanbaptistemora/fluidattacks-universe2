@@ -1,21 +1,22 @@
+import type { MockedResponse } from "@apollo/react-testing";
+import { MockedProvider, wait } from "@apollo/react-testing";
+import { PureAbility } from "@casl/ability";
+import type { ReactWrapper } from "enzyme";
+import { mount } from "enzyme";
+import React from "react";
+import { act } from "react-dom/test-utils";
+import { Provider } from "react-redux";
+import { MemoryRouter, Route } from "react-router";
+
 import { DescriptionView } from "scenes/Dashboard/containers/DescriptionView";
 import { GET_FINDING_DESCRIPTION } from "scenes/Dashboard/containers/DescriptionView/queries";
-import type { MockedResponse } from "@apollo/react-testing";
-import { Provider } from "react-redux";
-import { PureAbility } from "@casl/ability";
-import React from "react";
-import type { ReactWrapper } from "enzyme";
-import { act } from "react-dom/test-utils";
-import { authzPermissionsContext } from "utils/authz/config";
-import { mount } from "enzyme";
-import store from "store";
 import type {
   IFinding,
   IFindingDescriptionData,
   IFindingDescriptionVars,
 } from "scenes/Dashboard/containers/DescriptionView/types";
-import { MemoryRouter, Route } from "react-router";
-import { MockedProvider, wait } from "@apollo/react-testing";
+import store from "store";
+import { authzPermissionsContext } from "utils/authz/config";
 
 describe("Finding Description", (): void => {
   const finding: IFinding = {

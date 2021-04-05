@@ -1,15 +1,16 @@
-import { GET_FINDING_TRACKING } from "scenes/Dashboard/containers/TrackingView/queries";
 import { MockedProvider } from "@apollo/react-testing";
 import type { MockedResponse } from "@apollo/react-testing";
-import { Provider } from "react-redux";
-import React from "react";
 import type { ReactWrapper } from "enzyme";
-import { TrackingView } from "scenes/Dashboard/containers/TrackingView";
-import { act } from "react-dom/test-utils";
 import { mount } from "enzyme";
-import store from "store/index";
-import wait from "waait";
+import React from "react";
+import { act } from "react-dom/test-utils";
+import { Provider } from "react-redux";
 import { MemoryRouter, Route } from "react-router";
+import wait from "waait";
+
+import { TrackingView } from "scenes/Dashboard/containers/TrackingView";
+import { GET_FINDING_TRACKING } from "scenes/Dashboard/containers/TrackingView/queries";
+import store from "store/index";
 
 describe("TrackingView", (): void => {
   const mocks: MockedResponse = {

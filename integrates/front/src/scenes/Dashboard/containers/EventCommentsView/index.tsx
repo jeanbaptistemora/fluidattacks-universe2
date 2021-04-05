@@ -1,25 +1,26 @@
+import { useMutation, useQuery } from "@apollo/react-hooks";
 import type { ApolloError } from "apollo-client";
-import { Comments } from "scenes/Dashboard/components/Comments/index";
 import type { GraphQLError } from "graphql";
-import type { IAuthContext } from "utils/auth";
-import { Logger } from "utils/logger";
 import _ from "lodash";
-import { authContext } from "utils/auth";
-import { msgError } from "utils/notifications";
 import { track } from "mixpanel-browser";
-import { translate } from "utils/translations/translate";
+import React, { useCallback, useContext } from "react";
 import { useParams } from "react-router";
-import {
-  ADD_EVENT_CONSULT,
-  GET_EVENT_CONSULTING,
-} from "scenes/Dashboard/containers/EventCommentsView/queries";
+
+import { Comments } from "scenes/Dashboard/components/Comments/index";
 import type {
   ICommentStructure,
   ILoadCallback,
   IPostCallback,
 } from "scenes/Dashboard/components/Comments/types";
-import React, { useCallback, useContext } from "react";
-import { useMutation, useQuery } from "@apollo/react-hooks";
+import {
+  ADD_EVENT_CONSULT,
+  GET_EVENT_CONSULTING,
+} from "scenes/Dashboard/containers/EventCommentsView/queries";
+import type { IAuthContext } from "utils/auth";
+import { authContext } from "utils/auth";
+import { Logger } from "utils/logger";
+import { msgError } from "utils/notifications";
+import { translate } from "utils/translations/translate";
 
 interface IEventConsultingData {
   event: {

@@ -1,7 +1,8 @@
-import { ChartsGenericView } from "scenes/Dashboard/containers/ChartsGenericView";
-import React from "react";
 import _ from "lodash";
+import React from "react";
 import { useLocation, useParams } from "react-router";
+
+import { ChartsGenericView } from "scenes/Dashboard/containers/ChartsGenericView";
 
 const ChartsForGroupView: React.FC = (): JSX.Element => {
   const params: { projectName: string } = useParams();

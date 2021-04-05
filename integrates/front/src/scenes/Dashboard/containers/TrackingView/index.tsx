@@ -1,16 +1,17 @@
-import type { ApolloError } from "apollo-client";
-import { GET_FINDING_TRACKING } from "scenes/Dashboard/containers/TrackingView/queries";
-import type { GraphQLError } from "graphql";
-import { Logger } from "utils/logger";
-import React from "react";
-import { TrackingItem } from "scenes/Dashboard/components/TrackingItem";
-import _ from "lodash";
-import { msgError } from "utils/notifications";
-import style from "scenes/Dashboard/containers/TrackingView/index.css";
-import { translate } from "utils/translations/translate";
-import { useParams } from "react-router";
 import { useQuery } from "@apollo/react-hooks";
+import type { ApolloError } from "apollo-client";
+import type { GraphQLError } from "graphql";
+import _ from "lodash";
+import React from "react";
+import { useParams } from "react-router";
+
+import { TrackingItem } from "scenes/Dashboard/components/TrackingItem";
+import style from "scenes/Dashboard/containers/TrackingView/index.css";
+import { GET_FINDING_TRACKING } from "scenes/Dashboard/containers/TrackingView/queries";
 import { Col80, Row } from "styles/styledComponents";
+import { Logger } from "utils/logger";
+import { msgError } from "utils/notifications";
+import { translate } from "utils/translations/translate";
 
 interface IClosing {
   accepted: number;

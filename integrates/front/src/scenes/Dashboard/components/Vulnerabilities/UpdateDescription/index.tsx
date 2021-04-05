@@ -1,42 +1,39 @@
+import { useMutation, useQuery } from "@apollo/react-hooks";
+import type { PureAbility } from "@casl/ability";
+import { useAbility } from "@casl/react";
+import type { ApolloError } from "apollo-client";
+import type { ExecutionResult, GraphQLError } from "graphql";
+import _ from "lodash";
+import { track } from "mixpanel-browser";
+import React, { useContext, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import type { Dispatch } from "redux";
+import { formValueSelector, isPristine, submit } from "redux-form";
+
 import { AcceptanceDateField } from "./AcceptanceDateField";
 import { AcceptationUserField } from "./AcceptationUserField";
-import type { ApolloError } from "apollo-client";
-import { Button } from "components/Button";
-import { ConfirmDialog } from "components/ConfirmDialog";
-import type { Dispatch } from "redux";
 import { ExternalBtsField } from "./ExternalBtsField";
-import { GET_FINDING_HEADER } from "../../../containers/FindingContent/queries";
-import { GET_FINDING_VULN_INFO } from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
-import { GET_PROJECT_USERS } from "scenes/Dashboard/components/Vulnerabilities/queries";
-import { GenericForm } from "scenes/Dashboard/components/GenericForm";
-import type { IAuthContext } from "utils/auth";
-import type { IConfirmFn } from "components/ConfirmDialog";
-import type { IHistoricTreatment } from "scenes/Dashboard/containers/DescriptionView/types";
 import { JustificationField } from "./JustificationField";
-import { Logger } from "utils/logger";
-import type { PureAbility } from "@casl/ability";
 import { SeverityField } from "./SeverityField";
 import { TagField } from "./TagField";
 import { TreatmentField } from "./TreatmentField";
 import { TreatmentManagerField } from "./TreatmentManagerField";
-import _ from "lodash";
-import { authContext } from "utils/auth";
-import { track } from "mixpanel-browser";
-import { translate } from "utils/translations/translate";
-import { useAbility } from "@casl/react";
-import {
-  Alert,
-  ButtonToolbar,
-  Col100,
-  Col50,
-  Row,
-} from "styles/styledComponents";
+
+import { GET_FINDING_HEADER } from "../../../containers/FindingContent/queries";
+import { Button } from "components/Button";
+import { ConfirmDialog } from "components/ConfirmDialog";
+import type { IConfirmFn } from "components/ConfirmDialog";
+import { GenericForm } from "scenes/Dashboard/components/GenericForm";
+import { GET_PROJECT_USERS } from "scenes/Dashboard/components/Vulnerabilities/queries";
+import type {
+  IUpdateTreatmentVulnAttr,
+  IVulnDataTypeAttr,
+} from "scenes/Dashboard/components/Vulnerabilities/types";
 import {
   DELETE_TAGS_MUTATION,
   REQUEST_ZERO_RISK_VULN,
   UPDATE_DESCRIPTION_MUTATION,
 } from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription/queries";
-import type { ExecutionResult, GraphQLError } from "graphql";
 import type {
   IDeleteTagAttr,
   IDeleteTagResultAttr,
@@ -46,13 +43,6 @@ import type {
   IUpdateTreatmentModalProps,
   IUpdateVulnDescriptionResultAttr,
 } from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription/types";
-import type {
-  IUpdateTreatmentVulnAttr,
-  IVulnDataTypeAttr,
-} from "scenes/Dashboard/components/Vulnerabilities/types";
-import React, { useContext, useState } from "react";
-import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
-import { formValueSelector, isPristine, submit } from "redux-form";
 import {
   groupExternalBts,
   groupLastHistoricTreatment,
@@ -60,9 +50,21 @@ import {
   hasNewTreatment,
   sortTags,
 } from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription/utils";
+import type { IHistoricTreatment } from "scenes/Dashboard/containers/DescriptionView/types";
+import { GET_FINDING_VULN_INFO } from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
+import {
+  Alert,
+  ButtonToolbar,
+  Col100,
+  Col50,
+  Row,
+} from "styles/styledComponents";
+import type { IAuthContext } from "utils/auth";
+import { authContext } from "utils/auth";
+import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
+import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
-import { useDispatch, useSelector } from "react-redux";
-import { useMutation, useQuery } from "@apollo/react-hooks";
+import { translate } from "utils/translations/translate";
 
 const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
   findingId,

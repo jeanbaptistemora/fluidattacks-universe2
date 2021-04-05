@@ -1,7 +1,8 @@
-import type { IAddFilesModalProps } from "scenes/Dashboard/components/AddFilesModal/types";
 import React from "react";
-import { translate } from "utils/translations/translate";
+
+import type { IAddFilesModalProps } from "scenes/Dashboard/components/AddFilesModal/types";
 import { Meter, ProgressBar } from "styles/styledComponents";
+import { translate } from "utils/translations/translate";
 
 export const renderUploadBar: React.FC<IAddFilesModalProps> = (
   props: IAddFilesModalProps

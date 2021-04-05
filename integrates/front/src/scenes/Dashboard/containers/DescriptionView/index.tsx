@@ -1,28 +1,20 @@
-import { ActionButtons } from "scenes/Dashboard/containers/DescriptionView/ActionButtons";
+import { useMutation, useQuery } from "@apollo/react-hooks";
+import type { PureAbility } from "@casl/ability";
+import { useAbility } from "@casl/react";
 import type { ApolloError } from "apollo-client";
-import { Can } from "utils/authz/Can";
-import type { ConfigurableValidator } from "revalidate";
+import type { GraphQLError } from "graphql";
+import _ from "lodash";
+import React, { useCallback, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router";
 import type { Dispatch } from "redux";
+import { Field, isPristine, reset, submit } from "redux-form";
+import type { ConfigurableValidator } from "revalidate";
+
+import { TooltipWrapper } from "components/TooltipWrapper";
 import { EditableField } from "scenes/Dashboard/components/EditableField";
 import { GenericForm } from "scenes/Dashboard/components/GenericForm";
-import type { GraphQLError } from "graphql";
-import { Logger } from "utils/logger";
-import type { PureAbility } from "@casl/ability";
-import { TooltipWrapper } from "components/TooltipWrapper";
-import _ from "lodash";
-import { authzPermissionsContext } from "utils/authz/config";
-import { translate } from "utils/translations/translate";
-import { useAbility } from "@casl/react";
-import { useParams } from "react-router";
-import {
-  Col100,
-  Col45,
-  ControlLabel,
-  FormGroup,
-  Row,
-} from "styles/styledComponents";
-import { Dropdown, Text, TextArea } from "utils/forms/fields";
-import { Field, isPristine, reset, submit } from "redux-form";
+import { ActionButtons } from "scenes/Dashboard/containers/DescriptionView/ActionButtons";
 import {
   GET_FINDING_DESCRIPTION,
   UPDATE_DESCRIPTION_MUTATION,
@@ -32,12 +24,24 @@ import type {
   IFindingDescriptionData,
   IFindingDescriptionVars,
 } from "scenes/Dashboard/containers/DescriptionView/types";
-import React, { useCallback, useState } from "react";
 import {
   formatCompromisedRecords,
   formatCweUrl,
   formatFindingType,
 } from "scenes/Dashboard/containers/DescriptionView/utils";
+import {
+  Col100,
+  Col45,
+  ControlLabel,
+  FormGroup,
+  Row,
+} from "styles/styledComponents";
+import { Can } from "utils/authz/Can";
+import { authzPermissionsContext } from "utils/authz/config";
+import { Dropdown, Text, TextArea } from "utils/forms/fields";
+import { Logger } from "utils/logger";
+import { msgError, msgSuccess } from "utils/notifications";
+import { translate } from "utils/translations/translate";
 import {
   maxLength,
   numeric,
@@ -45,9 +49,6 @@ import {
   validDraftTitle,
   validTextField,
 } from "utils/validations";
-import { msgError, msgSuccess } from "utils/notifications";
-import { useDispatch, useSelector } from "react-redux";
-import { useMutation, useQuery } from "@apollo/react-hooks";
 
 const MAX_TITLE_LENGTH = 90;
 const MAX_DESCRIPTION_LENGTH = 500;

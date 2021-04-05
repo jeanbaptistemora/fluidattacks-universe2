@@ -1,8 +1,7 @@
-import { Logger } from "utils/logger";
-import type { Moment } from "moment";
-import type { Validator } from "redux-form";
 import _ from "lodash";
-import { translate } from "utils/translations/translate";
+import type { Moment } from "moment";
+import moment, { isMoment } from "moment";
+import type { Validator } from "redux-form";
 import {
   hasLengthGreaterThan,
   hasLengthLessThan,
@@ -11,7 +10,9 @@ import {
   isRequired,
   matchesPattern,
 } from "revalidate";
-import moment, { isMoment } from "moment";
+
+import { Logger } from "utils/logger";
+import { translate } from "utils/translations/translate";
 
 const required: Validator = isRequired({
   message: translate.t("validations.required"),

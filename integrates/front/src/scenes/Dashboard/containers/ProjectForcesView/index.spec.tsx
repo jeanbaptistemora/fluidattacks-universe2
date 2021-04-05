@@ -1,17 +1,18 @@
-import { GET_FORCES_EXECUTIONS } from "scenes/Dashboard/containers/ProjectForcesView/queries";
-import { GraphQLError } from "graphql";
 import { MockedProvider } from "@apollo/react-testing";
 import type { MockedResponse } from "@apollo/react-testing";
-import { ProjectForcesView } from "scenes/Dashboard/containers/ProjectForcesView";
-import { Provider } from "react-redux";
-import React from "react";
 import type { ReactWrapper } from "enzyme";
-import _ from "lodash";
-import { act } from "react-dom/test-utils";
 import { mount } from "enzyme";
-import store from "store";
-import wait from "waait";
+import { GraphQLError } from "graphql";
+import _ from "lodash";
+import React from "react";
+import { act } from "react-dom/test-utils";
+import { Provider } from "react-redux";
 import { MemoryRouter, Route } from "react-router-dom";
+import wait from "waait";
+
+import { ProjectForcesView } from "scenes/Dashboard/containers/ProjectForcesView";
+import { GET_FORCES_EXECUTIONS } from "scenes/Dashboard/containers/ProjectForcesView/queries";
+import store from "store";
 
 describe("ForcesView", (): void => {
   const mocks: readonly MockedResponse[] = [

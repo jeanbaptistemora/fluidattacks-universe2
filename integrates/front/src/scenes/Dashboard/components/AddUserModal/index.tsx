@@ -1,18 +1,19 @@
-import type { ApolloError } from "apollo-client";
-import { Button } from "components/Button/index";
-import { Can } from "utils/authz/Can";
-import type { ConfigurableValidator } from "revalidate";
-import { Field } from "redux-form";
-import { GET_USER } from "scenes/Dashboard/components/AddUserModal/queries";
-import { GenericForm } from "scenes/Dashboard/components/GenericForm";
-import type { GraphQLError } from "graphql";
-import { Logger } from "utils/logger";
-import { Modal } from "components/Modal";
-import React from "react";
-import _ from "lodash";
-import { msgError } from "utils/notifications";
-import { translate } from "utils/translations/translate";
 import { useLazyQuery } from "@apollo/react-hooks";
+import type { ApolloError } from "apollo-client";
+import type { GraphQLError } from "graphql";
+import _ from "lodash";
+import React from "react";
+import { Field } from "redux-form";
+import type { ConfigurableValidator } from "revalidate";
+
+import { Button } from "components/Button/index";
+import { Modal } from "components/Modal";
+import { GET_USER } from "scenes/Dashboard/components/AddUserModal/queries";
+import type {
+  IAddStakeholderModalProps,
+  IStakeholderAttrs,
+} from "scenes/Dashboard/components/AddUserModal/types";
+import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import {
   ButtonToolbar,
   Col100,
@@ -21,11 +22,11 @@ import {
   RequiredField,
   Row,
 } from "styles/styledComponents";
+import { Can } from "utils/authz/Can";
 import { Dropdown, PhoneNumber, Text } from "utils/forms/fields";
-import type {
-  IAddStakeholderModalProps,
-  IStakeholderAttrs,
-} from "scenes/Dashboard/components/AddUserModal/types";
+import { Logger } from "utils/logger";
+import { msgError } from "utils/notifications";
+import { translate } from "utils/translations/translate";
 import {
   maxLength,
   required,

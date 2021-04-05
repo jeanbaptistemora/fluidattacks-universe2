@@ -1,7 +1,8 @@
-import { Preloader } from "components/Preloader";
-import React from "react";
 import type { ShallowWrapper } from "enzyme";
 import { shallow } from "enzyme";
+import React from "react";
+
+import { Preloader } from "components/Preloader";
 
 describe("Preloader", (): void => {
   it("should return a function", (): void => {

@@ -1,18 +1,19 @@
-import { GET_BILL } from "scenes/Dashboard/containers/ProjectAuthorsView/queries";
-import { GraphQLError } from "graphql";
 import { MockedProvider } from "@apollo/react-testing";
 import type { MockedResponse } from "@apollo/react-testing";
-import { ProjectAuthorsView } from "scenes/Dashboard/containers/ProjectAuthorsView";
-import { Provider } from "react-redux";
-import React from "react";
 import type { ReactWrapper } from "enzyme";
-import _ from "lodash";
-import { act } from "react-dom/test-utils";
 import { mount } from "enzyme";
+import { GraphQLError } from "graphql";
+import _ from "lodash";
 import { set } from "mockdate";
-import store from "store";
-import wait from "waait";
+import React from "react";
+import { act } from "react-dom/test-utils";
+import { Provider } from "react-redux";
 import { MemoryRouter, Route } from "react-router";
+import wait from "waait";
+
+import { ProjectAuthorsView } from "scenes/Dashboard/containers/ProjectAuthorsView";
+import { GET_BILL } from "scenes/Dashboard/containers/ProjectAuthorsView/queries";
+import store from "store";
 
 describe("AuthorsView", (): void => {
   const TEST_DATE = 2020;

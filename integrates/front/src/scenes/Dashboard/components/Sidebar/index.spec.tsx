@@ -1,8 +1,9 @@
-import { MemoryRouter } from "react-router-dom";
-import React from "react";
 import type { ShallowWrapper } from "enzyme";
-import { Sidebar } from "scenes/Dashboard/components/Sidebar";
 import { shallow } from "enzyme";
+import React from "react";
+import { MemoryRouter } from "react-router-dom";
+
+import { Sidebar } from "scenes/Dashboard/components/Sidebar";
 
 const functionMock: () => JSX.Element = (): JSX.Element => <div />;
 

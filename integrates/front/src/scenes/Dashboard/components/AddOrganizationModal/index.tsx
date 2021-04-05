@@ -1,24 +1,15 @@
+import { useMutation, useQuery } from "@apollo/react-hooks";
 import type { ApolloError } from "apollo-client";
-import { Button } from "components/Button";
-import { Field } from "redux-form";
-import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import type { GraphQLError } from "graphql";
-import { Logger } from "utils/logger";
-import { Modal } from "components/Modal";
-import React from "react";
-import { Text } from "utils/forms/fields";
-import { TooltipWrapper } from "components/TooltipWrapper/index";
 import _ from "lodash";
 import { track } from "mixpanel-browser";
-import { translate } from "utils/translations/translate";
+import React from "react";
 import { useHistory } from "react-router-dom";
-import {
-  ButtonToolbar,
-  Col100,
-  ControlLabel,
-  FormGroup,
-  Row,
-} from "styles/styledComponents";
+import { Field } from "redux-form";
+
+import { Button } from "components/Button";
+import { Modal } from "components/Modal";
+import { TooltipWrapper } from "components/TooltipWrapper/index";
 import {
   CREATE_NEW_ORGANIZATION,
   GET_AVAILABLE_ORGANIZATION_NAME,
@@ -28,8 +19,18 @@ import type {
   IAddOrganizationMtProps,
   IAddOrganizationQryProps,
 } from "scenes/Dashboard/components/AddOrganizationModal/types";
+import { GenericForm } from "scenes/Dashboard/components/GenericForm";
+import {
+  ButtonToolbar,
+  Col100,
+  ControlLabel,
+  FormGroup,
+  Row,
+} from "styles/styledComponents";
+import { Text } from "utils/forms/fields";
+import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
-import { useMutation, useQuery } from "@apollo/react-hooks";
+import { translate } from "utils/translations/translate";
 
 const AddOrganizationModal: React.FC<IAddOrganizationModalProps> = (
   props: IAddOrganizationModalProps

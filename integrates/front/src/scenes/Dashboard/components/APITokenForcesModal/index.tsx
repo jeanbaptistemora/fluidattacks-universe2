@@ -1,22 +1,23 @@
-import { Button } from "components/Button";
-import { Field } from "redux-form";
-import { GenericForm } from "scenes/Dashboard/components/GenericForm";
-import { Modal } from "components/Modal";
-import { TextArea } from "utils/forms/fields";
 import _ from "lodash";
-import { translate } from "utils/translations/translate";
+import React, { useCallback } from "react";
+import { Field } from "redux-form";
+
+import { Button } from "components/Button";
+import { Modal } from "components/Modal";
+import {
+  useGetAPIToken,
+  useUpdateAPIToken,
+} from "scenes/Dashboard/components/APITokenForcesModal/hooks";
+import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import {
   ButtonToolbar,
   Col100,
   ControlLabel,
   Row,
 } from "styles/styledComponents";
-import React, { useCallback } from "react";
+import { TextArea } from "utils/forms/fields";
 import { msgError, msgSuccess } from "utils/notifications";
-import {
-  useGetAPIToken,
-  useUpdateAPIToken,
-} from "scenes/Dashboard/components/APITokenForcesModal/hooks";
+import { translate } from "utils/translations/translate";
 
 interface IAPITokenForcesModalProps {
   groupName: string;

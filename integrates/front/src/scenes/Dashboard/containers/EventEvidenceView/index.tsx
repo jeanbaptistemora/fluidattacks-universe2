@@ -1,40 +1,41 @@
 /* eslint-disable @typescript-eslint/restrict-template-expressions, @typescript-eslint/no-unsafe-member-access 
 --- Needed annotations as DB queries use "any" type
 */
+import { useMutation, useQuery } from "@apollo/react-hooks";
+import { faFile, faImage } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { ApolloError } from "apollo-client";
+import { NetworkStatus } from "apollo-client";
+import type { GraphQLError } from "graphql";
+import _ from "lodash";
+import React, { useCallback, useState } from "react";
+import { useParams } from "react-router";
+import type { InjectedFormProps, Validator } from "redux-form";
+
 import { Button } from "components/Button";
-import { ButtonToolbarRow } from "styles/styledComponents";
-import { Can } from "utils/authz/Can";
+import { FluidIcon } from "components/FluidIcon";
+import { TooltipWrapper } from "components/TooltipWrapper";
 import { EvidenceImage } from "scenes/Dashboard/components/EvidenceImage/index";
 import { EvidenceLightbox } from "scenes/Dashboard/components/EvidenceLightbox";
-import { FluidIcon } from "components/FluidIcon";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { GenericForm } from "scenes/Dashboard/components/GenericForm";
-import type { GraphQLError } from "graphql";
-import { Logger } from "utils/logger";
-import { NetworkStatus } from "apollo-client";
-import { TooltipWrapper } from "components/TooltipWrapper";
-import _ from "lodash";
-import globalStyle from "styles/global.css";
-import { msgError } from "utils/notifications";
-import { openUrl } from "utils/resourceHelpers";
-import { translate } from "utils/translations/translate";
-import { useParams } from "react-router";
 import {
   DOWNLOAD_FILE_MUTATION,
   GET_EVENT_EVIDENCES,
   REMOVE_EVIDENCE_MUTATION,
   UPDATE_EVIDENCE_MUTATION,
 } from "scenes/Dashboard/containers/EventEvidenceView/queries";
-import type { InjectedFormProps, Validator } from "redux-form";
-import React, { useCallback, useState } from "react";
-import { faFile, faImage } from "@fortawesome/free-solid-svg-icons";
+import globalStyle from "styles/global.css";
+import { ButtonToolbarRow } from "styles/styledComponents";
+import { Can } from "utils/authz/Can";
+import { Logger } from "utils/logger";
+import { msgError } from "utils/notifications";
+import { openUrl } from "utils/resourceHelpers";
+import { translate } from "utils/translations/translate";
 import {
   isValidFileSize,
   validEventFile,
   validEvidenceImage,
 } from "utils/validations";
-import { useMutation, useQuery } from "@apollo/react-hooks";
 
 const EventEvidenceView: React.FC = (): JSX.Element => {
   const { eventId } = useParams<{ eventId: string }>();

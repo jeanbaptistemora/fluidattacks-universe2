@@ -1,9 +1,10 @@
-import { AddTagsModal } from "scenes/Dashboard/components/AddTagsModal";
-import { Provider } from "react-redux";
-import React from "react";
-import store from "store";
 import type { ReactWrapper, ShallowWrapper } from "enzyme";
 import { mount, shallow } from "enzyme";
+import React from "react";
+import { Provider } from "react-redux";
+
+import { AddTagsModal } from "scenes/Dashboard/components/AddTagsModal";
+import store from "store";
 
 const functionMock: () => void = (): void => undefined;
 

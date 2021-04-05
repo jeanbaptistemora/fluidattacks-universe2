@@ -1,34 +1,34 @@
 /* eslint-disable react-hooks/rules-of-hooks */
+import type { QueryResult } from "@apollo/react-common";
+import { useMutation, useQuery } from "@apollo/react-hooks";
+import type { PureAbility } from "@casl/ability";
+import { useAbility } from "@casl/react";
 import type { ApolloError } from "apollo-client";
-import { Button } from "components/Button";
-import { ButtonCol } from "./components/buttoncol";
-import { Can } from "utils/authz/Can";
-import { CommentsView } from "scenes/Dashboard/containers/CommentsView/index";
-import { ContentTab } from "scenes/Dashboard/components/ContentTab";
-import { DescriptionView } from "scenes/Dashboard/containers/DescriptionView/index";
-import { Dropdown } from "utils/forms/fields";
-import { EvidenceView } from "scenes/Dashboard/containers/EvidenceView/index";
-import { ExploitView } from "scenes/Dashboard/containers/ExploitView/index";
+import type { GraphQLError } from "graphql";
+import _ from "lodash";
+import React, { useCallback, useState } from "react";
+import {
+  Redirect,
+  Route,
+  Switch,
+  useHistory,
+  useParams,
+  useRouteMatch,
+} from "react-router-dom";
 import { Field } from "redux-form";
+
+import { ButtonCol } from "./components/buttoncol";
+
+import { Button } from "components/Button";
+import { Modal } from "components/Modal";
+import { ContentTab } from "scenes/Dashboard/components/ContentTab";
 import { FindingActions } from "scenes/Dashboard/components/FindingActions";
 import { FindingHeader } from "scenes/Dashboard/components/FindingHeader";
 import { GenericForm } from "scenes/Dashboard/components/GenericForm";
-import type { GraphQLError } from "graphql";
-import { Have } from "utils/authz/Have";
-import type { IHeaderQueryResult } from "scenes/Dashboard/containers/FindingContent/types";
-import { Logger } from "utils/logger";
-import { Modal } from "components/Modal";
-import type { PureAbility } from "@casl/ability";
-import type { QueryResult } from "@apollo/react-common";
-import { RecordsView } from "scenes/Dashboard/containers/RecordsView/index";
-import { SeverityView } from "scenes/Dashboard/containers/SeverityView/index";
-import { TrackingView } from "scenes/Dashboard/containers/TrackingView/index";
-import { VulnsView } from "scenes/Dashboard/containers/VulnerabilitiesView/index";
-import _ from "lodash";
-import { required } from "utils/validations";
-import { translate } from "utils/translations/translate";
-import { useAbility } from "@casl/react";
-import { useTabTracking } from "utils/hooks";
+import { CommentsView } from "scenes/Dashboard/containers/CommentsView/index";
+import { DescriptionView } from "scenes/Dashboard/containers/DescriptionView/index";
+import { EvidenceView } from "scenes/Dashboard/containers/EvidenceView/index";
+import { ExploitView } from "scenes/Dashboard/containers/ExploitView/index";
 import {
   APPROVE_DRAFT_MUTATION,
   DELETE_FINDING_MUTATION,
@@ -36,6 +36,11 @@ import {
   REJECT_DRAFT_MUTATION,
   SUBMIT_DRAFT_MUTATION,
 } from "scenes/Dashboard/containers/FindingContent/queries";
+import type { IHeaderQueryResult } from "scenes/Dashboard/containers/FindingContent/types";
+import { RecordsView } from "scenes/Dashboard/containers/RecordsView/index";
+import { SeverityView } from "scenes/Dashboard/containers/SeverityView/index";
+import { TrackingView } from "scenes/Dashboard/containers/TrackingView/index";
+import { VulnsView } from "scenes/Dashboard/containers/VulnerabilitiesView/index";
 import {
   ButtonToolbar,
   Col100,
@@ -47,18 +52,15 @@ import {
   TabContent,
   TabsContainer,
 } from "styles/styledComponents";
-import React, { useCallback, useState } from "react";
-import {
-  Redirect,
-  Route,
-  Switch,
-  useHistory,
-  useParams,
-  useRouteMatch,
-} from "react-router-dom";
+import { Can } from "utils/authz/Can";
 import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
+import { Have } from "utils/authz/Have";
+import { Dropdown } from "utils/forms/fields";
+import { useTabTracking } from "utils/hooks";
+import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
-import { useMutation, useQuery } from "@apollo/react-hooks";
+import { translate } from "utils/translations/translate";
+import { required } from "utils/validations";
 
 const findingContent: React.FC = (): JSX.Element => {
   const { findingId, projectName } = useParams<{

@@ -1,17 +1,18 @@
-import { GET_FINDING_RECORDS } from "scenes/Dashboard/containers/RecordsView/queries";
 import { MockedProvider } from "@apollo/react-testing";
 import type { MockedResponse } from "@apollo/react-testing";
-import { Provider } from "react-redux";
 import { PureAbility } from "@casl/ability";
-import React from "react";
 import type { ReactWrapper } from "enzyme";
-import { RecordsView } from "scenes/Dashboard/containers/RecordsView";
-import { act } from "react-dom/test-utils";
-import { authzPermissionsContext } from "utils/authz/config";
 import { mount } from "enzyme";
-import store from "store";
-import wait from "waait";
+import React from "react";
+import { act } from "react-dom/test-utils";
+import { Provider } from "react-redux";
 import { MemoryRouter, Route } from "react-router-dom";
+import wait from "waait";
+
+import { RecordsView } from "scenes/Dashboard/containers/RecordsView";
+import { GET_FINDING_RECORDS } from "scenes/Dashboard/containers/RecordsView/queries";
+import store from "store";
+import { authzPermissionsContext } from "utils/authz/config";
 
 describe("FindingRecordsView", (): void => {
   const mocks: readonly MockedResponse[] = [

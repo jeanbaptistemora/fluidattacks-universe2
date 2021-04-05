@@ -1,7 +1,8 @@
-import { Button } from "components/Button";
-import { translate } from "utils/translations/translate";
 import { Form, Input } from "antd";
 import React, { useCallback, useState } from "react";
+
+import { Button } from "components/Button";
+import { translate } from "utils/translations/translate";
 
 const { TextArea } = Input;
 

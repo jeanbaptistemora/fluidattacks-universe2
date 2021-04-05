@@ -2,16 +2,18 @@
   -------
   We need className to override default styles from react-boostrap.
 */
-import { Button } from "components/Button";
+import { faCog } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import _ from "lodash";
+import React, { useState } from "react";
 import type { Column } from "react-bootstrap-table-next";
 import type { ColumnToggle } from "react-bootstrap-table2-toolkit";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useTranslation } from "react-i18next";
+
+import { Button } from "components/Button";
 import type { ICustomToggleProps } from "components/DataTableNext/types";
 import { Modal } from "components/Modal";
 import { TooltipWrapper } from "components/TooltipWrapper";
-import _ from "lodash";
-import { faCog } from "@fortawesome/free-solid-svg-icons";
-import { useTranslation } from "react-i18next";
 import {
   ButtonToolbar,
   Col100,
@@ -19,7 +21,6 @@ import {
   Row,
   RowCenter,
 } from "styles/styledComponents";
-import React, { useState } from "react";
 
 export const CustomToggleList: React.FC<ICustomToggleProps> = (
   // Readonly utility type doesn't work on deeply nested types

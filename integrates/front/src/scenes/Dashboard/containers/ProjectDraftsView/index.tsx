@@ -1,38 +1,39 @@
+import { useMutation, useQuery } from "@apollo/react-hooks";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { ApolloError } from "apollo-client";
-import { AutoCompleteText } from "utils/forms/fields";
+import type { GraphQLError } from "graphql";
+import _ from "lodash";
+import React, { useCallback, useEffect, useState } from "react";
+import { selectFilter } from "react-bootstrap-table2-filter";
+import { useHistory, useParams } from "react-router-dom";
+import { Field } from "redux-form";
+import type { InjectedFormProps } from "redux-form";
+
 import { Button } from "components/Button";
 import { DataTableNext } from "components/DataTableNext";
-import { Field } from "redux-form";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { GenericForm } from "scenes/Dashboard/components/GenericForm";
-import type { GraphQLError } from "graphql";
+import { statusFormatter } from "components/DataTableNext/formatters";
 import type { IHeaderConfig } from "components/DataTableNext/types";
-import type { IProjectDraftsAttr } from "scenes/Dashboard/containers/ProjectDraftsView/types";
-import type { InjectedFormProps } from "redux-form";
-import { Logger } from "utils/logger";
 import { Modal } from "components/Modal";
 import { TooltipWrapper } from "components/TooltipWrapper";
-import _ from "lodash";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { GenericForm } from "scenes/Dashboard/components/GenericForm";
+import {
+  CREATE_DRAFT_MUTATION,
+  GET_DRAFTS,
+} from "scenes/Dashboard/containers/ProjectDraftsView/queries";
+import type { IProjectDraftsAttr } from "scenes/Dashboard/containers/ProjectDraftsView/types";
 import { formatDrafts } from "scenes/Dashboard/containers/ProjectDraftsView/utils";
-import { selectFilter } from "react-bootstrap-table2-filter";
-import { statusFormatter } from "components/DataTableNext/formatters";
-import { translate } from "utils/translations/translate";
 import {
   ButtonToolbar,
   ButtonToolbarCenter,
   Col100,
   Row,
 } from "styles/styledComponents";
-import {
-  CREATE_DRAFT_MUTATION,
-  GET_DRAFTS,
-} from "scenes/Dashboard/containers/ProjectDraftsView/queries";
-import React, { useCallback, useEffect, useState } from "react";
+import { AutoCompleteText } from "utils/forms/fields";
+import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
+import { translate } from "utils/translations/translate";
 import { required, validDraftTitle } from "utils/validations";
-import { useHistory, useParams } from "react-router-dom";
-import { useMutation, useQuery } from "@apollo/react-hooks";
 
 const ProjectDraftsView: React.FC = (): JSX.Element => {
   const { projectName } = useParams<{ projectName: string }>();

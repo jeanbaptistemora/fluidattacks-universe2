@@ -1,16 +1,17 @@
+import { useQuery } from "@apollo/react-hooks";
 import type { ApolloError } from "apollo-client";
-import { DataTableNext } from "components/DataTableNext";
 import type { GraphQLError } from "graphql";
-import type { IHeaderConfig } from "components/DataTableNext/types";
-import { Logger } from "utils/logger";
-import { PORTFOLIO_GROUP_QUERY } from "scenes/Dashboard/containers/TagContent/TagGroup/queries";
-import React from "react";
-import { Row } from "styles/styledComponents";
 import _ from "lodash";
+import React from "react";
+import { useHistory, useParams } from "react-router";
+
+import { DataTableNext } from "components/DataTableNext";
+import type { IHeaderConfig } from "components/DataTableNext/types";
+import { PORTFOLIO_GROUP_QUERY } from "scenes/Dashboard/containers/TagContent/TagGroup/queries";
+import { Row } from "styles/styledComponents";
+import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
-import { useQuery } from "@apollo/react-hooks";
-import { useHistory, useParams } from "react-router";
 
 interface IPortfolio {
   tag: {

@@ -3,10 +3,11 @@
   Readonly utility type does not work on deeply nested types and we need
   className to override default styles from react-bootstrap.
 */
-import React from "react";
-import { ValidationError } from "styles/styledComponents";
-import type { WrappedFieldProps } from "redux-form";
 import _ from "lodash";
+import React from "react";
+import type { WrappedFieldProps } from "redux-form";
+
+import { ValidationError } from "styles/styledComponents";
 import style from "utils/forms/index.css";
 
 interface IDropdownProps extends WrappedFieldProps {

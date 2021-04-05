@@ -1,15 +1,17 @@
+import { track } from "mixpanel-browser";
+import React, { useEffect } from "react";
+import { useParams } from "react-router";
+
+import { Unsubscribe } from "./Unsubscribe";
+
 import { AgentToken } from "scenes/Dashboard/containers/ProjectSettingsView/AgentToken";
-import { Can } from "utils/authz/Can";
 import { DeleteGroup } from "scenes/Dashboard/containers/ProjectSettingsView/DeleteGroup";
 import { Files } from "scenes/Dashboard/containers/ProjectSettingsView/Files";
 import { GroupInformation } from "scenes/Dashboard/containers/ProjectSettingsView/Info";
-import { Have } from "utils/authz/Have";
 import { Portfolio } from "scenes/Dashboard/containers/ProjectSettingsView/Portfolio";
 import { Services } from "scenes/Dashboard/containers/ProjectSettingsView/Services";
-import { Unsubscribe } from "./Unsubscribe";
-import { track } from "mixpanel-browser";
-import { useParams } from "react-router";
-import React, { useEffect } from "react";
+import { Can } from "utils/authz/Can";
+import { Have } from "utils/authz/Have";
 
 const ProjectSettingsView: React.FC = (): JSX.Element => {
   const { projectName } = useParams<{ projectName: string }>();

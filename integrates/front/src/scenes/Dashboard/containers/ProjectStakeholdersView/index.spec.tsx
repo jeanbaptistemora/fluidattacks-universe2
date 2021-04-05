@@ -1,26 +1,27 @@
-import { DataTableNext } from "components/DataTableNext";
-import { GraphQLError } from "graphql";
-import type { ITableProps } from "components/DataTableNext/types";
 import { MockedProvider } from "@apollo/react-testing";
 import type { MockedResponse } from "@apollo/react-testing";
-import { ProjectStakeholdersView } from "scenes/Dashboard/containers/ProjectStakeholdersView";
-import { Provider } from "react-redux";
 import { PureAbility } from "@casl/ability";
-import React from "react";
 import type { ReactWrapper } from "enzyme";
-import { act } from "react-dom/test-utils";
-import { authzPermissionsContext } from "utils/authz/config";
 import { mount } from "enzyme";
-import store from "store";
-import { timeFromNow } from "components/DataTableNext/formatters";
+import { GraphQLError } from "graphql";
+import React from "react";
+import { act } from "react-dom/test-utils";
+import { Provider } from "react-redux";
+import { MemoryRouter, Route } from "react-router";
 import wait from "waait";
+
+import { DataTableNext } from "components/DataTableNext";
+import { timeFromNow } from "components/DataTableNext/formatters";
+import type { ITableProps } from "components/DataTableNext/types";
+import { ProjectStakeholdersView } from "scenes/Dashboard/containers/ProjectStakeholdersView";
 import {
   ADD_STAKEHOLDER_MUTATION,
   EDIT_STAKEHOLDER_MUTATION,
   GET_STAKEHOLDERS,
   REMOVE_STAKEHOLDER_MUTATION,
 } from "scenes/Dashboard/containers/ProjectStakeholdersView/queries";
-import { MemoryRouter, Route } from "react-router";
+import store from "store";
+import { authzPermissionsContext } from "utils/authz/config";
 import { msgError, msgSuccess } from "utils/notifications";
 
 jest.mock(

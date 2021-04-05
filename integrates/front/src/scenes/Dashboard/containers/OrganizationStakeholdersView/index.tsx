@@ -1,25 +1,26 @@
-import { AddUserModal } from "scenes/Dashboard/components/AddUserModal";
+import { useMutation, useQuery } from "@apollo/react-hooks";
+import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { ApolloError } from "apollo-client";
+import type { GraphQLError } from "graphql";
+import _ from "lodash";
+import { track } from "mixpanel-browser";
+import React, { useCallback, useState } from "react";
+import { useParams } from "react-router";
+
 import { Button } from "components/Button";
 import { DataTableNext } from "components/DataTableNext";
-import { FluidIcon } from "components/FluidIcon";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import type { GraphQLError } from "graphql";
-import type { IHeaderConfig } from "components/DataTableNext/types";
-import { Logger } from "utils/logger";
-import { TooltipWrapper } from "components/TooltipWrapper";
-import _ from "lodash";
 import { timeFromNow } from "components/DataTableNext/formatters";
-import { track } from "mixpanel-browser";
-import { translate } from "utils/translations/translate";
-import { useParams } from "react-router";
+import type { IHeaderConfig } from "components/DataTableNext/types";
+import { FluidIcon } from "components/FluidIcon";
+import { TooltipWrapper } from "components/TooltipWrapper";
+import { AddUserModal } from "scenes/Dashboard/components/AddUserModal";
 import {
   ADD_STAKEHOLDER_MUTATION,
   EDIT_STAKEHOLDER_MUTATION,
   GET_ORGANIZATION_STAKEHOLDERS,
   REMOVE_STAKEHOLDER_MUTATION,
 } from "scenes/Dashboard/containers/OrganizationStakeholdersView/queries";
-import { ButtonToolbar, Col100, Row } from "styles/styledComponents";
 import type {
   IAddStakeholderAttrs,
   IEditStakeholderAttrs,
@@ -27,10 +28,10 @@ import type {
   IRemoveStakeholderAttrs,
   IStakeholderAttrs,
 } from "scenes/Dashboard/containers/OrganizationStakeholdersView/types";
-import React, { useCallback, useState } from "react";
-import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { ButtonToolbar, Col100, Row } from "styles/styledComponents";
+import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
-import { useMutation, useQuery } from "@apollo/react-hooks";
+import { translate } from "utils/translations/translate";
 
 const tableHeaders: IHeaderConfig[] = [
   {

@@ -1,16 +1,17 @@
+import _ from "lodash";
+import React from "react";
+import { useHistory, useRouteMatch } from "react-router";
+
 import { DataTableNext } from "components/DataTableNext/index";
 import type { IHeaderConfig } from "components/DataTableNext/types";
-import React from "react";
-import _ from "lodash";
 import style from "scenes/Dashboard/containers/OrganizationGroupsView/index.css";
-import { translate } from "utils/translations/translate";
-import { Col100, Row } from "styles/styledComponents";
 import type {
   IOrganizationPortfoliosProps,
   IPortfolios,
   IPortfoliosTable,
 } from "scenes/Dashboard/containers/OrganizationPortfoliosView/types";
-import { useHistory, useRouteMatch } from "react-router";
+import { Col100, Row } from "styles/styledComponents";
+import { translate } from "utils/translations/translate";
 
 const OrganizationPortfolios: React.FC<IOrganizationPortfoliosProps> = (
   props: IOrganizationPortfoliosProps

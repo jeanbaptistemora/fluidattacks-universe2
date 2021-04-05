@@ -1,12 +1,14 @@
-import { Dropdown } from "utils/forms/fields";
-import { EditableField } from "scenes/Dashboard/components/EditableField";
-import type { ITreatmentManagerFieldProps } from "./types";
 import type { PureAbility } from "@casl/ability";
-import React from "react";
-import _ from "lodash";
-import { authzPermissionsContext } from "utils/authz/config";
-import { translate } from "utils/translations/translate";
 import { useAbility } from "@casl/react";
+import _ from "lodash";
+import React from "react";
+
+import type { ITreatmentManagerFieldProps } from "./types";
+
+import { EditableField } from "scenes/Dashboard/components/EditableField";
+import { authzPermissionsContext } from "utils/authz/config";
+import { Dropdown } from "utils/forms/fields";
+import { translate } from "utils/translations/translate";
 
 const TreatmentManagerField: React.FC<ITreatmentManagerFieldProps> = (
   props: ITreatmentManagerFieldProps

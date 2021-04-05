@@ -1,6 +1,7 @@
-import { ArrayWrapper } from "./wrapper";
-import { FieldArray } from "redux-form";
 import React from "react";
+import { FieldArray } from "redux-form";
+
+import { ArrayWrapper } from "./wrapper";
 
 interface IArrayProps {
   allowEmpty: boolean;

@@ -1,26 +1,27 @@
-import { ContentTab } from "scenes/Dashboard/components/ContentTab";
-import { DataTableNext } from "components/DataTableNext";
-import { GET_FORCES_EXECUTION } from "scenes/Dashboard/containers/ProjectForcesView/queries";
-import type { IHeaderConfig } from "components/DataTableNext/types";
-import type { ReactElement } from "react";
-import SyntaxHighlighter from "react-syntax-highlighter/dist/esm/light";
-import _ from "lodash";
-import monokaiSublime from "react-syntax-highlighter/dist/esm/styles/hljs/monokai-sublime";
-import { selectFilter } from "react-bootstrap-table2-filter";
-import { statusFormatter } from "components/DataTableNext/formatters";
-import styles from "scenes/Dashboard/containers/ProjectForcesView/index.css";
-import { translate } from "utils/translations/translate";
 import { useQuery } from "@apollo/react-hooks";
-import { useStoredState } from "utils/hooks";
-import { Col33, Row, TabsContainer } from "styles/styledComponents";
+import _ from "lodash";
+import type { ReactElement } from "react";
+import React, { useCallback } from "react";
+import { selectFilter } from "react-bootstrap-table2-filter";
+import { MemoryRouter, Route } from "react-router";
+import SyntaxHighlighter from "react-syntax-highlighter/dist/esm/light";
+import monokaiSublime from "react-syntax-highlighter/dist/esm/styles/hljs/monokai-sublime";
+
+import { DataTableNext } from "components/DataTableNext";
+import { statusFormatter } from "components/DataTableNext/formatters";
+import type { IHeaderConfig } from "components/DataTableNext/types";
+import { ContentTab } from "scenes/Dashboard/components/ContentTab";
+import styles from "scenes/Dashboard/containers/ProjectForcesView/index.css";
+import { GET_FORCES_EXECUTION } from "scenes/Dashboard/containers/ProjectForcesView/queries";
 import type {
   IExecution,
   IExploitResult,
   IFoundVulnerabilities,
   IVulnerabilities,
 } from "scenes/Dashboard/containers/ProjectForcesView/types";
-import { MemoryRouter, Route } from "react-router";
-import React, { useCallback } from "react";
+import { Col33, Row, TabsContainer } from "styles/styledComponents";
+import { useStoredState } from "utils/hooks";
+import { translate } from "utils/translations/translate";
 
 const Execution: React.FC<IExecution> = (
   props: Readonly<IExecution>

@@ -1,25 +1,7 @@
-import type { ApolloError } from "apollo-client";
-import { EventCommentsView } from "scenes/Dashboard/containers/EventCommentsView";
-import { EventDescriptionView } from "scenes/Dashboard/containers/EventDescriptionView/index";
-import { EventEvidenceView } from "scenes/Dashboard/containers/EventEvidenceView";
-import { EventHeader } from "scenes/Dashboard/components/EventHeader";
-import { GET_EVENT_HEADER } from "scenes/Dashboard/containers/EventContent/queries";
-import type { GraphQLError } from "graphql";
-import type { IEventHeaderProps } from "scenes/Dashboard/components/EventHeader";
-import { Logger } from "utils/logger";
-import { NavLink } from "react-router-dom";
-import _ from "lodash";
-import { msgError } from "utils/notifications";
-import { translate } from "utils/translations/translate";
 import { useQuery } from "@apollo/react-hooks";
-import { useTabTracking } from "utils/hooks";
-import {
-  Col100,
-  Row,
-  Tab,
-  TabContent,
-  TabsContainer,
-} from "styles/styledComponents";
+import type { ApolloError } from "apollo-client";
+import type { GraphQLError } from "graphql";
+import _ from "lodash";
 import React, { useCallback } from "react";
 import {
   Redirect,
@@ -28,6 +10,25 @@ import {
   useParams,
   useRouteMatch,
 } from "react-router";
+import { NavLink } from "react-router-dom";
+
+import { EventHeader } from "scenes/Dashboard/components/EventHeader";
+import type { IEventHeaderProps } from "scenes/Dashboard/components/EventHeader";
+import { EventCommentsView } from "scenes/Dashboard/containers/EventCommentsView";
+import { GET_EVENT_HEADER } from "scenes/Dashboard/containers/EventContent/queries";
+import { EventDescriptionView } from "scenes/Dashboard/containers/EventDescriptionView/index";
+import { EventEvidenceView } from "scenes/Dashboard/containers/EventEvidenceView";
+import {
+  Col100,
+  Row,
+  Tab,
+  TabContent,
+  TabsContainer,
+} from "styles/styledComponents";
+import { useTabTracking } from "utils/hooks";
+import { Logger } from "utils/logger";
+import { msgError } from "utils/notifications";
+import { translate } from "utils/translations/translate";
 
 interface IEventHeaderData {
   event: IEventHeaderProps;

@@ -1,12 +1,13 @@
-import { Field } from "redux-form";
-import { GenericForm } from "../../../../scenes/Dashboard/components/GenericForm";
-import { Provider } from "react-redux";
-import React from "react";
 import type { ReactWrapper } from "enzyme";
-import { TextArea } from ".";
 import { mount } from "enzyme";
-import { required } from "../../../validations";
+import React from "react";
+import { Provider } from "react-redux";
+import { Field } from "redux-form";
+
+import { TextArea } from ".";
+import { GenericForm } from "../../../../scenes/Dashboard/components/GenericForm";
 import store from "../../../../store";
+import { required } from "../../../validations";
 
 describe("TextArea Field", (): void => {
   it("should return a function", (): void => {

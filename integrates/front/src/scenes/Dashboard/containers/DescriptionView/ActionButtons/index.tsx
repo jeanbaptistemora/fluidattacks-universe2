@@ -1,11 +1,12 @@
-import { Button } from "components/Button";
-import { ButtonToolbarRow } from "styles/styledComponents";
-import { Can } from "utils/authz/Can";
-import { FluidIcon } from "components/FluidIcon";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
+
+import { Button } from "components/Button";
+import { FluidIcon } from "components/FluidIcon";
 import { TooltipWrapper } from "components/TooltipWrapper";
-import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import { ButtonToolbarRow } from "styles/styledComponents";
+import { Can } from "utils/authz/Can";
 import { translate } from "utils/translations/translate";
 
 interface IActionButtonsProps {

@@ -1,13 +1,12 @@
-import { Button } from "components/Button";
-import type { ConfigurableValidator } from "revalidate";
-import { Field } from "redux-form";
-import { GenericForm } from "scenes/Dashboard/components/GenericForm";
-import type { InjectedFormProps } from "redux-form";
-import { Modal } from "components/Modal";
-import React from "react";
-import { TextArea } from "utils/forms/fields";
 import _ from "lodash";
-import { translate } from "utils/translations/translate";
+import React from "react";
+import { Field } from "redux-form";
+import type { InjectedFormProps } from "redux-form";
+import type { ConfigurableValidator } from "revalidate";
+
+import { Button } from "components/Button";
+import { Modal } from "components/Modal";
+import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import {
   ButtonToolbar,
   Col100,
@@ -16,6 +15,8 @@ import {
   RequiredField,
   Row,
 } from "styles/styledComponents";
+import { TextArea } from "utils/forms/fields";
+import { translate } from "utils/translations/translate";
 import { maxLength, minLength, required } from "utils/validations";
 
 // ESLint annotations needed in order to avoid the mutations of defaultProps

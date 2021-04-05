@@ -1,7 +1,8 @@
+import { utc } from "moment";
 import type React from "react";
 import { createContext } from "react";
+
 import { translate } from "utils/translations/translate";
-import { utc } from "moment";
 
 interface IUser {
   userEmail: string;

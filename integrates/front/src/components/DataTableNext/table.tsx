@@ -4,21 +4,23 @@
   spreading is the technique used by react-bootstrap-table2 creators to pass
   down props
   */
+import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import _ from "lodash";
+import React from "react";
 import BootstrapTable from "react-bootstrap-table-next";
+import filterFactory from "react-bootstrap-table2-filter";
+import paginationFactory from "react-bootstrap-table2-paginator";
+import { Search } from "react-bootstrap-table2-toolkit";
+import { useTranslation } from "react-i18next";
+
 import { Button } from "components/Button";
 import { CustomToggleList } from "components/DataTableNext/customToggleList";
 import { ExportCSVButtonWrapper } from "components/DataTableNext/exportCSVButton";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import type { ITableWrapperProps } from "components/DataTableNext/types";
-import React from "react";
-import { Search } from "react-bootstrap-table2-toolkit";
-import { SizePerPageRenderer } from "components/DataTableNext/sizePerPageRenderer";
-import { TooltipWrapper } from "components/TooltipWrapper";
-import _ from "lodash";
-import filterFactory from "react-bootstrap-table2-filter";
-import paginationFactory from "react-bootstrap-table2-paginator";
 import style from "components/DataTableNext/index.css";
-import { useTranslation } from "react-i18next";
+import { SizePerPageRenderer } from "components/DataTableNext/sizePerPageRenderer";
+import type { ITableWrapperProps } from "components/DataTableNext/types";
+import { TooltipWrapper } from "components/TooltipWrapper";
 import {
   ButtonGroup,
   ButtonToolbarLeft,
@@ -26,7 +28,6 @@ import {
   TableOptionsColBar,
   TableOptionsColBtn,
 } from "styles/styledComponents";
-import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
 
 export const TableWrapper: React.FC<ITableWrapperProps> = (
   // Readonly utility type doesn't seem to work on ITableWrapperProps

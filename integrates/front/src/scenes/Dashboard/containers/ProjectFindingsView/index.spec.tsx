@@ -1,22 +1,23 @@
-import { Button } from "components/Button";
-import { CustomToggleList } from "components/DataTableNext/customToggleList";
-import { DataTableNext } from "components/DataTableNext";
-import { GET_FINDINGS } from "scenes/Dashboard/containers/ProjectFindingsView/queries";
-import { GraphQLError } from "graphql";
-import type { ITableProps } from "components/DataTableNext/types";
 import { MockedProvider } from "@apollo/react-testing";
 import type { MockedResponse } from "@apollo/react-testing";
-import { ProjectFindingsView } from "scenes/Dashboard/containers/ProjectFindingsView";
-import { Provider } from "react-redux";
 import { PureAbility } from "@casl/ability";
-import React from "react";
 import type { ReactWrapper } from "enzyme";
-import { act } from "react-dom/test-utils";
-import { authzPermissionsContext } from "utils/authz/config";
 import { mount } from "enzyme";
-import store from "store";
-import wait from "waait";
+import { GraphQLError } from "graphql";
+import React from "react";
+import { act } from "react-dom/test-utils";
+import { Provider } from "react-redux";
 import { MemoryRouter, Route } from "react-router-dom";
+import wait from "waait";
+
+import { Button } from "components/Button";
+import { DataTableNext } from "components/DataTableNext";
+import { CustomToggleList } from "components/DataTableNext/customToggleList";
+import type { ITableProps } from "components/DataTableNext/types";
+import { ProjectFindingsView } from "scenes/Dashboard/containers/ProjectFindingsView";
+import { GET_FINDINGS } from "scenes/Dashboard/containers/ProjectFindingsView/queries";
+import store from "store";
+import { authzPermissionsContext } from "utils/authz/config";
 
 describe("ProjectFindingsView", (): void => {
   const apolloDataMock: readonly MockedResponse[] = [

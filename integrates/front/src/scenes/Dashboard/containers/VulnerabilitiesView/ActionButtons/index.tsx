@@ -1,11 +1,13 @@
-import { ButtonToolbarRow } from "styles/styledComponents";
+import React, { useEffect } from "react";
+
 import { EditButton } from "./EditButton";
 import { HandleAcceptationButton } from "./HandleAcceptationButton";
 import { ReattackVulnButton } from "./ReattackVulnButton";
 import { VerifyVunButton } from "./VerifyVunButton";
+
+import { ButtonToolbarRow } from "styles/styledComponents";
 import { msgInfo } from "utils/notifications";
 import { translate } from "utils/translations/translate";
-import React, { useEffect } from "react";
 
 interface IActionButtonsProps {
   areVulnsSelected: boolean;

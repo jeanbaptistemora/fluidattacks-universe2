@@ -1,12 +1,13 @@
-import { AutoCompleteText } from "utils/forms/fields/AutoCompleteText";
-import { Field } from "redux-form";
-import { GenericForm } from "scenes/Dashboard/components/GenericForm";
-import { Provider } from "react-redux";
-import React from "react";
 import type { ReactWrapper } from "enzyme";
 import { mount } from "enzyme";
-import { required } from "utils/validations";
+import React from "react";
+import { Provider } from "react-redux";
+import { Field } from "redux-form";
+
+import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import store from "store";
+import { AutoCompleteText } from "utils/forms/fields/AutoCompleteText";
+import { required } from "utils/validations";
 
 describe("AutoCompleteText Field", (): void => {
   it("should return a function", (): void => {

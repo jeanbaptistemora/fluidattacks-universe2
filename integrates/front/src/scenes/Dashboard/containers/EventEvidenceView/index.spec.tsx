@@ -1,22 +1,23 @@
-import { EventEvidenceView } from "scenes/Dashboard/containers/EventEvidenceView";
-import { EvidenceDescription } from "styles/styledComponents";
 import { MockedProvider } from "@apollo/react-testing";
 import type { MockedResponse } from "@apollo/react-testing";
-import { Provider } from "react-redux";
 import { PureAbility } from "@casl/ability";
-import React from "react";
 import type { ReactWrapper } from "enzyme";
-import _ from "lodash";
-import { act } from "react-dom/test-utils";
-import { authzPermissionsContext } from "utils/authz/config";
 import { mount } from "enzyme";
-import store from "store";
+import _ from "lodash";
+import React from "react";
+import { act } from "react-dom/test-utils";
+import { Provider } from "react-redux";
+import { MemoryRouter, Route } from "react-router";
 import wait from "waait";
+
+import { EventEvidenceView } from "scenes/Dashboard/containers/EventEvidenceView";
 import {
   DOWNLOAD_FILE_MUTATION,
   GET_EVENT_EVIDENCES,
 } from "scenes/Dashboard/containers/EventEvidenceView/queries";
-import { MemoryRouter, Route } from "react-router";
+import store from "store";
+import { EvidenceDescription } from "styles/styledComponents";
+import { authzPermissionsContext } from "utils/authz/config";
 
 describe("EventEvidenceView", (): void => {
   it("should return a fuction", (): void => {

@@ -1,18 +1,19 @@
-import { GraphQLError } from "graphql";
 import { MockedProvider } from "@apollo/react-testing";
 import type { MockedResponse } from "@apollo/react-testing";
-import { PORTFOLIO_GROUP_QUERY } from "scenes/Dashboard/containers/TagContent/TagGroup/queries";
-import { Provider } from "react-redux";
-import React from "react";
 import type { ReactWrapper } from "enzyme";
-import { TagsGroup } from "scenes/Dashboard/containers/TagContent/TagGroup";
-import { act } from "react-dom/test-utils";
 import { mount } from "enzyme";
-import { msgError } from "utils/notifications";
-import store from "store/index";
-import { translate } from "utils/translations/translate";
-import waitForExpect from "wait-for-expect";
+import { GraphQLError } from "graphql";
+import React from "react";
+import { act } from "react-dom/test-utils";
+import { Provider } from "react-redux";
 import { MemoryRouter, Route } from "react-router";
+import waitForExpect from "wait-for-expect";
+
+import { TagsGroup } from "scenes/Dashboard/containers/TagContent/TagGroup";
+import { PORTFOLIO_GROUP_QUERY } from "scenes/Dashboard/containers/TagContent/TagGroup/queries";
+import store from "store/index";
+import { msgError } from "utils/notifications";
+import { translate } from "utils/translations/translate";
 
 const mockHistoryPush: jest.Mock = jest.fn();
 jest.mock(

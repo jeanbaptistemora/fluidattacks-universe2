@@ -1,15 +1,17 @@
 import { Comment } from "antd";
-import { CommentEditor } from "./commentEditor";
-import type { IAuthContext } from "utils/auth";
-import { authContext } from "utils/auth";
 import moment from "moment";
-import { translate } from "utils/translations/translate";
+import React, { useCallback, useContext, useEffect, useState } from "react";
+
+import { CommentEditor } from "./commentEditor";
+
 import type {
   ICommentStructure,
   ILoadCallback,
   IPostCallback,
 } from "scenes/Dashboard/components/Comments/types";
-import React, { useCallback, useContext, useEffect, useState } from "react";
+import type { IAuthContext } from "utils/auth";
+import { authContext } from "utils/auth";
+import { translate } from "utils/translations/translate";
 
 interface ICommentsRefacProps {
   onLoad: (callbackFn: ILoadCallback) => void;

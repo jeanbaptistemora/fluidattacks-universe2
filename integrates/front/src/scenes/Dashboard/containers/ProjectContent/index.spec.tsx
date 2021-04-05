@@ -1,12 +1,13 @@
 import { MockedProvider } from "@apollo/react-testing";
-import { ProjectContent } from "scenes/Dashboard/containers/ProjectContent";
-import { Provider } from "react-redux";
-import React from "react";
 import type { ReactWrapper } from "enzyme";
 import { mount } from "enzyme";
-import store from "store";
-import wait from "waait";
+import React from "react";
+import { Provider } from "react-redux";
 import { MemoryRouter, Route } from "react-router-dom";
+import wait from "waait";
+
+import { ProjectContent } from "scenes/Dashboard/containers/ProjectContent";
+import store from "store";
 
 describe("ProjectContent", (): void => {
   it("should return a function", (): void => {

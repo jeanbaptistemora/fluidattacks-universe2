@@ -1,8 +1,9 @@
-import { EventHeader } from "scenes/Dashboard/components/EventHeader";
-import type { IEventHeaderProps } from "scenes/Dashboard/components/EventHeader";
-import React from "react";
 import type { ShallowWrapper } from "enzyme";
 import { shallow } from "enzyme";
+import React from "react";
+
+import { EventHeader } from "scenes/Dashboard/components/EventHeader";
+import type { IEventHeaderProps } from "scenes/Dashboard/components/EventHeader";
 
 describe("EventHeader", (): void => {
   it("should return a function", (): void => {

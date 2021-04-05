@@ -1,14 +1,15 @@
-import { GET_GROUP_DATA } from "scenes/Dashboard/containers/ProjectSettingsView/queries";
-import { GroupInformation } from "scenes/Dashboard/containers/ProjectSettingsView/Info";
 import type { MockedResponse } from "@apollo/react-testing";
-import { Provider } from "react-redux";
-import React from "react";
-import type { ReactWrapper } from "enzyme";
-import { act } from "react-dom/test-utils";
-import { mount } from "enzyme";
-import store from "store";
-import { MemoryRouter, Route } from "react-router";
 import { MockedProvider, wait } from "@apollo/react-testing";
+import type { ReactWrapper } from "enzyme";
+import { mount } from "enzyme";
+import React from "react";
+import { act } from "react-dom/test-utils";
+import { Provider } from "react-redux";
+import { MemoryRouter, Route } from "react-router";
+
+import { GroupInformation } from "scenes/Dashboard/containers/ProjectSettingsView/Info";
+import { GET_GROUP_DATA } from "scenes/Dashboard/containers/ProjectSettingsView/queries";
+import store from "store";
 
 describe("Environments", (): void => {
   const mocksInfo: readonly MockedResponse[] = [

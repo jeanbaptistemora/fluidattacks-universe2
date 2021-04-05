@@ -1,37 +1,38 @@
-import type { ApolloError } from "apollo-client";
-import { Button } from "components/Button";
-import { Can } from "utils/authz/Can";
-import { DataTableNext } from "components/DataTableNext";
-import { Field } from "redux-form";
-import { FileInput } from "utils/forms/fields";
-import { FluidIcon } from "components/FluidIcon";
+import { useMutation, useQuery } from "@apollo/react-hooks";
+import { faCloudUploadAlt, faList } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { GET_FINDING_RECORDS } from "scenes/Dashboard/containers/RecordsView/queries";
-import { GenericForm } from "scenes/Dashboard/components/GenericForm";
+import type { ApolloError } from "apollo-client";
 import type { GraphQLError } from "graphql";
-import type { InjectedFormProps } from "redux-form";
-import { Logger } from "utils/logger";
-import { TooltipWrapper } from "components/TooltipWrapper";
 import _ from "lodash";
-import globalStyle from "styles/global.css";
-import { msgError } from "utils/notifications";
 import { track } from "mixpanel-browser";
-import { translate } from "utils/translations/translate";
+import React, { useCallback, useState } from "react";
 import { useParams } from "react-router";
+import { Field } from "redux-form";
+import type { InjectedFormProps } from "redux-form";
+
+import { Button } from "components/Button";
+import { DataTableNext } from "components/DataTableNext";
+import { FluidIcon } from "components/FluidIcon";
+import { TooltipWrapper } from "components/TooltipWrapper";
+import { GenericForm } from "scenes/Dashboard/components/GenericForm";
+import {
+  REMOVE_EVIDENCE_MUTATION,
+  UPDATE_EVIDENCE_MUTATION,
+} from "scenes/Dashboard/containers/EvidenceView/queries";
+import { GET_FINDING_RECORDS } from "scenes/Dashboard/containers/RecordsView/queries";
+import globalStyle from "styles/global.css";
 import {
   ButtonToolbarRow,
   Col100,
   Row,
   RowCenter,
 } from "styles/styledComponents";
-import {
-  REMOVE_EVIDENCE_MUTATION,
-  UPDATE_EVIDENCE_MUTATION,
-} from "scenes/Dashboard/containers/EvidenceView/queries";
-import React, { useCallback, useState } from "react";
-import { faCloudUploadAlt, faList } from "@fortawesome/free-solid-svg-icons";
+import { Can } from "utils/authz/Can";
+import { FileInput } from "utils/forms/fields";
+import { Logger } from "utils/logger";
+import { msgError } from "utils/notifications";
+import { translate } from "utils/translations/translate";
 import { required, validRecordsFile } from "utils/validations";
-import { useMutation, useQuery } from "@apollo/react-hooks";
 
 const RecordsView: React.FC = (): JSX.Element => {
   const { findingId } = useParams<{ findingId: string }>();

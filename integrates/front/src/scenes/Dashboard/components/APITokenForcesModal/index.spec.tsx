@@ -1,17 +1,18 @@
-import { APITokenForcesModal } from "scenes/Dashboard/components/APITokenForcesModal";
 import type { MockedResponse } from "@apollo/react-testing";
-import { Provider } from "react-redux";
-import React from "react";
+import { MockedProvider, wait } from "@apollo/react-testing";
 import type { ReactWrapper } from "enzyme";
-import { act } from "react-dom/test-utils";
 import { mount } from "enzyme";
-import store from "store";
+import React from "react";
+import { act } from "react-dom/test-utils";
+import { Provider } from "react-redux";
 import waitForExpect from "wait-for-expect";
+
+import { APITokenForcesModal } from "scenes/Dashboard/components/APITokenForcesModal";
 import {
   GET_FORCES_TOKEN,
   UPDATE_FORCES_TOKEN_MUTATION,
 } from "scenes/Dashboard/components/APITokenForcesModal/queries";
-import { MockedProvider, wait } from "@apollo/react-testing";
+import store from "store";
 
 describe("Update access token modal", (): void => {
   const handleOnClose: jest.Mock = jest.fn();

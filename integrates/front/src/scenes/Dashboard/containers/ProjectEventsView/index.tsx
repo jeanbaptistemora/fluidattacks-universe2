@@ -1,25 +1,31 @@
-import type { ApolloError } from "apollo-client";
-import { Button } from "components/Button";
-import { Can } from "utils/authz/Can";
-import type { ConfigurableValidator } from "revalidate";
-import { DataTableNext } from "components/DataTableNext";
+import { useMutation, useQuery } from "@apollo/react-hooks";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { GenericForm } from "scenes/Dashboard/components/GenericForm";
+import type { ApolloError } from "apollo-client";
 import type { GraphQLError } from "graphql";
+import _ from "lodash";
+import { track } from "mixpanel-browser";
+import React, { useCallback, useState } from "react";
+import { selectFilter } from "react-bootstrap-table2-filter";
+import { useSelector } from "react-redux";
+import { useHistory, useParams } from "react-router";
+import { Field, FormSection, formValueSelector } from "redux-form";
+import type { InjectedFormProps, Validator } from "redux-form";
+import type { ConfigurableValidator } from "revalidate";
+
+import { Button } from "components/Button";
+import { DataTableNext } from "components/DataTableNext";
+import { statusFormatter } from "components/DataTableNext/formatters";
 import type { IHeaderConfig } from "components/DataTableNext/types";
-import { Logger } from "utils/logger";
 import { Modal } from "components/Modal";
 import { TooltipWrapper } from "components/TooltipWrapper";
-import _ from "lodash";
-import { castEventType } from "utils/formatHelpers";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { GenericForm } from "scenes/Dashboard/components/GenericForm";
+import {
+  CREATE_EVENT_MUTATION,
+  GET_EVENTS,
+} from "scenes/Dashboard/containers/ProjectEventsView/queries";
 import { formatEvents } from "scenes/Dashboard/containers/ProjectEventsView/utils";
 import globalStyle from "styles/global.css";
-import { selectFilter } from "react-bootstrap-table2-filter";
-import { statusFormatter } from "components/DataTableNext/formatters";
-import { track } from "mixpanel-browser";
-import { translate } from "utils/translations/translate";
-import { useSelector } from "react-redux";
 import {
   ButtonToolbar,
   ButtonToolbarCenter,
@@ -29,10 +35,8 @@ import {
   FormGroup,
   Row,
 } from "styles/styledComponents";
-import {
-  CREATE_EVENT_MUTATION,
-  GET_EVENTS,
-} from "scenes/Dashboard/containers/ProjectEventsView/queries";
+import { Can } from "utils/authz/Can";
+import { castEventType } from "utils/formatHelpers";
 import {
   Checkbox,
   DateTime,
@@ -41,9 +45,9 @@ import {
   Text,
   TextArea,
 } from "utils/forms/fields";
-import { Field, FormSection, formValueSelector } from "redux-form";
-import type { InjectedFormProps, Validator } from "redux-form";
-import React, { useCallback, useState } from "react";
+import { Logger } from "utils/logger";
+import { msgError, msgSuccess } from "utils/notifications";
+import { translate } from "utils/translations/translate";
 import {
   dateTimeBeforeToday,
   isValidFileSize,
@@ -56,9 +60,6 @@ import {
   validEvidenceImage,
   validTextField,
 } from "utils/validations";
-import { msgError, msgSuccess } from "utils/notifications";
-import { useHistory, useParams } from "react-router";
-import { useMutation, useQuery } from "@apollo/react-hooks";
 
 interface IFormValues {
   accessibility: Record<string, boolean>;

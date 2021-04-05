@@ -1,27 +1,28 @@
+import type { MockedResponse } from "@apollo/react-testing";
+import { MockedProvider, wait } from "@apollo/react-testing";
+import type { ReactWrapper } from "enzyme";
+import { mount } from "enzyme";
+import { GraphQLError } from "graphql";
+import moment from "moment";
+import React from "react";
+import { act } from "react-dom/test-utils";
+import { Provider } from "react-redux";
+import { MemoryRouter, Route } from "react-router";
+import waitForExpect from "wait-for-expect";
+
 import { AddUserModal } from "scenes/Dashboard/components/AddUserModal/index";
 import { GET_USER } from "scenes/Dashboard/components/AddUserModal/queries";
-import { GraphQLError } from "graphql";
-import type { IOrganizationStakeholders } from "scenes/Dashboard/containers/OrganizationStakeholdersView/types";
-import type { MockedResponse } from "@apollo/react-testing";
 import { OrganizationStakeholders } from "scenes/Dashboard/containers/OrganizationStakeholdersView";
-import { Provider } from "react-redux";
-import React from "react";
-import type { ReactWrapper } from "enzyme";
-import { act } from "react-dom/test-utils";
-import moment from "moment";
-import { mount } from "enzyme";
-import store from "store";
-import { translate } from "utils/translations/translate";
-import waitForExpect from "wait-for-expect";
 import {
   ADD_STAKEHOLDER_MUTATION,
   EDIT_STAKEHOLDER_MUTATION,
   GET_ORGANIZATION_STAKEHOLDERS,
   REMOVE_STAKEHOLDER_MUTATION,
 } from "scenes/Dashboard/containers/OrganizationStakeholdersView/queries";
-import { MemoryRouter, Route } from "react-router";
-import { MockedProvider, wait } from "@apollo/react-testing";
+import type { IOrganizationStakeholders } from "scenes/Dashboard/containers/OrganizationStakeholdersView/types";
+import store from "store";
 import { msgError, msgSuccess } from "utils/notifications";
+import { translate } from "utils/translations/translate";
 
 jest.mock(
   "../../../../utils/notifications",

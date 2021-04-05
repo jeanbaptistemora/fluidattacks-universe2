@@ -5,8 +5,9 @@
 */
 import React from "react";
 import type { StyledComponent } from "styled-components";
-import style from "components/DropdownButton/index.css";
 import styled from "styled-components";
+
+import style from "components/DropdownButton/index.css";
 
 interface IMenuItemsProps {
   eventKey: string;

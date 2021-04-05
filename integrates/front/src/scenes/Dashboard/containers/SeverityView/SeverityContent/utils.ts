@@ -1,5 +1,6 @@
-import type { ISeverityAttr } from "../types";
 import _ from "lodash";
+
+import type { ISeverityAttr } from "../types";
 import {
   attackComplexityOptions,
   attackVectorOptions,

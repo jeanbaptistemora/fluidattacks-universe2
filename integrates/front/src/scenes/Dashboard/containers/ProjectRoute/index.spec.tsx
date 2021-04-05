@@ -1,11 +1,12 @@
-import { GET_GROUP_DATA } from "scenes/Dashboard/containers/ProjectRoute/queries";
 import type { MockedResponse } from "@apollo/react-testing";
-import { ProjectRoute } from "scenes/Dashboard/containers/ProjectRoute";
-import React from "react";
-import type { ShallowWrapper } from "enzyme";
-import { act } from "react-dom/test-utils";
-import { shallow } from "enzyme";
 import { MockedProvider, wait } from "@apollo/react-testing";
+import type { ShallowWrapper } from "enzyme";
+import { shallow } from "enzyme";
+import React from "react";
+import { act } from "react-dom/test-utils";
+
+import { ProjectRoute } from "scenes/Dashboard/containers/ProjectRoute";
+import { GET_GROUP_DATA } from "scenes/Dashboard/containers/ProjectRoute/queries";
 
 describe("ProjectRoute", (): void => {
   const groupMock: Readonly<MockedResponse> = {

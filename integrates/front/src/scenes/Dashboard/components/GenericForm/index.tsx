@@ -1,12 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React from "react";
-import { focusError } from "utils/forms/events";
 import { reduxForm } from "redux-form";
 import type {
   ConfigProps,
   DecoratedComponentClass,
   InjectedFormProps,
 } from "redux-form";
+
+import { focusError } from "utils/forms/events";
 
 // eslint-disable-next-line @typescript-eslint/no-type-alias
 type FormChildren = React.ReactNode | ((props: formProps) => React.ReactNode);

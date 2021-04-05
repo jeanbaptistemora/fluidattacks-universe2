@@ -1,6 +1,7 @@
 import $ from "jquery";
-import type { ICommentsProps } from "scenes/Dashboard/components/Comments/types";
 import React, { useEffect } from "react";
+
+import type { ICommentsProps } from "scenes/Dashboard/components/Comments/types";
 import "jquery-comments_brainkit";
 import "jquery-comments_brainkit/css/jquery-comments.css";
 

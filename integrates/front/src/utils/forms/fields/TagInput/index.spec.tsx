@@ -1,12 +1,13 @@
-import { Field } from "redux-form";
-import { GenericForm } from "scenes/Dashboard/components/GenericForm";
-import { Provider } from "react-redux";
-import React from "react";
-import { WithContext as ReactTags } from "react-tag-input";
 import type { ReactWrapper } from "enzyme";
-import { TagInput } from "utils/forms/fields/TagInput";
 import { mount } from "enzyme";
+import React from "react";
+import { Provider } from "react-redux";
+import { WithContext as ReactTags } from "react-tag-input";
+import { Field } from "redux-form";
+
+import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import store from "store";
+import { TagInput } from "utils/forms/fields/TagInput";
 
 describe("TagInput Field", (): void => {
   it("should return a function", (): void => {

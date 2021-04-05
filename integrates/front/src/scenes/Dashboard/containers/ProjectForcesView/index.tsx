@@ -1,26 +1,27 @@
+import { useQuery } from "@apollo/react-hooks";
 import type { ApolloError } from "apollo-client";
+import type { GraphQLError } from "graphql";
+import _ from "lodash";
+import React, { useCallback, useState } from "react";
+import { dateFilter, selectFilter } from "react-bootstrap-table2-filter";
+import { useParams } from "react-router-dom";
+
 import { Button } from "components/Button";
 import { DataTableNext } from "components/DataTableNext";
+import { statusFormatter } from "components/DataTableNext/formatters";
+import type { IHeaderConfig } from "components/DataTableNext/types";
+import { Modal } from "components/Modal";
 import { Execution } from "scenes/Dashboard/containers/ProjectForcesView/execution";
 import { GET_FORCES_EXECUTIONS } from "scenes/Dashboard/containers/ProjectForcesView/queries";
-import type { GraphQLError } from "graphql";
-import type { IHeaderConfig } from "components/DataTableNext/types";
-import { Logger } from "utils/logger";
-import { Modal } from "components/Modal";
-import _ from "lodash";
-import { msgError } from "utils/notifications";
-import { statusFormatter } from "components/DataTableNext/formatters";
-import { translate } from "utils/translations/translate";
-import { useParams } from "react-router-dom";
-import { useQuery } from "@apollo/react-hooks";
-import { useStoredState } from "utils/hooks";
-import { ButtonToolbar, Col100, Row } from "styles/styledComponents";
 import type {
   IExecution,
   IFoundVulnerabilities,
 } from "scenes/Dashboard/containers/ProjectForcesView/types";
-import React, { useCallback, useState } from "react";
-import { dateFilter, selectFilter } from "react-bootstrap-table2-filter";
+import { ButtonToolbar, Col100, Row } from "styles/styledComponents";
+import { useStoredState } from "utils/hooks";
+import { Logger } from "utils/logger";
+import { msgError } from "utils/notifications";
+import { translate } from "utils/translations/translate";
 
 const ProjectForcesView: React.FC = (): JSX.Element => {
   const { projectName } = useParams<{ projectName: string }>();

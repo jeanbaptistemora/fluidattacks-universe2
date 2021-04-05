@@ -1,10 +1,11 @@
+import { PureAbility } from "@casl/ability";
+import type { ReactWrapper } from "enzyme";
+import { mount } from "enzyme";
+import React from "react";
+
 import { ActionButtons } from "scenes/Dashboard/containers/DescriptionView/ActionButtons";
 import type { IActionButtonsProps } from "scenes/Dashboard/containers/DescriptionView/ActionButtons";
-import { PureAbility } from "@casl/ability";
-import React from "react";
-import type { ReactWrapper } from "enzyme";
 import { authzPermissionsContext } from "utils/authz/config";
-import { mount } from "enzyme";
 
 describe("ActionButtons", (): void => {
   const baseMockedProps: IActionButtonsProps = {

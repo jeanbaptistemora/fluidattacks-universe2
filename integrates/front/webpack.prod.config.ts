@@ -1,8 +1,9 @@
 import OptimizeCssAssetsPlugin from "optimize-css-assets-webpack-plugin";
 import TerserPlugin from "terser-webpack-plugin";
-import { commonConfig } from "./webpack.common.config";
 import type webpack from "webpack";
+
 import { CI_COMMIT_REF_NAME, INTEGRATES_BUCKET_NAME } from "./src/utils/ctx";
+import { commonConfig } from "./webpack.common.config";
 
 const prodConfig: webpack.Configuration = {
   ...commonConfig,

@@ -1,7 +1,8 @@
-import { Badge } from "components/Badge";
-import React from "react";
 import type { ShallowWrapper } from "enzyme";
 import { shallow } from "enzyme";
+import React from "react";
+
+import { Badge } from "components/Badge";
 
 describe("Badge", (): void => {
   it("should return a fuction", (): void => {

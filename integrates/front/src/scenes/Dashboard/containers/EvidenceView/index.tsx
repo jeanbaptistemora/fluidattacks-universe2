@@ -1,37 +1,38 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access
 -- annotation needed as the DB handles "any" type */
+import type { ExecutionResult } from "@apollo/react-common";
+import { useMutation, useQuery } from "@apollo/react-hooks";
+import { faImage } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { ApolloError } from "apollo-client";
+import { NetworkStatus } from "apollo-client";
+import type { GraphQLError } from "graphql";
+import _ from "lodash";
+import { track } from "mixpanel-browser";
+import React, { useCallback, useState } from "react";
+import { useParams } from "react-router";
+import type { InjectedFormProps, Validator } from "redux-form";
+
 import { Button } from "components/Button";
-import { Can } from "utils/authz/Can";
+import { FluidIcon } from "components/FluidIcon";
+import { TooltipWrapper } from "components/TooltipWrapper";
 import { EvidenceImage } from "scenes/Dashboard/components/EvidenceImage/index";
 import { EvidenceLightbox } from "scenes/Dashboard/components/EvidenceLightbox";
-import type { ExecutionResult } from "@apollo/react-common";
-import { FluidIcon } from "components/FluidIcon";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { GenericForm } from "scenes/Dashboard/components/GenericForm";
-import type { GraphQLError } from "graphql";
-import { Logger } from "utils/logger";
-import { NetworkStatus } from "apollo-client";
-import { TooltipWrapper } from "components/TooltipWrapper";
-import _ from "lodash";
-import { faImage } from "@fortawesome/free-solid-svg-icons";
-import globalStyle from "styles/global.css";
-import { msgError } from "utils/notifications";
 import styles from "scenes/Dashboard/containers/EvidenceView/index.css";
-import { track } from "mixpanel-browser";
-import { translate } from "utils/translations/translate";
-import { useParams } from "react-router";
-import { ButtonToolbarRow, Row } from "styles/styledComponents";
 import {
   GET_FINDING_EVIDENCES,
   REMOVE_EVIDENCE_MUTATION,
   UPDATE_DESCRIPTION_MUTATION,
   UPDATE_EVIDENCE_MUTATION,
 } from "scenes/Dashboard/containers/EvidenceView/queries";
-import type { InjectedFormProps, Validator } from "redux-form";
-import React, { useCallback, useState } from "react";
+import globalStyle from "styles/global.css";
+import { ButtonToolbarRow, Row } from "styles/styledComponents";
+import { Can } from "utils/authz/Can";
+import { Logger } from "utils/logger";
+import { msgError } from "utils/notifications";
+import { translate } from "utils/translations/translate";
 import { isValidFileSize, validEvidenceImage } from "utils/validations";
-import { useMutation, useQuery } from "@apollo/react-hooks";
 
 const EvidenceView: React.FC = (): JSX.Element => {
   const { findingId } = useParams<{ findingId: string }>();

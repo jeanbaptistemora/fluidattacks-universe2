@@ -1,13 +1,13 @@
+import React from "react";
 import { CircularProgressbar } from "react-circular-progressbar";
 import type { CircularProgressbarDefaultProps } from "react-circular-progressbar/dist/types";
-import React from "react";
+
 import calendarIcon from "resources/calendar.svg";
 import defaultIcon from "resources/default_finding_state.svg";
 import failIcon from "resources/fail.svg";
 import okIcon from "resources/ok.svg";
-import style from "scenes/Dashboard/components/FindingHeader/index.css";
-import { translate } from "utils/translations/translate";
 import vulnerabilitiesIcon from "resources/vulnerabilities.svg";
+import style from "scenes/Dashboard/components/FindingHeader/index.css";
 import {
   Col100,
   FindingHeaderDetail,
@@ -16,6 +16,7 @@ import {
   FindingHeaderLabel,
   Row,
 } from "styles/styledComponents";
+import { translate } from "utils/translations/translate";
 
 interface IFindingHeaderProps {
   discoveryDate: string;

@@ -1,9 +1,11 @@
-import { DataTableNext } from "components/DataTableNext";
-import type { IHeaderConfig } from "components/DataTableNext/types";
-import type { IVulnDataAttr } from "../types";
-import type { IZeroRiskConfirmationTableProps } from "./types";
 import React from "react";
+
+import type { IZeroRiskConfirmationTableProps } from "./types";
+
+import type { IVulnDataAttr } from "../types";
+import { DataTableNext } from "components/DataTableNext";
 import { changeZeroRiskConfirmationFormatter } from "components/DataTableNext/formatters/changeZeroRiskConfirmationFormatter";
+import type { IHeaderConfig } from "components/DataTableNext/types";
 
 const ZeroRiskConfirmationTable: React.FC<IZeroRiskConfirmationTableProps> = (
   props: IZeroRiskConfirmationTableProps

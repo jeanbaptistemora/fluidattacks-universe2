@@ -1,42 +1,44 @@
-import type { ApolloError } from "apollo-client";
-import { Button } from "components/Button/index";
-import { Can } from "utils/authz/Can";
-import { Dropdown } from "utils/forms/fields";
-import { EditableField } from "scenes/Dashboard/components/EditableField";
-import { FluidIcon } from "components/FluidIcon";
-import { GET_FINDING_HEADER } from "scenes/Dashboard/containers/FindingContent/queries";
-import { GenericForm } from "scenes/Dashboard/components/GenericForm/index";
-import type { GraphQLError } from "graphql";
-import type { InjectedFormProps } from "redux-form";
-import { Logger } from "utils/logger";
+import { useMutation, useQuery } from "@apollo/react-hooks";
 import type { PureAbility } from "@casl/ability";
-import { SeverityContent } from "scenes/Dashboard/containers/SeverityView/SeverityContent/index";
-import { TooltipWrapper } from "components/TooltipWrapper";
-import _ from "lodash";
-import { calcCVSSv3 } from "utils/cvss";
-import { castFieldsCVSS3 } from "scenes/Dashboard/containers/SeverityView/utils";
-import { formValueSelector } from "redux-form";
-import { required } from "utils/validations";
-import { track } from "mixpanel-browser";
-import { translate } from "utils/translations/translate";
 import { useAbility } from "@casl/react";
-import { useParams } from "react-router";
+import type { ApolloError } from "apollo-client";
+import type { GraphQLError } from "graphql";
+import _ from "lodash";
+import { track } from "mixpanel-browser";
+import React, { useCallback, useState } from "react";
 import { useSelector } from "react-redux";
+import { useParams } from "react-router";
+import type { InjectedFormProps } from "redux-form";
+import { formValueSelector } from "redux-form";
+
 import { validateValues } from "./SeverityContent/utils";
-import { ButtonToolbarRow, Col100, Row } from "styles/styledComponents";
+
+import { Button } from "components/Button/index";
+import { FluidIcon } from "components/FluidIcon";
+import { TooltipWrapper } from "components/TooltipWrapper";
+import { EditableField } from "scenes/Dashboard/components/EditableField";
+import { GenericForm } from "scenes/Dashboard/components/GenericForm/index";
+import { GET_FINDING_HEADER } from "scenes/Dashboard/containers/FindingContent/queries";
 import {
   GET_SEVERITY,
   UPDATE_SEVERITY_MUTATION,
 } from "scenes/Dashboard/containers/SeverityView/queries";
+import { SeverityContent } from "scenes/Dashboard/containers/SeverityView/SeverityContent/index";
 import type {
   ISeverityAttr,
   ISeverityField,
   IUpdateSeverityAttr,
 } from "scenes/Dashboard/containers/SeverityView/types";
-import React, { useCallback, useState } from "react";
+import { castFieldsCVSS3 } from "scenes/Dashboard/containers/SeverityView/utils";
+import { ButtonToolbarRow, Col100, Row } from "styles/styledComponents";
+import { Can } from "utils/authz/Can";
 import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
+import { calcCVSSv3 } from "utils/cvss";
+import { Dropdown } from "utils/forms/fields";
+import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
-import { useMutation, useQuery } from "@apollo/react-hooks";
+import { translate } from "utils/translations/translate";
+import { required } from "utils/validations";
 
 const SeverityView: React.FC = (): JSX.Element => {
   const { findingId } = useParams<{ findingId: string }>();

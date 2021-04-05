@@ -1,12 +1,13 @@
-import { Dropdown } from "utils/forms/fields";
-import { Field } from "redux-form";
 import type { PureAbility } from "@casl/ability";
-import React from "react";
-import { authzPermissionsContext } from "utils/authz/config";
-import { required } from "utils/validations";
-import { translate } from "utils/translations/translate";
 import { useAbility } from "@casl/react";
+import React from "react";
+import { Field } from "redux-form";
+
 import { ControlLabel, FormGroup } from "styles/styledComponents";
+import { authzPermissionsContext } from "utils/authz/config";
+import { Dropdown } from "utils/forms/fields";
+import { translate } from "utils/translations/translate";
+import { required } from "utils/validations";
 
 const TreatmentField: React.FC = (): JSX.Element => {
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);

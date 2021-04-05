@@ -1,23 +1,24 @@
-import { Files } from "scenes/Dashboard/containers/ProjectSettingsView/Files";
-import { GraphQLError } from "graphql";
-import type { IFilesProps } from "scenes/Dashboard/containers/ProjectSettingsView/Files";
 import { MockedProvider } from "@apollo/react-testing";
 import type { MockedResponse } from "@apollo/react-testing";
-import { Provider } from "react-redux";
 import { PureAbility } from "@casl/ability";
-import React from "react";
 import type { ReactWrapper } from "enzyme";
-import { act } from "react-dom/test-utils";
-import { authzPermissionsContext } from "utils/authz/config";
 import { mount } from "enzyme";
-import store from "store";
+import { GraphQLError } from "graphql";
+import React from "react";
+import { act } from "react-dom/test-utils";
+import { Provider } from "react-redux";
 import wait from "waait";
+
+import type { IFilesProps } from "scenes/Dashboard/containers/ProjectSettingsView/Files";
+import { Files } from "scenes/Dashboard/containers/ProjectSettingsView/Files";
 import {
   DOWNLOAD_FILE_MUTATION,
   GET_FILES,
   REMOVE_FILE_MUTATION,
   UPLOAD_FILE_MUTATION,
 } from "scenes/Dashboard/containers/ProjectSettingsView/queries";
+import store from "store";
+import { authzPermissionsContext } from "utils/authz/config";
 import { msgError, msgSuccess } from "utils/notifications";
 
 jest.mock(

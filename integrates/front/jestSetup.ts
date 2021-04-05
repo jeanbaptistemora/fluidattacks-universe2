@@ -2,8 +2,8 @@
   --------
   Since most Jest mocks override/mutate properties, we need to disable the above rules.
 */
-import ReactSixteenAdapter from "enzyme-adapter-react-16";
 import { configure } from "enzyme";
+import ReactSixteenAdapter from "enzyme-adapter-react-16";
 import fetchMock from "fetch-mock";
 import {
   disable as mixpanelDisable,

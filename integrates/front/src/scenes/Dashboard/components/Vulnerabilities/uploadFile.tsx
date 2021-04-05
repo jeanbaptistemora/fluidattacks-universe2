@@ -2,26 +2,31 @@
   -------
   We need className to override default styles from react-boostrap.
 */
+import { useMutation } from "@apollo/react-hooks";
+import type { PureAbility } from "@casl/ability";
+import { useAbility } from "@casl/react";
 import type { ApolloError } from "apollo-client";
-import { Button } from "components/Button";
+import type { GraphQLError } from "graphql";
+import _ from "lodash";
+import React from "react";
+import { useDispatch } from "react-redux";
 import type { Dispatch } from "redux";
-import { FileInput } from "utils/forms/fields";
+import { Field, reset } from "redux-form";
+
+import { Button } from "components/Button";
 import { FluidIcon } from "components/FluidIcon";
+import { TooltipWrapper } from "components/TooltipWrapper";
+import { GenericForm } from "scenes/Dashboard/components/GenericForm";
+import {
+  DOWNLOAD_VULNERABILITIES,
+  UPLOAD_VULNERABILITIES,
+} from "scenes/Dashboard/components/Vulnerabilities/queries";
+import type {
+  IDownloadVulnerabilitiesResultAttr,
+  IUploadVulnerabilitiesResultAttr,
+} from "scenes/Dashboard/components/Vulnerabilities/types";
 import { GET_FINDING_HEADER } from "scenes/Dashboard/containers/FindingContent/queries";
 import { GET_FINDING_VULN_INFO } from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
-import { GenericForm } from "scenes/Dashboard/components/GenericForm";
-import type { GraphQLError } from "graphql";
-import { Logger } from "utils/logger";
-import type { PureAbility } from "@casl/ability";
-import React from "react";
-import { TooltipWrapper } from "components/TooltipWrapper";
-import _ from "lodash";
-import { isValidVulnsFile } from "utils/validations";
-import { openUrl } from "utils/resourceHelpers";
-import { translate } from "utils/translations/translate";
-import { useAbility } from "@casl/react";
-import { useDispatch } from "react-redux";
-import { useMutation } from "@apollo/react-hooks";
 import {
   ButtonToolbarLeft,
   Col25,
@@ -29,17 +34,13 @@ import {
   FormGroup,
   RowCenter,
 } from "styles/styledComponents";
-import {
-  DOWNLOAD_VULNERABILITIES,
-  UPLOAD_VULNERABILITIES,
-} from "scenes/Dashboard/components/Vulnerabilities/queries";
-import { Field, reset } from "redux-form";
-import type {
-  IDownloadVulnerabilitiesResultAttr,
-  IUploadVulnerabilitiesResultAttr,
-} from "scenes/Dashboard/components/Vulnerabilities/types";
 import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
+import { FileInput } from "utils/forms/fields";
+import { Logger } from "utils/logger";
 import { msgError, msgErrorStick, msgSuccess } from "utils/notifications";
+import { openUrl } from "utils/resourceHelpers";
+import { translate } from "utils/translations/translate";
+import { isValidVulnsFile } from "utils/validations";
 
 interface IUploadVulnProps {
   findingId: string;

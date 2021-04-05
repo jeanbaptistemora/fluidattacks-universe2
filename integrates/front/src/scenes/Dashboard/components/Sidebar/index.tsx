@@ -1,19 +1,20 @@
-import { Badge } from "components/Badge";
-import { slide as BurgerMenu } from "react-burger-menu";
-import { Can } from "utils/authz/Can";
-import Media from "react-media";
-import { TooltipWrapper } from "components/TooltipWrapper/index";
 import _ from "lodash";
+import React, { useCallback } from "react";
+import { slide as BurgerMenu } from "react-burger-menu";
+import Media from "react-media";
+import { useHistory } from "react-router-dom";
+
+import { Badge } from "components/Badge";
+import { TooltipWrapper } from "components/TooltipWrapper/index";
 import logo from "resources/integrates_sidebar.svg";
 import style from "scenes/Dashboard/components/Sidebar/index.css";
-import { translate } from "utils/translations/translate";
-import { useHistory } from "react-router-dom";
+import { Can } from "utils/authz/Can";
 import {
   CI_COMMIT_SHA,
   CI_COMMIT_SHORT_SHA,
   INTEGRATES_DEPLOYMENT_DATE,
 } from "utils/ctx";
-import React, { useCallback } from "react";
+import { translate } from "utils/translations/translate";
 
 interface ISidebarProps {
   userEmail: string;

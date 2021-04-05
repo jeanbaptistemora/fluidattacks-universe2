@@ -1,12 +1,13 @@
-import { Button } from "components/Button";
-import { Can } from "utils/authz/Can";
-import { FluidIcon } from "components/FluidIcon";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
-import { TooltipWrapper } from "components/TooltipWrapper";
-import _ from "lodash";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import _ from "lodash";
+import React from "react";
 import { useTranslation } from "react-i18next";
+
+import { Button } from "components/Button";
+import { FluidIcon } from "components/FluidIcon";
+import { TooltipWrapper } from "components/TooltipWrapper";
+import { Can } from "utils/authz/Can";
 
 interface IReattackVulnButtonProps {
   areVulnsSelected: boolean;

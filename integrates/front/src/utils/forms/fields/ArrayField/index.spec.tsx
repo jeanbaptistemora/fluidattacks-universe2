@@ -1,12 +1,14 @@
-import { ArrayField } from ".";
-import { ArrayWrapper } from "./wrapper";
-import { Field } from "redux-form";
-import { GenericForm } from "scenes/Dashboard/components/GenericForm";
-import { Provider } from "react-redux";
-import React from "react";
 import type { ReactWrapper } from "enzyme";
-import { Text } from "../Text";
 import { mount } from "enzyme";
+import React from "react";
+import { Provider } from "react-redux";
+import { Field } from "redux-form";
+
+import { ArrayWrapper } from "./wrapper";
+
+import { ArrayField } from ".";
+import { Text } from "../Text";
+import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import store from "store";
 
 describe("Array field", (): void => {

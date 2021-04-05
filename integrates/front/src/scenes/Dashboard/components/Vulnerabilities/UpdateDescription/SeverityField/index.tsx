@@ -1,12 +1,14 @@
+import type { PureAbility } from "@casl/ability";
+import { useAbility } from "@casl/react";
+import React from "react";
+
+import type { ISeverityFieldProps } from "./types";
+
 import { EditableField } from "scenes/Dashboard/components/EditableField";
 import { FormGroup } from "styles/styledComponents";
-import type { ISeverityFieldProps } from "./types";
-import type { PureAbility } from "@casl/ability";
-import React from "react";
-import { Text } from "utils/forms/fields";
 import { authzPermissionsContext } from "utils/authz/config";
+import { Text } from "utils/forms/fields";
 import { translate } from "utils/translations/translate";
-import { useAbility } from "@casl/react";
 import { isValidVulnSeverity, numeric } from "utils/validations";
 
 const SeverityField: React.FC<ISeverityFieldProps> = (

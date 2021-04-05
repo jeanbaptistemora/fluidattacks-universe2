@@ -2,11 +2,12 @@
   -------
   We need it to override default styles from react-bootstrap.
 */
-import React from "react";
-import { ValidationError } from "styles/styledComponents";
 import _ from "lodash";
-import style from "utils/forms/index.css";
+import React from "react";
 import type { WrappedFieldInputProps, WrappedFieldProps } from "redux-form";
+
+import { ValidationError } from "styles/styledComponents";
+import style from "utils/forms/index.css";
 
 interface IDateProps extends WrappedFieldProps {
   className?: string;

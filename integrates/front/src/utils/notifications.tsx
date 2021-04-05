@@ -1,6 +1,7 @@
-import { Notification } from "components/Notification";
 import React from "react";
 import { Slide, toast } from "react-toastify";
+
+import { Notification } from "components/Notification";
 
 const msgSuccess: (text: string, title: string) => void = (
   text: string,

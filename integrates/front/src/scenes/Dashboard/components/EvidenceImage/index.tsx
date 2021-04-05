@@ -1,19 +1,20 @@
+import _ from "lodash";
+import React, { cloneElement, useCallback } from "react";
+import type { Validator } from "redux-form";
+import { Field, FormSection } from "redux-form";
+
 import { Button } from "components/Button/index";
 import { FluidIcon } from "components/FluidIcon";
 import { TooltipWrapper } from "components/TooltipWrapper";
-import type { Validator } from "redux-form";
-import _ from "lodash";
 import style from "scenes/Dashboard/components/EvidenceImage/index.css";
-import { translate } from "utils/translations/translate";
 import {
   ButtonToolbarLeft,
   Col33,
   EvidenceDescription,
   Row,
 } from "styles/styledComponents";
-import { Field, FormSection } from "redux-form";
 import { FileInput, TextArea } from "utils/forms/fields";
-import React, { cloneElement, useCallback } from "react";
+import { translate } from "utils/translations/translate";
 import { validEvidenceDescription, validTextField } from "utils/validations";
 
 /* eslint-disable react/require-default-props, react/no-unused-prop-types */

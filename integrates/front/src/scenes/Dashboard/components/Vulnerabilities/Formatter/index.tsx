@@ -2,11 +2,12 @@
   --------
   Need it to override default background color based on condition
 */
+import _ from "lodash";
 import React from "react";
 import type { StyledComponent } from "styled-components";
-import _ from "lodash";
-import { getBgColor } from "components/DataTableNext/formatters/statusFormatter";
 import styled from "styled-components";
+
+import { getBgColor } from "components/DataTableNext/formatters/statusFormatter";
 
 const Point: StyledComponent<
   "span",

@@ -1,8 +1,9 @@
 import type { ChartData } from "chart.js";
-import { HorizontalBarIndicator } from "scenes/Dashboard/components/HorizontalBarIndicator";
-import React from "react";
 import type { ShallowWrapper } from "enzyme";
 import { shallow } from "enzyme";
+import React from "react";
+
+import { HorizontalBarIndicator } from "scenes/Dashboard/components/HorizontalBarIndicator";
 
 describe("HorizontalBarIndicator", (): void => {
   it("should return a function", (): void => {

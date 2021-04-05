@@ -1,14 +1,16 @@
+import { useQuery } from "@apollo/react-hooks";
 import type { ApolloError } from "apollo-client";
-import { GET_ROOTS } from "./query";
-import { GitRoots } from "./GitRoots";
 import type { GraphQLError } from "graphql";
-import { Have } from "utils/authz/Have";
-import { Logger } from "utils/logger";
-import { ProjectSettingsView } from "../ProjectSettingsView";
 import React from "react";
 import { useParams } from "react-router";
-import { useQuery } from "@apollo/react-hooks";
+
+import { GitRoots } from "./GitRoots";
+import { GET_ROOTS } from "./query";
 import type { IGitRootAttr, Root } from "./types";
+
+import { ProjectSettingsView } from "../ProjectSettingsView";
+import { Have } from "utils/authz/Have";
+import { Logger } from "utils/logger";
 
 const isGitRoot: (root: Root) => root is IGitRootAttr = (
   root: Root

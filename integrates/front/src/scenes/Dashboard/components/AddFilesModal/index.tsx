@@ -1,12 +1,13 @@
-import { Button } from "components/Button";
-import type { ConfigurableValidator } from "revalidate";
-import { Field } from "redux-form";
-import { GenericForm } from "scenes/Dashboard/components/GenericForm";
-import { IAddFilesModalProps } from "scenes/Dashboard/components/AddFilesModal/types.ts";
-import { Modal } from "components/Modal";
 import React from "react";
+import { Field } from "redux-form";
+import type { InjectedFormProps, Validator } from "redux-form";
+import type { ConfigurableValidator } from "revalidate";
+
+import { Button } from "components/Button";
+import { Modal } from "components/Modal";
 import { renderUploadBar } from "scenes/Dashboard/components/AddFilesModal/renderUploadBar";
-import { translate } from "utils/translations/translate";
+import { IAddFilesModalProps } from "scenes/Dashboard/components/AddFilesModal/types.ts";
+import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import {
   ButtonToolbar,
   Col100,
@@ -14,7 +15,7 @@ import {
   Row,
 } from "styles/styledComponents";
 import { FileInput, TextArea } from "utils/forms/fields";
-import type { InjectedFormProps, Validator } from "redux-form";
+import { translate } from "utils/translations/translate";
 import {
   isValidFileName,
   isValidFileSize,

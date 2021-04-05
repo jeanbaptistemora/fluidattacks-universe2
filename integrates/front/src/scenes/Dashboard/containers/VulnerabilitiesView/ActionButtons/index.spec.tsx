@@ -1,11 +1,12 @@
-import { ActionButtons } from "scenes/Dashboard/containers/VulnerabilitiesView/ActionButtons";
 import { PureAbility } from "@casl/ability";
-import React from "react";
 import type { ReactWrapper } from "enzyme";
-import { act } from "react-dom/test-utils";
-import { authzPermissionsContext } from "utils/authz/config";
 import { mount } from "enzyme";
+import React from "react";
+import { act } from "react-dom/test-utils";
 import { useTranslation } from "react-i18next";
+
+import { ActionButtons } from "scenes/Dashboard/containers/VulnerabilitiesView/ActionButtons";
+import { authzPermissionsContext } from "utils/authz/config";
 
 describe("ActionButtons", (): void => {
   it("should return a function", (): void => {

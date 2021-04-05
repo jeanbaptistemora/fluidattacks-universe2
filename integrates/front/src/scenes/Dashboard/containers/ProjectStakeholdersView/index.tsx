@@ -1,28 +1,31 @@
-import { AddUserModal } from "scenes/Dashboard/components/AddUserModal";
-import type { ApolloError } from "apollo-client";
-import { Button } from "components/Button";
-import { Can } from "utils/authz/Can";
-import { DataTableNext } from "components/DataTableNext";
-import { FluidIcon } from "components/FluidIcon";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import type { GraphQLError } from "graphql";
-import type { IHeaderConfig } from "components/DataTableNext/types";
-import { Logger } from "utils/logger";
+import { useMutation, useQuery } from "@apollo/react-hooks";
 import type { PureAbility } from "@casl/ability";
-import { TooltipWrapper } from "components/TooltipWrapper";
-import _ from "lodash";
-import { authzPermissionsContext } from "utils/authz/config";
-import { track } from "mixpanel-browser";
-import { translate } from "utils/translations/translate";
 import { useAbility } from "@casl/react";
+import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import type { ApolloError } from "apollo-client";
+import type { GraphQLError } from "graphql";
+import _ from "lodash";
+import { track } from "mixpanel-browser";
+import React, { useCallback, useState } from "react";
 import { useParams } from "react-router";
+
+import { Button } from "components/Button";
+import { DataTableNext } from "components/DataTableNext";
+import {
+  statusFormatter,
+  timeFromNow,
+} from "components/DataTableNext/formatters";
+import type { IHeaderConfig } from "components/DataTableNext/types";
+import { FluidIcon } from "components/FluidIcon";
+import { TooltipWrapper } from "components/TooltipWrapper";
+import { AddUserModal } from "scenes/Dashboard/components/AddUserModal";
 import {
   ADD_STAKEHOLDER_MUTATION,
   EDIT_STAKEHOLDER_MUTATION,
   GET_STAKEHOLDERS,
   REMOVE_STAKEHOLDER_MUTATION,
 } from "scenes/Dashboard/containers/ProjectStakeholdersView/queries";
-import { ButtonToolbar, Col100, Row } from "styles/styledComponents";
 import type {
   IAddStakeholderAttr,
   IEditStakeholderAttr,
@@ -30,14 +33,12 @@ import type {
   IRemoveStakeholderAttr,
   IStakeholderAttrs,
 } from "scenes/Dashboard/containers/ProjectStakeholdersView/types";
-import React, { useCallback, useState } from "react";
-import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { ButtonToolbar, Col100, Row } from "styles/styledComponents";
+import { Can } from "utils/authz/Can";
+import { authzPermissionsContext } from "utils/authz/config";
+import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
-import {
-  statusFormatter,
-  timeFromNow,
-} from "components/DataTableNext/formatters";
-import { useMutation, useQuery } from "@apollo/react-hooks";
+import { translate } from "utils/translations/translate";
 
 const tableHeaders: IHeaderConfig[] = [
   {

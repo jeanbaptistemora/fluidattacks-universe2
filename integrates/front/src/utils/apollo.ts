@@ -3,22 +3,13 @@
   We need it in order to use methods from xhr and mutate some values from a
   graphQL error response.
 */
-import { ApolloClient } from "apollo-client";
 import { ApolloProvider as BaseApolloProvider } from "@apollo/react-hooks";
-import type { ErrorResponse } from "apollo-link-error";
-import { Logger } from "utils/logger";
 import type { NormalizedCacheObject } from "apollo-cache-inmemory";
-import type React from "react";
-import { RetryLink } from "apollo-link-retry";
-import { WebSocketLink } from "apollo-link-ws";
-import _ from "lodash";
-import { createNetworkStatusNotifier } from "react-apollo-network-status";
-import { createUploadLink } from "apollo-upload-client";
-import { getEnvironment } from "utils/environment";
-import { getMainDefinition } from "apollo-utilities";
-import { msgError } from "utils/notifications";
-import { translate } from "utils/translations/translate";
-import { useHistory } from "react-router";
+import {
+  InMemoryCache,
+  IntrospectionFragmentMatcher,
+} from "apollo-cache-inmemory";
+import { ApolloClient } from "apollo-client";
 import { ApolloLink, Observable } from "apollo-link";
 import type {
   ExecutionResult,
@@ -26,17 +17,27 @@ import type {
   NextLink,
   Operation,
 } from "apollo-link";
+import type { ErrorResponse } from "apollo-link-error";
+import type { ServerError, ServerParseError } from "apollo-link-http-common";
+import { RetryLink } from "apollo-link-retry";
+import { WebSocketLink } from "apollo-link-ws";
+import { createUploadLink } from "apollo-upload-client";
+import { getMainDefinition } from "apollo-utilities";
 import type {
   FragmentDefinitionNode,
   GraphQLError,
   OperationDefinitionNode,
 } from "graphql";
-import {
-  InMemoryCache,
-  IntrospectionFragmentMatcher,
-} from "apollo-cache-inmemory";
-import type { ServerError, ServerParseError } from "apollo-link-http-common";
+import _ from "lodash";
+import type React from "react";
 import { createElement, useMemo } from "react";
+import { createNetworkStatusNotifier } from "react-apollo-network-status";
+import { useHistory } from "react-router";
+
+import { getEnvironment } from "utils/environment";
+import { Logger } from "utils/logger";
+import { msgError } from "utils/notifications";
+import { translate } from "utils/translations/translate";
 
 interface IHandledErrorAttr {
   graphQLErrors?: readonly GraphQLError[];

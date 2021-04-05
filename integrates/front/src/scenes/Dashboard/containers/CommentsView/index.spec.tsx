@@ -1,17 +1,18 @@
-import $ from "jquery";
-import { CommentsView } from "scenes/Dashboard/containers/CommentsView";
 import { MockedProvider } from "@apollo/react-testing";
 import type { MockedResponse } from "@apollo/react-testing";
-import React from "react";
 import type { ReactWrapper } from "enzyme";
-import { act } from "react-dom/test-utils";
 import { mount } from "enzyme";
+import $ from "jquery";
+import React from "react";
+import { act } from "react-dom/test-utils";
+import { MemoryRouter, Route } from "react-router";
 import wait from "waait";
+
+import { CommentsView } from "scenes/Dashboard/containers/CommentsView";
 import {
   GET_FINDING_CONSULTING,
   GET_FINDING_OBSERVATIONS,
 } from "scenes/Dashboard/containers/CommentsView/queries";
-import { MemoryRouter, Route } from "react-router";
 
 jest.mock("jquery-comments_brainkit", (): void => {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-call

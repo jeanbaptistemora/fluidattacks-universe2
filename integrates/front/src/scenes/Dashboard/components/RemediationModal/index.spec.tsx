@@ -1,10 +1,11 @@
-import { Provider } from "react-redux";
-import React from "react";
-import { RemediationModal } from "scenes/Dashboard/components/RemediationModal";
 import type { ShallowWrapper } from "enzyme";
-import { createStore } from "redux";
 import { shallow } from "enzyme";
+import React from "react";
+import { Provider } from "react-redux";
+import { createStore } from "redux";
 import type { Action, Store } from "redux";
+
+import { RemediationModal } from "scenes/Dashboard/components/RemediationModal";
 
 const functionMock: () => void = (): void => undefined;
 

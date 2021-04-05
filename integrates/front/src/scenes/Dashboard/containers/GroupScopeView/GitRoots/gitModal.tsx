@@ -1,15 +1,21 @@
-import { Button } from "components/Button";
-import { Can } from "utils/authz/Can";
+import { faQuestionCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { GenericForm } from "scenes/Dashboard/components/GenericForm";
+import _ from "lodash";
+import React, { useCallback, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
+import { Field, formValueSelector } from "redux-form";
+import type {
+  InjectedFormProps,
+  Validator as ValidatorField,
+} from "redux-form";
+
 import type { IGitRootAttr } from "../types";
+import { Button } from "components/Button";
 import { Modal } from "components/Modal";
 import { SwitchButton } from "components/SwitchButton";
 import { TooltipWrapper } from "components/TooltipWrapper";
-import _ from "lodash";
-import { faQuestionCircle } from "@fortawesome/free-solid-svg-icons";
-import { useSelector } from "react-redux";
-import { useTranslation } from "react-i18next";
+import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import {
   Alert,
   ButtonToolbar,
@@ -19,13 +25,8 @@ import {
   RequiredField,
   Row,
 } from "styles/styledComponents";
+import { Can } from "utils/authz/Can";
 import { ArrayField, Checkbox, Text } from "utils/forms/fields";
-import { Field, formValueSelector } from "redux-form";
-import type {
-  InjectedFormProps,
-  Validator as ValidatorField,
-} from "redux-form";
-import React, { useCallback, useState } from "react";
 import { checked, excludeFormat, required } from "utils/validations";
 
 interface IGitModalProps {

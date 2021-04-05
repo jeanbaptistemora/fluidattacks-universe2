@@ -1,25 +1,27 @@
-import { Button } from "components/Button";
-import { ConfirmDialog } from "components/ConfirmDialog";
-import { GroupScopeView } from ".";
 import { MockedProvider } from "@apollo/react-testing";
 import type { MockedResponse } from "@apollo/react-testing";
-import { Provider } from "react-redux";
 import { PureAbility } from "@casl/ability";
-import React from "react";
 import type { ReactWrapper } from "enzyme";
-import { SwitchButton } from "components/SwitchButton";
-import { act } from "react-dom/test-utils";
-import { getCache } from "utils/apollo";
 import { mount } from "enzyme";
-import store from "store";
+import React from "react";
+import { act } from "react-dom/test-utils";
+import { Provider } from "react-redux";
+import { MemoryRouter, Route } from "react-router";
 import wait from "waait";
+
 import {
   ADD_GIT_ROOT,
   GET_ROOTS,
   UPDATE_GIT_ROOT,
   UPDATE_ROOT_STATE,
 } from "./query";
-import { MemoryRouter, Route } from "react-router";
+
+import { GroupScopeView } from ".";
+import { Button } from "components/Button";
+import { ConfirmDialog } from "components/ConfirmDialog";
+import { SwitchButton } from "components/SwitchButton";
+import store from "store";
+import { getCache } from "utils/apollo";
 import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
 
 describe("GroupScopeView", (): void => {

@@ -1,9 +1,11 @@
-import { DataTableNext } from "components/DataTableNext";
-import type { IHeaderConfig } from "components/DataTableNext/types";
-import type { IVulnDataAttr } from "../types";
-import type { IZeroRiskRejectionTableProps } from "./types";
 import React from "react";
+
+import type { IZeroRiskRejectionTableProps } from "./types";
+
+import type { IVulnDataAttr } from "../types";
+import { DataTableNext } from "components/DataTableNext";
 import { changeZeroRiskRejectionFormatter } from "components/DataTableNext/formatters/changeZeroRiskRejectionFormatter";
+import type { IHeaderConfig } from "components/DataTableNext/types";
 
 const ZeroRiskRejectionTable: React.FC<IZeroRiskRejectionTableProps> = (
   props: IZeroRiskRejectionTableProps

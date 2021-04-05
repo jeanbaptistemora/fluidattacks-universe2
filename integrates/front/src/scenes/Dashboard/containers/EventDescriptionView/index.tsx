@@ -1,19 +1,22 @@
+import { useMutation, useQuery } from "@apollo/react-hooks";
 import type { ApolloError } from "apollo-client";
-import { Button } from "components/Button";
-import { Can } from "utils/authz/Can";
-import { EditableField } from "scenes/Dashboard/components/EditableField";
-import { Field } from "redux-form";
-import { FluidIcon } from "components/FluidIcon";
-import { GET_EVENT_HEADER } from "scenes/Dashboard/containers/EventContent/queries";
-import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import type { GraphQLError } from "graphql";
-import type { InjectedFormProps } from "redux-form";
-import { Logger } from "utils/logger";
-import { Modal } from "components/Modal";
 import _ from "lodash";
-import { msgError } from "utils/notifications";
-import { translate } from "utils/translations/translate";
+import React, { useCallback, useState } from "react";
 import { useParams } from "react-router";
+import { Field } from "redux-form";
+import type { InjectedFormProps } from "redux-form";
+
+import { Button } from "components/Button";
+import { FluidIcon } from "components/FluidIcon";
+import { Modal } from "components/Modal";
+import { EditableField } from "scenes/Dashboard/components/EditableField";
+import { GenericForm } from "scenes/Dashboard/components/GenericForm";
+import { GET_EVENT_HEADER } from "scenes/Dashboard/containers/EventContent/queries";
+import {
+  GET_EVENT_DESCRIPTION,
+  SOLVE_EVENT_MUTATION,
+} from "scenes/Dashboard/containers/EventDescriptionView/queries";
 import {
   ButtonToolbar,
   Col100,
@@ -22,19 +25,17 @@ import {
   FormGroup,
   Row,
 } from "styles/styledComponents";
+import { Can } from "utils/authz/Can";
 import { DateTime, Text } from "utils/forms/fields";
-import {
-  GET_EVENT_DESCRIPTION,
-  SOLVE_EVENT_MUTATION,
-} from "scenes/Dashboard/containers/EventDescriptionView/queries";
-import React, { useCallback, useState } from "react";
+import { Logger } from "utils/logger";
+import { msgError } from "utils/notifications";
+import { translate } from "utils/translations/translate";
 import {
   dateTimeBeforeToday,
   numeric,
   required,
   validDatetime,
 } from "utils/validations";
-import { useMutation, useQuery } from "@apollo/react-hooks";
 
 interface IEventDescriptionData {
   event: {

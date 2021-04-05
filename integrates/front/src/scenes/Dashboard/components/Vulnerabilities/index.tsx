@@ -1,34 +1,31 @@
-import { AdditionalInfo } from "./AdditionalInfo";
-import { Button } from "components/Button";
-import { Can } from "utils/authz/Can";
-import { Col100 } from "scenes/Dashboard/containers/ChartsGenericView/components/ChartCols";
-import { ContentTab } from "../ContentTab";
-import { DataTableNext } from "components/DataTableNext";
-import { DeleteVulnerabilityModal } from "scenes/Dashboard/components/DeleteVulnerability/index";
-import { FluidIcon } from "components/FluidIcon";
-import type { IDeleteVulnAttr } from "../DeleteVulnerability/types";
-import type { IHeaderConfig } from "components/DataTableNext/types";
-import { Modal } from "components/Modal";
 import type { PureAbility } from "@casl/ability";
-import { TooltipWrapper } from "components/TooltipWrapper";
+import { useAbility } from "@casl/react";
+import _ from "lodash";
+import { track } from "mixpanel-browser";
+import React, { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { MemoryRouter, Route } from "react-router";
+
+import { AdditionalInfo } from "./AdditionalInfo";
 import { UpdateTreatmentModal } from "./UpdateDescription";
 import { UploadVulnerabilities } from "./uploadFile";
-import _ from "lodash";
-import { authzPermissionsContext } from "utils/authz/config";
+
+import { ContentTab } from "../ContentTab";
+import type { IDeleteVulnAttr } from "../DeleteVulnerability/types";
+import { Button } from "components/Button";
+import { DataTableNext } from "components/DataTableNext";
 import { deleteFormatter } from "components/DataTableNext/formatters";
 import { filterFormatter } from "components/DataTableNext/headerFormatters/filterFormatter";
-import { track } from "mixpanel-browser";
-import { useAbility } from "@casl/react";
-import { useTranslation } from "react-i18next";
-import { vulnerabilityInfo } from "scenes/Dashboard/components/Vulnerabilities/vulnerabilityInfo";
+import type { IHeaderConfig } from "components/DataTableNext/types";
+import { FluidIcon } from "components/FluidIcon";
+import { Modal } from "components/Modal";
+import { TooltipWrapper } from "components/TooltipWrapper";
+import { DeleteVulnerabilityModal } from "scenes/Dashboard/components/DeleteVulnerability/index";
 import type {
   IVulnComponentProps,
   IVulnDataTypeAttr,
   IVulnRowAttr,
 } from "scenes/Dashboard/components/Vulnerabilities/types";
-import { MemoryRouter, Route } from "react-router";
-import React, { useEffect, useState } from "react";
-import { RowCenter, TabsContainer } from "styles/styledComponents";
 import {
   formatVulnerabilities,
   getNonSelectableVulnerabilitiesOnEdit,
@@ -37,6 +34,11 @@ import {
   getVulnerabilitiesIds,
   getVulnerabilitiesIndex,
 } from "scenes/Dashboard/components/Vulnerabilities/utils";
+import { vulnerabilityInfo } from "scenes/Dashboard/components/Vulnerabilities/vulnerabilityInfo";
+import { Col100 } from "scenes/Dashboard/containers/ChartsGenericView/components/ChartCols";
+import { RowCenter, TabsContainer } from "styles/styledComponents";
+import { Can } from "utils/authz/Can";
+import { authzPermissionsContext } from "utils/authz/config";
 import { msgError, msgSuccess } from "utils/notifications";
 
 export const VulnComponent: React.FC<IVulnComponentProps> = ({

@@ -1,10 +1,17 @@
-import type { ApolloError } from "apollo-client";
-import type { FormAction } from "redux-form";
-import type { GraphQLError } from "graphql";
-import { Logger } from "utils/logger";
+import type {
+  MutationFunction,
+  MutationResult,
+  OperationVariables,
+} from "@apollo/react-common";
 import type { QueryLazyOptions } from "@apollo/react-hooks";
-import { useDispatch } from "react-redux";
+import { useLazyQuery, useMutation } from "@apollo/react-hooks";
+import type { ApolloError } from "apollo-client";
+import type { GraphQLError } from "graphql";
 import { useTranslation } from "react-i18next";
+import { useDispatch } from "react-redux";
+import type { FormAction } from "redux-form";
+import { change, reset } from "redux-form";
+
 import {
   GET_FORCES_TOKEN,
   UPDATE_FORCES_TOKEN_MUTATION,
@@ -13,14 +20,8 @@ import type {
   IGetForcesTokenAttr,
   IUpdateForcesTokenAttr,
 } from "scenes/Dashboard/components/APITokenForcesModal/types";
-import type {
-  MutationFunction,
-  MutationResult,
-  OperationVariables,
-} from "@apollo/react-common";
-import { change, reset } from "redux-form";
+import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
-import { useLazyQuery, useMutation } from "@apollo/react-hooks";
 
 const useGetAPIToken: (
   groupName: string

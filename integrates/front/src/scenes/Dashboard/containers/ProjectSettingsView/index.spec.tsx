@@ -1,15 +1,16 @@
-import { GET_TAGS } from "scenes/Dashboard/containers/ProjectSettingsView/queries";
-import { GraphQLError } from "graphql";
 import { MockedProvider } from "@apollo/react-testing";
 import type { MockedResponse } from "@apollo/react-testing";
-import { ProjectSettingsView } from "scenes/Dashboard/containers/ProjectSettingsView";
-import { Provider } from "react-redux";
-import React from "react";
 import type { ReactWrapper } from "enzyme";
 import { mount } from "enzyme";
-import store from "store";
-import wait from "waait";
+import { GraphQLError } from "graphql";
+import React from "react";
+import { Provider } from "react-redux";
 import { MemoryRouter, Route } from "react-router";
+import wait from "waait";
+
+import { ProjectSettingsView } from "scenes/Dashboard/containers/ProjectSettingsView";
+import { GET_TAGS } from "scenes/Dashboard/containers/ProjectSettingsView/queries";
+import store from "store";
 
 describe("ProjectSettingsView", (): void => {
   const mocksTags: Readonly<MockedResponse> = {

@@ -1,19 +1,21 @@
-import { Button } from "components/Button";
-import { Field } from "redux-form";
-import type { IUnsubscribeModalProps } from "./UnsubscribeModal";
 import type { MockedResponse } from "@apollo/react-testing";
-import { Provider } from "react-redux";
-import React from "react";
-import type { ReactWrapper } from "enzyme";
-import { UNSUBSCRIBE_FROM_GROUP_MUTATION } from "./UnsubscribeModal/queries";
-import { Unsubscribe } from ".";
-import { UnsubscribeModal } from "./UnsubscribeModal";
-import { act } from "react-dom/test-utils";
-import { mount } from "enzyme";
-import { msgSuccess } from "utils/notifications";
-import store from "store";
-import { MemoryRouter, Route } from "react-router";
 import { MockedProvider, wait } from "@apollo/react-testing";
+import type { ReactWrapper } from "enzyme";
+import { mount } from "enzyme";
+import React from "react";
+import { act } from "react-dom/test-utils";
+import { Provider } from "react-redux";
+import { MemoryRouter, Route } from "react-router";
+import { Field } from "redux-form";
+
+import type { IUnsubscribeModalProps } from "./UnsubscribeModal";
+import { UnsubscribeModal } from "./UnsubscribeModal";
+import { UNSUBSCRIBE_FROM_GROUP_MUTATION } from "./UnsubscribeModal/queries";
+
+import { Unsubscribe } from ".";
+import { Button } from "components/Button";
+import store from "store";
+import { msgSuccess } from "utils/notifications";
 
 jest.mock(
   "../../../../../utils/notifications",

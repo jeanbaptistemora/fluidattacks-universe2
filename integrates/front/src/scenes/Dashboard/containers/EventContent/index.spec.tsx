@@ -1,13 +1,14 @@
-import { EventContent } from "scenes/Dashboard/containers/EventContent";
-import { GET_EVENT_HEADER } from "scenes/Dashboard/containers/EventContent/queries";
 import { MockedProvider } from "@apollo/react-testing";
 import type { MockedResponse } from "@apollo/react-testing";
-import React from "react";
-import { act } from "react-dom/test-utils";
-import wait from "waait";
-import { MemoryRouter, Route } from "react-router";
 import type { ReactWrapper, ShallowWrapper } from "enzyme";
 import { mount, shallow } from "enzyme";
+import React from "react";
+import { act } from "react-dom/test-utils";
+import { MemoryRouter, Route } from "react-router";
+import wait from "waait";
+
+import { EventContent } from "scenes/Dashboard/containers/EventContent";
+import { GET_EVENT_HEADER } from "scenes/Dashboard/containers/EventContent/queries";
 
 describe("EventContent", (): void => {
   const mocks: readonly MockedResponse[] = [

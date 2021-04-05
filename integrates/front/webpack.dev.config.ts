@@ -1,6 +1,7 @@
 import { HotModuleReplacementPlugin } from "webpack";
-import { commonConfig } from "./webpack.common.config";
 import type webpack from "webpack";
+
+import { commonConfig } from "./webpack.common.config";
 
 const devConfig: webpack.Configuration = {
   ...commonConfig,

@@ -1,7 +1,8 @@
-import { MenuItem } from "components/DropdownButton";
-import React from "react";
 import type { ShallowWrapper } from "enzyme";
 import { shallow } from "enzyme";
+import React from "react";
+
+import { MenuItem } from "components/DropdownButton";
 
 const list: string[] = [];
 

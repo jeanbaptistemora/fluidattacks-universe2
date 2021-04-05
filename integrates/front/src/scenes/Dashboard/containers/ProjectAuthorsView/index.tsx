@@ -1,22 +1,23 @@
-import type { ApolloError } from "apollo-client";
-import { DataTableNext } from "components/DataTableNext";
-import { GET_BILL } from "scenes/Dashboard/containers/ProjectAuthorsView/queries";
-import type { GraphQLError } from "graphql";
-import type { IHeaderConfig } from "components/DataTableNext/types";
-import { Logger } from "utils/logger";
-import type { ReactElement } from "react";
-import _ from "lodash";
-import { msgError } from "utils/notifications";
-import styles from "scenes/Dashboard/containers/ProjectAuthorsView/index.css";
-import { translate } from "utils/translations/translate";
-import { useParams } from "react-router";
 import { useQuery } from "@apollo/react-hooks";
-import { Col100, Row } from "styles/styledComponents";
+import type { ApolloError } from "apollo-client";
+import type { GraphQLError } from "graphql";
+import _ from "lodash";
+import type { ReactElement } from "react";
+import React, { useCallback, useState } from "react";
+import { useParams } from "react-router";
+
+import { DataTableNext } from "components/DataTableNext";
+import type { IHeaderConfig } from "components/DataTableNext/types";
+import styles from "scenes/Dashboard/containers/ProjectAuthorsView/index.css";
+import { GET_BILL } from "scenes/Dashboard/containers/ProjectAuthorsView/queries";
 import type {
   IBillDeveloper,
   IData,
 } from "scenes/Dashboard/containers/ProjectAuthorsView/types";
-import React, { useCallback, useState } from "react";
+import { Col100, Row } from "styles/styledComponents";
+import { Logger } from "utils/logger";
+import { msgError } from "utils/notifications";
+import { translate } from "utils/translations/translate";
 
 const ProjectAuthorsView: React.FC = (): JSX.Element => {
   const now: Date = new Date();

@@ -1,29 +1,30 @@
-import { AddFilesModal } from "scenes/Dashboard/components/AddFilesModal";
-import type { ApolloError } from "apollo-client";
-import { Button } from "components/Button";
-import { Can } from "utils/authz/Can";
-import { DataTableNext } from "components/DataTableNext";
-import { FileOptionsModal } from "scenes/Dashboard/components/FileOptionsModal";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import type { GraphQLError } from "graphql";
-import type { IHeaderConfig } from "components/DataTableNext/types";
-import { Logger } from "utils/logger";
-import { TooltipWrapper } from "components/TooltipWrapper";
-import _ from "lodash";
+import { useMutation, useQuery } from "@apollo/react-hooks";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import { openUrl } from "utils/resourceHelpers";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import type { ApolloError } from "apollo-client";
+import type { GraphQLError } from "graphql";
+import _ from "lodash";
 import { track } from "mixpanel-browser";
-import { translate } from "utils/translations/translate";
-import { ButtonToolbar, Col40, Col60, Row } from "styles/styledComponents";
+import React, { useCallback, useState } from "react";
+
+import { Button } from "components/Button";
+import { DataTableNext } from "components/DataTableNext";
+import type { IHeaderConfig } from "components/DataTableNext/types";
+import { TooltipWrapper } from "components/TooltipWrapper";
+import { AddFilesModal } from "scenes/Dashboard/components/AddFilesModal";
+import { FileOptionsModal } from "scenes/Dashboard/components/FileOptionsModal";
 import {
   DOWNLOAD_FILE_MUTATION,
   GET_FILES,
   REMOVE_FILE_MUTATION,
   UPLOAD_FILE_MUTATION,
 } from "scenes/Dashboard/containers/ProjectSettingsView/queries";
-import React, { useCallback, useState } from "react";
+import { ButtonToolbar, Col40, Col60, Row } from "styles/styledComponents";
+import { Can } from "utils/authz/Can";
+import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
-import { useMutation, useQuery } from "@apollo/react-hooks";
+import { openUrl } from "utils/resourceHelpers";
+import { translate } from "utils/translations/translate";
 
 interface IFilesProps {
   projectName: string;

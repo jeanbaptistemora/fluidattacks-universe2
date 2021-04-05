@@ -1,9 +1,11 @@
-import { DataTableNext } from "components/DataTableNext";
-import type { IAcceptedUndefinedTableProps } from "./types";
-import type { IHeaderConfig } from "components/DataTableNext/types";
-import type { IVulnDataAttr } from "../types";
 import React from "react";
+
+import type { IAcceptedUndefinedTableProps } from "./types";
+
+import type { IVulnDataAttr } from "../types";
+import { DataTableNext } from "components/DataTableNext";
 import { changeVulnTreatmentFormatter } from "components/DataTableNext/formatters";
+import type { IHeaderConfig } from "components/DataTableNext/types";
 
 const AcceptedUndefinedTable: React.FC<IAcceptedUndefinedTableProps> = (
   props: IAcceptedUndefinedTableProps

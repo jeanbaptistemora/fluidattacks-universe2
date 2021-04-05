@@ -1,9 +1,11 @@
 /* eslint-disable react/forbid-component-props, fp/no-rest-parameters, react/jsx-props-no-spreading */
-import { ChartsGenericViewExtras } from "scenes/Dashboard/containers/ChartsGenericView/components/Extras";
-import { Graphic } from "graphics/components/Graphic";
-import styles from "scenes/Dashboard/containers/ChartsGenericView/index.css";
-import { translate } from "utils/translations/translate";
+import React, { useCallback, useState } from "react";
+
 import { Col100, Col25, Col33, Col50 } from "./components/ChartCols";
+
+import { Graphic } from "graphics/components/Graphic";
+import { ChartsGenericViewExtras } from "scenes/Dashboard/containers/ChartsGenericView/components/Extras";
+import styles from "scenes/Dashboard/containers/ChartsGenericView/index.css";
 import type {
   EntityType,
   IChartsGenericViewProps,
@@ -15,7 +17,7 @@ import {
   Row,
   RowCenter,
 } from "styles/styledComponents";
-import React, { useCallback, useState } from "react";
+import { translate } from "utils/translations/translate";
 
 const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
   props: IChartsGenericViewProps

@@ -1,15 +1,16 @@
-import { APITokenForcesModal } from "scenes/Dashboard/components/APITokenForcesModal";
-import { Button } from "components/Button";
-import type { IServicesProps } from "../Services/types";
-import { translate } from "utils/translations/translate";
+import React, { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
+
+import type { IServicesProps } from "../Services/types";
+import { Button } from "components/Button";
+import { APITokenForcesModal } from "scenes/Dashboard/components/APITokenForcesModal";
 import {
   ButtonToolbar,
   Flex,
   LastProjectSetting,
   ProjectScopeText,
 } from "styles/styledComponents";
-import React, { useCallback, useState } from "react";
+import { translate } from "utils/translations/translate";
 
 const AgentToken: React.FC<IServicesProps> = (
   props: IServicesProps

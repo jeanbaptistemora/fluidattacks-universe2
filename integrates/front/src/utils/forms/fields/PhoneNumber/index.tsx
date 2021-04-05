@@ -1,6 +1,7 @@
-import PhoneInput from "react-phone-input-2";
 import React from "react";
+import PhoneInput from "react-phone-input-2";
 import type { WrappedFieldProps } from "redux-form";
+
 import style from "utils/forms/index.css";
 import "react-phone-input-2/lib/bootstrap.css";
 

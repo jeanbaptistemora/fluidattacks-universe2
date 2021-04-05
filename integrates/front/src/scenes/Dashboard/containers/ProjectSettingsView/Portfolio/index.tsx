@@ -1,28 +1,29 @@
-import { AddTagsModal } from "scenes/Dashboard/components/AddTagsModal";
-import type { ApolloError } from "apollo-client";
-import { Badge } from "components/Badge";
-import { Button } from "components/Button";
-import { Can } from "utils/authz/Can";
-import { DataTableNext } from "components/DataTableNext";
+import { useMutation, useQuery } from "@apollo/react-hooks";
+import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import type { GraphQLError } from "graphql";
-import type { IHeaderConfig } from "components/DataTableNext/types";
-import { Logger } from "utils/logger";
+import type { ApolloError } from "apollo-client";
 import { NetworkStatus } from "apollo-client";
-import { TooltipWrapper } from "components/TooltipWrapper";
+import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import { track } from "mixpanel-browser";
-import { translate } from "utils/translations/translate";
+import React, { useCallback, useState } from "react";
+
+import { Badge } from "components/Badge";
+import { Button } from "components/Button";
+import { DataTableNext } from "components/DataTableNext";
+import type { IHeaderConfig } from "components/DataTableNext/types";
+import { TooltipWrapper } from "components/TooltipWrapper";
+import { AddTagsModal } from "scenes/Dashboard/components/AddTagsModal";
 import {
   ADD_TAGS_MUTATION,
   GET_TAGS,
   REMOVE_TAG_MUTATION,
 } from "scenes/Dashboard/containers/ProjectSettingsView/queries";
 import { ButtonToolbar, Col40, Col60, Row } from "styles/styledComponents";
-import React, { useCallback, useState } from "react";
-import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { Can } from "utils/authz/Can";
+import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
-import { useMutation, useQuery } from "@apollo/react-hooks";
+import { translate } from "utils/translations/translate";
 
 interface IPortfolioProps {
   projectName: string;

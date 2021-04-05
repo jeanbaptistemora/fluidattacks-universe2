@@ -1,20 +1,8 @@
-import type { ApolloError } from "apollo-client";
-import { EventContent } from "scenes/Dashboard/containers/EventContent";
-import { FindingContent } from "scenes/Dashboard/containers/FindingContent";
-import { GET_GROUP_DATA } from "scenes/Dashboard/containers/ProjectRoute/queries";
-import { GET_USER_PERMISSIONS } from "scenes/Dashboard/queries";
-import type { GraphQLError } from "graphql";
-import { Logger } from "utils/logger";
-import { ProjectContent } from "scenes/Dashboard/containers/ProjectContent";
-import type { PureAbility } from "@casl/ability";
-import _ from "lodash";
-import { msgError } from "utils/notifications";
-import { translate } from "utils/translations/translate";
 import { useQuery } from "@apollo/react-hooks";
-import type {
-  IProjectData,
-  IProjectRoute,
-} from "scenes/Dashboard/containers/ProjectRoute/types";
+import type { PureAbility } from "@casl/ability";
+import type { ApolloError } from "apollo-client";
+import type { GraphQLError } from "graphql";
+import _ from "lodash";
 import React, { useContext, useEffect } from "react";
 import {
   Redirect,
@@ -23,7 +11,20 @@ import {
   useParams,
   useRouteMatch,
 } from "react-router-dom";
+
+import { EventContent } from "scenes/Dashboard/containers/EventContent";
+import { FindingContent } from "scenes/Dashboard/containers/FindingContent";
+import { ProjectContent } from "scenes/Dashboard/containers/ProjectContent";
+import { GET_GROUP_DATA } from "scenes/Dashboard/containers/ProjectRoute/queries";
+import type {
+  IProjectData,
+  IProjectRoute,
+} from "scenes/Dashboard/containers/ProjectRoute/types";
+import { GET_USER_PERMISSIONS } from "scenes/Dashboard/queries";
 import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
+import { Logger } from "utils/logger";
+import { msgError } from "utils/notifications";
+import { translate } from "utils/translations/translate";
 
 const ProjectRoute: React.FC<IProjectRoute> = (
   props: IProjectRoute

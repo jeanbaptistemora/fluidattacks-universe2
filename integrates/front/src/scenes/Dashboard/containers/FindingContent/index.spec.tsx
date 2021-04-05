@@ -1,14 +1,17 @@
-import { FindingContent } from "scenes/Dashboard/containers/FindingContent";
-import { GraphQLError } from "graphql";
 import { MockedProvider } from "@apollo/react-testing";
 import type { MockedResponse } from "@apollo/react-testing";
-import { Provider } from "react-redux";
 import { PureAbility } from "@casl/ability";
+import type { ReactWrapper, ShallowWrapper } from "enzyme";
+import { mount, shallow } from "enzyme";
+import { GraphQLError } from "graphql";
 import React from "react";
 import { act } from "react-dom/test-utils";
-import store from "store";
+import { Provider } from "react-redux";
+import { MemoryRouter, Route } from "react-router-dom";
 import wait from "waait";
 import waitForExpect from "wait-for-expect";
+
+import { FindingContent } from "scenes/Dashboard/containers/FindingContent";
 import {
   APPROVE_DRAFT_MUTATION,
   DELETE_FINDING_MUTATION,
@@ -16,10 +19,8 @@ import {
   REJECT_DRAFT_MUTATION,
   SUBMIT_DRAFT_MUTATION,
 } from "scenes/Dashboard/containers/FindingContent/queries";
-import { MemoryRouter, Route } from "react-router-dom";
-import type { ReactWrapper, ShallowWrapper } from "enzyme";
+import store from "store";
 import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
-import { mount, shallow } from "enzyme";
 import { msgError, msgSuccess } from "utils/notifications";
 
 jest.mock(

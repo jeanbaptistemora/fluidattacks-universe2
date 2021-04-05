@@ -1,25 +1,26 @@
-import { AddProjectModal } from "scenes/Dashboard/components/AddProjectModal";
-import { GET_ORGANIZATION_GROUPS } from "scenes/Dashboard/containers/OrganizationGroupsView/queries";
-import { GraphQLError } from "graphql";
-import type { IOrganizationGroupsProps } from "scenes/Dashboard/containers/OrganizationGroupsView/types";
 import { MockedProvider } from "@apollo/react-testing";
 import type { MockedResponse } from "@apollo/react-testing";
-import { OrganizationGroups } from "scenes/Dashboard/containers/OrganizationGroupsView";
-import { Provider } from "react-redux";
 import { PureAbility } from "@casl/ability";
-import React from "react";
 import type { ReactWrapper } from "enzyme";
-import { act } from "react-dom/test-utils";
-import { authzPermissionsContext } from "utils/authz/config";
 import { mount } from "enzyme";
-import { msgError } from "utils/notifications";
-import store from "store/index";
+import { GraphQLError } from "graphql";
+import React from "react";
+import { act } from "react-dom/test-utils";
+import { Provider } from "react-redux";
+import { MemoryRouter, Route } from "react-router";
 import waitForExpect from "wait-for-expect";
+
+import { AddProjectModal } from "scenes/Dashboard/components/AddProjectModal";
 import {
   CREATE_PROJECT_MUTATION,
   PROJECTS_NAME_QUERY,
 } from "scenes/Dashboard/components/AddProjectModal/queries";
-import { MemoryRouter, Route } from "react-router";
+import { OrganizationGroups } from "scenes/Dashboard/containers/OrganizationGroupsView";
+import { GET_ORGANIZATION_GROUPS } from "scenes/Dashboard/containers/OrganizationGroupsView/queries";
+import type { IOrganizationGroupsProps } from "scenes/Dashboard/containers/OrganizationGroupsView/types";
+import store from "store/index";
+import { authzPermissionsContext } from "utils/authz/config";
+import { msgError } from "utils/notifications";
 
 const mockHistoryPush: jest.Mock = jest.fn();
 

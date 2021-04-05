@@ -1,5 +1,7 @@
 import React from "react";
 import { ReactSVG } from "react-svg";
+
+import style from "components/FluidIcon/index.css";
 import authorsIcon from "resources/authors.svg";
 import avabilityHighIcon from "resources/availability_high.svg";
 import avabilityLowIcon from "resources/availability_low.svg";
@@ -33,7 +35,6 @@ import privilegesNoneIcon from "resources/privileges_none.svg";
 import scopeChangedIcon from "resources/scope_changed.svg";
 import scopeUnchangedIcon from "resources/scope_unchanged.svg";
 import searchIcon from "resources/search.svg";
-import style from "components/FluidIcon/index.css";
 import terminalIcon from "resources/terminal.svg";
 import totalIcon from "resources/total.svg";
 import totalVulnerabilitiesIcon from "resources/total_vulnerabilities.svg";

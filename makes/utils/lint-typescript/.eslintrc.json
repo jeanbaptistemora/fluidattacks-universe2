@@ -46,7 +46,11 @@
     }
   },
   "rules": {
-    "capitalized-comments": ["error", "always", { "ignoreConsecutiveComments": true }],
+    "capitalized-comments": [
+      "error",
+      "always",
+      { "ignoreConsecutiveComments": true }
+    ],
     "eqeqeq": ["error", "smart"],
     "func-style": ["error", "declaration", { "allowArrowFunctions": true }],
     /*
@@ -64,10 +68,10 @@
     "max-statements": "off",
     "multiline-comment-style": ["error", "starred-block"],
     /*
-    * Replaced by @typescript-eslint/no-duplicate-imports to avoid
-    * conflicts with type imports
-    * https://github.com/typescript-eslint/typescript-eslint/issues/2315
-    */
+     * Replaced by @typescript-eslint/no-duplicate-imports to avoid
+     * conflicts with type imports
+     * https://github.com/typescript-eslint/typescript-eslint/issues/2315
+     */
     "no-duplicate-imports": "off",
     /*
      * Rules regarding the ternary op are disabled, as it is common its usage in React
@@ -91,12 +95,7 @@
       "error",
       { "blankLine": "always", "prev": "*", "next": "return" }
     ],
-    "sort-imports": [
-      "error",
-      {
-        "memberSyntaxSortOrder": ["single", "all", "multiple", "none"]
-      }
-    ],
+    "sort-imports": ["error", { "ignoreDeclarationSort": true }],
     "prettier/prettier": [
       "error",
       {},
@@ -135,9 +134,9 @@
     ],
     "@typescript-eslint/no-duplicate-imports": ["error"],
     /*
-    * Disabling this rule is necessary to avoid a conflict with
-    * @typescript-eslint/typedef that checks for all variables to be typed
-    */
+     * Disabling this rule is necessary to avoid a conflict with
+     * @typescript-eslint/typedef that checks for all variables to be typed
+     */
     "@typescript-eslint/no-inferrable-types": "off",
     "@typescript-eslint/no-magic-numbers": [
       "error",
@@ -148,12 +147,12 @@
     /*
      * Using non-null assertions cancels the benefits of the strict null-checking mode
      */
-     "@typescript-eslint/no-non-null-assertion": "error",
-     /*
-      * This rule is incompatible with "@typescript-eslint/no-non-null-assertion" and it
-      * is not a problem to have verbose type casts
-      */
-     "@typescript-eslint/non-nullable-type-assertion-style": "off",
+    "@typescript-eslint/no-non-null-assertion": "error",
+    /*
+     * This rule is incompatible with "@typescript-eslint/no-non-null-assertion" and it
+     * is not a problem to have verbose type casts
+     */
+    "@typescript-eslint/non-nullable-type-assertion-style": "off",
     "@typescript-eslint/no-type-alias": [
       "error",
       {
@@ -166,7 +165,10 @@
      * new unknown type
      */
     "@typescript-eslint/no-unsafe-assignment": "off",
-    "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_" } ],
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      { "argsIgnorePattern": "^_" }
+    ],
     /*
      * This rule must be disabled as it can report incorrect errors in conflict
      * with with rule eslint/object-curly-spacing. Official plugin doc

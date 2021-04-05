@@ -1,13 +1,22 @@
-import { Button } from "components/Button";
-import { Field } from "redux-form";
-import { GenericForm } from "scenes/Dashboard/components/GenericForm";
-import type { InjectedFormProps } from "redux-form";
-import { Modal } from "components/Modal";
 import type { MutationFunction } from "@apollo/react-common";
-import React from "react";
 import _ from "lodash";
 import { track } from "mixpanel-browser";
-import { translate } from "utils/translations/translate";
+import React from "react";
+import { Field } from "redux-form";
+import type { InjectedFormProps } from "redux-form";
+
+import { Button } from "components/Button";
+import { Modal } from "components/Modal";
+import {
+  useGetAPIToken,
+  useInvalidateAPIToken,
+  useUpdateAPIToken,
+} from "scenes/Dashboard/components/APITokenModal/hooks";
+import type {
+  IAccessTokenAttr,
+  IGetAccessTokenDictAttr,
+} from "scenes/Dashboard/components/APITokenModal/types";
+import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import {
   ButtonToolbar,
   ButtonToolbarLeft,
@@ -17,21 +26,13 @@ import {
   Row,
 } from "styles/styledComponents";
 import { Date as DateField, TextArea } from "utils/forms/fields";
-import type {
-  IAccessTokenAttr,
-  IGetAccessTokenDictAttr,
-} from "scenes/Dashboard/components/APITokenModal/types";
+import { msgError, msgSuccess } from "utils/notifications";
+import { translate } from "utils/translations/translate";
 import {
   isLowerDate,
   isValidDateAccessToken,
   required,
 } from "utils/validations";
-import { msgError, msgSuccess } from "utils/notifications";
-import {
-  useGetAPIToken,
-  useInvalidateAPIToken,
-  useUpdateAPIToken,
-} from "scenes/Dashboard/components/APITokenModal/hooks";
 
 interface IAPITokenModalProps {
   open: boolean;

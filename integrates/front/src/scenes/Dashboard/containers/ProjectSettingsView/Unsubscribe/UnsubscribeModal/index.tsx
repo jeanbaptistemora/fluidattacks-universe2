@@ -1,12 +1,11 @@
-import { Button } from "components/Button";
-import { Field } from "redux-form";
-import { GenericForm } from "scenes/Dashboard/components/GenericForm";
-import type { InjectedFormProps } from "redux-form";
-import { Modal } from "components/Modal";
 import React from "react";
-import { Text } from "utils/forms/fields";
-import { required } from "utils/validations";
 import { useTranslation } from "react-i18next";
+import { Field } from "redux-form";
+import type { InjectedFormProps } from "redux-form";
+
+import { Button } from "components/Button";
+import { Modal } from "components/Modal";
+import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import {
   Alert,
   ButtonToolbar,
@@ -15,6 +14,8 @@ import {
   FormGroup,
   Row,
 } from "styles/styledComponents";
+import { Text } from "utils/forms/fields";
+import { required } from "utils/validations";
 
 interface IUnsubscribeModalProps {
   groupName: string;

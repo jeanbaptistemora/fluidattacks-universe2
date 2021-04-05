@@ -1,7 +1,8 @@
-import React from "react";
-import { ScrollUpButton } from "components/ScrollUpButton";
 import type { ShallowWrapper } from "enzyme";
 import { shallow } from "enzyme";
+import React from "react";
+
+import { ScrollUpButton } from "components/ScrollUpButton";
 
 describe("ScrollUpButton", (): void => {
   it("should return a function", (): void => {

@@ -1,28 +1,29 @@
-import type { ApolloError } from "apollo-client";
-import { DataTableNext } from "components/DataTableNext";
-import { GET_FINDING_HEADER } from "scenes/Dashboard/containers/FindingContent/queries";
-import { GET_FINDING_VULN_INFO } from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
-import type { GraphQLError } from "graphql";
-import type { IHeaderConfig } from "components/DataTableNext/types";
-import { Logger } from "utils/logger";
-import type { PureAbility } from "@casl/ability";
-import { RemediationModal } from "scenes/Dashboard/components/RemediationModal/index";
-import { changeVulnStateFormatter } from "components/DataTableNext/formatters";
-import { track } from "mixpanel-browser";
-import { translate } from "utils/translations/translate";
-import { useAbility } from "@casl/react";
 import { useMutation } from "@apollo/react-hooks";
-import type {
-  IRequestVerificationVulnResult,
-  IVerifyRequestVulnResult,
-} from "scenes/Dashboard/components/UpdateVerificationModal/types";
+import type { PureAbility } from "@casl/ability";
+import { useAbility } from "@casl/react";
+import type { ApolloError } from "apollo-client";
+import type { GraphQLError } from "graphql";
+import { track } from "mixpanel-browser";
+import React, { useCallback, useState } from "react";
+
+import { DataTableNext } from "components/DataTableNext";
+import { changeVulnStateFormatter } from "components/DataTableNext/formatters";
+import type { IHeaderConfig } from "components/DataTableNext/types";
+import { RemediationModal } from "scenes/Dashboard/components/RemediationModal/index";
 import {
   REQUEST_VERIFICATION_VULN,
   VERIFY_VULNERABILITIES,
 } from "scenes/Dashboard/components/UpdateVerificationModal/queries";
-import React, { useCallback, useState } from "react";
+import type {
+  IRequestVerificationVulnResult,
+  IVerifyRequestVulnResult,
+} from "scenes/Dashboard/components/UpdateVerificationModal/types";
+import { GET_FINDING_HEADER } from "scenes/Dashboard/containers/FindingContent/queries";
+import { GET_FINDING_VULN_INFO } from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
 import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
+import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
+import { translate } from "utils/translations/translate";
 
 interface IVulnData {
   currentState: string;

@@ -1,10 +1,11 @@
-import { GenericForm } from "scenes/Dashboard/components/GenericForm";
-import { Provider } from "react-redux";
-import React from "react";
 import type { ShallowWrapper } from "enzyme";
-import { createStore } from "redux";
 import { shallow } from "enzyme";
+import React from "react";
+import { Provider } from "react-redux";
+import { createStore } from "redux";
 import type { Action, Store } from "redux";
+
+import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 
 const functionMock: () => void = (): void => undefined;
 

@@ -3,6 +3,7 @@
   We need className to override default styles from react-bootstrap.
 */
 import React from "react";
+
 import { translate } from "utils/translations/translate";
 
 export const limitFormatter: (value: string) => JSX.Element = (

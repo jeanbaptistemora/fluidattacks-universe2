@@ -1,10 +1,11 @@
-import AnnounceKit from "announcekit-react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import type { IAuthContext } from "utils/auth";
-import { NavItem } from "styles/styledComponents";
-import { authContext } from "utils/auth";
 import { faBullhorn } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import AnnounceKit from "announcekit-react";
 import React, { useContext } from "react";
+
+import { NavItem } from "styles/styledComponents";
+import type { IAuthContext } from "utils/auth";
+import { authContext } from "utils/auth";
 
 const NewsWidget: React.FC = (): JSX.Element => {
   const { userEmail }: IAuthContext = useContext(authContext);

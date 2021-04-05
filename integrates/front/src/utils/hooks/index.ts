@@ -1,8 +1,8 @@
-import type React from "react";
 import _ from "lodash";
 import { track } from "mixpanel-browser";
-import { useLocation } from "react-router";
+import type React from "react";
 import { useEffect, useState } from "react";
+import { useLocation } from "react-router";
 
 // Wrapper for React.useState that persists using the Web Storage API
 function useStoredState<T>(

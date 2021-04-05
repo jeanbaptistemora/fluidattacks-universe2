@@ -1,7 +1,8 @@
-import { Button } from "components/Button";
-import { Modal } from "components/Modal";
 import React from "react";
 import { useTranslation } from "react-i18next";
+
+import { Button } from "components/Button";
+import { Modal } from "components/Modal";
 import { ButtonToolbar, Col100, Row } from "styles/styledComponents";
 
 interface IConcurrentSessionNoticeProps {

@@ -3,17 +3,17 @@
   We need className to override default styles from react-boostrap.
 */
 
-import { Col100 } from "styles/styledComponents";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import logo from "resources/integrates.svg";
-import style from "scenes/Login/index.css";
-import { track } from "mixpanel-browser";
-import { useTranslation } from "react-i18next";
 import {
-  CI_COMMIT_SHA,
-  CI_COMMIT_SHORT_SHA,
-  INTEGRATES_DEPLOYMENT_DATE,
-} from "utils/ctx";
+  faBitbucket,
+  faGoogle,
+  faWindows,
+} from "@fortawesome/free-brands-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { track } from "mixpanel-browser";
+import React, { useEffect } from "react";
+import { useTranslation } from "react-i18next";
+import { Slide, toast } from "react-toastify";
+
 import {
   LoginButton,
   LoginCommit,
@@ -24,13 +24,15 @@ import {
   TwoFaButton,
   TwoFacol,
 } from "./components";
-import React, { useEffect } from "react";
-import { Slide, toast } from "react-toastify";
+
+import logo from "resources/integrates.svg";
+import style from "scenes/Login/index.css";
+import { Col100 } from "styles/styledComponents";
 import {
-  faBitbucket,
-  faGoogle,
-  faWindows,
-} from "@fortawesome/free-brands-svg-icons";
+  CI_COMMIT_SHA,
+  CI_COMMIT_SHORT_SHA,
+  INTEGRATES_DEPLOYMENT_DATE,
+} from "utils/ctx";
 
 export const Login: React.FC = (): JSX.Element => {
   const { t } = useTranslation();

@@ -1,29 +1,30 @@
-import { AddProjectModal } from "scenes/Dashboard/components/AddProjectModal";
-import type { ApolloError } from "apollo-client";
-import { Button } from "components/Button";
-import { Can } from "utils/authz/Can";
-import { DataTableNext } from "components/DataTableNext/index";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { GET_ORGANIZATION_GROUPS } from "scenes/Dashboard/containers/OrganizationGroupsView/queries";
-import type { GraphQLError } from "graphql";
-import type { IHeaderConfig } from "components/DataTableNext/types";
-import { Logger } from "utils/logger";
-import { TooltipWrapper } from "components/TooltipWrapper/index";
-import _ from "lodash";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import { msgError } from "utils/notifications";
-import { statusFormatter } from "components/DataTableNext/formatters";
-import style from "scenes/Dashboard/containers/OrganizationGroupsView/index.css";
-import { translate } from "utils/translations/translate";
 import { useQuery } from "@apollo/react-hooks";
-import { ButtonToolbarCenter, Col100, Row } from "styles/styledComponents";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import type { ApolloError } from "apollo-client";
+import type { GraphQLError } from "graphql";
+import _ from "lodash";
+import React, { useCallback, useState } from "react";
+import { useHistory, useParams, useRouteMatch } from "react-router-dom";
+
+import { Button } from "components/Button";
+import { statusFormatter } from "components/DataTableNext/formatters";
+import { DataTableNext } from "components/DataTableNext/index";
+import type { IHeaderConfig } from "components/DataTableNext/types";
+import { TooltipWrapper } from "components/TooltipWrapper/index";
+import { AddProjectModal } from "scenes/Dashboard/components/AddProjectModal";
+import style from "scenes/Dashboard/containers/OrganizationGroupsView/index.css";
+import { GET_ORGANIZATION_GROUPS } from "scenes/Dashboard/containers/OrganizationGroupsView/queries";
 import type {
   IGetOrganizationGroups,
   IGroupData,
   IOrganizationGroupsProps,
 } from "scenes/Dashboard/containers/OrganizationGroupsView/types";
-import React, { useCallback, useState } from "react";
-import { useHistory, useParams, useRouteMatch } from "react-router-dom";
+import { ButtonToolbarCenter, Col100, Row } from "styles/styledComponents";
+import { Can } from "utils/authz/Can";
+import { Logger } from "utils/logger";
+import { msgError } from "utils/notifications";
+import { translate } from "utils/translations/translate";
 
 const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
   props: IOrganizationGroupsProps

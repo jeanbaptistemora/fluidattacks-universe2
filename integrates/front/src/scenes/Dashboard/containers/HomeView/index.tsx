@@ -1,15 +1,16 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access -- DB queries use "any" type */
-import type { ApolloError } from "apollo-client";
-import { GET_USER_ORGANIZATIONS } from "scenes/Dashboard/components/Navbar/queries";
-import type { GraphQLError } from "graphql";
-import { Logger } from "utils/logger";
-import _ from "lodash";
-import { msgError } from "utils/notifications";
-import { translate } from "utils/translations/translate";
 import { useQuery } from "@apollo/react-hooks";
-import { useStoredState } from "utils/hooks";
+import type { ApolloError } from "apollo-client";
+import type { GraphQLError } from "graphql";
+import _ from "lodash";
 import React, { useCallback, useEffect } from "react";
 import { Redirect, Switch, useHistory } from "react-router-dom";
+
+import { GET_USER_ORGANIZATIONS } from "scenes/Dashboard/components/Navbar/queries";
+import { useStoredState } from "utils/hooks";
+import { Logger } from "utils/logger";
+import { msgError } from "utils/notifications";
+import { translate } from "utils/translations/translate";
 
 const HomeView: React.FC = (): JSX.Element => {
   const [lastOrganization, setLastOrganization] = useStoredState(

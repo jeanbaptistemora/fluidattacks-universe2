@@ -3,18 +3,19 @@
   Readonly utility type does not work on deeply nested types and we need
   className to override default styles from react-bootstrap.
 */
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
-import _ from "lodash";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
-import style from "utils/forms/index.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import _ from "lodash";
+import React from "react";
+import type { WrappedFieldInputProps, WrappedFieldProps } from "redux-form";
+
 import {
   ControlLabel,
   FormGroup,
   InputGroup,
   ValidationError,
 } from "styles/styledComponents";
-import type { WrappedFieldInputProps, WrappedFieldProps } from "redux-form";
+import style from "utils/forms/index.css";
 
 interface IFileInputProps extends WrappedFieldProps {
   accept?: string;

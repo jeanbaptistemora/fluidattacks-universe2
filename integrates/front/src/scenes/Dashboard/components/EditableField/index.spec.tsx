@@ -1,7 +1,8 @@
-import { EditableField } from "scenes/Dashboard/components/EditableField";
-import React from "react";
 import type { ShallowWrapper } from "enzyme";
 import { shallow } from "enzyme";
+import React from "react";
+
+import { EditableField } from "scenes/Dashboard/components/EditableField";
 
 describe("Confirm dialog", (): void => {
   it("should return an function", (): void => {

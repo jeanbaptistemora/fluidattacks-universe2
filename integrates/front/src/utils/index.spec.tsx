@@ -1,4 +1,5 @@
 import type { ConfigurableValidator } from "revalidate";
+
 import {
   alphaNumeric,
   checked,

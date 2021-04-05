@@ -1,7 +1,9 @@
-import type { IAcceptationUserFieldProps } from "./types";
 import React from "react";
-import { translate } from "utils/translations/translate";
+
+import type { IAcceptationUserFieldProps } from "./types";
+
 import { ControlLabel, FormGroup } from "styles/styledComponents";
+import { translate } from "utils/translations/translate";
 
 const AcceptationUserField: React.FC<IAcceptationUserFieldProps> = (
   props: IAcceptationUserFieldProps

@@ -2,23 +2,24 @@
   --------
   Best way to pass down props.
 */
-import { AddUserModal } from "scenes/Dashboard/components/AddUserModal";
-import { GET_USER } from "scenes/Dashboard/components/AddUserModal/queries";
-import { GraphQLError } from "graphql";
-import type { IAddStakeholderModalProps } from "scenes/Dashboard/components/AddUserModal/types";
 import { MockedProvider } from "@apollo/react-testing";
 import type { MockedResponse } from "@apollo/react-testing";
-import { Provider } from "react-redux";
 import { PureAbility } from "@casl/ability";
-import React from "react";
-import { act } from "react-dom/test-utils";
-import { authzPermissionsContext } from "utils/authz/config";
-import { msgError } from "utils/notifications";
-import store from "store";
-import wait from "waait";
-import waitForExpect from "wait-for-expect";
 import type { ReactWrapper, ShallowWrapper } from "enzyme";
 import { mount, shallow } from "enzyme";
+import { GraphQLError } from "graphql";
+import React from "react";
+import { act } from "react-dom/test-utils";
+import { Provider } from "react-redux";
+import wait from "waait";
+import waitForExpect from "wait-for-expect";
+
+import { AddUserModal } from "scenes/Dashboard/components/AddUserModal";
+import { GET_USER } from "scenes/Dashboard/components/AddUserModal/queries";
+import type { IAddStakeholderModalProps } from "scenes/Dashboard/components/AddUserModal/types";
+import store from "store";
+import { authzPermissionsContext } from "utils/authz/config";
+import { msgError } from "utils/notifications";
 
 jest.mock(
   "../../../../utils/notifications",

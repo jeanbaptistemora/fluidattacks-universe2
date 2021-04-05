@@ -1,14 +1,15 @@
-import { APITokenModal } from "scenes/Dashboard/components/APITokenModal";
-import { GraphQLError } from "graphql";
 import type { MockedResponse } from "@apollo/react-testing";
-import { Provider } from "react-redux";
-import React from "react";
+import { MockedProvider, wait } from "@apollo/react-testing";
 import type { ReactWrapper } from "enzyme";
-import { act } from "react-dom/test-utils";
-import moment from "moment";
 import { mount } from "enzyme";
-import store from "store";
+import { GraphQLError } from "graphql";
+import moment from "moment";
+import React from "react";
+import { act } from "react-dom/test-utils";
+import { Provider } from "react-redux";
 import waitForExpect from "wait-for-expect";
+
+import { APITokenModal } from "scenes/Dashboard/components/APITokenModal";
 import {
   GET_ACCESS_TOKEN,
   UPDATE_ACCESS_TOKEN_MUTATION,
@@ -17,7 +18,7 @@ import type {
   IGetAccessTokenDictAttr,
   IUpdateAccessTokenAttr,
 } from "scenes/Dashboard/components/APITokenModal/types";
-import { MockedProvider, wait } from "@apollo/react-testing";
+import store from "store";
 
 describe("Update access token modal", (): void => {
   const handleOnClose: jest.Mock = jest.fn();

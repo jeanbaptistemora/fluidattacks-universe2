@@ -1,17 +1,18 @@
-import { GET_FINDING_VULN_INFO } from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
 import { MockedProvider } from "@apollo/react-testing";
 import type { MockedResponse } from "@apollo/react-testing";
-import { Provider } from "react-redux";
 import { PureAbility } from "@casl/ability";
-import React from "react";
 import type { ReactWrapper } from "enzyme";
-import { VulnsView } from "scenes/Dashboard/containers/VulnerabilitiesView";
-import { act } from "react-dom/test-utils";
-import { authzPermissionsContext } from "utils/authz/config";
 import { mount } from "enzyme";
-import store from "store";
-import waitForExpect from "wait-for-expect";
+import React from "react";
+import { act } from "react-dom/test-utils";
+import { Provider } from "react-redux";
 import { MemoryRouter, Route } from "react-router-dom";
+import waitForExpect from "wait-for-expect";
+
+import { VulnsView } from "scenes/Dashboard/containers/VulnerabilitiesView";
+import { GET_FINDING_VULN_INFO } from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
+import store from "store";
+import { authzPermissionsContext } from "utils/authz/config";
 
 describe("VulnerabilitiesView", (): void => {
   const mocksQuery: MockedResponse = {

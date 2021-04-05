@@ -1,7 +1,8 @@
-import type { IFindingAttr } from "scenes/Dashboard/containers/ProjectFindingsView/types";
-import type { IHistoricTreatment } from "scenes/Dashboard/containers/DescriptionView/types";
 import _ from "lodash";
+
 import { getLastTreatment } from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription/utils";
+import type { IHistoricTreatment } from "scenes/Dashboard/containers/DescriptionView/types";
+import type { IFindingAttr } from "scenes/Dashboard/containers/ProjectFindingsView/types";
 import { translate } from "utils/translations/translate";
 
 const formatTreatmentSummary: (

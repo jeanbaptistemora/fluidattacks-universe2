@@ -1,9 +1,10 @@
-import { AdditionalInfo } from "scenes/Dashboard/components/Vulnerabilities/AdditionalInfo";
-import type { IVulnRowAttr } from "../types";
-import React from "react";
 import type { ReactWrapper } from "enzyme";
-import moment from "moment";
 import { mount } from "enzyme";
+import moment from "moment";
+import React from "react";
+
+import type { IVulnRowAttr } from "../types";
+import { AdditionalInfo } from "scenes/Dashboard/components/Vulnerabilities/AdditionalInfo";
 
 describe("AdditionalInfo", (): void => {
   const numberOfDays: number = 5;

@@ -1,6 +1,7 @@
+import React from "react";
+
 import type { IModalProps } from "./components/modalBase";
 import { ModalBase } from "./components/modalBase";
-import React from "react";
 
 const Modal: React.FC<IModalProps> = (
   props: Readonly<IModalProps>

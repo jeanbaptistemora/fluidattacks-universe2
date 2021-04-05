@@ -2,11 +2,12 @@
   --------
   Disable for testing purposes
 */
-import { Modal } from "components/Modal";
-import { ModalBase } from "components/Modal/components/modalBase";
-import React from "react";
 import type { ShallowWrapper } from "enzyme";
 import { shallow } from "enzyme";
+import React from "react";
+
+import { Modal } from "components/Modal";
+import { ModalBase } from "components/Modal/components/modalBase";
 import { ModalBody, ModalHeader, ModalTitle } from "styles/styledComponents";
 
 describe("Generic modal", (): void => {

@@ -2,17 +2,30 @@
   --------
   We need className to override default styles from react-bootstrap.
   */
-import type { ComponentSize } from "@rehooks/component-size";
+import {
+  faDownload,
+  faExpandArrowsAlt,
+  faHourglassHalf,
+  faSyncAlt,
+  faTimes,
+  faWrench,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import type { IGraphicProps } from "graphics/types";
-import type { ISecureStoreConfig } from "utils/secureStore";
-import { Modal } from "components/Modal";
+import type { ComponentSize } from "@rehooks/component-size";
+import useComponentSize from "@rehooks/component-size";
 import _ from "lodash";
 import { track as mixpanelTrack } from "mixpanel-browser";
-import { secureStoreContext } from "utils/secureStore";
+import React, {
+  useCallback,
+  useContext,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
+
+import { Modal } from "components/Modal";
 import styles from "graphics/components/Graphic/index.css";
-import { translate } from "utils/translations/translate";
-import useComponentSize from "@rehooks/component-size";
+import type { IGraphicProps } from "graphics/types";
 import {
   ButtonGroup,
   ButtonToolbar,
@@ -22,21 +35,9 @@ import {
   GraphicPanelCollapseFooter,
   GraphicPanelCollapseHeader,
 } from "styles/styledComponents";
-import React, {
-  useCallback,
-  useContext,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
-import {
-  faDownload,
-  faExpandArrowsAlt,
-  faHourglassHalf,
-  faSyncAlt,
-  faTimes,
-  faWrench,
-} from "@fortawesome/free-solid-svg-icons";
+import type { ISecureStoreConfig } from "utils/secureStore";
+import { secureStoreContext } from "utils/secureStore";
+import { translate } from "utils/translations/translate";
 
 const glyphPadding: number = 15;
 const fontSize: number = 16;

@@ -1,16 +1,17 @@
-import { Dashboard } from "scenes/Dashboard";
-import { GET_USER } from "scenes/Dashboard/queries";
-import { GET_USER_ORGANIZATIONS } from "scenes/Dashboard/components/Navbar/queries";
-import type { IUser } from "scenes/Dashboard/types";
-import { MemoryRouter } from "react-router";
 import type { MockedResponse } from "@apollo/react-testing";
-import { Provider } from "react-redux";
-import React from "react";
-import type { ReactWrapper } from "enzyme";
-import { act } from "react-dom/test-utils";
-import { mount } from "enzyme";
-import store from "store";
 import { MockedProvider, wait } from "@apollo/react-testing";
+import type { ReactWrapper } from "enzyme";
+import { mount } from "enzyme";
+import React from "react";
+import { act } from "react-dom/test-utils";
+import { Provider } from "react-redux";
+import { MemoryRouter } from "react-router";
+
+import { Dashboard } from "scenes/Dashboard";
+import { GET_USER_ORGANIZATIONS } from "scenes/Dashboard/components/Navbar/queries";
+import { GET_USER } from "scenes/Dashboard/queries";
+import type { IUser } from "scenes/Dashboard/types";
+import store from "store";
 
 describe("Dashboard", (): void => {
   it("should return a function", (): void => {

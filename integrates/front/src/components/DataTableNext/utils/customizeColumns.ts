@@ -1,7 +1,8 @@
-import type { Column } from "react-bootstrap-table-next";
-import type { IHeaderConfig } from "components/DataTableNext/types";
 import _ from "lodash";
 import type { CSSProperties, ReactElement } from "react";
+import type { Column } from "react-bootstrap-table-next";
+
+import type { IHeaderConfig } from "components/DataTableNext/types";
 
 const handleFormatter: (
   value: string,

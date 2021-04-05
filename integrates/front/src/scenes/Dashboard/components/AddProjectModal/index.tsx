@@ -1,18 +1,23 @@
+import { useMutation, useQuery } from "@apollo/react-hooks";
 import type { ApolloError } from "apollo-client";
-import { Button } from "components/Button";
-import type { ConfigurableValidator } from "revalidate";
-import { Field } from "redux-form";
-import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import type { GraphQLError } from "graphql";
-import type { IAddProjectModalProps } from "scenes/Dashboard/components/AddProjectModal/types";
+import _ from "lodash";
+import { track } from "mixpanel-browser";
+import React, { useCallback, useState } from "react";
+import { Field } from "redux-form";
 import type { InjectedFormProps } from "redux-form";
-import { Logger } from "utils/logger";
+import type { ConfigurableValidator } from "revalidate";
+
+import { Button } from "components/Button";
 import { Modal } from "components/Modal";
 import { SwitchButton } from "components/SwitchButton";
 import { TooltipWrapper } from "components/TooltipWrapper";
-import _ from "lodash";
-import { track } from "mixpanel-browser";
-import { translate } from "utils/translations/translate";
+import {
+  CREATE_PROJECT_MUTATION,
+  PROJECTS_NAME_QUERY,
+} from "scenes/Dashboard/components/AddProjectModal/queries";
+import type { IAddProjectModalProps } from "scenes/Dashboard/components/AddProjectModal/types";
+import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import {
   ButtonToolbar,
   Col100,
@@ -21,20 +26,16 @@ import {
   FormGroup,
   Row,
 } from "styles/styledComponents";
-import {
-  CREATE_PROJECT_MUTATION,
-  PROJECTS_NAME_QUERY,
-} from "scenes/Dashboard/components/AddProjectModal/queries";
 import { Dropdown, Text } from "utils/forms/fields";
-import React, { useCallback, useState } from "react";
+import { Logger } from "utils/logger";
+import { msgError, msgSuccess } from "utils/notifications";
+import { translate } from "utils/translations/translate";
 import {
   alphaNumeric,
   maxLength,
   required,
   validTextField,
 } from "utils/validations";
-import { msgError, msgSuccess } from "utils/notifications";
-import { useMutation, useQuery } from "@apollo/react-hooks";
 
 /*
  * Business rules to create a project:

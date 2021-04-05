@@ -1,10 +1,11 @@
-import { FileOptionsModal } from "scenes/Dashboard/components/FileOptionsModal";
-import { Provider } from "react-redux";
-import React from "react";
 import type { ShallowWrapper } from "enzyme";
-import { createStore } from "redux";
 import { shallow } from "enzyme";
+import React from "react";
+import { Provider } from "react-redux";
+import { createStore } from "redux";
 import type { Action, Store } from "redux";
+
+import { FileOptionsModal } from "scenes/Dashboard/components/FileOptionsModal";
 
 const functionMock: () => void = (): void => undefined;
 

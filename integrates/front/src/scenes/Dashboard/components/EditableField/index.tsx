@@ -1,9 +1,10 @@
-import type { BaseFieldProps } from "redux-form";
-import { Field } from "redux-form";
+import _ from "lodash";
 import React from "react";
 import type { TextareaHTMLAttributes } from "react";
+import type { BaseFieldProps } from "redux-form";
+import { Field } from "redux-form";
+
 import { TooltipWrapper } from "components/TooltipWrapper";
-import _ from "lodash";
 import {
   Col50,
   ControlLabel,

@@ -1,25 +1,26 @@
-import { BugsnagErrorBoundary } from "utils/bugsnagErrorBoundary";
-import { Dashboard } from "scenes/Dashboard";
-import { Login } from "scenes/Login";
-import type { NetworkStatus } from "react-apollo-network-status";
-import { Preloader } from "components/Preloader";
-import { Provider as ReduxProvider } from "react-redux";
-import { ToastContainer } from "react-toastify";
-import { authContext } from "utils/auth";
-import { getEnvironment } from "utils/environment";
-import { render } from "react-dom";
-import store from "store";
-import { ApolloProvider, useApolloNetworkStatus } from "utils/apollo";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
-import React, { createElement, useState } from "react";
-import {
-  authzPermissionsContext,
-  userLevelPermissions,
-} from "utils/authz/config";
 import {
   disable as mixpanelDisable,
   init as mixpanelInit,
 } from "mixpanel-browser";
+import React, { createElement, useState } from "react";
+import type { NetworkStatus } from "react-apollo-network-status";
+import { render } from "react-dom";
+import { Provider as ReduxProvider } from "react-redux";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+
+import { Preloader } from "components/Preloader";
+import { Dashboard } from "scenes/Dashboard";
+import { Login } from "scenes/Login";
+import store from "store";
+import { ApolloProvider, useApolloNetworkStatus } from "utils/apollo";
+import { authContext } from "utils/auth";
+import {
+  authzPermissionsContext,
+  userLevelPermissions,
+} from "utils/authz/config";
+import { BugsnagErrorBoundary } from "utils/bugsnagErrorBoundary";
+import { getEnvironment } from "utils/environment";
 import { secureStore, secureStoreContext } from "utils/secureStore";
 import "react-toastify/dist/ReactToastify.min.css";
 import "tachyons/css/tachyons.min.css";

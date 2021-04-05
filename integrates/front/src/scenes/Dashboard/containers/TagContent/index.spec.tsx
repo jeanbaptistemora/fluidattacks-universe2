@@ -1,13 +1,14 @@
-import { GET_ORGANIZATION_ID } from "scenes/Dashboard/containers/OrganizationContent/queries";
-import { MemoryRouter } from "react-router-dom";
 import { MockedProvider } from "@apollo/react-testing";
 import type { MockedResponse } from "@apollo/react-testing";
-import { Provider } from "react-redux";
-import React from "react";
 import type { ReactWrapper } from "enzyme";
-import { Route } from "react-router";
-import { TagContent } from "scenes/Dashboard/containers/TagContent";
 import { mount } from "enzyme";
+import React from "react";
+import { Provider } from "react-redux";
+import { Route } from "react-router";
+import { MemoryRouter } from "react-router-dom";
+
+import { GET_ORGANIZATION_ID } from "scenes/Dashboard/containers/OrganizationContent/queries";
+import { TagContent } from "scenes/Dashboard/containers/TagContent";
 import store from "store";
 
 describe("TagContent", (): void => {

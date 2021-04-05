@@ -1,12 +1,13 @@
-import { AddProjectModal } from "scenes/Dashboard/components/AddProjectModal";
-import type { IProjectNameProps } from "scenes/Dashboard/components/AddProjectModal/types";
 import { MockedProvider } from "@apollo/react-testing";
 import type { MockedResponse } from "@apollo/react-testing";
-import { PROJECTS_NAME_QUERY } from "scenes/Dashboard/components/AddProjectModal/queries";
-import { Provider } from "react-redux";
-import React from "react";
 import type { ReactWrapper } from "enzyme";
 import { mount } from "enzyme";
+import React from "react";
+import { Provider } from "react-redux";
+
+import { AddProjectModal } from "scenes/Dashboard/components/AddProjectModal";
+import { PROJECTS_NAME_QUERY } from "scenes/Dashboard/components/AddProjectModal/queries";
+import type { IProjectNameProps } from "scenes/Dashboard/components/AddProjectModal/types";
 import store from "store";
 
 describe("AddProjectModal component", (): void => {

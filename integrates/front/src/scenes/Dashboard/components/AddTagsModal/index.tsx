@@ -1,10 +1,12 @@
-import { Button } from "components/Button";
+import { faPlus, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { GenericForm } from "scenes/Dashboard/components/GenericForm";
-import { Modal } from "components/Modal";
 import React from "react";
-import { Text } from "utils/forms/fields";
-import { translate } from "utils/translations/translate";
+import { Field, FieldArray } from "redux-form";
+import type { InjectedFormProps, WrappedFieldArrayProps } from "redux-form";
+
+import { Button } from "components/Button";
+import { Modal } from "components/Modal";
+import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import {
   ButtonToolbar,
   Col100,
@@ -14,9 +16,8 @@ import {
   RequiredField,
   Row,
 } from "styles/styledComponents";
-import { Field, FieldArray } from "redux-form";
-import type { InjectedFormProps, WrappedFieldArrayProps } from "redux-form";
-import { faPlus, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import { Text } from "utils/forms/fields";
+import { translate } from "utils/translations/translate";
 import { required, validTag } from "utils/validations";
 
 interface IAddTagsModalProps {

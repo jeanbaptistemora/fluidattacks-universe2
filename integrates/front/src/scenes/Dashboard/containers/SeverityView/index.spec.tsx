@@ -1,20 +1,22 @@
-import { GET_SEVERITY } from "scenes/Dashboard/containers/SeverityView/queries";
-import { GraphQLError } from "graphql";
-import type { ISeverityAttr } from "./types";
 import { MockedProvider } from "@apollo/react-testing";
 import type { MockedResponse } from "@apollo/react-testing";
-import { Provider } from "react-redux";
 import { PureAbility } from "@casl/ability";
-import React from "react";
 import type { ReactWrapper } from "enzyme";
-import { SeverityView } from "scenes/Dashboard/containers/SeverityView";
-import { act } from "react-dom/test-utils";
-import { authzPermissionsContext } from "utils/authz/config";
 import { mount } from "enzyme";
-import store from "store";
+import { GraphQLError } from "graphql";
+import React from "react";
+import { act } from "react-dom/test-utils";
 import { useTranslation } from "react-i18next";
-import wait from "waait";
+import { Provider } from "react-redux";
 import { MemoryRouter, Route } from "react-router-dom";
+import wait from "waait";
+
+import type { ISeverityAttr } from "./types";
+
+import { SeverityView } from "scenes/Dashboard/containers/SeverityView";
+import { GET_SEVERITY } from "scenes/Dashboard/containers/SeverityView/queries";
+import store from "store";
+import { authzPermissionsContext } from "utils/authz/config";
 
 describe("SeverityView", (): void => {
   const mocks: readonly MockedResponse[] = [

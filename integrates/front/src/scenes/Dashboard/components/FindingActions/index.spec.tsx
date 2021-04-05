@@ -1,9 +1,10 @@
-import { FindingActions } from "scenes/Dashboard/components/FindingActions";
 import { PureAbility } from "@casl/ability";
-import React from "react";
 import type { ReactWrapper } from "enzyme";
-import { authzPermissionsContext } from "utils/authz/config";
 import { mount } from "enzyme";
+import React from "react";
+
+import { FindingActions } from "scenes/Dashboard/components/FindingActions";
+import { authzPermissionsContext } from "utils/authz/config";
 
 describe("FindingActions", (): void => {
   it("should return a function", (): void => {

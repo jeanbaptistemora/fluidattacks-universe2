@@ -1,29 +1,31 @@
-import { EditableField } from "../../EditableField";
-import { GET_FINDING_HEADER } from "scenes/Dashboard/containers/FindingContent/queries";
-import { GET_FINDING_VULN_INFO } from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
-import { GraphQLError } from "graphql";
-import type { IHistoricTreatment } from "scenes/Dashboard/containers/DescriptionView/types";
-import type { IUpdateVulnDescriptionResultAttr } from "./types";
-import type { IVulnDataTypeAttr } from "scenes/Dashboard/components/Vulnerabilities/types";
 import type { MockedResponse } from "@apollo/react-testing";
-import { Provider } from "react-redux";
-import { PureAbility } from "@casl/ability";
-import React from "react";
-import type { ReactWrapper } from "enzyme";
-import { UpdateTreatmentModal } from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription";
-import { act } from "react-dom/test-utils";
-import { authzPermissionsContext } from "utils/authz/config";
-import { mount } from "enzyme";
-import store from "store";
-import { translate } from "utils/translations/translate";
-import waitForExpect from "wait-for-expect";
 import { MockedProvider, wait } from "@apollo/react-testing";
+import { PureAbility } from "@casl/ability";
+import type { ReactWrapper } from "enzyme";
+import { mount } from "enzyme";
+import { GraphQLError } from "graphql";
+import React from "react";
+import { act } from "react-dom/test-utils";
+import { Provider } from "react-redux";
+import waitForExpect from "wait-for-expect";
+
 import { REQUEST_ZERO_RISK_VULN, UPDATE_DESCRIPTION_MUTATION } from "./queries";
+import type { IUpdateVulnDescriptionResultAttr } from "./types";
+
+import { EditableField } from "../../EditableField";
+import type { IVulnDataTypeAttr } from "scenes/Dashboard/components/Vulnerabilities/types";
+import { UpdateTreatmentModal } from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription";
 import {
   getLastTreatment,
   groupLastHistoricTreatment,
 } from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription/utils";
+import type { IHistoricTreatment } from "scenes/Dashboard/containers/DescriptionView/types";
+import { GET_FINDING_HEADER } from "scenes/Dashboard/containers/FindingContent/queries";
+import { GET_FINDING_VULN_INFO } from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
+import store from "store";
+import { authzPermissionsContext } from "utils/authz/config";
 import { msgError, msgSuccess } from "utils/notifications";
+import { translate } from "utils/translations/translate";
 
 jest.mock(
   "../../../../../utils/notifications",

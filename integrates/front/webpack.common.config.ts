@@ -1,6 +1,7 @@
-import { EnvironmentPlugin } from "webpack";
-import MiniCssExtractPlugin from "mini-css-extract-plugin";
 import path from "path";
+
+import MiniCssExtractPlugin from "mini-css-extract-plugin";
+import { EnvironmentPlugin } from "webpack";
 import type webpack from "webpack";
 
 export const commonConfig: webpack.Configuration = {

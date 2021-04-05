@@ -1,7 +1,8 @@
-import React from "react";
-import { TrackingLabel } from "styles/styledComponents";
 import _ from "lodash";
+import React from "react";
+
 import styles from "scenes/Dashboard/components/TrackingItem/index.css";
+import { TrackingLabel } from "styles/styledComponents";
 import { translate } from "utils/translations/translate";
 
 interface ITrackingItemProps {

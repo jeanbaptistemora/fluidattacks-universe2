@@ -1,10 +1,11 @@
-import { CSVExport } from "react-bootstrap-table2-toolkit";
-import { FluidIcon } from "components/FluidIcon";
 import React from "react";
+import { CSVExport } from "react-bootstrap-table2-toolkit";
 import type { ToolkitProviderProps } from "react-bootstrap-table2-toolkit";
-import { TooltipWrapper } from "components/TooltipWrapper";
-import style from "components/DataTableNext/index.css";
 import { useTranslation } from "react-i18next";
+
+import style from "components/DataTableNext/index.css";
+import { FluidIcon } from "components/FluidIcon";
+import { TooltipWrapper } from "components/TooltipWrapper";
 
 export const ExportCSVButtonWrapper: React.FC<ToolkitProviderProps> = (
   // Readonly utility type doesn't seem to work on ToolkitProviderProps

@@ -3,7 +3,6 @@
   We need both to be able to generate and assign a secret key, every time its
   useful life expires.
 */
-import { Logger } from "utils/logger";
 import type React from "react";
 import { createContext } from "react";
 import type sjcl from "sjcl";
@@ -14,6 +13,8 @@ import {
   encrypt as sjclEncrypt,
   hash as sjclHash,
 } from "sjcl";
+
+import { Logger } from "utils/logger";
 
 /*
  * Secrets declared in this file live as much as the dashboard tab is open

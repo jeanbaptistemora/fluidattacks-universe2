@@ -1,7 +1,8 @@
-import type { ISwitchButtonProps } from "components/SwitchButton";
-import React from "react";
-import { SwitchButton } from "components/SwitchButton/index";
 import _ from "lodash";
+import React from "react";
+
+import type { ISwitchButtonProps } from "components/SwitchButton";
+import { SwitchButton } from "components/SwitchButton/index";
 
 export interface IFormSwitchButtonProps extends ISwitchButtonProps {
   input: {

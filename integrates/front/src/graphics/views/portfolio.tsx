@@ -1,7 +1,8 @@
-import { ChartsForPortfolioView } from "scenes/Dashboard/containers/ChartsForPortfolioView";
+import React, { createElement } from "react";
 import { render } from "react-dom";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import React, { createElement } from "react";
+
+import { ChartsForPortfolioView } from "scenes/Dashboard/containers/ChartsForPortfolioView";
 import { secureStore, secureStoreContext } from "utils/secureStore";
 
 const App: React.FC = (): JSX.Element => (

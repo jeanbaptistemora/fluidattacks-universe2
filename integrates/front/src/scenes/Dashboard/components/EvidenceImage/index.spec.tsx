@@ -1,13 +1,14 @@
+import type { ReactWrapper, ShallowWrapper } from "enzyme";
+import { mount, shallow } from "enzyme";
+import React from "react";
+import { Provider } from "react-redux";
+
 import { EvidenceImage } from "scenes/Dashboard/components/EvidenceImage/index";
 // Next annotation is needed in order to avoid a problem with cyclic dependencies
 // eslint-disable-next-line sort-imports
-import { EvidenceDescription } from "styles/styledComponents";
 import { GenericForm } from "scenes/Dashboard/components/GenericForm";
-import { Provider } from "react-redux";
-import React from "react";
 import store from "store";
-import type { ReactWrapper, ShallowWrapper } from "enzyme";
-import { mount, shallow } from "enzyme";
+import { EvidenceDescription } from "styles/styledComponents";
 
 describe("Evidence image", (): void => {
   it("should return a function", (): void => {

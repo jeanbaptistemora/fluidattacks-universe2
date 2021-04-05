@@ -1,47 +1,48 @@
-import type { ApolloError } from "apollo-client";
-import AppstoreBadge from "resources/appstore_badge.svg";
-import { Button } from "components/Button";
-import { Can } from "utils/authz/Can";
-import { DataTableNext } from "components/DataTableNext";
+import { useLazyQuery, useQuery } from "@apollo/react-hooks";
+import {
+  faFileArchive,
+  faFileExcel,
+  faFilePdf,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import GoogleplayBadge from "resources/googleplay_badge.svg";
+import type { ApolloError } from "apollo-client";
 import type { GraphQLError } from "graphql";
-import type { IFindingAttr } from "scenes/Dashboard/containers/ProjectFindingsView/types";
+import _ from "lodash";
+import { track } from "mixpanel-browser";
+import React, { useCallback, useState } from "react";
+import { selectFilter, textFilter } from "react-bootstrap-table2-filter";
+import { Trans } from "react-i18next";
+import { useHistory, useParams } from "react-router-dom";
+
+import { Button } from "components/Button";
+import { DataTableNext } from "components/DataTableNext";
+import {
+  limitFormatter,
+  statusFormatter,
+  treatmentFormatter,
+} from "components/DataTableNext/formatters";
 import type { IHeaderConfig } from "components/DataTableNext/types";
-import { Logger } from "utils/logger";
 import { Modal } from "components/Modal";
 import { TooltipWrapper } from "components/TooltipWrapper";
-import { Trans } from "react-i18next";
-import _ from "lodash";
+import AppstoreBadge from "resources/appstore_badge.svg";
+import GoogleplayBadge from "resources/googleplay_badge.svg";
+import {
+  GET_FINDINGS,
+  REQUEST_PROJECT_REPORT,
+} from "scenes/Dashboard/containers/ProjectFindingsView/queries";
+import type { IFindingAttr } from "scenes/Dashboard/containers/ProjectFindingsView/types";
 import { formatFindings } from "scenes/Dashboard/containers/ProjectFindingsView/utils";
-import { track } from "mixpanel-browser";
-import { translate } from "utils/translations/translate";
-import { useStoredState } from "utils/hooks";
 import {
   ButtonToolbar,
   ButtonToolbarCenter,
   Col100,
   Row,
 } from "styles/styledComponents";
-import {
-  GET_FINDINGS,
-  REQUEST_PROJECT_REPORT,
-} from "scenes/Dashboard/containers/ProjectFindingsView/queries";
-import React, { useCallback, useState } from "react";
-import {
-  faFileArchive,
-  faFileExcel,
-  faFilePdf,
-} from "@fortawesome/free-solid-svg-icons";
-import {
-  limitFormatter,
-  statusFormatter,
-  treatmentFormatter,
-} from "components/DataTableNext/formatters";
+import { Can } from "utils/authz/Can";
+import { useStoredState } from "utils/hooks";
+import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
-import { selectFilter, textFilter } from "react-bootstrap-table2-filter";
-import { useHistory, useParams } from "react-router-dom";
-import { useLazyQuery, useQuery } from "@apollo/react-hooks";
+import { translate } from "utils/translations/translate";
 
 const ProjectFindingsView: React.FC = (): JSX.Element => {
   const TIMEZONE_OFFSET = 60000;

@@ -1,23 +1,21 @@
 /* Eslint annotations needed as DB queries use "any" type */
 /* eslint-disable @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access */
+import { useMutation, useQuery } from "@apollo/react-hooks";
 import type { ApolloError } from "apollo-client";
-import { Button } from "components/Button";
-import { Can } from "utils/authz/Can";
-import { DataTableNext } from "components/DataTableNext";
-import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import type { GraphQLError } from "graphql";
-import type { IHeaderConfig } from "components/DataTableNext/types";
-import type { InjectedFormProps } from "redux-form";
-import { Logger } from "utils/logger";
-import { Text } from "utils/forms/fields";
 import _ from "lodash";
-import style from "scenes/Dashboard/containers/OrganizationPoliciesView/index.css";
 import { track } from "mixpanel-browser";
-import { translate } from "utils/translations/translate";
-import { useParams } from "react-router";
+import React, { useCallback } from "react";
 import { useSelector } from "react-redux";
-import { ButtonToolbar, Col33L, RowCenter } from "styles/styledComponents";
+import { useParams } from "react-router";
 import { Field, formValueSelector } from "redux-form";
+import type { InjectedFormProps } from "redux-form";
+
+import { Button } from "components/Button";
+import { DataTableNext } from "components/DataTableNext";
+import type { IHeaderConfig } from "components/DataTableNext/types";
+import { GenericForm } from "scenes/Dashboard/components/GenericForm";
+import style from "scenes/Dashboard/containers/OrganizationPoliciesView/index.css";
 import {
   GET_ORGANIZATION_POLICIES,
   UPDATE_ORGANIZATION_POLICIES,
@@ -26,9 +24,12 @@ import type {
   IOrganizationPolicies,
   IPoliciesFormData,
 } from "scenes/Dashboard/containers/OrganizationPoliciesView/types";
-import React, { useCallback } from "react";
+import { ButtonToolbar, Col33L, RowCenter } from "styles/styledComponents";
+import { Can } from "utils/authz/Can";
+import { Text } from "utils/forms/fields";
+import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
-import { useMutation, useQuery } from "@apollo/react-hooks";
+import { translate } from "utils/translations/translate";
 
 const OrganizationPolicies: React.FC<IOrganizationPolicies> = (
   props: IOrganizationPolicies

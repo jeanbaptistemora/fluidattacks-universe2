@@ -1,13 +1,15 @@
-import { Dropdown } from "utils/forms/fields";
-import { EditableField } from "scenes/Dashboard/components/EditableField";
-import type { ITreatmentFieldProps } from "./types";
 import type { PureAbility } from "@casl/ability";
+import { useAbility } from "@casl/react";
 import React from "react";
+
+import type { ITreatmentFieldProps } from "./types";
+
+import { EditableField } from "scenes/Dashboard/components/EditableField";
 import { authzPermissionsContext } from "utils/authz/config";
 import { formatDropdownField } from "utils/formatHelpers";
-import { required } from "utils/validations";
+import { Dropdown } from "utils/forms/fields";
 import { translate } from "utils/translations/translate";
-import { useAbility } from "@casl/react";
+import { required } from "utils/validations";
 
 const TreatmentField: React.FC<ITreatmentFieldProps> = (
   props: ITreatmentFieldProps

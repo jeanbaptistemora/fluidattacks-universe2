@@ -1,23 +1,24 @@
 /* eslint-disable @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-member-access
  -- Annotations added due to extended usage of "any" type in enzyme lib
  */
-import { MemoryRouter } from "react-router-dom";
 import { MockedProvider } from "@apollo/react-testing";
 import type { MockedResponse } from "@apollo/react-testing";
-import { Provider } from "react-redux";
 import { PureAbility } from "@casl/ability";
-import React from "react";
 import type { ReactWrapper } from "enzyme";
-import { Services } from "scenes/Dashboard/containers/ProjectSettingsView/Services";
-import { act } from "react-dom/test-utils";
-import { authzPermissionsContext } from "utils/authz/config";
 import { mount } from "enzyme";
-import store from "store";
+import React from "react";
+import { act } from "react-dom/test-utils";
+import { Provider } from "react-redux";
+import { MemoryRouter } from "react-router-dom";
 import wait from "waait";
+
 import {
   EDIT_GROUP_DATA,
   GET_GROUP_DATA,
 } from "scenes/Dashboard/containers/ProjectSettingsView/queries";
+import { Services } from "scenes/Dashboard/containers/ProjectSettingsView/Services";
+import store from "store";
+import { authzPermissionsContext } from "utils/authz/config";
 
 interface IFormValues {
   drills: boolean;

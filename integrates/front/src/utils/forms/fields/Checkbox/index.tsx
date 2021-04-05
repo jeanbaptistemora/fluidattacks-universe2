@@ -1,7 +1,8 @@
-import React from "react";
-import { ValidationError } from "styles/styledComponents";
-import type { WrappedFieldProps } from "redux-form";
 import _ from "lodash";
+import React from "react";
+import type { WrappedFieldProps } from "redux-form";
+
+import { ValidationError } from "styles/styledComponents";
 
 interface ICheckboxProps extends WrappedFieldProps {
   children: React.ReactNode;

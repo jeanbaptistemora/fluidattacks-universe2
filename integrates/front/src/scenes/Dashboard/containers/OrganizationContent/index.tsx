@@ -1,41 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access -- DB queries use "any" type */
-import type { ApolloError } from "apollo-client";
-import { Can } from "utils/authz/Can";
-import { ChartsForOrganizationView } from "scenes/Dashboard/containers/ChartsForOrganizationView";
-import { ContentTab } from "scenes/Dashboard/components/ContentTab";
-import { GET_USER_PERMISSIONS } from "scenes/Dashboard/queries";
-import type { GraphQLError } from "graphql";
-import { Logger } from "utils/logger";
-import { OrganizationGroups } from "scenes/Dashboard/containers/OrganizationGroupsView";
-import { OrganizationPolicies } from "scenes/Dashboard/containers/OrganizationPoliciesView/index";
-import { OrganizationPortfolios } from "scenes/Dashboard/containers/OrganizationPortfoliosView/index";
-import { OrganizationStakeholders } from "scenes/Dashboard/containers/OrganizationStakeholdersView/index";
-import _ from "lodash";
-import { authzPermissionsContext } from "utils/authz/config";
-import globalStyle from "styles/global.css";
-import { msgError } from "utils/notifications";
-import { translate } from "utils/translations/translate";
 import { useQuery } from "@apollo/react-hooks";
-import { useTabTracking } from "utils/hooks";
 import type {
   ClaimRawRule,
   LegacyClaimRawRule,
   PureAbility,
 } from "@casl/ability";
-import {
-  Col100,
-  Row,
-  StickyContainerOrg,
-  TabsContainer,
-} from "styles/styledComponents";
-import {
-  GET_ORGANIZATION_ID,
-  GET_USER_PORTFOLIOS,
-} from "scenes/Dashboard/containers/OrganizationContent/queries";
-import type {
-  IOrganizationContent,
-  IOrganizationPermission,
-} from "scenes/Dashboard/containers/OrganizationContent/types";
+import type { ApolloError } from "apollo-client";
+import type { GraphQLError } from "graphql";
+import _ from "lodash";
 import React, { useContext, useEffect } from "react";
 import {
   Redirect,
@@ -44,6 +16,35 @@ import {
   useParams,
   useRouteMatch,
 } from "react-router-dom";
+
+import { ContentTab } from "scenes/Dashboard/components/ContentTab";
+import { ChartsForOrganizationView } from "scenes/Dashboard/containers/ChartsForOrganizationView";
+import {
+  GET_ORGANIZATION_ID,
+  GET_USER_PORTFOLIOS,
+} from "scenes/Dashboard/containers/OrganizationContent/queries";
+import type {
+  IOrganizationContent,
+  IOrganizationPermission,
+} from "scenes/Dashboard/containers/OrganizationContent/types";
+import { OrganizationGroups } from "scenes/Dashboard/containers/OrganizationGroupsView";
+import { OrganizationPolicies } from "scenes/Dashboard/containers/OrganizationPoliciesView/index";
+import { OrganizationPortfolios } from "scenes/Dashboard/containers/OrganizationPortfoliosView/index";
+import { OrganizationStakeholders } from "scenes/Dashboard/containers/OrganizationStakeholdersView/index";
+import { GET_USER_PERMISSIONS } from "scenes/Dashboard/queries";
+import globalStyle from "styles/global.css";
+import {
+  Col100,
+  Row,
+  StickyContainerOrg,
+  TabsContainer,
+} from "styles/styledComponents";
+import { Can } from "utils/authz/Can";
+import { authzPermissionsContext } from "utils/authz/config";
+import { useTabTracking } from "utils/hooks";
+import { Logger } from "utils/logger";
+import { msgError } from "utils/notifications";
+import { translate } from "utils/translations/translate";
 
 const OrganizationContent: React.FC<IOrganizationContent> = (
   props: IOrganizationContent

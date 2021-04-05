@@ -1,9 +1,12 @@
-import type { FormAction } from "redux-form";
-import type { GraphQLError } from "graphql";
-import { Logger } from "utils/logger";
-import { useDispatch } from "react-redux";
-import { useTranslation } from "react-i18next";
+import type { MutationFunction, MutationResult } from "@apollo/react-common";
+import { useMutation, useQuery } from "@apollo/react-hooks";
 import type { ApolloError, ApolloQueryResult } from "apollo-client";
+import type { GraphQLError } from "graphql";
+import { useTranslation } from "react-i18next";
+import { useDispatch } from "react-redux";
+import type { FormAction } from "redux-form";
+import { change, reset } from "redux-form";
+
 import {
   GET_ACCESS_TOKEN,
   INVALIDATE_ACCESS_TOKEN_MUTATION,
@@ -14,10 +17,8 @@ import type {
   IInvalidateAccessTokenAttr,
   IUpdateAccessTokenAttr,
 } from "scenes/Dashboard/components/APITokenModal/types";
-import type { MutationFunction, MutationResult } from "@apollo/react-common";
-import { change, reset } from "redux-form";
+import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
-import { useMutation, useQuery } from "@apollo/react-hooks";
 
 const useUpdateAPIToken: (
   refetch: () => Promise<ApolloQueryResult<IGetAccessTokenAttr>>

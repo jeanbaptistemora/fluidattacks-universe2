@@ -1,15 +1,17 @@
+import type { Event } from "@bugsnag/core";
+import type { Error } from "@bugsnag/core/types/event";
 import Bugsnag from "@bugsnag/js";
 import BugsnagPluginReact from "@bugsnag/plugin-react";
-import type { Error } from "@bugsnag/core/types/event";
-import type { Event } from "@bugsnag/core";
-import { Logger } from "./logger";
-import _ from "lodash";
-import { getEnvironment } from "utils/environment";
 import type {
   BugsnagErrorBoundary,
   BugsnagPluginReactResult,
 } from "@bugsnag/plugin-react";
+import _ from "lodash";
 import React, { Fragment } from "react";
+
+import { Logger } from "./logger";
+
+import { getEnvironment } from "utils/environment";
 
 const noSpaceLeftOnDevice: (error: Error) => boolean = (
   error: Error

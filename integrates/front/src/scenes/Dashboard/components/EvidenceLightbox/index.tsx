@@ -1,5 +1,5 @@
-import Lightbox from "react-image-lightbox";
 import React, { useCallback } from "react";
+import Lightbox from "react-image-lightbox";
 import "react-image-lightbox/style.css";
 
 interface IEvidenceLightboxProps {

@@ -1,12 +1,14 @@
+import type { PureAbility } from "@casl/ability";
+import { useAbility } from "@casl/react";
+import React from "react";
+import { useTranslation } from "react-i18next";
+
+import type { IHandleAcceptationButtonProps } from "./types";
+
 import { Button } from "components/Button";
 import { FluidIcon } from "components/FluidIcon";
-import type { IHandleAcceptationButtonProps } from "./types";
-import type { PureAbility } from "@casl/ability";
-import React from "react";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { authzPermissionsContext } from "utils/authz/config";
-import { useAbility } from "@casl/react";
-import { useTranslation } from "react-i18next";
 
 const HandleAcceptationButton: React.FC<IHandleAcceptationButtonProps> = ({
   isEditing,

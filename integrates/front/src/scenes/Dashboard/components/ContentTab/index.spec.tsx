@@ -1,8 +1,9 @@
-import { ContentTab } from "scenes/Dashboard/components/ContentTab";
-import { MemoryRouter } from "react-router";
-import React from "react";
 import type { ReactWrapper } from "enzyme";
 import { mount } from "enzyme";
+import React from "react";
+import { MemoryRouter } from "react-router";
+
+import { ContentTab } from "scenes/Dashboard/components/ContentTab";
 
 describe("ContentTab", (): void => {
   it("should return a function", (): void => {

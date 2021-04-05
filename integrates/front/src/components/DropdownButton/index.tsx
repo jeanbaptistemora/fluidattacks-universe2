@@ -3,11 +3,13 @@
   We need className to override default styles and props spreading in
   order to pass down props to react-bootstrap DropdownButton.
 */
-import { MenuItem } from "./components/MenuItem";
 import React from "react";
 import type { StyledComponent } from "styled-components";
-import style from "components/DropdownButton/index.css";
 import styled from "styled-components";
+
+import { MenuItem } from "./components/MenuItem";
+
+import style from "components/DropdownButton/index.css";
 
 interface IDropdownButtonProps {
   content: React.ReactNode;
