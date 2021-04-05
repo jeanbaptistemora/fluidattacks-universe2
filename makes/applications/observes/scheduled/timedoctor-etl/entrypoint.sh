@@ -29,7 +29,7 @@ function job_timedoctor {
   &&  cat "${new_folder}"/* \
         > .singer \
   &&  echo '[INFO] Running tap' \
-  &&  observes-tap-timedoctor \
+  &&  observes-bin-tap-timedoctor \
         --auth "${timedoctor_creds}" \
         --start-date "$(date +"%Y-%m-01")" \
         --end-date "$(date +"%Y-%m-%d")" \

@@ -181,7 +181,6 @@ observes.scheduled.toe-files-etl
 observes.streamer-dynamodb
 observes.tap-json
 observes.tap-mixpanel
-observes.tap-timedoctor
 observes.tap-toe-files
 observes.target-redshift
 observes.update-sync-date

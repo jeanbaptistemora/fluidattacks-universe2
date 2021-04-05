@@ -32,14 +32,14 @@ function job_timedoctor_backup {
   &&  echo "${analytics_auth_timedoctor}" > "${timedoctor_creds}" \
   &&  echo "${analytics_auth_redshift}" > "${db_creds}" \
   &&  echo '[INFO] Running tap for worklogs' \
-  &&  observes-tap-timedoctor \
+  &&  observes-bin-tap-timedoctor \
         --auth "${timedoctor_creds}" \
         --start-date "${start_date}" \
         --end-date "${end_date}" \
         --work-logs \
         > wl.singer \
   &&  echo '[INFO] Running tap for computer_activity' \
-  &&  observes-tap-timedoctor \
+  &&  observes-bin-tap-timedoctor \
         --auth "${timedoctor_creds}" \
         --start-date "${start_date}" \
         --end-date "${end_date}" \

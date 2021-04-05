@@ -14,7 +14,7 @@ makeEntrypoint {
       nixPkgs.awscli
       nixPkgs.coreutils
       nixPkgs.jq
-      packages.observes.tap-timedoctor
+      packages.observes.bin.tap-timedoctor
       packages.observes.update-sync-date
     ];
     envUtils = [

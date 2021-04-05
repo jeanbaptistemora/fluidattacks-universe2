@@ -14,6 +14,9 @@ in
 makeTemplate {
   name = "observes-env-tap-timedoctor-runtime";
   searchPaths = {
+    envPaths = [
+      nixpkgs.python38
+    ];
     envPython38Paths = [
       self
     ];
