@@ -338,6 +338,33 @@ def attempt_by_obj_args(args: EvaluatorArgs, method: str) -> bool:
     return False
 
 
+def attempt_by_type_args_propagation(args: EvaluatorArgs, method: str) -> bool:
+    # Functions that when called make the parent object vulnerable
+    args_danger = any(dep.meta.danger for dep in args.dependencies)
+
+    method_var, method_path = split_on_first_dot(method)
+    method_var_decl = lookup_var_dcl_by_name(args, method_var)
+
+    if args_danger and method_var_decl:
+        if method_path in (
+            BY_TYPE_ARGS_PROPAGATION
+            .get(method_var_decl.var_type_base, {})
+        ):
+            args.syntax_step.meta.danger = True
+            method_var_decl.meta.danger = True
+            return True
+
+        if method_path in (
+            BY_TYPE_ARGS_PROPAG_FINDING
+            .get(args.finding.name, {})
+            .get(method_var_decl.var_type_base, {})
+        ):
+            args.syntax_step.meta.danger = True
+            return True
+
+    return False
+
+
 def attempt_static(args: EvaluatorArgs, method: str) -> bool:
     if method in STATIC_FINDING.get(args.finding.name, {}):
         args.syntax_step.meta.danger = True
@@ -385,6 +412,7 @@ def analyze_method_invocation(args: EvaluatorArgs, method: str) -> None:
         attempt_by_obj(args, method) or
         attempt_by_obj_args(args, method) or
         attempt_by_type(args, method) or
+        attempt_by_type_args_propagation(args, method) or
         attempt_static(args, method) or
         attempt_static_side_effects(args, method)
     ):
@@ -395,9 +423,6 @@ def analyze_method_invocation(args: EvaluatorArgs, method: str) -> None:
     method_var_decl_type = (
         method_var_decl.var_type_base if method_var_decl else ''
     )
-
-    analyze_method_by_type_args_propagation(args, method)
-    analyze_method_by_type_args_propagation_side_effects(args, method)
 
     # function calls with parameters that make the object vulnerable
     if methods := BY_TYPE_AND_VALUE_FINDING.get(
@@ -472,44 +497,3 @@ def analyze_method_invocation_values_list(
         index = int(args.dependencies[0].meta.value)
         args.syntax_step.meta.value = dcl.meta.value[index]
         args.syntax_step.meta.danger = dcl.meta.value[index].meta.danger
-
-
-def analyze_method_by_type_args_propagation_side_effects(
-    args: EvaluatorArgs,
-    method: str,
-) -> None:
-    # Functions that when called make the parent object vulnerable
-    args_danger = any(dep.meta.danger for dep in args.dependencies)
-
-    method_var, method_path = split_on_first_dot(method)
-    method_var_decl = lookup_var_dcl_by_name(args, method_var)
-    method_var_decl_type = (method_var_decl.var_type_base
-                            if method_var_decl else '')
-
-    if (method_path in BY_TYPE_ARGS_PROPAGATION.get(
-            method_var_decl_type, {}) and args_danger):
-        if method_var_decl:
-            method_var_decl.meta.danger = True
-
-
-def analyze_method_by_type_args_propagation(
-    args: EvaluatorArgs,
-    method: str,
-) -> None:
-    # Functions that when called make the parent object vulnerable
-    args_danger = any(dep.meta.danger for dep in args.dependencies)
-
-    method_var, method_path = split_on_first_dot(method)
-    method_var_decl = lookup_var_dcl_by_name(args, method_var)
-    method_var_decl_type = (method_var_decl.var_type_base
-                            if method_var_decl else '')
-
-    if (method_path in BY_TYPE_ARGS_PROPAGATION.get(
-            method_var_decl_type, {}) and args_danger):
-        args.syntax_step.meta.danger = True
-
-    danger_methods = BY_TYPE_ARGS_PROPAG_FINDING.get(
-        args.finding.name, {})
-    if (method_path in danger_methods.get(
-            method_var_decl_type, {}) and args_danger):
-        args.syntax_step.meta.danger = True
