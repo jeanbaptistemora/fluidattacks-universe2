@@ -499,11 +499,25 @@ async def send_mail_remediate_finding(
 async def send_mail_comment(
         email_to: List[List[str]],
         context: List[MailContentType]) -> None:
-    await _send_mail_async(
-        'new-comment', email_to[0], context=context[0], tags=COMMENTS_TAG
+    await _send_mails_async_new(
+        email_to[0],
+        context[0],
+        COMMENTS_TAG,
+        f'New ' +
+        ('observation' if context[0]["comment_type"] == 'observation'
+         else 'comment') +
+        f' in [{context[0]["project"]}]',
+        'new_comment'
     )
-    await _send_mail_async(
-        'new-comment', email_to[1], context=context[1], tags=COMMENTS_TAG
+    await _send_mails_async_new(
+        email_to[1],
+        context[1],
+        COMMENTS_TAG,
+        f'New ' +
+        ('observation' if context[1]["comment_type"] == 'observation'
+         else 'comment') +
+        f' in [{context[1]["project"]}]',
+        'new_comment'
     )
 
 

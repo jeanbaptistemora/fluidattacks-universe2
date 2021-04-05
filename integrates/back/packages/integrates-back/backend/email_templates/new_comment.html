@@ -1,0 +1,16 @@
+{% extends "layouts/fluid_attacks.html" %}
+{% from 'layouts/components/forms.html' import go_to_button as button, text_area %}
+{% block content %}
+<br />
+<div>Hello {{ name }},</div>
+<p>
+  <strong>{{ user_email }}</strong> has
+  {% if parent == '0' %} made {% else %} replied to {% endif %}
+  {% if comment_type == 'observation' %} an observation {% else %} a comment {% endif %} on
+  {% if comment_type != 'project' %} finding <strong>{{ finding_name }}</strong> of {% endif %}
+  project <strong>{{ project }}</strong>.
+</p>
+{{ text_area(comment) }}
+<br />
+{{ button('Go to the comment', comment_url) }}
+{% endblock %}

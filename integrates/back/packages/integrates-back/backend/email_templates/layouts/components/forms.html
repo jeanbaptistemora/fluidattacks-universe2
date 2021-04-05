@@ -24,3 +24,12 @@
   </tbody>
 </table>
 {% endmacro %}
+
+{# Generic gray text area #}
+{% macro text_area(text) %}
+<div class="flex">
+  <div class="fl w-100 w-90-ns bg-moon-gray i pv3 center tc sans-serif">
+    <div>"{{ text }}"</div>
+  </div>
+</div>
+{% endmacro %}
