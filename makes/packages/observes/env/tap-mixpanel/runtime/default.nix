@@ -6,11 +6,8 @@
 , ...
 }:
 let
-  singerIO = buildPythonPackage {
-    name = "observes-singer-io";
-    packagePath = path "/observes/common/singer_io";
-    python = nixpkgs.python38;
-  };
+  env = packages.observes.env;
+  pkgEnv = env.tap-mixpanel;
   self = buildPythonPackage {
     name = "observes-tap-mixpanel";
     packagePath = path "/observes/singer/tap_mixpanel";
@@ -20,11 +17,16 @@ in
 makeTemplate {
   name = "observes-env-tap-mixpanel-runtime";
   searchPaths = {
+    envPaths = [
+      pkgEnv.runtime.python
+    ];
     envPython38Paths = [
       nixpkgs.python38Packages.pandas
-      packages.observes.env.tap-mixpanel.runtime.python
-      singerIO
+      pkgEnv.runtime.python
       self
+    ];
+    envSources = [
+      env.runtime.singer-io
     ];
   };
 }

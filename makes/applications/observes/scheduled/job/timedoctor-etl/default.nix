@@ -24,6 +24,6 @@ makeEntrypoint {
       "/makes/utils/sops"
     ];
   };
-  name = "observes-scheduled-timedoctor-etl";
-  template = path "/makes/applications/observes/scheduled/timedoctor-etl/entrypoint.sh";
+  name = "observes-scheduled-job-timedoctor-etl";
+  template = path "/makes/applications/observes/scheduled/job/timedoctor-etl/entrypoint.sh";
 }

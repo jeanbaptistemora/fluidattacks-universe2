@@ -195,6 +195,24 @@ observes.scheduled.job.dynamodb-centralize:
     variables: [$observes_dynamodb_centralize]
   interruptible: false
 
+observes.scheduled.job.mailchimp-etl:
+  <<: *makes
+  tags: [autoscaling-analytics]
+  stage: analytics
+  only:
+    refs: [schedules]
+    variables: [$observes_mailchimp_etl]
+  interruptible: false
+
+observes.scheduled.job.mixpanel-integrates-etl:
+  <<: *makes
+  tags: [autoscaling-analytics]
+  stage: analytics
+  only:
+    refs: [schedules]
+    variables: [$observes_mixpanel_integrates]
+  interruptible: false
+
 observes.scheduled.job.tap-zoho-analytics:
   <<: *makes
   tags: [autoscaling-analytics]
@@ -202,6 +220,24 @@ observes.scheduled.job.tap-zoho-analytics:
   only:
     refs: [schedules]
     variables: [$observes_zoho]
+  interruptible: false
+
+observes.scheduled.job.timedoctor-backup:
+  <<: *makes
+  tags: [autoscaling-analytics]
+  stage: analytics
+  only:
+    refs: [schedules]
+    variables: [$observes_timedoctor_backup]
+  interruptible: false
+
+observes.scheduled.job.timedoctor-etl:
+  <<: *makes
+  tags: [autoscaling-analytics]
+  stage: analytics
+  only:
+    refs: [schedules]
+    variables: [$observes_timedoctor]
   interruptible: false
 
 observes.scheduled.job.timedoctor-refresh-token:
@@ -273,42 +309,6 @@ observes.scheduled.on-aws.formstack-etl:
   only:
     refs: [schedules]
     variables: [$observes_formstack]
-  interruptible: false
-
-observes.scheduled.job.mailchimp-etl:
-  <<: *makes
-  tags: [autoscaling-analytics]
-  stage: analytics
-  only:
-    refs: [schedules]
-    variables: [$observes_mailchimp_etl]
-  interruptible: false
-
-observes.scheduled.mixpanel-integrates-etl:
-  <<: *makes
-  tags: [autoscaling-analytics]
-  stage: analytics
-  only:
-    refs: [schedules]
-    variables: [$observes_mixpanel_integrates]
-  interruptible: false
-
-observes.scheduled.timedoctor-backup:
-  <<: *makes
-  tags: [autoscaling-analytics]
-  stage: analytics
-  only:
-    refs: [schedules]
-    variables: [$observes_timedoctor_backup]
-  interruptible: false
-
-observes.scheduled.timedoctor-etl:
-  <<: *makes
-  tags: [autoscaling-analytics]
-  stage: analytics
-  only:
-    refs: [schedules]
-    variables: [$observes_timedoctor]
   interruptible: false
 
 observes.scheduled.toe-files-etl:

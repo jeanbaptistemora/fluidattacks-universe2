@@ -7,7 +7,7 @@ makeEntrypoint {
   searchPaths = {
     envPaths = [
       packages.observes.tap-json
-      packages.observes.tap-mixpanel
+      packages.observes.bin.tap-mixpanel
       packages.observes.target-redshift
       packages.observes.update-sync-date
     ];
@@ -16,6 +16,6 @@ makeEntrypoint {
       "/makes/utils/sops"
     ];
   };
-  name = "observes-scheduled-mixpanel-integrates-etl";
-  template = path "/makes/applications/observes/scheduled/mixpanel-integrates-etl/entrypoint.sh";
+  name = "observes-scheduled-job-mixpanel-integrates-etl";
+  template = path "/makes/applications/observes/scheduled/job/mixpanel-integrates-etl/entrypoint.sh";
 }

@@ -23,6 +23,6 @@ makeEntrypoint {
       "/makes/utils/sops"
     ];
   };
-  name = "observes-scheduled-timedoctor-backup";
-  template = path "/makes/applications/observes/scheduled/timedoctor-backup/entrypoint.sh";
+  name = "observes-scheduled-job-timedoctor-backup";
+  template = path "/makes/applications/observes/scheduled/job/timedoctor-backup/entrypoint.sh";
 }

@@ -21,7 +21,8 @@ function job_mixpanel_integrates {
   &&  echo '[INFO] Starting mixpanel ETL' \
   &&  echo "${analytics_auth_redshift}" > "${db_creds}" \
   &&  echo '[INFO] Running tap' \
-  &&  observes-tap-mixpanel -a "${mixpanel_creds}" -c "${conf}" | observes-tap-json \
+  &&  observes-bin-tap-mixpanel -a "${mixpanel_creds}" -c "${conf}" \
+        | observes-tap-json \
         > .singer \
   &&  observes-target-redshift \
         --auth "${db_creds}" \
