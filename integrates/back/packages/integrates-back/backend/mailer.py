@@ -594,10 +594,22 @@ async def send_mail_accepted_finding(
 async def send_mail_new_event(
         email_to: List[List[str]],
         context: List[MailContentType]) -> None:
-    await _send_mail_async(
-        'new-event', email_to[0], context=context[0], tags=GENERAL_TAG)
-    await _send_mail_async(
-        'new-event', email_to[1], context=context[1], tags=GENERAL_TAG)
+    await _send_mails_async_new(
+        email_to[0],
+        context[0],
+        GENERAL_TAG,
+        f'New event in [{context[0]["project"]}] - ' +
+        f'[Event#{context[0]["event_id"]}]',
+        'new_event'
+    )
+    await _send_mails_async_new(
+        email_to[1],
+        context[1],
+        GENERAL_TAG,
+        f'New event in [{context[1]["project"]}] - ' +
+        f'[Event#{context[1]["event_id"]}]',
+        'new_event'
+    )
 
 
 async def send_mail_org_deletion(
