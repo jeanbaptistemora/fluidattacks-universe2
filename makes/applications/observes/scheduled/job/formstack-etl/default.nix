@@ -6,7 +6,7 @@
 makeEntrypoint {
   searchPaths = {
     envPaths = [
-      packages.observes.tap-formstack
+      packages.observes.bin.tap-formstack
       packages.observes.target-redshift
       packages.observes.update-sync-date
     ];

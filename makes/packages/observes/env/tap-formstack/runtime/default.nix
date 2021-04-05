@@ -6,7 +6,8 @@
 , ...
 }:
 let
-  pythonEnv = packages.observes.env.tap-formstack.runtime.python;
+  env = packages.observes.env;
+  pkgEnv = env.tap-formstack;
   self = buildPythonPackage {
     name = "observes-tap-formstack";
     packagePath = path "/observes/singer/tap_formstack";
@@ -17,10 +18,10 @@ makeTemplate {
   name = "observes-env-tap-formstack-runtime";
   searchPaths = {
     envPaths = [
-      pythonEnv
+      pkgEnv.runtime.python
     ];
     envPython38Paths = [
-      pythonEnv
+      pkgEnv.runtime.python
       self
     ];
   };

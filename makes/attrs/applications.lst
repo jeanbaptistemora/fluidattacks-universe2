@@ -179,8 +179,6 @@ observes.scheduled.timedoctor-backup
 observes.scheduled.timedoctor-etl
 observes.scheduled.toe-files-etl
 observes.streamer-dynamodb
-observes.streamer-zoho-crm
-observes.tap-formstack
 observes.tap-json
 observes.tap-mixpanel
 observes.tap-timedoctor

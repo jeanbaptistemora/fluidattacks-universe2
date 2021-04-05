@@ -15,7 +15,7 @@ function start_etl {
   &&  echo "${analytics_auth_redshift}" > "${db_creds}" \
   &&  echo '[INFO] Running tap' \
   &&  mkdir ./logs \
-  &&  observes-tap-formstack \
+  &&  observes-bin-tap-formstack \
         --auth "${formstack_creds}" \
         --conf ./observes/conf/formstack.json \
         > .singer \
