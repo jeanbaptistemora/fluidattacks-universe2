@@ -1,19 +1,21 @@
 import type { ApolloError } from "@apollo/client";
-import { Avatar } from "../../components/Avatar";
-import type { IAuthState } from "../../utils/socialAuth";
-import type { ISignInResult } from "./types";
-import { LOGGER } from "../../utils/logger";
-import { Preloader } from "../../components/Preloader";
-import { SIGN_IN_MUTATION } from "./queries";
-import { logout } from "../../utils/socialAuth";
-import { setItemAsync } from "expo-secure-store";
-import { styles } from "./styles";
-import { useHistory } from "react-router-native";
 import { useMutation } from "@apollo/client";
+import { setItemAsync } from "expo-secure-store";
+import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { Alert, View } from "react-native";
-import React, { useEffect } from "react";
 import { Text, useTheme } from "react-native-paper";
+import { useHistory } from "react-router-native";
+
+import { SIGN_IN_MUTATION } from "./queries";
+import { styles } from "./styles";
+import type { ISignInResult } from "./types";
+
+import { Avatar } from "../../components/Avatar";
+import { Preloader } from "../../components/Preloader";
+import { LOGGER } from "../../utils/logger";
+import type { IAuthState } from "../../utils/socialAuth";
+import { logout } from "../../utils/socialAuth";
 
 const WelcomeView: React.FunctionComponent = (): JSX.Element => {
   const history: ReturnType<typeof useHistory> = useHistory();

@@ -1,25 +1,27 @@
-import { BitbucketButton } from "./BitbucketButton";
-import { GoogleButton } from "./GoogleButton";
+import type { ReactWrapper } from "enzyme";
+import { mount } from "enzyme";
+import React from "react";
+import { act } from "react-dom/test-utils";
 import { I18nextProvider } from "react-i18next";
-import type { IAuthResult } from "../../utils/socialAuth";
+import { Provider as PaperProvider } from "react-native-paper";
+import { NativeRouter } from "react-router-native";
+
+import { BitbucketButton } from "./BitbucketButton";
 import type { IBitbucketButtonProps } from "./BitbucketButton";
+import { GoogleButton } from "./GoogleButton";
 import type { IGoogleButtonProps } from "./GoogleButton";
 import type { IMicrosoftButtonProps } from "./MicrosoftButton";
-import { LoginView } from ".";
 import { MicrosoftButton } from "./MicrosoftButton";
-import { NativeRouter } from "react-router-native";
-import { Provider as PaperProvider } from "react-native-paper";
-import React from "react";
-import type { ReactWrapper } from "enzyme";
-import { act } from "react-dom/test-utils";
 import { getOutdatedStatus } from "./version";
-import { i18next } from "../../utils/translations/translate";
-import { mount } from "enzyme";
+
+import { LoginView } from ".";
+import type { IAuthResult } from "../../utils/socialAuth";
 import {
   authWithBitbucket,
   authWithGoogle,
   authWithMicrosoft,
 } from "../../utils/socialAuth";
+import { i18next } from "../../utils/translations/translate";
 
 jest.mock(
   "../../utils/socialAuth",

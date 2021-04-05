@@ -1,7 +1,9 @@
 import React from "react";
-import loadingGif from "../../../assets/loading.gif";
-import { styles } from "./styles";
 import { Image, View } from "react-native";
+
+import { styles } from "./styles";
+
+import loadingGif from "../../../assets/loading.gif";
 
 /**
  * Preloader component props

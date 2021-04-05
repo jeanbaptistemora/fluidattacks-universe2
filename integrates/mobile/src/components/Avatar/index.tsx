@@ -1,5 +1,5 @@
-import { Avatar as PaperAvatar } from "react-native-paper";
 import React from "react";
+import { Avatar as PaperAvatar } from "react-native-paper";
 
 /** User avatar */
 interface IAvatarProps {

@@ -1,8 +1,9 @@
-import { Avatar } from ".";
-import { Avatar as PaperAvatar } from "react-native-paper";
-import React from "react";
 import type { ShallowWrapper } from "enzyme";
 import { shallow } from "enzyme";
+import React from "react";
+import { Avatar as PaperAvatar } from "react-native-paper";
+
+import { Avatar } from ".";
 
 describe("Avatar", (): void => {
   it("should return a function", (): void => {

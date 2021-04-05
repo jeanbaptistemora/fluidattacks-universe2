@@ -1,6 +1,3 @@
-import type { IAuthResult } from "../..";
-import { LOGGER } from "../../../logger";
-import _ from "lodash";
 import {
   AuthRequest,
   Prompt,
@@ -9,12 +6,16 @@ import {
   makeRedirectUri,
 } from "expo-auth-session";
 import type { AuthSessionResult, DiscoveryDocument } from "expo-auth-session";
+// eslint-disable-next-line import/no-named-as-default -- Needed for correct usage of NativeConstants.appOwnership
+import Constants, { AppOwnership } from "expo-constants";
+import _ from "lodash";
+
+import type { IAuthResult } from "../..";
 import {
   BITBUCKET_CLIENT_ID_DEV,
   BITBUCKET_CLIENT_ID_PROD,
 } from "../../../constants";
-// eslint-disable-next-line import/no-named-as-default -- Needed for correct usage of NativeConstants.appOwnership
-import Constants, { AppOwnership } from "expo-constants";
+import { LOGGER } from "../../../logger";
 
 const inExpoClient: boolean = Constants.appOwnership === AppOwnership.Expo;
 

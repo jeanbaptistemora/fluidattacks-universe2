@@ -4,23 +4,17 @@
 /* eslint-disable fp/no-mutation */
 // Needed to override styles
 /* eslint-disable react/forbid-component-props */
-import { About } from "../../components/About";
 import type { ApolloError } from "@apollo/client";
+import { NetworkStatus, useMutation, useQuery } from "@apollo/client";
+import type { Notification, NotificationResponse } from "expo-notifications";
+import {
+  addNotificationReceivedListener,
+  addNotificationResponseReceivedListener,
+} from "expo-notifications";
 import type { GraphQLError } from "graphql";
-import { Header } from "./Header";
-import type { IAuthState } from "../../utils/socialAuth";
-import { Indicators } from "./Indicators";
-import { LOGGER } from "../../utils/logger";
-import { Logo } from "../../components/Logo";
-import { Preloader } from "../../components/Preloader";
 import _ from "lodash";
-import { getPushToken } from "../../utils/notifications";
-import { logout } from "../../utils/socialAuth";
-import { styles } from "./styles";
-import { useHistory } from "react-router-native";
+import React, { useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
-import wait from "waait";
-import { ADD_PUSH_TOKEN_MUTATION, ORGS_QUERY } from "./queries";
 import {
   Alert,
   Animated,
@@ -31,14 +25,22 @@ import {
 } from "react-native";
 import type { AppStateStatus, ScrollViewProps } from "react-native";
 import { Headline, useTheme } from "react-native-paper";
+import { useHistory } from "react-router-native";
+import wait from "waait";
+
+import { Header } from "./Header";
+import { Indicators } from "./Indicators";
+import { ADD_PUSH_TOKEN_MUTATION, ORGS_QUERY } from "./queries";
+import { styles } from "./styles";
 import type { IOrganization, IOrgsResult } from "./types";
-import { NetworkStatus, useMutation, useQuery } from "@apollo/client";
-import type { Notification, NotificationResponse } from "expo-notifications";
-import React, { useEffect, useRef } from "react";
-import {
-  addNotificationReceivedListener,
-  addNotificationResponseReceivedListener,
-} from "expo-notifications";
+
+import { About } from "../../components/About";
+import { Logo } from "../../components/Logo";
+import { Preloader } from "../../components/Preloader";
+import { LOGGER } from "../../utils/logger";
+import { getPushToken } from "../../utils/notifications";
+import { logout } from "../../utils/socialAuth";
+import type { IAuthState } from "../../utils/socialAuth";
 import "intl";
 import "intl/locale-data/jsonp/en-US";
 import "intl/locale-data/jsonp/es-CO";

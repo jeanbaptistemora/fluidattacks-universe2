@@ -1,12 +1,13 @@
+import { MaterialIcons } from "@expo/vector-icons";
 // eslint-disable-next-line import/no-named-as-default
 import Constants from "expo-constants";
 import type { Manifest } from "expo-updates";
-import { MaterialIcons } from "@expo/vector-icons";
 import { manifest } from "expo-updates";
-import { styles } from "./styles";
+import React, { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { Alert, Linking, View } from "react-native";
-import React, { useCallback } from "react";
+
+import { styles } from "./styles";
 
 const manifestConst: Manifest = manifest as Manifest;
 const manifestExtra: Record<string, string> =

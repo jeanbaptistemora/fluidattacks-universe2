@@ -1,22 +1,23 @@
-import { BUGSNAG_KEY } from "./constants";
+import type { Event } from "@bugsnag/core";
 import Bugsnag from "@bugsnag/expo";
 import BugsnagPluginReact from "@bugsnag/plugin-react";
-import type { Event } from "@bugsnag/core";
-import { LOGGER } from "./logger";
-import type { NetworkState } from "expo-network";
-import { Platform } from "react-native";
-import _ from "lodash";
-import { getEnvironment } from "./environment";
 import type {
   BugsnagErrorBoundary,
   BugsnagPluginReactResult,
 } from "@bugsnag/plugin-react";
-import React, { Fragment } from "react";
+import type { NetworkState } from "expo-network";
 import {
   getIpAddressAsync,
   getNetworkStateAsync,
   isAirplaneModeEnabledAsync,
 } from "expo-network";
+import _ from "lodash";
+import React, { Fragment } from "react";
+import { Platform } from "react-native";
+
+import { BUGSNAG_KEY } from "./constants";
+import { getEnvironment } from "./environment";
+import { LOGGER } from "./logger";
 
 Bugsnag.start({
   apiKey: BUGSNAG_KEY,

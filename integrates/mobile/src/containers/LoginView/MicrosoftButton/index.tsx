@@ -1,10 +1,12 @@
 // Needed to override styles
 /* eslint-disable react/forbid-component-props */
-import MicrosoftLogo from "../../../../assets/microsoft-logo.png";
 import React from "react";
-import { styles } from "./styles";
 import { useTranslation } from "react-i18next";
 import { Image, Text, TouchableOpacity } from "react-native";
+
+import { styles } from "./styles";
+
+import MicrosoftLogo from "../../../../assets/microsoft-logo.png";
 
 /**
  * Microsoft Sign In button

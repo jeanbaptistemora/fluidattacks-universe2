@@ -1,17 +1,16 @@
-import { About } from "../../components/About";
-import { BitbucketButton } from "./BitbucketButton";
 import Bugsnag from "@bugsnag/expo";
-import { GoogleButton } from "./GoogleButton";
-import type { IAuthResult } from "../../utils/socialAuth";
-import { Logo } from "../../components/Logo";
-import { MicrosoftButton } from "./MicrosoftButton";
 import type { NativeConstants } from "expo-constants";
-import { Preloader } from "../../components/Preloader";
-import { getOutdatedStatus } from "./version";
+// Needed for correct usage of NativeConstants.appOwnership
+import Constants, { AppOwnership } from "expo-constants"; // eslint-disable-line import/no-named-as-default
 import { setItemAsync } from "expo-secure-store";
-import { styles } from "./styles";
-import { useHistory } from "react-router-native";
+import {
+  coolDownAsync,
+  maybeCompleteAuthSession,
+  warmUpAsync,
+} from "expo-web-browser";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { Linking, View } from "react-native";
 import {
   Button,
   Dialog,
@@ -20,20 +19,23 @@ import {
   Text,
   useTheme,
 } from "react-native-paper";
-// Needed for correct usage of NativeConstants.appOwnership
-import Constants, { AppOwnership } from "expo-constants"; // eslint-disable-line import/no-named-as-default
-import { Linking, View } from "react-native";
-import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router-native";
+
+import { BitbucketButton } from "./BitbucketButton";
+import { GoogleButton } from "./GoogleButton";
+import { MicrosoftButton } from "./MicrosoftButton";
+import { styles } from "./styles";
+import { getOutdatedStatus } from "./version";
+
+import { About } from "../../components/About";
+import { Logo } from "../../components/Logo";
+import { Preloader } from "../../components/Preloader";
 import {
   authWithBitbucket,
   authWithGoogle,
   authWithMicrosoft,
 } from "../../utils/socialAuth";
-import {
-  coolDownAsync,
-  maybeCompleteAuthSession,
-  warmUpAsync,
-} from "expo-web-browser";
+import type { IAuthResult } from "../../utils/socialAuth";
 
 // eslint-disable-next-line @typescript-eslint/no-type-alias
 type manifestStructure = NativeConstants["manifest"] & {

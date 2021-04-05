@@ -1,12 +1,14 @@
 // Needed to override default styles
 /* eslint-disable react/forbid-component-props */
+import React from "react";
+import { useTranslation } from "react-i18next";
+import { View } from "react-native";
+import { Appbar, Text, useTheme } from "react-native-paper";
+
+import { styles } from "./styles";
+
 import { Avatar } from "../../../components/Avatar";
 import type { IUser } from "../../../utils/socialAuth";
-import React from "react";
-import { View } from "react-native";
-import { styles } from "./styles";
-import { useTranslation } from "react-i18next";
-import { Appbar, Text, useTheme } from "react-native-paper";
 
 /** App header */
 interface IHeaderProps {

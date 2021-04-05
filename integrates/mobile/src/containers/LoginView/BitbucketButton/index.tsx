@@ -1,10 +1,12 @@
 // Needed to override styles
 /* eslint-disable react/forbid-component-props */
-import BitbucketLogo from "../../../../assets/bitbucket-logo.png";
 import React from "react";
-import { styles } from "./styles";
 import { useTranslation } from "react-i18next";
 import { Image, Text, TouchableOpacity } from "react-native";
+
+import { styles } from "./styles";
+
+import BitbucketLogo from "../../../../assets/bitbucket-logo.png";
 
 /**
  * Bitbucket Sign In button

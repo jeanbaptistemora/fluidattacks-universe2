@@ -1,15 +1,16 @@
-import { I18nextProvider } from "react-i18next";
-import { LockView } from ".";
-import { NativeRouter } from "react-router-native";
-import React from "react";
 import type { ReactWrapper } from "enzyme";
-import { act } from "react-dom/test-utils";
+import { mount } from "enzyme";
 import { authenticateAsync } from "expo-local-authentication";
 import { getItemAsync } from "expo-secure-store";
-import { i18next } from "../../utils/translations/translate";
-import { mount } from "enzyme";
-import wait from "waait";
+import React from "react";
+import { act } from "react-dom/test-utils";
+import { I18nextProvider } from "react-i18next";
 import { Button, Provider as PaperProvider } from "react-native-paper";
+import { NativeRouter } from "react-router-native";
+import wait from "waait";
+
+import { LockView } from ".";
+import { i18next } from "../../utils/translations/translate";
 
 const mockHistoryReplace: jest.Mock = jest.fn();
 

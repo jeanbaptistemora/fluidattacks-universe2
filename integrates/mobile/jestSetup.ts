@@ -1,7 +1,7 @@
 // Needed to setup Jest mocks
 /* eslint-disable fp/no-mutating-assign */
-import ReactSixteenAdapter from "enzyme-adapter-react-16";
 import { configure } from "enzyme";
+import ReactSixteenAdapter from "enzyme-adapter-react-16";
 import fetchMock from "fetch-mock";
 
 // Mock fetch

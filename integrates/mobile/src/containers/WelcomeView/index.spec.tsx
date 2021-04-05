@@ -1,17 +1,19 @@
-import { GraphQLError } from "graphql";
-import { I18nextProvider } from "react-i18next";
-import { MemoryRouter } from "react-router-native";
 import { MockedProvider } from "@apollo/client/testing";
 import type { MockedResponse } from "@apollo/client/testing";
-import { Provider as PaperProvider } from "react-native-paper";
-import React from "react";
 import type { ReactWrapper } from "enzyme";
-import { SIGN_IN_MUTATION } from "./queries";
-import { WelcomeView } from ".";
-import { act } from "react-dom/test-utils";
-import { i18next } from "../../utils/translations/translate";
 import { mount } from "enzyme";
+import { GraphQLError } from "graphql";
+import React from "react";
+import { act } from "react-dom/test-utils";
+import { I18nextProvider } from "react-i18next";
+import { Provider as PaperProvider } from "react-native-paper";
+import { MemoryRouter } from "react-router-native";
 import wait from "waait";
+
+import { SIGN_IN_MUTATION } from "./queries";
+
+import { WelcomeView } from ".";
+import { i18next } from "../../utils/translations/translate";
 
 const mockHistoryReplace: jest.Mock = jest.fn();
 

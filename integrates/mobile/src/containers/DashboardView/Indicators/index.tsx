@@ -1,13 +1,10 @@
 // Needed to override styles
 /* eslint-disable react/forbid-component-props */
-import Border from "../../../../assets/percentBorder.svg";
-import type { IOrganization } from "../types";
 import { MaterialIcons } from "@expo/vector-icons";
-import React from "react";
-import { SvgCss } from "react-native-svg";
-import { View } from "react-native";
 import _ from "lodash";
-import { styles } from "./styles";
+import React from "react";
+import { Trans, useTranslation } from "react-i18next";
+import { View } from "react-native";
 import {
   Headline,
   Subheading,
@@ -15,7 +12,12 @@ import {
   Title,
   useTheme,
 } from "react-native-paper";
-import { Trans, useTranslation } from "react-i18next";
+import { SvgCss } from "react-native-svg";
+
+import { styles } from "./styles";
+
+import Border from "../../../../assets/percentBorder.svg";
+import type { IOrganization } from "../types";
 
 /** Indicators data structure */
 interface IIndicators {

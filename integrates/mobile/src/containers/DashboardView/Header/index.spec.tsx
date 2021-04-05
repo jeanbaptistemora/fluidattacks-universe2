@@ -1,10 +1,11 @@
-import { Header } from ".";
-import { I18nextProvider } from "react-i18next";
-import React from "react";
 import type { ReactWrapper } from "enzyme";
-import type { Text } from "react-native-paper";
-import { i18next } from "../../../utils/translations/translate";
 import { mount } from "enzyme";
+import React from "react";
+import { I18nextProvider } from "react-i18next";
+import type { Text } from "react-native-paper";
+
+import { Header } from ".";
+import { i18next } from "../../../utils/translations/translate";
 
 describe("Header", (): void => {
   it("should return a function", (): void => {

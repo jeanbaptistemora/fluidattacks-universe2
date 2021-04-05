@@ -1,9 +1,11 @@
-import LogoSVG from "../../../assets/logo.svg";
 import React from "react";
+import { Text, View } from "react-native";
 import { SvgCss } from "react-native-svg";
 import type { XmlProps } from "react-native-svg";
+
 import { styles } from "./styles";
-import { Text, View } from "react-native";
+
+import LogoSVG from "../../../assets/logo.svg";
 
 type LogoProps = Omit<XmlProps, "xml">;
 

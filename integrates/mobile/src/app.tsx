@@ -1,15 +1,15 @@
-import { ApolloProvider } from "./utils/apollo";
-import { BugsnagErrorBoundary } from "./utils/bugsnagErrorBoundary";
-import type { ColorSchemeName } from "react-native";
-import { DashboardView } from "./containers/DashboardView";
-import { I18nextProvider } from "react-i18next";
-import { LockView } from "./containers/LockView";
-import { LoginView } from "./containers/LoginView";
-import { WelcomeView } from "./containers/WelcomeView";
-import _ from "lodash";
-import { getItemAsync } from "expo-secure-store";
-import { i18next } from "./utils/translations/translate";
 import { registerRootComponent } from "expo";
+import { getItemAsync } from "expo-secure-store";
+import _ from "lodash";
+import React, { useEffect, useState } from "react";
+import { I18nextProvider } from "react-i18next";
+import type { ColorSchemeName } from "react-native";
+import { StatusBar, View, useColorScheme } from "react-native";
+import {
+  DarkTheme,
+  DefaultTheme,
+  Provider as PaperProvider,
+} from "react-native-paper";
 import {
   BackButton,
   NativeRouter,
@@ -17,13 +17,14 @@ import {
   Route,
   Switch,
 } from "react-router-native";
-import {
-  DarkTheme,
-  DefaultTheme,
-  Provider as PaperProvider,
-} from "react-native-paper";
-import React, { useEffect, useState } from "react";
-import { StatusBar, View, useColorScheme } from "react-native";
+
+import { DashboardView } from "./containers/DashboardView";
+import { LockView } from "./containers/LockView";
+import { LoginView } from "./containers/LoginView";
+import { WelcomeView } from "./containers/WelcomeView";
+import { ApolloProvider } from "./utils/apollo";
+import { BugsnagErrorBoundary } from "./utils/bugsnagErrorBoundary";
+import { i18next } from "./utils/translations/translate";
 
 const lightTheme: ReactNativePaper.Theme = {
   ...DefaultTheme,

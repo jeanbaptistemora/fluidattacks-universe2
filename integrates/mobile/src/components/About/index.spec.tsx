@@ -1,9 +1,10 @@
-import { About } from ".";
-import { Alert } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
-import React from "react";
 import type { ReactWrapper } from "enzyme";
 import { mount } from "enzyme";
+import React from "react";
+import { Alert } from "react-native";
+
+import { About } from ".";
 
 describe("About", (): void => {
   it("should return a function", (): void => {

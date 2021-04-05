@@ -1,16 +1,18 @@
+import type { ReactWrapper } from "enzyme";
+import { mount } from "enzyme";
 import type { FetchMockStatic } from "fetch-mock";
+import React from "react";
+import { act } from "react-dom/test-utils";
 import { I18nextProvider } from "react-i18next";
 import { Linking } from "react-native";
-import { LoginView } from ".";
-import { NativeRouter } from "react-router-native";
-import React from "react";
-import type { ReactWrapper } from "enzyme";
-import { act } from "react-dom/test-utils";
-import { getOutdatedStatus } from "./version";
-import { i18next } from "../../utils/translations/translate";
-import { mount } from "enzyme";
-import wait from "waait";
 import { Button, Provider as PaperProvider } from "react-native-paper";
+import { NativeRouter } from "react-router-native";
+import wait from "waait";
+
+import { getOutdatedStatus } from "./version";
+
+import { LoginView } from ".";
+import { i18next } from "../../utils/translations/translate";
 
 jest.mock(
   "expo-constants",

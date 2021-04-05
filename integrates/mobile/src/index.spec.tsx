@@ -1,9 +1,10 @@
-import { App } from "./app";
-import React from "react";
 import type { ShallowWrapper } from "enzyme";
-import { act } from "react-dom/test-utils";
 import { shallow } from "enzyme";
+import React from "react";
+import { act } from "react-dom/test-utils";
 import { useColorScheme } from "react-native";
+
+import { App } from "./app";
 
 describe("App root", (): void => {
   it("should return a function", (): void => {

@@ -1,12 +1,13 @@
-import { BitbucketButton } from ".";
-import { I18nextProvider } from "react-i18next";
-import type { IBitbucketButtonProps } from ".";
-import React from "react";
 import type { ReactWrapper } from "enzyme";
+import { mount } from "enzyme";
+import React from "react";
+import { I18nextProvider } from "react-i18next";
 import { TouchableOpacity } from "react-native";
 import type { TouchableOpacityProps } from "react-native";
+
+import { BitbucketButton } from ".";
+import type { IBitbucketButtonProps } from ".";
 import { i18next } from "../../../utils/translations/translate";
-import { mount } from "enzyme";
 
 describe("BitbucketButton", (): void => {
   it("should return a function", (): void => {

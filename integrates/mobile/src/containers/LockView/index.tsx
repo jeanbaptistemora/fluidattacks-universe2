@@ -1,14 +1,16 @@
 // Needed to override styles
 /* eslint-disable react/forbid-component-props */
-import FluidIcon from "../../../assets/notification.png";
 import { authenticateAsync } from "expo-local-authentication";
 import { getItemAsync } from "expo-secure-store";
-import { styles } from "./styles";
-import { useHistory } from "react-router-native";
-import { useTranslation } from "react-i18next";
-import { Button, Headline, useTheme } from "react-native-paper";
-import { Image, View } from "react-native";
 import React, { useEffect } from "react";
+import { useTranslation } from "react-i18next";
+import { Image, View } from "react-native";
+import { Button, Headline, useTheme } from "react-native-paper";
+import { useHistory } from "react-router-native";
+
+import { styles } from "./styles";
+
+import FluidIcon from "../../../assets/notification.png";
 
 const LockView: React.FC = (): JSX.Element => {
   const history: ReturnType<typeof useHistory> = useHistory();

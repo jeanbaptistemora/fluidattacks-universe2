@@ -1,14 +1,3 @@
-import { Alert } from "react-native";
-import type { ErrorResponse } from "@apollo/client/link/error";
-import { LOGGER } from "./logger";
-import type React from "react";
-import { RetryLink } from "@apollo/client/link/retry";
-import _ from "lodash";
-import { getEnvironment } from "./environment";
-import { i18next } from "./translations/translate";
-import { logout } from "./socialAuth";
-import { setContext } from "@apollo/client/link/context";
-import { useHistory } from "react-router-native";
 import {
   ApolloClient,
   ApolloLink,
@@ -17,7 +6,6 @@ import {
   Observable,
   createHttpLink,
 } from "@apollo/client";
-import type { ExecutionResult, GraphQLError } from "graphql";
 import type {
   FetchResult,
   NextLink,
@@ -26,9 +14,21 @@ import type {
   ServerError,
   ServerParseError,
 } from "@apollo/client";
-
-import { createElement, useMemo } from "react";
+import { setContext } from "@apollo/client/link/context";
+import type { ErrorResponse } from "@apollo/client/link/error";
+import { RetryLink } from "@apollo/client/link/retry";
 import { deleteItemAsync, getItemAsync } from "expo-secure-store";
+import type { ExecutionResult, GraphQLError } from "graphql";
+import _ from "lodash";
+import type React from "react";
+import { createElement, useMemo } from "react";
+import { Alert } from "react-native";
+import { useHistory } from "react-router-native";
+
+import { getEnvironment } from "./environment";
+import { LOGGER } from "./logger";
+import { logout } from "./socialAuth";
+import { i18next } from "./translations/translate";
 
 /**
  * Handled error attributes

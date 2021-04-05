@@ -1,7 +1,3 @@
-import type { IAuthResult } from "../..";
-import { LOGGER } from "../../../logger";
-import { MICROSOFT_CLIENT_ID } from "../../../constants";
-import _ from "lodash";
 import {
   AuthRequest,
   Prompt,
@@ -17,6 +13,11 @@ import type {
   DiscoveryDocument,
   TokenResponse,
 } from "expo-auth-session";
+import _ from "lodash";
+
+import type { IAuthResult } from "../..";
+import { MICROSOFT_CLIENT_ID } from "../../../constants";
+import { LOGGER } from "../../../logger";
 
 const clientId: string = MICROSOFT_CLIENT_ID;
 

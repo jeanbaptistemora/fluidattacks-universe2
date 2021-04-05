@@ -1,9 +1,11 @@
 import Bugsnag from "@bugsnag/expo";
-import { LOGGER } from "../logger";
+import { deleteItemAsync, getItemAsync } from "expo-secure-store";
 import _ from "lodash";
+
 import { logoutFromGoogle } from "./providers/google";
 import { logoutFromMicrosoft } from "./providers/microsoft";
-import { deleteItemAsync, getItemAsync } from "expo-secure-store";
+
+import { LOGGER } from "../logger";
 
 /** Normalized user properties */
 interface IUser {

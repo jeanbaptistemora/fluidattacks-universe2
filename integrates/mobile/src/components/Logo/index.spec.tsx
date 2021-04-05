@@ -1,7 +1,8 @@
-import { Logo } from ".";
-import React from "react";
 import type { ShallowWrapper } from "enzyme";
 import { shallow } from "enzyme";
+import React from "react";
+
+import { Logo } from ".";
 
 describe("Logo", (): void => {
   it("should return a function", (): void => {

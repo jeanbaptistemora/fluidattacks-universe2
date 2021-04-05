@@ -1,10 +1,12 @@
 // Needed to override styles
 /* eslint-disable react/forbid-component-props */
-import GoogleLogo from "../../../../assets/google-logo.png";
 import React from "react";
-import { styles } from "./styles";
 import { useTranslation } from "react-i18next";
 import { Image, Text, TouchableOpacity } from "react-native";
+
+import { styles } from "./styles";
+
+import GoogleLogo from "../../../../assets/google-logo.png";
 
 /**
  * Google Sign In button

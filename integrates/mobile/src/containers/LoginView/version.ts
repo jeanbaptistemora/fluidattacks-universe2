@@ -1,8 +1,9 @@
 import type { AndroidManifest } from "expo-constants";
 // Needed for correct usage of AndroidManifest
 import Constants from "expo-constants"; // eslint-disable-line import/no-named-as-default
-import { LOGGER } from "../../utils/logger";
 import { Platform } from "react-native";
+
+import { LOGGER } from "../../utils/logger";
 
 const getVersionFromPlaystore: () => Promise<string> = async (): Promise<string> => {
   const androidManifest: AndroidManifest = Constants.manifest

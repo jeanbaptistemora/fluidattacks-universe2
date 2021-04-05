@@ -1,8 +1,10 @@
-import { LOGGER } from "../logger";
-import { enTranslations } from "./en";
+import { locale } from "expo-localization";
 import i18next from "i18next";
 import { initReactI18next } from "react-i18next";
-import { locale } from "expo-localization";
+
+import { enTranslations } from "./en";
+
+import { LOGGER } from "../logger";
 
 i18next
   .use(initReactI18next)

@@ -1,7 +1,3 @@
-import type { IAuthResult } from "../..";
-import { LOGGER } from "../../../logger";
-import { Platform } from "react-native";
-import _ from "lodash";
 import {
   AuthRequest,
   Prompt,
@@ -15,11 +11,16 @@ import {
 import type { AuthSessionResult, DiscoveryDocument } from "expo-auth-session";
 // eslint-disable-next-line import/no-named-as-default -- Needed for correct usage of NativeConstants.appOwnership
 import Constants, { AppOwnership } from "expo-constants";
+import _ from "lodash";
+import { Platform } from "react-native";
+
+import type { IAuthResult } from "../..";
 import {
   GOOGLE_CLIENT_ID_ANDROID,
   GOOGLE_CLIENT_ID_DEV,
   GOOGLE_CLIENT_ID_IOS,
 } from "../../../constants";
+import { LOGGER } from "../../../logger";
 
 const inExpoClient: boolean = Constants.appOwnership === AppOwnership.Expo;
 
