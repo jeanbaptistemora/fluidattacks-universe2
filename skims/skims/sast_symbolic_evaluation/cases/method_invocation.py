@@ -10,6 +10,7 @@ from model import (
 )
 from sast_symbolic_evaluation.types import (
     EvaluatorArgs,
+    LookedUpJavaClass,
 )
 from sast_symbolic_evaluation.utils_generic import (
     lookup_var_dcl_by_name,
@@ -272,6 +273,27 @@ def attempt_java_security_msgdigest(args: EvaluatorArgs) -> bool:
         args.syntax_step.meta.danger = \
             args.dependencies[-1].meta.value.lower() in WEAK_CIPHERS
         return True
+
+    return False
+
+
+def attempt_java_looked_up_class(args: EvaluatorArgs) -> bool:
+    method_var, method_path = split_on_first_dot(args.syntax_step.method)
+
+    if prnt := lookup_var_state_by_name(args, method_var):
+        if isinstance(prnt.meta.value, LookedUpJavaClass):
+            method_path = f'.{method_path}'
+
+            if method_path in prnt.meta.value.metadata.methods:
+                if return_step := args.eval_method(
+                    args,
+                    prnt.meta.value.metadata.methods[method_path].n_id,
+                    args.dependencies,
+                    args.graph_db.shards_by_path_f(prnt.meta.value.shard_path),
+                ):
+                    args.syntax_step.meta.danger = return_step.meta.danger
+                    args.syntax_step.meta.value = return_step.meta.value
+                    return True
 
     return False
 

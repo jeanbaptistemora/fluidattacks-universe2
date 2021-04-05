@@ -2,9 +2,6 @@
 from copy import (
     deepcopy,
 )
-from itertools import (
-    chain,
-)
 from typing import (
     Dict,
     Iterator,
@@ -85,9 +82,9 @@ def eval_method(
         n_id=method_n_id,
         overriden_syntax_steps=list(reversed(method_arguments)),
         shard=shard,
-    ).values()
+    )
 
-    for syntax_steps in possible_syntax_steps:
+    for syntax_steps in possible_syntax_steps.values():
         # Attempt to return the dangerous syntax step
         for syntax_step in reversed(syntax_steps):
             if (
@@ -105,7 +102,7 @@ def eval_method(
                 return syntax_step
 
     # If non of them match return whatever one
-    for syntax_steps in possible_syntax_steps:
+    for syntax_steps in possible_syntax_steps.values():
         for syntax_step in reversed(syntax_steps):
             if isinstance(syntax_step, graph_model.SyntaxStepReturn):
                 return syntax_step
@@ -182,12 +179,21 @@ def eval_syntax_steps(
         # We were not able to fully understand this node syntax
         raise StopEvaluation(f'Missing Syntax Reader, {shard.path} @ {n_id}')
 
-    syntax_step_index = len(syntax_steps) + 2 * len(overriden_syntax_steps)
-    syntax_steps.extend(chain(
-        deepcopy(shard.syntax[n_id])[:len(overriden_syntax_steps)],
-        deepcopy(overriden_syntax_steps),
-        deepcopy(shard.syntax[n_id])[len(overriden_syntax_steps):],
-    ))
+    # Append the syntax steps from this node
+    syntax_step_index = len(syntax_steps)
+    syntax_steps.extend(deepcopy(shard.syntax[n_id]))
+
+    # If any, override the initial syntax steps
+    # This can be used to "pass" parameters to functions
+    for syntax_step, overriden_syntax_step in zip(
+        syntax_steps[syntax_step_index:],
+        overriden_syntax_steps,
+    ):
+        syntax_step.meta.danger = overriden_syntax_step.meta.danger
+        syntax_step.meta.value = overriden_syntax_step.meta.value
+
+    # Skip evaluating the overriden syntax steps
+    syntax_step_index += len(overriden_syntax_steps)
 
     while syntax_step_index < len(syntax_steps):
         syntax_step = syntax_steps[syntax_step_index]
