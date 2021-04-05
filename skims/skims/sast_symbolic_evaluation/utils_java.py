@@ -1,7 +1,6 @@
 # Standard library
 from typing import (
     Optional,
-    Tuple,
 )
 
 # Local libraries
@@ -10,6 +9,8 @@ from model import (
 )
 from sast_symbolic_evaluation.types import (
     EvaluatorArgs,
+    LookedUpJavaClass,
+    LookedUpJavaMethod,
 )
 
 
@@ -30,16 +31,22 @@ def _lookup_java_class_in_shard(
 def lookup_java_class(
     args: EvaluatorArgs,
     class_name: str,
-) -> Optional[graph_model.GraphShardMetadataJavaClass]:
+) -> Optional[LookedUpJavaClass]:
     # First lookup in the current shard
     if data := _lookup_java_class_in_shard(args.shard, class_name):
-        return data
+        return LookedUpJavaClass(
+            metadata=data,
+            shard_path=args.shard.path,
+        )
 
     # Now lookoup in other shards different than the current shard
     for shard in args.graph_db.shards:
         if shard.path != args.shard.path:
             if data := _lookup_java_class_in_shard(shard, class_name):
-                return data
+                return LookedUpJavaClass(
+                    metadata=data,
+                    shard_path=shard.path,
+                )
 
     return None
 
@@ -93,18 +100,21 @@ def _lookup_java_method_in_shard(
 def lookup_java_method(
     args: EvaluatorArgs,
     method_name: str,
-) -> Optional[Tuple[
-    graph_model.GraphShard,
-    graph_model.GraphShardMetadataJavaClassMethod,
-]]:
+) -> Optional[LookedUpJavaMethod]:
     # First lookup in the current shard
     if data := _lookup_java_method_in_shard(args.shard, method_name):
-        return args.shard, data
+        return LookedUpJavaMethod(
+            metadata=data,
+            shard_path=args.shard.path,
+        )
 
     # Now lookoup in other shards different than the current shard
     for shard in args.graph_db.shards:
         if shard.path != args.shard.path:
             if data := _lookup_java_method_in_shard(shard, method_name):
-                return shard, data
+                return LookedUpJavaMethod(
+                    metadata=data,
+                    shard_path=shard.path,
+                )
 
     return None

@@ -372,6 +372,9 @@ class GraphDB(NamedTuple):
     shards: List[GraphShard]
     shards_by_path: Dict[str, int]
 
+    def shards_by_path_f(self, path: str) -> GraphShard:
+        return self.shards[self.shards_by_path[path]]
+
 
 GraphShardNode = Tuple[GraphShard, NId]
 GraphShardNodes = Iterable[GraphShardNode]
