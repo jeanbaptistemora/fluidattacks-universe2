@@ -92,9 +92,14 @@ async def generate_pdf_file(
 async def generate_xls_file(
     context: Any,
     findings_ord: List[Dict[str, FindingType]],
+    group_name: str,
     passphrase: str,
 ) -> str:
-    it_report = ITReport(data=findings_ord, context=context)
+    it_report = ITReport(
+        data=findings_ord,
+        group_name=group_name,
+        context=context
+    )
     await it_report.create()
     filepath = it_report.result_filename
 

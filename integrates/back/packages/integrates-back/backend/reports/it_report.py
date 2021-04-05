@@ -90,13 +90,14 @@ class ITReport():
     def __init__(
         self,
         data: List[Dict[str, FindingType]],
+        group_name: str,
         context: Any,
         lang: str = 'es'
     ) -> None:
         """Initialize variables."""
         self.data = data
         self.finding_vulns_loader = context.finding_vulns_nzr
-        self.group_name = str(data[0].get('projectName'))
+        self.group_name = group_name
         self.lang = lang
 
         self.workbook = Workbook()

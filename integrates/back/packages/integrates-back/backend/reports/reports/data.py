@@ -44,6 +44,7 @@ async def generate(
             context,
             directory=directory,
             findings_ord=findings_ord,
+            group_name=group,
             passphrase=passphrase,
         )
         await _append_evidences(
@@ -86,11 +87,13 @@ async def _append_xls_report(
     context: Any,
     directory: str,
     findings_ord: List[Dict[str, FindingType]],
+    group_name: str,
     passphrase: str,
 ) -> None:
     report_filename = await technical_report.generate_xls_file(
         context,
         findings_ord=findings_ord,
+        group_name=group_name,
         passphrase=passphrase,
     )
     with open(os.path.join(directory, 'report.xls'), mode='wb') as file:
