@@ -45,6 +45,7 @@ runners:
         memory_request = "2500Mi"
         helper_cpu_request = "1m"
         helper_memory_request = "1Mi"
+        namespace = "ci"
         privileged = false
         allow_privilege_escalation = false
         [runners.kubernetes.node_selector]
