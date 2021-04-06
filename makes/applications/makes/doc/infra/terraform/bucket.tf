@@ -22,6 +22,10 @@ resource "aws_s3_bucket" "bucket_prod" {
     "management:type"    = "production"
     "management:product" = "makes"
   }
+
+  versioning {
+    enabled = true
+  }
 }
 
 data "aws_iam_policy_document" "bucket_prod_policy" {
