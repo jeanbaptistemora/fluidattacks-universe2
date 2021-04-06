@@ -34,8 +34,7 @@
     "plugin:jsx-a11y/strict",
     "plugin:prettier/recommended",
     "plugin:react/all",
-    "prettier/@typescript-eslint",
-    "prettier/react"
+    "prettier"
   ],
   "settings": {
     "import/parsers": {

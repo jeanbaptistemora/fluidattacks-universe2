@@ -16,6 +16,9 @@ makeDerivation {
   builder = path "/makes/packages/airs/content/builder.sh";
   name = "airs-content";
   searchPaths = {
+    envLibraries = [
+      nixpkgs.musl
+    ];
     envPaths = [
       nixpkgs.findutils
       nixpkgs.gnused
