@@ -18,7 +18,18 @@ async def populate() -> bool:
     data: Dict[str, Any] = {
         'users': [
             {
-                'email': 'test1@gmail.com',
+                'email': 'admin@gmail.com',
+                'first_login': '',
+                'first_name': '',
+                'last_login': '',
+                'last_name': '',
+                'legal_remember': False,
+                'phone_number': '-',
+                'push_tokens': [],
+                'is_registered': True,
+            },
+            {
+                'email': 'analyst@gmail.com',
                 'first_login': '',
                 'first_name': '',
                 'last_login': '',
@@ -34,10 +45,12 @@ async def populate() -> bool:
                 'name': 'orgtest',
                 'id': '40f6da5f-4f66-4bf0-825b-a2d9748ad6db',
                 'users': [
-                    'test1@gmail.com',
+                    'admin@gmail.com',
+                    'analyst@gmail.com',
                 ],
                 'groups': [
                     'group1',
+                    'group2',
                 ],
                 'policy': {},
             },
@@ -56,13 +69,32 @@ async def populate() -> bool:
                 }],
                 'project_status': 'ACTIVE',
             },
+            {
+                'project_name': 'group2',
+                'description': '-',
+                'language': 'en',
+                'historic_configuration': [{
+                    'date': '2020-05-20 17:00:00',
+                    'has_drills': False,
+                    'has_forces': False,
+                    'requester': 'unknown',
+                    'type': 'continuous',
+                }],
+                'project_status': 'ACTIVE',
+            },
         ],
         'policies': [
             {
                 'level': 'user',
-                'subject': 'test1@gmail.com',
+                'subject': 'admin@gmail.com',
                 'object': 'self',
                 'role': 'admin',
+            },
+            {
+                'level': 'group',
+                'subject': 'analyst@gmail.com',
+                'object': 'group2',
+                'role': 'analyst',
             },
         ],
     }
