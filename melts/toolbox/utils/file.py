@@ -27,7 +27,7 @@ def _iter_full_paths(path: str) -> Iterator[str]:
         for entry in os.scandir(path):
             full_path = entry.path
             if entry.is_dir(follow_symlinks=False):
-                yield entry.path
+                yield f'{entry.path}/'
                 yield from _iter_full_paths(full_path)
             else:
                 yield full_path
