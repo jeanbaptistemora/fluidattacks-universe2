@@ -1,4 +1,5 @@
 # Standard library
+import json
 from collections import defaultdict
 from typing import Optional, Tuple
 
@@ -7,7 +8,7 @@ from boto3.dynamodb.conditions import Key
 
 # Local
 from dynamodb import historics, keys, operations
-from dynamodb.table import TABLE
+from dynamodb.table import load_table
 from dynamodb.types import (
     GitRootCloning,
     GitRootItem,
@@ -27,6 +28,11 @@ from dynamodb.types import (
     VulnerabilityMetadata,
     VulnerabilityState
 )
+from newutils.context import DB_MODEL_PATH
+
+
+with open(DB_MODEL_PATH, mode='r') as file:
+    TABLE = load_table(json.loads(file.read()))
 
 
 def _build_root(
