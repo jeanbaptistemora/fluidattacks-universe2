@@ -12,11 +12,7 @@ makeEntrypoint {
       packages.observes.target-redshift
       packages.observes.bin.service.job-last-success
     ];
-    envUtils = [
-      "/makes/utils/aws"
-      "/makes/utils/sops"
-    ];
   };
-  name = "observes-scheduled-job-zoho-crm-etl";
-  template = path "/makes/applications/observes/scheduled/job/zoho-crm-etl/entrypoint.sh";
+  name = "observes-job-zoho-crm-etl";
+  template = path "/makes/applications/observes/job/zoho-crm-etl/entrypoint.sh";
 }

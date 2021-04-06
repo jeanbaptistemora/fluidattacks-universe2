@@ -257,7 +257,7 @@ observes.scheduled.job.toe-files-etl:
     variables: [$observes_services_toe]
   interruptible: false
 
-observes.scheduled.job.zoho-crm-etl:
+observes.scheduled.job.zoho-crm-etl.fluid:
   <<: *makes
   tags: [autoscaling-analytics]
   stage: analytics
