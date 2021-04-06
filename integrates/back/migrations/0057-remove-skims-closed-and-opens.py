@@ -50,18 +50,16 @@ from typing import (
 # Third party libraries
 from aioextensions import (
     collect,
-    in_thread,
     run,
 )
 from more_itertools import chunked
 
 # Local libraries
-from backend.api.dataloaders.project import ProjectLoader as GroupLoader
+from backend.api.dataloaders.group import GroupLoader
 from backend.dal import vulnerability as vuln_dal
 from backend.domain.project import get_active_projects
-from backend.domain import vulnerability as vulnerability_domain
 from backend.typing import Vulnerability
-from newutils import findings as finding_utils
+from vulnerabilities import domain as vulns_domain
 
 
 STAGE = os.environ['STAGE']
@@ -181,7 +179,7 @@ async def fix_vulnerabilities_historics(groups: List[str]) -> None:
             group_data['findings'] for group_data in groups_data
         )
     )
-    vulneabilities = await vulnerability_domain.list_vulnerabilities_async(
+    vulneabilities = await vulns_domain.list_vulnerabilities_async(
         findings_ids
     )
     await collect(

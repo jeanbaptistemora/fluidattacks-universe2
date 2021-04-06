@@ -1,31 +1,20 @@
 import os
 import pytest
 import time
-from collections import namedtuple
 from datetime import (
     datetime,
     timedelta,
 )
 
-import pytz
-from asgiref.sync import async_to_sync
 from freezegun import freeze_time
 from graphql.type import GraphQLResolveInfo
 from starlette.datastructures import UploadFile
 
-from back import settings
 from back.tests.unit.utils import create_dummy_session
 from backend import mailer
 from backend.api import get_new_context
-from backend.domain.vulnerability import (
-    list_vulnerabilities_async,
-    validate_treatment_change,
-)
 from backend.exceptions import (
-    InvalidAcceptanceDays,
     InvalidAcceptanceSeverity,
-    InvalidDate,
-    InvalidDateFormat,
     InvalidFileType,
     InvalidNumberAcceptations,
 )
@@ -39,8 +28,10 @@ from findings.domain import (
     mask_finding,
     validate_evidence,
 )
-from organizations.domain import get_max_acceptance_days
-from newutils import datetime as datetime_utils
+from vulnerabilities.domain import (
+    list_vulnerabilities_async,
+    validate_treatment_change,
+)
 
 
 pytestmark = [

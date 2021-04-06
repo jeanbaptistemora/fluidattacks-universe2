@@ -6,15 +6,12 @@ Finalization Time: 2020-10-19 13:21:24 UTC-5
 
 import os
 from asyncio import run
-from typing import (
-    cast,
-    List,
-)
+from typing import List
 
 from aioextensions import collect
 
-from backend.domain import vulnerability as vuln_domain
 from findings import domain as findings_domain
+from vulnerabilities import domain as vulns_domain
 
 
 STAGE: str = os.environ['STAGE']
@@ -34,7 +31,7 @@ async def main() -> None:
             print(f'[INFO] finding {finding} will be masked')
     if STAGE == 'test':
         for finding_id in findings:
-            list_vulns = await vuln_domain.list_vulnerabilities_async(
+            list_vulns = await vulns_domain.list_vulnerabilities_async(
                 [finding_id],
                 True
             )

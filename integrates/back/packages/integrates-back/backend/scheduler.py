@@ -32,16 +32,11 @@ from aioextensions import (
 from botocore.exceptions import ClientError
 
 # Local libraries
-from back.settings import (
-    LOGGING,
-)
+from back.settings import LOGGING
 from backend import mailer
 from backend.api import get_new_context
 from backend.dal import project as project_dal
-from backend.domain import (
-    project as project_domain,
-    vulnerability as vuln_domain,
-)
+from backend.domain import project as project_domain
 from backend.filters import finding as finding_filters
 from backend.typing import (
     Event as EventType,
@@ -62,6 +57,7 @@ from newutils.findings import (
 )
 from organizations import domain as orgs_domain
 from tags import domain as tags_domain
+from vulnerabilities import domain as vulns_domain
 from __init__ import (
     BASE_URL,
     FI_TEST_PROJECTS,
@@ -181,7 +177,7 @@ def get_status_vulns_by_time_range(
     resp: Dict[str, int] = defaultdict(int)
     for vuln in vulns:
         historic_states = cast(List[Dict[str, str]], vuln['historic_state'])
-        last_state = vuln_domain.get_last_approved_state(vuln)
+        last_state = vulns_domain.get_last_approved_state(vuln)
 
         if (last_state and first_day <= last_state['date'] <= last_day and
                 last_state['state'] == 'DELETED'):
@@ -410,7 +406,7 @@ async def send_group_treatment_change(
 ) -> None:
     findings = await findings_domain.list_findings(context, [group_name])
     await collect(
-        vuln_domain.send_treatment_change_mail(context, finding_id, min_date)
+        vulns_domain.send_treatment_change_mail(context, finding_id, min_date)
         for finding_id in findings[0]
     )
 
@@ -973,7 +969,7 @@ async def reset_group_expired_accepted_findings(
         )
         if is_accepted_expired or is_undefined_accepted_expired:
             updated_values = {'treatment': 'NEW'}
-            await vuln_domain.add_vuln_treatment(
+            await vulns_domain.add_vuln_treatment(
                 finding_id=finding_id,
                 updated_values=updated_values,
                 vuln=vuln,

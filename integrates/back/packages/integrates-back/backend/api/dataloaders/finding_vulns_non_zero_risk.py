@@ -11,8 +11,8 @@ from typing import (
 from aiodataloader import DataLoader
 
 # Local libraries
-from backend.domain import vulnerability as vuln_domain
 from backend.typing import Vulnerability as VulnerabilityType
+from newutils import vulnerabilities as vulns_utils
 
 
 # pylint: disable=too-few-public-methods
@@ -38,9 +38,9 @@ class FindingVulnsNonZeroRiskLoader(DataLoader):  # type: ignore
 
         for index, finding_vulns in enumerate(findings_vulns):
             finding_vulns = \
-                vuln_domain.filter_non_requested_zero_risk(finding_vulns)
+                vulns_utils.filter_non_requested_zero_risk(finding_vulns)
             finding_vulns = \
-                vuln_domain.filter_non_confirmed_zero_risk(finding_vulns)
+                vulns_utils.filter_non_confirmed_zero_risk(finding_vulns)
             findings_vulns[index] = finding_vulns
 
         return cast(List[List[VulnerabilityType]], findings_vulns)

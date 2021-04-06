@@ -1,3 +1,4 @@
+# Standard libraries
 import html
 import itertools
 import logging
@@ -5,23 +6,27 @@ from datetime import datetime
 from operator import itemgetter
 from typing import (
     Any,
+    cast,
     Counter,
-    Iterable,
     Dict,
+    Iterable,
     List,
     NamedTuple,
     Union,
-    cast,
 )
 
+# Third-party libraries
+from botocore.exceptions import ClientError
+
+# Local libraries
 from back.settings import LOGGING
-from backend.dal import vulnerability as vuln_dal
+from backend.dal.helpers import dynamodb
 from backend.exceptions import InvalidRange
 from backend.typing import (
     Finding as FindingType,
     Historic as HistoricType,
 )
-from newutils import datetime as datetime_utils
+from . import datetime as datetime_utils
 
 
 logging.config.dictConfig(LOGGING)
@@ -34,15 +39,7 @@ Treatments = NamedTuple('Treatments', [
     ('IN_PROGRESS', int),
     ('NEW', int),
 ])
-
-
-def format_data(vuln: Dict[str, FindingType]) -> Dict[str, FindingType]:
-    vuln['current_state'] = cast(
-        List[Dict[str, str]],
-        vuln.get('historic_state', [{}])
-    )[-1].get('state')
-
-    return vuln
+VULNS_TABLE: str = 'FI_vulnerabilities'
 
 
 def as_range(iterable: Iterable[Any]) -> str:
@@ -56,108 +53,86 @@ def as_range(iterable: Iterable[Any]) -> str:
     return range_value
 
 
-def get_ranges(numberlist: List[int]) -> str:
-    """Transform list into ranges."""
-    range_str = ','.join(as_range(g) for _, g in itertools.groupby(
-        numberlist,
-        key=lambda n,  # type: ignore
-        c=itertools.count(): n - next(c))
-    )
-    return range_str
-
-
-def get_specific(value: Dict[str, str]) -> int:
-    """Get specific value."""
-    return int(value.get('specific', ''))
-
-
-def sort_vulnerabilities(item: List[str]) -> List[str]:
-    """Sort a vulnerability by its where field."""
-    sorted_item = sorted(item, key=itemgetter('where'))
-    return sorted_item
-
-
-def group_specific(specific: List[str], vuln_type: str) -> \
-        List[Dict[str, FindingType]]:
-    """Group vulnerabilities by its specific field."""
-    sorted_specific = sort_vulnerabilities(specific)
-    lines = []
-    vuln_keys = ['historic_state', 'vuln_type', 'UUID', 'finding_id']
-    for key, group in itertools.groupby(
-            sorted_specific, key=lambda x: x['where']):  # type: ignore
-        vuln_info = list(group)
-        if vuln_type == 'inputs':
-            specific_grouped: List[Union[int, str]] = [
-                cast(Dict[str, str], i).get('specific', '')
-                for i in vuln_info
-            ]
-            dictlines: Dict[str, FindingType] = {
-                'where': key,
-                'specific': ','.join(cast(List[str], specific_grouped))
+async def delete_vulnerability(  # pylint: disable=too-many-arguments
+    context: Any,
+    finding_id: str,
+    vuln_id: str,
+    justification: str,
+    user_email: str,
+    source: str,
+    include_closed_vuln: bool = False
+) -> bool:
+    vulnerability_loader = context.vulnerability
+    vulnerability = await vulnerability_loader.load(vuln_id)
+    success = False
+    if vulnerability and vulnerability['historic_state']:
+        all_states = cast(
+            List[Dict[str, str]],
+            vulnerability['historic_state']
+        )
+        current_state = all_states[-1].get('state')
+        if current_state == 'open' or include_closed_vuln:
+            current_day = datetime_utils.get_now_as_str()
+            new_state = {
+                'analyst': user_email,
+                'date': current_day,
+                'justification': justification,
+                'source': source,
+                'state': 'DELETED',
             }
-        else:
-            specific_grouped = [
-                get_specific(cast(Dict[str, str], i))
-                for i in vuln_info
-            ]
-            specific_grouped.sort()
-            dictlines = {
-                'where': key,
-                'specific': get_ranges(cast(List[int], specific_grouped))
-            }
-        if (vuln_info and
-                all(key_vuln in vuln_info[0] for key_vuln in vuln_keys)):
-            dictlines.update({
-                key_vuln: cast(
-                    Dict[str, FindingType],
-                    vuln_info[0]
-                ).get(key_vuln)
-                for key_vuln in vuln_keys
-            })
-        else:
-            # Vulnerability doesn't have more attributes.
-            pass
-        lines.append(dictlines)
-    return lines
+            all_states.append(new_state)
+            success = await update(
+                finding_id,
+                str(vulnerability['id']),
+                {'historic_state': all_states}
+            )
+    return success
 
 
-def ungroup_specific(specific: str) -> List[str]:
-    """Ungroup specific value."""
-    values = specific.split(',')
-    specific_values = []
-    for val in values:
-        if is_range(val):
-            range_list = range_to_list(val)
-            specific_values.extend(range_list)
-        else:
-            specific_values.append(val)
-    return specific_values
+def filter_deleted_status(vuln: Dict[str, FindingType]) -> bool:
+    historic_state = cast(List[Dict[str, str]], vuln['historic_state'])
+    if historic_state[-1].get('state') == 'DELETED':
+        return False
+    return True
 
 
-def is_range(specific: str) -> bool:
-    """Validate if a specific field has range value."""
-    return '-' in specific
+def filter_non_confirmed_zero_risk(
+    vulnerabilities: List[Dict[str, FindingType]],
+) -> List[Dict[str, FindingType]]:
+    return [
+        vulnerability
+        for vulnerability in vulnerabilities
+        if cast(
+            HistoricType,
+            vulnerability.get('historic_zero_risk', [{}])
+        )[-1].get('status', '') != 'CONFIRMED'
+    ]
 
 
-def is_sequence(specific: str) -> bool:
-    """Validate if a specific field has secuence value."""
-    return ',' in specific
+def filter_non_requested_zero_risk(
+    vulnerabilities: List[Dict[str, FindingType]],
+) -> List[Dict[str, FindingType]]:
+    return [
+        vulnerability
+        for vulnerability in vulnerabilities
+        if cast(
+            HistoricType,
+            vulnerability.get('historic_zero_risk', [{}])
+        )[-1].get('status', '') != 'REQUESTED'
+    ]
 
 
-def range_to_list(range_value: str) -> List[str]:
-    """Convert a range value into list."""
-    limits = range_value.split('-')
-    init_val = int(limits[0])
-    end_val = int(limits[1]) + 1
-    if end_val <= init_val:
-        error_value = f'"values": "{init_val} >= {end_val}"'
-        raise InvalidRange(expr=error_value)
-    specific_values = list(map(str, list(range(init_val, end_val))))
-    return specific_values
+def format_data(vuln: Dict[str, FindingType]) -> Dict[str, FindingType]:
+    vuln['current_state'] = cast(
+        List[Dict[str, str]],
+        vuln.get('historic_state', [{}])
+    )[-1].get('state')
+    return vuln
 
 
-def format_vulnerabilities(vulnerabilities: List[Dict[str, FindingType]]) -> \
-        Dict[str, List[FindingType]]:
+def format_vulnerabilities(
+    vulnerabilities: List[Dict[str, FindingType]]
+) -> Dict[str, List[FindingType]]:
     """Format vulnerabilitites."""
     finding: Dict[str, List[FindingType]] = {
         'ports': [],
@@ -218,14 +193,16 @@ def format_where(where: str, vulnerabilities: List[Dict[str, str]]) -> str:
     return where
 
 
-async def mask_vuln(finding_id: str, vuln_id: str) -> bool:
-    success = await vuln_dal.update(finding_id, vuln_id, {
-        'specific': 'Masked',
-        'where': 'Masked',
-        'treatment_manager': 'Masked',
-        'treatment_justification': 'Masked',
-    })
-    return success
+def get_ranges(numberlist: List[int]) -> str:
+    """Transform list into ranges."""
+    range_str = ','.join(
+        as_range(g) for _, g in itertools.groupby(
+            numberlist,
+            key=lambda n,    # type: ignore
+            c=itertools.count(): n - next(c)
+        )
+    )
+    return range_str
 
 
 def get_report_dates(
@@ -250,10 +227,177 @@ def get_treatments(
         for vuln in vulnerabilities
         if vuln['historic_state'][-1]['state'] == 'open'
     ])
-
     return Treatments(
         ACCEPTED=treatment_counter['ACCEPTED'],
         ACCEPTED_UNDEFINED=treatment_counter['ACCEPTED_UNDEFINED'],
         IN_PROGRESS=treatment_counter['IN PROGRESS'],
         NEW=treatment_counter['NEW'],
     )
+
+
+def get_specific(value: Dict[str, str]) -> int:
+    """Get specific value."""
+    return int(value.get('specific', ''))
+
+
+def group_specific(
+    specific: List[str],
+    vuln_type: str
+) -> List[Dict[str, FindingType]]:
+    """Group vulnerabilities by its specific field."""
+    sorted_specific = sort_vulnerabilities(specific)
+    lines = []
+    vuln_keys = ['historic_state', 'vuln_type', 'UUID', 'finding_id']
+    for key, group in itertools.groupby(
+        sorted_specific,
+        key=lambda x: x['where']  # type: ignore
+    ):
+        vuln_info = list(group)
+        if vuln_type == 'inputs':
+            specific_grouped: List[Union[int, str]] = [
+                cast(Dict[str, str], i).get('specific', '')
+                for i in vuln_info
+            ]
+            dictlines: Dict[str, FindingType] = {
+                'where': key,
+                'specific': ','.join(cast(List[str], specific_grouped))
+            }
+        else:
+            specific_grouped = [
+                get_specific(cast(Dict[str, str], i))
+                for i in vuln_info
+            ]
+            specific_grouped.sort()
+            dictlines = {
+                'where': key,
+                'specific': get_ranges(cast(List[int], specific_grouped))
+            }
+        if (
+                vuln_info and
+                all(key_vuln in vuln_info[0] for key_vuln in vuln_keys)
+        ):
+            dictlines.update({
+                key_vuln: cast(
+                    Dict[str, FindingType],
+                    vuln_info[0]
+                ).get(key_vuln)
+                for key_vuln in vuln_keys
+            })
+        else:
+            # Vulnerability doesn't have more attributes.
+            pass
+        lines.append(dictlines)
+    return lines
+
+
+def is_range(specific: str) -> bool:
+    """Validate if a specific field has range value."""
+    return '-' in specific
+
+
+def is_sequence(specific: str) -> bool:
+    """Validate if a specific field has secuence value."""
+    return ',' in specific
+
+
+async def mask_vuln(finding_id: str, vuln_id: str) -> bool:
+    success = await update(
+        finding_id,
+        vuln_id,
+        {
+            'specific': 'Masked',
+            'where': 'Masked',
+            'treatment_manager': 'Masked',
+            'treatment_justification': 'Masked',
+        }
+    )
+    return success
+
+
+def sort_vulnerabilities(item: List[str]) -> List[str]:
+    """Sort a vulnerability by its where field."""
+    sorted_item = sorted(item, key=itemgetter('where'))
+    return sorted_item
+
+
+def range_to_list(range_value: str) -> List[str]:
+    """Convert a range value into list."""
+    limits = range_value.split('-')
+    init_val = int(limits[0])
+    end_val = int(limits[1]) + 1
+    if end_val <= init_val:
+        error_value = f'"values": "{init_val} >= {end_val}"'
+        raise InvalidRange(expr=error_value)
+    specific_values = list(map(str, list(range(init_val, end_val))))
+    return specific_values
+
+
+def ungroup_specific(specific: str) -> List[str]:
+    """Ungroup specific value."""
+    values = specific.split(',')
+    specific_values = []
+    for val in values:
+        if is_range(val):
+            range_list = range_to_list(val)
+            specific_values.extend(range_list)
+        else:
+            specific_values.append(val)
+    return specific_values
+
+
+async def update(
+    finding_id: str,
+    vuln_id: str,
+    data: Dict[str, FindingType]
+) -> bool:
+    success = False
+    set_expression = ''
+    remove_expression = ''
+    expression_names = {}
+    expression_values = {}
+    for attr, value in data.items():
+        if value is None:
+            remove_expression += f'#{attr}, '
+            expression_names.update({f'#{attr}': attr})
+        else:
+            set_expression += f'#{attr} = :{attr}, '
+            expression_names.update({f'#{attr}': attr})
+            expression_values.update({f':{attr}': value})
+
+    if set_expression:
+        set_expression = f'SET {set_expression.strip(", ")}'
+    if remove_expression:
+        remove_expression = f'REMOVE {remove_expression.strip(", ")}'
+
+    update_attrs = {
+        'Key': {
+            'finding_id': finding_id,
+            'UUID': vuln_id,
+        },
+        'UpdateExpression': f'{set_expression} {remove_expression}'.strip(),
+    }
+    if expression_values:
+        update_attrs.update({'ExpressionAttributeValues': expression_values})
+    if expression_names:
+        update_attrs.update({'ExpressionAttributeNames': expression_names})
+    try:
+        success = await dynamodb.async_update_item(VULNS_TABLE, update_attrs)
+    except ClientError as ex:
+        LOGGER.exception(ex, extra={'extra': locals()})
+    return success
+
+
+async def update_historic_state_dates(
+    finding_id: str,
+    vuln: Dict[str, FindingType],
+    date: str
+) -> bool:
+    historic_state = cast(HistoricType, vuln['historic_state'])
+    for state_info in historic_state:
+        state_info['date'] = date
+    success = await update(
+        finding_id,
+        cast(str, vuln['UUID']),
+        {'historic_state': historic_state}
+    )
+    return success

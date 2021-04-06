@@ -1,7 +1,7 @@
 # Standard library
 from typing import (
-    Dict,
     cast,
+    Dict,
 )
 from urllib.parse import urlparse
 
@@ -18,6 +18,33 @@ from backend.typing import (
 )
 
 
+def compare_historic_treatments(
+    last_state: Dict[str, str],
+    new_state: Dict[str, str]
+) -> bool:
+    excluded_attrs = {'acceptance_date', 'acceptance_status', 'date', 'user'}
+    last_values = [
+        value
+        for key, value in last_state.items()
+        if key not in excluded_attrs
+    ]
+    new_values = [
+        value
+        for key, value in new_state.items()
+        if key not in excluded_attrs
+    ]
+    date_change = (
+        'acceptance_date' in new_state and
+        'acceptance_date' in last_state and
+        last_state['acceptance_date'].split(' ')[0] !=
+        new_state['acceptance_date'].split(' ')[0]
+    )
+    return (
+        (sorted(last_values) != sorted(new_values)) or
+        date_change
+    )
+
+
 def validate_acceptation(vuln: Dict[str, Finding]) -> Dict[str, Finding]:
     historic_treatment = cast(
         Historic,
@@ -28,26 +55,13 @@ def validate_acceptation(vuln: Dict[str, Finding]) -> Dict[str, Finding]:
     return vuln
 
 
-def compare_historic_treatments(
-    last_state: Dict[str, str],
-    new_state: Dict[str, str]
-) -> bool:
-    excluded_attrs = {'acceptance_date', 'acceptance_status', 'date', 'user'}
-    last_values = [
-        value for key, value in last_state.items()
-        if key not in excluded_attrs
-    ]
-    new_values = [
-        value for key, value in new_state.items()
-        if key not in excluded_attrs
-    ]
-    date_change = (
-        'acceptance_date' in new_state and
-        'acceptance_date' in last_state and
-        last_state['acceptance_date'].split(' ')[0] !=
-        new_state['acceptance_date'].split(' ')[0]
-    )
-    return (sorted(last_values) != sorted(new_values)) or date_change
+def validate_stream(where: str, stream: str) -> bool:
+    url_parsed = urlparse(where)
+    if len(url_parsed.path) == 0 or url_parsed.path == '/':
+        if stream.lower().startswith('home,'):
+            return True
+        raise InvalidStream()
+    return True
 
 
 async def validate_treatment_manager(
@@ -60,18 +74,6 @@ async def validate_treatment_manager(
     if not is_customer_admin:
         treatment_manager = user_email
     enforcer = await authz.get_group_level_enforcer(treatment_manager)
-
     if not enforcer(group_name, 'valid_treatment_manager'):
         raise InvalidTreatmentManager()
-
     return treatment_manager
-
-
-def validate_stream(where: str, stream: str) -> bool:
-    url_parsed = urlparse(where)
-    if len(url_parsed.path) == 0 or url_parsed.path == '/':
-        if stream.lower().startswith('home,'):
-            return True
-        raise InvalidStream()
-
-    return True

@@ -7,16 +7,14 @@ from graphql.type.definition import GraphQLResolveInfo
 
 # Local
 from backend import util
-from backend.dal.helpers.redis import (
-    redis_del_by_deps_soon,
-)
+from backend.dal.helpers.redis import redis_del_by_deps_soon
 from backend.decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
     require_login,
 )
-from backend.domain import vulnerability as vuln_domain
 from backend.typing import SimplePayload as SimplePayloadType
+from vulnerabilities import domain as vulns_domain
 
 
 @convert_kwargs_to_snake_case  # type: ignore
@@ -33,7 +31,7 @@ async def mutate(
 ) -> SimplePayloadType:
     """Resolve reject_zero_risk_vuln mutation."""
     user_info = await util.get_jwt_content(info.context)
-    success = await vuln_domain.reject_zero_risk_vulnerabilities(
+    success = await vulns_domain.reject_zero_risk_vulnerabilities(
         finding_id,
         user_info,
         justification,

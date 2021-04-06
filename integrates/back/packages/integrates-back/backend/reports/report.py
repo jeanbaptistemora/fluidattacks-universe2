@@ -10,15 +10,13 @@ from aioextensions import (
 # Local libraries
 from backend import util
 from backend.api import get_new_context
-from backend.domain import (
-    project as project_domain,
-    vulnerability as vuln_domain,
-)
+from backend.domain import project as project_domain
 from backend.reports.reports import (
     data as data_report,
     technical as technical_report,
 )
 from findings import domain as findings_domain
+from vulnerabilities import domain as vulns_domain
 
 
 async def get_group_report_url(
@@ -34,7 +32,7 @@ async def get_group_report_url(
     )
     findings = await findings_domain.get_findings_async(group_findings[0])
     format_vulns = await collect([
-        vuln_domain.get_open_vuln_by_type(
+        vulns_domain.get_open_vuln_by_type(
             context,
             str(finding['findingId'])
         )

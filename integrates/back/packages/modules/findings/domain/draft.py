@@ -15,7 +15,6 @@ from aioextensions import collect
 from graphql.type.definition import GraphQLResolveInfo
 
 from backend import util
-from backend.domain import vulnerability as vuln_domain
 from backend.exceptions import (
     AlreadyApproved,
     AlreadySubmitted,
@@ -33,6 +32,7 @@ from findings import dal as findings_dal
 from newutils import (
     datetime as datetime_utils,
     findings as finding_utils,
+    vulnerabilities as vulns_utils,
 )
 
 
@@ -56,7 +56,7 @@ async def approve_draft(
         has_vulns = [
             vuln
             for vuln in vulns
-            if vuln_domain.filter_deleted_status(vuln)
+            if vulns_utils.filter_deleted_status(vuln)
         ]
         if has_vulns:
             if finding_filters.is_submitted(draft_data):
@@ -77,7 +77,7 @@ async def approve_draft(
                 )
                 all_vulns = await finding_all_vulns_loader.load(draft_id)
                 vuln_update_success = await collect(
-                    vuln_domain.update_historic_state_dates(
+                    vulns_utils.update_historic_state_dates(
                         draft_id,
                         vuln,
                         release_date

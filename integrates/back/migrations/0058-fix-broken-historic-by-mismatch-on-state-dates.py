@@ -49,16 +49,15 @@ from typing import (
 # Third party libraries
 from aioextensions import (
     collect,
-    in_thread,
     run,
 )
 
 # Local libraries
 from backend.dal import vulnerability as vuln_dal
-from backend.domain import (
-    vulnerability as vulnerability_domain,
-)
 from backend.typing import Vulnerability
+from vulnerabilities import domain as vulns_domain
+
+
 STAGE = os.environ['STAGE']
 ANALYST = 'daguirre@fluidattacks.com'
 FINDING_IDS = ['899615837']
@@ -143,7 +142,7 @@ async def fix_vuln_historics(
 
 async def main() -> None:
     print('[INFO] Starting migration 0058')
-    vulneabilities = await vulnerability_domain.list_vulnerabilities_async(
+    vulneabilities = await vulns_domain.list_vulnerabilities_async(
         FINDING_IDS
     )
     await collect(

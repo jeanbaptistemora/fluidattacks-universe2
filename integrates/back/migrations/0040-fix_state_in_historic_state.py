@@ -16,9 +16,9 @@ from aioextensions import collect
 # Local
 from backend.dal.helpers import dynamodb
 from backend.domain.project import get_active_projects
-from backend.domain.vulnerability import list_vulnerabilities_async
 from findings.dal import update
 from newutils.datetime import DEFAULT_STR
+from vulnerabilities.domain import list_vulnerabilities_async
 
 
 STAGE: str = os.environ['STAGE']

@@ -24,7 +24,6 @@ from backend import (
     util,
 )
 from backend.dal.helpers.dynamodb import start_context
-from backend.domain import vulnerability as vuln_domain
 from backend.exceptions import (
     FindingNotFound,
     InvalidCommentParent,
@@ -48,7 +47,7 @@ from newutils import (
     datetime as datetime_utils,
     findings as finding_utils,
     validations,
-    vulnerabilities as vuln_utils,
+    vulnerabilities as vulns_utils,
 )
 from users import domain as users_domain
 
@@ -110,11 +109,11 @@ def cast_new_vulnerabilities(
         pass
     where = '-'
     if finding_new.get('portsVulns'):
-        finding['portsVulns'] = vuln_utils.group_specific(
+        finding['portsVulns'] = vulns_utils.group_specific(
             cast(List[str], finding_new.get('portsVulns')),
             'ports'
         )
-        where = vuln_utils.format_where(
+        where = vulns_utils.format_where(
             where,
             cast(List[Dict[str, str]], finding['portsVulns'])
         )
@@ -122,11 +121,11 @@ def cast_new_vulnerabilities(
         # This finding does not have ports vulnerabilities
         pass
     if finding_new.get('linesVulns'):
-        finding['linesVulns'] = vuln_utils.group_specific(
+        finding['linesVulns'] = vulns_utils.group_specific(
             cast(List[str], finding_new.get('linesVulns')),
             'lines'
         )
-        where = vuln_utils.format_where(
+        where = vulns_utils.format_where(
             where,
             cast(List[Dict[str, str]], finding['linesVulns'])
         )
@@ -134,11 +133,11 @@ def cast_new_vulnerabilities(
         # This finding does not have lines vulnerabilities
         pass
     if finding_new.get('inputsVulns'):
-        finding['inputsVulns'] = vuln_utils.group_specific(
+        finding['inputsVulns'] = vulns_utils.group_specific(
             cast(List[str], finding_new.get('inputsVulns')),
             'inputs'
         )
-        where = vuln_utils.format_where(
+        where = vulns_utils.format_where(
             where,
             cast(List[Dict[str, str]], finding['inputsVulns'])
         )
@@ -199,7 +198,7 @@ async def delete_vulnerabilities(
     source = util.get_source(context)
     return all(
         await collect(
-            vuln_domain.delete_vulnerability(
+            vulns_utils.delete_vulnerability(
                 context.loaders,
                 finding_id,
                 str(vuln['UUID']),
@@ -216,12 +215,10 @@ async def delete_vulnerabilities(
 def filter_zero_risk_vulns(
     vulns: List[Dict[str, FindingType]]
 ) -> List[Dict[str, FindingType]]:
-    vulns_filter_non_confirm_zero = vuln_domain.filter_non_confirmed_zero_risk(
-        vulns
-    )
-    vulns_filter_non_request_zero = vuln_domain.filter_non_requested_zero_risk(
-        vulns_filter_non_confirm_zero
-    )
+    vulns_filter_non_confirm_zero = vulns_utils\
+        .filter_non_confirmed_zero_risk(vulns)
+    vulns_filter_non_request_zero = vulns_utils\
+        .filter_non_requested_zero_risk(vulns_filter_non_confirm_zero)
     return vulns_filter_non_request_zero
 
 
@@ -259,7 +256,7 @@ async def get_finding_age(context: Any, finding_id: str) -> int:
     age = 0
     finding_vulns_loader = context.finding_vulns_nzr
     vulns = await finding_vulns_loader.load(finding_id)
-    report_dates = vuln_utils.get_report_dates(vulns)
+    report_dates = vulns_utils.get_report_dates(vulns)
     if report_dates:
         oldest_report_date = min(report_dates)
         age = (datetime_utils.get_now() - oldest_report_date).days
@@ -270,7 +267,7 @@ async def get_finding_last_vuln_report(context: Any, finding_id: str) -> int:
     last_vuln_report = 0
     finding_vulns_loader = context.finding_vulns_nzr
     vulns = await finding_vulns_loader.load(finding_id)
-    report_dates = vuln_utils.get_report_dates(vulns)
+    report_dates = vulns_utils.get_report_dates(vulns)
     if report_dates:
         newest_report_date = max(report_dates)
         last_vuln_report = (datetime_utils.get_now() - newest_report_date).days
@@ -282,7 +279,7 @@ async def get_finding_open_age(context: Any, finding_id: str) -> int:
     finding_vulns_loader = context.finding_vulns_nzr
     vulns = await finding_vulns_loader.load(finding_id)
     open_vulns = vuln_filters.filter_open_vulns(vulns)
-    report_dates = vuln_utils.get_report_dates(open_vulns)
+    report_dates = vulns_utils.get_report_dates(open_vulns)
     if report_dates:
         oldest_report_date = min(report_dates)
         open_age = (datetime_utils.get_now() - oldest_report_date).days
@@ -333,7 +330,7 @@ def get_tracking_vulnerabilities(
 ) -> List[TrackingItem]:
     """get tracking vulnerabilities dictionary"""
     filter_deleted_status = [
-        vuln_domain.filter_deleted_status(vuln)
+        vulns_utils.filter_deleted_status(vuln)
         for vuln in vulnerabilities
     ]
     vulns_filtered = [
@@ -494,7 +491,7 @@ async def mask_finding(context: Any, finding_id: str) -> bool:
     finding_all_vulns_loader = context.finding_vulns_all
     vulns = await finding_all_vulns_loader.load(finding_id)
     mask_vulns_coroutines = [
-        vuln_utils.mask_vuln(finding_id, str(vuln['UUID']))
+        vulns_utils.mask_vuln(finding_id, str(vuln['UUID']))
         for vuln in vulns
     ]
     mask_finding_coroutines.extend(mask_vulns_coroutines)

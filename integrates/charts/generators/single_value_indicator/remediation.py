@@ -6,7 +6,7 @@ from datetime import (
 from itertools import chain
 from typing import (
     List,
-    Tuple
+    Tuple,
 )
 
 # Third party libraries
@@ -14,9 +14,9 @@ from aioextensions import run
 
 # Local libraries
 from backend.api import get_new_context
-from backend.domain import vulnerability as vuln_domain
 from backend.typing import Vulnerability as VulnerabilityType
 from charts import utils
+from vulnerabilities import domain as vulns_domain
 
 
 def had_state_by_then(
@@ -90,7 +90,7 @@ async def generate_one(groups: List[str]):  # pylint: disable=too-many-locals
                 await finding_vulns_loader.load_many(group_findings_ids)
             )
         )
-        vulns = vuln_domain.filter_zero_risk(vulns)
+        vulns = vulns_domain.filter_zero_risk(vulns)
 
         open_last_week, closed_last_week = get_totals_by_week(
             vulns,

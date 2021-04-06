@@ -28,7 +28,6 @@ from backend import (
     authz,
     util,
 )
-from backend.domain import vulnerability as vuln_domain
 from backend.exceptions import (
     FindingNotFound,
     InvalidAuthorization,
@@ -38,6 +37,7 @@ from backend.services import has_valid_access_token
 from findings import domain as findings_domain
 from newutils import function
 from organizations import domain as orgs_domain
+from vulnerabilities import domain as vulns_domain
 
 
 logging.config.dictConfig(LOGGING)
@@ -423,7 +423,7 @@ def require_finding_access(func: TVar) -> TVar:
             else kwargs.get('identifier')
         )
         if not finding_id:
-            vuln = await vuln_domain.get(kwargs['vuln_uuid'])
+            vuln = await vulns_domain.get(kwargs['vuln_uuid'])
             finding_id = vuln['finding_id']
 
         finding_loader = context.loaders.finding

@@ -4,26 +4,24 @@ It takes those PENDING vulns and reject them as before.
 Executed: 2020-08-31 12:20:00-05:00
 """
 
-from time import time
 import os
+from time import time
 from typing import (
     Dict,
     List,
 )
 
+import django
 from aioextensions import (
     collect,
     run,
 )
-import django
 
-from backend.dal import (
-    vulnerability as vuln_dal,
-)
-from backend.domain import (
-    project as group_domain,
-    vulnerability as vuln_domain,
-)
+from backend.dal import vulnerability as vuln_dal
+from backend.domain import project as group_domain
+from vulnerabilities import domain as vulns_domain
+
+
 django.setup()
 STAGE: str = os.environ['STAGE']
 
@@ -31,7 +29,7 @@ STAGE: str = os.environ['STAGE']
 async def reject_vulnerabilities(group: str) -> None:
     findings = await group_domain.list_findings([group])
     for finding_id in findings[0]:
-        vulns = await vuln_domain.list_vulnerabilities_async([finding_id])
+        vulns = await vulns_domain.list_vulnerabilities_async([finding_id])
         for vuln in vulns:
             vuln_uuid = vuln.get('UUID')
             historic_state = vuln.get('historic_state', [{}])

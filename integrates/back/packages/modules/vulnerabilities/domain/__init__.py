@@ -1,28 +1,10 @@
-# pylint:disable=cyclic-import
 # Local imports
-from .treatment import (
-    add_vuln_treatment,
-    handle_vulns_acceptation,
-    send_treatment_change_mail,
-    update_vulns_treatment,
-    validate_treatment_change,
-)
-from .verification import (
-    get_efficacy,
-    get_last_reattack_date,
-    get_last_requested_reattack_date,
-    get_reattack_cycles,
-)
-from .vulnerability import (
+from .core import (
     confirm_zero_risk_vulnerabilities,
     delete_tags,
-    delete_vulnerability,
     filter_closed_vulnerabilities,
     filter_confirmed_zero_risk,
-    filter_deleted_status,
-    filter_non_confirmed_zero_risk,
     filter_non_confirmed_zero_risk_vuln,
-    filter_non_requested_zero_risk,
     filter_non_requested_zero_risk_vuln,
     filter_open_vulnerabilities,
     filter_remediated,
@@ -46,24 +28,33 @@ from .vulnerability import (
     set_updated_manager_mail_content,
     ungroup_vulnerability_specific,
     upload_file,
-    update_historic_state_dates,
     update_treatments,
     update_vuln_state,
     validate_file_schema,
     verify_vulnerabilities,
 )
+from .treatment import (
+    add_vuln_treatment,
+    handle_vulns_acceptation,
+    send_treatment_change_mail,
+    update_vulns_treatment,
+    validate_treatment_change,
+)
+from .verification import (
+    get_efficacy,
+    get_last_reattack_date,
+    get_last_requested_reattack_date,
+    get_reattack_cycles,
+)
+
 
 __all__ = [
-    # vulnerability-related
+    # core
     'confirm_zero_risk_vulnerabilities',
-    'delete_vulnerability',
     'delete_tags',
     'filter_closed_vulnerabilities',
     'filter_confirmed_zero_risk',
-    'filter_deleted_status',
-    'filter_non_confirmed_zero_risk',
     'filter_non_confirmed_zero_risk_vuln',
-    'filter_non_requested_zero_risk',
     'filter_non_requested_zero_risk_vuln',
     'filter_open_vulnerabilities',
     'filter_remediated',
@@ -87,7 +78,6 @@ __all__ = [
     'set_updated_manager_mail_content',
     'ungroup_vulnerability_specific',
     'upload_file',
-    'update_historic_state_dates',
     'update_treatments',
     'update_vuln_state',
     'validate_file_schema',

@@ -12,11 +12,11 @@ from typing import (
 from aiodataloader import DataLoader
 
 # Local libraries
-from backend.domain import vulnerability as vuln_domain
 from backend.typing import (
     Vulnerability as VulnerabilityType,
     Historic as HistoricType
 )
+from vulnerabilities import domain as vulns_domain
 
 
 async def batch_load_fn_vulns(
@@ -24,7 +24,7 @@ async def batch_load_fn_vulns(
     """Batch the data load requests within the same execution fragment."""
     vulnerabilities: Dict[str, List[VulnerabilityType]] = defaultdict(list)
 
-    vulns = await vuln_domain.list_vulnerabilities_async(
+    vulns = await vulns_domain.list_vulnerabilities_async(
         finding_ids,
         should_list_deleted=True,
         include_requested_zero_risk=True,
@@ -101,15 +101,15 @@ async def batch_load_fn_vulns(
                     )
                 )[-1].get('status', '').capitalize(),
                 commit_hash=str(vuln.get('commit_hash', '')),
-                cycles=str(vuln_domain.get_reattack_cycles(vuln)),
+                cycles=str(vulns_domain.get_reattack_cycles(vuln)),
                 last_requested_reattack_date=(
-                    vuln_domain.get_last_requested_reattack_date(vuln)
+                    vulns_domain.get_last_requested_reattack_date(vuln)
                 ),
-                efficacy=str(vuln_domain.get_efficacy(vuln)),
+                efficacy=str(vulns_domain.get_efficacy(vuln)),
                 report_date=cast(
                     HistoricType, vuln['historic_state']
                 )[0]['date'],
-                last_reattack_date=vuln_domain.get_last_reattack_date(vuln),
+                last_reattack_date=vulns_domain.get_last_reattack_date(vuln),
                 stream=str(vuln.get('stream', '')).replace(',', ' > '),
             )
         )

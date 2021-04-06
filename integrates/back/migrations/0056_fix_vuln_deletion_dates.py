@@ -8,13 +8,9 @@ Finalization Time: 2021-01-15 at 08:00:00 UTC-05
 """
 # Standard library
 import copy
-import os
 from datetime import datetime
 from pprint import pprint
-from typing import (
-    Dict,
-    List,
-)
+from typing import Dict
 
 # Third party libraries
 from aioextensions import (
@@ -24,16 +20,14 @@ from aioextensions import (
 
 # Local libraries
 from backend.dal import vulnerability as vuln_dal
-from backend.domain import (
-    project as group_domain,
-    vulnerability as vuln_domain,
-)
+from backend.domain import project as group_domain
 from backend.typing import (
     Finding as FindingType,
     Vulnerability as VulnerabilityType,
 )
 from findings import domain as findings_domain
 from newutils import datetime as datetime_utils
+from vulnerabilities import domain as vulns_domain
 
 
 async def fix_vuln_deletion_dates(
@@ -83,7 +77,7 @@ async def fix_vuln_deletion_dates_for_finding(
         finding_delation_date = datetime_utils.get_from_str(
             last_state_info['date']
         )
-        vulns = await vuln_domain.list_vulnerabilities_async(
+        vulns = await vulns_domain.list_vulnerabilities_async(
             [finding_id],
             include_confirmed_zero_risk=True,
             include_requested_zero_risk=True,

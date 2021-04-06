@@ -7,18 +7,19 @@ from graphql.type.definition import GraphQLResolveInfo
 
 # Local
 from backend import util
-from backend.dal.helpers.redis import (
-    redis_del_by_deps,
-)
+from backend.dal.helpers.redis import redis_del_by_deps
 from backend.decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
     require_integrates,
     require_login
 )
-from backend.domain import vulnerability as vuln_domain
-from backend.exceptions import ErrorUploadingFileS3, InvalidFileType
+from backend.exceptions import (
+    ErrorUploadingFileS3,
+    InvalidFileType,
+)
 from backend.typing import SimplePayload
+from vulnerabilities import domain as vulns_domain
 
 
 @convert_kwargs_to_snake_case  # type: ignore
@@ -43,7 +44,7 @@ async def mutate(
         ['text/x-yaml', 'text/plain', 'text/html']
     )
     if file_input and allowed_mime_type:
-        success = await vuln_domain.upload_file(
+        success = await vulns_domain.upload_file(
             info,
             file_input,
             finding_data

@@ -4,17 +4,15 @@ from graphql.type.definition import GraphQLResolveInfo
 
 # Local libraries
 from backend import util
-from backend.dal.helpers.redis import (
-    redis_del_by_deps,
-)
+from backend.dal.helpers.redis import redis_del_by_deps
 from backend.decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
     require_integrates,
     require_login,
 )
-from backend.domain import vulnerability as vuln_domain
 from backend.typing import SimplePayload
+from vulnerabilities import domain as vulns_domain
 
 
 @convert_kwargs_to_snake_case  # type: ignore
@@ -37,7 +35,7 @@ async def mutate(
     finding_data = await finding_loader.load(finding_id)
     group_name: str = finding_data['project_name']
     group = await group_loader.load(group_name)
-    success: bool = await vuln_domain.update_vulns_treatment(
+    success: bool = await vulns_domain.update_vulns_treatment(
         context=info.context.loaders,
         finding_id=finding_id,
         updated_values=parameters,

@@ -34,7 +34,6 @@ from backend import (
 from backend.authz.policy import get_group_level_role
 from backend.dal import project as project_dal
 from backend.dal.helpers.dynamodb import start_context
-from backend.domain import vulnerability as vuln_domain
 from backend.exceptions import (
     AlreadyPendingDeletion,
     GroupNotFound,
@@ -71,6 +70,7 @@ from organizations import domain as orgs_domain
 from resources import domain as resources_domain
 from users import domain as users_domain
 from users.domain.group import get_groups
+from vulnerabilities import domain as vulns_domain
 
 
 logging.config.dictConfig(LOGGING)
@@ -591,7 +591,7 @@ async def total_vulnerabilities(
     if await findings_domain.validate_finding(finding_id):
         vulnerabilities = await finding_vulns_loader.load(finding_id)
         last_approved_status = await collect([
-            in_process(vuln_domain.get_last_status, vuln)
+            in_process(vulns_domain.get_last_status, vuln)
             for vuln in vulnerabilities
         ])
         for current_state in last_approved_status:
@@ -696,7 +696,7 @@ def get_last_closing_date(
     min_date: Optional[date] = None
 ) -> Optional[date]:
     """Get last closing date of a vulnerability."""
-    current_state = vuln_domain.get_last_approved_state(vulnerability)
+    current_state = vulns_domain.get_last_approved_state(vulnerability)
     last_closing_date = None
 
     if current_state and current_state.get('state') == 'closed':
@@ -713,7 +713,7 @@ def get_last_closing_date(
 
 def is_vulnerability_closed(vuln: Dict[str, FindingType]) -> bool:
     """Return if a vulnerability is closed."""
-    return vuln_domain.get_last_status(vuln) == 'closed'
+    return vulns_domain.get_last_status(vuln) == 'closed'
 
 
 async def get_max_open_severity(
@@ -917,7 +917,7 @@ async def get_total_treatment(
             List[Dict[str, str]],
             vuln.get('historic_treatment', [{}])
         )[-1].get('treatment')
-        current_state = vuln_domain.get_last_status(vuln)
+        current_state = vulns_domain.get_last_status(vuln)
         open_vulns: int = 1 if current_state == 'open' else 0
         if vuln_treatment == 'ACCEPTED':
             accepted_vuln += open_vulns
@@ -941,7 +941,7 @@ async def get_mean_remediate_non_treated(
     min_date: Optional[date] = None
 ) -> Decimal:
     findings = await findings_domain.get_findings_by_group(group_name)
-    vulnerabilities = await vuln_domain.list_vulnerabilities_async(
+    vulnerabilities = await vulns_domain.list_vulnerabilities_async(
         [str(finding['finding_id']) for finding in findings],
         include_requested_zero_risk=True,
     )
@@ -949,7 +949,7 @@ async def get_mean_remediate_non_treated(
     return await get_mean_remediate_vulnerabilities(
         [
             vuln for vuln in vulnerabilities
-            if not vuln_domain.is_accepted_undefined_vulnerability(vuln)
+            if not vulns_domain.is_accepted_undefined_vulnerability(vuln)
         ],
         min_date
     )
@@ -973,7 +973,7 @@ async def get_closers(
 async def get_open_findings(
         finding_vulns: List[List[Dict[str, FindingType]]]) -> int:
     last_approved_status = await collect(
-        in_process(vuln_domain.get_last_status, vuln)
+        in_process(vulns_domain.get_last_status, vuln)
         for vulns in finding_vulns
         for vuln in vulns
     )
@@ -1126,7 +1126,7 @@ async def get_open_vulnerabilities(context: Any, group_name: str) -> int:
     ])
 
     last_approved_status = await collect([
-        in_process(vuln_domain.get_last_status, vuln)
+        in_process(vulns_domain.get_last_status, vuln)
         for vuln in findings_vulns
     ])
     open_vulnerabilities = 0
@@ -1147,7 +1147,7 @@ async def get_closed_vulnerabilities(context: Any, group_name: str) -> int:
     ])
 
     last_approved_status = await collect([
-        in_process(vuln_domain.get_last_status, vuln)
+        in_process(vulns_domain.get_last_status, vuln)
         for vuln in findings_vulns
     ])
     closed_vulnerabilities = 0

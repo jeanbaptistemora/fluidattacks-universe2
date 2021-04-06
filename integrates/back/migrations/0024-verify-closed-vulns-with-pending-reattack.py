@@ -30,14 +30,12 @@ from more_itertools import chunked
 
 from back import settings
 from backend.dal import vulnerability as vuln_dal
-from backend.domain import (
-    project as group_domain,
-    vulnerability as vuln_domain,
-)
+from backend.domain import project as group_domain
 from backend.typing import Comment as CommentType
 from comments import dal as comments_dal
 from findings import dal as findings_dal
 from users import domain as users_domain
+from vulnerabilities import domain as vulns_domain
 
 
 django.setup()
@@ -48,9 +46,9 @@ async def should_verify_closed_vulnerabilities(group: str) -> None:
     findings = await group_domain.list_findings([group])
     for finding in findings[0]:
         closed_vulns: Dict[str, List[str]] = defaultdict(list)
-        vulns = await vuln_domain.list_vulnerabilities_async([finding])
+        vulns = await vulns_domain.list_vulnerabilities_async([finding])
         for vuln in vulns:
-            current_status = vuln_domain.get_last_status(vuln)
+            current_status = vulns_domain.get_last_status(vuln)
             current_verification = vuln.get(
                 'historic_verification', [{}]
             )[-1].get('status', '')
@@ -58,7 +56,7 @@ async def should_verify_closed_vulnerabilities(group: str) -> None:
                 current_status == 'closed' and
                 current_verification == 'REQUESTED'
             )
-            last_state = vuln_domain.get_last_approved_state(vuln)
+            last_state = vulns_domain.get_last_approved_state(vuln)
             user_email = last_state.get('analyst', '').replace('api-', '')
             if should_verify:
                 closed_vulns[user_email].append(vuln.get('UUID'))
@@ -92,7 +90,7 @@ async def verify_closed_vulnerabilities(
 ) -> None:
     coroutines: List[Awaitable[bool]] = []
     finding = await findings_dal.get_finding(finding_id)
-    vulnerabilities = await vuln_domain.get_by_ids(closed_vulns)
+    vulnerabilities = await vulns_domain.get_by_ids(closed_vulns)
     tzn = pytz.timezone(settings.TIME_ZONE)
     today = datetime.now(tz=tzn).today().strftime('%Y-%m-%d %H:%M:%S')
     comment_id = int(round(time() * 1000))

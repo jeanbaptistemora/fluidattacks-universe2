@@ -5,9 +5,9 @@ Execution Time: 2021-02-05 at 19:37:12 UTC-5
 Finalization Time: 2021-02-05 at 20:05:28 UTC-5
 """
 # Standard library
+import os
 from itertools import chain
 from operator import itemgetter
-import os
 from typing import (
     Dict,
     List,
@@ -24,15 +24,11 @@ from more_itertools import chunked
 from backend.api.dataloaders.group_drafts import GroupDraftsLoader
 from backend.api.dataloaders.group_findings import GroupFindingsLoader
 from backend.dal import vulnerability as vuln_dal
-from backend.domain.project import (
-    get_alive_projects,
-)
-from backend.domain.vulnerability import (
-    list_vulnerabilities_async,
-)
-from backend.typing import (
-    Finding,
-)
+from backend.domain.project import get_alive_projects
+from backend.typing import Finding
+from vulnerabilities.domain import list_vulnerabilities_async
+
+
 STAGE: str = os.environ['STAGE']
 
 

@@ -6,28 +6,20 @@ Execution Time:    2021-01-05 at 09:11:57 UTC-05
 Finalization Time: 2021-01-05 at 15:46:35 UTC-05
 """
 # Standard library
-from asyncio import run
 import copy
 import os
+from asyncio import run
 from pprint import pprint
 
 # Third party library
-from aioextensions import (
-    collect,
-)
+from aioextensions import collect
 
 # Local
 from backend.dal.helpers import dynamodb
-from backend.dal import(
-    vulnerability as vuln_dal,
-)
-from backend.domain import (
-    vulnerability as vuln_domain,
-)
-from backend.filters import (
-    finding as finding_filters
-)
+from backend.dal import vulnerability as vuln_dal
+from backend.filters import finding as finding_filters
 from newutils import datetime as datetime_utils
+from vulnerabilities import domain as vulns_domain
 
 
 STAGE: str = os.environ['STAGE']
@@ -53,7 +45,7 @@ async def main() -> None:
         release_date_str = finding_filters.get_approval_date(finding)
         if release_date_str:
             release_date = datetime_utils.get_from_str(release_date_str)
-        vulns = await vuln_domain.list_vulnerabilities_async(
+        vulns = await vulns_domain.list_vulnerabilities_async(
             [finding_id],
             should_list_deleted=True,
             include_requested_zero_risk=True,

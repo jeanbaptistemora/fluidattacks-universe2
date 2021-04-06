@@ -14,7 +14,6 @@ from back.tests.unit.utils import create_dummy_simple_session
 from backend.api import get_new_context
 from backend.dal.vulnerability import get as get_vuln
 from backend.domain import project as group_domain
-from backend.domain.vulnerability import list_vulnerabilities_async
 from backend.scheduler import (
     calculate_vulnerabilities,
     create_data_format_chart,
@@ -51,6 +50,7 @@ from organizations.domain import (
 from toe.lines import domain as toe_lines_domain
 from schedulers import toe_lines_etl
 from users import dal as users_dal
+from vulnerabilities.domain import list_vulnerabilities_async
 
 
 pytestmark = [

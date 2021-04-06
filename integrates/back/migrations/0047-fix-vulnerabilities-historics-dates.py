@@ -43,13 +43,13 @@ from aioextensions import (
 from more_itertools import chunked
 
 # Local libraries
-from backend.api.dataloaders.project import ProjectLoader as GroupLoader
+from backend.api.dataloaders.group import GroupLoader
 from backend.dal import vulnerability as vuln_dal
 from backend.domain.project import get_active_projects
-from backend.domain import vulnerability as vulnerability_domain
 from backend.typing import Vulnerability
 from findings import domain as findings_domain
 from newutils import findings as finding_utils
+from vulnerabilities import domain as vulns_domain
 
 
 STAGE = os.environ['STAGE']
@@ -313,7 +313,7 @@ async def fix_vuln_historics(
 # Get all vulnerabilities and get all dates to get a fix date in case
 # that could be needed (cases 1 and 2)
 async def fix_vulns(finding: str) -> None:
-    vulneabilities = await vulnerability_domain.list_vulnerabilities_async(
+    vulneabilities = await vulns_domain.list_vulnerabilities_async(
         [finding]
     )
     dates = finding_utils.get_tracking_dates(vulneabilities)

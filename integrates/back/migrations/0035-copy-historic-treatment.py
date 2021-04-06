@@ -23,15 +23,11 @@ from aioextensions import (
 from more_itertools import chunked
 
 # Local libraries
-from backend.api.dataloaders.project import ProjectLoader as GroupLoader
+from backend.api.dataloaders.group import GroupLoader
 from backend.api.dataloaders.finding import FindingLoader
 from backend.dal import vulnerability as vuln_dal
 from backend.domain.project import (
     get_active_projects,
-)
-from backend.domain.vulnerability import (
-    add_vuln_treatment,
-    list_vulnerabilities_async,
 )
 from backend.typing import (
     Finding,
@@ -40,6 +36,12 @@ from newutils.datetime import (
     DEFAULT_STR,
     get_from_str,
 )
+from vulnerabilities.domain import (
+    add_vuln_treatment,
+    list_vulnerabilities_async,
+)
+
+
 STAGE: str = os.environ['STAGE']
 
 

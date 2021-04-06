@@ -10,8 +10,8 @@ from typing import (
 from aiodataloader import DataLoader
 
 # Local libraries
-from backend.domain import vulnerability as vuln_domain
 from backend.typing import Vulnerability as VulnerabilityType
+from vulnerabilities import domain as vulns_domain
 
 
 # pylint: disable=too-few-public-methods
@@ -29,8 +29,8 @@ class FindingVulnsOnlyZeroRiskLoader(DataLoader):  # type: ignore
 
         for index, finding_vulns in enumerate(findings_vulns):
             finding_vulns = (
-                vuln_domain.filter_requested_zero_risk(finding_vulns) +
-                vuln_domain.filter_confirmed_zero_risk(finding_vulns)
+                vulns_domain.filter_requested_zero_risk(finding_vulns) +
+                vulns_domain.filter_confirmed_zero_risk(finding_vulns)
             )
             findings_vulns[index] = finding_vulns
 
