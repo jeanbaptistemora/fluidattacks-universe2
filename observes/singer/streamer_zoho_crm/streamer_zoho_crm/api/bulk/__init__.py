@@ -1,17 +1,25 @@
 # Standard libraries
 # Third party libraries
 # Local libraries
-from streamer_zoho_crm.api.bulk import (
-    _bulk,
-    _objs,
+from streamer_zoho_crm.api.bulk.objs import (
+    ModuleName,
+    BulkJobResult,
+    BulkJob,
+    BulkData,
+)
+from streamer_zoho_crm.api.bulk.crud import (
+    create_bulk_read_job,
+    get_bulk_job,
+    download_result,
 )
 
 
-ModuleName = _objs.ModuleName
-BulkJobResult = _objs.BulkJobResult
-BulkJob = _objs.BulkJob
-BulkData = _objs.BulkData
-
-create_bulk_read_job = _bulk.create_bulk_read_job
-get_bulk_job = _bulk.get_bulk_job
-download_result = _bulk.download_result
+__all__ = [
+    'BulkData',
+    'BulkJob',
+    'BulkJobResult',
+    'ModuleName',
+    'create_bulk_read_job',
+    'download_result',
+    'get_bulk_job',
+]

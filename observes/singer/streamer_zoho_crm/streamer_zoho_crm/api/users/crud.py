@@ -11,7 +11,7 @@ from streamer_zoho_crm.api.common import (
     PageIndex,
     UnexpectedResponse,
 )
-from streamer_zoho_crm.api.users._objs import (
+from streamer_zoho_crm.api.users.objs import (
     UsersDataPage,
     UserType
 )

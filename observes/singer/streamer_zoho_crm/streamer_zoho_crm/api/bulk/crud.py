@@ -4,11 +4,13 @@ import logging
 import tempfile
 from typing import Optional
 from zipfile import ZipFile
+
 # Third party libraries
 import requests
 from ratelimiter import RateLimiter
+
 # Local libraries
-from streamer_zoho_crm.api.bulk._objs import (
+from streamer_zoho_crm.api.bulk.objs import (
     BulkData,
     BulkJob,
     BulkJobResult,
