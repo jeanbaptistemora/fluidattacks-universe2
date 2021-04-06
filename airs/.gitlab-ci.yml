@@ -127,7 +127,6 @@ airs.lint.code:
   <<: *makes
   <<: *in_dev_branch_airs
   stage: lint-code
-  allow_failure: true
 
 airs.lint.content:
   <<: *makes
