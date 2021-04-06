@@ -1,18 +1,18 @@
 {# Generic Go to button: rounded and centered #}
 {% macro go_to_button(text, url) %}
-<div class="fl center">
+<p class="fl center">
   <a class="link white bg-red pa3 fl tc b sans-serif br4 dim pointer" title="{{ text }}" href="{{ url }}"
     target="_blank">
     {{ text }}
   </a>
-</div>
+</p>
 {% endmacro %}
 
 {# Generic gray text area #}
-{% macro text_area(text) %}
-<div class="flex">
-  <div class="fl w-100 w-90-ns bg-moon-gray i pv3 center tc sans-serif">
-    <div>"{{ text }}"</div>
-  </div>
+{%+ macro text_area(text) %}
+<div class="fl w-100 w-90-ns bg-moon-gray i pa2 ma2 center tj sans-serif f6">
+  {% for line in text %}
+    <div>{{ line }}</div>
+  {% endfor %}
 </div>
 {% endmacro %}

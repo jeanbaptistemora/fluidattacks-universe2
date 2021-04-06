@@ -338,7 +338,7 @@ async def send_comment_mail(  # pylint: disable=too-many-locals
         ] = '') -> None:
     email_context: MailContentType = {
         'user_email': user_mail,
-        'comment': str(comment_data['content']).replace('\n', ' '),
+        'comment': comment_data['content'],
         'comment_type': comment_type,
         'parent': str(comment_data['parent']),
     }
@@ -501,6 +501,7 @@ async def send_mail_remediate_finding(
 async def send_mail_comment(
         email_to: List[List[str]],
         context: List[MailContentType]) -> None:
+    context[0]["comment"] = f'"{context[0]["comment"]}"'.splitlines()
     await _send_mails_async_new(
         email_to[0],
         context[0],
@@ -511,6 +512,7 @@ async def send_mail_comment(
         f' in [{context[0]["project"]}]',
         'new_comment'
     )
+    context[1]["comment"] = f'"{context[1]["comment"]}"'.splitlines()
     await _send_mails_async_new(
         email_to[1],
         context[1],
