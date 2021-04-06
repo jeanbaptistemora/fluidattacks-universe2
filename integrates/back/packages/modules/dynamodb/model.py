@@ -32,7 +32,7 @@ from newutils.context import DB_MODEL_PATH
 
 
 with open(DB_MODEL_PATH, mode='r') as file:
-    TABLE = load_table(json.loads(file.read()))
+    TABLE = load_table(json.load(file))
 
 
 def _build_root(
