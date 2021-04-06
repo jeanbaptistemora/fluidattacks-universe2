@@ -1,8 +1,6 @@
 # Standard library
 from typing import (
-    Any,
     Dict,
-    Optional,
 )
 
 # Local libraries
@@ -18,25 +16,22 @@ def get_metadata(
     graph: graph_model.Graph,
     language: graph_model.GraphShardMetadataLanguage,
 ) -> graph_model.GraphShardMetadata:
-
-    metadata: Dict[str, Optional[Any]] = {
-        'java': None,
-    }
-
-    if language == graph_model.GraphShardMetadataLanguage.JAVA:
-        metadata['java'] = get_metadata_java(graph)
-    else:
-        raise NotImplementedError()
-
     return graph_model.GraphShardMetadata(
+        java=get_metadata_java(graph, language),
         language=language,
-        **metadata,
     )
 
 
 def get_metadata_java(
     graph: graph_model.Graph,
+    language: graph_model.GraphShardMetadataLanguage,
 ) -> graph_model.GraphShardMetadataJava:
+    if language != graph_model.GraphShardMetadataLanguage.JAVA:
+        return graph_model.GraphShardMetadataJava(
+            classes={},
+            package='',
+        )
+
     classes = get_metadata_java_classes(graph)
     package = get_metadata_java_package(graph)
 

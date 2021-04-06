@@ -53,6 +53,7 @@ from utils.ctx import (
     CTX,
     STATE_FOLDER,
     TREE_SITTER_JAVA,
+    TREE_SITTER_TSX,
 )
 from utils.encodings import (
     json_dump,
@@ -76,11 +77,12 @@ LANGUAGES_SO = os.path.join(STATE_FOLDER, 'languages.so')
 # Side effects
 Language.build_library(LANGUAGES_SO, [
     TREE_SITTER_JAVA,
+    TREE_SITTER_TSX,
 ])
 
 
-def get_java_fields() -> Dict[str, Tuple[str, ...]]:
-    with open(f'{TREE_SITTER_JAVA}/src/node-types.json') as handle:
+def get_fields(source: str) -> Dict[str, Tuple[str, ...]]:
+    with open(f'{source}/src/node-types.json') as handle:
         java_fields: Dict[str, Tuple[str, ...]] = {
             node['type']: fields
             for node in json.load(handle)
@@ -95,7 +97,8 @@ class ParsingError(Exception):
     pass
 
 
-JAVA_FIELDS: Dict[str, Tuple[str, ...]] = get_java_fields()
+JAVA_FIELDS: Dict[str, Tuple[str, ...]] = get_fields(TREE_SITTER_JAVA)
+TSX_FIELDS: Dict[str, Tuple[str, ...]] = get_fields(TREE_SITTER_TSX)
 
 
 def hash_node(node: Node) -> int:
@@ -169,10 +172,13 @@ def _build_ast_graph(
             ].decode('latin-1')
         else:
             parent_fields: Dict[int, str] = {}
-            if language == GraphShardMetadataLanguage.JAVA:
+            if language != GraphShardMetadataLanguage.NOT_SUPPORTED:
                 parent_fields = {
                     hash_node(child): field
-                    for field in JAVA_FIELDS.get(obj.type, ())
+                    for field in {
+                        GraphShardMetadataLanguage.JAVA: JAVA_FIELDS,
+                        GraphShardMetadataLanguage.TSX: TSX_FIELDS,
+                    }[language].get(obj.type, ())
                     for child in [obj.child_by_field_name(field)]
                     if child
                 }
@@ -201,6 +207,14 @@ def decide_language(path: str) -> GraphShardMetadataLanguage:
 
     if path.endswith('.java'):
         language = GraphShardMetadataLanguage.JAVA
+
+    if (
+        path.endswith('.js') or
+        path.endswith('.jsx') or
+        path.endswith('.ts') or
+        path.endswith('.tsx')
+    ):
+        language = GraphShardMetadataLanguage.TSX
 
     return language
 
@@ -292,8 +306,8 @@ async def get_graph_db(paths: Tuple[str, ...]) -> GraphDB:
             java_resources=java_resources.load(paths),
         ),
         shards=[],
+        shards_by_java_class={},
         shards_by_path={},
-        shards_by_class={},
     )
 
     index = 0
@@ -305,7 +319,7 @@ async def get_graph_db(paths: Tuple[str, ...]) -> GraphDB:
         graph_db.shards_by_path[shard.path] = index - 1
 
     for shard in graph_db.shards:
-        graph_db.shards_by_class.update({
+        graph_db.shards_by_java_class.update({
             f'{shard.metadata.java.package}{_class}': shard.path
             for _class in shard.metadata.java.classes
         })

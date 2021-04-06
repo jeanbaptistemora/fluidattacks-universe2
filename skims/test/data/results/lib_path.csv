@@ -208,6 +208,7 @@ F055. Insecure service configuration - AWS Missing encryption,namespace/skims/te
 F055. Insecure service configuration - AWS Missing encryption,namespace/skims/test/data/lib_path/f055_aws/cfn_unencrypted_volumes.yaml.json,14,311
 F055. Insecure service configuration - AWS Missing encryption,namespace/skims/test/data/lib_path/f055_aws/cfn_unencrypted_volumes.yaml.json,22,311
 F055. Insecure service configuration - AWS Missing encryption,namespace/skims/test/data/lib_path/f055_aws/cfn_unencrypted_volumes.yaml.json,7,311
+F055. Insecure service configuration - AWS Missing encryption,namespace/skims/test/data/lib_path/f055_aws/hcl2_public_buckets.tf,24,311
 F055. Insecure service configuration - AWS Missing encryption,namespace/skims/test/data/lib_path/f055_aws/hcl2_unencrypted_buckets.tf,1,311
 F060. Insecure exceptions,namespace/skims/test/data/lib_path/f031_cwe378/Test.java,7,396
 F060. Insecure exceptions,namespace/skims/test/data/lib_path/f060/Test.java,11,397

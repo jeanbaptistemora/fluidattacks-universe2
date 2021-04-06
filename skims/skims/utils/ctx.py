@@ -66,6 +66,7 @@ PARSER_BABEL: str = _get_artifact('SKIMS_PARSER_BABEL')
 ROBOTO_FONT = _get_artifact('SKIMS_ROBOTO_FONT')
 STATIC = _get_artifact('SKIMS_STATIC')
 TREE_SITTER_JAVA = _get_artifact('SKIMS_TREE_SITTER_JAVA')
+TREE_SITTER_TSX = _get_artifact('SKIMS_TREE_SITTER_TSX')
 VENDOR = _get_artifact('SKIMS_VENDOR')
 
 makedirs(STATE_FOLDER, mode=0o700, exist_ok=True)

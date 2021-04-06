@@ -162,7 +162,7 @@ def _terraform_public_buckets(
 ) -> core_model.Vulnerabilities:
     return get_vulnerabilities_from_aws_iterator_blocking(
         content=content,
-        description_key='src.lib_path.f055_aws.public_buckets',
+        description_key='src.lib_path.f055_aws.unencrypted_buckets',
         finding=core_model.FindingEnum.F055_AWS_MISSING_ENCRYPTION,
         path=path,
         statements_iterator=_public_buckets_iterate_vulnerabilities(

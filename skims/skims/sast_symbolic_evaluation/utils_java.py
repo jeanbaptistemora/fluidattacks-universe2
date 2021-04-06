@@ -122,7 +122,7 @@ def lookup_java_method(
 
     # Now lookup in other shards different than the current shard
     if method_class and (
-        shard_path := args.graph_db.shards_by_class.get(method_class)
+        shard_path := args.graph_db.shards_by_java_class.get(method_class)
     ):
         shard = args.graph_db.shards_by_path_f(shard_path)
         if data := _lookup_java_method_in_shard(shard, method_name):

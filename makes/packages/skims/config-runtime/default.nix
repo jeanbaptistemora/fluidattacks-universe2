@@ -96,9 +96,13 @@ makeTemplate {
           envParserBabel = packages.skims.parsers.babel;
           envSrcSkimsStatic = path "/skims/static";
           envSrcSkimsVendor = path "/skims/vendor";
-          envSrcTreeSitter = fetchzip {
+          envSrcTreeSitterJava = fetchzip {
             url = "https://github.com/fluidattacks/tree-sitter-java/archive/1da1585fb744f5717494a4a45ffc3bead65297cd.tar.gz";
             sha256 = "JZOQ5XDgGNMXw1l0uo0mOcYMhRFRq78kHNNyIO/yvAU=";
+          };
+          envSrcTreeSitterTsx = fetchzip {
+            url = "https://github.com/tree-sitter/tree-sitter-typescript/archive/3e897ea5925f037cfae2e551f8e6b12eec2a201a.tar.gz";
+            sha256 = "1qJsaeJzcbSTDe9hqc9SjPhGG0RNaolTYQLuwgryIsw=";
           };
         };
         name = "skims-config-context-file";
@@ -109,7 +113,8 @@ makeTemplate {
           export SKIMS_PARSER_BABEL='__envParserBabel__'
           export SKIMS_ROBOTO_FONT='__envSrcSkimsVendor__/fonts/roboto_mono_from_google/regular.ttf'
           export SKIMS_STATIC='__envSrcSkimsStatic__'
-          export SKIMS_TREE_SITTER_JAVA='__envSrcTreeSitter__'
+          export SKIMS_TREE_SITTER_JAVA='__envSrcTreeSitterJava__'
+          export SKIMS_TREE_SITTER_TSX='__envSrcTreeSitterTsx__/tsx'
           export SKIMS_VENDOR='__envSrcSkimsVendor__'
         '';
       })

@@ -272,10 +272,11 @@ class GraphShardMetadataJava(NamedTuple):
 class GraphShardMetadataLanguage(Enum):
     JAVA: str = 'java'
     NOT_SUPPORTED: str = 'not_supported'
+    TSX: str = 'tsx'
 
 
 class GraphShardMetadata(NamedTuple):
-    java: Optional[GraphShardMetadataJava]
+    java: GraphShardMetadataJava
     language: GraphShardMetadataLanguage
 
 
@@ -370,8 +371,8 @@ class GraphDBContext(NamedTuple):
 class GraphDB(NamedTuple):
     context: GraphDBContext
     shards: List[GraphShard]
+    shards_by_java_class: Dict[str, str]
     shards_by_path: Dict[str, int]
-    shards_by_class: Dict[str, str]
 
     def shards_by_path_f(self, path: str) -> GraphShard:
         return self.shards[self.shards_by_path[path]]
