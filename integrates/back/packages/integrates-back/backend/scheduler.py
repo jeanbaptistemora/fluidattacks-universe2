@@ -159,9 +159,13 @@ async def get_external_recipients(project: str) -> List[str]:
     return remove_fluid_from_recipients(recipients)
 
 
-def get_finding_url(finding: Dict[str, FindingType]) -> str:
+def get_finding_url(
+    finding: Dict[str, FindingType],
+    group_name: str,
+    org_name: str,
+) -> str:
     url = (
-        f'{BASE_URL}/groups/{finding["project_name"]}/'
+        f'{BASE_URL}/orgs/{org_name}/groups/{group_name}/'
         f'{finding["finding_id"]}/description'
     )
     return url
@@ -413,6 +417,9 @@ async def send_group_treatment_change(
 
 async def get_group_new_vulnerabilities(context: Any, group_name: str) -> None:
     group_findings_loader = context.group_findings
+    group = await context.group_all.load(group_name)
+    organization = await context.organization.load(group['organization'])
+    org_name = organization['name']
     mail_context: MailContentType = {
         'updated_findings': list(),
         'no_treatment_findings': list()
@@ -420,7 +427,7 @@ async def get_group_new_vulnerabilities(context: Any, group_name: str) -> None:
     try:
         finding_requests = await group_findings_loader.load(group_name)
         for act_finding in finding_requests:
-            finding_url = get_finding_url(act_finding)
+            finding_url = get_finding_url(act_finding, group_name, org_name)
             msj_finding_pending = await create_msj_finding_pending(
                 get_new_context(),
                 act_finding
@@ -450,8 +457,7 @@ async def get_group_new_vulnerabilities(context: Any, group_name: str) -> None:
                 act_finding['project_name']
             ))
             mail_context['project_url'] = (
-                f'{BASE_URL}/groups/'
-                f'{act_finding["project_name"]}/indicators'
+                f'{BASE_URL}/orgs/{org_name}/groups/{group_name}/vulns'
             )
     except (TypeError, KeyError) as ex:
         LOGGER.exception(ex, extra={'extra': {'group_name': group_name}})

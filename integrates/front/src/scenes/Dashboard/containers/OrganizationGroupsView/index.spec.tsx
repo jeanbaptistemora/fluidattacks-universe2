@@ -196,7 +196,7 @@ describe("Organization groups view", (): void => {
     unittestingRow.simulate("click");
 
     expect(mockHistoryPush).toHaveBeenCalledWith(
-      "/orgs/okada/groups/unittesting/"
+      "/orgs/okada/groups/unittesting/vulns"
     );
   });
 

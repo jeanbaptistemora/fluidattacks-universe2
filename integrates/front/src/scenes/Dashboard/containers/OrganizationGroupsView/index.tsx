@@ -66,7 +66,7 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
   }, [refetchGroups]);
   // Auxiliary functions
   const goToGroup: (groupName: string) => void = (groupName: string): void => {
-    push(`${url}/${groupName.toLowerCase()}/`);
+    push(`${url}/${groupName.toLowerCase()}/vulns`);
   };
 
   const handleRowClick: (

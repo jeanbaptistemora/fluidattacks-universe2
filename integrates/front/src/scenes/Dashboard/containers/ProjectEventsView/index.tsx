@@ -8,7 +8,7 @@ import { track } from "mixpanel-browser";
 import React, { useCallback, useState } from "react";
 import { selectFilter } from "react-bootstrap-table2-filter";
 import { useSelector } from "react-redux";
-import { useHistory, useParams } from "react-router";
+import { useHistory, useParams, useRouteMatch } from "react-router-dom";
 import { Field, FormSection, formValueSelector } from "redux-form";
 import type { InjectedFormProps, Validator } from "redux-form";
 import type { ConfigurableValidator } from "revalidate";
@@ -90,6 +90,7 @@ const maxEventDetailsLength: ConfigurableValidator = maxLength(
 const ProjectEventsView: React.FC = (): JSX.Element => {
   const { push } = useHistory();
   const { projectName } = useParams<{ projectName: string }>();
+  const { url } = useRouteMatch();
 
   const selectOptionsStatus: optionSelectFilterProps[] = [
     { label: "Solved", value: "Solved" },
@@ -245,7 +246,7 @@ const ProjectEventsView: React.FC = (): JSX.Element => {
     rowInfo: { id: string }
   ): void => {
     track("ReadEvent");
-    push(`/groups/${projectName}/events/${rowInfo.id}/description`);
+    push(`${url}/${rowInfo.id}/description`);
   };
 
   const [isEventModalOpen, setEventModalOpen] = useState(false);

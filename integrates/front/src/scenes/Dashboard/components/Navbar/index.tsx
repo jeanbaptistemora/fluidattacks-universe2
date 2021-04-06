@@ -89,7 +89,7 @@ const NavbarComponent: React.FC = (): JSX.Element => {
     (values: { projectName: string }): void => {
       const projectName: string = values.projectName.toLowerCase();
       if (!_.isEmpty(projectName)) {
-        push(`/groups/${projectName}/indicators`);
+        push(`/groups/${projectName}/vulns`);
       }
     },
     [push]

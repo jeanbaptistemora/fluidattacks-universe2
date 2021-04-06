@@ -19,12 +19,12 @@ describe("ProjectContent", (): void => {
     expect.hasAssertions();
 
     const wrapper: ReactWrapper = mount(
-      <MemoryRouter initialEntries={["/project/TEST/indicators"]}>
+      <MemoryRouter initialEntries={["/orgs/testorg/groups/test/vulns"]}>
         <Provider store={store}>
           <MockedProvider addTypename={false} mocks={[]}>
             <Route
               component={ProjectContent}
-              path={"/project/:projectName/indicators"}
+              path={"/orgs/:organizationName/groups/:projectName/vulns"}
             />
           </MockedProvider>
         </Provider>
@@ -39,12 +39,12 @@ describe("ProjectContent", (): void => {
     expect.hasAssertions();
 
     const wrapper: ReactWrapper = mount(
-      <MemoryRouter initialEntries={["/project/TEST/indicators"]}>
+      <MemoryRouter initialEntries={["/orgs/testorg/groups/test/vulns"]}>
         <Provider store={store}>
           <MockedProvider addTypename={false} mocks={[]}>
             <Route
               component={ProjectContent}
-              path={"/project/:projectName/indicators"}
+              path={"/orgs/:organizationName/groups/:projectName/vulns"}
             />
           </MockedProvider>
         </Provider>

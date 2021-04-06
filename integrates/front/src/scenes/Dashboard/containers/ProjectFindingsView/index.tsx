@@ -12,7 +12,7 @@ import { track } from "mixpanel-browser";
 import React, { useCallback, useState } from "react";
 import { selectFilter, textFilter } from "react-bootstrap-table2-filter";
 import { Trans } from "react-i18next";
-import { useHistory, useParams } from "react-router-dom";
+import { useHistory, useParams, useRouteMatch } from "react-router-dom";
 
 import { Button } from "components/Button";
 import { DataTableNext } from "components/DataTableNext";
@@ -57,6 +57,7 @@ const ProjectFindingsView: React.FC = (): JSX.Element => {
 
   const { projectName } = useParams<{ projectName: string }>();
   const { push } = useHistory();
+  const { url } = useRouteMatch();
 
   // State management
   const [isReportsModalOpen, setReportsModalOpen] = useState(false);
@@ -189,7 +190,7 @@ const ProjectFindingsView: React.FC = (): JSX.Element => {
     _0: React.FormEvent<HTMLButtonElement>,
     rowInfo: { id: string }
   ): void => {
-    push(`/groups/${projectName}/vulns/${rowInfo.id}/locations`);
+    push(`${url}/${rowInfo.id}/locations`);
   };
 
   const handleQryErrors: (error: ApolloError) => void = useCallback(

@@ -107,8 +107,13 @@ def test_extract_info_from_event_dict():
 
 def test_get_finding_url():
     dumb_finding_dict = {'project_name': 'test', 'finding_id': 'test'}
-    test_data = get_finding_url(dumb_finding_dict)
-    expected_output = 'https://integrates.fluidattacks.com/groups/test/test/description'
+    org_name = 'okada'
+    group_name = 'group_test'
+    test_data = get_finding_url(dumb_finding_dict, group_name, org_name)
+    expected_output = (
+        'https://integrates.fluidattacks.com/orgs/okada/groups'
+        '/group_test/test/description'
+    )
     assert test_data == expected_output
 
 @freeze_time('2019-09-15')

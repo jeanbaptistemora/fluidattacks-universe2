@@ -39,13 +39,13 @@ describe("TagContent", (): void => {
 
     const wrapper: ReactWrapper = mount(
       <MemoryRouter
-        initialEntries={["/orgs/testorg/portfolios/test-projects/indicators"]}
+        initialEntries={["/orgs/testorg/portfolios/test-projects/analytics"]}
       >
         <Provider store={store}>
           <MockedProvider addTypename={false} mocks={[mocks]}>
             <Route
               component={TagContent}
-              path={"/orgs/:organizationName/portfolios/:tagName/indicators"}
+              path={"/orgs/:organizationName/portfolios/:tagName/analytics"}
             />
           </MockedProvider>
         </Provider>

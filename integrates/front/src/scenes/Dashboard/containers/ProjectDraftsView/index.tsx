@@ -6,7 +6,7 @@ import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import React, { useCallback, useEffect, useState } from "react";
 import { selectFilter } from "react-bootstrap-table2-filter";
-import { useHistory, useParams } from "react-router-dom";
+import { useHistory, useParams, useRouteMatch } from "react-router-dom";
 import { Field } from "redux-form";
 import type { InjectedFormProps } from "redux-form";
 
@@ -38,6 +38,7 @@ import { required, validDraftTitle } from "utils/validations";
 const ProjectDraftsView: React.FC = (): JSX.Element => {
   const { projectName } = useParams<{ projectName: string }>();
   const { push } = useHistory();
+  const { url } = useRouteMatch();
 
   const goToFinding: (
     event: React.FormEvent<HTMLButtonElement>,
@@ -46,7 +47,7 @@ const ProjectDraftsView: React.FC = (): JSX.Element => {
     _0: React.FormEvent<HTMLButtonElement>,
     rowInfo: { id: string }
   ): void => {
-    push(`/groups/${projectName}/drafts/${rowInfo.id}/locations`);
+    push(`${url}/${rowInfo.id}/locations`);
   };
 
   const [isDraftModalOpen, setDraftModalOpen] = useState(false);
