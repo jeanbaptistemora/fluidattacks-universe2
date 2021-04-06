@@ -311,14 +311,18 @@ def get_possible_syntax_steps(
     graph_db: graph_model.GraphDB,
     finding: core_model.FindingEnum,
 ) -> PossibleSyntaxSteps:
-    syntax_steps_map: PossibleSyntaxSteps = {
-        shard.path: get_possible_syntax_steps_for_finding(
+    syntax_steps_map: PossibleSyntaxSteps = {}
+    for shard_index, shard in enumerate(graph_db.shards):
+        log_blocking(
+            'info', 'Evaluating %s, shard %s: %s',
+            finding.name, shard_index, shard.path,
+        )
+
+        syntax_steps_map[shard.path] = get_possible_syntax_steps_for_finding(
             graph_db=graph_db,
             finding=finding,
             shard=shard,
         )
-        for shard in graph_db.shards
-    }
 
     if CTX.debug:
         output = get_debug_path(f'tree-sitter-syntax-steps-{finding.name}')
