@@ -84,6 +84,7 @@ module.exports = {
         'rules/credentials/r136',
         'rules/credentials/r137',
         'rules/credentials/r138',
+        'rules/credentials/r139',
       ],
     },
   ],
