@@ -1,5 +1,5 @@
 resource "cloudflare_rate_limit" "integrates_production" {
-  zone_id             = lookup(data.cloudflare_zones.fluidattacks_com.zones[0], "id")
+  zone_id             = cloudflare_zone.fluidattacks_com.id
   threshold           = 600
   period              = 60
   disabled            = false
@@ -8,7 +8,7 @@ resource "cloudflare_rate_limit" "integrates_production" {
 
   match {
     request {
-      url_pattern = "integratestest.${lookup(data.cloudflare_zones.fluidattacks_com.zones[0], "name")}/*"
+      url_pattern = "integrates.${cloudflare_zone.fluidattacks_com.zone}/*"
       schemes     = ["_ALL_"]
       methods     = ["_ALL_"]
     }
