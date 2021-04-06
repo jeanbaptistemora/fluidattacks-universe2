@@ -27,12 +27,6 @@ data "aws_security_group" "cloudflare" {
 data "aws_eks_cluster" "cluster" {
   name = module.eks.cluster_id
 }
-data "local_file" "ci_init" {
-  filename = "ci-init.sh"
-}
-data "local_file" "ci_config" {
-  filename = "ci-config.yaml"
-}
 data "aws_eks_cluster_auth" "cluster" {
   name = module.eks.cluster_id
 }
