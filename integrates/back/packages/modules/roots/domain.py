@@ -384,7 +384,8 @@ async def update_git_root(user_email: str, **kwargs: Any) -> None:
     validations.validate_nickname(nickname)
     validations.validate_nickname_is_unique(
         nickname,
-        await get_roots(group_name=group_name)
+        await get_roots(group_name=group_name),
+        old_nickname=root.state.nickname
     )
 
     await roots_dal.update_git_root_state(

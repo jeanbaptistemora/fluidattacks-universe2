@@ -48,9 +48,10 @@ def is_valid_git_branch(branch_name: str) -> bool:
 
 def validate_nickname_is_unique(
     nickname: str,
-    roots: Tuple[RootItem, ...]
+    roots: Tuple[RootItem, ...],
+    old_nickname: str = ''
 ) -> None:
-    if (nickname in {
+    if (nickname != old_nickname and nickname in {
         root.state.nickname
         for root in roots
         if isinstance(root, GitRootItem)
