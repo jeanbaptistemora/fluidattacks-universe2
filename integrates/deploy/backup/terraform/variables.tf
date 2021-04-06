@@ -31,9 +31,9 @@ variable "dynamodb-tables" {
     "fi_project_comments",
     "FI_projects",
     "FI_toe",
-    "FI_toe_lines",
     "FI_users",
     "FI_vulnerabilities",
-    "integrates"
+    "integrates",
+    "integrates_vms"
   ]
 }

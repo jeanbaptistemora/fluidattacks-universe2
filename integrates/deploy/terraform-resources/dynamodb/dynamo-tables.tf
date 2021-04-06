@@ -211,29 +211,6 @@ resource "aws_dynamodb_table" "toe" {
   }
 }
 
-resource "aws_dynamodb_table" "toe_lines" {
-  name         = "FI_toe_lines"
-  billing_mode = "PAY_PER_REQUEST"
-  hash_key     = "pk"
-  range_key    = "sk"
-
-  attribute {
-    name = "pk"
-    type = "S"
-  }
-
-  attribute {
-    name = "sk"
-    type = "S"
-  }
-
-  tags = {
-    "Name"               = "FI_toe_lines"
-    "management:type"    = "production"
-    "management:product" = "integrates"
-  }
-}
-
 resource "aws_dynamodb_table" "projects" {
   name         = "FI_projects"
   billing_mode = "PAY_PER_REQUEST"
