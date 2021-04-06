@@ -4,7 +4,7 @@ function main {
       echo '[INFO] Firefox: __envFirefox__' \
   &&  echo '[INFO] Geckodriver: __envGeckodriver__' \
   &&  aws_login_dev integrates \
-  &&  aws_eks_update_kubeconfig 'integrates-cluster' 'us-east-1' \
+  &&  aws_eks_update_kubeconfig 'makes-k8s' 'us-east-1' \
   &&  sops_export_vars integrates/secrets-development.yaml \
         STARLETTE_SESSION_KEY \
         TEST_E2E_USER \
