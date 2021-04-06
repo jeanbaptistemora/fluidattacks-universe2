@@ -121,6 +121,11 @@ observes.lint.tap-csv:
   <<: *observes_in_dev_branch
   stage: lint-code
 
+observes.lint.tap-delighted:
+  <<: *makes
+  <<: *observes_in_dev_branch
+  stage: lint-code
+
 observes.lint.tap-formstack:
   <<: *makes
   <<: *observes_in_dev_branch

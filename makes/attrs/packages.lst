@@ -106,6 +106,8 @@ observes.env.tap-csv.development
 observes.env.tap-csv.development.python
 observes.env.tap-csv.runtime
 observes.env.tap-csv.runtime.python
+observes.env.tap-delighted.runtime
+observes.env.tap-delighted.runtime.python
 observes.env.tap-formstack.runtime
 observes.env.tap-formstack.runtime.python
 observes.env.tap-git.runtime
@@ -135,6 +137,7 @@ observes.lint.singer-io
 observes.lint.streamer-gitlab
 observes.lint.streamer-zoho-crm
 observes.lint.tap-csv
+observes.lint.tap-delighted
 observes.lint.tap-formstack
 observes.lint.tap-mailchimp
 observes.lint.tap-mixpanel
