@@ -128,3 +128,12 @@ def load_training_data(training_dir: str) -> DataFrame:
     ]
 
     return pd.concat(raw_data)
+
+
+def update_results_csv(filename: str, results: List[List[str]]) -> None:
+    with open(filename, 'w', newline='') as results_file:
+        csv_writer = csv.writer(results_file)
+        csv_writer.writerows(results)
+    S3_BUCKET \
+        .Object(f'training-output/results/{filename}')\
+        .upload_file(filename)

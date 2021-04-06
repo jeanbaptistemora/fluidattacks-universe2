@@ -3,7 +3,6 @@
 # Standard Libraries
 import argparse
 import os
-import csv
 import tempfile
 import time
 from itertools import combinations
@@ -29,7 +28,8 @@ from training.training_script.utils import (
     get_model_performance_metrics,
     get_previous_training_results,
     load_training_data,
-    split_training_data
+    split_training_data,
+    update_results_csv
 )
 
 
@@ -194,12 +194,7 @@ def main() -> None:
             args.train,
             previous_results
         )
-        with open(results_filename, 'w', newline='') as results_file:
-            csv_writer = csv.writer(results_file)
-            csv_writer.writerows(training_output)
-        S3_BUCKET\
-            .Object(f'training-output/results/{results_filename}')\
-            .upload_file(results_filename)
+        update_results_csv(results_filename, training_output)
         save_best_model_to_s3(model_class, args.train, training_output)
 
 

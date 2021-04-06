@@ -1,7 +1,6 @@
 # Standard libraries
 import argparse
 import os
-import csv
 import tempfile
 import time
 from typing import (
@@ -27,7 +26,8 @@ from training.training_script.utils import (
     get_model_performance_metrics,
     get_previous_training_results,
     load_training_data,
-    split_training_data
+    split_training_data,
+    update_results_csv
 )
 
 
@@ -80,15 +80,6 @@ def train_model(
     ])
 
     return training_output
-
-
-def update_results_csv(filename: str, results: List[List[str]]) -> None:
-    with open(filename, 'w', newline='') as results_file:
-        csv_writer = csv.writer(results_file)
-        csv_writer.writerows(results)
-    S3_BUCKET \
-        .Object(f'training-output/results/{filename}')\
-        .upload_file(filename)
 
 
 def save_model(
