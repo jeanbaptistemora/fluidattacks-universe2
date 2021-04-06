@@ -47,3 +47,11 @@ to any organization that stores, processes or transfers European citizens'
 personal information. We help you achieve compliance with this regulation,
 starting with identifying all relevant vulnerabilities in your software. +
 [button]#link:gdpr/[Go to GDPR {arrow}]#
+
+== CVE
+CVE is a free-to-use list of publicly known cybersecurity vulnerabilities.
+Services and products worldwide incorporate it to ensure certainty among
+stakeholders when communicating vulnerabilities.
+We work and stay updated based on the CVE IDs for our findings and
+reports when evaluating your systems. +
+[button]#link:cve/[Go to CVE {arrow}]#
