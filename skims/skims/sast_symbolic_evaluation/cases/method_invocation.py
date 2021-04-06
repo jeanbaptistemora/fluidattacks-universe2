@@ -312,7 +312,7 @@ def attempt_by_args_propagation_no_type(
 def attempt_by_args_propagation(args: EvaluatorArgs, method: str) -> bool:
     method_field, method_name = split_on_last_dot(args.syntax_step.method)
     if field := lookup_java_field(args, method_field):
-        method = f'{field.var_type}.{method_name}'
+        method = f'{field.metadata.var_type}.{method_name}'
 
     if (
         (method in BY_ARGS_PROPAGATION) and
@@ -431,7 +431,7 @@ def attempt_by_type(args: EvaluatorArgs, method: str) -> bool:
 
     if (
         (method_var_decl := lookup_java_field(args, method_var)) and
-        (method_path in BY_TYPE.get(method_var_decl.var_type, {}))
+        (method_path in BY_TYPE.get(method_var_decl.metadata.var_type, {}))
     ):
         args.syntax_step.meta.danger = True
         return True

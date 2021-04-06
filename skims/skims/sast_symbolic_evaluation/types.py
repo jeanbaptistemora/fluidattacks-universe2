@@ -53,4 +53,9 @@ class LookedUpJavaClass(NamedTuple):
 
 class LookedUpJavaMethod(NamedTuple):
     metadata: graph_model.GraphShardMetadataJavaClassMethod
-    shard_path: graph_model.GraphShard
+    shard_path: str
+
+
+class LookedUpJavaClassField(NamedTuple):
+    metadata: graph_model.GraphShardMetadataJavaClassField
+    shard_path: str

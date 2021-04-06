@@ -10,6 +10,7 @@ from model import (
 from sast_symbolic_evaluation.types import (
     EvaluatorArgs,
     LookedUpJavaClass,
+    LookedUpJavaClassField,
     LookedUpJavaMethod,
 )
 
@@ -70,16 +71,24 @@ def _lookup_java_field_in_shard(
 def lookup_java_field(
     args: EvaluatorArgs,
     field_name: str,
-) -> Optional[graph_model.GraphShardMetadataJavaClassField]:
+    field_class: Optional[str] = None,
+) -> Optional[LookedUpJavaClassField]:
     # First lookup in the current shard
     if data := _lookup_java_field_in_shard(args.shard, field_name):
-        return data
+        return LookedUpJavaClassField(data, args.shard.path)
 
     # Now lookoup in other shards different than the current shard
-    for shard in args.graph_db.shards:
-        if shard.path != args.shard.path:
-            if data := _lookup_java_field_in_shard(shard, field_name):
-                return data
+    if field_class and (
+        shard_path := args.graph_db.shards_by_class.get(field_class)
+    ):
+        shard = args.graph_db.shards_by_path_f(shard_path)
+        if data := _lookup_java_field_in_shard(shard, field_name):
+            return LookedUpJavaClassField(data, shard.path)
+    else:
+        for shard in args.graph_db.shards:
+            if shard.path != args.shard.path:
+                if data := _lookup_java_field_in_shard(shard, field_name):
+                    return LookedUpJavaClassField(data, shard.path)
 
     return None
 
