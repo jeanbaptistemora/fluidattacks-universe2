@@ -8,9 +8,7 @@ Finalization Time: 2021-02-25 at 14:23:58 UTC-05
 # Standard library
 import copy
 from pprint import pprint
-from typing import (
-    cast,
-)
+from typing import cast
 
 # Third party libraries
 from aioextensions import (
@@ -20,13 +18,12 @@ from aioextensions import (
 
 # Local libraries
 from backend.dal.helpers import dynamodb
-from backend.dal import (
-    vulnerability as vuln_dal,
-)
 from backend.typing import (
     Historic,
     Vulnerability,
 )
+from vulnerabilities import dal as vulns_dal
+
 
 VULNERABILITY_TABLE = 'FI_vulnerabilities'
 
@@ -46,7 +43,7 @@ async def remove_analyst_prefix_in_vuln_historic_state(
             state_info['analyst'] = state_info['analyst'][len(prefix):]
 
     if to_update:
-        success = await vuln_dal.update(
+        success = await vulns_dal.update(
             vuln['finding_id'],
             vuln['UUID'],
             {

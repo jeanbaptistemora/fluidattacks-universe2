@@ -54,7 +54,6 @@ from backend import (
     mailer,
     util,
 )
-from backend.dal import vulnerability as vuln_dal
 from backend.dal.helpers.dynamodb import start_context
 from backend.domain import project as project_domain
 from backend.exceptions import (
@@ -89,6 +88,7 @@ from newutils import (
 )
 from notifications import domain as notifications_domain
 from roots import domain as roots_domain
+from vulnerabilities import dal as vulns_dal
 from __init__ import BASE_URL
 from .utils import validate_stream
 
@@ -168,7 +168,7 @@ async def add_vuln_to_dynamo(
         new_state['state'] = item['state']
         historic_state.append(new_state)
         data['historic_state'] = historic_state
-        response = await vuln_dal.create(data)
+        response = await vulns_dal.create(data)
     else:
         util.cloudwatch_log(
             info.context,
@@ -208,7 +208,7 @@ async def confirm_zero_risk_vulnerabilities(
     )
     confirm_zero_risk_vulns = await collect(
         [
-            vuln_dal.confirm_zero_risk_vulnerability(
+            vulns_dal.confirm_zero_risk_vulnerability(
                 user_email,
                 today,
                 comment_id,
@@ -246,7 +246,7 @@ async def delete_tags(
         if tag_info.get('tag') == set():
             tag_info['tag'] = None
         vuln_update_coroutines.append(
-            vuln_dal.update(
+            vulns_dal.update(
                 finding_id,
                 vulnerability,
                 cast(Dict[str, FindingType], tag_info)
@@ -341,7 +341,7 @@ def filter_zero_risk(
 
 
 async def get(vuln_id: str) -> Dict[str, FindingType]:
-    vuln = await vuln_dal.get(vuln_id)
+    vuln = await vulns_dal.get(vuln_id)
     if not vuln:
         raise VulnNotFound()
     first_vuln = cast(
@@ -359,7 +359,7 @@ async def get_by_finding(
     finding_id: str,
     vuln_id: str
 ) -> Dict[str, FindingType]:
-    vuln = await vuln_dal.get_by_finding(finding_id, uuid=vuln_id)
+    vuln = await vulns_dal.get_by_finding(finding_id, uuid=vuln_id)
     first_vuln = cast(
         Dict[str, List[Dict[str, str]]],
         vuln[0]
@@ -377,7 +377,7 @@ async def get_by_finding_and_uuids(
     finding_id: str,
     vuln_ids: Set[str],
 ) -> List[Dict[str, FindingType]]:
-    finding_vulns = await vuln_dal.get_by_finding(finding_id)
+    finding_vulns = await vulns_dal.get_by_finding(finding_id)
     fin_vulns = [vuln for vuln in finding_vulns if vuln['UUID'] in vuln_ids]
     if len(fin_vulns) != len(vuln_ids):
         raise VulnNotInFinding()
@@ -472,7 +472,7 @@ async def get_vulnerabilities_async(
     table: aioboto3.session.Session.client,
     should_list_deleted: bool = False
 ) -> List[Dict[str, FindingType]]:
-    vulnerabilities = await vuln_dal.get_vulnerabilities_async(
+    vulnerabilities = await vulns_dal.get_vulnerabilities_async(
         finding_id,
         table,
         should_list_deleted
@@ -515,8 +515,8 @@ async def get_vulnerabilities_file(
         )
         await uploaded_file.write(bstream.read())
         await uploaded_file.seek(0)
-        uploaded_file_name = await vuln_dal.upload_file(uploaded_file)
-        uploaded_file_url = await vuln_dal.sign_url(uploaded_file_name)
+        uploaded_file_name = await vulns_dal.upload_file(uploaded_file)
+        uploaded_file_url = await vulns_dal.sign_url(uploaded_file_name)
     return uploaded_file_url
 
 
@@ -610,7 +610,7 @@ async def list_vulnerabilities_async(
     vulns: List[Dict[str, FindingType]] = []
     async with AsyncExitStack() as stack:
         resource = await stack.enter_async_context(start_context())
-        table = await resource.Table(vuln_dal.TABLE_NAME)
+        table = await resource.Table(vulns_dal.TABLE_NAME)
         vulns = await collect(
             get_vulnerabilities_async(
                 finding_id,
@@ -686,7 +686,7 @@ async def map_vulns_to_dynamo(
     if len(vulns_to_add) > 100:
         raise InvalidVulnsNumber()
 
-    finding_vulns = await vuln_dal.get_by_finding(str(finding_id))
+    finding_vulns = await vulns_dal.get_by_finding(str(finding_id))
     vulns: List[Dict[str, FindingType]] = [
         next(
             iter([
@@ -810,7 +810,7 @@ async def reject_zero_risk_vulnerabilities(
     )
     reject_zero_risk_vulns = await collect(
         [
-            vuln_dal.reject_zero_risk_vulnerability(
+            vulns_dal.reject_zero_risk_vulnerability(
                 user_email,
                 today,
                 comment_id,
@@ -869,7 +869,7 @@ async def request_verification(  # pylint: disable=too-many-arguments
     await comments_domain.create(int(finding_id), comment_data, user_info)
 
     update_vulns = await collect(
-        map(vuln_dal.request_verification, vulnerabilities)
+        map(vulns_dal.request_verification, vulnerabilities)
     )
     if all(update_vulns) and update_finding:
         schedule(
@@ -919,7 +919,7 @@ async def request_zero_risk_vulnerabilities(
     )
     request_zero_risk_vulns = await collect(
         [
-            vuln_dal.request_zero_risk_vulnerability(
+            vulns_dal.request_zero_risk_vulnerability(
                 user_email,
                 today,
                 comment_id,
@@ -1091,7 +1091,7 @@ async def update_treatment_vuln(
         util.camelcase_to_snakecase(k): new_info.get(k)
         for k in new_info
     }
-    result_update_vuln = await vuln_dal.update(
+    result_update_vuln = await vulns_dal.update(
         finding_id,
         str(vulnerability),
         new_info
@@ -1187,7 +1187,7 @@ async def update_vuln_state(
         data_to_update['commit_hash'] = item['commit_hash']
 
     if data_to_update:
-        return await vuln_dal.update(
+        return await vulns_dal.update(
             finding_id,
             str(vulnerability.get('UUID')),
             data_to_update
@@ -1433,7 +1433,7 @@ async def verify_vulnerabilities(  # pylint: disable=too-many-locals
     await comments_domain.create(int(finding_id), comment_data, user_info)
 
     success = await collect(
-        map(vuln_dal.verify_vulnerability, vulnerabilities)
+        map(vulns_dal.verify_vulnerability, vulnerabilities)
     )
     if all(success) and update_finding:
         success = await verify(

@@ -24,12 +24,12 @@ from boto3.dynamodb.conditions import Attr, Key
 
 # Local libraries
 from backend.dal.helpers import dynamodb
-from backend.dal import vulnerability as vuln_dal
 from backend.typing import (
     Finding,
     Historic,
 )
 from findings import dal as findings_dal
+from vulnerabilities import dal as vulns_dal
 
 
 FINDINGS_TABLE: str = 'FI_findings'
@@ -81,7 +81,7 @@ async def restore_historic_state(
             )
             print(f'finding_id = {finding_id}')
         else:
-            success = await vuln_dal.update(
+            success = await vulns_dal.update(
                 finding_id,
                 vuln_uuid,
                 {

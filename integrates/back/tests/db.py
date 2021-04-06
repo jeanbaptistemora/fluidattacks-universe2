@@ -1,8 +1,6 @@
 # Standard libraries
 import json
-from decimal import (
-    Decimal,
-)
+from decimal import Decimal
 from typing import (
     Any,
     Awaitable,
@@ -12,15 +10,10 @@ from typing import (
 )
 
 # Third party libraries
-from aioextensions import (
-    collect,
-)
+from aioextensions import collect
 
 # Local libraries
-from backend.dal import (
-    project as dal_group,
-    vulnerability as dal_vulnerability,
-)
+from backend.dal import project as dal_group
 from newutils.datetime import get_from_str
 from comments import dal as dal_comment
 from dynamodb.types import RootItem
@@ -31,6 +24,7 @@ from names import dal as dal_names
 from roots import dal as dal_roots
 from organizations import dal as dal_organizations
 from users import dal as dal_users
+from vulnerabilities import dal as dal_vulns
 
 
 async def populate_users(data: List[Any]) -> bool:
@@ -124,7 +118,7 @@ async def populate_findings(data: List[Any]) -> bool:
 async def populate_vulnerabilities(data: List[Any]) -> bool:
     coroutines: List[Awaitable[bool]] = []
     coroutines.extend([
-        dal_vulnerability.create(
+        dal_vulns.create(
             vulnerability,
         )
         for vulnerability in data

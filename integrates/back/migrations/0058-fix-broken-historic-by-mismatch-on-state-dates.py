@@ -53,9 +53,11 @@ from aioextensions import (
 )
 
 # Local libraries
-from backend.dal import vulnerability as vuln_dal
 from backend.typing import Vulnerability
-from vulnerabilities import domain as vulns_domain
+from vulnerabilities import (
+    dal as vulns_dal,
+    domain as vulns_domain,
+)
 
 
 STAGE = os.environ['STAGE']
@@ -122,7 +124,7 @@ async def fix_vuln_historics(
                     '[INFO] historic_state of vuln with UUID: ' +
                     f'{uuid} on finding: {finding_id} will be changed'
                 )
-                await vuln_dal.update(
+                await vulns_dal.update(
                     finding_id,
                     uuid,
                     {'historic_state': result_historic}

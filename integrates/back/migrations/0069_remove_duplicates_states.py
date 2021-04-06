@@ -23,9 +23,9 @@ from more_itertools import chunked
 # Local libraries
 from backend.api.dataloaders.group_drafts import GroupDraftsLoader
 from backend.api.dataloaders.group_findings import GroupFindingsLoader
-from backend.dal import vulnerability as vuln_dal
 from backend.domain.project import get_alive_projects
 from backend.typing import Finding
+from vulnerabilities import dal as vulns_dal
 from vulnerabilities.domain import list_vulnerabilities_async
 
 
@@ -44,7 +44,7 @@ async def _remove_duplicate_state(vuln: Dict[str, Finding]) -> None:
 
     if len(historic_state) > len(historic_state_without_duplicate):
         if STAGE == 'apply':
-            await vuln_dal.update(
+            await vulns_dal.update(
                 finding_id,
                 vuln_id,
                 {'historic_state': historic_state_without_duplicate}

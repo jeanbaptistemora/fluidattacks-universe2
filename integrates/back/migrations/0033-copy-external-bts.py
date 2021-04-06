@@ -22,13 +22,14 @@ from aioextensions import (
 from more_itertools import chunked
 
 # Local libraries
-from backend.dal import vulnerability as vuln_dal
+from backend.dal import vulnerability as vulns_dal
 from backend.domain.project import (
     get_active_projects,
     list_findings,
 )
 from backend.typing import Finding
 from findings.domain import get_findings_async
+from vulnerabilities import dal as vulns_dal
 from vulnerabilities.domain import list_vulnerabilities_async
 
 
@@ -45,7 +46,7 @@ async def _copy_external_bts(
     vuln_id = str(vuln.get('UUID', ''))
     if external_bts and not vuln_external_bts:
         if STAGE == 'apply':
-            await vuln_dal.update(
+            await vulns_dal.update(
                 finding_id,
                 vuln_id,
                 {'external_bts': external_bts}

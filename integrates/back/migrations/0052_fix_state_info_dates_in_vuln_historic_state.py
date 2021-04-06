@@ -16,10 +16,12 @@ from aioextensions import collect
 
 # Local
 from backend.dal.helpers import dynamodb
-from backend.dal import vulnerability as vuln_dal
 from backend.filters import finding as finding_filters
 from newutils import datetime as datetime_utils
-from vulnerabilities import domain as vulns_domain
+from vulnerabilities import (
+    dal as vulns_dal,
+    domain as vulns_domain,
+)
 
 
 STAGE: str = os.environ['STAGE']
@@ -72,7 +74,7 @@ async def main() -> None:
                 print('historic_state =')
                 pprint(historic_state)
                 updates.append(
-                    vuln_dal.update(
+                    vulns_dal.update(
                         finding_id,
                         vuln_id,
                         {"historic_state": historic_state}

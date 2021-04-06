@@ -13,12 +13,9 @@ from aioextensions import (
 
 # Local libraries
 from backend.dal.helpers import dynamodb
-from backend.dal import (
-    vulnerability as vuln_dal,
-)
-from backend.typing import (
-    Vulnerability,
-)
+from backend.typing import Vulnerability
+from vulnerabilities import dal as vulns_dal
+
 
 VULNERABILITY_TABLE = 'FI_vulnerabilities'
 
@@ -28,7 +25,7 @@ async def remove_source_field_from_vuln(
 ) -> bool:
     success = True
     if vuln.get('source'):
-        success = await vuln_dal.update(
+        success = await vulns_dal.update(
             vuln['finding_id'],
             vuln['UUID'],
             {

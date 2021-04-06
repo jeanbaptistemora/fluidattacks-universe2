@@ -21,9 +21,9 @@ from more_itertools import chunked
 
 # Local libraries
 from backend.api.dataloaders.group import GroupLoader
-from backend.dal import vulnerability as vuln_dal
 from backend.domain.project import get_active_projects
 from backend.typing import Finding
+from vulnerabilities import dal as vulns_dal
 from vulnerabilities.domain import list_vulnerabilities_async
 
 
@@ -44,7 +44,7 @@ async def _remove_treatment_manager(vuln: Dict[str, Finding]) -> None:
 
     if should_update:
         if STAGE == 'apply':
-            await vuln_dal.update(
+            await vulns_dal.update(
                 finding_id,
                 vuln_id,
                 {'historic_treatment': historic_treatment}

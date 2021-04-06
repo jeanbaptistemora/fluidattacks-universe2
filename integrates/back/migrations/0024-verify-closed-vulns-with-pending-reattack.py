@@ -29,13 +29,15 @@ from aioextensions import (
 from more_itertools import chunked
 
 from back import settings
-from backend.dal import vulnerability as vuln_dal
 from backend.domain import project as group_domain
 from backend.typing import Comment as CommentType
 from comments import dal as comments_dal
 from findings import dal as findings_dal
 from users import domain as users_domain
-from vulnerabilities import domain as vulns_domain
+from vulnerabilities import (
+    dal as vulns_dal,
+    domain as vulns_domain,
+)
 
 
 django.setup()
@@ -122,7 +124,7 @@ async def verify_closed_vulnerabilities(
         'parent': 0,
     }
     coroutines.append(comments_dal.create(comment_id, comment_data))
-    coroutines.extend(map(vuln_dal.verify_vulnerability, vulnerabilities))
+    coroutines.extend(map(vulns_dal.verify_vulnerability, vulnerabilities))
     await collect(coroutines)
 
 

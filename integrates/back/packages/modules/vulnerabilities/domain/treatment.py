@@ -23,7 +23,6 @@ from backend import (
     authz,
     util,
 )
-from backend.dal import vulnerability as vuln_dal
 from backend.exceptions import (
     InvalidAcceptanceDays,
     InvalidAcceptanceSeverity,
@@ -42,6 +41,7 @@ from newutils import (
     vulnerabilities as vulns_utils
 )
 from organizations import domain as orgs_domain
+from vulnerabilities import dal as vulns_dal
 from .core import should_send_update_treatment
 from .utils import (
     compare_historic_treatments,
@@ -201,7 +201,7 @@ async def add_vuln_treatment(
         vuln.get('historic_treatment', [])
     )
     historic_treatment.append(new_state)
-    return await vuln_dal.update(
+    return await vulns_dal.update(
         finding_id,
         str(vuln.get('UUID', '')),
         {'historic_treatment': historic_treatment}
@@ -259,7 +259,7 @@ async def handle_vuln_acceptation(
             })
 
     historic_treatment.extend(new_treatments)
-    return await vuln_dal.update(
+    return await vulns_dal.update(
         finding_id,
         str(vuln.get('UUID', '')),
         {'historic_treatment': historic_treatment}

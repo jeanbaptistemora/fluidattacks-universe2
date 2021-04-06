@@ -12,11 +12,6 @@ from pytz import timezone
 from back import settings
 from back.tests.unit.utils import create_dummy_session
 from backend.api import get_new_context
-from backend.dal import (
-    project as project_dal,
-    vulnerability as vuln_dal,
-)
-from backend.dal.helpers import dynamodb
 from backend.domain.project import (
     add_comment,
     create_group,
@@ -56,6 +51,7 @@ from backend.exceptions import (
 from findings import dal as findings_dal
 from names import domain as names_domain
 from newutils import datetime as datetime_utils
+from vulnerabilities import dal as vulns_dal
 
 
 pytestmark = [
@@ -134,7 +130,7 @@ async def test_get_last_closing_date():
         'analyst': 'testanalyst@test.com'
     }
 
-    open_vulnerability = await vuln_dal.get(
+    open_vulnerability = await vulns_dal.get(
         '80d6a69f-a376-46be-98cd-2fdedcffdcc0'
     )
 
@@ -159,7 +155,7 @@ async def test_is_vulnerability_closed():
         'analyst': 'testanalyst@test.com'
     }
 
-    open_vulnerability = await vuln_dal.get(
+    open_vulnerability = await vulns_dal.get(
         '80d6a69f-a376-46be-98cd-2fdedcffdcc0'
     )
 
@@ -218,7 +214,7 @@ async def test_get_open_vulnerability_date():
         'analyst': 'testanalyst@test.com'
     }
 
-    open_vulnerability = await vuln_dal.get(
+    open_vulnerability = await vulns_dal.get(
         '80d6a69f-a376-46be-98cd-2fdedcffdcc0'
     )
 

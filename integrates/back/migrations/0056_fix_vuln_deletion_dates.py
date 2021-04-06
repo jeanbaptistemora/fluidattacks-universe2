@@ -19,7 +19,6 @@ from aioextensions import (
 )
 
 # Local libraries
-from backend.dal import vulnerability as vuln_dal
 from backend.domain import project as group_domain
 from backend.typing import (
     Finding as FindingType,
@@ -27,7 +26,10 @@ from backend.typing import (
 )
 from findings import domain as findings_domain
 from newutils import datetime as datetime_utils
-from vulnerabilities import domain as vulns_domain
+from vulnerabilities import (
+    dal as vulns_dal,
+    domain as vulns_domain,
+)
 
 
 async def fix_vuln_deletion_dates(
@@ -48,7 +50,7 @@ async def fix_vuln_deletion_dates(
                 finding_delation_date
             )
             last_state_info['date'] = finding_delation_date_str
-            success = await vuln_dal.update(
+            success = await vulns_dal.update(
                 finding_id,
                 vuln['UUID'],
                 {

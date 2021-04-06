@@ -8,9 +8,7 @@ Finalization Time: 2021-02-23 at 10:29:38 UTC-05
 # Standard library
 import copy
 from pprint import pprint
-from typing import (
-    cast,
-)
+from typing import cast
 
 # Third party libraries
 from aioextensions import (
@@ -20,14 +18,12 @@ from aioextensions import (
 
 # Local libraries
 from backend.dal.helpers import dynamodb
-from backend.dal import (
-    vulnerability as vuln_dal,
-)
 from backend.typing import (
     Vulnerability,
     Historic
 )
 from newutils import datetime as datetime_utils
+from vulnerabilities import dal as vulns_dal
 
 
 VULNERABILITY_TABLE = 'FI_vulnerabilities'
@@ -72,7 +68,7 @@ async def add_source_field_to_historic_state(
                 state_info['source'] = 'integrates'
 
     if to_update:
-        success = await vuln_dal.update(
+        success = await vulns_dal.update(
             vuln['finding_id'],
             vuln['UUID'],
             {

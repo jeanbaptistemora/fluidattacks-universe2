@@ -8,8 +8,8 @@ Execution Time:    2020-11-26 13:42:51 UTC-5
 Finalization Time: 2020-11-26 14:19:55 UTC-5
 """
 # Standard library
-from itertools import chain
 import os
+from itertools import chain
 from typing import (
     Dict,
     List,
@@ -25,17 +25,13 @@ from more_itertools import chunked
 # Local libraries
 from backend.api.dataloaders.group import GroupLoader
 from backend.api.dataloaders.finding import FindingLoader
-from backend.dal import vulnerability as vuln_dal
-from backend.domain.project import (
-    get_active_projects,
-)
-from backend.typing import (
-    Finding,
-)
+from backend.domain.project import get_active_projects
+from backend.typing import Finding
 from newutils.datetime import (
     DEFAULT_STR,
     get_from_str,
 )
+from vulnerabilities import dal as vulns_dal
 from vulnerabilities.domain import (
     add_vuln_treatment,
     list_vulnerabilities_async,
@@ -80,7 +76,7 @@ async def _copy_historic_treatment(
                         vuln_historic_treatment[-1]['treatment_manager'] = (
                             treatment_manager
                         )
-                        await vuln_dal.update(
+                        await vulns_dal.update(
                             finding_id,
                             vuln_id,
                             {'historic_treatment': historic_treatment}
@@ -92,7 +88,7 @@ async def _copy_historic_treatment(
         if treatment_manager:
             historic_treatment[-1]['treatment_manager'] = treatment_manager
         if STAGE == 'apply':
-            await vuln_dal.update(
+            await vulns_dal.update(
                 finding_id,
                 vuln_id,
                 {'historic_treatment': historic_treatment}

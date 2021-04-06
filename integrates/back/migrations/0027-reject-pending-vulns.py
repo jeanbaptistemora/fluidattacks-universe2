@@ -17,9 +17,11 @@ from aioextensions import (
     run,
 )
 
-from backend.dal import vulnerability as vuln_dal
 from backend.domain import project as group_domain
-from vulnerabilities import domain as vulns_domain
+from vulnerabilities import (
+    dal as vulns_dal,
+    domain as vulns_domain,
+)
 
 
 django.setup()
@@ -60,13 +62,13 @@ async def reject_vulnerability(
     historic_state.pop()
     response = False
     if historic_state:
-        response = await vuln_dal.update(
+        response = await vulns_dal.update(
             finding_id,
             vuln_id,
             {'historic_state': historic_state}
         )
     else:
-        response = await vuln_dal.delete(vuln_id, finding_id)
+        response = await vulns_dal.delete(vuln_id, finding_id)
     return response
 
 
