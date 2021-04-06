@@ -2,14 +2,12 @@
 {% extends "layouts/common.html" %}
 
 {% block layout %}
-<div class="flex flex-column items-center sans-serif">
-  <div
-    class="flex flex-column w-100 w-80-m w-50-l mw9-l pa3 bg-white black"
-  >
+<div class="flex container justify-center">
+  <div id="main" class="pa3 justify-center Tahoma Verdana Segoe sans-serif w-100 w-80-ns w-50-l">
     {% include 'layouts/components/logo_header.html' %}
     {% block content %}{% endblock %}
     {% include 'layouts/components/mobile_app.html' %}
   </div>
-  {% include 'layouts/components/social_footer.html' %}
 </div>
+{% include 'layouts/components/social_footer.html' %}
 {% endblock %}
