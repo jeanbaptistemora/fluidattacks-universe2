@@ -19,9 +19,8 @@ function main {
   &&  pushd "${src}" \
     &&  "aws_login_${env}" makes \
     &&  copy "__envRuntime__/node_modules" node_modules \
-    &&  chmod +x node_modules/.bin/* \
     &&  npm run build \
-    &&  aws s3 sync build "${bucket}" --delete --exclude "multimedia/*"\
+    &&  aws s3 sync build "${bucket}" --delete --exclude "multimedia/*" \
     &&  rm -rf node_modules build .docusaurus \
   &&  popd \
   ||  return 1

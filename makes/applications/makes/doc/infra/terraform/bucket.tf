@@ -23,6 +23,15 @@ resource "aws_s3_bucket" "bucket_prod" {
     "management:product" = "makes"
   }
 
+  lifecycle_rule {
+    enabled = true
+    id      = "docs-multimedia"
+    prefix  = "multimedia/"
+    noncurrent_version_expiration {
+      days = 31
+    }
+  }
+
   versioning {
     enabled = true
   }
