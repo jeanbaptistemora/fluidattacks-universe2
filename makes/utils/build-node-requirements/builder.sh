@@ -37,8 +37,8 @@ function main {
         echo '[INFO] Integrity check passed'
       else
             echo '[ERROR] Integrity check failed' \
-        &&  echo '[INFO] The following dependencies are missing from your configuration file:' \
-        &&  comm -1 -3 "${envRequirementsFile}" "${out}/requirements" \
+        &&  echo '[INFO] You need to specify all dependencies:' \
+        &&  git diff --no-index "${envRequirementsFile}" "${out}/requirements" \
         &&  return 1
       fi \
   &&  mapfile -t files_to_patch < "$(get_files_to_patch "${out}" "${shebang_regex}")" \

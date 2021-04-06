@@ -47,6 +47,7 @@ makeDerivation {
   searchPaths = {
     envPaths = dependencies ++ [
       node
+      pkgs.git
       pkgs.gnugrep
       pkgs.gnused
       pkgs.jq
