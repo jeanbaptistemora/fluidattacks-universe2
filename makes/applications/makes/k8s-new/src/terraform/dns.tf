@@ -26,6 +26,11 @@ resource "helm_release" "dns" {
   }
 
   set {
+    name =  "txtPrefix"
+    value = "makes-k8s"
+  }
+
+  set {
     name  = "cloudflare.proxied"
     value = true
   }

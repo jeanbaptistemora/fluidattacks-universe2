@@ -1,5 +1,5 @@
 data "http" "alb-policy" {
-  url = "https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/main/docs/install/iam_policy.json"
+  url = "https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/73cd81634f4b14f138c0527aaa848c6987b8497b/docs/install/iam_policy.json"
 }
 
 resource "aws_iam_policy" "alb" {
