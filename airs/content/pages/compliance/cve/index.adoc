@@ -7,6 +7,16 @@
 
 = CVE
 
+[role="fw3 f3 lh-2"]
+Fluid Attacks is among the cybersecurity companies that, for findings
+and reports, work and stay up to date based on CVE identifiers. Thus,
+you can conveniently set a link between the information we provide
+you with and many other CVE-compatible sources for the benefit of your
+company's security. Additionally, Fluid Attacks' red team, with its skillful
+ethical hackers dedicated to discovering zero-day vulnerabilities,
+is currently part of the CVE community that feeds the CVE List.
+
+
 === What is CVE?
 
 [role="fw3 f3 lh-2"]
