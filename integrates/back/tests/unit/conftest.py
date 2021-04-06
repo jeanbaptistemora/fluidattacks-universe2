@@ -9,9 +9,9 @@ logging.config.dictConfig(settings.LOGGING)
 
 
 @pytest.fixture(autouse=True, scope='session')
-def load_enforcers(request):
+async def load_enforcers(request):
     """Load policies from DB into the enforcers."""
-    authz.grant_user_level_role('unittest', 'admin')
+    await authz.grant_user_level_role('unittest', 'admin')
 
 
 @pytest.fixture(autouse=True)
