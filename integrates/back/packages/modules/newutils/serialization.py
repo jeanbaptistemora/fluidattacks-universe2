@@ -22,6 +22,7 @@ from typing import (
 from dateutil.parser import parse as date_parser
 
 # Local libraries
+from data_containers.toe_lines import GitRootToeLines
 from newutils.datetime import get_utc_timestamp
 
 
@@ -148,9 +149,11 @@ ALLOWED_FACTORIES: Dict[type, Dict[str, Any]] = {
             (enum, _dump_enum, _load_enum(enum))
             for enum in ()
         ],
-        *[  # type: ignore
+        *[
             (named_tuple, _dump_named_tuple, _load_named_tuple(named_tuple))
-            for named_tuple in ()
+            for named_tuple in (
+                GitRootToeLines,
+            )
         ],
         *[  # type: ignore
             (dataclass, _dump_dataclass, _load_dataclass(dataclass))
