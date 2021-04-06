@@ -25,7 +25,7 @@ resource "aws_s3_bucket" "cache_bucket" {
 resource "kubernetes_secret" "cache_creds" {
   metadata {
     name      = "ci-cache-creds"
-    namespace = "kube-system"
+    namespace = "ci"
   }
 
   data = {
@@ -39,7 +39,7 @@ resource "kubernetes_secret" "cache_creds" {
 resource "kubernetes_secret" "registration_token" {
   metadata {
     name      = "ci-registration-token"
-    namespace = "kube-system"
+    namespace = "ci"
   }
 
   data = {
@@ -55,7 +55,7 @@ resource "helm_release" "ci" {
   repository = "https://charts.gitlab.io"
   chart      = "gitlab-runner"
   version    = "0.27.0-rc1"
-  namespace  = "kube-system"
+  namespace  = "ci"
 
   values = [
     data.local_file.ci_config.content
