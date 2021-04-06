@@ -1,21 +1,132 @@
 <!DOCTYPE html>
-<html
-  lang="en"
-  xml:lang="en"
-  xmlns="http://www.w3.org/1999/xhtml"
-  xmlns:v="urn:schemas-microsoft-com:vml"
-  xmlns:o="urn:schemas-microsoft-com:office:office"
->
-  <head>
-    <title>{{ subject }}</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/tachyons@4.12.0/css/tachyons.min.css"
-    />
-  </head>
-  <body class="pa0 pa2-ns bg-near-white mw9">
-      {% block layout %}{% endblock %}
-  </body>
+<html lang="en" xml:lang="en" xmlns='http://www.w3.org/1999/xhtml' xmlns:v='urn:schemas-microsoft-com:vml'
+  xmlns:o='urn:schemas-microsoft-com:office:office'>
+
+<head>
+  <meta charset='UTF-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+  <title>{{ subject }}</title>
+  <style>
+    .flex {
+      display: flex;
+    }
+
+    .justify-center {
+      margin: 0 auto;
+    }
+
+    .w-100 {
+      width: 100%;
+    }
+
+    .w-50 {
+      width: 50%;
+    }
+
+    .container {
+      width: 55%;
+    }
+
+    .w-70 {
+      width: 70%;
+    }
+
+    .h-100 {
+      height: 100%;
+    }
+
+    .pa1 {
+      padding: 5px;
+    }
+
+    .pa3 {
+      padding: 15px;
+    }
+
+    img,
+    a img {
+      border: 0;
+      height: auto;
+      outline: none;
+      text-decoration: none;
+    }
+
+    .h2 {
+      height: 2rem;
+    }
+
+    .dim {
+      opacity: 1;
+      transition: opacity .15s ease-in;
+    }
+
+    .dim:hover,
+    .dim:focus {
+      opacity: .5;
+      transition: opacity .15s ease-in;
+    }
+
+    .dim:active {
+      opacity: .8;
+      transition: opacity .15s ease-out;
+    }
+
+    @media screen and (max-width:30em) {
+      .w-80-ns {
+        width: 80%;
+      }
+    }
+
+    @media screen and (min-width:30em) {
+      .w-80-ns {
+        width: 80%;
+      }
+    }
+
+    @media screen and (min-width:60em) {
+      .w-50-l {
+        width: 50%;
+      }
+    }
+
+    body {
+      background: #F0F0F0;
+      padding: 10px;
+    }
+
+    div#main {
+      background: white;
+    }
+
+    a#download {
+      background: red;
+      font-weight: bold;
+      letter-spacing: 1px;
+      line-height: 100%;
+      text-align: center;
+      text-decoration: none;
+      color: white;
+      border-radius: 15px;
+    }
+
+    .black-box {
+      background: #363636;
+      color: white;
+      text-align: center;
+      padding-top: 10px;
+    }
+
+    hr {
+      border: 1px solid grey;
+      border-radius: 15px;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- BEGIN TEMPLATE // -->
+  {% block layout %}{% endblock %}
+  <!-- // END TEMPLATE -->
+</body>
+
 </html>
