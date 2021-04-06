@@ -128,9 +128,6 @@ BY_OBJ_ARGS: Dict[str, Set[str]] = _complete_attrs_on_dict({
         'executeQuery',
         'executeUpdate',
     },
-    'org.owasp.benchmark.helpers.ThingInterface': {
-        'doSomething',
-    },
     'javax.xml.xpath.XPath': {
         'evaluate',
         'compile',
@@ -235,7 +232,8 @@ def evaluate(args: EvaluatorArgs) -> None:
     (
         attempt_java_util_properties_methods(args) or
         attempt_java_security_msgdigest(args) or
-        attempt_the_old_way(args)
+        attempt_the_old_way(args) or
+        attempt_java_looked_up_class(args)
     )
 
 
@@ -510,7 +508,7 @@ def analyze_method_invocation_values(args: EvaluatorArgs) -> None:
             args,
             method.metadata.n_id,
             args.dependencies,
-            args.shard,
+            args.graph_db.shards_by_path_f(method.shard_path),
         ):
             args.syntax_step.meta.danger = return_step.meta.danger
             args.syntax_step.meta.value = return_step.meta.value

@@ -121,5 +121,13 @@ def lookup_java_method(
                 metadata=data,
                 shard_path=shard.path,
             )
+    else:
+        for shard in args.graph_db.shards:
+            if shard.path != args.shard.path:
+                if data := _lookup_java_method_in_shard(shard, method_name):
+                    return LookedUpJavaMethod(
+                        metadata=data,
+                        shard_path=shard.path,
+                    )
 
     return None

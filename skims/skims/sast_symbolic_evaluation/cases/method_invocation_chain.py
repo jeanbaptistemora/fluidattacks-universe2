@@ -81,7 +81,7 @@ def attempt_metadata_java_class(args: EvaluatorArgs) -> bool:
                 args,
                 prnt.meta.value.metadata.methods[args.syntax_step.method].n_id,
                 method_arguments,
-                args.shard,
+                args.graph_db.shards_by_path_f(prnt.meta.value.shard_path),
             ):
                 args.syntax_step.meta.danger = return_step.meta.danger
                 args.syntax_step.meta.value = return_step.meta.value
