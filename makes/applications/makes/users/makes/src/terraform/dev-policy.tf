@@ -64,7 +64,7 @@ data "aws_iam_policy_document" "dev-policy-data" {
     ]
     resources = [
       "arn:aws:s3:::doc.fluidattacks.com/multimedia/*",
-      "arn:aws:s3:::doc-dev.fluidattacks.com",
+      "arn:aws:s3:::doc.fluidattacks.com",
     ]
   }
 
