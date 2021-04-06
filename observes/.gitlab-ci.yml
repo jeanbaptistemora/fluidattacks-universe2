@@ -266,7 +266,7 @@ observes.scheduled.job.zoho-crm-etl.fluid:
     variables: [$observes_zoho_crm]
   interruptible: false
 
-observes.scheduled.job.zoho-crm-prepare:
+observes.scheduled.job.zoho-crm-prepare.fluid:
   <<: *makes
   tags: [autoscaling-analytics]
   stage: analytics

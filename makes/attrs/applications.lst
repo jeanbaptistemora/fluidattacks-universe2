@@ -155,6 +155,7 @@ observes.job.dynamodb-table-etl
 observes.job.infra.apply
 observes.job.infra.test
 observes.job.zoho-crm-etl
+observes.job.zoho-crm-prepare
 observes.scheduled.dif-gitlab-etl
 observes.scheduled.dynamodb-forces-etl
 observes.scheduled.dynamodb-integrates-etl
@@ -175,7 +176,7 @@ observes.scheduled.job.timedoctor-etl
 observes.scheduled.job.timedoctor-refresh-token
 observes.scheduled.job.toe-files-etl
 observes.scheduled.job.zoho-crm-etl.fluid
-observes.scheduled.job.zoho-crm-prepare
+observes.scheduled.job.zoho-crm-prepare.fluid
 observes.scheduled.on-aws.code-etl-amend
 observes.scheduled.on-aws.code-etl-mirror
 observes.scheduled.on-aws.code-etl-upload
