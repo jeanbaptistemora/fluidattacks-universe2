@@ -118,6 +118,8 @@ module.exports = {
       items: [
         'devs/integrates/get-dev-keys',
         'devs/integrates/integrates-front',
+        'devs/integrates/kubernetes-cluster-connect',
+        'devs/integrates/dynamodb-patterns',
         'devs/integrates/integrates-mobile',
       ]
     },
