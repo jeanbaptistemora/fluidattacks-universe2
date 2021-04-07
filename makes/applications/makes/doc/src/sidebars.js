@@ -100,6 +100,8 @@ module.exports = {
       label: 'Authentication',
       items: [
         'rules/authentication/r122',
+        'rules/authentication/r153',
+        'rules/authentication/r225',
       ],
     },
   ],
