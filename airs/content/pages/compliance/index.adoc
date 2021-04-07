@@ -55,3 +55,10 @@ stakeholders when communicating vulnerabilities.
 We work and stay updated based on the CVE IDs for our findings and
 reports when evaluating your systems. +
 [button]#link:cve/[Go to CVE {arrow}]#
+
+== CWE
+CWE is a free-to-use list of popular hardware and software weaknesses.
+It works as a standard language for security operations and tools that detect,
+eliminate and prevent weaknesses or flaws. We work and keep updated
+based on CWE for our findings and reports when evaluating your systems. +
+[button]#link:cwe/[Go to CWE {arrow}]#
