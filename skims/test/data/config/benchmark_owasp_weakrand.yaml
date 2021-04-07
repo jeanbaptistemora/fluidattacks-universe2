@@ -1,6 +1,8 @@
 namespace: OWASP
 output: skims/test/outputs/benchmark_owasp_weakrand.csv
 path:
+  checks:
+  - F034
   include:
   - src/main/java/org/owasp/benchmark/helpers/DatabaseHelper.java
   - src/main/java/org/owasp/benchmark/helpers/SeparateClassRequest.java
@@ -502,6 +504,5 @@ path:
   - src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02720.java
   - src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02721.java
   lib_path: false
-  lib_root:
-  - F034
+  lib_root: true
 working_dir: ../owasp_benchmark

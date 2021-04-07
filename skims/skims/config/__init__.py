@@ -3,6 +3,7 @@ import os
 from typing import (
     Any,
     Optional,
+    Set,
 )
 
 # Third party libraries
@@ -17,18 +18,13 @@ from utils.logs import (
 )
 
 
-def load_path_lib_root(config_path: Any) -> core_model.SkimsConfigPathLibroot:
-    if 'lib_root' in config_path:
-        model = core_model.SkimsConfigPathLibroot(
-            findings={
-                getattr(core_model.FindingEnum, finding)
-                for finding in config_path.pop('lib_root')
-            },
-        )
-    else:
-        model = core_model.SkimsConfigPathLibroot()
-
-    return model
+def load_path_checks(config_path: Any) -> Set[core_model.FindingEnum]:
+    # All checks by default, or the selected by the checks field
+    return (
+        {core_model.FindingEnum[finding] for finding in config_path['checks']}
+        if 'checks' in config_path
+        else set(core_model.FindingEnum)
+    )
 
 
 def load(group: Optional[str], path: str) -> core_model.SkimsConfig:
@@ -42,10 +38,11 @@ def load(group: Optional[str], path: str) -> core_model.SkimsConfig:
             'namespace': confuse.String(),
             'output': confuse.String(),
             'path': confuse.Template({
+                'checks': confuse.Sequence(confuse.String()),
                 'exclude': confuse.Sequence(confuse.String()),
                 'include': confuse.Sequence(confuse.String()),
-                'lib_path': confuse.OneOf([True, False], default=True),
-                'lib_root': confuse.Sequence(confuse.String()),
+                'lib_path': confuse.OneOf([True, False]),
+                'lib_root': confuse.OneOf([True, False]),
             }),
             'timeout': confuse.Number(),
             'working_dir': confuse.String(),
@@ -64,10 +61,11 @@ def load(group: Optional[str], path: str) -> core_model.SkimsConfig:
             namespace=config.pop('namespace'),
             output=output,
             path=core_model.SkimsPathConfig(
+                checks=load_path_checks(config_path),
                 exclude=config_path.pop('exclude', ()),
                 include=config_path.pop('include', ()),
                 lib_path=config_path.pop('lib_path', True),
-                lib_root=load_path_lib_root(config_path),
+                lib_root=config_path.pop('lib_root', True),
             ),
             start_dir=os.getcwd(),
             timeout=config.pop('timeout', None),

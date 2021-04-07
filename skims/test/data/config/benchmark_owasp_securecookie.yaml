@@ -1,6 +1,8 @@
 namespace: OWASP
 output: skims/test/outputs/benchmark_owasp_securecookie.csv
 path:
+  checks:
+  - F042
   include:
   - src/main/java/org/owasp/benchmark/helpers/DatabaseHelper.java
   - src/main/java/org/owasp/benchmark/helpers/SeparateClassRequest.java
@@ -76,6 +78,5 @@ path:
   - src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02710.java
   - src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02711.java
   lib_path: false
-  lib_root:
-  - F042
+  lib_root: true
 working_dir: ../owasp_benchmark

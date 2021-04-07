@@ -1,6 +1,8 @@
 namespace: OWASP
 output: skims/test/outputs/benchmark_owasp_trustbound.csv
 path:
+  checks:
+  - F063_TRUSTBOUND
   include:
   - src/main/java/org/owasp/benchmark/helpers/DatabaseHelper.java
   - src/main/java/org/owasp/benchmark/helpers/SeparateClassRequest.java
@@ -135,6 +137,5 @@ path:
   - src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02725.java
   - src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02726.java
   lib_path: false
-  lib_root:
-  - F063_TRUSTBOUND
+  lib_root: true
 working_dir: ../owasp_benchmark

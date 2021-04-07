@@ -1,6 +1,8 @@
 namespace: OWASP
 output: skims/test/outputs/benchmark_owasp_cmdi.csv
 path:
+  checks:
+  - F004
   include:
   - src/main/java/org/owasp/benchmark/helpers/DatabaseHelper.java
   - src/main/java/org/owasp/benchmark/helpers/SeparateClassRequest.java
@@ -260,6 +262,5 @@ path:
   - src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02713.java
   - src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02714.java
   lib_path: false
-  lib_root:
-  - F004
+  lib_root: true
 working_dir: ../owasp_benchmark

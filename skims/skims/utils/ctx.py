@@ -44,10 +44,11 @@ def create_test_context(debug: bool = True) -> None:
         namespace='test',
         output=None,
         path=core_model.SkimsPathConfig(
+            checks=set(core_model.FindingEnum),
             include=(),
             exclude=(),
             lib_path=True,
-            lib_root=core_model.SkimsConfigPathLibroot(),
+            lib_root=True,
         ),
         start_dir=os.getcwd(),
         timeout=None,

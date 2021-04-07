@@ -1,6 +1,8 @@
 namespace: OWASP
 output: skims/test/outputs/benchmark_owasp_sqli.csv
 path:
+  checks:
+  - F001_JAVA_SQL
   include:
   - src/main/java/org/owasp/benchmark/helpers/DatabaseHelper.java
   - src/main/java/org/owasp/benchmark/helpers/SeparateClassRequest.java
@@ -513,6 +515,5 @@ path:
   - src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02739.java
   - src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02740.java
   lib_path: false
-  lib_root:
-  - F001_JAVA_SQL
+  lib_root: true
 working_dir: ../owasp_benchmark

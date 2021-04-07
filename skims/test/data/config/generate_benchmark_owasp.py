@@ -45,6 +45,7 @@ def main() -> None:
     suites: List[str] = []
     categories = {
         'cmdi': [core_model.FindingEnum.F004.name],
+        'crypto': [core_model.FindingEnum.F052.name],
         'hash': [core_model.FindingEnum.F052.name],
         'ldapi': [core_model.FindingEnum.F107.name],
         'pathtraver': [core_model.FindingEnum.F063_PATH_TRAVERSAL.name],
@@ -74,9 +75,10 @@ def main() -> None:
             namespace='OWASP',
             output=f'skims/test/outputs/{suite}.csv',
             path=dict(
+                checks=categories.get(category, []),
                 include=extra_files + tests_cases,
-                lib_path=False,
-                lib_root=categories.get(category, [])
+                lib_path=category == 'crypto',
+                lib_root=category != 'crypto',
             ),
             working_dir=FOLDER,
         ))

@@ -1,6 +1,8 @@
 namespace: OWASP
 output: skims/test/outputs/benchmark_owasp_crypto.csv
 path:
+  checks:
+  - F052
   include:
   - src/main/java/org/owasp/benchmark/helpers/DatabaseHelper.java
   - src/main/java/org/owasp/benchmark/helpers/SeparateClassRequest.java
@@ -254,6 +256,6 @@ path:
   - src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02661.java
   - src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02662.java
   - src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02663.java
-  lib_path: false
-  lib_root: []
+  lib_path: true
+  lib_root: false
 working_dir: ../owasp_benchmark

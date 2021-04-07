@@ -1,6 +1,8 @@
 namespace: OWASP
 output: skims/test/outputs/benchmark_owasp_xpathi.csv
 path:
+  checks:
+  - F021
   include:
   - src/main/java/org/owasp/benchmark/helpers/DatabaseHelper.java
   - src/main/java/org/owasp/benchmark/helpers/SeparateClassRequest.java
@@ -44,6 +46,5 @@ path:
   - src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02370.java
   - src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02457.java
   lib_path: false
-  lib_root:
-  - F021
+  lib_root: true
 working_dir: ../owasp_benchmark

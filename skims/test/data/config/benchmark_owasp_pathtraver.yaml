@@ -1,6 +1,8 @@
 namespace: OWASP
 output: skims/test/outputs/benchmark_owasp_pathtraver.csv
 path:
+  checks:
+  - F063_PATH_TRAVERSAL
   include:
   - src/main/java/org/owasp/benchmark/helpers/DatabaseHelper.java
   - src/main/java/org/owasp/benchmark/helpers/SeparateClassRequest.java
@@ -277,6 +279,5 @@ path:
   - src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02668.java
   - src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02669.java
   lib_path: false
-  lib_root:
-  - F063_PATH_TRAVERSAL
+  lib_root: true
 working_dir: ../owasp_benchmark
