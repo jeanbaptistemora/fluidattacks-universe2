@@ -95,7 +95,7 @@ def _get_group_toe_lines_from_cvs(
             try:
                 new_toe_lines['root_id'] = (
                     roots_domain.get_root_id_by_filename(
-                        row['filename'],
+                        new_toe_lines['filename'],
                         group_roots
                     )
                 )
