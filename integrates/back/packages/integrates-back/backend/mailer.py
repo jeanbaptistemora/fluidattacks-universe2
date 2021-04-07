@@ -588,8 +588,17 @@ async def send_mail_unsolved_events(
 async def send_mail_accepted_finding(
         email_to: List[str],
         context: MailContentType) -> None:
-    await _send_mail_async(
-        'acceptedfinding', email_to, context=context, tags=GENERAL_TAG
+    context["finding_url"] = (
+        f'{BASE_URL}/orgs/{context["organization"]}/groups/' +
+        f'{context["project"]}/vulns/{context["finding_id"]}')
+    context["justification"] = f'"{context["justification"]}"'.splitlines()
+    await _send_mails_async_new(
+        email_to,
+        context,
+        GENERAL_TAG,
+        f'A finding treatment has changed to {context["treatment"]} ' +
+        f'in [{context["project"]}]',
+        'accepted_finding'
     )
 
 
