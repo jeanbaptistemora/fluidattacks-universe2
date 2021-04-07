@@ -118,8 +118,8 @@ def test_create_table_mapper_builder() -> None:
         id=test_table_id,
         primary_keys=frozenset(),
         columns=frozenset({}),
-        table_path=lambda x: x,
-        add_columns=lambda x: x,
+        table_path=lambda x: x,  # type: ignore
+        add_columns=lambda x: x,  # type: ignore
     )
 
     def mock_retrieve_table(table_id: TableID) -> Table:

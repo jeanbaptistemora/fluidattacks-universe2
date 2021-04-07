@@ -11,15 +11,21 @@ in
 makeTemplate {
   name = "observes-env-tap-delighted-runtime";
   searchPaths = {
-    envMypy38Paths = [
+    envMypyPaths = [
       self
     ];
     envPaths = [
       pkgEnv.runtime.python
     ];
+    envPythonPaths = [
+      self
+    ];
     envPython38Paths = [
       pkgEnv.runtime.python
-      self
+    ];
+    envSources = [
+      env.runtime.paginator
+      env.runtime.singer-io
     ];
   };
 }

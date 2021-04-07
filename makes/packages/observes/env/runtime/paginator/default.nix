@@ -1,28 +1,27 @@
-{ buildPythonPackage
-, makeTemplate
-, nixpkgs
+{ makeTemplate
 , packages
 , path
 , ...
 }:
 let
-  pythonRequirements = packages.observes.env.runtime.paginator.python;
-  self = buildPythonPackage {
-    name = "observes-paginator";
-    packagePath = path "/observes/common/paginator";
-    python = nixpkgs.python38;
-  };
+  env = packages.observes.env;
+  pkgEnv = env.runtime.paginator;
+  self = path "/observes/common/paginator";
 in
 makeTemplate {
   name = "observes-env-runtime-paginator";
   searchPaths = {
+    envMypyPaths = [
+      self
+    ];
     envPaths = [
-      pythonRequirements
+      pkgEnv.python
+    ];
+    envPythonPaths = [
       self
     ];
     envPython38Paths = [
-      pythonRequirements
-      self
+      pkgEnv.python
     ];
   };
 }
