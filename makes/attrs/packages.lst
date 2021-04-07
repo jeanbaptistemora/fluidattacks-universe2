@@ -53,6 +53,7 @@ makes.dev.skims
 makes.dev.vscode
 makes.doc.runtime
 makes.oci
+makes.python.safe-pickle
 makes.test
 makes.test.airs
 makes.test.asserts
