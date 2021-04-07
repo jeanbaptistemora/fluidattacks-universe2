@@ -44,14 +44,13 @@ def remove_cr(path: str) -> None:
 
 
 def append_changes(path: str) -> None:
-    with open("toe/snapshot.csv") as snapshot, open(path, "a") as now:
-        snapshot_csv = csv.DictReader(snapshot)
+    with open("toe/snapshot", "r") as snapshot, open(path, "a") as now:
         now_writer = csv.writer(now)
-        for row in snapshot_csv:
-            modified_row = row
-            modified_row['comments'] = ''
-            modified_row['filename'] += UNIQ
-            now_writer.writerow(modified_row.values())
+        for row in snapshot:
+            modified_row = row.rsplit(",", 6)
+            modified_row[0] += UNIQ
+            modified_row[-1] = ""
+            now_writer.writerow(modified_row)
 
 
 def alter_state(path: str) -> None:
@@ -126,7 +125,7 @@ def main(subs: str) -> None:
         # Literraly dump the snapshot into the lines.stream creating duplicates
         append_changes("toe/lines.stream")
         # Clean up the snapshot
-        command("rm toe/snapshot.csv")
+        command("rm toe/snapshot")
         # Remove carriage return and sort
         remove_cr("toe/lines.stream")
         sort_rows("toe/lines.stream")

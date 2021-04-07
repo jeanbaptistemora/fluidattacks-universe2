@@ -98,7 +98,7 @@ def do_print_line(path: str) -> None:
         f'{repo_path[7:]}/{file_path}', file_lines, 0, file_last_date,
         file_last_hash, "2000-01-01", ""
     ]
-    with open('toe/snapshot.csv', 'a', newline='') as file:
+    with open('toe/snapshot', 'a', newline='') as file:
         writer = csv.writer(file)
         writer.writerow(row)
 
@@ -106,18 +106,9 @@ def do_print_line(path: str) -> None:
 def do_gen_stats() -> None:
     """print all files in the fusion repositories"""
     repos = glob.glob('fusion/*')
-    # Add toe lines header
-    with open('toe/snapshot.csv', 'w') as file:
-        writer = csv.writer(file)
-        writer.writerow([
-            'filename',
-            'loc',
-            'tested-lines',
-            'modified-date',
-            'modified-commit',
-            'tested-date',
-            'comments',
-        ])
+    # Touch the file if it does not exist
+    with open('toe/snapshot', 'w'):
+        pass
     for repo_path in repos:
         if not os.path.isdir(repo_path):
             sys.exit(f'{repo_path} Not dir')
