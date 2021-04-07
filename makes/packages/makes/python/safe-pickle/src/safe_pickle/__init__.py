@@ -3,6 +3,9 @@ from collections import (
     OrderedDict,
 )
 import dataclasses
+from decimal import (
+    Decimal,
+)
 from enum import (
     Enum,
 )
@@ -60,6 +63,14 @@ def _datetime_dump(time: datetime) -> Serialized:
 
 def _datetime_load(time: str) -> datetime:
     return date_parser(time)
+
+
+def _decimal_dump(data: Decimal) -> Serialized:
+    return serialize(data, data.to_eng_string())
+
+
+def _decimal_load(data: str) -> Decimal:
+    return Decimal(data)
 
 
 def _dict_dump(instance: Dict[str, Any]) -> Serialized:
@@ -157,6 +168,7 @@ def _side_effects() -> None:
         (dict, _dict_dump, _dict_load),
         (date, _datetime_dump, _datetime_load),
         (datetime, _datetime_dump, _datetime_load),
+        (Decimal, _decimal_dump, _decimal_load),
         (float, _idem_dump, float),
         (int, _idem_dump, int),
         (list, tuple_dump, list_load),

@@ -1,7 +1,8 @@
 { buildPythonRequirements
-, path
 , makeTemplate
 , nixpkgs
+, packages
+, path
 , ...
 }:
 let
@@ -151,6 +152,9 @@ makeTemplate {
     ];
     envPython37Paths = [
       pythonRequirements
+    ];
+    envSources = [
+      packages.makes.python.safe-pickle
     ];
   };
 }
