@@ -93,10 +93,20 @@ data "aws_iam_policy_document" "sorts_prod_assume_policy" {
     actions = [
       "sts:AssumeRoleWithSAML"
     ]
+
     principals {
-      type        = "Federated"
-      identifiers = ["arn:aws:iam::${data.aws_caller_identity.current.account_id}:saml-provider/okta-saml-provider"]
+      type = "Service"
+      identifiers = [
+        "sagemaker.amazonaws.com"
+      ]
     }
+    principals {
+      type = "Federated"
+      identifiers = [
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:saml-provider/okta-saml-provider"
+      ]
+    }
+
     condition {
       test     = "StringEquals"
       variable = "SAML:aud"
