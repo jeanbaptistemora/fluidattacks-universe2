@@ -6,7 +6,10 @@ from typing import (
 
 # Third party libraries
 import boto3
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.neighbors import KNeighborsClassifier
 from sklearn.neural_network import MLPClassifier
+from sklearn.svm import LinearSVC
 
 # Local libraries
 from sorts.typings import Model as ModelType
@@ -36,5 +39,8 @@ RESULT_HEADERS: List[str] = [
     'Overfit'
 ]
 MODELS: Dict[str, ModelType] = {
-    'mlpclassifier': MLPClassifier
+    'mlpclassifier': MLPClassifier,
+    'randomforestclassifier': RandomForestClassifier,
+    'kneighborsclassifier': KNeighborsClassifier,
+    'linearsvc': LinearSVC
 }

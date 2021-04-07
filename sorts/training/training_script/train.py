@@ -21,6 +21,7 @@ from sklearn.neighbors import KNeighborsClassifier
 from sorts.typings import Model as ModelType
 from training.constants import (
     FEATURES_DICTS,
+    MODELS,
     RESULT_HEADERS,
     S3_BUCKET
 )
@@ -184,10 +185,10 @@ def main() -> None:
     parser.add_argument('--model', type=str, default='')
     args = parser.parse_args()
 
-    model: str = args.model
-    model_class: ModelType = args.model
+    model_name: str = args.model.lower()
+    model_class: ModelType = MODELS[model_name]
     if model_class:
-        results_filename: str = f'{model.lower()}_train_results.csv'
+        results_filename: str = f'{model_name}_train_results.csv'
         previous_results = get_previous_training_results(results_filename)
         training_output = train_model(
             model_class,
