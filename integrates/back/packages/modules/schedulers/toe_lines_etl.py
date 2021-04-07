@@ -52,6 +52,10 @@ def _format_date(date_str: str) -> str:
     return formated_date_str
 
 
+def _format_filename(filename: str) -> str:
+    return filename.strip('"')
+
+
 def _get_group_toe_lines_from_cvs(
     lines_csv_path: str,
     group_name: str,
@@ -60,7 +64,7 @@ def _get_group_toe_lines_from_cvs(
     default_date = datetime_utils.DEFAULT_ISO_STR
     lines_csv_fields: List[Tuple[str, Callable, Any, str]] = [
         # field_name, field_formater, field_default_value, cvs_field_name,
-        ('filename', str, '', 'filename'),
+        ('filename', _format_filename, '', 'filename'),
         ('comments', str, '', 'comments'),
         ('modified_commit', str, '', 'modified-commit'),
         ('loc', int, 0, 'loc'),
