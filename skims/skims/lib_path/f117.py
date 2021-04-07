@@ -78,6 +78,8 @@ async def analyze(
         'pyc',
     } or (file_name, file_extension) in {
         ('debug', 'log'),
+        ('', 'classpath'),
+        ('', 'project'),
     }:
         coroutines.append(unverifiable_files(
             file_name=file_name,
