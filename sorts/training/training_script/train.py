@@ -69,11 +69,9 @@ def get_tried_combinations(
     return tried_combinations
 
 
-def save_best_model_to_s3(
-    model_class: ModelType,
-    training_dir: str,
+def get_best_combination(
     training_results: List[List[str]]
-) -> None:
+) -> Tuple[Tuple[str, ...], str]:
     inv_features_dict: Dict[str, str] = {
         v: k for k, v in FEATURES_DICTS.items()
     }
@@ -94,6 +92,17 @@ def save_best_model_to_s3(
             ])
             best_f1 = f'{float(results_row[4]):.0f}'
             break
+
+    return best_features, best_f1
+
+
+def save_best_model_to_s3(
+    model_class: ModelType,
+    training_dir: str,
+    training_results: List[List[str]]
+) -> None:
+    best_features, best_f1 = get_best_combination(training_results)
+
     if best_features:
         training_data: DataFrame = load_training_data(training_dir)
         train_x, train_y = split_training_data(training_data, best_features)
