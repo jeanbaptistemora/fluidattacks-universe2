@@ -2,11 +2,11 @@
 /* eslint import/no-namespace:0 */
 import React from "react";
 
-import * as facebookLogo from "../../../static/images/social-media/social-facebook.png";
-import * as instagramLogo from "../../../static/images/social-media/social-instagram.png";
-import * as linkedinLogo from "../../../static/images/social-media/social-linkedin.png";
-import * as twitterLogo from "../../../static/images/social-media/social-twitter.png";
-import * as youtubeLogo from "../../../static/images/social-media/social-youtube.png";
+import facebookLogo from "../../../static/images/social-media/social-facebook.png";
+import instagramLogo from "../../../static/images/social-media/social-instagram.png";
+import linkedinLogo from "../../../static/images/social-media/social-linkedin.png";
+import twitterLogo from "../../../static/images/social-media/social-twitter.png";
+import youtubeLogo from "../../../static/images/social-media/social-youtube.png";
 import { SocialMediaLink } from "../../styles/styledComponents";
 
 const SocialMedia: React.FC = (): JSX.Element => (

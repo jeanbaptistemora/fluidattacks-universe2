@@ -3,7 +3,7 @@ import { Link } from "gatsby";
 import type { StyledComponent } from "styled-components";
 import styled from "styled-components";
 
-import * as coverMainHome from "../../static/images/home/cover-main.png";
+import coverMainHome from "../../static/images/home/cover-main.png";
 
 const NavbarContainer: StyledComponent<
   "div",

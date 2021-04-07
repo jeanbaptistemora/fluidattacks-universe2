@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "gatsby";
 import React from "react";
 
-import * as fluidAttacksLogo from "../../../../static/images/logo-fluid-attacks.png";
+import fluidAttacksLogo from "../../../../static/images/logo-fluid-attacks.png";
 import {
   FontAwesomeContainerSmall,
   NavbarContactButton,

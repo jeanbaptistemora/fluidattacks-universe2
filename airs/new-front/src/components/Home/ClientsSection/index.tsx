@@ -10,19 +10,19 @@ import React, { useEffect, useState } from "react";
 import type { StyledComponent } from "styled-components";
 import styled from "styled-components";
 
-import * as logoAvianca from "../../../../static/images/about-us/clients/logo-avianca.png";
-import * as logoBancoGeneral from "../../../../static/images/about-us/clients/logo-banco-general.png";
-import * as logoBancoIndustrial from "../../../../static/images/about-us/clients/logo-banco-industrial.png";
-import * as logoBancolombia from "../../../../static/images/about-us/clients/logo-bancolombia.png";
-import * as logoBanesco from "../../../../static/images/about-us/clients/logo-banesco.png";
-import * as logoBanistmo from "../../../../static/images/about-us/clients/logo-banistmo.png";
-import * as logoBantrab from "../../../../static/images/about-us/clients/logo-bantrab.png";
-import * as logoColmedica from "../../../../static/images/about-us/clients/logo-colmedica.png";
-import * as logoInterbank from "../../../../static/images/about-us/clients/logo-interbank.png";
-import * as logoItau from "../../../../static/images/about-us/clients/logo-itau.png";
-import * as logoOxxo from "../../../../static/images/about-us/clients/logo-oxxo.png";
-import * as logoSodimac from "../../../../static/images/about-us/clients/logo-sodimac.png";
-import * as logoSura from "../../../../static/images/about-us/clients/logo-sura.png";
+import logoAvianca from "../../../../static/images/about-us/clients/logo-avianca.png";
+import logoBancoGeneral from "../../../../static/images/about-us/clients/logo-banco-general.png";
+import logoBancoIndustrial from "../../../../static/images/about-us/clients/logo-banco-industrial.png";
+import logoBancolombia from "../../../../static/images/about-us/clients/logo-bancolombia.png";
+import logoBanesco from "../../../../static/images/about-us/clients/logo-banesco.png";
+import logoBanistmo from "../../../../static/images/about-us/clients/logo-banistmo.png";
+import logoBantrab from "../../../../static/images/about-us/clients/logo-bantrab.png";
+import logoColmedica from "../../../../static/images/about-us/clients/logo-colmedica.png";
+import logoInterbank from "../../../../static/images/about-us/clients/logo-interbank.png";
+import logoItau from "../../../../static/images/about-us/clients/logo-itau.png";
+import logoOxxo from "../../../../static/images/about-us/clients/logo-oxxo.png";
+import logoSodimac from "../../../../static/images/about-us/clients/logo-sodimac.png";
+import logoSura from "../../../../static/images/about-us/clients/logo-sura.png";
 import {
   BannerContainer,
   FontAwesomeContainerSmall,

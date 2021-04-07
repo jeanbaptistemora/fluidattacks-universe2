@@ -8,7 +8,7 @@ import React from "react";
 import type { StyledComponent } from "styled-components";
 import styled from "styled-components";
 
-import * as fluidAttacksLogoMobile from "../../../../../static/images/logo-fluid-mobile.png";
+import fluidAttacksLogoMobile from "../../../../../static/images/logo-fluid-mobile.png";
 import { FontAwesomeContainerSmall } from "../../../../styles/styledComponents";
 import { SocialMedia } from "../../../SocialMedia";
 

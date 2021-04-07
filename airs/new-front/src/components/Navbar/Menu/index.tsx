@@ -9,7 +9,7 @@ import styled from "styled-components";
 import { MenuDesktop } from "./MenuDesktop";
 import { MenuMobile } from "./MenuMobile";
 
-import * as closeMenuIcon from "../../../../static/images/cross.png";
+import closeMenuIcon from "../../../../static/images/cross.png";
 import {
   CenteredMaxWidthContainer,
   MenuButton,

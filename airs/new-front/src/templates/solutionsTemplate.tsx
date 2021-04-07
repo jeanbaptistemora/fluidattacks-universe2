@@ -14,12 +14,12 @@ import { graphql } from "gatsby";
 import { Breadcrumb } from "gatsby-plugin-breadcrumb";
 import React from "react";
 
-import * as devSecOpsImage from "../../static/images/solutions/solution-1.png"; // eslint-disable-line import/no-unresolved
-import * as securityTestingImage from "../../static/images/solutions/solution-2.png"; // eslint-disable-line import/no-unresolved
-import * as penetrationTestingImage from "../../static/images/solutions/solution-3.png"; // eslint-disable-line import/no-unresolved
-import * as ethicalHackingImage from "../../static/images/solutions/solution-4.png"; // eslint-disable-line import/no-unresolved
-import * as redTeamingImage from "../../static/images/solutions/solution-5.png"; // eslint-disable-line import/no-unresolved
-import * as attackSimulationImage from "../../static/images/solutions/solution-6.png"; // eslint-disable-line import/no-unresolved
+import devSecOpsImage from "../../static/images/solutions/solution-1.png"; // eslint-disable-line import/no-unresolved
+import securityTestingImage from "../../static/images/solutions/solution-2.png"; // eslint-disable-line import/no-unresolved
+import penetrationTestingImage from "../../static/images/solutions/solution-3.png"; // eslint-disable-line import/no-unresolved
+import ethicalHackingImage from "../../static/images/solutions/solution-4.png"; // eslint-disable-line import/no-unresolved
+import redTeamingImage from "../../static/images/solutions/solution-5.png"; // eslint-disable-line import/no-unresolved
+import attackSimulationImage from "../../static/images/solutions/solution-6.png"; // eslint-disable-line import/no-unresolved
 import { Layout } from "../components/layout";
 import { NavbarComponent } from "../components/Navbar";
 import { Seo } from "../components/seo";

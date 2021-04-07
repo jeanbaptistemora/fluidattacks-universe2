@@ -4,8 +4,8 @@
 import { Link } from "gatsby";
 import React from "react";
 
-import * as fluidAttacksLogo from "../../../../../static/images/logo-fluid-attacks.png";
-import * as menuSelector from "../../../../../static/images/menu/selector.png";
+import fluidAttacksLogo from "../../../../../static/images/logo-fluid-attacks.png";
+import menuSelector from "../../../../../static/images/menu/selector.png";
 import { SocialMedia } from "../../../SocialMedia";
 import {
   BlackWeightedParagraph,

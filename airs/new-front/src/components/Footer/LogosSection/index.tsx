@@ -4,7 +4,7 @@ import React from "react";
 import type { StyledComponent } from "styled-components";
 import styled from "styled-components";
 
-import * as fluidAttacksLogo from "../../../../static/images/logo-fluid-attacks-dark.png";
+import fluidAttacksLogo from "../../../../static/images/logo-fluid-attacks-dark.png";
 import { FullWidthContainer } from "../../../styles/styledComponents";
 
 const FluidLogoContainer: StyledComponent<

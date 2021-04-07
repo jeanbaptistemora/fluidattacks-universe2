@@ -4,7 +4,7 @@
 import ModalVideo from "modal-video-custom";
 import React, { useState } from "react";
 
-import * as playButton from "../../../../static/images/home/play-video.svg";
+import playButton from "../../../../static/images/home/play-video.svg";
 import {
   FlexCenterItemsContainer,
   PlayItButtonContainer,

@@ -11,14 +11,14 @@ import React, { useEffect, useState } from "react";
 import type { StyledComponent } from "styled-components";
 import styled from "styled-components";
 
-import * as solution1 from "../../../../static/images/solutions/img01.png";
-import * as solution2 from "../../../../static/images/solutions/img02.png";
-import * as solution3 from "../../../../static/images/solutions/img03.png";
-import * as solution4 from "../../../../static/images/solutions/img04.png";
-import * as solution5 from "../../../../static/images/solutions/img05.png";
-import * as solution6 from "../../../../static/images/solutions/img06.png";
-import * as solution7 from "../../../../static/images/solutions/img07.png";
-import * as solution8 from "../../../../static/images/solutions/img08.png";
+import solution1 from "../../../../static/images/solutions/img01.png";
+import solution2 from "../../../../static/images/solutions/img02.png";
+import solution3 from "../../../../static/images/solutions/img03.png";
+import solution4 from "../../../../static/images/solutions/img04.png";
+import solution5 from "../../../../static/images/solutions/img05.png";
+import solution6 from "../../../../static/images/solutions/img06.png";
+import solution7 from "../../../../static/images/solutions/img07.png";
+import solution8 from "../../../../static/images/solutions/img08.png";
 import { FontAwesomeContainerSmall } from "../../../styles/styledComponents";
 import { translate } from "../../../utils/translations/translate";
 
