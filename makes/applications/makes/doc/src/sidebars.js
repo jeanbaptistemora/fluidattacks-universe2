@@ -95,6 +95,13 @@ module.exports = {
         'rules/credentials/r333',
       ],
     },
+    {
+      type: 'category',
+      label: 'Authentication',
+      items: [
+        'rules/authentication/r122',
+      ],
+    },
   ],
   Agent: [
     'agent/introduction',
