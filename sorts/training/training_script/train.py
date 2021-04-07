@@ -86,13 +86,13 @@ def save_best_model_to_s3(
     )
     best_features: Tuple[str, ...] = tuple()
     best_f1: str = ''
-    for result in sorted_results:
-        if float(result[-1]) < 5:
+    for results_row in sorted_results:
+        if float(results_row[5]) < 5:
             best_features = tuple([
                 inv_features_dict[feature]
-                for feature in result[1].split(' ')
+                for feature in results_row[1].split(' ')
             ])
-            best_f1 = f'{float(result[-2]):.0f}'
+            best_f1 = f'{float(results_row[4]):.0f}'
             break
     if best_features:
         training_data: DataFrame = load_training_data(training_dir)
