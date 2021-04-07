@@ -6,6 +6,7 @@ from os.path import (
 from typing import (
     Dict,
     Set,
+    Tuple,
 )
 
 # Third party libraries
@@ -57,6 +58,7 @@ MAX_READ: int = 64 * MEBIBYTE
 
 async def analyze_one_path(
     *,
+    findings: Tuple[core_model.FindingEnum, ...],
     index: int,
     path: str,
     stores: Dict[core_model.FindingEnum, EphemeralStore],
@@ -100,6 +102,9 @@ async def analyze_one_path(
         (core_model.FindingEnum.F085, f085.analyze),
         (core_model.FindingEnum.F117, f117.analyze),
     ):
+        if finding not in findings:
+            continue
+
         for vulnerabilities in await analyzer(  # type: ignore
             content_generator=file_content_generator,
             file_extension=file_extension,
@@ -115,6 +120,9 @@ async def analyze(
     *,
     stores: Dict[core_model.FindingEnum, EphemeralStore],
 ) -> None:
+    findings: Tuple[core_model.FindingEnum, ...] = tuple(
+        core_model.FindingEnum,
+    )
     unique_paths: Set[str] = await resolve_paths(
         exclude=CTX.config.path.exclude,
         include=CTX.config.path.include,
@@ -123,6 +131,7 @@ async def analyze(
 
     await collect((
         analyze_one_path(
+            findings=findings,
             index=index,
             path=path,
             stores=stores,
