@@ -9,9 +9,9 @@ variable "fluid_vpc_id" {
 variable "subnets" {
   type = list(string)
   default = [
-    "subnet-0ac02a346bceef9ad",
-    "subnet-0996b60804976732b",
-    "subnet-07f62937237940742",
+    "subnet-0df4178d0c9354aad",
+    "subnet-0412793dec0eddea9",
+    "subnet-08849bfa044faf25a",
   ]
 }
 
