@@ -196,6 +196,12 @@ def test_benchmark_cmdi() -> None:
 
 
 @pytest.mark.flaky(reruns=0)
+@pytest.mark.skims_test_group('benchmark_crypto')
+def test_benchmark_crypto() -> None:
+    _run_no_group('benchmark_owasp_crypto')
+
+
+@pytest.mark.flaky(reruns=0)
 @pytest.mark.skims_test_group('benchmark_hash')
 def test_benchmark_hash() -> None:
     _run_no_group('benchmark_owasp_hash')
