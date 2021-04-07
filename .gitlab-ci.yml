@@ -33,7 +33,7 @@ workflow:
     - when: always
 
 .with_nix: &with_nix
-  tags: [autoscaling]
+  tags: [ci]
   image: "${CI_REGISTRY_IMAGE}/nix:${CI_JOB_NAME}"
   needs: []
   script:
@@ -43,7 +43,7 @@ workflow:
     GIT_DEPTH: 5
 
 .makes: &makes
-  tags: [autoscaling]
+  tags: [ci]
   image: "${CI_REGISTRY_IMAGE}/makes"
   needs: []
   interruptible: true
@@ -112,23 +112,28 @@ makes.review-mr:
   stage: merge-request
   interruptible: false
 
+.nix_get_pkgs: &nix_get_pkgs
+  before_script:
+    - echo 'sandbox = false' | tee -a
+        "/home/makes/.config/nix/nix.conf"
+        "/etc/nix/nix.conf"
+    - nix-channel --add https://nixos.org/channels/nixpkgs-unstable
+    - nix-channel --update
+
 makes.test.instantiate:
   <<: *makes
   <<: *common_in_dev_branch
+  <<: *nix_get_pkgs
   script:
-    - nix-channel --add https://nixos.org/channels/nixpkgs-unstable
-    - nix-channel --update
     - nix-instantiate .
   stage: test-code
 
 makes.test.profiles:
   <<: *makes
   <<: *common_in_dev_branch
-  before_script:
-    - nix-channel --add https://nixos.org/channels/nixpkgs-unstable
-    - nix-channel --update
-    - nix-env -i curl
+  <<: *nix_get_pkgs
   script:
+    - nix-env -i curl
     - for profile in forces hacker melts reviews skims sorts;
       do
         bash <(curl -L "https://gitlab.com/fluidattacks/product/-/raw/${CI_COMMIT_REF_NAME}/makes/profiles/${profile}.sh") "${CI_COMMIT_REF_NAME}" &&
@@ -140,7 +145,7 @@ makes.test.profiles:
 makes.lint.mailmap:
   <<: *with_nix
   <<: *common_in_dev_branch
-  tags: [autoscaling]
+  tags: [ci]
   image: nixos/nix:2.3
   stage: lint-code
   before_script:
@@ -151,7 +156,7 @@ makes.lint.mailmap:
 common_forces:
   <<: *common_in_master_branch
   stage: post-deploy
-  tags: [autoscaling]
+  tags: [ci]
   needs: []
   image:
     name: fluidattacks/forces:new
@@ -167,7 +172,7 @@ common_sonarcloud_check:
   <<: *common_in_master_branch
   interruptible: true
   stage: external
-  tags: [autoscaling]
+  tags: [ci]
   needs: []
   image:
     name: sonarsource/sonar-scanner-cli:latest
