@@ -111,6 +111,7 @@ module.exports = {
       items: [
         'devs/integrates/get-dev-keys',
         'devs/integrates/integrates-front',
+        'devs/integrates/integrates-mobile',
       ]
     },
     {

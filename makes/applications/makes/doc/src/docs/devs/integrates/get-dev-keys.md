@@ -13,8 +13,8 @@ Follow these steps to generate a key pair:
 1. Install `awscli` and `aws-okta-processor`:
 
     ```
-    $pip3 install awscli aws-okta-processor
-    $source ~/.profile
+    $ nix-env -i awscli aws-okta-processor
+    $ source ~/.profile
     ```
 
 1. Add the following function in your shell profile (`~/.bashrc`):
@@ -39,4 +39,4 @@ Follow these steps to generate a key pair:
 
 1. Use the flag `--no-aws-cache` only on this cases:
    - Run as prod.
-   - Present problems with `okta-login` or was credentials.
+   - Present problems with `okta-login` or aws credentials.
