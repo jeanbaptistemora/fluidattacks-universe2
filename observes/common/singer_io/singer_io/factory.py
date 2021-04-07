@@ -3,17 +3,15 @@ import json
 import sys
 from typing import (
     Any,
+    Callable,
     Dict,
     IO,
-    Mapping,
     Optional,
-    Type,
 )
 # Third party libraries
 # Local libraries
 from singer_io.singer import (
     InvalidType,
-    ProcessSinger,
     SingerHandler,
     SingerMessage,
     SingerRecord,
@@ -22,6 +20,10 @@ from singer_io.singer import (
     State
 )
 from singer_io import _factory
+
+
+class UndefinedHandler(Exception):
+    pass
 
 
 def deserialize(singer_msg: str) -> SingerMessage:
@@ -52,10 +54,21 @@ def emit(singer_msg: SingerMessage, target: IO[str] = sys.stdout) -> None:
 
 
 def singer_handler(
-    handlers: Mapping[Type[SingerMessage], ProcessSinger[State]]
+    handle_schema: Optional[Callable[[SingerSchema, State], State]],
+    handle_record: Optional[Callable[[SingerRecord, State], State]],
+    handle_state: Optional[Callable[[SingerState, State], State]],
 ) -> SingerHandler[State]:
+    def generic_handler(singer: SingerMessage, state: State) -> State:
+        if handle_schema and isinstance(singer, SingerSchema):
+            return handle_schema(singer, state)
+        if handle_record and isinstance(singer, SingerRecord):
+            return handle_record(singer, state)
+        if handle_state and isinstance(singer, SingerState):
+            return handle_state(singer, state)
+        raise UndefinedHandler()
+
     def handle(line: str, state: State) -> State:
         singer_input: SingerMessage = deserialize(line)
-        input_handler: ProcessSinger[State] = handlers[type(singer_input)]
-        return input_handler(singer_input, state)
+        return generic_handler(singer_input, state)
+
     return handle

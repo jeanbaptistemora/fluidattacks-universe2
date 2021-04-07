@@ -3,15 +3,15 @@ import getpass
 # Third party libraries
 import pytest
 # Local libraries
-from postgres_client import client
-from postgres_client.client import Client
-from postgres_client.cursor import (
-    DynamicSQLargs,
-)
 from streamer_zoho_crm import db
 from streamer_zoho_crm.api.bulk import (
     BulkJob,
     ModuleName,
+)
+from postgres_client import client
+from postgres_client.client import Client
+from postgres_client.cursor import (
+    DynamicSQLargs,
 )
 
 

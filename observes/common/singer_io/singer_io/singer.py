@@ -42,7 +42,6 @@ class SingerState(NamedTuple):
 
 SingerMessage = Union[SingerRecord, SingerSchema, SingerState]
 State = TypeVar("State")
-ProcessSinger = Callable[[SingerMessage, State], State]
 SingerHandler = Callable[[str, State], State]
 
 

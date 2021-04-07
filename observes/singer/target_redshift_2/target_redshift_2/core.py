@@ -29,7 +29,7 @@ def schema_handler(
 ) -> State:
     loader.update_schema(singer)
     return State(
-        current_schemas=state.current_schemas.union(singer),
+        current_schemas=state.current_schemas.union([singer]),
         previous_record=state.previous_record,
     )
 
@@ -64,16 +64,15 @@ def process_stdin(stdin: IO[str], loader: Loader) -> None:
     state: State = State()
     line: str = stdin.readline()
 
-    def handle_schema(singer: SingerSchema, state: State) -> None:
-        schema_handler(singer, state, loader)
+    def handle_schema(singer: SingerSchema, state: State) -> State:
+        return schema_handler(singer, state, loader)
 
-    def handle_record(singer: SingerRecord, state: State) -> None:
-        record_handler(singer, state, loader)
+    def handle_record(singer: SingerRecord, state: State) -> State:
+        return record_handler(singer, state, loader)
 
-    handler: SingerHandler[State] = singer_handler({
-        SingerSchema: handle_schema,
-        SingerRecord: handle_record,
-    })
+    handler: SingerHandler[State] = singer_handler(
+        handle_schema, handle_record, None
+    )
     while line:
         state = handler(line, state)
         line = stdin.readline()

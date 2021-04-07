@@ -8,11 +8,6 @@
 let
   env = packages.observes.env;
   pkgEnv = env.tap-mixpanel;
-  singerIO = buildPythonPackage {
-    name = "observes-singer-io";
-    packagePath = path "/observes/common/singer_io";
-    python = nixpkgs.python38;
-  };
   self = buildPythonPackage {
     name = "observes-tap-mixpanel";
     packagePath = path "/observes/singer/tap_mixpanel";
@@ -28,8 +23,10 @@ makeTemplate {
     envPython38Paths = [
       nixpkgs.python38Packages.pandas
       pkgEnv.development.python
-      singerIO
       self
+    ];
+    envSources = [
+      env.runtime.singer-io
     ];
   };
 }

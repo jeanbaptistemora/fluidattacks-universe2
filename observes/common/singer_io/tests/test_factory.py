@@ -95,16 +95,15 @@ def test_singer_handler() -> None:
         singer: Optional[SingerMessage] = None
         num: int = 0
 
-    def handle1(singer: SingerMessage, state: TestState) -> TestState:
+    def handle1(singer: SingerRecord, state: TestState) -> TestState:
         return TestState(singer, state.num + 1)
 
-    def handle2(singer: SingerMessage, state: TestState) -> TestState:
+    def handle2(singer: SingerSchema, state: TestState) -> TestState:
         return TestState(singer, state.num + 2)
 
-    handler: SingerHandler[TestState] = factory.singer_handler({
-        SingerRecord: handle1,
-        SingerSchema: handle2
-    })
+    handler: SingerHandler[TestState] = factory.singer_handler(
+        handle2, handle1, None
+    )
     state = TestState()
     assert handler(raw_srecord, state) == TestState(srecord, 1)
     assert handler(raw_sschema, state) == TestState(sschema, 2)
