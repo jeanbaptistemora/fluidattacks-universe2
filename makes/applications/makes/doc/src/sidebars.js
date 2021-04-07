@@ -55,6 +55,7 @@ module.exports = {
             'web/vulnerabilities/management/tracking',
           ],
         },
+        'web/vulnerabilities/reporting-vulns',
       ],
     },
     'web/glossary',
