@@ -13,10 +13,10 @@ function main {
 
       env_command="$(substitute_env_vars '__envCommandFile__')" \
   &&  env_jobname='__envJobname__' \
-  &&  if test -n "${*:1}"
-      then
-        env_jobname="${env_jobname}-${*:1}"
-      fi \
+  &&  for arg in "${@:1}"
+      do
+        env_jobname="${env_jobname}-${arg}"
+      done \
   &&  env_manifest="$(substitute_env_vars '__envManifestFile__')" \
   &&  env_command="$( \
         __envJq__ \
