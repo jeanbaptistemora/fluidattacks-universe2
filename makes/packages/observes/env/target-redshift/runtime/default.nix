@@ -1,28 +1,24 @@
-{ buildPythonPackage
-, makeTemplate
-, nixpkgs
+{ makeTemplate
 , packages
 , path
 , ...
 }:
 let
   env = packages.observes.env;
-  self = buildPythonPackage {
-    name = "observes-target-redshift";
-    packagePath = path "/observes/singer/target_redshift_2";
-    python = nixpkgs.python38;
-  };
+  self = path "/observes/singer/target_redshift_2";
 in
 makeTemplate {
   name = "observes-env-target-redshift-runtime";
   searchPaths = {
+    envMypyPaths = [
+      self
+    ];
+    envPythonPaths = [
+      self
+    ];
     envSources = [
       env.runtime.singer-io
       env.runtime.postgres-client
-    ];
-    envPython38Paths = [
-      nixpkgs.python38Packages.psycopg2
-      self
     ];
   };
 }

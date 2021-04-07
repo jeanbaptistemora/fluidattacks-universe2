@@ -20,4 +20,5 @@ def test_db_type() -> None:
         # Act
         result = db_types.from_dict(dtype)
         # Assert
+        assert result is not None
         assert dtype in db_types.JSON_SCHEMA_TYPES[result]

@@ -27,7 +27,7 @@ class TableFactory(NamedTuple):
 
 class TableIDFactory(NamedTuple):
     rschema_to_tid: Transform[RedshiftSchema, TableID]
-    srecord_to_tid: Transform[RedshiftSchema, TableID]
+    srecord_to_tid: Transform[SingerRecord, TableID]
 
 
 class TableDraftFactory(NamedTuple):
@@ -78,7 +78,7 @@ def table_factory(client: Client) -> TableFactory:
 
 def tableid_factory(db_schema: str) -> TableIDFactory:
 
-    def srecord_to_tid(record: SingerRecord) -> Table:
+    def srecord_to_tid(record: SingerRecord) -> TableID:
         return _srecord_to_tid(record, db_schema)
 
     return TableIDFactory(

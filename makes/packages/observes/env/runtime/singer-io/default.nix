@@ -1,20 +1,17 @@
-{ buildPythonPackage
-, makeTemplate
-, nixpkgs
+{ makeTemplate
 , path
 , ...
 }:
 let
-  self = buildPythonPackage {
-    name = "observes-singer-io";
-    packagePath = path "/observes/common/singer_io";
-    python = nixpkgs.python38;
-  };
+  self = path "/observes/common/singer_io";
 in
 makeTemplate {
   name = "observes-env-runtime-singer-io";
   searchPaths = {
-    envPython38Paths = [
+    envMypyPaths = [
+      self
+    ];
+    envPythonPaths = [
       self
     ];
   };

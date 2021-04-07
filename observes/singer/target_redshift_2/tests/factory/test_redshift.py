@@ -29,7 +29,7 @@ def mock_s_schema() -> SingerSchema:
 
 
 def mock_s_record() -> SingerRecord:
-    test_record = frozenset({'field1': 2.48, 'field2': 'text'}.items())
+    test_record = {'field1': 2.48, 'field2': 'text'}
     return SingerRecord('test_stream', test_record)
 
 
