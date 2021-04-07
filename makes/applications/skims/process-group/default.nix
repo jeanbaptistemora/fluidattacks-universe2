@@ -9,6 +9,7 @@ makeEntrypoint {
   searchPaths = {
     envPaths = [
       packages.melts
+      packages.observes.bin.service.job-last-success
       packages.skims
       nixpkgs.jq
       nixpkgs.yq

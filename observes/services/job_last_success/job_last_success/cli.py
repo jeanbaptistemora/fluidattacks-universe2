@@ -61,7 +61,7 @@ def update_compound_job(auth_file: IO[str], job: str, child: str) -> None:
 @click.option('--auth', type=click.File('r'), required=True)
 @click.option('--job', type=str, required=True)
 def single_job(auth: IO[str], job: str) -> None:
-    if job in SINGLE_JOBS:
+    if job in SINGLE_JOBS or job.startswith('skims'):
         update_single_job(auth, job)
     else:
         raise UnknownJob(f'single job: {job}')
