@@ -34,7 +34,7 @@ module "eks" {
       kubelet_extra_args      = "--node-labels=worker_group=development"
       public_ip               = true
 
-      asg_min_size = 0
+      asg_min_size = 1
       asg_max_size = 15
 
       root_volume_type = "gp3"
@@ -66,7 +66,7 @@ module "eks" {
       kubelet_extra_args      = "--node-labels=worker_group=production"
       public_ip               = true
 
-      asg_min_size = 0
+      asg_min_size = 1
       asg_max_size = 7
 
       root_volume_type = "gp3"
@@ -98,7 +98,7 @@ module "eks" {
       kubelet_extra_args      = "--node-labels=worker_group=ci"
       public_ip               = true
 
-      asg_min_size = 0
+      asg_min_size = 1
       asg_max_size = 200
 
       root_volume_type = "gp3"

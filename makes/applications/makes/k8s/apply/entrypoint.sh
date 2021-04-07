@@ -2,7 +2,6 @@
 
 function main {
       aws_login_prod makes \
-  &&  aws_eks_update_kubeconfig 'integrates-cluster' 'us-east-1' \
   &&  sops_export_vars 'makes/applications/makes/secrets/src/production.yaml' \
         CI_REGISTRATION_TOKEN \
         CLOUDFLARE_EMAIL \
