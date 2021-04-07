@@ -4,6 +4,7 @@ from model import (
 )
 from sast_symbolic_evaluation.types import (
     EvaluatorArgs,
+    JavaClassInstance,
 )
 from sast_symbolic_evaluation.utils_java import (
     lookup_java_class,
@@ -12,6 +13,7 @@ from sast_symbolic_evaluation.utils_java import (
 from utils.string import (
     build_attr_paths,
     complete_attrs_on_set,
+    split_on_last_dot,
 )
 
 
@@ -68,21 +70,34 @@ def _syntax_step_object_instantiation_danger(args: EvaluatorArgs) -> None:
         in danger_instances_no_args_by_finding.get(args.finding.name, set())
     )
 
-    if instantiation_danger_no_args:
-        args.syntax_step.meta.danger = True
-    elif instantiation_danger:
-        args.syntax_step.meta.danger = args_danger if args else True
-    elif args.graph_db.shards_by_java_class.get(object_type):
-        object_class = object_type.split('.')[-1]
-        constructor_length = len(args.dependencies)
-        constructor_name = f'{object_type}.{object_class}_{constructor_length}'
+    if args.graph_db.shards_by_java_class.get(object_type):
+        constructor_name = (
+            f'{object_type}.{split_on_last_dot(object_type)[1]}'
+            f'_{len(args.dependencies)}'
+        )
         if _method := lookup_java_method(
             args,
             constructor_name,
             object_type,
         ):
-            args.syntax_step.meta.value = _method
-            args.syntax_step.meta.danger = args_danger
+            if args.shard.path != _method.shard_path and (
+                fields_modified := args.eval_constructor(
+                    args,
+                    _method.metadata.n_id,
+                    args.dependencies,
+                    args.graph_db.shards_by_path_f(_method.shard_path),
+                )
+            ):
+                args.syntax_step.meta.value = JavaClassInstance(
+                    lookup_java_class(args, object_type),
+                    fields_modified,
+                )
+
+        args.syntax_step.meta.danger = args_danger
+    elif instantiation_danger_no_args:
+        args.syntax_step.meta.danger = True
+    elif instantiation_danger:
+        args.syntax_step.meta.danger = args_danger if args else True
     else:
         args.syntax_step.meta.danger = args_danger
 

@@ -262,6 +262,7 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
         },
         applicable_node_label_types={
             'method_declaration',
+            'constructor_declaration',
         },
         syntax_readers=(
             java_method_declaration.reader,
@@ -388,6 +389,7 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
             'block',
             'break_statement',
             'class_body',
+            'constructor_body',
             'continue_statement',
             'comment',
             'expression_statement',
@@ -405,6 +407,8 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
             '(',
             ')',
             '.',
+            '{',
+            '}',
         )
     ],
 )

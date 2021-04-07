@@ -2,7 +2,9 @@
 from typing import (
     Any,
     Callable,
+    Dict,
     NamedTuple,
+    Optional,
 )
 
 # Local libraries
@@ -30,6 +32,15 @@ class EvaluatorArgs(NamedTuple):
             graph_model.GraphShard,
         ],
         None,
+    ]
+    eval_constructor: Callable[
+        [
+            Any,
+            graph_model.NId,
+            graph_model.SyntaxSteps,
+            graph_model.GraphShard,
+        ],
+        Dict[str, Optional[graph_model.SyntaxStep]],
     ]
     finding: core_model.FindingEnum
     graph_db: graph_model.GraphDB
@@ -59,3 +70,8 @@ class LookedUpJavaMethod(NamedTuple):
 class LookedUpJavaClassField(NamedTuple):
     metadata: graph_model.GraphShardMetadataJavaClassField
     shard_path: str
+
+
+class JavaClassInstance(NamedTuple):
+    class_ref: Optional[LookedUpJavaClass]
+    fields: Dict[str, Optional[graph_model.SyntaxStep]]

@@ -67,7 +67,35 @@ from utils.logs import (
 )
 from utils.string import (
     get_debug_path,
+    split_on_last_dot,
 )
+
+
+def eval_constructor(
+    args: EvaluatorArgs,
+    method_n_id: graph_model.NId,
+    method_arguments: graph_model.SyntaxSteps,
+    shard: graph_model.GraphShard,
+) -> Dict[str, Optional[graph_model.SyntaxStep]]:
+    possible_syntax_steps = get_possible_syntax_steps_for_n_id(
+        args.graph_db,
+        finding=args.finding,
+        n_id=method_n_id,
+        overriden_syntax_steps=list(reversed(method_arguments)),
+        shard=shard,
+    )
+    modified_fields = {}
+    for syntax_steps in possible_syntax_steps.values():
+        # Check modified fields
+        for syntax_step in syntax_steps:
+            if (
+                isinstance(syntax_step, graph_model.SyntaxStepAssignment)
+                and syntax_step.var.startswith('this.')
+            ):
+                _, field = split_on_last_dot(syntax_step.var)
+                modified_fields[field] = syntax_step.meta.value
+
+    return modified_fields
 
 
 def eval_method(
@@ -201,6 +229,7 @@ def eval_syntax_steps(
         if evaluator := EVALUATORS.get(syntax_step_type):
             evaluator(EvaluatorArgs(
                 eval_method=eval_method,
+                eval_constructor=eval_constructor,
                 dependencies=get_dependencies(syntax_step_index, syntax_steps),
                 finding=finding,
                 graph_db=graph_db,
