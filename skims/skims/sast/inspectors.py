@@ -141,5 +141,23 @@ def get_metadata_java_class_methods(
                     name = '.' + graph.nodes[identifier_id]['label_text']
                     methods[name] = \
                         graph_model.GraphShardMetadataJavaClassMethod(c_id)
+            elif graph.nodes[c_id]['label_type'] == 'constructor_declaration':
+                match = g.match_ast(
+                    graph,
+                    c_id,
+                    'identifier',
+                    'formal_parameters',
+                )
+                if ((identifier_id := match['identifier'])
+                        and (p_id := match['formal_parameters'])):
+                    params = g.match_ast_group(graph, p_id, 'formal_parameter')
+                    if not params['formal_parameter']:
+                        params_length = 0
+                    else:
+                        params_length = len(params['formal_parameter'])
+                    constructor = graph.nodes[identifier_id]["label_text"]
+                    name = f'.{constructor}_{params_length}'
+                    methods[name] = \
+                        graph_model.GraphShardMetadataJavaClassMethod(c_id)
 
     return methods

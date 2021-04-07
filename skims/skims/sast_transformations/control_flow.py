@@ -245,6 +245,7 @@ def _generic(
 
     for types, walker in (
         ({'block',
+          'constructor_body',
           'expression_statement',
           'resource_specification'},
          _step_by_step),
@@ -258,7 +259,8 @@ def _generic(
          _if_statement),
         ({'switch_statement'},
          _switch_statement),
-        ({'method_declaration'},
+        ({'constructor_declaration',
+          'method_declaration'},
          _link_to_last_node),
         ({'try_statement',
           'try_with_resources_statement'},
@@ -276,7 +278,14 @@ def _generic(
 
 
 def add(graph: graph_model.Graph) -> None:
-    for n_id in g.filter_nodes(graph, graph.nodes, g.pred_has_labels(
-        label_type='method_declaration',
-    )):
+
+    def _predicate(n_id: str) -> bool:
+        return (g.pred_has_labels(label_type='method_declaration', )(n_id) or
+                g.pred_has_labels(label_type='constructor_declaration')(n_id))
+
+    for n_id in g.filter_nodes(
+            graph,
+            graph.nodes,
+            predicate=_predicate,
+    ):
         _generic(graph, n_id, [], edge_attrs=ALWAYS)

@@ -7,6 +7,7 @@ from sast_symbolic_evaluation.types import (
 )
 from sast_symbolic_evaluation.utils_java import (
     lookup_java_class,
+    lookup_java_method,
 )
 from utils.string import (
     build_attr_paths,
@@ -71,6 +72,17 @@ def _syntax_step_object_instantiation_danger(args: EvaluatorArgs) -> None:
         args.syntax_step.meta.danger = True
     elif instantiation_danger:
         args.syntax_step.meta.danger = args_danger if args else True
+    elif args.graph_db.shards_by_java_class.get(object_type):
+        object_class = object_type.split('.')[-1]
+        constructor_length = len(args.dependencies)
+        constructor_name = f'{object_type}.{object_class}_{constructor_length}'
+        if _method := lookup_java_method(
+            args,
+            constructor_name,
+            object_type,
+        ):
+            args.syntax_step.meta.value = _method
+            args.syntax_step.meta.danger = args_danger
     else:
         args.syntax_step.meta.danger = args_danger
 
