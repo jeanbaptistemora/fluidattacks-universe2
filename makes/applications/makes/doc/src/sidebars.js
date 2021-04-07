@@ -121,6 +121,7 @@ module.exports = {
         'devs/integrates/kubernetes-cluster-connect',
         'devs/integrates/dynamodb-patterns',
         'devs/integrates/integrates-mobile',
+        'devs/integrates/writing-code-suggestions',
       ]
     },
     {
