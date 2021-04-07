@@ -22,8 +22,10 @@ function clone_group {
 function get_config {
   local group="${1}"
   local namespace="${2}"
+  local check="${3}"
 
   jq -e -n -r \
+    --arg 'check' "${check}" \
     --arg 'language' "$(melts misc --get-group-language "${group}")" \
     --arg 'namespace' "${namespace}" \
     --arg 'working_dir' "groups/${group}/fusion/${namespace}" \
@@ -31,6 +33,9 @@ function get_config {
       language: $language,
       namespace: $namespace,
       path: {
+        checks: [
+          $check
+        ],
         include: [
           "glob(*)"
         ],
@@ -63,6 +68,7 @@ function get_config {
 
 function main {
   local group="${1:-}"
+  local check="${2:-}"
   local cache_local="${HOME_IMPURE}/.skims/cache"
   local cache_remote="s3://skims.data/cache/${group}"
   local config_file
@@ -70,8 +76,11 @@ function main {
 
       if test -z "${group}"
       then
-            echo '[ERROR] Specify the group on the first argument to this program' \
-        &&  return 1
+        abort '[ERROR] Specify the group on the first argument to this program'
+      fi \
+  &&  if test -z "${check}"
+      then
+        abort '[ERROR] Specify the check on the second argument to this program'
       fi \
   &&  echo "[INFO] Processing ${group}" \
   &&  aws_login_prod 'skims' \
@@ -83,8 +92,8 @@ function main {
     &&  for namespace in "groups/${group}/fusion/"*
         do
               namespace="$(basename "${namespace}")" \
-          &&  echo "[INFO] Running skims: ${group} ${namespace}" \
-          &&  get_config "${group}" "${namespace}" \
+          &&  echo "[INFO] Running skims: ${group} ${namespace} ${check}" \
+          &&  get_config "${group}" "${namespace}" "${check}" \
                 | PYTHONPATH='' yq -y . \
                 | tee "${config_file}" \
           &&  echo '[INFO] Fetching cache' \

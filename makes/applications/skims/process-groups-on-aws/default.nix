@@ -1,4 +1,5 @@
 { makeEntrypoint
+, nixpkgs
 , packages
 , path
 , ...
@@ -7,6 +8,7 @@ makeEntrypoint {
   name = "skims-process-groups-on-aws";
   searchPaths = {
     envPaths = [
+      nixpkgs.gnugrep
       packages.skims.process-group-on-aws
     ];
     envUtils = [
