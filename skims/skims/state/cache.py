@@ -20,11 +20,11 @@ from typing import (
 from aioextensions import (
     in_thread,
 )
+from safe_pickle import (
+    LoadError
+)
 
 # Local libraries
-from serialization import (
-    LoadError,
-)
 from state.common import (
     retrieve_object,
     store_object,

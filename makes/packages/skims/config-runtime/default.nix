@@ -90,6 +90,7 @@ makeTemplate {
       })
     ];
     envSources = [
+      packages.makes.python.safe-pickle
       (makeTemplate {
         arguments = {
           envParserAntlr = packages.skims.parsers.antlr;

@@ -39,7 +39,7 @@ class LoadError(Exception):
 
 
 def _bytes_dump(instance: bytes) -> Serialized:
-    return _serialize(instance, instance.hex())
+    return serialize(instance, instance.hex())
 
 
 def _bytes_load(data: str) -> bytes:
@@ -47,7 +47,7 @@ def _bytes_load(data: str) -> bytes:
 
 
 def _dataclass_dump(instance: Any) -> Serialized:
-    return _serialize(instance, *map(_dump, dataclasses.astuple(instance)))
+    return serialize(instance, *map(dump_raw, dataclasses.astuple(instance)))
 
 
 def _dataclass_load(factory: Callable[..., TVar]) -> Callable[..., TVar]:
@@ -55,7 +55,7 @@ def _dataclass_load(factory: Callable[..., TVar]) -> Callable[..., TVar]:
 
 
 def _datetime_dump(time: datetime) -> Serialized:
-    return _serialize(time, time.isoformat())
+    return serialize(time, time.isoformat())
 
 
 def _datetime_load(time: str) -> datetime:
@@ -63,8 +63,11 @@ def _datetime_load(time: str) -> datetime:
 
 
 def _dict_dump(instance: Dict[str, Any]) -> Serialized:
-    return _serialize(
-        instance, *((_dump(key), _dump(val)) for key, val in instance.items()),
+    return serialize(
+        instance, *(
+            (dump_raw(key), dump_raw(val))
+            for key, val in instance.items()
+        ),
     )
 
 
@@ -73,19 +76,19 @@ def _dict_load(*args: Tuple[Serialized, Serialized]) -> Dict[Any, Any]:
 
 
 def _enum_dump(instance: Enum) -> Serialized:
-    return _serialize(instance, _dump(instance.value))
+    return serialize(instance, dump_raw(instance.value))
 
 
 def _enum_load(factory: Callable[..., TVar]) -> Callable[..., TVar]:
     return lambda value: factory(_deserialize(value))
 
 
-def _list_load(*args: Serialized) -> List[Any]:
+def list_load(*args: Serialized) -> List[Any]:
     return list(_tuple_load(*args))
 
 
 def _namedtuple_dump(instance: Tuple[Any, ...]) -> Serialized:
-    return _serialize(instance, *map(_dump, instance))
+    return serialize(instance, *map(dump_raw, instance))
 
 
 def _namedtuple_load(factory: Callable[..., TVar]) -> Callable[..., TVar]:
@@ -93,7 +96,7 @@ def _namedtuple_load(factory: Callable[..., TVar]) -> Callable[..., TVar]:
 
 
 def _none_dump(instance: None) -> Serialized:
-    return _serialize(instance)
+    return serialize(instance)
 
 
 def _none_load() -> None:
@@ -104,8 +107,8 @@ def _ordereddict_load(*args: Tuple[Serialized, Serialized]) -> Dict[Any, Any]:
     return OrderedDict(_dict_load(*args))
 
 
-def _tuple_dump(instance: List[Any]) -> Serialized:
-    return _serialize(instance, *map(_dump, instance))
+def tuple_dump(instance: List[Any]) -> Serialized:
+    return serialize(instance, *map(dump_raw, instance))
 
 
 def _tuple_load(*args: Serialized) -> Tuple[Any, ...]:
@@ -113,7 +116,7 @@ def _tuple_load(*args: Serialized) -> Tuple[Any, ...]:
 
 
 def _idem_dump(obj: Any) -> Serialized:
-    return _serialize(obj, obj)
+    return serialize(obj, obj)
 
 
 # This is what guarantees security, only this types are whitelisted
@@ -136,15 +139,15 @@ def register(
 
 
 def register_dataclass(type_: Any) -> None:
-    register(type_, _dataclass_dump, _dataclass_load)
+    register(type_, _dataclass_dump, _dataclass_load(type_))
 
 
 def register_enum(type_: Any) -> None:
-    register(type_, _enum_dump, _enum_load)
+    register(type_, _enum_dump, _enum_load(type_))
 
 
 def register_namedtuple(type_: Any) -> None:
-    register(type_, _namedtuple_dump, _namedtuple_load)
+    register(type_, _namedtuple_dump, _namedtuple_load(type_))
 
 
 def _side_effects() -> None:
@@ -156,16 +159,16 @@ def _side_effects() -> None:
         (datetime, _datetime_dump, _datetime_load),
         (float, _idem_dump, float),
         (int, _idem_dump, int),
-        (list, _tuple_dump, _list_load),
+        (list, tuple_dump, list_load),
         (OrderedDict, _dict_dump, _ordereddict_load),
         (str, _idem_dump, str),
-        (tuple, _tuple_dump, _tuple_load),
+        (tuple, tuple_dump, _tuple_load),
         (type(None), _none_dump, _none_load),
     ):
         register(factory, dumper, loader)
 
 
-def _serialize(
+def serialize(
     instance: Any,
     *args: Any,
     **kwargs: Any,
@@ -183,7 +186,7 @@ def _deserialize(data: Serialized) -> Any:
     return loader(*args, **kwargs)
 
 
-def _dump(instance: Any) -> Serialized:
+def dump_raw(instance: Any) -> Serialized:
     factory = type(instance)
     dumper: Callable[..., Serialized] = ALLOWED_FACTORIES[factory]['dumper']
 
@@ -191,7 +194,7 @@ def _dump(instance: Any) -> Serialized:
 
 
 def dump(instance: Any, ttl: Optional[int] = None) -> bytes:
-    dumped: Serialized = _dump(instance)
+    dumped: Serialized = dump_raw(instance)
     message = {
         'expires_at': (
             None
@@ -227,13 +230,3 @@ def load(stream: bytes) -> Any:
 
 # Side effects
 _side_effects()
-
-
-__all__ = [
-    'dump',
-    'load',
-    'register',
-    'register_dataclass',
-    'register_enum',
-    'register_namedtuple',
-]

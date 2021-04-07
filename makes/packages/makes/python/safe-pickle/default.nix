@@ -4,10 +4,7 @@
 , ...
 }:
 makeTemplate {
-  arguments = {
-    envSrcSkimsSkims = path "/skims/skims";
-  };
-  name = "skims-config-runtime";
+  name = "makes-python-safe-pickle";
   searchPaths = {
     envPythonPaths = [
       (path "/makes/packages/makes/python/safe-pickle/src")
@@ -16,5 +13,4 @@ makeTemplate {
       nixpkgs.python38Packages.python-dateutil
     ];
   };
-  template = path "/makes/packages/skims/config-runtime/template.sh";
 }
