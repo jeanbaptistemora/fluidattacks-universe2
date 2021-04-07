@@ -580,8 +580,13 @@ async def send_mail_new_releases(
 async def send_mail_access_granted(
         email_to: List[str],
         context: MailContentType) -> None:
-    await _send_mail_async(
-        'accessgrantedintegrates', email_to, context=context, tags=GENERAL_TAG
+    await _send_mails_async_new(
+        email_to,
+        context,
+        GENERAL_TAG,
+        f'Access Granted to group {context["project"]} ' +
+        f'in Integrates by Fluid Attacks',
+        'access_granted'
     )
 
 
