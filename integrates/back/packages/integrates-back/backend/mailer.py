@@ -588,8 +588,12 @@ async def send_mail_access_granted(
 async def send_mail_resources(
         email_to: List[str],
         context: MailContentType) -> None:
-    await _send_mail_async(
-        'resources-changes', email_to, context=context, tags=GENERAL_TAG
+    await _send_mails_async_new(
+        email_to,
+        context,
+        GENERAL_TAG,
+        f'Changes in resources for [{context["project"]}]',
+        'resources_changes'
     )
 
 

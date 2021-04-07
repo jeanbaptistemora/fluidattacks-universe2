@@ -15,3 +15,14 @@
   {% endfor %}
 </div>
 {% endmacro %}
+
+{# Bulleted gray text area for resources changes #}
+{%+ macro bullet_area(list) %}
+<div class="w-80 gray-text-area">
+  <ul>
+  {% for resource in list %}
+    <li>{{ resource['resource_description'] }}</li>
+  {% endfor %}
+  <ul>
+</div>
+{% endmacro %}
