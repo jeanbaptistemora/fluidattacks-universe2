@@ -42,3 +42,24 @@ async def test_get_by_group():
             tested_lines=172
         )
     )
+
+
+async def test_get_by_root():
+    group_name = 'unittesting'
+    root_id = '4039d098-ffc5-4984-8ed3-eb17bca98e19'
+    root_toe_lines = await toe_lines_domain.get_by_root(
+        group_name, root_id
+    )
+    assert root_toe_lines == (
+        GitRootToeLines(
+            comments='comment test',
+            filename='product/test/test.config',
+            group_name='unittesting',
+            loc=8,
+            modified_commit='983466z',
+            modified_date='2019-08-01T00:00:00-05:00',
+            root_id='4039d098-ffc5-4984-8ed3-eb17bca98e19',
+            tested_date='2021-02-28T00:00:00-05:00',
+            tested_lines=4
+        ),
+    )
