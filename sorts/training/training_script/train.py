@@ -81,7 +81,7 @@ def save_best_model_to_s3(
     # Sort results in descending order by F1 and Overfit
     sorted_results: List[List[str]] = sorted(
         training_results[1:],
-        key=lambda x: (float(x[-2]), float(x[-1])),
+        key=lambda results_row: (float(results_row[4]), float(results_row[5])),
         reverse=True
     )
     best_features: Tuple[str, ...] = tuple()
