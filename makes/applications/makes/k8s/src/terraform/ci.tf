@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "cache_bucket" {
-  bucket        = "makes-k8s.fluidattacks.com"
+  bucket        = "ci-cache.fluidattacks.com"
   acl           = "private"
   force_destroy = true
 

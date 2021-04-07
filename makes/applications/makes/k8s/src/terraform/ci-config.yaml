@@ -46,6 +46,7 @@ runners:
         helper_cpu_request = "1m"
         helper_memory_request = "1Mi"
         namespace = "ci"
+        poll_timeout = 300
         privileged = false
         allow_privilege_escalation = false
         [runners.kubernetes.node_selector]
