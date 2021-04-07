@@ -104,6 +104,13 @@ module.exports = {
         'rules/authentication/r225',
       ],
     },
+    {
+    type: 'category',
+      label: 'Authorization',
+      items: [
+        'rules/authorization/r033',
+      ],
+    },
   ],
   Agent: [
     'agent/introduction',
