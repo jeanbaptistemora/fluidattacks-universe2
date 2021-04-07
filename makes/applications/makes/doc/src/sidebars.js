@@ -109,7 +109,15 @@ module.exports = {
       type: 'category',
       label: 'Integrates',
       items: [
+        'devs/integrates/get-dev-keys',
         'devs/integrates/integrates-front',
+      ]
+    },
+    {
+      type: 'category',
+      label: 'Observes',
+      items: [
+        'devs/observes/observes-conventions',
       ]
     },
   ],
