@@ -76,8 +76,6 @@ makes.doc.deploy
 makes.doc.infra.apply
 makes.doc.infra.test
 makes.done
-makes.k8s-new.apply
-makes.k8s-new.test
 makes.k8s.apply
 makes.k8s.test
 makes.kill-port

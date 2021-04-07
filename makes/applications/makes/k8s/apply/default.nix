@@ -1,4 +1,5 @@
-{ makeEntrypoint
+{ nixpkgs
+, makeEntrypoint
 , path
 , terraformApply
 , ...
@@ -12,6 +13,7 @@ makeEntrypoint {
         product = "makes";
         target = "makes/applications/makes/k8s/src/terraform";
       })
+      nixpkgs.curl
     ];
     envUtils = [
       "/makes/utils/aws"

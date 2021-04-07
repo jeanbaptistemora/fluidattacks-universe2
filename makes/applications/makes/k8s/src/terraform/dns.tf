@@ -26,7 +26,7 @@ resource "helm_release" "dns" {
   }
 
   set {
-    name =  "txtPrefix"
+    name  = "txtPrefix"
     value = "makes-k8s"
   }
 

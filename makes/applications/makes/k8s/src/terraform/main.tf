@@ -42,7 +42,7 @@ terraform {
 
   backend "s3" {
     bucket         = "fluidattacks-terraform-states-prod"
-    key            = "integrates-cluster.tfstate"
+    key            = "makes-k8s.tfstate"
     region         = "us-east-1"
     encrypt        = true
     dynamodb_table = "terraform_state_lock"
@@ -59,4 +59,11 @@ provider "aws" {
 provider "cloudflare" {
   email   = var.cloudflare_email
   api_key = var.cloudflare_api_key
+}
+
+provider "kubernetes" {
+  host                   = data.aws_eks_cluster.cluster.endpoint
+  cluster_ca_certificate = base64decode(data.aws_eks_cluster.cluster.certificate_authority.0.data)
+  token                  = data.aws_eks_cluster_auth.cluster.token
+  load_config_file       = false
 }

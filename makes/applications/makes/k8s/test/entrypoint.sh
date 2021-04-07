@@ -2,6 +2,7 @@
 
 function main {
       aws_login_dev makes \
+  &&  aws_eks_update_kubeconfig 'makes-k8s' 'us-east-1' \
   &&  sops_export_vars 'makes/applications/makes/secrets/src/development.yaml' \
         CLOUDFLARE_EMAIL \
         CLOUDFLARE_API_KEY \
