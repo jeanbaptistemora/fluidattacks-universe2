@@ -7,6 +7,7 @@ buildPythonRequirements {
   requirements = {
     direct = [
       "delighted==4.0.0"
+      "returns==0.16.0"
     ];
     inherited = [
       "certifi==2020.12.5"
@@ -15,6 +16,7 @@ buildPythonRequirements {
       "pytz==2021.1"
       "requests==2.25.1"
       "six==1.15.0"
+      "typing-extensions==3.7.4.3"
       "tzlocal==2.1"
       "urllib3==1.26.4"
     ];

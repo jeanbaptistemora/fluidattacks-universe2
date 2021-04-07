@@ -11,8 +11,6 @@ from delighted.errors import (
     TooManyRequestsError,
 )
 
-# Local libraries
-
 
 class MaxRetriesReached(Exception):
     pass
