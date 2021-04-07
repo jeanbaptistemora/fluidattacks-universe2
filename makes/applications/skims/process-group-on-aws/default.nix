@@ -20,5 +20,5 @@ computeOnAws {
     "SKIMS_PROD_AWS_SECRET_ACCESS_KEY"
   ];
   timeout = 86400;
-  vcpus = 4;
+  vcpus = 2;
 }
