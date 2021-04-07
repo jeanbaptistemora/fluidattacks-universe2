@@ -111,4 +111,9 @@ resource "helm_release" "autoscaler" {
     name  = "rbac.serviceAccount.annotations.\"eks.amazonaws.com/role-arn\""
     value = module.autoscaler_oidc_role.this_iam_role_arn
   }
+
+  set {
+    name  = "extraArgs.scale-down-unneeded-time"
+    value = "30m"
+  }
 }
