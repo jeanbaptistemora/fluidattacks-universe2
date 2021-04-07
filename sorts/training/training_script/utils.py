@@ -106,7 +106,7 @@ def get_previous_training_results(results_filename: str) -> List[List[str]]:
     previous_results: List[List[str]] = []
     with tempfile.TemporaryDirectory() as tmp_dir:
         local_file: str = os.path.join(tmp_dir, results_filename)
-        remote_file: str = f'training-output/{results_filename}'
+        remote_file: str = f'training-output/results/{results_filename}'
         try:
             S3_BUCKET.Object(remote_file).download_file(local_file)
             with open(local_file, 'r') as csv_file:
