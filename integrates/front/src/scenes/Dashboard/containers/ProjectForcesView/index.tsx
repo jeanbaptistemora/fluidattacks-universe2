@@ -1,5 +1,5 @@
-import { useQuery } from "@apollo/react-hooks";
-import type { ApolloError } from "apollo-client";
+import { useQuery } from "@apollo/client";
+import type { ApolloError } from "@apollo/client";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import React, { useCallback, useState } from "react";

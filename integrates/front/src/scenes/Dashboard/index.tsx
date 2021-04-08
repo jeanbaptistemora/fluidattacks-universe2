@@ -1,7 +1,7 @@
-import { useMutation, useQuery } from "@apollo/react-hooks";
+import { useMutation, useQuery } from "@apollo/client";
+import type { ApolloError } from "@apollo/client";
 import Bugsnag from "@bugsnag/js";
 import type { PureAbility } from "@casl/ability";
-import type { ApolloError } from "apollo-client";
 import type { GraphQLError } from "graphql";
 import { identify, people, register, reset } from "mixpanel-browser";
 import React, { useCallback, useContext, useState } from "react";

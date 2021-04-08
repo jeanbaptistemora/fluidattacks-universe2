@@ -1,6 +1,6 @@
-import { useQuery } from "@apollo/react-hooks";
+import { useQuery } from "@apollo/client";
+import type { ApolloError } from "@apollo/client";
 import type { PureAbility } from "@casl/ability";
-import type { ApolloError } from "apollo-client";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import React, { useContext, useEffect } from "react";

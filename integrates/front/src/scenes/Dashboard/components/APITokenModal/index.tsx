@@ -1,4 +1,4 @@
-import type { MutationFunction } from "@apollo/react-common";
+import type { MutationFunction } from "@apollo/client";
 import _ from "lodash";
 import { track } from "mixpanel-browser";
 import React from "react";

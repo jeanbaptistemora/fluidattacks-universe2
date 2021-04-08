@@ -1,8 +1,7 @@
-import { useMutation, useQuery } from "@apollo/react-hooks";
+import { NetworkStatus, useMutation, useQuery } from "@apollo/client";
+import type { ApolloError } from "@apollo/client";
 import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import type { ApolloError } from "apollo-client";
-import { NetworkStatus } from "apollo-client";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import { track } from "mixpanel-browser";

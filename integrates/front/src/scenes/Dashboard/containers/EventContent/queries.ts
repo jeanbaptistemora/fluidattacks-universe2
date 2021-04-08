@@ -1,5 +1,5 @@
+import { gql } from "@apollo/client";
 import type { DocumentNode } from "graphql";
-import gql from "graphql-tag";
 
 export const GET_EVENT_HEADER: DocumentNode = gql`
   query GetEventHeader($eventId: String!) {

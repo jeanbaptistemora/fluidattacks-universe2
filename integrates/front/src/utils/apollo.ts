@@ -3,33 +3,33 @@
   We need it in order to use methods from xhr and mutate some values from a
   graphQL error response.
 */
-import { ApolloProvider as BaseApolloProvider } from "@apollo/react-hooks";
-import type { NormalizedCacheObject } from "apollo-cache-inmemory";
 import {
+  ApolloClient,
+  ApolloLink,
+  ApolloProvider as BaseApolloProvider,
   InMemoryCache,
-  IntrospectionFragmentMatcher,
-} from "apollo-cache-inmemory";
-import { ApolloClient } from "apollo-client";
-import { ApolloLink, Observable } from "apollo-link";
+  Observable,
+} from "@apollo/client";
 import type {
-  ExecutionResult,
   FetchResult,
   NextLink,
+  NormalizedCacheObject,
   Operation,
-} from "apollo-link";
-import type { ErrorResponse } from "apollo-link-error";
-import type { ServerError, ServerParseError } from "apollo-link-http-common";
-import { RetryLink } from "apollo-link-retry";
-import { WebSocketLink } from "apollo-link-ws";
+  ServerError,
+  ServerParseError,
+} from "@apollo/client";
+import type { ErrorResponse } from "@apollo/client/link/error";
+import { RetryLink } from "@apollo/client/link/retry";
+import { WebSocketLink } from "@apollo/client/link/ws";
+import { getMainDefinition } from "@apollo/client/utilities";
 import { createUploadLink } from "apollo-upload-client";
-import { getMainDefinition } from "apollo-utilities";
 import type {
+  ExecutionResult,
   FragmentDefinitionNode,
   GraphQLError,
   OperationDefinitionNode,
 } from "graphql";
 import _ from "lodash";
-import type React from "react";
 import { createElement, useMemo } from "react";
 import { createNetworkStatusNotifier } from "react-apollo-network-status";
 import { useHistory } from "react-router";
@@ -331,23 +331,9 @@ const errorLink: (history: History) => ApolloLink = (
  */
 const getCache: () => InMemoryCache = (): InMemoryCache =>
   new InMemoryCache({
-    fragmentMatcher: new IntrospectionFragmentMatcher({
-      introspectionQueryResultData: {
-        __schema: {
-          types: [
-            {
-              kind: "UNION",
-              name: "Root",
-              possibleTypes: [
-                { name: "GitRoot" },
-                { name: "IPRoot" },
-                { name: "URLRoot" },
-              ],
-            },
-          ],
-        },
-      },
-    }),
+    possibleTypes: {
+      Root: ["GitRoot", "IPRoot", "URLRoot"],
+    },
   });
 
 type ProviderProps = Omit<

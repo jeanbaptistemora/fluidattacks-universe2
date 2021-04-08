@@ -1,5 +1,5 @@
+import { gql } from "@apollo/client";
 import type { DocumentNode } from "graphql";
-import gql from "graphql-tag";
 
 const ACCEPT_LEGAL_MUTATION: DocumentNode = gql`
   mutation AcceptLegalMutation($remember: Boolean!) {

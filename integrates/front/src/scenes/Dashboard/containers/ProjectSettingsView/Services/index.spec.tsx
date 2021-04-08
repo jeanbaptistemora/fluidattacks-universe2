@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-member-access
  -- Annotations added due to extended usage of "any" type in enzyme lib
  */
-import { MockedProvider } from "@apollo/react-testing";
-import type { MockedResponse } from "@apollo/react-testing";
+import { MockedProvider } from "@apollo/client/testing";
+import type { MockedResponse } from "@apollo/client/testing";
 import { PureAbility } from "@casl/ability";
 import type { ReactWrapper } from "enzyme";
 import { mount } from "enzyme";

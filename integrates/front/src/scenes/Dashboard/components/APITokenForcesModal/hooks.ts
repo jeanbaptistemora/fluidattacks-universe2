@@ -1,11 +1,11 @@
 import type {
+  ApolloError,
   MutationFunction,
   MutationResult,
   OperationVariables,
-} from "@apollo/react-common";
-import type { QueryLazyOptions } from "@apollo/react-hooks";
-import { useLazyQuery, useMutation } from "@apollo/react-hooks";
-import type { ApolloError } from "apollo-client";
+  QueryLazyOptions,
+} from "@apollo/client";
+import { useLazyQuery, useMutation } from "@apollo/client";
 import type { GraphQLError } from "graphql";
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";

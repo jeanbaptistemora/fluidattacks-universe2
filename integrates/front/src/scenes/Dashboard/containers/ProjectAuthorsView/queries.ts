@@ -1,5 +1,5 @@
+import { gql } from "@apollo/client";
 import type { DocumentNode } from "graphql";
-import gql from "graphql-tag";
 
 export const GET_BILL: DocumentNode = gql`
   query GetBill($date: DateTime, $projectName: String!) {

@@ -1,7 +1,7 @@
 /* Eslint annotations needed as DB queries use "any" type */
 /* eslint-disable @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access */
-import { useMutation, useQuery } from "@apollo/react-hooks";
-import type { ApolloError } from "apollo-client";
+import { useMutation, useQuery } from "@apollo/client";
+import type { ApolloError } from "@apollo/client";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import { track } from "mixpanel-browser";

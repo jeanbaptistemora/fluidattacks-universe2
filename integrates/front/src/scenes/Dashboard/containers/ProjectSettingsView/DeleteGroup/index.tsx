@@ -1,5 +1,5 @@
-import { useMutation } from "@apollo/react-hooks";
-import type { ApolloError } from "apollo-client";
+import { useMutation } from "@apollo/client";
+import type { ApolloError } from "@apollo/client";
 import { track } from "mixpanel-browser";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";

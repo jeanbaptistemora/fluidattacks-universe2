@@ -1,5 +1,5 @@
+import { gql } from "@apollo/client";
 import type { DocumentNode } from "graphql";
-import gql from "graphql-tag";
 
 const REQUEST_VERIFICATION_VULN: DocumentNode = gql`
   mutation RequestVerificationVuln(

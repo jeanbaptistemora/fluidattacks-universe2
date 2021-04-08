@@ -1,5 +1,5 @@
+import { gql } from "@apollo/client";
 import type { DocumentNode } from "graphql";
-import gql from "graphql-tag";
 
 const SUBSCRIPTIONS_TO_ENTITY_REPORT: DocumentNode = gql`
   query SubscriptionsToEntityReport {

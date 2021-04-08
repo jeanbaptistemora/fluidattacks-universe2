@@ -1,10 +1,11 @@
-import type { MockedResponse } from "@apollo/react-testing";
-import { MockedProvider, wait } from "@apollo/react-testing";
+import type { MockedResponse } from "@apollo/client/testing";
+import { MockedProvider } from "@apollo/client/testing";
 import type { ReactWrapper } from "enzyme";
 import { mount } from "enzyme";
 import React from "react";
 import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
+import wait from "waait";
 import waitForExpect from "wait-for-expect";
 
 import { APITokenForcesModal } from "scenes/Dashboard/components/APITokenForcesModal";

@@ -1,5 +1,5 @@
+import { gql } from "@apollo/client";
 import type { DocumentNode } from "graphql";
-import gql from "graphql-tag";
 
 const UPLOAD_VULNERABILITIES: DocumentNode = gql`
   mutation UploadVulnerabilites($file: Upload!, $findingId: String!) {

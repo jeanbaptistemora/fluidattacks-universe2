@@ -1,5 +1,5 @@
+import { gql } from "@apollo/client";
 import type { DocumentNode } from "graphql";
-import gql from "graphql-tag";
 
 const GET_FINDING_EVIDENCES: DocumentNode = gql`
   query GetFindingEvidences($findingId: String!) {

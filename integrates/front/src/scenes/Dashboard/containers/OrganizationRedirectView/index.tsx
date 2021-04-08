@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access, @typescript-eslint/restrict-template-expressions */
 /* Note: ESLint annotations needed ad DB queries use "any" type */
-import { useQuery } from "@apollo/react-hooks";
-import type { ApolloError } from "apollo-client";
+import { useQuery } from "@apollo/client";
+import type { ApolloError } from "@apollo/client";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import React from "react";

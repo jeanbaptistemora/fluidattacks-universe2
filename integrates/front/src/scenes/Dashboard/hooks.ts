@@ -1,6 +1,5 @@
-import type { MutationFunction } from "@apollo/react-common";
-import { useMutation } from "@apollo/react-hooks";
-import type { ApolloError } from "apollo-client";
+import type { ApolloError, MutationFunction } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import type React from "react";

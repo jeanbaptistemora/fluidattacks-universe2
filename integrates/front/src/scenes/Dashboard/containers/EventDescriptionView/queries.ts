@@ -1,5 +1,5 @@
+import { gql } from "@apollo/client";
 import type { DocumentNode } from "graphql";
-import gql from "graphql-tag";
 
 const GET_EVENT_DESCRIPTION: DocumentNode = gql`
   query GetEventDescription($eventId: String!) {

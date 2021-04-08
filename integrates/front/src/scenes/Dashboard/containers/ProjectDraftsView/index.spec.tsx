@@ -1,5 +1,5 @@
-import type { MockedResponse } from "@apollo/react-testing";
-import { MockedProvider, wait } from "@apollo/react-testing";
+import type { MockedResponse } from "@apollo/client/testing";
+import { MockedProvider } from "@apollo/client/testing";
 import type { ReactWrapper } from "enzyme";
 import { mount } from "enzyme";
 import type { FetchMockStatic } from "fetch-mock";
@@ -8,6 +8,7 @@ import React from "react";
 import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
 import { MemoryRouter, Route } from "react-router-dom";
+import wait from "waait";
 
 import { ProjectDraftsView } from "scenes/Dashboard/containers/ProjectDraftsView";
 import { GET_DRAFTS } from "scenes/Dashboard/containers/ProjectDraftsView/queries";

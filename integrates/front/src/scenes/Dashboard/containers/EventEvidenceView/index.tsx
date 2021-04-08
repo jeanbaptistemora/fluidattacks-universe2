@@ -1,11 +1,10 @@
 /* eslint-disable @typescript-eslint/restrict-template-expressions, @typescript-eslint/no-unsafe-member-access 
 --- Needed annotations as DB queries use "any" type
 */
-import { useMutation, useQuery } from "@apollo/react-hooks";
+import { NetworkStatus, useMutation, useQuery } from "@apollo/client";
+import type { ApolloError } from "@apollo/client";
 import { faFile, faImage } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import type { ApolloError } from "apollo-client";
-import { NetworkStatus } from "apollo-client";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import React, { useCallback, useState } from "react";

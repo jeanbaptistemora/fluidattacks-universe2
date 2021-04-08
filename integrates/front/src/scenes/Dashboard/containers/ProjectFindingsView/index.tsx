@@ -1,11 +1,11 @@
-import { useLazyQuery, useQuery } from "@apollo/react-hooks";
+import { useLazyQuery, useQuery } from "@apollo/client";
+import type { ApolloError } from "@apollo/client";
 import {
   faFileArchive,
   faFileExcel,
   faFilePdf,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import type { ApolloError } from "apollo-client";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import { track } from "mixpanel-browser";

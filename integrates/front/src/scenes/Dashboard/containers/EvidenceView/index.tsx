@@ -1,11 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access
 -- annotation needed as the DB handles "any" type */
-import type { ExecutionResult } from "@apollo/react-common";
-import { useMutation, useQuery } from "@apollo/react-hooks";
+import { NetworkStatus, useMutation, useQuery } from "@apollo/client";
+import type { ApolloError } from "@apollo/client";
 import { faImage } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import type { ApolloError } from "apollo-client";
-import { NetworkStatus } from "apollo-client";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import { track } from "mixpanel-browser";
@@ -154,7 +152,7 @@ const EvidenceView: React.FC = (): JSX.Element => {
         description !== evidenceImages[key].description;
 
       if (file !== undefined) {
-        const mtResult: ExecutionResult = await updateEvidence({
+        const mtResult = await updateEvidence({
           variables: {
             evidenceId: key.toUpperCase(),
             file: file[0],

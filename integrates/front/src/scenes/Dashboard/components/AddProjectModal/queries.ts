@@ -1,5 +1,5 @@
+import { gql } from "@apollo/client";
 import type { DocumentNode } from "graphql";
-import gql from "graphql-tag";
 
 const PROJECTS_NAME_QUERY: DocumentNode = gql`
   query InternalGroupName {

@@ -1,5 +1,5 @@
+import { gql } from "@apollo/client";
 import type { DocumentNode } from "graphql";
-import gql from "graphql-tag";
 
 const GET_ORGANIZATION_STAKEHOLDERS: DocumentNode = gql`
   query GetOrganizationStakeholders($organizationId: String!) {

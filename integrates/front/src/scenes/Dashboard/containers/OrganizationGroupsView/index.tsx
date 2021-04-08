@@ -1,7 +1,7 @@
-import { useQuery } from "@apollo/react-hooks";
+import { useQuery } from "@apollo/client";
+import type { ApolloError } from "@apollo/client";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import type { ApolloError } from "apollo-client";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import React, { useCallback, useState } from "react";

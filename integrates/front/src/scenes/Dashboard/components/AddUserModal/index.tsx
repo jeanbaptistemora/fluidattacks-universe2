@@ -1,5 +1,5 @@
-import { useLazyQuery } from "@apollo/react-hooks";
-import type { ApolloError } from "apollo-client";
+import { useLazyQuery } from "@apollo/client";
+import type { ApolloError } from "@apollo/client";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import React from "react";

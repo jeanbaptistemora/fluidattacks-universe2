@@ -1,7 +1,7 @@
-import { useMutation, useQuery } from "@apollo/react-hooks";
+import { gql, useMutation, useQuery } from "@apollo/client";
+import type { ApolloError } from "@apollo/client";
 import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
-import type { ApolloError } from "apollo-client";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import { track } from "mixpanel-browser";
@@ -77,10 +77,14 @@ const SeverityView: React.FC = (): JSX.Element => {
       const severityScore: string = Number(
         calcCVSSv3(data.finding.severity)
       ).toFixed(2);
-      client.writeData({
-        data: {
-          finding: { __typename: "Finding", id: findingId, severityScore },
-        },
+      client.writeFragment({
+        data: { severityScore },
+        fragment: gql`
+          fragment score on Finding {
+            severityScore
+          }
+        `,
+        id: `Finding:${findingId}`,
       });
     }
   }, [client, data, findingId, isEditing]);
@@ -143,10 +147,14 @@ const SeverityView: React.FC = (): JSX.Element => {
   ) => void = useCallback(
     (values: ISeverityAttr["finding"]["severity"]): void => {
       const severityScore: string = Number(calcCVSSv3(values)).toFixed(2);
-      client.writeData({
-        data: {
-          finding: { __typename: "Finding", id: findingId, severityScore },
-        },
+      client.writeFragment({
+        data: { severityScore },
+        fragment: gql`
+          fragment score on Finding {
+            severityScore
+          }
+        `,
+        id: `Finding:${findingId}`,
       });
     },
     [client, findingId]

@@ -1,11 +1,12 @@
-import { MockedProvider, wait } from "@apollo/react-testing";
-import type { MockedResponse } from "@apollo/react-testing";
+import { MockedProvider } from "@apollo/client/testing";
+import type { MockedResponse } from "@apollo/client/testing";
 import type { ReactWrapper } from "enzyme";
 import { mount } from "enzyme";
 import React from "react";
 import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
 import { MemoryRouter, Route } from "react-router";
+import wait from "waait";
 
 import { GET_TOE_LINES } from "./queries";
 

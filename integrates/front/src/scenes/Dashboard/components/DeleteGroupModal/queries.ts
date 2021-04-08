@@ -1,5 +1,5 @@
+import { gql } from "@apollo/client";
 import type { DocumentNode } from "graphql";
-import gql from "graphql-tag";
 
 const REMOVE_GROUP_MUTATION: DocumentNode = gql`
   mutation RemoveGroupMutation($groupName: String!) {

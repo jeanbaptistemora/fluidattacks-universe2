@@ -2,8 +2,8 @@
   --------
   Best way to pass down props.
 */
-import { MockedProvider } from "@apollo/react-testing";
-import type { MockedResponse } from "@apollo/react-testing";
+import { MockedProvider } from "@apollo/client/testing";
+import type { MockedResponse } from "@apollo/client/testing";
 import { PureAbility } from "@casl/ability";
 import type { ReactWrapper, ShallowWrapper } from "enzyme";
 import { mount, shallow } from "enzyme";

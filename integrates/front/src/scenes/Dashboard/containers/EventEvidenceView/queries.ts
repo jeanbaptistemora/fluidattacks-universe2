@@ -1,5 +1,5 @@
+import { gql } from "@apollo/client";
 import type { DocumentNode } from "graphql";
-import gql from "graphql-tag";
 
 const DOWNLOAD_FILE_MUTATION: DocumentNode = gql`
   mutation DownloadEventFileMutation($eventId: String!, $fileName: String!) {

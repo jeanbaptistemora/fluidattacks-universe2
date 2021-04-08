@@ -1,5 +1,5 @@
-import type { MockedResponse } from "@apollo/react-testing";
-import { MockedProvider, wait } from "@apollo/react-testing";
+import type { MockedResponse } from "@apollo/client/testing";
+import { MockedProvider } from "@apollo/client/testing";
 import type { ReactWrapper } from "enzyme";
 import { mount } from "enzyme";
 import React from "react";
@@ -7,6 +7,7 @@ import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
 import { MemoryRouter, Route } from "react-router";
 import { Field } from "redux-form";
+import wait from "waait";
 
 import type { IUnsubscribeModalProps } from "./UnsubscribeModal";
 import { UnsubscribeModal } from "./UnsubscribeModal";

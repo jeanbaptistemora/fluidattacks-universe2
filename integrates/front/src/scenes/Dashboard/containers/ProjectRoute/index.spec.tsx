@@ -1,9 +1,10 @@
-import type { MockedResponse } from "@apollo/react-testing";
-import { MockedProvider, wait } from "@apollo/react-testing";
+import type { MockedResponse } from "@apollo/client/testing";
+import { MockedProvider } from "@apollo/client/testing";
 import type { ShallowWrapper } from "enzyme";
 import { shallow } from "enzyme";
 import React from "react";
 import { act } from "react-dom/test-utils";
+import wait from "waait";
 
 import { ProjectRoute } from "scenes/Dashboard/containers/ProjectRoute";
 import { GET_GROUP_DATA } from "scenes/Dashboard/containers/ProjectRoute/queries";

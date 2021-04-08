@@ -1,5 +1,5 @@
-import type { MockedResponse } from "@apollo/react-testing";
-import { MockedProvider, wait } from "@apollo/react-testing";
+import type { MockedResponse } from "@apollo/client/testing";
+import { MockedProvider } from "@apollo/client/testing";
 import { PureAbility } from "@casl/ability";
 import type { ReactWrapper } from "enzyme";
 import { mount } from "enzyme";
@@ -7,6 +7,7 @@ import { GraphQLError } from "graphql";
 import React from "react";
 import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
+import wait from "waait";
 import waitForExpect from "wait-for-expect";
 
 import { REQUEST_ZERO_RISK_VULN, UPDATE_DESCRIPTION_MUTATION } from "./queries";
