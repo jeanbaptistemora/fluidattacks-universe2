@@ -844,7 +844,6 @@ class NVDVulnerability(NamedTuple):
 
 
 class SkimsPathConfig(NamedTuple):
-    checks: Set[FindingEnum]
     exclude: Tuple[str, ...]
     include: Tuple[str, ...]
     lib_path: bool
@@ -852,6 +851,7 @@ class SkimsPathConfig(NamedTuple):
 
 
 class SkimsConfig(NamedTuple):
+    checks: Set[FindingEnum]
     group: Optional[str]
     language: LocalesEnum
     namespace: str

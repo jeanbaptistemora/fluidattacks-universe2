@@ -1,8 +1,8 @@
+checks:
+- F052
 namespace: OWASP
 output: skims/test/outputs/benchmark_owasp_crypto.csv
 path:
-  checks:
-  - F052
   include:
   - src/main/java/org/owasp/benchmark/helpers/DatabaseHelper.java
   - src/main/java/org/owasp/benchmark/helpers/SeparateClassRequest.java

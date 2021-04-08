@@ -60,7 +60,7 @@ async def analyze(
             *f073.QUERIES,
             *sast_query.QUERIES,
         )
-        if finding in CTX.config.path.checks
+        if finding in CTX.config.checks
     )
     queries_len: int = len(queries)
 

@@ -100,7 +100,7 @@ async def analyze_one_path(
         (core_model.FindingEnum.F085, f085.analyze),
         (core_model.FindingEnum.F117, f117.analyze),
     ):
-        if finding not in CTX.config.path.checks:
+        if finding not in CTX.config.checks:
             continue
 
         for vulnerabilities in await analyzer(  # type: ignore

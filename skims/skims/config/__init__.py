@@ -18,11 +18,11 @@ from utils.logs import (
 )
 
 
-def load_path_checks(config_path: Any) -> Set[core_model.FindingEnum]:
+def load_checks(config: Any) -> Set[core_model.FindingEnum]:
     # All checks by default, or the selected by the checks field
     return (
-        {core_model.FindingEnum[finding] for finding in config_path['checks']}
-        if 'checks' in config_path
+        {core_model.FindingEnum[finding] for finding in config.pop('checks')}
+        if 'checks' in config
         else set(core_model.FindingEnum)
     )
 
@@ -34,11 +34,11 @@ def load(group: Optional[str], path: str) -> core_model.SkimsConfig:
 
     config = template.get(
         confuse.Template({
+            'checks': confuse.Sequence(confuse.String()),
             'language': confuse.Choice(core_model.LocalesEnum),
             'namespace': confuse.String(),
             'output': confuse.String(),
             'path': confuse.Template({
-                'checks': confuse.Sequence(confuse.String()),
                 'exclude': confuse.Sequence(confuse.String()),
                 'include': confuse.Sequence(confuse.String()),
                 'lib_path': confuse.OneOf([True, False]),
@@ -56,12 +56,12 @@ def load(group: Optional[str], path: str) -> core_model.SkimsConfig:
             output = os.path.abspath(output)
 
         skims_config = core_model.SkimsConfig(
+            checks=load_checks(config),
             group=group,
             language=core_model.LocalesEnum(config.pop('language', 'EN')),
             namespace=config.pop('namespace'),
             output=output,
             path=core_model.SkimsPathConfig(
-                checks=load_path_checks(config_path),
                 exclude=config_path.pop('exclude', ()),
                 include=config_path.pop('include', ()),
                 lib_path=config_path.pop('lib_path', True),

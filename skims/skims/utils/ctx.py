@@ -39,12 +39,12 @@ def _get_artifact(env_var: str) -> str:
 def create_test_context(debug: bool = True) -> None:
     CTX.debug = debug
     CTX.config = core_model.SkimsConfig(
+        checks=set(core_model.FindingEnum),
         group=None,
         language=core_model.LocalesEnum.EN,
         namespace='test',
         output=None,
         path=core_model.SkimsPathConfig(
-            checks=set(core_model.FindingEnum),
             include=(),
             exclude=(),
             lib_path=True,

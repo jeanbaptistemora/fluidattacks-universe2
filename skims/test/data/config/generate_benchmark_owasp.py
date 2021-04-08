@@ -72,10 +72,10 @@ def main() -> None:
         suites.append(suite)
 
         content = yaml_dumps_blocking(dict(
+            checks=categories.get(category, []),
             namespace='OWASP',
             output=f'skims/test/outputs/{suite}.csv',
             path=dict(
-                checks=categories.get(category, []),
                 include=extra_files + tests_cases,
                 lib_path=category == 'crypto',
                 lib_root=category != 'crypto',

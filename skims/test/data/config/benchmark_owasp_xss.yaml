@@ -1,8 +1,8 @@
+checks:
+- F008
 namespace: OWASP
 output: skims/test/outputs/benchmark_owasp_xss.csv
 path:
-  checks:
-  - F008
   include:
   - src/main/java/org/owasp/benchmark/helpers/DatabaseHelper.java
   - src/main/java/org/owasp/benchmark/helpers/SeparateClassRequest.java

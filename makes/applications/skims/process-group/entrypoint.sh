@@ -30,12 +30,12 @@ function get_config {
     --arg 'namespace' "${namespace}" \
     --arg 'working_dir' "groups/${group}/fusion/${namespace}" \
     '{
+      checks: [
+        $check
+      ],
       language: $language,
       namespace: $namespace,
       path: {
-        checks: [
-          $check
-        ],
         include: [
           "glob(*)"
         ],

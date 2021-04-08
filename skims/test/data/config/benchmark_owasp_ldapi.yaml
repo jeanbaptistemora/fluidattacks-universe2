@@ -1,8 +1,8 @@
+checks:
+- F107
 namespace: OWASP
 output: skims/test/outputs/benchmark_owasp_ldapi.csv
 path:
-  checks:
-  - F107
   include:
   - src/main/java/org/owasp/benchmark/helpers/DatabaseHelper.java
   - src/main/java/org/owasp/benchmark/helpers/SeparateClassRequest.java
