@@ -129,6 +129,7 @@ module.exports = {
         'devs/integrates/integrates-front',
         'devs/integrates/kubernetes-cluster-connect',
         'devs/integrates/dynamodb-patterns',
+        'devs/integrates/graphql-api',
         'devs/integrates/integrates-mobile',
         'devs/integrates/writing-code-suggestions',
       ]
