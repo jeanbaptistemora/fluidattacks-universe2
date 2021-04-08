@@ -130,6 +130,13 @@ module.exports = {
           'rules/legal/r331',
         ],
     },
+    {
+      type: 'category',
+        label: 'Privacy',
+        items: [
+          'rules/privacy/r189',
+        ],
+    },
   ],
   Agent: [
     'agent/introduction',
