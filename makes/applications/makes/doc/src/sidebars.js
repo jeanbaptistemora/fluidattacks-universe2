@@ -109,6 +109,7 @@ module.exports = {
       label: 'Authorization',
       items: [
         'rules/authorization/r033',
+        'rules/authorization/r034',
       ],
     },
   ],
