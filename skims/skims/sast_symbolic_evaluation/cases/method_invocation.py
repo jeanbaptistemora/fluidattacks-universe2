@@ -484,6 +484,7 @@ def analyze_method_invocation_external(
                 _method.metadata.n_id,
                 args.dependencies,
                 args.graph_db.shards_by_path_f(_method.shard_path),
+                method_var_decl.meta.value,
             )
         ):
             args.syntax_step.meta.danger = return_step.meta.danger

@@ -42,6 +42,7 @@ makeTemplate {
             "lark-parser==0.7.8"
             "metaloaders==20.9.2566091"
             "more-itertools==8.4.0"
+            "mypy-extensions==0.4.3"
             "networkx==2.5"
             "oyaml==0.9"
             "Pillow==7.2.0"

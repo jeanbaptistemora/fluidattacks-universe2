@@ -48,6 +48,7 @@ from sast_symbolic_evaluation.types import (
     Evaluator,
     EvaluatorArgs,
     ImpossiblePath,
+    JavaClassInstance,
     StopEvaluation,
 )
 from sast_syntax_readers.utils_generic import (
@@ -103,6 +104,7 @@ def eval_method(
     method_n_id: graph_model.NId,
     method_arguments: graph_model.SyntaxSteps,
     shard: graph_model.GraphShard,
+    current_instance: Optional[JavaClassInstance] = None,
 ) -> Optional[graph_model.SyntaxStep]:
     possible_syntax_steps = get_possible_syntax_steps_for_n_id(
         args.graph_db,
@@ -112,22 +114,36 @@ def eval_method(
         shard=shard,
     )
 
+    result: Optional[graph_model.SyntaxStepReturn] = None
+
     for syntax_steps in possible_syntax_steps.values():
-        # Attempt to return the dangerous syntax step
         for syntax_step in reversed(syntax_steps):
+            # Update modified fields
             if (
-                isinstance(syntax_step, graph_model.SyntaxStepReturn)
+                current_instance
+                and isinstance(syntax_step, graph_model.SyntaxStepAssignment)
+                and syntax_step.var.startswith('this.')
+            ):
+                _, field = split_on_last_dot(syntax_step.var)
+                current_instance.fields[field] = syntax_step.meta.value
+
+            # Attempt to return the dangerous syntax step
+            if (
+                not result
+                and isinstance(syntax_step, graph_model.SyntaxStepReturn)
                 and syntax_step.meta.danger
             ):
-                return syntax_step
-
-        # If none of them match attempt to return the one that has value
-        for syntax_step in reversed(syntax_steps):
-            if (
-                isinstance(syntax_step, graph_model.SyntaxStepReturn)
+                result = syntax_step
+            # If none of them match attempt to return the one that has value
+            elif (
+                not result
+                and isinstance(syntax_step, graph_model.SyntaxStepReturn)
                 and syntax_step.meta.value is not None
             ):
-                return syntax_step
+                result = syntax_step
+
+    if result:
+        return result
 
     # If non of them match return whatever one
     for syntax_steps in possible_syntax_steps.values():

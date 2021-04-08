@@ -70,7 +70,22 @@ def _syntax_step_object_instantiation_danger(args: EvaluatorArgs) -> None:
         in danger_instances_no_args_by_finding.get(args.finding.name, set())
     )
 
-    if args.graph_db.shards_by_java_class.get(object_type):
+    if instantiation_danger_no_args:
+        args.syntax_step.meta.danger = True
+    elif instantiation_danger:
+        args.syntax_step.meta.danger = args_danger if args else True
+    else:
+        args.syntax_step.meta.danger = args_danger
+
+
+def _syntax_step_object_instantiation_values(args: EvaluatorArgs) -> None:
+    object_type: str = args.syntax_step.object_type
+
+    if object_type in build_attr_paths('java', 'util', 'ArrayList'):
+        args.syntax_step.meta.value = []
+    elif object_type in build_attr_paths('java', 'util', 'HashMap'):
+        args.syntax_step.meta.value = {}
+    elif args.graph_db.shards_by_java_class.get(object_type):
         constructor_name = (
             f'{object_type}.{split_on_last_dot(object_type)[1]}'
             f'_{len(args.dependencies)}'
@@ -92,22 +107,5 @@ def _syntax_step_object_instantiation_danger(args: EvaluatorArgs) -> None:
                     lookup_java_class(args, object_type),
                     fields_modified,
                 )
-
-        args.syntax_step.meta.danger = args_danger
-    elif instantiation_danger_no_args:
-        args.syntax_step.meta.danger = True
-    elif instantiation_danger:
-        args.syntax_step.meta.danger = args_danger if args else True
-    else:
-        args.syntax_step.meta.danger = args_danger
-
-
-def _syntax_step_object_instantiation_values(args: EvaluatorArgs) -> None:
-    object_type: str = args.syntax_step.object_type
-
-    if object_type in build_attr_paths('java', 'util', 'ArrayList'):
-        args.syntax_step.meta.value = []
-    elif object_type in build_attr_paths('java', 'util', 'HashMap'):
-        args.syntax_step.meta.value = {}
     elif java_class := lookup_java_class(args, object_type):
         args.syntax_step.meta.value = java_class

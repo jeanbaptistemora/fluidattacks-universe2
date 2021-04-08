@@ -7,6 +7,11 @@ from typing import (
     Optional,
 )
 
+# Third libraries
+from mypy_extensions import (
+    DefaultArg,
+)
+
 # Local libraries
 from model import (
     core_model,
@@ -30,6 +35,7 @@ class EvaluatorArgs(NamedTuple):
             graph_model.NId,
             graph_model.SyntaxSteps,
             graph_model.GraphShard,
+            DefaultArg(Any, None),
         ],
         None,
     ]
