@@ -843,6 +843,10 @@ class NVDVulnerability(NamedTuple):
     version: str
 
 
+class SkimsHttpConfig(NamedTuple):
+    include: Tuple[str, ...]
+
+
 class SkimsPathConfig(NamedTuple):
     exclude: Tuple[str, ...]
     include: Tuple[str, ...]
@@ -853,6 +857,7 @@ class SkimsPathConfig(NamedTuple):
 class SkimsConfig(NamedTuple):
     checks: Set[FindingEnum]
     group: Optional[str]
+    http: SkimsHttpConfig
     language: LocalesEnum
     namespace: str
     output: Optional[str]

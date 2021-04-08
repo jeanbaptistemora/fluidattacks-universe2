@@ -50,7 +50,8 @@ def load(group: Optional[str], path: str) -> core_model.SkimsConfig:
     )
 
     try:
-        config_path = config.pop('path')
+        config_http = config.pop('http', {})
+        config_path = config.pop('path', {})
 
         if output := config.pop('output', None):
             output = os.path.abspath(output)
@@ -61,6 +62,9 @@ def load(group: Optional[str], path: str) -> core_model.SkimsConfig:
             language=core_model.LocalesEnum(config.pop('language', 'EN')),
             namespace=config.pop('namespace'),
             output=output,
+            http=core_model.SkimsHttpConfig(
+                include=config_http.pop('include', ()),
+            ),
             path=core_model.SkimsPathConfig(
                 exclude=config_path.pop('exclude', ()),
                 include=config_path.pop('include', ()),

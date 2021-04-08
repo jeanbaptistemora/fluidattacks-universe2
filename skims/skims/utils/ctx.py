@@ -44,6 +44,9 @@ def create_test_context(debug: bool = True) -> None:
         language=core_model.LocalesEnum.EN,
         namespace='test',
         output=None,
+        http=core_model.SkimsHttpConfig(
+            include=(),
+        ),
         path=core_model.SkimsPathConfig(
             include=(),
             exclude=(),
