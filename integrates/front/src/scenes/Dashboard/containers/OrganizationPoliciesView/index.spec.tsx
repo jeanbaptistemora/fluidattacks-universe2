@@ -191,7 +191,7 @@ describe("Organization policies view", (): void => {
             maxAcceptanceDays: 2,
             maxAcceptanceSeverity: 8.9,
             maxNumberAcceptations: 1,
-            minAcceptanceSeverity: null,
+            minAcceptanceSeverity: 0,
             organizationId: mockProps.organizationId,
             organizationName: "okada",
           },
@@ -255,7 +255,6 @@ describe("Organization policies view", (): void => {
       }
     );
 
-    const form: ReactWrapper = wrapper.find("genericForm");
     const maxAcceptanceDays: ReactWrapper = wrapper
       .find({ name: "maxAcceptanceDays" })
       .find("input");
@@ -278,7 +277,7 @@ describe("Organization policies view", (): void => {
     maxAcceptanceDays.simulate("change", { target: { value: "2" } });
     maxAcceptanceSeverity.simulate("change", { target: { value: "8.9" } });
     maxNumberAcceptations.simulate("change", { target: { value: "1" } });
-    minAcceptanceSeverity.simulate("change", { target: { value: "" } });
+    minAcceptanceSeverity.simulate("change", { target: { value: "0" } });
 
     await act(
       async (): Promise<void> => {
@@ -299,6 +298,7 @@ describe("Organization policies view", (): void => {
       }
     );
 
+    const form: ReactWrapper = wrapper.find("genericForm");
     form.simulate("submit");
 
     await act(

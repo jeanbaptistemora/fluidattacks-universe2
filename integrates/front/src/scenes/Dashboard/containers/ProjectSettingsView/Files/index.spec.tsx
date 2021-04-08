@@ -107,12 +107,13 @@ describe("Files", (): void => {
   it("should add a file", async (): Promise<void> => {
     expect.hasAssertions();
 
+    const file: File = new File([""], "image.png", { type: "image/png" });
     const mocksMutation: readonly MockedResponse[] = [
       {
         request: {
           query: UPLOAD_FILE_MUTATION,
           variables: {
-            file: {},
+            file,
             filesData: JSON.stringify([
               {
                 description: "Test description",
@@ -152,7 +153,6 @@ describe("Files", (): void => {
       .at(0);
     addButton.simulate("click");
     const addFilesModal: ReactWrapper = wrapper.find("addFilesModal");
-    const file: File = new File([""], "image.png", { type: "image/png" });
     const fileInput: ReactWrapper = addFilesModal
       .find({ name: "file" })
       .at(0)
@@ -362,12 +362,13 @@ describe("Files", (): void => {
   it("should handle errors when add a file", async (): Promise<void> => {
     expect.hasAssertions();
 
+    const file: File = new File([""], "image.png", { type: "image/png" });
     const mocksMutation: readonly MockedResponse[] = [
       {
         request: {
           query: UPLOAD_FILE_MUTATION,
           variables: {
-            file: {},
+            file,
             filesData: JSON.stringify([
               {
                 description: "Test description",
@@ -413,7 +414,6 @@ describe("Files", (): void => {
       .at(0);
     addButton.simulate("click");
     const addFilesModal: ReactWrapper = wrapper.find("addFilesModal");
-    const file: File = new File([""], "image.png", { type: "image/png" });
     const fileInput: ReactWrapper = addFilesModal
       .find({ name: "file" })
       .at(0)

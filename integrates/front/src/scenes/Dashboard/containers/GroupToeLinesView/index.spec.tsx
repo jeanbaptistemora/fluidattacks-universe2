@@ -23,7 +23,7 @@ describe("GroupToeLinesView", (): void => {
   it("should display group toe lines", async (): Promise<void> => {
     expect.hasAssertions();
 
-    const mokedToeLines: MockedResponse = {
+    const mockedToeLines: MockedResponse = {
       request: {
         query: GET_TOE_LINES,
         variables: { groupName: "unittesting" },
@@ -31,12 +31,15 @@ describe("GroupToeLinesView", (): void => {
       result: {
         data: {
           group: {
+            __typename: "Project",
             name: "unittesting",
             roots: [
               {
+                __typename: "GitRoot",
                 id: "4039d098-ffc5-4984-8ed3-eb17bca98e19",
                 toeLines: [
                   {
+                    __typename: "ToeLines",
                     comments: "comment test",
                     filename: "product/test/test.config",
                     loc: 8,
@@ -48,9 +51,11 @@ describe("GroupToeLinesView", (): void => {
                 ],
               },
               {
+                __typename: "GitRoot",
                 id: "765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a",
                 toeLines: [
                   {
+                    __typename: "ToeLines",
                     comments: "comment test",
                     filename: "integrates_1/test2/test.sh",
                     loc: 120,
@@ -69,7 +74,7 @@ describe("GroupToeLinesView", (): void => {
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/unittesting/toelines"]}>
         <Provider store={store}>
-          <MockedProvider addTypename={false} mocks={[mokedToeLines]}>
+          <MockedProvider addTypename={true} mocks={[mockedToeLines]}>
             <Route
               component={GroupToeLinesView}
               path={"/:projectName/toelines"}

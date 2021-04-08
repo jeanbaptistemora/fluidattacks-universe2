@@ -28,6 +28,7 @@ describe("VulnerabilitiesView", (): void => {
     result: {
       data: {
         finding: {
+          __typename: "Finding",
           id: "422286126",
           newRemediated: true,
           releaseDate: "2019-07-05 08:56:40",
@@ -35,6 +36,7 @@ describe("VulnerabilitiesView", (): void => {
           verified: false,
           vulnerabilities: [
             {
+              __typename: "Vulnerability",
               analyst: "useranalyst@test.test",
               commitHash: "",
               currentState: "open",
@@ -70,6 +72,7 @@ describe("VulnerabilitiesView", (): void => {
               zeroRisk: "Requested",
             },
             {
+              __typename: "Vulnerability",
               analyst: "useranalyst@test.test",
               commitHash: "",
               currentState: "closed",
@@ -107,6 +110,7 @@ describe("VulnerabilitiesView", (): void => {
           ],
         },
         project: {
+          __typename: "Project",
           subscription: "continuous",
         },
       },
@@ -129,7 +133,7 @@ describe("VulnerabilitiesView", (): void => {
         ]}
       >
         <Provider store={store}>
-          <MockedProvider addTypename={false} mocks={[mocksQuery]}>
+          <MockedProvider addTypename={true} mocks={[mocksQuery]}>
             <authzPermissionsContext.Provider
               value={
                 new PureAbility([
@@ -166,7 +170,7 @@ describe("VulnerabilitiesView", (): void => {
     );
   });
 
-  it("should render container with additional permissions", async (): Promise<void> => {
+  it("should render conatainer with additional permissions", async (): Promise<void> => {
     expect.hasAssertions();
 
     const mockedPermissions: PureAbility<string> = new PureAbility([
@@ -180,7 +184,7 @@ describe("VulnerabilitiesView", (): void => {
         ]}
       >
         <Provider store={store}>
-          <MockedProvider addTypename={false} mocks={[mocksQuery]}>
+          <MockedProvider addTypename={true} mocks={[mocksQuery]}>
             <authzPermissionsContext.Provider value={mockedPermissions}>
               <Route
                 component={VulnsView}

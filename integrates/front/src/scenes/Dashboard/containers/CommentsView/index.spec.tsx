@@ -59,7 +59,7 @@ describe("FindingCommentsView", (): void => {
             id: "413372600",
             observations: [
               {
-                __typename: "Comment",
+                __typename: "Consult",
                 content: "This is an observation",
                 created: "2019/12/04 08:13:53",
                 email: "unittest@fluidattacks.com",
