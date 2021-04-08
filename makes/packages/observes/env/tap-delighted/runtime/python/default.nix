@@ -6,6 +6,7 @@ buildPythonRequirements {
   name = "observes-env-tap-formstack-runtime-python";
   requirements = {
     direct = [
+      "click==7.1.2"
       "delighted==4.0.0"
       "returns==0.16.0"
     ];
