@@ -560,7 +560,10 @@ async def test_get_toe_lines() -> None:
         }
       }
     '''
-    result = await _get_result_async({'query': query})
+    result = await _get_result_async(
+      {'query': query},
+      user='unittest2@fluidattacks.com'
+    )
     assert 'errors' not in result
     assert result['data']['project']['roots'] == [
       {

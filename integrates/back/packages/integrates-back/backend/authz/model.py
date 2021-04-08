@@ -530,7 +530,92 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
 
 # Map(role_name -> Map(actions|tags -> definition))
 GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
-    **GROUP_LEVEL_ROLES
+    admin=dict(
+        actions={
+            *GROUP_LEVEL_ROLES['admin']['actions'],
+            'backend_api_resolvers_git_root_toe_lines_resolve',
+        },
+        tags={
+            *GROUP_LEVEL_ROLES['admin']['tags'],
+        }
+    ),
+    analyst=dict(
+        actions={
+            *GROUP_LEVEL_ROLES['analyst']['actions'],
+            'backend_api_resolvers_git_root_toe_lines_resolve',
+        },
+        tags={
+            *GROUP_LEVEL_ROLES['analyst']['tags'],
+        }
+    ),
+    closer=dict(
+        actions={
+            *GROUP_LEVEL_ROLES['closer']['actions'],
+            'backend_api_resolvers_git_root_toe_lines_resolve',
+        },
+        tags={
+            *GROUP_LEVEL_ROLES['closer']['tags'],
+        }
+    ),
+    customer=dict(
+        actions={
+            *GROUP_LEVEL_ROLES['customer']['actions'],
+            'backend_api_resolvers_git_root_toe_lines_resolve',
+        },
+        tags={
+            *GROUP_LEVEL_ROLES['customer']['tags'],
+        }
+    ),
+    customeradmin=dict(
+        actions={
+            *GROUP_LEVEL_ROLES['customeradmin']['actions'],
+            'backend_api_resolvers_git_root_toe_lines_resolve',
+        },
+        tags={
+            *GROUP_LEVEL_ROLES['customeradmin']['tags'],
+        }
+    ),
+    executive=dict(
+        actions={
+            *GROUP_LEVEL_ROLES['executive']['actions'],
+            'backend_api_resolvers_git_root_toe_lines_resolve',
+        },
+        tags={
+            *GROUP_LEVEL_ROLES['executive']['tags'],
+        }
+    ),
+    group_manager=dict(
+        actions={
+            *GROUP_LEVEL_ROLES['group_manager']['actions'],
+            'backend_api_resolvers_git_root_toe_lines_resolve',
+        },
+        tags={
+            *GROUP_LEVEL_ROLES['group_manager']['tags'],
+        }
+    ),
+    resourcer=dict(
+        actions={
+            *GROUP_LEVEL_ROLES['resourcer']['actions'],
+            'backend_api_resolvers_git_root_toe_lines_resolve',
+        },
+        tags={
+            *GROUP_LEVEL_ROLES['resourcer']['tags'],
+        }
+    ),
+    reviewer=dict(
+        actions={
+            *GROUP_LEVEL_ROLES['reviewer']['actions'],
+            'backend_api_resolvers_git_root_toe_lines_resolve',
+        },
+        tags={
+            *GROUP_LEVEL_ROLES['reviewer']['tags'],
+        }
+    ),
+    # Do not add more authz since users which pay for the forces service
+    # could impersonate a fluidattacks user
+    service_forces=dict(
+        **GROUP_LEVEL_ROLES['service_forces'],
+    ),
 )
 
 GROUP_LEVEL_ACTIONS: Set[str] = {

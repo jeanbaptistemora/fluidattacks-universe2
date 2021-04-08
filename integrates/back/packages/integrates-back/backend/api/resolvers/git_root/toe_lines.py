@@ -9,6 +9,9 @@ from aiodataloader import DataLoader
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local
+from backend.decorators import (
+    enforce_group_level_auth_async,
+)
 from backend.dal.helpers.redis import (
     redis_get_or_set_entity_attr,
 )
@@ -19,6 +22,7 @@ from roots.types import GitRoot
 CACHE_TTL = 60 * 30
 
 
+@enforce_group_level_auth_async
 async def resolve(
     parent: GitRoot,
     info: GraphQLResolveInfo,
