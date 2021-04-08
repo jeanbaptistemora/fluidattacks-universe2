@@ -119,6 +119,7 @@ module.exports = {
         label: 'Session',
         items: [
           'rules/session/r023',
+          'rules/session/r024',
         ],
     },
   ],
