@@ -1,0 +1,17 @@
+{% extends "layouts/fluid_attacks.html" %}
+{% from 'layouts/components/forms.html' import go_to_button as button %}
+{% block content %}
+<p>Hello {{ name }},</p>
+<p>
+  You can download your {{ filetype }} report requested on group <strong>{{ projectname }}</strong>
+  on {{ date }} at {{ time }} by clicking the following button:
+</p>
+{{ button('Go to the report', filelink) }}
+<p>
+  This link will be available for the next <strong>hour</strong>.
+</p>
+<p>
+  The passphrase for your {{ filetype }} report will be sent to your mobile device,
+  make sure you have enabled the notifications and the background task to get the passphrase.
+</p>
+{% endblock %}
