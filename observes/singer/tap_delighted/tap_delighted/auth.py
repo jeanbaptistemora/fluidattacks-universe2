@@ -13,3 +13,6 @@ class Credentials(NamedTuple):
     @classmethod
     def new(cls, raw: str) -> Credentials:
         return cls(raw)
+
+    def __str__(self) -> str:
+        return 'masked api_key'
