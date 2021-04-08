@@ -99,8 +99,8 @@ makeTemplate {
           envSrcSkimsStatic = path "/skims/static";
           envSrcSkimsVendor = path "/skims/vendor";
           envSrcTreeSitterJava = fetchzip {
-            url = "https://github.com/fluidattacks/tree-sitter-java/archive/1da1585fb744f5717494a4a45ffc3bead65297cd.tar.gz";
-            sha256 = "JZOQ5XDgGNMXw1l0uo0mOcYMhRFRq78kHNNyIO/yvAU=";
+            url = "https://github.com/tree-sitter/tree-sitter-java/archive/8d6a858350475386b6fd58210c34750a8f361b6a.tar.gz";
+            sha256 = "fhN+yKPfGkpA/QIUSkzczXF0EOGPbwoCYlyEjDUtgg0=";
           };
           envSrcTreeSitterTsx = fetchzip {
             url = "https://github.com/tree-sitter/tree-sitter-typescript/archive/3e897ea5925f037cfae2e551f8e6b12eec2a201a.tar.gz";
