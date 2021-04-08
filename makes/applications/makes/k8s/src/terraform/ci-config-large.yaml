@@ -3,7 +3,7 @@ replicas: 1
 gitlabUrl: https://gitlab.com/
 unregisterRunners: true
 terminationGracePeriodSeconds: 300
-concurrent: 200
+concurrent: 100
 checkInterval: 15
 rbac:
   create: true
@@ -42,7 +42,7 @@ runners:
           BucketLocation = "us-east-1"
           Insecure = false
       [runners.kubernetes]
-        cpu_request = "2500"
+        cpu_request = "1200m"
         memory_request = "6500Mi"
         helper_cpu_request = "1m"
         helper_memory_request = "1Mi"
@@ -51,7 +51,7 @@ runners:
         privileged = false
         allow_privilege_escalation = false
         [runners.kubernetes.node_selector]
-          worker_group = "ci"
+          worker_group = "ci-large"
         [dns_config]
           nameservers = ["1.1.1.1", "8.8.4.4", "8.8.8.8"]
   cache:

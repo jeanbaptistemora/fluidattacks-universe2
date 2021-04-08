@@ -93,13 +93,47 @@ module "eks" {
     },
     {
       name                    = "ci"
-      override_instance_types = ["c5d.large", "c5ad.large", "m5d.large", "m5ad.large"]
+      override_instance_types = ["c5d.large", "c5ad.large"]
       kubelet_extra_args      = "--node-labels=node.kubernetes.io/lifecycle=spot"
       kubelet_extra_args      = "--node-labels=worker_group=ci"
       public_ip               = true
 
       asg_min_size = 1
-      asg_max_size = 200
+      asg_max_size = 150
+
+      root_volume_type = "gp3"
+      root_volume_size = 10
+      root_encrypted   = true
+      ebs_optimized    = true
+
+      spot_allocation_strategy = "lowest-price"
+      spot_instance_pools      = 5
+      spot_max_price           = "" # Defaults to on-demand price
+
+      pre_userdata = data.local_file.ci_init.content
+
+      tags = [
+        {
+          "key"                 = "k8s.io/cluster-autoscaler/enabled"
+          "propagate_at_launch" = "false"
+          "value"               = "true"
+        },
+        {
+          "key"                 = "k8s.io/cluster-autoscaler/${var.cluster_name}"
+          "propagate_at_launch" = "false"
+          "value"               = "owned"
+        }
+      ]
+    },
+    {
+      name                    = "ci-large"
+      override_instance_types = ["m5d.large", "m5ad.large"]
+      kubelet_extra_args      = "--node-labels=node.kubernetes.io/lifecycle=spot"
+      kubelet_extra_args      = "--node-labels=worker_group=ci-large"
+      public_ip               = true
+
+      asg_min_size = 1
+      asg_max_size = 100
 
       root_volume_type = "gp3"
       root_volume_size = 10
