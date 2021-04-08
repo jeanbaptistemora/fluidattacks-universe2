@@ -1,9 +1,20 @@
 {# Generic Go to button: rounded and centered #}
 {% macro go_to_button(text, url) %}
 <div class="flex justify-center">
-  <a id="download" class="pa3 dim justify-center" title="{{ text }}" href="{{ url }}" rel="noopener">
+  <a id="download" class="pa3 dim justify-center" title="{{ text }}" href="{{ url }}" target="_blank" rel="noopener">
     {{ text }}
   </a>
+</div>
+{% endmacro %}
+
+{# Generic centered image or animation #}
+{% macro main_image(url, size) %}
+<div class="flex justify-center">
+  <img alt="Main image"
+    class="flex w-100 justify-center"
+    src="{{ url }}"
+    width="{{ size }}"
+    style="max-width: {{ size }}px; padding-bottom: 0; display: inline !important; vertical-align: bottom;">
 </div>
 {% endmacro %}
 
@@ -33,7 +44,7 @@
   <ul>
   {% for finding in list %}
     <li>
-      <a href="{{ finding['finding_url'] }}" target="_blank">
+      <a href="{{ finding['finding_url'] }}" target="_blank" rel="noopener">
         {{ finding['project'] }} - {{ finding['finding_name'] }}
       </a>
     </li>

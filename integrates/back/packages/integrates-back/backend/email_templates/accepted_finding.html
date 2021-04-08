@@ -1,11 +1,8 @@
 {% extends "layouts/fluid_attacks.html" %}
-{% from 'layouts/components/forms.html' import go_to_button as button, text_area %}
+{% from 'layouts/components/forms.html' import go_to_button as button, text_area, main_image %}
 {% block content %}
 <p>Hello {{ name }},</p>
-<div class="flex justify-center w-100 pa3" style="float: left; display: inline; margin-right: auto; margin-left: auto;">
-<img alt="accepted finding" class="flex w-60 justify-center"
-  src="https://gallery.mailchimp.com/a32e6c9ce2902c975d3ea510c/images/2d1b0ede-27b6-4925-828d-7c3ad63793ef.gif">
-</div>
+{{ main_image('https://gallery.mailchimp.com/a32e6c9ce2902c975d3ea510c/images/2d1b0ede-27b6-4925-828d-7c3ad63793ef.gif', 240) }}
 <p>
   The treatment of finding <strong>{{ finding_name }}</strong> in project
   <strong>{{ project }}</strong> has been changed to <strong>{{ treatment }}</strong>:
