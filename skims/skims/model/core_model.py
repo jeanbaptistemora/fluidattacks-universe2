@@ -1,4 +1,7 @@
 # Standard library
+from __future__ import (
+    annotations,
+)
 from enum import (
     Enum,
 )
@@ -43,6 +46,51 @@ class FindingMetadata(NamedTuple):
     threat: str
     title: str
     type: FindingTypeEnum
+
+    @classmethod
+    def new(
+        cls,
+        *,
+        code: str,
+        cwe: str,
+        auto_approve: bool,
+
+        attack_complexity: float,
+        attack_vector: float,
+        availability_impact: float,
+        confidentiality_impact: float,
+        exploitability: float,
+        integrity_impact: float,
+        privileges_required: float,
+        remediation_level: float,
+        report_confidence: float,
+        severity_scope: float,
+        user_interaction: float,
+    ) -> FindingMetadata:
+        return FindingMetadata(
+            auto_approve=auto_approve,
+            cwe=cwe,
+            description=f'utils.model.finding.enum.{code}.description',
+            impact=f'utils.model.finding.enum.{code}.impact',
+            recommendation=f'utils.model.finding.enum.{code}.recommendation',
+            requirements=f'utils.model.finding.enum.{code}.requirements',
+            severity={
+                'attackComplexity': attack_complexity,
+                'attackVector': attack_vector,
+                'availabilityImpact': availability_impact,
+                'confidentialityImpact': confidentiality_impact,
+                'exploitability': exploitability,
+                'integrityImpact': integrity_impact,
+                'privilegesRequired': privileges_required,
+                'remediationLevel': remediation_level,
+                'reportConfidence': report_confidence,
+                'severityScope': severity_scope,
+                'userInteraction': user_interaction,
+            },
+            threat=f'utils.model.finding.enum.{code}.threat',
+            title=f'utils.model.finding.enum.{code}.title',
+            type=FindingTypeEnum.SECURITY,
+        )
 
 
 class FindingEnum(Enum):
@@ -406,6 +454,23 @@ class FindingEnum(Enum):
         title='utils.model.finding.enum.f042.title',
         type=FindingTypeEnum.SECURITY,
     )
+    F043_DAST_STS: FindingMetadata = FindingMetadata.new(
+        auto_approve=False,
+        code='F043_DAST_STS',
+        cwe='614',
+
+        attack_complexity=0.77,
+        attack_vector=0.62,
+        availability_impact=0.0,
+        confidentiality_impact=0.22,
+        exploitability=0.97,
+        integrity_impact=0.0,
+        privileges_required=0.85,
+        remediation_level=0.95,
+        report_confidence=1.0,
+        severity_scope=1.0,
+        user_interaction=0.62,
+    )
     F052: FindingMetadata = FindingMetadata(
         auto_approve=True,
         cwe='310',
@@ -678,7 +743,6 @@ class FindingEnum(Enum):
         title='utils.model.finding.enum.f107.title',
         type=FindingTypeEnum.SECURITY,
     )
-
     F117: FindingMetadata = FindingMetadata(
         auto_approve=True,
         cwe='377',
