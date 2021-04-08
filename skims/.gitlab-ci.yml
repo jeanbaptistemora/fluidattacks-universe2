@@ -1,5 +1,5 @@
 .makes: &makes
-  tags: [autoscaling]
+  tags: [ci]
   image: "${CI_REGISTRY_IMAGE}/makes"
   needs: []
   interruptible: true
