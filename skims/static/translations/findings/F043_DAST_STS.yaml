@@ -9,14 +9,17 @@ utils.model.finding.enum.F043_DAST_STS.impact:
   en: Users can visit the website under an insecure channel.
   es: Los usuarios pueden visitar el servidor usando un canal inseguro.
 utils.model.finding.enum.F043_DAST_STS.recommendation:
-  en: 'Set "Strict-Transport-Security: max-age=31536000", or superior.'
-  es: 'Set "Strict-Transport-Security: max-age=31536000", o superior.'
+  en: Set the Strict-Transport-Security header and a max-age of at least 31536000.
+  es: Establecer la cabecera Strict-Transport-Security y un max-age superior a 31536000.
 utils.model.finding.enum.F043_DAST_STS.requirements:
-  en: R062. Define standard configurations
-  es: >
-    R062. Debe definirse configuraciones estándares que corrijan todas las
-    vulnerabilidades conocidas y que sean consistentes con estándares de la
-    industria (ej: líneas base).
+  en: |
+    - R062. Define standard configurations
+    - R181. Transmit data using secure protocols
+  es: |
+    - R062. Debe definirse configuraciones estándares que corrijan todas las
+      vulnerabilidades conocidas y que sean consistentes con estándares de la
+      industria (ej: líneas base).
+    - R181. Transmitir datos usando protocolos seguros
 utils.model.finding.enum.F043_DAST_STS.threat:
   en: Unauthorized attacker from adjacent network performing a MiTM.
   es: Atacante sin autorización desde red adyacente ejecutando un MiTM.
