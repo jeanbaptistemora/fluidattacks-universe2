@@ -39,6 +39,17 @@ async def populate() -> bool:
                 'push_tokens': [],
                 'is_registered': True,
             },
+            {
+                'email': 'closer@gmail.com',
+                'first_login': '',
+                'first_name': '',
+                'last_login': '',
+                'last_name': '',
+                'legal_remember': False,
+                'phone_number': '-',
+                'push_tokens': [],
+                'is_registered': True,
+            },
         ],
         'orgs': [
             {
@@ -47,6 +58,7 @@ async def populate() -> bool:
                 'users': [
                     'admin@gmail.com',
                     'analyst@gmail.com',
+                    'closer@gmail.com',
                 ],
                 'groups': [
                     'group-1'
@@ -82,17 +94,23 @@ async def populate() -> bool:
                 'object': 'self',
                 'role': 'user',
             },
-                        {
+            {
+                'level': 'user',
+                'subject': 'closer@gmail.com',
+                'object': 'self',
+                'role': 'user',
+            },
+            {
                 'level': 'group',
                 'subject': 'analyst@gmail.com',
                 'object': 'group-1',
                 'role': 'analyst',
             },
             {
-                'level': 'organization',
-                'subject': 'analyst@gmail.com',
-                'object': 'ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db',
-                'role': 'customer',
+                'level': 'group',
+                'subject': 'closer@gmail.com',
+                'object': 'group-1',
+                'role': 'closer',
             },
         ],
     }

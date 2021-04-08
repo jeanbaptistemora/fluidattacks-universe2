@@ -35,3 +35,16 @@ async def test_analyst(populate: bool):
     )
     assert 'errors' not in result
     assert result['data']['createEvent']
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group('create_event')
+async def test_closer(populate: bool):
+    assert populate
+    closer: str ='closer@gmail.com'
+    group_name: str ='group-1'
+    result: Dict[str, str] = await query(
+        user=closer,
+        group=group_name,
+    )
+    assert 'errors' not in result
+    assert result['data']['createEvent']
