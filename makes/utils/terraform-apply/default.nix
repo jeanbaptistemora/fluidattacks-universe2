@@ -19,6 +19,7 @@ makeEntrypoint {
     envPaths = [
       pkgs.awscli
       pkgs.git
+      pkgs.kubectl
       pkgs.terraform_0_13
     ];
     envUtils = [
