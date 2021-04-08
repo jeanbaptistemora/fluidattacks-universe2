@@ -5,11 +5,6 @@ from typing import (
     Dict,
 )
 
-# Third party libraries
-from starlette.datastructures import (
-    UploadFile,
-)
-
 # Local libraries
 from backend.api import (
     get_new_context,

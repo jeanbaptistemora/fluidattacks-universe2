@@ -4,12 +4,6 @@ import os
 from typing import (
     Any,
     Dict,
-    List,
-)
-
-# Third party libraries
-from starlette.datastructures import (
-    UploadFile,
 )
 
 # Local libraries

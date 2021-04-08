@@ -3,7 +3,6 @@ import pytest
 from typing import (
     Any,
     Dict,
-    List,
 )
 
 # Local libraries
