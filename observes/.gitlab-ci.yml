@@ -1,5 +1,5 @@
 .makes: &makes
-  tags: [autoscaling]
+  tags: [ci]
   image: "${CI_REGISTRY_IMAGE}/makes"
   needs: []
   interruptible: true
@@ -9,7 +9,7 @@
     GIT_DEPTH: 5
 
 .with_nix_serial: &with_nix_serial
-  tags: [autoscaling]
+  tags: [ci]
   image: "${CI_REGISTRY_IMAGE}/nix:${CI_JOB_NAME}"
   script:
     - ./build.sh "${CI_JOB_NAME% *}"
@@ -17,7 +17,7 @@
     GIT_DEPTH: 5
 
 .with_nix: &with_nix
-  tags: [autoscaling]
+  tags: [ci]
   image: "${CI_REGISTRY_IMAGE}/nix:${CI_JOB_NAME}"
   needs: []
   script:
@@ -179,7 +179,7 @@ observes.scheduled.job.batch-stability:
     refs: [schedules]
     variables: [$observes_batch_stability]
   stage: analytics
-  tags: [autoscaling]
+  tags: [ci]
   interruptible: false
 
 observes.scheduled.job.code-etl-compute-bills:
@@ -188,7 +188,7 @@ observes.scheduled.job.code-etl-compute-bills:
     refs: [schedules]
     variables: [$observes_code_compute_bills]
   stage: analytics
-  tags: [autoscaling]
+  tags: [ci]
   interruptible: false
 
 observes.scheduled.job.dynamodb-centralize:
@@ -286,7 +286,7 @@ observes.scheduled.on-aws.code-etl-amend:
     refs: [schedules]
     variables: [$observes_code_amend_authors_on_aws]
   stage: analytics
-  tags: [autoscaling]
+  tags: [ci]
   interruptible: false
 
 observes.scheduled.on-aws.code-etl-mirror:
@@ -295,7 +295,7 @@ observes.scheduled.on-aws.code-etl-mirror:
     refs: [schedules]
     variables: [$observes_code_mirror_all_groups_to_s3_on_aws]
   stage: analytics
-  tags: [autoscaling]
+  tags: [ci]
   interruptible: false
 
 observes.scheduled.on-aws.code-etl-upload:
@@ -304,12 +304,12 @@ observes.scheduled.on-aws.code-etl-upload:
     refs: [schedules]
     variables: [$observes_code_upload_all_groups_on_aws]
   stage: analytics
-  tags: [autoscaling]
+  tags: [ci]
   interruptible: false
 
 observes.scheduled.on-aws.dif-gitlab-etl:
   <<: *makes
-  tags: [autoscaling]
+  tags: [ci]
   stage: analytics
   only:
     refs: [schedules]
