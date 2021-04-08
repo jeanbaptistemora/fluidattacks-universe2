@@ -19,10 +19,6 @@ import aiohttp
 from integrates.graphql import (
     client as graphql_client,
 )
-from integrates.limits import (
-    DEFAULT as DEFAULT_RATE_LIMIT,
-    DO_UPDATE_EVIDENCE as DO_UPDATE_EVIDENCE_RATE_LIMIT,
-)
 from model import (
     core_model,
 )
@@ -38,6 +34,10 @@ from utils.function import (
     shield,
     RetryAndFinallyReturn,
     StopRetrying,
+)
+from utils.limits import (
+    INTEGRATES_DEFAULT as DEFAULT_RATE_LIMIT,
+    INTEGRATES_DO_UPDATE_EVIDENCE as DO_UPDATE_EVIDENCE_RATE_LIMIT,
 )
 from utils.logs import (
     log,
