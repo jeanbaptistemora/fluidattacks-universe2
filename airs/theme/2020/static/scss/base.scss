@@ -393,6 +393,13 @@ $codeyellow: rgba(230, 219, 116, 1);
   }
 }
 
+@media screen and (min-width: 1150px) {
+  .owasp-col {
+    width: 500px;
+  }
+}
+
+
 @media screen and (min-width: 960px) and (max-width: 1199px) {
   .w-footer-links { width: auto; }
   .w-footer-phrase { width: 50%; }

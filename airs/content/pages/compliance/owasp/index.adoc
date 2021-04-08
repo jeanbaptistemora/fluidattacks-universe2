@@ -66,14 +66,14 @@ attention to the most prevalent risks in their specific industry sector.
 Here we show you the current list of risks with a brief description of each one
 (for more information see the link:https://owasp.org/www-project-top-ten/2017/[official report, role=basic-link]):
 
-[role="w-40-l"]
+[role="owasp-col fl"]
 ==== Injection
 
 [role="fw3 f3 lh-2"]
 link:https://owasp.org/www-project-top-ten/2017/A1_2017-Injection[A code injection, role=basic-link] occurs when an application does not properly validate or
 sanitize input and this can be leveraged to make it process the input as code.
 
-[role="w-40-l"]
+[role="owasp-col fr"]
 ==== Broken Authentication
 
 [role="fw3 f3 lh-2"]
@@ -81,7 +81,7 @@ link:https://owasp.org/www-project-top-ten/2017/A2_2017-Broken_Authentication[At
 authentication and management functions in the applications and compromise
 passwords, sessions, and even entire systems.
 
-[role="w-40-l"]
+[role="owasp-col fl"]
 ==== Sensitive Data Exposure
 
 [role="fw3 f3 lh-2"]
@@ -90,7 +90,7 @@ protection for sensitive data (e.g., financial data), leaving it publicly
 accessible or without adequate access controls that prevent attackers from
 obtaining it for illegal activities.
 
-[role="w-40-l"]
+[role="owasp-col fr"]
 ==== XML External Entities (XXE)
 
 [role="fw3 f3 lh-2"]
@@ -100,7 +100,7 @@ but does not properly handle references to
 external entities, which can be used to exfiltrate documents, execute code
 remotely or perform denial-of-service attacks.
 
-[role="w-40-l"]
+[role="owasp-col fl"]
 ==== Broken Access Control
 
 [role="fw3 f3 lh-2"]
@@ -109,7 +109,7 @@ and functions depending on the type of user. Here, the attackers circumvent
 misconfigured (sometimes simply non-existent) access restrictions and can
 operate as any user, including administrators.
 
-[role="w-40-l"]
+[role="owasp-col fr"]
 ==== Security Misconfiguration
 
 [role="fw3 f3 lh-2"]
@@ -117,7 +117,7 @@ link:https://owasp.org/www-project-top-ten/2017/A6_2017-Security_Misconfiguratio
 for the application’s security, resulting in the exposure of error messages
 containing sensitive data and the use of non-updated systems or components.
 
-[role="w-40-l"]
+[role="owasp-col fl"]
 ==== Cross-Site Scripting XSS
 
 [role="fw3 f3 lh-2"]
@@ -125,7 +125,7 @@ link:https://owasp.org/www-project-top-ten/2017/A7_2017-Cross-Site_Scripting_(XS
 to change its behavior, modify what is displayed to the users
 or redirect the users to malicious websites.
 
-[role="w-40-l"]
+[role="owasp-col fr"]
 ==== Insecure Deserialization
 
 [role="fw3 f3 lh-2"]
@@ -134,7 +134,7 @@ strings of bytes into data structures that the application can use.
 Deserialization weaknesses allow the attacker to execute code
 in the web application remotely and manipulate serialized objects as desired.
 
-[role="w-40-l"]
+[role="owasp-col fl"]
 ==== Using Components with Known Vulnerabilities
 
 [role="fw3 f3 lh-2"]
@@ -143,7 +143,7 @@ which vulnerabilities are sometimes found and need to be patched. Keeping
 outdated versions of those components with known
 vulnerabilities leads to having an application exposed to exploitation.
 
-[role="w-40-l"]
+[role="owasp-col fr"]
 ==== Insufficient Logging & Monitoring
 
 [role="fw3 f3 lh-2"]
