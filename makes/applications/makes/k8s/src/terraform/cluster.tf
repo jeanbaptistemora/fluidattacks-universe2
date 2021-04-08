@@ -93,13 +93,13 @@ module "eks" {
     },
     {
       name                    = "ci"
-      override_instance_types = ["c5d.large"]
+      override_instance_types = ["c5d.large", "c5ad.large", "m5d.large", "m5ad.large"]
       kubelet_extra_args      = "--node-labels=node.kubernetes.io/lifecycle=spot"
       kubelet_extra_args      = "--node-labels=worker_group=ci"
       public_ip               = true
 
       asg_min_size = 1
-      asg_max_size = 150
+      asg_max_size = 200
 
       root_volume_type = "gp3"
       root_volume_size = 10

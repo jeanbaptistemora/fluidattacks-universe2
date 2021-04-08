@@ -61,3 +61,15 @@ resource "helm_release" "ci" {
     data.local_file.ci_config.content
   ]
 }
+
+resource "helm_release" "ci_large" {
+  name       = "ci-large"
+  repository = "https://charts.gitlab.io"
+  chart      = "gitlab-runner"
+  version    = "0.27.0-rc1"
+  namespace  = "ci"
+
+  values = [
+    data.local_file.ci_config_large.content
+  ]
+}

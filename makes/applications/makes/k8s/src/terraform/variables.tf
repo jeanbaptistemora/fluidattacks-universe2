@@ -33,6 +33,9 @@ data "local_file" "ci_init" {
 data "local_file" "ci_config" {
   filename = "ci-config.yaml"
 }
+data "local_file" "ci_config_large" {
+  filename = "ci-config-large.yaml"
+}
 data "aws_eks_cluster_auth" "cluster" {
   name = module.eks.cluster_id
 }
