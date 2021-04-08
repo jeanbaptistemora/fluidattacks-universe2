@@ -28,6 +28,7 @@ const GET_FINDINGS: DocumentNode = gql`
           zeroRisk
         }
       }
+      name
     }
   }
 `;

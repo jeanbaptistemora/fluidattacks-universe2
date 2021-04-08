@@ -9,6 +9,7 @@ export const GET_ENTITY_ORGANIZATION: DocumentNode = gql`
     $tagName: String!
   ) {
     project(projectName: $projectName) @include(if: $getProject) {
+      name
       organization
     }
     tag(tag: $tagName) @include(if: $getTag) {

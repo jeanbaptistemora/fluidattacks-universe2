@@ -338,6 +338,7 @@ describe("handle vulns acceptation modal", (): void => {
             vulnerabilities: [],
           },
           project: {
+            name: "group name",
             subscription: "",
           },
         },
@@ -503,6 +504,7 @@ describe("handle vulns acceptation modal", (): void => {
             vulnerabilities: [],
           },
           project: {
+            name: "group name",
             subscription: "",
           },
         },
@@ -661,6 +663,7 @@ describe("handle vulns acceptation modal", (): void => {
             vulnerabilities: [],
           },
           project: {
+            name: "group name",
             subscription: "",
           },
         },
@@ -826,6 +829,7 @@ describe("handle vulns acceptation modal", (): void => {
             vulnerabilities: [],
           },
           project: {
+            name: "group name",
             subscription: "",
           },
         },

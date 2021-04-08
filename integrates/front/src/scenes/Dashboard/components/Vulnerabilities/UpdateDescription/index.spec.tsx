@@ -101,6 +101,7 @@ describe("Update Description component", (): void => {
           },
         },
         project: {
+          name: "",
           subscription: "",
         },
       },

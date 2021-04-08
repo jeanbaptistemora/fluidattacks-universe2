@@ -40,6 +40,7 @@ describe("Update access token modal", (): void => {
           data: {
             project: {
               forcesToken: beforeValue,
+              name: "unittesting",
             },
           },
         },
@@ -146,6 +147,7 @@ describe("Update access token modal", (): void => {
           data: {
             project: {
               forcesToken: tokenValue,
+              name: "unnittesting",
             },
           },
         },
@@ -223,6 +225,7 @@ describe("Update access token modal", (): void => {
           data: {
             project: {
               forcesToken: undefined,
+              name: "unnittesting",
             },
           },
         },

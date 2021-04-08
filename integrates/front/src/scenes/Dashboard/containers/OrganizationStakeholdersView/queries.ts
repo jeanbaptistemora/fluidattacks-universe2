@@ -4,6 +4,7 @@ import type { DocumentNode } from "graphql";
 const GET_ORGANIZATION_STAKEHOLDERS: DocumentNode = gql`
   query GetOrganizationStakeholders($organizationId: String!) {
     organization(organizationId: $organizationId) {
+      name
       stakeholders {
         email
         firstLogin

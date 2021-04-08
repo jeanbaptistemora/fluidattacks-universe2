@@ -5,6 +5,7 @@ const GET_ORGANIZATION_ID: DocumentNode = gql`
   query GetOrganizationId($organizationName: String!) {
     organizationId(organizationName: $organizationName) {
       id
+      name
     }
   }
 `;
@@ -18,6 +19,7 @@ const GET_USER_PORTFOLIOS: DocumentNode = gql`
           name
         }
       }
+      userEmail
     }
   }
 `;

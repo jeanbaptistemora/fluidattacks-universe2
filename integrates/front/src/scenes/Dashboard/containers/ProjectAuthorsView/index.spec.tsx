@@ -42,6 +42,7 @@ describe("AuthorsView", (): void => {
                 },
               ],
             },
+            name: "unittesting",
           },
         },
       },

@@ -35,6 +35,7 @@ const GET_USER_PERMISSIONS: DocumentNode = gql`
     me(callerOrigin: "FRONT") {
       permissions(entity: $entity, identifier: $identifier)
       role(entity: $entity, identifier: $identifier)
+      userEmail
     }
   }
 `;

@@ -7,6 +7,7 @@ export const GET_USER_ORGANIZATIONS: DocumentNode = gql`
       organizations {
         name
       }
+      userEmail
     }
   }
 `;

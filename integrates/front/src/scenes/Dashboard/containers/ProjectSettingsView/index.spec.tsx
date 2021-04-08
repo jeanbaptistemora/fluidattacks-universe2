@@ -23,6 +23,7 @@ describe("ProjectSettingsView", (): void => {
     result: {
       data: {
         project: {
+          name: "TEST",
           tags: ["test"],
         },
       },

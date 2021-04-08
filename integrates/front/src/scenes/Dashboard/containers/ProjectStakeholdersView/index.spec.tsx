@@ -49,6 +49,7 @@ describe("Project users view", (): void => {
       result: {
         data: {
           project: {
+            name: "TEST",
             stakeholders: [
               {
                 email: "user@gmail.com",
@@ -74,6 +75,7 @@ describe("Project users view", (): void => {
       result: {
         data: {
           project: {
+            name: "TEST",
             stakeholders: [
               {
                 email: "user@gmail.com",

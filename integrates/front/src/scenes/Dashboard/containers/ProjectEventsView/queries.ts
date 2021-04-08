@@ -13,6 +13,7 @@ const GET_EVENTS: DocumentNode = gql`
         eventType
         closingDate
       }
+      name
     }
   }
 `;

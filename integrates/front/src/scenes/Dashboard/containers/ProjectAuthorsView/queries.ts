@@ -13,6 +13,7 @@ export const GET_BILL: DocumentNode = gql`
           repository
         }
       }
+      name
     }
   }
 `;

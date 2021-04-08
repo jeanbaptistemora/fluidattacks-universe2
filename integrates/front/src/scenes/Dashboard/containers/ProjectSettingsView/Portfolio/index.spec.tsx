@@ -50,6 +50,7 @@ describe("Portfolio", (): void => {
       result: {
         data: {
           project: {
+            name: "TEST",
             tags: ["test-tag1", "test-tag2"],
           },
         },
@@ -65,6 +66,7 @@ describe("Portfolio", (): void => {
       result: {
         data: {
           project: {
+            name: "TEST",
             tags: ["test-tag1"],
           },
         },

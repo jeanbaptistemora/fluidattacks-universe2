@@ -9,6 +9,7 @@ const SUBSCRIPTIONS_TO_ENTITY_REPORT: DocumentNode = gql`
         frequency
         subject
       }
+      userEmail
     }
   }
 `;

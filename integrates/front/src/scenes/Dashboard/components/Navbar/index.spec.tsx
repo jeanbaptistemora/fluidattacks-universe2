@@ -44,6 +44,7 @@ describe("Navbar", (): void => {
                 name: "okada",
               },
             ],
+            userEmail: "test@fluidattacks.com",
           },
         },
       },

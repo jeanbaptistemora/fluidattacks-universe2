@@ -42,6 +42,7 @@ describe("GroupScopeView", (): void => {
         data: {
           group: {
             __typename: "Project",
+            name: "unittesting",
             roots: [
               {
                 __typename: "GitRoot",
@@ -121,7 +122,11 @@ describe("GroupScopeView", (): void => {
         query: GET_ROOTS,
         variables: { groupName: "unittesting" },
       },
-      result: { data: { group: { __typename: "Project", roots: [] } } },
+      result: {
+        data: {
+          group: { __typename: "Project", name: "unittesting", roots: [] },
+        },
+      },
     };
     const mutationMock: MockedResponse = {
       request: {
@@ -149,6 +154,7 @@ describe("GroupScopeView", (): void => {
         data: {
           group: {
             __typename: "Project",
+            name: "unittesting",
             roots: [
               {
                 __typename: "GitRoot",
@@ -267,6 +273,7 @@ describe("GroupScopeView", (): void => {
         data: {
           group: {
             __typename: "Project",
+            name: "unittesting",
             roots: [
               {
                 __typename: "GitRoot",
@@ -317,6 +324,7 @@ describe("GroupScopeView", (): void => {
         data: {
           group: {
             __typename: "Project",
+            name: "unittesting",
             roots: [
               {
                 __typename: "GitRoot",
@@ -445,6 +453,7 @@ describe("GroupScopeView", (): void => {
         data: {
           group: {
             __typename: "Project",
+            name: "unittesting",
             roots: [
               {
                 __typename: "GitRoot",
@@ -494,6 +503,7 @@ describe("GroupScopeView", (): void => {
         data: {
           group: {
             __typename: "Project",
+            name: "unittesting",
             roots: [
               {
                 __typename: "GitRoot",

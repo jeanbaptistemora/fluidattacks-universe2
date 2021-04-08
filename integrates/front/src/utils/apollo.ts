@@ -334,6 +334,11 @@ const getCache: () => InMemoryCache = (): InMemoryCache =>
     possibleTypes: {
       Root: ["GitRoot", "IPRoot", "URLRoot"],
     },
+    typePolicies: {
+      Me: { keyFields: ["userEmail"] },
+      Organization: { keyFields: ["name"] },
+      Project: { keyFields: ["name"] },
+    },
   });
 
 type ProviderProps = Omit<

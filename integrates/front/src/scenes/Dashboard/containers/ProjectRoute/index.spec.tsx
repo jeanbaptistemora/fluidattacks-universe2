@@ -26,6 +26,7 @@ describe("ProjectRoute", (): void => {
         },
         project: {
           deletionDate: "",
+          name: "TEST",
           serviceAttributes: ["has_integrates"],
           userDeletion: "",
         },

@@ -15,6 +15,7 @@ const GET_DRAFTS: DocumentNode = gql`
         releaseDate
         currentState
       }
+      name
     }
   }
 `;

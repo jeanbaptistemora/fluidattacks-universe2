@@ -23,6 +23,7 @@ describe("TagContent", (): void => {
       data: {
         organizationId: {
           id: "ORG#eb50af04-4d50-4e40-bab1-a3fe9f672f9d",
+          name: "testorg",
         },
       },
     },

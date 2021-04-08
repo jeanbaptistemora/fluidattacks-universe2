@@ -39,6 +39,7 @@ describe("EventsView", (): void => {
                 projectName: "unittesting",
               },
             ],
+            name: "unittesting",
           },
         },
       },

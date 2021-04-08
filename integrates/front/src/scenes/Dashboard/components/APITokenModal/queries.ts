@@ -5,6 +5,7 @@ const GET_ACCESS_TOKEN: DocumentNode = gql`
   query GetAccessTokenQuery {
     me(callerOrigin: "FRONT") {
       accessToken
+      userEmail
     }
   }
 `;

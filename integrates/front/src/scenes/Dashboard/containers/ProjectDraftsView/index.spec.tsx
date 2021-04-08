@@ -55,6 +55,7 @@ describe("ProjectDraftsView", (): void => {
                 type: "HYGIENE",
               },
             ],
+            name: "TEST",
           },
         },
       },

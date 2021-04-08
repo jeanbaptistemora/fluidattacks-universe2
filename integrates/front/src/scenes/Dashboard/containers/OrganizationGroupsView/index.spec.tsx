@@ -77,6 +77,7 @@ describe("Organization groups view", (): void => {
         result: {
           data: {
             organization: {
+              name: "okada",
               projects: [
                 {
                   description: "Continuous type test project",
@@ -255,6 +256,7 @@ describe("Organization groups view", (): void => {
         result: {
           data: {
             organization: {
+              name: "okada",
               projects: [
                 {
                   description: "Continuous type test project",
@@ -321,6 +323,7 @@ describe("Organization groups view", (): void => {
         result: {
           data: {
             organization: {
+              name: "okada",
               projects: [
                 {
                   description: "Continuous type test project",

@@ -12,7 +12,7 @@ import { GroupInformation } from "scenes/Dashboard/containers/ProjectSettingsVie
 import { GET_GROUP_DATA } from "scenes/Dashboard/containers/ProjectSettingsView/queries";
 import store from "store";
 
-describe("Environments", (): void => {
+describe("Info", (): void => {
   const mocksInfo: readonly MockedResponse[] = [
     {
       request: {
@@ -27,6 +27,7 @@ describe("Environments", (): void => {
             hasDrills: true,
             hasForces: true,
             language: "EN",
+            name: "TEST",
             subscription: "TEST",
           },
         },

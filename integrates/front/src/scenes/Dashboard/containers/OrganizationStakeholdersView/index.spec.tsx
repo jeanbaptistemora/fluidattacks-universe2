@@ -62,6 +62,7 @@ describe("Organization users view", (): void => {
         result: {
           data: {
             organization: {
+              name: "okada",
               stakeholders: [
                 {
                   email: "testuser1@gmail.com",
@@ -165,6 +166,7 @@ describe("Organization users view", (): void => {
         result: {
           data: {
             organization: {
+              name: "okada",
               stakeholders: [
                 {
                   email: "testuser1@gmail.com",
@@ -230,6 +232,7 @@ describe("Organization users view", (): void => {
         result: {
           data: {
             organization: {
+              name: "okada",
               stakeholders: [
                 {
                   email: "testuser1@gmail.com",
@@ -344,6 +347,7 @@ describe("Organization users view", (): void => {
         result: {
           data: {
             organization: {
+              name: "okada",
               stakeholders: [
                 {
                   email: "testuser1@gmail.com",
@@ -389,6 +393,7 @@ describe("Organization users view", (): void => {
         result: {
           data: {
             organization: {
+              name: "okada",
               stakeholders: [
                 {
                   email: "testuser1@gmail.com",
@@ -504,6 +509,7 @@ describe("Organization users view", (): void => {
         result: {
           data: {
             organization: {
+              name: "okada",
               stakeholders: [
                 {
                   email: "testuser1@gmail.com",
@@ -550,6 +556,7 @@ describe("Organization users view", (): void => {
         result: {
           data: {
             organization: {
+              name: "okada",
               stakeholders: [
                 {
                   email: "testuser1@gmail.com",
@@ -679,6 +686,7 @@ describe("Organization users view", (): void => {
         result: {
           data: {
             organization: {
+              name: "okada",
               stakeholders: [
                 {
                   email: "testuser1@gmail.com",

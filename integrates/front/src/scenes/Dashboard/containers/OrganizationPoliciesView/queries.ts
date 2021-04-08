@@ -8,6 +8,7 @@ const GET_ORGANIZATION_POLICIES: DocumentNode = gql`
       maxAcceptanceSeverity
       maxNumberAcceptations
       minAcceptanceSeverity
+      name
     }
   }
 `;

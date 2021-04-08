@@ -48,6 +48,7 @@ describe("Update access token modal", (): void => {
           data: {
             me: {
               accessToken: JSON.stringify(noAccessToken),
+              userEmail: "test@fluidattacks.com",
             },
           },
         },
@@ -114,6 +115,7 @@ describe("Update access token modal", (): void => {
           data: {
             me: {
               accessToken: JSON.stringify(accessToken),
+              userEmail: "test@fluidattacks.com",
             },
           },
         },
@@ -191,6 +193,7 @@ describe("Update access token modal", (): void => {
           data: {
             me: {
               accessToken: JSON.stringify(noAccessToken),
+              userEmail: "test@fluidattacks.com",
             },
           },
         },
@@ -218,6 +221,7 @@ describe("Update access token modal", (): void => {
           data: {
             me: {
               accessToken: JSON.stringify(accessToken),
+              userEmail: "test@fluidattacks.com",
             },
           },
         },

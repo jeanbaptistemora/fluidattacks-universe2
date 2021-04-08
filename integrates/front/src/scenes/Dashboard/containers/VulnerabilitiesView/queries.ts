@@ -57,6 +57,7 @@ export const GET_FINDING_VULN_INFO: DocumentNode = gql`
       }
     }
     project(projectName: $groupName) {
+      name
       subscription
     }
   }
