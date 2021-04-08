@@ -59,4 +59,4 @@ melts.test:
   <<: *in_dev_branch_melts
   <<: *test_melts_template
   stage: test-code
-  tags: [autoscaling-large]
+  tags: [ci-large]
