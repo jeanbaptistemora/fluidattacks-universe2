@@ -113,14 +113,7 @@ def lookup_java_method(
     method_name: str,
     method_class: Optional[str] = None,
 ) -> Optional[LookedUpJavaMethod]:
-    # First lookup in the current shard
-    if data := _lookup_java_method_in_shard(args.shard, method_name):
-        return LookedUpJavaMethod(
-            metadata=data,
-            shard_path=args.shard.path,
-        )
-
-    # Now lookup in other shards different than the current shard
+    # Lookup in other shards different than the current shard
     if method_class and (
         shard_path := args.graph_db.shards_by_java_class.get(method_class)
     ):
@@ -130,13 +123,21 @@ def lookup_java_method(
                 metadata=data,
                 shard_path=shard.path,
             )
-    else:
-        for shard in args.graph_db.shards:
-            if shard.path != args.shard.path:
-                if data := _lookup_java_method_in_shard(shard, method_name):
-                    return LookedUpJavaMethod(
-                        metadata=data,
-                        shard_path=shard.path,
-                    )
+
+    # Lookup in the current shard
+    if not method_class and (data := _lookup_java_method_in_shard(
+            args.shard, method_name)):
+        return LookedUpJavaMethod(
+            metadata=data,
+            shard_path=args.shard.path,
+        )
+
+    for shard in args.graph_db.shards:
+        if shard.path != args.shard.path:
+            if data := _lookup_java_method_in_shard(shard, method_name):
+                return LookedUpJavaMethod(
+                    metadata=data,
+                    shard_path=shard.path,
+                )
 
     return None
