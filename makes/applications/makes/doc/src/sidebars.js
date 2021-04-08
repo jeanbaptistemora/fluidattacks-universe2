@@ -120,6 +120,7 @@ module.exports = {
         items: [
           'rules/session/r023',
           'rules/session/r024',
+          'rules/session/r025',
         ],
     },
   ],
