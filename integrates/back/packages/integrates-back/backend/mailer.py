@@ -572,8 +572,13 @@ async def send_mail_reject_draft(
 async def send_mail_new_releases(
         email_to: List[str],
         context: MailContentType) -> None:
-    await _send_mail_async(
-        'newreleasesintegrates', email_to, context=context, tags=GENERAL_TAG
+    await _send_mails_async_new(
+        email_to,
+        context,
+        GENERAL_TAG,
+        f'Findings to release ({context["total_unreleased"]})' +
+        f'({context["total_unsubmitted"]})',
+        'new_releases'
     )
 
 

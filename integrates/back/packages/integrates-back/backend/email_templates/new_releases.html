@@ -1,0 +1,13 @@
+{% extends "layouts/fluid_attacks.html" %}
+{% from 'layouts/components/forms.html' import go_to_button as button, releases_area %}
+{% block content %}
+<p>Hello {{ name }},</p>
+<p>
+  These are the findings that have not been <strong>released</strong> yet:
+</p>
+{{ releases_area(unreleased) }}
+<p>
+  These are the findings that have not been <strong>submitted</strong> yet::
+</p>
+{{ releases_area(unsubmitted) }}
+{% endblock %}
