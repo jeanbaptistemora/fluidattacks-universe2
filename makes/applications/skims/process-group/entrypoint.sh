@@ -86,7 +86,7 @@ function main {
   local cache_local="${HOME_IMPURE}/.skims/cache"
   local cache_remote="s3://skims.data/cache/${group}"
   local config_file
-  local success='false'
+  local success='true'
 
       if test -z "${group}"
       then
