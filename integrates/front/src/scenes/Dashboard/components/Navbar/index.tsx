@@ -52,7 +52,14 @@ const NavbarComponent: React.FC = (): JSX.Element => {
     : lastOrganization.name;
 
   // GraphQL operations
-  const { data, refetch: refetchOrganizationList } = useQuery(
+  interface IUserOrgs {
+    me: {
+      organizations: { name: string }[];
+      userEmail: string;
+    };
+  }
+
+  const { data, refetch: refetchOrganizationList } = useQuery<IUserOrgs>(
     GET_USER_ORGANIZATIONS,
     {
       onError: ({ graphQLErrors }: ApolloError): void => {
@@ -121,11 +128,7 @@ const NavbarComponent: React.FC = (): JSX.Element => {
   const organizationList: { name: string }[] =
     _.isEmpty(data) || _.isUndefined(data)
       ? [{ name: "" }]
-      : // eslint-disable-next-line fp/no-mutating-methods, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
-        data.me.organizations.sort(
-          (nameA: { name: string }, nameB: { name: string }): number =>
-            nameA.name > nameB.name ? 1 : -1
-        );
+      : _.sortBy(data.me.organizations, ["name"]);
 
   useEffect((): void => {
     void refetchOrganizationList();
