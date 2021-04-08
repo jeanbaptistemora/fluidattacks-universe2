@@ -15,11 +15,11 @@ securityContext:
   fsGroup: 65533
 resources:
   limits:
-    memory: 256Mi
-    cpu: 200m
+    memory: 4096Mi
+    cpu: 1000m
   requests:
-    memory: 128Mi
-    cpu: 100m
+    memory: 3500Mi
+    cpu: 800m
 runners:
   config: |
     [[runners]]
