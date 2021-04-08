@@ -48,7 +48,7 @@ async def test_project():
     assert result['data']['project']['closedVulnerabilities'] == 8
     assert result['data']['project']['deletionDate'] == ''
     assert result['data']['project']['description'] == 'Integrates unit test project'
-    assert len(result['data']['project']['findings']) == 9
+    assert len(result['data']['project']['findings']) == 8
     assert result['data']['project']['hasDrills']
     assert result['data']['project']['hasForces']
     assert result['data']['project']['hasIntegrates']
@@ -62,6 +62,6 @@ async def test_project():
     assert result['data']['project']['openVulnerabilities'] == 31
     assert result['data']['project']['subscription'] == 'continuous'
     assert result['data']['project']['tags'] == ['test-projects']
-    assert result['data']['project']['totalFindings'] == 9
+    assert result['data']['project']['totalFindings'] == 8
     assert result['data']['project']['totalTreatment'] == '{"accepted": 1, "inProgress": 4, "acceptedUndefined": 2, "undefined": 25}'
     assert result['data']['project']['userDeletion'] == ''
