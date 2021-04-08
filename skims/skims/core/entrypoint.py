@@ -22,6 +22,9 @@ from config import (
 from core.persist import (
     persist,
 )
+from lib_http.analyze import (
+    analyze as analyze_http,
+)
 from lib_path.analyze import (
     analyze as analyze_paths,
 )
@@ -75,6 +78,7 @@ async def execute_skims(token: Optional[str]) -> bool:
             *([analyze_root(stores=stores)]
               if CTX.config.path.lib_root
               else []),
+            analyze_http(stores=stores),
         )),
         CTX.config.timeout,
     )

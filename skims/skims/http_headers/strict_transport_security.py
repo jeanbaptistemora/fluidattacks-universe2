@@ -4,17 +4,12 @@ from operator import (
 )
 from typing import (
     List,
-    NamedTuple,
     Optional,
 )
 
-
-class StrictTransportSecurityHeader(NamedTuple):
-    name: str
-
-    include_sub_domains: Optional[bool]
-    max_age: int
-    preload: Optional[bool]
+from http_headers.types import (
+    StrictTransportSecurityHeader,
+)
 
 
 def _is_strict_transport_security(name: str) -> bool:

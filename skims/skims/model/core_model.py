@@ -457,7 +457,7 @@ class FindingEnum(Enum):
     F043_DAST_STS: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
         code='F043_DAST_STS',
-        cwe='614',
+        cwe='644',
 
         attack_complexity=0.77,
         attack_vector=0.62,

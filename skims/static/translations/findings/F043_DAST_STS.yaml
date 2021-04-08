@@ -1,3 +1,9 @@
+lib_http.f043.strict_transport_security.missing:
+  en: The Strict-Transport-Security header is missing
+  es: La cabecera Strict-Transport-Security no se ha configurado
+lib_http.f043.strict_transport_security.short_max_age:
+  en: The max-age value for Strict-Transport-Security is less than 31536000 seconds
+  es: El valor de max-age en la cabecera Strict-Transport-Security es menos de 31536000 segundos
 utils.model.finding.enum.F043_DAST_STS.description:
   en: >
     The server is missing the Strict-Transport-Security HTTP header.
