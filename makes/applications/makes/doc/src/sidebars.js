@@ -114,6 +114,13 @@ module.exports = {
         'rules/authorization/r035',
       ],
     },
+    {
+      type: 'category',
+        label: 'Session',
+        items: [
+          'rules/session/r023',
+        ],
+    },
   ],
   Agent: [
     'agent/introduction',
