@@ -68,6 +68,7 @@ module.exports = {
     'api/basics-api',
   ],
   Rules: [
+    'rules/intro',
     {
       type: 'category',
       label: 'Credentials',
