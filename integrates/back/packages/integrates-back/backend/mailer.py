@@ -542,11 +542,14 @@ async def send_mail_verified_finding(
 async def send_mail_updated_treatment(
         email_to: List[str],
         context: MailContentType) -> None:
-    await _send_mail_async(
-        'treatment-vulnerabilities',
+    context["vulnerabilities"] = f'"{context["vulnerabilities"]}"'.splitlines()
+    await _send_mails_async_new(
         email_to,
-        context=context,
-        tags=GENERAL_TAG
+        context,
+        GENERAL_TAG,
+        f'A vulnerability treatment has changed to {context["treatment"]} ' +
+        f'in [{context["project"]}]',
+        'updated_treatment'
     )
 
 
