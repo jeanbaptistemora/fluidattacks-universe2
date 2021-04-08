@@ -123,6 +123,13 @@ module.exports = {
           'rules/session/r025',
         ],
     },
+    {
+      type: 'category',
+        label: 'Legal',
+        items: [
+          'rules/legal/r331',
+        ],
+    },
   ],
   Agent: [
     'agent/introduction',
