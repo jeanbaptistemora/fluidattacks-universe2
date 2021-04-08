@@ -11,6 +11,7 @@ let
         "import-linter==1.2"
         "mypy==0.790"
         "prospector==1.3.0"
+        "returns==0.16.0"
       ];
       inherited = [
         "astroid==2.4.1"
