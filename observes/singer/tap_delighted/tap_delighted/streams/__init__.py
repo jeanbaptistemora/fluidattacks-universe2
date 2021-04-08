@@ -2,6 +2,7 @@
 from itertools import (
     chain,
 )
+import logging
 from typing import (
     Iterator,
     Union,
@@ -36,6 +37,9 @@ from singer_io.singer import (
 )
 
 
+LOG = logging.getLogger(__name__)
+
+
 def _json_list_srecords(
     stream: str,
     items: Iterator[JSON]
@@ -54,7 +58,8 @@ def all_surveys(api: ApiClient) -> None:
 
     def getter(page: PageId) -> Union[SurveyResponsePage, EmptyPage]:
         result = api.survey.get_surveys(page)
-        if not result:
+        LOG.debug('get_surveys response: %s', result)
+        if not result.data:
             return EmptyPage()
         return result
     pages: Iterator[SurveyResponsePage] = paginator.get_until_end(

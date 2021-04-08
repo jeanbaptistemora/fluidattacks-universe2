@@ -1,28 +1,24 @@
-{ buildPythonPackage
-, makeTemplate
-, nixpkgs
+{ makeTemplate
 , packages
 , path
 , ...
 }:
 let
-  pkgEnv = packages.observes.env;
-  pythonRunReqs = pkgEnv.utils-logger.runtime.python;
-  self = buildPythonPackage {
-    name = "observes-utils-logger";
-    packagePath = path "/observes/common/utils_logger";
-    python = nixpkgs.python38;
-  };
+  env = packages.observes.env;
+  pkgEnv = env.utils-logger;
+  self = path "/observes/common/utils_logger";
 in
 makeTemplate {
   name = "observes-env-utils-logger-runtime";
   searchPaths = {
-    envPython38Paths = [
-      pythonRunReqs
+    envMypyPaths = [
       self
     ];
-    envMypy38Paths = [
+    envPythonPaths = [
       self
+    ];
+    envPython38Paths = [
+      pkgEnv.runtime.python
     ];
   };
 }

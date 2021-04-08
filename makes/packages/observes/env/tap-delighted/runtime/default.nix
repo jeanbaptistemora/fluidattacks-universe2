@@ -26,6 +26,7 @@ makeTemplate {
     envSources = [
       env.runtime.paginator
       env.runtime.singer-io
+      env.utils-logger.runtime
     ];
   };
 }

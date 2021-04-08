@@ -1,4 +1,5 @@
 # Standard libraries
+import logging
 import time
 from typing import (
     Callable,
@@ -17,6 +18,7 @@ class MaxRetriesReached(Exception):
 
 
 RType = TypeVar('RType')
+LOG = logging.getLogger(__name__)
 
 
 def handle_rate_limit(
@@ -29,6 +31,7 @@ def handle_rate_limit(
         try:
             return request()
         except TooManyRequestsError as error:
+            LOG.info('Api rate limit reached. Waiting %ss', error.retry_after)
             time.sleep(error.retry_after)
             retries = retries + 1
     raise MaxRetriesReached()
