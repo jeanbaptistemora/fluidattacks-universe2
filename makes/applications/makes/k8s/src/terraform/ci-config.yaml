@@ -24,6 +24,7 @@ runners:
   config: |
     [[runners]]
       name = "ci"
+      environment = ["FF_GITLAB_REGISTRY_HELPER_IMAGE=true"]
       [runners.docker]
         dns = ["1.1.1.1", "8.8.4.4", "8.8.8.8"]
         tls_verify = false
