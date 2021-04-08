@@ -3,9 +3,7 @@ from __future__ import (
     annotations,
 )
 from typing import (
-    Any,
     Callable,
-    Dict,
     Iterator,
     NamedTuple,
 )
@@ -26,9 +24,9 @@ from paginator import (
 from tap_delighted.api.common import (
     handle_rate_limit,
 )
-
-
-JSON = Dict[str, Any]
+from tap_delighted.common import (
+    JSON,
+)
 
 
 class SurveyResponsePage(NamedTuple):
