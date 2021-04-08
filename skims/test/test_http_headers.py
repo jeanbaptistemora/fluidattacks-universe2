@@ -1,3 +1,8 @@
+# Standard library
+from textwrap import (
+    dedent,
+)
+
 # Third party libraries
 from aioextensions import (
     run_decorator,
@@ -6,9 +11,62 @@ import pytest
 
 # Local libraries
 from http_headers import (
+    as_string,
     from_url,
     strict_transport_security,
 )
+
+
+@pytest.mark.skims_test_group('unittesting')
+def test_as_string() -> None:
+    assert as_string.snippet(
+        url='fluidattacks.com',
+        header='Connection',
+        headers={
+            'Transfer-Encoding': 'chunked',
+            'Connection': 'keep-alive',
+            'Cache-Control': 'max-age=3600',
+            'Server': 'cloudflare',
+        },
+        chars_per_line=40,
+    ) == dedent("""
+        ¦ line ¦ Data                                     ¦
+        ¦ ---- ¦ ---------------------------------------- ¦
+        ¦    1 ¦ > GET fluidattacks.com                   ¦
+        ¦    2 ¦ > ...                                    ¦
+        ¦    3 ¦                                          ¦
+        ¦    4 ¦ < Transfer-Encoding: chunked             ¦
+        ¦  > 5 ¦ < Connection: keep-alive                 ¦
+        ¦    6 ¦ < Cache-Control: max-age=3600            ¦
+        ¦    7 ¦ < Server: cloudflare                     ¦
+        ¦    8 ¦                                          ¦
+        ¦    9 ¦ * EOF                                    ¦
+        ¦ ---- ¦ ---------------------------------------- ¦
+               ^ Column 0
+    """)[1:-1]
+
+    assert as_string.snippet(
+        url='fluidattacks.com',
+        header='X-not-found',
+        headers={
+            'Transfer-Encoding': 'chunked',
+            'Connection': 'keep-alive',
+            'Cache-Control': 'max-age=3600',
+            'Server': 'cloudflare',
+        },
+        chars_per_line=40,
+    ) == dedent("""
+        ¦ line ¦ Data                                     ¦
+        ¦ ---- ¦ ---------------------------------------- ¦
+        ¦    4 ¦ < Transfer-Encoding: chunked             ¦
+        ¦    5 ¦ < Connection: keep-alive                 ¦
+        ¦    6 ¦ < Cache-Control: max-age=3600            ¦
+        ¦    7 ¦ < Server: cloudflare                     ¦
+        ¦    8 ¦                                          ¦
+        ¦  > 9 ¦ * EOF                                    ¦
+        ¦ ---- ¦ ---------------------------------------- ¦
+               ^ Column 0
+    """)[1:-1]
 
 
 @pytest.mark.skims_test_group('unittesting')
