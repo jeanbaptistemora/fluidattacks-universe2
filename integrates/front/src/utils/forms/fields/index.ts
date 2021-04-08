@@ -9,4 +9,5 @@ export { PhoneNumber } from "utils/forms/fields/PhoneNumber";
 export { FormSwitchButton } from "utils/forms/fields/SwitchButton";
 export { TagInput } from "utils/forms/fields/TagInput";
 export { Text } from "utils/forms/fields/Text";
+export { FormikText } from "utils/forms/fields/Text/FormikText";
 export { TextArea } from "utils/forms/fields/TextArea";

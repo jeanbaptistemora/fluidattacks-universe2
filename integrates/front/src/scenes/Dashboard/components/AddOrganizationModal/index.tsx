@@ -1,11 +1,11 @@
 import { useMutation, useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
+import { Field, Form, Formik } from "formik";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import { track } from "mixpanel-browser";
 import React from "react";
 import { useHistory } from "react-router-dom";
-import { Field } from "redux-form";
 
 import { Button } from "components/Button";
 import { Modal } from "components/Modal";
@@ -19,7 +19,6 @@ import type {
   IAddOrganizationMtProps,
   IAddOrganizationQryProps,
 } from "scenes/Dashboard/components/AddOrganizationModal/types";
-import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import {
   ButtonToolbar,
   Col100,
@@ -27,7 +26,7 @@ import {
   FormGroup,
   Row,
 } from "styles/styledComponents";
-import { Text } from "utils/forms/fields";
+import { FormikText } from "utils/forms/fields/";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 import { translate } from "utils/translations/translate";
@@ -121,46 +120,49 @@ const AddOrganizationModal: React.FC<IAddOrganizationModalProps> = (
         headerTitle={translate.t("sidebar.newOrganization.modal.title")}
         open={open}
       >
-        <GenericForm
+        <Formik
+          enableReinitialize={true}
           initialValues={{ name: organizationName.toUpperCase() }}
           name={"newOrganization"}
           onSubmit={handleSubmit}
         >
-          <Row>
-            <FormGroup>
-              <ControlLabel>
-                {translate.t("sidebar.newOrganization.modal.name")}
-              </ControlLabel>
-              <TooltipWrapper
-                id={"addOrgTooltip"}
-                message={translate.t(
-                  "sidebar.newOrganization.modal.nameTooltip"
-                )}
-                placement={"top"}
-              >
-                <Field
-                  component={Text}
-                  disabled={true}
-                  name={"name"}
-                  type={"text"}
-                />
-              </TooltipWrapper>
-            </FormGroup>
-          </Row>
-          <hr />
-          <Row>
-            <Col100>
-              <ButtonToolbar>
-                <Button onClick={onClose}>
-                  {translate.t("confirmmodal.cancel")}
-                </Button>
-                <Button disabled={loading || submitting} type={"submit"}>
-                  {translate.t("confirmmodal.proceed")}
-                </Button>
-              </ButtonToolbar>
-            </Col100>
-          </Row>
-        </GenericForm>
+          <Form>
+            <Row>
+              <FormGroup>
+                <ControlLabel>
+                  {translate.t("sidebar.newOrganization.modal.name")}
+                </ControlLabel>
+                <TooltipWrapper
+                  id={"addOrgTooltip"}
+                  message={translate.t(
+                    "sidebar.newOrganization.modal.nameTooltip"
+                  )}
+                  placement={"top"}
+                >
+                  <Field
+                    component={FormikText}
+                    disabled={true}
+                    name={"name"}
+                    type={"text"}
+                  />
+                </TooltipWrapper>
+              </FormGroup>
+            </Row>
+            <hr />
+            <Row>
+              <Col100>
+                <ButtonToolbar>
+                  <Button onClick={onClose}>
+                    {translate.t("confirmmodal.cancel")}
+                  </Button>
+                  <Button disabled={loading || submitting} type={"submit"}>
+                    {translate.t("confirmmodal.proceed")}
+                  </Button>
+                </ButtonToolbar>
+              </Col100>
+            </Row>
+          </Form>
+        </Formik>
       </Modal>
     </React.StrictMode>
   );

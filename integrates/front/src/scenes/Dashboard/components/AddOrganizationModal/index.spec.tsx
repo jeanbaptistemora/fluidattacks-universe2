@@ -4,7 +4,6 @@ import type { ReactWrapper } from "enzyme";
 import { mount } from "enzyme";
 import React from "react";
 import { act } from "react-dom/test-utils";
-import { Provider } from "react-redux";
 import waitForExpect from "wait-for-expect";
 
 import { AddOrganizationModal } from "scenes/Dashboard/components/AddOrganizationModal";
@@ -12,7 +11,6 @@ import {
   CREATE_NEW_ORGANIZATION,
   GET_AVAILABLE_ORGANIZATION_NAME,
 } from "scenes/Dashboard/components/AddOrganizationModal/queries";
-import store from "store";
 
 const handleCloseModal: jest.Mock = jest.fn();
 const mockHistoryPush: jest.Mock = jest.fn();
@@ -57,11 +55,9 @@ describe("Add organization modal", (): void => {
       },
     ];
     const wrapper: ReactWrapper = mount(
-      <Provider store={store}>
-        <MockedProvider addTypename={false} mocks={mocks}>
-          <AddOrganizationModal onClose={handleCloseModal} open={true} />
-        </MockedProvider>
-      </Provider>
+      <MockedProvider addTypename={false} mocks={mocks}>
+        <AddOrganizationModal onClose={handleCloseModal} open={true} />
+      </MockedProvider>
     );
 
     await act(
@@ -70,9 +66,9 @@ describe("Add organization modal", (): void => {
           wrapper.update();
 
           expect(wrapper).toHaveLength(1);
-          expect(
-            wrapper.find({ name: "name" }).find("input").prop("value")
-          ).toBe("ESDEATH");
+          expect(wrapper.find("Formik").find("input").prop("value")).toBe(
+            "ESDEATH"
+          );
         });
       }
     );
@@ -130,11 +126,9 @@ describe("Add organization modal", (): void => {
       },
     ];
     const wrapper: ReactWrapper = mount(
-      <Provider store={store}>
-        <MockedProvider addTypename={false} mocks={mocks}>
-          <AddOrganizationModal onClose={handleCloseModal} open={true} />
-        </MockedProvider>
-      </Provider>
+      <MockedProvider addTypename={false} mocks={mocks}>
+        <AddOrganizationModal onClose={handleCloseModal} open={true} />
+      </MockedProvider>
     );
 
     await act(
@@ -150,7 +144,7 @@ describe("Add organization modal", (): void => {
       }
     );
 
-    wrapper.find("genericForm").simulate("submit");
+    wrapper.find("Formik").simulate("submit");
 
     await act(
       async (): Promise<void> => {
