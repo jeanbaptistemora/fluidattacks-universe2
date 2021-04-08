@@ -110,6 +110,7 @@ module.exports = {
       items: [
         'rules/authorization/r033',
         'rules/authorization/r034',
+        'rules/authorization/r035',
       ],
     },
   ],
