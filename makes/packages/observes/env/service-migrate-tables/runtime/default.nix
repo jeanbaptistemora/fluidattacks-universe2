@@ -1,6 +1,4 @@
-{ buildPythonPackage
-, makeTemplate
-, nixpkgs
+{ makeTemplate
 , packages
 , path
 , ...
@@ -8,21 +6,25 @@
 let
   env = packages.observes.env;
   pkgEnv = env.service-migrate-tables;
-  self = buildPythonPackage {
-    name = "observes-service-migrate-tables";
-    packagePath = path "/observes/services/migrate_tables";
-    python = nixpkgs.python38;
-  };
+  self = path "/observes/services/migrate_tables";
 in
 makeTemplate {
   name = "observes-env-service-migrate-tables-runtime";
   searchPaths = {
-    envSources = [
-      env.runtime.postgres-client
+    envMypyPaths = [
+      self
+    ];
+    envPaths = [
+      pkgEnv.runtime.python
+    ];
+    envPythonPaths = [
+      self
     ];
     envPython38Paths = [
       pkgEnv.runtime.python
-      self
+    ];
+    envSources = [
+      env.runtime.postgres-client
     ];
   };
 }
