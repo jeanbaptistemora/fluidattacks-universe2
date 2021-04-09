@@ -101,7 +101,7 @@ function deploy_dev {
   local src="${1}"
 
       pushd "${src}" \
-    &&  python3 -m http.server \
+      &&  python3 -m http.server \
   &&  popd \
   ||  return 1
 }
@@ -141,8 +141,7 @@ function main {
   local url_to_replace='please-replace-this-url-before-deploying'
   local path_to_replace='please-replace-this-path-before-deploying'
 
-      mkdir -p "${out}" \
-  &&  copy __envAirsContent__ "${out}" \
+      __envAirsContent__ "${out}" \
   &&  case "${env}" in
         dev) patch_paths_dev "${out}";;
         eph) patch_paths_eph "${out}";;

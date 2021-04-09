@@ -1,12 +1,13 @@
 { nixpkgs
 , makeEntrypoint
 , packages
+, applications
 , path
 , ...
 }:
 makeEntrypoint {
   arguments = {
-    envAirsContent = packages.airs.content;
+    envAirsContent = applications.airs.content;
   };
   name = "airs";
   searchPaths = {

@@ -1,10 +1,10 @@
 { nixpkgs
-, makeDerivation
+, makeEntrypoint
 , packages
 , path
 , ...
 }:
-makeDerivation {
+makeEntrypoint {
   arguments = {
     envAirsContent = path "/airs/content";
     envAirsContentImages = path "/airs/content/images";
@@ -13,7 +13,7 @@ makeDerivation {
     envAirsNewFront = path "/airs/new-front";
     envAirsNpm = packages.airs.npm;
   };
-  builder = path "/makes/packages/airs/content/builder.sh";
+  template = path "/makes/applications/airs/content/entrypoint.sh";
   name = "airs-content";
   searchPaths = {
     envLibraries = [
@@ -22,6 +22,11 @@ makeDerivation {
     envPaths = [
       nixpkgs.findutils
       nixpkgs.gnused
+      nixpkgs.utillinux
+    ];
+    envUtils = [
+      "/makes/utils/aws"
+      "/makes/utils/sops"
     ];
   };
 }
