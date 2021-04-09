@@ -1,10 +1,5 @@
 # Standard libraries
-from itertools import (
-    chain,
-    repeat,
-)
 from typing import (
-    Any,
     Tuple,
 )
 
@@ -26,21 +21,9 @@ async def delete(
 
 
 async def get_by_group(
-    loaders: Any,
     group_name: str
 ) -> Tuple[GitRootToeLines, ...]:
-    group_roots_loader = loaders.group_roots
-    group_roots = await group_roots_loader.load(group_name)
-    group_roots_ids = [
-        root.id
-        for root in group_roots
-    ]
-    root_toe_lines_loader = loaders.root_toe_lines
-    root_toe_lines = await root_toe_lines_loader.load_many(
-        zip(repeat(group_name), group_roots_ids)
-    )
-
-    return tuple(chain.from_iterable(root_toe_lines))
+    return await toe_lines_dal.get_by_group(group_name)
 
 
 async def get_by_root(

@@ -2,7 +2,6 @@
 import pytest
 
 # Local libraries
-from backend.api import get_new_context
 from data_containers.toe_lines import GitRootToeLines
 from toe.lines import domain as toe_lines_domain
 
@@ -14,10 +13,7 @@ pytestmark = [
 
 async def test_get_by_group():
     group_name = 'unittesting'
-    loaders = get_new_context()
-    group_toe_lines = await toe_lines_domain.get_by_group(
-        loaders, group_name
-    )
+    group_toe_lines = await toe_lines_domain.get_by_group(group_name)
     assert group_toe_lines == (
         GitRootToeLines(
             comments='comment test',

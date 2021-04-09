@@ -157,9 +157,7 @@ async def update_toe_lines_from_csv(
 ) -> None:
     group_roots_loader = loaders.group_roots
     group_roots = await group_roots_loader.load(group_name)
-    group_toe_lines = await toe_lines_domain.get_by_group(
-        loaders, group_name
-    )
+    group_toe_lines = await toe_lines_domain.get_by_group(group_name)
     cvs_group_toe_lines = await in_process(
         _get_group_toe_lines_from_cvs,
         lines_csv_path,

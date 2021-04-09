@@ -400,10 +400,7 @@ async def test_toe_lines_etl():
         shutil.copy2(filename, f'{path}/groups/unittesting/toe/lines.csv')
 
     group_name = 'unittesting'
-    loaders = get_new_context()
-    group_toe_lines = await toe_lines_domain.get_by_group(
-        loaders, group_name
-    )
+    group_toe_lines = await toe_lines_domain.get_by_group(group_name)
     assert group_toe_lines == (
         GitRootToeLines(
             comments='comment test',
@@ -435,10 +432,7 @@ async def test_toe_lines_etl():
     ):
         await toe_lines_etl.main()
 
-    loaders = get_new_context()
-    group_toe_lines = await toe_lines_domain.get_by_group(
-        loaders, group_name
-    )
+    group_toe_lines = await toe_lines_domain.get_by_group(group_name)
     assert group_toe_lines == (
         GitRootToeLines(
             comments='comment test 2',
