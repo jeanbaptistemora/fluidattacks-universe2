@@ -4,8 +4,10 @@ from os.path import (
     splitext,
 )
 from typing import (
+    Any,
     Dict,
     Set,
+    Tuple,
 )
 
 # Third party libraries
@@ -55,6 +57,26 @@ MEBIBYTE: int = 1048576
 MAX_READ: int = 64 * MEBIBYTE
 
 
+CHECKS: Tuple[Tuple[core_model.FindingEnum, Any], ...] = (
+    (core_model.FindingEnum.F001_JPA, f001_jpa.analyze),
+    (core_model.FindingEnum.F009, f009.analyze),
+    (core_model.FindingEnum.F011, f011.analyze),
+    (core_model.FindingEnum.F022, f022.analyze),
+    (core_model.FindingEnum.F024_AWS, f024_aws.analyze),
+    (core_model.FindingEnum.F031_AWS, f031_aws.analyze),
+    (core_model.FindingEnum.F031_CWE378, f031_cwe378.analyze),
+    (core_model.FindingEnum.F037, f037.analyze),
+    (core_model.FindingEnum.F052, f052.analyze),
+    (core_model.FindingEnum.F055_AWS_MISSING_ENCRYPTION,
+     f055_aws_missing_encryption.analyze),
+    (core_model.FindingEnum.F060, f060.analyze),
+    (core_model.FindingEnum.F061, f061.analyze),
+    (core_model.FindingEnum.F073, f073.analyze),
+    (core_model.FindingEnum.F085, f085.analyze),
+    (core_model.FindingEnum.F117, f117.analyze),
+)
+
+
 async def analyze_one_path(
     *,
     index: int,
@@ -82,28 +104,11 @@ async def analyze_one_path(
     file_name, file_extension = splitext(file)
     file_extension = file_extension[1:]
 
-    for finding, analyzer in (
-        (core_model.FindingEnum.F001_JPA, f001_jpa.analyze),
-        (core_model.FindingEnum.F009, f009.analyze),
-        (core_model.FindingEnum.F011, f011.analyze),
-        (core_model.FindingEnum.F022, f022.analyze),
-        (core_model.FindingEnum.F024_AWS, f024_aws.analyze),
-        (core_model.FindingEnum.F031_AWS, f031_aws.analyze),
-        (core_model.FindingEnum.F031_CWE378, f031_cwe378.analyze),
-        (core_model.FindingEnum.F037, f037.analyze),
-        (core_model.FindingEnum.F052, f052.analyze),
-        (core_model.FindingEnum.F055_AWS_MISSING_ENCRYPTION,
-         f055_aws_missing_encryption.analyze),
-        (core_model.FindingEnum.F060, f060.analyze),
-        (core_model.FindingEnum.F061, f061.analyze),
-        (core_model.FindingEnum.F073, f073.analyze),
-        (core_model.FindingEnum.F085, f085.analyze),
-        (core_model.FindingEnum.F117, f117.analyze),
-    ):
+    for finding, analyzer in CHECKS:
         if finding not in CTX.config.checks:
             continue
 
-        for vulnerabilities in await analyzer(  # type: ignore
+        for vulnerabilities in await analyzer(
             content_generator=file_content_generator,
             file_extension=file_extension,
             file_name=file_name,
@@ -118,6 +123,9 @@ async def analyze(
     *,
     stores: Dict[core_model.FindingEnum, EphemeralStore],
 ) -> None:
+    if not any(finding in CTX.config.checks for finding, _ in CHECKS):
+        return
+
     unique_paths: Set[str] = await resolve_paths(
         exclude=CTX.config.path.exclude,
         include=CTX.config.path.include,
