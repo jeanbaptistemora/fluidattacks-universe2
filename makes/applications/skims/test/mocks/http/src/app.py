@@ -1,14 +1,16 @@
 # Third party libraries
-from flask import Flask
+from flask import (
+    Flask,
+)
 
 
 APP = Flask(__name__)
 
 
 @APP.route('/')
-def home():
+def home() -> str:
     return 'Welcome!'
 
 
-def start():
+def start() -> None:
     APP.run()

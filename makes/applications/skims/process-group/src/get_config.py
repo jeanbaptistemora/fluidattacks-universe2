@@ -2,7 +2,7 @@
 import argparse
 import os
 from typing import (
-    Set,
+    List,
 )
 
 # Third party libraries
@@ -22,7 +22,7 @@ from integrates.graphql import (
 )
 
 
-async def get_urls_from_group(group: str, namespace: str) -> Set[str]:
+async def get_urls_from_group(group: str, namespace: str) -> List[str]:
     return sorted({
         environment_url
         for root in await get_group_roots(group=group)

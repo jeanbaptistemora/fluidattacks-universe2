@@ -3,6 +3,8 @@
 function main {
       lint_python_imports "${envImportLinterConfig}" "${envSrcSkimsSkims}" \
   &&  lint_python_module "${envSrcSkimsTest}" \
+  &&  lint_python_module "${envSrcProcessGroup}" \
+  &&  lint_python_module "${envSrcTestMocksHttp}" \
   &&  for module in "${envSrcSkimsSkims}"/*
       do
             if test -d "${module}"
