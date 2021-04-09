@@ -17,7 +17,6 @@ forces.oci-deploy
 forces.oci-deploy-ephemeral
 forces.process-groups
 forces.test
-forces.test-container
 integrates.back
 integrates.back.authz-matrix
 integrates.back.deploy.dev
