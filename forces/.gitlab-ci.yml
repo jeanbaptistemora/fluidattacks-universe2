@@ -49,10 +49,12 @@ forces.test:
   stage: test-code
 
 forces.test-container:
-  <<: *makes
   <<: *forces_in_dev_and_master_branch
   stage: test-code
-  tags: [autoscaling-large]
+  tags: [ci-large]
+  image: "fluidattacks/forces:${CI_COMMIT_REF_NAME}"
+  script:
+    - forces --token "${INTEGRATES_FORCES_API_TOKEN}" --lax
   needs:
     - forces.oci-deploy-ephemeral
 
