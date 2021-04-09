@@ -41,6 +41,11 @@ SyntaxSteps = List[SyntaxStep]
 SyntaxStepsLazy = Iterator[SyntaxStep]
 
 
+class CurrentInstance(NamedTuple):
+    class_ref: Optional[Any] = None
+    fields: Optional[Dict[str, Any]] = None
+
+
 @dataclass
 class SyntaxStepMeta:
     danger: bool
@@ -173,6 +178,7 @@ class SyntaxStepLiteral(NamedTuple):
 class SyntaxStepMethodInvocation(NamedTuple):
     meta: SyntaxStepMeta
     method: str
+    current_instance: Optional[CurrentInstance] = None
 
     type: str = 'SyntaxStepMethodInvocation'
 
@@ -256,6 +262,7 @@ class GraphShardMetadataJavaClassField(NamedTuple):
 
 class GraphShardMetadataJavaClassMethod(NamedTuple):
     n_id: NId
+    class_name: Optional[str] = None
 
 
 class GraphShardMetadataJavaClass(NamedTuple):

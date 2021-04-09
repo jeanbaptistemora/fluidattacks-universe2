@@ -79,5 +79,5 @@ class LookedUpJavaClassField(NamedTuple):
 
 
 class JavaClassInstance(NamedTuple):
-    class_ref: Optional[LookedUpJavaClass]
     fields: Dict[str, Optional[graph_model.SyntaxStep]]
+    class_ref: Optional[LookedUpJavaClass] = None

@@ -85,7 +85,12 @@ def _syntax_step_object_instantiation_values(args: EvaluatorArgs) -> None:
         args.syntax_step.meta.value = []
     elif object_type in build_attr_paths('java', 'util', 'HashMap'):
         args.syntax_step.meta.value = {}
-    elif args.graph_db.shards_by_java_class.get(object_type):
+    elif args.graph_db.shards_by_java_class.get(
+            object_type) or args.graph_db.shards_by_java_class.get(
+                f'.{object_type}'):
+        if '.' not in object_type:
+            object_type = '.' + object_type
+
         constructor_name = (
             f'{object_type}.{split_on_last_dot(object_type)[1]}'
             f'_{len(args.dependencies)}'
@@ -104,8 +109,8 @@ def _syntax_step_object_instantiation_values(args: EvaluatorArgs) -> None:
                 )
             ):
                 args.syntax_step.meta.value = JavaClassInstance(
-                    lookup_java_class(args, object_type),
-                    fields_modified,
+                    fields=fields_modified,
+                    class_ref=lookup_java_class(args, object_type),
                 )
     elif java_class := lookup_java_class(args, object_type):
         args.syntax_step.meta.value = java_class

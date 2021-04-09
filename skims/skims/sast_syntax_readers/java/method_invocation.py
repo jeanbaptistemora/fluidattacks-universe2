@@ -36,6 +36,7 @@ def reader(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
                 ),
             ),
             method=g.concatenate_label_text(args.graph, identifier_ids),
+            current_instance=graph_model.CurrentInstance(fields={}),
         )
     elif g.contains_label_type_in(args.graph, path_ids, dot_chain):
         yield graph_model.SyntaxStepMethodInvocationChain(

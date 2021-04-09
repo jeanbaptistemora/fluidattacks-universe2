@@ -130,6 +130,8 @@ def get_metadata_java_class_methods(
     methods: Dict[str, graph_model.GraphShardMetadataJavaClassMethod] = {}
 
     match = g.match_ast(graph, n_id, 'class_body')
+    class_name = graph.nodes[graph.nodes[n_id]
+                             ['label_field_name']]['label_text']
 
     if class_body_id := match['class_body']:
         for c_id in g.adj(graph, class_body_id):
@@ -140,7 +142,10 @@ def get_metadata_java_class_methods(
                 if identifier_id := match['identifier']:
                     name = '.' + graph.nodes[identifier_id]['label_text']
                     methods[name] = \
-                        graph_model.GraphShardMetadataJavaClassMethod(c_id)
+                        graph_model.GraphShardMetadataJavaClassMethod(
+                            c_id,
+                            class_name,
+                    )
             elif graph.nodes[c_id]['label_type'] == 'constructor_declaration':
                 identifier_id = graph.nodes[c_id]['label_field_name']
                 p_id = graph.nodes[c_id]['label_field_parameters']
@@ -151,7 +156,9 @@ def get_metadata_java_class_methods(
                     params_length = len(params['formal_parameter'])
                 constructor = graph.nodes[identifier_id]["label_text"]
                 name = f'.{constructor}_{params_length}'
-                methods[name] = \
-                    graph_model.GraphShardMetadataJavaClassMethod(c_id)
+                methods[name] = graph_model.GraphShardMetadataJavaClassMethod(
+                    c_id,
+                    class_name,
+                )
 
     return methods

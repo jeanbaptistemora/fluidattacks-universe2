@@ -10,6 +10,7 @@ from model import (
 )
 from sast_symbolic_evaluation.types import (
     EvaluatorArgs,
+    JavaClassInstance,
     LookedUpJavaClass,
 )
 from sast_symbolic_evaluation.utils_generic import (
@@ -17,6 +18,7 @@ from sast_symbolic_evaluation.utils_generic import (
     lookup_var_state_by_name,
 )
 from sast_symbolic_evaluation.utils_java import (
+    lookup_java_class,
     lookup_java_field,
     lookup_java_method,
 )
@@ -505,14 +507,24 @@ def analyze_method_invocation_values(args: EvaluatorArgs) -> None:
         if isinstance(dcl.meta.value, list):
             analyze_method_invocation_values_list(args, dcl, method_path)
     elif method := lookup_java_method(args, args.syntax_step.method):
+        class_instance = None
+        if lookup_class := lookup_java_class(args, method.metadata.class_name):
+            class_instance = JavaClassInstance(
+                fields={},
+                class_ref=lookup_class,
+            )
         if return_step := args.eval_method(
             args,
             method.metadata.n_id,
             args.dependencies,
             args.graph_db.shards_by_path_f(method.shard_path),
+            class_instance,
         ):
             args.syntax_step.meta.danger = return_step.meta.danger
             args.syntax_step.meta.value = return_step.meta.value
+        if class_instance:
+            args.syntax_step.current_instance.fields.update(
+                class_instance.fields)
 
 
 def analyze_method_invocation_values_dict(
