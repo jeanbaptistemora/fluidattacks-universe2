@@ -4,14 +4,17 @@ function main {
       echo '[INFO] Firefox: __envFirefox__' \
   &&  echo '[INFO] Geckodriver: __envGeckodriver__' \
   &&  aws_login_dev integrates \
-  &&  aws_eks_update_kubeconfig 'makes-k8s' 'us-east-1' \
   &&  sops_export_vars integrates/secrets-development.yaml \
         STARLETTE_SESSION_KEY \
         TEST_E2E_USER \
-  &&  kubectl rollout status \
-        "deploy/integrates-${CI_COMMIT_REF_NAME}" \
-        -n "development" \
-        --timeout="15m" \
+  &&  if test -n "${CI:-}"
+      then
+            aws_eks_update_kubeconfig 'makes-k8s' 'us-east-1' \
+        &&  kubectl rollout status \
+              "deploy/integrates-${CI_COMMIT_REF_NAME}" \
+              -n "development" \
+              --timeout="15m"
+      fi \
   &&  pushd integrates/back/tests/e2e/src \
     &&  pkgFirefox='__envFirefox__' \
         pkgGeckoDriver='__envGeckodriver__' \
