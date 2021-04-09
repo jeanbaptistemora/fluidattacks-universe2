@@ -442,21 +442,20 @@ async def send_mail_new_draft(
         'new-draft', email_to, context=context, tags=GENERAL_TAG)
 
 
-async def send_mail_analytics(*email_to: str, **context: str) -> None:
-    await log(
-        ':'.join([*list(email_to), '[mailer]: send_mail_analytics']),
-        extra={
-            'extra': {
-                'context': context,
-                'to': email_to,
-            }
-        })
-
-    await _send_mail_immediately(
-        template_name='charts-report',
-        email_to=list(email_to),
-        context=cast(MailContentType, context),
-        tags=GENERAL_TAG,
+async def send_mail_analytics(
+        *email_to: str,
+        **context: str) -> None:
+    context = cast(MailContentType, context)
+    context["live_report_url"] = (
+        f'{BASE_URL}/{context["report_entity_percent"]}s/' +
+        f'{context["report_subject_percent"]}')
+    await _send_mails_async_new(
+        list(email_to),
+        context,
+        GENERAL_TAG,
+        f'Analytics for [{context["report_subject_title"]}] ' +
+        f'({context["frequency_title"]}: {context["date"]})',
+        'charts_report'
     )
 
 
