@@ -7,6 +7,9 @@ makeTemplate {
     envPaths = [
       pkgs.awscli
     ];
+    envUtils = [
+      "/makes/utils/env"
+    ];
   };
   name = "utils-bash-lib-aws";
   template = path "/makes/utils/aws/template.sh";

@@ -9,10 +9,7 @@ computeOnAws {
   name = "skims-benchmark-on-aws";
   product = "skims";
   secrets = [
-    "OBSERVES_PROD_AWS_ACCESS_KEY_ID"
-    "OBSERVES_PROD_AWS_SECRET_ACCESS_KEY"
-    "SKIMS_PROD_AWS_ACCESS_KEY_ID"
-    "SKIMS_PROD_AWS_SECRET_ACCESS_KEY"
+    "GITLAB_API_TOKEN"
   ];
   timeout = 86400;
   vcpus = 4;

@@ -15,8 +15,6 @@ let
       "GITLAB_API_TOKEN"
       "GITLAB_API_USER"
       "INTEGRATES_API_TOKEN"
-      "OBSERVES_PROD_AWS_ACCESS_KEY_ID"
-      "OBSERVES_PROD_AWS_SECRET_ACCESS_KEY"
     ];
     timeout = 7200;
     vcpus = 1;

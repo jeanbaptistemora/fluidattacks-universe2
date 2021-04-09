@@ -11,8 +11,6 @@ computeOnAws {
   secrets = [
     "GITLAB_API_USER"
     "GITLAB_API_TOKEN"
-    "OBSERVES_PROD_AWS_ACCESS_KEY_ID"
-    "OBSERVES_PROD_AWS_SECRET_ACCESS_KEY"
   ];
   timeout = 14400;
   vcpus = 1;

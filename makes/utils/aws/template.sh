@@ -10,7 +10,7 @@ function aws_login_dev {
   export TF_VAR_aws_secret_key
 
       echo '[INFO] Logging into AWS with development credentials' \
-  &&  ensure_env_vars "${key}" "${secret}" \
+  &&  ensure_gitlab_env_vars "${key}" "${secret}" \
   &&  AWS_ACCESS_KEY_ID="${!key}" \
   &&  AWS_SECRET_ACCESS_KEY="${!secret}" \
   &&  aws configure set 'aws_access_key_id' "${AWS_ACCESS_KEY_ID}" \
@@ -30,7 +30,7 @@ function aws_login_prod {
   export TF_VAR_aws_secret_key
 
       echo '[INFO] Logging into AWS with production credentials' \
-  &&  ensure_env_vars "${key}" "${secret}" \
+  &&  ensure_gitlab_env_vars "${key}" "${secret}" \
   &&  AWS_ACCESS_KEY_ID="${!key}" \
   &&  AWS_SECRET_ACCESS_KEY="${!secret}" \
   &&  aws configure set 'aws_access_key_id' "${AWS_ACCESS_KEY_ID}" \

@@ -11,17 +11,6 @@ function copy {
   &&  chmod --recursive +w "${@: -1}"
 }
 
-function ensure_env_vars {
-  for var_name in "${@}"
-  do
-    if test -z "${!var_name:-}"
-    then
-          echo "[ERROR] Missing environment variable: ${var_name}" \
-      &&  return 1
-    fi
-  done
-}
-
 function execute_chunk_parallel {
   export CI_NODE_INDEX
   export CI_NODE_TOTAL
