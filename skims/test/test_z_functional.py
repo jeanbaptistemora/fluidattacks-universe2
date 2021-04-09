@@ -3,6 +3,9 @@ from contextlib import (
     redirect_stderr,
     redirect_stdout,
 )
+from uuid import (
+    uuid4 as uuid,
+)
 import io
 from typing import (
     Dict,
@@ -314,7 +317,7 @@ async def test_integrates_group_has_required_roots(
             assert await do_add_git_root(
                 group_name=test_group,
                 nickname=namespace,
-                url=f'git@gitlab.com:fluidattacks/{namespace}.git'
+                url=f'git@gitlab.com:fluidattacks/{namespace}-{uuid().hex}.git'
             )
 
 

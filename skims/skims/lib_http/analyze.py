@@ -48,7 +48,7 @@ async def analyze_one(
         (f043.should_run, f043.analyze),
     ):
         if should_run():
-            for vulnerabilities in await analyzer(url):
+            for vulnerabilities in analyzer(url):
                 for vulnerability in await vulnerabilities:
                     await stores[vulnerability.finding].store(vulnerability)
 

@@ -104,7 +104,7 @@ CHECKS: Dict[
 }
 
 
-async def analyze(  # pylint: disable=too-many-arguments
+def analyze(
     url: str,
     **_: None,
 ) -> List[Awaitable[core_model.Vulnerabilities]]:

@@ -138,7 +138,6 @@ skims.test.benchmark_weakrand:
 
 skims.test.functional:
   <<: *skims_test
-  <<: *skims_in_master_branch
 
 skims.test.unittesting:
   <<: *skims_test
