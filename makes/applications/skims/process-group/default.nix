@@ -5,6 +5,9 @@
 , ...
 }:
 makeEntrypoint {
+  arguments = {
+    envGetSastConfig = path "/makes/applications/skims/process-group/get_sast_config.py";
+  };
   name = "skims-process-group";
   searchPaths = {
     envPaths = [

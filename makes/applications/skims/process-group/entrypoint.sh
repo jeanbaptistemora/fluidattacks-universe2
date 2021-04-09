@@ -11,59 +11,10 @@ function clone_group {
       PROD_AWS_SECRET_ACCESS_KEY="${SERVICES_PROD_AWS_SECRET_ACCESS_KEY}" \
       melts drills --pull-repos "${group}" \
   &&  echo "[INFO] Repositories cloned:" \
-  &&  shopt -s nullglob \
   &&  for namespace in "groups/${group}/fusion/"*
       do
         echo "        - ${namespace}"
-      done \
-  &&  shopt -u nullglob
-}
-
-function get_config {
-  local group="${1}"
-  local namespace="${2}"
-  local check="${3}"
-
-  jq -e -n -r \
-    --arg 'check' "${check}" \
-    --arg 'language' "$(melts misc --get-group-language "${group}")" \
-    --arg 'namespace' "${namespace}" \
-    --arg 'working_dir' "groups/${group}/fusion/${namespace}" \
-    '{
-      checks: [
-        $check
-      ],
-      language: $language,
-      namespace: $namespace,
-      path: {
-        include: [
-          "glob(*)"
-        ],
-        exclude: [
-          "glob(**/.git)",
-          "glob(**/*.min.js)",
-          "glob(**/*bootstrap*)",
-          "glob(**/*cordova*)",
-          "glob(**/*dynatrace*)",
-          "glob(**/*ibmmfpf.js*)",
-          "glob(**/*jquery*)",
-          "glob(**/*sjcl*)",
-          "glob(**/cryptojs/components/core.js)",
-          "glob(**/modernizr.js)",
-          "glob(**/UI/AutocompleteGenerico)",
-          "glob(**/UI/Tabs)",
-          "glob(**/.vscode)",
-          "glob(**/.idea)",
-          "glob(**/*.pydevproject)",
-          "glob(**/*.swp)",
-          "glob(**/*.launch)",
-          "glob(**/.cproject)",
-          "glob(**/.buildpath)"
-        ]
-      },
-      timeout: 10800,
-      working_dir: $working_dir
-    }'
+      done
 }
 
 function report_success {
@@ -97,19 +48,23 @@ function main {
         abort '[ERROR] Specify the check on the second argument to this program'
       fi \
   &&  echo "[INFO] Processing ${group}" \
+  &&  shopt -s nullglob \
   &&  aws_login_prod 'skims' \
   &&  config_file=$(mktemp) \
+  &&  language="$(melts misc --get-group-language "${group}")" \
   &&  use_git_repo_services \
     &&  echo '[INFO] Cloning repositories' \
     &&  clone_group "${group}" \
-    &&  shopt -s nullglob \
     &&  for namespace in "groups/${group}/fusion/"*
         do
               namespace="$(basename "${namespace}")" \
-          &&  echo "[INFO] Running skims: ${group} ${namespace} ${check}" \
-          &&  get_config "${group}" "${namespace}" "${check}" \
-                | PYTHONPATH='' yq -y . \
-                | tee "${config_file}" \
+          &&  echo '[INFO] Running skims' \
+          &&  python3 __envGetSastConfig__\
+                --check "${check}" \
+                --group "${group}" \
+                --language "${language}" \
+                --namespace "${namespace}" \
+                --out "${config_file}" \
           &&  echo '[INFO] Fetching cache' \
           &&  aws_s3_sync "${cache_remote}/${namespace}" "${cache_local}" \
           &&  if skims --group "${group}" "${config_file}"
@@ -123,7 +78,6 @@ function main {
           &&  aws_s3_sync "${cache_local}" "${cache_remote}/${namespace}" \
           ||  continue
         done \
-    &&  shopt -u nullglob \
   &&  popd \
   &&  test "${success}" = 'true' \
   &&  report_success "${group}" "${check}"
