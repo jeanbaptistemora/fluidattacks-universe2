@@ -76,7 +76,7 @@
   script:
     - ./m integrates.scheduler prod "backend.scheduler.${CI_JOB_NAME/integrates.scheduler./}"
   stage: scheduler
-  tags: [autoscaling-large]
+  tags: [ci-large]
 
 .integrates_schedulers: &integrates_schedulers
   <<: *makes
@@ -84,7 +84,7 @@
   script:
     - ./m integrates.scheduler prod "schedulers.${CI_JOB_NAME/integrates.scheduler./}.main"
   stage: scheduler
-  tags: [autoscaling-large]
+  tags: [ci-large]
 
 .integrates_mobile_ota_deploy: &integrates_mobile_ota_deploy
   <<: *makes
@@ -475,7 +475,7 @@ integrates.mobile.build.android:
     when: on_success
   needs: [integrates.mobile.ota-production]
   stage: build
-  tags: [autoscaling-large]
+  tags: [ci-large]
 
 integrates.mobile.deploy.playstore:
   <<: *makes
