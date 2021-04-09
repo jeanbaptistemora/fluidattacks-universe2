@@ -6,6 +6,7 @@ from typing import (
     Any,
     Callable,
     Dict,
+    List,
     NamedTuple,
     Optional,
     Tuple,
@@ -284,6 +285,61 @@ async def get_finding_vulnerabilities(
         ))
 
     return store
+
+
+@SHIELD
+async def do_add_git_root(
+    *,
+    branch: str = 'main',
+    environment: str = 'production',
+    gitignore: Optional[List[str]] = None,
+    group_name: str,
+    includes_health_check: bool = False,
+    nickname: str,
+    url: str,
+) -> bool:
+    result = await _execute(
+        query="""
+            mutation SkimsDoAddGitRoot(
+                $branch: String!
+                $environment: String!
+                $gitignore: [String!]!
+                $groupName: String!
+                $includesHealthCheck: Boolean!
+                $nickname: String
+                $url: String!
+            ) {
+                addGitRoot(
+                    branch: $branch
+                    environment: $environment
+                    gitignore: $gitignore
+                    groupName: $groupName
+                    includesHealthCheck: $includesHealthCheck
+                    nickname: $nickname
+                    url: $url
+                ) {
+                    success
+                }
+            }
+        """,
+        operation='SkimsDoAddGitRoot',
+        variables=dict(
+            branch=branch,
+            environment=environment,
+            gitignore=gitignore or [],
+            groupName=group_name,
+            includesHealthCheck=includes_health_check,
+            nickname=nickname,
+            url=url,
+        )
+    )
+
+    success: bool = result['data']['addGitRoot']['success']
+
+    if not success:
+        raise RetryAndFinallyReturn(success)
+
+    return success
 
 
 @SHIELD
