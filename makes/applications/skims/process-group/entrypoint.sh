@@ -59,7 +59,7 @@ function main {
         do
               namespace="$(basename "${namespace}")" \
           &&  echo '[INFO] Running skims' \
-          &&  python3 __envGetSastConfig__\
+          &&  python3 __envGetConfig__\
                 --check "${check}" \
                 --group "${group}" \
                 --language "${language}" \

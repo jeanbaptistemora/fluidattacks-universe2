@@ -196,6 +196,7 @@ async def get_group_findings(
 
 
 class ResultGetGroupRoots(NamedTuple):
+    environment_urls: List[str]
     nickname: str
 
 
@@ -212,6 +213,7 @@ async def get_group_roots(
                 project(projectName: $group) {
                     roots {
                         ... on GitRoot {
+                            environmentUrls
                             nickname
                         }
                     }
@@ -226,6 +228,7 @@ async def get_group_roots(
 
     return tuple(
         ResultGetGroupRoots(
+            environment_urls=root['environmentUrls'],
             nickname=root['nickname'],
         )
         for root in result['data']['project']['roots']
