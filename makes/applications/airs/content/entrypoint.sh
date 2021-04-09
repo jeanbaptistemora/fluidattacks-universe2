@@ -7,6 +7,11 @@ function main {
 
       pushd "${out}" \
     &&  mkdir new-front \
+    &&  aws_login_dev airs \
+    &&  sops_export_vars __envAirsSecrets__/development.yaml \
+          CLOUDINARY_API_SECRET \
+          CLOUDINARY_API_KEY \
+          CLOUDINARY_CLOUD_NAME \
     &&  copy __envAirsNewFront__ new-front \
     &&  copy __envAirsContent__ new-front/content \
     &&  copy __envAirsContentPages__ new-front/static/images \
