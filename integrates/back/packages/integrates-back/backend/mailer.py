@@ -462,11 +462,12 @@ async def send_mail_analytics(
 async def send_mail_new_vulnerabilities(
         email_to: List[str],
         context: MailContentType) -> None:
-    await _send_mail_async(
-        'newvulnerabilitiesintegrates',
+    await _send_mails_async_new(
         email_to,
-        context=context,
-        tags=VULNERABILITIES_TAG
+        context,
+        VULNERABILITIES_TAG,
+        f'Vulnerabilities changes in [{context["project"]}]',
+        'new_vulnerabilities'
     )
 
 

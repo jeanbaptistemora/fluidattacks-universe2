@@ -52,3 +52,18 @@
   <ul>
 </div>
 {% endmacro %}
+
+{# Bulleted gray text area for vulns changes #}
+{%+ macro findings_area(list) %}
+<div class="w-80 gray-text-area">
+  <ul>
+  {% for finding in list %}
+    <li>
+      <a href="{{ finding['finding_url'] }}" target="_blank" rel="noopener">
+        {{ finding['finding_name'] }}
+      </a>
+    </li>
+  {% endfor %}
+  <ul>
+</div>
+{% endmacro %}
