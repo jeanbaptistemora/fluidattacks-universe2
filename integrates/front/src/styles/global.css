@@ -213,9 +213,17 @@ label {
 }
 
 :global .largeTable {
-  height: 500px;
+  height: 45vh;
   margin-bottom: 10px;
   overflow: auto;
+}
+
+@media (min-height: 1024px) {
+  :global .largeTable {
+    height: 60vh;
+    margin-bottom: 10px;
+    overflow: auto;
+  }
 }
 
 :global .questionBtn {
