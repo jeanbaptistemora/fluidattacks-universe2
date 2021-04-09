@@ -473,8 +473,12 @@ async def send_mail_new_vulnerabilities(
 async def send_mail_new_user(
         email_to: List[str],
         context: MailContentType) -> None:
-    await _send_mail_async(
-        'userfindingintegrates', email_to, context=context, tags=GENERAL_TAG
+    await _send_mails_async_new(
+        email_to,
+        context,
+        GENERAL_TAG,
+        f'New access request by {context["mail_user"]} for FLUIDIntegrates',
+        'new_user'
     )
 
 
