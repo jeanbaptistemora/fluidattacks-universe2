@@ -175,7 +175,7 @@ observes.scheduled.job.code-etl-compute-bills:
 
 observes.scheduled.job.delighted-etl:
   <<: *makes
-  tags: [autoscaling-large]
+  tags: [ci-large]
   stage: analytics
   only:
     refs: [schedules]
