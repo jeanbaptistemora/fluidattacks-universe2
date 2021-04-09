@@ -10,6 +10,9 @@ makeEntrypoint {
   };
   name = "skims-test";
   searchPaths = {
+    envPaths = [
+      packages.skims.test.mocks.http
+    ];
     envSources = [
       packages.skims.config-development
       packages.skims.config-runtime

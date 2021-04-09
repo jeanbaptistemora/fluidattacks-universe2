@@ -7,10 +7,12 @@ from itertools import (
     chain,
 )
 import os
+import subprocess
 from typing import (
     Any,
     Dict,
     Iterator,
+    List,
 )
 
 # Third party libraries
@@ -42,6 +44,7 @@ TEST_GROUPS = {
     'benchmark_xpathi',
     'benchmark_xss',
     'functional',
+    'lib_http',
     'unittesting',
 }
 
@@ -139,3 +142,13 @@ def test_prepare_cfn_json_data() -> None:
         with open(path) as source, open(path + '.json', 'w') as target:
             source_data = load_as_yaml_without_line_number(source.read())
             target.write(json.dumps(source_data, indent=2))
+
+
+@pytest.fixture(autouse=False, scope='session')
+def test_mocks_http() -> Iterator[None]:
+    cmd: List[str] = ['skims-test-mocks-http', 'localhost', '48000']
+    with subprocess.Popen(cmd) as process:
+        try:
+            yield
+        finally:
+            process.terminate()
