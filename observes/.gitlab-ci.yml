@@ -173,6 +173,15 @@ observes.scheduled.job.code-etl-compute-bills:
   tags: [ci]
   interruptible: false
 
+observes.scheduled.job.delighted-etl:
+  <<: *makes
+  tags: [autoscaling-large]
+  stage: analytics
+  only:
+    refs: [schedules]
+    variables: [$observes_delighted_etl]
+  interruptible: false
+
 observes.scheduled.job.dynamodb-centralize:
   <<: *makes
   tags: [ci-large]

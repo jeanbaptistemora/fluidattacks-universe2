@@ -139,6 +139,7 @@ observes.bin.service.migrate-tables
 observes.bin.streamer-dynamodb
 observes.bin.streamer-zoho-crm
 observes.bin.tap-csv
+observes.bin.tap-delighted
 observes.bin.tap-formstack
 observes.bin.tap-mailchimp
 observes.bin.tap-mixpanel
@@ -163,6 +164,7 @@ observes.scheduled.job.code-etl-amend
 observes.scheduled.job.code-etl-compute-bills
 observes.scheduled.job.code-etl-mirror
 observes.scheduled.job.code-etl-upload
+observes.scheduled.job.delighted-etl
 observes.scheduled.job.dif-gitlab-etl
 observes.scheduled.job.dynamodb-centralize
 observes.scheduled.job.formstack-etl
