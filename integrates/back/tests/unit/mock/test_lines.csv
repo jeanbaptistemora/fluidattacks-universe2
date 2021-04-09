@@ -1,3 +1,6 @@
 filename,loc,tested-lines,modified-date,modified-commit,tested-date,comments
 product/test/test.config,8,4,2019-08-01,983466z,2021-02-28,comment test 2
-integrates_1/test3/test.sh,12,88,2020-11-19,742412r,2021-01-22,comment test
+"""integrates_1/test3/test.sh""",12,88,2020-11-19,742412r,2021-01-22,comment test
+Repo1/Folder1/Folder2/File.js,162,162,2019-05-15,51d4b3c,2019-05-16,UseOfHardCodedCredentials(CWE-798)
+Repo1/Folder1/Folder2/Folder3/File.html,789,789,2019-05-10,19a5d15,2019-05-13,ImproperValidationOfIntegrityCheckValue(CWE-354) ImproperInputValidation(CWE-20)
+Repo2/Folder1/File.cs,780,0,2019-04-01,9283a0b,2000-01-01,

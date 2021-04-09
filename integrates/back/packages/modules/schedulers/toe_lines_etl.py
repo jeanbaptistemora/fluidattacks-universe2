@@ -39,6 +39,11 @@ from toe.lines import domain as toe_lines_domain
 
 
 # Constants
+DEFAULT_FILENAMES = (
+    'Repo1/Folder1/Folder2/File.js',
+    'Repo1/Folder1/Folder2/Folder3/File.html',
+    'Repo2/Folder1/File.cs',
+)
 logging.config.dictConfig(LOGGING)
 LOGGER = logging.getLogger(__name__)
 
@@ -92,6 +97,8 @@ def _get_group_toe_lines_from_cvs(
                 except ValueError:
                     new_toe_lines[field_name] = default_value
 
+            if new_toe_lines['filename'] in DEFAULT_FILENAMES:
+                continue
             try:
                 new_toe_lines['root_id'] = (
                     roots_domain.get_root_id_by_filename(
