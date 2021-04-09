@@ -42,11 +42,22 @@ from utils.logs import (
 )
 
 
+QUERIES: graph_model.Queries = (
+    *f060.QUERIES,
+    *f073.QUERIES,
+    *sast_query.QUERIES,
+)
+
+
 @shield(on_error_return=None)
 async def analyze(
     *,
     stores: Dict[core_model.FindingEnum, EphemeralStore],
 ) -> None:
+    if not any(finding in CTX.config.checks for finding, _ in QUERIES):
+        # No findings will be executed, early abort
+        return
+
     unique_paths: Set[str] = await resolve_paths(
         exclude=CTX.config.path.exclude,
         include=CTX.config.path.include,
@@ -55,11 +66,7 @@ async def analyze(
     graph_db = await parse.get_graph_db(tuple(unique_paths))
     queries: graph_model.Queries = tuple(
         (finding, query)
-        for finding, query in (
-            *f060.QUERIES,
-            *f073.QUERIES,
-            *sast_query.QUERIES,
-        )
+        for finding, query in QUERIES
         if finding in CTX.config.checks
     )
     queries_len: int = len(queries)
