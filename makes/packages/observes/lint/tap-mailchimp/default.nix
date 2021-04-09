@@ -11,7 +11,7 @@ makeDerivation {
   searchPaths = {
     envSources = [
       packages.observes.generic.linter
-      packages.observes.env.development.tap-mailchimp
+      packages.observes.env.tap-mailchimp.development
     ];
   };
   builder = path "/makes/packages/observes/generic/linter/lint_builder.sh";

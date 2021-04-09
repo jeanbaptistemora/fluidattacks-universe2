@@ -78,7 +78,6 @@ observes.env.development.paginator.python
 observes.env.development.postgres-client
 observes.env.development.singer-io
 observes.env.development.streamer-gitlab
-observes.env.development.tap-mailchimp
 observes.env.development.tap-zoho-analytics
 observes.env.job-last-success.runtime
 observes.env.job-last-success.runtime.python
@@ -89,7 +88,6 @@ observes.env.runtime.paginator.python
 observes.env.runtime.postgres-client
 observes.env.runtime.singer-io
 observes.env.runtime.streamer-gitlab
-observes.env.runtime.tap-mailchimp
 observes.env.runtime.tap-zoho-analytics
 observes.env.runtime.timedoctor-tokens
 observes.env.service-batch-stability.runtime
@@ -113,6 +111,10 @@ observes.env.tap-formstack.runtime
 observes.env.tap-formstack.runtime.python
 observes.env.tap-git.runtime
 observes.env.tap-json.runtime
+observes.env.tap-mailchimp.development
+observes.env.tap-mailchimp.development.python
+observes.env.tap-mailchimp.runtime
+observes.env.tap-mailchimp.runtime.python
 observes.env.tap-mixpanel.development
 observes.env.tap-mixpanel.development.python
 observes.env.tap-mixpanel.runtime

@@ -14,7 +14,7 @@ makeEntrypoint {
     ];
     envSources = [
       packages.observes.generic.runner
-      packages.observes.env.runtime.tap-mailchimp
+      packages.observes.env.tap-mailchimp.runtime
     ];
   };
   name = "observes-bin-tap-mailchimp";

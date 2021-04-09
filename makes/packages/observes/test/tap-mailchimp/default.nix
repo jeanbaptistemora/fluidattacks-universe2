@@ -12,7 +12,7 @@ makeDerivation {
   searchPaths = {
     envSources = [
       packages.observes.generic.tester
-      packages.observes.env.development.tap-mailchimp
+      packages.observes.env.tap-mailchimp.development
     ];
   };
   builder = path "/makes/packages/observes/generic/tester/test_builder.sh";
