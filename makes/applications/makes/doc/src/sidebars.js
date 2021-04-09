@@ -60,6 +60,7 @@ module.exports = {
           label: 'Creating new types of vulnerabilities',
           items: [
             'web/vulnerabilities/new-vulnerability-types/create-draft',
+            'web/vulnerabilities/new-vulnerability-types/new-vuln-description',
           ],
         },
         'web/vulnerabilities/reporting-vulns',
