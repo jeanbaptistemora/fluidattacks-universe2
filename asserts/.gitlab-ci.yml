@@ -115,29 +115,29 @@ asserts_test_api_cloud_gcp:
   <<: *in_dev_branch_asserts
   stage: test-code
 
-asserts_test_api_db_mssql:
+.asserts_test_api_db_mssql:
   <<: *with_nix
   <<: *in_dev_branch_asserts
   stage: test-code
-  tags: [autoscaling-large]
+  tags: [ci-large]
 
-asserts_test_api_db_mysql:
+.asserts_test_api_db_mysql:
   <<: *with_nix
   <<: *in_dev_branch_asserts
   stage: test-code
-  tags: [autoscaling-large]
+  tags: [ci-large]
 
-asserts_test_api_db_postgres:
+.asserts_test_api_db_postgres:
   <<: *with_nix
   <<: *in_dev_branch_asserts
   stage: test-code
-  tags: [autoscaling-large]
+  tags: [ci-large]
 
 .asserts_test_api_format:
   <<: *with_nix
   <<: *in_dev_branch_asserts
   stage: test-code
-  tags: [autoscaling-large]
+  tags: [ci-large]
 
 .asserts_test_api_helper:
   <<: *with_nix
@@ -209,17 +209,17 @@ asserts_test_api_ot:
   <<: *in_dev_branch_asserts
   stage: test-code
 
-asserts_test_api_proto_dns:
+.asserts_test_api_proto_dns:
   <<: *with_nix
   <<: *in_dev_branch_asserts
   stage: test-code
-  tags: [autoscaling-large]
+  tags: [ci-large]
 
-asserts_test_api_proto_ftp:
+.asserts_test_api_proto_ftp:
   <<: *with_nix
   <<: *in_dev_branch_asserts
   stage: test-code
-  tags: [autoscaling-large]
+  tags: [ci-large]
 
 .asserts_test_api_proto_git:
   <<: *with_nix
@@ -236,57 +236,57 @@ asserts_test_api_proto_graphql:
   <<: *in_dev_branch_asserts
   stage: test-code
 
-asserts_test_api_proto_ldap:
+.asserts_test_api_proto_ldap:
   <<: *with_nix
   <<: *in_dev_branch_asserts
   stage: test-code
-  tags: [autoscaling-large]
+  tags: [ci-large]
 
 asserts_test_api_proto_rest:
   <<: *with_nix
   <<: *in_dev_branch_asserts
   stage: test-code
 
-asserts_test_api_proto_smb:
+.asserts_test_api_proto_smb:
   <<: *with_nix
   <<: *in_dev_branch_asserts
   stage: test-code
-  tags: [autoscaling-large]
+  tags: [ci-large]
 
-asserts_test_api_proto_smtp:
+.asserts_test_api_proto_smtp:
   <<: *with_nix
   <<: *in_dev_branch_asserts
   stage: test-code
-  tags: [autoscaling-large]
+  tags: [ci-large]
 
-asserts_test_api_proto_ssh:
+.asserts_test_api_proto_ssh:
   <<: *with_nix
   <<: *in_dev_branch_asserts
   stage: test-code
-  tags: [autoscaling-large]
+  tags: [ci-large]
 
-asserts_test_api_proto_ssl:
+.asserts_test_api_proto_ssl:
   <<: *with_nix
   <<: *in_dev_branch_asserts
   stage: test-code
-  tags: [autoscaling-large]
+  tags: [ci-large]
 
-asserts_test_api_proto_tcp:
+.asserts_test_api_proto_tcp:
   <<: *with_nix
   <<: *in_dev_branch_asserts
   stage: test-code
-  tags: [autoscaling-large]
+  tags: [ci-large]
 
 .asserts_test_api_sca:
   <<: *with_nix
   <<: *in_dev_branch_asserts
   stage: test-code
 
-asserts_test_api_syst:
+.asserts_test_api_syst:
   <<: *with_nix
   <<: *in_dev_branch_asserts
   stage: test-code
-  tags: [autoscaling-large]
+  tags: [ci-large]
 
 asserts_test_api_utils:
   <<: *with_nix
