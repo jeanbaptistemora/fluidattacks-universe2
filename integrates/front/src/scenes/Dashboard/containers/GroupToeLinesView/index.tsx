@@ -140,6 +140,7 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
     <React.StrictMode>
       <DataTableNext
         bordered={true}
+        columnToggle={true}
         dataset={toeLines}
         defaultSorted={JSON.parse(
           _.get(sessionStorage, "toeLinesSort", initialSort)

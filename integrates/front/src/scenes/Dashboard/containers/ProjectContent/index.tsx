@@ -2,6 +2,7 @@ import React from "react";
 import { Redirect, Route, Switch, useRouteMatch } from "react-router-dom";
 
 import { GroupScopeView } from "../GroupScopeView";
+import { GroupToeLinesView } from "../GroupToeLinesView";
 import { ContentTab } from "scenes/Dashboard/components/ContentTab";
 import { ChartsForGroupView } from "scenes/Dashboard/containers/ChartsForGroupView";
 import { ProjectAuthorsView } from "scenes/Dashboard/containers/ProjectAuthorsView";
@@ -106,6 +107,15 @@ const ProjectContent: React.FC = (): JSX.Element => {
                       />
                     </Can>
                   </Have>
+                  <Can do={"backend_api_resolvers_git_root_toe_lines_resolve"}>
+                    <ContentTab
+                      icon={"icon pe-7s-menu"}
+                      id={"toeLinesTab"}
+                      link={`${url}/toe/lines`}
+                      title={translate.t("group.tabs.toeLines.text")}
+                      tooltip={translate.t("group.tabs.toeLines.tooltip")}
+                    />
+                  </Can>
                   <ContentTab
                     icon={"icon pe-7s-box1"}
                     id={"resourcesTab"}
@@ -162,6 +172,11 @@ const ProjectContent: React.FC = (): JSX.Element => {
                     component={ProjectConsultingView}
                     exact={true}
                     path={`${path}/consulting`}
+                  />
+                  <Route
+                    component={GroupToeLinesView}
+                    exact={true}
+                    path={`${path}/toe/lines`}
                   />
                   {/* Necessary to support old resources URLs */}
                   <Redirect path={`${path}/resources`} to={`${path}/scope`} />
