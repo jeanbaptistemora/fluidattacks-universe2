@@ -22,9 +22,6 @@ from http_headers.types import (
 from http_headers.types import (
     Header,
 )
-from integrates.dal import (
-    SHIELD,
-)
 from model import (
     core_model,
 )
@@ -33,6 +30,9 @@ from utils.ctx import (
 )
 from utils.encodings import (
     serialize_namespace_into_vuln,
+)
+from utils.function import (
+    shield,
 )
 from zone import (
     t,
@@ -106,7 +106,7 @@ CHECKS: Dict[
 }
 
 
-@SHIELD
+@shield(on_error_return=[])
 async def analyze(  # pylint: disable=too-many-arguments
     url: str,
     **_: None,
