@@ -39,6 +39,17 @@ async def populate() -> bool:
                 'push_tokens': [],
                 'is_registered': True,
             },
+            {
+                'email': 'closer@gmail.com',
+                'first_login': '',
+                'first_name': '',
+                'last_login': '',
+                'last_name': '',
+                'legal_remember': False,
+                'phone_number': '-',
+                'push_tokens': [],
+                'is_registered': True,
+            },
         ],
         'orgs': [
             {
@@ -47,6 +58,7 @@ async def populate() -> bool:
                 'users': [
                     'admin@gmail.com',
                     'analyst@gmail.com',
+                    'closer@gmail.com',
                 ],
                 'groups': [
                     'group1',
@@ -147,6 +159,40 @@ async def populate() -> bool:
                 'evidence_file': '1mvStFSToOL3bl47zaVZHBpRMZUUhU0Ad',
                 'evidence_file_date': '2019-03-11 10:57:45',
             },
+            {
+                'project_name': 'group1',
+                'event_id': '418900995',
+                'accessibility': 'Repositorio',
+                'affected_components': 'affected_components_test',
+                'action_after_blocking': 'EXECUTE_OTHER_PROJECT_SAME_CLIENT',
+                'action_before_blocking': 'TEST_OTHER_PART_TOE',
+                'analyst': 'unittest@fluidattacks.com',
+                'client': 'Fluid',
+                'client_project': 'group1',
+                'closer': 'unittest',
+                'closing_date': '2018-06-27 14:40:05',
+                'context': 'FLUID',
+                'detail': 'Integrates unit test2',
+                'historic_state': [
+                    {
+                        'analyst': 'unittest@fluidattacks.com',
+                        'date': '2018-06-27 07:00:00',
+                        'state': 'OPEN',
+                    },
+                    {
+                        'analyst': 'unittest@fluidattacks.com',
+                        'date': '2018-06-27 14:40:05',
+                        'state': 'CREATED',
+                    },
+                ],
+                'event_type': 'OTHER',
+                'hours_before_blocking': '1',
+                'subscription': 'ONESHOT',
+                'evidence': '1bhEW8rN33fq01SBmWjjEwEtK6HWkdMq6',
+                'evidence_date': '2019-03-11 10:57:45',
+                'evidence_file': '1mvStFSToOL3bl47zaVZHBpRMZUUhU0Ad',
+                'evidence_file_date': '2019-03-11 10:57:45',
+            },
         ],
         'policies': [
             {
@@ -166,6 +212,18 @@ async def populate() -> bool:
                 'subject': 'analyst@gmail.com',
                 'object': 'group1',
                 'role': 'analyst',
+            },
+            {
+                'level': 'user',
+                'subject': 'closer@gmail.com',
+                'object': 'self',
+                'role': 'user',
+            },
+            {
+                'level': 'group',
+                'subject': 'closer@gmail.com',
+                'object': 'group1',
+                'role': 'closer',
             },
             {
                 'level': 'organization',
