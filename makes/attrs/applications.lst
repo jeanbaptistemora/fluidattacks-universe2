@@ -195,6 +195,8 @@ skims.process-group
 skims.process-group-on-aws
 skims.process-groups-on-aws
 skims.test
+skims.test.mocks.http
+skims.test.mocks.http.env
 sorts
 sorts.extract-features
 sorts.infra.deploy
