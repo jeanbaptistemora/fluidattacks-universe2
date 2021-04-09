@@ -195,6 +195,13 @@ def test_run_no_group(suite: str) -> None:
 
 
 @pytest.mark.flaky(reruns=0)
+@pytest.mark.skims_test_group('lib_http')
+@pytest.mark.usefixtures('test_mocks_http')
+def test_lib_http() -> None:
+    _run_no_group('lib_http')
+
+
+@pytest.mark.flaky(reruns=0)
 @pytest.mark.skims_test_group('benchmark_cmdi')
 def test_benchmark_cmdi() -> None:
     _run_no_group('benchmark_owasp_cmdi')
@@ -265,7 +272,6 @@ def _run_no_group(suite: str) -> None:
     assert code == 0, stdout
     assert '[INFO] Startup working dir is:' in stdout
     assert '[INFO] An output file has been written:' in stdout
-    assert '[INFO] Files to be tested:' in stdout
     assert '[INFO] Success: True' in stdout
     assert not stderr, stderr
     check_that_csv_results_match(suite)

@@ -1,0 +1,10 @@
+language: EN
+namespace: namespace
+output: skims/test/outputs/lib_http.csv
+http:
+  include:
+    - http://localhost:48000/error
+    - http://localhost:48000/f043_dast_sts_0
+    - http://localhost:48000/f043_dast_sts_1
+    - http://localhost:48000/f043_dast_sts_2
+    - http://localhost:48000/f043_dast_sts_3

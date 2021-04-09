@@ -139,6 +139,9 @@ skims.test.benchmark_weakrand:
 skims.test.functional:
   <<: *skims_test
 
+skims.test.lib_http:
+  <<: *skims_test
+
 skims.test.unittesting:
   <<: *skims_test
 
