@@ -1,7 +1,7 @@
 ---
 id: intro
-title: Description
-sidebar_label: Description
+title: Introduction
+sidebar_label: Introduction
 slug: /rules
 ---
 
