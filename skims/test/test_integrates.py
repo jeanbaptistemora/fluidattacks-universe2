@@ -24,9 +24,9 @@ from model import (
 
 @run_decorator
 @pytest.mark.skims_test_group('unittesting')
+@pytest.mark.usefixtures('test_integrates_session')
 async def test_client(
     test_integrates_api_token: str,
-    test_integrates_session: None,  # pylint: disable=unused-argument
 ) -> None:
     async with graphql_client() as client:
         # pylint: disable=protected-access
@@ -80,8 +80,8 @@ async def test_build_vulnerabilities_stream() -> None:
 
 @run_decorator
 @pytest.mark.skims_test_group('functional')
+@pytest.mark.usefixtures('test_integrates_session')
 async def test_get_group_level_role(
     test_group: str,
-    test_integrates_session: str,  # pylint: disable=unused-argument
 ) -> None:
     assert await get_group_level_role(group=test_group) == 'admin'

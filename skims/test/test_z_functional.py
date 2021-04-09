@@ -275,9 +275,9 @@ def _run_no_group(suite: str) -> None:
 
 @run_decorator
 @pytest.mark.skims_test_group('functional')
+@pytest.mark.usefixtures('test_integrates_session')
 async def test_integrates_group_is_pristine_run(
     test_group: str,
-    test_integrates_session: None,  # pylint: disable=unused-argument
 ) -> None:
     findings = await get_group_findings(group=test_group)
     findings_deleted = await collect([
@@ -290,9 +290,9 @@ async def test_integrates_group_is_pristine_run(
 
 @run_decorator
 @pytest.mark.skims_test_group('functional')
+@pytest.mark.usefixtures('test_integrates_session')
 async def test_integrates_group_is_pristine_check(
     test_group: str,
-    test_integrates_session: None,  # pylint: disable=unused-argument
 ) -> None:
     # No findings should exist because we just reset the environment
     assert await get_group_data(test_group) == set()
@@ -336,9 +336,9 @@ def test_should_report_nothing_to_integrates_run(test_group: str) -> None:
 
 @run_decorator
 @pytest.mark.skims_test_group('functional')
+@pytest.mark.usefixtures('test_integrates_session')
 async def test_should_report_nothing_to_integrates_verify(
     test_group: str,
-    test_integrates_session: None,  # pylint: disable=unused-argument
 ) -> None:
     # No findings should be created, there is nothing to do !
     assert await get_group_data(test_group) == set()
@@ -363,9 +363,9 @@ def test_should_report_vulns_to_namespace_run(test_group: str) -> None:
 
 @run_decorator
 @pytest.mark.skims_test_group('functional')
+@pytest.mark.usefixtures('test_integrates_session')
 async def test_should_report_vulns_to_namespace_verify(
     test_group: str,
-    test_integrates_session: None,  # pylint: disable=unused-argument
 ) -> None:
     # The following findings must be met
     assert await get_group_data(test_group) == {
@@ -396,9 +396,9 @@ def test_should_report_vulns_to_namespace2_run(test_group: str) -> None:
 
 @run_decorator
 @pytest.mark.skims_test_group('functional')
+@pytest.mark.usefixtures('test_integrates_session')
 async def test_should_report_vulns_to_namespace2_verify(
     test_group: str,
-    test_integrates_session: None,  # pylint: disable=unused-argument
 ) -> None:
     # The following findings must be met
     assert await get_group_data(test_group) == {
@@ -430,9 +430,9 @@ def test_should_close_vulns_to_namespace_run(test_group: str) -> None:
 
 @run_decorator
 @pytest.mark.skims_test_group('functional')
+@pytest.mark.usefixtures('test_integrates_session')
 async def test_should_close_vulns_to_namespace_verify(
     test_group: str,
-    test_integrates_session: None,  # pylint: disable=unused-argument
 ) -> None:
     # The following findings must be met
     assert await get_group_data(test_group) == {
@@ -462,9 +462,9 @@ def test_should_close_vulns_on_namespace2_run(test_group: str) -> None:
 
 @run_decorator
 @pytest.mark.skims_test_group('functional')
+@pytest.mark.usefixtures('test_integrates_session')
 async def test_should_close_vulns_on_namespace2_verify(
     test_group: str,
-    test_integrates_session: None,  # pylint: disable=unused-argument
 ) -> None:
     # Skims should persist the null state, closing everything on Integrates
     assert await get_group_data(test_group) == {
