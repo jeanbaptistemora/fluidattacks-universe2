@@ -157,7 +157,7 @@ observes.scheduled.dynamodb-forces-etl:
 
 observes.scheduled.dynamodb-integrates-etl:
   <<: *makes
-  tags: [autoscaling-large]
+  tags: [ci-large]
   stage: analytics
   only:
     refs: [schedules]
@@ -166,7 +166,7 @@ observes.scheduled.dynamodb-integrates-etl:
 
 observes.scheduled.dynamodb-integrates-etl-vulns:
   <<: *makes
-  tags: [autoscaling-large]
+  tags: [ci-large]
   stage: analytics
   only:
     refs: [schedules]
@@ -193,7 +193,7 @@ observes.scheduled.job.code-etl-compute-bills:
 
 observes.scheduled.job.dynamodb-centralize:
   <<: *makes
-  tags: [autoscaling-large]
+  tags: [ci-large]
   stage: analytics
   only:
     refs: [schedules]
