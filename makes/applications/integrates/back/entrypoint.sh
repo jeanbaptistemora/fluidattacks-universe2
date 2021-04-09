@@ -16,9 +16,9 @@ function main {
     # The granularity of Error log outputs. [info]
     --log-level 'info'
     # The maximum number of requests a worker will process before restarting. [0]
-    --max-requests '512'
+    --max-requests '256'
     # The maximum jitter to add to the max_requests setting. [0]
-    --max-requests-jitter '128'
+    --max-requests-jitter '64'
     # Workers silent for more than this many seconds are killed and restarted. [30]
     --timeout '300'
     # The type of workers to use. [sync]

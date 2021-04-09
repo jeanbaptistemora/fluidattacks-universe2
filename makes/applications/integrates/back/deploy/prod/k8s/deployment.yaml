@@ -4,7 +4,7 @@ metadata:
   name: integrates-master
   namespace: production
 spec:
-  replicas: 5
+  replicas: 10
   selector:
     matchLabels:
       app: integrates-master
