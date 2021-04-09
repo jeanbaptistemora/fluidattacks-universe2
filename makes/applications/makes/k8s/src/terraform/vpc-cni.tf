@@ -6,7 +6,7 @@ resource "null_resource" "aws_node_config" {
     command = <<-EOT
       kubectl -n kube-system set env daemonset aws-node \
         MINIMUM_IP_TARGET=7 \
-        WARM_IP_TARGET=3
+        WARM_IP_TARGET=2
     EOT
   }
 }

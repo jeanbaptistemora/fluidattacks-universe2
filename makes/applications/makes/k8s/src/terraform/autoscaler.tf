@@ -114,6 +114,6 @@ resource "helm_release" "autoscaler" {
 
   set {
     name  = "extraArgs.scale-down-unneeded-time"
-    value = "30m"
+    value = "20m"
   }
 }
