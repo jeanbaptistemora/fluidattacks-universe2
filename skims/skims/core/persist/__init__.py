@@ -326,6 +326,7 @@ async def persist(
             store=stores[finding],
         )
         for finding in core_model.FindingEnum
+        if finding in CTX.config.checks
     )))
 
     return success
