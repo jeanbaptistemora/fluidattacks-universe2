@@ -80,6 +80,7 @@ data "aws_iam_policy_document" "sorts_prod_policy_data" {
     effect = "Allow"
     actions = [
       "sagemaker:AddTags",
+      "sagemaker:CreateHyperParameterTuningJob",
       "sagemaker:CreateTrainingJob",
       "sagemaker:DeleteTags",
       "sagemaker:DescribeTrainingJob",
