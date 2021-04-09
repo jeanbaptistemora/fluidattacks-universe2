@@ -1,3 +1,7 @@
+variable "newrelic_license_key" {
+  default = "default value for test"
+}
+
 resource "helm_release" "newrelic" {
   name       = "newrelic"
   repository = "https://helm-charts.newrelic.com"

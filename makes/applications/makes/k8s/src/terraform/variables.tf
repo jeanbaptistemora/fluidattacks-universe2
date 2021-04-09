@@ -3,38 +3,12 @@ variable "aws_access_key" {}
 variable "aws_secret_key" {}
 variable "cloudflare_email" {}
 variable "cloudflare_api_key" {}
-variable "newrelic_license_key" {
-  default = "default value for test"
-}
-variable "ci_cache_access_key" {
-  default = "default value for test"
-}
-variable "ci_cache_secret_key" {
-  default = "default value for test"
-}
-variable "ci_registration_token" {
-  default = "default value for test"
-}
 
-data "cloudflare_zones" "fluidattacks_com" {
-  filter {
-    name = "fluidattacks.com"
-  }
-}
 data "aws_security_group" "cloudflare" {
   name = "CloudFlare"
 }
 data "aws_eks_cluster" "cluster" {
   name = module.eks.cluster_id
-}
-data "local_file" "ci_init" {
-  filename = "ci-init.sh"
-}
-data "local_file" "ci_config" {
-  filename = "ci-config.yaml"
-}
-data "local_file" "ci_config_large" {
-  filename = "ci-config-large.yaml"
 }
 data "aws_eks_cluster_auth" "cluster" {
   name = module.eks.cluster_id
@@ -47,9 +21,6 @@ variable "fluid_vpc_id" {
 }
 variable "cluster_name" {
   default = "makes-k8s"
-}
-variable "external_dns_version" {
-  default = "1.1.7"
 }
 
 variable "map_accounts" {

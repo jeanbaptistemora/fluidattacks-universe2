@@ -23,7 +23,7 @@ resources:
 runners:
   config: |
     [[runners]]
-      name = "ci-large"
+      name = "ci"
       environment = ["FF_GITLAB_REGISTRY_HELPER_IMAGE=true"]
       [runners.docker]
         dns = ["1.1.1.1", "8.8.4.4", "8.8.8.8"]
@@ -43,7 +43,7 @@ runners:
           Insecure = false
       [runners.kubernetes]
         cpu_request = "1200m"
-        memory_request = "6500Mi"
+        memory_request = "2500Mi"
         helper_cpu_request = "1m"
         helper_memory_request = "1Mi"
         namespace = "ci"
@@ -51,14 +51,14 @@ runners:
         privileged = false
         allow_privilege_escalation = false
         [runners.kubernetes.node_selector]
-          worker_group = "ci-large"
+          worker_group = "ci"
         [dns_config]
           nameservers = ["1.1.1.1", "8.8.4.4", "8.8.8.8"]
   cache:
     secretName: ci-cache-creds
   executor: kubernetes
   locked: true
-  tags: "ci-large"
+  tags: "ci"
   runUntagged: true
   protected: false
-  secret: ci-registration-token
+  secret: ci-registration-token-autonomic

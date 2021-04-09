@@ -3,7 +3,7 @@ replicas: 1
 gitlabUrl: https://gitlab.com/
 unregisterRunners: true
 terminationGracePeriodSeconds: 300
-concurrent: 200
+concurrent: 1000
 checkInterval: 15
 rbac:
   create: true
