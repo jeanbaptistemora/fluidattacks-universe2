@@ -4,7 +4,7 @@ gitlabUrl: https://gitlab.com/
 unregisterRunners: true
 terminationGracePeriodSeconds: 600
 concurrent: 1000
-checkInterval: 15
+checkInterval: 5
 rbac:
   create: true
   clusterWideAccess: true
@@ -14,12 +14,11 @@ securityContext:
   runAsUser: 100
   fsGroup: 65533
 resources:
-  limits:
-    memory: 4096Mi
-    cpu: 1000m
   requests:
-    memory: 3500Mi
-    cpu: 800m
+    memory: 2500Mi
+    cpu: 1200m
+nodeSelector:
+  worker_group: ci
 runners:
   config: |
     [[runners]]

@@ -1,8 +1,13 @@
 # shellcheck shell=bash
 
 function main {
+  local cluster_name='makes-k8s'
+
       aws_login_prod makes \
-  &&  aws_eks_update_kubeconfig 'makes-k8s' 'us-east-1' \
+  &&  if aws eks list-clusters | grep -q "${cluster_name}"
+      then
+        aws_eks_update_kubeconfig 'makes-k8s' 'us-east-1'
+      fi \
   &&  sops_export_vars 'makes/applications/makes/secrets/src/production.yaml' \
         CI_REGISTRATION_TOKEN \
         CI_REGISTRATION_TOKEN_AUTONOMIC \

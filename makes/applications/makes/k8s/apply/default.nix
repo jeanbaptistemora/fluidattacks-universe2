@@ -14,6 +14,7 @@ makeEntrypoint {
         target = "makes/applications/makes/k8s/src/terraform";
       })
       nixpkgs.curl
+      nixpkgs.gnugrep
     ];
     envUtils = [
       "/makes/utils/aws"
