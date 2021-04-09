@@ -195,6 +195,43 @@ async def get_group_findings(
     )
 
 
+class ResultGetGroupRoots(NamedTuple):
+    nickname: str
+
+
+@SHIELD
+async def get_group_roots(
+    *,
+    group: str,
+) -> Tuple[ResultGetGroupRoots, ...]:
+    result = await _execute(
+        query="""
+            query SkimsGetGroupRoots(
+                $group: String!
+            ) {
+                project(projectName: $group) {
+                    roots {
+                        ... on GitRoot {
+                            nickname
+                        }
+                    }
+                }
+            }
+        """,
+        operation='SkimsGetGroupRoots',
+        variables=dict(
+            group=group,
+        )
+    )
+
+    return tuple(
+        ResultGetGroupRoots(
+            nickname=root['nickname'],
+        )
+        for root in result['data']['project']['roots']
+    )
+
+
 @SHIELD
 async def get_finding_current_release_status(
     *,
