@@ -23,10 +23,12 @@ from cli import (
     dispatch,
 )
 from integrates.dal import (
+    do_add_git_root,
     do_delete_finding,
     get_finding_current_release_status,
     get_finding_vulnerabilities,
     get_group_findings,
+    get_group_roots,
 )
 from state.ephemeral import (
     EphemeralStore,
@@ -296,6 +298,26 @@ async def test_integrates_group_is_pristine_check(
     assert await get_group_data(test_group) == set()
 
 
+@run_decorator
+@pytest.mark.skims_test_group('functional')
+@pytest.mark.usefixtures('test_integrates_session')
+async def test_integrates_group_has_required_roots(
+    test_group: str,
+) -> None:
+    roots: Set[str] = \
+        {result.nickname for result in await get_group_roots(group=test_group)}
+
+    for namespace in ('namespace', 'namespace2'):
+        if namespace in roots:
+            assert True
+        else:
+            assert await do_add_git_root(
+                group_name=test_group,
+                nickname=namespace,
+                url=f'git@gitlab.com:fluidattacks/{namespace}.git'
+            )
+
+
 @pytest.mark.skims_test_group('functional')
 def test_should_report_nothing_to_integrates_run(test_group: str) -> None:
     suite: str = 'nothing_to_do'
@@ -399,7 +421,6 @@ def test_should_close_vulns_to_namespace_run(test_group: str) -> None:
     )
     assert code == 0
     assert '[INFO] Startup working dir is:' in stdout
-    assert '[INFO] Files to be tested:' in stdout
     assert f'[INFO] Results will be synced to group: {test_group}' in stdout
     assert f'[INFO] Your role in group {test_group} is: admin' in stdout
     assert '[INFO] Success: True' in stdout
@@ -432,7 +453,6 @@ def test_should_close_vulns_on_namespace2_run(test_group: str) -> None:
     )
     assert code == 0
     assert '[INFO] Startup working dir is:' in stdout
-    assert '[INFO] Files to be tested: 0' in stdout
     assert f'[INFO] Results will be synced to group: {test_group}' in stdout
     assert f'[INFO] Your role in group {test_group} is: admin' in stdout
     assert '[INFO] Success: True' in stdout

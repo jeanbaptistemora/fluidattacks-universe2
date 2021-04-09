@@ -1,3 +1,5 @@
+checks:
+- F117
 namespace: namespace
 output: skims/test/outputs/integrates3.csv
 path: {}
