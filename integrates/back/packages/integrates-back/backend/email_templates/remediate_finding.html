@@ -1,0 +1,16 @@
+{% extends "layouts/fluid_attacks.html" %}
+{% from 'layouts/components/forms.html' import go_to_button as button, text_area %}
+{% block content %}
+<p>Hello {{ name }},</p>
+<p>
+  <strong>{{ user_email }}</strong> has told us that finding:
+  <strong>{{ finding_name }}</strong> of project <strong>{{ project }}</strong>
+  was remediated.
+</p>
+<p>
+  The solution applied was:
+</p>
+{{ text_area(solution_description) }}
+<br />
+{{ button('Go to the finding', finding_url) }}
+{% endblock %}
