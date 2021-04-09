@@ -1,7 +1,7 @@
 ---
 id: reporting-vulns
-title: Reporting vulnerabilities
-sidebar_label: Reporting vulnerabilities
+title: Reporting in existing types of vulnerabilities
+sidebar_label: Reporting in existing types of vulnerabilities
 slug: /web/vulnerabilities/reporting-vulns
 ---
 

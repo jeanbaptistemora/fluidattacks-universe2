@@ -55,6 +55,13 @@ module.exports = {
             'web/vulnerabilities/management/tracking',
           ],
         },
+        {
+          type: 'category',
+          label: 'Creating new types of vulnerabilities',
+          items: [
+            'web/vulnerabilities/new-vulnerability-types/create-draft',
+          ],
+        },
         'web/vulnerabilities/reporting-vulns',
       ],
     },
