@@ -324,6 +324,37 @@ def _build_git_root_toe_lines(
     )
 
 
+async def get_toe_lines_by_group(
+    *,
+    group_name: str
+) -> Tuple[GitRootToeLinesItem, ...]:
+    primary_key = keys.build_key(
+        facet=TABLE.facets['root_toe_lines'],
+        values={'group_name': group_name},
+    )
+    key_structure = TABLE.primary_key
+    line_key = primary_key.sort_key.split('#')[0]
+    results = await operations.query(
+        condition_expression=(
+            Key(key_structure.partition_key).eq(primary_key.partition_key) &
+            Key(key_structure.sort_key).begins_with(line_key)
+        ),
+        facets=(
+            TABLE.facets['root_toe_lines'],
+        ),
+        index=None,
+        table=TABLE
+    )
+    return tuple(
+        _build_git_root_toe_lines(
+            group_name=group_name,
+            key_structure=key_structure,
+            item=item
+        )
+        for item in results
+    )
+
+
 async def get_toe_lines_by_root(
     *,
     group_name: str,
@@ -334,11 +365,10 @@ async def get_toe_lines_by_root(
         values={'group_name': group_name, 'root_id': root_id},
     )
     key_structure = TABLE.primary_key
-    root_key = '#'.join(primary_key.sort_key.split('#')[:-1])
     results = await operations.query(
         condition_expression=(
             Key(key_structure.partition_key).eq(primary_key.partition_key) &
-            Key(key_structure.sort_key).begins_with(root_key)
+            Key(key_structure.sort_key).begins_with(primary_key.sort_key)
         ),
         facets=(
             TABLE.facets['root_toe_lines'],

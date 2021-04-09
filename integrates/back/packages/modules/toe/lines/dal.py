@@ -48,6 +48,19 @@ async def delete(
         raise UnavailabilityError() from ex
 
 
+async def get_by_group(
+    group_name: str
+) -> Tuple[GitRootToeLines, ...]:
+    try:
+        toe_lines_items = await model.get_toe_lines_by_group(
+            group_name=group_name
+        )
+        return tuple(map(_format_git_toe_lines, toe_lines_items))
+    except ClientError as ex:
+        LOGGER.exception(ex, extra={'extra': locals()})
+        raise UnavailabilityError() from ex
+
+
 async def get_by_root(
     group_name: str,
     root_id: str
