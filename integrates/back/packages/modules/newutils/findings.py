@@ -542,10 +542,10 @@ async def send_finding_delete_mail(  # pylint: disable=too-many-arguments
         mailer.send_mail_delete_finding(
             recipients,
             {
-                'mail_analista': discoverer_email,
-                'name_finding': finding_name,
-                'id_finding': finding_id,
-                'description': justification,
+                'analyst_email': discoverer_email,
+                'finding_name': finding_name,
+                'finding_id': finding_id,
+                'justification': justification,
                 'project': group_name,
             }
         )
