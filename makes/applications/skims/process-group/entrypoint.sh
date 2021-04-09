@@ -50,6 +50,10 @@ function main {
   &&  echo "[INFO] Processing ${group}" \
   &&  shopt -s nullglob \
   &&  aws_login_prod 'skims' \
+  &&  ensure_gitlab_env_vars \
+        INTEGRATES_API_TOKEN \
+        SERVICES_PROD_AWS_ACCESS_KEY_ID \
+        SERVICES_PROD_AWS_SECRET_ACCESS_KEY \
   &&  config_file=$(mktemp) \
   &&  language="$(melts misc --get-group-language "${group}")" \
   &&  use_git_repo_services \

@@ -11,6 +11,9 @@ makeTemplate {
     envPaths = [
       pkgs.git
     ];
+    envUtils = [
+      "/makes/utils/env"
+    ];
   };
   template = path "/makes/utils/git/template.sh";
 }

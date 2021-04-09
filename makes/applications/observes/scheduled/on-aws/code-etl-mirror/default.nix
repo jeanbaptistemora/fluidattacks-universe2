@@ -13,7 +13,6 @@ let
     product = "observes";
     secrets = [
       "GITLAB_API_TOKEN"
-      "GITLAB_API_USER"
       "INTEGRATES_API_TOKEN"
     ];
     timeout = 7200;

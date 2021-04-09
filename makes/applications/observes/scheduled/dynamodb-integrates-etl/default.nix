@@ -1,11 +1,11 @@
-{ nixpkgs
+{ computeOnAws
+, nixpkgs
 , makeEntrypoint
 , path
 , ...
 }:
 let
-  computeOnAws = import (path "/makes/utils/compute-on-aws") path nixpkgs;
-  jobConfig = {
+  dynamoEtlOnAws = computeOnAws {
     attempts = 5;
     command = [ "./m" "observes.job.dynamodb-table-etl" ];
     jobname = "dynamodb-etl";
@@ -18,7 +18,6 @@ let
     timeout = 7200;
     vcpus = 1;
   };
-  dynamoEtlOnAws = computeOnAws jobConfig;
 in
 makeEntrypoint {
   searchPaths = {

@@ -155,7 +155,6 @@ observes.job.infra.apply
 observes.job.infra.test
 observes.job.zoho-crm-etl
 observes.job.zoho-crm-prepare
-observes.scheduled.dif-gitlab-etl
 observes.scheduled.dynamodb-forces-etl
 observes.scheduled.dynamodb-integrates-etl
 observes.scheduled.dynamodb-integrates-etl-vulns

@@ -58,7 +58,8 @@ function use_git_repo_services {
   export GITLAB_API_TOKEN
   export GITLAB_API_USER
 
-  use_git_repo \
-    "https://${GITLAB_API_USER}:${GITLAB_API_TOKEN}@gitlab.com/fluidattacks/services.git" \
-    "${PWD}/../services"
+      ensure_gitlab_env_vars 'GITLAB_API_USER' \
+  &&  use_git_repo \
+        "https://${GITLAB_API_USER}:${GITLAB_API_TOKEN}@gitlab.com/fluidattacks/services.git" \
+        "${PWD}/../services"
 }
