@@ -23,6 +23,7 @@ from utils.ctx import (
 )
 from utils.function import (
     rate_limited,
+    shield,
 )
 from utils.limits import (
     LIB_HTTP_DEFAULT,
@@ -32,6 +33,7 @@ from utils.logs import (
 )
 
 
+@shield(on_error_return=[])
 @rate_limited(rpm=LIB_HTTP_DEFAULT)
 async def analyze_one(
     *,

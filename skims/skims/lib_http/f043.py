@@ -31,9 +31,6 @@ from utils.ctx import (
 from utils.encodings import (
     serialize_namespace_into_vuln,
 )
-from utils.function import (
-    shield,
-)
 from zone import (
     t,
 )
@@ -106,7 +103,6 @@ CHECKS: Dict[
 }
 
 
-@shield(on_error_return=[])
 async def analyze(  # pylint: disable=too-many-arguments
     url: str,
     **_: None,
@@ -119,4 +115,4 @@ async def analyze(  # pylint: disable=too-many-arguments
 
 
 def should_run() -> bool:
-    return any(finding in CTX.config.Checks for finding in CHECKS)
+    return any(finding in CTX.config.checks for finding in CHECKS)
