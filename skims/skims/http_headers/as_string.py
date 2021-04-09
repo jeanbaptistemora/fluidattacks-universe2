@@ -2,6 +2,7 @@
 from typing import (
     Any,
     Dict,
+    Optional,
 )
 
 # Local libraries
@@ -12,7 +13,7 @@ from utils.string import (
 
 def snippet(
     url: str,
-    header: str,
+    header: Optional[str],
     headers: Dict[str, str],
     **kwargs: Any,
 ) -> str:

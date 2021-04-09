@@ -52,7 +52,8 @@ from zone import (
 
 VulnStreamType = Dict[core_model.VulnerabilityKindEnum, Tuple[
     Union[
-        core_model.IntegratesVulnerabilitiesLines
+        core_model.IntegratesVulnerabilitiesInputs,
+        core_model.IntegratesVulnerabilitiesLines,
     ],
     ...,
 ]]
@@ -62,6 +63,17 @@ def _build_vulnerabilities_stream(
     results: core_model.Vulnerabilities,
 ) -> VulnStreamType:
     data: VulnStreamType = {
+        core_model.VulnerabilityKindEnum.INPUTS: tuple(
+            core_model.IntegratesVulnerabilitiesInputs(
+                field=result.where,
+                state=result.state,
+                stream=result.stream,
+                url=result.what,
+            )
+            for result in results
+            if result.kind == core_model.VulnerabilityKindEnum.INPUTS
+            if result.stream
+        ),
         core_model.VulnerabilityKindEnum.LINES: tuple(
             core_model.IntegratesVulnerabilitiesLines(
                 commit_hash=get_repo_head_hash(deserialize_what_from_vuln(

@@ -51,8 +51,24 @@ async def test_build_vulnerabilities_stream() -> None:
                 what='namespace/what',
                 where='123',
             ),
+            core_model.Vulnerability(
+                finding=core_model.FindingEnum.F034,
+                integrates_metadata=core_model.IntegratesVulnerabilityMetadata(
+                    source=core_model.VulnerabilitySourceEnum.SKIMS,
+                ),
+                kind=core_model.VulnerabilityKindEnum.INPUTS,
+                state=core_model.VulnerabilityStateEnum.OPEN,
+                stream='a,b,c',
+                what='namespace: https://example.com',
+                where='test',
+            ),
         )
     ) == dedent("""
+        inputs:
+        - field: test
+          state: open
+          stream: a,b,c
+          url: 'namespace: https://example.com'
         lines:
         - commit_hash: '0000000000000000000000000000000000000000'
           line: '123'

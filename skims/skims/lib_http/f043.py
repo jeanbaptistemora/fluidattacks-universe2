@@ -54,6 +54,7 @@ def _strict_transport_security(
             finding=core_model.FindingEnum.F043_DAST_STS,
             kind=core_model.VulnerabilityKindEnum.INPUTS,
             state=core_model.VulnerabilityStateEnum.OPEN,
+            stream='Query,response,headers',
             what=serialize_namespace_into_vuln(
                 kind=core_model.VulnerabilityKindEnum.INPUTS,
                 namespace=CTX.config.namespace,
@@ -65,12 +66,12 @@ def _strict_transport_security(
                 description=t(desc),
                 snippet=as_string.snippet(
                     url=url,
-                    header=val.name,
+                    header=val.name if val else None,
                     headers=headers_raw,
                 ),
             ),
         ),
-    ) if desc and val else ()
+    ) if desc else ()
 
 
 async def http_headers_configuration(url: str) -> core_model.Vulnerabilities:

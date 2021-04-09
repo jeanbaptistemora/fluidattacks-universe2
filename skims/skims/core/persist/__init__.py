@@ -2,6 +2,7 @@
 from io import (
     BytesIO,
 )
+import urllib.parse
 import os
 import random
 import sys
@@ -50,6 +51,9 @@ from utils.string import (
 
 
 def get_root(vulnerability: core_model.Vulnerability) -> str:
+    if vulnerability.kind == core_model.VulnerabilityKindEnum.INPUTS:
+        return urllib.parse.urlparse(vulnerability.what).netloc
+
     if vulnerability.kind == core_model.VulnerabilityKindEnum.LINES:
         return os.path.basename(vulnerability.what[::-1])[::-1]
 

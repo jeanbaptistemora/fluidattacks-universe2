@@ -101,22 +101,16 @@ def test_group(
 ) -> Iterator[str]:
     # Create 2 groups on Integrates and assign them to your branch
     mapping: Dict[str, str] = {
-        'daguirreatfluid': 'corrientes',
         'drestrepoatfluid': 'tacna',
-        'dsalazaratfluid': 'corrientes',
         'kamadoatfluid': 'worcester',
         'master': 'wausau',
-        'opradoatfluid': "corrientes",
     } if os.environ.get('CI') else {
-        'daguirreatfluid': 'wayne',
         'drestrepoatfluid': 'jessup',
-        'dsalazaratfluid': 'wayne',
         'kamadoatfluid': 'magdalena',
         'master': 'djibo',
-        'opradoatfluid': "wayne",
     }
 
-    yield mapping[test_branch]
+    yield mapping.get(test_branch, 'wayne')
 
 
 @pytest.fixture(autouse=True, scope='session')

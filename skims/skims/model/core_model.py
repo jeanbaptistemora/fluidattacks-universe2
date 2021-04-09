@@ -881,12 +881,20 @@ class IntegratesVulnerabilitiesLines(NamedTuple):
     state: VulnerabilityStateEnum
 
 
+class IntegratesVulnerabilitiesInputs(NamedTuple):
+    field: str
+    state: VulnerabilityStateEnum
+    stream: str
+    url: str
+
+
 class Vulnerability(NamedTuple):
     finding: FindingEnum
     kind: VulnerabilityKindEnum
     state: VulnerabilityStateEnum
     what: str
     where: str
+    stream: str = 'skims'
 
     integrates_metadata: Optional[IntegratesVulnerabilityMetadata] = None
     skims_metadata: Optional[SkimsVulnerabilityMetadata] = None

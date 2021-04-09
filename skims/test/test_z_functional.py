@@ -306,7 +306,6 @@ def test_should_report_nothing_to_integrates_run(test_group: str) -> None:
     )
     assert code == 0
     assert '[INFO] Startup working dir is:' in stdout
-    assert '[INFO] Files to be tested: 0' in stdout
     assert f'[INFO] Results will be synced to group: {test_group}' in stdout
     assert f'[INFO] Your role in group {test_group} is: admin' in stdout
     assert '[INFO] Success: True' in stdout
