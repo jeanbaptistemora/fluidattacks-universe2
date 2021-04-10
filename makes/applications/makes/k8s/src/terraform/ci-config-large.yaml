@@ -2,7 +2,7 @@ imagePullPolicy: IfNotPresent
 replicas: 1
 gitlabUrl: https://gitlab.com/
 unregisterRunners: true
-terminationGracePeriodSeconds: 600
+terminationGracePeriodSeconds: 86400
 concurrent: 1000
 checkInterval: 5
 logLevel: debug
