@@ -30,6 +30,13 @@ from utils.encodings import (
     [
         (
             (
+                'skims/test/data/benchmark/instance_references/src/App.java',
+                'skims/test/data/benchmark/instance_references/src/User.java',
+            ),
+            'instance_ref',
+        ),
+        (
+            (
                 'skims/test/data/benchmark/owasp/BenchmarkTest00001.java',
                 'skims/test/data/benchmark/owasp/BenchmarkTest00008.java',
                 'skims/test/data/benchmark/owasp/BenchmarkTest00167.java',
