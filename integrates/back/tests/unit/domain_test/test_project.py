@@ -13,7 +13,6 @@ from back import settings
 from back.tests.unit.utils import create_dummy_session
 from backend.api import get_new_context
 from backend.domain.project import (
-    add_comment,
     create_group,
     edit,
     get_active_projects,
@@ -49,6 +48,7 @@ from backend.exceptions import (
     RepeatedValues,
 )
 from findings import dal as findings_dal
+from groups.domain import add_comment
 from names import domain as names_domain
 from newutils import datetime as datetime_utils
 from vulnerabilities import dal as vulns_dal

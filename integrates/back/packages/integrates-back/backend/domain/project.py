@@ -24,7 +24,6 @@ from aioextensions import (
     in_process,
     schedule,
 )
-from graphql.type.definition import GraphQLResolveInfo
 
 from back.settings import LOGGING
 from backend import (
@@ -37,7 +36,6 @@ from backend.dal.helpers.dynamodb import start_context
 from backend.exceptions import (
     AlreadyPendingDeletion,
     GroupNotFound,
-    InvalidCommentParent,
     InvalidParameter,
     InvalidProjectName,
     InvalidProjectServicesConfig,
@@ -60,7 +58,6 @@ from events import domain as events_domain
 from findings import domain as findings_domain
 from names import domain as names_domain
 from newutils import (
-    comments as comments_utils,
     datetime as datetime_utils,
     user as user_utils,
     validations,
@@ -77,34 +74,6 @@ logging.config.dictConfig(LOGGING)
 
 # Constants
 LOGGER = logging.getLogger(__name__)
-
-
-async def add_comment(
-    info: GraphQLResolveInfo,
-    project_name: str,
-    email: str,
-    comment_data: CommentType
-) -> bool:
-    """Add comment in a project."""
-    parent = str(comment_data['parent'])
-    content = str(comment_data['content'])
-    await comments_utils.validate_handle_comment_scope(
-        content,
-        email,
-        project_name,
-        parent,
-        info.context.store
-    )
-    if parent != '0':
-        project_comments = [
-            str(comment.get('user_id'))
-            for comment in await project_dal.get_comments(
-                project_name
-            )
-        ]
-        if parent not in project_comments:
-            raise InvalidCommentParent()
-    return await project_dal.add_comment(project_name, email, comment_data)
 
 
 async def can_user_access(project: str, role: str) -> bool:

@@ -8,9 +8,7 @@ from graphql.type.definition import GraphQLResolveInfo
 
 # Local libraries
 from backend import util
-from backend.dal.helpers.redis import (
-    redis_del_by_deps_soon,
-)
+from backend.dal.helpers.redis import redis_del_by_deps_soon
 from backend.decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
@@ -19,6 +17,7 @@ from backend.decorators import (
 )
 from backend.domain import project as group_domain
 from backend.typing import AddConsultPayload as AddConsultPayloadType
+from groups import domain as groups_domain
 from newutils import datetime as datetime_utils
 
 
@@ -52,7 +51,7 @@ async def mutate(  # pylint: disable=too-many-arguments
         'modified': current_time,
         'parent': parameters.get('parent')
     }
-    success = await group_domain.add_comment(
+    success = await groups_domain.add_comment(
         info,
         project_name,
         user_email,
