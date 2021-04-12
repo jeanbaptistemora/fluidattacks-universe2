@@ -11,6 +11,7 @@ function main {
   &&  aws_login_dev 'skims' \
   &&  aws_s3_sync "${cache_remote}" "${cache_local}" \
   &&  echo "[INFO] Running test suite with group: ${skims_test_group}" \
+  &&  ensure_gitlab_env_var INTEGRATES_API_TOKEN \
   &&  pushd skims \
     &&  pytest \
           --capture tee-sys \

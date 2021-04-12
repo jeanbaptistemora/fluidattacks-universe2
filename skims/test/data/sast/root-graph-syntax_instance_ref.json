@@ -1624,6 +1624,10 @@
     },
     "skims/test/data/benchmark/instance_references/src/User.java": {}
   },
+  "F043_DAST_RP": {
+    "skims/test/data/benchmark/instance_references/src/App.java": {},
+    "skims/test/data/benchmark/instance_references/src/User.java": {}
+  },
   "F043_DAST_STS": {
     "skims/test/data/benchmark/instance_references/src/App.java": {},
     "skims/test/data/benchmark/instance_references/src/User.java": {}

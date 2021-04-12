@@ -19,6 +19,7 @@ makeEntrypoint {
     ];
     envUtils = [
       "/makes/utils/aws"
+      "/makes/utils/env"
     ];
   };
   template = path "/makes/applications/skims/test/entrypoint.sh";
