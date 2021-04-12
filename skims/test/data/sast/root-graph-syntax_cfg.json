@@ -1,0 +1,86 @@
+{
+  "F001_JAVA_SQL": {
+    "skims/test/data/sast/TestCFG.java": {}
+  },
+  "F001_JPA": {
+    "skims/test/data/sast/TestCFG.java": {}
+  },
+  "F004": {
+    "skims/test/data/sast/TestCFG.java": {}
+  },
+  "F008": {
+    "skims/test/data/sast/TestCFG.java": {}
+  },
+  "F009": {
+    "skims/test/data/sast/TestCFG.java": {}
+  },
+  "F011": {
+    "skims/test/data/sast/TestCFG.java": {}
+  },
+  "F020": {
+    "skims/test/data/sast/TestCFG.java": {}
+  },
+  "F021": {
+    "skims/test/data/sast/TestCFG.java": {}
+  },
+  "F022": {
+    "skims/test/data/sast/TestCFG.java": {}
+  },
+  "F024_AWS": {
+    "skims/test/data/sast/TestCFG.java": {}
+  },
+  "F031_AWS": {
+    "skims/test/data/sast/TestCFG.java": {}
+  },
+  "F031_CWE378": {
+    "skims/test/data/sast/TestCFG.java": {}
+  },
+  "F034": {
+    "skims/test/data/sast/TestCFG.java": {}
+  },
+  "F037": {
+    "skims/test/data/sast/TestCFG.java": {}
+  },
+  "F042": {
+    "skims/test/data/sast/TestCFG.java": {}
+  },
+  "F043_DAST_STS": {
+    "skims/test/data/sast/TestCFG.java": {}
+  },
+  "F052": {
+    "skims/test/data/sast/TestCFG.java": {}
+  },
+  "F055_AWS_MISSING_ENCRYPTION": {
+    "skims/test/data/sast/TestCFG.java": {}
+  },
+  "F055_CORS": {
+    "skims/test/data/sast/TestCFG.java": {}
+  },
+  "F059": {
+    "skims/test/data/sast/TestCFG.java": {}
+  },
+  "F060": {
+    "skims/test/data/sast/TestCFG.java": {}
+  },
+  "F061": {
+    "skims/test/data/sast/TestCFG.java": {}
+  },
+  "F063_PATH_TRAVERSAL": {
+    "skims/test/data/sast/TestCFG.java": {}
+  },
+  "F063_TRUSTBOUND": {
+    "skims/test/data/sast/TestCFG.java": {}
+  },
+  "F073": {
+    "skims/test/data/sast/TestCFG.java": {}
+  },
+  "F085": {
+    "skims/test/data/sast/TestCFG.java": {}
+  },
+  "F107": {
+    "skims/test/data/sast/TestCFG.java": {}
+  },
+  "F117": {
+    "skims/test/data/sast/TestCFG.java": {}
+  }
+}

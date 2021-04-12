@@ -1,0 +1,2451 @@
+{
+  "context": {
+    "java_resources": {}
+  },
+  "shards": [
+    {
+      "graph": {
+        "edges": {
+          "1": {
+            "2": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "6": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "64": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "11": {
+            "12": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "13": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "63": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "13": {
+            "14": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "17": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "18": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "19": {
+              "label_ast": "AST",
+              "label_index": "3"
+            },
+            "25": {
+              "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always",
+              "label_index": "4"
+            }
+          },
+          "14": {
+            "15": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "16": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "19": {
+            "20": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "21": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "24": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "2": {
+            "3": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "4": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "5": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "21": {
+            "22": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "23": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "25": {
+            "26": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "27": {
+              "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always",
+              "label_index": "1"
+            },
+            "62": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "27": {
+            "28": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "29": {
+              "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always",
+              "label_index": "1"
+            },
+            "51": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "29": {
+            "30": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "31": {
+              "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always",
+              "label_index": "1"
+            },
+            "50": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "51": {
+              "label_cfg": "CFG",
+              "label_cfg_maybe": "cfg_maybe"
+            }
+          },
+          "31": {
+            "32": {
+              "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always",
+              "label_index": "0"
+            },
+            "49": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "32": {
+            "33": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "34": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "35": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "36": {
+              "label_ast": "AST",
+              "label_index": "3"
+            },
+            "49": {
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always"
+            }
+          },
+          "36": {
+            "37": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "38": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "48": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "38": {
+            "39": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "40": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "41": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "42": {
+              "label_ast": "AST",
+              "label_index": "3"
+            }
+          },
+          "42": {
+            "43": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "44": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "45": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "46": {
+              "label_ast": "AST",
+              "label_index": "3"
+            },
+            "47": {
+              "label_ast": "AST",
+              "label_index": "4"
+            }
+          },
+          "51": {
+            "52": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "53": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "54": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "58": {
+              "label_ast": "AST",
+              "label_index": "3"
+            },
+            "59": {
+              "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always",
+              "label_index": "4"
+            }
+          },
+          "54": {
+            "55": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "57": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "55": {
+            "56": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "59": {
+            "60": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "61": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "6": {
+            "10": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "11": {
+              "label_ast": "AST",
+              "label_index": "3"
+            },
+            "7": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "9": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "7": {
+            "8": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          }
+        },
+        "nodes": {
+          "1": {
+            "label_c": 1,
+            "label_l": 1,
+            "label_type": "program"
+          },
+          "10": {
+            "label_c": 14,
+            "label_l": 3,
+            "label_text": "Test",
+            "label_type": "identifier"
+          },
+          "11": {
+            "label_c": 19,
+            "label_l": 3,
+            "label_type": "class_body"
+          },
+          "12": {
+            "label_c": 19,
+            "label_l": 3,
+            "label_text": "{",
+            "label_type": "{"
+          },
+          "13": {
+            "label_c": 5,
+            "label_field_body": "25",
+            "label_field_name": "18",
+            "label_field_parameters": "19",
+            "label_field_type": "17",
+            "label_l": 4,
+            "label_type": "method_declaration"
+          },
+          "14": {
+            "label_c": 5,
+            "label_l": 4,
+            "label_type": "modifiers"
+          },
+          "15": {
+            "label_c": 5,
+            "label_l": 4,
+            "label_text": "public",
+            "label_type": "public"
+          },
+          "16": {
+            "label_c": 12,
+            "label_l": 4,
+            "label_text": "static",
+            "label_type": "static"
+          },
+          "17": {
+            "label_c": 19,
+            "label_l": 4,
+            "label_text": "void",
+            "label_type": "void_type"
+          },
+          "18": {
+            "label_c": 24,
+            "label_l": 4,
+            "label_text": "main",
+            "label_type": "identifier"
+          },
+          "19": {
+            "label_c": 28,
+            "label_l": 4,
+            "label_type": "formal_parameters"
+          },
+          "2": {
+            "label_c": 1,
+            "label_l": 1,
+            "label_type": "import_declaration"
+          },
+          "20": {
+            "label_c": 28,
+            "label_l": 4,
+            "label_text": "(",
+            "label_type": "("
+          },
+          "21": {
+            "label_c": 29,
+            "label_field_name": "23",
+            "label_field_type": "22",
+            "label_l": 4,
+            "label_type": "formal_parameter"
+          },
+          "22": {
+            "label_c": 29,
+            "label_l": 4,
+            "label_text": "String[]",
+            "label_type": "array_type"
+          },
+          "23": {
+            "label_c": 38,
+            "label_l": 4,
+            "label_text": "args",
+            "label_type": "identifier"
+          },
+          "24": {
+            "label_c": 42,
+            "label_l": 4,
+            "label_text": ")",
+            "label_type": ")"
+          },
+          "25": {
+            "label_c": 43,
+            "label_l": 4,
+            "label_type": "block"
+          },
+          "26": {
+            "label_c": 43,
+            "label_l": 4,
+            "label_text": "{",
+            "label_type": "{"
+          },
+          "27": {
+            "label_c": 9,
+            "label_field_body": "29",
+            "label_l": 5,
+            "label_type": "try_statement"
+          },
+          "28": {
+            "label_c": 9,
+            "label_l": 5,
+            "label_text": "try",
+            "label_type": "try"
+          },
+          "29": {
+            "label_c": 13,
+            "label_l": 5,
+            "label_type": "block"
+          },
+          "3": {
+            "label_c": 1,
+            "label_l": 1,
+            "label_text": "import",
+            "label_type": "import"
+          },
+          "30": {
+            "label_c": 13,
+            "label_l": 5,
+            "label_text": "{",
+            "label_type": "{"
+          },
+          "31": {
+            "label_c": 9,
+            "label_l": 6,
+            "label_type": "expression_statement"
+          },
+          "32": {
+            "label_c": 9,
+            "label_field_arguments": "36",
+            "label_field_name": "35",
+            "label_field_object": "33",
+            "label_l": 6,
+            "label_type": "method_invocation"
+          },
+          "33": {
+            "label_c": 9,
+            "label_l": 6,
+            "label_text": "System.out",
+            "label_type": "field_access"
+          },
+          "34": {
+            "label_c": 19,
+            "label_l": 6,
+            "label_text": ".",
+            "label_type": "."
+          },
+          "35": {
+            "label_c": 20,
+            "label_l": 6,
+            "label_text": "println",
+            "label_type": "identifier"
+          },
+          "36": {
+            "label_c": 27,
+            "label_l": 6,
+            "label_type": "argument_list"
+          },
+          "37": {
+            "label_c": 27,
+            "label_l": 6,
+            "label_text": "(",
+            "label_type": "("
+          },
+          "38": {
+            "label_c": 28,
+            "label_field_arguments": "42",
+            "label_field_name": "41",
+            "label_field_object": "39",
+            "label_l": 6,
+            "label_type": "method_invocation"
+          },
+          "39": {
+            "label_c": 28,
+            "label_l": 6,
+            "label_text": "File",
+            "label_type": "identifier"
+          },
+          "4": {
+            "label_c": 8,
+            "label_l": 1,
+            "label_text": "java.io.File",
+            "label_type": "scoped_identifier"
+          },
+          "40": {
+            "label_c": 32,
+            "label_l": 6,
+            "label_text": ".",
+            "label_type": "."
+          },
+          "41": {
+            "label_c": 33,
+            "label_l": 6,
+            "label_text": "createTempFile",
+            "label_type": "identifier"
+          },
+          "42": {
+            "label_c": 47,
+            "label_l": 6,
+            "label_type": "argument_list"
+          },
+          "43": {
+            "label_c": 47,
+            "label_l": 6,
+            "label_text": "(",
+            "label_type": "("
+          },
+          "44": {
+            "label_c": 48,
+            "label_l": 6,
+            "label_text": "\"xxx\"",
+            "label_type": "string_literal"
+          },
+          "45": {
+            "label_c": 53,
+            "label_l": 6,
+            "label_text": ",",
+            "label_type": ","
+          },
+          "46": {
+            "label_c": 55,
+            "label_l": 6,
+            "label_text": "null",
+            "label_type": "null_literal"
+          },
+          "47": {
+            "label_c": 59,
+            "label_l": 6,
+            "label_text": ")",
+            "label_type": ")"
+          },
+          "48": {
+            "label_c": 60,
+            "label_l": 6,
+            "label_text": ")",
+            "label_type": ")"
+          },
+          "49": {
+            "label_c": 61,
+            "label_l": 6,
+            "label_text": ";",
+            "label_type": ";"
+          },
+          "5": {
+            "label_c": 20,
+            "label_l": 1,
+            "label_text": ";",
+            "label_type": ";"
+          },
+          "50": {
+            "label_c": 9,
+            "label_l": 7,
+            "label_text": "}",
+            "label_type": "}"
+          },
+          "51": {
+            "label_c": 11,
+            "label_field_body": "59",
+            "label_l": 7,
+            "label_type": "catch_clause"
+          },
+          "52": {
+            "label_c": 11,
+            "label_l": 7,
+            "label_text": "catch",
+            "label_type": "catch"
+          },
+          "53": {
+            "label_c": 17,
+            "label_l": 7,
+            "label_text": "(",
+            "label_type": "("
+          },
+          "54": {
+            "label_c": 18,
+            "label_field_name": "57",
+            "label_l": 7,
+            "label_type": "catch_formal_parameter"
+          },
+          "55": {
+            "label_c": 18,
+            "label_l": 7,
+            "label_type": "catch_type"
+          },
+          "56": {
+            "label_c": 18,
+            "label_l": 7,
+            "label_text": "Exception",
+            "label_type": "type_identifier"
+          },
+          "57": {
+            "label_c": 28,
+            "label_l": 7,
+            "label_text": "e",
+            "label_type": "identifier"
+          },
+          "58": {
+            "label_c": 29,
+            "label_l": 7,
+            "label_text": ")",
+            "label_type": ")"
+          },
+          "59": {
+            "label_c": 31,
+            "label_l": 7,
+            "label_type": "block"
+          },
+          "6": {
+            "label_c": 1,
+            "label_field_body": "11",
+            "label_field_name": "10",
+            "label_l": 3,
+            "label_type": "class_declaration"
+          },
+          "60": {
+            "label_c": 31,
+            "label_l": 7,
+            "label_text": "{",
+            "label_type": "{"
+          },
+          "61": {
+            "label_c": 32,
+            "label_l": 7,
+            "label_text": "}",
+            "label_type": "}"
+          },
+          "62": {
+            "label_c": 5,
+            "label_l": 8,
+            "label_text": "}",
+            "label_type": "}"
+          },
+          "63": {
+            "label_c": 1,
+            "label_l": 9,
+            "label_text": "}",
+            "label_type": "}"
+          },
+          "64": {
+            "label_c": 1,
+            "label_l": 11,
+            "label_text": "/*\n * $ ls -al $(javac Test.java && java Test)\n *\n * -rw-r--r-- 1 kamado kamado 0 Aug 28 14:44 /tmp/xxx948760279845756007.tmp\n *\n */",
+            "label_type": "comment"
+          },
+          "7": {
+            "label_c": 1,
+            "label_l": 3,
+            "label_type": "modifiers"
+          },
+          "8": {
+            "label_c": 1,
+            "label_l": 3,
+            "label_text": "public",
+            "label_type": "public"
+          },
+          "9": {
+            "label_c": 8,
+            "label_l": 3,
+            "label_text": "class",
+            "label_type": "class"
+          }
+        }
+      },
+      "metadata": {
+        "java": {
+          "classes": {
+            ".Test": {
+              "fields": {},
+              "methods": {
+                ".main": {
+                  "class_name": "Test",
+                  "n_id": "13"
+                }
+              },
+              "n_id": "6"
+            }
+          },
+          "package": ""
+        },
+        "language": "java"
+      },
+      "path": "skims/test/data/lib_path/f031_cwe378/Test.java",
+      "syntax": {
+        "13": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "21",
+              "value": null
+            },
+            "type": "SyntaxStepDeclaration",
+            "var": "args",
+            "var_type": "String[]"
+          }
+        ],
+        "25": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "25",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "27": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "27",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "29": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "29",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "31": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "31",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "32": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "44",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "xxx",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "46",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "null",
+            "value_type": "null"
+          },
+          {
+            "current_instance": {
+              "class_ref": null,
+              "fields": {}
+            },
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "38",
+              "value": null
+            },
+            "method": "File.createTempFile",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "current_instance": {
+              "class_ref": null,
+              "fields": {}
+            },
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "32",
+              "value": null
+            },
+            "method": "System.out.println",
+            "type": "SyntaxStepMethodInvocation"
+          }
+        ],
+        "49": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "49",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "51": [
+          {
+            "catch_type": "56",
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "51",
+              "value": null
+            },
+            "type": "SyntaxStepParenthesizedExpression",
+            "var": "e"
+          }
+        ],
+        "59": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "59",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ]
+      }
+    },
+    {
+      "graph": {
+        "edges": {
+          "1": {
+            "2": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "6": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "100": {
+            "101": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "102": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "103": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "103": {
+            "104": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "105": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "112": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "105": {
+            "106": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "107": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "108": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "108": {
+            "109": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "110": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "111": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "11": {
+            "115": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "12": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "13": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "13": {
+            "14": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "19": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "20": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "21": {
+              "label_ast": "AST",
+              "label_index": "3"
+            },
+            "31": {
+              "label_ast": "AST",
+              "label_index": "4"
+            },
+            "36": {
+              "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always",
+              "label_index": "5"
+            }
+          },
+          "14": {
+            "15": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "18": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "15": {
+            "16": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "17": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "2": {
+            "3": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "4": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "5": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "21": {
+            "22": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "23": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "26": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "27": {
+              "label_ast": "AST",
+              "label_index": "3"
+            },
+            "30": {
+              "label_ast": "AST",
+              "label_index": "4"
+            }
+          },
+          "23": {
+            "24": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "25": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "27": {
+            "28": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "29": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "31": {
+            "32": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "33": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "34": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "35": {
+              "label_ast": "AST",
+              "label_index": "3"
+            }
+          },
+          "36": {
+            "114": {
+              "label_ast": "AST",
+              "label_index": "8"
+            },
+            "37": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "38": {
+              "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always",
+              "label_index": "1"
+            },
+            "39": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "49": {
+              "label_ast": "AST",
+              "label_index": "3"
+            },
+            "50": {
+              "label_ast": "AST",
+              "label_index": "4"
+            },
+            "63": {
+              "label_ast": "AST",
+              "label_index": "5"
+            },
+            "85": {
+              "label_ast": "AST",
+              "label_index": "6"
+            },
+            "95": {
+              "label_ast": "AST",
+              "label_index": "7"
+            }
+          },
+          "38": {
+            "39": {
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always"
+            }
+          },
+          "39": {
+            "40": {
+              "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always",
+              "label_index": "0"
+            },
+            "48": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "40": {
+            "41": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "42": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "43": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "44": {
+              "label_ast": "AST",
+              "label_index": "3"
+            },
+            "48": {
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always"
+            }
+          },
+          "44": {
+            "45": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "46": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "47": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "48": {
+            "49": {
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always"
+            }
+          },
+          "49": {
+            "50": {
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always"
+            }
+          },
+          "50": {
+            "51": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "52": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "62": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "63": {
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always"
+            }
+          },
+          "52": {
+            "53": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "54": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "55": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "55": {
+            "56": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "57": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "58": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "59": {
+              "label_ast": "AST",
+              "label_index": "3"
+            }
+          },
+          "59": {
+            "60": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "61": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "6": {
+            "10": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "11": {
+              "label_ast": "AST",
+              "label_index": "3"
+            },
+            "7": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "9": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "63": {
+            "64": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "65": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "84": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "85": {
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always"
+            }
+          },
+          "65": {
+            "66": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "67": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "68": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "68": {
+            "69": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "70": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "71": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "72": {
+              "label_ast": "AST",
+              "label_index": "3"
+            }
+          },
+          "7": {
+            "8": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "72": {
+            "73": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "74": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "81": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "82": {
+              "label_ast": "AST",
+              "label_index": "3"
+            },
+            "83": {
+              "label_ast": "AST",
+              "label_index": "4"
+            }
+          },
+          "74": {
+            "75": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "76": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "77": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "78": {
+              "label_ast": "AST",
+              "label_index": "3"
+            }
+          },
+          "78": {
+            "79": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "80": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "85": {
+            "86": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "87": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "94": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "95": {
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always"
+            }
+          },
+          "87": {
+            "88": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "89": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "90": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "90": {
+            "91": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "92": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "93": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "95": {
+            "113": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "96": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "97": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "97": {
+            "100": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "98": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "99": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          }
+        },
+        "nodes": {
+          "1": {
+            "label_c": 1,
+            "label_l": 1,
+            "label_type": "program"
+          },
+          "10": {
+            "label_c": 14,
+            "label_l": 3,
+            "label_text": "Test",
+            "label_type": "identifier"
+          },
+          "100": {
+            "label_c": 35,
+            "label_field_arguments": "103",
+            "label_field_type": "102",
+            "label_l": 13,
+            "label_sink_type": "F063_PATH_TRAVERSAL",
+            "label_type": "object_creation_expression"
+          },
+          "101": {
+            "label_c": 35,
+            "label_l": 13,
+            "label_text": "new",
+            "label_type": "new"
+          },
+          "102": {
+            "label_c": 39,
+            "label_l": 13,
+            "label_text": "java.io.FileInputStream",
+            "label_type": "scoped_type_identifier"
+          },
+          "103": {
+            "label_c": 62,
+            "label_l": 13,
+            "label_type": "argument_list"
+          },
+          "104": {
+            "label_c": 62,
+            "label_l": 13,
+            "label_text": "(",
+            "label_type": "("
+          },
+          "105": {
+            "label_c": 63,
+            "label_field_arguments": "108",
+            "label_field_type": "107",
+            "label_l": 13,
+            "label_sink_type": "F063_PATH_TRAVERSAL",
+            "label_type": "object_creation_expression"
+          },
+          "106": {
+            "label_c": 63,
+            "label_l": 13,
+            "label_text": "new",
+            "label_type": "new"
+          },
+          "107": {
+            "label_c": 67,
+            "label_l": 13,
+            "label_text": "java.io.File",
+            "label_type": "scoped_type_identifier"
+          },
+          "108": {
+            "label_c": 79,
+            "label_l": 13,
+            "label_type": "argument_list"
+          },
+          "109": {
+            "label_c": 79,
+            "label_l": 13,
+            "label_text": "(",
+            "label_type": "("
+          },
+          "11": {
+            "label_c": 19,
+            "label_l": 3,
+            "label_type": "class_body"
+          },
+          "110": {
+            "label_c": 80,
+            "label_l": 13,
+            "label_text": "fileName",
+            "label_type": "identifier"
+          },
+          "111": {
+            "label_c": 88,
+            "label_l": 13,
+            "label_text": ")",
+            "label_type": ")"
+          },
+          "112": {
+            "label_c": 89,
+            "label_l": 13,
+            "label_text": ")",
+            "label_type": ")"
+          },
+          "113": {
+            "label_c": 90,
+            "label_l": 13,
+            "label_text": ";",
+            "label_type": ";"
+          },
+          "114": {
+            "label_c": 3,
+            "label_l": 14,
+            "label_text": "}",
+            "label_type": "}"
+          },
+          "115": {
+            "label_c": 1,
+            "label_l": 15,
+            "label_text": "}",
+            "label_type": "}"
+          },
+          "12": {
+            "label_c": 19,
+            "label_l": 3,
+            "label_text": "{",
+            "label_type": "{"
+          },
+          "13": {
+            "label_c": 3,
+            "label_field_body": "36",
+            "label_field_name": "20",
+            "label_field_parameters": "21",
+            "label_field_type": "19",
+            "label_l": 4,
+            "label_type": "method_declaration"
+          },
+          "14": {
+            "label_c": 3,
+            "label_l": 4,
+            "label_type": "modifiers"
+          },
+          "15": {
+            "label_c": 3,
+            "label_field_name": "17",
+            "label_l": 4,
+            "label_type": "marker_annotation"
+          },
+          "16": {
+            "label_c": 3,
+            "label_l": 4,
+            "label_text": "@",
+            "label_type": "@"
+          },
+          "17": {
+            "label_c": 4,
+            "label_l": 4,
+            "label_text": "Override",
+            "label_type": "identifier"
+          },
+          "18": {
+            "label_c": 3,
+            "label_l": 5,
+            "label_text": "public",
+            "label_type": "public"
+          },
+          "19": {
+            "label_c": 10,
+            "label_l": 5,
+            "label_text": "void",
+            "label_type": "void_type"
+          },
+          "2": {
+            "label_c": 1,
+            "label_l": 1,
+            "label_type": "import_declaration"
+          },
+          "20": {
+            "label_c": 15,
+            "label_l": 5,
+            "label_text": "doPost",
+            "label_type": "identifier"
+          },
+          "21": {
+            "label_c": 21,
+            "label_l": 5,
+            "label_type": "formal_parameters"
+          },
+          "22": {
+            "label_c": 21,
+            "label_l": 5,
+            "label_text": "(",
+            "label_type": "("
+          },
+          "23": {
+            "label_c": 22,
+            "label_field_name": "25",
+            "label_field_type": "24",
+            "label_input_type": "F001_JAVA_SQL,F004,F008,F021,F042,F063_PATH_TRAVERSAL,F063_TRUSTBOUND,F107",
+            "label_l": 5,
+            "label_type": "formal_parameter"
+          },
+          "24": {
+            "label_c": 22,
+            "label_l": 5,
+            "label_text": "HttpServletRequest",
+            "label_type": "type_identifier"
+          },
+          "25": {
+            "label_c": 41,
+            "label_l": 5,
+            "label_text": "request",
+            "label_type": "identifier"
+          },
+          "26": {
+            "label_c": 48,
+            "label_l": 5,
+            "label_text": ",",
+            "label_type": ","
+          },
+          "27": {
+            "label_c": 50,
+            "label_field_name": "29",
+            "label_field_type": "28",
+            "label_l": 5,
+            "label_type": "formal_parameter"
+          },
+          "28": {
+            "label_c": 50,
+            "label_l": 5,
+            "label_text": "HttpServletResponse",
+            "label_type": "type_identifier"
+          },
+          "29": {
+            "label_c": 70,
+            "label_l": 5,
+            "label_text": "response",
+            "label_type": "identifier"
+          },
+          "3": {
+            "label_c": 1,
+            "label_l": 1,
+            "label_text": "import",
+            "label_type": "import"
+          },
+          "30": {
+            "label_c": 78,
+            "label_l": 5,
+            "label_text": ")",
+            "label_type": ")"
+          },
+          "31": {
+            "label_c": 80,
+            "label_l": 5,
+            "label_type": "throws"
+          },
+          "32": {
+            "label_c": 80,
+            "label_l": 5,
+            "label_text": "throws",
+            "label_type": "throws"
+          },
+          "33": {
+            "label_c": 87,
+            "label_l": 5,
+            "label_text": "ServletException",
+            "label_type": "type_identifier"
+          },
+          "34": {
+            "label_c": 103,
+            "label_l": 5,
+            "label_text": ",",
+            "label_type": ","
+          },
+          "35": {
+            "label_c": 105,
+            "label_l": 5,
+            "label_text": "IOException",
+            "label_type": "type_identifier"
+          },
+          "36": {
+            "label_c": 117,
+            "label_l": 5,
+            "label_type": "block"
+          },
+          "37": {
+            "label_c": 117,
+            "label_l": 5,
+            "label_text": "{",
+            "label_type": "{"
+          },
+          "38": {
+            "label_c": 5,
+            "label_l": 6,
+            "label_text": "// some code",
+            "label_type": "comment"
+          },
+          "39": {
+            "label_c": 5,
+            "label_l": 7,
+            "label_type": "expression_statement"
+          },
+          "4": {
+            "label_c": 8,
+            "label_l": 1,
+            "label_text": "java.io.File",
+            "label_type": "scoped_identifier"
+          },
+          "40": {
+            "label_c": 5,
+            "label_field_arguments": "44",
+            "label_field_name": "43",
+            "label_field_object": "41",
+            "label_l": 7,
+            "label_type": "method_invocation"
+          },
+          "41": {
+            "label_c": 5,
+            "label_l": 7,
+            "label_text": "response",
+            "label_type": "identifier"
+          },
+          "42": {
+            "label_c": 13,
+            "label_l": 7,
+            "label_text": ".",
+            "label_type": "."
+          },
+          "43": {
+            "label_c": 14,
+            "label_l": 7,
+            "label_text": "setContentType",
+            "label_type": "identifier"
+          },
+          "44": {
+            "label_c": 28,
+            "label_l": 7,
+            "label_type": "argument_list"
+          },
+          "45": {
+            "label_c": 28,
+            "label_l": 7,
+            "label_text": "(",
+            "label_type": "("
+          },
+          "46": {
+            "label_c": 29,
+            "label_l": 7,
+            "label_text": "\"text/html;charset=UTF-8\"",
+            "label_type": "string_literal"
+          },
+          "47": {
+            "label_c": 54,
+            "label_l": 7,
+            "label_text": ")",
+            "label_type": ")"
+          },
+          "48": {
+            "label_c": 55,
+            "label_l": 7,
+            "label_text": ";",
+            "label_type": ";"
+          },
+          "49": {
+            "label_c": 5,
+            "label_l": 9,
+            "label_text": "// Vuln",
+            "label_type": "comment"
+          },
+          "5": {
+            "label_c": 20,
+            "label_l": 1,
+            "label_text": ";",
+            "label_type": ";"
+          },
+          "50": {
+            "label_c": 5,
+            "label_field_declarator": "52",
+            "label_field_type": "51",
+            "label_l": 10,
+            "label_type": "local_variable_declaration"
+          },
+          "51": {
+            "label_c": 5,
+            "label_l": 10,
+            "label_text": "javax.servlet.http.Cookie[]",
+            "label_type": "array_type"
+          },
+          "52": {
+            "label_c": 33,
+            "label_field_name": "53",
+            "label_field_value": "55",
+            "label_l": 10,
+            "label_type": "variable_declarator"
+          },
+          "53": {
+            "label_c": 33,
+            "label_l": 10,
+            "label_text": "theCookie",
+            "label_type": "identifier"
+          },
+          "54": {
+            "label_c": 43,
+            "label_l": 10,
+            "label_text": "=",
+            "label_type": "="
+          },
+          "55": {
+            "label_c": 45,
+            "label_field_arguments": "59",
+            "label_field_name": "58",
+            "label_field_object": "56",
+            "label_l": 10,
+            "label_type": "method_invocation"
+          },
+          "56": {
+            "label_c": 45,
+            "label_l": 10,
+            "label_text": "request",
+            "label_type": "identifier"
+          },
+          "57": {
+            "label_c": 52,
+            "label_l": 10,
+            "label_text": ".",
+            "label_type": "."
+          },
+          "58": {
+            "label_c": 53,
+            "label_l": 10,
+            "label_text": "getCookies",
+            "label_type": "identifier"
+          },
+          "59": {
+            "label_c": 63,
+            "label_l": 10,
+            "label_type": "argument_list"
+          },
+          "6": {
+            "label_c": 1,
+            "label_field_body": "11",
+            "label_field_name": "10",
+            "label_l": 3,
+            "label_type": "class_declaration"
+          },
+          "60": {
+            "label_c": 63,
+            "label_l": 10,
+            "label_text": "(",
+            "label_type": "("
+          },
+          "61": {
+            "label_c": 64,
+            "label_l": 10,
+            "label_text": ")",
+            "label_type": ")"
+          },
+          "62": {
+            "label_c": 65,
+            "label_l": 10,
+            "label_text": ";",
+            "label_type": ";"
+          },
+          "63": {
+            "label_c": 5,
+            "label_field_declarator": "65",
+            "label_field_type": "64",
+            "label_l": 11,
+            "label_type": "local_variable_declaration"
+          },
+          "64": {
+            "label_c": 5,
+            "label_l": 11,
+            "label_text": "String",
+            "label_type": "type_identifier"
+          },
+          "65": {
+            "label_c": 12,
+            "label_field_name": "66",
+            "label_field_value": "68",
+            "label_l": 11,
+            "label_type": "variable_declarator"
+          },
+          "66": {
+            "label_c": 12,
+            "label_l": 11,
+            "label_text": "param",
+            "label_type": "identifier"
+          },
+          "67": {
+            "label_c": 18,
+            "label_l": 11,
+            "label_text": "=",
+            "label_type": "="
+          },
+          "68": {
+            "label_c": 20,
+            "label_field_arguments": "72",
+            "label_field_name": "71",
+            "label_field_object": "69",
+            "label_l": 11,
+            "label_type": "method_invocation"
+          },
+          "69": {
+            "label_c": 20,
+            "label_l": 11,
+            "label_text": "java.net.URLDecoder",
+            "label_type": "field_access"
+          },
+          "7": {
+            "label_c": 1,
+            "label_l": 3,
+            "label_type": "modifiers"
+          },
+          "70": {
+            "label_c": 39,
+            "label_l": 11,
+            "label_text": ".",
+            "label_type": "."
+          },
+          "71": {
+            "label_c": 40,
+            "label_l": 11,
+            "label_text": "decode",
+            "label_type": "identifier"
+          },
+          "72": {
+            "label_c": 46,
+            "label_l": 11,
+            "label_type": "argument_list"
+          },
+          "73": {
+            "label_c": 46,
+            "label_l": 11,
+            "label_text": "(",
+            "label_type": "("
+          },
+          "74": {
+            "label_c": 47,
+            "label_field_arguments": "78",
+            "label_field_name": "77",
+            "label_field_object": "75",
+            "label_l": 11,
+            "label_type": "method_invocation"
+          },
+          "75": {
+            "label_c": 47,
+            "label_l": 11,
+            "label_text": "theCookie",
+            "label_type": "identifier"
+          },
+          "76": {
+            "label_c": 56,
+            "label_l": 11,
+            "label_text": ".",
+            "label_type": "."
+          },
+          "77": {
+            "label_c": 57,
+            "label_l": 11,
+            "label_text": "getValue",
+            "label_type": "identifier"
+          },
+          "78": {
+            "label_c": 65,
+            "label_l": 11,
+            "label_type": "argument_list"
+          },
+          "79": {
+            "label_c": 65,
+            "label_l": 11,
+            "label_text": "(",
+            "label_type": "("
+          },
+          "8": {
+            "label_c": 1,
+            "label_l": 3,
+            "label_text": "public",
+            "label_type": "public"
+          },
+          "80": {
+            "label_c": 66,
+            "label_l": 11,
+            "label_text": ")",
+            "label_type": ")"
+          },
+          "81": {
+            "label_c": 67,
+            "label_l": 11,
+            "label_text": ",",
+            "label_type": ","
+          },
+          "82": {
+            "label_c": 69,
+            "label_l": 11,
+            "label_text": "\"UTF-8\"",
+            "label_type": "string_literal"
+          },
+          "83": {
+            "label_c": 76,
+            "label_l": 11,
+            "label_text": ")",
+            "label_type": ")"
+          },
+          "84": {
+            "label_c": 77,
+            "label_l": 11,
+            "label_text": ";",
+            "label_type": ";"
+          },
+          "85": {
+            "label_c": 5,
+            "label_field_declarator": "87",
+            "label_field_type": "86",
+            "label_l": 12,
+            "label_type": "local_variable_declaration"
+          },
+          "86": {
+            "label_c": 5,
+            "label_l": 12,
+            "label_text": "String",
+            "label_type": "type_identifier"
+          },
+          "87": {
+            "label_c": 12,
+            "label_field_name": "88",
+            "label_field_value": "90",
+            "label_l": 12,
+            "label_type": "variable_declarator"
+          },
+          "88": {
+            "label_c": 12,
+            "label_l": 12,
+            "label_text": "fileName",
+            "label_type": "identifier"
+          },
+          "89": {
+            "label_c": 21,
+            "label_l": 12,
+            "label_text": "=",
+            "label_type": "="
+          },
+          "9": {
+            "label_c": 8,
+            "label_l": 3,
+            "label_text": "class",
+            "label_type": "class"
+          },
+          "90": {
+            "label_c": 23,
+            "label_field_left": "91",
+            "label_field_operator": "92",
+            "label_field_right": "93",
+            "label_l": 12,
+            "label_type": "binary_expression"
+          },
+          "91": {
+            "label_c": 23,
+            "label_l": 12,
+            "label_text": "org.owasp.benchmark.helpers.Utils.testfileDir",
+            "label_type": "field_access"
+          },
+          "92": {
+            "label_c": 69,
+            "label_l": 12,
+            "label_text": "+",
+            "label_type": "+"
+          },
+          "93": {
+            "label_c": 71,
+            "label_l": 12,
+            "label_text": "param",
+            "label_type": "identifier"
+          },
+          "94": {
+            "label_c": 76,
+            "label_l": 12,
+            "label_text": ";",
+            "label_type": ";"
+          },
+          "95": {
+            "label_c": 5,
+            "label_field_declarator": "97",
+            "label_field_type": "96",
+            "label_l": 13,
+            "label_type": "local_variable_declaration"
+          },
+          "96": {
+            "label_c": 5,
+            "label_l": 13,
+            "label_text": "java.io.FileInputStream",
+            "label_type": "scoped_type_identifier"
+          },
+          "97": {
+            "label_c": 29,
+            "label_field_name": "98",
+            "label_field_value": "100",
+            "label_l": 13,
+            "label_type": "variable_declarator"
+          },
+          "98": {
+            "label_c": 29,
+            "label_l": 13,
+            "label_text": "fis",
+            "label_type": "identifier"
+          },
+          "99": {
+            "label_c": 33,
+            "label_l": 13,
+            "label_text": "=",
+            "label_type": "="
+          }
+        }
+      },
+      "metadata": {
+        "java": {
+          "classes": {
+            ".Test": {
+              "fields": {},
+              "methods": {
+                ".doPost": {
+                  "class_name": "Test",
+                  "n_id": "13"
+                }
+              },
+              "n_id": "6"
+            }
+          },
+          "package": ""
+        },
+        "language": "java"
+      },
+      "path": "skims/test/data/lib_path/f063_path_traversal/Test.java",
+      "syntax": {
+        "13": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "23",
+              "value": null
+            },
+            "type": "SyntaxStepDeclaration",
+            "var": "request",
+            "var_type": "HttpServletRequest"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "27",
+              "value": null
+            },
+            "type": "SyntaxStepDeclaration",
+            "var": "response",
+            "var_type": "HttpServletResponse"
+          }
+        ],
+        "36": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "36",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "38": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "38",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "39": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "39",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "40": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "46",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "text/html;charset=UTF-8",
+            "value_type": "string"
+          },
+          {
+            "current_instance": {
+              "class_ref": null,
+              "fields": {}
+            },
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "40",
+              "value": null
+            },
+            "method": "response.setContentType",
+            "type": "SyntaxStepMethodInvocation"
+          }
+        ],
+        "48": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "48",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "49": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "49",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "50": [
+          {
+            "current_instance": {
+              "class_ref": null,
+              "fields": {}
+            },
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "55",
+              "value": null
+            },
+            "method": "request.getCookies",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "50",
+              "value": null
+            },
+            "type": "SyntaxStepDeclaration",
+            "var": "theCookie",
+            "var_type": "javax.servlet.http.Cookie[]"
+          }
+        ],
+        "63": [
+          {
+            "current_instance": {
+              "class_ref": null,
+              "fields": {}
+            },
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "74",
+              "value": null
+            },
+            "method": "theCookie.getValue",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "82",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "UTF-8",
+            "value_type": "string"
+          },
+          {
+            "current_instance": {
+              "class_ref": null,
+              "fields": {}
+            },
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "68",
+              "value": null
+            },
+            "method": "java.net.URLDecoder.decode",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "63",
+              "value": null
+            },
+            "type": "SyntaxStepDeclaration",
+            "var": "param",
+            "var_type": "String"
+          }
+        ],
+        "85": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "93",
+              "value": null
+            },
+            "symbol": "param",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "91",
+              "value": null
+            },
+            "symbol": "org.owasp.benchmark.helpers.Utils.testfileDir",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "90",
+              "value": null
+            },
+            "operator": "+",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "85",
+              "value": null
+            },
+            "type": "SyntaxStepDeclaration",
+            "var": "fileName",
+            "var_type": "String"
+          }
+        ],
+        "95": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "110",
+              "value": null
+            },
+            "symbol": "fileName",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "105",
+              "value": null
+            },
+            "object_type": "java.io.File",
+            "type": "SyntaxStepObjectInstantiation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "100",
+              "value": null
+            },
+            "object_type": "java.io.FileInputStream",
+            "type": "SyntaxStepObjectInstantiation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "95",
+              "value": null
+            },
+            "type": "SyntaxStepDeclaration",
+            "var": "fis",
+            "var_type": "java.io.FileInputStream"
+          }
+        ]
+      }
+    }
+  ],
+  "shards_by_java_class": {
+    ".Test": "skims/test/data/lib_path/f063_path_traversal/Test.java"
+  },
+  "shards_by_path": {
+    "skims/test/data/lib_path/f031_cwe378/Test.java": 0,
+    "skims/test/data/lib_path/f063_path_traversal/Test.java": 1
+  }
+}
