@@ -78,6 +78,14 @@ resource "cloudflare_zone_dnssec" "fluidattacks_com" {
 
 # CNAME Records
 
+resource "cloudflare_record" "api" {
+  zone_id = cloudflare_zone.fluidattacks_com.id
+  name    = "api.${cloudflare_zone.fluidattacks_com.zone}"
+  type    = "CNAME"
+  value   = "integrates.${cloudflare_zone.fluidattacks_com.zone}"
+  proxied = true
+  ttl     = 1
+}
 resource "cloudflare_record" "www" {
   zone_id = cloudflare_zone.fluidattacks_com.id
   name    = "www.${cloudflare_zone.fluidattacks_com.zone}"
@@ -444,6 +452,20 @@ resource "cloudflare_record" "zoho_verify_dkim" {
 
 
 # Page Rules
+
+resource "cloudflare_page_rule" "redirect_api" {
+  zone_id  = cloudflare_zone.fluidattacks_com.id
+  target   = "api.${cloudflare_zone.fluidattacks_com.zone}/*"
+  status   = "active"
+  priority = 99
+
+  actions {
+    forwarding_url {
+      url         = "https://integrates.${cloudflare_zone.fluidattacks_com.zone}/api"
+      status_code = 302
+    }
+  }
+}
 
 resource "cloudflare_page_rule" "redirect_www" {
   zone_id  = cloudflare_zone.fluidattacks_com.id
