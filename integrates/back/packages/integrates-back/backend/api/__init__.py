@@ -110,7 +110,7 @@ def get_new_context() -> Dataloaders:
         group_stakeholders_nf=GroupStakeholdersNonFluidLoader(
             group_stakeholders_loader
         ),
-        group_toe_lines=GroupToeLinesLoader(root_toe_lines_loader),
+        group_toe_lines=GroupToeLinesLoader(),
         organization=OrganizationLoader(),
         organization_stakeholders=OrganizationStakeholdersLoader(),
         organization_tags=OrganizationTagsLoader(),
