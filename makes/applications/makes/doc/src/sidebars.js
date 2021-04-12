@@ -158,6 +158,7 @@ module.exports = {
         label: 'Security',
         items: [
           'findings/security/f001',
+          'findings/security/f002',
         ],
     },
     {
