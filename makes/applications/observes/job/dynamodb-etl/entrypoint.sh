@@ -27,18 +27,13 @@ function dynamodb_etl {
   &&  mkdir ./logs \
   &&  observes-bin-streamer-dynamodb \
         --auth "${dynamo_creds}" \
-        --conf "${conf}" > .stream \
-  &&  echo '[INFO] Running tap' \
-  &&  observes-tap-json \
+        --conf "${conf}" \
+  |   observes-tap-json \
       --date-formats '%Y-%m-%d %H:%M:%S' \
-      < .stream \
-      > .singer \
-  &&  echo '[INFO] Running target' \
-  &&  observes-target-redshift \
+  |   observes-target-redshift \
         --auth "${db_creds}" \
         --drop-schema \
         --schema-name "${schema}" \
-        < .singer \
   &&  observes-bin-service-job-last-success compound-job \
         --auth "${db_creds}" \
         --job "dynamo" \
