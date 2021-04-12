@@ -16,13 +16,16 @@ from .core import (
     register,
     remove_push_token,
     update,
+    update_invited_stakeholder,
     update_last_login,
     update_legal_remember,
     update_multiple_user_attributes,
 )
+from .group import edit_user_information
 
 
 __all__ = [
+    # Core
     'acknowledge_concurrent_session',
     'add_phone_to_user',
     'add_push_token',
@@ -37,7 +40,11 @@ __all__ = [
     'register',
     'remove_push_token',
     'update',
+    'update_invited_stakeholder',
     'update_last_login',
     'update_legal_remember',
-    'update_multiple_user_attributes'
+    'update_multiple_user_attributes',
+
+    # Group
+    'edit_user_information'
 ]

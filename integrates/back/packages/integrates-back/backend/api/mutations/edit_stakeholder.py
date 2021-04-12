@@ -22,9 +22,8 @@ from backend.typing import (
     Invitation as InvitationType,
     EditStakeholderPayload as EditStakeholderPayloadType
 )
-from newutils import user as user_utils
 from newutils.validations import validate_fluidattacks_staff_on_group
-from users.domain.group import edit_user_information
+from users import domain as users_domain
 
 
 logging.config.dictConfig(LOGGING)
@@ -48,7 +47,7 @@ async def _update_stakeholder(
     if project_access:
         invitation = cast(InvitationType, project_access.get('invitation'))
         if invitation and not invitation['is_used']:
-            success = await user_utils.update_invited_stakeholder(
+            success = await users_domain.update_invited_stakeholder(
                 updated_data,
                 invitation,
                 group_name
@@ -57,7 +56,7 @@ async def _update_stakeholder(
             if await authz.grant_group_level_role(
                 modified_email, group_name, modified_role
             ):
-                success = await edit_user_information(
+                success = await users_domain.edit_user_information(
                     info.context, updated_data, group_name
                 )
             else:

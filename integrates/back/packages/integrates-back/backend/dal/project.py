@@ -23,7 +23,6 @@ from backend.typing import (
     Comment as CommentType,
     DynamoDelete as DynamoDeleteType,
     Project as ProjectType,
-    ProjectAccess as ProjectAccessType,
 )
 from events.dal import TABLE_NAME as EVENTS_TABLE_NAME
 from newutils import datetime as datetime_utils
@@ -512,44 +511,3 @@ async def remove_access(user_email: str, project_name: str) -> bool:
     except ClientError as ex:
         LOGGER.exception(ex, extra=dict(extra=locals()))
         return False
-
-
-async def update_access(
-    user_email: str,
-    project_name: str,
-    data: ProjectAccessType
-) -> bool:
-    """Update project access attributes."""
-    success = False
-    set_expression = ''
-    remove_expression = ''
-    expression_values = {}
-    for attr, value in data.items():
-        if value is None:
-            remove_expression += f'{attr}, '
-        else:
-            set_expression += f'{attr} = :{attr}, '
-            expression_values.update({f':{attr}': value})
-
-    if set_expression:
-        set_expression = f'SET {set_expression.strip(", ")}'
-    if remove_expression:
-        remove_expression = f'REMOVE {remove_expression.strip(", ")}'
-
-    update_attrs = {
-        'Key': {
-            'user_email': user_email.lower(),
-            'project_name': project_name.lower()
-        },
-        'UpdateExpression': f'{set_expression} {remove_expression}'.strip(),
-    }
-    if expression_values:
-        update_attrs.update({'ExpressionAttributeValues': expression_values})
-    try:
-        success = await dynamodb.async_update_item(
-            TABLE_ACCESS_NAME, update_attrs
-        )
-    except ClientError as ex:
-        LOGGER.exception(ex, extra={'extra': locals()})
-
-    return success

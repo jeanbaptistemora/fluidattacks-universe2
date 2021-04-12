@@ -23,6 +23,7 @@ from backend.typing import (
     ProjectAccess as GroupAccessType,
     User as UserType,
 )
+from group_access import domain as group_access_domain
 from newutils import apm
 from newutils.validations import (
     validate_email_address,
@@ -52,7 +53,7 @@ async def complete_register_for_group_invitation(
     updated_invitation['is_used'] = True
 
     coroutines.extend([
-        group_domain.update_access(
+        group_access_domain.update(
             user_email,
             group_name,
             {
@@ -139,7 +140,7 @@ async def edit_user_information(
     if responsibility:
         if len(responsibility) <= 50:
             coroutines.append(
-                group_domain.update_access(
+                group_access_domain.update(
                     email,
                     group_name,
                     {'responsibility': responsibility}

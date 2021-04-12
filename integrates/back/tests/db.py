@@ -20,6 +20,7 @@ from dynamodb.types import RootItem
 from events import dal as dal_event
 from findings import dal as dal_findings
 from forces import dal as dal_forces
+from group_access import dal as group_access_dal
 from names import dal as dal_names
 from roots import dal as dal_roots
 from organizations import dal as dal_organizations
@@ -187,7 +188,7 @@ async def populate_policies(data: List[Any]) -> bool:
         for policy in data
     ])
     coroutines.extend([
-        dal_group.update_access(
+        group_access_dal.update(
             policy['subject'],
             policy['object'],
             {'has_access': True},

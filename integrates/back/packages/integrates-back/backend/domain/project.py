@@ -51,6 +51,7 @@ from backend.typing import (
 from comments import domain as comments_domain
 from events import domain as events_domain
 from findings import domain as findings_domain
+from group_access import domain as group_access_domain
 from groups import domain as groups_domain
 from names import domain as names_domain
 from newutils import (
@@ -279,22 +280,12 @@ async def edit(
     return success
 
 
-async def update_access(
-    user_email: str,
-    group_name: str,
-    data: ProjectAccessType
-) -> bool:
-    return await project_dal.update_access(
-        user_email, group_name, data
-    )
-
-
 async def update_has_access(
     user_email: str,
     group_name: str,
     access: bool
 ) -> bool:
-    return await update_access(
+    return await group_access_domain.update(
         user_email, group_name, {'has_access': access}
     )
 

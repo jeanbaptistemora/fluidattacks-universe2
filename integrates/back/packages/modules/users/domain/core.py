@@ -2,14 +2,26 @@
 import re
 from typing import (
     cast,
+    Dict,
     List,
     Union,
 )
 
 # Local libraries
 from backend.exceptions import InvalidPushToken
-from backend.typing import User as UserType
+from backend.typing import (
+    Invitation as InvitationType,
+    User as UserType,
+)
+from group_access import domain as group_access_domain
 from newutils import datetime as datetime_utils
+from newutils.validations import (
+    validate_alphanumeric_field,
+    validate_email_address,
+    validate_field_length,
+    validate_fluidattacks_staff_on_group,
+    validate_phone_field,
+)
 from users import dal as users_dal
 
 
@@ -128,6 +140,38 @@ async def update_last_login(email: str) -> bool:
     return await users_dal.update(
         str(email), {'last_login': datetime_utils.get_now_as_str()}
     )
+
+
+async def update_invited_stakeholder(
+    updated_data: Dict[str, str],
+    invitation: InvitationType,
+    group_name: str
+) -> bool:
+    success = False
+    email = updated_data['email']
+    responsibility = updated_data['responsibility']
+    phone_number = updated_data['phone_number']
+    role = updated_data['role']
+    new_invitation = invitation.copy()
+    if (
+        validate_field_length(responsibility, 50) and
+        validate_alphanumeric_field(responsibility) and
+        validate_phone_field(phone_number) and
+        validate_email_address(email) and
+        await validate_fluidattacks_staff_on_group(group_name, email, role)
+    ):
+        new_invitation['phone_number'] = phone_number
+        new_invitation['responsibility'] = responsibility
+        new_invitation['role'] = role
+        success = await group_access_domain.update(
+            email,
+            group_name,
+            {
+                'invitation': new_invitation,
+
+            }
+        )
+    return success
 
 
 async def update_multiple_user_attributes(

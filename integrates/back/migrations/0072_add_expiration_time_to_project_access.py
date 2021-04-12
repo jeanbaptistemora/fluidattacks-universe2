@@ -7,9 +7,7 @@ Finalization Time: 2021-02-16 at 16:52:36 UTC-05
 """
 # Standard library
 from pprint import pprint
-from typing import (
-    cast,
-)
+from typing import cast
 
 # Third party libraries
 from aioextensions import (
@@ -20,12 +18,8 @@ from boto3.dynamodb.conditions import Attr
 
 # Local libraries
 from backend.dal.helpers import dynamodb
-from backend.domain import (
-    project as group_domain,
-)
-from backend.typing import (
-    ProjectAccess as ProjectAccessType,
-)
+from backend.typing import ProjectAccess as ProjectAccessType
+from group_access import domain as group_access_domain
 from newutils import datetime as datetime_utils
 
 
@@ -46,7 +40,7 @@ async def add_expiration_time_to_project_access(
         )
     )
 
-    success = cast(bool, await group_domain.update_access(
+    success = cast(bool, await group_access_domain.update(
         user_email,
         group_name,
         {

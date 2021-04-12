@@ -1,8 +1,11 @@
 import pytest
 
 from backend.dal.project import (
-    list_internal_managers, list_project_managers, update_access, get_users
+    get_users,
+    list_internal_managers
 )
+from group_access.dal import update as update_access
+
 
 pytestmark = [pytest.mark.asyncio,]
 

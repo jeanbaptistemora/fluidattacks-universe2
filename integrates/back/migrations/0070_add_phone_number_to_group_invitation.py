@@ -17,8 +17,8 @@ from boto3.dynamodb.conditions import Attr
 
 # Local libraries
 from backend.dal.helpers import dynamodb
-from backend.domain import project as group_domain
 from backend.typing import ProjectAccess as ProjectAccessType
+from group_access import domain as group_access_domain
 from users import dal as users_dal
 
 
@@ -37,7 +37,7 @@ async def add_phone_number_to_group_invitation(
     phone_number = stakeholder.get('phone', '')
     new_invitation['phone_number'] = phone_number
 
-    success = cast(bool, await group_domain.update_access(
+    success = cast(bool, await group_access_domain.update(
         user_email,
         group_name,
         {

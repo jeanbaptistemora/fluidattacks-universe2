@@ -9,7 +9,7 @@ from graphql.type.definition import GraphQLResolveInfo
 # Local libraries
 from back.settings import LOGGING
 from backend.domain import project as group_domain
-from newutils import groups as groups_utils
+from groups import domain as groups_domain
 from users.domain.group import complete_register_for_group_invitation
 
 
@@ -24,7 +24,7 @@ async def create_forces_user(
     group_name: str
 ) -> bool:
     user_email = format_forces_user_email(group_name)
-    success = await groups_utils.invite_to_group(
+    success = await groups_domain.invite_to_group(
         email=user_email,
         responsibility='Forces service user',
         role='service_forces',

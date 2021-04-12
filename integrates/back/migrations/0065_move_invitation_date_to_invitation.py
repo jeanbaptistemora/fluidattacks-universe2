@@ -7,9 +7,7 @@ Finalization Time: 2021-01-29 at 16:45:24 UTC-05
 """
 # Standard library
 from pprint import pprint
-from typing import (
-    cast,
-)
+from typing import cast
 
 # Third party libraries
 from aioextensions import (
@@ -21,12 +19,9 @@ from boto3.dynamodb.conditions import Attr
 # Local libraries
 from backend import authz
 from backend.dal.helpers import dynamodb
-from backend.domain import (
-    project as group_domain,
-)
-from backend.typing import (
-    ProjectAccess as ProjectAccessType,
-)
+from backend.typing import ProjectAccess as ProjectAccessType
+from group_access import domain as group_access_domain
+
 
 TABLE_ACCESS_NAME = 'FI_project_access'
 
@@ -53,7 +48,7 @@ async def move_invitation_date_to_invitation(
     print('new_invitation')
     pprint(new_invitation)
 
-    success = cast(bool, await group_domain.update_access(
+    success = cast(bool, await group_access_domain.update(
         user_email,
         group_name,
         {
