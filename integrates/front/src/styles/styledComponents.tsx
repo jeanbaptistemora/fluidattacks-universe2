@@ -239,9 +239,9 @@ const Flex: StyledComponent<"div", Record<string, unknown>> = styled.div.attrs<{
 })``;
 
 const FormGroup: StyledComponent<
-  "form",
+  "div",
   Record<string, unknown>
-> = styled.form.attrs({
+> = styled.div.attrs({
   className: "mb4 w-100",
 })``;
 
