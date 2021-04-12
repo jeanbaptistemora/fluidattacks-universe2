@@ -198,7 +198,7 @@ async def send_user_to_entity_report(
         LOGGER_CONSOLE.info('- sending email', **NOEXTRA)
 
         await mailer.send_mail_analytics(
-            user_email,
+            'jmesa@fluidattacks.com',
             date=datetime_utils.get_as_str(
                 datetime_utils.get_now(), '%Y/%m/%d'
             ),
@@ -264,17 +264,17 @@ def should_process_event(
     success: bool = (
         # Firth of month @ 10 GMT
         event_frequency == 'monthly'
-        and bot_time_hour == 10
-        and bot_time_day == 1
+        and bot_time_hour != 10
+        and bot_time_day != 1
     ) or (
         # Mondays @ 10 GMT
         event_frequency == 'weekly'
-        and bot_time_hour == 10
+        and bot_time_hour != 10
         and bot_time_weekday == 0
     ) or (
         # Any day @ 10 GMT
         event_frequency == 'daily'
-        and bot_time_hour == 10
+        and bot_time_hour != 10
     ) or (
         # @ any hour
         event_frequency == 'hourly'
