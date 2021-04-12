@@ -10,7 +10,7 @@ utils.model.finding.enum.F043_DAST_STS.description:
     Alternatively, the header's max-age is too short.
   es: >
     El servidor carece del encabezado HTTP Strict-Transport-Security.
-    Alternativamente, el valor "max-age" del mismoque es muy pequeño.
+    Alternativamente, el valor "max-age" del mismo es muy pequeño.
 utils.model.finding.enum.F043_DAST_STS.impact:
   en: Users can visit the website under an insecure channel.
   es: Los usuarios pueden visitar el servidor usando un canal inseguro.

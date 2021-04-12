@@ -1,0 +1,29 @@
+utils.model.finding.enum.F043_DAST_RP.description:
+  en: >
+    The server is missing the Referrer-Policy HTTP header.
+    Alternatively, the header's configuration is unsafe.
+  es: >
+    El servidor carece del encabezado HTTP Referrer-Policy.
+    Alternativamente, la configuración del mismo es insegura.
+utils.model.finding.enum.F043_DAST_RP.impact:
+  en: Website domain and path can be leaked to external services.
+  es: El dominio del sitio web y su ruta pueden ser fugados a servicios externos.
+utils.model.finding.enum.F043_DAST_RP.recommendation:
+  en: >
+    Set the Referrer-Policy header to "no-referrer", "same-origin",
+    "strict-origin", or "strict-origin-when-cross-origin".
+  es: >
+    Establecer la cabecera Referrer-Policy a "no-referrer", "same-origin",
+    "strict-origin", o "strict-origin-when-cross-origin".
+utils.model.finding.enum.F043_DAST_RP.requirements:
+  en: R062. Define standard configurations
+  es: >
+    R062. Debe definirse configuraciones estándares que corrijan todas las
+    vulnerabilidades conocidas y que sean consistentes con estándares de la
+    industria (ej: líneas base).
+utils.model.finding.enum.F043_DAST_RP.threat:
+  en: Unauthorized attacker from Internet network.
+  es: Atacante sin autorización desde red Internet.
+utils.model.finding.enum.F043_DAST_RP.title:
+  en: F043. Missing HTTP security headers - Referrer-Policy
+  es: F043. Cabeceras de seguridad HTTP no establecidas - Referrer-Policy
