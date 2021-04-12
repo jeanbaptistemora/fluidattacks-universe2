@@ -41,8 +41,10 @@ def lookup_java_class(
         )
 
     # Now lookoup in other shards different than the current shard
-    for shard in args.graph_db.shards:
-        if shard.path != args.shard.path:
+    for class_key, shard_path in args.graph_db.shards_by_java_class.items():
+        if class_name == class_key:
+            shard_index = args.graph_db.shards_by_path[shard_path]
+            shard = args.graph_db.shards[shard_index]
             if data := _lookup_java_class_in_shard(shard, class_name):
                 return LookedUpJavaClass(
                     metadata=data,

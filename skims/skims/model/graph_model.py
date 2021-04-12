@@ -42,7 +42,6 @@ SyntaxStepsLazy = Iterator[SyntaxStep]
 
 
 class CurrentInstance(NamedTuple):
-    class_ref: Optional[Any] = None
     fields: Optional[Dict[str, Any]] = None
 
 

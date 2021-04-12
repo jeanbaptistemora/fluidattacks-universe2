@@ -110,7 +110,6 @@ def _syntax_step_object_instantiation_values(args: EvaluatorArgs) -> None:
             ):
                 args.syntax_step.meta.value = JavaClassInstance(
                     fields=fields_modified,
-                    class_ref=lookup_java_class(args, object_type),
                 )
     elif java_class := lookup_java_class(args, object_type):
         args.syntax_step.meta.value = java_class

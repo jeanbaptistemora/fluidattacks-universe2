@@ -507,12 +507,9 @@ def analyze_method_invocation_values(args: EvaluatorArgs) -> None:
         if isinstance(dcl.meta.value, list):
             analyze_method_invocation_values_list(args, dcl, method_path)
     elif method := lookup_java_method(args, args.syntax_step.method):
-        class_instance = None
-        if lookup_class := lookup_java_class(args, method.metadata.class_name):
-            class_instance = JavaClassInstance(
-                fields={},
-                class_ref=lookup_class,
-            )
+        class_instance = JavaClassInstance(fields={}) if lookup_java_class(
+            args, method.metadata.class_name) else None
+
         if return_step := args.eval_method(
             args,
             method.metadata.n_id,

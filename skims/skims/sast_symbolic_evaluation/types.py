@@ -55,6 +55,7 @@ class EvaluatorArgs(NamedTuple):
     syntax_step: graph_model.SyntaxStep
     syntax_step_index: int
     syntax_steps: graph_model.SyntaxSteps
+    current_instance: Optional[graph_model.CurrentInstance] = None
 
 
 Evaluator = Callable[[EvaluatorArgs], None]
@@ -80,4 +81,3 @@ class LookedUpJavaClassField(NamedTuple):
 
 class JavaClassInstance(NamedTuple):
     fields: Dict[str, Optional[graph_model.SyntaxStep]]
-    class_ref: Optional[LookedUpJavaClass] = None

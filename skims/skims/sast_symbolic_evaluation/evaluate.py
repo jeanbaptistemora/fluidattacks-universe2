@@ -95,6 +95,12 @@ def eval_constructor(
             ):
                 _, field = split_on_last_dot(syntax_step.var)
                 modified_fields[field] = syntax_step.meta.value
+            elif (
+                isinstance(syntax_step, graph_model.SyntaxStepMethodInvocation)
+                and (syntax_step.method.startswith('this.')
+                     or '.' not in syntax_step.method)
+            ):
+                modified_fields.update(syntax_step.current_instance.fields)
 
     return modified_fields
 
@@ -112,6 +118,7 @@ def eval_method(
         n_id=method_n_id,
         overriden_syntax_steps=list(reversed(method_arguments)),
         shard=shard,
+        current_instance=current_instance,
     )
 
     result: Optional[graph_model.SyntaxStepReturn] = None
@@ -125,10 +132,10 @@ def eval_method(
                 and syntax_step.var.startswith('this.')
             ):
                 _, field = split_on_last_dot(syntax_step.var)
-                current_instance.fields[field] = syntax_step.meta.value
+                current_instance.fields[field] = syntax_step
 
             # Attempt to return the dangerous syntax step
-            if (
+            elif (
                 not result
                 and isinstance(syntax_step, graph_model.SyntaxStepReturn)
                 and syntax_step.meta.danger
@@ -218,6 +225,7 @@ def eval_syntax_steps(
     syntax_steps: graph_model.SyntaxSteps,
     n_id: graph_model.NId,
     n_id_next: graph_model.NId,
+    current_instance: Optional[graph_model.CurrentInstance] = None,
 ) -> graph_model.SyntaxSteps:
     if n_id not in shard.syntax:
         # We were not able to fully understand this node syntax
@@ -254,6 +262,7 @@ def eval_syntax_steps(
                 syntax_step=syntax_step,
                 syntax_step_index=syntax_step_index,
                 syntax_steps=syntax_steps,
+                current_instance=current_instance,
             ))
         else:
             # We are not able to evaluate this step
@@ -271,6 +280,7 @@ def get_possible_syntax_steps_from_path(
     overriden_syntax_steps: graph_model.SyntaxSteps,
     shard: graph_model.GraphShard,
     path: Tuple[str, ...],
+    current_instance: Optional[graph_model.CurrentInstance] = None,
 ) -> graph_model.SyntaxSteps:
     syntax_steps: graph_model.SyntaxSteps = []
 
@@ -287,6 +297,7 @@ def get_possible_syntax_steps_from_path(
                 syntax_steps=syntax_steps,
                 n_id=n_id,
                 n_id_next=n_id_next,
+                current_instance=current_instance
             )
         except ImpossiblePath:
             return []
@@ -309,6 +320,7 @@ def get_possible_syntax_steps_for_n_id(
     n_id: graph_model.NId,
     overriden_syntax_steps: Optional[graph_model.SyntaxSteps] = None,
     shard: graph_model.GraphShard,
+    current_instance: Optional[graph_model.CurrentInstance] = None,
 ) -> PossibleSyntaxStepsForUntrustedNId:
     syntax_steps_map: PossibleSyntaxStepsForUntrustedNId = {
         # Path identifier -> syntax_steps
@@ -318,6 +330,7 @@ def get_possible_syntax_steps_for_n_id(
             overriden_syntax_steps=overriden_syntax_steps or [],
             shard=shard,
             path=path,
+            current_instance=current_instance,
         )
         for path in g.branches_cfg(
             graph=shard.graph,

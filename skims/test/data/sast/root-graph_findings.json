@@ -806,7 +806,6 @@
           },
           {
             "current_instance": {
-              "class_ref": null,
               "fields": {}
             },
             "meta": {
@@ -820,7 +819,6 @@
           },
           {
             "current_instance": {
-              "class_ref": null,
               "fields": {}
             },
             "meta": {
@@ -2238,7 +2236,6 @@
           },
           {
             "current_instance": {
-              "class_ref": null,
               "fields": {}
             },
             "meta": {
@@ -2276,7 +2273,6 @@
         "50": [
           {
             "current_instance": {
-              "class_ref": null,
               "fields": {}
             },
             "meta": {
@@ -2303,7 +2299,6 @@
         "63": [
           {
             "current_instance": {
-              "class_ref": null,
               "fields": {}
             },
             "meta": {
@@ -2328,7 +2323,6 @@
           },
           {
             "current_instance": {
-              "class_ref": null,
               "fields": {}
             },
             "meta": {
