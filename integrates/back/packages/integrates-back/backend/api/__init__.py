@@ -41,6 +41,7 @@ from backend.api.dataloaders.group_stakeholders import GroupStakeholdersLoader
 from backend.api.dataloaders.group_stakeholders_non_fluid import (
     GroupStakeholdersNonFluidLoader
 )
+from backend.api.dataloaders.group_toe_lines import GroupToeLinesLoader
 from backend.api.dataloaders.organization import OrganizationLoader
 from backend.api.dataloaders.organization_stakeholders import (
     OrganizationStakeholdersLoader
@@ -71,6 +72,7 @@ class Dataloaders(NamedTuple):
     group_roots: GroupRootsLoader
     group_stakeholders: GroupStakeholdersLoader
     group_stakeholders_nf: GroupStakeholdersNonFluidLoader
+    group_toe_lines: GroupToeLinesLoader
     organization: OrganizationLoader
     organization_stakeholders: OrganizationStakeholdersLoader
     organization_tags: OrganizationTagsLoader
@@ -89,6 +91,7 @@ def get_new_context() -> Dataloaders:
         FindingVulnsNonZeroRiskLoader(finding_vulns_non_deleted_loader)
     finding_vulns_zr_loader = \
         FindingVulnsOnlyZeroRiskLoader(finding_vulns_loader)
+    root_toe_lines_loader = RootToeLinesLoader()
 
     return Dataloaders(
         event=EventLoader(),
@@ -107,10 +110,11 @@ def get_new_context() -> Dataloaders:
         group_stakeholders_nf=GroupStakeholdersNonFluidLoader(
             group_stakeholders_loader
         ),
+        group_toe_lines=GroupToeLinesLoader(root_toe_lines_loader),
         organization=OrganizationLoader(),
         organization_stakeholders=OrganizationStakeholdersLoader(),
         organization_tags=OrganizationTagsLoader(),
-        root_toe_lines=RootToeLinesLoader(),
+        root_toe_lines=root_toe_lines_loader,
         vulnerability=VulnerabilityLoader()
     )
 
