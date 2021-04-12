@@ -159,6 +159,7 @@ module.exports = {
         items: [
           'findings/security/f001',
           'findings/security/f002',
+          'findings/security/f003',
         ],
     },
     {
