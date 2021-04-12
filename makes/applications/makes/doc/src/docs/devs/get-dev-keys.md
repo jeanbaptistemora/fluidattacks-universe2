@@ -2,7 +2,7 @@
 id: get-dev-keys
 title: Get development keys
 sidebar_label: Get development keys
-slug: /devs/integrates/get-dev-keys
+slug: /devs/get-dev-keys
 ---
 
 Developers can use Okta to get development AWS credentials.

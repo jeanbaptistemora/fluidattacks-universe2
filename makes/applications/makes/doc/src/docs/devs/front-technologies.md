@@ -1,8 +1,8 @@
 ---
-id: integrates-front
-title: Integrates Front
-sidebar_label: Integrates Front
-slug: /devs/integrates/integrates-front
+id: front-technologies
+title: Front Technologies
+sidebar_label: Front Technologies
+slug: /devs/front-technologies
 ---
 
 ## Technology stack

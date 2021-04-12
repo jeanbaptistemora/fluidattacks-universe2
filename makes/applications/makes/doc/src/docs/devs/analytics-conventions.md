@@ -1,8 +1,8 @@
 ---
-id: observes-conventions
-title: Conventions
-sidebar_label: Conventions
-slug: /devs/observes/observes-conventions
+id: analytics-conventions
+title: Analytics Conventions
+sidebar_label: Analytics Conventions
+slug: /devs/analytics-conventions
 ---
 
 We have the strict purpose to maintain the information easily understandable for

@@ -172,26 +172,27 @@ module.exports = {
     Framework: getDocs('framework'),
   },
   Dev: [
-    'devs/commit-mr-guidelines',
+    'devs/products-repo-intro',
     {
       type: 'category',
-      label: 'Integrates',
+      label: 'Stack',
       items: [
-        'devs/integrates/get-dev-keys',
-        'devs/integrates/integrates-front',
-        'devs/integrates/kubernetes-cluster-connect',
-        'devs/integrates/dynamodb-patterns',
-        'devs/integrates/graphql-api',
-        'devs/integrates/integrates-mobile',
-        'devs/integrates/writing-code-suggestions',
+        {
+          type: 'category',
+          label: 'Git',
+          items: [
+            'devs/stack/git/commit-mr-guidelines',
+          ]
+        },
       ]
     },
-    {
-      type: 'category',
-      label: 'Observes',
-      items: [
-        'devs/observes/observes-conventions',
-      ]
-    },
+    'devs/get-dev-keys',
+    'devs/front-technologies',
+    'devs/kubernetes-cluster-connect',
+    'devs/dynamodb-patterns',
+    'devs/graphql-api',
+    'devs/mobile-technologies',
+    'devs/writing-code-suggestions',
+    'devs/analytics-conventions',
   ],
 };

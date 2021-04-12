@@ -2,7 +2,7 @@
 id: dynamodb-patterns
 title: DynamoDB Patterns
 sidebar_label: DynamoDB Patterns
-slug: /devs/integrates/dynamodb-patterns
+slug: /devs/dynamodb-patterns
 ---
 
 The following patterns were chosen following the best

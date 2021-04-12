@@ -2,14 +2,14 @@
 id: kubernetes-cluster-connect
 title: Connect to Kubernetes Cluster
 sidebar_label: Connect to Kubernetes Cluster
-slug: /devs/integrates/kubernetes-cluster-connect
+slug: /devs/kubernetes-cluster-connect
 ---
 
 ## Connect to cluster
 
 In order to connect to the Integrates Kubernetes Cluster, you must:
 
-1. Login as an Integrates developer using [this guide](/devs/integrates/get-dev-keys)
+1. Login as an Integrates developer using [this guide](/devs/get-dev-keys)
 2. Install kubectl with `nix-env -i kubectl`
 3. Select cluster by running `aws eks update-kubeconfig --name integrates-cluster --region us-east-1`
 4. Run `kubectl get node`

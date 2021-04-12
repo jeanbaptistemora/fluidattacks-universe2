@@ -2,7 +2,7 @@
 id: graphql-api
 title: GraphQL API
 sidebar_label: GraphQL API
-slug: /devs/integrates/graphql-api
+slug: /devs/graphql-api
 ---
 
 ## What is GraphQL?
@@ -271,7 +271,7 @@ appropriate decorator from `backend.decorators`
 In order to make the API more performant, we are moving towards a fully async backend.
 For better comprehension on how it's done in python, here's an article that provides a
 good explanation:
-[Writing fast and concurrent code, even at architectural windward](/devs/integrates/writing-code-suggestions)
+[Writing fast and concurrent code, even at architectural windward](/devs/writing-code-suggestions)
 
 ### Implementing and using dataloaders
 

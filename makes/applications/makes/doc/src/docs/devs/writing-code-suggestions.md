@@ -2,7 +2,7 @@
 id: writing-code-suggestions
 title: Writing fast and concurrent code, even at architectural windward
 sidebar_label: Writing fast and concurrent code, even at architectural windward
-slug: /devs/integrates/writing-code-suggestions
+slug: /devs/writing-code-suggestions
 ---
 
 As you may have noticed, Integrates has async definitions in the top-level resolvers
