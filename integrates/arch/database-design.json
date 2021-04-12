@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Mar 26, 2021, 05:21 PM",
+    "DateLastModified": "Apr 12, 2021, 12:00 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "2.0"
@@ -293,6 +293,22 @@
         {
           "AttributeName": "tested_lines",
           "AttributeType": "N"
+        },
+        {
+          "AttributeName": "vulns",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "created_date",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "seen_first_time_by",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "verified",
+          "AttributeType": "S"
         }
       ],
       "TableFacets": [
@@ -823,17 +839,17 @@
           "NonKeyAttributes": [
             "name",
             "description",
+            "type",
             "evidences",
             "affected_components",
             "cvss",
             "recommendation",
             "requirements",
             "threat",
+            "source",
             "using_sorts",
             "cwe",
             "attack_vector",
-            "type",
-            "source",
             "where",
             "specific"
           ],
@@ -1486,6 +1502,49 @@
             "modified_commit",
             "tested_date",
             "tested_lines"
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
+        },
+        {
+          "FacetName": "root_toe_inputs",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "GROUP#group_name",
+            "SortKeyAlias": "INPUTS#COMPONENT#component#ENTRYPOINT#entry_point"
+          },
+          "TableData": [
+            {
+              "pk": {
+                "S": "GROUP#unittesting"
+              },
+              "sk": {
+                "S": "INPUTS#COMPONENT#test.com/test/test.aspx#ENTRYPOINT#idTest"
+              },
+              "commit": {
+                "S": "e91320h"
+              },
+              "tested_date": {
+                "S": "2000-01-01"
+              },
+              "created_date": {
+                "S": "2020-03-14"
+              },
+              "seen_first_time_by": {
+                "S": "test@test.com"
+              },
+              "verified": {
+                "S": "No"
+              }
+            }
+          ],
+          "NonKeyAttributes": [
+            "commit",
+            "tested_date",
+            "verified",
+            "vulns",
+            "created_date",
+            "seen_first_time_by"
           ],
           "DataAccess": {
             "MySql": {}
