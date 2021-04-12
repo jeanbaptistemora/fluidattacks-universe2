@@ -39,6 +39,17 @@ async def populate() -> bool:
                 'push_tokens': [],
                 'is_registered': True,
             },
+            {
+                'email': 'closer@gmail.com',
+                'first_login': '',
+                'first_name': '',
+                'last_login': '',
+                'last_name': '',
+                'legal_remember': False,
+                'phone_number': '-',
+                'push_tokens': [],
+                'is_registered': True,
+            },
         ],
         'orgs': [
             {
@@ -85,6 +96,12 @@ async def populate() -> bool:
                         'description': 'evidence2',
                         'file_url': 'group1-475041513-evidence2',
                         'upload_date': '2021-03-16 13:58:41',
+                    },
+                    {
+                        'name': 'evidence_route_3',
+                        'description': 'evidence3',
+                        'file_url': 'group1-475041513-evidence3',
+                        'upload_date': '2021-03-16 15:58:41',
                     },
                 ],
                 'historic_state': [
@@ -170,6 +187,18 @@ async def populate() -> bool:
                 'subject': 'analyst@gmail.com',
                 'object': 'group1',
                 'role': 'analyst',
+            },
+            {
+                'level': 'user',
+                'subject': 'closer@gmail.com',
+                'object': 'self',
+                'role': 'user',
+            },
+            {
+                'level': 'group',
+                'subject': 'closer@gmail.com',
+                'object': 'group1',
+                'role': 'closer',
             },
             {
                 'level': 'organization',
