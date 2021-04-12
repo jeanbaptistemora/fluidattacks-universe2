@@ -88,14 +88,46 @@ const LinksSection: React.FC = (): JSX.Element => (
       <br />
     </LinksContainer>
     <LinksContainer>
-      <HeadLink link={"/categories/"} name={"Categories"} /> <br />
-      <BodyLink link={"/categories/sast/"} name={"SAST"} /> <br />
-      <BodyLink link={"/categories/dast/"} name={"DAST"} /> <br />
-      <BodyLink link={"/categories/penetration-testing/"} name={"MPT"} /> <br />
-      <BodyLink link={"/categories/sca/"} name={"SCA"} /> <br />
-      <BodyLink link={"/categories/re/"} name={"RE"} /> <br />
-      <BodyLink link={"/categories/ptaas/"} name={"PTaaS"} /> <br />
-      <BodyLink link={"/categories/asm/"} name={"ASM"} /> <br />
+      <HeadLink
+        link={"https://fluidattacks.com/categories/"}
+        name={"Categories"}
+      />{" "}
+      <br />
+      <BodyLink
+        link={"https://fluidattacks.com/categories/sast/"}
+        name={"SAST"}
+      />{" "}
+      <br />
+      <BodyLink
+        link={"https://fluidattacks.com/categories/dast/"}
+        name={"DAST"}
+      />{" "}
+      <br />
+      <BodyLink
+        link={"https://fluidattacks.com/categories/penetration-testing/"}
+        name={"MPT"}
+      />{" "}
+      <br />
+      <BodyLink
+        link={"https://fluidattacks.com/categories/sca/"}
+        name={"SCA"}
+      />{" "}
+      <br />
+      <BodyLink
+        link={"https://fluidattacks.com/categories/re/"}
+        name={"RE"}
+      />{" "}
+      <br />
+      <BodyLink
+        link={"https://fluidattacks.com/categories/ptaas/"}
+        name={"PTaaS"}
+      />{" "}
+      <br />
+      <BodyLink
+        link={"https://fluidattacks.com/categories/asm/"}
+        name={"ASM"}
+      />{" "}
+      <br />
     </LinksContainer>
     <LinksContainer>
       <HeadLink link={"/systems/"} name={"Systems"} /> <br />

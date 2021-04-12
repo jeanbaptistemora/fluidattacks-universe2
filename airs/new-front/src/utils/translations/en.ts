@@ -37,7 +37,7 @@ const pageTexts: ResourceKey = {
   },
   ebook: {
     download: "Download eBook now",
-    phrase: "HACKING WITH SPEED AND PREcISION",
+    phrase: "HACKING WITH SPEED AND PRECISION",
     question: "ARE YOU GOING FAST IN THE WRONG DIRECTION?",
   },
   service: {

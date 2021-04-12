@@ -39,7 +39,7 @@ const Portrait: React.FC = (): JSX.Element => (
             className={
               "demo-button roboto f5 c-fluid-bk fw3 no-underline t-all-3-eio"
             }
-            to={"/contact-us/"}
+            to={"https://fluidattacks.com/contact-us/"}
           >
             <p className={"fl ma0 t-all-3-eio"}>{"Get a Demo"}</p>
             <FontAwesomeIcon

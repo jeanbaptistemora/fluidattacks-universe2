@@ -121,13 +121,19 @@ const ContactSection: React.FC = (): JSX.Element => (
       <div className={"flex-l"}>
         <InnerSection className={"ml0-l mr-auto-l center"}>
           <MainText>{translate.t("contactUs.formMessage")}</MainText>
-          <Link className={"no-underline"} to={"/contact-us/"}>
+          <Link
+            className={"no-underline"}
+            to={"https://fluidattacks.com/contact-us/"}
+          >
             <RedButton>{translate.t("contactUs.formButton")}</RedButton>
           </Link>
         </InnerSection>
         <InnerSection>
           <MainText>{translate.t("contactUs.subscribeMessage")}</MainText>
-          <Link className={"no-underline"} to={"/subscription/"}>
+          <Link
+            className={"no-underline"}
+            to={"https://fluidattacks.com/subscription/"}
+          >
             <RedButton>{"Subscribe"}</RedButton>
           </Link>
         </InnerSection>
