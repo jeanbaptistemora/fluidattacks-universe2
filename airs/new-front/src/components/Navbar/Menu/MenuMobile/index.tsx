@@ -357,7 +357,7 @@ const MenuMobile: React.FC = (): JSX.Element => (
                     className={
                       "hv-fluid-rd f5 c-fluid-bk fw4 no-underline menu-txt-trans roboto"
                     }
-                    to={"/about-us/clients/"}
+                    to={"https://fluidattacks.com/about-us/clients/"}
                   >
                     {"Clients"}
                   </Link>
@@ -367,7 +367,7 @@ const MenuMobile: React.FC = (): JSX.Element => (
                     className={
                       "hv-fluid-rd f5 c-fluid-bk fw4 no-underline menu-txt-trans roboto"
                     }
-                    to={"/about-us/certifications/"}
+                    to={"https://fluidattacks.com/about-us/certifications/"}
                   >
                     {"Certifications"}
                   </Link>
@@ -377,7 +377,7 @@ const MenuMobile: React.FC = (): JSX.Element => (
                     className={
                       "hv-fluid-rd f5 c-fluid-bk fw4 no-underline menu-txt-trans roboto"
                     }
-                    to={"/about-us/differentiators/"}
+                    to={"https://fluidattacks.com/about-us/differentiators/"}
                   >
                     {"Differentiators"}
                   </Link>
@@ -387,7 +387,7 @@ const MenuMobile: React.FC = (): JSX.Element => (
                     className={
                       "hv-fluid-rd f5 c-fluid-bk fw4 no-underline menu-txt-trans roboto"
                     }
-                    to={"/about-us/values/"}
+                    to={"https://fluidattacks.com/about-us/values/"}
                   >
                     {"Values"}
                   </Link>
@@ -397,7 +397,7 @@ const MenuMobile: React.FC = (): JSX.Element => (
                     className={
                       "hv-fluid-rd f5 c-fluid-bk fw4 no-underline menu-txt-trans roboto"
                     }
-                    to={"/about-us/reviews/"}
+                    to={"https://fluidattacks.com/about-us/reviews/"}
                   >
                     {"Reviews"}
                   </Link>
@@ -407,7 +407,7 @@ const MenuMobile: React.FC = (): JSX.Element => (
                     className={
                       "hv-fluid-rd f5 c-fluid-bk fw4 no-underline menu-txt-trans roboto"
                     }
-                    to={"/about-us/events/"}
+                    to={"https://fluidattacks.com/about-us/events/"}
                   >
                     {"Events"}
                   </Link>
@@ -417,7 +417,7 @@ const MenuMobile: React.FC = (): JSX.Element => (
                     className={
                       "hv-fluid-rd f5 c-fluid-bk fw4 no-underline menu-txt-trans roboto"
                     }
-                    to={"/about-us/people/"}
+                    to={"https://fluidattacks.com/about-us/people/"}
                   >
                     {"People"}
                   </Link>
@@ -427,7 +427,7 @@ const MenuMobile: React.FC = (): JSX.Element => (
                     className={
                       "hv-fluid-rd f5 c-fluid-bk fw4 no-underline menu-txt-trans roboto"
                     }
-                    to={"/about-us/security/"}
+                    to={"https://fluidattacks.com/about-us/security/"}
                   >
                     {"Security"}
                   </Link>
@@ -441,7 +441,7 @@ const MenuMobile: React.FC = (): JSX.Element => (
             className={
               "hv-fluid-rd f5 c-fluid-bk fw4 no-underline menu-txt-trans roboto"
             }
-            to={"/blog/"}
+            to={"https://fluidattacks.com/blog/"}
           >
             {"Blog"}
           </Link>
@@ -451,7 +451,7 @@ const MenuMobile: React.FC = (): JSX.Element => (
             className={
               "hv-fluid-rd f5 c-fluid-bk fw4 no-underline menu-txt-trans roboto"
             }
-            to={"/advisories/"}
+            to={"https://fluidattacks.com/advisories/"}
           >
             {"Advisories"}
           </Link>
@@ -461,7 +461,7 @@ const MenuMobile: React.FC = (): JSX.Element => (
             className={
               "hv-fluid-rd f5 c-fluid-bk fw4 no-underline menu-txt-trans roboto"
             }
-            to={"/resources/"}
+            to={"https://fluidattacks.com/resources/"}
           >
             {"Resources"}
           </Link>
@@ -471,7 +471,7 @@ const MenuMobile: React.FC = (): JSX.Element => (
             className={
               "hv-fluid-rd f5 c-fluid-bk fw4 no-underline menu-txt-trans roboto"
             }
-            to={"/plans/"}
+            to={"https://fluidattacks.com/plans/"}
           >
             {"Plans"}
           </Link>
@@ -481,7 +481,7 @@ const MenuMobile: React.FC = (): JSX.Element => (
             className={
               "hv-fluid-rd f5 c-fluid-bk fw4 no-underline menu-txt-trans roboto"
             }
-            to={"/careers/"}
+            to={"https://fluidattacks.com/careers/"}
           >
             {"Careers"}
           </Link>
@@ -491,7 +491,7 @@ const MenuMobile: React.FC = (): JSX.Element => (
             className={
               "hv-fluid-rd f5 c-fluid-bk fw4 no-underline menu-txt-trans roboto"
             }
-            to={"/faq/"}
+            to={"https://fluidattacks.com/faq/"}
           >
             {"FAQ"}
           </Link>
@@ -515,7 +515,7 @@ const MenuMobile: React.FC = (): JSX.Element => (
             className={
               "no-underline c-fluid-bk f-key-features menu-txt-trans roboto hv-fluid-rd nt-125"
             }
-            to={"/contact-us/"}
+            to={"https://fluidattacks.com/contact-us/"}
           >
             <ContactButton>{"Contact"}</ContactButton>
           </Link>

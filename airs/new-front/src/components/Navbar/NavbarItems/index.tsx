@@ -31,7 +31,10 @@ const NavbarItems: React.FC = (): JSX.Element => (
     </li>
 
     <li className={"fr pv4 db-l dn"}>
-      <Link className={"no-underline"} to={"/contact-us/"}>
+      <Link
+        className={"no-underline"}
+        to={"https://fluidattacks.com/contact-us/"}
+      >
         <NavbarContactButton>{"Contact"}</NavbarContactButton>
       </Link>
     </li>
@@ -50,13 +53,16 @@ const NavbarItems: React.FC = (): JSX.Element => (
     </li>
 
     <li className={"db-xl display-none fr mr3 pv4"}>
-      <Link className={"no-underline"} to={"/blog/"}>
+      <Link className={"no-underline"} to={"https://fluidattacks.com/blog/"}>
         <NavbarRegularButton>{"Blog"}</NavbarRegularButton>
       </Link>
     </li>
 
     <li className={"db-xl display-none fr mr3 pr2 pv4"}>
-      <Link className={"no-underline"} to={"/resources/"}>
+      <Link
+        className={"no-underline"}
+        to={"https://fluidattacks.com/resources/"}
+      >
         <NavbarRegularButton>{"Resources"}</NavbarRegularButton>
       </Link>
     </li>

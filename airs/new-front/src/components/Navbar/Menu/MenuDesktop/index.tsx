@@ -65,7 +65,7 @@ const MenuDesktop: React.FC = (): JSX.Element => (
             <li className={"mb4"}>
               <Link
                 className={"menulink white f3 roboto no-underline nowrap"}
-                to={"/systems/"}
+                to={"https://fluidattacks.com/systems/"}
               >
                 {"Systems"}
               </Link>
@@ -73,7 +73,7 @@ const MenuDesktop: React.FC = (): JSX.Element => (
             <li className={"mv1"}>
               <Link
                 className={"menulink white roboto no-underline nowrap"}
-                to={"/systems/web-apps/"}
+                to={"https://fluidattacks.com/systems/web-apps/"}
               >
                 {"Web Applications"}
               </Link>
@@ -81,7 +81,7 @@ const MenuDesktop: React.FC = (): JSX.Element => (
             <li className={"mv1"}>
               <Link
                 className={"menulink white roboto no-underline nowrap"}
-                to={"/systems/mobile-apps/"}
+                to={"https://fluidattacks.com/systems/mobile-apps/"}
               >
                 {"Mobile Applications"}
               </Link>
@@ -89,7 +89,7 @@ const MenuDesktop: React.FC = (): JSX.Element => (
             <li className={"mv1"}>
               <Link
                 className={"menulink white roboto no-underline nowrap"}
-                to={"/systems/thick-clients/"}
+                to={"https://fluidattacks.com/systems/thick-clients/"}
               >
                 {"Thick Clients"}
               </Link>
@@ -97,7 +97,7 @@ const MenuDesktop: React.FC = (): JSX.Element => (
             <li className={"mv1"}>
               <Link
                 className={"menulink white roboto no-underline nowrap"}
-                to={"/systems/apis/"}
+                to={"https://fluidattacks.com/systems/apis/"}
               >
                 {"API's and Microservices"}
               </Link>
@@ -105,7 +105,7 @@ const MenuDesktop: React.FC = (): JSX.Element => (
             <li className={"mv1"}>
               <Link
                 className={"menulink white roboto no-underline nowrap"}
-                to={"/systems/cloud-infrastructure/"}
+                to={"https://fluidattacks.com/systems/cloud-infrastructure/"}
               >
                 {"Cloud Infrastructure"}
               </Link>
@@ -113,7 +113,7 @@ const MenuDesktop: React.FC = (): JSX.Element => (
             <li className={"mv1"}>
               <Link
                 className={"menulink white roboto no-underline nowrap"}
-                to={"/systems/networks-and-hosts/"}
+                to={"https://fluidattacks.com/systems/networks-and-hosts/"}
               >
                 {"Networks and Hosts"}
               </Link>
@@ -121,7 +121,7 @@ const MenuDesktop: React.FC = (): JSX.Element => (
             <li className={"mv1"}>
               <Link
                 className={"menulink white roboto no-underline nowrap"}
-                to={"/systems/iot/"}
+                to={"https://fluidattacks.com/systems/iot/"}
               >
                 {"Internet of Things"}
               </Link>
@@ -129,7 +129,7 @@ const MenuDesktop: React.FC = (): JSX.Element => (
             <li className={"mv1"}>
               <Link
                 className={"menulink white roboto no-underline nowrap"}
-                to={"/systems/ot/"}
+                to={"https://fluidattacks.com/systems/ot/"}
               >
                 {"SCADA and OT"}
               </Link>
@@ -219,7 +219,7 @@ const MenuDesktop: React.FC = (): JSX.Element => (
             <li className={"mb4"}>
               <Link
                 className={"menulink white f3 roboto no-underline nowrap"}
-                to={"/about-us/"}
+                to={"https://fluidattacks.com/about-us/"}
               >
                 {"About Us"}
               </Link>
@@ -227,7 +227,7 @@ const MenuDesktop: React.FC = (): JSX.Element => (
             <li className={"mv1"}>
               <Link
                 className={"menulink white roboto no-underline nowrap"}
-                to={"/about-us/clients/"}
+                to={"https://fluidattacks.com/about-us/clients/"}
               >
                 {"Clients"}
               </Link>
@@ -235,7 +235,7 @@ const MenuDesktop: React.FC = (): JSX.Element => (
             <li className={"mv1"}>
               <Link
                 className={"menulink white roboto no-underline nowrap"}
-                to={"/about-us/differentiators/"}
+                to={"https://fluidattacks.com/about-us/differentiators/"}
               >
                 {"Differentiators"}
               </Link>
@@ -243,7 +243,7 @@ const MenuDesktop: React.FC = (): JSX.Element => (
             <li className={"mv1"}>
               <Link
                 className={"menulink white roboto no-underline nowrap"}
-                to={"/about-us/values/"}
+                to={"https://fluidattacks.com/about-us/values/"}
               >
                 {"Values"}
               </Link>
@@ -251,7 +251,7 @@ const MenuDesktop: React.FC = (): JSX.Element => (
             <li className={"mv1"}>
               <Link
                 className={"menulink white roboto no-underline nowrap"}
-                to={"/about-us/reviews/"}
+                to={"https://fluidattacks.com/about-us/reviews/"}
               >
                 {"Reviews"}
               </Link>
@@ -259,7 +259,7 @@ const MenuDesktop: React.FC = (): JSX.Element => (
             <li className={"mv1"}>
               <Link
                 className={"menulink white roboto no-underline nowrap"}
-                to={"/about-us/resources/"}
+                to={"https://fluidattacks.com/about-us/resources/"}
               >
                 {"Resources"}
               </Link>
@@ -267,7 +267,7 @@ const MenuDesktop: React.FC = (): JSX.Element => (
             <li className={"mv1"}>
               <Link
                 className={"menulink white roboto no-underline nowrap"}
-                to={"/about-us/events/"}
+                to={"https://fluidattacks.com/about-us/events/"}
               >
                 {"Events"}
               </Link>
@@ -275,7 +275,7 @@ const MenuDesktop: React.FC = (): JSX.Element => (
             <li className={"mv1"}>
               <Link
                 className={"menulink white roboto no-underline nowrap"}
-                to={"/about-us/people/"}
+                to={"https://fluidattacks.com/about-us/people/"}
               >
                 {"People"}
               </Link>
@@ -283,7 +283,7 @@ const MenuDesktop: React.FC = (): JSX.Element => (
             <li className={"mv1"}>
               <Link
                 className={"menulink white roboto no-underline nowrap"}
-                to={"/about-us/security/"}
+                to={"https://fluidattacks.com/about-us/security/"}
               >
                 {"Security"}
               </Link>
@@ -301,7 +301,7 @@ const MenuDesktop: React.FC = (): JSX.Element => (
           <SidebarListItem>
             <Link
               className={"c-fluid-bk roboto no-underline nowrap hv-fluid-rd"}
-              to={"/blog/"}
+              to={"https://fluidattacks.com/blog/"}
             >
               {"Blog"}
             </Link>
@@ -309,7 +309,7 @@ const MenuDesktop: React.FC = (): JSX.Element => (
           <SidebarListItem>
             <Link
               className={"c-fluid-bk roboto no-underline nowrap hv-fluid-rd"}
-              to={"/partners/"}
+              to={"https://fluidattacks.com/partners/"}
             >
               {"Partners"}
             </Link>
@@ -317,7 +317,7 @@ const MenuDesktop: React.FC = (): JSX.Element => (
           <SidebarListItem>
             <Link
               className={"c-fluid-bk roboto no-underline nowrap hv-fluid-rd"}
-              to={"/careers/"}
+              to={"https://fluidattacks.com/careers/"}
             >
               {"Careers"}
             </Link>
@@ -325,7 +325,7 @@ const MenuDesktop: React.FC = (): JSX.Element => (
           <SidebarListItem>
             <Link
               className={"c-fluid-bk roboto no-underline nowrap hv-fluid-rd"}
-              to={"/advisories/"}
+              to={"https://fluidattacks.com/advisories/"}
             >
               {"Advisories"}
             </Link>
@@ -333,7 +333,7 @@ const MenuDesktop: React.FC = (): JSX.Element => (
           <SidebarListItem>
             <Link
               className={"c-fluid-bk roboto no-underline nowrap hv-fluid-rd"}
-              to={"/plans/"}
+              to={"https://fluidattacks.com/plans/"}
             >
               {"Plans"}
             </Link>
@@ -341,7 +341,7 @@ const MenuDesktop: React.FC = (): JSX.Element => (
           <SidebarListItem>
             <Link
               className={"c-fluid-bk roboto no-underline nowrap hv-fluid-rd"}
-              to={"/faq/"}
+              to={"https://fluidattacks.com/faq/"}
             >
               {"FAQ"}
             </Link>
@@ -357,7 +357,7 @@ const MenuDesktop: React.FC = (): JSX.Element => (
           <SidebarListItem>
             <Link
               className={"c-fluid-bk roboto no-underline nowrap hv-fluid-rd"}
-              to={"/contact-us/"}
+              to={"https://fluidattacks.com/contact-us/"}
             >
               {"Contact"}
             </Link>

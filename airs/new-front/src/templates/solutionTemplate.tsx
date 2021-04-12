@@ -92,16 +92,21 @@ const SolutionIndex: React.FC<IQueryData> = ({
                 <CenteredSpacedContainer>
                   <BlackSolutionParagraph className={"tc"}>
                     {`${title} ${translate.t("solution.belonging")} `}
-                    <Link className={"basic-link"} to={"."}>
+                    <Link
+                      className={"basic-link"}
+                      to={"/services/continuous-hacking/"}
+                    >
                       {"Continuous Hacking"}
                     </Link>
                     {" service"}
                   </BlackSolutionParagraph>
                 </CenteredSpacedContainer>
                 <CenteredSpacedContainer>
-                  <RegularRedButton>
-                    {translate.t("contactUs.contactFluidAttacks")}
-                  </RegularRedButton>
+                  <Link to={"/contact-us/"}>
+                    <RegularRedButton>
+                      {translate.t("contactUs.contactFluidAttacks")}
+                    </RegularRedButton>
+                  </Link>
                 </CenteredSpacedContainer>
               </FullWidthContainer>
               <FullWidthContainer className={"pv4"}>
