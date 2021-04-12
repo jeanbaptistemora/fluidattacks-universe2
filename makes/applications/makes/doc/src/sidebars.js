@@ -157,7 +157,7 @@ module.exports = {
       type: 'category',
         label: 'Security',
         items: [
-          
+          'findings/security/f001',
         ],
     },
     {
