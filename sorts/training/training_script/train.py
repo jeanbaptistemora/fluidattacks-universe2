@@ -169,6 +169,7 @@ def train_model(
             f'{metrics[2]:.1f}',
             f'{metrics[3]:.1f}'
         ])
+
     return training_output
 
 
