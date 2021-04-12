@@ -130,57 +130,129 @@ const LinksSection: React.FC = (): JSX.Element => (
       <br />
     </LinksContainer>
     <LinksContainer>
-      <HeadLink link={"/systems/"} name={"Systems"} /> <br />
-      <BodyLink link={"/systems/web-apps/"} name={"Web Applications"} /> <br />
+      <HeadLink link={"https://fluidattacks.com/systems/"} name={"Systems"} />{" "}
+      <br />
       <BodyLink
-        link={"/systems/mobile-apps/"}
+        link={"https://fluidattacks.com/systems/web-apps/"}
+        name={"Web Applications"}
+      />{" "}
+      <br />
+      <BodyLink
+        link={"https://fluidattacks.com/systems/mobile-apps/"}
         name={"Mobile Applications"}
       />{" "}
       <br />
-      <BodyLink link={"/systems/thick-clients/"} name={"Thick Clients"} />{" "}
-      <br />
-      <BodyLink link={"/systems/apis/"} name={"APIs and Microservices"} />{" "}
+      <BodyLink
+        link={"https://fluidattacks.com/systems/thick-clients/"}
+        name={"Thick Clients"}
+      />{" "}
       <br />
       <BodyLink
-        link={"/systems/cloud-infrastructure/"}
+        link={"https://fluidattacks.com/systems/apis/"}
+        name={"APIs and Microservices"}
+      />{" "}
+      <br />
+      <BodyLink
+        link={"https://fluidattacks.com/systems/cloud-infrastructure/"}
         name={"Cloud Infrastructure"}
       />{" "}
       <br />
       <BodyLink
-        link={"/systems/networks-and-hosts/"}
+        link={"https://fluidattacks.com/systems/networks-and-hosts/"}
         name={"Networks and Hosts"}
       />{" "}
       <br />
-      <BodyLink link={"/systems/iot/"} name={"Internet of Things"} /> <br />
-      <BodyLink link={"/systems/ot/"} name={"SCADA and OT"} /> <br />
-    </LinksContainer>
-    <LinksContainer>
-      <HeadLink link={"/compliance/"} name={"Compliance"} /> <br />
-      <BodyLink link={"/compliance/owasp/"} name={"OWASP"} /> <br />
-      <BodyLink link={"/compliance/pci/"} name={"PCI"} /> <br />
-      <BodyLink link={"/compliance/hipaa/"} name={"HIPAA"} /> <br />
-      <BodyLink link={"/compliance/nist/"} name={"NIST"} /> <br />
-      <BodyLink link={"/compliance/gdpr/"} name={"GDPR"} /> <br />
-    </LinksContainer>
-    <LinksContainer>
-      <HeadLink link={"/about-us/"} name={"About Us"} /> <br />
-      <BodyLink link={"/about-us/clients/"} name={"Clients"} /> <br />
       <BodyLink
-        link={"/about-us/certifications/"}
+        link={"https://fluidattacks.com/systems/iot/"}
+        name={"Internet of Things"}
+      />{" "}
+      <br />
+      <BodyLink
+        link={"https://fluidattacks.com/systems/ot/"}
+        name={"SCADA and OT"}
+      />{" "}
+      <br />
+    </LinksContainer>
+    <LinksContainer>
+      <HeadLink
+        link={"https://fluidattacks.com/systems/"}
+        name={"Compliance"}
+      />{" "}
+      <br />
+      <BodyLink
+        link={"https://fluidattacks.com/systems/owasp/"}
+        name={"OWASP"}
+      />{" "}
+      <br />
+      <BodyLink
+        link={"https://fluidattacks.com/systems/pci/"}
+        name={"PCI"}
+      />{" "}
+      <br />
+      <BodyLink
+        link={"https://fluidattacks.com/systems/hipaa/"}
+        name={"HIPAA"}
+      />{" "}
+      <br />
+      <BodyLink
+        link={"https://fluidattacks.com/systems/nist/"}
+        name={"NIST"}
+      />{" "}
+      <br />
+      <BodyLink
+        link={"https://fluidattacks.com/systems/gdpr/"}
+        name={"GDPR"}
+      />{" "}
+      <br />
+    </LinksContainer>
+    <LinksContainer>
+      <HeadLink link={"https://fluidattacks.com/about-us/"} name={"About Us"} />{" "}
+      <br />
+      <BodyLink
+        link={"https://fluidattacks.com/about-us/clients/"}
+        name={"Clients"}
+      />{" "}
+      <br />
+      <BodyLink
+        link={"https://fluidattacks.com/about-us/certifications/"}
         name={"Certifications"}
       />{" "}
       <br />
       <BodyLink
-        link={"/about-us/differentiators/"}
+        link={"https://fluidattacks.com/about-us/differentiators/"}
         name={"Differentiators"}
       />{" "}
       <br />
-      <BodyLink link={"/about-us/values/"} name={"Values"} /> <br />
-      <BodyLink link={"/about-us/reviews/"} name={"Reviews"} /> <br />
-      <BodyLink link={"/about-us/resources/"} name={"Resources"} /> <br />
-      <BodyLink link={"/about-us/events/"} name={"Events"} /> <br />
-      <BodyLink link={"/about-us/people/"} name={"People"} /> <br />
-      <BodyLink link={"/about-us/security/"} name={"Security"} /> <br />
+      <BodyLink
+        link={"https://fluidattacks.com/about-us/values/"}
+        name={"Values"}
+      />{" "}
+      <br />
+      <BodyLink
+        link={"https://fluidattacks.com/about-us/reviews/"}
+        name={"Reviews"}
+      />{" "}
+      <br />
+      <BodyLink
+        link={"https://fluidattacks.com/about-us/resources/"}
+        name={"Resources"}
+      />{" "}
+      <br />
+      <BodyLink
+        link={"https://fluidattacks.com/about-us/events/"}
+        name={"Events"}
+      />{" "}
+      <br />
+      <BodyLink
+        link={"https://fluidattacks.com/about-us/people/"}
+        name={"People"}
+      />{" "}
+      <br />
+      <BodyLink
+        link={"https://fluidattacks.com/about-us/security/"}
+        name={"Security"}
+      />{" "}
+      <br />
     </LinksContainer>
     <LinksContainer>
       <HeadLink link={"/blog/"} name={"Blog"} /> <br />
@@ -193,8 +265,16 @@ const LinksSection: React.FC = (): JSX.Element => (
         name={"Community"}
       />{" "}
       <br />
-      <HeadLink link={"/contact-us/"} name={"Contact"} /> <br />
-      <HeadLink link={"/newsletter/"} name={"Newsletter"} /> <br />
+      <HeadLink
+        link={"https://fluidattacks.com/contact-us/"}
+        name={"Contact"}
+      />{" "}
+      <br />
+      <HeadLink
+        link={"https://fluidattacks.com/newsletter/"}
+        name={"Newsletter"}
+      />{" "}
+      <br />
     </LinksContainer>
   </FooterMenuContainer>
 );
