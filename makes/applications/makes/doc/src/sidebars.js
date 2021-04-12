@@ -61,6 +61,7 @@ module.exports = {
           items: [
             'web/vulnerabilities/new-vulnerability-types/create-draft',
             'web/vulnerabilities/new-vulnerability-types/new-vuln-description',
+            'web/vulnerabilities/new-vulnerability-types/new-vuln-severity',
           ],
         },
         'web/vulnerabilities/reporting-vulns',
@@ -153,7 +154,7 @@ module.exports = {
   Framework: {
     Framework: getDocs('framework'),
   },
-  Devs: [
+  Dev: [
     'devs/commit-mr-guidelines',
     {
       type: 'category',
