@@ -151,6 +151,23 @@ module.exports = {
     'agent/introduction',
     'agent/installation',
   ],
+  Findings: [
+    'findings/introduction',
+    {
+      type: 'category',
+        label: 'Security',
+        items: [
+          
+        ],
+    },
+    {
+      type: 'category',
+        label: 'Hygiene',
+        items: [
+          
+        ],
+    },
+  ],
   Framework: {
     Framework: getDocs('framework'),
   },

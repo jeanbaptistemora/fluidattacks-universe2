@@ -44,6 +44,15 @@ const features = [
     link: 'requirements'
   },
   {
+    title: 'Findings',
+    description: (
+      <>
+        List of findings related to security requirements
+      </>
+    ),
+    link: 'findings'
+  },
+  {
     title: 'Dev',
     description: (
       <>
