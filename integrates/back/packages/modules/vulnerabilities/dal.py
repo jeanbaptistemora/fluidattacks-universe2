@@ -73,7 +73,6 @@ async def create(data: Dict[str, FindingType]) -> bool:
             'UUID': str(data.get('UUID')),
             'vuln_type': data.get('vuln_type'),
             'where': data.get('where'),
-            'repo_nickname': data.get('repo_nickname'),
             'source': str(data.get('source', 'integrates')),
             'specific': str(data.get('specific')),
             'historic_treatment': data.get('historic_treatment'),
@@ -85,6 +84,8 @@ async def create(data: Dict[str, FindingType]) -> bool:
             item['commit_hash'] = data['commit_hash']
         if 'historic_verification' in data:
             item['historic_verification'] = data['historic_verification']
+        if data.get('repo_nickname'):
+            item['repo_nickname'] = data['repo_nickname']
         resp = await dynamodb.async_put_item(TABLE_NAME, item)
     except ClientError as ex:
         LOGGER.exception(ex, extra={'extra': locals()})

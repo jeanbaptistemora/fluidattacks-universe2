@@ -353,6 +353,11 @@ resource "aws_dynamodb_table" "vulnerabilities" {
     type = "S"
   }
 
+  attribute {
+    name = "repo_nickname"
+    type = "S"
+  }
+
   point_in_time_recovery {
     enabled = true
   }
@@ -361,6 +366,13 @@ resource "aws_dynamodb_table" "vulnerabilities" {
     name            = "gsi_uuid"
     hash_key        = "UUID"
     projection_type = "ALL"
+  }
+
+  global_secondary_index {
+    name            = "repo_index"
+    hash_key        = "repo_nickname"
+    range_key       = "UUID"
+    projection_type = "KEYS_ONLY"
   }
 
   tags = {

@@ -265,11 +265,21 @@ resource "aws_dynamodb_table" "FI_vulnerabilities" {
     name = "UUID"
     type = "S"
   }
+  attribute {
+    name = "repo_nickname"
+    type = "S"
+  }
   billing_mode = "PAY_PER_REQUEST"
   global_secondary_index {
     hash_key        = "UUID"
     name            = "gsi_uuid"
     projection_type = "ALL"
+  }
+  global_secondary_index {
+    name            = "repo_index"
+    hash_key        = "repo_nickname"
+    range_key       = "UUID"
+    projection_type = "KEYS_ONLY"
   }
   hash_key  = "finding_id"
   name      = "FI_vulnerabilities"
