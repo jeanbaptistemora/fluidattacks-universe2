@@ -22,14 +22,10 @@ import simplejson as json
 from aioextensions import (
     collect,
     in_process,
-    schedule,
 )
 
 from back.settings import LOGGING
-from backend import (
-    authz,
-    mailer,
-)
+from backend import authz
 from backend.authz.policy import get_group_level_role
 from backend.dal import project as project_dal
 from backend.dal.helpers.dynamodb import start_context
@@ -38,7 +34,6 @@ from backend.exceptions import (
     GroupNotFound,
     InvalidParameter,
     InvalidProjectName,
-    InvalidProjectServicesConfig,
     RepeatedValues,
     UserNotInOrganization,
 )
@@ -56,6 +51,7 @@ from backend.typing import (
 from comments import domain as comments_domain
 from events import domain as events_domain
 from findings import domain as findings_domain
+from groups import domain as groups_domain
 from names import domain as names_domain
 from newutils import (
     datetime as datetime_utils,
@@ -78,48 +74,6 @@ LOGGER = logging.getLogger(__name__)
 
 async def can_user_access(project: str, role: str) -> bool:
     return await project_dal.can_user_access(project, role)
-
-
-def send_comment_mail(
-    user_email: str,
-    comment_data: CommentType,
-    project_name: str
-) -> None:
-    schedule(
-        mailer.send_comment_mail(
-            comment_data,
-            'project',
-            user_email,
-            'project',
-            project_name
-        )
-    )
-
-
-def validate_project_services_config(
-    is_continuous_type: bool,
-    has_drills: bool,
-    has_forces: bool,
-    has_integrates: bool,
-) -> None:
-    if is_continuous_type:
-        if has_drills:
-            if not has_integrates:
-                raise InvalidProjectServicesConfig(
-                    'Drills is only available when Integrates is too')
-
-        if has_forces:
-            if not has_integrates:
-                raise InvalidProjectServicesConfig(
-                    'Forces is only available when Integrates is too')
-            if not has_drills:
-                raise InvalidProjectServicesConfig(
-                    'Forces is only available when Drills is too')
-
-    else:
-        if has_forces:
-            raise InvalidProjectServicesConfig(
-                'Forces is only available in projects of type Continuous')
 
 
 async def create_group(  # pylint: disable=too-many-arguments,too-many-locals
@@ -145,7 +99,7 @@ async def create_group(  # pylint: disable=too-many-arguments,too-many-locals
 
     if description.strip() and project_name.strip():
 
-        validate_project_services_config(
+        groups_domain.validate_group_services_config(
             is_continuous_type,
             has_drills,
             has_forces,
@@ -234,7 +188,7 @@ async def edit(
 
     validations.validate_fields([comments])
     validations.validate_string_length_between(comments, 0, 250)
-    validate_project_services_config(
+    groups_domain.validate_group_services_config(
         is_continuous_type,
         has_drills,
         has_forces,

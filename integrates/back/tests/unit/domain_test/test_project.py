@@ -40,7 +40,6 @@ from backend.domain.project import (
     list_events,
     remove_access,
     total_vulnerabilities,
-    validate_project_services_config,
     validate_tags,
 )
 from backend.exceptions import (
@@ -48,7 +47,10 @@ from backend.exceptions import (
     RepeatedValues,
 )
 from findings import dal as findings_dal
-from groups.domain import add_comment
+from groups.domain import (
+    add_comment,
+    validate_group_services_config,
+)
 from names import domain as names_domain
 from newutils import datetime as datetime_utils
 from vulnerabilities import dal as vulns_dal
@@ -59,15 +61,15 @@ pytestmark = [
 ]
 
 
-def test_validate_project_services_config():
+def test_validate_group_services_config():
     with pytest.raises(InvalidProjectServicesConfig):
-        validate_project_services_config(True, True, False, False)
+        validate_group_services_config(True, True, False, False)
     with pytest.raises(InvalidProjectServicesConfig):
-        validate_project_services_config(True, False, True, True)
+        validate_group_services_config(True, False, True, True)
     with pytest.raises(InvalidProjectServicesConfig):
-        validate_project_services_config(True, True, True, False)
+        validate_group_services_config(True, True, True, False)
     with pytest.raises(InvalidProjectServicesConfig):
-        validate_project_services_config(False, False, True, True)
+        validate_group_services_config(False, False, True, True)
 
 
 @pytest.mark.changes_db
