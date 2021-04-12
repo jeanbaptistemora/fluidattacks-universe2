@@ -9,6 +9,7 @@ resource "cloudflare_certificate_pack" "main" {
   hosts = [
     cloudflare_zone.fluidattacks_com.zone,
     "*.${cloudflare_zone.fluidattacks_com.zone}",
+    "*.app.${cloudflare_zone.fluidattacks_com.zone}",
     "*.integrates.${cloudflare_zone.fluidattacks_com.zone}",
     "*.front.production.${cloudflare_zone.fluidattacks_com.zone}",
     "*.front.development.${cloudflare_zone.fluidattacks_com.zone}",
