@@ -70,7 +70,7 @@
       changes:
         - "sorts/static/*"
         - "sorts/sorts/**/*"
-        - "sorts/training/*"
+        - "sorts/training/**/*"
 
 makes.test.sorts:
   <<: *makes
