@@ -4,6 +4,9 @@
 , ...
 }:
 makeTemplate {
+  arguments = {
+    envAcceptedKeywordsFile = path "/makes/packages/airs/adoc/linter/acepted_keywords.lst";
+  };
   name = "airs-adoc-linter";
   searchPaths = {
     envPaths = [

@@ -171,7 +171,7 @@ function check_adoc_keywords_casing {
   &&  mapfile -t words < list \
   &&  for word in "${words[@]}"
       do
-        if test "$(echo "${word}" | grep -cPv '^[A-Z]+[a-z]*$')" -gt 0
+        if test "$(echo "${word}" | grep -cPv '^[A-Z]+[a-z]*$')" -gt 0 && ! test "$(grep -cP "^${word}$" __envAcceptedKeywordsFile__)" -gt 0
         then
           abort "[ERROR] ${msg}: ${word}: ${target}"
         fi
