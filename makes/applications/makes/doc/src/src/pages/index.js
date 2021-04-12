@@ -35,13 +35,13 @@ const features = [
     link: 'agent'
   },
   {
-    title: 'Rules',
+    title: 'Requirements',
     description: (
       <>
         List of security requirements considered by our organization
       </>
     ),
-    link: 'rules'
+    link: 'requirements'
   },
   {
     title: 'Dev',

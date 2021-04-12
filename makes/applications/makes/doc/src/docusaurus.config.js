@@ -38,9 +38,9 @@ module.exports = {
           position: 'left',
         },
         {
-          to: 'rules/',
-          activeBasePath: 'rules/',
-          label: 'Rules',
+          to: 'requirements/',
+          activeBasePath: 'requirements/',
+          label: 'Requirements',
           position: 'left',
         },
         {
