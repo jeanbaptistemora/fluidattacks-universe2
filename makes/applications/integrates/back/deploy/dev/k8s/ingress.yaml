@@ -17,7 +17,7 @@ metadata:
     external-dns.alpha.kubernetes.io/cloudflare-proxied: "true"
 spec:
   rules:
-    - host: ${CI_COMMIT_REF_NAME}.integrates.fluidattacks.com
+    - host: ${CI_COMMIT_REF_NAME}.app.fluidattacks.com
       http:
         paths:
           - path: /*

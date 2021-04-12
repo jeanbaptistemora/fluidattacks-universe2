@@ -58,7 +58,7 @@ def integrates_endpoint(
         raise NotImplementedError('e2e is only designed to run in dev env')
 
     return (
-        f'https://{branch}.integrates.fluidattacks.com'
+        f'https://{branch}.app.fluidattacks.com'
         if is_ci
         else 'https://localhost:8001'
     )

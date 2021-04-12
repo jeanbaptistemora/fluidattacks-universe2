@@ -59,7 +59,7 @@ spec:
               - integrates-dev
               - FluidIntegrates
               - http://localhost:8001
-              - https://${CI_COMMIT_REF_NAME}.integrates.fluidattacks.com
+              - https://${CI_COMMIT_REF_NAME}.app.fluidattacks.com
             initialDelaySeconds: 90
             periodSeconds: 30
             successThreshold: 1
