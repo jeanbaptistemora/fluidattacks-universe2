@@ -24,3 +24,10 @@ spec:
             backend:
               serviceName: integrates-master
               servicePort: 81
+    - host: app.fluidattacks.com
+      http:
+        paths:
+          - path: /*
+            backend:
+              serviceName: integrates-master
+              servicePort: 81
