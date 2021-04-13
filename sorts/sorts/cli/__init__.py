@@ -15,7 +15,10 @@ from sorts.training.commit import get_subscription_commit_metadata
 from sorts.training.file import get_subscription_file_metadata
 from sorts.utils.bugs import configure_bugsnag
 from sorts.utils.decorators import shield
-from sorts.utils.logs import log
+from sorts.utils.logs import (
+    log,
+    log_to_remote_info
+)
 
 
 @click.command(
@@ -88,8 +91,14 @@ def execute_sorts(
         success = prioritize_commits(subscription)
     else:
         success = prioritize_files(subscription)
-    log('info', 'Success: %s', success)
-    log('info', 'Finished after %.2f seconds.', time.time() - start_time)
+    log_to_remote_info(
+        msg=f'Success: {success}',
+        subscription=subscription,
+        time=f'Finished after {time.time() - start_time} seconds',
+        get_commit_data=get_commit_data,
+        get_file_data=get_file_data,
+        predict_commit=predict_commit
+    )
     sys.exit(0 if success else 1)
 
 

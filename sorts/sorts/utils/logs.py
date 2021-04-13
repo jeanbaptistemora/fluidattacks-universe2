@@ -65,6 +65,10 @@ def log(level: str, msg: str, *args: Any) -> None:
     getattr(LOGGER, level)(msg, *args)
 
 
+def log_to_remote_info(msg: str, **meta_data: str) -> None:
+    log_to_remote(Exception(msg), severity='info', **meta_data)
+
+
 def log_exception(
     level: str,
     exception: BaseException,
@@ -74,12 +78,16 @@ def log_exception(
     exc_msg: str = str(exception)
     log(level, 'Exception: %s, %s, %s', exc_type, exc_msg, meta_data)
     if level in ('warning', 'error', 'critical'):
-        log_to_remote(exception, **meta_data)
+        log_to_remote(exception, severity=level, **meta_data)
 
 
-def log_to_remote(exception: BaseException, **meta_data: str) -> None:
+def log_to_remote(
+    exception: BaseException,
+    severity: str,
+    **meta_data: str
+) -> None:
     meta_data.update(BUGS_META.get() or {})
-    bugsnag.notify(exception, meta_data=meta_data)
+    bugsnag.notify(exception, meta_data=meta_data, severity=severity)
 
 
 # Side effects
