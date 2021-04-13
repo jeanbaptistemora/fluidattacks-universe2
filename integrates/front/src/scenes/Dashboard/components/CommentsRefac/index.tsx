@@ -1,14 +1,20 @@
-import { Comment } from "antd";
+import _ from "lodash";
 import moment from "moment";
-import React, { useCallback, useContext, useEffect, useState } from "react";
-
-import { CommentEditor } from "./commentEditor";
+import React, {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 
 import type {
   ICommentStructure,
   ILoadCallback,
   IPostCallback,
 } from "scenes/Dashboard/components/Comments/types";
+import { CommentEditor } from "scenes/Dashboard/components/CommentsRefac/commentEditor";
+import { NestedComment } from "scenes/Dashboard/components/CommentsRefac/nestedComment";
 import type { IAuthContext } from "utils/auth";
 import { authContext } from "utils/auth";
 import { translate } from "utils/translations/translate";
@@ -21,12 +27,22 @@ interface ICommentsRefacProps {
   ) => void;
 }
 
+interface ICommentContext {
+  replying: number;
+  setReplying?: React.Dispatch<React.SetStateAction<number>>;
+}
+
+const commentContext: React.Context<ICommentContext> = createContext({
+  replying: 0,
+});
+
 const CommentsRefac: React.FC<ICommentsRefacProps> = (
   props: ICommentsRefacProps
 ): JSX.Element => {
   const { onLoad, onPostComment } = props;
   const { userEmail, userName }: IAuthContext = useContext(authContext);
   const [comments, setComments] = useState<ICommentStructure[]>([]);
+  const [replying, setReplying] = useState<number>(0);
 
   const onMount: () => void = (): void => {
     onLoad((cData: ICommentStructure[]): void => {
@@ -41,7 +57,7 @@ const CommentsRefac: React.FC<ICommentsRefacProps> = (
     return moment(now).format("YYYY/MM/DD HH:mm:ss");
   };
 
-  const clickHandler = useCallback(
+  const postHandler = useCallback(
     (editorText: string): void => {
       onPostComment(
         {
@@ -53,41 +69,40 @@ const CommentsRefac: React.FC<ICommentsRefacProps> = (
           fullname: userName,
           id: 0,
           modified: getFormattedTime(),
-          parent: Number("0"),
+          parent: replying,
         },
         (result: ICommentStructure): void => {
           setComments([...comments, result]);
+          setReplying(0);
         }
       );
     },
-    [comments, onPostComment, userEmail, userName]
+    [comments, onPostComment, replying, userEmail, userName]
   );
+
+  const rootComments: ICommentStructure[] = _.filter(comments, ["parent", 0]);
 
   return (
     <React.StrictMode>
-      <CommentEditor onPost={clickHandler} />
-      {comments.length > 0
-        ? comments.map(
-            (comment: ICommentStructure): JSX.Element => (
-              <React.Fragment key={comment.id}>
-                <hr />
-                <Comment
-                  actions={[
-                    <span key={"comment-nested-reply"}>
-                      {translate.t("comments.reply")}
-                    </span>,
-                  ]}
-                  author={comment.fullname}
-                  content={comment.content}
-                  datetime={comment.created}
-                  key={comment.id}
-                />
-              </React.Fragment>
+      <hr />
+      <CommentEditor onPost={postHandler} />
+      <commentContext.Provider value={{ replying, setReplying }}>
+        {rootComments.length > 0
+          ? _.orderBy(rootComments, ["created"], ["desc"]).map(
+              (comment: ICommentStructure): JSX.Element => (
+                <React.Fragment key={comment.id}>
+                  <NestedComment
+                    comments={comments}
+                    id={comment.id}
+                    onPost={postHandler}
+                  />
+                </React.Fragment>
+              )
             )
-          )
-        : translate.t("comments.noComments")}
+          : translate.t("comments.noComments")}
+      </commentContext.Provider>
     </React.StrictMode>
   );
 };
 
-export { CommentsRefac, ICommentsRefacProps };
+export { CommentsRefac, commentContext, ICommentContext, ICommentsRefacProps };

@@ -35,8 +35,9 @@ const CommentEditor: React.FC<ICommentEditorProps> = (
       <Form.Item>
         <TextArea
           allowClear={true}
+          autoSize={{ maxRows: 10, minRows: 4 }}
           onChange={onChange}
-          rows={4}
+          placeholder={"Add a comment"}
           value={editorText}
         />
       </Form.Item>
