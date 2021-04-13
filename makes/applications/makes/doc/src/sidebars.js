@@ -153,24 +153,12 @@ module.exports = {
   ],
   Findings: [
     'findings/introduction',
-    {
-      type: 'category',
-        label: 'Security',
-        items: [
-          'findings/security/f001',
-          'findings/security/f002',
-          'findings/security/f003',
-          'findings/security/f004',
-          'findings/security/f005',
-        ],
-    },
-    {
-      type: 'category',
-        label: 'Hygiene',
-        items: [
-          'findings/hygiene/f037',
-        ],
-    },
+    'findings/f001',
+    'findings/f002',
+    'findings/f003',
+    'findings/f004',
+    'findings/f005',
+    'findings/f037',
   ],
   Framework: {
     Framework: getDocs('framework'),
