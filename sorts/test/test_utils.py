@@ -17,7 +17,7 @@ def test_get_best_combination() -> None:
             'num_lines',
             'commit_frequency'
         ),
-        'best_f1': '69'
+        'best_f1': '77'
 
     }
     with open(

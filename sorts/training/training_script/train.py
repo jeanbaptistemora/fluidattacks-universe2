@@ -84,8 +84,9 @@ def get_best_combination(
     )
     best_features: Tuple[str, ...] = tuple()
     best_f1: str = ''
+    overfit_limit: int = 8
     for results_row in sorted_results:
-        if float(results_row[5]) < 5:
+        if float(results_row[5]) < overfit_limit:
             best_features = tuple([
                 inv_features_dict[feature]
                 for feature in results_row[1].split(' ')
