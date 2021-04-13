@@ -279,7 +279,10 @@ resource "aws_dynamodb_table" "FI_vulnerabilities" {
     name            = "repo_index"
     hash_key        = "repo_nickname"
     range_key       = "UUID"
-    projection_type = "KEYS_ONLY"
+    projection_type = "INCLUDE"
+    non_key_attributes = [
+      "historic_state"
+    ]
   }
   hash_key  = "finding_id"
   name      = "FI_vulnerabilities"
