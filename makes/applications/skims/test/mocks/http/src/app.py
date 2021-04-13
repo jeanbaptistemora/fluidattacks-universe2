@@ -3,6 +3,7 @@ from functools import (
     partial,
 )
 from typing import (
+    Callable,
     Dict,
 )
 import urllib.parse
@@ -21,9 +22,20 @@ from flask.wrappers import (
 APP = Flask(__name__)
 
 
+def add_rule(
+    finding: str,
+    index: int,
+    handler: Callable[[], Response],
+) -> None:
+    rule: str = f'/{finding}_{index}'
+    endpoint: str = f'{finding}_{index}'
+    APP.add_url_rule(rule, endpoint, handler)
+
+
 @APP.route('/')
-def home() -> str:
-    return '\n'.join(sorted(
+def home() -> Response:
+    # Return a small sitemap with the available URL and methods in the server
+    content = '\n'.join(sorted(
         f'{request.host_url[:-1]}{urllib.parse.unquote(url)} {rule.methods}'
         for rule in APP.url_map.iter_rules()
         for url in [url_for(rule.endpoint, **{
@@ -31,27 +43,37 @@ def home() -> str:
         })]
     ))
 
+    return Response(content, content_type='text/plain')
 
-def configure_f043_dast_sts() -> None:
 
-    def generator(headers: Dict[str, str]) -> Response:
-        return Response(headers=headers)
+def response_header(headers: Dict[str, str]) -> Response:
+    return Response(headers=headers)
 
+
+def add_f043_dast_rp_rules() -> None:
+    for index, headers in enumerate([
+        {},
+        {'Referrer-Policy': ''},
+        {'Referrer-Policy': 'out-of-spec'},
+        {'Referrer-Policy': 'out-of-spec, unsafe-url, same-origin'},
+        {'Referrer-Policy': 'out-of-spec, same-origin, unsafe-url'},
+    ]):
+        add_rule('f043_dast_rp', index, partial(response_header, headers))
+
+
+def add_f043_dast_sts_rules() -> None:
     for index, headers in enumerate([
         {},
         {'Strict-Transport-Security': ''},
         {'Strict-Transport-Security': 'max-age=31535999'},
         {'Strict-Transport-Security': 'max-age=31536000'},
     ]):
-        APP.add_url_rule(
-            f'/f043_dast_sts_{index}',
-            f'_f043_dast_sts_{index}',
-            partial(generator, headers=headers),
-        )
+        add_rule('f043_dast_sts', index, partial(response_header, headers))
 
 
 def start() -> None:
     APP.run()
 
 
-configure_f043_dast_sts()
+add_f043_dast_rp_rules()
+add_f043_dast_sts_rules()
