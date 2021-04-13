@@ -16,6 +16,10 @@ async def add_user_access(email: str, group: str, role: str) -> bool:
     )
 
 
+async def get_group_users(group: str, active: bool = True) -> List[str]:
+    return await group_access_dal.get_group_users(group, active)
+
+
 async def get_user_groups(user_email: str, active: bool) -> List[str]:
     return await group_access_dal.get_user_groups(user_email, active)
 

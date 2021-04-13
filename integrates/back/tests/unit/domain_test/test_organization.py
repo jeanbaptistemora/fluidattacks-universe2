@@ -6,7 +6,6 @@ from graphql import GraphQLError
 
 from backend import authz
 from backend.api import get_new_context
-from backend.domain import project as project_domain
 from backend.exceptions import (
     InvalidAcceptanceDays,
     InvalidAcceptanceSeverity,
@@ -15,6 +14,7 @@ from backend.exceptions import (
     InvalidOrganization,
     UserNotInOrganization
 )
+from group_access import domain as group_access_domain
 from organizations import domain as orgs_domain
 
 
@@ -33,7 +33,7 @@ async def test_add_group():
     await orgs_domain.add_group(org_id, group)
     assert await orgs_domain.has_group(org_id, group)
 
-    users = await project_domain.get_users(group)
+    users = await group_access_domain.get_group_users(group)
     assert await authz.get_organization_level_role(
         users[0], org_id
     ) == 'group_manager'
@@ -52,7 +52,7 @@ async def test_add_user():
 
     groups = await orgs_domain.get_groups(org_id)
     groups_users = await collect(
-        project_domain.get_users(group) for group in groups
+        group_access_domain.get_group_users(group) for group in groups
     )
     assert all([user in group_users for group_users in groups_users])
 
@@ -283,13 +283,13 @@ async def test_remove_user():
     user = 'org_testuser3@gmail.com'
     group = 'sheele'
     org_id = 'ORG#f2e2777d-a168-4bea-93cd-d79142b294d2'
-    group_users = await project_domain.get_users(group)
+    group_users = await group_access_domain.get_group_users(group)
     assert user in group_users
     assert await authz.get_group_level_role(user, group) == 'customer'
     assert await authz.get_organization_level_role(user, org_id) == 'customer'
 
     assert await orgs_domain.remove_user(context, org_id, user)
-    updated_group_users = await project_domain.get_users(group)
+    updated_group_users = await group_access_domain.get_group_users(group)
     assert user not in updated_group_users
     assert await authz.get_group_level_role(user, group) == ''
     assert await authz.get_organization_level_role(user, org_id) == ''

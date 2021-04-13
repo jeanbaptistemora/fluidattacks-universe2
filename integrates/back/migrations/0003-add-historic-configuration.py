@@ -16,10 +16,10 @@ from datetime import datetime
 
 import bugsnag
 from backend import util
-from backend.dal import (
-    project as project_dal,
-)
+from backend.dal import project as project_dal
 from backend import authz
+from group_access import domain as group_access_domain
+
 
 STAGE: str = os.environ['STAGE']
 
@@ -31,8 +31,8 @@ def log(message: str) -> None:
 
 def guess_owner(group: str) -> str:
     all_users = (
-        project_dal.get_users(group, active=True)
-        + project_dal.get_users(group, active=False)
+        group_access_domain.get_group_users(group, active=True) +
+        group_access_domain.get_group_users(group, active=False)
     )
 
     possible_owner: str = 'unknown'

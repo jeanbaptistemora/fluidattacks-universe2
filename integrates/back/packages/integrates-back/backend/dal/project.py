@@ -24,8 +24,8 @@ from backend.typing import (
     DynamoDelete as DynamoDeleteType,
     Project as ProjectType,
 )
+from group_access import domain as group_access_domain
 from events.dal import TABLE_NAME as EVENTS_TABLE_NAME
-from newutils import datetime as datetime_utils
 from users.dal import get_user_name
 
 
@@ -197,41 +197,6 @@ async def get_description(project: str) -> str:
     return project_description
 
 
-async def get_users(project: str, active: bool = True) -> List[str]:
-    """Get users of a project."""
-    project_name = project.lower()
-    key_condition = Key('project_name').eq(project_name)
-    projection_expression = \
-        'user_email, has_access, project_name, responsibility'
-    now_epoch = datetime_utils.get_as_epoch(
-        datetime_utils.get_now()
-    )
-    filter_exp = (
-        Attr('expiration_time').not_exists() |
-        Attr('expiration_time').gt(now_epoch)
-    )
-    query_attrs = {
-        'IndexName': 'project_access_users',
-        'KeyConditionExpression': key_condition,
-        'ProjectionExpression': projection_expression,
-        'FilterExpression': filter_exp,
-    }
-    users = await dynamodb.async_query(TABLE_ACCESS_NAME, query_attrs)
-    if active:
-        users_filtered = [
-            user.get('user_email')
-            for user in users
-            if user.get('has_access', '')
-        ]
-    else:
-        users_filtered = [
-            user.get('user_email')
-            for user in users
-            if not user.get('has_access', '')
-        ]
-    return users_filtered
-
-
 async def exists(
     project_name: str,
     pre_computed_project_data: Optional[Dict[str, str]] = None
@@ -247,8 +212,8 @@ async def exists(
 
 async def list_project_managers(group: str) -> List[str]:
     users_active, users_inactive = await collect([
-        get_users(group, True),
-        get_users(group, False)
+        group_access_domain.get_group_users(group, True),
+        group_access_domain.get_group_users(group, False)
     ])
     all_users = users_active + users_inactive
     users_roles = await collect([

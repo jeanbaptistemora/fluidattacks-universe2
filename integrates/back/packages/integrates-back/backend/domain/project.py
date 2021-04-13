@@ -363,8 +363,8 @@ async def delete_project(
 async def remove_all_users_access(context: Any, project: str) -> bool:
     """Remove user access to project."""
     user_active, user_suspended = await collect([
-        get_users(project, True),
-        get_users(project, False)
+        group_access_domain.get_group_users(project, True),
+        group_access_domain.get_group_users(project, False)
     ])
     all_users = user_active + user_suspended
     are_users_removed = all(await collect([
@@ -820,7 +820,7 @@ async def get_mean_remediate_non_treated(
 async def get_closers(
         project_name: str,
         active: bool = True) -> List[str]:
-    users = await get_users(project_name, active)
+    users = await group_access_domain.get_group_users(project_name, active)
     user_roles = await collect(
         get_group_level_role(user, project_name)
         for user in users
@@ -927,10 +927,6 @@ async def get_description(project_name: str) -> str:
     return await project_dal.get_description(project_name)
 
 
-async def get_users(project_name: str, active: bool = True) -> List[str]:
-    return await project_dal.get_users(project_name, active)
-
-
 async def get_many_groups(
         groups_name: List[str]) -> List[ProjectType]:
     async with AsyncExitStack() as stack:
@@ -946,7 +942,7 @@ async def get_many_groups(
 async def get_users_to_notify(
         project_name: str,
         active: bool = True) -> List[str]:
-    users = await get_users(project_name, active)
+    users = await group_access_domain.get_group_users(project_name, active)
     user_roles = await collect(
         get_group_level_role(user, project_name)
         for user in users
@@ -959,7 +955,10 @@ async def get_users_to_notify(
 
 
 async def get_managers(project_name: str) -> List[str]:
-    users = await get_users(project_name, active=True)
+    users = await group_access_domain.get_group_users(
+        project_name,
+        active=True
+    )
     users_roles = await collect([
         authz.get_group_level_role(user, project_name)
         for user in users
@@ -1139,8 +1138,8 @@ async def get_stakeholders(
 ) -> List[StakeholderType]:
     group_stakeholders_emails = cast(List[str], list(chain.from_iterable(
         await collect([
-            get_users(group_name),
-            get_users(group_name, False)
+            group_access_domain.get_group_users(group_name),
+            group_access_domain.get_group_users(group_name, False)
         ])
     )))
 

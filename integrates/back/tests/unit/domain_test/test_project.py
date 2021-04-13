@@ -33,7 +33,6 @@ from backend.domain.project import (
     get_pending_closing_check,
     get_pending_verification_findings,
     get_total_treatment,
-    get_users,
     is_vulnerability_closed,
     list_comments,
     list_events,
@@ -45,7 +44,10 @@ from backend.exceptions import (
     RepeatedValues,
 )
 from findings import dal as findings_dal
-from group_access.domain import remove_access
+from group_access.domain import (
+    get_group_users,
+    remove_access,
+)
 from groups.domain import (
     add_comment,
     is_alive,
@@ -377,7 +379,7 @@ async def test_get_users():
         'continuoushack2@gmail.com',
         'integratesreviewer@fluidattacks.com'
     ]
-    assert expected_output == await get_users(project_name)
+    assert expected_output == await get_group_users(project_name)
 
 
 async def test_get_closers():

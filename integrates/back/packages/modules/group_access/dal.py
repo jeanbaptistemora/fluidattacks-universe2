@@ -4,7 +4,10 @@ import logging.config
 from typing import List
 
 # Third-party libraries
-from boto3.dynamodb.conditions import Key
+from boto3.dynamodb.conditions import (
+    Attr,
+    Key,
+)
 from botocore.exceptions import ClientError
 
 # Local libraries
@@ -14,7 +17,10 @@ from backend.typing import (
     DynamoDelete as DynamoDeleteType,
     ProjectAccess as GroupAccessType,
 )
-from newutils import apm
+from newutils import (
+    apm,
+    datetime as datetime_utils,
+)
 
 
 logging.config.dictConfig(LOGGING)
@@ -22,6 +28,40 @@ logging.config.dictConfig(LOGGING)
 # Constants
 LOGGER = logging.getLogger(__name__)
 TABLE_NAME: str = 'FI_project_access'
+
+
+async def get_group_users(group: str, active: bool = True) -> List[str]:
+    """Get users of a project."""
+    group_name = group.lower()
+    key_condition = Key('project_name').eq(group_name)
+    projection_expression = (
+        'user_email, has_access, project_name, responsibility'
+    )
+    now_epoch = datetime_utils.get_as_epoch(datetime_utils.get_now())
+    filter_exp = (
+        Attr('expiration_time').not_exists() |
+        Attr('expiration_time').gt(now_epoch)
+    )
+    query_attrs = {
+        'IndexName': 'project_access_users',
+        'KeyConditionExpression': key_condition,
+        'ProjectionExpression': projection_expression,
+        'FilterExpression': filter_exp,
+    }
+    users = await dynamodb.async_query(TABLE_NAME, query_attrs)
+    if active:
+        users_filtered = [
+            user.get('user_email')
+            for user in users
+            if user.get('has_access', '')
+        ]
+    else:
+        users_filtered = [
+            user.get('user_email')
+            for user in users
+            if not user.get('has_access', '')
+        ]
+    return users_filtered
 
 
 @apm.trace()
