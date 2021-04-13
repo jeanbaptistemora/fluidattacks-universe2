@@ -51,6 +51,18 @@ class GitRootState(NamedTuple):
     status: str
 
 
+class GitRootToeInputItem(NamedTuple):
+    commit: str
+    component: str
+    created_date: str
+    entry_point: str
+    group_name: str
+    seen_first_time_by: str
+    tested_date: str
+    verified: str
+    vulns: str
+
+
 class GitRootToeLinesItem(NamedTuple):
     comments: str
     filename: str
