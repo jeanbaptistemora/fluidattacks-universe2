@@ -1,0 +1,11 @@
+checks:
+- F034
+namespace: OWASP
+output: skims/test/data/results/instance_references.csv
+path:
+  include:
+  - src/App.java
+  - src/User.java
+  lib_path: false
+  lib_root: true
+working_dir: skims/test/data/benchmark/instance_references

@@ -3021,11 +3021,11 @@
           "248": {
             "label_c": 43,
             "label_l": 32,
-            "label_text": "nextFloat",
+            "label_text": "nextInt",
             "label_type": "identifier"
           },
           "249": {
-            "label_c": 52,
+            "label_c": 50,
             "label_l": 32,
             "label_type": "argument_list"
           },
@@ -3035,19 +3035,19 @@
             "label_type": "throws"
           },
           "250": {
-            "label_c": 52,
+            "label_c": 50,
             "label_l": 32,
             "label_text": "(",
             "label_type": "("
           },
           "251": {
-            "label_c": 53,
+            "label_c": 51,
             "label_l": 32,
             "label_text": ")",
             "label_type": ")"
           },
           "252": {
-            "label_c": 54,
+            "label_c": 52,
             "label_l": 32,
             "label_text": ";",
             "label_type": ";"
@@ -3241,52 +3241,52 @@
           "280": {
             "label_c": 52,
             "label_l": 36,
-            "label_text": "Float",
+            "label_text": "Integer",
             "label_type": "identifier"
           },
           "281": {
-            "label_c": 57,
+            "label_c": 59,
             "label_l": 36,
             "label_text": ".",
             "label_type": "."
           },
           "282": {
-            "label_c": 58,
+            "label_c": 60,
             "label_l": 36,
             "label_text": "toString",
             "label_type": "identifier"
           },
           "283": {
-            "label_c": 66,
+            "label_c": 68,
             "label_l": 36,
             "label_type": "argument_list"
           },
           "284": {
-            "label_c": 66,
+            "label_c": 68,
             "label_l": 36,
             "label_text": "(",
             "label_type": "("
           },
           "285": {
-            "label_c": 67,
+            "label_c": 69,
             "label_l": 36,
             "label_text": "rand",
             "label_type": "identifier"
           },
           "286": {
-            "label_c": 71,
+            "label_c": 73,
             "label_l": 36,
             "label_text": ")",
             "label_type": ")"
           },
           "287": {
-            "label_c": 72,
+            "label_c": 74,
             "label_l": 36,
             "label_text": ")",
             "label_type": ")"
           },
           "288": {
-            "label_c": 73,
+            "label_c": 75,
             "label_l": 36,
             "label_text": ";",
             "label_type": ";"
@@ -4861,7 +4861,7 @@
               "n_id": "240",
               "value": null
             },
-            "method": ".nextFloat",
+            "method": ".nextInt",
             "type": "SyntaxStepMethodInvocationChain"
           },
           {
@@ -4942,7 +4942,7 @@
               "n_id": "279",
               "value": null
             },
-            "method": "Float.toString",
+            "method": "Integer.toString",
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -5526,34 +5526,14 @@
               "label_index": "0"
             }
           },
-          "102": {
-            "103": {
+          "100": {
+            "101": {
               "label_ast": "AST",
-              "label_cfg": "CFG",
-              "label_cfg_always": "cfg_always",
               "label_index": "0"
             },
-            "104": {
+            "102": {
               "label_ast": "AST",
               "label_index": "1"
-            },
-            "112": {
-              "label_ast": "AST",
-              "label_index": "2"
-            },
-            "118": {
-              "label_ast": "AST",
-              "label_index": "3"
-            },
-            "126": {
-              "label_ast": "AST",
-              "label_index": "4"
-            }
-          },
-          "103": {
-            "104": {
-              "label_cfg": "CFG",
-              "label_cfg_always": "cfg_always"
             }
           },
           "104": {
@@ -5563,23 +5543,39 @@
               "label_cfg_always": "cfg_always",
               "label_index": "0"
             },
-            "111": {
+            "106": {
               "label_ast": "AST",
               "label_index": "1"
+            },
+            "114": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "120": {
+              "label_ast": "AST",
+              "label_index": "3"
+            },
+            "126": {
+              "label_ast": "AST",
+              "label_index": "4"
             }
           },
           "105": {
             "106": {
-              "label_ast": "AST",
-              "label_index": "0"
-            },
-            "107": {
-              "label_ast": "AST",
-              "label_index": "1"
-            },
-            "111": {
               "label_cfg": "CFG",
               "label_cfg_always": "cfg_always"
+            }
+          },
+          "106": {
+            "107": {
+              "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always",
+              "label_index": "0"
+            },
+            "113": {
+              "label_ast": "AST",
+              "label_index": "1"
             }
           },
           "107": {
@@ -5591,55 +5587,69 @@
               "label_ast": "AST",
               "label_index": "1"
             },
-            "110": {
-              "label_ast": "AST",
-              "label_index": "2"
-            }
-          },
-          "111": {
-            "112": {
+            "113": {
               "label_cfg": "CFG",
               "label_cfg_always": "cfg_always"
             }
           },
-          "112": {
-            "113": {
+          "109": {
+            "110": {
               "label_ast": "AST",
-              "label_cfg": "CFG",
-              "label_cfg_always": "cfg_always",
               "label_index": "0"
             },
-            "117": {
+            "111": {
               "label_ast": "AST",
               "label_index": "1"
+            },
+            "112": {
+              "label_ast": "AST",
+              "label_index": "2"
             }
           },
           "113": {
             "114": {
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always"
+            }
+          },
+          "114": {
+            "115": {
+              "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always",
+              "label_index": "0"
+            },
+            "119": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "115": {
+            "116": {
               "label_ast": "AST",
               "label_index": "0"
             },
-            "115": {
+            "117": {
               "label_ast": "AST",
               "label_index": "1"
             },
-            "116": {
+            "118": {
               "label_ast": "AST",
               "label_index": "2"
             },
-            "117": {
-              "label_cfg": "CFG",
-              "label_cfg_always": "cfg_always"
-            }
-          },
-          "117": {
-            "118": {
-              "label_cfg": "CFG",
-              "label_cfg_always": "cfg_always"
-            }
-          },
-          "118": {
             "119": {
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always"
+            }
+          },
+          "119": {
+            "120": {
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always"
+            }
+          },
+          "120": {
+            "121": {
               "label_ast": "AST",
               "label_cfg": "CFG",
               "label_cfg_always": "cfg_always",
@@ -5648,20 +5658,6 @@
             "125": {
               "label_ast": "AST",
               "label_index": "1"
-            }
-          },
-          "119": {
-            "120": {
-              "label_ast": "AST",
-              "label_index": "0"
-            },
-            "121": {
-              "label_ast": "AST",
-              "label_index": "1"
-            },
-            "125": {
-              "label_cfg": "CFG",
-              "label_cfg_always": "cfg_always"
             }
           },
           "121": {
@@ -5676,6 +5672,10 @@
             "124": {
               "label_ast": "AST",
               "label_index": "2"
+            },
+            "125": {
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always"
             }
           },
           "125": {
@@ -6371,7 +6371,7 @@
               "label_ast": "AST",
               "label_index": "2"
             },
-            "51": {
+            "53": {
               "label_ast": "AST",
               "label_index": "3"
             }
@@ -6395,7 +6395,7 @@
               "label_cfg_always": "cfg_always",
               "label_index": "0"
             },
-            "50": {
+            "52": {
               "label_ast": "AST",
               "label_index": "1"
             }
@@ -6409,77 +6409,63 @@
               "label_ast": "AST",
               "label_index": "1"
             },
-            "50": {
-              "label_cfg": "CFG",
-              "label_cfg_always": "cfg_always"
-            }
-          },
-          "46": {
             "47": {
               "label_ast": "AST",
-              "label_index": "0"
+              "label_index": "2"
             },
             "48": {
               "label_ast": "AST",
-              "label_index": "1"
+              "label_index": "3"
             },
-            "49": {
-              "label_ast": "AST",
-              "label_index": "2"
-            }
-          },
-          "50": {
-            "51": {
+            "52": {
               "label_cfg": "CFG",
               "label_cfg_always": "cfg_always"
+            }
+          },
+          "48": {
+            "49": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "50": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "51": {
+              "label_ast": "AST",
+              "label_index": "2"
             }
           },
           "52": {
             "53": {
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always"
+            }
+          },
+          "54": {
+            "55": {
               "label_ast": "AST",
               "label_index": "0"
             },
-            "55": {
+            "57": {
               "label_ast": "AST",
               "label_index": "1"
             },
-            "56": {
+            "58": {
               "label_ast": "AST",
               "label_index": "2"
             },
-            "66": {
+            "68": {
               "label_ast": "AST",
               "label_cfg": "CFG",
               "label_cfg_always": "cfg_always",
               "label_index": "3"
             }
           },
-          "53": {
-            "54": {
+          "55": {
+            "56": {
               "label_ast": "AST",
               "label_index": "0"
-            }
-          },
-          "56": {
-            "57": {
-              "label_ast": "AST",
-              "label_index": "0"
-            },
-            "58": {
-              "label_ast": "AST",
-              "label_index": "1"
-            },
-            "61": {
-              "label_ast": "AST",
-              "label_index": "2"
-            },
-            "62": {
-              "label_ast": "AST",
-              "label_index": "3"
-            },
-            "65": {
-              "label_ast": "AST",
-              "label_index": "4"
             }
           },
           "58": {
@@ -6490,64 +6476,68 @@
             "60": {
               "label_ast": "AST",
               "label_index": "1"
-            }
-          },
-          "62": {
+            },
             "63": {
-              "label_ast": "AST",
-              "label_index": "0"
-            },
-            "64": {
-              "label_ast": "AST",
-              "label_index": "1"
-            }
-          },
-          "66": {
-            "67": {
-              "label_ast": "AST",
-              "label_cfg": "CFG",
-              "label_cfg_always": "cfg_always",
-              "label_index": "0"
-            },
-            "68": {
-              "label_ast": "AST",
-              "label_index": "1"
-            },
-            "69": {
               "label_ast": "AST",
               "label_index": "2"
             },
-            "77": {
+            "64": {
               "label_ast": "AST",
               "label_index": "3"
             },
-            "83": {
+            "67": {
               "label_ast": "AST",
               "label_index": "4"
             }
           },
-          "67": {
-            "68": {
-              "label_cfg": "CFG",
-              "label_cfg_always": "cfg_always"
+          "60": {
+            "61": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "62": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "64": {
+            "65": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "66": {
+              "label_ast": "AST",
+              "label_index": "1"
             }
           },
           "68": {
             "69": {
-              "label_cfg": "CFG",
-              "label_cfg_always": "cfg_always"
-            }
-          },
-          "69": {
-            "70": {
               "label_ast": "AST",
               "label_cfg": "CFG",
               "label_cfg_always": "cfg_always",
               "label_index": "0"
             },
-            "76": {
+            "70": {
               "label_ast": "AST",
               "label_index": "1"
+            },
+            "71": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "79": {
+              "label_ast": "AST",
+              "label_index": "3"
+            },
+            "85": {
+              "label_ast": "AST",
+              "label_index": "4"
+            }
+          },
+          "69": {
+            "70": {
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always"
             }
           },
           "7": {
@@ -6587,7 +6577,7 @@
               "label_ast": "AST",
               "label_index": "4"
             },
-            "52": {
+            "54": {
               "label_ast": "AST",
               "label_index": "5"
             },
@@ -6595,7 +6585,7 @@
               "label_ast": "AST",
               "label_index": "0"
             },
-            "84": {
+            "86": {
               "label_ast": "AST",
               "label_index": "6"
             },
@@ -6606,16 +6596,20 @@
           },
           "70": {
             "71": {
-              "label_ast": "AST",
-              "label_index": "0"
-            },
-            "72": {
-              "label_ast": "AST",
-              "label_index": "1"
-            },
-            "76": {
               "label_cfg": "CFG",
               "label_cfg_always": "cfg_always"
+            }
+          },
+          "71": {
+            "72": {
+              "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always",
+              "label_index": "0"
+            },
+            "78": {
+              "label_ast": "AST",
+              "label_index": "1"
             }
           },
           "72": {
@@ -6627,107 +6621,91 @@
               "label_ast": "AST",
               "label_index": "1"
             },
-            "75": {
-              "label_ast": "AST",
-              "label_index": "2"
-            }
-          },
-          "76": {
-            "77": {
+            "78": {
               "label_cfg": "CFG",
               "label_cfg_always": "cfg_always"
             }
           },
-          "77": {
-            "78": {
+          "74": {
+            "75": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "76": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "77": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "78": {
+            "79": {
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always"
+            }
+          },
+          "79": {
+            "80": {
               "label_ast": "AST",
               "label_cfg": "CFG",
               "label_cfg_always": "cfg_always",
               "label_index": "0"
             },
-            "82": {
+            "84": {
               "label_ast": "AST",
               "label_index": "1"
             }
           },
-          "78": {
-            "79": {
+          "80": {
+            "81": {
               "label_ast": "AST",
               "label_index": "0"
             },
-            "80": {
+            "82": {
               "label_ast": "AST",
               "label_index": "1"
             },
-            "81": {
+            "83": {
               "label_ast": "AST",
               "label_index": "2"
             },
-            "82": {
-              "label_cfg": "CFG",
-              "label_cfg_always": "cfg_always"
-            }
-          },
-          "82": {
-            "83": {
+            "84": {
               "label_cfg": "CFG",
               "label_cfg_always": "cfg_always"
             }
           },
           "84": {
-            "102": {
+            "85": {
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always"
+            }
+          },
+          "86": {
+            "104": {
               "label_ast": "AST",
               "label_cfg": "CFG",
               "label_cfg_always": "cfg_always",
               "label_index": "3"
             },
-            "85": {
-              "label_ast": "AST",
-              "label_index": "0"
-            },
             "87": {
               "label_ast": "AST",
-              "label_index": "1"
-            },
-            "88": {
-              "label_ast": "AST",
-              "label_index": "2"
-            }
-          },
-          "85": {
-            "86": {
-              "label_ast": "AST",
               "label_index": "0"
-            }
-          },
-          "88": {
-            "101": {
-              "label_ast": "AST",
-              "label_index": "6"
             },
             "89": {
               "label_ast": "AST",
-              "label_index": "0"
+              "label_index": "1"
             },
             "90": {
               "label_ast": "AST",
-              "label_index": "1"
-            },
-            "93": {
-              "label_ast": "AST",
               "label_index": "2"
-            },
-            "94": {
+            }
+          },
+          "87": {
+            "88": {
               "label_ast": "AST",
-              "label_index": "3"
-            },
-            "97": {
-              "label_ast": "AST",
-              "label_index": "4"
-            },
-            "98": {
-              "label_ast": "AST",
-              "label_index": "5"
+              "label_index": "0"
             }
           },
           "9": {
@@ -6749,6 +6727,14 @@
             }
           },
           "90": {
+            "100": {
+              "label_ast": "AST",
+              "label_index": "5"
+            },
+            "103": {
+              "label_ast": "AST",
+              "label_index": "6"
+            },
             "91": {
               "label_ast": "AST",
               "label_index": "0"
@@ -6756,26 +6742,38 @@
             "92": {
               "label_ast": "AST",
               "label_index": "1"
-            }
-          },
-          "94": {
+            },
             "95": {
               "label_ast": "AST",
-              "label_index": "0"
+              "label_index": "2"
             },
             "96": {
               "label_ast": "AST",
-              "label_index": "1"
-            }
-          },
-          "98": {
-            "100": {
-              "label_ast": "AST",
-              "label_index": "1"
+              "label_index": "3"
             },
             "99": {
               "label_ast": "AST",
+              "label_index": "4"
+            }
+          },
+          "92": {
+            "93": {
+              "label_ast": "AST",
               "label_index": "0"
+            },
+            "94": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "96": {
+            "97": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "98": {
+              "label_ast": "AST",
+              "label_index": "1"
             }
           }
         },
@@ -6791,62 +6789,63 @@
             "label_type": "modifiers"
           },
           "100": {
-            "label_c": 54,
+            "label_c": 47,
+            "label_field_name": "102",
+            "label_field_type": "101",
             "label_l": 24,
-            "label_text": "userId",
-            "label_type": "identifier"
+            "label_type": "formal_parameter"
           },
           "101": {
-            "label_c": 60,
+            "label_c": 47,
+            "label_l": 24,
+            "label_text": "String",
+            "label_type": "type_identifier"
+          },
+          "102": {
+            "label_c": 54,
+            "label_l": 24,
+            "label_text": "Id",
+            "label_type": "identifier"
+          },
+          "103": {
+            "label_c": 56,
             "label_l": 24,
             "label_text": ")",
             "label_type": ")"
           },
-          "102": {
-            "label_c": 62,
+          "104": {
+            "label_c": 58,
             "label_l": 24,
             "label_type": "constructor_body"
           },
-          "103": {
-            "label_c": 62,
+          "105": {
+            "label_c": 58,
             "label_l": 24,
             "label_text": "{",
             "label_type": "{"
           },
-          "104": {
+          "106": {
             "label_c": 9,
             "label_l": 25,
             "label_type": "expression_statement"
           },
-          "105": {
+          "107": {
             "label_c": 9,
-            "label_field_arguments": "107",
-            "label_field_name": "106",
+            "label_field_arguments": "109",
+            "label_field_name": "108",
             "label_l": 25,
             "label_type": "method_invocation"
           },
-          "106": {
+          "108": {
             "label_c": 9,
             "label_l": 25,
             "label_text": "setName",
             "label_type": "identifier"
           },
-          "107": {
+          "109": {
             "label_c": 16,
             "label_l": 25,
             "label_type": "argument_list"
-          },
-          "108": {
-            "label_c": 16,
-            "label_l": 25,
-            "label_text": "(",
-            "label_type": "("
-          },
-          "109": {
-            "label_c": 17,
-            "label_l": 25,
-            "label_text": "name",
-            "label_type": "identifier"
           },
           "11": {
             "label_c": 5,
@@ -6855,65 +6854,65 @@
             "label_type": "public"
           },
           "110": {
+            "label_c": 16,
+            "label_l": 25,
+            "label_text": "(",
+            "label_type": "("
+          },
+          "111": {
+            "label_c": 17,
+            "label_l": 25,
+            "label_text": "name",
+            "label_type": "identifier"
+          },
+          "112": {
             "label_c": 21,
             "label_l": 25,
             "label_text": ")",
             "label_type": ")"
           },
-          "111": {
+          "113": {
             "label_c": 22,
             "label_l": 25,
             "label_text": ";",
             "label_type": ";"
           },
-          "112": {
+          "114": {
             "label_c": 9,
             "label_l": 26,
             "label_type": "expression_statement"
           },
-          "113": {
+          "115": {
             "label_c": 9,
-            "label_field_left": "114",
-            "label_field_operator": "115",
-            "label_field_right": "116",
+            "label_field_left": "116",
+            "label_field_operator": "117",
+            "label_field_right": "118",
             "label_l": 26,
             "label_type": "assignment_expression"
           },
-          "114": {
+          "116": {
             "label_c": 9,
             "label_l": 26,
             "label_text": "this.lastName",
             "label_type": "field_access"
           },
-          "115": {
+          "117": {
             "label_c": 23,
             "label_l": 26,
             "label_text": "=",
             "label_type": "="
           },
-          "116": {
+          "118": {
             "label_c": 25,
             "label_l": 26,
             "label_text": "lastName",
             "label_type": "identifier"
           },
-          "117": {
+          "119": {
             "label_c": 33,
             "label_l": 26,
             "label_text": ";",
             "label_type": ";"
-          },
-          "118": {
-            "label_c": 9,
-            "label_l": 27,
-            "label_type": "expression_statement"
-          },
-          "119": {
-            "label_c": 9,
-            "label_field_arguments": "121",
-            "label_field_name": "120",
-            "label_l": 27,
-            "label_type": "method_invocation"
           },
           "12": {
             "label_c": 12,
@@ -6924,34 +6923,36 @@
           "120": {
             "label_c": 9,
             "label_l": 27,
-            "label_text": "setUserId",
-            "label_type": "identifier"
+            "label_type": "expression_statement"
           },
           "121": {
-            "label_c": 18,
+            "label_c": 9,
+            "label_field_left": "122",
+            "label_field_operator": "123",
+            "label_field_right": "124",
             "label_l": 27,
-            "label_type": "argument_list"
+            "label_type": "assignment_expression"
           },
           "122": {
-            "label_c": 18,
-            "label_l": 27,
-            "label_text": "(",
-            "label_type": "("
-          },
-          "123": {
-            "label_c": 19,
+            "label_c": 9,
             "label_l": 27,
             "label_text": "userId",
             "label_type": "identifier"
           },
-          "124": {
-            "label_c": 25,
+          "123": {
+            "label_c": 16,
             "label_l": 27,
-            "label_text": ")",
-            "label_type": ")"
+            "label_text": "=",
+            "label_type": "="
+          },
+          "124": {
+            "label_c": 18,
+            "label_l": 27,
+            "label_text": "Id",
+            "label_type": "identifier"
           },
           "125": {
-            "label_c": 26,
+            "label_c": 20,
             "label_l": 27,
             "label_text": ";",
             "label_type": ";"
@@ -7817,39 +7818,40 @@
           },
           "44": {
             "label_c": 9,
-            "label_field_arguments": "46",
-            "label_field_name": "45",
+            "label_field_arguments": "48",
+            "label_field_name": "47",
+            "label_field_object": "45",
             "label_l": 11,
             "label_type": "method_invocation"
           },
           "45": {
             "label_c": 9,
             "label_l": 11,
+            "label_text": "this",
+            "label_type": "this"
+          },
+          "46": {
+            "label_c": 13,
+            "label_l": 11,
+            "label_text": ".",
+            "label_type": "."
+          },
+          "47": {
+            "label_c": 14,
+            "label_l": 11,
             "label_text": "setName",
             "label_type": "identifier"
           },
-          "46": {
-            "label_c": 16,
+          "48": {
+            "label_c": 21,
             "label_l": 11,
             "label_type": "argument_list"
-          },
-          "47": {
-            "label_c": 16,
-            "label_l": 11,
-            "label_text": "(",
-            "label_type": "("
-          },
-          "48": {
-            "label_c": 17,
-            "label_l": 11,
-            "label_text": "name",
-            "label_type": "identifier"
           },
           "49": {
             "label_c": 21,
             "label_l": 11,
-            "label_text": ")",
-            "label_type": ")"
+            "label_text": "(",
+            "label_type": "("
           },
           "5": {
             "label_c": 8,
@@ -7860,63 +7862,62 @@
           "50": {
             "label_c": 22,
             "label_l": 11,
+            "label_text": "name",
+            "label_type": "identifier"
+          },
+          "51": {
+            "label_c": 26,
+            "label_l": 11,
+            "label_text": ")",
+            "label_type": ")"
+          },
+          "52": {
+            "label_c": 27,
+            "label_l": 11,
             "label_text": ";",
             "label_type": ";"
           },
-          "51": {
+          "53": {
             "label_c": 5,
             "label_l": 12,
             "label_text": "}",
             "label_type": "}"
           },
-          "52": {
+          "54": {
             "label_c": 5,
-            "label_field_body": "66",
-            "label_field_name": "55",
-            "label_field_parameters": "56",
+            "label_field_body": "68",
+            "label_field_name": "57",
+            "label_field_parameters": "58",
             "label_l": 14,
             "label_type": "constructor_declaration"
           },
-          "53": {
+          "55": {
             "label_c": 5,
             "label_l": 14,
             "label_type": "modifiers"
           },
-          "54": {
+          "56": {
             "label_c": 5,
             "label_l": 14,
             "label_text": "public",
             "label_type": "public"
           },
-          "55": {
+          "57": {
             "label_c": 12,
             "label_l": 14,
             "label_text": "User",
             "label_type": "identifier"
           },
-          "56": {
+          "58": {
             "label_c": 16,
             "label_l": 14,
             "label_type": "formal_parameters"
           },
-          "57": {
+          "59": {
             "label_c": 16,
             "label_l": 14,
             "label_text": "(",
             "label_type": "("
-          },
-          "58": {
-            "label_c": 17,
-            "label_field_name": "60",
-            "label_field_type": "59",
-            "label_l": 14,
-            "label_type": "formal_parameter"
-          },
-          "59": {
-            "label_c": 17,
-            "label_l": 14,
-            "label_text": "String",
-            "label_type": "type_identifier"
           },
           "6": {
             "label_c": 14,
@@ -7925,63 +7926,65 @@
             "label_type": "identifier"
           },
           "60": {
+            "label_c": 17,
+            "label_field_name": "62",
+            "label_field_type": "61",
+            "label_l": 14,
+            "label_type": "formal_parameter"
+          },
+          "61": {
+            "label_c": 17,
+            "label_l": 14,
+            "label_text": "String",
+            "label_type": "type_identifier"
+          },
+          "62": {
             "label_c": 24,
             "label_l": 14,
             "label_text": "name",
             "label_type": "identifier"
           },
-          "61": {
+          "63": {
             "label_c": 28,
             "label_l": 14,
             "label_text": ",",
             "label_type": ","
           },
-          "62": {
+          "64": {
             "label_c": 30,
-            "label_field_name": "64",
-            "label_field_type": "63",
+            "label_field_name": "66",
+            "label_field_type": "65",
             "label_l": 14,
             "label_type": "formal_parameter"
           },
-          "63": {
+          "65": {
             "label_c": 30,
             "label_l": 14,
             "label_text": "String",
             "label_type": "type_identifier"
           },
-          "64": {
+          "66": {
             "label_c": 37,
             "label_l": 14,
             "label_text": "lastName",
             "label_type": "identifier"
           },
-          "65": {
+          "67": {
             "label_c": 45,
             "label_l": 14,
             "label_text": ")",
             "label_type": ")"
           },
-          "66": {
+          "68": {
             "label_c": 47,
             "label_l": 14,
             "label_type": "constructor_body"
           },
-          "67": {
+          "69": {
             "label_c": 47,
             "label_l": 14,
             "label_text": "{",
             "label_type": "{"
-          },
-          "68": {
-            "label_c": 9,
-            "label_l": 15,
-            "label_text": "/*\n         * it must be recognized as a constructor with the signature User_2, the current\n         * instance must be passed to the setName function, but it must also be modified\n         * by the declaration\n         */",
-            "label_type": "comment"
-          },
-          "69": {
-            "label_c": 9,
-            "label_l": 20,
-            "label_type": "expression_statement"
           },
           "7": {
             "label_c": 19,
@@ -7990,64 +7993,61 @@
           },
           "70": {
             "label_c": 9,
-            "label_field_arguments": "72",
-            "label_field_name": "71",
+            "label_l": 15,
+            "label_text": "/*\n         * it must be recognized as a constructor with the signature User_2, the current\n         * instance must be passed to the setName function, but it must also be modified\n         * by the declaration\n         */",
+            "label_type": "comment"
+          },
+          "71": {
+            "label_c": 9,
+            "label_l": 20,
+            "label_type": "expression_statement"
+          },
+          "72": {
+            "label_c": 9,
+            "label_field_arguments": "74",
+            "label_field_name": "73",
             "label_l": 20,
             "label_type": "method_invocation"
           },
-          "71": {
+          "73": {
             "label_c": 9,
             "label_l": 20,
             "label_text": "setName",
             "label_type": "identifier"
           },
-          "72": {
+          "74": {
             "label_c": 16,
             "label_l": 20,
             "label_type": "argument_list"
           },
-          "73": {
+          "75": {
             "label_c": 16,
             "label_l": 20,
             "label_text": "(",
             "label_type": "("
           },
-          "74": {
+          "76": {
             "label_c": 17,
             "label_l": 20,
             "label_text": "name",
             "label_type": "identifier"
           },
-          "75": {
+          "77": {
             "label_c": 21,
             "label_l": 20,
             "label_text": ")",
             "label_type": ")"
           },
-          "76": {
+          "78": {
             "label_c": 22,
             "label_l": 20,
             "label_text": ";",
             "label_type": ";"
           },
-          "77": {
-            "label_c": 9,
-            "label_l": 21,
-            "label_type": "expression_statement"
-          },
-          "78": {
-            "label_c": 9,
-            "label_field_left": "79",
-            "label_field_operator": "80",
-            "label_field_right": "81",
-            "label_l": 21,
-            "label_type": "assignment_expression"
-          },
           "79": {
             "label_c": 9,
             "label_l": 21,
-            "label_text": "this.lastName",
-            "label_type": "field_access"
+            "label_type": "expression_statement"
           },
           "8": {
             "label_c": 19,
@@ -8056,64 +8056,67 @@
             "label_type": "{"
           },
           "80": {
+            "label_c": 9,
+            "label_field_left": "81",
+            "label_field_operator": "82",
+            "label_field_right": "83",
+            "label_l": 21,
+            "label_type": "assignment_expression"
+          },
+          "81": {
+            "label_c": 9,
+            "label_l": 21,
+            "label_text": "this.lastName",
+            "label_type": "field_access"
+          },
+          "82": {
             "label_c": 23,
             "label_l": 21,
             "label_text": "=",
             "label_type": "="
           },
-          "81": {
+          "83": {
             "label_c": 25,
             "label_l": 21,
             "label_text": "lastName",
             "label_type": "identifier"
           },
-          "82": {
+          "84": {
             "label_c": 33,
             "label_l": 21,
             "label_text": ";",
             "label_type": ";"
           },
-          "83": {
+          "85": {
             "label_c": 5,
             "label_l": 22,
             "label_text": "}",
             "label_type": "}"
           },
-          "84": {
+          "86": {
             "label_c": 5,
-            "label_field_body": "102",
-            "label_field_name": "87",
-            "label_field_parameters": "88",
+            "label_field_body": "104",
+            "label_field_name": "89",
+            "label_field_parameters": "90",
             "label_l": 24,
             "label_type": "constructor_declaration"
           },
-          "85": {
+          "87": {
             "label_c": 5,
             "label_l": 24,
             "label_type": "modifiers"
           },
-          "86": {
+          "88": {
             "label_c": 5,
             "label_l": 24,
             "label_text": "public",
             "label_type": "public"
           },
-          "87": {
+          "89": {
             "label_c": 12,
             "label_l": 24,
             "label_text": "User",
             "label_type": "identifier"
-          },
-          "88": {
-            "label_c": 16,
-            "label_l": 24,
-            "label_type": "formal_parameters"
-          },
-          "89": {
-            "label_c": 16,
-            "label_l": 24,
-            "label_text": "(",
-            "label_type": "("
           },
           "9": {
             "label_c": 5,
@@ -8123,67 +8126,65 @@
             "label_type": "field_declaration"
           },
           "90": {
+            "label_c": 16,
+            "label_l": 24,
+            "label_type": "formal_parameters"
+          },
+          "91": {
+            "label_c": 16,
+            "label_l": 24,
+            "label_text": "(",
+            "label_type": "("
+          },
+          "92": {
             "label_c": 17,
-            "label_field_name": "92",
-            "label_field_type": "91",
+            "label_field_name": "94",
+            "label_field_type": "93",
             "label_l": 24,
             "label_type": "formal_parameter"
           },
-          "91": {
+          "93": {
             "label_c": 17,
             "label_l": 24,
             "label_text": "String",
             "label_type": "type_identifier"
           },
-          "92": {
+          "94": {
             "label_c": 24,
             "label_l": 24,
             "label_text": "name",
             "label_type": "identifier"
           },
-          "93": {
+          "95": {
             "label_c": 28,
             "label_l": 24,
             "label_text": ",",
             "label_type": ","
           },
-          "94": {
+          "96": {
             "label_c": 30,
-            "label_field_name": "96",
-            "label_field_type": "95",
+            "label_field_name": "98",
+            "label_field_type": "97",
             "label_l": 24,
             "label_type": "formal_parameter"
           },
-          "95": {
+          "97": {
             "label_c": 30,
             "label_l": 24,
             "label_text": "String",
             "label_type": "type_identifier"
           },
-          "96": {
+          "98": {
             "label_c": 37,
             "label_l": 24,
             "label_text": "lastName",
             "label_type": "identifier"
           },
-          "97": {
+          "99": {
             "label_c": 45,
             "label_l": 24,
             "label_text": ",",
             "label_type": ","
-          },
-          "98": {
-            "label_c": 47,
-            "label_field_name": "100",
-            "label_field_type": "99",
-            "label_l": 24,
-            "label_type": "formal_parameter"
-          },
-          "99": {
-            "label_c": 47,
-            "label_l": 24,
-            "label_text": "String",
-            "label_type": "type_identifier"
           }
         }
       },
@@ -8215,11 +8216,11 @@
                 },
                 ".User_2": {
                   "class_name": "User",
-                  "n_id": "52"
+                  "n_id": "54"
                 },
                 ".User_3": {
                   "class_name": "User",
-                  "n_id": "84"
+                  "n_id": "86"
                 },
                 ".getName": {
                   "class_name": "User",
@@ -8251,28 +8252,6 @@
       },
       "path": "skims/test/data/benchmark/instance_references/src/User.java",
       "syntax": {
-        "102": [
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "102",
-              "value": null
-            },
-            "type": "SyntaxStepNoOp"
-          }
-        ],
-        "103": [
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "103",
-              "value": null
-            },
-            "type": "SyntaxStepNoOp"
-          }
-        ],
         "104": [
           {
             "meta": {
@@ -8289,7 +8268,29 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "109",
+              "n_id": "105",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "106": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "106",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "107": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "111",
               "value": null
             },
             "symbol": "name",
@@ -8302,33 +8303,11 @@
             "meta": {
               "danger": false,
               "dependencies": -1,
-              "n_id": "105",
+              "n_id": "107",
               "value": null
             },
             "method": "setName",
             "type": "SyntaxStepMethodInvocation"
-          }
-        ],
-        "111": [
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "111",
-              "value": null
-            },
-            "type": "SyntaxStepNoOp"
-          }
-        ],
-        "112": [
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "112",
-              "value": null
-            },
-            "type": "SyntaxStepNoOp"
           }
         ],
         "113": [
@@ -8336,7 +8315,29 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "116",
+              "n_id": "113",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "114": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "114",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "115": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "118",
               "value": null
             },
             "symbol": "lastName",
@@ -8346,33 +8347,11 @@
             "meta": {
               "danger": false,
               "dependencies": -1,
-              "n_id": "113",
+              "n_id": "115",
               "value": null
             },
             "type": "SyntaxStepAssignment",
             "var": "this.lastName"
-          }
-        ],
-        "117": [
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "117",
-              "value": null
-            },
-            "type": "SyntaxStepNoOp"
-          }
-        ],
-        "118": [
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "118",
-              "value": null
-            },
-            "type": "SyntaxStepNoOp"
           }
         ],
         "119": [
@@ -8380,24 +8359,43 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "123",
-              "value": null
-            },
-            "symbol": "userId",
-            "type": "SyntaxStepSymbolLookup"
-          },
-          {
-            "current_instance": {
-              "fields": {}
-            },
-            "meta": {
-              "danger": false,
-              "dependencies": -1,
               "n_id": "119",
               "value": null
             },
-            "method": "setUserId",
-            "type": "SyntaxStepMethodInvocation"
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "120": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "120",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "121": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "124",
+              "value": null
+            },
+            "symbol": "Id",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "121",
+              "value": null
+            },
+            "type": "SyntaxStepAssignment",
+            "var": "userId"
           }
         ],
         "125": [
@@ -8823,27 +8821,11 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "48",
+              "n_id": "45",
               "value": null
             },
-            "symbol": "name",
-            "type": "SyntaxStepSymbolLookup"
+            "type": "SyntaxStepThis"
           },
-          {
-            "current_instance": {
-              "fields": {}
-            },
-            "meta": {
-              "danger": false,
-              "dependencies": -1,
-              "n_id": "44",
-              "value": null
-            },
-            "method": "setName",
-            "type": "SyntaxStepMethodInvocation"
-          }
-        ],
-        "50": [
           {
             "meta": {
               "danger": false,
@@ -8851,18 +8833,18 @@
               "n_id": "50",
               "value": null
             },
-            "type": "SyntaxStepNoOp"
-          }
-        ],
-        "51": [
+            "symbol": "name",
+            "type": "SyntaxStepSymbolLookup"
+          },
           {
             "meta": {
               "danger": false,
-              "dependencies": 0,
-              "n_id": "51",
+              "dependencies": -2,
+              "n_id": "44",
               "value": null
             },
-            "type": "SyntaxStepNoOp"
+            "method": ".setName",
+            "type": "SyntaxStepMethodInvocationChain"
           }
         ],
         "52": [
@@ -8870,7 +8852,29 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "58",
+              "n_id": "52",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "53": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "53",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "54": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "60",
               "value": null
             },
             "type": "SyntaxStepDeclaration",
@@ -8881,34 +8885,12 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "62",
+              "n_id": "64",
               "value": null
             },
             "type": "SyntaxStepDeclaration",
             "var": "lastName",
             "var_type": "String"
-          }
-        ],
-        "66": [
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "66",
-              "value": null
-            },
-            "type": "SyntaxStepNoOp"
-          }
-        ],
-        "67": [
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "67",
-              "value": null
-            },
-            "type": "SyntaxStepNoOp"
           }
         ],
         "68": [
@@ -8938,7 +8920,29 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "74",
+              "n_id": "70",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "71": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "71",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "72": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "76",
               "value": null
             },
             "symbol": "name",
@@ -8951,33 +8955,11 @@
             "meta": {
               "danger": false,
               "dependencies": -1,
-              "n_id": "70",
+              "n_id": "72",
               "value": null
             },
             "method": "setName",
             "type": "SyntaxStepMethodInvocation"
-          }
-        ],
-        "76": [
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "76",
-              "value": null
-            },
-            "type": "SyntaxStepNoOp"
-          }
-        ],
-        "77": [
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "77",
-              "value": null
-            },
-            "type": "SyntaxStepNoOp"
           }
         ],
         "78": [
@@ -8985,7 +8967,29 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "81",
+              "n_id": "78",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "79": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "79",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "80": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "83",
               "value": null
             },
             "symbol": "lastName",
@@ -8995,33 +8999,11 @@
             "meta": {
               "danger": false,
               "dependencies": -1,
-              "n_id": "78",
+              "n_id": "80",
               "value": null
             },
             "type": "SyntaxStepAssignment",
             "var": "this.lastName"
-          }
-        ],
-        "82": [
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "82",
-              "value": null
-            },
-            "type": "SyntaxStepNoOp"
-          }
-        ],
-        "83": [
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "83",
-              "value": null
-            },
-            "type": "SyntaxStepNoOp"
           }
         ],
         "84": [
@@ -9029,7 +9011,29 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "90",
+              "n_id": "84",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "85": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "85",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "86": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "92",
               "value": null
             },
             "type": "SyntaxStepDeclaration",
@@ -9040,7 +9044,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "94",
+              "n_id": "96",
               "value": null
             },
             "type": "SyntaxStepDeclaration",
@@ -9051,11 +9055,11 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "98",
+              "n_id": "100",
               "value": null
             },
             "type": "SyntaxStepDeclaration",
-            "var": "userId",
+            "var": "Id",
             "var_type": "String"
           }
         ]

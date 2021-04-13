@@ -267,6 +267,12 @@ def test_benchmark_xss() -> None:
     _run_no_group('benchmark_owasp_xss')
 
 
+@pytest.mark.flaky(reruns=0)
+@pytest.mark.skims_test_group('instance_references')
+def test_instance_reference() -> None:
+    _run_no_group('instance_references')
+
+
 def _run_no_group(suite: str) -> None:
     code, stdout, stderr = skims(get_suite_config(suite))
     assert code == 0, stdout

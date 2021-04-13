@@ -44,6 +44,7 @@ TEST_GROUPS = {
     'benchmark_xpathi',
     'benchmark_xss',
     'functional',
+    'instance_references',
     'lib_http',
     'unittesting',
 }

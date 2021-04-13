@@ -6,6 +6,9 @@ from sast_symbolic_evaluation.types import (
 from sast_symbolic_evaluation.utils_generic import (
     lookup_var_dcl_by_name,
 )
+from sast_symbolic_evaluation.utils_java import (
+    lookup_java_field,
+)
 from utils.string import (
     split_on_last_dot,
 )
@@ -25,6 +28,11 @@ def evaluate(args: EvaluatorArgs) -> None:
                 JavaClassInstance,
         ):
             var_decl.meta.value.fields[field] = args.syntax_step
+        elif args.current_instance and not field and lookup_java_field(
+                args,
+                var,
+        ):
+            args.current_instance.fields[var] = args.syntax_step
     elif args.current_instance and var == 'this':
         _, field = split_on_last_dot(args.syntax_step.var)
         args.current_instance.fields[field] = args.syntax_step

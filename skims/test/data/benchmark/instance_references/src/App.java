@@ -29,11 +29,11 @@ public class App {
     }
 
     public void test_02(){
-        int rand = new java.util.Random().nextFloat();
+        int rand = new java.util.Random().nextInt();
 
         HttpServletRequest request = new HttpServletRequest();
 
-        User currentUser = new User("Jane", "Doe", Float.toString(rand));
+        User currentUser = new User("Jane", "Doe", Integer.toString(rand));
 
         request.getSession().setAttribute("testInstanceReference", currentUser.lastName);
     }

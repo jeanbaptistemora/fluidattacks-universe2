@@ -8,7 +8,7 @@ public class User {
          * there must be a reference to the current instance, that instance must be
          * passed to the setName function
          */
-        setName(name);
+        this.setName(name);
     }
 
     public User(String name, String lastName) {
@@ -21,10 +21,10 @@ public class User {
         this.lastName = lastName;
     }
 
-    public User(String name, String lastName, String userId) {
+    public User(String name, String lastName, String Id) {
         setName(name);
         this.lastName = lastName;
-        setUserId(userId);
+        userId = Id;
     }
 
     public String getName() {
