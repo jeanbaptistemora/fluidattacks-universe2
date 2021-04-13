@@ -1,16 +1,14 @@
 {% extends "layouts/fluid_attacks.html" %}
 {% block content %}
 <p>Hello {{ name }},</p>
-<br />
 <p>
-  The <strong>{{ group_name }}</strong> group will be deleted at {{
-  deletion_date }}. To avoid deletion, the group must be compliant with at least
+  The <strong>{{ group_name }}</strong> group will be deleted at <strong>{{
+  deletion_date }}</strong>. To avoid deletion, the group must be compliant with at least
   one of the following conditions:
 </p>
-<ol class="ph3">
+<ol style="padding: 0 2rem;">
   <li>The group must have more than one stakeholder.</li>
   <li>The group must have at least one finding.</li>
   <li>The group must have at least one of Fluid Attacks' services enabled.</li>
 </ol>
-<br />
 {% endblock %}
