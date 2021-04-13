@@ -33,3 +33,16 @@ async def test_analyst(populate: bool):
     )
     assert 'errors' in result
     assert result['errors'][0]['message'] == 'Access denied'
+
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group('internal_names')
+async def test_closer(populate: bool):
+    assert populate
+    group: str = 'group1'
+    result: Dict[str, Any] = await query(
+        user='closer@gmail.com',
+    )
+    assert 'errors' in result
+    assert result['errors'][0]['message'] == 'Access denied'

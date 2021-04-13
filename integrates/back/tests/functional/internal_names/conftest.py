@@ -45,6 +45,17 @@ async def populate() -> bool:
                 'push_tokens': [],
                 'is_registered': True,
             },
+            {
+                'email': 'closer@gmail.com',
+                'first_login': '',
+                'first_name': '',
+                'last_login': '',
+                'last_name': '',
+                'legal_remember': False,
+                'phone_number': '-',
+                'push_tokens': [],
+                'is_registered': True,
+            },
         ],
         'policies': [
             {
@@ -64,6 +75,18 @@ async def populate() -> bool:
                 'subject': 'analyst@gmail.com',
                 'object': 'group1',
                 'role': 'analyst',
+            },
+            {
+                'level': 'user',
+                'subject': 'closer@gmail.com',
+                'object': 'self',
+                'role': 'user',
+            },
+            {
+                'level': 'group',
+                'subject': 'closer@gmail.com',
+                'object': 'group1',
+                'role': 'closer',
             },
         ],
     }

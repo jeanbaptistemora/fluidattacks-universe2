@@ -31,3 +31,16 @@ async def test_analyst(populate: bool):
     assert 'errors' not in result
     assert 'success' in result['data']['signIn']
     assert not result['data']['signIn']['success']
+
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group('sign_in')
+async def test_closer(populate: bool):
+    assert populate
+    result: Dict[str, Any] = await query(
+        user='closer@gmail.com',
+    )
+    assert 'errors' not in result
+    assert 'success' in result['data']['signIn']
+    assert not result['data']['signIn']['success']
