@@ -25,6 +25,7 @@ runners:
     [[runners]]
       name = "ci-large"
       environment = ["FF_GITLAB_REGISTRY_HELPER_IMAGE=true", "FF_USE_LEGACY_KUBERNETES_EXECUTION_STRATEGY=false"]
+      request_concurrency = 100
       [runners.docker]
         dns = ["1.1.1.1", "8.8.4.4", "8.8.8.8"]
         tls_verify = false
