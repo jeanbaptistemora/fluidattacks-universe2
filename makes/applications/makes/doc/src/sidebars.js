@@ -175,8 +175,8 @@ module.exports = {
   Framework: {
     Framework: getDocs('framework'),
   },
-  Dev: [
-    'devs/products-repo-intro',
+  Development: [
+    'development/products-repo-intro',
     {
       type: 'category',
       label: 'Stack',
@@ -185,18 +185,18 @@ module.exports = {
           type: 'category',
           label: 'Git',
           items: [
-            'devs/stack/git/commit-mr-guidelines',
+            'development/stack/git/commit-mr-guidelines',
           ]
         },
       ]
     },
-    'devs/get-dev-keys',
-    'devs/front-technologies',
-    'devs/kubernetes-cluster-connect',
-    'devs/dynamodb-patterns',
-    'devs/graphql-api',
-    'devs/mobile-technologies',
-    'devs/writing-code-suggestions',
-    'devs/analytics-conventions',
+    'development/get-dev-keys',
+    'development/front-technologies',
+    'development/kubernetes-cluster-connect',
+    'development/dynamodb-patterns',
+    'development/graphql-api',
+    'development/mobile-technologies',
+    'development/writing-code-suggestions',
+    'development/analytics-conventions',
   ],
 };

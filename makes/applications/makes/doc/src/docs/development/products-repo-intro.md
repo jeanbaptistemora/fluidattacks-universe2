@@ -2,7 +2,7 @@
 id: products-repo-intro
 title: Introduction
 sidebar_label: Introduction
-slug: /dev
+slug: /development
 ---
 
 ## Fluid Attacks, Products repository

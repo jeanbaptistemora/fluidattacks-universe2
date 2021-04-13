@@ -2,7 +2,7 @@
 id: front-technologies
 title: Front Technologies
 sidebar_label: Front Technologies
-slug: /devs/front-technologies
+slug: /development/front-technologies
 ---
 
 ## Technology stack

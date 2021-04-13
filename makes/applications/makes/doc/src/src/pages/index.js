@@ -53,13 +53,13 @@ const features = [
     link: 'findings'
   },
   {
-    title: 'Dev',
+    title: 'Development',
     description: (
       <>
         Information, guides and tips useful to our production team in the development of products
       </>
     ),
-    link: 'dev'
+    link: 'development'
   },
 ];
 

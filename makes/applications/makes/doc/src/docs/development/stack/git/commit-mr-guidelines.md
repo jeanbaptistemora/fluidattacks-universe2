@@ -2,7 +2,7 @@
 id: commit-mr-guidelines
 title: Commit and MR guidelines
 sidebar_label: Commit and MR guidelines
-slug: /devs/stack/git/commit-mr-guidelines
+slug: /development/stack/git/commit-mr-guidelines
 ---
 
 ## Syntax

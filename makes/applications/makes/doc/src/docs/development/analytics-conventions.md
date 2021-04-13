@@ -2,7 +2,7 @@
 id: analytics-conventions
 title: Analytics Conventions
 sidebar_label: Analytics Conventions
-slug: /devs/analytics-conventions
+slug: /development/analytics-conventions
 ---
 
 We have the strict purpose to maintain the information easily understandable for

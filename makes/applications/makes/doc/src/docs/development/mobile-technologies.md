@@ -2,7 +2,7 @@
 id: mobile-technologies
 title: Mobile Technologies
 sidebar_label: Mobile Technologies
-slug: /devs/mobile-technologies
+slug: /development/mobile-technologies
 ---
 
 ## Technology stack
@@ -92,7 +92,7 @@ Foundation team.
   > **NOTE:**
   Default permissions changed in iOS 14. If you are developing on apple devices, make
   sure to allow network access for the Expo client
-  ![Expo Network Access](/img/devs/mobile-technologies/expo_network_access.png)
+  ![Expo Network Access](/img/development/mobile-technologies/expo_network_access.png)
 
 3. Lint your code
   ```
