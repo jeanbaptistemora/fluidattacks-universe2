@@ -11,4 +11,5 @@ export { TagInput } from "utils/forms/fields/TagInput";
 export { Text } from "utils/forms/fields/Text";
 export { FormikText } from "utils/forms/fields/Text/FormikText";
 export { FormikDropdown } from "utils/forms/fields/Dropdown/FormikDropdown";
+export { FormikPhoneNumber } from "utils/forms/fields/PhoneNumber/FormikPhoneNumber";
 export { TextArea } from "utils/forms/fields/TextArea";
