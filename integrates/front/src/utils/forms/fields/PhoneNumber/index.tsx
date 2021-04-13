@@ -6,8 +6,6 @@ import style from "utils/forms/index.css";
 import "react-phone-input-2/lib/bootstrap.css";
 
 export const PhoneNumber: React.FC<WrappedFieldProps> = (
-  // Readonly utility type does not work on deeply nested types
-  // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
   props: Readonly<WrappedFieldProps>
 ): JSX.Element => {
   const { input } = props;
