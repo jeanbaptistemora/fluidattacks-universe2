@@ -168,7 +168,7 @@ module.exports = {
       type: 'category',
         label: 'Hygiene',
         items: [
-          
+          'findings/hygiene/f037',
         ],
     },
   ],
