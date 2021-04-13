@@ -4,7 +4,6 @@ from model import (
 )
 from sast_symbolic_evaluation.types import (
     EvaluatorArgs,
-    JavaClassInstance,
 )
 from sast_symbolic_evaluation.utils_java import (
     lookup_java_class,
@@ -101,15 +100,13 @@ def _syntax_step_object_instantiation_values(args: EvaluatorArgs) -> None:
             object_type,
         ):
             if args.shard.path != _method.shard_path and (
-                fields_modified := args.eval_constructor(
+                instance := args.eval_constructor(
                     args,
                     _method.metadata.n_id,
                     args.dependencies,
                     args.graph_db.shards_by_path_f(_method.shard_path),
                 )
             ):
-                args.syntax_step.meta.value = JavaClassInstance(
-                    fields=fields_modified,
-                )
+                args.syntax_step.meta.value = instance
     elif java_class := lookup_java_class(args, object_type):
         args.syntax_step.meta.value = java_class

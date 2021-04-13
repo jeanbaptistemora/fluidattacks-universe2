@@ -12,17 +12,19 @@ from utils.string import (
 
 
 def evaluate(args: EvaluatorArgs) -> None:
+    var, field = split_on_last_dot(args.syntax_step.var)
     args_danger = any(dep.meta.danger for dep in args.dependencies)
     if not args.syntax_step.meta.danger:
         args.syntax_step.meta.danger = args_danger
 
     # modify the value of a field in an instance
-    if '.' in args.syntax_step.var and not args.syntax_step.var.startswith(
-            'this.'):
-        var, field = split_on_last_dot(args.syntax_step.var)
+    if var != 'this':
         # pylint:disable=used-before-assignment
         if (var_decl := lookup_var_dcl_by_name(args, var)) and isinstance(
                 var_decl.meta.value,
                 JavaClassInstance,
         ):
-            var_decl.meta.value.fields[field] = args.syntax_step.meta.value
+            var_decl.meta.value.fields[field] = args.syntax_step
+    elif args.current_instance and var == 'this':
+        _, field = split_on_last_dot(args.syntax_step.var)
+        args.current_instance.fields[field] = args.syntax_step

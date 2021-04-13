@@ -68,7 +68,6 @@ from utils.logs import (
 )
 from utils.string import (
     get_debug_path,
-    split_on_last_dot,
 )
 
 
@@ -77,32 +76,30 @@ def eval_constructor(
     method_n_id: graph_model.NId,
     method_arguments: graph_model.SyntaxSteps,
     shard: graph_model.GraphShard,
-) -> Dict[str, Optional[graph_model.SyntaxStep]]:
+) -> JavaClassInstance:
+    current_instance = JavaClassInstance(fields={})
     possible_syntax_steps = get_possible_syntax_steps_for_n_id(
         args.graph_db,
         finding=args.finding,
         n_id=method_n_id,
         overriden_syntax_steps=list(reversed(method_arguments)),
         shard=shard,
+        current_instance=current_instance,
     )
-    modified_fields = {}
+
     for syntax_steps in possible_syntax_steps.values():
         # Check modified fields
         for syntax_step in syntax_steps:
             if (
-                isinstance(syntax_step, graph_model.SyntaxStepAssignment)
-                and syntax_step.var.startswith('this.')
-            ):
-                _, field = split_on_last_dot(syntax_step.var)
-                modified_fields[field] = syntax_step.meta.value
-            elif (
                 isinstance(syntax_step, graph_model.SyntaxStepMethodInvocation)
                 and (syntax_step.method.startswith('this.')
                      or '.' not in syntax_step.method)
             ):
-                modified_fields.update(syntax_step.current_instance.fields)
+                current_instance.fields.update(
+                    syntax_step.current_instance.fields,
+                )
 
-    return modified_fields
+    return current_instance
 
 
 def eval_method(
@@ -125,32 +122,20 @@ def eval_method(
 
     for syntax_steps in possible_syntax_steps.values():
         for syntax_step in reversed(syntax_steps):
-            # Update modified fields
-            if (
-                current_instance
-                and isinstance(syntax_step, graph_model.SyntaxStepAssignment)
-                and syntax_step.var.startswith('this.')
-            ):
-                _, field = split_on_last_dot(syntax_step.var)
-                current_instance.fields[field] = syntax_step
-
             # Attempt to return the dangerous syntax step
-            elif (
+            if (
                 not result
                 and isinstance(syntax_step, graph_model.SyntaxStepReturn)
                 and syntax_step.meta.danger
             ):
-                result = syntax_step
+                return syntax_step
             # If none of them match attempt to return the one that has value
-            elif (
+            if (
                 not result
                 and isinstance(syntax_step, graph_model.SyntaxStepReturn)
                 and syntax_step.meta.value is not None
             ):
-                result = syntax_step
-
-    if result:
-        return result
+                return syntax_step
 
     # If non of them match return whatever one
     for syntax_steps in possible_syntax_steps.values():

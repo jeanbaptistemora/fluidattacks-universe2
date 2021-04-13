@@ -1,22 +1,30 @@
 public class User {
-    private String name;
+    public String name;
     private String lastName;
     private String userId;
 
     public User(String name) {
-        /* there must be a reference to the current instance, that instance
-           must be passed to the setName function
-        */
+        /*
+         * there must be a reference to the current instance, that instance must be
+         * passed to the setName function
+         */
         setName(name);
     }
 
     public User(String name, String lastName) {
-        /* it must be recognized as a constructor with the signature User_2,
-           the current instance must be passed to the setName function, but it
-           must also be modified by the declaration
-        */
+        /*
+         * it must be recognized as a constructor with the signature User_2, the current
+         * instance must be passed to the setName function, but it must also be modified
+         * by the declaration
+         */
         setName(name);
         this.lastName = lastName;
+    }
+
+    public User(String name, String lastName, String userId) {
+        setName(name);
+        this.lastName = lastName;
+        setUserId(userId);
     }
 
     public String getName() {

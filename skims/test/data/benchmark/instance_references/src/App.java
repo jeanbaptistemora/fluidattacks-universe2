@@ -15,4 +15,38 @@ public class App {
         String cookieKey = currentUser.getUserId();
         request.getSession().setAttribute(cookieName, cookieKey);
     }
+
+    public void test_01(){
+        int rand = new java.util.Random().nextFloat();
+
+        String cookieName = "testInstanceReference";
+        HttpServletRequest request = new HttpServletRequest();
+
+        User currentUser = new User("Jane", Float.toString(rand));
+        String cookieKey = currentUser.lastName;
+
+        request.getSession().setAttribute(cookieName, cookieKey);
+    }
+
+    public void test_02(){
+        int rand = new java.util.Random().nextFloat();
+
+        HttpServletRequest request = new HttpServletRequest();
+
+        User currentUser = new User("Jane", "Doe", Float.toString(rand));
+
+        request.getSession().setAttribute("testInstanceReference", currentUser.lastName);
+    }
+
+    public void test_03(){
+        int rand = new java.util.Random().nextFloat();
+
+        HttpServletRequest request = new HttpServletRequest();
+
+        User currentUser = new User("Jane", "Doe", "xxxxxxxxxx");
+        currentUser.userId = Float.toString(rand);
+
+        request.getSession().setAttribute("testInstanceReference", currentUser.getUserId());
+    }
+
 }

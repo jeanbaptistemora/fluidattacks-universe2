@@ -42,14 +42,16 @@ def lookup_java_class(
 
     # Now lookoup in other shards different than the current shard
     for class_key, shard_path in args.graph_db.shards_by_java_class.items():
-        if class_name == class_key:
-            shard_index = args.graph_db.shards_by_path[shard_path]
-            shard = args.graph_db.shards[shard_index]
-            if data := _lookup_java_class_in_shard(shard, class_name):
-                return LookedUpJavaClass(
-                    metadata=data,
-                    shard_path=shard.path,
-                )
+        if class_name != class_key:
+            continue
+
+        shard_index = args.graph_db.shards_by_path[shard_path]
+        shard = args.graph_db.shards[shard_index]
+        if data := _lookup_java_class_in_shard(shard, class_name):
+            return LookedUpJavaClass(
+                metadata=data,
+                shard_path=shard.path,
+            )
 
     return None
 
@@ -135,11 +137,13 @@ def lookup_java_method(
         )
 
     for shard in args.graph_db.shards:
-        if shard.path != args.shard.path:
-            if data := _lookup_java_method_in_shard(shard, method_name):
-                return LookedUpJavaMethod(
-                    metadata=data,
-                    shard_path=shard.path,
-                )
+        if shard.path == args.shard.path:
+            continue
+
+        if data := _lookup_java_method_in_shard(shard, method_name):
+            return LookedUpJavaMethod(
+                metadata=data,
+                shard_path=shard.path,
+            )
 
     return None

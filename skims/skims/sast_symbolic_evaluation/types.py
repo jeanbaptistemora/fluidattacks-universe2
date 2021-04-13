@@ -46,7 +46,7 @@ class EvaluatorArgs(NamedTuple):
             graph_model.SyntaxSteps,
             graph_model.GraphShard,
         ],
-        Dict[str, Optional[graph_model.SyntaxStep]],
+        graph_model.CurrentInstance,
     ]
     finding: core_model.FindingEnum
     graph_db: graph_model.GraphDB
