@@ -158,6 +158,7 @@ module.exports = {
     'findings/f003',
     'findings/f004',
     'findings/f005',
+    'findings/f006',
     'findings/f037',
   ],
   Framework: {
