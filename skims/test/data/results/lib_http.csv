@@ -1,5 +1,5 @@
 title,what,where,cwe
-F043. Missing HTTP security headers - Strict-Transport-Security,namespace: http://localhost:48000/error,Strict-Transport-Security,644
-F043. Missing HTTP security headers - Strict-Transport-Security,namespace: http://localhost:48000/f043_dast_sts_0,Strict-Transport-Security,644
-F043. Missing HTTP security headers - Strict-Transport-Security,namespace: http://localhost:48000/f043_dast_sts_1,Strict-Transport-Security,644
-F043. Missing HTTP security headers - Strict-Transport-Security,namespace: http://localhost:48000/f043_dast_sts_2,Strict-Transport-Security,644
+F043. Missing HTTP security headers - Strict-Transport-Security,http://localhost:48000/error (namespace),Strict-Transport-Security,644
+F043. Missing HTTP security headers - Strict-Transport-Security,http://localhost:48000/f043_dast_sts_0 (namespace),Strict-Transport-Security,644
+F043. Missing HTTP security headers - Strict-Transport-Security,http://localhost:48000/f043_dast_sts_1 (namespace),Strict-Transport-Security,644
+F043. Missing HTTP security headers - Strict-Transport-Security,http://localhost:48000/f043_dast_sts_2 (namespace),Strict-Transport-Security,644
