@@ -37,3 +37,18 @@ async def test_analyst(populate: bool):
     assert 'errors' not in result
     assert 'success' in result['data']['deleteFinding']
     assert result['data']['deleteFinding']['success']
+
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group('delete_finding')
+async def test_closer(populate: bool):
+    assert populate
+    analyst: str ='closer@gmail.com'
+    finding_id: str = '475041515'
+    result: Dict[str, str] = await query(
+        user=analyst,
+        finding=finding_id,
+    )
+    assert 'errors' in result
+    assert result['errors'][0]['message'] == 'Access denied'
