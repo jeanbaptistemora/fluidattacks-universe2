@@ -17,6 +17,7 @@ from urllib3.util.url import parse_url
 # Local
 from backend import authz
 from backend.exceptions import (
+    HasOpenVulns,
     InvalidParameter,
     InvalidRootExclusion,
     PermissionDenied,
@@ -440,6 +441,10 @@ async def update_root_cloning_status(
         )
 
 
+async def _has_open_vulns(root: GitRootItem) -> bool:
+    return await roots_dal.has_open_vulns(nickname=root.state.nickname)
+
+
 async def update_root_state(
     context: Any,
     user_email: str,
@@ -464,6 +469,9 @@ async def update_root_state(
             )
         ):
             raise RepeatedRoot()
+
+        if state == 'INACTIVE' and await _has_open_vulns(root=root):
+            raise HasOpenVulns()
 
         await roots_dal.update_git_root_state(
             group_name=group_name,

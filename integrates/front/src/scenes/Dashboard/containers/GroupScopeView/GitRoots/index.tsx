@@ -20,7 +20,7 @@ import {
   UPDATE_GIT_ENVIRONMENTS,
   UPDATE_GIT_ROOT,
   UPDATE_ROOT_STATE,
-} from "../query";
+} from "../queries";
 import type { IGitRootAttr } from "../types";
 import { Button } from "components/Button";
 import { ConfirmDialog } from "components/ConfirmDialog";
@@ -231,6 +231,9 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
         switch (error.message) {
           case "Exception - Active root with the same URL/branch already exists":
             msgError(t("group.scope.common.errors.duplicateUrl"));
+            break;
+          case "Exception - A root with open vulns can't be deactivated":
+            msgError(t("group.scope.common.errors.hasOpenVulns"));
             break;
           default:
             msgError(t("groupAlerts.errorTextsad"));

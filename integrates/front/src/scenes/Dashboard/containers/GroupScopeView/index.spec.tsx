@@ -14,7 +14,7 @@ import {
   GET_ROOTS,
   UPDATE_GIT_ROOT,
   UPDATE_ROOT_STATE,
-} from "./query";
+} from "./queries";
 
 import { GroupScopeView } from ".";
 import { Button } from "components/Button";

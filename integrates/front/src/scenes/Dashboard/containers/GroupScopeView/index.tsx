@@ -5,7 +5,7 @@ import React from "react";
 import { useParams } from "react-router";
 
 import { GitRoots } from "./GitRoots";
-import { GET_ROOTS } from "./query";
+import { GET_ROOTS } from "./queries";
 import type { IGitRootAttr, Root } from "./types";
 
 import { ProjectSettingsView } from "../ProjectSettingsView";

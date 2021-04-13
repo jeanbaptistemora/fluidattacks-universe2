@@ -741,3 +741,9 @@ class GroupNameNotFound(Exception):
         """ Constructor """
         msg = 'Exception - Group name has not been found'
         super(GroupNameNotFound, self).__init__(msg)
+
+
+class HasOpenVulns(Exception):
+    def __init__(self) -> None:
+        msg = 'Exception - A root with open vulns can\'t be deactivated'
+        super(HasOpenVulns, self).__init__(msg)

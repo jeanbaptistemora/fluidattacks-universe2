@@ -3,6 +3,7 @@ import logging
 import logging.config
 from typing import Optional, Tuple
 
+# Third party
 from boto3.dynamodb.conditions import Key
 
 # Local
@@ -62,7 +63,7 @@ async def has_open_vulns(*, nickname: str) -> bool:
     vulns = await legacy_dynamodb.async_query(
         'FI_vulnerabilities',
         {
-            'Index': 'repo_index',
+            'IndexName': 'repo_index',
             'KeyConditionExpression': Key('repo_nickname').eq(nickname),
         }
     )

@@ -937,7 +937,7 @@ async def test_update_root_cloning_status() -> None:
     mutation {
       updateRootCloningStatus(
         groupName: "unittesting"
-        id: "4039d098-ffc5-4984-8ed3-eb17bca98e19"
+        id: "765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a"
         status: OK
         message: "root update test"
       ) {
@@ -977,7 +977,7 @@ async def test_update_root_state() -> None:
       mutation {
         updateRootState(
           groupName: "unittesting"
-          id: "4039d098-ffc5-4984-8ed3-eb17bca98e19"
+          id: "765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a"
           state: INACTIVE
         ) {
           success
