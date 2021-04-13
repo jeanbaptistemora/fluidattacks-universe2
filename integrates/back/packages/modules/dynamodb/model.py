@@ -14,6 +14,7 @@ from dynamodb.types import (
     GitRootItem,
     GitRootMetadata,
     GitRootState,
+    GitRootToeInputItem,
     GitRootToeLinesItem,
     IPRootItem,
     IPRootMetadata,
@@ -408,6 +409,59 @@ async def update_git_root_toe_lines(
         facet=facet,
         item=toe_lines,
         table=TABLE
+    )
+
+
+def _build_git_root_toe_input(
+    *,
+    group_name: str,
+    key_structure: PrimaryKey,
+    item: Item,
+) -> GitRootToeInputItem:
+    sort_key_items = item[key_structure.sort_key].split('#')
+    component = sort_key_items[2]
+    entry_point = sort_key_items[4] if sort_key_items[4:] else ''
+    return GitRootToeInputItem(
+        commit=item['commit'],
+        component=component,
+        created_date=item['created_date'],
+        entry_point=entry_point,
+        group_name=group_name,
+        seen_first_time_by=item['seen_first_time_by'],
+        tested_date=item['tested_date'],
+        verified=item['verified'],
+        vulns=item['vulns'],
+    )
+
+
+async def get_toe_inputs_by_group(
+    *,
+    group_name: str
+) -> Tuple[GitRootToeInputItem, ...]:
+    primary_key = keys.build_key(
+        facet=TABLE.facets['root_toe_input'],
+        values={'group_name': group_name},
+    )
+    key_structure = TABLE.primary_key
+    inputs_key = primary_key.sort_key.split('#')[0]
+    results = await operations.query(
+        condition_expression=(
+            Key(key_structure.partition_key).eq(primary_key.partition_key) &
+            Key(key_structure.sort_key).begins_with(inputs_key)
+        ),
+        facets=(
+            TABLE.facets['root_toe_input'],
+        ),
+        index=None,
+        table=TABLE
+    )
+    return tuple(
+        _build_git_root_toe_input(
+            group_name=group_name,
+            key_structure=key_structure,
+            item=item
+        )
+        for item in results
     )
 
 
