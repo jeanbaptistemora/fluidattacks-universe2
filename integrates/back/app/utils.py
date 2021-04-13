@@ -25,7 +25,7 @@ from backend import (
     util,
 )
 from backend.dal.helpers.redis import redis_set_entity_attr
-from backend.domain import project as group_domain
+from group_access import domain as group_access_domain
 from newutils import (
     analytics,
     datetime as datetime_utils,
@@ -140,7 +140,7 @@ async def autoenroll_user(email: str) -> None:
 
     for group in FI_COMMUNITY_PROJECTS.split(','):
         await collect([
-            group_domain.update_has_access(email, group, True),
+            group_access_domain.update_has_access(email, group, True),
             authz.grant_group_level_role(
                 email,
                 group,

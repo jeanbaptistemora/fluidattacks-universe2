@@ -142,7 +142,7 @@ async def create_group(  # pylint: disable=too-many-arguments,too-many-locals
                 # they are omnipresent
                 if not is_user_admin:
                     success = success and all(await collect((
-                        update_has_access(
+                        group_access_domain.update_has_access(
                             user_email,
                             project_name,
                             True
@@ -278,23 +278,6 @@ async def edit(
         )
 
     return success
-
-
-async def update_has_access(
-    user_email: str,
-    group_name: str,
-    access: bool
-) -> bool:
-    return await group_access_domain.update(
-        user_email, group_name, {'has_access': access}
-    )
-
-
-async def add_user_access(email: str, group: str, role: str) -> bool:
-    return (
-        await update_has_access(email, group, True) and
-        await authz.grant_group_level_role(email, group, role)
-    )
 
 
 async def remove_access(user_email: str, project_name: str) -> bool:

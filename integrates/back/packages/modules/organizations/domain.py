@@ -32,6 +32,7 @@ from backend.exceptions import (
     UserNotInOrganization,
 )
 from backend.typing import Organization as OrganizationType
+from group_access import domain as group_access_domain
 from names import domain as names_domain
 from newutils import (
     datetime as datetime_utils,
@@ -147,7 +148,7 @@ async def add_group(organization_id: str, group: str) -> bool:
             success and
             all(
                 await collect(
-                    group_domain.add_user_access(
+                    group_access_domain.add_user_access(
                         user, group, 'group_manager'
                     )
                     for user, user_role in zip(users, users_roles)
@@ -173,7 +174,7 @@ async def add_user(organization_id: str, email: str, role: str) -> bool:
             success and
             all(
                 await collect(
-                    group_domain.add_user_access(email, group, role)
+                    group_access_domain.add_user_access(email, group, role)
                     for group in groups
                 )
             )
