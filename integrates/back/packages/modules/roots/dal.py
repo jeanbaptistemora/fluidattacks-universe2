@@ -3,8 +3,11 @@ import logging
 import logging.config
 from typing import Optional, Tuple
 
+from boto3.dynamodb.conditions import Key
+
 # Local
 from back.settings import LOGGING
+from backend.dal.helpers import dynamodb as legacy_dynamodb
 from dynamodb import model
 from dynamodb.types import GitRootCloning, GitRootState, RootItem
 
@@ -52,4 +55,25 @@ async def update_git_root_state(
         group_name=group_name,
         state=state,
         root_id=root_id
+    )
+
+
+async def has_open_vulns(*, nickname: str) -> bool:
+    vulns = await legacy_dynamodb.async_query(
+        'FI_vulnerabilities',
+        {
+            'Index': 'repo_index',
+            'KeyConditionExpression': Key('repo_nickname').eq(nickname),
+        }
+    )
+
+    return bool(
+        next(
+            (
+                vuln
+                for vuln in vulns
+                if vuln['historic_state'][-1]['state'] == 'open'
+            ),
+            None
+        )
     )
