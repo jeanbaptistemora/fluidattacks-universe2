@@ -480,12 +480,12 @@ class FindingEnum(Enum):
         attack_vector=0.62,
         availability_impact=0.0,
         confidentiality_impact=0.22,
-        exploitability=0.97,
+        exploitability=0.94,
         integrity_impact=0.0,
         privileges_required=0.85,
         remediation_level=0.95,
         report_confidence=1.0,
-        severity_scope=1.0,
+        severity_scope=0.0,
         user_interaction=0.62,
     )
     F052: FindingMetadata = FindingMetadata(
