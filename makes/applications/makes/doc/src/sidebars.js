@@ -161,6 +161,7 @@ module.exports = {
           'findings/security/f002',
           'findings/security/f003',
           'findings/security/f004',
+          'findings/security/f005',
         ],
     },
     {
