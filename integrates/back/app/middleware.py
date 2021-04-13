@@ -29,3 +29,14 @@ class CustomRequestMiddleware(BaseHTTPMiddleware):  # type: ignore
             newrelic.agent.set_transaction_name(traceback)
         request.state.store = defaultdict(lambda: None)
         return await call_next(request)
+
+
+class ApiCustomRequestMiddleware(BaseHTTPMiddleware):  # type: ignore
+
+    async def dispatch(
+        self,
+        request: Request,
+        call_next: Callable[..., Any]
+    ) -> Response:
+        request.state.store = defaultdict(lambda: None)
+        return await call_next(request)
