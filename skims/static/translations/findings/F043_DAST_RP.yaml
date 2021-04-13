@@ -1,3 +1,9 @@
+lib_http.f043.referrer_policy.missing:
+  en: The Referrer-Policy header is missing
+  es: La cabecera Referrer-Policy no se ha configurado
+lib_http.f043.referrer_policy.weak:
+  en: The Referrer-Policy header is set to a weak value
+  es: La cabecera Referrer-Policy posee un valor debil
 utils.model.finding.enum.F043_DAST_RP.description:
   en: >
     The server is missing the Referrer-Policy HTTP header.

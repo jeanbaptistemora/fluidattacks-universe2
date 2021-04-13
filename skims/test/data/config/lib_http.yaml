@@ -4,6 +4,11 @@ output: skims/test/outputs/lib_http.csv
 http:
   include:
     - http://localhost:48000/error
+    - http://localhost:48000/f043_dast_rp_0
+    - http://localhost:48000/f043_dast_rp_1
+    - http://localhost:48000/f043_dast_rp_2
+    - http://localhost:48000/f043_dast_rp_3
+    - http://localhost:48000/f043_dast_rp_4
     - http://localhost:48000/f043_dast_sts_0
     - http://localhost:48000/f043_dast_sts_1
     - http://localhost:48000/f043_dast_sts_2

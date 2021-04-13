@@ -14,9 +14,11 @@ from typing import (
 from http_headers import (
     as_string,
     from_url,
+    referrer_policy,
     strict_transport_security,
 )
 from http_headers.types import (
+    ReferrerPolicyHeader,
     StrictTransportSecurityHeader,
 )
 from http_headers.types import (
@@ -34,6 +36,71 @@ from utils.encodings import (
 from zone import (
     t,
 )
+
+
+def _referrer_policy(
+    url: str,
+    headers: Dict[Type[Header], Header],
+    headers_raw: Dict[str, str],
+) -> core_model.Vulnerabilities:
+    desc: str = ''
+
+    if header := headers.get(ReferrerPolicyHeader):
+        for value in header.values:
+            # Some header values may be out of the spec or experimental
+            # We won't take them into account as some browsers won't
+            # support them. The spec says that browsers should read the next
+            # value in the comma separated list
+            if value in {
+                'no-referrer',
+                'no-referrer-when-downgrade',
+                'origin',
+                'origin-when-cross-origin',
+                'same-origin',
+                'strict-origin',
+                'strict-origin-when-cross-origin',
+                'unsafe-url',
+            }:
+                desc = (
+                    ''
+                    if value in {
+                        'no-referrer',
+                        'same-origin',
+                        'strict-origin',
+                        'strict-origin-when-cross-origin',
+                    }
+                    else 'lib_http.f043.referrer_policy.weak'
+                )
+                break
+        else:
+            desc = 'lib_http.f043.referrer_policy.weak'
+
+    else:
+        desc = 'lib_http.f043.referrer_policy.missing'
+
+    return (
+        core_model.Vulnerability(
+            finding=core_model.FindingEnum.F043_DAST_RP,
+            kind=core_model.VulnerabilityKindEnum.INPUTS,
+            state=core_model.VulnerabilityStateEnum.OPEN,
+            stream='Query,response,headers',
+            what=serialize_namespace_into_vuln(
+                kind=core_model.VulnerabilityKindEnum.INPUTS,
+                namespace=CTX.config.namespace,
+                what=url,
+            ),
+            where='Referrer-Policy',
+            skims_metadata=core_model.SkimsVulnerabilityMetadata(
+                cwe=('644',),
+                description=t(desc),
+                snippet=as_string.snippet(
+                    url=url,
+                    header=header.name if header else None,
+                    headers=headers_raw,
+                ),
+            ),
+        ),
+    ) if desc else ()
 
 
 def _strict_transport_security(
@@ -81,7 +148,8 @@ async def http_headers_configuration(url: str) -> core_model.Vulnerabilities:
         for header_raw_name, header_raw_value in headers_raw.items()
         for line in [f'{header_raw_name}: {header_raw_value}']
         for header_parsed in [
-            strict_transport_security.parse(line)
+            referrer_policy.parse(line),
+            strict_transport_security.parse(line),
         ]
         if header_parsed is not None
     }
@@ -100,6 +168,7 @@ CHECKS: Dict[
         core_model.Vulnerabilities,
     ],
 ] = {
+    core_model.FindingEnum.F043_DAST_RP: _referrer_policy,
     core_model.FindingEnum.F043_DAST_STS: _strict_transport_security,
 }
 
