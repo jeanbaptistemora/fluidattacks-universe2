@@ -156,11 +156,13 @@ async def get_jwt_content(context) -> Dict[str, str]:  # noqa: MC0001
             content = token_helper.decode_jwt(token)
             if content.get('sub') == 'starlette_session':
                 try:
-                    await redis_get_entity_attr(
+                    session_jti: str = await redis_get_entity_attr(
                         entity='session',
                         attr='jti',
                         email=content['user_email']
                     )
+                    if session_jti != content['jti']:
+                        raise ExpiredToken()
                 except redis_model.KeyNotFound:
                     # Session expired (user logged out)
                     raise ExpiredToken()

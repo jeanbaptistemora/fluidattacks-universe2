@@ -6,7 +6,11 @@ function main {
   &&  aws_login_dev integrates \
   &&  sops_export_vars integrates/secrets-development.yaml \
         STARLETTE_SESSION_KEY \
-        TEST_E2E_USER \
+        TEST_E2E_USER_1 \
+        TEST_E2E_USER_2 \
+        TEST_E2E_USER_3 \
+        TEST_E2E_USER_4 \
+        TEST_E2E_USER_5 \
   &&  if test -n "${CI:-}"
       then
             aws_eks_update_kubeconfig 'makes-k8s' 'us-east-1' \

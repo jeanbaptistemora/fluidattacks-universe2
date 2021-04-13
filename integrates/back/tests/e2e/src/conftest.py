@@ -41,7 +41,11 @@ def timeout() -> int:
 
 @pytest.fixture(autouse=True, scope='session')
 def credentials() -> Credentials:
-    user: str = os.environ['TEST_E2E_USER']
+    node_index: int = (
+        int(os.environ['CI_NODE_INDEX'])
+        if 'CI_NODE_INDEX' in os.environ else 1
+    )
+    user: str = os.environ[f'TEST_E2E_USER_{node_index}']
     key: str = os.environ['STARLETTE_SESSION_KEY']
     return Credentials(
         user=user,
