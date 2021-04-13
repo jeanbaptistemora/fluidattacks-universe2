@@ -1,4 +1,4 @@
-from __future__ import absolute_import
+from collections import defaultdict
 import os
 import pytest
 import time
@@ -26,10 +26,12 @@ from graphql.language.ast import (
 
 from back import settings
 from back.app.utils import create_user
-from back.tests.unit.utils import create_dummy_simple_session
+from back.tests.unit.utils import (
+    create_dummy_session,
+    create_dummy_simple_session,
+)
 from backend.dal import session as session_dal
 from backend.dal.helpers.redis import (
-    redis_cmd,
     redis_del_entity_attr,
     redis_set_entity_attr,
 )
@@ -244,6 +246,26 @@ async def test_expired_token():
     time.sleep(6)
     with pytest.raises(ExpiredToken):
         assert await get_jwt_content(request)
+
+
+async def test_token_expired():
+    """Check if after change jti exception is raised."""
+    user_email = 'integratesuser@gmail.com'
+    request = await create_dummy_session(user_email)
+    setattr(request, 'store', defaultdict(lambda: None))
+    assert await get_jwt_content(request)
+
+    new_request = await create_dummy_session(user_email)
+    setattr(new_request, 'store', defaultdict(lambda: None))
+    assert await get_jwt_content(new_request)
+
+    with pytest.raises(ExpiredToken):
+        setattr(request, 'store', defaultdict(lambda: None))
+        assert await get_jwt_content(request)
+
+    setattr(new_request, 'store', defaultdict(lambda: None))
+    assert await get_jwt_content(new_request)
+
 
 async def test_revoked_token():
     request = create_dummy_simple_session()
