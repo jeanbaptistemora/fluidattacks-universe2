@@ -5,7 +5,7 @@ unregisterRunners: true
 terminationGracePeriodSeconds: 86400
 concurrent: 1000
 checkInterval: 5
-logLevel: debug
+logLevel: info
 rbac:
   create: true
   clusterWideAccess: true
@@ -25,7 +25,8 @@ runners:
     [[runners]]
       name = "ci-large"
       environment = ["FF_GITLAB_REGISTRY_HELPER_IMAGE=true", "FF_USE_LEGACY_KUBERNETES_EXECUTION_STRATEGY=false"]
-      request_concurrency = 100
+      request_concurrency = 10
+      output_limit = 16384
       [runners.docker]
         dns = ["1.1.1.1", "8.8.4.4", "8.8.8.8"]
         tls_verify = false
