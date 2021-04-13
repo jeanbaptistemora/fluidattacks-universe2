@@ -38,7 +38,7 @@ async def add_comment(
     email: str,
     comment_data: CommentType
 ) -> bool:
-    """Add comment in a project."""
+    """Add comment in a group."""
     parent = str(comment_data['parent'])
     content = str(comment_data['content'])
     await comments_utils.validate_handle_comment_scope(
@@ -49,11 +49,11 @@ async def add_comment(
         info.context.store
     )
     if parent != '0':
-        project_comments = [
+        group_comments = [
             str(comment.get('user_id'))
             for comment in await group_dal.get_comments(group_name)
         ]
-        if parent not in project_comments:
+        if parent not in group_comments:
             raise InvalidCommentParent()
     return await group_dal.add_comment(group_name, email, comment_data)
 
@@ -94,16 +94,20 @@ async def invite_to_group(
             }
         )
         description = await group_domain.get_description(group_name.lower())
-        project_url = f'{BASE_URL}/confirm_access/{url_token}'
+        group_url = f'{BASE_URL}/confirm_access/{url_token}'
         mail_to = [email]
         email_context: MailContentType = {
             'admin': email,
             'project': group_name,
             'project_description': description,
-            'project_url': project_url,
+            'project_url': group_url,
         }
         schedule(mailer.send_mail_access_granted(mail_to, email_context))
     return success
+
+
+async def is_alive(group: str) -> bool:
+    return await group_dal.is_alive(group)
 
 
 def send_comment_mail(

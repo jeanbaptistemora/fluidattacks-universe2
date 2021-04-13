@@ -41,7 +41,6 @@ from backend.filters import stakeholder as stakeholder_filters
 from backend.typing import (
     Comment as CommentType,
     Finding as FindingType,
-    Historic as HistoricType,
     Invitation as InvitationType,
     Project as ProjectType,
     ProjectAccess as ProjectAccessType,
@@ -280,16 +279,6 @@ async def edit(
     return success
 
 
-async def remove_access(user_email: str, project_name: str) -> bool:
-    return await project_dal.remove_access(user_email, project_name)
-
-
-async def get_historic_deletion(project_name: str) -> HistoricType:
-    historic_deletion = await project_dal.get_attributes(
-        project_name.lower(), ['historic_deletion'])
-    return cast(HistoricType, historic_deletion.get('historic_deletion', []))
-
-
 async def remove_resources(context: Any, project_name: str) -> bool:
     are_users_removed = await remove_all_users_access(context, project_name)
     group_findings = await findings_domain.list_findings(
@@ -419,7 +408,7 @@ async def remove_user_access(
     success: bool = all(
         await collect([
             authz.revoke_group_level_role(email, group_name),
-            remove_access(email, group_name)
+            group_access_domain.remove_access(email, group_name)
         ])
     )
     if success and check_org_access:
@@ -472,10 +461,6 @@ async def validate_tags(project_name: str, tags: List[str]) -> List[str]:
             # Invalid tag
             pass
     return tags_validated
-
-
-async def is_alive(project: str) -> bool:
-    return await project_dal.is_alive(project)
 
 
 async def total_vulnerabilities(

@@ -14,9 +14,8 @@ from boto3.dynamodb.conditions import Attr
 
 # Local libraries
 from backend.dal.helpers import dynamodb
-from backend.domain import (
-    project as group_domain,
-)
+from group_access import domain as group_access_domain
+
 
 ACCESS_TABLE_NAME = 'FI_project_access'
 
@@ -34,7 +33,7 @@ async def main() -> None:
 
     success = all(await collect(
         [
-            group_domain.remove_access(
+            group_access_domain.remove_access(
                 project_access['user_email'],
                 project_access['project_name']
             )

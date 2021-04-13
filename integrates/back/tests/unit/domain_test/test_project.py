@@ -34,11 +34,9 @@ from backend.domain.project import (
     get_pending_verification_findings,
     get_total_treatment,
     get_users,
-    is_alive,
     is_vulnerability_closed,
     list_comments,
     list_events,
-    remove_access,
     total_vulnerabilities,
     validate_tags,
 )
@@ -47,8 +45,10 @@ from backend.exceptions import (
     RepeatedValues,
 )
 from findings import dal as findings_dal
+from group_access.domain import remove_access
 from groups.domain import (
     add_comment,
+    is_alive,
     validate_group_services_config,
 )
 from names import domain as names_domain

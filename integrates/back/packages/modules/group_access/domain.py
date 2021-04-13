@@ -15,6 +15,10 @@ async def add_user_access(email: str, group: str, role: str) -> bool:
     )
 
 
+async def remove_access(user_email: str, group_name: str) -> bool:
+    return await group_access_dal.remove_access(user_email, group_name)
+
+
 async def update(
     user_email: str,
     group_name: str,

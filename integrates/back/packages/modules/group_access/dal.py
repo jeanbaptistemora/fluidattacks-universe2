@@ -8,7 +8,10 @@ from botocore.exceptions import ClientError
 # Local libraries
 from back.settings import LOGGING
 from backend.dal.helpers import dynamodb
-from backend.typing import ProjectAccess as GroupAccessType
+from backend.typing import (
+    DynamoDelete as DynamoDeleteType,
+    ProjectAccess as GroupAccessType,
+)
 
 
 logging.config.dictConfig(LOGGING)
@@ -16,6 +19,22 @@ logging.config.dictConfig(LOGGING)
 # Constants
 LOGGER = logging.getLogger(__name__)
 TABLE_NAME: str = 'FI_project_access'
+
+
+async def remove_access(user_email: str, group_name: str) -> bool:
+    """Remove group access in dynamo."""
+    try:
+        delete_attrs = DynamoDeleteType(
+            Key={
+                'user_email': user_email.lower(),
+                'project_name': group_name.lower(),
+            }
+        )
+        resp = await dynamodb.async_delete_item(TABLE_NAME, delete_attrs)
+        return resp
+    except ClientError as ex:
+        LOGGER.exception(ex, extra=dict(extra=locals()))
+        return False
 
 
 async def update(

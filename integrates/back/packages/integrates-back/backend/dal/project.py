@@ -493,21 +493,3 @@ async def get_access_by_url_token(
     items = await dynamodb.async_scan(TABLE_ACCESS_NAME, scan_attrs)
 
     return items
-
-
-async def remove_access(user_email: str, project_name: str) -> bool:
-    """Remove project access in dynamo."""
-    try:
-        delete_attrs = DynamoDeleteType(
-            Key={
-                'user_email': user_email.lower(),
-                'project_name': project_name.lower(),
-            }
-        )
-        resp = await dynamodb.async_delete_item(
-            TABLE_ACCESS_NAME, delete_attrs
-        )
-        return resp
-    except ClientError as ex:
-        LOGGER.exception(ex, extra=dict(extra=locals()))
-        return False

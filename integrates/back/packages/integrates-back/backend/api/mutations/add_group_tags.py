@@ -21,6 +21,7 @@ from backend.decorators import (
 )
 from backend.domain import project as group_domain
 from backend.typing import SimpleProjectPayload as SimpleProjectPayloadType
+from groups import domain as groups_domain
 from newutils.groups import update_tags
 
 
@@ -39,7 +40,7 @@ async def mutate(  # pylint: disable=too-many-arguments
     success = False
     group_name = project_name.lower()
     group_loader = info.context.loaders.group
-    if await group_domain.is_alive(group_name):
+    if await groups_domain.is_alive(group_name):
         if await group_domain.validate_tags(
                 group_name,
                 tags):
