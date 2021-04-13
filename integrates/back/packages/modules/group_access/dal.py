@@ -1,8 +1,10 @@
 # Standard libraries
 import logging
 import logging.config
+from typing import List
 
 # Third-party libraries
+from boto3.dynamodb.conditions import Key
 from botocore.exceptions import ClientError
 
 # Local libraries
@@ -12,6 +14,7 @@ from backend.typing import (
     DynamoDelete as DynamoDeleteType,
     ProjectAccess as GroupAccessType,
 )
+from newutils import apm
 
 
 logging.config.dictConfig(LOGGING)
@@ -19,6 +22,27 @@ logging.config.dictConfig(LOGGING)
 # Constants
 LOGGER = logging.getLogger(__name__)
 TABLE_NAME: str = 'FI_project_access'
+
+
+@apm.trace()
+async def get_user_groups(user_email: str, active: bool) -> List[str]:
+    """ Get groups of a user """
+    filtering_exp = Key('user_email').eq(user_email.lower())
+    query_attrs = {'KeyConditionExpression': filtering_exp}
+    groups = await dynamodb.async_query(TABLE_NAME, query_attrs)
+    if active:
+        groups_filtered = [
+            group.get('project_name')
+            for group in groups
+            if group.get('has_access', '')
+        ]
+    else:
+        groups_filtered = [
+            group.get('project_name')
+            for group in groups
+            if not group.get('has_access', '')
+        ]
+    return groups_filtered
 
 
 async def remove_access(user_email: str, group_name: str) -> bool:

@@ -25,7 +25,6 @@ from backend.typing import (
     DynamoDelete as DynamoDeleteType,
     User as UserType
 )
-from newutils import apm
 from __init__ import FI_TEST_PROJECTS
 
 
@@ -161,27 +160,6 @@ async def get_attributes(email: str, attributes: List[str]) -> UserType:
     except ClientError as ex:
         LOGGER.exception(ex, extra={'extra': locals()})
     return items
-
-
-@apm.trace()
-async def get_groups(user_email: str, active: bool) -> List[str]:
-    """ Get groups of a user """
-    filtering_exp = Key('user_email').eq(user_email.lower())
-    query_attrs = {'KeyConditionExpression': filtering_exp}
-    groups = await dynamodb.async_query(ACCESS_TABLE_NAME, query_attrs)
-    if active:
-        groups_filtered = [
-            group.get('project_name')
-            for group in groups
-            if group.get('has_access', '')
-        ]
-    else:
-        groups_filtered = [
-            group.get('project_name')
-            for group in groups
-            if not group.get('has_access', '')
-        ]
-    return groups_filtered
 
 
 async def get_platform_users() -> List[Dict[str, UserType]]:

@@ -14,7 +14,7 @@ from backend.typing import (
     Me as MeType,
     Tag as TagType
 )
-from users.domain.group import get_groups
+from groups import domain as groups_domain
 
 
 @convert_kwargs_to_snake_case  # type: ignore
@@ -32,7 +32,7 @@ async def resolve(
 
     organization = await organization_loader.load(organization_id)
     org_tags = await organization_tags_loader.load(organization['name'])
-    user_groups = await get_groups(
+    user_groups = await groups_domain.get_groups_by_user(
         user_email,
         organization_id=organization_id
     )

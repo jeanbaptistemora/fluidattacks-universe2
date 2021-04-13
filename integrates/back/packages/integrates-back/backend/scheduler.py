@@ -48,6 +48,7 @@ from backend.typing import (
 from batch import dal as batch_dal
 from events import domain as events_domain
 from findings import domain as findings_domain
+from groups import domain as groups_domain
 from newutils import datetime as datetime_utils
 from newutils.groups import has_integrates_services
 from newutils.findings import (
@@ -119,7 +120,7 @@ async def send_unsolved_events_email(context: Any, group_name: str) -> None:
     organization_loader = context.organization
     mail_to = []
     events_info_for_email = []
-    project_info = await project_domain.get_attributes(
+    project_info = await groups_domain.get_attributes(
         group_name, ['historic_configuration']
     )
     historic_configuration = cast(
@@ -865,7 +866,7 @@ async def update_organization_indicators(
     ]
     tags_dict: Dict[str, List[ProjectType]] = defaultdict(list)
     groups_attrs = await collect(
-        project_domain.get_attributes(
+        groups_domain.get_attributes(
             group,
             indicator_list + ['tag']
         )

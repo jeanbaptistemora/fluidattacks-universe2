@@ -12,9 +12,9 @@ from backend import util
 from backend.decorators import require_login
 from backend.exceptions import TagNotFound
 from backend.typing import Tag
+from groups import domain as groups_domain
 from organizations import domain as orgs_domain
 from tags import domain as tags_domain
-from users.domain.group import get_groups
 
 
 @require_login
@@ -27,7 +27,9 @@ async def resolve(
 
     user_data: Dict[str, str] = await util.get_jwt_content(info.context)
     user_email: str = user_data['user_email']
-    user_groups: List[str] = await get_groups(user_email)
+    user_groups: List[str] = await groups_domain.get_groups_by_user(
+        user_email
+    )
 
     if user_groups:
         org_id: str = await orgs_domain.get_id_for_group(user_groups[0])

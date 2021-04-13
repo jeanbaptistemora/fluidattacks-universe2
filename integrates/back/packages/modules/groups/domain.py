@@ -1,12 +1,23 @@
 # Standard libraries
 import secrets
+from typing import (
+    Dict,
+    List,
+    Union,
+)
 
 # Third-party libraries
-from aioextensions import schedule
+from aioextensions import (
+    collect,
+    schedule,
+)
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local libraries
-from backend import mailer
+from backend import (
+    authz,
+    mailer,
+)
 from backend.dal import project as group_dal
 from backend.domain import project as group_domain
 from backend.exceptions import (
@@ -19,6 +30,7 @@ from backend.typing import (
 )
 from group_access import domain as group_access_domain
 from newutils import (
+    apm,
     comments as comments_utils,
     datetime as datetime_utils,
 )
@@ -29,6 +41,7 @@ from newutils.validations import (
     validate_fluidattacks_staff_on_group,
     validate_phone_field,
 )
+from organizations import domain as orgs_domain
 from __init__ import BASE_URL
 
 
@@ -56,6 +69,46 @@ async def add_comment(
         if parent not in group_comments:
             raise InvalidCommentParent()
     return await group_dal.add_comment(group_name, email, comment_data)
+
+
+async def can_user_access(group: str, role: str) -> bool:
+    return await group_dal.can_user_access(group, role)
+
+
+async def get_attributes(
+    group_name: str,
+    attributes: List[str]
+) -> Dict[str, Union[str, List[str]]]:
+    return await group_dal.get_attributes(group_name, attributes)
+
+
+@apm.trace()
+async def get_groups_by_user(
+    user_email: str,
+    active: bool = True,
+    organization_id: str = ''
+) -> List[str]:
+    user_groups: List[str] = []
+    groups = await group_access_domain.get_user_groups(user_email, active)
+    group_level_roles = await authz.get_group_level_roles(user_email, groups)
+    can_access_list = await collect(
+        can_user_access(group, role)
+        for role, group in zip(group_level_roles.values(), groups)
+    )
+    user_groups = [
+        group
+        for can_access, group in zip(can_access_list, groups)
+        if can_access
+    ]
+
+    if organization_id:
+        org_groups = await orgs_domain.get_groups(organization_id)
+        user_groups = [
+            group
+            for group in user_groups
+            if group in org_groups
+        ]
+    return user_groups
 
 
 async def invite_to_group(
@@ -108,6 +161,26 @@ async def invite_to_group(
 
 async def is_alive(group: str) -> bool:
     return await group_dal.is_alive(group)
+
+
+async def mask(group_name: str) -> bool:
+    today = datetime_utils.get_now()
+    comments = await group_dal.get_comments(group_name)
+    comments_result = all(
+        await collect([
+            group_dal.delete_comment(
+                comment['project_name'],
+                comment['user_id']
+            )
+            for comment in comments
+        ])
+    )
+    update_data: Dict[str, Union[str, List[str], object]] = {
+        'project_status': 'FINISHED',
+        'deletion_date': datetime_utils.get_as_str(today)
+    }
+    is_group_finished = await group_dal.update(group_name, update_data)
+    return comments_result and is_group_finished
 
 
 def send_comment_mail(

@@ -12,9 +12,9 @@ from aioextensions import (
 from async_lru import alru_cache
 
 # Local libraries
-from backend.domain import project as group_domain
 from charts import utils
 from charts.colors import TREATMENT
+from groups import domain as groups_domain
 
 
 Treatment = NamedTuple('Treatment', [
@@ -27,7 +27,7 @@ Treatment = NamedTuple('Treatment', [
 
 @alru_cache(maxsize=None, typed=True)
 async def get_data_one_group(group: str):
-    item = await group_domain.get_attributes(group, ['total_treatment'])
+    item = await groups_domain.get_attributes(group, ['total_treatment'])
 
     treatment = item.get('total_treatment', {})
 

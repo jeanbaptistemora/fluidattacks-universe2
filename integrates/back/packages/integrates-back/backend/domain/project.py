@@ -62,7 +62,6 @@ from notifications import domain as notifications_domain
 from organizations import domain as orgs_domain
 from resources import domain as resources_domain
 from users import domain as users_domain
-from users.domain.group import get_groups
 from vulnerabilities import domain as vulns_domain
 
 
@@ -70,10 +69,6 @@ logging.config.dictConfig(LOGGING)
 
 # Constants
 LOGGER = logging.getLogger(__name__)
-
-
-async def can_user_access(project: str, role: str) -> bool:
-    return await project_dal.can_user_access(project, role)
 
 
 async def create_group(  # pylint: disable=too-many-arguments,too-many-locals
@@ -301,7 +296,7 @@ async def remove_resources(context: Any, project_name: str) -> bool:
         events_domain.mask(event_id)
         for event_id in events
     ))
-    is_group_masked = await mask(project_name)
+    is_group_masked = await groups_domain.mask(project_name)
     are_resources_masked = all(
         list(
             cast(List[bool], await resources_domain.mask(project_name))
@@ -365,24 +360,6 @@ async def delete_project(
     return response
 
 
-async def mask(group_name: str) -> bool:
-    today = datetime_utils.get_now()
-    comments = await project_dal.get_comments(group_name)
-    comments_result = all(await collect([
-        project_dal.delete_comment(comment['project_name'], comment['user_id'])
-        for comment in comments
-    ]))
-
-    update_data: Dict[str, Union[str, List[str], object]] = {
-        'project_status': 'FINISHED',
-        'deletion_date': datetime_utils.get_as_str(today)
-    }
-    is_group_finished = await project_dal.update(
-        group_name, update_data
-    )
-    return comments_result and is_group_finished
-
-
 async def remove_all_users_access(context: Any, project: str) -> bool:
     """Remove user access to project."""
     user_active, user_suspended = await collect([
@@ -417,7 +394,10 @@ async def remove_user_access(
         org_id = group['organization']
         has_org_access = await orgs_domain.has_user_access(org_id, email)
         has_groups_in_org = bool(
-            await get_groups(email, organization_id=org_id)
+            await groups_domain.get_groups_by_user(
+                email,
+                organization_id=org_id
+            )
         )
         if has_org_access and not has_groups_in_org:
             success = success and await orgs_domain.remove_user(
@@ -427,7 +407,7 @@ async def remove_user_access(
             )
 
         has_groups = bool(
-            await get_groups(email)
+            await groups_domain.get_groups_by_user(email)
         )
         if not has_groups:
             success = success and await user_utils.remove_stakeholder(email)
@@ -438,7 +418,7 @@ async def remove_user_access(
 async def _has_repeated_tags(project_name: str, tags: List[str]) -> bool:
     has_repeated_inputs = len(tags) != len(set(tags))
 
-    project_info = await get_attributes(
+    project_info = await groups_domain.get_attributes(
         project_name.lower(), ['tag'])
     existing_tags = project_info.get('tag', [])
     all_tags = list(existing_tags) + tags
@@ -936,12 +916,6 @@ async def get_alive_group_names() -> List[str]:
 async def list_events(project_name: str) -> List[str]:
     """ Returns the list of event ids associated with the project"""
     return await project_dal.list_events(project_name)
-
-
-async def get_attributes(
-        project_name: str,
-        attributes: List[str]) -> Dict[str, Union[str, List[str]]]:
-    return await project_dal.get_attributes(project_name, attributes)
 
 
 async def get_all(attributes: List[str] = None) -> List[ProjectType]:

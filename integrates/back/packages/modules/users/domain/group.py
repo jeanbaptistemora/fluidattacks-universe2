@@ -17,20 +17,17 @@ from backend import (
     util,
 )
 from backend.dal.helpers.redis import redis_del_by_deps_soon
-from backend.domain import project as group_domain
 from backend.typing import (
     Invitation as InvitationType,
     ProjectAccess as GroupAccessType,
     User as UserType,
 )
 from group_access import domain as group_access_domain
-from newutils import apm
 from newutils.validations import (
     validate_email_address,
     validate_phone_field,
 )
 from organizations import domain as orgs_domain
-from users import dal as users_dal
 from users.domain import core as users_core
 from __init__ import FI_DEFAULT_ORG
 
@@ -165,32 +162,3 @@ async def edit_user_information(
     if coroutines:
         success = all(await collect(coroutines))
     return success
-
-
-@apm.trace()
-async def get_groups(
-    user_email: str,
-    active: bool = True,
-    organization_id: str = ''
-) -> List[str]:
-    user_groups: List[str] = []
-    groups = await users_dal.get_groups(user_email, active)
-    group_level_roles = await authz.get_group_level_roles(user_email, groups)
-    can_access_list = await collect(
-        group_domain.can_user_access(group, role)
-        for role, group in zip(group_level_roles.values(), groups)
-    )
-    user_groups = [
-        group
-        for can_access, group in zip(can_access_list, groups)
-        if can_access
-    ]
-
-    if organization_id:
-        org_groups = await orgs_domain.get_groups(organization_id)
-        user_groups = [
-            group
-            for group in user_groups
-            if group in org_groups
-        ]
-    return user_groups

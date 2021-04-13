@@ -12,9 +12,9 @@ from aioextensions import (
 from async_lru import alru_cache
 
 # Local libraries
-from backend.domain import project as group_domain
 from charts import utils
 from charts.colors import RISK
+from groups import domain as groups_domain
 
 
 Status = NamedTuple('Status', [
@@ -25,7 +25,7 @@ Status = NamedTuple('Status', [
 
 @alru_cache(maxsize=None, typed=True)
 async def get_data_one_group(group: str) -> Status:
-    item = await group_domain.get_attributes(group, [
+    item = await groups_domain.get_attributes(group, [
         'open_vulnerabilities',
         'closed_vulnerabilities',
     ])

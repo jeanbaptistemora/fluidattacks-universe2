@@ -19,10 +19,14 @@ from aioextensions import (
     in_thread,
     run,
 )
-from boto3.dynamodb.conditions import Attr, Not
+from boto3.dynamodb.conditions import (
+    Attr,
+    Not,
+)
 
 from backend.dal.helpers import dynamodb
-from backend.domain.project import get_attributes as get_project_attributes
+from group_access.domain import get_user_groups
+from groups.domain import get_attributes as get_group_attributes
 from organizations.dal import (
     get_by_id as get_organization_attributes,
     get_by_id_old as get_organization_attributes_old
@@ -31,7 +35,6 @@ from organizations.domain import (
     get_id_by_name as get_organization_id_by_name,
 )
 from users.dal import update as update_user
-from users.domain.group import get_groups as get_user_groups
 from __init__ import FI_COMMUNITY_PROJECTS
 
 
@@ -110,7 +113,7 @@ async def main() -> None:
                 f'cannot be associated to any organization'
             )
             continue
-        org_info: Dict[str, str] = await get_project_attributes(
+        org_info: Dict[str, str] = await get_group_attributes(
             projects.pop(0),
             ['organization']
         )

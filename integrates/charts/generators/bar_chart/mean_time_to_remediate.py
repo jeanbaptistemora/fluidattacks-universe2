@@ -14,9 +14,9 @@ from aioextensions import (
 from async_lru import alru_cache
 
 # Local libraries
-from backend.domain import project as group_domain
 from charts import utils
 from charts.colors import RISK
+from groups import domain as groups_domain
 
 
 Remediate = NamedTuple('Remediate', [
@@ -29,7 +29,7 @@ Remediate = NamedTuple('Remediate', [
 
 @alru_cache(maxsize=None, typed=True)
 async def get_data_one_group(group: str) -> Remediate:
-    group_data = await group_domain.get_attributes(group, [
+    group_data = await groups_domain.get_attributes(group, [
         'mean_remediate_critical_severity',
         'mean_remediate_high_severity',
         'mean_remediate_medium_severity',

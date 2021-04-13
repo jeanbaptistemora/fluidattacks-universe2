@@ -9,13 +9,13 @@ from aioextensions import (
 from async_lru import alru_cache
 
 # Local libraries
-from backend.domain import project as group_domain
 from charts import utils
+from groups import domain as groups_domain
 
 
 @alru_cache(maxsize=None, typed=True)
 async def generate_one(group: str) -> int:
-    item = await group_domain.get_attributes(group, ['total_treatment'])
+    item = await groups_domain.get_attributes(group, ['total_treatment'])
 
     return item.get('total_treatment', {}).get('undefined', 0)
 

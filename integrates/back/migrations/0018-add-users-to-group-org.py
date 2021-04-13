@@ -21,6 +21,7 @@ from aioextensions import (
 )
 
 from backend.domain import project as group_domain
+from groups import domain as groups_domain
 from organizations import (
     dal as orgs_dal,
     domain as orgs_domain,
@@ -47,7 +48,7 @@ async def main() -> None:
     for group in await in_thread(group_domain.get_alive_projects):
         if group not in FI_COMMUNITY_PROJECTS + FI_TEST_PROJECTS:
             group_org_id = await in_thread(
-                group_domain.get_attributes,
+                groups_domain.get_attributes,
                 group,
                 ['organization']
             )

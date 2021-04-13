@@ -11,8 +11,8 @@ from typing import (
 from aioextensions import collect
 
 from backend import authz
-from backend.domain import project as project_domain
 from backend.typing import Tag as TagType
+from groups import domain as groups_domain
 from organizations import domain as orgs_domain
 from tags import dal as tags_dal
 
@@ -26,7 +26,7 @@ async def filter_allowed_tags(
     user_projects: List[str]
 ) -> List[str]:
     projects = await collect(
-        project_domain.get_attributes(project, ['tag', 'project_name'])
+        groups_domain.get_attributes(project, ['tag', 'project_name'])
         for project in user_projects
     )
     all_tags = {

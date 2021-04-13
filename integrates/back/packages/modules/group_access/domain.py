@@ -1,4 +1,5 @@
 # Standard libraries
+from typing import List
 
 # Third-party libraries
 
@@ -13,6 +14,10 @@ async def add_user_access(email: str, group: str, role: str) -> bool:
         await update_has_access(email, group, True) and
         await authz.grant_group_level_role(email, group, role)
     )
+
+
+async def get_user_groups(user_email: str, active: bool) -> List[str]:
+    return await group_access_dal.get_user_groups(user_email, active)
 
 
 async def remove_access(user_email: str, group_name: str) -> bool:

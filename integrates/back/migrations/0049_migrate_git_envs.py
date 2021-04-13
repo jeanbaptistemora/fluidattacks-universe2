@@ -10,15 +10,23 @@ Finalization Time: 2020-12-18 16:32:23 UTC-5
 import os
 import re
 from datetime import datetime
-from typing import List, NamedTuple, Optional, Tuple
+from typing import (
+    List,
+    NamedTuple,
+    Optional,
+    Tuple,
+)
 from urllib.parse import unquote
 
 # Third party
 import yaml
-from aioextensions import collect, run
+from aioextensions import (
+    collect,
+    run,
+)
 
 # Local
-from backend.domain import project as group_domain
+from groups import domain as groups_domain
 from roots import domain as roots_domain
 
 
@@ -74,7 +82,7 @@ def format_old_date(date: str) -> datetime:
 
 
 async def get_oldest_active_repo(group_name: str) -> Tuple[str, str]:
-    old_repos = (await group_domain.get_attributes(
+    old_repos = (await groups_domain.get_attributes(
         group_name,
         ['repositories']
     )).get('repositories', [])

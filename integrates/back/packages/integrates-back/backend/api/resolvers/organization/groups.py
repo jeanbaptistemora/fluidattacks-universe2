@@ -8,7 +8,7 @@ from graphql.type.definition import GraphQLResolveInfo
 # Local
 from backend import util
 from backend.typing import Organization, Project as Group
-from users.domain.group import get_groups
+from groups import domain as groups_domain
 
 
 async def resolve(
@@ -20,7 +20,7 @@ async def resolve(
     user_email: str = user_info['user_email']
     org_id: str = cast(str, parent['id'])
 
-    user_groups: List[str] = await get_groups(
+    user_groups: List[str] = await groups_domain.get_groups_by_user(
         user_email,
         organization_id=org_id
     )
