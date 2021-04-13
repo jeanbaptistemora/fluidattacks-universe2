@@ -14,6 +14,7 @@ from http_headers import (
     as_string,
     from_url,
     strict_transport_security,
+    referrer_policy,
 )
 
 
@@ -67,6 +68,21 @@ def test_as_string() -> None:
         ¦ ---- ¦ ---------------------------------------- ¦
                ^ Column 0
     """)[1:-1]
+
+
+@pytest.mark.skims_test_group('unittesting')
+def test_referrer_policy() -> None:
+    # Header names are caseless
+    parse = referrer_policy.parse
+
+    header = parse('  referrer-pOlicy  :  no-referreR,wrong,, strict-origin ')
+    assert header.values == ["no-referrer", "wrong", "strict-origin"]
+
+    header = parse('referrer-policy:')
+    assert header.values == []
+
+    header = parse('wrong:')
+    assert not header
 
 
 @pytest.mark.skims_test_group('unittesting')
