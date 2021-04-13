@@ -57,7 +57,7 @@ try:
     STARTDIR = os.environ['STARTDIR']
 
     # not secrets but must be environment vars
-    BASE_URL = 'https://integrates.fluidattacks.com'
+    BASE_URL = 'https://app.fluidattacks.com'
     FI_AWS_REDSHIFT_PORT = 5439
     FI_AWS_S3_BUCKET = 'fluidintegrates.evidences'
     FI_AWS_S3_ANALYTICS_BUCKET = 'fluidintegrates.analytics'

@@ -54,7 +54,7 @@ export const Dashboard: React.FC = (): JSX.Element => {
 
   const checkLoginReferrer = useCallback((): boolean => {
     const loginReferrers = [
-      "https://integrates.fluidattacks.com/",
+      "https://app.fluidattacks.com/",
       "https://account.live.com/",
       "https://login.live.com/",
       "https://bitbucket.org/",

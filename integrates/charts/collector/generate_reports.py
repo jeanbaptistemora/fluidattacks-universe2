@@ -32,7 +32,7 @@ FIREFOX = os.environ['envFirefox']
 DEBUGGING: bool = False
 
 # Constants
-TARGET_URL: str = 'https://integrates.fluidattacks.com'
+TARGET_URL: str = 'https://app.fluidattacks.com'
 INTEGRATES_API_TOKEN: str = os.environ['INTEGRATES_API_TOKEN']
 PROXY = 'http://127.0.0.1:9000' if DEBUGGING else None
 WIDTH: int = 1200

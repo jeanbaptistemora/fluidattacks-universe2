@@ -24,14 +24,14 @@ export const getEnvironment: () => IEnvironment = (): IEnvironment => {
   if ((releaseChannel as string).endsWith("atfluid")) {
     return {
       name: "ephemeral",
-      url: `https://${releaseChannel as string}.integrates.fluidattacks.com`,
+      url: `https://${releaseChannel as string}.app.fluidattacks.com`,
     };
   }
 
   if (releaseChannel === "master") {
     return {
       name: "production",
-      url: "https://integrates.fluidattacks.com",
+      url: "https://app.fluidattacks.com",
     };
   }
 

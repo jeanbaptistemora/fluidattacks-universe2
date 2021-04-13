@@ -136,7 +136,7 @@ integrates.back.deploy.dev:
   stage: deploy-app
   environment:
     name: development/$CI_COMMIT_REF_SLUG
-    url: https://$CI_COMMIT_REF_SLUG.integrates.fluidattacks.com
+    url: https://$CI_COMMIT_REF_SLUG.app.fluidattacks.com
 
 # Take into account that changing this job name impacts the rotation of
 #   AWS secrets at makes.
@@ -152,7 +152,7 @@ integrates.back.deploy.prod:
   retry: 1
   environment:
     name: production
-    url: https://integrates.fluidattacks.com
+    url: https://app.fluidattacks.com
 
 integrates.back.destroy.eph:
   <<: *makes

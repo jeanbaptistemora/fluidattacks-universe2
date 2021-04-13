@@ -7,7 +7,7 @@ export const getEnvironment: () => Environment = (): Environment => {
     return "development";
   }
   const currentUrl: string = window.location.hostname;
-  const ephemeralDomainRegex: RegExp = /[a-z]+atfluid.integrates.fluidattacks.com/gu;
+  const ephemeralDomainRegex: RegExp = /[a-z]+atfluid.app.fluidattacks.com/gu;
 
   if (currentUrl === "localhost") {
     return "development";

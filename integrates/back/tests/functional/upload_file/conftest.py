@@ -217,7 +217,7 @@ async def populate() -> bool:
                 ),
                 state=GitRootState(
                     environment_urls=[
-                        'https://integrates.fluidattacks.com'
+                        'https://.com'
                     ],
                     environment='production',
                     gitignore=[

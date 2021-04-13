@@ -1285,7 +1285,7 @@
               "environment_urls": {
                 "L": [
                   {
-                    "S": "https://integrates.fluidattacks.com"
+                    "S": "https://app.fluidattacks.com"
                   }
                 ]
               },
@@ -1352,7 +1352,7 @@
               "environment_urls": {
                 "L": [
                   {
-                    "S": "https://integrates.fluidattacks.com"
+                    "S": "https://app.fluidattacks.com"
                   }
                 ]
               },

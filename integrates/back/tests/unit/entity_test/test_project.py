@@ -496,7 +496,7 @@ async def test_get_roots() -> None:
     assert result['data']['drillsBlackGroup']['roots'] == [
         {
             '__typename': 'URLRoot',
-            'host': 'integrates.fluidattacks.com',
+            'host': 'app.fluidattacks.com',
             'id': '8493c82f-2860-4902-86fa-75b0fef76034',
             'path': '/',
             'port': 443,
@@ -516,7 +516,7 @@ async def test_get_roots() -> None:
             '__typename': 'GitRoot',
             'branch': 'master',
             'environment': 'production',
-            'environmentUrls': ['https://integrates.fluidattacks.com'],
+            'environmentUrls': ['https://app.fluidattacks.com'],
             'gitignore': [
                 'bower_components/*',
                 'node_modules/*'
@@ -919,7 +919,7 @@ async def test_update_git_environments() -> None:
         updateGitEnvironments(
           groupName: "unittesting"
           id: "765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a"
-          environmentUrls: ["https://integrates.fluidattacks.com/"]
+          environmentUrls: ["https://app.fluidattacks.com/"]
         ) {
           success
         }

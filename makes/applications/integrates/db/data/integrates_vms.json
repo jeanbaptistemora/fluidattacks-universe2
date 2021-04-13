@@ -20,7 +20,7 @@
           "modified_date": { "S": "2020-11-19T13:37:10+00:00" },
           "environment": { "S": "production" },
           "environment_urls": {
-            "L": [{ "S": "https://integrates.fluidattacks.com" }]
+            "L": [{ "S": "https://app.fluidattacks.com" }]
           },
           "gitignore": {
             "L": [{ "S": "bower_components/*" }, { "S": "node_modules/*" }]
@@ -42,7 +42,7 @@
           "modified_date": { "S": "2020-11-19T13:37:10+00:00" },
           "environment": { "S": "production" },
           "environment_urls": {
-            "L": [{ "S": "https://integrates.fluidattacks.com" }]
+            "L": [{ "S": "https://app.fluidattacks.com" }]
           },
           "gitignore": {
             "L": [{ "S": "bower_components/*" }, { "S": "node_modules/*" }]
@@ -197,7 +197,7 @@
         "Item": {
           "pk": { "S": "ROOT#8493c82f-2860-4902-86fa-75b0fef76034#STATE" },
           "sk": { "S": "GROUP#oneshottest" },
-          "host": { "S": "integrates.fluidattacks.com" },
+          "host": { "S": "app.fluidattacks.com" },
           "modified_by": { "S": "jdoe@fluidattacks.com" },
           "modified_date": { "S": "2020-11-19T13:45:55+00:00" },
           "path": { "S": "/" },
@@ -213,7 +213,7 @@
           "sk": {
             "S": "ROOT#8493c82f-2860-4902-86fa-75b0fef76034#STATE#2020-11-19T13:45:55+00:00"
           },
-          "host": { "S": "integrates.fluidattacks.com" },
+          "host": { "S": "app.fluidattacks.com" },
           "modified_by": { "S": "jdoe@fluidattacks.com" },
           "modified_date": { "S": "2020-11-19T13:45:55+00:00" },
           "path": { "S": "/" },

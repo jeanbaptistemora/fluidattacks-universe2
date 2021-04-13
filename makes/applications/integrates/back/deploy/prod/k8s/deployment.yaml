@@ -67,7 +67,7 @@ spec:
               - integrates-prod
               - FluidIntegrates
               - http://localhost:8001
-              - https://integrates.fluidattacks.com
+              - https://app.fluidattacks.com
             initialDelaySeconds: 90
             periodSeconds: 30
             successThreshold: 1

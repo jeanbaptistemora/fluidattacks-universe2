@@ -146,14 +146,14 @@ describe("GitRoots", (): void => {
     expect(firstInput).toHaveLength(1);
 
     firstInput.simulate("change", {
-      target: { value: "https://integrates.fluidattacks.com/" },
+      target: { value: "https://app.fluidattacks.com/" },
     });
 
     wrapper.find("form").simulate("submit");
 
     expect(handleSubmit).toHaveBeenCalledWith(
       {
-        environmentUrls: ["https://integrates.fluidattacks.com/"],
+        environmentUrls: ["https://app.fluidattacks.com/"],
       },
       expect.anything(),
       expect.anything()

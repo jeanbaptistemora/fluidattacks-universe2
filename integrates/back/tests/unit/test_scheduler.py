@@ -109,7 +109,7 @@ def test_get_finding_url():
     group_name = 'group_test'
     test_data = get_finding_url(dumb_finding_dict, group_name, org_name)
     expected_output = (
-        'https://integrates.fluidattacks.com/orgs/okada/groups'
+        'https://app.fluidattacks.com/orgs/okada/groups'
         '/group_test/test/description'
     )
     assert test_data == expected_output
