@@ -24,7 +24,7 @@ async def query(
             addFindingConsult(
                 content: "{content}",
                 findingId: "{finding}",
-                type: OBSERVATION,
+                type: CONSULT,
                 parent: "0"
             ) {{
                 success
