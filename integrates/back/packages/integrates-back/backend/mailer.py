@@ -1,25 +1,20 @@
 # Standard library
-import os
 import json
 import logging
-from html import escape
 from typing import (
     cast,
     Any,
     Dict,
     List,
-    Optional,
     Union,
 )
 
 # Third party libraries
-import aioboto3
 from aioextensions import (
     collect,
     in_thread,
     schedule,
 )
-import botocore
 import mandrill
 from jinja2 import (
     Environment,
@@ -46,8 +41,6 @@ from __init__ import (
     FI_MAIL_REVIEWERS,
     FI_MANDRILL_API_KEY,
     FI_TEST_PROJECTS,
-    FI_AWS_DYNAMODB_ACCESS_KEY,
-    FI_AWS_DYNAMODB_SECRET_KEY,
     SQS_QUEUE_URL,
 )
 
@@ -74,139 +67,6 @@ TEMPLATES = Environment(
 def _get_content(template_name: str, context: MailContentType) -> str:
     template = TEMPLATES.get_template(f'{template_name}.html')
     return template.render(context)
-
-
-def _escape_context(context: Dict[str, Union[str, int]]) -> \
-        Dict[str, Union[str, int]]:
-    attr_to_esc = [
-        'solution_description',
-        'description',
-        'resource_list',
-        'justification',
-        'updated_vuln_description',
-        'comment'
-    ]
-    for attr in attr_to_esc:
-        if attr in context:
-            value = context[attr]
-            if isinstance(value, list):
-                if all(isinstance(item, dict) for item in value):
-                    context[attr] = [
-                        {key: escape(item[key]) for key in item}
-                        for item in value
-                    ]
-                else:
-                    context[attr] = [escape(str(item)) for item in value]
-            else:
-                context[attr] = escape(str(value))
-    return context
-
-
-def _remove_test_projects(
-        context: Dict[str, Union[str, int]],
-        test_proj_list: List[str]) -> Dict[str, Union[str, int]]:
-    findings = context.get('findings')
-    if findings and isinstance(findings, list):
-        new_findings = list()
-        for fin in findings:
-            fin_proj = fin.get('project', '').lower()
-            if fin_proj not in test_proj_list:
-                new_findings.append(fin)
-        context['total'] = len(new_findings)
-        context['findings'] = new_findings
-    return context
-
-
-async def _get_sqs_email_message_async(
-    context: MailContentType,
-    email_to: List[str],
-    tags: List[str],
-) -> Optional[Dict[str, List[Union[str, Dict[str, object]]]]]:
-    project = str(context.get('project', '')).lower()
-    test_proj_list = FI_TEST_PROJECTS.split(',')
-    no_test_context = _remove_test_projects(
-        cast(Dict[str, Union[str, int]], context),
-        test_proj_list)
-    new_context = _escape_context(no_test_context)
-    message: Optional[Dict[str, List[Union[str, Dict[str, object]]]]] = None
-
-    if project not in test_proj_list:
-        message = {
-            'to': [],
-            'global_merge_vars': [],
-            'merge_vars': []
-        }
-        for email in email_to:
-            fname_mail = await get_recipient_first_name(email)
-            merge_var = {
-                'rcpt': email,
-                'vars': [{'name': 'fname', 'content': fname_mail}]
-            }
-            message['to'].append({'email': email})
-            message['merge_vars'].append(merge_var)
-        for key, value in list(new_context.items()):
-            message['global_merge_vars'].append(
-                {'name': key, 'content': value}
-            )
-        message['tags'] = cast(List[Union[Dict[str, object], str]], tags)
-
-    return message
-
-
-async def _send_mail_async(
-    template_name: str,
-    email_to: List[str],
-    context: MailContentType,
-    tags: List[str],
-) -> None:
-    message = await _get_sqs_email_message_async(
-        context=context,
-        email_to=email_to,
-        tags=tags,
-    )
-
-    if message:
-        sqs_message = {
-            'api_key': API_KEY,
-            'message': message,
-        }
-
-        try:
-            resource_options = dict(
-                service_name='sqs',
-                aws_access_key_id=FI_AWS_DYNAMODB_ACCESS_KEY,
-                aws_secret_access_key=FI_AWS_DYNAMODB_SECRET_KEY,
-                aws_session_token=os.environ.get('AWS_SESSION_TOKEN'),
-                region_name='us-east-1'
-            )
-            async with aioboto3.client(**resource_options) as sqs:
-                await log(
-                    '[mailer]: sending to SQS',
-                    extra={
-                        'extra': {
-                            'message': json.dumps(message),
-                            'MessageGroupId': template_name,
-                        }
-                    })
-                await sqs.send_message(
-                    QueueUrl=QUEUE_URL,
-                    MessageBody=json.dumps(sqs_message),
-                    MessageGroupId=template_name
-                )
-                await log(
-                    '[mailer]: mail sent',
-                    extra={
-                        'extra': {
-                            'message': json.dumps(sqs_message["message"]),
-                            'MessageGroupId': template_name,
-                        }
-                    })
-        except (botocore.vendored.requests.exceptions.ConnectionError,
-                botocore.exceptions.ClientError) as exc:
-            LOGGER.exception(exc, extra=dict(extra=locals()))
-    else:
-        # Mail should not be sent if is a test project
-        pass
 
 
 async def _send_mail_async_new(
@@ -269,52 +129,6 @@ async def _send_mails_async_new(
         for email in email_to
         if context.get('project', '').lower() not in test_proj_list
     ])
-
-
-async def _send_mail_immediately(
-    context: MailContentType,
-    email_to: List[str],
-    tags: List[str],
-    template_name: str,
-) -> bool:
-    await log('[mailer]: _send_mail_immediately', extra={'extra': {
-        'context': context,
-        'email_to': email_to,
-        'template_name': template_name,
-    }})
-
-    result: List[Dict[str, str]] = []
-    success: bool = False
-    message = await _get_sqs_email_message_async(
-        context=context,
-        email_to=email_to,
-        tags=tags,
-    )
-
-    if message:
-        try:
-            result = mandrill.Mandrill(API_KEY).messages.send_template(
-                message=message,
-                template_content=[],
-                template_name=template_name,
-            )
-        except mandrill.InvalidKeyError as exc:
-            LOGGER.exception(exc, extra=dict(extra=locals()))
-            success = False
-        else:
-            success = True
-    else:
-        # Mail should not be sent if is a test project
-        success = True
-
-    await log('[mailer]: _send_mail_immediately', extra={'extra': {
-        'email_to': email_to,
-        'result': result,
-        'success': success,
-        'template_name': template_name,
-    }})
-
-    return success
 
 
 async def get_recipient_first_name(email: str) -> str:
