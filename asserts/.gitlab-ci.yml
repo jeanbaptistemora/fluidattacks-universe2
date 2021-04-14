@@ -1,5 +1,5 @@
 .with_nix: &with_nix
-  tags: [ci]
+  tags: [autoscaling]
   image: "${CI_REGISTRY_IMAGE}/nix:${CI_JOB_NAME}"
   needs: []
   script:
@@ -34,7 +34,7 @@
     - if: *asserts_commit_pattern
 
 .makes: &makes
-  tags: [ci]
+  tags: [autoscaling]
   image: "${CI_REGISTRY_IMAGE}/makes"
   needs: []
   interruptible: true
@@ -119,25 +119,25 @@ asserts_test_api_cloud_gcp:
   <<: *with_nix
   <<: *in_dev_branch_asserts
   stage: test-code
-  tags: [ci-large]
+  tags: [autoscaling-large]
 
 .asserts_test_api_db_mysql:
   <<: *with_nix
   <<: *in_dev_branch_asserts
   stage: test-code
-  tags: [ci-large]
+  tags: [autoscaling-large]
 
 .asserts_test_api_db_postgres:
   <<: *with_nix
   <<: *in_dev_branch_asserts
   stage: test-code
-  tags: [ci-large]
+  tags: [autoscaling-large]
 
 .asserts_test_api_format:
   <<: *with_nix
   <<: *in_dev_branch_asserts
   stage: test-code
-  tags: [ci-large]
+  tags: [autoscaling-large]
 
 .asserts_test_api_helper:
   <<: *with_nix
@@ -213,13 +213,13 @@ asserts_test_api_ot:
   <<: *with_nix
   <<: *in_dev_branch_asserts
   stage: test-code
-  tags: [ci-large]
+  tags: [autoscaling-large]
 
 .asserts_test_api_proto_ftp:
   <<: *with_nix
   <<: *in_dev_branch_asserts
   stage: test-code
-  tags: [ci-large]
+  tags: [autoscaling-large]
 
 .asserts_test_api_proto_git:
   <<: *with_nix
@@ -240,7 +240,7 @@ asserts_test_api_proto_graphql:
   <<: *with_nix
   <<: *in_dev_branch_asserts
   stage: test-code
-  tags: [ci-large]
+  tags: [autoscaling-large]
 
 asserts_test_api_proto_rest:
   <<: *with_nix
@@ -251,31 +251,31 @@ asserts_test_api_proto_rest:
   <<: *with_nix
   <<: *in_dev_branch_asserts
   stage: test-code
-  tags: [ci-large]
+  tags: [autoscaling-large]
 
 .asserts_test_api_proto_smtp:
   <<: *with_nix
   <<: *in_dev_branch_asserts
   stage: test-code
-  tags: [ci-large]
+  tags: [autoscaling-large]
 
 .asserts_test_api_proto_ssh:
   <<: *with_nix
   <<: *in_dev_branch_asserts
   stage: test-code
-  tags: [ci-large]
+  tags: [autoscaling-large]
 
 .asserts_test_api_proto_ssl:
   <<: *with_nix
   <<: *in_dev_branch_asserts
   stage: test-code
-  tags: [ci-large]
+  tags: [autoscaling-large]
 
 .asserts_test_api_proto_tcp:
   <<: *with_nix
   <<: *in_dev_branch_asserts
   stage: test-code
-  tags: [ci-large]
+  tags: [autoscaling-large]
 
 .asserts_test_api_sca:
   <<: *with_nix
@@ -286,7 +286,7 @@ asserts_test_api_proto_rest:
   <<: *with_nix
   <<: *in_dev_branch_asserts
   stage: test-code
-  tags: [ci-large]
+  tags: [autoscaling-large]
 
 asserts_test_api_utils:
   <<: *with_nix
