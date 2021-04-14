@@ -2017,6 +2017,7 @@ export const enTranslations: ResourceKey = {
         text: "Please select vulnerabilities to reattack",
         title: "Info",
       },
+      notApplicable: "n/a",
       open: "Open",
       requested: "Requested",
       searchText: "Search Text",
