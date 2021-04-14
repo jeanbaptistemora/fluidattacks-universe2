@@ -33,7 +33,7 @@ workflow:
     - when: always
 
 .with_nix: &with_nix
-  tags: [ci]
+  tags: [autoscaling]
   image: "${CI_REGISTRY_IMAGE}/nix:${CI_JOB_NAME}"
   needs: []
   script:
@@ -43,7 +43,7 @@ workflow:
     GIT_DEPTH: 5
 
 .makes: &makes
-  tags: [ci]
+  tags: [autoscaling]
   image: "${CI_REGISTRY_IMAGE}/makes"
   needs: []
   interruptible: true
@@ -145,7 +145,7 @@ makes.test.profiles:
 makes.lint.mailmap:
   <<: *with_nix
   <<: *common_in_dev_branch
-  tags: [ci]
+  tags: [autoscaling]
   image: nixos/nix:2.3
   stage: lint-code
   before_script:
@@ -156,7 +156,7 @@ makes.lint.mailmap:
 common_forces:
   <<: *common_in_master_branch
   stage: post-deploy
-  tags: [ci]
+  tags: [autoscaling]
   needs: []
   image:
     name: fluidattacks/forces:new
@@ -172,7 +172,7 @@ common_sonarcloud_check:
   <<: *common_in_master_branch
   interruptible: true
   stage: external
-  tags: [ci]
+  tags: [autoscaling]
   needs: []
   image:
     name: sonarsource/sonar-scanner-cli:latest
