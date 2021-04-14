@@ -152,6 +152,9 @@ module.exports = {
     'agent/introduction',
     'agent/installation',
   ],
+  OwaspBenchmark: [
+    'owasp-benchmark/introduction',
+  ],
   Types: [
     'types/introduction',
     'types/f001',
