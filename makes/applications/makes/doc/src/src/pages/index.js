@@ -41,7 +41,7 @@ const features = [
         List of security requirements considered by our organization
       </>
     ),
-    link: 'requirements'
+    link: 'criteria'
   },
   {
     title: 'Types',

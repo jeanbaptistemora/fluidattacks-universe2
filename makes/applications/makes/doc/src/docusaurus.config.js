@@ -38,8 +38,8 @@ module.exports = {
           position: 'left',
         },
         {
-          to: 'requirements/',
-          activeBasePath: 'requirements/',
+          to: 'criteria/',
+          activeBasePath: 'criteria/',
           label: 'Criteria',
           position: 'left',
         },
