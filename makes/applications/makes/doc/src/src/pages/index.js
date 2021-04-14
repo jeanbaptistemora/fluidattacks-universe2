@@ -44,13 +44,13 @@ const features = [
     link: 'requirements'
   },
   {
-    title: 'Findings',
+    title: 'Types',
     description: (
       <>
-        List of findings related to security requirements
+        List of vulnerability types related to security requirements
       </>
     ),
-    link: 'findings'
+    link: 'types'
   },
   {
     title: 'Development',

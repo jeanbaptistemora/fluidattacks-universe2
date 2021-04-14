@@ -44,9 +44,9 @@ module.exports = {
           position: 'left',
         },
         {
-          to: 'findings/',
-          activeBasePath: 'findings/',
-          label: 'Findings',
+          to: 'types/',
+          activeBasePath: 'types/',
+          label: 'Types',
           position: 'left',
         },
         {

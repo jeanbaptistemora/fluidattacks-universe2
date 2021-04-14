@@ -9,6 +9,8 @@ In this section of the Scope tab, you can add and edit the repositories and envi
 that we should take into account when performing penetration tests. In order to do this,
 you can click on one of the three buttons that allow you to do different things.
 
+### Add a git root
+
 ![Git Root Buttons](/img/web/groups/scope/git_root_buttons.png)
 
 By clicking on the "Add git root" button the following form will show up
@@ -31,6 +33,8 @@ you on how to write the pattern used here.
 After you complete the required fields, you can click on **Proceed** to add the Git Root,
 or you can click on **Cancel** to discard all the information.
 
+### Edit a git root
+
 In order for the next button, **Edit root**, to become available you must first click on
 one of the git roots you already added and the same form will show up again, albeit
 slightly different
@@ -43,6 +47,19 @@ add more gitignores or delete them by clicking on the trash icon to the right of
 specific gitignore you would like to delete.
 
 Again, you can click on **Proceed** to apply the changes or on **Cancel** to discard them.
+
+You might also wonder how to delete a git root, however this isn't possible in the ASM because
+in the security world it is always better to keep records of everything. What you can do
+is change a repository state to **Active** or **Inactive**, which would mean the following:
+
+- **Active:** The repository is available and ready for our analysts to access.
+- **Inactive:** The repository does not exist anymore, it was changed, or it was added by mistake.
+
+Every time a repository is changed, a notification will be sent to all the people involved in the
+project (both Fluid Attacks’s and the customer’s users). Finally, the states can be changed by
+project users at any moment, and every change will be stored for future needs.
+
+### Manage a git root environment
 
 And lastly, after selecting one of your added **Git Roots**, you can also click on the
 **Manage environments** button for the following form to show up
