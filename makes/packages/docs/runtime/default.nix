@@ -8,7 +8,7 @@ let
   packageJsonDeps = getPackageJsonDeps "/docs/src/package.json";
 in
 buildNodeRequirements {
-  name = "makes-doc-runtime";
+  name = "docs-runtime";
   node = nixpkgs.nodejs-12_x;
   requirements = {
     direct = nix.sort packageJsonDeps.production;

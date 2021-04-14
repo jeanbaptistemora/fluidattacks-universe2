@@ -5,9 +5,9 @@
 , ...
 }:
 makeEntrypoint {
-  name = "makes-doc-deploy";
+  name = "docs-deploy";
   arguments = {
-    envRuntime = packages.makes.doc.runtime;
+    envRuntime = packages.docs.runtime;
   };
   searchPaths = {
     envPaths = [
@@ -18,5 +18,5 @@ makeEntrypoint {
       "/makes/utils/aws"
     ];
   };
-  template = path "/makes/applications/makes/doc/deploy/entrypoint.sh";
+  template = path "/makes/applications/docs/deploy/entrypoint.sh";
 }

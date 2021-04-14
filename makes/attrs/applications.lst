@@ -11,6 +11,10 @@ asserts
 asserts.infra.secrets.apply
 asserts.infra.secrets.test
 asserts.oci.deploy
+docs
+docs.deploy
+docs.infra.apply
+docs.infra.test
 forces
 forces.infra-apply
 forces.infra-test
@@ -71,10 +75,6 @@ makes.compute.test
 makes.deploy.oci
 makes.dns.apply
 makes.dns.test
-makes.doc
-makes.doc.deploy
-makes.doc.infra.apply
-makes.doc.infra.test
 makes.done
 makes.k8s.apply
 makes.k8s.test

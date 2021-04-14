@@ -5,9 +5,9 @@
 , ...
 }:
 makeEntrypoint {
-  name = "makes-doc";
+  name = "docs";
   arguments = {
-    envRuntime = packages.makes.doc.runtime;
+    envRuntime = packages.docs.runtime;
   };
   searchPaths = {
     envPaths = [
@@ -15,5 +15,5 @@ makeEntrypoint {
       nixpkgs.xdg_utils
     ];
   };
-  template = path "/makes/applications/makes/doc/entrypoint.sh";
+  template = path "/makes/applications/docs/entrypoint.sh";
 }

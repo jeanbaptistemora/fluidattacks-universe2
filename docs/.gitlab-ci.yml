@@ -32,3 +32,31 @@
     - if: '$CI_PIPELINE_SOURCE == "trigger"'
       when: never
     - if: *docs_commit_pattern
+
+docs.deploy.dev:
+  <<: *makes
+  <<: *docs_in_dev_branch
+  stage: deploy-app
+  script: ./m docs.deploy dev
+  environment:
+    name: doc/${CI_COMMIT_REF_NAME}
+    url: https://doc-dev.fluidattacks.com/${CI_COMMIT_REF_NAME}/
+
+docs.deploy.prod:
+  <<: *makes
+  <<: *docs_in_master_branch
+  stage: deploy-app
+  script: ./m docs.deploy prod
+  environment:
+    name: doc/${CI_COMMIT_REF_NAME}
+    url: https://doc.fluidattacks.com/
+
+docs.infra.apply:
+  <<: *makes
+  <<: *docs_in_master_branch
+  stage: deploy-infra
+
+docs.infra.test:
+  <<: *makes
+  <<: *docs_in_dev_branch
+  stage: test-infra
