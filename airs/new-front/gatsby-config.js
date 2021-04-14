@@ -8,7 +8,7 @@ module.exports = {
     image: "/images/logo-fluid-attacks.png", // Path to your image you placed in the 'static' folder
     keywords:
       "Fluid Attacks, Pentesting, Ethical Hacking, Security Testing, Cybersecurity",
-    siteUrl: "https://fluidattacks.com/new-front", // No trailing slash allowed!
+    siteUrl: "https://fluidattacks.com/", // No trailing slash allowed!
     title: "A Pentesting Company | Fluid Attacks",
   },
   plugins: [
@@ -82,6 +82,7 @@ module.exports = {
         },
       },
     },
+    "gatsby-plugin-catch-links",
     "gatsby-plugin-image",
     "gatsby-plugin-react-helmet",
     "gatsby-plugin-preload-fonts",
