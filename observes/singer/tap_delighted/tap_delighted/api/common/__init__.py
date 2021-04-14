@@ -30,16 +30,16 @@ class MaxRetriesReached(Exception):
     pass
 
 
-RType = TypeVar('RType')
-ApiResult = IOResult[Iterator[JSON], MaxRetriesReached]
+DataType = TypeVar('DataType')
+ApiResult = IOResult[DataType, MaxRetriesReached]
 LOG = logging.getLogger(__name__)
 
 
 def retry_request(
     retry_num: int,
-    request: Callable[[], RawApiResult],
+    request: Callable[[], RawApiResult[DataType]],
     error: RateLimitError,
-) -> RawApiResult:
+) -> ApiResult[DataType]:
     wait_time = error.retry_after
     LOG.info('Api rate limit reached. Waiting %ss', wait_time)
     time.sleep(wait_time)
@@ -48,7 +48,7 @@ def retry_request(
 
 
 def handle_rate_limit(
-    request: Callable[[], RawApiResult],
+    request: Callable[[], RawApiResult[DataType]],
     max_retries: int,
 ) -> ApiResult:
     retries = 0

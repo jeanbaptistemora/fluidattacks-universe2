@@ -4,6 +4,7 @@ from typing import (
     Any,
     Callable,
     Iterator,
+    TypeVar,
 )
 
 # Third party libraries
@@ -33,10 +34,13 @@ class RateLimitError(TooManyRequestsError):
     pass
 
 
-RawApiResult = IOResult[Iterator[JSON], RateLimitError]
+DataType = TypeVar('DataType')
+RawApiResult = IOResult[DataType, RateLimitError]
+RawItem = RawApiResult[JSON]
+RawItems = RawApiResult[Iterator[JSON]]
 
 
-def _wrap_manyreqs_error(request: Callable[[], Any]) -> RawApiResult:
+def _wrap_manyreqs_error(request: Callable[[], Any]) -> RawApiResult[Any]:
     try:
         return IOSuccess(request())
     except TooManyRequestsError as error:
@@ -47,7 +51,7 @@ def _call_paged_resource(
     request: Callable[..., Any],
     client: Client,
     page: PageId,
-) -> RawApiResult:
+) -> RawItems:
     return _wrap_manyreqs_error(
         lambda: request(
             client=client,
@@ -57,19 +61,34 @@ def _call_paged_resource(
     )
 
 
-def list_bounced(client: Client, page: PageId) -> RawApiResult:
+def _call_single_resource(
+    request: Callable[..., Any],
+    client: Client,
+) -> RawItem:
+    return _wrap_manyreqs_error(
+        lambda: request(client=client)
+    )
+
+
+def get_metrics(client: Client) -> RawItem:
+    return _call_single_resource(
+        delighted.Metrics.retrieve, client
+    )
+
+
+def list_bounced(client: Client, page: PageId) -> RawItems:
     return _call_paged_resource(
         delighted.Bounce.all, client, page
     )
 
 
-def list_surveys(client: Client, page: PageId) -> RawApiResult:
+def list_surveys(client: Client, page: PageId) -> RawItems:
     return _call_paged_resource(
         delighted.SurveyResponse.all, client, page
     )
 
 
-def list_unsubscribed(client: Client, page: PageId) -> RawApiResult:
+def list_unsubscribed(client: Client, page: PageId) -> RawItems:
     return _call_paged_resource(
         delighted.Unsubscribe.all, client, page
     )
