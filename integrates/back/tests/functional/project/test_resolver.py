@@ -31,8 +31,9 @@ async def test_admin(populate: bool):
         user='admin@gmail.com',
         group=group_name
     )
-    print(result)
-    assert 'errors' not in result
+    assert 'errors' in result
+    assert len(result['errors']) == 1
+    assert result['errors'][0]['message'] == 'Exception - Document not found'
     assert result['data']['project']['name'] == group_name
     assert result['data']['project']['hasDrills']
     assert result['data']['project']['hasForces']
@@ -42,6 +43,8 @@ async def test_admin(populate: bool):
     assert result['data']['project']['lastClosingVuln'] == 40
     assert result['data']['project']['maxSeverity'] == 4.1
     assert result['data']['project']['meanRemediate'] == 2
+    assert result['data']['project']['meanRemediateCriticalSeverity'] == 0
+    assert result['data']['project']['meanRemediateHighSeverity'] == 0
     assert result['data']['project']['meanRemediateLowSeverity'] == 3
     assert result['data']['project']['meanRemediateMediumSeverity'] == 4
     assert result['data']['project']['openFindings'] == 1
@@ -52,6 +55,20 @@ async def test_admin(populate: bool):
     assert result['data']['project']['userDeletion'] == ''
     assert result['data']['project']['tags'] == ['testing']
     assert result['data']['project']['description'] == 'this is group1'
+    assert result['data']['project']['serviceAttributes'] == [
+        'has_drills_white',
+        'has_forces',
+        'has_integrates',
+        'is_continuous',
+        'is_fluidattacks_customer',
+        'must_only_have_fluidattacks_hackers'
+    ]
+    assert result['data']['project']['organization'] == 'orgtest'
+    assert result['data']['project']['userRole'] == 'group_manager'
+    assert result['data']['project']['maxOpenSeverity'] == 4.3
+    assert result['data']['project']['maxOpenSeverityFinding'] == None
+    assert result['data']['project']['lastClosingVulnFinding'] == None
+    assert result['data']['project']['maxSeverityFinding'] == {'analyst': 'admin@gmail.com'}
     assert consult in [consult['content'] for consult in result['data']['project']['consulting']]
     assert finding in [finding['id'] for finding in result['data']['project']['findings']]
     assert event in [event['id'] for event in result['data']['project']['events']]
@@ -79,6 +96,9 @@ async def test_analyst(populate: bool):
         group=group_name
     )
     assert 'errors' in result
+    assert len(result['errors']) == 2
+    assert result['errors'][0]['message'] == 'Exception - Document not found'
+    assert result['errors'][1]['message'] == 'Access denied'
     assert result['data']['project']['name'] == group_name
     assert result['data']['project']['hasDrills']
     assert result['data']['project']['hasForces']
@@ -88,6 +108,8 @@ async def test_analyst(populate: bool):
     assert result['data']['project']['lastClosingVuln'] == 40
     assert result['data']['project']['maxSeverity'] == 4.1
     assert result['data']['project']['meanRemediate'] == 2
+    assert result['data']['project']['meanRemediateCriticalSeverity'] == 0
+    assert result['data']['project']['meanRemediateHighSeverity'] == 0
     assert result['data']['project']['meanRemediateLowSeverity'] == 3
     assert result['data']['project']['meanRemediateMediumSeverity'] == 4
     assert result['data']['project']['openFindings'] == 1
@@ -98,6 +120,20 @@ async def test_analyst(populate: bool):
     assert result['data']['project']['userDeletion'] == ''
     assert result['data']['project']['tags'] == ['testing']
     assert result['data']['project']['description'] == 'this is group1'
+    assert result['data']['project']['serviceAttributes'] == [
+        'has_drills_white',
+        'has_forces',
+        'has_integrates',
+        'is_continuous',
+        'is_fluidattacks_customer',
+        'must_only_have_fluidattacks_hackers'
+    ]
+    assert result['data']['project']['organization'] == 'orgtest'
+    assert result['data']['project']['userRole'] == 'analyst'
+    assert result['data']['project']['maxOpenSeverity'] == 4.3
+    assert result['data']['project']['maxOpenSeverityFinding'] == None
+    assert result['data']['project']['lastClosingVulnFinding'] == None
+    assert result['data']['project']['maxSeverityFinding'] == {'analyst': 'admin@gmail.com'}
     assert consult in [consult['content'] for consult in result['data']['project']['consulting']]
     assert finding in [finding['id'] for finding in result['data']['project']['findings']]
     assert event in [event['id'] for event in result['data']['project']['events']]
@@ -124,6 +160,10 @@ async def test_closer(populate: bool):
         group=group_name
     )
     assert 'errors' in result
+    assert len(result['errors']) == 3
+    assert result['errors'][0]['message'] == 'Exception - Document not found'
+    assert result['errors'][1]['message'] == 'Access denied'
+    assert result['errors'][2]['message'] == 'Access denied'
     assert result['data']['project']['name'] == group_name
     assert result['data']['project']['hasDrills']
     assert result['data']['project']['hasForces']
@@ -133,6 +173,8 @@ async def test_closer(populate: bool):
     assert result['data']['project']['lastClosingVuln'] == 40
     assert result['data']['project']['maxSeverity'] == 4.1
     assert result['data']['project']['meanRemediate'] == 2
+    assert result['data']['project']['meanRemediateCriticalSeverity'] == 0
+    assert result['data']['project']['meanRemediateHighSeverity'] == 0
     assert result['data']['project']['meanRemediateLowSeverity'] == 3
     assert result['data']['project']['meanRemediateMediumSeverity'] == 4
     assert result['data']['project']['openFindings'] == 1
@@ -143,6 +185,20 @@ async def test_closer(populate: bool):
     assert result['data']['project']['userDeletion'] == ''
     assert result['data']['project']['tags'] == ['testing']
     assert result['data']['project']['description'] == 'this is group1'
+    assert result['data']['project']['serviceAttributes'] == [
+        'has_drills_white',
+        'has_forces',
+        'has_integrates',
+        'is_continuous',
+        'is_fluidattacks_customer',
+        'must_only_have_fluidattacks_hackers'
+    ]
+    assert result['data']['project']['organization'] == 'orgtest'
+    assert result['data']['project']['userRole'] == 'closer'
+    assert result['data']['project']['maxOpenSeverity'] == 4.3
+    assert result['data']['project']['maxOpenSeverityFinding'] == None
+    assert result['data']['project']['lastClosingVulnFinding'] == None
+    assert result['data']['project']['maxSeverityFinding'] == {'analyst': 'admin@gmail.com'}
     assert consult in [consult['content'] for consult in result['data']['project']['consulting']]
     assert finding in [finding['id'] for finding in result['data']['project']['findings']]
     assert event in [event['id'] for event in result['data']['project']['events']]

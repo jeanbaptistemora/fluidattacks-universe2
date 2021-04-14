@@ -23,6 +23,7 @@ async def query(
     query: str = f"""
         query {{
             project(projectName: "{group}"){{
+                analytics(documentName: "", documentType: "")
                 name
                 hasDrills
                 hasForces
@@ -32,6 +33,8 @@ async def query(
                 lastClosingVuln
                 maxSeverity
                 meanRemediate
+                meanRemediateCriticalSeverity
+                meanRemediateHighSeverity
                 meanRemediateLowSeverity
                 meanRemediateMediumSeverity
                 openFindings
@@ -42,6 +45,13 @@ async def query(
                 userDeletion
                 tags
                 description
+                serviceAttributes
+                organization
+                userRole
+                maxOpenSeverity
+                maxOpenSeverityFinding {{
+                    analyst
+                }}
                 stakeholders{{
                     email
                 }}
@@ -62,6 +72,12 @@ async def query(
                 drafts {{
                     id
                     title
+                }}
+                lastClosingVulnFinding {{
+                    analyst
+                }}
+                maxSeverityFinding {{
+                    analyst
                 }}
                 __typename
             }}
