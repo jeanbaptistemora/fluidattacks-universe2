@@ -91,6 +91,13 @@ module.exports = {
           'criteria/privacy/r311',
         ],
     },
+    {
+      type: 'category',
+        label: 'Data',
+        items: [
+          'criteria/data/r176',
+        ],
+    },
   ],
   Agent: [
     'agent/introduction',
