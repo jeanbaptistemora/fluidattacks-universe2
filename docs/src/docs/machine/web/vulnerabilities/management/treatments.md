@@ -36,7 +36,9 @@ treatment to the selected vulnerability.
 - **Tags:** Assign a label or labels to the vulnerability for an easier time
 managing and finding them.
 - **Level:** You can use this field to assign a level of priority when solving
-vulnerabilities.
+vulnerabilities. It can be a number between 0 and 1,000,000,000 (one billion)
+that represents the severity of the vulnerability for the business.
+It can be a quantitative or monetary value.
 - **Treatment manager:** This will be the user of the group in charge of making
 sure that the vulnerability receives a solution, which means this information
 is only given when the treatment assigned is **In progress**.

@@ -123,6 +123,7 @@ module.exports = {
           items: [
             'machine/web/groups/vulnerabilities',
             'machine/web/groups/consulting',
+            'machine/web/groups/events',
             {
               type: 'category',
               label: 'Scope',
