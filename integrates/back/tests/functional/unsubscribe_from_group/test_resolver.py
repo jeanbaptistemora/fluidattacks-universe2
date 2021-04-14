@@ -31,3 +31,16 @@ async def test_analyst(populate: bool):
     )
     assert 'errors' not in result
     assert result['data']['unsubscribeFromGroup']['success']
+
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group('unsubscribe_from_group')
+async def test_closer(populate: bool):
+    assert populate
+    result: Dict[str, Any] = await query(
+        user='closer@gmail.com',
+        group='group-1',
+    )
+    assert 'errors' not in result
+    assert result['data']['unsubscribeFromGroup']['success']
