@@ -155,6 +155,7 @@ module.exports = {
   OwaspBenchmark: [
     'owasp-benchmark/introduction',
     'owasp-benchmark/our-score',
+    'owasp-benchmark/transparency',
   ],
   Types: [
     'types/introduction',
