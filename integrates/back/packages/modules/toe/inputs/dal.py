@@ -26,6 +26,22 @@ def _format_git_toe_input(
     return GitRootToeInput(**toe_input_item._asdict())
 
 
+async def delete(
+    entry_point: str,
+    component: str,
+    group_name: str
+) -> None:
+    try:
+        await model.delete_git_root_toe_input(
+            entry_point=entry_point,
+            component=component,
+            group_name=group_name
+        )
+    except ClientError as ex:
+        LOGGER.exception(ex, extra={'extra': locals()})
+        raise UnavailabilityError() from ex
+
+
 async def get_by_group(
     group_name: str
 ) -> Tuple[GitRootToeInput, ...]:
