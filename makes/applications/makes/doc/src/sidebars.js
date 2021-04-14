@@ -65,6 +65,7 @@ module.exports = {
           ],
         },
         'web/vulnerabilities/reporting-vulns',
+        'web/vulnerabilities/deleting-vulns',
       ],
     },
     'web/glossary',
