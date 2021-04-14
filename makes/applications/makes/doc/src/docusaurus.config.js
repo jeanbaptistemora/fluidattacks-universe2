@@ -20,13 +20,7 @@ module.exports = {
       },
       items: [
         {
-          to: 'web/',
-          activeBasePath: 'web/',
-          label: 'Web',
-          position: 'left',
-        },
-        {
-          to: 'machine/scanner/benchmark',
+          to: 'machine/web',
           activeBasePath: 'machine/',
           label: 'Machine',
           position: 'left',

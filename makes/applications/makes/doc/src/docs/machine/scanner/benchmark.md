@@ -2,7 +2,7 @@
 id: benchmark
 title: OWASP Benchmark
 sidebar_label: Benchmark
-slug: /machine/scanner/benchmark
+slug: /machine/scanner
 ---
 
 The [Open Web Application Security Project (OWASP)](https://owasp.org/)

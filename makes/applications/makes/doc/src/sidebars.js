@@ -12,64 +12,6 @@ function getDocs(path) {
 }
 
 module.exports = {
-  Web: [
-    'web/asm',
-    {
-      type: 'category',
-      label: 'Manage your organization',
-      items: [
-        'web/organization/analytics-vulnerabilities',
-        'web/organization/analytics-generic',
-      ],
-    },
-    {
-      type: 'category',
-      label: 'Manage your groups',
-      items: [
-        'web/groups/vulnerabilities',
-        'web/groups/consulting',
-        {
-          type: 'category',
-          label: 'Scope',
-          items: [
-            'web/groups/scope/introduction',
-            'web/groups/scope/gitroots',
-            'web/groups/scope/files',
-            'web/groups/scope/portfolio',
-          ],
-        },
-        'web/groups/deleting-unsubscribing',
-      ],
-    },
-    {
-      type: 'category',
-      label: 'Vulnerabilities',
-      items: [
-        {
-          type: 'category',
-          label: 'Management',
-          items: [
-            'web/vulnerabilities/management/introduction',
-            'web/vulnerabilities/management/treatments',
-            'web/vulnerabilities/management/reattacks',
-            'web/vulnerabilities/management/tracking',
-          ],
-        },
-        {
-          type: 'category',
-          label: 'Creating new types of vulnerabilities',
-          items: [
-            'web/vulnerabilities/new-vulnerability-types/create-draft',
-            'web/vulnerabilities/new-vulnerability-types/new-vuln-description',
-            'web/vulnerabilities/new-vulnerability-types/new-vuln-severity',
-          ],
-        },
-        'web/vulnerabilities/reporting-vulns',
-        'web/vulnerabilities/deleting-vulns',
-      ],
-    },
-    'web/glossary',
-  ],
   Mobile: {
     Mobile: getDocs('mobile'),
   },
@@ -155,6 +97,68 @@ module.exports = {
     'agent/installation',
   ],
   Machine: [
+    {
+      type: 'category',
+      label: 'Web',
+      items: [
+        'machine/web/asm',
+        {
+          type: 'category',
+          label: 'Manage your organization',
+          items: [
+            'machine/web/organization/analytics-vulnerabilities',
+            'machine/web/organization/analytics-generic',
+          ],
+        },
+        {
+          type: 'category',
+          label: 'Manage your groups',
+          items: [
+            'machine/web/groups/vulnerabilities',
+            'machine/web/groups/consulting',
+            {
+              type: 'category',
+              label: 'Scope',
+              items: [
+                'machine/web/groups/scope/introduction',
+                'machine/web/groups/scope/gitroots',
+                'machine/web/groups/scope/files',
+                'machine/web/groups/scope/portfolio',
+              ],
+            },
+            'machine/web/groups/deleting-unsubscribing',
+          ],
+        },
+        {
+          type: 'category',
+          label: 'Vulnerabilities',
+          items: [
+            {
+              type: 'category',
+              label: 'Management',
+              items: [
+                'machine/web/vulnerabilities/management/introduction',
+                'machine/web/vulnerabilities/management/treatments',
+                'machine/web/vulnerabilities/management/reattacks',
+                'machine/web/vulnerabilities/management/tracking',
+              ],
+            },
+            {
+              type: 'category',
+              label: 'Creating new types of vulnerabilities',
+              items: [
+                'machine/web/vulnerabilities/new-vulnerability-types/create-draft',
+                'machine/web/vulnerabilities/new-vulnerability-types/new-vuln-description',
+                'machine/web/vulnerabilities/new-vulnerability-types/new-vuln-severity',
+              ],
+            },
+            'machine/web/vulnerabilities/reporting-vulns',
+            'machine/web/vulnerabilities/deleting-vulns',
+          ],
+        },
+        'machine/web/glossary',
+      ],
+    },
     {
       type: 'category',
       label: 'Scanner',
