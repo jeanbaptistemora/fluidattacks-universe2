@@ -37,7 +37,7 @@ function patch_paths_eph {
 function patch_paths_prod {
   local src="${1}"
 
-  patch_paths "${src}" 'https' 'fluidattacks.com/' 'new-front'
+  patch_paths "${src}" 'https' 'fluidattacks.com/new-front' 'new-front'
 }
 
 function compress_files {
@@ -141,8 +141,7 @@ function main {
   local url_to_replace='please-replace-this-url-before-deploying'
   local path_to_replace='please-replace-this-path-before-deploying'
 
-      mkdir -p "${out}" \
-  &&  __envAirsContent__ "${out}" \
+      __envAirsContent__ "${out}" \
   &&  case "${env}" in
         dev) patch_paths_dev "${out}";;
         eph) patch_paths_eph "${out}";;
