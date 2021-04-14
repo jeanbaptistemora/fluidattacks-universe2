@@ -2,6 +2,7 @@
 import logging
 from typing import (
     Iterator,
+    TypeVar,
     Union,
 )
 
@@ -16,6 +17,7 @@ from returns.io import (
 # Local libraries
 import paginator
 from paginator import (
+    AllPages,
     EmptyPage,
     PageId,
 )
@@ -25,9 +27,10 @@ from singer_io import (
 from singer_io.singer import (
     SingerRecord,
 )
-from tap_delighted.api import ApiClient
-from tap_delighted.api.survey import (
+from tap_delighted.api import (
+    ApiClient,
     SurveyPage,
+    BouncedPage,
 )
 from tap_delighted.common import (
     JSON,
@@ -38,6 +41,7 @@ from tap_delighted.streams.objs import (
 
 
 LOG = logging.getLogger(__name__)
+ApiPage = TypeVar('ApiPage', SurveyPage, BouncedPage)
 
 
 def _json_list_srecords(
@@ -58,7 +62,7 @@ def _emit_records(records: Iterator[SingerRecord]) -> None:
         factory.emit(record)
 
 
-def _emit_page(stream: SupportedStreams, page: SurveyPage) -> None:
+def _emit_page(stream: SupportedStreams, page: ApiPage) -> None:
     records: IO[Iterator[SingerRecord]] = page.data.map(
         partial(_json_list_srecords, stream.value.lower())
     )
@@ -77,6 +81,13 @@ def all_surveys(api: ApiClient) -> None:
     pages: Iterator[SurveyPage] = paginator.get_until_end(
         PageId(1, 100), getter, 10
     )
+    for page in pages:
+        _emit_page(stream, page)
+
+
+def all_bounced(api: ApiClient) -> None:
+    stream = SupportedStreams.BOUNCED
+    pages = api.people.list_bounced(AllPages())
     for page in pages:
         _emit_page(stream, page)
 

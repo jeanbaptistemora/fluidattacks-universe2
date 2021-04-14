@@ -28,7 +28,8 @@ _stream_executor: Mapping[
     SupportedStreams,
     Callable[[ApiClient], None]
 ] = {
-    SupportedStreams.SURVEY_RESPONSE: streams.all_surveys
+    SupportedStreams.BOUNCED: streams.all_bounced,
+    SupportedStreams.SURVEY_RESPONSE: streams.all_surveys,
 }
 
 
