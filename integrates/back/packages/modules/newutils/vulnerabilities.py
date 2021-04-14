@@ -2,7 +2,10 @@
 import html
 import itertools
 import logging
-from datetime import datetime
+from datetime import (
+    date as datetype,
+    datetime,
+)
 from operator import itemgetter
 from typing import (
     Any,
@@ -12,6 +15,7 @@ from typing import (
     Iterable,
     List,
     NamedTuple,
+    Optional,
     Union,
 )
 
@@ -193,6 +197,28 @@ def format_where(where: str, vulnerabilities: List[Dict[str, str]]) -> str:
     return where
 
 
+def get_last_approved_state(vuln: Dict[str, FindingType]) -> Dict[str, str]:
+    historic_state = cast(HistoricType, vuln.get('historic_state', [{}]))
+    return historic_state[-1]
+
+
+def get_last_closing_date(
+    vulnerability: Dict[str, FindingType],
+    min_date: Optional[datetype] = None
+) -> Optional[datetype]:
+    """Get last closing date of a vulnerability."""
+    current_state = get_last_approved_state(vulnerability)
+    last_closing_date = None
+    if current_state and current_state.get('state') == 'closed':
+        last_closing_date = datetime_utils.get_from_str(
+            current_state.get('date', '').split(' ')[0],
+            date_format='%Y-%m-%d'
+        ).date()
+        if min_date and min_date > last_closing_date:
+            return None
+    return last_closing_date
+
+
 def get_last_status(vuln: Dict[str, FindingType]) -> str:
     historic_state = cast(HistoricType, vuln.get('historic_state', [{}]))
     return historic_state[-1].get('state', '')
@@ -303,6 +329,11 @@ def is_range(specific: str) -> bool:
 def is_sequence(specific: str) -> bool:
     """Validate if a specific field has secuence value."""
     return ',' in specific
+
+
+def is_vulnerability_closed(vuln: Dict[str, FindingType]) -> bool:
+    """Return if a vulnerability is closed."""
+    return get_last_status(vuln) == 'closed'
 
 
 async def mask_vuln(finding_id: str, vuln_id: str) -> bool:

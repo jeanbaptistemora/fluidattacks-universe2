@@ -20,8 +20,6 @@ from backend.domain.project import (
     get_closed_vulnerabilities,
     get_closers,
     get_description,
-    get_last_closing_date,
-    get_last_closing_vuln_info,
     get_managers,
     get_mean_remediate,
     get_mean_remediate_non_treated,
@@ -30,7 +28,6 @@ from backend.domain.project import (
     get_open_vulnerabilities,
     get_open_vulnerability_date,
     get_total_treatment,
-    is_vulnerability_closed,
     list_comments,
     list_events,
 )
@@ -40,6 +37,7 @@ from backend.exceptions import (
 )
 from findings import dal as findings_dal
 from findings.domain import (
+    get_last_closing_vuln_info,
     get_max_open_severity,
     get_pending_closing_check,
     get_pending_verification_findings,
@@ -56,6 +54,10 @@ from groups.domain import (
 )
 from names import domain as names_domain
 from newutils import datetime as datetime_utils
+from newutils.vulnerabilities import (
+    get_last_closing_date,
+    is_vulnerability_closed,
+)
 from vulnerabilities import dal as vulns_dal
 
 

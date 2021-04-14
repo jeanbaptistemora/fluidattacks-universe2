@@ -49,7 +49,10 @@ from batch import dal as batch_dal
 from events import domain as events_domain
 from findings import domain as findings_domain
 from groups import domain as groups_domain
-from newutils import datetime as datetime_utils
+from newutils import (
+    datetime as datetime_utils,
+    vulnerabilities as vulns_utils,
+)
 from newutils.groups import has_integrates_services
 from newutils.findings import (
     filter_by_date,
@@ -182,7 +185,7 @@ def get_status_vulns_by_time_range(
     resp: Dict[str, int] = defaultdict(int)
     for vuln in vulns:
         historic_states = cast(List[Dict[str, str]], vuln['historic_state'])
-        last_state = vulns_domain.get_last_approved_state(vuln)
+        last_state = vulns_utils.get_last_approved_state(vuln)
 
         if (last_state and first_day <= last_state['date'] <= last_day and
                 last_state['state'] == 'DELETED'):
@@ -733,7 +736,7 @@ async def get_project_indicators(project: str) -> Dict[str, object]:
 
     findings = await group_findings_loader.load(project)
     last_closing_vuln_days, last_closing_vuln = (
-        await project_domain.get_last_closing_vuln_info(context, findings)
+        await findings_domain.get_last_closing_vuln_info(context, findings)
     )
     max_open_severity, max_open_severity_finding = (
         await findings_domain.get_max_open_severity(context, findings)

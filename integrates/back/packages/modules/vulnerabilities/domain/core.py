@@ -400,11 +400,6 @@ async def get_by_ids(vulns_ids: List[str]) -> List[Dict[str, FindingType]]:
     return result
 
 
-def get_last_approved_state(vuln: Dict[str, FindingType]) -> Dict[str, str]:
-    historic_state = cast(Historic, vuln.get('historic_state', [{}]))
-    return historic_state[-1]
-
-
 async def get_open_vuln_by_type(
     context: Any,
     finding_id: str,

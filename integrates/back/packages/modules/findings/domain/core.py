@@ -41,6 +41,7 @@ from backend.typing import (
     Comment as CommentType,
     Finding as FindingType,
     Tracking as TrackingItem,
+    Vulnerability as VulnerabilityType,
 )
 from comments import domain as comments_domain
 from findings import dal as findings_dal
@@ -321,6 +322,55 @@ async def get_findings_by_group(
         finding_utils.format_finding(finding, attrs)
         for finding in findings
     ]
+
+
+async def get_last_closing_vuln_info(
+    context: Any,
+    findings: List[Dict[str, FindingType]]
+) -> Tuple[Decimal, VulnerabilityType]:
+    """Get day since last vulnerability closing."""
+    finding_vulns_loader = context.finding_vulns_nzr
+    validate_findings = await collect(
+        validate_finding(str(finding['finding_id']))
+        for finding in findings
+    )
+    validated_findings = [
+        finding
+        for finding, is_valid in zip(findings, validate_findings)
+        if is_valid
+    ]
+    vulns = await finding_vulns_loader.load_many_chained([
+        str(finding['finding_id'])
+        for finding in validated_findings
+    ])
+    are_vuln_closed = await collect([
+        in_process(vulns_utils.is_vulnerability_closed, vuln)
+        for vuln in vulns
+    ])
+    closed_vulns = [
+        vuln
+        for vuln, is_vuln_closed in zip(vulns, are_vuln_closed)
+        if is_vuln_closed
+    ]
+    closing_vuln_dates = await collect([
+        in_process(vulns_utils.get_last_closing_date, vuln)
+        for vuln in closed_vulns
+    ])
+    if closing_vuln_dates:
+        current_date, date_index = max(
+            (v, i)
+            for i, v in enumerate(closing_vuln_dates)
+        )
+        last_closing_vuln = closed_vulns[date_index]
+        current_date = max(closing_vuln_dates)
+        last_closing_days = (
+            Decimal((datetime_utils.get_now().date() - current_date).days)
+            .quantize(Decimal('0.1'))
+        )
+    else:
+        last_closing_days = Decimal(0)
+        last_closing_vuln = {}
+    return last_closing_days, cast(VulnerabilityType, last_closing_vuln)
 
 
 async def get_group(finding_id: str) -> str:

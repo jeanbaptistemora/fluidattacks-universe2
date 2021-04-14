@@ -13,7 +13,6 @@ from typing import (
     Dict,
     List,
     Optional,
-    Tuple,
     Union,
 )
 
@@ -43,7 +42,6 @@ from backend.typing import (
     Project as ProjectType,
     ProjectAccess as ProjectAccessType,
     Stakeholder as StakeholderType,
-    Vulnerability as VulnerabilityType,
 )
 from comments import domain as comments_domain
 from events import domain as events_domain
@@ -414,79 +412,6 @@ async def remove_user_access(
     return success
 
 
-async def get_last_closing_vuln_info(
-    context: Any,
-    findings: List[Dict[str, FindingType]]
-) -> Tuple[Decimal, VulnerabilityType]:
-    """Get day since last vulnerability closing."""
-    finding_vulns_loader = context.finding_vulns_nzr
-
-    validate_findings = await collect(
-        findings_domain.validate_finding(str(finding['finding_id']))
-        for finding in findings
-    )
-    validated_findings = [
-        finding for finding, is_valid in zip(findings, validate_findings)
-        if is_valid
-    ]
-    vulns = await finding_vulns_loader.load_many_chained([
-        str(finding['finding_id']) for finding in validated_findings
-    ])
-    are_vuln_closed = await collect([
-        in_process(is_vulnerability_closed, vuln)
-        for vuln in vulns
-    ])
-    closed_vulns = [
-        vuln
-        for vuln, is_vuln_closed in zip(vulns, are_vuln_closed)
-        if is_vuln_closed
-    ]
-    closing_vuln_dates = await collect([
-        in_process(get_last_closing_date, vuln)
-        for vuln in closed_vulns
-    ])
-    if closing_vuln_dates:
-        current_date, date_index = max(
-            (v, i)
-            for i, v in enumerate(closing_vuln_dates)
-        )
-        last_closing_vuln = closed_vulns[date_index]
-        current_date = max(closing_vuln_dates)
-        last_closing_days = (
-            Decimal((datetime_utils.get_now().date() - current_date).days)
-            .quantize(Decimal('0.1'))
-        )
-    else:
-        last_closing_days = Decimal(0)
-        last_closing_vuln = {}
-    return last_closing_days, cast(VulnerabilityType, last_closing_vuln)
-
-
-def get_last_closing_date(
-    vulnerability: Dict[str, FindingType],
-    min_date: Optional[date] = None
-) -> Optional[date]:
-    """Get last closing date of a vulnerability."""
-    current_state = vulns_domain.get_last_approved_state(vulnerability)
-    last_closing_date = None
-
-    if current_state and current_state.get('state') == 'closed':
-        last_closing_date = datetime_utils.get_from_str(
-            current_state.get('date', '').split(' ')[0],
-            date_format='%Y-%m-%d'
-        ).date()
-
-        if min_date and min_date > last_closing_date:
-            return None
-
-    return last_closing_date
-
-
-def is_vulnerability_closed(vuln: Dict[str, FindingType]) -> bool:
-    """Return if a vulnerability is closed."""
-    return vulns_utils.get_last_status(vuln) == 'closed'
-
-
 def get_open_vulnerability_date(
     vulnerability: Dict[str, FindingType],
     min_date: Optional[date] = None
@@ -544,7 +469,7 @@ async def get_mean_remediate_vulnerabilities(
         if vuln
     ]
     closed_vuln_dates = await collect(
-        in_process(get_last_closing_date, vuln, min_date)
+        in_process(vulns_utils.get_last_closing_date, vuln, min_date)
         for vuln, open_vuln in zip(vulns, open_vuln_dates)
         if open_vuln
     )
@@ -601,7 +526,7 @@ async def get_mean_remediate_severity(  # pylint: disable=too-many-locals
         if vuln
     ]
     closed_vuln_dates = await collect([
-        in_process(get_last_closing_date, vuln)
+        in_process(vulns_utils.get_last_closing_date, vuln)
         for vuln, open_vuln_date in zip(findings_vulns, open_vuln_dates)
         if open_vuln_date
     ])

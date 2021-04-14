@@ -59,7 +59,7 @@ async def should_verify_closed_vulnerabilities(group: str) -> None:
                 current_status == 'closed' and
                 current_verification == 'REQUESTED'
             )
-            last_state = vulns_domain.get_last_approved_state(vuln)
+            last_state = vulns_utils.get_last_approved_state(vuln)
             user_email = last_state.get('analyst', '').replace('api-', '')
             if should_verify:
                 closed_vulns[user_email].append(vuln.get('UUID'))
