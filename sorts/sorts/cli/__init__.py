@@ -94,7 +94,7 @@ def execute_sorts(
     log_to_remote_info(
         msg=f'Success: {success}',
         subscription=subscription,
-        time=f'Finished after {time.time() - start_time} seconds',
+        time=f'Finished after {time.time() - start_time:.2f} seconds',
         get_commit_data=get_commit_data,
         get_file_data=get_file_data,
         predict_commit=predict_commit
