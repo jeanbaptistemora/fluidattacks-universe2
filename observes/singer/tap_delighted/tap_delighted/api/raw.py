@@ -1,3 +1,4 @@
+# pylint: skip-file
 # Standard libraries
 from typing import (
     Any,
@@ -14,6 +15,7 @@ from delighted.errors import (
     TooManyRequestsError,
 )
 from returns.io import (
+    IOFailure,
     IOResult,
     IOSuccess,
 )
@@ -38,7 +40,7 @@ def _wrap_manyreqs_error(request: Callable[[], Any]) -> RawApiResult:
     try:
         return IOSuccess(request())
     except TooManyRequestsError as error:
-        raise RateLimitError(error)
+        return IOFailure(RateLimitError(error.response))
 
 
 def _call_paged_resource(

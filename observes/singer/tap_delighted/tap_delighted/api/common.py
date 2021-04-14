@@ -1,17 +1,14 @@
+# pylint: skip-file
 # Standard libraries
 import logging
 import time
 from typing import (
     Callable,
     Iterator,
-    Optional,
     TypeVar,
 )
 
 # Third party libraries
-from delighted.errors import (
-    TooManyRequestsError,
-)
 from returns.io import (
     IO,
     IOResult,
@@ -50,7 +47,7 @@ def retry_request(
     return request()
 
 
-def _handle_rate_limit(
+def handle_rate_limit(
     request: Callable[[], RawApiResult],
     max_retries: int,
 ) -> ApiResult:
@@ -61,20 +58,4 @@ def _handle_rate_limit(
         success = result.map(lambda _: True).value_or(False)
         if success == IO(True):
             return result
-    raise MaxRetriesReached()
-
-
-def handle_rate_limit(
-    request: Callable[[], RType],
-    max_retries: Optional[int]
-) -> RType:
-    retries = 0
-    retries_limit = max_retries if max_retries else float('inf')
-    while retries < retries_limit:
-        try:
-            return request()
-        except TooManyRequestsError as error:
-            LOG.info('Api rate limit reached. Waiting %ss', error.retry_after)
-            time.sleep(error.retry_after)
-            retries = retries + 1
     raise MaxRetriesReached()

@@ -1,3 +1,4 @@
+# pylint: skip-file
 # Standard libraries
 from __future__ import (
     annotations,
@@ -9,18 +10,19 @@ from typing import (
 )
 
 # Third party libraries
-import delighted
 from delighted import (
     Client,
 )
 from returns.curry import (
     partial,
 )
+from returns.io import IO
 
 # Local libraries
 from paginator import (
     PageId,
 )
+from tap_delighted.api import raw
 from tap_delighted.api.common import (
     handle_rate_limit,
 )
@@ -29,26 +31,25 @@ from tap_delighted.common import (
 )
 
 
-class SurveyResponsePage(NamedTuple):
-    data: Iterator[JSON]
+class SurveyPage(NamedTuple):
+    data: IO[Iterator[JSON]]
 
     @classmethod
-    def new(cls, client: Client, page: PageId) -> SurveyResponsePage:
+    def new(cls, client: Client, page: PageId) -> SurveyPage:
         data = handle_rate_limit(
-            lambda: delighted.SurveyResponse.all(
+            lambda: raw.list_surveys(
                 client=client,
-                page=page.page,
-                per_page=page.per_page
+                page=page,
             ), 5
         )
-        return cls(data)
+        return cls(data.unwrap())
 
 
 class SurveyApi(NamedTuple):
-    get_surveys: Callable[[PageId], SurveyResponsePage]
+    get_surveys: Callable[[PageId], SurveyPage]
 
     @classmethod
     def new(cls, client: Client) -> SurveyApi:
         return cls(
-            get_surveys=partial(SurveyResponsePage.new, client)
+            get_surveys=partial(SurveyPage.new, client)
         )
