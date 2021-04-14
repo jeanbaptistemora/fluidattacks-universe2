@@ -4,6 +4,7 @@ from model import (
 )
 from sast_symbolic_evaluation.cases.method_invocation import (
     analyze_method_invocation,
+    analyze_method_invocation_values,
 )
 from sast_symbolic_evaluation.types import (
     EvaluatorArgs,
@@ -107,6 +108,7 @@ def attempt_as_object_instantiation(args: EvaluatorArgs) -> bool:
     if isinstance(parent, graph_model.SyntaxStepObjectInstantiation):
         method = parent.object_type + args.syntax_step.method
         analyze_method_invocation(args, method)
+        analyze_method_invocation_values(args, method)
         return True
 
     return False

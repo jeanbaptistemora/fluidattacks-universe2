@@ -13,6 +13,9 @@ from sast_symbolic_evaluation.types import (
     LookedUpJavaClassField,
     LookedUpJavaMethod,
 )
+from utils.string import (
+    split_on_last_dot,
+)
 
 
 def _lookup_java_class_in_shard(
@@ -29,6 +32,28 @@ def _lookup_java_class_in_shard(
     return None
 
 
+def lookup_shard_by_class(
+    args: EvaluatorArgs,
+    class_name: str,
+) -> Optional[graph_model.GraphShard]:
+    if path := args.graph_db.shards_by_java_class.get(class_name):
+        return args.graph_db.shards_by_path_f(path)
+
+    # It can be access to a static field
+    _class = ".".join(class_name.split(".")[:-1])
+    if path := args.graph_db.shards_by_java_class.get(_class):
+        return args.graph_db.shards_by_path_f(path)
+
+    # Is possible that the class does not have a package
+    if class_name.startswith("."):
+        class_name = class_name.replace(".", "", 1)
+    for key, path in args.graph_db.shards_by_java_class.items():
+        if key.endswith(f".{class_name}"):
+            return args.graph_db.shards_by_path_f(path)
+
+    return None
+
+
 def lookup_java_class(
     args: EvaluatorArgs,
     class_name: str,
@@ -41,8 +66,7 @@ def lookup_java_class(
         )
 
     # Now lookoup in other shards different than the current shard
-    if shard_path := args.graph_db.shards_by_java_class.get(class_name):
-        shard = args.graph_db.shards_by_path_f(shard_path)
+    if shard := lookup_shard_by_class(args, class_name):
         if data := _lookup_java_class_in_shard(shard, class_name):
             return LookedUpJavaClass(
                 metadata=data,
@@ -73,22 +97,23 @@ def lookup_java_field(
     field_name: str,
     field_class: Optional[str] = None,
 ) -> Optional[LookedUpJavaClassField]:
+    # method_name can be an empty string
+    if not field_name:
+        return None
+
     # First lookup in the current shard
     if data := _lookup_java_field_in_shard(args.shard, field_name):
         return LookedUpJavaClassField(data, args.shard.path)
 
     # Now lookoup in other shards different than the current shard
-    if field_class and (
-        shard_path := args.graph_db.shards_by_class.get(field_class)
-    ):
-        shard = args.graph_db.shards_by_path_f(shard_path)
+    if field_class and (shard := lookup_shard_by_class(args, field_class)):
         if data := _lookup_java_field_in_shard(shard, field_name):
             return LookedUpJavaClassField(data, shard.path)
-    else:
-        for shard in args.graph_db.shards:
-            if shard.path != args.shard.path:
-                if data := _lookup_java_field_in_shard(shard, field_name):
-                    return LookedUpJavaClassField(data, shard.path)
+
+    # Can be an static field
+    if shard := lookup_shard_by_class(args, field_name):
+        if data := _lookup_java_field_in_shard(shard, field_name):
+            return LookedUpJavaClassField(data, shard.path)
 
     return None
 
@@ -113,16 +138,14 @@ def lookup_java_method(
     method_name: str,
     method_class: Optional[str] = None,
 ) -> Optional[LookedUpJavaMethod]:
+    # method_name can be an empty string
+    if not method_name:
+        return None
+
     # Lookup in other shards different than the current shard
     if method_class and (
-        shard_path := args.graph_db.shards_by_java_class.get(method_class)
-        or (
-            shard_path := args.graph_db.shards_by_java_class.get(
-                "." + method_class,
-            )
-        )
+            shard := lookup_shard_by_class(args, method_class)
     ):
-        shard = args.graph_db.shards_by_path_f(shard_path)
         if data := _lookup_java_method_in_shard(shard, method_name):
             return LookedUpJavaMethod(
                 metadata=data,
@@ -130,17 +153,19 @@ def lookup_java_method(
             )
 
     # Lookup in the current shard
-    if not method_class and (data := _lookup_java_method_in_shard(
-            args.shard, method_name)):
+    if not method_class and (
+        data := _lookup_java_method_in_shard(args.shard, method_name)
+    ):
         return LookedUpJavaMethod(
             metadata=data,
             shard_path=args.shard.path,
         )
 
-    for shard in args.graph_db.shards:
-        if shard.path == args.shard.path:
-            continue
-
+    # Lookup for static methods
+    _method_class, _method_name = split_on_last_dot(method_name)
+    if _method_name and (
+            shard := lookup_shard_by_class(args, _method_class)
+    ):
         if data := _lookup_java_method_in_shard(shard, method_name):
             return LookedUpJavaMethod(
                 metadata=data,

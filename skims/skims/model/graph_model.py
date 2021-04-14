@@ -384,27 +384,6 @@ class GraphDB(NamedTuple):
     def shards_by_path_f(self, path: str) -> GraphShard:
         return self.shards[self.shards_by_path[path]]
 
-    def shards_by_class_f(
-        self,
-        class_name: str,
-    ) -> Optional[GraphShard]:
-        if path := self.shards_by_java_class.get(class_name):
-            return self.shards_by_path_f(path)
-
-        # It can be access to a static field
-        _class = '.'.join(class_name.split('.')[:-1])
-        if path := self.shards_by_java_class.get(_class):
-            return self.shards_by_path_f(path)
-
-        # Is possible that the class does not have a package
-        if class_name.startswith('.'):
-            class_name = class_name.replace('.', '', 1)
-        for key, path in self.shards_by_java_class.items():
-            if key.endswith(f'.{class_name}'):
-                return self.shards_by_path_f(path)
-
-        return None
-
 
 GraphShardNode = Tuple[GraphShard, NId]
 GraphShardNodes = Iterable[GraphShardNode]
