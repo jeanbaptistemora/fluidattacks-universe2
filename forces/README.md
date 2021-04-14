@@ -1,23 +1,18 @@
-[![PyPI](https://img.shields.io/pypi/v/skims)](https://pypi.org/project/skims)
-[![Status](https://img.shields.io/pypi/status/skims)](https://pypi.org/project/skims)
-[![Downloads](https://img.shields.io/pypi/dm/skims)](https://pypi.org/project/skims)
 [![License](https://img.shields.io/pypi/l/skims)](../LICENSE)
 
-You can use forces on any operating system that python can run on, you can see the status of the package in [Pypi](https://pypi.org/project/forces/).
+You can use forces on any operating system using docker.
 You can also integrate forces into your `CI/CD` to ensure that your software is built and shipped without previously reported vulnerabilities in **integrates**.
 
 # Installation
 
 1. Make sure you own an integrates API token. Follow this [guide](https://community.fluidattacks.com/t/integrates-api-access/540/1) to generate it.
 2. Make sure your execution environment has the required dependencies.
-   - git
-   - python3.8
-   - pip
-3. Install forces by running the following command:
-    - Windows: `python -m pip install forces`
-    - Linux and Mac OS: `python3.8 -m pip install forces`
-4. You can also make use of the Docker image `docker pull fluidattacks/forces:new`.
-5. Be sure to use forces within a git repository.
+   - docker
+3. The host machine must have the following permissions:
+   - pull docker images
+   - run docker containers
+   - attach volumes to docker containers
+4. Be sure to use forces within a git repository.
 
 # Options
 
@@ -37,13 +32,10 @@ You can also integrate forces into your `CI/CD` to ensure that your software is 
 
 # Examples
 
-In your local environment you execute:
-`forces --token <your-token>`
+How to use the docker image:
+`docker run --rm -v "$PWD:/src" fluidattacks/forces:new forces --token <your-token> --repo-name <repository name>`
 
-You can also use the Docker image:
-`docker run --rm -v "$PWD:/src" fluidattacks/forces:new forces --token <your-token>`
-
-_Note_: If you use a container you must pass the working repository as a volume to the `/src` directory (`--volume "<path to repo>:/src"`)
+_Note_: To run the container you must pass the working repository as a volume to the `/src` directory (`--volume "<path to repo>:/src"`)
 
 ## Use in some CI\CD
 
