@@ -1,5 +1,5 @@
 .makes: &makes
-  tags: [ci]
+  tags: [autoscaling]
   image: "${CI_REGISTRY_IMAGE}/makes"
   needs: []
   interruptible: true
@@ -130,7 +130,7 @@ observes.lint.target-redshift:
 
 observes.scheduled.dynamodb-forces-etl:
   <<: *makes
-  tags: [ci]
+  tags: [autoscaling]
   stage: analytics
   only:
     refs: [schedules]
@@ -139,7 +139,7 @@ observes.scheduled.dynamodb-forces-etl:
 
 observes.scheduled.dynamodb-integrates-etl:
   <<: *makes
-  tags: [ci-large]
+  tags: [autoscaling-large]
   stage: analytics
   only:
     refs: [schedules]
@@ -148,7 +148,7 @@ observes.scheduled.dynamodb-integrates-etl:
 
 observes.scheduled.dynamodb-integrates-etl-vulns:
   <<: *makes
-  tags: [ci-large]
+  tags: [autoscaling-large]
   stage: analytics
   only:
     refs: [schedules]
@@ -161,7 +161,7 @@ observes.scheduled.job.batch-stability:
     refs: [schedules]
     variables: [$observes_batch_stability]
   stage: analytics
-  tags: [ci]
+  tags: [autoscaling]
   interruptible: false
 
 observes.scheduled.job.code-etl-compute-bills:
@@ -170,12 +170,12 @@ observes.scheduled.job.code-etl-compute-bills:
     refs: [schedules]
     variables: [$observes_code_compute_bills]
   stage: analytics
-  tags: [ci]
+  tags: [autoscaling]
   interruptible: false
 
 observes.scheduled.job.delighted-etl:
   <<: *makes
-  tags: [ci-large]
+  tags: [autoscaling-large]
   stage: analytics
   only:
     refs: [schedules]
@@ -184,7 +184,7 @@ observes.scheduled.job.delighted-etl:
 
 observes.scheduled.job.dynamodb-centralize:
   <<: *makes
-  tags: [ci-large]
+  tags: [autoscaling-large]
   stage: analytics
   only:
     refs: [schedules]
@@ -193,7 +193,7 @@ observes.scheduled.job.dynamodb-centralize:
 
 observes.scheduled.job.mailchimp-etl:
   <<: *makes
-  tags: [ci]
+  tags: [autoscaling]
   stage: analytics
   only:
     refs: [schedules]
@@ -202,7 +202,7 @@ observes.scheduled.job.mailchimp-etl:
 
 observes.scheduled.job.mixpanel-integrates-etl:
   <<: *makes
-  tags: [ci]
+  tags: [autoscaling]
   stage: analytics
   only:
     refs: [schedules]
@@ -211,7 +211,7 @@ observes.scheduled.job.mixpanel-integrates-etl:
 
 observes.scheduled.job.tap-zoho-analytics:
   <<: *makes
-  tags: [ci]
+  tags: [autoscaling]
   stage: analytics
   only:
     refs: [schedules]
@@ -220,7 +220,7 @@ observes.scheduled.job.tap-zoho-analytics:
 
 observes.scheduled.job.timedoctor-backup:
   <<: *makes
-  tags: [ci]
+  tags: [autoscaling]
   stage: analytics
   only:
     refs: [schedules]
@@ -229,7 +229,7 @@ observes.scheduled.job.timedoctor-backup:
 
 observes.scheduled.job.timedoctor-etl:
   <<: *makes
-  tags: [ci]
+  tags: [autoscaling]
   stage: analytics
   only:
     refs: [schedules]
@@ -246,7 +246,7 @@ observes.scheduled.job.timedoctor-refresh-token:
 
 observes.scheduled.job.toe-files-etl:
   <<: *makes
-  tags: [ci]
+  tags: [autoscaling]
   stage: analytics
   only:
     refs: [schedules]
@@ -255,7 +255,7 @@ observes.scheduled.job.toe-files-etl:
 
 observes.scheduled.job.zoho-crm-etl.fluid:
   <<: *makes
-  tags: [ci]
+  tags: [autoscaling]
   stage: analytics
   only:
     refs: [schedules]
@@ -264,7 +264,7 @@ observes.scheduled.job.zoho-crm-etl.fluid:
 
 observes.scheduled.job.zoho-crm-prepare.fluid:
   <<: *makes
-  tags: [ci]
+  tags: [autoscaling]
   stage: analytics
   only:
     refs: [schedules]
@@ -277,7 +277,7 @@ observes.scheduled.on-aws.code-etl-amend:
     refs: [schedules]
     variables: [$observes_code_amend_authors_on_aws]
   stage: analytics
-  tags: [ci]
+  tags: [autoscaling]
   interruptible: false
 
 observes.scheduled.on-aws.code-etl-mirror:
@@ -286,7 +286,7 @@ observes.scheduled.on-aws.code-etl-mirror:
     refs: [schedules]
     variables: [$observes_code_mirror_all_groups_to_s3_on_aws]
   stage: analytics
-  tags: [ci]
+  tags: [autoscaling]
   interruptible: false
 
 observes.scheduled.on-aws.code-etl-upload:
@@ -295,12 +295,12 @@ observes.scheduled.on-aws.code-etl-upload:
     refs: [schedules]
     variables: [$observes_code_upload_all_groups_on_aws]
   stage: analytics
-  tags: [ci]
+  tags: [autoscaling]
   interruptible: false
 
 observes.scheduled.on-aws.dif-gitlab-etl:
   <<: *makes
-  tags: [ci]
+  tags: [autoscaling]
   stage: analytics
   only:
     refs: [schedules]
@@ -309,7 +309,7 @@ observes.scheduled.on-aws.dif-gitlab-etl:
 
 observes.scheduled.on-aws.formstack-etl:
   <<: *makes
-  tags: [ci]
+  tags: [autoscaling]
   stage: analytics
   only:
     refs: [schedules]
