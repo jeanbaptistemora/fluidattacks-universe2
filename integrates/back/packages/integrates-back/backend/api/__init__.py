@@ -41,6 +41,7 @@ from backend.api.dataloaders.group_stakeholders import GroupStakeholdersLoader
 from backend.api.dataloaders.group_stakeholders_non_fluid import (
     GroupStakeholdersNonFluidLoader
 )
+from backend.api.dataloaders.group_toe_inputs import GroupToeInputsLoader
 from backend.api.dataloaders.group_toe_lines import GroupToeLinesLoader
 from backend.api.dataloaders.organization import OrganizationLoader
 from backend.api.dataloaders.organization_stakeholders import (
@@ -72,6 +73,7 @@ class Dataloaders(NamedTuple):
     group_roots: GroupRootsLoader
     group_stakeholders: GroupStakeholdersLoader
     group_stakeholders_nf: GroupStakeholdersNonFluidLoader
+    group_toe_inputs: GroupToeInputsLoader
     group_toe_lines: GroupToeLinesLoader
     organization: OrganizationLoader
     organization_stakeholders: OrganizationStakeholdersLoader
@@ -110,6 +112,7 @@ def get_new_context() -> Dataloaders:
         group_stakeholders_nf=GroupStakeholdersNonFluidLoader(
             group_stakeholders_loader
         ),
+        group_toe_inputs=GroupToeInputsLoader(),
         group_toe_lines=GroupToeLinesLoader(),
         organization=OrganizationLoader(),
         organization_stakeholders=OrganizationStakeholdersLoader(),
