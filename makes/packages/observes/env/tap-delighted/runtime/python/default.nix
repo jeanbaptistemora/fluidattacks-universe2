@@ -3,7 +3,7 @@
 , ...
 }:
 buildPythonRequirements {
-  name = "observes-env-tap-formstack-runtime-python";
+  name = "observes-env-tap-delighted-runtime-python";
   requirements = {
     direct = [
       "click==7.1.2"
