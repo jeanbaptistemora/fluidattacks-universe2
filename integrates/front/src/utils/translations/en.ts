@@ -1979,7 +1979,7 @@ export const enTranslations: ResourceKey = {
         treatmentChange: "Vulnerability treatment will be changed",
         uploadFile: {
           invalidRoot:
-            "Root not found for the repo. Verify the nickname in the scope tab",
+            "Active root not found for the repo. Verify the nickname in the scope tab",
           invalidStream: "Invalid stream, it must start with 'home'",
           key: "Key '{{key}}' is missing or invalid. ",
           value: "Value is invalid, pattern '{{pattern}}'. ",

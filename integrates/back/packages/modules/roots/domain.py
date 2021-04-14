@@ -526,6 +526,7 @@ async def get_root_by_nickname(
             for root in await get_roots(group_name=group_name)
             if isinstance(root, GitRootItem)
             and root.state.nickname == repo_nickname
+            and root.state.status == 'ACTIVE'
         )
     except StopIteration:
         raise RootNotFound()
