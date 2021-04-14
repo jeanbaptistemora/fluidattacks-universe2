@@ -1,5 +1,5 @@
 .makes: &makes
-  tags: [ci]
+  tags: [autoscaling]
   image: "${CI_REGISTRY_IMAGE}/makes"
   needs: []
   interruptible: true
@@ -9,7 +9,7 @@
     GIT_DEPTH: 5
 
 .with_nix: &with_nix
-  tags: [ci]
+  tags: [autoscaling]
   image: "${CI_REGISTRY_IMAGE}/nix:${CI_JOB_NAME}"
   needs: []
   script:
@@ -68,7 +68,7 @@
       - integrates/charts
     when: on_success
   stage: analytics
-  tags: [ci]
+  tags: [autoscaling]
 
 .integrates_scheduler: &integrates_scheduler
   <<: *makes
@@ -76,7 +76,7 @@
   script:
     - ./m integrates.scheduler prod "backend.scheduler.${CI_JOB_NAME/integrates.scheduler./}"
   stage: scheduler
-  tags: [ci-large]
+  tags: [autoscaling-large]
 
 .integrates_schedulers: &integrates_schedulers
   <<: *makes
@@ -84,7 +84,7 @@
   script:
     - ./m integrates.scheduler prod "schedulers.${CI_JOB_NAME/integrates.scheduler./}.main"
   stage: scheduler
-  tags: [ci-large]
+  tags: [autoscaling-large]
 
 .integrates_mobile_ota_deploy: &integrates_mobile_ota_deploy
   <<: *makes
@@ -475,7 +475,7 @@ integrates.mobile.build.android:
     when: on_success
   needs: [integrates.mobile.ota-production]
   stage: build
-  tags: [ci-large]
+  tags: [autoscaling-large]
 
 integrates.mobile.deploy.playstore:
   <<: *makes
