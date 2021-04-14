@@ -773,7 +773,7 @@ async def get_project_indicators(project: str) -> Dict[str, object]:
             await project_domain.get_mean_remediate_non_treated(project)
         ),
         'mean_remediate_critical_severity': (
-            await project_domain.get_mean_remediate_severity(
+            await groups_domain.get_mean_remediate_severity(
                 context,
                 project,
                 9,
@@ -781,7 +781,7 @@ async def get_project_indicators(project: str) -> Dict[str, object]:
             )
         ),
         'mean_remediate_high_severity': (
-            await project_domain.get_mean_remediate_severity(
+            await groups_domain.get_mean_remediate_severity(
                 context,
                 project,
                 7,
@@ -789,7 +789,7 @@ async def get_project_indicators(project: str) -> Dict[str, object]:
             )
         ),
         'mean_remediate_low_severity': (
-            await project_domain.get_mean_remediate_severity(
+            await groups_domain.get_mean_remediate_severity(
                 context,
                 project,
                 0.1,
@@ -797,7 +797,7 @@ async def get_project_indicators(project: str) -> Dict[str, object]:
             )
         ),
         'mean_remediate_medium_severity': (
-            await project_domain.get_mean_remediate_severity(
+            await groups_domain.get_mean_remediate_severity(
                 context,
                 project,
                 4,

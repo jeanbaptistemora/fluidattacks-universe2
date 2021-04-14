@@ -22,7 +22,6 @@ from backend.domain.project import (
     get_description,
     get_managers,
     get_mean_remediate_non_treated,
-    get_mean_remediate_severity,
     get_open_finding,
     get_open_vulnerabilities,
     get_total_treatment,
@@ -47,6 +46,7 @@ from group_access.domain import (
 from groups.domain import (
     add_comment,
     get_mean_remediate,
+    get_mean_remediate_severity,
     is_alive,
     validate_group_services_config,
     validate_group_tags,
