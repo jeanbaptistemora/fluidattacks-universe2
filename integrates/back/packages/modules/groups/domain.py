@@ -48,12 +48,13 @@ from __init__ import BASE_URL
 
 
 async def _has_repeated_tags(group_name: str, tags: List[str]) -> bool:
-    has_repeated_inputs = len(tags) != len(set(tags))
-    group_info = await get_attributes(group_name.lower(), ['tag'])
-    existing_tags = group_info.get('tag', [])
-    all_tags = list(existing_tags) + tags
-    has_repeated_tags = len(all_tags) != len(set(all_tags))
-    return has_repeated_inputs or has_repeated_tags
+    has_repeated_tags = len(tags) != len(set(tags))
+    if not has_repeated_tags:
+        group_info = await get_attributes(group_name.lower(), ['tag'])
+        existing_tags = group_info.get('tag', [])
+        all_tags = list(existing_tags) + tags
+        has_repeated_tags = len(all_tags) != len(set(all_tags))
+    return has_repeated_tags
 
 
 async def add_comment(

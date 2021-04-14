@@ -405,11 +405,6 @@ def get_last_approved_state(vuln: Dict[str, FindingType]) -> Dict[str, str]:
     return historic_state[-1]
 
 
-def get_last_status(vuln: Dict[str, FindingType]) -> str:
-    historic_state = cast(Historic, vuln.get('historic_state', [{}]))
-    return historic_state[-1].get('state', '')
-
-
 async def get_open_vuln_by_type(
     context: Any,
     finding_id: str,
@@ -426,7 +421,7 @@ async def get_open_vuln_by_type(
     }
     vulns_types = ['ports', 'lines', 'inputs']
     for vuln in vulnerabilities:
-        current_state = get_last_status(vuln)
+        current_state = vulns_utils.get_last_status(vuln)
         if current_state == 'open':
             finding['openVulnerabilities'] = cast(
                 int,
@@ -585,7 +580,7 @@ def is_accepted_undefined_vulnerability(
     historic_treatment = cast(Historic, vulnerability['historic_treatment'])
     return (
         historic_treatment[-1]['treatment'] == 'ACCEPTED_UNDEFINED' and
-        get_last_status(vulnerability) == 'open'
+        vulns_utils.get_last_status(vulnerability) == 'open'
     )
 
 
@@ -714,7 +709,7 @@ async def map_vulns_to_dynamo(
             for vuln, vuln_to_add in zip(vulns, vulns_to_add)
             if (
                 is_reattack_requested(vuln) and
-                get_last_status(vuln) == 'open' and
+                vulns_utils.get_last_status(vuln) == 'open' and
                 vuln_to_add.get('state') == 'closed'
             )
         ],

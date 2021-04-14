@@ -1,5 +1,6 @@
 import re
 from contextlib import AsyncExitStack
+from decimal import Decimal
 from typing import (
     Any,
     Callable,
@@ -8,12 +9,14 @@ from typing import (
     List,
     Optional,
     Set,
+    Tuple,
     Union,
 )
 
 import aioboto3
 from aioextensions import (
     collect,
+    in_process,
     schedule,
 )
 from graphql.type.definition import GraphQLResolveInfo
@@ -325,6 +328,39 @@ async def get_group(finding_id: str) -> str:
     return str(attribute.get('project_name'))
 
 
+async def get_max_open_severity(
+    context: Any,
+    findings: List[Dict[str, FindingType]]
+) -> Tuple[Decimal, Dict[str, FindingType]]:
+    total_vulns = await collect(
+        total_vulnerabilities(context, str(fin.get('finding_id', '')))
+        for fin in findings
+    )
+    opened_findings = [
+        finding
+        for finding, total_vuln in zip(findings, total_vulns)
+        if int(total_vuln.get('openVulnerabilities', '')) > 0
+    ]
+    total_severity: List[float] = cast(
+        List[float],
+        [
+            finding.get('cvss_temporal', '')
+            for finding in opened_findings
+        ]
+    )
+    if total_severity:
+        severity, severity_index = max(
+            (v, i)
+            for i, v in enumerate(total_severity)
+        )
+        max_severity = Decimal(severity).quantize(Decimal('0.1'))
+        max_severity_finding = opened_findings[severity_index]
+    else:
+        max_severity = Decimal(0).quantize(Decimal('0.1'))
+        max_severity_finding = {}
+    return max_severity, max_severity_finding
+
+
 def get_tracking_vulnerabilities(
     vulnerabilities: List[Dict[str, FindingType]]
 ) -> List[TrackingItem]:
@@ -548,6 +584,32 @@ def send_finding_mail(
     *mail_params: Union[str, Dict[str, str]]
 ) -> None:
     schedule(send_email_function(context, finding_id, *mail_params))
+
+
+async def total_vulnerabilities(
+    context: Any,
+    finding_id: str
+) -> Dict[str, int]:
+    finding = {
+        'openVulnerabilities': 0,
+        'closedVulnerabilities': 0
+    }
+    finding_vulns_loader = context.finding_vulns
+    if await validate_finding(finding_id):
+        vulnerabilities = await finding_vulns_loader.load(finding_id)
+        last_approved_status = await collect([
+            in_process(vulns_utils.get_last_status, vuln)
+            for vuln in vulnerabilities
+        ])
+        for current_state in last_approved_status:
+            if current_state == 'open':
+                finding['openVulnerabilities'] += 1
+            elif current_state == 'closed':
+                finding['closedVulnerabilities'] += 1
+            else:
+                # Vulnerability does not have a valid state
+                pass
+    return finding
 
 
 async def update_description(

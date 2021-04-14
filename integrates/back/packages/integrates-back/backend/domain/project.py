@@ -55,6 +55,7 @@ from newutils import (
     datetime as datetime_utils,
     user as user_utils,
     validations,
+    vulnerabilities as vulns_utils,
 )
 from notifications import domain as notifications_domain
 from organizations import domain as orgs_domain
@@ -413,30 +414,6 @@ async def remove_user_access(
     return success
 
 
-async def total_vulnerabilities(
-    context: Any,
-    finding_id: str
-) -> Dict[str, int]:
-    """Get total vulnerabilities in new format."""
-    finding = {'openVulnerabilities': 0, 'closedVulnerabilities': 0}
-    finding_vulns_loader = context.finding_vulns
-    if await findings_domain.validate_finding(finding_id):
-        vulnerabilities = await finding_vulns_loader.load(finding_id)
-        last_approved_status = await collect([
-            in_process(vulns_domain.get_last_status, vuln)
-            for vuln in vulnerabilities
-        ])
-        for current_state in last_approved_status:
-            if current_state == 'open':
-                finding['openVulnerabilities'] += 1
-            elif current_state == 'closed':
-                finding['closedVulnerabilities'] += 1
-            else:
-                # Vulnerability does not have a valid state
-                pass
-    return finding
-
-
 async def get_pending_verification_findings(
     context: Any,
     project_name: str
@@ -545,41 +522,7 @@ def get_last_closing_date(
 
 def is_vulnerability_closed(vuln: Dict[str, FindingType]) -> bool:
     """Return if a vulnerability is closed."""
-    return vulns_domain.get_last_status(vuln) == 'closed'
-
-
-async def get_max_open_severity(
-    context: Any,
-    findings: List[Dict[str, FindingType]]
-) -> Tuple[Decimal, Dict[str, FindingType]]:
-    """Get maximum severity of project with open vulnerabilities."""
-    total_vulns = await collect(
-        total_vulnerabilities(context, str(fin.get('finding_id', '')))
-        for fin in findings
-    )
-    opened_findings = [
-        finding
-        for finding, total_vuln in zip(findings, total_vulns)
-        if int(total_vuln.get('openVulnerabilities', '')) > 0
-    ]
-    total_severity: List[float] = cast(
-        List[float],
-        [
-            finding.get('cvss_temporal', '')
-            for finding in opened_findings
-        ]
-    )
-    if total_severity:
-        severity, severity_index = max(
-            (v, i)
-            for i, v in enumerate(total_severity)
-        )
-        max_severity = Decimal(severity).quantize(Decimal('0.1'))
-        max_severity_finding = opened_findings[severity_index]
-    else:
-        max_severity = Decimal(0).quantize(Decimal('0.1'))
-        max_severity_finding = {}
-    return max_severity, max_severity_finding
+    return vulns_utils.get_last_status(vuln) == 'closed'
 
 
 def get_open_vulnerability_date(
@@ -749,7 +692,7 @@ async def get_total_treatment(
             List[Dict[str, str]],
             vuln.get('historic_treatment', [{}])
         )[-1].get('treatment')
-        current_state = vulns_domain.get_last_status(vuln)
+        current_state = vulns_utils.get_last_status(vuln)
         open_vulns: int = 1 if current_state == 'open' else 0
         if vuln_treatment == 'ACCEPTED':
             accepted_vuln += open_vulns
@@ -805,7 +748,7 @@ async def get_closers(
 async def get_open_findings(
         finding_vulns: List[List[Dict[str, FindingType]]]) -> int:
     last_approved_status = await collect(
-        in_process(vulns_domain.get_last_status, vuln)
+        in_process(vulns_utils.get_last_status, vuln)
         for vulns in finding_vulns
         for vuln in vulns
     )
@@ -951,7 +894,7 @@ async def get_open_vulnerabilities(context: Any, group_name: str) -> int:
     ])
 
     last_approved_status = await collect([
-        in_process(vulns_domain.get_last_status, vuln)
+        in_process(vulns_utils.get_last_status, vuln)
         for vuln in findings_vulns
     ])
     open_vulnerabilities = 0
@@ -972,7 +915,7 @@ async def get_closed_vulnerabilities(context: Any, group_name: str) -> int:
     ])
 
     last_approved_status = await collect([
-        in_process(vulns_domain.get_last_status, vuln)
+        in_process(vulns_utils.get_last_status, vuln)
         for vuln in findings_vulns
     ])
     closed_vulnerabilities = 0

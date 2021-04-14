@@ -10,10 +10,8 @@ from backend.typing import (
     Finding,
     Historic,
 )
-from .core import (
-    get_last_status,
-    is_reattack_requested,
-)
+from newutils.vulnerabilities import get_last_status
+from .core import is_reattack_requested
 
 
 def get_efficacy(vuln: Dict[str, Finding]) -> Decimal:

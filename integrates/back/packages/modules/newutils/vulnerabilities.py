@@ -193,6 +193,11 @@ def format_where(where: str, vulnerabilities: List[Dict[str, str]]) -> str:
     return where
 
 
+def get_last_status(vuln: Dict[str, FindingType]) -> str:
+    historic_state = cast(HistoricType, vuln.get('historic_state', [{}]))
+    return historic_state[-1].get('state', '')
+
+
 def get_ranges(numberlist: List[int]) -> str:
     """Transform list into ranges."""
     range_str = ','.join(

@@ -33,6 +33,7 @@ from backend.domain import project as group_domain
 from backend.typing import Comment as CommentType
 from comments import dal as comments_dal
 from findings import dal as findings_dal
+from newutils import vulnerabilities as vulns_utils
 from users import domain as users_domain
 from vulnerabilities import (
     dal as vulns_dal,
@@ -50,7 +51,7 @@ async def should_verify_closed_vulnerabilities(group: str) -> None:
         closed_vulns: Dict[str, List[str]] = defaultdict(list)
         vulns = await vulns_domain.list_vulnerabilities_async([finding])
         for vuln in vulns:
-            current_status = vulns_domain.get_last_status(vuln)
+            current_status = vulns_utils.get_last_status(vuln)
             current_verification = vuln.get(
                 'historic_verification', [{}]
             )[-1].get('status', '')

@@ -23,7 +23,6 @@ from backend.domain.project import (
     get_last_closing_date,
     get_last_closing_vuln_info,
     get_managers,
-    get_max_open_severity,
     get_mean_remediate,
     get_mean_remediate_non_treated,
     get_mean_remediate_severity,
@@ -36,13 +35,13 @@ from backend.domain.project import (
     is_vulnerability_closed,
     list_comments,
     list_events,
-    total_vulnerabilities,
 )
 from backend.exceptions import (
     InvalidProjectServicesConfig,
     RepeatedValues,
 )
 from findings import dal as findings_dal
+from findings.domain import get_max_open_severity
 from group_access.domain import (
     get_group_users,
     remove_access,
