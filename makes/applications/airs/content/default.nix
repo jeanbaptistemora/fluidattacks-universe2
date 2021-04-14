@@ -22,6 +22,7 @@ makeEntrypoint {
     ];
     envPaths = [
       nixpkgs.findutils
+      nixpkgs.gnugrep
       nixpkgs.gnused
       nixpkgs.utillinux
     ];

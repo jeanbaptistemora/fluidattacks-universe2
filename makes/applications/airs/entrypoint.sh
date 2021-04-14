@@ -37,13 +37,13 @@ function patch_paths_eph {
 function patch_paths_prod {
   local src="${1}"
 
-  patch_paths "${src}" 'https' 'fluidattacks.com/new-front' 'new-front'
+  patch_paths "${src}" 'https' 'fluidattacks.com/' 'new-front'
 }
 
 function compress_files {
   local src="${1}"
 
-  find "${src}" -type f -name '*.html' -o -name '*.css' -o -name '*.js' \
+  find "${src}" -type f -o -name '*.html' -o -name '*.css' -o -name '*.js' \
     | while read -r file
       do
             gzip -9 "${file}" \
