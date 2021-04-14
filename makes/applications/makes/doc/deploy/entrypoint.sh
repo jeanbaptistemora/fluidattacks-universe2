@@ -1,7 +1,7 @@
 # shellcheck shell=bash
 
 function main {
-  local src='makes/applications/makes/doc/src'
+  local src='docs/src'
   local bucket
   export env="${1}"
   export CI_COMMIT_REF_NAME

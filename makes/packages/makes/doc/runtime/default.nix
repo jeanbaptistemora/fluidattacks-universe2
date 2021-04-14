@@ -5,7 +5,7 @@
 , ...
 }:
 let
-  packageJsonDeps = getPackageJsonDeps "/makes/applications/makes/doc/src/package.json";
+  packageJsonDeps = getPackageJsonDeps "/docs/src/package.json";
 in
 buildNodeRequirements {
   name = "makes-doc-runtime";

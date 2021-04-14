@@ -1,7 +1,7 @@
 # shellcheck shell=bash
 
 function main {
-  local src='makes/applications/makes/doc/src'
+  local src='docs/src'
   export env='prod'
 
       pushd "${src}" \
