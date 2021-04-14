@@ -1,6 +1,6 @@
 # shellcheck shell=bash
 
-function owasp {
+function score {
   local category="${1:-}"
   local extra_flags=( "${@:2}" )
   local benchmark_local_repo="${PWD}/../owasp_benchmark"
@@ -25,33 +25,11 @@ function owasp {
   ||  return 1
 }
 
-function upload {
-      aws_login_prod 'observes' \
-  &&  analytics_auth_redshift_file="$(mktemp)" \
-  &&  sops_export_vars 'observes/secrets-prod.yaml' \
-        analytics_auth_redshift \
-  &&  echo "${analytics_auth_redshift}" > "${analytics_auth_redshift_file}" \
-  &&  echo '[INFO] Running tap' \
-  &&  observes-tap-json \
-        < 'benchmark.json' \
-        > '.singer' \
-  &&  echo '[INFO] Running target' \
-  &&  observes-target-redshift \
-        --auth "${analytics_auth_redshift_file}" \
-        --drop-schema \
-        --schema-name 'skims_benchmark' \
-        < '.singer'
-}
-
 function main {
   local category="${1:-}"
   local extra_flags=( "${@:2}" )
 
-      owasp "${category}" "${extra_flags[@]}" \
-  &&  if test -z "${category}"
-      then
-        upload
-      fi
+  score "${category}" "${extra_flags[@]}"
 }
 
 main "${@}"

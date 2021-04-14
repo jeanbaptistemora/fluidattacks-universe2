@@ -9,21 +9,15 @@ makeEntrypoint {
   arguments = {
     envBenchmarkRepo = skimsBenchmarkOwaspRepo;
   };
-  name = "skims-benchmark";
+  name = "skims-owasp-benchmark";
   searchPaths = {
     envPaths = [
       nixpkgs.python38
       packages.skims
-      packages.observes.tap-json
-      packages.observes.target-redshift
     ];
     envSources = [
       packages.skims.config-runtime
     ];
-    envUtils = [
-      "/makes/utils/aws"
-      "/makes/utils/sops"
-    ];
   };
-  template = path "/makes/applications/skims/benchmark/entrypoint.sh";
+  template = path "/makes/applications/skims/owasp-benchmark/entrypoint.sh";
 }

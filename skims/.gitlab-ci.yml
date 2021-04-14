@@ -39,7 +39,7 @@ makes.test.skims:
   <<: *skims_in_master_branch
   stage: test-code
 
-skims.benchmark-on-aws:
+skims.owasp-benchmark-on-aws:
   <<: *makes
   interruptible: false
   only:

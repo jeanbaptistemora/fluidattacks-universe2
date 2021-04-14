@@ -3,7 +3,7 @@
 }:
 computeOnAws {
   attempts = 1;
-  command = [ "./m" "skims.benchmark" ];
+  command = [ "./m" "skims.owasp-benchmark-and-upload" ];
   jobname = "skims-benchmark";
   jobqueue = "dedicated_later";
   name = "skims-benchmark-on-aws";

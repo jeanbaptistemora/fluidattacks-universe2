@@ -12,8 +12,8 @@ online community where anyone can contribute to the production of
 material in the field of web application security and benefit from the
 information available.
 
-The [OWASP Benchmark Project](https://owasp.org/www-project-benchmark/) is a
-free Java test suite created in 2015 to assess the accuracy, speed,
+The [OWASP Benchmark Project](https://owasp.org/www-project-benchmark/)
+is a free Java test suite created in 2015 to assess the accuracy, speed,
 and coverage of automated software vulnerability detection tools.
 It helps determine the strengths and weaknesses of different application
 security testing programs and allows objective comparisons between them.
