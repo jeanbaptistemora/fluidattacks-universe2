@@ -21,12 +21,10 @@ from backend.domain.project import (
     get_closers,
     get_description,
     get_managers,
-    get_mean_remediate,
     get_mean_remediate_non_treated,
     get_mean_remediate_severity,
     get_open_finding,
     get_open_vulnerabilities,
-    get_open_vulnerability_date,
     get_total_treatment,
     list_comments,
     list_events,
@@ -48,6 +46,7 @@ from group_access.domain import (
 )
 from groups.domain import (
     add_comment,
+    get_mean_remediate,
     is_alive,
     validate_group_services_config,
     validate_group_tags,
@@ -56,6 +55,7 @@ from names import domain as names_domain
 from newutils import datetime as datetime_utils
 from newutils.vulnerabilities import (
     get_last_closing_date,
+    get_open_vulnerability_date,
     is_vulnerability_closed,
 )
 from vulnerabilities import dal as vulns_dal

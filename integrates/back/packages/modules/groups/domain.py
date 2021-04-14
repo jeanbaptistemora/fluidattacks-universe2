@@ -1,9 +1,13 @@
 # Standard libraries
 import re
 import secrets
+from datetime import date
+from decimal import Decimal
 from typing import (
+    Any,
     Dict,
     List,
+    Optional,
     Union,
 )
 
@@ -35,6 +39,7 @@ from newutils import (
     apm,
     comments as comments_utils,
     datetime as datetime_utils,
+    vulnerabilities as vulns_utils,
 )
 from newutils.validations import (
     validate_alphanumeric_field,
@@ -121,6 +126,24 @@ async def get_groups_by_user(
             if group in org_groups
         ]
     return user_groups
+
+
+async def get_mean_remediate(
+    context: Any,
+    group_name: str,
+    min_date: Optional[date] = None
+) -> Decimal:
+    group_findings_loader = context.group_findings
+    finding_vulns_loaders = context.finding_vulns
+
+    group_findings = await group_findings_loader.load(group_name)
+    vulns = await finding_vulns_loaders.load_many_chained([
+        str(finding['finding_id']) for finding in group_findings
+    ])
+    return await vulns_utils.get_mean_remediate_vulnerabilities(
+        vulns,
+        min_date
+    )
 
 
 async def invite_to_group(

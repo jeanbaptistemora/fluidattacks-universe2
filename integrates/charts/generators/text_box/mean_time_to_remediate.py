@@ -18,8 +18,8 @@ from async_lru import alru_cache
 
 # Local libraries
 from backend.api import get_new_context
-from backend.domain.project import get_mean_remediate
 from charts import utils
+from groups.domain import get_mean_remediate
 from newutils import datetime as datetime_utils
 
 

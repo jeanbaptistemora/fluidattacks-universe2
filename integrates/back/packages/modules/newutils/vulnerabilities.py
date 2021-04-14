@@ -6,6 +6,7 @@ from datetime import (
     date as datetype,
     datetime,
 )
+from decimal import Decimal
 from operator import itemgetter
 from typing import (
     Any,
@@ -20,6 +21,10 @@ from typing import (
 )
 
 # Third-party libraries
+from aioextensions import (
+    collect,
+    in_process,
+)
 from botocore.exceptions import ClientError
 
 # Local libraries
@@ -224,6 +229,68 @@ def get_last_status(vuln: Dict[str, FindingType]) -> str:
     return historic_state[-1].get('state', '')
 
 
+async def get_mean_remediate_vulnerabilities(
+    vulns: List[Dict[str, FindingType]],
+    min_date: Optional[datetype] = None
+) -> Decimal:
+    """Get mean time to remediate a vulnerability."""
+    total_vuln = 0
+    total_days = 0
+    open_vuln_dates = await collect(
+        in_process(get_open_vulnerability_date, vuln, min_date)
+        for vuln in vulns
+    )
+    filtered_open_vuln_dates = [
+        vuln
+        for vuln in open_vuln_dates
+        if vuln
+    ]
+    closed_vuln_dates = await collect(
+        in_process(get_last_closing_date, vuln, min_date)
+        for vuln, open_vuln in zip(vulns, open_vuln_dates)
+        if open_vuln
+    )
+    for index, closed_vuln_date in enumerate(closed_vuln_dates):
+        if closed_vuln_date:
+            total_days += int(
+                (closed_vuln_date - filtered_open_vuln_dates[index]).days
+            )
+        else:
+            current_day = datetime_utils.get_now().date()
+            total_days += int(
+                (current_day - filtered_open_vuln_dates[index]).days
+            )
+    total_vuln = len(filtered_open_vuln_dates)
+    if total_vuln:
+        mean_vulnerabilities = Decimal(
+            round(total_days / float(total_vuln))
+        ).quantize(Decimal('0.1'))
+    else:
+        mean_vulnerabilities = Decimal(0).quantize(Decimal('0.1'))
+    return mean_vulnerabilities
+
+
+def get_open_vulnerability_date(
+    vulnerability: Dict[str, FindingType],
+    min_date: Optional[datetype] = None
+) -> Optional[datetype]:
+    """Get open vulnerability date of a vulnerability."""
+    open_vulnerability_date: Optional[datetype] = None
+    all_states = cast(
+        List[Dict[str, str]],
+        vulnerability.get('historic_state', [{}])
+    )
+    open_states = [state for state in all_states if state['state'] == 'open']
+    if open_states:
+        open_vulnerability_date = datetime_utils.get_from_str(
+            open_states[-1]['date'].split(' ')[0],
+            date_format='%Y-%m-%d'
+        ).date()
+        if min_date and min_date > open_vulnerability_date:
+            open_vulnerability_date = None
+    return open_vulnerability_date
+
+
 def get_ranges(numberlist: List[int]) -> str:
     """Transform list into ranges."""
     range_str = ','.join(
@@ -250,6 +317,11 @@ def get_report_dates(
     return report_dates
 
 
+def get_specific(value: Dict[str, str]) -> int:
+    """Get specific value."""
+    return int(value.get('specific', ''))
+
+
 def get_treatments(
     vulnerabilities: List[Dict[str, FindingType]]
 ) -> Treatments:
@@ -264,11 +336,6 @@ def get_treatments(
         IN_PROGRESS=treatment_counter['IN PROGRESS'],
         NEW=treatment_counter['NEW'],
     )
-
-
-def get_specific(value: Dict[str, str]) -> int:
-    """Get specific value."""
-    return int(value.get('specific', ''))
 
 
 def group_specific(
