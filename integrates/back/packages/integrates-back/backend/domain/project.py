@@ -2,7 +2,6 @@
 """Domain functions for projects."""
 
 import logging
-import re
 from collections import defaultdict
 from contextlib import AsyncExitStack
 from datetime import date
@@ -34,7 +33,6 @@ from backend.exceptions import (
     GroupNotFound,
     InvalidParameter,
     InvalidProjectName,
-    RepeatedValues,
     UserNotInOrganization,
 )
 from backend.filters import stakeholder as stakeholder_filters
@@ -413,34 +411,6 @@ async def remove_user_access(
             success = success and await user_utils.remove_stakeholder(email)
 
     return success
-
-
-async def _has_repeated_tags(project_name: str, tags: List[str]) -> bool:
-    has_repeated_inputs = len(tags) != len(set(tags))
-
-    project_info = await groups_domain.get_attributes(
-        project_name.lower(), ['tag'])
-    existing_tags = project_info.get('tag', [])
-    all_tags = list(existing_tags) + tags
-    has_repeated_tags = len(all_tags) != len(set(all_tags))
-
-    return has_repeated_inputs or has_repeated_tags
-
-
-async def validate_tags(project_name: str, tags: List[str]) -> List[str]:
-    """Validate tags array."""
-    tags_validated = []
-    pattern = re.compile('^[a-z0-9]+(?:-[a-z0-9]+)*$')
-    if await _has_repeated_tags(project_name, tags):
-        raise RepeatedValues()
-
-    for tag in tags:
-        if pattern.match(tag):
-            tags_validated.append(tag)
-        else:
-            # Invalid tag
-            pass
-    return tags_validated
 
 
 async def total_vulnerabilities(

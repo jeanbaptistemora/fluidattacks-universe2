@@ -1,4 +1,5 @@
 # Standard libraries
+import re
 import secrets
 from typing import (
     Dict,
@@ -23,6 +24,7 @@ from backend.domain import project as group_domain
 from backend.exceptions import (
     InvalidCommentParent,
     InvalidProjectServicesConfig,
+    RepeatedValues,
 )
 from backend.typing import (
     Comment as CommentType,
@@ -43,6 +45,15 @@ from newutils.validations import (
 )
 from organizations import domain as orgs_domain
 from __init__ import BASE_URL
+
+
+async def _has_repeated_tags(group_name: str, tags: List[str]) -> bool:
+    has_repeated_inputs = len(tags) != len(set(tags))
+    group_info = await get_attributes(group_name.lower(), ['tag'])
+    existing_tags = group_info.get('tag', [])
+    all_tags = list(existing_tags) + tags
+    has_repeated_tags = len(all_tags) != len(set(all_tags))
+    return has_repeated_inputs or has_repeated_tags
 
 
 async def add_comment(
@@ -223,3 +234,12 @@ def validate_group_services_config(
         if has_forces:
             raise InvalidProjectServicesConfig(
                 'Forces is only available in projects of type Continuous')
+
+
+async def validate_group_tags(group_name: str, tags: List[str]) -> List[str]:
+    """Validate tags array."""
+    pattern = re.compile('^[a-z0-9]+(?:-[a-z0-9]+)*$')
+    if await _has_repeated_tags(group_name, tags):
+        raise RepeatedValues()
+    tags_validated = [tag for tag in tags if pattern.match(tag)]
+    return tags_validated

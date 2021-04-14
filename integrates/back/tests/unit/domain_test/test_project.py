@@ -37,7 +37,6 @@ from backend.domain.project import (
     list_comments,
     list_events,
     total_vulnerabilities,
-    validate_tags,
 )
 from backend.exceptions import (
     InvalidProjectServicesConfig,
@@ -52,6 +51,7 @@ from groups.domain import (
     add_comment,
     is_alive,
     validate_group_services_config,
+    validate_group_tags,
 )
 from names import domain as names_domain
 from newutils import datetime as datetime_utils
@@ -81,16 +81,21 @@ async def test_remove_access():
 
 
 async def test_validate_tags():
-    assert await validate_tags(
-        'unittesting', ['testtag', 'this-is-ok', 'th15-4l50'])
-    assert await validate_tags(
-        'unittesting', ['this-tag-is-valid', 'but this is not']) == [
-        'this-tag-is-valid']
+    assert await validate_group_tags(
+        'unittesting',
+        ['testtag', 'this-is-ok', 'th15-4l50']
+    )
+    assert await validate_group_tags(
+        'unittesting',
+        ['this-tag-is-valid', 'but this is not']
+    ) == ['this-tag-is-valid']
     with pytest.raises(RepeatedValues):
-        assert await validate_tags(
-            'unittesting', ['same-name', 'same-name', 'another-one'])
+        assert await validate_group_tags(
+            'unittesting',
+            ['same-name', 'same-name', 'another-one']
+        )
     with pytest.raises(RepeatedValues):
-        assert await validate_tags('unittesting', ['test-projects'])
+        assert await validate_group_tags('unittesting', ['test-projects'])
 
 
 async def test_is_alive():
