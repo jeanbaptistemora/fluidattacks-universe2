@@ -64,6 +64,7 @@
               "dependencies": -2,
               "n_id": "182",
               "value": {
+                "class_name": "User",
                 "fields": {
                   "lastName": {
                     "meta": {
@@ -97,6 +98,7 @@
               "dependencies": -1,
               "n_id": "177",
               "value": {
+                "class_name": "User",
                 "fields": {
                   "lastName": {
                     "meta": {
@@ -131,6 +133,7 @@
               "dependencies": 0,
               "n_id": "204",
               "value": {
+                "class_name": "User",
                 "fields": {
                   "lastName": {
                     "meta": {
@@ -164,6 +167,7 @@
               "dependencies": -1,
               "n_id": "199",
               "value": {
+                "class_name": "User",
                 "fields": {
                   "lastName": {
                     "meta": {
@@ -190,7 +194,7 @@
             },
             "type": "SyntaxStepDeclaration",
             "var": "cookieKey",
-            "var_type": "String"
+            "var_type": "User"
           },
           {
             "meta": {
@@ -230,6 +234,7 @@
               "dependencies": 0,
               "n_id": "221",
               "value": {
+                "class_name": "User",
                 "fields": {
                   "lastName": {
                     "meta": {
@@ -258,6 +263,7 @@
             "type": "SyntaxStepSymbolLookup"
           },
           {
+            "current_instance": null,
             "meta": {
               "danger": false,
               "dependencies": -3,
@@ -352,6 +358,7 @@
               "dependencies": -3,
               "n_id": "270",
               "value": {
+                "class_name": "User",
                 "fields": {
                   "lastName": {
                     "meta": {
@@ -395,6 +402,7 @@
               "dependencies": -1,
               "n_id": "265",
               "value": {
+                "class_name": "User",
                 "fields": {
                   "lastName": {
                     "meta": {
@@ -472,6 +480,7 @@
               "dependencies": 0,
               "n_id": "304",
               "value": {
+                "class_name": "User",
                 "fields": {
                   "lastName": {
                     "meta": {
@@ -510,6 +519,7 @@
             "type": "SyntaxStepSymbolLookup"
           },
           {
+            "current_instance": null,
             "meta": {
               "danger": false,
               "dependencies": -3,
@@ -580,6 +590,7 @@
               "dependencies": -1,
               "n_id": "73",
               "value": {
+                "class_name": "User",
                 "fields": {
                   "userId": {
                     "meta": {
@@ -603,6 +614,7 @@
               "dependencies": -1,
               "n_id": "68",
               "value": {
+                "class_name": "User",
                 "fields": {
                   "userId": {
                     "meta": {
@@ -742,6 +754,7 @@
             "type": "SyntaxStepSymbolLookup"
           },
           {
+            "current_instance": null,
             "meta": {
               "danger": false,
               "dependencies": -3,
@@ -834,6 +847,7 @@
               "dependencies": -2,
               "n_id": "182",
               "value": {
+                "class_name": "User",
                 "fields": {
                   "lastName": {
                     "meta": {
@@ -867,6 +881,7 @@
               "dependencies": -1,
               "n_id": "177",
               "value": {
+                "class_name": "User",
                 "fields": {
                   "lastName": {
                     "meta": {
@@ -901,6 +916,7 @@
               "dependencies": 0,
               "n_id": "204",
               "value": {
+                "class_name": "User",
                 "fields": {
                   "lastName": {
                     "meta": {
@@ -934,6 +950,7 @@
               "dependencies": -1,
               "n_id": "199",
               "value": {
+                "class_name": "User",
                 "fields": {
                   "lastName": {
                     "meta": {
@@ -960,7 +977,7 @@
             },
             "type": "SyntaxStepDeclaration",
             "var": "cookieKey",
-            "var_type": "String"
+            "var_type": "User"
           },
           {
             "meta": {
@@ -1000,6 +1017,7 @@
               "dependencies": 0,
               "n_id": "221",
               "value": {
+                "class_name": "User",
                 "fields": {
                   "lastName": {
                     "meta": {
@@ -1028,6 +1046,7 @@
             "type": "SyntaxStepSymbolLookup"
           },
           {
+            "current_instance": null,
             "meta": {
               "danger": false,
               "dependencies": -3,
@@ -1122,6 +1141,7 @@
               "dependencies": -3,
               "n_id": "270",
               "value": {
+                "class_name": "User",
                 "fields": {
                   "lastName": {
                     "meta": {
@@ -1165,6 +1185,7 @@
               "dependencies": -1,
               "n_id": "265",
               "value": {
+                "class_name": "User",
                 "fields": {
                   "lastName": {
                     "meta": {
@@ -1242,6 +1263,7 @@
               "dependencies": 0,
               "n_id": "304",
               "value": {
+                "class_name": "User",
                 "fields": {
                   "lastName": {
                     "meta": {
@@ -1280,6 +1302,7 @@
             "type": "SyntaxStepSymbolLookup"
           },
           {
+            "current_instance": null,
             "meta": {
               "danger": false,
               "dependencies": -3,
@@ -1350,6 +1373,7 @@
               "dependencies": -1,
               "n_id": "73",
               "value": {
+                "class_name": "User",
                 "fields": {
                   "userId": {
                     "meta": {
@@ -1373,6 +1397,7 @@
               "dependencies": -1,
               "n_id": "68",
               "value": {
+                "class_name": "User",
                 "fields": {
                   "userId": {
                     "meta": {
@@ -1512,6 +1537,7 @@
             "type": "SyntaxStepSymbolLookup"
           },
           {
+            "current_instance": null,
             "meta": {
               "danger": false,
               "dependencies": -3,
@@ -1600,6 +1626,7 @@
               "dependencies": -2,
               "n_id": "182",
               "value": {
+                "class_name": "User",
                 "fields": {
                   "lastName": {
                     "meta": {
@@ -1633,6 +1660,7 @@
               "dependencies": -1,
               "n_id": "177",
               "value": {
+                "class_name": "User",
                 "fields": {
                   "lastName": {
                     "meta": {
@@ -1667,6 +1695,7 @@
               "dependencies": 0,
               "n_id": "204",
               "value": {
+                "class_name": "User",
                 "fields": {
                   "lastName": {
                     "meta": {
@@ -1700,6 +1729,7 @@
               "dependencies": -1,
               "n_id": "199",
               "value": {
+                "class_name": "User",
                 "fields": {
                   "lastName": {
                     "meta": {
@@ -1726,7 +1756,7 @@
             },
             "type": "SyntaxStepDeclaration",
             "var": "cookieKey",
-            "var_type": "String"
+            "var_type": "User"
           },
           {
             "meta": {
@@ -1766,6 +1796,7 @@
               "dependencies": 0,
               "n_id": "221",
               "value": {
+                "class_name": "User",
                 "fields": {
                   "lastName": {
                     "meta": {
@@ -1794,6 +1825,7 @@
             "type": "SyntaxStepSymbolLookup"
           },
           {
+            "current_instance": null,
             "meta": {
               "danger": false,
               "dependencies": -3,
@@ -1888,6 +1920,7 @@
               "dependencies": -3,
               "n_id": "270",
               "value": {
+                "class_name": "User",
                 "fields": {
                   "lastName": {
                     "meta": {
@@ -1931,6 +1964,7 @@
               "dependencies": -1,
               "n_id": "265",
               "value": {
+                "class_name": "User",
                 "fields": {
                   "lastName": {
                     "meta": {
@@ -2008,6 +2042,7 @@
               "dependencies": 0,
               "n_id": "304",
               "value": {
+                "class_name": "User",
                 "fields": {
                   "lastName": {
                     "meta": {
@@ -2046,6 +2081,7 @@
             "type": "SyntaxStepSymbolLookup"
           },
           {
+            "current_instance": null,
             "meta": {
               "danger": false,
               "dependencies": -3,
@@ -2116,6 +2152,7 @@
               "dependencies": -1,
               "n_id": "73",
               "value": {
+                "class_name": "User",
                 "fields": {
                   "userId": {
                     "meta": {
@@ -2139,6 +2176,7 @@
               "dependencies": -1,
               "n_id": "68",
               "value": {
+                "class_name": "User",
                 "fields": {
                   "userId": {
                     "meta": {
@@ -2278,6 +2316,7 @@
             "type": "SyntaxStepSymbolLookup"
           },
           {
+            "current_instance": null,
             "meta": {
               "danger": false,
               "dependencies": -3,
@@ -2378,6 +2417,7 @@
               "dependencies": -2,
               "n_id": "182",
               "value": {
+                "class_name": "User",
                 "fields": {
                   "lastName": {
                     "meta": {
@@ -2411,6 +2451,7 @@
               "dependencies": -1,
               "n_id": "177",
               "value": {
+                "class_name": "User",
                 "fields": {
                   "lastName": {
                     "meta": {
@@ -2445,6 +2486,7 @@
               "dependencies": 0,
               "n_id": "204",
               "value": {
+                "class_name": "User",
                 "fields": {
                   "lastName": {
                     "meta": {
@@ -2478,6 +2520,7 @@
               "dependencies": -1,
               "n_id": "199",
               "value": {
+                "class_name": "User",
                 "fields": {
                   "lastName": {
                     "meta": {
@@ -2504,7 +2547,7 @@
             },
             "type": "SyntaxStepDeclaration",
             "var": "cookieKey",
-            "var_type": "String"
+            "var_type": "User"
           },
           {
             "meta": {
@@ -2544,6 +2587,7 @@
               "dependencies": 0,
               "n_id": "221",
               "value": {
+                "class_name": "User",
                 "fields": {
                   "lastName": {
                     "meta": {
@@ -2572,6 +2616,7 @@
             "type": "SyntaxStepSymbolLookup"
           },
           {
+            "current_instance": null,
             "meta": {
               "danger": false,
               "dependencies": -3,
@@ -2666,6 +2711,7 @@
               "dependencies": -3,
               "n_id": "270",
               "value": {
+                "class_name": "User",
                 "fields": {
                   "lastName": {
                     "meta": {
@@ -2709,6 +2755,7 @@
               "dependencies": -1,
               "n_id": "265",
               "value": {
+                "class_name": "User",
                 "fields": {
                   "lastName": {
                     "meta": {
@@ -2786,6 +2833,7 @@
               "dependencies": 0,
               "n_id": "304",
               "value": {
+                "class_name": "User",
                 "fields": {
                   "lastName": {
                     "meta": {
@@ -2824,6 +2872,7 @@
             "type": "SyntaxStepSymbolLookup"
           },
           {
+            "current_instance": null,
             "meta": {
               "danger": false,
               "dependencies": -3,
@@ -2894,6 +2943,7 @@
               "dependencies": -1,
               "n_id": "73",
               "value": {
+                "class_name": "User",
                 "fields": {
                   "userId": {
                     "meta": {
@@ -2917,6 +2967,7 @@
               "dependencies": -1,
               "n_id": "68",
               "value": {
+                "class_name": "User",
                 "fields": {
                   "userId": {
                     "meta": {
@@ -3056,6 +3107,7 @@
             "type": "SyntaxStepSymbolLookup"
           },
           {
+            "current_instance": null,
             "meta": {
               "danger": false,
               "dependencies": -3,
@@ -3110,6 +3162,7 @@
             "type": "SyntaxStepObjectInstantiation"
           },
           {
+            "current_instance": null,
             "meta": {
               "danger": true,
               "dependencies": -1,
@@ -3213,6 +3266,7 @@
               "dependencies": -2,
               "n_id": "182",
               "value": {
+                "class_name": "User",
                 "fields": {
                   "lastName": {
                     "meta": {
@@ -3246,6 +3300,7 @@
               "dependencies": -1,
               "n_id": "177",
               "value": {
+                "class_name": "User",
                 "fields": {
                   "lastName": {
                     "meta": {
@@ -3280,6 +3335,7 @@
               "dependencies": 0,
               "n_id": "204",
               "value": {
+                "class_name": "User",
                 "fields": {
                   "lastName": {
                     "meta": {
@@ -3313,6 +3369,7 @@
               "dependencies": -1,
               "n_id": "199",
               "value": {
+                "class_name": "User",
                 "fields": {
                   "lastName": {
                     "meta": {
@@ -3339,7 +3396,7 @@
             },
             "type": "SyntaxStepDeclaration",
             "var": "cookieKey",
-            "var_type": "String"
+            "var_type": "User"
           },
           {
             "meta": {
@@ -3379,6 +3436,7 @@
               "dependencies": 0,
               "n_id": "221",
               "value": {
+                "class_name": "User",
                 "fields": {
                   "lastName": {
                     "meta": {
@@ -3407,6 +3465,7 @@
             "type": "SyntaxStepSymbolLookup"
           },
           {
+            "current_instance": null,
             "meta": {
               "danger": true,
               "dependencies": -3,
@@ -3440,6 +3499,7 @@
             "type": "SyntaxStepObjectInstantiation"
           },
           {
+            "current_instance": null,
             "meta": {
               "danger": true,
               "dependencies": -1,
@@ -3532,6 +3592,7 @@
               "dependencies": -3,
               "n_id": "270",
               "value": {
+                "class_name": "User",
                 "fields": {
                   "lastName": {
                     "meta": {
@@ -3575,6 +3636,7 @@
               "dependencies": -1,
               "n_id": "265",
               "value": {
+                "class_name": "User",
                 "fields": {
                   "lastName": {
                     "meta": {
@@ -3652,6 +3714,7 @@
               "dependencies": 0,
               "n_id": "304",
               "value": {
+                "class_name": "User",
                 "fields": {
                   "lastName": {
                     "meta": {
@@ -3690,6 +3753,7 @@
             "type": "SyntaxStepSymbolLookup"
           },
           {
+            "current_instance": null,
             "meta": {
               "danger": true,
               "dependencies": -3,
@@ -3723,6 +3787,7 @@
             "type": "SyntaxStepObjectInstantiation"
           },
           {
+            "current_instance": null,
             "meta": {
               "danger": true,
               "dependencies": -1,
@@ -3803,6 +3868,7 @@
               "dependencies": -3,
               "n_id": "353",
               "value": {
+                "class_name": "User",
                 "fields": {
                   "lastName": {
                     "meta": {
@@ -3846,6 +3912,7 @@
               "dependencies": -1,
               "n_id": "348",
               "value": {
+                "class_name": "User",
                 "fields": {
                   "lastName": {
                     "meta": {
@@ -3982,6 +4049,7 @@
             "type": "SyntaxStepMethodInvocation"
           },
           {
+            "current_instance": null,
             "meta": {
               "danger": true,
               "dependencies": -3,
@@ -4006,6 +4074,7 @@
             "type": "SyntaxStepObjectInstantiation"
           },
           {
+            "current_instance": null,
             "meta": {
               "danger": true,
               "dependencies": -1,
@@ -4095,6 +4164,7 @@
               "dependencies": -1,
               "n_id": "73",
               "value": {
+                "class_name": "User",
                 "fields": {
                   "userId": {
                     "meta": {
@@ -4118,6 +4188,7 @@
               "dependencies": -1,
               "n_id": "68",
               "value": {
+                "class_name": "User",
                 "fields": {
                   "userId": {
                     "meta": {
@@ -4257,6 +4328,7 @@
             "type": "SyntaxStepSymbolLookup"
           },
           {
+            "current_instance": null,
             "meta": {
               "danger": true,
               "dependencies": -3,
@@ -4349,6 +4421,7 @@
               "dependencies": -2,
               "n_id": "182",
               "value": {
+                "class_name": "User",
                 "fields": {
                   "lastName": {
                     "meta": {
@@ -4382,6 +4455,7 @@
               "dependencies": -1,
               "n_id": "177",
               "value": {
+                "class_name": "User",
                 "fields": {
                   "lastName": {
                     "meta": {
@@ -4416,6 +4490,7 @@
               "dependencies": 0,
               "n_id": "204",
               "value": {
+                "class_name": "User",
                 "fields": {
                   "lastName": {
                     "meta": {
@@ -4449,6 +4524,7 @@
               "dependencies": -1,
               "n_id": "199",
               "value": {
+                "class_name": "User",
                 "fields": {
                   "lastName": {
                     "meta": {
@@ -4475,7 +4551,7 @@
             },
             "type": "SyntaxStepDeclaration",
             "var": "cookieKey",
-            "var_type": "String"
+            "var_type": "User"
           },
           {
             "meta": {
@@ -4515,6 +4591,7 @@
               "dependencies": 0,
               "n_id": "221",
               "value": {
+                "class_name": "User",
                 "fields": {
                   "lastName": {
                     "meta": {
@@ -4543,6 +4620,7 @@
             "type": "SyntaxStepSymbolLookup"
           },
           {
+            "current_instance": null,
             "meta": {
               "danger": false,
               "dependencies": -3,
@@ -4637,6 +4715,7 @@
               "dependencies": -3,
               "n_id": "270",
               "value": {
+                "class_name": "User",
                 "fields": {
                   "lastName": {
                     "meta": {
@@ -4680,6 +4759,7 @@
               "dependencies": -1,
               "n_id": "265",
               "value": {
+                "class_name": "User",
                 "fields": {
                   "lastName": {
                     "meta": {
@@ -4757,6 +4837,7 @@
               "dependencies": 0,
               "n_id": "304",
               "value": {
+                "class_name": "User",
                 "fields": {
                   "lastName": {
                     "meta": {
@@ -4795,6 +4876,7 @@
             "type": "SyntaxStepSymbolLookup"
           },
           {
+            "current_instance": null,
             "meta": {
               "danger": false,
               "dependencies": -3,
@@ -4865,6 +4947,7 @@
               "dependencies": -1,
               "n_id": "73",
               "value": {
+                "class_name": "User",
                 "fields": {
                   "userId": {
                     "meta": {
@@ -4888,6 +4971,7 @@
               "dependencies": -1,
               "n_id": "68",
               "value": {
+                "class_name": "User",
                 "fields": {
                   "userId": {
                     "meta": {
@@ -5027,6 +5111,7 @@
             "type": "SyntaxStepSymbolLookup"
           },
           {
+            "current_instance": null,
             "meta": {
               "danger": false,
               "dependencies": -3,
@@ -5147,6 +5232,7 @@
               "dependencies": -2,
               "n_id": "182",
               "value": {
+                "class_name": "User",
                 "fields": {
                   "lastName": {
                     "meta": {
@@ -5180,6 +5266,7 @@
               "dependencies": -1,
               "n_id": "177",
               "value": {
+                "class_name": "User",
                 "fields": {
                   "lastName": {
                     "meta": {
@@ -5214,6 +5301,7 @@
               "dependencies": 0,
               "n_id": "204",
               "value": {
+                "class_name": "User",
                 "fields": {
                   "lastName": {
                     "meta": {
@@ -5247,6 +5335,7 @@
               "dependencies": -1,
               "n_id": "199",
               "value": {
+                "class_name": "User",
                 "fields": {
                   "lastName": {
                     "meta": {
@@ -5273,7 +5362,7 @@
             },
             "type": "SyntaxStepDeclaration",
             "var": "cookieKey",
-            "var_type": "String"
+            "var_type": "User"
           },
           {
             "meta": {
@@ -5313,6 +5402,7 @@
               "dependencies": 0,
               "n_id": "221",
               "value": {
+                "class_name": "User",
                 "fields": {
                   "lastName": {
                     "meta": {
@@ -5341,6 +5431,7 @@
             "type": "SyntaxStepSymbolLookup"
           },
           {
+            "current_instance": null,
             "meta": {
               "danger": false,
               "dependencies": -3,
@@ -5435,6 +5526,7 @@
               "dependencies": -3,
               "n_id": "270",
               "value": {
+                "class_name": "User",
                 "fields": {
                   "lastName": {
                     "meta": {
@@ -5478,6 +5570,7 @@
               "dependencies": -1,
               "n_id": "265",
               "value": {
+                "class_name": "User",
                 "fields": {
                   "lastName": {
                     "meta": {
@@ -5555,6 +5648,7 @@
               "dependencies": 0,
               "n_id": "304",
               "value": {
+                "class_name": "User",
                 "fields": {
                   "lastName": {
                     "meta": {
@@ -5593,6 +5687,7 @@
             "type": "SyntaxStepSymbolLookup"
           },
           {
+            "current_instance": null,
             "meta": {
               "danger": false,
               "dependencies": -3,
@@ -5663,6 +5758,7 @@
               "dependencies": -1,
               "n_id": "73",
               "value": {
+                "class_name": "User",
                 "fields": {
                   "userId": {
                     "meta": {
@@ -5686,6 +5782,7 @@
               "dependencies": -1,
               "n_id": "68",
               "value": {
+                "class_name": "User",
                 "fields": {
                   "userId": {
                     "meta": {
@@ -5825,6 +5922,7 @@
             "type": "SyntaxStepSymbolLookup"
           },
           {
+            "current_instance": null,
             "meta": {
               "danger": false,
               "dependencies": -3,
@@ -5913,6 +6011,7 @@
               "dependencies": -2,
               "n_id": "182",
               "value": {
+                "class_name": "User",
                 "fields": {
                   "lastName": {
                     "meta": {
@@ -5946,6 +6045,7 @@
               "dependencies": -1,
               "n_id": "177",
               "value": {
+                "class_name": "User",
                 "fields": {
                   "lastName": {
                     "meta": {
@@ -5980,6 +6080,7 @@
               "dependencies": 0,
               "n_id": "204",
               "value": {
+                "class_name": "User",
                 "fields": {
                   "lastName": {
                     "meta": {
@@ -6013,6 +6114,7 @@
               "dependencies": -1,
               "n_id": "199",
               "value": {
+                "class_name": "User",
                 "fields": {
                   "lastName": {
                     "meta": {
@@ -6039,7 +6141,7 @@
             },
             "type": "SyntaxStepDeclaration",
             "var": "cookieKey",
-            "var_type": "String"
+            "var_type": "User"
           },
           {
             "meta": {
@@ -6079,6 +6181,7 @@
               "dependencies": 0,
               "n_id": "221",
               "value": {
+                "class_name": "User",
                 "fields": {
                   "lastName": {
                     "meta": {
@@ -6107,6 +6210,7 @@
             "type": "SyntaxStepSymbolLookup"
           },
           {
+            "current_instance": null,
             "meta": {
               "danger": false,
               "dependencies": -3,
@@ -6201,6 +6305,7 @@
               "dependencies": -3,
               "n_id": "270",
               "value": {
+                "class_name": "User",
                 "fields": {
                   "lastName": {
                     "meta": {
@@ -6244,6 +6349,7 @@
               "dependencies": -1,
               "n_id": "265",
               "value": {
+                "class_name": "User",
                 "fields": {
                   "lastName": {
                     "meta": {
@@ -6321,6 +6427,7 @@
               "dependencies": 0,
               "n_id": "304",
               "value": {
+                "class_name": "User",
                 "fields": {
                   "lastName": {
                     "meta": {
@@ -6359,6 +6466,7 @@
             "type": "SyntaxStepSymbolLookup"
           },
           {
+            "current_instance": null,
             "meta": {
               "danger": false,
               "dependencies": -3,
@@ -6441,6 +6549,7 @@
               "dependencies": -3,
               "n_id": "353",
               "value": {
+                "class_name": "User",
                 "fields": {
                   "lastName": {
                     "meta": {
@@ -6484,6 +6593,7 @@
               "dependencies": -1,
               "n_id": "348",
               "value": {
+                "class_name": "User",
                 "fields": {
                   "lastName": {
                     "meta": {
@@ -6620,6 +6730,7 @@
             "type": "SyntaxStepMethodInvocation"
           },
           {
+            "current_instance": null,
             "meta": {
               "danger": false,
               "dependencies": -3,
@@ -6680,6 +6791,7 @@
               "dependencies": -1,
               "n_id": "73",
               "value": {
+                "class_name": "User",
                 "fields": {
                   "userId": {
                     "meta": {
@@ -6703,6 +6815,7 @@
               "dependencies": -1,
               "n_id": "68",
               "value": {
+                "class_name": "User",
                 "fields": {
                   "userId": {
                     "meta": {
@@ -6842,6 +6955,7 @@
             "type": "SyntaxStepSymbolLookup"
           },
           {
+            "current_instance": null,
             "meta": {
               "danger": false,
               "dependencies": -3,
@@ -6938,6 +7052,7 @@
               "dependencies": -2,
               "n_id": "182",
               "value": {
+                "class_name": "User",
                 "fields": {
                   "lastName": {
                     "meta": {
@@ -6971,6 +7086,7 @@
               "dependencies": -1,
               "n_id": "177",
               "value": {
+                "class_name": "User",
                 "fields": {
                   "lastName": {
                     "meta": {
@@ -7005,6 +7121,7 @@
               "dependencies": 0,
               "n_id": "204",
               "value": {
+                "class_name": "User",
                 "fields": {
                   "lastName": {
                     "meta": {
@@ -7038,6 +7155,7 @@
               "dependencies": -1,
               "n_id": "199",
               "value": {
+                "class_name": "User",
                 "fields": {
                   "lastName": {
                     "meta": {
@@ -7064,7 +7182,7 @@
             },
             "type": "SyntaxStepDeclaration",
             "var": "cookieKey",
-            "var_type": "String"
+            "var_type": "User"
           },
           {
             "meta": {
@@ -7104,6 +7222,7 @@
               "dependencies": 0,
               "n_id": "221",
               "value": {
+                "class_name": "User",
                 "fields": {
                   "lastName": {
                     "meta": {
@@ -7132,6 +7251,7 @@
             "type": "SyntaxStepSymbolLookup"
           },
           {
+            "current_instance": null,
             "meta": {
               "danger": false,
               "dependencies": -3,
@@ -7226,6 +7346,7 @@
               "dependencies": -3,
               "n_id": "270",
               "value": {
+                "class_name": "User",
                 "fields": {
                   "lastName": {
                     "meta": {
@@ -7269,6 +7390,7 @@
               "dependencies": -1,
               "n_id": "265",
               "value": {
+                "class_name": "User",
                 "fields": {
                   "lastName": {
                     "meta": {
@@ -7346,6 +7468,7 @@
               "dependencies": 0,
               "n_id": "304",
               "value": {
+                "class_name": "User",
                 "fields": {
                   "lastName": {
                     "meta": {
@@ -7384,6 +7507,7 @@
             "type": "SyntaxStepSymbolLookup"
           },
           {
+            "current_instance": null,
             "meta": {
               "danger": false,
               "dependencies": -3,
@@ -7454,6 +7578,7 @@
               "dependencies": -1,
               "n_id": "73",
               "value": {
+                "class_name": "User",
                 "fields": {
                   "userId": {
                     "meta": {
@@ -7477,6 +7602,7 @@
               "dependencies": -1,
               "n_id": "68",
               "value": {
+                "class_name": "User",
                 "fields": {
                   "userId": {
                     "meta": {
@@ -7616,6 +7742,7 @@
             "type": "SyntaxStepSymbolLookup"
           },
           {
+            "current_instance": null,
             "meta": {
               "danger": false,
               "dependencies": -3,

@@ -98,14 +98,14 @@ def _syntax_step_object_instantiation_values(args: EvaluatorArgs) -> None:
             constructor_name,
             _type,
         ):
-            if args.shard.path != _method.shard_path and (
-                instance := args.eval_constructor(
+            if args.shard.path != _method.shard_path:
+                instance = args.eval_constructor(
                     args,
                     _method.metadata.n_id,
                     args.dependencies,
                     args.graph_db.shards_by_path_f(_method.shard_path),
+                    object_type,
                 )
-            ):
                 args.syntax_step.meta.value = instance
 
     if not args.syntax_step.meta.value and (java_class := lookup_java_class(

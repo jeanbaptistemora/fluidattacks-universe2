@@ -76,8 +76,9 @@ def eval_constructor(
     method_n_id: graph_model.NId,
     method_arguments: graph_model.SyntaxSteps,
     shard: graph_model.GraphShard,
+    class_name: str,
 ) -> JavaClassInstance:
-    current_instance = JavaClassInstance(fields={})
+    current_instance = JavaClassInstance(fields={}, class_name=class_name)
     possible_syntax_steps = get_possible_syntax_steps_for_n_id(
         args.graph_db,
         finding=args.finding,

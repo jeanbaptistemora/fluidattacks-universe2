@@ -6879,6 +6879,7 @@
             "type": "SyntaxStepMethodInvocation"
           },
           {
+            "current_instance": null,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -6899,6 +6900,7 @@
             "type": "SyntaxStepObjectInstantiation"
           },
           {
+            "current_instance": null,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -7333,6 +7335,7 @@
             "value_type": "string"
           },
           {
+            "current_instance": null,
             "meta": {
               "danger": false,
               "dependencies": -2,
@@ -7784,6 +7787,7 @@
             "type": "SyntaxStepObjectInstantiation"
           },
           {
+            "current_instance": null,
             "meta": {
               "danger": false,
               "dependencies": -2,
@@ -7828,6 +7832,7 @@
             "type": "SyntaxStepSymbolLookup"
           },
           {
+            "current_instance": null,
             "meta": {
               "danger": false,
               "dependencies": -2,
@@ -7879,6 +7884,7 @@
             "type": "SyntaxStepBinaryExpression"
           },
           {
+            "current_instance": null,
             "meta": {
               "danger": false,
               "dependencies": -2,
@@ -8083,6 +8089,7 @@
             "type": "SyntaxStepMethodInvocation"
           },
           {
+            "current_instance": null,
             "meta": {
               "danger": false,
               "dependencies": -2,
@@ -8114,6 +8121,7 @@
             "type": "SyntaxStepBinaryExpression"
           },
           {
+            "current_instance": null,
             "meta": {
               "danger": false,
               "dependencies": -2,
@@ -12416,6 +12424,7 @@
             "value_type": "string"
           },
           {
+            "current_instance": null,
             "meta": {
               "danger": false,
               "dependencies": -2,
@@ -20421,6 +20430,7 @@
             "type": "SyntaxStepObjectInstantiation"
           },
           {
+            "current_instance": null,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -20513,6 +20523,7 @@
             "type": "SyntaxStepThis"
           },
           {
+            "current_instance": null,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -20523,6 +20534,7 @@
             "type": "SyntaxStepMethodInvocationChain"
           },
           {
+            "current_instance": null,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -20557,6 +20569,7 @@
             "value_type": "string"
           },
           {
+            "current_instance": null,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -21016,6 +21029,7 @@
             "type": "SyntaxStepSymbolLookup"
           },
           {
+            "current_instance": null,
             "meta": {
               "danger": false,
               "dependencies": -2,
@@ -21026,6 +21040,7 @@
             "type": "SyntaxStepMethodInvocationChain"
           },
           {
+            "current_instance": null,
             "meta": {
               "danger": false,
               "dependencies": -2,
@@ -21215,6 +21230,7 @@
             "type": "SyntaxStepBinaryExpression"
           },
           {
+            "current_instance": null,
             "meta": {
               "danger": false,
               "dependencies": -2,
@@ -21504,6 +21520,7 @@
             "type": "SyntaxStepSymbolLookup"
           },
           {
+            "current_instance": null,
             "meta": {
               "danger": false,
               "dependencies": -3,
@@ -21717,6 +21734,7 @@
             "type": "SyntaxStepBinaryExpression"
           },
           {
+            "current_instance": null,
             "meta": {
               "danger": false,
               "dependencies": -2,
@@ -21799,6 +21817,7 @@
             "value_type": "string"
           },
           {
+            "current_instance": null,
             "meta": {
               "danger": false,
               "dependencies": -2,

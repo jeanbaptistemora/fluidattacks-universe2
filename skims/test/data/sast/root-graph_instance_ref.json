@@ -4558,6 +4558,7 @@
             "type": "SyntaxStepSymbolLookup"
           },
           {
+            "current_instance": null,
             "meta": {
               "danger": false,
               "dependencies": -3,
@@ -4616,6 +4617,7 @@
             "type": "SyntaxStepObjectInstantiation"
           },
           {
+            "current_instance": null,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -4810,6 +4812,7 @@
             "type": "SyntaxStepSymbolLookup"
           },
           {
+            "current_instance": null,
             "meta": {
               "danger": false,
               "dependencies": -3,
@@ -4855,6 +4858,7 @@
             "type": "SyntaxStepObjectInstantiation"
           },
           {
+            "current_instance": null,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -5025,6 +5029,7 @@
             "type": "SyntaxStepSymbolLookup"
           },
           {
+            "current_instance": null,
             "meta": {
               "danger": false,
               "dependencies": -3,
@@ -5047,6 +5052,7 @@
             "type": "SyntaxStepObjectInstantiation"
           },
           {
+            "current_instance": null,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -5103,6 +5109,7 @@
             "type": "SyntaxStepObjectInstantiation"
           },
           {
+            "current_instance": null,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -5310,6 +5317,7 @@
             "type": "SyntaxStepMethodInvocation"
           },
           {
+            "current_instance": null,
             "meta": {
               "danger": false,
               "dependencies": -3,
@@ -8837,6 +8845,7 @@
             "type": "SyntaxStepSymbolLookup"
           },
           {
+            "current_instance": null,
             "meta": {
               "danger": false,
               "dependencies": -2,

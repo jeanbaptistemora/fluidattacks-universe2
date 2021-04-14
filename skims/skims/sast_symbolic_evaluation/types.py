@@ -45,6 +45,7 @@ class EvaluatorArgs(NamedTuple):
             graph_model.NId,
             graph_model.SyntaxSteps,
             graph_model.GraphShard,
+            str,
         ],
         graph_model.CurrentInstance,
     ]
@@ -81,3 +82,4 @@ class LookedUpJavaClassField(NamedTuple):
 
 class JavaClassInstance(NamedTuple):
     fields: Dict[str, Optional[graph_model.SyntaxStep]]
+    class_name: Optional[str] = None

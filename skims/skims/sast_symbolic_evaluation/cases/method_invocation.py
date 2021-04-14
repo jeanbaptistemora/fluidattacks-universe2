@@ -2,6 +2,7 @@
 from typing import (
     Any,
     Dict,
+    Optional,
     Set,
 )
 from model import (
@@ -473,11 +474,26 @@ def analyze_method_invocation_external(
 ) -> bool:
     method_var, method_path = split_on_first_dot(method)
     method_var_decl = lookup_var_dcl_by_name(args, method_var)
-    if method_var_decl and (
+    method_var_decl_type = None
+
+    if method_var_decl:
+        method_var_decl_type = method_var_decl.var_type
+    # lookup methods with teh format new Test().some()
+    # last argument is teh instance
+    elif args.dependencies and isinstance(
+            args.dependencies[-1],
+            graph_model.SyntaxStepObjectInstantiation,
+    ) and lookup_java_class(
+            args,
+            args.dependencies[-1].object_type,
+    ):
+        method_var_decl_type = args.dependencies[-1].object_type
+
+    if method_var_decl_type and (
         _method := lookup_java_method(
             args,
             method_path,
-            method_var_decl.var_type,
+            method_var_decl_type,
         )
     ):
         if args.shard.path != _method.shard_path and (
@@ -486,7 +502,7 @@ def analyze_method_invocation_external(
                 _method.metadata.n_id,
                 args.dependencies,
                 args.graph_db.shards_by_path_f(_method.shard_path),
-                method_var_decl.meta.value,
+                method_var_decl.meta.value if method_var_decl else None,
             )
         ):
             args.syntax_step.meta.danger = return_step.meta.danger
@@ -496,8 +512,24 @@ def analyze_method_invocation_external(
     return False
 
 
-def analyze_method_invocation_values(args: EvaluatorArgs) -> None:
-    method_var, method_path = split_on_first_dot(args.syntax_step.method)
+def analyze_method_invocation_values(
+    args: EvaluatorArgs,
+    method: Optional[str] = None,
+) -> None:
+    method_var, method_path = split_on_first_dot(method
+                                                 or args.syntax_step.method)
+    method_var_decl_type = None
+
+    # lookup methods with teh format new Test().some()
+    # last argument is teh instance
+    if args.dependencies and isinstance(
+            args.dependencies[-1],
+            graph_model.SyntaxStepObjectInstantiation,
+    ) and lookup_java_class(
+            args,
+            args.dependencies[-1].object_type,
+    ):
+        method_var_decl_type = args.dependencies[-1].object_type
 
     if dcl := lookup_var_state_by_name(args, method_var):
         if isinstance(dcl.meta.value, dict):
@@ -506,20 +538,38 @@ def analyze_method_invocation_values(args: EvaluatorArgs) -> None:
             analyze_method_invocation_values_str(args, dcl, method_path)
         if isinstance(dcl.meta.value, list):
             analyze_method_invocation_values_list(args, dcl, method_path)
-    elif method := lookup_java_method(args, args.syntax_step.method):
-        class_instance = JavaClassInstance(fields={}) if lookup_java_class(
-            args, method.metadata.class_name) else None
+    elif (
+        _method := lookup_java_method(
+            args,
+            method_path or method_var,  # can be local function
+            method_var_decl_type,
+        )
+        or (
+            _method := lookup_java_method(  # can be a static function
+                args,
+                args.syntax_step.method,
+            )
+        )
+    ):
+        class_instance = (
+            JavaClassInstance(
+                fields={},
+                class_name=method_var_decl_type,
+            )
+            if lookup_java_class(args, _method.metadata.class_name)
+            else None
+        )
 
         if return_step := args.eval_method(
             args,
-            method.metadata.n_id,
+            _method.metadata.n_id,
             args.dependencies,
-            args.graph_db.shards_by_path_f(method.shard_path),
+            args.graph_db.shards_by_path_f(_method.shard_path),
             class_instance,
         ):
             args.syntax_step.meta.danger = return_step.meta.danger
             args.syntax_step.meta.value = return_step.meta.value
-        if class_instance:
+        if class_instance and args.syntax_step.current_instance:
             args.syntax_step.current_instance.fields.update(
                 class_instance.fields)
 
