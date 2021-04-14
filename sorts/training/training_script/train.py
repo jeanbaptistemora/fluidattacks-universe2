@@ -16,6 +16,7 @@ from typing import (
 from joblib import dump
 from pandas import DataFrame
 from sklearn.neighbors import KNeighborsClassifier
+from sklearn.neural_network import MLPClassifier
 
 # Local libraries
 from sorts.typings import Model as ModelType
@@ -45,6 +46,8 @@ def get_model_instance(model_class: ModelType) -> ModelType:
     default_args: Dict[str, int] = {}
     if model_class != KNeighborsClassifier:
         default_args = {'random_state': 42}
+        if model_class == MLPClassifier:
+            default_args.update({'max_iter': 300})
     return model_class(**default_args)
 
 
