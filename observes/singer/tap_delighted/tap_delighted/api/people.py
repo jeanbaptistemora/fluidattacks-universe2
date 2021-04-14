@@ -20,13 +20,12 @@ from returns.curry import (
 from returns.io import IO
 
 # Local libraries
-import paginator
 from paginator import (
     AllPages,
-    EmptyPage,
     PageId,
 )
 from tap_delighted.api.common import (
+    extractor,
     raw,
     handle_rate_limit,
 )
@@ -46,26 +45,15 @@ class BouncedPage(NamedTuple):
         return cls(data.unwrap())
 
 
-def _all_pages(
-    get_page: Callable[[PageId], BouncedPage]
-) -> Iterator[BouncedPage]:
-    def getter(page: PageId) -> Union[BouncedPage, EmptyPage]:
-        result = get_page(page)
-        if not result.data:
-            return EmptyPage()
-        return result
-    pages: Iterator[BouncedPage] = paginator.get_until_end(
-        PageId(1, 100), getter, 10
-    )
-    return pages
-
-
 def _list_bounced(
     client: Client,
     page: Union[AllPages, PageId],
 ) -> Iterator[BouncedPage]:
     if isinstance(page, AllPages):
-        return _all_pages(partial(BouncedPage.new, client))
+        return extractor.get_all_pages(
+            partial(BouncedPage.new, client),
+            lambda page: page.data.map(bool) == IO(False)
+        )
     return iter([BouncedPage.new(client, page)])
 
 
