@@ -88,7 +88,8 @@ data "aws_iam_policy_document" "sorts_prod_policy_data" {
       "sagemaker:StopTrainingJob"
     ]
     resources = [
-      "arn:aws:sagemaker:us-east-1:${data.aws_caller_identity.current.account_id}:training-job/sorts*"
+      "arn:aws:sagemaker:us-east-1:${data.aws_caller_identity.current.account_id}:training-job/sorts*",
+      "arn:aws:sagemaker:us-east-1:${data.aws_caller_identity.current.account_id}:hyper-parameter-tuning-job/sagemaker*"
     ]
   }
 
