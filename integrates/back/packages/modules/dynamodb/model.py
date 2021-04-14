@@ -412,6 +412,27 @@ async def update_git_root_toe_lines(
     )
 
 
+async def delete_git_root_toe_input(
+    *,
+    entry_point: str,
+    component: str,
+    group_name: str,
+) -> None:
+    facet = TABLE.facets['root_toe_input']
+    toe_input_key = keys.build_key(
+        facet=facet,
+        values={
+            'component': component,
+            'entry_point': entry_point,
+            'group_name': group_name,
+        },
+    )
+    await operations.delete_item(
+        primary_key=toe_input_key,
+        table=TABLE
+    )
+
+
 def _build_git_root_toe_input(
     *,
     group_name: str,
