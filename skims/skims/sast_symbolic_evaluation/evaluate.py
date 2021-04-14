@@ -118,21 +118,20 @@ def eval_method(
         current_instance=current_instance,
     )
 
-    result: Optional[graph_model.SyntaxStepReturn] = None
-
     for syntax_steps in possible_syntax_steps.values():
         for syntax_step in reversed(syntax_steps):
             # Attempt to return the dangerous syntax step
             if (
-                not result
-                and isinstance(syntax_step, graph_model.SyntaxStepReturn)
+                isinstance(syntax_step, graph_model.SyntaxStepReturn)
                 and syntax_step.meta.danger
             ):
                 return syntax_step
+
+    for syntax_steps in possible_syntax_steps.values():
+        for syntax_step in reversed(syntax_steps):
             # If none of them match attempt to return the one that has value
             if (
-                not result
-                and isinstance(syntax_step, graph_model.SyntaxStepReturn)
+                isinstance(syntax_step, graph_model.SyntaxStepReturn)
                 and syntax_step.meta.value is not None
             ):
                 return syntax_step
