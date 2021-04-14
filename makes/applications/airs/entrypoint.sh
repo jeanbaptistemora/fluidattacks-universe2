@@ -43,7 +43,7 @@ function patch_paths_prod {
 function compress_files {
   local src="${1}"
 
-  find "${src}" -type f -o -name '*.html' -o -name '*.css' -o -name '*.js' \
+  find "${src}" -type f -name '*.html' -o -name '*.css' -o -name '*.js' \
     | while read -r file
       do
             gzip -9 "${file}" \
