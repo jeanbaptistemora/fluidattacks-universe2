@@ -35,7 +35,7 @@ const features = [
     link: 'agent'
   },
   {
-    title: 'Requirements',
+    title: 'Criteria',
     description: (
       <>
         List of security requirements considered by our organization

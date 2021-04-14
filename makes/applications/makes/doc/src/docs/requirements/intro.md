@@ -5,13 +5,13 @@ sidebar_label: Introduction
 slug: /requirements
 ---
 
-## Requirements
+## Criteria
 
-**Requirements** is a set of security requirements
+**Criteria** is a set of security requirements
 that allows you to parameterize a pentest
 according to the risk appetite of your organization.
 
-**Requirements** allows you to determine what is tested and what is not,
+**Criteria** allows you to determine what is tested and what is not,
 and find out what is considered a vulnerability.
 It is also the basis for determining how rigorous a pentest was,
 based on tested and untested requirements.
@@ -22,7 +22,7 @@ Through our hacking services, we determine if these are met or not.
 
 ## Standards
 
-**Requirements** is based on several standards
+**Criteria** is based on several standards
 related to information security, including the following:
 
 - [OWASP Application Security Verification Standard](https://www.owasp.org/index.php/Category:OWASP_Application_Security_Verification_Standard_Project)

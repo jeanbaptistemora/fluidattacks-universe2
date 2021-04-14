@@ -77,7 +77,7 @@ module.exports = {
     'api/api-token',
     'api/basics-api',
   ],
-  Requirements: [
+  Criteria: [
     'requirements/intro',
     {
       type: 'category',

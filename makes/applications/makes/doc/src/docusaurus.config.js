@@ -40,7 +40,7 @@ module.exports = {
         {
           to: 'requirements/',
           activeBasePath: 'requirements/',
-          label: 'Requirements',
+          label: 'Criteria',
           position: 'left',
         },
         {
