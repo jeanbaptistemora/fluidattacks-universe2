@@ -29,8 +29,6 @@ from backend.domain.project import (
     get_open_finding,
     get_open_vulnerabilities,
     get_open_vulnerability_date,
-    get_pending_closing_check,
-    get_pending_verification_findings,
     get_total_treatment,
     is_vulnerability_closed,
     list_comments,
@@ -41,7 +39,11 @@ from backend.exceptions import (
     RepeatedValues,
 )
 from findings import dal as findings_dal
-from findings.domain import get_max_open_severity
+from findings.domain import (
+    get_max_open_severity,
+    get_pending_closing_check,
+    get_pending_verification_findings,
+)
 from group_access.domain import (
     get_group_users,
     remove_access,

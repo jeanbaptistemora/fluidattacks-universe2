@@ -9,14 +9,14 @@ from aioextensions import (
 
 # Local libraries
 from backend.api import get_new_context
-from backend.domain import project as group_domain
 from charts import utils
+from findings import domain as findings_domain
 
 
 async def generate_one(group: str) -> int:
     context = get_new_context()
 
-    return await group_domain.get_pending_closing_check(context, group)
+    return await findings_domain.get_pending_closing_check(context, group)
 
 
 async def get_many_groups(groups: Tuple[str]) -> int:

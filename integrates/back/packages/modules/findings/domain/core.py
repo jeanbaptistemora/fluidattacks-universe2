@@ -361,6 +361,39 @@ async def get_max_open_severity(
     return max_severity, max_severity_finding
 
 
+async def get_pending_closing_check(context: Any, group: str) -> int:
+    """Check for pending closing checks."""
+    pending_closing = len(
+        await get_pending_verification_findings(context, group)
+    )
+    return pending_closing
+
+
+async def get_pending_verification_findings(
+    context: Any,
+    group_name: str
+) -> List[Dict[str, FindingType]]:
+    """Gets findings pending for verification"""
+    findings_ids = await list_findings(context, [group_name])
+    are_pending_verifications = await collect([
+        is_pending_verification(context, finding_id)
+        for finding_id in findings_ids[0]
+    ])
+    pending_to_verify_ids = [
+        finding_id
+        for finding_id, are_pending_verification in zip(
+            findings_ids[0],
+            are_pending_verifications
+        )
+        if are_pending_verification
+    ]
+    pending_to_verify = await collect(
+        get_attributes(finding_id, ['finding', 'finding_id', 'project_name'])
+        for finding_id in pending_to_verify_ids
+    )
+    return cast(List[Dict[str, FindingType]], pending_to_verify)
+
+
 def get_tracking_vulnerabilities(
     vulnerabilities: List[Dict[str, FindingType]]
 ) -> List[TrackingItem]:

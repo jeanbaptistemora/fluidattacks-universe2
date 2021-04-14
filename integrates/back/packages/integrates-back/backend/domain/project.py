@@ -414,44 +414,6 @@ async def remove_user_access(
     return success
 
 
-async def get_pending_verification_findings(
-    context: Any,
-    project_name: str
-) -> List[Dict[str, FindingType]]:
-    """Gets findings pending for verification"""
-    findings_ids = await findings_domain.list_findings(
-        context,
-        [project_name]
-    )
-    are_pending_verifications = await collect([
-        findings_domain.is_pending_verification(context, finding_id)
-        for finding_id in findings_ids[0]
-    ])
-    pending_to_verify_ids = [
-        finding_id
-        for finding_id, are_pending_verification in zip(
-            findings_ids[0],
-            are_pending_verifications
-        )
-        if are_pending_verification
-    ]
-    pending_to_verify = await collect(
-        findings_domain.get_attributes(
-            finding_id,
-            ['finding', 'finding_id', 'project_name']
-        ) for finding_id in pending_to_verify_ids
-    )
-
-    return cast(List[Dict[str, FindingType]], pending_to_verify)
-
-
-async def get_pending_closing_check(context: Any, project: str) -> int:
-    """Check for pending closing checks."""
-    pending_closing = len(
-        await get_pending_verification_findings(context, project))
-    return pending_closing
-
-
 async def get_last_closing_vuln_info(
     context: Any,
     findings: List[Dict[str, FindingType]]
