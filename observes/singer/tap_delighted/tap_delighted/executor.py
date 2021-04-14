@@ -30,6 +30,7 @@ _stream_executor: Mapping[
 ] = {
     SupportedStreams.BOUNCED: streams.all_bounced,
     SupportedStreams.SURVEY_RESPONSE: streams.all_surveys,
+    SupportedStreams.UNSUBSCRIBED: streams.all_unsubscribed,
 }
 
 

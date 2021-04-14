@@ -31,6 +31,7 @@ from tap_delighted.api import (
     ApiClient,
     SurveyPage,
     BouncedPage,
+    UnsubscribedPage,
 )
 from tap_delighted.common import (
     JSON,
@@ -41,7 +42,7 @@ from tap_delighted.streams.objs import (
 
 
 LOG = logging.getLogger(__name__)
-ApiPage = TypeVar('ApiPage', SurveyPage, BouncedPage)
+ApiPage = TypeVar('ApiPage', SurveyPage, BouncedPage, UnsubscribedPage)
 
 
 def _json_list_srecords(
@@ -88,6 +89,13 @@ def all_surveys(api: ApiClient) -> None:
 def all_bounced(api: ApiClient) -> None:
     stream = SupportedStreams.BOUNCED
     pages = api.people.list_bounced(AllPages())
+    for page in pages:
+        _emit_page(stream, page)
+
+
+def all_unsubscribed(api: ApiClient) -> None:
+    stream = SupportedStreams.UNSUBSCRIBED
+    pages = api.people.list_unsubscribed(AllPages())
     for page in pages:
         _emit_page(stream, page)
 

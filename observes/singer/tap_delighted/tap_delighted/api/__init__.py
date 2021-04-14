@@ -21,8 +21,9 @@ from tap_delighted.api.survey import (
     SurveyPage,
 )
 from tap_delighted.api.people import (
-    PeopleApi,
     BouncedPage,
+    PeopleApi,
+    UnsubscribedPage,
 )
 
 
@@ -44,6 +45,7 @@ class ApiClient(NamedTuple):
 
 
 __all__ = [
+    'BouncedPage',
     'SurveyPage',
-    'BouncedPage'
+    'UnsubscribedPage',
 ]
