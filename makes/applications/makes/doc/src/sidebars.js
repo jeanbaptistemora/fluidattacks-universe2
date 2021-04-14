@@ -146,6 +146,7 @@ module.exports = {
         items: [
           'criteria/privacy/r189',
           'criteria/privacy/r310',
+          'criteria/privacy/r311',
         ],
     },
   ],
