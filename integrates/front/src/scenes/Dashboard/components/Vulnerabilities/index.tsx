@@ -251,6 +251,7 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
         <Modal
           headerTitle={t("searchFindings.tabDescription.editVuln")}
           open={isUpdateVulnOpen}
+          size={"largeModal"}
         >
           <UpdateTreatmentModal
             findingId={findingId}
@@ -295,6 +296,7 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
       <Modal
         headerTitle={t("searchFindings.tabVuln.vulnerabilityInfo")}
         open={isAdditionalInfoOpen}
+        size={"largeModal"}
       >
         {_.isUndefined(currentRow) ? undefined : (
           <MemoryRouter
