@@ -11,6 +11,7 @@ makeTemplate {
       packages.skims.config-development
       packages.skims.config-runtime
     ];
+    envUtils = [ "/makes/utils/lint-python" ];
   };
   template = path "/makes/packages/makes/dev/skims/template.sh";
 }

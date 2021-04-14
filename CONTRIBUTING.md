@@ -41,6 +41,14 @@ so read it completely and execute commands as you read
     All the programs and tools that you open from within the Bash Shell will
     be able to see the configurations we made
 
+    - **Forces**
+
+        ```bash
+            cd /path/to/fluidattacks/product/repo \
+        &&  ./m makes.dev.forces \
+        &&  source out/makes-dev-forces
+        ```
+
     - **Integrates**
 
         - **Back**
