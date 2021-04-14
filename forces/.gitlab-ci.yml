@@ -1,5 +1,5 @@
 .makes: &makes
-  tags: [ci]
+  tags: [autoscaling]
   image: "${CI_REGISTRY_IMAGE}/makes"
   needs: []
   interruptible: true
@@ -51,7 +51,7 @@ forces.test:
 forces.test-container:
   <<: *forces_in_dev_and_master_branch
   stage: test-code
-  tags: [ci-large]
+  tags: [autoscaling-large]
   image: "fluidattacks/forces:${CI_COMMIT_REF_NAME}"
   script:
     - forces --token "${INTEGRATES_FORCES_API_TOKEN}" --lax
