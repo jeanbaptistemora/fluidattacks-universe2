@@ -17,7 +17,7 @@ from returns.curry import (
     partial,
 )
 # Local libraries
-from tap_delighted.api.raw import (
+from tap_delighted.api.common.raw import (
     RateLimitError,
     RawApiResult,
 )

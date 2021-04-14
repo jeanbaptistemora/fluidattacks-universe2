@@ -22,8 +22,8 @@ from returns.io import IO
 from paginator import (
     PageId,
 )
-from tap_delighted.api import raw
 from tap_delighted.api.common import (
+    raw,
     handle_rate_limit,
 )
 from tap_delighted.common import (

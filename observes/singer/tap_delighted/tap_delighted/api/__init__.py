@@ -19,10 +19,14 @@ from tap_delighted.auth import (
 from tap_delighted.api.survey import (
     SurveyApi,
 )
+from tap_delighted.api.people import (
+    PeopleApi,
+)
 
 
 class ApiClient(NamedTuple):
     survey: SurveyApi
+    people: PeopleApi
 
     @classmethod
     def new(cls, creds: Credentials) -> ApiClient:
@@ -32,5 +36,6 @@ class ApiClient(NamedTuple):
             http_adapter=HTTPAdapter()
         )
         return cls(
-            survey=SurveyApi.new(client)
+            survey=SurveyApi.new(client),
+            people=PeopleApi.new(client),
         )
