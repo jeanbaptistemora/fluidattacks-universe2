@@ -145,6 +145,7 @@ module.exports = {
         label: 'Privacy',
         items: [
           'criteria/privacy/r189',
+          'criteria/privacy/r310',
         ],
     },
   ],
