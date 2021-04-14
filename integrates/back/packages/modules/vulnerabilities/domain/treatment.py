@@ -27,6 +27,7 @@ from backend.exceptions import (
     InvalidAcceptanceDays,
     InvalidAcceptanceSeverity,
     InvalidNumberAcceptations,
+    SameValues,
     VulnNotFound,
 )
 from backend.typing import (
@@ -430,4 +431,7 @@ async def update_vulns_treatment(
                 user_email=user_email,
                 date=today,
             )
+    else:
+        raise SameValues()
+
     return success

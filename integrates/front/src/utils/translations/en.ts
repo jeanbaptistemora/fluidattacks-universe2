@@ -2009,6 +2009,7 @@ export const enTranslations: ResourceKey = {
         },
       },
       exceptions: {
+        sameValues: "Same values",
         severityOutOfRange:
           "Vulnerability cannot be accepted, severity outside of range set by the organization",
       },

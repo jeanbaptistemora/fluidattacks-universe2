@@ -105,13 +105,30 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
       )
   );
 
-  const isTreatmentPristine: boolean = useSelector(
+  const isTreatmentValuesPristine: boolean = useSelector(
     (state: Record<string, unknown>): boolean =>
       isPristine("editTreatmentVulnerability")(
         state,
-        ...["acceptanceDate", "treatment", "treatmentManager", "justification"]
+        ...["acceptanceDate", "treatment", "treatmentManager"]
       )
   );
+  const formValues: Dictionary<string> = useSelector(
+    (state: Record<string, unknown>): Dictionary<string> =>
+      // It is necessary since formValueSelector returns an any type
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+      formValueSelector("editTreatmentVulnerability")(
+        state,
+        "treatment",
+        "justification",
+        ""
+      )
+  );
+
+  const isTreatmentPristine: boolean =
+    isTreatmentValuesPristine &&
+    (_.isEmpty(formValues.justification) ||
+      (groupLastHistoricTreatment(vulnerabilities).justification as string) ===
+        formValues.justification);
 
   const dispatch: Dispatch = useDispatch();
   const [
@@ -292,6 +309,13 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
           msgError(
             translate.t("groupAlerts.organizationPolicies.severityOutOfRange")
           );
+        } else if (
+          _.includes(
+            String(updateError),
+            translate.t("searchFindings.tabVuln.exceptions.sameValues")
+          )
+        ) {
+          msgError(translate.t("searchFindings.tabVuln.exceptions.sameValues"));
         } else {
           msgError(translate.t("groupAlerts.errorTextsad"));
           Logger.warning(
@@ -386,13 +410,6 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
   };
 
   const hasNewVulns: boolean = hasNewTreatment(vulnerabilities);
-
-  const formValues: Dictionary<string> = useSelector(
-    (state: Record<string, unknown>): Dictionary<string> =>
-      // It is necessary since formValueSelector returns an any type
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-      formValueSelector("editTreatmentVulnerability")(state, "treatment", "")
-  );
 
   const isInProgressSelected: boolean = formValues.treatment === "IN_PROGRESS";
   const isAcceptedSelected: boolean = formValues.treatment === "ACCEPTED";
