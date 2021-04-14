@@ -16,7 +16,10 @@ import {
   CREATE_PROJECT_MUTATION,
   PROJECTS_NAME_QUERY,
 } from "scenes/Dashboard/components/AddProjectModal/queries";
-import type { IAddProjectModalProps } from "scenes/Dashboard/components/AddProjectModal/types";
+import type {
+  IAddProjectModalProps,
+  IProjectNameProps,
+} from "scenes/Dashboard/components/AddProjectModal/types";
 import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import {
   ButtonToolbar,
@@ -187,14 +190,12 @@ const AddProjectModal: React.FC<IAddProjectModalProps> = (
     });
   }
 
-  const { data } = useQuery(PROJECTS_NAME_QUERY, {
-    fetchPolicy: "network-only",
+  const { data } = useQuery<IProjectNameProps>(PROJECTS_NAME_QUERY, {
+    fetchPolicy: "no-cache",
     onError: handleProjectNameError,
   });
 
   const projectName: string =
-    // The type was already defined in the schema
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     _.isUndefined(data) || _.isEmpty(data) ? "" : data.internalNames.name;
 
   return (
