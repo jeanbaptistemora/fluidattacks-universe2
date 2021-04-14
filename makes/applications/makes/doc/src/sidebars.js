@@ -154,10 +154,16 @@ module.exports = {
     'agent/introduction',
     'agent/installation',
   ],
-  OwaspBenchmark: [
-    'owasp-benchmark/introduction',
-    'owasp-benchmark/our-score',
-    'owasp-benchmark/transparency',
+  Machine: [
+    {
+      type: 'category',
+      label: 'Scanner',
+      items: [
+        'machine/scanner/benchmark',
+        'machine/scanner/reproducibility',
+        'machine/scanner/results',
+      ],
+    },
   ],
   Types: [
     'types/introduction',

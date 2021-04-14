@@ -1,8 +1,8 @@
 ---
-id: transparency
+id: reproducibility
 title: Transparency matters
-sidebar_label: Transparency
-slug: /owasp-benchmark/transparency
+sidebar_label: Reproducibility
+slug: /machine/scanner/reproducibility
 ---
 
 Everything at [Fluid Attacks](https://fluidattacks.com) is
@@ -39,11 +39,8 @@ In order to verify the OWASP benchmark results we'll need to:
     any folder owned by your user should work:
 
     ```bash
-    $ src=https://gitlab.com/fluidattacks/product.git
-    $ target=~/Downloads/product
-
-    $ git clone $src $target
-    $ cd $target
+    $ git clone https://gitlab.com/fluidattacks/product fluidattacks
+    $ cd fluidattacks
     ```
 
 1.  Execute:

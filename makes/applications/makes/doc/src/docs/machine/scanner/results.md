@@ -1,8 +1,8 @@
 ---
-id: our-score
+id: results
 title: OWASP Benchmark at Fluid Attacks
-sidebar_label: Our score
-slug: /owasp-benchmark/our-score
+sidebar_label: Results
+slug: /machine/scanner/results
 ---
 
 At [Fluid Attacks](https://fluidattacks.com)

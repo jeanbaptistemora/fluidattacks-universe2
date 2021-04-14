@@ -1,8 +1,8 @@
 ---
-id: introduction
+id: benchmark
 title: OWASP Benchmark
-sidebar_label: Introduction
-slug: /owasp-benchmark
+sidebar_label: Benchmark
+slug: /machine/scanner/benchmark
 ---
 
 The [Open Web Application Security Project (OWASP)](https://owasp.org/)

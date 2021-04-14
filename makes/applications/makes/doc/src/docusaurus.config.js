@@ -26,6 +26,12 @@ module.exports = {
           position: 'left',
         },
         {
+          to: 'machine/scanner/benchmark',
+          activeBasePath: 'machine/',
+          label: 'Machine',
+          position: 'left',
+        },
+        {
           to: 'api/',
           activeBasePath: 'api/',
           label: 'API',
