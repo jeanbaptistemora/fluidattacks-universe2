@@ -9,7 +9,7 @@ Fluid Attacks ASM (Attack Surface Management)
 comes with all functions you need to manage
 all your applications and vulnerabilities effectively.
 
-To access the platform go to https://integrates.fluidattacks.com.
+To access the platform go to https://app.fluidattacks.com.
 
 # Login
 

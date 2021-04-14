@@ -56,8 +56,8 @@ The GraphQL Playground is a tool that allows to perform queries against the API 
 schema definitions in a graphic and interactive way.
 You can access it on:
 
-- https://integrates.fluidattacks.com/api, which is production
-- https://youruseratfluid.integrates.fluidattacks.com/api, which are the ephemerals
+- https://app.fluidattacks.com/api, which is production
+- https://youruseratfluid.app.fluidattacks.com/api, which are the ephemerals
 - https://localhost:8081/api, which is local
 
 ### Types

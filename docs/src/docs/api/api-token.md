@@ -10,8 +10,8 @@ You can do this by using one of the following methods:
 
 ### Using the GraphQL playground
 
-1. Log in to https://integrates.fluidattacks.com
-2. Open https://integrates.fluidattacks.com/api
+1. Log in to https://app.fluidattacks.com
+2. Open https://app.fluidattacks.com/api
 3. Open the Settings using the upper-right button
 
 ![Browser Api Settings](/img/api/api-token/api_highlight_settings.png)
@@ -25,14 +25,14 @@ You can do this by using one of the following methods:
 ![Query Example](/img/api/api-token/query_example.png)
 
 **Note**: This method uses the same session as the web application, which lasts for 40
-minutes. After that, you need to log in to https://integrates.fluidattacks.com again
-and refresh the https://integrates.fluidattacks.com/api page.
+minutes. After that, you need to log in to https://app.fluidattacks.com again
+and refresh the https://app.fluidattacks.com/api page.
 If you want your session to last more than 40 minutes, you can use an API Token as
 shown below.
 
 ### Using the ASM API Token
 
-1. Log in to https://integrates.fluidattacks.com
+1. Log in to https://app.fluidattacks.com
 
 2. Generate the API Token from the web application using the `API` option in the
 left panel:
@@ -52,7 +52,7 @@ This will be your API Token:
 do the same things that you usually do on the Integrates web application.
 
 You can also generate the API Token using the next GraphQL mutation on
-https://integrates.fluidattacks.com/api, where `expirationTime` is a `Unix Timestamp`
+https://app.fluidattacks.com/api, where `expirationTime` is a `Unix Timestamp`
 
 ```
 mutation {

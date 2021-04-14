@@ -82,7 +82,7 @@ module.exports = {
           items: [
             {
               label: 'Web',
-              to: 'https://integrates.fluidattacks.com',
+              to: 'https://app.fluidattacks.com',
             },
             {
               label: 'Site',
