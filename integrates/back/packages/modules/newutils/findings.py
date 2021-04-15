@@ -581,40 +581,6 @@ async def send_new_draft_mail(
     schedule(mailer.send_mail_new_draft(recipients, email_context))
 
 
-async def send_remediation_email(  # pylint: disable=too-many-arguments
-    context: Any,
-    user_email: str,
-    finding_id: str,
-    finding_name: str,
-    group_name: str,
-    justification: str
-) -> None:
-    group_loader = context.group_all
-    organization_loader = context.organization
-    group = await group_loader.load(group_name)
-    org_id = group['organization']
-    organization = await organization_loader.load(org_id)
-    org_name = organization['name']
-    recipients = await group_domain.get_closers(group_name)
-    schedule(
-        mailer.send_mail_remediate_finding(
-            recipients,
-            {
-                'project': group_name.lower(),
-                'organization': org_name,
-                'finding_name': finding_name,
-                'finding_url': (
-                    f'{BASE_URL}/orgs/{org_name}/groups/{group_name}'
-                    f'/vulns/{finding_id}/locations'
-                ),
-                'finding_id': finding_id,
-                'user_email': user_email,
-                'solution_description': justification
-            }
-        )
-    )
-
-
 def validate_acceptance_date(values: Dict[str, str]) -> bool:
     """
     Check that the date set to temporarily accept a finding is logical

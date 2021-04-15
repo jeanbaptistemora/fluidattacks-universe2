@@ -18,10 +18,8 @@ from backend.domain.project import (
     get_active_projects,
     get_alive_group_names,
     get_closed_vulnerabilities,
-    get_closers,
     get_description,
     get_managers,
-    get_mean_remediate_non_treated,
     get_open_finding,
     get_open_vulnerabilities,
     list_comments,
@@ -40,6 +38,7 @@ from findings.domain import (
     get_total_treatment,
 )
 from group_access.domain import (
+    get_closers,
     get_group_users,
     remove_access,
 )
@@ -59,6 +58,7 @@ from newutils.vulnerabilities import (
     is_vulnerability_closed,
 )
 from vulnerabilities import dal as vulns_dal
+from vulnerabilities.domain import get_mean_remediate_non_treated
 
 
 pytestmark = [

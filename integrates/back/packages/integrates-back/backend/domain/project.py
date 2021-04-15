@@ -4,8 +4,6 @@
 import logging
 from collections import defaultdict
 from contextlib import AsyncExitStack
-from datetime import date
-from decimal import Decimal
 from itertools import chain
 from typing import (
     Any,
@@ -37,7 +35,6 @@ from backend.exceptions import (
 from backend.filters import stakeholder as stakeholder_filters
 from backend.typing import (
     Comment as CommentType,
-    Finding as FindingType,
     Invitation as InvitationType,
     Project as ProjectType,
     ProjectAccess as ProjectAccessType,
@@ -59,7 +56,6 @@ from notifications import domain as notifications_domain
 from organizations import domain as orgs_domain
 from resources import domain as resources_domain
 from users import domain as users_domain
-from vulnerabilities import domain as vulns_domain
 
 
 logging.config.dictConfig(LOGGING)
@@ -412,58 +408,6 @@ async def remove_user_access(
     return success
 
 
-async def get_mean_remediate_non_treated(
-    group_name: str,
-    min_date: Optional[date] = None
-) -> Decimal:
-    findings = await findings_domain.get_findings_by_group(group_name)
-    vulnerabilities = await vulns_domain.list_vulnerabilities_async(
-        [str(finding['finding_id']) for finding in findings],
-        include_requested_zero_risk=True,
-    )
-
-    return await vulns_utils.get_mean_remediate_vulnerabilities(
-        [
-            vuln for vuln in vulnerabilities
-            if not vulns_domain.is_accepted_undefined_vulnerability(vuln)
-        ],
-        min_date
-    )
-
-
-async def get_closers(
-        project_name: str,
-        active: bool = True) -> List[str]:
-    users = await group_access_domain.get_group_users(project_name, active)
-    user_roles = await collect(
-        get_group_level_role(user, project_name)
-        for user in users
-    )
-    return [
-        str(user)
-        for user, user_role in zip(users, user_roles)
-        if user_role == 'closer'
-    ]
-
-
-async def get_open_findings(
-        finding_vulns: List[List[Dict[str, FindingType]]]) -> int:
-    last_approved_status = await collect(
-        in_process(vulns_utils.get_last_status, vuln)
-        for vulns in finding_vulns
-        for vuln in vulns
-    )
-    open_findings = [
-        vulns
-        for vulns, last_approved in zip(finding_vulns, last_approved_status)
-        if [
-            vuln for vuln in vulns
-            if last_approved == 'open'
-        ]
-    ]
-    return len(open_findings)
-
-
 async def update(project_name: str, data: ProjectType) -> bool:
     return await project_dal.update(project_name, data)
 
@@ -639,7 +583,7 @@ async def get_open_finding(context: Any, group_name: str) -> int:
     for vuln in vulns:
         finding_vulns_dict[vuln['finding_id']].append(vuln)
     finding_vulns = list(finding_vulns_dict.values())
-    return await get_open_findings(finding_vulns)
+    return await vulns_utils.get_open_findings(finding_vulns)
 
 
 async def get_by_name(name: str) -> ProjectType:

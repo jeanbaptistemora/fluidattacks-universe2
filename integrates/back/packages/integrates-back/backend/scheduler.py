@@ -770,7 +770,7 @@ async def get_project_indicators(project: str) -> Dict[str, object]:
             project
         ),
         'mean_remediate_non_treated': (
-            await project_domain.get_mean_remediate_non_treated(project)
+            await vulns_domain.get_mean_remediate_non_treated(project)
         ),
         'mean_remediate_critical_severity': (
             await groups_domain.get_mean_remediate_severity(

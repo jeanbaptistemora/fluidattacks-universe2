@@ -2,6 +2,7 @@
 
 # Standard libraries
 import copy
+import datetime
 import html
 import html.parser
 import json
@@ -10,6 +11,7 @@ import logging.config
 import os
 import uuid
 from contextlib import AsyncExitStack
+from decimal import Decimal
 from itertools import (
     chain,
     zip_longest,
@@ -80,6 +82,8 @@ from backend.typing import (
 )
 from comments import domain as comments_domain
 from findings import dal as findings_dal
+from findings import domain as findings_domain
+from group_access import domain as group_access_domain
 from newutils import (
     datetime as datetime_utils,
     findings as finding_utils,
@@ -398,6 +402,25 @@ async def get_by_ids(vulns_ids: List[str]) -> List[Dict[str, FindingType]]:
         for vuln_id in vulns_ids
     )
     return result
+
+
+async def get_mean_remediate_non_treated(
+    group_name: str,
+    min_date: Optional[datetime.date] = None
+) -> Decimal:
+    findings = await findings_domain.get_findings_by_group(group_name)
+    vulnerabilities = await list_vulnerabilities_async(
+        [str(finding['finding_id']) for finding in findings],
+        include_requested_zero_risk=True,
+    )
+    return await vulns_utils.get_mean_remediate_vulnerabilities(
+        [
+            vuln
+            for vuln in vulnerabilities
+            if not is_accepted_undefined_vulnerability(vuln)
+        ],
+        min_date
+    )
 
 
 async def get_open_vuln_by_type(
@@ -863,7 +886,7 @@ async def request_verification(  # pylint: disable=too-many-arguments
     )
     if all(update_vulns) and update_finding:
         schedule(
-            finding_utils.send_remediation_email(
+            send_remediation_email(
                 context,
                 user_email,
                 finding_id,
@@ -929,6 +952,40 @@ async def request_zero_risk_vulnerabilities(
     else:
         LOGGER.error('An error occurred requesting zero risk vuln', **NOEXTRA)
     return success
+
+
+async def send_remediation_email(  # pylint: disable=too-many-arguments
+    context: Any,
+    user_email: str,
+    finding_id: str,
+    finding_name: str,
+    group_name: str,
+    justification: str
+) -> None:
+    group_loader = context.group_all
+    organization_loader = context.organization
+    group = await group_loader.load(group_name)
+    org_id = group['organization']
+    organization = await organization_loader.load(org_id)
+    org_name = organization['name']
+    recipients = await group_access_domain.get_closers(group_name)
+    schedule(
+        mailer.send_mail_remediate_finding(
+            recipients,
+            {
+                'project': group_name.lower(),
+                'organization': org_name,
+                'finding_name': finding_name,
+                'finding_url': (
+                    f'{BASE_URL}/orgs/{org_name}/groups/{group_name}'
+                    f'/vulns/{finding_id}/locations'
+                ),
+                'finding_id': finding_id,
+                'user_email': user_email,
+                'solution_description': justification
+            }
+        )
+    )
 
 
 async def send_updated_treatment_mail(

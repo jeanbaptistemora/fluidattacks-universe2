@@ -2,6 +2,7 @@
 from typing import List
 
 # Third-party libraries
+from aioextensions import collect
 
 # Local libraries
 from backend import authz
@@ -14,6 +15,19 @@ async def add_user_access(email: str, group: str, role: str) -> bool:
         await update_has_access(email, group, True) and
         await authz.grant_group_level_role(email, group, role)
     )
+
+
+async def get_closers(group_name: str, active: bool = True) -> List[str]:
+    users = await get_group_users(group_name, active)
+    user_roles = await collect(
+        authz.get_group_level_role(user, group_name)
+        for user in users
+    )
+    return [
+        str(user)
+        for user, user_role in zip(users, user_roles)
+        if user_role == 'closer'
+    ]
 
 
 async def get_group_users(group: str, active: bool = True) -> List[str]:
