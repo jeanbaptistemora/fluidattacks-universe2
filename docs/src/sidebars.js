@@ -128,6 +128,7 @@ module.exports = {
         label: 'Logs',
         items: [
           'criteria/logs/r075',
+          'criteria/logs/r077',
         ],
     },
   ],
