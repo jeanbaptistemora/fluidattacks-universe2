@@ -3,7 +3,7 @@
 , ...
 }:
 buildPythonRequirements {
-  name = "observes-env-runtime-paginator-python";
+  name = "observes-env-paginator-runtime-python";
   requirements = {
     direct = [
       "aioextensions==20.11.1621472"

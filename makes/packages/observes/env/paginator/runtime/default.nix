@@ -3,25 +3,24 @@
 , path
 , ...
 }:
+with packages.observes.env;
 let
-  env = packages.observes.env;
-  pkgEnv = env.runtime.paginator;
   self = path "/observes/common/paginator";
 in
 makeTemplate {
-  name = "observes-env-runtime-paginator";
+  name = "observes-env-paginator-runtime";
   searchPaths = {
     envMypyPaths = [
       self
     ];
     envPaths = [
-      pkgEnv.python
+      paginator.runtime.python
     ];
     envPythonPaths = [
       self
     ];
     envPython38Paths = [
-      pkgEnv.python
+      paginator.runtime.python
     ];
   };
 }

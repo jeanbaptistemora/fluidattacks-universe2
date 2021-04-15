@@ -3,10 +3,9 @@
 , ...
 }:
 buildPythonRequirements {
-  name = "observes-env-development-paginator-python";
+  name = "observes-env-paginator-python-development";
   requirements = {
     direct = [
-      "aioextensions==20.11.1621472"
       "pytest==6.2.2"
     ];
     inherited = [

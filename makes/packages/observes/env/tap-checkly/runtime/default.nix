@@ -23,7 +23,7 @@ makeTemplate {
       tap-checkly.runtime.python
     ];
     envSources = [
-      runtime.paginator
+      paginator.runtime
       singer-io.runtime
       utils-logger.runtime
     ];

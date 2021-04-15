@@ -24,7 +24,7 @@ makeTemplate {
       pkgEnv.runtime.python
     ];
     envSources = [
-      env.runtime.paginator
+      env.paginator.runtime
       env.singer-io.runtime
       env.utils-logger.runtime
     ];
