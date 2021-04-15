@@ -10,11 +10,11 @@ function start_etl {
         delighted_api_key \
   &&  echo '[INFO] Generating secret files' \
   &&  echo "${analytics_auth_redshift}" > "${db_creds}" \
- echo '[INFO] Running tap' \
+  &&  echo '[INFO] Running tap' \
   &&  observes-bin-tap-delighted stream \
         --api-key "${delighted_api_key}" \
         --all-streams \
-        | observes-tap-json \
+  |   observes-tap-json \
         > .singer \
   &&  echo '[INFO] Running target' \
   &&  observes-target-redshift \
