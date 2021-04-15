@@ -2,7 +2,6 @@ export interface IHeaderQueryResult {
   finding: {
     analyst?: string;
     closedVulns: number;
-    exploit: string;
     historicState: {
       analyst: string;
       date: string;

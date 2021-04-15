@@ -20,17 +20,17 @@ import {
   SUBMIT_DRAFT_MUTATION,
 } from "scenes/Dashboard/containers/FindingContent/queries";
 import store from "store";
-import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
+import { authzPermissionsContext } from "utils/authz/config";
 import { msgError, msgSuccess } from "utils/notifications";
 
 jest.mock(
   "../../../../utils/notifications",
   (): Dictionary => {
-    const mockedNotifications: Dictionary = jest.requireActual(
-      "../../../../utils/notifications"
-    );
-    mockedNotifications.msgError = jest.fn(); // eslint-disable-line fp/no-mutation, jest/prefer-spy-on
-    mockedNotifications.msgSuccess = jest.fn(); // eslint-disable-line fp/no-mutation, jest/prefer-spy-on
+    const mockedNotifications: Dictionary<
+      () => Dictionary
+    > = jest.requireActual("../../../../utils/notifications");
+    jest.spyOn(mockedNotifications, "msgError").mockImplementation();
+    jest.spyOn(mockedNotifications, "msgSuccess").mockImplementation();
 
     return mockedNotifications;
   }
@@ -53,7 +53,6 @@ describe("FindingContent", (): void => {
     request: {
       query: GET_FINDING_HEADER,
       variables: {
-        canGetExploit: true,
         canGetHistoricState: true,
         findingId: "438679960",
       },
@@ -62,7 +61,6 @@ describe("FindingContent", (): void => {
       data: {
         finding: {
           closedVulns: 0,
-          exploit: "Asserts Code",
           historicState: [
             {
               analyst: "someone@fluidattacks.com",
@@ -100,7 +98,6 @@ describe("FindingContent", (): void => {
     request: {
       query: GET_FINDING_HEADER,
       variables: {
-        canGetExploit: true,
         canGetHistoricState: true,
         findingId: "438679960",
       },
@@ -109,7 +106,6 @@ describe("FindingContent", (): void => {
       data: {
         finding: {
           closedVulns: 0,
-          exploit: "",
           historicState: [
             {
               analyst: "someone@fluidattacks.com",
@@ -195,80 +191,10 @@ describe("FindingContent", (): void => {
     const mockedPermissions: PureAbility<string> = new PureAbility([
       { action: "backend_api_resolvers_finding_historic_state_resolve" },
     ]);
-    const mockedGroupPermissions: PureAbility<string> = new PureAbility([
-      { action: "has_forces" },
-    ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/TEST/vulns/438679960/description"]}>
         <Provider store={store}>
           <MockedProvider addTypename={false} mocks={[findingMock]}>
-            <authzPermissionsContext.Provider value={mockedPermissions}>
-              <authzGroupContext.Provider value={mockedGroupPermissions}>
-                <Route
-                  component={FindingContent}
-                  path={"/:projectName/vulns/:findingId/description"}
-                />
-              </authzGroupContext.Provider>
-            </authzPermissionsContext.Provider>
-          </MockedProvider>
-        </Provider>
-      </MemoryRouter>
-    );
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
-
-    expect(wrapper.text()).toContain("FIN.S.0050. Weak passwords discovered");
-  });
-
-  it("should render header with Exploit tab", async (): Promise<void> => {
-    expect.hasAssertions();
-
-    const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "backend_api_resolvers_finding_historic_state_resolve" },
-    ]);
-    const mockedGroupPermissions: PureAbility<string> = new PureAbility([
-      { action: "has_forces" },
-    ]);
-    const wrapper: ReactWrapper = mount(
-      <MemoryRouter initialEntries={["/TEST/vulns/438679960/description"]}>
-        <Provider store={store}>
-          <MockedProvider addTypename={false} mocks={[findingMock]}>
-            <authzPermissionsContext.Provider value={mockedPermissions}>
-              <authzGroupContext.Provider value={mockedGroupPermissions}>
-                <Route
-                  component={FindingContent}
-                  path={"/:projectName/vulns/:findingId/description"}
-                />
-              </authzGroupContext.Provider>
-            </authzPermissionsContext.Provider>
-          </MockedProvider>
-        </Provider>
-      </MemoryRouter>
-    );
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
-
-    expect(wrapper.find("#exploitItem").hostNodes()).toHaveLength(1);
-  });
-
-  it("should render header without Exploit tab", async (): Promise<void> => {
-    expect.hasAssertions();
-
-    const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "backend_api_resolvers_finding_historic_state_resolve" },
-    ]);
-    const wrapper: ReactWrapper = mount(
-      <MemoryRouter initialEntries={["/TEST/vulns/438679960/description"]}>
-        <Provider store={store}>
-          <MockedProvider addTypename={false} mocks={[draftMock]}>
             <authzPermissionsContext.Provider value={mockedPermissions}>
               <Route
                 component={FindingContent}
@@ -286,43 +212,7 @@ describe("FindingContent", (): void => {
       }
     );
 
-    expect(wrapper.find("#exploitItem")).toHaveLength(0);
-  });
-
-  it("should render empty Exploit tab for analyst", async (): Promise<void> => {
-    expect.hasAssertions();
-
-    const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "backend_api_resolvers_finding_historic_state_resolve" },
-      { action: "backend_api_mutations_update_evidence_mutate" },
-    ]);
-    const mockedGroupPermissions: PureAbility<string> = new PureAbility([
-      { action: "has_forces" },
-    ]);
-    const wrapper: ReactWrapper = mount(
-      <MemoryRouter initialEntries={["/TEST/vulns/438679960/description"]}>
-        <Provider store={store}>
-          <MockedProvider addTypename={false} mocks={[draftMock]}>
-            <authzPermissionsContext.Provider value={mockedPermissions}>
-              <authzGroupContext.Provider value={mockedGroupPermissions}>
-                <Route
-                  component={FindingContent}
-                  path={"/:projectName/vulns/:findingId/description"}
-                />
-              </authzGroupContext.Provider>
-            </authzPermissionsContext.Provider>
-          </MockedProvider>
-        </Provider>
-      </MemoryRouter>
-    );
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
-
-    expect(wrapper.find("#exploitItem").hostNodes()).toHaveLength(1);
+    expect(wrapper.text()).toContain("FIN.S.0050. Weak passwords discovered");
   });
 
   it("should render unsubmitted draft actions", async (): Promise<void> => {
@@ -332,20 +222,15 @@ describe("FindingContent", (): void => {
       { action: "backend_api_resolvers_finding_historic_state_resolve" },
       { action: "backend_api_mutations_submit_draft_mutate" },
     ]);
-    const mockedGroupPermissions: PureAbility<string> = new PureAbility([
-      { action: "has_forces" },
-    ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/TEST/vulns/438679960/description"]}>
         <Provider store={store}>
           <MockedProvider addTypename={false} mocks={[draftMock]}>
             <authzPermissionsContext.Provider value={mockedPermissions}>
-              <authzGroupContext.Provider value={mockedGroupPermissions}>
-                <Route
-                  component={FindingContent}
-                  path={"/:projectName/vulns/:findingId/description"}
-                />
-              </authzGroupContext.Provider>
+              <Route
+                component={FindingContent}
+                path={"/:projectName/vulns/:findingId/description"}
+              />
             </authzPermissionsContext.Provider>
           </MockedProvider>
         </Provider>
@@ -375,20 +260,15 @@ describe("FindingContent", (): void => {
       { action: "backend_api_resolvers_finding_historic_state_resolve" },
       { action: "backend_api_mutations_delete_finding_mutate" },
     ]);
-    const mockedGroupPermissions: PureAbility<string> = new PureAbility([
-      { action: "has_forces" },
-    ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/TEST/vulns/438679960/description"]}>
         <Provider store={store}>
           <MockedProvider addTypename={false} mocks={[findingMock]}>
             <authzPermissionsContext.Provider value={mockedPermissions}>
-              <authzGroupContext.Provider value={mockedGroupPermissions}>
-                <Route
-                  component={FindingContent}
-                  path={"/:projectName/vulns/:findingId/description"}
-                />
-              </authzGroupContext.Provider>
+              <Route
+                component={FindingContent}
+                path={"/:projectName/vulns/:findingId/description"}
+              />
             </authzPermissionsContext.Provider>
           </MockedProvider>
         </Provider>
@@ -458,9 +338,6 @@ describe("FindingContent", (): void => {
       { action: "backend_api_resolvers_finding_historic_state_resolve" },
       { action: "backend_api_mutations_submit_draft_mutate" },
     ]);
-    const mockedGroupPermissions: PureAbility<string> = new PureAbility([
-      { action: "has_forces" },
-    ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/TEST/vulns/438679960/description"]}>
         <Provider store={store}>
@@ -469,12 +346,10 @@ describe("FindingContent", (): void => {
             mocks={[draftMock, submitMutationMock, submittedDraftMock]}
           >
             <authzPermissionsContext.Provider value={mockedPermissions}>
-              <authzGroupContext.Provider value={mockedGroupPermissions}>
-                <Route
-                  component={FindingContent}
-                  path={"/:projectName/vulns/:findingId/description"}
-                />
-              </authzGroupContext.Provider>
+              <Route
+                component={FindingContent}
+                path={"/:projectName/vulns/:findingId/description"}
+              />
             </authzPermissionsContext.Provider>
           </MockedProvider>
         </Provider>
@@ -535,9 +410,6 @@ describe("FindingContent", (): void => {
       { action: "backend_api_resolvers_finding_historic_state_resolve" },
       { action: "backend_api_mutations_submit_draft_mutate" },
     ]);
-    const mockedGroupPermissions: PureAbility<string> = new PureAbility([
-      { action: "has_forces" },
-    ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/TEST/vulns/438679960/description"]}>
         <Provider store={store}>
@@ -546,12 +418,10 @@ describe("FindingContent", (): void => {
             mocks={[draftMock, submitErrorMock, draftMock]}
           >
             <authzPermissionsContext.Provider value={mockedPermissions}>
-              <authzGroupContext.Provider value={mockedGroupPermissions}>
-                <Route
-                  component={FindingContent}
-                  path={"/:projectName/vulns/:findingId/description"}
-                />
-              </authzGroupContext.Provider>
+              <Route
+                component={FindingContent}
+                path={"/:projectName/vulns/:findingId/description"}
+              />
             </authzPermissionsContext.Provider>
           </MockedProvider>
         </Provider>
@@ -603,9 +473,6 @@ describe("FindingContent", (): void => {
       { action: "backend_api_resolvers_finding_historic_state_resolve" },
       { action: "backend_api_mutations_approve_draft_mutate" },
     ]);
-    const mockedGroupPermissions: PureAbility<string> = new PureAbility([
-      { action: "has_forces" },
-    ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/TEST/vulns/438679960/description"]}>
         <Provider store={store}>
@@ -614,12 +481,10 @@ describe("FindingContent", (): void => {
             mocks={[submittedDraftMock, approveMutationMock, findingMock]}
           >
             <authzPermissionsContext.Provider value={mockedPermissions}>
-              <authzGroupContext.Provider value={mockedGroupPermissions}>
-                <Route
-                  component={FindingContent}
-                  path={"/:projectName/vulns/:findingId/description"}
-                />
-              </authzGroupContext.Provider>
+              <Route
+                component={FindingContent}
+                path={"/:projectName/vulns/:findingId/description"}
+              />
             </authzPermissionsContext.Provider>
           </MockedProvider>
         </Provider>
@@ -697,9 +562,6 @@ describe("FindingContent", (): void => {
       { action: "backend_api_resolvers_finding_historic_state_resolve" },
       { action: "backend_api_mutations_approve_draft_mutate" },
     ]);
-    const mockedGroupPermissions: PureAbility<string> = new PureAbility([
-      { action: "has_forces" },
-    ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/TEST/vulns/438679960/description"]}>
         <Provider store={store}>
@@ -708,12 +570,10 @@ describe("FindingContent", (): void => {
             mocks={[submittedDraftMock, approveErrorMock, submittedDraftMock]}
           >
             <authzPermissionsContext.Provider value={mockedPermissions}>
-              <authzGroupContext.Provider value={mockedGroupPermissions}>
-                <Route
-                  component={FindingContent}
-                  path={"/:projectName/vulns/:findingId/description"}
-                />
-              </authzGroupContext.Provider>
+              <Route
+                component={FindingContent}
+                path={"/:projectName/vulns/:findingId/description"}
+              />
             </authzPermissionsContext.Provider>
           </MockedProvider>
         </Provider>
@@ -780,9 +640,6 @@ describe("FindingContent", (): void => {
       { action: "backend_api_resolvers_finding_historic_state_resolve" },
       { action: "backend_api_mutations_reject_draft_mutate" },
     ]);
-    const mockedGroupPermissions: PureAbility<string> = new PureAbility([
-      { action: "has_forces" },
-    ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/TEST/vulns/438679960/description"]}>
         <Provider store={store}>
@@ -791,12 +648,10 @@ describe("FindingContent", (): void => {
             mocks={[submittedDraftMock, rejectMutationMock, findingMock]}
           >
             <authzPermissionsContext.Provider value={mockedPermissions}>
-              <authzGroupContext.Provider value={mockedGroupPermissions}>
-                <Route
-                  component={FindingContent}
-                  path={"/:projectName/vulns/:findingId/description"}
-                />
-              </authzGroupContext.Provider>
+              <Route
+                component={FindingContent}
+                path={"/:projectName/vulns/:findingId/description"}
+              />
             </authzPermissionsContext.Provider>
           </MockedProvider>
         </Provider>
@@ -873,9 +728,6 @@ describe("FindingContent", (): void => {
       { action: "backend_api_resolvers_finding_historic_state_resolve" },
       { action: "backend_api_mutations_reject_draft_mutate" },
     ]);
-    const mockedGroupPermissions: PureAbility<string> = new PureAbility([
-      { action: "has_forces" },
-    ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/TEST/vulns/438679960/description"]}>
         <Provider store={store}>
@@ -884,12 +736,10 @@ describe("FindingContent", (): void => {
             mocks={[submittedDraftMock, rejectErrorMock, submittedDraftMock]}
           >
             <authzPermissionsContext.Provider value={mockedPermissions}>
-              <authzGroupContext.Provider value={mockedGroupPermissions}>
-                <Route
-                  component={FindingContent}
-                  path={"/:projectName/vulns/:findingId/description"}
-                />
-              </authzGroupContext.Provider>
+              <Route
+                component={FindingContent}
+                path={"/:projectName/vulns/:findingId/description"}
+              />
             </authzPermissionsContext.Provider>
           </MockedProvider>
         </Provider>
@@ -957,9 +807,6 @@ describe("FindingContent", (): void => {
       { action: "backend_api_resolvers_finding_historic_state_resolve" },
       { action: "backend_api_mutations_delete_finding_mutate" },
     ]);
-    const mockedGroupPermissions: PureAbility<string> = new PureAbility([
-      { action: "has_forces" },
-    ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/TEST/vulns/438679960/description"]}>
         <Provider store={store}>
@@ -968,12 +815,10 @@ describe("FindingContent", (): void => {
             mocks={[findingMock, deleteMutationMock]}
           >
             <authzPermissionsContext.Provider value={mockedPermissions}>
-              <authzGroupContext.Provider value={mockedGroupPermissions}>
-                <Route
-                  component={FindingContent}
-                  path={"/:projectName/vulns/:findingId/description"}
-                />
-              </authzGroupContext.Provider>
+              <Route
+                component={FindingContent}
+                path={"/:projectName/vulns/:findingId/description"}
+              />
             </authzPermissionsContext.Provider>
           </MockedProvider>
         </Provider>
@@ -1034,9 +879,6 @@ describe("FindingContent", (): void => {
       { action: "backend_api_resolvers_finding_historic_state_resolve" },
       { action: "backend_api_mutations_delete_finding_mutate" },
     ]);
-    const mockedGroupPermissions: PureAbility<string> = new PureAbility([
-      { action: "has_forces" },
-    ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/TEST/vulns/438679960/description"]}>
         <Provider store={store}>
@@ -1045,12 +887,10 @@ describe("FindingContent", (): void => {
             mocks={[findingMock, deleteMutationMock]}
           >
             <authzPermissionsContext.Provider value={mockedPermissions}>
-              <authzGroupContext.Provider value={mockedGroupPermissions}>
-                <Route
-                  component={FindingContent}
-                  path={"/:projectName/vulns/:findingId/description"}
-                />
-              </authzGroupContext.Provider>
+              <Route
+                component={FindingContent}
+                path={"/:projectName/vulns/:findingId/description"}
+              />
             </authzPermissionsContext.Provider>
           </MockedProvider>
         </Provider>

@@ -34,7 +34,7 @@ import {
   FormGroup,
   RowCenter,
 } from "styles/styledComponents";
-import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
+import { authzPermissionsContext } from "utils/authz/config";
 import { FileInput } from "utils/forms/fields";
 import { Logger } from "utils/logger";
 import { msgError, msgErrorStick, msgSuccess } from "utils/notifications";
@@ -54,7 +54,6 @@ export const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
   const dispatch: Dispatch = useDispatch();
 
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
-  const groupPermissions: PureAbility<string> = useAbility(authzGroupContext);
 
   function handleUploadError(updateError: ApolloError): void {
     interface IErrorInfoAttr {
@@ -180,7 +179,6 @@ export const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
       {
         query: GET_FINDING_HEADER,
         variables: {
-          canGetExploit: groupPermissions.can("has_forces"),
           canGetHistoricState: permissions.can(
             "backend_api_resolvers_finding_historic_state_resolve"
           ),

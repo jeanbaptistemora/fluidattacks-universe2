@@ -2,14 +2,9 @@ import { gql } from "@apollo/client";
 import type { DocumentNode } from "graphql";
 
 const GET_FINDING_HEADER: DocumentNode = gql`
-  query GetFindingHeader(
-    $findingId: String!
-    $canGetHistoricState: Boolean!
-    $canGetExploit: Boolean!
-  ) {
+  query GetFindingHeader($findingId: String!, $canGetHistoricState: Boolean!) {
     finding(identifier: $findingId) {
       closedVulns: closedVulnerabilities
-      exploit @include(if: $canGetExploit)
       id
       openVulns: openVulnerabilities
       releaseDate

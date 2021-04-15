@@ -32,7 +32,7 @@ import type {
 import { castFieldsCVSS3 } from "scenes/Dashboard/containers/SeverityView/utils";
 import { ButtonToolbarRow, Col100, Row } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
-import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
+import { authzPermissionsContext } from "utils/authz/config";
 import { calcCVSSv3 } from "utils/cvss";
 import { Dropdown } from "utils/forms/fields";
 import { Logger } from "utils/logger";
@@ -43,7 +43,6 @@ import { required } from "utils/validations";
 const SeverityView: React.FC = (): JSX.Element => {
   const { findingId } = useParams<{ findingId: string }>();
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
-  const groupPermissions: PureAbility<string> = useAbility(authzGroupContext);
 
   const [isEditing, setEditing] = useState(false);
 
@@ -120,7 +119,6 @@ const SeverityView: React.FC = (): JSX.Element => {
       {
         query: GET_FINDING_HEADER,
         variables: {
-          canGetExploit: groupPermissions.can("has_forces"),
           canGetHistoricState: permissions.can(
             "backend_api_resolvers_finding_historic_state_resolve"
           ),

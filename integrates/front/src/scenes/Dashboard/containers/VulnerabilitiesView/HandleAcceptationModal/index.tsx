@@ -37,7 +37,7 @@ import type {
 } from "scenes/Dashboard/containers/VulnerabilitiesView/HandleAcceptationModal/types";
 import { GET_FINDING_VULN_INFO } from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
 import { ButtonToolbar, Col100, Col50, Row } from "styles/styledComponents";
-import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
+import { authzPermissionsContext } from "utils/authz/config";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 import { translate } from "utils/translations/translate";
@@ -57,8 +57,6 @@ const HandleAcceptationModal: React.FC<IHandleVulnsAcceptationModalProps> = (
   const canRetrieveZeroRisk: boolean = permissions.can(
     "backend_api_resolvers_finding_zero_risk_resolve"
   );
-  const groupPermissions: PureAbility<string> = useAbility(authzGroupContext);
-  const canGetExploit: boolean = groupPermissions.can("has_forces");
   const canHandleVulnsAcceptation: boolean = permissions.can(
     "backend_api_mutations_handle_vulns_acceptation_mutate"
   );
@@ -219,7 +217,6 @@ const HandleAcceptationModal: React.FC<IHandleVulnsAcceptationModalProps> = (
         {
           query: GET_FINDING_HEADER,
           variables: {
-            canGetExploit,
             canGetHistoricState,
             findingId,
           },
@@ -268,7 +265,6 @@ const HandleAcceptationModal: React.FC<IHandleVulnsAcceptationModalProps> = (
         {
           query: GET_FINDING_HEADER,
           variables: {
-            canGetExploit,
             canGetHistoricState,
             findingId,
           },

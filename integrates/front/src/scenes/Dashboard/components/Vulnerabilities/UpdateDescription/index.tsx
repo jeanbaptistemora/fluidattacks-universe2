@@ -61,7 +61,7 @@ import {
 } from "styles/styledComponents";
 import type { IAuthContext } from "utils/auth";
 import { authContext } from "utils/auth";
-import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
+import { authzPermissionsContext } from "utils/authz/config";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 import { translate } from "utils/translations/translate";
@@ -90,8 +90,6 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
   const canUpdateVulnsTreatment: boolean = permissions.can(
     "backend_api_mutations_update_vulns_treatment_mutate"
   );
-  const groupPermissions: PureAbility<string> = useAbility(authzGroupContext);
-  const canGetExploit: boolean = groupPermissions.can("has_forces");
   const [isRunning, setRunning] = useState(false);
 
   const vulnsTags: string[][] = vulnerabilities.map(
@@ -388,7 +386,6 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
         {
           query: GET_FINDING_HEADER,
           variables: {
-            canGetExploit,
             canGetHistoricState,
             findingId,
           },

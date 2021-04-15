@@ -111,7 +111,6 @@ describe("Update Description component", (): void => {
     request: {
       query: GET_FINDING_HEADER,
       variables: {
-        canGetExploit: false,
         canGetHistoricState: false,
         findingId: "422286126",
       },

@@ -27,7 +27,6 @@ import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import { CommentsView } from "scenes/Dashboard/containers/CommentsView/index";
 import { DescriptionView } from "scenes/Dashboard/containers/DescriptionView/index";
 import { EvidenceView } from "scenes/Dashboard/containers/EvidenceView/index";
-import { ExploitView } from "scenes/Dashboard/containers/ExploitView/index";
 import {
   APPROVE_DRAFT_MUTATION,
   DELETE_FINDING_MUTATION,
@@ -52,8 +51,7 @@ import {
   TabsContainer,
 } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
-import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
-import { Have } from "utils/authz/Have";
+import { authzPermissionsContext } from "utils/authz/config";
 import { Dropdown } from "utils/forms/fields";
 import { useTabTracking } from "utils/hooks";
 import { Logger } from "utils/logger";
@@ -68,7 +66,6 @@ const findingContent: React.FC = (): JSX.Element => {
   }>();
   const { path, url } = useRouteMatch<{ path: string; url: string }>();
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
-  const groupPermissions: PureAbility<string> = useAbility(authzGroupContext);
   const { replace } = useHistory();
 
   // Side effects
@@ -95,7 +92,6 @@ const findingContent: React.FC = (): JSX.Element => {
       });
     },
     variables: {
-      canGetExploit: groupPermissions.can("has_forces"),
       canGetHistoricState: permissions.can(
         "backend_api_resolvers_finding_historic_state_resolve"
       ),
@@ -254,7 +250,6 @@ const findingContent: React.FC = (): JSX.Element => {
   }
 
   const isDraft: boolean = _.isEmpty(headerData.finding.releaseDate);
-  const hasExploit: boolean = !_.isEmpty(headerData.finding.exploit);
   const hasVulns: boolean =
     _.sum([headerData.finding.openVulns, headerData.finding.closedVulns]) > 0;
   const hasHistory: boolean = !_.isEmpty(headerData.finding.historicState);
@@ -331,24 +326,6 @@ const findingContent: React.FC = (): JSX.Element => {
                     title={translate.t("searchFindings.tabEvidence.tabTitle")}
                     tooltip={translate.t("searchFindings.tabEvidence.tooltip")}
                   />
-                  <Have I={"has_forces"}>
-                    {hasExploit ||
-                    permissions.can(
-                      "backend_api_mutations_update_evidence_mutate"
-                    ) ? (
-                      <ContentTab
-                        icon={"icon pe-7s-file"}
-                        id={"exploitItem"}
-                        link={`${url}/exploit`}
-                        title={translate.t(
-                          "searchFindings.tabExploit.tabTitle"
-                        )}
-                        tooltip={translate.t(
-                          "searchFindings.tabExploit.tooltip"
-                        )}
-                      />
-                    ) : undefined}
-                  </Have>
                   <ContentTab
                     icon={"icon pe-7s-graph1"}
                     id={"trackingItem"}
@@ -408,11 +385,6 @@ const findingContent: React.FC = (): JSX.Element => {
                     component={EvidenceView}
                     exact={true}
                     path={`${path}/evidence`}
-                  />
-                  <Route
-                    component={ExploitView}
-                    exact={true}
-                    path={`${path}/exploit`}
                   />
                   <Route
                     component={TrackingView}

@@ -70,37 +70,6 @@ def test_finding_comments(
     )
 
 
-def test_finding_exploit(
-        driver: WebDriver,
-        credentials: Credentials,
-        integrates_endpoint: str,
-        timeout: int) -> None:
-    # Login
-    utils.login(driver, integrates_endpoint, credentials)
-
-    # Enter finding
-    driver.get(f'{integrates_endpoint}/orgs/okada/groups/unittesting/vulns')
-    finding = utils.wait_for_text(
-        driver,
-        'F060. Insecure exceptions',
-        timeout,
-    )
-    finding.click()
-
-    # Enter finding exploit
-    exploit = utils.wait_for_id(
-        driver,
-        'exploitItem',
-        timeout,
-    )
-    exploit.click()
-    assert utils.wait_for_text(
-        driver,
-        'It works',
-        timeout,
-    )
-
-
 def test_finding_evidence(
         driver: WebDriver,
         credentials: Credentials,

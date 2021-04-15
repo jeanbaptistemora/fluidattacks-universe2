@@ -20,7 +20,7 @@ import type {
 } from "scenes/Dashboard/components/UpdateVerificationModal/types";
 import { GET_FINDING_HEADER } from "scenes/Dashboard/containers/FindingContent/queries";
 import { GET_FINDING_VULN_INFO } from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
-import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
+import { authzPermissionsContext } from "utils/authz/config";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 import { translate } from "utils/translations/translate";
@@ -60,11 +60,9 @@ const UpdateVerificationModal: React.FC<IUpdateVerificationModal> = (
     setVerifyState,
   } = props;
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
-  const groupPermissions: PureAbility<string> = useAbility(authzGroupContext);
   const canDisplayAnalyst: boolean = permissions.can(
     "backend_api_resolvers_finding_analyst_resolve"
   );
-  const canDisplayExploit: boolean = groupPermissions.can("has_forces");
 
   // State management
   const [vulnerabilitiesList, setVulnerabilities] = useState(vulns);
@@ -159,7 +157,6 @@ const UpdateVerificationModal: React.FC<IUpdateVerificationModal> = (
         {
           query: GET_FINDING_HEADER,
           variables: {
-            canGetExploit: canDisplayExploit,
             canGetHistoricState: canDisplayAnalyst,
             findingId,
           },
