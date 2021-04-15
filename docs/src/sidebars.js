@@ -96,6 +96,13 @@ module.exports = {
           'criteria/data/r178',
         ],
     },
+    {
+      type: 'category',
+        label: 'Source',
+        items: [
+          'criteria/source/r152',
+        ],
+    },
   ],
   Machine: [
     {
