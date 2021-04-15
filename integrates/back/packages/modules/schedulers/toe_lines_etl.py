@@ -66,7 +66,7 @@ def _get_group_toe_lines_from_cvs(
     lines_csv_path: str,
     group_name: str,
     group_roots: Tuple[Root, ...]
-) -> Tuple[GitRootToeLines, ...]:
+) -> Set[GitRootToeLines]:
     default_date = datetime_utils.DEFAULT_ISO_STR
     lines_csv_fields: List[Tuple[str, Callable, Any, str]] = [
         # field_name, field_formater, field_default_value, cvs_field_name,
@@ -78,7 +78,7 @@ def _get_group_toe_lines_from_cvs(
         ('modified_date', _format_date, default_date, 'modified-date'),
         ('tested_date', _format_date, default_date, 'tested-date'),
     ]
-    group_toe_lines = list()
+    group_toe_lines = set()
     with open(lines_csv_path) as csv_file:
         for row in csv.DictReader(csv_file):
             new_toe_lines = dict()
@@ -112,58 +112,46 @@ def _get_group_toe_lines_from_cvs(
                 raise ex
 
             new_toe_lines['group_name'] = group_name
-            group_toe_lines.append(GitRootToeLines(**new_toe_lines))
+            group_toe_lines.add(GitRootToeLines(**new_toe_lines))
 
-    return tuple(group_toe_lines)
+    return group_toe_lines
 
 
 def _get_toe_lines_to_add(
     group_toe_lines: Set[GitRootToeLines],
-    group_toe_lines_ids: Set[Tuple[str, str, str]],
-    cvs_group_toe_lines: Tuple[GitRootToeLines, ...]
-) -> Tuple[GitRootToeLines, ...]:
-    return tuple([
+    group_toe_lines_hashes: Set[int],
+    cvs_group_toe_lines: Set[GitRootToeLines]
+) -> Set[GitRootToeLines]:
+    return {
         toe_lines
         for toe_lines in cvs_group_toe_lines
         if toe_lines not in group_toe_lines
-        and (
-            toe_lines.group_name,
-            toe_lines.root_id,
-            toe_lines.filename
-        ) not in group_toe_lines_ids
-    ])
+        and toe_lines.get_hash() not in group_toe_lines_hashes
+    }
 
 
 def _get_toe_lines_to_update(
     group_toe_lines: Set[GitRootToeLines],
-    group_toe_lines_ids: Set[Tuple[str, str, str]],
-    cvs_group_toe_lines: Tuple[GitRootToeLines, ...]
-) -> Tuple[GitRootToeLines, ...]:
-    return tuple([
+    group_toe_lines_hashes: Set[int],
+    cvs_group_toe_lines: Set[GitRootToeLines]
+) -> Set[GitRootToeLines]:
+    return {
         toe_lines
         for toe_lines in cvs_group_toe_lines
         if toe_lines not in group_toe_lines
-        and (
-            toe_lines.group_name,
-            toe_lines.root_id,
-            toe_lines.filename
-        ) in group_toe_lines_ids
-    ])
+        and toe_lines.get_hash() in group_toe_lines_hashes
+    }
 
 
 def _get_toe_lines_to_remove(
     group_toe_lines: Set[GitRootToeLines],
-    cvs_group_toe_lines_ids: Set[Tuple[str, str, str]]
-) -> Tuple[GitRootToeLines, ...]:
-    return tuple([
+    cvs_group_toe_lines_hashes: Set[int]
+) -> Set[GitRootToeLines]:
+    return {
         toe_lines
         for toe_lines in group_toe_lines
-        if (
-            toe_lines.group_name,
-            toe_lines.root_id,
-            toe_lines.filename
-        ) not in cvs_group_toe_lines_ids
-    ])
+        if toe_lines.get_hash() not in cvs_group_toe_lines_hashes
+    }
 
 
 async def update_toe_lines_from_csv(
@@ -172,15 +160,13 @@ async def update_toe_lines_from_csv(
     lines_csv_path: str
 ) -> None:
     group_roots_loader = loaders.group_roots
-    group_roots = await group_roots_loader.load(group_name)
+    group_roots: Tuple[Root, ...] = await group_roots_loader.load(group_name)
     group_toe_lines_loader = loaders.group_toe_lines
-    group_toe_lines = set(await group_toe_lines_loader.load(group_name))
-    group_toe_lines_ids = {
-        (
-            toe_lines.group_name,
-            toe_lines.root_id,
-            toe_lines.filename
-        )
+    group_toe_lines: Set[GitRootToeLines] = set(
+        await group_toe_lines_loader.load(group_name)
+    )
+    group_toe_lines_hashes = {
+        toe_lines.get_hash()
         for toe_lines in group_toe_lines
     }
     cvs_group_toe_lines = await in_process(
@@ -189,38 +175,24 @@ async def update_toe_lines_from_csv(
         group_name,
         group_roots
     )
-    cvs_group_toe_lines_ids = {
-        (
-            toe_lines.group_name,
-            toe_lines.root_id,
-            toe_lines.filename
-        )
+    cvs_group_toe_lines_hashes = {
+        toe_lines.get_hash()
         for toe_lines in cvs_group_toe_lines
     }
     toe_lines_to_update = await in_process(
         _get_toe_lines_to_update,
         group_toe_lines,
-        group_toe_lines_ids,
+        group_toe_lines_hashes,
         cvs_group_toe_lines
     )
     await collect([
         toe_lines_domain.update(toe_lines)
         for toe_lines in toe_lines_to_update
     ])
-    toe_lines_to_add = await in_process(
-        _get_toe_lines_to_add,
-        group_toe_lines,
-        group_toe_lines_ids,
-        cvs_group_toe_lines
-    )
-    await collect([
-        toe_lines_domain.add(toe_lines)
-        for toe_lines in toe_lines_to_add
-    ])
     toe_lines_to_remove = await in_process(
         _get_toe_lines_to_remove,
         group_toe_lines,
-        cvs_group_toe_lines_ids
+        cvs_group_toe_lines_hashes
     )
     await collect([
         toe_lines_domain.delete(
@@ -229,6 +201,16 @@ async def update_toe_lines_from_csv(
             toe_lines.root_id
         )
         for toe_lines in toe_lines_to_remove
+    ])
+    toe_lines_to_add = await in_process(
+        _get_toe_lines_to_add,
+        group_toe_lines,
+        group_toe_lines_hashes,
+        cvs_group_toe_lines
+    )
+    await collect([
+        toe_lines_domain.add(toe_lines)
+        for toe_lines in toe_lines_to_add
     ])
 
 

@@ -102,6 +102,10 @@ LOGGING = {
             'handlers': ['bugsnag', 'console'],
             'level': 'INFO'
         },
+        'toe': {
+            'handlers': ['bugsnag', 'console'],
+            'level': 'INFO'
+        },
         'transactional': {
             'handlers': ['console', 'watchtower'],
             'level': 'INFO'
