@@ -18,7 +18,7 @@ def client() -> Iterator[GraphQLClient]:
         transport: Transport = RequestsHTTPTransport(
             headers={'Authorization': f'Bearer {API_TOKEN.get()}'},
             timeout=5,
-            url='https://integrates.fluidattacks.com/api'
+            url='https://app.fluidattacks.com/api'
         )
         yield GraphQLClient(transport=transport)
     else:
