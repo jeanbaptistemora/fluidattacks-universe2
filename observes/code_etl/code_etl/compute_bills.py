@@ -65,7 +65,7 @@ def get_group_org(token: str, group: str) -> Optional[str]:
         'variables': variables,
     }
     result = requests.post(
-        'https://integrates.fluidattacks.com/api',
+        'https://app.fluidattacks.com/api',
         json=json_data,
         headers={'Authorization': f'Bearer {token}'}
     )
