@@ -101,6 +101,7 @@ module.exports = {
         label: 'Source',
         items: [
           'criteria/source/r152',
+          'criteria/source/r154',
         ],
     },
   ],
