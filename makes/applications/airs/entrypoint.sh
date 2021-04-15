@@ -37,7 +37,7 @@ function patch_paths_eph {
 function patch_paths_prod {
   local src="${1}"
 
-  patch_paths "${src}" 'https' 'fluidattacks.com/' 'new-front'
+  patch_paths "${src}" 'https' 'fluidattacks.com/new-front' 'new-front'
 }
 
 function compress_files {
