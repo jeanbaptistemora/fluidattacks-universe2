@@ -16,6 +16,7 @@ from delighted.errors import (
     TooManyRequestsError,
 )
 from returns.io import (
+    IO,
     IOFailure,
     IOResult,
     IOSuccess,
@@ -80,6 +81,14 @@ def list_bounced(client: Client, page: PageId) -> RawItems:
     return _call_paged_resource(
         delighted.Bounce.all, client, page
     )
+
+
+def list_people(client: Client) -> IO[Iterator[JSON]]:
+    people = delighted.Person.list(
+        client=client,
+        auto_handle_rate_limits=True
+    )
+    return IO(iter(people.auto_paging_iter()))
 
 
 def list_surveys(client: Client, page: PageId) -> RawItems:

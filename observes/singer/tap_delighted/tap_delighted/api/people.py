@@ -82,11 +82,13 @@ def _list_unsubscribed(
 
 class PeopleApi(NamedTuple):
     list_bounced: Callable[[Union[AllPages, PageId]], Iterator[BouncedPage]]
+    list_people: Callable[[], IO[Iterator[JSON]]]
     list_unsubscribed: Callable[[Union[AllPages, PageId]], Iterator[UnsubscribedPage]]
 
     @classmethod
     def new(cls, client: Client) -> PeopleApi:
         return cls(
             list_bounced=partial(_list_bounced, client),
+            list_people=partial(raw.list_people, client),
             list_unsubscribed=partial(_list_unsubscribed, client)
         )

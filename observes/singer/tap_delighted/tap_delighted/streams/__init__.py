@@ -93,13 +93,6 @@ def all_bounced(api: ApiClient) -> None:
         _emit_page(stream, page)
 
 
-def all_unsubscribed(api: ApiClient) -> None:
-    stream = SupportedStreams.UNSUBSCRIBED
-    pages = api.people.list_unsubscribed(AllPages())
-    for page in pages:
-        _emit_page(stream, page)
-
-
 def all_metrics(api: ApiClient) -> None:
     stream = SupportedStreams.METRICS
     metrics = api.metrics.get_metrics()
@@ -109,6 +102,22 @@ def all_metrics(api: ApiClient) -> None:
         )(iter([data]))
     )
     records.map(_emit_records)
+
+
+def all_people(api: ApiClient) -> None:
+    stream = SupportedStreams.PEOPLE
+    data = api.people.list_people()
+    records: IO[Iterator[SingerRecord]] = data.map(
+        partial(_json_list_srecords, stream.value.lower())
+    )
+    records.map(_emit_records)
+
+
+def all_unsubscribed(api: ApiClient) -> None:
+    stream = SupportedStreams.UNSUBSCRIBED
+    pages = api.people.list_unsubscribed(AllPages())
+    for page in pages:
+        _emit_page(stream, page)
 
 
 __all__ = [
