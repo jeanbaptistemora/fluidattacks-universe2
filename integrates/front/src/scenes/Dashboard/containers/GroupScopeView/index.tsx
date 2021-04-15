@@ -12,9 +12,8 @@ import { ProjectSettingsView } from "../ProjectSettingsView";
 import { Have } from "utils/authz/Have";
 import { Logger } from "utils/logger";
 
-const isGitRoot: (root: Root) => root is IGitRootAttr = (
-  root: Root
-): root is IGitRootAttr => root.__typename === "GitRoot";
+const isGitRoot = (root: Root): root is IGitRootAttr =>
+  root.__typename === "GitRoot";
 
 export const GroupScopeView: React.FC = (): JSX.Element => {
   const { projectName: groupName } = useParams<{ projectName: string }>();
@@ -32,7 +31,7 @@ export const GroupScopeView: React.FC = (): JSX.Element => {
 
   return (
     <React.Fragment>
-      <Have I={"is_continuous"}>
+      <Have I={"has_drills_white"}>
         <GitRoots
           groupName={groupName}
           onUpdate={refetch}

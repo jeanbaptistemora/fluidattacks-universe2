@@ -71,7 +71,7 @@ describe("GroupScopeView", (): void => {
 
     const wrapper: ReactWrapper = mount(
       <authzGroupContext.Provider
-        value={new PureAbility([{ action: "is_continuous" }])}
+        value={new PureAbility([{ action: "has_drills_white" }])}
       >
         <MemoryRouter initialEntries={["/orgs/okada/groups/unittesting/scope"]}>
           <MockedProvider cache={getCache()} mocks={[queryMock]}>
@@ -184,7 +184,7 @@ describe("GroupScopeView", (): void => {
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
         <authzGroupContext.Provider
-          value={new PureAbility([{ action: "is_continuous" }])}
+          value={new PureAbility([{ action: "has_drills_white" }])}
         >
           <authzPermissionsContext.Provider
             value={
@@ -354,7 +354,7 @@ describe("GroupScopeView", (): void => {
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
         <authzGroupContext.Provider
-          value={new PureAbility([{ action: "is_continuous" }])}
+          value={new PureAbility([{ action: "has_drills_white" }])}
         >
           <authzPermissionsContext.Provider
             value={
@@ -533,7 +533,7 @@ describe("GroupScopeView", (): void => {
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
         <authzGroupContext.Provider
-          value={new PureAbility([{ action: "is_continuous" }])}
+          value={new PureAbility([{ action: "has_drills_white" }])}
         >
           <authzPermissionsContext.Provider
             value={

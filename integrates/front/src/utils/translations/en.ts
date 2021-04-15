@@ -574,6 +574,11 @@ export const enTranslations: ResourceKey = {
         },
         title: "Git Roots",
       },
+      ip: {
+        address: "Address",
+        port: "Port",
+        title: "IP Roots",
+      },
     },
     tabs: {
       analytics: {

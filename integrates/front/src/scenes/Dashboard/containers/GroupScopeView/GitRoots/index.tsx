@@ -13,7 +13,7 @@ import { useTranslation } from "react-i18next";
 
 import { EnvsModal } from "./envsModal";
 import { GitModal } from "./gitModal";
-import style from "./index.css";
+import { Container } from "./styles";
 
 import {
   ADD_GIT_ROOT,
@@ -388,7 +388,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
           };
 
           return (
-            <div className={style.container}>
+            <Container>
               <DataTableNext
                 bordered={true}
                 columnToggle={true}
@@ -502,7 +502,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
                 }}
                 striped={true}
               />
-            </div>
+            </Container>
           );
         }}
       </ConfirmDialog>
