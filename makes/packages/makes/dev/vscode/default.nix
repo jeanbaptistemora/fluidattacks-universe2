@@ -21,5 +21,6 @@ nixpkgs.vscode-with-extensions.override {
     nixpkgs.vscode-extensions.ms-azuretools.vscode-docker
     nixpkgs.vscode-extensions.ms-python.python
     nixpkgs.vscode-extensions.ms-python.vscode-pylance
+    nixpkgs.vscode-extensions.streetsidesoftware.code-spell-checker
   ];
 }
