@@ -8,6 +8,10 @@ from data_containers.toe_lines import GitRootToeLines
 from toe.lines import dal as toe_lines_dal
 
 
+async def create(root_toe_lines: GitRootToeLines) -> None:
+    await toe_lines_dal.create(root_toe_lines)
+
+
 async def delete(
     filename: str,
     group_name: str,

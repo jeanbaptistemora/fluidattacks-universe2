@@ -4,7 +4,7 @@ from collections import defaultdict
 from typing import Optional, Tuple
 
 # Third party
-from boto3.dynamodb.conditions import Key
+from boto3.dynamodb.conditions import Attr, Key
 
 # Local
 from dynamodb import historics, keys, operations
@@ -280,6 +280,34 @@ async def update_git_root_cloning(
     )
 
     await operations.batch_write_item(items=historic, table=TABLE)
+
+
+async def create_git_root_toe_lines(
+    *,
+    root_toe_lines: GitRootToeLinesItem
+) -> None:
+    key_structure = TABLE.primary_key
+    facet = TABLE.facets['root_toe_lines']
+    toe_lines_key = keys.build_key(
+        facet=facet,
+        values={
+            'filename': root_toe_lines.filename,
+            'group_name': root_toe_lines.group_name,
+            'root_id': root_toe_lines.root_id,
+        },
+    )
+    toe_lines = {
+        key_structure.partition_key: toe_lines_key.partition_key,
+        key_structure.sort_key: toe_lines_key.sort_key,
+        **dict(root_toe_lines._asdict())
+    }
+    condition_expression = Attr(key_structure.partition_key).not_exists()
+    await operations.put_item(
+        condition_expression=condition_expression,
+        facet=facet,
+        item=toe_lines,
+        table=TABLE
+    )
 
 
 async def delete_git_root_toe_lines(

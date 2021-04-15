@@ -9,6 +9,7 @@ from botocore.exceptions import ClientError
 # Local libraries
 from back.settings import LOGGING
 from backend.exceptions import (
+    RepeatedToeLines,
     UnavailabilityError,
 )
 from data_containers.toe_lines import GitRootToeLines
@@ -30,6 +31,19 @@ def _format_git_toe_lines_item(
     toe_lines: GitRootToeLines
 ) -> GitRootToeLinesItem:
     return GitRootToeLinesItem(**toe_lines._asdict())
+
+
+async def create(root_toe_lines: GitRootToeLines) -> None:
+    try:
+        root_toe_lines_item = _format_git_toe_lines_item(root_toe_lines)
+        await model.create_git_root_toe_lines(
+            root_toe_lines=root_toe_lines_item
+        )
+    except ClientError as ex:
+        LOGGER.exception(ex, extra={'extra': locals()})
+        if ex.response['Error']['Code'] == 'ConditionalCheckFailedException':
+            raise RepeatedToeLines() from ex
+        raise UnavailabilityError() from ex
 
 
 async def delete(

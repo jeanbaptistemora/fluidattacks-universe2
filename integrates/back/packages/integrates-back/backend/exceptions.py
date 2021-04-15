@@ -747,3 +747,9 @@ class HasOpenVulns(Exception):
     def __init__(self) -> None:
         msg = 'Exception - A root with open vulns can\'t be deactivated'
         super(HasOpenVulns, self).__init__(msg)
+
+
+class RepeatedToeLines(Exception):
+    def __init__(self) -> None:
+        msg = 'Exception - Toe lines already exists'
+        super(RepeatedToeLines, self).__init__(msg)
