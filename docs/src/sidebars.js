@@ -105,6 +105,13 @@ module.exports = {
           'criteria/source/r155',
         ],
     },
+    {
+      type: 'category',
+        label: 'System',
+        items: [
+          'criteria/system/r186',
+        ],
+    },
   ],
   Machine: [
     {
