@@ -175,33 +175,43 @@ const LinksSection: React.FC = (): JSX.Element => (
     </LinksContainer>
     <LinksContainer>
       <HeadLink
-        link={"https://fluidattacks.com/systems/"}
+        link={"https://fluidattacks.com/compliance/"}
         name={"Compliance"}
       />{" "}
       <br />
       <BodyLink
-        link={"https://fluidattacks.com/systems/owasp/"}
+        link={"https://fluidattacks.com/compliance/owasp/"}
         name={"OWASP"}
       />{" "}
       <br />
       <BodyLink
-        link={"https://fluidattacks.com/systems/pci/"}
-        name={"PCI"}
+        link={"https://fluidattacks.com/compliance/pci/"}
+        name={"PCI DSS"}
       />{" "}
       <br />
       <BodyLink
-        link={"https://fluidattacks.com/systems/hipaa/"}
+        link={"https://fluidattacks.com/compliance/hipaa/"}
         name={"HIPAA"}
       />{" "}
       <br />
       <BodyLink
-        link={"https://fluidattacks.com/systems/nist/"}
+        link={"https://fluidattacks.com/compliance/nist/"}
         name={"NIST"}
       />{" "}
       <br />
       <BodyLink
-        link={"https://fluidattacks.com/systems/gdpr/"}
+        link={"https://fluidattacks.com/compliance/gdpr/"}
         name={"GDPR"}
+      />{" "}
+      <br />
+      <BodyLink
+        link={"https://fluidattacks.com/compliance/cve/"}
+        name={"CVE"}
+      />{" "}
+      <br />
+      <BodyLink
+        link={"https://fluidattacks.com/compliance/cwe/"}
+        name={"CWE"}
       />{" "}
       <br />
     </LinksContainer>
