@@ -1,7 +1,7 @@
 # Production
 
 resource "aws_s3_bucket" "bucket_prod" {
-  bucket = "doc.${lookup(data.cloudflare_zones.fluidattacks_com.zones[0], "name")}"
+  bucket = "docs.${lookup(data.cloudflare_zones.fluidattacks_com.zones[0], "name")}"
   acl    = "private"
 
   server_side_encryption_configuration {
@@ -18,7 +18,7 @@ resource "aws_s3_bucket" "bucket_prod" {
   }
 
   tags = {
-    "Name"               = "doc.fluidattacks.com"
+    "Name"               = "docs.fluidattacks.com"
     "management:type"    = "production"
     "management:product" = "makes"
   }
@@ -69,7 +69,7 @@ resource "aws_s3_bucket_policy" "bucket_prod_policy" {
 # Development
 
 resource "aws_s3_bucket" "bucket_dev" {
-  bucket = "doc-dev.${lookup(data.cloudflare_zones.fluidattacks_com.zones[0], "name")}"
+  bucket = "docs-dev.${lookup(data.cloudflare_zones.fluidattacks_com.zones[0], "name")}"
   acl    = "private"
 
   server_side_encryption_configuration {
@@ -86,7 +86,7 @@ resource "aws_s3_bucket" "bucket_dev" {
   }
 
   tags = {
-    "Name"               = "doc-dev.fluidattacks.com"
+    "Name"               = "docs-dev.fluidattacks.com"
     "management:type"    = "development"
     "management:product" = "makes"
   }

@@ -39,8 +39,8 @@ docs.deploy.dev:
   stage: deploy-app
   script: ./m docs.deploy dev
   environment:
-    name: doc/${CI_COMMIT_REF_NAME}
-    url: https://doc-dev.fluidattacks.com/${CI_COMMIT_REF_NAME}/
+    name: docs/${CI_COMMIT_REF_NAME}
+    url: https://docs-dev.fluidattacks.com/${CI_COMMIT_REF_NAME}/
 
 docs.deploy.prod:
   <<: *makes
@@ -48,8 +48,8 @@ docs.deploy.prod:
   stage: deploy-app
   script: ./m docs.deploy prod
   environment:
-    name: doc/${CI_COMMIT_REF_NAME}
-    url: https://doc.fluidattacks.com/
+    name: docs/${CI_COMMIT_REF_NAME}
+    url: https://docs.fluidattacks.com/
 
 docs.infra.apply:
   <<: *makes

@@ -8,10 +8,10 @@ function main {
 
       if [ "${env}" = 'prod' ]
       then
-        bucket='s3://doc.fluidattacks.com/'
+        bucket='s3://docs.fluidattacks.com/'
       elif [ "${env}" = 'dev' ]
       then
-        bucket="s3://doc-dev.fluidattacks.com/${CI_COMMIT_REF_NAME}/"
+        bucket="s3://docs-dev.fluidattacks.com/${CI_COMMIT_REF_NAME}/"
       else
             echo '[ERROR] Either "prod" or "dev" must be passed as arg' \
         &&  return 1

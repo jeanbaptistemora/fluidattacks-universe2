@@ -1,7 +1,7 @@
 module.exports = {
   title: 'Fluid Attacks Documentation',
   tagline: 'Here you can find documentation for all our products',
-  url: 'https://doc.fluidattacks.com',
+  url: 'https://docs.fluidattacks.com',
   baseUrl: process.env.env == 'prod' ? '/' : `/${process.env.CI_COMMIT_REF_NAME}/`,
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
