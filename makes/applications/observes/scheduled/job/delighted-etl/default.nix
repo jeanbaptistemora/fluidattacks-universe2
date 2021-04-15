@@ -9,6 +9,7 @@ makeEntrypoint {
       packages.observes.bin.tap-delighted
       packages.observes.tap-json
       packages.observes.target-redshift
+      packages.observes.bin.service.job-last-success
     ];
     envUtils = [
       "/makes/utils/aws"

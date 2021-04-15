@@ -7,26 +7,11 @@ import click
 
 # Local libraries
 from job_last_success import db_client
-
-
-SINGLE_JOBS = frozenset([
-    'formstack',
-    'mailchimp',
-    'mixpanel_integrates',
-    'timedoctor_backup',
-    'timedoctor_etl',
-    'timedoctor_refresh_token',
-    'zoho_crm_etl',
-    'zoho_crm_prepare',
-])
-COMPOUND_JOBS = frozenset([
-    'dynamo',
-    'mirror',
-])
-COMPOUND_JOBS_TABLES = {
-    'dynamo': 'dynamo_tables',
-    'mirror': 'last_sync_date',
-}
+from job_last_success.conf import (
+    SINGLE_JOBS,
+    COMPOUND_JOBS,
+    COMPOUND_JOBS_TABLES,
+)
 
 
 class UnknownJob(Exception):
