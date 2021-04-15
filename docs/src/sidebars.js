@@ -120,6 +120,7 @@ module.exports = {
         items: [
           'criteria/files/r036',
           'criteria/files/r037',
+          'criteria/files/r039',
         ],
     },
   ],
