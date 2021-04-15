@@ -120,11 +120,9 @@ const EvidenceView: React.FC = (): JSX.Element => {
     ...data.finding.evidence,
     animation: {
       ...data.finding.evidence.animation,
-      description: translate.t("searchFindings.tabEvidence.animationExploit"),
     },
     exploitation: {
       ...data.finding.evidence.exploitation,
-      description: translate.t("searchFindings.tabEvidence.evidenceExploit"),
     },
   };
   const evidenceList: string[] = _.uniq([
@@ -263,6 +261,21 @@ const EvidenceView: React.FC = (): JSX.Element => {
                     const showEmpty: boolean =
                       _.isEmpty(evidence.url) || isRefetching;
 
+                    const preffix: string =
+                      name === "animation"
+                        ? translate.t(
+                            "searchFindings.tabEvidence.animationExploit"
+                          )
+                        : name === "exploitation"
+                        ? translate.t(
+                            "searchFindings.tabEvidence.evidenceExploit"
+                          )
+                        : "";
+                    const altDescription: string =
+                      preffix !== "" && evidence.description !== ""
+                        ? `${preffix}: ${evidence.description}`
+                        : `${preffix}${evidence.description}`;
+
                     return (
                       <EvidenceImage
                         acceptedMimes={"image/gif,image/png"}
@@ -274,8 +287,8 @@ const EvidenceView: React.FC = (): JSX.Element => {
                           )
                         }
                         date={evidence.date}
-                        description={evidence.description}
-                        isDescriptionEditable={index > 1}
+                        description={altDescription}
+                        isDescriptionEditable={true}
                         isEditing={isEditing}
                         isRemovable={!_.isEmpty(evidence.url)}
                         key={index.toString()}

@@ -141,11 +141,13 @@ ENUMS: Tuple[EnumType, ...] = (
     EnumType(
         'EvidenceDescriptionType',
         {
+            'ANIMATION': 'animation',
             'EVIDENCE1': 'evidence_route_1',
             'EVIDENCE2': 'evidence_route_2',
             'EVIDENCE3': 'evidence_route_3',
             'EVIDENCE4': 'evidence_route_4',
-            'EVIDENCE5': 'evidence_route_5'
+            'EVIDENCE5': 'evidence_route_5',
+            'EXPLOITATION': 'exploitation'
         }
     ),
     EnumType(

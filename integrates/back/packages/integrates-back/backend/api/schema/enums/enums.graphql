@@ -106,11 +106,13 @@ enum EventType {
 }
 
 enum EvidenceDescriptionType {
+  ANIMATION
   EVIDENCE1
   EVIDENCE2
   EVIDENCE3
   EVIDENCE4
   EVIDENCE5
+  EXPLOITATION
 }
 
 enum EvidenceType {
