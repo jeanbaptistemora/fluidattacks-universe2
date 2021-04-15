@@ -102,6 +102,7 @@ module.exports = {
         items: [
           'criteria/source/r152',
           'criteria/source/r154',
+          'criteria/source/r155',
         ],
     },
   ],
