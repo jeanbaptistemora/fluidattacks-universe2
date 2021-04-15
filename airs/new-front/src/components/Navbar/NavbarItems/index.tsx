@@ -40,10 +40,7 @@ const NavbarItems: React.FC = (): JSX.Element => (
     </li>
 
     <li className={"fr mr3 pr2 pv4 db-l dn"}>
-      <Link
-        className={"no-underline"}
-        to={"https://integrates.fluidattacks.com/"}
-      >
+      <Link className={"no-underline"} to={"https://app.fluidattacks.com/"}>
         <NavbarLoginButton>{"Login"}</NavbarLoginButton>
       </Link>
     </li>
