@@ -100,6 +100,17 @@ def all_unsubscribed(api: ApiClient) -> None:
         _emit_page(stream, page)
 
 
+def all_metrics(api: ApiClient) -> None:
+    stream = SupportedStreams.METRICS
+    metrics = api.metrics.get_metrics()
+    records: IO[Iterator[SingerRecord]] = metrics.data.map(
+        lambda data: partial(
+            _json_list_srecords, stream.value.lower()
+        )(iter([data]))
+    )
+    records.map(_emit_records)
+
+
 __all__ = [
     'SupportedStreams'
 ]
