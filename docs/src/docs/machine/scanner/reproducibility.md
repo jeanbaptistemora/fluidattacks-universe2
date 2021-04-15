@@ -14,25 +14,8 @@ Going Open Source gives our customers the confidence that what we do is
 [secure](https://fluidattacks.com/security/).
 
 In order to verify the OWASP benchmark results we'll need to:
-1.  Be in a x86_64-linux system in user space with sudo access to root
-    (Debian/ubuntu distributions normally already have this).
-
-    ```bash
-    $ uname -mo
-    x86_64 GNU/Linux
-    $ whoami
-    fluid
-    $ sudo whoami
-    root
-    ```
-
-1.  Install nix as explained in the
-    [Nix's download page](https://nixos.org/download).
-
-    ```bash
-    $ nix --version
-    2.3.10
-    ```
+1.  Meet the requirements for
+    [installing Fluid Attacks' scanner](/machine/scanner#requirements)
 
 1.  Get a copy of our source code.
     Cloning it into any folder owned by your user should work:
