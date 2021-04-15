@@ -223,6 +223,28 @@ module.exports = {
   ],
   Security: [
     'security/introduction',
+    {
+      type: 'category',
+      label: 'Transparency',
+      items: [
+        'security/transparency/open-source',
+        'security/transparency/public-indidents',
+        'security/transparency/data-leakage-policy',
+        'security/transparency/status-page',
+      ],
+    },
+    {
+      type: 'category',
+      label: 'Confidentiality',
+      items: [
+        'security/confidentiality/encryption-rest',
+        'security/confidentiality/encryption-transit',
+        'security/confidentiality/hacking-our-technology',
+        'security/confidentiality/personnel-nda',
+        'security/confidentiality/hire-directly',
+        'security/confidentiality/formatting-data',
+      ],
+    },
   ],
   Framework: {
     Framework: getDocs('framework'),
