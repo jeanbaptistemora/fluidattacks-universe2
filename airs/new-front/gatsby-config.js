@@ -82,7 +82,6 @@ module.exports = {
         },
       },
     },
-    "gatsby-plugin-catch-links",
     "gatsby-plugin-image",
     "gatsby-plugin-react-helmet",
     "gatsby-plugin-preload-fonts",

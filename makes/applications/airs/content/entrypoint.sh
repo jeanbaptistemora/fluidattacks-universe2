@@ -33,10 +33,10 @@ function main {
       &&  find content/pages -type f -name "*.adoc" -exec sed -i "s|:subtext|:page-subtext|g" {} + \
       &&  find content/pages -type f -name "*.adoc" -exec sed -i "s|:solution|:page-solution|g" {} + \
       &&  find content/pages -type f -name "*.adoc" -exec sed -i "s|../theme/images|../images|g" {} + \
-      &&  rm -rf \
-            content/pages/about-us/clients \
-            content/pages/products/defends \
-            content/pages/products/rules \
+      &&  pushd content/pages \
+          &&  rm -rf about-us advisories categories compliance contact-us cookie faq \
+              partners plans privacy products resources security subscription systems \
+      &&  popd \
       &&  copy __envAirsNpm__/node_modules 'node_modules' \
       &&  if test -n "${CI:-}" && test "${CI_COMMIT_REF_NAME}" != "master"
           then
@@ -47,10 +47,6 @@ function main {
     &&  popd \
     &&  mv new-front/public . \
     &&  rm -rf new-front \
-    &&  pushd public \
-        &&  rm -rf about-us advisories careers categories compliance contact-us cookie faq \
-              partners plans privacy products resources security subscription systems \
-    &&  popd \
     &&  copy public . \
     &&  rm -rf public \
   &&  popd \
