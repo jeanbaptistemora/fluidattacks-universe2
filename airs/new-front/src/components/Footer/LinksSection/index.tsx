@@ -280,11 +280,6 @@ const LinksSection: React.FC = (): JSX.Element => (
         name={"Contact"}
       />{" "}
       <br />
-      <HeadLink
-        link={"https://fluidattacks.com/newsletter/"}
-        name={"Newsletter"}
-      />{" "}
-      <br />
     </LinksContainer>
   </FooterMenuContainer>
 );
