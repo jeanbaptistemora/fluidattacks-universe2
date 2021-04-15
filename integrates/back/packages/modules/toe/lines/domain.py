@@ -8,7 +8,7 @@ from data_containers.toe_lines import GitRootToeLines
 from toe.lines import dal as toe_lines_dal
 
 
-async def create(root_toe_lines: GitRootToeLines) -> None:
+async def add(root_toe_lines: GitRootToeLines) -> None:
     await toe_lines_dal.create(root_toe_lines)
 
 

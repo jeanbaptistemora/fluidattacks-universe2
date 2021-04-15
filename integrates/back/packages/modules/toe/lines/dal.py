@@ -10,6 +10,7 @@ from botocore.exceptions import ClientError
 from back.settings import LOGGING
 from backend.exceptions import (
     RepeatedToeLines,
+    ToeLinesNotFound,
     UnavailabilityError,
 )
 from data_containers.toe_lines import GitRootToeLines
@@ -98,4 +99,6 @@ async def update(root_toe_lines: GitRootToeLines) -> None:
         )
     except ClientError as ex:
         LOGGER.exception(ex, extra={'extra': locals()})
+        if ex.response['Error']['Code'] == 'ConditionalCheckFailedException':
+            raise ToeLinesNotFound() from ex
         raise UnavailabilityError() from ex

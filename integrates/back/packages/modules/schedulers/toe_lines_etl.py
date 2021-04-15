@@ -9,6 +9,7 @@ from typing import (
     Any,
     Callable,
     List,
+    Set,
     Tuple,
 )
 
@@ -116,29 +117,44 @@ def _get_group_toe_lines_from_cvs(
     return tuple(group_toe_lines)
 
 
-def _get_toe_lines_to_update(
-    group_toe_lines: Tuple[GitRootToeLines, ...],
+def _get_toe_lines_to_add(
+    group_toe_lines: Set[GitRootToeLines],
+    group_toe_lines_ids: Set[Tuple[str, str, str]],
     cvs_group_toe_lines: Tuple[GitRootToeLines, ...]
 ) -> Tuple[GitRootToeLines, ...]:
     return tuple([
         toe_lines
         for toe_lines in cvs_group_toe_lines
         if toe_lines not in group_toe_lines
+        and (
+            toe_lines.group_name,
+            toe_lines.root_id,
+            toe_lines.filename
+        ) not in group_toe_lines_ids
+    ])
+
+
+def _get_toe_lines_to_update(
+    group_toe_lines: Set[GitRootToeLines],
+    group_toe_lines_ids: Set[Tuple[str, str, str]],
+    cvs_group_toe_lines: Tuple[GitRootToeLines, ...]
+) -> Tuple[GitRootToeLines, ...]:
+    return tuple([
+        toe_lines
+        for toe_lines in cvs_group_toe_lines
+        if toe_lines not in group_toe_lines
+        and (
+            toe_lines.group_name,
+            toe_lines.root_id,
+            toe_lines.filename
+        ) in group_toe_lines_ids
     ])
 
 
 def _get_toe_lines_to_remove(
-    group_toe_lines: Tuple[GitRootToeLines, ...],
-    cvs_group_toe_lines: Tuple[GitRootToeLines, ...]
+    group_toe_lines: Set[GitRootToeLines],
+    cvs_group_toe_lines_ids: Set[Tuple[str, str, str]]
 ) -> Tuple[GitRootToeLines, ...]:
-    cvs_group_toe_lines_ids = [
-        (
-            toe_lines.group_name,
-            toe_lines.root_id,
-            toe_lines.filename
-        )
-        for toe_lines in cvs_group_toe_lines
-    ]
     return tuple([
         toe_lines
         for toe_lines in group_toe_lines
@@ -158,26 +174,53 @@ async def update_toe_lines_from_csv(
     group_roots_loader = loaders.group_roots
     group_roots = await group_roots_loader.load(group_name)
     group_toe_lines_loader = loaders.group_toe_lines
-    group_toe_lines = await group_toe_lines_loader.load(group_name)
+    group_toe_lines = set(await group_toe_lines_loader.load(group_name))
+    group_toe_lines_ids = {
+        (
+            toe_lines.group_name,
+            toe_lines.root_id,
+            toe_lines.filename
+        )
+        for toe_lines in group_toe_lines
+    }
     cvs_group_toe_lines = await in_process(
         _get_group_toe_lines_from_cvs,
         lines_csv_path,
         group_name,
         group_roots
     )
+    cvs_group_toe_lines_ids = {
+        (
+            toe_lines.group_name,
+            toe_lines.root_id,
+            toe_lines.filename
+        )
+        for toe_lines in cvs_group_toe_lines
+    }
     toe_lines_to_update = await in_process(
         _get_toe_lines_to_update,
         group_toe_lines,
+        group_toe_lines_ids,
         cvs_group_toe_lines
     )
     await collect([
         toe_lines_domain.update(toe_lines)
         for toe_lines in toe_lines_to_update
     ])
+    toe_lines_to_add = await in_process(
+        _get_toe_lines_to_add,
+        group_toe_lines,
+        group_toe_lines_ids,
+        cvs_group_toe_lines
+    )
+    await collect([
+        toe_lines_domain.add(toe_lines)
+        for toe_lines in toe_lines_to_add
+    ])
     toe_lines_to_remove = await in_process(
         _get_toe_lines_to_remove,
         group_toe_lines,
-        cvs_group_toe_lines
+        cvs_group_toe_lines_ids
     )
     await collect([
         toe_lines_domain.delete(

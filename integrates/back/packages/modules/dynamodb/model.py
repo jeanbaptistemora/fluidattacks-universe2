@@ -433,7 +433,9 @@ async def update_git_root_toe_lines(
         key_structure.sort_key: toe_lines_key.sort_key,
         **dict(root_toe_lines._asdict())
     }
+    condition_expression = Attr(key_structure.partition_key).exists()
     await operations.put_item(
+        condition_expression=condition_expression,
         facet=facet,
         item=toe_lines,
         table=TABLE
