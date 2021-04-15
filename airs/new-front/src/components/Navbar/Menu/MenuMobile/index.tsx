@@ -353,172 +353,172 @@ const MenuMobile: React.FC = (): JSX.Element => (
             <InnerListContainer className={"aboutus-list"}>
               <InnerContentList>
                 <InnerListItem>
-                  <Link
+                  <a
                     className={
                       "hv-fluid-rd f5 c-fluid-bk fw4 no-underline menu-txt-trans roboto"
                     }
-                    to={"https://fluidattacks.com/about-us/clients/"}
+                    href={"https://fluidattacks.com/about-us/clients/"}
                   >
                     {"Clients"}
-                  </Link>
+                  </a>
                 </InnerListItem>
                 <InnerListItem>
-                  <Link
+                  <a
                     className={
                       "hv-fluid-rd f5 c-fluid-bk fw4 no-underline menu-txt-trans roboto"
                     }
-                    to={"https://fluidattacks.com/about-us/certifications/"}
+                    href={"https://fluidattacks.com/about-us/certifications/"}
                   >
                     {"Certifications"}
-                  </Link>
+                  </a>
                 </InnerListItem>
                 <InnerListItem>
-                  <Link
+                  <a
                     className={
                       "hv-fluid-rd f5 c-fluid-bk fw4 no-underline menu-txt-trans roboto"
                     }
-                    to={"https://fluidattacks.com/about-us/differentiators/"}
+                    href={"https://fluidattacks.com/about-us/differentiators/"}
                   >
                     {"Differentiators"}
-                  </Link>
+                  </a>
                 </InnerListItem>
                 <InnerListItem>
-                  <Link
+                  <a
                     className={
                       "hv-fluid-rd f5 c-fluid-bk fw4 no-underline menu-txt-trans roboto"
                     }
-                    to={"https://fluidattacks.com/about-us/values/"}
+                    href={"https://fluidattacks.com/about-us/values/"}
                   >
                     {"Values"}
-                  </Link>
+                  </a>
                 </InnerListItem>
                 <InnerListItem>
-                  <Link
+                  <a
                     className={
                       "hv-fluid-rd f5 c-fluid-bk fw4 no-underline menu-txt-trans roboto"
                     }
-                    to={"https://fluidattacks.com/about-us/reviews/"}
+                    href={"https://fluidattacks.com/about-us/reviews/"}
                   >
                     {"Reviews"}
-                  </Link>
+                  </a>
                 </InnerListItem>
                 <InnerListItem>
-                  <Link
+                  <a
                     className={
                       "hv-fluid-rd f5 c-fluid-bk fw4 no-underline menu-txt-trans roboto"
                     }
-                    to={"https://fluidattacks.com/about-us/events/"}
+                    href={"https://fluidattacks.com/about-us/events/"}
                   >
                     {"Events"}
-                  </Link>
+                  </a>
                 </InnerListItem>
                 <InnerListItem>
-                  <Link
+                  <a
                     className={
                       "hv-fluid-rd f5 c-fluid-bk fw4 no-underline menu-txt-trans roboto"
                     }
-                    to={"https://fluidattacks.com/about-us/people/"}
+                    href={"https://fluidattacks.com/about-us/people/"}
                   >
                     {"People"}
-                  </Link>
+                  </a>
                 </InnerListItem>
                 <InnerListItem>
-                  <Link
+                  <a
                     className={
                       "hv-fluid-rd f5 c-fluid-bk fw4 no-underline menu-txt-trans roboto"
                     }
-                    to={"https://fluidattacks.com/about-us/security/"}
+                    href={"https://fluidattacks.com/about-us/security/"}
                   >
                     {"Security"}
-                  </Link>
+                  </a>
                 </InnerListItem>
               </InnerContentList>
             </InnerListContainer>
           </ListItem>
         </div>
         <ListItem>
-          <Link
+          <a
             className={
               "hv-fluid-rd f5 c-fluid-bk fw4 no-underline menu-txt-trans roboto"
             }
-            to={"https://fluidattacks.com/blog/"}
+            href={"https://fluidattacks.com/blog/"}
           >
             {"Blog"}
-          </Link>
+          </a>
         </ListItem>
         <ListItem>
-          <Link
+          <a
             className={
               "hv-fluid-rd f5 c-fluid-bk fw4 no-underline menu-txt-trans roboto"
             }
-            to={"https://fluidattacks.com/advisories/"}
+            href={"https://fluidattacks.com/advisories/"}
           >
             {"Advisories"}
-          </Link>
+          </a>
         </ListItem>
         <ListItem>
-          <Link
+          <a
             className={
               "hv-fluid-rd f5 c-fluid-bk fw4 no-underline menu-txt-trans roboto"
             }
-            to={"https://fluidattacks.com/resources/"}
+            href={"https://fluidattacks.com/resources/"}
           >
             {"Resources"}
-          </Link>
+          </a>
         </ListItem>
         <ListItem>
-          <Link
+          <a
             className={
               "hv-fluid-rd f5 c-fluid-bk fw4 no-underline menu-txt-trans roboto"
             }
-            to={"https://fluidattacks.com/plans/"}
+            href={"https://fluidattacks.com/plans/"}
           >
             {"Plans"}
-          </Link>
+          </a>
         </ListItem>
         <ListItem>
-          <Link
+          <a
             className={
               "hv-fluid-rd f5 c-fluid-bk fw4 no-underline menu-txt-trans roboto"
             }
-            to={"https://fluidattacks.com/careers/"}
+            href={"https://fluidattacks.com/careers/"}
           >
             {"Careers"}
-          </Link>
+          </a>
         </ListItem>
         <ListItem>
-          <Link
+          <a
             className={
               "hv-fluid-rd f5 c-fluid-bk fw4 no-underline menu-txt-trans roboto"
             }
-            to={"https://fluidattacks.com/faq/"}
+            href={"https://fluidattacks.com/faq/"}
           >
             {"FAQ"}
-          </Link>
+          </a>
         </ListItem>
         <ListItem>
-          <Link
+          <a
             className={
               "hv-fluid-rd f5 c-fluid-bk fw4 no-underline menu-txt-trans roboto"
             }
-            to={"https://community.fluidattacks.com/"}
+            href={"https://community.fluidattacks.com/"}
           >
             {"Community"}
-          </Link>
+          </a>
         </ListItem>
       </ContentList>
     </ContentContainer>
     <FooterContainer>
       <div>
         <ContactButtonContainer>
-          <Link
+          <a
             className={
               "no-underline c-fluid-bk f-key-features menu-txt-trans roboto hv-fluid-rd nt-125"
             }
-            to={"https://fluidattacks.com/contact-us/"}
+            href={"https://fluidattacks.com/contact-us/"}
           >
             <ContactButton>{"Contact"}</ContactButton>
-          </Link>
+          </a>
         </ContactButtonContainer>
 
         <SocialMedia />

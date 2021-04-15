@@ -1,5 +1,4 @@
 /* eslint react/forbid-component-props: 0 */
-import { Link } from "gatsby";
 import React from "react";
 
 interface IProps {
@@ -17,9 +16,9 @@ const bodyLinkStyles: string = `
 `;
 
 const BodyLink: React.FC<IProps> = ({ link, name }: IProps): JSX.Element => (
-  <Link className={bodyLinkStyles} to={link}>
+  <a className={bodyLinkStyles} href={link}>
     {name}
-  </Link>
+  </a>
 );
 
 export { BodyLink };

@@ -59,12 +59,12 @@ const NavbarItems: React.FC = (): JSX.Element => (
     </li>
 
     <li className={"db-xl display-none fr mr3 pr2 pv4"}>
-      <Link
+      <a
         className={"no-underline"}
-        to={"https://fluidattacks.com/resources/"}
+        href={"https://fluidattacks.com/resources/"}
       >
         <NavbarRegularButton>{"Resources"}</NavbarRegularButton>
-      </Link>
+      </a>
     </li>
 
     <li className={"db-l dn fr mr3 pr2 pv4 solutions-index"}>
