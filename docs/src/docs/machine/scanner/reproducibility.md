@@ -1,6 +1,6 @@
 ---
 id: reproducibility
-title: Transparency matters
+title: Reproducibility
 sidebar_label: Reproducibility
 slug: /machine/scanner/reproducibility
 ---

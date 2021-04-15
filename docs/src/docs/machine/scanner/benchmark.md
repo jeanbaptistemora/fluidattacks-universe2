@@ -1,6 +1,6 @@
 ---
 id: benchmark
-title: OWASP Benchmark
+title: Benchmark
 sidebar_label: Benchmark
 slug: /machine/scanner
 ---

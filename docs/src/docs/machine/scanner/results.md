@@ -1,6 +1,6 @@
 ---
 id: results
-title: OWASP Benchmark at Fluid Attacks
+title: Results
 sidebar_label: Results
 slug: /machine/scanner/results
 ---
