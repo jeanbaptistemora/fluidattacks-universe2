@@ -38,20 +38,21 @@ At all moments you can read awesome reports and analytics at Fluid Attack's App:
     x86_64 GNU/Linux
     ```
 
-1.  Nix, installed as explained in the
-    [Nix's download page](https://nixos.org/download).
+1.  Bash v5, installed as explained in the
+    [Bash's download page](https://www.gnu.org/software/bash/#download).
 
-    ```bash
-    $ nix --version
-    2.3.10
-    ```
+1.  Curl v7, installed as explained in the
+    [Curl's download page](https://curl.se/download.html).
+
+1.  Nix v2, installed as explained in the
+    [Nix's download page](https://nixos.org/download).
 
 ## Installing
 
 1.  Run the following command:
 
-    `bash <(curl -L "https://fluidattacks.com/install/skims")`
+    `$ bash <(curl -L "https://fluidattacks.com/install/skims")`
 
 1.  You should be able to execute the scanner now:
 
-    `skims --help`
+    `$ skims --help`
