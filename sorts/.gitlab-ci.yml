@@ -72,6 +72,14 @@
         - "sorts/sorts/**/*"
         - "sorts/training/**/*"
 
+.sorts_in_schedule_extract_features: &sorts_in_schedule_extract_features
+  rules:
+    - if: '$CI_PIPELINE_SOURCE != "schedule"'
+      when: never
+    - if: '$sorts_extract_features != "defined"'
+      when: never
+    - when: always
+
 makes.test.sorts:
   <<: *makes
   <<: *sorts_in_master_branch
@@ -99,7 +107,7 @@ sorts.infra.deploy:
 
 sorts.extract-features:
   <<: *makes
-  <<: *sorts_in_master_branch_code_changes
+  <<: *sorts_in_schedule_extract_features
   stage: test-code
   interruptible: false
   parallel: 15
