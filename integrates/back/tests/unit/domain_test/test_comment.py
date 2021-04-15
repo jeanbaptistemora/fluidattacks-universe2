@@ -6,6 +6,7 @@ from graphql.type.definition import GraphQLResolveInfo
 
 from back.tests.unit.utils import create_dummy_session
 from comments import domain as comments_domain
+from newutils import comments as comments_utils
 
 
 pytestmark = [
@@ -47,11 +48,11 @@ async def test_fill_comment_data():
         'parent': Decimal('0')
     }
     res_data_no_fullname = \
-        await comments_domain.fill_comment_data('unittesting', 'customer', test_data)
+        await comments_utils.fill_comment_data('unittesting', 'customer', test_data)
     assert res_data_no_fullname['fullname'] == 'unittesting@test.com'
 
     test_data['fullname'] = ''
     res_data_empty_fullname = \
-        await comments_domain.fill_comment_data('unittesting', 'customer', test_data)
+        await comments_utils.fill_comment_data('unittesting', 'customer', test_data)
 
     assert res_data_empty_fullname['fullname'] == 'unittesting@test.com'

@@ -198,10 +198,6 @@ async def get_subject_policy(subject: str, object_: str) -> SubjectPolicy:
     return cast_dict_into_subject_policy(response)
 
 
-async def get_user_name(mail: str) -> Dict[str, UserType]:
-    return {mail: await get_attributes(mail, ['last_name', 'first_name'])}
-
-
 async def put_subject_policy(policy: SubjectPolicy) -> bool:
     item = cast_subject_policy_into_dict(policy)
     with contextlib.suppress(ClientError):

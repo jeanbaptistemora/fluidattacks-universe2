@@ -13,7 +13,6 @@ from backend.typing import UpdateAccessTokenPayload
 from forces import domain as forces_domain
 from newutils import datetime as datetime_utils
 from users import domain as users_domain
-from users.domain.forces import format_forces_user_email
 from users.domain.token import update_access_token
 
 
@@ -26,7 +25,7 @@ async def mutate(
 ) -> UpdateAccessTokenPayload:
     user_info = await util.get_jwt_content(info.context)
 
-    user_email = format_forces_user_email(project_name)
+    user_email = forces_domain.format_forces_user_email(project_name)
     if not await users_domain.ensure_user_exists(user_email):
         util.cloudwatch_log(
             info.context,

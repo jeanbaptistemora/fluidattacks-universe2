@@ -108,6 +108,10 @@ async def get_data(email: str, attr: str) -> Union[str, UserType]:
     return str()
 
 
+async def get_user_name(mail: str) -> Dict[str, UserType]:
+    return {mail: await get_attributes(mail, ['last_name', 'first_name'])}
+
+
 async def is_registered(email: str) -> bool:
     return bool(await get_data(email, 'registered'))
 

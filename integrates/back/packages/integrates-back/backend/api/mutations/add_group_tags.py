@@ -21,7 +21,6 @@ from backend.decorators import (
 )
 from backend.typing import SimpleProjectPayload as SimpleProjectPayloadType
 from groups import domain as groups_domain
-from newutils.groups import update_tags
 
 
 @convert_kwargs_to_snake_case  # type: ignore
@@ -43,7 +42,7 @@ async def mutate(  # pylint: disable=too-many-arguments
         if await groups_domain.validate_group_tags(group_name, tags):
             project_attrs = await group_loader.load(group_name)
             group_tags = {'tag': project_attrs['tags']}
-            success = await update_tags(
+            success = await groups_domain.update_tags(
                 group_name,
                 group_tags,
                 tags

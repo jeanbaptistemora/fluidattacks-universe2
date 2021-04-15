@@ -12,10 +12,7 @@ from aioextensions import collect
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local libraries
-from backend import (
-    authz,
-    util,
-)
+from backend import authz
 from backend.typing import (
     Comment as CommentType,
     Finding as FindingType,
@@ -24,6 +21,7 @@ from backend.typing import (
 from comments import dal as comments_dal
 from newutils import (
     datetime as datetime_utils,
+    comments as comments_utils,
     findings as findings_utils,
 )
 
@@ -54,7 +52,7 @@ async def _get_comments(
     user_email: str
 ) -> List[CommentType]:
     comments = await collect([
-        fill_comment_data(
+        comments_utils.fill_comment_data(
             project_name,
             user_email,
             cast(Dict[str, str], comment)
@@ -65,33 +63,6 @@ async def _get_comments(
         )
     ])
     return list(comments)
-
-
-async def _get_fullname(
-    project_name: str,
-    requester_email: str,
-    objective_data: Dict[str, str]
-) -> str:
-    objective_email = objective_data['email']
-    objective_possible_fullname = objective_data.get('fullname', '')
-
-    real_name = objective_possible_fullname or objective_email
-    is_requester_at_fluid: bool = '@fluidattacks.com' in requester_email
-    is_objective_at_fluid: bool = '@fluidattacks.com' in objective_email
-
-    # Only Fluid Attacks' staff is masked
-    if is_requester_at_fluid or not is_objective_at_fluid:
-        name_to_show = real_name
-    else:
-        objective_role = await authz.get_group_level_role(
-            objective_email, project_name
-        )
-        name_to_show = {
-            'analyst': 'Hacker at Fluid Attacks',
-            'admin': 'Hacker at Fluid Attacks',
-            'customeradmin': real_name,
-        }.get(objective_role, 'Someone at Fluid Attacks')
-    return name_to_show
 
 
 def _is_scope_comment(comment: CommentType) -> bool:
@@ -132,27 +103,6 @@ async def create(
 
 async def delete(finding_id: int, user_id: int) -> bool:
     return await comments_dal.delete(finding_id, user_id)
-
-
-async def fill_comment_data(
-    project_name: str,
-    requester_email: str,
-    data: Dict[str, str]
-) -> CommentType:
-    fullname = await _get_fullname(
-        project_name=project_name,
-        requester_email=requester_email,
-        objective_data=data
-    )
-    return {
-        'content': data['content'],
-        'created': util.format_comment_date(data['created']),
-        'email': data['email'],
-        'fullname': fullname if fullname else data['email'],
-        'id': int(data['user_id']),
-        'modified': util.format_comment_date(data['modified']),
-        'parent': int(data['parent'])
-    }
 
 
 async def get(comment_type: str, element_id: int) -> List[CommentType]:

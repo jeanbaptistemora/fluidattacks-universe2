@@ -12,6 +12,7 @@ from .core import (
     get_attributes,
     get_by_email,
     get_data,
+    get_user_name,
     is_registered,
     register,
     remove_push_token,
@@ -21,7 +22,10 @@ from .core import (
     update_legal_remember,
     update_multiple_user_attributes,
 )
-from .group import edit_user_information
+from .group import (
+    complete_register_for_group_invitation,
+    edit_user_information,
+)
 
 
 __all__ = [
@@ -36,6 +40,7 @@ __all__ = [
     'get_attributes',
     'get_by_email',
     'get_data',
+    'get_user_name',
     'is_registered',
     'register',
     'remove_push_token',
@@ -46,5 +51,6 @@ __all__ = [
     'update_multiple_user_attributes',
 
     # Group
+    'complete_register_for_group_invitation',
     'edit_user_information'
 ]

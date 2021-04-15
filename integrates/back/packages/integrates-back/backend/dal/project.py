@@ -26,7 +26,6 @@ from backend.typing import (
 )
 from group_access import domain as group_access_domain
 from events.dal import TABLE_NAME as EVENTS_TABLE_NAME
-from users.dal import get_user_name
 
 
 logging.config.dictConfig(LOGGING)
@@ -359,29 +358,6 @@ async def add_comment(
     except ClientError as ex:
         LOGGER.exception(ex, extra=dict(extra=locals()))
     return resp
-
-
-async def get_comments(project_name: str) -> List[Dict[str, str]]:
-    """ Get comments of a project. """
-    key_expression = Key('project_name').eq(project_name)
-    query_attrs = {
-        'KeyConditionExpression': key_expression
-    }
-    items = await dynamodb.async_query(TABLE_GROUP_COMMENTS, query_attrs)
-    comment_name_data = await collect([
-        get_user_name(mail)
-        for mail in set(item['email'] for item in items)
-    ])
-    comment_fullnames = {
-        mail: list(fullnames.values())
-        for data in comment_name_data for mail, fullnames in data.items()
-    }
-
-    for item in items:
-        item['fullname'] = ' '.join(
-            filter(None, comment_fullnames[item['email']][::-1])
-        )
-    return items
 
 
 async def delete_comment(group_name: str, user_id: str) -> bool:

@@ -17,8 +17,8 @@ from backend.decorators import (
     enforce_group_level_auth_async,
     require_integrates
 )
-from backend.domain import project as project_domain
 from backend.typing import Comment, Project as Group
+from group_comments import domain as group_comments_domain
 
 
 @concurrent_decorators(
@@ -51,5 +51,5 @@ async def resolve_no_cache(
 
     return cast(
         List[Comment],
-        await project_domain.list_comments(group_name, user_email)
+        await group_comments_domain.list_comments(group_name, user_email)
     )

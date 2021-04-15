@@ -22,7 +22,6 @@ from backend.domain.project import (
     get_managers,
     get_open_finding,
     get_open_vulnerabilities,
-    list_comments,
     list_events,
 )
 from backend.exceptions import (
@@ -41,6 +40,9 @@ from group_access.domain import (
     get_closers,
     get_group_users,
     remove_access,
+)
+from group_comments.domain import (
+    list_comments,
 )
 from groups.domain import (
     add_comment,

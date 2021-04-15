@@ -1,4 +1,6 @@
 # Standard libraries
+import logging
+import logging.config
 import re
 import secrets
 from datetime import date
@@ -9,6 +11,7 @@ from typing import (
     Dict,
     List,
     Optional,
+    Set,
     Union,
 )
 
@@ -21,6 +24,7 @@ from aioextensions import (
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local libraries
+from back.settings import LOGGING
 from backend import (
     authz,
     mailer,
@@ -35,8 +39,10 @@ from backend.exceptions import (
 from backend.typing import (
     Comment as CommentType,
     MailContent as MailContentType,
+    Project as GroupType,
 )
 from group_access import domain as group_access_domain
+from group_comments import domain as group_comments_domain
 from newutils import (
     apm,
     comments as comments_utils,
@@ -52,6 +58,12 @@ from newutils.validations import (
 )
 from organizations import domain as orgs_domain
 from __init__ import BASE_URL
+
+
+logging.config.dictConfig(LOGGING)
+
+# Constants
+LOGGER = logging.getLogger(__name__)
 
 
 async def _has_repeated_tags(group_name: str, tags: List[str]) -> bool:
@@ -83,7 +95,7 @@ async def add_comment(
     if parent != '0':
         group_comments = [
             str(comment.get('user_id'))
-            for comment in await group_dal.get_comments(group_name)
+            for comment in await group_comments_domain.get_comments(group_name)
         ]
         if parent not in group_comments:
             raise InvalidCommentParent()
@@ -260,7 +272,7 @@ async def is_alive(group: str) -> bool:
 
 async def mask(group_name: str) -> bool:
     today = datetime_utils.get_now()
-    comments = await group_dal.get_comments(group_name)
+    comments = await group_comments_domain.get_comments(group_name)
     comments_result = all(
         await collect([
             group_dal.delete_comment(
@@ -292,6 +304,26 @@ def send_comment_mail(
             group_name
         )
     )
+
+
+async def update(group_name: str, data: GroupType) -> bool:
+    return await group_dal.update(group_name, data)
+
+
+async def update_tags(
+    group_name: str,
+    group_tags: GroupType,
+    tags: List[str]
+) -> bool:
+    success: bool = False
+    if not group_tags['tag']:
+        group_tags = {'tag': set(tags)}
+    else:
+        cast(Set[str], group_tags.get('tag')).update(tags)
+    success = await update(group_name, group_tags)
+    if not success:
+        LOGGER.error('Couldn\'t add tags', extra={'extra': locals()})
+    return success
 
 
 def validate_group_services_config(

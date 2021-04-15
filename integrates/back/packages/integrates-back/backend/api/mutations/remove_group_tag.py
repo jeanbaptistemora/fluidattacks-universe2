@@ -23,7 +23,6 @@ from backend.decorators import (
     require_login,
     require_integrates
 )
-from backend.domain import project as group_domain
 from backend.typing import SimpleProjectPayload as SimpleProjectPayloadType
 from groups import domain as groups_domain
 
@@ -55,7 +54,7 @@ async def mutate(  # pylint: disable=too-many-arguments
         cast(Set[str], project_tags.get('tag')).remove(tag)
         if project_tags.get('tag') == set():
             project_tags['tag'] = None
-        tag_deleted = await group_domain.update(group_name, project_tags)
+        tag_deleted = await groups_domain.update(group_name, project_tags)
         if tag_deleted:
             success = True
         else:
