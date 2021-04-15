@@ -151,16 +151,16 @@ export const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
               <b>{t("searchFindings.tabVuln.vulnTable.reattacks")}</b>
             </Col100>
             <Row>
-              <div className={"pl1 pr2 w-50-l w-50-m w-100-ns"}>
+              <Col40>
                 <Label>
                   {t(
                     "searchFindings.tabVuln.vulnTable.lastRequestedReattackDate"
                   )}
                 </Label>
-              </div>
-              <div className={"pl1 pr2 w-50-l w-50-m w-100-ns"}>
+              </Col40>
+              <Col60>
                 <Value value={vulnerability.lastRequestedReattackDate} />
-              </div>
+              </Col60>
             </Row>
             <Row>
               <Col40>
