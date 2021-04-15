@@ -8,8 +8,6 @@ data "aws_iam_policy_document" "dev" {
       "s3:Get*",
     ]
     resources = [
-      "arn:aws:s3:::doc.fluidattacks.com/*",
-      "arn:aws:s3:::doc.fluidattacks.com",
       "arn:aws:s3:::docs.fluidattacks.com/*",
       "arn:aws:s3:::docs.fluidattacks.com",
     ]
@@ -26,8 +24,6 @@ data "aws_iam_policy_document" "dev" {
       "s3:DeleteObject*",
     ]
     resources = [
-      "arn:aws:s3:::doc-dev.fluidattacks.com/*",
-      "arn:aws:s3:::doc-dev.fluidattacks.com",
       "arn:aws:s3:::docs-dev.fluidattacks.com/*",
       "arn:aws:s3:::docs-dev.fluidattacks.com",
     ]

@@ -5,10 +5,6 @@ data "aws_iam_policy_document" "prod" {
     effect  = "Allow"
     actions = ["s3:*"]
     resources = [
-      "arn:aws:s3:::doc.fluidattacks.com/*",
-      "arn:aws:s3:::doc.fluidattacks.com",
-      "arn:aws:s3:::doc-dev.fluidattacks.com/*",
-      "arn:aws:s3:::doc-dev.fluidattacks.com",
       "arn:aws:s3:::docs.fluidattacks.com/*",
       "arn:aws:s3:::docs.fluidattacks.com",
       "arn:aws:s3:::docs-dev.fluidattacks.com/*",
