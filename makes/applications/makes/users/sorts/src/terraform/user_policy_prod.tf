@@ -83,6 +83,7 @@ data "aws_iam_policy_document" "sorts_prod_policy_data" {
       "sagemaker:CreateHyperParameterTuningJob",
       "sagemaker:CreateTrainingJob",
       "sagemaker:DeleteTags",
+      "sagemaker:DescribeHyperParameterTuningJob",
       "sagemaker:DescribeTrainingJob",
       "sagemaker:ListTrainingJobs",
       "sagemaker:StopTrainingJob"
