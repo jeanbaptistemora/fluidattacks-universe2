@@ -6,7 +6,7 @@ let
   self = path "/observes/common/singer_io";
 in
 makeTemplate {
-  name = "observes-env-runtime-singer-io";
+  name = "observes-env-singer-io-runtime";
   searchPaths = {
     envMypyPaths = [
       self

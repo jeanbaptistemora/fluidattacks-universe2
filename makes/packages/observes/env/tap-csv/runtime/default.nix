@@ -21,7 +21,7 @@ makeTemplate {
       pkgEnv.runtime.python
     ];
     envSources = [
-      env.runtime.singer-io
+      env.singer-io.runtime
     ];
     envPython38Paths = [
       pkgEnv.runtime.python

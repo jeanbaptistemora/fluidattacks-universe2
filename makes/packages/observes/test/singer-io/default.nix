@@ -12,7 +12,7 @@ makeDerivation {
   searchPaths = {
     envSources = [
       packages.observes.generic.tester
-      packages.observes.env.development.singer-io
+      packages.observes.env.singer-io.development
     ];
   };
   builder = path "/makes/packages/observes/generic/tester/test_builder.sh";

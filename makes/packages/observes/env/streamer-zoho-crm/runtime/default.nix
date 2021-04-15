@@ -22,7 +22,7 @@ makeTemplate {
     ];
     envSources = [
       env.runtime.postgres-client
-      env.runtime.singer-io
+      env.singer-io.runtime
       env.utils-logger.runtime
     ];
     envPython38Paths = [

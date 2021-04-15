@@ -17,7 +17,7 @@ makeTemplate {
       self
     ];
     envSources = [
-      env.runtime.singer-io
+      env.singer-io.runtime
       env.runtime.postgres-client
     ];
   };
