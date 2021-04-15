@@ -579,6 +579,13 @@ export const enTranslations: ResourceKey = {
         port: "Port",
         title: "IP Roots",
       },
+      url: {
+        host: "Host",
+        path: "Path",
+        port: "Port",
+        protocol: "Protocol",
+        title: "URL Roots",
+      },
     },
     tabs: {
       analytics: {
