@@ -40,7 +40,7 @@ async def client() -> AsyncIterator[GraphQLClient]:
             trust_env=True,
         ) as session:
             yield GraphQLClient(
-                endpoint='https://integrates.fluidattacks.com/api',
+                endpoint='https://app.fluidattacks.com/api',
                 session=session
             )
     else:
