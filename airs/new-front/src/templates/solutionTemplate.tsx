@@ -14,9 +14,9 @@ import { Link, graphql } from "gatsby";
 import { Breadcrumb } from "gatsby-plugin-breadcrumb";
 import React from "react";
 
-import { Layout } from "../components/layout";
+import { Layout } from "../components/Layout";
 import { NavbarComponent } from "../components/Navbar";
-import { Seo } from "../components/seo";
+import { Seo } from "../components/Seo";
 import { WhiteShadowedCard } from "../components/WhiteShadowedCard";
 import {
   BannerContainer,

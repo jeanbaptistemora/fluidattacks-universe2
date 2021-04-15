@@ -4,9 +4,9 @@ import { graphql } from "gatsby";
 import React from "react";
 
 import { Home } from "../components/Home";
-import { Layout } from "../components/layout";
+import { Layout } from "../components/Layout";
 import { NavbarComponent } from "../components/Navbar";
-import { Seo } from "../components/seo";
+import { Seo } from "../components/Seo";
 
 import "modal-video-custom/scss/modal-video.scss";
 

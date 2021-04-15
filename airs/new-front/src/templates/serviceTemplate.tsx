@@ -16,9 +16,9 @@ import React from "react";
 
 import continuousImage from "../../static/images/services/service-continuous.png"; // eslint-disable-line import/no-unresolved
 import oneShotImage from "../../static/images/services/service-one-shot.png"; // eslint-disable-line import/no-unresolved
-import { Layout } from "../components/layout";
+import { Layout } from "../components/Layout";
 import { NavbarComponent } from "../components/Navbar";
-import { Seo } from "../components/seo";
+import { Seo } from "../components/Seo";
 import { ServicePage } from "../components/ServicePage";
 import { translate } from "../utils/translations/translate";
 

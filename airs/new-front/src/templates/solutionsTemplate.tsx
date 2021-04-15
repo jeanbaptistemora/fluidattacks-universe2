@@ -20,9 +20,9 @@ import penetrationTestingImage from "../../static/images/solutions/solution-3.pn
 import ethicalHackingImage from "../../static/images/solutions/solution-4.png"; // eslint-disable-line import/no-unresolved
 import redTeamingImage from "../../static/images/solutions/solution-5.png"; // eslint-disable-line import/no-unresolved
 import attackSimulationImage from "../../static/images/solutions/solution-6.png"; // eslint-disable-line import/no-unresolved
-import { Layout } from "../components/layout";
+import { Layout } from "../components/Layout";
 import { NavbarComponent } from "../components/Navbar";
-import { Seo } from "../components/seo";
+import { Seo } from "../components/Seo";
 import { SolutionsIndexContent } from "../components/SolutionsIndexContent";
 import {
   ArticleContainer,
