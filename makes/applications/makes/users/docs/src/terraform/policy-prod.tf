@@ -98,9 +98,9 @@ data "aws_iam_policy_document" "prod" {
 }
 
 resource "aws_iam_policy" "prod" {
-  name        = "docs_prod"
-  path        = "/user-provision/"
-  policy      = data.aws_iam_policy_document.prod.json
+  name   = "docs_prod"
+  path   = "/user-provision/"
+  policy = data.aws_iam_policy_document.prod.json
 }
 
 resource "aws_iam_user_policy_attachment" "prod" {

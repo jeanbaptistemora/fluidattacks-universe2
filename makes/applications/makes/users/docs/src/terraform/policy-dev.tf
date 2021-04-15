@@ -99,9 +99,9 @@ data "aws_iam_policy_document" "dev" {
 }
 
 resource "aws_iam_policy" "dev" {
-  name        = "docs_dev"
-  path        = "/user-provision/"
-  policy      = data.aws_iam_policy_document.dev.json
+  name   = "docs_dev"
+  path   = "/user-provision/"
+  policy = data.aws_iam_policy_document.dev.json
 }
 
 resource "aws_iam_user_policy_attachment" "dev" {
