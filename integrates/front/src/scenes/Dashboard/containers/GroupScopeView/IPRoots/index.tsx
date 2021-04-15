@@ -26,7 +26,7 @@ export const IPRoots: React.FC<IIPRootsProps> = ({
           exportCsv={true}
           headers={[
             {
-              dataField: "url",
+              dataField: "address",
               header: t("group.scope.ip.address"),
             },
             {
