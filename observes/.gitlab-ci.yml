@@ -98,6 +98,11 @@ observes.lint.streamer-zoho-crm:
   <<: *observes_in_dev_branch
   stage: lint-code
 
+observes.lint.tap-checkly:
+  <<: *makes
+  <<: *observes_in_dev_branch
+  stage: lint-code
+
 observes.lint.tap-csv:
   <<: *makes
   <<: *observes_in_dev_branch

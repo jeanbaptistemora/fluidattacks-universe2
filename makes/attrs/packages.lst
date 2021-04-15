@@ -101,6 +101,8 @@ observes.env.streamer-zoho-crm.development
 observes.env.streamer-zoho-crm.development.python
 observes.env.streamer-zoho-crm.runtime
 observes.env.streamer-zoho-crm.runtime.python
+observes.env.tap-checkly.runtime
+observes.env.tap-checkly.runtime.python
 observes.env.tap-csv.development
 observes.env.tap-csv.development.python
 observes.env.tap-csv.runtime
@@ -139,6 +141,7 @@ observes.lint.service-migrate-tables
 observes.lint.singer-io
 observes.lint.streamer-gitlab
 observes.lint.streamer-zoho-crm
+observes.lint.tap-checkly
 observes.lint.tap-csv
 observes.lint.tap-delighted
 observes.lint.tap-formstack
