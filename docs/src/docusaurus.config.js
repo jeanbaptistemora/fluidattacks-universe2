@@ -9,6 +9,10 @@ module.exports = {
   organizationName: 'fluidattacks',
   projectName: 'product',
   themeConfig: {
+    googleAnalytics: {
+      trackingID: 'GTM-PCDDL8T',
+      anonymizeIP: true,
+    },
     colorMode: {
       defaultMode: 'light',
       disableSwitch: true,
