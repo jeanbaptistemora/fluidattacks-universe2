@@ -15,10 +15,6 @@ module.exports = {
   Mobile: {
     Mobile: getDocs('mobile'),
   },
-  API: [
-    'api/api-token',
-    'api/basics-api',
-  ],
   Criteria: [
     'criteria/intro',
     {
@@ -101,10 +97,6 @@ module.exports = {
         ],
     },
   ],
-  Agent: [
-    'agent/introduction',
-    'agent/installation',
-  ],
   Machine: [
     {
       type: 'category',
@@ -177,6 +169,22 @@ module.exports = {
         'machine/scanner/benchmark',
         'machine/scanner/reproducibility',
         'machine/scanner/results',
+      ],
+    },
+    {
+      type: 'category',
+      label: 'Agent',
+      items: [
+        'machine/agent/introduction',
+        'machine/agent/installation',
+      ],
+    },
+    {
+      type: 'category',
+      label: 'API',
+      items: [
+        'machine/api/api-token',
+        'machine/api/basics-api',
       ],
     },
   ],

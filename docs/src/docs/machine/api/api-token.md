@@ -2,7 +2,7 @@
 id: api-token
 title: Accessing ASM via API
 sidebar_label: Accessing ASM via API
-slug: /api
+slug: /machine/api/api-token
 ---
 
 The ASM app allows users to make requests directly to our GraphQL API.

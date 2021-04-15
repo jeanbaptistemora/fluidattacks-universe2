@@ -26,18 +26,6 @@ module.exports = {
           position: 'left',
         },
         {
-          to: 'api/',
-          activeBasePath: 'api/',
-          label: 'API',
-          position: 'left',
-        },
-        {
-          to: 'agent/',
-          activeBasePath: 'agent/',
-          label: 'Agent',
-          position: 'left',
-        },
-        {
           to: 'criteria/',
           activeBasePath: 'criteria/',
           label: 'Criteria',

@@ -2,7 +2,7 @@
 id: introduction
 title: DevSecOps Agent
 sidebar_label: Introduction
-slug: /agent
+slug: /machine/agent/introduction
 ---
 
 The DevSecOps Agent is constituted as an essential element for the implementation of

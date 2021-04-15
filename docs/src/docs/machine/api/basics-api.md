@@ -2,7 +2,7 @@
 id: basics-api
 title: 'Basics: API'
 sidebar_label: 'Basics: API'
-slug: /api/basics-api
+slug: /machine/api/basics-api
 ---
 
 This post will help you use the API,

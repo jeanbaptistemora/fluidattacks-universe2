@@ -2,7 +2,7 @@
 id: installation
 title: DevSecOps Installation
 sidebar_label: Installation
-slug: /agent/installation
+slug: /machine/agent/installation
 ---
 
 You can use the DevSeCops agent on any OS that Docker can run on.

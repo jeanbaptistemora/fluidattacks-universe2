@@ -17,24 +17,6 @@ const features = [
     link: 'web'
   },
   {
-    title: 'API',
-    description: (
-      <>
-        Utilize our API for sending and getting data quickly and efficiently
-      </>
-    ),
-    link: 'api'
-  },
-  {
-    title: 'Agent',
-    description: (
-      <>
-        The DevSecOps Agent you can use for breaking your build in case your system is vulnerable
-      </>
-    ),
-    link: 'agent'
-  },
-  {
     title: 'Criteria',
     description: (
       <>

@@ -73,7 +73,7 @@ query {
   }
 }
 ```
-You can go to this [link](/api) in order to learn more about using the GraphQL API
+You can go to this [link](/machine/api/api-token) in order to learn more about using the GraphQL API
 to access all of the information in the ASM.
 
 And then, we also have the format for reporting line vulnerabilities:
