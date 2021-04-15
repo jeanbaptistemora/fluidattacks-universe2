@@ -197,6 +197,9 @@ module.exports = {
       ],
     },
   ],
+  Squad: [
+    'squad/introduction',
+  ],
   Types: [
     'types/introduction',
     'types/f001',
@@ -209,6 +212,9 @@ module.exports = {
     'types/f008',
     'types/f009',
     'types/f037',
+  ],
+  Security: [
+    'security/introduction',
   ],
   Framework: {
     Framework: getDocs('framework'),
