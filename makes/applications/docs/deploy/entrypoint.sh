@@ -17,7 +17,7 @@ function main {
         &&  return 1
       fi \
   &&  pushd "${src}" \
-    &&  "aws_login_${env}" makes \
+    &&  "aws_login_${env}" docs \
     &&  copy "__envRuntime__/node_modules" node_modules \
     &&  npm run build \
     &&  aws s3 sync build "${bucket}" --delete --exclude "multimedia/*" \

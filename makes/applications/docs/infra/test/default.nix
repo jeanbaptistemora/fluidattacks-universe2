@@ -3,7 +3,7 @@
 }:
 terraformTest {
   name = "docs-infra-test";
-  product = "makes";
+  product = "docs";
   target = "docs/infra/terraform";
-  secretsPath = "makes/applications/makes/secrets/src/development.yaml";
+  secretsPath = "docs/secrets/dev.yaml";
 }
