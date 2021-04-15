@@ -123,6 +123,13 @@ module.exports = {
           'criteria/files/r039',
         ],
     },
+    {
+      type: 'category',
+        label: 'Logs',
+        items: [
+          'criteria/logs/r075',
+        ],
+    },
   ],
   Machine: [
     {
