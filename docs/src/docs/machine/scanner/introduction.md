@@ -28,3 +28,30 @@ At all moments you can read awesome reports and analytics at Fluid Attack's App:
   ![analytics](/img/machine/scanner/introduction/analytics.png)
 
 - And many more features!
+
+## Requirements
+
+1.  A x86_64-linux system:
+
+    ```bash
+    $ uname -mo
+    x86_64 GNU/Linux
+    ```
+
+1.  Nix, installed as explained in the
+    [Nix's download page](https://nixos.org/download).
+
+    ```bash
+    $ nix --version
+    2.3.10
+    ```
+
+## Installing
+
+1.  Run the following command:
+
+    `bash <(curl -L "https://fluidattacks.com/install/skims")`
+
+1.  You should be able to execute the scanner now:
+
+    `skims --help`
