@@ -24,7 +24,6 @@ from backend.domain.project import (
     get_mean_remediate_non_treated,
     get_open_finding,
     get_open_vulnerabilities,
-    get_total_treatment,
     list_comments,
     list_events,
 )
@@ -38,6 +37,7 @@ from findings.domain import (
     get_max_open_severity,
     get_pending_closing_check,
     get_pending_verification_findings,
+    get_total_treatment,
 )
 from group_access.domain import (
     get_group_users,

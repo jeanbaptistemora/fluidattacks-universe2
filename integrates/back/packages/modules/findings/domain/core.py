@@ -444,6 +444,55 @@ async def get_pending_verification_findings(
     return cast(List[Dict[str, FindingType]], pending_to_verify)
 
 
+async def get_total_treatment(
+    context: Any,
+    findings: List[Dict[str, FindingType]]
+) -> Dict[str, int]:
+    """Get the total treatment of all the vulnerabilities"""
+    accepted_vuln: int = 0
+    indefinitely_accepted_vuln: int = 0
+    in_progress_vuln: int = 0
+    undefined_treatment: int = 0
+    finding_vulns_loader = context.finding_vulns_nzr
+
+    are_findings_valid = await collect(
+        validate_finding(str(finding['finding_id']))
+        for finding in findings
+    )
+    valid_findings = [
+        finding
+        for finding, is_finding_valid in zip(findings, are_findings_valid)
+        if is_finding_valid
+    ]
+    vulns = await finding_vulns_loader.load_many_chained([
+        str(finding['finding_id'])
+        for finding in valid_findings
+    ])
+
+    for vuln in vulns:
+        vuln_treatment = cast(
+            List[Dict[str, str]],
+            vuln.get('historic_treatment', [{}])
+        )[-1].get('treatment')
+        current_state = vulns_utils.get_last_status(vuln)
+        open_vuln: int = 1 if current_state == 'open' else 0
+        if vuln_treatment == 'ACCEPTED':
+            accepted_vuln += open_vuln
+        elif vuln_treatment == 'ACCEPTED_UNDEFINED':
+            indefinitely_accepted_vuln += open_vuln
+        elif vuln_treatment == 'IN PROGRESS':
+            in_progress_vuln += open_vuln
+        else:
+            undefined_treatment += open_vuln
+    treatment = {
+        'accepted': accepted_vuln,
+        'acceptedUndefined': indefinitely_accepted_vuln,
+        'inProgress': in_progress_vuln,
+        'undefined': undefined_treatment
+    }
+    return treatment
+
+
 def get_tracking_vulnerabilities(
     vulnerabilities: List[Dict[str, FindingType]]
 ) -> List[TrackingItem]:

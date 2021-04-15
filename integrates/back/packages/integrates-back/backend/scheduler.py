@@ -815,7 +815,7 @@ async def get_project_indicators(project: str) -> Dict[str, object]:
         'open_vulnerabilities': (
             await project_domain.get_open_vulnerabilities(context, project)
         ),
-        'total_treatment': await project_domain.get_total_treatment(
+        'total_treatment': await findings_domain.get_total_treatment(
             context,
             findings
         ),
