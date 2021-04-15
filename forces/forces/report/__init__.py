@@ -159,7 +159,7 @@ async def generate_report(
             vuln['where'],
             'specific':
             vuln['specific'],
-            'URL': ('https://integrates.fluidattacks.com/groups/'
+            'URL': ('https://app.fluidattacks.com/groups/'
                     f'{config.group}/vulns/{vuln["findingId"]}'),
             'state':
             state,

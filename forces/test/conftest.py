@@ -25,4 +25,4 @@ def test_token() -> Iterator[str]:
 
 @pytest.fixture(scope='session')
 def test_endpoint() -> Iterator[str]:
-    yield 'https://integrates.fluidattacks.com/api'
+    yield 'https://app.fluidattacks.com/api'
