@@ -24,6 +24,7 @@ import { getEnvironment } from "utils/environment";
 import { secureStore, secureStoreContext } from "utils/secureStore";
 import "react-toastify/dist/ReactToastify.min.css";
 import "tachyons/css/tachyons.min.css";
+import "tachyons-word-break/css/tachyons-word-break.min.css";
 
 const App: React.FC = (): JSX.Element => {
   const status: NetworkStatus = useApolloNetworkStatus();
