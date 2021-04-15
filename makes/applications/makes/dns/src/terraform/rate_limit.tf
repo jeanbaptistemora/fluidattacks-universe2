@@ -8,7 +8,7 @@ resource "cloudflare_rate_limit" "integrates_production" {
 
   match {
     request {
-      url_pattern = "integrates.${cloudflare_zone.fluidattacks_com.zone}/*"
+      url_pattern = "app.${cloudflare_zone.fluidattacks_com.zone}/*"
       schemes     = ["_ALL_"]
       methods     = ["_ALL_"]
     }
