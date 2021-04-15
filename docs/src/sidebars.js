@@ -119,6 +119,7 @@ module.exports = {
         label: 'Files',
         items: [
           'criteria/files/r036',
+          'criteria/files/r037',
         ],
     },
   ],
