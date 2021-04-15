@@ -96,6 +96,7 @@ module.exports = {
         label: 'Data',
         items: [
           'criteria/data/r176',
+          'criteria/data/r177',
         ],
     },
   ],
