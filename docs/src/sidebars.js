@@ -114,6 +114,13 @@ module.exports = {
           'criteria/system/r280',
         ],
     },
+    {
+      type: 'category',
+        label: 'Files',
+        items: [
+          'criteria/files/r036',
+        ],
+    },
   ],
   Machine: [
     {
