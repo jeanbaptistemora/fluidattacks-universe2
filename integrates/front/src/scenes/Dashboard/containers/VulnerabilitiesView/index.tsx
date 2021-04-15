@@ -43,28 +43,29 @@ const RowFilters: StyledComponent<
   "div",
   Record<string, unknown>
 > = styled.div.attrs({
-  className: "pt3 w-100-ns",
+  className:
+    "flex flex-wrap-reverse flex-row-reverse justify-between pt3 w-100-ns",
 })``;
 
 const Select: StyledComponent<
   "select",
   Record<string, unknown>
 > = styled.select.attrs({
-  className: `${style["form-control"]}`,
+  className: `${style["form-control"]} black-40 border-box`,
 })``;
 
 const SelectContainer: StyledComponent<
   "div",
   Record<string, unknown>
 > = styled.div.attrs({
-  className: "fr ph2 w-25-ns",
+  className: `${style["w-24-l"]} ${style["w-24-m"]} ${style["w-100-local"]}`,
 })``;
 
 const SearchText: StyledComponent<
   "input",
   Record<string, unknown>
 > = styled.input.attrs({
-  className: `${style["form-control"]}`,
+  className: `${style["form-control"]} black-40 border-box`,
 })``;
 
 const Small: StyledComponent<
@@ -241,7 +242,6 @@ export const VulnsView: React.FC = (): JSX.Element => {
                 <SelectContainer>
                   <Small>{t("searchFindings.tabVuln.searchText")}</Small>
                   <SearchText
-                    className={"black-40"}
                     defaultValue={textFilter}
                     onChange={onSearchChange}
                   />
@@ -257,7 +257,6 @@ export const VulnsView: React.FC = (): JSX.Element => {
                     )}
                   >
                     <Select
-                      className={"black-40"}
                       defaultValue={treatmentFilter}
                       onChange={onTreatmentChange}
                     >
@@ -292,7 +291,6 @@ export const VulnsView: React.FC = (): JSX.Element => {
                     )}
                   >
                     <Select
-                      className={"black-40"}
                       defaultValue={verificationFilter}
                       onChange={onVerificationChange}
                     >
@@ -313,7 +311,6 @@ export const VulnsView: React.FC = (): JSX.Element => {
                     message={t("searchFindings.tabVuln.statusTooltip")}
                   >
                     <Select
-                      className={"black-40"}
                       defaultValue={currentStatusFilter}
                       onChange={onStatusChange}
                     >
