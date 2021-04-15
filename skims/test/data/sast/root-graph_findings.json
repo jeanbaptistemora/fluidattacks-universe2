@@ -724,19 +724,6 @@
       },
       "path": "skims/test/data/lib_path/f031_cwe378/Test.java",
       "syntax": {
-        "13": [
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "21",
-              "value": null
-            },
-            "type": "SyntaxStepDeclaration",
-            "var": "args",
-            "var_type": "String[]"
-          }
-        ],
         "25": [
           {
             "meta": {
@@ -2173,6 +2160,7 @@
               "n_id": "23",
               "value": null
             },
+            "modifiers": [],
             "type": "SyntaxStepDeclaration",
             "var": "request",
             "var_type": "HttpServletRequest"
@@ -2184,6 +2172,7 @@
               "n_id": "27",
               "value": null
             },
+            "modifiers": [],
             "type": "SyntaxStepDeclaration",
             "var": "response",
             "var_type": "HttpServletResponse"
@@ -2291,6 +2280,7 @@
               "n_id": "50",
               "value": null
             },
+            "modifiers": null,
             "type": "SyntaxStepDeclaration",
             "var": "theCookie",
             "var_type": "javax.servlet.http.Cookie[]"
@@ -2341,6 +2331,7 @@
               "n_id": "63",
               "value": null
             },
+            "modifiers": null,
             "type": "SyntaxStepDeclaration",
             "var": "param",
             "var_type": "String"
@@ -2384,6 +2375,7 @@
               "n_id": "85",
               "value": null
             },
+            "modifiers": null,
             "type": "SyntaxStepDeclaration",
             "var": "fileName",
             "var_type": "String"
@@ -2427,6 +2419,7 @@
               "n_id": "95",
               "value": null
             },
+            "modifiers": null,
             "type": "SyntaxStepDeclaration",
             "var": "fis",
             "var_type": "java.io.FileInputStream"

@@ -33,6 +33,7 @@ from sast_syntax_readers.java import (
     identifier as java_identifier,
     if_statement as java_if_statement,
     instanceof_expression as java_instanceof_expression,
+    lambda_expression,
     literal as java_literal,
     local_variable_declaration as java_local_variable_declaration,
     method_declaration as java_method_declaration,
@@ -277,6 +278,17 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
         },
         syntax_readers=(
             java_method_invocation.reader,
+        ),
+    ),
+    Dispatcher(
+        applicable_languages={
+            graph_model.GraphShardMetadataLanguage.JAVA,
+        },
+        applicable_node_label_types={
+            'lambda_expression',
+        },
+        syntax_readers=(
+            lambda_expression.reader,
         ),
     ),
     Dispatcher(

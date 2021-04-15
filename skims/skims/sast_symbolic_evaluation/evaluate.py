@@ -31,6 +31,7 @@ from sast_symbolic_evaluation.cases import (
     declaration,
     if_,
     instanceof_expression,
+    lambda_expression,
     literal,
     method_invocation_chain,
     method_invocation,
@@ -198,6 +199,8 @@ EVALUATORS: Dict[object, Evaluator] = {
     ternary.evaluate,
     graph_model.SyntaxStepThis:
     no_op.evaluate,
+    graph_model.SyntaxStepLambdaExpression:
+    lambda_expression.evaluate,
 }
 
 

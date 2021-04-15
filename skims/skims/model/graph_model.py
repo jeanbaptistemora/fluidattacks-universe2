@@ -19,6 +19,7 @@ from typing import (
     List,
     NamedTuple,
     Optional,
+    Set,
     Tuple,
 )
 
@@ -93,6 +94,7 @@ class SyntaxStepDeclaration(NamedTuple):
     meta: SyntaxStepMeta
     var: str
     var_type: str
+    modifiers: Optional[Set[str]] = None
 
     type: str = 'SyntaxStepDeclaration'
 
@@ -180,6 +182,12 @@ class SyntaxStepMethodInvocation(NamedTuple):
     current_instance: Optional[CurrentInstance] = None
 
     type: str = 'SyntaxStepMethodInvocation'
+
+
+class SyntaxStepLambdaExpression(NamedTuple):
+    meta: SyntaxStepMeta
+
+    type: str = 'SyntaxStepLambdaExpression'
 
 
 class SyntaxStepMethodInvocationChain(NamedTuple):
