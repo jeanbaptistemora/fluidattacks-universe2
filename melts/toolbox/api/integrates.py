@@ -36,7 +36,7 @@ Response = NamedTuple('Response', [('ok', bool),
 DEBUGGING: bool = False
 
 # Constants
-INTEGRATES_API_URL = 'https://integrates.fluidattacks.com/api'
+INTEGRATES_API_URL = 'https://app.fluidattacks.com/api'
 CACHE_SIZE: int = 4**8
 RETRY_MAX_ATTEMPTS: int = 3 if DEBUGGING else 12
 RETRY_RELAX_SECONDS: float = 3.0

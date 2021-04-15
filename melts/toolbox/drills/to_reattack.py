@@ -12,7 +12,7 @@ from toolbox.constants import API_TOKEN
 from toolbox.utils.function import shield
 from toolbox.api.integrates import Response
 
-BASE_URL: str = 'https://integrates.fluidattacks.com'
+BASE_URL: str = 'https://app.fluidattacks.com'
 
 
 def get_subs_unverified_findings(group: str = 'all') -> Response:

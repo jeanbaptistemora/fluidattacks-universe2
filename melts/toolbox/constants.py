@@ -12,5 +12,5 @@ LOGGER_DEBUG: bool = os.environ.get('LOGGER_DEBUG', 'false') == 'true'
 # Validations
 if not API_TOKEN:
     print('Please set INTEGRATES_API_TOKEN environment variable.')
-    print('  You can generate one at https://integrates.fluidattacks.com')
+    print('  You can generate one at https://app.fluidattacks.com')
     sys.exit(78)
