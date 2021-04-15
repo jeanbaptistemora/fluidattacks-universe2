@@ -35,8 +35,7 @@ In order to verify the OWASP benchmark results we'll need to:
     ```
 
 1.  Get a copy of our source code.
-    In this tutorial we will clone it into ~/Downloads/product.,
-    any folder owned by your user should work:
+    Cloning it into any folder owned by your user should work:
 
     ```bash
     $ git clone https://gitlab.com/fluidattacks/product fluidattacks
