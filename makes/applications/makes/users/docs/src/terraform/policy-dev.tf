@@ -10,6 +10,8 @@ data "aws_iam_policy_document" "dev" {
     resources = [
       "arn:aws:s3:::doc.fluidattacks.com/*",
       "arn:aws:s3:::doc.fluidattacks.com",
+      "arn:aws:s3:::docs.fluidattacks.com/*",
+      "arn:aws:s3:::docs.fluidattacks.com",
     ]
   }
 
@@ -26,6 +28,23 @@ data "aws_iam_policy_document" "dev" {
     resources = [
       "arn:aws:s3:::doc-dev.fluidattacks.com/*",
       "arn:aws:s3:::doc-dev.fluidattacks.com",
+      "arn:aws:s3:::docs-dev.fluidattacks.com/*",
+      "arn:aws:s3:::docs-dev.fluidattacks.com",
+    ]
+  }
+
+  # S3 upload multimedia
+  statement {
+    effect = "Allow"
+    actions = [
+      "s3:ListBucket",
+      "s3:Get*",
+      "s3:PutObject",
+      "s3:PutObjectAcl",
+    ]
+    resources = [
+      "arn:aws:s3:::docs.fluidattacks.com/multimedia/*",
+      "arn:aws:s3:::docs.fluidattacks.com",
     ]
   }
 
