@@ -171,6 +171,7 @@ module.exports = {
       type: 'category',
       label: 'Scanner',
       items: [
+        'machine/scanner/introduction',
         'machine/scanner/benchmark',
         'machine/scanner/reproducibility',
         'machine/scanner/results',
