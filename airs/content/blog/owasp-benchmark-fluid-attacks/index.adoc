@@ -166,6 +166,6 @@ To conclude, as anyone can use the OWASP Benchmark
 to evaluate any application security testing tool,
 if you are among the customers or stakeholders
 who want to prove for themselves that our results are authentic,
-link:https://doc.fluidattacks.com/owasp-benchmark/transparency[you can follow this guide].
+link:https://docs.fluidattacks.com/owasp-benchmark/transparency[you can follow this guide].
 Additionally, if you want to learn more about our tool,
 don't hesitate to link:../../contact-us/[contact us]!
