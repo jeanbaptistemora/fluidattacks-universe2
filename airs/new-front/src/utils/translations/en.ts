@@ -7,7 +7,7 @@ const pageTexts: ResourceKey = {
       "APPLICATION SECURE.  ",
     homeGrayPhrase:
       "FLUID ATTACKS PERFORMS COMPREHENSIVE HACKING AT THE SPEED OF YOUR " +
-      "BUSINESS, OFFERING THE COMBINED ADVANTAGES OF HUMAN KNOWLEDGE," +
+      "BUSINESS, OFFERING THE COMBINED ADVANTAGES OF HUMAN KNOWLEDGE, " +
       "AUTOMATION AND AI.",
     homeSmallPhrase:
       "We provide speed, precision and scalability to hacking " +
