@@ -442,6 +442,34 @@ async def update_git_root_toe_lines(
     )
 
 
+async def create_git_root_toe_input(
+    *,
+    root_toe_input: GitRootToeInputItem
+) -> None:
+    key_structure = TABLE.primary_key
+    facet = TABLE.facets['root_toe_input']
+    toe_input_key = keys.build_key(
+        facet=facet,
+        values={
+            'component': root_toe_input.component,
+            'entry_point': root_toe_input.entry_point,
+            'group_name': root_toe_input.group_name,
+        }
+    )
+    toe_input = {
+        key_structure.partition_key: toe_input_key.partition_key,
+        key_structure.sort_key: toe_input_key.sort_key,
+        **dict(root_toe_input._asdict())
+    }
+    condition_expression = Attr(key_structure.partition_key).not_exists()
+    await operations.put_item(
+        condition_expression=condition_expression,
+        facet=facet,
+        item=toe_input,
+        table=TABLE
+    )
+
+
 async def delete_git_root_toe_input(
     *,
     entry_point: str,
