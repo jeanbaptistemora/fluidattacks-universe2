@@ -141,6 +141,13 @@ module.exports = {
           'criteria/emails/r117',
         ],
     },
+    {
+      type: 'category',
+        label: 'Services',
+        items: [
+          'criteria/services/r265',
+        ],
+    },
   ],
   Machine: [
     {
