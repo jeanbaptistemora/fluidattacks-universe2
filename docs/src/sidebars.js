@@ -147,6 +147,7 @@ module.exports = {
         items: [
           'criteria/services/r262',
           'criteria/services/r265',
+          'criteria/services/r330',
         ],
     },
   ],
