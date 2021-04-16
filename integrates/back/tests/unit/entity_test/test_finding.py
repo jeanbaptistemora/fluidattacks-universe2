@@ -131,7 +131,6 @@ async def test_finding():
           records
           severity
           cvssVersion
-          exploit
           evidence
           consulting {
               id
@@ -218,7 +217,6 @@ async def test_finding():
     assert result['data']['finding']['severity']['attackComplexity'] == 0.77
     assert result['data']['finding']['severity']['remediationLevel'] == 0.97
     assert result['data']['finding']['cvssVersion'] == "3.1"
-    assert 'It works' in result['data']['finding']['exploit']
     assert 'evidence' in result['data']['finding']
     assert 'evidence1' in result['data']['finding']['evidence']
     assert 'consulting' in result['data']['finding']
@@ -626,7 +624,6 @@ async def test_non_existing_finding():
       query GetFindingHeader($findingId: String!) {
         finding(identifier: $findingId) {
           closedVulns: closedVulnerabilities
-          exploit
           id
           openVulns: openVulnerabilities
           releaseDate

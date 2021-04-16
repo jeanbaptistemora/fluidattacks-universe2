@@ -5,7 +5,6 @@ from collections import OrderedDict
 from findings.dal import get_finding
 from findings.domain import (
     download_evidence_file,
-    get_exploit_from_file,
     get_records_from_file,
 )
 from newutils.findings import (
@@ -74,13 +73,6 @@ async def test_get_records_from_file():
 
     assert test_data == expected_output
 
-async def test_get_exploit_from_file():
-    project_name = 'unittesting'
-    finding_id = '422286126'
-    file_name = 'unittesting-422286126-exploit.py'
-    test_data = await get_exploit_from_file(project_name, finding_id, file_name)
-    expected_output = 'print "It works!"\n'
-    assert test_data == expected_output
 
 async def test_format_data():
     finding_id = '422286126'
@@ -88,7 +80,7 @@ async def test_format_data():
     test_data = list(format_data(finding_to_test).keys())
     expected_keys = [
         'context', 'modifiedSeverityScope', 'availabilityRequirement',
-        'evidence', 'availabilityImpact','exploit',
+        'evidence', 'availabilityImpact',
         'modifiedPrivilegesRequired',
         'modifiedAttackVector', 'testType', 'id', 'affectedSystems',
         'attackVectorDesc', 'requirements', 'severity', 'cvssBasescore',

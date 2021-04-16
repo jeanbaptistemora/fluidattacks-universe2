@@ -418,16 +418,6 @@
               {
                 "M": {
                   "name": {
-                    "S": "exploit"
-                  },
-                  "file_url": {
-                    "S": "unittesting-422286126-exploit.py"
-                  }
-                }
-              },
-              {
-                "M": {
-                  "name": {
                     "S": "evidence_route_5"
                   },
                   "description": {
@@ -2064,16 +2054,6 @@
               {
                 "M": {
                   "name": {
-                    "S": "exploit"
-                  },
-                  "file_url": {
-                    "S": "unittesting-457497316-exploit.py"
-                  }
-                }
-              },
-              {
-                "M": {
-                  "name": {
                     "S": "evidence_route_2"
                   },
                   "description": {
@@ -2764,16 +2744,6 @@
                   },
                   "file_url": {
                     "S": "oneshottest-457497318-evidence_route_1"
-                  }
-                }
-              },
-              {
-                "M": {
-                  "name": {
-                    "S": "exploit"
-                  },
-                  "file_url": {
-                    "S": "unittesting-457497318-exploit.py"
                   }
                 }
               },

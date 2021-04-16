@@ -80,7 +80,6 @@ async def test_finding():
             'userInteraction': 0.62
         },
         'cvss_version': '3.1',
-        'exploit': '',
         'evidence': {
             'animation': {
                 'url': '',
@@ -182,7 +181,6 @@ async def test_finding():
             records
             severity
             cvssVersion
-            exploit
             evidence
             state
             lastVulnerability
@@ -236,7 +234,6 @@ async def test_finding():
     assert result['data']['finding']['records'] == expected_output.get('records')
     assert result['data']['finding']['severity'] == expected_output.get('severity')
     assert result['data']['finding']['cvssVersion'] == expected_output.get('cvss_version')
-    assert result['data']['finding']['exploit'] == expected_output.get('exploit')
     assert result['data']['finding']['evidence'] == expected_output.get('evidence')
     assert result['data']['finding']['state'] == expected_output.get('state')
     assert result['data']['finding']['title'] == expected_output.get('title')

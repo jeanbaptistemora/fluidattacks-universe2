@@ -214,7 +214,6 @@ async def test_finding():
             records
             severity
             cvssVersion
-            exploit
             evidence
             state
             lastVulnerability
@@ -301,7 +300,6 @@ async def test_finding():
         'userInteraction': 0.85
     }
     assert result['data']['finding']['cvssVersion'] == '3.1'
-    assert result['data']['finding']['exploit'] == ''
     assert len(result['data']['finding']['evidence']) == 7
     assert result['data']['finding']['evidence']['evidence2']['description'] == evidence2_description
     assert f'unittesting-{finding_id}' in result['data']['finding']['evidence']['evidence2']['url']
