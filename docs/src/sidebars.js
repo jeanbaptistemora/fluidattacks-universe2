@@ -156,6 +156,7 @@ module.exports = {
         items: [
           'criteria/certificates/r088',
           'criteria/certificates/r089',
+          'criteria/certificates/r090',
         ],
     },
   ],
