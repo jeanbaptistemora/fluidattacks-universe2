@@ -31,6 +31,8 @@ const Container: StyledComponent<
     mw-1366
     ph-body
     center
+    mb1-l
+    mb6
   `,
 })``;
 

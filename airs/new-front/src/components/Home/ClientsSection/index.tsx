@@ -36,7 +36,6 @@ const Container: StyledComponent<
   className: `
     h-500
     mw-1366
-    ph-body
     center
     flex-l
   `,
@@ -61,7 +60,8 @@ const ClientsTitle: StyledComponent<
     tl
     fw7
     c-fluid-bk
-    pa4
+    pv4
+    ph-body
   `,
 })``;
 
@@ -111,6 +111,7 @@ const DefinitionContainer: StyledComponent<
 > = styled.div.attrs({
   className: `
     pa6-l
+    ph-body
   `,
 })``;
 
