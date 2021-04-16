@@ -337,7 +337,7 @@ def _build_git_root_toe_lines(
     key_structure: PrimaryKey,
     item: Item,
 ) -> GitRootToeLinesItem:
-    sort_key_items = item[key_structure.sort_key].split('#')
+    sort_key_items = item[key_structure.sort_key].split('#', 4)
     root_id = sort_key_items[2]
     filename = sort_key_items[4]
     return GitRootToeLinesItem(

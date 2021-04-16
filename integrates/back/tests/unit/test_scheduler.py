@@ -405,7 +405,7 @@ async def test_toe_lines_etl():
     assert group_toe_lines == (
         GitRootToeLines(
             comments='comment test',
-            filename='product/test/test.config',
+            filename='product/test/test#.config',
             group_name='unittesting',
             loc=8,
             modified_commit='983466z',
@@ -437,7 +437,7 @@ async def test_toe_lines_etl():
     assert group_toe_lines == (
         GitRootToeLines(
             comments='comment test 2',
-            filename='product/test/test.config',
+            filename='product/test/test#.config',
             group_name='unittesting',
             loc=8,
             modified_commit='983466z',

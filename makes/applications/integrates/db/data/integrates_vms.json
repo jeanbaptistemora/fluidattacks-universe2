@@ -227,7 +227,7 @@
         "Item": {
           "pk": { "S": "GROUP#unittesting" },
           "sk": {
-            "S": "LINES#ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19#FILENAME#product/test/test.config"
+            "S": "LINES#ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19#FILENAME#product/test/test#.config"
           },
           "modified_date": { "S": "2019-08-01T00:00:00-05:00" },
           "comments": { "S": "comment test" },

@@ -570,7 +570,7 @@ async def test_get_toe_lines() -> None:
         'id': '4039d098-ffc5-4984-8ed3-eb17bca98e19',
         'toeLines': [
           {
-            'filename': 'product/test/test.config',
+            'filename': 'product/test/test#.config',
             'modifiedDate': '2019-08-01T00:00:00-05:00',
             'modifiedCommit': '983466z',
             'loc': 8,
