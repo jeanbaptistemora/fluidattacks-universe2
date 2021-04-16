@@ -142,7 +142,11 @@ async def put_item(
         )
         args = {
             'ConditionExpression': condition_expression,
-            'Item': facet_item
+            'Item': {
+                attr: value
+                for attr, value in facet_item.items()
+                if value is not None
+            }
         }
 
         await table_resource.put_item(**_exclude_none(args=args))
@@ -162,27 +166,49 @@ async def batch_write_item(*, items: Tuple[Item, ...], table: Table) -> None:
 async def update_item(
     *,
     condition_expression: Optional[ConditionBase] = None,
+    facet: Facet,
     item: Item,
     key: PrimaryKey,
     table: Table
 ) -> None:
     key_structure = table.primary_key
-    update_attrs = ','.join(f'#{attr} = :{attr}' for attr in item)
+    facet_item = _build_facet_item(
+        facet=facet,
+        item=item,
+        table=table
+    )
+    attr_names = {f'#{attr}': attr for attr in facet_item}
+    attr_values = {
+        f':{attr}': value
+        for attr, value in facet_item.items()
+        if value is not None
+    }
+    attrs_to_update = ','.join(
+        f'#{attr} = :{attr}'
+        for attr, value in facet_item.items()
+        if value is not None
+    )
+    attrs_to_remove = ','.join(
+        f'#{attr}'
+        for attr, value in facet_item.items()
+        if value is None
+    )
+    actions = (
+        f'SET {attrs_to_update}',
+        f'REMOVE {attrs_to_remove}'
+    )
 
     async with aioboto3.resource(**RESOURCE_OPTIONS) as resource:
         table_resource: CustomTableResource = await resource.Table(table.name)
         args = {
             'ConditionExpression': condition_expression,
-            'ExpressionAttributeNames': {f'#{attr}': attr for attr in item},
-            'ExpressionAttributeValues': {
-                f':{attr}': value
-                for attr, value in item.items()
-            },
+            'ExpressionAttributeNames': attr_names,
+            'ExpressionAttributeValues': attr_values,
             'Key': {
                 key_structure.partition_key: key.partition_key,
                 key_structure.sort_key: key.sort_key
             },
-            'UpdateExpression': f'SET {update_attrs}'
+            'UpdateExpression': ' '.join(actions)
         }
 
         await table_resource.update_item(**_exclude_none(args=args))
