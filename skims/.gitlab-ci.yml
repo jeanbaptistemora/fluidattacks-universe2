@@ -139,10 +139,16 @@ skims.test.benchmark_weakrand:
 skims.test.functional:
   <<: *skims_test
 
+skims.test.instance_references:
+  <<: *skims_test
+
 skims.test.lib_http:
   <<: *skims_test
 
 skims.test.unittesting:
+  <<: *skims_test
+
+skims.test.vulnerableapp:
   <<: *skims_test
 
 skims.docs.deploy:

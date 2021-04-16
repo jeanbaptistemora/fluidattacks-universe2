@@ -1,0 +1,6 @@
+title,what,where,cwe
+F001. SQL injection - Java SQL API,OWASP/src/main/java/org/sasanlabs/service/vulnerability/sqlInjection/BlindSQLInjectionVulnerability.java,55,89
+F001. SQL injection - Java SQL API,OWASP/src/main/java/org/sasanlabs/service/vulnerability/sqlInjection/BlindSQLInjectionVulnerability.java,81,89
+F001. SQL injection - Java SQL API,OWASP/src/main/java/org/sasanlabs/service/vulnerability/sqlInjection/UnionBasedSQLInjectionVulnerability.java,101,89
+F001. SQL injection - Java SQL API,OWASP/src/main/java/org/sasanlabs/service/vulnerability/sqlInjection/UnionBasedSQLInjectionVulnerability.java,49,89
+F001. SQL injection - Java SQL API,OWASP/src/main/java/org/sasanlabs/service/vulnerability/sqlInjection/UnionBasedSQLInjectionVulnerability.java,76,89

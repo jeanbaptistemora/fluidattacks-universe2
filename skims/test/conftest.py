@@ -47,6 +47,7 @@ TEST_GROUPS = {
     'instance_references',
     'lib_http',
     'unittesting',
+    'vulnerableapp',
 }
 
 # Side effects

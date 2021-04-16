@@ -68,9 +68,23 @@ def _mark_java_inputs(
         findings.F063_TRUSTBOUND,
         findings.F107,
     ):
-        _mark_function_arg(finding, graph, syntax, build_attr_paths(
-            'javax', 'servlet', 'http', 'HttpServletRequest',
-        ))
+        danger_args = {
+            *build_attr_paths(
+                'javax',
+                'servlet',
+                'http',
+                'HttpServletRequest',
+            ), *build_attr_paths(
+                'org',
+                'springframework',
+                'web',
+                'bind',
+                'annotation',
+                'RequestParam',
+            )
+        }
+        _mark_function_arg(finding, graph, syntax, danger_args)
+
     _mark_methods_input(findings.F034, graph, syntax, {
         'java.lang.Math.random',
     })
@@ -198,7 +212,10 @@ def _mark_function_arg(
     for syntax_steps in graph_syntax.values():
         for syntax_step in syntax_steps:
             if isinstance(syntax_step, graph_model.SyntaxStepDeclaration):
-                if syntax_step.var_type in dangerous_types:
+                if syntax_step.var_type in dangerous_types or (
+                    syntax_step.modifiers
+                    and syntax_step.modifiers.intersection(dangerous_types)
+                ):
                     _append_label_input(graph, syntax_step.meta.n_id, finding)
 
 

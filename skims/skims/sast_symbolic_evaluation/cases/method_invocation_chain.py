@@ -95,8 +95,12 @@ def attempt_as_method_invocation(args: EvaluatorArgs) -> bool:
     *_, parent = args.dependencies
 
     if isinstance(parent, graph_model.SyntaxStepMethodInvocation):
-        method = parent.method + args.syntax_step.method
-        analyze_method_invocation(args, method)
+        if parent.meta.danger:
+            args.syntax_step.meta.danger = True
+        else:
+            method = parent.method + args.syntax_step.method
+            analyze_method_invocation(args, method)
+
         return True
 
     return False

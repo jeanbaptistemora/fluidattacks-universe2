@@ -1,7 +1,7 @@
 checks:
 - F034
 namespace: OWASP
-output: skims/test/data/results/instance_references.csv
+output: skims/test/outputs/instance_references.csv
 path:
   include:
   - src/App.java

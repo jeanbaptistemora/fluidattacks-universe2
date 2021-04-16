@@ -273,6 +273,12 @@ def test_instance_reference() -> None:
     _run_no_group('instance_references')
 
 
+@pytest.mark.flaky(reruns=0)
+@pytest.mark.skims_test_group('vulnerableapp')
+def test_vulnerableapp() -> None:
+    _run_no_group('vulnerableapp')
+
+
 def _run_no_group(suite: str) -> None:
     code, stdout, stderr = skims(get_suite_config(suite))
     assert code == 0, stdout

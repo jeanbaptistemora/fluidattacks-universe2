@@ -34,9 +34,19 @@ def _syntax_step_declaration_danger(args: EvaluatorArgs) -> None:
     danger_types = {
         'javax.servlet.http.HttpServletRequest'
     }
-    bind_danger = (
-        args.finding in no_trust_findings
-        and args.syntax_step.var_type in complete_attrs_on_set(danger_types)
+    danger_modifiers = {
+        'org.springframework.web.bind.annotation.RequestParam',
+    }
+    bind_danger = args.finding in no_trust_findings and (
+        args.syntax_step.var_type in complete_attrs_on_set(danger_types)
+        or (
+            args.syntax_step.modifiers
+            and bool(
+                complete_attrs_on_set(danger_modifiers).intersection(
+                    args.syntax_step.modifiers
+                )
+            )
+        )
     )
 
     # Local context

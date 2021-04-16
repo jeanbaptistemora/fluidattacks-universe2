@@ -1,0 +1,10 @@
+checks:
+- F001_JAVA_SQL
+namespace: OWASP
+output: skims/test/outputs/vulnerableapp.csv
+path:
+  include:
+  - src/main/java/org/sasanlabs/service/vulnerability/sqlInjection
+  lib_path: false
+  lib_root: true
+working_dir: ../VulnerableApp/

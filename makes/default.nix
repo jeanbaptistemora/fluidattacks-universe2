@@ -48,6 +48,10 @@ let
       url = "https://github.com/owasp/benchmark/archive/b38d197949f775b3c165029bda9dc6bd890265fb.tar.gz";
       sha256 = "vAWzTEc48sny46Y+hsv7yw1gNoQ9rBO6JL07RejRoUw=";
     };
+    skimsVulnerableAppRepo = fetchzip {
+      url = "https://github.com/SasanLabs/VulnerableApp/archive/f5334e84faadbfb4beec42849a2e8acc5e37a276.tar.gz";
+      sha256 = "gVY9VPo0+2xHdbME61MH/JaMP8pyqWh5k7im3O8hNAc=";
+    };
 
     # Nix packages
     nixpkgs = import nixpkgsSource {

@@ -107,6 +107,15 @@ BY_OBJ: Dict[str, Set[str]] = _complete_attrs_on_dict({
     'java.sql.PreparedStatement': {
         'execute',
     },
+    'org.springframework.jdbc.core.JdbcTemplate':
+    {
+        'query',
+        'queryForList',
+        'queryForMap',
+        'queryForObject',
+        'queryForRowSet',
+        'queryForStream',
+    },
     'java.util.Enumeration': {
         'nextElement',
     },
