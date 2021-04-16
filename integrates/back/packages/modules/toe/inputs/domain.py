@@ -8,6 +8,10 @@ from data_containers.toe_inputs import GitRootToeInput
 from toe.inputs import dal as toe_inputs_dal
 
 
+async def add(root_toe_input: GitRootToeInput) -> None:
+    await toe_inputs_dal.create(root_toe_input)
+
+
 async def delete(
     entry_point: str,
     component: str,
