@@ -281,6 +281,25 @@ module.exports = {
         'security/confidentiality/formatting-data',
       ],
     },
+    {
+      type: 'category',
+      label: 'Authentication',
+      items: [
+        'security/authentication/clients',
+        'security/authentication/internal',
+      ],
+    },
+    {
+      type: 'category',
+      label: 'Authorization',
+      items: [
+        'security/authorization/clients',
+        'security/authorization/internal',
+        'security/authorization/secret-rotation',
+        'security/authorization/access-revocation',
+        'security/authorization/secure-mobile-policies',
+      ],
+    },
   ],
   Framework: {
     Framework: getDocs('framework'),
