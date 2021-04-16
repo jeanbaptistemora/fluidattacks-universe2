@@ -44,6 +44,9 @@
   "F042": {
     "skims/test/data/sast/TestCFG.java": {}
   },
+  "F043_DAST_CSP": {
+    "skims/test/data/sast/TestCFG.java": {}
+  },
   "F043_DAST_RP": {
     "skims/test/data/sast/TestCFG.java": {}
   },
