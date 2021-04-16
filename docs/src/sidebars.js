@@ -138,6 +138,7 @@ module.exports = {
         items: [
           'criteria/emails/r115',
           'criteria/emails/r116',
+          'criteria/emails/r117',
         ],
     },
   ],
