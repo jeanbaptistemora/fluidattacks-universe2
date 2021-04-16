@@ -57,18 +57,6 @@ async def download_evidence_file(
     raise Exception('Evidence not found')
 
 
-async def get_exploit_from_file(
-    group_name: str,
-    finding_id: str,
-    file_name: str
-) -> str:
-    file_path = await download_evidence_file(group_name, finding_id, file_name)
-    file_content = ''
-    with open(file_path, 'r') as exploit_file:
-        file_content = exploit_file.read()
-    return file_content
-
-
 async def get_records_from_file(
     group_name: str,
     finding_id: str,

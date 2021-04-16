@@ -37,7 +37,6 @@ from .draft import (
 )
 from .evidence import (
     download_evidence_file,
-    get_exploit_from_file,
     get_records_from_file,
     remove_evidence,
     update_evidence,
@@ -86,7 +85,6 @@ __all__ = [
 
     # evidences
     'download_evidence_file',
-    'get_exploit_from_file',
     'get_records_from_file',
     'remove_evidence',
     'update_evidence',

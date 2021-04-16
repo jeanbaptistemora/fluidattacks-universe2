@@ -15,7 +15,6 @@ type Finding {
   cweUrl: String
   description: String
   evidence: GenericScalar
-  exploit: String
   historicState: [GenericScalar]
   id: String
   inputsVulns: [Vulnerability]

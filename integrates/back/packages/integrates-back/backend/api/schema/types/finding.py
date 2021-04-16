@@ -10,7 +10,6 @@ from backend.api.resolvers.finding import (
     analyst,
     closed_vulnerabilities,
     consulting,
-    exploit,
     historic_state,
     inputs_vulns,
     last_vulnerability,
@@ -38,7 +37,6 @@ FINDING.set_field('age', age.resolve)
 FINDING.set_field('analyst', analyst.resolve)
 FINDING.set_field('closedVulnerabilities', closed_vulnerabilities.resolve)
 FINDING.set_field('consulting', consulting.resolve)
-FINDING.set_field('exploit', exploit.resolve)
 FINDING.set_field('historicState', historic_state.resolve)
 FINDING.set_field('inputsVulns', inputs_vulns.resolve)
 FINDING.set_field('lastVulnerability', last_vulnerability.resolve)

@@ -186,7 +186,6 @@ def format_data(finding: Dict[str, FindingType]) -> Dict[str, FindingType]:
     }
     finding['compromisedAttrs'] = finding.get('records', '')
     finding['records'] = get_evidence('fileRecords', finding_files, finding)
-    finding['exploit'] = get_evidence('exploit', finding_files, finding)
 
     cvss_fields = {
         '2': [

@@ -60,7 +60,6 @@ ENTITIES: Dict[str, Dict[str, Set[str]]] = dict(
             'age',
             'closed_vulns',
             'consulting',
-            'exploit',
             'inputs_vulns',
             'last_vulnerability',
             'lines_vulns',
