@@ -48,3 +48,22 @@ async def test_get_by_group() -> None:
             vulns='FIN.S.0003.Test'
         ),
     )
+
+
+async def test_add() -> None:
+    group_name = 'unittesting'
+    toe_input = GitRootToeInput(
+        commit='g42343f',
+        component='test.com/test/new.aspx',
+        created_date='2000-01-01T00:00:00-05:00',
+        entry_point='btnTest',
+        group_name=group_name,
+        seen_first_time_by='new@test.com',
+        tested_date='2021-02-12T00:00:00-05:00',
+        verified='Yes',
+        vulns='New vulns'
+    )
+    await toe_inputs_domain.add(toe_input)
+    group_toe_inputs = await toe_inputs_domain.get_by_group(group_name)
+    assert toe_input in group_toe_inputs
+        
