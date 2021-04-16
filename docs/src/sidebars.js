@@ -301,6 +301,33 @@ module.exports = {
         'security/authorization/secure-mobile-policies',
       ],
     },
+    {
+      type: 'category',
+      label: 'Non-repudiation',
+      items: [
+        'security/non-repudiation/everything-as-code',
+        'security/non-repudiation/extensive-logs'
+      ],
+    },
+    {
+      type: 'category',
+      label: 'Availability',
+      items: [
+        'security/availability/distributed-applications',
+        'security/availability/distributed-firewall',
+        'security/availability/forever-lasting-backups',
+        'security/availability/everything-backed-up',
+      ],
+    },
+    {
+      type: 'category',
+      label: 'Resilience',
+      items: [
+        'security/resilience/redundant-roles',
+        'security/resilience/everything-decentralized',
+        'security/resilience/equipment-telecommuting',
+      ],
+    },
   ],
   Framework: {
     Framework: getDocs('framework'),
