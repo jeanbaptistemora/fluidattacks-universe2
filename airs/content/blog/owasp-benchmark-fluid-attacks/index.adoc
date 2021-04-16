@@ -80,7 +80,7 @@ however, we would also be full of false positives, and it would be worthless.
 The same quality would be valid for a tool with zero false positives
 but which cannot detect any vulnerability.
 Finally, it would be useless to have a tool
-that randomly has 50% false positives and 50% false positives.
+that randomly has 50% true positives and 50% false positives.
 See the following chart:
 
 .link:https://raw.githubusercontent.com/OWASP/Benchmark/master/src/main/resources/scorecard/content/benchmark_guide.png[OWASP Benchmark Results Interpretation Guide].
