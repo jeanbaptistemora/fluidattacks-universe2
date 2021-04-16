@@ -155,6 +155,7 @@ module.exports = {
         label: 'Certificates',
         items: [
           'criteria/certificates/r088',
+          'criteria/certificates/r089',
         ],
     },
   ],
