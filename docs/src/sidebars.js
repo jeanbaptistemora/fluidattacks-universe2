@@ -145,6 +145,7 @@ module.exports = {
       type: 'category',
         label: 'Services',
         items: [
+          'criteria/services/r262',
           'criteria/services/r265',
         ],
     },
