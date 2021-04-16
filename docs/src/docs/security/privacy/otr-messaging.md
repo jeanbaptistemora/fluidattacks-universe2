@@ -1,0 +1,12 @@
+---
+id: otr-messaging
+title: OTR Messaging
+sidebar_label: OTR Messaging
+slug: /security/privacy/otr-messaging
+---
+
+We use a messaging system with [OTR](https://en.wikipedia.org/wiki/Off-the-Record_Messaging)
+and [E2EE](https://en.wikipedia.org/wiki/End-to-end_encryption) for communication within
+the organization. Also, all chat histories
+[are reset every week](https://fluidattacks.com/products/rules/list/183/)
+as an extra measure to avoid leaks.

@@ -321,6 +321,21 @@ module.exports = {
     },
     {
       type: 'category',
+      label: 'Privacy',
+      items: [
+        'security/privacy/project-pseudonymization',
+        'security/privacy/email-obfuscation',
+        'security/privacy/secure-data-delivery',
+        'security/privacy/unsubscribe-email',
+        'security/privacy/transparent-cookie-usage',
+        'security/privacy/data-policies',
+        'security/privacy/otr-messaging',
+        'security/privacy/employee-time-tracking',
+        'security/privacy/polygraph-tests',
+      ],
+    },
+    {
+      type: 'category',
       label: 'Non-repudiation',
       items: [
         'security/non-repudiation/everything-as-code',
@@ -344,6 +359,17 @@ module.exports = {
         'security/resilience/redundant-roles',
         'security/resilience/everything-decentralized',
         'security/resilience/equipment-telecommuting',
+      ],
+    },
+    {
+      type: 'category',
+      label: 'Integrity',
+      items: [
+        'security/integrity/certified-hackers',
+        'security/integrity/hiring-process',
+        'security/integrity/secure-emails',
+        'security/integrity/developing-integrity',
+        'security/integrity/static-website',
       ],
     },
   ],
