@@ -14,7 +14,8 @@ from back.tests import (
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group('create_organization')
 @pytest.fixture(autouse=True, scope='session')
-async def populate() -> bool:
+async def populate(get_generic_data: Dict[str, Any]) -> bool:
+    generic_data: Dict[str, Any] = get_generic_data
     data: Dict[str, Any] = {
         'names': [
             {
@@ -22,49 +23,7 @@ async def populate() -> bool:
                 'name': 'TESTORG',
             },
         ],
-        'users': [
-            {
-                'email': 'admin@gmail.com',
-                'first_login': '',
-                'first_name': '',
-                'last_login': '',
-                'last_name': '',
-                'legal_remember': False,
-                'phone_number': '-',
-                'push_tokens': [],
-                'is_registered': True,
-            },
-            {
-                'email': 'analyst@gmail.com',
-                'first_login': '',
-                'first_name': '',
-                'last_login': '',
-                'last_name': '',
-                'legal_remember': False,
-                'phone_number': '-',
-                'push_tokens': [],
-                'is_registered': True,
-            },
-        ],
-        'policies': [
-            {
-                'level': 'user',
-                'subject': 'admin@gmail.com',
-                'object': 'self',
-                'role': 'admin',
-            },
-            {
-                'level': 'user',
-                'subject': 'analyst@gmail.com',
-                'object': 'self',
-                'role': 'user',
-            },
-            {
-                'level': 'group',
-                'subject': 'analyst@gmail.com',
-                'object': 'group1',
-                'role': 'analyst',
-            },
-        ]
+        'orgs': [],
+        'groups': [],
     }
-    return await db.populate(data)
+    return await db.populate({**generic_data, **data})
