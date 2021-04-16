@@ -14,58 +14,9 @@ from back.tests import (
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group('add_event_consult')
 @pytest.fixture(autouse=True, scope='session')
-async def populate() -> bool:
+async def populate(get_generic_data: Dict[str, Any]) -> bool:
+    generic_data: Dict[str, Any] = get_generic_data
     data: Dict[str, Any] = {
-        'users': [
-            {
-                'email': 'admin@gmail.com',
-                'first_login': '',
-                'first_name': '',
-                'last_login': '',
-                'last_name': '',
-                'legal_remember': False,
-                'phone_number': '-',
-                'push_tokens': [],
-                'is_registered': True,
-            },
-            {
-                'email': 'analyst@gmail.com',
-                'first_login': '',
-                'first_name': '',
-                'last_login': '',
-                'last_name': '',
-                'legal_remember': False,
-                'phone_number': '-',
-                'push_tokens': [],
-                'is_registered': True,
-            },
-            {
-                'email': 'closer@gmail.com',
-                'first_login': '',
-                'first_name': '',
-                'last_login': '',
-                'last_name': '',
-                'legal_remember': False,
-                'phone_number': '-',
-                'push_tokens': [],
-                'is_registered': True,
-            },
-        ],
-        'orgs': [
-            {
-                'name': 'orgtest',
-                'id': '40f6da5f-4f66-4bf0-825b-a2d9748ad6db',
-                'users': [
-                    'admin@gmail.com',
-                    'analyst@gmail.com',
-                    'closer@gmail.com',
-                ],
-                'groups': [
-                    'group1',
-                ],
-                'policy': {},
-            },
-        ],
         'groups': [
             {
                 'project_name': 'group1',
@@ -120,43 +71,5 @@ async def populate() -> bool:
                 'subscription': 'ONESHOT',
             },
         ],
-        'policies': [
-            {
-                'level': 'user',
-                'subject': 'admin@gmail.com',
-                'object': 'self',
-                'role': 'admin',
-            },
-            {
-                'level': 'user',
-                'subject': 'analyst@gmail.com',
-                'object': 'self',
-                'role': 'user',
-            },
-            {
-                'level': 'user',
-                'subject': 'closer@gmail.com',
-                'object': 'self',
-                'role': 'user',
-            },
-            {
-                'level': 'group',
-                'subject': 'analyst@gmail.com',
-                'object': 'group1',
-                'role': 'analyst',
-            },
-            {
-                'level': 'group',
-                'subject': 'closer@gmail.com',
-                'object': 'group1',
-                'role': 'closer',
-            },
-            {
-                'level': 'organization',
-                'subject': 'analyst@gmail.com',
-                'object': 'ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db',
-                'role': 'customer',
-            },
-        ],
     }
-    return await db.populate(data)
+    return await db.populate({**generic_data, **data})

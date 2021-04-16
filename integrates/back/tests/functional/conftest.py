@@ -2,6 +2,7 @@
 from typing import (
     Any,
     Set,
+    Dict,
 )
 
 # Third party libraries
@@ -67,6 +68,220 @@ TEST_GROUPS: Set[str] = {
     'verify_request_vuln',
     'vulnerability',
 }
+
+@pytest.fixture(autouse=True, scope='session')
+def get_generic_data() -> Dict[str, Any]:
+    return {
+       'users': [
+            {
+                'email': 'admin@gmail.com',
+                'first_login': '',
+                'first_name': '',
+                'last_login': '',
+                'last_name': '',
+                'legal_remember': False,
+                'phone_number': '-',
+                'push_tokens': [],
+                'is_registered': True,
+            },
+            {
+                'email': 'analyst@gmail.com',
+                'first_login': '',
+                'first_name': '',
+                'last_login': '',
+                'last_name': '',
+                'legal_remember': False,
+                'phone_number': '-',
+                'push_tokens': [],
+                'is_registered': True,
+            },
+            {
+                'email': 'closer@gmail.com',
+                'first_login': '',
+                'first_name': '',
+                'last_login': '',
+                'last_name': '',
+                'legal_remember': False,
+                'phone_number': '-',
+                'push_tokens': [],
+                'is_registered': True,
+            },
+            {
+                'email': 'customer@gmail.com',
+                'first_login': '',
+                'first_name': '',
+                'last_login': '',
+                'last_name': '',
+                'legal_remember': False,
+                'phone_number': '-',
+                'push_tokens': [],
+                'is_registered': True,
+            },
+            {
+                'email': 'customeradmin@gmail.com',
+                'first_login': '',
+                'first_name': '',
+                'last_login': '',
+                'last_name': '',
+                'legal_remember': False,
+                'phone_number': '-',
+                'push_tokens': [],
+                'is_registered': True,
+            },
+            {
+                'email': 'executive@gmail.com',
+                'first_login': '',
+                'first_name': '',
+                'last_login': '',
+                'last_name': '',
+                'legal_remember': False,
+                'phone_number': '-',
+                'push_tokens': [],
+                'is_registered': True,
+            },
+            {
+                'email': 'resourcer@gmail.com',
+                'first_login': '',
+                'first_name': '',
+                'last_login': '',
+                'last_name': '',
+                'legal_remember': False,
+                'phone_number': '-',
+                'push_tokens': [],
+                'is_registered': True,
+            },
+            {
+                'email': 'reviewer@gmail.com',
+                'first_login': '',
+                'first_name': '',
+                'last_login': '',
+                'last_name': '',
+                'legal_remember': False,
+                'phone_number': '-',
+                'push_tokens': [],
+                'is_registered': True,
+            },
+       ],
+       'orgs': [
+            {
+                'name': 'orgtest',
+                'id': '40f6da5f-4f66-4bf0-825b-a2d9748ad6db',
+                'users': [],
+                'groups': [
+                    'group1',
+                ],
+                'policy': {},
+            },
+        ],
+        'groups': [
+            {
+                'project_name': 'group1',
+                'description': '-',
+                'language': 'en',
+                'historic_configuration': [{
+                    'date': '2020-05-20 17:00:00',
+                    'has_drills': True,
+                    'has_forces': True,
+                    'requester': 'unknown',
+                    'type': 'continuous',
+                }],
+                'project_status': 'ACTIVE',
+            },
+        ],
+        'policies': [
+            {
+                'level': 'user',
+                'subject': 'admin@gmail.com',
+                'object': 'self',
+                'role': 'admin',
+            },
+            {
+                'level': 'user',
+                'subject': 'analyst@gmail.com',
+                'object': 'self',
+                'role': 'analyst',
+            },
+            {
+                'level': 'user',
+                'subject': 'closer@gmail.com',
+                'object': 'self',
+                'role': 'closer',
+            },
+            {
+                'level': 'user',
+                'subject': 'customer@gmail.com',
+                'object': 'self',
+                'role': 'customer',
+            },
+            {
+                'level': 'user',
+                'subject': 'customeradmin@gmail.com',
+                'object': 'self',
+                'role': 'customeradmin',
+            },
+            {
+                'level': 'user',
+                'subject': 'executive@gmail.com',
+                'object': 'self',
+                'role': 'executive',
+            },
+            {
+                'level': 'user',
+                'subject': 'resourcer@gmail.com',
+                'object': 'self',
+                'role': 'resourcer',
+            },
+            {
+                'level': 'user',
+                'subject': 'reviewer@gmail.com',
+                'object': 'self',
+                'role': 'reviewer',
+            },
+            {
+                'level': 'group',
+                'subject': 'analyst@gmail.com',
+                'object': 'group1',
+                'role': 'analyst',
+            },
+            {
+                'level': 'group',
+                'subject': 'closer@gmail.com',
+                'object': 'group1',
+                'role': 'closer',
+            },
+            {
+                'level': 'group',
+                'subject': 'customer@gmail.com',
+                'object': 'group1',
+                'role': 'customer',
+            },
+            {
+                'level': 'group',
+                'subject': 'customeradmin@gmail.com',
+                'object': 'group1',
+                'role': 'customeradmin',
+            },
+            {
+                'level': 'group',
+                'subject': 'executive@gmail.com',
+                'object': 'group1',
+                'role': 'executive',
+            },
+            {
+                'level': 'group',
+                'subject': 'resourcer@gmail.com',
+                'object': 'group1',
+                'role': 'resourcer',
+            },
+            {
+                'level': 'group',
+                'subject': 'reviewer@gmail.com',
+                'object': 'group1',
+                'role': 'reviewer',
+            },
+        ],
+    }
+
 
 
 def pytest_addoption(parser: Any) -> None:
