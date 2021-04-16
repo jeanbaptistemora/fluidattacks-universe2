@@ -13,8 +13,8 @@ from backend.decorators import (
     require_integrates,
     require_login,
 )
-from backend.domain import project as group_domain
 from backend.typing import Event
+from events import domain as events_domain
 
 
 @convert_kwargs_to_snake_case  # type: ignore
@@ -30,7 +30,7 @@ async def resolve(
 ) -> List[Event]:
     group_name: str = kwargs['project_name']
 
-    event_ids = await group_domain.list_events(group_name.lower())
+    event_ids = await events_domain.list_group_events(group_name.lower())
     event_loader: DataLoader = info.context.loaders.event
     events: List[Event] = await event_loader.load_many(event_ids)
 

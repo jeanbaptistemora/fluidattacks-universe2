@@ -11,8 +11,8 @@ from backend.decorators import (
     enforce_group_level_auth_async,
     require_integrates
 )
-from backend.domain import project as group_domain
 from backend.typing import Event, Project as Group
+from events import domain as events_domain
 
 
 @concurrent_decorators(
@@ -26,7 +26,7 @@ async def resolve(
 ) -> List[Event]:
     group_name: str = cast(str, parent['name'])
 
-    event_ids = await group_domain.list_events(group_name)
+    event_ids = await events_domain.list_group_events(group_name)
     event_loader: DataLoader = info.context.loaders.event
     events: List[Event] = await event_loader.load_many(event_ids)
 

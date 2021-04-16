@@ -15,18 +15,16 @@ from backend.api import get_new_context
 from backend.domain.project import (
     create_group,
     edit,
-    get_alive_group_names,
     get_closed_vulnerabilities,
-    get_description,
     get_managers,
     get_open_finding,
     get_open_vulnerabilities,
-    list_events,
 )
 from backend.exceptions import (
     InvalidProjectServicesConfig,
     RepeatedValues,
 )
+from events.domain import list_group_events
 from findings import dal as findings_dal
 from findings.domain import (
     get_last_closing_vuln_info,
@@ -46,6 +44,8 @@ from group_comments.domain import (
 from groups.domain import (
     add_comment,
     get_active_groups,
+    get_alive_group_names,
+    get_description,
     get_mean_remediate,
     get_mean_remediate_severity,
     is_alive,
@@ -353,7 +353,7 @@ async def test_list_events():
     project_name = 'unittesting'
     expected_output = ['540462628', '538745942',
                        '463578352', '484763304', '418900971']
-    assert expected_output == await list_events(project_name)
+    assert expected_output == await list_group_events(project_name)
 
 
 async def test_get_managers():

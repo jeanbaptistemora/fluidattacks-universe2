@@ -10,15 +10,15 @@ from aiodataloader import DataLoader
 from aioextensions import collect
 
 # Local libraries
-from backend.domain import project as group_domain
 from backend.typing import Project as GroupType
+from groups import domain as groups_domain
 from organizations import domain as orgs_domain
 
 
 async def _batch_load_fn(group_names: List[str]) -> List[GroupType]:
     groups: Dict[str, GroupType] = {}
     groups_by_names: List[GroupType] = \
-        await group_domain.get_many_groups(group_names)
+        await groups_domain.get_many_groups(group_names)
     organization_ids = await collect([
         orgs_domain.get_id_for_group(group_name)
         for group_name in group_names

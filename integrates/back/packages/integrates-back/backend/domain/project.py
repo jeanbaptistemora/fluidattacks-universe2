@@ -3,7 +3,6 @@
 
 import logging
 from collections import defaultdict
-from contextlib import AsyncExitStack
 from itertools import chain
 from typing import (
     Any,
@@ -24,7 +23,6 @@ from back.settings import LOGGING
 from backend import authz
 from backend.authz.policy import get_group_level_role
 from backend.dal import project as project_dal
-from backend.dal.helpers.dynamodb import start_context
 from backend.exceptions import (
     AlreadyPendingDeletion,
     GroupNotFound,
@@ -282,7 +280,7 @@ async def remove_resources(context: Any, project_name: str) -> bool:
         findings_domain.mask_finding(context, finding_id)
         for finding_id in findings_and_drafts
     ))
-    events = await list_events(project_name)
+    events = await events_domain.list_group_events(project_name)
     are_events_masked = all(await collect(
         events_domain.mask(event_id)
         for event_id in events
@@ -404,42 +402,6 @@ async def remove_user_access(
             success = success and await user_utils.remove_stakeholder(email)
 
     return success
-
-
-async def get_alive_group_names() -> List[str]:
-    attributes = {'project_name'}
-    groups = await groups_domain.get_alive_groups(attributes)
-
-    return cast(
-        List[str],
-        [group['project_name'] for group in groups]
-    )
-
-
-async def list_events(project_name: str) -> List[str]:
-    """ Returns the list of event ids associated with the project"""
-    return await project_dal.list_events(project_name)
-
-
-async def get_all(attributes: List[str] = None) -> List[ProjectType]:
-    data_attr = ','.join(attributes or [])
-    return await project_dal.get_all(data_attr=data_attr)
-
-
-async def get_description(project_name: str) -> str:
-    return await project_dal.get_description(project_name)
-
-
-async def get_many_groups(
-        groups_name: List[str]) -> List[ProjectType]:
-    async with AsyncExitStack() as stack:
-        resource = await stack.enter_async_context(start_context())
-        table = await resource.Table(project_dal.TABLE_NAME)
-        groups = await collect(
-            project_dal.get_group(group_name, table)
-            for group_name in groups_name
-        )
-    return cast(List[ProjectType], groups)
 
 
 async def get_users_to_notify(

@@ -3,6 +3,7 @@ import logging
 import logging.config
 import re
 import secrets
+from contextlib import AsyncExitStack
 from datetime import date
 from decimal import Decimal
 from typing import (
@@ -30,7 +31,7 @@ from backend import (
     mailer,
 )
 from backend.dal import project as group_dal
-from backend.domain import project as group_domain
+from backend.dal.helpers.dynamodb import start_context
 from backend.exceptions import (
     InvalidCommentParent,
     InvalidProjectServicesConfig,
@@ -111,6 +112,17 @@ async def get_active_groups() -> List[str]:
     return groups
 
 
+async def get_alive_group_names() -> List[str]:
+    attributes = ['project_name']
+    groups = await get_alive_groups(attributes)
+    return [group['project_name'] for group in groups]
+
+
+async def get_all(attributes: Optional[List[str]] = None) -> List[GroupType]:
+    data_attr = ','.join(attributes or [])
+    return await group_dal.get_all(data_attr=data_attr)
+
+
 async def get_alive_groups(
     attributes: Optional[List[str]] = None
 ) -> List[GroupType]:
@@ -124,6 +136,10 @@ async def get_attributes(
     attributes: List[str]
 ) -> Dict[str, Union[str, List[str]]]:
     return await group_dal.get_attributes(group_name, attributes)
+
+
+async def get_description(group_name: str) -> str:
+    return await group_dal.get_description(group_name)
 
 
 @apm.trace()
@@ -157,6 +173,17 @@ async def get_groups_by_user(
 
 async def get_groups_with_forces() -> List[str]:
     return await group_dal.get_groups_with_forces()
+
+
+async def get_many_groups(groups_name: List[str]) -> List[GroupType]:
+    async with AsyncExitStack() as stack:
+        resource = await stack.enter_async_context(start_context())
+        table = await resource.Table(group_dal.TABLE_NAME)
+        groups = await collect(
+            group_dal.get_group(group_name, table)
+            for group_name in groups_name
+        )
+    return cast(List[GroupType], groups)
 
 
 async def get_mean_remediate(
@@ -270,7 +297,7 @@ async def invite_to_group(
 
             }
         )
-        description = await group_domain.get_description(group_name.lower())
+        description = await get_description(group_name.lower())
         group_url = f'{BASE_URL}/confirm_access/{url_token}'
         mail_to = [email]
         email_context: MailContentType = {

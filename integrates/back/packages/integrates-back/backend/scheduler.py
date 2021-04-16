@@ -101,7 +101,7 @@ def is_a_unsolved_event(event: EventType) -> bool:
 
 
 async def get_unsolved_events(project: str) -> List[EventType]:
-    events = await project_domain.list_events(project)
+    events = await events_domain.list_group_events(project)
     event_list = await collect(
         events_domain.get_event(event)
         for event in events

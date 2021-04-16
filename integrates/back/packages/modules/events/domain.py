@@ -61,6 +61,10 @@ from __init__ import (
 )
 
 
+async def list_group_events(group_name: str) -> List[str]:
+    return await events_dal.list_group_events(group_name)
+
+
 async def solve_event(
         event_id: str,
         affectation: str,

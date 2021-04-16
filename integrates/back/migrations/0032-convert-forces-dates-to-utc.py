@@ -22,7 +22,7 @@ import pytz
 
 # Local libraries
 from backend.dal.project import get_active_projects
-from backend.domain.project import get_many_groups
+from groups.domain import get_many_groups
 from backend.dal.helpers import dynamodb
 
 # Constants

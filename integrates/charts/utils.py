@@ -23,8 +23,8 @@ from urllib.parse import urlparse
 from frozendict import frozendict
 
 # Third party libraries
-from backend.domain import project as group_domain
 from forces import domain as forces_domain
+from groups import domain as groups_domain
 from newutils.encodings import safe_encode
 from organizations import domain as orgs_domain
 from tags import domain as tags_domain
@@ -107,7 +107,7 @@ async def get_portfolios_groups(org_name: str) -> List[PortfoliosGroups]:
 
 async def iterate_groups() -> AsyncIterator[str]:
     for group in sorted(
-        await group_domain.get_alive_group_names(),
+        await groups_domain.get_alive_group_names(),
         reverse=True
     ):
         log_info(f'Working on group: {group}')
@@ -118,7 +118,7 @@ async def iterate_organizations_and_groups() -> AsyncIterator[
     Tuple[str, str, Tuple[str, ...]],
 ]:
     """Yield (org_id, org_name, org_groups) non-concurrently generated."""
-    groups: Set[str] = set(await group_domain.get_alive_group_names())
+    groups: Set[str] = set(await groups_domain.get_alive_group_names())
     async for org_id, org_name, org_groups in (
         orgs_domain.iterate_organizations_and_groups()
     ):

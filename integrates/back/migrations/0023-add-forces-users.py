@@ -16,7 +16,7 @@ from botocore.exceptions import ClientError
 from backend.api.resolvers import user
 from backend.api.resolvers.user import _create_new_user
 from backend.dal.project import get_active_projects
-from backend.domain.project import get_many_groups
+from groups.domain import get_many_groups
 from users.domain.forces import format_forces_user_email
 
 

@@ -10,7 +10,6 @@ from freezegun import freeze_time
 
 from back.tests.unit.utils import create_dummy_simple_session
 from backend.api import get_new_context
-from backend.domain import project as group_domain
 from backend.scheduler import (
     calculate_vulnerabilities,
     create_data_format_chart,
@@ -376,7 +375,7 @@ async def test_delete_obsolete_groups():
 
     alive_groups = await groups_domain.get_alive_groups(group_attributes)
     assert len(alive_groups) == 12
-    groups = await group_domain.get_all(group_attributes)
+    groups = await groups_domain.get_all(group_attributes)
     setpendingdeletion = [
         group
         for group in groups

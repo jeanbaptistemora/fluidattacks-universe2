@@ -6,10 +6,6 @@ Execution Time:    2021-02-24 at 08:24:07 UTC-05
 Finalization Time: 2021-02-24 at 08:25:51 UTC-05
 """
 # Standard library
-from typing import (
-    Dict,
-    List,
-)
 
 # Third party libraries
 from aioextensions import (
@@ -20,12 +16,10 @@ from aioextensions import (
 # Local libraries
 from backend.api.dataloaders.event import EventLoader
 from backend.dal.helpers.s3 import aio_client
-from backend.domain.project import (
-    get_alive_projects,
-    list_events,
-)
 from backend.typing import Event
 from events import dal as events_dal
+from events.domain import list_group_events
+from groups.domain import get_alive_groups
 from newutils import datetime as datetime_utils
 from __init__ import FI_AWS_S3_BUCKET
 
@@ -64,14 +58,14 @@ async def add_missing_upload_date(event: Event) -> None:
 
 
 async def get_groups_events(group_name: str) -> None:
-    event_ids = await list_events(group_name)
+    event_ids = await list_group_events(group_name)
     events = await EventLoader().load_many(event_ids)
 
     await collect(map(add_missing_upload_date, events), workers=10)
 
 
 async def main() -> None:
-    groups = await get_alive_projects()
+    groups = await get_alive_groups()
     await collect(map(get_groups_events, groups), workers=10)
 
 

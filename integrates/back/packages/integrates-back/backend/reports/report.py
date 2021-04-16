@@ -10,12 +10,12 @@ from aioextensions import (
 # Local libraries
 from backend import util
 from backend.api import get_new_context
-from backend.domain import project as project_domain
 from backend.reports.reports import (
     data as data_report,
     technical as technical_report,
 )
 from findings import domain as findings_domain
+from groups import domain as groups_domain
 from vulnerabilities import domain as vulns_domain
 
 
@@ -47,7 +47,7 @@ async def get_group_report_url(
         for finding, format_vuln in zip(findings, format_vulns)
     ])
     findings_ord = util.ord_asc_by_criticality(list(format_findings))
-    description = await project_domain.get_description(group_name)
+    description = await groups_domain.get_description(group_name)
 
     if report_type == 'XLS':
         return await technical_report.generate_xls_file(
