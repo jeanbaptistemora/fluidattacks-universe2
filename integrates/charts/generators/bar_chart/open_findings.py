@@ -11,16 +11,19 @@ from async_lru import alru_cache
 
 # Local libraries
 from backend.api import get_new_context
-from backend.domain import project as group_domain
 from charts import utils
 from charts.colors import RISK
 from charts.generators.pie_chart.utils import PortfoliosGroupsInfo
+from groups import domain as groups_domain
 
 
 @alru_cache(maxsize=None, typed=True)
 async def get_data_one_group(group: str) -> PortfoliosGroupsInfo:
     context = get_new_context()
-    open_findings = await group_domain.get_open_finding(context, group.lower())
+    open_findings = await groups_domain.get_open_finding(
+        context,
+        group.lower()
+    )
 
     return PortfoliosGroupsInfo(
         group_name=group.lower(),

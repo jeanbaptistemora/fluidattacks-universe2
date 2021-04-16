@@ -2,7 +2,6 @@
 """Domain functions for projects."""
 
 import logging
-from collections import defaultdict
 from itertools import chain
 from typing import (
     Any,
@@ -13,18 +12,13 @@ from typing import (
     Union,
 )
 
-import simplejson as json
-from aioextensions import (
-    collect,
-    in_process,
-)
+from aioextensions import collect
 
 from back.settings import LOGGING
 from backend import authz
 from backend.dal import project as project_dal
 from backend.exceptions import (
     AlreadyPendingDeletion,
-    GroupNotFound,
     InvalidParameter,
     InvalidProjectName,
     UserNotInOrganization,
@@ -45,7 +39,6 @@ from newutils import (
     datetime as datetime_utils,
     user as user_utils,
     validations,
-    vulnerabilities as vulns_utils,
 )
 from notifications import domain as notifications_domain
 from organizations import domain as orgs_domain
@@ -401,100 +394,6 @@ async def remove_user_access(
             success = success and await user_utils.remove_stakeholder(email)
 
     return success
-
-
-async def get_closed_vulnerabilities(context: Any, group_name: str) -> int:
-    group_findings_loader = context.group_findings
-    group_findings_loader.clear(group_name)
-    finding_vulns_loader = context.finding_vulns_nzr
-
-    group_findings = await group_findings_loader.load(group_name)
-    findings_vulns = await finding_vulns_loader.load_many_chained([
-        finding['finding_id'] for finding in group_findings
-    ])
-
-    last_approved_status = await collect([
-        in_process(vulns_utils.get_last_status, vuln)
-        for vuln in findings_vulns
-    ])
-    closed_vulnerabilities = 0
-    for status in last_approved_status:
-        if status == 'closed':
-            closed_vulnerabilities += 1
-    return closed_vulnerabilities
-
-
-async def get_open_finding(context: Any, group_name: str) -> int:
-    finding_vulns_loader = context.finding_vulns_nzr
-    group_findings_loader = context.group_findings
-
-    group_findings = await group_findings_loader.load(group_name)
-    vulns = await finding_vulns_loader.load_many_chained([
-        finding['finding_id'] for finding in group_findings
-    ])
-
-    finding_vulns_dict = defaultdict(list)
-    for vuln in vulns:
-        finding_vulns_dict[vuln['finding_id']].append(vuln)
-    finding_vulns = list(finding_vulns_dict.values())
-    return await vulns_utils.get_open_findings(finding_vulns)
-
-
-async def get_by_name(name: str) -> ProjectType:
-    group: dict = await project_dal.get_attributes(name)
-
-    if group and 'deletion_date' not in group:
-        return {
-            'closed_vulnerabilities': group.get('closed_vulnerabilities', 0),
-            'deletion_date': (
-                group['historic_deletion'][-1].get('deletion_date', '')
-                if 'historic_deletion' in group else ''
-            ),
-            'description': group.get('description', ''),
-            'has_drills': group['historic_configuration'][-1]['has_drills'],
-            'has_forces': group['historic_configuration'][-1]['has_forces'],
-            'has_integrates': group['project_status'] == 'ACTIVE',
-            'last_closing_vuln': group.get('last_closing_date', 0),
-            'last_closing_vuln_finding': group.get(
-                'last_closing_vuln_finding'
-            ),
-            'max_open_severity': group.get('max_open_severity', 0),
-            'max_open_severity_finding': group.get(
-                'max_open_severity_finding'
-            ),
-            'mean_remediate_critical_severity': group.get(
-                'mean_remediate_critical_severity',
-                0
-            ),
-            'mean_remediate_high_severity': group.get(
-                'mean_remediate_high_severity',
-                0
-            ),
-            'mean_remediate_low_severity': group.get(
-                'mean_remediate_low_severity',
-                0
-            ),
-            'mean_remediate_medium_severity': group.get(
-                'mean_remediate_medium_severity',
-                0
-            ),
-            'mean_remediate': group.get('mean_remediate', 0),
-            'name': group['project_name'],
-            'open_findings': group.get('open_findings', 0),
-            'open_vulnerabilities': group.get('open_vulnerabilities', 0),
-            'subscription': group['historic_configuration'][-1]['type'],
-            'tags': group.get('tag', []),
-            'total_treatment': json.dumps(
-                group.get('total_treatment', {}),
-                use_decimal=True
-            ),
-            'user_deletion': (
-                group['historic_deletion'][-1].get('user', '')
-                if 'historic_deletion' in group else ''
-            )
-        }
-
-    raise GroupNotFound()
 
 
 async def get_user_access(email: str, group_name: str) -> ProjectAccessType:

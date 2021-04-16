@@ -3,6 +3,7 @@ import logging
 import logging.config
 import re
 import secrets
+from collections import defaultdict
 from contextlib import AsyncExitStack
 from datetime import date
 from decimal import Decimal
@@ -138,6 +139,27 @@ async def get_attributes(
     return await group_dal.get_attributes(group_name, attributes)
 
 
+async def get_closed_vulnerabilities(context: Any, group_name: str) -> int:
+    group_findings_loader = context.group_findings
+    group_findings_loader.clear(group_name)
+    finding_vulns_loader = context.finding_vulns_nzr
+
+    group_findings = await group_findings_loader.load(group_name)
+    findings_vulns = await finding_vulns_loader.load_many_chained([
+        finding['finding_id'] for finding in group_findings
+    ])
+
+    last_approved_status = await collect([
+        in_process(vulns_utils.get_last_status, vuln)
+        for vuln in findings_vulns
+    ])
+    closed_vulnerabilities = 0
+    for status in last_approved_status:
+        if status == 'closed':
+            closed_vulnerabilities += 1
+    return closed_vulnerabilities
+
+
 async def get_description(group_name: str) -> str:
     return await group_dal.get_description(group_name)
 
@@ -260,6 +282,22 @@ async def get_mean_remediate_severity(  # pylint: disable=too-many-locals
     else:
         mean_vulnerabilities = Decimal(0).quantize(Decimal('0.1'))
     return mean_vulnerabilities
+
+
+async def get_open_finding(context: Any, group_name: str) -> int:
+    finding_vulns_loader = context.finding_vulns_nzr
+    group_findings_loader = context.group_findings
+
+    group_findings = await group_findings_loader.load(group_name)
+    vulns = await finding_vulns_loader.load_many_chained([
+        finding['finding_id'] for finding in group_findings
+    ])
+
+    finding_vulns_dict = defaultdict(list)
+    for vuln in vulns:
+        finding_vulns_dict[vuln['finding_id']].append(vuln)
+    finding_vulns = list(finding_vulns_dict.values())
+    return await vulns_utils.get_open_findings(finding_vulns)
 
 
 async def get_open_vulnerabilities(context: Any, group_name: str) -> int:

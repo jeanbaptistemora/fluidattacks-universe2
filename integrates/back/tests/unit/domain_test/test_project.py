@@ -15,8 +15,6 @@ from backend.api import get_new_context
 from backend.domain.project import (
     create_group,
     edit,
-    get_closed_vulnerabilities,
-    get_open_finding,
 )
 from backend.exceptions import (
     InvalidProjectServicesConfig,
@@ -44,9 +42,11 @@ from groups.domain import (
     add_comment,
     get_active_groups,
     get_alive_group_names,
+    get_closed_vulnerabilities,
     get_description,
     get_mean_remediate,
     get_mean_remediate_severity,
+    get_open_finding,
     get_open_vulnerabilities,
     is_alive,
     validate_group_services_config,
