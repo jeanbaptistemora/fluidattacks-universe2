@@ -23,10 +23,5 @@ let
       ))
     )
   );
-
-  # Nix2 components (deprecated)
-  legacyComponents = {
-    product = import ./default-legacy.nix;
-  };
 in
-components // legacyComponents
+components
