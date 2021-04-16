@@ -3,18 +3,12 @@
 source "${srcEnv}"
 
 source "${srcIncludeHelpersCommon}"
-source "${srcIncludeHelpersCommonGitlab}"
-source "${srcIncludeCommonJobs}"
 
 source "${srcIncludeHelpersAirs}"
 source "${srcIncludeHelpersAirsDeploy}"
 source "${srcIncludeAirsJobs}"
 
-source "${srcIncludeHelpersIntegrates}"
 source "${srcIncludeIntegratesJobs}"
-
-
-source "${srcIncludeHelpersServices}"
 
 function cli {
   local function_to_call="${1:-}"
@@ -41,12 +35,6 @@ function cli {
   echo '---'
   env_prepare_environment_variables "${function_to_call}"
   env_prepare_ephemeral_vars
-
-  if [[ $function_to_call == "common_bugsnag_report" ]]
-  then
-    shift
-    arg1="$*"
-  fi
 
   echo "[INFO] Executing function: job_${function_to_call} ${arg1} ${arg2} ${arg3} ${arg4} ${arg5} ${arg6} ${arg7}"
   if "job_${function_to_call}" "${arg1}" "${arg2}" "${arg3}" "${arg4}" "${arg5}" "${arg6}" "${arg7}"

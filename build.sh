@@ -22,12 +22,6 @@ function decide_and_call_provisioner {
   local arg5="${6:-}"
   local arg6="${7:-}"
   local arg7="${8:-}"
-
-  if [[ $job == "common_bugsnag_report" ]]
-  then
-    shift
-    arg1="$*"
-  fi
   local provisioner
   local keep=()
 
@@ -63,9 +57,4 @@ function decide_and_call_provisioner {
 }
 
 check_nix_version
-if decide_and_call_provisioner "${@}"
-then
-  decide_and_call_provisioner common_bugsnag_report "passed" "${@}" &>/dev/null || true
-else
-  decide_and_call_provisioner common_bugsnag_report "failed" "${@}" &>/dev/null
-fi
+decide_and_call_provisioner "${@}"

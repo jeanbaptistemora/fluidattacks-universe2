@@ -8,8 +8,6 @@ rec {
 
   # Common
   srcIncludeHelpersCommon = ../include/helpers/common.sh;
-  srcIncludeHelpersCommonGitlab = ../include/helpers/common.gitlab.sh;
-  srcIncludeCommonJobs = ../include/jobs/common.sh;
 
   # Airs
   srcIncludeHelpersAirs = ../include/helpers/airs.sh;
@@ -17,9 +15,5 @@ rec {
   srcIncludeAirsJobs = ../include/jobs/airs.sh;
 
   # Integrates
-  srcIncludeHelpersIntegrates = ../include/helpers/integrates.sh;
   srcIncludeIntegratesJobs = ../include/jobs/integrates.sh;
-
-  # Services
-  srcIncludeHelpersServices = ../include/helpers/services.sh;
 }
