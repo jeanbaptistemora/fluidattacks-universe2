@@ -168,6 +168,13 @@ module.exports = {
           'criteria/cryptography/r147',
         ],
     },
+    {
+      type: 'category',
+        label: 'Architecture',
+        items: [
+          'criteria/architecture/r048',
+        ],
+    },
   ],
   Machine: [
     {
