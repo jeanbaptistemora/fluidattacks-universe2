@@ -13,12 +13,13 @@ interface INestedCommentProps {
   id: number;
   comments: ICommentStructure[];
   onPost: (editorText: string) => void;
+  backgroundEnabled: boolean;
 }
 
 const NestedComment: React.FC<INestedCommentProps> = (
   props: INestedCommentProps
 ): JSX.Element => {
-  const { id, comments, onPost } = props;
+  const { id, comments, onPost, backgroundEnabled } = props;
   const { replying, setReplying }: ICommentContext = useContext(commentContext);
 
   const rootComment: ICommentStructure = _.find(comments, [
@@ -42,28 +43,47 @@ const NestedComment: React.FC<INestedCommentProps> = (
 
   return (
     <React.StrictMode>
-      <div className={"comment-nested"}>
+      <div
+        className={`comment-nested comment-no-bullets ${
+          backgroundEnabled ? "comment-nested-bg-enabled" : ""
+        }`}
+      >
         <Comment
           actions={[
-            <button key={"comment-nested-reply"} onClick={replyHandler}>
+            <button
+              className={"comment-reply"}
+              key={"comment-reply"}
+              onClick={replyHandler}
+            >
               {translate.t("comments.reply")}
             </button>,
           ]}
           author={
-            rootComment.created_by_current_user
-              ? `You (${rootComment.fullname})`
-              : rootComment.fullname
+            <span className={"comment-author"}>
+              {rootComment.created_by_current_user
+                ? `You (${rootComment.fullname})`
+                : rootComment.fullname}
+            </span>
           }
-          content={<p>{rootComment.content}</p>}
-          datetime={rootComment.created}
+          content={
+            <div className={"comment-content"}>{rootComment.content}</div>
+          }
+          datetime={
+            <span className={"comment-datetime"}>{rootComment.created}</span>
+          }
           key={rootComment.id}
         >
-          {replying === rootComment.id && <CommentEditor onPost={onPost} />}
+          {replying === rootComment.id && (
+            <div className={"pa3"}>
+              <CommentEditor onPost={onPost} />
+            </div>
+          )}
           {childrenComments.length > 0 &&
             childrenComments.map(
               (childComment: ICommentStructure): JSX.Element => (
                 <React.Fragment key={childComment.id}>
                   <NestedComment
+                    backgroundEnabled={!backgroundEnabled}
                     comments={comments}
                     id={childComment.id}
                     onPost={onPost}

@@ -93,6 +93,7 @@ const CommentsRefac: React.FC<ICommentsRefacProps> = (
               (comment: ICommentStructure): JSX.Element => (
                 <React.Fragment key={comment.id}>
                   <NestedComment
+                    backgroundEnabled={false}
                     comments={comments}
                     id={comment.id}
                     onPost={postHandler}
