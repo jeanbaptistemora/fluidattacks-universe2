@@ -20,7 +20,7 @@ from aioextensions import (
 )
 
 # Local
-from backend.domain.project import get_active_projects
+from groups.domain import get_active_groups
 from newutils import datetime
 from roots import dal as roots_dal
 
@@ -39,7 +39,7 @@ async def update_root(group_name: str, root_id: Dict[str, Any]) -> None:
 
 
 async def main() -> None:
-    groups: List[str] = await get_active_projects()
+    groups: List[str] = await get_active_groups()
     print(f'[INFO] Found {len(groups)} groups')
 
     for group_name in groups:

@@ -25,8 +25,8 @@ from more_itertools import chunked
 # Local libraries
 from backend.api.dataloaders.group import GroupLoader
 from backend.api.dataloaders.finding import FindingLoader
-from backend.domain.project import get_active_projects
 from backend.typing import Finding
+from groups.domain import get_active_groups
 from newutils.datetime import (
     DEFAULT_STR,
     get_from_str,
@@ -116,7 +116,7 @@ async def copy_historic_treatment(groups: List[str]) -> None:
 
 
 async def main() -> None:
-    groups = await get_active_projects()
+    groups = await get_active_groups()
     await collect([
         copy_historic_treatment(list_group)
         for list_group in chunked(groups, 5)

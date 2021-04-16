@@ -23,12 +23,12 @@ from more_itertools import chunked
 
 # Local libraries
 from backend.dal import vulnerability as vulns_dal
-from backend.domain.project import (
-    get_active_projects,
+from backend.typing import Finding
+from findings.domain import (
+    get_findings_async,
     list_findings,
 )
-from backend.typing import Finding
-from findings.domain import get_findings_async
+from groups.domain import get_active_groups
 from vulnerabilities import dal as vulns_dal
 from vulnerabilities.domain import list_vulnerabilities_async
 
@@ -71,7 +71,7 @@ async def copy_external_bts(groups: List[str]) -> None:
 
 
 async def main() -> None:
-    groups = await get_active_projects()
+    groups = await get_active_groups()
     await collect([
         copy_external_bts(list_group)
         for list_group in chunked(groups, 10)

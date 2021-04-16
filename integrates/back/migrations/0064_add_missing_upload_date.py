@@ -23,9 +23,9 @@ from more_itertools import chunked
 # Local libraries
 from backend.api.dataloaders.group import GroupLoader
 from backend.dal.helpers.s3 import aio_client
-from backend.domain.project import get_active_projects
 from backend.typing import Finding
 from findings import dal as findings_dal
+from groups.domain import get_active_groups
 from newutils import datetime as datetime_utils
 from __init__ import FI_AWS_S3_BUCKET
 
@@ -85,7 +85,7 @@ async def get_groups_findings(groups: List[str]) -> None:
 
 
 async def main() -> None:
-    groups = await get_active_projects()
+    groups = await get_active_groups()
     await collect(
         [get_groups_findings(list_group)
          for list_group in chunked(groups, 5)],

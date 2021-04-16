@@ -106,6 +106,19 @@ async def can_user_access(group: str, role: str) -> bool:
     return await group_dal.can_user_access(group, role)
 
 
+async def get_active_groups() -> List[str]:
+    groups = await group_dal.get_active_projects()
+    return groups
+
+
+async def get_alive_groups(
+    attributes: Optional[List[str]] = None
+) -> List[GroupType]:
+    data_attr = ','.join(attributes or [])
+    groups = await group_dal.get_alive_groups(data_attr)
+    return groups
+
+
 async def get_attributes(
     group_name: str,
     attributes: List[str]
@@ -140,6 +153,10 @@ async def get_groups_by_user(
             if group in org_groups
         ]
     return user_groups
+
+
+async def get_groups_with_forces() -> List[str]:
+    return await group_dal.get_groups_with_forces()
 
 
 async def get_mean_remediate(

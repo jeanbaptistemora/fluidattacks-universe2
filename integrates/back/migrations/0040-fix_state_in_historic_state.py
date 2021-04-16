@@ -15,8 +15,8 @@ from aioextensions import collect
 
 # Local
 from backend.dal.helpers import dynamodb
-from backend.domain.project import get_active_projects
 from findings.dal import update
+from groups.domain import get_active_groups
 from newutils.datetime import DEFAULT_STR
 from vulnerabilities.domain import list_vulnerabilities_async
 
@@ -26,7 +26,7 @@ FINDINGS_TABLE = 'FI_findings'
 
 
 async def main() -> None:
-    active_groups = await get_active_projects()
+    active_groups = await get_active_groups()
     scan_attrs = {
         'ProjectionExpression': ','.join({'finding_id', 'historic_state', 'project_name'})
     }

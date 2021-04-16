@@ -29,10 +29,11 @@ from aioextensions import (
 from more_itertools import chunked
 
 from back import settings
-from backend.domain import project as group_domain
 from backend.typing import Comment as CommentType
 from comments import dal as comments_dal
 from findings import dal as findings_dal
+from findings import domain as findings_domain
+from groups import domain as groups_domain
 from newutils import vulnerabilities as vulns_utils
 from users import domain as users_domain
 from vulnerabilities import (
@@ -46,7 +47,7 @@ STAGE: str = os.environ['STAGE']
 
 
 async def should_verify_closed_vulnerabilities(group: str) -> None:
-    findings = await group_domain.list_findings([group])
+    findings = await findings_domain.list_findings([group])
     for finding in findings[0]:
         closed_vulns: Dict[str, List[str]] = defaultdict(list)
         vulns = await vulns_domain.list_vulnerabilities_async([finding])
@@ -130,7 +131,7 @@ async def verify_closed_vulnerabilities(
 
 
 async def main() -> None:
-    groups = await group_domain.get_active_projects()
+    groups = await groups_domain.get_active_groups()
     await collect(
         should_verify_closed_vulnerabilities(group)
         for group in groups

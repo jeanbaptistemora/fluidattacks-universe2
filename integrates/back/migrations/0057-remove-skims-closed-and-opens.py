@@ -56,8 +56,8 @@ from more_itertools import chunked
 
 # Local libraries
 from backend.api.dataloaders.group import GroupLoader
-from backend.domain.project import get_active_projects
 from backend.typing import Vulnerability
+from groups.domain import get_active_groups
 from vulnerabilities import (
     dal as vulns_dal,
     domain as vulns_domain,
@@ -195,7 +195,7 @@ async def fix_vulnerabilities_historics(groups: List[str]) -> None:
 
 async def main() -> None:
     print('[INFO] Starting migration 0057')
-    groups = await get_active_projects()
+    groups = await get_active_groups()
     groups.sort()
     await collect([
         fix_vulnerabilities_historics(list_group)

@@ -37,6 +37,7 @@ from backend.scheduler import (
 from data_containers.toe_lines import GitRootToeLines
 from findings.dal import get_finding
 from findings.domain import get_findings_by_group
+from groups import domain as groups_domain
 from newutils import datetime as datetime_utils
 from organizations.domain import (
     get_id_by_name,
@@ -355,7 +356,7 @@ async def test_delete_obsolete_groups():
         'project_status',
         'pending_deletion_date'
     }
-    alive_groups = await group_domain.get_alive_groups(group_attributes)
+    alive_groups = await groups_domain.get_alive_groups(group_attributes)
     assert len(alive_groups) == 13
     expected_groups = [
         {
@@ -373,7 +374,7 @@ async def test_delete_obsolete_groups():
 
     await delete_obsolete_groups()
 
-    alive_groups = await group_domain.get_alive_groups(group_attributes)
+    alive_groups = await groups_domain.get_alive_groups(group_attributes)
     assert len(alive_groups) == 12
     groups = await group_domain.get_all(group_attributes)
     setpendingdeletion = [

@@ -15,7 +15,7 @@ from backend.decorators import (
     enforce_user_level_auth_async,
     require_login,
 )
-from backend.domain import project as project_domain
+from groups import domain as groups_domain
 
 
 @convert_kwargs_to_snake_case  # type: ignore
@@ -37,5 +37,5 @@ async def resolve(
 
 
 async def resolve_no_cache() -> List[str]:
-    projects = await project_domain.get_groups_with_forces()
+    projects = await groups_domain.get_groups_with_forces()
     return cast(List[str], projects)

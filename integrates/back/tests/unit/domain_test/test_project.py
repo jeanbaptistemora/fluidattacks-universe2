@@ -15,7 +15,6 @@ from backend.api import get_new_context
 from backend.domain.project import (
     create_group,
     edit,
-    get_active_projects,
     get_alive_group_names,
     get_closed_vulnerabilities,
     get_description,
@@ -46,6 +45,7 @@ from group_comments.domain import (
 )
 from groups.domain import (
     add_comment,
+    get_active_groups,
     get_mean_remediate,
     get_mean_remediate_severity,
     is_alive,
@@ -323,8 +323,8 @@ async def test_add_comment():
     assert await add_comment(info, project_name, 'unittest@fluidattacks.com', comment_data)
 
 
-async def test_get_active_projects():
-    test_data = await get_active_projects()
+async def test_get_active_groups():
+    test_data = await get_active_groups()
     assert test_data is not None
 
 

@@ -478,7 +478,7 @@ async def get_group_new_vulnerabilities(context: Any, group_name: str) -> None:
 async def get_new_vulnerabilities() -> None:
     """Summary mail send with the findings of a project."""
     context = get_new_context()
-    groups = await project_domain.get_active_projects()
+    groups = await groups_domain.get_active_groups()
     await collect([
         get_group_new_vulnerabilities(context, group)
         for group in groups
@@ -504,7 +504,7 @@ async def requeue_actions() -> None:
 
 async def send_treatment_change() -> None:
     context = get_new_context()
-    groups = await project_domain.get_active_projects()
+    groups = await groups_domain.get_active_groups()
     min_date = datetime_utils.get_now_minus_delta(days=1)
     await collect(
         [send_group_treatment_change(context, group_name, min_date)
@@ -607,7 +607,7 @@ async def create_msj_finding_pending(
 
 async def get_remediated_findings() -> None:
     """Summary mail send with findings that have not been verified yet."""
-    active_projects = await project_domain.get_active_projects()
+    active_projects = await groups_domain.get_active_groups()
     findings = []
     pending_verification_findings = await collect(
         findings_domain.get_pending_verification_findings(
@@ -652,7 +652,7 @@ async def get_new_releases() -> None:  # pylint: disable=too-many-locals
     group_loader = context.group_all
     organization_loader = context.organization
     test_groups = FI_TEST_PROJECTS.split(',')
-    groups = await project_domain.get_active_projects()
+    groups = await groups_domain.get_active_groups()
     email_context: MailContentType = (
         defaultdict(list)
     )
@@ -723,7 +723,7 @@ async def get_new_releases() -> None:  # pylint: disable=too-many-locals
 async def send_unsolved_to_all() -> None:
     """Send email with unsolved events to all projects """
     context = get_new_context()
-    projects = await project_domain.get_active_projects()
+    projects = await groups_domain.get_active_groups()
     await collect(
         send_unsolved_events_email(context, project)
         for project in projects
@@ -845,7 +845,7 @@ async def update_group_indicators(group_name: str) -> None:
 
 async def update_indicators() -> None:
     """Update in dynamo indicators."""
-    groups = await project_domain.get_active_projects()
+    groups = await groups_domain.get_active_groups()
     await collect(map(update_group_indicators, groups), workers=20)
 
 
@@ -994,7 +994,7 @@ async def reset_expired_accepted_findings() -> None:
         datetime_utils.get_now()
     )
     context = get_new_context()
-    groups = await project_domain.get_active_projects()
+    groups = await groups_domain.get_active_groups()
     await collect(
         [reset_group_expired_accepted_findings(context, group_name, today)
          for group_name in groups],
@@ -1214,7 +1214,7 @@ async def delete_obsolete_groups() -> None:
         'historic_configuration',
         'pending_deletion_date'
     }
-    groups = await project_domain.get_alive_groups(group_attributes)
+    groups = await groups_domain.get_alive_groups(group_attributes)
     inactive_groups = [
         group
         for group in groups

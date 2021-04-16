@@ -406,28 +406,9 @@ async def remove_user_access(
     return success
 
 
-async def get_active_projects() -> List[str]:
-    projects = await project_dal.get_active_projects()
-
-    return projects
-
-
-async def get_groups_with_forces() -> List[str]:
-    return await project_dal.get_groups_with_forces()
-
-
-async def get_alive_groups(
-    attributes: List[str] = None
-) -> List[ProjectType]:
-    data_attr = ','.join(attributes or [])
-    projects = await project_dal.get_alive_groups(data_attr)
-
-    return projects
-
-
 async def get_alive_group_names() -> List[str]:
     attributes = {'project_name'}
-    groups = await get_alive_groups(attributes)
+    groups = await groups_domain.get_alive_groups(attributes)
 
     return cast(
         List[str],

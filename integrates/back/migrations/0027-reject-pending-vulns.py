@@ -17,7 +17,8 @@ from aioextensions import (
     run,
 )
 
-from backend.domain import project as group_domain
+from findings import domain as findings_domain
+from groups import domain as groups_domain
 from vulnerabilities import (
     dal as vulns_dal,
     domain as vulns_domain,
@@ -29,7 +30,7 @@ STAGE: str = os.environ['STAGE']
 
 
 async def reject_vulnerabilities(group: str) -> None:
-    findings = await group_domain.list_findings([group])
+    findings = await findings_domain.list_findings([group])
     for finding_id in findings[0]:
         vulns = await vulns_domain.list_vulnerabilities_async([finding_id])
         for vuln in vulns:
@@ -73,7 +74,7 @@ async def reject_vulnerability(
 
 
 async def main() -> None:
-    groups = await group_domain.get_active_projects()
+    groups = await groups_domain.get_active_projects()
     await collect(
         reject_vulnerabilities(group)
         for group in groups

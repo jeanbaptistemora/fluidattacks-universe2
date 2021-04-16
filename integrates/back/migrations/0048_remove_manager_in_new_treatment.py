@@ -21,8 +21,8 @@ from more_itertools import chunked
 
 # Local libraries
 from backend.api.dataloaders.group import GroupLoader
-from backend.domain.project import get_active_projects
 from backend.typing import Finding
+from groups.domain import get_active_groups
 from vulnerabilities import dal as vulns_dal
 from vulnerabilities.domain import list_vulnerabilities_async
 
@@ -73,7 +73,7 @@ async def remove_treatment_manager(groups: List[str]) -> None:
 
 
 async def main() -> None:
-    groups = await get_active_projects()
+    groups = await get_active_groups()
     await collect(
         [remove_treatment_manager(list_group)
          for list_group in chunked(groups, 5)],
