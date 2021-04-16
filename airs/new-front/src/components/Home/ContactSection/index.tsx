@@ -19,6 +19,9 @@ const BlueBackground: StyledComponent<
 > = styled.div.attrs({
   className: `
     bg-darker-blue
+    ba
+    bw2
+    bc-darker-blue
   `,
 })``;
 const Container: StyledComponent<

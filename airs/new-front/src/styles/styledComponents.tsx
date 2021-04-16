@@ -409,7 +409,6 @@ const BlackBigHeader: StyledComponent<
     c-fluid-bk
     fw7
     tl
-    tc-m
     neue
     lh-solid
     ma0
@@ -426,7 +425,6 @@ const BlackBigParagraph: StyledComponent<
     c-fluid-bk
     fw6
     tl
-    tc-m
     neue
     lh-solid
     ma0
@@ -443,7 +441,6 @@ const GrayBigParagraph: StyledComponent<
     c-fluid-gray
     fw6
     tl
-    tc-m
     neue
     lh-solid
     ma0

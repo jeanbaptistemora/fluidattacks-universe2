@@ -43,15 +43,6 @@ const Container: StyledComponent<
   `,
 })``;
 
-const ClientsContainer: StyledComponent<
-  "div",
-  Record<string, unknown>
-> = styled.div.attrs({
-  className: `
-    mw-376
-  `,
-})``;
-
 const ClientsTitle: StyledComponent<
   "p",
   Record<string, unknown>
@@ -93,6 +84,10 @@ const SlideShow: StyledComponent<
     t-all-3-eio
     scroll-smooth
     nowrap
+    mw-376
+    center
+    br-l
+    b--light-gray
   `,
 })``;
 
@@ -163,7 +158,7 @@ const ClientsSection: React.FC = (): JSX.Element => {
     <React.Fragment>
       <BannerContainer className={"bg-clients-home"} />
       <Container>
-        <ClientsContainer>
+        <div>
           <ClientsTitle>{translate.t("clients.titleHome")}</ClientsTitle>
           <ArrowContainer>
             <ArrowButton onClick={scrollLeft}>
@@ -210,7 +205,7 @@ const ClientsSection: React.FC = (): JSX.Element => {
             <img alt={"Logo Sodimac"} src={logoSodimac} />
             <img alt={"Logo Sura"} className={"mh4"} src={logoSura} />
           </SlideShow>
-        </ClientsContainer>
+        </div>
         <DefinitionContainer>
           <DefinitionParagraph>
             {translate.t("clients.definition")}
