@@ -1,10 +1,10 @@
-import { Form, Input } from "antd";
 import React, { useCallback, useState } from "react";
+import TextArea from "react-textarea-autosize";
 
 import { Button } from "components/Button";
+import { ButtonToolbar, Col100, Row } from "styles/styledComponents";
 import { translate } from "utils/translations/translate";
-
-const { TextArea } = Input;
+import "scenes/Dashboard/components/CommentsRefac/index.css";
 
 interface ICommentEditorProps {
   onPost: (editorText: string) => void;
@@ -32,18 +32,26 @@ const CommentEditor: React.FC<ICommentEditorProps> = (
 
   return (
     <React.Fragment>
-      <Form.Item>
-        <TextArea
-          allowClear={true}
-          autoSize={{ maxRows: 10, minRows: 4 }}
-          onChange={onChange}
-          placeholder={"Add a comment"}
-          value={editorText}
-        />
-      </Form.Item>
-      <Form.Item>
-        <Button onClick={clickHandler}>{translate.t("comments.send")}</Button>
-      </Form.Item>
+      <TextArea
+        maxRows={8}
+        minRows={2}
+        onChange={onChange}
+        placeholder={translate.t("comments.editorPlaceholder")}
+        value={editorText}
+      />
+      <div className={"pv2"}>
+        <Row>
+          <Col100>
+            {editorText !== "" && (
+              <ButtonToolbar>
+                <Button onClick={clickHandler}>
+                  {translate.t("comments.send")}
+                </Button>
+              </ButtonToolbar>
+            )}
+          </Col100>
+        </Row>
+      </div>
     </React.Fragment>
   );
 };

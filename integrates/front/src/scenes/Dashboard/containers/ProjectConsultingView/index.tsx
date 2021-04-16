@@ -127,14 +127,15 @@ const ProjectConsultingView: React.FC = (): JSX.Element => {
 
   return (
     <React.StrictMode>
-      <Comments
-        id={"project-comments"}
-        onLoad={getData}
-        onPostComment={handlePost}
-      />
       {userEmail === "integratesmanager@fluidattacks.com" ? (
         <CommentsRefac onLoad={getData} onPostComment={handlePost} />
-      ) : null}
+      ) : (
+        <Comments
+          id={"project-comments"}
+          onLoad={getData}
+          onPostComment={handlePost}
+        />
+      )}
     </React.StrictMode>
   );
 };

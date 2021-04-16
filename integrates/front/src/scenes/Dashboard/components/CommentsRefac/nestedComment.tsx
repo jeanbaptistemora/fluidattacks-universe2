@@ -2,11 +2,11 @@ import { Comment } from "antd";
 import _ from "lodash";
 import React, { useCallback, useContext } from "react";
 
-import { CommentEditor } from "./commentEditor";
-
 import type { ICommentStructure } from "scenes/Dashboard/components/Comments/types";
+import { CommentEditor } from "scenes/Dashboard/components/CommentsRefac/commentEditor";
 import type { ICommentContext } from "scenes/Dashboard/components/CommentsRefac/index";
 import { commentContext } from "scenes/Dashboard/components/CommentsRefac/index";
+import "scenes/Dashboard/components/CommentsRefac/index.css";
 import { translate } from "utils/translations/translate";
 
 interface INestedCommentProps {
@@ -42,7 +42,7 @@ const NestedComment: React.FC<INestedCommentProps> = (
 
   return (
     <React.StrictMode>
-      <div style={{ borderStyle: "solid", margin: "10px", padding: "10px" }}>
+      <div className={"comment-nested"}>
         <Comment
           actions={[
             <button key={"comment-nested-reply"} onClick={replyHandler}>
@@ -54,10 +54,11 @@ const NestedComment: React.FC<INestedCommentProps> = (
               ? `You (${rootComment.fullname})`
               : rootComment.fullname
           }
-          content={rootComment.content}
+          content={<p>{rootComment.content}</p>}
           datetime={rootComment.created}
           key={rootComment.id}
         >
+          {replying === rootComment.id && <CommentEditor onPost={onPost} />}
           {childrenComments.length > 0 &&
             childrenComments.map(
               (childComment: ICommentStructure): JSX.Element => (
@@ -70,7 +71,6 @@ const NestedComment: React.FC<INestedCommentProps> = (
                 </React.Fragment>
               )
             )}
-          {replying === rootComment.id && <CommentEditor onPost={onPost} />}
         </Comment>
       </div>
     </React.StrictMode>

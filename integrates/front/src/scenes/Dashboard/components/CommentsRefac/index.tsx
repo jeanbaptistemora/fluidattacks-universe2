@@ -86,6 +86,7 @@ const CommentsRefac: React.FC<ICommentsRefacProps> = (
     <React.StrictMode>
       <hr />
       <CommentEditor onPost={postHandler} />
+      <hr />
       <commentContext.Provider value={{ replying, setReplying }}>
         {rootComments.length > 0
           ? _.orderBy(rootComments, ["created"], ["desc"]).map(
