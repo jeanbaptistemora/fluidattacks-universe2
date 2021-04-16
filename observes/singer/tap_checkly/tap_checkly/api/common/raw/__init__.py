@@ -7,7 +7,7 @@ from returns.io import IO
 from paginator import (
     PageId,
 )
-from tap_checkly.api.raw.client import (
+from tap_checkly.api.common.raw.client import (
     Client,
 )
 from tap_checkly.common import (

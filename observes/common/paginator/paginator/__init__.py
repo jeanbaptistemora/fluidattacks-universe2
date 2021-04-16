@@ -104,7 +104,7 @@ def get_pages(
 
 def get_until_end(
     start: PageId,
-    getter: PageGetter,
+    getter: PageGetter[Data],
     pages_chunk: int,
 ) -> Iterator[Data]:
     empty_page_retrieved = False
@@ -127,7 +127,7 @@ def build_getter(
     is_empty: Callable[[ResultPage], bool],
 ) -> PageGetter[ResultPage]:
     def getter(page: PageId) -> Union[ResultPage, EmptyPage]:
-        result = get_page(page)
+        result: ResultPage = get_page(page)
         if is_empty(result):
             return EmptyPage()
         return result
