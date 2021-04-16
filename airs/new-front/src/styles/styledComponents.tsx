@@ -404,9 +404,10 @@ const BlackBigHeader: StyledComponent<
   Record<string, unknown>
 > = styled.h1.attrs({
   className: `
-    f1
+    f1-l
+    f2
     c-fluid-bk
-    fw6
+    fw7
     tl
     tc-m
     neue
@@ -420,7 +421,8 @@ const BlackBigParagraph: StyledComponent<
   Record<string, unknown>
 > = styled.p.attrs({
   className: `
-    f1
+    f1-l
+    f2
     c-fluid-bk
     fw6
     tl
@@ -436,7 +438,8 @@ const GrayBigParagraph: StyledComponent<
   Record<string, unknown>
 > = styled.p.attrs({
   className: `
-    f1
+    f1-l
+    f2
     c-fluid-gray
     fw6
     tl
@@ -516,6 +519,7 @@ const GetDemoContainer: StyledComponent<
     b--light-gray
     pa4
     mt4
+    bg-lightgray-xs
   `,
 })``;
 

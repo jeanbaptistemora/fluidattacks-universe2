@@ -218,6 +218,11 @@ $whiter-gray: rgba(241, 241, 241, 1);
   .nt-125 { margin-top: -0.125rem; }
 }
 
+// Smaller screen sizes
+@media screen and (min-width: 350px) and (max-width: 479px) {
+  .bg-lightgray-xs { background-color: $light-gray; }
+}
+
 // Animations
 .fadein { animation: fadein 0.5s; }
 
