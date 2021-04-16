@@ -7,7 +7,6 @@ from typing import (
     Union,
     cast,
     Iterator,
-    NamedTuple,
     Optional,
     Tuple,
     TypeVar,
@@ -21,35 +20,18 @@ from aioextensions import (
 )
 
 # Local libraries
-
-
-class AllPages(NamedTuple):
-    pass
-
-
-class EmptyPage(NamedTuple):
-    pass
-
-
-class PageId(NamedTuple):
-    page: int
-    per_page: int
-
-
-class PageRange(NamedTuple):
-    page_range: range
-    per_page: int
-    pages: Callable[[], Iterator[PageId]]
-
-
-class Limits(NamedTuple):
-    max_calls: int
-    max_period: float
-    min_period: float
-    greediness: int
+from paginator.objs import (
+    AllPages,
+    EmptyPage,
+    PageId,
+    PageRange,
+    Limits,
+)
 
 
 Data = TypeVar('Data')
+ResultPage = TypeVar('ResultPage')
+PageGetter = Callable[[PageId], Union[Data, EmptyPage]]
 DEFAULT_LIMITS = Limits(
     max_calls=5,
     max_period=1,
@@ -122,7 +104,7 @@ def get_pages(
 
 def get_until_end(
     start: PageId,
-    getter: Callable[[PageId], Union[Data, EmptyPage]],
+    getter: PageGetter,
     pages_chunk: int,
 ) -> Iterator[Data]:
     empty_page_retrieved = False
@@ -138,3 +120,24 @@ def get_until_end(
                 break
             yield response
         actual_page = actual_page + pages_chunk
+
+
+def build_getter(
+    get_page: Callable[[PageId], ResultPage],
+    is_empty: Callable[[ResultPage], bool],
+) -> PageGetter[ResultPage]:
+    def getter(page: PageId) -> Union[ResultPage, EmptyPage]:
+        result = get_page(page)
+        if is_empty(result):
+            return EmptyPage()
+        return result
+    return getter
+
+
+__all__ = [
+    'AllPages',
+    'EmptyPage',
+    'PageId',
+    'PageRange',
+    'Limits',
+]
