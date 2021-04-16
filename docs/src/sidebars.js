@@ -159,6 +159,13 @@ module.exports = {
           'criteria/certificates/r090',
         ],
     },
+    {
+      type: 'category',
+        label: 'Cryptography',
+        items: [
+          'criteria/cryptography/r145',
+        ],
+    },
   ],
   Machine: [
     {
