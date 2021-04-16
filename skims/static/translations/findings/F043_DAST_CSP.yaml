@@ -1,0 +1,26 @@
+utils.model.finding.enum.F043_DAST_CSP.description:
+  en: >
+    The server is missing the Content-Security-Policy HTTP header.
+    Alternatively, the header's configuration is not secure enough.
+  es: >
+    El servidor carece del encabezado HTTP Content-Security-Policy.
+    Alternativamente, el valor del mismo no es suficientemente fuerte.
+utils.model.finding.enum.F043_DAST_CSP.impact:
+  en: |
+    - Embed content, scripts, blobs or images from potencially malicious sources.
+    - Make possible to carry attacks like Cross-Site Scripting, Cross-Site Leaks, among others.
+  es: |
+    - Incluir contenido, scripts, binarios o imagenes desde fuentes potencialmente maliciosas.
+    - Aumentar la probabilidad de llevar a cabo ataques como Cross-Site Scripting, Cross-Site Leaks, entre otros.
+utils.model.finding.enum.F043_DAST_CSP.recommendation:
+  en: Set the Content-Security-Policy header and configure it in a secure way.
+  es: Establecer la cabecera Content-Security-Policy y configurarla de forma seguras.
+utils.model.finding.enum.F043_DAST_CSP.requirements:
+  en: R062. Define standard configurations
+  es: R062. Debe definirse configuraciones estándares que corrijan todas las vulnerabilidades conocidas y que sean consistentes con estándares de la industria (ej líneas base).
+utils.model.finding.enum.F043_DAST_CSP.threat:
+  en: Unauthorized attacker from internet network.
+  es: Atacante sin autorización desde red internet.
+utils.model.finding.enum.F043_DAST_CSP.title:
+  en: F043. Missing HTTP security headers - Content-Security-Policy
+  es: F043. Cabeceras de seguridad HTTP no establecidas - Content-Security-Policy
