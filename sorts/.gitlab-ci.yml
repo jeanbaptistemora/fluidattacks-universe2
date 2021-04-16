@@ -119,4 +119,3 @@ sorts.train:
     - ./m sorts.train && ./m sorts.tune
   stage: deploy-app
   interruptible: false
-  needs: [sorts.extract-features]
