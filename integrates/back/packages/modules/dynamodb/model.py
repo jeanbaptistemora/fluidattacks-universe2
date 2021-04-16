@@ -494,17 +494,13 @@ async def delete_git_root_toe_input(
 def _build_git_root_toe_input(
     *,
     group_name: str,
-    key_structure: PrimaryKey,
     item: Item,
 ) -> GitRootToeInputItem:
-    sort_key_items = item[key_structure.sort_key].split('#')
-    component = sort_key_items[2]
-    entry_point = sort_key_items[4] if sort_key_items[4:] else ''
     return GitRootToeInputItem(
         commit=item['commit'],
-        component=component,
+        component=item['component'],
         created_date=item['created_date'],
-        entry_point=entry_point,
+        entry_point=item['entry_point'],
         group_name=group_name,
         seen_first_time_by=item['seen_first_time_by'],
         tested_date=item['tested_date'],
@@ -537,7 +533,6 @@ async def get_toe_inputs_by_group(
     return tuple(
         _build_git_root_toe_input(
             group_name=group_name,
-            key_structure=key_structure,
             item=item
         )
         for item in results

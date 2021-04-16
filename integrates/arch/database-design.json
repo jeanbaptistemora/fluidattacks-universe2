@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Apr 13, 2021, 10:48 AM",
+    "DateLastModified": "Apr 16, 2021, 01:05 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "2.0"
@@ -308,6 +308,14 @@
         },
         {
           "AttributeName": "verified",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "component",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "entry_point",
           "AttributeType": "S"
         }
       ],
@@ -1535,16 +1543,24 @@
               },
               "verified": {
                 "S": "No"
+              },
+              "component": {
+                "S": "test.com/test/test.aspx"
+              },
+              "entry_point": {
+                "S": "idTest"
               }
             }
           ],
           "NonKeyAttributes": [
             "commit",
             "tested_date",
-            "verified",
             "vulns",
             "created_date",
-            "seen_first_time_by"
+            "seen_first_time_by",
+            "verified",
+            "component",
+            "entry_point"
           ],
           "DataAccess": {
             "MySql": {}
