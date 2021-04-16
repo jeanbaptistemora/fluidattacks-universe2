@@ -13,7 +13,7 @@
 :about1: Cybersecurity Editor
 :source: https://unsplash.com/photos/PFqfV5bn91A
 
-= 100% Accuracy for Fluid Attacks
+= Fluid Attacks' Perfect Accuracy
 
 At `Fluid Attacks`, we are very proud of the great goal
 we have recently achieved with our open-source tool,
@@ -66,10 +66,11 @@ However, it has been pretty usual
 for automated vulnerability detection processes
 to show errors in their reports. Thus, through this benchmark, for example,
 we can realize that a tool may fail to identify real vulnerabilities
-(False Negatives, which we have also referred to as omissions)
-and may fail to ignore false vulnerability alarms (False Positives).
-On the other side, we can find that the tool may correctly identify
-a real vulnerability (True Positive) and ignore false alarms (True Negative).
+(it has False Negatives, which we have also referred to as omissions)
+and may fail to ignore false vulnerability alarms (it gives False Positives).
+On the other side, we can find that a tool
+may correctly identify real vulnerabilities (it gives True Positives)
+and ignore false alarms (it has True Negatives).
 
 Accordingly, referring to some extreme cases we don't want to witness,
 there may be a tool that reports every line of code
@@ -96,7 +97,7 @@ Be careful because it seems that some vendors may strive
 to display you 100% in TPR as if it were the sole relevant value
 when it comes to accuracy.
 
-Here is where the Benchmark Accuracy Score appears.
+This is where the Benchmark Accuracy Score comes in.
 It is essentially an individual score, a link:https://en.wikipedia.org/wiki/Youden%27s_J_statistic[Youden's index],
 that goes from 0 to 100 to summarize the accuracy of a set of tests.
 The equation is simple: we just need to subtract one (1)
@@ -110,19 +111,17 @@ image::youden.png[Youden]
 Consequently, the Benchmark Score for a tool
 with insufficient accuracy equals 0, and for a tool
 with perfect accuracy equals 100 (Youden's index equals 1).
-In Figure 4, this score, which can also be negative,
+In Figure 4, the Benchmark Score, which can also be negative,
 corresponds to the line's length
-from the point down to the diagonal "Random Guess" line.
+from a given point down to the diagonal "Random Guess" line.
 
 == What are Fluid Attacks' results?
 
-At `Fluid Attacks`, we decided to test our primary, customized tool,
-which belongs to our Plan Machine, a service exclusively oriented
-towards automatic security evaluations.
-Only by applying the SAST technique (although it could also use DAST),
+At `Fluid Attacks`, we decided to test our primary, customized tool.
+Only by applying the SAST technique (although it can also perform DAST),
 this tool can achieve the best possible outcome against the OWASP Benchmark
 with a TPR of 100% and an FPR of 0%.
-Consequently, the Benchmark score is equal to 100, the highest value.
+So, our Benchmark Score equals 100, the highest value!
 A few years ago, developers in the OWASP Benchmark project
 link:https://rawgit.com/OWASP/Benchmark/master/scorecard/OWASP_Benchmark_Home.html[published a comparison chart]
 for different open-source and commercial SAST tools.
@@ -133,13 +132,13 @@ image::fluidscore.png[Fluid Attacks Score]
 
 == Issues we're aware of at Fluid Attacks
 
-The values obtained in this scenario are easy to determine
+The values obtained in this scenario are easy to determine accurately
 because the number of existing vulnerabilities is known from the beginning,
 contrary to what usually happens in real-world applications.
 You need to understand that this project does not include
 all vulnerability categories and possible cases.
 Nevertheless, looking ahead, OWASP hopes to have all types of vulnerabilities
-that belong to their Top 10 in their tests
+that belong to its Top 10 in its tests
 and offer code in other languages, not just Java.
 
 OWASP created these test cases from coding patterns
