@@ -59,3 +59,55 @@ async def test_get_by_root():
             tested_lines=4
         ),
     )
+
+
+@pytest.mark.changes_db
+async def test_add() -> None:
+    group_name = 'unittesting'
+    toe_lines = GitRootToeLines(
+        comments='comment test',
+        filename='product/test/new#.new',
+        group_name=group_name,
+        loc=4,
+        modified_commit='983466z',
+        modified_date='2019-08-01T00:00:00-05:00',
+        root_id='4039d098-ffc5-4984-8ed3-eb17bca98e19',
+        tested_date='2021-02-28T00:00:00-05:00',
+        tested_lines=12
+    )
+    await toe_lines_domain.add(toe_lines)
+    group_toe_lines = await toe_lines_domain.get_by_group(group_name)
+    assert toe_lines in group_toe_lines
+
+
+@pytest.mark.changes_db
+async def test_delete() -> None:
+    group_name = 'unittesting'
+    group_toe_lines = await toe_lines_domain.get_by_group(group_name)
+    assert len(group_toe_lines) == 3
+    await toe_lines_domain.delete(
+        group_name=group_name,
+        root_id='4039d098-ffc5-4984-8ed3-eb17bca98e19',
+        filename='product/test/new#.new',
+    )
+    group_toe_lines = await toe_lines_domain.get_by_group(group_name)
+    assert len(group_toe_lines) == 2
+
+
+@pytest.mark.changes_db
+async def test_update() -> None:
+    group_name = 'unittesting'
+    toe_lines = GitRootToeLines(
+        comments='edited',
+        filename='product/test/test#.config',
+        group_name='unittesting',
+        loc=55,
+        modified_commit='983466r',
+        modified_date='2020-08-01T00:00:00-05:00',
+        root_id='4039d098-ffc5-4984-8ed3-eb17bca98e19',
+        tested_date='2021-03-28T00:00:00-05:00',
+        tested_lines=55
+    )
+    await toe_lines_domain.update(toe_lines)
+    group_toe_lines = await toe_lines_domain.get_by_group(group_name)
+    assert toe_lines in group_toe_lines

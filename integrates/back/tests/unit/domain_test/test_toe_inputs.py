@@ -50,6 +50,7 @@ async def test_get_by_group() -> None:
     )
 
 
+@pytest.mark.changes_db
 async def test_add() -> None:
     group_name = 'unittesting'
     toe_input = GitRootToeInput(
