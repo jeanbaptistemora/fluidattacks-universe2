@@ -164,6 +164,7 @@ module.exports = {
         label: 'Cryptography',
         items: [
           'criteria/cryptography/r145',
+          'criteria/cryptography/r146',
         ],
     },
   ],
