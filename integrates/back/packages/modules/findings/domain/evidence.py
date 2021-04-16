@@ -221,8 +221,6 @@ async def validate_evidence(evidence_id: str, file: UploadFile) -> bool:
         allowed_mimes = ['image/gif', 'image/png']
     elif evidence_id.startswith('evidence'):
         allowed_mimes = ['image/png']
-    elif evidence_id == 'exploit':
-        allowed_mimes = ['text/x-python', 'text/plain']
     elif evidence_id == 'fileRecords':
         allowed_mimes = ['text/csv', 'text/plain', 'application/csv']
 

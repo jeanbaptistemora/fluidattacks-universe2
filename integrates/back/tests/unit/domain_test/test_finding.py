@@ -247,27 +247,6 @@ async def test_mask_finding():
     assert finding.get('effect_solution', '') == 'Masked'
     assert finding.get('affected_systems', '') == 'Masked'
 
-async def test_validate_evidence_exploit():
-    evidence_id = 'exploit'
-    filename = os.path.dirname(os.path.abspath(__file__))
-    filename = os.path.join(filename, '../mock/test-exploit.py')
-    mime_type = 'text/x-python'
-    with open(filename, 'rb') as test_file:
-        uploaded_file = UploadFile(test_file.name, test_file, mime_type)
-        test_data = await validate_evidence(evidence_id, uploaded_file)
-    expected_output = True
-    assert isinstance(test_data, bool)
-    assert test_data == expected_output
-
-async def test_validate_evidence_exploit_invalid_type():
-    evidence_id = 'exploit'
-    filename = os.path.dirname(os.path.abspath(__file__))
-    filename = os.path.join(filename, '../mock/test-anim.gif')
-    mime_type = 'image/gif'
-    with open(filename, 'rb') as test_file:
-        uploaded_file = UploadFile(test_file.name, test_file, mime_type)
-        with pytest.raises(InvalidFileType) as context:
-            await validate_evidence(evidence_id, uploaded_file)
 
 async def test_validate_evidence_records():
     evidence_id = 'fileRecords'

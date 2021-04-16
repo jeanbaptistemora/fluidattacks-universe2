@@ -159,7 +159,6 @@ ENUMS: Tuple[EnumType, ...] = (
             'EVIDENCE3': 'evidence_route_3',
             'EVIDENCE4': 'evidence_route_4',
             'EVIDENCE5': 'evidence_route_5',
-            'EXPLOIT': 'exploit',
             'EXPLOITATION': 'exploitation',
             'RECORDS': 'fileRecords'
         }
