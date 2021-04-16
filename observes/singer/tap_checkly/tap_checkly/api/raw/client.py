@@ -13,6 +13,7 @@ import requests
 from returns.curry import (
     partial,
 )
+
 # Local libraries
 from tap_checkly.api.auth import (
     Credentials,
