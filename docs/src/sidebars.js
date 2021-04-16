@@ -150,6 +150,13 @@ module.exports = {
           'criteria/services/r330',
         ],
     },
+    {
+      type: 'category',
+        label: 'Certificates',
+        items: [
+          'criteria/certificates/r088',
+        ],
+    },
   ],
   Machine: [
     {
