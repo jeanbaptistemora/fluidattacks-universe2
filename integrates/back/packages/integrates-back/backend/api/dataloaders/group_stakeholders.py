@@ -10,12 +10,8 @@ from aiodataloader import DataLoader
 from aioextensions import collect
 
 # Local libraries
-from backend.domain import (
-    project as group_domain,
-)
-from backend.typing import (
-    Stakeholder as StakeholderType
-)
+from backend.typing import Stakeholder as StakeholderType
+from users import domain as users_domain
 
 
 class GroupStakeholdersLoader(DataLoader):  # type: ignore
@@ -28,7 +24,7 @@ class GroupStakeholdersLoader(DataLoader):  # type: ignore
         return cast(
             Tuple[List[StakeholderType], ...],
             await collect(
-                group_domain.get_stakeholders(group_name)
+                users_domain.get_stakeholders(group_name)
                 for group_name in group_names
             )
         )

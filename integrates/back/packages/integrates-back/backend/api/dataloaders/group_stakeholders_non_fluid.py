@@ -10,15 +10,9 @@ from aiodataloader import DataLoader
 from aioextensions import collect
 
 # Local libraries
-from backend.domain import (
-    project as group_domain
-)
-from backend.filters import (
-    stakeholder as stakeholder_filters
-)
-from backend.typing import (
-    Stakeholder as StakeholderType
-)
+from backend.filters import stakeholder as stakeholder_filters
+from backend.typing import Stakeholder as StakeholderType
+from users import domain as users_domain
 
 
 class GroupStakeholdersNonFluidLoader(DataLoader):  # type: ignore
@@ -47,7 +41,7 @@ class GroupStakeholdersNonFluidLoader(DataLoader):  # type: ignore
                 )
             )
             groups_stakeholders[index] = await collect(
-                group_domain.format_stakeholder(email, group_name)
+                users_domain.format_stakeholder(email, group_name)
                 for email in group_stakeholders_filtered_emails
             )
 

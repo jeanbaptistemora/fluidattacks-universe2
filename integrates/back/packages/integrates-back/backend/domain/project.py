@@ -2,7 +2,6 @@
 """Domain functions for projects."""
 
 import logging
-from itertools import chain
 from typing import (
     Any,
     cast,
@@ -23,12 +22,7 @@ from backend.exceptions import (
     InvalidProjectName,
     UserNotInOrganization,
 )
-from backend.filters import stakeholder as stakeholder_filters
-from backend.typing import (
-    Invitation as InvitationType,
-    Project as ProjectType,
-    Stakeholder as StakeholderType,
-)
+from backend.typing import Project as ProjectType
 from events import domain as events_domain
 from findings import domain as findings_domain
 from group_access import domain as group_access_domain
@@ -42,7 +36,6 @@ from newutils import (
 from notifications import domain as notifications_domain
 from organizations import domain as orgs_domain
 from resources import domain as resources_domain
-from users import domain as users_domain
 
 
 logging.config.dictConfig(LOGGING)
@@ -393,69 +386,6 @@ async def remove_user_access(
             success = success and await user_utils.remove_stakeholder(email)
 
     return success
-
-
-async def format_stakeholder(
-    email: str,
-    group_name: str
-) -> StakeholderType:
-    stakeholder: StakeholderType = await users_domain.get_by_email(email)
-    project_access = await group_access_domain.get_user_access(
-        email,
-        group_name
-    )
-    invitation = cast(InvitationType, project_access.get('invitation'))
-    invitation_state = (
-        'PENDING' if invitation and not invitation['is_used'] else
-        'UNREGISTERED' if not stakeholder.get('is_registered', False) else
-        'CONFIRMED'
-    )
-    if invitation_state == 'PENDING':
-        responsibility = invitation['responsibility']
-        group_role = invitation['role']
-        phone_number = invitation['phone_number']
-    else:
-        responsibility = cast(str, project_access.get('responsibility', ''))
-        group_role = await authz.get_group_level_role(email, group_name)
-        phone_number = cast(str, stakeholder['phone_number'])
-
-    return {
-        **stakeholder,
-        'responsibility': responsibility,
-        'invitation_state': invitation_state,
-        'phone_number': phone_number,
-        'role': group_role
-    }
-
-
-async def get_stakeholders(
-    group_name: str,
-    exclude_fluid_staff: bool = False,
-) -> List[StakeholderType]:
-    group_stakeholders_emails = cast(List[str], list(chain.from_iterable(
-        await collect([
-            group_access_domain.get_group_users(group_name),
-            group_access_domain.get_group_users(group_name, False)
-        ])
-    )))
-
-    if exclude_fluid_staff:
-        group_stakeholders_emails = (
-            await stakeholder_filters.filter_non_fluid_staff(
-                group_stakeholders_emails,
-                group_name
-            )
-        )
-
-    group_stakeholders = cast(
-        List[StakeholderType],
-        await collect(
-            format_stakeholder(email, group_name)
-            for email in group_stakeholders_emails
-        )
-    )
-
-    return group_stakeholders
 
 
 async def update_pending_deletion_date(

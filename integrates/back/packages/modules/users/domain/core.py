@@ -1,5 +1,6 @@
 # Standard Libraries
 import re
+from itertools import chain
 from typing import (
     cast,
     Dict,
@@ -7,10 +8,16 @@ from typing import (
     Union,
 )
 
+# Third-party libraries
+from aioextensions import collect
+
 # Local libraries
+from backend import authz
 from backend.exceptions import InvalidPushToken
+from backend.filters import stakeholder as stakeholder_filters
 from backend.typing import (
     Invitation as InvitationType,
+    Stakeholder as StakeholderType,
     User as UserType,
 )
 from group_access import domain as group_access_domain
@@ -61,6 +68,37 @@ async def ensure_user_exists(email: str) -> bool:
     return bool(await users_dal.get(email))
 
 
+async def format_stakeholder(email: str, group_name: str) -> StakeholderType:
+    stakeholder: StakeholderType = await get_by_email(email)
+    group_access = await group_access_domain.get_user_access(
+        email,
+        group_name
+    )
+    invitation = cast(InvitationType, group_access.get('invitation'))
+    invitation_state = (
+        'PENDING'
+        if invitation and not invitation['is_used']
+        else 'UNREGISTERED'
+        if not stakeholder.get('is_registered', False)
+        else 'CONFIRMED'
+    )
+    if invitation_state == 'PENDING':
+        responsibility = invitation['responsibility']
+        group_role = invitation['role']
+        phone_number = invitation['phone_number']
+    else:
+        responsibility = cast(str, group_access.get('responsibility', ''))
+        group_role = await authz.get_group_level_role(email, group_name)
+        phone_number = cast(str, stakeholder['phone_number'])
+    return {
+        **stakeholder,
+        'responsibility': responsibility,
+        'invitation_state': invitation_state,
+        'phone_number': phone_number,
+        'role': group_role
+    }
+
+
 async def get(email: str) -> UserType:
     return await users_dal.get(email)
 
@@ -106,6 +144,38 @@ async def get_data(email: str, attr: str) -> Union[str, UserType]:
     if data_attr and attr in data_attr:
         return cast(UserType, data_attr[attr])
     return str()
+
+
+async def get_stakeholders(
+    group_name: str,
+    exclude_fluid_staff: bool = False,
+) -> List[StakeholderType]:
+    group_stakeholders_emails = cast(
+        List[str],
+        list(
+            chain.from_iterable(
+                await collect([
+                    group_access_domain.get_group_users(group_name),
+                    group_access_domain.get_group_users(group_name, False)
+                ])
+            )
+        )
+    )
+    if exclude_fluid_staff:
+        group_stakeholders_emails = (
+            await stakeholder_filters.filter_non_fluid_staff(
+                group_stakeholders_emails,
+                group_name
+            )
+        )
+    group_stakeholders = cast(
+        List[StakeholderType],
+        await collect(
+            format_stakeholder(email, group_name)
+            for email in group_stakeholders_emails
+        )
+    )
+    return group_stakeholders
 
 
 async def get_user_name(mail: str) -> Dict[str, UserType]:
