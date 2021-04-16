@@ -12,9 +12,6 @@ from pytz import timezone
 from back import settings
 from back.tests.unit.utils import create_dummy_session
 from backend.api import get_new_context
-from backend.domain.project import (
-    edit,
-)
 from backend.exceptions import (
     InvalidProjectServicesConfig,
     RepeatedValues,
@@ -40,6 +37,7 @@ from group_comments.domain import (
 from groups.domain import (
     add_comment,
     create_group,
+    edit,
     get_active_groups,
     get_alive_group_names,
     get_closed_vulnerabilities,

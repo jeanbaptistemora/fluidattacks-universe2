@@ -63,6 +63,7 @@ from newutils.validations import (
     validate_fluidattacks_staff_on_group,
     validate_phone_field,
     validate_project_name,
+    validate_string_length_between,
 )
 from notifications import domain as notifications_domain
 from organizations import domain as orgs_domain
@@ -204,6 +205,113 @@ async def create_group(  # pylint: disable=too-many-arguments,too-many-locals
             has_forces=has_forces,
             requester_email=user_email,
             subscription=subscription,
+        )
+    return success
+
+
+async def edit(
+    *,
+    context: Any,
+    comments: str,
+    group_name: str,
+    has_drills: bool,
+    has_forces: bool,
+    has_integrates: bool,
+    reason: str,
+    requester_email: str,
+    subscription: str,
+) -> bool:
+    success: bool = False
+    is_continuous_type: bool = subscription == 'continuous'
+
+    validate_fields([comments])
+    validate_string_length_between(comments, 0, 250)
+    validate_group_services_config(
+        is_continuous_type,
+        has_drills,
+        has_forces,
+        has_integrates)
+
+    item = await group_dal.get_attributes(
+        project_name=group_name,
+        attributes=[
+            'historic_configuration',
+            'project_name'
+        ]
+    )
+    item.setdefault('historic_configuration', [])
+
+    if item.get('project_name'):
+        success = await group_dal.update(
+            data={
+                'historic_configuration': cast(
+                    List[Dict[str, Union[bool, str]]],
+                    item['historic_configuration']
+                ) +
+                [{
+                    'comments': comments,
+                    'date': datetime_utils.get_now_as_str(),
+                    'has_drills': has_drills,
+                    'has_forces': has_forces,
+                    'reason': reason,
+                    'requester': requester_email,
+                    'type': subscription,
+                }],
+            },
+            project_name=group_name,
+        )
+
+    if not has_integrates:
+        group_loader = context.group_all
+        group = await group_loader.load(group_name)
+        org_id = group['organization']
+        success = (
+            success and
+            await orgs_domain.remove_group(
+                context,
+                organization_id=org_id,
+                group_name=group_name,
+                email=requester_email,
+            )
+        )
+
+    if success and has_integrates:
+        await notifications_domain.edit_group(
+            comments=comments,
+            group_name=group_name,
+            had_drills=(
+                cast(
+                    bool,
+                    cast(
+                        List[Dict[str, Union[bool, str]]],
+                        item['historic_configuration']
+                    )[-1]['has_drills']
+                )
+                if item['historic_configuration'] else False
+            ),
+            had_forces=(
+                cast(
+                    bool,
+                    cast(
+                        List[Dict[str, Union[bool, str]]],
+                        item['historic_configuration']
+                    )[-1]['has_forces']
+                )
+                if item['historic_configuration'] else False
+            ),
+            had_integrates=True,
+            has_drills=has_drills,
+            has_forces=has_forces,
+            has_integrates=has_integrates,
+            reason=reason,
+            requester_email=requester_email,
+            subscription=subscription,
+        )
+    elif success and not has_integrates:
+        await notifications_domain.delete_group(
+            deletion_date=datetime_utils.get_now_as_str(),
+            group_name=group_name,
+            requester_email=requester_email,
         )
     return success
 

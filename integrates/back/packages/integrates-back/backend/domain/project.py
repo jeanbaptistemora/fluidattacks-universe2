@@ -7,7 +7,6 @@ from typing import (
     cast,
     Dict,
     List,
-    Union,
 )
 
 from aioextensions import collect
@@ -24,9 +23,7 @@ from groups import domain as groups_domain
 from newutils import (
     datetime as datetime_utils,
     user as user_utils,
-    validations,
 )
-from notifications import domain as notifications_domain
 from organizations import domain as orgs_domain
 from resources import domain as resources_domain
 
@@ -35,114 +32,6 @@ logging.config.dictConfig(LOGGING)
 
 # Constants
 LOGGER = logging.getLogger(__name__)
-
-
-async def edit(
-    *,
-    context: Any,
-    comments: str,
-    group_name: str,
-    has_drills: bool,
-    has_forces: bool,
-    has_integrates: bool,
-    reason: str,
-    requester_email: str,
-    subscription: str,
-) -> bool:
-    success: bool = False
-    is_continuous_type: bool = subscription == 'continuous'
-
-    validations.validate_fields([comments])
-    validations.validate_string_length_between(comments, 0, 250)
-    groups_domain.validate_group_services_config(
-        is_continuous_type,
-        has_drills,
-        has_forces,
-        has_integrates)
-
-    item = await project_dal.get_attributes(
-        project_name=group_name,
-        attributes=[
-            'historic_configuration',
-            'project_name'
-        ]
-    )
-    item.setdefault('historic_configuration', [])
-
-    if item.get('project_name'):
-        success = await project_dal.update(
-            data={
-                'historic_configuration': cast(
-                    List[Dict[str, Union[bool, str]]],
-                    item['historic_configuration']
-                ) + [{
-                    'comments': comments,
-                    'date': datetime_utils.get_as_str(
-                        datetime_utils.get_now()
-                    ),
-                    'has_drills': has_drills,
-                    'has_forces': has_forces,
-                    'reason': reason,
-                    'requester': requester_email,
-                    'type': subscription,
-                }],
-            },
-            project_name=group_name,
-        )
-
-    if not has_integrates:
-        group_loader = context.group_all
-        group = await group_loader.load(group_name)
-        org_id = group['organization']
-        success = success and await orgs_domain.remove_group(
-            context,
-            organization_id=org_id,
-            group_name=group_name,
-            email=requester_email,
-        )
-
-    if success and has_integrates:
-        await notifications_domain.edit_group(
-            comments=comments,
-            group_name=group_name,
-            had_drills=(
-                cast(
-                    bool,
-                    cast(
-                        List[Dict[str, Union[bool, str]]],
-                        item['historic_configuration']
-                    )[-1]['has_drills']
-                )
-                if item['historic_configuration'] else False
-            ),
-            had_forces=(
-                cast(
-                    bool,
-                    cast(
-                        List[Dict[str, Union[bool, str]]],
-                        item['historic_configuration']
-                    )[-1]['has_forces']
-                )
-                if item['historic_configuration'] else False
-            ),
-            had_integrates=True,
-            has_drills=has_drills,
-            has_forces=has_forces,
-            has_integrates=has_integrates,
-            reason=reason,
-            requester_email=requester_email,
-            subscription=subscription,
-        )
-    elif success and not has_integrates:
-        await notifications_domain.delete_group(
-            deletion_date=datetime_utils.get_as_str(
-                datetime_utils.get_now()
-            ),
-            group_name=group_name,
-            requester_email=requester_email,
-        )
-
-    return success
 
 
 async def remove_resources(context: Any, project_name: str) -> bool:

@@ -1,24 +1,22 @@
 from typing import Any
+
 from ariadne.utils import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
+
 from backend import (
     authz,
     util,
 )
-from backend.dal.helpers.redis import (
-    redis_del_by_deps_soon,
-)
+from backend.dal.helpers.redis import redis_del_by_deps_soon
 from backend.decorators import (
     require_integrates,
     concurrent_decorators,
     enforce_group_level_auth_async,
     require_login,
 )
-from backend.domain import (
-    project as group_domain
-)
 from backend.exceptions import PermissionDenied
 from backend.typing import SimplePayload as SimplePayloadType
+from groups import domain as groups_domain
 
 
 @convert_kwargs_to_snake_case  # type: ignore
@@ -39,7 +37,7 @@ async def mutate(
     success = False
 
     try:
-        success = await group_domain.edit(
+        success = await groups_domain.edit(
             context=loaders,
             comments="",
             group_name=group_name,

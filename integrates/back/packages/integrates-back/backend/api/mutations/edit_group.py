@@ -7,9 +7,8 @@ from graphql.type.definition import GraphQLResolveInfo
 
 # Local libraries
 from backend import authz, util
-from backend.dal.helpers.redis import (
-    redis_del_by_deps,
-)
+from backend.dal.helpers.redis import redis_del_by_deps
+from backend.domain import project as group_domain
 from backend.decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
@@ -17,10 +16,10 @@ from backend.decorators import (
     require_integrates,
     turn_args_into_kwargs
 )
-from backend.domain import project as group_domain
 from backend.exceptions import PermissionDenied
 from backend.typing import SimplePayload as SimplePayloadType
 from forces import domain as forces_domain
+from groups import domain as groups_domain
 from users import domain as users_domain
 
 
@@ -49,7 +48,7 @@ async def mutate(  # pylint: disable=too-many-arguments
     success = False
 
     try:
-        success = await group_domain.edit(
+        success = await groups_domain.edit(
             context=loaders,
             comments=comments,
             group_name=group_name,
