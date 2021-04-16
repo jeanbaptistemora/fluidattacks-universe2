@@ -9,6 +9,7 @@ from botocore.exceptions import ClientError
 # Local libraries
 from back.settings import LOGGING
 from backend.exceptions import (
+    RepeatedToeInput,
     UnavailabilityError,
 )
 from data_containers.toe_inputs import GitRootToeInput
@@ -24,6 +25,25 @@ def _format_git_toe_input(
     toe_input_item: GitRootToeInputItem
 ) -> GitRootToeInput:
     return GitRootToeInput(**toe_input_item._asdict())
+
+
+def _format_git_toe_input_item(
+    toe_input: GitRootToeInput
+) -> GitRootToeInputItem:
+    return GitRootToeInputItem(**toe_input._asdict())
+
+
+async def create(root_toe_input: GitRootToeInput) -> None:
+    try:
+        root_toe_input_item = _format_git_toe_input_item(root_toe_input)
+        await model.create_git_root_toe_input(
+            root_toe_input=root_toe_input_item
+        )
+    except ClientError as ex:
+        LOGGER.exception(ex, extra={'extra': locals()})
+        if ex.response['Error']['Code'] == 'ConditionalCheckFailedException':
+            raise RepeatedToeInput() from ex
+        raise UnavailabilityError() from ex
 
 
 async def delete(
