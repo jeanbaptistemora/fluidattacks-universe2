@@ -45,7 +45,7 @@ const ProjectConsultingView: React.FC = (): JSX.Element => {
           break;
         default:
           msgError(translate.t("groupAlerts.errorTextsad"));
-          Logger.warning("An error occurred updating exploit", addCommentError);
+          Logger.error("An error occurred adding comment", addCommentError);
       }
     });
   };

@@ -400,9 +400,6 @@ export const enTranslations: ResourceKey = {
         edit: "Edit",
         noData: "There are no evidences",
       },
-      exploit: {
-        noData: "There is no exploit",
-      },
       exportCsv: {
         text: "Export",
         tooltip: "Export to a comma-separated values file",
@@ -1296,12 +1293,6 @@ export const enTranslations: ResourceKey = {
         "Images or animation representing the exploitation process to support the existence of the finding",
       update: "Update",
       updateTooltip: "Update all modified evidences",
-    },
-    tabExploit: {
-      editable: "Edit",
-      editableTooltip: "Modify the exploit script",
-      tabTitle: "Exploit",
-      tooltip: "Script to replicate the exploitation process using Asserts",
     },
     tabIndicators: {
       authors: "Current month authors",
