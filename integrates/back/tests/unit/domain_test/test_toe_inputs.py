@@ -68,3 +68,16 @@ async def test_add() -> None:
     group_toe_inputs = await toe_inputs_domain.get_by_group(group_name)
     assert toe_input in group_toe_inputs
         
+
+@pytest.mark.changes_db
+async def test_delete() -> None:
+    group_name = 'unittesting'
+    group_toe_inputs = await toe_inputs_domain.get_by_group(group_name)
+    assert len(group_toe_inputs) == 4
+    await toe_inputs_domain.delete(
+        entry_point='btnTest',
+        component='test.com/test/new.aspx',
+        group_name=group_name,
+    )
+    group_toe_inputs = await toe_inputs_domain.get_by_group(group_name)
+    assert len(group_toe_inputs) == 3
