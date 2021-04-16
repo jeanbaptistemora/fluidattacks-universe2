@@ -70,7 +70,7 @@ TEST_GROUPS: Set[str] = {
 }
 
 @pytest.fixture(autouse=True, scope='session')
-def get_generic_data() -> Dict[str, Any]:
+def generic_data() -> Dict[str, Any]:
     return {
        'users': [
             {

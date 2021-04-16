@@ -14,8 +14,7 @@ from back.tests import (
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group('add_event_consult')
 @pytest.fixture(autouse=True, scope='session')
-async def populate(get_generic_data: Dict[str, Any]) -> bool:
-    generic_data: Dict[str, Any] = get_generic_data
+async def populate(generic_data: Dict[str, Any]) -> bool:
     data: Dict[str, Any] = {
         'groups': [
             {
