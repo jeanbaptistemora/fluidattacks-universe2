@@ -44,6 +44,7 @@ const Title: StyledComponent<"p", Record<string, unknown>> = styled.p.attrs({
     tl
     roboto
     c-black-gray
+    fw4
     f5
     mh0
   `,
@@ -79,7 +80,7 @@ const EbookSection: React.FC = (): JSX.Element => (
         </MainText>
         <Link
           className={
-            "demo-button roboto f5 c-fluid-bk fw3 no-underline t-all-3-eio"
+            "demo-button roboto f5 c-fluid-bk fw4 no-underline t-all-3-eio"
           }
           to={"https://landing.fluidattacks.com/us/ebook/"}
         >

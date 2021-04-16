@@ -61,6 +61,7 @@ const TitleVertical: StyledComponent<
     rotate-180
     roboto
     c-black-gray
+    fw4
     f5
     ma0
     wm-tb-rl
@@ -114,6 +115,7 @@ const CardParagraph: StyledComponent<
 > = styled.p.attrs({
   className: `
     c-black-gray
+    fw4
     f3
     roboto
     mv2

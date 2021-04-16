@@ -121,6 +121,7 @@ const DefinitionParagraph: StyledComponent<
   className: `
     roboto
     c-black-gray
+    fw4
     f5
     lh-copy
     mv4

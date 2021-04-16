@@ -70,6 +70,7 @@ const SectionDefinition: StyledComponent<
   className: `
     roboto
     c-black-gray
+    fw4
     f5
     mt5-l
     mr3-l
@@ -101,10 +102,10 @@ const AboutUsSection: React.FC = (): JSX.Element => (
     <PhraseContainer>
       <ScrollAnimation animateIn={"animate__fadeInUp"} animateOnce={true}>
         <PhraseParagraph>
-          <b className={"c-fluid-bk"}>
+          <b className={"c-fluid-bk fw7"}>
             {`${translate.t("aboutUs.homeBlackPhrase")} `}
           </b>
-          <b className={"c-fluid-gray"}>
+          <b className={"c-fluid-gray fw7"}>
             {translate.t("aboutUs.homeGrayPhrase")}
           </b>
         </PhraseParagraph>

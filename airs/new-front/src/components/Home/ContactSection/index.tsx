@@ -40,6 +40,7 @@ const Title: StyledComponent<"p", Record<string, unknown>> = styled.p.attrs({
     tl
     roboto
     c-black-gray
+    fw4
     f5
     mh0
   `,
