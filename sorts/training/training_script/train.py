@@ -85,17 +85,28 @@ def get_best_combination(
         key=lambda results_row: (float(results_row[4]), float(results_row[5])),
         reverse=True
     )
+    best_f1_score: int = 0
+    overfit_limit: int = 8
+    best_combination_candidates: List[List[str]] = []
+    for results_row in sorted_results:
+        f1_score = int(float(results_row[4]))
+        overfit = float(results_row[5])
+        if overfit < overfit_limit and f1_score >= best_f1_score:
+            best_combination_candidates.append(results_row)
+            best_f1_score = f1_score
+
     best_features: Tuple[str, ...] = tuple()
     best_f1: str = ''
-    overfit_limit: int = 8
-    for results_row in sorted_results:
-        if float(results_row[5]) < overfit_limit:
+    min_overfit: float = 0.0
+    for candidate in best_combination_candidates:
+        overfit = float(candidate[5])
+        if overfit > min_overfit:
             best_features = tuple([
                 inv_features_dict[feature]
-                for feature in results_row[1].split(' ')
+                for feature in candidate[1].split(' ')
             ])
-            best_f1 = f'{float(results_row[4]):.0f}'
-            break
+            best_f1 = f'{float(candidate[4]):.0f}'
+            min_overfit = overfit
 
     return best_features, best_f1
 
