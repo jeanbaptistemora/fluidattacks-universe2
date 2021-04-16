@@ -15,10 +15,7 @@ from typing import (
 )
 
 # Third-party libraries
-from aioextensions import (
-    in_process,
-    schedule,
-)
+from aioextensions import schedule
 from boto3.dynamodb.conditions import Key
 from starlette.datastructures import UploadFile
 
@@ -30,7 +27,6 @@ from backend import (
 )
 from backend.dal import project as group_dal
 from backend.dal.helpers import dynamodb
-from backend.domain import project as group_domain
 from backend.exceptions import (
     InvalidDateFormat,
     InvalidFileStructure,
@@ -330,25 +326,6 @@ def get_item_date(item: Any) -> Datetime:
     return datetime_utils.get_from_str(item['date'].split(' ')[0], '%Y-%m-%d')
 
 
-def get_reattack_requesters(
-    historic_verification: List[Dict[str, str]],
-    vulnerabilities: List[str]
-) -> List[str]:
-    historic_verification = list(reversed(historic_verification))
-    users: List[str] = []
-    for verification in historic_verification:
-        if verification.get('status', '') == 'REQUESTED':
-            vulns = cast(List[str], verification.get('vulns', []))
-            if any([vuln for vuln in vulns if vuln in vulnerabilities]):
-                vulnerabilities = [
-                    vuln for vuln in vulnerabilities if vuln not in vulns
-                ]
-                users.append(str(verification.get('user', '')))
-        if not vulnerabilities:
-            break
-    return list(set(users))
-
-
 def get_sorted_historics(
     vuln: Dict[str, FindingType]
 ) -> Tuple[List[Dict[str, str]], List[Dict[str, str]]]:
@@ -449,46 +426,6 @@ def get_vuln_treatment_actions(
         )
     ]
     return list({action.date: action for action in actions}.values())
-
-
-async def send_finding_verified_email(  # pylint: disable=too-many-arguments
-    context: Any,
-    finding_id: str,
-    finding_name: str,
-    group_name: str,
-    historic_verification: List[Dict[str, str]],
-    vulnerabilities: List[str]
-) -> None:
-    group_loader = context.group_all
-    organization_loader = context.organization
-    group = await group_loader.load(group_name)
-    org_id = group['organization']
-    organization = await organization_loader.load(org_id)
-    org_name = organization['name']
-    all_recipients = await group_domain.get_users_to_notify(group_name)
-    recipients = await in_process(
-        get_reattack_requesters,
-        historic_verification,
-        vulnerabilities
-    )
-    recipients = [
-        recipient for recipient in recipients if recipient in all_recipients
-    ]
-    schedule(
-        mailer.send_mail_verified_finding(
-            recipients,
-            {
-                'project': group_name,
-                'organization': org_name,
-                'finding_name': finding_name,
-                'finding_url': (
-                    f'{BASE_URL}/orgs/{org_name}/groups/{group_name}'
-                    f'/vulns/{finding_id}/tracking'
-                ),
-                'finding_id': finding_id
-            }
-        )
-    )
 
 
 def sort_historic_by_date(historic: Any) -> HistoricType:

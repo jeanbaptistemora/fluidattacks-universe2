@@ -24,7 +24,6 @@ from jinja2 import (
 # Local libraries
 from back import settings
 from backend import authz
-from backend.domain import project as project_domain
 from backend.filters import finding as finding_filters
 from backend.typing import (
     Comment as CommentType,
@@ -33,6 +32,7 @@ from backend.typing import (
     MailContent as MailContentType,
     Project as ProjectType
 )
+from group_access import domain as group_access_domain
 from newutils import datetime as datetime_utils
 from organizations import domain as orgs_domain
 from users import domain as users_domain
@@ -180,7 +180,7 @@ async def send_comment_mail(  # pylint: disable=too-many-locals
         project_name = str(event.get('project_name', ''))
         org_id = await orgs_domain.get_id_for_group(project_name)
         org_name = await orgs_domain.get_name_by_id(org_id)
-        recipients = await project_domain.get_users_to_notify(
+        recipients = await group_access_domain.get_users_to_notify(
             project_name, True
         )
         email_context['finding_id'] = event_id
@@ -228,7 +228,7 @@ async def send_comment_mail(  # pylint: disable=too-many-locals
 
 async def get_email_recipients(
         group: str, comment_type: Union[str, bool]) -> List[str]:
-    project_users = await project_domain.get_users_to_notify(group)
+    project_users = await group_access_domain.get_users_to_notify(group)
     recipients: List[str] = []
 
     approvers = FI_MAIL_REVIEWERS.split(',')

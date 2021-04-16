@@ -34,8 +34,37 @@ async def get_group_users(group: str, active: bool = True) -> List[str]:
     return await group_access_dal.get_group_users(group, active)
 
 
+async def get_managers(group_name: str) -> List[str]:
+    users = await get_group_users(group_name, active=True)
+    users_roles = await collect([
+        authz.get_group_level_role(user, group_name)
+        for user in users
+    ])
+    return [
+        user_email
+        for user_email, role in zip(users, users_roles)
+        if role == 'customeradmin'
+    ]
+
+
 async def get_user_groups(user_email: str, active: bool) -> List[str]:
     return await group_access_dal.get_user_groups(user_email, active)
+
+
+async def get_users_to_notify(
+    group_name: str,
+    active: bool = True
+) -> List[str]:
+    users = await get_group_users(group_name, active)
+    user_roles = await collect(
+        authz.get_group_level_role(user, group_name)
+        for user in users
+    )
+    return [
+        str(user)
+        for user, user_role in zip(users, user_roles)
+        if user_role != 'executive'
+    ]
 
 
 async def remove_access(user_email: str, group_name: str) -> bool:

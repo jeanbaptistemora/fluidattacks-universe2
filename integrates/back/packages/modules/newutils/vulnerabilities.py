@@ -319,6 +319,27 @@ def get_ranges(numberlist: List[int]) -> str:
     return range_str
 
 
+def get_reattack_requesters(
+    historic_verification: List[Dict[str, str]],
+    vulnerabilities: List[str]
+) -> List[str]:
+    historic_verification = list(reversed(historic_verification))
+    users: List[str] = []
+    for verification in historic_verification:
+        if verification.get('status', '') == 'REQUESTED':
+            vulns = cast(List[str], verification.get('vulns', []))
+            if any([vuln for vuln in vulns if vuln in vulnerabilities]):
+                vulnerabilities = [
+                    vuln
+                    for vuln in vulnerabilities
+                    if vuln not in vulns
+                ]
+                users.append(str(verification.get('user', '')))
+        if not vulnerabilities:
+            break
+    return list(set(users))
+
+
 def get_report_dates(
     vulnerabilities: List[Dict[str, FindingType]]
 ) -> List[datetime]:

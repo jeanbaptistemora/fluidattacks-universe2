@@ -30,10 +30,10 @@ from backend.api import (
   get_new_context,
 )
 from backend.api.schema import SCHEMA
-from backend.domain.project import get_open_vulnerabilities
-from backend.exceptions import FindingNotFound, NotVerificationRequested
+from backend.exceptions import FindingNotFound
 from findings import dal as findings_dal
 from findings.domain import get_finding
+from groups.domain import get_open_vulnerabilities
 
 
 pytestmark = pytest.mark.asyncio

@@ -11,8 +11,8 @@ from findings.domain import (
 from newutils.findings import (
     format_data,
     get_evidence,
-    get_reattack_requesters,
 )
+from newutils.vulnerabilities import get_reattack_requesters
 
 
 pytestmark = [

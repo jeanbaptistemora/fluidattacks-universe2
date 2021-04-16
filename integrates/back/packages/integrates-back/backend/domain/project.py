@@ -21,7 +21,6 @@ from aioextensions import (
 
 from back.settings import LOGGING
 from backend import authz
-from backend.authz.policy import get_group_level_role
 from backend.dal import project as project_dal
 from backend.exceptions import (
     AlreadyPendingDeletion,
@@ -402,58 +401,6 @@ async def remove_user_access(
             success = success and await user_utils.remove_stakeholder(email)
 
     return success
-
-
-async def get_users_to_notify(
-        project_name: str,
-        active: bool = True) -> List[str]:
-    users = await group_access_domain.get_group_users(project_name, active)
-    user_roles = await collect(
-        get_group_level_role(user, project_name)
-        for user in users
-    )
-    return [
-        str(user)
-        for user, user_role in zip(users, user_roles)
-        if user_role != 'executive'
-    ]
-
-
-async def get_managers(project_name: str) -> List[str]:
-    users = await group_access_domain.get_group_users(
-        project_name,
-        active=True
-    )
-    users_roles = await collect([
-        authz.get_group_level_role(user, project_name)
-        for user in users
-    ])
-    return [
-        user_email
-        for user_email, role in zip(users, users_roles)
-        if role == 'customeradmin'
-    ]
-
-
-async def get_open_vulnerabilities(context: Any, group_name: str) -> int:
-    group_findings_loader = context.group_findings
-    group_findings_loader.clear(group_name)
-    finding_vulns_loader = context.finding_vulns_nzr
-
-    group_findings = await group_findings_loader.load(group_name)
-    findings_vulns = await finding_vulns_loader.load_many_chained([
-        finding['finding_id'] for finding in group_findings
-    ])
-
-    last_approved_status = await collect([
-        in_process(vulns_utils.get_last_status, vuln)
-        for vuln in findings_vulns
-    ])
-    open_vulnerabilities = 0
-    for status in last_approved_status:
-        if status == 'open':
-            open_vulnerabilities += 1
-    return open_vulnerabilities
 
 
 async def get_closed_vulnerabilities(context: Any, group_name: str) -> int:

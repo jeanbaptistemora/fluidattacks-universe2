@@ -57,7 +57,6 @@ from backend import (
     util,
 )
 from backend.dal.helpers.dynamodb import start_context
-from backend.domain import project as project_domain
 from backend.exceptions import (
     AlreadyRequested,
     AlreadyZeroRiskRequested,
@@ -86,7 +85,6 @@ from findings import domain as findings_domain
 from group_access import domain as group_access_domain
 from newutils import (
     datetime as datetime_utils,
-    findings as finding_utils,
     validations,
     vulnerabilities as vulns_utils,
 )
@@ -954,6 +952,46 @@ async def request_zero_risk_vulnerabilities(
     return success
 
 
+async def send_finding_verified_email(  # pylint: disable=too-many-arguments
+    context: Any,
+    finding_id: str,
+    finding_name: str,
+    group_name: str,
+    historic_verification: List[Dict[str, str]],
+    vulnerabilities: List[str]
+) -> None:
+    group_loader = context.group_all
+    organization_loader = context.organization
+    group = await group_loader.load(group_name)
+    org_id = group['organization']
+    organization = await organization_loader.load(org_id)
+    org_name = organization['name']
+    all_recipients = await group_access_domain.get_users_to_notify(group_name)
+    recipients = await in_process(
+        vulns_utils.get_reattack_requesters,
+        historic_verification,
+        vulnerabilities
+    )
+    recipients = [
+        recipient for recipient in recipients if recipient in all_recipients
+    ]
+    schedule(
+        mailer.send_mail_verified_finding(
+            recipients,
+            {
+                'project': group_name,
+                'organization': org_name,
+                'finding_name': finding_name,
+                'finding_url': (
+                    f'{BASE_URL}/orgs/{org_name}/groups/{group_name}'
+                    f'/vulns/{finding_id}/tracking'
+                ),
+                'finding_id': finding_id
+            }
+        )
+    )
+
+
 async def send_remediation_email(  # pylint: disable=too-many-arguments
     context: Any,
     user_email: str,
@@ -1003,7 +1041,7 @@ async def send_updated_treatment_mail(
     org_id = group['organization']
     organization = await organization_loader.load(org_id)
     org_name = organization['name']
-    managers = await project_domain.get_managers(group_name)
+    managers = await group_access_domain.get_managers(group_name)
 
     schedule(
         mailer.send_mail_updated_treatment(
@@ -1413,7 +1451,7 @@ async def verify(
         )
     )
     schedule(
-        finding_utils.send_finding_verified_email(
+        send_finding_verified_email(
             context,
             finding_id,
             str(finding.get('finding', '')),

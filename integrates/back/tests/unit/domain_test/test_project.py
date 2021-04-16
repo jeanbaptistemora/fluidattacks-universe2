@@ -16,9 +16,7 @@ from backend.domain.project import (
     create_group,
     edit,
     get_closed_vulnerabilities,
-    get_managers,
     get_open_finding,
-    get_open_vulnerabilities,
 )
 from backend.exceptions import (
     InvalidProjectServicesConfig,
@@ -35,6 +33,7 @@ from findings.domain import (
 )
 from group_access.domain import (
     get_closers,
+    get_managers,
     get_group_users,
     remove_access,
 )
@@ -48,6 +47,7 @@ from groups.domain import (
     get_description,
     get_mean_remediate,
     get_mean_remediate_severity,
+    get_open_vulnerabilities,
     is_alive,
     validate_group_services_config,
     validate_group_tags,

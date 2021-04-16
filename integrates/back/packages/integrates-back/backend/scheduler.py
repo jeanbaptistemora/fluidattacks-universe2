@@ -49,6 +49,7 @@ from batch import dal as batch_dal
 from events import domain as events_domain
 from findings import domain as findings_domain
 from groups import domain as groups_domain
+from group_access import domain as group_access_domain
 from newutils import (
     datetime as datetime_utils,
     vulnerabilities as vulns_utils,
@@ -159,7 +160,7 @@ async def send_unsolved_events_email(context: Any, group_name: str) -> None:
 
 
 async def get_external_recipients(project: str) -> List[str]:
-    recipients = await project_domain.get_managers(project)
+    recipients = await group_access_domain.get_managers(project)
     return remove_fluid_from_recipients(recipients)
 
 
@@ -467,7 +468,7 @@ async def get_group_new_vulnerabilities(context: Any, group_name: str) -> None:
         LOGGER.exception(ex, extra={'extra': {'group_name': group_name}})
         raise
     if mail_context['updated_findings']:
-        mail_to = await project_domain.get_users_to_notify(group_name)
+        mail_to = await group_access_domain.get_users_to_notify(group_name)
         scheduler_send_mail(
             mailer.send_mail_new_vulnerabilities,
             mail_to,
@@ -813,7 +814,7 @@ async def get_project_indicators(project: str) -> Dict[str, object]:
             project
         ),
         'open_vulnerabilities': (
-            await project_domain.get_open_vulnerabilities(context, project)
+            await groups_domain.get_open_vulnerabilities(context, project)
         ),
         'total_treatment': await findings_domain.get_total_treatment(
             context,
