@@ -132,6 +132,13 @@ module.exports = {
           'criteria/logs/r078',
         ],
     },
+    {
+      type: 'category',
+        label: 'Emails',
+        items: [
+          'criteria/emails/r115',
+        ],
+    },
   ],
   Machine: [
     {
