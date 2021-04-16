@@ -36,7 +36,6 @@ from back.settings import LOGGING
 from backend import mailer
 from backend.api import get_new_context
 from backend.dal import project as project_dal
-from backend.domain import project as project_domain
 from backend.filters import finding as finding_filters
 from backend.typing import (
     Event as EventType,
@@ -1114,7 +1113,7 @@ async def _remove_group_pending_deletion_dates(
         if group not in obsolete_groups
     ]
     success = all(await collect([
-        project_domain.update_pending_deletion_date(
+        groups_domain.update_pending_deletion_date(
             group['project_name'],
             None
         )
@@ -1141,7 +1140,7 @@ async def _set_group_pending_deletion_dates(
         groups_to_set_pending_deletion_date
     )
     success = all(await collect([
-        project_domain.update_pending_deletion_date(
+        groups_domain.update_pending_deletion_date(
             group_name,
             group_pending_deletion_date_str
         )

@@ -13,7 +13,6 @@ from back import settings
 from back.tests.unit.utils import create_dummy_session
 from backend.api import get_new_context
 from backend.domain.project import (
-    create_group,
     edit,
 )
 from backend.exceptions import (
@@ -40,6 +39,7 @@ from group_comments.domain import (
 )
 from groups.domain import (
     add_comment,
+    create_group,
     get_active_groups,
     get_alive_group_names,
     get_closed_vulnerabilities,
@@ -431,7 +431,7 @@ async def test_create_project_not_user_admin():
     test_data = await create_group(
         user_email=user_email,
         user_role=user_role,
-        project_name='NEWAVAILABLENAME',
+        group_name='NEWAVAILABLENAME',
         organization='okada',
         description='This is a new project',
         has_drills=True,

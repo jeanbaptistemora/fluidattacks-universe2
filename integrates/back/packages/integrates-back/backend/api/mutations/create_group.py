@@ -12,9 +12,9 @@ from backend.decorators import (
     enforce_user_level_auth_async,
     require_login
 )
-from backend.domain import project as group_domain
 from backend.typing import SimplePayload as SimplePayloadType
 from forces import domain as forces_domain
+from groups import domain as groups_domain
 
 
 @convert_kwargs_to_snake_case  # type: ignore
@@ -38,7 +38,7 @@ async def mutate(  # pylint: disable=too-many-arguments
     user_email = user_data['user_email']
     user_role = await authz.get_user_level_role(user_email)
 
-    success = await group_domain.create_group(
+    success = await groups_domain.create_group(
         user_email,
         user_role,
         group_name.lower(),

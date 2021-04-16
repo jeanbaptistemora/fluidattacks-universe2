@@ -7,7 +7,6 @@ from typing import (
     cast,
     Dict,
     List,
-    Optional,
     Union,
 )
 
@@ -16,18 +15,12 @@ from aioextensions import collect
 from back.settings import LOGGING
 from backend import authz
 from backend.dal import project as project_dal
-from backend.exceptions import (
-    AlreadyPendingDeletion,
-    InvalidParameter,
-    InvalidProjectName,
-    UserNotInOrganization,
-)
+from backend.exceptions import AlreadyPendingDeletion
 from backend.typing import Project as ProjectType
 from events import domain as events_domain
 from findings import domain as findings_domain
 from group_access import domain as group_access_domain
 from groups import domain as groups_domain
-from names import domain as names_domain
 from newutils import (
     datetime as datetime_utils,
     user as user_utils,
@@ -42,101 +35,6 @@ logging.config.dictConfig(LOGGING)
 
 # Constants
 LOGGER = logging.getLogger(__name__)
-
-
-async def create_group(  # pylint: disable=too-many-arguments,too-many-locals
-    user_email: str,
-    user_role: str,
-    project_name: str,
-    organization: str,
-    description: str,
-    has_drills: bool = False,
-    has_forces: bool = False,
-    subscription: str = 'continuous',
-    language: str = 'en',
-) -> bool:
-    validations.validate_project_name(project_name)
-    validations.validate_fields([description])
-    validations.validate_field_length(project_name, 20)
-    validations.validate_field_length(description, 200)
-    is_user_admin = user_role == 'admin'
-
-    is_continuous_type = subscription == 'continuous'
-
-    success: bool = False
-
-    if description.strip() and project_name.strip():
-
-        groups_domain.validate_group_services_config(
-            is_continuous_type,
-            has_drills,
-            has_forces,
-            has_integrates=True)
-
-        is_group_avail, group_exists = await collect([
-            names_domain.exists(project_name, 'group'),
-            project_dal.exists(project_name)
-        ])
-
-        org_id = await orgs_domain.get_id_by_name(organization)
-        if not await orgs_domain.has_user_access(org_id, user_email):
-            raise UserNotInOrganization(org_id)
-
-        if is_group_avail and not group_exists:
-            project: ProjectType = {
-                'project_name': project_name,
-                'description': description,
-                'language': language,
-                'historic_configuration': [{
-                    'date': datetime_utils.get_as_str(
-                        datetime_utils.get_now()
-                    ),
-                    'has_drills': has_drills,
-                    'has_forces': has_forces,
-                    'requester': user_email,
-                    'type': subscription,
-                }],
-                'project_status': 'ACTIVE',
-            }
-
-            success = await project_dal.create(project)
-            if success:
-                await collect((
-                    orgs_domain.add_group(org_id, project_name),
-                    names_domain.remove(project_name, 'group')
-                ))
-                # Admins are not granted access to the project
-                # they are omnipresent
-                if not is_user_admin:
-                    success = success and all(await collect((
-                        group_access_domain.update_has_access(
-                            user_email,
-                            project_name,
-                            True
-                        ),
-                        authz.grant_group_level_role(
-                            user_email, project_name,
-                            'group_manager'
-                        )))
-                    )
-
-        else:
-            raise InvalidProjectName()
-    else:
-        raise InvalidParameter()
-
-    # Notify us in case the user wants any Fluid Service
-    if success and (has_drills or has_forces):
-        await notifications_domain.new_group(
-            description=description,
-            group_name=project_name,
-            has_drills=has_drills,
-            has_forces=has_forces,
-            requester_email=user_email,
-            subscription=subscription,
-        )
-
-    return success
 
 
 async def edit(
@@ -384,21 +282,5 @@ async def remove_user_access(
         )
         if not has_groups:
             success = success and await user_utils.remove_stakeholder(email)
-
-    return success
-
-
-async def update_pending_deletion_date(
-    group_name: str,
-    pending_deletion_date: Optional[str]
-) -> bool:
-    """ Update pending deletion date """
-    values: ProjectType = {
-        'pending_deletion_date': pending_deletion_date
-    }
-    success = await project_dal.update(
-        group_name,
-        values
-    )
 
     return success

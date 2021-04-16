@@ -35,8 +35,11 @@ from backend.dal import project as group_dal
 from backend.dal.helpers.dynamodb import start_context
 from backend.exceptions import (
     InvalidCommentParent,
+    InvalidParameter,
+    InvalidProjectName,
     InvalidProjectServicesConfig,
     RepeatedValues,
+    UserNotInOrganization,
 )
 from backend.typing import (
     Comment as CommentType,
@@ -45,6 +48,7 @@ from backend.typing import (
 )
 from group_access import domain as group_access_domain
 from group_comments import domain as group_comments_domain
+from names import domain as names_domain
 from newutils import (
     apm,
     comments as comments_utils,
@@ -55,9 +59,12 @@ from newutils.validations import (
     validate_alphanumeric_field,
     validate_email_address,
     validate_field_length,
+    validate_fields,
     validate_fluidattacks_staff_on_group,
     validate_phone_field,
+    validate_project_name,
 )
+from notifications import domain as notifications_domain
 from organizations import domain as orgs_domain
 from __init__ import BASE_URL
 
@@ -106,6 +113,99 @@ async def add_comment(
 
 async def can_user_access(group: str, role: str) -> bool:
     return await group_dal.can_user_access(group, role)
+
+
+async def create_group(  # pylint: disable=too-many-arguments,too-many-locals
+    user_email: str,
+    user_role: str,
+    group_name: str,
+    organization: str,
+    description: str,
+    has_drills: bool = False,
+    has_forces: bool = False,
+    subscription: str = 'continuous',
+    language: str = 'en',
+) -> bool:
+    validate_project_name(group_name)
+    validate_fields([description])
+    validate_field_length(group_name, 20)
+    validate_field_length(description, 200)
+
+    is_user_admin = user_role == 'admin'
+    is_continuous_type = subscription == 'continuous'
+
+    success: bool = False
+    if description.strip() and group_name.strip():
+        validate_group_services_config(
+            is_continuous_type,
+            has_drills,
+            has_forces,
+            has_integrates=True
+        )
+        is_group_avail, group_exists = await collect([
+            names_domain.exists(group_name, 'group'),
+            group_dal.exists(group_name)
+        ])
+
+        org_id = await orgs_domain.get_id_by_name(organization)
+        if not await orgs_domain.has_user_access(org_id, user_email):
+            raise UserNotInOrganization(org_id)
+
+        if is_group_avail and not group_exists:
+            group: GroupType = {
+                'project_name': group_name,
+                'description': description,
+                'language': language,
+                'historic_configuration': [{
+                    'date': datetime_utils.get_now_as_str(),
+                    'has_drills': has_drills,
+                    'has_forces': has_forces,
+                    'requester': user_email,
+                    'type': subscription,
+                }],
+                'project_status': 'ACTIVE',
+            }
+            success = await group_dal.create(group)
+            if success:
+                await collect((
+                    orgs_domain.add_group(org_id, group_name),
+                    names_domain.remove(group_name, 'group')
+                ))
+                # Admins are not granted access to the project
+                # they are omnipresent
+                if not is_user_admin:
+                    success = (
+                        success and
+                        all(
+                            await collect((
+                                group_access_domain.update_has_access(
+                                    user_email,
+                                    group_name,
+                                    True
+                                ),
+                                authz.grant_group_level_role(
+                                    user_email,
+                                    group_name,
+                                    'group_manager'
+                                )
+                            ))
+                        )
+                    )
+        else:
+            raise InvalidProjectName()
+    else:
+        raise InvalidParameter()
+    # Notify us in case the user wants any Fluid Service
+    if success and (has_drills or has_forces):
+        await notifications_domain.new_group(
+            description=description,
+            group_name=group_name,
+            has_drills=has_drills,
+            has_forces=has_forces,
+            requester_email=user_email,
+            subscription=subscription,
+        )
+    return success
 
 
 async def get_active_groups() -> List[str]:
@@ -411,6 +511,16 @@ def send_comment_mail(
 
 async def update(group_name: str, data: GroupType) -> bool:
     return await group_dal.update(group_name, data)
+
+
+async def update_pending_deletion_date(
+    group_name: str,
+    pending_deletion_date: Optional[str]
+) -> bool:
+    """ Update pending deletion date """
+    values: GroupType = {'pending_deletion_date': pending_deletion_date}
+    success = await update(group_name, values)
+    return success
 
 
 async def update_tags(
