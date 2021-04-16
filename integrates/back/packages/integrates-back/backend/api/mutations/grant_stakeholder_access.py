@@ -19,11 +19,11 @@ from backend.decorators import (
     require_integrates,
     require_login
 )
-from backend.domain import project as group_domain
 from backend.exceptions import StakeholderHasGroupAccess
 from backend.typing import (
     GrantStakeholderAccessPayload as GrantStakeholderAccessPayloadType,
 )
+from group_access import domain as group_access_domain
 from groups import domain as groups_domain
 
 
@@ -53,7 +53,7 @@ async def mutate(
     new_user_email = query_args.get('email', '')
     new_user_responsibility = query_args.get('responsibility', '-')
 
-    project_access = await group_domain.get_user_access(
+    project_access = await group_access_domain.get_user_access(
         new_user_email,
         project_name
     )

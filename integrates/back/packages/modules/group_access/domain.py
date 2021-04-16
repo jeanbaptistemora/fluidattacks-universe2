@@ -1,12 +1,19 @@
 # Standard libraries
-from typing import List
+from typing import (
+    cast,
+    Dict,
+    List
+)
 
 # Third-party libraries
 from aioextensions import collect
 
 # Local libraries
 from backend import authz
-from backend.typing import ProjectAccess as GroupAccessType
+from backend.typing import (
+    Project as GroupType,
+    ProjectAccess as GroupAccessType,
+)
 from group_access import dal as group_access_dal
 
 
@@ -15,6 +22,13 @@ async def add_user_access(email: str, group: str, role: str) -> bool:
         await update_has_access(email, group, True) and
         await authz.grant_group_level_role(email, group, role)
     )
+
+
+async def get_access_by_url_token(url_token: str) -> GroupAccessType:
+    access: List[Dict[str, GroupType]] = (
+        await group_access_dal.get_access_by_url_token(url_token)
+    )
+    return cast(GroupAccessType, access[0]) if access else {}
 
 
 async def get_closers(group_name: str, active: bool = True) -> List[str]:
@@ -45,6 +59,16 @@ async def get_managers(group_name: str) -> List[str]:
         for user_email, role in zip(users, users_roles)
         if role == 'customeradmin'
     ]
+
+
+async def get_user_access(
+    user_email: str,
+    group_name: str
+) -> GroupAccessType:
+    access: List[Dict[str, GroupType]] = (
+        await group_access_dal.get_user_access(user_email, group_name)
+    )
+    return cast(GroupAccessType, access[0]) if access else {}
 
 
 async def get_user_groups(user_email: str, active: bool) -> List[str]:

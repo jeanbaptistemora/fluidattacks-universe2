@@ -1,7 +1,10 @@
 # Standard libraries
 import logging
 import logging.config
-from typing import List
+from typing import (
+    Dict,
+    List,
+)
 
 # Third-party libraries
 from boto3.dynamodb.conditions import (
@@ -15,6 +18,7 @@ from back.settings import LOGGING
 from backend.dal.helpers import dynamodb
 from backend.typing import (
     DynamoDelete as DynamoDeleteType,
+    Project as GroupType,
     ProjectAccess as GroupAccessType,
 )
 from newutils import (
@@ -28,6 +32,19 @@ logging.config.dictConfig(LOGGING)
 # Constants
 LOGGER = logging.getLogger(__name__)
 TABLE_NAME: str = 'FI_project_access'
+
+
+async def get_access_by_url_token(
+    url_token: str
+) -> List[Dict[str, GroupType]]:
+    """Get user access of a group by the url token"""
+    filter_exp = (
+        Attr('invitation').exists() &
+        Attr('invitation.url_token').eq(url_token)
+    )
+    scan_attrs = {'FilterExpression': filter_exp}
+    items = await dynamodb.async_scan(TABLE_NAME, scan_attrs)
+    return items
 
 
 async def get_group_users(group: str, active: bool = True) -> List[str]:
@@ -62,6 +79,24 @@ async def get_group_users(group: str, active: bool = True) -> List[str]:
             if not user.get('has_access', '')
         ]
     return users_filtered
+
+
+async def get_user_access(
+    user_email: str,
+    group_name: str
+) -> List[Dict[str, GroupType]]:
+    """Get user access of a group"""
+    user_email = user_email.lower()
+    group_name = group_name.lower()
+    filter_key = 'user_email'
+    filter_sort = 'project_name'
+    filtering_exp = (
+        Key(filter_key).eq(user_email) &
+        Key(filter_sort).eq(group_name)
+    )
+    query_attrs = {'KeyConditionExpression': filtering_exp}
+    items = await dynamodb.async_query(TABLE_NAME, query_attrs)
+    return items
 
 
 @apm.trace()

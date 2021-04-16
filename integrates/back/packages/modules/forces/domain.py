@@ -21,12 +21,12 @@ from starlette.datastructures import UploadFile
 
 # Local libraries
 from back.settings import LOGGING
-from backend.domain import project as group_domain
 from backend.typing import (
     ExecutionVulnerabilities,
     ForcesExecution as ForcesExecutionType,
 )
 from forces import dal as forces_dal
+from group_access import domain as group_access_domain
 from groups import domain as groups_domain
 from users import domain as users_domain
 
@@ -84,7 +84,10 @@ async def create_forces_user(
     )
 
     # Give permissions directly, no confirmation required
-    group_access = await group_domain.get_user_access(user_email, group_name)
+    group_access = await group_access_domain.get_user_access(
+        user_email,
+        group_name
+    )
     success = (
         success and
         await users_domain.complete_register_for_group_invitation(group_access)

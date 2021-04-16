@@ -12,9 +12,9 @@ from backend.decorators import (
     enforce_organization_level_auth_async,
     require_login
 )
-from backend.domain import project as group_domain
 from backend.exceptions import InvalidParameter, StakeholderNotFound
 from backend.typing import Stakeholder
+from group_access import domain as group_access_domain
 from users import domain as stakeholders_domain
 
 
@@ -50,7 +50,7 @@ async def _resolve_for_group(
     group_role: str = await authz.get_group_level_role(email, group_name)
 
     if group_role:
-        access = await group_domain.get_user_access(
+        access = await group_access_domain.get_user_access(
             email,
             group_name
         )

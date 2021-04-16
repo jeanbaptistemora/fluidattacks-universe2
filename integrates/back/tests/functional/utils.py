@@ -16,16 +16,18 @@ from backend.api import (
     Dataloaders
 )
 from backend.api.schema import SCHEMA
-from backend.domain import project as domain_group
-from users.domain.group import complete_register_for_group_invitation
+from group_access import domain as group_access_domain
+from users import domain as users_domain
 
 
 async def complete_register(
     email: str,
     group_name: str,
 ):
-    project_access = await domain_group.get_user_access(email, group_name)
-    success = await complete_register_for_group_invitation(
+    project_access = await group_access_domain.get_user_access(
+        email,group_name
+    )
+    success = await users_domain.complete_register_for_group_invitation(
         project_access
     )
 

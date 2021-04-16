@@ -16,12 +16,12 @@ from backend.decorators import (
     require_integrates,
     require_login
 )
-from backend.domain import project as group_domain
 from backend.exceptions import StakeholderNotFound
 from backend.typing import (
     Invitation as InvitationType,
     EditStakeholderPayload as EditStakeholderPayloadType
 )
+from group_access import domain as group_access_domain
 from newutils.validations import validate_fluidattacks_staff_on_group
 from users import domain as users_domain
 
@@ -40,7 +40,7 @@ async def _update_stakeholder(
     group_name = updated_data['project_name'].lower()
     modified_role = updated_data['role']
     modified_email = updated_data['email']
-    project_access = await group_domain.get_user_access(
+    project_access = await group_access_domain.get_user_access(
         modified_email,
         group_name
     )

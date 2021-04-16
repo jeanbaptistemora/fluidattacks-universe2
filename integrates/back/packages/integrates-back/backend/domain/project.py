@@ -27,7 +27,6 @@ from backend.filters import stakeholder as stakeholder_filters
 from backend.typing import (
     Invitation as InvitationType,
     Project as ProjectType,
-    ProjectAccess as ProjectAccessType,
     Stakeholder as StakeholderType,
 )
 from events import domain as events_domain
@@ -396,26 +395,12 @@ async def remove_user_access(
     return success
 
 
-async def get_user_access(email: str, group_name: str) -> ProjectAccessType:
-    access: List[Dict[str, ProjectType]] = \
-        await project_dal.get_user_access(email, group_name)
-
-    return cast(ProjectAccessType, access[0]) if access else {}
-
-
-async def get_access_by_url_token(url_token: str) -> ProjectAccessType:
-    access: List[Dict[str, ProjectType]] = \
-        await project_dal.get_access_by_url_token(url_token)
-
-    return cast(ProjectAccessType, access[0]) if access else {}
-
-
 async def format_stakeholder(
     email: str,
     group_name: str
 ) -> StakeholderType:
     stakeholder: StakeholderType = await users_domain.get_by_email(email)
-    project_access = await get_user_access(
+    project_access = await group_access_domain.get_user_access(
         email,
         group_name
     )

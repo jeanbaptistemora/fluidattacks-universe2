@@ -38,11 +38,11 @@ from backend.api.schema import SCHEMA
 from backend.dal import session as session_dal
 from backend.dal.helpers.redis import redis_del_entity_attr
 from backend.decorators import authenticate_session
-from backend.domain import project as group_domain
 from backend.exceptions import (
     ExpiredToken,
     SecureAccessException,
 )
+from group_access import domain as group_access_domain
 from organizations import domain as orgs_domain
 from users.domain.group import complete_register_for_group_invitation
 from __init__ import (
@@ -100,7 +100,9 @@ async def logout(request: Request) -> HTMLResponse:
 async def confirm_access(request: Request) -> HTMLResponse:
     url_token = request.path_params.get('url_token')
     if url_token:
-        project_access = await group_domain.get_access_by_url_token(url_token)
+        project_access = await group_access_domain.get_access_by_url_token(
+            url_token
+        )
 
         if project_access:
             success = await complete_register_for_group_invitation(
