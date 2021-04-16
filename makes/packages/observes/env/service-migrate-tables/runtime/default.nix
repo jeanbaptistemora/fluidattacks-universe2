@@ -24,7 +24,7 @@ makeTemplate {
       pkgEnv.runtime.python
     ];
     envSources = [
-      env.runtime.postgres-client
+      env.postgres-client.runtime
     ];
   };
 }

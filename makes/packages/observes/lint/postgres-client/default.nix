@@ -11,7 +11,7 @@ makeDerivation {
   searchPaths = {
     envSources = [
       packages.observes.generic.linter
-      packages.observes.env.development.postgres-client
+      packages.observes.env.postgres-client.development
     ];
   };
   builder = path "/makes/packages/observes/generic/linter/lint_builder.sh";

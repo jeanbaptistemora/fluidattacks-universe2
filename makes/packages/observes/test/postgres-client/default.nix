@@ -12,7 +12,7 @@ makeDerivation {
   searchPaths = {
     envSources = [
       packages.observes.generic.tester
-      packages.observes.env.development.postgres-client
+      packages.observes.env.postgres-client.development
     ];
   };
   builder = path "/makes/packages/observes/generic/tester/test_builder.sh";

@@ -7,14 +7,13 @@ let
   self = path "/observes/common/postgres_client";
 in
 makeTemplate {
-  name = "observes-env-runtime-postgres-client";
+  name = "observes-env-postgres-client-runtime";
   searchPaths = {
     envMypyPaths = [
       self
     ];
     envPaths = [
       nixpkgs.postgresql
-      nixpkgs.python38Packages.psycopg2
     ];
     envPythonPaths = [
       self
