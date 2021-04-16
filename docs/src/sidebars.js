@@ -137,6 +137,7 @@ module.exports = {
         label: 'Emails',
         items: [
           'criteria/emails/r115',
+          'criteria/emails/r116',
         ],
     },
   ],
