@@ -5,10 +5,6 @@ airs.lint.styles
 airs.npm
 airs.test.images.covers
 airs.test.images.format
-asserts.doc.build
-asserts.env
-asserts.oci.build
-asserts.pypi.runtime
 docs.runtime
 forces.config-development
 forces.config-runtime

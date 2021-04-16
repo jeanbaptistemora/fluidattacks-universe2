@@ -16,10 +16,6 @@ rec {
   srcIncludeHelpersAirsDeploy = ../include/helpers/airs-deploy.sh;
   srcIncludeAirsJobs = ../include/jobs/airs.sh;
 
-  # Asserts
-  srcIncludeHelpersAsserts = ../include/helpers/asserts.sh;
-  srcIncludeAssertsJobs = ../include/jobs/asserts.sh;
-
   # Integrates
   srcIncludeHelpersIntegrates = ../include/helpers/integrates.sh;
   srcIncludeIntegratesJobs = ../include/jobs/integrates.sh;

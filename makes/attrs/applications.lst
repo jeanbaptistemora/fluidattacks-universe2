@@ -7,10 +7,6 @@ airs.infra.production.test
 airs.infra.secrets.apply
 airs.infra.secrets.test
 airs.test.images.size
-asserts
-asserts.infra.secrets.apply
-asserts.infra.secrets.test
-asserts.oci.deploy
 docs
 docs.deploy
 docs.infra.apply
