@@ -1,3 +1,4 @@
+/* eslint react/forbid-component-props: 0 */
 import React from "react";
 import type { StyledComponent } from "styled-components";
 import styled from "styled-components";
@@ -14,8 +15,9 @@ const FooterMenuContainer: StyledComponent<
     w-100
     tc
     nowrap
-    flex
-    justify-around
+    flex-ns
+    justify-center
+    justify-around-xl
   `,
 })``;
 
@@ -26,8 +28,6 @@ const LinksContainer: StyledComponent<
   className: `
     pt4-l
     b
-    dib-xl
-    display-none
     v-top
     tl
     mh2
@@ -37,7 +37,7 @@ const LinksContainer: StyledComponent<
 
 const LinksSection: React.FC = (): JSX.Element => (
   <FooterMenuContainer>
-    <LinksContainer>
+    <LinksContainer className={"dib-xl"}>
       <HeadLink link={"/services/continuous-hacking/"} name={"Services"} />{" "}
       <br />
       <BodyLink
@@ -52,7 +52,7 @@ const LinksSection: React.FC = (): JSX.Element => (
       <br />
       <BodyLink link={"/services/comparative/"} name={"Comparative"} /> <br />
     </LinksContainer>
-    <LinksContainer>
+    <LinksContainer className={"dib-xl"}>
       <HeadLink link={"/solutions/"} name={"Solutions"} /> <br />
       <BodyLink link={"/solutions/devsecops/"} name={"DevSecOps"} /> <br />
       <BodyLink
@@ -87,7 +87,7 @@ const LinksSection: React.FC = (): JSX.Element => (
       />{" "}
       <br />
     </LinksContainer>
-    <LinksContainer>
+    <LinksContainer className={"dib-xl display-none"}>
       <HeadLink
         link={"https://fluidattacks.com/categories/"}
         name={"Categories"}
@@ -129,7 +129,7 @@ const LinksSection: React.FC = (): JSX.Element => (
       />{" "}
       <br />
     </LinksContainer>
-    <LinksContainer>
+    <LinksContainer className={"dib-xl display-none"}>
       <HeadLink link={"https://fluidattacks.com/systems/"} name={"Systems"} />{" "}
       <br />
       <BodyLink
@@ -173,7 +173,7 @@ const LinksSection: React.FC = (): JSX.Element => (
       />{" "}
       <br />
     </LinksContainer>
-    <LinksContainer>
+    <LinksContainer className={"dib-xl display-none"}>
       <HeadLink
         link={"https://fluidattacks.com/compliance/"}
         name={"Compliance"}
@@ -215,7 +215,7 @@ const LinksSection: React.FC = (): JSX.Element => (
       />{" "}
       <br />
     </LinksContainer>
-    <LinksContainer>
+    <LinksContainer className={"dib-xl display-none"}>
       <HeadLink link={"https://fluidattacks.com/about-us/"} name={"About Us"} />{" "}
       <br />
       <BodyLink
@@ -264,7 +264,7 @@ const LinksSection: React.FC = (): JSX.Element => (
       />{" "}
       <br />
     </LinksContainer>
-    <LinksContainer>
+    <LinksContainer className={"dib-xl"}>
       <HeadLink link={"/blog/"} name={"Blog"} /> <br />
       <HeadLink link={"/partners/"} name={"Partners"} /> <br />
       <HeadLink link={"/careers/"} name={"Careers"} /> <br />
