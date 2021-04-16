@@ -12,6 +12,7 @@ import pytest
 # Local libraries
 from http_headers import (
     as_string,
+    content_security_policy,
     from_url,
     strict_transport_security,
     referrer_policy,
@@ -68,6 +69,24 @@ def test_as_string() -> None:
         ¦ ---- ¦ ---------------------------------------- ¦
                ^ Column 0
     """)[1:-1]
+
+
+@pytest.mark.skims_test_group('unittesting')
+def test_content_security_policy() -> None:
+    parse = content_security_policy.parse
+
+    header = parse((
+        "content-security-policy:   script-src 'self'  'unsafe-inline' "
+        "localhost:* cdn.announcekit.app  ;"
+    ))
+    assert header.directives == {
+        'script-src': [
+            "'self'",
+            "'unsafe-inline'",
+            "localhost:*",
+            'cdn.announcekit.app',
+        ],
+    }
 
 
 @pytest.mark.skims_test_group('unittesting')

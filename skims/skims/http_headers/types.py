@@ -1,10 +1,17 @@
 # Standard library
 from typing import (
+    Dict,
     List,
     NamedTuple,
     Optional,
     Union,
 )
+
+
+class ContentSecurityPolicyHeader(NamedTuple):
+    name: str
+
+    directives: Dict[str, List[str]]
 
 
 class StrictTransportSecurityHeader(NamedTuple):
@@ -21,5 +28,7 @@ class ReferrerPolicyHeader(NamedTuple):
 
 
 Header = Optional[Union[
+    ContentSecurityPolicyHeader,
+    ReferrerPolicyHeader,
     StrictTransportSecurityHeader,
 ]]
