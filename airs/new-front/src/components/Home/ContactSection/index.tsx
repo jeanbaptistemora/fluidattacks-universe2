@@ -62,6 +62,7 @@ const InnerSection: StyledComponent<
 > = styled.div.attrs({
   className: `
     w5-l
+    mv5
   `,
 })``;
 

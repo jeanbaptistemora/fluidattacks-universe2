@@ -27,6 +27,7 @@ const Container: StyledComponent<
     center
     ph-body
     flex-l
+    pv6
   `,
 })``;
 
@@ -47,7 +48,8 @@ const Title: StyledComponent<"p", Record<string, unknown>> = styled.p.attrs({
     c-black-gray
     fw4
     f5
-    mh0
+    ma0
+    pv3
   `,
 })``;
 

@@ -38,6 +38,8 @@ const Container: StyledComponent<
     mw-1366
     center
     flex-l
+    mb1-l
+    mb6
   `,
 })``;
 
