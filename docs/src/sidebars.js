@@ -173,6 +173,7 @@ module.exports = {
         label: 'Architecture',
         items: [
           'criteria/architecture/r048',
+          'criteria/architecture/r050',
         ],
     },
   ],
