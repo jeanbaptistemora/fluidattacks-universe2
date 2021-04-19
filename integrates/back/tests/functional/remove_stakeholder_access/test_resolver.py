@@ -13,8 +13,8 @@ from . import query
 @pytest.mark.resolver_test_group('remove_stakeholder_access')
 async def test_admin(populate: bool):
     assert populate
-    stakeholder_email: str = 'analyst@gmail.com'
-    group_name: str = 'group-1'
+    stakeholder_email: str = 'admin@gmail.com'
+    group_name: str = 'group1'
     result: Dict[str, Any] = await query(
         user='admin@gmail.com',
         group=group_name,
@@ -29,7 +29,7 @@ async def test_admin(populate: bool):
 async def test_analyst(populate: bool):
     assert populate
     stakeholder_email: str = 'analyst@gmail.com'
-    group_name: str = 'group-1'
+    group_name: str = 'group1'
     result: Dict[str, Any] = await query(
         user='analyst@gmail.com',
         group=group_name,
