@@ -385,7 +385,8 @@ def lookup_first_cfg_parent(
 def branches_cfg(
     graph: Graph,
     n_id: NId,
-    finding: core_model.FindingEnum
+    finding: core_model.FindingEnum,
+    only_sinks: bool = False,
 ) -> Tuple[Tuple[str, ...], ...]:
     # Compute all childs reachable from CFG edges
     c_ids = adj_cfg(graph, n_id, depth=-1)
@@ -403,7 +404,10 @@ def branches_cfg(
                 for c_c_id in adj_ast(graph, c_id, depth=-1)
             )
             # The node is and leaf node
-            or not adj_cfg(graph, c_id)
+            or (
+                not only_sinks
+                and not adj_cfg(graph, c_id)
+            )
         )
     )
 

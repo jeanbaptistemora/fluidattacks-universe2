@@ -309,6 +309,7 @@ def get_possible_syntax_steps_for_n_id(
     overriden_syntax_steps: Optional[graph_model.SyntaxSteps] = None,
     shard: graph_model.GraphShard,
     current_instance: Optional[graph_model.CurrentInstance] = None,
+    only_sinks: bool = False,
 ) -> PossibleSyntaxStepsForUntrustedNId:
     syntax_steps_map: PossibleSyntaxStepsForUntrustedNId = {
         # Path identifier -> syntax_steps
@@ -322,6 +323,7 @@ def get_possible_syntax_steps_for_n_id(
         )
         for path in g.branches_cfg(
             graph=shard.graph,
+            only_sinks=only_sinks,
             n_id=g.lookup_first_cfg_parent(shard.graph, n_id),
             finding=finding
         )
@@ -341,6 +343,7 @@ def get_possible_syntax_steps_for_finding(
             finding=finding,
             n_id=untrusted_n_id,
             shard=shard,
+            only_sinks=True
         )
         for untrusted_n_id in shard.graph.nodes
         if 'label_input_type' in shard.graph.nodes[untrusted_n_id]
