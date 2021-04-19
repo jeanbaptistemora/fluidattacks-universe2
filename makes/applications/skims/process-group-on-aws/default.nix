@@ -9,7 +9,7 @@ computeOnAws {
   name = "skims-process-group-on-aws";
   product = "skims";
   secrets = [
-    "GITLAB_API_TOKEN"
+    "PRODUCT_API_TOKEN"
   ];
   timeout = 86400;
   vcpus = 2;
