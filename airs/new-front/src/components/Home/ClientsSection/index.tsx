@@ -43,6 +43,16 @@ const Container: StyledComponent<
   `,
 })``;
 
+const ClientsContainer: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs({
+  className: `
+    br
+    b--light-gray
+  `,
+})``;
+
 const ClientsTitle: StyledComponent<
   "p",
   Record<string, unknown>
@@ -86,8 +96,6 @@ const SlideShow: StyledComponent<
     nowrap
     mw-376
     center
-    br-l
-    b--light-gray
   `,
 })``;
 
@@ -107,8 +115,10 @@ const DefinitionContainer: StyledComponent<
   Record<string, unknown>
 > = styled.div.attrs({
   className: `
-    pa6-l
     ph-body
+    flex
+    justify-center
+    items-center
   `,
 })``;
 
@@ -123,6 +133,8 @@ const DefinitionParagraph: StyledComponent<
     f5
     lh-copy
     mv4
+    mw7-l
+    mw6
   `,
 })``;
 
@@ -158,7 +170,7 @@ const ClientsSection: React.FC = (): JSX.Element => {
     <React.Fragment>
       <BannerContainer className={"bg-clients-home"} />
       <Container>
-        <div>
+        <ClientsContainer>
           <ClientsTitle>{translate.t("clients.titleHome")}</ClientsTitle>
           <ArrowContainer>
             <ArrowButton onClick={scrollLeft}>
@@ -205,7 +217,7 @@ const ClientsSection: React.FC = (): JSX.Element => {
             <img alt={"Logo Sodimac"} src={logoSodimac} />
             <img alt={"Logo Sura"} className={"mh4"} src={logoSura} />
           </SlideShow>
-        </div>
+        </ClientsContainer>
         <DefinitionContainer>
           <DefinitionParagraph>
             {translate.t("clients.definition")}

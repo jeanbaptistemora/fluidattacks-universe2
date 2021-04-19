@@ -36,6 +36,9 @@ const MainFooterContainer: StyledComponent<
     pb4
     pt4-ns
     pt2
+    ba
+    bw2
+    bc-darker-blue
   `,
 })``;
 
