@@ -53,7 +53,8 @@ def _create_vulns(
             finding=finding,
             kind=core_model.VulnerabilityKindEnum.INPUTS,
             state=core_model.VulnerabilityStateEnum.OPEN,
-            stream='Query,response,headers',
+            # Must start with home so integrates allows it
+            stream='home,response,headers',
             what=serialize_namespace_into_vuln(
                 kind=core_model.VulnerabilityKindEnum.INPUTS,
                 namespace=CTX.config.namespace,
