@@ -206,6 +206,13 @@ module.exports = {
           'criteria/devices/r206',
         ],
     },
+    {
+      type: 'category',
+        label: 'Social',
+        items: [
+          'criteria/social/r260',
+        ],
+    },
   ],
   Machine: [
     {
