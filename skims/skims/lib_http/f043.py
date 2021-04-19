@@ -13,11 +13,13 @@ from typing import (
 # Local libraries
 from http_headers import (
     as_string,
+    content_security_policy,
     from_url,
     referrer_policy,
     strict_transport_security,
 )
 from http_headers.types import (
+    ContentSecurityPolicyHeader,
     ReferrerPolicyHeader,
     StrictTransportSecurityHeader,
 )
@@ -36,6 +38,43 @@ from utils.encodings import (
 from zone import (
     t,
 )
+
+
+def _content_security_policy(
+    url: str,
+    headers: Dict[Type[Header], Header],
+    headers_raw: Dict[str, str],
+) -> core_model.Vulnerabilities:
+    desc: str = ''
+
+    if header := headers.get(ContentSecurityPolicyHeader):
+        desc = ''
+    else:
+        desc = 'lib_http.f043.content_security_policy.missing'
+
+    return (
+        core_model.Vulnerability(
+            finding=core_model.FindingEnum.F043_DAST_CSP,
+            kind=core_model.VulnerabilityKindEnum.INPUTS,
+            state=core_model.VulnerabilityStateEnum.OPEN,
+            stream='Query,response,headers',
+            what=serialize_namespace_into_vuln(
+                kind=core_model.VulnerabilityKindEnum.INPUTS,
+                namespace=CTX.config.namespace,
+                what=url,
+            ),
+            where='Content-Security-Policy',
+            skims_metadata=core_model.SkimsVulnerabilityMetadata(
+                cwe=('644',),
+                description=t(desc),
+                snippet=as_string.snippet(
+                    url=url,
+                    header=header.name if header else None,
+                    headers=headers_raw,
+                ),
+            ),
+        ),
+    ) if desc else ()
 
 
 def _referrer_policy(
@@ -148,6 +187,7 @@ async def http_headers_configuration(url: str) -> core_model.Vulnerabilities:
         for header_raw_name, header_raw_value in headers_raw.items()
         for line in [f'{header_raw_name}: {header_raw_value}']
         for header_parsed in [
+            content_security_policy.parse(line),
             referrer_policy.parse(line),
             strict_transport_security.parse(line),
         ]
@@ -168,6 +208,7 @@ CHECKS: Dict[
         core_model.Vulnerabilities,
     ],
 ] = {
+    core_model.FindingEnum.F043_DAST_CSP: _content_security_policy,
     core_model.FindingEnum.F043_DAST_RP: _referrer_policy,
     core_model.FindingEnum.F043_DAST_STS: _strict_transport_security,
 }

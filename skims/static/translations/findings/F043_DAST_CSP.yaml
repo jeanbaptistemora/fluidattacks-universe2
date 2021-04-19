@@ -1,3 +1,6 @@
+lib_http.f043.content_security_policy.missing:
+  en: The Content-Security-Policy is missing
+  es: La cabecera Content-Security-Policy no se ha configurado
 utils.model.finding.enum.F043_DAST_CSP.description:
   en: >
     The server is missing the Content-Security-Policy HTTP header.
