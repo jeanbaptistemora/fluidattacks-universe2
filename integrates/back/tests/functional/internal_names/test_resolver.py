@@ -31,8 +31,9 @@ async def test_analyst(populate: bool):
     result: Dict[str, Any] = await query(
         user='analyst@gmail.com',
     )
-    assert 'errors' in result
-    assert result['errors'][0]['message'] == 'Access denied'
+    assert 'errors' not in result
+    assert 'internalNames' in result['data']
+    assert result['data']['internalNames']['name'] == group
 
 
 

@@ -13,8 +13,8 @@ from . import query
 @pytest.mark.resolver_test_group('groups_with_forces')
 async def test_admin(populate: bool):
     assert populate
-    group_forces: str = 'group-2'
-    group_not_forces: str = 'group-1'
+    group_forces: str = 'group2'
+    group_not_forces: str = 'group1'
     result: Dict[str, Any] = await query(
         user='admin@gmail.com',
     )
@@ -28,8 +28,8 @@ async def test_admin(populate: bool):
 @pytest.mark.resolver_test_group('groups_with_forces')
 async def test_analyst(populate: bool):
     assert populate
-    group_forces: str = 'group-2'
-    group_not_forces: str = 'group-1'
+    group_forces: str = 'group2'
+    group_not_forces: str = 'group1'
     result: Dict[str, Any] = await query(
         user='analyst@gmail.com',
     )

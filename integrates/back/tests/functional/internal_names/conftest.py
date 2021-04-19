@@ -14,7 +14,7 @@ from back.tests import (
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group('internal_names')
 @pytest.fixture(autouse=True, scope='session')
-async def populate() -> bool:
+async def populate(generic_data: Dict[str, Any]) -> bool:
     data: Dict[str, Any] = {
         'names': [
             {
@@ -22,72 +22,5 @@ async def populate() -> bool:
                 'name': 'GROUP1',
             },
         ],
-        'users': [
-            {
-                'email': 'admin@gmail.com',
-                'first_login': '',
-                'first_name': '',
-                'last_login': '',
-                'last_name': '',
-                'legal_remember': False,
-                'phone_number': '-',
-                'push_tokens': [],
-                'is_registered': True,
-            },
-            {
-                'email': 'analyst@gmail.com',
-                'first_login': '',
-                'first_name': '',
-                'last_login': '',
-                'last_name': '',
-                'legal_remember': False,
-                'phone_number': '-',
-                'push_tokens': [],
-                'is_registered': True,
-            },
-            {
-                'email': 'closer@gmail.com',
-                'first_login': '',
-                'first_name': '',
-                'last_login': '',
-                'last_name': '',
-                'legal_remember': False,
-                'phone_number': '-',
-                'push_tokens': [],
-                'is_registered': True,
-            },
-        ],
-        'policies': [
-            {
-                'level': 'user',
-                'subject': 'admin@gmail.com',
-                'object': 'self',
-                'role': 'admin',
-            },
-            {
-                'level': 'user',
-                'subject': 'analyst@gmail.com',
-                'object': 'self',
-                'role': 'user',
-            },
-            {
-                'level': 'group',
-                'subject': 'analyst@gmail.com',
-                'object': 'group1',
-                'role': 'analyst',
-            },
-            {
-                'level': 'user',
-                'subject': 'closer@gmail.com',
-                'object': 'self',
-                'role': 'user',
-            },
-            {
-                'level': 'group',
-                'subject': 'closer@gmail.com',
-                'object': 'group1',
-                'role': 'closer',
-            },
-        ],
     }
-    return await db.populate(data)
+    return await db.populate({**generic_data, **data})

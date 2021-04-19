@@ -13,8 +13,7 @@ from . import query
 @pytest.mark.resolver_test_group('grant_stakeholder_organization_access')
 async def test_admin(populate: bool):
     assert populate
-    org_id: str = 'ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db'
-    admin: str = 'test1@gmail.com'
+    org_id: str = 'ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6dc'
     stakeholder_email: str = 'test2@gmail.com'
     stakeholder_role: str = 'CUSTOMER'
     result: Dict[str, Any] = await query(
@@ -33,8 +32,7 @@ async def test_admin(populate: bool):
 @pytest.mark.resolver_test_group('grant_stakeholder_organization_access')
 async def test_analyst(populate: bool):
     assert populate
-    org_id: str = 'ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db'
-    admin: str = 'test1@gmail.com'
+    org_id: str = 'ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6dc'
     stakeholder_email: str = 'test2@gmail.com'
     stakeholder_role: str = 'CUSTOMER'
     result: Dict[str, Any] = await query(
