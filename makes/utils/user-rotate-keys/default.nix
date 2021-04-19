@@ -36,6 +36,7 @@ makeEntrypoint {
       })
     ];
     envUtils = [
+      "/makes/utils/env"
       "/makes/utils/gitlab"
     ];
   };

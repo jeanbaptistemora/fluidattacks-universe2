@@ -101,6 +101,7 @@ makeEntrypoint {
     ];
     envUtils = [
       "/makes/utils/aws"
+      "/makes/utils/env"
       "/makes/utils/sops"
     ];
   };
