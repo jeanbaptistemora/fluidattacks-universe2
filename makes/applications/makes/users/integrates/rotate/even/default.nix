@@ -14,6 +14,7 @@ let
       id = {
         gitlab = [
           {
+            api_token = "PRODUCT_API_TOKEN";
             project_id = "20741933";
             key_id = "INTEGRATES_PROD_AWS_ACCESS_KEY_ID";
             masked = true;
@@ -27,6 +28,7 @@ let
       secret = {
         gitlab = [
           {
+            api_token = "PRODUCT_API_TOKEN";
             project_id = "20741933";
             key_id = "INTEGRATES_PROD_AWS_SECRET_ACCESS_KEY";
             masked = true;
@@ -44,6 +46,7 @@ let
       id = {
         gitlab = [
           {
+            api_token = "PRODUCT_API_TOKEN";
             project_id = "20741933";
             key_id = "INTEGRATES_DEV_AWS_ACCESS_KEY_ID";
             masked = true;
@@ -57,6 +60,7 @@ let
       secret = {
         gitlab = [
           {
+            api_token = "PRODUCT_API_TOKEN";
             project_id = "20741933";
             key_id = "INTEGRATES_DEV_AWS_SECRET_ACCESS_KEY";
             masked = true;

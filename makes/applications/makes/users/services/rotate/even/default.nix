@@ -14,12 +14,14 @@ userRotateKeys {
       id = {
         gitlab = [
           {
+            api_token = "PRODUCT_API_TOKEN";
             project_id = "20741933";
             key_id = "SERVICES_PROD_AWS_ACCESS_KEY_ID";
             masked = true;
             protected = true;
           }
           {
+            api_token = "SERVICES_API_TOKEN";
             project_id = "4603023";
             key_id = "PROD_AWS_ACCESS_KEY_ID";
             masked = true;
@@ -33,12 +35,14 @@ userRotateKeys {
       secret = {
         gitlab = [
           {
+            api_token = "PRODUCT_API_TOKEN";
             project_id = "20741933";
             key_id = "SERVICES_PROD_AWS_SECRET_ACCESS_KEY";
             masked = true;
             protected = true;
           }
           {
+            api_token = "SERVICES_API_TOKEN";
             project_id = "4603023";
             key_id = "PROD_AWS_SECRET_ACCESS_KEY";
             masked = true;
@@ -54,12 +58,14 @@ userRotateKeys {
       id = {
         gitlab = [
           {
+            api_token = "PRODUCT_API_TOKEN";
             project_id = "20741933";
             key_id = "SERVICES_DEV_AWS_ACCESS_KEY_ID";
             masked = true;
             protected = false;
           }
           {
+            api_token = "SERVICES_API_TOKEN";
             project_id = "4603023";
             key_id = "DEV_AWS_ACCESS_KEY_ID";
             masked = true;
@@ -73,12 +79,14 @@ userRotateKeys {
       secret = {
         gitlab = [
           {
+            api_token = "PRODUCT_API_TOKEN";
             project_id = "20741933";
             key_id = "SERVICES_DEV_AWS_SECRET_ACCESS_KEY";
             masked = true;
             protected = false;
           }
           {
+            api_token = "SERVICES_API_TOKEN";
             project_id = "4603023";
             key_id = "DEV_AWS_SECRET_ACCESS_KEY";
             masked = true;
