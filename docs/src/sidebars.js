@@ -194,6 +194,13 @@ module.exports = {
           'criteria/virtualization/r222',
         ],
     },
+    {
+      type: 'category',
+        label: 'Devices',
+        items: [
+          'criteria/devices/r205',
+        ],
+    },
   ],
   Machine: [
     {
