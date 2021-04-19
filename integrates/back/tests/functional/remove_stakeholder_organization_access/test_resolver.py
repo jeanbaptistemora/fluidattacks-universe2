@@ -14,7 +14,7 @@ from . import query
 async def test_admin(populate: bool):
     assert populate
     org_id: str = 'ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db'
-    stakeholder_email: str = 'test1@gmail.com'
+    stakeholder_email: str = 'admin@gmail.com'
     result: Dict[str, Any] = await query(
         user='admin@gmail.com',
         org=org_id,
@@ -30,7 +30,7 @@ async def test_admin(populate: bool):
 async def test_analyst(populate: bool):
     assert populate
     org_id: str = 'ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db'
-    stakeholder_email: str = 'test2@gmail.com'
+    stakeholder_email: str = 'analyst@gmail.com'
     result: Dict[str, Any] = await query(
         user='analyst@gmail.com',
         org=org_id,

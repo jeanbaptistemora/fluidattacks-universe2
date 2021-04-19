@@ -42,10 +42,10 @@ async def test_admin(populate: bool):
     ]
     result: Dict[str, Any] = await query(
         user='admin@gmail.com',
-        group='group-1',
+        group='group1',
     )
     assert 'errors' not in result
-    assert result['data']['resources']['projectName'] == 'group-1'
+    assert result['data']['resources']['projectName'] == 'group1'
     assert json.loads(result['data']['resources']['files']) == files
 
 
@@ -81,10 +81,10 @@ async def test_analyst(populate: bool):
     ]
     result: Dict[str, Any] = await query(
         user='analyst@gmail.com',
-        group='group-1',
+        group='group1',
     )
     assert 'errors' not in result
-    assert result['data']['resources']['projectName'] == 'group-1'
+    assert result['data']['resources']['projectName'] == 'group1'
     assert json.loads(result['data']['resources']['files']) == files
 
 
@@ -121,8 +121,8 @@ async def test_closer(populate: bool):
     ]
     result: Dict[str, Any] = await query(
         user='closer@gmail.com',
-        group='group-1',
+        group='group1',
     )
     assert 'errors' not in result
-    assert result['data']['resources']['projectName'] == 'group-1'
+    assert result['data']['resources']['projectName'] == 'group1'
     assert json.loads(result['data']['resources']['files']) == files
