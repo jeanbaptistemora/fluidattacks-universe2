@@ -55,14 +55,12 @@ def _mark_java_inputs(
 ) -> None:
     findings = core_model.FindingEnum
 
-    _mark_array_input(findings.F034, graph, syntax, {
-        'byte',
-    })
     for finding in (
         findings.F001_JAVA_SQL,
         findings.F004,
         findings.F008,
         findings.F021,
+        findings.F034,
         findings.F042,
         findings.F063_PATH_TRAVERSAL,
         findings.F063_TRUSTBOUND,
@@ -85,14 +83,8 @@ def _mark_java_inputs(
         }
         _mark_function_arg(finding, graph, syntax, danger_args)
 
-    _mark_methods_input(findings.F034, graph, syntax, {
-        'java.lang.Math.random',
-    })
     _mark_methods_input(findings.F052, graph, syntax, {
         'java.security.MessageDigest.getInstance',
-    })
-    _mark_obj_inst_input(findings.F034, graph, syntax, {
-        *build_attr_paths('java', 'util', 'Random'),
     })
     _mark_obj_inst_input(findings.F052, graph, syntax, {
         *build_attr_paths('java', 'util', 'Properties'),

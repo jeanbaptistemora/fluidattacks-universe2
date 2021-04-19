@@ -6,6 +6,7 @@ path:
   include:
   - src/App.java
   - src/User.java
+  - src/Generate.java
   lib_path: false
   lib_root: true
 working_dir: skims/test/data/benchmark/instance_references

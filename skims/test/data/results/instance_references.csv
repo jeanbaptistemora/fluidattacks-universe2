@@ -1,5 +1,9 @@
 title,what,where,cwe
-F034. Insecure random number generation,OWASP/src/App.java,16,330
-F034. Insecure random number generation,OWASP/src/App.java,28,330
-F034. Insecure random number generation,OWASP/src/App.java,38,330
-F034. Insecure random number generation,OWASP/src/App.java,49,330
+F034. Insecure random number generation,OWASP/src/App.java,107,330
+F034. Insecure random number generation,OWASP/src/App.java,22,330
+F034. Insecure random number generation,OWASP/src/App.java,34,330
+F034. Insecure random number generation,OWASP/src/App.java,44,330
+F034. Insecure random number generation,OWASP/src/App.java,55,330
+F034. Insecure random number generation,OWASP/src/App.java,76,330
+F034. Insecure random number generation,OWASP/src/App.java,88,330
+F034. Insecure random number generation,OWASP/src/App.java,98,330

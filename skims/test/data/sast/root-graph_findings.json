@@ -1616,7 +1616,7 @@
             "label_c": 22,
             "label_field_name": "25",
             "label_field_type": "24",
-            "label_input_type": "F001_JAVA_SQL,F004,F008,F021,F042,F063_PATH_TRAVERSAL,F063_TRUSTBOUND,F107",
+            "label_input_type": "F001_JAVA_SQL,F004,F008,F021,F034,F042,F063_PATH_TRAVERSAL,F063_TRUSTBOUND,F107",
             "label_l": 5,
             "label_type": "formal_parameter"
           },

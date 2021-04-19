@@ -1,10 +1,16 @@
 {
   "F001_JAVA_SQL": {
     "skims/test/data/benchmark/instance_references/src/App.java": {
-      "165": {},
-      "253": {},
-      "336": {},
-      "55": {}
+      "187": {},
+      "282": {},
+      "365": {},
+      "460": {},
+      "524": {},
+      "615": {},
+      "710": {},
+      "77": {},
+      "793": {},
+      "869": {}
     },
     "skims/test/data/benchmark/instance_references/src/User.java": {}
   },
@@ -14,19 +20,31 @@
   },
   "F004": {
     "skims/test/data/benchmark/instance_references/src/App.java": {
-      "165": {},
-      "253": {},
-      "336": {},
-      "55": {}
+      "187": {},
+      "282": {},
+      "365": {},
+      "460": {},
+      "524": {},
+      "615": {},
+      "710": {},
+      "77": {},
+      "793": {},
+      "869": {}
     },
     "skims/test/data/benchmark/instance_references/src/User.java": {}
   },
   "F008": {
     "skims/test/data/benchmark/instance_references/src/App.java": {
-      "165": {},
-      "253": {},
-      "336": {},
-      "55": {}
+      "187": {},
+      "282": {},
+      "365": {},
+      "460": {},
+      "524": {},
+      "615": {},
+      "710": {},
+      "77": {},
+      "793": {},
+      "869": {}
     },
     "skims/test/data/benchmark/instance_references/src/User.java": {}
   },
@@ -44,10 +62,16 @@
   },
   "F021": {
     "skims/test/data/benchmark/instance_references/src/App.java": {
-      "165": {},
-      "253": {},
-      "336": {},
-      "55": {}
+      "187": {},
+      "282": {},
+      "365": {},
+      "460": {},
+      "524": {},
+      "615": {},
+      "710": {},
+      "77": {},
+      "793": {},
+      "869": {}
     },
     "skims/test/data/benchmark/instance_references/src/User.java": {}
   },
@@ -69,13 +93,35 @@
   },
   "F034": {
     "skims/test/data/benchmark/instance_references/src/App.java": {
-      "146": {
-        "140-158-165-177-199-206-207": [
+      "187": {
+        "187-199-217-224-246-253-254": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "192",
+              "value": null
+            },
+            "object_type": "HttpServletRequest",
+            "type": "SyntaxStepObjectInstantiation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "187",
+              "value": null
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "request",
+            "var_type": "HttpServletRequest"
+          },
           {
             "meta": {
               "danger": true,
               "dependencies": 0,
-              "n_id": "146",
+              "n_id": "205",
               "value": null
             },
             "object_type": "java.util.Random",
@@ -86,7 +132,7 @@
             "meta": {
               "danger": true,
               "dependencies": -1,
-              "n_id": "145",
+              "n_id": "204",
               "value": null
             },
             "method": ".nextFloat",
@@ -96,7 +142,7 @@
             "meta": {
               "danger": true,
               "dependencies": -1,
-              "n_id": "140",
+              "n_id": "199",
               "value": null
             },
             "modifiers": null,
@@ -108,7 +154,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "163",
+              "n_id": "222",
               "value": "testInstanceReference"
             },
             "type": "SyntaxStepLiteral",
@@ -119,7 +165,7 @@
             "meta": {
               "danger": false,
               "dependencies": -1,
-              "n_id": "158",
+              "n_id": "217",
               "value": "testInstanceReference"
             },
             "modifiers": null,
@@ -131,29 +177,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "170",
-              "value": null
-            },
-            "object_type": "HttpServletRequest",
-            "type": "SyntaxStepObjectInstantiation"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -1,
-              "n_id": "165",
-              "value": null
-            },
-            "modifiers": null,
-            "type": "SyntaxStepDeclaration",
-            "var": "request",
-            "var_type": "HttpServletRequest"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "187",
+              "n_id": "234",
               "value": "Jane"
             },
             "type": "SyntaxStepLiteral",
@@ -164,7 +188,7 @@
             "meta": {
               "danger": true,
               "dependencies": 0,
-              "n_id": "195",
+              "n_id": "242",
               "value": null
             },
             "symbol": "rand",
@@ -177,7 +201,7 @@
             "meta": {
               "danger": true,
               "dependencies": -1,
-              "n_id": "189",
+              "n_id": "236",
               "value": null
             },
             "method": "Float.toString",
@@ -187,7 +211,7 @@
             "meta": {
               "danger": true,
               "dependencies": -2,
-              "n_id": "182",
+              "n_id": "229",
               "value": {
                 "class_name": "User",
                 "fields": {
@@ -221,7 +245,7 @@
             "meta": {
               "danger": true,
               "dependencies": -1,
-              "n_id": "177",
+              "n_id": "224",
               "value": {
                 "class_name": "User",
                 "fields": {
@@ -257,7 +281,7 @@
             "meta": {
               "danger": true,
               "dependencies": 0,
-              "n_id": "204",
+              "n_id": "251",
               "value": {
                 "class_name": "User",
                 "fields": {
@@ -291,7 +315,7 @@
             "meta": {
               "danger": true,
               "dependencies": -1,
-              "n_id": "199",
+              "n_id": "246",
               "value": {
                 "class_name": "User",
                 "fields": {
@@ -327,7 +351,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "206",
+              "n_id": "253",
               "value": null
             },
             "type": "SyntaxStepNoOp"
@@ -339,7 +363,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "208",
+              "n_id": "255",
               "value": null
             },
             "method": "request.getSession",
@@ -349,7 +373,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "219",
+              "n_id": "266",
               "value": "testInstanceReference"
             },
             "symbol": "cookieName",
@@ -359,7 +383,7 @@
             "meta": {
               "danger": true,
               "dependencies": 0,
-              "n_id": "221",
+              "n_id": "268",
               "value": {
                 "class_name": "User",
                 "fields": {
@@ -394,7 +418,7 @@
             "meta": {
               "danger": true,
               "dependencies": -3,
-              "n_id": "207",
+              "n_id": "254",
               "value": null
             },
             "method": ".setAttribute",
@@ -402,13 +426,35 @@
           }
         ]
       },
-      "241": {
-        "235-253-265-289-290": [
+      "282": {
+        "282-294-312-336-337": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "287",
+              "value": null
+            },
+            "object_type": "HttpServletRequest",
+            "type": "SyntaxStepObjectInstantiation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "282",
+              "value": null
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "request",
+            "var_type": "HttpServletRequest"
+          },
           {
             "meta": {
               "danger": true,
               "dependencies": 0,
-              "n_id": "241",
+              "n_id": "300",
               "value": null
             },
             "object_type": "java.util.Random",
@@ -419,7 +465,7 @@
             "meta": {
               "danger": true,
               "dependencies": -1,
-              "n_id": "240",
+              "n_id": "299",
               "value": null
             },
             "method": ".nextInt",
@@ -429,7 +475,7 @@
             "meta": {
               "danger": true,
               "dependencies": -1,
-              "n_id": "235",
+              "n_id": "294",
               "value": null
             },
             "modifiers": null,
@@ -441,29 +487,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "258",
-              "value": null
-            },
-            "object_type": "HttpServletRequest",
-            "type": "SyntaxStepObjectInstantiation"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -1,
-              "n_id": "253",
-              "value": null
-            },
-            "modifiers": null,
-            "type": "SyntaxStepDeclaration",
-            "var": "request",
-            "var_type": "HttpServletRequest"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "275",
+              "n_id": "322",
               "value": "Jane"
             },
             "type": "SyntaxStepLiteral",
@@ -474,7 +498,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "277",
+              "n_id": "324",
               "value": "Doe"
             },
             "type": "SyntaxStepLiteral",
@@ -485,7 +509,7 @@
             "meta": {
               "danger": true,
               "dependencies": 0,
-              "n_id": "285",
+              "n_id": "332",
               "value": null
             },
             "symbol": "rand",
@@ -498,7 +522,7 @@
             "meta": {
               "danger": true,
               "dependencies": -1,
-              "n_id": "279",
+              "n_id": "326",
               "value": null
             },
             "method": "Integer.toString",
@@ -508,7 +532,7 @@
             "meta": {
               "danger": true,
               "dependencies": -3,
-              "n_id": "270",
+              "n_id": "317",
               "value": {
                 "class_name": "User",
                 "fields": {
@@ -552,7 +576,7 @@
             "meta": {
               "danger": true,
               "dependencies": -1,
-              "n_id": "265",
+              "n_id": "312",
               "value": {
                 "class_name": "User",
                 "fields": {
@@ -598,7 +622,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "289",
+              "n_id": "336",
               "value": null
             },
             "type": "SyntaxStepNoOp"
@@ -610,7 +634,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "291",
+              "n_id": "338",
               "value": null
             },
             "method": "request.getSession",
@@ -620,7 +644,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "302",
+              "n_id": "349",
               "value": "testInstanceReference"
             },
             "type": "SyntaxStepLiteral",
@@ -631,7 +655,7 @@
             "meta": {
               "danger": true,
               "dependencies": 0,
-              "n_id": "304",
+              "n_id": "351",
               "value": {
                 "class_name": "User",
                 "fields": {
@@ -676,7 +700,7 @@
             "meta": {
               "danger": true,
               "dependencies": -3,
-              "n_id": "290",
+              "n_id": "337",
               "value": null
             },
             "method": ".setAttribute",
@@ -684,13 +708,35 @@
           }
         ]
       },
-      "324": {
-        "318-336-348-365-366-377-378-379": [
+      "365": {
+        "365-377-395-412-413-424-425-426": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "370",
+              "value": null
+            },
+            "object_type": "HttpServletRequest",
+            "type": "SyntaxStepObjectInstantiation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "365",
+              "value": null
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "request",
+            "var_type": "HttpServletRequest"
+          },
           {
             "meta": {
               "danger": true,
               "dependencies": 0,
-              "n_id": "324",
+              "n_id": "383",
               "value": null
             },
             "object_type": "java.util.Random",
@@ -701,7 +747,7 @@
             "meta": {
               "danger": true,
               "dependencies": -1,
-              "n_id": "323",
+              "n_id": "382",
               "value": null
             },
             "method": ".nextFloat",
@@ -711,7 +757,7 @@
             "meta": {
               "danger": true,
               "dependencies": -1,
-              "n_id": "318",
+              "n_id": "377",
               "value": null
             },
             "modifiers": null,
@@ -723,29 +769,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "341",
-              "value": null
-            },
-            "object_type": "HttpServletRequest",
-            "type": "SyntaxStepObjectInstantiation"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -1,
-              "n_id": "336",
-              "value": null
-            },
-            "modifiers": null,
-            "type": "SyntaxStepDeclaration",
-            "var": "request",
-            "var_type": "HttpServletRequest"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "358",
+              "n_id": "405",
               "value": "Jane"
             },
             "type": "SyntaxStepLiteral",
@@ -756,7 +780,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "360",
+              "n_id": "407",
               "value": "Doe"
             },
             "type": "SyntaxStepLiteral",
@@ -767,7 +791,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "362",
+              "n_id": "409",
               "value": "xxxxxxxxxx"
             },
             "type": "SyntaxStepLiteral",
@@ -778,7 +802,7 @@
             "meta": {
               "danger": false,
               "dependencies": -3,
-              "n_id": "353",
+              "n_id": "400",
               "value": {
                 "class_name": "User",
                 "fields": {
@@ -806,7 +830,7 @@
                     "meta": {
                       "danger": true,
                       "dependencies": -1,
-                      "n_id": "366",
+                      "n_id": "413",
                       "value": null
                     },
                     "type": "SyntaxStepAssignment",
@@ -822,7 +846,7 @@
             "meta": {
               "danger": false,
               "dependencies": -1,
-              "n_id": "348",
+              "n_id": "395",
               "value": {
                 "class_name": "User",
                 "fields": {
@@ -850,7 +874,7 @@
                     "meta": {
                       "danger": true,
                       "dependencies": -1,
-                      "n_id": "366",
+                      "n_id": "413",
                       "value": null
                     },
                     "type": "SyntaxStepAssignment",
@@ -868,7 +892,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "365",
+              "n_id": "412",
               "value": null
             },
             "type": "SyntaxStepNoOp"
@@ -877,7 +901,7 @@
             "meta": {
               "danger": true,
               "dependencies": 0,
-              "n_id": "375",
+              "n_id": "422",
               "value": null
             },
             "symbol": "rand",
@@ -890,7 +914,7 @@
             "meta": {
               "danger": true,
               "dependencies": -1,
-              "n_id": "369",
+              "n_id": "416",
               "value": null
             },
             "method": "Float.toString",
@@ -900,7 +924,7 @@
             "meta": {
               "danger": true,
               "dependencies": -1,
-              "n_id": "366",
+              "n_id": "413",
               "value": null
             },
             "type": "SyntaxStepAssignment",
@@ -910,7 +934,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "377",
+              "n_id": "424",
               "value": null
             },
             "type": "SyntaxStepNoOp"
@@ -919,7 +943,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "378",
+              "n_id": "425",
               "value": null
             },
             "type": "SyntaxStepNoOp"
@@ -931,7 +955,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "380",
+              "n_id": "427",
               "value": null
             },
             "method": "request.getSession",
@@ -941,7 +965,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "391",
+              "n_id": "438",
               "value": "testInstanceReference"
             },
             "type": "SyntaxStepLiteral",
@@ -955,7 +979,7 @@
             "meta": {
               "danger": true,
               "dependencies": 0,
-              "n_id": "393",
+              "n_id": "440",
               "value": null
             },
             "method": "currentUser.getUserId",
@@ -966,7 +990,7 @@
             "meta": {
               "danger": true,
               "dependencies": -3,
-              "n_id": "379",
+              "n_id": "426",
               "value": null
             },
             "method": ".setAttribute",
@@ -974,13 +998,538 @@
           }
         ]
       },
-      "36": {
-        "30-48-55-67-68-81-82-97-98-111-112": [
+      "460": {
+        "460-472-495-496": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "465",
+              "value": null
+            },
+            "object_type": "HttpServletRequest",
+            "type": "SyntaxStepObjectInstantiation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "460",
+              "value": null
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "request",
+            "var_type": "HttpServletRequest"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "482",
+              "value": "Jane"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "Jane",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "484",
+              "value": "Doe"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "Doe",
+            "value_type": "string"
+          },
+          {
+            "current_instance": {
+              "fields": {}
+            },
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "486",
+              "value": null
+            },
+            "method": "Generate.createSecureRandom",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -3,
+              "n_id": "477",
+              "value": {
+                "class_name": "User",
+                "fields": {
+                  "lastName": {
+                    "meta": {
+                      "danger": false,
+                      "dependencies": -1,
+                      "n_id": "115",
+                      "value": null
+                    },
+                    "type": "SyntaxStepAssignment",
+                    "var": "this.lastName"
+                  },
+                  "name": {
+                    "meta": {
+                      "danger": false,
+                      "dependencies": -1,
+                      "n_id": "158",
+                      "value": null
+                    },
+                    "type": "SyntaxStepAssignment",
+                    "var": "this.name"
+                  },
+                  "userId": {
+                    "meta": {
+                      "danger": false,
+                      "dependencies": -1,
+                      "n_id": "121",
+                      "value": null
+                    },
+                    "type": "SyntaxStepAssignment",
+                    "var": "userId"
+                  }
+                }
+              }
+            },
+            "object_type": "User",
+            "type": "SyntaxStepObjectInstantiation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "472",
+              "value": {
+                "class_name": "User",
+                "fields": {
+                  "lastName": {
+                    "meta": {
+                      "danger": false,
+                      "dependencies": -1,
+                      "n_id": "115",
+                      "value": null
+                    },
+                    "type": "SyntaxStepAssignment",
+                    "var": "this.lastName"
+                  },
+                  "name": {
+                    "meta": {
+                      "danger": false,
+                      "dependencies": -1,
+                      "n_id": "158",
+                      "value": null
+                    },
+                    "type": "SyntaxStepAssignment",
+                    "var": "this.name"
+                  },
+                  "userId": {
+                    "meta": {
+                      "danger": false,
+                      "dependencies": -1,
+                      "n_id": "121",
+                      "value": null
+                    },
+                    "type": "SyntaxStepAssignment",
+                    "var": "userId"
+                  }
+                }
+              }
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "currentUser",
+            "var_type": "User"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "495",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "current_instance": {
+              "fields": {}
+            },
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "497",
+              "value": null
+            },
+            "method": "request.getSession",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "508",
+              "value": "testInstanceReference"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "testInstanceReference",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "510",
+              "value": {
+                "class_name": "User",
+                "fields": {
+                  "lastName": {
+                    "meta": {
+                      "danger": false,
+                      "dependencies": -1,
+                      "n_id": "115",
+                      "value": null
+                    },
+                    "type": "SyntaxStepAssignment",
+                    "var": "this.lastName"
+                  },
+                  "name": {
+                    "meta": {
+                      "danger": false,
+                      "dependencies": -1,
+                      "n_id": "158",
+                      "value": null
+                    },
+                    "type": "SyntaxStepAssignment",
+                    "var": "this.name"
+                  },
+                  "userId": {
+                    "meta": {
+                      "danger": false,
+                      "dependencies": -1,
+                      "n_id": "121",
+                      "value": null
+                    },
+                    "type": "SyntaxStepAssignment",
+                    "var": "userId"
+                  }
+                }
+              }
+            },
+            "symbol": "currentUser.lastName",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "current_instance": null,
+            "meta": {
+              "danger": false,
+              "dependencies": -3,
+              "n_id": "496",
+              "value": null
+            },
+            "method": ".setAttribute",
+            "type": "SyntaxStepMethodInvocationChain"
+          }
+        ]
+      },
+      "524": {
+        "524-536-543-544-557-558-572-573-586-587": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "529",
+              "value": null
+            },
+            "object_type": "HttpServletRequest",
+            "type": "SyntaxStepObjectInstantiation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "524",
+              "value": null
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "request",
+            "var_type": "HttpServletRequest"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "541",
+              "value": "testInstanceReference"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "testInstanceReference",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "536",
+              "value": "testInstanceReference"
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "cookieName",
+            "var_type": "String"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "543",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "554",
+              "value": "Jane Doe"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "Jane Doe",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "549",
+              "value": {
+                "class_name": "User",
+                "fields": {
+                  "userId": {
+                    "meta": {
+                      "danger": true,
+                      "dependencies": -1,
+                      "n_id": "207",
+                      "value": null
+                    },
+                    "type": "SyntaxStepAssignment",
+                    "var": "this.userId"
+                  }
+                }
+              }
+            },
+            "object_type": "User",
+            "type": "SyntaxStepObjectInstantiation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "544",
+              "value": {
+                "class_name": "User",
+                "fields": {
+                  "userId": {
+                    "meta": {
+                      "danger": true,
+                      "dependencies": -1,
+                      "n_id": "207",
+                      "value": null
+                    },
+                    "type": "SyntaxStepAssignment",
+                    "var": "this.userId"
+                  }
+                }
+              }
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "currentUser",
+            "var_type": "User"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "557",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "current_instance": {
+              "fields": {}
+            },
+            "meta": {
+              "danger": true,
+              "dependencies": 0,
+              "n_id": "564",
+              "value": null
+            },
+            "method": "Generate.createRandom",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "current_instance": {
+              "fields": {}
+            },
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "558",
+              "value": null
+            },
+            "method": "currentUser.setUserId",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "572",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "current_instance": {
+              "fields": {}
+            },
+            "meta": {
+              "danger": true,
+              "dependencies": 0,
+              "n_id": "578",
+              "value": null
+            },
+            "method": "currentUser.getUserId",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": true,
+              "dependencies": -1,
+              "n_id": "573",
+              "value": null
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "cookieKey",
+            "var_type": "String"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "586",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "current_instance": {
+              "fields": {}
+            },
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "588",
+              "value": null
+            },
+            "method": "request.getSession",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "599",
+              "value": "testInstanceReference"
+            },
+            "symbol": "cookieName",
+            "type": "SyntaxStepSymbolLookup"
+          },
           {
             "meta": {
               "danger": true,
               "dependencies": 0,
-              "n_id": "36",
+              "n_id": "601",
+              "value": null
+            },
+            "symbol": "cookieKey",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "current_instance": null,
+            "meta": {
+              "danger": true,
+              "dependencies": -3,
+              "n_id": "587",
+              "value": null
+            },
+            "method": ".setAttribute",
+            "type": "SyntaxStepMethodInvocationChain"
+          }
+        ]
+      },
+      "615": {
+        "615-627-634-652-674-681-682": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "620",
+              "value": null
+            },
+            "object_type": "HttpServletRequest",
+            "type": "SyntaxStepObjectInstantiation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "615",
+              "value": null
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "request",
+            "var_type": "HttpServletRequest"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "632",
+              "value": "testInstanceReference"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "testInstanceReference",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "627",
+              "value": "testInstanceReference"
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "cookieName",
+            "var_type": "String"
+          },
+          {
+            "meta": {
+              "danger": true,
+              "dependencies": 0,
+              "n_id": "640",
               "value": null
             },
             "object_type": "java.util.Random",
@@ -991,7 +1540,7 @@
             "meta": {
               "danger": true,
               "dependencies": -1,
-              "n_id": "35",
+              "n_id": "639",
               "value": null
             },
             "method": ".nextFloat",
@@ -1001,7 +1550,599 @@
             "meta": {
               "danger": true,
               "dependencies": -1,
-              "n_id": "30",
+              "n_id": "634",
+              "value": null
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "rand",
+            "var_type": "int"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "662",
+              "value": "Jane"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "Jane",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": true,
+              "dependencies": 0,
+              "n_id": "670",
+              "value": null
+            },
+            "symbol": "rand",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "current_instance": {
+              "fields": {}
+            },
+            "meta": {
+              "danger": true,
+              "dependencies": -1,
+              "n_id": "664",
+              "value": null
+            },
+            "method": "Float.toString",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": true,
+              "dependencies": -2,
+              "n_id": "657",
+              "value": {
+                "class_name": "User",
+                "fields": {
+                  "lastName": {
+                    "meta": {
+                      "danger": true,
+                      "dependencies": -1,
+                      "n_id": "80",
+                      "value": null
+                    },
+                    "type": "SyntaxStepAssignment",
+                    "var": "this.lastName"
+                  },
+                  "name": {
+                    "meta": {
+                      "danger": false,
+                      "dependencies": -1,
+                      "n_id": "158",
+                      "value": null
+                    },
+                    "type": "SyntaxStepAssignment",
+                    "var": "this.name"
+                  }
+                }
+              }
+            },
+            "object_type": "User",
+            "type": "SyntaxStepObjectInstantiation"
+          },
+          {
+            "meta": {
+              "danger": true,
+              "dependencies": -1,
+              "n_id": "652",
+              "value": {
+                "class_name": "User",
+                "fields": {
+                  "lastName": {
+                    "meta": {
+                      "danger": true,
+                      "dependencies": -1,
+                      "n_id": "80",
+                      "value": null
+                    },
+                    "type": "SyntaxStepAssignment",
+                    "var": "this.lastName"
+                  },
+                  "name": {
+                    "meta": {
+                      "danger": false,
+                      "dependencies": -1,
+                      "n_id": "158",
+                      "value": null
+                    },
+                    "type": "SyntaxStepAssignment",
+                    "var": "this.name"
+                  }
+                }
+              }
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "currentUser",
+            "var_type": "User"
+          },
+          {
+            "meta": {
+              "danger": true,
+              "dependencies": 0,
+              "n_id": "679",
+              "value": {
+                "class_name": "User",
+                "fields": {
+                  "lastName": {
+                    "meta": {
+                      "danger": true,
+                      "dependencies": -1,
+                      "n_id": "80",
+                      "value": null
+                    },
+                    "type": "SyntaxStepAssignment",
+                    "var": "this.lastName"
+                  },
+                  "name": {
+                    "meta": {
+                      "danger": false,
+                      "dependencies": -1,
+                      "n_id": "158",
+                      "value": null
+                    },
+                    "type": "SyntaxStepAssignment",
+                    "var": "this.name"
+                  }
+                }
+              }
+            },
+            "symbol": "currentUser.lastName",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": true,
+              "dependencies": -1,
+              "n_id": "674",
+              "value": {
+                "class_name": "User",
+                "fields": {
+                  "lastName": {
+                    "meta": {
+                      "danger": true,
+                      "dependencies": -1,
+                      "n_id": "80",
+                      "value": null
+                    },
+                    "type": "SyntaxStepAssignment",
+                    "var": "this.lastName"
+                  },
+                  "name": {
+                    "meta": {
+                      "danger": false,
+                      "dependencies": -1,
+                      "n_id": "158",
+                      "value": null
+                    },
+                    "type": "SyntaxStepAssignment",
+                    "var": "this.name"
+                  }
+                }
+              }
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "cookieKey",
+            "var_type": "User"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "681",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "current_instance": {
+              "fields": {}
+            },
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "683",
+              "value": null
+            },
+            "method": "request.getSession",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "694",
+              "value": "testInstanceReference"
+            },
+            "symbol": "cookieName",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": true,
+              "dependencies": 0,
+              "n_id": "696",
+              "value": {
+                "class_name": "User",
+                "fields": {
+                  "lastName": {
+                    "meta": {
+                      "danger": true,
+                      "dependencies": -1,
+                      "n_id": "80",
+                      "value": null
+                    },
+                    "type": "SyntaxStepAssignment",
+                    "var": "this.lastName"
+                  },
+                  "name": {
+                    "meta": {
+                      "danger": false,
+                      "dependencies": -1,
+                      "n_id": "158",
+                      "value": null
+                    },
+                    "type": "SyntaxStepAssignment",
+                    "var": "this.name"
+                  }
+                }
+              }
+            },
+            "symbol": "cookieKey",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "current_instance": null,
+            "meta": {
+              "danger": true,
+              "dependencies": -3,
+              "n_id": "682",
+              "value": null
+            },
+            "method": ".setAttribute",
+            "type": "SyntaxStepMethodInvocationChain"
+          }
+        ]
+      },
+      "710": {
+        "710-722-740-764-765": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "715",
+              "value": null
+            },
+            "object_type": "HttpServletRequest",
+            "type": "SyntaxStepObjectInstantiation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "710",
+              "value": null
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "request",
+            "var_type": "HttpServletRequest"
+          },
+          {
+            "meta": {
+              "danger": true,
+              "dependencies": 0,
+              "n_id": "728",
+              "value": null
+            },
+            "object_type": "java.util.Random",
+            "type": "SyntaxStepObjectInstantiation"
+          },
+          {
+            "current_instance": null,
+            "meta": {
+              "danger": true,
+              "dependencies": -1,
+              "n_id": "727",
+              "value": null
+            },
+            "method": ".nextInt",
+            "type": "SyntaxStepMethodInvocationChain"
+          },
+          {
+            "meta": {
+              "danger": true,
+              "dependencies": -1,
+              "n_id": "722",
+              "value": null
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "rand",
+            "var_type": "int"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "750",
+              "value": "Jane"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "Jane",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "752",
+              "value": "Doe"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "Doe",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": true,
+              "dependencies": 0,
+              "n_id": "760",
+              "value": null
+            },
+            "symbol": "rand",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "current_instance": {
+              "fields": {}
+            },
+            "meta": {
+              "danger": true,
+              "dependencies": -1,
+              "n_id": "754",
+              "value": null
+            },
+            "method": "Integer.toString",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": true,
+              "dependencies": -3,
+              "n_id": "745",
+              "value": {
+                "class_name": "User",
+                "fields": {
+                  "lastName": {
+                    "meta": {
+                      "danger": false,
+                      "dependencies": -1,
+                      "n_id": "115",
+                      "value": null
+                    },
+                    "type": "SyntaxStepAssignment",
+                    "var": "this.lastName"
+                  },
+                  "name": {
+                    "meta": {
+                      "danger": false,
+                      "dependencies": -1,
+                      "n_id": "158",
+                      "value": null
+                    },
+                    "type": "SyntaxStepAssignment",
+                    "var": "this.name"
+                  },
+                  "userId": {
+                    "meta": {
+                      "danger": true,
+                      "dependencies": -1,
+                      "n_id": "121",
+                      "value": null
+                    },
+                    "type": "SyntaxStepAssignment",
+                    "var": "userId"
+                  }
+                }
+              }
+            },
+            "object_type": "User",
+            "type": "SyntaxStepObjectInstantiation"
+          },
+          {
+            "meta": {
+              "danger": true,
+              "dependencies": -1,
+              "n_id": "740",
+              "value": {
+                "class_name": "User",
+                "fields": {
+                  "lastName": {
+                    "meta": {
+                      "danger": false,
+                      "dependencies": -1,
+                      "n_id": "115",
+                      "value": null
+                    },
+                    "type": "SyntaxStepAssignment",
+                    "var": "this.lastName"
+                  },
+                  "name": {
+                    "meta": {
+                      "danger": false,
+                      "dependencies": -1,
+                      "n_id": "158",
+                      "value": null
+                    },
+                    "type": "SyntaxStepAssignment",
+                    "var": "this.name"
+                  },
+                  "userId": {
+                    "meta": {
+                      "danger": true,
+                      "dependencies": -1,
+                      "n_id": "121",
+                      "value": null
+                    },
+                    "type": "SyntaxStepAssignment",
+                    "var": "userId"
+                  }
+                }
+              }
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "currentUser",
+            "var_type": "User"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "764",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "current_instance": {
+              "fields": {}
+            },
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "766",
+              "value": null
+            },
+            "method": "request.getSession",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "777",
+              "value": "testInstanceReference"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "testInstanceReference",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": true,
+              "dependencies": 0,
+              "n_id": "779",
+              "value": {
+                "class_name": "User",
+                "fields": {
+                  "lastName": {
+                    "meta": {
+                      "danger": false,
+                      "dependencies": -1,
+                      "n_id": "115",
+                      "value": null
+                    },
+                    "type": "SyntaxStepAssignment",
+                    "var": "this.lastName"
+                  },
+                  "name": {
+                    "meta": {
+                      "danger": false,
+                      "dependencies": -1,
+                      "n_id": "158",
+                      "value": null
+                    },
+                    "type": "SyntaxStepAssignment",
+                    "var": "this.name"
+                  },
+                  "userId": {
+                    "meta": {
+                      "danger": true,
+                      "dependencies": -1,
+                      "n_id": "121",
+                      "value": null
+                    },
+                    "type": "SyntaxStepAssignment",
+                    "var": "userId"
+                  }
+                }
+              }
+            },
+            "symbol": "currentUser.lastName",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "current_instance": null,
+            "meta": {
+              "danger": true,
+              "dependencies": -3,
+              "n_id": "765",
+              "value": null
+            },
+            "method": ".setAttribute",
+            "type": "SyntaxStepMethodInvocationChain"
+          }
+        ]
+      },
+      "77": {
+        "77-89-107-114-115-128-129-144-145-158-159": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "82",
+              "value": null
+            },
+            "object_type": "HttpServletRequest",
+            "type": "SyntaxStepObjectInstantiation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "77",
+              "value": null
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "request",
+            "var_type": "HttpServletRequest"
+          },
+          {
+            "meta": {
+              "danger": true,
+              "dependencies": 0,
+              "n_id": "95",
+              "value": null
+            },
+            "object_type": "java.util.Random",
+            "type": "SyntaxStepObjectInstantiation"
+          },
+          {
+            "current_instance": null,
+            "meta": {
+              "danger": true,
+              "dependencies": -1,
+              "n_id": "94",
+              "value": null
+            },
+            "method": ".nextFloat",
+            "type": "SyntaxStepMethodInvocationChain"
+          },
+          {
+            "meta": {
+              "danger": true,
+              "dependencies": -1,
+              "n_id": "89",
               "value": null
             },
             "modifiers": null,
@@ -1013,7 +2154,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "53",
+              "n_id": "112",
               "value": "testInstanceReference"
             },
             "type": "SyntaxStepLiteral",
@@ -1024,7 +2165,7 @@
             "meta": {
               "danger": false,
               "dependencies": -1,
-              "n_id": "48",
+              "n_id": "107",
               "value": "testInstanceReference"
             },
             "modifiers": null,
@@ -1036,29 +2177,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "60",
-              "value": null
-            },
-            "object_type": "HttpServletRequest",
-            "type": "SyntaxStepObjectInstantiation"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -1,
-              "n_id": "55",
-              "value": null
-            },
-            "modifiers": null,
-            "type": "SyntaxStepDeclaration",
-            "var": "request",
-            "var_type": "HttpServletRequest"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "67",
+              "n_id": "114",
               "value": null
             },
             "type": "SyntaxStepNoOp"
@@ -1067,7 +2186,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "78",
+              "n_id": "125",
               "value": "Jane Doe"
             },
             "type": "SyntaxStepLiteral",
@@ -1078,7 +2197,7 @@
             "meta": {
               "danger": false,
               "dependencies": -1,
-              "n_id": "73",
+              "n_id": "120",
               "value": {
                 "class_name": "User",
                 "fields": {
@@ -1102,7 +2221,7 @@
             "meta": {
               "danger": false,
               "dependencies": -1,
-              "n_id": "68",
+              "n_id": "115",
               "value": {
                 "class_name": "User",
                 "fields": {
@@ -1128,7 +2247,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "81",
+              "n_id": "128",
               "value": null
             },
             "type": "SyntaxStepNoOp"
@@ -1137,7 +2256,7 @@
             "meta": {
               "danger": true,
               "dependencies": 0,
-              "n_id": "94",
+              "n_id": "141",
               "value": null
             },
             "symbol": "rand",
@@ -1150,7 +2269,7 @@
             "meta": {
               "danger": true,
               "dependencies": -1,
-              "n_id": "88",
+              "n_id": "135",
               "value": null
             },
             "method": "Float.toString",
@@ -1163,7 +2282,7 @@
             "meta": {
               "danger": false,
               "dependencies": -1,
-              "n_id": "82",
+              "n_id": "129",
               "value": null
             },
             "method": "currentUser.setUserId",
@@ -1173,7 +2292,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "97",
+              "n_id": "144",
               "value": null
             },
             "type": "SyntaxStepNoOp"
@@ -1185,7 +2304,7 @@
             "meta": {
               "danger": true,
               "dependencies": 0,
-              "n_id": "103",
+              "n_id": "150",
               "value": null
             },
             "method": "currentUser.getUserId",
@@ -1195,7 +2314,7 @@
             "meta": {
               "danger": true,
               "dependencies": -1,
-              "n_id": "98",
+              "n_id": "145",
               "value": null
             },
             "modifiers": null,
@@ -1207,7 +2326,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "111",
+              "n_id": "158",
               "value": null
             },
             "type": "SyntaxStepNoOp"
@@ -1219,7 +2338,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "113",
+              "n_id": "160",
               "value": null
             },
             "method": "request.getSession",
@@ -1229,7 +2348,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "124",
+              "n_id": "171",
               "value": "testInstanceReference"
             },
             "symbol": "cookieName",
@@ -1239,7 +2358,7 @@
             "meta": {
               "danger": true,
               "dependencies": 0,
-              "n_id": "126",
+              "n_id": "173",
               "value": null
             },
             "symbol": "cookieKey",
@@ -1250,7 +2369,575 @@
             "meta": {
               "danger": true,
               "dependencies": -3,
-              "n_id": "112",
+              "n_id": "159",
+              "value": null
+            },
+            "method": ".setAttribute",
+            "type": "SyntaxStepMethodInvocationChain"
+          }
+        ]
+      },
+      "793": {
+        "793-805-822-823-833-834-835": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "798",
+              "value": null
+            },
+            "object_type": "HttpServletRequest",
+            "type": "SyntaxStepObjectInstantiation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "793",
+              "value": null
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "request",
+            "var_type": "HttpServletRequest"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "815",
+              "value": "Jane"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "Jane",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "817",
+              "value": "Doe"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "Doe",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "819",
+              "value": "xxxxxxxxxx"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "xxxxxxxxxx",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -3,
+              "n_id": "810",
+              "value": {
+                "class_name": "User",
+                "fields": {
+                  "lastName": {
+                    "meta": {
+                      "danger": false,
+                      "dependencies": -1,
+                      "n_id": "115",
+                      "value": null
+                    },
+                    "type": "SyntaxStepAssignment",
+                    "var": "this.lastName"
+                  },
+                  "name": {
+                    "meta": {
+                      "danger": false,
+                      "dependencies": -1,
+                      "n_id": "158",
+                      "value": null
+                    },
+                    "type": "SyntaxStepAssignment",
+                    "var": "this.name"
+                  },
+                  "userId": {
+                    "meta": {
+                      "danger": true,
+                      "dependencies": -1,
+                      "n_id": "823",
+                      "value": null
+                    },
+                    "type": "SyntaxStepAssignment",
+                    "var": "currentUser.userId"
+                  }
+                }
+              }
+            },
+            "object_type": "User",
+            "type": "SyntaxStepObjectInstantiation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "805",
+              "value": {
+                "class_name": "User",
+                "fields": {
+                  "lastName": {
+                    "meta": {
+                      "danger": false,
+                      "dependencies": -1,
+                      "n_id": "115",
+                      "value": null
+                    },
+                    "type": "SyntaxStepAssignment",
+                    "var": "this.lastName"
+                  },
+                  "name": {
+                    "meta": {
+                      "danger": false,
+                      "dependencies": -1,
+                      "n_id": "158",
+                      "value": null
+                    },
+                    "type": "SyntaxStepAssignment",
+                    "var": "this.name"
+                  },
+                  "userId": {
+                    "meta": {
+                      "danger": true,
+                      "dependencies": -1,
+                      "n_id": "823",
+                      "value": null
+                    },
+                    "type": "SyntaxStepAssignment",
+                    "var": "currentUser.userId"
+                  }
+                }
+              }
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "currentUser",
+            "var_type": "User"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "822",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "827",
+              "value": null
+            },
+            "type": "SyntaxStepThis"
+          },
+          {
+            "current_instance": null,
+            "meta": {
+              "danger": true,
+              "dependencies": -1,
+              "n_id": "826",
+              "value": null
+            },
+            "method": ".createRandom",
+            "type": "SyntaxStepMethodInvocationChain"
+          },
+          {
+            "meta": {
+              "danger": true,
+              "dependencies": -1,
+              "n_id": "823",
+              "value": null
+            },
+            "type": "SyntaxStepAssignment",
+            "var": "currentUser.userId"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "833",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "834",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "current_instance": {
+              "fields": {}
+            },
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "836",
+              "value": null
+            },
+            "method": "request.getSession",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "847",
+              "value": "testInstanceReference"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "testInstanceReference",
+            "value_type": "string"
+          },
+          {
+            "current_instance": {
+              "fields": {}
+            },
+            "meta": {
+              "danger": true,
+              "dependencies": 0,
+              "n_id": "849",
+              "value": null
+            },
+            "method": "currentUser.getUserId",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "current_instance": null,
+            "meta": {
+              "danger": true,
+              "dependencies": -3,
+              "n_id": "835",
+              "value": null
+            },
+            "method": ".setAttribute",
+            "type": "SyntaxStepMethodInvocationChain"
+          }
+        ]
+      },
+      "869": {
+        "869-881-895-896-904-905-922-923": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "874",
+              "value": null
+            },
+            "object_type": "HttpServletRequest",
+            "type": "SyntaxStepObjectInstantiation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "869",
+              "value": null
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "request",
+            "var_type": "HttpServletRequest"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "892",
+              "value": "xxxxxxxxxx"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "xxxxxxxxxx",
+            "value_type": "string"
+          },
+          {
+            "current_instance": {
+              "fields": {}
+            },
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "886",
+              "value": null
+            },
+            "method": "request.getParamert",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "881",
+              "value": null
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "file",
+            "var_type": "String"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "895",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "902",
+              "value": null
+            },
+            "symbol": "file",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "current_instance": {
+              "fields": {}
+            },
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "896",
+              "value": null
+            },
+            "method": "Generate.readFile",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "904",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "915",
+              "value": "Jane"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "Jane",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "917",
+              "value": "Doe"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "Doe",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "919",
+              "value": "xxxxxxxxxxxxx"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "xxxxxxxxxxxxx",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -3,
+              "n_id": "910",
+              "value": {
+                "class_name": "User",
+                "fields": {
+                  "lastName": {
+                    "meta": {
+                      "danger": false,
+                      "dependencies": -1,
+                      "n_id": "115",
+                      "value": null
+                    },
+                    "type": "SyntaxStepAssignment",
+                    "var": "this.lastName"
+                  },
+                  "name": {
+                    "meta": {
+                      "danger": false,
+                      "dependencies": -1,
+                      "n_id": "158",
+                      "value": null
+                    },
+                    "type": "SyntaxStepAssignment",
+                    "var": "this.name"
+                  },
+                  "userId": {
+                    "meta": {
+                      "danger": false,
+                      "dependencies": -1,
+                      "n_id": "121",
+                      "value": null
+                    },
+                    "type": "SyntaxStepAssignment",
+                    "var": "userId"
+                  }
+                }
+              }
+            },
+            "object_type": "User",
+            "type": "SyntaxStepObjectInstantiation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "905",
+              "value": {
+                "class_name": "User",
+                "fields": {
+                  "lastName": {
+                    "meta": {
+                      "danger": false,
+                      "dependencies": -1,
+                      "n_id": "115",
+                      "value": null
+                    },
+                    "type": "SyntaxStepAssignment",
+                    "var": "this.lastName"
+                  },
+                  "name": {
+                    "meta": {
+                      "danger": false,
+                      "dependencies": -1,
+                      "n_id": "158",
+                      "value": null
+                    },
+                    "type": "SyntaxStepAssignment",
+                    "var": "this.name"
+                  },
+                  "userId": {
+                    "meta": {
+                      "danger": false,
+                      "dependencies": -1,
+                      "n_id": "121",
+                      "value": null
+                    },
+                    "type": "SyntaxStepAssignment",
+                    "var": "userId"
+                  }
+                }
+              }
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "currentUser",
+            "var_type": "User"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "922",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "current_instance": {
+              "fields": {}
+            },
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "924",
+              "value": null
+            },
+            "method": "request.getSession",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "935",
+              "value": "testInstanceReference"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "testInstanceReference",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "937",
+              "value": {
+                "class_name": "User",
+                "fields": {
+                  "lastName": {
+                    "meta": {
+                      "danger": false,
+                      "dependencies": -1,
+                      "n_id": "115",
+                      "value": null
+                    },
+                    "type": "SyntaxStepAssignment",
+                    "var": "this.lastName"
+                  },
+                  "name": {
+                    "meta": {
+                      "danger": false,
+                      "dependencies": -1,
+                      "n_id": "158",
+                      "value": null
+                    },
+                    "type": "SyntaxStepAssignment",
+                    "var": "this.name"
+                  },
+                  "userId": {
+                    "meta": {
+                      "danger": false,
+                      "dependencies": -1,
+                      "n_id": "121",
+                      "value": null
+                    },
+                    "type": "SyntaxStepAssignment",
+                    "var": "userId"
+                  }
+                }
+              }
+            },
+            "symbol": "currentUser.lastName",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "current_instance": null,
+            "meta": {
+              "danger": false,
+              "dependencies": -3,
+              "n_id": "923",
               "value": null
             },
             "method": ".setAttribute",
@@ -1267,10 +2954,16 @@
   },
   "F042": {
     "skims/test/data/benchmark/instance_references/src/App.java": {
-      "165": {},
-      "253": {},
-      "336": {},
-      "55": {}
+      "187": {},
+      "282": {},
+      "365": {},
+      "460": {},
+      "524": {},
+      "615": {},
+      "710": {},
+      "77": {},
+      "793": {},
+      "869": {}
     },
     "skims/test/data/benchmark/instance_references/src/User.java": {}
   },
@@ -1312,22 +3005,28 @@
   },
   "F063_PATH_TRAVERSAL": {
     "skims/test/data/benchmark/instance_references/src/App.java": {
-      "165": {},
-      "253": {},
-      "336": {},
-      "55": {}
+      "187": {},
+      "282": {},
+      "365": {},
+      "460": {},
+      "524": {},
+      "615": {},
+      "710": {},
+      "77": {},
+      "793": {},
+      "869": {}
     },
     "skims/test/data/benchmark/instance_references/src/User.java": {}
   },
   "F063_TRUSTBOUND": {
     "skims/test/data/benchmark/instance_references/src/App.java": {
-      "165": {
-        "165-177-199-206-207": [
+      "187": {
+        "187-199-217-224-246-253-254": [
           {
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "170",
+              "n_id": "192",
               "value": null
             },
             "object_type": "HttpServletRequest",
@@ -1337,7 +3036,7 @@
             "meta": {
               "danger": true,
               "dependencies": -1,
-              "n_id": "165",
+              "n_id": "187",
               "value": null
             },
             "modifiers": null,
@@ -1349,7 +3048,63 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "187",
+              "n_id": "205",
+              "value": null
+            },
+            "object_type": "java.util.Random",
+            "type": "SyntaxStepObjectInstantiation"
+          },
+          {
+            "current_instance": null,
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "204",
+              "value": null
+            },
+            "method": ".nextFloat",
+            "type": "SyntaxStepMethodInvocationChain"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "199",
+              "value": null
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "rand",
+            "var_type": "int"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "222",
+              "value": "testInstanceReference"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "testInstanceReference",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "217",
+              "value": "testInstanceReference"
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "cookieName",
+            "var_type": "String"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "234",
               "value": "Jane"
             },
             "type": "SyntaxStepLiteral",
@@ -1360,7 +3115,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "195",
+              "n_id": "242",
               "value": null
             },
             "symbol": "rand",
@@ -1373,7 +3128,7 @@
             "meta": {
               "danger": false,
               "dependencies": -1,
-              "n_id": "189",
+              "n_id": "236",
               "value": null
             },
             "method": "Float.toString",
@@ -1383,7 +3138,7 @@
             "meta": {
               "danger": false,
               "dependencies": -2,
-              "n_id": "182",
+              "n_id": "229",
               "value": {
                 "class_name": "User",
                 "fields": {
@@ -1417,7 +3172,7 @@
             "meta": {
               "danger": false,
               "dependencies": -1,
-              "n_id": "177",
+              "n_id": "224",
               "value": {
                 "class_name": "User",
                 "fields": {
@@ -1453,7 +3208,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "204",
+              "n_id": "251",
               "value": {
                 "class_name": "User",
                 "fields": {
@@ -1487,7 +3242,7 @@
             "meta": {
               "danger": false,
               "dependencies": -1,
-              "n_id": "199",
+              "n_id": "246",
               "value": {
                 "class_name": "User",
                 "fields": {
@@ -1523,7 +3278,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "206",
+              "n_id": "253",
               "value": null
             },
             "type": "SyntaxStepNoOp"
@@ -1535,7 +3290,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "208",
+              "n_id": "255",
               "value": null
             },
             "method": "request.getSession",
@@ -1545,8 +3300,8 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "219",
-              "value": null
+              "n_id": "266",
+              "value": "testInstanceReference"
             },
             "symbol": "cookieName",
             "type": "SyntaxStepSymbolLookup"
@@ -1555,7 +3310,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "221",
+              "n_id": "268",
               "value": {
                 "class_name": "User",
                 "fields": {
@@ -1590,7 +3345,7 @@
             "meta": {
               "danger": false,
               "dependencies": -3,
-              "n_id": "207",
+              "n_id": "254",
               "value": null
             },
             "method": ".setAttribute",
@@ -1598,13 +3353,13 @@
           }
         ]
       },
-      "253": {
-        "253-265-289-290": [
+      "282": {
+        "282-294-312-336-337": [
           {
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "258",
+              "n_id": "287",
               "value": null
             },
             "object_type": "HttpServletRequest",
@@ -1614,7 +3369,7 @@
             "meta": {
               "danger": true,
               "dependencies": -1,
-              "n_id": "253",
+              "n_id": "282",
               "value": null
             },
             "modifiers": null,
@@ -1626,7 +3381,40 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "275",
+              "n_id": "300",
+              "value": null
+            },
+            "object_type": "java.util.Random",
+            "type": "SyntaxStepObjectInstantiation"
+          },
+          {
+            "current_instance": null,
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "299",
+              "value": null
+            },
+            "method": ".nextInt",
+            "type": "SyntaxStepMethodInvocationChain"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "294",
+              "value": null
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "rand",
+            "var_type": "int"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "322",
               "value": "Jane"
             },
             "type": "SyntaxStepLiteral",
@@ -1637,7 +3425,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "277",
+              "n_id": "324",
               "value": "Doe"
             },
             "type": "SyntaxStepLiteral",
@@ -1648,7 +3436,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "285",
+              "n_id": "332",
               "value": null
             },
             "symbol": "rand",
@@ -1661,7 +3449,7 @@
             "meta": {
               "danger": false,
               "dependencies": -1,
-              "n_id": "279",
+              "n_id": "326",
               "value": null
             },
             "method": "Integer.toString",
@@ -1671,7 +3459,7 @@
             "meta": {
               "danger": false,
               "dependencies": -3,
-              "n_id": "270",
+              "n_id": "317",
               "value": {
                 "class_name": "User",
                 "fields": {
@@ -1715,7 +3503,7 @@
             "meta": {
               "danger": false,
               "dependencies": -1,
-              "n_id": "265",
+              "n_id": "312",
               "value": {
                 "class_name": "User",
                 "fields": {
@@ -1761,7 +3549,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "289",
+              "n_id": "336",
               "value": null
             },
             "type": "SyntaxStepNoOp"
@@ -1773,7 +3561,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "291",
+              "n_id": "338",
               "value": null
             },
             "method": "request.getSession",
@@ -1783,7 +3571,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "302",
+              "n_id": "349",
               "value": "testInstanceReference"
             },
             "type": "SyntaxStepLiteral",
@@ -1794,7 +3582,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "304",
+              "n_id": "351",
               "value": {
                 "class_name": "User",
                 "fields": {
@@ -1839,7 +3627,7 @@
             "meta": {
               "danger": false,
               "dependencies": -3,
-              "n_id": "290",
+              "n_id": "337",
               "value": null
             },
             "method": ".setAttribute",
@@ -1847,13 +3635,13 @@
           }
         ]
       },
-      "336": {
-        "336-348-365-366-377-378-379": [
+      "365": {
+        "365-377-395-412-413-424-425-426": [
           {
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "341",
+              "n_id": "370",
               "value": null
             },
             "object_type": "HttpServletRequest",
@@ -1863,7 +3651,7 @@
             "meta": {
               "danger": true,
               "dependencies": -1,
-              "n_id": "336",
+              "n_id": "365",
               "value": null
             },
             "modifiers": null,
@@ -1875,7 +3663,40 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "358",
+              "n_id": "383",
+              "value": null
+            },
+            "object_type": "java.util.Random",
+            "type": "SyntaxStepObjectInstantiation"
+          },
+          {
+            "current_instance": null,
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "382",
+              "value": null
+            },
+            "method": ".nextFloat",
+            "type": "SyntaxStepMethodInvocationChain"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "377",
+              "value": null
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "rand",
+            "var_type": "int"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "405",
               "value": "Jane"
             },
             "type": "SyntaxStepLiteral",
@@ -1886,7 +3707,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "360",
+              "n_id": "407",
               "value": "Doe"
             },
             "type": "SyntaxStepLiteral",
@@ -1897,7 +3718,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "362",
+              "n_id": "409",
               "value": "xxxxxxxxxx"
             },
             "type": "SyntaxStepLiteral",
@@ -1908,7 +3729,7 @@
             "meta": {
               "danger": false,
               "dependencies": -3,
-              "n_id": "353",
+              "n_id": "400",
               "value": {
                 "class_name": "User",
                 "fields": {
@@ -1936,7 +3757,7 @@
                     "meta": {
                       "danger": false,
                       "dependencies": -1,
-                      "n_id": "366",
+                      "n_id": "413",
                       "value": null
                     },
                     "type": "SyntaxStepAssignment",
@@ -1952,7 +3773,7 @@
             "meta": {
               "danger": false,
               "dependencies": -1,
-              "n_id": "348",
+              "n_id": "395",
               "value": {
                 "class_name": "User",
                 "fields": {
@@ -1980,7 +3801,7 @@
                     "meta": {
                       "danger": false,
                       "dependencies": -1,
-                      "n_id": "366",
+                      "n_id": "413",
                       "value": null
                     },
                     "type": "SyntaxStepAssignment",
@@ -1998,7 +3819,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "365",
+              "n_id": "412",
               "value": null
             },
             "type": "SyntaxStepNoOp"
@@ -2007,7 +3828,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "375",
+              "n_id": "422",
               "value": null
             },
             "symbol": "rand",
@@ -2020,7 +3841,7 @@
             "meta": {
               "danger": false,
               "dependencies": -1,
-              "n_id": "369",
+              "n_id": "416",
               "value": null
             },
             "method": "Float.toString",
@@ -2030,7 +3851,7 @@
             "meta": {
               "danger": false,
               "dependencies": -1,
-              "n_id": "366",
+              "n_id": "413",
               "value": null
             },
             "type": "SyntaxStepAssignment",
@@ -2040,7 +3861,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "377",
+              "n_id": "424",
               "value": null
             },
             "type": "SyntaxStepNoOp"
@@ -2049,7 +3870,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "378",
+              "n_id": "425",
               "value": null
             },
             "type": "SyntaxStepNoOp"
@@ -2061,7 +3882,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "380",
+              "n_id": "427",
               "value": null
             },
             "method": "request.getSession",
@@ -2071,7 +3892,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "391",
+              "n_id": "438",
               "value": "testInstanceReference"
             },
             "type": "SyntaxStepLiteral",
@@ -2085,7 +3906,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "393",
+              "n_id": "440",
               "value": null
             },
             "method": "currentUser.getUserId",
@@ -2096,7 +3917,7 @@
             "meta": {
               "danger": false,
               "dependencies": -3,
-              "n_id": "379",
+              "n_id": "426",
               "value": null
             },
             "method": ".setAttribute",
@@ -2104,13 +3925,13 @@
           }
         ]
       },
-      "55": {
-        "55-67-68-81-82-97-98-111-112": [
+      "460": {
+        "460-472-495-496": [
           {
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "60",
+              "n_id": "465",
               "value": null
             },
             "object_type": "HttpServletRequest",
@@ -2120,7 +3941,7 @@
             "meta": {
               "danger": true,
               "dependencies": -1,
-              "n_id": "55",
+              "n_id": "460",
               "value": null
             },
             "modifiers": null,
@@ -2132,7 +3953,269 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "67",
+              "n_id": "482",
+              "value": "Jane"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "Jane",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "484",
+              "value": "Doe"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "Doe",
+            "value_type": "string"
+          },
+          {
+            "current_instance": {
+              "fields": {}
+            },
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "486",
+              "value": null
+            },
+            "method": "Generate.createSecureRandom",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -3,
+              "n_id": "477",
+              "value": {
+                "class_name": "User",
+                "fields": {
+                  "lastName": {
+                    "meta": {
+                      "danger": false,
+                      "dependencies": -1,
+                      "n_id": "115",
+                      "value": null
+                    },
+                    "type": "SyntaxStepAssignment",
+                    "var": "this.lastName"
+                  },
+                  "name": {
+                    "meta": {
+                      "danger": false,
+                      "dependencies": -1,
+                      "n_id": "158",
+                      "value": null
+                    },
+                    "type": "SyntaxStepAssignment",
+                    "var": "this.name"
+                  },
+                  "userId": {
+                    "meta": {
+                      "danger": false,
+                      "dependencies": -1,
+                      "n_id": "121",
+                      "value": null
+                    },
+                    "type": "SyntaxStepAssignment",
+                    "var": "userId"
+                  }
+                }
+              }
+            },
+            "object_type": "User",
+            "type": "SyntaxStepObjectInstantiation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "472",
+              "value": {
+                "class_name": "User",
+                "fields": {
+                  "lastName": {
+                    "meta": {
+                      "danger": false,
+                      "dependencies": -1,
+                      "n_id": "115",
+                      "value": null
+                    },
+                    "type": "SyntaxStepAssignment",
+                    "var": "this.lastName"
+                  },
+                  "name": {
+                    "meta": {
+                      "danger": false,
+                      "dependencies": -1,
+                      "n_id": "158",
+                      "value": null
+                    },
+                    "type": "SyntaxStepAssignment",
+                    "var": "this.name"
+                  },
+                  "userId": {
+                    "meta": {
+                      "danger": false,
+                      "dependencies": -1,
+                      "n_id": "121",
+                      "value": null
+                    },
+                    "type": "SyntaxStepAssignment",
+                    "var": "userId"
+                  }
+                }
+              }
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "currentUser",
+            "var_type": "User"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "495",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "current_instance": {
+              "fields": {}
+            },
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "497",
+              "value": null
+            },
+            "method": "request.getSession",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "508",
+              "value": "testInstanceReference"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "testInstanceReference",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "510",
+              "value": {
+                "class_name": "User",
+                "fields": {
+                  "lastName": {
+                    "meta": {
+                      "danger": false,
+                      "dependencies": -1,
+                      "n_id": "115",
+                      "value": null
+                    },
+                    "type": "SyntaxStepAssignment",
+                    "var": "this.lastName"
+                  },
+                  "name": {
+                    "meta": {
+                      "danger": false,
+                      "dependencies": -1,
+                      "n_id": "158",
+                      "value": null
+                    },
+                    "type": "SyntaxStepAssignment",
+                    "var": "this.name"
+                  },
+                  "userId": {
+                    "meta": {
+                      "danger": false,
+                      "dependencies": -1,
+                      "n_id": "121",
+                      "value": null
+                    },
+                    "type": "SyntaxStepAssignment",
+                    "var": "userId"
+                  }
+                }
+              }
+            },
+            "symbol": "currentUser.lastName",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "current_instance": null,
+            "meta": {
+              "danger": false,
+              "dependencies": -3,
+              "n_id": "496",
+              "value": null
+            },
+            "method": ".setAttribute",
+            "type": "SyntaxStepMethodInvocationChain"
+          }
+        ]
+      },
+      "524": {
+        "524-536-543-544-557-558-572-573-586-587": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "529",
+              "value": null
+            },
+            "object_type": "HttpServletRequest",
+            "type": "SyntaxStepObjectInstantiation"
+          },
+          {
+            "meta": {
+              "danger": true,
+              "dependencies": -1,
+              "n_id": "524",
+              "value": null
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "request",
+            "var_type": "HttpServletRequest"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "541",
+              "value": "testInstanceReference"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "testInstanceReference",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "536",
+              "value": "testInstanceReference"
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "cookieName",
+            "var_type": "String"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "543",
               "value": null
             },
             "type": "SyntaxStepNoOp"
@@ -2141,7 +4224,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "78",
+              "n_id": "554",
               "value": "Jane Doe"
             },
             "type": "SyntaxStepLiteral",
@@ -2152,7 +4235,7 @@
             "meta": {
               "danger": false,
               "dependencies": -1,
-              "n_id": "73",
+              "n_id": "549",
               "value": {
                 "class_name": "User",
                 "fields": {
@@ -2176,7 +4259,7 @@
             "meta": {
               "danger": false,
               "dependencies": -1,
-              "n_id": "68",
+              "n_id": "544",
               "value": {
                 "class_name": "User",
                 "fields": {
@@ -2202,20 +4285,10 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "81",
+              "n_id": "557",
               "value": null
             },
             "type": "SyntaxStepNoOp"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "94",
-              "value": null
-            },
-            "symbol": "rand",
-            "type": "SyntaxStepSymbolLookup"
           },
           {
             "current_instance": {
@@ -2223,11 +4296,11 @@
             },
             "meta": {
               "danger": false,
-              "dependencies": -1,
-              "n_id": "88",
+              "dependencies": 0,
+              "n_id": "564",
               "value": null
             },
-            "method": "Float.toString",
+            "method": "Generate.createRandom",
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -2237,7 +4310,7 @@
             "meta": {
               "danger": false,
               "dependencies": -1,
-              "n_id": "82",
+              "n_id": "558",
               "value": null
             },
             "method": "currentUser.setUserId",
@@ -2247,7 +4320,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "97",
+              "n_id": "572",
               "value": null
             },
             "type": "SyntaxStepNoOp"
@@ -2259,7 +4332,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "103",
+              "n_id": "578",
               "value": null
             },
             "method": "currentUser.getUserId",
@@ -2269,7 +4342,7 @@
             "meta": {
               "danger": false,
               "dependencies": -1,
-              "n_id": "98",
+              "n_id": "573",
               "value": null
             },
             "modifiers": null,
@@ -2281,7 +4354,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "111",
+              "n_id": "586",
               "value": null
             },
             "type": "SyntaxStepNoOp"
@@ -2293,7 +4366,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "113",
+              "n_id": "588",
               "value": null
             },
             "method": "request.getSession",
@@ -2303,8 +4376,8 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "124",
-              "value": null
+              "n_id": "599",
+              "value": "testInstanceReference"
             },
             "symbol": "cookieName",
             "type": "SyntaxStepSymbolLookup"
@@ -2313,7 +4386,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "126",
+              "n_id": "601",
               "value": null
             },
             "symbol": "cookieKey",
@@ -2324,7 +4397,1474 @@
             "meta": {
               "danger": false,
               "dependencies": -3,
+              "n_id": "587",
+              "value": null
+            },
+            "method": ".setAttribute",
+            "type": "SyntaxStepMethodInvocationChain"
+          }
+        ]
+      },
+      "615": {
+        "615-627-634-652-674-681-682": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "620",
+              "value": null
+            },
+            "object_type": "HttpServletRequest",
+            "type": "SyntaxStepObjectInstantiation"
+          },
+          {
+            "meta": {
+              "danger": true,
+              "dependencies": -1,
+              "n_id": "615",
+              "value": null
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "request",
+            "var_type": "HttpServletRequest"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "632",
+              "value": "testInstanceReference"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "testInstanceReference",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "627",
+              "value": "testInstanceReference"
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "cookieName",
+            "var_type": "String"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "640",
+              "value": null
+            },
+            "object_type": "java.util.Random",
+            "type": "SyntaxStepObjectInstantiation"
+          },
+          {
+            "current_instance": null,
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "639",
+              "value": null
+            },
+            "method": ".nextFloat",
+            "type": "SyntaxStepMethodInvocationChain"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "634",
+              "value": null
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "rand",
+            "var_type": "int"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "662",
+              "value": "Jane"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "Jane",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "670",
+              "value": null
+            },
+            "symbol": "rand",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "current_instance": {
+              "fields": {}
+            },
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "664",
+              "value": null
+            },
+            "method": "Float.toString",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "657",
+              "value": {
+                "class_name": "User",
+                "fields": {
+                  "lastName": {
+                    "meta": {
+                      "danger": false,
+                      "dependencies": -1,
+                      "n_id": "80",
+                      "value": null
+                    },
+                    "type": "SyntaxStepAssignment",
+                    "var": "this.lastName"
+                  },
+                  "name": {
+                    "meta": {
+                      "danger": false,
+                      "dependencies": -1,
+                      "n_id": "158",
+                      "value": null
+                    },
+                    "type": "SyntaxStepAssignment",
+                    "var": "this.name"
+                  }
+                }
+              }
+            },
+            "object_type": "User",
+            "type": "SyntaxStepObjectInstantiation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "652",
+              "value": {
+                "class_name": "User",
+                "fields": {
+                  "lastName": {
+                    "meta": {
+                      "danger": false,
+                      "dependencies": -1,
+                      "n_id": "80",
+                      "value": null
+                    },
+                    "type": "SyntaxStepAssignment",
+                    "var": "this.lastName"
+                  },
+                  "name": {
+                    "meta": {
+                      "danger": false,
+                      "dependencies": -1,
+                      "n_id": "158",
+                      "value": null
+                    },
+                    "type": "SyntaxStepAssignment",
+                    "var": "this.name"
+                  }
+                }
+              }
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "currentUser",
+            "var_type": "User"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "679",
+              "value": {
+                "class_name": "User",
+                "fields": {
+                  "lastName": {
+                    "meta": {
+                      "danger": false,
+                      "dependencies": -1,
+                      "n_id": "80",
+                      "value": null
+                    },
+                    "type": "SyntaxStepAssignment",
+                    "var": "this.lastName"
+                  },
+                  "name": {
+                    "meta": {
+                      "danger": false,
+                      "dependencies": -1,
+                      "n_id": "158",
+                      "value": null
+                    },
+                    "type": "SyntaxStepAssignment",
+                    "var": "this.name"
+                  }
+                }
+              }
+            },
+            "symbol": "currentUser.lastName",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "674",
+              "value": {
+                "class_name": "User",
+                "fields": {
+                  "lastName": {
+                    "meta": {
+                      "danger": false,
+                      "dependencies": -1,
+                      "n_id": "80",
+                      "value": null
+                    },
+                    "type": "SyntaxStepAssignment",
+                    "var": "this.lastName"
+                  },
+                  "name": {
+                    "meta": {
+                      "danger": false,
+                      "dependencies": -1,
+                      "n_id": "158",
+                      "value": null
+                    },
+                    "type": "SyntaxStepAssignment",
+                    "var": "this.name"
+                  }
+                }
+              }
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "cookieKey",
+            "var_type": "User"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "681",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "current_instance": {
+              "fields": {}
+            },
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "683",
+              "value": null
+            },
+            "method": "request.getSession",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "694",
+              "value": "testInstanceReference"
+            },
+            "symbol": "cookieName",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "696",
+              "value": {
+                "class_name": "User",
+                "fields": {
+                  "lastName": {
+                    "meta": {
+                      "danger": false,
+                      "dependencies": -1,
+                      "n_id": "80",
+                      "value": null
+                    },
+                    "type": "SyntaxStepAssignment",
+                    "var": "this.lastName"
+                  },
+                  "name": {
+                    "meta": {
+                      "danger": false,
+                      "dependencies": -1,
+                      "n_id": "158",
+                      "value": null
+                    },
+                    "type": "SyntaxStepAssignment",
+                    "var": "this.name"
+                  }
+                }
+              }
+            },
+            "symbol": "cookieKey",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "current_instance": null,
+            "meta": {
+              "danger": false,
+              "dependencies": -3,
+              "n_id": "682",
+              "value": null
+            },
+            "method": ".setAttribute",
+            "type": "SyntaxStepMethodInvocationChain"
+          }
+        ]
+      },
+      "710": {
+        "710-722-740-764-765": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "715",
+              "value": null
+            },
+            "object_type": "HttpServletRequest",
+            "type": "SyntaxStepObjectInstantiation"
+          },
+          {
+            "meta": {
+              "danger": true,
+              "dependencies": -1,
+              "n_id": "710",
+              "value": null
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "request",
+            "var_type": "HttpServletRequest"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "728",
+              "value": null
+            },
+            "object_type": "java.util.Random",
+            "type": "SyntaxStepObjectInstantiation"
+          },
+          {
+            "current_instance": null,
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "727",
+              "value": null
+            },
+            "method": ".nextInt",
+            "type": "SyntaxStepMethodInvocationChain"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "722",
+              "value": null
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "rand",
+            "var_type": "int"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "750",
+              "value": "Jane"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "Jane",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "752",
+              "value": "Doe"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "Doe",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "760",
+              "value": null
+            },
+            "symbol": "rand",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "current_instance": {
+              "fields": {}
+            },
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "754",
+              "value": null
+            },
+            "method": "Integer.toString",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -3,
+              "n_id": "745",
+              "value": {
+                "class_name": "User",
+                "fields": {
+                  "lastName": {
+                    "meta": {
+                      "danger": false,
+                      "dependencies": -1,
+                      "n_id": "115",
+                      "value": null
+                    },
+                    "type": "SyntaxStepAssignment",
+                    "var": "this.lastName"
+                  },
+                  "name": {
+                    "meta": {
+                      "danger": false,
+                      "dependencies": -1,
+                      "n_id": "158",
+                      "value": null
+                    },
+                    "type": "SyntaxStepAssignment",
+                    "var": "this.name"
+                  },
+                  "userId": {
+                    "meta": {
+                      "danger": false,
+                      "dependencies": -1,
+                      "n_id": "121",
+                      "value": null
+                    },
+                    "type": "SyntaxStepAssignment",
+                    "var": "userId"
+                  }
+                }
+              }
+            },
+            "object_type": "User",
+            "type": "SyntaxStepObjectInstantiation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "740",
+              "value": {
+                "class_name": "User",
+                "fields": {
+                  "lastName": {
+                    "meta": {
+                      "danger": false,
+                      "dependencies": -1,
+                      "n_id": "115",
+                      "value": null
+                    },
+                    "type": "SyntaxStepAssignment",
+                    "var": "this.lastName"
+                  },
+                  "name": {
+                    "meta": {
+                      "danger": false,
+                      "dependencies": -1,
+                      "n_id": "158",
+                      "value": null
+                    },
+                    "type": "SyntaxStepAssignment",
+                    "var": "this.name"
+                  },
+                  "userId": {
+                    "meta": {
+                      "danger": false,
+                      "dependencies": -1,
+                      "n_id": "121",
+                      "value": null
+                    },
+                    "type": "SyntaxStepAssignment",
+                    "var": "userId"
+                  }
+                }
+              }
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "currentUser",
+            "var_type": "User"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "764",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "current_instance": {
+              "fields": {}
+            },
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "766",
+              "value": null
+            },
+            "method": "request.getSession",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "777",
+              "value": "testInstanceReference"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "testInstanceReference",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "779",
+              "value": {
+                "class_name": "User",
+                "fields": {
+                  "lastName": {
+                    "meta": {
+                      "danger": false,
+                      "dependencies": -1,
+                      "n_id": "115",
+                      "value": null
+                    },
+                    "type": "SyntaxStepAssignment",
+                    "var": "this.lastName"
+                  },
+                  "name": {
+                    "meta": {
+                      "danger": false,
+                      "dependencies": -1,
+                      "n_id": "158",
+                      "value": null
+                    },
+                    "type": "SyntaxStepAssignment",
+                    "var": "this.name"
+                  },
+                  "userId": {
+                    "meta": {
+                      "danger": false,
+                      "dependencies": -1,
+                      "n_id": "121",
+                      "value": null
+                    },
+                    "type": "SyntaxStepAssignment",
+                    "var": "userId"
+                  }
+                }
+              }
+            },
+            "symbol": "currentUser.lastName",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "current_instance": null,
+            "meta": {
+              "danger": false,
+              "dependencies": -3,
+              "n_id": "765",
+              "value": null
+            },
+            "method": ".setAttribute",
+            "type": "SyntaxStepMethodInvocationChain"
+          }
+        ]
+      },
+      "77": {
+        "77-89-107-114-115-128-129-144-145-158-159": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "82",
+              "value": null
+            },
+            "object_type": "HttpServletRequest",
+            "type": "SyntaxStepObjectInstantiation"
+          },
+          {
+            "meta": {
+              "danger": true,
+              "dependencies": -1,
+              "n_id": "77",
+              "value": null
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "request",
+            "var_type": "HttpServletRequest"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "95",
+              "value": null
+            },
+            "object_type": "java.util.Random",
+            "type": "SyntaxStepObjectInstantiation"
+          },
+          {
+            "current_instance": null,
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "94",
+              "value": null
+            },
+            "method": ".nextFloat",
+            "type": "SyntaxStepMethodInvocationChain"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "89",
+              "value": null
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "rand",
+            "var_type": "float"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
               "n_id": "112",
+              "value": "testInstanceReference"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "testInstanceReference",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "107",
+              "value": "testInstanceReference"
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "cookieName",
+            "var_type": "String"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "114",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "125",
+              "value": "Jane Doe"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "Jane Doe",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "120",
+              "value": {
+                "class_name": "User",
+                "fields": {
+                  "userId": {
+                    "meta": {
+                      "danger": false,
+                      "dependencies": -1,
+                      "n_id": "207",
+                      "value": null
+                    },
+                    "type": "SyntaxStepAssignment",
+                    "var": "this.userId"
+                  }
+                }
+              }
+            },
+            "object_type": "User",
+            "type": "SyntaxStepObjectInstantiation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "115",
+              "value": {
+                "class_name": "User",
+                "fields": {
+                  "userId": {
+                    "meta": {
+                      "danger": false,
+                      "dependencies": -1,
+                      "n_id": "207",
+                      "value": null
+                    },
+                    "type": "SyntaxStepAssignment",
+                    "var": "this.userId"
+                  }
+                }
+              }
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "currentUser",
+            "var_type": "User"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "128",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "141",
+              "value": null
+            },
+            "symbol": "rand",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "current_instance": {
+              "fields": {}
+            },
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "135",
+              "value": null
+            },
+            "method": "Float.toString",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "current_instance": {
+              "fields": {}
+            },
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "129",
+              "value": null
+            },
+            "method": "currentUser.setUserId",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "144",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "current_instance": {
+              "fields": {}
+            },
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "150",
+              "value": null
+            },
+            "method": "currentUser.getUserId",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "145",
+              "value": null
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "cookieKey",
+            "var_type": "String"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "158",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "current_instance": {
+              "fields": {}
+            },
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "160",
+              "value": null
+            },
+            "method": "request.getSession",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "171",
+              "value": "testInstanceReference"
+            },
+            "symbol": "cookieName",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "173",
+              "value": null
+            },
+            "symbol": "cookieKey",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "current_instance": null,
+            "meta": {
+              "danger": false,
+              "dependencies": -3,
+              "n_id": "159",
+              "value": null
+            },
+            "method": ".setAttribute",
+            "type": "SyntaxStepMethodInvocationChain"
+          }
+        ]
+      },
+      "793": {
+        "793-805-822-823-833-834-835": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "798",
+              "value": null
+            },
+            "object_type": "HttpServletRequest",
+            "type": "SyntaxStepObjectInstantiation"
+          },
+          {
+            "meta": {
+              "danger": true,
+              "dependencies": -1,
+              "n_id": "793",
+              "value": null
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "request",
+            "var_type": "HttpServletRequest"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "815",
+              "value": "Jane"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "Jane",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "817",
+              "value": "Doe"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "Doe",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "819",
+              "value": "xxxxxxxxxx"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "xxxxxxxxxx",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -3,
+              "n_id": "810",
+              "value": {
+                "class_name": "User",
+                "fields": {
+                  "lastName": {
+                    "meta": {
+                      "danger": false,
+                      "dependencies": -1,
+                      "n_id": "115",
+                      "value": null
+                    },
+                    "type": "SyntaxStepAssignment",
+                    "var": "this.lastName"
+                  },
+                  "name": {
+                    "meta": {
+                      "danger": false,
+                      "dependencies": -1,
+                      "n_id": "158",
+                      "value": null
+                    },
+                    "type": "SyntaxStepAssignment",
+                    "var": "this.name"
+                  },
+                  "userId": {
+                    "meta": {
+                      "danger": false,
+                      "dependencies": -1,
+                      "n_id": "823",
+                      "value": null
+                    },
+                    "type": "SyntaxStepAssignment",
+                    "var": "currentUser.userId"
+                  }
+                }
+              }
+            },
+            "object_type": "User",
+            "type": "SyntaxStepObjectInstantiation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "805",
+              "value": {
+                "class_name": "User",
+                "fields": {
+                  "lastName": {
+                    "meta": {
+                      "danger": false,
+                      "dependencies": -1,
+                      "n_id": "115",
+                      "value": null
+                    },
+                    "type": "SyntaxStepAssignment",
+                    "var": "this.lastName"
+                  },
+                  "name": {
+                    "meta": {
+                      "danger": false,
+                      "dependencies": -1,
+                      "n_id": "158",
+                      "value": null
+                    },
+                    "type": "SyntaxStepAssignment",
+                    "var": "this.name"
+                  },
+                  "userId": {
+                    "meta": {
+                      "danger": false,
+                      "dependencies": -1,
+                      "n_id": "823",
+                      "value": null
+                    },
+                    "type": "SyntaxStepAssignment",
+                    "var": "currentUser.userId"
+                  }
+                }
+              }
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "currentUser",
+            "var_type": "User"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "822",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "827",
+              "value": null
+            },
+            "type": "SyntaxStepThis"
+          },
+          {
+            "current_instance": null,
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "826",
+              "value": null
+            },
+            "method": ".createRandom",
+            "type": "SyntaxStepMethodInvocationChain"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "823",
+              "value": null
+            },
+            "type": "SyntaxStepAssignment",
+            "var": "currentUser.userId"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "833",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "834",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "current_instance": {
+              "fields": {}
+            },
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "836",
+              "value": null
+            },
+            "method": "request.getSession",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "847",
+              "value": "testInstanceReference"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "testInstanceReference",
+            "value_type": "string"
+          },
+          {
+            "current_instance": {
+              "fields": {}
+            },
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "849",
+              "value": null
+            },
+            "method": "currentUser.getUserId",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "current_instance": null,
+            "meta": {
+              "danger": false,
+              "dependencies": -3,
+              "n_id": "835",
+              "value": null
+            },
+            "method": ".setAttribute",
+            "type": "SyntaxStepMethodInvocationChain"
+          }
+        ]
+      },
+      "869": {
+        "869-881-895-896-904-905-922-923": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "874",
+              "value": null
+            },
+            "object_type": "HttpServletRequest",
+            "type": "SyntaxStepObjectInstantiation"
+          },
+          {
+            "meta": {
+              "danger": true,
+              "dependencies": -1,
+              "n_id": "869",
+              "value": null
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "request",
+            "var_type": "HttpServletRequest"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "892",
+              "value": "xxxxxxxxxx"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "xxxxxxxxxx",
+            "value_type": "string"
+          },
+          {
+            "current_instance": {
+              "fields": {}
+            },
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "886",
+              "value": null
+            },
+            "method": "request.getParamert",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "881",
+              "value": null
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "file",
+            "var_type": "String"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "895",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "902",
+              "value": null
+            },
+            "symbol": "file",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "current_instance": {
+              "fields": {}
+            },
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "896",
+              "value": null
+            },
+            "method": "Generate.readFile",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "904",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "915",
+              "value": "Jane"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "Jane",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "917",
+              "value": "Doe"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "Doe",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "919",
+              "value": "xxxxxxxxxxxxx"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "xxxxxxxxxxxxx",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -3,
+              "n_id": "910",
+              "value": {
+                "class_name": "User",
+                "fields": {
+                  "lastName": {
+                    "meta": {
+                      "danger": false,
+                      "dependencies": -1,
+                      "n_id": "115",
+                      "value": null
+                    },
+                    "type": "SyntaxStepAssignment",
+                    "var": "this.lastName"
+                  },
+                  "name": {
+                    "meta": {
+                      "danger": false,
+                      "dependencies": -1,
+                      "n_id": "158",
+                      "value": null
+                    },
+                    "type": "SyntaxStepAssignment",
+                    "var": "this.name"
+                  },
+                  "userId": {
+                    "meta": {
+                      "danger": false,
+                      "dependencies": -1,
+                      "n_id": "121",
+                      "value": null
+                    },
+                    "type": "SyntaxStepAssignment",
+                    "var": "userId"
+                  }
+                }
+              }
+            },
+            "object_type": "User",
+            "type": "SyntaxStepObjectInstantiation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "905",
+              "value": {
+                "class_name": "User",
+                "fields": {
+                  "lastName": {
+                    "meta": {
+                      "danger": false,
+                      "dependencies": -1,
+                      "n_id": "115",
+                      "value": null
+                    },
+                    "type": "SyntaxStepAssignment",
+                    "var": "this.lastName"
+                  },
+                  "name": {
+                    "meta": {
+                      "danger": false,
+                      "dependencies": -1,
+                      "n_id": "158",
+                      "value": null
+                    },
+                    "type": "SyntaxStepAssignment",
+                    "var": "this.name"
+                  },
+                  "userId": {
+                    "meta": {
+                      "danger": false,
+                      "dependencies": -1,
+                      "n_id": "121",
+                      "value": null
+                    },
+                    "type": "SyntaxStepAssignment",
+                    "var": "userId"
+                  }
+                }
+              }
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "currentUser",
+            "var_type": "User"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "922",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "current_instance": {
+              "fields": {}
+            },
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "924",
+              "value": null
+            },
+            "method": "request.getSession",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "935",
+              "value": "testInstanceReference"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "testInstanceReference",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "937",
+              "value": {
+                "class_name": "User",
+                "fields": {
+                  "lastName": {
+                    "meta": {
+                      "danger": false,
+                      "dependencies": -1,
+                      "n_id": "115",
+                      "value": null
+                    },
+                    "type": "SyntaxStepAssignment",
+                    "var": "this.lastName"
+                  },
+                  "name": {
+                    "meta": {
+                      "danger": false,
+                      "dependencies": -1,
+                      "n_id": "158",
+                      "value": null
+                    },
+                    "type": "SyntaxStepAssignment",
+                    "var": "this.name"
+                  },
+                  "userId": {
+                    "meta": {
+                      "danger": false,
+                      "dependencies": -1,
+                      "n_id": "121",
+                      "value": null
+                    },
+                    "type": "SyntaxStepAssignment",
+                    "var": "userId"
+                  }
+                }
+              }
+            },
+            "symbol": "currentUser.lastName",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "current_instance": null,
+            "meta": {
+              "danger": false,
+              "dependencies": -3,
+              "n_id": "923",
               "value": null
             },
             "method": ".setAttribute",
@@ -2345,10 +5885,16 @@
   },
   "F107": {
     "skims/test/data/benchmark/instance_references/src/App.java": {
-      "165": {},
-      "253": {},
-      "336": {},
-      "55": {}
+      "187": {},
+      "282": {},
+      "365": {},
+      "460": {},
+      "524": {},
+      "615": {},
+      "710": {},
+      "77": {},
+      "793": {},
+      "869": {}
     },
     "skims/test/data/benchmark/instance_references/src/User.java": {}
   },
