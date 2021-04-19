@@ -199,6 +199,7 @@ module.exports = {
         label: 'Devices',
         items: [
           'criteria/devices/r205',
+          'criteria/devices/r206',
         ],
     },
   ],
