@@ -130,12 +130,15 @@ def main() -> None:  # pylint: disable=too-many-locals
     args = parser.parse_args()
 
     # We compile here all hyperparameters selected for tuning
-    hyperparameters_to_tune: List[str] = [args.activation, args.solver]
+    hyperparameters_to_tune: Dict[str, str] = {
+        'activation': args.activation,
+        'solver': args.solver
+    }
 
     model_name: str = args.model.split('-')[0]
     model_features: Tuple[str, ...] = get_model_features()
     model_class: ModelType = MODELS[model_name]
-    model: ModelType = model_class(activation=args.activation)
+    model: ModelType = model_class(**hyperparameters_to_tune)
 
     results_filename: str = f'{model_name}_train_results.csv'
     previous_results = get_previous_training_results(results_filename)
@@ -146,14 +149,14 @@ def main() -> None:  # pylint: disable=too-many-locals
         args.train,
         previous_results
     )
-    training_output[-1] += [', '.join(hyperparameters_to_tune)]
+    training_output[-1] += [', '.join(list(hyperparameters_to_tune.values()))]
 
     update_results_csv(results_filename, training_output)
     save_model(
         model,
         float(training_output[-1][4]),
         model_features,
-        hyperparameters_to_tune
+        list(hyperparameters_to_tune.values())
     )
 
 
