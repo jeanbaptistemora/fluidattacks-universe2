@@ -1,15 +1,16 @@
 # shellcheck shell=bash
 
 function check_last_job_succeeded {
-  export GITLAB_API_TOKEN
-  local gitlab_repo_id="${1}"
-  local job_name="${2}"
-  local job_status=''
-  local job_url=''
+  local api_token="${1}"
+  local gitlab_repo_id="${2}"
+  local job_name="${3}"
   local page='0'
-  local job_data=''
+  local job_status
+  local job_url
+  local job_data
 
       echo '[INFO] Iterating GitLab jobs' \
+  &&  ensure_gitlab_env_vars "${api_token}" \
   &&  for page in $(seq 0 100)
       do
             echo "[INFO] Checking page ${page} for job: ${job_name}" \
@@ -17,7 +18,7 @@ function check_last_job_succeeded {
                   curl \
                       --globoff \
                       --silent \
-                      --header "private-token: ${GITLAB_API_TOKEN}" \
+                      --header "private-token: ${!api_token}" \
                       "https://gitlab.com/api/v4/projects/${gitlab_repo_id}/jobs?page=${page}" \
                     | jq -er ".[] | select(.name == \"${job_name}\")")
             then
@@ -62,6 +63,7 @@ function main {
 
       user-rotate-keys-development \
   &&  check_last_job_succeeded \
+        'PRODUCT_API_TOKEN' \
         "${gitlab_repo_id}" \
         "${integrates_job_name}" \
   &&  aws_login_prod '__envProduct__' \

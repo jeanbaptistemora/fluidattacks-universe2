@@ -51,6 +51,7 @@ function update_key {
         &&  for ((i=0; i<gitlab_length; i++))
             do
                   api_token="$(get_key ".\"${key}\".\"${attr}\".gitlab[${i}].api_token")" \
+              &&  ensure_gitlab_env_vars "${api_token}" \
               &&  project_id="$(get_key ".\"${key}\".\"${attr}\".gitlab[${i}].project_id")" \
               &&  key_id="$(get_key ".\"${key}\".\"${attr}\".gitlab[${i}].key_id")" \
               &&  masked="$(get_key ".\"${key}\".\"${attr}\".gitlab[${i}].masked")" \
