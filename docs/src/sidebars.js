@@ -182,6 +182,7 @@ module.exports = {
         label: 'Networks',
         items: [
           'criteria/networks/r247',
+          'criteria/networks/r248',
         ],
     },
   ],
