@@ -103,4 +103,4 @@ def get_user_email() -> str:
         variables=dict()
     )
 
-    return result['data']['me']['userEmail']
+    return result['me']['userEmail']

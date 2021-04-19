@@ -9,6 +9,7 @@ import click
 # Local libraries
 from integrates.graphql import create_session
 
+from sorts.integrates.dal import get_user_email
 from sorts.predict.commit import prioritize as prioritize_commits
 from sorts.predict.file import prioritize as prioritize_files
 from sorts.training.commit import get_subscription_commit_metadata
@@ -65,9 +66,11 @@ def execute_sorts(
     configure_bugsnag()
     start_time: float = time.time()
     success: bool = False
+    user: str = ''
     if get_commit_data:
         if token:
             create_session(token)
+            user = get_user_email()
             success = get_subscription_commit_metadata(subscription)
         else:
             log(
@@ -79,6 +82,7 @@ def execute_sorts(
     elif get_file_data:
         if token:
             create_session(token)
+            user = get_user_email()
             success = get_subscription_file_metadata(subscription)
         else:
             log(
@@ -91,14 +95,17 @@ def execute_sorts(
         success = prioritize_commits(subscription)
     else:
         success = prioritize_files(subscription)
+
     log_to_remote_info(
         msg=f'Success: {success}',
         subscription=subscription,
         time=f'Finished after {time.time() - start_time:.2f} seconds',
         get_commit_data=get_commit_data,
         get_file_data=get_file_data,
-        predict_commit=predict_commit
+        predict_commit=predict_commit,
+        user=user
     )
+
     sys.exit(0 if success else 1)
 
 
