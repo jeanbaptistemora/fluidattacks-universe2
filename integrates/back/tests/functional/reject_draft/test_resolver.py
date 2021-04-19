@@ -30,5 +30,6 @@ async def test_analyst(populate: bool):
         user='analyst@gmail.com',
         draft='475041520',
     )
-    assert 'errors' in result
-    assert result['errors'][0]['message'] == 'Access denied'
+    assert 'errors' not in result
+    assert 'success' in result['data']['rejectDraft']
+    assert result['data']['rejectDraft']['success']
