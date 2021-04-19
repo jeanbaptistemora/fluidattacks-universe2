@@ -51,24 +51,26 @@ def response_header(headers: Dict[str, str]) -> Response:
 
 
 def add_f043_dast_rp_rules() -> None:
-    for index, headers in enumerate([
-        {},
-        {'Referrer-Policy': ''},
-        {'Referrer-Policy': 'out-of-spec'},
-        {'Referrer-Policy': 'out-of-spec, unsafe-url, same-origin'},
-        {'Referrer-Policy': 'out-of-spec, same-origin, unsafe-url'},
+    for index, value in enumerate([
+        '',
+        'out-of-spec',
+        'out-of-spec, unsafe-url, same-origin',
+        'out-of-spec, same-origin, unsafe-url',
     ]):
-        add_rule('f043_dast_rp', index, partial(response_header, headers))
+        add_rule('f043_dast_rp', index, partial(response_header, {
+            'Referrer-Policy': value,
+        }))
 
 
 def add_f043_dast_sts_rules() -> None:
-    for index, headers in enumerate([
-        {},
-        {'Strict-Transport-Security': ''},
-        {'Strict-Transport-Security': 'max-age=31535999'},
-        {'Strict-Transport-Security': 'max-age=31536000'},
+    for index, value in enumerate([
+        '',
+        'max-age=31535999',
+        'max-age=31536000',
     ]):
-        add_rule('f043_dast_sts', index, partial(response_header, headers))
+        add_rule('f043_dast_sts', index, partial(response_header, {
+            'Strict-Transport-Security': value,
+        }))
 
 
 def start() -> None:
