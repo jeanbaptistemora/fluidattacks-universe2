@@ -177,6 +177,13 @@ module.exports = {
           'criteria/architecture/r051',
         ],
     },
+    {
+      type: 'category',
+        label: 'Networks',
+        items: [
+          'criteria/networks/r247',
+        ],
+    },
   ],
   Machine: [
     {
