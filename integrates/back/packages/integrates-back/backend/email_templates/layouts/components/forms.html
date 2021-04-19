@@ -18,6 +18,17 @@
 </div>
 {% endmacro %}
 
+{# Image section for analytics report #}
+{# Not the same as main_image due to a bug in safari with flexbox #}
+{% macro analytics_image(url, size) %}
+<div>
+  <img alt="Analytics (charts) image" class="w-100"
+    src="{{ url }}"
+    width="{{ size }}"
+    style="display:block;">
+</div>
+{% endmacro %}
+
 {# Generic gray text area #}
 {%+ macro text_area(text) %}
 <div class="w-80 gray-text-area">

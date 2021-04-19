@@ -1,5 +1,5 @@
 {% extends "layouts/fluid_attacks.html" %}
-{% from 'layouts/components/forms.html' import go_to_button as button, text_area, main_image %}
+{% from 'layouts/components/forms.html' import go_to_button as button, analytics_image as charts %}
 {% block content %}
 <p>Hello {{ name }},</p>
 <p>
@@ -7,7 +7,7 @@
   sent as part of your {{ frequency_lower }} subscription, the report will be available for 7 days:
 </p>
 <br />
-{{ main_image(image_src, 1200) }}
+{{ charts(image_src, 1200) }}
 <br />
 {{ button('Download report', image_src) }}
 <br />
