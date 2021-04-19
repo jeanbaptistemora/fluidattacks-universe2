@@ -4,9 +4,15 @@ lib_http.f043.content_security_policy.missing_script_src:
 lib_http.f043.content_security_policy.missing:
   en: Missing Content-Security-Policy
   es: Content-Security-Policy ausente
-lib_http.f043.content_security_policy.script-src.data:
+lib_http.f043.content_security_policy.script-src.data_uri:
   en: Use of 'data:' URI
   es: Uso de 'data:' URI
+lib_http.f043.content_security_policy.script-src.http_uri:
+  en: Use of 'http:' URI
+  es: Uso de 'http:' URI
+lib_http.f043.content_security_policy.script-src.https_uri:
+  en: Use of 'https:' URI
+  es: Uso de 'https:' URI
 lib_http.f043.content_security_policy.script-src.unsafeinline:
   en: script-src has 'unsafe-line'
   es: script-src contiene 'unsafe-line'

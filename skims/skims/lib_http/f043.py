@@ -85,8 +85,12 @@ def _content_security_policy_script_src(
     ):
         for value in values:
             if value == "data:":
-                descs.append('content_security_policy.script-src.data')
-            elif value == "'unsafe-inline'":
+                descs.append('content_security_policy.script-src.data_uri')
+            if value == 'http:':
+                descs.append('content_security_policy.script-src.http_uri')
+            if value == 'https:':
+                descs.append('content_security_policy.script-src.https_uri')
+            if value == "'unsafe-inline'":
                 descs.append('content_security_policy.script-src.unsafeinline')
     else:
         descs.append('content_security_policy.missing_script_src')
