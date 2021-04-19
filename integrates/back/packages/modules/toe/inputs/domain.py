@@ -28,3 +28,7 @@ async def get_by_group(
     group_name: str
 ) -> Tuple[GitRootToeInput, ...]:
     return await toe_inputs_dal.get_by_group(group_name)
+
+
+async def update(root_toe_input: GitRootToeInput) -> None:
+    await toe_inputs_dal.update(root_toe_input)
