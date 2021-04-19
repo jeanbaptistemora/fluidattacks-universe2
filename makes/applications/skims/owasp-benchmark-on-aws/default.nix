@@ -6,7 +6,7 @@ computeOnAws {
   command = [ "./m" "skims.owasp-benchmark-and-upload" ];
   jobname = "skims-benchmark";
   jobqueue = "dedicated_later";
-  name = "skims-benchmark-on-aws";
+  name = "skims-owasp-benchmark-on-aws";
   product = "skims";
   secrets = [
     "PRODUCT_API_TOKEN"
