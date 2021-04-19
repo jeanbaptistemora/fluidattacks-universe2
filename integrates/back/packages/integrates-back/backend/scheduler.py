@@ -133,7 +133,6 @@ async def send_unsolved_events_email(context: Any, group_name: str) -> None:
     if (project_info and
             historic_configuration[-1].get('type', '') == 'continuous'):
         mail_to = await get_external_recipients(group_name)
-        mail_to.append(FI_MAIL_CONTINUOUS)
         mail_to.append(FI_MAIL_PROJECTS)
         unsolved_events = await get_unsolved_events(group_name)
         events_info_for_email = [
