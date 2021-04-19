@@ -24,11 +24,13 @@ API_URL_BASE = 'https://api.checklyhq.com'
 
 
 def _get(creds: Credentials, endpoint: str, **kwargs: Any) -> Any:
-    return requests.get(
+    response = requests.get(
         f'{API_URL_BASE}{endpoint}',
-        headers={'Authorization': creds.api_key},
+        headers={'Authorization': f'Bearer {creds.api_key}'},
         **kwargs
     )
+    response.raise_for_status()
+    return response.json()
 
 
 class Client(NamedTuple):

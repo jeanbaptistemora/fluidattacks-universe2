@@ -1,4 +1,5 @@
 # Standard libraries
+import logging
 
 # Third party libraries
 from typing import (
@@ -20,8 +21,13 @@ from tap_checkly.common import (
 )
 
 
+LOG = logging.getLogger(__name__)
+
+
 def list_alerts_channels(client: Client, page: PageId) -> IO[Iterator[JSON]]:
-    return client.get(
+    result = client.get(
         '/v1/alert-channels',
         params={'limit': page.per_page, 'page': page.page}
     )
+    LOG.debug('alert-channels response: %s', result)
+    return IO(result)

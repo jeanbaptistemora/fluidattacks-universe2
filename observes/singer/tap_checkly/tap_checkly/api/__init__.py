@@ -33,3 +33,8 @@ class ApiClient(NamedTuple):
         return cls(
             alerts=AlertChsApi.new(client)
         )
+
+
+__all__ = [
+    'Credentials',
+]
