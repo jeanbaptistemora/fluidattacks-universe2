@@ -8,7 +8,7 @@ import styles from './styles.module.css';
 
 const features = [
   {
-    title: 'Web',
+    title: 'App',
     description: (
       <>
         Here are our UI guides for the Attack Surface Manager

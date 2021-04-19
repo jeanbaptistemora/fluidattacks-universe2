@@ -179,7 +179,7 @@ module.exports = {
   Machine: [
     {
       type: 'category',
-      label: 'Web',
+      label: 'App',
       items: [
         'machine/web/asm',
         {
@@ -393,7 +393,8 @@ module.exports = {
           type: 'category',
           label: 'Git',
           items: [
-            'development/stack/git/commit-mr-guidelines',
+            'development/stack/git/commits',
+            'development/stack/git/merge-requests',
           ]
         },
       ]
