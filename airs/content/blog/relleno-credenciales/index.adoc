@@ -66,7 +66,7 @@ A partir de ahí, los atacantes procederían según sus propósitos.
 
 == ¿Qué hay de las herramientas?
 
-.link:https://unsplash.com/photos/gySMaocSdqs[Fotografía] por Cookie the Pom en Unsplash
+.link:https://unsplash.com/photos/gySMaocSdqs[Fotografía] por Cookie the Pom en Unsplash.
 image::pome.png[Pomeranian]
 
 Hoy en día, aunque algunos _crackers_ experimentados utilizan sus _scripts_,
@@ -110,7 +110,7 @@ Esa es para ellos otra forma de obtener beneficios.
 .Palabras de link:https://medium.com/@mtjasny/how-to-deal-with-credential-stuffing-attacks-c1456e499093[Mateusz Jasny] (imagen de background tomada de link:https://wallhaven.cc/w/q6q92r[Wallhaven]).
 image::jasny.png[Mateusz Jasny]
 
-== Alguna recomendación de prevención?
+== ¿Alguna recomendación de prevención?
 
 === Para usuarios
 
@@ -174,7 +174,7 @@ o en circunstancias en las que el usuario requiera datos sensibles.
 Por último, y tras considerar las anteriores opciones de bajo costo
 para dificultar los esfuerzos de los atacantes,
 también puedes recurrir a servicios comerciales
-contra el _Credential Stuffing__ como
+contra el _Credential Stuffing_ como
 link:https://www.cloudflare.com/es-es/products/bot-management/[Cloudflare Bot Management] y link:https://www.f5.com/solutions/application-security/bot-management[F5 Bot Management].
 Siempre teniendo en cuenta que "la solución mágica no existe,
 así que desconfía de cualquier empresa que intente venderte una,"
