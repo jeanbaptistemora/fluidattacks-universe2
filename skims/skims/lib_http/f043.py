@@ -49,13 +49,13 @@ FINDING_HEADERS: Dict[core_model.FindingEnum, str] = {
 
 
 def _create_vulns(
-    description: str,
+    descriptions: List[str],
     finding: core_model.FindingEnum,
     header: Optional[Header],
     headers_raw: Dict[str, str],
     url: str,
 ) -> core_model.Vulnerabilities:
-    return (
+    return tuple(
         core_model.Vulnerability(
             finding=finding,
             kind=core_model.VulnerabilityKindEnum.INPUTS,
@@ -69,15 +69,29 @@ def _create_vulns(
             where=FINDING_HEADERS[finding],
             skims_metadata=core_model.SkimsVulnerabilityMetadata(
                 cwe=('644',),
-                description=t(description),
+                description=t(f'lib_http.f043.{description}'),
                 snippet=as_string.snippet(
                     url=url,
                     header=header.name if header else None,
                     headers=headers_raw,
                 ),
             ),
-        ),
-    ) if description else ()
+        )
+        for description in descriptions
+        if description
+    )
+
+
+def _content_security_policy_script_src(
+    descs: List[str],
+    header: Header,
+) -> None:
+    if _ := header.directives.get('script-src'):
+        pass
+    elif _ := header.directives.get('default-src'):
+        pass
+    else:
+        descs.append('content_security_policy.missing_script_src')
 
 
 def _content_security_policy(
@@ -85,15 +99,16 @@ def _content_security_policy(
     headers: Dict[Type[Header], Header],
     headers_raw: Dict[str, str],
 ) -> core_model.Vulnerabilities:
-    desc, header = '', None
+    descs: List[str] = []
+    header: Optional[Header] = None
 
     if header := headers.get(ContentSecurityPolicyHeader):
-        desc = ''
+        _content_security_policy_script_src(descs, header)
     else:
-        desc = 'lib_http.f043.content_security_policy.missing'
+        descs.append('content_security_policy.missing')
 
     return _create_vulns(
-        description=desc,
+        descriptions=descs,
         finding=core_model.FindingEnum.F043_DAST_CSP,
         header=header,
         headers_raw=headers_raw,
@@ -132,17 +147,17 @@ def _referrer_policy(
                         'strict-origin',
                         'strict-origin-when-cross-origin',
                     }
-                    else 'lib_http.f043.referrer_policy.weak'
+                    else 'referrer_policy.weak'
                 )
                 break
         else:
-            desc = 'lib_http.f043.referrer_policy.weak'
+            desc = 'referrer_policy.weak'
 
     else:
-        desc = 'lib_http.f043.referrer_policy.missing'
+        desc = 'referrer_policy.missing'
 
     return _create_vulns(
-        description=desc,
+        descriptions=[desc],
         finding=core_model.FindingEnum.F043_DAST_RP,
         header=header,
         headers_raw=headers_raw,
@@ -159,12 +174,12 @@ def _strict_transport_security(
 
     if val := headers.get(StrictTransportSecurityHeader):
         if val.max_age < 31536000:
-            desc = 'lib_http.f043.strict_transport_security.short_max_age'
+            desc = 'strict_transport_security.short_max_age'
     else:
-        desc = 'lib_http.f043.strict_transport_security.missing'
+        desc = 'strict_transport_security.missing'
 
     return _create_vulns(
-        description=desc,
+        descriptions=[desc],
         finding=core_model.FindingEnum.F043_DAST_STS,
         header=header,
         headers_raw=headers_raw,

@@ -1,3 +1,6 @@
+lib_http.f043.content_security_policy.missing_script_src:
+  en: The script-src (or default-src) directive is missing
+  es: La directiva script-src (o default-src) esta ausente
 lib_http.f043.content_security_policy.missing:
   en: The Content-Security-Policy is missing
   es: La cabecera Content-Security-Policy no se ha configurado

@@ -1,6 +1,7 @@
 title,what,where,cwe
 F043. Missing HTTP security headers - Content-Security-Policy,http://localhost:48000/ (namespace),Content-Security-Policy,644
 F043. Missing HTTP security headers - Content-Security-Policy,http://localhost:48000/error (namespace),Content-Security-Policy,644
+F043. Missing HTTP security headers - Content-Security-Policy,http://localhost:48000/f043_dast_csp_0 (namespace),Content-Security-Policy,644
 F043. Missing HTTP security headers - Content-Security-Policy,http://localhost:48000/f043_dast_rp_0 (namespace),Content-Security-Policy,644
 F043. Missing HTTP security headers - Content-Security-Policy,http://localhost:48000/f043_dast_rp_1 (namespace),Content-Security-Policy,644
 F043. Missing HTTP security headers - Content-Security-Policy,http://localhost:48000/f043_dast_rp_2 (namespace),Content-Security-Policy,644
