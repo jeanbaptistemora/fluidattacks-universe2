@@ -3,6 +3,13 @@ type Mutation {
 
   acknowledgeConcurrentSession: SimplePayload!
 
+  activateRoot(
+    "Name of the group the root is associated with"
+    groupName: String!
+    "ID of the root"
+    id: ID!
+  ): SimplePayload!
+
   addEventConsult(
     content: String!
     eventId: String!
@@ -133,6 +140,17 @@ type Mutation {
     subscription: SubscriptionType
     hasDrills: Boolean
     hasForces: Boolean
+  ): SimplePayload!
+
+  deactivateRoot(
+    "Name of the group the root is associated with"
+    groupName: String!
+    "ID of the root"
+    id: ID!
+    "Name of the new repository if it changed"
+    newRepo: String
+    "Reason for this change"
+    reason: RootDeactivationReason!
   ): SimplePayload!
 
   deleteFinding(
@@ -376,6 +394,7 @@ type Mutation {
     "Whether the root is active or not"
     state: ResourceState!
   ): SimplePayload!
+    @deprecated(reason: "Use `activateRoot` or `deactivateRoot` instead.")
 
   updateSeverity(
     findingId: String!

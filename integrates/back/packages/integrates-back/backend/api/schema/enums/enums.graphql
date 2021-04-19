@@ -233,3 +233,9 @@ enum URLProtocol {
   HTTP
   HTTPS
 }
+
+enum RootDeactivationReason {
+  CODE_EXITS_THE_PROJECT
+  MOVED_TO_ANOTHER_REPO
+  REGISTERED_BY_MISTAKE
+}
