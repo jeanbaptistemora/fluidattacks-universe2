@@ -16,7 +16,7 @@ async def test_admin(populate: bool):
     file_name: str = 'test.zip'
     result: Dict[str, Any] = await query(
         user='admin@gmail.com',
-        group='group-1',
+        group='group1',
         f_name=file_name,
     )
     assert 'errors' not in result
@@ -32,7 +32,7 @@ async def test_analyst(populate: bool):
     file_name: str = 'test.zip'
     result: Dict[str, Any] = await query(
         user='analyst@gmail.com',
-        group='group-1',
+        group='group1',
         f_name=file_name,
     )
     assert 'errors' not in result
