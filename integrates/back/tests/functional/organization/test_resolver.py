@@ -18,11 +18,16 @@ async def test_admin(populate: bool):
     org_name: str = 'orgtest'
     org_groups: List[str] = [
         'group1',
-        'group2',
     ]
     org_stakeholders: List[str] = [
         'admin@gmail.com',
         'analyst@gmail.com',
+        'closer@gmail.com',
+        'customer@gmail.com',
+        'customeradmin@gmail.com',
+        'executive@gmail.com',
+        'resourcer@gmail.com',
+        'reviewer@gmail.com',
     ]
     result: Dict[str, Any] = await query(
         user='admin@gmail.com',
@@ -37,7 +42,7 @@ async def test_admin(populate: bool):
     assert result['data']['organization']['maxNumberAcceptations'] == 4
     assert result['data']['organization']['minAcceptanceSeverity'] == 3
     assert result['data']['organization']['name'] == org_name.lower()
-    assert sorted(groups) == org_groups
+    assert sorted(groups) == []
     assert sorted(stakeholders) == org_stakeholders
 
 
@@ -50,7 +55,6 @@ async def test_analyst(populate: bool):
     org_name: str = 'orgtest'
     org_groups: List[str] = [
         'group1',
-        'group2',
     ]
     result: Dict[str, Any] = await query(
         user='analyst@gmail.com',

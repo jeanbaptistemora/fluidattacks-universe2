@@ -14,32 +14,8 @@ from back.tests import (
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group('organization')
 @pytest.fixture(autouse=True, scope='session')
-async def populate() -> bool:
+async def populate(generic_data: Dict[str, Any]) -> bool:
     data: Dict[str, Any] = {
-        'users': [
-            {
-                'email': 'admin@gmail.com',
-                'first_login': '',
-                'first_name': '',
-                'last_login': '',
-                'last_name': '',
-                'legal_remember': False,
-                'phone_number': '-',
-                'push_tokens': [],
-                'is_registered': True,
-            },
-            {
-                'email': 'analyst@gmail.com',
-                'first_login': '',
-                'first_name': '',
-                'last_login': '',
-                'last_name': '',
-                'legal_remember': False,
-                'phone_number': '-',
-                'push_tokens': [],
-                'is_registered': True,
-            },
-        ],
         'orgs': [
             {
                 'name': 'orgtest',
@@ -47,10 +23,15 @@ async def populate() -> bool:
                 'users': [
                     'admin@gmail.com',
                     'analyst@gmail.com',
+                    'closer@gmail.com',
+                    'customer@gmail.com',
+                    'customeradmin@gmail.com',
+                    'executive@gmail.com',
+                    'resourcer@gmail.com',
+                    'reviewer@gmail.com',
                 ],
                 'groups': [
                     'group1',
-                    'group2',
                 ],
                 'policy': {
                     'max_acceptance_days': 90,
@@ -67,83 +48,5 @@ async def populate() -> bool:
                 },
             },
         ],
-        'groups': [
-            {
-                'project_name': 'group1',
-                'description': '-',
-                'language': 'en',
-                'historic_configuration': [{
-                    'date': '2020-05-20 17:00:00',
-                    'has_drills': False,
-                    'has_forces': False,
-                    'requester': 'unknown',
-                    'type': 'continuous',
-                }],
-                'project_status': 'ACTIVE',
-            },
-            {
-                'project_name': 'group2',
-                'description': '-',
-                'language': 'en',
-                'historic_configuration': [{
-                    'date': '2020-05-20 17:00:00',
-                    'has_drills': False,
-                    'has_forces': True,
-                    'requester': 'unknown',
-                    'type': 'continuous',
-                }],
-                'project_status': 'ACTIVE',
-            },
-        ],
-        'policies': [
-            {
-                'level': 'user',
-                'subject': 'admin@gmail.com',
-                'object': 'self',
-                'role': 'admin',
-            },
-            {
-                'level': 'group',
-                'subject': 'admin@gmail.com',
-                'object': 'group1',
-                'role': 'customeradmin',
-            },
-            {
-                'level': 'group',
-                'subject': 'admin@gmail.com',
-                'object': 'group2',
-                'role': 'customeradmin',
-            },
-            {
-                'level': 'organization',
-                'subject': 'admin@gmail.com',
-                'object': 'ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db',
-                'role': 'customeradmin',
-            },
-            {
-                'level': 'user',
-                'subject': 'analyst@gmail.com',
-                'object': 'self',
-                'role': 'user',
-            },
-            {
-                'level': 'group',
-                'subject': 'analyst@gmail.com',
-                'object': 'group1',
-                'role': 'customer',
-            },
-            {
-                'level': 'group',
-                'subject': 'analyst@gmail.com',
-                'object': 'group2',
-                'role': 'customer',
-            },
-            {
-                'level': 'organization',
-                'subject': 'analyst@gmail.com',
-                'object': 'ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db',
-                'role': 'customer',
-            },
-        ],
     }
-    return await db.populate(data)
+    return await db.populate({**generic_data, **data})
