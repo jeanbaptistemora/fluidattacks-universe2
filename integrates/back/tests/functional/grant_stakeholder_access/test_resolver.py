@@ -13,7 +13,7 @@ from . import query
 @pytest.mark.resolver_test_group('grant_stakeholder_access')
 async def test_admin(populate: bool):
     assert populate
-    group_name: str = 'group-1'
+    group_name: str = 'group2'
     stakeholder_email: str = 'analyst@gmail.com'
     phone_number: str = '-'
     stakeholder_responsibility: str = 'test'
@@ -35,7 +35,7 @@ async def test_admin(populate: bool):
 @pytest.mark.resolver_test_group('grant_stakeholder_access')
 async def test_analyst(populate: bool):
     assert populate
-    group_name: str = 'group-1'
+    group_name: str = 'group2'
     stakeholder_email: str = 'analyst@gmail.com'
     phone_number: str = '-'
     stakeholder_responsibility: str = 'test'
@@ -57,7 +57,7 @@ async def test_analyst(populate: bool):
 @pytest.mark.resolver_test_group('grant_stakeholder_access')
 async def test_closer(populate: bool):
     assert populate
-    group_name: str = 'group-1'
+    group_name: str = 'group2'
     stakeholder_email: str = 'analyst@gmail.com'
     phone_number: str = '-'
     stakeholder_responsibility: str = 'test'

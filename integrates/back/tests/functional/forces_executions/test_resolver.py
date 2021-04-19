@@ -15,7 +15,7 @@ async def test_admin(populate: bool):
     assert populate
     result: Dict[str, Any] = await query(
         user='admin@gmail.com',
-        group='group-1',
+        group='group1',
     )
     executions = result['data']['forcesExecutions']['executions']
     assert result['data']['forcesExecutions']['fromDate'] == '2020-02-01 00:00:00+00:00'
@@ -36,7 +36,7 @@ async def test_analyst(populate: bool):
     assert populate
     result: Dict[str, Any] = await query(
         user='analyst@gmail.com',
-        group='group-1',
+        group='group1',
     )
     executions = result['data']['forcesExecutions']['executions']
     assert result['data']['forcesExecutions']['fromDate'] == '2020-02-01 00:00:00+00:00'
@@ -58,7 +58,7 @@ async def test_analyst(populate: bool):
     assert populate
     result: Dict[str, Any] = await query(
         user='closer@gmail.com',
-        group='group-1',
+        group='group1',
     )
     executions = result['data']['forcesExecutions']['executions']
     assert result['data']['forcesExecutions']['fromDate'] == '2020-02-01 00:00:00+00:00'
