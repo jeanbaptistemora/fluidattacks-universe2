@@ -288,7 +288,8 @@ async def create_group(  # pylint: disable=too-many-arguments,too-many-locals
 async def create_without_group(
     email: str,
     role: str,
-    phone_number: str = ''
+    phone_number: str = '',
+    should_add_default_org: bool = True,
 ) -> bool:
     success = False
     if (
@@ -308,8 +309,11 @@ async def create_without_group(
                 users_domain.create(email, new_user_data)
             ])
         )
-        org = await orgs_domain.get_or_create(FI_DEFAULT_ORG, email)
-        if not await orgs_domain.has_user_access(str(org['id']), email):
+        org = await orgs_domain.get_or_create(FI_DEFAULT_ORG)
+        if (
+            should_add_default_org and
+            not await orgs_domain.has_user_access(str(org['id']), email)
+        ):
             await orgs_domain.add_user(str(org['id']), email, 'customer')
     return success
 

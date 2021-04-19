@@ -348,7 +348,7 @@ async def get_name_by_id(organization_id: str) -> str:
 
 async def get_or_create(
     organization_name: str,
-    email: str
+    email: str = ''
 ) -> OrganizationType:
     """
     Return an organization, even if it does not exists,
@@ -360,13 +360,16 @@ async def get_or_create(
 
     org = await orgs_dal.get_by_name(organization_name, ['id', 'name'])
     if org:
-        has_access = await has_user_access(str(org['id']), email)
+        has_access = (
+            await has_user_access(str(org['id']), email)
+            if email else True
+        )
     else:
         org = await orgs_dal.create(organization_name)
         org_created = True
         org_role = 'customeradmin'
 
-    if org_created or not has_access:
+    if email and (org_created or not has_access):
         await add_user(str(org['id']), email, org_role)
     return org
 

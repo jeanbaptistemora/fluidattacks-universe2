@@ -2,7 +2,6 @@
 from typing import (
     Any,
     Dict,
-    Optional
 )
 import pytest
 from decimal import Decimal
@@ -19,6 +18,8 @@ from backend.exceptions import (
     UserNotInOrganization
 )
 from back.tests.unit.utils import create_dummy_session
+from organizations import domain as orgs_domain
+from __init__ import FI_DEFAULT_ORG
 
 
 # Run async tests
@@ -116,7 +117,7 @@ async def test_grant_stakeholder_organization_access():
     query = Template(f'''
         mutation {{
             grantStakeholderOrganizationAccess(
-                organizationId: "{org_id}",
+                organizationId: "$org_id",
                 phoneNumber: "-",
                 role: $role,
                 userEmail: "$email"
@@ -129,18 +130,48 @@ async def test_grant_stakeholder_organization_access():
         }}
     ''')
 
-    data = {'query': query.substitute(email=stakeholder, role='CUSTOMER')}
+    data = {
+        'query': query.substitute(
+            email=stakeholder, org_id=org_id, role='CUSTOMER'
+        )
+    }
     result = await _get_result_async(data)
     assert 'errors' not in result
     assert result['data']['grantStakeholderOrganizationAccess']['success']
     assert result['data']['grantStakeholderOrganizationAccess']['grantedStakeholder']['email'] == stakeholder
 
-    data = {'query': query.substitute(email='madeupuser@gmail.com', role='CUSTOMER')}
+    default_org_id: str = await orgs_domain.get_id_by_name(FI_DEFAULT_ORG)
+    assert await orgs_domain.has_user_access(org_id, stakeholder)
+    assert not await orgs_domain.has_user_access(default_org_id, stakeholder)
+
+    data = {
+        'query': query.substitute(
+            email='org_testuser7@gmail.com',
+            org_id=default_org_id,
+            role='CUSTOMER'
+        )
+    }
+    result = await _get_result_async(data)
+    assert 'errors' not in result
+    assert result['data']['grantStakeholderOrganizationAccess']['success']
+    assert await orgs_domain.has_user_access(
+        default_org_id, 'org_testuser7@gmail.com'
+    )
+
+    data = {
+        'query': query.substitute(
+            email='madeupuser@gmail.com', org_id=org_id, role='CUSTOMER'
+        )
+    }
     result = await _get_result_async(data, stakeholder=stakeholder)
     assert 'errors' in result
     assert result['errors'][0]['message'] == 'Access denied'
 
-    data = {'query': query.substitute(email='madeupuser@gmail.com', role='CUSTOMER')}
+    data = {
+        'query': query.substitute(
+            email='madeupuser@gmail.com', org_id=org_id, role='CUSTOMER'
+        )
+    }
     result = await _get_result_async(data, 'madeupuser@gmail.com')
     exe = UserNotInOrganization()
     assert 'errors' in result

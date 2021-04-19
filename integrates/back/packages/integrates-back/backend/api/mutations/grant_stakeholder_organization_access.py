@@ -13,6 +13,7 @@ from backend.typing import GrantStakeholderAccessPayload
 from groups import domain as groups_domain
 from organizations import domain as orgs_domain
 from users import domain as users_domain
+from __init__ import FI_DEFAULT_ORG
 
 
 @convert_kwargs_to_snake_case  # type: ignore
@@ -46,7 +47,10 @@ async def mutate(
         user_created = await groups_domain.create_without_group(
             user_email,
             'customer',
-            user_phone_number
+            user_phone_number,
+            should_add_default_org=(
+                FI_DEFAULT_ORG.lower() == organization_name.lower()
+            ),
         )
     success = user_added and any([user_created, user_exists])
 
