@@ -213,6 +213,8 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
         actions={
             'backend_api_resolvers_group_forces_token_resolve',
             'backend_api_mutations_update_forces_access_token_mutate',
+            'backend_api_mutations_activate_root_mutate',
+            'backend_api_mutations_deactivate_root_mutate',
             'backend_api_mutations_add_event_consult_mutate',
             'backend_api_mutations_add_files_mutate',
             'backend_api_mutations_add_finding_consult_mutate',
@@ -259,6 +261,8 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
         actions={
             'backend_api_resolvers_group_forces_token_resolve',
             'backend_api_mutations_update_forces_access_token_mutate',
+            'backend_api_mutations_activate_root_mutate',
+            'backend_api_mutations_deactivate_root_mutate',
             'backend_api_mutations_add_event_consult_mutate',
             'backend_api_mutations_add_files_mutate',
             'backend_api_mutations_add_finding_consult_mutate',
@@ -317,6 +321,8 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
     ),
     executive=dict(
         actions={
+            'backend_api_mutations_activate_root_mutate',
+            'backend_api_mutations_deactivate_root_mutate',
             'backend_api_mutations_add_event_consult_mutate',
             'backend_api_mutations_add_files_mutate',
             'backend_api_mutations_add_finding_consult_mutate',
@@ -358,6 +364,8 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
         actions={
             'backend_api_resolvers_group_forces_token_resolve',
             'backend_api_mutations_update_forces_access_token_mutate',
+            'backend_api_mutations_activate_root_mutate',
+            'backend_api_mutations_deactivate_root_mutate',
             'backend_api_mutations_add_event_consult_mutate',
             'backend_api_mutations_add_files_mutate',
             'backend_api_mutations_add_finding_consult_mutate',

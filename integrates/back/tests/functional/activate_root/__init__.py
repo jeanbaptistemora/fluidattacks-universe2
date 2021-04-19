@@ -15,6 +15,7 @@ async def query(*, email: str, group_name: str, id: str) -> Dict[str, Any]:
         }}
     '''
     data = {'query': query}
+
     return await get_graphql_result(
         data,
         stakeholder=email,
