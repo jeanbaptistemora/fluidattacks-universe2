@@ -10,6 +10,7 @@ import pytest
 
 # Constants
 TEST_GROUPS: Set[str] = {
+    'activate_root',
     'add_event_consult',
     'add_files',
     'add_finding_consult',

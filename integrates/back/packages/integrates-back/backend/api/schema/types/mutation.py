@@ -8,6 +8,7 @@ from ariadne import MutationType
 from backend.api.mutations import (
     accept_legal,
     acknowledge_concurrent_session,
+    activate_root,
     add_event_consult,
     add_files,
     add_group_consult,
@@ -25,6 +26,7 @@ from backend.api.mutations import (
     create_event,
     create_group,
     create_organization,
+    deactivate_root,
     delete_finding,
     delete_vulnerability,
     delete_vulnerability_tags,
@@ -76,6 +78,7 @@ from backend.api.mutations import (
 
 MUTATION = MutationType()
 
+MUTATION.set_field('activateRoot', activate_root.mutate)
 MUTATION.set_field('addEventConsult', add_event_consult.mutate)
 MUTATION.set_field('addForcesExecution', add_forces_execution.mutate)
 MUTATION.set_field('addGitRoot', add_git_root.mutate)
@@ -87,6 +90,7 @@ MUTATION.set_field('confirmZeroRiskVuln', confirm_zero_risk_vuln.mutate)
 MUTATION.set_field('createDraft', create_draft.mutate)
 MUTATION.set_field('createEvent', create_event.mutate)
 MUTATION.set_field('createOrganization', create_organization.mutate)
+MUTATION.set_field('deactivateRoot', deactivate_root.mutate)
 MUTATION.set_field('deleteFinding', delete_finding.mutate)
 MUTATION.set_field('deleteVulnerability', delete_vulnerability.mutate)
 MUTATION.set_field('downloadEventFile', download_event_file.mutate)

@@ -11,6 +11,7 @@ FLUID_IDENTIFIER = '@fluidattacks.com'
 GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
     admin=dict(
         actions={
+            'backend_api_mutations_activate_root_mutate',
             'backend_api_mutations_add_event_consult_mutate',
             'backend_api_mutations_add_files_mutate',
             'backend_api_mutations_add_finding_consult_mutate',
