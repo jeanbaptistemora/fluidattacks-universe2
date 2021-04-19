@@ -163,6 +163,7 @@ async def diff_results(
             ),
             kind=result.kind,
             state=state,
+            stream=result.stream,
             what=result.what,
             where=result.where,
         )

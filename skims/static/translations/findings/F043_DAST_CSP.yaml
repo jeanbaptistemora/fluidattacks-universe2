@@ -5,17 +5,17 @@ lib_http.f043.content_security_policy.missing:
   en: Missing Content-Security-Policy
   es: Content-Security-Policy ausente
 lib_http.f043.content_security_policy.script-src.data_uri:
-  en: Use of 'data:' URI
-  es: Uso de 'data:' URI
+  en: "Use of wildcard data:"
+  es: "Uso de comodín data:"
 lib_http.f043.content_security_policy.script-src.http_uri:
-  en: Use of 'http:' URI
-  es: Uso de 'http:' URI
+  en: "Use of wildcard http:"
+  es: "Uso de comodín http:"
 lib_http.f043.content_security_policy.script-src.https_uri:
-  en: Use of 'https:' URI
-  es: Uso de 'https:' URI
+  en: "Use of wildcard https:"
+  es: "Uso de comodín https:"
 lib_http.f043.content_security_policy.script-src.unsafeinline:
-  en: script-src has 'unsafe-line'
-  es: script-src contiene 'unsafe-line'
+  en: script-src has unsafe-inline
+  es: script-src contiene unsafe-inline
 utils.model.finding.enum.F043_DAST_CSP.description:
   en: >
     The server is missing the Content-Security-Policy HTTP header.

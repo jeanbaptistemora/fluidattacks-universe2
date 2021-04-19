@@ -463,7 +463,7 @@ class FindingEnum(Enum):
         attack_vector=0.85,
         availability_impact=0.0,
         confidentiality_impact=0.0,
-        exploitability=0.1,
+        exploitability=0.94,
         integrity_impact=0.22,
         privileges_required=0.85,
         remediation_level=0.95,
