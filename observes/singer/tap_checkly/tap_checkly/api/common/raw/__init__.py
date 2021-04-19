@@ -1,7 +1,12 @@
 # Standard libraries
 
 # Third party libraries
-from returns.io import IO
+from typing import (
+    Iterator,
+)
+from returns.io import (
+    IO,
+)
 
 # Local libraries
 from paginator import (
@@ -15,7 +20,7 @@ from tap_checkly.common import (
 )
 
 
-def list_alerts_channels(client: Client, page: PageId) -> IO[JSON]:
+def list_alerts_channels(client: Client, page: PageId) -> IO[Iterator[JSON]]:
     return client.get(
         '/v1/alert-channels',
         params={'limit': page.per_page, 'page': page.page}

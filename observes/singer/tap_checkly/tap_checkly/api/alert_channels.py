@@ -19,7 +19,6 @@ from returns.io import IO
 import paginator
 from paginator import (
     AllPages,
-    EmptyPage,
     PageGetter,
     PageId,
 )
@@ -38,7 +37,7 @@ PageOrAll = Union[AllPages, PageId]
 
 
 class AlertChsPage(NamedTuple):
-    data: IO[JSON]
+    data: IO[Iterator[JSON]]
 
     @classmethod
     def new(cls, client: Client, page: PageId) -> AlertChsPage:
