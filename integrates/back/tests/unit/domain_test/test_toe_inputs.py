@@ -67,7 +67,7 @@ async def test_add() -> None:
     await toe_inputs_domain.add(toe_input)
     group_toe_inputs = await toe_inputs_domain.get_by_group(group_name)
     assert toe_input in group_toe_inputs
-        
+
 
 @pytest.mark.changes_db
 async def test_delete() -> None:
@@ -81,3 +81,22 @@ async def test_delete() -> None:
     )
     group_toe_inputs = await toe_inputs_domain.get_by_group(group_name)
     assert len(group_toe_inputs) == 3
+
+
+@pytest.mark.changes_db
+async def test_update() -> None:
+    group_name = 'unittesting'
+    toe_input = GitRootToeInput(
+        commit='edited',
+        component='test.com/test/test.aspx',
+        created_date='2000-01-01T00:00:00-05:00',
+        entry_point='btnTest',
+        group_name=group_name,
+        seen_first_time_by='edited@test.com',
+        tested_date='2021-02-12T00:00:00-05:00',
+        verified='Yes',
+        vulns='Edited vulns'
+    )
+    await toe_inputs_domain.update(toe_input)
+    group_toe_inputs = await toe_inputs_domain.get_by_group(group_name)
+    assert toe_input in group_toe_inputs
