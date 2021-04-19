@@ -8,7 +8,6 @@ from graphql.type.definition import GraphQLResolveInfo
 # Local libraries
 from backend import authz, util
 from backend.dal.helpers.redis import redis_del_by_deps
-from backend.domain import project as group_domain
 from backend.decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
@@ -73,7 +72,7 @@ async def mutate(  # pylint: disable=too-many-arguments
             forces_domain.format_forces_user_email(group_name)
         )
     ):
-        await group_domain.remove_user_access(
+        await groups_domain.remove_user(
             loaders,
             group_name,
             forces_domain.format_forces_user_email(group_name)

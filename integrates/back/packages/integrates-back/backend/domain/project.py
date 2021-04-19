@@ -9,19 +9,13 @@ from typing import (
     List,
 )
 
-from aioextensions import collect
-
 from back.settings import LOGGING
 from backend import authz
 from backend.dal import project as project_dal
 from backend.exceptions import AlreadyPendingDeletion
 from backend.typing import Project as ProjectType
-from group_access import domain as group_access_domain
 from groups import domain as groups_domain
 from newutils import datetime as datetime_utils
-from organizations import domain as orgs_domain
-from users import domain as users_domain
-
 
 logging.config.dictConfig(LOGGING)
 
@@ -74,58 +68,3 @@ async def delete_project(
         )
 
     return response
-
-
-async def remove_all_users_access(context: Any, project: str) -> bool:
-    """Remove user access to project."""
-    user_active, user_suspended = await collect([
-        group_access_domain.get_group_users(project, True),
-        group_access_domain.get_group_users(project, False)
-    ])
-    all_users = user_active + user_suspended
-    are_users_removed = all(await collect([
-        remove_user_access(context, project, user)
-        for user in all_users
-    ]))
-
-    return are_users_removed
-
-
-async def remove_user_access(
-    context: Any,
-    group_name: str,
-    email: str,
-    check_org_access: bool = True
-) -> bool:
-    """Remove user access to project."""
-    success: bool = all(
-        await collect([
-            authz.revoke_group_level_role(email, group_name),
-            group_access_domain.remove_access(email, group_name)
-        ])
-    )
-    if success and check_org_access:
-        group_loader = context.group
-        group = await group_loader.load(group_name)
-        org_id = group['organization']
-        has_org_access = await orgs_domain.has_user_access(org_id, email)
-        has_groups_in_org = bool(
-            await groups_domain.get_groups_by_user(
-                email,
-                organization_id=org_id
-            )
-        )
-        if has_org_access and not has_groups_in_org:
-            success = success and await orgs_domain.remove_user(
-                context,
-                org_id,
-                email
-            )
-
-        has_groups = bool(
-            await groups_domain.get_groups_by_user(email)
-        )
-        if not has_groups:
-            success = success and await users_domain.remove_stakeholder(email)
-
-    return success

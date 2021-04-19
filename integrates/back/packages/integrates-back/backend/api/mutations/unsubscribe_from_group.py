@@ -14,8 +14,8 @@ from backend.decorators import (
     require_integrates,
     require_login
 )
-from backend.domain import project as group_domain
 from backend.typing import SimplePayload as SimplePayloadType
+from groups import domain as groups_domain
 from organizations import domain as orgs_domain
 
 
@@ -32,7 +32,7 @@ async def mutate(
 ) -> SimplePayloadType:
     stakeholder_info = await util.get_jwt_content(info.context)
     stakeholder_email = stakeholder_info['user_email']
-    success = await group_domain.remove_user_access(
+    success = await groups_domain.remove_user(
         info.context.loaders,
         group_name,
         stakeholder_email

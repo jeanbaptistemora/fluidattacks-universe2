@@ -7,19 +7,17 @@ from graphql.type.definition import GraphQLResolveInfo
 
 # Local libraries
 from backend import util
-from backend.dal.helpers.redis import (
-    redis_del_by_deps_soon,
-)
+from backend.dal.helpers.redis import redis_del_by_deps_soon
 from backend.decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
     require_integrates,
     require_login
 )
-from backend.domain import project as project_domain
 from backend.typing import (
     RemoveStakeholderAccessPayload as RemoveStakeholderAccessPayloadType
 )
+from groups import domain as groups_domain
 
 
 @convert_kwargs_to_snake_case  # type: ignore
@@ -34,7 +32,7 @@ async def mutate(
     project_name: str,
     user_email: str
 ) -> RemoveStakeholderAccessPayloadType:
-    success = await project_domain.remove_user_access(
+    success = await groups_domain.remove_user(
         info.context.loaders,
         project_name,
         user_email

@@ -1092,11 +1092,7 @@ async def delete_imamura_stakeholders() -> None:
         if len(orgs) == 1
     ]
     await collect([
-        orgs_domain.remove_user(
-            loaders,
-            org_id,
-            stakeholder_to_delete['email']
-        )
+        orgs_domain.remove_user(org_id, stakeholder_to_delete['email'])
         for stakeholder_to_delete in stakeholders_to_delete
     ])
 

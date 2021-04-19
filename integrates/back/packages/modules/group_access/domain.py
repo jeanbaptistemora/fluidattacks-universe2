@@ -92,7 +92,13 @@ async def get_users_to_notify(
 
 
 async def remove_access(user_email: str, group_name: str) -> bool:
-    return await group_access_dal.remove_access(user_email, group_name)
+    success: bool = all(
+        await collect([
+            authz.revoke_group_level_role(user_email, group_name),
+            group_access_dal.remove_access(user_email, group_name)
+        ])
+    )
+    return success
 
 
 async def update(

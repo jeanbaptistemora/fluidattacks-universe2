@@ -198,7 +198,7 @@ async def delete_organization(
 ) -> bool:
     users = await get_users(organization_id)
     users_removed = await collect(
-        remove_user(context, organization_id, user)
+        remove_user(organization_id, user)
         for user in users
     )
     success = all(users_removed) if users else True
@@ -433,7 +433,7 @@ async def remove_group(
     return success
 
 
-async def remove_user(context: Any, organization_id: str, email: str) -> bool:
+async def remove_user(organization_id: str, email: str) -> bool:
     if not await has_user_access(organization_id, email):
         raise UserNotInOrganization()
 
@@ -446,12 +446,7 @@ async def remove_user(context: Any, organization_id: str, email: str) -> bool:
     org_groups = await get_groups(organization_id)
     groups_removed = all(
         await collect(
-            group_domain.remove_user_access(
-                context,
-                group,
-                email,
-                check_org_access=False
-            )
+            group_access_domain.remove_access(email, group)
             for group in org_groups
         )
     )

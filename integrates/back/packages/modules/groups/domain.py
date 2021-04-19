@@ -44,7 +44,6 @@ from backend.exceptions import (
     RepeatedValues,
     UserNotInOrganization,
 )
-from backend.domain import project as group_domain
 from backend.typing import (
     Comment as CommentType,
     Invitation as InvitationType,
@@ -710,11 +709,22 @@ async def mask(group_name: str) -> bool:
     return comments_result and is_group_finished
 
 
+async def remove_all_users(context: Any, group: str) -> bool:
+    """Remove user access to project."""
+    user_active, user_suspended = await collect([
+        group_access_domain.get_group_users(group, True),
+        group_access_domain.get_group_users(group, False)
+    ])
+    all_users = user_active + user_suspended
+    are_users_removed = all(await collect([
+        remove_user(context, group, user)
+        for user in all_users
+    ]))
+    return are_users_removed
+
+
 async def remove_resources(context: Any, group_name: str) -> bool:
-    are_users_removed = await group_domain.remove_all_users_access(
-        context,
-        group_name
-    )
+    are_users_removed = await remove_all_users(context, group_name)
     group_findings = await findings_domain.list_findings(
         context,
         [group_name],
@@ -752,6 +762,35 @@ async def remove_resources(context: Any, group_name: str) -> bool:
         are_resources_masked
     ])
     return response
+
+
+async def remove_user(
+    context: Any,
+    group_name: str,
+    email: str,
+    check_org_access: bool = True
+) -> bool:
+    """Remove user access to group."""
+    success: bool = await group_access_domain.remove_access(email, group_name)
+    if success and check_org_access:
+        group_loader = context.group
+        group = await group_loader.load(group_name)
+        org_id = group['organization']
+
+        has_org_access = await orgs_domain.has_user_access(org_id, email)
+        has_groups_in_org = bool(
+            await get_groups_by_user(email, organization_id=org_id)
+        )
+        if has_org_access and not has_groups_in_org:
+            success = success and await orgs_domain.remove_user(
+                org_id,
+                email
+            )
+
+        has_groups = bool(await get_groups_by_user(email))
+        if not has_groups:
+            success = success and await users_domain.remove_stakeholder(email)
+    return success
 
 
 def send_comment_mail(
