@@ -186,6 +186,13 @@ module.exports = {
           'criteria/networks/r249',
         ],
     },
+    {
+      type: 'category',
+        label: 'Virtualization',
+        items: [
+          'criteria/virtualization/r221',
+        ],
+    },
   ],
   Machine: [
     {
