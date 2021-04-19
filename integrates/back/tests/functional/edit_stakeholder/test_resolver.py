@@ -14,7 +14,7 @@ from . import query
 async def test_admin(populate: bool):
     assert populate
     stakeholder_email: str = 'analyst@gmail.com'
-    group_name: str = 'group-1'
+    group_name: str = 'group1'
     phone_number: str = '123456'
     stakeholder_responsibility: str = 'Test'
     stakeholder_role: str = 'ADMIN'
@@ -35,7 +35,7 @@ async def test_admin(populate: bool):
 async def test_analyst(populate: bool):
     assert populate
     stakeholder_email: str = 'analyst@gmail.com'
-    group_name: str = 'group-1'
+    group_name: str = 'group1'
     phone_number: str = '123456'
     stakeholder_responsibility: str = 'Test'
     stakeholder_role: str = 'ADMIN'

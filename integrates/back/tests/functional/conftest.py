@@ -166,7 +166,16 @@ def generic_data() -> Dict[str, Any]:
             {
                 'name': 'orgtest',
                 'id': '40f6da5f-4f66-4bf0-825b-a2d9748ad6db',
-                'users': [],
+                'users': [
+                    'admin@gmail.com',
+                    'analyst@gmail.com',
+                    'closer@gmail.com',
+                    'customer@gmail.com',
+                    'customeradmin@gmail.com',
+                    'executive@gmail.com',
+                    'resourcer@gmail.com',
+                    'reviewer@gmail.com',
+                ],
                 'groups': [
                     'group1',
                 ],
@@ -279,6 +288,55 @@ def generic_data() -> Dict[str, Any]:
                 'object': 'group1',
                 'role': 'reviewer',
             },
+            {
+                'level': 'organization',
+                'subject': 'admin@gmail.com',
+                'object': 'ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db',
+                'role': 'admin',
+            },
+            {
+                'level': 'organization',
+                'subject': 'analyst@gmail.com',
+                'object': 'ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db',
+                'role': 'analyst',
+            },
+            {
+                'level': 'organization',
+                'subject': 'closer@gmail.com',
+                'object': 'ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db',
+                'role': 'closer',
+            },
+            {
+                'level': 'organization',
+                'subject': 'customer@gmail.com',
+                'object': 'ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db',
+                'role': 'customer',
+            },
+            {
+                'level': 'organization',
+                'subject': 'customeradmin@gmail.com',
+                'object': 'ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db',
+                'role': 'customeradmin',
+            },
+            {
+                'level': 'organization',
+                'subject': 'executive@gmail.com',
+                'object': 'ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db',
+                'role': 'executive',
+            },
+            {
+                'level': 'organization',
+                'subject': 'resourcer@gmail.com',
+                'object': 'ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db',
+                'role': 'resourcer',
+            },
+            {
+                'level': 'organization',
+                'subject': 'reviewer@gmail.com',
+                'object': 'ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db',
+                'role': 'reviewer',
+            },
+            
         ],
     }
 
