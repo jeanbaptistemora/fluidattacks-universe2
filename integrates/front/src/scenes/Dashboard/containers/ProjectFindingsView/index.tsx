@@ -30,7 +30,10 @@ import {
   GET_FINDINGS,
   REQUEST_PROJECT_REPORT,
 } from "scenes/Dashboard/containers/ProjectFindingsView/queries";
-import type { IFindingAttr } from "scenes/Dashboard/containers/ProjectFindingsView/types";
+import type {
+  IFindingAttr,
+  IProjectFindingsAttr,
+} from "scenes/Dashboard/containers/ProjectFindingsView/types";
 import { formatFindings } from "scenes/Dashboard/containers/ProjectFindingsView/utils";
 import {
   ButtonToolbar,
@@ -396,7 +399,7 @@ const ProjectFindingsView: React.FC = (): JSX.Element => {
     },
   ];
 
-  const { data } = useQuery(GET_FINDINGS, {
+  const { data } = useQuery<IProjectFindingsAttr>(GET_FINDINGS, {
     onError: handleQryErrors,
     variables: { projectName },
   });
@@ -437,7 +440,7 @@ const ProjectFindingsView: React.FC = (): JSX.Element => {
       <Can I={"backend_api_resolvers_query_report__get_url_group_report"}>
         <Row>
           <Col100>
-            <ButtonToolbarCenter>
+            <div className={"flex flex-wrap justify-center pt1 pb0 w-100"}>
               <TooltipWrapper
                 id={"group.findings.report.btn.tooltip.id"}
                 message={translate.t("group.findings.report.btn.tooltip")}
@@ -446,17 +449,15 @@ const ProjectFindingsView: React.FC = (): JSX.Element => {
                   {translate.t("group.findings.report.btn.text")}
                 </Button>
               </TooltipWrapper>
-            </ButtonToolbarCenter>
+            </div>
           </Col100>
         </Row>
       </Can>
-      <p>{translate.t("group.findings.helpLabel")}</p>
+      <p className={"mt0 mb1"}>{translate.t("group.findings.helpLabel")}</p>
       <DataTableNext
         bordered={true}
         columnToggle={true}
         csvFilename={`${projectName}-findings-${currentDate}.csv`}
-        // The type was already defined in the schema
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         dataset={formatFindings(data.project.findings)}
         defaultSorted={JSON.parse(_.get(sessionStorage, "findingSort", "{}"))}
         exportCsv={false}
