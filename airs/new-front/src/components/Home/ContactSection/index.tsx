@@ -152,7 +152,7 @@ const ContactSection: React.FC = (): JSX.Element => (
               <SocialButton>
                 <img
                   alt={"Facebook Icon"}
-                  className={"w3"}
+                  className={"w2"}
                   src={facebookIcon}
                 />
               </SocialButton>
@@ -164,7 +164,7 @@ const ContactSection: React.FC = (): JSX.Element => (
               <SocialButton>
                 <img
                   alt={"LinkedIn Icon"}
-                  className={"w3"}
+                  className={"w2"}
                   src={linkedinIcon}
                 />
               </SocialButton>
@@ -174,7 +174,7 @@ const ContactSection: React.FC = (): JSX.Element => (
               to={"https://twitter.com/fluidattacks/"}
             >
               <SocialButton>
-                <img alt={"Twitter Icon"} className={"w3"} src={twitterIcon} />
+                <img alt={"Twitter Icon"} className={"w2"} src={twitterIcon} />
               </SocialButton>
             </Link>
             <Link
@@ -182,7 +182,7 @@ const ContactSection: React.FC = (): JSX.Element => (
               to={"https://www.youtube.com/c/fluidattacks/"}
             >
               <SocialButton>
-                <img alt={"Youtube Icon"} className={"w3"} src={youtubeIcon} />
+                <img alt={"Youtube Icon"} className={"w2"} src={youtubeIcon} />
               </SocialButton>
             </Link>
             <Link
@@ -192,7 +192,7 @@ const ContactSection: React.FC = (): JSX.Element => (
               <SocialButton>
                 <img
                   alt={"Instagram Icon"}
-                  className={"w3"}
+                  className={"w2"}
                   src={instagramIcon}
                 />
               </SocialButton>
