@@ -174,6 +174,7 @@ module.exports = {
         items: [
           'criteria/architecture/r048',
           'criteria/architecture/r050',
+          'criteria/architecture/r051',
         ],
     },
   ],
