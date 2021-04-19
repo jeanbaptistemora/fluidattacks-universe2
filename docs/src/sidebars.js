@@ -183,6 +183,7 @@ module.exports = {
         items: [
           'criteria/networks/r247',
           'criteria/networks/r248',
+          'criteria/networks/r249',
         ],
     },
   ],
