@@ -15,6 +15,10 @@ module.exports = {
   Mobile: {
     Mobile: getDocs('mobile'),
   },
+  About: [
+    'about/faq',
+    'about/glossary',
+  ],
   Criteria: [
     'criteria/intro',
     {
@@ -264,7 +268,6 @@ module.exports = {
             'machine/web/vulnerabilities/deleting-vulns',
           ],
         },
-        'machine/web/glossary',
       ],
     },
     {

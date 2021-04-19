@@ -6,7 +6,7 @@ slug: /machine/web/groups/scope
 ---
 
 This section found in the last tab of your group's dashboard is where you will be able
-to manage the [ToE](/machine/web/glossary/#toe "Target of Evaluation").
+to manage the [ToE](/about/glossary#toe "Target of Evaluation").
 
 ## Git Roots
 

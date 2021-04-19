@@ -6,7 +6,7 @@ slug: /machine/web/groups/scope/introduction
 ---
 
 This section found in the last tab of your group's dashboard is where you will be able
-to manage the [ToE](/machine/web/glossary/#toe "Target of Evaluation")
+to manage the [ToE](/about/glossary#toe "Target of Evaluation")
 
 ![Scope Intro](/img/web/groups/scope/scope_introduction.png)
 

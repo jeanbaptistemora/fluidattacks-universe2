@@ -28,7 +28,7 @@ specific type was found, regardless of its open/closed status.
 categorize them in various groups. This column represents such categorization.
 - **Description:** A brief explanation about what this type of vulnerability does.
 - **Severity:** This is the score given to each type of vulnerability. We use the
-[CVSS](/machine/web/glossary/#cvss "Common Vulnerability Scoring System") standard to assign
+[CVSS](/about/glossary#cvss "Common Vulnerability Scoring System") standard to assign
 each score.
 
 ![Vulnerability Table Second Half](/img/web/groups/vulnerabilities/vulns_table_2h.png)

@@ -24,6 +24,12 @@ module.exports = {
       },
       items: [
         {
+          to: 'about',
+          activeBasePath: 'about/',
+          label: 'About',
+          position: 'left',
+        },
+        {
           to: 'machine/web',
           activeBasePath: 'machine/',
           label: 'Machine',

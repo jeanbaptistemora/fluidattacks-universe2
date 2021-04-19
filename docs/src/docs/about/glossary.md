@@ -2,7 +2,7 @@
 id: glossary
 title: Glossary
 sidebar_label: Glossary
-slug: /machine/web/glossary
+slug: /about/glossary
 ---
 
 ### ToE
