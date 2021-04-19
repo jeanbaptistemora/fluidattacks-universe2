@@ -191,6 +191,7 @@ module.exports = {
         label: 'Virtualization',
         items: [
           'criteria/virtualization/r221',
+          'criteria/virtualization/r222',
         ],
     },
   ],
