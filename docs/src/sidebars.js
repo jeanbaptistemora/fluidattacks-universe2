@@ -211,6 +211,7 @@ module.exports = {
         label: 'Social',
         items: [
           'criteria/social/r260',
+          'criteria/social/r261',
         ],
     },
   ],
