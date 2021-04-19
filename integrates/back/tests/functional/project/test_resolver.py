@@ -35,7 +35,6 @@ async def test_admin(populate: bool):
         user='admin@gmail.com',
         group=group_name
     )
-    print(sorted([stakeholder['email'] for stakeholder in result['data']['project']['stakeholders']]))
     assert 'errors' in result
     assert len(result['errors']) == 1
     assert result['errors'][0]['message'] == 'Exception - Document not found'
