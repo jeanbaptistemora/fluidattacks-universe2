@@ -23,14 +23,19 @@ async def test_admin(populate: bool):
         'title': 'FIN.H.060. Insecure exceptions',
     }
     stakeholders: str = [
-        'admin@gmail.com',
         'analyst@gmail.com',
         'closer@gmail.com',
+        'customer@gmail.com',
+        'customeradmin@gmail.com',
+        'executive@gmail.com',
+        'resourcer@gmail.com',
+        'reviewer@gmail.com',
     ]
     result: Dict[str, Any] = await query(
         user='admin@gmail.com',
         group=group_name
     )
+    print(sorted([stakeholder['email'] for stakeholder in result['data']['project']['stakeholders']]))
     assert 'errors' in result
     assert len(result['errors']) == 1
     assert result['errors'][0]['message'] == 'Exception - Document not found'
@@ -64,7 +69,7 @@ async def test_admin(populate: bool):
         'must_only_have_fluidattacks_hackers'
     ]
     assert result['data']['project']['organization'] == 'orgtest'
-    assert result['data']['project']['userRole'] == 'group_manager'
+    assert result['data']['project']['userRole'] == 'admin'
     assert result['data']['project']['maxOpenSeverity'] == 4.3
     assert result['data']['project']['maxOpenSeverityFinding'] == None
     assert result['data']['project']['lastClosingVulnFinding'] == None
