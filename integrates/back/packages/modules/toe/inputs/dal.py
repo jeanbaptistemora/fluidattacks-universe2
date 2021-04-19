@@ -10,6 +10,7 @@ from botocore.exceptions import ClientError
 from back.settings import LOGGING
 from backend.exceptions import (
     RepeatedToeInput,
+    ToeInputNotFound,
     UnavailabilityError,
 )
 from data_containers.toe_inputs import GitRootToeInput
@@ -72,4 +73,17 @@ async def get_by_group(
         return tuple(map(_format_git_toe_input, toe_input_items))
     except ClientError as ex:
         LOGGER.exception(ex, extra={'extra': locals()})
+        raise UnavailabilityError() from ex
+
+
+async def update(root_toe_input: GitRootToeInput) -> None:
+    try:
+        root_toe_input_item = _format_git_toe_input_item(root_toe_input)
+        await model.update_git_root_toe_input(
+            root_toe_input=root_toe_input_item
+        )
+    except ClientError as ex:
+        LOGGER.exception(ex, extra={'extra': locals()})
+        if ex.response['Error']['Code'] == 'ConditionalCheckFailedException':
+            raise ToeInputNotFound() from ex
         raise UnavailabilityError() from ex

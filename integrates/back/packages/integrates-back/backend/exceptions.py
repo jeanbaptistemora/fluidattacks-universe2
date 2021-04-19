@@ -765,3 +765,9 @@ class RepeatedToeInput(Exception):
     def __init__(self) -> None:
         msg = 'Exception - Toe input already exists'
         super(RepeatedToeInput, self).__init__(msg)
+
+
+class ToeInputNotFound(Exception):
+    def __init__(self) -> None:
+        msg = 'Exception - Toe input has not been found'
+        super(ToeInputNotFound, self).__init__(msg)
