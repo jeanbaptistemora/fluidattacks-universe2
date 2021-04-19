@@ -41,13 +41,6 @@ from zone import (
 )
 
 
-FINDING_HEADERS: Dict[core_model.FindingEnum, str] = {
-    core_model.FindingEnum.F043_DAST_CSP: 'Content-Security-Policy',
-    core_model.FindingEnum.F043_DAST_RP: 'Referrer-Policy',
-    core_model.FindingEnum.F043_DAST_STS: 'Strict-Transport-Security',
-}
-
-
 def _create_vulns(
     descriptions: List[str],
     finding: core_model.FindingEnum,
@@ -66,7 +59,7 @@ def _create_vulns(
                 namespace=CTX.config.namespace,
                 what=url,
             ),
-            where=FINDING_HEADERS[finding],
+            where=t(f'lib_http.f043.{description}.where'),
             skims_metadata=core_model.SkimsVulnerabilityMetadata(
                 cwe=('644',),
                 description=t(f'lib_http.f043.{description}'),
