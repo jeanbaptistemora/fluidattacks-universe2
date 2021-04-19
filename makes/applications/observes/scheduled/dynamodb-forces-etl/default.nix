@@ -13,7 +13,7 @@ computeOnAws {
   name = "observes-scheduled-dynamodb-forces-etl";
   product = "observes";
   secrets = [
-    "GITLAB_API_TOKEN"
+    "PRODUCT_API_TOKEN"
   ];
   timeout = 18000;
   vcpus = 2;

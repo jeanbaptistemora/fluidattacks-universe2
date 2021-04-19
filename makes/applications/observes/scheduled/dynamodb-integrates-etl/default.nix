@@ -13,7 +13,7 @@ let
     name = "aws-batch-dynamodb-etl";
     product = "observes";
     secrets = [
-      "GITLAB_API_TOKEN"
+      "PRODUCT_API_TOKEN"
     ];
     timeout = 7200;
     vcpus = 1;

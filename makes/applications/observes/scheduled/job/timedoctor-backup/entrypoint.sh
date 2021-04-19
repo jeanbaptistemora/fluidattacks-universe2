@@ -23,7 +23,7 @@ function job_timedoctor_backup {
         analytics_s3_cache_timedoctor \
   &&  analytics_auth_timedoctor=$( \
         get_project_variable \
-          "${GITLAB_API_TOKEN}" \
+          "${PRODUCT_API_TOKEN}" \
           "${CI_PROJECT_ID}" \
           "analytics_auth_timedoctor"
       ) \

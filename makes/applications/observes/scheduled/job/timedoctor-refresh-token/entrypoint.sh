@@ -12,7 +12,7 @@ function refresh_token {
   &&  echo "${analytics_auth_redshift}" > "${db_creds}" \
   &&  analytics_auth_timedoctor=$( \
         get_project_variable \
-          "${GITLAB_API_TOKEN}" \
+          "${PRODUCT_API_TOKEN}" \
           "${CI_PROJECT_ID}" \
           "analytics_auth_timedoctor"
       ) \

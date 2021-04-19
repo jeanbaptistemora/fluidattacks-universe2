@@ -9,7 +9,7 @@ computeOnAws {
   name = "observes-scheduled-on-aws-formstack-etl";
   product = "observes";
   secrets = [
-    "GITLAB_API_TOKEN"
+    "PRODUCT_API_TOKEN"
   ];
   timeout = 14400;
   vcpus = 2;
