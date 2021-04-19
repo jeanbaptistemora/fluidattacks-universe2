@@ -50,6 +50,20 @@ def response_header(headers: Dict[str, str]) -> Response:
     return Response(headers=headers)
 
 
+def add_f043_dast_csp_rules() -> None:
+    for index, value in enumerate([
+        'script-src;',
+        'script-src *.domain.com;',
+        "default-src 'self'",
+        "default-src 'unsafe-eval'",
+        "default-src 'unsafe-inline'",
+        "default-src 'none'",
+    ]):
+        add_rule('f043_dast_csp', index, partial(response_header, {
+            'Content-Security-Policy': value,
+        }))
+
+
 def add_f043_dast_rp_rules() -> None:
     for index, value in enumerate([
         '',
@@ -77,5 +91,6 @@ def start() -> None:
     APP.run()
 
 
+add_f043_dast_csp_rules()
 add_f043_dast_rp_rules()
 add_f043_dast_sts_rules()
