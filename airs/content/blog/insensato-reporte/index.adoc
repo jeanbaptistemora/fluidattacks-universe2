@@ -1,5 +1,5 @@
 :slug: insensato-reporte/
-:date: 2017-01-01
+:date: 2021-01-29
 :subtitle: La Cancillería colombiana enfrentó un grave problema
 :category: opinions
 :tags: cybersecurity, vulnerability, information, web, risk, standard
