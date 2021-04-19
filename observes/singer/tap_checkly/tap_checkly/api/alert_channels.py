@@ -21,6 +21,7 @@ from paginator import (
     AllPages,
     PageGetter,
     PageId,
+    PageOrAll,
 )
 from tap_checkly.api.common import (
     raw,
@@ -31,9 +32,6 @@ from tap_checkly.api.common.raw.client import (
 from tap_checkly.common import (
     JSON,
 )
-
-
-PageOrAll = Union[AllPages, PageId]
 
 
 class AlertChsPage(NamedTuple):

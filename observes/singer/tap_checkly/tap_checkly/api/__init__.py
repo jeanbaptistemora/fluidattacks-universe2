@@ -4,6 +4,7 @@ from __future__ import (
 )
 from typing import (
     NamedTuple,
+    Union,
 )
 
 # Third party libraries
@@ -16,22 +17,28 @@ from tap_checkly.api.alert_channels import (
 from tap_checkly.api.auth import (
     Credentials,
 )
+from tap_checkly.api.checks import (
+    CheckGroupsPage,
+    ChecksApi,
+)
 from tap_checkly.api.common.raw.client import (
     Client,
 )
 
 
-ApiPage = AlertChsPage
+ApiPage = Union[AlertChsPage, CheckGroupsPage]
 
 
 class ApiClient(NamedTuple):
     alerts: AlertChsApi
+    checks: ChecksApi
 
     @classmethod
     def new(cls, creds: Credentials) -> ApiClient:
         client = Client.new(creds)
         return cls(
-            alerts=AlertChsApi.new(client)
+            alerts=AlertChsApi.new(client),
+            checks=ChecksApi.new(client),
         )
 
 

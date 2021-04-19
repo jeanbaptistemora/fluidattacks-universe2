@@ -38,7 +38,7 @@ class CheckGroupsPage(NamedTuple):
 
     @classmethod
     def new(cls, client: Client, page: PageId) -> CheckGroupsPage:
-        data = raw.list_alerts_channels(client, page)
+        data = raw.list_check_groups(client, page)
         return cls(data)
 
 
