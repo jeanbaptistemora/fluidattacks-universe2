@@ -169,6 +169,15 @@ observes.scheduled.job.batch-stability:
   tags: [autoscaling]
   interruptible: false
 
+observes.scheduled.job.checkly-etl:
+  <<: *makes
+  only:
+    refs: [schedules]
+    variables: [$observes_checkly]
+  stage: analytics
+  tags: [autoscaling]
+  interruptible: false
+
 observes.scheduled.job.code-etl-compute-bills:
   <<: *makes
   only:
