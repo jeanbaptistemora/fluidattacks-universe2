@@ -88,3 +88,19 @@ def get_vulnerabilities(group: str) -> List[Vulnerability]:
             for vuln in finding['vulnerabilities']
         ]
     return vulnerabilities
+
+
+def get_user_email() -> str:
+    result = _execute(
+        query="""
+            query SortsGetUserInfo {
+                me {
+                    userEmail
+                }
+            }
+        """,
+        operation='SortsGetUserInfo',
+        variables=dict()
+    )
+
+    return result['data']['me']['userEmail']
