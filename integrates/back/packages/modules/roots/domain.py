@@ -1,10 +1,6 @@
 # Standard
 import re
-from typing import (
-    Any,
-    List,
-    Tuple,
-)
+from typing import Any, List, Tuple
 from urllib.parse import unquote
 from uuid import uuid4
 
@@ -339,7 +335,7 @@ async def update_git_environments(
     if not is_valid:
         raise InvalidParameter()
 
-    await roots_dal.update_git_root_state(
+    await roots_dal.update_root_state(
         group_name=group_name,
         root_id=root_id,
         state=GitRootState(
@@ -389,7 +385,7 @@ async def update_git_root(user_email: str, **kwargs: Any) -> None:
         old_nickname=root.state.nickname
     )
 
-    await roots_dal.update_git_root_state(
+    await roots_dal.update_root_state(
         group_name=group_name,
         root_id=root_id,
         state=GitRootState(
@@ -445,35 +441,28 @@ async def _has_open_vulns(root: GitRootItem) -> bool:
     return await roots_dal.has_open_vulns(nickname=root.state.nickname)
 
 
-async def update_root_state(
+async def activate_root(
+    *,
     context: Any,
-    user_email: str,
     group_name: str,
     root_id: str,
-    state: str
+    user_email: str
 ) -> None:
+    new_status = 'ACTIVE'
     root = await get_root(group_name=group_name, root_id=root_id)
 
-    if not isinstance(root, GitRootItem):
-        raise InvalidParameter()
-
-    if root.state.status != state:
+    if root.state.status != new_status:
         group_loader: DataLoader = context.group_all
         group = await group_loader.load(group_name)
-        if (
-            state == 'ACTIVE'
-            and not validations.is_git_unique(
-                root.metadata.url,
-                root.metadata.branch,
-                await get_org_roots(org_id=group['organization'])
-            )
+
+        if not validations.is_git_unique(
+            root.metadata.url,
+            root.metadata.branch,
+            await get_org_roots(org_id=group['organization'])
         ):
             raise RepeatedRoot()
 
-        if state == 'INACTIVE' and await _has_open_vulns(root=root):
-            raise HasOpenVulns()
-
-        await roots_dal.update_git_root_state(
+        await roots_dal.update_root_state(
             group_name=group_name,
             root_id=root_id,
             state=GitRootState(
@@ -484,17 +473,76 @@ async def update_root_state(
                 modified_by=user_email,
                 modified_date=datetime_utils.get_iso_date(),
                 nickname=root.state.nickname,
-                status=state
+                status=new_status
             )
         )
 
         if root.state.includes_health_check:
-            await _notify_health_check(
+            await notifications_domain.request_health_check(
+                branch=root.metadata.branch,
                 group_name=group_name,
-                request=state == 'ACTIVE',
-                root=root,
-                user_email=user_email
+                repo_url=root.metadata.url,
+                requester_email=user_email,
             )
+
+
+async def deactivate_root(
+    *,
+    group_name: str,
+    root_id: str,
+    user_email: str
+) -> None:
+    new_status = 'INACTIVE'
+    root = await get_root(group_name=group_name, root_id=root_id)
+
+    if root.state.status != new_status:
+        if await _has_open_vulns(root=root):
+            raise HasOpenVulns()
+
+        await roots_dal.update_root_state(
+            group_name=group_name,
+            root_id=root_id,
+            state=GitRootState(
+                environment_urls=root.state.environment_urls,
+                environment=root.state.environment,
+                gitignore=root.state.gitignore,
+                includes_health_check=root.state.includes_health_check,
+                modified_by=user_email,
+                modified_date=datetime_utils.get_iso_date(),
+                nickname=root.state.nickname,
+                status=new_status
+            )
+        )
+
+        if root.state.includes_health_check:
+            await notifications_domain.cancel_health_check(
+                branch=root.metadata.branch,
+                group_name=group_name,
+                repo_url=root.metadata.url,
+                requester_email=user_email
+            )
+
+
+async def update_root_state(
+    context: Any,
+    user_email: str,
+    group_name: str,
+    root_id: str,
+    state: str
+) -> None:
+    if state == 'ACTIVE':
+        await activate_root(
+            context=context,
+            group_name=group_name,
+            root_id=root_id,
+            user_email=user_email
+        )
+    else:
+        await deactivate_root(
+            group_name=group_name,
+            root_id=root_id,
+            user_email=user_email
+        )
 
 
 def get_root_id_by_filename(

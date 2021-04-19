@@ -1,7 +1,7 @@
 # Standard
 import logging
 import logging.config
-from typing import Optional, Tuple
+from typing import Optional, Tuple, Union
 
 # Third party
 from boto3.dynamodb.conditions import Key
@@ -10,7 +10,13 @@ from boto3.dynamodb.conditions import Key
 from back.settings import LOGGING
 from backend.dal.helpers import dynamodb as legacy_dynamodb
 from dynamodb import model
-from dynamodb.types import GitRootCloning, GitRootState, RootItem
+from dynamodb.types import (
+    GitRootCloning,
+    GitRootState,
+    IPRootState,
+    RootItem,
+    URLRootState
+)
 
 
 # Constants
@@ -46,13 +52,13 @@ async def update_git_root_cloning(
     )
 
 
-async def update_git_root_state(
+async def update_root_state(
     *,
     group_name: str,
     root_id: str,
-    state: GitRootState
+    state: Union[GitRootState, IPRootState, URLRootState]
 ) -> None:
-    await model.update_git_root_state(
+    await model.update_root_state(
         group_name=group_name,
         state=state,
         root_id=root_id

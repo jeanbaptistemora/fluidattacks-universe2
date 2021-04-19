@@ -1,7 +1,7 @@
 # Standard library
 import json
 from collections import defaultdict
-from typing import Optional, Tuple
+from typing import Optional, Tuple, Union
 
 # Third party
 from boto3.dynamodb.conditions import Attr, Key
@@ -238,11 +238,11 @@ async def create_root(*, root: RootItem) -> None:
         await operations.batch_write_item(items=items, table=TABLE)
 
 
-async def update_git_root_state(
+async def update_root_state(
     *,
     group_name: str,
     root_id: str,
-    state: GitRootState
+    state: Union[GitRootState, IPRootState, URLRootState]
 ) -> None:
     key_structure = TABLE.primary_key
     historic = historics.build_historic(
