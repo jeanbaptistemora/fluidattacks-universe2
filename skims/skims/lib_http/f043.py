@@ -7,6 +7,7 @@ from typing import (
     Callable,
     Dict,
     List,
+    Optional,
     Type,
 )
 
@@ -40,21 +41,23 @@ from zone import (
 )
 
 
-def _content_security_policy(
-    url: str,
-    headers: Dict[Type[Header], Header],
+FINDING_HEADERS: Dict[core_model.FindingEnum, str] = {
+    core_model.FindingEnum.F043_DAST_CSP: 'Content-Security-Policy',
+    core_model.FindingEnum.F043_DAST_RP: 'Referrer-Policy',
+    core_model.FindingEnum.F043_DAST_STS: 'Strict-Transport-Security',
+}
+
+
+def _create_vulns(
+    description: str,
+    finding: core_model.FindingEnum,
+    header: Optional[Header],
     headers_raw: Dict[str, str],
+    url: str,
 ) -> core_model.Vulnerabilities:
-    desc: str = ''
-
-    if header := headers.get(ContentSecurityPolicyHeader):
-        desc = ''
-    else:
-        desc = 'lib_http.f043.content_security_policy.missing'
-
     return (
         core_model.Vulnerability(
-            finding=core_model.FindingEnum.F043_DAST_CSP,
+            finding=finding,
             kind=core_model.VulnerabilityKindEnum.INPUTS,
             state=core_model.VulnerabilityStateEnum.OPEN,
             stream='Query,response,headers',
@@ -63,10 +66,10 @@ def _content_security_policy(
                 namespace=CTX.config.namespace,
                 what=url,
             ),
-            where='Content-Security-Policy',
+            where=FINDING_HEADERS[finding],
             skims_metadata=core_model.SkimsVulnerabilityMetadata(
                 cwe=('644',),
-                description=t(desc),
+                description=t(description),
                 snippet=as_string.snippet(
                     url=url,
                     header=header.name if header else None,
@@ -74,7 +77,28 @@ def _content_security_policy(
                 ),
             ),
         ),
-    ) if desc else ()
+    ) if description else ()
+
+
+def _content_security_policy(
+    url: str,
+    headers: Dict[Type[Header], Header],
+    headers_raw: Dict[str, str],
+) -> core_model.Vulnerabilities:
+    desc, header = '', None
+
+    if header := headers.get(ContentSecurityPolicyHeader):
+        desc = ''
+    else:
+        desc = 'lib_http.f043.content_security_policy.missing'
+
+    return _create_vulns(
+        description=desc,
+        finding=core_model.FindingEnum.F043_DAST_CSP,
+        header=header,
+        headers_raw=headers_raw,
+        url=url,
+    )
 
 
 def _referrer_policy(
@@ -82,7 +106,7 @@ def _referrer_policy(
     headers: Dict[Type[Header], Header],
     headers_raw: Dict[str, str],
 ) -> core_model.Vulnerabilities:
-    desc: str = ''
+    desc, header = '', None
 
     if header := headers.get(ReferrerPolicyHeader):
         for value in header.values:
@@ -117,29 +141,13 @@ def _referrer_policy(
     else:
         desc = 'lib_http.f043.referrer_policy.missing'
 
-    return (
-        core_model.Vulnerability(
-            finding=core_model.FindingEnum.F043_DAST_RP,
-            kind=core_model.VulnerabilityKindEnum.INPUTS,
-            state=core_model.VulnerabilityStateEnum.OPEN,
-            stream='Query,response,headers',
-            what=serialize_namespace_into_vuln(
-                kind=core_model.VulnerabilityKindEnum.INPUTS,
-                namespace=CTX.config.namespace,
-                what=url,
-            ),
-            where='Referrer-Policy',
-            skims_metadata=core_model.SkimsVulnerabilityMetadata(
-                cwe=('644',),
-                description=t(desc),
-                snippet=as_string.snippet(
-                    url=url,
-                    header=header.name if header else None,
-                    headers=headers_raw,
-                ),
-            ),
-        ),
-    ) if desc else ()
+    return _create_vulns(
+        description=desc,
+        finding=core_model.FindingEnum.F043_DAST_RP,
+        header=header,
+        headers_raw=headers_raw,
+        url=url,
+    )
 
 
 def _strict_transport_security(
@@ -147,7 +155,7 @@ def _strict_transport_security(
     headers: Dict[Type[Header], Header],
     headers_raw: Dict[str, str],
 ) -> core_model.Vulnerabilities:
-    desc: str = ''
+    desc, header = '', None
 
     if val := headers.get(StrictTransportSecurityHeader):
         if val.max_age < 31536000:
@@ -155,29 +163,13 @@ def _strict_transport_security(
     else:
         desc = 'lib_http.f043.strict_transport_security.missing'
 
-    return (
-        core_model.Vulnerability(
-            finding=core_model.FindingEnum.F043_DAST_STS,
-            kind=core_model.VulnerabilityKindEnum.INPUTS,
-            state=core_model.VulnerabilityStateEnum.OPEN,
-            stream='Query,response,headers',
-            what=serialize_namespace_into_vuln(
-                kind=core_model.VulnerabilityKindEnum.INPUTS,
-                namespace=CTX.config.namespace,
-                what=url,
-            ),
-            where='Strict-Transport-Security',
-            skims_metadata=core_model.SkimsVulnerabilityMetadata(
-                cwe=('644',),
-                description=t(desc),
-                snippet=as_string.snippet(
-                    url=url,
-                    header=val.name if val else None,
-                    headers=headers_raw,
-                ),
-            ),
-        ),
-    ) if desc else ()
+    return _create_vulns(
+        description=desc,
+        finding=core_model.FindingEnum.F043_DAST_STS,
+        header=header,
+        headers_raw=headers_raw,
+        url=url,
+    )
 
 
 async def http_headers_configuration(url: str) -> core_model.Vulnerabilities:
