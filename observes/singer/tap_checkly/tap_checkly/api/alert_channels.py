@@ -7,7 +7,6 @@ from typing import (
     Callable,
     Iterator,
     NamedTuple,
-    Union,
     cast,
 )
 

@@ -49,7 +49,9 @@ def _list_check_groups(
     if isinstance(page, AllPages):
         page_getter: PageGetter[CheckGroupsPage] = paginator.build_getter(
             partial(CheckGroupsPage.new, client),
-            lambda page: cast(CheckGroupsPage, page).data.map(bool) == IO(False),
+            lambda page: (
+                cast(CheckGroupsPage, page).data.map(bool) == IO(False)
+            ),
         )
         return paginator.get_until_end(
             PageId(1, 100), page_getter, 10

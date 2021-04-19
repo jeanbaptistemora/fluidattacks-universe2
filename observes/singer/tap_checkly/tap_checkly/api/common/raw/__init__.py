@@ -38,5 +38,8 @@ def list_check_groups(client: Client, page: PageId) -> IO[Iterator[JSON]]:
         '/v1/check-groups',
         params={'limit': page.per_page, 'page': page.page}
     )
+    for item in result:
+        for env_var in item['environmentVariables']:
+            env_var['value'] = '__masked__'
     LOG.debug('check-groups response: %s', result)
     return IO(result)
