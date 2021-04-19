@@ -299,6 +299,14 @@ const MenuDesktop: React.FC = (): JSX.Element => (
       <SidebarListContainer>
         <SidebarList>
           <SidebarListItem>
+            <a
+              className={"c-fluid-bk roboto no-underline nowrap hv-fluid-rd"}
+              href={"https://fluidattacks.com/plans/"}
+            >
+              {"Plans"}
+            </a>
+          </SidebarListItem>
+          <SidebarListItem>
             <Link
               className={"c-fluid-bk roboto no-underline nowrap hv-fluid-rd"}
               to={"https://fluidattacks.com/blog/"}
@@ -328,14 +336,6 @@ const MenuDesktop: React.FC = (): JSX.Element => (
               href={"https://fluidattacks.com/advisories/"}
             >
               {"Advisories"}
-            </a>
-          </SidebarListItem>
-          <SidebarListItem>
-            <a
-              className={"c-fluid-bk roboto no-underline nowrap hv-fluid-rd"}
-              href={"https://fluidattacks.com/plans/"}
-            >
-              {"Plans"}
             </a>
           </SidebarListItem>
           <SidebarListItem>
