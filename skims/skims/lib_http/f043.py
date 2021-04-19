@@ -84,7 +84,9 @@ def _content_security_policy_script_src(
         header.directives.get('default-src')
     ):
         for value in values:
-            if value == "'unsafe-inline'":
+            if value == "data:":
+                descs.append('content_security_policy.script-src.data')
+            elif value == "'unsafe-inline'":
                 descs.append('content_security_policy.script-src.unsafeinline')
     else:
         descs.append('content_security_policy.missing_script_src')
