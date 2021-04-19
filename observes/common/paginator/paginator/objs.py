@@ -3,6 +3,7 @@ from typing import (
     Callable,
     Iterator,
     NamedTuple,
+    Union,
 )
 
 
@@ -30,3 +31,6 @@ class Limits(NamedTuple):
     max_period: float
     min_period: float
     greediness: int
+
+
+PageOrAll = Union[AllPages, PageId]

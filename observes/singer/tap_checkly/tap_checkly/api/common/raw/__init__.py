@@ -31,3 +31,12 @@ def list_alerts_channels(client: Client, page: PageId) -> IO[Iterator[JSON]]:
     )
     LOG.debug('alert-channels response: %s', result)
     return IO(result)
+
+
+def list_check_groups(client: Client, page: PageId) -> IO[Iterator[JSON]]:
+    result = client.get(
+        '/v1/check-groups',
+        params={'limit': page.per_page, 'page': page.page}
+    )
+    LOG.debug('check-groups response: %s', result)
+    return IO(result)

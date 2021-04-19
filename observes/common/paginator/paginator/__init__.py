@@ -24,6 +24,7 @@ from paginator.objs import (
     AllPages,
     EmptyPage,
     PageId,
+    PageOrAll,
     PageRange,
     Limits,
 )
@@ -138,6 +139,7 @@ __all__ = [
     'AllPages',
     'EmptyPage',
     'PageId',
+    'PageOrAll',
     'PageRange',
     'Limits',
 ]
