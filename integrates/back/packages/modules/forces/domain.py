@@ -28,7 +28,6 @@ from backend.typing import (
 from forces import dal as forces_dal
 from group_access import domain as group_access_domain
 from groups import domain as groups_domain
-from users import domain as users_domain
 
 
 logging.config.dictConfig(LOGGING)
@@ -90,7 +89,9 @@ async def create_forces_user(
     )
     success = (
         success and
-        await users_domain.complete_register_for_group_invitation(group_access)
+        await groups_domain.complete_register_for_group_invitation(
+            group_access
+        )
     )
     if not success:
         LOGGER.error(

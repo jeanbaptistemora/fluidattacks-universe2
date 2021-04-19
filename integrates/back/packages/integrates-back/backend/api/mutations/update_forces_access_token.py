@@ -13,7 +13,6 @@ from backend.typing import UpdateAccessTokenPayload
 from forces import domain as forces_domain
 from newutils import datetime as datetime_utils
 from users import domain as users_domain
-from users.domain.token import update_access_token
 
 
 @convert_kwargs_to_snake_case  # type: ignore
@@ -40,7 +39,10 @@ async def mutate(
         datetime_utils.get_now_plus_delta(days=180).timestamp()
     )
     try:
-        result = await update_access_token(user_email, expiration_time)
+        result = await users_domain.update_access_token(
+            user_email,
+            expiration_time
+        )
         if result.success:
             util.cloudwatch_log(
                 info.context,

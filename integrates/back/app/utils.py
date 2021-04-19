@@ -26,13 +26,13 @@ from backend import (
 )
 from backend.dal.helpers.redis import redis_set_entity_attr
 from group_access import domain as group_access_domain
+from groups import domain as groups_domain
 from newutils import (
     analytics,
     datetime as datetime_utils,
     token as token_helper,
 )
 from users import domain as users_domain
-from users.domain.group import create_without_group
 from __init__ import (
     FI_COMMUNITY_PROJECTS,
     FI_MAIL_CONTINUOUS,
@@ -133,7 +133,7 @@ async def autoenroll_user(email: str) -> None:
     new_user_user_level_role: str = 'customer'
     new_user_group_level_role: str = 'customer'
 
-    await create_without_group(
+    await groups_domain.create_without_group(
         email=email,
         role=new_user_user_level_role
     )

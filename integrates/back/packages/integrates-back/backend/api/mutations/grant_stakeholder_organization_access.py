@@ -10,9 +10,9 @@ from backend import util
 from backend.dal.helpers.redis import redis_del_by_deps
 from backend.decorators import enforce_organization_level_auth_async
 from backend.typing import GrantStakeholderAccessPayload
+from groups import domain as groups_domain
 from organizations import domain as orgs_domain
 from users import domain as users_domain
-from users.domain.group import create_without_group
 
 
 @convert_kwargs_to_snake_case  # type: ignore
@@ -43,7 +43,7 @@ async def mutate(
     user_created = False
     user_exists = bool(await users_domain.get_data(user_email, 'email'))
     if not user_exists:
-        user_created = await create_without_group(
+        user_created = await groups_domain.create_without_group(
             user_email,
             'customer',
             user_phone_number

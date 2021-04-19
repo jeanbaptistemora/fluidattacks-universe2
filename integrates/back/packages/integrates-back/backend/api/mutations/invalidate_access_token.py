@@ -9,7 +9,7 @@ from graphql.type.definition import GraphQLResolveInfo
 from backend import util
 from backend.decorators import require_login
 from backend.typing import SimplePayload as SimplePayloadType
-from users.domain.token import remove_access_token
+from users import domain as users_domain
 
 
 @convert_kwargs_to_snake_case  # type: ignore
@@ -20,7 +20,7 @@ async def mutate(
 ) -> SimplePayloadType:
     user_info = await util.get_jwt_content(info.context)
 
-    success = await remove_access_token(user_info['user_email'])
+    success = await users_domain.remove_access_token(user_info['user_email'])
     if success:
         util.cloudwatch_log(
             info.context,

@@ -43,8 +43,8 @@ from backend.exceptions import (
     SecureAccessException,
 )
 from group_access import domain as group_access_domain
+from groups import domain as groups_domain
 from organizations import domain as orgs_domain
-from users.domain.group import complete_register_for_group_invitation
 from __init__ import (
     FI_ENVIRONMENT,
     FI_STARLETTE_SESSION_KEY,
@@ -105,8 +105,10 @@ async def confirm_access(request: Request) -> HTMLResponse:
         )
 
         if project_access:
-            success = await complete_register_for_group_invitation(
-                project_access
+            success = (
+                await groups_domain.complete_register_for_group_invitation(
+                    project_access
+                )
             )
             if success:
                 response = await templates.valid_invitation(

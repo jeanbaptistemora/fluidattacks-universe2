@@ -9,6 +9,7 @@ from datetime import date
 from decimal import Decimal
 from typing import (
     Any,
+    Awaitable,
     cast,
     Dict,
     List,
@@ -18,6 +19,7 @@ from typing import (
 )
 
 # Third-party libraries
+import bugsnag
 from aioextensions import (
     collect,
     in_process,
@@ -33,6 +35,7 @@ from backend import (
 )
 from backend.dal import project as group_dal
 from backend.dal.helpers.dynamodb import start_context
+from backend.dal.helpers.redis import redis_del_by_deps_soon
 from backend.exceptions import (
     InvalidCommentParent,
     InvalidParameter,
@@ -43,8 +46,11 @@ from backend.exceptions import (
 )
 from backend.typing import (
     Comment as CommentType,
+    Invitation as InvitationType,
     MailContent as MailContentType,
     Project as GroupType,
+    ProjectAccess as GroupAccessType,
+    User as UserType,
 )
 from group_access import domain as group_access_domain
 from group_comments import domain as group_comments_domain
@@ -67,7 +73,11 @@ from newutils.validations import (
 )
 from notifications import domain as notifications_domain
 from organizations import domain as orgs_domain
-from __init__ import BASE_URL
+from users import domain as users_domain
+from __init__ import (
+    BASE_URL,
+    FI_DEFAULT_ORG,
+)
 
 
 logging.config.dictConfig(LOGGING)
@@ -114,6 +124,68 @@ async def add_comment(
 
 async def can_user_access(group: str, role: str) -> bool:
     return await group_dal.can_user_access(group, role)
+
+
+async def complete_register_for_group_invitation(
+    group_access: GroupAccessType
+) -> bool:
+    coroutines: List[Awaitable[bool]] = []
+    success: bool = False
+    invitation = cast(InvitationType, group_access['invitation'])
+    if invitation['is_used']:
+        bugsnag.notify(Exception('Token already used'), severity='warning')
+
+    group_name = cast(str, group_access['project_name'])
+    phone_number = cast(str, invitation['phone_number'])
+    responsibility = cast(str, invitation['responsibility'])
+    role = cast(str, invitation['role'])
+    user_email = cast(str, group_access['user_email'])
+    updated_invitation = invitation.copy()
+    updated_invitation['is_used'] = True
+
+    coroutines.extend([
+        group_access_domain.update(
+            user_email,
+            group_name,
+            {
+                'expiration_time': None,
+                'has_access': True,
+                'invitation': updated_invitation,
+                'responsibility': responsibility,
+            }
+        ),
+        authz.grant_group_level_role(user_email, group_name, role)
+    ])
+
+    organization_id = await orgs_domain.get_id_for_group(group_name)
+    if not await orgs_domain.has_user_access(organization_id, user_email):
+        coroutines.append(
+            orgs_domain.add_user(organization_id, user_email, 'customer')
+        )
+
+    if await users_domain.get_data(user_email, 'email'):
+        coroutines.append(
+            users_domain.add_phone_to_user(user_email, phone_number)
+        )
+    else:
+        coroutines.append(
+            users_domain.create(user_email, {'phone': phone_number})
+        )
+
+    if not await users_domain.is_registered(user_email):
+        coroutines.extend([
+            users_domain.register(user_email),
+            authz.grant_user_level_role(user_email, 'customer')
+        ])
+
+    success = all(await collect(coroutines))
+    if success:
+        redis_del_by_deps_soon(
+            'confirm_access',
+            group_name=group_name,
+            organization_id=organization_id,
+        )
+    return success
 
 
 async def create_group(  # pylint: disable=too-many-arguments,too-many-locals
@@ -206,6 +278,35 @@ async def create_group(  # pylint: disable=too-many-arguments,too-many-locals
             requester_email=user_email,
             subscription=subscription,
         )
+    return success
+
+
+async def create_without_group(
+    email: str,
+    role: str,
+    phone_number: str = ''
+) -> bool:
+    success = False
+    if (
+        validate_phone_field(phone_number) and
+        validate_email_address(email)
+    ):
+        new_user_data: UserType = {}
+        new_user_data['email'] = email
+        new_user_data['authorized'] = True
+        new_user_data['registered'] = True
+        if phone_number:
+            new_user_data['phone'] = phone_number
+
+        success = all(
+            await collect([
+                authz.grant_user_level_role(email, role),
+                users_domain.create(email, new_user_data)
+            ])
+        )
+        org = await orgs_domain.get_or_create(FI_DEFAULT_ORG, email)
+        if not await orgs_domain.has_user_access(str(org['id']), email):
+            await orgs_domain.add_user(str(org['id']), email, 'customer')
     return success
 
 

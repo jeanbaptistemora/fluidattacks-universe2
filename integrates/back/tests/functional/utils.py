@@ -17,7 +17,7 @@ from backend.api import (
 )
 from backend.api.schema import SCHEMA
 from group_access import domain as group_access_domain
-from users import domain as users_domain
+from groups import domain as groups_domain
 
 
 async def complete_register(
@@ -27,7 +27,7 @@ async def complete_register(
     project_access = await group_access_domain.get_user_access(
         email,group_name
     )
-    success = await users_domain.complete_register_for_group_invitation(
+    success = await groups_domain.complete_register_for_group_invitation(
         project_access
     )
 

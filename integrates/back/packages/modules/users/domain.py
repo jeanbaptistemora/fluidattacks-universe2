@@ -1,7 +1,10 @@
 # Standard Libraries
 import re
+from datetime import datetime
 from itertools import chain
 from typing import (
+    Any,
+    Awaitable,
     cast,
     Dict,
     List,
@@ -12,16 +15,27 @@ from typing import (
 from aioextensions import collect
 
 # Local libraries
-from backend import authz
-from backend.exceptions import InvalidPushToken
+from backend import (
+    authz,
+    util,
+)
+from backend.dal import session as session_dal
+from backend.exceptions import (
+    InvalidExpirationTime,
+    InvalidPushToken,
+)
 from backend.filters import stakeholder as stakeholder_filters
 from backend.typing import (
     Invitation as InvitationType,
     Stakeholder as StakeholderType,
+    UpdateAccessTokenPayload as UpdateAccessTokenPayloadType,
     User as UserType,
 )
 from group_access import domain as group_access_domain
-from newutils import datetime as datetime_utils
+from newutils import (
+    datetime as datetime_utils,
+    token as token_utils,
+)
 from newutils.validations import (
     validate_alphanumeric_field,
     validate_email_address,
@@ -62,6 +76,47 @@ async def create(email: str, data: UserType) -> bool:
 
 async def delete(email: str) -> bool:
     return await users_dal.delete(email)
+
+
+async def edit_user_information(
+    context: Any,
+    modified_user_data: Dict[str, str],
+    group_name: str
+) -> bool:
+    coroutines: List[Awaitable[bool]] = []
+    email = modified_user_data['email']
+    phone = modified_user_data['phone_number']
+    responsibility = modified_user_data['responsibility']
+    success: bool = False
+
+    if responsibility:
+        if len(responsibility) <= 50:
+            coroutines.append(
+                group_access_domain.update(
+                    email,
+                    group_name,
+                    {'responsibility': responsibility}
+                )
+            )
+        else:
+            util.cloudwatch_log(
+                context,
+                f'Security: {email} Attempted to add responsibility to '
+                f'project{group_name} bypassing validation'
+            )
+
+    if phone and validate_phone_field(phone):
+        coroutines.append(add_phone_to_user(email, phone))
+    else:
+        util.cloudwatch_log(
+            context,
+            f'Security: {email} Attempted to edit '
+            f'user phone bypassing validation'
+        )
+
+    if coroutines:
+        success = all(await collect(coroutines))
+    return success
 
 
 async def ensure_user_exists(email: str) -> bool:
@@ -190,6 +245,11 @@ async def register(email: str) -> bool:
     return await users_dal.update(email, {'registered': True})
 
 
+async def remove_access_token(email: str) -> bool:
+    """ Remove access token attribute """
+    return await users_dal.update(email, {'access_token': None})
+
+
 async def remove_push_token(user_email: str, push_token: str) -> bool:
     user_attrs: dict = await get_attributes(user_email, ['push_tokens'])
     tokens: List[str] = list(
@@ -201,8 +261,57 @@ async def remove_push_token(user_email: str, push_token: str) -> bool:
     return await users_dal.update(user_email, {'push_tokens': tokens})
 
 
+async def remove_stakeholder(email: str) -> bool:
+    success = all(
+        await collect([
+            authz.revoke_user_level_role(email),
+            users_dal.delete(email)
+        ])
+    )
+    await session_dal.logout(email)
+    return success
+
+
 async def update(email: str, data_attr: str, name_attr: str) -> bool:
     return await users_dal.update(email, {name_attr: data_attr})
+
+
+async def update_access_token(
+    email: str,
+    expiration_time: int,
+    **kwargs_token: Any
+) -> UpdateAccessTokenPayloadType:
+    """ Update access token """
+    token_data = util.calculate_hash_token()
+    session_jwt = ''
+    success = False
+
+    if util.is_valid_expiration_time(expiration_time):
+        iat = int(datetime.utcnow().timestamp())
+        session_jwt = token_utils.new_encoded_jwt(
+            {
+                'user_email': email,
+                'jti': token_data['jti'],
+                'iat': iat,
+                'exp': expiration_time,
+                'sub': 'api_token',
+                **kwargs_token
+            },
+            api=True
+        )
+        access_token = {
+            'iat': iat,
+            'jti': token_data['jti_hashed'],
+            'salt': token_data['salt']
+        }
+        success = await users_dal.update(email, {'access_token': access_token})
+    else:
+        raise InvalidExpirationTime()
+
+    return UpdateAccessTokenPayloadType(
+        success=success,
+        session_jwt=session_jwt
+    )
 
 
 async def update_legal_remember(email: str, remember: bool) -> bool:

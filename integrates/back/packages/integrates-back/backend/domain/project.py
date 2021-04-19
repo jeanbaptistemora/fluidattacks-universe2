@@ -20,12 +20,10 @@ from events import domain as events_domain
 from findings import domain as findings_domain
 from group_access import domain as group_access_domain
 from groups import domain as groups_domain
-from newutils import (
-    datetime as datetime_utils,
-    user as user_utils,
-)
+from newutils import datetime as datetime_utils
 from organizations import domain as orgs_domain
 from resources import domain as resources_domain
+from users import domain as users_domain
 
 
 logging.config.dictConfig(LOGGING)
@@ -170,6 +168,6 @@ async def remove_user_access(
             await groups_domain.get_groups_by_user(email)
         )
         if not has_groups:
-            success = success and await user_utils.remove_stakeholder(email)
+            success = success and await users_domain.remove_stakeholder(email)
 
     return success
