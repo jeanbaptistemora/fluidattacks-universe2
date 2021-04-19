@@ -1,7 +1,4 @@
 lib_http.f043.referrer_policy.missing:
-  en: The Referrer-Policy header is missing
-  es: La cabecera Referrer-Policy no se ha configurado
-lib_http.f043.referrer_policy.missing.where:
   en: Missing Referrer-Policy
   es: Referrer-Policy ausente
 lib_http.f043.referrer_policy.weak:

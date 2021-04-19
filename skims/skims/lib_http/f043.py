@@ -59,7 +59,7 @@ def _create_vulns(
                 namespace=CTX.config.namespace,
                 what=url,
             ),
-            where=t(f'lib_http.f043.{description}.where'),
+            where=t(f'lib_http.f043.{description}'),
             skims_metadata=core_model.SkimsVulnerabilityMetadata(
                 cwe=('644',),
                 description=t(f'lib_http.f043.{description}'),
@@ -79,10 +79,13 @@ def _content_security_policy_script_src(
     descs: List[str],
     header: Header,
 ) -> None:
-    if _ := header.directives.get('script-src'):
-        pass
-    elif _ := header.directives.get('default-src'):
-        pass
+    if values := (
+        header.directives.get('script-src') or
+        header.directives.get('default-src')
+    ):
+        for value in values:
+            if value == "'unsafe-inline'":
+                descs.append('content_security_policy.script-src.unsafeinline')
     else:
         descs.append('content_security_policy.missing_script_src')
 
