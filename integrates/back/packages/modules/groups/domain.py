@@ -44,6 +44,7 @@ from backend.exceptions import (
     RepeatedValues,
     UserNotInOrganization,
 )
+from backend.domain import project as group_domain
 from backend.typing import (
     Comment as CommentType,
     Invitation as InvitationType,
@@ -52,6 +53,8 @@ from backend.typing import (
     ProjectAccess as GroupAccessType,
     User as UserType,
 )
+from events import domain as events_domain
+from findings import domain as findings_domain
 from group_access import domain as group_access_domain
 from group_comments import domain as group_comments_domain
 from names import domain as names_domain
@@ -73,6 +76,7 @@ from newutils.validations import (
 )
 from notifications import domain as notifications_domain
 from organizations import domain as orgs_domain
+from resources import domain as resources_domain
 from users import domain as users_domain
 from __init__ import (
     BASE_URL,
@@ -700,6 +704,50 @@ async def mask(group_name: str) -> bool:
     }
     is_group_finished = await group_dal.update(group_name, update_data)
     return comments_result and is_group_finished
+
+
+async def remove_resources(context: Any, group_name: str) -> bool:
+    are_users_removed = await group_domain.remove_all_users_access(
+        context,
+        group_name
+    )
+    group_findings = await findings_domain.list_findings(
+        context,
+        [group_name],
+        include_deleted=True
+    )
+    group_drafts = await findings_domain.list_drafts(
+        [group_name],
+        include_deleted=True
+    )
+    findings_and_drafts = group_findings[0] + group_drafts[0]
+    are_findings_masked = all(
+        await collect(
+            findings_domain.mask_finding(context, finding_id)
+            for finding_id in findings_and_drafts
+        )
+    )
+    events = await events_domain.list_group_events(group_name)
+    are_events_masked = all(
+        await collect(
+            events_domain.mask(event_id)
+            for event_id in events
+        )
+    )
+    is_group_masked = await mask(group_name)
+    are_resources_masked = all(
+        list(
+            cast(List[bool], await resources_domain.mask(group_name))
+        )
+    )
+    response = all([
+        are_findings_masked,
+        are_users_removed,
+        is_group_masked,
+        are_events_masked,
+        are_resources_masked
+    ])
+    return response
 
 
 def send_comment_mail(
