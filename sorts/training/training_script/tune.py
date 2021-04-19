@@ -40,7 +40,8 @@ def get_model_features() -> Tuple[str, ...]:
         }
         return tuple(
             inv_features_dict[key]
-            for key in best_model.upper().split('.')[0].split('-')[2:5]
+            for key in best_model.upper().split('.')[0].split('-')[2:]
+            if len(key) == 2
         )
 
 
