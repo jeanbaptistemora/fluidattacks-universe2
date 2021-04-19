@@ -83,7 +83,9 @@ def _build_root(
                 includes_health_check=state['includes_health_check'],
                 modified_by=state['modified_by'],
                 modified_date=state['modified_date'],
+                new_repo=state.get('repo'),
                 nickname=state['nickname'],
+                reason=state.get('reason'),
                 status=state['status']
             )
         )
@@ -97,7 +99,9 @@ def _build_root(
                 address=state['address'],
                 modified_by=state['modified_by'],
                 modified_date=state['modified_date'],
-                port=state['port']
+                new_repo=state.get('repo'),
+                port=state['port'],
+                reason=state.get('reason')
             )
         )
 
@@ -109,9 +113,11 @@ def _build_root(
             host=state['host'],
             modified_by=state['modified_by'],
             modified_date=state['modified_date'],
+            new_repo=state.get('repo'),
             path=state['path'],
             port=state['port'],
-            protocol=state['protocol']
+            protocol=state['protocol'],
+            reason=state.get('reason')
         )
     )
 

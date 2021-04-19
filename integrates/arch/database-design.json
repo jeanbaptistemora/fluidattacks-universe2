@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Apr 16, 2021, 01:05 PM",
+    "DateLastModified": "Apr 16, 2021, 03:33 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "2.0"
@@ -1317,6 +1317,7 @@
           ],
           "NonKeyAttributes": [
             "status",
+            "reason",
             "modified_date",
             "environment",
             "environment_urls",
@@ -1328,7 +1329,8 @@
             "port",
             "host",
             "path",
-            "protocol"
+            "protocol",
+            "repo"
           ],
           "DataAccess": {
             "MySql": {}
@@ -1384,7 +1386,9 @@
           ],
           "NonKeyAttributes": [
             "status",
+            "reason",
             "modified_date",
+            "repo",
             "environment",
             "environment_urls",
             "gitignore",

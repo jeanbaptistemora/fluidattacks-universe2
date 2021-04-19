@@ -1,5 +1,5 @@
 # Standard
-from typing import Any, Dict, List, NamedTuple, Tuple, Union
+from typing import Any, Dict, List, NamedTuple, Optional, Tuple, Union
 
 
 Item = Dict[str, Any]
@@ -47,7 +47,9 @@ class GitRootState(NamedTuple):
     includes_health_check: bool
     modified_by: str
     modified_date: str
+    new_repo: Optional[str]
     nickname: str
+    reason: Optional[str]
     status: str
 
 
@@ -91,7 +93,9 @@ class IPRootState(NamedTuple):
     address: str
     modified_by: str
     modified_date: str
+    new_repo: Optional[str]
     port: str
+    reason: Optional[str]
 
 
 class IPRootItem(NamedTuple):
@@ -109,9 +113,11 @@ class URLRootState(NamedTuple):
     host: str
     modified_by: str
     modified_date: str
+    new_repo: Optional[str]
     path: str
     port: str
     protocol: str
+    reason: Optional[str]
 
 
 class URLRootItem(NamedTuple):

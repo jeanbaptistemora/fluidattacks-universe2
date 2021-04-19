@@ -1,6 +1,6 @@
 # Standard
 import re
-from typing import Any, List, Tuple
+from typing import Any, List, Optional, Tuple
 from urllib.parse import unquote
 from uuid import uuid4
 
@@ -212,7 +212,9 @@ async def add_git_root(context: Any, user_email: str, **kwargs: Any) -> None:
             includes_health_check=kwargs['includes_health_check'],
             modified_by=user_email,
             modified_date=datetime_utils.get_iso_date(),
+            new_repo=None,
             nickname=nickname,
+            reason=None,
             status='ACTIVE'
         )
     )
@@ -257,7 +259,9 @@ async def add_ip_root(context: Any, user_email: str, **kwargs: Any) -> None:
             address=address,
             modified_by=user_email,
             modified_date=datetime_utils.get_iso_date(),
-            port=port
+            new_repo=None,
+            port=port,
+            reason=None
         )
     )
     await roots_dal.create_root(root=root)
@@ -299,9 +303,11 @@ async def add_url_root(context: Any, user_email: str, **kwargs: Any) -> None:
             host=host,
             modified_by=user_email,
             modified_date=datetime_utils.get_iso_date(),
+            new_repo=None,
             path=path,
             port=port,
-            protocol=protocol
+            protocol=protocol,
+            reason=None
         )
     )
     await roots_dal.create_root(root=root)
@@ -345,7 +351,9 @@ async def update_git_environments(
             includes_health_check=root.state.includes_health_check,
             modified_by=user_email,
             modified_date=datetime_utils.get_iso_date(),
+            new_repo=None,
             nickname=root.state.nickname,
+            reason=None,
             status=root.state.status
         )
     )
@@ -395,7 +403,9 @@ async def update_git_root(user_email: str, **kwargs: Any) -> None:
             includes_health_check=kwargs['includes_health_check'],
             modified_by=user_email,
             modified_date=datetime_utils.get_iso_date(),
+            new_repo=None,
             nickname=nickname,
+            reason=None,
             status=root.state.status
         )
     )
@@ -472,7 +482,9 @@ async def activate_root(
                 includes_health_check=root.state.includes_health_check,
                 modified_by=user_email,
                 modified_date=datetime_utils.get_iso_date(),
+                new_repo=None,
                 nickname=root.state.nickname,
+                reason=None,
                 status=new_status
             )
         )
@@ -489,6 +501,8 @@ async def activate_root(
 async def deactivate_root(
     *,
     group_name: str,
+    new_repo: Optional[str],
+    reason: str,
     root_id: str,
     user_email: str
 ) -> None:
@@ -509,7 +523,9 @@ async def deactivate_root(
                 includes_health_check=root.state.includes_health_check,
                 modified_by=user_email,
                 modified_date=datetime_utils.get_iso_date(),
+                new_repo=new_repo,
                 nickname=root.state.nickname,
+                reason=reason,
                 status=new_status
             )
         )
@@ -540,6 +556,8 @@ async def update_root_state(
     else:
         await deactivate_root(
             group_name=group_name,
+            new_repo=None,
+            reason='UNKNOWN',
             root_id=root_id,
             user_email=user_email
         )
