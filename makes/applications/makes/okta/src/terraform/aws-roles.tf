@@ -204,7 +204,7 @@ resource "aws_iam_role" "skims_dev" {
 
 resource "aws_iam_role_policy_attachment" "skims_dev" {
   role       = aws_iam_role.skims_dev.name
-  policy_arn = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy/user-provision/skims_dev"
+  policy_arn = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy/user_provision/skims_dev_policy"
 }
 
 resource "aws_iam_role" "skims_prod" {
@@ -221,5 +221,5 @@ resource "aws_iam_role" "skims_prod" {
 
 resource "aws_iam_role_policy_attachment" "skims_prod" {
   role       = aws_iam_role.skims_prod.name
-  policy_arn = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy/user-provision/skims_prod"
+  policy_arn = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy/user_provision/skims_prod_policy"
 }
