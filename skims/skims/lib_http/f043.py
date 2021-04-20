@@ -194,7 +194,9 @@ async def http_headers_configuration(url: str) -> core_model.Vulnerabilities:
     headers_raw = await from_url.get('GET', url)
     headers_parsed: Dict[Type[Header], Header] = {
         type(header_parsed): header_parsed
-        for header_raw_name, header_raw_value in headers_raw.items()
+        for header_raw_name, header_raw_value in reversed(tuple(
+            headers_raw.items(),
+        ))
         for line in [f'{header_raw_name}: {header_raw_value}']
         for header_parsed in [
             content_security_policy.parse(line),
