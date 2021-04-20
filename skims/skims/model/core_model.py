@@ -649,33 +649,22 @@ class FindingEnum(Enum):
         title='utils.model.finding.enum.f061.title',
         type=FindingTypeEnum.SECURITY,
     )
-    F063_PATH_TRAVERSAL: FindingMetadata = FindingMetadata(
+    F063_PATH_TRAVERSAL: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
+        code='F063_PATH_TRAVERSAL',
         cwe='22',
-        description='utils.model.finding.enum.F063_PATH_TRAVERSAL.description',
-        impact='utils.model.finding.enum.F063_PATH_TRAVERSAL.impact',
-        recommendation=(
-            'utils.model.finding.enum.F063_PATH_TRAVERSAL.recommendation'
-        ),
-        requirements=(
-            'utils.model.finding.enum.F063_PATH_TRAVERSAL.requirements'
-        ),
-        severity={
-            'attackComplexity': 0.77,
-            'attackVector': 0.85,
-            'availabilityImpact': 0.0,
-            'confidentialityImpact': 0.0,
-            'exploitability': 1.0,
-            'integrityImpact': 0.56,
-            'privilegesRequired': 0.62,
-            'remediationLevel': 1.0,
-            'reportConfidence': 0.96,
-            'severityScope': 0.0,
-            'userInteraction': 0.85
-        },
-        threat='utils.model.finding.enum.F063_PATH_TRAVERSAL.threat',
-        title='utils.model.finding.enum.F063_PATH_TRAVERSAL.title',
-        type=FindingTypeEnum.SECURITY,
+
+        attack_complexity=0.77,
+        attack_vector=0.85,
+        availability_impact=0.0,
+        confidentiality_impact=0.22,
+        exploitability=0.94,
+        integrity_impact=0.0,
+        privileges_required=0.62,
+        remediation_level=0.95,
+        report_confidence=0.96,
+        severity_scope=0.0,
+        user_interaction=0.85,
     )
     F063_TRUSTBOUND: FindingMetadata = FindingMetadata(
         auto_approve=False,
