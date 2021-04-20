@@ -1,17 +1,17 @@
 utils.model.finding.enum.f008.description:
-  es: >
+  en: >
     The web application dynamically generates web content
     without validating the source of the potentially untrusted data.
-  en: >
+  es: >
     La aplicación web genera contenido web dinámico
     sin validar el origen de los datos potencialmente maliciosos.
 utils.model.finding.enum.f008.impact:
   en: >
-    - Generate web pages that could contain malicious scripts injected into
-      untrusted data.
+    Generate web pages that could contain malicious scripts injected into
+    untrusted data.
   es: >
-    - Generar páginas web que podrían contener scripts maliciosos inyectados en
-      datos que no son de confianza.
+    Generar páginas web que podrían contener scripts maliciosos inyectados en
+    datos que no son de confianza.
 utils.model.finding.enum.f008.recommendation:
   en: >
     Perform input data validations on the server-side to avoid common script
@@ -21,11 +21,11 @@ utils.model.finding.enum.f008.recommendation:
     evitar los ataques mas comunes de inyección de scripts.
 utils.model.finding.enum.f008.requirements:
   en: >
-    - R173 The system must discard all potentially harmful information received
-      via data inputs.
+    R173 The system must discard all potentially harmful information received
+    via data inputs.
   es: >
-    - R173 El sistema debe descartar toda la información potencialmente insegura
-      que sea recibida por entradas de datos.
+    R173 El sistema debe descartar toda la información potencialmente insegura
+    que sea recibida por entradas de datos.
 utils.model.finding.enum.f008.threat:
   en: Authenticated attacker from the Internet.
   es: Atacante autenticado desde Internet.
