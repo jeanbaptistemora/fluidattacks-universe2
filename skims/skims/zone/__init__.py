@@ -56,6 +56,13 @@ IGNORED_CHARS = str.maketrans('', '', ''.join({
 }))
 
 
-def t(key: str, **kwargs: Any) -> str:  # pylint: disable=invalid-name
-    translation = TRANSLATIONS[key][CTX.config.language.value].format(**kwargs)
-    return translation.translate(IGNORED_CHARS)
+def t(  # pylint: disable=invalid-name
+    key: str,
+    *args: Any,
+    **kwargs: Any,
+) -> str:
+    return (
+        TRANSLATIONS[key][CTX.config.language.value]
+        .format(*args, **kwargs)
+        .translate(IGNORED_CHARS)
+    )

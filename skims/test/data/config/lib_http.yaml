@@ -12,6 +12,9 @@ http:
     - http://localhost:48000/f043_dast_csp_4
     - http://localhost:48000/f043_dast_csp_5
     - http://localhost:48000/f043_dast_csp_6
+    - http://localhost:48000/f043_dast_csp_7
+    - http://localhost:48000/f043_dast_csp_8
+    - http://localhost:48000/f043_dast_csp_9
     - http://localhost:48000/f043_dast_rp_0
     - http://localhost:48000/f043_dast_rp_1
     - http://localhost:48000/f043_dast_rp_2

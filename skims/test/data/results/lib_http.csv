@@ -4,6 +4,9 @@ F043. Missing HTTP security headers - Content-Security-Policy,http://localhost:4
 F043. Missing HTTP security headers - Content-Security-Policy,http://localhost:48000/f043_dast_csp_0 (namespace),Missing script-src,644
 F043. Missing HTTP security headers - Content-Security-Policy,http://localhost:48000/f043_dast_csp_4 (namespace),script-src has unsafe-inline,644
 F043. Missing HTTP security headers - Content-Security-Policy,http://localhost:48000/f043_dast_csp_6 (namespace),Use of wildcard data:,644
+F043. Missing HTTP security headers - Content-Security-Policy,http://localhost:48000/f043_dast_csp_7 (namespace),Use of wildcard http:,644
+F043. Missing HTTP security headers - Content-Security-Policy,http://localhost:48000/f043_dast_csp_8 (namespace),Use of wildcard https:,644
+F043. Missing HTTP security headers - Content-Security-Policy,http://localhost:48000/f043_dast_csp_9 (namespace),.yandex.ru hosts JSONP,644
 F043. Missing HTTP security headers - Content-Security-Policy,http://localhost:48000/f043_dast_rp_0 (namespace),Missing Content-Security-Policy,644
 F043. Missing HTTP security headers - Content-Security-Policy,http://localhost:48000/f043_dast_rp_1 (namespace),Missing Content-Security-Policy,644
 F043. Missing HTTP security headers - Content-Security-Policy,http://localhost:48000/f043_dast_rp_2 (namespace),Missing Content-Security-Policy,644
@@ -20,6 +23,9 @@ F043. Missing HTTP security headers - Referrer-Policy,http://localhost:48000/f04
 F043. Missing HTTP security headers - Referrer-Policy,http://localhost:48000/f043_dast_csp_4 (namespace),Missing Referrer-Policy,644
 F043. Missing HTTP security headers - Referrer-Policy,http://localhost:48000/f043_dast_csp_5 (namespace),Missing Referrer-Policy,644
 F043. Missing HTTP security headers - Referrer-Policy,http://localhost:48000/f043_dast_csp_6 (namespace),Missing Referrer-Policy,644
+F043. Missing HTTP security headers - Referrer-Policy,http://localhost:48000/f043_dast_csp_7 (namespace),Missing Referrer-Policy,644
+F043. Missing HTTP security headers - Referrer-Policy,http://localhost:48000/f043_dast_csp_8 (namespace),Missing Referrer-Policy,644
+F043. Missing HTTP security headers - Referrer-Policy,http://localhost:48000/f043_dast_csp_9 (namespace),Missing Referrer-Policy,644
 F043. Missing HTTP security headers - Referrer-Policy,http://localhost:48000/f043_dast_rp_0 (namespace),The Referrer-Policy header is set to a weak value,644
 F043. Missing HTTP security headers - Referrer-Policy,http://localhost:48000/f043_dast_rp_1 (namespace),The Referrer-Policy header is set to a weak value,644
 F043. Missing HTTP security headers - Referrer-Policy,http://localhost:48000/f043_dast_rp_2 (namespace),The Referrer-Policy header is set to a weak value,644
@@ -35,6 +41,9 @@ F043. Missing HTTP security headers - Strict-Transport-Security,http://localhost
 F043. Missing HTTP security headers - Strict-Transport-Security,http://localhost:48000/f043_dast_csp_4 (namespace),Missing Strict-Transport-Security,644
 F043. Missing HTTP security headers - Strict-Transport-Security,http://localhost:48000/f043_dast_csp_5 (namespace),Missing Strict-Transport-Security,644
 F043. Missing HTTP security headers - Strict-Transport-Security,http://localhost:48000/f043_dast_csp_6 (namespace),Missing Strict-Transport-Security,644
+F043. Missing HTTP security headers - Strict-Transport-Security,http://localhost:48000/f043_dast_csp_7 (namespace),Missing Strict-Transport-Security,644
+F043. Missing HTTP security headers - Strict-Transport-Security,http://localhost:48000/f043_dast_csp_8 (namespace),Missing Strict-Transport-Security,644
+F043. Missing HTTP security headers - Strict-Transport-Security,http://localhost:48000/f043_dast_csp_9 (namespace),Missing Strict-Transport-Security,644
 F043. Missing HTTP security headers - Strict-Transport-Security,http://localhost:48000/f043_dast_rp_0 (namespace),Missing Strict-Transport-Security,644
 F043. Missing HTTP security headers - Strict-Transport-Security,http://localhost:48000/f043_dast_rp_1 (namespace),Missing Strict-Transport-Security,644
 F043. Missing HTTP security headers - Strict-Transport-Security,http://localhost:48000/f043_dast_rp_2 (namespace),Missing Strict-Transport-Security,644

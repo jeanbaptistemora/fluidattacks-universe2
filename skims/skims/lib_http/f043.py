@@ -60,10 +60,10 @@ def _create_vulns(
                 namespace=CTX.config.namespace,
                 what=url,
             ),
-            where=t(f'lib_http.f043.{description}'),
+            where=translation,
             skims_metadata=core_model.SkimsVulnerabilityMetadata(
                 cwe=('644',),
-                description=t(f'lib_http.f043.{description}'),
+                description=translation,
                 snippet=as_string.snippet(
                     url=url,
                     header=header.name if header else None,
@@ -73,6 +73,12 @@ def _create_vulns(
         )
         for description in descriptions
         if description
+        for description_key, *description_args in [
+            description.split('#', maxsplit=1),
+        ]
+        for translation in [
+            t(f'lib_http.f043.{description_key}', *description_args),
+        ]
     )
 
 
@@ -93,6 +99,27 @@ def _content_security_policy_script_src(
                 descs.append('content_security_policy.script-src.https_uri')
             if value == "'unsafe-inline'":
                 descs.append('content_security_policy.script-src.unsafeinline')
+
+            for arg in (
+                '*.amazonaws.com',
+                '*.cloudflare.com',
+                '*.cloudfront.net'
+                '*.doubleclick.net',
+                '*.google.com',
+                '*.googleapis.com',
+                '*.googlesyndication.com',
+                '*.newrelic.com',
+                '*.s3.amazonaws.com',
+                '*.yandex.ru',
+                'ajax.googleapis.com',
+                'mc.yandex.ru',
+                'vk.com',
+                'www.google.com',
+            ):
+                if arg in value:
+                    descs.append(
+                        f'content_security_policy.script-src.jsonp#{arg}'
+                    )
     else:
         descs.append('content_security_policy.missing_script_src')
 

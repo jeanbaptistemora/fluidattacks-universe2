@@ -4,6 +4,9 @@ lib_http.f043.content_security_policy.missing_script_src:
 lib_http.f043.content_security_policy.missing:
   en: Missing Content-Security-Policy
   es: Content-Security-Policy ausente
+lib_http.f043.content_security_policy.script-src.jsonp:
+  en: "{0} hosts JSONP"
+  es: "{0} aloja JSONP"
 lib_http.f043.content_security_policy.script-src.data_uri:
   en: "Use of wildcard data:"
   es: "Uso de comodín data:"

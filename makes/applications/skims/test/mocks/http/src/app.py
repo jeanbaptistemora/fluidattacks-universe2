@@ -61,6 +61,7 @@ def add_f043_dast_csp_rules() -> None:
         "script-src data:",
         "script-src http:",
         "script-src https:",
+        "script-src *.yandex.ru;",
     ]):
         add_rule('f043_dast_csp', index, partial(response_header, {
             'Content-Security-Policy': value,
