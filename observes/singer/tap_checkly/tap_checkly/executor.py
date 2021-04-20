@@ -26,6 +26,7 @@ _stream_executor: Mapping[
     Callable[[ApiClient], None]
 ] = {
     SupportedStreams.ALERT_CHS: streams.all_alerts,
+    SupportedStreams.CHECKS: streams.all_checks,
     SupportedStreams.CHECK_GROUPS: streams.all_chk_groups,
 }
 

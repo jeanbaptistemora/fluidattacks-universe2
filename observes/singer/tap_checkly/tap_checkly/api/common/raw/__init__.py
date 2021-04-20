@@ -33,14 +33,20 @@ def list_alerts_channels(client: Client, page: PageId) -> IO[Iterator[JSON]]:
     return IO(result)
 
 
+def _mask_env_vars(result: Iterator[JSON]) -> None:
+    for item in result:
+        env_vars = item['environmentVariables']
+        vars_list = env_vars if env_vars else []
+        for env_var in vars_list:
+            env_var['value'] = '__masked__'
+
+
 def list_check_groups(client: Client, page: PageId) -> IO[Iterator[JSON]]:
     result = client.get(
         '/v1/check-groups',
         params={'limit': page.per_page, 'page': page.page}
     )
-    for item in result:
-        for env_var in item['environmentVariables']:
-            env_var['value'] = '__masked__'
+    _mask_env_vars(result)
     LOG.debug('check-groups response: %s', result)
     return IO(result)
 
@@ -50,8 +56,6 @@ def list_checks(client: Client, page: PageId) -> IO[Iterator[JSON]]:
         '/v1/checks',
         params={'limit': page.per_page, 'page': page.page}
     )
-    for item in result:
-        for env_var in item['environmentVariables']:
-            env_var['value'] = '__masked__'
+    _mask_env_vars(result)
     LOG.debug('checks response: %s', result)
     return IO(result)
