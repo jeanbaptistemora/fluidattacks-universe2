@@ -20,10 +20,10 @@ utils.model.finding.enum.F063_PATH_TRAVERSAL.impact:
 utils.model.finding.enum.F063_PATH_TRAVERSAL.recommendation:
   en: |
     - Prevent the attacker from constructing the pathname, or
-    - Validate/Neutralize the input for special elements like: .., ~, etc.
+    - Validate/Neutralize the input for special elements like: .., ~, /.
   es: |
     - Prevenir que el atacante construya la ruta, o
-    - Validar/Neutralizar que las entradas no contengan elementos especiales como: .., ~, etc.
+    - Validar/Neutralizar que las entradas no contengan elementos especiales como: .., ~, /.
 utils.model.finding.enum.F063_PATH_TRAVERSAL.requirements:
   en: R173. Discard unsafe inputs
   es: R173. El sistema debe descartar toda la información potencialmente insegura que sea recibida por entradas de datos.
