@@ -25,4 +25,4 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
         'orgs': [],
         'groups': [],
     }
-    return await db.populate({**generic_data, **data})
+    return await db.populate({**generic_data['db_data'], **data})

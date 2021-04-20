@@ -94,4 +94,4 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
         ],
         
     }
-    return await db.populate({**generic_data, **data})
+    return await db.populate({**generic_data['db_data'], **data})

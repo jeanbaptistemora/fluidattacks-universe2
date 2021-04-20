@@ -15,4 +15,4 @@ from back.tests import (
 @pytest.mark.resolver_test_group('create_draft')
 @pytest.fixture(autouse=True, scope='session')
 async def populate(generic_data: Dict[str, Any]) -> bool:
-    return await db.populate(generic_data)
+    return await db.populate(generic_data['db_data'])
