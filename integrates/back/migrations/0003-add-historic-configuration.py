@@ -12,13 +12,16 @@ once everything is well placed.
 
 import json
 import os
-from datetime import datetime
 
 import bugsnag
-from backend import util
+
+from backend import (
+    authz,
+    util,
+)
 from backend.dal import project as project_dal
-from backend import authz
 from group_access import domain as group_access_domain
+from groups import dal as groups_dal
 
 
 STAGE: str = os.environ['STAGE']
@@ -48,7 +51,7 @@ def guess_owner(group: str) -> str:
 def main() -> None:
     log('Starting migration 0003')
 
-    for group in project_dal.get_all():
+    for group in groups_dal.get_all():
         # Attributes
         group_name = group['project_name']
         has_forces = group.get('has_forces', False)

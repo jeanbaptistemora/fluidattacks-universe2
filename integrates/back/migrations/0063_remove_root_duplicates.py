@@ -14,9 +14,9 @@ from aioextensions import collect, run
 from boto3.dynamodb.conditions import Key
 
 # Local libraries
-from backend.dal import project as group_dal
 from backend.dal.helpers import dynamodb
 from backend.typing import DynamoDelete
+from groups import dal as groups_dal
 
 
 STAGE = os.environ['STAGE']
@@ -58,7 +58,7 @@ async def migrate(group_name: str) -> None:
 
 async def main() -> None:
     print('[INFO] Starting migration 0063')
-    groups = await group_dal.get_all(data_attr='project_name')
+    groups = await groups_dal.get_all(data_attr='project_name')
     await collect(
         migrate(group['project_name'])
         for group in groups

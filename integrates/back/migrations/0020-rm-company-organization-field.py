@@ -19,6 +19,7 @@ from boto3.dynamodb.conditions import Attr
 from more_itertools import chunked
 
 from backend.dal import project as group_dal
+from groups import dal as groups_dal
 from users import dal as users_dal
 
 
@@ -31,7 +32,7 @@ async def main() -> None:
         Attr('companies').exists()
     )
     groups = await in_thread(
-        group_dal.get_all, group_filter, 'project_name'
+        groups_dal.get_all, group_filter, 'project_name'
     )
     user_filter: Attr = (
         Attr('organization').exists() |

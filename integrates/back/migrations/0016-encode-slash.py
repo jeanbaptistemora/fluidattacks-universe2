@@ -20,6 +20,8 @@ import django
 django.setup()
 
 from backend.dal import (project as group_dal)
+from groups import dal as groups_dal
+
 
 STAGE: str = os.environ['STAGE']
 
@@ -43,7 +45,7 @@ def main() -> None:
     Update resources
     """
     log('Starting migration 0016')
-    all_groups = group_dal.get_all(
+    all_groups = groups_dal.get_all(
         filtering_exp= 'attribute_exists(environments) or \
             attribute_exists(repositories)',
         data_attr='project_name,environments,repositories')
@@ -98,11 +100,11 @@ def main() -> None:
             else:
                 if STAGE == 'test':
                     log(f'---\nenv is already encoded: {env}')
-                
+
         if STAGE != 'test':
             success : bool = group_dal.update(
                 project_name=group_name,
-                data={'environments': envs, 'repositories': repos}    
+                data={'environments': envs, 'repositories': repos}
             )
             if success:
                 log(f'Migration 0016: Group {group_name} succesfully encoded')

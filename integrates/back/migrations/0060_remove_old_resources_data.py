@@ -14,6 +14,7 @@ from aioextensions import collect, run
 
 # Local libraries
 from backend.dal import project as group_dal
+from groups import dal as groups_dal
 
 
 STAGE = os.environ['STAGE']
@@ -31,7 +32,7 @@ async def remove_old_data(group_name: str) -> None:
 
 async def main() -> None:
     print('[INFO] Starting migration 0060')
-    groups = await group_dal.get_all(data_attr='project_name')
+    groups = await groups_dal.get_all(data_attr='project_name')
     await collect(
         remove_old_data(group['project_name'])
         for group in groups

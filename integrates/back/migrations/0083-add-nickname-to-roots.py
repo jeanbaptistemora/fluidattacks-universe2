@@ -17,9 +17,9 @@ from typing import Any, Dict, List, Set
 from aioextensions import collect, run
 
 # Local
+from groups import dal as groups_dal
 from roots import dal as roots_dal
 from roots import domain as roots_domain
-from backend.dal import project as group_dal
 
 
 async def update_filter(
@@ -68,7 +68,7 @@ async def work_with_group(group_name: str):
             nicknames[nickname] = 2
 
 async def main() -> None:
-    groups = await group_dal.get_all(data_attr='project_name')
+    groups = await groups_dal.get_all(data_attr='project_name')
     await collect(
         work_with_group(group_name['project_name'])
         for group_name in groups

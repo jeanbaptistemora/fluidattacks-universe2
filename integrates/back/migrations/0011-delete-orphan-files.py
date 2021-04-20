@@ -8,8 +8,9 @@ Finalization Time:  2020-06-16 15:21 UTC-5
 import os
 from typing import List
 
-from backend.dal import project as project_dal
 from findings import dal as findings_dal
+from findings import domain as findings_domain
+from groups import dal as groups_dal
 from __init__ import FI_TEST_PROJECTS
 
 
@@ -19,8 +20,8 @@ STAGE: str = os.environ['STAGE']
 
 def clean_finding_evidences(group_name: str) -> None:
     findings = \
-        project_dal.list_drafts(group_name, should_list_deleted=True) + \
-        project_dal.list_findings(group_name, should_list_deleted=True)
+        findings_domain.list_drafts(group_name, should_list_deleted=True) + \
+        findings_domain.list_findings(group_name, should_list_deleted=True)
 
     for finding_id in findings:
         finding = findings_dal.get_finding(finding_id)
@@ -41,7 +42,7 @@ def clean_finding_evidences(group_name: str) -> None:
 def main() -> None:
     print('Starting migration 0011')
 
-    groups = project_dal.get_all()
+    groups = groups_dal.get_all()
     for group in groups:
         group_name = group['project_name']
 

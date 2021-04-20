@@ -54,6 +54,7 @@ from events import domain as events_domain
 from findings import domain as findings_domain
 from group_access import domain as group_access_domain
 from group_comments import domain as group_comments_domain
+from groups import dal as groups_dal
 from names import domain as names_domain
 from newutils import (
     apm,
@@ -437,7 +438,7 @@ async def edit(
 
 
 async def get_active_groups() -> List[str]:
-    groups = await group_dal.get_active_projects()
+    groups = await groups_dal.get_active_groups()
     return groups
 
 
@@ -449,7 +450,7 @@ async def get_alive_group_names() -> List[str]:
 
 async def get_all(attributes: Optional[List[str]] = None) -> List[GroupType]:
     data_attr = ','.join(attributes or [])
-    return await group_dal.get_all(data_attr=data_attr)
+    return await groups_dal.get_all(data_attr=data_attr)
 
 
 async def get_alive_groups(

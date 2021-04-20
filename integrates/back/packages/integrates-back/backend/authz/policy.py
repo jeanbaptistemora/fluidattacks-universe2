@@ -21,11 +21,11 @@ from aioextensions import (
 
 # Local imports
 from back.settings import LOGGING
-from backend.dal import project as project_dal
 from backend.dal.helpers.redis import (
     redis_del_by_deps,
     redis_get_or_set_entity_attr,
 )
+from groups import dal as groups_dal
 from newutils import function
 from users import dal as users_dal
 from .model import (
@@ -47,7 +47,7 @@ async def _get_group_service_attributes_policies(
     """Cached function to get 1 group features authorization policies."""
     policies: Tuple[str, ...] = tuple(
         policy.service
-        for policy in await project_dal.get_service_policies(group)
+        for policy in await groups_dal.get_service_policies(group)
         if policy.group == group
     )
 

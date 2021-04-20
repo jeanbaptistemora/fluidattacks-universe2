@@ -16,14 +16,14 @@ import asyncio
 
 # Third party libraries
 import aioboto3
+import pytz
 from boto3.dynamodb.conditions import Key
 from dateutil.parser import parse as date_parser
-import pytz
 
 # Local libraries
-from backend.dal.project import get_active_projects
-from groups.domain import get_many_groups
 from backend.dal.helpers import dynamodb
+from groups.dal import get_active_groups
+from groups.domain import get_many_groups
 
 # Constants
 TABLE_NAME = 'bb_executions'
@@ -51,7 +51,7 @@ async def yield_executions_new(project_name: str) -> AsyncIterator[Any]:
 
 
 async def get_groups_with_forces() -> List[str]:
-    project_names = await get_active_projects()
+    project_names = await get_active_groups()
     groups = await get_many_groups(project_names)
     group_names = []
     for group in groups:

@@ -31,12 +31,14 @@ sys.path.append(PROJECT_PATH)
 os.chdir(PROJECT_PATH)
 
 import bugsnag
-from backend.dal.project import (
-    get_all as get_all_projects, TABLE as PROJECT_TABLE
-)
+
 from backend.typing import (
     Project as ProjectType,
     Resource as ResourceType
+)
+from groups.dal import (
+    get_all as get_all_groups,
+    TABLE_NAME as GROUP_TABLE,
 )
 
 
@@ -101,7 +103,7 @@ def add_protocol_to_repos(project: ProjectType, default_protocol: str,
             List[ResourceType], project['repositories-new'])
         if old_field_hash != current_field_hash:
             processed_repos, _ = process_repos(project, default_protocol, execute)
-        response = PROJECT_TABLE.update_item(
+        response = GROUP_TABLE.update_item(
                 Key={'project_name': project_name},
                 UpdateExpression='SET #attr1Name = :val1 REMOVE #attr2Name, #attr3Name',
                 ExpressionAttributeNames={
@@ -130,7 +132,7 @@ def add_protocol_to_repos(project: ProjectType, default_protocol: str,
                     print('    {}: {}'.format(key, value))
             print('    {}'.format(field_hash))
         else:
-            response = PROJECT_TABLE.update_item(
+            response = GROUP_TABLE.update_item(
                 Key={'project_name': project_name},
                 UpdateExpression='SET #attr1Name = :val1, #attr2Name = :val2',
                 ExpressionAttributeNames={
@@ -170,7 +172,7 @@ if __name__ == '__main__':
         dry_run
     )
 
-    for project in get_all_projects():
+    for project in get_all_groups():
         if has_repos_without_protocol(project):
             default_protocol: str = get_default_protocol(project)
 

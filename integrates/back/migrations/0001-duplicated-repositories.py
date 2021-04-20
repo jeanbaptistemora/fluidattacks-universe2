@@ -6,19 +6,20 @@ Execution Time:     2020-05-13 17:13 UTC-5
 Finalization Time:  2020-05-13 17:14 UTC-5
 """
 
-import bugsnag
 from typing import (
     cast,
     List,
 )
 
-from backend.dal.project import (
-    get_all as get_all_projects, TABLE as PROJECT_TABLE
-)
-from backend.domain.resources import has_repeated_repos
+import bugsnag
+
 from backend.typing import (
     Historic as HistoricType,
     Resource as ResourceType,
+)
+from groups.dal import (
+    get_all as get_all_groups,
+    TABLE_NAME as GROUP_TABLE,
 )
 
 
@@ -40,7 +41,7 @@ def get_unique_repos(repos: List[ResourceType]) -> List[ResourceType]:
 
 
 def remove_duplicated_repos() -> None:
-    projects = get_all_projects()
+    projects = get_all_groups()
     for project in projects:
         try:
             if has_repeated_repos(cast(str, project['project_name']), []):
@@ -50,7 +51,7 @@ def remove_duplicated_repos() -> None:
                     severity='info')
                 repos: List[ResourceType] = get_unique_repos(
                     cast(List[ResourceType], project['repositories']))
-                response = PROJECT_TABLE.update_item(
+                response = GROUP_TABLE.update_item(
                     Key={'project_name': project['project_name']},
                     UpdateExpression='SET #attrName = :val1',
                     ExpressionAttributeNames={'#attrName': 'repositories'},

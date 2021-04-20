@@ -15,13 +15,13 @@ from botocore.exceptions import ClientError
 # Local library
 from backend.api.resolvers import user
 from backend.api.resolvers.user import _create_new_user
-from backend.dal.project import get_active_projects
+from groups.dal import get_active_groups
 from groups.domain import get_many_groups
-from users.domain.forces import format_forces_user_email
+from forces.domain import format_forces_user_email
 
 
 async def main() -> None:
-    projects = await get_active_projects()
+    projects = await get_active_groups()
     groups = await get_many_groups(projects)
     for group in groups:
         configuration = group.get('historic_configuration', [])
