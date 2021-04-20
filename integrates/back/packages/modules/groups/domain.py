@@ -674,7 +674,6 @@ async def invite_to_group(
         )
         description = await get_description(group_name.lower())
         group_url = f'{BASE_URL}/confirm_access/{url_token}'
-        print('***group_url***', group_url)
         mail_to = [email]
         email_context: MailContentType = {
             'admin': email,
