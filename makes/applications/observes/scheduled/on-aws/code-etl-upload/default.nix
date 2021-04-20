@@ -12,8 +12,9 @@ let
     name = "aws-batch-code-etl-upload";
     product = "observes";
     secrets = [
-      "GITLAB_API_TOKEN"
       "INTEGRATES_API_TOKEN"
+      "PRODUCT_API_TOKEN"
+      "SERVICES_API_TOKEN"
     ];
     timeout = 7200;
     vcpus = 1;

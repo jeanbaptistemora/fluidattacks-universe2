@@ -13,8 +13,9 @@ computeOnAws {
   name = "observes-scheduled-on-aws-code-etl-amend";
   product = "observes";
   secrets = [
-    "GITLAB_API_TOKEN"
     "INTEGRATES_API_TOKEN"
+    "PRODUCT_API_TOKEN"
+    "SERVICES_API_TOKEN"
   ];
   timeout = 18000;
   vcpus = 1;
