@@ -16,7 +16,6 @@ from backend.decorators import (
 )
 from backend.typing import SimplePayload
 from findings import domain as findings_domain
-from newutils import findings as finding_utils
 
 
 @convert_kwargs_to_snake_case  # type: ignore
@@ -45,7 +44,7 @@ async def mutate(
         finding = await finding_loader.load(finding_id)
         findings_domain.send_finding_mail(
             info.context.loaders,
-            finding_utils.send_new_draft_mail,
+            findings_domain.send_new_draft_mail,
             finding_id,
             str(finding.get('title', '')),
             str(finding.get('project_name', '')),

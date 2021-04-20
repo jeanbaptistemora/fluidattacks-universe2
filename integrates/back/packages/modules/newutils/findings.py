@@ -25,7 +25,6 @@ from backend import (
     mailer,
     util,
 )
-from backend.dal import project as group_dal
 from backend.dal.helpers import dynamodb
 from backend.exceptions import (
     InvalidDateFormat,
@@ -486,35 +485,6 @@ async def send_finding_delete_mail(  # pylint: disable=too-many-arguments
             }
         )
     )
-
-
-async def send_new_draft_mail(
-    context: Any,
-    finding_id: str,
-    finding_title: str,
-    group_name: str,
-    analyst_email: str
-) -> None:
-    group_loader = context.group_all
-    organization_loader = context.organization
-    group = await group_loader.load(group_name)
-    org_id = group['organization']
-    organization = await organization_loader.load(org_id)
-    org_name = organization['name']
-    recipients = FI_MAIL_REVIEWERS.split(',')
-    recipients += await group_dal.list_internal_managers(group_name)
-    email_context: MailContentType = {
-        'analyst_email': analyst_email,
-        'finding_id': finding_id,
-        'finding_name': finding_title,
-        'finding_url': (
-            f'{BASE_URL}/orgs/{org_name}/groups/{group_name}'
-            f'/drafts/{finding_id}/description'
-        ),
-        'project': group_name,
-        'organization': org_name
-    }
-    schedule(mailer.send_mail_new_draft(recipients, email_context))
 
 
 def validate_acceptance_date(values: Dict[str, str]) -> bool:

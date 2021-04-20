@@ -28,7 +28,6 @@ from backend import (
     mailer,
     util,
 )
-from backend.dal import project as project_dal
 from backend.exceptions import (
     EventAlreadyClosed,
     EventNotFound,
@@ -44,6 +43,7 @@ from backend.typing import (
 )
 from comments import domain as comments_domain
 from events import dal as events_dal
+from group_access import domain as group_access_domain
 from newutils import (
     comments as comments_utils,
     datetime as datetime_utils,
@@ -176,7 +176,7 @@ async def _send_new_event_mail(  # pylint: disable=too-many-arguments
     subscription: str,
     event_type: str
 ) -> None:
-    recipients = await project_dal.list_project_managers(group_name)
+    recipients = await group_access_domain.list_group_managers(group_name)
     recipients.append(analyst)
     org_name = await orgs_domain.get_name_by_id(org_id)
     if subscription == 'oneshot':

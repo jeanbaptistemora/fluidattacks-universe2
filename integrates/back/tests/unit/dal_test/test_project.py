@@ -1,10 +1,10 @@
 import pytest
 
-from backend.dal.project import list_internal_managers
 from group_access.dal import (
     get_group_users,
     update as update_access,
 )
+from group_access.domain import list_internal_managers
 
 
 pytestmark = [pytest.mark.asyncio,]

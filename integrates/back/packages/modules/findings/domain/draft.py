@@ -11,10 +11,16 @@ from typing import (
     Tuple,
 )
 
-from aioextensions import collect
+from aioextensions import (
+    collect,
+    schedule,
+)
 from graphql.type.definition import GraphQLResolveInfo
 
-from backend import util
+from backend import (
+    mailer,
+    util,
+)
 from backend.exceptions import (
     AlreadyApproved,
     AlreadySubmitted,
@@ -26,13 +32,19 @@ from backend.exceptions import (
 from backend.filters import finding as finding_filters
 from backend.typing import (
     Finding as FindingType,
+    MailContent as MailContentType,
     User as UserType,
 )
 from findings import dal as findings_dal
+from group_access import domain as group_access_domain
 from newutils import (
     datetime as datetime_utils,
     findings as finding_utils,
     vulnerabilities as vulns_utils,
+)
+from __init__ import (
+    BASE_URL,
+    FI_MAIL_REVIEWERS,
 )
 
 
@@ -217,6 +229,35 @@ async def reject_draft(
     else:
         raise AlreadyApproved()
     return success
+
+
+async def send_new_draft_mail(
+    context: Any,
+    finding_id: str,
+    finding_title: str,
+    group_name: str,
+    analyst_email: str
+) -> None:
+    group_loader = context.group_all
+    organization_loader = context.organization
+    group = await group_loader.load(group_name)
+    org_id = group['organization']
+    organization = await organization_loader.load(org_id)
+    org_name = organization['name']
+    recipients = FI_MAIL_REVIEWERS.split(',')
+    recipients += await group_access_domain.list_internal_managers(group_name)
+    email_context: MailContentType = {
+        'analyst_email': analyst_email,
+        'finding_id': finding_id,
+        'finding_name': finding_title,
+        'finding_url': (
+            f'{BASE_URL}/orgs/{org_name}/groups/{group_name}'
+            f'/drafts/{finding_id}/description'
+        ),
+        'project': group_name,
+        'organization': org_name
+    }
+    schedule(mailer.send_mail_new_draft(recipients, email_context))
 
 
 async def submit_draft(  # pylint: disable=too-many-locals

@@ -20,7 +20,8 @@ from dynamodb.types import RootItem
 from events import dal as dal_event
 from findings import dal as dal_findings
 from forces import dal as dal_forces
-from group_access import dal as group_access_dal
+from group_access import dal as dal_group_access
+from group_comments import dal as dal_group_comments
 from names import dal as dal_names
 from roots import dal as dal_roots
 from organizations import dal as dal_organizations
@@ -139,7 +140,7 @@ async def populate_roots(data: Tuple[RootItem, ...]) -> bool:
 async def populate_consultings(data: List[Any]) -> bool:
     coroutines: List[Awaitable[bool]] = []
     coroutines.extend([
-        dal_group.add_comment(
+        dal_group_comments.add_comment(
             consulting['project_name'],
             consulting['email'],
             consulting,
@@ -188,7 +189,7 @@ async def populate_policies(data: List[Any]) -> bool:
         for policy in data
     ])
     coroutines.extend([
-        group_access_dal.update(
+        dal_group_access.update(
             policy['subject'],
             policy['object'],
             {'has_access': True},

@@ -16,7 +16,7 @@ from backend.decorators import (
     require_integrates,
 )
 from backend.typing import AddConsultPayload as AddConsultPayloadType
-from groups import domain as groups_domain
+from group_comments import domain as group_comments_domain
 from newutils import datetime as datetime_utils
 
 
@@ -50,7 +50,7 @@ async def mutate(  # pylint: disable=too-many-arguments
         'modified': current_time,
         'parent': parameters.get('parent')
     }
-    success = await groups_domain.add_comment(
+    success = await group_comments_domain.add_comment(
         info,
         project_name,
         user_email,
@@ -59,7 +59,7 @@ async def mutate(  # pylint: disable=too-many-arguments
     if success:
         redis_del_by_deps_soon('add_group_consult', group_name=project_name)
         if content.strip() not in {'#external', '#internal'}:
-            groups_domain.send_comment_mail(
+            group_comments_domain.send_comment_mail(
                 user_email,
                 comment_data,
                 project_name

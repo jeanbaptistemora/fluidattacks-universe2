@@ -12,29 +12,19 @@ from typing import (
 )
 
 import aioboto3
-from aioextensions import collect
 from botocore.exceptions import ClientError
 from boto3.dynamodb.conditions import Attr, Key
 
 from back.settings import LOGGING
-from backend import authz
 from backend.dal.helpers import dynamodb
-from backend.typing import (
-    Comment as CommentType,
-    DynamoDelete as DynamoDeleteType,
-    Project as ProjectType,
-)
-from group_access import domain as group_access_domain
-from events.dal import TABLE_NAME as EVENTS_TABLE_NAME
+from backend.typing import Project as ProjectType
 
 
 logging.config.dictConfig(LOGGING)
 
 # Constants
 LOGGER = logging.getLogger(__name__)
-TABLE_ACCESS_NAME = 'FI_project_access'
 TABLE_NAME = 'FI_projects'
-TABLE_GROUP_COMMENTS = 'fi_project_comments'
 
 ServicePolicy = NamedTuple(
     'ServicePolicy',
@@ -162,28 +152,6 @@ async def get_group(
     return response.get('Item', {})
 
 
-async def list_events(project_name: str) -> List[str]:
-    key_exp = Key('project_name').eq(project_name)
-    query_attrs = {
-        'KeyConditionExpression': key_exp,
-        'IndexName': 'project_events',
-        'ProjectionExpression': 'event_id'
-    }
-    events = await dynamodb.async_query(EVENTS_TABLE_NAME, query_attrs)
-
-    return [event['event_id'] for event in events]
-
-
-async def list_internal_managers(project_name: str) -> List[str]:
-    all_managers = await list_project_managers(project_name)
-    internal_managers = [
-        user
-        for user in all_managers
-        if user.endswith('@fluidattacks.com')
-    ]
-    return internal_managers
-
-
 async def get_description(project: str) -> str:
     """ Get the description of a project. """
     description = await get_attributes(project, ['description'])
@@ -207,24 +175,6 @@ async def exists(
     )
 
     return bool(project_data)
-
-
-async def list_project_managers(group: str) -> List[str]:
-    users_active, users_inactive = await collect([
-        group_access_domain.get_group_users(group, True),
-        group_access_domain.get_group_users(group, False)
-    ])
-    all_users = users_active + users_inactive
-    users_roles = await collect([
-        authz.get_group_level_role(user, group)
-        for user in all_users
-    ])
-    managers = [
-        user
-        for user, role in zip(all_users, users_roles)
-        if role == 'group_manager'
-    ]
-    return managers
 
 
 async def get_attributes(
@@ -339,41 +289,6 @@ async def create(project: ProjectType) -> bool:
     except ClientError as ex:
         LOGGER.exception(ex, extra={'extra': locals()})
 
-    return resp
-
-
-async def add_comment(
-        project_name: str,
-        email: str,
-        comment_data: CommentType) -> bool:
-    """ Add a comment in a project. """
-    resp = False
-    try:
-        payload = {
-            'project_name': project_name,
-            'email': email
-        }
-        payload.update(cast(Dict[str, str], comment_data))
-        resp = await dynamodb.async_put_item(TABLE_GROUP_COMMENTS, payload)
-    except ClientError as ex:
-        LOGGER.exception(ex, extra=dict(extra=locals()))
-    return resp
-
-
-async def delete_comment(group_name: str, user_id: str) -> bool:
-    resp = False
-    try:
-        delete_attrs = DynamoDeleteType(
-            Key={
-                'project_name': group_name,
-                'user_id': user_id
-            }
-        )
-        resp = await dynamodb.async_delete_item(
-            TABLE_GROUP_COMMENTS, delete_attrs
-        )
-    except ClientError as ex:
-        LOGGER.exception(ex, extra=dict(extra=locals()))
     return resp
 
 

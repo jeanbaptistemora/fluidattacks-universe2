@@ -33,6 +33,7 @@ from .draft import (
     get_drafts_by_group,
     list_drafts,
     reject_draft,
+    send_new_draft_mail,
     submit_draft
 )
 from .evidence import (
@@ -81,6 +82,7 @@ __all__ = [
     'get_drafts_by_group',
     'list_drafts',
     'reject_draft',
+    'send_new_draft_mail',
     'submit_draft',
 
     # evidences

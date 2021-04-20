@@ -25,7 +25,6 @@ from aioextensions import (
     in_process,
     schedule,
 )
-from graphql.type.definition import GraphQLResolveInfo
 
 # Local libraries
 from back.settings import LOGGING
@@ -38,7 +37,6 @@ from backend.dal.helpers.dynamodb import start_context
 from backend.dal.helpers.redis import redis_del_by_deps_soon
 from backend.exceptions import (
     AlreadyPendingDeletion,
-    InvalidCommentParent,
     InvalidParameter,
     InvalidProjectName,
     InvalidProjectServicesConfig,
@@ -46,7 +44,6 @@ from backend.exceptions import (
     UserNotInOrganization,
 )
 from backend.typing import (
-    Comment as CommentType,
     Invitation as InvitationType,
     MailContent as MailContentType,
     Project as GroupType,
@@ -60,7 +57,6 @@ from group_comments import domain as group_comments_domain
 from names import domain as names_domain
 from newutils import (
     apm,
-    comments as comments_utils,
     datetime as datetime_utils,
     vulnerabilities as vulns_utils,
 )
@@ -98,32 +94,6 @@ async def _has_repeated_tags(group_name: str, tags: List[str]) -> bool:
         all_tags = list(existing_tags) + tags
         has_repeated_tags = len(all_tags) != len(set(all_tags))
     return has_repeated_tags
-
-
-async def add_comment(
-    info: GraphQLResolveInfo,
-    group_name: str,
-    email: str,
-    comment_data: CommentType
-) -> bool:
-    """Add comment in a group."""
-    parent = str(comment_data['parent'])
-    content = str(comment_data['content'])
-    await comments_utils.validate_handle_comment_scope(
-        content,
-        email,
-        group_name,
-        parent,
-        info.context.store
-    )
-    if parent != '0':
-        group_comments = [
-            str(comment.get('user_id'))
-            for comment in await group_comments_domain.get_comments(group_name)
-        ]
-        if parent not in group_comments:
-            raise InvalidCommentParent()
-    return await group_dal.add_comment(group_name, email, comment_data)
 
 
 async def can_user_access(group: str, role: str) -> bool:
@@ -733,22 +703,13 @@ async def is_alive(group: str) -> bool:
 
 async def mask(group_name: str) -> bool:
     today = datetime_utils.get_now()
-    comments = await group_comments_domain.get_comments(group_name)
-    comments_result = all(
-        await collect([
-            group_dal.delete_comment(
-                comment['project_name'],
-                comment['user_id']
-            )
-            for comment in comments
-        ])
-    )
+    are_comments_masked = await group_comments_domain.mask_comments(group_name)
     update_data: Dict[str, Union[str, List[str], object]] = {
         'project_status': 'FINISHED',
         'deletion_date': datetime_utils.get_as_str(today)
     }
     is_group_finished = await group_dal.update(group_name, update_data)
-    return comments_result and is_group_finished
+    return are_comments_masked and is_group_finished
 
 
 async def remove_all_users(context: Any, group: str) -> bool:
@@ -833,22 +794,6 @@ async def remove_user(
         if not has_groups:
             success = success and await users_domain.remove_stakeholder(email)
     return success
-
-
-def send_comment_mail(
-    user_email: str,
-    comment_data: CommentType,
-    group_name: str
-) -> None:
-    schedule(
-        mailer.send_comment_mail(
-            comment_data,
-            'project',
-            user_email,
-            'project',
-            group_name
-        )
-    )
 
 
 async def update(group_name: str, data: GroupType) -> bool:

@@ -32,10 +32,10 @@ from group_access.domain import (
     remove_access,
 )
 from group_comments.domain import (
+    add_comment,
     list_comments,
 )
 from groups.domain import (
-    add_comment,
     create_group,
     edit,
     get_active_groups,
