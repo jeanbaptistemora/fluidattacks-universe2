@@ -332,6 +332,13 @@ module.exports = {
     'types/f008',
     'types/f009',
     'types/f031',
+    {
+      type: 'category',
+      label: 'Java',
+      items: [
+        'types/f121',
+      ]
+    },
     'types/f037',
   ],
   Security: [
