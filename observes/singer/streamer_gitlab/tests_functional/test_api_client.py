@@ -11,7 +11,7 @@ from streamer_gitlab import api_client
 
 @pytest.mark.asyncio
 async def test_real_get_json_descending_order() -> None:
-    api_token = environ['GITLAB_API_TOKEN']
+    api_token = environ['GITLAB_ETL_API_TOKEN']
     endpoint = (
         'https://gitlab.com/api/v4/projects/fluidattacks%2Fservices/jobs'
     )
@@ -35,7 +35,7 @@ async def test_real_get_json_descending_order() -> None:
 
 @pytest.mark.asyncio
 async def test_real_get_json_less_than() -> None:
-    api_token = environ['GITLAB_API_TOKEN']
+    api_token = environ['GITLAB_ETL_API_TOKEN']
     endpoint = (
         'https://gitlab.com/api/v4/projects/fluidattacks%2Fservices/jobs'
     )

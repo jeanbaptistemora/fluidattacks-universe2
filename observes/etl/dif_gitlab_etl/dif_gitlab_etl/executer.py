@@ -3,6 +3,9 @@ Binds functions of other modules to specific parameters.
 Supports the interface used by cli.
 """
 # Standard libraries
+from os import (
+    environ,
+)
 from typing import (
     Any,
     Callable,
@@ -105,6 +108,17 @@ def start_etl(project: str, auth: Dict[str, str]) -> None:
             continue
 
 
+PROYECT_API_TOKEN = {
+    'autonomicmind/default': 'AUTONOMIC_API_TOKEN',
+    'autonomicmind/challenges': 'AUTONOMIC_API_TOKEN',
+    'fluidattacks/services': 'SERVICES_API_TOKEN',
+    'fluidattacks/product': 'PRODUCT_API_TOKEN',
+}
+
+
 async def start_etls(projects: List[str], auth: Dict[str, str]) -> None:
     for project in projects:
+        environ['GITLAB_ETL_API_TOKEN'] = environ[
+            PROYECT_API_TOKEN[project]
+        ]
         start_etl(project, auth)

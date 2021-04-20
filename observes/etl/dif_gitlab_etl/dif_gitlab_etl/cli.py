@@ -21,10 +21,15 @@ from dif_gitlab_etl import executer
 @click.argument('projects', nargs=-1)
 @click.argument('auth_file', type=click.File('r'))
 def start_etl(projects: List[str], auth_file: IO[str]) -> None:
-    try:
-        environ['GITLAB_API_TOKEN']
-    except KeyError:
-        log('critical', 'Export GITLAB_API_TOKEN as environment variable')
+    env_vars = {
+        'AUTONOMIC_API_TOKEN': environ.get('AUTONOMIC_API_TOKEN', None),
+        'SERVICES_API_TOKEN': environ.get('SERVICES_API_TOKEN', None),
+        'PRODUCT_API_TOKEN': environ.get('PRODUCT_API_TOKEN', None),
+    }
+    if not all(env_vars.values()):
+        missing = filter(lambda x: bool(x[1]) is False, env_vars.items())
+        missing_vars = list(map(lambda x: x[0], missing))
+        log('critical', f'Env vars {str(missing_vars)} are missing/empty')
         sys.exit(1)
     else:
         auth = json.load(auth_file)

@@ -30,9 +30,9 @@ def parser_builder() -> argparse.ArgumentParser:
 
 def parse_args(args: List[str]) -> None:
     try:
-        environ['GITLAB_API_TOKEN']
+        environ['GITLAB_ETL_API_TOKEN']
     except KeyError:
-        log('critical', 'Export GITLAB_API_TOKEN as environment variable')
+        log('critical', 'Export GITLAB_ETL_API_TOKEN as environment variable')
         sys.exit(1)
     else:
         parser_builder().parse_args(args)

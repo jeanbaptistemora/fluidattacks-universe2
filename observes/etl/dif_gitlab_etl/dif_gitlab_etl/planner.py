@@ -150,7 +150,7 @@ async def search_lgu_page(
             session: ClientSession
         ) -> Callable[[GitlabResourcePage], List[Dict[str, Any]]]:
             def getter(resource: GitlabResourcePage) -> List[Dict[str, Any]]:
-                api_token = environ['GITLAB_API_TOKEN']
+                api_token = environ['GITLAB_ETL_API_TOKEN']
                 headers = {'Private-Token': api_token}
                 loop = asyncio.get_event_loop()
                 return loop.run_until_complete(

@@ -9,7 +9,9 @@ computeOnAws {
   name = "observes-scheduled-on-aws-dif-gitlab-etl";
   product = "observes";
   secrets = [
-    "GITLAB_API_TOKEN"
+    "AUTONOMIC_API_TOKEN"
+    "SERVICES_API_TOKEN"
+    "PRODUCT_API_TOKEN"
   ];
   timeout = 14400;
   vcpus = 1;
