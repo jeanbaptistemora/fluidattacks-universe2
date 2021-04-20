@@ -7,13 +7,15 @@ from typing import (
 
 # Third-party libraries
 import bugsnag
+from mixpanel import Mixpanel
 
 # Local libraries
 from sorts.constants import (
     LOGGER,
     LOGGER_HANDLER,
     LOGGER_REMOTE,
-    LOGGER_REMOTE_HANDLER
+    LOGGER_REMOTE_HANDLER,
+    MIXPANEL_API_TOKEN_SORTS,
 )
 from sorts.utils.bugs import META as BUGS_META
 
@@ -92,3 +94,7 @@ def log_to_remote(
 
 # Side effects
 configure()
+
+
+def mixpanel_track(email: str, event_name: str, **extra: str) -> None:
+    Mixpanel(MIXPANEL_API_TOKEN_SORTS).track(email, event_name, {**extra})
