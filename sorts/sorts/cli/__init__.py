@@ -17,7 +17,8 @@ from sorts.utils.bugs import configure_bugsnag
 from sorts.utils.decorators import shield
 from sorts.utils.logs import (
     log,
-    log_to_remote_info
+    log_to_remote_info,
+    mixpanel_track,
 )
 
 
@@ -86,6 +87,7 @@ def execute_sorts(
             predict_commit=predict_commit,
             user=user_email
         )
+        mixpanel_track(user_email, 'sorts_execution')
     else:
         log(
             'error',
