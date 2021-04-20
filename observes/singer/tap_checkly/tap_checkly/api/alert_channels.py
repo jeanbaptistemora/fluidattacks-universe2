@@ -7,7 +7,6 @@ from typing import (
     Callable,
     Iterator,
     NamedTuple,
-    cast,
 )
 
 # Third party libraries
@@ -18,7 +17,6 @@ from returns.io import IO
 import paginator
 from paginator import (
     AllPages,
-    PageGetter,
     PageId,
     PageOrAll,
 )
@@ -47,12 +45,13 @@ def _list_alerts_channels(
     page: PageOrAll,
 ) -> Iterator[AlertChsPage]:
     if isinstance(page, AllPages):
-        page_getter: PageGetter[AlertChsPage] = paginator.build_getter(
+        page_getter = paginator.build_getter(
+            AlertChsPage,
             partial(AlertChsPage.new, client),
-            lambda page: cast(AlertChsPage, page).data.map(bool) == IO(False),
+            lambda page: page.data.map(bool) == IO(False),
         )
         return paginator.get_until_end(
-            PageId(1, 100), page_getter, 10
+            AlertChsPage, PageId(1, 100), page_getter, 10
         )
     return iter([AlertChsPage.new(client, page)])
 

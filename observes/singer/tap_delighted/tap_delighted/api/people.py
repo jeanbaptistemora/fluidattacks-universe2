@@ -51,6 +51,7 @@ def _list_bounced(
 ) -> Iterator[BouncedPage]:
     if isinstance(page, AllPages):
         return extractor.get_all_pages(
+            BouncedPage,
             partial(BouncedPage.new, client),
             lambda page: page.data.map(bool) == IO(False)
         )
@@ -74,6 +75,7 @@ def _list_unsubscribed(
 ) -> Iterator[UnsubscribedPage]:
     if isinstance(page, AllPages):
         return extractor.get_all_pages(
+            UnsubscribedPage,
             partial(UnsubscribedPage.new, client),
             lambda page: page.data.map(bool) == IO(False)
         )

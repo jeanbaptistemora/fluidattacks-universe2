@@ -43,3 +43,15 @@ def list_check_groups(client: Client, page: PageId) -> IO[Iterator[JSON]]:
             env_var['value'] = '__masked__'
     LOG.debug('check-groups response: %s', result)
     return IO(result)
+
+
+def list_checks(client: Client, page: PageId) -> IO[Iterator[JSON]]:
+    result = client.get(
+        '/v1/checks',
+        params={'limit': page.per_page, 'page': page.page}
+    )
+    for item in result:
+        for env_var in item['environmentVariables']:
+            env_var['value'] = '__masked__'
+    LOG.debug('checks response: %s', result)
+    return IO(result)

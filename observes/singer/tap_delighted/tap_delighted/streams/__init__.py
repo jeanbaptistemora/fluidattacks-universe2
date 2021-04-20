@@ -80,7 +80,7 @@ def all_surveys(api: ApiClient) -> None:
             return EmptyPage()
         return result
     pages: Iterator[SurveyPage] = paginator.get_until_end(
-        PageId(1, 100), getter, 10
+        SurveyPage, PageId(1, 100), getter, 10
     )
     for page in pages:
         _emit_page(stream, page)

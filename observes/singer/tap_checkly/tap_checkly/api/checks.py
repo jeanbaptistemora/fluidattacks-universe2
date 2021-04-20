@@ -7,7 +7,8 @@ from typing import (
     Callable,
     Iterator,
     NamedTuple,
-    cast,
+    Type,
+    TypeVar,
 )
 
 # Third party libraries
@@ -18,7 +19,6 @@ from returns.io import IO
 import paginator
 from paginator import (
     AllPages,
-    PageGetter,
     PageId,
     PageOrAll,
 )
@@ -42,28 +42,43 @@ class CheckGroupsPage(NamedTuple):
         return cls(data)
 
 
-def _list_check_groups(
+class ChecksPage(NamedTuple):
+    data: IO[Iterator[JSON]]
+
+    @classmethod
+    def new(cls, client: Client, page: PageId) -> ChecksPage:
+        data = raw.list_checks(client, page)
+        return cls(data)
+
+
+PageType = TypeVar('PageType', CheckGroupsPage, ChecksPage)
+
+
+def _generic_listing(
+    _type: Type[PageType],
     client: Client,
     page: PageOrAll,
-) -> Iterator[CheckGroupsPage]:
+) -> Iterator[PageType]:
     if isinstance(page, AllPages):
-        page_getter: PageGetter[CheckGroupsPage] = paginator.build_getter(
-            partial(CheckGroupsPage.new, client),
-            lambda page: (
-                cast(CheckGroupsPage, page).data.map(bool) == IO(False)
-            ),
+        page_getter = paginator.build_getter(
+            _type,
+            partial(_type.new, client),
+            lambda page: page.data.map(bool) == IO(False),
         )
-        return paginator.get_until_end(
-            PageId(1, 100), page_getter, 10
+        result: Iterator[PageType] = paginator.get_until_end(
+            _type, PageId(1, 100), page_getter, 10
         )
-    return iter([CheckGroupsPage.new(client, page)])
+        return result
+    return iter([_type.new(client, page)])
 
 
 class ChecksApi(NamedTuple):
     list_check_groups: Callable[[PageOrAll], Iterator[CheckGroupsPage]]
+    list_checks : Callable[[PageOrAll], Iterator[ChecksPage]]
 
     @classmethod
     def new(cls, client: Client) -> ChecksApi:
         return cls(
-            list_check_groups=partial(_list_check_groups, client),
+            list_check_groups=partial(_generic_listing, CheckGroupsPage, client),
+            list_checks=partial(_generic_listing, ChecksPage, client),
         )

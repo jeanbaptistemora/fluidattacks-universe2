@@ -5,8 +5,8 @@ from __future__ import (
 from typing import (
     Callable,
     Iterator,
+    Type,
     TypeVar,
-    Union,
 )
 
 # Third party libraries
@@ -14,7 +14,6 @@ from typing import (
 # Local libraries
 import paginator
 from paginator import (
-    EmptyPage,
     PageId,
 )
 
@@ -23,15 +22,14 @@ ResultPage = TypeVar('ResultPage')
 
 
 def get_all_pages(
+    _type: Type[ResultPage],
     get_page: Callable[[PageId], ResultPage],
     is_empty: Callable[[ResultPage], bool],
 ) -> Iterator[ResultPage]:
-    def getter(page: PageId) -> Union[ResultPage, EmptyPage]:
-        result = get_page(page)
-        if is_empty(result):
-            return EmptyPage()
-        return result
+    getter = paginator.build_getter(
+        _type, get_page, is_empty
+    )
     pages: Iterator[ResultPage] = paginator.get_until_end(
-        PageId(1, 100), getter, 10
+        _type, PageId(1, 100), getter, 10
     )
     return pages

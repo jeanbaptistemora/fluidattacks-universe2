@@ -4,6 +4,7 @@ from asyncio.events import AbstractEventLoop
 from typing import (
     AsyncGenerator,
     Callable,
+    Type,
     Union,
     cast,
     Iterator,
@@ -32,7 +33,8 @@ from paginator.objs import (
 
 Data = TypeVar('Data')
 ResultPage = TypeVar('ResultPage')
-PageGetter = Callable[[PageId], Union[Data, EmptyPage]]
+EPage = Union[ResultPage, EmptyPage]
+PageGetter = Callable[[PageId], EPage[Data]]
 DEFAULT_LIMITS = Limits(
     max_calls=5,
     max_period=1,
@@ -103,7 +105,9 @@ def get_pages(
     return _iter_over_async(pages(), loop)
 
 
+# _type is necessary to correctly infer the type var
 def get_until_end(
+    _type: Type[Data],
     start: PageId,
     getter: PageGetter[Data],
     pages_chunk: int,
@@ -124,10 +128,11 @@ def get_until_end(
 
 
 def build_getter(
+    _type: Type[ResultPage],
     get_page: Callable[[PageId], ResultPage],
     is_empty: Callable[[ResultPage], bool],
 ) -> PageGetter[ResultPage]:
-    def getter(page: PageId) -> Union[ResultPage, EmptyPage]:
+    def getter(page: PageId) -> EPage[ResultPage]:
         result: ResultPage = get_page(page)
         if is_empty(result):
             return EmptyPage()
