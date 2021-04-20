@@ -19,3 +19,4 @@ http:
     - http://localhost:48000/f043_dast_sts_0
     - http://localhost:48000/f043_dast_sts_1
     - http://localhost:48000/f043_dast_sts_2
+    - https://play.google.com/store/apps/details?id=org.example.com

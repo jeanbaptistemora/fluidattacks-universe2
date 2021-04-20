@@ -3,6 +3,9 @@ from typing import (
     Dict,
     Set,
 )
+import urllib.parse
+
+# Third party libraries
 from aioextensions import (
     CPU_CORES,
     collect,
@@ -30,6 +33,7 @@ from utils.limits import (
 )
 from utils.logs import (
     log,
+    log_blocking,
 )
 
 
@@ -53,11 +57,22 @@ async def analyze_one(
                     await stores[vulnerability.finding].store(vulnerability)
 
 
+def should_include_url(url: str) -> bool:
+    components = urllib.parse.urlparse(url)
+
+    if components.netloc == 'play.google.com':
+        log_blocking('warn', 'Ignoring lib_http checks over: %s', url)
+        return False
+
+    return True
+
+
 async def analyze(
     *,
     stores: Dict[core_model.FindingEnum, EphemeralStore],
 ) -> None:
     unique_urls: Set[str] = set(CTX.config.http.include)
+    unique_urls = set(filter(should_include_url, unique_urls))
     unique_count: int = len(unique_urls)
 
     await collect((
