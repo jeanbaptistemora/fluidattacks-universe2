@@ -333,12 +333,18 @@ module.exports = {
     'types/f007',
     'types/f008',
     'types/f009',
-    'types/f031',
     {
       type: 'category',
-      label: 'Java',
+      label: 'Excessive privileges',
       items: [
-        'types/f121',
+        'types/f031',
+        {
+          type: 'category',
+          label: 'Java',
+          items: [
+            'types/f121',
+          ]
+        },
       ]
     },
     'types/f037',
