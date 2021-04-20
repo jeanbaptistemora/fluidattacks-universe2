@@ -61,8 +61,6 @@ integrates.subscriptions.user-to-entity
 integrates.web.e2e
 makes.announce.bugsnag
 makes.attrs
-makes.aws-sso.apply
-makes.aws-sso.test
 makes.ci.apply
 makes.ci.config
 makes.ci.test
@@ -77,6 +75,8 @@ makes.k8s.test
 makes.kill-port
 makes.lint
 makes.lint-commit-msg
+makes.okta.apply
+makes.okta.test
 makes.profiles
 makes.review-mr
 makes.secrets.apply

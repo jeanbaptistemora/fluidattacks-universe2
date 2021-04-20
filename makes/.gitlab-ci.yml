@@ -49,12 +49,12 @@
       when: never
     - when: always
 
-makes.aws-sso.apply:
+makes.okta.apply:
   <<: *makes
   <<: *makes_in_master_branch
   stage: deploy-infra
 
-makes.aws-sso.test:
+makes.okta.test:
   <<: *makes
   <<: *makes_in_dev_branch
   stage: test-infra
