@@ -17,8 +17,6 @@ import solution3 from "../../../../static/images/solutions/img03.png";
 import solution4 from "../../../../static/images/solutions/img04.png";
 import solution5 from "../../../../static/images/solutions/img05.png";
 import solution6 from "../../../../static/images/solutions/img06.png";
-import solution7 from "../../../../static/images/solutions/img07.png";
-import solution8 from "../../../../static/images/solutions/img08.png";
 import { FontAwesomeContainerSmall } from "../../../styles/styledComponents";
 import { translate } from "../../../utils/translations/translate";
 
@@ -29,7 +27,6 @@ const Container: StyledComponent<
   className: `
     h-700
     mw-1366
-    ph-body
     center
     mb1-l
     mb6
@@ -45,12 +42,12 @@ const InnerContainer: StyledComponent<
   `,
 })``;
 
-const QuarterWidthContainer: StyledComponent<
+const SectionTitle: StyledComponent<
   "div",
   Record<string, unknown>
 > = styled.div.attrs({
   className: `
-    w-25-l
+    w-40-l
   `,
 })``;
 
@@ -67,6 +64,7 @@ const TitleVertical: StyledComponent<
     f5
     ma0
     wm-tb-rl
+    ph-body
   `,
 })``;
 
@@ -77,10 +75,52 @@ const ArrowButton: StyledComponent<
   className: `
     bg-transparent
     bn
-    pa3
     dib
     pointer
     outline-transparent
+    pv5
+  `,
+})``;
+
+const CardsGrid: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs({
+  className: `
+    w-60-l
+    db-l
+    dn
+  `,
+})``;
+
+const CardParent: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs({
+  className: `
+    card-parent
+    ma2
+    pointer
+    fl
+    relative
+    overflow-hidden
+  `,
+})``;
+
+const CardChild: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs({
+  className: `
+    h-100
+    w-100
+    card-child
+    cover
+    bg-center
+    t-all-5
+    flex
+    justify-center
+    items-center
   `,
 })``;
 
@@ -89,13 +129,13 @@ const SlideShow: StyledComponent<
   Record<string, unknown>
 > = styled.div.attrs({
   className: `
-    w-50-l
     slide-show
     overflow-hidden-l
     overflow-x-auto
     t-all-3-eio
     scroll-smooth
     nowrap
+    dn-l
   `,
 })``;
 
@@ -104,7 +144,6 @@ const SolutionCard: StyledComponent<
   Record<string, unknown>
 > = styled.div.attrs({
   className: `
-    h-400
     w-300
     mh4
     dib
@@ -124,6 +163,18 @@ const CardParagraph: StyledComponent<
   `,
 })``;
 
+const ChildParagraph: StyledComponent<
+  "p",
+  Record<string, unknown>
+> = styled.p.attrs({
+  className: `
+    card-link
+    absolute
+    white
+    roboto
+  `,
+})``;
+
 const ContinuousContainer: StyledComponent<
   "div",
   Record<string, unknown>
@@ -131,6 +182,7 @@ const ContinuousContainer: StyledComponent<
   className: `
     w-100
     tl
+    ph-body
   `,
 })``;
 
@@ -151,17 +203,17 @@ const SolutionsSection: React.FC = (): JSX.Element => {
   const [scroll, setScroll] = useState(0);
 
   const scrollLeft: () => void = (): void => {
-    setScroll(scroll < 364 ? 0 : scroll - 364);
+    setScroll(scroll < 272 ? 0 : scroll - 272);
   };
 
   const scrollRight: () => void = (): void => {
-    setScroll(scroll > 2082 ? 2447 : scroll + 364);
+    setScroll(scroll > 1080 ? 1360 : scroll + 272);
   };
 
   const changeScroll: (element: HTMLElement) => void = (
     element: HTMLElement
   ): void => {
-    if (element.scrollLeft > 0 || element.scrollLeft < 2447) {
+    if (element.scrollLeft > 0 || element.scrollLeft < 1360) {
       element.scrollLeft = scroll;
     } else {
       element.scrollLeft += 0;
@@ -178,10 +230,54 @@ const SolutionsSection: React.FC = (): JSX.Element => {
   return (
     <Container>
       <InnerContainer>
-        <QuarterWidthContainer className={"mb4"}>
+        <SectionTitle className={"mb4"}>
           <TitleVertical>{"SOLUTIONS"}</TitleVertical>
-        </QuarterWidthContainer>
-        <QuarterWidthContainer className={"db-l dn tr"}>
+        </SectionTitle>
+        <CardsGrid>
+          <CardParent>
+            <Link to={"/solutions/devsecops/"}>
+              <CardChild className={"bg-solution1"}>
+                <ChildParagraph>{"DevSecOps"}</ChildParagraph>
+              </CardChild>
+            </Link>
+          </CardParent>
+          <CardParent>
+            <Link to={"/solutions/security-testing/"}>
+              <CardChild className={"bg-solution2"}>
+                <ChildParagraph>{"Security Testing"}</ChildParagraph>
+              </CardChild>
+            </Link>
+          </CardParent>
+          <CardParent>
+            <Link to={"/solutions/penetration-testing/"}>
+              <CardChild className={"bg-solution3"}>
+                <ChildParagraph>{"Penetration Testing"}</ChildParagraph>
+              </CardChild>
+            </Link>
+          </CardParent>
+          <CardParent>
+            <Link to={"/solutions/ethical-hacking/"}>
+              <CardChild className={"bg-solution4"}>
+                <ChildParagraph>{"Ethical Hacking"}</ChildParagraph>
+              </CardChild>
+            </Link>
+          </CardParent>
+          <CardParent>
+            <Link to={"/solutions/red-teaming/"}>
+              <CardChild className={"bg-solution5"}>
+                <ChildParagraph>{"Red Teaming"}</ChildParagraph>
+              </CardChild>
+            </Link>
+          </CardParent>
+          <CardParent>
+            <Link to={"/solutions/attack-simulation/"}>
+              <CardChild className={"bg-solution6"}>
+                <ChildParagraph>{"Attack Simulation"}</ChildParagraph>
+              </CardChild>
+            </Link>
+          </CardParent>
+        </CardsGrid>
+        <div className={"flex dn-l justify-center items-center"}>
           <ArrowButton onClick={scrollLeft}>
             <FontAwesomeContainerSmall>
               <FontAwesomeIcon
@@ -190,6 +286,44 @@ const SolutionsSection: React.FC = (): JSX.Element => {
               />
             </FontAwesomeContainerSmall>
           </ArrowButton>
+          <SlideShow id={"slideShow"} style={{ maxWidth: "272px" }}>
+            <Link to={"/solutions/devsecops/"}>
+              <SolutionCard>
+                <img alt={"DevSecOps"} src={solution1} />
+                <CardParagraph>{"DevSecOps"}</CardParagraph>
+              </SolutionCard>
+            </Link>
+            <Link to={"/solutions/security-testing/"}>
+              <SolutionCard>
+                <img alt={"Security Testing"} src={solution2} />
+                <CardParagraph>{"Security Testing"}</CardParagraph>
+              </SolutionCard>
+            </Link>
+            <Link to={"/solutions/penetration-testing/"}>
+              <SolutionCard>
+                <img alt={"Penetration Testing"} src={solution3} />
+                <CardParagraph>{"Penetration Testing"}</CardParagraph>
+              </SolutionCard>
+            </Link>
+            <Link to={"/solutions/ethical-hacking/"}>
+              <SolutionCard>
+                <img alt={"Ethical Hacking"} src={solution4} />
+                <CardParagraph>{"Ethical Hacking"}</CardParagraph>
+              </SolutionCard>
+            </Link>
+            <Link to={"/solutions/red-teaming/"}>
+              <SolutionCard>
+                <img alt={"Red Teaming"} src={solution5} />
+                <CardParagraph>{"Red Teaming"}</CardParagraph>
+              </SolutionCard>
+            </Link>
+            <Link to={"/solutions/attack-simulation/"}>
+              <SolutionCard>
+                <img alt={"Attack Simulation"} src={solution6} />
+                <CardParagraph>{"Attack Simulation"}</CardParagraph>
+              </SolutionCard>
+            </Link>
+          </SlideShow>
           <ArrowButton onClick={scrollRight}>
             <FontAwesomeContainerSmall>
               <FontAwesomeIcon
@@ -198,57 +332,7 @@ const SolutionsSection: React.FC = (): JSX.Element => {
               />
             </FontAwesomeContainerSmall>
           </ArrowButton>
-        </QuarterWidthContainer>
-        <SlideShow id={"slideShow"}>
-          <Link to={"/solutions/devsecops/"}>
-            <SolutionCard>
-              <img alt={"DevSecOps"} src={solution1} />
-              <CardParagraph>{"DevSecOps"}</CardParagraph>
-            </SolutionCard>
-          </Link>
-          <Link to={"/solutions/security-testing/"}>
-            <SolutionCard>
-              <img alt={"Security Testing"} src={solution2} />
-              <CardParagraph>{"Security Testing"}</CardParagraph>
-            </SolutionCard>
-          </Link>
-          <Link to={"/solutions/penetration-testing/"}>
-            <SolutionCard>
-              <img alt={"Penetration Testing"} src={solution3} />
-              <CardParagraph>{"Penetration Testing"}</CardParagraph>
-            </SolutionCard>
-          </Link>
-          <Link to={"/solutions/ethical-hacking/"}>
-            <SolutionCard>
-              <img alt={"Ethical Hacking"} src={solution4} />
-              <CardParagraph>{"Ethical Hacking"}</CardParagraph>
-            </SolutionCard>
-          </Link>
-          <Link to={"/solutions/red-teaming/"}>
-            <SolutionCard>
-              <img alt={"Red Teaming"} src={solution5} />
-              <CardParagraph>{"Red Teaming"}</CardParagraph>
-            </SolutionCard>
-          </Link>
-          <Link to={"/solutions/attack-simulation/"}>
-            <SolutionCard>
-              <img alt={"Attack Simulation"} src={solution6} />
-              <CardParagraph>{"Attack Simulation"}</CardParagraph>
-            </SolutionCard>
-          </Link>
-          <Link to={"/solutions/secure-code-review/"}>
-            <SolutionCard>
-              <img alt={"Secure Code Review"} src={solution7} />
-              <CardParagraph>{"Secure Code Review"}</CardParagraph>
-            </SolutionCard>
-          </Link>
-          <Link to={"/solutions/vulnerability-management/"}>
-            <SolutionCard>
-              <img alt={"Vulnerability Management"} src={solution8} />
-              <CardParagraph>{"Vulnerability Management"}</CardParagraph>
-            </SolutionCard>
-          </Link>
-        </SlideShow>
+        </div>
       </InnerContainer>
       <ContinuousContainer>
         <ContinuousPhrase className={"c-fluid-bk"}>

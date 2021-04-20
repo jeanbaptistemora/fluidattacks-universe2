@@ -81,6 +81,12 @@ $whiter-gray: rgba(241, 241, 241, 1);
 .bg-menu-systems { background-image: url('../images/menu/bg-menu-systems.png'); }
 .bg-menu-aboutus { background-image: url('../images/menu/bg-menu-aboutus.png'); }
 .bg-clients-home { background-image: url('../images/clients-home.png'); }
+.bg-solution1 { background-image: url('../images/solutions/img01.png'); }
+.bg-solution2 { background-image: url('../images/solutions/img02.png'); }
+.bg-solution3 { background-image: url('../images/solutions/img03.png'); }
+.bg-solution4 { background-image: url('../images/solutions/img04.png'); }
+.bg-solution5 { background-image: url('../images/solutions/img05.png'); }
+.bg-solution6 { background-image: url('../images/solutions/img06.png'); }
 
 .bg-card1 {
   background-image: url('../images/resources/card1.png');
@@ -544,4 +550,38 @@ $whiter-gray: rgba(241, 241, 241, 1);
 
 .slide-show::-webkit-scrollbar-track {
   display: none;
+}
+
+// Solutions Desktop Grid
+.card-parent {
+  height: 170px;
+  width: 208px;
+}
+
+.card-child::before {
+  background-color: rgba(52, 73, 94, 0.75);
+  content: '';
+  display: none;
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+.card-parent:hover .card-child,
+.card-parent:focus .card-child {
+  transform: scale(1.2);
+}
+
+.card-link { display: none; }
+
+.card-parent:hover .card-child::before,
+.card-parent:focus .card-child::before {
+  display: block;
+}
+
+.card-parent:hover .card-link,
+.card-parent:focus card-link {
+  display: block;
 }
