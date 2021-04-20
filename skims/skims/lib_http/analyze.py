@@ -60,7 +60,10 @@ async def analyze_one(
 def should_include_url(url: str) -> bool:
     components = urllib.parse.urlparse(url)
 
-    if components.netloc == 'play.google.com':
+    if components.netloc in {
+        'play.google.com',
+        'www.getpostman.com',
+    }:
         log_blocking('warn', 'Ignoring lib_http checks over: %s', url)
         return False
 
