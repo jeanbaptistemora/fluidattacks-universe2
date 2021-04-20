@@ -33,19 +33,27 @@ from backend.scheduler import (
     is_not_a_fluidattacks_email,
     remove_fluid_from_recipients,
 )
+from data_containers.toe_inputs import GitRootToeInput
 from data_containers.toe_lines import GitRootToeLines
 from findings.dal import get_finding
 from findings.domain import get_findings_by_group
 from groups import domain as groups_domain
-from newutils import datetime as datetime_utils
+from newutils import (
+    datetime as datetime_utils,
+    git as git_utils,
+)
 from organizations.domain import (
     get_id_by_name,
     get_pending_deletion_date_str,
     iterate_organizations,
     update_pending_deletion_date,
 )
+from toe.inputs import domain as toe_inputs_domain
 from toe.lines import domain as toe_lines_domain
-from schedulers import toe_lines_etl
+from schedulers import (
+    toe_inputs_etl,
+    toe_lines_etl,
+)
 from users import dal as users_dal
 from vulnerabilities.dal import get as get_vuln
 from vulnerabilities.domain import list_vulnerabilities_async
@@ -455,5 +463,92 @@ async def test_toe_lines_etl():
             root_id='765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a',
             tested_date='2021-01-22T00:00:00-05:00',
             tested_lines=88
+        )
+    )
+
+
+@pytest.mark.changes_db
+async def test_toe_inputs_etl(monkeypatch):
+    def mocked_clone_services_repository(path):
+        print('mocked_clone_services_repository')
+        dirname = os.path.dirname(__file__)
+        filename = os.path.join(dirname, 'mock/test_inputs.csv')
+        os.makedirs(f'{path}/groups/unittesting/toe')
+        shutil.copy2(filename, f'{path}/groups/unittesting/toe/inputs.csv')
+
+    monkeypatch.setattr(
+        git_utils,
+        'clone_services_repository',
+        mocked_clone_services_repository
+    )
+    group_name = 'unittesting'
+    group_toe_inputs= await toe_inputs_domain.get_by_group(group_name)
+    assert group_toe_inputs == (
+        GitRootToeInput(
+            commit='hh66uu5',
+            component='test.com/api/Test',
+            created_date='2000-01-01T00:00:00-05:00',
+            entry_point='idTest',
+            group_name='unittesting',
+            seen_first_time_by='',
+             tested_date='2020-01-02T00:00:00-05:00',
+             verified='Yes',
+             vulns='FIN.S.0001.Test'),
+        GitRootToeInput(commit='e91320h',
+            component='test.com/test/test.aspx',
+            created_date='2020-03-14T00:00:00-05:00',
+            entry_point='btnTest',
+            group_name='unittesting',
+            seen_first_time_by='test@test.com',
+            tested_date='2021-02-02T00:00:00-05:00',
+            verified='No',
+            vulns=''
+        ),
+        GitRootToeInput(commit='d83027t',
+            component='test.com/test2/test.aspx',
+            created_date='2020-01-11T00:00:00-05:00',
+            entry_point='-',
+            group_name='unittesting',
+            seen_first_time_by='test2@test.com',
+            tested_date='2021-02-11T00:00:00-05:00',
+            verified='No',
+            vulns='FIN.S.0003.Test'
+        )
+    )
+    await toe_inputs_etl.main()
+    group_toe_inputs = await toe_inputs_domain.get_by_group(group_name)
+    assert group_toe_inputs == (
+        GitRootToeInput(
+            commit='hh66uu5',
+            component='test.com/api/Test',
+            created_date='2000-01-01T00:00:00-05:00',
+            entry_point='idTest',
+            group_name='unittesting',
+            seen_first_time_by='',
+            tested_date='2020-01-02T00:00:00-05:00',
+            verified='Yes',
+            vulns='FIN.S.0001.Test'
+        ),
+        GitRootToeInput(
+            commit='r44432f',
+            component='test.com/test/test.aspx',
+            created_date='2000-01-01T00:00:00-05:00',
+            entry_point='',
+            group_name='unittesting',
+            seen_first_time_by='',
+            tested_date='2021-02-11T00:00:00-05:00',
+            verified='Yes',
+            vulns='FIN.S.0002.Test'
+        ),
+        GitRootToeInput(
+            commit='e91320h',
+            component='test.com/test/test.aspx',
+            created_date='2020-03-14T00:00:00-05:00',
+            entry_point='btnTest',
+            group_name='unittesting',
+            seen_first_time_by='test@test.com',
+            tested_date='2000-01-01T00:00:00-05:00',
+            verified='No',
+            vulns=''
         )
     )

@@ -1,0 +1,4 @@
+component,entry_point,verified,commit,tested_date,vulns,created_date,seen_first_time_by
+test.com/api/Test,idTest,Yes,hh66uu5,2020-01-02,FIN.S.0001.Test,,
+test.com/test/test.aspx,btnTest,No,e91320h,2000-01-01,,2020-03-14,test@test.com
+test.com/test/test.aspx,,Yes,r44432f,2021-02-11,FIN.S.0002.Test,,
