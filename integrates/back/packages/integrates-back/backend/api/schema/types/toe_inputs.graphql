@@ -1,0 +1,11 @@
+"ToeInputs type definition"
+type ToeInputs {
+  commit: String
+  component: String
+  createdDate: String
+  entryPoint: String
+  seenFirstTimeBy: String
+  testedDate: String
+  verified: String
+  vulns: String
+}

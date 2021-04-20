@@ -34,6 +34,7 @@ type Project {
   stakeholders: [Stakeholder!]
   subscription: String
   tags: [String!]
+  toeInputs: [ToeInputs]
   totalFindings: Int
   totalTreatment: GenericScalar
   userDeletion: String

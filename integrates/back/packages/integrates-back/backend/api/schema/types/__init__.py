@@ -26,6 +26,7 @@ from .resource import RESOURCE
 from .root import GITROOT
 from .stakeholder import STAKEHOLDER
 from .tag import TAG
+from .toe_inputs import TOEINPUTS
 from .toe_lines import TOELINES
 from .treatment import TREATMENT
 from .verification import VERIFICATION
@@ -54,6 +55,7 @@ TYPES: Tuple[ObjectType, ...] = (
     RESOURCE,
     STAKEHOLDER,
     TAG,
+    TOEINPUTS,
     TOELINES,
     TREATMENT,
     VERIFICATION,

@@ -544,6 +544,7 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
         actions={
             *GROUP_LEVEL_ROLES['admin']['actions'],
             'backend_api_resolvers_git_root_toe_lines_resolve',
+            'backend_api_resolvers_group_toe_inputs_resolve',
         },
         tags={
             *GROUP_LEVEL_ROLES['admin']['tags'],
@@ -553,6 +554,7 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
         actions={
             *GROUP_LEVEL_ROLES['analyst']['actions'],
             'backend_api_resolvers_git_root_toe_lines_resolve',
+            'backend_api_resolvers_group_toe_inputs_resolve',
         },
         tags={
             *GROUP_LEVEL_ROLES['analyst']['tags'],
@@ -562,6 +564,7 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
         actions={
             *GROUP_LEVEL_ROLES['closer']['actions'],
             'backend_api_resolvers_git_root_toe_lines_resolve',
+            'backend_api_resolvers_group_toe_inputs_resolve',
         },
         tags={
             *GROUP_LEVEL_ROLES['closer']['tags'],
@@ -571,6 +574,7 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
         actions={
             *GROUP_LEVEL_ROLES['customer']['actions'],
             'backend_api_resolvers_git_root_toe_lines_resolve',
+            'backend_api_resolvers_group_toe_inputs_resolve',
         },
         tags={
             *GROUP_LEVEL_ROLES['customer']['tags'],
@@ -580,6 +584,7 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
         actions={
             *GROUP_LEVEL_ROLES['customeradmin']['actions'],
             'backend_api_resolvers_git_root_toe_lines_resolve',
+            'backend_api_resolvers_group_toe_inputs_resolve',
         },
         tags={
             *GROUP_LEVEL_ROLES['customeradmin']['tags'],
@@ -589,6 +594,7 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
         actions={
             *GROUP_LEVEL_ROLES['executive']['actions'],
             'backend_api_resolvers_git_root_toe_lines_resolve',
+            'backend_api_resolvers_group_toe_inputs_resolve',
         },
         tags={
             *GROUP_LEVEL_ROLES['executive']['tags'],
@@ -598,6 +604,7 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
         actions={
             *GROUP_LEVEL_ROLES['group_manager']['actions'],
             'backend_api_resolvers_git_root_toe_lines_resolve',
+            'backend_api_resolvers_group_toe_inputs_resolve',
         },
         tags={
             *GROUP_LEVEL_ROLES['group_manager']['tags'],
@@ -607,6 +614,7 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
         actions={
             *GROUP_LEVEL_ROLES['resourcer']['actions'],
             'backend_api_resolvers_git_root_toe_lines_resolve',
+            'backend_api_resolvers_group_toe_inputs_resolve',
         },
         tags={
             *GROUP_LEVEL_ROLES['resourcer']['tags'],
@@ -616,6 +624,7 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
         actions={
             *GROUP_LEVEL_ROLES['reviewer']['actions'],
             'backend_api_resolvers_git_root_toe_lines_resolve',
+            'backend_api_resolvers_group_toe_inputs_resolve',
         },
         tags={
             *GROUP_LEVEL_ROLES['reviewer']['tags'],

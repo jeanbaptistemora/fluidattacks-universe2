@@ -120,6 +120,7 @@ ENTITIES: Dict[str, Dict[str, Set[str]]] = dict(
             'max_severity',
             'max_severity_finding',
             'stakeholders',
+            'toe_inputs',
             'toe_lines',
             'total_findings',
         },

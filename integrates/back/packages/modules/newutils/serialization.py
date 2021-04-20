@@ -6,12 +6,16 @@ from safe_pickle import (
 )
 
 # Local libraries
+from data_containers.toe_inputs import (
+    GitRootToeInput,
+)
 from data_containers.toe_lines import (
     GitRootToeLines,
 )
 
 
 # Side effects
+safe_pickle.register_namedtuple(GitRootToeInput)
 safe_pickle.register_namedtuple(GitRootToeLines)
 
 # Exported members
