@@ -212,6 +212,7 @@ module.exports = {
           'criteria/devices/r206',
           'criteria/devices/r209',
           'criteria/devices/r210',
+          'criteria/devices/r213',
         ],
     },
     {
