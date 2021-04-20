@@ -169,7 +169,7 @@ def get_finding_url(
 ) -> str:
     url = (
         f'{BASE_URL}/orgs/{org_name}/groups/{group_name}/'
-        f'{finding["finding_id"]}/description'
+        f'vulns/{finding["finding_id"]}/description'
     )
     return url
 
