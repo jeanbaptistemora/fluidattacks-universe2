@@ -1,5 +1,5 @@
 # Standard
-from typing import Any, Dict, Optional, Tuple, Union
+from typing import Any, Dict, List, Optional, Tuple, Union
 
 # Third party
 import aioboto3
@@ -7,8 +7,10 @@ import aioextensions
 import botocore
 from aioboto3.dynamodb.table import CustomTableResource
 from boto3.dynamodb.conditions import ConditionBase
+from botocore.exceptions import ClientError
 
 # Local
+from dynamodb.exceptions import handle_error
 from dynamodb.types import Facet, Index, Item, PrimaryKey, Table
 from newutils.context import (
     AWS_DYNAMODB_ACCESS_KEY,
@@ -100,15 +102,19 @@ async def query(
             index=index,
             table=table
         )
-        response = await table_resource.query(**query_args)
-        items = response.get('Items', list())
 
-        while response.get('LastEvaluatedKey'):
-            response = await table_resource.query(
-                **query_args,
-                ExclusiveStartKey=response.get('LastEvaluatedKey')
-            )
-            items += response.get('Items', list())
+        try:
+            response = await table_resource.query(**query_args)
+            items: List[Item] = response.get('Items', list())
+
+            while response.get('LastEvaluatedKey'):
+                response = await table_resource.query(
+                    **query_args,
+                    ExclusiveStartKey=response.get('LastEvaluatedKey')
+                )
+                items += response.get('Items', list())
+        except ClientError as error:
+            handle_error(error=error)
 
     return tuple(items)
 
@@ -149,7 +155,10 @@ async def put_item(
             }
         }
 
-        await table_resource.put_item(**_exclude_none(args=args))
+        try:
+            await table_resource.put_item(**_exclude_none(args=args))
+        except ClientError as error:
+            handle_error(error=error)
 
 
 async def batch_write_item(*, items: Tuple[Item, ...], table: Table) -> None:
@@ -157,10 +166,13 @@ async def batch_write_item(*, items: Tuple[Item, ...], table: Table) -> None:
         table_resource: CustomTableResource = await resource.Table(table.name)
 
         async with table_resource.batch_writer() as batch_writer:
-            await aioextensions.collect(tuple(
-                batch_writer.put_item(Item=item)
-                for item in items
-            ))
+            try:
+                await aioextensions.collect(tuple(
+                    batch_writer.put_item(Item=item)
+                    for item in items
+                ))
+            except ClientError as error:
+                handle_error(error=error)
 
 
 async def update_item(
@@ -193,10 +205,6 @@ async def update_item(
         for attr, value in facet_item.items()
         if value is None
     )
-    actions = (
-        f'SET {attrs_to_update}',
-        f'REMOVE {attrs_to_remove}'
-    )
 
     async with aioboto3.resource(**RESOURCE_OPTIONS) as resource:
         table_resource: CustomTableResource = await resource.Table(table.name)
@@ -208,10 +216,16 @@ async def update_item(
                 key_structure.partition_key: key.partition_key,
                 key_structure.sort_key: key.sort_key
             },
-            'UpdateExpression': ' '.join(actions)
+            'UpdateExpression': ' '.join((
+                f'SET {attrs_to_update}',
+                f'REMOVE {attrs_to_remove}'
+            ))
         }
 
-        await table_resource.update_item(**_exclude_none(args=args))
+        try:
+            await table_resource.update_item(**_exclude_none(args=args))
+        except ClientError as error:
+            handle_error(error=error)
 
 
 async def delete_item(
@@ -232,4 +246,7 @@ async def delete_item(
             }
         }
 
-        await table_resource.delete_item(**_exclude_none(args=args))
+        try:
+            await table_resource.delete_item(**_exclude_none(args=args))
+        except ClientError as error:
+            handle_error(error=error)
