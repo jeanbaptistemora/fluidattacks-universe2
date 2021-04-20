@@ -1,3 +1,6 @@
+lib_http.f043.content_security_policy.missing_object_src:
+  en: Missing object-src
+  es: object-src ausente
 lib_http.f043.content_security_policy.missing_script_src:
   en: Missing script-src
   es: script-src ausente

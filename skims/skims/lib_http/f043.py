@@ -82,6 +82,17 @@ def _create_vulns(
     )
 
 
+def _content_security_policy_object_src(
+    descs: List[str],
+    header: Header,
+) -> None:
+    if (
+        'object-src' not in header.directives and
+        'default-src' not in header.directives
+    ):
+        descs.append('content_security_policy.missing_object_src')
+
+
 def _content_security_policy_script_src(
     descs: List[str],
     header: Header,
@@ -133,6 +144,7 @@ def _content_security_policy(
     header: Optional[Header] = None
 
     if header := headers.get(ContentSecurityPolicyHeader):
+        _content_security_policy_object_src(descs, header)
         _content_security_policy_script_src(descs, header)
     else:
         descs.append('content_security_policy.missing')
