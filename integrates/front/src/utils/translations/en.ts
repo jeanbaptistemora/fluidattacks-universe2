@@ -241,6 +241,11 @@ export const enTranslations: ResourceKey = {
   comments: {
     editorPlaceholder: "Add your comment here",
     noComments: "No comments",
+    orderBy: {
+      label: "Order by",
+      newest: "Newest",
+      oldest: "Oldest",
+    },
     reply: "Reply",
     send: "Send",
   },

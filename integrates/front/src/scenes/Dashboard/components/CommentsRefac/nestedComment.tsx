@@ -14,12 +14,13 @@ interface INestedCommentProps {
   comments: ICommentStructure[];
   onPost: (editorText: string) => void;
   backgroundEnabled: boolean;
+  orderBy: string;
 }
 
 const NestedComment: React.FC<INestedCommentProps> = (
   props: INestedCommentProps
 ): JSX.Element => {
-  const { id, comments, onPost, backgroundEnabled } = props;
+  const { id, comments, onPost, backgroundEnabled, orderBy } = props;
   const { replying, setReplying }: ICommentContext = useContext(commentContext);
 
   const rootComment: ICommentStructure = _.find(comments, [
@@ -30,6 +31,15 @@ const NestedComment: React.FC<INestedCommentProps> = (
     "parent",
     id,
   ]);
+
+  const orderComments = (
+    unordered: ICommentStructure[],
+    order: string
+  ): ICommentStructure[] => {
+    return order === "oldest"
+      ? _.orderBy(unordered, ["created"], ["asc"])
+      : _.orderBy(unordered, ["created"], ["desc"]);
+  };
 
   const replyHandler = useCallback((): void => {
     if (!_.isUndefined(setReplying)) {
@@ -79,7 +89,7 @@ const NestedComment: React.FC<INestedCommentProps> = (
             </div>
           )}
           {childrenComments.length > 0 &&
-            childrenComments.map(
+            orderComments(childrenComments, orderBy).map(
               (childComment: ICommentStructure): JSX.Element => (
                 <React.Fragment key={childComment.id}>
                   <NestedComment
@@ -87,6 +97,7 @@ const NestedComment: React.FC<INestedCommentProps> = (
                     comments={comments}
                     id={childComment.id}
                     onPost={onPost}
+                    orderBy={orderBy}
                   />
                 </React.Fragment>
               )

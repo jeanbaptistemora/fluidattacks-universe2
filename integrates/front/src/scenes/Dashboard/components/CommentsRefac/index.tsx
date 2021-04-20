@@ -7,6 +7,8 @@ import React, {
   useEffect,
   useState,
 } from "react";
+import type { StyledComponent } from "styled-components";
+import styled from "styled-components";
 
 import type {
   ICommentStructure,
@@ -17,7 +19,22 @@ import { CommentEditor } from "scenes/Dashboard/components/CommentsRefac/comment
 import { NestedComment } from "scenes/Dashboard/components/CommentsRefac/nestedComment";
 import type { IAuthContext } from "utils/auth";
 import { authContext } from "utils/auth";
+import style from "utils/forms/index.css";
 import { translate } from "utils/translations/translate";
+
+const Select: StyledComponent<
+  "select",
+  Record<string, unknown>
+> = styled.select.attrs({
+  className: `${style["form-control"]} black-60 border-box`,
+})``;
+
+const Small: StyledComponent<
+  "small",
+  Record<string, unknown>
+> = styled.small.attrs({
+  className: "f5 black-60 db",
+})``;
 
 interface ICommentsRefacProps {
   onLoad: (callbackFn: ILoadCallback) => void;
@@ -43,6 +60,7 @@ const CommentsRefac: React.FC<ICommentsRefacProps> = (
   const { userEmail, userName }: IAuthContext = useContext(authContext);
   const [comments, setComments] = useState<ICommentStructure[]>([]);
   const [replying, setReplying] = useState<number>(0);
+  const [orderBy, setOrderBy] = useState<string>("newest");
 
   const onMount: () => void = (): void => {
     onLoad((cData: ICommentStructure[]): void => {
@@ -80,16 +98,42 @@ const CommentsRefac: React.FC<ICommentsRefacProps> = (
     [comments, onPostComment, replying, userEmail, userName]
   );
 
+  const onOrderChange = useCallback(
+    (event: React.ChangeEvent<HTMLSelectElement>): void => {
+      setOrderBy(event.target.value);
+    },
+    []
+  );
+
   const rootComments: ICommentStructure[] = _.filter(comments, ["parent", 0]);
+
+  const orderComments = (
+    unordered: ICommentStructure[],
+    order: string
+  ): ICommentStructure[] => {
+    return order === "oldest"
+      ? _.orderBy(unordered, ["created"], ["asc"])
+      : _.orderBy(unordered, ["created"], ["desc"]);
+  };
 
   return (
     <React.StrictMode>
-      <hr />
       <CommentEditor onPost={postHandler} />
       <hr />
       <commentContext.Provider value={{ replying, setReplying }}>
+        <div className={"w-25 w-50-m"}>
+          <Small>{translate.t("comments.orderBy.label")}</Small>
+          <Select defaultValue={"newest"} onChange={onOrderChange}>
+            <option value={"newest"}>
+              {translate.t("comments.orderBy.newest")}
+            </option>
+            <option value={"oldest"}>
+              {translate.t("comments.orderBy.oldest")}
+            </option>
+          </Select>
+        </div>
         {rootComments.length > 0
-          ? _.orderBy(rootComments, ["created"], ["desc"]).map(
+          ? orderComments(rootComments, orderBy).map(
               (comment: ICommentStructure): JSX.Element => (
                 <React.Fragment key={comment.id}>
                   <NestedComment
@@ -97,6 +141,7 @@ const CommentsRefac: React.FC<ICommentsRefacProps> = (
                     comments={comments}
                     id={comment.id}
                     onPost={postHandler}
+                    orderBy={orderBy}
                   />
                 </React.Fragment>
               )
