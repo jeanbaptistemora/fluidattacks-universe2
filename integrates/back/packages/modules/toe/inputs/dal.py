@@ -15,6 +15,7 @@ from backend.exceptions import (
 )
 from data_containers.toe_inputs import GitRootToeInput
 from dynamodb import model
+from dynamodb.exceptions import ConditionalCheckFailedException
 from dynamodb.types import GitRootToeInputItem
 
 # Constants
@@ -40,11 +41,8 @@ async def create(root_toe_input: GitRootToeInput) -> None:
         await model.create_git_root_toe_input(
             root_toe_input=root_toe_input_item
         )
-    except ClientError as ex:
-        LOGGER.exception(ex, extra={'extra': locals()})
-        if ex.response['Error']['Code'] == 'ConditionalCheckFailedException':
-            raise RepeatedToeInput() from ex
-        raise UnavailabilityError() from ex
+    except ConditionalCheckFailedException:
+        raise RepeatedToeInput()
 
 
 async def delete(
@@ -82,8 +80,5 @@ async def update(root_toe_input: GitRootToeInput) -> None:
         await model.update_git_root_toe_input(
             root_toe_input=root_toe_input_item
         )
-    except ClientError as ex:
-        LOGGER.exception(ex, extra={'extra': locals()})
-        if ex.response['Error']['Code'] == 'ConditionalCheckFailedException':
-            raise ToeInputNotFound() from ex
-        raise UnavailabilityError() from ex
+    except ConditionalCheckFailedException:
+        raise ToeInputNotFound()

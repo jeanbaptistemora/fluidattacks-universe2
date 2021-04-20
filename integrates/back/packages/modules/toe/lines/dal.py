@@ -15,6 +15,7 @@ from backend.exceptions import (
 )
 from data_containers.toe_lines import GitRootToeLines
 from dynamodb import model
+from dynamodb.exceptions import ConditionalCheckFailedException
 from dynamodb.types import GitRootToeLinesItem
 
 # Constants
@@ -40,11 +41,8 @@ async def create(root_toe_lines: GitRootToeLines) -> None:
         await model.create_git_root_toe_lines(
             root_toe_lines=root_toe_lines_item
         )
-    except ClientError as ex:
-        LOGGER.exception(ex, extra={'extra': locals()})
-        if ex.response['Error']['Code'] == 'ConditionalCheckFailedException':
-            raise RepeatedToeLines() from ex
-        raise UnavailabilityError() from ex
+    except ConditionalCheckFailedException:
+        raise RepeatedToeLines()
 
 
 async def delete(
@@ -97,8 +95,5 @@ async def update(root_toe_lines: GitRootToeLines) -> None:
         await model.update_git_root_toe_lines(
             root_toe_lines=root_toe_lines_item
         )
-    except ClientError as ex:
-        LOGGER.exception(ex, extra={'extra': locals()})
-        if ex.response['Error']['Code'] == 'ConditionalCheckFailedException':
-            raise ToeLinesNotFound() from ex
-        raise UnavailabilityError() from ex
+    except ConditionalCheckFailedException:
+        raise ToeLinesNotFound()
