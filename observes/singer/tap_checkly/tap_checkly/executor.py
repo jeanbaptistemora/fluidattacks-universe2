@@ -28,6 +28,7 @@ _stream_executor: Mapping[
     SupportedStreams.ALERT_CHS: streams.all_alerts,
     SupportedStreams.CHECKS: streams.all_checks,
     SupportedStreams.CHECK_GROUPS: streams.all_chk_groups,
+    SupportedStreams.CHECK_STATUS: streams.all_chk_status,
 }
 
 

@@ -1,5 +1,14 @@
+# Standard libraries
+from typing import (
+    Iterator,
+)
+
+# Third party libraries
+from returns.curry import (
+    partial,
+)
+
 # Local libraries
-from typing import Iterator
 from paginator import (
     AllPages,
 )
@@ -34,6 +43,13 @@ def all_alerts(api: ApiClient) -> None:
     )
 
 
+def all_checks(api: ApiClient) -> None:
+    _stream_data(
+        SupportedStreams.CHECKS,
+        api.checks.list_checks(ALL),
+    )
+
+
 def all_chk_groups(api: ApiClient) -> None:
     _stream_data(
         SupportedStreams.CHECK_GROUPS,
@@ -41,10 +57,11 @@ def all_chk_groups(api: ApiClient) -> None:
     )
 
 
-def all_checks(api: ApiClient) -> None:
-    _stream_data(
-        SupportedStreams.CHECKS,
-        api.checks.list_checks(ALL),
+def all_chk_status(api: ApiClient) -> None:
+    stream = SupportedStreams.CHECK_STATUS
+    status = api.checks.list_check_status()
+    status.data.map(
+        partial(emitter.emit_records, stream)
     )
 
 

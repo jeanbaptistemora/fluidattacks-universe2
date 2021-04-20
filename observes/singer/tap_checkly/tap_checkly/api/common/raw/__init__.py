@@ -41,6 +41,16 @@ def _mask_env_vars(result: Iterator[JSON]) -> None:
             env_var['value'] = '__masked__'
 
 
+def list_checks(client: Client, page: PageId) -> IO[Iterator[JSON]]:
+    result = client.get(
+        '/v1/checks',
+        params={'limit': page.per_page, 'page': page.page}
+    )
+    _mask_env_vars(result)
+    LOG.debug('checks response: %s', result)
+    return IO(result)
+
+
 def list_check_groups(client: Client, page: PageId) -> IO[Iterator[JSON]]:
     result = client.get(
         '/v1/check-groups',
@@ -51,11 +61,7 @@ def list_check_groups(client: Client, page: PageId) -> IO[Iterator[JSON]]:
     return IO(result)
 
 
-def list_checks(client: Client, page: PageId) -> IO[Iterator[JSON]]:
-    result = client.get(
-        '/v1/checks',
-        params={'limit': page.per_page, 'page': page.page}
-    )
-    _mask_env_vars(result)
-    LOG.debug('checks response: %s', result)
+def list_check_status(client: Client) -> IO[Iterator[JSON]]:
+    result = client.get('/v1/check-statuses')
+    LOG.debug('check-status response: %s', result)
     return IO(result)

@@ -51,7 +51,20 @@ class ChecksPage(NamedTuple):
         return cls(data)
 
 
-PageType = TypeVar('PageType', CheckGroupsPage, ChecksPage)
+class CheckStatus(NamedTuple):
+    data: IO[Iterator[JSON]]
+
+    @classmethod
+    def new(cls, client: Client) -> CheckStatus:
+        data = raw.list_check_status(client)
+        return cls(data)
+
+
+PageType = TypeVar(
+    'PageType',
+    CheckGroupsPage,
+    ChecksPage,
+)
 
 
 def _generic_listing(
@@ -73,12 +86,17 @@ def _generic_listing(
 
 
 class ChecksApi(NamedTuple):
-    list_check_groups: Callable[[PageOrAll], Iterator[CheckGroupsPage]]
     list_checks : Callable[[PageOrAll], Iterator[ChecksPage]]
+    list_check_groups: Callable[[PageOrAll], Iterator[CheckGroupsPage]]
+    list_check_status: Callable[[], CheckStatus]
+
 
     @classmethod
     def new(cls, client: Client) -> ChecksApi:
         return cls(
-            list_check_groups=partial(_generic_listing, CheckGroupsPage, client),
             list_checks=partial(_generic_listing, ChecksPage, client),
+            list_check_groups=partial(
+                _generic_listing, CheckGroupsPage, client
+            ),
+            list_check_status=partial(CheckStatus.new, client),
         )

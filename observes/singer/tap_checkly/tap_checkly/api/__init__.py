@@ -27,7 +27,11 @@ from tap_checkly.api.common.raw.client import (
 )
 
 
-ApiPage = Union[AlertChsPage, CheckGroupsPage, ChecksPage]
+ApiPage = Union[
+    AlertChsPage,
+    CheckGroupsPage,
+    ChecksPage,
+]
 
 
 class ApiClient(NamedTuple):

@@ -7,9 +7,6 @@ from typing import (
 from returns.curry import (
     partial,
 )
-from returns.io import (
-    IO,
-)
 
 # Local libraries
 from singer_io import (
@@ -30,25 +27,28 @@ from tap_checkly.streams.objs import (
 
 
 def _json_list_srecords(
-    stream: str,
+    stream: SupportedStreams,
     items: Iterator[JSON]
 ) -> Iterator[SingerRecord]:
     return iter(map(
         lambda item: SingerRecord(
-            stream=stream,
+            stream=stream.value.lower(),
             record=item
         ),
         items
     ))
 
 
-def emit_records(records: Iterator[SingerRecord]) -> None:
-    for record in records:
+def emit_records(
+    stream: SupportedStreams,
+    records: Iterator[JSON],
+) -> None:
+    s_records = _json_list_srecords(stream, records)
+    for record in s_records:
         factory.emit(record)
 
 
 def emit_page(stream: SupportedStreams, page: ApiPage) -> None:
-    records: IO[Iterator[SingerRecord]] = page.data.map(
-        partial(_json_list_srecords, stream.value.lower())
+    page.data.map(
+        partial(emit_records, stream)
     )
-    records.map(emit_records)
