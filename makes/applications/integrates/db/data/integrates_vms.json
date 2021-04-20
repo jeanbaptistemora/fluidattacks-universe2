@@ -153,7 +153,9 @@
         "Item": {
           "pk": { "S": "ROOT#d312f0b9-da49-4d2b-a881-bed438875e99" },
           "sk": { "S": "GROUP#oneshottest" },
-          "type": { "S": "IP" }
+          "type": { "S": "IP" },
+          "address": { "S": "127.0.0.1" },
+          "port": { "S": "8080" }
         }
       }
     },
@@ -162,10 +164,9 @@
         "Item": {
           "pk": { "S": "ROOT#d312f0b9-da49-4d2b-a881-bed438875e99#STATE" },
           "sk": { "S": "GROUP#oneshottest" },
-          "address": { "S": "127.0.0.1" },
           "modified_by": { "S": "jdoe@fluidattacks.com" },
           "modified_date": { "S": "2020-11-19T13:44:37+00:00" },
-          "port": { "S": "8080" }
+          "status": { "S": "ACTIVE" }
         }
       }
     },
@@ -176,10 +177,9 @@
           "sk": {
             "S": "ROOT#d312f0b9-da49-4d2b-a881-bed438875e99#STATE#2020-11-19T13:44:37+00:00"
           },
-          "address": { "S": "127.0.0.1" },
           "modified_by": { "S": "jdoe@fluidattacks.com" },
           "modified_date": { "S": "2020-11-19T13:44:37+00:00" },
-          "port": { "S": "8080" }
+          "status": { "S": "ACTIVE" }
         }
       }
     },
@@ -188,7 +188,11 @@
         "Item": {
           "pk": { "S": "ROOT#8493c82f-2860-4902-86fa-75b0fef76034" },
           "sk": { "S": "GROUP#oneshottest" },
-          "type": { "S": "URL" }
+          "type": { "S": "URL" },
+          "host": { "S": "app.fluidattacks.com" },
+          "path": { "S": "/" },
+          "port": { "S": "443" },
+          "protocol": { "S": "HTTPS" }
         }
       }
     },
@@ -197,12 +201,9 @@
         "Item": {
           "pk": { "S": "ROOT#8493c82f-2860-4902-86fa-75b0fef76034#STATE" },
           "sk": { "S": "GROUP#oneshottest" },
-          "host": { "S": "app.fluidattacks.com" },
           "modified_by": { "S": "jdoe@fluidattacks.com" },
           "modified_date": { "S": "2020-11-19T13:45:55+00:00" },
-          "path": { "S": "/" },
-          "port": { "S": "443" },
-          "protocol": { "S": "HTTPS" }
+          "status": { "S": "ACTIVE" }
         }
       }
     },
@@ -213,12 +214,9 @@
           "sk": {
             "S": "ROOT#8493c82f-2860-4902-86fa-75b0fef76034#STATE#2020-11-19T13:45:55+00:00"
           },
-          "host": { "S": "app.fluidattacks.com" },
           "modified_by": { "S": "jdoe@fluidattacks.com" },
           "modified_date": { "S": "2020-11-19T13:45:55+00:00" },
-          "path": { "S": "/" },
-          "port": { "S": "443" },
-          "protocol": { "S": "HTTPS" }
+          "status": { "S": "ACTIVE" }
         }
       }
     },

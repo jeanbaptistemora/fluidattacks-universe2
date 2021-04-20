@@ -94,30 +94,36 @@ def _build_root(
         return IPRootItem(
             group_name=group_name,
             id=metadata[key_structure.sort_key].split('#')[1],
-            metadata=IPRootMetadata(type=metadata['type']),
+            metadata=IPRootMetadata(
+                address=metadata['address'],
+                port=metadata['port'],
+                type=metadata['type']
+            ),
             state=IPRootState(
-                address=state['address'],
                 modified_by=state['modified_by'],
                 modified_date=state['modified_date'],
                 new_repo=state.get('repo'),
-                port=state['port'],
-                reason=state.get('reason')
+                reason=state.get('reason'),
+                status=state['status']
             )
         )
 
     return URLRootItem(
         group_name=group_name,
         id=metadata[key_structure.sort_key].split('#')[1],
-        metadata=URLRootMetadata(type=metadata['type']),
+        metadata=URLRootMetadata(
+            host=metadata['host'],
+            path=metadata['path'],
+            port=metadata['port'],
+            protocol=metadata['protocol'],
+            type=metadata['type']
+        ),
         state=URLRootState(
-            host=state['host'],
             modified_by=state['modified_by'],
             modified_date=state['modified_date'],
             new_repo=state.get('repo'),
-            path=state['path'],
-            port=state['port'],
-            protocol=state['protocol'],
-            reason=state.get('reason')
+            reason=state.get('reason'),
+            status=state['status']
         )
     )
 

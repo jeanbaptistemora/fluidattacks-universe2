@@ -1471,7 +1471,10 @@
           },
           "TableData": [],
           "NonKeyAttributes": [
-            "type"
+            "type",
+            "address",
+            "port",
+            "repo"
           ],
           "DataAccess": {
             "MySql": {}
@@ -1489,9 +1492,7 @@
             "modified_date",
             "repo",
             "reason",
-            "status",
-            "address",
-            "port"
+            "status"
           ],
           "DataAccess": {
             "MySql": {}
@@ -1509,9 +1510,7 @@
             "modified_date",
             "repo",
             "reason",
-            "status",
-            "address",
-            "port"
+            "status"
           ],
           "DataAccess": {
             "MySql": {}
@@ -1525,7 +1524,11 @@
           },
           "TableData": [],
           "NonKeyAttributes": [
-            "type"
+            "type",
+            "host",
+            "path",
+            "port",
+            "protocol"
           ],
           "DataAccess": {
             "MySql": {}
@@ -1543,11 +1546,7 @@
             "modified_date",
             "repo",
             "reason",
-            "status",
-            "host",
-            "path",
-            "port",
-            "protocol"
+            "status"
           ],
           "DataAccess": {
             "MySql": {}
@@ -1565,11 +1564,7 @@
             "modified_date",
             "repo",
             "reason",
-            "status",
-            "host",
-            "path",
-            "port",
-            "protocol"
+            "status"
           ],
           "DataAccess": {
             "MySql": {}

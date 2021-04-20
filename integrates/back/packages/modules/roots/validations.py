@@ -87,7 +87,7 @@ def is_ip_unique(
     roots: Tuple[RootItem, ...]
 ) -> bool:
     return (address, port) not in tuple(
-        (root.state.address, root.state.port)
+        (root.metadata.address, root.metadata.port)
         for root in roots
         if isinstance(root, IPRootItem)
     )
@@ -102,10 +102,10 @@ def is_url_unique(
 ) -> bool:
     return (host, path, port, protocol) not in tuple(
         (
-            root.state.host,
-            root.state.path,
-            root.state.port,
-            root.state.protocol
+            root.metadata.host,
+            root.metadata.path,
+            root.metadata.port,
+            root.metadata.protocol
         )
         for root in roots
         if isinstance(root, URLRootItem)

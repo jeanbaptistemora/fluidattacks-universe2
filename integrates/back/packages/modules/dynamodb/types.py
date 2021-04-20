@@ -86,16 +86,17 @@ class GitRootItem(NamedTuple):
 
 
 class IPRootMetadata(NamedTuple):
+    address: str
     type: str
+    port: str
 
 
 class IPRootState(NamedTuple):
-    address: str
     modified_by: str
     modified_date: str
     new_repo: Optional[str]
-    port: str
     reason: Optional[str]
+    status: str
 
 
 class IPRootItem(NamedTuple):
@@ -106,18 +107,19 @@ class IPRootItem(NamedTuple):
 
 
 class URLRootMetadata(NamedTuple):
+    host: str
+    path: str
+    port: str
+    protocol: str
     type: str
 
 
 class URLRootState(NamedTuple):
-    host: str
     modified_by: str
     modified_date: str
     new_repo: Optional[str]
-    path: str
-    port: str
-    protocol: str
     reason: Optional[str]
+    status: str
 
 
 class URLRootItem(NamedTuple):

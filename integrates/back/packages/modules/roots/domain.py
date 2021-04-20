@@ -76,17 +76,17 @@ def format_root(root: RootItem) -> Root:
 
     if isinstance(root, IPRootItem):
         return IPRoot(
-            address=root.state.address,
+            address=root.metadata.address,
             id=root.id,
-            port=root.state.port
+            port=root.metadata.port
         )
 
     return URLRoot(
-        host=root.state.host,
+        host=root.metadata.host,
         id=root.id,
-        path=root.state.path,
-        port=root.state.port,
-        protocol=root.state.protocol
+        path=root.metadata.path,
+        port=root.metadata.port,
+        protocol=root.metadata.protocol
     )
 
 
@@ -254,14 +254,17 @@ async def add_ip_root(context: Any, user_email: str, **kwargs: Any) -> None:
     root = IPRootItem(
         group_name=group_name,
         id=str(uuid4()),
-        metadata=IPRootMetadata(type='IP'),
-        state=IPRootState(
+        metadata=IPRootMetadata(
             address=address,
+            port=port,
+            type='IP'
+        ),
+        state=IPRootState(
             modified_by=user_email,
             modified_date=datetime_utils.get_iso_date(),
             new_repo=None,
-            port=port,
-            reason=None
+            reason=None,
+            status='ACTIVE'
         )
     )
     await roots_dal.create_root(root=root)
@@ -298,16 +301,19 @@ async def add_url_root(context: Any, user_email: str, **kwargs: Any) -> None:
     root = URLRootItem(
         group_name=group_name,
         id=str(uuid4()),
-        metadata=URLRootMetadata(type='URL'),
-        state=URLRootState(
+        metadata=URLRootMetadata(
             host=host,
-            modified_by=user_email,
-            modified_date=datetime_utils.get_iso_date(),
-            new_repo=None,
             path=path,
             port=port,
             protocol=protocol,
-            reason=None
+            type='URL'
+        ),
+        state=URLRootState(
+            modified_by=user_email,
+            modified_date=datetime_utils.get_iso_date(),
+            new_repo=None,
+            reason=None,
+            status='ACTIVE'
         )
     )
     await roots_dal.create_root(root=root)
