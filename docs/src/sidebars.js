@@ -328,6 +328,7 @@ module.exports = {
     'types/f007',
     'types/f008',
     'types/f009',
+    'types/f031',
     'types/f037',
   ],
   Security: [
