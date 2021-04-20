@@ -3,13 +3,11 @@
 # Standard libraries
 import logging
 import logging.config
-from collections import namedtuple
 from typing import (
     Any,
     cast,
     Dict,
     List,
-    NamedTuple
 )
 
 # Third party libraries
@@ -35,8 +33,10 @@ from backend.typing import (
     Resource as ResourceType
 )
 from group_access import domain as group_access_domain
+from groups import domain as groups_domain
 from newutils import (
     datetime as datetime_utils,
+    resources as resources_utils,
     validations,
 )
 from resources import dal as resources_dal
@@ -80,7 +80,7 @@ async def create_file(
         await validate_file_size(uploaded_file, file_size)
     except InvalidFileSize as ex:
         LOGGER.exception(ex, extra=dict(extra=locals()))
-    files = await project_dal.get_attributes(project_name, ['files'])
+    files = await groups_domain.get_attributes(project_name, ['files'])
     project_files = cast(List[ResourceType], files.get('files', []))
     if project_files:
         contains_repeated = [
@@ -96,14 +96,10 @@ async def create_file(
     if validations.validate_file_name(uploaded_file.filename):
         project_files.extend(json_data)
         success = all(await collect([
-            resources_dal.save_file(uploaded_file, file_id),
+            resources_utils.save_file(uploaded_file, file_id),
             project_dal.update(project_name, {'files': project_files})
         ]))
     return success
-
-
-async def download_file(file_info: str, project_name: str) -> str:
-    return await resources_dal.download_file(file_info, project_name)
 
 
 def format_resource(
@@ -118,61 +114,10 @@ def format_resource(
     return resource_description
 
 
-async def mask(project_name: str) -> NamedTuple:
-    project_name = project_name.lower()
-    project = await project_dal.get_attributes(
-        project_name,
-        ['environments', 'files', 'repositories']
-    )
-    Status: NamedTuple = namedtuple(
-        'Status',
-        ('are_files_removed files_result '
-         'environments_result repositories_result')
-    )
-    list_resources_files = await resources_dal.search_file(f'{project_name}/')
-    are_files_removed = all(await collect(
-        resources_dal.remove_file(file_name)
-        for file_name in list_resources_files
-    ))
-
-    files_result = await project_dal.update(project_name, {
-        'files': [
-            {
-                'fileName': 'Masked',
-                'description': 'Masked',
-                'uploader': 'Masked'
-            }
-            for _ in project.get('files', [])
-        ]
-    })
-    environments_result = await project_dal.update(project_name, {
-        'environments': [
-            {'urlEnv': 'Masked'}
-            for _ in project.get('environments', [])
-        ]
-    })
-    repositories_result = await project_dal.update(project_name, {
-        'repositories': [
-            {'protocol': 'Masked', 'urlRepo': 'Masked'}
-            for _ in project.get('repositories', [])
-        ]
-    })
-    success = cast(
-        NamedTuple,
-        Status(
-            are_files_removed,
-            files_result,
-            environments_result,
-            repositories_result
-        )
-    )
-    return success
-
-
 async def remove_file(file_name: str, project_name: str) -> bool:
     success = False
     project_name = project_name.lower()
-    project = await project_dal.get_attributes(project_name, ['files'])
+    project = await groups_domain.get_attributes(project_name, ['files'])
     file_list = cast(
         List[Dict[str, str]],
         project.get('files', [])
@@ -188,7 +133,7 @@ async def remove_file(file_name: str, project_name: str) -> bool:
     if index >= 0:
         file_url = f'{project_name.lower()}/{file_name}'
         success = all(await collect([
-            resources_dal.remove_file(file_url),
+            resources_utils.remove_file(file_url),
             resources_dal.remove(project_name, 'files', index)
         ]))
     return success

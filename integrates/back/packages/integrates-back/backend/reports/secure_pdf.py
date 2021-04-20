@@ -1,12 +1,15 @@
 # -*- coding: utf-8 -*-
 """ Class to secure a PDF of findings. """
 import os
-from aioextensions import (
-    in_process,
-)
+
+from aioextensions import in_process
 from fpdf import FPDF
-from PyPDF4 import PdfFileWriter, PdfFileReader
-from backend.dal import project as project_dal
+from PyPDF4 import (
+    PdfFileReader,
+    PdfFileWriter,
+)
+
+from groups import dal as groups_dal
 from __init__ import (
     STARTDIR,
 )
@@ -63,7 +66,7 @@ class SecurePDF():
         """ Execute the security process in a PDF. """
         self.secure_pdf_usermail = usermail
         self.secure_pdf_username = usermail.split('@')[0]
-        project_info = await project_dal.get_attributes(
+        project_info = await groups_dal.get_attributes(
             project.lower(), ['historic_configuration']
         )
         if project_info:

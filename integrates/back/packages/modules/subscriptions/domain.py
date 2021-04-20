@@ -24,6 +24,7 @@ from back.settings import (
 from backend import mailer
 from backend.dal import project as group_dal
 from backend.services import has_access_to_project as has_access_to_group
+from groups import domain as groups_domain
 from newutils import (
     datetime as datetime_utils,
     reports,
@@ -222,7 +223,7 @@ async def should_not_send_report(
     user_email: str,
 ) -> bool:
     if report_entity.lower() == 'group':
-        group_data = await group_dal.get_attributes(
+        group_data = await groups_domain.get_attributes(
             report_subject.lower(),
             [
                 'deletion_date',

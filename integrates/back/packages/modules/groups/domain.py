@@ -3,7 +3,10 @@ import logging
 import logging.config
 import re
 import secrets
-from collections import defaultdict
+from collections import (
+    defaultdict,
+    namedtuple,
+)
 from contextlib import AsyncExitStack
 from datetime import date
 from decimal import Decimal
@@ -13,6 +16,7 @@ from typing import (
     cast,
     Dict,
     List,
+    NamedTuple,
     Optional,
     Set,
     Union,
@@ -59,6 +63,7 @@ from names import domain as names_domain
 from newutils import (
     apm,
     datetime as datetime_utils,
+    resources as resources_utils,
     vulnerabilities as vulns_utils,
 )
 from newutils.validations import (
@@ -73,7 +78,6 @@ from newutils.validations import (
 )
 from notifications import domain as notifications_domain
 from organizations import domain as orgs_domain
-from resources import domain as resources_domain
 from users import domain as users_domain
 from __init__ import (
     BASE_URL,
@@ -296,7 +300,7 @@ async def delete_group(
     organization_id: str
 ) -> bool:
     response = False
-    data = await group_dal.get_attributes(
+    data = await groups_dal.get_attributes(
         group_name,
         ['project_status', 'historic_deletion']
     )
@@ -358,8 +362,8 @@ async def edit(
         has_forces,
         has_integrates)
 
-    item = await group_dal.get_attributes(
-        project_name=group_name,
+    item = await groups_dal.get_attributes(
+        group_name=group_name,
         attributes=[
             'historic_configuration',
             'project_name'
@@ -457,7 +461,7 @@ async def get_alive_groups(
     attributes: Optional[List[str]] = None
 ) -> List[GroupType]:
     data_attr = ','.join(attributes or [])
-    groups = await group_dal.get_alive_groups(data_attr)
+    groups = await groups_dal.get_alive_groups(data_attr)
     return groups
 
 
@@ -465,7 +469,7 @@ async def get_attributes(
     group_name: str,
     attributes: List[str]
 ) -> Dict[str, Union[str, List[str]]]:
-    return await group_dal.get_attributes(group_name, attributes)
+    return await groups_dal.get_attributes(group_name, attributes)
 
 
 async def get_closed_vulnerabilities(context: Any, group_name: str) -> int:
@@ -490,7 +494,7 @@ async def get_closed_vulnerabilities(context: Any, group_name: str) -> int:
 
 
 async def get_description(group_name: str) -> str:
-    return await group_dal.get_description(group_name)
+    return await groups_dal.get_description(group_name)
 
 
 @apm.trace()
@@ -523,7 +527,7 @@ async def get_groups_by_user(
 
 
 async def get_groups_with_forces() -> List[str]:
-    return await group_dal.get_groups_with_forces()
+    return await groups_dal.get_groups_with_forces()
 
 
 async def get_many_groups(groups_name: List[str]) -> List[GroupType]:
@@ -531,7 +535,7 @@ async def get_many_groups(groups_name: List[str]) -> List[GroupType]:
         resource = await stack.enter_async_context(start_context())
         table = await resource.Table(group_dal.TABLE_NAME)
         groups = await collect(
-            group_dal.get_group(group_name, table)
+            groups_dal.get_group(group_name, table)
             for group_name in groups_name
         )
     return cast(List[GroupType], groups)
@@ -713,6 +717,69 @@ async def mask(group_name: str) -> bool:
     return are_comments_masked and is_group_finished
 
 
+async def mask_resources(group_name: str) -> NamedTuple:
+    group_name = group_name.lower()
+    group = await get_attributes(
+        group_name,
+        ['environments', 'files', 'repositories']
+    )
+    Status: NamedTuple = namedtuple(
+        'Status',
+        ('are_files_removed files_result '
+         'environments_result repositories_result')
+    )
+    list_resources_files = await resources_utils.search_file(f'{group_name}/')
+    are_files_removed = all(await collect(
+        resources_utils.remove_file(file_name)
+        for file_name in list_resources_files
+    ))
+
+    files_result = await update(
+        group_name,
+        {
+            'files': [
+                {
+                    'fileName': 'Masked',
+                    'description': 'Masked',
+                    'uploader': 'Masked'
+                }
+                for _ in group.get('files', [])
+            ]
+        }
+    )
+    environments_result = await update(
+        group_name,
+        {
+            'environments': [
+                {'urlEnv': 'Masked'}
+                for _ in group.get('environments', [])
+            ]
+        }
+    )
+    repositories_result = await update(
+        group_name,
+        {
+            'repositories': [
+                {
+                    'protocol': 'Masked',
+                    'urlRepo': 'Masked'
+                }
+                for _ in group.get('repositories', [])
+            ]
+        }
+    )
+    success = cast(
+        NamedTuple,
+        Status(
+            are_files_removed,
+            files_result,
+            environments_result,
+            repositories_result
+        )
+    )
+    return success
+
+
 async def remove_all_users(context: Any, group: str) -> bool:
     """Remove user access to project."""
     user_active, user_suspended = await collect([
@@ -755,7 +822,7 @@ async def remove_resources(context: Any, group_name: str) -> bool:
     is_group_masked = await mask(group_name)
     are_resources_masked = all(
         list(
-            cast(List[bool], await resources_domain.mask(group_name))
+            cast(List[bool], await mask_resources(group_name))
         )
     )
     response = all([

@@ -15,8 +15,10 @@ from backend.decorators import (
     require_login
 )
 from backend.typing import DownloadFilePayload as DownloadFilePayloadType
-from newutils import analytics
-from resources import domain as resources_domain
+from newutils import (
+    analytics,
+    resources as resources_utils,
+)
 
 
 LOGGER = logging.getLogger(__name__)
@@ -38,7 +40,7 @@ async def mutate(
     project_name = parameters['project_name'].lower()
     user_info = await util.get_jwt_content(info.context)
     user_email = user_info['user_email']
-    signed_url = await resources_domain.download_file(
+    signed_url = await resources_utils.download_file(
         file_info, project_name
     )
     if signed_url:
