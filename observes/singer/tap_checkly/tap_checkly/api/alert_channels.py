@@ -14,14 +14,15 @@ from returns.curry import partial
 from returns.io import IO
 
 # Local libraries
-import paginator
 from paginator import (
-    AllPages,
     PageId,
     PageOrAll,
 )
 from tap_checkly.api.common import (
     raw,
+)
+from tap_checkly.api.common.extractor import (
+    extract_page,
 )
 from tap_checkly.api.common.raw.client import (
     Client,
@@ -40,27 +41,16 @@ class AlertChsPage(NamedTuple):
         return cls(data)
 
 
-def _list_alerts_channels(
-    client: Client,
-    page: PageOrAll,
-) -> Iterator[AlertChsPage]:
-    if isinstance(page, AllPages):
-        page_getter = paginator.build_getter(
-            AlertChsPage,
-            partial(AlertChsPage.new, client),
-            lambda page: page.data.map(bool) == IO(False),
-        )
-        return paginator.get_until_end(
-            AlertChsPage, PageId(1, 100), page_getter, 10
-        )
-    return iter([AlertChsPage.new(client, page)])
-
-
 class AlertChsApi(NamedTuple):
     list_alerts_channels: Callable[[PageOrAll], Iterator[AlertChsPage]]
 
     @classmethod
     def new(cls, client: Client) -> AlertChsApi:
         return cls(
-            list_alerts_channels=partial(_list_alerts_channels, client)
+            list_alerts_channels=partial(
+                extract_page,
+                AlertChsPage,
+                partial(AlertChsPage.new, client),
+                lambda page: page.data.map(bool) == IO(False),
+            )
         )

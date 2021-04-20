@@ -16,14 +16,15 @@ from returns.curry import partial
 from returns.io import IO
 
 # Local libraries
-import paginator
 from paginator import (
-    AllPages,
     PageId,
     PageOrAll,
 )
 from tap_checkly.api.common import (
     raw,
+)
+from tap_checkly.api.common.extractor import (
+    extract_page,
 )
 from tap_checkly.api.common.raw.client import (
     Client,
@@ -69,20 +70,14 @@ PageType = TypeVar(
 
 def _generic_listing(
     _type: Type[PageType],
-    client: Client,
-    page: PageOrAll,
-) -> Iterator[PageType]:
-    if isinstance(page, AllPages):
-        page_getter = paginator.build_getter(
-            _type,
-            partial(_type.new, client),
-            lambda page: page.data.map(bool) == IO(False),
-        )
-        result: Iterator[PageType] = paginator.get_until_end(
-            _type, PageId(1, 100), page_getter, 10
-        )
-        return result
-    return iter([_type.new(client, page)])
+    client: Client
+) -> Callable[[PageOrAll], Iterator[PageType]]:
+    return partial(
+        extract_page,
+        _type,
+        partial(_type.new, client),
+        lambda page: page.data.map(bool) == IO(False),
+    )
 
 
 class ChecksApi(NamedTuple):
@@ -90,13 +85,10 @@ class ChecksApi(NamedTuple):
     list_check_groups: Callable[[PageOrAll], Iterator[CheckGroupsPage]]
     list_check_status: Callable[[], CheckStatus]
 
-
     @classmethod
     def new(cls, client: Client) -> ChecksApi:
         return cls(
-            list_checks=partial(_generic_listing, ChecksPage, client),
-            list_check_groups=partial(
-                _generic_listing, CheckGroupsPage, client
-            ),
+            list_checks=_generic_listing(ChecksPage, client),
+            list_check_groups=_generic_listing(CheckGroupsPage, client),
             list_check_status=partial(CheckStatus.new, client),
         )
