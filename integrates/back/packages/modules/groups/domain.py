@@ -867,6 +867,9 @@ async def after_complete_register(
 ) -> None:
     group_name: str = str(group_access['project_name'])
     user_email: str = str(group_access['user_email'])
+    enforcer = await authz.get_user_level_enforcer(user_email)
+    if enforcer('self', 'keep_default_organization_access'):
+        return
     organization_id: str = await orgs_domain.get_id_for_group(group_name)
     default_org = await orgs_domain.get_or_create(FI_DEFAULT_ORG)
     default_org_id: str = str(default_org['id'])
