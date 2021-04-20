@@ -27,6 +27,7 @@ from backend import (
 from backend.dal.helpers.redis import redis_set_entity_attr
 from group_access import domain as group_access_domain
 from groups import domain as groups_domain
+from organizations import domain as orgs_domain
 from newutils import (
     analytics,
     datetime as datetime_utils,
@@ -164,7 +165,8 @@ async def create_user(user: Dict[str, str]) -> None:
 
     if not await users_domain.is_registered(email):
         await analytics.mixpanel_track(email, 'Register')
-        await autoenroll_user(email)
+        if not await orgs_domain.get_user_organizations(email):
+            await autoenroll_user(email)
 
         schedule(
             mailer.send_mail_new_user(

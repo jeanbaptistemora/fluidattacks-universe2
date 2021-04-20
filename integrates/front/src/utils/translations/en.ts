@@ -715,7 +715,7 @@ export const enTranslations: ResourceKey = {
       tooltip: "Click if you understand and accept the terms above",
     },
     description:
-      "Integrates, Copyright (c) 2020 Fluid Attacks. This platform contains " +
+      "Integrates, Copyright (c) {{currentYear}} Fluid Attacks. This platform contains " +
       "information property of Fluid Attacks. The client is only allowed " +
       "to use such information for documentation purposes and without disclosing " +
       "its content to third parties because it may contain ideas, concepts, prices " +

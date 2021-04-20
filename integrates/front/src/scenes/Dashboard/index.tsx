@@ -191,6 +191,8 @@ export const Dashboard: React.FC = (): JSX.Element => {
     [acceptLegal]
   );
 
+  const currentYear: number = new Date().getFullYear();
+
   return (
     <React.Fragment>
       <ConfirmDialog title={"Logout"}>
@@ -282,7 +284,7 @@ export const Dashboard: React.FC = (): JSX.Element => {
         open={isCtSessionModalOpen}
       />
       <CompulsoryNotice
-        content={translate.t("legalNotice.description")}
+        content={translate.t("legalNotice.description", { currentYear })}
         onAccept={handleAccept}
         open={isLegalModalOpen}
       />

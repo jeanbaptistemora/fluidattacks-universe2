@@ -6,7 +6,10 @@ import asyncio
 # Third party libraries
 import bugsnag
 import newrelic.agent
-from aioextensions import in_thread
+from aioextensions import (
+    in_thread,
+    schedule
+)
 from bugsnag.asgi import BugsnagMiddleware
 from starlette.applications import Starlette
 from starlette.middleware import Middleware
@@ -115,6 +118,7 @@ async def confirm_access(request: Request) -> HTMLResponse:
                     request,
                     project_access
                 )
+                schedule(groups_domain.after_complete_register(project_access))
             else:
                 response = templates.invalid_invitation(
                     request,

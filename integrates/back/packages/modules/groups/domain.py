@@ -674,6 +674,7 @@ async def invite_to_group(
         )
         description = await get_description(group_name.lower())
         group_url = f'{BASE_URL}/confirm_access/{url_token}'
+        print('***group_url***', group_url)
         mail_to = [email]
         email_context: MailContentType = {
             'admin': email,
@@ -872,3 +873,18 @@ async def validate_group_tags(group_name: str, tags: List[str]) -> List[str]:
         raise RepeatedValues()
     tags_validated = [tag for tag in tags if pattern.match(tag)]
     return tags_validated
+
+
+async def after_complete_register(
+    group_access: GroupAccessType
+) -> None:
+    group_name: str = str(group_access['project_name'])
+    user_email: str = str(group_access['user_email'])
+    organization_id: str = await orgs_domain.get_id_for_group(group_name)
+    default_org = await orgs_domain.get_or_create(FI_DEFAULT_ORG)
+    default_org_id: str = str(default_org['id'])
+    if (
+        organization_id != default_org_id and
+        await orgs_domain.has_user_access(default_org_id, user_email)
+    ):
+        await orgs_domain.remove_user(default_org_id, user_email)
