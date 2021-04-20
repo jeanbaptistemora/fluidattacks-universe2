@@ -121,32 +121,38 @@ const CommentsRefac: React.FC<ICommentsRefacProps> = (
       <CommentEditor onPost={postHandler} />
       <hr />
       <commentContext.Provider value={{ replying, setReplying }}>
-        <div className={"w-25 w-50-m"}>
-          <Small>{translate.t("comments.orderBy.label")}</Small>
-          <Select defaultValue={"newest"} onChange={onOrderChange}>
-            <option value={"newest"}>
-              {translate.t("comments.orderBy.newest")}
-            </option>
-            <option value={"oldest"}>
-              {translate.t("comments.orderBy.oldest")}
-            </option>
-          </Select>
-        </div>
-        {rootComments.length > 0
-          ? orderComments(rootComments, orderBy).map(
-              (comment: ICommentStructure): JSX.Element => (
-                <React.Fragment key={comment.id}>
-                  <NestedComment
-                    backgroundEnabled={false}
-                    comments={comments}
-                    id={comment.id}
-                    onPost={postHandler}
-                    orderBy={orderBy}
-                  />
-                </React.Fragment>
-              )
+        {comments.length > 1 && (
+          <div className={"w-25 w-50-m"}>
+            <Small>{translate.t("comments.orderBy.label")}</Small>
+            <Select defaultValue={"newest"} onChange={onOrderChange}>
+              <option value={"newest"}>
+                {translate.t("comments.orderBy.newest")}
+              </option>
+              <option value={"oldest"}>
+                {translate.t("comments.orderBy.oldest")}
+              </option>
+            </Select>
+          </div>
+        )}
+        {rootComments.length > 0 ? (
+          orderComments(rootComments, orderBy).map(
+            (comment: ICommentStructure): JSX.Element => (
+              <React.Fragment key={comment.id}>
+                <NestedComment
+                  backgroundEnabled={false}
+                  comments={comments}
+                  id={comment.id}
+                  onPost={postHandler}
+                  orderBy={orderBy}
+                />
+              </React.Fragment>
             )
-          : translate.t("comments.noComments")}
+          )
+        ) : (
+          <div className={"w-100 f4 pa3 ba-80 tc"} id={"no-comments"}>
+            {translate.t("comments.noComments")}
+          </div>
+        )}
       </commentContext.Provider>
     </React.StrictMode>
   );
