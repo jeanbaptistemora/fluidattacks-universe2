@@ -1,5 +1,8 @@
 # Standard libraries
 import csv
+import glob
+import re
+import tempfile
 from typing import (
     Any,
     Callable,
@@ -8,12 +11,24 @@ from typing import (
     Tuple,
 )
 
+# Third party libraries
+from aioextensions import (
+    collect,
+    in_process,
+)
+
 # Local libraries
+from backend.api import get_new_context
+from backend.exceptions import (
+    GroupNameNotFound,
+)
 from data_containers.toe_inputs import GitRootToeInput
 from newutils import (
     bugsnag as bugsnag_utils,
     datetime as datetime_utils,
+    git as git_utils,
 )
+from toe.inputs import domain as toe_inputs_domain
 
 
 bugsnag_utils.start_scheduler_session()
@@ -102,3 +117,96 @@ def _get_toe_inputs_to_remove(
         for toe_input in group_toe_inputs
         if toe_input.get_hash() not in cvs_group_toe_input_hashes
     }
+
+
+async def update_toe_inputs_from_csv(
+    loaders: Any,
+    group_name: str,
+    inputs_csv_path: str
+) -> None:
+    group_toe_inputs_loader = loaders.group_toe_inputs
+    group_toe_inputs: Set[GitRootToeInput] = set(
+        await group_toe_inputs_loader.load(group_name)
+    )
+    group_toe_input_hashes = {
+        toe_input.get_hash()
+        for toe_input in group_toe_inputs
+    }
+    cvs_group_toe_inputs = await in_process(
+        _get_group_toe_inputs_from_cvs,
+        inputs_csv_path,
+        group_name
+    )
+    cvs_group_toe_input_hashes = {
+        toe_input.get_hash()
+        for toe_input in cvs_group_toe_inputs
+    }
+    toe_inputs_to_update = await in_process(
+        _get_toe_inputs_to_update,
+        group_toe_inputs,
+        group_toe_input_hashes,
+        cvs_group_toe_inputs
+    )
+    await collect([
+        toe_inputs_domain.update(toe_input)
+        for toe_input in toe_inputs_to_update
+    ])
+    toe_inputs_to_remove = await in_process(
+        _get_toe_inputs_to_remove,
+        group_toe_inputs,
+        cvs_group_toe_input_hashes
+    )
+    await collect([
+        toe_inputs_domain.delete(
+            toe_input.entry_point,
+            toe_input.component,
+            toe_input.group_name
+        )
+        for toe_input in toe_inputs_to_remove
+    ])
+    toe_inputs_to_add = await in_process(
+        _get_toe_inputs_to_add,
+        group_toe_inputs,
+        group_toe_input_hashes,
+        cvs_group_toe_inputs
+    )
+    await collect([
+        toe_inputs_domain.add(toe_input)
+        for toe_input in toe_inputs_to_add
+    ])
+
+
+def _get_group_name(
+    tmpdirname: str,
+    inputs_csv_path: str
+) -> str:
+    group_match = re.match(
+        pattern=fr'{tmpdirname}/groups/(\w+)',
+        string=inputs_csv_path
+    )
+    if not group_match:
+        raise GroupNameNotFound()
+
+    return group_match.groups('1')[0]
+
+
+async def main() -> None:
+    """Update the root toe inputs from services repository"""
+    loaders = get_new_context()
+    with tempfile.TemporaryDirectory() as tmpdirname:
+        git_utils.clone_services_repository(tmpdirname)
+        inputs_csv_glob = f'{tmpdirname}/groups/*/toe/inputs.csv'
+        inputs_cvs_paths = glob.glob(inputs_csv_glob)
+        inputs_csv_group_names = [
+            _get_group_name(tmpdirname, inputs_cvs_path)
+            for inputs_cvs_path in inputs_cvs_paths
+        ]
+        await collect([
+            update_toe_inputs_from_csv(
+                loaders,
+                group_name,
+                inputs_csv_path
+            )
+            for inputs_csv_path, group_name
+            in zip(inputs_cvs_paths, inputs_csv_group_names)
+        ])
