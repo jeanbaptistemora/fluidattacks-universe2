@@ -210,6 +210,7 @@ module.exports = {
         items: [
           'criteria/devices/r205',
           'criteria/devices/r206',
+          'criteria/devices/r209',
         ],
     },
     {
