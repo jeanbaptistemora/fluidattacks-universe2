@@ -22,6 +22,10 @@ from tap_checkly.api.checks import (
     ChecksApi,
     ChecksPage,
 )
+from tap_checkly.api.dashboards import (
+    DashboardsApi,
+    DashboardsPage,
+)
 from tap_checkly.api.common.raw.client import (
     Client,
 )
@@ -31,12 +35,14 @@ ApiPage = Union[
     AlertChsPage,
     CheckGroupsPage,
     ChecksPage,
+    DashboardsPage,
 ]
 
 
 class ApiClient(NamedTuple):
     alerts: AlertChsApi
     checks: ChecksApi
+    dashboards: DashboardsApi
 
     @classmethod
     def new(cls, creds: Credentials) -> ApiClient:
@@ -44,6 +50,7 @@ class ApiClient(NamedTuple):
         return cls(
             alerts=AlertChsApi.new(client),
             checks=ChecksApi.new(client),
+            dashboards=DashboardsApi.new(client),
         )
 
 
