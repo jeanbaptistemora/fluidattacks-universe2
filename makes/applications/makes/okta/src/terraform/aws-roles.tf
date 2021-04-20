@@ -186,3 +186,40 @@ resource "aws_iam_role_policy_attachment" "makes_prod" {
   role       = aws_iam_role.makes_prod.name
   policy_arn = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy/user-provision/serves-prod-policy"
 }
+
+
+# Skims
+
+resource "aws_iam_role" "skims_dev" {
+  name                 = "skims_dev"
+  assume_role_policy   = data.aws_iam_policy_document.okta-assume-role-policy-data.json
+  max_session_duration = "32400"
+
+  tags = {
+    "Name"               = "skims_dev"
+    "management:type"    = "production"
+    "management:product" = "makes"
+  }
+}
+
+resource "aws_iam_role_policy_attachment" "skims_dev" {
+  role       = aws_iam_role.skims_dev.name
+  policy_arn = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy/user-provision/skims_dev"
+}
+
+resource "aws_iam_role" "skims_prod" {
+  name                 = "skims_prod"
+  assume_role_policy   = data.aws_iam_policy_document.okta-assume-role-policy-data.json
+  max_session_duration = "32400"
+
+  tags = {
+    "Name"               = "skims_prod"
+    "management:type"    = "production"
+    "management:product" = "makes"
+  }
+}
+
+resource "aws_iam_role_policy_attachment" "skims_prod" {
+  role       = aws_iam_role.skims_prod.name
+  policy_arn = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy/user-provision/skims_prod"
+}
