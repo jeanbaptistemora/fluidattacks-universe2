@@ -1,18 +1,20 @@
+import type { FieldProps } from "formik";
+import { useField } from "formik";
 import React from "react";
 import PhoneInput from "react-phone-input-2";
-import type { WrappedFieldProps } from "redux-form";
 
 import style from "utils/forms/index.css";
 import "react-phone-input-2/lib/bootstrap.css";
 
-export const PhoneNumber: React.FC<WrappedFieldProps> = (
-  props: Readonly<WrappedFieldProps>
+export const PhoneNumber: React.FC<FieldProps> = (
+  props: FieldProps
 ): JSX.Element => {
-  const { input } = props;
-  const { onChange, value: reduxFormValue } = input;
+  const { field } = props;
+  const { name, value: phoneFormValue } = field;
+  const [, , helpers] = useField(name);
 
   function handlePhoneChange(value: string): void {
-    onChange(`+${value}`);
+    helpers.setValue(`+${value}`);
   }
 
   return (
@@ -21,7 +23,7 @@ export const PhoneNumber: React.FC<WrappedFieldProps> = (
       inputClass={style["form-control"]}
       masks={{ co: "(...) ... ...." }}
       onChange={handlePhoneChange}
-      value={reduxFormValue}
+      value={phoneFormValue}
     />
   );
 };

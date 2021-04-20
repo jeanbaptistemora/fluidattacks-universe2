@@ -22,11 +22,7 @@ import {
   Row,
 } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
-import {
-  FormikDropdown,
-  FormikPhoneNumber,
-  FormikText,
-} from "utils/forms/fields";
+import { FormikDropdown, FormikText, PhoneNumber } from "utils/forms/fields";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
@@ -220,7 +216,7 @@ export const AddUserModal: React.FC<IAddStakeholderModalProps> = (
                     {translate.t("userModal.phoneNumber")}
                   </ControlLabel>
                   <Field
-                    component={FormikPhoneNumber}
+                    component={PhoneNumber}
                     name={"phoneNumber"}
                     type={"text"}
                   />
