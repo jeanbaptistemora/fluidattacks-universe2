@@ -469,7 +469,7 @@ class FindingEnum(Enum):
         remediation_level=0.95,
         report_confidence=1.0,
         severity_scope=0.0,
-        user_interaction=0.85,
+        user_interaction=0.62,
     )
     F043_DAST_RP: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
