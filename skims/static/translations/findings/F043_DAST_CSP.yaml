@@ -7,18 +7,12 @@ lib_http.f043.content_security_policy.missing:
 lib_http.f043.content_security_policy.script-src.jsonp:
   en: "{0} hosts JSONP"
   es: "{0} aloja JSONP"
-lib_http.f043.content_security_policy.script-src.data_uri:
-  en: "Use of wildcard data:"
-  es: "Uso de comodín data:"
-lib_http.f043.content_security_policy.script-src.http_uri:
-  en: "Use of wildcard http:"
-  es: "Uso de comodín http:"
-lib_http.f043.content_security_policy.script-src.https_uri:
-  en: "Use of wildcard https:"
-  es: "Uso de comodín https:"
 lib_http.f043.content_security_policy.script-src.unsafeinline:
   en: script-src has unsafe-inline
   es: script-src contiene unsafe-inline
+lib_http.f043.content_security_policy.script-src.wild_uri:
+  en: "Use of {0} wildcard"
+  es: "Uso de comodín {0}"
 utils.model.finding.enum.F043_DAST_CSP.description:
   en: >
     The server is missing the Content-Security-Policy HTTP header.

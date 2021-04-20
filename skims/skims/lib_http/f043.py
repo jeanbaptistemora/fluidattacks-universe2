@@ -91,14 +91,14 @@ def _content_security_policy_script_src(
         header.directives.get('default-src')
     ):
         for value in values:
-            if value == "data:":
-                descs.append('content_security_policy.script-src.data_uri')
-            if value == 'http:':
-                descs.append('content_security_policy.script-src.http_uri')
-            if value == 'https:':
-                descs.append('content_security_policy.script-src.https_uri')
             if value == "'unsafe-inline'":
                 descs.append('content_security_policy.script-src.unsafeinline')
+
+            for arg in ('data:', 'http:', 'https:'):
+                if arg in value:
+                    descs.append(
+                        f'content_security_policy.script-src.wild_uri#{arg}'
+                    )
 
             for arg in (
                 '*.amazonaws.com',
