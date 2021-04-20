@@ -258,11 +258,6 @@ const LinksSection: React.FC = (): JSX.Element => (
         name={"People"}
       />{" "}
       <br />
-      <BodyLink
-        link={"https://fluidattacks.com/about-us/security/"}
-        name={"Security"}
-      />{" "}
-      <br />
     </LinksContainer>
     <LinksContainer className={"dib-xl"}>
       <HeadLink link={"/blog/"} name={"Blog"} /> <br />
