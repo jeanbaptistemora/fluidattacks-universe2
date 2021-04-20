@@ -29,4 +29,4 @@ LOGGER: logging.Logger = logging.getLogger('Sorts')
 LOGGER_REMOTE_HANDLER = bugsnag.handlers.BugsnagHandler()
 LOGGER_REMOTE: logging.Logger = logging.getLogger('Sorts.stability')
 
-MIXPANEL_API_TOKEN_SORTS = '7a7ceb75ff1eed29f976310933d1cc3e'
+MIXPANEL_API_TOKEN_SORTS = 'e7302b1c55ca87525a134eaef6a51d62'

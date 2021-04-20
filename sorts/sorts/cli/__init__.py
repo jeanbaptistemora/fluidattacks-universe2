@@ -1,7 +1,6 @@
 # Standard libraries
 import sys
 import time
-from typing import Optional
 
 # Third party libraries
 import click
@@ -61,50 +60,39 @@ def execute_sorts(
     get_commit_data: bool,
     get_file_data: bool,
     predict_commit: bool,
-    token: Optional[str]
+    token: str
 ) -> None:
     configure_bugsnag()
     start_time: float = time.time()
     success: bool = False
-    user: str = ''
-    if get_commit_data:
-        if token:
-            create_session(token)
-            user = get_user_email()
+    if token:
+        create_session(token)
+        user_email: str = get_user_email()
+        if get_commit_data:
             success = get_subscription_commit_metadata(subscription)
-        else:
-            log(
-                'error',
-                'Set the Integrates API token either using the option '
-                '--token or the environmental variable '
-                'INTEGRATES_API_TOKEN'
-            )
-    elif get_file_data:
-        if token:
-            create_session(token)
-            user = get_user_email()
+        elif get_file_data:
             success = get_subscription_file_metadata(subscription)
+        elif predict_commit:
+            success = prioritize_commits(subscription)
         else:
-            log(
-                'error',
-                'Set the Integrates API token either using the option '
-                '--token or the environmental variable '
-                'INTEGRATES_API_TOKEN'
-            )
-    elif predict_commit:
-        success = prioritize_commits(subscription)
-    else:
-        success = prioritize_files(subscription)
+            success = prioritize_files(subscription)
 
-    log_to_remote_info(
-        msg=f'Success: {success}',
-        subscription=subscription,
-        time=f'Finished after {time.time() - start_time:.2f} seconds',
-        get_commit_data=get_commit_data,
-        get_file_data=get_file_data,
-        predict_commit=predict_commit,
-        user=user
-    )
+        log_to_remote_info(
+            msg=f'Success: {success}',
+            subscription=subscription,
+            time=f'Finished after {time.time() - start_time:.2f} seconds',
+            get_commit_data=get_commit_data,
+            get_file_data=get_file_data,
+            predict_commit=predict_commit,
+            user=user_email
+        )
+    else:
+        log(
+            'error',
+            'Set the Integrates API token either using the option '
+            '--token or the environmental variable '
+            'INTEGRATES_API_TOKEN'
+        )
 
     sys.exit(0 if success else 1)
 
