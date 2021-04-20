@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Apr 16, 2021, 03:33 PM",
+    "DateLastModified": "Apr 20, 2021, 03:17 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "2.0"
@@ -1234,7 +1234,7 @@
           }
         },
         {
-          "FacetName": "root_metadata",
+          "FacetName": "git_root_metadata",
           "KeyAttributeAlias": {
             "PartitionKeyAlias": "ROOT#uuid",
             "SortKeyAlias": "GROUP#name"
@@ -1268,7 +1268,7 @@
           }
         },
         {
-          "FacetName": "root_state",
+          "FacetName": "git_root_state",
           "KeyAttributeAlias": {
             "PartitionKeyAlias": "ROOT#uuid#STATE",
             "SortKeyAlias": "GROUP#name"
@@ -1319,25 +1319,20 @@
             "status",
             "reason",
             "modified_date",
+            "repo",
             "environment",
             "environment_urls",
             "gitignore",
             "includes_health_check",
             "modified_by",
-            "nickname",
-            "address",
-            "port",
-            "host",
-            "path",
-            "protocol",
-            "repo"
+            "nickname"
           ],
           "DataAccess": {
             "MySql": {}
           }
         },
         {
-          "FacetName": "root_historic_state",
+          "FacetName": "git_root_historic_state",
           "KeyAttributeAlias": {
             "PartitionKeyAlias": "ROOT#uuid",
             "SortKeyAlias": "STATE#iso8601utc"
@@ -1394,19 +1389,14 @@
             "gitignore",
             "includes_health_check",
             "modified_by",
-            "nickname",
-            "address",
-            "port",
-            "host",
-            "path",
-            "protocol"
+            "nickname"
           ],
           "DataAccess": {
             "MySql": {}
           }
         },
         {
-          "FacetName": "root_cloning",
+          "FacetName": "git_root_cloning",
           "KeyAttributeAlias": {
             "PartitionKeyAlias": "ROOT#uuid#CLON",
             "SortKeyAlias": "GROUP#name"
@@ -1440,7 +1430,7 @@
           }
         },
         {
-          "FacetName": "root_historic_cloning",
+          "FacetName": "git_root_historic_cloning",
           "KeyAttributeAlias": {
             "PartitionKeyAlias": "ROOT#uuid",
             "SortKeyAlias": "CLON#iso8601utc"
@@ -1468,6 +1458,118 @@
             "status",
             "reason",
             "modified_date"
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
+        },
+        {
+          "FacetName": "ip_root_metadata",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "ROOT#uuid",
+            "SortKeyAlias": "GROUP#name"
+          },
+          "TableData": [],
+          "NonKeyAttributes": [
+            "type"
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
+        },
+        {
+          "FacetName": "ip_root_state",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "ROOT#uuid#STATE",
+            "SortKeyAlias": "GROUP#name"
+          },
+          "TableData": [],
+          "NonKeyAttributes": [
+            "modified_by",
+            "modified_date",
+            "repo",
+            "reason",
+            "status",
+            "address",
+            "port"
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
+        },
+        {
+          "FacetName": "ip_root_historic_state",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "ROOT#uuid",
+            "SortKeyAlias": "STATE#iso8601utc"
+          },
+          "TableData": [],
+          "NonKeyAttributes": [
+            "modified_by",
+            "modified_date",
+            "repo",
+            "reason",
+            "status",
+            "address",
+            "port"
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
+        },
+        {
+          "FacetName": "url_root_metadata",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "ROOT#uuid",
+            "SortKeyAlias": "GROUP#name"
+          },
+          "TableData": [],
+          "NonKeyAttributes": [
+            "type"
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
+        },
+        {
+          "FacetName": "url_root_state",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "ROOT#uuid#STATE",
+            "SortKeyAlias": "GROUP#name"
+          },
+          "TableData": [],
+          "NonKeyAttributes": [
+            "modified_by",
+            "modified_date",
+            "repo",
+            "reason",
+            "status",
+            "host",
+            "path",
+            "port",
+            "protocol"
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
+        },
+        {
+          "FacetName": "url_root_historic_state",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "ROOT#uuid",
+            "SortKeyAlias": "STATE#iso8601utc"
+          },
+          "TableData": [],
+          "NonKeyAttributes": [
+            "modified_by",
+            "modified_date",
+            "repo",
+            "reason",
+            "status",
+            "host",
+            "path",
+            "port",
+            "protocol"
           ],
           "DataAccess": {
             "MySql": {}
