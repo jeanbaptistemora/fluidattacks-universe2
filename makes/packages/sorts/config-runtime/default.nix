@@ -17,6 +17,7 @@ let
         "GitPython==3.1.9"
         "gql==3.0.0a2"
         "joblib==0.16.0"
+        "mixpanel==4.5.0"
         "more-itertools==8.5.0"
         "mypy-extensions==0.4.3"
         "numpy==1.19.2"
