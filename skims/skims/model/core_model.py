@@ -104,10 +104,10 @@ class FindingEnum(Enum):
         severity={
             'attackComplexity': 0.77,
             'attackVector': 0.85,
-            'availabilityImpact': 0.56,
-            'confidentialityImpact': 0.56,
+            'availabilityImpact': 0.22,
+            'confidentialityImpact': 0.22,
             'exploitability': 0.94,
-            'integrityImpact': 0.56,
+            'integrityImpact': 0.22,
             'privilegesRequired': 0.62,
             'remediationLevel': 1.0,
             'reportConfidence': 0.96,

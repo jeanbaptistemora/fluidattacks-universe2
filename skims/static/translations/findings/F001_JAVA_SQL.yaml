@@ -1,8 +1,8 @@
 src.lib_path.F001_JAVA_SQL.user_controled_param:
-  en: >
+  en: Use of attacker controlled parameters for querying the data base
+  es: >
     Uso de parametros controlados por el atacante para realizar consultas a
     la base de datos
-  es: Use of attacker controlled parameters for querying the data base
 utils.model.finding.enum.F001_JAVA_SQL.description:
   en: >
     Dynamic SQL statements are generated without the required data validation
@@ -12,13 +12,13 @@ utils.model.finding.enum.F001_JAVA_SQL.description:
     y sin utilizar sentencias parametrizadas o procedimientos almacenados.
 utils.model.finding.enum.F001_JAVA_SQL.impact:
   en: >
-    An authorized user in the application can inject SQL statements, with
-    the possibility of obtaining information about the database, as well as
-    extract information from it.
+    Inject SQL statements,
+    with the possibility of obtaining information about the database,
+    as well as extract information from it.
   es: >
-    Inyectar sentencias SQL, con la posibilidad de obtener información sobre la
-    base de datos, así como extraer información de la
-    misma.
+    Inyectar sentencias SQL,
+    con la posibilidad de obtener información sobre la base de datos,
+    así como extraer información de la misma.
 utils.model.finding.enum.F001_JAVA_SQL.recommendation:
   en: >
     Perform queries to the database through sentences or parameterized procedures.
