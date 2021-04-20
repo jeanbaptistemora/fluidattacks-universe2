@@ -52,4 +52,4 @@ It is designed for CI and has the goal of verifying the status
 (open or closed) of vulnerabilities, as well as breaking the build
 to force the remediation of open vulnerabilities.
 [role="tc mt3 mb-products f5"]
-[button]#link:./forces/[View Product, role="button-white"]#
+[button]#link:./devsecops/[View Product, role="button-white"]#
