@@ -29,6 +29,7 @@ _stream_executor: Mapping[
     SupportedStreams.CHECKS: streams.all_checks,
     SupportedStreams.CHECK_GROUPS: streams.all_chk_groups,
     SupportedStreams.CHECK_STATUS: streams.all_chk_status,
+    SupportedStreams.DASHBOARD: streams.all_dashboards,
 }
 
 

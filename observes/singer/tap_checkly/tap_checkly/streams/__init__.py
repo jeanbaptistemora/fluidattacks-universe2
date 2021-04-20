@@ -65,6 +65,13 @@ def all_chk_status(api: ApiClient) -> None:
     )
 
 
+def all_dashboards(api: ApiClient) -> None:
+    _stream_data(
+        SupportedStreams.DASHBOARD,
+        api.dashboards.list_dashboards(ALL),
+    )
+
+
 __all__ = [
     'SupportedStreams',
 ]
