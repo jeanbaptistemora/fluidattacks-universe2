@@ -163,6 +163,8 @@ F031. Excessive privileges - AWS,namespace/skims/test/data/lib_path/f031_aws/hcl
 F031. Excessive privileges - AWS,namespace/skims/test/data/lib_path/f031_aws/hcl2_permissive_policy.tf,73,250
 F031. Excessive privileges - Temporary files,namespace/skims/test/data/lib_path/f031_cwe378/Test.java,6,378
 F034. Insecure random number generation,namespace/skims/test/data/lib_path/f034/Test.java,11,330
+F037. Technical information leak,namespace/skims/test/data/lib_path/f037/Test.java,16,200 + 209
+F037. Technical information leak,namespace/skims/test/data/lib_path/f037/Test.java,35,200 + 209
 F037. Technical information leak,namespace/skims/test/data/lib_path/f037/javascript.js,20,200 + 209
 F037. Technical information leak,namespace/skims/test/data/lib_path/f037/javascript.js,28,200 + 209
 F037. Technical information leak,namespace/skims/test/data/lib_path/f037/javascript.js,36,200 + 209

@@ -20,6 +20,7 @@ from aioextensions import (
 
 # Local library
 from lib_path.common import (
+    EXTENSIONS_JAVA,
     get_vulnerabilities_from_iterator_blocking,
     EXTENSIONS_JAVASCRIPT,
     SHIELD,
@@ -261,5 +262,9 @@ async def analyze(
             content=await content_generator(),
             path=path,
         ))
-
+    elif file_extension in EXTENSIONS_JAVA:
+        coroutines.append(java_logging_exceptions(
+            content=await content_generator(),
+            path=path,
+        ))
     return coroutines
