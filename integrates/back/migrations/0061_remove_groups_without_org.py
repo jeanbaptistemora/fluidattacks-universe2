@@ -15,9 +15,9 @@ from aioextensions import (
 from boto3.dynamodb.conditions import Key
 
 # Local libraries
-from backend.dal importproject as group_dal
+from backend.dal import project as group_dal
 from backend.dal.helpers import dynamodb
-from backend.domain import project as group_domain
+from groups import domain as groups_domain
 from organizations import (
     dal as orgs_dal,
     domain as orgs_domain,
@@ -32,7 +32,7 @@ async def remove_group(
     group_name: str
 ) -> bool:
     email = 'integrates@fluidattacks.com'
-    success = cast(bool, await group_domain.delete_project(group_name, email))
+    success = cast(bool, await groups_domain.delete_group(group_name, email))
     print(f'{group_name} was removed')
 
     return success

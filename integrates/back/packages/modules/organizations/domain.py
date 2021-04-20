@@ -4,7 +4,6 @@ import logging.config
 import sys
 from decimal import Decimal
 from typing import (
-    Any,
     AsyncIterator,
     cast,
     Dict,
@@ -21,7 +20,6 @@ from graphql import GraphQLError
 # Local libraries
 from back.settings import LOGGING
 from backend import authz
-from backend.domain import project as group_domain
 from backend.exceptions import (
     InvalidAcceptanceDays,
     InvalidAcceptanceSeverity,
@@ -191,32 +189,9 @@ async def create_organization(name: str, email: str) -> OrganizationType:
     return new_organization
 
 
-async def delete_organization(
-    context: Any,
-    organization_id: str,
-    email: str
-) -> bool:
-    users = await get_users(organization_id)
-    users_removed = await collect(
-        remove_user(organization_id, user)
-        for user in users
-    )
-    success = all(users_removed) if users else True
-
-    org_groups = await get_groups(organization_id)
-    groups_removed = all(
-        await collect(
-            remove_group(context, organization_id, group, email)
-            for group in org_groups
-        )
-    )
-    success = success and groups_removed
-
+async def delete_organization(organization_id: str) -> bool:
     organization_name = await get_name_by_id(organization_id)
-    success = (
-        success and
-        await orgs_dal.delete(organization_id, organization_name)
-    )
+    success = await orgs_dal.delete(organization_id, organization_name)
     return success
 
 
@@ -418,19 +393,8 @@ async def iterate_organizations_and_groups() -> AsyncIterator[
         yield org_id, org_name, await get_groups(org_id)
 
 
-async def remove_group(
-    context: Any,
-    organization_id: str,
-    group_name: str,
-    email: str
-) -> bool:
-    success = all(
-        [
-            await group_domain.delete_project(context, group_name, email),
-            await orgs_dal.remove_group(organization_id, group_name)
-        ]
-    )
-    return success
+async def remove_group(group_name: str, organization_id: str) -> bool:
+    return await orgs_dal.remove_group(organization_id, group_name)
 
 
 async def remove_user(organization_id: str, email: str) -> bool:

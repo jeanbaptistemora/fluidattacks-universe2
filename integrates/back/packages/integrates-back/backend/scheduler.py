@@ -1027,7 +1027,7 @@ async def delete_obsolete_orgs() -> None:
                     org_pending_deletion_date_str
                 )
                 if org_pending_deletion_date.date() <= today:
-                    await orgs_domain.delete_organization(
+                    await delete_organization(
                         get_new_context(),
                         org_id,
                         email
@@ -1056,6 +1056,33 @@ async def delete_obsolete_orgs() -> None:
                 org_name,
                 None
             )
+
+
+async def delete_organization(
+    context: Any,
+    organization_id: str,
+    email: str
+) -> bool:
+    users = await orgs_domain.get_users(organization_id)
+    users_removed = await collect(
+        orgs_domain.remove_user(organization_id, user)
+        for user in users
+    )
+    success = all(users_removed) if users else True
+
+    org_groups = await orgs_domain.get_groups(organization_id)
+    groups_removed = all(
+        await collect(
+            groups_domain.delete_group(context, group, email, organization_id)
+            for group in org_groups
+        )
+    )
+    success = (
+        success and
+        groups_removed and
+        await orgs_domain.delete_organization(organization_id)
+    )
+    return success
 
 
 async def delete_imamura_stakeholders() -> None:
@@ -1184,11 +1211,11 @@ async def _delete_groups(
         for group_to_delete in groups_to_delete
     ])
     success = all(await collect([
-        orgs_domain.remove_group(
+        groups_domain.delete_group(
             loaders,
-            org_id,
             group['project_name'],
-            email
+            email,
+            org_id
         )
         for group, org_id in zip(groups_to_delete, groups_to_delete_org_ids)
     ]))

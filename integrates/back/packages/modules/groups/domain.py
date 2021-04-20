@@ -37,6 +37,7 @@ from backend.dal import project as group_dal
 from backend.dal.helpers.dynamodb import start_context
 from backend.dal.helpers.redis import redis_del_by_deps_soon
 from backend.exceptions import (
+    AlreadyPendingDeletion,
     InvalidCommentParent,
     InvalidParameter,
     InvalidProjectName,
@@ -317,6 +318,52 @@ async def create_without_group(
     return success
 
 
+async def delete_group(
+    context: Any,
+    group_name: str,
+    user_email: str,
+    organization_id: str
+) -> bool:
+    response = False
+    data = await group_dal.get_attributes(
+        group_name,
+        ['project_status', 'historic_deletion']
+    )
+    historic_deletion = cast(
+        List[Dict[str, str]],
+        data.get('historic_deletion', [])
+    )
+    if data.get('project_status') != 'DELETED':
+        all_resources_removed = await remove_resources(context, group_name)
+        today = datetime_utils.get_now()
+        new_state = {
+            'date': datetime_utils.get_as_str(today),
+            'deletion_date': datetime_utils.get_as_str(today),
+            'user': user_email.lower(),
+        }
+        historic_deletion.append(new_state)
+        new_data: GroupType = {
+            'historic_deletion': historic_deletion,
+            'project_status': 'DELETED'
+        }
+        response = all([
+            all_resources_removed,
+            await group_dal.update(group_name, new_data)
+        ])
+    else:
+        raise AlreadyPendingDeletion()
+    if response:
+        response = all([
+            await collect((
+                authz.revoke_cached_group_service_attributes_policies(
+                    group_name
+                ),
+                orgs_domain.remove_group(group_name, organization_id)
+            ))
+        ])
+    return response
+
+
 async def edit(
     *,
     context: Any,
@@ -375,12 +422,7 @@ async def edit(
         org_id = group['organization']
         success = (
             success and
-            await orgs_domain.remove_group(
-                context,
-                organization_id=org_id,
-                group_name=group_name,
-                email=requester_email,
-            )
+            await delete_group(context, group_name, requester_email, org_id)
         )
 
     if success and has_integrates:
