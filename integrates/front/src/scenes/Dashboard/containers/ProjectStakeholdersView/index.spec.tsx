@@ -37,6 +37,13 @@ jest.mock(
   }
 );
 
+/*
+ * Important Notice: When going from redux-form to Formik, some of the changes to keep
+ * in mind is that to simulate a change event you now must provide the name of the field
+ * along with the value to let Formik know which field should be changed. As seen in
+ * https://github.com/formium/formik/issues/481#issuecomment-374970940
+ */
+
 describe("Project users view", (): void => {
   const mocks: readonly MockedResponse[] = [
     {
@@ -268,13 +275,16 @@ describe("Project users view", (): void => {
 
     expect(addUserModal).toHaveLength(0);
 
-    const addButton: ReactWrapper = wrapper
-      .find("button")
-      .findWhere((element: ReactWrapper): boolean => element.contains("Add"))
-      .at(0);
-    addButton.simulate("click");
     await act(
       async (): Promise<void> => {
+        const addButton: ReactWrapper = wrapper
+          .find("button")
+          .findWhere((element: ReactWrapper): boolean =>
+            element.contains("Add")
+          )
+          .at(0);
+        addButton.simulate("click");
+
         await wait(0);
         wrapper.update();
       }
@@ -416,18 +426,22 @@ describe("Project users view", (): void => {
       .find({ name: "email", type: "text" })
       .at(0)
       .find("input");
-    emailInput.simulate("change", { target: { value: "unittest@test.com" } });
+    emailInput.simulate("change", {
+      target: { name: "email", value: "unittest@test.com" },
+    });
     const phoneNumberInput: ReactWrapper = addUserModal
       .find({ name: "phoneNumber", type: "text" })
       .at(0)
       .find("input");
-    phoneNumberInput.simulate("change", { target: { value: "+573123210123" } });
+    phoneNumberInput.simulate("change", {
+      target: { name: "phoneNumber", value: "+573123210123" },
+    });
     const responsibilityInput: ReactWrapper = addUserModal
       .find({ name: "responsibility", type: "text" })
       .at(0)
       .find("input");
     responsibilityInput.simulate("change", {
-      target: { value: "Project Manager" },
+      target: { name: "responsibility", value: "Project Manager" },
     });
     const select: ReactWrapper = addUserModal
       .find("select")
@@ -435,20 +449,25 @@ describe("Project users view", (): void => {
         element.contains("Analyst")
       )
       .at(0);
-    select.simulate("change", { target: { value: "ANALYST" } });
-    const form: ReactWrapper = addUserModal.find("genericForm").at(0);
-    form.simulate("submit");
+    select.simulate("change", { target: { name: "role", value: "ANALYST" } });
+    const form: ReactWrapper = addUserModal.find("Formik").at(0);
     await act(
       async (): Promise<void> => {
+        form.simulate("submit");
+
         await wait(0);
         wrapper.update();
       }
     );
+
     const addUserModal2: ReactWrapper = wrapper
       .find("ModalBase")
       .find({ headerTitle: "Add stakeholder to this group", open: true });
 
     expect(addUserModal2).toHaveLength(0);
+
+    await wait(0);
+
     expect(msgSuccess).toHaveBeenCalled(); // eslint-disable-line jest/prefer-called-with
 
     jest.clearAllMocks();
@@ -513,13 +532,16 @@ describe("Project users view", (): void => {
       .find("button")
       .findWhere((element: ReactWrapper): boolean => element.contains("Remove"))
       .at(0);
-    removeButton.simulate("click");
     await act(
       async (): Promise<void> => {
+        removeButton.simulate("click");
+
         await wait(0);
         wrapper.update();
       }
     );
+
+    await wait(0);
 
     expect(msgSuccess).toHaveBeenCalled(); // eslint-disable-line jest/prefer-called-with
 
@@ -602,13 +624,15 @@ describe("Project users view", (): void => {
       .find({ name: "phoneNumber", type: "text" })
       .at(0)
       .find("input");
-    phoneNumberInput.simulate("change", { target: { value: "+573123210123" } });
+    phoneNumberInput.simulate("change", {
+      target: { name: "phoneNumber", value: "+573123210123" },
+    });
     const responsibilityInput: ReactWrapper = editUserModal
       .find({ name: "responsibility", type: "text" })
       .at(0)
       .find("input");
     responsibilityInput.simulate("change", {
-      target: { value: "Project Manager" },
+      target: { name: "responsibility", value: "Project Manager" },
     });
     const select: ReactWrapper = editUserModal
       .find("select")
@@ -616,11 +640,12 @@ describe("Project users view", (): void => {
         element.contains("Analyst")
       )
       .at(0);
-    select.simulate("change", { target: { value: "ANALYST" } });
-    const form: ReactWrapper = editUserModal.find("genericForm").at(0);
-    form.simulate("submit");
+    select.simulate("change", { target: { name: "role", value: "ANALYST" } });
+    const form: ReactWrapper = editUserModal.find("Formik").at(0);
     await act(
       async (): Promise<void> => {
+        form.simulate("submit");
+
         await wait(0);
         wrapper.update();
       }
@@ -630,12 +655,15 @@ describe("Project users view", (): void => {
       .find({ headerTitle: "Edit stakeholder information", open: true });
 
     expect(editUserModal2).toHaveLength(0);
+
+    await wait(0);
+
     expect(msgSuccess).toHaveBeenCalled(); // eslint-disable-line jest/prefer-called-with
 
     jest.clearAllMocks();
   });
 
-  it("should handle errors when add stakeholder to the project", async (): Promise<void> => {
+  it("should handle errors when adding a stakeholder to the project", async (): Promise<void> => {
     expect.hasAssertions();
 
     const mocksMutation: readonly MockedResponse[] = [
@@ -712,18 +740,22 @@ describe("Project users view", (): void => {
       .find({ name: "email", type: "text" })
       .at(0)
       .find("input");
-    emailInput.simulate("change", { target: { value: "unittest@test.com" } });
+    emailInput.simulate("change", {
+      target: { name: "email", value: "unittest@test.com" },
+    });
     const phoneNumberInput: ReactWrapper = addUserModal
       .find({ name: "phoneNumber", type: "text" })
       .at(0)
       .find("input");
-    phoneNumberInput.simulate("change", { target: { value: "+573123210123" } });
+    phoneNumberInput.simulate("change", {
+      target: { name: "phoneNumber", value: "+573123210123" },
+    });
     const responsibilityInput: ReactWrapper = addUserModal
       .find({ name: "responsibility", type: "text" })
       .at(0)
       .find("input");
     responsibilityInput.simulate("change", {
-      target: { value: "Project Manager" },
+      target: { name: "responsibility", value: "Project Manager" },
     });
     const select: ReactWrapper = addUserModal
       .find("select")
@@ -731,11 +763,12 @@ describe("Project users view", (): void => {
         element.contains("Analyst")
       )
       .at(0);
-    select.simulate("change", { target: { value: "ANALYST" } });
-    const form: ReactWrapper = addUserModal.find("genericForm").at(0);
-    form.simulate("submit");
+    select.simulate("change", { target: { name: "role", value: "ANALYST" } });
+    const form: ReactWrapper = addUserModal.find("Formik").at(0);
     await act(
       async (): Promise<void> => {
+        form.simulate("submit");
+
         await wait(0);
         wrapper.update();
       }
@@ -747,12 +780,15 @@ describe("Project users view", (): void => {
     const TEST_TIMES_CALLED = 8;
 
     expect(addUserModal2).toHaveLength(0);
+
+    await wait(0);
+
     expect(msgError).toHaveBeenCalledTimes(TEST_TIMES_CALLED);
 
     jest.clearAllMocks();
   });
 
-  it("should handle error when remove stakeholder from the project", async (): Promise<void> => {
+  it("should handle error when removing a stakeholder from the project", async (): Promise<void> => {
     expect.hasAssertions();
 
     const mocksMutation: readonly MockedResponse[] = [
@@ -804,20 +840,22 @@ describe("Project users view", (): void => {
       .find("button")
       .findWhere((element: ReactWrapper): boolean => element.contains("Remove"))
       .at(0);
-    removeButton.simulate("click");
     await act(
       async (): Promise<void> => {
+        removeButton.simulate("click");
+
         await wait(0);
         wrapper.update();
       }
     );
+    await wait(0);
 
     expect(msgError).toHaveBeenCalled(); // eslint-disable-line jest/prefer-called-with
 
     jest.clearAllMocks();
   });
 
-  it("should handle error when edit stakeholder from the project", async (): Promise<void> => {
+  it("should handle error when editing a stakeholder from the project", async (): Promise<void> => {
     expect.hasAssertions();
 
     const mocksMutation: readonly MockedResponse[] = [
@@ -900,13 +938,15 @@ describe("Project users view", (): void => {
       .find({ name: "phoneNumber", type: "text" })
       .at(0)
       .find("input");
-    phoneNumberInput.simulate("change", { target: { value: "+573123210123" } });
+    phoneNumberInput.simulate("change", {
+      target: { name: "phoneNumber", value: "+573123210123" },
+    });
     const responsibilityInput: ReactWrapper = editUserModal
       .find({ name: "responsibility", type: "text" })
       .at(0)
       .find("input");
     responsibilityInput.simulate("change", {
-      target: { value: "Project Manager" },
+      target: { name: "responsibility", value: "Project Manager" },
     });
     const select: ReactWrapper = editUserModal
       .find("select")
@@ -914,11 +954,12 @@ describe("Project users view", (): void => {
         element.contains("Analyst")
       )
       .at(0);
-    select.simulate("change", { target: { value: "ANALYST" } });
-    const form: ReactWrapper = editUserModal.find("genericForm").at(0);
-    form.simulate("submit");
+    select.simulate("change", { target: { name: "role", value: "ANALYST" } });
+    const form: ReactWrapper = editUserModal.find("Formik").at(0);
     await act(
       async (): Promise<void> => {
+        form.simulate("submit");
+
         await wait(0);
         wrapper.update();
       }
@@ -931,6 +972,9 @@ describe("Project users view", (): void => {
     const TEST_TIMES_CALLED = 6;
 
     expect(editUserModal2).toHaveLength(0);
+
+    await wait(0);
+
     expect(msgError).toHaveBeenCalledTimes(TEST_TIMES_CALLED);
 
     jest.clearAllMocks();

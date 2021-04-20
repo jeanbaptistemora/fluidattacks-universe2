@@ -21,14 +21,34 @@ interface ITextProps extends FieldProps {
   min: number | string;
   placeholder: string;
   type: string;
+  // We need this type to pass customBlur functions here
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  customBlur: Function | undefined;
 }
 
 export const FormikText: React.FC<ITextProps> = (
   props: ITextProps
 ): JSX.Element => {
-  const { disabled, id, field, max, min, placeholder, type } = props;
+  const {
+    customBlur,
+    disabled,
+    id,
+    field,
+    max,
+    min,
+    placeholder,
+    type,
+  } = props;
   const { name, value, onBlur, onChange } = field;
   const [, meta] = useField(name);
+
+  function handleBlur(event: unknown): void {
+    onBlur(event);
+
+    if (_.isFunction(customBlur)) {
+      customBlur(event);
+    }
+  }
 
   return (
     <React.Fragment>
@@ -39,7 +59,7 @@ export const FormikText: React.FC<ITextProps> = (
         max={max}
         min={min}
         name={name}
-        onBlur={onBlur}
+        onBlur={handleBlur}
         onChange={onChange}
         placeholder={placeholder}
         type={type}

@@ -1,10 +1,10 @@
 import { useLazyQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
+import { Field, Form, Formik } from "formik";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import React from "react";
-import { Field } from "redux-form";
-import type { ConfigurableValidator } from "revalidate";
+import { object, string } from "yup";
 
 import { Button } from "components/Button/index";
 import { Modal } from "components/Modal";
@@ -13,7 +13,6 @@ import type {
   IAddStakeholderModalProps,
   IStakeholderAttrs,
 } from "scenes/Dashboard/components/AddUserModal/types";
-import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import {
   ButtonToolbar,
   Col100,
@@ -23,16 +22,15 @@ import {
   Row,
 } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
-import { Dropdown, PhoneNumber, Text } from "utils/forms/fields";
+import {
+  FormikDropdown,
+  FormikPhoneNumber,
+  FormikText,
+} from "utils/forms/fields";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
-import {
-  maxLength,
-  required,
-  validEmail,
-  validTextField,
-} from "utils/validations";
+import { validTextField } from "utils/validations";
 
 const userLevelRoles: string[] = ["admin", "customer", "analyst"];
 const groupLevelRoles: string[] = [
@@ -51,9 +49,6 @@ const organizationLevelRoles: string[] = [
   "group_manager",
 ];
 const MAX_RESPONSIBILITY_LENGTH: number = 50;
-const maxResponsibilityLength: ConfigurableValidator = maxLength(
-  MAX_RESPONSIBILITY_LENGTH
-);
 
 export const AddUserModal: React.FC<IAddStakeholderModalProps> = (
   props: IAddStakeholderModalProps
@@ -117,112 +112,136 @@ export const AddUserModal: React.FC<IAddStakeholderModalProps> = (
     }
   }
 
+  const addUserModalSchema = object().shape({
+    email: string()
+      .email(translate.t("validations.email"))
+      .required(translate.t("validations.required")),
+    phoneNumber: string(),
+    responsibility: string()
+      .when("$projectName", {
+        is: projectName,
+        otherwise: string().required(translate.t("validations.required")),
+        then: string(),
+      })
+      .max(MAX_RESPONSIBILITY_LENGTH),
+    /*
+     * The forbidden characters (e.g. =,'',"") check
+     * will still be performed by the old custom
+     * method via field-level validation
+     */
+    role: string().required(translate.t("validations.required")),
+  });
+
   return (
     <React.StrictMode>
       <Modal headerTitle={newTitle} open={open}>
-        <GenericForm
+        <Formik
+          context={{ projectName }}
+          enableReinitialize={true}
           initialValues={{ ...newInitialValues, ...userData }}
           name={"addUser"}
           onSubmit={onSubmit}
+          validationSchema={addUserModalSchema}
         >
-          <Row>
-            <Col100>
-              <FormGroup>
-                <ControlLabel>
-                  <RequiredField>{"* "}</RequiredField>
-                  {translate.t("userModal.emailText")}
-                </ControlLabel>
-                <Field
-                  component={Text}
-                  disabled={action === "edit"}
-                  name={"email"}
-                  onBlur={loadAutofillData}
-                  placeholder={translate.t("userModal.emailPlaceholder")}
-                  type={"text"}
-                  validate={[required, validEmail]}
-                />
-              </FormGroup>
-              <FormGroup>
-                <ControlLabel>
-                  <RequiredField>{"* "}</RequiredField>
-                  {translate.t("userModal.role")}
-                </ControlLabel>
-                <Field component={Dropdown} name={"role"} validate={[required]}>
-                  <option value={""} />
-                  {(groupModal ? groupLevelRoles : []).map(
-                    (role: string): JSX.Element => (
-                      <Can do={`grant_group_level_role:${role}`} key={role}>
-                        <option value={role.toUpperCase()}>
-                          {translate.t(`userModal.roles.${_.camelCase(role)}`)}
-                        </option>
-                      </Can>
-                    )
-                  )}
-                  {(sidebarModal ? userLevelRoles : []).map(
-                    (role: string): JSX.Element => (
-                      <Can do={`grant_user_level_role:${role}`} key={role}>
-                        <option value={role.toUpperCase()}>
-                          {translate.t(`userModal.roles.${_.camelCase(role)}`)}
-                        </option>
-                      </Can>
-                    )
-                  )}
-                  {(organizationModal ? organizationLevelRoles : []).map(
-                    (role: string): JSX.Element => (
-                      <option key={role} value={role.toUpperCase()}>
-                        {translate.t(`userModal.roles.${_.camelCase(role)}`)}
-                      </option>
-                    )
-                  )}
-                </Field>
-              </FormGroup>
-              {projectName === undefined ? undefined : (
+          <Form>
+            <Row>
+              <Col100>
                 <FormGroup>
                   <ControlLabel>
                     <RequiredField>{"* "}</RequiredField>
-                    {translate.t("userModal.responsibility")}
+                    {translate.t("userModal.emailText")}
                   </ControlLabel>
                   <Field
-                    component={Text}
-                    name={"responsibility"}
-                    placeholder={translate.t(
-                      "userModal.responsibilityPlaceholder"
-                    )}
+                    component={FormikText}
+                    customBlur={loadAutofillData}
+                    disabled={action === "edit"}
+                    name={"email"}
+                    placeholder={translate.t("userModal.emailPlaceholder")}
                     type={"text"}
-                    validate={[
-                      maxResponsibilityLength,
-                      required,
-                      validTextField,
-                    ]}
                   />
                 </FormGroup>
-              )}
-              <FormGroup>
-                <ControlLabel>
-                  {translate.t("userModal.phoneNumber")}
-                </ControlLabel>
-                <Field
-                  component={PhoneNumber}
-                  name={"phoneNumber"}
-                  type={"text"}
-                />
-              </FormGroup>
-            </Col100>
-          </Row>
-          <hr />
-          <Row>
-            <Col100>
-              <ButtonToolbar>
-                <Button onClick={onClose}>
-                  {translate.t("confirmmodal.cancel")}
-                </Button>
-                <Button type={"submit"}>
-                  {translate.t("confirmmodal.proceed")}
-                </Button>
-              </ButtonToolbar>
-            </Col100>
-          </Row>
-        </GenericForm>
+                <FormGroup>
+                  <ControlLabel>
+                    <RequiredField>{"* "}</RequiredField>
+                    {translate.t("userModal.role")}
+                  </ControlLabel>
+                  <Field component={FormikDropdown} name={"role"}>
+                    <option value={""} />
+                    {(groupModal ? groupLevelRoles : []).map(
+                      (role: string): JSX.Element => (
+                        <Can do={`grant_group_level_role:${role}`} key={role}>
+                          <option value={role.toUpperCase()}>
+                            {translate.t(
+                              `userModal.roles.${_.camelCase(role)}`
+                            )}
+                          </option>
+                        </Can>
+                      )
+                    )}
+                    {(sidebarModal ? userLevelRoles : []).map(
+                      (role: string): JSX.Element => (
+                        <Can do={`grant_user_level_role:${role}`} key={role}>
+                          <option value={role.toUpperCase()}>
+                            {translate.t(
+                              `userModal.roles.${_.camelCase(role)}`
+                            )}
+                          </option>
+                        </Can>
+                      )
+                    )}
+                    {(organizationModal ? organizationLevelRoles : []).map(
+                      (role: string): JSX.Element => (
+                        <option key={role} value={role.toUpperCase()}>
+                          {translate.t(`userModal.roles.${_.camelCase(role)}`)}
+                        </option>
+                      )
+                    )}
+                  </Field>
+                </FormGroup>
+                {projectName === undefined ? undefined : (
+                  <FormGroup>
+                    <ControlLabel>
+                      <RequiredField>{"* "}</RequiredField>
+                      {translate.t("userModal.responsibility")}
+                    </ControlLabel>
+                    <Field
+                      component={FormikText}
+                      name={"responsibility"}
+                      placeholder={translate.t(
+                        "userModal.responsibilityPlaceholder"
+                      )}
+                      type={"text"}
+                      validate={validTextField}
+                    />
+                  </FormGroup>
+                )}
+                <FormGroup>
+                  <ControlLabel>
+                    {translate.t("userModal.phoneNumber")}
+                  </ControlLabel>
+                  <Field
+                    component={FormikPhoneNumber}
+                    name={"phoneNumber"}
+                    type={"text"}
+                  />
+                </FormGroup>
+              </Col100>
+            </Row>
+            <hr />
+            <Row>
+              <Col100>
+                <ButtonToolbar>
+                  <Button onClick={onClose}>
+                    {translate.t("confirmmodal.cancel")}
+                  </Button>
+                  <Button type={"submit"}>
+                    {translate.t("confirmmodal.proceed")}
+                  </Button>
+                </ButtonToolbar>
+              </Col100>
+            </Row>
+          </Form>
+        </Formik>
       </Modal>
     </React.StrictMode>
   );
