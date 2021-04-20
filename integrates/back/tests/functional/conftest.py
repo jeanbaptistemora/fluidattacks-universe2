@@ -73,10 +73,19 @@ TEST_GROUPS: Set[str] = {
 
 @pytest.fixture(autouse=True, scope='session')
 def generic_data() -> Dict[str, Any]:
+    admin_email: str = 'admin@gmail.com'
+    analyst_email: str = 'analyst@gmail.com'
+    closer_email: str = 'closer@gmail.com'
+    customer_email: str = 'customer@gmail.com'
+    customer_admin_email: str = 'customeradmin@gmail.com'
+    executive_email: str = 'executive@gmail.com'
+    resourcer_email: str = 'resourcer@gmail.com'
+    reviewer_email: str = 'reviewer@gmail.com'
+    org_id: str = 'ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db'
     return {
        'users': [
             {
-                'email': 'admin@gmail.com',
+                'email': admin_email,
                 'first_login': '',
                 'first_name': '',
                 'last_login': '',
@@ -87,7 +96,7 @@ def generic_data() -> Dict[str, Any]:
                 'is_registered': True,
             },
             {
-                'email': 'analyst@gmail.com',
+                'email': analyst_email,
                 'first_login': '',
                 'first_name': '',
                 'last_login': '',
@@ -98,7 +107,7 @@ def generic_data() -> Dict[str, Any]:
                 'is_registered': True,
             },
             {
-                'email': 'closer@gmail.com',
+                'email': closer_email,
                 'first_login': '',
                 'first_name': '',
                 'last_login': '',
@@ -109,7 +118,7 @@ def generic_data() -> Dict[str, Any]:
                 'is_registered': True,
             },
             {
-                'email': 'customer@gmail.com',
+                'email': customer_email,
                 'first_login': '',
                 'first_name': '',
                 'last_login': '',
@@ -120,7 +129,7 @@ def generic_data() -> Dict[str, Any]:
                 'is_registered': True,
             },
             {
-                'email': 'customeradmin@gmail.com',
+                'email': customer_admin_email,
                 'first_login': '',
                 'first_name': '',
                 'last_login': '',
@@ -131,7 +140,7 @@ def generic_data() -> Dict[str, Any]:
                 'is_registered': True,
             },
             {
-                'email': 'executive@gmail.com',
+                'email': executive_email,
                 'first_login': '',
                 'first_name': '',
                 'last_login': '',
@@ -142,7 +151,7 @@ def generic_data() -> Dict[str, Any]:
                 'is_registered': True,
             },
             {
-                'email': 'resourcer@gmail.com',
+                'email': resourcer_email,
                 'first_login': '',
                 'first_name': '',
                 'last_login': '',
@@ -153,7 +162,7 @@ def generic_data() -> Dict[str, Any]:
                 'is_registered': True,
             },
             {
-                'email': 'reviewer@gmail.com',
+                'email': reviewer_email,
                 'first_login': '',
                 'first_name': '',
                 'last_login': '',
@@ -169,14 +178,14 @@ def generic_data() -> Dict[str, Any]:
                 'name': 'orgtest',
                 'id': '40f6da5f-4f66-4bf0-825b-a2d9748ad6db',
                 'users': [
-                    'admin@gmail.com',
-                    'analyst@gmail.com',
-                    'closer@gmail.com',
-                    'customer@gmail.com',
-                    'customeradmin@gmail.com',
-                    'executive@gmail.com',
-                    'resourcer@gmail.com',
-                    'reviewer@gmail.com',
+                    admin_email,
+                    analyst_email,
+                    closer_email,
+                    customer_email,
+                    customer_admin_email,
+                    executive_email,
+                    resourcer_email,
+                    reviewer_email,
                 ],
                 'groups': [
                     'group1',
@@ -202,140 +211,140 @@ def generic_data() -> Dict[str, Any]:
         'policies': [
             {
                 'level': 'user',
-                'subject': 'admin@gmail.com',
+                'subject': admin_email,
                 'object': 'self',
                 'role': 'admin',
             },
             {
                 'level': 'user',
-                'subject': 'analyst@gmail.com',
+                'subject': analyst_email,
                 'object': 'self',
                 'role': 'analyst',
             },
             {
                 'level': 'user',
-                'subject': 'closer@gmail.com',
+                'subject': closer_email,
                 'object': 'self',
                 'role': 'closer',
             },
             {
                 'level': 'user',
-                'subject': 'customer@gmail.com',
+                'subject': customer_email,
                 'object': 'self',
                 'role': 'customer',
             },
             {
                 'level': 'user',
-                'subject': 'customeradmin@gmail.com',
+                'subject': customer_admin_email,
                 'object': 'self',
                 'role': 'customeradmin',
             },
             {
                 'level': 'user',
-                'subject': 'executive@gmail.com',
+                'subject': executive_email,
                 'object': 'self',
                 'role': 'executive',
             },
             {
                 'level': 'user',
-                'subject': 'resourcer@gmail.com',
+                'subject': resourcer_email,
                 'object': 'self',
                 'role': 'resourcer',
             },
             {
                 'level': 'user',
-                'subject': 'reviewer@gmail.com',
+                'subject': reviewer_email,
                 'object': 'self',
                 'role': 'reviewer',
             },
             {
                 'level': 'group',
-                'subject': 'analyst@gmail.com',
+                'subject': analyst_email,
                 'object': 'group1',
                 'role': 'analyst',
             },
             {
                 'level': 'group',
-                'subject': 'closer@gmail.com',
+                'subject': closer_email,
                 'object': 'group1',
                 'role': 'closer',
             },
             {
                 'level': 'group',
-                'subject': 'customer@gmail.com',
+                'subject': customer_email,
                 'object': 'group1',
                 'role': 'customer',
             },
             {
                 'level': 'group',
-                'subject': 'customeradmin@gmail.com',
+                'subject': customer_admin_email,
                 'object': 'group1',
                 'role': 'customeradmin',
             },
             {
                 'level': 'group',
-                'subject': 'executive@gmail.com',
+                'subject': executive_email,
                 'object': 'group1',
                 'role': 'executive',
             },
             {
                 'level': 'group',
-                'subject': 'resourcer@gmail.com',
+                'subject': resourcer_email,
                 'object': 'group1',
                 'role': 'resourcer',
             },
             {
                 'level': 'group',
-                'subject': 'reviewer@gmail.com',
+                'subject': reviewer_email,
                 'object': 'group1',
                 'role': 'reviewer',
             },
             {
                 'level': 'organization',
-                'subject': 'admin@gmail.com',
-                'object': 'ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db',
+                'subject': admin_email,
+                'object': org_id,
                 'role': 'admin',
             },
             {
                 'level': 'organization',
-                'subject': 'analyst@gmail.com',
-                'object': 'ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db',
+                'subject': analyst_email,
+                'object': org_id,
                 'role': 'analyst',
             },
             {
                 'level': 'organization',
-                'subject': 'closer@gmail.com',
-                'object': 'ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db',
+                'subject': closer_email,
+                'object': org_id,
                 'role': 'closer',
             },
             {
                 'level': 'organization',
-                'subject': 'customer@gmail.com',
-                'object': 'ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db',
+                'subject': customer_email,
+                'object': org_id,
                 'role': 'customer',
             },
             {
                 'level': 'organization',
-                'subject': 'customeradmin@gmail.com',
-                'object': 'ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db',
+                'subject': customer_admin_email,
+                'object': org_id,
                 'role': 'customeradmin',
             },
             {
                 'level': 'organization',
-                'subject': 'executive@gmail.com',
-                'object': 'ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db',
+                'subject': executive_email,
+                'object': org_id,
                 'role': 'executive',
             },
             {
                 'level': 'organization',
-                'subject': 'resourcer@gmail.com',
-                'object': 'ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db',
+                'subject': resourcer_email,
+                'object': org_id,
                 'role': 'resourcer',
             },
             {
                 'level': 'organization',
-                'subject': 'reviewer@gmail.com',
-                'object': 'ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db',
+                'subject': reviewer_email,
+                'object': org_id,
                 'role': 'reviewer',
             },
             
@@ -369,6 +378,5 @@ def pytest_runtest_setup(item: Any) -> None:
     if not runnable_groups or runnable_groups - TEST_GROUPS:
         raise ValueError(f'resolver-test-group must be one of: {TEST_GROUPS}')
 
-    if runnable_groups:
-        if resolver_test_group not in runnable_groups:
-            pytest.skip(f'Requires resolver test group in: {runnable_groups}')
+    if runnable_groups and resolver_test_group not in runnable_groups:
+        pytest.skip(f'Requires resolver test group in: {runnable_groups}')
