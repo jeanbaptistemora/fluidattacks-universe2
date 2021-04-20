@@ -5,6 +5,7 @@ in
 makeTemplate {
   searchPaths = {
     envPaths = [
+      pkgs.gnugrep
       pkgs.jq
       pkgs.sops
     ];

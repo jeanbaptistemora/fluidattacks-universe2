@@ -24,7 +24,7 @@ makeEntrypoint {
     ];
     envUtils = [
       "/makes/utils/aws"
-      "/makes/utils/cloudflare"
+      "/makes/utils/sops"
     ];
   };
   template = path "/makes/utils/terraform-apply/entrypoint.sh";
