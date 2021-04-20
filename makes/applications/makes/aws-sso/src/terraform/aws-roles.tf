@@ -14,7 +14,7 @@ resource "aws_iam_role" "airs_dev" {
 
 resource "aws_iam_role_policy_attachment" "airs_dev" {
   role       = aws_iam_role.airs_dev.name
-  policy_arn = "arn:aws:iam::205810638802:policy/user-provision/web-dev-policy"
+  policy_arn = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy/user-provision/web-dev-policy"
 }
 
 resource "aws_iam_role" "airs_prod" {
@@ -31,7 +31,7 @@ resource "aws_iam_role" "airs_prod" {
 
 resource "aws_iam_role_policy_attachment" "airs_prod" {
   role       = aws_iam_role.airs_prod.name
-  policy_arn = "arn:aws:iam::205810638802:policy/user-provision/web-prod-policy"
+  policy_arn = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy/user-provision/web-prod-policy"
 }
 
 
@@ -51,7 +51,7 @@ resource "aws_iam_role" "docs_dev" {
 
 resource "aws_iam_role_policy_attachment" "docs_dev" {
   role       = aws_iam_role.docs_dev.name
-  policy_arn = "arn:aws:iam::205810638802:policy/user-provision/docs_dev"
+  policy_arn = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy/user-provision/docs_dev"
 }
 
 resource "aws_iam_role" "docs_prod" {
@@ -68,7 +68,7 @@ resource "aws_iam_role" "docs_prod" {
 
 resource "aws_iam_role_policy_attachment" "docs_prod" {
   role       = aws_iam_role.docs_prod.name
-  policy_arn = "arn:aws:iam::205810638802:policy/user-provision/docs_prod"
+  policy_arn = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy/user-provision/docs_prod"
 }
 
 
@@ -182,47 +182,7 @@ resource "aws_iam_role" "makes_prod" {
   }
 }
 
-resource "aws_iam_role_policy_attachment" "makes_prod_ec2" {
+resource "aws_iam_role_policy_attachment" "makes_prod" {
   role       = aws_iam_role.makes_prod.name
-  policy_arn = "arn:aws:iam::aws:policy/AmazonEC2FullAccess"
-}
-
-resource "aws_iam_role_policy_attachment" "makes_prod_code_commit" {
-  role       = aws_iam_role.makes_prod.name
-  policy_arn = "arn:aws:iam::aws:policy/AWSCodeCommitFullAccess"
-}
-
-resource "aws_iam_role_policy_attachment" "makes_prod_lambda" {
-  role       = aws_iam_role.makes_prod.name
-  policy_arn = "arn:aws:iam::aws:policy/AWSLambdaFullAccess"
-}
-
-resource "aws_iam_role_policy_attachment" "makes_prod_iam" {
-  role       = aws_iam_role.makes_prod.name
-  policy_arn = "arn:aws:iam::aws:policy/IAMFullAccess"
-}
-
-resource "aws_iam_role_policy_attachment" "makes_prod_simple_worflow" {
-  role       = aws_iam_role.makes_prod.name
-  policy_arn = "arn:aws:iam::aws:policy/SimpleWorkflowFullAccess"
-}
-
-resource "aws_iam_role_policy_attachment" "makes_prod_s3" {
-  role       = aws_iam_role.makes_prod.name
-  policy_arn = "arn:aws:iam::aws:policy/AmazonS3FullAccess"
-}
-
-resource "aws_iam_role_policy_attachment" "makes_prod_sns" {
-  role       = aws_iam_role.makes_prod.name
-  policy_arn = "arn:aws:iam::aws:policy/AWSCloudTrailFullAccess"
-}
-
-resource "aws_iam_role_policy_attachment" "makes_prod_admin" {
-  role       = aws_iam_role.makes_prod.name
-  policy_arn = "arn:aws:iam::aws:policy/AdministratorAccess"
-}
-
-resource "aws_iam_role_policy_attachment" "makes_prod_route_53" {
-  role       = aws_iam_role.makes_prod.name
-  policy_arn = "arn:aws:iam::aws:policy/AmazonRoute53FullAccess"
+  policy_arn = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy/user-provision/serves-prod-policy"
 }
