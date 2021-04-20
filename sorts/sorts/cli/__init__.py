@@ -87,7 +87,14 @@ def execute_sorts(
             predict_commit=predict_commit,
             user=user_email
         )
-        mixpanel_track(user_email, 'sorts_execution')
+        mixpanel_track(
+            user_email,
+            'sorts_execution',
+            subscription=subscription,
+            get_commit_data=get_commit_data,
+            get_file_data=get_file_data,
+            predict_commit=predict_commit
+        )
     else:
         log(
             'error',
