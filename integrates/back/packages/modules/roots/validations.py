@@ -90,6 +90,7 @@ def is_ip_unique(
         (root.metadata.address, root.metadata.port)
         for root in roots
         if isinstance(root, IPRootItem)
+        and root.state.status == 'ACTIVE'
     )
 
 
@@ -109,6 +110,7 @@ def is_url_unique(
         )
         for root in roots
         if isinstance(root, URLRootItem)
+        and root.state.status == 'ACTIVE'
     )
 
 
