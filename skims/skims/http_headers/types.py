@@ -27,8 +27,15 @@ class ReferrerPolicyHeader(NamedTuple):
     values: List[str]
 
 
+class XXSSProtectionHeader(NamedTuple):
+    name: str
+    enabled: bool
+    mode: str
+
+
 Header = Optional[Union[
     ContentSecurityPolicyHeader,
     ReferrerPolicyHeader,
     StrictTransportSecurityHeader,
+    XXSSProtectionHeader,
 ]]

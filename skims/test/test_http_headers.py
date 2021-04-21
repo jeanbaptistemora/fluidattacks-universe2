@@ -12,6 +12,7 @@ from http_headers import (
     content_security_policy,
     strict_transport_security,
     referrer_policy,
+    x_xss_protection,
 )
 
 
@@ -125,3 +126,25 @@ def test_strict_transport_security() -> None:
 
     header = parse('Strict-Transport-Security-: preload')
     assert not header
+
+
+@pytest.mark.skims_test_group('unittesting')
+def test_x_xss_protection() -> None:
+    # Header names are caseless
+    parse = x_xss_protection.parse
+
+    header = parse('X-XSS-Protection: 0')
+    assert not header.enabled
+    assert header.mode == ''
+
+    header = parse('X-XSS-Protection: 1')
+    assert header.enabled
+    assert header.mode == ''
+
+    header = parse('X-XSS-Protection: 1; mode=block')
+    assert header.enabled
+    assert header.mode == 'block'
+
+    header = parse('X-XSS-Protection: 0; mode=test')
+    assert not header.enabled
+    assert header.mode == 'test'
