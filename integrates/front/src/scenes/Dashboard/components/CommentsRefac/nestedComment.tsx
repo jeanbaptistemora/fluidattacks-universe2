@@ -1,6 +1,7 @@
 import { Comment } from "antd";
 import _ from "lodash";
 import React, { useCallback, useContext } from "react";
+import Linkify from "react-linkify";
 
 import { CommentEditor } from "scenes/Dashboard/components/CommentsRefac/commentEditor";
 import type { ICommentContext } from "scenes/Dashboard/components/CommentsRefac/index";
@@ -51,6 +52,17 @@ const NestedComment: React.FC<INestedCommentProps> = (
     }
   }, [id, replying, setReplying]);
 
+  const formatLinks = useCallback(
+    (href: string, text: string, key: number): React.ReactNode => {
+      return (
+        <a href={href} key={key} rel={"noopener noreferrer"} target={"_blank"}>
+          {text}
+        </a>
+      );
+    },
+    []
+  );
+
   return (
     <React.StrictMode>
       <div className={"comment-nested comment-no-bullets"}>
@@ -73,7 +85,11 @@ const NestedComment: React.FC<INestedCommentProps> = (
           }
           content={
             <div className={"comment-content"}>
-              {_.trim(rootComment.content)}
+              {
+                <Linkify componentDecorator={formatLinks}>
+                  {_.trim(rootComment.content)}
+                </Linkify>
+              }
             </div>
           }
           datetime={
