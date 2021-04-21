@@ -1,13 +1,17 @@
 import logging
 import logging.config
-from typing import List
+from typing import (
+    cast,
+    List,
+)
 
 from boto3.dynamodb.conditions import Key
 from botocore.exceptions import ClientError
 
 from back.settings import LOGGING
-from backend.dal.helpers import dynamodb, s3
+from backend.dal.helpers import dynamodb
 from backend.typing import Event as EventType
+from s3 import operations as s3_ops
 from __init__ import (
     FI_AWS_S3_BUCKET,
 )
@@ -61,23 +65,35 @@ async def list_group_events(group_name: str) -> List[str]:
 
 
 async def save_evidence(file_object: object, file_name: str) -> bool:
-    return await s3.upload_memory_file(
-        FI_AWS_S3_BUCKET,
-        file_object,
-        file_name
+    return cast(
+        bool,
+        await s3_ops.upload_memory_file(
+            FI_AWS_S3_BUCKET,
+            file_object,
+            file_name
+        )
     )
 
 
 async def search_evidence(file_name: str) -> List[str]:
-    return await s3.list_files(FI_AWS_S3_BUCKET, file_name)
+    return cast(
+        List[str],
+        await s3_ops.list_files(FI_AWS_S3_BUCKET, file_name)
+    )
 
 
 async def sign_url(file_url: str) -> str:
-    return await s3.sign_url(file_url, 10, FI_AWS_S3_BUCKET)
+    return cast(
+        str,
+        await s3_ops.sign_url(file_url, 10, FI_AWS_S3_BUCKET)
+    )
 
 
 async def remove_evidence(file_name: str) -> bool:
-    return await s3.remove_file(FI_AWS_S3_BUCKET, file_name)
+    return cast(
+        bool,
+        await s3_ops.remove_file(FI_AWS_S3_BUCKET, file_name)
+    )
 
 
 async def update(event_id: str, data: EventType) -> bool:

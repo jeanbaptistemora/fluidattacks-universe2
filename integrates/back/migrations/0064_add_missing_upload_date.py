@@ -22,11 +22,11 @@ from more_itertools import chunked
 
 # Local libraries
 from backend.api.dataloaders.group import GroupLoader
-from backend.dal.helpers.s3 import aio_client
 from backend.typing import Finding
 from findings import dal as findings_dal
 from groups.domain import get_active_groups
 from newutils import datetime as datetime_utils
+from s3.operations import aio_client
 from __init__ import FI_AWS_S3_BUCKET
 
 

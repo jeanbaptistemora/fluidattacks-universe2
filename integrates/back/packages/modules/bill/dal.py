@@ -10,7 +10,7 @@ from botocore.exceptions import ClientError
 
 # Local libraries
 from back.settings import LOGGING
-from backend.dal.helpers.s3 import aio_client
+from s3.operations import aio_client
 from __init__ import (
     SERVICES_AWS_S3_DATA_BUCKET as SERVICES_DATA_BUCKET,
 )

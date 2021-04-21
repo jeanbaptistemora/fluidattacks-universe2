@@ -24,15 +24,6 @@ from .redis import (
     redis_set_entity_attr,
     redis_ttl_entity_attr,
 )
-from .s3 import (
-    aio_client,
-    aio_resource,
-    download_file as s3_download_file,
-    list_files,
-    remove_file,
-    upload_memory_file,
-    sign_url,
-)
 
 __all__ = [
     'async_delete_item',
@@ -56,12 +47,5 @@ __all__ = [
     'redis_get_entity_attr',
     'redis_get_or_set_entity_attr',
     'redis_set_entity_attr',
-    'redis_ttl_entity_attr',
-    'aio_client',
-    'aio_resource',
-    's3_download_file',
-    'list_files',
-    'remove_file',
-    'sign_url',
-    'upload_memory_file'
+    'redis_ttl_entity_attr'
 ]

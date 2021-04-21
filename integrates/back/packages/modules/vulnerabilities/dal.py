@@ -18,16 +18,14 @@ from starlette.datastructures import UploadFile
 
 # Local libraries
 from back.settings import LOGGING
-from backend.dal.helpers import (
-    dynamodb,
-    s3,
-)
+from backend.dal.helpers import dynamodb
 from backend.exceptions import ErrorUploadingFileS3
 from backend.typing import (
     DynamoDelete as DynamoDeleteType,
     Finding as FindingType,
 )
 from newutils import datetime as datetime_utils
+from s3 import operations as s3_ops
 from __init__ import (
 
     FI_AWS_S3_REPORTS_BUCKET as VULNS_BUCKET,
@@ -238,7 +236,7 @@ async def request_zero_risk_vulnerability(
 
 
 async def sign_url(vuln_file_name: str) -> str:
-    return await s3.sign_url(vuln_file_name, 10, VULNS_BUCKET)
+    return await s3_ops.sign_url(vuln_file_name, 10, VULNS_BUCKET)
 
 
 async def update(
@@ -286,7 +284,7 @@ async def update(
 async def upload_file(vuln_file: UploadFile) -> str:
     file_path = vuln_file.filename
     file_name = file_path.split('/')[-1]
-    if not await s3.upload_memory_file(VULNS_BUCKET, vuln_file, file_name):
+    if not await s3_ops.upload_memory_file(VULNS_BUCKET, vuln_file, file_name):
         raise ErrorUploadingFileS3()
     return cast(str, file_name)
 

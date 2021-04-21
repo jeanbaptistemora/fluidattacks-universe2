@@ -25,12 +25,10 @@ from botocore.exceptions import ClientError
 
 # Local libraries
 from back.settings import LOGGING
-from backend.dal.helpers import (
-    dynamodb,
-    s3,
-)
+from backend.dal.helpers import dynamodb
 from backend.dal.helpers.dynamodb import RESOURCE_OPTIONS
 from newutils import datetime as datetime_utils
+from s3 import operations as s3_ops
 from __init__ import (
     FI_AWS_S3_FORCES_BUCKET,
     FI_AWS_SECRETSMANAGER_ACCESS_KEY,
@@ -93,7 +91,7 @@ async def get_execution(project_name: str, execution_id: str) -> Any:
 
 async def get_log_execution(project_name: str, execution_id: str) -> str:
     with tempfile.NamedTemporaryFile(mode='w+') as file:
-        await s3.download_file(
+        await s3_ops.download_file(
             FI_AWS_S3_FORCES_BUCKET,
             f'{project_name}/{execution_id}.log',
             file.name
@@ -121,7 +119,7 @@ async def get_secret_token(project_name: str) -> Optional[str]:
 
 async def get_vulns_execution(project_name: str, execution_id: str) -> Any:
     with tempfile.NamedTemporaryFile(mode='w+') as file:
-        await s3.download_file(
+        await s3_ops.download_file(
             FI_AWS_S3_FORCES_BUCKET,
             f'{project_name}/{execution_id}.json',
             file.name
@@ -131,7 +129,7 @@ async def get_vulns_execution(project_name: str, execution_id: str) -> Any:
 
 
 async def save_log_execution(file_object: object, file_name: str) -> bool:
-    return await s3.upload_memory_file(
+    return await s3_ops.upload_memory_file(
         FI_AWS_S3_FORCES_BUCKET,
         file_object,
         file_name,
@@ -139,7 +137,7 @@ async def save_log_execution(file_object: object, file_name: str) -> bool:
 
 
 async def save_vulns_execution(file_object: object, file_name: str) -> bool:
-    return await s3.upload_memory_file(
+    return await s3_ops.upload_memory_file(
         FI_AWS_S3_FORCES_BUCKET,
         file_object,
         file_name,

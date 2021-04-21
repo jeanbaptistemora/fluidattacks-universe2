@@ -1,7 +1,10 @@
 # Starlette evidences-related methods
 
 # Standard library
-from typing import List, Sequence
+from typing import (
+    List,
+    Sequence,
+)
 
 # Third party libraries
 from magic import Magic
@@ -14,19 +17,22 @@ from starlette.responses import (
 )
 
 # Local libraries
-from backend import authz, util
-from backend.dal.helpers.s3 import (
-    download_file,
-    list_files
+from backend import (
+    authz,
+    util,
 )
 from backend.services import (
     has_access_to_finding,
     has_access_to_event
 )
-
+from s3.operations import (
+    download_file,
+    list_files,
+)
 from __init__ import (
     FI_AWS_S3_BUCKET,
 )
+
 
 BUCKET_S3 = FI_AWS_S3_BUCKET
 

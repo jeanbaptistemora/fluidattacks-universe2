@@ -20,11 +20,9 @@ from botocore.exceptions import ClientError
 
 # Local libraries
 from back.settings import LOGGING
-from backend.dal.helpers import (
-    dynamodb,
-    s3,
-)
+from backend.dal.helpers import dynamodb
 from backend.typing import Finding as FindingType
+from s3 import operations as s3_ops
 from __init__ import FI_AWS_S3_BUCKET
 
 
@@ -62,7 +60,7 @@ async def create(
 
 
 async def download_evidence(file_name: str, file_path: str) -> None:
-    await s3.download_file(FI_AWS_S3_BUCKET, file_name, file_path)
+    await s3_ops.download_file(FI_AWS_S3_BUCKET, file_name, file_path)
 
 
 async def get(
@@ -148,11 +146,11 @@ async def list_append(
 
 
 async def remove_evidence(file_name: str) -> bool:
-    return await s3.remove_file(FI_AWS_S3_BUCKET, file_name)
+    return await s3_ops.remove_file(FI_AWS_S3_BUCKET, file_name)
 
 
 async def save_evidence(file_object: object, file_name: str) -> bool:
-    return await s3.upload_memory_file(
+    return await s3_ops.upload_memory_file(
         FI_AWS_S3_BUCKET,
         file_object,
         file_name
@@ -160,7 +158,7 @@ async def save_evidence(file_object: object, file_name: str) -> bool:
 
 
 async def search_evidence(file_name: str) -> List[str]:
-    return await s3.list_files(FI_AWS_S3_BUCKET, file_name)
+    return await s3_ops.list_files(FI_AWS_S3_BUCKET, file_name)
 
 
 async def update(finding_id: str, data: Dict[str, FindingType]) -> bool:

@@ -15,12 +15,12 @@ from aioextensions import (
 
 # Local libraries
 from backend.api.dataloaders.event import EventLoader
-from backend.dal.helpers.s3 import aio_client
 from backend.typing import Event
 from events import dal as events_dal
 from events.domain import list_group_events
 from groups.domain import get_alive_groups
 from newutils import datetime as datetime_utils
+from s3.operations import aio_client
 from __init__ import FI_AWS_S3_BUCKET
 
 

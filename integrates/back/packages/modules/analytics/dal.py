@@ -5,9 +5,9 @@ import io
 from botocore.exceptions import ClientError
 
 # Local libraries
-from backend.dal.helpers.s3 import aio_client
 from backend.exceptions import DocumentNotFound
 from newutils import apm
+from s3.operations import aio_client
 from __init__ import (
     CI_COMMIT_REF_NAME,
     FI_AWS_S3_ANALYTICS_BUCKET as BUCKET_ANALYTICS,

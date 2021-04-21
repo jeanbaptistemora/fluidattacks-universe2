@@ -1,30 +1,28 @@
 # Standard libraries
-import io
 import contextlib
+import io
 import logging
+import logging.config
 import os
-from typing import (
-    List,
-    Optional
-)
-
-# Third party libraries
 from tempfile import (  # type: ignore
     _TemporaryFileWrapper as TemporaryFileWrapper
 )
-from aioextensions import in_thread
+from typing import (
+    List,
+    Optional,
+)
 
+# Third-party libraries
 import aioboto3
+from aioextensions import in_thread
 from botocore.exceptions import ClientError
-
 from starlette.datastructures import UploadFile
 
 # Local libraries
 from back.settings import LOGGING
-from newutils import apm
-
 from __init__ import (
-    FI_AWS_S3_ACCESS_KEY, FI_AWS_S3_SECRET_KEY,
+    FI_AWS_S3_ACCESS_KEY,
+    FI_AWS_S3_SECRET_KEY,
     FI_ENVIRONMENT,
 )
 
@@ -45,18 +43,25 @@ if FI_ENVIRONMENT == 'development':
     OPTIONS['endpoint_url'] = 'http://localhost:9000'
 
 
-@apm.trace()  # type: ignore
+async def _send_to_s3(
+    bucket: str,
+    file_object: object,
+    file_name: str
+) -> bool:
+    response: bool = False
+    async with aio_client() as client:
+        try:
+            await client.upload_fileobj(file_object, bucket, file_name)
+            response = True
+        except ClientError as ex:
+            LOGGER.exception(ex, extra={'extra': locals()})
+    return response
+
+
 @contextlib.asynccontextmanager
 async def aio_client() -> aioboto3.session.Session.client:
     async with aioboto3.client(**OPTIONS) as client:
         yield client
-
-
-@apm.trace()  # type: ignore
-@contextlib.asynccontextmanager
-async def aio_resource() -> aioboto3.session.Session.resource:
-    async with aioboto3.resource(**OPTIONS) as resource:
-        yield resource
 
 
 async def download_file(bucket: str, file_name: str, file_path: str) -> None:
@@ -65,15 +70,15 @@ async def download_file(bucket: str, file_name: str, file_path: str) -> None:
 
 
 async def list_files(bucket: str, name: Optional[str] = None) -> List[str]:
+    key_list: List[str] = []
     async with aio_client() as client:
         resp = await client.list_objects_v2(Bucket=bucket, Prefix=name)
         key_list = [item['Key'] for item in resp.get('Contents', [])]
-
     return key_list
 
 
 async def remove_file(bucket: str, name: str) -> bool:
-    success = False
+    success: bool = False
     async with aio_client() as client:
         try:
             response = await client.delete_object(Bucket=bucket, Key=name)
@@ -84,24 +89,23 @@ async def remove_file(bucket: str, name: str) -> bool:
     return success
 
 
-async def _send_to_s3(
-    bucket: str,
-    file_object: object,
-    file_name: str
-) -> bool:
+async def sign_url(file_name: str, expire_mins: float, bucket: str) -> str:
+    response: str = ''
     async with aio_client() as client:
         try:
-            await client.upload_fileobj(
-                file_object,
-                bucket,
-                file_name
+            response = str(
+                await client.generate_presigned_url(
+                    'get_object',
+                    Params={
+                        'Bucket': bucket,
+                        'Key': file_name
+                    },
+                    ExpiresIn=expire_mins
+                )
             )
-
-            return True
         except ClientError as ex:
             LOGGER.exception(ex, extra={'extra': locals()})
-
-    return False
+    return response
 
 
 async def upload_memory_file(
@@ -113,40 +117,17 @@ async def upload_memory_file(
         TemporaryFileWrapper,
         UploadFile
     )
-
-    success = False
-
+    success: bool = False
     if isinstance(file_object, valid_in_memory_files):
         bytes_object = io.BytesIO(await in_thread(file_object.file.read))
         success = await _send_to_s3(
-            bucket, bytes_object, file_name.lstrip('/')
+            bucket,
+            bytes_object,
+            file_name.lstrip('/')
         )
     else:
         LOGGER.error(
             'Attempt to upload invalid memory file',
-            extra={'extra': locals()})
-
+            extra={'extra': locals()}
+        )
     return success
-
-
-async def sign_url(
-    file_name: str,
-    expire_mins: float,
-    bucket: str,
-) -> str:
-    async with aio_client() as client:
-        try:
-            response = await client.generate_presigned_url(
-                'get_object',
-                Params={
-                    'Bucket': bucket,
-                    'Key': file_name
-                },
-                ExpiresIn=expire_mins
-            )
-
-            return str(response)
-        except ClientError as ex:
-            LOGGER.exception(ex, extra={'extra': locals()})
-
-    return ''

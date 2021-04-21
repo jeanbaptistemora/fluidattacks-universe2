@@ -10,12 +10,12 @@ from typing import (
 from uuid import uuid4
 
 # Local libraries
-from backend.dal.helpers.s3 import (
+from backend.reports.reports import technical as technical_report
+from backend.typing import Finding as FindingType
+from s3.operations import (
     download_file,
     list_files,
 )
-from backend.reports.reports import technical as technical_report
-from backend.typing import Finding as FindingType
 from __init__ import (
     FI_AWS_S3_BUCKET as EVIDENCES_BUCKET,
 )

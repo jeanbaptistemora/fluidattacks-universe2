@@ -8,8 +8,8 @@ from uuid import uuid4 as uuid
 from starlette.datastructures import UploadFile
 
 # Local libraries
-from backend.dal.helpers import s3
 from backend.exceptions import ErrorUploadingFileS3
+from s3 import operations as s3_ops
 from __init__ import (
     FI_AWS_S3_REPORTS_BUCKET,
 )
@@ -20,7 +20,7 @@ LOGGER = logging.getLogger(__name__)
 
 # Default ttl for reports is 1 hour = 3600 seconds
 async def sign_url(path: str, minutes: float = 3600) -> str:
-    return await s3.sign_url(
+    return await s3_ops.sign_url(
         path,
         minutes,
         FI_AWS_S3_REPORTS_BUCKET
@@ -50,7 +50,7 @@ async def expose_bytes_as_url(
     uploaded_file = UploadFile(filename=file_name)
     await uploaded_file.write(content)
     await uploaded_file.seek(0)
-    if not await s3.upload_memory_file(
+    if not await s3_ops.upload_memory_file(
         FI_AWS_S3_REPORTS_BUCKET,
         uploaded_file,
         file_name,
@@ -64,7 +64,7 @@ async def upload_report_from_file_descriptor(report: Any) -> str:
     file_path = report.filename
     file_name: str = file_path.split('_')[-1]
 
-    if not await s3.upload_memory_file(
+    if not await s3_ops.upload_memory_file(
             FI_AWS_S3_REPORTS_BUCKET, report, file_name):
         raise ErrorUploadingFileS3()
 
