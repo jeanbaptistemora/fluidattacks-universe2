@@ -72,6 +72,7 @@ module.exports = {
         'criteria/authentication/r328',
         'criteria/authentication/r334',
         'criteria/authentication/r335',
+        'criteria/authentication/r362',
       ],
     },
     {
