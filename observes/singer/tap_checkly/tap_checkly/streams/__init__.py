@@ -72,6 +72,13 @@ def all_dashboards(api: ApiClient) -> None:
     )
 
 
+def all_maint_windows(api: ApiClient) -> None:
+    _stream_data(
+        SupportedStreams.MAINTENACE_WINDOWS,
+        api.maintenance.list_mant_windows(ALL),
+    )
+
+
 __all__ = [
     'SupportedStreams',
 ]

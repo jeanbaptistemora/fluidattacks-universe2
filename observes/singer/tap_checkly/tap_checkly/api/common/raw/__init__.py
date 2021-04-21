@@ -74,3 +74,12 @@ def list_dashboards(client: Client, page: PageId) -> IO[Iterator[JSON]]:
     )
     LOG.debug('dashboards response: %s', result)
     return IO(result)
+
+
+def list_mant_windows(client: Client, page: PageId) -> IO[Iterator[JSON]]:
+    result = client.get(
+        '/v1/maintenance-windows',
+        params={'limit': page.per_page, 'page': page.page}
+    )
+    LOG.debug('maintenance-windows response: %s', result)
+    return IO(result)
