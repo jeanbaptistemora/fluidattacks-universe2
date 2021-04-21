@@ -7,7 +7,10 @@ import logging
 import os
 import re
 import secrets
-from datetime import datetime, timedelta
+from datetime import (
+    datetime,
+    timedelta,
+)
 from typing import (
     Any,
     cast,
@@ -42,7 +45,6 @@ from starlette.concurrency import run_in_threadpool
 from starlette.datastructures import UploadFile
 
 from back import settings
-from backend.dal import session as session_dal
 from backend.dal.helpers.redis import redis_get_entity_attr
 from backend.exceptions import (
     ExpiredToken,
@@ -61,6 +63,7 @@ from newutils import (
     function,
     token as token_helper,
 )
+from sessions import dal as sessions_dal
 from __init__ import FI_ENVIRONMENT
 
 
@@ -145,7 +148,7 @@ async def get_jwt_content(context) -> Dict[str, str]:  # noqa: MC0001
         token = header_token.split()[1] if header_token else cookie_token
 
         if context.session.get('username'):
-            await session_dal.check_jwt_token_validity(context)
+            await sessions_dal.check_jwt_token_validity(context)
 
         if not token:
             raise InvalidAuthorization()

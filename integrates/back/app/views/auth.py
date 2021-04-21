@@ -14,16 +14,13 @@ from authlib.integrations.starlette_client import OAuth
 from authlib.common.security import generate_token
 
 # Local libraries
-from backend.dal import (
-    session as session_dal,
-)
-
 import back.app.utils as utils
 from back.settings.auth import (
     azure,
     BITBUCKET_ARGS,
     GOOGLE_ARGS
 )
+from sessions import dal as sessions_dal
 
 
 OAUTH = OAuth()
@@ -52,7 +49,7 @@ async def handle_user(request: Request, user: Dict[str, str]) -> Request:
     request.session['last_name'] = user.get('family_name', '')
     request.session['session_key'] = session_key
 
-    await session_dal.create_session_web(request)
+    await sessions_dal.create_session_web(request)
     await utils.create_user(user)
 
     return request

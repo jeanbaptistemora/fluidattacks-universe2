@@ -7,7 +7,6 @@ from starlette.responses import Response
 from back import settings
 from backend import util
 from backend.api import apply_context_attrs
-from backend.dal import session as session_dal
 from backend.dal.helpers.redis import redis_set_entity_attr
 from newutils import token as token_helper
 

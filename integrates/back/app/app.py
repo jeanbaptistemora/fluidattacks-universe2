@@ -38,7 +38,6 @@ from back.settings.queue import (
 )
 from backend.api import IntegratesAPI
 from backend.api.schema import SCHEMA
-from backend.dal import session as session_dal
 from backend.dal.helpers.redis import redis_del_entity_attr
 from backend.decorators import authenticate_session
 from backend.exceptions import (
@@ -48,6 +47,7 @@ from backend.exceptions import (
 from group_access import domain as group_access_domain
 from groups import domain as groups_domain
 from organizations import domain as orgs_domain
+from sessions import dal as sessions_dal
 from __init__ import (
     FI_ENVIRONMENT,
     FI_STARLETTE_SESSION_KEY,
@@ -62,7 +62,7 @@ async def app(request: Request) -> HTMLResponse:
     try:
         if email:
             if FI_ENVIRONMENT == 'production':
-                await session_dal.check_session_web_validity(request)
+                await sessions_dal.check_session_web_validity(request)
 
             if not await orgs_domain.get_user_organizations(email):
                 response = templates.unauthorized(request)
@@ -84,8 +84,8 @@ async def logout(request: Request) -> HTMLResponse:
     """Close a user's active session"""
     if 'username' in request.session:
         user_email = request.session['username']
-        await session_dal.remove_session_key(user_email, 'web')
-        await session_dal.remove_session_key(user_email, 'jwt')
+        await sessions_dal.remove_session_key(user_email, 'web')
+        await sessions_dal.remove_session_key(user_email, 'jwt')
         await redis_del_entity_attr(
             entity='session',
             attr='jti',

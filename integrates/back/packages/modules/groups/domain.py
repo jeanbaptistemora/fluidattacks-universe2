@@ -77,6 +77,7 @@ from newutils.validations import (
 )
 from notifications import domain as notifications_domain
 from organizations import domain as orgs_domain
+from sessions import dal as sessions_dal
 from users import domain as users_domain
 from __init__ import (
     BASE_URL,
@@ -862,7 +863,7 @@ async def remove_user(
 
         has_groups = bool(await get_groups_by_user(email))
         if not has_groups:
-            success = success and await users_domain.remove_stakeholder(email)
+            success = success and await sessions_dal.delete_user(email)
     return success
 
 

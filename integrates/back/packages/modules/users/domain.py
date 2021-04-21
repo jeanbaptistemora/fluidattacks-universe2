@@ -19,7 +19,6 @@ from backend import (
     authz,
     util,
 )
-from backend.dal import session as session_dal
 from backend.exceptions import (
     InvalidExpirationTime,
     InvalidPushToken,
@@ -259,17 +258,6 @@ async def remove_push_token(user_email: str, push_token: str) -> bool:
         )
     )
     return await users_dal.update(user_email, {'push_tokens': tokens})
-
-
-async def remove_stakeholder(email: str) -> bool:
-    success = all(
-        await collect([
-            authz.revoke_user_level_role(email),
-            users_dal.delete(email)
-        ])
-    )
-    await session_dal.logout(email)
-    return success
 
 
 async def update(email: str, data_attr: str, name_attr: str) -> bool:

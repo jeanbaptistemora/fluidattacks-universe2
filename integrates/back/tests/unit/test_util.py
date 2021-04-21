@@ -1,7 +1,7 @@
-from collections import defaultdict
 import os
 import pytest
 import time
+from collections import defaultdict
 from datetime import (
     datetime,
     timedelta,
@@ -14,14 +14,13 @@ from typing import (
 
 import pytz
 from boto3 import client
-import pytz
 from graphql.language.ast import (
+    ArgumentNode,
     FieldNode,
-    ObjectFieldNode,
-    VariableNode,
     NameNode,
+    ObjectFieldNode,
     ValueNode,
-    ArgumentNode
+    VariableNode,
 )
 
 from back import settings
@@ -30,7 +29,6 @@ from back.tests.unit.utils import (
     create_dummy_session,
     create_dummy_simple_session,
 )
-from backend.dal import session as session_dal
 from backend.dal.helpers.redis import (
     redis_del_entity_attr,
     redis_set_entity_attr,
@@ -53,6 +51,7 @@ from newutils import (
     encodings,
     token as token_helper,
 )
+from sessions import dal as sessions_dal
 from users import domain as users_domain
 from __init__ import (
     FI_AWS_S3_ACCESS_KEY,
@@ -178,7 +177,7 @@ async def test_valid_token():
     }
     token = token_helper.new_encoded_jwt(payload)
     request.cookies[settings.JWT_COOKIE_NAME] = token
-    await session_dal.add_element(f'fi_jwt:{payload["jti"]}', token, settings.SESSION_COOKIE_AGE)
+    await sessions_dal.add_element(f'fi_jwt:{payload["jti"]}', token, settings.SESSION_COOKIE_AGE)
     await redis_set_entity_attr(
         entity='session',
         attr='jwt',
@@ -207,7 +206,7 @@ async def test_valid_api_token():
     }
     token = token_helper.new_encoded_jwt(payload, api=True)
     request.cookies[settings.JWT_COOKIE_NAME] = token
-    await session_dal.add_element(f'fi_jwt:{payload["jti"]}', token, settings.SESSION_COOKIE_AGE)
+    await sessions_dal.add_element(f'fi_jwt:{payload["jti"]}', token, settings.SESSION_COOKIE_AGE)
     await redis_set_entity_attr(
         entity='session',
         attr='jwt',
