@@ -98,6 +98,7 @@ module.exports = {
           'criteria/session/r026',
           'criteria/session/r027',
           'criteria/session/r028',
+          'criteria/session/r029',
         ],
     },
     {
