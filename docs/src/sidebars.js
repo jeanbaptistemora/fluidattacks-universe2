@@ -205,6 +205,7 @@ module.exports = {
           'criteria/networks/r249',
           'criteria/networks/r250',
           'criteria/networks/r251',
+          'criteria/networks/r252',
         ],
     },
     {
