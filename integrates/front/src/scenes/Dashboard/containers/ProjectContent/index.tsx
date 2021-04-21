@@ -1,5 +1,11 @@
 import React from "react";
-import { Redirect, Route, Switch, useRouteMatch } from "react-router-dom";
+import {
+  Redirect,
+  Route,
+  Switch,
+  useParams,
+  useRouteMatch,
+} from "react-router-dom";
 
 import { GroupScopeView } from "../GroupScopeView";
 import { GroupToeLinesView } from "../GroupToeLinesView";
@@ -25,6 +31,7 @@ import { useTabTracking } from "utils/hooks";
 import { translate } from "utils/translations/translate";
 
 const ProjectContent: React.FC = (): JSX.Element => {
+  const { organizationName } = useParams<{ organizationName: string }>();
   const { path, url } = useRouteMatch<{ path: string; url: string }>();
 
   // Side effects
@@ -107,15 +114,19 @@ const ProjectContent: React.FC = (): JSX.Element => {
                       />
                     </Can>
                   </Have>
-                  <Can do={"backend_api_resolvers_git_root_toe_lines_resolve"}>
-                    <ContentTab
-                      icon={"icon pe-7s-menu"}
-                      id={"toeLinesTab"}
-                      link={`${url}/toe/lines`}
-                      title={translate.t("group.tabs.toeLines.text")}
-                      tooltip={translate.t("group.tabs.toeLines.tooltip")}
-                    />
-                  </Can>
+                  {organizationName === "imamura" ? undefined : (
+                    <Can
+                      do={"backend_api_resolvers_git_root_toe_lines_resolve"}
+                    >
+                      <ContentTab
+                        icon={"icon pe-7s-menu"}
+                        id={"toeLinesTab"}
+                        link={`${url}/toe/lines`}
+                        title={translate.t("group.tabs.toeLines.text")}
+                        tooltip={translate.t("group.tabs.toeLines.tooltip")}
+                      />
+                    </Can>
+                  )}
                   <ContentTab
                     icon={"icon pe-7s-box1"}
                     id={"resourcesTab"}
