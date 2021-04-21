@@ -1,3 +1,4 @@
+import _ from "lodash";
 import React, { useCallback, useState } from "react";
 import TextArea from "react-textarea-autosize";
 
@@ -24,8 +25,9 @@ const CommentEditor: React.FC<ICommentEditorProps> = (
   );
 
   const clickHandler: () => void = useCallback((): void => {
-    if (editorText !== "") {
-      onPost(editorText);
+    const trimmedText = _.trim(editorText);
+    if (trimmedText !== "") {
+      onPost(trimmedText);
       setEditorText("");
     }
   }, [editorText, onPost]);

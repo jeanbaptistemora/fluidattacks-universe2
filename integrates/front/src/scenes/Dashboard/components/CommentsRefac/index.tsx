@@ -64,7 +64,7 @@ const CommentsRefac: React.FC<ICommentsRefacProps> = (
 
   const onMount: () => void = (): void => {
     onLoad((cData: ICommentStructure[]): void => {
-      setComments(cData);
+      setComments(_.uniqBy(cData, "id"));
     });
   };
   useEffect(onMount, [onLoad]);
@@ -119,7 +119,6 @@ const CommentsRefac: React.FC<ICommentsRefacProps> = (
   return (
     <React.StrictMode>
       <CommentEditor onPost={postHandler} />
-      <hr />
       <commentContext.Provider value={{ replying, setReplying }}>
         {comments.length > 1 && (
           <div className={"w-25 w-50-m mb3"}>

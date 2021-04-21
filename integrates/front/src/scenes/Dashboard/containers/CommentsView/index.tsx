@@ -6,12 +6,12 @@ import { track } from "mixpanel-browser";
 import React, { useCallback, useContext } from "react";
 import { useParams } from "react-router";
 
-import { Comments } from "scenes/Dashboard/components/Comments/index";
 import type {
   ICommentStructure,
   ILoadCallback,
   IPostCallback,
 } from "scenes/Dashboard/components/Comments/types";
+import { CommentsRefac } from "scenes/Dashboard/components/CommentsRefac/index";
 import {
   ADD_FINDING_CONSULT,
   GET_FINDING_CONSULTING,
@@ -153,11 +153,9 @@ const CommentsView: React.FC = (): JSX.Element => {
 
   return (
     <React.StrictMode>
-      <Comments
-        id={`finding-${type}`}
-        onLoad={getData}
-        onPostComment={handlePost}
-      />
+      <div>
+        <CommentsRefac onLoad={getData} onPostComment={handlePost} />
+      </div>
     </React.StrictMode>
   );
 };

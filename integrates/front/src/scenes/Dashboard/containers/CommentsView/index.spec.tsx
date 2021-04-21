@@ -2,22 +2,17 @@ import { MockedProvider } from "@apollo/client/testing";
 import type { MockedResponse } from "@apollo/client/testing";
 import type { ReactWrapper } from "enzyme";
 import { mount } from "enzyme";
-import $ from "jquery";
 import React from "react";
 import { act } from "react-dom/test-utils";
 import { MemoryRouter, Route } from "react-router";
 import wait from "waait";
 
+import { CommentsRefac } from "scenes/Dashboard/components/CommentsRefac/index";
 import { CommentsView } from "scenes/Dashboard/containers/CommentsView";
 import {
   GET_FINDING_CONSULTING,
   GET_FINDING_OBSERVATIONS,
 } from "scenes/Dashboard/containers/CommentsView/queries";
-
-jest.mock("jquery-comments_brainkit", (): void => {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-  jest.requireActual("jquery-comments_brainkit")($);
-});
 
 describe("FindingCommentsView", (): void => {
   const mocks: readonly MockedResponse[] = [
@@ -33,7 +28,7 @@ describe("FindingCommentsView", (): void => {
             consulting: [
               {
                 __typename: "Consult",
-                content: "This is a comment",
+                content: "Consult comment",
                 created: "2019/12/04 08:13:53",
                 email: "unittest@fluidattacks.com",
                 fullname: "Test User",
@@ -60,7 +55,7 @@ describe("FindingCommentsView", (): void => {
             observations: [
               {
                 __typename: "Consult",
-                content: "This is an observation",
+                content: "Observation comment",
                 created: "2019/12/04 08:13:53",
                 email: "unittest@fluidattacks.com",
                 fullname: "Test User",
@@ -99,10 +94,13 @@ describe("FindingCommentsView", (): void => {
     await act(
       async (): Promise<void> => {
         await wait(0);
+        wrapper.update();
       }
     );
 
     expect(wrapper).toHaveLength(1);
+    expect(wrapper.text()).toContain("Consult comment");
+    expect(wrapper.find(CommentsRefac)).toHaveLength(1);
 
     document.body.removeChild(container);
   });
@@ -174,12 +172,9 @@ describe("FindingCommentsView", (): void => {
         wrapper.update();
       }
     );
-    const commentElement: ReactWrapper = wrapper
-      .find("div")
-      .find({ id: "finding-consult" });
 
-    expect(commentElement).toHaveLength(1);
-    expect(wrapper.text()).toContain("This is a comment");
+    expect(wrapper.find(CommentsRefac)).toHaveLength(1);
+    expect(wrapper.text()).toContain("Consult comment");
 
     document.body.removeChild(container);
   });
@@ -206,12 +201,9 @@ describe("FindingCommentsView", (): void => {
         wrapper.update();
       }
     );
-    const commentElement: ReactWrapper = wrapper
-      .find("div")
-      .find({ id: "finding-observation" });
 
-    expect(commentElement).toHaveLength(1);
-    expect(wrapper.text()).toContain("This is an observation");
+    expect(wrapper.find(CommentsRefac)).toHaveLength(1);
+    expect(wrapper.text()).toContain("Observation comment");
 
     document.body.removeChild(container);
   });

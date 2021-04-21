@@ -72,7 +72,9 @@ const NestedComment: React.FC<INestedCommentProps> = (
             </span>
           }
           content={
-            <div className={"comment-content"}>{rootComment.content}</div>
+            <div className={"comment-content"}>
+              {_.trim(rootComment.content)}
+            </div>
           }
           datetime={
             <span className={"comment-datetime"}>{rootComment.created}</span>
