@@ -2,10 +2,10 @@ import { Comment } from "antd";
 import _ from "lodash";
 import React, { useCallback, useContext } from "react";
 
-import type { ICommentStructure } from "scenes/Dashboard/components/Comments/types";
 import { CommentEditor } from "scenes/Dashboard/components/CommentsRefac/commentEditor";
 import type { ICommentContext } from "scenes/Dashboard/components/CommentsRefac/index";
 import { commentContext } from "scenes/Dashboard/components/CommentsRefac/index";
+import type { ICommentStructure } from "scenes/Dashboard/components/CommentsRefac/types";
 import "scenes/Dashboard/components/CommentsRefac/index.css";
 import { translate } from "utils/translations/translate";
 

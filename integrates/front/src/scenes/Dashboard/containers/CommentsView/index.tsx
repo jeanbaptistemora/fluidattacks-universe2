@@ -6,12 +6,12 @@ import { track } from "mixpanel-browser";
 import React, { useCallback, useContext } from "react";
 import { useParams } from "react-router";
 
+import { CommentsRefac } from "scenes/Dashboard/components/CommentsRefac/index";
 import type {
   ICommentStructure,
   ILoadCallback,
   IPostCallback,
-} from "scenes/Dashboard/components/Comments/types";
-import { CommentsRefac } from "scenes/Dashboard/components/CommentsRefac/index";
+} from "scenes/Dashboard/components/CommentsRefac/types";
 import {
   ADD_FINDING_CONSULT,
   GET_FINDING_CONSULTING,

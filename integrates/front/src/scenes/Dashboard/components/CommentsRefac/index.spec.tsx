@@ -5,13 +5,13 @@ import TextArea from "react-textarea-autosize";
 import wait from "waait";
 
 import { Button } from "components/Button";
-import type { ICommentStructure } from "scenes/Dashboard/components/Comments/types";
 import {
   CommentsRefac,
   commentContext,
 } from "scenes/Dashboard/components/CommentsRefac";
 import { CommentEditor } from "scenes/Dashboard/components/CommentsRefac/commentEditor";
 import { NestedComment } from "scenes/Dashboard/components/CommentsRefac/nestedComment";
+import type { ICommentStructure } from "scenes/Dashboard/components/CommentsRefac/types";
 
 describe("Comments section", (): void => {
   const onLoadComments: jest.Mock = jest.fn();

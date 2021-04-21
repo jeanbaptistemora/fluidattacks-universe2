@@ -10,13 +10,13 @@ import React, {
 import type { StyledComponent } from "styled-components";
 import styled from "styled-components";
 
+import { CommentEditor } from "scenes/Dashboard/components/CommentsRefac/commentEditor";
+import { NestedComment } from "scenes/Dashboard/components/CommentsRefac/nestedComment";
 import type {
   ICommentStructure,
   ILoadCallback,
   IPostCallback,
-} from "scenes/Dashboard/components/Comments/types";
-import { CommentEditor } from "scenes/Dashboard/components/CommentsRefac/commentEditor";
-import { NestedComment } from "scenes/Dashboard/components/CommentsRefac/nestedComment";
+} from "scenes/Dashboard/components/CommentsRefac/types";
 import type { IAuthContext } from "utils/auth";
 import { authContext } from "utils/auth";
 import style from "utils/forms/index.css";
