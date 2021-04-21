@@ -18,11 +18,13 @@ from http_headers import (
     content_security_policy,
     referrer_policy,
     strict_transport_security,
+    x_xss_protection,
 )
 from http_headers.types import (
     ContentSecurityPolicyHeader,
     ReferrerPolicyHeader,
     StrictTransportSecurityHeader,
+    XXSSProtectionHeader,
 )
 from http_headers.types import (
     Header,
@@ -32,6 +34,9 @@ from model import (
 )
 from utils.ctx import (
     CTX,
+)
+from utils.html import (
+    is_html,
 )
 from utils.http import (
     create_session,
@@ -48,6 +53,7 @@ from zone import (
 class HeaderCheckCtx(NamedTuple):
     headers_parsed: Dict[Type[Header], Header]
     headers_raw: Dict[str, str]
+    is_html: bool
     preview: str
     url: str
 
@@ -230,11 +236,36 @@ def _strict_transport_security(
     )
 
 
+def _x_xss_protection(ctx: HeaderCheckCtx) -> core_model.Vulnerabilities:
+    if not ctx.is_html:
+        # XSS only applies to HTML endpoints
+        return ()
+
+    descs: List[str] = []
+    header: Optional[Header] = None
+
+    if val := ctx.headers_parsed.get(XXSSProtectionHeader):
+        if not val.enabled:
+            descs.append('x_xss_protection.disabled')
+        if val.mode != 'block':
+            descs.append('x_xss_protection.no_mode_block')
+    else:
+        descs.append('x_xss_protection.missing')
+
+    return _create_vulns(
+        descriptions=descs,
+        finding=core_model.FindingEnum.F043_DAST_XSSP,
+        header=header,
+        ctx=ctx,
+    )
+
+
 async def http_headers_configuration(url: str) -> core_model.Vulnerabilities:
     async with create_session() as session:
         response = await request(session, 'GET', url)
         headers_raw = response.headers
         preview: str = (await response.content.read(256)).decode('latin-1')
+        is_html_: bool = is_html(preview)
 
     headers_parsed: Dict[Type[Header], Header] = {
         type(header_parsed): header_parsed
@@ -246,6 +277,7 @@ async def http_headers_configuration(url: str) -> core_model.Vulnerabilities:
             content_security_policy.parse(line),
             referrer_policy.parse(line),
             strict_transport_security.parse(line),
+            x_xss_protection.parse(line),
         ]
         if header_parsed is not None
     }
@@ -254,6 +286,7 @@ async def http_headers_configuration(url: str) -> core_model.Vulnerabilities:
         check(HeaderCheckCtx(
             headers_parsed=headers_parsed,
             headers_raw=headers_raw,
+            is_html=is_html_,
             preview=preview,
             url=url,
         ))
@@ -269,6 +302,7 @@ CHECKS: Dict[
     core_model.FindingEnum.F043_DAST_CSP: _content_security_policy,
     core_model.FindingEnum.F043_DAST_RP: _referrer_policy,
     core_model.FindingEnum.F043_DAST_STS: _strict_transport_security,
+    core_model.FindingEnum.F043_DAST_XSSP: _x_xss_protection,
 }
 
 

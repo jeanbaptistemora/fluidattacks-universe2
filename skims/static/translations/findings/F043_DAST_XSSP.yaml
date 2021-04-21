@@ -1,3 +1,12 @@
+lib_http.f043.x_xss_protection.disabled:
+  en: X-XSS-Protection is disabled
+  es: X-XSS-Protection deshabilitada
+lib_http.f043.x_xss_protection.missing:
+  en: Missing X-XSS-Protection
+  es: X-XSS-Protection ausente
+lib_http.f043.x_xss_protection.no_mode_block:
+  en: Missing mode=block
+  es: mode=block ausente
 utils.model.finding.enum.F043_DAST_XSSP.description:
   en: >
     The server is missing the X-XSS-Protection HTTP header.
