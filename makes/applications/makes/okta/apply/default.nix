@@ -9,5 +9,5 @@ terraformApply {
   name = "makes-okta-apply";
   product = "makes";
   target = "makes/applications/makes/okta/src/terraform";
-  secretsPath = "makes/applications/makes/secrets/src/production.yaml";
+  secretsPath = "makes/applications/makes/secrets/src/development.yaml";
 }
