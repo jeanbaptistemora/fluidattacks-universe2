@@ -21,14 +21,15 @@ from aioextensions import (
 import yaml
 
 # Local
-from backend.dal import project as project_dal
+from groups import dal as groups_dal
+
 
 # Constants
 SERVICES_REPO_DIR: str = f'{os.getcwd()}/services'
 
 
 async def update_project(group_name: str, language: str) -> None:
-    await project_dal.update(group_name, {'language': language})
+    await groups_dal.update(group_name, {'language': language})
 
 
 def get_language(group_name: str) -> str:

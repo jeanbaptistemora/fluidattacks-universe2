@@ -22,7 +22,6 @@ from back.settings import (
     NOEXTRA,
 )
 from backend import mailer
-from backend.dal import project as group_dal
 from backend.services import has_access_to_project as has_access_to_group
 from groups import domain as groups_domain
 from newutils import (
@@ -232,7 +231,10 @@ async def should_not_send_report(
                 'project_status',
             ]
         )
-        if not await group_dal.is_alive(report_subject.lower(), group_data):
+        if not await groups_domain.is_alive(
+            report_subject.lower(),
+            group_data
+        ):
             if group_data.get('project_status') == 'FINISHED':
                 await unsubscribe_user_to_entity_report(
                     report_entity=report_entity,

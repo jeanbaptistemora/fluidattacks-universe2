@@ -19,8 +19,7 @@ import bugsnag
 import django
 
 django.setup()
-
-from backend.dal import (project as group_dal)
+\
 from groups import dal as groups_dal
 
 STAGE: str = os.environ['STAGE']
@@ -66,7 +65,7 @@ def main() -> None:
                     log(f'---\nrepo after: {repo}')
 
         if STAGE != 'test':
-            success : bool = group_dal.update(
+            success : bool = groups_dal.update(
                 project_name=group_name,
                 data={'repositories': repos}
             )

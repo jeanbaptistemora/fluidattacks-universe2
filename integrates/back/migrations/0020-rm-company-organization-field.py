@@ -18,7 +18,6 @@ from aioextensions import (
 from boto3.dynamodb.conditions import Attr
 from more_itertools import chunked
 
-from backend.dal import project as group_dal
 from groups import dal as groups_dal
 from users import dal as users_dal
 
@@ -52,7 +51,7 @@ async def main() -> None:
         for group_chunk in chunked(groups, 40):
             await collect(
                 in_thread(
-                    group_dal.update,
+                    groups_dal.update,
                     group['project_name'],
                     {'companies': None, 'organization': None}
                 )

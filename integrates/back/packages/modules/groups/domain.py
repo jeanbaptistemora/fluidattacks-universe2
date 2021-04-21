@@ -36,7 +36,6 @@ from backend import (
     authz,
     mailer,
 )
-from backend.dal import project as group_dal
 from backend.dal.helpers.dynamodb import start_context
 from backend.dal.helpers.redis import redis_del_by_deps_soon
 from backend.exceptions import (
@@ -102,7 +101,7 @@ async def _has_repeated_tags(group_name: str, tags: List[str]) -> bool:
 
 
 async def can_user_access(group: str, role: str) -> bool:
-    return await group_dal.can_user_access(group, role)
+    return await groups_dal.can_user_access(group, role)
 
 
 async def complete_register_for_group_invitation(
@@ -196,7 +195,7 @@ async def create_group(  # pylint: disable=too-many-arguments,too-many-locals
         )
         is_group_avail, group_exists = await collect([
             names_domain.exists(group_name, 'group'),
-            group_dal.exists(group_name)
+            groups_dal.exists(group_name)
         ])
 
         org_id = await orgs_domain.get_id_by_name(organization)
@@ -217,7 +216,7 @@ async def create_group(  # pylint: disable=too-many-arguments,too-many-locals
                 }],
                 'project_status': 'ACTIVE',
             }
-            success = await group_dal.create(group)
+            success = await groups_dal.create(group)
             if success:
                 await collect((
                     orgs_domain.add_group(org_id, group_name),
@@ -323,7 +322,7 @@ async def delete_group(
         }
         response = all([
             all_resources_removed,
-            await group_dal.update(group_name, new_data)
+            await update(group_name, new_data)
         ])
     else:
         raise AlreadyPendingDeletion()
@@ -372,7 +371,7 @@ async def edit(
     item.setdefault('historic_configuration', [])
 
     if item.get('project_name'):
-        success = await group_dal.update(
+        success = await update(
             data={
                 'historic_configuration': cast(
                     List[Dict[str, Union[bool, str]]],
@@ -388,7 +387,7 @@ async def edit(
                     'type': subscription,
                 }],
             },
-            project_name=group_name,
+            group_name=group_name,
         )
 
     if not has_integrates:
@@ -533,7 +532,7 @@ async def get_groups_with_forces() -> List[str]:
 async def get_many_groups(groups_name: List[str]) -> List[GroupType]:
     async with AsyncExitStack() as stack:
         resource = await stack.enter_async_context(start_context())
-        table = await resource.Table(group_dal.TABLE_NAME)
+        table = await resource.Table(groups_dal.TABLE_NAME)
         groups = await collect(
             groups_dal.get_group(group_name, table)
             for group_name in groups_name
@@ -702,8 +701,11 @@ async def invite_to_group(
     return success
 
 
-async def is_alive(group: str) -> bool:
-    return await group_dal.is_alive(group)
+async def is_alive(
+    group: str,
+    pre_computed_group_data: Optional[GroupType] = None
+) -> bool:
+    return await groups_dal.is_alive(group, pre_computed_group_data)
 
 
 async def mask(group_name: str) -> bool:
@@ -713,7 +715,7 @@ async def mask(group_name: str) -> bool:
         'project_status': 'FINISHED',
         'deletion_date': datetime_utils.get_as_str(today)
     }
-    is_group_finished = await group_dal.update(group_name, update_data)
+    is_group_finished = await update(group_name, update_data)
     return are_comments_masked and is_group_finished
 
 
@@ -865,7 +867,7 @@ async def remove_user(
 
 
 async def update(group_name: str, data: GroupType) -> bool:
-    return await group_dal.update(group_name, data)
+    return await groups_dal.update(group_name, data)
 
 
 async def update_pending_deletion_date(

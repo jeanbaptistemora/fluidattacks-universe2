@@ -18,7 +18,6 @@ import django
 
 django.setup()
 
-from backend.dal import (project as group_dal)
 from groups import dal as groups_dal
 
 
@@ -93,7 +92,7 @@ def main() -> None:
                     log(f'---\nenv is already encoded: {env}')
 
         if STAGE != 'test':
-            success : bool = group_dal.update(
+            success : bool = groups_dal.update(
                 project_name=group_name,
                 data={'environments': envs, 'repositories': repos}
             )

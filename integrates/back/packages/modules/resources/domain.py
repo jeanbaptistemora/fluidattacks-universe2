@@ -26,7 +26,6 @@ from backend import (
     mailer,
     util,
 )
-from backend.dal import project as project_dal
 from backend.exceptions import InvalidFileSize
 from backend.typing import (
     MailContent as MailContentType,
@@ -97,7 +96,7 @@ async def create_file(
         project_files.extend(json_data)
         success = all(await collect([
             resources_utils.save_file(uploaded_file, file_id),
-            project_dal.update(project_name, {'files': project_files})
+            groups_domain.update(project_name, {'files': project_files})
         ]))
     return success
 

@@ -13,7 +13,6 @@ import time
 from aioextensions import collect, run
 
 # Local libraries
-from backend.dal import project as group_dal
 from groups import dal as groups_dal
 
 
@@ -24,7 +23,7 @@ async def remove_old_data(group_name: str) -> None:
     if STAGE == 'test':
         print('[INFO] Will clean', group_name)
     else:
-        await group_dal.update(
+        await groups_dal.update(
             group_name,
             {'environments': None, 'repositories': None}
         )

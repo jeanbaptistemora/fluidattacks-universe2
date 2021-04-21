@@ -19,7 +19,6 @@ from backend import (
     authz,
     util,
 )
-from backend.dal import project as project_dal
 from group_access import domain as group_access_domain
 from groups import dal as groups_dal
 
@@ -74,7 +73,7 @@ def main() -> None:
             log(f'new data would be: {new_data_str}')
         else:
             log(f'applied: {new_data_str}')
-            project_dal.update(group_name, new_data)
+            groups_dal.update(group_name, new_data)
 
         log('---')
 

@@ -35,7 +35,6 @@ from botocore.exceptions import ClientError
 from back.settings import LOGGING
 from backend import mailer
 from backend.api import get_new_context
-from backend.dal import project as project_dal
 from backend.filters import finding as finding_filters
 from backend.typing import (
     Event as EventType,
@@ -831,7 +830,7 @@ async def update_group_indicators(group_name: str) -> None:
     }
     indicators = await get_project_indicators(group_name)
     try:
-        response = await project_dal.update(
+        response = await groups_domain.update(
             group_name,
             indicators
         )

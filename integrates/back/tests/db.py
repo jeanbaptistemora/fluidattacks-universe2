@@ -13,7 +13,6 @@ from typing import (
 from aioextensions import collect
 
 # Local libraries
-from backend.dal import project as dal_group
 from newutils.datetime import get_from_str
 from comments import dal as dal_comment
 from dynamodb.types import RootItem
@@ -22,6 +21,7 @@ from findings import dal as dal_findings
 from forces import dal as dal_forces
 from group_access import dal as dal_group_access
 from group_comments import dal as dal_group_comments
+from groups import dal as dal_groups
 from names import dal as dal_names
 from roots import dal as dal_roots
 from organizations import dal as dal_organizations
@@ -95,7 +95,7 @@ async def populate_groups(data: List[Any]) -> bool:
     coroutines: List[Awaitable[bool]] = []
     data_parsed: List[Any] = json.loads(json.dumps(data), parse_float=Decimal)
     coroutines.extend([
-        dal_group.create(
+        dal_groups.create(
             group,
         )
         for group in data_parsed

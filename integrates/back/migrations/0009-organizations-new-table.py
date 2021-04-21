@@ -19,7 +19,6 @@ import django
 
 django.setup()
 
-from backend.dal import project as project_dal
 from groups import dal as groups_dal
 from organizations import domain as orgs_domain
 
@@ -55,7 +54,7 @@ def main() -> None:
                 'sk: {}'.format(unique_orgs[org_name], org_name))
         else:
             org_dict = orgs_domain.get_or_create(org_name)
-            success : bool = project_dal.update(
+            success : bool = groups_dal.update(
                 data={'organization': org_dict['id']},
                 project_name=proj_name)
             if success:
