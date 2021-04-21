@@ -14,15 +14,9 @@
 }
 
 :global .comment-nested {
-  border: 1px solid gray;
-  border-radius: 0.5rem;
   background-color: white;
-  margin: 0.5rem 0.25rem 0.25rem 0.5rem;
-  padding: 0.5rem;
-}
-
-:global .comment-nested-bg-enabled {
-  background-color: #fafafa;
+  margin: 0;
+  padding: 0;
 }
 
 :global .comment-content {

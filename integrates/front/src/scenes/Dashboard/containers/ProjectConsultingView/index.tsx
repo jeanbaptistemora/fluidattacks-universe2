@@ -6,7 +6,6 @@ import { track } from "mixpanel-browser";
 import React, { useCallback, useContext } from "react";
 import { useParams } from "react-router";
 
-import { Comments } from "scenes/Dashboard/components/Comments/index";
 import type {
   ICommentStructure,
   ILoadCallback,
@@ -127,15 +126,9 @@ const ProjectConsultingView: React.FC = (): JSX.Element => {
 
   return (
     <React.StrictMode>
-      {userEmail === "integratesmanager@fluidattacks.com" ? (
+      <div>
         <CommentsRefac onLoad={getData} onPostComment={handlePost} />
-      ) : (
-        <Comments
-          id={"project-comments"}
-          onLoad={getData}
-          onPostComment={handlePost}
-        />
-      )}
+      </div>
     </React.StrictMode>
   );
 };

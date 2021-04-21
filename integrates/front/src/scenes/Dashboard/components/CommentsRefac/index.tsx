@@ -122,7 +122,7 @@ const CommentsRefac: React.FC<ICommentsRefacProps> = (
       <hr />
       <commentContext.Provider value={{ replying, setReplying }}>
         {comments.length > 1 && (
-          <div className={"w-25 w-50-m"}>
+          <div className={"w-25 w-50-m mb3"}>
             <Small>{translate.t("comments.orderBy.label")}</Small>
             <Select defaultValue={"newest"} onChange={onOrderChange}>
               <option value={"newest"}>

@@ -53,11 +53,7 @@ const NestedComment: React.FC<INestedCommentProps> = (
 
   return (
     <React.StrictMode>
-      <div
-        className={`comment-nested comment-no-bullets ${
-          backgroundEnabled ? "comment-nested-bg-enabled" : ""
-        }`}
-      >
+      <div className={"comment-nested comment-no-bullets"}>
         <Comment
           actions={[
             <button
@@ -88,17 +84,20 @@ const NestedComment: React.FC<INestedCommentProps> = (
               <CommentEditor onPost={onPost} />
             </div>
           )}
+          <hr className={"bt bw1 b--silver pa0 mt2 mb2"} />
           {childrenComments.length > 0 &&
             orderComments(childrenComments, orderBy).map(
               (childComment: ICommentStructure): JSX.Element => (
                 <React.Fragment key={childComment.id}>
-                  <NestedComment
-                    backgroundEnabled={!backgroundEnabled}
-                    comments={comments}
-                    id={childComment.id}
-                    onPost={onPost}
-                    orderBy={orderBy}
-                  />
+                  <div className={"pl5"}>
+                    <NestedComment
+                      backgroundEnabled={!backgroundEnabled}
+                      comments={comments}
+                      id={childComment.id}
+                      onPost={onPost}
+                      orderBy={orderBy}
+                    />
+                  </div>
                 </React.Fragment>
               )
             )}

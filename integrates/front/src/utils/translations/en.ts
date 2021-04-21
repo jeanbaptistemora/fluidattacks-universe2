@@ -247,7 +247,7 @@ export const enTranslations: ResourceKey = {
       oldest: "Oldest",
     },
     reply: "Reply",
-    send: "Send",
+    send: "Comment",
   },
   confirmmodal: {
     cancel: "Cancel",

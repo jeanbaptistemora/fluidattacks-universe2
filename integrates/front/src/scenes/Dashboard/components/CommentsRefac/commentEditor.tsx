@@ -33,6 +33,8 @@ const CommentEditor: React.FC<ICommentEditorProps> = (
   return (
     <React.Fragment>
       <TextArea
+        // eslint-disable-next-line jsx-a11y/no-autofocus
+        autoFocus={true}
         maxRows={8}
         minRows={2}
         onChange={onChange}
