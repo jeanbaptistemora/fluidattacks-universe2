@@ -23,7 +23,9 @@ makeTemplate {
       (path "/skims/skims")
     ];
     envPython38Paths = [
+      nixpkgs.python38Packages.beautifulsoup4
       nixpkgs.python38Packages.pygraphviz
+      nixpkgs.python38Packages.soupsieve
       (buildPythonRequirements {
         name = "skims-runtime";
         requirements = {
