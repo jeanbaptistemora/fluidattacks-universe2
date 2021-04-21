@@ -168,9 +168,9 @@ const ClientsSection: React.FC = (): JSX.Element => {
 
   return (
     <React.Fragment>
-      <BannerContainer className={"bg-clients-home"} />
+      <BannerContainer className={"bg-clients-home bg-attachment-fixed"} />
       <Container>
-        <ClientsContainer>
+        <ClientsContainer className={"bg-lightgray nt6"}>
           <ClientsTitle>{translate.t("clients.titleHome")}</ClientsTitle>
           <ArrowContainer>
             <ArrowButton onClick={scrollLeft}>

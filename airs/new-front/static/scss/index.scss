@@ -117,6 +117,9 @@ $whiter-gray: rgba(241, 241, 241, 1);
 .bg-compliance-internal { background-image: url('../images/compliance/cover-internal-compliance.png'); }
 .bg-systems { background-image: url('../images/systems/cover-systems.png'); }
 
+// Background Positions
+.bg-attachment-fixed { background-attachment: fixed; }
+
 // Box Shadow Classes
 .bs-btm-h-10 { box-shadow: 0 10px 10px $shadow-gray; }
 
@@ -215,6 +218,10 @@ $whiter-gray: rgba(241, 241, 241, 1);
 }
 
 // Medium screen sizes
+@media screen and (max-width: 60em) {
+  .bg-clients-home { background-image: url('../images/clients-home-960.png'); }
+}
+
 @media screen and (min-width: 30em) and (max-width: 60em) {
   .fheader { font-size: 3.5rem; }
   .nt-125 { margin-top: -0.125rem; }
