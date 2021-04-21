@@ -39,7 +39,7 @@ function sops_export_vars_by_profile {
   &&  for var in "${@:3}"
       do
             echo "[INFO] Exported: ${var}" \
-        &&  export "${var//./__}=$(echo "${json}" | jq -er ".${var}")" \
+        &&  export "${var//./__}=$(echo "${json}" | jq -erc ".${var}")" \
         ||  return 1
       done
 }

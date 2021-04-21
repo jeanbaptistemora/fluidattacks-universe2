@@ -1,9 +1,8 @@
-resource "okta_user" "dsalazar" {
-  email      = "dsalazar@fluidattacks.com"
-  first_name = "Daniel"
-  last_name  = "Salazar"
-  login      = "dsalazar@fluidattacks.com"
-  admin_roles = [
-    "SUPER_ADMIN",
-  ]
+resource "okta_user" "users" {
+  for_each    = jsondecode(var.okta_users)
+  email       = each.value.email
+  first_name  = each.value.first_name
+  last_name   = each.value.last_name
+  login       = each.value.email
+  admin_roles = each.value.admin_roles
 }
