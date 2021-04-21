@@ -2,19 +2,14 @@ import { MockedProvider } from "@apollo/client/testing";
 import type { MockedResponse } from "@apollo/client/testing";
 import type { ReactWrapper } from "enzyme";
 import { mount } from "enzyme";
-import $ from "jquery";
 import React from "react";
 import { act } from "react-dom/test-utils";
 import { MemoryRouter, Route } from "react-router";
 import wait from "waait";
 
+import { CommentsRefac } from "scenes/Dashboard/components/CommentsRefac/index";
 import { EventCommentsView } from "scenes/Dashboard/containers/EventCommentsView";
 import { GET_EVENT_CONSULTING } from "scenes/Dashboard/containers/EventCommentsView/queries";
-
-jest.mock("jquery-comments_brainkit", (): void => {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-  jest.requireActual("jquery-comments_brainkit")($);
-});
 
 describe("EventCommentsView", (): void => {
   const mocks: readonly MockedResponse[] = [
@@ -68,10 +63,13 @@ describe("EventCommentsView", (): void => {
     await act(
       async (): Promise<void> => {
         await wait(0);
+        wrapper.update();
       }
     );
 
     expect(wrapper).toHaveLength(1);
+    expect(wrapper.text()).toContain("Hello world");
+    expect(wrapper.find(CommentsRefac)).toHaveLength(1);
 
     document.body.removeChild(container);
   });
@@ -142,11 +140,8 @@ describe("EventCommentsView", (): void => {
         wrapper.update();
       }
     );
-    const commentElement: ReactWrapper = wrapper
-      .find("div")
-      .find({ id: "event-comments" });
 
-    expect(commentElement).toHaveLength(1);
+    expect(wrapper.find(CommentsRefac)).toHaveLength(1);
     expect(wrapper.text()).toContain("Hello world");
 
     document.body.removeChild(container);

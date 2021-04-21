@@ -6,12 +6,12 @@ import { track } from "mixpanel-browser";
 import React, { useCallback, useContext } from "react";
 import { useParams } from "react-router";
 
-import { Comments } from "scenes/Dashboard/components/Comments/index";
 import type {
   ICommentStructure,
   ILoadCallback,
   IPostCallback,
 } from "scenes/Dashboard/components/Comments/types";
+import { CommentsRefac } from "scenes/Dashboard/components/CommentsRefac/index";
 import {
   ADD_EVENT_CONSULT,
   GET_EVENT_CONSULTING,
@@ -132,11 +132,9 @@ const EventCommentsView: React.FC = (): JSX.Element => {
 
   return (
     <React.StrictMode>
-      <Comments
-        id={"event-comments"}
-        onLoad={getData}
-        onPostComment={handlePost}
-      />
+      <div>
+        <CommentsRefac onLoad={getData} onPostComment={handlePost} />
+      </div>
     </React.StrictMode>
   );
 };
