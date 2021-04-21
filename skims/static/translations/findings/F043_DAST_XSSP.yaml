@@ -1,0 +1,22 @@
+utils.model.finding.enum.F043_DAST_XSSP.description:
+  en: >
+    The server is missing the X-XSS-Protection HTTP header.
+    Alternatively, the header's mode is set to disabled.
+  es: >
+    El servidor carece del encabezado HTTP X-XSS-Protection.
+    Alternativamente, el valor del mismo se encuentra deshabilitado.
+utils.model.finding.enum.F043_DAST_XSSP.impact:
+  en: Allow reflected XSS attacks.
+  es: Permitir ataques de Cross-Site-Scripting reflejado.
+utils.model.finding.enum.F043_DAST_XSSP.recommendation:
+  en: Configure the X-XSS-Protection header to enable XSS filtering in blocking mode.
+  es: Establecer la cabecera X-XSS-Protection para habilitar el filtrado de XSS en modo bloqueante.
+utils.model.finding.enum.F043_DAST_XSSP.requirements:
+  en: R062. Define standard configurations
+  es: R062. Debe definirse configuraciones estándares que corrijan todas las vulnerabilidades conocidas y que sean consistentes con estándares de la industria (ej líneas base).
+utils.model.finding.enum.F043_DAST_XSSP.threat:
+  en: Unauthorized attacker from internet network.
+  es: Atacante sin autorización desde red internet.
+utils.model.finding.enum.F043_DAST_XSSP.title:
+  en: F043. Missing HTTP security headers - X-XSS-Protection
+  es: F043. Cabeceras de seguridad HTTP no establecidas - X-XSS-Protection
