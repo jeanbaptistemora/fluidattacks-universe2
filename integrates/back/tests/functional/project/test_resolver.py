@@ -28,8 +28,11 @@ async def test_admin(populate: bool):
         'customer@gmail.com',
         'customeradmin@gmail.com',
         'executive@gmail.com',
+        'group_manager@fluidattacks.com',
+        'group_manager@gmail.com',
         'resourcer@gmail.com',
         'reviewer@gmail.com',
+        'service_forces@gmail.com',
     ]
     result: Dict[str, Any] = await query(
         user='admin@gmail.com',
