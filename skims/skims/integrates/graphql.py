@@ -11,10 +11,13 @@ from typing import (
 )
 
 # Third party libraries
-import aiohttp
 from aiogqlc import (
     GraphQLClient,
 )
+
+# Local libraries
+import utils.http
+
 
 # State
 API_TOKEN: ContextVar[str] = ContextVar('API_TOKEN', default='')
@@ -23,21 +26,11 @@ API_TOKEN: ContextVar[str] = ContextVar('API_TOKEN', default='')
 @asynccontextmanager
 async def client() -> AsyncIterator[GraphQLClient]:
     if API_TOKEN.get():
-        async with aiohttp.ClientSession(
-            connector=aiohttp.TCPConnector(
-                verify_ssl=False,
-            ),
+        async with utils.http.create_session(
             headers={
                 'authorization': f'Bearer {API_TOKEN.get()}',
                 'x-integrates-source': 'skims'
             },
-            timeout=aiohttp.ClientTimeout(
-                total=60,
-                connect=None,
-                sock_read=None,
-                sock_connect=None,
-            ),
-            trust_env=True,
         ) as session:
             yield GraphQLClient(
                 endpoint='https://app.fluidattacks.com/api',

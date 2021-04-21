@@ -15,7 +15,6 @@ from typing import (
 from http_headers import (
     as_string,
     content_security_policy,
-    from_url,
     referrer_policy,
     strict_transport_security,
 )
@@ -32,6 +31,10 @@ from model import (
 )
 from utils.ctx import (
     CTX,
+)
+from utils.http import (
+    create_session,
+    request,
 )
 from utils.encodings import (
     serialize_namespace_into_vuln,
@@ -230,7 +233,10 @@ def _strict_transport_security(
 
 
 async def http_headers_configuration(url: str) -> core_model.Vulnerabilities:
-    headers_raw = await from_url.get('GET', url)
+    async with create_session() as session:
+        response = await request(session, 'GET', url)
+        headers_raw = response.headers
+
     headers_parsed: Dict[Type[Header], Header] = {
         type(header_parsed): header_parsed
         for header_raw_name, header_raw_value in reversed(tuple(

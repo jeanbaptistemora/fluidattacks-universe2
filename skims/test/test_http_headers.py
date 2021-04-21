@@ -4,16 +4,12 @@ from textwrap import (
 )
 
 # Third party libraries
-from aioextensions import (
-    run_decorator,
-)
 import pytest
 
 # Local libraries
 from http_headers import (
     as_string,
     content_security_policy,
-    from_url,
     strict_transport_security,
     referrer_policy,
 )
@@ -129,11 +125,3 @@ def test_strict_transport_security() -> None:
 
     header = parse('Strict-Transport-Security-: preload')
     assert not header
-
-
-@run_decorator
-@pytest.mark.skims_test_group('unittesting')
-async def test_from_url() -> None:
-    headers = await from_url.get('GET', 'http://fluidattacks.com')
-
-    assert 'Content-Type' in headers
