@@ -7,6 +7,9 @@ from typing import (
 from returns.curry import (
     partial,
 )
+from returns.io import (
+    IO,
+)
 
 # Local libraries
 from singer_io import (
@@ -17,6 +20,7 @@ from singer_io.singer import (
 )
 from tap_checkly.api import (
     ApiPage,
+    ImpApiPage,
 )
 from tap_checkly.common import (
     JSON,
@@ -48,7 +52,15 @@ def emit_records(
         factory.emit(record)
 
 
-def emit_page(stream: SupportedStreams, page: ApiPage) -> None:
+def emit_imp_page(stream: SupportedStreams, page: ImpApiPage) -> None:
     page.data.map(
         partial(emit_records, stream)
     )
+
+
+def emit_page(stream: SupportedStreams, page: ApiPage) -> None:
+    emit_records(stream, page.data)
+
+
+def emit_iopage(stream: SupportedStreams, page: IO[ApiPage]) -> None:
+    page.map(partial(emit_page, stream))

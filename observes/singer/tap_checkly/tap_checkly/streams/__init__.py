@@ -4,8 +4,8 @@ from typing import (
 )
 
 # Third party libraries
-from returns.curry import (
-    partial,
+from returns.io import (
+    IO,
 )
 
 # Local libraries
@@ -15,6 +15,7 @@ from paginator import (
 from tap_checkly.api import (
     ApiClient,
     ApiPage,
+    ImpApiPage,
 )
 from tap_checkly.streams import (
     emitter,
@@ -30,10 +31,18 @@ ALL = AllPages()
 
 def _stream_data(
     stream: SupportedStreams,
-    pages: Iterator[ApiPage],
+    pages: Iterator[ImpApiPage],
 ) -> None:
     for page in pages:
-        emitter.emit_page(stream, page)
+        emitter.emit_imp_page(stream, page)
+
+
+def _stream_data2(
+    stream: SupportedStreams,
+    pages: Iterator[IO[ApiPage]],
+) -> None:
+    for page in pages:
+        emitter.emit_iopage(stream, page)
 
 
 def all_alerts(api: ApiClient) -> None:
@@ -44,14 +53,14 @@ def all_alerts(api: ApiClient) -> None:
 
 
 def all_checks(api: ApiClient) -> None:
-    _stream_data(
+    _stream_data2(
         SupportedStreams.CHECKS,
         api.checks.list_checks(ALL),
     )
 
 
 def all_chk_groups(api: ApiClient) -> None:
-    _stream_data(
+    _stream_data2(
         SupportedStreams.CHECK_GROUPS,
         api.checks.list_check_groups(ALL),
     )
@@ -59,9 +68,9 @@ def all_chk_groups(api: ApiClient) -> None:
 
 def all_chk_status(api: ApiClient) -> None:
     stream = SupportedStreams.CHECK_STATUS
-    status = api.checks.list_check_status()
-    status.data.map(
-        partial(emitter.emit_records, stream)
+    status_io = api.checks.list_check_status()
+    status_io.map(
+        lambda status: emitter.emit_records(stream, status.data)
     )
 
 
