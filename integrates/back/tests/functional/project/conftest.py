@@ -60,14 +60,14 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 'historic_state': [
                     {
                         'date': '2018-04-07 19:45:11',
-                        'analyst': 'admin@gmail.com',
+                        'analyst': generic_data['global_vars']['admin_email'],
                         'source': 'source_path',
                         'state': 'APPROVED',
                     },
                 ],
                 'effect_solution': 'solution',
                 'vulnerability': 'vulnerability',
-                'analyst': 'admin@gmail.com',
+                'analyst': generic_data['global_vars']['admin_email'],
                 'cvss_version': '3.1',
                 'exploitability': 0.94,
                 'finding': 'FIN.H.060. Insecure exceptions',
@@ -88,7 +88,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 'confidentiality_impact': 0.22,
                 'remediation_level': 0.95,
                 'attack_complexity': 0.44,
-                'effect_solution': 'Implement',
                 'resolution_level': 1,
                 'cvss_temporal': 3.4,
                 'modified_user_interaction': 0.62,
@@ -119,7 +118,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 'user_interaction': 0.85,
                 'client_project': 'Unit Test',
                 'cvss_basescore': 3.8,
-                'interested': 'aaa@gmail.com',
+                'interested': 'bbb@gmail.com',
             },
             {
                 'finding_id': '475041531',
@@ -133,15 +132,15 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 ],
                 'historic_state': [
                     {
-                        'date': '2018-04-07 19:45:11',
-                        'analyst': 'admin@gmail.com',
+                        'date': '2018-04-07 19:45:12',
+                        'analyst': generic_data['global_vars']['admin_email'],
                         'source': 'source_path',
                         'state': 'CREATED',
                     },
                 ],
                 'effect_solution': 'solution',
                 'vulnerability': 'vulnerability',
-                'analyst': 'admin@gmail.com',
+                'analyst': generic_data['global_vars']['admin_email'],
                 'cvss_version': '3.1',
                 'exploitability': 0.94,
                 'finding': 'FIN.H.060. Insecure exceptions',
@@ -162,7 +161,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 'confidentiality_impact': 0.22,
                 'remediation_level': 0.95,
                 'attack_complexity': 0.44,
-                'effect_solution': 'Implement',
                 'resolution_level': 1,
                 'cvss_temporal': 3.4,
                 'modified_user_interaction': 0.62,
@@ -188,12 +186,12 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 'collateral_damage_potential': 0.1,
                 'test_type': 'APP',
                 'actor': 'SOME_CUSTOMERS',
-                'leader': 'aaa@gmail.com',
+                'leader': 'ccc@gmail.com',
                 'confidentiality_requirement': 0.5,
                 'user_interaction': 0.85,
                 'client_project': 'Unit Test',
                 'cvss_basescore': 3.8,
-                'interested': 'aaa@gmail.com',
+                'interested': 'ddd@gmail.com',
             },
         ],
         'vulnerabilities': [
@@ -202,15 +200,15 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 'UUID': 'be09edb7-cd5c-47ed-bee4-97c645acdce8',
                 'historic_state': [
                     {
-                        'date': '2018-04-07 19:45:11',
-                        'analyst': 'admin@gmail.com',
+                        'date': '2018-04-07 19:45:13',
+                        'analyst': generic_data['global_vars']['admin_email'],
                         'source': 'integrates',
                         'state': 'open',
                     },
                 ],
                 'historic_treatment': [
                     {
-                        'date': '2018-04-07 19:45:11',
+                        'date': '2018-04-07 19:45:14',
                         'treatment': 'NEW',
                     },
                 ],
@@ -223,8 +221,8 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 'UUID': '6401bc87-8633-4a4a-8d8e-7dae0ca57e6a',
                 'historic_state': [
                     {
-                        'date': '2018-04-07 19:45:11',
-                        'analyst': 'admin@gmail.com',
+                        'date': '2018-04-07 19:45:15',
+                        'analyst': generic_data['global_vars']['admin_email'],
                         'source': 'integrates',
                         'state': 'closed',
                     },
@@ -232,11 +230,11 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 'historic_treatment': [
                     {
                         'date': '2018-04-08 19:45:11',
-                        'treatment_manager': 'anything@gmail.com',
+                        'treatment_manager': generic_data['global_vars']['analyst_email'],
                         'treatment': 'ACCEPTED',
                         'justification': 'justification',
                         'acceptance_date': '2018-04-08 19:45:11',
-                        'user': 'anything@gmail.com',
+                        'user': generic_data['global_vars']['analyst_email'],
                     },
                 ],
                 'vuln_type': 'ports',
@@ -248,8 +246,8 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 'UUID': '6401bc87-8633-4a4a-8d8e-7dae0ca57e6a',
                 'historic_state': [
                     {
-                        'date': '2018-04-07 19:45:11',
-                        'analyst': 'admin@gmail.com',
+                        'date': '2018-04-07 19:45:16',
+                        'analyst': generic_data['global_vars']['admin_email'],
                         'source': 'integrates',
                         'state': 'open',
                     },
@@ -257,11 +255,11 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 'historic_treatment': [
                     {
                         'date': '2018-04-08 19:45:11',
-                        'treatment_manager': 'anything@gmail.com',
+                        'treatment_manager': generic_data['global_vars']['analyst_email'],
                         'treatment': 'ACCEPTED',
                         'justification': 'justification',
                         'acceptance_date': '2018-04-08 19:45:11',
-                        'user': 'anything@gmail.com',
+                        'user': generic_data['global_vars']['analyst_email'],
                     },
                 ],
                 'vuln_type': 'ports',
@@ -319,7 +317,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 'accessibility': 'Repositorio',
                 'action_after_blocking': 'EXECUTE_OTHER_PROJECT_SAME_CLIENT',
                 'action_before_blocking': 'TEST_OTHER_PART_TOE',
-                'analyst': 'unittest@fluidattacks.com',
+                'analyst': generic_data['global_vars']['analyst_email'],
                 'client': 'Fluid',
                 'client_project': 'group1',
                 'closer': 'unittest',
@@ -328,12 +326,12 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 'event_id': '418900971',
                 'historic_state': [
                     {
-                        'analyst': 'unittest@fluidattacks.com',
+                        'analyst': generic_data['global_vars']['analyst_email'],
                         'date': '2018-06-27 07:00:00',
                         'state': 'OPEN'
                     },
                     {
-                        'analyst': 'unittest@fluidattacks.com',
+                        'analyst': generic_data['global_vars']['analyst_email'],
                         'date': '2018-06-27 14:40:05',
                         'state': 'CREATED'
                     },
