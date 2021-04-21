@@ -53,7 +53,8 @@ if __name__ == '__main__':
         'MLPClassifier',
         'RandomForestClassifier',
         'KNeighborsClassifier',
-        'LinearSVC'
+        'LinearSVC',
+        'GradientBoostingClassifier',
     ]
     with ThreadPoolExecutor(max_workers=len(models_to_train)) as executor:
         executor.map(

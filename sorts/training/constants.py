@@ -6,7 +6,10 @@ from typing import (
 
 # Third party libraries
 import boto3
-from sklearn.ensemble import RandomForestClassifier
+from sklearn.ensemble import (
+    GradientBoostingClassifier,
+    RandomForestClassifier
+)
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.neural_network import MLPClassifier
 from sklearn.svm import LinearSVC
@@ -42,5 +45,6 @@ MODELS: Dict[str, ModelType] = {
     'mlpclassifier': MLPClassifier,
     'randomforestclassifier': RandomForestClassifier,
     'kneighborsclassifier': KNeighborsClassifier,
-    'linearsvc': LinearSVC
+    'linearsvc': LinearSVC,
+    'gradientboostingclassifier': GradientBoostingClassifier
 }
