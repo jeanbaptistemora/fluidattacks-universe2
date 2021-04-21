@@ -21,8 +21,8 @@ const Portrait: React.FC = (): JSX.Element => (
     <MainContentHome>
       <InnerMainContentHome>
         <ScrollAnimation animateIn={"animate__fadeInDown"} animateOnce={true}>
-          <BlackBigHeader>{"CONTINUOUS HACKING"}</BlackBigHeader>
-          <BlackBigParagraph>{"BY HUMAN EXPERTS"}</BlackBigParagraph>
+          <BlackBigHeader>{"COMPREHENSIVE"}</BlackBigHeader>
+          <BlackBigParagraph>{"CONTINUOUS HACKING"}</BlackBigParagraph>
           <GrayBigParagraph>
             {"FAST, ACCURATE AND COST-EFFECTIVE"}
           </GrayBigParagraph>
