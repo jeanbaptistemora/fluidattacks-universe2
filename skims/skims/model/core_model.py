@@ -505,6 +505,23 @@ class FindingEnum(Enum):
         severity_scope=0.0,
         user_interaction=0.62,
     )
+    F043_DAST_XSSP: FindingMetadata = FindingMetadata.new(
+        auto_approve=False,
+        code='F043_DAST_XSSP',
+        cwe='644',
+
+        attack_complexity=0.44,
+        attack_vector=0.85,
+        availability_impact=0.0,
+        confidentiality_impact=0.0,
+        exploitability=0.94,
+        integrity_impact=0.22,
+        privileges_required=0.85,
+        remediation_level=0.95,
+        report_confidence=1.0,
+        severity_scope=0.0,
+        user_interaction=0.62,
+    )
     F052: FindingMetadata = FindingMetadata(
         auto_approve=True,
         cwe='310',
