@@ -14,6 +14,24 @@ import {
 import { Logger } from "utils/logger";
 import { translate } from "utils/translations/translate";
 
+/**
+ * Groups single or multiple field-level validations and returns the first error
+ * found in a similar way to redux-form's validator composing
+ *
+ * Example: composeValidators([val1, val2, val3])
+ */
+const composeValidators = (
+  // Needed for compatibility with ConfigurableValidator parameters
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  args: ((value: any) => string | undefined)[]
+): unknown => (value: unknown): string | undefined => {
+  const errors = args
+    .map((validator): string | undefined => validator(value))
+    .filter((error): boolean => error !== undefined);
+
+  return errors[0];
+};
+
 const required: Validator = isRequired({
   message: translate.t("validations.required"),
 });
@@ -375,6 +393,7 @@ const excludeFormat: Validator = (
 };
 
 export {
+  composeValidators,
   checked,
   required,
   someRequired,
