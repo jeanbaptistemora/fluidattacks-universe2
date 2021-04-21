@@ -1,4 +1,4 @@
-# Standard librar
+# Standard library
 from itertools import (
     chain,
 )

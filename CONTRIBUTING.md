@@ -88,6 +88,28 @@ so read it completely and execute commands as you read
     You can install it with:
     `$ NIXPKGS_ALLOW_UNFREE=1 nix-env -i vscode-with-extensions -f /path/to/fluidattacks/product/repo`
 
+    The configuration file will be created at
+    `~/.config/Code/User/settings.json` once you start the editor
+
+    This configuration is needed for the language server to work correctly:
+
+    ```json
+    {
+        "python.languageServer": "Pylance",
+    }
+    ```
+
+    These configurations are suggested, you can add the ones you want:
+
+    ```json
+    {
+        "editor.rulers": [ 80 ],
+        "files.insertFinalNewline": true,
+        "files.trimFinalNewlines": true,
+        "files.trimTrailingWhitespace": true,
+    }
+    ```
+
 1. **Others tools**:
 
     awscli, curl, kubectl, vim, python, nodejs, git, ghc, jq, etc
@@ -97,7 +119,7 @@ so read it completely and execute commands as you read
 
     For example: `$ nix-env -i awscli`
 
-1. **Openining the environment**
+1. **Opening the environment**
 
     At this point you can open a Bash Shell,
     execute `$ code`, and the code editor will be able to auto-complete,
