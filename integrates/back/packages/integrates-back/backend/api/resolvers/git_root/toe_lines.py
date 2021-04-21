@@ -30,9 +30,10 @@ async def resolve(
 ) -> Tuple[GitRootToeLines, ...]:
     response: Tuple[GitRootToeLines, ...] = await redis_get_or_set_entity_attr(
         partial(resolve_no_cache, parent, info, **kwargs),
-        entity='group',
+        entity='root',
         attr='toe_lines',
-        name=parent.group_name
+        group=parent.group_name,
+        id=parent.id
     )
 
     return response
