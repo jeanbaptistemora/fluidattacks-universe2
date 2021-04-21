@@ -29,6 +29,10 @@ from tap_checkly.api.dashboards import (
     DashboardsApi,
     DashboardsPage,
 )
+from tap_checkly.api.env_vars import (
+    EnvVarsApi,
+    EnvVarsPage,
+)
 from tap_checkly.api.maintenace_windows import (
     MantWindowsApi,
     MantWindowsPage,
@@ -44,6 +48,7 @@ ApiPage = Union[
     CheckGroupsPage,
     ChecksPage,
     DashboardsPage,
+    EnvVarsPage,
     MantWindowsPage,
     SnippetsPage,
 ]
@@ -55,6 +60,7 @@ class ApiClient(NamedTuple):
     dashboards: DashboardsApi
     maintenance: MantWindowsApi
     snippets: SnippetsApi
+    env: EnvVarsApi
 
     @classmethod
     def new(cls, creds: Credentials) -> ApiClient:
@@ -63,6 +69,7 @@ class ApiClient(NamedTuple):
             alerts=AlertChsApi.new(client),
             checks=ChecksApi.new(client),
             dashboards=DashboardsApi.new(client),
+            env=EnvVarsApi.new(client),
             maintenance=MantWindowsApi.new(client),
             snippets=SnippetsApi.new(client),
         )

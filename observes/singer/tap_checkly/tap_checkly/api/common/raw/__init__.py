@@ -5,6 +5,9 @@ import logging
 from typing import (
     Iterator,
 )
+from requests.exceptions import (
+    HTTPError,
+)
 from returns.io import (
     IO,
 )
@@ -73,6 +76,22 @@ def list_dashboards(client: Client, page: PageId) -> IO[Iterator[JSON]]:
         params={'limit': page.per_page, 'page': page.page}
     )
     LOG.debug('dashboards response: %s', result)
+    return IO(result)
+
+
+def list_env_vars(client: Client, page: PageId) -> IO[Iterator[JSON]]:
+    result: Iterator[JSON] = iter([])
+    try:
+        result = client.get(
+            '/v1/variables',
+            params={'limit': page.per_page, 'page': page.page}
+        )
+    except HTTPError as error:
+        if error.response.status_code != 500:
+            raise error
+    for item in result:
+        item['value'] = '__masked__'
+    LOG.debug('variables response: %s', result)
     return IO(result)
 
 

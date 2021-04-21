@@ -72,6 +72,13 @@ def all_dashboards(api: ApiClient) -> None:
     )
 
 
+def all_env_vars(api: ApiClient) -> None:
+    _stream_data(
+        SupportedStreams.ENV_VARS,
+        api.env.list_env_vars(ALL),
+    )
+
+
 def all_maint_windows(api: ApiClient) -> None:
     _stream_data(
         SupportedStreams.MAINTENACE_WINDOWS,

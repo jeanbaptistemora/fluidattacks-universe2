@@ -30,6 +30,7 @@ _stream_executor: Mapping[
     SupportedStreams.CHECK_GROUPS: streams.all_chk_groups,
     SupportedStreams.CHECK_STATUS: streams.all_chk_status,
     SupportedStreams.DASHBOARD: streams.all_dashboards,
+    SupportedStreams.ENV_VARS: streams.all_env_vars,
     SupportedStreams.MAINTENACE_WINDOWS: streams.all_maint_windows,
     SupportedStreams.SNIPPETS: streams.all_snippets,
 }
