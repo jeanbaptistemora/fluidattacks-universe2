@@ -16,6 +16,7 @@ from aioextensions import collect
 from newutils.datetime import get_from_str
 from comments import dal as dal_comment
 from data_containers.toe_lines import GitRootToeLines
+from data_containers.toe_inputs import GitRootToeInput
 from dynamodb.types import RootItem
 from events import dal as dal_event
 from findings import dal as dal_findings
@@ -26,6 +27,7 @@ from groups import dal as dal_groups
 from names import dal as dal_names
 from roots import dal as dal_roots
 from organizations import dal as dal_organizations
+from toe.inputs import dal as dal_toe_inputs
 from toe.lines import dal as dal_toe_lines
 from users import dal as dal_users
 from vulnerabilities import dal as dal_vulns
@@ -219,6 +221,14 @@ async def populate_toe_lines(data: Tuple[GitRootToeLines, ...]) -> bool:
     await collect([
         dal_toe_lines.create(toe_lines)
         for toe_lines in data
+    ])
+    return True
+
+
+async def populate_toe_inputs(data: Tuple[GitRootToeInput, ...]) -> bool:
+    await collect([
+        dal_toe_inputs.create(toe_input)
+        for toe_input in data
     ])
     return True
 
