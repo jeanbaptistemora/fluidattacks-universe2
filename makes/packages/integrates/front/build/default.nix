@@ -13,7 +13,6 @@ makeDerivation {
     envSetupIntegratesFrontDevRuntime = packages.integrates.front.config.dev-runtime;
     envIntegratesBackAppTemplates = path "/integrates/back/app/templates/static";
     envIntegratesFront = path "/integrates/front";
-    envJqueryCommentsPatch = path "/makes/packages/integrates/front/build/jquery-comments.diff";
   };
   builder = path "/makes/packages/integrates/front/build/builder.sh";
   name = "integrates-front-build";

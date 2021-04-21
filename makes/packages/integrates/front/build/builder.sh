@@ -10,11 +10,6 @@ function main {
   &&  copy "${envIntegratesFront}" front \
   &&  pushd front \
     &&  copy "${envSetupIntegratesFrontDevRuntime}/node_modules" node_modules \
-    &&  patch \
-          -p1 \
-          --binary \
-          node_modules/jquery-comments_brainkit/js/jquery-comments.js \
-          < "${envJqueryCommentsPatch}" \
     &&  tcm src/ --silent \
     &&  webpack \
           --config webpack.prod.config.ts \
