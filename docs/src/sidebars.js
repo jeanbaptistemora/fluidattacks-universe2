@@ -82,6 +82,7 @@ module.exports = {
         'criteria/authorization/r033',
         'criteria/authorization/r034',
         'criteria/authorization/r035',
+        'criteria/authorization/r095',
       ],
     },
     {
