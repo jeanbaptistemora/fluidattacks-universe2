@@ -558,34 +558,62 @@ async def deactivate_root(
 ) -> None:
     new_status = 'INACTIVE'
     root = await get_root(group_name=group_name, root_id=root_id)
+    repo = new_repo if reason == 'MOVED_TO_ANOTHER_REPO' else None
 
     if root.state.status != new_status:
-        if await _has_open_vulns(root=root):
-            raise HasOpenVulns()
+        if isinstance(root, GitRootItem):
+            if await _has_open_vulns(root=root):
+                raise HasOpenVulns()
 
-        await roots_dal.update_root_state(
-            group_name=group_name,
-            root_id=root_id,
-            state=GitRootState(
-                environment_urls=root.state.environment_urls,
-                environment=root.state.environment,
-                gitignore=root.state.gitignore,
-                includes_health_check=root.state.includes_health_check,
-                modified_by=user_email,
-                modified_date=datetime_utils.get_iso_date(),
-                new_repo=new_repo,
-                nickname=root.state.nickname,
-                reason=reason,
-                status=new_status
-            )
-        )
-
-        if root.state.includes_health_check:
-            await notifications_domain.cancel_health_check(
-                branch=root.metadata.branch,
+            await roots_dal.update_root_state(
                 group_name=group_name,
-                repo_url=root.metadata.url,
-                requester_email=user_email
+                root_id=root_id,
+                state=GitRootState(
+                    environment_urls=root.state.environment_urls,
+                    environment=root.state.environment,
+                    gitignore=root.state.gitignore,
+                    includes_health_check=root.state.includes_health_check,
+                    modified_by=user_email,
+                    modified_date=datetime_utils.get_iso_date(),
+                    new_repo=repo,
+                    nickname=root.state.nickname,
+                    reason=reason,
+                    status=new_status
+                )
+            )
+
+            if root.state.includes_health_check:
+                await notifications_domain.cancel_health_check(
+                    branch=root.metadata.branch,
+                    group_name=group_name,
+                    repo_url=root.metadata.url,
+                    requester_email=user_email
+                )
+
+        if isinstance(root, IPRootItem):
+            await roots_dal.update_root_state(
+                group_name=group_name,
+                root_id=root_id,
+                state=IPRootState(
+                    modified_by=user_email,
+                    modified_date=datetime_utils.get_iso_date(),
+                    new_repo=repo,
+                    reason=reason,
+                    status=new_status
+                )
+            )
+
+        if isinstance(root, URLRootItem):
+            await roots_dal.update_root_state(
+                group_name=group_name,
+                root_id=root_id,
+                state=URLRootState(
+                    modified_by=user_email,
+                    modified_date=datetime_utils.get_iso_date(),
+                    new_repo=repo,
+                    reason=reason,
+                    status=new_status
+                )
             )
 
 
