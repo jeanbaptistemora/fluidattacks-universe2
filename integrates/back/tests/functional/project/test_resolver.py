@@ -22,7 +22,7 @@ async def test_admin(populate: bool):
         'id': '475041531',
         'title': 'FIN.H.060. Insecure exceptions',
     }
-    stakeholders: str = [
+    stakeholders: List[str] = [
         'analyst@gmail.com',
         'closer@gmail.com',
         'customer@gmail.com',
@@ -158,10 +158,6 @@ async def test_closer(populate: bool):
     finding: str = '475041521'
     event: str = '418900971'
     root: str = '63298a73-9dff-46cf-b42d-9b2f01a56690'
-    draft = {
-        'id': '475041531',
-        'title': 'FIN.H.060. Insecure exceptions',
-    }
     result: Dict[str, Any] = await query(
         user='closer@gmail.com',
         group=group_name
