@@ -52,7 +52,7 @@ MODELS: Dict[str, ModelType] = {
 
 # Hyperparameters
 MODEL_HYPERPARAMETERS = {
-    'MLPClassifier': {
+    'mlpclassifier': {
         'activation': CategoricalParameter([
             'relu',
             'tanh',
