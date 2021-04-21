@@ -2,12 +2,6 @@
 import json
 import os
 import pytest
-import time
-from collections import OrderedDict
-from datetime import (
-  datetime,
-  timedelta
-)
 from typing import (
     Any,
     Dict,
@@ -17,13 +11,10 @@ from typing import (
 # Third party libraries
 from ariadne import graphql
 from freezegun import freeze_time
-from graphql import GraphQLError
-from jose import jwt
 from starlette.datastructures import UploadFile
 
 # Local libraries
 from back.tests.unit.utils import create_dummy_session
-from backend import util
 from backend.api import (
   apply_context_attrs,
   Dataloaders,
@@ -299,12 +290,64 @@ async def test_update_evidence():
         }
         data = {'query': query, 'variables': variables}
         result = await _get_result(data)
-    if 'errors' not in result:
-        assert 'errors' not in result
-        assert 'success' in result['data']['updateEvidence']
-        assert result['data']['updateEvidence']['success']
-    else:
-        pytest.skip("Expected error")
+
+    assert 'errors' not in result
+    assert 'success' in result['data']['updateEvidence']
+    assert result['data']['updateEvidence']['success']
+
+
+@pytest.mark.changes_db
+async def test_update_evidence_records_append():
+    number_of_records = 4
+    query = '''
+      query GetFindingRecords($findingId: String!) {
+        finding(identifier: $findingId) {
+          records
+          id
+        }
+      }
+    '''
+    data = {'query': query, 'variables': {'findingId': '422286126'}}
+    result = await _get_result(data)
+    assert 'errors' not in result
+    assert len(
+        json.loads(result['data']['finding']['records'])
+    ) == number_of_records
+
+    mutation = '''
+      mutation UpdateEvidenceMutation(
+        $evidenceId: EvidenceType!, $file: Upload!, $findingId: String!
+      ) {
+        updateEvidence(
+          evidenceId: $evidenceId, file: $file, findingId: $findingId
+        ) {
+          success
+        }
+      }
+    '''
+    filename = os.path.dirname(os.path.abspath(__file__))
+    filename = os.path.join(filename, '../mock/test-file-records.csv')
+    with open(filename, 'rb') as test_file:
+        uploaded_file = UploadFile(test_file.name, test_file, 'text/csv')
+        variables = {
+            'evidenceId': 'RECORDS',
+            'findingId': '422286126',
+            'file': uploaded_file
+        }
+        data = {'query': mutation, 'variables': variables}
+        result = await _get_result(data)
+
+    assert 'errors' not in result
+    assert 'success' in result['data']['updateEvidence']
+    assert result['data']['updateEvidence']['success']
+
+    data = {'query': query, 'variables': {'findingId': '422286126'}}
+    result = await _get_result(data)
+    assert 'errors' not in result
+    assert len(
+        json.loads(result['data']['finding']['records'])
+    ) > number_of_records
+
 
 @pytest.mark.changes_db
 async def test_update_evidence_description():
