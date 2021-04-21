@@ -559,11 +559,12 @@ $whiter-gray: rgba(241, 241, 241, 1);
 }
 
 .card-child::before {
-  background-color: rgba(52, 73, 94, 0.75);
+  background-color: #34495e;
   content: '';
   display: none;
   height: 100%;
   left: 0;
+  opacity: 0.3;
   position: absolute;
   top: 0;
   width: 100%;
@@ -571,7 +572,7 @@ $whiter-gray: rgba(241, 241, 241, 1);
 
 .card-parent:hover .card-child,
 .card-parent:focus .card-child {
-  transform: scale(1.2);
+  transform: scale(1.1);
 }
 
 .card-link { display: none; }
