@@ -3,6 +3,11 @@ data "aws_iam_policy_document" "dev-policy-data" {
   statement {
     effect = "Allow"
     actions = [
+      "autoscaling:Describe*",
+      "autoscaling:Get*",
+      "access-analyzer:List*",
+      "access-analyzer:Get*",
+      "access-analyzer:Validate*",
       "batch:Describe*",
       "batch:Get*",
       "s3:List*",
@@ -29,8 +34,6 @@ data "aws_iam_policy_document" "dev-policy-data" {
       "ec2:Get*",
       "eks:Describe*",
       "eks:List*",
-      "autoscaling:Describe*",
-      "autoscaling:Get*",
     ]
     resources = [
       "*"

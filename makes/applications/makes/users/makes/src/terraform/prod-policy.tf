@@ -3,6 +3,7 @@ data "aws_iam_policy_document" "prod-policy-data" {
   statement {
     effect = "Allow"
     actions = [
+      "access-analyzer:*",
       "batch:*",
       "sns:*",
       "rds:*",
@@ -24,7 +25,7 @@ data "aws_iam_policy_document" "prod-policy-data" {
       "elasticache:*",
       "acm:*",
       "events:*",
-      "logs:*"
+      "logs:*",
     ]
     resources = ["*"]
   }
