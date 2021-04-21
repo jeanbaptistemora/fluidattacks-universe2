@@ -57,6 +57,7 @@ TEST_GROUPS: Set[str] = {
     'solve_event',
     'stakeholder',
     'submit_draft',
+    'toe_lines',
     'unsubscribe_from_group',
     'update_access_token',
     'update_event_evidence',

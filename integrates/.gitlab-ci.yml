@@ -317,6 +317,9 @@ integrates.back.test.functional.stakeholder:
 integrates.back.test.functional.submit_draft:
   <<: *integrates_back_test_functional
 
+integrates.back.test.functional.toe_lines:
+  <<: *integrates_back_test_functional
+
 integrates.back.test.functional.unsubscribe_from_group:
   <<: *integrates_back_test_functional
 
