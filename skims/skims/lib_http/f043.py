@@ -7,6 +7,7 @@ from typing import (
     Callable,
     Dict,
     List,
+    NamedTuple,
     Optional,
     Type,
 )
@@ -44,12 +45,18 @@ from zone import (
 )
 
 
+class HeaderCheckCtx(NamedTuple):
+    headers_parsed: Dict[Type[Header], Header]
+    headers_raw: Dict[str, str]
+    preview: str
+    url: str
+
+
 def _create_vulns(
     descriptions: List[str],
     finding: core_model.FindingEnum,
     header: Optional[Header],
-    headers_raw: Dict[str, str],
-    url: str,
+    ctx: HeaderCheckCtx,
 ) -> core_model.Vulnerabilities:
     return tuple(
         core_model.Vulnerability(
@@ -61,16 +68,16 @@ def _create_vulns(
             what=serialize_namespace_into_vuln(
                 kind=core_model.VulnerabilityKindEnum.INPUTS,
                 namespace=CTX.config.namespace,
-                what=url,
+                what=ctx.url,
             ),
             where=translation,
             skims_metadata=core_model.SkimsVulnerabilityMetadata(
                 cwe=('644',),
                 description=translation,
                 snippet=as_string.snippet(
-                    url=url,
+                    url=ctx.url,
                     header=header.name if header else None,
-                    headers=headers_raw,
+                    headers=ctx.headers_raw,
                 ),
             ),
         )
@@ -139,14 +146,12 @@ def _content_security_policy_script_src(
 
 
 def _content_security_policy(
-    url: str,
-    headers: Dict[Type[Header], Header],
-    headers_raw: Dict[str, str],
+    ctx: HeaderCheckCtx,
 ) -> core_model.Vulnerabilities:
     descs: List[str] = []
     header: Optional[Header] = None
 
-    if header := headers.get(ContentSecurityPolicyHeader):
+    if header := ctx.headers_parsed.get(ContentSecurityPolicyHeader):
         _content_security_policy_object_src(descs, header)
         _content_security_policy_script_src(descs, header)
     else:
@@ -156,19 +161,16 @@ def _content_security_policy(
         descriptions=descs,
         finding=core_model.FindingEnum.F043_DAST_CSP,
         header=header,
-        headers_raw=headers_raw,
-        url=url,
+        ctx=ctx,
     )
 
 
 def _referrer_policy(
-    url: str,
-    headers: Dict[Type[Header], Header],
-    headers_raw: Dict[str, str],
+    ctx: HeaderCheckCtx,
 ) -> core_model.Vulnerabilities:
     desc, header = '', None
 
-    if header := headers.get(ReferrerPolicyHeader):
+    if header := ctx.headers_parsed.get(ReferrerPolicyHeader):
         for value in header.values:
             # Some header values may be out of the spec or experimental
             # We won't take them into account as some browsers won't
@@ -205,19 +207,16 @@ def _referrer_policy(
         descriptions=[desc],
         finding=core_model.FindingEnum.F043_DAST_RP,
         header=header,
-        headers_raw=headers_raw,
-        url=url,
+        ctx=ctx,
     )
 
 
 def _strict_transport_security(
-    url: str,
-    headers: Dict[Type[Header], Header],
-    headers_raw: Dict[str, str],
+    ctx: HeaderCheckCtx,
 ) -> core_model.Vulnerabilities:
     desc, header = '', None
 
-    if val := headers.get(StrictTransportSecurityHeader):
+    if val := ctx.headers_parsed.get(StrictTransportSecurityHeader):
         if val.max_age < 31536000:
             desc = 'strict_transport_security.short_max_age'
     else:
@@ -227,8 +226,7 @@ def _strict_transport_security(
         descriptions=[desc],
         finding=core_model.FindingEnum.F043_DAST_STS,
         header=header,
-        headers_raw=headers_raw,
-        url=url,
+        ctx=ctx,
     )
 
 
@@ -236,6 +234,7 @@ async def http_headers_configuration(url: str) -> core_model.Vulnerabilities:
     async with create_session() as session:
         response = await request(session, 'GET', url)
         headers_raw = response.headers
+        preview: str = (await response.content.read(256)).decode('latin-1')
 
     headers_parsed: Dict[Type[Header], Header] = {
         type(header_parsed): header_parsed
@@ -252,7 +251,12 @@ async def http_headers_configuration(url: str) -> core_model.Vulnerabilities:
     }
 
     return tuple(chain.from_iterable((
-        check(url, headers_parsed, headers_raw)
+        check(HeaderCheckCtx(
+            headers_parsed=headers_parsed,
+            headers_raw=headers_raw,
+            preview=preview,
+            url=url,
+        ))
         for finding, check in CHECKS.items()
         if finding in CTX.config.checks
     )))
@@ -260,10 +264,7 @@ async def http_headers_configuration(url: str) -> core_model.Vulnerabilities:
 
 CHECKS: Dict[
     core_model.FindingEnum,
-    Callable[
-        [str, Dict[Type[Header], Header], Dict[str, str]],
-        core_model.Vulnerabilities,
-    ],
+    Callable[[HeaderCheckCtx], core_model.Vulnerabilities],
 ] = {
     core_model.FindingEnum.F043_DAST_CSP: _content_security_policy,
     core_model.FindingEnum.F043_DAST_RP: _referrer_policy,
