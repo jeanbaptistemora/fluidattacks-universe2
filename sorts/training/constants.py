@@ -6,9 +6,10 @@ from typing import (
 
 # Third party libraries
 import boto3
+from sagemaker.tuner import CategoricalParameter
 from sklearn.ensemble import (
     GradientBoostingClassifier,
-    RandomForestClassifier
+    RandomForestClassifier,
 )
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.neural_network import MLPClassifier
@@ -47,4 +48,21 @@ MODELS: Dict[str, ModelType] = {
     'kneighborsclassifier': KNeighborsClassifier,
     'linearsvc': LinearSVC,
     'gradientboostingclassifier': GradientBoostingClassifier
+}
+
+# Hyperparameters
+MODEL_HYPERPARAMETERS = {
+    'MLPClassifier': {
+        'activation': CategoricalParameter([
+            'relu',
+            'tanh',
+            'identity',
+            'logistic'
+        ]),
+        'solver': CategoricalParameter([
+            'lbfgs',
+            'sgd',
+            'adam'
+        ]),
+    },
 }

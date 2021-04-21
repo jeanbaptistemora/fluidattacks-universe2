@@ -6,13 +6,11 @@ import tempfile
 
 # Third party libraries
 from sagemaker.sklearn.estimator import SKLearn as SKLearnEstimator
-from sagemaker.tuner import (
-    CategoricalParameter,
-    HyperparameterTuner
-)
+from sagemaker.tuner import HyperparameterTuner
 
 # Local libraries
 from evaluate_results import get_best_model_name
+from training.constants import MODEL_HYPERPARAMETERS
 from sagemaker_provisioner import get_estimator
 
 
@@ -37,19 +35,7 @@ def deploy_hyperparameter_tuning_job() -> None:
         ],
         objective_metric_name='fscore',
         objective_type='Maximize',
-        hyperparameter_ranges={
-            'activation': CategoricalParameter([
-                'relu',
-                'tanh',
-                'identity',
-                'logistic'
-            ]),
-            'solver': CategoricalParameter([
-                'lbfgs',
-                'sgd',
-                'adam'
-            ])
-        }
+        hyperparameter_ranges=MODEL_HYPERPARAMETERS[model]
     )
 
     tuner.fit({
