@@ -14,7 +14,7 @@ from . import query
 @pytest.mark.resolver_test_group('resources')
 async def test_admin(populate: bool):
     assert populate
-    files: Dict[str, str] = [
+    files: List[Dict[str, str]] = [
         {
             "description": "Test",
             "file_name": "test.zip",
@@ -53,7 +53,7 @@ async def test_admin(populate: bool):
 @pytest.mark.resolver_test_group('resources')
 async def test_analyst(populate: bool):
     assert populate
-    files: Dict[str, str] = [
+    files: List[Dict[str, str]] = [
         {
             "description": "Test",
             "file_name": "test.zip",
@@ -93,7 +93,7 @@ async def test_analyst(populate: bool):
 @pytest.mark.resolver_test_group('resources')
 async def test_closer(populate: bool):
     assert populate
-    files: Dict[str, str] = [
+    files: List[Dict[str, str]] = [
         {
             "description": "Test",
             "file_name": "test.zip",
