@@ -31,6 +31,7 @@ _stream_executor: Mapping[
     SupportedStreams.CHECK_STATUS: streams.all_chk_status,
     SupportedStreams.DASHBOARD: streams.all_dashboards,
     SupportedStreams.MAINTENACE_WINDOWS: streams.all_maint_windows,
+    SupportedStreams.SNIPPETS: streams.all_snippets,
 }
 
 

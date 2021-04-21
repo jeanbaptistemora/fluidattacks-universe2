@@ -83,3 +83,12 @@ def list_mant_windows(client: Client, page: PageId) -> IO[Iterator[JSON]]:
     )
     LOG.debug('maintenance-windows response: %s', result)
     return IO(result)
+
+
+def list_snippets(client: Client, page: PageId) -> IO[Iterator[JSON]]:
+    result = client.get(
+        '/v1/snippets',
+        params={'limit': page.per_page, 'page': page.page}
+    )
+    LOG.debug('snippets response: %s', result)
+    return IO(result)

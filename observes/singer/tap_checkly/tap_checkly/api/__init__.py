@@ -33,6 +33,10 @@ from tap_checkly.api.maintenace_windows import (
     MantWindowsApi,
     MantWindowsPage,
 )
+from tap_checkly.api.snippets import (
+    SnippetsApi,
+    SnippetsPage,
+)
 
 
 ApiPage = Union[
@@ -41,6 +45,7 @@ ApiPage = Union[
     ChecksPage,
     DashboardsPage,
     MantWindowsPage,
+    SnippetsPage,
 ]
 
 
@@ -49,6 +54,7 @@ class ApiClient(NamedTuple):
     checks: ChecksApi
     dashboards: DashboardsApi
     maintenance: MantWindowsApi
+    snippets: SnippetsApi
 
     @classmethod
     def new(cls, creds: Credentials) -> ApiClient:
@@ -58,6 +64,7 @@ class ApiClient(NamedTuple):
             checks=ChecksApi.new(client),
             dashboards=DashboardsApi.new(client),
             maintenance=MantWindowsApi.new(client),
+            snippets=SnippetsApi.new(client),
         )
 
 

@@ -79,6 +79,13 @@ def all_maint_windows(api: ApiClient) -> None:
     )
 
 
+def all_snippets(api: ApiClient) -> None:
+    _stream_data(
+        SupportedStreams.SNIPPETS,
+        api.snippets.list_snippets(ALL),
+    )
+
+
 __all__ = [
     'SupportedStreams',
 ]
