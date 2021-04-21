@@ -315,8 +315,6 @@ async def test_organization():
 
     data = {'query': query, 'variables': variables}
     result = await _get_result_async(data)
-
-    result = result = await _get_result_async(data)
     groups = [group['name'] for group in result['data']['organization']['projects']]
     print(result['data']['organization']['stakeholders'])
     stakeholders = [stakeholders['email'] for stakeholders in result['data']['organization']['stakeholders']]
