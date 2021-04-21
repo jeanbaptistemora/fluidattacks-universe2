@@ -17,6 +17,7 @@ forces.infra-test
 forces.oci-deploy
 forces.oci-deploy-ephemeral
 forces.process-groups
+forces.process-groups-break
 forces.test
 integrates.back
 integrates.back.authz-matrix
