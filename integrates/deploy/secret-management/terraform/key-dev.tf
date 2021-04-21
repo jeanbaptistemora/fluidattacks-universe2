@@ -22,7 +22,7 @@ data "aws_iam_policy_document" "integrates-dev-key" {
       type = "AWS"
       identifiers = [
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/FLUIDServes_TF",
-        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/serves-admin",
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/makes_prod",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/user-provision/integrates-dev",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/user-provision/integrates-prod",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/integrates-dev"
@@ -56,7 +56,7 @@ data "aws_iam_policy_document" "integrates-dev-key" {
       type = "AWS"
       identifiers = [
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/FLUIDServes_TF",
-        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/serves-admin",
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/makes_prod",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/user-provision/integrates-dev",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/user-provision/integrates-prod",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/integrates-dev"
@@ -81,7 +81,7 @@ data "aws_iam_policy_document" "integrates-dev-key" {
       type = "AWS"
       identifiers = [
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/FLUIDServes_TF",
-        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/serves-admin",
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/makes_prod",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/user-provision/integrates-dev",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/user-provision/integrates-prod",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/integrates-dev"
