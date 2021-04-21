@@ -68,6 +68,7 @@ module.exports = {
         'criteria/authentication/r237',
         'criteria/authentication/r238',
         'criteria/authentication/r264',
+        'criteria/authentication/r319',
       ],
     },
     {
