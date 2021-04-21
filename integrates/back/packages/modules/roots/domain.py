@@ -470,37 +470,81 @@ async def activate_root(
     if root.state.status != new_status:
         group_loader: DataLoader = context.group_all
         group = await group_loader.load(group_name)
+        org_roots = await get_org_roots(org_id=group['organization'])
 
-        if not validations.is_git_unique(
-            root.metadata.url,
-            root.metadata.branch,
-            await get_org_roots(org_id=group['organization'])
-        ):
-            raise RepeatedRoot()
+        if isinstance(root, GitRootItem):
+            if not validations.is_git_unique(
+                root.metadata.url,
+                root.metadata.branch,
+                org_roots
+            ):
+                raise RepeatedRoot()
 
-        await roots_dal.update_root_state(
-            group_name=group_name,
-            root_id=root_id,
-            state=GitRootState(
-                environment_urls=root.state.environment_urls,
-                environment=root.state.environment,
-                gitignore=root.state.gitignore,
-                includes_health_check=root.state.includes_health_check,
-                modified_by=user_email,
-                modified_date=datetime_utils.get_iso_date(),
-                new_repo=None,
-                nickname=root.state.nickname,
-                reason=None,
-                status=new_status
-            )
-        )
-
-        if root.state.includes_health_check:
-            await notifications_domain.request_health_check(
-                branch=root.metadata.branch,
+            await roots_dal.update_root_state(
                 group_name=group_name,
-                repo_url=root.metadata.url,
-                requester_email=user_email,
+                root_id=root_id,
+                state=GitRootState(
+                    environment_urls=root.state.environment_urls,
+                    environment=root.state.environment,
+                    gitignore=root.state.gitignore,
+                    includes_health_check=root.state.includes_health_check,
+                    modified_by=user_email,
+                    modified_date=datetime_utils.get_iso_date(),
+                    new_repo=None,
+                    nickname=root.state.nickname,
+                    reason=None,
+                    status=new_status
+                )
+            )
+
+            if root.state.includes_health_check:
+                await notifications_domain.request_health_check(
+                    branch=root.metadata.branch,
+                    group_name=group_name,
+                    repo_url=root.metadata.url,
+                    requester_email=user_email,
+                )
+
+        if isinstance(root, IPRootItem):
+            if not validations.is_ip_unique(
+                root.metadata.address,
+                root.metadata.port,
+                org_roots
+            ):
+                raise RepeatedRoot()
+
+            await roots_dal.update_root_state(
+                group_name=group_name,
+                root_id=root_id,
+                state=IPRootState(
+                    modified_by=user_email,
+                    modified_date=datetime_utils.get_iso_date(),
+                    new_repo=None,
+                    reason=None,
+                    status=new_status
+                )
+            )
+
+        if isinstance(root, URLRootItem):
+            if not validations.is_url_unique(
+                root.metadata.host,
+                root.metadata.path,
+                root.metadata.port,
+                root.metadata.protocol,
+                org_roots
+            ):
+                raise RepeatedRoot()
+
+            await roots_dal.update_root_state(
+                group_name=group_name,
+                root_id=root_id,
+                state=URLRootState(
+                    modified_by=user_email,
+                    modified_date=datetime_utils.get_iso_date(),
+                    new_repo=None,
+                    reason=None,
+                    status=new_status
+                )
             )
 
 
