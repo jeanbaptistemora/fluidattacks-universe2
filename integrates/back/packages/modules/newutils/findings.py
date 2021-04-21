@@ -108,7 +108,7 @@ async def append_records_to_file(
     buff = io.BytesIO(
         records_str.encode('utf-8').decode('unicode_escape').encode('utf-8')
     )
-    uploaded_file = UploadFile(filename=new_file.name)
+    uploaded_file = UploadFile(filename=new_file.filename)
     await uploaded_file.write(buff.read())
     await uploaded_file.seek(0)
     return uploaded_file

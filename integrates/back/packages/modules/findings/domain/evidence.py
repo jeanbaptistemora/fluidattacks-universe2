@@ -132,7 +132,6 @@ async def update_evidence(
                     cast(List[Dict[str, str]], old_records),
                     file
                 )
-                file.open()
 
     evidence_id = f'{group_name}-{finding_id}-{evidence_type}'
     full_name = f'{group_name}/{finding_id}/{evidence_id}'
