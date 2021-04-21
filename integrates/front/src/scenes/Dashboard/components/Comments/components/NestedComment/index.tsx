@@ -3,11 +3,11 @@ import _ from "lodash";
 import React, { useCallback, useContext } from "react";
 import Linkify from "react-linkify";
 
-import { CommentEditor } from "scenes/Dashboard/components/CommentsRefac/commentEditor";
-import type { ICommentContext } from "scenes/Dashboard/components/CommentsRefac/index";
-import { commentContext } from "scenes/Dashboard/components/CommentsRefac/index";
-import type { ICommentStructure } from "scenes/Dashboard/components/CommentsRefac/types";
-import "scenes/Dashboard/components/CommentsRefac/index.css";
+import type { ICommentContext } from "scenes/Dashboard/components/Comments";
+import { commentContext } from "scenes/Dashboard/components/Comments";
+import { CommentEditor } from "scenes/Dashboard/components/Comments/components/CommentEditor";
+import type { ICommentStructure } from "scenes/Dashboard/components/Comments/types";
+import "scenes/Dashboard/components/Comments/index.css";
 import { translate } from "utils/translations/translate";
 
 interface INestedCommentProps {

@@ -5,13 +5,10 @@ import TextArea from "react-textarea-autosize";
 import wait from "waait";
 
 import { Button } from "components/Button";
-import {
-  CommentsRefac,
-  commentContext,
-} from "scenes/Dashboard/components/CommentsRefac";
-import { CommentEditor } from "scenes/Dashboard/components/CommentsRefac/commentEditor";
-import { NestedComment } from "scenes/Dashboard/components/CommentsRefac/nestedComment";
-import type { ICommentStructure } from "scenes/Dashboard/components/CommentsRefac/types";
+import { Comments, commentContext } from "scenes/Dashboard/components/Comments";
+import { CommentEditor } from "scenes/Dashboard/components/Comments/components/CommentEditor";
+import { NestedComment } from "scenes/Dashboard/components/Comments/components/NestedComment";
+import type { ICommentStructure } from "scenes/Dashboard/components/Comments/types";
 
 describe("Comments section", (): void => {
   const onLoadComments: jest.Mock = jest.fn();
@@ -30,14 +27,14 @@ describe("Comments section", (): void => {
 
   it("should return a function", (): void => {
     expect.hasAssertions();
-    expect(typeof CommentsRefac).toStrictEqual("function");
+    expect(typeof Comments).toStrictEqual("function");
   });
 
   it("should render an empty comment section", (): void => {
     expect.hasAssertions();
 
     const wrapper: ReactWrapper = mount(
-      <CommentsRefac onLoad={jest.fn()} onPostComment={jest.fn()} />
+      <Comments onLoad={jest.fn()} onPostComment={jest.fn()} />
     );
 
     const editorTextArea: ReactWrapper = wrapper
@@ -57,7 +54,7 @@ describe("Comments section", (): void => {
   it("should load comments on render", async (): Promise<void> => {
     expect.hasAssertions();
 
-    mount(<CommentsRefac onLoad={onLoadComments} onPostComment={jest.fn()} />);
+    mount(<Comments onLoad={onLoadComments} onPostComment={jest.fn()} />);
 
     await wait(0);
 

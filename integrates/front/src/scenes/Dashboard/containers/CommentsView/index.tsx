@@ -6,12 +6,12 @@ import { track } from "mixpanel-browser";
 import React, { useCallback, useContext } from "react";
 import { useParams } from "react-router";
 
-import { CommentsRefac } from "scenes/Dashboard/components/CommentsRefac/index";
+import { Comments } from "scenes/Dashboard/components/Comments";
 import type {
   ICommentStructure,
   ILoadCallback,
   IPostCallback,
-} from "scenes/Dashboard/components/CommentsRefac/types";
+} from "scenes/Dashboard/components/Comments/types";
 import {
   ADD_FINDING_CONSULT,
   GET_FINDING_CONSULTING,
@@ -154,7 +154,7 @@ const CommentsView: React.FC = (): JSX.Element => {
   return (
     <React.StrictMode>
       <div>
-        <CommentsRefac onLoad={getData} onPostComment={handlePost} />
+        <Comments onLoad={getData} onPostComment={handlePost} />
       </div>
     </React.StrictMode>
   );

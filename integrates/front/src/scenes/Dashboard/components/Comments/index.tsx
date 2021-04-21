@@ -10,13 +10,13 @@ import React, {
 import type { StyledComponent } from "styled-components";
 import styled from "styled-components";
 
-import { CommentEditor } from "scenes/Dashboard/components/CommentsRefac/commentEditor";
-import { NestedComment } from "scenes/Dashboard/components/CommentsRefac/nestedComment";
+import { CommentEditor } from "scenes/Dashboard/components/Comments/components/CommentEditor";
+import { NestedComment } from "scenes/Dashboard/components/Comments/components/NestedComment";
 import type {
   ICommentStructure,
   ILoadCallback,
   IPostCallback,
-} from "scenes/Dashboard/components/CommentsRefac/types";
+} from "scenes/Dashboard/components/Comments/types";
 import type { IAuthContext } from "utils/auth";
 import { authContext } from "utils/auth";
 import style from "utils/forms/index.css";
@@ -36,7 +36,7 @@ const Small: StyledComponent<
   className: "f5 black-60 db",
 })``;
 
-interface ICommentsRefacProps {
+interface ICommentsProps {
   onLoad: (callbackFn: ILoadCallback) => void;
   onPostComment: (
     comment: ICommentStructure,
@@ -53,8 +53,8 @@ const commentContext: React.Context<ICommentContext> = createContext({
   replying: 0,
 });
 
-const CommentsRefac: React.FC<ICommentsRefacProps> = (
-  props: ICommentsRefacProps
+const Comments: React.FC<ICommentsProps> = (
+  props: ICommentsProps
 ): JSX.Element => {
   const { onLoad, onPostComment } = props;
   const { userEmail, userName }: IAuthContext = useContext(authContext);
@@ -157,4 +157,4 @@ const CommentsRefac: React.FC<ICommentsRefacProps> = (
   );
 };
 
-export { CommentsRefac, commentContext, ICommentContext, ICommentsRefacProps };
+export { Comments, commentContext, ICommentContext, ICommentsProps };

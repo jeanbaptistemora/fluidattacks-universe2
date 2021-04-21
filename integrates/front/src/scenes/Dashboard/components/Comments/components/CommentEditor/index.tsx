@@ -5,7 +5,7 @@ import TextArea from "react-textarea-autosize";
 import { Button } from "components/Button";
 import { ButtonToolbar, Col100, Row } from "styles/styledComponents";
 import { translate } from "utils/translations/translate";
-import "scenes/Dashboard/components/CommentsRefac/index.css";
+import "scenes/Dashboard/components/Comments/index.css";
 
 interface ICommentEditorProps {
   onPost: (editorText: string) => void;

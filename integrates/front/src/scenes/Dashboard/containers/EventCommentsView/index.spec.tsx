@@ -7,7 +7,7 @@ import { act } from "react-dom/test-utils";
 import { MemoryRouter, Route } from "react-router";
 import wait from "waait";
 
-import { CommentsRefac } from "scenes/Dashboard/components/CommentsRefac/index";
+import { Comments } from "scenes/Dashboard/components/Comments";
 import { EventCommentsView } from "scenes/Dashboard/containers/EventCommentsView";
 import { GET_EVENT_CONSULTING } from "scenes/Dashboard/containers/EventCommentsView/queries";
 
@@ -69,7 +69,7 @@ describe("EventCommentsView", (): void => {
 
     expect(wrapper).toHaveLength(1);
     expect(wrapper.text()).toContain("Hello world");
-    expect(wrapper.find(CommentsRefac)).toHaveLength(1);
+    expect(wrapper.find(Comments)).toHaveLength(1);
 
     document.body.removeChild(container);
   });
@@ -141,7 +141,7 @@ describe("EventCommentsView", (): void => {
       }
     );
 
-    expect(wrapper.find(CommentsRefac)).toHaveLength(1);
+    expect(wrapper.find(Comments)).toHaveLength(1);
     expect(wrapper.text()).toContain("Hello world");
 
     document.body.removeChild(container);
