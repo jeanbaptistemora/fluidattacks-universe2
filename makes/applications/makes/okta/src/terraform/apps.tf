@@ -26,3 +26,14 @@ resource "okta_app_group_assignment" "apps_auto_login" {
   app_id   = okta_app_auto_login.apps[each.key].id
   group_id = okta_group.groups[each.value].id
 }
+
+resource "okta_app_user" "apps_auto_login" {
+  for_each = {
+    for app in local.app_users : app.id => app.user
+    if app.type == "auto_login"
+  }
+
+  app_id   = okta_app_auto_login.apps[each.key].id
+  user_id  = okta_user.users[each.value].id
+  username = ""
+}
