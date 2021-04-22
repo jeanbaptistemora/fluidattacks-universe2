@@ -207,6 +207,7 @@ module.exports = {
           'criteria/cryptography/r146',
           'criteria/cryptography/r147',
           'criteria/cryptography/r148',
+          'criteria/cryptography/r149',
         ],
     },
     {
