@@ -93,6 +93,26 @@ def _create_vulns(
     )
 
 
+def _content_security_policy_wild_uri(
+    descs: List[str],
+    value: str,
+) -> None:
+    for arg in ('data:', 'http:', 'https:', '://*'):
+        if arg in value:
+            descs.append(f'content_security_policy.wild_uri#{arg}')
+
+
+def _content_security_policy_frame_acestors(
+    descs: List[str],
+    header: Header,
+) -> None:
+    if values := header.directives.get('frame-ancestors'):
+        for value in values:
+            _content_security_policy_wild_uri(descs, value)
+    else:
+        descs.append('content_security_policy.missing_frame_ancestors')
+
+
 def _content_security_policy_object_src(
     descs: List[str],
     header: Header,
@@ -116,11 +136,7 @@ def _content_security_policy_script_src(
             if value == "'unsafe-inline'":
                 descs.append('content_security_policy.script-src.unsafeinline')
 
-            for arg in ('data:', 'http:', 'https:'):
-                if arg in value:
-                    descs.append(
-                        f'content_security_policy.script-src.wild_uri#{arg}'
-                    )
+            _content_security_policy_wild_uri(descs, value)
 
             for arg in (
                 '*.amazonaws.com',
@@ -153,6 +169,7 @@ def _content_security_policy(
     header: Optional[Header] = None
 
     if header := ctx.headers_parsed.get(ContentSecurityPolicyHeader):
+        _content_security_policy_frame_acestors(descs, header)
         _content_security_policy_object_src(descs, header)
         _content_security_policy_script_src(descs, header)
     else:

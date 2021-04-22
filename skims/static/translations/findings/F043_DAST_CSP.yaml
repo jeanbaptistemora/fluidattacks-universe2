@@ -1,3 +1,6 @@
+lib_http.f043.content_security_policy.missing_frame_ancestors:
+  en: Missing frame-ancestors
+  es: frame-ancestors ausente
 lib_http.f043.content_security_policy.missing_object_src:
   en: Missing object-src
   es: object-src ausente
@@ -13,7 +16,7 @@ lib_http.f043.content_security_policy.script-src.jsonp:
 lib_http.f043.content_security_policy.script-src.unsafeinline:
   en: script-src has unsafe-inline
   es: script-src contiene unsafe-inline
-lib_http.f043.content_security_policy.script-src.wild_uri:
+lib_http.f043.content_security_policy.wild_uri:
   en: "Use of {0} wildcard"
   es: "Uso de comodín {0}"
 utils.model.finding.enum.F043_DAST_CSP.description:
