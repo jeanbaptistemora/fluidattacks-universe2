@@ -12,7 +12,8 @@ makeEntrypoint {
   arguments = {
     envProduct = product;
     envTarget = target;
-    envSecretsPath = secretsPath;
+    envSecretsPath =
+      if secretsPath != "" then path "/${secretsPath}" else secretsPath;
   };
   inherit name;
   searchPaths = {

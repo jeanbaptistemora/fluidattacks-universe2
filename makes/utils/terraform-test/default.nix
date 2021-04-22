@@ -12,7 +12,8 @@ makeEntrypoint {
   arguments = {
     envProduct = product;
     envTarget = target;
-    envSecretsPath = secretsPath;
+    envSecretsPath =
+      if secretsPath != "" then path "/${secretsPath}" else secretsPath;
     envTflintConfig = path "/makes/utils/terraform-test/tflint.hcl";
   };
   inherit name;
