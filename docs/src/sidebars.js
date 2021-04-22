@@ -126,6 +126,7 @@ module.exports = {
           'criteria/privacy/r316',
           'criteria/privacy/r317',
           'criteria/privacy/r318',
+          'criteria/privacy/r360',
         ],
     },
     {
