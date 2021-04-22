@@ -2,8 +2,8 @@
 This migration aims to remove default organization access
 to user with access to a group in any other organization
 
-Execution Time:
-Finalization Time:
+Execution Time:    2021-04-21 at 20:30:16 UTC-05
+Finalization Time: 2021-04-21 at 20:33:58 UTC-05
 """
 # Standard libraries
 from itertools import chain
@@ -47,7 +47,7 @@ async def remove_default_org_access(
         ))
         if groups:
             print(f'User {email} has access to more orgs than the default')
-            return orgs_domain.remove_user(default_org_id, email)
+            return await orgs_domain.remove_user(default_org_id, email)
     
     return True
 
