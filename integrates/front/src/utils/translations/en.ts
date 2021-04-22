@@ -515,6 +515,13 @@ export const enTranslations: ResourceKey = {
         add: "Add new root",
         addTooltip: "Add a new git root to this group",
         confirm: "Confirm state change",
+        deactivation: {
+          reason: {
+            exits: "Code exits the project",
+            mistake: "Registered by mistake",
+          },
+          title: "Deactivate Root",
+        },
         edit: "Edit root",
         editTooltip: "Edit the selected git root",
         errors: {
