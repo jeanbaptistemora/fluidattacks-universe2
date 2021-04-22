@@ -39,7 +39,7 @@ makeTemplate {
             "gitdb==4.0.5"
             "idna==3.1"
             "multidict==4.7.6"
-            "PyYAML==5.3.1"
+            "PyYAML==5.4.1"
             "six==1.15.0"
             "smmap==3.0.4"
             "WebOb==1.8.6"

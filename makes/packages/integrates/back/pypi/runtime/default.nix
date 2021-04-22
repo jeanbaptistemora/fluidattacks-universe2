@@ -113,7 +113,7 @@ let
         "python-dateutil==2.8.1"
         "python-dotenv==0.15.0"
         "python3-openid==3.2.0"
-        "PyYAML==5.3.1"
+        "PyYAML==5.4.1"
         "requests-oauthlib==1.3.0"
         "requests==2.25.1"
         "rfc3986==1.4.0"

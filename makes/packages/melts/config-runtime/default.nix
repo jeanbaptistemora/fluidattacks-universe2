@@ -56,7 +56,7 @@ let
         "multidict==5.1.0"
         "py==1.10.0"
         "pyasn1==0.4.8"
-        "PyYAML==5.3.1"
+        "PyYAML==5.4.1"
         "rsa==3.4.2"
         "s3transfer==0.3.3"
         "Send2Trash==1.5.0"

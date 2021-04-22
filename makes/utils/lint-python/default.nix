@@ -35,7 +35,7 @@ let
         "pylint-flask==0.6"
         "pylint-plugin-utils==0.6"
         "pylint==2.5.2"
-        "PyYAML==5.3.1"
+        "PyYAML==5.4.1"
         "requirements-detector==0.7"
         "setoptconf==0.2.0"
         "six==1.15.0"
