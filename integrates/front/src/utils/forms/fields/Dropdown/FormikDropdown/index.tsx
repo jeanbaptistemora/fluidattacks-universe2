@@ -5,8 +5,13 @@ import styled from "styled-components";
 import { ValidationError } from "styles/styledComponents";
 
 const StyledSelect = styled.select.attrs({
-  className: "w-100 pa2 gray bg-white bw1 b--light-gray",
-})``;
+  className: "w-100 pa2 lh-copy gray bg-white bw1 b--light-gray",
+})`
+  &:focus {
+    border-color: #d1d1d1;
+    outline: none;
+  }
+`;
 
 interface IDropdownProps extends FieldProps<string, Record<string, string>> {
   children: React.ReactNode;
@@ -17,15 +22,14 @@ const FormikDropdown: React.FC<IDropdownProps> = ({
   field,
   form,
 }: IDropdownProps): JSX.Element => {
-  const { name, onChange } = field;
-  const { errors, initialValues, touched } = form;
-  const initialValue = initialValues[name];
+  const { name, onChange, value } = field;
+  const { errors, touched } = form;
   const fieldTouched = Boolean(touched[name]);
   const error = errors[name];
 
   return (
     <React.Fragment>
-      <StyledSelect defaultValue={initialValue} name={name} onChange={onChange}>
+      <StyledSelect name={name} onChange={onChange} value={value}>
         {children}
       </StyledSelect>
       {fieldTouched && error !== undefined ? (

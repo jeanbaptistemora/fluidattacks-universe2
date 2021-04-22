@@ -1,29 +1,26 @@
-/* eslint-disable react/forbid-component-props
-  -------
-  We need it to override default styles from react-bootstrap
-*/
-/* eslint-disable react/forbid-component-props
-  -------
-  We need it to override default styles from react-bootstrap
-*/
-import type { FieldProps } from "formik";
-import { useField } from "formik";
-import _ from "lodash";
+import type { FieldProps, FormikHandlers } from "formik";
 import React from "react";
+import styled from "styled-components";
 
 import { ValidationError } from "styles/styledComponents";
-import style from "utils/forms/index.css";
 
-interface ITextProps extends FieldProps {
+const StyledInput = styled.input.attrs({
+  className: "w-100 pa2 lh-copy gray bg-white bw1 b--light-gray b--solid",
+})`
+  &:focus {
+    border-color: #d1d1d1;
+    outline: none;
+  }
+`;
+
+interface ITextProps extends FieldProps<string, Record<string, string>> {
   disabled: boolean;
   id: string;
   max: number | string;
   min: number | string;
   placeholder: string;
   type: string;
-  // We need this type to pass customBlur functions here
-  // eslint-disable-next-line @typescript-eslint/ban-types
-  customBlur: Function | undefined;
+  customBlur: FormikHandlers["handleBlur"] | undefined;
 }
 
 export const FormikText: React.FC<ITextProps> = (
@@ -32,28 +29,30 @@ export const FormikText: React.FC<ITextProps> = (
   const {
     customBlur,
     disabled,
-    id,
     field,
+    form,
+    id,
     max,
     min,
     placeholder,
     type,
   } = props;
-  const { name, value, onBlur, onChange } = field;
-  const [, meta] = useField(name);
+  const { name, onBlur, onChange, value } = field;
+  const { errors, touched } = form;
+  const fieldTouched = Boolean(touched[name]);
+  const error = errors[name];
 
   function handleBlur(event: unknown): void {
     onBlur(event);
 
-    if (_.isFunction(customBlur)) {
+    if (customBlur !== undefined) {
       customBlur(event);
     }
   }
 
   return (
     <React.Fragment>
-      <input
-        className={style["form-control"]}
+      <StyledInput
         disabled={disabled}
         id={id}
         max={max}
@@ -63,12 +62,10 @@ export const FormikText: React.FC<ITextProps> = (
         onChange={onChange}
         placeholder={placeholder}
         type={type}
-        // Needed to keep the component mounted at start
-        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-        value={value || ""}
+        value={value}
       />
-      {meta.touched && !_.isUndefined(meta.error) && (
-        <ValidationError id={"validationError"}>{meta.error}</ValidationError>
+      {fieldTouched && error !== undefined && (
+        <ValidationError id={"validationError"}>{error}</ValidationError>
       )}
     </React.Fragment>
   );

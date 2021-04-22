@@ -464,7 +464,7 @@ describe("Organization users view", (): void => {
         .find(AddUserModal)
         .find({ name: "role" })
         .find("select")
-        .prop("defaultValue")
+        .prop("value")
     ).toBe("CUSTOMER");
     expect(
       wrapper
