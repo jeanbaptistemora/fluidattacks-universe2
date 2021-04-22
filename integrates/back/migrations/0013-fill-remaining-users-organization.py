@@ -24,7 +24,7 @@ from boto3.dynamodb.conditions import (
     Not,
 )
 
-from backend.dal.helpers import dynamodb
+from dynamodb.operations_legacy import RESOURCE_OPTIONS
 from group_access.domain import get_user_groups
 from groups.domain import get_attributes as get_group_attributes
 from organizations.dal import (
@@ -39,7 +39,6 @@ from __init__ import FI_COMMUNITY_PROJECTS
 
 
 AUTOENROLLED_ORGANIZATION: str = 'integrates community'
-RESOURCE_OPTIONS: str = dynamodb.RESOURCE_OPTIONS
 STAGE: str = os.environ['STAGE']
 USERS_TABLE: str = 'FI_users'
 

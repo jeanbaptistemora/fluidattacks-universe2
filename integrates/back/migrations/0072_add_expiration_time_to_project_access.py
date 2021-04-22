@@ -17,8 +17,8 @@ from aioextensions import (
 from boto3.dynamodb.conditions import Attr
 
 # Local libraries
-from backend.dal.helpers import dynamodb
 from backend.typing import ProjectAccess as ProjectAccessType
+from dynamodb import operations_legacy as dynamodb_ops
 from group_access import domain as group_access_domain
 from newutils import datetime as datetime_utils
 
@@ -62,7 +62,7 @@ async def main() -> None:
             Attr('invitation.is_used').eq(False)
         ),
     }
-    project_accesses = await dynamodb.async_scan(TABLE_ACCESS_NAME, scan_attrs)
+    project_accesses = await dynamodb_ops.scan(TABLE_ACCESS_NAME, scan_attrs)
 
     success = all(await collect(
         [

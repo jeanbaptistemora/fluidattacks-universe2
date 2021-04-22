@@ -19,11 +19,11 @@ from aioextensions import (
 )
 
 # Local libraries
-from backend.dal.helpers import dynamodb
 from backend.typing import (
     Finding,
     Historic,
 )
+from dynamodb import operations_legacy as dynamodb_ops
 from findings import dal as findings_dal
 
 
@@ -64,7 +64,7 @@ async def main() -> None:
     scan_attrs = {
         'ProjectionExpression': ','.join({'finding_id', 'historic_state'})
     }
-    findings = await dynamodb.async_scan(FINDING_TABLE, scan_attrs)
+    findings = await dynamodb_ops.scan(FINDING_TABLE, scan_attrs)
 
     success = all(await collect(
         [

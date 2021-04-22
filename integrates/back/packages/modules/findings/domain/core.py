@@ -1,6 +1,10 @@
+# Standard libraries
+import logging
+import logging.config
 import re
 from contextlib import AsyncExitStack
 from decimal import Decimal
+from time import time
 from typing import (
     Any,
     Callable,
@@ -13,6 +17,7 @@ from typing import (
     Union,
 )
 
+# Third-party libraries
 import aioboto3
 from aioextensions import (
     collect,
@@ -21,17 +26,22 @@ from aioextensions import (
 )
 from graphql.type.definition import GraphQLResolveInfo
 
+# Local libraries
+from back.settings import (
+    LOGGING,
+    NOEXTRA,
+)
 from backend import (
     authz,
     mailer,
     util,
 )
-from backend.dal.helpers.dynamodb import start_context
 from backend.exceptions import (
     FindingNotFound,
     InvalidCommentParent,
     InvalidDraftTitle,
     PermissionDenied,
+    VulnNotFound,
 )
 from backend.filters import (
     finding as finding_filters,
@@ -44,7 +54,9 @@ from backend.typing import (
     Vulnerability as VulnerabilityType,
 )
 from comments import domain as comments_domain
+from dynamodb.operations_legacy import start_context
 from findings import dal as findings_dal
+from group_access import domain as group_access_domain
 from newutils import (
     comments as comments_utils,
     cvss,
@@ -54,6 +66,14 @@ from newutils import (
     vulnerabilities as vulns_utils,
 )
 from users import domain as users_domain
+from vulnerabilities import domain as vulns_domain
+from __init__ import BASE_URL
+
+
+logging.config.dictConfig(LOGGING)
+
+# Constants
+LOGGER = logging.getLogger(__name__)
 
 
 async def add_comment(
@@ -202,7 +222,7 @@ async def delete_vulnerabilities(
     source = util.get_source(context)
     return all(
         await collect(
-            vulns_utils.delete_vulnerability(
+            vulns_domain.delete_vulnerability(
                 context.loaders,
                 finding_id,
                 str(vuln['UUID']),
@@ -659,7 +679,7 @@ async def mask_finding(context: Any, finding_id: str) -> bool:
     finding_all_vulns_loader = context.finding_vulns_all
     vulns = await finding_all_vulns_loader.load(finding_id)
     mask_vulns_coroutines = [
-        vulns_utils.mask_vuln(finding_id, str(vuln['UUID']))
+        vulns_domain.mask_vuln(finding_id, str(vuln['UUID']))
         for vuln in vulns
     ]
     mask_finding_coroutines.extend(mask_vulns_coroutines)
@@ -682,6 +702,74 @@ async def mask_verification(
         finding_id,
         {'historic_verification': historic}
     )
+
+
+async def request_vulnerability_verification(
+    context: Any,
+    finding_id: str,
+    user_info: Dict[str, str],
+    justification: str,
+    vuln_ids: List[str]
+) -> bool:
+    finding = await findings_dal.get_finding(finding_id)
+    vulnerabilities = await vulns_domain.get_by_finding_and_uuids(
+        finding_id,
+        set(vuln_ids)
+    )
+    vulnerabilities = [
+        vulns_utils.validate_requested_verification(vuln)
+        for vuln in vulnerabilities
+    ]
+    vulnerabilities = [
+        vulns_utils.validate_closed(vuln)
+        for vuln in vulnerabilities
+    ]
+    if not vulnerabilities:
+        raise VulnNotFound()
+
+    comment_id = int(round(time() * 1000))
+    today = datetime_utils.get_now_as_str()
+    user_email: str = user_info['user_email']
+    historic_verification = cast(
+        List[Dict[str, Union[str, int, List[str]]]],
+        finding.get('historic_verification', [])
+    )
+    historic_verification.append({
+        'comment': comment_id,
+        'date': today,
+        'status': 'REQUESTED',
+        'user': user_email,
+        'vulns': vuln_ids
+    })
+    update_finding = await findings_dal.update(
+        finding_id,
+        {'historic_verification': historic_verification}
+    )
+    comment_data = {
+        'comment_type': 'verification',
+        'content': justification,
+        'parent': 0,
+        'user_id': comment_id
+    }
+    await comments_domain.create(int(finding_id), comment_data, user_info)
+
+    update_vulns = await collect(
+        map(vulns_domain.request_verification, vulnerabilities)
+    )
+    if all(update_vulns) and update_finding:
+        schedule(
+            send_remediation_email(
+                context,
+                user_email,
+                finding_id,
+                str(finding.get('finding', '')),
+                str(finding.get('project_name', '')),
+                justification
+            )
+        )
+    else:
+        LOGGER.error('An error occurred remediating', **NOEXTRA)
+    return all(update_vulns)
 
 
 async def save_severity(finding: Dict[str, FindingType]) -> bool:
@@ -716,6 +804,40 @@ def send_finding_mail(
     *mail_params: Union[str, Dict[str, str]]
 ) -> None:
     schedule(send_email_function(context, finding_id, *mail_params))
+
+
+async def send_remediation_email(  # pylint: disable=too-many-arguments
+    context: Any,
+    user_email: str,
+    finding_id: str,
+    finding_name: str,
+    group_name: str,
+    justification: str
+) -> None:
+    group_loader = context.group_all
+    organization_loader = context.organization
+    group = await group_loader.load(group_name)
+    org_id = group['organization']
+    organization = await organization_loader.load(org_id)
+    org_name = organization['name']
+    recipients = await group_access_domain.get_closers(group_name)
+    schedule(
+        mailer.send_mail_remediate_finding(
+            recipients,
+            {
+                'project': group_name.lower(),
+                'organization': org_name,
+                'finding_name': finding_name,
+                'finding_url': (
+                    f'{BASE_URL}/orgs/{org_name}/groups/{group_name}'
+                    f'/vulns/{finding_id}/locations'
+                ),
+                'finding_id': finding_id,
+                'user_email': user_email,
+                'solution_description': justification
+            }
+        )
+    )
 
 
 async def total_vulnerabilities(
@@ -788,3 +910,78 @@ async def validate_finding(
     if not finding:
         finding = await findings_dal.get_finding(str(finding_id))
     return not is_deleted(finding)
+
+
+async def verify_vulnerabilities(  # pylint: disable=too-many-locals
+    *,
+    info: GraphQLResolveInfo,
+    finding_id: str,
+    user_info: Dict[str, str],
+    parameters: Dict[str, FindingType],
+    vulns_to_close_from_file: List[Dict[str, str]]
+) -> bool:
+    finding_vulns_loader = info.context.loaders.finding_vulns_all
+    finding_loader = info.context.loaders.finding
+    finding = await finding_loader.load(finding_id)
+    vuln_ids = (
+        cast(List[str], parameters.get('open_vulns', [])) +
+        cast(List[str], parameters.get('closed_vulns', []))
+    )
+    vulnerabilities = [
+        vuln
+        for vuln in await finding_vulns_loader.load(finding_id)
+        if vuln['id'] in vuln_ids
+    ]
+    vulnerabilities = [
+        vulns_utils.validate_verify(vuln)
+        for vuln in vulnerabilities
+    ]
+    vulnerabilities = [
+        vulns_utils.validate_closed(vuln)
+        for vuln in vulnerabilities
+    ]
+    if not vulnerabilities:
+        raise VulnNotFound()
+
+    comment_id = int(round(time() * 1000))
+    today = datetime_utils.get_now_as_str()
+    user_email: str = user_info['user_email']
+    historic_verification = cast(
+        List[Dict[str, Union[str, int, List[str]]]],
+        finding.get('historic_verification', [])
+    )
+    historic_verification.append({
+        'comment': comment_id,
+        'date': today,
+        'status': 'VERIFIED',
+        'user': user_email,
+        'vulns': vuln_ids
+    })
+    update_finding = await findings_dal.update(
+        finding_id,
+        {'historic_verification': historic_verification}
+    )
+    comment_data = {
+        'comment_type': 'verification',
+        'content': parameters.get('justification', ''),
+        'parent': 0,
+        'user_id': comment_id
+    }
+    await comments_domain.create(int(finding_id), comment_data, user_info)
+
+    success = await collect(
+        map(vulns_domain.verify_vulnerability, vulnerabilities)
+    )
+    if all(success) and update_finding:
+        success = await vulns_domain.verify(
+            context=info.context.loaders,
+            info=info,
+            finding_id=finding_id,
+            vulnerabilities=vulnerabilities,
+            closed_vulns=cast(List[str], parameters.get('closed_vulns', [])),
+            date=today,
+            vulns_to_close_from_file=vulns_to_close_from_file
+        )
+    else:
+        LOGGER.error('An error occurred verifying', **NOEXTRA)
+    return all(success)

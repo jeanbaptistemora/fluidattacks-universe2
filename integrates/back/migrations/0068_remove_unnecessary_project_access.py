@@ -13,7 +13,7 @@ from aioextensions import (
 from boto3.dynamodb.conditions import Attr
 
 # Local libraries
-from backend.dal.helpers import dynamodb
+from dynamodb import operations_legacy as dynamodb_ops
 from group_access import domain as group_access_domain
 
 
@@ -26,7 +26,7 @@ async def main() -> None:
             & Attr('invitation').not_exists()
         ),
     }
-    project_accesses = await dynamodb.async_scan(ACCESS_TABLE_NAME, scan_attrs)
+    project_accesses = await dynamodb_ops.scan(ACCESS_TABLE_NAME, scan_attrs)
 
     print('project_accesses')
     print(project_accesses)

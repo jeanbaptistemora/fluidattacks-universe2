@@ -18,12 +18,12 @@ from starlette.datastructures import UploadFile
 
 # Local libraries
 from back.settings import LOGGING
-from backend.dal.helpers import dynamodb
 from backend.exceptions import ErrorUploadingFileS3
 from backend.typing import (
     DynamoDelete as DynamoDeleteType,
     Finding as FindingType,
 )
+from dynamodb import operations_legacy as dynamodb_ops
 from newutils import datetime as datetime_utils
 from s3 import operations as s3_ops
 from __init__ import (
@@ -84,7 +84,7 @@ async def create(data: Dict[str, FindingType]) -> bool:
             item['historic_verification'] = data['historic_verification']
         if data.get('repo_nickname'):
             item['repo_nickname'] = data['repo_nickname']
-        resp = await dynamodb.async_put_item(TABLE_NAME, item)
+        resp = await dynamodb_ops.put_item(TABLE_NAME, item)
     except ClientError as ex:
         LOGGER.exception(ex, extra={'extra': locals()})
     return resp
@@ -100,7 +100,7 @@ async def delete(uuid: str, finding_id: str) -> bool:
                 'finding_id': finding_id
             }
         )
-        resp = await dynamodb.async_delete_item(TABLE_NAME, delete_attrs)
+        resp = await dynamodb_ops.delete_item(TABLE_NAME, delete_attrs)
     except ClientError as ex:
         LOGGER.exception(ex, extra={'extra': locals()})
     return resp
@@ -113,7 +113,7 @@ async def get(vuln_uuid: str) -> List[Dict[str, FindingType]]:
         'IndexName': 'gsi_uuid',
         'KeyConditionExpression': Key(hash_key).eq(vuln_uuid)
     }
-    return await dynamodb.async_query(TABLE_NAME, query_attrs)
+    return await dynamodb_ops.query(TABLE_NAME, query_attrs)
 
 
 async def get_by_finding(
@@ -141,7 +141,7 @@ async def get_by_finding(
             Attr('specific').eq(specific)
         )
         query_attrs.update({'FilterExpression': filtering_exp})
-    return await dynamodb.async_query(TABLE_NAME, query_attrs)
+    return await dynamodb_ops.query(TABLE_NAME, query_attrs)
 
 
 async def get_vulnerabilities_async(
@@ -275,7 +275,7 @@ async def update(
     if expression_names:
         update_attrs.update({'ExpressionAttributeNames': expression_names})
     try:
-        success = await dynamodb.async_update_item(TABLE_NAME, update_attrs)
+        success = await dynamodb_ops.update_item(TABLE_NAME, update_attrs)
     except ClientError as ex:
         LOGGER.exception(ex, extra={'extra': locals()})
     return success

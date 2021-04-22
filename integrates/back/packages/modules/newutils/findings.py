@@ -16,7 +16,6 @@ from typing import (
 
 # Third-party libraries
 from aioextensions import schedule
-from boto3.dynamodb.conditions import Key
 from starlette.datastructures import UploadFile
 
 # Local libraries
@@ -25,7 +24,6 @@ from backend import (
     mailer,
     util,
 )
-from backend.dal.helpers import dynamodb
 from backend.exceptions import (
     InvalidDateFormat,
     InvalidFileStructure,
@@ -68,7 +66,6 @@ CVSS_PARAMETERS = {
         'mod_impact_factor_7': 13, 'mod_impact_factor_8': 0.9731
     }
 }
-FINDINGS_TABLE: str = 'FI_findings'
 LOGGER = logging.getLogger(__name__)
 
 
@@ -298,26 +295,6 @@ def get_historic_dates(vuln: Dict[str, FindingType]) -> List[str]:
         if state.get('state', '') in {'open', 'closed'}
     ]
     return treatment_dates + state_dates
-
-
-async def get_historic_verification(
-    finding_id: str
-) -> List[Dict[str, FindingType]]:
-    historic_verification: List[Dict[str, FindingType]] = []
-    query_attrs = {
-        'KeyConditionExpression': Key('finding_id').eq(finding_id),
-        'ProjectionExpression': 'historic_verification'
-    }
-    response_items = cast(
-        List[Dict[str, FindingType]],
-        await dynamodb.async_query(FINDINGS_TABLE, query_attrs)
-    )
-    if response_items:
-        historic_verification = response_items[0].get(
-            'historic_verification',
-            []
-        )
-    return historic_verification
 
 
 def get_item_date(item: Any) -> Datetime:

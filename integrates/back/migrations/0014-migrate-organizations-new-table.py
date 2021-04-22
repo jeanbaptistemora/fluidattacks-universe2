@@ -25,13 +25,12 @@ import bugsnag
 from boto3.dynamodb.conditions import Attr, Not
 from botocore.exceptions import ClientError
 
-from backend.dal.helpers import dynamodb
+from dynamodb.operations_legacy import RESOURCE_OPTIONS
 
 
-INTEGRATES_TABLE: str = dynamodb.TABLE_NAME
+INTEGRATES_TABLE: str = 'integrates'
 ORGANIZATIONS_TABLE: str = 'fi_organizations'
 PROJECTS_TABLE: str = 'FI_projects'
-RESOURCE_OPTIONS: Dict[str, str] = dynamodb.RESOURCE_OPTIONS
 STAGE: str = os.environ['STAGE']
 USERS_TABLE: str = 'FI_users'
 

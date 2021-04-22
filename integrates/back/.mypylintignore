@@ -30,7 +30,6 @@ files =
   ,back/packages/integrates-back/backend/reports/secure_pdf.py
   ,back/packages/integrates-back/backend/reports/typing.py
   ,back/packages/integrates-back/backend/decorators.py
-  ,back/packages/integrates-back/backend/dal/
   ,back/packages/integrates-back/backend/mailer.py
   ,back/packages/modules/events/
   #,back/__init__.py

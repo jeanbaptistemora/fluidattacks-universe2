@@ -6,7 +6,7 @@ import pytest
 from _pytest.monkeypatch import MonkeyPatch
 
 # Local
-from backend.dal.helpers import dynamodb
+from dynamodb import operations_legacy as dynamodb_ops
 from roots import dal as roots_dal
 
 
@@ -24,7 +24,7 @@ async def test_has_open_vulns(
     state: str,
     expected_result: bool
 ) -> None:
-    async def mocked_async_query(*_) -> List[Dict[str, str]]:
+    async def mocked_query(*_) -> List[Dict[str, str]]:
         return [
             {
                 'repo_nickname': 'product',
@@ -32,7 +32,7 @@ async def test_has_open_vulns(
                 'historic_state': [{'state': state}]
             }
         ]
-    monkeypatch.setattr(dynamodb, 'async_query', mocked_async_query)
+    monkeypatch.setattr(dynamodb_ops, 'query', mocked_query)
 
     result = await roots_dal.has_open_vulns(nickname='product')
     assert result == expected_result

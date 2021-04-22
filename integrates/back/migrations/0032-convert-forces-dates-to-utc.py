@@ -21,7 +21,7 @@ from boto3.dynamodb.conditions import Key
 from dateutil.parser import parse as date_parser
 
 # Local libraries
-from backend.dal.helpers import dynamodb
+from dynamodb import operations_legacy as dynamodb_ops
 from groups.dal import get_active_groups
 from groups.domain import get_many_groups
 
@@ -34,7 +34,7 @@ async def yield_executions_new(project_name: str) -> AsyncIterator[Any]:
     key_condition_expresion = \
         Key('subscription').eq(project_name)
 
-    async with aioboto3.resource(**dynamodb.RESOURCE_OPTIONS) as resource:
+    async with aioboto3.resource(**dynamodb_ops.RESOURCE_OPTIONS) as resource:
         table = await resource.Table(TABLE_NAME_NEW_FORCES)
         query_params = {'KeyConditionExpression': key_condition_expresion}
         has_more = True
@@ -79,7 +79,7 @@ async def update_execution(execution: Any) -> Tuple[str, str, bool]:
             ":date_value": new_date.isoformat()
         }
     }
-    success = await dynamodb.async_update_item(
+    success = await dynamodb_ops.update_item(
         TABLE_NAME_NEW_FORCES,
         update_attrs,
     )

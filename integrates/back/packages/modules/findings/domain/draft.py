@@ -42,6 +42,7 @@ from newutils import (
     findings as finding_utils,
     vulnerabilities as vulns_utils,
 )
+from vulnerabilities import domain as vulns_domain
 from __init__ import (
     BASE_URL,
     FI_MAIL_REVIEWERS,
@@ -89,7 +90,7 @@ async def approve_draft(
                 )
                 all_vulns = await finding_all_vulns_loader.load(draft_id)
                 vuln_update_success = await collect(
-                    vulns_utils.update_historic_state_dates(
+                    vulns_domain.update_historic_state_dates(
                         draft_id,
                         vuln,
                         release_date

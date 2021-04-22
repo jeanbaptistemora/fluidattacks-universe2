@@ -25,12 +25,15 @@ from aioextensions import (
     collect,
     in_process,
 )
-from botocore.exceptions import ClientError
 
 # Local libraries
 from back.settings import LOGGING
-from backend.dal.helpers import dynamodb
-from backend.exceptions import InvalidRange
+from backend.exceptions import (
+    AlreadyRequested,
+    InvalidRange,
+    NotVerificationRequested,
+    VulnAlreadyClosed,
+)
 from backend.typing import (
     Finding as FindingType,
     Historic as HistoricType,
@@ -48,7 +51,6 @@ Treatments = NamedTuple('Treatments', [
     ('IN_PROGRESS', int),
     ('NEW', int),
 ])
-VULNS_TABLE: str = 'FI_vulnerabilities'
 
 
 def as_range(iterable: Iterable[Any]) -> str:
@@ -60,42 +62,6 @@ def as_range(iterable: Iterable[Any]) -> str:
     else:
         range_value = f'{my_list[0]}'
     return range_value
-
-
-async def delete_vulnerability(  # pylint: disable=too-many-arguments
-    context: Any,
-    finding_id: str,
-    vuln_id: str,
-    justification: str,
-    user_email: str,
-    source: str,
-    include_closed_vuln: bool = False
-) -> bool:
-    vulnerability_loader = context.vulnerability
-    vulnerability = await vulnerability_loader.load(vuln_id)
-    success = False
-    if vulnerability and vulnerability['historic_state']:
-        all_states = cast(
-            List[Dict[str, str]],
-            vulnerability['historic_state']
-        )
-        current_state = all_states[-1].get('state')
-        if current_state == 'open' or include_closed_vuln:
-            current_day = datetime_utils.get_now_as_str()
-            new_state = {
-                'analyst': user_email,
-                'date': current_day,
-                'justification': justification,
-                'source': source,
-                'state': 'DELETED',
-            }
-            all_states.append(new_state)
-            success = await update(
-                finding_id,
-                str(vulnerability['id']),
-                {'historic_state': all_states}
-            )
-    return success
 
 
 def filter_deleted_status(vuln: Dict[str, FindingType]) -> bool:
@@ -425,9 +391,33 @@ def group_specific(
     return lines
 
 
+def is_accepted_undefined_vulnerability(
+    vulnerability: Dict[str, FindingType]
+) -> bool:
+    historic_treatment = cast(
+        HistoricType,
+        vulnerability['historic_treatment']
+    )
+    return (
+        historic_treatment[-1]['treatment'] == 'ACCEPTED_UNDEFINED' and
+        get_last_status(vulnerability) == 'open'
+    )
+
+
 def is_range(specific: str) -> bool:
     """Validate if a specific field has range value."""
     return '-' in specific
+
+
+def is_reattack_requested(vuln: Dict[str, FindingType]) -> bool:
+    response = False
+    historic_verification = vuln.get('historic_verification', [{}])
+    if cast(
+        List[Dict[str, str]],
+        historic_verification
+    )[-1].get('status', '') == 'REQUESTED':
+        response = True
+    return response
 
 
 def is_sequence(specific: str) -> bool:
@@ -438,20 +428,6 @@ def is_sequence(specific: str) -> bool:
 def is_vulnerability_closed(vuln: Dict[str, FindingType]) -> bool:
     """Return if a vulnerability is closed."""
     return get_last_status(vuln) == 'closed'
-
-
-async def mask_vuln(finding_id: str, vuln_id: str) -> bool:
-    success = await update(
-        finding_id,
-        vuln_id,
-        {
-            'specific': 'Masked',
-            'where': 'Masked',
-            'treatment_manager': 'Masked',
-            'treatment_justification': 'Masked',
-        }
-    )
-    return success
 
 
 def sort_vulnerabilities(item: List[str]) -> List[str]:
@@ -485,59 +461,31 @@ def ungroup_specific(specific: str) -> List[str]:
     return specific_values
 
 
-async def update(
-    finding_id: str,
-    vuln_id: str,
-    data: Dict[str, FindingType]
-) -> bool:
-    success = False
-    set_expression = ''
-    remove_expression = ''
-    expression_names = {}
-    expression_values = {}
-    for attr, value in data.items():
-        if value is None:
-            remove_expression += f'#{attr}, '
-            expression_names.update({f'#{attr}': attr})
-        else:
-            set_expression += f'#{attr} = :{attr}, '
-            expression_names.update({f'#{attr}': attr})
-            expression_values.update({f':{attr}': value})
-
-    if set_expression:
-        set_expression = f'SET {set_expression.strip(", ")}'
-    if remove_expression:
-        remove_expression = f'REMOVE {remove_expression.strip(", ")}'
-
-    update_attrs = {
-        'Key': {
-            'finding_id': finding_id,
-            'UUID': vuln_id,
-        },
-        'UpdateExpression': f'{set_expression} {remove_expression}'.strip(),
-    }
-    if expression_values:
-        update_attrs.update({'ExpressionAttributeValues': expression_values})
-    if expression_names:
-        update_attrs.update({'ExpressionAttributeNames': expression_names})
-    try:
-        success = await dynamodb.async_update_item(VULNS_TABLE, update_attrs)
-    except ClientError as ex:
-        LOGGER.exception(ex, extra={'extra': locals()})
-    return success
+def validate_closed(vuln: Dict[str, FindingType]) -> Dict[str, FindingType]:
+    """ Validate vuln closed """
+    if cast(
+        List[Dict[str, FindingType]],
+        vuln.get('historic_state', [{}])
+    )[-1].get('state') == 'closed':
+        raise VulnAlreadyClosed()
+    return vuln
 
 
-async def update_historic_state_dates(
-    finding_id: str,
-    vuln: Dict[str, FindingType],
-    date: str
-) -> bool:
-    historic_state = cast(HistoricType, vuln['historic_state'])
-    for state_info in historic_state:
-        state_info['date'] = date
-    success = await update(
-        finding_id,
-        cast(str, vuln['UUID']),
-        {'historic_state': historic_state}
+def validate_requested_verification(
+    vuln: Dict[str, FindingType]
+) -> Dict[str, FindingType]:
+    """ Validate vuln is not resquested """
+    historic_verification = cast(
+        List[Dict[str, FindingType]],
+        vuln.get('historic_verification', [{}])
     )
-    return success
+    if historic_verification[-1].get('status', '') == 'REQUESTED':
+        raise AlreadyRequested()
+    return vuln
+
+
+def validate_verify(vuln: Dict[str, FindingType]) -> Dict[str, FindingType]:
+    """ Validate vuln is resquested """
+    if not is_reattack_requested(vuln):
+        raise NotVerificationRequested()
+    return vuln

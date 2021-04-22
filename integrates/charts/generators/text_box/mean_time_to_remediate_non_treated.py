@@ -17,8 +17,8 @@ from async_lru import alru_cache
 
 # Local libraries
 from charts import utils
+from groups.domain import get_mean_remediate_non_treated
 from newutils import datetime as datetime_utils
-from vulnerabilities.domain import get_mean_remediate_non_treated
 
 
 @alru_cache(maxsize=None, typed=True)

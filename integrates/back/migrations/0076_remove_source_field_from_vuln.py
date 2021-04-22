@@ -12,8 +12,8 @@ from aioextensions import (
 )
 
 # Local libraries
-from backend.dal.helpers import dynamodb
 from backend.typing import Vulnerability
+from dynamodb import operations_legacy as dynamodb_ops
 from vulnerabilities import dal as vulns_dal
 
 
@@ -42,7 +42,7 @@ async def main() -> None:
         'ExpressionAttributeNames': {'#id': 'UUID', '#source': 'source'},
         'ProjectionExpression': ','.join({'#id' ,'finding_id', '#source'})
     }
-    vulns = await dynamodb.async_scan(VULNERABILITY_TABLE, scan_attrs)
+    vulns = await dynamodb_ops.scan(VULNERABILITY_TABLE, scan_attrs)
 
     success = all(await collect(
         [

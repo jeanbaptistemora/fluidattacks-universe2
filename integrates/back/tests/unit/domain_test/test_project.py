@@ -43,6 +43,7 @@ from groups.domain import (
     get_closed_vulnerabilities,
     get_description,
     get_mean_remediate,
+    get_mean_remediate_non_treated,
     get_mean_remediate_severity,
     get_open_finding,
     get_open_vulnerabilities,
@@ -58,7 +59,6 @@ from newutils.vulnerabilities import (
     is_vulnerability_closed,
 )
 from vulnerabilities import dal as vulns_dal
-from vulnerabilities.domain import get_mean_remediate_non_treated
 
 
 pytestmark = [

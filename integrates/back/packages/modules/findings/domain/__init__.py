@@ -21,11 +21,13 @@ from .core import (
     is_pending_verification,
     list_findings,
     mask_finding,
+    request_vulnerability_verification,
     save_severity,
     send_comment_mail,
     send_finding_mail,
     update_description,
     validate_finding,
+    verify_vulnerabilities,
 )
 from .draft import (
     approve_draft,
@@ -70,11 +72,13 @@ __all__ = [
     'is_pending_verification',
     'list_findings',
     'mask_finding',
+    'request_vulnerability_verification',
     'save_severity',
     'send_comment_mail',
     'send_finding_mail',
     'update_description',
     'validate_finding',
+    'verify_vulnerabilities',
 
     # drafts
     'approve_draft',

@@ -22,12 +22,11 @@ from aioextensions import (
 from boto3.dynamodb.conditions import Attr
 
 from backend import authz
-from backend.dal.helpers import dynamodb
 from backend.typing import Organization as OrganizationType
+from dynamodb.operations_legacy import RESOURCE_OPTIONS
 from organizations import domain as orgs_domain
 
 
-RESOURCE_OPTIONS = dynamodb.RESOURCE_OPTIONS
 STAGE: str = os.environ['STAGE']
 TABLE_NAME: str = 'fi_organizations'
 

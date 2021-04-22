@@ -25,8 +25,7 @@ from botocore.exceptions import ClientError
 
 # Local libraries
 from back.settings import LOGGING
-from backend.dal.helpers import dynamodb
-from backend.dal.helpers.dynamodb import RESOURCE_OPTIONS
+from dynamodb import operations_legacy as dynamodb_ops
 from newutils import datetime as datetime_utils
 from s3 import operations as s3_ops
 from __init__ import (
@@ -55,8 +54,8 @@ async def create_execution(
             date_format='%Y-%m-%dT%H:%M:%S.%f%z'
         )
         execution_attributes['subscription'] = project_name
-        execution_attributes = dynamodb.serialize(execution_attributes)
-        success = await dynamodb.async_put_item(
+        execution_attributes = dynamodb_ops.serialize(execution_attributes)
+        success = await dynamodb_ops.put_item(
             TABLE_NAME,
             execution_attributes
         )
@@ -71,7 +70,7 @@ async def get_execution(project_name: str, execution_id: str) -> Any:
         Key('subscription').eq(project_name)
     )
 
-    async with aioboto3.resource(**RESOURCE_OPTIONS) as resource:
+    async with aioboto3.resource(**dynamodb_ops.RESOURCE_OPTIONS) as resource:
         table = await resource.Table(TABLE_NAME)
         results = await table.query(
             KeyConditionExpression=key_condition_expresion
@@ -174,7 +173,7 @@ async def yield_executions(
         Attr('date').lte(to_date.isoformat())
     )
 
-    async with aioboto3.resource(**RESOURCE_OPTIONS) as resource:
+    async with aioboto3.resource(**dynamodb_ops.RESOURCE_OPTIONS) as resource:
         table = await resource.Table(TABLE_NAME)
         query_params = {
             'KeyConditionExpression': key_condition_expresion,

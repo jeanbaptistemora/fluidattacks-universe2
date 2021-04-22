@@ -8,8 +8,8 @@ from boto3.dynamodb.conditions import Key
 
 # Local
 from back.settings import LOGGING
-from backend.dal.helpers import dynamodb as legacy_dynamodb
 from dynamodb import model
+from dynamodb import operations_legacy as dynamodb_ops
 from dynamodb.types import (
     GitRootCloning,
     GitRootState,
@@ -66,7 +66,7 @@ async def update_root_state(
 
 
 async def has_open_vulns(*, nickname: str) -> bool:
-    vulns = await legacy_dynamodb.async_query(
+    vulns = await dynamodb_ops.query(
         'FI_vulnerabilities',
         {
             'IndexName': 'repo_index',

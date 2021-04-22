@@ -23,14 +23,13 @@ from aioextensions import (
 )
 from boto3.dynamodb.conditions import Attr, Key
 
-from backend.dal.helpers import dynamodb
+from dynamodb.operations_legacy import RESOURCE_OPTIONS
 from users.dal import update as update_user
 
 
 INTEGRATES_TABLE = 'integrates'
 ORGANIZATION_NAME = 'integrates community'
 ORGANIZATIONS_TABLE = 'fi_organizations'
-RESOURCE_OPTIONS = dynamodb.RESOURCE_OPTIONS
 STAGE: str = os.environ['STAGE']
 USERS_TABLE = 'FI_users'
 

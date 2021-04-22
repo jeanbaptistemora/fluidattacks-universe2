@@ -35,7 +35,7 @@ from typing import Any
 import aioboto3
 from aioextensions import collect
 
-from backend.dal.helpers import dynamodb
+from dynamodb.operations_legacy import RESOURCE_OPTIONS
 from findings.dal import update
 
 
@@ -44,9 +44,7 @@ FINDINGS_TABLE = 'FI_findings'
 
 
 async def scan(*, table_name:str, **options: Any) -> Any:
-    async with aioboto3.resource(
-        **dynamodb.RESOURCE_OPTIONS,
-    ) as dynamodb_resource:
+    async with aioboto3.resource(RESOURCE_OPTIONS) as dynamodb_resource:
         table = await dynamodb_resource.Table(table_name)
         response = await table.scan(**options)
         for elem in response.get('Items', []):

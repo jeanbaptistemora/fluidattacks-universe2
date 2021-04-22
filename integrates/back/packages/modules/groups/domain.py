@@ -36,7 +36,6 @@ from backend import (
     authz,
     mailer,
 )
-from backend.dal.helpers.dynamodb import start_context
 from backend.exceptions import (
     AlreadyPendingDeletion,
     InvalidParameter,
@@ -52,6 +51,7 @@ from backend.typing import (
     ProjectAccess as GroupAccessType,
     User as UserType,
 )
+from dynamodb.operations_legacy import start_context
 from events import domain as events_domain
 from findings import domain as findings_domain
 from group_access import domain as group_access_domain
@@ -79,6 +79,7 @@ from organizations import domain as orgs_domain
 from redis_cluster.operations import redis_del_by_deps_soon
 from sessions import dal as sessions_dal
 from users import domain as users_domain
+from vulnerabilities import domain as vulns_domain
 from __init__ import (
     BASE_URL,
     FI_DEFAULT_ORG,
@@ -555,6 +556,25 @@ async def get_mean_remediate(
     ])
     return await vulns_utils.get_mean_remediate_vulnerabilities(
         vulns,
+        min_date
+    )
+
+
+async def get_mean_remediate_non_treated(
+    group_name: str,
+    min_date: Optional[date] = None
+) -> Decimal:
+    findings = await findings_domain.get_findings_by_group(group_name)
+    vulnerabilities = await vulns_domain.list_vulnerabilities_async(
+        [str(finding['finding_id']) for finding in findings],
+        include_requested_zero_risk=True,
+    )
+    return await vulns_utils.get_mean_remediate_vulnerabilities(
+        [
+            vuln
+            for vuln in vulnerabilities
+            if not vulns_utils.is_accepted_undefined_vulnerability(vuln)
+        ],
         min_date
     )
 

@@ -17,15 +17,15 @@ import aioboto3
 from aioextensions import run
 from boto3.dynamodb.conditions import Attr
 
-from backend.dal.helpers import dynamodb
 from backend.typing import DynamoDelete as DynamoDeleteType
+from dynamodb import operations_legacy as dynamodb_ops
 from organizations import domain as orgs_domain
 
 
 STAGE: str = os.environ['STAGE']
 ORGANIZATION_TABLE = 'fi_organizations'
 PORTFOLIO_TABLE = 'fi_portfolios'
-RESOURCE_OPTIONS = dynamodb.RESOURCE_OPTIONS
+RESOURCE_OPTIONS = dynamodb_ops.RESOURCE_OPTIONS
 ORGANIZATION_CODENAME_MAP: Dict[str, str] = {
     # Fill this dictionary with keys in the following syntax:
     #     old_name: new_name
@@ -100,11 +100,11 @@ async def main() -> None:
                                 {portfolio_keys[index]}
                     ''')
             else:
-                await dynamodb.async_put_item(ORGANIZATION_TABLE, new_item)
-                await dynamodb.async_delete_item(ORGANIZATION_TABLE, delete_item)
+                await dynamodb_ops.put_item(ORGANIZATION_TABLE, new_item)
+                await dynamodb_ops.delete_item(ORGANIZATION_TABLE, delete_item)
                 for index, item in enumerate(portfolio_items):
-                    await dynamodb.async_put_item(PORTFOLIO_TABLE, item)
-                    await dynamodb.async_delete_item(
+                    await dynamodb_ops.put_item(PORTFOLIO_TABLE, item)
+                    await dynamodb_ops.delete_item(
                         PORTFOLIO_TABLE, portfolio_keys[index]
                     )
 

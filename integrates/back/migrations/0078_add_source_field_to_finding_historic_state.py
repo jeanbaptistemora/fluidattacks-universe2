@@ -21,11 +21,11 @@ from aioextensions import (
 from boto3.dynamodb.conditions import Key
 
 # Local libraries
-from backend.dal.helpers import dynamodb
 from backend.typing import (
     Finding,
     Historic,
 )
+from dynamodb import operations_legacy as dynamodb_ops
 from findings import dal as findings_dal
 from newutils import datetime as datetime_utils
 
@@ -65,7 +65,7 @@ async def add_source_field_to_historic_state(
                 )
             ):
                 if vulns == None:
-                    vulns = await dynamodb.async_query(
+                    vulns = await dynamodb_ops.query(
                         VULNERABILITY_TABLE,
                         vuln_query_attrs
                     )
@@ -102,7 +102,7 @@ async def main() -> None:
     scan_attrs = {
         'ProjectionExpression': ','.join({'finding_id', 'historic_state'})
     }
-    findings = await dynamodb.async_scan(FINDING_TABLE, scan_attrs)
+    findings = await dynamodb_ops.scan(FINDING_TABLE, scan_attrs)
 
     success = all(await collect(
         [

@@ -15,12 +15,12 @@ from botocore.exceptions import ClientError
 
 # Local libraries
 from back.settings import LOGGING
-from backend.dal.helpers import dynamodb
 from backend.typing import (
     DynamoDelete as DynamoDeleteType,
     Project as GroupType,
     ProjectAccess as GroupAccessType,
 )
+from dynamodb import operations_legacy as dynamodb_ops
 from newutils import (
     apm,
     datetime as datetime_utils,
@@ -43,7 +43,7 @@ async def get_access_by_url_token(
         Attr('invitation.url_token').eq(url_token)
     )
     scan_attrs = {'FilterExpression': filter_exp}
-    items = await dynamodb.async_scan(TABLE_NAME, scan_attrs)
+    items = await dynamodb_ops.scan(TABLE_NAME, scan_attrs)
     return items
 
 
@@ -65,7 +65,7 @@ async def get_group_users(group: str, active: bool = True) -> List[str]:
         'ProjectionExpression': projection_expression,
         'FilterExpression': filter_exp,
     }
-    users = await dynamodb.async_query(TABLE_NAME, query_attrs)
+    users = await dynamodb_ops.query(TABLE_NAME, query_attrs)
     if active:
         users_filtered = [
             user.get('user_email')
@@ -95,7 +95,7 @@ async def get_user_access(
         Key(filter_sort).eq(group_name)
     )
     query_attrs = {'KeyConditionExpression': filtering_exp}
-    items = await dynamodb.async_query(TABLE_NAME, query_attrs)
+    items = await dynamodb_ops.query(TABLE_NAME, query_attrs)
     return items
 
 
@@ -104,7 +104,7 @@ async def get_user_groups(user_email: str, active: bool) -> List[str]:
     """ Get groups of a user """
     filtering_exp = Key('user_email').eq(user_email.lower())
     query_attrs = {'KeyConditionExpression': filtering_exp}
-    groups = await dynamodb.async_query(TABLE_NAME, query_attrs)
+    groups = await dynamodb_ops.query(TABLE_NAME, query_attrs)
     if active:
         groups_filtered = [
             group.get('project_name')
@@ -129,7 +129,7 @@ async def remove_access(user_email: str, group_name: str) -> bool:
                 'project_name': group_name.lower(),
             }
         )
-        resp = await dynamodb.async_delete_item(TABLE_NAME, delete_attrs)
+        resp = await dynamodb_ops.delete_item(TABLE_NAME, delete_attrs)
         return resp
     except ClientError as ex:
         LOGGER.exception(ex, extra=dict(extra=locals()))
@@ -168,7 +168,7 @@ async def update(
     if expression_values:
         update_attrs.update({'ExpressionAttributeValues': expression_values})
     try:
-        success = await dynamodb.async_update_item(
+        success = await dynamodb_ops.update_item(
             TABLE_NAME,
             update_attrs
         )

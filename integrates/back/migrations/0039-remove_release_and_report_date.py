@@ -12,7 +12,7 @@ from asyncio import run
 from aioextensions import collect
 
 # Local
-from backend.dal.helpers import dynamodb
+from dynamodb import operations_legacy as dynamodb_ops
 from findings.dal import update
 
 
@@ -26,7 +26,7 @@ async def _print_findings_with_attributes() -> None:
             {'finding_id', 'releaseDate', 'report_date'}
         )
     }
-    findings = await dynamodb.async_scan(FINDINGS_TABLE, scan_attrs)
+    findings = await dynamodb_ops.scan(FINDINGS_TABLE, scan_attrs)
     for finding in findings:
         print(finding)
 
@@ -40,7 +40,7 @@ async def main() -> None:
         'ProjectionExpression': ','.join({'finding_id'})
     }
     updates = []
-    findings = await dynamodb.async_scan(FINDINGS_TABLE, scan_attrs)
+    findings = await dynamodb_ops.scan(FINDINGS_TABLE, scan_attrs)
     for finding in findings:
         if (
             # We don't care about wiped findings

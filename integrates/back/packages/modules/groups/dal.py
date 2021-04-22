@@ -21,8 +21,8 @@ from botocore.exceptions import ClientError
 
 # Local libraries
 from back.settings import LOGGING
-from backend.dal.helpers import dynamodb
 from backend.typing import Project as GroupType
+from dynamodb import operations_legacy as dynamodb_ops
 
 
 logging.config.dictConfig(LOGGING)
@@ -59,7 +59,7 @@ async def create(group: GroupType) -> bool:
     """Add group to dynamo."""
     resp = False
     try:
-        resp = await dynamodb.async_put_item(TABLE_NAME, group)
+        resp = await dynamodb_ops.put_item(TABLE_NAME, group)
     except ClientError as ex:
         LOGGER.exception(ex, extra={'extra': locals()})
     return resp
@@ -110,7 +110,7 @@ async def get_all(
         scan_attrs['FilterExpression'] = filtering_exp
     if data_attr:
         scan_attrs['ProjectionExpression'] = data_attr
-    items = await dynamodb.async_scan(TABLE_NAME, scan_attrs)
+    items = await dynamodb_ops.scan(TABLE_NAME, scan_attrs)
     return cast(List[GroupType], items)
 
 
@@ -129,7 +129,7 @@ async def get_attributes(
         query_attrs.update({'ProjectionExpression': projection})
 
     if not table:
-        response_items = await dynamodb.async_query(TABLE_NAME, query_attrs)
+        response_items = await dynamodb_ops.query(TABLE_NAME, query_attrs)
     else:
         response_item = await table.query(**query_attrs)
         response_items = response_item.get('Items', [])
@@ -168,7 +168,7 @@ async def get_groups_with_forces() -> List[str]:
             "#h_config": "historic_configuration",
         }
     }
-    response = await dynamodb.async_scan(TABLE_NAME, query_attrs)
+    response = await dynamodb_ops.scan(TABLE_NAME, query_attrs)
     groups: List[str] = [
         group['project_name']
         for group in response
@@ -188,7 +188,7 @@ async def get_service_policies(group: str) -> List[ServicePolicy]:
         'ConsistentRead': True,
         'ProjectionExpression': 'historic_configuration, project_status'
     }
-    response_items = await dynamodb.async_query(TABLE_NAME, query_attrs)
+    response_items = await dynamodb_ops.query(TABLE_NAME, query_attrs)
 
     # There is no such group, let's make an early return
     if not response_items:
@@ -277,7 +277,7 @@ async def update(group_name: str, data: GroupType) -> bool:
     if expression_values:
         update_attrs.update({'ExpressionAttributeValues': expression_values})
     try:
-        success = await dynamodb.async_update_item(TABLE_NAME, update_attrs)
+        success = await dynamodb_ops.update_item(TABLE_NAME, update_attrs)
     except ClientError as ex:
         LOGGER.exception(ex, extra={'extra': locals()})
     return success

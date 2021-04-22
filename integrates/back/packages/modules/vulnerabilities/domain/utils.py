@@ -3,13 +3,11 @@ from typing import (
     cast,
     Dict,
 )
-from urllib.parse import urlparse
 
 # Local
 from backend import authz
 from backend.exceptions import (
     AcceptionNotRequested,
-    InvalidStream,
     InvalidTreatmentManager,
 )
 from backend.typing import (
@@ -53,15 +51,6 @@ def validate_acceptation(vuln: Dict[str, Finding]) -> Dict[str, Finding]:
     if historic_treatment[-1].get('acceptance_status') != 'SUBMITTED':
         raise AcceptionNotRequested()
     return vuln
-
-
-def validate_stream(where: str, stream: str) -> bool:
-    url_parsed = urlparse(where)
-    if len(url_parsed.path) == 0 or url_parsed.path == '/':
-        if stream.lower().startswith('home,'):
-            return True
-        raise InvalidStream()
-    return True
 
 
 async def validate_treatment_manager(

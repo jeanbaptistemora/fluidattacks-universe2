@@ -9,8 +9,8 @@ from boto3.dynamodb.conditions import Key
 from botocore.exceptions import ClientError
 
 from back.settings import LOGGING
-from backend.dal.helpers import dynamodb
 from backend.typing import Event as EventType
+from dynamodb import operations_legacy as dynamodb_ops
 from s3 import operations as s3_ops
 from __init__ import (
     FI_AWS_S3_BUCKET,
@@ -34,7 +34,7 @@ async def create(
             'event_id': event_id,
             'project_name': group_name
         })
-        success = await dynamodb.async_put_item(TABLE_NAME, event_attributes)
+        success = await dynamodb_ops.put_item(TABLE_NAME, event_attributes)
     except ClientError as ex:
         LOGGER.exception(ex, extra={'extra': locals()})
     return success
@@ -47,7 +47,7 @@ async def get_event(event_id: str) -> EventType:
         'KeyConditionExpression': Key('event_id').eq(event_id),
         'Limit': 1
     }
-    response_items = await dynamodb.async_query(TABLE_NAME, query_attrs)
+    response_items = await dynamodb_ops.query(TABLE_NAME, query_attrs)
     if response_items:
         response = response_items[0]
     return response
@@ -60,7 +60,7 @@ async def list_group_events(group_name: str) -> List[str]:
         'IndexName': 'project_events',
         'ProjectionExpression': 'event_id'
     }
-    events = await dynamodb.async_query(TABLE_NAME, query_attrs)
+    events = await dynamodb_ops.query(TABLE_NAME, query_attrs)
     return [event['event_id'] for event in events]
 
 
@@ -120,7 +120,7 @@ async def update(event_id: str, data: EventType) -> bool:
     if expression_values:
         update_attrs.update({'ExpressionAttributeValues': expression_values})
     try:
-        success = await dynamodb.async_update_item(TABLE_NAME, update_attrs)
+        success = await dynamodb_ops.update_item(TABLE_NAME, update_attrs)
     except ClientError as ex:
         LOGGER.exception(ex, extra={'extra': locals()})
     return success

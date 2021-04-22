@@ -14,8 +14,8 @@ from aioextensions import collect, run
 from boto3.dynamodb.conditions import Key
 
 # Local libraries
-from backend.dal.helpers import dynamodb
 from backend.typing import DynamoDelete
+from dynamodb import operations_legacy as dynamodb_ops
 from groups import dal as groups_dal
 
 
@@ -23,7 +23,7 @@ STAGE = os.environ['STAGE']
 
 
 async def migrate(group_name: str) -> None:
-    duplicated_roots = await dynamodb.async_query(
+    duplicated_roots = await dynamodb_ops.query(
         'fi_roots',
         {
             'KeyConditionExpression': (
@@ -43,7 +43,7 @@ async def migrate(group_name: str) -> None:
             )
         else:
             await collect(
-                dynamodb.async_delete_item(
+                dynamodb_ops.delete_item(
                     'fi_roots',
                     DynamoDelete(
                         Key={

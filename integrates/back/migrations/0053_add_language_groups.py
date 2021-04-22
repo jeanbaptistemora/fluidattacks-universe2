@@ -17,8 +17,8 @@ from aioextensions import run
 # Local
 from backend.api.dataloaders.project import ProjectLoader as GroupLoader
 from backend.dal import project as project_dal
-from backend.dal.helpers import dynamodb
 from backend.typing import Project as ProjectType
+from dynamodb import operations_legacy as dynamodb_ops
 
 
 async def get_groups_without_language() -> List[ProjectType]:
@@ -31,7 +31,7 @@ async def get_groups_without_language() -> List[ProjectType]:
     }
 
     items: List[ProjectType] = []
-    async with aioboto3.resource(**dynamodb.RESOURCE_OPTIONS) as resource:
+    async with aioboto3.resource(**dynamodb_ops.RESOURCE_OPTIONS) as resource:
         table = await resource.Table(project_dal.TABLE_NAME)
         response = await table.scan(**scan_attrs)
         items = response.get('Items', [])
@@ -52,7 +52,7 @@ async def main() -> None:
 
         # 'language' is a reserved keyword for the DynamoAPI, so the
         # usual update function does not work
-        await dynamodb.async_update_item(
+        await dynamodb_ops.update_item(
             project_dal.TABLE_NAME,
             {
                 'Key': {

@@ -19,12 +19,12 @@ from botocore.exceptions import ClientError
 
 # Local libraries
 from back.settings import LOGGING
-from backend.dal.helpers import dynamodb
 from backend.exceptions import UnavailabilityError
 from backend.typing import (
     DynamoDelete as DynamoDeleteType,
     User as UserType
 )
+from dynamodb import operations_legacy as dynamodb_ops
 from __init__ import FI_TEST_PROJECTS
 
 
@@ -86,7 +86,7 @@ async def create(email: str, data: UserType) -> bool:
     resp = False
     try:
         data.update({'email': email})
-        resp = await dynamodb.async_put_item(USERS_TABLE_NAME, data)
+        resp = await dynamodb_ops.put_item(USERS_TABLE_NAME, data)
     except ClientError as ex:
         raise UnavailabilityError() from ex
     return resp
@@ -96,7 +96,7 @@ async def delete(email: str) -> bool:
     resp = False
     try:
         delete_attrs = DynamoDeleteType(Key={'email': email.lower()})
-        resp = await dynamodb.async_delete_item(USERS_TABLE_NAME, delete_attrs)
+        resp = await dynamodb_ops.delete_item(USERS_TABLE_NAME, delete_attrs)
     except ClientError as ex:
         LOGGER.exception(ex, extra={'extra': locals()})
     return resp
@@ -110,7 +110,7 @@ async def delete_subject_policy(subject: str, object_: str) -> bool:
                 'object': object_.lower(),
             }
         )
-        response = await dynamodb.async_delete_item(
+        response = await dynamodb_ops.delete_item(
             AUTHZ_TABLE_NAME, delete_attrs
         )
         return response
@@ -127,7 +127,7 @@ async def get(email: str) -> UserType:
         'KeyConditionExpression': Key('email').eq(email.lower()),
         'Limit': 1
     }
-    response_items = await dynamodb.async_query(USERS_TABLE_NAME, query_attrs)
+    response_items = await dynamodb_ops.query(USERS_TABLE_NAME, query_attrs)
     if response_items:
         response = response_items[0]
     return response
@@ -141,7 +141,7 @@ async def get_all(
     scan_attrs['FilterExpression'] = filter_exp
     if data_attr:
         scan_attrs['ProjectionExpression'] = data_attr
-    items = await dynamodb.async_scan(USERS_TABLE_NAME, scan_attrs)
+    items = await dynamodb_ops.scan(USERS_TABLE_NAME, scan_attrs)
     return items
 
 
@@ -152,7 +152,7 @@ async def get_attributes(email: str, attributes: List[str]) -> UserType:
         if attributes:
             projection = ','.join(attributes)
             query_attrs.update({'ProjectionExpression': projection})
-        response_items = await dynamodb.async_query(
+        response_items = await dynamodb_ops.query(
             USERS_TABLE_NAME, query_attrs
         )
         if response_items:
@@ -169,7 +169,7 @@ async def get_platform_users() -> List[Dict[str, UserType]]:
         Not(Attr('project_name').is_in(FI_TEST_PROJECTS.split(',')))
     )
     scan_attrs = {'FilterExpression': filter_exp}
-    return await dynamodb.async_scan(ACCESS_TABLE_NAME, scan_attrs)
+    return await dynamodb_ops.scan(ACCESS_TABLE_NAME, scan_attrs)
 
 
 async def get_subject_policies(subject: str) -> List[SubjectPolicy]:
@@ -178,7 +178,7 @@ async def get_subject_policies(subject: str) -> List[SubjectPolicy]:
         'ConsistentRead': True,
         'KeyConditionExpression': Key('subject').eq(subject.lower()),
     }
-    response = await dynamodb.async_query(AUTHZ_TABLE_NAME, query_params)
+    response = await dynamodb_ops.query(AUTHZ_TABLE_NAME, query_params)
     return list(map(cast_dict_into_subject_policy, response))
 
 
@@ -192,7 +192,7 @@ async def get_subject_policy(subject: str, object_: str) -> SubjectPolicy:
             Key('object').eq(object_.lower())
         )
     }
-    response_items = await dynamodb.async_query(AUTHZ_TABLE_NAME, query_attrs)
+    response_items = await dynamodb_ops.query(AUTHZ_TABLE_NAME, query_attrs)
     if response_items:
         response = response_items[0]
     return cast_dict_into_subject_policy(response)
@@ -201,7 +201,7 @@ async def get_subject_policy(subject: str, object_: str) -> SubjectPolicy:
 async def put_subject_policy(policy: SubjectPolicy) -> bool:
     item = cast_subject_policy_into_dict(policy)
     with contextlib.suppress(ClientError):
-        response = await dynamodb.async_put_item(AUTHZ_TABLE_NAME, item)
+        response = await dynamodb_ops.put_item(AUTHZ_TABLE_NAME, item)
         return response
     LOGGER.error(
         'Error in users_dal.put_subject_policy',
@@ -237,7 +237,7 @@ async def update(email: str, data: UserType) -> bool:
     if expression_names:
         update_attrs.update({'ExpressionAttributeNames': expression_names})
     try:
-        success = await dynamodb.async_update_item(
+        success = await dynamodb_ops.update_item(
             USERS_TABLE_NAME, update_attrs
         )
     except ClientError as ex:

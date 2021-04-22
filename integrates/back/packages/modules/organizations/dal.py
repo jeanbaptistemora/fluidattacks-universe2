@@ -18,13 +18,6 @@ from botocore.exceptions import ClientError
 
 # local imports
 from back.settings import LOGGING
-from backend.dal.helpers.dynamodb import (
-    async_delete_item as dynamo_async_delete_item,
-    async_query as dynamo_async_query,
-    async_put_item as dynamo_async_put_item,
-    async_update_item as dynamo_async_update_item,
-    client as dynamodb_client,
-)
 from backend.exceptions import (
     InvalidOrganization,
     UnavailabilityError,
@@ -34,6 +27,13 @@ from backend.typing import (
     DynamoDelete as DynamoDeleteType,
     DynamoQuery as DynamoQueryType,
     Organization as OrganizationType
+)
+from dynamodb.operations_legacy import (
+    client as dynamodb_client,
+    delete_item as dynamodb_delete_item,
+    put_item as dynamodb_put_item,
+    query as dynamodb_query,
+    update_item as dynamodb_update_item,
 )
 
 
@@ -114,7 +114,7 @@ async def add_group(organization_id: str, group: str) -> bool:
         'sk': f'GROUP#{group.lower().strip()}'
     }
     try:
-        success = await dynamo_async_put_item(TABLE_NAME, new_item)
+        success = await dynamodb_put_item(TABLE_NAME, new_item)
     except ClientError as ex:
         raise UnavailabilityError() from ex
     return success
@@ -127,7 +127,7 @@ async def add_user(organization_id: str, email: str) -> bool:
         'sk': f'USER#{email.lower().strip()}'
     }
     try:
-        success = await dynamo_async_put_item(TABLE_NAME, new_item)
+        success = await dynamodb_put_item(TABLE_NAME, new_item)
     except ClientError as ex:
         raise UnavailabilityError() from ex
     return success
@@ -154,7 +154,7 @@ async def create(
         'sk': f'INFO#{organization_name.lower().strip()}'
     }
     try:
-        await dynamo_async_put_item(TABLE_NAME, new_item)
+        await dynamodb_put_item(TABLE_NAME, new_item)
         new_item.update({'sk': organization_name.lower().strip()})
     except ClientError as ex:
         raise UnavailabilityError() from ex
@@ -173,7 +173,7 @@ async def delete(organization_id: str, organization_name: str) -> bool:
         }
     )
     try:
-        success = await dynamo_async_delete_item(TABLE_NAME, item)
+        success = await dynamodb_delete_item(TABLE_NAME, item)
     except ClientError as ex:
         raise UnavailabilityError() from ex
     return success
@@ -209,7 +209,7 @@ async def get_by_id(
         projection = ','.join(_map_attributes_to_dal(attributes))
         query_attrs.update({'ProjectionExpression': projection})
     try:
-        response_item = await dynamo_async_query(TABLE_NAME, query_attrs)
+        response_item = await dynamodb_query(TABLE_NAME, query_attrs)
         if response_item:
             organization = response_item[0]
             if 'sk' in organization:
@@ -242,7 +242,7 @@ async def get_by_name(
         projection = ','.join(_map_attributes_to_dal(attributes))
         query_attrs['ProjectionExpression'] = projection
     try:
-        response_items = await dynamo_async_query(TABLE_NAME, query_attrs)
+        response_items = await dynamodb_query(TABLE_NAME, query_attrs)
         if response_items:
             organization = response_items[0]
             if 'sk' in organization:
@@ -267,7 +267,7 @@ async def get_groups(organization_id: str) -> List[str]:
         )
     }
     try:
-        response_items = await dynamo_async_query(TABLE_NAME, query_attrs)
+        response_items = await dynamodb_query(TABLE_NAME, query_attrs)
         if response_items:
             groups = [
                 item['sk'].split('#')[1]
@@ -291,7 +291,7 @@ async def get_id_for_group(group_name: str) -> str:
         'ProjectionExpression': 'pk'
     }
     try:
-        response_item = await dynamo_async_query(TABLE_NAME, query_attrs)
+        response_item = await dynamodb_query(TABLE_NAME, query_attrs)
         if response_item:
             organization_id = response_item[0]['pk']
     except ClientError as ex:
@@ -312,7 +312,7 @@ async def get_ids_for_user(email: str) -> List[str]:
         'ProjectionExpression': 'pk'
     }
     try:
-        response_items = await dynamo_async_query(TABLE_NAME, query_attrs)
+        response_items = await dynamodb_query(TABLE_NAME, query_attrs)
         if response_items:
             organization_ids = [item['pk'] for item in response_items]
     except ClientError as ex:
@@ -349,7 +349,7 @@ async def get_users(organization_id: str) -> List[str]:
         )
     }
     try:
-        response_items = await dynamo_async_query(TABLE_NAME, query_attrs)
+        response_items = await dynamodb_query(TABLE_NAME, query_attrs)
         if response_items:
             users = [
                 item['sk'].split('#')[1]
@@ -368,7 +368,7 @@ async def has_group(organization_id: str, group_name: str) -> bool:
             Key('sk').eq(f'GROUP#{group_name.lower().strip()}')
         )
     }
-    response_items = await dynamo_async_query(TABLE_NAME, query_attrs)
+    response_items = await dynamodb_query(TABLE_NAME, query_attrs)
     if response_items:
         group_in_org = True
     return group_in_org
@@ -382,7 +382,7 @@ async def has_user_access(organization_id: str, email: str) -> bool:
             Key('sk').eq(f'USER#{email.lower().strip()}')
         )
     }
-    response_items = await dynamo_async_query(TABLE_NAME, query_attrs)
+    response_items = await dynamodb_query(TABLE_NAME, query_attrs)
     if response_items:
         has_access = True
     return has_access
@@ -421,7 +421,7 @@ async def remove_group(organization_id: str, group_name: str) -> bool:
         }
     )
     try:
-        success = await dynamo_async_delete_item(TABLE_NAME, group_item)
+        success = await dynamodb_delete_item(TABLE_NAME, group_item)
     except ClientError as ex:
         raise UnavailabilityError() from ex
     return success
@@ -439,7 +439,7 @@ async def remove_user(organization_id: str, email: str) -> bool:
         }
     )
     try:
-        success = await dynamo_async_delete_item(TABLE_NAME, user_item)
+        success = await dynamodb_delete_item(TABLE_NAME, user_item)
     except ClientError as ex:
         raise UnavailabilityError() from ex
     return success
@@ -484,7 +484,7 @@ async def update(
             update_attrs.update(
                 {'ExpressionAttributeValues': expression_values}
             )
-        success = await dynamo_async_update_item(TABLE_NAME, update_attrs)
+        success = await dynamodb_update_item(TABLE_NAME, update_attrs)
     except ClientError as ex:
         raise UnavailabilityError() from ex
     return success

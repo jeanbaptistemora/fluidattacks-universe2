@@ -23,11 +23,11 @@ from aioextensions import (
 from boto3.dynamodb.conditions import Attr, Key
 
 # Local libraries
-from backend.dal.helpers import dynamodb
 from backend.typing import (
     Finding,
     Historic,
 )
+from dynamodb import operations_legacy as dynamodb_ops
 from findings import dal as findings_dal
 from vulnerabilities import dal as vulns_dal
 
@@ -50,9 +50,9 @@ async def restore_historic_state(
     old_historic_state = cast(Historic, item.get('historic_state', []))
     historic_state = copy.deepcopy(old_historic_state)
 
-    restore_table = await dynamodb.async_query(FINDINGS_TABLE_COPY, {
+    restore_table = await dynamodb_ops.query(FINDINGS_TABLE_COPY, {
             'KeyConditionExpression': Key('finding_id').eq(finding_id)
-        }) if type_item == 'finding' else await dynamodb.async_query(VULNS_TABLE_COPY, {
+        }) if type_item == 'finding' else await dynamodb_ops.query(VULNS_TABLE_COPY, {
             'IndexName': 'gsi_uuid',
             'KeyConditionExpression': Key('UUID').eq(vuln_uuid)
         })
@@ -134,7 +134,7 @@ async def main() -> None:
     findings = [
         finding
         for group in groups_to_restore
-        for finding in await dynamodb.async_query('FI_findings', {
+        for finding in await dynamodb_ops.query('FI_findings', {
             'IndexName': 'project_findings',
             'KeyConditionExpression': Key('project_name').eq(group)
         })
@@ -150,7 +150,7 @@ async def main() -> None:
     vulns = [
         vuln
         for finding in findings
-        for vuln in await dynamodb.async_query(VULNS_TABLE_COPY, {
+        for vuln in await dynamodb_ops.query(VULNS_TABLE_COPY, {
             'KeyConditionExpression': Key('finding_id').eq(finding['finding_id'])
         })
     ]

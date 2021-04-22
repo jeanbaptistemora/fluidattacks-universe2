@@ -9,11 +9,11 @@ from boto3.dynamodb.conditions import (
 from botocore.exceptions import ClientError
 
 from back.settings import LOGGING
-from backend.dal.helpers import dynamodb
 from backend.typing import (
     Comment as CommentType,
     DynamoDelete as DynamoDeleteType
 )
+from dynamodb import operations_legacy as dynamodb_ops
 
 
 logging.config.dictConfig(LOGGING)
@@ -27,7 +27,7 @@ async def create(comment_id: int, comment_attributes: CommentType) -> bool:
     success = False
     try:
         comment_attributes.update({'user_id': comment_id})
-        success = await dynamodb.async_put_item(
+        success = await dynamodb_ops.put_item(
             TABLE_NAME, comment_attributes
         )
     except ClientError as ex:
@@ -44,7 +44,7 @@ async def delete(finding_id: int, user_id: int) -> bool:
                 'user_id': user_id
             }
         )
-        success = await dynamodb.async_delete_item(TABLE_NAME, delete_attrs)
+        success = await dynamodb_ops.delete_item(TABLE_NAME, delete_attrs)
     except ClientError as ex:
         LOGGER.exception(ex, extra={'extra': locals()})
     return success
@@ -72,4 +72,4 @@ async def get_comments(
         'KeyConditionExpression': key_exp,
         'FilterExpression': filter_exp
     }
-    return await dynamodb.async_query(TABLE_NAME, query_attrs)
+    return await dynamodb_ops.query(TABLE_NAME, query_attrs)

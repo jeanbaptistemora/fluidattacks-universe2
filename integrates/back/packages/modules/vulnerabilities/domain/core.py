@@ -2,25 +2,17 @@
 
 # Standard libraries
 import copy
-import datetime
 import html
 import html.parser
-import json
 import logging
 import logging.config
-import os
 import uuid
 from contextlib import AsyncExitStack
-from decimal import Decimal
-from itertools import (
-    chain,
-    zip_longest,
-)
+from itertools import zip_longest
 from operator import itemgetter
 from time import time
 from typing import (
     Any,
-    Awaitable,
     cast,
     Collection,
     Dict,
@@ -40,11 +32,6 @@ from aioextensions import (
     schedule,
 )
 from graphql.type.definition import GraphQLResolveInfo
-from pykwalify.core import Core
-from pykwalify.errors import (
-    CoreError,
-    SchemaError,
-)
 from starlette.datastructures import UploadFile
 
 # Local libraries
@@ -56,20 +43,10 @@ from backend import (
     mailer,
     util,
 )
-from backend.dal.helpers.dynamodb import start_context
 from backend.exceptions import (
-    AlreadyRequested,
     AlreadyZeroRiskRequested,
-    InvalidFileSize,
     InvalidJustificationMaxLength,
-    InvalidPath,
-    InvalidPort,
-    InvalidSchema,
-    InvalidSpecific,
-    InvalidVulnsNumber,
-    NotVerificationRequested,
     NotZeroRiskRequested,
-    VulnAlreadyClosed,
     VulnNotFound,
     VulnNotInFinding,
 )
@@ -80,8 +57,7 @@ from backend.typing import (
     Vulnerability as VulnerabilityType,
 )
 from comments import domain as comments_domain
-from findings import dal as findings_dal
-from findings import domain as findings_domain
+from dynamodb.operations_legacy import start_context
 from group_access import domain as group_access_domain
 from newutils import (
     datetime as datetime_utils,
@@ -89,94 +65,14 @@ from newutils import (
     vulnerabilities as vulns_utils,
 )
 from notifications import domain as notifications_domain
-from roots import domain as roots_domain
 from vulnerabilities import dal as vulns_dal
 from __init__ import BASE_URL
-from .utils import validate_stream
 
 
 logging.config.dictConfig(LOGGING)
 
 # Constants
 LOGGER = logging.getLogger(__name__)
-
-
-async def _validate_roots(
-    *,
-    group_name: str,
-    vulnerabilities: Dict[str, List[Dict[str, str]]]
-) -> None:
-    nicknames = set(
-        vuln['repo_nickname']
-        for vulns in vulnerabilities.values()
-        for vuln in vulns
-        if 'repo_nickname' in vuln
-    )
-    await collect(
-        tuple(
-            roots_domain.get_root_by_nickname(
-                group_name=group_name,
-                repo_nickname=nickname
-            )
-            for nickname in nicknames
-        )
-    )
-
-
-async def add_vuln_to_dynamo(
-    *,
-    item: Dict[str, str],
-    specific: str,
-    finding_id: str,
-    info: GraphQLResolveInfo,
-    vulnerability: Optional[Dict[str, FindingType]]
-) -> bool:
-    """Add vulnerability to dynamo."""
-    historic_state = []
-    response = False
-    current_day = datetime_utils.get_now_as_str()
-    user_data = cast(UserType, await util.get_jwt_content(info.context))
-    email = str(user_data['user_email'])
-    if vulnerability:
-        return await update_vuln_state(
-            info,
-            vulnerability,
-            item,
-            finding_id,
-            current_day
-        )
-
-    data: Dict[str, FindingType] = {'repo_nickname': item['repo_nickname']}
-    source = util.get_source(info.context)
-    new_state: Dict[str, str] = {
-        'analyst': email,
-        'date': current_day,
-        'source': source
-    }
-    data['historic_treatment'] = [{
-        'date': current_day,
-        'treatment': 'NEW'
-    }]
-    data['vuln_type'] = item.get('vuln_type', '')
-    data['where'] = item.get('where', '')
-    data['specific'] = specific
-    data['finding_id'] = finding_id
-    if 'stream' in item:
-        data['stream'] = item['stream']
-    if 'commit_hash' in item:
-        data['commit_hash'] = item['commit_hash']
-    data['UUID'] = str(uuid.uuid4())
-    if item.get('state'):
-        new_state['state'] = item['state']
-        historic_state.append(new_state)
-        data['historic_state'] = historic_state
-        response = await vulns_dal.create(data)
-    else:
-        util.cloudwatch_log(
-            info.context,
-            'Security: Attempted to add vulnerability without state'
-        )
-    return response
 
 
 async def confirm_zero_risk_vulnerabilities(
@@ -256,6 +152,42 @@ async def delete_tags(
         )
     success = await collect(vuln_update_coroutines)
     return all(success)
+
+
+async def delete_vulnerability(  # pylint: disable=too-many-arguments
+    context: Any,
+    finding_id: str,
+    vuln_id: str,
+    justification: str,
+    user_email: str,
+    source: str,
+    include_closed_vuln: bool = False
+) -> bool:
+    vulnerability_loader = context.vulnerability
+    vulnerability = await vulnerability_loader.load(vuln_id)
+    success = False
+    if vulnerability and vulnerability['historic_state']:
+        all_states = cast(
+            List[Dict[str, str]],
+            vulnerability['historic_state']
+        )
+        current_state = all_states[-1].get('state')
+        if current_state == 'open' or include_closed_vuln:
+            current_day = datetime_utils.get_now_as_str()
+            new_state = {
+                'analyst': user_email,
+                'date': current_day,
+                'justification': justification,
+                'source': source,
+                'state': 'DELETED',
+            }
+            all_states.append(new_state)
+            success = await vulns_dal.update(
+                finding_id,
+                str(vulnerability['id']),
+                {'historic_state': all_states}
+            )
+    return success
 
 
 def filter_closed_vulnerabilities(
@@ -402,25 +334,6 @@ async def get_by_ids(vulns_ids: List[str]) -> List[Dict[str, FindingType]]:
     return result
 
 
-async def get_mean_remediate_non_treated(
-    group_name: str,
-    min_date: Optional[datetime.date] = None
-) -> Decimal:
-    findings = await findings_domain.get_findings_by_group(group_name)
-    vulnerabilities = await list_vulnerabilities_async(
-        [str(finding['finding_id']) for finding in findings],
-        include_requested_zero_risk=True,
-    )
-    return await vulns_utils.get_mean_remediate_vulnerabilities(
-        [
-            vuln
-            for vuln in vulnerabilities
-            if not is_accepted_undefined_vulnerability(vuln)
-        ],
-        min_date
-    )
-
-
 async def get_open_vuln_by_type(
     context: Any,
     finding_id: str,
@@ -531,24 +444,6 @@ async def get_vulnerabilities_file(
     return uploaded_file_url
 
 
-async def get_vulns_to_add(
-    vulnerabilities: Dict[str, List[VulnerabilityType]],
-) -> List[Dict[str, str]]:
-    coroutines = []
-    for vuln_type in ['inputs', 'lines', 'ports']:
-        file_vuln = vulnerabilities.get(vuln_type)
-        if file_vuln:
-            coroutines.extend([
-                map_vulnerability_type(vuln, vuln_type)
-                for vuln in file_vuln
-            ])
-        else:
-            pass
-            # If a file does not have a type of vulnerabilities,
-            # this does not represent an error or an exceptional condition.
-    return list(chain.from_iterable(await collect(coroutines)))
-
-
 def group_vulnerabilities(
     vulnerabilities: List[Dict[str, FindingType]]
 ) -> List[FindingType]:
@@ -590,27 +485,6 @@ def group_vulnerabilities(
     return result_vulns
 
 
-def is_accepted_undefined_vulnerability(
-    vulnerability: Dict[str, FindingType]
-) -> bool:
-    historic_treatment = cast(Historic, vulnerability['historic_treatment'])
-    return (
-        historic_treatment[-1]['treatment'] == 'ACCEPTED_UNDEFINED' and
-        vulns_utils.get_last_status(vulnerability) == 'open'
-    )
-
-
-def is_reattack_requested(vuln: Dict[str, FindingType]) -> bool:
-    response = False
-    historic_verification = vuln.get('historic_verification', [{}])
-    if cast(
-        List[Dict[str, str]],
-        historic_verification
-    )[-1].get('status', '') == 'REQUESTED':
-        response = True
-    return response
-
-
 async def list_vulnerabilities_async(
     finding_ids: List[str],
     should_list_deleted: bool = False,
@@ -646,147 +520,17 @@ async def list_vulnerabilities_async(
     return result
 
 
-async def map_vulnerability_type(
-    item: VulnerabilityType,
-    vuln_type: str,
-) -> List[Dict[str, str]]:
-    """Add vulnerability to dynamo."""
-    response = []
-    where_headers = {
-        'inputs': {'where': 'url', 'specific': 'field'},
-        'lines': {'where': 'path', 'specific': 'line'},
-        'ports': {'where': 'host', 'specific': 'port'}
-    }
-
-    data: Dict[str, str] = {
-        'repo_nickname': item.get('repo_nickname'),
-        'state': str(item.get('state', '')),
-        'vuln_type': vuln_type
-    }
-    data['where'] = str(item.get(where_headers[vuln_type]['where']))
-    specific = str(item.get(where_headers[vuln_type]['specific']))
-
-    if vuln_type == 'lines' and data['where'].find('\\') >= 0:
-        path = data['where'].replace('\\', '\\\\')
-        raise InvalidPath(expr=f'"values": "{path}"')
-    if 'stream' in item:
-        validate_stream(data['where'], str(item['stream']))
-        data['stream'] = str(item['stream'])
-    if 'commit_hash' in item:
-        data['commit_hash'] = str(item['commit_hash'])
-    if vulns_utils.is_range(specific) or vulns_utils.is_sequence(specific):
-        response.extend(
-            ungroup_vulnerability_specific(vuln_type, specific, data)
-        )
-    else:
-        if vuln_type == 'ports' and not 0 <= int(specific) <= 65535:
-            raise InvalidPort(expr=f'"values": "{specific}"')
-        response.append({**data, 'specific': specific})
-    return response
-
-
-async def map_vulns_to_dynamo(
-    info: GraphQLResolveInfo,
-    vulnerabilities: Dict[str, List[VulnerabilityType]],
-    finding: Dict[str, FindingType]
-) -> bool:
-    """Map vulnerabilities and send it to dynamo."""
-    coroutines: List[Awaitable[bool]] = []
-    finding_id = finding.get('finding_id', '')
-    vulns_to_add = await get_vulns_to_add(vulnerabilities)
-    if len(vulns_to_add) > 100:
-        raise InvalidVulnsNumber()
-
-    finding_vulns = await vulns_dal.get_by_finding(str(finding_id))
-    vulns: List[Dict[str, FindingType]] = [
-        next(
-            iter([
-                vuln
-                for vuln in finding_vulns
-                if (
-                    vuln_to_add.get('vuln_type', '') ==
-                    vuln.get('vuln_type', '_') and
-                    vuln_to_add.get('where', '') == vuln.get('where', '_') and
-                    vuln_to_add.get('specific', '') ==
-                    vuln.get('specific', '_')
-                )
-            ]),
-            {}
-        )
-        for vuln_to_add in vulns_to_add
-    ]
-
-    closed_vulns_to_reattack: List[Dict[str, str]] = sorted(
-        [
-            {
-                **vuln_to_add,
-                'UUID': str(vuln['UUID'])
-            }
-            for vuln, vuln_to_add in zip(vulns, vulns_to_add)
-            if (
-                is_reattack_requested(vuln) and
-                vulns_utils.get_last_status(vuln) == 'open' and
-                vuln_to_add.get('state') == 'closed'
-            )
-        ],
-        key=itemgetter('UUID')
+async def mask_vuln(finding_id: str, vuln_id: str) -> bool:
+    success = await vulns_dal.update(
+        finding_id,
+        vuln_id,
+        {
+            'specific': 'Masked',
+            'where': 'Masked',
+            'treatment_manager': 'Masked',
+            'treatment_justification': 'Masked',
+        }
     )
-    closed_vulns_uuids = {vuln['UUID'] for vuln in closed_vulns_to_reattack}
-
-    coroutines.extend([
-        add_vuln_to_dynamo(
-            item=vuln_to_add,
-            specific=str(vuln_to_add.get('specific')),
-            finding_id=str(finding_id),
-            info=info,
-            vulnerability=vuln,
-        )
-        for vuln_to_add, vuln in zip(vulns_to_add, vulns)
-        if str(vuln.get('UUID', '')) not in closed_vulns_uuids
-    ])
-    if closed_vulns_to_reattack:
-        user_data = cast(UserType, await util.get_jwt_content(info.context))
-        coroutines.append(
-            verify_vulnerabilities(
-                info=info,
-                finding_id=str(finding_id),
-                user_info=user_data,
-                parameters={
-                    'justification': 'The vulnerability was verified'
-                                     ' by closing it',
-                    'closed_vulns': list(closed_vulns_uuids),
-                },
-                vulns_to_close_from_file=closed_vulns_to_reattack,
-            )
-        )
-    return all(await collect(coroutines))
-
-
-async def process_file(
-    info: GraphQLResolveInfo,
-    file_input: UploadFile,
-    finding: Dict[str, FindingType]
-) -> bool:
-    """Process a file."""
-    success = False
-    finding_id = finding.get('finding_id', '')
-    group_name: str = finding['project_name']
-    raw_content = await file_input.read()
-    raw_content = cast(bytes, raw_content).decode()
-    file_content = html.escape(raw_content, quote=False)
-    await file_input.seek(0)
-    vulnerabilities = yaml.safe_load(file_content)
-    file_url = f'/tmp/vulnerabilities-{uuid.uuid4()}-{finding_id}.yaml'
-    with open(file_url, 'w') as stream:
-        yaml.safe_dump(vulnerabilities, stream)
-    if validate_file_schema(file_url, info):
-        await _validate_roots(
-            group_name=group_name,
-            vulnerabilities=vulnerabilities
-        )
-        success = await map_vulns_to_dynamo(info, vulnerabilities, finding)
-    else:
-        success = False
     return success
 
 
@@ -836,66 +580,8 @@ async def reject_zero_risk_vulnerabilities(
     return success
 
 
-async def request_verification(  # pylint: disable=too-many-arguments
-    context: Any,
-    finding_id: str,
-    user_info: Dict[str, str],
-    justification: str,
-    vuln_ids: List[str]
-) -> bool:
-    finding = await findings_dal.get_finding(finding_id)
-    vulnerabilities = await get_by_finding_and_uuids(finding_id, set(vuln_ids))
-    vulnerabilities = [
-        validate_requested_verification(vuln)
-        for vuln in vulnerabilities
-    ]
-    vulnerabilities = [validate_closed(vuln) for vuln in vulnerabilities]
-    if not vulnerabilities:
-        raise VulnNotFound()
-
-    comment_id = int(round(time() * 1000))
-    today = datetime_utils.get_now_as_str()
-    user_email: str = user_info['user_email']
-    historic_verification = cast(
-        List[Dict[str, Union[str, int, List[str]]]],
-        finding.get('historic_verification', [])
-    )
-    historic_verification.append({
-        'comment': comment_id,
-        'date': today,
-        'status': 'REQUESTED',
-        'user': user_email,
-        'vulns': vuln_ids
-    })
-    update_finding = await findings_dal.update(
-        finding_id,
-        {'historic_verification': historic_verification}
-    )
-    comment_data = {
-        'comment_type': 'verification',
-        'content': justification,
-        'parent': 0,
-        'user_id': comment_id
-    }
-    await comments_domain.create(int(finding_id), comment_data, user_info)
-
-    update_vulns = await collect(
-        map(vulns_dal.request_verification, vulnerabilities)
-    )
-    if all(update_vulns) and update_finding:
-        schedule(
-            send_remediation_email(
-                context,
-                user_email,
-                finding_id,
-                str(finding.get('finding', '')),
-                str(finding.get('project_name', '')),
-                justification
-            )
-        )
-    else:
-        LOGGER.error('An error occurred remediating', **NOEXTRA)
-    return all(update_vulns)
+async def request_verification(vulnerability: Dict[str, FindingType]) -> bool:
+    return await vulns_dal.request_verification(vulnerability)
 
 
 async def request_zero_risk_vulnerabilities(
@@ -992,40 +678,6 @@ async def send_finding_verified_email(  # pylint: disable=too-many-arguments
     )
 
 
-async def send_remediation_email(  # pylint: disable=too-many-arguments
-    context: Any,
-    user_email: str,
-    finding_id: str,
-    finding_name: str,
-    group_name: str,
-    justification: str
-) -> None:
-    group_loader = context.group_all
-    organization_loader = context.organization
-    group = await group_loader.load(group_name)
-    org_id = group['organization']
-    organization = await organization_loader.load(org_id)
-    org_name = organization['name']
-    recipients = await group_access_domain.get_closers(group_name)
-    schedule(
-        mailer.send_mail_remediate_finding(
-            recipients,
-            {
-                'project': group_name.lower(),
-                'organization': org_name,
-                'finding_name': finding_name,
-                'finding_url': (
-                    f'{BASE_URL}/orgs/{org_name}/groups/{group_name}'
-                    f'/vulns/{finding_id}/locations'
-                ),
-                'finding_id': finding_id,
-                'user_email': user_email,
-                'solution_description': justification
-            }
-        )
-    )
-
-
 async def send_updated_treatment_mail(
     context: Any,
     treatment: str,
@@ -1049,7 +701,7 @@ async def send_updated_treatment_mail(
             {
                 'project': group_name,
                 'treatment': treatment,
-                'finding': str(finding.get('finding')),
+                'finding': str(finding.get('title')),
                 'vulnerabilities': vulnerabilities,
                 'finding_link':
                     f'{BASE_URL}/orgs/{org_name}/groups/{group_name}'
@@ -1090,7 +742,8 @@ async def should_send_update_treatment(
         'IN PROGRESS': 'In Progress',
     }
     if treatment in translations:
-        finding = await findings_dal.get_finding(finding_id)
+        finding_loader = context.loaders.finding
+        finding = await finding_loader.load(finding_id)
         vulns_grouped = group_vulnerabilities(updated_vulns)
         vulns_data = vulns_utils.format_vulnerabilities(
             cast(List[Dict[str, FindingType]], vulns_grouped)
@@ -1106,35 +759,20 @@ async def should_send_update_treatment(
         )
 
 
-def ungroup_vulnerability_specific(
-    vuln: str,
-    specific: str,
-    data: Dict[str, str]
-) -> List[Dict[str, str]]:
-    """Add vulnerability auxiliar."""
-    if vuln in ('lines', 'ports'):
-        specific_values = vulns_utils.ungroup_specific(specific)
-    else:
-        specific_values = [
-            spec
-            for spec in specific.split(',')
-            if spec
-        ]
-    if (
-        vuln == 'ports' and not
-        all((0 <= int(i) <= 65535) for i in specific_values)
-    ):
-        error_value = f'"values": "{specific}"'
-        raise InvalidPort(expr=error_value)
-    if not specific_values:
-        raise InvalidSpecific()
-    return [
-        {
-            **data,
-            'specific': specific
-        }
-        for specific in specific_values
-    ]
+async def update_historic_state_dates(
+    finding_id: str,
+    vuln: Dict[str, FindingType],
+    date: str
+) -> bool:
+    historic_state = cast(Historic, vuln['historic_state'])
+    for state_info in historic_state:
+        state_info['date'] = date
+    success = await vulns_dal.update(
+        finding_id,
+        cast(str, vuln['UUID']),
+        {'historic_state': historic_state}
+    )
+    return success
 
 
 async def update_treatment_vuln(
@@ -1280,74 +918,6 @@ async def update_vuln_state(
     return True
 
 
-async def upload_file(
-    info: GraphQLResolveInfo,
-    file_input: UploadFile,
-    finding: Dict[str, FindingType]
-) -> bool:
-    mib = 1048576
-    success = False
-    if await util.get_file_size(file_input) < 1 * mib:
-        success = await process_file(info, file_input, finding)
-    else:
-        raise InvalidFileSize()
-    return success
-
-
-def validate_closed(vuln: Dict[str, FindingType]) -> Dict[str, FindingType]:
-    """ Validate vuln closed """
-    if cast(
-        List[Dict[str, FindingType]],
-        vuln.get('historic_state', [{}])
-    )[-1].get('state') == 'closed':
-        raise VulnAlreadyClosed()
-    return vuln
-
-
-def validate_file_schema(file_url: str, info: GraphQLResolveInfo) -> bool:
-    """Validate if a file has the correct schema."""
-    schema_dir = os.path.dirname(os.path.abspath(__file__))
-    schema_dir = os.path.join(schema_dir, 'vuln_template.yaml')
-    core = Core(source_file=file_url, schema_files=[schema_dir])
-    is_valid = False
-    try:
-        core.validate(raise_exception=True)
-        is_valid = True
-    except SchemaError:
-        lines_of_exceptions = core.errors
-        errors_values = [
-            getattr(x, 'pattern', '')
-            for x in lines_of_exceptions
-            if not hasattr(x, 'key')
-        ]
-        errors_keys = [
-            x
-            for x in lines_of_exceptions
-            if hasattr(x, 'key')
-        ]
-        errors_values_formated = [json.dumps(x) for x in errors_values]
-        errors_keys_formated = [
-            f'"{x.key}"'
-            for x in errors_keys
-        ]
-        errors_keys_joined = ','.join(errors_keys_formated)
-        errors_values_joined = ','.join(errors_values_formated)
-        error_value = (
-            f'"values": [{errors_values_joined}], '
-            f'"keys": [{errors_keys_joined}]'
-        )
-        util.cloudwatch_log(
-            info.context,
-            'Error: An error occurred validating vulnerabilities file'
-        )
-        raise InvalidSchema(expr=error_value)
-    except CoreError:
-        raise InvalidSchema()
-    finally:
-        os.unlink(file_url)
-    return is_valid
-
-
 def validate_justificaiton_length(justification: str) -> None:
     """ Validate justification length"""
     max_justification_length = 2000
@@ -1368,19 +938,6 @@ def validate_not_requested_zero_risk_vuln(
     return vuln
 
 
-def validate_requested_verification(
-    vuln: Dict[str, FindingType]
-) -> Dict[str, FindingType]:
-    """ Validate vuln is not resquested """
-    historic_verification = cast(
-        List[Dict[str, FindingType]],
-        vuln.get('historic_verification', [{}])
-    )
-    if historic_verification[-1].get('status', '') == 'REQUESTED':
-        raise AlreadyRequested()
-    return vuln
-
-
 def validate_requested_zero_risk_vuln(
     vuln: Dict[str, FindingType]
 ) -> Dict[str, FindingType]:
@@ -1394,13 +951,6 @@ def validate_requested_zero_risk_vuln(
     return vuln
 
 
-def validate_verify(vuln: Dict[str, FindingType]) -> Dict[str, FindingType]:
-    """ Validate vuln is resquested """
-    if not is_reattack_requested(vuln):
-        raise NotVerificationRequested()
-    return vuln
-
-
 async def verify(
     *,
     context: Any,
@@ -1411,7 +961,8 @@ async def verify(
     date: str,
     vulns_to_close_from_file: List[Dict[str, str]]
 ) -> List[bool]:
-    finding = await findings_dal.get_finding(finding_id)
+    finding_loader = info.context.loaders.finding
+    finding = await finding_loader.load(finding_id)
     list_closed_vulns = sorted(
         [
             [
@@ -1454,7 +1005,7 @@ async def verify(
         send_finding_verified_email(
             context,
             finding_id,
-            str(finding.get('finding', '')),
+            str(finding.get('title', '')),
             str(finding.get('project_name', '')),
             cast(
                 List[Dict[str, str]],
@@ -1466,70 +1017,7 @@ async def verify(
     return success
 
 
-async def verify_vulnerabilities(  # pylint: disable=too-many-locals
-    *,
-    info: GraphQLResolveInfo,
-    finding_id: str,
-    user_info: Dict[str, str],
-    parameters: Dict[str, FindingType],
-    vulns_to_close_from_file: List[Dict[str, str]]
+async def verify_vulnerability(
+    vulnerability: Dict[str, FindingType]
 ) -> bool:
-    finding_vulns_loader = info.context.loaders.finding_vulns_all
-    finding_loader = info.context.loaders.finding
-    finding = await finding_loader.load(finding_id)
-    vuln_ids = (
-        cast(List[str], parameters.get('open_vulns', [])) +
-        cast(List[str], parameters.get('closed_vulns', []))
-    )
-    vulnerabilities = [
-        vuln
-        for vuln in await finding_vulns_loader.load(finding_id)
-        if vuln['id'] in vuln_ids
-    ]
-    vulnerabilities = [validate_verify(vuln) for vuln in vulnerabilities]
-    vulnerabilities = [validate_closed(vuln) for vuln in vulnerabilities]
-    if not vulnerabilities:
-        raise VulnNotFound()
-
-    comment_id = int(round(time() * 1000))
-    today = datetime_utils.get_now_as_str()
-    user_email: str = user_info['user_email']
-    historic_verification = cast(
-        List[Dict[str, Union[str, int, List[str]]]],
-        finding.get('historic_verification', [])
-    )
-    historic_verification.append({
-        'comment': comment_id,
-        'date': today,
-        'status': 'VERIFIED',
-        'user': user_email,
-        'vulns': vuln_ids
-    })
-    update_finding = await findings_dal.update(
-        finding_id,
-        {'historic_verification': historic_verification}
-    )
-    comment_data = {
-        'comment_type': 'verification',
-        'content': parameters.get('justification', ''),
-        'parent': 0,
-        'user_id': comment_id
-    }
-    await comments_domain.create(int(finding_id), comment_data, user_info)
-
-    success = await collect(
-        map(vulns_dal.verify_vulnerability, vulnerabilities)
-    )
-    if all(success) and update_finding:
-        success = await verify(
-            context=info.context.loaders,
-            info=info,
-            finding_id=finding_id,
-            vulnerabilities=vulnerabilities,
-            closed_vulns=cast(List[str], parameters.get('closed_vulns', [])),
-            date=today,
-            vulns_to_close_from_file=vulns_to_close_from_file
-        )
-    else:
-        LOGGER.error('An error occurred verifying', **NOEXTRA)
-    return all(success)
+    return await vulns_dal.verify_vulnerability(vulnerability)

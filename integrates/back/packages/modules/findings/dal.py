@@ -20,8 +20,8 @@ from botocore.exceptions import ClientError
 
 # Local libraries
 from back.settings import LOGGING
-from backend.dal.helpers import dynamodb
 from backend.typing import Finding as FindingType
+from dynamodb import operations_legacy as dynamodb_ops
 from s3 import operations as s3_ops
 from __init__ import FI_AWS_S3_BUCKET
 
@@ -53,7 +53,7 @@ async def create(
             'finding_id': finding_id,
             'project_name': group_name
         })
-        success = await dynamodb.async_put_item(TABLE_NAME, finding_attrs)
+        success = await dynamodb_ops.put_item(TABLE_NAME, finding_attrs)
     except ClientError as ex:
         LOGGER.exception(ex, extra={'extra': locals()})
     return success
@@ -86,7 +86,7 @@ async def get_attributes(
         item_attrs.update({'ProjectionExpression': projection})
     response_item = cast(
         List[Dict[str, FindingType]],
-        await dynamodb.async_query(TABLE_NAME, item_attrs)
+        await dynamodb_ops.query(TABLE_NAME, item_attrs)
     )
     if response_item:
         finding_attrs = response_item[0]
@@ -100,7 +100,7 @@ async def get_finding(finding_id: str) -> Dict[str, FindingType]:
         'KeyConditionExpression': Key('finding_id').eq(finding_id),
         'Limit': 1
     }
-    response_items = await dynamodb.async_query(TABLE_NAME, query_attrs)
+    response_items = await dynamodb_ops.query(TABLE_NAME, query_attrs)
     if response_items:
         response = response_items[0]
     return response
@@ -117,7 +117,7 @@ async def get_findings_by_group(
     }
     if attrs:
         query_attrs['ProjectionExpression'] = ','.join(attrs)
-    return await dynamodb.async_query(TABLE_NAME, query_attrs)
+    return await dynamodb_ops.query(TABLE_NAME, query_attrs)
 
 
 async def list_append(
@@ -139,7 +139,7 @@ async def list_append(
             'UpdateExpression': f'SET {attr} = list_append({attr}, :data)',
             'ExpressionAttributeValues': {':data': data}
         }
-        success = await dynamodb.async_update_item(TABLE_NAME, update_attrs)
+        success = await dynamodb_ops.update_item(TABLE_NAME, update_attrs)
     except ClientError as ex:
         LOGGER.exception(ex, extra={'extra': locals()})
     return success
@@ -186,7 +186,7 @@ async def update(finding_id: str, data: Dict[str, FindingType]) -> bool:
         update_attrs.update({'ExpressionAttributeValues': expression_values})
 
     try:
-        success = await dynamodb.async_update_item(TABLE_NAME, update_attrs)
+        success = await dynamodb_ops.update_item(TABLE_NAME, update_attrs)
     except ClientError as ex:
         LOGGER.exception(ex, extra={'extra': locals()})
     return success

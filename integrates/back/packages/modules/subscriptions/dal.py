@@ -11,12 +11,12 @@ from typing import (
 from boto3.dynamodb.conditions import Key
 
 # Local libraries
-from backend.dal.helpers import dynamodb
 from backend.typing import DynamoDelete
 from newutils.encodings import (
     key_to_mapping,
     mapping_to_key,
 )
+from dynamodb import operations_legacy as dynamodb_ops
 
 
 # Constants
@@ -39,7 +39,7 @@ async def get_subscriptions_to_entity_report(
     *,
     audience: str,
 ) -> List[Dict[Any, Any]]:
-    results = await dynamodb.async_query(
+    results = await dynamodb_ops.query(
         query_attrs=dict(
             IndexName='pk_meta',
             KeyConditionExpression=(
@@ -56,7 +56,7 @@ async def get_user_subscriptions(
     *,
     user_email: str,
 ) -> List[Dict[Any, Any]]:
-    results = await dynamodb.async_query(
+    results = await dynamodb_ops.query(
         query_attrs=dict(
             KeyConditionExpression=Key('pk').eq(mapping_to_key({
                 'meta': 'user',
@@ -75,7 +75,7 @@ async def subscribe_user_to_entity_report(
     report_subject: str,
     user_email: str,
 ) -> bool:
-    return await dynamodb.async_put_item(
+    return await dynamodb_ops.put_item(
         item=dict(
             pk=mapping_to_key({
                 'meta': 'user',
@@ -100,7 +100,7 @@ async def unsubscribe_user_to_entity_report(
     report_subject: str,
     user_email: str,
 ) -> bool:
-    return await dynamodb.async_delete_item(
+    return await dynamodb_ops.delete_item(
         delete_attrs=DynamoDelete(Key=dict(
             pk=mapping_to_key({
                 'meta': 'user',

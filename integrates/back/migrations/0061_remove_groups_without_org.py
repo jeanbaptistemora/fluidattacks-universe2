@@ -15,8 +15,8 @@ from aioextensions import (
 from boto3.dynamodb.conditions import Key
 
 # Local libraries
-from backend.dal import project as group_dal
-from backend.dal.helpers import dynamodb
+from backend.dal import project as groups_dal
+from dynamodb import operations_legacy as dynamodb_ops
 from groups import domain as groups_domain
 from organizations import (
     dal as orgs_dal,
@@ -57,7 +57,7 @@ async def main() -> None:
         ),
         'ProjectionExpression': projection_expression
     }
-    orgs = await dynamodb.async_scan(ORG_TABLE, query_attrs)
+    orgs = await dynamodb_ops.scan(ORG_TABLE, query_attrs)
     orgs_ids = [org['pk'] for org in orgs]
 
     # Remove alive groups that do not have associated org
@@ -89,7 +89,7 @@ async def main() -> None:
         ),
         'ProjectionExpression': projection_expression
     }
-    org_groups = await dynamodb.async_scan(ORG_TABLE, query_attrs)
+    org_groups = await dynamodb_ops.scan(ORG_TABLE, query_attrs)
     org_groups_to_remove = list(filter(
         lambda group: group['pk'] not in orgs_ids,
         org_groups

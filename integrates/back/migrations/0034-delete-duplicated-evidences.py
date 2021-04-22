@@ -24,7 +24,6 @@ from aioextensions import (
 from botocore.exceptions import ClientError
 
 from back.settings import LOGGING
-from backend.dal.helpers import s3
 from newutils import apm
 from __init__ import (
     FI_AWS_S3_ACCESS_KEY, FI_AWS_S3_SECRET_KEY

@@ -18,8 +18,8 @@ from boto3.dynamodb.conditions import Attr
 
 # Local libraries
 from backend import authz
-from backend.dal.helpers import dynamodb
 from backend.typing import ProjectAccess as ProjectAccessType
+from dynamodb import operations_legacy as dynamodb_ops
 from group_access import domain as group_access_domain
 
 
@@ -66,7 +66,7 @@ async def main() -> None:
             Attr('invitation_date').exists()
         ),
     }
-    project_accesses = await dynamodb.async_scan(TABLE_ACCESS_NAME, scan_attrs)
+    project_accesses = await dynamodb_ops.scan(TABLE_ACCESS_NAME, scan_attrs)
 
     success = all(await collect(
         [

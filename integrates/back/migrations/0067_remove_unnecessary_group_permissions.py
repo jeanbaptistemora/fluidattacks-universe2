@@ -14,7 +14,8 @@ from boto3.dynamodb.conditions import Attr
 
 # Local libraries
 from backend import authz
-from backend.dal.helpers import dynamodb
+from dynamodb import operations_legacy as dynamodb_ops
+
 
 ACCESS_TABLE_NAME = 'FI_project_access'
 AUTHZ_TABLE_NAME = 'fi_authz'
@@ -26,7 +27,7 @@ async def main() -> None:
             Attr('has_access').eq(True)
         ),
     }
-    project_accesses = await dynamodb.async_scan(ACCESS_TABLE_NAME, scan_attrs)
+    project_accesses = await dynamodb_ops.scan(ACCESS_TABLE_NAME, scan_attrs)
     project_accesses = [
         (project_access['user_email'], project_access['project_name'])
         for project_access in project_accesses
@@ -37,7 +38,7 @@ async def main() -> None:
             Attr('level').eq('group')
         ),
     }
-    group_authzes = await dynamodb.async_scan(AUTHZ_TABLE_NAME, scan_attrs)
+    group_authzes = await dynamodb_ops.scan(AUTHZ_TABLE_NAME, scan_attrs)
     group_authzes = [
         (group_authz['subject'], group_authz['object'])
         for group_authz in group_authzes

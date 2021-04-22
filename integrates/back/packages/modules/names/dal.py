@@ -2,11 +2,7 @@
 import logging
 import logging.config
 import uuid
-from typing import (
-    List,
-    Dict,
-    Optional,
-)
+from typing import List
 
 # third-party imports
 import aioboto3
@@ -15,16 +11,15 @@ from botocore.exceptions import ClientError
 
 # local imports
 from back.settings import LOGGING
-from backend.dal.helpers import dynamodb
 from backend.exceptions import EmptyPoolName
+from dynamodb.operations_legacy import RESOURCE_OPTIONS
 
 
 logging.config.dictConfig(LOGGING)
 
 # Constants
 LOGGER = logging.getLogger(__name__)
-RESOURCE_OPTIONS: Dict[str, Optional[str]] = dynamodb.RESOURCE_OPTIONS
-TABLE_NAME: str = dynamodb.TABLE_NAME
+TABLE_NAME: str = 'integrates'
 
 
 async def create(name: str, entity: str) -> bool:

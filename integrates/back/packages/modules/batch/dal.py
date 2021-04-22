@@ -14,9 +14,9 @@ from botocore.exceptions import ClientError
 
 # Local imports
 from back.settings import LOGGING
-from backend.dal.helpers import dynamodb
 from backend.typing import DynamoDelete
 from batch.types import BatchProcessing
+from dynamodb import operations_legacy as dynamodb_ops
 from newutils.context import (
     AWS_DYNAMODB_ACCESS_KEY,
     AWS_DYNAMODB_SECRET_KEY,
@@ -53,7 +53,7 @@ async def delete_action(
     time: str,
 ) -> bool:
     try:
-        return await dynamodb.async_delete_item(
+        return await dynamodb_ops.delete_item(
             delete_attrs=DynamoDelete(Key=dict(
                 pk=mapping_to_key([
                     action_name, additional_info, entity, subject, time
@@ -70,7 +70,7 @@ async def is_action_by_key(*, key: str) -> bool:
     query_attrs = dict(
         KeyConditionExpression=Key('pk').eq(key)
     )
-    response_items = await dynamodb.async_query(TABLE_NAME, query_attrs)
+    response_items = await dynamodb_ops.query(TABLE_NAME, query_attrs)
 
     if not response_items:
         return False
@@ -92,7 +92,7 @@ async def get_action(
     query_attrs = dict(
         KeyConditionExpression=Key('pk').eq(key)
     )
-    response_items = await dynamodb.async_query(TABLE_NAME, query_attrs)
+    response_items = await dynamodb_ops.query(TABLE_NAME, query_attrs)
 
     if not response_items:
         return None
@@ -109,7 +109,7 @@ async def get_action(
 
 
 async def get_actions() -> List[BatchProcessing]:
-    items = await dynamodb.async_scan(
+    items = await dynamodb_ops.scan(
         table=TABLE_NAME,
         scan_attrs=dict()
     )
@@ -136,7 +136,7 @@ async def put_action_to_dynamodb(
     additional_info: str,
 ) -> bool:
     try:
-        return await dynamodb.async_put_item(
+        return await dynamodb_ops.put_item(
             item=dict(
                 pk=mapping_to_key([
                     action_name, additional_info, entity, subject, time

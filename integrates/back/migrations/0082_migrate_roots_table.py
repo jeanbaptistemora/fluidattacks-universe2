@@ -15,7 +15,7 @@ from aioextensions import collect, run
 from boto3.dynamodb.conditions import Attr
 
 # Local libraries
-from backend.dal.helpers import dynamodb
+from dynamodb import operations_legacy as dynamodb_ops
 from dynamodb.types import (
     GitRootCloning,
     GitRootItem,
@@ -138,7 +138,7 @@ async def _migrate_root(legacy_root: Dict[str, Any]) -> None:
 
 
 async def main() -> None:
-    legacy_roots = await dynamodb.async_scan(
+    legacy_roots = await dynamodb_ops.scan(
         'fi_roots',
         {'FilterExpression': Attr('kind').eq('Git')}
     )

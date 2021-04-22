@@ -15,8 +15,8 @@ from pprint import pprint
 from aioextensions import collect
 
 # Local
-from backend.dal.helpers import dynamodb
 from backend.filters import finding as finding_filters
+from dynamodb import operations_legacy as dynamodb_ops
 from newutils import datetime as datetime_utils
 from vulnerabilities import (
     dal as vulns_dal,
@@ -33,7 +33,7 @@ async def main() -> None:
         'ProjectionExpression': ','.join({'finding_id', 'historic_state'})
     }
     updates = []
-    findings = await dynamodb.async_scan(FINDINGS_TABLE, scan_attrs)
+    findings = await dynamodb_ops.scan(FINDINGS_TABLE, scan_attrs)
     for finding in findings:
         if (
             # We don't care about wiped findings

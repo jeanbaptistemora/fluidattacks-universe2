@@ -22,7 +22,6 @@ from comments import dal as comments_dal
 from newutils import (
     datetime as datetime_utils,
     comments as comments_utils,
-    findings as findings_utils,
 )
 
 
@@ -115,16 +114,17 @@ async def get_comments(
     user_email: str,
     info: GraphQLResolveInfo
 ) -> List[CommentType]:
+    finding_loader = info.context.loaders.finding
     finding_vulns_loader = info.context.loaders.finding_vulns
+
     comments = await _get_comments(
         'comment',
         project_name,
         finding_id,
         user_email
     )
-    historic_verification = await findings_utils.get_historic_verification(
-        finding_id
-    )
+    finding = await finding_loader.load(finding_id)
+    historic_verification = finding.get('historic_verification', [])
     verified = [
         verification
         for verification in historic_verification

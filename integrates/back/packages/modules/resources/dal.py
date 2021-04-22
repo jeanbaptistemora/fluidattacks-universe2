@@ -4,7 +4,7 @@ import logging.config
 from botocore.exceptions import ClientError
 
 from back.settings import LOGGING
-from backend.dal.helpers import dynamodb
+from dynamodb import operations_legacy as dynamodb_ops
 
 
 logging.config.dictConfig(LOGGING)
@@ -22,7 +22,7 @@ async def remove(group_name: str, res_type: str, index: int) -> bool:
             'UpdateExpression': 'REMOVE #attrName[' + str(index) + ']',
             'ExpressionAttributeNames': {'#attrName': res_type}
         }
-        resp = await dynamodb.async_update_item(TABLE_NAME, update_attrs)
+        resp = await dynamodb_ops.update_item(TABLE_NAME, update_attrs)
     except ClientError as ex:
         LOGGER.exception(ex, extra={'extra': locals()})
     return resp

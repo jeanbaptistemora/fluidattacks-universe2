@@ -19,7 +19,7 @@ from backend.exceptions import (
 )
 from backend.typing import SimplePayload
 from redis_cluster.operations import redis_del_by_deps
-from vulnerabilities import domain as vulns_domain
+from vulnerability_files import domain as vuln_files_domain
 
 
 @convert_kwargs_to_snake_case  # type: ignore
@@ -44,7 +44,7 @@ async def mutate(
         ['text/x-yaml', 'text/plain', 'text/html']
     )
     if file_input and allowed_mime_type:
-        success = await vulns_domain.upload_file(
+        success = await vuln_files_domain.upload_file(
             info,
             file_input,
             finding_data

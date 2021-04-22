@@ -13,11 +13,11 @@ from botocore.exceptions import ClientError
 
 # Local libraries
 from back.settings import LOGGING
-from backend.dal.helpers import dynamodb
 from backend.typing import (
     Comment as CommentType,
     DynamoDelete as DynamoDeleteType,
 )
+from dynamodb import operations_legacy as dynamodb_ops
 
 
 logging.config.dictConfig(LOGGING)
@@ -40,7 +40,7 @@ async def add_comment(
             'email': email
         }
         payload.update(cast(Dict[str, str], comment_data))
-        resp = await dynamodb.async_put_item(TABLE_NAME, payload)
+        resp = await dynamodb_ops.put_item(TABLE_NAME, payload)
     except ClientError as ex:
         LOGGER.exception(ex, extra=dict(extra=locals()))
     return resp
@@ -55,7 +55,7 @@ async def delete_comment(group_name: str, user_id: str) -> bool:
                 'user_id': user_id
             }
         )
-        resp = await dynamodb.async_delete_item(TABLE_NAME, delete_attrs)
+        resp = await dynamodb_ops.delete_item(TABLE_NAME, delete_attrs)
     except ClientError as ex:
         LOGGER.exception(ex, extra=dict(extra=locals()))
     return resp
@@ -65,5 +65,5 @@ async def get_comments(group_name: str) -> List[Dict[str, str]]:
     """ Get comments of a group. """
     key_expression = Key('project_name').eq(group_name)
     query_attrs = {'KeyConditionExpression': key_expression}
-    items = await dynamodb.async_query(TABLE_NAME, query_attrs)
+    items = await dynamodb_ops.query(TABLE_NAME, query_attrs)
     return items
