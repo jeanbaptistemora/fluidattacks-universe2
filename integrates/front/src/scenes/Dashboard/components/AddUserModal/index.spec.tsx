@@ -10,13 +10,11 @@ import { mount, shallow } from "enzyme";
 import { GraphQLError } from "graphql";
 import React from "react";
 import { act } from "react-dom/test-utils";
-import { Provider } from "react-redux";
 import wait from "waait";
 
 import { AddUserModal } from "scenes/Dashboard/components/AddUserModal";
 import { GET_USER } from "scenes/Dashboard/components/AddUserModal/queries";
 import type { IAddStakeholderModalProps } from "scenes/Dashboard/components/AddUserModal/types";
-import store from "store";
 import { authzPermissionsContext } from "utils/authz/config";
 import { msgError } from "utils/notifications";
 
@@ -145,11 +143,9 @@ describe("Add user modal", (): void => {
     expect.hasAssertions();
 
     const wrapper: ShallowWrapper = shallow(
-      <Provider store={store}>
-        <MockedProvider addTypename={true} mocks={mockError}>
-          <AddUserModal {...mockPropsAdd} />
-        </MockedProvider>
-      </Provider>
+      <MockedProvider addTypename={true} mocks={mockError}>
+        <AddUserModal {...mockPropsAdd} />
+      </MockedProvider>
     );
     await wait(0);
 
@@ -160,11 +156,9 @@ describe("Add user modal", (): void => {
     expect.hasAssertions();
 
     const wrapper: ShallowWrapper = shallow(
-      <Provider store={store}>
-        <MockedProvider addTypename={true} mocks={mocks}>
-          <AddUserModal {...mockPropsAdd} />
-        </MockedProvider>
-      </Provider>
+      <MockedProvider addTypename={true} mocks={mocks}>
+        <AddUserModal {...mockPropsAdd} />
+      </MockedProvider>
     );
     await wait(0);
 
@@ -175,11 +169,9 @@ describe("Add user modal", (): void => {
     expect.hasAssertions();
 
     const wrapper: ShallowWrapper = shallow(
-      <Provider store={store}>
-        <MockedProvider addTypename={true} mocks={mocks}>
-          <AddUserModal {...mockPropsEdit} />
-        </MockedProvider>
-      </Provider>
+      <MockedProvider addTypename={true} mocks={mocks}>
+        <AddUserModal {...mockPropsEdit} />
+      </MockedProvider>
     );
     await wait(0);
 
@@ -192,11 +184,9 @@ describe("Add user modal", (): void => {
     expect.hasAssertions();
 
     const wrapper: ReactWrapper = mount(
-      <Provider store={store}>
-        <MockedProvider addTypename={true} mocks={mocks}>
-          <AddUserModal {...mockPropsAdd} />
-        </MockedProvider>
-      </Provider>
+      <MockedProvider addTypename={true} mocks={mocks}>
+        <AddUserModal {...mockPropsAdd} />
+      </MockedProvider>
     );
     const emailInput: ReactWrapper = wrapper
       .find({ name: "email", type: "text" })
@@ -233,11 +223,9 @@ describe("Add user modal", (): void => {
     expect.hasAssertions();
 
     const wrapper: ReactWrapper = mount(
-      <Provider store={store}>
-        <MockedProvider addTypename={true} mocks={mockError}>
-          <AddUserModal {...mockPropsAdd} />
-        </MockedProvider>
-      </Provider>
+      <MockedProvider addTypename={true} mocks={mockError}>
+        <AddUserModal {...mockPropsAdd} />
+      </MockedProvider>
     );
     const emailInput: ReactWrapper = wrapper
       .find({ name: "email", type: "text" })
@@ -269,13 +257,11 @@ describe("Add user modal", (): void => {
       { action: "grant_user_level_role:analyst" },
     ]);
     const wrapper: ReactWrapper = mount(
-      <Provider store={store}>
-        <MockedProvider addTypename={true} mocks={mocks}>
-          <authzPermissionsContext.Provider value={mockedPermissions}>
-            <AddUserModal {...mockPropsAdd} projectName={undefined} />
-          </authzPermissionsContext.Provider>
-        </MockedProvider>
-      </Provider>
+      <MockedProvider addTypename={true} mocks={mocks}>
+        <authzPermissionsContext.Provider value={mockedPermissions}>
+          <AddUserModal {...mockPropsAdd} projectName={undefined} />
+        </authzPermissionsContext.Provider>
+      </MockedProvider>
     );
     await act(
       async (): Promise<void> => {
