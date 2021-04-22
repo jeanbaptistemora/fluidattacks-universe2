@@ -9,15 +9,15 @@ const clientsFilter: (() => void) = (): void => {
   .on("change", () => {
     if ($("#gall")
       .prop("checked")) {
-        $(".banking, .healthcare, .human-resources, .automotive, .technology,\
-          .pharmaceuticals, .oil-energy, .telecommunications, .airlines")
+        $(".banking, .healthcare, .human-resources, .automotive, .technology, " +
+          ".pharmaceuticals, .oil-energy, .telecommunications, .airlines")
           .removeClass("dn")
           .addClass("dt-ns");
       }
     if ($("#g1")
       .prop("checked")) {
-        $(".healthcare, .human-resources, .automotive, .technology,\
-          .pharmaceuticals, .oil-energy, .telecommunications, .airlines")
+        $(".healthcare, .human-resources, .automotive, .technology, " +
+          ".pharmaceuticals, .oil-energy, .telecommunications, .airlines")
           .removeClass("dt-ns")
           .addClass("dn");
         $(".banking")
@@ -26,8 +26,8 @@ const clientsFilter: (() => void) = (): void => {
       }
     if ($("#g2")
       .prop("checked")) {
-        $(".healthcare, .human-resources, .automotive, .technology,\
-        .pharmaceuticals, .telecommunications, .airlines, .banking")
+        $(".healthcare, .human-resources, .automotive, .technology, " +
+        ".pharmaceuticals, .telecommunications, .airlines, .banking")
           .removeClass("dt-ns")
           .addClass("dn");
         $(".oil-energy")
@@ -36,8 +36,8 @@ const clientsFilter: (() => void) = (): void => {
       }
     if ($("#g3")
       .prop("checked")) {
-        $(".banking, .healthcare, .human-resources, .technology,\
-        .pharmaceuticals, .oil-energy, .telecommunications, .airlines")
+        $(".banking, .healthcare, .human-resources, .technology, " +
+        ".pharmaceuticals, .oil-energy, .telecommunications, .airlines")
           .removeClass("dt-ns")
           .addClass("dn");
         $(".automotive")
@@ -46,8 +46,8 @@ const clientsFilter: (() => void) = (): void => {
       }
     if ($("#g4")
       .prop("checked")) {
-        $(".banking, .healthcare, .human-resources, .automotive, .technology,\
-          .oil-energy, .telecommunications, .airlines")
+        $(".banking, .healthcare, .human-resources, .automotive, .technology, " +
+          ".oil-energy, .telecommunications, .airlines")
           .removeClass("dt-ns")
           .addClass("dn");
         $(".pharmaceuticals")
@@ -56,8 +56,8 @@ const clientsFilter: (() => void) = (): void => {
       }
     if ($("#g5")
       .prop("checked")) {
-        $(".banking, .human-resources, .automotive, .technology,\
-          .pharmaceuticals, .oil-energy, .telecommunications, .airlines")
+        $(".banking, .human-resources, .automotive, .technology, " +
+          ".pharmaceuticals, .oil-energy, .telecommunications, .airlines")
           .removeClass("dt-ns")
           .addClass("dn");
         $(".healthcare")
@@ -66,8 +66,8 @@ const clientsFilter: (() => void) = (): void => {
       }
     if ($("#g6")
       .prop("checked")) {
-        $(".banking, .healthcare, .human-resources, .automotive, .technology,\
-          .pharmaceuticals, .oil-energy, .telecommunications")
+        $(".banking, .healthcare, .human-resources, .automotive, .technology, " +
+          ".pharmaceuticals, .oil-energy, .telecommunications")
           .removeClass("dt-ns")
           .addClass("dn");
         $(".airlines")
@@ -76,8 +76,8 @@ const clientsFilter: (() => void) = (): void => {
       }
     if ($("#g7")
       .prop("checked")) {
-        $(".banking, .healthcare, .human-resources, .automotive, .technology,\
-          .pharmaceuticals, .oil-energy, .airlines")
+        $(".banking, .healthcare, .human-resources, .automotive, .technology, " +
+          ".pharmaceuticals, .oil-energy, .airlines")
           .removeClass("dt-ns")
           .addClass("dn");
         $(".telecommunications")
@@ -86,8 +86,8 @@ const clientsFilter: (() => void) = (): void => {
       }
     if ($("#g8")
       .prop("checked")) {
-        $(".banking, .healthcare, .automotive, .technology,\
-          .pharmaceuticals, .oil-energy, .telecommunications, .airlines")
+        $(".banking, .healthcare, .automotive, .technology, " +
+          ".pharmaceuticals, .oil-energy, .telecommunications, .airlines")
           .removeClass("dt-ns")
           .addClass("dn");
         $(".human-resources")
@@ -96,8 +96,8 @@ const clientsFilter: (() => void) = (): void => {
       }
     if ($("#g9")
       .prop("checked")) {
-        $(".banking, .healthcare, .human-resources, .automotive,\
-          .pharmaceuticals, .oil-energy, .telecommunications, .airlines")
+        $(".banking, .healthcare, .human-resources, .automotive, " +
+          "S.pharmaceuticals, .oil-energy, .telecommunications, .airlines")
           .removeClass("dt-ns")
           .addClass("dn");
         $(".technology")
