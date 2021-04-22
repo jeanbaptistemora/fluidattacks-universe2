@@ -7,7 +7,6 @@ from graphql.type.definition import GraphQLResolveInfo
 
 # Local libraries
 from backend import authz, util
-from backend.dal.helpers.redis import redis_del_by_deps
 from backend.decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
@@ -19,6 +18,7 @@ from backend.exceptions import PermissionDenied
 from backend.typing import SimplePayload as SimplePayloadType
 from forces import domain as forces_domain
 from groups import domain as groups_domain
+from redis_cluster.operations import redis_del_by_deps
 from users import domain as users_domain
 
 

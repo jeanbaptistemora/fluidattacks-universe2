@@ -10,13 +10,13 @@ from aiodataloader import DataLoader
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local
-from backend.dal.helpers.redis import redis_get_or_set_entity_attr
 from backend.filters import finding as finding_filters
 from backend.typing import (
     Finding,
     Tracking as TrackingItem,
 )
 from findings import domain as findings_domain
+from redis_cluster.operations import redis_get_or_set_entity_attr
 
 
 async def resolve(

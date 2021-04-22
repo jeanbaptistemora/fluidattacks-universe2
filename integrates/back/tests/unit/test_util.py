@@ -29,10 +29,6 @@ from back.tests.unit.utils import (
     create_dummy_session,
     create_dummy_simple_session,
 )
-from backend.dal.helpers.redis import (
-    redis_del_entity_attr,
-    redis_set_entity_attr,
-)
 from backend.exceptions import ExpiredToken
 from backend.util import (
     assert_file_mime,
@@ -50,6 +46,10 @@ from newutils import (
     datetime as datetime_utils,
     encodings,
     token as token_helper,
+)
+from redis_cluster.operations import (
+    redis_del_entity_attr,
+    redis_set_entity_attr,
 )
 from sessions import dal as sessions_dal
 from users import domain as users_domain

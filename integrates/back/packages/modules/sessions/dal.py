@@ -14,18 +14,18 @@ from starlette.requests import Request
 # Local libraries
 from back import settings
 from backend import authz
-from backend.dal.helpers.redis import (
+from backend.exceptions import (
+    ExpiredToken,
+    SecureAccessException,
+)
+from redis_cluster.model import KeyNotFound as RedisKeyNotFound
+from redis_cluster.operations import (
     redis_cmd,
     redis_del_by_deps,
     redis_del_entity_attr,
     redis_get_entity_attr,
     redis_set_entity_attr,
 )
-from backend.exceptions import (
-    ExpiredToken,
-    SecureAccessException,
-)
-from backend.model import redis_model
 from users import dal as users_dal
 
 
@@ -45,7 +45,7 @@ async def check_jwt_token_validity(request: Request) -> None:
             await remove_session_key(email, attr)
             request.session.clear()
             raise ExpiredToken()
-    except redis_model.KeyNotFound:
+    except RedisKeyNotFound:
         # User do not even has an active session
         raise SecureAccessException()
 
@@ -71,7 +71,7 @@ async def check_session_web_validity(request: Request) -> None:
             await remove_session_key(email, attr)
             request.session.clear()
             raise ExpiredToken()
-    except redis_model.KeyNotFound:
+    except RedisKeyNotFound:
         # User do not even has an active session
         raise SecureAccessException()
 
@@ -110,7 +110,7 @@ async def delete_user(email: str) -> bool:
 
 async def get_session_key(email: str, attr: str) -> Optional[str]:
     session_key: Optional[str] = None
-    with contextlib.suppress(redis_model.KeyNotFound):
+    with contextlib.suppress(RedisKeyNotFound):
         session_key = await redis_get_entity_attr(
             entity='session',
             attr=attr,

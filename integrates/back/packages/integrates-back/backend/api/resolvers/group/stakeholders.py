@@ -1,13 +1,16 @@
 # Standard libraries
 from functools import partial
-from typing import cast, Dict, List
+from typing import (
+    cast,
+    Dict,
+    List,
+)
 
 # Third party libraries
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local libraries
 from backend import util
-from backend.dal.helpers.redis import redis_get_or_set_entity_attr
 from backend.decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
@@ -18,6 +21,7 @@ from backend.typing import (
     Stakeholder as StakeholderType,
 )
 from newutils import user as user_utils
+from redis_cluster.operations import redis_get_or_set_entity_attr
 
 
 @concurrent_decorators(

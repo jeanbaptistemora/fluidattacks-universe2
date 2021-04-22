@@ -1,21 +1,18 @@
 # Standard
-from functools import (
-    partial,
+from functools import partial
+from typing import (
+    cast,
+    Optional,
 )
-from typing import cast, Optional
 
 # Third party
 from aiodataloader import DataLoader
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local
-from backend.dal.helpers.redis import (
-    redis_get_or_set_entity_attr,
-)
-from backend.decorators import (
-    require_integrates,
-)
+from backend.decorators import require_integrates
 from backend.typing import Finding, Project as Group
+from redis_cluster.operations import redis_get_or_set_entity_attr
 
 
 @require_integrates

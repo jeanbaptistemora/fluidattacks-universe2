@@ -1,6 +1,10 @@
 # Standard library
 import logging
-from typing import Any, Dict, cast
+from typing import (
+    Any,
+    cast,
+    Dict,
+)
 
 # Third party libraries
 from ariadne import convert_kwargs_to_snake_case
@@ -9,7 +13,6 @@ from graphql.type.definition import GraphQLResolveInfo
 # Local libraries
 from back.settings import LOGGING
 from backend import authz, util
-from backend.dal.helpers.redis import redis_del_by_deps
 from backend.decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
@@ -23,6 +26,7 @@ from backend.typing import (
 )
 from group_access import domain as group_access_domain
 from newutils.validations import validate_fluidattacks_staff_on_group
+from redis_cluster.operations import redis_del_by_deps
 from users import domain as users_domain
 
 

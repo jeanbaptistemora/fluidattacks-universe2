@@ -7,7 +7,6 @@ from backend import (
     authz,
     util,
 )
-from backend.dal.helpers.redis import redis_del_by_deps_soon
 from backend.decorators import (
     require_integrates,
     concurrent_decorators,
@@ -17,6 +16,7 @@ from backend.decorators import (
 from backend.exceptions import PermissionDenied
 from backend.typing import SimplePayload as SimplePayloadType
 from groups import domain as groups_domain
+from redis_cluster.operations import redis_del_by_deps_soon
 
 
 @convert_kwargs_to_snake_case  # type: ignore

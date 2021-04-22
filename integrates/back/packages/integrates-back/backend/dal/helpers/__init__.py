@@ -9,21 +9,6 @@ from .dynamodb import (
     serialize,
     start_context,
 )
-from .redis import (
-    instantiate_redis_cluster,
-    redis_cmd,
-    redis_del_by_deps,
-    redis_del_by_deps_soon,
-    redis_del_entity,
-    redis_del_entity_attr,
-    redis_del_entity_attr_soon,
-    redis_del_entity_soon,
-    redis_exists_entity_attr,
-    redis_get_entity_attr,
-    redis_get_or_set_entity_attr,
-    redis_set_entity_attr,
-    redis_ttl_entity_attr,
-)
 
 __all__ = [
     'async_delete_item',
@@ -34,18 +19,5 @@ __all__ = [
     'client',
     'deserialize',
     'serialize',
-    'start_context',
-    'instantiate_redis_cluster',
-    'redis_cmd',
-    'redis_del_by_deps',
-    'redis_del_by_deps_soon',
-    'redis_del_entity',
-    'redis_del_entity_attr',
-    'redis_del_entity_attr_soon',
-    'redis_del_entity_soon',
-    'redis_exists_entity_attr',
-    'redis_get_entity_attr',
-    'redis_get_or_set_entity_attr',
-    'redis_set_entity_attr',
-    'redis_ttl_entity_attr'
+    'start_context'
 ]

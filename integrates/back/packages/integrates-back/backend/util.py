@@ -45,13 +45,11 @@ from starlette.concurrency import run_in_threadpool
 from starlette.datastructures import UploadFile
 
 from back import settings
-from backend.dal.helpers.redis import redis_get_entity_attr
 from backend.exceptions import (
     ExpiredToken,
     InvalidAuthorization,
     InvalidSource,
 )
-from backend.model import redis_model
 from backend.typing import (
     Finding as FindingType,
     User as UserType,
@@ -63,6 +61,8 @@ from newutils import (
     function,
     token as token_helper,
 )
+from redis_cluster.model import KeyNotFound as RedisKeyNotFound
+from redis_cluster.operations import redis_get_entity_attr
 from sessions import dal as sessions_dal
 from __init__ import FI_ENVIRONMENT
 
@@ -166,7 +166,7 @@ async def get_jwt_content(context) -> Dict[str, str]:  # noqa: MC0001
                     )
                     if session_jti != content['jti']:
                         raise ExpiredToken()
-                except redis_model.KeyNotFound:
+                except RedisKeyNotFound:
                     # Session expired (user logged out)
                     raise ExpiredToken()
 

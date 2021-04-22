@@ -11,9 +11,9 @@ from typing import (
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local
-from backend.dal.helpers.redis import redis_get_or_set_entity_attr
 from backend.typing import Finding
 from findings.domain import get_records_from_file
+from redis_cluster.operations import redis_get_or_set_entity_attr
 
 
 async def resolve(

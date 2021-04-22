@@ -24,7 +24,6 @@ from backend import (
     mailer,
     util,
 )
-from backend.dal.helpers.redis import redis_set_entity_attr
 from group_access import domain as group_access_domain
 from groups import domain as groups_domain
 from organizations import domain as orgs_domain
@@ -33,6 +32,7 @@ from newutils import (
     datetime as datetime_utils,
     token as token_helper,
 )
+from redis_cluster.operations import redis_set_entity_attr
 from users import domain as users_domain
 from __init__ import (
     FI_COMMUNITY_PROJECTS,

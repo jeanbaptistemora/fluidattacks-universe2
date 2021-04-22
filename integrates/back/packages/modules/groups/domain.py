@@ -37,7 +37,6 @@ from backend import (
     mailer,
 )
 from backend.dal.helpers.dynamodb import start_context
-from backend.dal.helpers.redis import redis_del_by_deps_soon
 from backend.exceptions import (
     AlreadyPendingDeletion,
     InvalidParameter,
@@ -77,6 +76,7 @@ from newutils.validations import (
 )
 from notifications import domain as notifications_domain
 from organizations import domain as orgs_domain
+from redis_cluster.operations import redis_del_by_deps_soon
 from sessions import dal as sessions_dal
 from users import domain as users_domain
 from __init__ import (

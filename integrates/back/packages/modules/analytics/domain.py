@@ -22,7 +22,6 @@ from analytics import dal as analytics_dal
 from back.app.views import templates
 from back.settings import LOGGING
 from backend import util
-from backend.dal.helpers.redis import redis_get_or_set_entity_attr
 from backend.exceptions import DocumentNotFound
 from backend.services import has_access_to_project as has_access_to_group
 from backend.typing import (
@@ -32,6 +31,7 @@ from backend.typing import (
 )
 from newutils.encodings import safe_encode
 from newutils.context import CHARTS_LOGO_PATH
+from redis_cluster.operations import redis_get_or_set_entity_attr
 from organizations import domain as orgs_domain
 from tags import domain as tags_domain
 

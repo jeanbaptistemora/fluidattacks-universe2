@@ -14,11 +14,9 @@ from graphql.type.definition import GraphQLResolveInfo
 
 # Local
 from backend import util
-from backend.dal.helpers.redis import (
-    redis_get_or_set_entity_attr,
-)
 from backend.typing import Comment, Event
 from comments import domain as comments_domain
+from redis_cluster.operations import redis_get_or_set_entity_attr
 
 
 async def resolve_no_cache(

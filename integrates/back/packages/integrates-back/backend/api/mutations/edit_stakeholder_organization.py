@@ -7,7 +7,6 @@ from graphql.type.definition import GraphQLResolveInfo
 
 # Local libraries
 from backend import util
-from backend.dal.helpers.redis import redis_del_by_deps
 from backend.decorators import (
     concurrent_decorators,
     enforce_organization_level_auth_async,
@@ -17,6 +16,7 @@ from backend.decorators import (
 from backend.exceptions import UserNotInOrganization
 from backend.typing import EditStakeholderPayload
 from organizations import domain as orgs_domain
+from redis_cluster.operations import redis_del_by_deps
 from users import domain as users_domain
 
 

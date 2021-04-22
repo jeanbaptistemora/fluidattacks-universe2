@@ -8,7 +8,6 @@ from graphql.type.definition import GraphQLResolveInfo
 
 # Local libraries
 from backend import util
-from backend.dal.helpers.redis import redis_del_by_deps_soon
 from backend.decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
@@ -18,6 +17,7 @@ from backend.decorators import (
 from backend.typing import AddConsultPayload as AddConsultPayloadType
 from group_comments import domain as group_comments_domain
 from newutils import datetime as datetime_utils
+from redis_cluster.operations import redis_del_by_deps_soon
 
 
 @convert_kwargs_to_snake_case  # type: ignore

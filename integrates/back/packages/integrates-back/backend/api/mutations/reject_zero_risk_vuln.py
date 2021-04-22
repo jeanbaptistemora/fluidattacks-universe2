@@ -7,13 +7,13 @@ from graphql.type.definition import GraphQLResolveInfo
 
 # Local
 from backend import util
-from backend.dal.helpers.redis import redis_del_by_deps_soon
 from backend.decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
     require_login,
 )
 from backend.typing import SimplePayload as SimplePayloadType
+from redis_cluster.operations import redis_del_by_deps_soon
 from vulnerabilities import domain as vulns_domain
 
 

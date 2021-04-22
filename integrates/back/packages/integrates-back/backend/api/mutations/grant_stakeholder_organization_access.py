@@ -7,11 +7,11 @@ from graphql.type.definition import GraphQLResolveInfo
 
 # Local libraries
 from backend import util
-from backend.dal.helpers.redis import redis_del_by_deps
 from backend.decorators import enforce_organization_level_auth_async
 from backend.typing import GrantStakeholderAccessPayload
 from groups import domain as groups_domain
 from organizations import domain as orgs_domain
+from redis_cluster.operations import redis_del_by_deps
 from users import domain as users_domain
 from __init__ import FI_DEFAULT_ORG
 

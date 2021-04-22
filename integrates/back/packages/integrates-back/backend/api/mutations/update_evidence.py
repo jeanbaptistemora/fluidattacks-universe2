@@ -7,7 +7,6 @@ from graphql.type.definition import GraphQLResolveInfo
 from starlette.datastructures import UploadFile
 
 # Local
-from backend.dal.helpers.redis import redis_del_by_deps
 from backend.decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
@@ -16,6 +15,7 @@ from backend.decorators import (
 )
 from backend.typing import SimplePayload
 from findings import domain as findings_domain
+from redis_cluster.operations import redis_del_by_deps
 
 
 @convert_kwargs_to_snake_case  # type: ignore

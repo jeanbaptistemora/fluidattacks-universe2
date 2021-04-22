@@ -12,7 +12,6 @@ from backend import (
     authz,
     util
 )
-from backend.dal.helpers.redis import redis_del_by_deps
 from backend.decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
@@ -25,6 +24,7 @@ from backend.typing import (
 )
 from group_access import domain as group_access_domain
 from groups import domain as groups_domain
+from redis_cluster.operations import redis_del_by_deps
 
 
 logging.config.dictConfig(LOGGING)

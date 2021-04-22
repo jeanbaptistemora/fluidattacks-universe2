@@ -7,8 +7,8 @@ from starlette.responses import Response
 from back import settings
 from backend import util
 from backend.api import apply_context_attrs
-from backend.dal.helpers.redis import redis_set_entity_attr
 from newutils import token as token_helper
+from redis_cluster.operations import redis_set_entity_attr
 
 
 def create_dummy_simple_session(

@@ -11,11 +11,11 @@ from aiodataloader import DataLoader
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local
-from backend.dal.helpers.redis import redis_get_or_set_entity_attr
 from backend.typing import (
     Finding,
     Vulnerability,
 )
+from redis_cluster.operations import redis_get_or_set_entity_attr
 from vulnerabilities import domain as vulns_domain
 
 

@@ -14,9 +14,6 @@ from graphql.type.definition import GraphQLResolveInfo
 from back.settings import LOGGING
 
 from backend import util
-from backend.dal.helpers.redis import (
-    redis_del_by_deps_soon,
-)
 from backend.decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
@@ -25,6 +22,7 @@ from backend.decorators import (
 )
 from backend.typing import SimpleProjectPayload as SimpleProjectPayloadType
 from groups import domain as groups_domain
+from redis_cluster.operations import redis_del_by_deps_soon
 
 
 logging.config.dictConfig(LOGGING)

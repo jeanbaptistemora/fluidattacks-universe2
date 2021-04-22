@@ -1,32 +1,28 @@
 # Standard library
-from functools import (
-    partial,
-)
+import logging
+from functools import partial
 from typing import (
     Any,
     Awaitable,
+    cast,
     DefaultDict,
     Dict,
     List,
     Optional,
     Tuple,
-    cast
 )
-import logging
 
 # Third party library
-from aioextensions import (
-    collect,
-)
+from aioextensions import collect
 
 # Local imports
 from back.settings import LOGGING
-from backend.dal.helpers.redis import (
+from groups import dal as groups_dal
+from newutils import function
+from redis_cluster.operations import (
     redis_del_by_deps,
     redis_get_or_set_entity_attr,
 )
-from groups import dal as groups_dal
-from newutils import function
 from users import dal as users_dal
 from .model import (
     get_user_level_roles_model,

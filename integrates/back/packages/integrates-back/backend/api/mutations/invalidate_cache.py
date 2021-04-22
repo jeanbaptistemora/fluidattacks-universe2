@@ -7,15 +7,13 @@ from graphql.type.definition import GraphQLResolveInfo
 
 # Local
 from backend import util
-from backend.dal.helpers.redis import (
-    redis_cmd,
-)
 from backend.decorators import (
     concurrent_decorators,
     enforce_user_level_auth_async,
     require_login
 )
 from backend.typing import SimplePayload
+from redis_cluster.operations import redis_cmd
 
 
 @concurrent_decorators(

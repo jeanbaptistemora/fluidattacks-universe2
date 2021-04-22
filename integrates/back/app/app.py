@@ -38,7 +38,6 @@ from back.settings.queue import (
 )
 from backend.api import IntegratesAPI
 from backend.api.schema import SCHEMA
-from backend.dal.helpers.redis import redis_del_entity_attr
 from backend.decorators import authenticate_session
 from backend.exceptions import (
     ExpiredToken,
@@ -47,6 +46,7 @@ from backend.exceptions import (
 from group_access import domain as group_access_domain
 from groups import domain as groups_domain
 from organizations import domain as orgs_domain
+from redis_cluster.operations import redis_del_entity_attr
 from sessions import dal as sessions_dal
 from __init__ import (
     FI_ENVIRONMENT,
