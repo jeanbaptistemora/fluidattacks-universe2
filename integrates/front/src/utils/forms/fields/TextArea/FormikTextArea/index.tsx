@@ -4,8 +4,6 @@
   spreading is the best way to pass down props.
 */
 import type { FieldInputProps, FieldProps } from "formik";
-import { useField } from "formik";
-import _ from "lodash";
 import React from "react";
 
 import { ValidationError } from "styles/styledComponents";
@@ -23,8 +21,10 @@ export const FormikTextArea: React.FC<ITextAreaProps> = (
   // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
   props: Readonly<ITextAreaProps>
 ): JSX.Element => {
-  const { input, id, withCount = false, field, className } = props;
-  const [, meta] = useField(field.name);
+  const { input, id, withCount = false, field, form, className } = props;
+  const { errors, touched } = form;
+  const fieldTouched = Boolean(touched[field.name]);
+  const error = errors[field.name];
   const { value }: { value: string } = field;
 
   return (
@@ -33,7 +33,7 @@ export const FormikTextArea: React.FC<ITextAreaProps> = (
         {...field}
         {...input}
         className={`${style["form-control"]} ${style["text-area"]} ${
-          _.isUndefined(className) ? "" : className
+          className === undefined ? "" : className
         }`}
         id={id}
         value={value}
@@ -41,9 +41,9 @@ export const FormikTextArea: React.FC<ITextAreaProps> = (
       {withCount ? (
         <div className={style.badge}>{value.length}</div>
       ) : undefined}
-      {withCount && !_.isUndefined(meta.error) ? <br /> : undefined}
-      {meta.touched && !_.isUndefined(meta.error) ? (
-        <ValidationError id={"validationError"}>{meta.error}</ValidationError>
+      {withCount && error !== undefined ? <br /> : undefined}
+      {fieldTouched && error !== undefined ? (
+        <ValidationError id={"validationError"}>{error}</ValidationError>
       ) : undefined}
     </React.Fragment>
   );

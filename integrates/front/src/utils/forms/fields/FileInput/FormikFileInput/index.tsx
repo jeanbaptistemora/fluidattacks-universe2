@@ -6,7 +6,6 @@
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { FieldInputProps, FieldProps } from "formik";
-import { useField } from "formik";
 import _ from "lodash";
 import React from "react";
 
@@ -29,16 +28,17 @@ interface IFileInputProps extends FieldProps {
 export const FormikFileInput: React.FC<IFileInputProps> = (
   props: Readonly<IFileInputProps>
 ): JSX.Element => {
-  const { accept, className, id, field, onClick } = props;
+  const { accept, className, id, field, form, onClick } = props;
+  const { touched, errors, setFieldValue } = form;
+  const fieldTouched = Boolean(touched[field.name]);
+  const error = errors[field.name];
   const { onChange, name } = field;
   const { value }: { value: FileList } = field;
-  const [, meta, helpers] = useField(name);
-  const { touched, error } = meta;
 
   function handleFileChange(event: React.FormEvent<HTMLInputElement>): void {
     onChange(event);
     const { files } = event.target as HTMLInputElement;
-    helpers.setValue(_.isEmpty(files) ? [] : (files as FileList));
+    setFieldValue(name, _.isEmpty(files) ? [] : (files as FileList));
   }
 
   return (
@@ -60,9 +60,9 @@ export const FormikFileInput: React.FC<IFileInputProps> = (
           </strong>
         </ControlLabel>
       </InputGroup>
-      {touched && !_.isUndefined(error) && (
+      {fieldTouched && error !== undefined ? (
         <ValidationError id={"validationError"}>{error}</ValidationError>
-      )}
+      ) : undefined}
     </FormGroup>
   );
 };
