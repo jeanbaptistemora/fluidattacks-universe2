@@ -162,6 +162,14 @@ def _content_security_policy_script_src(
         descs.append('content_security_policy.missing_script_src')
 
 
+def _content_security_policy_upgrade_insecure_requests(
+    descs: List[str],
+    header: Header,
+) -> None:
+    if 'upgrade-insecure-requests' not in header.directives:
+        descs.append('content_security_policy.missing_upgrade_insecure')
+
+
 def _content_security_policy(
     ctx: HeaderCheckCtx,
 ) -> core_model.Vulnerabilities:
@@ -172,6 +180,7 @@ def _content_security_policy(
         _content_security_policy_frame_acestors(descs, header)
         _content_security_policy_object_src(descs, header)
         _content_security_policy_script_src(descs, header)
+        _content_security_policy_upgrade_insecure_requests(descs, header)
     else:
         descs.append('content_security_policy.missing')
 

@@ -7,6 +7,9 @@ lib_http.f043.content_security_policy.missing_object_src:
 lib_http.f043.content_security_policy.missing_script_src:
   en: Missing script-src
   es: script-src ausente
+lib_http.f043.content_security_policy.missing_upgrade_insecure:
+  en: Missing upgrade-insecure-requests
+  es: upgrade-insecure-requests ausente
 lib_http.f043.content_security_policy.missing:
   en: Missing Content-Security-Policy
   es: Content-Security-Policy ausente

@@ -139,6 +139,9 @@ def test_content_security_policy() -> None:
         ],
     }
 
+    header = parse('Content-Security-Policy: upgrade-insecure-requests;')
+    assert header.directives == {'upgrade-insecure-requests': []}
+
 
 @pytest.mark.skims_test_group('unittesting')
 def test_referrer_policy() -> None:
