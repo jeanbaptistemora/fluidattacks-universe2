@@ -69,6 +69,7 @@ def add_f043_dast_csp_rules() -> None:
         "frame-ancestors 'none'",
         "frame-ancestors 'self'",
         "upgrade-insecure-requests;",
+        "block-all-mixed-content;",
     ]):
         add_rule('f043_dast_csp', index, partial(response_header, {
             'Content-Security-Policy': value,

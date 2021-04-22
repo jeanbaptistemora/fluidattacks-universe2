@@ -13,6 +13,9 @@ lib_http.f043.content_security_policy.missing_upgrade_insecure:
 lib_http.f043.content_security_policy.missing:
   en: Missing Content-Security-Policy
   es: Content-Security-Policy ausente
+lib_http.f043.content_security_policy.mixed_content_deprecated:
+  en: block-all-mixed-content is deprecated
+  es: block-all-mixed-content esta deprecada
 lib_http.f043.content_security_policy.script-src.jsonp:
   en: "{0} hosts JSONP"
   es: "{0} aloja JSONP"

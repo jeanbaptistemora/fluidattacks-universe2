@@ -102,6 +102,14 @@ def _content_security_policy_wild_uri(
             descs.append(f'content_security_policy.wild_uri#{arg}')
 
 
+def _content_security_policy_block_all_mixed_content(
+    descs: List[str],
+    header: Header,
+) -> None:
+    if 'block-all-mixed-content' in header.directives:
+        descs.append('content_security_policy.mixed_content_deprecated')
+
+
 def _content_security_policy_frame_acestors(
     descs: List[str],
     header: Header,
@@ -177,6 +185,7 @@ def _content_security_policy(
     header: Optional[Header] = None
 
     if header := ctx.headers_parsed.get(ContentSecurityPolicyHeader):
+        _content_security_policy_block_all_mixed_content(descs, header)
         _content_security_policy_frame_acestors(descs, header)
         _content_security_policy_object_src(descs, header)
         _content_security_policy_script_src(descs, header)
