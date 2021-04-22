@@ -13,27 +13,30 @@ resource "okta_app_auto_login" "apps" {
   auto_submit_toolbar = true
 
   lifecycle {
-    ignore_changes = [groups]
+    ignore_changes = [
+      groups,
+      users,
+    ]
   }
 }
 
 resource "okta_app_group_assignment" "apps_auto_login" {
   for_each = {
-    for app in local.app_groups : app.id => app.group
+    for app in local.app_groups : "${app.id}_${app.group}" => app
     if app.type == "auto_login"
   }
 
-  app_id   = okta_app_auto_login.apps[each.key].id
-  group_id = okta_group.groups[each.value].id
+  app_id   = okta_app_auto_login.apps[each.value.id].id
+  group_id = okta_group.groups[each.value.group].id
 }
 
 resource "okta_app_user" "apps_auto_login" {
   for_each = {
-    for app in local.app_users : app.id => app.user
+    for app in local.app_users : "${app.id}_${app.user}" => app
     if app.type == "auto_login"
   }
 
-  app_id   = okta_app_auto_login.apps[each.key].id
-  user_id  = okta_user.users[each.value].id
-  username = ""
+  app_id   = okta_app_auto_login.apps[each.value.id].id
+  user_id  = okta_user.users[each.value.user].id
+  username = okta_app_auto_login.apps[each.value.id].shared_username
 }

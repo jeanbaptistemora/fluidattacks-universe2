@@ -1,10 +1,6 @@
-{ nixpkgs
-, path
+{ terraformTest
 , ...
 }:
-let
-  terraformTest = import (path "/makes/utils/terraform-test") path nixpkgs;
-in
 terraformTest {
   name = "makes-okta-test";
   product = "makes";

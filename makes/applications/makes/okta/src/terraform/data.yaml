@@ -14,7 +14,7 @@ OKTA_GROUPS:
     description: ENC[AES256_GCM,data:jD1AVXblYZPBL/rkaY5Q5WIRcg==,iv:iXluY3COYomwEinHg5hMSvie2fQxpEjPtDpdv2ac/JY=,tag:SZyxwKBs3U4nNVAvfDJvAQ==,type:str]
     users:
     - ENC[AES256_GCM,data:FETYA2JNQxrhWw==,iv:JSFbr7NiAO5vPa7J7BfxHYR8xoTddRD2Zj4zIAlU04E=,tag:hppyGLA2HLKA6PlBx9JrZw==,type:str]
-    - ENC[AES256_GCM,data:dgf5jwimkEA=,iv:IdF2zrajW1yoavbbdhhgzJlXnq8AZrocLQ/Th6H6XwM=,tag:zRrEjjBaL6xKrSV5GqVJpg==,type:str]
+    - ENC[AES256_GCM,data:Yn+kGoCQHgg=,iv:H6CctjSwIIwZGad0aZiiDK04cK91AGbcmMTCcyqyYC8=,tag:z97MH1wi0AdTrT1baA8Z5g==,type:str]
     - ENC[AES256_GCM,data:PbLDQGrw1dDm,iv:BIilUvB1e4hKaoQG8OXMFQ/DyArubwlyoA1o51PJZSU=,tag:Y7VNTC/5+oWHCTuGVbj7gA==,type:str]
     - ENC[AES256_GCM,data:6IHeYbw3,iv:uAOWjFxMuMGg9ETR9xVfzBXUJNWZbyW3t1E+Y0mzib8=,tag:yO0evTO+oOn54msxVH2KSw==,type:str]
     apps:
@@ -57,8 +57,8 @@ sops:
     gcp_kms: []
     azure_kv: []
     hc_vault: []
-    lastmodified: '2021-04-22T17:29:39Z'
-    mac: ENC[AES256_GCM,data:1W69kGFOb0Ygxq6kVgMEe9sFe5QGPnifFlAp6uO+Ww7Gu/xLFxhlHWR1LGViHW1X4whTXWVhsVuP2v+GiFNSPtwG8Aa5movrSKHqBWBt+JHaM1egdeFb34LzTtxXu/QbB4bCPznPLw7Z/GwGoGqKvtmF+XYz/fpTsGHhoQkwNtY=,iv:QNnmKGxgEoWfjPD71sk/HKwL9NGccPGq/PQ+9IkrnuI=,tag:Ihe3ppoSy5L2SdYtOqSLbQ==,type:str]
+    lastmodified: '2021-04-22T23:06:07Z'
+    mac: ENC[AES256_GCM,data:uyAfnoD29VPlGK9zvkytkPYDwLjeI4k46/dFb8tut09dXXDTKedHn+NS/88OmcoxWKarg8KyvJ0RZZC3wJMjsHBYPA+M9gNV3SNC2LJshFqravvZpOVNzA4//Qae3czBGJ+5gwTLEJiGCWDa6nKIJvw/qLZvptwBFPmtgbtHgfg=,iv:h3MtkejXNfcHnvCENEEe+jNozczLOLeFprsw2dJxxuQ=,tag:qjae5O+1l/T0QcMU/8yxAg==,type:str]
     pgp: []
     unencrypted_suffix: _unencrypted
     version: 3.6.1
