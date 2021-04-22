@@ -1,48 +1,38 @@
-/* eslint-disable @typescript-eslint/prefer-readonly-parameter-types, react/forbid-component-props
-  -------
-  Readonly utility type does not work on deeply nested types and we need
-  className to override default styles from react-bootstrap.
-*/
 import type { FieldProps } from "formik";
-import { useField } from "formik";
-import _ from "lodash";
 import React from "react";
+import styled from "styled-components";
 
 import { ValidationError } from "styles/styledComponents";
-import style from "utils/forms/index.css";
 
-interface IDropdownProps extends FieldProps {
-  children?: React.ReactNode;
+const StyledSelect = styled.select.attrs({
+  className: "w-100 pa2 gray bg-white bw1 b--light-gray",
+})``;
+
+interface IDropdownProps extends FieldProps<string, Record<string, string>> {
+  children: React.ReactNode;
 }
 
-const FormikDropdown: React.FC<IDropdownProps> = (
-  props: IDropdownProps
-): JSX.Element => {
-  const { field, children } = props;
-  const { name, onChange, onBlur } = field;
-  const [, meta] = useField(name);
-  const { initialValue, touched, error } = meta;
+const FormikDropdown: React.FC<IDropdownProps> = ({
+  children,
+  field,
+  form,
+}: IDropdownProps): JSX.Element => {
+  const { name, onChange } = field;
+  const { errors, initialValues, touched } = form;
+  const initialValue = initialValues[name];
+  const fieldTouched = Boolean(touched[name]);
+  const error = errors[name];
 
   return (
     <React.Fragment>
-      <select
-        className={style["form-control"]}
-        defaultValue={initialValue}
-        name={name}
-        onBlur={onBlur}
-        onChange={onChange}
-      >
+      <StyledSelect defaultValue={initialValue} name={name} onChange={onChange}>
         {children}
-      </select>
-      {touched && !_.isUndefined(error) && (
+      </StyledSelect>
+      {fieldTouched && error !== undefined ? (
         <ValidationError id={"validationError"}>{error}</ValidationError>
-      )}
+      ) : undefined}
     </React.Fragment>
   );
-};
-// eslint-disable-next-line fp/no-mutation
-FormikDropdown.defaultProps = {
-  children: "",
 };
 
 export { FormikDropdown };
