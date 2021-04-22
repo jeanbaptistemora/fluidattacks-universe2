@@ -1,6 +1,7 @@
 # Standard libraries
 from typing import (
     Iterator,
+    List,
 )
 
 # Third party libraries
@@ -32,7 +33,7 @@ from tap_checkly.streams.objs import (
 
 def _json_list_srecords(
     stream: SupportedStreams,
-    items: Iterator[JSON]
+    items: List[JSON]
 ) -> Iterator[SingerRecord]:
     return iter(map(
         lambda item: SingerRecord(
@@ -45,7 +46,7 @@ def _json_list_srecords(
 
 def emit_records(
     stream: SupportedStreams,
-    records: Iterator[JSON],
+    records: List[JSON],
 ) -> None:
     s_records = _json_list_srecords(stream, records)
     for record in s_records:

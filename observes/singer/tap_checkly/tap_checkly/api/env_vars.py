@@ -6,6 +6,7 @@ from __future__ import (
 from typing import (
     Callable,
     Iterator,
+    List,
     NamedTuple,
 )
 
@@ -31,7 +32,7 @@ from tap_checkly.common import (
 
 
 class EnvVarsPage(NamedTuple):
-    data: IO[Iterator[JSON]]
+    data: IO[List[JSON]]
 
     @classmethod
     def new(cls, client: Client, page: PageId) -> EnvVarsPage:

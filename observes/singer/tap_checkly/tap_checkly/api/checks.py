@@ -6,6 +6,7 @@ from __future__ import (
 from typing import (
     Callable,
     Iterator,
+    List,
     NamedTuple,
     Type,
     TypeVar,
@@ -35,7 +36,7 @@ from tap_checkly.common import (
 
 
 class CheckGroupsPage(NamedTuple):
-    data: Iterator[JSON]
+    data: List[JSON]
 
     @classmethod
     def new(cls, client: Client, page: PageId) -> IO[CheckGroupsPage]:
@@ -44,7 +45,7 @@ class CheckGroupsPage(NamedTuple):
 
 
 class ChecksPage(NamedTuple):
-    data: Iterator[JSON]
+    data: List[JSON]
 
     @classmethod
     def new(cls, client: Client, page: PageId) -> IO[ChecksPage]:
@@ -53,7 +54,7 @@ class ChecksPage(NamedTuple):
 
 
 class CheckStatus(NamedTuple):
-    data: Iterator[JSON]
+    data: List[JSON]
 
     @classmethod
     def new(cls, client: Client) -> IO[CheckStatus]:
@@ -70,7 +71,7 @@ class CheckId(NamedTuple):
 
 
 class CheckResultsPage(NamedTuple):
-    data: Iterator[JSON]
+    data: List[JSON]
 
     @classmethod
     def new(

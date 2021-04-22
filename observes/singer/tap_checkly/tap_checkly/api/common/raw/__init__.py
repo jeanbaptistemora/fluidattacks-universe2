@@ -3,7 +3,7 @@ import logging
 
 # Third party libraries
 from typing import (
-    Iterator,
+    List,
 )
 from requests.exceptions import (
     HTTPError,
@@ -27,7 +27,7 @@ from tap_checkly.common import (
 LOG = logging.getLogger(__name__)
 
 
-def list_alerts_channels(client: Client, page: PageId) -> IO[Iterator[JSON]]:
+def list_alerts_channels(client: Client, page: PageId) -> IO[List[JSON]]:
     result = client.get(
         '/v1/alert-channels',
         params={'limit': page.per_page, 'page': page.page}
@@ -36,7 +36,7 @@ def list_alerts_channels(client: Client, page: PageId) -> IO[Iterator[JSON]]:
     return IO(result)
 
 
-def _mask_env_vars(result: Iterator[JSON]) -> None:
+def _mask_env_vars(result: List[JSON]) -> None:
     for item in result:
         env_vars = item['environmentVariables']
         vars_list = env_vars if env_vars else []
@@ -44,7 +44,7 @@ def _mask_env_vars(result: Iterator[JSON]) -> None:
             env_var['value'] = '__masked__'
 
 
-def list_checks(client: Client, page: PageId) -> IO[Iterator[JSON]]:
+def list_checks(client: Client, page: PageId) -> IO[List[JSON]]:
     result = client.get(
         '/v1/checks',
         params={'limit': page.per_page, 'page': page.page}
@@ -54,7 +54,7 @@ def list_checks(client: Client, page: PageId) -> IO[Iterator[JSON]]:
     return IO(result)
 
 
-def list_check_groups(client: Client, page: PageId) -> IO[Iterator[JSON]]:
+def list_check_groups(client: Client, page: PageId) -> IO[List[JSON]]:
     result = client.get(
         '/v1/check-groups',
         params={'limit': page.per_page, 'page': page.page}
@@ -68,7 +68,7 @@ def list_check_results(
     client: Client,
     check_id: str,
     page: PageId
-) -> IO[Iterator[JSON]]:
+) -> IO[List[JSON]]:
     result = client.get(
         f'/v1/check-results-rolled-up/{check_id}',
         params={'limit': page.per_page, 'page': page.page}
@@ -78,13 +78,13 @@ def list_check_results(
     return IO(result)
 
 
-def list_check_status(client: Client) -> IO[Iterator[JSON]]:
+def list_check_status(client: Client) -> IO[List[JSON]]:
     result = client.get('/v1/check-statuses')
     LOG.debug('check-status response: %s', result)
     return IO(result)
 
 
-def list_dashboards(client: Client, page: PageId) -> IO[Iterator[JSON]]:
+def list_dashboards(client: Client, page: PageId) -> IO[List[JSON]]:
     result = client.get(
         '/v1/dashboards',
         params={'limit': page.per_page, 'page': page.page}
@@ -93,8 +93,8 @@ def list_dashboards(client: Client, page: PageId) -> IO[Iterator[JSON]]:
     return IO(result)
 
 
-def list_env_vars(client: Client, page: PageId) -> IO[Iterator[JSON]]:
-    result: Iterator[JSON] = iter([])
+def list_env_vars(client: Client, page: PageId) -> IO[List[JSON]]:
+    result = []
     try:
         result = client.get(
             '/v1/variables',
@@ -109,7 +109,7 @@ def list_env_vars(client: Client, page: PageId) -> IO[Iterator[JSON]]:
     return IO(result)
 
 
-def list_mant_windows(client: Client, page: PageId) -> IO[Iterator[JSON]]:
+def list_mant_windows(client: Client, page: PageId) -> IO[List[JSON]]:
     result = client.get(
         '/v1/maintenance-windows',
         params={'limit': page.per_page, 'page': page.page}
@@ -118,7 +118,7 @@ def list_mant_windows(client: Client, page: PageId) -> IO[Iterator[JSON]]:
     return IO(result)
 
 
-def list_snippets(client: Client, page: PageId) -> IO[Iterator[JSON]]:
+def list_snippets(client: Client, page: PageId) -> IO[List[JSON]]:
     result = client.get(
         '/v1/snippets',
         params={'limit': page.per_page, 'page': page.page}
