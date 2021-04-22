@@ -72,7 +72,6 @@ observes.env.code-etl.runtime
 observes.env.code-etl.runtime.python
 observes.env.development.dif-gitlab-etl
 observes.env.development.streamer-gitlab
-observes.env.development.tap-zoho-analytics
 observes.env.job-last-success.runtime
 observes.env.job-last-success.runtime.python
 observes.env.paginator.development
@@ -84,7 +83,6 @@ observes.env.postgres-client.development.python
 observes.env.postgres-client.runtime
 observes.env.runtime.dif-gitlab-etl
 observes.env.runtime.streamer-gitlab
-observes.env.runtime.tap-zoho-analytics
 observes.env.runtime.timedoctor-tokens
 observes.env.service-batch-stability.runtime
 observes.env.service-migrate-tables.runtime
@@ -122,6 +120,8 @@ observes.env.tap-mixpanel.runtime
 observes.env.tap-mixpanel.runtime.python
 observes.env.tap-timedoctor.runtime
 observes.env.tap-toe-files.runtime
+observes.env.tap-zoho-analytics.runtime
+observes.env.tap-zoho-analytics.runtime.python
 observes.env.target-redshift.development
 observes.env.target-redshift.development.python
 observes.env.target-redshift.runtime

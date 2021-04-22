@@ -10,7 +10,7 @@ makeEntrypoint {
   searchPaths = {
     envSources = [
       packages.observes.generic.runner
-      packages.observes.env.runtime.tap-zoho-analytics
+      packages.observes.env.tap-zoho-analytics.runtime
     ];
   };
   name = "observes-bin-tap-zoho-analytics";
