@@ -266,11 +266,13 @@ class GraphShardMetadataJavaClassField(NamedTuple):
     n_id: NId
     var: str
     var_type: str
+    static: bool = False
 
 
 class GraphShardMetadataJavaClassMethod(NamedTuple):
     n_id: NId
     class_name: Optional[str] = None
+    static: bool = False
 
 
 class GraphShardMetadataJavaClass(NamedTuple):

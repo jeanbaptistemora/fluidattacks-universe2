@@ -35,6 +35,14 @@ def get_metadata_java(
     classes = get_metadata_java_classes(graph)
     package = get_metadata_java_package(graph)
 
+    classes_and_package = dict(())
+    for key, item in classes.items():
+        classes_and_package[package + key] = item
+        if len(key.split('.')) > 2:
+            key = key.split('.')[-1]
+            classes_and_package[key] = item
+            classes_and_package[f'.{key}'] = item
+    classes.update(classes_and_package)
     return graph_model.GraphShardMetadataJava(
         classes=classes,
         package=package,
@@ -107,7 +115,7 @@ def get_metadata_java_class_fields(
                 graph, c_id,
                 'modifiers', '__0__', 'variable_declarator', ';',
             )
-
+            match_static = g.match_ast(graph, match['modifiers'], 'static')
             if (
                 (type_id := match['__0__'])
                 and (dcl_id := match['variable_declarator'])
@@ -118,6 +126,7 @@ def get_metadata_java_class_fields(
                     n_id=id_id,
                     var=graph.nodes[id_id]['label_text'],
                     var_type=graph.nodes[type_id]['label_text'],
+                    static=bool(match_static['static'])
                 )
 
     return methods
@@ -130,21 +139,27 @@ def get_metadata_java_class_methods(
     methods: Dict[str, graph_model.GraphShardMetadataJavaClassMethod] = {}
 
     match = g.match_ast(graph, n_id, 'class_body')
-    class_name = graph.nodes[graph.nodes[n_id]
-                             ['label_field_name']]['label_text']
+    class_name = '.' + graph.nodes[graph.nodes[n_id]
+                                   ['label_field_name']]['label_text']
 
     if class_body_id := match['class_body']:
         for c_id in g.adj(graph, class_body_id):
 
             if graph.nodes[c_id]['label_type'] == 'method_declaration':
-                match = g.match_ast(graph, c_id, 'identifier')
+                match = g.match_ast(graph, c_id, 'identifier', 'modifiers')
 
                 if identifier_id := match['identifier']:
                     name = '.' + graph.nodes[identifier_id]['label_text']
+                    match_static = g.match_ast(
+                        graph,
+                        match['modifiers'],
+                        'static',
+                    )
                     methods[name] = \
                         graph_model.GraphShardMetadataJavaClassMethod(
                             c_id,
                             class_name,
+                            static=bool(match_static['static'])
                     )
             elif graph.nodes[c_id]['label_type'] == 'constructor_declaration':
                 identifier_id = graph.nodes[c_id]['label_field_name']
