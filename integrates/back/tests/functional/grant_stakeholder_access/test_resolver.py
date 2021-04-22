@@ -11,7 +11,13 @@ from . import query
 
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group('grant_stakeholder_access')
-async def test_admin(populate: bool):
+@pytest.mark.parametrize(
+    ['email'],
+    [
+        ['admin@gmail.com'],
+    ]
+)
+async def test_grant_stakeholder_access(populate: bool, email: str):
     assert populate
     group_name: str = 'group2'
     stakeholder_email: str = 'analyst@gmail.com'
@@ -19,7 +25,7 @@ async def test_admin(populate: bool):
     stakeholder_responsibility: str = 'test'
     stakeholder_role: str = 'EXECUTIVE'
     result: Dict[str, Any] = await query(
-        user='admin@gmail.com',
+        user=email,
         stakeholder=stakeholder_email,
         phone=phone_number,
         group=group_name,
@@ -33,7 +39,14 @@ async def test_admin(populate: bool):
 
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group('grant_stakeholder_access')
-async def test_analyst(populate: bool):
+@pytest.mark.parametrize(
+    ['email'],
+    [
+        ['analyst@gmail.com'],
+        ['closer@gmail.com'],
+    ]
+)
+async def test_grant_stakeholder_access_fail(populate: bool, email: str):
     assert populate
     group_name: str = 'group2'
     stakeholder_email: str = 'analyst@gmail.com'
@@ -41,29 +54,7 @@ async def test_analyst(populate: bool):
     stakeholder_responsibility: str = 'test'
     stakeholder_role: str = 'EXECUTIVE'
     result: Dict[str, Any] = await query(
-        user='analyst@gmail.com',
-        stakeholder=stakeholder_email,
-        phone=phone_number,
-        group=group_name,
-        responsibility=stakeholder_responsibility,
-        role=stakeholder_role,
-    )
-    assert 'errors' in result
-    assert  result['errors'][0]['message'] == 'Access denied'
-
-
-
-@pytest.mark.asyncio
-@pytest.mark.resolver_test_group('grant_stakeholder_access')
-async def test_closer(populate: bool):
-    assert populate
-    group_name: str = 'group2'
-    stakeholder_email: str = 'analyst@gmail.com'
-    phone_number: str = '-'
-    stakeholder_responsibility: str = 'test'
-    stakeholder_role: str = 'EXECUTIVE'
-    result: Dict[str, Any] = await query(
-        user='closer@gmail.com',
+        user=email,
         stakeholder=stakeholder_email,
         phone=phone_number,
         group=group_name,

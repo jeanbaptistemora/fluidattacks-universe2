@@ -11,16 +11,21 @@ from . import query
 
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group('edit_stakeholder')
-async def test_admin(populate: bool):
+@pytest.mark.parametrize(
+    ['email'],
+    [
+        ['admin@gmail.com'],
+    ]
+)
+async def test_edit_stakeholder(populate: bool, email: str):
     assert populate
-    stakeholder_email: str = 'analyst@gmail.com'
     group_name: str = 'group1'
     phone_number: str = '123456'
     stakeholder_responsibility: str = 'Test'
     stakeholder_role: str = 'ADMIN'
     result: Dict[str, Any] = await query(
-        user='admin@gmail.com',
-        stakeholder=stakeholder_email,
+        user=email,
+        stakeholder=email,
         phone=phone_number,
         group=group_name,
         responsibility=stakeholder_responsibility,
@@ -32,16 +37,22 @@ async def test_admin(populate: bool):
 
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group('edit_stakeholder')
-async def test_analyst(populate: bool):
+@pytest.mark.parametrize(
+    ['email'],
+    [
+        ['analyst@gmail.com'],
+        ['closer@gmail.com'],
+    ]
+)
+async def test_edit_stakeholder(populate: bool, email: str):
     assert populate
-    stakeholder_email: str = 'analyst@gmail.com'
     group_name: str = 'group1'
     phone_number: str = '123456'
     stakeholder_responsibility: str = 'Test'
     stakeholder_role: str = 'ADMIN'
     result: Dict[str, Any] = await query(
-        user='analyst@gmail.com',
-        stakeholder=stakeholder_email,
+        user=email,
+        stakeholder=email,
         phone=phone_number,
         group=group_name,
         responsibility=stakeholder_responsibility,
