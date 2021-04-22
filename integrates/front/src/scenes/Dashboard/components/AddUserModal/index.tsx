@@ -119,7 +119,12 @@ export const AddUserModal: React.FC<IAddStakeholderModalProps> = (
         otherwise: string().required(translate.t("validations.required")),
         then: string(),
       })
-      .max(MAX_RESPONSIBILITY_LENGTH),
+      .max(
+        MAX_RESPONSIBILITY_LENGTH,
+        translate.t("validations.maxLength", {
+          count: MAX_RESPONSIBILITY_LENGTH,
+        })
+      ),
     /*
      * The forbidden characters (e.g. =,'',"") check
      * will still be performed by the old custom
