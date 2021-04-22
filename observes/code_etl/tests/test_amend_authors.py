@@ -34,22 +34,22 @@ async def test_get_items_to_change() -> None:
     }
     mock_item_case_0 = amend_authors.Item(**base_mock_item)
 
-    mock_item_case_1 = copy.deepcopy(base_mock_item)
-    mock_item_case_1['committer_email'] = alias[1]
-    mock_item_case_1['committer_name'] = alias[0]
-    mock_item_case_1 = amend_authors.Item(**mock_item_case_1)
+    mock_item_case_1_dct = copy.deepcopy(base_mock_item)
+    mock_item_case_1_dct['committer_email'] = alias[1]
+    mock_item_case_1_dct['committer_name'] = alias[0]
+    mock_item_case_1 = amend_authors.Item(**mock_item_case_1_dct)
 
-    mock_item_case_2 = copy.deepcopy(base_mock_item)
-    mock_item_case_2['author_email'] = alias[1]
-    mock_item_case_2['author_name'] = alias[0]
-    mock_item_case_2 = amend_authors.Item(**mock_item_case_2)
+    mock_item_case_2_dct = copy.deepcopy(base_mock_item)
+    mock_item_case_2_dct['author_email'] = alias[1]
+    mock_item_case_2_dct['author_name'] = alias[0]
+    mock_item_case_2 = amend_authors.Item(**mock_item_case_2_dct)
 
-    mock_item_case_3 = copy.deepcopy(base_mock_item)
-    mock_item_case_3['committer_email'] = alias[1]
-    mock_item_case_3['committer_name'] = alias[0]
-    mock_item_case_3['author_email'] = alias[1]
-    mock_item_case_3['author_name'] = alias[0]
-    mock_item_case_3 = amend_authors.Item(**mock_item_case_3)
+    mock_item_case_3_dct = copy.deepcopy(base_mock_item)
+    mock_item_case_3_dct['committer_email'] = alias[1]
+    mock_item_case_3_dct['committer_name'] = alias[0]
+    mock_item_case_3_dct['author_email'] = alias[1]
+    mock_item_case_3_dct['author_name'] = alias[0]
+    mock_item_case_3 = amend_authors.Item(**mock_item_case_3_dct)
 
     mock_items = [
         mock_item_case_0, mock_item_case_1,
