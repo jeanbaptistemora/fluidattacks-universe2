@@ -218,6 +218,7 @@ module.exports = {
           'criteria/architecture/r324',
           'criteria/architecture/r325',
           'criteria/architecture/r327',
+          'criteria/architecture/r348',
         ],
     },
     {
