@@ -11,12 +11,18 @@ from . import query
 
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group('groups_with_forces')
-async def test_admin(populate: bool):
+@pytest.mark.parametrize(
+    ['email'],
+    [
+        ['admin@gmail.com'],
+    ]
+)
+async def test_group_with_forces(populate: bool, email: str):
     assert populate
     group_forces: str = 'group2'
     group_not_forces: str = 'group1'
     result: Dict[str, Any] = await query(
-        user='admin@gmail.com',
+        user=email,
     )
     assert 'errors' not in result
     assert group_forces in result['data']['groupsWithForces']
@@ -26,12 +32,19 @@ async def test_admin(populate: bool):
 
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group('groups_with_forces')
-async def test_analyst(populate: bool):
+@pytest.mark.parametrize(
+    ['email'],
+    [
+        ['analyst@gmail.com'],
+        ['closer@gmail.com'],
+    ]
+)
+async def test_group_with_forces_fail(populate: bool, email: str):
     assert populate
     group_forces: str = 'group2'
     group_not_forces: str = 'group1'
     result: Dict[str, Any] = await query(
-        user='analyst@gmail.com',
+        user=email,
     )
     assert 'errors' in result
     assert result['errors'][0]['message'] == 'Access denied'
