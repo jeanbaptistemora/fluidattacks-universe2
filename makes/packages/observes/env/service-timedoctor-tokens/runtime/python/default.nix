@@ -7,6 +7,7 @@ buildPythonRequirements {
   requirements = {
     direct = [
       "click==7.1.2"
+      "urllib3==1.26.4"
     ];
     inherited = [ ];
   };

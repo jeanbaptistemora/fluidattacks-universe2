@@ -17,7 +17,7 @@ function refresh_token {
           "analytics_auth_timedoctor"
       ) \
   &&  echo '[INFO] Updating token...' \
-  &&  observes-bin-timedoctor-tokens --timedoctor-refresh \
+  &&  observes-bin-service-timedoctor-tokens --timedoctor-refresh \
   &&  echo '[INFO] Done! Token created for current project' \
   &&  observes-bin-service-job-last-success single-job \
         --auth "${db_creds}" \

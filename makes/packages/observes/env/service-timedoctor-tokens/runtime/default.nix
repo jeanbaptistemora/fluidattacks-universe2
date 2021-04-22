@@ -1,23 +1,27 @@
-{ buildPythonPackage
-, makeTemplate
-, nixpkgs
+{ makeTemplate
 , packages
 , path
 , ...
 }:
+with packages.observes.env;
 let
-  self = buildPythonPackage {
-    name = "observes-service-timedoctor-tokens";
-    packagePath = path "/observes/services/timedoctor_tokens";
-    python = nixpkgs.python38;
-  };
+  self = path "/observes/services/timedoctor_tokens";
 in
 makeTemplate {
   name = "observes-env-service-timedoctor-tokens-runtime";
   searchPaths = {
-    envPython38Paths = [
-      packages.observes.env.service-timedoctor-tokens.runtime.python
+    envMypyPaths = [
       self
+    ];
+    envPaths = [
+      packages.observes.bin.update-project-variable
+      service-timedoctor-tokens.runtime.python
+    ];
+    envPythonPaths = [
+      self
+    ];
+    envPython38Paths = [
+      service-timedoctor-tokens.runtime.python
     ];
   };
 }

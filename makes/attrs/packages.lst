@@ -83,7 +83,6 @@ observes.env.postgres-client.development.python
 observes.env.postgres-client.runtime
 observes.env.runtime.dif-gitlab-etl
 observes.env.runtime.streamer-gitlab
-observes.env.runtime.timedoctor-tokens
 observes.env.service-batch-stability.runtime
 observes.env.service-migrate-tables.runtime
 observes.env.service-migrate-tables.runtime.python

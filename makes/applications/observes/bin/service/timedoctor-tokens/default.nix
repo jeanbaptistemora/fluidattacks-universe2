@@ -10,9 +10,9 @@ makeEntrypoint {
   searchPaths = {
     envSources = [
       packages.observes.generic.runner
-      packages.observes.env.runtime.timedoctor-tokens
+      packages.observes.env.service-timedoctor-tokens.runtime
     ];
   };
-  name = "observes-bin-timedoctor-tokens";
+  name = "observes-bin-service-timedoctor-tokens";
   template = path "/makes/packages/observes/generic/runner/runner_entrypoint.sh";
 }
