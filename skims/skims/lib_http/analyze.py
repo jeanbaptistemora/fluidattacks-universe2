@@ -1,4 +1,7 @@
 # Standard library
+from queue import (
+    SimpleQueue,
+)
 from typing import (
     Dict,
     Set,
@@ -33,6 +36,7 @@ from utils.function import (
     shield,
 )
 from utils.html import (
+    get_sameorigin_urls,
     is_html,
 )
 from utils.http import (
@@ -84,7 +88,7 @@ async def get_url(url: str) -> URLContext:
         response = await request(session, 'GET', url)
         content_raw = await response.content.read(1048576)
         content = content_raw.decode('latin-1')
-        soup = bs4.BeautifulSoup(content)
+        soup = bs4.BeautifulSoup(content, features='html.parser')
 
         return URLContext(
             components=urllib.parse.urlparse(url),
@@ -98,9 +102,22 @@ async def get_url(url: str) -> URLContext:
 
 async def get_urls() -> Set[URLContext]:
     urls: Set[URLContext] = set()
+    urls_done: Set[str] = set()
+    urls_pending: SimpleQueue = SimpleQueue()
 
     for url in set(CTX.config.http.include):
-        urls.add(await get_url(url))
+        urls_pending.put(url)
+
+    while not urls_pending.empty():
+        url = urls_pending.get()
+        url_ctx: URLContext = await get_url(url)
+        urls.add(url_ctx)
+        urls_done.add(url)
+
+        for child_url in get_sameorigin_urls(url_ctx.components, url_ctx.soup):
+            if child_url not in urls_done:
+                log_blocking('info', 'Discovered url: %s', child_url)
+                urls_pending.put(child_url)
 
     return urls
 
