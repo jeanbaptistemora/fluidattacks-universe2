@@ -74,6 +74,8 @@ async def test_graph_generation(
     with open(f'skims/test/data/sast/root-graph_{suffix_out}.json') as handle:
         expected = handle.read()
 
+    assert graph_db_as_json_str == expected
+
     # Test SymEval
     syntax_steps = {
         finding.name: get_possible_syntax_steps(graph_db, finding)

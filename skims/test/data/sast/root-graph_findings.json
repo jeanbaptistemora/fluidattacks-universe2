@@ -711,8 +711,9 @@
               "fields": {},
               "methods": {
                 ".main": {
-                  "class_name": "Test",
-                  "n_id": "13"
+                  "class_name": ".Test",
+                  "n_id": "13",
+                  "static": true
                 }
               },
               "n_id": "6"
@@ -2139,8 +2140,9 @@
               "fields": {},
               "methods": {
                 ".doPost": {
-                  "class_name": "Test",
-                  "n_id": "13"
+                  "class_name": ".Test",
+                  "n_id": "13",
+                  "static": false
                 }
               },
               "n_id": "6"

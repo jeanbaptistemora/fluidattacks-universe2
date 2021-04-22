@@ -6651,18 +6651,44 @@
               "fields": {
                 ".serialVersionUID": {
                   "n_id": "58",
+                  "static": true,
                   "var": "serialVersionUID",
                   "var_type": "long"
                 }
               },
               "methods": {
                 ".doGet": {
-                  "class_name": "BenchmarkTest00001",
-                  "n_id": "62"
+                  "class_name": ".BenchmarkTest00001",
+                  "n_id": "62",
+                  "static": false
                 },
                 ".doPost": {
-                  "class_name": "BenchmarkTest00001",
-                  "n_id": "223"
+                  "class_name": ".BenchmarkTest00001",
+                  "n_id": "223",
+                  "static": false
+                }
+              },
+              "n_id": "31"
+            },
+            "org.owasp.benchmark.testcode.BenchmarkTest00001": {
+              "fields": {
+                ".serialVersionUID": {
+                  "n_id": "58",
+                  "static": true,
+                  "var": "serialVersionUID",
+                  "var_type": "long"
+                }
+              },
+              "methods": {
+                ".doGet": {
+                  "class_name": ".BenchmarkTest00001",
+                  "n_id": "62",
+                  "static": false
+                },
+                ".doPost": {
+                  "class_name": ".BenchmarkTest00001",
+                  "n_id": "223",
+                  "static": false
                 }
               },
               "n_id": "31"
@@ -11755,18 +11781,44 @@
               "fields": {
                 ".serialVersionUID": {
                   "n_id": "58",
+                  "static": true,
                   "var": "serialVersionUID",
                   "var_type": "long"
                 }
               },
               "methods": {
                 ".doGet": {
-                  "class_name": "BenchmarkTest00008",
-                  "n_id": "62"
+                  "class_name": ".BenchmarkTest00008",
+                  "n_id": "62",
+                  "static": false
                 },
                 ".doPost": {
-                  "class_name": "BenchmarkTest00008",
-                  "n_id": "98"
+                  "class_name": ".BenchmarkTest00008",
+                  "n_id": "98",
+                  "static": false
+                }
+              },
+              "n_id": "31"
+            },
+            "org.owasp.benchmark.testcode.BenchmarkTest00008": {
+              "fields": {
+                ".serialVersionUID": {
+                  "n_id": "58",
+                  "static": true,
+                  "var": "serialVersionUID",
+                  "var_type": "long"
+                }
+              },
+              "methods": {
+                ".doGet": {
+                  "class_name": ".BenchmarkTest00008",
+                  "n_id": "62",
+                  "static": false
+                },
+                ".doPost": {
+                  "class_name": ".BenchmarkTest00008",
+                  "n_id": "98",
+                  "static": false
                 }
               },
               "n_id": "31"
@@ -19964,18 +20016,44 @@
               "fields": {
                 ".serialVersionUID": {
                   "n_id": "58",
+                  "static": true,
                   "var": "serialVersionUID",
                   "var_type": "long"
                 }
               },
               "methods": {
                 ".doGet": {
-                  "class_name": "BenchmarkTest00167",
-                  "n_id": "62"
+                  "class_name": ".BenchmarkTest00167",
+                  "n_id": "62",
+                  "static": false
                 },
                 ".doPost": {
-                  "class_name": "BenchmarkTest00167",
-                  "n_id": "98"
+                  "class_name": ".BenchmarkTest00167",
+                  "n_id": "98",
+                  "static": false
+                }
+              },
+              "n_id": "31"
+            },
+            "org.owasp.benchmark.testcode.BenchmarkTest00167": {
+              "fields": {
+                ".serialVersionUID": {
+                  "n_id": "58",
+                  "static": true,
+                  "var": "serialVersionUID",
+                  "var_type": "long"
+                }
+              },
+              "methods": {
+                ".doGet": {
+                  "class_name": ".BenchmarkTest00167",
+                  "n_id": "62",
+                  "static": false
+                },
+                ".doPost": {
+                  "class_name": ".BenchmarkTest00167",
+                  "n_id": "98",
+                  "static": false
                 }
               },
               "n_id": "31"
@@ -21974,7 +22052,10 @@
   "shards_by_java_class": {
     "org.owasp.benchmark.testcode.BenchmarkTest00001": "skims/test/data/benchmark/owasp/BenchmarkTest00001.java",
     "org.owasp.benchmark.testcode.BenchmarkTest00008": "skims/test/data/benchmark/owasp/BenchmarkTest00008.java",
-    "org.owasp.benchmark.testcode.BenchmarkTest00167": "skims/test/data/benchmark/owasp/BenchmarkTest00167.java"
+    "org.owasp.benchmark.testcode.BenchmarkTest00167": "skims/test/data/benchmark/owasp/BenchmarkTest00167.java",
+    "org.owasp.benchmark.testcodeorg.owasp.benchmark.testcode.BenchmarkTest00001": "skims/test/data/benchmark/owasp/BenchmarkTest00001.java",
+    "org.owasp.benchmark.testcodeorg.owasp.benchmark.testcode.BenchmarkTest00008": "skims/test/data/benchmark/owasp/BenchmarkTest00008.java",
+    "org.owasp.benchmark.testcodeorg.owasp.benchmark.testcode.BenchmarkTest00167": "skims/test/data/benchmark/owasp/BenchmarkTest00167.java"
   },
   "shards_by_path": {
     "skims/test/data/benchmark/owasp/BenchmarkTest00001.java": 0,

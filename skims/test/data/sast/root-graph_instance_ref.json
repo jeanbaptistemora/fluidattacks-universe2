@@ -10452,48 +10452,59 @@
               "fields": {},
               "methods": {
                 ".createRandom": {
-                  "class_name": "App",
-                  "n_id": "13"
+                  "class_name": ".App",
+                  "n_id": "13",
+                  "static": false
                 },
                 ".main": {
-                  "class_name": "App",
-                  "n_id": "60"
+                  "class_name": ".App",
+                  "n_id": "60",
+                  "static": true
                 },
                 ".test_01": {
-                  "class_name": "App",
-                  "n_id": "177"
+                  "class_name": ".App",
+                  "n_id": "177",
+                  "static": false
                 },
                 ".test_02": {
-                  "class_name": "App",
-                  "n_id": "272"
+                  "class_name": ".App",
+                  "n_id": "272",
+                  "static": false
                 },
                 ".test_03": {
-                  "class_name": "App",
-                  "n_id": "355"
+                  "class_name": ".App",
+                  "n_id": "355",
+                  "static": false
                 },
                 ".test_04": {
-                  "class_name": "App",
-                  "n_id": "450"
+                  "class_name": ".App",
+                  "n_id": "450",
+                  "static": false
                 },
                 ".test_05": {
-                  "class_name": "App",
-                  "n_id": "514"
+                  "class_name": ".App",
+                  "n_id": "514",
+                  "static": false
                 },
                 ".test_06": {
-                  "class_name": "App",
-                  "n_id": "605"
+                  "class_name": ".App",
+                  "n_id": "605",
+                  "static": false
                 },
                 ".test_07": {
-                  "class_name": "App",
-                  "n_id": "700"
+                  "class_name": ".App",
+                  "n_id": "700",
+                  "static": false
                 },
                 ".test_08": {
-                  "class_name": "App",
-                  "n_id": "783"
+                  "class_name": ".App",
+                  "n_id": "783",
+                  "static": false
                 },
                 ".test_09": {
-                  "class_name": "App",
-                  "n_id": "859"
+                  "class_name": ".App",
+                  "n_id": "859",
+                  "static": false
                 }
               },
               "n_id": "6"
@@ -15639,52 +15650,63 @@
               "fields": {
                 ".lastName": {
                   "n_id": "21",
+                  "static": false,
                   "var": "lastName",
                   "var_type": "String"
                 },
                 ".name": {
                   "n_id": "14",
+                  "static": false,
                   "var": "name",
                   "var_type": "String"
                 },
                 ".userId": {
                   "n_id": "28",
+                  "static": false,
                   "var": "userId",
                   "var_type": "String"
                 }
               },
               "methods": {
                 ".User_1": {
-                  "class_name": "User",
-                  "n_id": "30"
+                  "class_name": ".User",
+                  "n_id": "30",
+                  "static": false
                 },
                 ".User_2": {
-                  "class_name": "User",
-                  "n_id": "54"
+                  "class_name": ".User",
+                  "n_id": "54",
+                  "static": false
                 },
                 ".User_3": {
-                  "class_name": "User",
-                  "n_id": "86"
+                  "class_name": ".User",
+                  "n_id": "86",
+                  "static": false
                 },
                 ".getName": {
-                  "class_name": "User",
-                  "n_id": "127"
+                  "class_name": ".User",
+                  "n_id": "127",
+                  "static": false
                 },
                 ".getUserId": {
-                  "class_name": "User",
-                  "n_id": "164"
+                  "class_name": ".User",
+                  "n_id": "164",
+                  "static": false
                 },
                 ".setLastName": {
-                  "class_name": "User",
-                  "n_id": "213"
+                  "class_name": ".User",
+                  "n_id": "213",
+                  "static": false
                 },
                 ".setName": {
-                  "class_name": "User",
-                  "n_id": "143"
+                  "class_name": ".User",
+                  "n_id": "143",
+                  "static": false
                 },
                 ".setUserId": {
-                  "class_name": "User",
-                  "n_id": "193"
+                  "class_name": ".User",
+                  "n_id": "193",
+                  "static": false
                 }
               },
               "n_id": "2"

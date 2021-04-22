@@ -18164,17 +18164,28 @@
       "metadata": {
         "java": {
           "classes": {
+            ".InnerTest": {
+              "fields": {},
+              "methods": {},
+              "n_id": "1589"
+            },
             ".Test": {
               "fields": {},
               "methods": {
                 ".main": {
-                  "class_name": "Test",
-                  "n_id": "17"
+                  "class_name": ".Test",
+                  "n_id": "17",
+                  "static": true
                 }
               },
               "n_id": "10"
             },
             ".Test.InnerTest": {
+              "fields": {},
+              "methods": {},
+              "n_id": "1589"
+            },
+            "InnerTest": {
               "fields": {},
               "methods": {},
               "n_id": "1589"
@@ -24329,8 +24340,10 @@
     }
   ],
   "shards_by_java_class": {
+    ".InnerTest": "skims/test/data/sast/TestCFG.java",
     ".Test": "skims/test/data/sast/TestCFG.java",
-    ".Test.InnerTest": "skims/test/data/sast/TestCFG.java"
+    ".Test.InnerTest": "skims/test/data/sast/TestCFG.java",
+    "InnerTest": "skims/test/data/sast/TestCFG.java"
   },
   "shards_by_path": {
     "skims/test/data/sast/TestCFG.java": 0
