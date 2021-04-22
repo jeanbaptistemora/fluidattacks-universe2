@@ -34,24 +34,28 @@ from tap_checkly.common import (
 
 
 class AlertChsPage(NamedTuple):
-    data: IO[List[JSON]]
+    data: List[JSON]
 
     @classmethod
-    def new(cls, client: Client, page: PageId) -> AlertChsPage:
+    def new(cls, client: Client, page: PageId) -> IO[AlertChsPage]:
         data = raw.list_alerts_channels(client, page)
-        return cls(data)
+        return data.map(cls)
+
+
+def _is_empty(iopage: IO[AlertChsPage]) -> bool:
+    return iopage.map(lambda page: bool(page.data)) == IO(False)
 
 
 class AlertChsApi(NamedTuple):
-    list_alerts_channels: Callable[[PageOrAll], Iterator[AlertChsPage]]
+    list_alerts_channels: Callable[[PageOrAll], Iterator[IO[AlertChsPage]]]
 
     @classmethod
     def new(cls, client: Client) -> AlertChsApi:
         return cls(
             list_alerts_channels=partial(
                 extract_page,
-                AlertChsPage,
+                IO[AlertChsPage],
                 partial(AlertChsPage.new, client),
-                lambda page: page.data.map(bool) == IO(False),
+                _is_empty,
             )
         )

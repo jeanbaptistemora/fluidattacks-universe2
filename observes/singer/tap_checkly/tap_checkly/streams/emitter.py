@@ -21,7 +21,6 @@ from singer_io.singer import (
 )
 from tap_checkly.api import (
     ApiPage,
-    ImpApiPage,
 )
 from tap_checkly.common import (
     JSON,
@@ -51,12 +50,6 @@ def emit_records(
     s_records = _json_list_srecords(stream, records)
     for record in s_records:
         factory.emit(record)
-
-
-def emit_imp_page(stream: SupportedStreams, page: ImpApiPage) -> None:
-    page.data.map(
-        partial(emit_records, stream)
-    )
 
 
 def emit_page(stream: SupportedStreams, page: ApiPage) -> None:

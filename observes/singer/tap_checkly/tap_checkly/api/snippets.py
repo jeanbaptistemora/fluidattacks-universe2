@@ -32,24 +32,28 @@ from tap_checkly.common import (
 
 
 class SnippetsPage(NamedTuple):
-    data: IO[List[JSON]]
+    data: List[JSON]
 
     @classmethod
-    def new(cls, client: Client, page: PageId) -> SnippetsPage:
+    def new(cls, client: Client, page: PageId) -> IO[SnippetsPage]:
         data = raw.list_snippets(client, page)
-        return cls(data)
+        return data.map(cls)
+
+
+def _is_empty(iopage: IO[SnippetsPage]) -> bool:
+    return iopage.map(lambda page: bool(page.data)) == IO(False)
 
 
 class SnippetsApi(NamedTuple):
-    list_snippets: Callable[[PageOrAll], Iterator[SnippetsPage]]
+    list_snippets: Callable[[PageOrAll], Iterator[IO[SnippetsPage]]]
 
     @classmethod
     def new(cls, client: Client) -> SnippetsApi:
         return cls(
             list_snippets=partial(
                 extractor.extract_page,
-                SnippetsPage,
+                IO[SnippetsPage],
                 partial(SnippetsPage.new, client),
-                lambda page: page.data.map(bool) == IO(False),
+                _is_empty,
             )
         )

@@ -32,24 +32,28 @@ from tap_checkly.common import (
 
 
 class DashboardsPage(NamedTuple):
-    data: IO[List[JSON]]
+    data: List[JSON]
 
     @classmethod
-    def new(cls, client: Client, page: PageId) -> DashboardsPage:
+    def new(cls, client: Client, page: PageId) -> IO[DashboardsPage]:
         data = raw.list_dashboards(client, page)
-        return cls(data)
+        return data.map(cls)
+
+
+def _is_empty(iopage: IO[DashboardsPage]) -> bool:
+    return iopage.map(lambda page: bool(page.data)) == IO(False)
 
 
 class DashboardsApi(NamedTuple):
-    list_dashboards: Callable[[PageOrAll], Iterator[DashboardsPage]]
+    list_dashboards: Callable[[PageOrAll], Iterator[IO[DashboardsPage]]]
 
     @classmethod
     def new(cls, client: Client) -> DashboardsApi:
         return cls(
             list_dashboards=partial(
                 extractor.extract_page,
-                DashboardsPage,
+                IO[DashboardsPage],
                 partial(DashboardsPage.new, client),
-                lambda page: page.data.map(bool) == IO(False),
+                _is_empty,
             )
         )

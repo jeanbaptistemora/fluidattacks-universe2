@@ -32,24 +32,28 @@ from tap_checkly.common import (
 
 
 class MantWindowsPage(NamedTuple):
-    data: IO[List[JSON]]
+    data: List[JSON]
 
     @classmethod
-    def new(cls, client: Client, page: PageId) -> MantWindowsPage:
+    def new(cls, client: Client, page: PageId) -> IO[MantWindowsPage]:
         data = raw.list_mant_windows(client, page)
-        return cls(data)
+        return data.map(cls)
+
+
+def _is_empty(iopage: IO[MantWindowsPage]) -> bool:
+    return iopage.map(lambda page: bool(page.data)) == IO(False)
 
 
 class MantWindowsApi(NamedTuple):
-    list_mant_windows: Callable[[PageOrAll], Iterator[MantWindowsPage]]
+    list_mant_windows: Callable[[PageOrAll], Iterator[IO[MantWindowsPage]]]
 
     @classmethod
     def new(cls, client: Client) -> MantWindowsApi:
         return cls(
             list_mant_windows=partial(
                 extractor.extract_page,
-                MantWindowsPage,
+                IO[MantWindowsPage],
                 partial(MantWindowsPage.new, client),
-                lambda page: page.data.map(bool) == IO(False),
+                _is_empty,
             )
         )

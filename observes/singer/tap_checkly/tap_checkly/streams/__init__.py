@@ -16,7 +16,6 @@ from tap_checkly.api import (
     ApiClient,
     ApiPage,
     CheckId,
-    ImpApiPage,
 )
 from tap_checkly.streams import (
     emitter,
@@ -30,14 +29,6 @@ ALL = AllPages()
 
 
 def _stream_data(
-    stream: SupportedStreams,
-    pages: Iterator[ImpApiPage],
-) -> None:
-    for page in pages:
-        emitter.emit_imp_page(stream, page)
-
-
-def _stream_data2(
     stream: SupportedStreams,
     pages: Iterator[IO[ApiPage]],
 ) -> None:
@@ -53,14 +44,14 @@ def all_alerts(api: ApiClient) -> None:
 
 
 def all_checks(api: ApiClient) -> None:
-    _stream_data2(
+    _stream_data(
         SupportedStreams.CHECKS,
         api.checks.list_checks(ALL),
     )
 
 
 def all_chk_groups(api: ApiClient) -> None:
-    _stream_data2(
+    _stream_data(
         SupportedStreams.CHECK_GROUPS,
         api.checks.list_check_groups(ALL),
     )
@@ -71,7 +62,7 @@ def all_chk_results(api: ApiClient) -> None:
 
     def _emmit(checks: Iterator[CheckId]) -> None:
         for check in checks:
-            _stream_data2(
+            _stream_data(
                 stream,
                 api.checks.list_check_results(check, ALL)
             )

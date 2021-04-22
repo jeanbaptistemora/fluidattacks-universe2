@@ -32,24 +32,28 @@ from tap_checkly.common import (
 
 
 class EnvVarsPage(NamedTuple):
-    data: IO[List[JSON]]
+    data: List[JSON]
 
     @classmethod
-    def new(cls, client: Client, page: PageId) -> EnvVarsPage:
+    def new(cls, client: Client, page: PageId) -> IO[EnvVarsPage]:
         data = raw.list_env_vars(client, page)
-        return cls(data)
+        return data.map(cls)
+
+
+def _is_empty(iopage: IO[EnvVarsPage]) -> bool:
+    return iopage.map(lambda page: bool(page.data)) == IO(False)
 
 
 class EnvVarsApi(NamedTuple):
-    list_env_vars: Callable[[PageOrAll], Iterator[EnvVarsPage]]
+    list_env_vars: Callable[[PageOrAll], Iterator[IO[EnvVarsPage]]]
 
     @classmethod
     def new(cls, client: Client) -> EnvVarsApi:
         return cls(
             list_env_vars=partial(
                 extractor.extract_page,
-                EnvVarsPage,
+                IO[EnvVarsPage],
                 partial(EnvVarsPage.new, client),
-                lambda page: page.data.map(bool) == IO(False),
+                _is_empty,
             )
         )

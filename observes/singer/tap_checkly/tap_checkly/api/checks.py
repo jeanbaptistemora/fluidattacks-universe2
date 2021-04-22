@@ -88,6 +88,10 @@ PageType = TypeVar(
 )
 
 
+def _is_empty(iopage: IO[PageType]) -> bool:
+    return iopage.map(lambda page: bool(page.data)) == IO(False)
+
+
 def _generic_listing(
     _type: Type[PageType],
     _iotype: Type[IO[PageType]],
@@ -97,10 +101,12 @@ def _generic_listing(
         extract_page,
         _iotype,
         partial(_type.new, client),
-        lambda iopage: iopage.map(
-            lambda page: bool(page.data)
-        ) == IO(False),
+        _is_empty,
     )
+
+
+def _is_empty_2(iopage: IO[CheckResultsPage]) -> bool:
+    return iopage.map(lambda page: bool(page.data)) == IO(False)
 
 
 def _generic_check_prop_listing(
@@ -113,9 +119,7 @@ def _generic_check_prop_listing(
     return extract_page(
         _iotype,
         partial(_type.new, client, check_id),
-        lambda iopage: iopage.map(
-            lambda page: bool(page.data)
-        ) == IO(False),
+        _is_empty_2,
         page
     )
 

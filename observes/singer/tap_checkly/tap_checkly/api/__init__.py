@@ -44,17 +44,15 @@ from tap_checkly.api.snippets import (
     SnippetsPage,
 )
 
-ImpApiPage = Union[
+ApiPage = Union[
     AlertChsPage,
+    CheckGroupsPage,
+    CheckResultsPage,
+    ChecksPage,
     DashboardsPage,
     EnvVarsPage,
     MantWindowsPage,
     SnippetsPage,
-]
-ApiPage = Union[
-    CheckGroupsPage,
-    CheckResultsPage,
-    ChecksPage,
 ]
 
 
