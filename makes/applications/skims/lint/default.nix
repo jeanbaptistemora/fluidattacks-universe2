@@ -1,9 +1,9 @@
-{ makeDerivation
+{ makeEntrypoint
 , packages
 , path
 , ...
 }:
-makeDerivation {
+makeEntrypoint {
   arguments = {
     envImportLinterConfig = path "/skims/setup.imports.cfg";
     envSrcSkimsSkims = path "/skims/skims";
@@ -12,7 +12,6 @@ makeDerivation {
     envSrcProcessGroup = path "/makes/applications/skims/process-group/src";
     envSrcTestMocksHttp = path "/makes/applications/skims/test/mocks/http/src";
   };
-  builder = path "/makes/packages/skims/lint/builder.sh";
   name = "skims-lint";
   searchPaths = {
     envSources = [
@@ -22,4 +21,5 @@ makeDerivation {
     ];
     envUtils = [ "/makes/utils/lint-python" ];
   };
+  template = path "/makes/applications/skims/lint/entrypoint.sh";
 }

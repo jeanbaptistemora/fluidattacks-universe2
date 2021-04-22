@@ -161,7 +161,6 @@ reviews.runtime
 skims.config-development
 skims.config-runtime
 skims.docs.build
-skims.lint
 skims.oci-build
 skims.parsers.antlr
 skims.parsers.babel
