@@ -216,6 +216,7 @@ module.exports = {
           'criteria/architecture/r320',
           'criteria/architecture/r324',
           'criteria/architecture/r325',
+          'criteria/architecture/r327',
         ],
     },
     {
