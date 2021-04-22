@@ -12,7 +12,7 @@ makeDerivation {
   searchPaths = {
     envSources = [
       packages.observes.generic.tester
-      packages.observes.env.development.code-etl
+      packages.observes.env.code-etl.development
     ];
   };
   builder = path "/makes/packages/observes/generic/tester/test_builder.sh";

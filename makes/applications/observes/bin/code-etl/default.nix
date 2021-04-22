@@ -10,7 +10,7 @@ makeEntrypoint {
   searchPaths = {
     envSources = [
       packages.observes.generic.runner
-      packages.observes.env.runtime.code-etl
+      packages.observes.env.code-etl.runtime
     ];
   };
   name = "observes-bin-code-etl";

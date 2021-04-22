@@ -66,7 +66,10 @@ melts.config-runtime
 melts.lib
 melts.lint
 observes.config-target-redshift-runtime
-observes.env.development.code-etl
+observes.env.code-etl.development
+observes.env.code-etl.development.python
+observes.env.code-etl.runtime
+observes.env.code-etl.runtime.python
 observes.env.development.dif-gitlab-etl
 observes.env.development.streamer-gitlab
 observes.env.development.tap-zoho-analytics
@@ -79,7 +82,6 @@ observes.env.paginator.runtime.python
 observes.env.postgres-client.development
 observes.env.postgres-client.development.python
 observes.env.postgres-client.runtime
-observes.env.runtime.code-etl
 observes.env.runtime.dif-gitlab-etl
 observes.env.runtime.streamer-gitlab
 observes.env.runtime.tap-zoho-analytics
