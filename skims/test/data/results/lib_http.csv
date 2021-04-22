@@ -71,6 +71,7 @@ F043. Missing HTTP security headers - Strict-Transport-Security,http://localhost
 F043. Missing HTTP security headers - Strict-Transport-Security,http://localhost:48000/f043_dast_xssp_2 (namespace),Missing Strict-Transport-Security,644
 F043. Missing HTTP security headers - Strict-Transport-Security,http://localhost:48000/f043_dast_xssp_3 (namespace),Missing Strict-Transport-Security,644
 F043. Missing HTTP security headers - Strict-Transport-Security,http://localhost:48000/f043_dast_xssp_4 (namespace),Missing Strict-Transport-Security,644
+F043. Missing HTTP security headers - X-XSS-Protection,http://localhost:48000/ (namespace),Missing X-XSS-Protection,644
 F043. Missing HTTP security headers - X-XSS-Protection,http://localhost:48000/f043_dast_csp_0 (namespace),Missing X-XSS-Protection,644
 F043. Missing HTTP security headers - X-XSS-Protection,http://localhost:48000/f043_dast_csp_1 (namespace),Missing X-XSS-Protection,644
 F043. Missing HTTP security headers - X-XSS-Protection,http://localhost:48000/f043_dast_csp_2 (namespace),Missing X-XSS-Protection,644

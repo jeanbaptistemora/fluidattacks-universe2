@@ -5,6 +5,7 @@ from functools import (
 from typing import (
     Callable,
     Dict,
+    List,
 )
 import urllib.parse
 
@@ -35,15 +36,18 @@ def add_rule(
 @APP.route('/')
 def home() -> Response:
     # Return a small sitemap with the available URL and methods in the server
-    content = '\n'.join(sorted(
-        f'{request.host_url[:-1]}{urllib.parse.unquote(url)} {rule.methods}'
-        for rule in APP.url_map.iter_rules()
-        for url in [url_for(rule.endpoint, **{
-            arg: f'[{arg}]' for arg in rule.arguments
-        })]
-    ))
+    urls: List[str] = []
 
-    return Response(content, content_type='text/plain')
+    for rule in APP.url_map.iter_rules():
+        url = request.host_url[:-1] + urllib.parse.unquote(url_for(
+            rule.endpoint,
+            **{arg: f'[{arg}]' for arg in rule.arguments},
+        ))
+        urls.append(f'<a href={url}>{url}</a> {", ".join(rule.methods)}')
+
+    content = f'<html><body>{"<br />".join(sorted(urls))}</body></html>'
+
+    return Response(content, content_type='text/html')
 
 
 def response_header(headers: Dict[str, str]) -> Response:
