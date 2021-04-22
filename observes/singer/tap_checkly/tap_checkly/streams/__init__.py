@@ -15,12 +15,12 @@ from paginator import (
 from tap_checkly.api import (
     ApiClient,
     ApiPage,
+    CheckId,
     ImpApiPage,
 )
 from tap_checkly.streams import (
     emitter,
 )
-
 from tap_checkly.streams.objs import (
     SupportedStreams,
 )
@@ -64,6 +64,20 @@ def all_chk_groups(api: ApiClient) -> None:
         SupportedStreams.CHECK_GROUPS,
         api.checks.list_check_groups(ALL),
     )
+
+
+def all_chk_results(api: ApiClient) -> None:
+    stream = SupportedStreams.CHECK_RESULTS
+
+    def _emmit(checks: Iterator[CheckId]) -> None:
+        for check in checks:
+            _stream_data2(
+                stream,
+                api.checks.list_check_results(check, ALL)
+            )
+    chks_pages_io = api.checks.list_checks(ALL)
+    for chks_page_io in chks_pages_io:
+        chks_page_io.map(CheckId.new).map(_emmit)
 
 
 def all_chk_status(api: ApiClient) -> None:

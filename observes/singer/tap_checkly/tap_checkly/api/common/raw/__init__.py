@@ -64,6 +64,20 @@ def list_check_groups(client: Client, page: PageId) -> IO[Iterator[JSON]]:
     return IO(result)
 
 
+def list_check_results(
+    client: Client,
+    check_id: str,
+    page: PageId
+) -> IO[Iterator[JSON]]:
+    result = client.get(
+        f'/v1/check-results-rolled-up/{check_id}',
+        params={'limit': page.per_page, 'page': page.page}
+    )
+    LOG.debug('check-results-rolled-up response: %s', result)
+    LOG.info('Getting check-results %s %s', check_id, page)
+    return IO(result)
+
+
 def list_check_status(client: Client) -> IO[Iterator[JSON]]:
     result = client.get('/v1/check-statuses')
     LOG.debug('check-status response: %s', result)

@@ -19,6 +19,8 @@ from tap_checkly.api.auth import (
 )
 from tap_checkly.api.checks import (
     CheckGroupsPage,
+    CheckId,
+    CheckResultsPage,
     ChecksApi,
     ChecksPage,
 )
@@ -51,6 +53,7 @@ ImpApiPage = Union[
 ]
 ApiPage = Union[
     CheckGroupsPage,
+    CheckResultsPage,
     ChecksPage,
 ]
 
@@ -77,5 +80,6 @@ class ApiClient(NamedTuple):
 
 
 __all__ = [
+    'CheckId',
     'Credentials',
 ]
