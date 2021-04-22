@@ -103,7 +103,7 @@ const CardParent: StyledComponent<
     pointer
     fl
     relative
-    overflow-hidden
+    mb4
   `,
 })``;
 
@@ -157,7 +157,7 @@ const CardParagraph: StyledComponent<
   className: `
     c-black-gray
     fw4
-    f3
+    f5
     roboto
     mv2
   `,
@@ -237,44 +237,50 @@ const SolutionsSection: React.FC = (): JSX.Element => {
           <CardParent>
             <Link to={"/solutions/devsecops/"}>
               <CardChild className={"bg-solution1"}>
-                <ChildParagraph>{"DevSecOps"}</ChildParagraph>
+                <ChildParagraph>{"Go to Solution"}</ChildParagraph>
               </CardChild>
             </Link>
+            <CardParagraph>{"DevSecOps"}</CardParagraph>
           </CardParent>
           <CardParent>
             <Link to={"/solutions/security-testing/"}>
               <CardChild className={"bg-solution2"}>
-                <ChildParagraph>{"Security Testing"}</ChildParagraph>
+                <ChildParagraph>{"Go to Solution"}</ChildParagraph>
               </CardChild>
             </Link>
+            <CardParagraph>{"Security Testing"}</CardParagraph>
           </CardParent>
           <CardParent>
             <Link to={"/solutions/penetration-testing/"}>
               <CardChild className={"bg-solution3"}>
-                <ChildParagraph>{"Penetration Testing"}</ChildParagraph>
+                <ChildParagraph>{"Go to Solution"}</ChildParagraph>
               </CardChild>
             </Link>
+            <CardParagraph>{"Penetration Testing"}</CardParagraph>
           </CardParent>
           <CardParent>
             <Link to={"/solutions/ethical-hacking/"}>
               <CardChild className={"bg-solution4"}>
-                <ChildParagraph>{"Ethical Hacking"}</ChildParagraph>
+                <ChildParagraph>{"Go to Solution"}</ChildParagraph>
               </CardChild>
             </Link>
+            <CardParagraph>{"Ethical Hacking"}</CardParagraph>
           </CardParent>
           <CardParent>
             <Link to={"/solutions/red-teaming/"}>
               <CardChild className={"bg-solution5"}>
-                <ChildParagraph>{"Red Teaming"}</ChildParagraph>
+                <ChildParagraph>{"Go to Solution"}</ChildParagraph>
               </CardChild>
             </Link>
+            <CardParagraph>{"Red Teaming"}</CardParagraph>
           </CardParent>
           <CardParent>
             <Link to={"/solutions/attack-simulation/"}>
               <CardChild className={"bg-solution6"}>
-                <ChildParagraph>{"Attack Simulation"}</ChildParagraph>
+                <ChildParagraph>{"Go to Solution"}</ChildParagraph>
               </CardChild>
             </Link>
+            <CardParagraph>{"Attack Simulation"}</CardParagraph>
           </CardParent>
         </CardsGrid>
         <div className={"flex dn-l justify-center items-center"}>
