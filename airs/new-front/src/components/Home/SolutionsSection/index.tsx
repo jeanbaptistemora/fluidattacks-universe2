@@ -8,6 +8,7 @@ import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "gatsby";
 import React, { useEffect, useState } from "react";
+import ScrollAnimation from "react-animate-on-scroll";
 import type { StyledComponent } from "styled-components";
 import styled from "styled-components";
 
@@ -228,127 +229,129 @@ const SolutionsSection: React.FC = (): JSX.Element => {
   });
 
   return (
-    <Container>
-      <InnerContainer>
-        <SectionTitle className={"mb4"}>
-          <TitleVertical>{"SOLUTIONS"}</TitleVertical>
-        </SectionTitle>
-        <CardsGrid>
-          <CardParent>
-            <Link to={"/solutions/devsecops/"}>
-              <CardChild className={"bg-solution1"}>
-                <ChildParagraph>{"Go to Solution"}</ChildParagraph>
-              </CardChild>
-            </Link>
-            <CardParagraph>{"DevSecOps"}</CardParagraph>
-          </CardParent>
-          <CardParent>
-            <Link to={"/solutions/security-testing/"}>
-              <CardChild className={"bg-solution2"}>
-                <ChildParagraph>{"Go to Solution"}</ChildParagraph>
-              </CardChild>
-            </Link>
-            <CardParagraph>{"Security Testing"}</CardParagraph>
-          </CardParent>
-          <CardParent>
-            <Link to={"/solutions/penetration-testing/"}>
-              <CardChild className={"bg-solution3"}>
-                <ChildParagraph>{"Go to Solution"}</ChildParagraph>
-              </CardChild>
-            </Link>
-            <CardParagraph>{"Penetration Testing"}</CardParagraph>
-          </CardParent>
-          <CardParent>
-            <Link to={"/solutions/ethical-hacking/"}>
-              <CardChild className={"bg-solution4"}>
-                <ChildParagraph>{"Go to Solution"}</ChildParagraph>
-              </CardChild>
-            </Link>
-            <CardParagraph>{"Ethical Hacking"}</CardParagraph>
-          </CardParent>
-          <CardParent>
-            <Link to={"/solutions/red-teaming/"}>
-              <CardChild className={"bg-solution5"}>
-                <ChildParagraph>{"Go to Solution"}</ChildParagraph>
-              </CardChild>
-            </Link>
-            <CardParagraph>{"Red Teaming"}</CardParagraph>
-          </CardParent>
-          <CardParent>
-            <Link to={"/solutions/attack-simulation/"}>
-              <CardChild className={"bg-solution6"}>
-                <ChildParagraph>{"Go to Solution"}</ChildParagraph>
-              </CardChild>
-            </Link>
-            <CardParagraph>{"Attack Simulation"}</CardParagraph>
-          </CardParent>
-        </CardsGrid>
-        <div className={"flex dn-l justify-center items-center"}>
-          <ArrowButton onClick={scrollLeft}>
-            <FontAwesomeContainerSmall>
-              <FontAwesomeIcon
-                className={"f3 c-black-gray"}
-                icon={faAngleLeft}
-              />
-            </FontAwesomeContainerSmall>
-          </ArrowButton>
-          <SlideShow id={"slideShow"} style={{ maxWidth: "272px" }}>
-            <Link to={"/solutions/devsecops/"}>
-              <SolutionCard>
-                <img alt={"DevSecOps"} src={solution1} />
-                <CardParagraph>{"DevSecOps"}</CardParagraph>
-              </SolutionCard>
-            </Link>
-            <Link to={"/solutions/security-testing/"}>
-              <SolutionCard>
-                <img alt={"Security Testing"} src={solution2} />
-                <CardParagraph>{"Security Testing"}</CardParagraph>
-              </SolutionCard>
-            </Link>
-            <Link to={"/solutions/penetration-testing/"}>
-              <SolutionCard>
-                <img alt={"Penetration Testing"} src={solution3} />
-                <CardParagraph>{"Penetration Testing"}</CardParagraph>
-              </SolutionCard>
-            </Link>
-            <Link to={"/solutions/ethical-hacking/"}>
-              <SolutionCard>
-                <img alt={"Ethical Hacking"} src={solution4} />
-                <CardParagraph>{"Ethical Hacking"}</CardParagraph>
-              </SolutionCard>
-            </Link>
-            <Link to={"/solutions/red-teaming/"}>
-              <SolutionCard>
-                <img alt={"Red Teaming"} src={solution5} />
-                <CardParagraph>{"Red Teaming"}</CardParagraph>
-              </SolutionCard>
-            </Link>
-            <Link to={"/solutions/attack-simulation/"}>
-              <SolutionCard>
-                <img alt={"Attack Simulation"} src={solution6} />
-                <CardParagraph>{"Attack Simulation"}</CardParagraph>
-              </SolutionCard>
-            </Link>
-          </SlideShow>
-          <ArrowButton onClick={scrollRight}>
-            <FontAwesomeContainerSmall>
-              <FontAwesomeIcon
-                className={"f3 c-black-gray"}
-                icon={faAngleRight}
-              />
-            </FontAwesomeContainerSmall>
-          </ArrowButton>
-        </div>
-      </InnerContainer>
-      <ContinuousContainer>
-        <ContinuousPhrase className={"c-fluid-bk"}>
-          {translate.t("continuousHacking.titleHome")}
-        </ContinuousPhrase>
-        <ContinuousPhrase className={"c-fluid-gray"}>
-          {translate.t("continuousHacking.phraseHome")}
-        </ContinuousPhrase>
-      </ContinuousContainer>
-    </Container>
+    <ScrollAnimation animateIn={"animate__fadeIn"} animateOnce={true} delay={5}>
+      <Container>
+        <InnerContainer>
+          <SectionTitle className={"mb4"}>
+            <TitleVertical>{"SOLUTIONS"}</TitleVertical>
+          </SectionTitle>
+          <CardsGrid>
+            <CardParent>
+              <Link to={"/solutions/devsecops/"}>
+                <CardChild className={"bg-solution1"}>
+                  <ChildParagraph>{"Go to Solution"}</ChildParagraph>
+                </CardChild>
+              </Link>
+              <CardParagraph>{"DevSecOps"}</CardParagraph>
+            </CardParent>
+            <CardParent>
+              <Link to={"/solutions/security-testing/"}>
+                <CardChild className={"bg-solution2"}>
+                  <ChildParagraph>{"Go to Solution"}</ChildParagraph>
+                </CardChild>
+              </Link>
+              <CardParagraph>{"Security Testing"}</CardParagraph>
+            </CardParent>
+            <CardParent>
+              <Link to={"/solutions/penetration-testing/"}>
+                <CardChild className={"bg-solution3"}>
+                  <ChildParagraph>{"Go to Solution"}</ChildParagraph>
+                </CardChild>
+              </Link>
+              <CardParagraph>{"Penetration Testing"}</CardParagraph>
+            </CardParent>
+            <CardParent>
+              <Link to={"/solutions/ethical-hacking/"}>
+                <CardChild className={"bg-solution4"}>
+                  <ChildParagraph>{"Go to Solution"}</ChildParagraph>
+                </CardChild>
+              </Link>
+              <CardParagraph>{"Ethical Hacking"}</CardParagraph>
+            </CardParent>
+            <CardParent>
+              <Link to={"/solutions/red-teaming/"}>
+                <CardChild className={"bg-solution5"}>
+                  <ChildParagraph>{"Go to Solution"}</ChildParagraph>
+                </CardChild>
+              </Link>
+              <CardParagraph>{"Red Teaming"}</CardParagraph>
+            </CardParent>
+            <CardParent>
+              <Link to={"/solutions/attack-simulation/"}>
+                <CardChild className={"bg-solution6"}>
+                  <ChildParagraph>{"Go to Solution"}</ChildParagraph>
+                </CardChild>
+              </Link>
+              <CardParagraph>{"Attack Simulation"}</CardParagraph>
+            </CardParent>
+          </CardsGrid>
+          <div className={"flex dn-l justify-center items-center"}>
+            <ArrowButton onClick={scrollLeft}>
+              <FontAwesomeContainerSmall>
+                <FontAwesomeIcon
+                  className={"f3 c-black-gray"}
+                  icon={faAngleLeft}
+                />
+              </FontAwesomeContainerSmall>
+            </ArrowButton>
+            <SlideShow id={"slideShow"} style={{ maxWidth: "272px" }}>
+              <Link to={"/solutions/devsecops/"}>
+                <SolutionCard>
+                  <img alt={"DevSecOps"} src={solution1} />
+                  <CardParagraph>{"DevSecOps"}</CardParagraph>
+                </SolutionCard>
+              </Link>
+              <Link to={"/solutions/security-testing/"}>
+                <SolutionCard>
+                  <img alt={"Security Testing"} src={solution2} />
+                  <CardParagraph>{"Security Testing"}</CardParagraph>
+                </SolutionCard>
+              </Link>
+              <Link to={"/solutions/penetration-testing/"}>
+                <SolutionCard>
+                  <img alt={"Penetration Testing"} src={solution3} />
+                  <CardParagraph>{"Penetration Testing"}</CardParagraph>
+                </SolutionCard>
+              </Link>
+              <Link to={"/solutions/ethical-hacking/"}>
+                <SolutionCard>
+                  <img alt={"Ethical Hacking"} src={solution4} />
+                  <CardParagraph>{"Ethical Hacking"}</CardParagraph>
+                </SolutionCard>
+              </Link>
+              <Link to={"/solutions/red-teaming/"}>
+                <SolutionCard>
+                  <img alt={"Red Teaming"} src={solution5} />
+                  <CardParagraph>{"Red Teaming"}</CardParagraph>
+                </SolutionCard>
+              </Link>
+              <Link to={"/solutions/attack-simulation/"}>
+                <SolutionCard>
+                  <img alt={"Attack Simulation"} src={solution6} />
+                  <CardParagraph>{"Attack Simulation"}</CardParagraph>
+                </SolutionCard>
+              </Link>
+            </SlideShow>
+            <ArrowButton onClick={scrollRight}>
+              <FontAwesomeContainerSmall>
+                <FontAwesomeIcon
+                  className={"f3 c-black-gray"}
+                  icon={faAngleRight}
+                />
+              </FontAwesomeContainerSmall>
+            </ArrowButton>
+          </div>
+        </InnerContainer>
+        <ContinuousContainer>
+          <ContinuousPhrase className={"c-fluid-bk"}>
+            {translate.t("continuousHacking.titleHome")}
+          </ContinuousPhrase>
+          <ContinuousPhrase className={"c-fluid-gray"}>
+            {translate.t("continuousHacking.phraseHome")}
+          </ContinuousPhrase>
+        </ContinuousContainer>
+      </Container>
+    </ScrollAnimation>
   );
 };
 
