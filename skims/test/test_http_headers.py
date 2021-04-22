@@ -67,6 +67,60 @@ def test_as_string() -> None:
                ^ Column 0
     """)[1:-1]
 
+    assert as_string.snippet(
+        url='fluidattacks.com',
+        header='X-not-found',
+        headers={
+            'Transfer-Encoding': 'chunked',
+            'Connection': 'keep-alive',
+            'Cache-Control': '-' * 150,
+            'Server': 'cloudflare',
+        },
+        chars_per_line=40,
+    ) == dedent("""
+        ¦ line ¦ Data                                     ¦
+        ¦ ---- ¦ ---------------------------------------- ¦
+        ¦    9 ¦     ------------------------------------ ¦
+        ¦   10 ¦     ------------------------------------ ¦
+        ¦   11 ¦     ------                               ¦
+        ¦   12 ¦ < Server: cloudflare                     ¦
+        ¦   13 ¦                                          ¦
+        ¦ > 14 ¦ * EOF                                    ¦
+        ¦ ---- ¦ ---------------------------------------- ¦
+               ^ Column 0
+    """)[1:-1]
+
+    assert as_string.snippet(
+        url='fluidattacks.com',
+        header='Cache-Control',
+        headers={
+            'Transfer-Encoding': 'chunked',
+            'Connection': 'keep-alive',
+            'Cache-Control': '-' * 150,
+            'Server': 'cloudflare',
+        },
+        chars_per_line=40,
+    ) == dedent("""
+        ¦ line ¦ Data                                     ¦
+        ¦ ---- ¦ ---------------------------------------- ¦
+        ¦    1 ¦ > GET fluidattacks.com                   ¦
+        ¦    2 ¦ > ...                                    ¦
+        ¦    3 ¦                                          ¦
+        ¦    4 ¦ < Transfer-Encoding: chunked             ¦
+        ¦    5 ¦ < Connection: keep-alive                 ¦
+        ¦  > 6 ¦ < Cache-Control:                         ¦
+        ¦    7 ¦     ------------------------------------ ¦
+        ¦    8 ¦     ------------------------------------ ¦
+        ¦    9 ¦     ------------------------------------ ¦
+        ¦   10 ¦     ------------------------------------ ¦
+        ¦   11 ¦     ------                               ¦
+        ¦   12 ¦ < Server: cloudflare                     ¦
+        ¦   13 ¦                                          ¦
+        ¦   14 ¦ * EOF                                    ¦
+        ¦ ---- ¦ ---------------------------------------- ¦
+               ^ Column 0
+    """)[1:-1]
+
 
 @pytest.mark.skims_test_group('unittesting')
 def test_content_security_policy() -> None:
