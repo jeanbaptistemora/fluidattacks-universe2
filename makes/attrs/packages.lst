@@ -65,7 +65,6 @@ melts.config-development
 melts.config-runtime
 melts.lib
 melts.lint
-observes.config-streamer-zoho-crm-runtime
 observes.config-target-redshift-runtime
 observes.env.development.code-etl
 observes.env.development.dif-gitlab-etl
