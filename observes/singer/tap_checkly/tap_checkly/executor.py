@@ -33,6 +33,7 @@ _stream_executor: Mapping[
     SupportedStreams.DASHBOARD: streams.all_dashboards,
     SupportedStreams.ENV_VARS: streams.all_env_vars,
     SupportedStreams.MAINTENACE_WINDOWS: streams.all_maint_windows,
+    SupportedStreams.REPORTS: streams.all_chk_reports,
     SupportedStreams.SNIPPETS: streams.all_snippets,
 }
 

@@ -27,6 +27,23 @@ from tap_checkly.common import (
 LOG = logging.getLogger(__name__)
 
 
+def _mask_env_vars(result: List[JSON]) -> None:
+    for item in result:
+        env_vars = item['environmentVariables']
+        vars_list = env_vars if env_vars else []
+        for env_var in vars_list:
+            env_var['value'] = '__masked__'
+
+
+def get_report(
+    client: Client,
+    check_id: str,
+) -> IO[JSON]:
+    result = client.get(f'/v1/reporting/{check_id}')
+    LOG.debug('reports response: %s', result)
+    return IO(result)
+
+
 def list_alerts_channels(client: Client, page: PageId) -> IO[List[JSON]]:
     result = client.get(
         '/v1/alert-channels',
@@ -34,14 +51,6 @@ def list_alerts_channels(client: Client, page: PageId) -> IO[List[JSON]]:
     )
     LOG.debug('alert-channels response: %s', result)
     return IO(result)
-
-
-def _mask_env_vars(result: List[JSON]) -> None:
-    for item in result:
-        env_vars = item['environmentVariables']
-        vars_list = env_vars if env_vars else []
-        for env_var in vars_list:
-            env_var['value'] = '__masked__'
 
 
 def list_checks(client: Client, page: PageId) -> IO[List[JSON]]:

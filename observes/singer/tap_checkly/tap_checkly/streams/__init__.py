@@ -57,6 +57,21 @@ def all_chk_groups(api: ApiClient) -> None:
     )
 
 
+def all_chk_reports(api: ApiClient) -> None:
+    stream = SupportedStreams.REPORTS
+
+    def _emmit(checks: Iterator[CheckId]) -> None:
+        for check in checks:
+            reports_io = api.checks.get_check_report(check)
+            reports_io.map(
+                lambda report: emitter.emit_records(stream, [report.data])
+            )
+
+    chks_pages_io = api.checks.list_checks(ALL)
+    for chks_page_io in chks_pages_io:
+        chks_page_io.map(CheckId.new).map(_emmit)
+
+
 def all_chk_results(api: ApiClient) -> None:
     stream = SupportedStreams.CHECK_RESULTS
 
