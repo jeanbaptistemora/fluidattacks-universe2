@@ -10,10 +10,14 @@ from aioextensions import (
     CPU_CORES,
     collect,
 )
+import bs4
 
 # Local libraries
 from lib_http import (
     f043,
+)
+from lib_http.types import (
+    URLContext,
 )
 from model import (
     core_model,
@@ -28,6 +32,13 @@ from utils.function import (
     rate_limited,
     shield,
 )
+from utils.html import (
+    is_html,
+)
+from utils.http import (
+    create_session,
+    request,
+)
 from utils.limits import (
     LIB_HTTP_DEFAULT,
 )
@@ -38,11 +49,10 @@ from utils.logs import (
 
 
 @shield(on_error_return=[])
-@rate_limited(rpm=LIB_HTTP_DEFAULT)
 async def analyze_one(
     *,
     index: int,
-    url: str,
+    url: URLContext,
     stores: Dict[core_model.FindingEnum, EphemeralStore],
     unique_count: int,
 ) -> None:
@@ -57,10 +67,8 @@ async def analyze_one(
                     await stores[vulnerability.finding].store(vulnerability)
 
 
-def should_include_url(url: str) -> bool:
-    components = urllib.parse.urlparse(url)
-
-    if components.netloc in {
+def should_include_url(url: URLContext) -> bool:
+    if url.components.netloc in {
         'play.google.com',
         'www.getpostman.com',
     }:
@@ -70,11 +78,38 @@ def should_include_url(url: str) -> bool:
     return True
 
 
+@rate_limited(rpm=LIB_HTTP_DEFAULT)
+async def get_url(url: str) -> URLContext:
+    async with create_session() as session:
+        response = await request(session, 'GET', url)
+        content_raw = await response.content.read(1048576)
+        content = content_raw.decode('latin-1')
+        soup = bs4.BeautifulSoup(content)
+
+        return URLContext(
+            components=urllib.parse.urlparse(url),
+            content=content,
+            headers_raw=response.headers,
+            is_html=is_html(content, soup),
+            soup=soup,
+            url=url,
+        )
+
+
+async def get_urls() -> Set[URLContext]:
+    urls: Set[URLContext] = set()
+
+    for url in set(CTX.config.http.include):
+        urls.add(await get_url(url))
+
+    return urls
+
+
 async def analyze(
     *,
     stores: Dict[core_model.FindingEnum, EphemeralStore],
 ) -> None:
-    unique_urls: Set[str] = set(CTX.config.http.include)
+    unique_urls: Set[URLContext] = await get_urls()
     unique_urls = set(filter(should_include_url, unique_urls))
     unique_count: int = len(unique_urls)
 

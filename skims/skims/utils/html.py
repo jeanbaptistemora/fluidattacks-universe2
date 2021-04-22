@@ -2,6 +2,9 @@
 from string import (
     whitespace,
 )
+from typing import (
+    Optional,
+)
 
 # Third party libraries
 from bs4 import (
@@ -9,13 +12,14 @@ from bs4 import (
 )
 
 
-def is_html(string: str) -> bool:
+def is_html(string: str, soup: Optional[BeautifulSoup] = None) -> bool:
     string = string.strip(whitespace)
 
     if string.startswith('{'):
         # JSON
         return False
 
-    soup = BeautifulSoup(string, 'html.parser')
+    if soup is None:
+        soup = BeautifulSoup(string, 'html.parser')
 
     return soup.find('html', recursive=False) is not None

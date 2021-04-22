@@ -29,18 +29,14 @@ from http_headers.types import (
 from http_headers.types import (
     Header,
 )
+from lib_http.types import (
+    URLContext,
+)
 from model import (
     core_model,
 )
 from utils.ctx import (
     CTX,
-)
-from utils.html import (
-    is_html,
-)
-from utils.http import (
-    create_session,
-    request,
 )
 from utils.encodings import (
     serialize_namespace_into_vuln,
@@ -54,7 +50,6 @@ class HeaderCheckCtx(NamedTuple):
     headers_parsed: Dict[Type[Header], Header]
     headers_raw: Dict[str, str]
     is_html: bool
-    preview: str
     url: str
 
 
@@ -260,17 +255,13 @@ def _x_xss_protection(ctx: HeaderCheckCtx) -> core_model.Vulnerabilities:
     )
 
 
-async def http_headers_configuration(url: str) -> core_model.Vulnerabilities:
-    async with create_session() as session:
-        response = await request(session, 'GET', url)
-        headers_raw = response.headers
-        preview: str = (await response.content.read(256)).decode('latin-1')
-        is_html_: bool = is_html(preview)
-
+async def http_headers_configuration(
+    url: URLContext,
+) -> core_model.Vulnerabilities:
     headers_parsed: Dict[Type[Header], Header] = {
         type(header_parsed): header_parsed
         for header_raw_name, header_raw_value in reversed(tuple(
-            headers_raw.items(),
+            url.headers_raw.items(),
         ))
         for line in [f'{header_raw_name}: {header_raw_value}']
         for header_parsed in [
@@ -285,10 +276,9 @@ async def http_headers_configuration(url: str) -> core_model.Vulnerabilities:
     return tuple(chain.from_iterable((
         check(HeaderCheckCtx(
             headers_parsed=headers_parsed,
-            headers_raw=headers_raw,
-            is_html=is_html_,
-            preview=preview,
-            url=url,
+            headers_raw=url.headers_raw,
+            is_html=url.is_html,
+            url=url.url,
         ))
         for finding, check in CHECKS.items()
         if finding in CTX.config.checks
@@ -307,7 +297,7 @@ CHECKS: Dict[
 
 
 def analyze(
-    url: str,
+    url: URLContext,
     **_: None,
 ) -> List[Awaitable[core_model.Vulnerabilities]]:
     coroutines: List[Awaitable[core_model.Vulnerabilities]] = [
