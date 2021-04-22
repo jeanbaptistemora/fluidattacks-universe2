@@ -34,6 +34,13 @@ const AgentToken: React.FC<IServicesProps> = (
           {t("searchFindings.agentTokenSection.about")}
         </ProjectScopeText>
         <ButtonToolbar>
+          <a
+            href={"https://docs.fluidattacks.com/machine/agent/installation/"}
+            rel={"noopener noreferrer"}
+            target={"_blank"}
+          >
+            <Button>{t("searchFindings.agentTokenSection.install")}</Button>
+          </a>
           <Button onClick={handleChange}>
             {t("searchFindings.agentTokenSection.generate")}
           </Button>

@@ -918,7 +918,8 @@ export const enTranslations: ResourceKey = {
     agentTokenSection: {
       about: "Generate, reveal or update token for DevSecOps.",
       generate: "Manage Token",
-      title: "DevSecOps Token",
+      install: "Install",
+      title: "DevSecOps Agent",
     },
     alert: {
       attention: "Attention",
