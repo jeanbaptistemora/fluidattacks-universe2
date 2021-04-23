@@ -287,15 +287,13 @@ def attempt_java_util_properties_methods(args: EvaluatorArgs) -> bool:
 
     if dcl := lookup_var_dcl_by_name(args, method_var):
         if dcl.var_type in build_attr_paths("java", "util", "Properties"):
-            if method_path == "load":
-                if len(args.dependencies) == 1:
-                    dcl.meta.value = args.dependencies[0].meta.value
-            if method_path == "getProperty":
-                if len(args.dependencies) == 2:
-                    args.syntax_step.meta.value = dcl.meta.value.get(
-                        args.dependencies[-1].meta.value,
-                        args.dependencies[-2].meta.value,
-                    )
+            if method_path == "load" and len(args.dependencies) == 1:
+                dcl.meta.value = args.dependencies[0].meta.value
+            if method_path == "getProperty" and len(args.dependencies) == 2:
+                args.syntax_step.meta.value = dcl.meta.value.get(
+                    args.dependencies[-1].meta.value,
+                    args.dependencies[-2].meta.value,
+                )
             return True
 
     return False
