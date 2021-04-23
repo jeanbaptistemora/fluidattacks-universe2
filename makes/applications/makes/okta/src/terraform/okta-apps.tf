@@ -41,7 +41,54 @@ resource "okta_app_user" "apps_auto_login" {
 
   app_id   = okta_app_auto_login.apps[each.value.id].id
   user_id  = okta_user.users[each.value.user].id
-  username = okta_app_auto_login.apps[each.value.id].shared_username
+  username = okta_user.users[each.value.user].login
+}
+
+
+# SWA
+
+resource "okta_app_swa" "apps" {
+  for_each = {
+    for _, app in local.apps : app.id => app
+    if app.type == "swa"
+  }
+
+  label               = each.value.label
+  status              = each.value.status
+  preconfigured_app   = each.value.preconfigured_app
+  button_field        = each.value.button_field
+  username_field      = each.value.username_field
+  password_field      = each.value.password_field
+  url                 = each.value.url
+  auto_submit_toolbar = true
+
+  lifecycle {
+    ignore_changes = [
+      groups,
+      users,
+    ]
+  }
+}
+
+resource "okta_app_group_assignment" "apps_swa" {
+  for_each = {
+    for app in local.app_groups : "${app.id}_${app.group}" => app
+    if app.type == "swa"
+  }
+
+  app_id   = okta_app_swa.apps[each.value.id].id
+  group_id = okta_group.groups[each.value.group].id
+}
+
+resource "okta_app_user" "apps_swa" {
+  for_each = {
+    for app in local.app_users : "${app.id}_${app.user}" => app
+    if app.type == "swa"
+  }
+
+  app_id   = okta_app_swa.apps[each.value.id].id
+  user_id  = okta_user.users[each.value.user].id
+  username = okta_user.users[each.value.user].login
 }
 
 
