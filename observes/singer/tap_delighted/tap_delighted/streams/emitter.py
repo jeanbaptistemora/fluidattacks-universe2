@@ -20,7 +20,6 @@ from singer_io.singer import (
 )
 from tap_delighted.api import (
     ApiPage,
-    ImpApiPage,
 )
 from tap_delighted.common import (
     JSON,
@@ -34,13 +33,12 @@ def _json_list_srecords(
     stream: SupportedStreams,
     items: Iterator[JSON]
 ) -> Iterator[SingerRecord]:
-    return iter(map(
-        lambda item: SingerRecord(
+    return iter(
+        SingerRecord(
             stream=stream.value.lower(),
             record=item
-        ),
-        items
-    ))
+        ) for item in items
+    )
 
 
 def emit_records(
@@ -58,7 +56,3 @@ def emit_page(stream: SupportedStreams, page: ApiPage) -> None:
 
 def emit_iopage(stream: SupportedStreams, page: IO[ApiPage]) -> None:
     page.map(partial(emit_page, stream))
-
-
-def emit_imp_page(stream: SupportedStreams, page: ImpApiPage) -> None:
-    page.data.map(partial(emit_records, stream))

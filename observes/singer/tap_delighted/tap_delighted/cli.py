@@ -21,8 +21,8 @@ from tap_delighted.streams import (
 @click.command()
 @click.option('--api-key', type=str, required=True)
 @click.option('--all-streams', is_flag=True, default=False)
-@click.option(
-    '--name',
+@click.argument(
+    'name',
     type=click.Choice(
         [x.value for x in iter(SupportedStreams)],
         case_sensitive=False),
@@ -30,8 +30,8 @@ from tap_delighted.streams import (
     default=None
 )
 def stream(
-    api_key: str,
     name: Optional[str],
+    api_key: str,
     all_streams: bool
 ) -> None:
     creds = Credentials.new(api_key)

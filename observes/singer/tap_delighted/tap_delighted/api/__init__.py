@@ -31,8 +31,12 @@ from tap_delighted.api.survey import (
 )
 
 
-ApiPage = TypeVar('ApiPage', BouncedPage, UnsubscribedPage)
-ImpApiPage = SurveyPage
+ApiPage = TypeVar(
+    'ApiPage',
+    BouncedPage,
+    SurveyPage,
+    UnsubscribedPage
+)
 
 
 class ApiClient(NamedTuple):
