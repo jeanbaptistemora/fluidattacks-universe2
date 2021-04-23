@@ -41,8 +41,6 @@ async def test_group_with_forces(populate: bool, email: str):
 )
 async def test_group_with_forces_fail(populate: bool, email: str):
     assert populate
-    group_forces: str = 'group2'
-    group_not_forces: str = 'group1'
     result: Dict[str, Any] = await query(
         user=email,
     )

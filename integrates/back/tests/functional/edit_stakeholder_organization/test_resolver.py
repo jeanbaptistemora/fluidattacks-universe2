@@ -20,7 +20,6 @@ from . import query
 async def test_edit_stakeholder_organization(populate: bool, email: str):
     assert populate
     org_id: str = 'ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db'
-    user_email: str = 'analyst@gmail.com'
     user_role: str = 'CUSTOMER'
     user_phone: str = '12345678'
     result: Dict[str, Any] = await query(
@@ -47,7 +46,6 @@ async def test_edit_stakeholder_organization(populate: bool, email: str):
 async def test_edit_stakeholder_organization_fail(populate: bool, email: str):
     assert populate
     org_id: str = 'ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db'
-    user_email: str = 'analyst@gmail.com'
     user_role: str = 'CUSTOMER'
     user_phone: str = '12345678'
     result: Dict[str, Any] = await query(
