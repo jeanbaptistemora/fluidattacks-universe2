@@ -440,6 +440,19 @@ module.exports = {
         },
       ],
     },
+    {
+      type: 'category',
+      label: 'Insecure service configuration',
+      items: [
+        {
+          type: 'category',
+          label: 'Details',
+          items: [
+            'types/055/details/aws_s3_server_side_encryption',
+          ],
+        },
+      ],
+    },
   ],
   Security: [
     'security/introduction',
