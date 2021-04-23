@@ -7,6 +7,8 @@ from typing import (
     Callable,
     Iterator,
     NamedTuple,
+    Type,
+    TypeVar,
     Union,
 )
 
@@ -23,6 +25,7 @@ from returns.io import IO
 from paginator import (
     AllPages,
     PageId,
+    PageOrAll,
 )
 from tap_delighted.api.common import (
     extractor,
@@ -35,62 +38,63 @@ from tap_delighted.common import (
 
 
 class BouncedPage(NamedTuple):
-    data: IO[Iterator[JSON]]
+    data: Iterator[JSON]
 
     @classmethod
-    def new(cls, client: Client, page: PageId) -> BouncedPage:
+    def new(cls, client: Client, page: PageId) -> IO[BouncedPage]:
         data = handle_rate_limit(
             lambda: raw.list_bounced(client, page), 5
         )
-        return cls(data.unwrap())
-
-
-def _list_bounced(
-    client: Client,
-    page: Union[AllPages, PageId],
-) -> Iterator[BouncedPage]:
-    if isinstance(page, AllPages):
-        return extractor.get_all_pages(
-            BouncedPage,
-            partial(BouncedPage.new, client),
-            lambda page: page.data.map(bool) == IO(False)
-        )
-    return iter([BouncedPage.new(client, page)])
-
+        return data.unwrap().map(cls)
 
 class UnsubscribedPage(NamedTuple):
-    data: IO[Iterator[JSON]]
+    data: Iterator[JSON]
 
     @classmethod
-    def new(cls, client: Client, page: PageId) -> UnsubscribedPage:
+    def new(cls, client: Client, page: PageId) -> IO[UnsubscribedPage]:
         data = handle_rate_limit(
             lambda: raw.list_unsubscribed(client, page), 5
         )
-        return cls(data.unwrap())
+        return data.unwrap().map(cls)
 
 
-def _list_unsubscribed(
+PageType = TypeVar('PageType', BouncedPage, UnsubscribedPage)
+
+
+def _is_empty(iopage: IO[PageType]) -> bool:
+    return iopage.map(lambda page: bool(page.data)) == IO(False)
+
+
+def _generic_listing(
+    _type: Type[PageType],
+    _iotype: Type[IO[PageType]],
     client: Client,
-    page: Union[AllPages, PageId],
-) -> Iterator[UnsubscribedPage]:
+    page: PageOrAll,
+) -> Iterator[IO[PageType]]:
     if isinstance(page, AllPages):
         return extractor.get_all_pages(
-            UnsubscribedPage,
-            partial(UnsubscribedPage.new, client),
-            lambda page: page.data.map(bool) == IO(False)
+            _iotype,
+            partial(_type.new, client),
+            _is_empty,
         )
-    return iter([UnsubscribedPage.new(client, page)])
+    return iter([_type.new(client, page)])
 
 
 class PeopleApi(NamedTuple):
-    list_bounced: Callable[[Union[AllPages, PageId]], Iterator[BouncedPage]]
+    list_bounced: Callable[[PageOrAll], Iterator[IO[BouncedPage]]]
     list_people: Callable[[], IO[Iterator[JSON]]]
-    list_unsubscribed: Callable[[Union[AllPages, PageId]], Iterator[UnsubscribedPage]]
+    list_unsubscribed: Callable[[PageOrAll], Iterator[IO[UnsubscribedPage]]]
 
     @classmethod
     def new(cls, client: Client) -> PeopleApi:
         return cls(
-            list_bounced=partial(_list_bounced, client),
+            list_bounced=partial(
+                _generic_listing,
+                BouncedPage, IO[BouncedPage], client
+            ),
             list_people=partial(raw.list_people, client),
-            list_unsubscribed=partial(_list_unsubscribed, client)
+            list_unsubscribed=partial(
+                _generic_listing,
+                UnsubscribedPage, IO[UnsubscribedPage], client
+            )
         )

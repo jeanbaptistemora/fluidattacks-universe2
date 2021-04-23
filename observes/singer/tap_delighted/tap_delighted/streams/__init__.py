@@ -70,7 +70,7 @@ def all_surveys(api: ApiClient) -> None:
 
 
 def all_bounced(api: ApiClient) -> None:
-    _stream_data(
+    _stream_data_2(
         SupportedStreams.BOUNCED,
         api.people.list_bounced(ALL)
     )
@@ -79,8 +79,8 @@ def all_bounced(api: ApiClient) -> None:
 def all_metrics(api: ApiClient) -> None:
     stream = SupportedStreams.METRICS
     metrics_io = api.metrics.get_metrics()
-    metrics_io.data.map(
-        lambda data: emitter.emit_records(stream, iter([data]))
+    metrics_io.map(
+        lambda metrics: emitter.emit_records(stream, iter([metrics.data]))
     )
 
 
@@ -93,7 +93,7 @@ def all_people(api: ApiClient) -> None:
 
 
 def all_unsubscribed(api: ApiClient) -> None:
-    _stream_data(
+    _stream_data_2(
         SupportedStreams.UNSUBSCRIBED,
         api.people.list_unsubscribed(ALL)
     )

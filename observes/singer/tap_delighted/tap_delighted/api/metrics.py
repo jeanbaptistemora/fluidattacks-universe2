@@ -26,18 +26,18 @@ from tap_delighted.common import (
 
 
 class Metrics(NamedTuple):
-    data: IO[JSON]
+    data: JSON
 
     @classmethod
-    def new(cls, client: Client) -> Metrics:
+    def new(cls, client: Client) -> IO[Metrics]:
         data = handle_rate_limit(
             lambda: raw.get_metrics(client), 5
         )
-        return cls(data.unwrap())
+        return data.unwrap().map(cls)
 
 
 class MetricsApi(NamedTuple):
-    get_metrics: Callable[[], Metrics]
+    get_metrics: Callable[[], IO[Metrics]]
 
     @classmethod
     def new(cls, client: Client) -> MetricsApi:
