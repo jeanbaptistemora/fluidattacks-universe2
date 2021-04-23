@@ -464,15 +464,15 @@ def attempt_the_old_way(args: EvaluatorArgs) -> bool:
 def analyze_method_invocation(args: EvaluatorArgs, method: str) -> None:
     # pylint: disable=expression-not-assigned,too-many-boolean-expressions
     (
-        attempt_by_args_propagation(args, method) or
-        attempt_by_args_propagation_no_type(args, method) or
-        attempt_by_obj(args, method) or
-        attempt_by_obj_args(args, method) or
-        attempt_by_type(args, method) or
-        attempt_by_type_and_value_finding(args, method) or
-        attempt_by_type_args_propagation(args, method) or
         attempt_static(args, method) or
         attempt_static_side_effects(args, method) or
+        attempt_by_args_propagation_no_type(args, method) or
+        attempt_by_type_args_propagation(args, method) or
+        attempt_by_obj(args, method) or
+        attempt_by_obj_args(args, method) or
+        attempt_by_type_and_value_finding(args, method) or
+        attempt_by_args_propagation(args, method) or
+        attempt_by_type(args, method) or
         analyze_method_invocation_external(args, method)
     )
 
@@ -525,18 +525,22 @@ def analyze_method_invocation_values(
     args: EvaluatorArgs,
     method: Optional[str] = None,
 ) -> None:
-    method_var, method_path = split_on_first_dot(method
-                                                 or args.syntax_step.method)
+    method = method or args.syntax_step.method
+    method_var, method_path = split_on_first_dot(method)
     method_var_decl_type = None
 
     # lookup methods with teh format new Test().some()
     # last argument is teh instance
-    if args.dependencies and isinstance(
+    if (
+        args.dependencies
+        and isinstance(
             args.dependencies[-1],
             graph_model.SyntaxStepObjectInstantiation,
-    ) and lookup_java_class(
+        )
+        and lookup_java_class(
             args,
             args.dependencies[-1].object_type,
+        )
     ):
         method_var_decl_type = args.dependencies[-1].object_type
 
@@ -553,12 +557,7 @@ def analyze_method_invocation_values(
             method_path or method_var,  # can be local function
             method_var_decl_type,
         )
-        or (
-            _method := lookup_java_method(  # can be a static function
-                args,
-                args.syntax_step.method,
-            )
-        )
+        or (_method := lookup_java_method(args, method))
     ):
         class_instance = (
             JavaClassInstance(

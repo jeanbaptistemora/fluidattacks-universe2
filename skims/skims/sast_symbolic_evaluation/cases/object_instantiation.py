@@ -8,7 +8,6 @@ from sast_symbolic_evaluation.types import (
 from sast_symbolic_evaluation.utils_java import (
     lookup_java_class,
     lookup_java_method,
-    lookup_shard_by_class,
 )
 from utils.string import (
     build_attr_paths,
@@ -85,7 +84,7 @@ def _syntax_step_object_instantiation_values(args: EvaluatorArgs) -> None:
         args.syntax_step.meta.value = []
     elif object_type in build_attr_paths('java', 'util', 'HashMap'):
         args.syntax_step.meta.value = {}
-    elif lookup_shard_by_class(args, object_type):
+    elif lookup_java_class(args, object_type):
         _type = object_type
         if '.' not in object_type:
             _type = '.' + _type
