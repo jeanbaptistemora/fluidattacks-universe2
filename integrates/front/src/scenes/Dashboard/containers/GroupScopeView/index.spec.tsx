@@ -413,12 +413,11 @@ describe("GroupScopeView", (): void => {
       .find({ name: "gitignore[0]" })
       .find("input");
     path1.simulate("change", { target: { value: "node_modules/*" } });
+    wrapper.find("form").simulate("submit");
 
     await act(
       async (): Promise<void> => {
-        wrapper.find("form").simulate("submit");
-        const delay: number = 50;
-        await wait(delay);
+        await wait(0);
         wrapper.update();
       }
     );

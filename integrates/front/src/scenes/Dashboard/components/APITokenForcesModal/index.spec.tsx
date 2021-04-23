@@ -182,7 +182,7 @@ describe("Update access token modal", (): void => {
     revealButton.simulate("click");
     await act(
       async (): Promise<void> => {
-        await wait(2);
+        await wait(4);
         wrapper.update();
       }
     );
