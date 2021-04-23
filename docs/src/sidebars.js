@@ -408,7 +408,19 @@ module.exports = {
         },
       ],
     },
-    'types/f037',
+    {
+      type: 'category',
+      label: 'Improperly set HTTP headers',
+      items: [
+        {
+          type: 'category',
+          label: 'Details',
+          items: [
+            'types/043/details/strict_transport_security',
+          ],
+        },
+      ],
+    },
   ],
   Security: [
     'security/introduction',
