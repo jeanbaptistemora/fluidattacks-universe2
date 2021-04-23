@@ -420,6 +420,7 @@ module.exports = {
           type: 'category',
           label: 'Details',
           items: [
+            'types/031/details/aws_iam_pass_role',
             'types/031/details/java_io_file_create_temp_file',
           ],
         },
