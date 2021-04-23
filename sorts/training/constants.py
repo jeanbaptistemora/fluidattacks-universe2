@@ -9,8 +9,15 @@ single sagemaker
 """
 
 # Standard libraries
-from subprocess import call
-call('pip install sagemaker'.split(' '))
+from subprocess import (
+    call,
+    DEVNULL
+)
+call(
+    'pip install sagemaker'.split(' '),
+    stdout=DEVNULL,
+    stderr=DEVNULL,
+)
 from typing import (
     Dict,
     List
