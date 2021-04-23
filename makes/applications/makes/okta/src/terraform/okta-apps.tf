@@ -2,7 +2,7 @@
 
 resource "okta_app_auto_login" "apps" {
   for_each = {
-    for app in jsondecode(var.okta_apps) : app.id => app
+    for _, app in local.apps : app.id => app
     if app.type == "auto_login"
   }
 
@@ -25,7 +25,7 @@ resource "okta_app_auto_login" "apps" {
 
 resource "okta_app_group_assignment" "apps_auto_login" {
   for_each = {
-    for app in local.app_groups : "${app.id}_${app.group}" => app
+    for _, app in local.app_groups : "${app.id}_${app.group}" => app
     if app.type == "auto_login"
   }
 
@@ -35,7 +35,7 @@ resource "okta_app_group_assignment" "apps_auto_login" {
 
 resource "okta_app_user" "apps_auto_login" {
   for_each = {
-    for app in local.app_users : "${app.id}_${app.user}" => app
+    for _, app in local.app_users : "${app.id}_${app.user}" => app
     if app.type == "auto_login"
   }
 
@@ -49,7 +49,7 @@ resource "okta_app_user" "apps_auto_login" {
 
 resource "okta_app_saml" "apps" {
   for_each = {
-    for app in jsondecode(var.okta_apps) : app.id => app
+    for _, app in local.apps : app.id => app
     if app.type == "saml"
   }
 
@@ -71,7 +71,7 @@ resource "okta_app_saml" "apps" {
 
 resource "okta_app_group_assignment" "apps_saml" {
   for_each = {
-    for app in local.app_groups : "${app.id}_${app.group}" => app
+    for _, app in local.app_groups : "${app.id}_${app.group}" => app
     if app.type == "saml"
   }
 
@@ -81,11 +81,11 @@ resource "okta_app_group_assignment" "apps_saml" {
 
 resource "okta_app_user" "apps_saml" {
   for_each = {
-    for app in local.app_users : "${app.id}_${app.user}" => app
+    for _, app in local.app_users : "${app.id}_${app.user}" => app
     if app.type == "saml"
   }
 
   app_id   = okta_app_saml.apps[each.value.id].id
   user_id  = okta_user.users[each.value.user].id
-  username = okta_user.users[each.value.user].login
+  username = local.apps[each.value.id].single_user == "" ? okta_user.users[each.value.user].login : local.apps[each.value.id].single_user
 }

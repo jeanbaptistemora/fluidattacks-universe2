@@ -1,7 +1,11 @@
 locals {
+  apps   = { for app in jsondecode(var.okta_apps) : app.id => app }
+  groups = { for group in jsondecode(var.okta_groups) : group.id => group }
+  users  = { for user in jsondecode(var.okta_users) : user.id => user }
+
   app_groups = flatten([
-    for app in jsondecode(var.okta_apps) : [
-      for group in jsondecode(var.okta_groups) : [
+    for _, app in local.apps : [
+      for _, group in local.groups : [
         {
           "id"    = app.id
           "type"  = app.type
@@ -10,9 +14,10 @@ locals {
       ] if contains(group.apps, app.id)
     ]
   ])
+
   app_users = flatten([
-    for app in jsondecode(var.okta_apps) : [
-      for user in jsondecode(var.okta_users) : [
+    for _, app in local.apps : [
+      for _, user in local.users : [
         {
           "id"   = app.id
           "type" = app.type
