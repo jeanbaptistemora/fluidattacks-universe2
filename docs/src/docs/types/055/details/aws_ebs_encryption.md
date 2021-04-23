@@ -1,18 +1,16 @@
 ---
-id: aws_s3_server_side_encryption
-title: AWS S3 Server Side Encryption
-sidebar_label: AWS S3 Server Side Encryption
-slug: /types/055/details/aws_s3_server_side_encryption
+id: aws_ebs_encryption
+title: AWS EBS Encryption
+sidebar_label: AWS EBS Encryption
+slug: /types/055/details/aws_ebs_encryption
 ---
 
 When dealing with sensitive data that is crucial to your business,
 it is required by regulations to implement encryption
 in order to protect it from attackers or unauthorized personnel.
-Using S3 Server-Side Encryption (SSE) will enable Amazon to encrypt your data
-at rest.
-Data protected by Server-Side Encryption is encrypted with
-256-bit Advanced Encryption Standard (AES-256).
-
+Using EBS Encryption will enable Amazon to encrypt your data at rest,
+volume snapshots and disk I/O.
+Data protected is encrypted with 256-bit Advanced Encryption Standard (AES-256).
 
 ## Regulations
 

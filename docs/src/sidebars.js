@@ -449,6 +449,7 @@ module.exports = {
           type: 'category',
           label: 'Details',
           items: [
+            'types/055/details/aws_ebs_server_side_encryption',
             'types/055/details/aws_s3_server_side_encryption',
           ],
         },
