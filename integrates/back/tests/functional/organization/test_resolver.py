@@ -12,13 +12,16 @@ from . import query
 
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group('organization')
-async def test_admin(populate: bool):
+@pytest.mark.parametrize(
+    ['email'],
+    [
+        ['admin@gmail.com'],
+    ]
+)
+async def test_get_organization_ver_1(populate: bool, email: str):
     assert populate
     org_id: str = 'ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db'
     org_name: str = 'orgtest'
-    org_groups: List[str] = [
-        'group1',
-    ]
     org_stakeholders: List[str] = [
         'admin@gmail.com',
         'analyst@gmail.com',
@@ -30,7 +33,7 @@ async def test_admin(populate: bool):
         'reviewer@gmail.com',
     ]
     result: Dict[str, Any] = await query(
-        user='admin@gmail.com',
+        user=email,
         org=org_id
     )
     groups: List[str] = [group['name'] for group in result['data']['organization']['projects']]
@@ -49,7 +52,14 @@ async def test_admin(populate: bool):
 
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group('organization')
-async def test_analyst(populate: bool):
+@pytest.mark.parametrize(
+    ['email'],
+    [
+        ['analyst@gmail.com'],
+        ['closer@gmail.com'],
+    ]
+)
+async def test_get_organization_ver_e(populate: bool, email: str):
     assert populate
     org_id: str = 'ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db'
     org_name: str = 'orgtest'
@@ -57,7 +67,7 @@ async def test_analyst(populate: bool):
         'group1',
     ]
     result: Dict[str, Any] = await query(
-        user='analyst@gmail.com',
+        user=email,
         org=org_id
     )
     groups: List[str] = [group['name'] for group in result['data']['organization']['projects']]

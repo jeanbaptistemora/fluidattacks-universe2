@@ -11,39 +11,36 @@ from . import query
 
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group('internal_names')
-async def test_admin(populate: bool):
+@pytest.mark.parametrize(
+    ['email'],
+    [
+        ['admin@gmail.com'],
+        ['analyst@gmail.com'],
+    ]
+)
+async def test_admin(populate: bool, email: str):
     assert populate
     group: str = 'group1'
     result: Dict[str, Any] = await query(
-        user='admin@gmail.com',
+        user=email,
     )
     assert 'errors' not in result
     assert 'internalNames' in result['data']
     assert result['data']['internalNames']['name'] == group
 
 
-
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group('internal_names')
-async def test_analyst(populate: bool):
+@pytest.mark.parametrize(
+    ['email'],
+    [
+        ['closer@gmail.com'],
+    ]
+)
+async def test_closer(populate: bool, email: str):
     assert populate
-    group: str = 'group1'
     result: Dict[str, Any] = await query(
-        user='analyst@gmail.com',
-    )
-    assert 'errors' not in result
-    assert 'internalNames' in result['data']
-    assert result['data']['internalNames']['name'] == group
-
-
-
-@pytest.mark.asyncio
-@pytest.mark.resolver_test_group('internal_names')
-async def test_closer(populate: bool):
-    assert populate
-    group: str = 'group1'
-    result: Dict[str, Any] = await query(
-        user='closer@gmail.com',
+        user=email,
     )
     assert 'errors' in result
     assert result['errors'][0]['message'] == 'Access denied'
