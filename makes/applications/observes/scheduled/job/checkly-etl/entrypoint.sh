@@ -21,7 +21,10 @@ function start_etl {
         --auth "${db_creds}" \
         --drop-schema \
         --schema-name 'checkly' \
-        < .singer
+        < .singer \
+  &&  observes-bin-service-job-last-success single-job \
+        --auth "${db_creds}" \
+        --job 'checkly'
 }
 
 start_etl

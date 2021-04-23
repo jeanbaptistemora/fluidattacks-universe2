@@ -2,6 +2,7 @@ from typing import Dict
 
 
 SINGLE_JOBS = frozenset([
+    'checkly',
     'delighted',
     'formstack',
     'mailchimp',
