@@ -12,6 +12,7 @@ resource "okta_app_auto_login" "apps" {
   credentials_scheme  = each.value.credentials_scheme
   shared_username     = each.value.shared_username
   shared_password     = each.value.shared_password
+  sign_on_url         = each.value.sign_on_url
   auto_submit_toolbar = true
 
   lifecycle {
