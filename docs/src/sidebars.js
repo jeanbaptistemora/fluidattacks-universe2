@@ -394,15 +394,15 @@ module.exports = {
       type: 'category',
       label: 'Excessive privileges',
       items: [
-        'types/f031',
+        'types/031/description',
         {
           type: 'category',
-          label: 'Java',
+          label: 'Details',
           items: [
-            'types/f121',
-          ]
+            'types/031/details/java_io_file_create_temp_file',
+          ],
         },
-      ]
+      ],
     },
     'types/f037',
   ],

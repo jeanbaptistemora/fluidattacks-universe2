@@ -1,13 +1,11 @@
 ---
-id: f121
-title: File.createTempFile
-sidebar_label: File.createTempFile
-slug: /types/031/java/001
+id: java_io_file_create_temp_file
+title: java.io.File.createTempFile
+sidebar_label: java.io.File.createTempFile
+slug: /types/031/details/java_io_file_create_temp_file
 ---
 
-## Description
-
-The **File.createTempFile** Java function works as follows:
+This java method has the following signature:
 
 `public static File createTempFile(String prefix, String suffix, File directory)`
 
@@ -43,7 +41,24 @@ and an attacker can execute the `cat` command.
 The **java.io.File.createTempFile** method creates files
 with write permissions in groups and other:
 
-![File Section](image121.png)
+```java
+import java.io.File;
+
+public class Test {
+  public static void main(String[] args){
+    try {
+      System.out.println(File.createTempFile("xxx", null));
+    }
+    catch (Exception e) {}
+  }
+}
+
+/*
+ * $ ls -al $(javac Test.java && java Test)
+ *
+ * -rw-r--r-- 1 fluid fluid 0 Aug 28 14:44 /tmp/xxx948760279845756007.tmp
+ */
+```
 
 The use of File.createTempFile is even vulnerable
 if the permissions are added after because it is not atomic.
