@@ -14,7 +14,7 @@ buildPythonRequirements {
       "chardet==4.0.0"
       "idna==2.10"
       "six==1.15.0"
-      "urllib3==1.26.3"
+      "urllib3==1.26.4"
     ];
   };
   python = nixpkgs.python38;

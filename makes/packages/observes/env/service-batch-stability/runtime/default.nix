@@ -10,16 +10,16 @@ let
     name = "observes-env-runtime-batch-stability-python";
     requirements = {
       direct = [
-        "boto3==1.17.17"
+        "boto3==1.17.56"
         "bugsnag==4.0.2"
       ];
       inherited = [
-        "botocore==1.20.17"
+        "botocore==1.20.56"
         "jmespath==0.10.0"
         "python-dateutil==2.8.1"
-        "s3transfer==0.3.4"
+        "s3transfer==0.4.2"
         "six==1.15.0"
-        "urllib3==1.26.3"
+        "urllib3==1.26.4"
         "WebOb==1.8.7"
       ];
     };
