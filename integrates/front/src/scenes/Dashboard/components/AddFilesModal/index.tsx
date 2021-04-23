@@ -1,26 +1,26 @@
+import { Field, Form, Formik } from "formik";
+import _ from "lodash";
 import React from "react";
-import { Field } from "redux-form";
-import type { InjectedFormProps, Validator } from "redux-form";
+import type { Validator } from "redux-form";
 import type { ConfigurableValidator } from "revalidate";
+import { mixed, object, string } from "yup";
 
 import { Button } from "components/Button";
 import { Modal } from "components/Modal";
 import { renderUploadBar } from "scenes/Dashboard/components/AddFilesModal/renderUploadBar";
 import { IAddFilesModalProps } from "scenes/Dashboard/components/AddFilesModal/types.ts";
-import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import {
   ButtonToolbar,
   Col100,
   RequiredField,
   Row,
 } from "styles/styledComponents";
-import { FileInput, TextArea } from "utils/forms/fields";
+import { FormikFileInput, FormikTextArea } from "utils/forms/fields";
 import { translate } from "utils/translations/translate";
 import {
-  isValidFileName,
+  composeValidators,
   isValidFileSize,
   maxLength,
-  required,
   validField,
   validTextField,
 } from "utils/validations";
@@ -36,15 +36,46 @@ const addFilesModal: React.FC<IAddFilesModalProps> = (
   const MAX_FILE_SIZE: number = 100;
   const maxFileSize: Validator = isValidFileSize(MAX_FILE_SIZE);
 
+  const addFilesModalSchema = object().shape({
+    description: string().required(translate.t("validations.required")),
+    file: mixed()
+      .required(translate.t("validations.required"))
+      .test(
+        "isValidFileName",
+        translate.t("searchFindings.tabResources.invalidChars"),
+        (value?: FileList): boolean => {
+          if (value === undefined || _.isEmpty(value)) {
+            return false;
+          }
+          const fileName: string = value[0].name;
+          const name: string[] = fileName.split(".");
+          const validCharacters: RegExp = /^[A-Za-z0-9!\-_.*'()&$@=;:+,?\s]*$/u;
+
+          return name.length <= 2 && validCharacters.test(fileName);
+        }
+      ),
+  });
+
+  const initialValues = {
+    description: "",
+    file: (undefined as unknown) as FileList,
+  };
+
   return (
     <React.StrictMode>
       <Modal
         headerTitle={translate.t("searchFindings.tabResources.modalFileTitle")}
         open={isOpen}
       >
-        <GenericForm name={"addFiles"} onSubmit={onSubmit}>
-          {({ pristine }: InjectedFormProps): React.ReactNode => (
-            <React.Fragment>
+        <Formik
+          enableReinitialize={true}
+          initialValues={initialValues}
+          name={"addFiles"}
+          onSubmit={onSubmit}
+          validationSchema={addFilesModalSchema}
+        >
+          {({ dirty }): React.ReactNode => (
+            <Form>
               <div>
                 <div>
                   <label>
@@ -52,10 +83,10 @@ const addFilesModal: React.FC<IAddFilesModalProps> = (
                     {translate.t("validations.fileSize", { count: 100 })}
                   </label>
                   <Field
-                    component={FileInput}
+                    component={FormikFileInput}
                     id={"file"}
                     name={"file"}
-                    validate={[required, isValidFileName, maxFileSize]}
+                    validate={composeValidators([maxFileSize])}
                   />
                 </div>
                 <div>
@@ -64,15 +95,14 @@ const addFilesModal: React.FC<IAddFilesModalProps> = (
                     {translate.t("searchFindings.tabResources.description")}
                   </label>
                   <Field
-                    component={TextArea}
+                    component={FormikTextArea}
                     name={"description"}
                     type={"text"}
-                    validate={[
-                      required,
+                    validate={composeValidators([
                       validField,
                       maxFileDescriptionLength,
                       validTextField,
-                    ]}
+                    ])}
                   />
                 </div>
               </div>
@@ -89,7 +119,7 @@ const addFilesModal: React.FC<IAddFilesModalProps> = (
                       {translate.t("confirmmodal.cancel")}
                     </Button>
                     <Button
-                      disabled={pristine || isUploading}
+                      disabled={!dirty || isUploading}
                       id={"file-add-proceed"}
                       type={"submit"}
                     >
@@ -98,9 +128,9 @@ const addFilesModal: React.FC<IAddFilesModalProps> = (
                   </ButtonToolbar>
                 </Col100>
               </Row>
-            </React.Fragment>
+            </Form>
           )}
-        </GenericForm>
+        </Formik>
       </Modal>
     </React.StrictMode>
   );

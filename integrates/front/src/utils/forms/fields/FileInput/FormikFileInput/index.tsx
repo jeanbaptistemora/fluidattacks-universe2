@@ -32,13 +32,12 @@ export const FormikFileInput: React.FC<IFileInputProps> = (
   const { touched, errors, setFieldValue } = form;
   const fieldTouched = Boolean(touched[field.name]);
   const error = errors[field.name];
-  const { onChange, name } = field;
+  const { name } = field;
   const { value }: { value: FileList } = field;
 
   function handleFileChange(event: React.FormEvent<HTMLInputElement>): void {
-    onChange(event);
-    const { files } = event.target as HTMLInputElement;
-    setFieldValue(name, _.isEmpty(files) ? [] : (files as FileList));
+    const { files } = event.currentTarget as HTMLInputElement;
+    setFieldValue(name, files);
   }
 
   return (
