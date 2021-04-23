@@ -11,39 +11,18 @@ from . import query
 
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group('add_finding_consult')
-async def test_admin(populate: bool):
+@pytest.mark.parametrize(
+    ['email'],
+    [
+        ['admin@gmail.com'],
+        ['analyst@gmail.com'],
+        ['closer@gmail.com'],
+    ]
+)
+async def test_add_finding_consultant(populate: bool, email: str):
     assert populate
     result: Dict[str, Any] = await query(
-        user='admin@gmail.com',
-        content='This is a observation test',
-        finding='475041513',
-    )
-    assert 'errors' not in result
-    assert 'success' in result['data']['addFindingConsult']
-    assert result['data']['addFindingConsult']['success']
-
-
-@pytest.mark.asyncio
-@pytest.mark.resolver_test_group('add_finding_consult')
-async def test_analyst(populate: bool):
-    assert populate
-    result: Dict[str, Any] = await query(
-        user='analyst@gmail.com',
-        content='This is a observation test',
-        finding='475041513',
-    )
-    assert 'errors' not in result
-    assert 'success' in result['data']['addFindingConsult']
-    assert result['data']['addFindingConsult']['success']
-
-
-
-@pytest.mark.asyncio
-@pytest.mark.resolver_test_group('add_finding_consult')
-async def test_closer(populate: bool):
-    assert populate
-    result: Dict[str, Any] = await query(
-        user='closer@gmail.com',
+        user=email,
         content='This is a observation test',
         finding='475041513',
     )
