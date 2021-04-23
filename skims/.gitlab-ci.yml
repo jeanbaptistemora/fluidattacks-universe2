@@ -62,6 +62,11 @@ skims.lint:
   <<: *skims_in_dev_branch
   stage: lint-code
 
+skims.format:
+  <<: *makes
+  <<: *skims_in_dev_branch
+  stage: lint-code
+
 skims.oci-deploy:
   <<: *makes
   <<: *skims_in_master_branch
