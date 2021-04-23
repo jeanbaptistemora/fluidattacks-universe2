@@ -65,3 +65,45 @@ We highly recommend you avoid mixing:
 - user-supplied input
 
 As noted in the example, sanitizing is no solution at all.
+The problem is having a hard-coded `%` in the `JPQL` statement.
+
+### Spring Expression Language
+
+By default `SpEL` Expressions are **not escaped**.
+This happens because `SpEL` is designed as an expression language,
+not a SQL language.
+
+In other words `SpEL Expressions Bindings` like `:#{[0]}` or `?#{[0]}`
+will just copy the value of `[0]` into the SQL operation to be executed by the database.
+
+If you write a `SpEL` query like this one:
+
+```c
+@Query("select u from User u where u.emailAddress = :#{[0]}")
+List<User> findByEmailAddress2(@Param("emailAddress") String emailAddress);
+```
+
+An attacker that manages to supply an `emailAddress` equal to `%`,
+will fetch all email addresses from the database.
+The evaluated query will be:
+
+```sql
+SELECT u FROM User u WHERE u.emailAddress LIKE '%'
+```
+
+We highly recommend you to use the `escape` function from `SpEL` context as follow:
+
+```c {3-4}
+@Query(
+  "select u from User u " +
+  "where u.emailAddress like ?#{escape([0])} " +
+  "escape ?#{escapeCharacter()}"
+)
+List<User> findByEmailAddress2(@Param("emailAddress") String emailAddress);
+```
+
+In this case the evaluated query would be:
+
+```sql
+SELECT u FROM User u WHERE u.emailAddress LIKE '\%' ESCAPE '\'
+```
