@@ -10,52 +10,39 @@ from typing import (
 from uuid import uuid4
 
 # Local libraries
-from backend.reports.reports import technical as technical_report
 from backend.typing import Finding as FindingType
 from s3.operations import (
     download_file,
     list_files,
 )
-from __init__ import (
-    FI_AWS_S3_BUCKET as EVIDENCES_BUCKET,
-)
+from __init__ import FI_AWS_S3_BUCKET as EVIDENCES_BUCKET
+from . import technical as technical_report
 
 
-async def generate(
+async def _append_evidences(
     *,
-    context: Any,
-    findings_ord: List[Dict[str, FindingType]],
+    directory: str,
     group: str,
-    group_description: str,
-    passphrase: str,
-    requester_email: str,
-) -> str:
-    with tempfile.TemporaryDirectory() as directory:
-        await _append_pdf_report(
-            context=context,
-            directory=directory,
-            findings_ord=findings_ord,
-            group=group,
-            group_description=group_description,
-            passphrase=passphrase,
-            requester_email=requester_email,
-        )
-        await _append_xls_report(
-            context,
-            directory=directory,
-            findings_ord=findings_ord,
-            group_name=group,
-            passphrase=passphrase,
-        )
-        await _append_evidences(
-            directory=directory,
-            group=group,
-        )
+) -> None:
+    target_folders: Dict[str, str] = {
+        '': 'evidences',
+        '.csv': 'compromised-records',
+        '.gif': 'evidences',
+        '.jpg': 'evidences',
+        '.png': 'evidences',
+        '.txt': 'compromised-records',
+    }
 
-        return _encrypted_zip_file(
-            passphrase=passphrase,
-            source_contents=_get_directory_contents(directory),
-        )
+    # Walk everything under the S3 evidences bucket and save relevant info
+    for key in await list_files(EVIDENCES_BUCKET, group):
+        _, extension = os.path.splitext(key)
+
+        if extension in target_folders:
+            target_name = os.path.join(directory, target_folders[extension])
+            os.makedirs(target_name, exist_ok=True)
+            target_name = os.path.join(target_name, os.path.basename(key))
+            if not os.path.isdir(target_name):
+                await download_file(EVIDENCES_BUCKET, key, target_name)
 
 
 async def _append_pdf_report(
@@ -101,32 +88,6 @@ async def _append_xls_report(
             file.write(report.read())
 
 
-async def _append_evidences(
-    *,
-    directory: str,
-    group: str,
-) -> None:
-    target_folders: Dict[str, str] = {
-        '': 'evidences',
-        '.csv': 'compromised-records',
-        '.gif': 'evidences',
-        '.jpg': 'evidences',
-        '.png': 'evidences',
-        '.txt': 'compromised-records',
-    }
-
-    # Walk everything under the S3 evidences bucket and save relevant info
-    for key in await list_files(EVIDENCES_BUCKET, group):
-        _, extension = os.path.splitext(key)
-
-        if extension in target_folders:
-            target_name = os.path.join(directory, target_folders[extension])
-            os.makedirs(target_name, exist_ok=True)
-            target_name = os.path.join(target_name, os.path.basename(key))
-            if not os.path.isdir(target_name):
-                await download_file(EVIDENCES_BUCKET, key, target_name)
-
-
 def _encrypted_zip_file(
     *,
     passphrase: str,
@@ -155,7 +116,6 @@ def _encrypted_zip_file(
         ],
         check=True,
     )
-
     return target
 
 
@@ -168,3 +128,39 @@ def _get_directory_contents(directory: str) -> List[str]:
             os.path.isdir(absolute) and
             os.listdir(absolute))
     ]
+
+
+async def generate(
+    *,
+    context: Any,
+    findings_ord: List[Dict[str, FindingType]],
+    group: str,
+    group_description: str,
+    passphrase: str,
+    requester_email: str,
+) -> str:
+    with tempfile.TemporaryDirectory() as directory:
+        await _append_pdf_report(
+            context=context,
+            directory=directory,
+            findings_ord=findings_ord,
+            group=group,
+            group_description=group_description,
+            passphrase=passphrase,
+            requester_email=requester_email,
+        )
+        await _append_xls_report(
+            context,
+            directory=directory,
+            findings_ord=findings_ord,
+            group_name=group,
+            passphrase=passphrase,
+        )
+        await _append_evidences(
+            directory=directory,
+            group=group,
+        )
+        return _encrypted_zip_file(
+            passphrase=passphrase,
+            source_contents=_get_directory_contents(directory),
+        )

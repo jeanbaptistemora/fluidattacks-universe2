@@ -22,11 +22,9 @@ files =
   ,back/packages/integrates-back/backend/api/schema/scalars/
   ,back/packages/integrates-back/backend/api/schema/types/
   ,back/packages/integrates-back/backend/api/schema/unions/__init__.py
-  ,back/packages/integrates-back/backend/reports/reports/
   ,back/packages/integrates-back/backend/reports/__init__.py
   ,back/packages/integrates-back/backend/reports/it_report.py
   #,back/packages/integrates-back/backend/reports/pdf.py
-  ,back/packages/integrates-back/backend/reports/report.py
   ,back/packages/integrates-back/backend/reports/secure_pdf.py
   ,back/packages/integrates-back/backend/reports/typing.py
   ,back/packages/integrates-back/backend/decorators.py

@@ -10,7 +10,6 @@ from back.settings import (
     NOEXTRA,
 )
 from backend import authz
-from backend.reports import report
 from batch.types import BatchProcessing
 from batch.dal import (
     delete_action,
@@ -23,6 +22,7 @@ from newutils.reports import (
 )
 from newutils.passphrase import get_passphrase
 from notifications import domain as notifications_domain
+from reports import domain as reports_domain
 
 logging.config.dictConfig(LOGGING)
 
@@ -34,7 +34,7 @@ LOGGER_TRANSACTIONAL = logging.getLogger('transactional')
 async def get_report(*, item: BatchProcessing, passphrase: str) -> str:
     report_file_name: str = ''
     try:
-        report_file_name = await report.get_group_report_url(
+        report_file_name = await reports_domain.get_group_report_url(
             report_type=item.additional_info,
             group_name=item.entity,
             passphrase=passphrase,

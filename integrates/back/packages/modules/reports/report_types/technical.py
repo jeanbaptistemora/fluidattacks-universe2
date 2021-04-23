@@ -1,6 +1,8 @@
 # Standard library
 import logging
+import logging.config
 import os
+from tempfile import TemporaryDirectory
 from typing import (
     Any,
     cast,
@@ -10,7 +12,6 @@ from typing import (
 )
 
 # Third party libraries
-from tempfile import TemporaryDirectory
 from botocore.exceptions import ClientError
 from PIL import (
     Image,
@@ -28,6 +29,7 @@ from findings import dal as findings_dal
 
 logging.config.dictConfig(LOGGING)
 
+# Constants
 LOGGER = logging.getLogger(__name__)
 
 
@@ -64,6 +66,52 @@ def convert_evidences_to_png(
                 )
 
 
+async def download_evidences_for_pdf(
+    findings: List[Dict[str, FindingType]],
+    tempdir: str
+) -> None:
+    for finding in findings:
+        folder_name = f'{finding["projectName"]}/{finding["findingId"]}'
+        evidences = cast(Dict[str, Dict[str, str]], finding['evidence'])
+        evidences_s3: Set[str] = set(
+            await findings_dal.search_evidence(folder_name)
+        )
+        evidence_set: List[Dict[str, str]] = [
+            {
+                'id': f'{folder_name}/{evidences[ev_item]["url"]}',
+                'explanation': evidences[ev_item]['description'].capitalize()
+            }
+            for ev_item in evidences
+            if (
+                evidences[ev_item]['url'] and
+                f'{folder_name}/{evidences[ev_item]["url"]}' in evidences_s3
+            )
+        ]
+
+        if evidence_set:
+            finding['evidence_set'] = evidence_set
+            for evidence in evidence_set:
+                evidence_id_2 = str(evidence['id']).split('/')[2]
+                try:
+                    await findings_dal.download_evidence(
+                        evidence['id'],
+                        f'{tempdir}/{evidence_id_2}',
+                    )
+                except ClientError as ex:
+                    LOGGER.exception(
+                        ex,
+                        extra={
+                            'extra': {
+                                'evidence_id': evidence["id"],
+                                'project_name': finding["projectName"]
+                            }
+                        })
+                evidence['name'] = (
+                    f'image::../images/{evidence_id_2}'
+                    '[align="center"]'
+                )
+
+
 async def generate_pdf_file(
     *,
     context: Any,
@@ -81,12 +129,17 @@ async def generate_pdf_file(
         await download_evidences_for_pdf(findings_ord, tempdir)
         convert_evidences_to_png(findings_ord, tempdir, group_name)
         await pdf_maker.tech(
-            findings_ord, group_name, description, user_email, context
+            findings_ord,
+            group_name,
+            description,
+            user_email,
+            context
         )
     report_filename = await secure_pdf.create_full(
-        user_email, pdf_maker.out_name, group_name
+        user_email,
+        pdf_maker.out_name,
+        group_name
     )
-
     return report_filename
 
 
@@ -114,49 +167,4 @@ async def generate_xls_file(
     os.system(cmd)
     os.unlink(filepath)
     os.rename(f'{filepath}-pwd', filepath)
-
     return filepath
-
-
-async def download_evidences_for_pdf(
-    findings: List[Dict[str, FindingType]],
-    tempdir: str
-) -> None:
-    for finding in findings:
-        folder_name = f'{finding["projectName"]}/{finding["findingId"]}'
-        evidences = cast(Dict[str, Dict[str, str]], finding['evidence'])
-        evidences_s3: Set[str] = set(
-            await findings_dal.search_evidence(folder_name)
-        )
-        evidence_set: List[Dict[str, str]] = [
-            {
-                'id': f'{folder_name}/{evidences[ev_item]["url"]}',
-                'explanation': evidences[ev_item]['description'].capitalize()
-            }
-            for ev_item in evidences
-            if evidences[ev_item]['url']
-            and f'{folder_name}/{evidences[ev_item]["url"]}' in evidences_s3
-        ]
-
-        if evidence_set:
-            finding['evidence_set'] = evidence_set
-            for evidence in evidence_set:
-                evidence_id_2 = str(evidence['id']).split('/')[2]
-                try:
-                    await findings_dal.download_evidence(
-                        evidence['id'],
-                        f'{tempdir}/{evidence_id_2}',
-                    )
-                except ClientError as ex:
-                    LOGGER.exception(
-                        ex,
-                        extra={
-                            'extra': {
-                                'evidence_id': evidence["id"],
-                                'project_name': finding["projectName"]
-                            }
-                        })
-                evidence['name'] = (
-                    f'image::../images/{evidence_id_2}'
-                    '[align="center"]'
-                )
