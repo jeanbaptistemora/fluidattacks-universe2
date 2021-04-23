@@ -3,7 +3,9 @@ from __future__ import (
     annotations,
 )
 from typing import (
+    Any,
     NamedTuple,
+    TypeVar,
 )
 
 # Third party libraries
@@ -28,6 +30,10 @@ from tap_delighted.api.survey import (
     SurveyApi,
     SurveyPage,
 )
+
+
+ApiPage = Any
+ImpApiPage = TypeVar('ImpApiPage', BouncedPage, UnsubscribedPage, SurveyPage)
 
 
 class ApiClient(NamedTuple):
