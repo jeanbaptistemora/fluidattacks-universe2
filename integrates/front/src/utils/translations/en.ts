@@ -651,6 +651,16 @@ export const enTranslations: ResourceKey = {
       },
     },
     toe: {
+      inputs: {
+        commit: "Commit",
+        component: "Component",
+        createdDate: "Created date",
+        entryPoint: "Entry point",
+        seenFirstTimeBy: "Seen first time by",
+        testedDate: "Tested date",
+        verified: "Verified",
+        vulns: "Vulns",
+      },
       lines: {
         comments: "Comments",
         filename: "Filename",
