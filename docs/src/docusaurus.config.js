@@ -116,6 +116,9 @@ module.exports = {
       ],
       copyright: `Copyright © ${new Date().getFullYear()} Fluid Attacks, We hack your software. All rights reserved.`,
     },
+    prism: {
+      theme: require('prism-react-renderer/themes/oceanicNext'),
+    },
   },
   presets: [
     [

@@ -7,7 +7,7 @@ slug: /types/031/details/java_io_file_create_temp_file
 
 This java method has the following signature:
 
-```java
+```c
 public static File createTempFile(
   // The prefix string defines the files name;
   // must be at least three characters long
@@ -49,7 +49,7 @@ and an attacker had enough opportunity to get control over it.
 The `java.io.File.createTempFile` method creates files
 with write permissions in groups and other:
 
-```java
+```c {6}
 import java.io.File;
 
 public class Test {
