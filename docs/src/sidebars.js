@@ -392,6 +392,13 @@ module.exports = {
       label: 'SQL injection',
       items: [
         'types/001/description',
+        {
+          type: 'category',
+          label: 'Details',
+          items: [
+            'types/001/details/spring_data_java_persistence_api',
+          ],
+        },
       ],
     },
     'types/f002',
