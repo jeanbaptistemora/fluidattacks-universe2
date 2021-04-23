@@ -68,3 +68,24 @@ resource "okta_app_saml" "apps" {
     ]
   }
 }
+
+resource "okta_app_group_assignment" "apps_saml" {
+  for_each = {
+    for app in local.app_groups : "${app.id}_${app.group}" => app
+    if app.type == "saml"
+  }
+
+  app_id   = okta_app_saml.apps[each.value.id].id
+  group_id = okta_group.groups[each.value.group].id
+}
+
+resource "okta_app_user" "apps_saml" {
+  for_each = {
+    for app in local.app_users : "${app.id}_${app.user}" => app
+    if app.type == "saml"
+  }
+
+  app_id   = okta_app_saml.apps[each.value.id].id
+  user_id  = okta_user.users[each.value.user].id
+  username = okta_user.users[each.value.user].login
+}

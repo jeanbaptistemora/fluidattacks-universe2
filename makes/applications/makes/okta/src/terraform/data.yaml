@@ -38,6 +38,7 @@ OKTA_GROUPS:
     - ENC[AES256_GCM,data:PbLDQGrw1dDm,iv:BIilUvB1e4hKaoQG8OXMFQ/DyArubwlyoA1o51PJZSU=,tag:Y7VNTC/5+oWHCTuGVbj7gA==,type:str]
     - ENC[AES256_GCM,data:6IHeYbw3,iv:uAOWjFxMuMGg9ETR9xVfzBXUJNWZbyW3t1E+Y0mzib8=,tag:yO0evTO+oOn54msxVH2KSw==,type:str]
     apps:
+    - ENC[AES256_GCM,data:Zi3Z+na0ZpDAyHljmvZCx64YObA=,iv:02j9A0/2+BovtLiAbgQ98/aW9DanH439Vc94Hk/Pfgo=,tag:4lfWC0gJLoITCFpKNF1o9g==,type:str]
     - ENC[AES256_GCM,data:cuRbI23OX8tDBQ==,iv:bOpkXywtWqhp0IS7P0rX5F47ZnftuL7wdEr+5KmVvWg=,tag:zw1wkrD8gS0loUfwzDBVlg==,type:str]
 OKTA_USERS:
 -   id: ENC[AES256_GCM,data:C3qgwSXetZJZ7A==,iv:upe00KFJrHCIilsEMHSBw8/GgwCbhZqomDlsg8sT9wM=,tag:RNywhIVwwLgyd3yHxIxujw==,type:str]
@@ -77,8 +78,8 @@ sops:
     gcp_kms: []
     azure_kv: []
     hc_vault: []
-    lastmodified: '2021-04-23T16:51:05Z'
-    mac: ENC[AES256_GCM,data:kWSnNmCsVA9UBLPP5ZZPy0m/1KR/P8doGhplktVt+YFIZOzf0OObUEaefkp38aDwR0zcE2Q1jgNz8Z6BxbFdRsKeJqeDA62JHsLPngruvUlOwEAjMvbiSBEhxCVCKL4seSbgqzt0zPiU0AmERGZqcsmpFm0f8DsJv/5naYNg/fg=,iv:XJiP9HDlc40UJ79NroZydwBjzQ2X5/YKJq8fyIiC9nU=,tag:BcBDP2ah8P3ZMUOL0iTkTQ==,type:str]
+    lastmodified: '2021-04-23T17:28:07Z'
+    mac: ENC[AES256_GCM,data:KMnvDBV6jKOTlyMZAnZU1LU07wQ5wWOvx98YcpS4C8EbmYUGBbIaUt196QhE/DvPcQeUveSVDpqPlfncOI/dxg6B+Lg0m78yH/f+9k8osJ6Pb4tQrZbhLkwrPyZypmidCUlGXglyf4NwQr9h9la903UxorspNNV0DVA3fTtLCWw=,iv:zwxoHYc6Zatvi5lUoG/0viNQHaqS1o+s2hZnqk0bJEA=,tag:RvC1uz4HqTtxFH7fMoWqpg==,type:str]
     pgp: []
     unencrypted_suffix: _unencrypted
     version: 3.6.1
