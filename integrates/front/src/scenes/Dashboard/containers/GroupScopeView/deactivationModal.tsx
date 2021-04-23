@@ -1,5 +1,5 @@
 import { Field, Form, Formik } from "formik";
-import React from "react";
+import React, { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { object, string } from "yup";
 
@@ -15,13 +15,13 @@ import {
 import { FormikDropdown } from "utils/forms/fields";
 
 interface IDeactivationModalProps {
-  isOpen: boolean;
+  rootId: string;
   onClose: () => void;
-  onSubmit: (values: { reason: string }) => void;
+  onSubmit: (rootId: string, reason: string) => Promise<void>;
 }
 
 export const DeactivationModal: React.FC<IDeactivationModalProps> = ({
-  isOpen,
+  rootId,
   onClose,
   onSubmit,
 }: IDeactivationModalProps): JSX.Element => {
@@ -31,15 +31,22 @@ export const DeactivationModal: React.FC<IDeactivationModalProps> = ({
     reason: string().required(t("validations.required")),
   });
 
+  const handleSubmit = useCallback(
+    async (values: { reason: string }): Promise<void> => {
+      await onSubmit(rootId, values.reason);
+    },
+    [onSubmit, rootId]
+  );
+
   return (
     <React.StrictMode>
-      <Modal headerTitle={t("scope.common.deactivation.title")} open={isOpen}>
+      <Modal headerTitle={t("scope.common.deactivation.title")} open={true}>
         <Formik
           initialValues={{ reason: "" }}
-          onSubmit={onSubmit}
+          onSubmit={handleSubmit}
           validationSchema={validations}
         >
-          <div>
+          {({ dirty, isSubmitting }): JSX.Element => (
             <Form>
               <Row>
                 <Col100>
@@ -65,12 +72,14 @@ export const DeactivationModal: React.FC<IDeactivationModalProps> = ({
                     <Button onClick={onClose}>
                       {t("confirmmodal.cancel")}
                     </Button>
-                    <Button type={"submit"}>{t("confirmmodal.proceed")}</Button>
+                    <Button disabled={!dirty || isSubmitting} type={"submit"}>
+                      {t("confirmmodal.proceed")}
+                    </Button>
                   </ButtonToolbar>
                 </Col100>
               </Row>
             </Form>
-          </div>
+          )}
         </Formik>
       </Modal>
     </React.StrictMode>

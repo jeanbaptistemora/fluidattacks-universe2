@@ -141,7 +141,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
   ): void => {
     sessionStorage.setItem("stateScopeFilter", filterVal);
   };
-  // Const []
+
   const selectOptionsStatus: optionSelectFilterProps[] = [
     { label: "Failed", value: "FAILED" },
     { label: "Ok", value: "OK" },
@@ -248,18 +248,16 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
     row: IGitRootAttr
   ) => void = useCallback(setCurrentRow, [setCurrentRow]);
 
-  const handleGitSubmit: (values: IGitRootAttr) => Promise<void> = useCallback(
-    async (values): Promise<void> => {
-      const {
-        branch,
-        environment,
-        gitignore,
-        id,
-        includesHealthCheck,
-        nickname,
-        url,
-      } = values;
-
+  const handleGitSubmit = useCallback(
+    async ({
+      branch,
+      environment,
+      gitignore,
+      id,
+      includesHealthCheck,
+      nickname,
+      url,
+    }: IGitRootAttr): Promise<void> => {
       if (isManagingRoot !== false) {
         if (isManagingRoot.mode === "ADD") {
           track("AddGitRoot");
@@ -292,8 +290,8 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
     [addGitRoot, groupName, isManagingRoot, updateGitRoot]
   );
 
-  const handleEnvsSubmit: (values: IGitRootAttr) => Promise<void> = useCallback(
-    async ({ environmentUrls, id }): Promise<void> => {
+  const handleEnvsSubmit = useCallback(
+    async ({ environmentUrls, id }: IGitRootAttr): Promise<void> => {
       await updateGitEnvs({ variables: { environmentUrls, groupName, id } });
     },
     [groupName, updateGitEnvs]

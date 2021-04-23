@@ -114,9 +114,31 @@ const UPDATE_ROOT_STATE: DocumentNode = gql`
   }
 `;
 
+const ACTIVATE_ROOT: DocumentNode = gql`
+  mutation ActivateRoot($groupName: String!, $id: ID!) {
+    activateRoot(groupName: $groupName, id: $id) {
+      success
+    }
+  }
+`;
+
+const DEACTIVATE_ROOT: DocumentNode = gql`
+  mutation DeactivateRoot(
+    $groupName: String!
+    $id: ID!
+    $reason: RootDeactivationReason!
+  ) {
+    deactivateRoot(groupName: $groupName, id: $id, reason: $reason) {
+      success
+    }
+  }
+`;
+
 export {
-  GET_ROOTS,
+  ACTIVATE_ROOT,
   ADD_GIT_ROOT,
+  DEACTIVATE_ROOT,
+  GET_ROOTS,
   UPDATE_GIT_ENVIRONMENTS,
   UPDATE_GIT_ROOT,
   UPDATE_ROOT_STATE,
