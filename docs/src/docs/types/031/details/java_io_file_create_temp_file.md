@@ -7,38 +7,46 @@ slug: /types/031/details/java_io_file_create_temp_file
 
 This java method has the following signature:
 
-`public static File createTempFile(String prefix, String suffix, File directory)`
+```java
+public static File createTempFile(
+  // The prefix string defines the files name;
+  // must be at least three characters long
+  String prefix,
+  // The suffix string defines the file's extension;
+  // if null the suffix ".tmp" will be used
+  String suffix,
+  // The directory in which the file is to be created.
+  // For default temporary-file directory null is to passed.
+  File directory,
+)
+```
 
-  ***prefix*** − The prefix string defines the files name;
-  must be at least three characters long
+The first two arguments do not affect security of the created file.
 
-  ***suffix*** − The suffix string defines the file's extension;
-  if null the suffix ".tmp" will be used
-
-  ***directory*** − The directory in which the file is to be created.
-  For default temporary-file directory null is to passed.
-
-The first two arguments do not affect the security of the created file,
-in Linux the files and directories are different entities,
+In Linux files and directories are different entities,
 they have their own permissions
 and are isolated from other files and directories.
 
-Protections you apply to the directory do not affect the files inside of it,
-for example if I protect the directory
-I can prevent that someone executes the `ls` command,
-but nothing impedes to the attacker to execute `cat directory/file` command.
+Protections you apply to the directory do not affect the files inside of it.
+For example if I protect the directory
+I can prevent an attacker from executing the `ls` command,
+but nothing impedes the attacker from executing `cat directory/file`.
 
-To prevent the access to the file I must protect the file, not the directory.
+To prevent access to the file we must protect the file, not the directory.
 
-- *moment A:* create a **File.createTempFile** file
-- *moment B:* add secure permissions to the file
+Additionally we make sure that permissions are set atomically.
+If we do not the following situation can happen:
 
-Between moment A and moment B the file has insecure permissions
-and an attacker can execute the `cat` command.
+- At moment **A** we `File.createTempFile()` a file.
+- At moment **B** we add secure permissions to the file.
 
-## Noncompliant
+After moment **B** the file is secured.
+However, between moment **A** and moment **B** the file has insecure permissions
+and an attacker had enough opportunity to get control over it.
 
-The **java.io.File.createTempFile** method creates files
+## Vulnerable implementation
+
+The `java.io.File.createTempFile` method creates files
 with write permissions in groups and other:
 
 ```java
@@ -60,16 +68,11 @@ public class Test {
  */
 ```
 
-The use of File.createTempFile is even vulnerable
-if the permissions are added after because it is not atomic.
+## Secure implementation
 
-## Compliant solution
-
-- Use Files.createTempFile instead of File.createTempFile.
-Note that has an additional `s` letter.
-
+- Use `java.nio.file.Files.createTempFile`.
 - Use the `attrs` argument (an optional list of file attributes
-to set atomically when creating the file).
+  to set atomically when creating the file).
 
 ## References
 
