@@ -1,4 +1,16 @@
+# pylint: disable=wrong-import-position
+# flake8: noqa E402
+"""
+We need to manually install sagemaker for training jobs, not tuning ones
+If not, we can not import it. Estimator custom dependencies is not
+working for sagemaker module.
+It installs sagemaker-containers, sagemaker-trainers etc. but not
+single sagemaker
+"""
+
 # Standard libraries
+from subprocess import call
+call('pip install sagemaker'.split(' '))
 from typing import (
     Dict,
     List
