@@ -143,6 +143,7 @@ module.exports = {
           'criteria/data/r184',
           'criteria/data/r185',
           'criteria/data/r300',
+          'criteria/data/r301',
         ],
     },
     {
