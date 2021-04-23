@@ -1,11 +1,9 @@
 ---
-id: f001
-title: SQL injection
-sidebar_label: SQL injection
+id: description
+title: Description
+sidebar_label: Description
 slug: /types/001
 ---
-
-## Description
 
 *SQL* statements are generated dynamically,
 without appropriate input validation and without using parameterized statements

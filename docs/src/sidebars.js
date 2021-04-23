@@ -387,7 +387,13 @@ module.exports = {
   ],
   Types: [
     'types/introduction',
-    'types/f001',
+    {
+      type: 'category',
+      label: 'SQL injection',
+      items: [
+        'types/001/description',
+      ],
+    },
     'types/f002',
     'types/f003',
     'types/f004',
