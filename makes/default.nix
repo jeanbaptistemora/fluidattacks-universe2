@@ -76,7 +76,6 @@ let
     fetchzip = nixpkgs.fetchzip;
     getPackageJsonDeps = importUtility "get-package-json-deps";
     lintPython = importUtility "lint-python";
-    lintPythonFormat = importUtility "lint-python-format";
     lintTypescript = importUtility "lint-typescript";
     makeDerivation = importUtility "make-derivation";
     makeEntrypoint = importUtility "make-entrypoint";
@@ -85,6 +84,7 @@ let
     makeTemplate = importUtility "make-template";
     nix = importUtility "nix";
     ociDeploy = importUtility "oci-deploy";
+    pythonFormat = importUtility "python-format";
     terraformApply = importUtility "terraform-apply";
     terraformTest = importUtility "terraform-test";
   };

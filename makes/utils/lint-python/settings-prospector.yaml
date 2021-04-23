@@ -5,5 +5,11 @@ inherits:
 pylint:
   disable:
     - cyclic-import
+    - C0330
+    - C0326
 
+pep8:
+  disable:
+    - E203
+    - W503
 test-warnings: true

@@ -8,12 +8,12 @@ let
 in
 makeEntrypoint {
   arguments = {
-    envSettingsBlack = path "/makes/utils/lint-python-format/settings-black.toml";
+    envSettingsBlack = path "/makes/utils/python-format/settings-black.toml";
     envTarget = target;
   };
   inherit name;
   searchPaths = {
     envPaths = [ pkgs.black ];
   };
-  template = path "/makes/utils/lint-python-format/template.sh";
+  template = path "/makes/utils/python-format/template.sh";
 }
