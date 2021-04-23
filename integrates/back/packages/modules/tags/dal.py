@@ -12,12 +12,12 @@ from boto3.dynamodb.conditions import Key
 from botocore.exceptions import ClientError
 
 from back.settings import LOGGING
-from backend.exceptions import UnavailabilityError
 from backend.typing import (
     DynamoDelete as DynamoDeleteType,
     DynamoQuery as DynamoQueryType,
     Tag as TagType
 )
+from custom_exceptions import UnavailabilityError
 from dynamodb import operations_legacy as dynamodb_ops
 
 

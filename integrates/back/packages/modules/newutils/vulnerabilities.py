@@ -28,15 +28,15 @@ from aioextensions import (
 
 # Local libraries
 from back.settings import LOGGING
-from backend.exceptions import (
+from backend.typing import (
+    Finding as FindingType,
+    Historic as HistoricType,
+)
+from custom_exceptions import (
     AlreadyRequested,
     InvalidRange,
     NotVerificationRequested,
     VulnAlreadyClosed,
-)
-from backend.typing import (
-    Finding as FindingType,
-    Historic as HistoricType,
 )
 from . import datetime as datetime_utils
 

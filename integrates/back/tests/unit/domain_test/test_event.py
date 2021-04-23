@@ -6,9 +6,12 @@ from aniso8601 import parse_datetime
 from starlette.datastructures import UploadFile
 
 from backend.api import get_new_context
-from backend.exceptions import (
-    EventAlreadyClosed, EventNotFound, InvalidCommentParent,
-    InvalidFileType, InvalidFileSize
+from custom_exceptions import (
+    EventAlreadyClosed,
+    EventNotFound,
+    InvalidCommentParent,
+    InvalidFileSize,
+    InvalidFileType,
 )
 from events import dal as events_dal
 from back.tests.unit.utils import create_dummy_session

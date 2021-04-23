@@ -16,8 +16,8 @@ from backend import (
     authz,
     mailer,
 )
-from backend.exceptions import InvalidCommentParent
 from backend.typing import Comment as CommentType
+from custom_exceptions import InvalidCommentParent
 from group_comments import dal as group_comments_dal
 from newutils import comments as comments_utils
 from users import domain as users_domain

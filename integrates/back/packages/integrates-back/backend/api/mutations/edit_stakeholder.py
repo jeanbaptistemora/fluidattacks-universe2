@@ -19,11 +19,11 @@ from backend.decorators import (
     require_integrates,
     require_login
 )
-from backend.exceptions import StakeholderNotFound
 from backend.typing import (
     Invitation as InvitationType,
     EditStakeholderPayload as EditStakeholderPayloadType
 )
+from custom_exceptions import StakeholderNotFound
 from group_access import domain as group_access_domain
 from newutils.validations import validate_fluidattacks_staff_on_group
 from redis_cluster.operations import redis_del_by_deps

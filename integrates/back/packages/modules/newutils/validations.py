@@ -2,7 +2,7 @@ import re
 from typing import List
 
 from backend import authz
-from backend.exceptions import (
+from custom_exceptions import (
     InvalidChar,
     InvalidField,
     InvalidFieldLength,

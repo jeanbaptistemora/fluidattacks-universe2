@@ -12,11 +12,11 @@ from backend import (
     authz,
     util,
 )
-from backend.exceptions import (
+from backend.typing import Comment as CommentType
+from custom_exceptions import (
     InvalidCommentParent,
     PermissionDenied,
 )
-from backend.typing import Comment as CommentType
 
 
 async def _get_fullname(

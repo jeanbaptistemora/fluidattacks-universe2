@@ -28,7 +28,13 @@ from backend import (
     mailer,
     util,
 )
-from backend.exceptions import (
+from backend.typing import (
+    Comment as CommentType,
+    Event as EventType,
+    MailContent as MailContentType,
+)
+from comments import domain as comments_domain
+from custom_exceptions import (
     EventAlreadyClosed,
     EventNotFound,
     InvalidCommentParent,
@@ -36,12 +42,6 @@ from backend.exceptions import (
     InvalidFileSize,
     InvalidFileType,
 )
-from backend.typing import (
-    Comment as CommentType,
-    Event as EventType,
-    MailContent as MailContentType,
-)
-from comments import domain as comments_domain
 from events import dal as events_dal
 from group_access import domain as group_access_domain
 from newutils import (

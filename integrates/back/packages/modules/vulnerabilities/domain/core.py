@@ -43,13 +43,6 @@ from backend import (
     mailer,
     util,
 )
-from backend.exceptions import (
-    AlreadyZeroRiskRequested,
-    InvalidJustificationMaxLength,
-    NotZeroRiskRequested,
-    VulnNotFound,
-    VulnNotInFinding,
-)
 from backend.typing import (
     Finding as FindingType,
     Historic,
@@ -57,6 +50,13 @@ from backend.typing import (
     Vulnerability as VulnerabilityType,
 )
 from comments import domain as comments_domain
+from custom_exceptions import (
+    AlreadyZeroRiskRequested,
+    InvalidJustificationMaxLength,
+    NotZeroRiskRequested,
+    VulnNotFound,
+    VulnNotInFinding,
+)
 from dynamodb.operations_legacy import start_context
 from group_access import domain as group_access_domain
 from newutils import (

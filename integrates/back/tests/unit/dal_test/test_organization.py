@@ -1,7 +1,7 @@
 import pytest
 from decimal import Decimal
 
-from backend.exceptions import InvalidOrganization
+from custom_exceptions import InvalidOrganization
 from organizations import dal as orgs_dal
 
 # Run async tests

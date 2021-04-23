@@ -13,7 +13,7 @@ from starlette.datastructures import UploadFile
 from back.tests.unit.utils import create_dummy_session
 from backend import mailer
 from backend.api import get_new_context
-from backend.exceptions import (
+from custom_exceptions import (
     InvalidAcceptanceSeverity,
     InvalidFileType,
     InvalidNumberAcceptations,

@@ -20,7 +20,8 @@ from graphql import GraphQLError
 # Local libraries
 from back.settings import LOGGING
 from backend import authz
-from backend.exceptions import (
+from backend.typing import Organization as OrganizationType
+from custom_exceptions import (
     InvalidAcceptanceDays,
     InvalidAcceptanceSeverity,
     InvalidAcceptanceSeverityRange,
@@ -29,7 +30,6 @@ from backend.exceptions import (
     OrganizationNotFound,
     UserNotInOrganization,
 )
-from backend.typing import Organization as OrganizationType
 from group_access import domain as group_access_domain
 from names import domain as names_domain
 from newutils import datetime as datetime_utils

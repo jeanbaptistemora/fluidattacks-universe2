@@ -1,6 +1,6 @@
 import pytest
 
-from backend.exceptions import (
+from custom_exceptions import (
     InvalidChar,
     InvalidField,
     InvalidFieldLength,

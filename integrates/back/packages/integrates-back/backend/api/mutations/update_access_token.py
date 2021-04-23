@@ -8,10 +8,10 @@ from graphql.type.definition import GraphQLResolveInfo
 # Local libraries
 from backend import util
 from backend.decorators import require_login
-from backend.exceptions import InvalidExpirationTime
 from backend.typing import (
     UpdateAccessTokenPayload as UpdateAccessTokenPayloadType
 )
+from custom_exceptions import InvalidExpirationTime
 from users import domain as users_domain
 
 

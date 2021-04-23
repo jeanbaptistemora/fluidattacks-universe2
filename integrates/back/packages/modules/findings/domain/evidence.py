@@ -20,7 +20,7 @@ from starlette.datastructures import UploadFile
 # Local libraries
 from back.settings import LOGGING
 from backend import util
-from backend.exceptions import (
+from custom_exceptions import (
     EvidenceNotFound,
     InvalidFileSize,
     InvalidFileType,

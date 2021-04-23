@@ -39,7 +39,7 @@ from back.settings.queue import (
 from backend.api import IntegratesAPI
 from backend.api.schema import SCHEMA
 from backend.decorators import authenticate_session
-from backend.exceptions import (
+from custom_exceptions import (
     ExpiredToken,
     SecureAccessException,
 )

@@ -8,7 +8,7 @@ from botocore.exceptions import ClientError
 
 # Local libraries
 from back.settings import LOGGING
-from backend.exceptions import (
+from custom_exceptions import (
     RepeatedToeLines,
     ToeLinesNotFound,
     UnavailabilityError,

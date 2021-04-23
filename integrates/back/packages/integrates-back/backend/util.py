@@ -45,15 +45,15 @@ from starlette.concurrency import run_in_threadpool
 from starlette.datastructures import UploadFile
 
 from back import settings
-from backend.exceptions import (
-    ExpiredToken,
-    InvalidAuthorization,
-    InvalidSource,
-)
 from backend.typing import (
     Finding as FindingType,
     User as UserType,
     Project as ProjectType
+)
+from custom_exceptions import (
+    ExpiredToken,
+    InvalidAuthorization,
+    InvalidSource,
 )
 from newutils import (
     apm,

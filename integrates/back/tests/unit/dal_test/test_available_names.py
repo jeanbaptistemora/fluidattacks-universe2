@@ -1,6 +1,6 @@
 import pytest
 
-from backend.exceptions import EmptyPoolName
+from custom_exceptions import EmptyPoolName
 from names import dal as names_dal
 
 

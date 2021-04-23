@@ -22,13 +22,13 @@ from analytics import dal as analytics_dal
 from back.app.views import templates
 from back.settings import LOGGING
 from backend import util
-from backend.exceptions import DocumentNotFound
 from backend.services import has_access_to_project as has_access_to_group
 from backend.typing import (
     GraphicsForEntityParameters,
     GraphicParameters,
     ReportParameters,
 )
+from custom_exceptions import DocumentNotFound
 from newutils.encodings import safe_encode
 from newutils.context import CHARTS_LOGO_PATH
 from redis_cluster.operations import redis_get_or_set_entity_attr

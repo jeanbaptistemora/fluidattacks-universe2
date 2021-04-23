@@ -3,10 +3,7 @@ import json
 import pytest
 
 from back.tests.functional.group_manager.utils import get_result
-from backend.exceptions import (
-    NotPendingDeletion,
-    UserNotInOrganization
-)
+from custom_exceptions import UserNotInOrganization
 from names.domain import get_name
 
 

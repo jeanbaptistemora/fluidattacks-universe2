@@ -23,17 +23,17 @@ from backend import (
     authz,
     util,
 )
-from backend.exceptions import (
+from backend.typing import (
+    Datetime,
+    Finding,
+    Historic,
+)
+from custom_exceptions import (
     InvalidAcceptanceDays,
     InvalidAcceptanceSeverity,
     InvalidNumberAcceptations,
     SameValues,
     VulnNotFound,
-)
-from backend.typing import (
-    Datetime,
-    Finding,
-    Historic,
 )
 from newutils import (
     datetime as datetime_utils,

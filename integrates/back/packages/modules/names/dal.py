@@ -11,7 +11,7 @@ from botocore.exceptions import ClientError
 
 # local imports
 from back.settings import LOGGING
-from backend.exceptions import EmptyPoolName
+from custom_exceptions import EmptyPoolName
 from dynamodb.operations_legacy import RESOURCE_OPTIONS
 
 

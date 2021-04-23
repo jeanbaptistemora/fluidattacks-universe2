@@ -6,8 +6,8 @@ from graphql.type.definition import GraphQLResolveInfo
 
 # Local
 from backend import authz
-from backend.exceptions import InvalidParameter
 from backend.typing import Me
+from custom_exceptions import InvalidParameter
 
 
 async def resolve(

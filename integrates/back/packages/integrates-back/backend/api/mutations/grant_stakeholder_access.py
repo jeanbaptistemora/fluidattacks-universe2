@@ -18,10 +18,10 @@ from backend.decorators import (
     require_integrates,
     require_login
 )
-from backend.exceptions import StakeholderHasGroupAccess
 from backend.typing import (
     GrantStakeholderAccessPayload as GrantStakeholderAccessPayloadType,
 )
+from custom_exceptions import StakeholderHasGroupAccess
 from group_access import domain as group_access_domain
 from groups import domain as groups_domain
 from redis_cluster.operations import redis_del_by_deps

@@ -6,7 +6,7 @@ from graphql import GraphQLError
 
 from backend import authz
 from backend.api import get_new_context
-from backend.exceptions import (
+from custom_exceptions import (
     InvalidAcceptanceDays,
     InvalidAcceptanceSeverity,
     InvalidAcceptanceSeverityRange,

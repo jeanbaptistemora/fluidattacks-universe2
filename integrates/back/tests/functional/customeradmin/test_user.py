@@ -2,10 +2,10 @@
 import pytest
 
 # Local libraries
-from backend.api import get_new_context
-from backend.exceptions import StakeholderNotFound
 from back.tests.functional.utils import complete_register
 from back.tests.functional.customeradmin.utils import get_result
+from backend.api import get_new_context
+from custom_exceptions import StakeholderNotFound
 
 
 @pytest.mark.asyncio

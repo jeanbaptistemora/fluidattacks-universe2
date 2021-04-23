@@ -8,10 +8,7 @@ import pytest
 from back.tests.functional.customeradmin.utils import get_result
 from back.tests.functional.utils import complete_register
 from backend.api import get_new_context
-from backend.exceptions import (
-    NotPendingDeletion,
-    UserNotInOrganization
-)
+from custom_exceptions import UserNotInOrganization
 from names.domain import get_name
 
 

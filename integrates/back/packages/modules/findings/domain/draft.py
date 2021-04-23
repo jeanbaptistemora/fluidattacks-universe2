@@ -21,19 +21,19 @@ from backend import (
     mailer,
     util,
 )
-from backend.exceptions import (
+from backend.filters import finding as finding_filters
+from backend.typing import (
+    Finding as FindingType,
+    MailContent as MailContentType,
+    User as UserType,
+)
+from custom_exceptions import (
     AlreadyApproved,
     AlreadySubmitted,
     DraftWithoutVulns,
     IncompleteDraft,
     InvalidDraftTitle,
     NotSubmitted,
-)
-from backend.filters import finding as finding_filters
-from backend.typing import (
-    Finding as FindingType,
-    MailContent as MailContentType,
-    User as UserType,
 )
 from findings import dal as findings_dal
 from group_access import domain as group_access_domain

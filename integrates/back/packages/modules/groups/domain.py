@@ -36,20 +36,20 @@ from backend import (
     authz,
     mailer,
 )
-from backend.exceptions import (
-    AlreadyPendingDeletion,
-    InvalidParameter,
-    InvalidProjectName,
-    InvalidProjectServicesConfig,
-    RepeatedValues,
-    UserNotInOrganization,
-)
 from backend.typing import (
     Invitation as InvitationType,
     MailContent as MailContentType,
     Project as GroupType,
     ProjectAccess as GroupAccessType,
     User as UserType,
+)
+from custom_exceptions import (
+    AlreadyPendingDeletion,
+    InvalidGroupName,
+    InvalidGroupServicesConfig,
+    InvalidParameter,
+    RepeatedValues,
+    UserNotInOrganization,
 )
 from dynamodb.operations_legacy import start_context
 from events import domain as events_domain
@@ -245,7 +245,7 @@ async def create_group(  # pylint: disable=too-many-arguments,too-many-locals
                         )
                     )
         else:
-            raise InvalidProjectName()
+            raise InvalidGroupName()
     else:
         raise InvalidParameter()
     # Notify us in case the user wants any Fluid Service
@@ -926,20 +926,20 @@ def validate_group_services_config(
     if is_continuous_type:
         if has_drills:
             if not has_integrates:
-                raise InvalidProjectServicesConfig(
+                raise InvalidGroupServicesConfig(
                     'Drills is only available when Integrates is too')
 
         if has_forces:
             if not has_integrates:
-                raise InvalidProjectServicesConfig(
+                raise InvalidGroupServicesConfig(
                     'Forces is only available when Integrates is too')
             if not has_drills:
-                raise InvalidProjectServicesConfig(
+                raise InvalidGroupServicesConfig(
                     'Forces is only available when Drills is too')
 
     else:
         if has_forces:
-            raise InvalidProjectServicesConfig(
+            raise InvalidGroupServicesConfig(
                 'Forces is only available in projects of type Continuous')
 
 

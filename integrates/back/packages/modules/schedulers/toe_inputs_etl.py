@@ -19,15 +19,13 @@ from aioextensions import (
 
 # Local libraries
 from backend.api import get_new_context
-from backend.exceptions import (
-    GroupNameNotFound,
-)
-from data_containers.toe_inputs import GitRootToeInput
+from custom_exceptions import GroupNameNotFound
 from newutils import (
     bugsnag as bugsnag_utils,
     datetime as datetime_utils,
     git as git_utils,
 )
+from data_containers.toe_inputs import GitRootToeInput
 from toe.inputs import domain as toe_inputs_domain
 
 

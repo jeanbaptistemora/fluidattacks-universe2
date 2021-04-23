@@ -12,8 +12,8 @@ from pytz import timezone
 from back import settings
 from back.tests.unit.utils import create_dummy_session
 from backend.api import get_new_context
-from backend.exceptions import (
-    InvalidProjectServicesConfig,
+from custom_exceptions import (
+    InvalidGroupServicesConfig,
     RepeatedValues,
 )
 from events.domain import list_group_events
@@ -67,13 +67,13 @@ pytestmark = [
 
 
 def test_validate_group_services_config():
-    with pytest.raises(InvalidProjectServicesConfig):
+    with pytest.raises(InvalidGroupServicesConfig):
         validate_group_services_config(True, True, False, False)
-    with pytest.raises(InvalidProjectServicesConfig):
+    with pytest.raises(InvalidGroupServicesConfig):
         validate_group_services_config(True, False, True, True)
-    with pytest.raises(InvalidProjectServicesConfig):
+    with pytest.raises(InvalidGroupServicesConfig):
         validate_group_services_config(True, True, True, False)
-    with pytest.raises(InvalidProjectServicesConfig):
+    with pytest.raises(InvalidGroupServicesConfig):
         validate_group_services_config(False, False, True, True)
 
 

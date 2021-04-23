@@ -16,11 +16,11 @@ import botocore
 from botocore.exceptions import ClientError
 
 # Local libraries
-from backend.exceptions import UnavailabilityError
 from backend.typing import (
     DynamoDelete as DynamoDeleteType,
     DynamoQuery as DynamoQueryType
 )
+from custom_exceptions import UnavailabilityError
 from __init__ import (
     FI_AWS_DYNAMODB_ACCESS_KEY,
     FI_AWS_DYNAMODB_SECRET_KEY,

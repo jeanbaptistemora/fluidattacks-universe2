@@ -13,10 +13,6 @@ from ariadne import graphql
 from back.tests.unit.utils import create_dummy_session
 from backend.api import apply_context_attrs
 from backend.api.schema import SCHEMA
-from backend.exceptions import (
-    NotPendingDeletion,
-    PermissionDenied
-)
 from names.domain import get_name
 
 

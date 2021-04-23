@@ -13,11 +13,11 @@ from backend.decorators import (
     require_integrates,
     require_login
 )
-from backend.exceptions import (
+from backend.typing import SimplePayload
+from custom_exceptions import (
     ErrorUploadingFileS3,
     InvalidFileType,
 )
-from backend.typing import SimplePayload
 from redis_cluster.operations import redis_del_by_deps
 from vulnerability_files import domain as vuln_files_domain
 

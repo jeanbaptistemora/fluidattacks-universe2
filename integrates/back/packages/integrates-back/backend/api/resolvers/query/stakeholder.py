@@ -12,8 +12,11 @@ from backend.decorators import (
     enforce_organization_level_auth_async,
     require_login
 )
-from backend.exceptions import InvalidParameter, StakeholderNotFound
 from backend.typing import Stakeholder
+from custom_exceptions import (
+    InvalidParameter,
+    StakeholderNotFound,
+)
 from group_access import domain as group_access_domain
 from users import domain as stakeholders_domain
 

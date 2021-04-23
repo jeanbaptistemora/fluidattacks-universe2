@@ -10,13 +10,13 @@ from back.settings import (
     NOEXTRA,
 )
 from backend import authz
-from backend.exceptions import ErrorUploadingFileS3
 from backend.reports import report
 from batch.types import BatchProcessing
 from batch.dal import (
     delete_action,
     is_action_by_key,
 )
+from custom_exceptions import ErrorUploadingFileS3
 from newutils.reports import (
     upload_report,
     sign_url

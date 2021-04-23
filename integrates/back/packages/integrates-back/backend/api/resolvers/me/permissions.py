@@ -1,16 +1,19 @@
 # Standard
 import logging
 from logging import Logger
-from typing import cast, Set
+from typing import (
+    cast,
+    Set,
+)
 
 # Third party
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local
-from backend import authz
-from backend.exceptions import InvalidParameter
-from backend.typing import Me
 from back.settings import LOGGING
+from backend import authz
+from backend.typing import Me
+from custom_exceptions import InvalidParameter
 
 
 logging.config.dictConfig(LOGGING)

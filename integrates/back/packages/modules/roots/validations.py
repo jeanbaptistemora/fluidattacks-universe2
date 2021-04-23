@@ -8,8 +8,16 @@ from urllib.parse import ParseResult, unquote_plus, urlparse
 from git import Git, GitCommandError
 
 # Local
-from dynamodb.types import GitRootItem, IPRootItem, RootItem, URLRootItem
-from backend.exceptions import InvalidChar, RepeatedRootNickname
+from custom_exceptions import (
+    InvalidChar,
+    RepeatedRootNickname,
+)
+from dynamodb.types import (
+    GitRootItem,
+    IPRootItem,
+    RootItem,
+    URLRootItem,
+)
 
 
 def is_exclude_valid(exclude_patterns: List[str], url: str) -> bool:

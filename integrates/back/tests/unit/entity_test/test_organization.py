@@ -11,13 +11,13 @@ from string import Template
 from ariadne import graphql
 
 # Local libraries
+from back.tests.unit.utils import create_dummy_session
 from backend.api import apply_context_attrs
 from backend.api.schema import SCHEMA
-from backend.exceptions import (
+from custom_exceptions import (
     InvalidOrganization,
     UserNotInOrganization
 )
-from back.tests.unit.utils import create_dummy_session
 from organizations import domain as orgs_domain
 from __init__ import FI_DEFAULT_ORG
 

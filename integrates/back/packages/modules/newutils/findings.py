@@ -24,10 +24,6 @@ from backend import (
     mailer,
     util,
 )
-from backend.exceptions import (
-    InvalidDateFormat,
-    InvalidFileStructure,
-)
 from backend.filters import finding as finding_filters
 from backend.typing import (
     Action,
@@ -35,6 +31,10 @@ from backend.typing import (
     Finding as FindingType,
     Historic as HistoricType,
     MailContent as MailContentType,
+)
+from custom_exceptions import (
+    InvalidDateFormat,
+    InvalidFileStructure,
 )
 from newutils import (
     cvss,

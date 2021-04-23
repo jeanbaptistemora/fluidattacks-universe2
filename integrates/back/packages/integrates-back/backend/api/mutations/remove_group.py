@@ -13,8 +13,8 @@ from backend.decorators import (
     enforce_group_level_auth_async,
     require_login,
 )
-from backend.exceptions import PermissionDenied
 from backend.typing import SimplePayload as SimplePayloadType
+from custom_exceptions import PermissionDenied
 from groups import domain as groups_domain
 from redis_cluster.operations import redis_del_by_deps_soon
 

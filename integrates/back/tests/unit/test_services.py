@@ -1,13 +1,12 @@
 import pytest
-
-from backend.exceptions import (
-    FindingNotFound
-)
 from backend.services import (
     has_access_to_finding,
     has_access_to_event,
     has_valid_access_token
 )
+
+from custom_exceptions import FindingNotFound
+
 
 pytestmark = [
     pytest.mark.asyncio,

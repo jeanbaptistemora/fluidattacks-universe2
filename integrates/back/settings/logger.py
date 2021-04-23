@@ -1,21 +1,24 @@
 # Settings logger-related configs
 
+# Standard libraries
 import os
 import json
 import logging.config
 from logging import LogRecord
 from typing import Any
-from boto3.session import Session
+
+# Third-party libraries
 import bugsnag
 import requests
+from boto3.session import Session
 from graphql import GraphQLError
-from backend.exceptions import (
+
+# Local libraries
+from back import settings
+from custom_exceptions import (
     DocumentNotFound,
     UnavailabilityError,
 )
-
-from back import settings
-
 from __init__ import (
     CI_COMMIT_SHA,
     CI_COMMIT_SHORT_SHA,

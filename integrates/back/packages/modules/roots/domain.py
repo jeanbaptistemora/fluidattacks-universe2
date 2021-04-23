@@ -12,7 +12,7 @@ from urllib3.util.url import parse_url
 
 # Local
 from backend import authz
-from backend.exceptions import (
+from custom_exceptions import (
     HasOpenVulns,
     InvalidParameter,
     InvalidRootExclusion,

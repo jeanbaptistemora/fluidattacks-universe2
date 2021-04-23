@@ -6,13 +6,13 @@ from typing import (
 
 # Local
 from backend import authz
-from backend.exceptions import (
-    AcceptionNotRequested,
-    InvalidTreatmentManager,
-)
 from backend.typing import (
     Finding,
     Historic,
+)
+from custom_exceptions import (
+    AcceptionNotRequested,
+    InvalidTreatmentManager,
 )
 
 

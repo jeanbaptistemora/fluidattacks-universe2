@@ -36,13 +36,6 @@ from backend import (
     mailer,
     util,
 )
-from backend.exceptions import (
-    FindingNotFound,
-    InvalidCommentParent,
-    InvalidDraftTitle,
-    PermissionDenied,
-    VulnNotFound,
-)
 from backend.filters import (
     finding as finding_filters,
     vulnerability as vuln_filters,
@@ -54,6 +47,13 @@ from backend.typing import (
     Vulnerability as VulnerabilityType,
 )
 from comments import domain as comments_domain
+from custom_exceptions import (
+    FindingNotFound,
+    InvalidCommentParent,
+    InvalidDraftTitle,
+    PermissionDenied,
+    VulnNotFound,
+)
 from dynamodb.operations_legacy import start_context
 from findings import dal as findings_dal
 from group_access import domain as group_access_domain

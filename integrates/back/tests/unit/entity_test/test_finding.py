@@ -21,7 +21,7 @@ from backend.api import (
   get_new_context,
 )
 from backend.api.schema import SCHEMA
-from backend.exceptions import FindingNotFound
+from custom_exceptions import FindingNotFound
 from findings import dal as findings_dal
 from findings.domain import get_finding
 from groups.domain import get_open_vulnerabilities

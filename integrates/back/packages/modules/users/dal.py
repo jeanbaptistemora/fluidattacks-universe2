@@ -19,11 +19,11 @@ from botocore.exceptions import ClientError
 
 # Local libraries
 from back.settings import LOGGING
-from backend.exceptions import UnavailabilityError
 from backend.typing import (
     DynamoDelete as DynamoDeleteType,
     User as UserType
 )
+from custom_exceptions import UnavailabilityError
 from dynamodb import operations_legacy as dynamodb_ops
 from __init__ import FI_TEST_PROJECTS
 

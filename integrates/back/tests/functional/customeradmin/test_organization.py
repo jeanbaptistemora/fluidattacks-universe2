@@ -3,9 +3,9 @@ import pytest
 from decimal import Decimal
 
 # Local libraries
-from backend.api import get_new_context
-from backend.exceptions import UserNotInOrganization
 from back.tests.functional.customeradmin.utils import get_result
+from backend.api import get_new_context
+from custom_exceptions import UserNotInOrganization
 
 
 @pytest.mark.asyncio

@@ -14,7 +14,7 @@ from starlette.requests import Request
 # Local libraries
 from back import settings
 from backend import authz
-from backend.exceptions import (
+from custom_exceptions import (
     ExpiredToken,
     SecureAccessException,
 )

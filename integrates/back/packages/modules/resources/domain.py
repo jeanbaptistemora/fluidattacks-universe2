@@ -26,11 +26,11 @@ from backend import (
     mailer,
     util,
 )
-from backend.exceptions import InvalidFileSize
 from backend.typing import (
     MailContent as MailContentType,
     Resource as ResourceType
 )
+from custom_exceptions import InvalidFileSize
 from group_access import domain as group_access_domain
 from groups import domain as groups_domain
 from newutils import (

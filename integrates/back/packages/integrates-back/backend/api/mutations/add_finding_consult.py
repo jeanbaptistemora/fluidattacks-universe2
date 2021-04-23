@@ -14,8 +14,8 @@ from backend.decorators import (
     require_integrates,
     require_login
 )
-from backend.exceptions import PermissionDenied
 from backend.typing import AddConsultPayload as AddConsultPayloadType
+from custom_exceptions import PermissionDenied
 from findings import domain as findings_domain
 from newutils import datetime as datetime_utils
 from redis_cluster.operations import redis_del_by_deps_soon

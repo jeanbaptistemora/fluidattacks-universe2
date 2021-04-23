@@ -18,11 +18,11 @@ from starlette.datastructures import UploadFile
 
 # Local libraries
 from back.settings import LOGGING
-from backend.exceptions import ErrorUploadingFileS3
 from backend.typing import (
     DynamoDelete as DynamoDeleteType,
     Finding as FindingType,
 )
+from custom_exceptions import ErrorUploadingFileS3
 from dynamodb import operations_legacy as dynamodb_ops
 from newutils import datetime as datetime_utils
 from s3 import operations as s3_ops

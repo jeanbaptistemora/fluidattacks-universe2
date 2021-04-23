@@ -5,8 +5,8 @@ from typing import List
 from aiodataloader import DataLoader
 
 # Local libraries
-from backend.exceptions import GroupNotFound
 from backend.typing import Project as GroupType
+from custom_exceptions import GroupNotFound
 
 
 def check_status(group: GroupType) -> GroupType:

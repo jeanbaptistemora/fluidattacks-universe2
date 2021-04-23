@@ -28,12 +28,12 @@ from backend import (
     authz,
     util,
 )
-from backend.exceptions import (
+from backend.services import has_valid_access_token
+from custom_exceptions import (
     FindingNotFound,
     InvalidAuthorization,
     UserNotInOrganization,
 )
-from backend.services import has_valid_access_token
 from findings import domain as findings_domain
 from newutils import function
 from organizations import domain as orgs_domain

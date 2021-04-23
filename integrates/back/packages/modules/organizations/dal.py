@@ -18,15 +18,15 @@ from botocore.exceptions import ClientError
 
 # local imports
 from back.settings import LOGGING
-from backend.exceptions import (
-    InvalidOrganization,
-    UnavailabilityError,
-)
 from backend.typing import (
     Dynamo as DynamoType,
     DynamoDelete as DynamoDeleteType,
     DynamoQuery as DynamoQueryType,
     Organization as OrganizationType
+)
+from custom_exceptions import (
+    InvalidOrganization,
+    UnavailabilityError,
 )
 from dynamodb.operations_legacy import (
     client as dynamodb_client,

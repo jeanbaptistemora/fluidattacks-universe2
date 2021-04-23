@@ -3,7 +3,7 @@ import os
 import pytest
 from starlette.datastructures import UploadFile
 
-from backend.exceptions import InvalidFileSize
+from custom_exceptions import InvalidFileSize
 from resources import domain as resources_domain
 
 

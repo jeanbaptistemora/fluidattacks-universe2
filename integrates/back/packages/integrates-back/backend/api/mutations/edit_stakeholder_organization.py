@@ -13,8 +13,8 @@ from backend.decorators import (
     require_login,
     require_organization_access
 )
-from backend.exceptions import UserNotInOrganization
 from backend.typing import EditStakeholderPayload
+from custom_exceptions import UserNotInOrganization
 from organizations import domain as orgs_domain
 from redis_cluster.operations import redis_del_by_deps
 from users import domain as users_domain

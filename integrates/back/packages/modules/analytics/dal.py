@@ -5,7 +5,7 @@ import io
 from botocore.exceptions import ClientError
 
 # Local libraries
-from backend.exceptions import DocumentNotFound
+from custom_exceptions import DocumentNotFound
 from newutils import apm
 from s3.operations import aio_client
 from __init__ import (

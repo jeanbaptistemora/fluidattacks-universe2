@@ -16,7 +16,7 @@ from typing import (
 
 from aioextensions import collect
 
-from backend.exceptions import UserNotInOrganization
+from custom_exceptions import UserNotInOrganization
 from organizations import (
     dal as orgs_dal,
     domain as orgs_domain,

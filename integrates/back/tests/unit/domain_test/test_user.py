@@ -1,10 +1,6 @@
-from datetime import datetime, timedelta
-import pytz
-
 import pytest
 
-from back import settings
-from backend.exceptions import InvalidPushToken
+from custom_exceptions import InvalidPushToken
 from users import domain as users_domain
 
 

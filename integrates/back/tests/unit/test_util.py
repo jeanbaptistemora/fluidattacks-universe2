@@ -29,7 +29,6 @@ from back.tests.unit.utils import (
     create_dummy_session,
     create_dummy_simple_session,
 )
-from backend.exceptions import ExpiredToken
 from backend.util import (
     assert_file_mime,
     calculate_hash_token,
@@ -42,6 +41,7 @@ from backend.util import (
     ord_asc_by_criticality,
     replace_all,
 )
+from custom_exceptions import ExpiredToken
 from newutils import (
     datetime as datetime_utils,
     encodings,

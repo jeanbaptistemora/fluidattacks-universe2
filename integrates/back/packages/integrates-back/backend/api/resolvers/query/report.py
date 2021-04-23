@@ -13,11 +13,9 @@ from backend.decorators import (
     enforce_group_level_auth_async,
     require_login
 )
-from backend.exceptions import (
-    RequestedReportError
-)
 from backend.typing import Report
 from batch import dal as batch_dal
+from custom_exceptions import RequestedReportError
 
 
 @enforce_group_level_auth_async
