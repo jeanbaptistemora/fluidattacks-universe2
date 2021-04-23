@@ -7,11 +7,11 @@ from typing import (
 
 
 def guess_environment() -> Union[
-    Literal['development'],
-    Literal['production'],
+    Literal["development"],
+    Literal["production"],
 ]:
     return (
-        'production'
-        if environ.get('CI_COMMIT_REF_NAME', 'master') == 'master'
-        else 'development'
+        "production"
+        if environ.get("CI_COMMIT_REF_NAME", "master") == "master"
+        else "development"
     )

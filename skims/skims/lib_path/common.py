@@ -59,29 +59,29 @@ from zone import (
 )
 
 # Constants
-TFun = TypeVar('TFun', bound=Callable[..., Any])
+TFun = TypeVar("TFun", bound=Callable[..., Any])
 
 # Reusable Components
 C_STYLE_COMMENT: ParserElement = cppStyleComment
 SHARP_STYLE_COMMENT: ParserElement = pythonStyleComment
 
-NAMES_DOCKERFILE: Set[str] = {'Dockerfile'}
-EXTENSIONS_CSHARP: Set[str] = {'cs'}
-EXTENSIONS_JAVA: Set[str] = {'java'}
-EXTENSIONS_JAVA_PROPERTIES: Set[str] = {'properties'}
-EXTENSIONS_JAVASCRIPT: Set[str] = {'js', 'jsx', 'ts', 'tsx'}
-EXTENSIONS_JSON: Set[str] = {'json'}
-EXTENSIONS_PYTHON: Set[str] = {'py', 'pyw'}
-EXTENSIONS_TERRAFORM: Set[str] = {'tf'}
-EXTENSIONS_SWIFT: Set[str] = {'swift'}
-EXTENSIONS_YAML: Set[str] = {'yml', 'yaml'}
+NAMES_DOCKERFILE: Set[str] = {"Dockerfile"}
+EXTENSIONS_CSHARP: Set[str] = {"cs"}
+EXTENSIONS_JAVA: Set[str] = {"java"}
+EXTENSIONS_JAVA_PROPERTIES: Set[str] = {"properties"}
+EXTENSIONS_JAVASCRIPT: Set[str] = {"js", "jsx", "ts", "tsx"}
+EXTENSIONS_JSON: Set[str] = {"json"}
+EXTENSIONS_PYTHON: Set[str] = {"py", "pyw"}
+EXTENSIONS_TERRAFORM: Set[str] = {"tf"}
+EXTENSIONS_SWIFT: Set[str] = {"swift"}
+EXTENSIONS_YAML: Set[str] = {"yml", "yaml"}
 EXTENSIONS_CLOUDFORMATION: Set[str] = EXTENSIONS_YAML | EXTENSIONS_JSON
-BACKTICK_QUOTED_STRING: QuotedString = QuotedString("`", escChar='\\')
-SINGLE_QUOTED_STRING: QuotedString = QuotedString("'", escChar='\\')
-DOUBLE_QUOTED_STRING: QuotedString = QuotedString('"', escChar='\\')
-NUMBER: Word = Word('0123456789abcdefABCDEFxX.')
-VAR_NAME_JAVA: ParserElement = Word(alphas + '$_', alphanums + '$_')
-VAR_ATTR_JAVA: ParserElement = delimitedList(VAR_NAME_JAVA, '.', True)
+BACKTICK_QUOTED_STRING: QuotedString = QuotedString("`", escChar="\\")
+SINGLE_QUOTED_STRING: QuotedString = QuotedString("'", escChar="\\")
+DOUBLE_QUOTED_STRING: QuotedString = QuotedString('"', escChar="\\")
+NUMBER: Word = Word("0123456789abcdefABCDEFxX.")
+VAR_NAME_JAVA: ParserElement = Word(alphas + "$_", alphanums + "$_")
+VAR_ATTR_JAVA: ParserElement = delimitedList(VAR_NAME_JAVA, ".", True)
 
 SHIELD: Callable[[TFun], TFun] = shield(on_error_return=())
 
@@ -127,7 +127,7 @@ def get_vulnerabilities_blocking(
                 namespace=CTX.config.namespace,
                 what=path,
             ),
-            where=f'{match.start_line}',
+            where=f"{match.start_line}",
             skims_metadata=core_model.SkimsVulnerabilityMetadata(
                 cwe=tuple(cwe),
                 description=description,
@@ -135,8 +135,8 @@ def get_vulnerabilities_blocking(
                     column=match.start_column,
                     content=content,
                     line=match.start_line,
-                )
-            )
+                ),
+            ),
         )
         for match in get_matching_lines_blocking(
             content=content,
@@ -165,7 +165,7 @@ def get_vulnerabilities_from_iterator_blocking(
                 namespace=CTX.config.namespace,
                 what=path,
             ),
-            where=f'{line_no}',
+            where=f"{line_no}",
             skims_metadata=core_model.SkimsVulnerabilityMetadata(
                 cwe=tuple(cwe),
                 description=description,
@@ -173,8 +173,8 @@ def get_vulnerabilities_from_iterator_blocking(
                     column=column_no,
                     content=content,
                     line=line_no,
-                )
-            )
+                ),
+            ),
         )
         for line_no, column_no in iterator
     )
@@ -196,7 +196,7 @@ def get_vulnerabilities_from_n_attrs_iterable_blocking(
         description=description,
         finding=finding,
         iterator=(
-            (int(n_attrs['label_l']), int(n_attrs['label_c']))
+            (int(n_attrs["label_l"]), int(n_attrs["label_c"]))
             for n_attrs in n_attrs_iterable
         ),
         path=path,
@@ -215,13 +215,15 @@ def get_vulnerabilities_from_aws_iterator_blocking(
     description_key: str,
     finding: core_model.FindingEnum,
     path: str,
-    statements_iterator: Iterator[Union[
-        AWSIamManagedPolicyArns,
-        AWSIamPolicyStatement,
-        AWSS3Acl,
-        AWSS3Bucket,
-        Node,
-    ]],
+    statements_iterator: Iterator[
+        Union[
+            AWSIamManagedPolicyArns,
+            AWSIamPolicyStatement,
+            AWSS3Acl,
+            AWSS3Bucket,
+            Node,
+        ]
+    ],
 ) -> core_model.Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
@@ -231,9 +233,12 @@ def get_vulnerabilities_from_aws_iterator_blocking(
             path=path,
         ),
         finding=finding,
-        iterator=((
-            stmt.start_line if isinstance(stmt, Node) else stmt.line,
-            stmt.start_column if isinstance(stmt, Node) else stmt.column,
-        ) for stmt in statements_iterator),
+        iterator=(
+            (
+                stmt.start_line if isinstance(stmt, Node) else stmt.line,
+                stmt.start_column if isinstance(stmt, Node) else stmt.column,
+            )
+            for stmt in statements_iterator
+        ),
         path=path,
     )

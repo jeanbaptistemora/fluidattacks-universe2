@@ -29,12 +29,12 @@ def load_translations() -> Dict[str, Dict[str, str]]:
     :rtype: Dict[str, Dict[str, str]]
     """
     translations: Dict[str, Dict[str, str]] = {}
-    translations_folder: str = f'{STATIC}/translations'
-    for path in iglob(f'{translations_folder}/**/*.yaml', recursive=True):
+    translations_folder: str = f"{STATIC}/translations"
+    for path in iglob(f"{translations_folder}/**/*.yaml", recursive=True):
         with open(path) as handle:
             for key, data in yaml.safe_load(handle).items():
                 if key in translations:
-                    raise KeyError(f'Found a duplicated translation: {key}')
+                    raise KeyError(f"Found a duplicated translation: {key}")
 
                 translations[key] = {
                     locale_code: data[locale_code.lower()]
@@ -47,13 +47,18 @@ def load_translations() -> Dict[str, Dict[str, str]]:
 
 TRANSLATIONS: Dict[str, Dict[str, str]] = load_translations()
 
-
-IGNORED_CHARS = str.maketrans('', '', ''.join({
-    '+',
-    '^',
-    '*',
-    '~',
-}))
+IGNORED_CHARS = str.maketrans(
+    "",
+    "",
+    "".join(
+        {
+            "+",
+            "^",
+            "*",
+            "~",
+        }
+    ),
+)
 
 
 def t(  # pylint: disable=invalid-name

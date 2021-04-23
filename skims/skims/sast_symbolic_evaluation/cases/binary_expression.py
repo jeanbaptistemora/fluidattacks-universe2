@@ -16,16 +16,16 @@ def evaluate(args: EvaluatorArgs) -> None:
     if left.meta.value is not None and right.meta.value is not None:
         with suppress(TypeError):
             args.syntax_step.meta.value = {
-                '+': operator.add,
-                '-': operator.sub,
-                '*': operator.mul,
-                '/': operator.truediv,
-                '<': operator.lt,
-                '<=': operator.le,
-                '==': operator.eq,
-                '!=': operator.ne,
-                '>': operator.gt,
-                '>=': operator.ge,
+                "+": operator.add,
+                "-": operator.sub,
+                "*": operator.mul,
+                "/": operator.truediv,
+                "<": operator.lt,
+                "<=": operator.le,
+                "==": operator.eq,
+                "!=": operator.ne,
+                ">": operator.gt,
+                ">=": operator.ge,
             }.get(args.syntax_step.operator, lambda _, __: None)(
                 left.meta.value,
                 right.meta.value,

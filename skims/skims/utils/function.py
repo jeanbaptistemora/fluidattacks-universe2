@@ -35,8 +35,8 @@ from utils.logs import (
 
 # Constants
 RAISE = object()
-RATE_LIMIT_ENABLED: bool = guess_environment() == 'production'
-TFun = TypeVar('TFun', bound=Callable[..., Any])
+RATE_LIMIT_ENABLED: bool = guess_environment() == "production"
+TFun = TypeVar("TFun", bound=Callable[..., Any])
 
 
 class RetryAndFinallyReturn(Exception):
@@ -48,8 +48,7 @@ class RetryAndFinallyReturn(Exception):
 
 
 class StopRetrying(Exception):
-    """Raise this exception will make the `shield` decorator stop retrying.
-    """
+    """Raise this exception will make the `shield` decorator stop retrying."""
 
 
 def get_bound_arguments(
@@ -68,12 +67,13 @@ def get_id(function: Callable[..., Any]) -> str:
     if isinstance(function, functools.partial):
         function = function.func
 
-    return f'{function.__module__}.{function.__name__}'
+    return f"{function.__module__}.{function.__name__}"
 
 
 def get_signature(function: Callable[..., Any]) -> inspect.Signature:
     signature: inspect.Signature = inspect.signature(
-        function, follow_wrapped=True,
+        function,
+        follow_wrapped=True,
     )
 
     return signature
@@ -87,13 +87,12 @@ def shield(
         RetryAndFinallyReturn,
     ),
     retries: int = 1,
-    sleep_between_retries: int = 0
+    sleep_between_retries: int = 0,
 ) -> Callable[[TFun], TFun]:
     if retries < 1:
-        raise ValueError('retries must be >= 1')
+        raise ValueError("retries must be >= 1")
 
     def decorator(function: TFun) -> TFun:
-
         @functools.wraps(function)
         async def wrapper(*args: Any, **kwargs: Any) -> Any:
             function_id = get_id(function)
@@ -102,11 +101,11 @@ def shield(
                 try:
                     return await function(*args, **kwargs)
                 except on_exceptions as exc:
-                    msg: str = 'Function: %s, %s: %s\n%s'
+                    msg: str = "Function: %s, %s: %s\n%s"
                     exc_msg: str = str(exc)
                     exc_type: str = type(exc).__name__
                     await log(
-                        'warning',
+                        "warning",
                         msg,
                         function_id,
                         exc_type,
@@ -121,7 +120,7 @@ def shield(
                             raise exc
                         return on_error_return
 
-                    await log('info', 'retry #%s: %s', number, function_id)
+                    await log("info", "retry #%s: %s", number, function_id)
                     await sleep(sleep_between_retries)
 
         return cast(TFun, wrapper)
@@ -151,9 +150,7 @@ def time_limited(
     *,
     seconds: Optional[int] = None,
 ) -> Callable[[TFun], TFun]:
-
     def decorator(function: TFun) -> TFun:
-
         @functools.wraps(function)
         async def wrapper(*args: Any, **kwargs: Any) -> Any:
             return await wait_for(

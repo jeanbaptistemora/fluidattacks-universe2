@@ -92,10 +92,11 @@ def eval_constructor(
     for syntax_steps in possible_syntax_steps.values():
         # Check modified fields
         for syntax_step in syntax_steps:
-            if (
-                isinstance(syntax_step, graph_model.SyntaxStepMethodInvocation)
-                and (syntax_step.method.startswith('this.')
-                     or '.' not in syntax_step.method)
+            if isinstance(
+                syntax_step, graph_model.SyntaxStepMethodInvocation
+            ) and (
+                syntax_step.method.startswith("this.")
+                or "." not in syntax_step.method
             ):
                 current_instance.fields.update(
                     syntax_step.current_instance.fields,
@@ -149,58 +150,36 @@ def eval_method(
 
 
 EVALUATORS: Dict[object, Evaluator] = {
-    graph_model.SyntaxStepAssignment:
-    assignment.evaluate,
-    graph_model.SyntaxStepArrayAccess:
-    array_access.evaluate,
-    graph_model.SyntaxStepArrayInitialization:
-    array_initialization.evaluate,
-    graph_model.SyntaxStepArrayInstantiation:
-    array_instantiation.evaluate,
-    graph_model.SyntaxStepBinaryExpression:
-    binary_expression.evaluate,
-    graph_model.SyntaxStepCastExpression:
-    cast_expression.evaluate,
-    graph_model.SyntaxStepCatchClause:
-    no_op.evaluate,
-    graph_model.SyntaxStepUnaryExpression:
-    unary_expression.evaluate,
-    graph_model.SyntaxStepParenthesizedExpression:
-    parenthesized_expression.evaluate,
-    graph_model.SyntaxStepDeclaration:
-    declaration.evaluate,
-    graph_model.SyntaxStepFor:
-    no_op.evaluate,
-    graph_model.SyntaxStepIf:
-    if_.evaluate,
-    graph_model.SyntaxStepInstanceofExpression:
-    instanceof_expression.evaluate,
-    graph_model.SyntaxStepSwitch:
-    switch_label.evaluate,
-    graph_model.SyntaxStepSwitchLabelCase:
-    switch_label_case.evaluate,
-    graph_model.SyntaxStepSwitchLabelDefault:
-    no_op.evaluate,
-    graph_model.SyntaxStepLiteral:
-    literal.evaluate,
-    graph_model.SyntaxStepMethodInvocation:
-    method_invocation.evaluate,
-    graph_model.SyntaxStepMethodInvocationChain:
-    method_invocation_chain.evaluate,
-    graph_model.SyntaxStepNoOp:
-    no_op.evaluate,
-    graph_model.SyntaxStepObjectInstantiation:
-    object_instantiation.evaluate,
-    graph_model.SyntaxStepReturn:
-    return_.evaluate,
-    graph_model.SyntaxStepSymbolLookup:
-    symbol_lookup.evaluate,
-    graph_model.SyntaxStepTernary:
-    ternary.evaluate,
-    graph_model.SyntaxStepThis:
-    no_op.evaluate,
-    graph_model.SyntaxStepLambdaExpression:
-    lambda_expression.evaluate,
+    graph_model.SyntaxStepAssignment: assignment.evaluate,
+    graph_model.SyntaxStepArrayAccess: array_access.evaluate,
+    graph_model.SyntaxStepArrayInitialization: array_initialization.evaluate,
+    graph_model.SyntaxStepArrayInstantiation: array_instantiation.evaluate,
+    graph_model.SyntaxStepBinaryExpression: binary_expression.evaluate,
+    graph_model.SyntaxStepCastExpression: cast_expression.evaluate,
+    graph_model.SyntaxStepCatchClause: no_op.evaluate,
+    graph_model.SyntaxStepUnaryExpression: unary_expression.evaluate,
+    graph_model.SyntaxStepParenthesizedExpression: (
+        parenthesized_expression.evaluate
+    ),
+    graph_model.SyntaxStepDeclaration: declaration.evaluate,
+    graph_model.SyntaxStepFor: no_op.evaluate,
+    graph_model.SyntaxStepIf: if_.evaluate,
+    graph_model.SyntaxStepInstanceofExpression: instanceof_expression.evaluate,
+    graph_model.SyntaxStepSwitch: switch_label.evaluate,
+    graph_model.SyntaxStepSwitchLabelCase: switch_label_case.evaluate,
+    graph_model.SyntaxStepSwitchLabelDefault: no_op.evaluate,
+    graph_model.SyntaxStepLiteral: literal.evaluate,
+    graph_model.SyntaxStepMethodInvocation: method_invocation.evaluate,
+    graph_model.SyntaxStepMethodInvocationChain: (
+        method_invocation_chain.evaluate
+    ),
+    graph_model.SyntaxStepNoOp: no_op.evaluate,
+    graph_model.SyntaxStepObjectInstantiation: object_instantiation.evaluate,
+    graph_model.SyntaxStepReturn: return_.evaluate,
+    graph_model.SyntaxStepSymbolLookup: symbol_lookup.evaluate,
+    graph_model.SyntaxStepTernary: ternary.evaluate,
+    graph_model.SyntaxStepThis: no_op.evaluate,
+    graph_model.SyntaxStepLambdaExpression: lambda_expression.evaluate,
 }
 
 
@@ -217,7 +196,7 @@ def eval_syntax_steps(
 ) -> graph_model.SyntaxSteps:
     if n_id not in shard.syntax:
         # We were not able to fully understand this node syntax
-        raise StopEvaluation(f'Missing Syntax Reader, {shard.path} @ {n_id}')
+        raise StopEvaluation(f"Missing Syntax Reader, {shard.path} @ {n_id}")
 
     # Append the syntax steps from this node
     syntax_step_index = len(syntax_steps)
@@ -239,22 +218,26 @@ def eval_syntax_steps(
         syntax_step = syntax_steps[syntax_step_index]
         syntax_step_type = type(syntax_step)
         if evaluator := EVALUATORS.get(syntax_step_type):
-            evaluator(EvaluatorArgs(
-                eval_method=eval_method,
-                eval_constructor=eval_constructor,
-                dependencies=get_dependencies(syntax_step_index, syntax_steps),
-                finding=finding,
-                graph_db=graph_db,
-                shard=shard,
-                n_id_next=n_id_next,
-                syntax_step=syntax_step,
-                syntax_step_index=syntax_step_index,
-                syntax_steps=syntax_steps,
-                current_instance=current_instance,
-            ))
+            evaluator(
+                EvaluatorArgs(
+                    eval_method=eval_method,
+                    eval_constructor=eval_constructor,
+                    dependencies=get_dependencies(
+                        syntax_step_index, syntax_steps
+                    ),
+                    finding=finding,
+                    graph_db=graph_db,
+                    shard=shard,
+                    n_id_next=n_id_next,
+                    syntax_step=syntax_step,
+                    syntax_step_index=syntax_step_index,
+                    syntax_steps=syntax_steps,
+                    current_instance=current_instance,
+                )
+            )
         else:
             # We are not able to evaluate this step
-            raise StopEvaluation(f'Missing evaluator, {syntax_step_type}')
+            raise StopEvaluation(f"Missing evaluator, {syntax_step_type}")
 
         syntax_step_index += 1
 
@@ -285,12 +268,12 @@ def get_possible_syntax_steps_from_path(
                 syntax_steps=syntax_steps,
                 n_id=n_id,
                 n_id_next=n_id_next,
-                current_instance=current_instance
+                current_instance=current_instance,
             )
         except ImpossiblePath:
             return []
         except StopEvaluation as exc:
-            log_blocking('debug', str(exc))
+            log_blocking("debug", str(exc))
             return syntax_steps
 
     return syntax_steps
@@ -313,7 +296,7 @@ def get_possible_syntax_steps_for_n_id(
 ) -> PossibleSyntaxStepsForUntrustedNId:
     syntax_steps_map: PossibleSyntaxStepsForUntrustedNId = {
         # Path identifier -> syntax_steps
-        '-'.join(path): get_possible_syntax_steps_from_path(
+        "-".join(path): get_possible_syntax_steps_from_path(
             graph_db,
             finding=finding,
             overriden_syntax_steps=overriden_syntax_steps or [],
@@ -325,7 +308,7 @@ def get_possible_syntax_steps_for_n_id(
             graph=shard.graph,
             only_sinks=only_sinks,
             n_id=g.lookup_first_cfg_parent(shard.graph, n_id),
-            finding=finding
+            finding=finding,
         )
     }
 
@@ -343,13 +326,13 @@ def get_possible_syntax_steps_for_finding(
             finding=finding,
             n_id=untrusted_n_id,
             shard=shard,
-            only_sinks=True
+            only_sinks=True,
         )
         for untrusted_n_id in shard.graph.nodes
-        if 'label_input_type' in shard.graph.nodes[untrusted_n_id]
+        if "label_input_type" in shard.graph.nodes[untrusted_n_id]
         if any(
             core_model.FINDING_ENUM_FROM_STR[label] == finding
-            for label in shard.graph.nodes[untrusted_n_id]['label_input_type']
+            for label in shard.graph.nodes[untrusted_n_id]["label_input_type"]
         )
     }
 
@@ -363,8 +346,11 @@ def get_possible_syntax_steps(
     syntax_steps_map: PossibleSyntaxSteps = {}
     for shard_index, shard in enumerate(graph_db.shards):
         log_blocking(
-            'info', 'Evaluating %s, shard %s: %s',
-            finding.name, shard_index, shard.path,
+            "info",
+            "Evaluating %s, shard %s: %s",
+            finding.name,
+            shard_index,
+            shard.path,
         )
 
         syntax_steps_map[shard.path] = get_possible_syntax_steps_for_finding(
@@ -374,8 +360,8 @@ def get_possible_syntax_steps(
         )
 
     if CTX.debug:
-        output = get_debug_path(f'tree-sitter-syntax-steps-{finding.name}')
-        with open(f'{output}.json', 'w') as handle:
+        output = get_debug_path(f"tree-sitter-syntax-steps-{finding.name}")
+        with open(f"{output}.json", "w") as handle:
             json_dump(syntax_steps_map, handle, indent=2, sort_keys=True)
 
     return syntax_steps_map

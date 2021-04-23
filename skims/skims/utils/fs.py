@@ -37,7 +37,7 @@ from utils.logs import (
 
 def generate_file_content(
     path: str,
-    encoding: str = 'latin-1',
+    encoding: str = "latin-1",
     size: int = -1,
 ) -> Callable[[], Awaitable[str]]:
     data: Dict[str, str] = {}
@@ -45,12 +45,12 @@ def generate_file_content(
     @never_concurrent
     async def get_one() -> str:
         if not data:
-            data['file_contents'] = await get_file_content(
+            data["file_contents"] = await get_file_content(
                 path=path,
                 encoding=encoding,
                 size=size,
             )
-        return data['file_contents']
+        return data["file_contents"]
 
     return get_one
 
@@ -64,20 +64,20 @@ def generate_file_raw_content(
     @never_concurrent
     async def get_one() -> bytes:
         if not data:
-            data['file_raw_content'] = await get_file_raw_content(path, size)
-        return data['file_raw_content']
+            data["file_raw_content"] = await get_file_raw_content(path, size)
+        return data["file_raw_content"]
 
     return get_one
 
 
 async def get_file_content(
     path: str,
-    encoding: str = 'latin-1',
+    encoding: str = "latin-1",
     size: int = -1,
 ) -> str:
     async with aiofiles.open(  # type: ignore
         path,
-        mode='r',
+        mode="r",
         encoding=encoding,
     ) as file_handle:
         file_contents: str = await file_handle.read(size)
@@ -88,7 +88,7 @@ async def get_file_content(
 async def get_file_raw_content(path: str, size: int = -1) -> bytes:
     async with aiofiles.open(  # type: ignore
         path,
-        mode='rb',
+        mode="rb",
     ) as file_handle:
         file_contents: bytes = await file_handle.read(size)
 
@@ -105,12 +105,15 @@ async def recurse_dir(path: str) -> Tuple[str, ...]:
     except FileNotFoundError:
         scanner = tuple()
 
-    dirs = map(attrgetter('path'), filter(methodcaller('is_dir'), scanner))
-    files = map(attrgetter('path'), filter(methodcaller('is_file'), scanner))
+    dirs = map(attrgetter("path"), filter(methodcaller("is_dir"), scanner))
+    files = map(attrgetter("path"), filter(methodcaller("is_file"), scanner))
 
-    tree: Tuple[str, ...] = tuple(chain(
-        files, *await collect(map(recurse_dir, dirs)),
-    ))
+    tree: Tuple[str, ...] = tuple(
+        chain(
+            files,
+            *await collect(map(recurse_dir, dirs)),
+        )
+    )
 
     return tree
 
@@ -124,29 +127,44 @@ async def resolve_paths(
     exclude: Tuple[str, ...],
     include: Tuple[str, ...],
 ) -> Set[str]:
-
     def normpath(path: str) -> str:
         return os.path.normpath(path)
 
     def evaluate(path: str) -> Iterable[str]:
-        if path.startswith('glob(') and path.endswith(')'):
+        if path.startswith("glob(") and path.endswith(")"):
             yield from glob(path[5:-1], recursive=True)
         else:
             yield path
 
     try:
-        unique_paths: Set[str] = set(map(normpath, chain.from_iterable(
-            await collect(map(
-                recurse, chain.from_iterable(map(evaluate, include)),
-            )),
-        ))) - set(map(normpath, chain.from_iterable(
-            await collect(map(
-                recurse, chain.from_iterable(map(evaluate, exclude)),
-            )),
-        )))
+        unique_paths: Set[str] = set(
+            map(
+                normpath,
+                chain.from_iterable(
+                    await collect(
+                        map(
+                            recurse,
+                            chain.from_iterable(map(evaluate, include)),
+                        )
+                    ),
+                ),
+            )
+        ) - set(
+            map(
+                normpath,
+                chain.from_iterable(
+                    await collect(
+                        map(
+                            recurse,
+                            chain.from_iterable(map(evaluate, exclude)),
+                        )
+                    ),
+                ),
+            )
+        )
     except FileNotFoundError as exc:
-        raise SystemExit(f'File does not exist: {exc.filename}')
+        raise SystemExit(f"File does not exist: {exc.filename}")
     else:
-        await log('info', 'Files to be tested: %s', len(unique_paths))
+        await log("info", "Files to be tested: %s", len(unique_paths))
 
     return unique_paths

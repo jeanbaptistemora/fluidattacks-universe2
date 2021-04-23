@@ -55,8 +55,8 @@ def overloaded_construct_mapping(
     deep: bool = False,
 ) -> Any:
     mapping = dict(construct_mapping(self, node, deep=deep))
-    mapping['__column__'] = node.start_mark.column
-    mapping['__line__'] = node.start_mark.line + 1
+    mapping["__column__"] = node.start_mark.column
+    mapping["__line__"] = node.start_mark.line + 1
     return mapping
 
 
@@ -67,8 +67,7 @@ def overloaded_construct_sequence(
 ) -> Any:
     return ListToken(
         value=[
-            self.construct_object(child, deep=deep)
-            for child in node.value
+            self.construct_object(child, deep=deep) for child in node.value
         ],
         column=node.start_mark.column,
         line=node.start_mark.line,
@@ -81,8 +80,8 @@ def overloaded_multi_constructor(
     node: yaml.Node,
 ) -> Any:
     mapping = dict(multi_constructor(loader, tag_suffix, node))
-    mapping['__column__'] = node.start_mark.column
-    mapping['__line__'] = node.start_mark.line + 1
+    mapping["__column__"] = node.start_mark.column
+    mapping["__line__"] = node.start_mark.line + 1
     return mapping
 
 
@@ -116,10 +115,9 @@ def load_as_yaml(
 
 
 def load_as_json(content: str) -> Any:
-
     def _is_meta(node: Any) -> bool:
         if isinstance(node, frozendict):
-            return set(node) == {'column', 'item', 'line'}
+            return set(node) == {"column", "item", "line"}
         return False
 
     # We cannot get the line number of compound objects as yaml does
@@ -134,20 +132,22 @@ def load_as_json(content: str) -> Any:
             obj_copy: Any = {}
             for key, value in obj.items():
                 if _is_meta(value):
-                    last_c, last_l = value['column'], value['line']
-                    value = value['item']
+                    last_c, last_l = value["column"], value["line"]
+                    value = value["item"]
                 if _is_meta(key):
-                    last_c, last_l = key['column'], key['line']
-                    key = key['item']
+                    last_c, last_l = key["column"], key["line"]
+                    key = key["item"]
 
-                obj_copy.setdefault('__column__', last_c)
-                obj_copy.setdefault('__line__', last_l)
+                obj_copy.setdefault("__column__", last_c)
+                obj_copy.setdefault("__line__", last_l)
 
-                obj_copy[_create_obj(
-                    last_c=last_c,
-                    last_l=last_l,
-                    obj=key,
-                )] = _create_obj(
+                obj_copy[
+                    _create_obj(
+                        last_c=last_c,
+                        last_l=last_l,
+                        obj=key,
+                    )
+                ] = _create_obj(
                     last_c=last_c,
                     last_l=last_l,
                     obj=value,
@@ -157,7 +157,7 @@ def load_as_json(content: str) -> Any:
                 _create_obj(
                     last_c=last_c,
                     last_l=last_l,
-                    obj=value['item'] if _is_meta(value) else value,
+                    obj=value["item"] if _is_meta(value) else value,
                 )
                 for value in obj
             ]
@@ -185,35 +185,38 @@ async def load_templates(content: str, fmt: str) -> AsyncIterator[Node]:
             stream=content,
             fmt=fmt,
         )
-        for template in templates.data if (templates.data_type
-                                           == Type.ARRAY) else [templates]:
+        for template in (
+            templates.data
+            if (templates.data_type == Type.ARRAY)
+            else [templates]
+        ):
             yield template
     except MetaloaderError as exc:
-        await log_exception('error', exc)
+        await log_exception("error", exc)
         return
 
 
 async def load(content: str, fmt: str) -> Any:
-    if fmt in {'yml', 'yaml'}:
+    if fmt in {"yml", "yaml"}:
         return await in_process(load_as_yaml, content)
 
-    if fmt in {'json'}:
+    if fmt in {"json"}:
         return await in_process(load_as_json, content)
 
     return {}
 
 
 BasicLoader.add_constructor(
-    'tag:yaml.org,2002:timestamp',
+    "tag:yaml.org,2002:timestamp",
     overloaded_construct_yaml_timestamp,
 )
 BasicLoader.add_constructor(TAG_MAP, construct_mapping)
 BasicLoader.add_multi_constructor("!", multi_constructor)
 
 Loader.add_constructor(
-    'tag:yaml.org,2002:timestamp',
+    "tag:yaml.org,2002:timestamp",
     overloaded_construct_yaml_timestamp,
 )
 Loader.add_constructor(TAG_MAP, overloaded_construct_mapping)
-Loader.add_constructor('tag:yaml.org,2002:seq', overloaded_construct_sequence)
+Loader.add_constructor("tag:yaml.org,2002:seq", overloaded_construct_sequence)
 Loader.add_multi_constructor("!", overloaded_multi_constructor)

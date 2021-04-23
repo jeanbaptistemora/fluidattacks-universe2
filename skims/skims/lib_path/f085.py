@@ -52,49 +52,57 @@ def _javascript_client_storage(
 ) -> core_model.Vulnerabilities:
     conditions: Tuple[Set[str], ...] = (
         # All items in the set must be present to consider it sensitive info
-        {'auth'},
-        {'credential'},
-        {'documento', 'usuario'},
-        {'jwt'},
-        {'password'},
-        {'sesion', 'data'},
-        {'sesion', 'id'},
-        {'sesion', 'token'},
-        {'session', 'data'},
-        {'session', 'id'},
-        {'session', 'token'},
-        {'token', 'access'},
-        {'token', 'app'},
-        {'token', 'id'},
-        {'name', 'user'},
-        {'nombre', 'usuario'},
-        {'mail', 'user'},
+        {"auth"},
+        {"credential"},
+        {"documento", "usuario"},
+        {"jwt"},
+        {"password"},
+        {"sesion", "data"},
+        {"sesion", "id"},
+        {"sesion", "token"},
+        {"session", "data"},
+        {"session", "id"},
+        {"session", "token"},
+        {"token", "access"},
+        {"token", "app"},
+        {"token", "id"},
+        {"name", "user"},
+        {"nombre", "usuario"},
+        {"mail", "user"},
     )
 
-    argument_value = MatchFirst([
-        BACKTICK_QUOTED_STRING.copy(),
-        DOUBLE_QUOTED_STRING.copy(),
-        SINGLE_QUOTED_STRING.copy(),
-        VAR_ATTR_JAVA.copy(),
-    ])
-    arguments = delimitedList(argument_value, delim=',')
-    arguments.addCondition(lambda tokens: any(
-        all(smell in argument for smell in smells)
-        for argument in map(methodcaller('lower'), tokens)
-        for smells in conditions
-    ))
+    argument_value = MatchFirst(
+        [
+            BACKTICK_QUOTED_STRING.copy(),
+            DOUBLE_QUOTED_STRING.copy(),
+            SINGLE_QUOTED_STRING.copy(),
+            VAR_ATTR_JAVA.copy(),
+        ]
+    )
+    arguments = delimitedList(argument_value, delim=",")
+    arguments.addCondition(
+        lambda tokens: any(
+            all(smell in argument for smell in smells)
+            for argument in map(methodcaller("lower"), tokens)
+            for smells in conditions
+        )
+    )
 
     grammar = (
-        MatchFirst([
-            Keyword('localStorage'),
-            Keyword('sessionStorage'),
-        ]) +
-        '.' +
-        MatchFirst([
-            Keyword('getItem'),
-            Keyword('setItem'),
-        ]) +
-        nestedExpr(
+        MatchFirst(
+            [
+                Keyword("localStorage"),
+                Keyword("sessionStorage"),
+            ]
+        )
+        + "."
+        + MatchFirst(
+            [
+                Keyword("getItem"),
+                Keyword("setItem"),
+            ]
+        )
+        + nestedExpr(
             content=arguments,
             ignoreExpr=None,
         )
@@ -103,9 +111,9 @@ def _javascript_client_storage(
 
     return get_vulnerabilities_blocking(
         content=content,
-        cwe={'922'},
+        cwe={"922"},
         description=t(
-            key='src.lib_path.f085.client_storage.description',
+            key="src.lib_path.f085.client_storage.description",
             path=path,
         ),
         finding=core_model.FindingEnum.F085,
@@ -138,9 +146,11 @@ async def analyze(
     coroutines: List[Awaitable[core_model.Vulnerabilities]] = []
 
     if file_extension in EXTENSIONS_JAVASCRIPT:
-        coroutines.append(javascript_client_storage(
-            content=await content_generator(),
-            path=path,
-        ))
+        coroutines.append(
+            javascript_client_storage(
+                content=await content_generator(),
+                path=path,
+            )
+        )
 
     return coroutines

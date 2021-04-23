@@ -12,10 +12,11 @@ from utils.string import (
 
 
 def evaluate(args: EvaluatorArgs) -> None:
-    if '.' in args.syntax_step.symbol:
+    if "." in args.syntax_step.symbol:
         var_name, field = split_on_last_dot(args.syntax_step.symbol)
         if args.current_instance and (
-                field_instance := args.current_instance.fields.get(field)):
+            field_instance := args.current_instance.fields.get(field)
+        ):
             args.syntax_step.meta.danger = field_instance.meta.danger
             args.syntax_step.meta.value = field_instance.meta.value
         elif var_decl := lookup_var_dcl_by_name(args, var_name):

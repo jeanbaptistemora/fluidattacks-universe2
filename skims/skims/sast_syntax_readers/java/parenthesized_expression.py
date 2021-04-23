@@ -12,17 +12,18 @@ from utils import (
 
 def reader(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
     match = g.match_ast(
-        args.graph, args.n_id,
-        'type_identifier',
-        '(',
-        ')',
-        '__0__',
+        args.graph,
+        args.n_id,
+        "type_identifier",
+        "(",
+        ")",
+        "__0__",
     )
     yield graph_model.SyntaxStepParenthesizedExpression(
         meta=graph_model.SyntaxStepMeta.default(
             n_id=args.n_id,
             dependencies=[
-                args.generic(args.fork_n_id(match['__0__'])),
+                args.generic(args.fork_n_id(match["__0__"])),
             ],
         ),
     )

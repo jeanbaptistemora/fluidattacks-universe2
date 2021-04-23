@@ -31,11 +31,9 @@ def _syntax_step_declaration_danger(args: EvaluatorArgs) -> None:
         core_model.FindingEnum.F063_TRUSTBOUND,
         core_model.FindingEnum.F107,
     }
-    danger_types = {
-        'javax.servlet.http.HttpServletRequest'
-    }
+    danger_types = {"javax.servlet.http.HttpServletRequest"}
     danger_modifiers = {
-        'org.springframework.web.bind.annotation.RequestParam',
+        "org.springframework.web.bind.annotation.RequestParam",
     }
     bind_danger = args.finding in no_trust_findings and (
         args.syntax_step.var_type in complete_attrs_on_set(danger_types)
@@ -56,12 +54,13 @@ def _syntax_step_declaration_danger(args: EvaluatorArgs) -> None:
 def _syntax_step_declaration_values(args: EvaluatorArgs) -> None:
     step = args.syntax_step
     if len(args.dependencies) == 1:
-        declaration, = args.dependencies
+        (declaration,) = args.dependencies
         # The assignment object may not be of the declared type,
         # the declared type can be an interface or a generic type
         if isinstance(declaration.meta.value, JavaClassInstance):
             new_step = args.syntax_step._replace(
-                var_type=declaration.meta.value.class_name)
+                var_type=declaration.meta.value.class_name
+            )
             args.syntax_steps[args.syntax_step_index] = new_step
             step = new_step
         step.meta.value = args.dependencies[0].meta.value

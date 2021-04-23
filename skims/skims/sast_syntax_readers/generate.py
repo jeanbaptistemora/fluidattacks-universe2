@@ -64,7 +64,7 @@ def generic(
     *,
     warn_if_missing_syntax_reader: bool = True,
 ) -> graph_model.SyntaxSteps:
-    n_attrs_label_type = args.graph.nodes[args.n_id]['label_type']
+    n_attrs_label_type = args.graph.nodes[args.n_id]["label_type"]
     for dispatcher in DISPATCHERS_BY_LANG[args.language]:
         if n_attrs_label_type in dispatcher.applicable_node_label_types:
             for syntax_reader in dispatcher.syntax_readers:
@@ -74,7 +74,7 @@ def generic(
                     continue
 
     if warn_if_missing_syntax_reader:
-        log_blocking('debug', 'Missing syntax reader for n_id: %s', args.n_id)
+        log_blocking("debug", "Missing syntax reader for n_id: %s", args.n_id)
 
     raise MissingSyntaxReader(args)
 
@@ -85,342 +85,282 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
             graph_model.GraphShardMetadataLanguage.JAVA,
         },
         applicable_node_label_types={
-            'assignment_expression',
+            "assignment_expression",
         },
-        syntax_readers=(
-            java_assignment_expression.reader,
-        ),
+        syntax_readers=(java_assignment_expression.reader,),
     ),
     Dispatcher(
         applicable_languages={
             graph_model.GraphShardMetadataLanguage.JAVA,
         },
         applicable_node_label_types={
-            'ternary_expression',
+            "ternary_expression",
         },
-        syntax_readers=(
-            java_ternary_expression.reader,
-        ),
+        syntax_readers=(java_ternary_expression.reader,),
     ),
     Dispatcher(
         applicable_languages={
             graph_model.GraphShardMetadataLanguage.JAVA,
         },
         applicable_node_label_types={
-            'binary_expression',
+            "binary_expression",
         },
-        syntax_readers=(
-            java_binary_expression.reader,
-        ),
+        syntax_readers=(java_binary_expression.reader,),
     ),
     Dispatcher(
         applicable_languages={
             graph_model.GraphShardMetadataLanguage.JAVA,
         },
         applicable_node_label_types={
-            'unary_expression',
+            "unary_expression",
         },
-        syntax_readers=(
-            java_unary_expression.reader,
-        ),
+        syntax_readers=(java_unary_expression.reader,),
     ),
     Dispatcher(
         applicable_languages={
             graph_model.GraphShardMetadataLanguage.JAVA,
         },
         applicable_node_label_types={
-            'enhanced_for_statement',
+            "enhanced_for_statement",
         },
-        syntax_readers=(
-            java_enhanced_for_statement.reader,
-        ),
+        syntax_readers=(java_enhanced_for_statement.reader,),
     ),
     Dispatcher(
         applicable_languages={
             graph_model.GraphShardMetadataLanguage.JAVA,
         },
         applicable_node_label_types={
-            'while_statement',
+            "while_statement",
         },
-        syntax_readers=(
-            java_while_statement.reader,
-        ),
+        syntax_readers=(java_while_statement.reader,),
+    ),
+    Dispatcher(
+        applicable_languages={
+            graph_model.GraphShardMetadataLanguage.JAVA,
+        },
+        applicable_node_label_types={"for_statement"},
+        syntax_readers=(java_for_statement.reader,),
     ),
     Dispatcher(
         applicable_languages={
             graph_model.GraphShardMetadataLanguage.JAVA,
         },
         applicable_node_label_types={
-            'for_statement'
+            "field_access",
+            "identifier",
         },
-        syntax_readers=(
-            java_for_statement.reader,
-        ),
+        syntax_readers=(java_identifier.reader,),
     ),
     Dispatcher(
         applicable_languages={
             graph_model.GraphShardMetadataLanguage.JAVA,
         },
         applicable_node_label_types={
-            'field_access',
-            'identifier',
+            "if_statement",
         },
-        syntax_readers=(
-            java_identifier.reader,
-        ),
+        syntax_readers=(java_if_statement.reader,),
     ),
     Dispatcher(
         applicable_languages={
             graph_model.GraphShardMetadataLanguage.JAVA,
         },
         applicable_node_label_types={
-            'if_statement',
+            "parenthesized_expression",
         },
-        syntax_readers=(
-            java_if_statement.reader,
-        ),
+        syntax_readers=(java_parenthesized_expression.reader,),
     ),
     Dispatcher(
         applicable_languages={
             graph_model.GraphShardMetadataLanguage.JAVA,
         },
         applicable_node_label_types={
-            'parenthesized_expression',
+            "cast_expression",
         },
-        syntax_readers=(
-            java_parenthesized_expression.reader,
-        ),
+        syntax_readers=(java_cast_expression.reader,),
     ),
     Dispatcher(
         applicable_languages={
             graph_model.GraphShardMetadataLanguage.JAVA,
         },
         applicable_node_label_types={
-            'cast_expression',
+            "instanceof_expression",
         },
-        syntax_readers=(
-            java_cast_expression.reader,
-        ),
+        syntax_readers=(java_instanceof_expression.reader,),
     ),
     Dispatcher(
         applicable_languages={
             graph_model.GraphShardMetadataLanguage.JAVA,
         },
         applicable_node_label_types={
-            'instanceof_expression',
+            "catch_clause",
         },
-        syntax_readers=(
-            java_instanceof_expression.reader,
-        ),
+        syntax_readers=(java_catch_clause.reader,),
     ),
     Dispatcher(
         applicable_languages={
             graph_model.GraphShardMetadataLanguage.JAVA,
         },
         applicable_node_label_types={
-            'catch_clause',
+            "switch_statement",
         },
-        syntax_readers=(
-            java_catch_clause.reader,
-        ),
+        syntax_readers=(java_switch_statement.reader,),
     ),
     Dispatcher(
         applicable_languages={
             graph_model.GraphShardMetadataLanguage.JAVA,
         },
         applicable_node_label_types={
-            'switch_statement',
+            "switch_label",
         },
-        syntax_readers=(
-            java_switch_statement.reader,
-        ),
+        syntax_readers=(java_switch_label.reader,),
     ),
     Dispatcher(
         applicable_languages={
             graph_model.GraphShardMetadataLanguage.JAVA,
         },
         applicable_node_label_types={
-            'switch_label',
+            "local_variable_declaration",
         },
-        syntax_readers=(
-            java_switch_label.reader,
-        ),
+        syntax_readers=(java_local_variable_declaration.reader,),
     ),
     Dispatcher(
         applicable_languages={
             graph_model.GraphShardMetadataLanguage.JAVA,
         },
         applicable_node_label_types={
-            'local_variable_declaration',
+            "method_declaration",
+            "constructor_declaration",
         },
-        syntax_readers=(
-            java_local_variable_declaration.reader,
-        ),
+        syntax_readers=(java_method_declaration.reader,),
     ),
     Dispatcher(
         applicable_languages={
             graph_model.GraphShardMetadataLanguage.JAVA,
         },
         applicable_node_label_types={
-            'method_declaration',
-            'constructor_declaration',
+            "method_invocation",
         },
-        syntax_readers=(
-            java_method_declaration.reader,
-        ),
+        syntax_readers=(java_method_invocation.reader,),
     ),
     Dispatcher(
         applicable_languages={
             graph_model.GraphShardMetadataLanguage.JAVA,
         },
         applicable_node_label_types={
-            'method_invocation',
+            "lambda_expression",
         },
-        syntax_readers=(
-            java_method_invocation.reader,
-        ),
+        syntax_readers=(lambda_expression.reader,),
     ),
     Dispatcher(
         applicable_languages={
             graph_model.GraphShardMetadataLanguage.JAVA,
         },
         applicable_node_label_types={
-            'lambda_expression',
+            "array_access",
         },
-        syntax_readers=(
-            lambda_expression.reader,
-        ),
+        syntax_readers=(java_array_access.reader,),
     ),
     Dispatcher(
         applicable_languages={
             graph_model.GraphShardMetadataLanguage.JAVA,
         },
         applicable_node_label_types={
-            'array_access',
+            "object_creation_expression",
         },
-        syntax_readers=(
-            java_array_access.reader,
-        ),
+        syntax_readers=(java_object_creation_expression.reader,),
     ),
     Dispatcher(
         applicable_languages={
             graph_model.GraphShardMetadataLanguage.JAVA,
         },
         applicable_node_label_types={
-            'object_creation_expression',
+            "array_creation_expression",
         },
-        syntax_readers=(
-            java_object_creation_expression.reader,
-        ),
+        syntax_readers=(java_array_creation_expression.reader,),
     ),
     Dispatcher(
         applicable_languages={
             graph_model.GraphShardMetadataLanguage.JAVA,
         },
         applicable_node_label_types={
-            'array_creation_expression',
+            "array_initializer",
         },
-        syntax_readers=(
-            java_array_creation_expression.reader,
-        ),
+        syntax_readers=(java_array_initializer.reader,),
     ),
     Dispatcher(
         applicable_languages={
             graph_model.GraphShardMetadataLanguage.JAVA,
         },
         applicable_node_label_types={
-            'array_initializer',
+            "character_literal",
+            "decimal_integer_literal",
+            "false",
+            "floating_point_type",
+            "null_literal",
+            "string_literal",
+            "true",
         },
-        syntax_readers=(
-            java_array_initializer.reader,
-        ),
+        syntax_readers=(java_literal.reader,),
     ),
     Dispatcher(
         applicable_languages={
             graph_model.GraphShardMetadataLanguage.JAVA,
         },
         applicable_node_label_types={
-            'character_literal',
-            'decimal_integer_literal',
-            'false',
-            'floating_point_type',
-            'null_literal',
-            'string_literal',
-            'true',
+            "resource",
         },
-        syntax_readers=(
-            java_literal.reader,
-        ),
+        syntax_readers=(java_resource.reader,),
     ),
     Dispatcher(
         applicable_languages={
             graph_model.GraphShardMetadataLanguage.JAVA,
         },
         applicable_node_label_types={
-            'resource',
+            "return_statement",
         },
-        syntax_readers=(
-            java_resource.reader,
-        ),
+        syntax_readers=(java_return_statement.reader,),
     ),
     Dispatcher(
         applicable_languages={
             graph_model.GraphShardMetadataLanguage.JAVA,
         },
         applicable_node_label_types={
-            'return_statement',
+            "this",
         },
-        syntax_readers=(
-            java_return_statement.reader,
-        ),
-    ),
-    Dispatcher(
-        applicable_languages={
-            graph_model.GraphShardMetadataLanguage.JAVA,
-        },
-        applicable_node_label_types={
-            'this',
-        },
-        syntax_readers=(
-            java_this.reader,
-        ),
+        syntax_readers=(java_this.reader,),
     ),
     *[
         Dispatcher(
             applicable_languages={
                 graph_model.GraphShardMetadataLanguage.JAVA,
             },
-            applicable_node_label_types={
-                applicable_node_label_type
-            },
-            syntax_readers=(
-                noop,
-            ),
+            applicable_node_label_types={applicable_node_label_type},
+            syntax_readers=(noop,),
         )
         for applicable_node_label_type in (
-            'block',
-            'break_statement',
-            'class_body',
-            'constructor_body',
-            'continue_statement',
-            'comment',
-            'expression_statement',
-            'finally_clause',
-            'resource_specification',
-            'try_statement',
-            'try_with_resources_statement',
-            'throw_statement',
-            ';',
-            '-',
-            '+',
-            '*',
-            '/',
-            '%',
-            '(',
-            ')',
-            '.',
-            '{',
-            '}',
+            "block",
+            "break_statement",
+            "class_body",
+            "constructor_body",
+            "continue_statement",
+            "comment",
+            "expression_statement",
+            "finally_clause",
+            "resource_specification",
+            "try_statement",
+            "try_with_resources_statement",
+            "throw_statement",
+            ";",
+            "-",
+            "+",
+            "*",
+            "/",
+            "%",
+            "(",
+            ")",
+            ".",
+            "{",
+            "}",
         )
     ],
 )
@@ -478,12 +418,15 @@ def read_from_graph(
     for n_id in graph.nodes:
         if n_id not in graph_syntax and g.is_connected_to_cfg(graph, n_id):
             with contextlib.suppress(MissingSyntaxReader):
-                graph_syntax[n_id] = generic(SyntaxReaderArgs(
-                    generic=generic,
-                    graph=graph,
-                    language=language,
-                    n_id=n_id,
-                ), warn_if_missing_syntax_reader=False)
+                graph_syntax[n_id] = generic(
+                    SyntaxReaderArgs(
+                        generic=generic,
+                        graph=graph,
+                        language=language,
+                        n_id=n_id,
+                    ),
+                    warn_if_missing_syntax_reader=False,
+                )
 
     # Linearize items so we can evaluate steps in a linear for, no recursion
     for syntax_steps in graph_syntax.values():

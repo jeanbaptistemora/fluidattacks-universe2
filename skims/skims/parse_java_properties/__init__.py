@@ -15,18 +15,22 @@ def load(
 
     for line_no, line in enumerate(content.splitlines(), start=1):
         # Strip comments
-        if not include_comments and '#' in line:
-            line = line.split('#', maxsplit=1)[0]
+        if not include_comments and "#" in line:
+            line = line.split("#", maxsplit=1)[0]
 
         # Split in key and value
         with contextlib.suppress(ValueError):
-            key, val = line.strip().split('=', maxsplit=1)
+            key, val = line.strip().split("=", maxsplit=1)
             key, val = key.strip(), val.strip()
 
-            if exclude_protected_values and val and (
-                val.startswith('${')  # env var
-                or val.startswith('ENC(')  # encrypted with Jasypt
-                or val.startswith('#{')  # encrypted with unknown tool
+            if (
+                exclude_protected_values
+                and val
+                and (
+                    val.startswith("${")  # env var
+                    or val.startswith("ENC(")  # encrypted with Jasypt
+                    or val.startswith("#{")  # encrypted with unknown tool
+                )
             ):
                 # We should not include this line because it's protected
                 pass
@@ -41,10 +45,12 @@ def load_as_dict(
     include_comments: bool = False,
     exclude_protected_values: bool = False,
 ) -> Dict[str, str]:
-    data: Dict[str, str] = dict(load(
-        content,
-        include_comments,
-        exclude_protected_values,
-    ).values())
+    data: Dict[str, str] = dict(
+        load(
+            content,
+            include_comments,
+            exclude_protected_values,
+        ).values()
+    )
 
     return data

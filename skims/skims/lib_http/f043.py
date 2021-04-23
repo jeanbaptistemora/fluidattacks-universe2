@@ -65,7 +65,7 @@ def _create_vulns(
             kind=core_model.VulnerabilityKindEnum.INPUTS,
             state=core_model.VulnerabilityStateEnum.OPEN,
             # Must start with home so integrates allows it
-            stream='home,response,headers',
+            stream="home,response,headers",
             what=serialize_namespace_into_vuln(
                 kind=core_model.VulnerabilityKindEnum.INPUTS,
                 namespace=CTX.config.namespace,
@@ -73,7 +73,7 @@ def _create_vulns(
             ),
             where=translation,
             skims_metadata=core_model.SkimsVulnerabilityMetadata(
-                cwe=('644',),
+                cwe=("644",),
                 description=translation,
                 snippet=as_string.snippet(
                     url=ctx.url,
@@ -85,10 +85,10 @@ def _create_vulns(
         for description in descriptions
         if description
         for description_key, *description_args in [
-            description.split('#', maxsplit=1),
+            description.split("#", maxsplit=1),
         ]
         for translation in [
-            t(f'lib_http.f043.{description_key}', *description_args),
+            t(f"lib_http.f043.{description_key}", *description_args),
         ]
     )
 
@@ -97,28 +97,28 @@ def _content_security_policy_wild_uri(
     descs: List[str],
     value: str,
 ) -> None:
-    for arg in ('data:', 'http:', 'https:', '://*'):
+    for arg in ("data:", "http:", "https:", "://*"):
         if arg in value:
-            descs.append(f'content_security_policy.wild_uri#{arg}')
+            descs.append(f"content_security_policy.wild_uri#{arg}")
 
 
 def _content_security_policy_block_all_mixed_content(
     descs: List[str],
     header: Header,
 ) -> None:
-    if 'block-all-mixed-content' in header.directives:
-        descs.append('content_security_policy.mixed_content_deprecated')
+    if "block-all-mixed-content" in header.directives:
+        descs.append("content_security_policy.mixed_content_deprecated")
 
 
 def _content_security_policy_frame_acestors(
     descs: List[str],
     header: Header,
 ) -> None:
-    if values := header.directives.get('frame-ancestors'):
+    if values := header.directives.get("frame-ancestors"):
         for value in values:
             _content_security_policy_wild_uri(descs, value)
     else:
-        descs.append('content_security_policy.missing_frame_ancestors')
+        descs.append("content_security_policy.missing_frame_ancestors")
 
 
 def _content_security_policy_object_src(
@@ -126,10 +126,10 @@ def _content_security_policy_object_src(
     header: Header,
 ) -> None:
     if (
-        'object-src' not in header.directives and
-        'default-src' not in header.directives
+        "object-src" not in header.directives
+        and "default-src" not in header.directives
     ):
-        descs.append('content_security_policy.missing_object_src')
+        descs.append("content_security_policy.missing_object_src")
 
 
 def _content_security_policy_script_src(
@@ -137,45 +137,45 @@ def _content_security_policy_script_src(
     header: Header,
 ) -> None:
     if values := (
-        header.directives.get('script-src') or
-        header.directives.get('default-src')
+        header.directives.get("script-src")
+        or header.directives.get("default-src")
     ):
         for value in values:
             if value == "'unsafe-inline'":
-                descs.append('content_security_policy.script-src.unsafeinline')
+                descs.append("content_security_policy.script-src.unsafeinline")
 
             _content_security_policy_wild_uri(descs, value)
 
             for arg in (
-                '*.amazonaws.com',
-                '*.cloudflare.com',
-                '*.cloudfront.net'
-                '*.doubleclick.net',
-                '*.google.com',
-                '*.googleapis.com',
-                '*.googlesyndication.com',
-                '*.newrelic.com',
-                '*.s3.amazonaws.com',
-                '*.yandex.ru',
-                'ajax.googleapis.com',
-                'mc.yandex.ru',
-                'vk.com',
-                'www.google.com',
+                "*.amazonaws.com",
+                "*.cloudflare.com",
+                "*.cloudfront.net",
+                "*.doubleclick.net",
+                "*.google.com",
+                "*.googleapis.com",
+                "*.googlesyndication.com",
+                "*.newrelic.com",
+                "*.s3.amazonaws.com",
+                "*.yandex.ru",
+                "ajax.googleapis.com",
+                "mc.yandex.ru",
+                "vk.com",
+                "www.google.com",
             ):
                 if arg in value:
                     descs.append(
-                        f'content_security_policy.script-src.jsonp#{arg}'
+                        f"content_security_policy.script-src.jsonp#{arg}"
                     )
     else:
-        descs.append('content_security_policy.missing_script_src')
+        descs.append("content_security_policy.missing_script_src")
 
 
 def _content_security_policy_upgrade_insecure_requests(
     descs: List[str],
     header: Header,
 ) -> None:
-    if 'upgrade-insecure-requests' not in header.directives:
-        descs.append('content_security_policy.missing_upgrade_insecure')
+    if "upgrade-insecure-requests" not in header.directives:
+        descs.append("content_security_policy.missing_upgrade_insecure")
 
 
 def _content_security_policy(
@@ -191,7 +191,7 @@ def _content_security_policy(
         _content_security_policy_script_src(descs, header)
         _content_security_policy_upgrade_insecure_requests(descs, header)
     else:
-        descs.append('content_security_policy.missing')
+        descs.append("content_security_policy.missing")
 
     return _create_vulns(
         descriptions=descs,
@@ -204,7 +204,7 @@ def _content_security_policy(
 def _referrer_policy(
     ctx: HeaderCheckCtx,
 ) -> core_model.Vulnerabilities:
-    desc, header = '', None
+    desc, header = "", None
 
     if header := ctx.headers_parsed.get(ReferrerPolicyHeader):
         for value in header.values:
@@ -213,31 +213,32 @@ def _referrer_policy(
             # support them. The spec says that browsers should read the next
             # value in the comma separated list
             if value in {
-                'no-referrer',
-                'no-referrer-when-downgrade',
-                'origin',
-                'origin-when-cross-origin',
-                'same-origin',
-                'strict-origin',
-                'strict-origin-when-cross-origin',
-                'unsafe-url',
+                "no-referrer",
+                "no-referrer-when-downgrade",
+                "origin",
+                "origin-when-cross-origin",
+                "same-origin",
+                "strict-origin",
+                "strict-origin-when-cross-origin",
+                "unsafe-url",
             }:
                 desc = (
-                    ''
-                    if value in {
-                        'no-referrer',
-                        'same-origin',
-                        'strict-origin',
-                        'strict-origin-when-cross-origin',
+                    ""
+                    if value
+                    in {
+                        "no-referrer",
+                        "same-origin",
+                        "strict-origin",
+                        "strict-origin-when-cross-origin",
                     }
-                    else 'referrer_policy.weak'
+                    else "referrer_policy.weak"
                 )
                 break
         else:
-            desc = 'referrer_policy.weak'
+            desc = "referrer_policy.weak"
 
     else:
-        desc = 'referrer_policy.missing'
+        desc = "referrer_policy.missing"
 
     return _create_vulns(
         descriptions=[desc],
@@ -250,13 +251,13 @@ def _referrer_policy(
 def _strict_transport_security(
     ctx: HeaderCheckCtx,
 ) -> core_model.Vulnerabilities:
-    desc, header = '', None
+    desc, header = "", None
 
     if val := ctx.headers_parsed.get(StrictTransportSecurityHeader):
         if val.max_age < 31536000:
-            desc = 'strict_transport_security.short_max_age'
+            desc = "strict_transport_security.short_max_age"
     else:
-        desc = 'strict_transport_security.missing'
+        desc = "strict_transport_security.missing"
 
     return _create_vulns(
         descriptions=[desc],
@@ -276,11 +277,11 @@ def _x_xss_protection(ctx: HeaderCheckCtx) -> core_model.Vulnerabilities:
 
     if val := ctx.headers_parsed.get(XXSSProtectionHeader):
         if not val.enabled:
-            descs.append('x_xss_protection.disabled')
-        if val.mode != 'block':
-            descs.append('x_xss_protection.no_mode_block')
+            descs.append("x_xss_protection.disabled")
+        if val.mode != "block":
+            descs.append("x_xss_protection.no_mode_block")
     else:
-        descs.append('x_xss_protection.missing')
+        descs.append("x_xss_protection.missing")
 
     return _create_vulns(
         descriptions=descs,
@@ -295,10 +296,12 @@ async def http_headers_configuration(
 ) -> core_model.Vulnerabilities:
     headers_parsed: Dict[Type[Header], Header] = {
         type(header_parsed): header_parsed
-        for header_raw_name, header_raw_value in reversed(tuple(
-            url.headers_raw.items(),
-        ))
-        for line in [f'{header_raw_name}: {header_raw_value}']
+        for header_raw_name, header_raw_value in reversed(
+            tuple(
+                url.headers_raw.items(),
+            )
+        )
+        for line in [f"{header_raw_name}: {header_raw_value}"]
         for header_parsed in [
             content_security_policy.parse(line),
             referrer_policy.parse(line),
@@ -308,16 +311,22 @@ async def http_headers_configuration(
         if header_parsed is not None
     }
 
-    return tuple(chain.from_iterable((
-        check(HeaderCheckCtx(
-            headers_parsed=headers_parsed,
-            headers_raw=url.headers_raw,
-            is_html=url.is_html,
-            url=url.url,
-        ))
-        for finding, check in CHECKS.items()
-        if finding in CTX.config.checks
-    )))
+    return tuple(
+        chain.from_iterable(
+            (
+                check(
+                    HeaderCheckCtx(
+                        headers_parsed=headers_parsed,
+                        headers_raw=url.headers_raw,
+                        is_html=url.is_html,
+                        url=url.url,
+                    )
+                )
+                for finding, check in CHECKS.items()
+                if finding in CTX.config.checks
+            )
+        )
+    )
 
 
 CHECKS: Dict[

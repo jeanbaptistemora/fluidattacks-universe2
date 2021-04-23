@@ -16,9 +16,12 @@ def reader(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
 
     if len(match) == 3:
         yield graph_model.SyntaxStepSwitchLabelCase(
-            meta=graph_model.SyntaxStepMeta.default(args.n_id, [
-                args.generic(args.fork_n_id(match['__1__'])),
-            ]),
+            meta=graph_model.SyntaxStepMeta.default(
+                args.n_id,
+                [
+                    args.generic(args.fork_n_id(match["__1__"])),
+                ],
+            ),
         )
     elif len(match) == 2:
         yield graph_model.SyntaxStepSwitchLabelDefault(

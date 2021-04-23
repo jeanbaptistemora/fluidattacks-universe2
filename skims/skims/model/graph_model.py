@@ -31,7 +31,6 @@ from model import (
     core_model,
 )
 
-
 NAttrs = Dict[str, str]
 NAttrsPredicateFunction = Callable[[NAttrs], bool]
 NId = str
@@ -73,21 +72,21 @@ class SyntaxStepAssignment(NamedTuple):
     meta: SyntaxStepMeta
     var: str
 
-    type: str = 'SyntaxStepAssignment'
+    type: str = "SyntaxStepAssignment"
 
 
 class SyntaxStepBinaryExpression(NamedTuple):
     operator: str
     meta: SyntaxStepMeta
 
-    type: str = 'SyntaxStepBinaryExpression'
+    type: str = "SyntaxStepBinaryExpression"
 
 
 class SyntaxStepUnaryExpression(NamedTuple):
     meta: SyntaxStepMeta
 
     operator: str
-    type: str = 'SyntaxStepUnaryExpression'
+    type: str = "SyntaxStepUnaryExpression"
 
 
 class SyntaxStepDeclaration(NamedTuple):
@@ -96,11 +95,11 @@ class SyntaxStepDeclaration(NamedTuple):
     var_type: str
     modifiers: Optional[Set[str]] = None
 
-    type: str = 'SyntaxStepDeclaration'
+    type: str = "SyntaxStepDeclaration"
 
     @property
     def var_type_base(self) -> str:
-        portions = self.var_type.rsplit('[', maxsplit=1)
+        portions = self.var_type.rsplit("[", maxsplit=1)
         return portions[0]
 
 
@@ -109,45 +108,45 @@ class SyntaxStepIf(NamedTuple):
     n_id_false: Optional[NId]
     n_id_true: Optional[NId]
 
-    type: str = 'SyntaxStepIf'
+    type: str = "SyntaxStepIf"
 
 
 class SyntaxStepSwitch(NamedTuple):
     meta: SyntaxStepMeta
 
-    type: str = 'SyntaxStepSwitch'
+    type: str = "SyntaxStepSwitch"
 
 
 class SyntaxStepSwitchLabelCase(NamedTuple):
     meta: SyntaxStepMeta
 
-    type: str = 'SyntaxStepSwitchLabelCase'
+    type: str = "SyntaxStepSwitchLabelCase"
 
 
 class SyntaxStepSwitchLabelDefault(NamedTuple):
     meta: SyntaxStepMeta
 
-    type: str = 'SyntaxStepSwitchLabelDefault'
+    type: str = "SyntaxStepSwitchLabelDefault"
 
 
 class SyntaxStepParenthesizedExpression(NamedTuple):
     meta: SyntaxStepMeta
 
-    type: str = 'SyntaxStepParenthesizedExpression'
+    type: str = "SyntaxStepParenthesizedExpression"
 
 
 class SyntaxStepCastExpression(NamedTuple):
     meta: SyntaxStepMeta
     cast_type: str
 
-    type: str = 'SyntaxStepCastExpression'
+    type: str = "SyntaxStepCastExpression"
 
 
 class SyntaxStepInstanceofExpression(NamedTuple):
     meta: SyntaxStepMeta
     instanceof_type: str
 
-    type: str = 'SyntaxStepInstanceofExpression'
+    type: str = "SyntaxStepInstanceofExpression"
 
 
 class SyntaxStepCatchClause(NamedTuple):
@@ -156,7 +155,7 @@ class SyntaxStepCatchClause(NamedTuple):
     catch_type: str
     var: str
 
-    type: str = 'SyntaxStepParenthesizedExpression'
+    type: str = "SyntaxStepParenthesizedExpression"
 
 
 class SyntaxStepFor(NamedTuple):
@@ -165,7 +164,7 @@ class SyntaxStepFor(NamedTuple):
     n_id_var_declaration: NId
     n_id_conditional_expression: NId
 
-    type: str = 'SyntaxStepFor'
+    type: str = "SyntaxStepFor"
 
 
 class SyntaxStepLiteral(NamedTuple):
@@ -173,7 +172,7 @@ class SyntaxStepLiteral(NamedTuple):
     value: str
     value_type: str
 
-    type: str = 'SyntaxStepLiteral'
+    type: str = "SyntaxStepLiteral"
 
 
 class SyntaxStepMethodInvocation(NamedTuple):
@@ -181,13 +180,13 @@ class SyntaxStepMethodInvocation(NamedTuple):
     method: str
     current_instance: Optional[CurrentInstance] = None
 
-    type: str = 'SyntaxStepMethodInvocation'
+    type: str = "SyntaxStepMethodInvocation"
 
 
 class SyntaxStepLambdaExpression(NamedTuple):
     meta: SyntaxStepMeta
 
-    type: str = 'SyntaxStepLambdaExpression'
+    type: str = "SyntaxStepLambdaExpression"
 
 
 class SyntaxStepMethodInvocationChain(NamedTuple):
@@ -195,64 +194,64 @@ class SyntaxStepMethodInvocationChain(NamedTuple):
     method: str
     current_instance: Optional[CurrentInstance] = None
 
-    type: str = 'SyntaxStepMethodInvocationChain'
+    type: str = "SyntaxStepMethodInvocationChain"
 
 
 class SyntaxStepNoOp(NamedTuple):
     meta: SyntaxStepMeta
 
-    type: str = 'SyntaxStepNoOp'
+    type: str = "SyntaxStepNoOp"
 
 
 class SyntaxStepObjectInstantiation(NamedTuple):
     meta: SyntaxStepMeta
     object_type: str
 
-    type: str = 'SyntaxStepObjectInstantiation'
+    type: str = "SyntaxStepObjectInstantiation"
 
 
 class SyntaxStepArrayInitialization(NamedTuple):
     meta: SyntaxStepMeta
 
-    type: str = 'SyntaxStepArrayInitialization'
+    type: str = "SyntaxStepArrayInitialization"
 
 
 class SyntaxStepArrayInstantiation(NamedTuple):
     meta: SyntaxStepMeta
     array_type: str
 
-    type: str = 'SyntaxStepArrayInstantiation'
+    type: str = "SyntaxStepArrayInstantiation"
 
 
 class SyntaxStepReturn(NamedTuple):
     meta: SyntaxStepMeta
 
-    type: str = 'SyntaxStepReturn'
+    type: str = "SyntaxStepReturn"
 
 
 class SyntaxStepSymbolLookup(NamedTuple):
     meta: SyntaxStepMeta
     symbol: str
 
-    type: str = 'SyntaxStepSymbolLookup'
+    type: str = "SyntaxStepSymbolLookup"
 
 
 class SyntaxStepTernary(NamedTuple):
     meta: SyntaxStepMeta
 
-    type: str = 'SyntaxStepTernary'
+    type: str = "SyntaxStepTernary"
 
 
 class SyntaxStepThis(NamedTuple):
     meta: SyntaxStepMeta
 
-    type: str = 'SyntaxStepThis'
+    type: str = "SyntaxStepThis"
 
 
 class SyntaxStepArrayAccess(NamedTuple):
     meta: SyntaxStepMeta
 
-    type: str = 'SyntaxStepArrayAccess'
+    type: str = "SyntaxStepArrayAccess"
 
 
 class Graph(nx.DiGraph):
@@ -287,9 +286,9 @@ class GraphShardMetadataJava(NamedTuple):
 
 
 class GraphShardMetadataLanguage(Enum):
-    JAVA: str = 'java'
-    NOT_SUPPORTED: str = 'not_supported'
-    TSX: str = 'tsx'
+    JAVA: str = "java"
+    NOT_SUPPORTED: str = "not_supported"
+    TSX: str = "tsx"
 
 
 class GraphShardMetadata(NamedTuple):
@@ -322,59 +321,59 @@ GRAPH_VULNERABILITY_PARAMETERS: Dict[
 ] = {
     core_model.FindingEnum.F001_JAVA_SQL: (
         GraphVulnerabilityParameters(
-            cwe=('89',),
-            desc_key='src.lib_path.F001_JAVA_SQL.user_controled_param',
+            cwe=("89",),
+            desc_key="src.lib_path.F001_JAVA_SQL.user_controled_param",
             desc_params={},
         )
     ),
     core_model.FindingEnum.F004: GraphVulnerabilityParameters(
-        cwe=('78',),
-        desc_key='utils.model.finding.enum.f004.description',
-        desc_params={}
+        cwe=("78",),
+        desc_key="utils.model.finding.enum.f004.description",
+        desc_params={},
     ),
     core_model.FindingEnum.F008: GraphVulnerabilityParameters(
-        cwe=('79',),
-        desc_key='utils.model.finding.enum.f008.description',
-        desc_params={}
+        cwe=("79",),
+        desc_key="utils.model.finding.enum.f008.description",
+        desc_params={},
     ),
     core_model.FindingEnum.F021: GraphVulnerabilityParameters(
-        cwe=('643',),
-        desc_key='utils.model.finding.enum.f021.description',
-        desc_params={}
+        cwe=("643",),
+        desc_key="utils.model.finding.enum.f021.description",
+        desc_params={},
     ),
     core_model.FindingEnum.F034: GraphVulnerabilityParameters(
-        cwe=('330',),
-        desc_key='utils.model.finding.enum.f034.description',
-        desc_params={}
+        cwe=("330",),
+        desc_key="utils.model.finding.enum.f034.description",
+        desc_params={},
     ),
     core_model.FindingEnum.F042: GraphVulnerabilityParameters(
-        cwe=('614',),
-        desc_key='utils.model.finding.enum.f042.description',
-        desc_params={}
+        cwe=("614",),
+        desc_key="utils.model.finding.enum.f042.description",
+        desc_params={},
     ),
     core_model.FindingEnum.F052: GraphVulnerabilityParameters(
-        cwe=('328',),
-        desc_key='utils.model.finding.enum.F052.description',
-        desc_params={}
+        cwe=("328",),
+        desc_key="utils.model.finding.enum.F052.description",
+        desc_params={},
     ),
     core_model.FindingEnum.F063_PATH_TRAVERSAL: (
         GraphVulnerabilityParameters(
-            cwe=('22',),
-            desc_key='src.lib_path.f063_path_traversal.description',
+            cwe=("22",),
+            desc_key="src.lib_path.f063_path_traversal.description",
             desc_params={},
         )
     ),
     core_model.FindingEnum.F063_TRUSTBOUND: (
         GraphVulnerabilityParameters(
-            cwe=('501',),
-            desc_key='utils.model.finding.enum.f063_trustbound.description',
+            cwe=("501",),
+            desc_key="utils.model.finding.enum.f063_trustbound.description",
             desc_params={},
         )
     ),
     core_model.FindingEnum.F107: (
         GraphVulnerabilityParameters(
-            cwe=('90',),
-            desc_key='utils.model.finding.enum.f107.description',
+            cwe=("90",),
+            desc_key="utils.model.finding.enum.f107.description",
             desc_params={},
         )
     ),

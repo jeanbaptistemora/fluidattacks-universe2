@@ -24,19 +24,23 @@ from model import (
 
 def simplify(obj: Any) -> Any:
     simplified_obj: Any
-    if hasattr(obj, '_fields'):
+    if hasattr(obj, "_fields"):
         # NamedTuple
-        simplified_obj = dict(zip(
-            simplify(obj._fields),
-            simplify(tuple(obj)),
-        ))
+        simplified_obj = dict(
+            zip(
+                simplify(obj._fields),
+                simplify(tuple(obj)),
+            )
+        )
     elif isinstance(obj, Enum):
         simplified_obj = obj.value
     elif isinstance(obj, dict):
-        simplified_obj = dict(zip(
-            simplify(tuple(obj.keys())),
-            simplify(tuple(obj.values())),
-        ))
+        simplified_obj = dict(
+            zip(
+                simplify(tuple(obj.keys())),
+                simplify(tuple(obj.values())),
+            )
+        )
     elif isinstance(obj, (list, tuple, set)):
         simplified_obj = tuple(map(simplify, obj))
     elif isinstance(obj, graph_model.Graph):
@@ -83,11 +87,11 @@ def deserialize_namespace_from_vuln(
     namespace: str
 
     if kind == core_model.VulnerabilityKindEnum.INPUTS:
-        namespace = what.rsplit(' (', maxsplit=1)[0][:-1]
+        namespace = what.rsplit(" (", maxsplit=1)[0][:-1]
     elif kind == core_model.VulnerabilityKindEnum.LINES:
-        namespace = what.split('/', maxsplit=1)[0]
+        namespace = what.split("/", maxsplit=1)[0]
     elif kind == core_model.VulnerabilityKindEnum.PORTS:
-        namespace = what.rsplit(' (', maxsplit=1)[0][:-1]
+        namespace = what.rsplit(" (", maxsplit=1)[0][:-1]
     else:
         raise NotImplementedError()
 
@@ -99,11 +103,11 @@ def deserialize_what_from_vuln(
     what: str,
 ) -> str:
     if kind == core_model.VulnerabilityKindEnum.INPUTS:
-        what = what.rsplit(' (', maxsplit=1)[1][:-1]
+        what = what.rsplit(" (", maxsplit=1)[1][:-1]
     elif kind == core_model.VulnerabilityKindEnum.LINES:
-        what = what.split('/', maxsplit=1)[1]
+        what = what.split("/", maxsplit=1)[1]
     elif kind == core_model.VulnerabilityKindEnum.PORTS:
-        what = what.rsplit(' (', maxsplit=1)[1][:-1]
+        what = what.rsplit(" (", maxsplit=1)[1][:-1]
     else:
         raise NotImplementedError()
 
@@ -116,11 +120,11 @@ def serialize_namespace_into_vuln(
     what: str,
 ) -> str:
     if kind == core_model.VulnerabilityKindEnum.INPUTS:
-        what = f'{what} ({namespace})'
+        what = f"{what} ({namespace})"
     elif kind == core_model.VulnerabilityKindEnum.LINES:
-        what = f'{namespace}/{what}'
+        what = f"{namespace}/{what}"
     elif kind == core_model.VulnerabilityKindEnum.PORTS:
-        what = f'{what} ({namespace})'
+        what = f"{what} ({namespace})"
     else:
         raise NotImplementedError()
 

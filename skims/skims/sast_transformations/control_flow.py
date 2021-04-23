@@ -21,13 +21,13 @@ from utils import (
 )
 
 # Constants
-CFG = dict(label_cfg='CFG')
-ALWAYS = dict(**CFG, label_cfg_always='cfg_always')
-BREAK = dict(**CFG, label_cfg_break='cfg_break')
-CONTINUE = dict(**CFG, label_cfg_continue='cfg_continue')
-FALSE = dict(**CFG, label_cfg_false='cfg_false')
-MAYBE = dict(**CFG, label_cfg_maybe='cfg_maybe')
-TRUE = dict(**CFG, label_cfg_true='cfg_true')
+CFG = dict(label_cfg="CFG")
+ALWAYS = dict(**CFG, label_cfg_always="cfg_always")
+BREAK = dict(**CFG, label_cfg_break="cfg_break")
+CONTINUE = dict(**CFG, label_cfg_continue="cfg_continue")
+FALSE = dict(**CFG, label_cfg_false="cfg_false")
+MAYBE = dict(**CFG, label_cfg_maybe="cfg_maybe")
+TRUE = dict(**CFG, label_cfg_true="cfg_true")
 
 # Types
 EdgeAttrs = Dict[str, str]
@@ -37,14 +37,14 @@ Stack = List[Frame]
 
 def _get_next_id(stack: Stack) -> Optional[str]:
     # Stack[-2] is the parent level
-    next_id: Optional[str] = stack[-2].get('next_id')
+    next_id: Optional[str] = stack[-2].get("next_id")
 
     return next_id
 
 
 def _set_next_id(stack: Stack, n_id: str) -> None:
     # Stack[-1] is the current level
-    stack[-1]['next_id'] = n_id
+    stack[-1]["next_id"] = n_id
 
 
 def _propagate_next_id_from_parent(
@@ -67,7 +67,7 @@ def _step_by_step(
     stmt_ids = g.adj_ast(graph, n_id)
 
     # Skip { }
-    if graph.nodes[n_id]['label_type'] == 'block':
+    if graph.nodes[n_id]["label_type"] == "block":
         stmt_ids = stmt_ids[1:-1]
 
     if not stmt_ids:
@@ -113,15 +113,16 @@ def _if_statement(
 ) -> None:
     # if ( __0__ ) __1__ else __2__
     match = g.match_ast(
-        graph, n_id,
-        'if',
-        '__0__',
-        '__1__',
-        'else',
-        '__2__',
+        graph,
+        n_id,
+        "if",
+        "__0__",
+        "__1__",
+        "else",
+        "__2__",
     )
 
-    if then_id := match['__1__']:
+    if then_id := match["__1__"]:
         # Link `if` to `then` statement
         graph.add_edge(n_id, then_id, **TRUE)
 
@@ -129,7 +130,7 @@ def _if_statement(
         _propagate_next_id_from_parent(stack)
         _generic(graph, then_id, stack, edge_attrs=ALWAYS)
 
-    if then_id := match['__2__']:
+    if then_id := match["__2__"]:
         # Link `if` to `else` statement
         graph.add_edge(n_id, then_id, **FALSE)
 
@@ -157,12 +158,12 @@ def _switch_statement(
 
     switch_flows = []
     for index, (c_id, c_attrs) in enumerate(switch_steps):
-        if c_attrs['label_type'] == 'switch_label':
+        if c_attrs["label_type"] == "switch_label":
             switch_flows.append([c_id])
-            for c_c_id, c_c_attrs in switch_steps[index + 1:]:
-                if c_c_attrs['label_type'] != 'switch_label':
+            for c_c_id, c_c_attrs in switch_steps[index + 1 :]:
+                if c_c_attrs["label_type"] != "switch_label":
                     switch_flows[-1].append(c_c_id)
-                if c_c_attrs['label_type'] == 'break_statement':
+                if c_c_attrs["label_type"] == "break_statement":
                     break
 
     for stmt_ids in switch_flows:
@@ -201,16 +202,16 @@ def _try_statement(
     # Strain the childs over the following node types
     children_stack = []
     for c_id in g.adj_ast(graph, n_id):
-        c_attrs_label_type = graph.nodes[c_id]['label_type']
-        if c_attrs_label_type == 'try':
+        c_attrs_label_type = graph.nodes[c_id]["label_type"]
+        if c_attrs_label_type == "try":
             pass
         elif c_attrs_label_type in {
-            'block',
-            'finally_clause',
-            'resource_specification',
+            "block",
+            "finally_clause",
+            "resource_specification",
         }:
             children_stack.append((c_id, ALWAYS))
-        elif c_attrs_label_type == 'catch_clause':
+        elif c_attrs_label_type == "catch_clause":
             children_stack.append((c_id, MAYBE))
         else:
             raise NotImplementedError()
@@ -239,38 +240,38 @@ def _generic(
     edge_attrs: EdgeAttrs,
 ) -> None:
     n_attrs = graph.nodes[n_id]
-    n_attrs_label_type = n_attrs['label_type']
+    n_attrs_label_type = n_attrs["label_type"]
 
     stack.append(dict(type=n_attrs_label_type))
 
     for types, walker in (
-        ({'block',
-          'constructor_body',
-          'expression_statement',
-          'resource_specification'},
-         _step_by_step),
-        ({'catch_clause'},
-         _link_to_last_node),
-        ({'for_statement',
-          'enhanced_for_statement',
-          'while_statement'},
-         _loop_statement),
-        ({'if_statement'},
-         _if_statement),
-        ({'switch_statement'},
-         _switch_statement),
-        ({'constructor_declaration',
-          'method_declaration'},
-         _link_to_last_node),
-        ({'try_statement',
-          'try_with_resources_statement'},
-         _try_statement),
+        (
+            {
+                "block",
+                "constructor_body",
+                "expression_statement",
+                "resource_specification",
+            },
+            _step_by_step,
+        ),
+        ({"catch_clause"}, _link_to_last_node),
+        (
+            {"for_statement", "enhanced_for_statement", "while_statement"},
+            _loop_statement,
+        ),
+        ({"if_statement"}, _if_statement),
+        ({"switch_statement"}, _switch_statement),
+        (
+            {"constructor_declaration", "method_declaration"},
+            _link_to_last_node,
+        ),
+        ({"try_statement", "try_with_resources_statement"}, _try_statement),
     ):
         if n_attrs_label_type in types:
             walker(graph, n_id, stack)
             break
     else:
-        if next_id := stack[-2].pop('next_id', None):
+        if next_id := stack[-2].pop("next_id", None):
             if n_id != next_id:
                 graph.add_edge(n_id, next_id, **edge_attrs)
 
@@ -278,14 +279,17 @@ def _generic(
 
 
 def add(graph: graph_model.Graph) -> None:
-
     def _predicate(n_id: str) -> bool:
-        return (g.pred_has_labels(label_type='method_declaration', )(n_id) or
-                g.pred_has_labels(label_type='constructor_declaration')(n_id))
+        return (
+            g.pred_has_labels(
+                label_type="method_declaration",
+            )(n_id)
+            or g.pred_has_labels(label_type="constructor_declaration")(n_id)
+        )
 
     for n_id in g.filter_nodes(
-            graph,
-            graph.nodes,
-            predicate=_predicate,
+        graph,
+        graph.nodes,
+        predicate=_predicate,
     ):
         _generic(graph, n_id, [], edge_attrs=ALWAYS)

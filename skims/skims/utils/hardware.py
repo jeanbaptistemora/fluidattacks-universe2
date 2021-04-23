@@ -21,10 +21,13 @@ _MEMORY_SEMAPHORE: BoundedSemaphore = None
 
 
 def get_max_memory_usage() -> float:
-    kilobytes: int = sum(getrusage(resource).ru_maxrss for resource in (
-        RUSAGE_CHILDREN,
-        RUSAGE_SELF,
-    ))
+    kilobytes: int = sum(
+        getrusage(resource).ru_maxrss
+        for resource in (
+            RUSAGE_CHILDREN,
+            RUSAGE_SELF,
+        )
+    )
 
     return round(kilobytes / 1e6, ndigits=2)
 

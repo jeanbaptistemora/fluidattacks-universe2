@@ -43,17 +43,17 @@ def _load_static_data() -> None:
     with open(CIPHER_SUITES_PATH) as cipher_suites_file:
         for row in csv.DictReader(cipher_suites_file):
             # Parse safe column
-            if row['safe'] == 'yes':
+            if row["safe"] == "yes":
                 safe: bool = True
-            elif row['safe'] == 'no':
+            elif row["safe"] == "no":
                 safe = False
             else:
-                raise NotImplementedError(row['safe'])
+                raise NotImplementedError(row["safe"])
 
             # Match the names
             for column, data in [
-                ('name_iana', _CIPHER_SUITES_IANA),
-                ('name_open_ssl', _CIPHER_SUITES_OPEN_SSL),
+                ("name_iana", _CIPHER_SUITES_IANA),
+                ("name_open_ssl", _CIPHER_SUITES_OPEN_SSL),
             ]:
                 if name := row[column]:
                     data[name] = safe

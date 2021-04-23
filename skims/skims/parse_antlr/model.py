@@ -25,7 +25,7 @@ def _parse_rule(model: List[Dict[str, Any]]) -> Dict[str, Any]:
         if current_token_name != token_name:
             token_indexes[token_name] += 1
 
-        token_name = f'{token_name}|{token_indexes[token_name]}'
+        token_name = f"{token_name}|{token_indexes[token_name]}"
 
         if token_name in tokens:
             if isinstance(tokens[token_name], list):
@@ -58,7 +58,7 @@ def _structure_model(model: Dict[str, Any]) -> Dict[str, Any]:
                 raise NotImplementedError()
 
         elif is_positional_node(model):
-            result = {'Token': model}
+            result = {"Token": model}
         else:
             result = dict(zip(model, map(_structure_model, model.values())))
     else:
@@ -73,7 +73,7 @@ def _structure_keys(model: Dict[str, Any]) -> Dict[str, Any]:
         result: Dict[str, Any] = {}
         for key, val in model.items():
             if isinstance(val, dict):
-                if key == 'Token' or key.startswith('Token|'):
+                if key == "Token" or key.startswith("Token|"):
                     result[key] = val
                 else:
                     result[key] = _parse_rule([_structure_keys(val)])

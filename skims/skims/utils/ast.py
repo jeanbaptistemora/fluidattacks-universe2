@@ -9,7 +9,7 @@ from typing import (
 )
 
 # Constants
-_T = TypeVar('_T')
+_T = TypeVar("_T")
 
 
 def parse(content: str) -> ast.AST:

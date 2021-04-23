@@ -18,16 +18,16 @@ def reader(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
     match = g.match_ast(
         args.graph,
         args.n_id,
-        'lambda_expression',
-        'inferred_parameters',
-        '__0__',
-        '__1__',
+        "lambda_expression",
+        "inferred_parameters",
+        "__0__",
+        "__1__",
     )
     if len(match) == 4:
         yield graph_model.SyntaxStepLambdaExpression(
             meta=graph_model.SyntaxStepMeta.default(
                 args.n_id,
-                dependencies_from_arguments(args.fork_n_id(match['__1__'])),
+                dependencies_from_arguments(args.fork_n_id(match["__1__"])),
             ),
         )
     else:

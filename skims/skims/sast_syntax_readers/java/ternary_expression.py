@@ -12,13 +12,22 @@ from utils import (
 
 def reader(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
     match = g.match_ast(
-        args.graph, args.n_id, '__0__', '?', '__1__', ':', '__2__',
+        args.graph,
+        args.n_id,
+        "__0__",
+        "?",
+        "__1__",
+        ":",
+        "__2__",
     )
 
     yield graph_model.SyntaxStepTernary(
-        meta=graph_model.SyntaxStepMeta.default(args.n_id, [
-            args.generic(args.fork_n_id(match['__2__'])),
-            args.generic(args.fork_n_id(match['__1__'])),
-            args.generic(args.fork_n_id(match['__0__'])),
-        ]),
+        meta=graph_model.SyntaxStepMeta.default(
+            args.n_id,
+            [
+                args.generic(args.fork_n_id(match["__2__"])),
+                args.generic(args.fork_n_id(match["__1__"])),
+                args.generic(args.fork_n_id(match["__0__"])),
+            ],
+        ),
     )

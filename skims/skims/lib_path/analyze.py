@@ -56,7 +56,6 @@ from utils.logs import (
 MEBIBYTE: int = 1048576
 MAX_READ: int = 64 * MEBIBYTE
 
-
 CHECKS: Tuple[Tuple[core_model.FindingEnum, Any], ...] = (
     (core_model.FindingEnum.F001_JPA, f001_jpa.analyze),
     (core_model.FindingEnum.F009, f009.analyze),
@@ -67,8 +66,10 @@ CHECKS: Tuple[Tuple[core_model.FindingEnum, Any], ...] = (
     (core_model.FindingEnum.F031_CWE378, f031_cwe378.analyze),
     (core_model.FindingEnum.F037, f037.analyze),
     (core_model.FindingEnum.F052, f052.analyze),
-    (core_model.FindingEnum.F055_AWS_MISSING_ENCRYPTION,
-     f055_aws_missing_encryption.analyze),
+    (
+        core_model.FindingEnum.F055_AWS_MISSING_ENCRYPTION,
+        f055_aws_missing_encryption.analyze,
+    ),
     (core_model.FindingEnum.F060, f060.analyze),
     (core_model.FindingEnum.F061, f061.analyze),
     (core_model.FindingEnum.F073, f073.analyze),
@@ -90,8 +91,8 @@ async def analyze_one_path(
     :type path: str
     """
     await log(
-        'info',
-        'Analyzing path %s of %s: %s',
+        "info",
+        "Analyzing path %s of %s: %s",
         index,
         unique_paths_count,
         path,
@@ -132,12 +133,15 @@ async def analyze(
     )
     unique_paths_count: int = len(unique_paths)
 
-    await collect((
-        analyze_one_path(
-            index=index,
-            path=path,
-            stores=stores,
-            unique_paths_count=unique_paths_count,
-        )
-        for index, path in enumerate(unique_paths)
-    ), workers=CPU_CORES)
+    await collect(
+        (
+            analyze_one_path(
+                index=index,
+                path=path,
+                stores=stores,
+                unique_paths_count=unique_paths_count,
+            )
+            for index, path in enumerate(unique_paths)
+        ),
+        workers=CPU_CORES,
+    )

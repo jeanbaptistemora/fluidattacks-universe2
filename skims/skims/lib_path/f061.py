@@ -58,10 +58,10 @@ def _csharp_swallows_exceptions(
     # Empty() grammar matches 'anything'
     # ~Empty() grammar matches 'not anything' or 'nothing'
     grammar = (
-        Keyword('catch') +
-        Optional(nestedExpr(opener='(', closer=')')) +
-        Optional(Keyword('when') + nestedExpr(opener='(', closer=')')) +
-        nestedExpr(opener='{', closer='}', content=~Empty())
+        Keyword("catch")
+        + Optional(nestedExpr(opener="(", closer=")"))
+        + Optional(Keyword("when") + nestedExpr(opener="(", closer=")"))
+        + nestedExpr(opener="{", closer="}", content=~Empty())
     )
     grammar.ignore(C_STYLE_COMMENT)
     grammar.ignore(DOUBLE_QUOTED_STRING)
@@ -69,10 +69,10 @@ def _csharp_swallows_exceptions(
 
     return get_vulnerabilities_blocking(
         content=content,
-        cwe={'390'},
+        cwe={"390"},
         description=t(
-            key='src.lib_path.f061.swallows_exceptions.description',
-            lang='C#',
+            key="src.lib_path.f061.swallows_exceptions.description",
+            lang="C#",
             path=path,
         ),
         finding=core_model.FindingEnum.F061,
@@ -102,14 +102,14 @@ def _javascript_swallows_exceptions(
     # Empty() grammar matches 'anything'
     # ~Empty() grammar matches 'not anything' or 'nothing'
     classic = (
-        Keyword('catch') +
-        Optional(nestedExpr(opener='(', closer=')')) +
-        nestedExpr(opener='{', closer='}', content=~Empty())
+        Keyword("catch")
+        + Optional(nestedExpr(opener="(", closer=")"))
+        + nestedExpr(opener="{", closer="}", content=~Empty())
     )
     modern = (
-        '.' +
-        Keyword('catch') +
-        nestedExpr(opener='(', closer=')', content=~Empty())
+        "."
+        + Keyword("catch")
+        + nestedExpr(opener="(", closer=")", content=~Empty())
     )
 
     grammar = MatchFirst([classic, modern])
@@ -119,10 +119,10 @@ def _javascript_swallows_exceptions(
 
     return get_vulnerabilities_blocking(
         content=content,
-        cwe={'390'},
+        cwe={"390"},
         description=t(
-            key='src.lib_path.f061.swallows_exceptions.description',
-            lang='Javascript',
+            key="src.lib_path.f061.swallows_exceptions.description",
+            lang="Javascript",
             path=path,
         ),
         finding=core_model.FindingEnum.F061,
@@ -152,9 +152,9 @@ def _java_swallows_exceptions(
     # Empty() grammar matches 'anything'
     # ~Empty() grammar matches 'not anything' or 'nothing'
     grammar = (
-        Keyword('catch') +
-        nestedExpr(opener='(', closer=')') +
-        nestedExpr(opener='{', closer='}', content=~Empty())
+        Keyword("catch")
+        + nestedExpr(opener="(", closer=")")
+        + nestedExpr(opener="{", closer="}", content=~Empty())
     )
     grammar.ignore(C_STYLE_COMMENT)
     grammar.ignore(DOUBLE_QUOTED_STRING)
@@ -162,10 +162,10 @@ def _java_swallows_exceptions(
 
     return get_vulnerabilities_blocking(
         content=content,
-        cwe={'390'},
+        cwe={"390"},
         description=t(
-            key='src.lib_path.f061.swallows_exceptions.description',
-            lang='Java',
+            key="src.lib_path.f061.swallows_exceptions.description",
+            lang="Java",
             path=path,
         ),
         finding=core_model.FindingEnum.F061,
@@ -197,7 +197,7 @@ def _python_swallows_exceptions(
         content=content,
         filters=(
             lambda node: isinstance(node, ast.ExceptHandler),
-            lambda node: hasattr(node, 'body'),
+            lambda node: hasattr(node, "body"),
             lambda node: bool(node.body),
             lambda node: all(isinstance(c, ast.Pass) for c in node.body),
         ),
@@ -205,16 +205,14 @@ def _python_swallows_exceptions(
 
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={'390'},
+        cwe={"390"},
         description=t(
-            key='src.lib_path.f061.swallows_exceptions.description',
-            lang='Python',
+            key="src.lib_path.f061.swallows_exceptions.description",
+            lang="Python",
             path=path,
         ),
         finding=core_model.FindingEnum.F061,
-        iterator=(
-            (node.lineno, node.col_offset) for node in vulnerable_nodes
-        ),
+        iterator=((node.lineno, node.col_offset) for node in vulnerable_nodes),
         path=path,
     )
 
@@ -238,10 +236,10 @@ def _swift_insecure_exceptions(
     path: str,
 ) -> core_model.Vulnerabilities:
     grammar = (
-        Keyword('catch') +
-        Optional('let' + VAR_ATTR_JAVA) +
-        Optional('as' + VAR_ATTR_JAVA) +
-        nestedExpr(opener='{', closer='}', content=~Empty())
+        Keyword("catch")
+        + Optional("let" + VAR_ATTR_JAVA)
+        + Optional("as" + VAR_ATTR_JAVA)
+        + nestedExpr(opener="{", closer="}", content=~Empty())
     )
     grammar.ignore(C_STYLE_COMMENT)
     grammar.ignore(DOUBLE_QUOTED_STRING)
@@ -249,10 +247,10 @@ def _swift_insecure_exceptions(
 
     return get_vulnerabilities_blocking(
         content=content,
-        cwe={'390'},
+        cwe={"390"},
         description=t(
-            key='src.lib_path.f061.swallows_exceptions.description',
-            lang='Swift',
+            key="src.lib_path.f061.swallows_exceptions.description",
+            lang="Swift",
             path=path,
         ),
         finding=core_model.FindingEnum.F061,
@@ -285,29 +283,39 @@ async def analyze(
     coroutines: List[Awaitable[core_model.Vulnerabilities]] = []
 
     if file_extension in EXTENSIONS_CSHARP:
-        coroutines.append(csharp_swallows_exceptions(
-            content=await content_generator(),
-            path=path,
-        ))
+        coroutines.append(
+            csharp_swallows_exceptions(
+                content=await content_generator(),
+                path=path,
+            )
+        )
     elif file_extension in EXTENSIONS_JAVA:
-        coroutines.append(java_swallows_exceptions(
-            content=await content_generator(),
-            path=path,
-        ))
+        coroutines.append(
+            java_swallows_exceptions(
+                content=await content_generator(),
+                path=path,
+            )
+        )
     elif file_extension in EXTENSIONS_JAVASCRIPT:
-        coroutines.append(javascript_swallows_exceptions(
-            content=await content_generator(),
-            path=path,
-        ))
+        coroutines.append(
+            javascript_swallows_exceptions(
+                content=await content_generator(),
+                path=path,
+            )
+        )
     elif file_extension in EXTENSIONS_PYTHON:
-        coroutines.append(python_swallows_exceptions(
-            content=await content_generator(),
-            path=path,
-        ))
+        coroutines.append(
+            python_swallows_exceptions(
+                content=await content_generator(),
+                path=path,
+            )
+        )
     elif file_extension in EXTENSIONS_SWIFT:
-        coroutines.append(swift_insecure_exceptions(
-            content=await content_generator(),
-            path=path,
-        ))
+        coroutines.append(
+            swift_insecure_exceptions(
+                content=await content_generator(),
+                path=path,
+            )
+        )
 
     return coroutines

@@ -71,17 +71,25 @@ async def execute_skims(token: Optional[str]) -> bool:
     }
 
     await wait_for(
-        collect((
-            *([analyze_http(stores=stores)]
-              if CTX.config.http.include
-              else []),
-            *([analyze_paths(stores=stores)]
-              if CTX.config.path.lib_path and CTX.config.path.include
-              else []),
-            *([analyze_root(stores=stores)]
-              if CTX.config.path.lib_root and CTX.config.path.include
-              else []),
-        )),
+        collect(
+            (
+                *(
+                    [analyze_http(stores=stores)]
+                    if CTX.config.http.include
+                    else []
+                ),
+                *(
+                    [analyze_paths(stores=stores)]
+                    if CTX.config.path.lib_path and CTX.config.path.include
+                    else []
+                ),
+                *(
+                    [analyze_root(stores=stores)]
+                    if CTX.config.path.lib_root and CTX.config.path.include
+                    else []
+                ),
+            )
+        ),
         CTX.config.timeout,
     )
 
@@ -91,8 +99,8 @@ async def execute_skims(token: Optional[str]) -> bool:
         await notify_findings_as_snippets(stores)
 
     if CTX.config.group and token:
-        msg = 'Results will be synced to group: %s'
-        await log('info', msg, CTX.config.group)
+        msg = "Results will be synced to group: %s"
+        await log("info", msg, CTX.config.group)
 
         success = await persist(
             group=CTX.config.group,
@@ -101,10 +109,18 @@ async def execute_skims(token: Optional[str]) -> bool:
         )
     else:
         success = True
-        await log('info', ' '.join((
-            'In case you want to persist results to Integrates',
-            'please make sure you set the --token and --group flag in the CLI',
-        )))
+        await log(
+            "info",
+            " ".join(
+                (
+                    "In case you want to persist results to Integrates",
+                    (
+                        "please make sure you set the --token and --group flag"
+                        " in the CLI"
+                    ),
+                )
+            ),
+        )
 
     return success
 
@@ -117,36 +133,38 @@ async def notify_findings_as_snippets(
         async for result in store.iterate():
             if result.skims_metadata:
                 await log(
-                    'info', '{title}: {what}\n\n{snippet}\n'.format(
+                    "info",
+                    "{title}: {what}\n\n{snippet}\n".format(
                         title=t(result.finding.value.title),
                         what=result.what,
                         snippet=result.skims_metadata.snippet,
-                    ))
+                    ),
+                )
 
 
 async def notify_findings_as_csv(
     stores: Dict[core_model.FindingEnum, EphemeralStore],
     output: str,
 ) -> None:
-    headers = ('title', 'what', 'where', 'cwe')
+    headers = ("title", "what", "where", "cwe")
     rows = [
         {
-            'cwe': ' + '.join(sorted(result.skims_metadata.cwe)),
-            'title': t(result.finding.value.title),
-            'what': result.what,
-            'where': result.where,
+            "cwe": " + ".join(sorted(result.skims_metadata.cwe)),
+            "title": t(result.finding.value.title),
+            "what": result.what,
+            "where": result.where,
         }
         for store in stores.values()
         async for result in store.iterate()
         if result.skims_metadata
     ]
 
-    with open(output, 'w') as file:
+    with open(output, "w") as file:
         writer = csv.DictWriter(file, headers, quoting=csv.QUOTE_MINIMAL)
         writer.writeheader()
         writer.writerows(sorted(rows, key=str))
 
-    await log('info', 'An output file has been written: %s', output)
+    await log("info", "An output file has been written: %s", output)
 
 
 async def main(
@@ -161,9 +179,9 @@ async def main(
         CTX.config = load(group, config)
         add_bugsnag_data(namespace=CTX.config.namespace)
         await reset_ephemeral_state()
-        await log('info', 'Namespace: %s', CTX.config.namespace)
-        await log('info', 'Startup working dir is: %s', CTX.config.start_dir)
-        await log('info', 'Moving working dir to: %s', CTX.config.working_dir)
+        await log("info", "Namespace: %s", CTX.config.namespace)
+        await log("info", "Startup working dir is: %s", CTX.config.start_dir)
+        await log("info", "Moving working dir to: %s", CTX.config.working_dir)
         os.chdir(CTX.config.working_dir)
         return await execute_skims(token)
     finally:

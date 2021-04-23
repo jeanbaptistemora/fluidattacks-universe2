@@ -76,11 +76,7 @@ def read_blocking(
         *binary_args,
         cwd=cwd,
         env=env,
-        stdin=(
-            subprocess.DEVNULL
-            if stdin_bytes is None
-            else subprocess.PIPE
-        ),
+        stdin=(subprocess.DEVNULL if stdin_bytes is None else subprocess.PIPE),
         stdout=stdout,
         stderr=stderr,
         **kwargs,

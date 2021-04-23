@@ -44,7 +44,7 @@ async def parse(
     )
 
     if result == {}:
-        await log('error', 'Unable to parse %s: %s', grammar.value, path)
+        await log("error", "Unable to parse %s: %s", grammar.value, path)
 
     return result
 
@@ -79,28 +79,28 @@ async def __parse(
         grammar.value,
         env=dict(
             # Limit heap size
-            JAVA_OPTS=f'-Xmx{memory}g',
+            JAVA_OPTS=f"-Xmx{memory}g",
         ),
         stdin_bytes=content,
     )
 
     try:
         if err_bytes:
-            err: str = err_bytes.decode('utf-8')
+            err: str = err_bytes.decode("utf-8")
 
-            if 'Not enough memory' in err:
+            if "Not enough memory" in err:
                 raise MemoryError(err)
 
             raise IOError(err)
 
         if code != 0:
-            raise IOError('ANTLR Parser returned a non-zero exit code')
+            raise IOError("ANTLR Parser returned a non-zero exit code")
 
         if out_bytes:
-            out: str = out_bytes.decode('utf-8')
+            out: str = out_bytes.decode("utf-8")
             data: Dict[str, Any] = json.loads(out)
             return data
 
-        raise IOError('No stdout in process')
+        raise IOError("No stdout in process")
     except (IOError, json.JSONDecodeError):
         return {}

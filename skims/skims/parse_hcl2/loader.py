@@ -26,13 +26,12 @@ from parse_hcl2.tokens import (
 )
 
 # Side effects
-DATA['options']['propagate_positions'] = True
+DATA["options"]["propagate_positions"] = True
 
 
 class HCL2Builder(  # pylint: disable=too-few-public-methods
     lark.Transformer,
 ):
-
     def __init__(self) -> None:
         self.transformer = DictTransformer()
         super().__init__()
@@ -85,9 +84,9 @@ def remove_discarded(data: Any) -> Any:
 
 def coerce_to_boolean(data: Any) -> Any:
     if isinstance(data, lark.Tree):
-        if data.data == 'true_lit' and not data.children:
+        if data.data == "true_lit" and not data.children:
             data = True
-        elif data.data == 'false_lit' and not data.children:
+        elif data.data == "false_lit" and not data.children:
             data = False
         else:
             data.children = list(map(coerce_to_string_lit, data.children))
@@ -97,7 +96,7 @@ def coerce_to_boolean(data: Any) -> Any:
 
 def coerce_to_tuple(data: Any) -> Any:
     if isinstance(data, lark.Tree):
-        if data.data == 'tuple':
+        if data.data == "tuple":
             data = data.children
         else:
             data.children = list(map(coerce_to_tuple, data.children))
@@ -107,14 +106,14 @@ def coerce_to_tuple(data: Any) -> Any:
 
 def coerce_to_int_lit(data: Any) -> Any:
     if isinstance(data, lark.Tree):
-        if data.data == 'int_lit':
-            data = int(''.join(child.value for child in data.children))
+        if data.data == "int_lit":
+            data = int("".join(child.value for child in data.children))
         else:
             data.children = list(map(coerce_to_int_lit, data.children))
     elif isinstance(data, lark.Token):
-        if data.type == '__ANON_3':
+        if data.type == "__ANON_3":
             data = data.value
-        elif data.type == 'STRING_LIT':
+        elif data.type == "STRING_LIT":
             data = data.value[1:-1]
 
     return data
@@ -124,9 +123,9 @@ def coerce_to_string_lit(data: Any) -> Any:
     if isinstance(data, lark.Tree):
         data.children = list(map(coerce_to_string_lit, data.children))
     elif isinstance(data, lark.Token):
-        if data.type == '__ANON_3':
+        if data.type == "__ANON_3":
             data = data.value
-        elif data.type == 'STRING_LIT':
+        elif data.type == "STRING_LIT":
             data = data.value[1:-1]
 
     return data
@@ -134,7 +133,7 @@ def coerce_to_string_lit(data: Any) -> Any:
 
 def extract_single_expr_term(data: Any) -> Any:
     if isinstance(data, lark.Tree):
-        if data.data == 'expr_term' and len(data.children) == 1:
+        if data.data == "expr_term" and len(data.children) == 1:
             data = extract_single_expr_term(data.children[0])
         else:
             data.children = list(map(extract_single_expr_term, data.children))
@@ -143,8 +142,8 @@ def extract_single_expr_term(data: Any) -> Any:
 
 def load_heredocs(data: Any) -> Any:
     if isinstance(data, lark.Tree):
-        if data.data.startswith('heredoc_template'):
-            raw = '\n'.join(data.children[0].value.splitlines()[1:-1])
+        if data.data.startswith("heredoc_template"):
+            raw = "\n".join(data.children[0].value.splitlines()[1:-1])
             try:
                 data = Json(
                     column=data.column - 1,
@@ -160,14 +159,15 @@ def load_heredocs(data: Any) -> Any:
 
 def load_blocks(data: Any) -> Any:
     if isinstance(data, lark.Tree):
-        if data.data == 'block':
+        if data.data == "block":
             body = []
             namespace = []
             for child in data.children:
-                if isinstance(child, lark.Tree) and child.data == 'body':
+                if isinstance(child, lark.Tree) and child.data == "body":
                     body = list(map(load_blocks, child.children))
-                elif isinstance(child, lark.Tree) \
-                        and child.data == 'identifier':
+                elif (
+                    isinstance(child, lark.Tree) and child.data == "identifier"
+                ):
                     namespace.append(child.children[0])
                 else:
                     namespace.append(child)
@@ -184,11 +184,11 @@ def load_blocks(data: Any) -> Any:
 
 
 def load_objects(data: Any) -> Any:
-    if isinstance(data, lark.Tree) and data.data == 'object':
+    if isinstance(data, lark.Tree) and data.data == "object":
         if all(
-            children.data == 'object_elem'
+            children.data == "object_elem"
             and isinstance(children.children[0], lark.Tree)
-            and children.children[0].data == 'identifier'
+            and children.children[0].data == "identifier"
             for children in data.children
         ):
             copy = {
@@ -203,7 +203,7 @@ def load_objects(data: Any) -> Any:
 
 def replace_attributes(data: Any) -> Any:
     if isinstance(data, lark.Tree):
-        if data.data == 'attribute' and data.children[0].data == 'identifier':
+        if data.data == "attribute" and data.children[0].data == "identifier":
             data = Attribute(
                 column=data.column - 1,
                 key=data.children[0].children[0],

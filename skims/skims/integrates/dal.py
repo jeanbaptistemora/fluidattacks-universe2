@@ -50,9 +50,8 @@ from zone import (
     t,
 )
 
-
 # Constants
-TFun = TypeVar('TFun', bound=Callable[..., Any])
+TFun = TypeVar("TFun", bound=Callable[..., Any])
 SHIELD: Callable[[TFun], TFun] = shield(retries=12)
 
 
@@ -67,16 +66,16 @@ async def raise_errors(
     query: str,
     variables: Dict[str, Any],
 ) -> None:
-    for error in (errors or ()):
+    for error in errors or ():
         for error_mapping in error_mappings:
-            if error.get('message') in error_mapping.messages:
+            if error.get("message") in error_mapping.messages:
                 raise error_mapping.exception
 
     if errors:
         for error in errors:
-            await log('debug', 'query: %s', query)
-            await log('debug', 'variables: %s', variables)
-            await log('error', '%s', error)
+            await log("debug", "query: %s", query)
+            await log("debug", "variables: %s", variables)
+            await log("error", "%s", error)
     else:
         # no errors happened
         pass
@@ -97,21 +96,19 @@ async def _execute(
         )
 
         if response.status >= 400:
-            await log('debug', 'query: %s', query)
-            await log('debug', 'variables: %s', variables)
-            await log('debug', 'response status: %s', response.status)
+            await log("debug", "query: %s", query)
+            await log("debug", "variables: %s", variables)
+            await log("debug", "response status: %s", response.status)
             raise aiohttp.ClientError()
 
         result: Dict[str, Any] = await response.json()
 
     await raise_errors(
-        errors=result.get('errors'),
+        errors=result.get("errors"),
         error_mappings=(
             ErrorMapping(
-                exception=StopRetrying('Invalid API token'),
-                messages=(
-                    'Login required',
-                ),
+                exception=StopRetrying("Invalid API token"),
+                messages=("Login required",),
             ),
         ),
         query=query,
@@ -139,13 +136,13 @@ async def get_group_level_role(
                 }
             }
         """,
-        operation='SkimsGetGroupLevelRole',
+        operation="SkimsGetGroupLevelRole",
         variables=dict(
             group=group,
-        )
+        ),
     )
 
-    role: str = result['data']['me']['role'] or 'none'
+    role: str = result["data"]["me"]["role"] or "none"
 
     return role
 
@@ -177,20 +174,20 @@ async def get_group_findings(
                 }
             }
         """,
-        operation='SkimsGetGroupFindings',
+        operation="SkimsGetGroupFindings",
         variables=dict(
             group=group,
-        )
+        ),
     )
 
     return tuple(
         ResultGetGroupFindings(
-            identifier=finding['id'],
-            title=finding['title'],
+            identifier=finding["id"],
+            title=finding["title"],
         )
         for finding in (
-            result['data']['project']['findings'] +
-            result['data']['project']['drafts']
+            result["data"]["project"]["findings"]
+            + result["data"]["project"]["drafts"]
         )
     )
 
@@ -220,18 +217,18 @@ async def get_group_roots(
                 }
             }
         """,
-        operation='SkimsGetGroupRoots',
+        operation="SkimsGetGroupRoots",
         variables=dict(
             group=group,
-        )
+        ),
     )
 
     return tuple(
         ResultGetGroupRoots(
-            environment_urls=root['environmentUrls'],
-            nickname=root['nickname'],
+            environment_urls=root["environmentUrls"],
+            nickname=root["nickname"],
         )
-        for root in result['data']['project']['roots']
+        for root in result["data"]["project"]["roots"]
     )
 
 
@@ -250,17 +247,17 @@ async def get_finding_current_release_status(
                 }
             }
         """,
-        operation='SkimsGetFindingCurrentReleaseStatus',
+        operation="SkimsGetFindingCurrentReleaseStatus",
         variables=dict(
             finding_id=finding_id,
-        )
+        ),
     )
 
     return (
         core_model.FindingReleaseStatusEnum(
-            result['data']['finding']['currentState']
+            result["data"]["finding"]["currentState"]
         )
-        if result['data']['finding']['currentState']
+        if result["data"]["finding"]["currentState"]
         else core_model.FindingReleaseStatusEnum.APPROVED
     )
 
@@ -289,40 +286,42 @@ async def get_finding_vulnerabilities(
                 }
             }
         """,
-        operation='SkimsGetFindingVulnerabilities',
+        operation="SkimsGetFindingVulnerabilities",
         variables=dict(
             finding_id=finding_id,
-        )
+        ),
     )
 
     store: EphemeralStore = get_ephemeral_store()
-    for vulnerability in result['data']['finding']['vulnerabilities']:
-        kind = core_model.VulnerabilityKindEnum(vulnerability['vulnType'])
-        what = vulnerability['where']
+    for vulnerability in result["data"]["finding"]["vulnerabilities"]:
+        kind = core_model.VulnerabilityKindEnum(vulnerability["vulnType"])
+        what = vulnerability["where"]
 
-        await store.store(core_model.Vulnerability(
-            finding=finding,
-            integrates_metadata=core_model.IntegratesVulnerabilityMetadata(
-                approval_status=core_model.VulnerabilityApprovalStatusEnum((
-                    vulnerability['currentApprovalStatus'] or
-                    core_model.VulnerabilityApprovalStatusEnum.APPROVED
-                )),
-                namespace=deserialize_namespace_from_vuln(
-                    kind=kind,
-                    what=what,
+        await store.store(
+            core_model.Vulnerability(
+                finding=finding,
+                integrates_metadata=core_model.IntegratesVulnerabilityMetadata(
+                    approval_status=core_model.VulnerabilityApprovalStatusEnum(
+                        (vulnerability["currentApprovalStatus"])
+                        or core_model.VulnerabilityApprovalStatusEnum.APPROVED
+                    ),
+                    namespace=deserialize_namespace_from_vuln(
+                        kind=kind,
+                        what=what,
+                    ),
+                    source=core_model.VulnerabilitySourceEnum(
+                        vulnerability["source"]
+                    ),
+                    uuid=vulnerability["id"],
                 ),
-                source=core_model.VulnerabilitySourceEnum(
-                    vulnerability['source']
+                kind=kind,
+                state=core_model.VulnerabilityStateEnum(
+                    vulnerability["currentState"]
                 ),
-                uuid=vulnerability['id'],
-            ),
-            kind=kind,
-            state=core_model.VulnerabilityStateEnum(
-                vulnerability['currentState']
-            ),
-            what=what,
-            where=vulnerability['specific'],
-        ))
+                what=what,
+                where=vulnerability["specific"],
+            )
+        )
 
     return store
 
@@ -330,8 +329,8 @@ async def get_finding_vulnerabilities(
 @SHIELD
 async def do_add_git_root(
     *,
-    branch: str = 'main',
-    environment: str = 'production',
+    branch: str = "main",
+    environment: str = "production",
     gitignore: Optional[List[str]] = None,
     group_name: str,
     includes_health_check: bool = False,
@@ -362,7 +361,7 @@ async def do_add_git_root(
                 }
             }
         """,
-        operation='SkimsDoAddGitRoot',
+        operation="SkimsDoAddGitRoot",
         variables=dict(
             branch=branch,
             environment=environment,
@@ -371,10 +370,10 @@ async def do_add_git_root(
             includesHealthCheck=includes_health_check,
             nickname=nickname,
             url=url,
-        )
+        ),
     )
 
-    success: bool = result['data']['addGitRoot']['success']
+    success: bool = result["data"]["addGitRoot"]["success"]
 
     if not success:
         raise RetryAndFinallyReturn(success)
@@ -419,7 +418,7 @@ async def do_create_draft(
                 }
             }
         """,
-        operation='SkimsDoCreateDraft',
+        operation="SkimsDoCreateDraft",
         variables=dict(
             affected_systems=affected_systems,
             cwe=finding.value.cwe,
@@ -431,10 +430,10 @@ async def do_create_draft(
             threat=t(finding.value.threat),
             title=t(finding.value.title),
             type=finding.value.type.value,
-        )
+        ),
     )
 
-    success: bool = result['data']['createDraft']['success']
+    success: bool = result["data"]["createDraft"]["success"]
 
     if not success:
         raise RetryAndFinallyReturn(success)
@@ -447,7 +446,7 @@ async def do_delete_finding(
     *,
     finding_id: str,
 ) -> bool:
-    await log('warn', 'Deleting finding: %s', finding_id)
+    await log("warn", "Deleting finding: %s", finding_id)
 
     result = await _execute(
         query="""
@@ -462,15 +461,15 @@ async def do_delete_finding(
                 }
             }
         """,
-        operation='SkimsDoDeleteFinding',
+        operation="SkimsDoDeleteFinding",
         variables=dict(
             finding_id=finding_id,
-        )
+        ),
     )
 
-    success: bool = result['data']['deleteFinding']['success']
+    success: bool = result["data"]["deleteFinding"]["success"]
 
-    await log('warn', 'Deleting finding: %s, success: %s', finding_id, success)
+    await log("warn", "Deleting finding: %s, success: %s", finding_id, success)
 
     if not success:
         raise RetryAndFinallyReturn(success)
@@ -495,13 +494,13 @@ async def do_approve_draft(
                 }
             }
         """,
-        operation='SkimsDoApproveDraft',
+        operation="SkimsDoApproveDraft",
         variables=dict(
             finding_id=finding_id,
-        )
+        ),
     )
 
-    success: bool = result['data']['approveDraft']['success']
+    success: bool = result["data"]["approveDraft"]["success"]
 
     if not success:
         raise RetryAndFinallyReturn(success)
@@ -526,13 +525,13 @@ async def do_submit_draft(
                 }
             }
         """,
-        operation='SkimsDoSubmitDraft',
+        operation="SkimsDoSubmitDraft",
         variables=dict(
             finding_id=finding_id,
-        )
+        ),
     )
 
-    success: bool = result['data']['submitDraft']['success']
+    success: bool = result["data"]["submitDraft"]["success"]
 
     if not success:
         raise RetryAndFinallyReturn(success)
@@ -560,18 +559,18 @@ async def do_update_finding_severity(
                 }
             }
         """,
-        operation='SkimsDoUpdateFindingSeverity',
+        operation="SkimsDoUpdateFindingSeverity",
         variables=dict(
             finding_id=finding_id,
             data=dict(
-                cvssVersion='3.1',
+                cvssVersion="3.1",
                 id=finding_id,
                 **severity,
             ),
-        )
+        ),
     )
 
-    success: bool = result['data']['updateSeverity']['success']
+    success: bool = result["data"]["updateSeverity"]["success"]
 
     if not success:
         raise RetryAndFinallyReturn(success)
@@ -605,15 +604,15 @@ async def do_update_evidence(
                 }
             }
         """,
-        operation='SkimsDoUpdateEvidence',
+        operation="SkimsDoUpdateEvidence",
         variables=dict(
             evidence_id=evidence_id.value,
             evidence_buffer=evidence_buffer,
             finding_id=finding_id,
-        )
+        ),
     )
 
-    success: bool = result['data']['updateEvidence']['success']
+    success: bool = result["data"]["updateEvidence"]["success"]
 
     if not success:
         raise RetryAndFinallyReturn(success)
@@ -644,15 +643,15 @@ async def do_update_evidence_description(
                 }
             }
         """,
-        operation='SkimsDoUpdateEvidenceDescription',
+        operation="SkimsDoUpdateEvidenceDescription",
         variables=dict(
             evidence_description=evidence_description,
             evidence_description_id=evidence_description_id.value,
             finding_id=finding_id,
-        )
+        ),
     )
 
-    success: bool = result['data']['updateEvidenceDescription']['success']
+    success: bool = result["data"]["updateEvidenceDescription"]["success"]
 
     if not success:
         raise RetryAndFinallyReturn(success)
@@ -680,14 +679,14 @@ async def do_upload_vulnerabilities(
                 }
             }
         """,
-        operation='SkimsDoUploadVulnerabilities',
+        operation="SkimsDoUploadVulnerabilities",
         variables=dict(
             file_handle=to_in_memory_file(stream),
             finding_id=finding_id,
-        )
+        ),
     )
 
-    success: bool = result['data']['uploadFile']['success']
+    success: bool = result["data"]["uploadFile"]["success"]
 
     if not success:
         raise RetryAndFinallyReturn(success)

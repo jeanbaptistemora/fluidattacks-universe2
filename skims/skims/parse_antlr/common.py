@@ -8,4 +8,4 @@ from typing import (
 def is_positional_node(node: Dict[str, Any]) -> bool:
     keys = set(node.keys())
 
-    return keys == {'c', 'l', 'text', 'type'}
+    return keys == {"c", "l", "text", "type"}

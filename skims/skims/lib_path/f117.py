@@ -26,7 +26,7 @@ from zone import (
 )
 
 ALLOWED: Set[Tuple[str, str]] = {
-    ('gradle-wrapper', 'jar'),
+    ("gradle-wrapper", "jar"),
 }
 
 
@@ -43,10 +43,10 @@ async def unverifiable_files(
         return ()
 
     return get_vulnerabilities_from_iterator_blocking(
-        content=raw_content.decode(encoding='utf-8', errors='replace'),
-        cwe={'377'},
+        content=raw_content.decode(encoding="utf-8", errors="replace"),
+        cwe={"377"},
         description=t(
-            key='src.lib_path.f117.unverifiable_files.description',
+            key="src.lib_path.f117.unverifiable_files.description",
             path=path,
         ),
         finding=core_model.FindingEnum.F117,
@@ -66,26 +66,28 @@ async def analyze(
     coroutines: List[Awaitable[core_model.Vulnerabilities]] = []
 
     if file_extension in {
-        'bin',
-        'class',
-        'dll',
-        'DS_Store',
-        'exec',
-        'hprof',
-        'jar',
-        'jasper',
-        'pdb',
-        'pyc',
+        "bin",
+        "class",
+        "dll",
+        "DS_Store",
+        "exec",
+        "hprof",
+        "jar",
+        "jasper",
+        "pdb",
+        "pyc",
     } or (file_name, file_extension) in {
-        ('debug', 'log'),
-        ('', 'classpath'),
-        ('', 'project'),
+        ("debug", "log"),
+        ("", "classpath"),
+        ("", "project"),
     }:
-        coroutines.append(unverifiable_files(
-            file_name=file_name,
-            file_extension=file_extension,
-            path=path,
-            raw_content=await raw_content_generator(),
-        ))
+        coroutines.append(
+            unverifiable_files(
+                file_name=file_name,
+                file_extension=file_extension,
+                path=path,
+                raw_content=await raw_content_generator(),
+            )
+        )
 
     return coroutines

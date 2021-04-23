@@ -11,7 +11,7 @@ from typing import (
 )
 
 # Constants
-TFun = TypeVar('TFun', bound=Callable[..., Any])
+TFun = TypeVar("TFun", bound=Callable[..., Any])
 
 
 def never_concurrent(function: TFun) -> TFun:

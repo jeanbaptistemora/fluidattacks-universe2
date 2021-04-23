@@ -40,18 +40,18 @@ def _java_file_create_temp_file(
     content: str,
     path: str,
 ) -> core_model.Vulnerabilities:
-    grammar = Keyword('File') + '.' + Keyword('createTempFile') + '('
+    grammar = Keyword("File") + "." + Keyword("createTempFile") + "("
     grammar.ignore(C_STYLE_COMMENT)
     grammar.ignore(DOUBLE_QUOTED_STRING)
     grammar.ignore(SINGLE_QUOTED_STRING)
 
     translation_key = (
-        'src.lib_path.f031_cwe378.java_file_create_temp_file.description'
+        "src.lib_path.f031_cwe378.java_file_create_temp_file.description"
     )
 
     return get_vulnerabilities_blocking(
         content=content,
-        cwe={'378'},
+        cwe={"378"},
         description=t(key=translation_key, path=path),
         finding=core_model.FindingEnum.F031_CWE378,
         grammar=grammar,
@@ -83,9 +83,11 @@ async def analyze(
     coroutines: List[Awaitable[core_model.Vulnerabilities]] = []
 
     if file_extension in EXTENSIONS_JAVA:
-        coroutines.append(java_file_create_temp_file(
-            content=await content_generator(),
-            path=path,
-        ))
+        coroutines.append(
+            java_file_create_temp_file(
+                content=await content_generator(),
+                path=path,
+            )
+        )
 
     return coroutines

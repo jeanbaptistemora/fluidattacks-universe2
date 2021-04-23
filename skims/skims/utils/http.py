@@ -14,7 +14,6 @@ from utils.function import (
     shield,
 )
 
-
 RETRY = shield(retries=3, sleep_between_retries=1)
 
 
@@ -31,7 +30,8 @@ async def create_session(*args: Any, **kwargs: Any) -> aiohttp.ClientSession:
             sock_connect=None,
         ),
         trust_env=True,
-        *args, **kwargs,
+        *args,
+        **kwargs,
     ) as session:
         yield session
 

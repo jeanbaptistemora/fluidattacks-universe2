@@ -44,8 +44,8 @@ from zone import (
 )
 
 # Constants
-WS = r'\s*'
-SEP = f'{WS},{WS}'
+WS = r"\s*"
+SEP = f"{WS},{WS}"
 
 
 def _java_jpa_like_normal_annotation(
@@ -53,25 +53,25 @@ def _java_jpa_like_normal_annotation(
 ) -> Tuple[Tuple[int, int], ...]:
     # Match: @Query(identifier = ..., identifier = ...)
     # Return the nodes inside. Most of the time simplified to StringLiteral
-    return tuple(yield_nodes(
-        value=model,
-        key_predicates=(
-            'NormalAnnotation'.__eq__,
-        ),
-        value_predicates=(
-            '[0].type==`AT`',
-            """
+    return tuple(
+        yield_nodes(
+            value=model,
+            key_predicates=("NormalAnnotation".__eq__,),
+            value_predicates=(
+                "[0].type==`AT`",
+                """
             contains(
                 ['Query', 'SqlQuery'],
                 [1].TypeName[0].Identifier[0].text
             )
             """,
-            '[2].type==`LPAREN`',
-            '[4].type==`RPAREN`',
-        ),
-        post_extraction=(),
-        value_extraction="[3][?[0].text=='value'][2]|[0]",
-    ))
+                "[2].type==`LPAREN`",
+                "[4].type==`RPAREN`",
+            ),
+            post_extraction=(),
+            value_extraction="[3][?[0].text=='value'][2]|[0]",
+        )
+    )
 
 
 def _java_jpa_like_single_element_annotation(
@@ -79,25 +79,25 @@ def _java_jpa_like_single_element_annotation(
 ) -> Tuple[Tuple[int, int], ...]:
     # Match: @Query(...)
     # Return the nodes inside. Most of the time simplified to StringLiteral
-    return tuple(yield_nodes(
-        value=model,
-        key_predicates=(
-            'SingleElementAnnotation'.__eq__,
-        ),
-        value_predicates=(
-            '[0].type==`AT`',
-            """
+    return tuple(
+        yield_nodes(
+            value=model,
+            key_predicates=("SingleElementAnnotation".__eq__,),
+            value_predicates=(
+                "[0].type==`AT`",
+                """
             contains(
                 ['Query', 'SqlQuery'],
                 [1].TypeName[0].Identifier[0].text
             )
             """,
-            '[2].type==`LPAREN`',
-            '[4].type==`RPAREN`',
-        ),
-        value_extraction='[3].ElementValue',
-        pre_extraction=(),
-    ))
+                "[2].type==`LPAREN`",
+                "[4].type==`RPAREN`",
+            ),
+            value_extraction="[3].ElementValue",
+            pre_extraction=(),
+        )
+    )
 
 
 def _java_jpa_like(
@@ -105,15 +105,14 @@ def _java_jpa_like(
     model: Dict[str, Any],
     path: str,
 ) -> core_model.Vulnerabilities:
-
     def _has_like_injection(statement: str) -> bool:
         roots = (
             # like %x
-            r'like\s+%{}',
+            r"like\s+%{}",
             # like x%
-            r'like\s+{}%',
+            r"like\s+{}%",
             # like %x%
-            r'like\s+%{}%',
+            r"like\s+%{}%",
             # like concat('%',   x)
             rf"like\s+concat\('%'{SEP}{{}}\)",
             # like concat(x,  '%')
@@ -123,11 +122,11 @@ def _java_jpa_like(
         )
         variables = (
             # :#{[0]}
-            r':\#\{\[\d+\]\}',
+            r":\#\{\[\d+\]\}",
             # :lastname
-            r':[a-z0-9_\$]+',
+            r":[a-z0-9_\$]+",
             # ?0
-            r'\?\d+',
+            r"\?\d+",
         )
         statement = statement.lower()
 
@@ -138,24 +137,27 @@ def _java_jpa_like(
         return False
 
     def _check_like_injection(node: Any) -> Tuple[bool, int, int]:
-        if isinstance(node, dict) and node['type'] == 'StringLiteral':
-            return _has_like_injection(node['text']), node['l'], node['c']
+        if isinstance(node, dict) and node["type"] == "StringLiteral":
+            return _has_like_injection(node["text"]), node["l"], node["c"]
 
         return False, 0, 0
 
     def iterator() -> Iterator[Tuple[int, int]]:
-        for vulnerable, line_no, column_no in map(_check_like_injection, chain(
-            _java_jpa_like_normal_annotation(model),
-            _java_jpa_like_single_element_annotation(model),
-        )):
+        for vulnerable, line_no, column_no in map(
+            _check_like_injection,
+            chain(
+                _java_jpa_like_normal_annotation(model),
+                _java_jpa_like_single_element_annotation(model),
+            ),
+        ):
             if vulnerable:
                 yield line_no, column_no
 
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={'89'},
+        cwe={"89"},
         description=t(
-            key='src.lib_path.f001_jpa.java_like.description',
+            key="src.lib_path.f001_jpa.java_like.description",
             path=path,
         ),
         finding=core_model.FindingEnum.F001_JPA,
@@ -196,9 +198,11 @@ async def analyze(
     coroutines: List[Awaitable[core_model.Vulnerabilities]] = []
 
     if file_extension in EXTENSIONS_JAVA:
-        coroutines.append(java_jpa_like(
-            content=await content_generator(),
-            path=path,
-        ))
+        coroutines.append(
+            java_jpa_like(
+                content=await content_generator(),
+                path=path,
+            )
+        )
 
     return coroutines

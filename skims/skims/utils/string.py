@@ -40,7 +40,7 @@ from utils.logs import (
 )
 
 # Constants
-DUMMY_IMG: Image = Image.new('RGB', (0, 0))
+DUMMY_IMG: Image = Image.new("RGB", (0, 0))
 DUMMY_DRAWING: ImageDraw = ImageDraw.Draw(DUMMY_IMG)
 FONT: ImageFont = ImageFont.truetype(
     font=ROBOTO_FONT,
@@ -70,7 +70,7 @@ def to_snippet_blocking(
     context: int = SNIPPETS_CONTEXT,
     line: int,
 ) -> str:
-    lines: Tuple[str, ...] = tuple(content.replace('\t', ' ').splitlines())
+    lines: Tuple[str, ...] = tuple(content.replace("\t", " ").splitlines())
     number_of_lines: int = len(lines)
     zeros_needed: int = max(len(str(number_of_lines)), 2) + 2
 
@@ -81,21 +81,25 @@ def to_snippet_blocking(
     end_column: int = start_column + chars_per_line
 
     separator: str = f'¦ {"-" * zeros_needed} ¦ {"-" * chars_per_line} ¦'
-    snippet: str = '\n'.join(chain(
-        [f'¦ {"line":^{zeros_needed}s} ¦ {"Data":<{chars_per_line}s} ¦'],
-        [separator],
-        (
-            f'¦ {line_marker!s:>{zeros_needed}s} ¦ '
-            f'{line_content[start_column:end_column]:<{chars_per_line}s} ¦'
-            for line_no, line_content in enumerate(
-                lines[start_line:end_line],
-                start=start_line + 1,
-            )
-            for line_marker in [f'> {line_no}' if line_no == line else line_no]
-        ),
-        [separator],
-        [f'  {"":^{zeros_needed}s} ^ Column {start_column}'],
-    ))
+    snippet: str = "\n".join(
+        chain(
+            [f'¦ {"line":^{zeros_needed}s} ¦ {"Data":<{chars_per_line}s} ¦'],
+            [separator],
+            (
+                f"¦ {line_marker!s:>{zeros_needed}s} ¦ "
+                f"{line_content[start_column:end_column]:<{chars_per_line}s} ¦"
+                for line_no, line_content in enumerate(
+                    lines[start_line:end_line],
+                    start=start_line + 1,
+                )
+                for line_marker in [
+                    f"> {line_no}" if line_no == line else line_no
+                ]
+            ),
+            [separator],
+            [f'  {"":^{zeros_needed}s} ^ Column {start_column}'],
+        )
+    )
 
     return snippet
 
@@ -129,9 +133,9 @@ def boxify_blocking(
 
     missing_height: int = width // width_to_height_ratio - height
 
-    filling: List[str] = list(repeat('', missing_height // 2))
+    filling: List[str] = list(repeat("", missing_height // 2))
 
-    return '\n'.join(filling + lines + filling)
+    return "\n".join(filling + lines + filling)
 
 
 def _to_png(*, string: str, margin: int = 25) -> BytesIO:
@@ -155,7 +159,7 @@ def _to_png(*, string: str, margin: int = 25) -> BytesIO:
 
     # Create an image with the right size to fit the snippet
     #  and resize it to a common resolution
-    img: Image = Image.new('RGB', size, (0xff, 0xff, 0xff))
+    img: Image = Image.new("RGB", size, (0xFF, 0xFF, 0xFF))
 
     drawing: ImageDraw = ImageDraw.Draw(img)
     drawing.multiline_text(
@@ -170,7 +174,7 @@ def _to_png(*, string: str, margin: int = 25) -> BytesIO:
 
     stream: BytesIO = BytesIO()
 
-    img.save(stream, format='PNG')
+    img.save(stream, format="PNG")
 
     stream.seek(0)
 
@@ -184,33 +188,31 @@ async def to_png(*, string: str) -> BytesIO:
 def get_debug_path(path: str) -> str:
     output = os.path.join(
         STATE_FOLDER_DEBUG,
-        os.path.relpath(path).replace('/', '__').replace('.', '_'),
+        os.path.relpath(path).replace("/", "__").replace(".", "_"),
     )
-    log_blocking('info', 'An output will be generated at %s*', output)
+    log_blocking("info", "An output will be generated at %s*", output)
     return output
 
 
 def build_attr_paths(*attrs: str) -> Set[str]:
-    return set('.'.join(attrs[index:]) for index, _ in enumerate(attrs))
+    return set(".".join(attrs[index:]) for index, _ in enumerate(attrs))
 
 
 def split_on_first_dot(string: str) -> Tuple[str, str]:
-    portions = string.split('.', maxsplit=1)
+    portions = string.split(".", maxsplit=1)
     if len(portions) == 2:
         return portions[0], portions[1]
-    return portions[0], ''
+    return portions[0], ""
 
 
 def split_on_last_dot(string: str) -> Tuple[str, str]:
-    portions = string.rsplit('.', maxsplit=1)
+    portions = string.rsplit(".", maxsplit=1)
     if len(portions) == 2:
         return portions[0], portions[1]
-    return portions[0], ''
+    return portions[0], ""
 
 
 def complete_attrs_on_set(data: Set[str]) -> Set[str]:
     return {
-        attr
-        for path in data
-        for attr in build_attr_paths(*path.split('.'))
+        attr for path in data for attr in build_attr_paths(*path.split("."))
     }

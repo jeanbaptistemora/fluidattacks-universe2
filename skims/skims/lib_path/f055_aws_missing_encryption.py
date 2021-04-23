@@ -54,11 +54,14 @@ from utils.function import (
 
 
 def _iter_ec2_volumes(template: Node) -> Iterator[Node]:
-    yield from (props for _, _, props in iterate_resources(
-        template,
-        'AWS::EC2::Volume',
-        exact=True,
-    ))
+    yield from (
+        props
+        for _, _, props in iterate_resources(
+            template,
+            "AWS::EC2::Volume",
+            exact=True,
+        )
+    )
 
 
 def _unencrypted_volume_iterate_vulnerabilities(
@@ -66,11 +69,11 @@ def _unencrypted_volume_iterate_vulnerabilities(
 ) -> Iterator[Union[Any, Node]]:
     for volume in volumes_iterator:
         if isinstance(volume, Node):
-            if 'Encrypted' not in volume.raw:
+            if "Encrypted" not in volume.raw:
                 yield volume
-            elif not volume.raw.get('Encrypted'):
-                yield volume.inner['Encrypted']
-            elif 'KmsKeyId' not in volume.raw:
+            elif not volume.raw.get("Encrypted"):
+                yield volume.inner["Encrypted"]
+            elif "KmsKeyId" not in volume.raw:
                 yield volume
 
 
@@ -79,11 +82,11 @@ def _public_buckets_iterate_vulnerabilities(
 ) -> Iterator[Union[AWSS3Acl, Node]]:
     for bucket in buckets_iterator:
         if isinstance(bucket, Node):
-            if bucket.raw.get('AccessControl', 'Private') == 'PublicReadWrite':
-                yield bucket.inner['AccessControl']
+            if bucket.raw.get("AccessControl", "Private") == "PublicReadWrite":
+                yield bucket.inner["AccessControl"]
         elif isinstance(bucket, AWSS3Bucket):
-            acl = get_attribute(body=bucket.data, key='acl')
-            if acl and acl.val == 'public-read-write':
+            acl = get_attribute(body=bucket.data, key="acl")
+            if acl and acl.val == "public-read-write":
                 yield AWSS3Acl(
                     data=acl.val,
                     column=acl.column,
@@ -96,12 +99,12 @@ def _unencrypted_buckets_iterate_vulnerabilities(
 ) -> Iterator[Union[AWSS3Bucket, Node]]:
     for bucket in buckets_iterator:
         if isinstance(bucket, Node):
-            if not bucket.raw.get('BucketEncryption', None):
+            if not bucket.raw.get("BucketEncryption", None):
                 yield bucket
         elif isinstance(bucket, AWSS3Bucket):
             if not get_argument(
-                    key='server_side_encryption_configuration',
-                    body=bucket.data,
+                key="server_side_encryption_configuration",
+                body=bucket.data,
             ):
                 yield bucket
 
@@ -113,7 +116,7 @@ def _cfn_unencrypted_volumes(
 ) -> core_model.Vulnerabilities:
     return get_vulnerabilities_from_aws_iterator_blocking(
         content=content,
-        description_key='src.lib_path.f055_aws.unencrypted_volumes',
+        description_key="src.lib_path.f055_aws.unencrypted_volumes",
         finding=core_model.FindingEnum.F055_AWS_MISSING_ENCRYPTION,
         path=path,
         statements_iterator=_unencrypted_volume_iterate_vulnerabilities(
@@ -131,11 +134,14 @@ def _cfn_unencrypted_buckets(
 ) -> core_model.Vulnerabilities:
     return get_vulnerabilities_from_aws_iterator_blocking(
         content=content,
-        description_key='src.lib_path.f055_aws.unencrypted_buckets',
+        description_key="src.lib_path.f055_aws.unencrypted_buckets",
         finding=core_model.FindingEnum.F055_AWS_MISSING_ENCRYPTION,
         path=path,
-        statements_iterator=(bucket for bucket in iter_s3_buckets(template)
-                             if not bucket.raw.get('BucketEncryption', None)),
+        statements_iterator=(
+            bucket
+            for bucket in iter_s3_buckets(template)
+            if not bucket.raw.get("BucketEncryption", None)
+        ),
     )
 
 
@@ -146,7 +152,7 @@ def _terraform_unencrypted_buckets(
 ) -> core_model.Vulnerabilities:
     return get_vulnerabilities_from_aws_iterator_blocking(
         content=content,
-        description_key='src.lib_path.f055_aws.unencrypted_buckets',
+        description_key="src.lib_path.f055_aws.unencrypted_buckets",
         finding=core_model.FindingEnum.F055_AWS_MISSING_ENCRYPTION,
         path=path,
         statements_iterator=_unencrypted_buckets_iterate_vulnerabilities(
@@ -162,11 +168,12 @@ def _terraform_public_buckets(
 ) -> core_model.Vulnerabilities:
     return get_vulnerabilities_from_aws_iterator_blocking(
         content=content,
-        description_key='src.lib_path.f055_aws.unencrypted_buckets',
+        description_key="src.lib_path.f055_aws.unencrypted_buckets",
         finding=core_model.FindingEnum.F055_AWS_MISSING_ENCRYPTION,
         path=path,
         statements_iterator=_public_buckets_iterate_vulnerabilities(
-            buckets_iterator=terraform_iter_s3_buckets(model=model)),
+            buckets_iterator=terraform_iter_s3_buckets(model=model)
+        ),
     )
 
 
@@ -251,30 +258,39 @@ async def analyze(
 
     if file_extension in EXTENSIONS_CLOUDFORMATION:
         content = await content_generator()
-        async for template in load_templates(content=content,
-                                             fmt=file_extension):
-            coroutines.append(cfn_unencrypted_buckets(
-                content=content,
-                path=path,
-                template=template,
-            ))
-            coroutines.append(cfn_unencrypted_volumes(
-                content=content,
-                path=path,
-                template=template,
-            ))
+        async for template in load_templates(
+            content=content, fmt=file_extension
+        ):
+            coroutines.append(
+                cfn_unencrypted_buckets(
+                    content=content,
+                    path=path,
+                    template=template,
+                )
+            )
+            coroutines.append(
+                cfn_unencrypted_volumes(
+                    content=content,
+                    path=path,
+                    template=template,
+                )
+            )
     elif file_extension in EXTENSIONS_TERRAFORM:
         content = await content_generator()
         model = await load_terraform(stream=content, default=[])
-        coroutines.append(terraform_unencrypted_buckets(
-            content=content,
-            path=path,
-            model=model,
-        ))
-        coroutines.append(terraform_public_buckets(
-            content=content,
-            path=path,
-            model=model,
-        ))
+        coroutines.append(
+            terraform_unencrypted_buckets(
+                content=content,
+                path=path,
+                model=model,
+            )
+        )
+        coroutines.append(
+            terraform_public_buckets(
+                content=content,
+                path=path,
+                model=model,
+            )
+        )
 
     return coroutines

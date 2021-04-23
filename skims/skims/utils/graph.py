@@ -40,20 +40,20 @@ from utils.system import (
 )
 
 # Constants
-GRAPH_STYLE_ATTRS = {'arrowhead', 'color', 'fillcolor', 'label', 'style'}
-ROOT_NODE: str = '1'
+GRAPH_STYLE_ATTRS = {"arrowhead", "color", "fillcolor", "label", "style"}
+ROOT_NODE: str = "1"
 
 
 def to_svg(graph: Graph, path: str) -> bool:
     nx.drawing.nx_agraph.write_dot(graph, path)
 
-    code, _, stderr = read_blocking('dot', '-O', '-T', 'svg', path)
+    code, _, stderr = read_blocking("dot", "-O", "-T", "svg", path)
 
     if code == 0:
         os.unlink(path)
         return True
 
-    log_blocking('debug', 'Error while generating svg: %s', stderr.decode())
+    log_blocking("debug", "Error while generating svg: %s", stderr.decode())
     return False
 
 
@@ -65,7 +65,6 @@ def has_labels(n_attrs: NAttrs, **expected_attrs: str) -> bool:
 
 
 def pred_has_labels(**expected_attrs: str) -> NAttrsPredicateFunction:
-
     def predicate(n_attrs: NAttrs) -> bool:
         return has_labels(n_attrs, **expected_attrs)
 
@@ -78,9 +77,7 @@ def filter_nodes(
     predicate: NAttrsPredicateFunction,
 ) -> Tuple[str, ...]:
     result: Tuple[str, ...] = tuple(
-        n_id
-        for n_id in nodes
-        if predicate(graph.nodes[n_id])
+        n_id for n_id in nodes if predicate(graph.nodes[n_id])
     )
 
     return result
@@ -125,13 +122,15 @@ def adj(
     if depth < 0 or depth > 1:
         for c_id in childs:
             if has_labels(graph[n_id][c_id], **edge_attrs):
-                results.extend(adj(
-                    graph,
-                    c_id,
-                    depth=depth - 1,
-                    _processed_n_ids=processed_n_ids,
-                    **edge_attrs,
-                ))
+                results.extend(
+                    adj(
+                        graph,
+                        c_id,
+                        depth=depth - 1,
+                        _processed_n_ids=processed_n_ids,
+                        **edge_attrs,
+                    )
+                )
 
     return tuple(results)
 
@@ -144,7 +143,7 @@ def adj_ast(
 ) -> Tuple[Any, ...]:
     return tuple(
         c_id
-        for c_id in adj(graph, n_id, depth, label_ast='AST')
+        for c_id in adj(graph, n_id, depth, label_ast="AST")
         if has_labels(graph.nodes[c_id], **n_attrs)
     )
 
@@ -157,7 +156,7 @@ def adj_cfg(
 ) -> Tuple[Any, ...]:
     return tuple(
         c_id
-        for c_id in adj(graph, n_id, depth, label_cfg='CFG')
+        for c_id in adj(graph, n_id, depth, label_cfg="CFG")
         if has_labels(graph.nodes[c_id], **n_attrs)
     )
 
@@ -215,7 +214,7 @@ def pred_ast_lazy(
     depth: int = 1,
     **edge_attrs: str,
 ) -> Iterator[str]:
-    yield from pred_lazy(graph, n_id, depth, label_ast='AST', **edge_attrs)
+    yield from pred_lazy(graph, n_id, depth, label_ast="AST", **edge_attrs)
 
 
 def pred_cfg(
@@ -233,7 +232,7 @@ def pred_cfg_lazy(
     depth: int = 1,
     **edge_attrs: str,
 ) -> Iterator[str]:
-    yield from pred_lazy(graph, n_id, depth, label_cfg='CFG', **edge_attrs)
+    yield from pred_lazy(graph, n_id, depth, label_cfg="CFG", **edge_attrs)
 
 
 def paths(
@@ -292,14 +291,14 @@ def _paths(
 
 
 def get_node_cfg_condition(graph: Graph, n_id: str) -> str:
-    p_id = graph.nodes[n_id]['label_parent_ast']
+    p_id = graph.nodes[n_id]["label_parent_ast"]
     val: str
 
     for key, val in graph[p_id][n_id].items():
-        if key.startswith('label_cfg_'):
+        if key.startswith("label_cfg_"):
             return val
 
-    return 'cfg_never'
+    return "cfg_never"
 
 
 def match_ast(
@@ -311,11 +310,11 @@ def match_ast(
     nodes: Dict[str, Optional[str]] = dict.fromkeys(label_type)
 
     for c_id in adj_ast(graph, n_id):
-        c_type = graph.nodes[c_id]['label_type']
+        c_type = graph.nodes[c_id]["label_type"]
         if c_type in nodes and nodes[c_type] is None:
             nodes[c_type] = c_id
         else:
-            nodes[f'__{index}__'] = c_id
+            nodes[f"__{index}__"] = c_id
             index += 1
 
     return nodes
@@ -338,14 +337,14 @@ def match_ast_group(
     nodes: Dict[str, Set[str]] = dict.fromkeys(label_type)
 
     for c_id in adj_ast(graph, n_id):
-        c_type = graph.nodes[c_id]['label_type']
+        c_type = graph.nodes[c_id]["label_type"]
         if c_type in nodes:
             if not nodes[c_type]:
                 nodes[c_type] = {c_id}
             else:
                 nodes[c_type].add(c_id)
         else:
-            nodes[f'__{index}__'] = c_id
+            nodes[f"__{index}__"] = c_id
             index += 1
 
     return nodes
@@ -361,7 +360,7 @@ def get_ast_childs(
     return tuple(
         n_id
         for n_id in adj_ast(graph, n_id, depth=depth)
-        if graph.nodes[n_id]['label_type'] == label_type
+        if graph.nodes[n_id]["label_type"] == label_type
     )
 
 
@@ -397,54 +396,54 @@ def branches_cfg(
         for c_id in chain([n_id], c_ids)
         if (
             # The node's sink match the finding name
-            finding.name in graph.nodes[c_id].get('label_sink_type', {})
+            finding.name in graph.nodes[c_id].get("label_sink_type", {})
             # The node has an AST child that is a sink of the finding
             or any(
-                finding.name in graph.nodes[c_c_id].get('label_sink_type', {})
+                finding.name in graph.nodes[c_c_id].get("label_sink_type", {})
                 for c_c_id in adj_ast(graph, c_id, depth=-1)
             )
             # The node is and leaf node
-            or (
-                not only_sinks
-                and not adj_cfg(graph, c_id)
-            )
+            or (not only_sinks and not adj_cfg(graph, c_id))
         )
     )
 
     # All branches, may be duplicated, some branches may be prefix of others
     branches = set(
-        (path, '-'.join(path))
+        (path, "-".join(path))
         for leaf_id in target_ids
         for path in (
             [(n_id,)]
             if n_id == leaf_id
-            else paths(graph, n_id, leaf_id, label_cfg='CFG')
+            else paths(graph, n_id, leaf_id, label_cfg="CFG")
         )
     )
 
     # Deduplicate, merge prefixes and return branches
-    return tuple(sorted(
-        path
-        for path, path_str in branches
-        if not any(
-            p_str.startswith(path_str)
-            for _, p_str in branches
-            if p_str != path_str
+    return tuple(
+        sorted(
+            path
+            for path, path_str in branches
+            if not any(
+                p_str.startswith(path_str)
+                for _, p_str in branches
+                if p_str != path_str
+            )
         )
-    ))
+    )
 
 
 def import_graph_from_json(model: Any) -> Graph:
     graph = Graph()
 
-    for n_id, n_attrs in model['nodes'].items():
+    for n_id, n_attrs in model["nodes"].items():
         graph.add_node(n_id, **n_attrs)
-        for csv_label in ('label_input_type', 'label_sink_type'):
+        for csv_label in ("label_input_type", "label_sink_type"):
             if csv_label in graph.nodes[n_id]:
-                graph.nodes[n_id][csv_label] = \
-                    set(graph.nodes[n_id][csv_label].split(','))
+                graph.nodes[n_id][csv_label] = set(
+                    graph.nodes[n_id][csv_label].split(",")
+                )
 
-    for n_id_from, n_id_from_value in model['edges'].items():
+    for n_id_from, n_id_from_value in model["edges"].items():
         for n_id_to, edge_attrs in n_id_from_value.items():
             graph.add_edge(n_id_from, n_id_to, **edge_attrs)
 
@@ -457,29 +456,29 @@ def export_graph_as_json(
     include_styles: bool = False,
 ) -> Dict[str, Any]:
     data: Dict[str, Any] = {}
-    data['nodes'] = {}
-    data['edges'] = {}
+    data["nodes"] = {}
+    data["edges"] = {}
     ignored_attrs = GRAPH_STYLE_ATTRS
 
     for n_id, n_attrs in graph.nodes.items():
-        data['nodes'][n_id] = n_attrs.copy()
-        for csv_label in ('label_input_type', 'label_sink_type'):
-            if csv_label in data['nodes'][n_id]:
-                data['nodes'][n_id][csv_label] = ','.join(sorted(
-                    data['nodes'][n_id][csv_label]
-                ))
+        data["nodes"][n_id] = n_attrs.copy()
+        for csv_label in ("label_input_type", "label_sink_type"):
+            if csv_label in data["nodes"][n_id]:
+                data["nodes"][n_id][csv_label] = ",".join(
+                    sorted(data["nodes"][n_id][csv_label])
+                )
 
         if not include_styles:
             for attr in ignored_attrs:
-                data['nodes'][n_id].pop(attr, None)
+                data["nodes"][n_id].pop(attr, None)
 
     for n_id_from, n_id_to in graph.edges:
-        data['edges'].setdefault(n_id_from, {})
-        data['edges'][n_id_from][n_id_to] = graph[n_id_from][n_id_to].copy()
+        data["edges"].setdefault(n_id_from, {})
+        data["edges"][n_id_from][n_id_to] = graph[n_id_from][n_id_to].copy()
 
         if not include_styles:
             for attr in ignored_attrs:
-                data['edges'][n_id_from][n_id_to].pop(attr, None)
+                data["edges"][n_id_from][n_id_to].pop(attr, None)
 
     return data
 
@@ -511,14 +510,14 @@ def _get_subgraph(
 def copy_ast(graph: Graph) -> Graph:
     return _get_subgraph(
         graph=graph,
-        edge_n_attrs_predicate=pred_has_labels(label_ast='AST'),
+        edge_n_attrs_predicate=pred_has_labels(label_ast="AST"),
     )
 
 
 def copy_cfg(graph: Graph) -> Graph:
     return _get_subgraph(
         graph=graph,
-        edge_n_attrs_predicate=pred_has_labels(label_cfg='CFG'),
+        edge_n_attrs_predicate=pred_has_labels(label_cfg="CFG"),
     )
 
 
@@ -528,8 +527,7 @@ def contains_label_type_in(
     label_types: Set[str],
 ) -> bool:
     return all(
-        graph.nodes[c_id].get('label_type') in label_types
-        for c_id in c_ids
+        graph.nodes[c_id].get("label_type") in label_types for c_id in c_ids
     )
 
 
@@ -537,7 +535,7 @@ def concatenate_label_text(
     graph: Graph,
     c_ids: Tuple[str, ...],
 ) -> str:
-    return ''.join(graph.nodes[c_id]['label_text'] for c_id in c_ids)
+    return "".join(graph.nodes[c_id]["label_text"] for c_id in c_ids)
 
 
 # Functions below should disappear
@@ -559,10 +557,11 @@ def symbolic_evaluate(value: Any) -> Any:
     value = list(map(symbolic_evaluate, value))
 
     # Value is composed from 'StringLiterals' joined by 'ADD'
-    if set(jsh('[0::2].type', value)) == {'StringLiteral'} \
-            and set(jsh('[1::2].type', value)) == {'ADD'}:
+    if set(jsh("[0::2].type", value)) == {"StringLiteral"} and set(
+        jsh("[1::2].type", value)
+    ) == {"ADD"}:
         final = value[0]
-        final['text'] = '"' + ''.join(t['text'][1:-1] for t in value) + '"'
+        final["text"] = '"' + "".join(t["text"][1:-1] for t in value) + '"'
         return final
 
     return value
@@ -584,7 +583,7 @@ def simplify(value: Any) -> Any:
 
     if isinstance(value, dict):
         if len(value) == 1:
-            child_val, = value.values()
+            (child_val,) = value.values()
             return simplify(child_val)
         return dict(zip(value.keys(), map(simplify, value.values())))
 
@@ -602,10 +601,10 @@ def yield_nodes_with_key(*, key: str, node: Any) -> Iterator[Any]:
 
 def yield_nodes(
     *,
-    key: str = '__root__',
+    key: str = "__root__",
     value: Any,
     key_predicates: Tuple[Callable[[str], bool], ...] = (),
-    value_extraction: str = '@',
+    value_extraction: str = "@",
     value_predicates: Tuple[str, ...] = (),
     pre_extraction: Tuple[Callable[[Any], Any], ...] = (
         simplify,
@@ -619,8 +618,9 @@ def yield_nodes(
     """Recursively scan the graph and yield nodes that match the predicates."""
 
     def _yield_if_matches() -> Iterator[Any]:
-        if all(jsh(pred, value) for pred in value_predicates) \
-                and all(pred(key) for pred in key_predicates):
+        if all(jsh(pred, value) for pred in value_predicates) and all(
+            pred(key) for pred in key_predicates
+        ):
             to_yield = value
             for action in pre_extraction:
                 to_yield = action(to_yield)
@@ -645,7 +645,7 @@ def yield_nodes(
         yield from _yield_if_matches()
         for child_key, child_value in enumerate(value):
             yield from yield_nodes(
-                key=f'{key}[{child_key}]',
+                key=f"{key}[{child_key}]",
                 value=child_value,
                 key_predicates=key_predicates,
                 post_extraction=post_extraction,

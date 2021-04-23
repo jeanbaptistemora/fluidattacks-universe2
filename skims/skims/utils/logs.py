@@ -17,15 +17,15 @@ from utils.bugs import (
 )
 
 # Private constants
-_FORMAT: str = '[%(levelname)s] %(message)s'
+_FORMAT: str = "[%(levelname)s] %(message)s"
 
 _LOGGER_FORMATTER: logging.Formatter = logging.Formatter(_FORMAT)
 
 _LOGGER_HANDLER: logging.StreamHandler = logging.StreamHandler()
-_LOGGER: logging.Logger = logging.getLogger('Skims')
+_LOGGER: logging.Logger = logging.getLogger("Skims")
 
 _LOGGER_REMOTE_HANDLER = bugsnag.handlers.BugsnagHandler()
-_LOGGER_REMOTE: logging.Logger = logging.getLogger('Skims.stability')
+_LOGGER_REMOTE: logging.Logger = logging.getLogger("Skims.stability")
 
 
 def configure() -> None:
@@ -62,7 +62,7 @@ def log_exception_blocking(
 ) -> None:
     exc_type: str = type(exception).__name__
     exc_msg: str = str(exception)
-    log_blocking(level, 'Exception: %s, %s, %s', exc_type, exc_msg, meta_data)
+    log_blocking(level, "Exception: %s, %s, %s", exc_type, exc_msg, meta_data)
 
 
 async def log_exception(

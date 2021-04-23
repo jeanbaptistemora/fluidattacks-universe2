@@ -33,9 +33,11 @@ class XXSSProtectionHeader(NamedTuple):
     mode: str
 
 
-Header = Optional[Union[
-    ContentSecurityPolicyHeader,
-    ReferrerPolicyHeader,
-    StrictTransportSecurityHeader,
-    XXSSProtectionHeader,
-]]
+Header = Optional[
+    Union[
+        ContentSecurityPolicyHeader,
+        ReferrerPolicyHeader,
+        StrictTransportSecurityHeader,
+        XXSSProtectionHeader,
+    ]
+]

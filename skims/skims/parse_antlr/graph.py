@@ -26,8 +26,9 @@ from utils import (
 def _node_has_position_metadata(node: Dict[str, Any]) -> bool:
     keys = set(node.keys())
 
-    return keys.issuperset({'c', 'l', 'text', 'type'}) \
-        or keys.issuperset({'label_c', 'label_l', 'label_text', 'label_type'})
+    return keys.issuperset({"c", "l", "text", "type"}) or keys.issuperset(
+        {"label_c", "label_l", "label_text", "label_type"}
+    )
 
 
 def _create_leaf(  # pylint: disable=too-many-arguments
@@ -52,7 +53,7 @@ def _create_leaf(  # pylint: disable=too-many-arguments
     if isinstance(value, dict):
         if _node_has_position_metadata(value):
             for value_key, value_value in value.items():
-                graph.nodes[node_id][f'label_{value_key}'] = value_value
+                graph.nodes[node_id][f"label_{value_key}"] = value_value
         else:
             graph = _build_graph(
                 model=value,
@@ -100,7 +101,7 @@ def _build_graph(
                 counter=counter,
                 graph=graph,
                 index=index,
-                key='__link__',
+                key="__link__",
                 parent=_parent,
                 value=value,
             )
@@ -120,14 +121,14 @@ def _propagate_positions(graph: graph_model.Graph) -> None:
             c_id = g.adj(graph, n_id)[0]
 
             # Propagate metadata from the child to the parent
-            graph.nodes[n_id]['label_c'] = graph.nodes[c_id]['label_c']
-            graph.nodes[n_id]['label_l'] = graph.nodes[c_id]['label_l']
+            graph.nodes[n_id]["label_c"] = graph.nodes[c_id]["label_c"]
+            graph.nodes[n_id]["label_l"] = graph.nodes[c_id]["label_l"]
 
 
 def _mark_as_created_by_this_module(graph: graph_model.Graph) -> None:
     # Walk the edges and compute a label from the edge attributes
     for n_id_u, n_id_v in graph.edges:
-        graph[n_id_u][n_id_v]['label_ast'] = 'AST'
+        graph[n_id_u][n_id_v]["label_ast"] = "AST"
 
 
 def _chop_single_element_nodes(graph: graph_model.Graph) -> None:
@@ -139,17 +140,17 @@ def _chop_single_element_nodes(graph: graph_model.Graph) -> None:
         c_ids = g.adj(graph, n_id)
 
         # If only one child and has a parent
-        if len(c_ids) == 1 and n_attrs['label_parent_ast'] is not None:
+        if len(c_ids) == 1 and n_attrs["label_parent_ast"] is not None:
             reductions.append((n_id, c_ids[0]))
 
     # Reduce
     for n_id, c_id in reductions:
         n_attrs = graph.nodes[n_id]
         c_attrs = graph.nodes[c_id]
-        p_id = n_attrs['label_parent_ast']
+        p_id = n_attrs["label_parent_ast"]
         # Before: p -> n -> c
         # After: p -> c
-        c_attrs['label_parent_ast'] = p_id
+        c_attrs["label_parent_ast"] = p_id
         graph.add_edge(p_id, c_id, **graph[p_id][n_id])
         graph.remove_node(n_id)
 

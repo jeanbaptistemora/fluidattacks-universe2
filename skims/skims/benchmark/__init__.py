@@ -24,7 +24,7 @@ class Result(NamedTuple):
 
     category: Optional[str] = None
 
-    def shares_cwe_with(self, other: 'Result') -> bool:
+    def shares_cwe_with(self, other: "Result") -> bool:
         return bool(set(self.cwe).intersection(set(other.cwe)))
 
 
@@ -39,27 +39,26 @@ class Score(NamedTuple):
 
 
 def cast_to_boolean(boolean: str) -> bool:
-    if boolean == 'false':
+    if boolean == "false":
         return False
 
-    if boolean == 'true':
+    if boolean == "true":
         return True
 
     raise NotImplementedError(boolean)
 
 
 def load_benchmark_expected_results() -> Dict[str, Result]:
-    with open(os.environ['EXPECTED_RESULTS_CSV']) as file:
+    with open(os.environ["EXPECTED_RESULTS_CSV"]) as file:
         mapping: Dict[str, Result] = {
-            row['# test name'] + '.java': Result(
-                category=row[' category'],
-                cwe=(
-                    row[' cwe'],
-                ),
-                is_vulnerable=is_vulnerable
+            row["# test name"]
+            + ".java": Result(
+                category=row[" category"],
+                cwe=(row[" cwe"],),
+                is_vulnerable=is_vulnerable,
             )
             for row in csv.DictReader(file)
-            for is_vulnerable in [cast_to_boolean(row[' real vulnerability'])]
+            for is_vulnerable in [cast_to_boolean(row[" real vulnerability"])]
         }
 
     return mapping
@@ -71,13 +70,15 @@ def load_benchmark_skims_results() -> Dict[str, List[Result]]:
     for path in glob.glob("skims/test/outputs/benchmark_owasp_*.csv"):
         with open(path) as file:
             for row in csv.DictReader(file):
-                what = os.path.basename(row['what'])
+                what = os.path.basename(row["what"])
                 mapping.setdefault(what, [])
-                mapping[what].append(Result(
-                    category=None,
-                    cwe=tuple(row['cwe'].split(' + ')),
-                    is_vulnerable=True,
-                ))
+                mapping[what].append(
+                    Result(
+                        category=None,
+                        cwe=tuple(row["cwe"].split(" + ")),
+                        is_vulnerable=True,
+                    )
+                )
 
     return mapping
 
@@ -102,8 +103,7 @@ def load_skims_results() -> Score:
         # this CWE comparison brings that into the table, so the
         # results are as realistic as possible
         if any(
-            skims_result.is_vulnerable
-            and skims_result.shares_cwe_with(result)
+            skims_result.is_vulnerable and skims_result.shares_cwe_with(result)
             for skims_result in skims_results
         ):
             if result.is_vulnerable:
@@ -122,8 +122,8 @@ def load_skims_results() -> Score:
         if not success and errors_per_category[result.category] < 3:
             errors_per_category[result.category] += 1
             log_blocking(
-                'error',
-                '%s, skims: %s, expected: %s',
+                "error",
+                "%s, skims: %s, expected: %s",
                 test,
                 skims_results,
                 result,
@@ -151,25 +151,25 @@ def load_skims_results() -> Score:
 def main() -> None:
     score: Score = load_skims_results()
     results_owasp: Dict[str, Any] = {
-        'stream': 'owasp',
-        'record': {},
+        "stream": "owasp",
+        "record": {},
     }
 
     for attr, attr_value in (
-        ('false_negatives', score.false_negatives),
-        ('false_positives', score.false_positives),
-        ('true_negatives', score.true_negatives),
-        ('true_positives', score.true_positives),
-        ('true_positives_rate', score.true_positives_rate),
-        ('false_positives_rate', score.false_positives_rate),
-        ('score', 100 * score.score),
+        ("false_negatives", score.false_negatives),
+        ("false_positives", score.false_positives),
+        ("true_negatives", score.true_negatives),
+        ("true_positives", score.true_positives),
+        ("true_positives_rate", score.true_positives_rate),
+        ("false_positives_rate", score.false_positives_rate),
+        ("score", 100 * score.score),
     ):
-        results_owasp['record'][attr] = attr_value
-        log_blocking('info', '%s: %s', attr, attr_value)
+        results_owasp["record"][attr] = attr_value
+        log_blocking("info", "%s: %s", attr, attr_value)
 
-    with open('benchmark.json', 'w') as handle:
+    with open("benchmark.json", "w") as handle:
         json.dump(results_owasp, handle, sort_keys=True)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

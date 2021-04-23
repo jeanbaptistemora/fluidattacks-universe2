@@ -5,6 +5,6 @@ from sast_symbolic_evaluation.types import (
 
 
 def evaluate(args: EvaluatorArgs) -> None:
-    src, = args.dependencies
+    (src,) = args.dependencies
 
     args.syntax_step.meta.danger = src.meta.danger

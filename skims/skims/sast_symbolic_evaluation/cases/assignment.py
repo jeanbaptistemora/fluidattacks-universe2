@@ -21,18 +21,22 @@ def evaluate(args: EvaluatorArgs) -> None:
         args.syntax_step.meta.danger = args_danger
 
     # modify the value of a field in an instance
-    if var != 'this':
+    if var != "this":
         # pylint:disable=used-before-assignment
         if (var_decl := lookup_var_dcl_by_name(args, var)) and isinstance(
-                var_decl.meta.value,
-                JavaClassInstance,
+            var_decl.meta.value,
+            JavaClassInstance,
         ):
             var_decl.meta.value.fields[field] = args.syntax_step
-        elif args.current_instance and not field and lookup_java_field(
+        elif (
+            args.current_instance
+            and not field
+            and lookup_java_field(
                 args,
                 var,
+            )
         ):
             args.current_instance.fields[var] = args.syntax_step
-    elif args.current_instance and var == 'this':
+    elif args.current_instance and var == "this":
         _, field = split_on_last_dot(args.syntax_step.var)
         args.current_instance.fields[field] = args.syntax_step

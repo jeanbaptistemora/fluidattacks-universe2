@@ -58,38 +58,49 @@ from utils.function import (
 
 
 def _cidr_iter_vulnerabilities(
-        rules_iterator: Iterator[Node]) -> Iterator[Node]:
-    unrestricted_ipv4 = IPv4Network('0.0.0.0/0')
-    unrestricted_ipv6 = IPv6Network('::/0')
+    rules_iterator: Iterator[Node],
+) -> Iterator[Node]:
+    unrestricted_ipv4 = IPv4Network("0.0.0.0/0")
+    unrestricted_ipv6 = IPv6Network("::/0")
     for rule in rules_iterator:
         rule_raw = rule.raw
         with suppress(AddressValueError, KeyError):
-            if IPv4Network(
-                    rule_raw['CidrIp'],
+            if (
+                IPv4Network(
+                    rule_raw["CidrIp"],
                     strict=False,
-            ) == unrestricted_ipv4:
-                yield rule.inner['CidrIp']
+                )
+                == unrestricted_ipv4
+            ):
+                yield rule.inner["CidrIp"]
         with suppress(AddressValueError, KeyError):
-            if IPv6Network(
-                    rule_raw['CidrIpv6'],
+            if (
+                IPv6Network(
+                    rule_raw["CidrIpv6"],
                     strict=False,
-            ) == unrestricted_ipv6:
-                yield rule.inner['CidrIpv6']
+                )
+                == unrestricted_ipv6
+            ):
+                yield rule.inner["CidrIpv6"]
 
 
 def _instances_without_role_iter_vulns(
-    instaces_iterator: Iterator[Union[Any,
-                                      Node]]) -> Iterator[Union[Any, Node]]:
+    instaces_iterator: Iterator[Union[Any, Node]]
+) -> Iterator[Union[Any, Node]]:
     for instance in instaces_iterator:
         if isinstance(instance, Node):
-            if not instance.raw.get('IamInstanceProfile', None):
+            if not instance.raw.get("IamInstanceProfile", None):
                 yield instance
 
 
 def _groups_without_egress_iter_vulnerabilities(
-        groups_iterators: Iterator[Node]) -> Iterator[Node]:
-    yield from (group for group in groups_iterators
-                if not group.raw.get('SecurityGroupEgress', None))
+    groups_iterators: Iterator[Node],
+) -> Iterator[Node]:
+    yield from (
+        group
+        for group in groups_iterators
+        if not group.raw.get("SecurityGroupEgress", None)
+    )
 
 
 def _public_buckets_iterate_vulnerabilities(
@@ -97,11 +108,11 @@ def _public_buckets_iterate_vulnerabilities(
 ) -> Iterator[Union[AWSS3Acl, Node]]:
     for bucket in buckets_iterator:
         if isinstance(bucket, Node):
-            if bucket.raw.get('AccessControl', 'Private') == 'PublicReadWrite':
-                yield bucket.inner['AccessControl']
+            if bucket.raw.get("AccessControl", "Private") == "PublicReadWrite":
+                yield bucket.inner["AccessControl"]
         elif isinstance(bucket, AWSS3Bucket):
-            acl = get_attribute(body=bucket.data, key='acl')
-            if acl and acl.val == 'public-read-write':
+            acl = get_attribute(body=bucket.data, key="acl")
+            if acl and acl.val == "public-read-write":
                 yield AWSS3Acl(
                     data=acl.val,
                     column=acl.column,
@@ -116,11 +127,12 @@ def _cfn_instances_without_profile(
 ) -> core_model.Vulnerabilities:
     return get_vulnerabilities_from_aws_iterator_blocking(
         content=content,
-        description_key='src.lib_path.f024_aws.instances_without_profile',
+        description_key="src.lib_path.f024_aws.instances_without_profile",
         finding=core_model.FindingEnum.F024_AWS,
         path=path,
         statements_iterator=_instances_without_role_iter_vulns(
-            instaces_iterator=iter_ec2_instances(template=template)),
+            instaces_iterator=iter_ec2_instances(template=template)
+        ),
     )
 
 
@@ -131,11 +143,12 @@ def _cfn_public_buckets(
 ) -> core_model.Vulnerabilities:
     return get_vulnerabilities_from_aws_iterator_blocking(
         content=content,
-        description_key='src.lib_path.f024_aws.public_buckets',
+        description_key="src.lib_path.f024_aws.public_buckets",
         finding=core_model.FindingEnum.F024_AWS,
         path=path,
         statements_iterator=_public_buckets_iterate_vulnerabilities(
-            buckets_iterator=iter_s3_buckets(template=template)),
+            buckets_iterator=iter_s3_buckets(template=template)
+        ),
     )
 
 
@@ -146,11 +159,12 @@ def _cfn_groups_without_egress(
 ) -> core_model.Vulnerabilities:
     return get_vulnerabilities_from_aws_iterator_blocking(
         content=content,
-        description_key='src.lib_path.f024_aws.security_group_without_egress',
+        description_key="src.lib_path.f024_aws.security_group_without_egress",
         finding=core_model.FindingEnum.F024_AWS,
         path=path,
         statements_iterator=_groups_without_egress_iter_vulnerabilities(
-            groups_iterators=iter_ec2_security_groups(template=template)),
+            groups_iterators=iter_ec2_security_groups(template=template)
+        ),
     )
 
 
@@ -161,7 +175,7 @@ def _cnf_unrestricted_cidrs(
 ) -> core_model.Vulnerabilities:
     return get_vulnerabilities_from_aws_iterator_blocking(
         content=content,
-        description_key='src.lib_path.f024_aws.unrestricted_cidrs',
+        description_key="src.lib_path.f024_aws.unrestricted_cidrs",
         finding=core_model.FindingEnum.F024_AWS,
         path=path,
         statements_iterator=_cidr_iter_vulnerabilities(
@@ -169,51 +183,55 @@ def _cnf_unrestricted_cidrs(
                 template=template,
                 ingress=True,
                 egress=True,
-            )))
+            )
+        ),
+    )
 
 
 def _range_port_iter_vulnerabilities(
-        rules_iterator: Iterator[Node]) -> Iterator[Node]:
+    rules_iterator: Iterator[Node],
+) -> Iterator[Node]:
     for rule in rules_iterator:
         rule_raw = rule.raw
         with suppress(ValueError, KeyError):
-            if int(rule_raw['FromPort']) != int(rule_raw['ToPort']):
-                yield rule.inner['FromPort']
-                yield rule.inner['ToPort']
+            if int(rule_raw["FromPort"]) != int(rule_raw["ToPort"]):
+                yield rule.inner["FromPort"]
+                yield rule.inner["ToPort"]
 
 
 def _protocol_iter_vulnerabilities(
-        rules_iterator: Iterator[Node]) -> Iterator[Node]:
+    rules_iterator: Iterator[Node],
+) -> Iterator[Node]:
     for rule in rules_iterator:
         rule_raw = rule.raw
         with suppress(ValueError, KeyError):
-            if rule_raw['IpProtocol'] == "-1":
-                yield rule.inner['IpProtocol']
+            if rule_raw["IpProtocol"] == "-1":
+                yield rule.inner["IpProtocol"]
 
 
 def _cfn_iter_vulnerable_admin_ports(
     rules_iterator: Iterator[Node],
 ) -> Iterator[Node]:
     admin_ports = {
-        22,     # SSH
-        1521,   # Oracle
-        1433,   # MSSQL
-        1434,   # MSSQL
-        2438,   # Oracle
-        3306,   # MySQL
-        3389,   # RDP
-        5432,   # Postgres
-        6379,   # Redis
-        7199,   # Cassandra
-        8111,   # DAX
-        8888,   # Cassandra
-        9160,   # Cassandra
+        22,  # SSH
+        1521,  # Oracle
+        1433,  # MSSQL
+        1434,  # MSSQL
+        2438,  # Oracle
+        3306,  # MySQL
+        3389,  # RDP
+        5432,  # Postgres
+        6379,  # Redis
+        7199,  # Cassandra
+        8111,  # DAX
+        8888,  # Cassandra
+        9160,  # Cassandra
         11211,  # Memcached
         27017,  # MongoDB
-        445,    # CIFS
+        445,  # CIFS
     }
-    unrestricted_ipv4 = IPv4Network('0.0.0.0/0')
-    unrestricted_ipv6 = IPv6Network('::/0')
+    unrestricted_ipv4 = IPv4Network("0.0.0.0/0")
+    unrestricted_ipv6 = IPv6Network("::/0")
 
     for rule in rules_iterator:
         unrestricted_ip = False
@@ -221,26 +239,34 @@ def _cfn_iter_vulnerable_admin_ports(
         try:
             port_range = set(
                 range(
-                    int(rule_raw['FromPort']),
-                    int(rule_raw['ToPort']) + 1,
-                ))
+                    int(rule_raw["FromPort"]),
+                    int(rule_raw["ToPort"]) + 1,
+                )
+            )
         except (KeyError, ValueError):
             continue
 
         with suppress(AddressValueError, KeyError):
-            unrestricted_ip = IPv6Network(
-                rule_raw['CidrIpv6'],
-                strict=False,
-            ) == unrestricted_ipv6
+            unrestricted_ip = (
+                IPv6Network(
+                    rule_raw["CidrIpv6"],
+                    strict=False,
+                )
+                == unrestricted_ipv6
+            )
         with suppress(AddressValueError, KeyError):
-            unrestricted_ip = IPv4Network(
-                rule_raw['CidrIp'],
-                strict=False,
-            ) == unrestricted_ipv4 or unrestricted_ip
+            unrestricted_ip = (
+                IPv4Network(
+                    rule_raw["CidrIp"],
+                    strict=False,
+                )
+                == unrestricted_ipv4
+                or unrestricted_ip
+            )
 
         if unrestricted_ip and admin_ports.intersection(port_range):
-            yield rule.inner['FromPort']
-            yield rule.inner['ToPort']
+            yield rule.inner["FromPort"]
+            yield rule.inner["ToPort"]
 
 
 def _cnf_unrestricted_ports(
@@ -250,7 +276,7 @@ def _cnf_unrestricted_ports(
 ) -> core_model.Vulnerabilities:
     return get_vulnerabilities_from_aws_iterator_blocking(
         content=content,
-        description_key='src.lib_path.f024_aws.unrestricted_ports',
+        description_key="src.lib_path.f024_aws.unrestricted_ports",
         finding=core_model.FindingEnum.F024_AWS,
         path=path,
         statements_iterator=_range_port_iter_vulnerabilities(
@@ -258,7 +284,9 @@ def _cnf_unrestricted_ports(
                 template=template,
                 ingress=True,
                 egress=True,
-            )))
+            )
+        ),
+    )
 
 
 def _cfn_unrestricted_ip_protocols(
@@ -268,7 +296,7 @@ def _cfn_unrestricted_ip_protocols(
 ) -> core_model.Vulnerabilities:
     return get_vulnerabilities_from_aws_iterator_blocking(
         content=content,
-        description_key='src.lib_path.f024_aws.unrestricted_protocols',
+        description_key="src.lib_path.f024_aws.unrestricted_protocols",
         finding=core_model.FindingEnum.F024_AWS,
         path=path,
         statements_iterator=_protocol_iter_vulnerabilities(
@@ -276,7 +304,9 @@ def _cfn_unrestricted_ip_protocols(
                 template=template,
                 ingress=True,
                 egress=True,
-            )))
+            )
+        ),
+    )
 
 
 def _cfn_allows_anyone_to_admin_ports(
@@ -286,14 +316,16 @@ def _cfn_allows_anyone_to_admin_ports(
 ) -> core_model.Vulnerabilities:
     return get_vulnerabilities_from_aws_iterator_blocking(
         content=content,
-        description_key='src.lib_path.f024_aws.allows_anyone_to_admin_ports',
+        description_key="src.lib_path.f024_aws.allows_anyone_to_admin_ports",
         finding=core_model.FindingEnum.F024_AWS,
         path=path,
         statements_iterator=_cfn_iter_vulnerable_admin_ports(
             rules_iterator=iter_ec2_ingress_egress(
                 template=template,
                 ingress=True,
-            )))
+            )
+        ),
+    )
 
 
 @CACHE_ETERNALLY
@@ -431,37 +463,50 @@ async def analyze(
 
     if file_extension in EXTENSIONS_CLOUDFORMATION:
         content = await content_generator()
-        async for template in load_templates(content=content,
-                                             fmt=file_extension):
-            coroutines.append(cfn_public_buckets(
-                content=content,
-                path=path,
-                template=template,
-            ))
-            coroutines.append(cfn_instances_without_profile(
-                content=content,
-                path=path,
-                template=template,
-            ))
-            coroutines.append(cnf_unrestricted_cidrs(
-                content=content,
-                path=path,
-                template=template,
-            ))
-            coroutines.append(cnf_unrestricted_ports(
-                content=content,
-                path=path,
-                template=template,
-            ))
-            coroutines.append(cfn_allows_anyone_to_admin_ports(
-                content=content,
-                path=path,
-                template=template,
-            ))
-            coroutines.append(cfn_unrestricted_ip_protocols(
-                content=content,
-                path=path,
-                template=template,
-            ))
+        async for template in load_templates(
+            content=content, fmt=file_extension
+        ):
+            coroutines.append(
+                cfn_public_buckets(
+                    content=content,
+                    path=path,
+                    template=template,
+                )
+            )
+            coroutines.append(
+                cfn_instances_without_profile(
+                    content=content,
+                    path=path,
+                    template=template,
+                )
+            )
+            coroutines.append(
+                cnf_unrestricted_cidrs(
+                    content=content,
+                    path=path,
+                    template=template,
+                )
+            )
+            coroutines.append(
+                cnf_unrestricted_ports(
+                    content=content,
+                    path=path,
+                    template=template,
+                )
+            )
+            coroutines.append(
+                cfn_allows_anyone_to_admin_ports(
+                    content=content,
+                    path=path,
+                    template=template,
+                )
+            )
+            coroutines.append(
+                cfn_unrestricted_ip_protocols(
+                    content=content,
+                    path=path,
+                    template=template,
+                )
+            )
 
     return coroutines

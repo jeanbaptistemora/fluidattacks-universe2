@@ -24,9 +24,7 @@ from uuid import (
 )
 
 # Third party libraries
-from aioextensions import (
-    in_thread
-)
+from aioextensions import in_thread
 
 # Local libraries
 from state.common import (
@@ -42,7 +40,7 @@ from utils.fs import (
 )
 
 # Constants
-EPHEMERAL: str = join(STATE_FOLDER, 'ephemeral', uuid().hex)
+EPHEMERAL: str = join(STATE_FOLDER, "ephemeral", uuid().hex)
 ClearFunction = Callable[[], Awaitable[None]]
 GetAFewFunction = Callable[[int], Awaitable[Tuple[Any, ...]]]
 StoreFunction = Callable[[Any], Awaitable[None]]

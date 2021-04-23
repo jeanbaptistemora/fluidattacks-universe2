@@ -39,7 +39,6 @@ def _java_properties_unencrypted_transport(
     content: str,
     path: str,
 ) -> core_model.Vulnerabilities:
-
     def iterator() -> Iterator[Tuple[int, int]]:
         data = load_java_properties(
             content,
@@ -48,21 +47,22 @@ def _java_properties_unencrypted_transport(
         )
         for line_no, (key, val) in data.items():
             val = val.lower()
-            if key and (
-                val.startswith('http://')
-                or val.startswith('ftp://')
-            ) and not (
-                'localhost' in val
-                or '127.0.0.1' in val
-                or '0.0.0.0' in val  # nosec
+            if (
+                key
+                and (val.startswith("http://") or val.startswith("ftp://"))
+                and not (
+                    "localhost" in val
+                    or "127.0.0.1" in val
+                    or "0.0.0.0" in val  # nosec
+                )
             ):
                 yield line_no, 0
 
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={'319'},
+        cwe={"319"},
         description=t(
-            key='src.lib_path.f022.unencrypted_channel',
+            key="src.lib_path.f022.unencrypted_channel",
             path=path,
         ),
         finding=core_model.FindingEnum.F022,
@@ -95,9 +95,11 @@ async def analyze(
     coroutines: List[Awaitable[core_model.Vulnerabilities]] = []
 
     if file_extension in EXTENSIONS_JAVA_PROPERTIES:
-        coroutines.append(java_properties_unencrypted_transport(
-            content=await content_generator(),
-            path=path,
-        ))
+        coroutines.append(
+            java_properties_unencrypted_transport(
+                content=await content_generator(),
+                path=path,
+            )
+        )
 
     return coroutines

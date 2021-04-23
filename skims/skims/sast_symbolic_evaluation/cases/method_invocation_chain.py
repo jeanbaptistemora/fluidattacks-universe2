@@ -15,30 +15,30 @@ from sast_symbolic_evaluation.types import (
 def evaluate(args: EvaluatorArgs) -> None:
     # pylint: disable=expression-not-assigned
     (
-        attempt_java_this_get_class(args) or
-        attempt_java_this_get_class_get_class_loader(args) or
-        attempt_java_class_loader_get_resource_as_stream(args) or
-        attempt_metadata_java_class(args) or
-        attempt_as_method_invocation(args) or
-        attempt_as_object_instantiation(args)
+        attempt_java_this_get_class(args)
+        or attempt_java_this_get_class_get_class_loader(args)
+        or attempt_java_class_loader_get_resource_as_stream(args)
+        or attempt_metadata_java_class(args)
+        or attempt_as_method_invocation(args)
+        or attempt_as_object_instantiation(args)
     )
 
 
-JAVA_THIS_GET_CLASS: str = 'java.this.getClass()'
+JAVA_THIS_GET_CLASS: str = "java.this.getClass()"
 
 
 def attempt_java_this_get_class(args: EvaluatorArgs) -> bool:
     *_, parent = args.dependencies
 
     if isinstance(parent, graph_model.SyntaxStepThis):
-        if args.syntax_step.method == '.getClass':
+        if args.syntax_step.method == ".getClass":
             args.syntax_step.meta.value = JAVA_THIS_GET_CLASS
             return True
 
     return False
 
 
-JAVA_CLASS_LOADER: str = 'java.ClassLoader()'
+JAVA_CLASS_LOADER: str = "java.ClassLoader()"
 
 
 def attempt_java_this_get_class_get_class_loader(
@@ -47,7 +47,7 @@ def attempt_java_this_get_class_get_class_loader(
     *_, parent = args.dependencies
 
     if parent.meta.value == JAVA_THIS_GET_CLASS:
-        if args.syntax_step.method == '.getClassLoader':
+        if args.syntax_step.method == ".getClassLoader":
             args.syntax_step.meta.value = JAVA_CLASS_LOADER
             return True
 
@@ -61,7 +61,7 @@ def attempt_java_class_loader_get_resource_as_stream(
 
     if (
         parent.meta.value == JAVA_CLASS_LOADER
-        and args.syntax_step.method == '.getResourceAsStream'
+        and args.syntax_step.method == ".getResourceAsStream"
         and len(parent_arguments) == 1
         and isinstance(parent_arguments[0], graph_model.SyntaxStepLiteral)
     ):
@@ -106,7 +106,7 @@ def attempt_as_method_invocation(args: EvaluatorArgs) -> bool:
         return True
 
     if isinstance(parent, graph_model.SyntaxStepThis):
-        method = 'this' + args.syntax_step.method
+        method = "this" + args.syntax_step.method
         analyze_method_invocation_values(args, method)
         analyze_method_invocation(args, method)
 

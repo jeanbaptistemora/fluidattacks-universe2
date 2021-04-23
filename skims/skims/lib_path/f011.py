@@ -59,22 +59,22 @@ DependencyType = Tuple[frozendict, frozendict]
 
 QUOTE = r'["\']'
 TEXT = r'[^"\']+'
-WS = r'\s*'
+WS = r"\s*"
 
 # Regexes
 RE_MAVEN_A: Pattern[str] = re.compile(
-    r'^.*'
-    fr'{WS}(?:compile|implementation){WS}[(]?{WS}'
-    fr'group{WS}:{WS}{QUOTE}(?P<group>{TEXT}){QUOTE}{WS}'
-    fr',{WS}name{WS}:{WS}{QUOTE}(?P<name>{TEXT}){QUOTE}{WS}'
-    fr'(?:,{WS}version{WS}:{WS}{QUOTE}(?P<version>{TEXT}){QUOTE}{WS})?'
-    fr'.*$'
+    r"^.*"
+    fr"{WS}(?:compile|implementation){WS}[(]?{WS}"
+    fr"group{WS}:{WS}{QUOTE}(?P<group>{TEXT}){QUOTE}{WS}"
+    fr",{WS}name{WS}:{WS}{QUOTE}(?P<name>{TEXT}){QUOTE}{WS}"
+    fr"(?:,{WS}version{WS}:{WS}{QUOTE}(?P<version>{TEXT}){QUOTE}{WS})?"
+    fr".*$"
 )
 RE_MAVEN_B: Pattern[str] = re.compile(
-    r'^.*'
-    fr'{WS}(?:compile|implementation){WS}[(]?{WS}'
-    fr'{QUOTE}(?P<statement>{TEXT}){QUOTE}'
-    fr'.*$'
+    r"^.*"
+    fr"{WS}(?:compile|implementation){WS}[(]?{WS}"
+    fr"{QUOTE}(?P<statement>{TEXT}){QUOTE}"
+    fr".*$"
 )
 
 # Roadmap:
@@ -93,27 +93,26 @@ def _build_gradle(
     path: str,
     platform: core_model.Platform,
 ) -> core_model.Vulnerabilities:
-
     def resolve_dependencies() -> Iterator[DependencyType]:
         for line_no, line in enumerate(content.splitlines(), start=1):
             if match := RE_MAVEN_A.match(line):
-                column: int = match.start('group')
-                product: str = match.group('group') + ':' + match.group('name')
-                version: str = match.group('version') or '*'
+                column: int = match.start("group")
+                product: str = match.group("group") + ":" + match.group("name")
+                version: str = match.group("version") or "*"
             elif match := RE_MAVEN_B.match(line):
-                column = match.start('statement')
-                statement = match.group('statement')
+                column = match.start("statement")
+                statement = match.group("statement")
                 product, version = (
-                    statement.rsplit(':', maxsplit=1)
-                    if statement.count(':') >= 2
-                    else (statement, '*')
+                    statement.rsplit(":", maxsplit=1)
+                    if statement.count(":") >= 2
+                    else (statement, "*")
                 )
             else:
                 continue
 
             yield (
-                {'column': column, 'line': line_no, 'item': product},
-                {'column': column, 'line': line_no, 'item': version},
+                {"column": column, "line": line_no, "item": product},
+                {"column": column, "line": line_no, "item": version},
             )
 
     return translate_dependencies_to_vulnerabilities(
@@ -149,7 +148,7 @@ def _npm_package_json(
     dependencies: Iterator[DependencyType] = (
         (product, version)
         for key in content_json
-        if key['item'] == 'dependencies'
+        if key["item"] == "dependencies"
         for product, version in content_json[key].items()
     )
 
@@ -181,13 +180,12 @@ def _npm_package_lock_json(
     path: str,
     platform: core_model.Platform,
 ) -> core_model.Vulnerabilities:
-
     def resolve_dependencies(obj: frozendict) -> Iterator[DependencyType]:
         for key in obj:
-            if key['item'] in ('dependencies', 'devDependencies'):
+            if key["item"] in ("dependencies", "devDependencies"):
                 for product, spec in obj[key].items():
                     for spec_key, spec_val in spec.items():
-                        if spec_key['item'] == 'version':
+                        if spec_key["item"] == "version":
                             yield product, spec_val
                             yield from resolve_dependencies(spec)
 
@@ -221,12 +219,11 @@ def _yarn_lock(
     path: str,
     platform: core_model.Platform,
 ) -> core_model.Vulnerabilities:
-
     def resolve_dependencies() -> Iterator[DependencyType]:
         windower: Iterator[
             Tuple[Tuple[int, str], Tuple[int, str]],
         ] = windowed(
-            fillvalue='',
+            fillvalue="",
             n=2,
             seq=tuple(enumerate(content.splitlines(), start=1)),
             step=1,
@@ -237,20 +234,21 @@ def _yarn_lock(
             product, version = product.strip(), version.strip()
 
             if (
-                product.endswith(':') and not product.startswith(' ')
-                and version.startswith('version')
+                product.endswith(":")
+                and not product.startswith(" ")
+                and version.startswith("version")
             ):
-                product = product.rstrip(':')
-                product = product.split(',', maxsplit=1)[0]
+                product = product.rstrip(":")
+                product = product.split(",", maxsplit=1)[0]
                 product = product.strip('"')
-                product = product.rsplit('@', maxsplit=1)[0]
+                product = product.rsplit("@", maxsplit=1)[0]
 
-                version = version.split(' ', maxsplit=1)[1]
+                version = version.split(" ", maxsplit=1)[1]
                 version = version.strip('"')
 
                 yield (
-                    {'column': 0, 'line': product_line, 'item': product},
-                    {'column': 0, 'line': version_line, 'item': version},
+                    {"column": 0, "line": product_line, "item": product},
+                    {"column": 0, "line": version_line, "item": version},
                 )
 
     return translate_dependencies_to_vulnerabilities(
@@ -291,31 +289,33 @@ def translate_dependencies_to_vulnerabilities(
             what=serialize_namespace_into_vuln(
                 kind=core_model.VulnerabilityKindEnum.LINES,
                 namespace=CTX.config.namespace,
-                what=' '.join((
-                    path,
-                    f'({product["item"]} v{version["item"]})',
-                    f'[{cve}]',
-                )),
+                what=" ".join(
+                    (
+                        path,
+                        f'({product["item"]} v{version["item"]})',
+                        f"[{cve}]",
+                    )
+                ),
             ),
             where=f'{product["line"]}',
             skims_metadata=core_model.SkimsVulnerabilityMetadata(
-                cwe=('937',),
+                cwe=("937",),
                 description=t(
-                    key='src.lib_path.f011.npm_package_json.description',
+                    key="src.lib_path.f011.npm_package_json.description",
                     path=path,
-                    product=product['item'],
-                    version=version['item'],
+                    product=product["item"],
+                    version=version["item"],
                     cve=cve,
                 ),
                 snippet=to_snippet_blocking(
-                    column=product['column'],
+                    column=product["column"],
                     content=content,
-                    line=product['line'],
-                )
-            )
+                    line=product["line"],
+                ),
+            ),
         )
         for product, version in dependencies
-        for cve in query(platform, product['item'], version['item'])
+        for cve in query(platform, product["item"], version["item"])
     )
 
     return results
@@ -331,25 +331,33 @@ async def analyze(
 ) -> List[Awaitable[core_model.Vulnerabilities]]:
     coroutines: List[Awaitable[core_model.Vulnerabilities]] = []
 
-    if (file_name, file_extension) == ('build', 'gradle'):
-        coroutines.append(build_gradle(
-            content=await content_generator(),
-            path=path,
-        ))
-    elif (file_name, file_extension) == ('package', 'json'):
-        coroutines.append(npm_package_json(
-            content=await content_generator(),
-            path=path,
-        ))
-    elif (file_name, file_extension) == ('package-lock', 'json'):
-        coroutines.append(npm_package_lock_json(
-            content=await content_generator(),
-            path=path,
-        ))
-    elif (file_name, file_extension) == ('yarn', 'lock'):
-        coroutines.append(yarn_lock(
-            content=await content_generator(),
-            path=path,
-        ))
+    if (file_name, file_extension) == ("build", "gradle"):
+        coroutines.append(
+            build_gradle(
+                content=await content_generator(),
+                path=path,
+            )
+        )
+    elif (file_name, file_extension) == ("package", "json"):
+        coroutines.append(
+            npm_package_json(
+                content=await content_generator(),
+                path=path,
+            )
+        )
+    elif (file_name, file_extension) == ("package-lock", "json"):
+        coroutines.append(
+            npm_package_lock_json(
+                content=await content_generator(),
+                path=path,
+            )
+        )
+    elif (file_name, file_extension) == ("yarn", "lock"):
+        coroutines.append(
+            yarn_lock(
+                content=await content_generator(),
+                path=path,
+            )
+        )
 
     return coroutines

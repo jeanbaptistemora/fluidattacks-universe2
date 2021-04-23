@@ -20,23 +20,23 @@ from bs4 import (
 def is_html(string: str, soup: Optional[BeautifulSoup] = None) -> bool:
     string = string.strip(whitespace)
 
-    if string.startswith('{'):
+    if string.startswith("{"):
         # JSON
         return False
 
     if soup is None:
-        soup = BeautifulSoup(string, 'html.parser')
+        soup = BeautifulSoup(string, "html.parser")
 
-    return soup.find('html', recursive=False) is not None
+    return soup.find("html", recursive=False) is not None
 
 
 def get_urls(soup: BeautifulSoup) -> Iterable[str]:
     for tag, attr in (
-        ('a', 'href'),
-        ('iframe', 'src'),
-        ('img', 'src'),
-        ('link', 'href'),
-        ('script', 'src'),
+        ("a", "href"),
+        ("iframe", "src"),
+        ("img", "src"),
+        ("link", "href"),
+        ("script", "src"),
     ):
         yield from (elm[attr] for elm in soup.find_all(tag) if elm.get(attr))
 
@@ -48,8 +48,7 @@ def get_sameorigin_urls(
     for url in get_urls(soup):
         url_c: ParseResult = urlparse(url)
 
-        if (
-            url_c.netloc == components.netloc and
-            url_c.path.startswith(components.path)
+        if url_c.netloc == components.netloc and url_c.path.startswith(
+            components.path
         ):
-            yield f'{url_c.scheme}://{url_c.netloc}{url_c.path}'
+            yield f"{url_c.scheme}://{url_c.netloc}{url_c.path}"

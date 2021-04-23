@@ -51,43 +51,52 @@ from zone import (
 
 def _yield_javascript_console_logs(model: Any) -> Iterator[Any]:
     functions = (
-        'log',
-        'warn',
-        'error',
+        "log",
+        "warn",
+        "error",
     )
     for node in yield_dicts(model):
         with suppress(KeyError):
-            if (node.get('type') == 'CallExpression'
-                    and node['callee']['object']['name'] == 'console'
-                    and node['callee']['property']['name'] in functions):
+            if (
+                node.get("type") == "CallExpression"
+                and node["callee"]["object"]["name"] == "console"
+                and node["callee"]["property"]["name"] in functions
+            ):
                 yield node
 
 
 def _yield_javascript_var_usage(
-        var_name: str, model: Any) -> Iterator[Dict[str, Union[str, int]]]:
+    var_name: str, model: Any
+) -> Iterator[Dict[str, Union[str, int]]]:
     for node in yield_dicts(model):
         with suppress(KeyError):
-            if node['type'] == 'Identifier' and node['name'] == var_name:
+            if node["type"] == "Identifier" and node["name"] == var_name:
                 yield node
 
 
-def _yield_java_var_usage(
-        model: Any, *identifiers: str) -> Iterator[Any]:
+def _yield_java_var_usage(model: Any, *identifiers: str) -> Iterator[Any]:
     for var_name in identifiers:
         for node in yield_nodes(
-                value=model,
-                key_predicates=('Identifier'.__eq__, ),
+            value=model,
+            key_predicates=("Identifier".__eq__,),
         ):
-            if node['text'] == var_name:
+            if node["text"] == var_name:
                 yield node
 
 
 def _is_java_method_call(node: Any, *members: str) -> bool:
     """Validate if a node is the call of a function"""
-    return len(tuple(_yield_java_var_usage(
-        node,
-        *members,
-    ))) == len(members)
+    return (
+        len(
+            tuple(
+                _yield_java_var_usage(
+                    node,
+                    *members,
+                )
+            )
+        )
+        == len(members)
+    )
 
 
 def _javascript_use_console_log(
@@ -102,38 +111,39 @@ def _javascript_use_console_log(
             #   param?: Pattern;
             #   body: BlockStatement;
             # }
-            if node.get('type', None) == 'CatchClause':
-                if not node.get('param', None):
+            if node.get("type", None) == "CatchClause":
+                if not node.get("param", None):
                     # If the exception is not caught in a variable, there
                     # is no way it will be displayed in a console.log
                     # catch {
                     #     console.log();
                     # }
                     continue
-                exception_name = node['param']['name']
+                exception_name = node["param"]["name"]
 
                 for console in _yield_javascript_console_logs(node):
-                    for arg in console.get('arguments', list()):
+                    for arg in console.get("arguments", list()):
                         # The exception should not be used as an argument to
                         # the console.log
                         # catch (err) {
                         #     console.log(err);
                         # }
                         if tuple(
-                                _yield_javascript_var_usage(
-                                    var_name=exception_name,
-                                    model=arg,
-                                )):
+                            _yield_javascript_var_usage(
+                                var_name=exception_name,
+                                model=arg,
+                            )
+                        ):
                             yield (
-                                console['loc']['start']['line'],
-                                console['loc']['start']['column'],
+                                console["loc"]["start"]["line"],
+                                console["loc"]["start"]["column"],
                             )
 
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={'200', '209'},
+        cwe={"200", "209"},
         description=t(
-            key='src.lib_path.f037.javascript_use_console_log',
+            key="src.lib_path.f037.javascript_use_console_log",
             path=path,
         ),
         finding=core_model.FindingEnum.F037,
@@ -151,41 +161,49 @@ def _java_logging_exceptions(
 
         for node in yield_nodes(
             value=model,
-            key_predicates=('CatchClause'.__eq__, ),
+            key_predicates=("CatchClause".__eq__,),
             pre_extraction=(),
             post_extraction=(),
         ):
-            exc_identifier = tuple(item for item in yield_nodes(
-                value=node,
-                value_extraction='.'.join((
-                    '[2]',
-                    'CatchFormalParameter[1]',
-                    'VariableDeclaratorId[0]',
-                    'Identifier[0]',
-                )),
-                pre_extraction=(),
-                post_extraction=(),
-            ))[0]
-
-            for call in yield_nodes(
-                    value=node[4]['Block'],
-                    key_predicates=('MethodInvocation'.__eq__, ),
+            exc_identifier = tuple(
+                item
+                for item in yield_nodes(
+                    value=node,
+                    value_extraction=".".join(
+                        (
+                            "[2]",
+                            "CatchFormalParameter[1]",
+                            "VariableDeclaratorId[0]",
+                            "Identifier[0]",
+                        )
+                    ),
                     pre_extraction=(),
                     post_extraction=(),
+                )
+            )[0]
+
+            for call in yield_nodes(
+                value=node[4]["Block"],
+                key_predicates=("MethodInvocation".__eq__,),
+                pre_extraction=(),
+                post_extraction=(),
             ):
-                if _is_java_method_call(call, exc_identifier['text'],
-                                        'printStackTrace'):
+                if _is_java_method_call(
+                    call, exc_identifier["text"], "printStackTrace"
+                ):
                     # verify if use
                     #  catch (IndexException e) {
                     #   e.printStackTrace();
                     #  }
-                    yield (call[2]['Identifier'][0]['l'],
-                           call[2]['Identifier'][0]['c'])
+                    yield (
+                        call[2]["Identifier"][0]["l"],
+                        call[2]["Identifier"][0]["c"],
+                    )
                 elif _is_java_method_call(
-                        call,
-                        'System',
-                        'out',
-                        'println',
+                    call,
+                    "System",
+                    "out",
+                    "println",
                 ):
                     # validates that the exception is not used as a parameter
                     # of System.out.println
@@ -193,16 +211,16 @@ def _java_logging_exceptions(
                     #     System.out.println(e);
                     # }
                     for var in _yield_java_var_usage(
-                        call[4]['ArgumentList'],
-                        exc_identifier['text'],
+                        call[4]["ArgumentList"],
+                        exc_identifier["text"],
                     ):
-                        yield (var['l'], var['c'])
+                        yield (var["l"], var["c"])
 
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={'200', '209'},
+        cwe={"200", "209"},
         description=t(
-            key='src.lib_path.f037.java_print_stack_traces',
+            key="src.lib_path.f037.java_print_stack_traces",
             path=path,
         ),
         finding=core_model.FindingEnum.F037,
@@ -258,13 +276,17 @@ async def analyze(
     coroutines: List[Awaitable[core_model.Vulnerabilities]] = []
 
     if file_extension in EXTENSIONS_JAVASCRIPT:
-        coroutines.append(javascript_use_console_log(
-            content=await content_generator(),
-            path=path,
-        ))
+        coroutines.append(
+            javascript_use_console_log(
+                content=await content_generator(),
+                path=path,
+            )
+        )
     elif file_extension in EXTENSIONS_JAVA:
-        coroutines.append(java_logging_exceptions(
-            content=await content_generator(),
-            path=path,
-        ))
+        coroutines.append(
+            java_logging_exceptions(
+                content=await content_generator(),
+                path=path,
+            )
+        )
     return coroutines

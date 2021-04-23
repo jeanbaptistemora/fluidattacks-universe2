@@ -8,11 +8,8 @@ from typing import (
 from aioextensions import (
     in_process,
 )
-from frozendict import (
-    frozendict
-)
+from frozendict import frozendict
 import lark
-
 
 # Constants
 GRAMMAR = r"""
@@ -49,8 +46,8 @@ def loads_blocking(
 ) -> frozendict:
     json_parser = lark.Lark(
         grammar=GRAMMAR,
-        parser='lalr',
-        lexer='standard',
+        parser="lalr",
+        lexer="standard",
         propagate_positions=True,
         maybe_placeholders=False,
         transformer=JSONBuilder(),
@@ -87,35 +84,43 @@ class JSONBuilder(lark.Transformer):
     @lark.v_args(tree=True)
     def single(tree: lark.Tree) -> frozendict:
         children: lark.Tree = tree.children[0]
-        return frozendict({
-            'column': children.column,
-            'item': JSONBuilder.single_map[children.data],
-            'line': children.line,
-        })
+        return frozendict(
+            {
+                "column": children.column,
+                "item": JSONBuilder.single_map[children.data],
+                "line": children.line,
+            }
+        )
 
     @staticmethod
     @lark.v_args(inline=True)
     def string(token: lark.Token) -> frozendict:
-        return frozendict({
-            'column': token.column,
-            'item': ast.literal_eval(token),
-            'line': token.line
-        })
+        return frozendict(
+            {
+                "column": token.column,
+                "item": ast.literal_eval(token),
+                "line": token.line,
+            }
+        )
 
     @staticmethod
     @lark.v_args(inline=True)
     def number(token: lark.Token) -> frozendict:
-        return frozendict({
-            'column': token.column,
-            'item': ast.literal_eval(token),
-            'line': token.line,
-        })
+        return frozendict(
+            {
+                "column": token.column,
+                "item": ast.literal_eval(token),
+                "line": token.line,
+            }
+        )
 
     @staticmethod
     @lark.v_args(tree=True)
     def array(tree: lark.Tree) -> frozendict:
-        return frozendict({
-            'column': 0,
-            'item': tuple(tree.children),
-            'line': 0,
-        })
+        return frozendict(
+            {
+                "column": 0,
+                "item": tuple(tree.children),
+                "line": 0,
+            }
+        )

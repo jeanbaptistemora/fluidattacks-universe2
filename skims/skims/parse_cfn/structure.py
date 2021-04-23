@@ -25,45 +25,51 @@ def iterate_resources(
     if template.data_type != Type.OBJECT:
         return
 
-    if template_resources := template.inner.get('Resources', None):
+    if template_resources := template.inner.get("Resources", None):
         for resource_name, resource_config in template_resources.data.items():
-            if resource_config.data_type == Type.OBJECT \
-                    and 'Properties' in resource_config.inner \
-                    and 'Type' in resource_config.inner:
-                resource_properties = resource_config.inner['Properties']
-                resource_kind = resource_config.inner['Type']
+            if (
+                resource_config.data_type == Type.OBJECT
+                and "Properties" in resource_config.inner
+                and "Type" in resource_config.inner
+            ):
+                resource_properties = resource_config.inner["Properties"]
+                resource_kind = resource_config.inner["Type"]
 
                 for expected_resource_kind in expected_resource_kinds:
-                    if (not exact and resource_kind.inner.startswith(
-                            expected_resource_kind)) or (
-                                exact and resource_kind.inner
-                                == expected_resource_kind):
+                    if (
+                        not exact
+                        and resource_kind.inner.startswith(
+                            expected_resource_kind
+                        )
+                    ) or (
+                        exact and resource_kind.inner == expected_resource_kind
+                    ):
                         yield resource_name, resource_kind, resource_properties
 
 
 def iterate_iam_policy_documents(
     template: Node,
 ) -> Iterator[Node]:
-    for _, kind, props in iterate_resources(template, 'AWS::IAM'):
+    for _, kind, props in iterate_resources(template, "AWS::IAM"):
 
-        if kind.inner in {'AWS::IAM::ManagedPolicy', 'AWS::IAM::Policy'}:
+        if kind.inner in {"AWS::IAM::ManagedPolicy", "AWS::IAM::Policy"}:
             yield from yield_statements_from_policy(props)
 
-        if kind.inner in {'AWS::IAM::Role', 'AWS::IAM::User'}:
-            if policies := props.inner.get('Policies', None):
+        if kind.inner in {"AWS::IAM::Role", "AWS::IAM::User"}:
+            if policies := props.inner.get("Policies", None):
                 for policy in policies.data:
                     yield from yield_statements_from_policy(policy)
 
-        if kind.inner in {'AWS::IAM::Role'}:
-            if document := props.inner.get('AssumeRolePolicyDocument', None):
+        if kind.inner in {"AWS::IAM::Role"}:
+            if document := props.inner.get("AssumeRolePolicyDocument", None):
                 yield from yield_statements_from_policy_document(document)
 
 
 def iterate_managed_policy_arns(
     template: Any,
 ) -> Iterator[Node]:
-    for _, _, props in iterate_resources(template, 'AWS::IAM'):
-        if policies := props.inner.get('ManagedPolicyArns', None):
+    for _, _, props in iterate_resources(template, "AWS::IAM"):
+        if policies := props.inner.get("ManagedPolicyArns", None):
             yield policies
 
 
@@ -73,43 +79,61 @@ def iter_ec2_ingress_egress(
     egress: bool = False,
 ) -> Iterator[Node]:
     for _, kind, props in iterate_resources(
-            template,
-            'AWS::EC2::SecurityGroup'
+        template, "AWS::EC2::SecurityGroup"
     ):
-        if kind.raw == 'AWS::EC2::SecurityGroup':
+        if kind.raw == "AWS::EC2::SecurityGroup":
             if ingress:
-                yield from (ingress for ingress in getattr(
-                    props.inner.get('SecurityGroupIngress', object), 'data',
-                    list()))
+                yield from (
+                    ingress
+                    for ingress in getattr(
+                        props.inner.get("SecurityGroupIngress", object),
+                        "data",
+                        list(),
+                    )
+                )
             if egress:
-                yield from (ingress for ingress in getattr(
-                    props.inner.get('SecurityGroupEgress', object), 'data',
-                    list()))
-        elif ingress and kind.raw == 'AWS::EC2::SecurityGroupIngress':
+                yield from (
+                    ingress
+                    for ingress in getattr(
+                        props.inner.get("SecurityGroupEgress", object),
+                        "data",
+                        list(),
+                    )
+                )
+        elif ingress and kind.raw == "AWS::EC2::SecurityGroupIngress":
             yield props
-        elif egress and kind.raw == 'AWS::EC2::SecurityGroupEgress':
+        elif egress and kind.raw == "AWS::EC2::SecurityGroupEgress":
             yield props
 
 
 def iter_ec2_security_groups(template: Node) -> Iterator[Node]:
-    yield from (props for _, _, props in iterate_resources(
-        template,
-        'AWS::EC2::SecurityGroup',
-        exact=True,
-    ))
+    yield from (
+        props
+        for _, _, props in iterate_resources(
+            template,
+            "AWS::EC2::SecurityGroup",
+            exact=True,
+        )
+    )
 
 
 def iter_s3_buckets(template: Node) -> Iterator[Node]:
-    yield from (props for _, _, props in iterate_resources(
-        template,
-        'AWS::S3::Bucket',
-        exact=True,
-    ))
+    yield from (
+        props
+        for _, _, props in iterate_resources(
+            template,
+            "AWS::S3::Bucket",
+            exact=True,
+        )
+    )
 
 
 def iter_ec2_instances(template: Node) -> Iterator[Node]:
-    yield from (props for _, _, props in iterate_resources(
-        template,
-        'AWS::EC2::Instance',
-        exact=True,
-    ))
+    yield from (
+        props
+        for _, _, props in iterate_resources(
+            template,
+            "AWS::EC2::Instance",
+            exact=True,
+        )
+    )

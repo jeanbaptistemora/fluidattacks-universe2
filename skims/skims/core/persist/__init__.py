@@ -57,7 +57,7 @@ def get_root(vulnerability: core_model.Vulnerability) -> str:
     if vulnerability.kind == core_model.VulnerabilityKindEnum.LINES:
         return os.path.basename(vulnerability.what[::-1])[::-1]
 
-    raise NotImplementedError(f'Not implemented for: {vulnerability.kind}')
+    raise NotImplementedError(f"Not implemented for: {vulnerability.kind}")
 
 
 async def get_affected_systems(store: EphemeralStore) -> str:
@@ -68,11 +68,11 @@ async def get_affected_systems(store: EphemeralStore) -> str:
     :return: A new-line separated string with the affected systems
     :rtype: str
     """
-    affected_systems: Tuple[str, ...] = tuple({
-        get_root(result) async for result in store.iterate()
-    })
+    affected_systems: Tuple[str, ...] = tuple(
+        {get_root(result) async for result in store.iterate()}
+    )
 
-    return '\n'.join(affected_systems)
+    return "\n".join(affected_systems)
 
 
 async def upload_evidences(
@@ -84,54 +84,68 @@ async def upload_evidences(
         Tuple[
             core_model.FindingEvidenceIDEnum,
             core_model.FindingEvidenceDescriptionIDEnum,
-        ], ...
+        ],
+        ...,
     ] = (
-        (core_model.FindingEvidenceIDEnum.EVIDENCE5,
-         core_model.FindingEvidenceDescriptionIDEnum.EVIDENCE5),
+        (
+            core_model.FindingEvidenceIDEnum.EVIDENCE5,
+            core_model.FindingEvidenceDescriptionIDEnum.EVIDENCE5,
+        ),
     )
-    results: core_model.Vulnerabilities = (
-        await store.get_a_few(len(evidence_ids))
+    results: core_model.Vulnerabilities = await store.get_a_few(
+        len(evidence_ids)
     )
     number_of_samples: int = min(len(results), len(evidence_ids))
     result_samples: core_model.Vulnerabilities = tuple(
         random.sample(results, k=number_of_samples),
     )
 
-    evidence_streams: Tuple[BytesIO, ...] = await collect(tuple(
-        to_png(string=result.skims_metadata.snippet)
-        for result in result_samples
-        if result.skims_metadata
-    ))
+    evidence_streams: Tuple[BytesIO, ...] = await collect(
+        tuple(
+            to_png(string=result.skims_metadata.snippet)
+            for result in result_samples
+            if result.skims_metadata
+        )
+    )
     evidence_descriptions: Tuple[str, ...] = tuple(
         result.skims_metadata.description
         for result in result_samples
         if result.skims_metadata
     )
 
-    return all((
-        *await collect(tuple(
-            do_update_evidence(
-                evidence_id=evidence_id,
-                evidence_stream=evidence_stream.read(),
-                finding_id=finding_id,
-            )
-            for (evidence_id, _), evidence_stream in zip(
-                evidence_ids,
-                evidence_streams,
-            )
-        )),
-        *await collect(tuple(
-            do_update_evidence_description(
-                evidence_description_id=evidence_description_id,
-                evidence_description=evidence_description,
-                finding_id=finding_id,
-            )
-            for (_, evidence_description_id), evidence_description in zip(
-                evidence_ids,
-                evidence_descriptions,
-            )
-        ))
-    ))
+    return all(
+        (
+            *await collect(
+                tuple(
+                    do_update_evidence(
+                        evidence_id=evidence_id,
+                        evidence_stream=evidence_stream.read(),
+                        finding_id=finding_id,
+                    )
+                    for (evidence_id, _), evidence_stream in zip(
+                        evidence_ids,
+                        evidence_streams,
+                    )
+                )
+            ),
+            *await collect(
+                tuple(
+                    do_update_evidence_description(
+                        evidence_description_id=evidence_description_id,
+                        evidence_description=evidence_description,
+                        finding_id=finding_id,
+                    )
+                    for (
+                        _,
+                        evidence_description_id,
+                    ), evidence_description in zip(
+                        evidence_ids,
+                        evidence_descriptions,
+                    )
+                )
+            ),
+        )
+    )
 
 
 async def diff_results(
@@ -199,10 +213,12 @@ async def diff_results(
         else:
             # Either this is a new vulnerability or it has changed state
             # Let's store the Skims result for persistion
-            await store.store(prepare_result(
-                result=result,
-                state=result.state,
-            ))
+            await store.store(
+                prepare_result(
+                    result=result,
+                    state=result.state,
+                )
+            )
 
     # Walk all integrates results
     async for result in integrates_store.iterate():
@@ -215,10 +231,12 @@ async def diff_results(
             and result.state == core_model.VulnerabilityStateEnum.OPEN
         ):
             # This result must be CLOSED and persisted to Integrates
-            await store.store(prepare_result(
-                result=result,
-                state=core_model.VulnerabilityStateEnum.CLOSED,
-            ))
+            await store.store(
+                prepare_result(
+                    result=result,
+                    state=core_model.VulnerabilityStateEnum.CLOSED,
+                )
+            )
 
     return store
 
@@ -244,7 +262,7 @@ async def persist_finding(
     store_length: int = await store.length()
     has_results: bool = store_length > 0
 
-    await log('info', 'persisting: %s, %s vulns', finding.name, store_length)
+    await log("info", "persisting: %s, %s vulns", finding.name, store_length)
 
     finding_id: str = await get_closest_finding_id(
         affected_systems=await get_affected_systems(store),
@@ -257,7 +275,7 @@ async def persist_finding(
     # Even if there are no results to persist we must give Skims the
     #   opportunity to close
     if finding_id:
-        await log('info', 'finding for: %s = %s', finding.name, finding_id)
+        await log("info", "finding for: %s = %s", finding.name, finding_id)
 
         diff_store: EphemeralStore = await diff_results(
             integrates_store=await get_finding_vulnerabilities(
@@ -286,18 +304,24 @@ async def persist_finding(
             success = success and success_release and success_upload_evidence
 
         await log(
-            'info', 'persisted: %s, modified vulns: %s, success: %s',
-            finding.name, await diff_store.length(), success,
+            "info",
+            "persisted: %s, modified vulns: %s, success: %s",
+            finding.name,
+            await diff_store.length(),
+            success,
         )
     elif not has_results:
         success = True
 
         await log(
-            'info', 'persisted: %s, vulns: %s, success: %s',
-            finding.name, store_length, success,
+            "info",
+            "persisted: %s, vulns: %s, success: %s",
+            finding.name,
+            store_length,
+            success,
         )
     else:
-        await log('critical', 'could not find or create finding: %s', finding)
+        await log("critical", "could not find or create finding: %s", finding)
         success = False
 
     return success
@@ -324,15 +348,19 @@ async def persist(
 
     await verify_permissions(group=group)
 
-    success: bool = all(await collect(tuple(
-        persist_finding(
-            finding=finding,
-            group=group,
-            store=stores[finding],
+    success: bool = all(
+        await collect(
+            tuple(
+                persist_finding(
+                    finding=finding,
+                    group=group,
+                    store=stores[finding],
+                )
+                for finding in core_model.FindingEnum
+                if finding in CTX.config.checks
+            )
         )
-        for finding in core_model.FindingEnum
-        if finding in CTX.config.checks
-    )))
+    )
 
     return success
 
@@ -344,24 +372,24 @@ async def verify_permissions(*, group: str) -> bool:
         role: str = await get_group_level_role(group=group)
         await get_group_findings(group=group)
     except PermissionError as exc:
-        await log('critical', '%s: %s', type(exc).__name__, str(exc))
+        await log("critical", "%s: %s", type(exc).__name__, str(exc))
         success = False
     else:
-        allowed_roles: Tuple[str, ...] = (
-            'admin',
-        )
+        allowed_roles: Tuple[str, ...] = ("admin",)
 
         if role in allowed_roles:
-            await log('info', 'Your role in group %s is: %s', group, role)
+            await log("info", "Your role in group %s is: %s", group, role)
             success = True
         else:
-            msg: str = ' '.join((
-                'Your role in group %s is: "%s".',
-                'This role has not enough privileges',
-                'for persisting results to Integrates.',
-                'You need one of the following roles: %s'
-            ))
-            await log('critical', msg, group, role, ', '.join(allowed_roles))
+            msg: str = " ".join(
+                (
+                    'Your role in group %s is: "%s".',
+                    "This role has not enough privileges",
+                    "for persisting results to Integrates.",
+                    "You need one of the following roles: %s",
+                )
+            )
+            await log("critical", msg, group, role, ", ".join(allowed_roles))
             success = False
 
     if not success:

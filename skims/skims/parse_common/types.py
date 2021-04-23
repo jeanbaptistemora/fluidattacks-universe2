@@ -25,10 +25,10 @@ class StringToken(UserString):  # pylint: disable=too-many-ancestors
 
 class FloatToken(float):
     def __new__(  # type: ignore
-            cls,
-            value: Union[float, str, int],
-            column: int,  # pylint: disable=unused-argument
-            line: int,  # pylint: disable=unused-argument
+        cls,
+        value: Union[float, str, int],
+        column: int,  # pylint: disable=unused-argument
+        line: int,  # pylint: disable=unused-argument
     ) -> float:
         return float.__new__(cls, value)  # type: ignore
 
@@ -45,10 +45,10 @@ class FloatToken(float):
 
 class IntToken(int):
     def __new__(  # type: ignore
-            cls,
-            value: Union[float, str, int],
-            column: int,  # pylint: disable=unused-argument
-            line: int,  # pylint: disable=unused-argument
+        cls,
+        value: Union[float, str, int],
+        column: int,  # pylint: disable=unused-argument
+        line: int,  # pylint: disable=unused-argument
     ) -> int:
         return int.__new__(cls, value)  # type: ignore
 
@@ -77,10 +77,10 @@ class ListToken(UserList):  # pylint: disable=too-many-ancestors
 
 class TupleToken(tuple):
     def __new__(  # type: ignore
-            cls,
-            value: Iterable[Any],
-            column: int,  # pylint: disable=unused-argument
-            line: int,  # pylint: disable=unused-argument
+        cls,
+        value: Iterable[Any],
+        column: int,  # pylint: disable=unused-argument
+        line: int,  # pylint: disable=unused-argument
     ) -> int:
         return tuple.__new__(cls, value)  # type: ignore
 

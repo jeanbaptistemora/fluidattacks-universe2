@@ -28,8 +28,7 @@ def _append_label(
 
 
 AppendLabelType = Callable[
-    [graph_model.Graph, str, core_model.FindingEnum],
-    None
+    [graph_model.Graph, str, core_model.FindingEnum], None
 ]
 
 
@@ -38,7 +37,7 @@ def _append_label_input(
     n_id: str,
     finding: core_model.FindingEnum,
 ) -> None:
-    _append_label(graph, n_id, 'label_input_type', finding)
+    _append_label(graph, n_id, "label_input_type", finding)
 
 
 def _append_label_sink(
@@ -46,7 +45,7 @@ def _append_label_sink(
     n_id: str,
     finding: core_model.FindingEnum,
 ) -> None:
-    _append_label(graph, n_id, 'label_sink_type', finding)
+    _append_label(graph, n_id, "label_sink_type", finding)
 
 
 def _mark_java_inputs(
@@ -68,27 +67,38 @@ def _mark_java_inputs(
     ):
         danger_args = {
             *build_attr_paths(
-                'javax',
-                'servlet',
-                'http',
-                'HttpServletRequest',
-            ), *build_attr_paths(
-                'org',
-                'springframework',
-                'web',
-                'bind',
-                'annotation',
-                'RequestParam',
-            )
+                "javax",
+                "servlet",
+                "http",
+                "HttpServletRequest",
+            ),
+            *build_attr_paths(
+                "org",
+                "springframework",
+                "web",
+                "bind",
+                "annotation",
+                "RequestParam",
+            ),
         }
         _mark_function_arg(finding, graph, syntax, danger_args)
 
-    _mark_methods_input(findings.F052, graph, syntax, {
-        'java.security.MessageDigest.getInstance',
-    })
-    _mark_obj_inst_input(findings.F052, graph, syntax, {
-        *build_attr_paths('java', 'util', 'Properties'),
-    })
+    _mark_methods_input(
+        findings.F052,
+        graph,
+        syntax,
+        {
+            "java.security.MessageDigest.getInstance",
+        },
+    )
+    _mark_obj_inst_input(
+        findings.F052,
+        graph,
+        syntax,
+        {
+            *build_attr_paths("java", "util", "Properties"),
+        },
+    )
 
 
 def _mark_java_sinks(
@@ -97,70 +107,130 @@ def _mark_java_sinks(
 ) -> None:
     findings = core_model.FindingEnum
 
-    _mark_methods_sink(findings.F001_JAVA_SQL, graph, syntax, {
-        'addBatch',
-        'batchUpdate',
-        'execute',
-        'executeBatch',
-        'executeLargeBatch',
-        'executeLargeUpdate',
-        'executeQuery',
-        'executeUpdate',
-        'query',
-        'queryForInt',
-        'queryForList',
-        'queryForLong',
-        'queryForMap',
-        'queryForObject',
-        'queryForRowSet',
-    })
-    _mark_methods_sink(findings.F004, graph, syntax, {
-        'command',
-        'exec',
-        'start',
-    })
-    _mark_methods_sink(findings.F008, graph, syntax, {
-        'format',
-        'getWriter.format',
-        'getWriter.print',
-        'getWriter.printf',
-        'getWriter.println',
-        'getWriter.write',
-    })
-    _mark_methods_sink(findings.F021, graph, syntax, {
-        'compile',
-        'evaluate',
-    })
-    _mark_methods_sink(findings.F034, graph, syntax, {
-        'getSession.setAttribute',
-        'addCookie',
-    })
-    _mark_methods_sink(findings.F042, graph, syntax, {
-        'addCookie',
-        'evaluate',
-    })
-    _mark_methods_sink(findings.F052, graph, syntax, {
-        'java.security.MessageDigest.getInstance',
-    })
-    _mark_methods_sink(findings.F063_PATH_TRAVERSAL, graph, syntax, {
-        'java.nio.file.Files.newInputStream',
-        'java.nio.file.Paths.get',
-    })
-    _mark_methods_sink(findings.F063_TRUSTBOUND, graph, syntax, {
-        'putValue',
-        'setAttribute',
-    })
-    _mark_methods_sink(findings.F107, graph, syntax, {
-        'search',
-    })
-    _mark_obj_inst_sink(findings.F004, graph, syntax, {
-        *build_attr_paths('java', 'lang', 'ProcessBuilder'),
-    })
-    _mark_obj_inst_sink(findings.F063_PATH_TRAVERSAL, graph, syntax, {
-        *build_attr_paths('java', 'io', 'File'),
-        *build_attr_paths('java', 'io', 'FileInputStream'),
-        *build_attr_paths('java', 'io', 'FileOutputStream'),
-    })
+    _mark_methods_sink(
+        findings.F001_JAVA_SQL,
+        graph,
+        syntax,
+        {
+            "addBatch",
+            "batchUpdate",
+            "execute",
+            "executeBatch",
+            "executeLargeBatch",
+            "executeLargeUpdate",
+            "executeQuery",
+            "executeUpdate",
+            "query",
+            "queryForInt",
+            "queryForList",
+            "queryForLong",
+            "queryForMap",
+            "queryForObject",
+            "queryForRowSet",
+        },
+    )
+    _mark_methods_sink(
+        findings.F004,
+        graph,
+        syntax,
+        {
+            "command",
+            "exec",
+            "start",
+        },
+    )
+    _mark_methods_sink(
+        findings.F008,
+        graph,
+        syntax,
+        {
+            "format",
+            "getWriter.format",
+            "getWriter.print",
+            "getWriter.printf",
+            "getWriter.println",
+            "getWriter.write",
+        },
+    )
+    _mark_methods_sink(
+        findings.F021,
+        graph,
+        syntax,
+        {
+            "compile",
+            "evaluate",
+        },
+    )
+    _mark_methods_sink(
+        findings.F034,
+        graph,
+        syntax,
+        {
+            "getSession.setAttribute",
+            "addCookie",
+        },
+    )
+    _mark_methods_sink(
+        findings.F042,
+        graph,
+        syntax,
+        {
+            "addCookie",
+            "evaluate",
+        },
+    )
+    _mark_methods_sink(
+        findings.F052,
+        graph,
+        syntax,
+        {
+            "java.security.MessageDigest.getInstance",
+        },
+    )
+    _mark_methods_sink(
+        findings.F063_PATH_TRAVERSAL,
+        graph,
+        syntax,
+        {
+            "java.nio.file.Files.newInputStream",
+            "java.nio.file.Paths.get",
+        },
+    )
+    _mark_methods_sink(
+        findings.F063_TRUSTBOUND,
+        graph,
+        syntax,
+        {
+            "putValue",
+            "setAttribute",
+        },
+    )
+    _mark_methods_sink(
+        findings.F107,
+        graph,
+        syntax,
+        {
+            "search",
+        },
+    )
+    _mark_obj_inst_sink(
+        findings.F004,
+        graph,
+        syntax,
+        {
+            *build_attr_paths("java", "lang", "ProcessBuilder"),
+        },
+    )
+    _mark_obj_inst_sink(
+        findings.F063_PATH_TRAVERSAL,
+        graph,
+        syntax,
+        {
+            *build_attr_paths("java", "io", "File"),
+            *build_attr_paths("java", "io", "FileInputStream"),
+            *build_attr_paths("java", "io", "FileOutputStream"),
+        },
+    )
 
 
 def _mark_array(
@@ -172,9 +242,9 @@ def _mark_array(
 ) -> None:
     for syntax_steps in graph_syntax.values():
         for syntax_step in syntax_steps:
-            if isinstance(syntax_step, (
-                graph_model.SyntaxStepArrayInstantiation,
-            )):
+            if isinstance(
+                syntax_step, (graph_model.SyntaxStepArrayInstantiation,)
+            ):
                 if syntax_step.array_type in types:
                     marker(graph, syntax_step.meta.n_id, finding)
                     continue
@@ -220,27 +290,27 @@ def _mark_methods(
 ) -> None:
     for syntax_steps in graph_syntax.values():
         for index, syntax_step in enumerate(syntax_steps):
-            if isinstance(syntax_step, (
-                graph_model.SyntaxStepMethodInvocation,
-                graph_model.SyntaxStepMethodInvocationChain,
-            )):
-                method = syntax_step.method.rsplit('.', maxsplit=1)[-1]
+            if isinstance(
+                syntax_step,
+                (
+                    graph_model.SyntaxStepMethodInvocation,
+                    graph_model.SyntaxStepMethodInvocationChain,
+                ),
+            ):
+                method = syntax_step.method.rsplit(".", maxsplit=1)[-1]
 
-                if (
-                    method in methods or
-                    syntax_step.method in methods
-                ):
+                if method in methods or syntax_step.method in methods:
                     marker(graph, syntax_step.meta.n_id, finding)
                     continue
 
-            if isinstance(syntax_step, (
-                graph_model.SyntaxStepMethodInvocationChain,
-            )):
+            if isinstance(
+                syntax_step, (graph_model.SyntaxStepMethodInvocationChain,)
+            ):
                 *_, parent = get_dependencies(index, syntax_steps)
 
                 if isinstance(parent, graph_model.SyntaxStepMethodInvocation):
-                    parent_method = parent.method.rsplit('.', maxsplit=1)[-1]
-                    method = parent_method + '.' + method
+                    parent_method = parent.method.rsplit(".", maxsplit=1)[-1]
+                    method = parent_method + "." + method
 
                 if method in methods:
                     marker(graph, syntax_step.meta.n_id, finding)
@@ -285,9 +355,9 @@ def _mark_obj_inst(
 ) -> None:
     for syntax_steps in graph_syntax.values():
         for syntax_step in syntax_steps:
-            if isinstance(syntax_step, (
-                graph_model.SyntaxStepObjectInstantiation,
-            )):
+            if isinstance(
+                syntax_step, (graph_model.SyntaxStepObjectInstantiation,)
+            ):
                 if syntax_step.object_type in types:
                     marker(graph, syntax_step.meta.n_id, finding)
 

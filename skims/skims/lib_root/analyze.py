@@ -41,7 +41,6 @@ from utils.logs import (
     log,
 )
 
-
 QUERIES: graph_model.Queries = (
     *f060.QUERIES,
     *f073.QUERIES,
@@ -73,14 +72,18 @@ async def analyze(
 
     for idx, (finding, query) in enumerate(queries, start=1):
         await log(
-            'info', 'Executing query %s of %s, finding %s',
-            idx, queries_len, finding.name,
+            "info",
+            "Executing query %s of %s, finding %s",
+            idx,
+            queries_len,
+            finding.name,
         )
 
         # Ideally should be in_process but memory requirements constraint us
         # for now
-        vulnerabilities: core_model.Vulnerabilities = \
-            await SHIELD(in_thread)(query, graph_db)
+        vulnerabilities: core_model.Vulnerabilities = await SHIELD(in_thread)(
+            query, graph_db
+        )
 
         for vulnerability in vulnerabilities:
             await stores[vulnerability.finding].store(vulnerability)

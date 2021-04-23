@@ -49,10 +49,22 @@ def _load_graph(graph_as_json: Any) -> graph_model.Graph:
 
 
 def _dump_lark_meta(meta: LarkMeta) -> safe_pickle.Serialized:
-    return safe_pickle.serialize(meta, *map(safe_pickle.dump_raw, {
-        attr: getattr(meta, attr, None)
-        for attr in ('column', 'empty', 'end_column', 'end_line', 'line')
-    }))
+    return safe_pickle.serialize(
+        meta,
+        *map(
+            safe_pickle.dump_raw,
+            {
+                attr: getattr(meta, attr, None)
+                for attr in (
+                    "column",
+                    "empty",
+                    "end_column",
+                    "end_line",
+                    "line",
+                )
+            },
+        ),
+    )
 
 
 def _load_lark_meta(**kwargs: Any) -> LarkMeta:
@@ -64,9 +76,17 @@ def _load_lark_meta(**kwargs: Any) -> LarkMeta:
 
 
 def _dump_lark_tree(tree: LarkTree) -> safe_pickle.Serialized:
-    return safe_pickle.serialize(tree, *map(safe_pickle.dump_raw, (
-        tree.children, tree.data, tree.meta,
-    )))
+    return safe_pickle.serialize(
+        tree,
+        *map(
+            safe_pickle.dump_raw,
+            (
+                tree.children,
+                tree.data,
+                tree.meta,
+            ),
+        ),
+    )
 
 
 def _load_lark_tree(children: Any, data: Any, meta: Any) -> LarkTree:
@@ -134,9 +154,7 @@ def _side_effects() -> None:
     ):
         safe_pickle.register_namedtuple(factory)
 
-    for factory in (
-        graph_model.SyntaxStepMeta,
-    ):
+    for factory in (graph_model.SyntaxStepMeta,):
         safe_pickle.register_dataclass(factory)
 
     for factory, dumper, loader in (
@@ -151,6 +169,5 @@ def _side_effects() -> None:
 # Side effects
 _side_effects()
 
-
 # Exported members
-__all__ = ['dump', 'load']
+__all__ = ["dump", "load"]

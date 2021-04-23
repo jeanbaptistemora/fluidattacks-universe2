@@ -72,21 +72,24 @@ from utils.string import (
 )
 
 # Constants
-LANGUAGES_SO = os.path.join(STATE_FOLDER, 'languages.so')
+LANGUAGES_SO = os.path.join(STATE_FOLDER, "languages.so")
 
 # Side effects
-Language.build_library(LANGUAGES_SO, [
-    TREE_SITTER_JAVA,
-    TREE_SITTER_TSX,
-])
+Language.build_library(
+    LANGUAGES_SO,
+    [
+        TREE_SITTER_JAVA,
+        TREE_SITTER_TSX,
+    ],
+)
 
 
 def get_fields(source: str) -> Dict[str, Tuple[str, ...]]:
-    with open(f'{source}/src/node-types.json') as handle:
+    with open(f"{source}/src/node-types.json") as handle:
         java_fields: Dict[str, Tuple[str, ...]] = {
-            node['type']: fields
+            node["type"]: fields
             for node in json.load(handle)
-            for fields in [tuple(node.get('fields', {}))]
+            for fields in [tuple(node.get("fields", {}))]
             if fields
         }
 
@@ -102,11 +105,13 @@ TSX_FIELDS: Dict[str, Tuple[str, ...]] = get_fields(TREE_SITTER_TSX)
 
 
 def hash_node(node: Node) -> int:
-    return hash((
-        node.end_point,
-        node.start_point,
-        node.type,
-    ))
+    return hash(
+        (
+            node.end_point,
+            node.start_point,
+            node.type,
+        )
+    )
 
 
 def _build_ast_graph(
@@ -144,32 +149,35 @@ def _build_ast_graph(
             _graph.add_edge(
                 _parent,
                 n_id,
-                label_ast='AST',
+                label_ast="AST",
                 label_index=_edge_index,
             )
 
             if field := (_parent_fields or {}).get(hash_node(obj)):
-                _graph.nodes[_parent][f'label_field_{field}'] = n_id
+                _graph.nodes[_parent][f"label_field_{field}"] = n_id
 
-        if not obj.children or any((
-            language == GraphShardMetadataLanguage.JAVA and obj.type in {
-                'array_type',
-                'character_literal',
-                'field_access',
-                'floating_point_type',
-                'generic_type',
-                'integral_type',
-                'scoped_identifier',
-                'scoped_type_identifier',
-                'this',
-                'type_identifier',
-            },
-        )):
+        if not obj.children or any(
+            (
+                language == GraphShardMetadataLanguage.JAVA
+                and obj.type
+                in {
+                    "array_type",
+                    "character_literal",
+                    "field_access",
+                    "floating_point_type",
+                    "generic_type",
+                    "integral_type",
+                    "scoped_identifier",
+                    "scoped_type_identifier",
+                    "this",
+                    "type_identifier",
+                },
+            )
+        ):
             # Consider it a final node, extract the text from it
-            _graph.nodes[n_id]['label_text'] = content[
-                obj.start_byte:
-                obj.end_byte
-            ].decode('latin-1')
+            _graph.nodes[n_id]["label_text"] = content[
+                obj.start_byte : obj.end_byte
+            ].decode("latin-1")
         else:
             parent_fields: Dict[int, str] = {}
             if language != GraphShardMetadataLanguage.NOT_SUPPORTED:
@@ -205,14 +213,14 @@ def _build_ast_graph(
 def decide_language(path: str) -> GraphShardMetadataLanguage:
     language = GraphShardMetadataLanguage.NOT_SUPPORTED
 
-    if path.endswith('.java'):
+    if path.endswith(".java"):
         language = GraphShardMetadataLanguage.JAVA
 
     if (
-        path.endswith('.js') or
-        path.endswith('.jsx') or
-        path.endswith('.ts') or
-        path.endswith('.tsx')
+        path.endswith(".js")
+        or path.endswith(".jsx")
+        or path.endswith(".ts")
+        or path.endswith(".tsx")
     ):
         language = GraphShardMetadataLanguage.TSX
 
@@ -251,7 +259,7 @@ def parse_one(
     path: str,
     version: int = 20,
 ) -> Optional[GraphShard]:
-    with open(os.path.join(CTX.config.working_dir, path), 'rb') as handle:
+    with open(os.path.join(CTX.config.working_dir, path), "rb") as handle:
         content = handle.read()
 
     try:
@@ -265,14 +273,14 @@ def parse_one(
         ParsingError,
         ValueError,
     ):
-        log_blocking('warning', 'Unable to parse: %s, ignoring', path)
+        log_blocking("warning", "Unable to parse: %s, ignoring", path)
         return None
 
     if CTX.debug:
-        output = get_debug_path('tree-sitter-' + path)
+        output = get_debug_path("tree-sitter-" + path)
         to_svg(graph.graph, output)
-        to_svg(copy_ast(graph.graph), f'{output}.ast')
-        to_svg(copy_cfg(graph.graph), f'{output}.cfg')
+        to_svg(copy_ast(graph.graph), f"{output}.ast")
+        to_svg(copy_cfg(graph.graph), f"{output}.cfg")
 
     return GraphShard(
         graph=graph.graph,
@@ -283,16 +291,19 @@ def parse_one(
 
 
 async def parse_many(paths: Tuple[str, ...]) -> AsyncIterable[GraphShard]:
-    for graph_lazy in resolve((
-        in_process(
-            parse_one,
-            language=language,
-            path=path,
-        )
-        for path in paths
-        for language in [decide_language(path)]
-        if language != GraphShardMetadataLanguage.NOT_SUPPORTED
-    ), workers=CPU_CORES):
+    for graph_lazy in resolve(
+        (
+            in_process(
+                parse_one,
+                language=language,
+                path=path,
+            )
+            for path in paths
+            for language in [decide_language(path)]
+            if language != GraphShardMetadataLanguage.NOT_SUPPORTED
+        ),
+        workers=CPU_CORES,
+    ):
         if graph_shard := await graph_lazy:
             yield graph_shard
 
@@ -313,20 +324,22 @@ async def get_graph_db(paths: Tuple[str, ...]) -> GraphDB:
     index = 0
     async for shard in parse_many(paths):
         index += 1
-        await log('info', 'Generated shard %s: %s', index, shard.path)
+        await log("info", "Generated shard %s: %s", index, shard.path)
 
         graph_db.shards.append(shard)
         graph_db.shards_by_path[shard.path] = index - 1
 
     for shard in graph_db.shards:
-        graph_db.shards_by_java_class.update({
-            f'{shard.metadata.java.package}{_class}': shard.path
-            for _class in shard.metadata.java.classes
-        })
+        graph_db.shards_by_java_class.update(
+            {
+                f"{shard.metadata.java.package}{_class}": shard.path
+                for _class in shard.metadata.java.classes
+            }
+        )
 
     if CTX.debug:
-        output = get_debug_path('tree-sitter')
-        with open(f'{output}.json', 'w') as handle:
+        output = get_debug_path("tree-sitter")
+        with open(f"{output}.json", "w") as handle:
             json_dump(graph_db, handle, indent=2, sort_keys=True)
 
     return graph_db

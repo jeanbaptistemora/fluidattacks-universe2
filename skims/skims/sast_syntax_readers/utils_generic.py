@@ -21,12 +21,13 @@ def dependencies_from_arguments(
     return [
         args.generic(args.fork_n_id(args_c_id))
         for args_c_id in g.adj_ast(args.graph, args.n_id)
-        if args.graph.nodes[args_c_id]['label_type'] not in {
-            ',',
-            '(',
-            ')',
-            '{',
-            '}',
+        if args.graph.nodes[args_c_id]["label_type"]
+        not in {
+            ",",
+            "(",
+            ")",
+            "{",
+            "}",
         }
     ]
 
@@ -37,9 +38,9 @@ def get_dependencies(
 ) -> graph_model.SyntaxSteps:
     dependencies: graph_model.SyntaxSteps = []
     dependencies_depth: int = 0
-    dependencies_expected_length: int = (
-        -syntax_steps[syntax_step_index].meta.dependencies
-    )
+    dependencies_expected_length: int = -syntax_steps[
+        syntax_step_index
+    ].meta.dependencies
 
     while len(dependencies) < dependencies_expected_length:
         syntax_step_index -= 1

@@ -44,7 +44,7 @@ async def parse(
     )
 
     if result == {}:
-        await log('error', 'Unable to parse js: %s', path)
+        await log("error", "Unable to parse js: %s", path)
 
     return result
 
@@ -72,30 +72,30 @@ async def __parse(
     memory: int,
 ) -> Dict[str, Any]:
     code, out_bytes, err_bytes = await read(
-        'node',
-        f'--max-old-space-size={1024 * memory}',
-        'parse.js',
+        "node",
+        f"--max-old-space-size={1024 * memory}",
+        "parse.js",
         cwd=PARSER_BABEL,
         stdin_bytes=content,
     )
 
     try:
         if err_bytes:
-            err: str = err_bytes.decode('utf-8')
+            err: str = err_bytes.decode("utf-8")
 
-            if 'memory' in err:
+            if "memory" in err:
                 raise MemoryError(err)
 
             raise IOError(err)
 
         if code != 0:
-            raise IOError('Babel parser returned a non-zero exit code')
+            raise IOError("Babel parser returned a non-zero exit code")
 
         if out_bytes:
-            out: str = out_bytes.decode('utf-8')
+            out: str = out_bytes.decode("utf-8")
             data: Dict[str, Any] = await in_process(json.loads, out)
             return data
 
-        raise IOError('No stdout in process')
+        raise IOError("No stdout in process")
     except (IOError, json.JSONDecodeError):
         return {}

@@ -61,7 +61,6 @@ class EvaluatorArgs(NamedTuple):
 
 Evaluator = Callable[[EvaluatorArgs], None]
 
-
 # Java
 
 

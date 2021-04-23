@@ -52,7 +52,6 @@ class MissingSyntaxReader(Exception):
 
 
 class MissingCaseHandling(Exception):
-
     def __init__(self, reader_args: SyntaxReaderArgs) -> None:
-        log_blocking('debug', 'Missing case handling: %s', reader_args.n_id)
+        log_blocking("debug", "Missing case handling: %s", reader_args.n_id)
         super().__init__()

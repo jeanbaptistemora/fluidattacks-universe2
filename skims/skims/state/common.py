@@ -29,7 +29,7 @@ def get_obj_id(obj: Any) -> bytes:
 
 
 def read_blob(obj_location: str) -> Any:
-    with open(obj_location, 'rb') as obj_store:
+    with open(obj_location, "rb") as obj_store:
         obj_stream: bytes = obj_store.read()
         return py_loads(obj_stream)
 
@@ -71,5 +71,5 @@ def store_object(
     obj_stream: bytes = py_dumps(value, ttl=ttl)
     obj_location: str = join(folder, obj_id.hex())
 
-    with open(obj_location, 'wb') as obj_store:
+    with open(obj_location, "wb") as obj_store:
         obj_store.write(obj_stream)

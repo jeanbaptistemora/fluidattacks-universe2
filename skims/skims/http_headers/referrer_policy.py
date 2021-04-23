@@ -14,7 +14,7 @@ from http_headers.types import (
 
 
 def _is_referrer_policy(name: str) -> bool:
-    return name.lower() == 'referrer-policy'
+    return name.lower() == "referrer-policy"
 
 
 def parse(line: str) -> Optional[ReferrerPolicyHeader]:
@@ -29,8 +29,8 @@ def parse(line: str) -> Optional[ReferrerPolicyHeader]:
     #
     # Can also be set as a comma separated list
 
-    portions: List[str] = line.split(':', maxsplit=1)
-    portions = list(map(methodcaller('strip'), portions))
+    portions: List[str] = line.split(":", maxsplit=1)
+    portions = list(map(methodcaller("strip"), portions))
 
     # Get the name in `name: value`
     name = portions.pop(0)
@@ -42,8 +42,8 @@ def parse(line: str) -> Optional[ReferrerPolicyHeader]:
     values: List[str]
     if portions:
         value = portions.pop(0).lower()
-        values = value.split(',')
-        values = list(map(methodcaller('strip'), values))
+        values = value.split(",")
+        values = list(map(methodcaller("strip"), values))
         values = list(filter(None, values))
     else:
         values = []

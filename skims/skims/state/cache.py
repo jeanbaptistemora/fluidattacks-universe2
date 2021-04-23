@@ -20,9 +20,7 @@ from typing import (
 from aioextensions import (
     in_thread,
 )
-from safe_pickle import (
-    LoadError
-)
+from safe_pickle import LoadError
 
 # Local libraries
 from state.common import (
@@ -35,9 +33,9 @@ from utils.ctx import (
 )
 
 # Constants
-CACHE_FOLDER: str = join(STATE_FOLDER, 'cache')
-TFunc = TypeVar('TFunc', bound=Callable[..., Any])
-TVar = TypeVar('TVar')
+CACHE_FOLDER: str = join(STATE_FOLDER, "cache")
+TFunc = TypeVar("TFunc", bound=Callable[..., Any])
+TVar = TypeVar("TVar")
 
 # Side effects
 makedirs(CACHE_FOLDER, mode=0o700, exist_ok=True)

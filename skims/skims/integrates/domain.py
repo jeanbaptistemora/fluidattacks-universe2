@@ -49,14 +49,16 @@ from zone import (
     t,
 )
 
-
-VulnStreamType = Dict[core_model.VulnerabilityKindEnum, Tuple[
-    Union[
-        core_model.IntegratesVulnerabilitiesInputs,
-        core_model.IntegratesVulnerabilitiesLines,
+VulnStreamType = Dict[
+    core_model.VulnerabilityKindEnum,
+    Tuple[
+        Union[
+            core_model.IntegratesVulnerabilitiesInputs,
+            core_model.IntegratesVulnerabilitiesLines,
+        ],
+        ...,
     ],
-    ...,
-]]
+]
 
 
 def _build_vulnerabilities_stream(
@@ -76,10 +78,12 @@ def _build_vulnerabilities_stream(
         ),
         core_model.VulnerabilityKindEnum.LINES: tuple(
             core_model.IntegratesVulnerabilitiesLines(
-                commit_hash=get_repo_head_hash(deserialize_what_from_vuln(
-                    core_model.VulnerabilityKindEnum.LINES,
-                    result.what,
-                )),
+                commit_hash=get_repo_head_hash(
+                    deserialize_what_from_vuln(
+                        core_model.VulnerabilityKindEnum.LINES,
+                        result.what,
+                    )
+                ),
                 line=result.where,
                 path=result.what,
                 repo_nickname=CTX.config.namespace,
@@ -105,31 +109,40 @@ async def build_vulnerabilities_stream(
 
 async def get_closest_finding_id(
     *,
-    affected_systems: str = '',
+    affected_systems: str = "",
     create_if_missing: bool = False,
     finding: core_model.FindingEnum,
     group: str,
     recreate_if_draft: bool = False,
 ) -> str:
-    finding_id: str = ''
+    finding_id: str = ""
 
-    existing_findings: Tuple[ResultGetGroupFindings, ...] = \
-        await get_group_findings(group=group)
+    existing_findings: Tuple[
+        ResultGetGroupFindings, ...
+    ] = await get_group_findings(group=group)
 
     for existing_finding in existing_findings:
         if are_similar(t(finding.value.title), existing_finding.title):
             finding_id = existing_finding.identifier
             break
 
-    if finding_id and recreate_if_draft and await do_delete_if_draft(
-        finding_id=finding_id,
+    if (
+        finding_id
+        and recreate_if_draft
+        and await do_delete_if_draft(
+            finding_id=finding_id,
+        )
     ):
-        finding_id = ''
+        finding_id = ""
 
-    if not finding_id and create_if_missing and await do_create_draft(
-        affected_systems=affected_systems,
-        finding=finding,
-        group=group,
+    if (
+        not finding_id
+        and create_if_missing
+        and await do_create_draft(
+            affected_systems=affected_systems,
+            finding=finding,
+            group=group,
+        )
     ):
         finding_id = await get_closest_finding_id(
             create_if_missing=False,
@@ -143,7 +156,7 @@ async def get_closest_finding_id(
                 severity=finding.value.severity,
             )
         else:
-            finding_id = ''
+            finding_id = ""
 
     return finding_id
 
@@ -179,10 +192,10 @@ async def do_build_and_upload_vulnerabilities(
     store: EphemeralStore,
 ) -> bool:
     successes: List[bool] = []
-    msg: str = 'Uploading vulnerabilities to %s, batch %s of size %s'
+    msg: str = "Uploading vulnerabilities to %s, batch %s of size %s"
 
     async def batch_upload() -> None:
-        await log('info', msg, finding_id, batch_id, len(batch))
+        await log("info", msg, finding_id, batch_id, len(batch))
         successes.append(
             await do_upload_vulnerabilities(
                 finding_id=finding_id,

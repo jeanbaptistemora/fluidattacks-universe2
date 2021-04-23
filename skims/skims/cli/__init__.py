@@ -34,10 +34,10 @@ from utils.bugs import (
 
 
 @click.command(
-    help='Deterministic vulnerability life-cycle reporting and closing tool.',
+    help="Deterministic vulnerability life-cycle reporting and closing tool.",
 )
 @click.argument(
-    'config',
+    "config",
     type=click.Path(
         allow_dash=False,
         dir_okay=False,
@@ -48,20 +48,20 @@ from utils.bugs import (
     ),
 )
 @click.option(
-    '--debug',
-    help='Enable debug mode.',
+    "--debug",
+    help="Enable debug mode.",
     is_flag=True,
 )
 @click.option(
-    '--group',
-    envvar='INTEGRATES_GROUP',
-    help='Integrates group to which results will be persisted.',
+    "--group",
+    envvar="INTEGRATES_GROUP",
+    help="Integrates group to which results will be persisted.",
     show_envvar=True,
 )
 @click.option(
-    '--token',
-    envvar='INTEGRATES_API_TOKEN',
-    help='Integrates API token.',
+    "--token",
+    envvar="INTEGRATES_API_TOKEN",
+    help="Integrates API token.",
     show_envvar=True,
 )
 def dispatch(
@@ -84,13 +84,13 @@ def dispatch(
         debug=False,
     )
 
-    log_blocking('info', 'Success: %s', success)
+    log_blocking("info", "Success: %s", success)
 
-    if guess_environment() == 'production':
+    if guess_environment() == "production":
         log_to_remote_blocking(
-            execution_seconds=f'{time() - start_time}',
-            msg='Success' if success else 'Failure',
-            severity='info' if success else 'error',
+            execution_seconds=f"{time() - start_time}",
+            msg="Success" if success else "Failure",
+            severity="info" if success else "error",
         )
 
     sys.exit(0 if success else 1)
@@ -119,8 +119,8 @@ async def main_wrapped(
     initialize_bugsnag()
     add_bugsnag_data(
         config=config,
-        group=group or '',
-        token='set' if token else '',
+        group=group or "",
+        token="set" if token else "",
     )
     success: bool = await core.entrypoint.main(
         config=config,
@@ -131,7 +131,7 @@ async def main_wrapped(
     return success
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     dispatch(  # pylint: disable=no-value-for-parameter,unexpected-keyword-arg
-        prog_name='skims',
+        prog_name="skims",
     )

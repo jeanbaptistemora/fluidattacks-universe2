@@ -16,4 +16,5 @@ def reader(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
         meta=graph_model.SyntaxStepMeta.default(
             args.n_id,
             dependencies_from_arguments(args.fork_n_id(args.n_id)),
-        ))
+        )
+    )

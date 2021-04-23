@@ -45,12 +45,12 @@ def get_vulnerability_from_n_id(
     meta_attrs_label_path = graph_shard.path
 
     n_attrs: graph_model.NAttrs = graph_shard.graph.nodes[n_id]
-    n_attrs_label_column = n_attrs['label_c']
-    n_attrs_label_line = n_attrs['label_l']
+    n_attrs_label_column = n_attrs["label_c"]
+    n_attrs_label_line = n_attrs["label_l"]
 
     with open(
         file=os.path.join(CTX.config.working_dir, meta_attrs_label_path),
-        encoding='latin-1',
+        encoding="latin-1",
     ) as handle:
         content: str = handle.read()
 
@@ -75,8 +75,8 @@ def get_vulnerability_from_n_id(
                 column=int(n_attrs_label_column),
                 content=content,
                 line=int(n_attrs_label_line),
-            )
-        )
+            ),
+        ),
     )
 
 
@@ -106,7 +106,7 @@ def _is_vulnerable(
     syntax_step: graph_model.SyntaxStep,
     syntax_step_n_attrs: graph_model.NAttrs,
 ) -> bool:
-    sinks: Set[str] = syntax_step_n_attrs.get('label_sink_type', {})
+    sinks: Set[str] = syntax_step_n_attrs.get("label_sink_type", {})
 
     return syntax_step.meta.danger is True and finding.name in sinks
 

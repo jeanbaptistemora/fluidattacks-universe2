@@ -14,20 +14,21 @@ from utils import (
 )
 
 
-def reader(args: SyntaxReaderArgs,) -> graph_model.SyntaxStepsLazy:
+def reader(
+    args: SyntaxReaderArgs,
+) -> graph_model.SyntaxStepsLazy:
     match = g.match_ast(
-        args.graph, args.n_id,
-        'while',
-        'parenthesized_expression',
-        'block',
+        args.graph,
+        args.n_id,
+        "while",
+        "parenthesized_expression",
+        "block",
     )
-    if (
-        len(match) == 3
-        and (expression := match['parenthesized_expression'])
-    ):
+    if len(match) == 3 and (expression := match["parenthesized_expression"]):
         yield graph_model.SyntaxStepParenthesizedExpression(
             meta=graph_model.SyntaxStepMeta.default(
-                args.n_id, dependencies_from_arguments(
+                args.n_id,
+                dependencies_from_arguments(
                     args.fork_n_id(expression),
                 ),
             ),

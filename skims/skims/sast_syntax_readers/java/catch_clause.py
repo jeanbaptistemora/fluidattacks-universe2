@@ -16,26 +16,27 @@ from utils import (
 
 def reader(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
     match = g.match_ast(
-        args.graph, args.n_id,
-        'catch',
-        'catch_formal_parameter',
-        'block',
+        args.graph,
+        args.n_id,
+        "catch",
+        "catch_formal_parameter",
+        "block",
     )
     if (
         len(match) == 5
-        and (parameter := match['catch_formal_parameter'])
-        and (block := match['block'])
+        and (parameter := match["catch_formal_parameter"])
+        and (block := match["block"])
     ):
         match = g.match_ast(
             args.graph,
             parameter,
-            'catch_type',
-            'identifier',
+            "catch_type",
+            "identifier",
         )
         match_type = g.match_ast(
             args.graph,
-            match['catch_type'],
-            '__0__',
+            match["catch_type"],
+            "__0__",
         )
         yield graph_model.SyntaxStepCatchClause(
             meta=graph_model.SyntaxStepMeta.default(
@@ -44,8 +45,8 @@ def reader(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
                     args.fork_n_id(block),
                 ),
             ),
-            var=args.graph.nodes[match['identifier']]['label_text'],
-            catch_type=match_type['__0__'],
+            var=args.graph.nodes[match["identifier"]]["label_text"],
+            catch_type=match_type["__0__"],
         )
     else:
         raise MissingCaseHandling(args)

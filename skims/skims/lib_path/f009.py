@@ -54,10 +54,10 @@ from zone import (
 )
 
 # Constants
-WS = r'\s*'
-WSM = r'\s+'
+WS = r"\s*"
+WSM = r"\s+"
 DOCKERFILE_ENV: Pattern[str] = re.compile(
-    fr'^{WS}ENV{WS}(?P<key>[\w\.]+)(?:{WS}={WS}|{WSM})(?P<value>.+?){WS}$',
+    fr"^{WS}ENV{WS}(?P<key>[\w\.]+)(?:{WS}={WS}|{WSM})(?P<value>.+?){WS}$",
 )
 
 
@@ -65,18 +65,18 @@ def _validate_jwt(token: str) -> bool:
     try:
         jwt_decode(
             token,
-            key='',
+            key="",
             options={
-                'verify_signature': False,
-                'verify_aud': False,
-                'verify_iat': False,
-                'verify_exp': False,
-                'verify_nbf': False,
-                'verify_iss': False,
-                'verify_sub': False,
-                'verify_jti': False,
-                'verify_at_hash': False,
-                'leeway': 0,
+                "verify_signature": False,
+                "verify_aud": False,
+                "verify_iat": False,
+                "verify_exp": False,
+                "verify_nbf": False,
+                "verify_iss": False,
+                "verify_sub": False,
+                "verify_jti": False,
+                "verify_at_hash": False,
+                "leeway": 0,
             },
         )
         return True
@@ -88,13 +88,13 @@ def _aws_credentials(
     content: str,
     path: str,
 ) -> core_model.Vulnerabilities:
-    grammar = Regex(r'AKIA[A-Z0-9]{16}')
+    grammar = Regex(r"AKIA[A-Z0-9]{16}")
 
     return get_vulnerabilities_blocking(
         content=content,
-        cwe={'798'},
+        cwe={"798"},
         description=t(
-            key='src.lib_path.f009.aws_credentials.description',
+            key="src.lib_path.f009.aws_credentials.description",
             path=path,
         ),
         finding=core_model.FindingEnum.F009,
@@ -108,16 +108,18 @@ def _jwt_token(
     path: str,
 ) -> core_model.Vulnerabilities:
     grammar = Regex(
-        r'[A-Za-z0-9-_.+\/=]{20,}\.'
-        r'[A-Za-z0-9-_.+\/=]{20,}\.'
-        r'[A-Za-z0-9-_.+\/=]{20,}').addCondition(
-            lambda tokens: any(_validate_jwt(token) for token in tokens))
+        r"[A-Za-z0-9-_.+\/=]{20,}\."
+        r"[A-Za-z0-9-_.+\/=]{20,}\."
+        r"[A-Za-z0-9-_.+\/=]{20,}"
+    ).addCondition(
+        lambda tokens: any(_validate_jwt(token) for token in tokens)
+    )
 
     return get_vulnerabilities_blocking(
         content=content,
-        cwe={'798'},
+        cwe={"798"},
         description=t(
-            key='src.lib_path.f009.jwt_token.description',
+            key="src.lib_path.f009.jwt_token.description",
             path=path,
         ),
         finding=core_model.FindingEnum.F009,
@@ -173,30 +175,41 @@ def _crypto_js_credentials(
     path: str,
 ) -> core_model.Vulnerabilities:
     grammar = (
-        'CryptoJS' + '.' + 'enc' + '.' + MatchFirst({
-            Keyword('Base64'),
-            Keyword('Utf16'),
-            Keyword('Utf16LE'),
-            Keyword('Hex'),
-            Keyword('Latin1'),
-            Keyword('Utf8'),
-        }) + '.' + 'parse' + nestedExpr(
-            closer=')',
-            content=MatchFirst({
-                BACKTICK_QUOTED_STRING.copy(),
-                DOUBLE_QUOTED_STRING.copy(),
-                SINGLE_QUOTED_STRING.copy(),
-            }),
+        "CryptoJS"
+        + "."
+        + "enc"
+        + "."
+        + MatchFirst(
+            {
+                Keyword("Base64"),
+                Keyword("Utf16"),
+                Keyword("Utf16LE"),
+                Keyword("Hex"),
+                Keyword("Latin1"),
+                Keyword("Utf8"),
+            }
+        )
+        + "."
+        + "parse"
+        + nestedExpr(
+            closer=")",
+            content=MatchFirst(
+                {
+                    BACKTICK_QUOTED_STRING.copy(),
+                    DOUBLE_QUOTED_STRING.copy(),
+                    SINGLE_QUOTED_STRING.copy(),
+                }
+            ),
             ignoreExpr=None,
-            opener='(',
+            opener="(",
         )
     )
 
     return get_vulnerabilities_blocking(
         content=content,
-        cwe={'798'},
+        cwe={"798"},
         description=t(
-            key='src.lib_path.f009.crypto_js_credentials.description',
+            key="src.lib_path.f009.crypto_js_credentials.description",
             path=path,
         ),
         finding=core_model.FindingEnum.F009,
@@ -210,31 +223,32 @@ def _dockerfile_env_secrets(
     path: str,
 ) -> core_model.Vulnerabilities:
     secret_smells: Set[str] = {
-        'api_key',
-        'jboss_pass',
-        'license_key',
-        'password',
-        'secret',
+        "api_key",
+        "jboss_pass",
+        "license_key",
+        "password",
+        "secret",
     }
 
     def iterator() -> Iterator[Tuple[int, int]]:
         for line_no, line in enumerate(content.splitlines(), start=1):
             if match := DOCKERFILE_ENV.match(line):
-                secret: str = match.group('key').lower()
-                value: str = match.group('value').strip('"').strip("'")
+                secret: str = match.group("key").lower()
+                value: str = match.group("value").strip('"').strip("'")
                 if (
                     value
-                    and not value.startswith('#{') and not value.endswith('}#')
+                    and not value.startswith("#{")
+                    and not value.endswith("}#")
                     and any(smell in secret for smell in secret_smells)
                 ):
-                    column: int = match.start('value')
+                    column: int = match.start("value")
                     yield line_no, column
 
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={'798'},
+        cwe={"798"},
         description=t(
-            key='src.lib_path.f009.dockerfile_env_secrets.description',
+            key="src.lib_path.f009.dockerfile_env_secrets.description",
             path=path,
         ),
         finding=core_model.FindingEnum.F009,
@@ -262,36 +276,36 @@ def _java_properties_sensitive_data(
     path: str,
 ) -> core_model.Vulnerabilities:
     sensible_key_smells = {
-        'amazon.aws.key',
-        'amazon.aws.secret',
-        'artifactory_user',
-        'artifactory_password',
-        'aws.accesskey',
-        'aws.secretkey',
-        'bg.ws.aws.password',
-        'bg.ws.key-store-password',
-        'bg.ws.trust-store-password',
-        'certificate.password',
-        'crypto.password',
-        'db.password',
-        'database.password',
-        'facephi.password',
-        'jasypt.encryptor.password',
-        'jwt.token.basic.signing.secret',
-        'key.alias.password',
-        'lambda.credentials2.key',
-        'lambda.credentials2.secret',
-        'mbda.credentials2.secret',
-        'micro.password',
-        'org.apache.ws.security.crypto.merlin.alias.password',
-        'org.apache.ws.security.crypto.merlin.keystore.password',
-        'passwordkeystore',
-        'sonar.password',
-        'spring.datasource.password',
-        'spring.mail.password',
-        'spring.mail.username',
-        'truststore.password',
-        'ws.aws.password',
+        "amazon.aws.key",
+        "amazon.aws.secret",
+        "artifactory_user",
+        "artifactory_password",
+        "aws.accesskey",
+        "aws.secretkey",
+        "bg.ws.aws.password",
+        "bg.ws.key-store-password",
+        "bg.ws.trust-store-password",
+        "certificate.password",
+        "crypto.password",
+        "db.password",
+        "database.password",
+        "facephi.password",
+        "jasypt.encryptor.password",
+        "jwt.token.basic.signing.secret",
+        "key.alias.password",
+        "lambda.credentials2.key",
+        "lambda.credentials2.secret",
+        "mbda.credentials2.secret",
+        "micro.password",
+        "org.apache.ws.security.crypto.merlin.alias.password",
+        "org.apache.ws.security.crypto.merlin.keystore.password",
+        "passwordkeystore",
+        "sonar.password",
+        "spring.datasource.password",
+        "spring.mail.password",
+        "spring.mail.username",
+        "truststore.password",
+        "ws.aws.password",
     }
 
     def iterator() -> Iterator[Tuple[int, int]]:
@@ -308,9 +322,9 @@ def _java_properties_sensitive_data(
 
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={'798'},
+        cwe={"798"},
         description=t(
-            key='src.lib_path.f009.java_properties_sensitive_data',
+            key="src.lib_path.f009.java_properties_sensitive_data",
             path=path,
         ),
         finding=core_model.FindingEnum.F009,
@@ -344,37 +358,45 @@ async def analyze(  # pylint: disable=too-many-arguments
     coroutines: List[Awaitable[core_model.Vulnerabilities]] = []
 
     if file_extension in {
-        'groovy',
-        'java',
-        'jpage',
-        'js',
-        'json',
-        'properties',
-        'py',
-        'sbt',
-        'sql',
-        'swift',
-        'yaml',
-        'yml',
+        "groovy",
+        "java",
+        "jpage",
+        "js",
+        "json",
+        "properties",
+        "py",
+        "sbt",
+        "sql",
+        "swift",
+        "yaml",
+        "yml",
     }:
-        coroutines.append(aws_credentials(
-            content=await content_generator(),
-            path=path,
-        ))
+        coroutines.append(
+            aws_credentials(
+                content=await content_generator(),
+                path=path,
+            )
+        )
     if file_extension in EXTENSIONS_JAVASCRIPT:
-        coroutines.append(crypto_js_credentials(
-            content=await content_generator(),
-            path=path,
-        ))
+        coroutines.append(
+            crypto_js_credentials(
+                content=await content_generator(),
+                path=path,
+            )
+        )
     elif file_name in NAMES_DOCKERFILE:
-        coroutines.append(dockerfile_env_secrets(
-            content=await content_generator(),
-            path=path,
-        ))
+        coroutines.append(
+            dockerfile_env_secrets(
+                content=await content_generator(),
+                path=path,
+            )
+        )
     elif file_extension in EXTENSIONS_JAVA_PROPERTIES:
-        coroutines.append(java_properties_sensitive_data(
-            content=await content_generator(),
-            path=path,
-        ))
+        coroutines.append(
+            java_properties_sensitive_data(
+                content=await content_generator(),
+                path=path,
+            )
+        )
 
     return coroutines
