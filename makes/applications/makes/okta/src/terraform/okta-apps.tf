@@ -1,3 +1,5 @@
+# Auto login
+
 resource "okta_app_auto_login" "apps" {
   for_each = {
     for app in jsondecode(var.okta_apps) : app.id => app
@@ -39,4 +41,29 @@ resource "okta_app_user" "apps_auto_login" {
   app_id   = okta_app_auto_login.apps[each.value.id].id
   user_id  = okta_user.users[each.value.user].id
   username = okta_app_auto_login.apps[each.value.id].shared_username
+}
+
+
+# SAML
+
+resource "okta_app_saml" "apps" {
+  for_each = {
+    for app in jsondecode(var.okta_apps) : app.id => app
+    if app.type == "saml"
+  }
+
+  label                   = each.value.label
+  preconfigured_app       = each.value.preconfigured_app
+  status                  = each.value.status
+  user_name_template      = each.value.user_name_template
+  user_name_template_type = each.value.user_name_template_type
+  app_settings_json       = jsonencode(each.value.app_settings_json)
+  auto_submit_toolbar     = true
+
+  lifecycle {
+    ignore_changes = [
+      groups,
+      users,
+    ]
+  }
 }
