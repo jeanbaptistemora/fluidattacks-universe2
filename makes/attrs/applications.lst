@@ -192,6 +192,7 @@ skims.docs.deploy
 skims.infra-deploy
 skims.infra-test
 skims.lint
+skims.lint-format
 skims.oci-deploy
 skims.owasp-benchmark
 skims.owasp-benchmark-and-upload

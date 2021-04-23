@@ -76,6 +76,7 @@ let
     fetchzip = nixpkgs.fetchzip;
     getPackageJsonDeps = importUtility "get-package-json-deps";
     lintPython = importUtility "lint-python";
+    lintPythonFormat = importUtility "lint-python-format";
     lintTypescript = importUtility "lint-typescript";
     makeDerivation = importUtility "make-derivation";
     makeEntrypoint = importUtility "make-entrypoint";
