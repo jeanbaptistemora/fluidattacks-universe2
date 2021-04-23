@@ -35,6 +35,31 @@ data "aws_iam_policy_document" "dev-policy-data" {
     ]
   }
 
+  # Batch
+  statement {
+    effect = "Allow"
+    actions = [
+      "batch:DescribeComputeEnvironments",
+      "batch:DescribeJobs",
+      "batch:DescribeJobDefinitions",
+      "batch:DescribeJobQueues",
+      "batch:ListJobs",
+    ]
+    resources = ["*"]
+  }
+
+  # CloudWatch
+  statement {
+    effect = "Allow"
+    actions = [
+      "logs:GetLogEvents",
+      "logs:DescribeLogGroups",
+    ]
+    resources = [
+      "arn:aws:logs:us-east-1:${data.aws_caller_identity.current.account_id}:log-group:/aws/batch/job:log-stream:*",
+    ]
+  }
+
   # Redshift
   statement {
     effect = "Allow"

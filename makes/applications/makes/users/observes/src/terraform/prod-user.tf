@@ -40,10 +40,16 @@ data "aws_iam_policy_document" "prod-policy-data" {
     ]
   }
 
-  # Batch access
+  # Batch
   statement {
-    effect    = "Allow"
-    actions   = ["batch:ListJobs"]
+    effect = "Allow"
+    actions = [
+      "batch:DescribeComputeEnvironments",
+      "batch:DescribeJobs",
+      "batch:DescribeJobDefinitions",
+      "batch:DescribeJobQueues",
+      "batch:ListJobs",
+    ]
     resources = ["*"]
   }
   statement {
@@ -53,6 +59,18 @@ data "aws_iam_policy_document" "prod-policy-data" {
       "arn:aws:batch:us-east-1:${data.aws_caller_identity.current.account_id}:job-definition/default",
       "arn:aws:batch:us-east-1:${data.aws_caller_identity.current.account_id}:job-queue/spot*",
       "arn:aws:batch:us-east-1:${data.aws_caller_identity.current.account_id}:job-queue/dedicated*",
+    ]
+  }
+
+  # CloudWatch
+  statement {
+    effect = "Allow"
+    actions = [
+      "logs:GetLogEvents",
+      "logs:DescribeLogGroups",
+    ]
+    resources = [
+      "arn:aws:logs:us-east-1:${data.aws_caller_identity.current.account_id}:log-group:/aws/batch/job:log-stream:*",
     ]
   }
 
@@ -69,10 +87,32 @@ data "aws_iam_policy_document" "prod-policy-data" {
   statement {
     effect = "Allow"
     actions = [
+      "redshift-data:*",
+    ]
+    resources = ["*"]
+  }
+  statement {
+    effect = "Allow"
+    actions = [
       "redshift:*",
     ]
     resources = [
-      "arn:aws:redshift:${var.region}:${data.aws_caller_identity.current.account_id}:cluster:fluid-redshift"
+      "arn:aws:redshift:${var.region}:${data.aws_caller_identity.current.account_id}:cluster:fluid-redshift",
+      "arn:aws:redshift:${var.region}:${data.aws_caller_identity.current.account_id}:dbname:fluid-redshift/*",
+      "arn:aws:redshift:${var.region}:${data.aws_caller_identity.current.account_id}:dbuser:fluid-redshift/*",
+    ]
+  }
+  statement {
+    effect = "Allow"
+    actions = [
+      "redshift:DescribeClusters",
+      "redshift:DescribeClusterSubnetGroups",
+      "redshift:DescribeEvents",
+    ]
+    resources = [
+      "arn:aws:redshift:${var.region}:${data.aws_caller_identity.current.account_id}:cluster:*",
+      "arn:aws:redshift:${var.region}:${data.aws_caller_identity.current.account_id}:event:*",
+      "arn:aws:redshift:${var.region}:${data.aws_caller_identity.current.account_id}:subnetgroup:*",
     ]
   }
 
