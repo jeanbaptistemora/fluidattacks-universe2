@@ -419,7 +419,8 @@ async def test_toe_lines_etl():
             modified_date='2019-08-01T00:00:00-05:00',
             root_id='4039d098-ffc5-4984-8ed3-eb17bca98e19',
             tested_date='2021-02-28T00:00:00-05:00',
-            tested_lines=4
+            tested_lines=4,
+            sorts_risk_level=0,
         ),
         GitRootToeLines(
             comments='comment test',
@@ -430,7 +431,8 @@ async def test_toe_lines_etl():
             modified_date='2020-11-19T00:00:00-05:00',
             root_id='765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a',
             tested_date='2021-01-20T00:00:00-05:00',
-            tested_lines=172
+            tested_lines=172,
+            sorts_risk_level=0,
         )
     )
 
@@ -451,7 +453,8 @@ async def test_toe_lines_etl():
             modified_date='2019-08-01T00:00:00-05:00',
             root_id='4039d098-ffc5-4984-8ed3-eb17bca98e19',
             tested_date='2021-02-28T00:00:00-05:00',
-            tested_lines=4
+            tested_lines=4,
+            sorts_risk_level=0,
         ),
         GitRootToeLines(
             comments='comment test',
@@ -462,7 +465,8 @@ async def test_toe_lines_etl():
             modified_date='2020-11-19T00:00:00-05:00',
             root_id='765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a',
             tested_date='2021-01-22T00:00:00-05:00',
-            tested_lines=88
+            tested_lines=88,
+            sorts_risk_level=0,
         )
     )
 

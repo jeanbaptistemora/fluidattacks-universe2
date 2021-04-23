@@ -87,7 +87,8 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 modified_date='2019-08-01T00:00:00-05:00',
                 root_id='63298a73-9dff-46cf-b42d-9b2f01a56690',
                 tested_date='2021-02-28T00:00:00-05:00',
-                tested_lines=4
+                tested_lines=4,
+                sorts_risk_level=0,
             ),
             GitRootToeLines(
                 comments='comment test',
@@ -98,7 +99,8 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 modified_date='2020-11-19T00:00:00-05:00',
                 root_id='765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a',
                 tested_date='2021-01-20T00:00:00-05:00',
-                tested_lines=172
+                tested_lines=172,
+                sorts_risk_level=0,
             ),
             GitRootToeLines(
                 comments='comment test',
@@ -109,7 +111,8 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 modified_date='2020-11-19T00:00:00-05:00',
                 root_id='765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a',
                 tested_date='2021-01-20T00:00:00-05:00',
-                tested_lines=33
+                tested_lines=33,
+                sorts_risk_level=0,
             )
         ),
     }

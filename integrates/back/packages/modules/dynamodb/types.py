@@ -75,6 +75,7 @@ class GitRootToeLinesItem(NamedTuple):
     root_id: str
     tested_date: str
     tested_lines: int
+    sorts_risk_level: float
 
 
 class GitRootItem(NamedTuple):

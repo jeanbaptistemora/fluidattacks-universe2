@@ -370,6 +370,7 @@ def _build_git_root_toe_lines(
         root_id=root_id,
         tested_date=item['tested_date'],
         tested_lines=item['tested_lines'],
+        sorts_risk_level=0,
     )
 
 

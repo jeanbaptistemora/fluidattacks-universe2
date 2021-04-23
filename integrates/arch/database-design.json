@@ -3,10 +3,10 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Apr 20, 2021, 03:17 PM",
+    "DateLastModified": "Apr 23, 2021, 10:45 AM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
-    "Version": "2.0"
+    "Version": "3.0"
   },
   "DataModel": [
     {
@@ -317,6 +317,10 @@
         {
           "AttributeName": "entry_point",
           "AttributeType": "S"
+        },
+        {
+          "AttributeName": "sorts_risk_level",
+          "AttributeType": "N"
         }
       ],
       "TableFacets": [
@@ -1601,6 +1605,9 @@
               },
               "tested_lines": {
                 "N": "172"
+              },
+              "sorts_risk_level": {
+                "N": "0"
               }
             }
           ],
@@ -1610,7 +1617,8 @@
             "loc",
             "modified_commit",
             "tested_date",
-            "tested_lines"
+            "tested_lines",
+            "sorts_risk_level"
           ],
           "DataAccess": {
             "MySql": {}

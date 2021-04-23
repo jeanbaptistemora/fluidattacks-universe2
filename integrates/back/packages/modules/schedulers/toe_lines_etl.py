@@ -112,6 +112,7 @@ def _get_group_toe_lines_from_cvs(
                 raise ex
 
             new_toe_lines['group_name'] = group_name
+            new_toe_lines['sorts_risk_level'] = 0
             group_toe_lines.add(GitRootToeLines(**new_toe_lines))
 
     return group_toe_lines
