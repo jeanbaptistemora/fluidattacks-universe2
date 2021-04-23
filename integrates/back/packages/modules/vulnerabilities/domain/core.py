@@ -734,11 +734,6 @@ async def should_send_update_treatment(
     treatment: str,
 ) -> None:
     translations = {
-        'ACCEPTED_UNDEFINED_APPROVED': 'Eternally accepted',
-        'ACCEPTED_UNDEFINED_SUBMITTED': (
-            'Eternally accepted (Pending approval)'
-        ),
-        'ACCEPTED': 'Temporarily Accepted',
         'IN PROGRESS': 'In Progress',
     }
     if treatment in translations:
