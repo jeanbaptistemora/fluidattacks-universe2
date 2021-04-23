@@ -2,14 +2,11 @@
 import logging
 from typing import (
     Iterator,
-    TypeVar,
     Union,
 )
 
 # Third party libraries
-from returns.curry import (
-    partial,
-)
+from returns.curry import partial
 from returns.io import (
     IO,
 )
@@ -21,20 +18,14 @@ from paginator import (
     EmptyPage,
     PageId,
 )
-from singer_io import (
-    factory,
-)
-from singer_io.singer import (
-    SingerRecord,
-)
 from tap_delighted.api import (
     ApiClient,
+    ApiPage,
+    ImpApiPage,
     SurveyPage,
-    BouncedPage,
-    UnsubscribedPage,
 )
-from tap_delighted.common import (
-    JSON,
+from tap_delighted.streams import (
+    emitter,
 )
 from tap_delighted.streams.objs import (
     SupportedStreams,
@@ -42,36 +33,26 @@ from tap_delighted.streams.objs import (
 
 
 LOG = logging.getLogger(__name__)
-ApiPage = TypeVar('ApiPage', SurveyPage, BouncedPage, UnsubscribedPage)
+ALL = AllPages()
 
 
-def _json_list_srecords(
-    stream: str,
-    items: Iterator[JSON]
-) -> Iterator[SingerRecord]:
-    return iter(map(
-        lambda item: SingerRecord(
-            stream=stream,
-            record=item
-        ),
-        items
-    ))
+def _stream_data_2(
+    stream: SupportedStreams,
+    pages: Iterator[IO[ApiPage]],
+) -> None:
+    for page in pages:
+        emitter.emit_iopage(stream, page)
 
 
-def _emit_records(records: Iterator[SingerRecord]) -> None:
-    for record in records:
-        factory.emit(record)
-
-
-def _emit_page(stream: SupportedStreams, page: ApiPage) -> None:
-    records: IO[Iterator[SingerRecord]] = page.data.map(
-        partial(_json_list_srecords, stream.value.lower())
-    )
-    records.map(_emit_records)
+def _stream_data(
+    stream: SupportedStreams,
+    pages: Iterator[ImpApiPage],
+) -> None:
+    for page in pages:
+        emitter.emit_imp_page(stream, page)
 
 
 def all_surveys(api: ApiClient) -> None:
-    stream = SupportedStreams.SURVEY_RESPONSE
 
     def getter(page: PageId) -> Union[SurveyPage, EmptyPage]:
         result = api.survey.get_surveys(page)
@@ -82,42 +63,40 @@ def all_surveys(api: ApiClient) -> None:
     pages: Iterator[SurveyPage] = paginator.get_until_end(
         SurveyPage, PageId(1, 100), getter, 10
     )
-    for page in pages:
-        _emit_page(stream, page)
+    _stream_data(
+        SupportedStreams.SURVEY_RESPONSE,
+        pages
+    )
 
 
 def all_bounced(api: ApiClient) -> None:
-    stream = SupportedStreams.BOUNCED
-    pages = api.people.list_bounced(AllPages())
-    for page in pages:
-        _emit_page(stream, page)
+    _stream_data(
+        SupportedStreams.BOUNCED,
+        api.people.list_bounced(ALL)
+    )
 
 
 def all_metrics(api: ApiClient) -> None:
     stream = SupportedStreams.METRICS
-    metrics = api.metrics.get_metrics()
-    records: IO[Iterator[SingerRecord]] = metrics.data.map(
-        lambda data: partial(
-            _json_list_srecords, stream.value.lower()
-        )(iter([data]))
+    metrics_io = api.metrics.get_metrics()
+    metrics_io.data.map(
+        lambda data: emitter.emit_records(stream, iter([data]))
     )
-    records.map(_emit_records)
 
 
 def all_people(api: ApiClient) -> None:
     stream = SupportedStreams.PEOPLE
     data = api.people.list_people()
-    records: IO[Iterator[SingerRecord]] = data.map(
-        partial(_json_list_srecords, stream.value.lower())
+    data.map(
+        partial(emitter.emit_records, stream)
     )
-    records.map(_emit_records)
 
 
 def all_unsubscribed(api: ApiClient) -> None:
-    stream = SupportedStreams.UNSUBSCRIBED
-    pages = api.people.list_unsubscribed(AllPages())
-    for page in pages:
-        _emit_page(stream, page)
+    _stream_data(
+        SupportedStreams.UNSUBSCRIBED,
+        api.people.list_unsubscribed(ALL)
+    )
 
 
 __all__ = [
