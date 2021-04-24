@@ -1,6 +1,3 @@
-# -*- coding: utf-8 -*-
-""" Class for generate an xlsx file with vulnerabilities information. """
-
 # Standard libraries
 from typing import (
     Any,
@@ -23,15 +20,16 @@ from pyexcelerate import (
 )
 
 # Local libraries
-from backend.reports.typing import GroupVulnsReportHeader
 from backend.typing import (
     Finding as FindingType,
     Historic as HistoricType,
     Vulnerability as VulnType
 )
 from newutils import datetime as datetime_utils
+from .typing import GroupVulnsReportHeader
 
 
+# Constants
 EMPTY = '-'
 HEADER_HEIGHT = 20
 ROW_HEIGHT = 57
@@ -47,9 +45,7 @@ def get_formatted_last_date(
     if historic_state and 'date' in cast(HistoricType, historic_state)[-1]:
         last_date = str(cast(HistoricType, historic_state)[-1]['date'])
         curr_trtmnt_date = datetime_utils.get_from_str(
-            datetime_utils.get_as_str(
-                parse(last_date)
-            )
+            datetime_utils.get_as_str(parse(last_date))
         )
     return curr_trtmnt_date
 
@@ -58,17 +54,6 @@ def get_formatted_last_date(
 class ITReport():
     """Class to generate IT reports."""
 
-    workbook: Workbook
-    current_sheet: WorksheetType = None
-    data: List[Dict[str, FindingType]] = []
-    lang = None
-    row = 1
-    result_filename = ''
-    project_name = ''
-    vulnerability = {
-        col_name: index + 1
-        for index, col_name in enumerate(GroupVulnsReportHeader.labels())
-    }
     cvss_measures = {
         'AV': 'attackVector',
         'AC': 'attackComplexity',
@@ -82,6 +67,18 @@ class ITReport():
         'RL': 'remediationLevel',
         'RC': 'reportConfidence',
     }
+    current_sheet: WorksheetType = None
+    data: List[Dict[str, FindingType]] = []
+    group_name = ''
+    lang = None
+    result_filename = ''
+    row = 1
+    vulnerability = {
+        col_name: index + 1
+        for index, col_name in enumerate(GroupVulnsReportHeader.labels())
+    }
+    workbook: Workbook
+
     row_values: List[Union[str, int, float, datetime]] = [
         EMPTY
         for _ in range(len(vulnerability) + 1)
@@ -99,7 +96,6 @@ class ITReport():
         self.finding_vulns_loader = context.finding_vulns_nzr
         self.group_name = group_name
         self.lang = lang
-
         self.workbook = Workbook()
         self.current_sheet = self.workbook.new_sheet('Data')
 
@@ -110,77 +106,17 @@ class ITReport():
         self.style_sheet()
         self.save()
 
-    def save(self) -> None:
-        today_date = datetime_utils.get_as_str(
-            datetime_utils.get_now(),
-            date_format='%Y-%m-%dT%H-%M-%S'
-        )
-        self.result_filename = (
-            f'{self.group_name}-vulnerabilities-{today_date}.xlsx'
-        )
-        self.workbook.save(self.result_filename)
-
-    def style_sheet(self) -> None:
-        header = self.current_sheet.range(*self.get_row_range(1))
-        header.style.fill.background = RED
-        header.style.font.color = WHITE
-        header.style.alignment.horizontal = 'center'
-        header.style.alignment.vertical = 'center'
-        header.style.alignment.wrap_text = True
-
-        for column, col_width in enumerate(
-                GroupVulnsReportHeader.widths(), start=1):
-            self.current_sheet.set_col_style(
-                column,
-                Style(size=col_width, alignment=Alignment(wrap_text=True)),
-            )
-
-    def parse_template(self) -> None:
-        self.current_sheet.range(*self.get_row_range(self.row)).value = [
-            list(self.vulnerability.keys())
-        ]
-        self.row += 1
-
     async def generate(self, data: List[Dict[str, FindingType]]) -> None:
         for finding in data:
             finding_vulns = await self.finding_vulns_loader.load(
                 str(finding['findingId'])
             )
             for vuln in finding_vulns:
-                await self.set_vuln_row(
-                    cast(VulnType, vuln),
-                    finding
-                )
+                await self.set_vuln_row(cast(VulnType, vuln), finding)
                 self.row += 1
 
-    def set_row_height(self) -> None:
-        self.current_sheet.set_row_style(
-            self.row, Style(
-                size=ROW_HEIGHT,
-                alignment=Alignment(wrap_text=True)
-            )
-        )
-
-        # this makes that the cells for severity get the rigth format
-        self.current_sheet.set_cell_style(
-            self.row,
-            9,
-            Style(
-                size=ROW_HEIGHT,
-                alignment=Alignment(wrap_text=True),
-                format=Format(0.0)
-            )
-        )
-
-    @classmethod
-    def get_row_range(cls, row: int) -> List[str]:
-        return [f'A{row}', f'AW{row}']
-
     @staticmethod
-    def get_measure(
-        metric: str,
-        metric_value: str
-    ) -> str:
+    def get_measure(metric: str, metric_value: str) -> str:
         """Extract number of CSSV metrics."""
         metrics = {
             'attackVector': {
@@ -243,8 +179,62 @@ class ITReport():
         }
         metric_descriptions = metrics.get(metric, dict())
         description = metric_descriptions.get(str(metric_value), EMPTY)
-
         return description
+
+    @classmethod
+    def get_row_range(cls, row: int) -> List[str]:
+        return [f'A{row}', f'AW{row}']
+
+    def parse_template(self) -> None:
+        self.current_sheet.range(*self.get_row_range(self.row)).value = [
+            list(self.vulnerability.keys())
+        ]
+        self.row += 1
+
+    def save(self) -> None:
+        today_date = datetime_utils.get_as_str(
+            datetime_utils.get_now(),
+            date_format='%Y-%m-%dT%H-%M-%S'
+        )
+        self.result_filename = (
+            f'{self.group_name}-vulnerabilities-{today_date}.xlsx'
+        )
+        self.workbook.save(self.result_filename)
+
+    def set_row_height(self) -> None:
+        self.current_sheet.set_row_style(
+            self.row, Style(
+                size=ROW_HEIGHT,
+                alignment=Alignment(wrap_text=True)
+            )
+        )
+
+        # this makes that the cells for severity get the rigth format
+        self.current_sheet.set_cell_style(
+            self.row,
+            9,
+            Style(
+                size=ROW_HEIGHT,
+                alignment=Alignment(wrap_text=True),
+                format=Format(0.0)
+            )
+        )
+
+    def style_sheet(self) -> None:
+        header = self.current_sheet.range(*self.get_row_range(1))
+        header.style.fill.background = RED
+        header.style.font.color = WHITE
+        header.style.alignment.horizontal = 'center'
+        header.style.alignment.vertical = 'center'
+        header.style.alignment.wrap_text = True
+
+        for column, col_width in enumerate(
+            GroupVulnsReportHeader.widths(), start=1
+        ):
+            self.current_sheet.set_col_style(
+                column,
+                Style(size=col_width, alignment=Alignment(wrap_text=True)),
+            )
 
     def set_cvss_metrics_cell(self, row: Dict[str, FindingType]) -> None:
         metric_vector = []
@@ -261,45 +251,13 @@ class ITReport():
 
         cvss_metric_vector = '/'.join(metric_vector)
         cvss_calculator_url = (
-            f'https://www.first.org/cvss/calculator/3.1#CVSS:3.1'
+            'https://www.first.org/cvss/calculator/3.1#CVSS:3.1'
             f'/{cvss_metric_vector}'
         )
         cell_content = (
             f'=HYPERLINK("{cvss_calculator_url}", "{cvss_metric_vector}")'
         )
         self.row_values[vuln[cvss_key]] = cell_content
-
-    async def set_vuln_row(
-        self,
-        row: VulnType,
-        finding: Dict[str, FindingType]
-    ) -> None:
-        vuln = self.vulnerability
-        specific = str(row.get('specific', ''))
-        if row.get('vuln_type') == 'lines':
-            specific = str(int(specific))
-        tags = EMPTY
-        if 'tag' in row:
-            tags = str(', '.join(cast(List[str], row.get('tag'))))
-
-        self.row_values[vuln['#']] = self.row - 1
-        self.row_values[vuln['Related Finding']] = str(finding.get('finding'))
-        self.row_values[vuln['Finding Id']] = str(
-            finding.get('findingId', EMPTY))
-        self.row_values[vuln['Vulnerability Id']] = str(row.get('UUID', EMPTY))
-        self.row_values[vuln['Where']] = str(row.get('where'))
-        self.row_values[vuln['Specific']] = specific
-        self.row_values[vuln['Tags']] = tags
-
-        self.set_finding_data(finding, row)
-        self.set_vuln_temporal_data(row)
-        self.set_treatment_data(row)
-        self.set_reattack_data(finding, row)
-        self.set_cvss_metrics_cell(finding)
-
-        self.current_sheet.range(*self.get_row_range(self.row)).value = \
-            [self.row_values[1:]]
-        self.set_row_height()
 
     def set_finding_data(
         self,
@@ -308,13 +266,12 @@ class ITReport():
     ) -> None:
         compromised_attributes = str(finding.get('compromisedAttrs', EMPTY))
         n_compromised_attributes = str(finding.get('recordsNumber', '0'))
-
         severity = cast(float, finding.get('severityCvss', 0))
-
         finding_data = {
             'Description': str(finding.get('vulnerability', EMPTY)),
             'Status': cast(
-                HistoricType, vuln.get('historic_state'))[-1]['state'],
+                HistoricType, vuln.get('historic_state')
+            )[-1]['state'],
             'Severity': severity or EMPTY,
             'Requirements': str(finding.get('requirements', EMPTY)),
             'Impact': str(finding.get('attackVectorDesc', EMPTY)),
@@ -327,29 +284,47 @@ class ITReport():
         for key, value in finding_data.items():
             self.row_values[self.vulnerability[key]] = value
 
-    def set_vuln_temporal_data(self, vuln: VulnType) -> None:
-        vuln_historic_state = cast(HistoricType, vuln.get('historic_state'))
-        vuln_date = datetime_utils.get_from_str(vuln_historic_state[0]['date'])
-        vuln_closed = vuln_historic_state[-1]['state'] == 'closed'
-        limit_date = datetime_utils.get_now()
-        vuln_close_date: Union[str, datetime] = EMPTY
-        if vuln_closed:
-            limit_date = datetime_utils.get_from_str(
-                vuln_historic_state[-1]['date']
+    def set_reattack_data(
+        self,
+        finding: Dict[str, FindingType],
+        vuln: VulnType
+    ) -> None:
+        historic_verification = cast(
+            HistoricType,
+            finding.get('historicVerification')
+        )
+        vuln_closed = cast(
+            HistoricType, vuln.get('historic_state')
+        )[-1]['state'] == 'closed'
+        reattack_requested = None
+        reattack_date = None
+        reattack_requester = None
+        n_requested_reattacks = None
+        remediation_effectiveness = EMPTY
+        if historic_verification:
+            reattack_requested = (
+                historic_verification[-1]['status'] == 'REQUESTED'
             )
-            vuln_close_date = datetime_utils.get_from_str(
-                vuln_historic_state[-1]['date']
-            )
-        vuln_age_days = int((limit_date - vuln_date).days)
-        external_bts = vuln.get('external_bts', EMPTY)
-
-        vuln_temporal_data: Dict[str, Union[str, int, float, datetime]] = {
-            'Report Moment': vuln_date,
-            'Age in days': vuln_age_days,
-            'Close Moment': vuln_close_date,
-            'External BTS': f'=HYPERLINK("{external_bts}", "{external_bts}")',
+            n_requested_reattacks = len([
+                state
+                for state in historic_verification
+                if state['status'] == 'REQUESTED'
+            ])
+            if vuln_closed:
+                remediation_effectiveness = f'{100 / n_requested_reattacks}%'
+            if reattack_requested:
+                reattack_date = datetime_utils.get_from_str(
+                    historic_verification[-1]['date']
+                )
+                reattack_requester = historic_verification[-1]['user']
+        reattack_data = {
+            'Pending Reattack': 'Yes' if reattack_requested else 'No',
+            '# Requested Reattacks': n_requested_reattacks or '0',
+            'Last requested reattack': reattack_date or EMPTY,
+            'Last reattack Requester': reattack_requester or EMPTY,
+            'Remediation Effectiveness': remediation_effectiveness
         }
-        for key, value in vuln_temporal_data.items():
+        for key, value in reattack_data.items():
             self.row_values[self.vulnerability[key]] = value
 
     def set_treatment_data(  # pylint: disable=too-many-locals
@@ -391,7 +366,8 @@ class ITReport():
             ),
             'Current Treatment Moment': curr_trtmnt_date,
             'Current Treatment Justification': str(
-                current_treatment.get('justification', EMPTY)),
+                current_treatment.get('justification', EMPTY)
+            ),
             'Current Treatment expiration Moment': current_treatment_exp_date,
             'Current Treatment manager': str(
                 current_treatment.get('treatment_manager', EMPTY)
@@ -421,44 +397,61 @@ class ITReport():
             kword = self.vulnerability[first_treatment_key]
             self.row_values[kword] = first_treatment_data[first_treatment_key]
 
-    def set_reattack_data(
+    async def set_vuln_row(
         self,
-        finding: Dict[str, FindingType],
-        vuln: VulnType
+        row: VulnType,
+        finding: Dict[str, FindingType]
     ) -> None:
-        historic_verification = cast(
-            HistoricType,
-            finding.get('historicVerification')
+        vuln = self.vulnerability
+        specific = str(row.get('specific', ''))
+        if row.get('vuln_type') == 'lines':
+            specific = str(int(specific))
+        tags = EMPTY
+        if 'tag' in row:
+            tags = str(', '.join(cast(List[str], row.get('tag'))))
+
+        self.row_values[vuln['#']] = self.row - 1
+        self.row_values[vuln['Related Finding']] = str(finding.get('finding'))
+        self.row_values[vuln['Finding Id']] = str(
+            finding.get('findingId', EMPTY)
         )
-        vuln_closed = cast(
-            HistoricType, vuln.get('historic_state'))[-1]['state'] == 'closed'
-        reattack_requested = None
-        reattack_date = None
-        reattack_requester = None
-        n_requested_reattacks = None
-        remediation_effectiveness = EMPTY
-        if historic_verification:
-            reattack_requested = (
-                historic_verification[-1]['status'] == 'REQUESTED'
+        self.row_values[vuln['Vulnerability Id']] = str(row.get('UUID', EMPTY))
+        self.row_values[vuln['Where']] = str(row.get('where'))
+        self.row_values[vuln['Specific']] = specific
+        self.row_values[vuln['Tags']] = tags
+
+        self.set_finding_data(finding, row)
+        self.set_vuln_temporal_data(row)
+        self.set_treatment_data(row)
+        self.set_reattack_data(finding, row)
+        self.set_cvss_metrics_cell(finding)
+
+        self.current_sheet.range(*self.get_row_range(self.row)).value = (
+            [self.row_values[1:]]
+        )
+        self.set_row_height()
+
+    def set_vuln_temporal_data(self, vuln: VulnType) -> None:
+        vuln_historic_state = cast(HistoricType, vuln.get('historic_state'))
+        vuln_date = datetime_utils.get_from_str(vuln_historic_state[0]['date'])
+        vuln_closed = vuln_historic_state[-1]['state'] == 'closed'
+        limit_date = datetime_utils.get_now()
+        vuln_close_date: Union[str, datetime] = EMPTY
+        if vuln_closed:
+            limit_date = datetime_utils.get_from_str(
+                vuln_historic_state[-1]['date']
             )
-            n_requested_reattacks = len([
-                state
-                for state in historic_verification
-                if state['status'] == 'REQUESTED'
-            ])
-            if vuln_closed:
-                remediation_effectiveness = f'{100 / n_requested_reattacks}%'
-            if reattack_requested:
-                reattack_date = datetime_utils.get_from_str(
-                    historic_verification[-1]['date']
-                )
-                reattack_requester = historic_verification[-1]['user']
-        reattack_data = {
-            'Pending Reattack': 'Yes' if reattack_requested else 'No',
-            '# Requested Reattacks': n_requested_reattacks or '0',
-            'Last requested reattack': reattack_date or EMPTY,
-            'Last reattack Requester': reattack_requester or EMPTY,
-            'Remediation Effectiveness': remediation_effectiveness
+            vuln_close_date = datetime_utils.get_from_str(
+                vuln_historic_state[-1]['date']
+            )
+        vuln_age_days = int((limit_date - vuln_date).days)
+        external_bts = vuln.get('external_bts', EMPTY)
+
+        vuln_temporal_data: Dict[str, Union[str, int, float, datetime]] = {
+            'Report Moment': vuln_date,
+            'Age in days': vuln_age_days,
+            'Close Moment': vuln_close_date,
+            'External BTS': f'=HYPERLINK("{external_bts}", "{external_bts}")',
         }
-        for key, value in reattack_data.items():
+        for key, value in vuln_temporal_data.items():
             self.row_values[self.vulnerability[key]] = value
