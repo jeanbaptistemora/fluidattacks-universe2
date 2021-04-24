@@ -80,7 +80,7 @@ const severityImages: Record<string, string> = {
   userInteractionRequired,
 };
 
-export const SeverityTile: React.FC<ISeverityTile> = ({
+const SeverityTile: React.FC<ISeverityTile> = ({
   color,
   name,
   value,
@@ -114,3 +114,5 @@ export const SeverityTile: React.FC<ISeverityTile> = ({
     </React.StrictMode>
   );
 };
+
+export { ISeverityTile, SeverityTile };

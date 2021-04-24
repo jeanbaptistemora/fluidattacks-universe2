@@ -11,6 +11,8 @@ import { Provider } from "react-redux";
 import { MemoryRouter, Route } from "react-router-dom";
 import wait from "waait";
 
+import type { ISeverityTile } from "./SeverityContent/tile";
+import { SeverityTile } from "./SeverityContent/tile";
 import type { ISeverityAttr } from "./types";
 
 import { SeverityView } from "scenes/Dashboard/containers/SeverityView";
@@ -113,10 +115,10 @@ describe("SeverityView", (): void => {
     expect(wrapper).toHaveLength(1);
 
     const numberOfTiles: number = 11;
-    const severityTiles: ReactWrapper = wrapper.find({
-      className: "sc-jQbIHB pa1 w-100 mb3-l mb2-m mb1-ns",
-    });
-    const reportConfidence: ReactWrapper = severityTiles.last();
+    const severityTiles: ReactWrapper<ISeverityTile> = wrapper.find(
+      SeverityTile
+    );
+    const reportConfidence: ReactWrapper<ISeverityTile> = severityTiles.last();
 
     type resultType = Dictionary<{ finding: ISeverityAttr["finding"] }>;
 
