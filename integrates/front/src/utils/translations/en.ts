@@ -670,6 +670,17 @@ export const enTranslations: ResourceKey = {
         testedDate: "Tested date",
         testedLines: "Tested lines",
       },
+      tabs: {
+        inputs: {
+          text: "ToE Inputs",
+          tooltip:
+            "Track which application/infrastructure inputs have been reviewed",
+        },
+        lines: {
+          text: "ToE Lines",
+          tooltip: "Track which source code lines have been reviewed",
+        },
+      },
     },
   },
   groupAlerts: {

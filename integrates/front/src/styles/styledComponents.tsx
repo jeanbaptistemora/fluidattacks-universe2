@@ -529,6 +529,15 @@ const StickyContainerOrg: StyledComponent<
   className: "bg-white w-100 sticky z-4",
 })``;
 
+const StickyContainerToe: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs<{
+  className: string;
+}>({
+  className: "bg-white sticky z-3",
+})``;
+
 const Switch: StyledComponent<
   "div",
   Record<string, unknown>
@@ -707,6 +716,7 @@ export {
   StickyContainer,
   StickyContainerFinding,
   StickyContainerOrg,
+  StickyContainerToe,
   Switch,
   SwitchHandle,
   SwitchGroup,
