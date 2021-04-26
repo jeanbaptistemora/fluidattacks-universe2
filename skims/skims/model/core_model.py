@@ -94,7 +94,7 @@ class FindingMetadata(NamedTuple):
 
 class FindingEnum(Enum):
     F001_JAVA_SQL: FindingMetadata = FindingMetadata(
-        auto_approve=False,
+        auto_approve=True,
         cwe="89",
         description="utils.model.finding.enum.F001_JAVA_SQL.description",
         impact="utils.model.finding.enum.F001_JAVA_SQL.impact",
@@ -166,7 +166,7 @@ class FindingEnum(Enum):
         type=FindingTypeEnum.SECURITY,
     )
     F008: FindingMetadata = FindingMetadata(
-        auto_approve=False,
+        auto_approve=True,
         cwe="79",
         description="utils.model.finding.enum.f008.description",
         impact="utils.model.finding.enum.f008.impact",
@@ -262,7 +262,7 @@ class FindingEnum(Enum):
         type=FindingTypeEnum.SECURITY,
     )
     F021: FindingMetadata = FindingMetadata(
-        auto_approve=False,
+        auto_approve=True,
         cwe="643",
         description="utils.model.finding.enum.f021.description",
         impact="utils.model.finding.enum.f021.impact",
@@ -662,7 +662,7 @@ class FindingEnum(Enum):
         type=FindingTypeEnum.SECURITY,
     )
     F063_PATH_TRAVERSAL: FindingMetadata = FindingMetadata.new(
-        auto_approve=False,
+        auto_approve=True,
         code="F063_PATH_TRAVERSAL",
         cwe="22",
         attack_complexity=0.77,
@@ -678,7 +678,7 @@ class FindingEnum(Enum):
         user_interaction=0.85,
     )
     F063_TRUSTBOUND: FindingMetadata = FindingMetadata(
-        auto_approve=False,
+        auto_approve=True,
         cwe="501",
         description="utils.model.finding.enum.f063_trustbound.description",
         impact="utils.model.finding.enum.f063_trustbound.impact",
@@ -752,7 +752,7 @@ class FindingEnum(Enum):
         type=FindingTypeEnum.SECURITY,
     )
     F107: FindingMetadata = FindingMetadata(
-        auto_approve=False,
+        auto_approve=True,
         cwe="90",
         description="utils.model.finding.enum.f107.description",
         impact="utils.model.finding.enum.f107.impact",
