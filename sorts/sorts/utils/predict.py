@@ -20,6 +20,30 @@ from sorts.utils.static import (
 )
 
 
+def build_results_csv(
+    predictions: ndarray,
+    predict_df: DataFrame,
+    csv_name: str
+) -> None:
+    scope: str = csv_name.split('.')[0].split('_')[-1]
+    result_df: DataFrame = pd.concat(
+        [
+            predict_df[[scope]],
+            pd.DataFrame(
+                predictions,
+                columns=['pred', 'prob_safe', 'prob_vuln']
+            )
+        ],
+        axis=1
+    )
+    errort: float = 5 + 5 * np.random.rand(len(result_df), )
+    result_df['prob_vuln'] = round(result_df.prob_vuln * 100 - errort, 1)
+    sorted_files: DataFrame = result_df[result_df.pred == 1]\
+        .sort_values(by='prob_vuln', ascending=False)\
+        .reset_index(drop=True)[[scope, 'prob_vuln']]
+    sorted_files.to_csv(csv_name, index=False)
+
+
 def predict_vuln_prob(
     predict_df: DataFrame,
     features: List[str],
@@ -41,23 +65,14 @@ def predict_vuln_prob(
         class_prediction,
         probability_prediction
     ])
-    result_df: DataFrame = pd.concat(
-        [
-            predict_df[[scope]],
-            pd.DataFrame(
-                merged_predictions,
-                columns=['pred', 'prob_safe', 'prob_vuln']
-            )
-        ],
-        axis=1
-    )
-    errort: float = 5 + 5 * np.random.rand(len(result_df), )
-    result_df['prob_vuln'] = round(result_df.prob_vuln * 100 - errort, 1)
-    sorted_files: DataFrame = result_df[result_df.pred == 1]\
-        .sort_values(by='prob_vuln', ascending=False)\
-        .reset_index(drop=True)[[scope, 'prob_vuln']]
+
     csv_name: str = f'{group}_sorts_results_{scope}.csv'
-    sorted_files.to_csv(csv_name, index=False)
+    build_results_csv(
+        merged_predictions,
+        predict_df,
+        csv_name
+    )
+
     log(
         'info',
         'Results saved to file %s. Here are the top 20 files to check:',
@@ -69,6 +84,7 @@ def predict_vuln_prob(
             field_names=['file', 'prob_vuln'],
             delimiter=','
         )
+
     table.align[scope] = 'l'
     # pylint: disable=protected-access
     table._max_width = {scope: 120, 'prob_vuln': 10}
