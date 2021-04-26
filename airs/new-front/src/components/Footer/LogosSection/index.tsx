@@ -4,8 +4,8 @@ import React from "react";
 import type { StyledComponent } from "styled-components";
 import styled from "styled-components";
 
-import fluidAttacksLogo from "../../../../static/images/logo-fluid-attacks-dark.png";
 import { FullWidthContainer } from "../../../styles/styledComponents";
+import { CloudImage } from "../../CloudImage";
 
 const FluidLogoContainer: StyledComponent<
   "div",
@@ -21,7 +21,10 @@ const FluidLogoContainer: StyledComponent<
 const LogosSection: React.FC = (): JSX.Element => (
   <FullWidthContainer className={"pt4"}>
     <FluidLogoContainer>
-      <img alt={"Fluid Attacks logo footer"} src={fluidAttacksLogo} />
+      <CloudImage
+        alt={"Fluid Attacks logo footer"}
+        src={"logo-fluid-attacks-dark"}
+      />
     </FluidLogoContainer>
   </FullWidthContainer>
 );
