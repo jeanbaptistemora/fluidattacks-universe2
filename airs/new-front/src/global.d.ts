@@ -18,6 +18,7 @@ interface IQueryData {
         definition: string;
         description: string;
         keywords: string;
+        phrase: string;
         slug: string;
         solution: string;
         subtext: string;

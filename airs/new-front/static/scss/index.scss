@@ -194,6 +194,7 @@ $whiter-gray: rgba(241, 241, 241, 1);
 .t-color-2 { transition: color 0.2s; }
 
 // Width and Max Width classes
+.mw-1200 { max-width: 1200px; }
 .mw-1366 { max-width: 1366px; }
 .mw-376 { max-width: 376px; }
 
@@ -230,6 +231,7 @@ $whiter-gray: rgba(241, 241, 241, 1);
 // Small screen sizes
 @media screen and (max-width: 30em) {
   .cover-s { background-size: cover; }
+  .f1-s { font-size: 3rem;}
   .nt-125 { margin-top: -0.125rem; }
 }
 
@@ -275,6 +277,50 @@ $whiter-gray: rgba(241, 241, 241, 1);
 }
 
 // Custom elements
+
+.bl-red {
+  border-left: 7px solid $hovered-red;
+  content: '';
+  display: block;
+  width: 100%;
+}
+
+.compliance-content {
+  a {
+    color: $fluid-black;
+    font-weight: 400;
+    text-decoration: none;
+  }
+
+  .sect1 {
+    margin-left: auto;
+    margin-right: auto;
+    min-height: 420px;
+    padding: 0 2rem;
+    vertical-align: top;
+
+    h2 {
+      color: $fluid-black;
+      font-size: 24px;
+      font-weight: bold;
+      line-height: 1.5;
+      margin-bottom: 0 !important;
+    }
+
+    p {
+      color: $black-gray;
+      font-size: 16px;
+      font-weight: 300;
+      line-height: 2;
+      margin-top: 0 !important;
+    }
+  }
+}
+
+.compliance-grid { grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr)); }
+
+.grid { display: grid; }
+
 
 .services-content,
 .solutions-content {

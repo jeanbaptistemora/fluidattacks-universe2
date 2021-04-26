@@ -752,6 +752,56 @@ const SocialMediaLink: StyledComponent<
   `,
 })``;
 
+const MarkedTitle: StyledComponent<
+  "h1",
+  Record<string, unknown>
+> = styled.h1.attrs({
+  className: `
+    c-fluid-bk 
+    f1-s
+    f-375
+    neue 
+    ml3
+  `,
+})``;
+
+const MarkedTitleContainer: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs({
+  className: `
+    bg-graylight 
+    center 
+    flex 
+    flex-wrap 
+    mw-1200
+  `,
+})``;
+
+const RedMark: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs({
+  className: `
+    bl-red
+  `,
+})``;
+
+const MarkedPhrase: StyledComponent<
+  "p",
+  Record<string, unknown>
+> = styled.p.attrs({
+  className: `
+    f3 
+    c-black-gray
+    lh-title 
+    normal 
+    roboto 
+    tl 
+    w-60-ns
+  `,
+})``;
+
 export {
   ArticleContainer,
   ArticleTitle,
@@ -790,6 +840,9 @@ export {
   MainContentHome,
   MainCoverHome,
   MainFooterInfoContainer,
+  MarkedPhrase,
+  MarkedTitleContainer,
+  MarkedTitle,
   MenuButton,
   NavbarSubcategory,
   NavbarContactButton,
@@ -800,6 +853,7 @@ export {
   NavbarRegularButton,
   PageArticle,
   PageContainer,
+  RedMark,
   RegularRedButton,
   SocialMediaLink,
   SolutionsParagraph,
