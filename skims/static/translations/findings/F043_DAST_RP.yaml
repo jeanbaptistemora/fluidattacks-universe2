@@ -15,8 +15,8 @@ utils.model.finding.enum.F043_DAST_RP.description:
     El servidor carece del encabezado HTTP Referrer-Policy.
     Alternativamente, la configuración del mismo es insegura.
 utils.model.finding.enum.F043_DAST_RP.impact:
-  en: Website domain and path can be leaked to external services.
-  es: El dominio del sitio web y su ruta pueden ser fugados a servicios externos.
+  en: Leak website domain and path to external services.
+  es: Fugar el dominio del sitio web y su ruta a servicios externos.
 utils.model.finding.enum.F043_DAST_RP.recommendation:
   en: >
     Set the Referrer-Policy header to "no-referrer", "same-origin",
