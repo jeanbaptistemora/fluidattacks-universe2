@@ -642,9 +642,9 @@ export const enTranslations: ResourceKey = {
           "Configure the resources needed by the security tests and the services to be purchased," +
           " if applicable",
       },
-      toeLines: {
-        text: "Toe Lines",
-        tooltip: "Track which source code lines have been reviewed",
+      toe: {
+        text: "ToE",
+        tooltip: "Target of evaluation",
       },
       users: {
         text: "Stakeholders",

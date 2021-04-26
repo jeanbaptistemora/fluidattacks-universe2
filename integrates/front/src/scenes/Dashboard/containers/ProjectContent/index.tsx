@@ -1,3 +1,5 @@
+import type { PureAbility } from "@casl/ability";
+import { useAbility } from "@casl/react";
 import React from "react";
 import {
   Redirect,
@@ -8,7 +10,7 @@ import {
 } from "react-router-dom";
 
 import { GroupScopeView } from "../GroupScopeView";
-import { GroupToeLinesView } from "../GroupToeLinesView";
+import { ToeContent } from "../ToeContent";
 import { ContentTab } from "scenes/Dashboard/components/ContentTab";
 import { ChartsForGroupView } from "scenes/Dashboard/containers/ChartsForGroupView";
 import { ProjectAuthorsView } from "scenes/Dashboard/containers/ProjectAuthorsView";
@@ -26,6 +28,7 @@ import {
   TabsContainer,
 } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
+import { authzPermissionsContext } from "utils/authz/config";
 import { Have } from "utils/authz/Have";
 import { useTabTracking } from "utils/hooks";
 import { translate } from "utils/translations/translate";
@@ -33,6 +36,14 @@ import { translate } from "utils/translations/translate";
 const ProjectContent: React.FC = (): JSX.Element => {
   const { organizationName } = useParams<{ organizationName: string }>();
   const { path, url } = useRouteMatch<{ path: string; url: string }>();
+
+  const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
+  const canGetToeLines: boolean = permissions.can(
+    "backend_api_resolvers_git_root_toe_lines_resolve"
+  );
+  const canGetToeInputs: boolean = permissions.can(
+    "backend_api_resolvers_group_toe_inputs_resolve"
+  );
 
   // Side effects
   useTabTracking("Group");
@@ -114,18 +125,15 @@ const ProjectContent: React.FC = (): JSX.Element => {
                       />
                     </Can>
                   </Have>
-                  {organizationName === "imamura" ? undefined : (
-                    <Can
-                      do={"backend_api_resolvers_git_root_toe_lines_resolve"}
-                    >
-                      <ContentTab
-                        icon={"icon pe-7s-menu"}
-                        id={"toeLinesTab"}
-                        link={`${url}/toe/lines`}
-                        title={translate.t("group.tabs.toeLines.text")}
-                        tooltip={translate.t("group.tabs.toeLines.tooltip")}
-                      />
-                    </Can>
+                  {organizationName === "imamura" ||
+                  (!canGetToeInputs && !canGetToeLines) ? undefined : (
+                    <ContentTab
+                      icon={"icon pe-7s-note2"}
+                      id={"toeTab"}
+                      link={`${url}/toe`}
+                      title={translate.t("group.tabs.toe.text")}
+                      tooltip={translate.t("group.tabs.toe.tooltip")}
+                    />
                   )}
                   <ContentTab
                     icon={"icon pe-7s-box1"}
@@ -184,11 +192,7 @@ const ProjectContent: React.FC = (): JSX.Element => {
                     exact={true}
                     path={`${path}/consulting`}
                   />
-                  <Route
-                    component={GroupToeLinesView}
-                    exact={true}
-                    path={`${path}/toe/lines`}
-                  />
+                  <Route component={ToeContent} path={`${path}/toe`} />
                   {/* Necessary to support old resources URLs */}
                   <Redirect path={`${path}/resources`} to={`${path}/scope`} />
                   <Redirect to={`${path}/vulns`} />
