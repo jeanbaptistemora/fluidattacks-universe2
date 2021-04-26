@@ -1,8 +1,16 @@
 # Standard library
 import argparse
+import csv
+from operator import (
+    itemgetter,
+)
 import os
 from typing import (
     List,
+    Set,
+)
+from urllib.parse import (
+    urlparse,
 )
 
 # Third party libraries
@@ -23,12 +31,35 @@ from integrates.graphql import (
 
 
 async def get_urls_from_group(group: str, namespace: str) -> List[str]:
-    return sorted({
+    scopes: Set[str] = {
         environment_url
         for root in await get_group_roots(group=group)
         for environment_url in root.environment_urls
         if root.nickname == namespace
-    })
+    }
+
+    urls: Set[str] = set()
+    urls.update(scopes)
+
+    with open(f'groups/{group}/toe/inputs.csv') as inputs_handle:
+        components = list(map(
+            itemgetter('component'),
+            csv.DictReader(inputs_handle),
+        ))
+
+    for scope in scopes:
+        scope_c = urlparse(scope)
+
+        for component in components:
+            component_c = urlparse(f'schema://{component}')
+
+            if (
+                scope_c.netloc == component_c.netloc
+                and component_c.path.startswith(scope_c.path)
+            ):
+                urls.add(f'{scope_c.scheme}://{component}')
+
+    return sorted(urls)
 
 
 async def main() -> None:
