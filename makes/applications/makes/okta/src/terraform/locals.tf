@@ -1,7 +1,8 @@
 locals {
-  apps   = { for app in jsondecode(var.okta_apps) : app.id => app }
-  groups = { for group in jsondecode(var.okta_groups) : group.id => group }
-  users  = { for user in jsondecode(var.okta_users) : user.id => user }
+  data   = jsondecode(var.okta_data)
+  apps   = { for app in local.data.apps : app.id => app }
+  groups = { for group in local.data.groups : group.id => group }
+  users  = { for user in local.data.users : user.id => user }
 
   app_groups = flatten([
     for _, app in local.apps : [
