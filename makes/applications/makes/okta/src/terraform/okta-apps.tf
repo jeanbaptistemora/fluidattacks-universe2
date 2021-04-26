@@ -41,7 +41,7 @@ resource "okta_app_user" "apps_auto_login" {
 
   app_id   = okta_app_auto_login.apps[each.value.id].id
   user_id  = okta_user.users[each.value.user].id
-  username = okta_user.users[each.value.user].login
+  username = ""
 }
 
 
@@ -88,7 +88,7 @@ resource "okta_app_user" "apps_swa" {
 
   app_id   = okta_app_swa.apps[each.value.id].id
   user_id  = okta_user.users[each.value.user].id
-  username = okta_user.users[each.value.user].login
+  username = ""
 }
 
 

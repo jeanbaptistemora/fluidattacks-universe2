@@ -105,7 +105,6 @@ OKTA_GROUPS:
     - ENC[AES256_GCM,data:6IHeYbw3,iv:uAOWjFxMuMGg9ETR9xVfzBXUJNWZbyW3t1E+Y0mzib8=,tag:yO0evTO+oOn54msxVH2KSw==,type:str]
     apps:
     - ENC[AES256_GCM,data:Zi3Z+na0ZpDAyHljmvZCx64YObA=,iv:02j9A0/2+BovtLiAbgQ98/aW9DanH439Vc94Hk/Pfgo=,tag:4lfWC0gJLoITCFpKNF1o9g==,type:str]
-    - ENC[AES256_GCM,data:cuRbI23OX8tDBQ==,iv:bOpkXywtWqhp0IS7P0rX5F47ZnftuL7wdEr+5KmVvWg=,tag:zw1wkrD8gS0loUfwzDBVlg==,type:str]
     - ENC[AES256_GCM,data:27cPseF7,iv:kDi5xzemr+oG5XjCv71g4kYxa3t1veICRmArLXKfEpc=,tag:+s/8633bnucxtZDRYtaNqA==,type:str]
 OKTA_USERS:
 -   id: ENC[AES256_GCM,data:C3qgwSXetZJZ7A==,iv:upe00KFJrHCIilsEMHSBw8/GgwCbhZqomDlsg8sT9wM=,tag:RNywhIVwwLgyd3yHxIxujw==,type:str]
@@ -125,6 +124,7 @@ OKTA_USERS:
     apps:
     - ENC[AES256_GCM,data:0XgXqu+d57TXNc90Y5sWYL+0zzmbq7b5j+dR0IPzv+Al,iv:lxGeztnmligRAAhoHfjABz6MfFErM15XgxYBWY2Be8Q=,tag:V3G+ZlhgT4OlQged0zy/hw==,type:str]
     - ENC[AES256_GCM,data:6V9VmjTt0lZ8kDLe9Z0Ugg5xHuc=,iv:T/IqsjwC3/5N0hAu4Kwqs4+VWRh2vv9lYTKZ8TMmXxY=,tag:39+cWNABc7LJyekdFLbaHA==,type:str]
+    - ENC[AES256_GCM,data:l/5HPzTSmwc4kA==,iv:xYEsq6kNNgK8vr2/pbiOtKyfIC56zf3XivqL69ho7eE=,tag:PSMJayYRUYJxFhUn9J6T5A==,type:str]
 -   id: ENC[AES256_GCM,data:SLdsMkMEOhzS,iv:S/slJueapgeGPVMGQlEXsUzRNM3IavCwCx8IDaIWYMM=,tag:INiwBwH1aaPteZWzQW3pag==,type:str]
     first_name: ENC[AES256_GCM,data:/v3aNA==,iv:p4SoSPRmq/g/IVNoG7aKZZREeUszYoqXdwvoqCNuqaQ=,tag:yKb9bhfevQzh4ry7yI2yww==,type:str]
     last_name: ENC[AES256_GCM,data:2anHCYtNeUo=,iv:lc1fLX9IsyvKl1igwXwXbjEDp1sBPuTbLXADoqgAzmc=,tag:CUnDq04T1W6I/kSHazEOMg==,type:str]
@@ -147,8 +147,8 @@ sops:
     gcp_kms: []
     azure_kv: []
     hc_vault: []
-    lastmodified: '2021-04-23T22:09:31Z'
-    mac: ENC[AES256_GCM,data:BsfAjniuQrlQ8BSJ7dlU4zBkrbbbIYmYmc1d1Jw1NKXgsz3QO4FbvVQdo/MeaXsRah7E38Bx3Se6HH5AmrwsKbWfU+aOM5JZUV0G4gu8wDm2bUFHU0ZYAKVtEZ9gleuH4KAdnnvgyuEij+QTKgc9XprhxHo706p4Dfw/y+lqPwg=,iv:oerBCpbqPOzdA35ZfnBRVayKdteKreYis6f+GiNUQJ8=,tag:bCpU7Y5YTviAjDCMcQDxLg==,type:str]
+    lastmodified: '2021-04-23T22:57:23Z'
+    mac: ENC[AES256_GCM,data:uLqeHBLaTIKs3B171kgo2nPDiv2Ou4k79rzA+LuzMoNbLqgrFh6uDCSZAAIcfC9XKHfNI/F6ef7kDy1VFV12oKVdbrXcRDI5Fq12UccYiW/QP2PzdyNjRgAJwSIKvQeMOPkMst6+s4wbm0KyzPQOXT+pBxsHj6GhNuTrXrD+gKo=,iv:zmaVlxVa+1y01Qd6xywDszzjDDBDDV8BzwDvF/FFqKA=,tag:o1MItB2ZAZGk77wwcTFSGQ==,type:str]
     pgp: []
     unencrypted_suffix: _unencrypted
     version: 3.6.1
