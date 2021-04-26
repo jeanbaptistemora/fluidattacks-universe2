@@ -21,7 +21,7 @@ buildPythonRequirements {
       "pytz==2021.1"
       "s3transfer==0.3.4"
       "six==1.15.0"
-      "urllib3==1.26.2"
+      "urllib3==1.26.4"
     ];
   };
   python = nixpkgs.python38;
