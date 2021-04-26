@@ -454,7 +454,8 @@ module.exports = {
           type: 'category',
           label: 'Details',
           items: [
-            'types/052/details/missing_ssl',
+            'types/052/details/cipher_suites',
+            'types/052/details/ssl',
           ],
         },
       ],

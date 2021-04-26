@@ -1,8 +1,8 @@
 ---
-id: missing_ssl
-title: Missing SSL
-sidebar_label: Missing SSL
-slug: /types/052/details/missing_ssl
+id: ssl
+title: SSL
+sidebar_label: SSL
+slug: /types/052/details/ssl
 ---
 
 SSL (Secure Sockets Layer) and its successor, TLS (Transport Layer Security),
