@@ -1,12 +1,8 @@
 import os
-from datetime import datetime, timedelta
 import pytest
-from PyPDF4 import PdfFileWriter
 
 from backend.api import apply_context_attrs
-from ariadne import graphql_sync, graphql
-from jose import jwt
-from backend import util
+from ariadne import graphql
 from backend.api.schema import SCHEMA
 from back.tests.unit.utils import create_dummy_session
 from __init__ import (
@@ -59,10 +55,7 @@ async def test_finding_report():
 
 def test_pdf_paths():
     # secure_pdf.py paths
-    base = (
-        f'{STARTDIR}/integrates/back/packages/'
-        'integrates-back/backend/reports'
-    )
+    base = f'{STARTDIR}/integrates/back/packages/modules/reports'
     secure_pdf_paths = [
         base,
         f'{base}/results/results_pdf/',
@@ -74,10 +67,7 @@ def test_pdf_paths():
         assert os.path.exists(path), f'path: {path} is not valid'
 
     # pdf.py paths
-    path = (
-        f'{STARTDIR}/integrates/back/packages/'
-        'integrates-back/backend/reports'
-    )
+    path = f'{STARTDIR}/integrates/back/packages/modules/reports'
     pdf_paths = [
         path,
         f'{path}/resources/fonts',

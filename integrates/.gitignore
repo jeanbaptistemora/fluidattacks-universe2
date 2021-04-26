@@ -13,7 +13,7 @@
 /charts/collector/**/*.png
 /charts/generators/**/*.json
 /app
-/back/packages/integrates-back/backend/reports/tpls/*.tpl
 /build
 /deploy/permissions-matrix/**/*.html
+/modules/reports/tpls/*.tpl
 expoClient.apk

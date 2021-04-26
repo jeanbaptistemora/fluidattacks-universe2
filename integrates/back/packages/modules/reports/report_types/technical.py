@@ -20,11 +20,11 @@ from PIL import (
 
 # Local libraries
 from back.settings import LOGGING
-from backend.reports.it_report import ITReport
-from backend.reports.pdf import CreatorPDF
-from backend.reports.secure_pdf import SecurePDF
 from backend.typing import Finding as FindingType
 from findings import dal as findings_dal
+from reports.it_report import ITReport
+from reports.pdf import CreatorPDF
+from reports.secure_pdf import SecurePDF
 
 
 logging.config.dictConfig(LOGGING)
