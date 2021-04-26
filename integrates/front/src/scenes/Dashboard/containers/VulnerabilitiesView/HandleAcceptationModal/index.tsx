@@ -191,16 +191,17 @@ const HandleAcceptationModal: React.FC<IHandleVulnsAcceptationModalProps> = (
       },
       onError: ({ graphQLErrors }: ApolloError): void => {
         graphQLErrors.forEach((error: GraphQLError): void => {
-          switch (error.message) {
-            case "Exception - Zero risk vulnerability is not requested":
-              msgError(translate.t("groupAlerts.zeroRiskIsNotRequested"));
-              break;
-            default:
-              msgError(translate.t("groupAlerts.errorTextsad"));
-              Logger.warning(
-                "An error occurred confirming zero risk vuln",
-                error
-              );
+          if (
+            error.message ===
+            "Exception - Zero risk vulnerability is not requested"
+          ) {
+            msgError(translate.t("groupAlerts.zeroRiskIsNotRequested"));
+          } else {
+            msgError(translate.t("groupAlerts.errorTextsad"));
+            Logger.warning(
+              "An error occurred confirming zero risk vuln",
+              error
+            );
           }
         });
       },
@@ -239,16 +240,14 @@ const HandleAcceptationModal: React.FC<IHandleVulnsAcceptationModalProps> = (
       },
       onError: ({ graphQLErrors }: ApolloError): void => {
         graphQLErrors.forEach((error: GraphQLError): void => {
-          switch (error.message) {
-            case "Exception - Zero risk vulnerability is not requested":
-              msgError(translate.t("groupAlerts.zeroRiskIsNotRequested"));
-              break;
-            default:
-              msgError(translate.t("groupAlerts.errorTextsad"));
-              Logger.warning(
-                "An error occurred rejecting zero risk vuln",
-                error
-              );
+          if (
+            error.message ===
+            "Exception - Zero risk vulnerability is not requested"
+          ) {
+            msgError(translate.t("groupAlerts.zeroRiskIsNotRequested"));
+          } else {
+            msgError(translate.t("groupAlerts.errorTextsad"));
+            Logger.warning("An error occurred rejecting zero risk vuln", error);
           }
         });
       },
@@ -275,6 +274,17 @@ const HandleAcceptationModal: React.FC<IHandleVulnsAcceptationModalProps> = (
 
   function handleUpdateTreatmentAcceptation(): void {
     dispatch(submit("updateTreatmentAcceptation"));
+  }
+
+  function getInitialTreatment(
+    canHandleVulnsAccept: boolean,
+    canConfirmZeroRisk: boolean
+  ): string {
+    if (canHandleVulnsAccept) {
+      return "ACCEPTED_UNDEFINED";
+    }
+
+    return canConfirmZeroRisk ? "CONFIRM_ZERO_RISK" : "";
   }
 
   function handleSubmit(values: { justification: string }): void {
@@ -314,11 +324,10 @@ const HandleAcceptationModal: React.FC<IHandleVulnsAcceptationModalProps> = (
     }
   }
 
-  const initialTreatment: string = canHandleVulnsAcceptation
-    ? "ACCEPTED_UNDEFINED"
-    : canConfirmZeroRiskVuln
-    ? "CONFIRM_ZERO_RISK"
-    : "";
+  const initialTreatment: string = getInitialTreatment(
+    canHandleVulnsAcceptation,
+    canConfirmZeroRiskVuln
+  );
 
   return (
     <React.StrictMode>
