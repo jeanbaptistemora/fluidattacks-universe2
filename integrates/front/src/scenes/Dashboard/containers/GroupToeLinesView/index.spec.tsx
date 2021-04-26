@@ -102,7 +102,7 @@ describe("GroupToeLinesView", (): void => {
     expect(tableHeader.text()).toStrictEqual(
       [
         "Filename",
-        "Loc",
+        "LOC",
         "Tested lines",
         "Modified date",
         "Modified commit",

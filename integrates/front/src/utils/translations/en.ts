@@ -665,7 +665,7 @@ export const enTranslations: ResourceKey = {
       lines: {
         comments: "Comments",
         filename: "Filename",
-        loc: "Loc",
+        loc: "LOC",
         modifiedCommit: "Modified commit",
         modifiedDate: "Modified date",
         testedDate: "Tested date",
