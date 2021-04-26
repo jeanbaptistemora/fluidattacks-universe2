@@ -324,16 +324,17 @@ def attempt_java_looked_up_class(args: EvaluatorArgs) -> bool:
         if isinstance(prnt.meta.value, LookedUpJavaClass):
             method_path = f".{method_path}"
 
-            if method_path in prnt.meta.value.metadata.methods:
-                if return_step := args.eval_method(
+            if (method_path in prnt.meta.value.metadata.methods) and (
+                return_step := args.eval_method(
                     args,
                     prnt.meta.value.metadata.methods[method_path].n_id,
                     args.dependencies,
                     args.graph_db.shards_by_path_f(prnt.meta.value.shard_path),
-                ):
-                    args.syntax_step.meta.danger = return_step.meta.danger
-                    args.syntax_step.meta.value = return_step.meta.value
-                    return True
+                )
+            ):
+                args.syntax_step.meta.danger = return_step.meta.danger
+                args.syntax_step.meta.value = return_step.meta.value
+                return True
 
     return False
 
