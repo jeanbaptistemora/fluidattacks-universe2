@@ -219,6 +219,7 @@ module.exports = {
           'criteria/certificates/r090',
           'criteria/certificates/r091',
           'criteria/certificates/r092',
+          'criteria/certificates/r093',
         ],
     },
     {
