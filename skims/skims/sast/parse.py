@@ -52,6 +52,7 @@ from sast_transformations import (
 from utils.ctx import (
     CTX,
     STATE_FOLDER,
+    TREE_SITTER_CSHARP,
     TREE_SITTER_JAVA,
     TREE_SITTER_TSX,
 )
@@ -78,6 +79,7 @@ LANGUAGES_SO = os.path.join(STATE_FOLDER, "languages.so")
 Language.build_library(
     LANGUAGES_SO,
     [
+        TREE_SITTER_CSHARP,
         TREE_SITTER_JAVA,
         TREE_SITTER_TSX,
     ],
@@ -100,8 +102,13 @@ class ParsingError(Exception):
     pass
 
 
-JAVA_FIELDS: Dict[str, Tuple[str, ...]] = get_fields(TREE_SITTER_JAVA)
-TSX_FIELDS: Dict[str, Tuple[str, ...]] = get_fields(TREE_SITTER_TSX)
+FIELDS_BY_LANGAUGE: Dict[
+    GraphShardMetadataLanguage, Dict[str, Tuple[str, ...]]
+] = {
+    GraphShardMetadataLanguage.CSHARP: get_fields(TREE_SITTER_CSHARP),
+    GraphShardMetadataLanguage.JAVA: get_fields(TREE_SITTER_JAVA),
+    GraphShardMetadataLanguage.TSX: get_fields(TREE_SITTER_TSX),
+}
 
 
 def hash_node(node: Node) -> int:
@@ -110,6 +117,44 @@ def hash_node(node: Node) -> int:
             node.end_point,
             node.start_point,
             node.type,
+        )
+    )
+
+
+def _is_final_node(obj: Any, language: GraphShardMetadataLanguage) -> bool:
+    return any(
+        (
+            (
+                language == GraphShardMetadataLanguage.JAVA
+                and obj.type
+                in {
+                    "array_type",
+                    "character_literal",
+                    "field_access",
+                    "floating_point_type",
+                    "generic_type",
+                    "integral_type",
+                    "scoped_identifier",
+                    "scoped_type_identifier",
+                    "this",
+                    "type_identifier",
+                }
+            ),
+            (
+                language == GraphShardMetadataLanguage.CSHARP
+                and obj.type
+                in {
+                    "string_literal",
+                    "boolean_literal",
+                    "character_literal",
+                    "integer_literal",
+                    "null_literal",
+                    "real_literal",
+                    "verbatim_string_literal",
+                    "this_expression",
+                    "assignment_operator",
+                }
+            ),
         )
     )
 
@@ -130,82 +175,60 @@ def _build_ast_graph(
     _graph = Graph() if _graph is None else _graph
 
     if isinstance(obj, Tree):
-        _graph = _build_ast_graph(content, language, obj.root_node)
+        return _build_ast_graph(content, language, obj.root_node)
 
-    elif isinstance(obj, Node):
-        if obj.has_error:
-            raise ParsingError()
+    if not isinstance(obj, Node):
+        raise NotImplementedError()
 
-        n_id = next(_counter)
+    if obj.has_error:
+        raise ParsingError()
 
-        _graph.add_node(
+    n_id = next(_counter)
+
+    _graph.add_node(
+        n_id,
+        label_c=obj.start_point[1] + 1,
+        label_l=obj.start_point[0] + 1,
+        label_type=obj.type,
+    )
+
+    if _parent is not None:
+        _graph.add_edge(
+            _parent,
             n_id,
-            label_c=obj.start_point[1] + 1,
-            label_l=obj.start_point[0] + 1,
-            label_type=obj.type,
+            label_ast="AST",
+            label_index=_edge_index,
         )
 
-        if _parent is not None:
-            _graph.add_edge(
-                _parent,
-                n_id,
-                label_ast="AST",
-                label_index=_edge_index,
+        if field := (_parent_fields or {}).get(hash_node(obj)):
+            _graph.nodes[_parent][f"label_field_{field}"] = n_id
+
+    if not obj.children or _is_final_node(obj, language):
+        # Consider it a final node, extract the text from it
+        _graph.nodes[n_id]["label_text"] = content[
+            obj.start_byte : obj.end_byte
+        ].decode("latin-1")
+    elif language != GraphShardMetadataLanguage.NOT_SUPPORTED:
+        parent_fields: Dict[int, str] = {}
+        parent_fields = {
+            hash_node(child): field
+            for field in FIELDS_BY_LANGAUGE[language].get(obj.type, ())
+            for child in [obj.child_by_field_name(field)]
+            if child
+        }
+
+        # It's not a final node, recurse
+        for edge_index, child in enumerate(obj.children):
+            _build_ast_graph(
+                content,
+                language,
+                child,
+                _counter=_counter,
+                _edge_index=str(edge_index),
+                _graph=_graph,
+                _parent=n_id,
+                _parent_fields=parent_fields,
             )
-
-            if field := (_parent_fields or {}).get(hash_node(obj)):
-                _graph.nodes[_parent][f"label_field_{field}"] = n_id
-
-        if not obj.children or any(
-            (
-                language == GraphShardMetadataLanguage.JAVA
-                and obj.type
-                in {
-                    "array_type",
-                    "character_literal",
-                    "field_access",
-                    "floating_point_type",
-                    "generic_type",
-                    "integral_type",
-                    "scoped_identifier",
-                    "scoped_type_identifier",
-                    "this",
-                    "type_identifier",
-                },
-            )
-        ):
-            # Consider it a final node, extract the text from it
-            _graph.nodes[n_id]["label_text"] = content[
-                obj.start_byte : obj.end_byte
-            ].decode("latin-1")
-        else:
-            parent_fields: Dict[int, str] = {}
-            if language != GraphShardMetadataLanguage.NOT_SUPPORTED:
-                parent_fields = {
-                    hash_node(child): field
-                    for field in {
-                        GraphShardMetadataLanguage.JAVA: JAVA_FIELDS,
-                        GraphShardMetadataLanguage.TSX: TSX_FIELDS,
-                    }[language].get(obj.type, ())
-                    for child in [obj.child_by_field_name(field)]
-                    if child
-                }
-
-            # It's not a final node, recurse
-            for edge_index, child in enumerate(obj.children):
-                _build_ast_graph(
-                    content,
-                    language,
-                    child,
-                    _counter=_counter,
-                    _edge_index=str(edge_index),
-                    _graph=_graph,
-                    _parent=n_id,
-                    _parent_fields=parent_fields,
-                )
-
-    else:
-        raise NotImplementedError()
 
     return _graph
 
@@ -215,6 +238,9 @@ def decide_language(path: str) -> GraphShardMetadataLanguage:
 
     if path.endswith(".java"):
         language = GraphShardMetadataLanguage.JAVA
+
+    if path.endswith(".cs"):
+        language = GraphShardMetadataLanguage.CSHARP
 
     if (
         path.endswith(".js")

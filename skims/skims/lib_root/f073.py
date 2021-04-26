@@ -14,6 +14,11 @@ def java_switch_without_default(
 ) -> core_model.Vulnerabilities:
     def n_ids() -> graph_model.GraphShardNodes:
         for shard in graph_db.shards:
+            if (
+                shard.metadata.language
+                != graph_model.GraphShardMetadataLanguage.JAVA
+            ):
+                continue
             for switch_id in g.filter_nodes(
                 shard.graph,
                 nodes=shard.graph.nodes,
