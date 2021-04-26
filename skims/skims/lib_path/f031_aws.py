@@ -87,15 +87,15 @@ def _negative_statement_iterate_vulnerabilities(
                     if not is_resource_permissive(resource.raw)
                 )
         else:
-            if "NotAction" in stmt_raw:
-                if not any(map(is_action_permissive, stmt_raw["NotAction"])):
-                    yield stmt
+            if "NotAction" in stmt_raw and not any(
+                map(is_action_permissive, stmt_raw["NotAction"])
+            ):
+                yield stmt
 
-            if "NotResource" in stmt_raw:
-                if not any(
-                    map(is_resource_permissive, stmt_raw["NotResource"])
-                ):
-                    yield stmt
+            if "NotResource" in stmt_raw and not any(
+                map(is_resource_permissive, stmt_raw["NotResource"])
+            ):
+                yield stmt
 
 
 def _permissive_policy_iterate_vulnerabilities(
