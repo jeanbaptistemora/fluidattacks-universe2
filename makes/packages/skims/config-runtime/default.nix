@@ -100,6 +100,10 @@ makeTemplate {
           envParserBabel = packages.skims.parsers.babel;
           envSrcSkimsStatic = path "/skims/static";
           envSrcSkimsVendor = path "/skims/vendor";
+          envSrcTreeSitterCSharp = fetchzip {
+            url = "https://github.com/tree-sitter/tree-sitter-c-sharp/archive/851ac4735f66ec9c479096cc21bf58519da49faa.tar.gz";
+            sha256 = "UHw5JQ++iYLTyqL8KH1impRxXJ2oJAQRoD79nLVQgMw=";
+          };
           envSrcTreeSitterJava = fetchzip {
             url = "https://github.com/tree-sitter/tree-sitter-java/archive/8d6a858350475386b6fd58210c34750a8f361b6a.tar.gz";
             sha256 = "fhN+yKPfGkpA/QIUSkzczXF0EOGPbwoCYlyEjDUtgg0=";
@@ -117,6 +121,7 @@ makeTemplate {
           export SKIMS_PARSER_BABEL='__envParserBabel__'
           export SKIMS_ROBOTO_FONT='__envSrcSkimsVendor__/fonts/roboto_mono_from_google/regular.ttf'
           export SKIMS_STATIC='__envSrcSkimsStatic__'
+          export SKIMS_TREE_SITTER_CSHARP='__envSrcTreeSitterCSharp__'
           export SKIMS_TREE_SITTER_JAVA='__envSrcTreeSitterJava__'
           export SKIMS_TREE_SITTER_TSX='__envSrcTreeSitterTsx__/tsx'
           export SKIMS_VENDOR='__envSrcSkimsVendor__'

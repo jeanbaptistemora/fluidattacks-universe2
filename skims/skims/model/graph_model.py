@@ -286,6 +286,7 @@ class GraphShardMetadataJava(NamedTuple):
 
 
 class GraphShardMetadataLanguage(Enum):
+    CSHARP: str = "c_sharp"
     JAVA: str = "java"
     NOT_SUPPORTED: str = "not_supported"
     TSX: str = "tsx"
