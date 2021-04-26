@@ -83,7 +83,7 @@ makeTemplate {
             "six==1.15.0"
             "smmap==3.0.5"
             "typing-extensions==3.7.4.3"
-            "urllib3==1.25.11"
+            "urllib3==1.26.4"
             "WebOb==1.8.7"
             "wrapt==1.12.1"
             "yarl==1.6.3"
