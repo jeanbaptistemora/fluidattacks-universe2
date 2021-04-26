@@ -203,6 +203,7 @@ module.exports = {
           'criteria/emails/r116',
           'criteria/emails/r117',
           'criteria/emails/r118',
+          'criteria/emails/r119',
         ],
     },
     {
