@@ -444,6 +444,19 @@ module.exports = {
     },
     {
       type: 'category',
+      label: 'Insecure encryption algorithm',
+      items: [
+        {
+          type: 'category',
+          label: 'Details',
+          items: [
+            'types/052/details/missing_ssl',
+          ],
+        },
+      ],
+    },
+    {
+      type: 'category',
       label: 'Insecure service configuration',
       items: [
         {
