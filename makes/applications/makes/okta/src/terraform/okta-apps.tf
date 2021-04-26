@@ -153,3 +153,38 @@ resource "okta_app_user" "apps_saml" {
     local.apps[each.value.id].single_user
   )
 }
+
+resource "okta_app_group_assignment" "aws" {
+  for_each = {
+    for app in local.aws_group_roles : "${app.id}_${app.group}" => app
+  }
+
+  app_id   = okta_app_saml.apps[each.value.id].id
+  group_id = okta_group.groups[each.value.group].id
+
+  profile = jsonencode({
+    samlRoles = each.value.roles
+    role      = "AmazonComprehendServiceRole-testttt"
+  })
+}
+
+resource "okta_app_user" "aws" {
+  for_each = {
+    for app in local.aws_user_roles : "${app.id}_${app.user}" => app
+  }
+
+  app_id   = okta_app_saml.apps[each.value.id].id
+  user_id  = okta_user.users[each.value.user].id
+  username = okta_user.users[each.value.user].login
+
+  profile = jsonencode({
+    email        = okta_user.users[each.value.user].email
+    secondEmail  = okta_user.users[each.value.user].second_email
+    samlRoles    = each.value.roles
+    firstName    = okta_user.users[each.value.user].first_name
+    lastName     = okta_user.users[each.value.user].last_name
+    mobilePhone  = okta_user.users[each.value.user].mobile_phone
+    role         = "AmazonComprehendServiceRole-testttt"
+    idpRolePairs = []
+  })
+}
