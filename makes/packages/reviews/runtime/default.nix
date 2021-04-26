@@ -36,7 +36,7 @@ makeTemplate {
             "idna==2.10"
             "pycparser==2.20"
             "requests==2.25.1"
-            "urllib3==1.26.3"
+            "urllib3==1.26.4"
           ];
         };
         python = nixpkgs.python38;
