@@ -20,12 +20,16 @@ from sorts.utils.static import (
 )
 
 
+def get_scope_from_csv_name(csv_name: str) -> str:
+    return csv_name.split('.')[0].split('_')[-1]
+
+
 def build_results_csv(
     predictions: ndarray,
     predict_df: DataFrame,
     csv_name: str
 ) -> None:
-    scope: str = csv_name.split('.')[0].split('_')[-1]
+    scope: str = get_scope_from_csv_name(csv_name)
     result_df: DataFrame = pd.concat(
         [
             predict_df[[scope]],
@@ -43,11 +47,36 @@ def build_results_csv(
         .reset_index(drop=True)[[scope, 'prob_vuln']]
     sorted_files.to_csv(csv_name, index=False)
 
+    log(
+        'info',
+        'Results saved to file %s.',
+        csv_name
+    )
+
+
+def display_results(csv_name: str) -> None:
+    scope: str = get_scope_from_csv_name(csv_name)
+    log(
+        'info',
+        'Here are the top 20 files to check:'
+    )
+    with open(csv_name, 'r') as csv_file:
+        table: PrettyTable = from_csv(
+            csv_file,
+            field_names=[scope, 'prob_vuln'],
+            delimiter=','
+        )
+    table.align[scope] = 'l'
+    # pylint: disable=protected-access
+    table._max_width = {scope: 120, 'prob_vuln': 10}
+
+    print(table.get_string(start=1, end=20))
+
 
 def predict_vuln_prob(
     predict_df: DataFrame,
     features: List[str],
-    group: str,
+    csv_name: str,
     scope: str
 ) -> None:
     """Uses model to make predictions on the input and save them to CSV"""
@@ -66,26 +95,8 @@ def predict_vuln_prob(
         probability_prediction
     ])
 
-    csv_name: str = f'{group}_sorts_results_{scope}.csv'
     build_results_csv(
         merged_predictions,
         predict_df,
         csv_name
     )
-
-    log(
-        'info',
-        'Results saved to file %s. Here are the top 20 files to check:',
-        csv_name
-    )
-    with open(csv_name, 'r') as csv_file:
-        table: PrettyTable = from_csv(
-            csv_file,
-            field_names=['file', 'prob_vuln'],
-            delimiter=','
-        )
-
-    table.align[scope] = 'l'
-    # pylint: disable=protected-access
-    table._max_width = {scope: 120, 'prob_vuln': 10}
-    print(table.get_string(start=1, end=20))
