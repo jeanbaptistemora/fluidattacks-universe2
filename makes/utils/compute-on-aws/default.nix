@@ -17,6 +17,7 @@ let
   };
 
   makeEntrypoint = import (path "/makes/utils/make-entrypoint") path pkgs;
+  nix = import (path "/makes/utils/nix") path pkgs;
 
   # Granting less than 3600 MB of memory per vCPU is paying for unused resources
   # so let's be greedy and grant it all
@@ -31,7 +32,7 @@ makeEntrypoint {
     envCommandFile = builtins.toFile "command" (builtins.toJSON command);
     envEnvsubst = "${pkgs.envsubst}/bin/envsubst";
     envJobname = jobname;
-    envJobqueue = jobqueue;
+    envJobqueue = nix.valueOrEnv jobqueue "MAKES_COMPUTE_ON_AWS_JOB_QUEUE";
     envJq = "${pkgs.jq}/bin/jq";
     envManifestFile = builtins.toFile "manifest" (builtins.toJSON {
       environment = (builtins.map getSecretFromRuntimeEnv secrets) ++ [

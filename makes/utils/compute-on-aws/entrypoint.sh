@@ -63,6 +63,7 @@ function main {
       do
         env_jobname="${env_jobname}-${arg}"
       done \
+  &&  env_jobqueue="__envJobqueue__" \
   &&  env_manifest="$(substitute_env_vars '__envManifestFile__')" \
   &&  env_command="$( \
         __envJq__ \
@@ -79,9 +80,9 @@ function main {
   &&  echo '[INFO] Attempts: __envAttempts__' \
   &&  echo '[INFO] Timeout: __envTimeout__ seconds' \
   &&  echo "[INFO] Job Name: ${env_jobname}" \
-  &&  echo '[INFO] Job Queue: __envJobqueue__' \
+  &&  echo "[INFO] Job Queue: ${env_jobqueue}" \
   &&  aws_login_prod '__envProduct__' \
-  &&  if test "$(is_already_in_queue "${env_jobname}" '__envJobqueue__')" = 'false'
+  &&  if test "$(is_already_in_queue "${env_jobname}" "${env_jobqueue}")" = 'false'
       then
             echo '[INFO] Sending job' \
         &&  '__envAws__' batch submit-job \
@@ -94,7 +95,7 @@ function main {
                   '$manifest * {command: $command}'
               )" \
               --job-name "${env_jobname}" \
-              --job-queue '__envJobqueue__' \
+              --job-queue "${env_jobqueue}" \
               --job-definition 'default' \
               --retry-strategy 'attempts=__envAttempts__' \
               --timeout 'attemptDurationSeconds=__envTimeout__' \

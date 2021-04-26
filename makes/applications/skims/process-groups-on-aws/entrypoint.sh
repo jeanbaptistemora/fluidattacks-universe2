@@ -1,20 +1,12 @@
 # shellcheck shell=bash
 
-function list_checks {
-  local results
-
-      results="$(mktemp)" \
-  &&  grep -oP \
-        '[A-Z0-9_]+(?=: FindingMetadata)' \
-        'skims/skims/model/core_model.py' \
-        > "${results}" \
-  &&  echo "${results}"
-}
-
 function main {
       aws_login_prod 'skims' \
-  &&  mapfile -t checks < "$(list_checks)" \
+  &&  mapfile -t checks < skims/manifests/findings.lst \
+  &&  mapfile -t checks_dev < skims/manifests/findings.dev.lst \
   &&  echo "[INFO] Findings to execute: ${checks[*]}" \
+  &&  echo "[INFO] Findings to execute dev: ${checks_dev[*]}" \
+  &&  ensure_gitlab_env_var PRODUCT_API_TOKEN \
   &&  use_git_repo_services \
     &&  shopt -s nullglob \
     &&  for group in "groups/"*
@@ -22,6 +14,13 @@ function main {
               group="$(basename "${group}")" \
           &&  for check in "${checks[@]}"
               do
+                    MAKES_COMPUTE_ON_AWS_JOB_QUEUE='skims_later' \
+                    skims-process-group-on-aws "${group}" "${check}" \
+                ||  return 1
+              done \
+          &&  for check in "${checks_dev[@]}"
+              do
+                    MAKES_COMPUTE_ON_AWS_JOB_QUEUE='skims_soon' \
                     skims-process-group-on-aws "${group}" "${check}" \
                 ||  return 1
               done \

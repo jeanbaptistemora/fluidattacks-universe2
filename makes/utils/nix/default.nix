@@ -30,4 +30,10 @@ rec {
 
   # Sort a list based on ascii code point ignoring case
   sortCaseless = builtins.sort (a: b: toLower a < toLower b);
+
+  # Small snippet to pull a value from an env var if null
+  valueOrEnv = value: envVar:
+    if value == null
+    then "\${${envVar}}"
+    else value;
 }
