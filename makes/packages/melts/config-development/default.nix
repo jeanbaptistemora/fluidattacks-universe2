@@ -44,7 +44,7 @@ let
         "s3transfer==0.3.4"
         "six==1.15.0"
         "subprocess32==3.5.4"
-        "urllib3==1.26.2"
+        "urllib3==1.26.4"
         "wcwidth==0.2.5"
       ];
     };

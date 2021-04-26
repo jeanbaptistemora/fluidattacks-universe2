@@ -64,7 +64,7 @@ let
         "smmap==3.0.4"
         "soupsieve==2.1"
         "typing-extensions==3.7.4.3"
-        "urllib3==1.25.11"
+        "urllib3==1.26.4"
         "WebOb==1.8.6"
         "yarl==1.6.3"
       ];
