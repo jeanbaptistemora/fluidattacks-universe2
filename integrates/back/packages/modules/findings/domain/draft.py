@@ -36,7 +36,6 @@ from custom_exceptions import (
     NotSubmitted,
 )
 from findings import dal as findings_dal
-from group_access import domain as group_access_domain
 from newutils import (
     datetime as datetime_utils,
     findings as finding_utils,
@@ -246,7 +245,6 @@ async def send_new_draft_mail(
     organization = await organization_loader.load(org_id)
     org_name = organization['name']
     recipients = FI_MAIL_REVIEWERS.split(',')
-    recipients += await group_access_domain.list_internal_managers(group_name)
     email_context: MailContentType = {
         'analyst_email': analyst_email,
         'finding_id': finding_id,
