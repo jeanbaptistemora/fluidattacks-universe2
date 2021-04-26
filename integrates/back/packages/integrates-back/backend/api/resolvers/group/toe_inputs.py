@@ -26,6 +26,7 @@ async def resolve(
         partial(resolve_no_cache, parent, info, **kwargs),
         entity='group',
         attr='toe_inputs',
+        ttl=CACHE_TTL,
         name=parent['name']
     )
 
