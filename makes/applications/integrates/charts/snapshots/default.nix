@@ -27,7 +27,7 @@ makeEntrypoint {
             "selenium==3.141.0"
           ];
           inherited = [
-            "urllib3==1.26.3"
+            "urllib3==1.26.4"
           ];
         };
         python = nixpkgs.python37;

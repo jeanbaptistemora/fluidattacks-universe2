@@ -20,7 +20,7 @@ buildPythonRequirements {
       "py==1.10.0"
       "pyparsing==2.4.7"
       "toml==0.10.2"
-      "urllib3==1.26.3"
+      "urllib3==1.26.4"
     ];
   };
   python = nixpkgs.python38;

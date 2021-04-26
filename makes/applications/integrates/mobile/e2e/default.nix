@@ -39,7 +39,7 @@ let
         "selenium==3.141.0"
         "toml==0.10.2"
         "typing-extensions==3.7.4.3"
-        "urllib3==1.26.3"
+        "urllib3==1.26.4"
         "zipp==3.4.0"
       ];
     };
