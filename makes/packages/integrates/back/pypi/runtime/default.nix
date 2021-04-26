@@ -126,7 +126,7 @@ let
         "Twisted==20.3.0"
         "txaio==20.12.1"
         "typing-extensions==3.7.4.3"
-        "urllib3==1.25.11"
+        "urllib3==1.26.4"
         "uvloop==0.15.1"
         "watchgod==0.6"
         "WebOb==1.8.6"

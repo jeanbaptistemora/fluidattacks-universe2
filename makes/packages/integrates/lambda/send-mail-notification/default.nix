@@ -16,7 +16,7 @@ buildPythonLambda {
       "chardet==3.0.4"
       "docopt==0.6.2"
       "requests==2.24.0"
-      "urllib3==1.25.10"
+      "urllib3==1.26.4"
     ];
   };
   source = path "/integrates/lambda/send_mail_notification";
