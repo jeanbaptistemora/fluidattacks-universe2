@@ -37,7 +37,7 @@ let
         "six==1.15.0"
         "smdebug-rulesconfig==0.1.5"
         "toml==0.10.2"
-        "urllib3==1.26.2"
+        "urllib3==1.26.4"
         "zipp==3.4.0"
       ];
     };

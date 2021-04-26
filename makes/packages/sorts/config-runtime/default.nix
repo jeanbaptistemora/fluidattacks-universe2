@@ -47,7 +47,7 @@ let
         "smmap==3.0.4"
         "statsmodels==0.12.1"
         "threadpoolctl==2.1.0"
-        "urllib3==1.25.11"
+        "urllib3==1.26.4"
         "wcwidth==0.2.5"
         "WebOb==1.8.6"
         "websockets==8.1"
