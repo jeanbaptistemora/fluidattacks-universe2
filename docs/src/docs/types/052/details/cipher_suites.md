@@ -27,7 +27,7 @@ A cipher suite is as secure as the algorithms that it contains.
 If the version of encryption or authentication algorithm in a cipher suite have
 known vulnerabilities the cipher suite and TLS connection is then vulnerable.
 
-## Vulnerable cipher suites
+## Vulnerable bulk encryption algorithm
 
 - [AES in ECB mode](https://www.skylinetechnologies.com/Blog/Skyline-Blog/May_2020/bye-bye-bye-to-aes-ecb-mode),
   ECB mode leaks information about the plain text
@@ -50,3 +50,26 @@ known vulnerabilities the cipher suite and TLS connection is then vulnerable.
 - [SSL algorithms other than: tls, tlsv1.2, tlsv1.3, dtls, dtlsv1.2, dtlsv1.3](https://httpd.apache.org/docs/2.4/ssl/ssl_intro.html),
   Vulnerable to different kind of attacks
 - Others with less adoption
+
+## Vulnerable hashing and MAC algorithms
+
+- [Adler](https://en.wikipedia.org/wiki/Adler-32),
+  Insufficient time/space complexity
+- [CRC](https://en.wikipedia.org/wiki/Cyclic_redundancy_check),
+  Insufficient time/space complexity
+- goodFastHash,
+  Focused on speed, not security
+- [MD2](https://en.wikipedia.org/wiki/MD2_(hash_function)),
+  Vulnerable to pre-image and collision attacks
+- [MD4](https://en.wikipedia.org/wiki/MD4),
+  Vulnerable to collision attacks
+- [HMACMD5, MD5, MD5Cng, MD5CryptoServiceProvider, MD5Managed](https://www.kb.cert.org/vuls/id/836068/),
+  Vulnerable to collision attacks
+- [HMACRIPEMD160, RIPEMD160, RIPEMD160Managed](https://en.wikipedia.org/wiki/RIPEMD),
+  Insufficient time/space complexity
+- [MACDES](https://en.wikipedia.org/wiki/Data_Encryption_Standard),
+  Vulnerable to brute force attacks
+- [MACTripleDES](https://en.wikipedia.org/wiki/Triple_DES),
+  vulnerable to meet-in-the-middle attack
+- [HMACSHA1, SHA1, SHA1Cng, SHA1CryptoServiceProvider, SHA1Managed](https://sslrenewals.com/blog/vulnerability-risk-in-using-sha1-certificate)
+  Vulnerable to colission attacks
