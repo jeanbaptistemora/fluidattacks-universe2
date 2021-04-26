@@ -20,7 +20,7 @@ from . import query
     ('reason', 'new_repo'),
     (
         ('MOVED_TO_ANOTHER_REPO', 'https://test.com'),
-        ('CODE_EXITS_THE_PROJECT', None),
+        ('OUT_OF_SCOPE', None),
         ('REGISTERED_BY_MISTAKE', None),
     )
 )

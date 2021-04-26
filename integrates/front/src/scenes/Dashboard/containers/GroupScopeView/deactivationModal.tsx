@@ -40,7 +40,10 @@ export const DeactivationModal: React.FC<IDeactivationModalProps> = ({
 
   return (
     <React.StrictMode>
-      <Modal headerTitle={t("scope.common.deactivation.title")} open={true}>
+      <Modal
+        headerTitle={t("group.scope.common.deactivation.title")}
+        open={true}
+      >
         <Formik
           initialValues={{ reason: "" }}
           onSubmit={handleSubmit}
@@ -52,15 +55,15 @@ export const DeactivationModal: React.FC<IDeactivationModalProps> = ({
                 <Col100>
                   <FormGroup>
                     <ControlLabel>
-                      {t("scope.common.deactivation.reason")}
+                      {t("group.scope.common.deactivation.reason.label")}
                     </ControlLabel>
                     <Field component={FormikDropdown} name={"reason"}>
                       <option value={""} />
-                      <option value={"CODE_EXITS_THE_PROJECT"}>
-                        {t("scope.common.deactivation.reason.exits")}
+                      <option value={"OUT_OF_SCOPE"}>
+                        {t("group.scope.common.deactivation.reason.scope")}
                       </option>
                       <option value={"REGISTERED_BY_MISTAKE"}>
-                        {t("scope.common.deactivation.reason.mistake")}
+                        {t("group.scope.common.deactivation.reason.mistake")}
                       </option>
                     </Field>
                   </FormGroup>

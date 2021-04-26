@@ -10,10 +10,10 @@ import { MemoryRouter, Route } from "react-router";
 import wait from "waait";
 
 import {
+  ACTIVATE_ROOT,
   ADD_GIT_ROOT,
   GET_ROOTS,
   UPDATE_GIT_ROOT,
-  UPDATE_ROOT_STATE,
 } from "./queries";
 
 import { GroupScopeView } from ".";
@@ -440,7 +440,7 @@ describe("GroupScopeView", (): void => {
     );
   });
 
-  it("should update root state", async (): Promise<void> => {
+  it("should activate root", async (): Promise<void> => {
     expect.hasAssertions();
 
     const initialQueryMock: MockedResponse = {
@@ -470,7 +470,7 @@ describe("GroupScopeView", (): void => {
                 lastCloningStatusUpdate: "2021-01-05T18:16:48",
                 lastStateStatusUpdate: "2021-01-05T18:16:48",
                 nickname: "product",
-                state: "ACTIVE",
+                state: "INACTIVE",
                 url: "https://gitlab.com/fluidattacks/product",
               },
             ],
@@ -480,16 +480,15 @@ describe("GroupScopeView", (): void => {
     };
     const mutationMock: MockedResponse = {
       request: {
-        query: UPDATE_ROOT_STATE,
+        query: ACTIVATE_ROOT,
         variables: {
           groupName: "unittesting",
           id: "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19",
-          state: "INACTIVE",
         },
       },
       result: {
         data: {
-          updateRootState: { __typename: "SimplePayload", success: true },
+          activateRoot: { __typename: "SimplePayload", success: true },
         },
       },
     };
@@ -520,7 +519,7 @@ describe("GroupScopeView", (): void => {
                 lastCloningStatusUpdate: "2021-01-05T18:16:48",
                 lastStateStatusUpdate: "2021-01-05T18:16:48",
                 nickname: "product",
-                state: "INACTIVE",
+                state: "ACTIVE",
                 url: "https://gitlab.com/fluidattacks/product",
               },
             ],
@@ -572,7 +571,7 @@ describe("GroupScopeView", (): void => {
       return firstTableRow.find("#rootSwitch").at(0) as ReactWrapper;
     };
 
-    expect(getStateSwitch().prop("checked")).toStrictEqual(true);
+    expect(getStateSwitch().prop("checked")).toStrictEqual(false);
 
     getStateSwitch().simulate("click");
 
@@ -590,6 +589,6 @@ describe("GroupScopeView", (): void => {
       }
     );
 
-    expect(getStateSwitch().prop("checked")).toStrictEqual(false);
+    expect(getStateSwitch().prop("checked")).toStrictEqual(true);
   });
 });

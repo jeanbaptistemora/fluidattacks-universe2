@@ -15,11 +15,13 @@ import { EnvsModal } from "./envsModal";
 import { GitModal } from "./gitModal";
 import { Container } from "./styles";
 
+import { DeactivationModal } from "../deactivationModal";
 import {
+  ACTIVATE_ROOT,
   ADD_GIT_ROOT,
+  DEACTIVATE_ROOT,
   UPDATE_GIT_ENVIRONMENTS,
   UPDATE_GIT_ROOT,
-  UPDATE_ROOT_STATE,
 } from "../queries";
 import type { IGitRootAttr } from "../types";
 import { Button } from "components/Button";
@@ -102,6 +104,19 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
 
   const closeEnvsModal: () => void = useCallback((): void => {
     setManagingEnvs(false);
+  }, []);
+
+  const [deactivationModal, setDeactivationModal] = useState({
+    open: false,
+    rootId: "",
+  });
+
+  const openDeactivationModal = useCallback((rootId: string): void => {
+    setDeactivationModal({ open: true, rootId });
+  }, []);
+
+  const closeDeactivationModal = useCallback((): void => {
+    setDeactivationModal({ open: false, rootId: "" });
   }, []);
 
   const [checkedItems, setCheckedItems] = useStoredState<
@@ -221,7 +236,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
     },
   });
 
-  const [updateRootState] = useMutation(UPDATE_ROOT_STATE, {
+  const [activateRoot] = useMutation(ACTIVATE_ROOT, {
     onCompleted: (): void => {
       onUpdate();
       setCurrentRow(undefined);
@@ -232,12 +247,29 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
           case "Exception - Active root with the same URL/branch already exists":
             msgError(t("group.scope.common.errors.duplicateUrl"));
             break;
+          default:
+            msgError(t("groupAlerts.errorTextsad"));
+            Logger.error("Couldn't activate root", error);
+        }
+      });
+    },
+  });
+
+  const [deactivateRoot] = useMutation(DEACTIVATE_ROOT, {
+    onCompleted: (): void => {
+      onUpdate();
+      closeDeactivationModal();
+      setCurrentRow(undefined);
+    },
+    onError: ({ graphQLErrors }: ApolloError): void => {
+      graphQLErrors.forEach((error: GraphQLError): void => {
+        switch (error.message) {
           case "Exception - A root with open vulns can't be deactivated":
             msgError(t("group.scope.common.errors.hasOpenVulns"));
             break;
           default:
             msgError(t("groupAlerts.errorTextsad"));
-            Logger.error("Couldn't update root state", error);
+            Logger.error("Couldn't deactivate root", error);
         }
       });
     },
@@ -295,6 +327,13 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
       await updateGitEnvs({ variables: { environmentUrls, groupName, id } });
     },
     [groupName, updateGitEnvs]
+  );
+
+  const handleDeactivationSubmit = useCallback(
+    async (rootId: string, reason: string): Promise<void> => {
+      await deactivateRoot({ variables: { groupName, id: rootId, reason } });
+    },
+    [deactivateRoot, groupName]
   );
 
   function handleChange(columnName: string): void {
@@ -374,15 +413,13 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
           const handleStateUpdate: (row: Record<string, string>) => void = (
             row
           ): void => {
-            confirm((): void => {
-              void updateRootState({
-                variables: {
-                  groupName,
-                  id: row.id,
-                  state: row.state === "ACTIVE" ? "INACTIVE" : "ACTIVE",
-                },
+            if (row.state === "ACTIVE") {
+              openDeactivationModal(row.id);
+            } else {
+              confirm((): void => {
+                void activateRoot({ variables: { groupName, id: row.id } });
               });
-            });
+            }
           };
 
           return (
@@ -519,6 +556,13 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
           initialValues={currentRow as IGitRootAttr}
           onClose={closeEnvsModal}
           onSubmit={handleEnvsSubmit}
+        />
+      ) : undefined}
+      {deactivationModal.open ? (
+        <DeactivationModal
+          onClose={closeDeactivationModal}
+          onSubmit={handleDeactivationSubmit}
+          rootId={deactivationModal.rootId}
         />
       ) : undefined}
     </React.Fragment>

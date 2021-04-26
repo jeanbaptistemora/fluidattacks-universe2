@@ -517,8 +517,9 @@ export const enTranslations: ResourceKey = {
         confirm: "Confirm state change",
         deactivation: {
           reason: {
-            exits: "Code exits the project",
+            label: "Reason",
             mistake: "Registered by mistake",
+            scope: "Out of scope",
           },
           title: "Deactivate Root",
         },
