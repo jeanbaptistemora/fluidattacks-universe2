@@ -168,6 +168,7 @@ module.exports = {
           'criteria/source/r168',
           'criteria/source/r169',
           'criteria/source/r171',
+          'criteria/source/r172',
         ],
     },
     {
