@@ -441,6 +441,20 @@ module.exports = {
     },
     {
       type: 'category',
+      label: 'Technical information leak',
+      items: [
+        'types/037/description',
+        {
+          type: 'category',
+          label: 'Details',
+          items: [
+            'types/037/details/js_console',
+          ],
+        },
+      ],
+    },
+    {
+      type: 'category',
       label: 'Improperly set HTTP headers',
       items: [
         {

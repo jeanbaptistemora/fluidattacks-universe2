@@ -1,8 +1,8 @@
 ---
-id: f037
-title: Technical information leak
-sidebar_label: Technical information leak
-slug: /types/037
+id: description
+title: Description
+sidebar_label: Description
+slug: /types/037/details/ssl
 ---
 
 ## Description
