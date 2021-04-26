@@ -20,7 +20,7 @@ exports.handler = function(event, context) {
 
         // On a successful describe, execute the following callback
         request.on("success", function(response) {
-            var region = response.request.service.config.region;
+            region = response.request.service.config.region;
             var data = response.data;
             var ids = [];
             for(let reservation of data.Reservations) {
@@ -34,12 +34,12 @@ exports.handler = function(event, context) {
             // If some Instances have been identified, attempt to terminate
             if(ids.length > 0) {
                 semaphore.terminate++;
-                var ec2 = new AWS.EC2(response.request.service.config);
-                var request = ec2.terminateInstances({DryRun:!shouldTerminateInstances, InstanceIds:ids});	// Defaulting to DryRun true when terminating Instances
+                ec2 = new AWS.EC2(response.request.service.config);
+                request = ec2.terminateInstances({DryRun:!shouldTerminateInstances, InstanceIds:ids});	// Defaulting to DryRun true when terminating Instances
 
                 // Callback for successful terminate
                 request.on("success", function(response) {
-                    var region = response.request.service.config.region;
+                    region = response.request.service.config.region;
                     var body = JSON.stringify(response.data);
                     results[region] = response.data;
                     announce(region, body);
