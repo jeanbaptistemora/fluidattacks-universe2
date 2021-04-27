@@ -13,7 +13,9 @@ def java_declaration_of_throws_for_generic_exception(
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:
     def n_ids() -> graph_model.GraphShardNodes:
-        for shard in graph_db.shards:
+        for shard in graph_db.shards_by_langauge(
+            graph_model.GraphShardMetadataLanguage.JAVA,
+        ):
             graph = shard.graph
 
             for method_declaration_id in g.filter_nodes(

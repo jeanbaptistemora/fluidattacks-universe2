@@ -64,7 +64,12 @@ def _step_by_step(
     stack: Stack,
 ) -> None:
     # Statements = step1 step2 ...
-    stmt_ids = g.adj_ast(graph, n_id)
+    stmt_ids = tuple(
+        node
+        for node in g.adj_ast(graph, n_id)
+        # skip unnecessary node
+        if graph.nodes[node].get("label_type") != ";"
+    )
 
     # Skip { }
     if graph.nodes[n_id]["label_type"] == "block":
@@ -203,9 +208,7 @@ def _try_statement(
     children_stack = []
     for c_id in g.adj_ast(graph, n_id):
         c_attrs_label_type = graph.nodes[c_id]["label_type"]
-        if c_attrs_label_type == "try":
-            pass
-        elif c_attrs_label_type in {
+        if c_attrs_label_type in {
             "block",
             "finally_clause",
             "resource_specification",
@@ -213,7 +216,7 @@ def _try_statement(
             children_stack.append((c_id, ALWAYS))
         elif c_attrs_label_type == "catch_clause":
             children_stack.append((c_id, MAYBE))
-        else:
+        elif c_attrs_label_type != "try":
             raise NotImplementedError()
 
     # Walk the existing blocks and link them recursively
@@ -271,9 +274,8 @@ def _generic(
             walker(graph, n_id, stack)
             break
     else:
-        if next_id := stack[-2].pop("next_id", None):
-            if n_id != next_id:
-                graph.add_edge(n_id, next_id, **edge_attrs)
+        if (next_id := stack[-2].pop("next_id", None)) and n_id != next_id:
+            graph.add_edge(n_id, next_id, **edge_attrs)
 
     stack.pop()
 

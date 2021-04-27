@@ -394,6 +394,16 @@ class GraphDB(NamedTuple):
     def shards_by_path_f(self, path: str) -> GraphShard:
         return self.shards[self.shards_by_path[path]]
 
+    def shards_by_langauge(
+        self,
+        language: GraphShardMetadataLanguage,
+    ) -> List[GraphShard]:
+        return [
+            shard
+            for shard in self.shards
+            if shard.metadata.language == language
+        ]
+
 
 GraphShardNode = Tuple[GraphShard, NId]
 GraphShardNodes = Iterable[GraphShardNode]

@@ -709,7 +709,7 @@
         ]
       },
       "365": {
-        "365-377-395-412-413-424-425-426": [
+        "365-377-395-412-413-425-426": [
           {
             "meta": {
               "danger": false,
@@ -929,15 +929,6 @@
             },
             "type": "SyntaxStepAssignment",
             "var": "currentUser.userId"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "424",
-              "value": null
-            },
-            "type": "SyntaxStepNoOp"
           },
           {
             "meta": {
@@ -1238,7 +1229,7 @@
         ]
       },
       "524": {
-        "524-536-543-544-557-558-572-573-586-587": [
+        "524-536-543-544-557-558-573-586-587": [
           {
             "meta": {
               "danger": false,
@@ -1388,15 +1379,6 @@
             },
             "method": "currentUser.setUserId",
             "type": "SyntaxStepMethodInvocation"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "572",
-              "value": null
-            },
-            "type": "SyntaxStepNoOp"
           },
           {
             "current_instance": {
@@ -2094,7 +2076,7 @@
         ]
       },
       "77": {
-        "77-89-107-114-115-128-129-144-145-158-159": [
+        "77-89-107-114-115-128-129-145-158-159": [
           {
             "meta": {
               "danger": false,
@@ -2289,15 +2271,6 @@
             "type": "SyntaxStepMethodInvocation"
           },
           {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "144",
-              "value": null
-            },
-            "type": "SyntaxStepNoOp"
-          },
-          {
             "current_instance": {
               "fields": {}
             },
@@ -2378,7 +2351,7 @@
         ]
       },
       "793": {
-        "793-805-822-823-833-834-835": [
+        "793-805-822-823-834-835": [
           {
             "meta": {
               "danger": false,
@@ -2567,15 +2540,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "833",
-              "value": null
-            },
-            "type": "SyntaxStepNoOp"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
               "n_id": "834",
               "value": null
             },
@@ -2632,7 +2596,7 @@
         ]
       },
       "869": {
-        "869-881-895-896-904-905-922-923": [
+        "869-881-895-896-905-922-923": [
           {
             "meta": {
               "danger": false,
@@ -2722,15 +2686,6 @@
             },
             "method": "Generate.readFile",
             "type": "SyntaxStepMethodInvocation"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "904",
-              "value": null
-            },
-            "type": "SyntaxStepNoOp"
           },
           {
             "meta": {
@@ -3640,7 +3595,7 @@
         ]
       },
       "365": {
-        "365-377-395-412-413-424-425-426": [
+        "365-377-395-412-413-425-426": [
           {
             "meta": {
               "danger": false,
@@ -3860,15 +3815,6 @@
             },
             "type": "SyntaxStepAssignment",
             "var": "currentUser.userId"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "424",
-              "value": null
-            },
-            "type": "SyntaxStepNoOp"
           },
           {
             "meta": {
@@ -4169,7 +4115,7 @@
         ]
       },
       "524": {
-        "524-536-543-544-557-558-572-573-586-587": [
+        "524-536-543-544-557-558-573-586-587": [
           {
             "meta": {
               "danger": false,
@@ -4319,15 +4265,6 @@
             },
             "method": "currentUser.setUserId",
             "type": "SyntaxStepMethodInvocation"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "572",
-              "value": null
-            },
-            "type": "SyntaxStepNoOp"
           },
           {
             "current_instance": {
@@ -5025,7 +4962,7 @@
         ]
       },
       "77": {
-        "77-89-107-114-115-128-129-144-145-158-159": [
+        "77-89-107-114-115-128-129-145-158-159": [
           {
             "meta": {
               "danger": false,
@@ -5220,15 +5157,6 @@
             "type": "SyntaxStepMethodInvocation"
           },
           {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "144",
-              "value": null
-            },
-            "type": "SyntaxStepNoOp"
-          },
-          {
             "current_instance": {
               "fields": {}
             },
@@ -5309,7 +5237,7 @@
         ]
       },
       "793": {
-        "793-805-822-823-833-834-835": [
+        "793-805-822-823-834-835": [
           {
             "meta": {
               "danger": false,
@@ -5498,15 +5426,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "833",
-              "value": null
-            },
-            "type": "SyntaxStepNoOp"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
               "n_id": "834",
               "value": null
             },
@@ -5563,7 +5482,7 @@
         ]
       },
       "869": {
-        "869-881-895-896-904-905-922-923": [
+        "869-881-895-896-905-922-923": [
           {
             "meta": {
               "danger": false,
@@ -5653,15 +5572,6 @@
             },
             "method": "Generate.readFile",
             "type": "SyntaxStepMethodInvocation"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "904",
-              "value": null
-            },
-            "type": "SyntaxStepNoOp"
           },
           {
             "meta": {
