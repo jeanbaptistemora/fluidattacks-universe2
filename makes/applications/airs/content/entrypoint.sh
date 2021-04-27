@@ -27,7 +27,8 @@ function main {
       &&  find content/pages -type f -name "*.adoc" -exec sed -i 's|:slug|:page-slug|g' {} + \
       &&  find content/pages -type f -name "*.adoc" -exec sed -i "s|:description|:page-description|g" {} + \
       &&  find content/pages -type f -name "*.adoc" -exec sed -i "s|:keywords|:page-keywords|g" {} + \
-      &&  find content/pages -type f -name "*.adoc" -exec sed -i "s|:template: indexof|:page-template: compliance|g" {} + \
+      &&  find content/pages -type f -name "*.adoc" -exec sed -i "s|:template: compliance|:page-template: compliance|g" {} + \
+      &&  find content/pages -type f -name "*.adoc" -exec sed -i "s|:template: indexof|:page-template: compliances|g" {} + \
       &&  find content/pages -type f -name "*.adoc" -exec sed -i "s|:template: solution|:page-template: solution|g" {} + \
       &&  find content/pages -type f -name "*.adoc" -exec sed -i "s|:template: solutions|:page-template: solutions|g" {} + \
       &&  find content/pages -type f -name "*.adoc" -exec sed -i "s|:template: services/continuous|:page-template: service|g" {} + \

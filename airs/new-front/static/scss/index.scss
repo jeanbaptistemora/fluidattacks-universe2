@@ -202,6 +202,11 @@ $whiter-gray: rgba(241, 241, 241, 1);
 .wm-tb-rl { writing-mode: tb-rl; }
 
 // Media queries
+@media screen and (min-width: 1170px) {
+  .owasp-col {
+    width: 510px;
+  }
+}
 
 // Big screen sizes
 @media screen and (min-width: 60em) {
@@ -318,6 +323,23 @@ $whiter-gray: rgba(241, 241, 241, 1);
 }
 
 .compliance-grid { grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr)); }
+
+.compliance-page {
+  .sect2 {
+    h3 { font-size: 2.25rem; }
+  }
+
+  .sect3 {
+    h4 { font-size: 1.5rem; }
+
+    h4::after {
+      border-bottom: 4px solid $fluid-red;
+      content: '';
+      display: block;
+      width: 30%;
+    }
+  }
+}
 
 .grid { display: grid; }
 

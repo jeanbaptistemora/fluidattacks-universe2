@@ -8,7 +8,6 @@
 /* eslint import/no-default-export:0 */
 /* eslint @typescript-eslint/no-invalid-void-type:0 */
 /* eslint @typescript-eslint/no-confusing-void-expression:0 */
-/* eslint react/forbid-component-props: 0 */
 import { graphql } from "gatsby";
 import { Breadcrumb } from "gatsby-plugin-breadcrumb";
 import React from "react";
@@ -19,13 +18,13 @@ import { Layout } from "../components/Layout";
 import { NavbarComponent } from "../components/Navbar";
 import { Seo } from "../components/Seo";
 import {
-  BannerContainer,
-  BannerTitle,
-  FullWidthContainer,
-  PageArticle,
+  MarkedPhrase,
+  MarkedTitle,
+  MarkedTitleContainer,
+  RedMark,
 } from "../styles/styledComponents";
 
-const ComplianceIndex: React.FC<IQueryData> = ({
+const CompliancesIndex: React.FC<IQueryData> = ({
   data,
   pageContext,
 }: IQueryData): JSX.Element => {
@@ -37,23 +36,16 @@ const ComplianceIndex: React.FC<IQueryData> = ({
   const customCrumbLabel: string = `${title
     .charAt(0)
     .toUpperCase()}${title.slice(1).replace("-", "")}`;
-  const { banner } = data.asciidoc.pageAttributes;
-  const ComplianceContainer: StyledComponent<
+  const CompliancesGrid: StyledComponent<
     "div",
     Record<string, unknown>
   > = styled.div.attrs({
-    className: `airs/new-front/src/templates/compliancesTemplate.tsx
-      roboto
-      mw-1366
-      ph-body
-      center
-      c-lightblack
-      pv5
-      compliance-page 
-      flex 
-      flex-wrap 
-      items-center 
-      justify-center
+    className: `
+      grid 
+      compliance-content 
+      compliance-grid 
+      roboto 
+      w-100
     `,
   })``;
 
@@ -74,29 +66,29 @@ const ComplianceIndex: React.FC<IQueryData> = ({
             crumbSeparator={" / "}
             crumbs={crumbs}
           />
-
-          <PageArticle>
-            <BannerContainer className={banner}>
-              <FullWidthContainer>
-                <BannerTitle>{title}</BannerTitle>
-              </FullWidthContainer>
-            </BannerContainer>
-            <ComplianceContainer
+          <MarkedTitleContainer>
+            <div className={"pl4"}>
+              <RedMark>
+                <MarkedTitle>{title}</MarkedTitle>
+              </RedMark>
+              <MarkedPhrase>{data.asciidoc.pageAttributes.phrase}</MarkedPhrase>
+            </div>
+            <CompliancesGrid
               dangerouslySetInnerHTML={{
                 __html: data.asciidoc.html,
               }}
             />
-          </PageArticle>
+          </MarkedTitleContainer>
         </div>
       </Layout>
     </React.Fragment>
   );
 };
 
-export default ComplianceIndex;
+export default CompliancesIndex;
 
 export const query: void = graphql`
-  query ComplianceIndex($slug: String!) {
+  query CompliancesIndex($slug: String!) {
     asciidoc(fields: { slug: { eq: $slug } }) {
       document {
         title
@@ -108,6 +100,7 @@ export const query: void = graphql`
       pageAttributes {
         banner
         keywords
+        phrase
         slug
       }
     }
