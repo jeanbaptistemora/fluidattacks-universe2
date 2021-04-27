@@ -5,6 +5,7 @@ type ToeLines {
   loc: Int
   modifiedCommit: String
   modifiedDate: String
+  sorts_risk_level: Int!
   testedDate: String
   testedLines: Int
 }
