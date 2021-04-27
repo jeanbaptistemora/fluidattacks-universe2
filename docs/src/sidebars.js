@@ -198,6 +198,7 @@ module.exports = {
           'criteria/files/r036',
           'criteria/files/r037',
           'criteria/files/r039',
+          'criteria/files/r339',
           'criteria/files/r340',
         ],
     },
