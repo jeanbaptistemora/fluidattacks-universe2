@@ -9,9 +9,11 @@ import { Provider } from "react-redux";
 import { MemoryRouter, Route } from "react-router";
 import wait from "waait";
 
+import { DeactivationModal } from "./deactivationModal";
 import {
   ACTIVATE_ROOT,
   ADD_GIT_ROOT,
+  DEACTIVATE_ROOT,
   GET_ROOTS,
   UPDATE_GIT_ROOT,
 } from "./queries";
@@ -591,4 +593,162 @@ describe("GroupScopeView", (): void => {
 
     expect(getStateSwitch().prop("checked")).toStrictEqual(true);
   });
+
+  it.each(["OUT_OF_SCOPE", "REGISTERED_BY_MISTAKE"])(
+    "should deactivate root with reason %s",
+    async (reason): Promise<void> => {
+      expect.hasAssertions();
+
+      const initialQueryMock: MockedResponse = {
+        request: {
+          query: GET_ROOTS,
+          variables: { groupName: "unittesting" },
+        },
+        result: {
+          data: {
+            group: {
+              __typename: "Project",
+              name: "unittesting",
+              roots: [
+                {
+                  __typename: "GitRoot",
+                  branch: "master",
+                  cloningStatus: {
+                    __typename: "GitRootCloningStatus",
+                    message: "root created",
+                    status: "UNKNOWN",
+                  },
+                  environment: "production",
+                  environmentUrls: [],
+                  gitignore: [],
+                  id: "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19",
+                  includesHealthCheck: false,
+                  lastCloningStatusUpdate: "2021-01-05T18:16:48",
+                  lastStateStatusUpdate: "2021-01-05T18:16:48",
+                  nickname: "product",
+                  state: "ACTIVE",
+                  url: "https://gitlab.com/fluidattacks/product",
+                },
+              ],
+            },
+          },
+        },
+      };
+      const mutationMock: MockedResponse = {
+        request: {
+          query: DEACTIVATE_ROOT,
+          variables: {
+            groupName: "unittesting",
+            id: "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19",
+            reason,
+          },
+        },
+        result: {
+          data: {
+            deactivateRoot: { __typename: "SimplePayload", success: true },
+          },
+        },
+      };
+      const finalQueryMock: MockedResponse = {
+        request: {
+          query: GET_ROOTS,
+          variables: { groupName: "unittesting" },
+        },
+        result: {
+          data: {
+            group: {
+              __typename: "Project",
+              name: "unittesting",
+              roots: [
+                {
+                  __typename: "GitRoot",
+                  branch: "master",
+                  cloningStatus: {
+                    __typename: "GitRootCloningStatus",
+                    message: "root created",
+                    status: "UNKNOWN",
+                  },
+                  environment: "production",
+                  environmentUrls: [],
+                  gitignore: [],
+                  id: "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19",
+                  includesHealthCheck: false,
+                  lastCloningStatusUpdate: "2021-01-05T18:16:48",
+                  lastStateStatusUpdate: "2021-01-05T18:16:48",
+                  nickname: "product",
+                  state: "INACTIVE",
+                  url: "https://gitlab.com/fluidattacks/product",
+                },
+              ],
+            },
+          },
+        },
+      };
+
+      const wrapper = mount(
+        <Provider store={store}>
+          <authzGroupContext.Provider
+            value={new PureAbility([{ action: "has_drills_white" }])}
+          >
+            <authzPermissionsContext.Provider
+              value={
+                new PureAbility([
+                  { action: "backend_api_mutations_update_root_state_mutate" },
+                ])
+              }
+            >
+              <MemoryRouter
+                initialEntries={["/orgs/okada/groups/unittesting/scope"]}
+              >
+                <MockedProvider
+                  cache={getCache()}
+                  mocks={[initialQueryMock, mutationMock, finalQueryMock]}
+                >
+                  <Route
+                    component={GroupScopeView}
+                    path={"/orgs/:organizationName/groups/:projectName/scope"}
+                  />
+                </MockedProvider>
+              </MemoryRouter>
+            </authzPermissionsContext.Provider>
+          </authzGroupContext.Provider>
+        </Provider>
+      );
+
+      await act(
+        async (): Promise<void> => {
+          await wait(0);
+          wrapper.update();
+        }
+      );
+
+      const getStateSwitch = (): ReactWrapper => {
+        const firstTableRow = wrapper.find("tr").at(1);
+
+        return firstTableRow.find("#rootSwitch").at(0) as ReactWrapper;
+      };
+
+      expect(getStateSwitch().prop("checked")).toStrictEqual(true);
+
+      getStateSwitch().simulate("click");
+
+      const form = wrapper.find(DeactivationModal).find("form");
+
+      form.find("select").simulate("change", {
+        target: { name: "reason", value: reason },
+      });
+
+      form.simulate("submit");
+
+      await act(
+        async (): Promise<void> => {
+          const delay: number = 50;
+          await wait(delay);
+          wrapper.update();
+        }
+      );
+
+      expect(getStateSwitch().prop("checked")).toStrictEqual(false);
+    }
+  );
 });

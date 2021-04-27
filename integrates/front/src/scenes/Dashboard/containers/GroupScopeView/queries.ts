@@ -102,18 +102,6 @@ const UPDATE_GIT_ROOT: DocumentNode = gql`
   }
 `;
 
-const UPDATE_ROOT_STATE: DocumentNode = gql`
-  mutation UpdateRootState(
-    $groupName: String!
-    $id: ID!
-    $state: ResourceState!
-  ) {
-    updateRootState(groupName: $groupName, id: $id, state: $state) {
-      success
-    }
-  }
-`;
-
 const ACTIVATE_ROOT: DocumentNode = gql`
   mutation ActivateRoot($groupName: String!, $id: ID!) {
     activateRoot(groupName: $groupName, id: $id) {
@@ -141,5 +129,4 @@ export {
   GET_ROOTS,
   UPDATE_GIT_ENVIRONMENTS,
   UPDATE_GIT_ROOT,
-  UPDATE_ROOT_STATE,
 };
