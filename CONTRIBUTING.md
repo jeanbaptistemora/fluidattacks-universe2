@@ -110,6 +110,28 @@ so read it completely and execute commands as you read
     }
     ```
 
+    This configuration allows you to verify the code in real time and give the code the standard format:
+
+    ```json
+    {
+        "python.linting.prospectorEnabled": true,
+        "python.linting.prospectorArgs": [
+            "--profile",
+            "<product_path>/makes/utils/lint-python/settings-prospector.yaml",
+        ],
+        "python.linting.mypyEnabled": true,
+        "python.linting.mypyArgs": [
+            "--config-file",
+            "<product_path>/makes/utils/lint-python/settings-mypy.cfg"
+        ],
+        "python.formatting.provider": "black",
+        "python.formatting.blackArgs": [
+            "--config",
+            "<product_path>/makes/utils/python-format/settings-black.toml",
+        ],
+    }
+    ```
+
 1. **Others tools**:
 
     awscli, curl, kubectl, vim, python, nodejs, git, ghc, jq, etc
