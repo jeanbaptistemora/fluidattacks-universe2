@@ -12,14 +12,9 @@ import ScrollAnimation from "react-animate-on-scroll";
 import type { StyledComponent } from "styled-components";
 import styled from "styled-components";
 
-import solution1 from "../../../../static/images/solutions/img01.png";
-import solution2 from "../../../../static/images/solutions/img02.png";
-import solution3 from "../../../../static/images/solutions/img03.png";
-import solution4 from "../../../../static/images/solutions/img04.png";
-import solution5 from "../../../../static/images/solutions/img05.png";
-import solution6 from "../../../../static/images/solutions/img06.png";
 import { FontAwesomeContainerSmall } from "../../../styles/styledComponents";
 import { translate } from "../../../utils/translations/translate";
+import { CloudImage } from "../../CloudImage";
 
 const Container: StyledComponent<
   "div",
@@ -297,37 +292,52 @@ const SolutionsSection: React.FC = (): JSX.Element => {
             <SlideShow id={"slideShow"} style={{ maxWidth: "272px" }}>
               <Link to={"/solutions/devsecops/"}>
                 <SolutionCard>
-                  <img alt={"DevSecOps"} src={solution1} />
+                  <CloudImage alt={"DevSecOps"} src={"devsecops-thumbnail"} />
                   <CardParagraph>{"DevSecOps"}</CardParagraph>
                 </SolutionCard>
               </Link>
               <Link to={"/solutions/security-testing/"}>
                 <SolutionCard>
-                  <img alt={"Security Testing"} src={solution2} />
+                  <CloudImage
+                    alt={"Security Testing"}
+                    src={"security-testing-thumbnail"}
+                  />
                   <CardParagraph>{"Security Testing"}</CardParagraph>
                 </SolutionCard>
               </Link>
               <Link to={"/solutions/penetration-testing/"}>
                 <SolutionCard>
-                  <img alt={"Penetration Testing"} src={solution3} />
+                  <CloudImage
+                    alt={"Penetration Testing"}
+                    src={"penetration-testing-thumbnail"}
+                  />
                   <CardParagraph>{"Penetration Testing"}</CardParagraph>
                 </SolutionCard>
               </Link>
               <Link to={"/solutions/ethical-hacking/"}>
                 <SolutionCard>
-                  <img alt={"Ethical Hacking"} src={solution4} />
+                  <CloudImage
+                    alt={"Ethical Hacking"}
+                    src={"ethical-hacking-thumbnail"}
+                  />
                   <CardParagraph>{"Ethical Hacking"}</CardParagraph>
                 </SolutionCard>
               </Link>
               <Link to={"/solutions/red-teaming/"}>
                 <SolutionCard>
-                  <img alt={"Red Teaming"} src={solution5} />
+                  <CloudImage
+                    alt={"Red Teaming"}
+                    src={"red-teaming-thumbnail"}
+                  />
                   <CardParagraph>{"Red Teaming"}</CardParagraph>
                 </SolutionCard>
               </Link>
               <Link to={"/solutions/attack-simulation/"}>
                 <SolutionCard>
-                  <img alt={"Attack Simulation"} src={solution6} />
+                  <CloudImage
+                    alt={"Attack Simulation"}
+                    src={"attack-simulation-thumbnail"}
+                  />
                   <CardParagraph>{"Attack Simulation"}</CardParagraph>
                 </SolutionCard>
               </Link>

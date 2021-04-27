@@ -4,12 +4,11 @@
 import ModalVideo from "modal-video-custom";
 import React, { useState } from "react";
 
-import playButton from "../../../../static/images/home/play-video.svg";
 import {
   FlexCenterItemsContainer,
   PlayItButtonContainer,
-  PlayItButtonImage,
 } from "../../../styles/styledComponents";
+import { CloudImage } from "../../CloudImage";
 
 const VideoSection: React.FC = (): JSX.Element => {
   const [isOpen, setOpen] = useState(false);
@@ -32,7 +31,11 @@ const VideoSection: React.FC = (): JSX.Element => {
       />
       <PlayItButtonContainer onClick={handleOpen}>
         {"PLAY"}
-        <PlayItButtonImage src={playButton} />
+        <CloudImage
+          alt={"Play video button"}
+          src={"play-video"}
+          styles={"hv-rotate-360 t-tf-6-eio w4 ba br-100 mh2 bc-black-gray"}
+        />
         {"IT"}
       </PlayItButtonContainer>
     </FlexCenterItemsContainer>

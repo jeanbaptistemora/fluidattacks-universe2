@@ -5,8 +5,7 @@ import React from "react";
 import type { StyledComponent } from "styled-components";
 import styled from "styled-components";
 
-import clutchReview from "../../../../static/images/clutch-review.png";
-import owaspLogo from "../../../../static/images/owasp-logo.png";
+import { CloudImage } from "../../CloudImage";
 
 const BlueContainer: StyledComponent<
   "div",
@@ -61,18 +60,18 @@ const QualitySection: React.FC = (): JSX.Element => (
     <Container>
       <InnerContainer className={"ml-auto-l mr0-l tc"}>
         <Title>{"CORPORATE MEMBER OF"}</Title>
-        <img
+        <CloudImage
           alt={"Logo OWASP"}
-          className={"tc w4 ba bg-white br3 bc-gray-64"}
-          src={owaspLogo}
+          src={"owasp-logo"}
+          styles={"tc w4 ba bg-white br3 bc-gray-64"}
         />
       </InnerContainer>
       <InnerContainer className={"mr-auto-l ml0-l tc"}>
         <Title>{"OUR PUBLIC REVIEWS"}</Title>
-        <img
+        <CloudImage
           alt={"Logo OWASP"}
-          className={"tc w4 ba br3 bc-gray-64 pa2 bg-white"}
-          src={clutchReview}
+          src={"clutch-review"}
+          styles={"tc w4 ba br3 bc-gray-64 pa2 bg-white"}
         />
       </InnerContainer>
     </Container>

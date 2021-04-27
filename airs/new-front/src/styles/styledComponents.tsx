@@ -491,21 +491,6 @@ const PlayItButtonContainer: StyledComponent<
   })
 )``;
 
-const PlayItButtonImage: StyledComponent<
-  "img",
-  Record<string, unknown>
-> = styled.img.attrs({
-  className: `
-    hv-rotate-360
-    t-tf-6-eio
-    w4
-    ba
-    br-100
-    mh2
-    bc-black-gray
-  `,
-})``;
-
 const GetDemoContainer: StyledComponent<
   "div",
   Record<string, unknown>
@@ -834,7 +819,6 @@ export {
   HalfScreenContainer,
   HalfScreenContainerSpaced,
   PlayItButtonContainer,
-  PlayItButtonImage,
   CenteredMaxWidthContainer,
   InnerMainContentHome,
   MainContentHome,

@@ -5,7 +5,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "gatsby";
 import React from "react";
 
-import fluidAttacksLogo from "../../../../static/images/logo-fluid-attacks.png";
 import {
   FontAwesomeContainerSmall,
   NavbarContactButton,
@@ -14,6 +13,7 @@ import {
   NavbarRegularButton,
   NavbarSubcategory,
 } from "../../../styles/styledComponents";
+import { CloudImage } from "../../CloudImage";
 import { Menu } from "../Menu";
 
 const NavbarItems: React.FC = (): JSX.Element => (
@@ -22,10 +22,10 @@ const NavbarItems: React.FC = (): JSX.Element => (
 
     <li className={"fl"}>
       <Link className={"db tc pa1 no-underline"} to={"/"}>
-        <img
+        <CloudImage
           alt={"Fluid Attacks logo navbar"}
-          className={"h-5 ml3 pv2"}
-          src={fluidAttacksLogo}
+          src={"logo-fluid-attacks-light"}
+          styles={"h-5 ml3 pv2"}
         />
       </Link>
     </li>

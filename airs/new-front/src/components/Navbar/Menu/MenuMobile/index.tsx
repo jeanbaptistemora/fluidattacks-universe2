@@ -8,8 +8,8 @@ import React from "react";
 import type { StyledComponent } from "styled-components";
 import styled from "styled-components";
 
-import fluidAttacksLogoMobile from "../../../../../static/images/logo-fluid-mobile.png";
 import { FontAwesomeContainerSmall } from "../../../../styles/styledComponents";
+import { CloudImage } from "../../../CloudImage";
 import { SocialMedia } from "../../../SocialMedia";
 
 const SidebarContainer: StyledComponent<
@@ -184,7 +184,10 @@ const MenuMobile: React.FC = (): JSX.Element => (
   <SidebarContainer>
     <HeaderContainer>
       <LogoContainer>
-        <img alt={"Fluid Attacks Logo Mobile"} src={fluidAttacksLogoMobile} />
+        <CloudImage
+          alt={"Fluid Attacks Logo Mobile"}
+          src={"logo-fluid-mobile"}
+        />
       </LogoContainer>
     </HeaderContainer>
     <ContentContainer>

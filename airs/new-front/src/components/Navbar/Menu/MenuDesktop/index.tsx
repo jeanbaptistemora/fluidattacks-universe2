@@ -4,8 +4,8 @@
 import { Link } from "gatsby";
 import React from "react";
 
-import fluidAttacksLogo from "../../../../../static/images/logo-fluid-attacks.png";
 import menuSelector from "../../../../../static/images/menu/selector.png";
+import { CloudImage } from "../../../CloudImage";
 import { SocialMedia } from "../../../SocialMedia";
 import {
   BlackWeightedParagraph,
@@ -294,7 +294,10 @@ const MenuDesktop: React.FC = (): JSX.Element => (
     </FlexMenuItems>
     <MenuSidebar>
       <QuarterHeightContainer>
-        <img alt={"Fluid Attacks Logo Menu"} src={fluidAttacksLogo} />
+        <CloudImage
+          alt={"Fluid Attacks Logo Menu"}
+          src={"logo-fluid-attacks-light"}
+        />
       </QuarterHeightContainer>
       <SidebarListContainer>
         <SidebarList>
