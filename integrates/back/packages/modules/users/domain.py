@@ -236,6 +236,25 @@ async def get_user_name(mail: str) -> Dict[str, UserType]:
     return {mail: await get_attributes(mail, ['last_name', 'first_name'])}
 
 
+async def has_valid_access_token(
+    email: str,
+    context: Dict[str, str],
+    jti: str
+) -> bool:
+    """ Verify if has active access token and match. """
+    access_token = cast(
+        Dict[str, str],
+        await get_data(email, 'access_token')
+    )
+    resp = False
+    if context and access_token:
+        resp = util.verificate_hash_token(access_token, jti)
+    else:
+        # authorization header not present or user without access_token
+        pass
+    return resp
+
+
 async def is_registered(email: str) -> bool:
     return bool(await get_data(email, 'registered'))
 

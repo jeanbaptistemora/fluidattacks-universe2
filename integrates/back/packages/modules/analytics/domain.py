@@ -21,8 +21,10 @@ from starlette.responses import Response
 from analytics import dal as analytics_dal
 from back.app.views import templates
 from back.settings import LOGGING
-from backend import util
-from backend.services import has_access_to_project as has_access_to_group
+from backend import (
+    authz,
+    util,
+)
 from backend.typing import (
     GraphicsForEntityParameters,
     GraphicParameters,
@@ -169,8 +171,9 @@ async def handle_authz_claims(
         subject = params.subject
 
     if params.entity == 'group':
-        if not await has_access_to_group(
-            email, subject.lower(),
+        if not await authz.has_access_to_group(
+            email,
+            subject.lower(),
         ):
             raise PermissionError('Access denied')
     elif params.entity == 'organization':

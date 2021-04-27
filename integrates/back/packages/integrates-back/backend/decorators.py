@@ -28,7 +28,6 @@ from backend import (
     authz,
     util,
 )
-from backend.services import has_valid_access_token
 from custom_exceptions import (
     FindingNotFound,
     InvalidAuthorization,
@@ -37,6 +36,7 @@ from custom_exceptions import (
 from findings import domain as findings_domain
 from newutils import function
 from organizations import domain as orgs_domain
+from users import domain as users_domain
 from vulnerabilities import domain as vulns_domain
 
 
@@ -285,7 +285,7 @@ def enforce_user_level_auth_async(func: TVar) -> TVar:
 
 
 async def verify_jti(email: str, context: Dict[str, str], jti: str) -> None:
-    if not await has_valid_access_token(email, context, jti):
+    if not await users_domain.has_valid_access_token(email, context, jti):
         raise InvalidAuthorization()
 
 

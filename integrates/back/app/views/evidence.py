@@ -21,10 +21,8 @@ from backend import (
     authz,
     util,
 )
-from backend.services import (
-    has_access_to_finding,
-    has_access_to_event
-)
+from events.domain import has_access_to_event
+from findings.domain import has_access_to_finding
 from s3.operations import (
     download_file,
     list_files,

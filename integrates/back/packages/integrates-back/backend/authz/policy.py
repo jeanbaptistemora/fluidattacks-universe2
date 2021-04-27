@@ -242,6 +242,11 @@ async def grant_user_level_role(email: str, role: str) -> bool:
             await revoke_cached_subject_policies(email))
 
 
+async def has_access_to_group(email: str, group: str) -> bool:
+    """ Verify if the user has access to a project. """
+    return bool(await get_group_level_role(email, group.lower()))
+
+
 async def revoke_cached_group_service_attributes_policies(group: str) -> bool:
     """Revoke the cached policies for the provided group."""
     # Delete the cache key from the cache

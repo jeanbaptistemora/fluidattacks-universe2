@@ -21,8 +21,10 @@ from back.settings import (
     LOGGING,
     NOEXTRA,
 )
-from backend import mailer
-from backend.services import has_access_to_project as has_access_to_group
+from backend import (
+    authz,
+    mailer,
+)
 from groups import domain as groups_domain
 from newutils import (
     datetime as datetime_utils,
@@ -50,7 +52,7 @@ async def can_subscribe_user_to_entity_report(
     success: bool = False
 
     if report_entity.lower() == 'group':
-        success = await has_access_to_group(
+        success = await authz.has_access_to_group(
             user_email,
             report_subject.lower(),
         )

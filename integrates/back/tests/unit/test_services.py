@@ -1,11 +1,9 @@
 import pytest
-from backend.services import (
-    has_access_to_finding,
-    has_access_to_event,
-    has_valid_access_token
-)
 
 from custom_exceptions import FindingNotFound
+from events.domain import has_access_to_event
+from findings.domain import has_access_to_finding
+from users.domain import has_valid_access_token
 
 
 pytestmark = [

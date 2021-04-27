@@ -557,6 +557,13 @@ def get_tracking_vulnerabilities(
     ]
 
 
+async def has_access_to_finding(email: str, finding_id: str) -> bool:
+    """ Verify if the user has access to a finding submission. """
+    finding = await get_finding(finding_id)
+    group = cast(str, finding.get('projectName', ''))
+    return await authz.has_access_to_group(email, group)
+
+
 def is_deleted(finding: Dict[str, FindingType]) -> bool:
     historic_state = cast(
         List[Dict[str, str]],
