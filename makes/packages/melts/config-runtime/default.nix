@@ -81,9 +81,11 @@ makeTemplate {
     envPaths = [
       nixpkgs.cloc
       nixpkgs.git
+      nixpkgs.nano
       nixpkgs.openssh
       nixpkgs.python38
       nixpkgs.sops
+      nixpkgs.vim
       pythonRequirements
     ];
     envPythonPaths = [
