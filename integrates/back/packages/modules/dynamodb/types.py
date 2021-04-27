@@ -164,3 +164,20 @@ class VulnerabilityItem(NamedTuple):
     id: str
     metadata: VulnerabilityMetadata
     state: VulnerabilityState
+
+
+class OrgFindingPolicyMetadata(NamedTuple):
+    name: str
+
+
+class OrgFindingPolicyState(NamedTuple):
+    modified_by: str
+    modified_date: str
+    status: str
+
+
+class OrgFindingPolicyItem(NamedTuple):
+    id: str
+    org_name: str
+    metadata: OrgFindingPolicyMetadata
+    state: OrgFindingPolicyState

@@ -305,6 +305,52 @@
           "vulns": { "S": "FIN.S.0003.Test" }
         }
       }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "pk": { "S": "POLICY#8b35ae2a-56a1-4f64-9da7-6a552683bf46" },
+          "sk": { "S": "ORG#okada" },
+          "name": { "S": "F007. Cross site request forgery" }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "pk": { "S": "POLICY#8b35ae2a-56a1-4f64-9da7-6a552683bf46#STATE" },
+          "sk": { "S": "ORG#okada" },
+          "status": { "S": "APPROVED" },
+          "modified_date": { "S": "2021-04-26T13:37:10+00:00" },
+          "modified_by": { "S": "test2@test.com" }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "pk": { "S": "POLICY#8b35ae2a-56a1-4f64-9da7-6a552683bf46" },
+          "sk": {
+            "S": "POLICY#8b35ae2a-56a1-4f64-9da7-6a552683bf46#STATE#2021-04-25T13:37:10+00:00"
+          },
+          "status": { "S": "SUBMITTED" },
+          "modified_date": { "S": "2021-04-25T13:37:10+00:00" },
+          "modified_by": { "S": "test@test.com" }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "pk": { "S": "POLICY#8b35ae2a-56a1-4f64-9da7-6a552683bf46" },
+          "sk": {
+            "S": "POLICY#8b35ae2a-56a1-4f64-9da7-6a552683bf46#STATE#2021-04-26T13:37:10+00:00"
+          },
+          "status": { "S": "APPROVED" },
+          "modified_date": { "S": "2021-04-26T13:37:10+00:00" },
+          "modified_by": { "S": "test2@test.com" }
+        }
+      }
     }
   ]
 }

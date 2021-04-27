@@ -25,6 +25,9 @@ from dynamodb.types import (
     URLRootItem,
     URLRootMetadata,
     URLRootState,
+    OrgFindingPolicyItem,
+    OrgFindingPolicyMetadata,
+    OrgFindingPolicyState,
     VulnerabilityItem,
     VulnerabilityMetadata,
     VulnerabilityState
@@ -707,4 +710,79 @@ async def get_vulnerabilities(
             raw_items=tuple(items)
         )
         for vuln_id, items in vuln_items.items()
+    )
+
+
+def _build_org_policy_finding(
+    *,
+    org_name: str,
+    item_id: str,
+    key_structure: PrimaryKey,
+    raw_items: Tuple[Item, ...],
+) -> OrgFindingPolicyItem:
+    metadata = historics.get_metadata(
+        item_id=item_id,
+        key_structure=key_structure,
+        raw_items=raw_items
+    )
+    state = historics.get_latest(
+        item_id=item_id,
+        key_structure=key_structure,
+        historic_prefix='STATE',
+        raw_items=raw_items
+    )
+
+    return OrgFindingPolicyItem(
+        id=metadata[key_structure.sort_key].split('#')[1],
+        org_name=org_name,
+        metadata=OrgFindingPolicyMetadata(
+            name=metadata['name']
+        ),
+        state=OrgFindingPolicyState(
+            modified_by=state['modified_by'],
+            modified_date=state['modified_date'],
+            status=state['status']
+        )
+    )
+
+
+async def get_org_finding_policies(
+    *,
+    org_name: str
+) -> Tuple[OrgFindingPolicyItem, ...]:
+    primary_key = keys.build_key(
+        facet=TABLE.facets['org_finding_policy_metadata'],
+        values={'name': org_name},
+    )
+
+    index = TABLE.indexes['inverted_index']
+    key_structure = index.primary_key
+    results = await operations.query(
+        condition_expression=(
+            Key(key_structure.partition_key).eq(primary_key.sort_key) &
+            Key(key_structure.sort_key).begins_with(primary_key.partition_key)
+        ),
+        facets=(
+            TABLE.facets['org_finding_policy_metadata'],
+            TABLE.facets['org_finding_policy_state']
+        ),
+        index=index,
+        table=TABLE
+    )
+
+    org_findings_policies_items = defaultdict(list)
+    for item in results:
+        finding_policy_id = '#'.join(
+            item[key_structure.sort_key].split('#')[:2]
+        )
+        org_findings_policies_items[finding_policy_id].append(item)
+
+    return tuple(
+        _build_org_policy_finding(
+            org_name=org_name,
+            item_id=finding_policy_id,
+            key_structure=key_structure,
+            raw_items=tuple(items)
+        )
+        for finding_policy_id, items in org_findings_policies_items.items()
     )

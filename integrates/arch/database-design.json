@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Apr 23, 2021, 10:45 AM",
+    "DateLastModified": "Apr 27, 2021, 10:37 AM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -1670,6 +1670,52 @@
             "verified",
             "component",
             "entry_point"
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
+        },
+        {
+          "FacetName": "org_finding_policy_metadata",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "POLICY#uuid",
+            "SortKeyAlias": "ORG#name"
+          },
+          "TableData": [],
+          "NonKeyAttributes": [
+            "name"
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
+        },
+        {
+          "FacetName": "org_finding_policy_state",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "POLICY#uuid#STATE",
+            "SortKeyAlias": "ORG#name"
+          },
+          "TableData": [],
+          "NonKeyAttributes": [
+            "modified_date",
+            "modified_by",
+            "status"
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
+        },
+        {
+          "FacetName": "org_finding_policy_historic_state",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "POLICY#uuid",
+            "SortKeyAlias": "POLICY#uuid#STATE#iso8601ut"
+          },
+          "TableData": [],
+          "NonKeyAttributes": [
+            "modified_date",
+            "modified_by",
+            "status"
           ],
           "DataAccess": {
             "MySql": {}
