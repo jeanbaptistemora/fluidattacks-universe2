@@ -173,6 +173,7 @@ module.exports = {
           'criteria/source/r174',
           'criteria/source/r175',
           'criteria/source/r302',
+          'criteria/source/r323',
         ],
     },
     {
