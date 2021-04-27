@@ -1,11 +1,10 @@
 import { useMutation, useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
+import { Field, Form, Formik } from "formik";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import { track } from "mixpanel-browser";
-import React, { useCallback, useState } from "react";
-import { Field } from "redux-form";
-import type { InjectedFormProps } from "redux-form";
+import React, { useCallback } from "react";
 import type { ConfigurableValidator } from "revalidate";
 
 import { Button } from "components/Button";
@@ -20,7 +19,6 @@ import type {
   IAddProjectModalProps,
   IProjectNameProps,
 } from "scenes/Dashboard/components/AddProjectModal/types";
-import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import {
   ButtonToolbar,
   Col100,
@@ -29,12 +27,13 @@ import {
   FormGroup,
   Row,
 } from "styles/styledComponents";
-import { Dropdown, Text } from "utils/forms/fields";
+import { FormikDropdown, FormikText } from "utils/forms/fields";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 import {
   alphaNumeric,
+  composeValidators,
   maxLength,
   required,
   validTextField,
@@ -67,13 +66,6 @@ const AddProjectModal: React.FC<IAddProjectModalProps> = (
   props: IAddProjectModalProps
 ): JSX.Element => {
   const { onClose, organization } = props;
-  // State management
-  const [hasDrills, setHasDrills] = useState(true);
-  const [hasForces, setHasForces] = useState(true);
-
-  const [canHaveForces, setCanHaveForces] = useState(true);
-
-  const [subscriptionType, setSubscriptionType] = useState("CONTINUOUS");
 
   const isContinuousType: (subsType: string) => boolean = (
     subsType: string
@@ -113,35 +105,6 @@ const AddProjectModal: React.FC<IAddProjectModalProps> = (
     });
   };
 
-  const handleSubscriptionTypeChange = useCallback(
-    (_event: React.ChangeEvent<string> | undefined, subsType: string): void => {
-      setSubscriptionType(subsType);
-
-      setHasDrills(true);
-      setHasForces(isContinuousType(subsType));
-
-      setCanHaveForces(isContinuousType(subsType));
-    },
-    []
-  );
-
-  const handleDrillsBtnChange = useCallback(
-    (withDrills: boolean): void => {
-      setHasDrills(withDrills);
-
-      if (!withDrills) {
-        setHasForces(false);
-      }
-
-      setCanHaveForces(withDrills && isContinuousType(subscriptionType));
-    },
-    [subscriptionType]
-  );
-
-  const handleForcesBtnChange = useCallback((withForces: boolean): void => {
-    setHasForces(withForces);
-  }, []);
-
   const [createProject, { loading: submitting }] = useMutation(
     CREATE_PROJECT_MUTATION,
     {
@@ -157,13 +120,15 @@ const AddProjectModal: React.FC<IAddProjectModalProps> = (
       language: string;
       organization: string;
       type: string;
+      drills: boolean;
+      forces: boolean;
     }): void => {
       track("AddGroup");
       void createProject({
         variables: {
           description: values.description,
-          hasDrills,
-          hasForces,
+          hasDrills: values.drills,
+          hasForces: values.forces,
           language: values.language,
           organization: values.organization,
           projectName: values.name,
@@ -171,7 +136,7 @@ const AddProjectModal: React.FC<IAddProjectModalProps> = (
         },
       });
     },
-    [createProject, hasDrills, hasForces]
+    [createProject]
   );
 
   function handleProjectNameError({ graphQLErrors }: ApolloError): void {
@@ -204,242 +169,214 @@ const AddProjectModal: React.FC<IAddProjectModalProps> = (
         headerTitle={translate.t("organization.tabs.groups.newGroup.new.group")}
         open={true}
       >
-        <GenericForm
+        <Formik
+          enableReinitialize={true}
           initialValues={{
+            description: "",
+            drills: true,
+            forces: true,
+            language: "EN",
             name: projectName.toUpperCase(),
             organization: organization.toUpperCase(),
+            type: "CONTINUOUS",
           }}
           name={"newGroup"}
           onSubmit={handleSubmit}
         >
-          {({ pristine }: InjectedFormProps): JSX.Element => (
-            <React.Fragment>
-              <Row>
-                <Col100>
-                  <FormGroup>
-                    <ControlLabel>
-                      {translate.t(
-                        "organization.tabs.groups.newGroup.organization.text"
-                      )}
-                    </ControlLabel>
-                    <TooltipWrapper
-                      id={
-                        "organization.tabs.groups.newGroup.organization.tooltip"
-                      }
-                      message={translate.t(
-                        "organization.tabs.groups.newGroup.organization.tooltip"
-                      )}
-                      placement={"top"}
-                    >
-                      <FormGroup>
-                        <Field
-                          component={Text}
-                          disabled={true}
-                          name={"organization"}
-                          type={"text"}
-                          validate={[
-                            required,
-                            maxOrganizationLength,
-                            validTextField,
-                          ]}
-                        />
-                      </FormGroup>
-                    </TooltipWrapper>
-                  </FormGroup>
-                  <FormGroup>
-                    <ControlLabel>
-                      {translate.t("organization.tabs.groups.newGroup.name")}
-                    </ControlLabel>
-                    <Field
-                      component={Text}
-                      disabled={true}
-                      name={"name"}
-                      type={"text"}
-                      validate={[
-                        alphaNumeric,
-                        maxProjectNameLength,
-                        required,
-                        validTextField,
-                      ]}
-                    />
-                  </FormGroup>
-                  <FormGroup>
-                    <ControlLabel>
-                      {translate.t(
-                        "organization.tabs.groups.newGroup.description.text"
-                      )}
-                    </ControlLabel>
-                    <TooltipWrapper
-                      id={
-                        "organization.tabs.groups.newGroup.description.tooltip"
-                      }
-                      message={translate.t(
-                        "organization.tabs.groups.newGroup.description.tooltip"
-                      )}
-                      placement={"top"}
-                    >
-                      <FormGroup>
-                        <Field
-                          component={Text}
-                          id={"add-group-description"}
-                          name={"description"}
-                          type={"text"}
-                          validate={[
-                            required,
-                            maxDescriptionLength,
-                            validTextField,
-                          ]}
-                        />
-                      </FormGroup>
-                    </TooltipWrapper>
-                  </FormGroup>
-                  <FormGroup>
-                    <ControlLabel>
-                      {translate.t(
-                        "organization.tabs.groups.newGroup.type.title"
-                      )}
-                    </ControlLabel>
-                    <TooltipWrapper
-                      id={"organization.tabs.groups.newGroup.type.tooltip"}
-                      message={translate.t(
-                        "organization.tabs.groups.newGroup.type.tooltip"
-                      )}
-                      placement={"top"}
-                    >
-                      <FormGroup>
-                        <Field
-                          component={Dropdown}
-                          name={"type"}
-                          onChange={handleSubscriptionTypeChange}
-                        >
-                          <option value={"CONTINUOUS"}>
-                            {translate.t(
-                              "organization.tabs.groups.newGroup.type.continuous"
-                            )}
-                          </option>
-                          <option value={"ONESHOT"}>
-                            {translate.t(
-                              "organization.tabs.groups.newGroup.type.oneShot"
-                            )}
-                          </option>
-                        </Field>
-                      </FormGroup>
-                    </TooltipWrapper>
-                  </FormGroup>
-                  <FormGroup>
-                    <ControlLabel>
-                      {translate.t(
-                        "organization.tabs.groups.newGroup.language.text"
-                      )}
-                    </ControlLabel>
-                    <TooltipWrapper
-                      id={"organization.tabs.groups.newGroup.language.tooltip"}
-                      message={translate.t(
-                        "organization.tabs.groups.newGroup.language.tooltip"
-                      )}
-                      placement={"top"}
-                    >
-                      <FormGroup>
-                        <Field component={Dropdown} name={"language"}>
-                          <option value={"EN"}>
-                            {translate.t(
-                              "organization.tabs.groups.newGroup.language.EN"
-                            )}
-                          </option>
-                          <option value={"ES"}>
-                            {translate.t(
-                              "organization.tabs.groups.newGroup.language.ES"
-                            )}
-                          </option>
-                        </Field>
-                      </FormGroup>
-                    </TooltipWrapper>
-                  </FormGroup>
-                </Col100>
-              </Row>
-              <Row>
-                <Col40>
-                  <TooltipWrapper
-                    id={"organization.tabs.groups.newGroup.integrates.tooltip"}
-                    message={translate.t(
-                      "organization.tabs.groups.newGroup.integrates.tooltip"
-                    )}
-                    placement={"top"}
-                  >
+          {({ values, dirty, setFieldValue }): JSX.Element => {
+            function handleSubscriptionTypeChange(): void {
+              setFieldValue("drills", true);
+              setFieldValue("forces", !isContinuousType(values.type));
+            }
+
+            function handleDrillsBtnChange(): void {
+              setFieldValue("drills", !values.drills);
+
+              if (values.drills) {
+                setFieldValue("forces", false);
+              }
+            }
+
+            function handleForcesBtnChange(): void {
+              if (values.drills) {
+                setFieldValue("forces", !values.forces);
+              } else {
+                setFieldValue("forces", false);
+              }
+            }
+
+            return (
+              <Form>
+                <Row>
+                  <Col100>
                     <FormGroup>
                       <ControlLabel>
                         {translate.t(
-                          "organization.tabs.groups.newGroup.integrates.text"
+                          "organization.tabs.groups.newGroup.organization.text"
                         )}
-                        {" *"}
                       </ControlLabel>
-                      <SwitchButton
-                        checked={true}
+                      <TooltipWrapper
+                        id={
+                          "organization.tabs.groups.newGroup.organization.tooltip"
+                        }
+                        message={translate.t(
+                          "organization.tabs.groups.newGroup.organization.tooltip"
+                        )}
+                        placement={"top"}
+                      >
+                        <FormGroup>
+                          <Field
+                            component={FormikText}
+                            disabled={true}
+                            name={"organization"}
+                            type={"text"}
+                            validate={composeValidators([
+                              required,
+                              maxOrganizationLength,
+                              validTextField,
+                            ])}
+                          />
+                        </FormGroup>
+                      </TooltipWrapper>
+                    </FormGroup>
+                    <FormGroup>
+                      <ControlLabel>
+                        {translate.t("organization.tabs.groups.newGroup.name")}
+                      </ControlLabel>
+                      <Field
+                        component={FormikText}
                         disabled={true}
-                        offlabel={translate.t(
-                          "organization.tabs.groups.newGroup.switch.no"
-                        )}
-                        onlabel={translate.t(
-                          "organization.tabs.groups.newGroup.switch.yes"
-                        )}
+                        name={"name"}
+                        type={"text"}
+                        validate={composeValidators([
+                          alphaNumeric,
+                          maxProjectNameLength,
+                          required,
+                          validTextField,
+                        ])}
                       />
                     </FormGroup>
-                  </TooltipWrapper>
-                </Col40>
-              </Row>
-              <Row>
-                <Col40>
-                  <TooltipWrapper
-                    id={"organization.tabs.groups.newGroup.drills.tooltip"}
-                    message={translate.t(
-                      "organization.tabs.groups.newGroup.drills.tooltip"
-                    )}
-                    placement={"top"}
-                  >
                     <FormGroup>
                       <ControlLabel>
                         {translate.t(
-                          "organization.tabs.groups.newGroup.drills.text"
+                          "organization.tabs.groups.newGroup.description.text"
                         )}
-                        {" *"}
                       </ControlLabel>
-                      <SwitchButton
-                        checked={hasDrills}
-                        offlabel={translate.t(
-                          "organization.tabs.groups.newGroup.switch.no"
+                      <TooltipWrapper
+                        id={
+                          "organization.tabs.groups.newGroup.description.tooltip"
+                        }
+                        message={translate.t(
+                          "organization.tabs.groups.newGroup.description.tooltip"
                         )}
-                        onChange={handleDrillsBtnChange}
-                        onlabel={translate.t(
-                          "organization.tabs.groups.newGroup.switch.yes"
-                        )}
-                      />
+                        placement={"top"}
+                      >
+                        <FormGroup>
+                          <Field
+                            component={FormikText}
+                            id={"add-group-description"}
+                            name={"description"}
+                            type={"text"}
+                            validate={composeValidators([
+                              required,
+                              maxDescriptionLength,
+                              validTextField,
+                            ])}
+                          />
+                        </FormGroup>
+                      </TooltipWrapper>
                     </FormGroup>
-                  </TooltipWrapper>
-                </Col40>
-              </Row>
-              {canHaveForces ? (
+                    <FormGroup>
+                      <ControlLabel>
+                        {translate.t(
+                          "organization.tabs.groups.newGroup.type.title"
+                        )}
+                      </ControlLabel>
+                      <TooltipWrapper
+                        id={"organization.tabs.groups.newGroup.type.tooltip"}
+                        message={translate.t(
+                          "organization.tabs.groups.newGroup.type.tooltip"
+                        )}
+                        placement={"top"}
+                      >
+                        <FormGroup>
+                          <Field
+                            component={FormikDropdown}
+                            customChange={handleSubscriptionTypeChange}
+                            name={"type"}
+                          >
+                            <option value={"CONTINUOUS"}>
+                              {translate.t(
+                                "organization.tabs.groups.newGroup.type.continuous"
+                              )}
+                            </option>
+                            <option value={"ONESHOT"}>
+                              {translate.t(
+                                "organization.tabs.groups.newGroup.type.oneShot"
+                              )}
+                            </option>
+                          </Field>
+                        </FormGroup>
+                      </TooltipWrapper>
+                    </FormGroup>
+                    <FormGroup>
+                      <ControlLabel>
+                        {translate.t(
+                          "organization.tabs.groups.newGroup.language.text"
+                        )}
+                      </ControlLabel>
+                      <TooltipWrapper
+                        id={
+                          "organization.tabs.groups.newGroup.language.tooltip"
+                        }
+                        message={translate.t(
+                          "organization.tabs.groups.newGroup.language.tooltip"
+                        )}
+                        placement={"top"}
+                      >
+                        <FormGroup>
+                          <Field component={FormikDropdown} name={"language"}>
+                            <option value={"EN"}>
+                              {translate.t(
+                                "organization.tabs.groups.newGroup.language.EN"
+                              )}
+                            </option>
+                            <option value={"ES"}>
+                              {translate.t(
+                                "organization.tabs.groups.newGroup.language.ES"
+                              )}
+                            </option>
+                          </Field>
+                        </FormGroup>
+                      </TooltipWrapper>
+                    </FormGroup>
+                  </Col100>
+                </Row>
                 <Row>
                   <Col40>
                     <TooltipWrapper
-                      id={"organization.tabs.groups.newGroup.forces.tooltip"}
+                      id={
+                        "organization.tabs.groups.newGroup.integrates.tooltip"
+                      }
                       message={translate.t(
-                        "organization.tabs.groups.newGroup.forces.tooltip"
+                        "organization.tabs.groups.newGroup.integrates.tooltip"
                       )}
                       placement={"top"}
                     >
                       <FormGroup>
                         <ControlLabel>
                           {translate.t(
-                            "organization.tabs.groups.newGroup.forces.text"
+                            "organization.tabs.groups.newGroup.integrates.text"
                           )}
                           {" *"}
                         </ControlLabel>
                         <SwitchButton
-                          checked={hasForces}
+                          checked={true}
+                          disabled={true}
+                          name={"integrates"}
                           offlabel={translate.t(
                             "organization.tabs.groups.newGroup.switch.no"
                           )}
-                          onChange={handleForcesBtnChange}
                           onlabel={translate.t(
                             "organization.tabs.groups.newGroup.switch.yes"
                           )}
@@ -448,31 +385,95 @@ const AddProjectModal: React.FC<IAddProjectModalProps> = (
                     </TooltipWrapper>
                   </Col40>
                 </Row>
-              ) : undefined}
-              {" *"}
-              {translate.t(
-                "organization.tabs.groups.newGroup.extraChargesMayApply"
-              )}
-              <hr />
-              <Row>
-                <Col100>
-                  <ButtonToolbar>
-                    <Button id={"add-group-cancel"} onClick={onClose}>
-                      {translate.t("confirmmodal.cancel")}
-                    </Button>
-                    <Button
-                      disabled={pristine || submitting}
-                      id={"add-group-proceed"}
-                      type={"submit"}
+                <Row>
+                  <Col40>
+                    <TooltipWrapper
+                      id={"organization.tabs.groups.newGroup.drills.tooltip"}
+                      message={translate.t(
+                        "organization.tabs.groups.newGroup.drills.tooltip"
+                      )}
+                      placement={"top"}
                     >
-                      {translate.t("confirmmodal.proceed")}
-                    </Button>
-                  </ButtonToolbar>
-                </Col100>
-              </Row>
-            </React.Fragment>
-          )}
-        </GenericForm>
+                      <FormGroup>
+                        <ControlLabel>
+                          {translate.t(
+                            "organization.tabs.groups.newGroup.drills.text"
+                          )}
+                          {" *"}
+                        </ControlLabel>
+                        <SwitchButton
+                          checked={values.drills}
+                          name={"drills"}
+                          offlabel={translate.t(
+                            "organization.tabs.groups.newGroup.switch.no"
+                          )}
+                          onChange={handleDrillsBtnChange}
+                          onlabel={translate.t(
+                            "organization.tabs.groups.newGroup.switch.yes"
+                          )}
+                        />
+                      </FormGroup>
+                    </TooltipWrapper>
+                  </Col40>
+                </Row>
+                {values.drills && isContinuousType(values.type) ? (
+                  <Row>
+                    <Col40>
+                      <TooltipWrapper
+                        id={"organization.tabs.groups.newGroup.forces.tooltip"}
+                        message={translate.t(
+                          "organization.tabs.groups.newGroup.forces.tooltip"
+                        )}
+                        placement={"top"}
+                      >
+                        <FormGroup>
+                          <ControlLabel>
+                            {translate.t(
+                              "organization.tabs.groups.newGroup.forces.text"
+                            )}
+                            {" *"}
+                          </ControlLabel>
+                          <SwitchButton
+                            checked={values.forces}
+                            name={"forces"}
+                            offlabel={translate.t(
+                              "organization.tabs.groups.newGroup.switch.no"
+                            )}
+                            onChange={handleForcesBtnChange}
+                            onlabel={translate.t(
+                              "organization.tabs.groups.newGroup.switch.yes"
+                            )}
+                          />
+                        </FormGroup>
+                      </TooltipWrapper>
+                    </Col40>
+                  </Row>
+                ) : undefined}
+                {" *"}
+                {translate.t(
+                  "organization.tabs.groups.newGroup.extraChargesMayApply"
+                )}
+                <hr />
+                <Row>
+                  <Col100>
+                    <ButtonToolbar>
+                      <Button id={"add-group-cancel"} onClick={onClose}>
+                        {translate.t("confirmmodal.cancel")}
+                      </Button>
+                      <Button
+                        disabled={!dirty || submitting}
+                        id={"add-group-proceed"}
+                        type={"submit"}
+                      >
+                        {translate.t("confirmmodal.proceed")}
+                      </Button>
+                    </ButtonToolbar>
+                  </Col100>
+                </Row>
+              </Form>
+            );
+          }}
+        </Formik>
       </Modal>
     </React.StrictMode>
   );
