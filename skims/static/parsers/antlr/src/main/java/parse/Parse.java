@@ -44,16 +44,19 @@ public class Parse {
     }
   }
 
+  public static String setSource(Scanner scanner) {
+    try {
+      return scanner.useDelimiter(ALL).next();
+    } catch (NoSuchElementException e) {
+      return "";
+    }
+  }
+
   public static void main(String[] args) {
     try {
       // Read Stdin until EOF
       Scanner scanner = new Scanner(System.in);
-      String source;
-      try {
-        source = scanner.useDelimiter(ALL).next();
-      } catch (NoSuchElementException e) {
-        source = "";
-      }
+      String source = setSource(scanner);
 
       // Do the parsing
       CharStream charStream = CharStreams.fromString(source);
