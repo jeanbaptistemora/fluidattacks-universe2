@@ -200,6 +200,7 @@ module.exports = {
           'criteria/files/r039',
           'criteria/files/r040',
           'criteria/files/r041',
+          'criteria/files/r045',
           'criteria/files/r046',
           'criteria/files/r339',
           'criteria/files/r340',
