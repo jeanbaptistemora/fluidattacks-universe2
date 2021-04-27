@@ -96,7 +96,6 @@ def test_is_a_unsolved_event():
     assert not is_a_unsolved_event(dumb_solved_event)
 
 async def test_get_unsolved_events():
-    request = create_dummy_simple_session('unittest')
     project_name = 'unittesting'
     test_data = await get_unsolved_events(project_name)
     assert isinstance(test_data, list)

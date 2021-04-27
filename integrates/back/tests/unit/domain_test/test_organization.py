@@ -263,7 +263,6 @@ async def test_has_user_access():
 
 @pytest.mark.changes_db
 async def test_remove_user():
-    context = get_new_context()
     user = 'org_testuser3@gmail.com'
     group = 'sheele'
     org_id = 'ORG#f2e2777d-a168-4bea-93cd-d79142b294d2'
