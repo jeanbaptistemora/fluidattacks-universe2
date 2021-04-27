@@ -1,6 +1,6 @@
 /* eslint camelcase: 0 */
 /* eslint @typescript-eslint/no-confusing-void-expression: 0 */
-/* eslint fp/no-let: 0 */
+/* eslint react/require-default-props: 0 */
 import { graphql, useStaticQuery } from "gatsby";
 import React from "react";
 
@@ -22,12 +22,14 @@ interface IData {
   };
 }
 
-const CloudImage: React.FC<{ alt: string; src: string }> = ({
+const CloudImage: React.FC<{ alt: string; src: string; styles?: string }> = ({
   alt,
   src,
+  styles,
 }: {
   alt: string;
   src: string;
+  styles?: string;
 }): JSX.Element => {
   const data: IData = useStaticQuery(graphql`
     query CloudinaryImage {
@@ -45,7 +47,12 @@ const CloudImage: React.FC<{ alt: string; src: string }> = ({
     .filter((image): boolean => image.node.secure_url.includes(src))
     .map(
       (image: IImageNode): JSX.Element => (
-        <img alt={alt} key={alt} src={image.node.secure_url} />
+        <img
+          alt={alt}
+          className={styles}
+          key={alt}
+          src={image.node.secure_url}
+        />
       )
     );
 

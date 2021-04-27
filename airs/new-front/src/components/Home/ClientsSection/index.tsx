@@ -2,7 +2,6 @@
 /* eslint @typescript-eslint/no-magic-numbers:0 */
 /* eslint react/forbid-component-props: 0 */
 /* eslint fp/no-mutation:0 */
-/* eslint import/no-namespace:0 */
 /* eslint react/jsx-no-bind:0 */
 import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -10,24 +9,12 @@ import React, { useEffect, useState } from "react";
 import type { StyledComponent } from "styled-components";
 import styled from "styled-components";
 
-import logoAvianca from "../../../../static/images/about-us/clients/logo-avianca.png";
-import logoBancoGeneral from "../../../../static/images/about-us/clients/logo-banco-general.png";
-import logoBancoIndustrial from "../../../../static/images/about-us/clients/logo-banco-industrial.png";
-import logoBancolombia from "../../../../static/images/about-us/clients/logo-bancolombia.png";
-import logoBanesco from "../../../../static/images/about-us/clients/logo-banesco.png";
-import logoBanistmo from "../../../../static/images/about-us/clients/logo-banistmo.png";
-import logoBantrab from "../../../../static/images/about-us/clients/logo-bantrab.png";
-import logoColmedica from "../../../../static/images/about-us/clients/logo-colmedica.png";
-import logoInterbank from "../../../../static/images/about-us/clients/logo-interbank.png";
-import logoItau from "../../../../static/images/about-us/clients/logo-itau.png";
-import logoOxxo from "../../../../static/images/about-us/clients/logo-oxxo.png";
-import logoSodimac from "../../../../static/images/about-us/clients/logo-sodimac.png";
-import logoSura from "../../../../static/images/about-us/clients/logo-sura.png";
 import {
   BannerContainer,
   FontAwesomeContainerSmall,
 } from "../../../styles/styledComponents";
 import { translate } from "../../../utils/translations/translate";
+import { CloudImage } from "../../CloudImage";
 
 const Container: StyledComponent<
   "div",
@@ -191,31 +178,47 @@ const ClientsSection: React.FC = (): JSX.Element => {
             </ArrowButton>
           </ArrowContainer>
           <SlideShow id={"clientsSlides"}>
-            <img alt={"Logo Avianca"} className={"mh4"} src={logoAvianca} />
-            <img
+            <CloudImage
+              alt={"Logo Avianca"}
+              src={"logo-avianca"}
+              styles={"mh4"}
+            />
+            <CloudImage
               alt={"Logo Banco General"}
-              className={"mh4"}
-              src={logoBancoGeneral}
+              src={"logo-banco-general"}
+              styles={"mh4"}
             />
-            <img
+            <CloudImage
               alt={"Logo Banco Industrial"}
-              className={"mh4"}
-              src={logoBancoIndustrial}
+              src={"logo-banco-industrial"}
+              styles={"mh4"}
             />
-            <img
+            <CloudImage
               alt={"Logo Bancolombia"}
-              className={"mh4"}
-              src={logoBancolombia}
+              src={"logo-bancolombia"}
+              styles={"mh4"}
             />
-            <img alt={"Logo Banesco"} src={logoBanesco} />
-            <img alt={"Logo Banistmo"} className={"mh4"} src={logoBanistmo} />
-            <img alt={"Logo Bantrab"} src={logoBantrab} />
-            <img alt={"Logo Colmedica"} className={"mh4"} src={logoColmedica} />
-            <img alt={"Logo Interbank"} className={"mh4"} src={logoInterbank} />
-            <img alt={"Logo Itau"} className={"mh4"} src={logoItau} />
-            <img alt={"Logo Oxxo"} src={logoOxxo} />
-            <img alt={"Logo Sodimac"} src={logoSodimac} />
-            <img alt={"Logo Sura"} className={"mh4"} src={logoSura} />
+            <CloudImage alt={"Logo Banesco"} src={"logo-banesco"} />
+            <CloudImage
+              alt={"Logo Banistmo"}
+              src={"logo-banistmo"}
+              styles={"mh4"}
+            />
+            <CloudImage alt={"Logo Bantrab"} src={"logo-bantrab"} />
+            <CloudImage
+              alt={"Logo Colmedica"}
+              src={"logo-colmedica"}
+              styles={"mh4"}
+            />
+            <CloudImage
+              alt={"Logo Interbank"}
+              src={"logo-interbank"}
+              styles={"mh4"}
+            />
+            <CloudImage alt={"Logo Itau"} src={"logo-itau"} styles={"mh4"} />
+            <CloudImage alt={"Logo Oxxo"} src={"logo-oxxo"} />
+            <CloudImage alt={"Logo Sodimac"} src={"logo-sodimac"} />
+            <CloudImage alt={"Logo Sura"} src={"logo-sura"} styles={"mh4"} />
           </SlideShow>
         </ClientsContainer>
         <DefinitionContainer>
