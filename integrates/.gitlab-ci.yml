@@ -595,6 +595,12 @@ integrates.scheduler.send_unsolved_to_all:
     refs: [schedules]
     variables: [$integrates_scheduler_send_unsolved_to_all]
 
+integrates.scheduler.daily_digest:
+  <<: *integrates_schedulers
+  only:
+    refs: [schedules]
+    variables: [$integrates_scheduler_daily_digest]
+
 integrates.scheduler.toe_inputs_etl:
   <<: *integrates_schedulers
   only:

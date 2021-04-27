@@ -49,6 +49,7 @@ logging.config.dictConfig(settings.LOGGING)
 # Constants
 API_KEY = FI_MANDRILL_API_KEY
 COMMENTS_TAG = ['comments']
+DIGEST_TAG = ['digest']
 GENERAL_TAG = ['general']
 LOGGER = logging.getLogger(__name__)
 LOGGER_TRANSACTIONAL = logging.getLogger('transactional')
@@ -535,6 +536,19 @@ async def send_mail_group_deletion(
         GENERAL_TAG,
         f'Group deletion [{context["group_name"]}]',
         'group_deletion'
+    )
+
+
+async def send_mail_daily_digest(
+    email_to: List[str],
+    context: MailContentType
+) -> None:
+    await _send_mails_async_new(
+        email_to,
+        context,
+        DIGEST_TAG,
+        f'Daily Digest for [{context["project"]}]',
+        'daily_digest'
     )
 
 
