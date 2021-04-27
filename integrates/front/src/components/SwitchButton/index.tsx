@@ -13,6 +13,7 @@ import {
 } from "styles/styledComponents";
 
 interface ISwitchButtonProps {
+  name?: string;
   checked: boolean;
   disabled?: boolean;
   fontSize?: string;
