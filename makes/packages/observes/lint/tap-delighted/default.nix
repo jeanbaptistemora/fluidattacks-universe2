@@ -1,18 +1,30 @@
 { makeDerivation
 , path
 , packages
+, pythonFormat
 , ...
 }:
+with packages.observes;
+let
+  src = path "/observes/singer/tap_delighted";
+  formatter = pythonFormat {
+    name = "observes-pkg-format";
+    target = src;
+  };
+in
 makeDerivation {
   name = "observes-lint-tap-delighted";
   arguments = {
-    envSrc = path "/observes/singer/tap_delighted";
+    envSrc = src;
   };
   searchPaths = {
+    envPaths = [
+      formatter
+    ];
     envSources = [
-      packages.observes.generic.linter
-      packages.observes.env.tap-delighted.runtime
+      generic.linter
+      env.tap-delighted.runtime
     ];
   };
-  builder = path "/makes/packages/observes/generic/linter/lint_builder.sh";
+  builder = path "/makes/packages/observes/generic/linter/builders/lint_and_format.sh";
 }

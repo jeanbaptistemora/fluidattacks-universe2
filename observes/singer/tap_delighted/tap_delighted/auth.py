@@ -15,4 +15,4 @@ class Credentials(NamedTuple):
         return cls(raw)
 
     def __str__(self) -> str:
-        return 'masked api_key'
+        return "masked api_key"

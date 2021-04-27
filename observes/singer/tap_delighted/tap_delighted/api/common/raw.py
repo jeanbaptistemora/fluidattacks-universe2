@@ -35,7 +35,7 @@ class RateLimitError(TooManyRequestsError):
     pass
 
 
-DataType = TypeVar('DataType')
+DataType = TypeVar("DataType")
 RawApiResult = IOResult[DataType, RateLimitError]
 RawItem = RawApiResult[JSON]
 RawItems = RawApiResult[Iterator[JSON]]
@@ -54,11 +54,7 @@ def _call_paged_resource(
     page: PageId,
 ) -> RawItems:
     return _wrap_manyreqs_error(
-        lambda: request(
-            client=client,
-            page=page.page,
-            per_page=page.per_page
-        )
+        lambda: request(client=client, page=page.page, per_page=page.per_page)
     )
 
 
@@ -66,38 +62,25 @@ def _call_single_resource(
     request: Callable[..., Any],
     client: Client,
 ) -> RawItem:
-    return _wrap_manyreqs_error(
-        lambda: request(client=client)
-    )
+    return _wrap_manyreqs_error(lambda: request(client=client))
 
 
 def get_metrics(client: Client) -> RawItem:
-    return _call_single_resource(
-        delighted.Metrics.retrieve, client
-    )
+    return _call_single_resource(delighted.Metrics.retrieve, client)
 
 
 def list_bounced(client: Client, page: PageId) -> RawItems:
-    return _call_paged_resource(
-        delighted.Bounce.all, client, page
-    )
+    return _call_paged_resource(delighted.Bounce.all, client, page)
 
 
 def list_people(client: Client) -> IO[Iterator[JSON]]:
-    people = delighted.Person.list(
-        client=client,
-        auto_handle_rate_limits=True
-    )
+    people = delighted.Person.list(client=client, auto_handle_rate_limits=True)
     return IO(iter(people.auto_paging_iter()))
 
 
 def list_surveys(client: Client, page: PageId) -> RawItems:
-    return _call_paged_resource(
-        delighted.SurveyResponse.all, client, page
-    )
+    return _call_paged_resource(delighted.SurveyResponse.all, client, page)
 
 
 def list_unsubscribed(client: Client, page: PageId) -> RawItems:
-    return _call_paged_resource(
-        delighted.Unsubscribe.all, client, page
-    )
+    return _call_paged_resource(delighted.Unsubscribe.all, client, page)

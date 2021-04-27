@@ -42,10 +42,9 @@ class BouncedPage(NamedTuple):
 
     @classmethod
     def new(cls, client: Client, page: PageId) -> IO[BouncedPage]:
-        data = handle_rate_limit(
-            lambda: raw.list_bounced(client, page), 5
-        )
+        data = handle_rate_limit(lambda: raw.list_bounced(client, page), 5)
         return data.unwrap().map(cls)
+
 
 class UnsubscribedPage(NamedTuple):
     data: Iterator[JSON]
@@ -58,7 +57,7 @@ class UnsubscribedPage(NamedTuple):
         return data.unwrap().map(cls)
 
 
-PageType = TypeVar('PageType', BouncedPage, UnsubscribedPage)
+PageType = TypeVar("PageType", BouncedPage, UnsubscribedPage)
 
 
 def _is_empty(iopage: IO[PageType]) -> bool:
@@ -89,12 +88,13 @@ class PeopleApi(NamedTuple):
     def new(cls, client: Client) -> PeopleApi:
         return cls(
             list_bounced=partial(
-                _generic_listing,
-                BouncedPage, IO[BouncedPage], client
+                _generic_listing, BouncedPage, IO[BouncedPage], client
             ),
             list_people=partial(raw.list_people, client),
             list_unsubscribed=partial(
                 _generic_listing,
-                UnsubscribedPage, IO[UnsubscribedPage], client
-            )
+                UnsubscribedPage,
+                IO[UnsubscribedPage],
+                client,
+            ),
         )

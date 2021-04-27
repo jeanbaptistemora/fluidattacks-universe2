@@ -31,12 +31,7 @@ from tap_delighted.api.survey import (
 )
 
 
-ApiPage = TypeVar(
-    'ApiPage',
-    BouncedPage,
-    SurveyPage,
-    UnsubscribedPage
-)
+ApiPage = TypeVar("ApiPage", BouncedPage, SurveyPage, UnsubscribedPage)
 
 
 class ApiClient(NamedTuple):
@@ -48,8 +43,8 @@ class ApiClient(NamedTuple):
     def new(cls, creds: Credentials) -> ApiClient:
         client = Client(
             api_key=creds.api_key,
-            api_base_url='https://api.delighted.com/v1/',
-            http_adapter=HTTPAdapter()
+            api_base_url="https://api.delighted.com/v1/",
+            http_adapter=HTTPAdapter(),
         )
         return cls(
             metrics=MetricsApi.new(client),
@@ -59,7 +54,7 @@ class ApiClient(NamedTuple):
 
 
 __all__ = [
-    'BouncedPage',
-    'SurveyPage',
-    'UnsubscribedPage',
+    "BouncedPage",
+    "SurveyPage",
+    "UnsubscribedPage",
 ]

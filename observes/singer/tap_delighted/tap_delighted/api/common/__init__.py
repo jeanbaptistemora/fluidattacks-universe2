@@ -16,6 +16,7 @@ from returns.io import (
 from returns.curry import (
     partial,
 )
+
 # Local libraries
 from tap_delighted.api.common.raw import (
     RateLimitError,
@@ -30,7 +31,7 @@ class MaxRetriesReached(Exception):
     pass
 
 
-DataType = TypeVar('DataType')
+DataType = TypeVar("DataType")
 ApiResult = IOResult[DataType, MaxRetriesReached]
 LOG = logging.getLogger(__name__)
 
@@ -41,9 +42,9 @@ def retry_request(
     error: RateLimitError,
 ) -> ApiResult[DataType]:
     wait_time = error.retry_after
-    LOG.info('Api rate limit reached. Waiting %ss', wait_time)
+    LOG.info("Api rate limit reached. Waiting %ss", wait_time)
     time.sleep(wait_time)
-    LOG.info('Retry #%s', retry_num)
+    LOG.info("Retry #%s", retry_num)
     return request()
 
 

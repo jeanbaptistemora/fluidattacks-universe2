@@ -18,7 +18,7 @@ from paginator import (
 )
 
 
-ResultPage = TypeVar('ResultPage')
+ResultPage = TypeVar("ResultPage")
 
 
 def get_all_pages(
@@ -26,9 +26,7 @@ def get_all_pages(
     get_page: Callable[[PageId], ResultPage],
     is_empty: Callable[[ResultPage], bool],
 ) -> Iterator[ResultPage]:
-    getter = paginator.build_getter(
-        _type, get_page, is_empty
-    )
+    getter = paginator.build_getter(_type, get_page, is_empty)
     pages: Iterator[ResultPage] = paginator.get_until_end(
         _type, PageId(1, 100), getter, 10
     )

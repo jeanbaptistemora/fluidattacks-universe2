@@ -43,7 +43,8 @@ class SurveyPage(NamedTuple):
             lambda: raw.list_surveys(
                 client=client,
                 page=page,
-            ), 5
+            ),
+            5,
         )
         return data.unwrap().map(cls)
 
@@ -70,6 +71,4 @@ class SurveyApi(NamedTuple):
 
     @classmethod
     def new(cls, client: Client) -> SurveyApi:
-        return cls(
-            list_surveys=partial(_list_surveys, client)
-        )
+        return cls(list_surveys=partial(_list_surveys, client))

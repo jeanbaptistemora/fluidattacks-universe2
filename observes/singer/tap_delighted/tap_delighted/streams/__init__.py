@@ -40,16 +40,12 @@ def _stream_data(
 
 def all_surveys(api: ApiClient) -> None:
     _stream_data(
-        SupportedStreams.SURVEY_RESPONSE,
-        api.survey.list_surveys(ALL)
+        SupportedStreams.SURVEY_RESPONSE, api.survey.list_surveys(ALL)
     )
 
 
 def all_bounced(api: ApiClient) -> None:
-    _stream_data(
-        SupportedStreams.BOUNCED,
-        api.people.list_bounced(ALL)
-    )
+    _stream_data(SupportedStreams.BOUNCED, api.people.list_bounced(ALL))
 
 
 def all_metrics(api: ApiClient) -> None:
@@ -63,18 +59,13 @@ def all_metrics(api: ApiClient) -> None:
 def all_people(api: ApiClient) -> None:
     stream = SupportedStreams.PEOPLE
     data = api.people.list_people()
-    data.map(
-        partial(emitter.emit_records, stream)
-    )
+    data.map(partial(emitter.emit_records, stream))
 
 
 def all_unsubscribed(api: ApiClient) -> None:
     _stream_data(
-        SupportedStreams.UNSUBSCRIBED,
-        api.people.list_unsubscribed(ALL)
+        SupportedStreams.UNSUBSCRIBED, api.people.list_unsubscribed(ALL)
     )
 
 
-__all__ = [
-    'SupportedStreams'
-]
+__all__ = ["SupportedStreams"]

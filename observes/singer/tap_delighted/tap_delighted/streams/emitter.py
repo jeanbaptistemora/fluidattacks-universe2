@@ -30,14 +30,11 @@ from tap_delighted.streams.objs import (
 
 
 def _json_list_srecords(
-    stream: SupportedStreams,
-    items: Iterator[JSON]
+    stream: SupportedStreams, items: Iterator[JSON]
 ) -> Iterator[SingerRecord]:
     return iter(
-        SingerRecord(
-            stream=stream.value.lower(),
-            record=item
-        ) for item in items
+        SingerRecord(stream=stream.value.lower(), record=item)
+        for item in items
     )
 
 
