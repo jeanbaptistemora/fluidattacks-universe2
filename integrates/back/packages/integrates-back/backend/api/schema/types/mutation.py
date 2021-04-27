@@ -69,6 +69,7 @@ from backend.api.mutations import (
     update_root_cloning_status,
     update_root_state,
     update_severity,
+    update_toe_lines_sorts,
     update_treatment_vulnerability,
     update_vulns_treatment,
     upload_file,
@@ -177,3 +178,4 @@ MUTATION.set_field('verifyRequestVuln', verify_request_vulnerability.mutate)
 MUTATION.set_field('downloadVulnFile', download_vulnerability_file.mutate)
 MUTATION.set_field('handleVulnsAcceptation', handle_vulns_acceptation.mutate)
 MUTATION.set_field('updateVulnsTreatment', update_vulns_treatment.mutate)
+MUTATION.set_field('updateToeLinesSorts', update_toe_lines_sorts.mutate)

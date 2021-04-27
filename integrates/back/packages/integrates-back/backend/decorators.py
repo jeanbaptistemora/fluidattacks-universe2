@@ -307,7 +307,6 @@ def require_attribute(attribute: str) -> Callable[[TVar], TVar]:
             if isinstance(context, dict):
                 context = context.get('request', {})
             store = util.get_request_store(context)
-
             group = await resolve_group_name(context, args, kwargs)
 
             # Unique ID for this decorator function

@@ -232,7 +232,8 @@
           "loc": { "N": "8" },
           "modified_commit": { "S": "983466z" },
           "tested_date": { "S": "2021-02-28T00:00:00-05:00" },
-          "tested_lines": { "N": "4" }
+          "tested_lines": { "N": "4" },
+          "sorts_risk_level": { "N": "0" }
         }
       }
     },
@@ -248,7 +249,8 @@
           "loc": { "N": "120" },
           "modified_commit": { "S": "273412t" },
           "tested_date": { "S": "2021-01-20T00:00:00-05:00" },
-          "tested_lines": { "N": "172" }
+          "tested_lines": { "N": "172" },
+          "sorts_risk_level": { "N": "0" }
         }
       }
     },

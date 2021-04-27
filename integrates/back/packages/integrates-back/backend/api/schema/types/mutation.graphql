@@ -401,6 +401,12 @@ type Mutation {
     data: GenericScalar!
   ): SimpleFindingPayload!
 
+  updateToeLinesSorts(
+    filename: String,
+    groupName: String,
+    sortsRiskLevel: Int
+  ): SimplePayload!
+
   updateTreatmentVuln(
     externalBts: String
     findingId: String!
