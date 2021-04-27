@@ -9,8 +9,8 @@ from typing import (
 from aiodataloader import DataLoader
 
 # Local libraries
-from backend.filters import finding as finding_filters
 from backend.typing import Finding as FindingType
+from newutils import findings as findings_utils
 
 
 class GroupFindingsNonDeletedLoader(DataLoader):  # type: ignore
@@ -35,7 +35,8 @@ class GroupFindingsNonDeletedLoader(DataLoader):  # type: ignore
         groups_findings = await self.dataloader.load_many(group_names)
 
         for index, group_findings in enumerate(groups_findings):
-            groups_findings[index] = \
-                finding_filters.filter_non_deleted_findings(group_findings)
+            groups_findings[index] = (
+                findings_utils.filter_non_deleted_findings(group_findings)
+            )
 
         return cast(List[List[FindingType]], groups_findings)

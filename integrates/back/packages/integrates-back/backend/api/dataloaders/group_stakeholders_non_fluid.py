@@ -10,7 +10,6 @@ from aiodataloader import DataLoader
 from aioextensions import collect
 
 # Local libraries
-from backend.filters import stakeholder as stakeholder_filters
 from backend.typing import Stakeholder as StakeholderType
 from users import domain as users_domain
 
@@ -35,7 +34,7 @@ class GroupStakeholdersNonFluidLoader(DataLoader):  # type: ignore
                 stakeholder['email'] for stakeholder in group_stakeholders
             ]
             group_stakeholders_filtered_emails = (
-                await stakeholder_filters.filter_non_fluid_staff(
+                await users_domain.filter_non_fluid_staff(
                     group_stakeholders_emails,
                     group_name
                 )

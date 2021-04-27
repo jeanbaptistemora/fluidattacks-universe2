@@ -35,7 +35,6 @@ from botocore.exceptions import ClientError
 from back.settings import LOGGING
 from backend import mailer
 from backend.api import get_new_context
-from backend.filters import finding as finding_filters
 from backend.typing import (
     Event as EventType,
     Finding as FindingType,
@@ -50,6 +49,7 @@ from groups import domain as groups_domain
 from group_access import domain as group_access_domain
 from newutils import (
     datetime as datetime_utils,
+    findings as findings_utils,
     vulnerabilities as vulns_utils,
 )
 from newutils.groups import has_integrates_services
@@ -669,7 +669,7 @@ async def get_new_releases() -> None:  # pylint: disable=too-many-locals
         if group_name not in test_groups:
             try:
                 for finding in finding_requests:
-                    is_finding_released = finding_filters.is_released(finding)
+                    is_finding_released = findings_utils.is_released(finding)
                     if not is_finding_released:
                         group = await group_loader.load(group_name)
                         org_id = group['organization']

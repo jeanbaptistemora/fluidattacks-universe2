@@ -5,8 +5,8 @@ from typing import Dict
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local
-from backend.filters import finding as finding_filters
 from backend.typing import Finding
+from newutils import findings as findings_utils
 
 
 async def resolve(
@@ -15,11 +15,11 @@ async def resolve(
     **_kwargs: None
 ) -> str:
     report_date = ''
-    is_finding_created = finding_filters.is_created(parent)
+    is_finding_created = findings_utils.is_created(parent)
 
     if is_finding_created:
-        report_date = finding_filters.get_creation_date(parent)
+        report_date = findings_utils.get_creation_date(parent)
     else:
-        report_date = finding_filters.get_submission_date(parent)
+        report_date = findings_utils.get_submission_date(parent)
 
     return report_date

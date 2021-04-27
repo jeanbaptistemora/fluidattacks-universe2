@@ -21,7 +21,6 @@ from backend import (
     mailer,
     util,
 )
-from backend.filters import finding as finding_filters
 from backend.typing import (
     Finding as FindingType,
     MailContent as MailContentType,
@@ -38,7 +37,7 @@ from custom_exceptions import (
 from findings import dal as findings_dal
 from newutils import (
     datetime as datetime_utils,
-    findings as finding_utils,
+    findings as findings_utils,
     vulnerabilities as vulns_utils,
 )
 from vulnerabilities import domain as vulns_domain
@@ -61,8 +60,8 @@ async def approve_draft(
     success = False
 
     if (
-        not finding_filters.is_approved(draft_data) and
-        not finding_filters.is_deleted(draft_data)
+        not findings_utils.is_approved(draft_data) and
+        not findings_utils.is_deleted(draft_data)
     ):
         vulns = await finding_vulns_loader.load(draft_id)
         has_vulns = [
@@ -71,7 +70,7 @@ async def approve_draft(
             if vulns_utils.filter_deleted_status(vuln)
         ]
         if has_vulns:
-            if finding_filters.is_submitted(draft_data):
+            if findings_utils.is_submitted(draft_data):
                 release_date = datetime_utils.get_now_as_str()
                 history = cast(
                     List[Dict[str, str]],
@@ -156,11 +155,11 @@ async def get_drafts_by_group(
     if attrs and 'historic_state' not in attrs:
         attrs.add('historic_state')
     findings = await findings_dal.get_findings_by_group(group_name, attrs)
-    findings = finding_filters.filter_non_approved_findings(findings)
+    findings = findings_utils.filter_non_approved_findings(findings)
     if not include_deleted:
-        findings = finding_filters.filter_non_deleted_findings(findings)
+        findings = findings_utils.filter_non_deleted_findings(findings)
     return [
-        finding_utils.format_finding(finding, attrs)
+        findings_utils.format_finding(finding, attrs)
         for finding in findings
     ]
 
@@ -194,6 +193,37 @@ async def list_drafts(
     return cast(List[List[str]], findings)
 
 
+async def send_draft_reject_mail(  # pylint: disable=too-many-arguments
+    context: Any,
+    draft_id: str,
+    finding_name: str,
+    group_name: str,
+    discoverer_email: str,
+    reviewer_email: str
+) -> None:
+    group_loader = context.group_all
+    organization_loader = context.organization
+    group = await group_loader.load(group_name)
+    org_id = group['organization']
+    organization = await organization_loader.load(org_id)
+    org_name = organization['name']
+    recipients = FI_MAIL_REVIEWERS.split(',')
+    recipients.append(discoverer_email)
+    email_context: MailContentType = {
+        'admin_mail': reviewer_email,
+        'analyst_mail': discoverer_email,
+        'draft_url': (
+            f'{BASE_URL}/orgs/{org_name}/groups/{group_name}'
+            f'/drafts/{draft_id}/description'
+        ),
+        'finding_id': draft_id,
+        'finding_name': finding_name,
+        'project': group_name,
+        'organization': org_name
+    }
+    schedule(mailer.send_mail_reject_draft(recipients, email_context))
+
+
 async def reject_draft(
     context: Any,
     draft_id: str,
@@ -206,9 +236,9 @@ async def reject_draft(
         draft_data['historic_state']
     )
     success = False
-    is_finding_approved = finding_filters.is_approved(draft_data)
-    is_finding_deleted = finding_filters.is_deleted(draft_data)
-    is_finding_submitted = finding_filters.is_submitted(draft_data)
+    is_finding_approved = findings_utils.is_approved(draft_data)
+    is_finding_deleted = findings_utils.is_deleted(draft_data)
+    is_finding_submitted = findings_utils.is_submitted(draft_data)
 
     if (not is_finding_approved and not is_finding_deleted):
         if is_finding_submitted:
@@ -268,9 +298,9 @@ async def submit_draft(  # pylint: disable=too-many-locals
     finding_vulns_loader = context.loaders.finding_vulns
     finding_loader = context.loaders.finding
     finding = await finding_loader.load(finding_id)
-    is_finding_approved = finding_filters.is_approved(finding)
-    is_finding_deleted = finding_filters.is_deleted(finding)
-    is_finding_submitted = finding_filters.is_submitted(finding)
+    is_finding_approved = findings_utils.is_approved(finding)
+    is_finding_deleted = findings_utils.is_deleted(finding)
+    is_finding_submitted = findings_utils.is_submitted(finding)
 
     if (not is_finding_approved and not is_finding_deleted):
         if not is_finding_submitted:

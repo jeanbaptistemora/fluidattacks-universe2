@@ -1,3 +1,4 @@
+# pylint: disable=too-many-lines
 # Standard libraries
 import logging
 import logging.config
@@ -36,10 +37,6 @@ from backend import (
     mailer,
     util,
 )
-from backend.filters import (
-    finding as finding_filters,
-    vulnerability as vuln_filters,
-)
 from backend.typing import (
     Comment as CommentType,
     Finding as FindingType,
@@ -61,13 +58,16 @@ from newutils import (
     comments as comments_utils,
     cvss,
     datetime as datetime_utils,
-    findings as finding_utils,
+    findings as findings_utils,
     validations,
     vulnerabilities as vulns_utils,
 )
 from users import domain as users_domain
 from vulnerabilities import domain as vulns_domain
-from __init__ import BASE_URL
+from __init__ import (
+    BASE_URL,
+    FI_MAIL_REVIEWERS,
+)
 
 
 logging.config.dictConfig(LOGGING)
@@ -253,7 +253,7 @@ async def get(
     finding = await findings_dal.get(finding_id, table)
     if not finding or not await validate_finding(finding=finding):
         raise FindingNotFound()
-    return finding_utils.format_data(finding)
+    return findings_utils.format_data(finding)
 
 
 async def get_attributes(
@@ -273,7 +273,7 @@ async def get_finding(finding_id: str) -> Dict[str, FindingType]:
     finding = await findings_dal.get_finding(finding_id)
     if not finding or not await validate_finding(finding=finding):
         raise FindingNotFound()
-    return finding_utils.format_data(finding)
+    return findings_utils.format_data(finding)
 
 
 async def get_finding_age(context: Any, finding_id: str) -> int:
@@ -302,7 +302,7 @@ async def get_finding_open_age(context: Any, finding_id: str) -> int:
     open_age = 0
     finding_vulns_loader = context.finding_vulns_nzr
     vulns = await finding_vulns_loader.load(finding_id)
-    open_vulns = vuln_filters.filter_open_vulns(vulns)
+    open_vulns = vulns_utils.filter_open_vulns(vulns)
     report_dates = vulns_utils.get_report_dates(open_vulns)
     if report_dates:
         oldest_report_date = min(report_dates)
@@ -332,14 +332,14 @@ async def get_findings_by_group(
     if attrs and 'historic_state' not in attrs:
         attrs.add('historic_state')
     findings = await findings_dal.get_findings_by_group(group_name, attrs)
-    findings = finding_filters.filter_non_created_findings(findings)
-    findings = finding_filters.filter_non_rejected_findings(findings)
-    findings = finding_filters.filter_non_submitted_findings(findings)
+    findings = findings_utils.filter_non_created_findings(findings)
+    findings = findings_utils.filter_non_rejected_findings(findings)
+    findings = findings_utils.filter_non_submitted_findings(findings)
 
     if not include_deleted:
-        findings = finding_filters.filter_non_deleted_findings(findings)
+        findings = findings_utils.filter_non_deleted_findings(findings)
     return [
-        finding_utils.format_finding(finding, attrs)
+        findings_utils.format_finding(finding, attrs)
         for finding in findings
     ]
 
@@ -522,13 +522,13 @@ def get_tracking_vulnerabilities(
         for vuln in vulnerabilities
     ]
     vulns_filtered = [
-        finding_utils.clean_deleted_state(vuln)
+        findings_utils.clean_deleted_state(vuln)
         for vuln, filter_deleted in zip(vulnerabilities, filter_deleted_status)
         if filter_deleted
     ]
     vulns_filtered_zero = filter_zero_risk_vulns(vulns_filtered)
-    states_actions = finding_utils.get_state_actions(vulns_filtered_zero)
-    treatments_actions = finding_utils.get_treatment_actions(
+    states_actions = findings_utils.get_state_actions(vulns_filtered_zero)
+    treatments_actions = findings_utils.get_treatment_actions(
         vulns_filtered_zero
     )
 
@@ -575,14 +575,7 @@ def is_deleted(finding: Dict[str, FindingType]) -> bool:
 async def is_pending_verification(context: Any, finding_id: str) -> bool:
     finding_loader = context.finding_vulns_nzr
     vulns = await finding_loader.load(finding_id)
-    open_vulns = [
-        vuln
-        for vuln in vulns
-        if cast(
-            List[Dict[str, str]],
-            vuln.get('historic_state', [{}])
-        )[-1].get('state') == 'open'
-    ]
+    open_vulns = vulns_utils.filter_open_vulns(vulns)
     reattack_requested = [
         vuln
         for vuln in open_vulns
@@ -620,7 +613,7 @@ async def list_findings(
 
 async def mask_finding(context: Any, finding_id: str) -> bool:
     finding = await findings_dal.get_finding(finding_id)
-    finding = finding_utils.format_data(finding)
+    finding = findings_utils.format_data(finding)
     historic_verification = cast(
         List[Dict[str, str]],
         finding.get('historicVerification', [])
@@ -782,7 +775,7 @@ async def request_vulnerability_verification(
 async def save_severity(finding: Dict[str, FindingType]) -> bool:
     """Organize severity metrics to save in dynamo."""
     cvss_version: str = str(finding.get('cvssVersion', ''))
-    cvss_parameters = finding_utils.CVSS_PARAMETERS[cvss_version]
+    cvss_parameters = findings_utils.CVSS_PARAMETERS[cvss_version]
     severity = cvss.calculate_severity(cvss_version, finding, cvss_parameters)
     response = await findings_dal.update(str(finding.get('id', '')), severity)
     return response
@@ -800,6 +793,30 @@ def send_comment_mail(
             user_email,
             str(comment_data.get('comment_type')),
             finding
+        )
+    )
+
+
+async def send_finding_delete_mail(  # pylint: disable=too-many-arguments
+    context: Any,
+    finding_id: str,
+    finding_name: str,
+    group_name: str,
+    discoverer_email: str,
+    justification: str
+) -> None:
+    del context
+    recipients = FI_MAIL_REVIEWERS.split(',')
+    schedule(
+        mailer.send_mail_delete_finding(
+            recipients,
+            {
+                'analyst_email': discoverer_email,
+                'finding_name': finding_name,
+                'finding_id': finding_id,
+                'justification': justification,
+                'project': group_name,
+            }
         )
     )
 

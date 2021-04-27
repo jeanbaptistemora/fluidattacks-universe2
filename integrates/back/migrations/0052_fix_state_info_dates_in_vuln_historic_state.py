@@ -15,9 +15,11 @@ from pprint import pprint
 from aioextensions import collect
 
 # Local
-from backend.filters import finding as finding_filters
 from dynamodb import operations_legacy as dynamodb_ops
-from newutils import datetime as datetime_utils
+from newutils import (
+    datetime as datetime_utils,
+    findings as findings_utils,
+)
 from vulnerabilities import (
     dal as vulns_dal,
     domain as vulns_domain,
@@ -44,7 +46,7 @@ async def main() -> None:
 
         finding_id = finding['finding_id']
         release_date = None
-        release_date_str = finding_filters.get_approval_date(finding)
+        release_date_str = findings_utils.get_approval_date(finding)
         if release_date_str:
             release_date = datetime_utils.get_from_str(release_date_str)
         vulns = await vulns_domain.list_vulnerabilities_async(

@@ -25,6 +25,7 @@ from .core import (
     request_vulnerability_verification,
     save_severity,
     send_comment_mail,
+    send_finding_delete_mail,
     send_finding_mail,
     update_description,
     validate_finding,
@@ -36,6 +37,7 @@ from .draft import (
     get_drafts_by_group,
     list_drafts,
     reject_draft,
+    send_draft_reject_mail,
     send_new_draft_mail,
     submit_draft
 )
@@ -77,6 +79,7 @@ __all__ = [
     'request_vulnerability_verification',
     'save_severity',
     'send_comment_mail',
+    'send_finding_delete_mail',
     'send_finding_mail',
     'update_description',
     'validate_finding',
@@ -88,6 +91,7 @@ __all__ = [
     'get_drafts_by_group',
     'list_drafts',
     'reject_draft',
+    'send_draft_reject_mail',
     'send_new_draft_mail',
     'submit_draft',
 

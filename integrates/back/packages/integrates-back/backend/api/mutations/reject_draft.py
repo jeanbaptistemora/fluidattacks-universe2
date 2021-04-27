@@ -15,7 +15,6 @@ from backend.decorators import (
     require_login
 )
 from backend.typing import SimplePayload as SimplePayloadType
-from newutils import findings as finding_utils
 from findings import domain as findings_domain
 from redis_cluster.operations import redis_del_by_deps_soon
 
@@ -45,7 +44,7 @@ async def mutate(
         finding = await finding_loader.load(finding_id)
         findings_domain.send_finding_mail(
             info.context.loaders,
-            finding_utils.send_draft_reject_mail,
+            findings_domain.send_draft_reject_mail,
             finding_id,
             str(finding.get('title', '')),
             str(finding.get('project_name', '')),

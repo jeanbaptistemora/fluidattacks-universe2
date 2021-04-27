@@ -20,8 +20,8 @@ from backend.typing import (
     Project as GroupType,
     Stakeholder as StakeholderType,
 )
-from newutils import user as user_utils
 from redis_cluster.operations import redis_get_or_set_entity_attr
+from users import domain as users_domain
 
 
 @concurrent_decorators(
@@ -53,7 +53,7 @@ async def resolve_no_cache(
     user_data: Dict[str, str] = await util.get_jwt_content(info.context)
     user_email: str = user_data['user_email']
 
-    if user_utils.is_fluid_staff(user_email):
+    if users_domain.is_fluid_staff(user_email):
         group_stakeholders_loader = info.context.loaders.group_stakeholders
     else:
         group_stakeholders_loader = info.context.loaders.group_stakeholders_nf

@@ -24,7 +24,6 @@ from jinja2 import (
 # Local libraries
 from back import settings
 from backend import authz
-from backend.filters import finding as finding_filters
 from backend.typing import (
     Comment as CommentType,
     Event as EventType,
@@ -33,7 +32,10 @@ from backend.typing import (
     Project as ProjectType
 )
 from group_access import domain as group_access_domain
-from newutils import datetime as datetime_utils
+from newutils import (
+    datetime as datetime_utils,
+    findings as findings_utils,
+)
 from organizations import domain as orgs_domain
 from users import domain as users_domain
 from __init__ import (
@@ -166,7 +168,7 @@ async def send_comment_mail(  # pylint: disable=too-many-locals
 
         email_context['finding_id'] = str(finding.get('id', ''))
         email_context['finding_name'] = str(finding.get('finding', ''))
-        is_finding_released = finding_filters.is_released(finding)
+        is_finding_released = findings_utils.is_released(finding)
         comment_url = (
             BASE_URL +
             f'/orgs/{org_name}/groups/{project_name}/' +

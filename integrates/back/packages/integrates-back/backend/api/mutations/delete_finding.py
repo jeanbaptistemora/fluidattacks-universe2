@@ -15,7 +15,6 @@ from backend.decorators import (
 )
 from backend.typing import SimplePayload
 from findings import domain as findings_domain
-from newutils import findings as finding_utils
 from redis_cluster.operations import redis_del_by_deps_soon
 
 
@@ -53,7 +52,7 @@ async def mutate(
         }
         findings_domain.send_finding_mail(
             info.context.loaders,
-            finding_utils.send_finding_delete_mail,
+            findings_domain.send_finding_delete_mail,
             finding_id,
             str(finding_data.get('finding', '')),
             group_name,

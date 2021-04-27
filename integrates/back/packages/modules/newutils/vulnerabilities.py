@@ -97,6 +97,20 @@ def filter_non_requested_zero_risk(
     ]
 
 
+def filter_open_vulns(
+    vulnerabilities: List[Dict[str, FindingType]],
+) -> List[Dict[str, FindingType]]:
+    open_vulns = [
+        vuln
+        for vuln in vulnerabilities
+        if cast(
+            HistoricType,
+            vuln.get('historic_state', [{}])
+        )[-1].get('state') == 'open'
+    ]
+    return open_vulns
+
+
 def format_data(vuln: Dict[str, FindingType]) -> Dict[str, FindingType]:
     vuln['current_state'] = cast(
         List[Dict[str, str]],

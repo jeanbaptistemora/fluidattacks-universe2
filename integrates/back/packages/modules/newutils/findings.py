@@ -15,22 +15,16 @@ from typing import (
 )
 
 # Third-party libraries
-from aioextensions import schedule
 from starlette.datastructures import UploadFile
 
 # Local libraries
 from back.settings import LOGGING
-from backend import (
-    mailer,
-    util,
-)
-from backend.filters import finding as finding_filters
+from backend import util
 from backend.typing import (
     Action,
     Datetime,
     Finding as FindingType,
     Historic as HistoricType,
-    MailContent as MailContentType,
 )
 from custom_exceptions import (
     InvalidDateFormat,
@@ -40,10 +34,6 @@ from newutils import (
     cvss,
     datetime as datetime_utils,
     forms as forms_utils,
-)
-from __init__ import (
-    BASE_URL,
-    FI_MAIL_REVIEWERS,
 )
 
 
@@ -141,6 +131,76 @@ def filter_by_date(
     )
 
 
+def filter_non_approved_findings(
+    findings: List[Dict[str, FindingType]]
+) -> List[Dict[str, FindingType]]:
+    no_approved_findings = [
+        finding
+        for finding in findings
+        if cast(
+            HistoricType,
+            finding.get('historic_state', [{}])
+        )[-1].get('state', '') != 'APPROVED'
+    ]
+    return no_approved_findings
+
+
+def filter_non_created_findings(
+    findings: List[Dict[str, FindingType]]
+) -> List[Dict[str, FindingType]]:
+    non_submited_findings = [
+        finding
+        for finding in findings
+        if cast(
+            HistoricType,
+            finding.get('historic_state', [{}])
+        )[-1].get('state', '') != 'CREATED'
+    ]
+    return non_submited_findings
+
+
+def filter_non_deleted_findings(
+    findings: List[Dict[str, FindingType]]
+) -> List[Dict[str, FindingType]]:
+    no_deleted_findings = [
+        finding
+        for finding in findings
+        if cast(
+            HistoricType,
+            finding.get('historic_state', [{}])
+        )[-1].get('state', '') != 'DELETED'
+    ]
+    return no_deleted_findings
+
+
+def filter_non_rejected_findings(
+    findings: List[Dict[str, FindingType]]
+) -> List[Dict[str, FindingType]]:
+    non_rejected_findings = [
+        finding
+        for finding in findings
+        if cast(
+            HistoricType,
+            finding.get('historic_state', [{}])
+        )[-1].get('state', '') != 'REJECTED'
+    ]
+    return non_rejected_findings
+
+
+def filter_non_submitted_findings(
+    findings: List[Dict[str, FindingType]]
+) -> List[Dict[str, FindingType]]:
+    non_submitted_findings = [
+        finding
+        for finding in findings
+        if cast(
+            HistoricType,
+            finding.get('historic_state', [{}])
+        )[-1].get('state', '') != 'SUBMITTED'
+    ]
+    return non_submitted_findings
+
+
 # pylint: disable=simplifiable-if-expression
 def format_data(finding: Dict[str, FindingType]) -> Dict[str, FindingType]:
     finding = {
@@ -148,7 +208,7 @@ def format_data(finding: Dict[str, FindingType]) -> Dict[str, FindingType]:
         for attribute in finding
     }
 
-    is_draft = not finding_filters.is_released(finding)
+    is_draft = not is_released(finding)
     if is_draft:
         finding['cvssVersion'] = finding.get('cvssVersion', '2')
 
@@ -237,6 +297,40 @@ def format_finding(
     return formated_finding
 
 
+def get_approval_date(finding: Dict[str, FindingType]) -> str:
+    """Get approval date from the historic state"""
+    approval_date = ''
+    approval_info = None
+    historic_state = get_historic_state(finding)
+    if historic_state:
+        approval_info = list(
+            filter(
+                lambda state_info: state_info['state'] == 'APPROVED',
+                historic_state
+            )
+        )
+    if approval_info:
+        approval_date = approval_info[-1]['date']
+    return approval_date
+
+
+def get_creation_date(finding: Dict[str, FindingType]) -> str:
+    """Get creation date from the historic state"""
+    creation_date = ''
+    creation_info = None
+    historic_state = get_historic_state(finding)
+    if historic_state:
+        creation_info = list(
+            filter(
+                lambda state_info: state_info['state'] == 'CREATED',
+                historic_state
+            )
+        )
+    if creation_info:
+        creation_date = creation_info[-1]['date']
+    return creation_date
+
+
 def get_date_with_format(item: Dict[str, str]) -> str:
     return str(item.get('date', '')).split(' ')[0]
 
@@ -247,8 +341,8 @@ def get_evidence(
     finding: Dict[str, FindingType],
 ) -> Dict[str, str]:
     date_str: str = (
-        finding_filters.get_approval_date(finding) or
-        finding_filters.get_creation_date(finding)
+        get_approval_date(finding) or
+        get_creation_date(finding)
     )
     release_date = datetime_utils.get_from_str(date_str)
     evidence = [
@@ -297,6 +391,15 @@ def get_historic_dates(vuln: Dict[str, FindingType]) -> List[str]:
     return treatment_dates + state_dates
 
 
+def get_historic_state(finding: Dict[str, FindingType]) -> HistoricType:
+    historic_state = []
+    if 'historic_state' in finding:
+        historic_state = cast(HistoricType, finding['historic_state'])
+    elif 'historicState' in finding:
+        historic_state = cast(HistoricType, finding['historicState'])
+    return historic_state
+
+
 def get_item_date(item: Any) -> Datetime:
     return datetime_utils.get_from_str(item['date'].split(' ')[0], '%Y-%m-%d')
 
@@ -331,6 +434,23 @@ def get_state_actions(vulns: List[Dict[str, FindingType]]) -> List[Action]:
         for action, times in Counter(states_actions).most_common()
     ]
     return actions
+
+
+def get_submission_date(finding: Dict[str, FindingType]) -> str:
+    """Get submission date from the historic state"""
+    submission_date = ''
+    submission_info = None
+    historic_state = get_historic_state(finding)
+    if historic_state:
+        submission_info = list(
+            filter(
+                lambda state_info: state_info['state'] == 'SUBMITTED',
+                historic_state
+            )
+        )
+    if submission_info:
+        submission_date = submission_info[-1]['date']
+    return submission_date
 
 
 def get_tracking_dates(
@@ -403,65 +523,38 @@ def get_vuln_treatment_actions(
     return list({action.date: action for action in actions}.values())
 
 
+def is_approved(finding: Dict[str, FindingType]) -> bool:
+    """Determine if a finding is approved from the historic state"""
+    historic_state = get_historic_state(finding)
+    return bool(historic_state and historic_state[-1]['state'] == 'APPROVED')
+
+
+def is_created(finding: Dict[str, FindingType]) -> bool:
+    """Determine if a finding is created from the historic state"""
+    historic_state = get_historic_state(finding)
+    return bool(historic_state and historic_state[-1]['state'] == 'CREATED')
+
+
+def is_deleted(finding: Dict[str, FindingType]) -> bool:
+    """Determine if a finding is deleted from the historic state"""
+    historic_state = get_historic_state(finding)
+    return bool(historic_state and historic_state[-1]['state'] == 'DELETED')
+
+
+def is_released(finding: Dict[str, FindingType]) -> bool:
+    """Determine if a finding is released from the historic state"""
+    return bool(get_approval_date(finding))
+
+
+def is_submitted(finding: Dict[str, FindingType]) -> bool:
+    """Determine if a finding is submitted from the historic state"""
+    historic_state = get_historic_state(finding)
+    return bool(historic_state and historic_state[-1]['state'] == 'SUBMITTED')
+
+
 def sort_historic_by_date(historic: Any) -> HistoricType:
     historic_sort = sorted(historic, key=lambda i: i['date'])
     return historic_sort
-
-
-async def send_draft_reject_mail(  # pylint: disable=too-many-arguments
-    context: Any,
-    draft_id: str,
-    finding_name: str,
-    group_name: str,
-    discoverer_email: str,
-    reviewer_email: str
-) -> None:
-    group_loader = context.group_all
-    organization_loader = context.organization
-    group = await group_loader.load(group_name)
-    org_id = group['organization']
-    organization = await organization_loader.load(org_id)
-    org_name = organization['name']
-    recipients = FI_MAIL_REVIEWERS.split(',')
-    recipients.append(discoverer_email)
-    email_context: MailContentType = {
-        'admin_mail': reviewer_email,
-        'analyst_mail': discoverer_email,
-        'draft_url': (
-            f'{BASE_URL}/orgs/{org_name}/groups/{group_name}'
-            f'/drafts/{draft_id}/description'
-        ),
-        'finding_id': draft_id,
-        'finding_name': finding_name,
-        'project': group_name,
-        'organization': org_name
-    }
-    schedule(mailer.send_mail_reject_draft(recipients, email_context))
-
-
-async def send_finding_delete_mail(  # pylint: disable=too-many-arguments
-    context: Any,
-    finding_id: str,
-    finding_name: str,
-    group_name: str,
-    discoverer_email: str,
-    justification: str
-) -> None:
-    del context
-    recipients = FI_MAIL_REVIEWERS.split(',')
-
-    schedule(
-        mailer.send_mail_delete_finding(
-            recipients,
-            {
-                'analyst_email': discoverer_email,
-                'finding_name': finding_name,
-                'finding_id': finding_id,
-                'justification': justification,
-                'project': group_name,
-            }
-        )
-    )
 
 
 def validate_acceptance_date(values: Dict[str, str]) -> bool:

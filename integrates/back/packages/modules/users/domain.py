@@ -19,7 +19,6 @@ from backend import (
     authz,
     util,
 )
-from backend.filters import stakeholder as stakeholder_filters
 from backend.typing import (
     Invitation as InvitationType,
     Stakeholder as StakeholderType,
@@ -122,6 +121,21 @@ async def ensure_user_exists(email: str) -> bool:
     return bool(await users_dal.get(email))
 
 
+async def filter_non_fluid_staff(
+    emails: List[str],
+    group_name: str,
+) -> List[str]:
+    are_managers = await collect([
+        is_manager(email, group_name)
+        for email in emails
+    ])
+    return [
+        email
+        for email, is_manager in zip(emails, are_managers)
+        if not is_fluid_staff(email) or is_manager
+    ]
+
+
 async def format_stakeholder(email: str, group_name: str) -> StakeholderType:
     stakeholder: StakeholderType = await get_by_email(email)
     group_access = await group_access_domain.get_user_access(
@@ -217,7 +231,7 @@ async def get_stakeholders(
     )
     if exclude_fluid_staff:
         group_stakeholders_emails = (
-            await stakeholder_filters.filter_non_fluid_staff(
+            await filter_non_fluid_staff(
                 group_stakeholders_emails,
                 group_name
             )
@@ -253,6 +267,15 @@ async def has_valid_access_token(
         # authorization header not present or user without access_token
         pass
     return resp
+
+
+def is_fluid_staff(email: str) -> bool:
+    return email.endswith('@fluidattacks.com')
+
+
+async def is_manager(email: str, group_name: str) -> bool:
+    role: str = await authz.get_group_level_role(email, group_name)
+    return role == 'group_manager'
 
 
 async def is_registered(email: str) -> bool:

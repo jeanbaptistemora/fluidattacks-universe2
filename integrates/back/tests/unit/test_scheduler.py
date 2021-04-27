@@ -264,13 +264,17 @@ async def test_get_project_indicators():
     assert found == len(
         [vuln for vuln in vulns if vuln['historic_state'][-1].get('state') != 'DELETED']
     )
-    assert accepted == len(
-        [vuln for vuln in vulns
-         if vuln.get('historic_treatment', [{}])[-1].get(
-             'treatment'
-         ) in {'ACCEPTED', 'ACCEPTED_UNDEFINED'}
-         and vuln['historic_state'][-1].get('state') == 'open']
-    )
+    assert accepted == len([
+        vuln
+        for vuln in vulns
+        if (
+            vuln.get(
+                'historic_treatment',
+                [{}]
+            )[-1].get('treatment') in {'ACCEPTED', 'ACCEPTED_UNDEFINED'} and
+            vuln['historic_state'][-1].get('state') == 'open'
+        )
+    ])
     assert closed == len(
         [vuln for vuln in vulns if vuln['historic_state'][-1].get('state') == 'closed']
     )
