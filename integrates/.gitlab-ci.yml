@@ -547,12 +547,6 @@ integrates.scheduler.get_new_releases:
     refs: [schedules]
     variables: [$integrates_scheduler_get_new_releases]
 
-integrates.scheduler.get_new_vulnerabilities:
-  <<: *integrates_scheduler
-  only:
-    refs: [schedules]
-    variables: [$integrates_scheduler_get_new_vulnerabilities]
-
 integrates.scheduler.get_remediated_findings:
   <<: *integrates_scheduler
   only:
