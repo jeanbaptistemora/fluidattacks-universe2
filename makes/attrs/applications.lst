@@ -153,6 +153,7 @@ observes.bin.update-project-variable
 observes.job.dynamodb-etl
 observes.job.dynamodb-forces-etl
 observes.job.dynamodb-table-etl
+observes.job.format-code
 observes.job.infra.apply
 observes.job.infra.test
 observes.job.zoho-crm-etl
