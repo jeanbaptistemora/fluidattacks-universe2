@@ -23,11 +23,7 @@ from aioextensions import (
 )
 
 # Local libraries
-from paginator.common import (
-    EmptyPage,
-    Limits,
-    DEFAULT_LIMITS
-)
+from paginator.common import EmptyPage, Limits, DEFAULT_LIMITS
 from paginator.int_index.objs import (
     PageId,
     PageOrAll,
@@ -35,8 +31,8 @@ from paginator.int_index.objs import (
 )
 
 
-_Data = TypeVar('_Data')
-ResultPage = TypeVar('ResultPage')
+_Data = TypeVar("_Data")
+ResultPage = TypeVar("ResultPage")
 EPage = Union[ResultPage, EmptyPage]
 PageGetter = Callable[[PageId], EPage[_Data]]
 
@@ -66,23 +62,16 @@ def new_page_range(
 ) -> PageRange:
     def next_page() -> Iterator[PageId]:
         for p_num in page_range:
-            yield PageId(
-                page=p_num,
-                per_page=per_page
-            )
-    return PageRange(
-        page_range=page_range,
-        per_page=per_page,
-        pages=next_page
-    )
+            yield PageId(page=p_num, per_page=per_page)
+
+    return PageRange(page_range=page_range, per_page=per_page, pages=next_page)
 
 
 def get_pages(
     page_range: PageRange,
     getter: Callable[[PageId], _Data],
-    limits: Limits = DEFAULT_LIMITS
+    limits: Limits = DEFAULT_LIMITS,
 ) -> Iterator[_Data]:
-
     @rate_limited(
         max_calls=limits.max_calls,
         max_calls_period=limits.max_period,
@@ -92,10 +81,7 @@ def get_pages(
         return await in_thread(getter, page)
 
     async def pages() -> AsyncGenerator[_Data, None]:
-        jobs = map(
-            get_page,
-            page_range.pages()
-        )
+        jobs = map(get_page, page_range.pages())
         for item in resolve(jobs, worker_greediness=limits.greediness):
             yield await item
 
@@ -114,8 +100,7 @@ def get_until_end(
     actual_page = start.page
     while not empty_page_retrieved:
         pages = new_page_range(
-            range(actual_page, actual_page + pages_chunk),
-            start.per_page
+            range(actual_page, actual_page + pages_chunk), start.per_page
         )
         for response in get_pages(pages, getter):
             if isinstance(response, EmptyPage):
@@ -135,11 +120,12 @@ def build_getter(
         if is_empty(result):
             return EmptyPage()
         return result
+
     return getter
 
 
 __all__ = [
-    'PageId',
-    'PageOrAll',
-    'PageRange',
+    "PageId",
+    "PageOrAll",
+    "PageRange",
 ]

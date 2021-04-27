@@ -26,6 +26,6 @@ class PageRange(NamedTuple):
 
 
 PageOrAll = Union[AllPages, PageId]
-_ResultPage = TypeVar('_ResultPage')
+_ResultPage = TypeVar("_ResultPage")
 EPage = Union[_ResultPage, EmptyPage]
 PageGetter = Callable[[PageId], EPage[_ResultPage]]
