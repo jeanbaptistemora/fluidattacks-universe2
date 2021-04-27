@@ -19,47 +19,7 @@ exports.handler = function(event, context) {
         var request = ec2.describeInstances({DryRun:false});
 
         // On a successful describe, execute the following callback
-        request.on("success", function(response) {
-            region = response.request.service.config.region;
-            var data = response.data;
-            var ids = [];
-            for(let reservation of data.Reservations) {
-                for(let instance of reservation.instances) {
-                    if(isTagless(instance))
-                        ids.push(instance.InstanceId);
-                }
-            }
-            announce(region, ids);
-
-            // If some Instances have been identified, attempt to terminate
-            if(ids.length > 0) {
-                semaphore.terminate++;
-                ec2 = new AWS.EC2(response.request.service.config);
-                request = ec2.terminateInstances({DryRun:!shouldTerminateInstances, InstanceIds:ids});	// Defaulting to DryRun true when terminating Instances
-
-                // Callback for successful terminate
-                request.on("success", function(response) {
-                    region = response.request.service.config.region;
-                    var body = JSON.stringify(response.data);
-                    results[region] = response.data;
-                    announce(region, body);
-                });
-
-                // Callback for error terminate
-                request.on("error", cbError);
-
-                // Callback when terminating attempt has finished, successful or not -- decrement the terminate semaphore and check if finished
-                request.on("complete", function() {
-                    semaphore.terminate--;
-                    if(describingDone() && terminatingDone()) {
-                        context.succeed(results);
-                    }
-                });
-
-                request.send();	// Issue the terminate request
-
-            }
-        });
+        request.on("success", OnSuccesfulDescribe);
 
         // Callback for error describe
         request.on("error", cbError);
@@ -75,7 +35,54 @@ exports.handler = function(event, context) {
         request.send();	// Issue the describe request
     }
 };
+/**
+ * Callback for successful terminate of a describe request.
+ */
+ function cbSuccessful (response) {
+    var region = response.request.service.config.region;
+    var body = JSON.stringify(response.data);
+    results[region] = response.data;
+    announce(region, body);
+}
+/**
+ * Callback for successful describe.
+ */
+function OnSuccesfulDescribe(response) {
+    var region = response.request.service.config.region;
+    var data = response.data;
+    var ids = [];
+    for(let reservation of data.Reservations) {
+        for(let instance of reservation.instances) {
+            if(isTagless(instance))
+                ids.push(instance.InstanceId);
+        }
+    }
+    announce(region, ids);
 
+    // If some Instances have been identified, attempt to terminate
+    if(ids.length > 0) {
+        semaphore.terminate++;
+        var ec2 = new AWS.EC2(response.request.service.config);
+        var request = ec2.terminateInstances({DryRun:!shouldTerminateInstances, InstanceIds:ids});	// Defaulting to DryRun true when terminating Instances
+
+        // Callback for successful terminate
+        request.on("success", cbSuccessful);
+
+        // Callback for error terminate
+        request.on("error", cbError);
+
+        // Callback when terminating attempt has finished, successful or not -- decrement the terminate semaphore and check if finished
+        request.on("complete", function() {
+            semaphore.terminate--;
+            if(describingDone() && terminatingDone()) {
+                context.succeed(results);
+            }
+        });
+
+        request.send();	// Issue the terminate request
+
+    }
+}
 /**
  * A simple logging function used for printing to AWS Lambda logs.
  */
