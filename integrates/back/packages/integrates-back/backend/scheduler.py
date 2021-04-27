@@ -15,7 +15,6 @@ from typing import (
     Any,
     Callable,
     cast,
-    Counter,
     Dict,
     List,
     Optional,
@@ -55,7 +54,6 @@ from newutils import (
 from newutils.groups import has_integrates_services
 from newutils.findings import (
     filter_by_date,
-    get_state_actions,
     sort_historic_by_date,
 )
 from organizations import domain as orgs_domain
@@ -159,18 +157,6 @@ async def send_unsolved_events_email(context: Any, group_name: str) -> None:
 async def get_external_recipients(project: str) -> List[str]:
     recipients = await group_access_domain.get_managers(project)
     return remove_fluid_from_recipients(recipients)
-
-
-def get_finding_url(
-    finding: Dict[str, FindingType],
-    group_name: str,
-    org_name: str,
-) -> str:
-    url = (
-        f'{BASE_URL}/orgs/{org_name}/groups/{group_name}/'
-        f'vulns/{finding["finding_id"]}/description'
-    )
-    return url
 
 
 def get_status_vulns_by_time_range(
@@ -476,65 +462,6 @@ def calculate_tag_indicators(
             str(group['name']) for group in tags_dict[tag]
         ]
     return tag_info
-
-
-async def calculate_vulnerabilities(context: Any, finding_id: str) -> int:
-    finding_vulns_loader = context.finding_vulns_nzr
-    vulns = await finding_vulns_loader.load(finding_id)
-    states_actions = get_state_actions(vulns)
-    today = datetime_utils.get_now()
-    last_week = datetime_utils.get_now_minus_delta(days=8)
-    actions = list(filter(
-        lambda action: (
-            datetime_utils.get_from_str(action.date, '%Y-%m-%d') >= last_week
-            and datetime_utils.get_from_str(action.date, '%Y-%m-%d') <= today
-        ),
-        states_actions
-    ))
-    state_counter: Counter[str] = sum(
-        [Counter({action.action: action.times}) for action in actions],
-        Counter()
-    )
-    return state_counter['open'] - state_counter['closed']
-
-
-def format_vulnerabilities(
-        delta: int,
-        act_finding: Dict[str, FindingType]) -> str:
-    """Format vulnerabities changes in findings."""
-    if delta > 0:
-        finding_text = f'{act_finding["finding"]} (+{delta})'
-    elif delta < 0:
-        finding_text = f'{act_finding["finding"]} ({delta})'
-    else:
-        finding_text = ''
-    return finding_text
-
-
-async def create_msj_finding_pending(
-    context: Any,
-    act_finding: Dict[str, FindingType]
-) -> str:
-    """Validate if a finding has treatment."""
-    finding_vulns_loader = context.finding_vulns_nzr
-    finding_id = cast(str, act_finding['finding_id'])
-    open_vulns = [
-        vuln
-        for vuln in await finding_vulns_loader.load(finding_id)
-        if vuln['current_state'] == 'open'
-        and cast(
-            List[Dict[str, str]],
-            vuln.get('historic_treatment', [{}])
-        )[-1].get('treatment', 'NEW') == 'NEW'
-    ]
-    if open_vulns:
-        context = get_new_context()
-        days = await findings_domain.get_finding_age(context, finding_id)
-        finding_name = f'{act_finding["finding"]} -{days} day(s)-'
-        result = finding_name
-    else:
-        result = ''
-    return result
 
 
 async def get_remediated_findings() -> None:

@@ -8,23 +8,18 @@ from unittest.mock import patch
 
 from freezegun import freeze_time
 
-from back.tests.unit.utils import create_dummy_simple_session
 from backend.api import get_new_context
 from backend.scheduler import (
-    calculate_vulnerabilities,
     create_data_format_chart,
-    create_msj_finding_pending,
     create_register_by_week,
     create_weekly_date,
     delete_imamura_stakeholders,
     delete_obsolete_groups,
     delete_obsolete_orgs,
     extract_info_from_event_dict,
-    format_vulnerabilities,
     get_accepted_vulns,
     get_by_time_range,
     get_date_last_vulns,
-    get_finding_url,
     get_first_week_dates,
     get_project_indicators,
     get_status_vulns_by_time_range,
@@ -35,7 +30,6 @@ from backend.scheduler import (
 )
 from data_containers.toe_inputs import GitRootToeInput
 from data_containers.toe_lines import GitRootToeLines
-from findings.dal import get_finding
 from findings.domain import get_findings_by_group
 from groups import domain as groups_domain
 from newutils import (
@@ -109,23 +103,6 @@ def test_extract_info_from_event_dict():
     test_data = extract_info_from_event_dict(dumb_event_dict)
     expected_output = {'type': 'test', 'details': 'detail'}
     assert test_data == expected_output
-
-def test_get_finding_url():
-    dumb_finding_dict = {'project_name': 'test', 'finding_id': 'test'}
-    org_name = 'okada'
-    group_name = 'group_test'
-    test_data = get_finding_url(dumb_finding_dict, group_name, org_name)
-    expected_output = (
-        'https://app.fluidattacks.com/orgs/okada/groups'
-        '/group_test/vulns/test/description'
-    )
-    assert test_data == expected_output
-
-@freeze_time('2019-09-15')
-async def test_calculate_vulnerabilities():
-    context = get_new_context()
-    finding_id = '436992569'
-    assert await calculate_vulnerabilities(context, finding_id) == 17
 
 async def test_get_status_vulns_by_time_range():
     released_findings = await get_findings_by_group('UNITTESTING')
@@ -214,37 +191,6 @@ async def test_get_date_last_vulns():
     test_data = get_date_last_vulns(vulns)
     expected_output = '2020-09-07 16:01:26'
     assert test_data == expected_output
-
-async def test_format_vulnerabilities():
-    act_finding = await get_finding('422286126')
-    positive_delta = 1
-    neutral_delta = 0
-    negative_delta = -1
-
-    test_data = format_vulnerabilities(positive_delta, act_finding)
-    expected_output = 'F060. Insecure exceptions (+1)'
-    assert test_data == expected_output
-
-    test_data = format_vulnerabilities(neutral_delta, act_finding)
-    expected_output = ''
-    assert test_data == expected_output
-
-    test_data = format_vulnerabilities(negative_delta, act_finding)
-    expected_output = 'F060. Insecure exceptions (-1)'
-    assert test_data == expected_output
-
-async def test_create_msj_finding_pending():
-    context = get_new_context()
-    not_new_treatment_finding = await get_finding('422286126')
-    new_treatment_finding = await get_finding('436992569')
-
-    test_data = await create_msj_finding_pending(context, not_new_treatment_finding)
-    expected_output = ''
-    assert test_data == expected_output
-
-    test_data = await create_msj_finding_pending(context, new_treatment_finding)
-    expected_output = u'F038. Fuga de información de negocio'
-    assert expected_output in test_data
 
 async def test_get_project_indicators():
     group_name = 'unittesting'
