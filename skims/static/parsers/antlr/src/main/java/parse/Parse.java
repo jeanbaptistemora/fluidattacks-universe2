@@ -5,6 +5,7 @@ import java.io.OutputStreamWriter;
 import java.util.NoSuchElementException;
 import java.util.regex.Pattern;
 import java.util.Scanner;
+import org.antlr.v4.runtime.misc.LogManager;
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.misc.*;
@@ -53,6 +54,9 @@ public class Parse {
   }
 
   public static void main(String[] args) {
+    // Create logger for errors
+    LogManager logger = new LogManager();
+
     try {
       // Read Stdin until EOF
       Scanner scanner = new Scanner(System.in);
@@ -103,16 +107,16 @@ public class Parse {
 
       System.exit(0);
     } catch (ArrayIndexOutOfBoundsException e) {
-      System.err.println("Invalid arguments");
+      logger.log("Invalid arguments");
       System.exit(1);
     } catch (OutOfMemoryError e) {
-      System.err.println("Not enough memory could be allocated");
+      logger.log("Not enough memory could be allocated");
       System.exit(1);
     } catch (IOException e) {
-      System.err.println("Bad JSON stream");
+      logger.log("Bad JSON stream");
       System.exit(1);
     } catch (ParseCancellationException e) {
-      System.err.println("Content does not match grammar");
+      logger.log("Content does not match grammar");
       System.exit(1);
     }
   }
