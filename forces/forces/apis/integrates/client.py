@@ -61,7 +61,7 @@ async def execute(query: str,
                   default: Optional[Any] = None,
                   **kwargs: Any) -> TVar:
     async with session(**kwargs) as client:
-        result: Any = dict()
+        result: Any
         response: aiohttp.ClientResponse
 
         response = await client.execute(
