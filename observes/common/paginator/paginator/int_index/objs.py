@@ -3,16 +3,15 @@ from typing import (
     Callable,
     Iterator,
     NamedTuple,
+    TypeVar,
     Union,
 )
 
-
-class AllPages(NamedTuple):
-    pass
-
-
-class EmptyPage(NamedTuple):
-    pass
+# Local libraries
+from paginator.common import (
+    AllPages,
+    EmptyPage,
+)
 
 
 class PageId(NamedTuple):
@@ -26,11 +25,7 @@ class PageRange(NamedTuple):
     pages: Callable[[], Iterator[PageId]]
 
 
-class Limits(NamedTuple):
-    max_calls: int
-    max_period: float
-    min_period: float
-    greediness: int
-
-
 PageOrAll = Union[AllPages, PageId]
+_ResultPage = TypeVar('_ResultPage')
+EPage = Union[_ResultPage, EmptyPage]
+PageGetter = Callable[[PageId], EPage[_ResultPage]]

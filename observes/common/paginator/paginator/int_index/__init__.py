@@ -23,11 +23,15 @@ from aioextensions import (
 )
 
 # Local libraries
-from paginator.objs import (
+from paginator.common import (
     EmptyPage,
-    PageId,
-    PageRange,
     Limits,
+    DEFAULT_LIMITS
+)
+from paginator.int_index.objs import (
+    PageId,
+    PageOrAll,
+    PageRange,
 )
 
 
@@ -35,12 +39,6 @@ _Data = TypeVar('_Data')
 ResultPage = TypeVar('ResultPage')
 EPage = Union[ResultPage, EmptyPage]
 PageGetter = Callable[[PageId], EPage[_Data]]
-DEFAULT_LIMITS = Limits(
-    max_calls=5,
-    max_period=1,
-    min_period=0.2,
-    greediness=10,
-)
 
 
 def _iter_over_async(
@@ -138,3 +136,10 @@ def build_getter(
             return EmptyPage()
         return result
     return getter
+
+
+__all__ = [
+    'PageId',
+    'PageOrAll',
+    'PageRange',
+]
