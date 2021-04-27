@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Apr 27, 2021, 10:37 AM",
+    "DateLastModified": "Apr 27, 2021, 02:02 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -1323,7 +1323,6 @@
             "status",
             "reason",
             "modified_date",
-            "repo",
             "environment",
             "environment_urls",
             "gitignore",
@@ -1387,7 +1386,6 @@
             "status",
             "reason",
             "modified_date",
-            "repo",
             "environment",
             "environment_urls",
             "gitignore",
@@ -1476,9 +1474,9 @@
           "TableData": [],
           "NonKeyAttributes": [
             "type",
+            "repo",
             "address",
-            "port",
-            "repo"
+            "port"
           ],
           "DataAccess": {
             "MySql": {}
@@ -1492,11 +1490,10 @@
           },
           "TableData": [],
           "NonKeyAttributes": [
-            "modified_by",
-            "modified_date",
-            "repo",
+            "status",
             "reason",
-            "status"
+            "modified_date",
+            "modified_by"
           ],
           "DataAccess": {
             "MySql": {}
@@ -1510,11 +1507,10 @@
           },
           "TableData": [],
           "NonKeyAttributes": [
-            "modified_by",
-            "modified_date",
-            "repo",
+            "status",
             "reason",
-            "status"
+            "modified_date",
+            "modified_by"
           ],
           "DataAccess": {
             "MySql": {}
@@ -1529,9 +1525,9 @@
           "TableData": [],
           "NonKeyAttributes": [
             "type",
+            "port",
             "host",
             "path",
-            "port",
             "protocol"
           ],
           "DataAccess": {
@@ -1546,11 +1542,10 @@
           },
           "TableData": [],
           "NonKeyAttributes": [
-            "modified_by",
-            "modified_date",
-            "repo",
+            "status",
             "reason",
-            "status"
+            "modified_date",
+            "modified_by"
           ],
           "DataAccess": {
             "MySql": {}
@@ -1564,11 +1559,10 @@
           },
           "TableData": [],
           "NonKeyAttributes": [
-            "modified_by",
-            "modified_date",
-            "repo",
+            "status",
             "reason",
-            "status"
+            "modified_date",
+            "modified_by"
           ],
           "DataAccess": {
             "MySql": {}
@@ -1742,7 +1736,8 @@
       ],
       "DataAccess": {
         "MySql": {}
-      }
+      },
+      "BillingMode": "PAY_PER_REQUEST"
     }
   ]
 }

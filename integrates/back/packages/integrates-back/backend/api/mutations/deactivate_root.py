@@ -34,7 +34,6 @@ async def mutate(
 
     await roots_domain.deactivate_root(
         group_name=kwargs['group_name'],
-        new_repo=kwargs.get('new_repo'),
         reason=kwargs['reason'],
         root_id=kwargs['id'],
         user_email=user_email

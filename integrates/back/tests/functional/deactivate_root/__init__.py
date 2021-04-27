@@ -11,7 +11,7 @@ async def query(
     email: str,
     group_name: str,
     id: str,
-    new_repo: str,
+    new_root_id: str,
     reason: str
 ) -> Dict[str, Any]:
     query: str = f'''
@@ -19,7 +19,7 @@ async def query(
             deactivateRoot(
                 groupName: "{group_name}",
                 id: "{id}",
-                newRepo: "{new_repo}",
+                newRootId: "{new_root_id}",
                 reason: {reason}
             ) {{
                 success

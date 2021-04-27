@@ -17,9 +17,9 @@ from . import query
     )
 )
 @pytest.mark.parametrize(
-    ('reason', 'new_repo'),
+    ('reason', 'new_root_id'),
     (
-        ('MOVED_TO_ANOTHER_REPO', 'https://test.com'),
+        ('MOVED_TO_ANOTHER_ROOT', '00000000-0000-0000-0000-000000000000'),
         ('OUT_OF_SCOPE', None),
         ('REGISTERED_BY_MISTAKE', None),
     )
@@ -28,14 +28,14 @@ async def test_deactivate_root(
     populate: bool,
     root_id: str,
     reason: str,
-    new_repo: Optional[str]
+    new_root_id: Optional[str]
 ):
     assert populate
     result = await query(
         email='admin@gmail.com',
         group_name='group1',
         id=root_id,
-        new_repo=new_repo,
+        new_root_id=new_root_id,
         reason=reason
     )
     assert 'errors' not in result

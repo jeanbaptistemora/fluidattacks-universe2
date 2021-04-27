@@ -47,7 +47,6 @@ class GitRootState(NamedTuple):
     includes_health_check: bool
     modified_by: str
     modified_date: str
-    new_repo: Optional[str]
     nickname: str
     reason: Optional[str]
     status: str
@@ -95,7 +94,6 @@ class IPRootMetadata(NamedTuple):
 class IPRootState(NamedTuple):
     modified_by: str
     modified_date: str
-    new_repo: Optional[str]
     reason: Optional[str]
     status: str
 
@@ -118,7 +116,6 @@ class URLRootMetadata(NamedTuple):
 class URLRootState(NamedTuple):
     modified_by: str
     modified_date: str
-    new_repo: Optional[str]
     reason: Optional[str]
     status: str
 

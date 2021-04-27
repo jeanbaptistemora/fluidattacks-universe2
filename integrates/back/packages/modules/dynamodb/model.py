@@ -86,7 +86,6 @@ def _build_root(
                 includes_health_check=state['includes_health_check'],
                 modified_by=state['modified_by'],
                 modified_date=state['modified_date'],
-                new_repo=state.get('repo'),
                 nickname=state['nickname'],
                 reason=state.get('reason'),
                 status=state['status']
@@ -105,7 +104,6 @@ def _build_root(
             state=IPRootState(
                 modified_by=state['modified_by'],
                 modified_date=state['modified_date'],
-                new_repo=state.get('repo'),
                 reason=state.get('reason'),
                 status=state['status']
             )
@@ -124,7 +122,6 @@ def _build_root(
         state=URLRootState(
             modified_by=state['modified_by'],
             modified_date=state['modified_date'],
-            new_repo=state.get('repo'),
             reason=state.get('reason'),
             status=state['status']
         )

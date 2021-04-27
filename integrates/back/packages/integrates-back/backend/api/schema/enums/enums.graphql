@@ -235,7 +235,7 @@ enum URLProtocol {
 }
 
 enum RootDeactivationReason {
-  MOVED_TO_ANOTHER_REPO
+  MOVED_TO_ANOTHER_ROOT
   OUT_OF_SCOPE
   REGISTERED_BY_MISTAKE
 }
