@@ -31,8 +31,8 @@ utils.model.finding.enum.F043_DAST_RP.requirements:
     vulnerabilidades conocidas y que sean consistentes con estándares de la
     industria (ej: líneas base).
 utils.model.finding.enum.F043_DAST_RP.threat:
-  en: Unauthorized attacker from Internet network.
-  es: Atacante sin autorización desde red Internet.
+  en: Unauthorized attacker from Internet.
+  es: Atacante sin autorización desde Internet.
 utils.model.finding.enum.F043_DAST_RP.title:
   en: F043. Missing HTTP security headers - Referrer-Policy
   es: F043. Cabeceras de seguridad HTTP no establecidas - Referrer-Policy

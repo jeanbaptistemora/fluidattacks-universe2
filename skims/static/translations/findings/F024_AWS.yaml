@@ -61,8 +61,8 @@ utils.model.finding.enum.F024_AWS.requirements:
     - R255. Permitir el acceso solo a los puertos necesarios.
     - R266. Deshabilitar funcionalidades inseguras.
 utils.model.finding.enum.F024_AWS.threat:
-  en: Anonymous attacker from Internet network.
-  es: Atacante anonimo desde red Internet.
+  en: Anonymous attacker from Internet.
+  es: Atacante anónimo desde Internet.
 utils.model.finding.enum.F024_AWS.title:
   en: F024. Unrestricted access between network segments - AWS
   es: F024. Acceso no restringido entre segmentos de red - AWS

@@ -35,9 +35,9 @@ utils.model.finding.enum.F031_AWS.requirements:
     R186. Se debe aplicar el principio del mínimo privilegio al crear objetos y roles, configurar permisos de acceso y acceder a otros sistemas y bases de datos.
 utils.model.finding.enum.F031_AWS.threat:
   en: >
-    Attacker from the internet with access to any of the misconfigured roles.
+    Attacker from the Internet with access to any of the misconfigured roles.
   es: >
-    Atacante desde internet con acceso a cualquiera de los roles mal configurados.
+    Atacante desde Internet con acceso a cualquiera de los roles mal configurados.
 utils.model.finding.enum.F031_AWS.title:
   en: F031. Excessive privileges - AWS
   es: F031. Permisos excesivos - AWS

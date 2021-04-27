@@ -46,8 +46,8 @@ utils.model.finding.enum.F043_DAST_CSP.requirements:
   en: R062. Define standard configurations
   es: R062. Debe definirse configuraciones estándares que corrijan todas las vulnerabilidades conocidas y que sean consistentes con estándares de la industria (ej líneas base).
 utils.model.finding.enum.F043_DAST_CSP.threat:
-  en: Unauthorized attacker from internet network.
-  es: Atacante sin autorización desde internet.
+  en: Unauthorized attacker from Internet.
+  es: Atacante sin autorización desde Internet.
 utils.model.finding.enum.F043_DAST_CSP.title:
   en: F043. Missing HTTP security headers - Content-Security-Policy
   es: F043. Cabeceras de seguridad HTTP no establecidas - Content-Security-Policy
