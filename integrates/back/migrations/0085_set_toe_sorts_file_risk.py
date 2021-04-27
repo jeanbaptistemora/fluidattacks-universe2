@@ -4,6 +4,8 @@
 This migration sets all toe's new sorts_risk_level attribute
 to zero
 
+Execution Time:    2021-04-26 at 15:10:02 UTC-05
+Finalization Time: 2021-04-26 at 19:35:28 UTC-05
 """
 
 # Standard libraries
@@ -37,14 +39,16 @@ async def main() -> None:
             for group in groups
         ])
     ))
+    print(f'We have {len(groups)} groups and {len(groups_toes)} toes in total')
 
     await collect(
         [
             update_sorts_risk_level(group_toe)
             for group_toe in groups_toes
         ],
-        workers=16
+        workers=1024
     )
+    print('Migration finished')
 
 
 if __name__ == '__main__':
