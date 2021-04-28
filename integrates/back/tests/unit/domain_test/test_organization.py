@@ -22,7 +22,9 @@ from dynamodb.types import (
 from group_access import domain as group_access_domain
 from organizations import (
     domain as orgs_domain,
-    findings_names_policies as policies_domain,
+)
+from organizations_finding_policies import (
+    domain as policies_domain,
 )
 
 
