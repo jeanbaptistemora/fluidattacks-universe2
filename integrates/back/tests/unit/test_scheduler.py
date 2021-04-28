@@ -15,7 +15,6 @@ from backend.scheduler import (
     create_weekly_date,
     delete_imamura_stakeholders,
     delete_obsolete_groups,
-    delete_obsolete_orgs,
     extract_info_from_event_dict,
     get_accepted_vulns,
     get_by_time_range,
@@ -45,6 +44,7 @@ from organizations.domain import (
 from toe.inputs import domain as toe_inputs_domain
 from toe.lines import domain as toe_lines_domain
 from schedulers import (
+    delete_obsolete_orgs,
     toe_inputs_etl,
     toe_lines_etl,
 )
@@ -244,7 +244,7 @@ async def test_delete_obsolete_orgs():
         org_name,
         now_str
     )
-    await delete_obsolete_orgs()
+    await delete_obsolete_orgs.main()
     new_org_ids = []
     async for organization_id, _ in iterate_organizations():
         new_org_ids.append(organization_id)

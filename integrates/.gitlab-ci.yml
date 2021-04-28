@@ -533,7 +533,7 @@ integrates.scheduler.delete_imamura_stakeholders:
     variables: [$integrates_scheduler_delete_imamura_stakeholders]
 
 integrates.scheduler.delete_obsolete_groups:
-  <<: *integrates_scheduler
+  <<: *integrates_schedulers
   only:
     refs: [schedules]
     variables: [$integrates_scheduler_delete_obsolete_groups]
@@ -575,7 +575,7 @@ integrates.scheduler.update_portfolios:
     variables: [$integrates_scheduler_update_portfolios]
 
 integrates.scheduler.requeue_actions:
-  <<: *integrates_scheduler
+  <<: *integrates_schedulers
   only:
     refs: [schedules]
     variables: [$integrates_scheduler_requeue_actions]
