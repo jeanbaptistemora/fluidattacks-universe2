@@ -68,6 +68,7 @@ TEST_GROUPS: Set[str] = {
     'update_forces_access_token',
     'update_organization_policies',
     'update_severity',
+    'update_toe_lines_sorts',
     'upload_file',
     'verify_request_vuln',
     'vulnerability',
