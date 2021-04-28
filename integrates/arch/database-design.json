@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Apr 28, 2021, 11:43 AM",
+    "DateLastModified": "Apr 28, 2021, 12:02 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -1982,6 +1982,44 @@
             "scenario",
             "bts_url",
             "attack_vector_desc"
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
+        },
+        {
+          "FacetName": "finding_state",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "FIN#id#STATE",
+            "SortKeyAlias": "GROUP#group_name"
+          },
+          "TableData": [
+            {
+              "pk": {
+                "S": "FIN#475041513#STATE"
+              },
+              "sk": {
+                "S": "GROUP#unittesting"
+              },
+              "status": {
+                "S": "CREATED"
+              },
+              "modified_date": {
+                "S": "2021-02-15T14:01:16Z"
+              },
+              "source": {
+                "S": "integrates"
+              },
+              "analyst": {
+                "S": "analyst@fluidatttacks.com"
+              }
+            }
+          ],
+          "NonKeyAttributes": [
+            "status",
+            "modified_date",
+            "source",
+            "analyst"
           ],
           "DataAccess": {
             "MySql": {}
