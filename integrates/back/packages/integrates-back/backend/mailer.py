@@ -56,7 +56,6 @@ GENERAL_TAG = ['general']
 LOGGER = logging.getLogger(__name__)
 LOGGER_TRANSACTIONAL = logging.getLogger('transactional')
 VERIFY_TAG = ['verify']
-VULNERABILITIES_TAG = ['vulnerabilities']
 QUEUE_URL = SQS_QUEUE_URL
 TEMPLATES = Environment(
     loader=FileSystemLoader(
@@ -279,18 +278,6 @@ async def send_mail_analytics(
         f'Analytics for [{context["report_subject_title"]}] ' +
         f'({context["frequency_title"]}: {context["date"]})',
         'charts_report'
-    )
-
-
-async def send_mail_new_vulnerabilities(
-        email_to: List[str],
-        context: MailContentType) -> None:
-    await _send_mails_async_new(
-        email_to,
-        context,
-        VULNERABILITIES_TAG,
-        f'Vulnerabilities changes in [{context["project"]}]',
-        'new_vulnerabilities'
     )
 
 
