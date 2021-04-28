@@ -13,8 +13,6 @@ from backend.scheduler import (
     create_data_format_chart,
     create_register_by_week,
     create_weekly_date,
-    delete_imamura_stakeholders,
-    delete_obsolete_groups,
     extract_info_from_event_dict,
     get_accepted_vulns,
     get_by_time_range,
@@ -44,6 +42,8 @@ from organizations.domain import (
 from toe.inputs import domain as toe_inputs_domain
 from toe.lines import domain as toe_lines_domain
 from schedulers import (
+    delete_imamura_stakeholders,
+    delete_obsolete_groups,
     delete_obsolete_orgs,
     toe_inputs_etl,
     toe_lines_etl,
@@ -283,7 +283,7 @@ async def test_delete_imamura_stakeholders():
     nodelete_stakeholder_exists = bool(nodelete_stakeholder)
     assert nodelete_stakeholder_exists
 
-    await delete_imamura_stakeholders()
+    await delete_imamura_stakeholders.main()
 
     loaders = get_new_context()
     org_stakeholders_loader = loaders.organization_stakeholders
@@ -328,7 +328,7 @@ async def test_delete_obsolete_groups():
     for expected_group in expected_groups:
         assert expected_group in alive_groups
 
-    await delete_obsolete_groups()
+    await delete_obsolete_groups.main()
 
     alive_groups = await groups_domain.get_alive_groups(group_attributes)
     assert len(alive_groups) == 12

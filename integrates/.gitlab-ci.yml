@@ -527,7 +527,7 @@ integrates.mobile.test:
   stage: test-code
 
 integrates.scheduler.delete_imamura_stakeholders:
-  <<: *integrates_scheduler
+  <<: *integrates_schedulers
   only:
     refs: [schedules]
     variables: [$integrates_scheduler_delete_imamura_stakeholders]
@@ -539,7 +539,7 @@ integrates.scheduler.delete_obsolete_groups:
     variables: [$integrates_scheduler_delete_obsolete_groups]
 
 integrates.scheduler.delete_obsolete_orgs:
-  <<: *integrates_scheduler
+  <<: *integrates_schedulers
   only:
     refs: [schedules]
     variables: [$integrates_scheduler_delete_obsolete_orgs]
@@ -581,7 +581,7 @@ integrates.scheduler.requeue_actions:
     variables: [$integrates_scheduler_requeue_actions]
 
 integrates.scheduler.send_treatment_change:
-  <<: *integrates_scheduler
+  <<: *integrates_schedulers
   only:
     refs: [schedules]
     variables: [$integrates_scheduler_send_treatment_change]
