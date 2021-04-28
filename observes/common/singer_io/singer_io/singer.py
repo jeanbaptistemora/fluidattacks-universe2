@@ -11,6 +11,7 @@ from typing import (
     TypeVar,
     Union,
 )
+
 # Third party libraries
 # Local libraries
 
@@ -22,6 +23,7 @@ DateTime = datetime.datetime
 
 class SingerSchema(NamedTuple):
     """Singer schema object type"""
+
     stream: str
     schema: JSONschema
     key_properties: FrozenSet[str]
@@ -30,6 +32,7 @@ class SingerSchema(NamedTuple):
 
 class SingerRecord(NamedTuple):
     """Singer record object type"""
+
     stream: str
     record: JSONmap
     time_extracted: Optional[DateTime] = None
@@ -37,6 +40,7 @@ class SingerRecord(NamedTuple):
 
 class SingerState(NamedTuple):
     """Singer state object type"""
+
     value: JSONmap
 
 

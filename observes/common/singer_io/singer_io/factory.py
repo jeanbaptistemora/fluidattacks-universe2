@@ -8,6 +8,7 @@ from typing import (
     IO,
     Optional,
 )
+
 # Third party libraries
 # Local libraries
 from singer_io.singer import (
@@ -17,7 +18,7 @@ from singer_io.singer import (
     SingerRecord,
     SingerSchema,
     SingerState,
-    State
+    State,
 )
 from singer_io import _factory
 
@@ -29,26 +30,26 @@ class UndefinedHandler(Exception):
 def deserialize(singer_msg: str) -> SingerMessage:
     """Generate `SingerRecord` or `SingerSchema` from json string"""
     raw_json: Dict[str, Any] = json.loads(singer_msg)
-    data_type: Optional[str] = raw_json.get('type', None)
-    if data_type == 'RECORD':
+    data_type: Optional[str] = raw_json.get("type", None)
+    if data_type == "RECORD":
         return _factory.deserialize_record(singer_msg)
-    if data_type == 'SCHEMA':
+    if data_type == "SCHEMA":
         return _factory.deserialize_schema(singer_msg)
-    if data_type == 'STATE':
+    if data_type == "STATE":
         return _factory.deserialize_state(singer_msg)
     raise InvalidType(
-        f'Deserialize singer failed. Unknown or missing type \'{data_type}\''
+        f"Deserialize singer failed. Unknown or missing type '{data_type}'"
     )
 
 
 def emit(singer_msg: SingerMessage, target: IO[str] = sys.stdout) -> None:
     msg_dict: Dict[str, Any] = singer_msg._asdict()
     mapper = {
-        SingerRecord: 'RECORD',
-        SingerSchema: 'SCHEMA',
-        SingerState: 'STATE',
+        SingerRecord: "RECORD",
+        SingerSchema: "SCHEMA",
+        SingerState: "STATE",
     }
-    msg_dict['type'] = mapper[type(singer_msg)]
+    msg_dict["type"] = mapper[type(singer_msg)]
     msg = json.dumps(msg_dict, cls=_factory.CustomJsonEncoder)
     print(msg, file=target, flush=True)
 

@@ -1,18 +1,30 @@
 { makeDerivation
 , path
 , packages
+, pythonFormat
 , ...
 }:
+with packages.observes;
+let
+  src = path "/observes/common/singer_io";
+  formatter = pythonFormat {
+    name = "observes-pkg-format";
+    target = src;
+  };
+in
 makeDerivation {
   name = "observes-lint-singer-io";
   arguments = {
-    envSrc = path "/observes/common/singer_io";
+    envSrc = src;
   };
   searchPaths = {
+    envPaths = [
+      formatter
+    ];
     envSources = [
-      packages.observes.generic.linter
-      packages.observes.env.singer-io.development
+      generic.linter
+      env.singer-io.development
     ];
   };
-  builder = path "/makes/packages/observes/generic/linter/lint_builder.sh";
+  builder = path "/makes/packages/observes/generic/linter/builders/lint_and_format.sh";
 }

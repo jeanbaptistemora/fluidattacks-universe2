@@ -1,13 +1,16 @@
 # Standard libraries
+from __future__ import annotations
 import tempfile
 from functools import (
     partial,
 )
 from typing import (
-    Callable, IO,
+    Callable,
+    IO,
     Iterator,
     NamedTuple,
 )
+
 # Third party libraries
 
 # Local libraries
@@ -32,26 +35,22 @@ class DataFile(NamedTuple):
     print: Callable[[str], None]
 
     @classmethod
-    def new(cls) -> 'DataFile':
+    def new(cls) -> DataFile:
         name: str
-        with tempfile.NamedTemporaryFile('w+', delete=False) as tmp:
+        with tempfile.NamedTemporaryFile("w+", delete=False) as tmp:
             name = tmp.name
 
         return DataFile(
-            name=name,
-            read=partial(_read, name),
-            print=partial(_print, name)
+            name=name, read=partial(_read, name), print=partial(_print, name)
         )
 
     @classmethod
-    def from_file(cls, file: IO[str]) -> 'DataFile':
+    def from_file(cls, file: IO[str]) -> DataFile:
         name: str
-        with tempfile.NamedTemporaryFile('w+', delete=False) as tmp:
+        with tempfile.NamedTemporaryFile("w+", delete=False) as tmp:
             tmp.write(file.read())
             name = tmp.name
 
         return DataFile(
-            name=name,
-            read=partial(_read, name),
-            print=partial(_print, name)
+            name=name, read=partial(_read, name), print=partial(_print, name)
         )
