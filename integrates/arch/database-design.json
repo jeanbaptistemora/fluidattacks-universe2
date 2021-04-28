@@ -1781,7 +1781,7 @@
           "FacetName": "org_finding_policy_historic_state",
           "KeyAttributeAlias": {
             "PartitionKeyAlias": "POLICY#uuid",
-            "SortKeyAlias": "POLICY#uuid#STATE#iso8601ut"
+            "SortKeyAlias": "POLICY#uuid#STATE#iso8601utc"
           },
           "TableData": [],
           "NonKeyAttributes": [
