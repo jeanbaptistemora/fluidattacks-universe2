@@ -16,6 +16,6 @@ It is possible to obtain technical information such as:
 
 ## Requirements
 
-- [R077. Avoid disclosing technical information](https://fluidattacks.com/products/rules/list/077/)
+- [077. Avoid disclosing technical information](/criteria/logs/077)
 
-- [R176. Restrict system objects](https://fluidattacks.com/products/rules/list/176/)
+- [176. Restrict system objects](/criteria/data/176)

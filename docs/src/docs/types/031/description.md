@@ -9,10 +9,10 @@ The application, a user or a role have more privileges than they require.
 This can be leveraged by an attacker to execute normally restricted actions on
 a system.
 
-## Criteria
+## Requirements
 
-- [R186. Use the principle of least privilege](https://docs.fluidattacks.com/criteria/system/186)
+- [186. Use the principle of least privilege](/criteria/system/186)
 
-- [R095. Define users with privileges](https://fluidattacks.com/products/rules/list/095/)
+- [095. Define users with privileges](/criteria/authorization/095)
 
-- [R096. Set user required privileges](https://fluidattacks.com/products/rules/list/096/)
+- [096. Set user required privileges](/criteria/authorization/096)

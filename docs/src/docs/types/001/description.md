@@ -11,6 +11,6 @@ or stored procedures.
 
 ## Requirements
 
-- [R169. Use parameterized queries](https://fluidattacks.com/products/rules/list/169/)
+- [169. Use parameterized queries](/criteria/source/169)
 
-- [R173. Discard unsafe inputs](https://fluidattacks.com/products/rules/list/173/)
+- [173. Discard unsafe inputs](/criteria/source/173)
