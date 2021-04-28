@@ -666,13 +666,18 @@ export const enTranslations: ResourceKey = {
         vulns: "Vulns",
       },
       lines: {
+        attacked: "Attacked",
         comments: "Comments",
+        coverage: "Coverage",
         filename: "Filename",
         loc: "LOC",
         modifiedCommit: "Modified commit",
         modifiedDate: "Modified date",
+        no: "No",
+        pendingLines: "Pending lines",
         testedDate: "Tested date",
         testedLines: "Tested lines",
+        yes: "Yes",
       },
       tabs: {
         inputs: {

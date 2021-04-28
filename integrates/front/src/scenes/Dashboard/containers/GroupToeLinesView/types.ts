@@ -5,7 +5,7 @@ interface IToeLinesAttr {
   modifiedDate: string;
   modifiedCommit: string;
   testedDate: string;
-  testedLines: string;
+  testedLines: number;
 }
 
 interface IGitRootAttr {
@@ -14,15 +14,18 @@ interface IGitRootAttr {
 }
 
 interface IToeLinesData {
+  attacked: string;
   comments: string;
+  coverage: number;
   filename: string;
   groupName: string;
   loc: number;
   modifiedDate: string;
   modifiedCommit: string;
+  pendingLines: number;
   rootId: string;
   testedDate: string;
-  testedLines: string;
+  testedLines: number;
 }
 
 export type { IGitRootAttr, IToeLinesAttr, IToeLinesData };

@@ -59,7 +59,7 @@ describe("GroupToeLinesView", (): void => {
                     __typename: "ToeLines",
                     comments: "comment test",
                     filename: "integrates_1/test2/test.sh",
-                    loc: 120,
+                    loc: 172,
                     modifiedCommit: "273412t",
                     modifiedDate: "2020-11-19T00:00:00-05:00",
                     testedDate: "2021-01-20T00:00:00-05:00",
@@ -102,8 +102,11 @@ describe("GroupToeLinesView", (): void => {
     expect(tableHeader.text()).toStrictEqual(
       [
         "Filename",
+        "Attacked",
+        "Coverage",
         "LOC",
         "Tested lines",
+        "Pending lines",
         "Modified date",
         "Modified commit",
         "Tested date",
@@ -113,8 +116,11 @@ describe("GroupToeLinesView", (): void => {
     expect(firstRow.text()).toStrictEqual(
       [
         "integrates_1/test2/test.sh",
-        "120",
+        "Yes",
+        "100%",
         "172",
+        "172",
+        "0",
         "2020-11-19",
         "273412t",
         "2021-01-20",
@@ -124,7 +130,10 @@ describe("GroupToeLinesView", (): void => {
     expect(secondRow.text()).toStrictEqual(
       [
         "product/test/test.config",
+        "No",
+        "50%",
         "8",
+        "4",
         "4",
         "2019-08-01",
         "983466z",
