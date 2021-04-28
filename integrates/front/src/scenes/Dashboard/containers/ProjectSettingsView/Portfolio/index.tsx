@@ -7,7 +7,6 @@ import _ from "lodash";
 import { track } from "mixpanel-browser";
 import React, { useCallback, useState } from "react";
 
-import { Badge } from "components/Badge";
 import { Button } from "components/Button";
 import { DataTableNext } from "components/DataTableNext";
 import type { IHeaderConfig } from "components/DataTableNext/types";
@@ -163,10 +162,7 @@ const Portfolio: React.FC<IPortfolioProps> = (
       <Row>
         {/* eslint-disable-next-line react/forbid-component-props */}
         <Col60 className={"pa0"}>
-          <h2>
-            {translate.t("searchFindings.tabResources.tags.title")}
-            <Badge>{"pro"}</Badge>
-          </h2>
+          <h2>{translate.t("searchFindings.tabResources.tags.title")}</h2>
         </Col60>
         {/* eslint-disable-next-line react/forbid-component-props */}
         <Col40 className={"pa0"}>

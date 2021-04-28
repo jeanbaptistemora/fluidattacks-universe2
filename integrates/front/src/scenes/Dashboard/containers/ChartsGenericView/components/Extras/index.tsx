@@ -11,7 +11,6 @@ import _ from "lodash";
 import { track } from "mixpanel-browser";
 import React from "react";
 
-import { Badge } from "components/Badge";
 import { Button } from "components/Button";
 import { DropdownButton, MenuItem } from "components/DropdownButton";
 import { TooltipWrapper } from "components/TooltipWrapper";
@@ -168,7 +167,6 @@ const ChartsGenericViewExtras: React.FC<IChartsGenericViewProps> = (
                         <Button className={"pv3"}>
                           <FontAwesomeIcon icon={faDownload} />
                           {translate.t("analytics.sections.extras.download")}
-                          <Badge>{"pro"}</Badge>
                         </Button>
                       </a>
                       <DropdownButton
@@ -183,7 +181,6 @@ const ChartsGenericViewExtras: React.FC<IChartsGenericViewProps> = (
                               subscriptionFrequency,
                               "statement"
                             )}`}
-                            <Badge>{"pro"}</Badge>
                           </div>
                         }
                         id={"subscribe-dropdown"}

@@ -4,7 +4,6 @@ import { slide as BurgerMenu } from "react-burger-menu";
 import Media from "react-media";
 import { useHistory } from "react-router-dom";
 
-import { Badge } from "components/Badge";
 import { TooltipWrapper } from "components/TooltipWrapper/index";
 import logo from "resources/integrates_sidebar.svg";
 import style from "scenes/Dashboard/components/Sidebar/index.css";
@@ -109,7 +108,6 @@ const sidebar: React.FC<ISidebarProps> = (
               <span className={style.label}>
                 {translate.t("sidebar.token.text")}
               </span>
-              <Badge>{"pro"}</Badge>
             </div>
           </TooltipWrapper>
         </li>

@@ -152,7 +152,6 @@ const OrganizationContent: React.FC<IOrganizationContent> = (
                     icon={"icon pe-7s-display2"}
                     id={"portfoliosTab"}
                     link={`${url}/portfolios`}
-                    plus={{ visible: true }}
                     title={translate.t("organization.tabs.portfolios.text")}
                     tooltip={translate.t(
                       "organization.tabs.portfolios.tooltip"
@@ -174,7 +173,6 @@ const OrganizationContent: React.FC<IOrganizationContent> = (
                   icon={"icon pe-7s-box1"}
                   id={"policiesTab"}
                   link={`${url}/policies`}
-                  plus={{ visible: true }}
                   title={translate.t("organization.tabs.policies.text")}
                   tooltip={translate.t("organization.tabs.policies.tooltip")}
                 />

@@ -97,7 +97,6 @@ const ProjectContent: React.FC = (): JSX.Element => {
                     icon={"icon pe-7s-comment"}
                     id={"commentsTab"}
                     link={`${url}/consulting`}
-                    plus={{ visible: true }}
                     title={translate.t("group.tabs.comments.text")}
                     tooltip={translate.t("group.tabs.comments.tooltip")}
                   />
