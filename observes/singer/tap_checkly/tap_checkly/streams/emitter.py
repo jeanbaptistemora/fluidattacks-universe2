@@ -31,16 +31,16 @@ from tap_checkly.streams.objs import (
 
 
 def _json_list_srecords(
-    stream: SupportedStreams,
-    items: List[JSON]
+    stream: SupportedStreams, items: List[JSON]
 ) -> Iterator[SingerRecord]:
-    return iter(map(
-        lambda item: SingerRecord(
-            stream=stream.value.lower(),
-            record=item
-        ),
-        items
-    ))
+    return iter(
+        map(
+            lambda item: SingerRecord(
+                stream=stream.value.lower(), record=item
+            ),
+            items,
+        )
+    )
 
 
 def emit_records(

@@ -20,14 +20,14 @@ from tap_checkly.api.auth import (
 )
 
 
-API_URL_BASE = 'https://api.checklyhq.com'
+API_URL_BASE = "https://api.checklyhq.com"
 
 
 def _get(creds: Credentials, endpoint: str, **kwargs: Any) -> Any:
     response = requests.get(
-        f'{API_URL_BASE}{endpoint}',
-        headers={'Authorization': f'Bearer {creds.api_key}'},
-        **kwargs
+        f"{API_URL_BASE}{endpoint}",
+        headers={"Authorization": f"Bearer {creds.api_key}"},
+        **kwargs,
     )
     response.raise_for_status()
     return response.json()
@@ -38,6 +38,4 @@ class Client(NamedTuple):
 
     @classmethod
     def new(cls, creds: Credentials) -> Client:
-        return cls(
-            get=partial(_get, creds)
-        )
+        return cls(get=partial(_get, creds))

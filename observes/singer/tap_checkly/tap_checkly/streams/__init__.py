@@ -69,10 +69,8 @@ def all_chk_results(api: ApiClient) -> None:
 
     def _emmit(checks: Iterator[CheckId]) -> None:
         for check in checks:
-            _stream_data(
-                stream,
-                api.checks.list_check_results(check, ALL)
-            )
+            _stream_data(stream, api.checks.list_check_results(check, ALL))
+
     chks_pages_io = api.checks.list_checks(ALL)
     for chks_page_io in chks_pages_io:
         chks_page_io.map(CheckId.new).map(_emmit)
@@ -81,9 +79,7 @@ def all_chk_results(api: ApiClient) -> None:
 def all_chk_status(api: ApiClient) -> None:
     stream = SupportedStreams.CHECK_STATUS
     status_io = api.checks.list_check_status()
-    status_io.map(
-        lambda status: emitter.emit_records(stream, status.data)
-    )
+    status_io.map(lambda status: emitter.emit_records(stream, status.data))
 
 
 def all_dashboards(api: ApiClient) -> None:
@@ -115,5 +111,5 @@ def all_snippets(api: ApiClient) -> None:
 
 
 __all__ = [
-    'SupportedStreams',
+    "SupportedStreams",
 ]

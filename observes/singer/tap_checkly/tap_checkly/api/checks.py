@@ -67,7 +67,7 @@ class CheckId(NamedTuple):
 
     @classmethod
     def new(cls, page: ChecksPage) -> Iterator[CheckId]:
-        return iter(map(lambda item: cls(item['id']), page.data))
+        return iter(map(lambda item: cls(item["id"]), page.data))
 
 
 class CheckReportsPage(NamedTuple):
@@ -91,7 +91,7 @@ class CheckResultsPage(NamedTuple):
 
 
 PageType = TypeVar(
-    'PageType',
+    "PageType",
     CheckGroupsPage,
     ChecksPage,
 )
@@ -102,9 +102,7 @@ def _is_empty(iopage: IO[PageType]) -> bool:
 
 
 def _generic_listing(
-    _type: Type[PageType],
-    _iotype: Type[IO[PageType]],
-    client: Client
+    _type: Type[PageType], _iotype: Type[IO[PageType]], client: Client
 ) -> Callable[[PageOrAll], Iterator[IO[PageType]]]:
     return partial(
         extract_page,
@@ -126,10 +124,7 @@ def _generic_check_prop_listing(
     page: PageOrAll,
 ) -> Iterator[IO[CheckResultsPage]]:
     return extract_page(
-        _iotype,
-        partial(_type.new, client, check_id),
-        _is_empty_2,
-        page
+        _iotype, partial(_type.new, client, check_id), _is_empty_2, page
     )
 
 
@@ -145,15 +140,15 @@ class ChecksApi(NamedTuple):
     @classmethod
     def new(cls, client: Client) -> ChecksApi:
         return cls(
-            list_checks=_generic_listing(
-                ChecksPage, IO[ChecksPage], client
-            ),
+            list_checks=_generic_listing(ChecksPage, IO[ChecksPage], client),
             list_check_groups=_generic_listing(
                 CheckGroupsPage, IO[CheckGroupsPage], client
             ),
             list_check_results=partial(
                 _generic_check_prop_listing,
-                CheckResultsPage, IO[CheckResultsPage], client
+                CheckResultsPage,
+                IO[CheckResultsPage],
+                client,
             ),
             list_check_status=partial(CheckStatus.new, client),
             list_reports=partial(CheckReportsPage.new, client),

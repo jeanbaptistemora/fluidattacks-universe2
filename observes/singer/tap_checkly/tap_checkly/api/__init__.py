@@ -80,6 +80,6 @@ class ApiClient(NamedTuple):
 
 
 __all__ = [
-    'CheckId',
-    'Credentials',
+    "CheckId",
+    "Credentials",
 ]

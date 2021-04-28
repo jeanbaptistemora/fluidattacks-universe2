@@ -20,7 +20,7 @@ from paginator import (
 )
 
 
-PageType = TypeVar('PageType')
+PageType = TypeVar("PageType")
 
 
 def extract_page(
@@ -30,9 +30,7 @@ def extract_page(
     page: PageOrAll,
 ) -> Iterator[PageType]:
     if isinstance(page, AllPages):
-        page_getter = paginator.build_getter(
-            _type, getter, is_empty
-        )
+        page_getter = paginator.build_getter(_type, getter, is_empty)
         result: Iterator[PageType] = paginator.get_until_end(
             _type, PageId(1, 100), page_getter, 10
         )
