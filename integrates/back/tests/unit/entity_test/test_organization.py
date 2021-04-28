@@ -333,3 +333,40 @@ async def test_organization():
     result = await _get_result_async(data, stakeholder='madeupuser@gmail.com')
     assert 'errors' in result
     assert result['errors'][0]['message'] == exe.args[0]
+
+
+@pytest.mark.changes_db
+async def test_add_org_finding_policy():
+    org_name = 'okada'
+    fin_name = 'F031. Permisos excesivos'
+    query = '''
+        mutation AddOrgFindingPolicy(
+            $findingName: String!
+            $orgName: String!
+        ) {
+            addOrgFindingPolicy(
+                findingName: $findingName
+                organizationName: $orgName
+            ) {
+                success
+            }
+        }
+    '''
+
+    data = {
+        'query': query,
+        'variables': {'orgName': org_name, 'findingName': fin_name}
+    }
+    result = await _get_result_async(
+        data,
+        stakeholder='integratescustomer@gmail.com'
+    )
+    assert 'errors' not in result
+    assert result['data']['addOrgFindingPolicy']['success']
+
+    result = await _get_result_async(
+        data,
+        stakeholder='org_testuser5@gmail.com'
+    )
+    assert 'errors' in result
+    assert result['errors'][0]['message'] == 'Access denied'
