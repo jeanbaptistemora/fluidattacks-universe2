@@ -557,13 +557,13 @@ integrates.scheduler.get_remediated_findings:
     variables: [$integrates_scheduler_get_remediated_findings]
 
 integrates.scheduler.reset_expired_accepted_findings:
-  <<: *integrates_scheduler
+  <<: *integrates_schedulers
   only:
     refs: [schedules]
     variables: [$integrates_scheduler_reset_expired_accepted_findings]
 
 integrates.scheduler.update_indicators:
-  <<: *integrates_scheduler
+  <<: *integrates_schedulers
   only:
     refs: [schedules]
     variables: [$integrates_scheduler_update_indicators]

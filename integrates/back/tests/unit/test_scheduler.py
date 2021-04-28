@@ -10,16 +10,7 @@ from freezegun import freeze_time
 
 from backend.api import get_new_context
 from backend.scheduler import (
-    create_data_format_chart,
-    create_register_by_week,
-    create_weekly_date,
     extract_info_from_event_dict,
-    get_accepted_vulns,
-    get_by_time_range,
-    get_date_last_vulns,
-    get_first_week_dates,
-    get_project_indicators,
-    get_status_vulns_by_time_range,
     get_unsolved_events,
     is_a_unsolved_event,
     is_not_a_fluidattacks_email,
@@ -47,6 +38,7 @@ from schedulers import (
     delete_obsolete_orgs,
     toe_inputs_etl,
     toe_lines_etl,
+    update_indicators,
 )
 from users import dal as users_dal
 from vulnerabilities.dal import get as get_vuln
@@ -113,15 +105,17 @@ async def test_get_status_vulns_by_time_range():
         include_confirmed_zero_risk=True,
         include_requested_zero_risk=True
     )
-    test_data = get_status_vulns_by_time_range(
-        vulns, first_day, last_day
+    test_data = update_indicators.get_status_vulns_by_time_range(
+        vulns,
+        first_day,
+        last_day
     )
     expected_output = {'found': 8, 'accepted': 2, 'closed': 2}
     assert test_data == expected_output
 
 def test_create_weekly_date():
     first_date = '2019-09-19 13:23:32'
-    test_data = create_weekly_date(first_date)
+    test_data = update_indicators.create_weekly_date(first_date)
     expected_output = 'Sep 16 - 22, 2019'
     assert test_data == expected_output
 
@@ -133,23 +127,26 @@ async def test_get_accepted_vulns():
         include_confirmed_zero_risk=True,
         include_requested_zero_risk=True
     )
-    test_data = sum([get_accepted_vulns(vuln, last_day) for vuln in vulns])
+    test_data = sum([
+        update_indicators.get_accepted_vulns(vuln, last_day) for vuln in vulns
+    ])
     expected_output = 2
     assert test_data == expected_output
 
 async def test_get_by_time_range():
     last_day = '2020-09-09 23:59:59'
     vuln = await get_vuln('80d6a69f-a376-46be-98cd-2fdedcffdcc0')
-    test_data = get_by_time_range(
-        vuln[0], last_day
-    )
+    test_data = update_indicators.get_by_time_range(vuln[0], last_day)
     expected_output = 1
     assert test_data == expected_output
 
 async def test_create_register_by_week():
     context = get_new_context()
     project_name = 'unittesting'
-    test_data = await create_register_by_week(context, project_name)
+    test_data = await update_indicators.create_register_by_week(
+        context,
+        project_name
+    )
     assert isinstance(test_data, list)
     for item in test_data:
         assert isinstance(item, list)
@@ -162,7 +159,7 @@ def test_create_data_format_chart():
             {'found': 2, 'accepted': 0, 'closed': 0, 'assumed_closed': 0,
             'opened': 2})]
     )
-    test_data = create_data_format_chart(registers)
+    test_data = update_indicators.create_data_format_chart(registers)
     expected_output = [
         [{'y': 2, 'x': 'Sep 24 - 30, 2018'}],
         [{'y': 0, 'x': 'Sep 24 - 30, 2018'}],
@@ -178,7 +175,7 @@ async def test_get_first_week_dates():
         include_confirmed_zero_risk=True,
         include_requested_zero_risk=True
     )
-    test_data = get_first_week_dates(vulns)
+    test_data = update_indicators.get_first_week_dates(vulns)
     expected_output = ('2019-12-30 00:00:00', '2020-01-05 23:59:59')
     assert test_data == expected_output
 
@@ -188,17 +185,17 @@ async def test_get_date_last_vulns():
         include_confirmed_zero_risk=True,
         include_requested_zero_risk=True
     )
-    test_data = get_date_last_vulns(vulns)
+    test_data = update_indicators.get_date_last_vulns(vulns)
     expected_output = '2020-09-07 16:01:26'
     assert test_data == expected_output
 
-async def test_get_project_indicators():
+async def test_get_group_indicators():
     group_name = 'unittesting'
     findings = await get_findings_by_group(group_name)
     vulns = await list_vulnerabilities_async(
         [finding['finding_id'] for finding in findings]
     )
-    test_data = await get_project_indicators(group_name)
+    test_data = await update_indicators.get_group_indicators(group_name)
     over_time = [element[-12:] for element in test_data['remediated_over_time']]
     found = over_time[0][-1]['y']
     closed = over_time[1][-1]['y']
