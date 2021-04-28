@@ -204,13 +204,11 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
     },
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
-        switch (error.message) {
-          case "Exception - Error empty value is not valid":
-            msgError(t("group.scope.git.errors.invalid"));
-            break;
-          default:
-            msgError(t("groupAlerts.errorTextsad"));
-            Logger.error("Couldn't update git root", error);
+        if (error.message === "Exception - Error empty value is not valid") {
+          msgError(t("group.scope.git.errors.invalid"));
+        } else {
+          msgError(t("groupAlerts.errorTextsad"));
+          Logger.error("Couldn't update git root", error);
         }
       });
     },
@@ -224,13 +222,11 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
     },
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
-        switch (error.message) {
-          case "Exception - Error empty value is not valid":
-            msgError(t("group.scope.git.errors.invalid"));
-            break;
-          default:
-            msgError(t("groupAlerts.errorTextsad"));
-            Logger.error("Couldn't update git envs", error);
+        if (error.message === "Exception - Error empty value is not valid") {
+          msgError(t("group.scope.git.errors.invalid"));
+        } else {
+          msgError(t("groupAlerts.errorTextsad"));
+          Logger.error("Couldn't update git envs", error);
         }
       });
     },
@@ -243,13 +239,14 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
     },
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
-        switch (error.message) {
-          case "Exception - Active root with the same URL/branch already exists":
-            msgError(t("group.scope.common.errors.duplicateUrl"));
-            break;
-          default:
-            msgError(t("groupAlerts.errorTextsad"));
-            Logger.error("Couldn't activate root", error);
+        if (
+          error.message ===
+          "Exception - Active root with the same URL/branch already exists"
+        ) {
+          msgError(t("group.scope.common.errors.duplicateUrl"));
+        } else {
+          msgError(t("groupAlerts.errorTextsad"));
+          Logger.error("Couldn't activate root", error);
         }
       });
     },
@@ -263,13 +260,14 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
     },
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
-        switch (error.message) {
-          case "Exception - A root with open vulns can't be deactivated":
-            msgError(t("group.scope.common.errors.hasOpenVulns"));
-            break;
-          default:
-            msgError(t("groupAlerts.errorTextsad"));
-            Logger.error("Couldn't deactivate root", error);
+        if (
+          error.message ===
+          "Exception - A root with open vulns can't be deactivated"
+        ) {
+          msgError(t("group.scope.common.errors.hasOpenVulns"));
+        } else {
+          msgError(t("groupAlerts.errorTextsad"));
+          Logger.error("Couldn't deactivate root", error);
         }
       });
     },
