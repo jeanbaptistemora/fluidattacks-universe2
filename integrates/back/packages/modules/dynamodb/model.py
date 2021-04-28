@@ -818,3 +818,25 @@ async def create_org_finding_policy(
     items = (initial_metadata, *historic_state)
 
     await operations.batch_write_item(items=items, table=TABLE)
+
+
+async def update_org_finding_policy_state(
+    *,
+    org_name: str,
+    finding_policy_id: str,
+    state: OrgFindingPolicyState
+) -> None:
+    key_structure = TABLE.primary_key
+    historic = historics.build_historic(
+        attributes=dict(state._asdict()),
+        historic_facet=TABLE.facets['org_finding_policy_historic_state'],
+        key_structure=key_structure,
+        key_values={
+            'iso8601utc': state.modified_date,
+            'name': org_name,
+            'uuid': finding_policy_id
+        },
+        latest_facet=TABLE.facets['org_finding_policy_state'],
+    )
+
+    await operations.batch_write_item(items=historic, table=TABLE)
