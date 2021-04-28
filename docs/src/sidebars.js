@@ -20,7 +20,7 @@ module.exports = {
     'about/glossary',
   ],
   Criteria: [
-    'criteria/intro',
+    'criteria/introduction',
     {
       type: 'category',
       label: 'Credentials',

@@ -1,5 +1,5 @@
 ---
-id: intro
+id: introduction
 title: Introduction
 sidebar_label: Introduction
 slug: /criteria
@@ -21,6 +21,14 @@ They are the security demands that you agree to follow and comply with.
 Through our hacking services, we determine if these are met or not.
 
 ## Standards
+
+![image01](logos01.png)
+
+![image02](logos02.png)
+
+![image03](logos03.png)
+
+![image04](logos04.png)
 
 **Criteria** is based on several standards
 related to information security, including the following:
