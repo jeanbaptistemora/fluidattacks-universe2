@@ -38,84 +38,81 @@ $whiter-gray: rgba(241, 241, 241, 1);
 .bg-lightgray { background-color: $light-gray; }
 
 // Background Images
-.bg-continuous { background-image: url('../images/services/continuous/main-continuous-hacking.png'); }
-.bg-one-shot { background-image: url('../images/services/one-shot/main-one-shot.png'); }
-.bg-solutions { background-image: url('../images/bg-solutions.png'); }
-.banner-bg { background-image: url('../images/cover-main.png'); }
-.products-bg { background-image: url('../images/products/cover-products.png'); }
-.integrates-bg { background-image: url('../images/products/integrates/cover-integrates.png'); }
-.drills-bg { background-image: url('../images/products/drills/drills-cover.png'); }
-.forces-bg { background-image: url('../images/products/devsecops/cover-forces.png'); }
-.rules-bg { background-image: url('../images/products/rules/cover-rules.png'); }
-.skims-bg { background-image: url('../images/products/skims/cover-skims.png'); }
-.thank-you-bg { background-image: url('../images/contact-us/bg-thank-you-page.png'); }
-.contact-bg { background-image: url('../images/contact-us/bg-contact.png'); }
-.careers-main-bg { background-image: url('../images/careers/cover-careers.png'); }
-.resources-bg { background-image: url('../images/resources/resources-main.png'); }
-.error-bg { background-image: url('../images/bg-error.png');}
-.blog-bg { background-image: url('../images/blog-banner.png');}
-.people-bg { background-image: url('../images/about-us/people/cover-people.png'); }
-.about-us-bg { background-image: url('../images/about-us/cover-about-us.png'); }
-.certifications-bg { background-image: url('../images/about-us/certifications/cover-certifications.png'); }
-.differentiators-bg { background-image: url('../images/about-us/differentiators/cover-differentiators.png'); }
-.values-bg { background-image: url('../images/about-us/values/cover-values.png'); }
-.reviews-bg { background-image: url('../images/about-us/reviews/cover-reviews.png'); }
-.events-bg { background-image: url('../images/about-us/events/cover-events.png'); }
-.partners-bg { background-image: url('../images/partners/cover-partners.png'); }
-.security-bg { background-image: url('../images/security/cover-security.png'); }
-.comparative-bg { background-image: url('../images/services/comparative/cover-comparative.png'); }
-.asserts-bg { background-image: url('../images/asserts/cover-asserts.png'); }
-.asm-bg { background-image: url('../images/categories/cover-asm.png'); }
-.sast-bg { background-image: url('../images/categories/cover-sast.png'); }
-.dast-bg { background-image: url('../images/categories/cover-dast.png'); }
-.iast-bg { background-image: url('../images/categories/cover-iast.png'); }
-.sca-bg { background-image: url('../images/categories/cover-sca.png'); }
-.re-bg { background-image: url('../images/categories/cover-sre.png'); }
-.ptaas-bg { background-image: url('../images/categories/cover-ptaas.png'); }
-.clients-bg { background-image: url('../images/about-us/clients/cover-clients.png'); }
-.bg-quote1 { background-image: url('../images/bg-quote1.png'); }
-.bg-quote2 { background-image: url('../images/bg-quote2.png'); }
-.bg-quote3 { background-image: url('../images/bg-quote3.png'); }
-.bg-menu-services { background-image: url('../images/menu/bg-menu-services.png'); }
-.bg-menu-solutions { background-image: url('../images/menu/bg-menu-solutions.png'); }
-.bg-menu-systems { background-image: url('../images/menu/bg-menu-systems.png'); }
-.bg-menu-aboutus { background-image: url('../images/menu/bg-menu-aboutus.png'); }
-.bg-clients-home { background-image: url('../images/clients-home.png'); }
-.bg-solution1 { background-image: url('../images/solutions/img01.png'); }
-.bg-solution2 { background-image: url('../images/solutions/img02.png'); }
-.bg-solution3 { background-image: url('../images/solutions/img03.png'); }
-.bg-solution4 { background-image: url('../images/solutions/img04.png'); }
-.bg-solution5 { background-image: url('../images/solutions/img05.png'); }
-.bg-solution6 { background-image: url('../images/solutions/img06.png'); }
+.bg-continuous { background-image: url('https://res.cloudinary.com/fluid-attacks/image/upload/v1619629767/airs/services/main-continuous-hacking_fhlonl.png'); }
+.bg-one-shot { background-image: url('https://res.cloudinary.com/fluid-attacks/image/upload/v1619629858/airs/services/main-one-shot_lgkizl.png'); }
+.bg-solutions { background-image: url('https://res.cloudinary.com/fluid-attacks/image/upload/v1619630822/airs/solutions/bg-solutions_ylz99o.png'); }
+.banner-bg { background-image: url('https://res.cloudinary.com/fluid-attacks/image/upload/v1619036564/airs/home/cover-main_imgm6u.png'); }
+.products-bg { background-image: url('https://res.cloudinary.com/fluid-attacks/image/upload/v1619631142/airs/products/cover-products_gj4f1z.png'); }
+.integrates-bg { background-image: url('https://res.cloudinary.com/fluid-attacks/image/upload/v1619631217/airs/products/integrates/cover-integrates_khiwza.png'); }
+.drills-bg { background-image: url('https://res.cloudinary.com/fluid-attacks/image/upload/v1619631268/airs/products/drills/drills-cover_fkvhlb.png'); }
+.devsecops-bg { background-image: url('https://res.cloudinary.com/fluid-attacks/image/upload/v1619631379/airs/products/devsecops/cover-devsecops_qpaerm.png'); }
+.rules-bg { background-image: url('https://res.cloudinary.com/fluid-attacks/image/upload/v1619631245/airs/products/rules/cover-rules_yh0r4l.png'); }
+.skims-bg { background-image: url('https://res.cloudinary.com/fluid-attacks/image/upload/v1619631150/airs/products/skims/cover-skims_trcyed.png'); }
+.thank-you-bg { background-image: url('https://res.cloudinary.com/fluid-attacks/image/upload/v1619631768/airs/contact-us/bg-thank-you-page_ummvud.png'); }
+.contact-bg { background-image: url('https://res.cloudinary.com/fluid-attacks/image/upload/v1619631770/airs/contact-us/bg-contact-us_cpcyoj.png'); }
+.careers-main-bg { background-image: url('https://res.cloudinary.com/fluid-attacks/image/upload/v1619631912/airs/careers/cover-careers_drdmvm.png'); }
+.resources-bg { background-image: url('https://res.cloudinary.com/fluid-attacks/image/upload/v1619632049/airs/resources/resources-main_u1gggc.png'); }
+.error-bg { background-image: url('https://res.cloudinary.com/fluid-attacks/image/upload/v1619632113/airs/bg-error_djc6fq.png');}
+.blog-bg { background-image: url('https://res.cloudinary.com/fluid-attacks/image/upload/v1619632208/airs/bg-blog_bj0szx.png');}
+.people-bg { background-image: url('https://res.cloudinary.com/fluid-attacks/image/upload/v1619632545/airs/about-us/people/cover-people_lxsx5t.png'); }
+.about-us-bg { background-image: url('https://res.cloudinary.com/fluid-attacks/image/upload/v1619632579/airs/about-us/cover-about-us_dmqh4f.png'); }
+.certifications-bg { background-image: url('https://res.cloudinary.com/fluid-attacks/image/upload/v1619632703/airs/about-us/certifications/cover-certifications_dos6xu.png'); }
+.differentiators-bg { background-image: url('https://res.cloudinary.com/fluid-attacks/image/upload/v1619632743/airs/about-us/differentiators/cover-differentiators_ugimie.png'); }
+.values-bg { background-image: url('https://res.cloudinary.com/fluid-attacks/image/upload/v1619632777/airs/about-us/values/cover-values_b7bxx0.png'); }
+.reviews-bg { background-image: url('https://res.cloudinary.com/fluid-attacks/image/upload/v1619632812/airs/about-us/reviews/cover-reviews_zh5lmb.png'); }
+.events-bg { background-image: url('https://res.cloudinary.com/fluid-attacks/image/upload/v1619632910/airs/about-us/events/cover-events_x81kxx.png'); }
+.partners-bg { background-image: url('https://res.cloudinary.com/fluid-attacks/image/upload/v1619633627/airs/partners/cover-partners_n4sshp.png'); }
+.comparative-bg { background-image: url('https://res.cloudinary.com/fluid-attacks/image/upload/v1619633681/airs/services/cover-comparative_uw8pet.png'); }
+.advisories-bg { background-image: url('https://res.cloudinary.com/fluid-attacks/image/upload/v1619634447/airs/bg-advisories_htsqyd.png'); }
+.asm-bg { background-image: url('https://res.cloudinary.com/fluid-attacks/image/upload/v1619634644/airs/categories/cover-asm_zcl9ge.png'); }
+.sast-bg { background-image: url('https://res.cloudinary.com/fluid-attacks/image/upload/v1619634643/airs/categories/cover-sast_owhvak.png'); }
+.dast-bg { background-image: url('https://res.cloudinary.com/fluid-attacks/image/upload/v1619634644/airs/categories/cover-dast_qaboy9.png'); }
+.iast-bg { background-image: url('https://res.cloudinary.com/fluid-attacks/image/upload/v1619634643/airs/categories/cover-iast_yqqggs.png'); }
+.sca-bg { background-image: url('https://res.cloudinary.com/fluid-attacks/image/upload/v1619634644/airs/categories/cover-sca_rbdocd.png'); }
+.sre-bg { background-image: url('https://res.cloudinary.com/fluid-attacks/image/upload/v1619634638/airs/categories/cover-sre_o0pqhq.png'); }
+.ptaas-bg { background-image: url('https://res.cloudinary.com/fluid-attacksattacks/image/upload/v1619634639/airs/categories/cover-ptaas_dms6yo.png'); }
+.clients-bg { background-image: url('https://res.cloudinary.com/fluid-attacks/image/upload/v1619635918/airs/about-us/clients/cover-clients_llnlaw.png'); }
+.bg-quote1 { background-image: url('https://res.cloudinary.com/fluid-attacks/image/upload/v1619636451/airs/bg-quote1_pa92fp.png'); }
+.bg-menu-services { background-image: url('https://res.cloudinary.com/fluid-attacks/image/upload/v1619636510/airs/menu/bg-menu-services_hdbscb.png'); }
+.bg-menu-solutions { background-image: url('https://res.cloudinary.com/fluid-attacks/image/upload/v1619636509/airs/menu/bg-menu-solutions_csafy5.png'); }
+.bg-menu-systems { background-image: url('https://res.cloudinary.com/fluid-attacks/image/upload/v1619636509/airs/menu/bg-menu-systems_nvw4zs.png'); }
+.bg-menu-aboutus { background-image: url('https://res.cloudinary.com/fluid-attacks/image/upload/v1619636510/airs/menu/bg-menu-aboutus_suneby.png'); }
+.bg-clients-home { background-image: url('https://res.cloudinary.com/fluid-attacks/image/upload/v1619036534/airs/home/clients-home_dsbhey.png'); }
+.bg-solution1 { background-image: url('https://res.cloudinary.com/fluid-attacks/image/upload/v1619554031/airs/solutions/devsecops-thumbnail_begmdy.png'); }
+.bg-solution2 { background-image: url('https://res.cloudinary.com/fluid-attacks/image/upload/v1619554032/airs/solutions/security-testing-thumbnail_xfzpwg.png'); }
+.bg-solution3 { background-image: url('https://res.cloudinary.com/fluid-attacks/image/upload/v1619554031/airs/solutions/penetration-testing-thumbnail_vlumjy.png'); }
+.bg-solution4 { background-image: url('https://res.cloudinary.com/fluid-attacks/image/upload/v1619554031/airs/solutions/ethical-hacking-thumbnail_unmgne.png'); }
+.bg-solution5 { background-image: url('https://res.cloudinary.com/fluid-attacks/image/upload/v1619554031/airs/solutions/red-teaming-thumbnail_bsb1vb.png'); }
+.bg-solution6 { background-image: url('https://res.cloudinary.com/fluid-attacks/image/upload/v1619554031/airs/solutions/attack-simulation-thumbnail_lgy7rz.png'); }
 
 .bg-card1 {
-  background-image: url('../images/resources/card1.png');
+  background-image: url('https://res.cloudinary.com/fluid-attacks/image/upload/v1619632050/airs/resources/resource-card1_n4sfzw.png');
   min-height: 200px;
 }
 
 .bg-card3 {
-  background-image: url('../images/resources/card3.png');
+  background-image: url('https://res.cloudinary.com/fluid-attacks/image/upload/v1619632050/airs/resources/resource-card3_q4i7ex.png');
   min-height: 200px;
 }
 
 .bg-card8 {
-  background-image: url('../images/resources/card8.png');
+  background-image: url('https://res.cloudinary.com/fluid-attacks/image/upload/v1619632049/airs/resources/resource-card8_ouhpsq.png');
   min-height: 200px;
 }
 
 .bg-card9 {
-  background-image: url('../images/resources/card9.png');
+  background-image: url('https://res.cloudinary.com/fluid-attacks/image/upload/v1619632049/airs/resources/resource-card9_jgxbxt.png');
   min-height: 200px;
 }
 
 .bg-card11 {
-  background-image: url('../images/resources/card11.png');
+  background-image: url('https://res.cloudinary.com/fluid-attacks/image/upload/v1619632048/airs/resources/resource-card11_srxz3d.png');
   min-height: 200px;
 }
-.bg-faq { background-image: url('../images/faq/cover-faq.png'); }
-.bg-compliance { background-image: url('../images/compliance/cover-compliance.png'); }
-.bg-compliance-internal { background-image: url('../images/compliance/cover-internal-compliance.png'); }
-.bg-systems { background-image: url('../images/systems/cover-systems.png'); }
+.bg-faq { background-image: url('https://res.cloudinary.com/fluid-attacks/image/upload/v1619637192/airs/faq/cover-faq_on5iqt.png'); }
+.bg-compliance { background-image: url('https://res.cloudinary.com/fluid-attacks/image/upload/v1619637251/airs/compliance/cover-compliance_vnojb7.png'); }
+.bg-compliance-internal { background-image: url('https://res.cloudinary.com/fluid-attacks/image/upload/v1619637249/airs/compliance/cover-internal-compliance_clerwf.png'); }
+.bg-systems { background-image: url('https://res.cloudinary.com/fluid-attacks/image/upload/v1619637499/airs/systems/cover-systems_smollm.png'); }
 
 // Background Positions
 .bg-attachment-fixed { background-attachment: fixed; }
@@ -225,7 +222,7 @@ $whiter-gray: rgba(241, 241, 241, 1);
 
 // Medium screen sizes
 @media screen and (max-width: 60em) {
-  .bg-clients-home { background-image: url('../images/clients-home-960.png'); }
+  .bg-clients-home { background-image: url('https://res.cloudinary.com/fluid-attacks/image/upload/v1619637571/airs/home/clients-home-960_vxidmf.png'); }
 }
 
 @media screen and (min-width: 30em) and (max-width: 60em) {

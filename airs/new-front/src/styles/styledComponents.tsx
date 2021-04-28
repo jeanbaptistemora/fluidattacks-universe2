@@ -3,8 +3,6 @@ import { Link } from "gatsby";
 import type { StyledComponent } from "styled-components";
 import styled from "styled-components";
 
-import coverMainHome from "../../static/images/home/cover-main.png";
-
 const NavbarContainer: StyledComponent<
   "div",
   Record<string, unknown>
@@ -367,7 +365,7 @@ const MainCoverHome: StyledComponent<
     h-section
   `,
 })`
-  background-image: url(${coverMainHome});
+  background-image: url("https://res.cloudinary.com/fluid-attacks/image/upload/v1619036564/airs/home/cover-main_imgm6u.png");
 `;
 
 const MainContentHome: StyledComponent<

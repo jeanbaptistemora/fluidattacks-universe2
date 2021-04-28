@@ -4,7 +4,6 @@
 import { Link } from "gatsby";
 import React from "react";
 
-import menuSelector from "../../../../../static/images/menu/selector.png";
 import { CloudImage } from "../../../CloudImage";
 import { SocialMedia } from "../../../SocialMedia";
 import {
@@ -372,7 +371,7 @@ const MenuDesktop: React.FC = (): JSX.Element => (
           <BlackWeightedParagraph>
             {"FOLLOW FLUID ATTACKS"}
             <em>
-              <img alt={"Menu Selctor"} src={menuSelector} />
+              <CloudImage alt={"Menu Selctor"} src={"menu/selector"} />
             </em>
           </BlackWeightedParagraph>
 
