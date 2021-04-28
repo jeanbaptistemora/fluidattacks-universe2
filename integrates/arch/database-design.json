@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Apr 27, 2021, 02:02 PM",
+    "DateLastModified": "Apr 28, 2021, 07:36 AM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -321,6 +321,74 @@
         {
           "AttributeName": "sorts_risk_level",
           "AttributeType": "N"
+        },
+        {
+          "AttributeName": "affected_systems",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "analyst",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "cvss_version",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "cwe_url",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "title",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "id",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "modified_user_interaction",
+          "AttributeType": "N"
+        },
+        {
+          "AttributeName": "sorts",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "actor",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "compromised_attributes",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "group_name",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "severity",
+          "AttributeType": "M"
+        },
+        {
+          "AttributeName": "compromised_records",
+          "AttributeType": "N"
+        },
+        {
+          "AttributeName": "risk",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "scenario",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "bts_url",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "attack_vector_desc",
+          "AttributeType": "S"
         }
       ],
       "TableFacets": [
@@ -1710,6 +1778,40 @@
             "modified_date",
             "modified_by",
             "status"
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
+        },
+        {
+          "FacetName": "finding_metadata",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "FIND#id",
+            "SortKeyAlias": "GROUP#group_name"
+          },
+          "TableData": [],
+          "NonKeyAttributes": [
+            "description",
+            "type",
+            "recommendation",
+            "requirements",
+            "threat",
+            "affected_systems",
+            "analyst",
+            "cvss_version",
+            "cwe_url",
+            "title",
+            "id",
+            "sorts",
+            "actor",
+            "compromised_attributes",
+            "group_name",
+            "severity",
+            "compromised_records",
+            "risk",
+            "scenario",
+            "bts_url",
+            "attack_vector_desc"
           ],
           "DataAccess": {
             "MySql": {}
