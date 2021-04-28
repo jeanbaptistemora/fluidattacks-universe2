@@ -82,18 +82,18 @@ describe("Organization policies view", (): void => {
       </MemoryRouter>
     );
 
-    const testWaitForExpect = async (): Promise<void> => {
-      expect.hasAssertions();
+    await act(
+      async (): Promise<void> => {
+        expect.hasAssertions();
 
-      await waitForExpect((): void => {
-        wrapper.update();
+        await waitForExpect((): void => {
+          wrapper.update();
 
-        expect(wrapper).toHaveLength(1);
-        expect(wrapper.find("tr")).toHaveLength(4);
-      });
-    };
-
-    await act(testWaitForExpect);
+          expect(wrapper).toHaveLength(1);
+          expect(wrapper.find("tr")).toHaveLength(4);
+        });
+      }
+    );
 
     expect(
       wrapper.find({ name: "maxAcceptanceDays" }).find("input").prop("value")
