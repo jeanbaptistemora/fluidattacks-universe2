@@ -5,10 +5,16 @@ locals {
   rules  = { for rule in local.data.rules : rule.id => rule }
   users  = { for user in local.data.users : user.id => user }
 
-  groups_rules = {
-    for group in local.data.groups : group.id => group
-    if group.type == "rules"
-  }
+  user_groups = flatten([
+    for _, user in local.users : [
+      for _, group in local.groups : [
+        {
+          "id"    = user.id
+          "group" = group.id
+        }
+      ] if contains(group.users, user.id)
+    ]
+  ])
 
   app_groups = flatten([
     for _, app in local.apps : [
