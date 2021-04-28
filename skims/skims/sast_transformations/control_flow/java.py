@@ -3,7 +3,6 @@ from functools import partial
 
 # Third party libraries
 from more_itertools import (
-    mark_ends,
     pairwise,
 )
 
@@ -22,11 +21,14 @@ from sast_transformations.control_flow.types import (
     Stack,
 )
 from sast_transformations.control_flow.common import (
+    catch_statement,
     get_next_id,
+    if_statement,
     link_to_last_node,
     propagate_next_id_from_parent,
     set_next_id,
     step_by_step,
+    try_statement,
 )
 from utils import (
     graph as g,
@@ -50,44 +52,6 @@ def _loop_statement(
     # Recurse into the for block
     propagate_next_id_from_parent(stack)
     _generic(graph, c_id, stack, edge_attrs=ALWAYS)
-
-
-def _if_statement(
-    graph: graph_model.Graph,
-    n_id: str,
-    stack: Stack,
-) -> None:
-    # if ( __0__ ) __1__ else __2__
-    match = g.match_ast(
-        graph,
-        n_id,
-        "if",
-        "__0__",
-        "__1__",
-        "else",
-        "__2__",
-    )
-
-    if then_id := match["__1__"]:
-        # Link `if` to `then` statement
-        graph.add_edge(n_id, then_id, **TRUE)
-
-        # Link whatever is inside the `then` to the next statement in chain
-        propagate_next_id_from_parent(stack)
-        _generic(graph, then_id, stack, edge_attrs=ALWAYS)
-
-    if then_id := match["__2__"]:
-        # Link `if` to `else` statement
-        graph.add_edge(n_id, then_id, **FALSE)
-
-        # Link whatever is inside the `then` to the next statement in chain
-        propagate_next_id_from_parent(stack)
-        _generic(graph, then_id, stack, edge_attrs=ALWAYS)
-
-    # Link whatever is inside the `then` to the next statement in chain
-    elif next_id := get_next_id(stack):
-        # Link `if` to the next statement after the `if`
-        graph.add_edge(n_id, next_id, **FALSE)
 
 
 def _switch_statement(
@@ -127,42 +91,6 @@ def _switch_statement(
         _generic(graph, stmt_ids[-1], stack, edge_attrs=ALWAYS)
 
 
-def _try_statement(
-    graph: graph_model.Graph,
-    n_id: str,
-    stack: Stack,
-) -> None:
-    # Strain the childs over the following node types
-    children_stack = []
-    for c_id in g.adj_ast(graph, n_id):
-        c_attrs_label_type = graph.nodes[c_id]["label_type"]
-        if c_attrs_label_type in {
-            "block",
-            "finally_clause",
-            "resource_specification",
-        }:
-            children_stack.append((c_id, ALWAYS))
-        elif c_attrs_label_type == "catch_clause":
-            children_stack.append((c_id, MAYBE))
-        elif c_attrs_label_type != "try":
-            raise NotImplementedError()
-
-    # Walk the existing blocks and link them recursively
-    p_id = n_id
-    for _, last, (c_id, edge_attrs) in mark_ends(children_stack):
-        graph.add_edge(p_id, c_id, **edge_attrs)
-        p_id = c_id
-
-        # Link child block recursively
-        propagate_next_id_from_parent(stack)
-        _generic(graph, c_id, stack, edge_attrs=edge_attrs)
-
-        # If this is the last block and we should link to a next_id, do it
-        if last:
-            propagate_next_id_from_parent(stack)
-            _generic(graph, c_id, stack, edge_attrs=edge_attrs)
-
-
 def _generic(
     graph: graph_model.Graph,
     n_id: str,
@@ -190,19 +118,25 @@ def _generic(
         ),
         (
             {"catch_clause"},
-            partial(link_to_last_node, _generic=_generic),
+            partial(catch_statement, _generic=_generic),
         ),
         (
             {"for_statement", "enhanced_for_statement", "while_statement"},
             _loop_statement,
         ),
-        ({"if_statement"}, _if_statement),
+        (
+            {"if_statement"},
+            partial(if_statement, _generic=_generic),
+        ),
         ({"switch_statement"}, _switch_statement),
         (
             {"constructor_declaration", "method_declaration"},
             partial(link_to_last_node, _generic=_generic),
         ),
-        ({"try_statement", "try_with_resources_statement"}, _try_statement),
+        (
+            {"try_statement", "try_with_resources_statement"},
+            partial(try_statement, _generic=_generic),
+        ),
     ):
         if n_attrs_label_type in types:
             walker(graph, n_id, stack)  # type: ignore

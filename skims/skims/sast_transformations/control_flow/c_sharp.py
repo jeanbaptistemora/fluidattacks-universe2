@@ -12,10 +12,13 @@ from sast_transformations import (
     MAYBE,
 )
 from sast_transformations.control_flow.common import (
+    catch_statement,
+    if_statement,
     link_to_last_node,
     propagate_next_id_from_parent,
     set_next_id,
     step_by_step,
+    try_statement,
 )
 from sast_transformations.control_flow.types import EdgeAttrs, Stack
 from utils import (
@@ -74,8 +77,7 @@ def _generic(
     n_attrs_label_type = n_attrs["label_type"]
 
     stack.append(dict(type=n_attrs_label_type))
-
-    for types, walker in (
+    walkers = (
         (
             {
                 "block",
@@ -98,7 +100,20 @@ def _generic(
             },
             switch_statement,
         ),
-    ):
+        (
+            {"catch_clause"},
+            partial(catch_statement, _generic=_generic),
+        ),
+        (
+            {"if_statement"},
+            partial(if_statement, _generic=_generic),
+        ),
+        (
+            {"try_statement"},
+            partial(try_statement, _generic=_generic),
+        ),
+    )
+    for types, walker in walkers:
         if n_attrs_label_type in types:
             walker(graph, n_id, stack)  # type: ignore
             break
