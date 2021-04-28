@@ -70,14 +70,12 @@ class CheckId(NamedTuple):
         return iter(map(lambda item: cls(item['id']), page.data))
 
 
-class CheckReport(NamedTuple):
-    data: JSON
+class CheckReportsPage(NamedTuple):
+    data: List[JSON]
 
     @classmethod
-    def new(
-        cls, client: Client, check_id: CheckId
-    ) -> IO[CheckReport]:
-        data = raw.get_report(client, check_id.data)
+    def new(cls, client: Client) -> IO[CheckReportsPage]:
+        data = raw.list_reports(client)
         return data.map(cls)
 
 
@@ -136,18 +134,17 @@ def _generic_check_prop_listing(
 
 
 class ChecksApi(NamedTuple):
-    get_check_report: Callable[[CheckId], IO[CheckReport]]
     list_checks: Callable[[PageOrAll], Iterator[IO[ChecksPage]]]
     list_check_groups: Callable[[PageOrAll], Iterator[IO[CheckGroupsPage]]]
     list_check_results: Callable[
         [CheckId, PageOrAll], Iterator[IO[CheckResultsPage]]
     ]
     list_check_status: Callable[[], IO[CheckStatus]]
+    list_reports: Callable[[], IO[CheckReportsPage]]
 
     @classmethod
     def new(cls, client: Client) -> ChecksApi:
         return cls(
-            get_check_report=partial(CheckReport.new, client),
             list_checks=_generic_listing(
                 ChecksPage, IO[ChecksPage], client
             ),
@@ -159,4 +156,5 @@ class ChecksApi(NamedTuple):
                 CheckResultsPage, IO[CheckResultsPage], client
             ),
             list_check_status=partial(CheckStatus.new, client),
+            list_reports=partial(CheckReportsPage.new, client),
         )

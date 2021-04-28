@@ -35,11 +35,10 @@ def _mask_env_vars(result: List[JSON]) -> None:
             env_var['value'] = '__masked__'
 
 
-def get_report(
+def list_reports(
     client: Client,
-    check_id: str,
-) -> IO[JSON]:
-    result = client.get(f'/v1/reporting/{check_id}')
+) -> IO[List[JSON]]:
+    result = client.get('/v1/reporting')
     LOG.debug('reports response: %s', result)
     return IO(result)
 
