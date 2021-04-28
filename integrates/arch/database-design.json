@@ -389,6 +389,10 @@
         {
           "AttributeName": "attack_vector_desc",
           "AttributeType": "S"
+        },
+        {
+          "AttributeName": "other",
+          "AttributeType": "S"
         }
       ],
       "TableFacets": [
@@ -1396,7 +1400,8 @@
             "gitignore",
             "includes_health_check",
             "modified_by",
-            "nickname"
+            "nickname",
+            "other"
           ],
           "DataAccess": {
             "MySql": {}
@@ -1459,7 +1464,8 @@
             "gitignore",
             "includes_health_check",
             "modified_by",
-            "nickname"
+            "nickname",
+            "other"
           ],
           "DataAccess": {
             "MySql": {}
@@ -1561,7 +1567,8 @@
             "status",
             "reason",
             "modified_date",
-            "modified_by"
+            "modified_by",
+            "other"
           ],
           "DataAccess": {
             "MySql": {}
@@ -1578,7 +1585,8 @@
             "status",
             "reason",
             "modified_date",
-            "modified_by"
+            "modified_by",
+            "other"
           ],
           "DataAccess": {
             "MySql": {}
@@ -1613,7 +1621,8 @@
             "status",
             "reason",
             "modified_date",
-            "modified_by"
+            "modified_by",
+            "other"
           ],
           "DataAccess": {
             "MySql": {}
@@ -1630,7 +1639,8 @@
             "status",
             "reason",
             "modified_date",
-            "modified_by"
+            "modified_by",
+            "other"
           ],
           "DataAccess": {
             "MySql": {}
@@ -1759,9 +1769,9 @@
           },
           "TableData": [],
           "NonKeyAttributes": [
+            "status",
             "modified_date",
-            "modified_by",
-            "status"
+            "modified_by"
           ],
           "DataAccess": {
             "MySql": {}
@@ -1775,9 +1785,9 @@
           },
           "TableData": [],
           "NonKeyAttributes": [
+            "status",
             "modified_date",
-            "modified_by",
-            "status"
+            "modified_by"
           ],
           "DataAccess": {
             "MySql": {}

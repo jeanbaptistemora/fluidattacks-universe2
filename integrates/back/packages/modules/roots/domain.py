@@ -1,6 +1,6 @@
 # Standard
 import re
-from typing import Any, List, Tuple
+from typing import Any, List, Optional, Tuple
 from urllib.parse import unquote
 from uuid import uuid4
 
@@ -213,6 +213,7 @@ async def add_git_root(context: Any, user_email: str, **kwargs: Any) -> None:
             modified_by=user_email,
             modified_date=datetime_utils.get_iso_date(),
             nickname=nickname,
+            other=None,
             reason=None,
             status='ACTIVE'
         )
@@ -261,6 +262,7 @@ async def add_ip_root(context: Any, user_email: str, **kwargs: Any) -> None:
         state=IPRootState(
             modified_by=user_email,
             modified_date=datetime_utils.get_iso_date(),
+            other=None,
             reason=None,
             status='ACTIVE'
         )
@@ -309,6 +311,7 @@ async def add_url_root(context: Any, user_email: str, **kwargs: Any) -> None:
         state=URLRootState(
             modified_by=user_email,
             modified_date=datetime_utils.get_iso_date(),
+            other=None,
             reason=None,
             status='ACTIVE'
         )
@@ -355,6 +358,7 @@ async def update_git_environments(
             modified_by=user_email,
             modified_date=datetime_utils.get_iso_date(),
             nickname=root.state.nickname,
+            other=None,
             reason=None,
             status=root.state.status
         )
@@ -406,6 +410,7 @@ async def update_git_root(user_email: str, **kwargs: Any) -> None:
             modified_by=user_email,
             modified_date=datetime_utils.get_iso_date(),
             nickname=nickname,
+            other=None,
             reason=None,
             status=root.state.status
         )
@@ -486,6 +491,7 @@ async def activate_root(
                     modified_by=user_email,
                     modified_date=datetime_utils.get_iso_date(),
                     nickname=root.state.nickname,
+                    other=None,
                     reason=None,
                     status=new_status
                 )
@@ -513,6 +519,7 @@ async def activate_root(
                 state=IPRootState(
                     modified_by=user_email,
                     modified_date=datetime_utils.get_iso_date(),
+                    other=None,
                     reason=None,
                     status=new_status
                 )
@@ -534,6 +541,7 @@ async def activate_root(
                 state=URLRootState(
                     modified_by=user_email,
                     modified_date=datetime_utils.get_iso_date(),
+                    other=None,
                     reason=None,
                     status=new_status
                 )
@@ -543,6 +551,7 @@ async def activate_root(
 async def deactivate_root(
     *,
     group_name: str,
+    other: Optional[str],
     reason: str,
     root_id: str,
     user_email: str
@@ -566,6 +575,7 @@ async def deactivate_root(
                     modified_by=user_email,
                     modified_date=datetime_utils.get_iso_date(),
                     nickname=root.state.nickname,
+                    other=other,
                     reason=reason,
                     status=new_status
                 )
@@ -586,6 +596,7 @@ async def deactivate_root(
                 state=IPRootState(
                     modified_by=user_email,
                     modified_date=datetime_utils.get_iso_date(),
+                    other=other,
                     reason=reason,
                     status=new_status
                 )
@@ -598,6 +609,7 @@ async def deactivate_root(
                 state=URLRootState(
                     modified_by=user_email,
                     modified_date=datetime_utils.get_iso_date(),
+                    other=other,
                     reason=reason,
                     status=new_status
                 )
@@ -621,6 +633,7 @@ async def update_root_state(
     else:
         await deactivate_root(
             group_name=group_name,
+            other=None,
             reason='UNKNOWN',
             root_id=root_id,
             user_email=user_email

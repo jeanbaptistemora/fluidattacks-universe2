@@ -87,6 +87,7 @@ def _build_root(
                 modified_by=state['modified_by'],
                 modified_date=state['modified_date'],
                 nickname=state['nickname'],
+                other=state.get('other'),
                 reason=state.get('reason'),
                 status=state['status']
             )
@@ -104,6 +105,7 @@ def _build_root(
             state=IPRootState(
                 modified_by=state['modified_by'],
                 modified_date=state['modified_date'],
+                other=state.get('other'),
                 reason=state.get('reason'),
                 status=state['status']
             )
@@ -122,6 +124,7 @@ def _build_root(
         state=URLRootState(
             modified_by=state['modified_by'],
             modified_date=state['modified_date'],
+            other=state.get('other'),
             reason=state.get('reason'),
             status=state['status']
         )

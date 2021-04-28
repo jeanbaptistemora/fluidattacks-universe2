@@ -23,7 +23,7 @@ from dynamodb.types import (
 @pytest.fixture(autouse=True, scope='session')
 async def populate(generic_data: Dict[str, Any]) -> bool:
     data: Dict[str, Any] = {
-         'roots': (
+        'roots': (
             GitRootItem(
                 cloning=GitRootCloning(
                     modified_date='2020-11-19T13:37:10+00:00',
@@ -45,6 +45,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     modified_by='admin@gmail.com',
                     modified_date='2020-11-19T13:37:10+00:00',
                     nickname='',
+                    other=None,
                     reason=None,
                     status='INACTIVE'
                 )
@@ -70,6 +71,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     modified_by='admin@gmail.com',
                     modified_date='2020-11-19T13:37:10+00:00',
                     nickname='',
+                    other=None,
                     reason=None,
                     status='INACTIVE'
                 )

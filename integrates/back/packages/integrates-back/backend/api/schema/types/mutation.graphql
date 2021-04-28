@@ -156,6 +156,8 @@ type Mutation {
     id: ID!
     "Id of the new root if it changed"
     newRootId: ID
+    "Custom reason provided"
+    other: String
     "Reason for this change"
     reason: RootDeactivationReason!
   ): SimplePayload!
