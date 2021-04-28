@@ -70,6 +70,13 @@ type Mutation {
     port: Int!
   ): SimplePayload!
 
+  addOrgFindingPolicy(
+    "Name of the finding"
+    findingName: String!
+    "Name of the organization the finding policy is associated with"
+    organizationName: String!
+  ): SimplePayload!
+
   addProjectConsult(
     content: String!
     parent: GenericScalar!

@@ -688,3 +688,15 @@ class VulnNotInFinding(Exception):
     def __init__(self) -> None:
         msg = 'Exception - Vulnerability does not belong to finding'
         super(VulnNotInFinding, self).__init__(msg)
+
+
+class InvalidFindingNamePolicy(Exception):
+    def __init__(self) -> None:
+        msg = 'Exception - The finding name is invalid'
+        super(InvalidFindingNamePolicy, self).__init__(msg)
+
+
+class RepeatedFindingNamePolicy(Exception):
+    def __init__(self) -> None:
+        msg = 'Exception - The finding name policy already exists'
+        super(RepeatedFindingNamePolicy, self).__init__(msg)

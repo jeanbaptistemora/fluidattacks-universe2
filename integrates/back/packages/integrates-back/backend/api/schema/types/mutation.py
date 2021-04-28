@@ -17,6 +17,7 @@ from backend.api.mutations import (
     add_group_consult,
     add_group_tags,
     add_ip_root,
+    add_org_finding_policy,
     add_push_token,
     add_stakeholder,
     add_url_root,
@@ -84,6 +85,7 @@ MUTATION.set_field('addEventConsult', add_event_consult.mutate)
 MUTATION.set_field('addForcesExecution', add_forces_execution.mutate)
 MUTATION.set_field('addGitRoot', add_git_root.mutate)
 MUTATION.set_field('addIpRoot', add_ip_root.mutate)
+MUTATION.set_field('addOrgFindingPolicy', add_org_finding_policy.mutate)
 MUTATION.set_field('addUrlRoot', add_url_root.mutate)
 MUTATION.set_field('addStakeholder', add_stakeholder.mutate)
 MUTATION.set_field('approveDraft', approve_draft.mutate)
