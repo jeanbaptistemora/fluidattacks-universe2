@@ -58,7 +58,7 @@ async def query_get(
                         testedDate
                         testedLines
                         comments
-                        sorts_risk_level
+                        sortsRiskLevel
                     }}
                 }}
             }}

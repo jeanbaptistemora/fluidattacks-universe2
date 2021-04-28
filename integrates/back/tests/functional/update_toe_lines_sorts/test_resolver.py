@@ -38,7 +38,7 @@ async def test_update_toe_lines_sorts(populate: bool, email: str):
                     'testedDate': '2021-02-28T00:00:00-05:00',
                     'testedLines': 4,
                     'comments': 'comment test',
-                    'sorts_risk_level': 0
+                    'sortsRiskLevel': 0
                 }
             ]
         },
@@ -53,7 +53,7 @@ async def test_update_toe_lines_sorts(populate: bool, email: str):
                     'testedDate': '2021-01-20T00:00:00-05:00',
                     'testedLines': 172,
                     'comments': 'comment test',
-                    'sorts_risk_level': 10
+                    'sortsRiskLevel': 10
                 },
                 {
                     'filename': 'integrates_1/test3/test.config',
@@ -63,7 +63,7 @@ async def test_update_toe_lines_sorts(populate: bool, email: str):
                     'testedDate': '2021-01-20T00:00:00-05:00',
                     'testedLines': 33,
                     'comments': 'comment test',
-                    'sorts_risk_level': 0
+                    'sortsRiskLevel': 0
                 }
             ]
         }
