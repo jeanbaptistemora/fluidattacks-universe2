@@ -3,6 +3,7 @@ import io
 import itertools
 import logging
 import logging.config
+import re
 from typing import (
     Any,
     cast,
@@ -573,3 +574,7 @@ def validate_acceptance_date(values: Dict[str, str]) -> bool:
         else:
             raise InvalidDateFormat()
     return valid
+
+
+def is_valid_finding_title(title: str) -> bool:
+    return bool(re.match(r'^F[0-9]{3}\. .+', title))

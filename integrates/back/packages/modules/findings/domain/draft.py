@@ -1,4 +1,3 @@
-import re
 import random
 from decimal import Decimal
 from typing import (
@@ -142,7 +141,7 @@ async def create_draft(
         'historic_state': [submission_history],
     })
 
-    if re.match(r'^F[0-9]{3}\. .+', title):
+    if findings_utils.is_valid_finding_title(title):
         return await findings_dal.create(finding_id, group_name, finding_attrs)
     raise InvalidDraftTitle()
 
