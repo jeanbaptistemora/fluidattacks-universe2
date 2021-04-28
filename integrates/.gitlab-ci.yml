@@ -545,13 +545,13 @@ integrates.scheduler.delete_obsolete_orgs:
     variables: [$integrates_scheduler_delete_obsolete_orgs]
 
 integrates.scheduler.get_new_releases:
-  <<: *integrates_scheduler
+  <<: *integrates_schedulers
   only:
     refs: [schedules]
     variables: [$integrates_scheduler_get_new_releases]
 
 integrates.scheduler.get_remediated_findings:
-  <<: *integrates_scheduler
+  <<: *integrates_schedulers
   only:
     refs: [schedules]
     variables: [$integrates_scheduler_get_remediated_findings]

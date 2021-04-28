@@ -36,20 +36,13 @@ from backend.typing import (
     Project as ProjectType,
 )
 from events import domain as events_domain
-from findings import domain as findings_domain
 from groups import domain as groups_domain
 from group_access import domain as group_access_domain
-from newutils import (
-    findings as findings_utils,
-)
 from organizations import domain as orgs_domain
 from tags import domain as tags_domain
 from __init__ import (
     BASE_URL,
-    FI_TEST_PROJECTS,
-    FI_MAIL_CONTINUOUS,
     FI_MAIL_PROJECTS,
-    FI_MAIL_REVIEWERS,
     FI_ENVIRONMENT,
     FI_BUGSNAG_API_KEY_SCHEDULER
 )
@@ -175,121 +168,6 @@ def calculate_tag_indicators(
             str(group['name']) for group in tags_dict[tag]
         ]
     return tag_info
-
-
-async def get_remediated_findings() -> None:
-    """Summary mail send with findings that have not been verified yet."""
-    active_projects = await groups_domain.get_active_groups()
-    findings = []
-    pending_verification_findings = await collect(
-        findings_domain.get_pending_verification_findings(
-            get_new_context(),
-            project
-        )
-        for project in active_projects
-    )
-    for project_findings in pending_verification_findings:
-        findings += project_findings
-
-    if findings:
-        try:
-            mail_to = [FI_MAIL_CONTINUOUS, FI_MAIL_PROJECTS]
-            context: MailContentType = {'findings': list(), 'total': 0}
-            for finding in findings:
-                cast(
-                    List[Dict[str, str]],
-                    context['findings']
-                ).append({
-                    'finding_name': finding['finding'],
-                    'finding_url': (
-                        f'{BASE_URL}/groups/'
-                        f'{str.lower(str(finding["project_name"]))}/'
-                        f'{finding["finding_id"]}/description'
-                    ),
-                    'project': str.upper(str(finding['project_name']))
-                })
-            context['total'] = len(findings)
-            scheduler_send_mail(
-                mailer.send_mail_new_remediated,
-                mail_to,
-                context
-            )
-        except (TypeError, KeyError) as ex:
-            LOGGER.exception(ex, extra={'extra': locals()})
-
-
-async def get_new_releases() -> None:  # pylint: disable=too-many-locals
-    """Summary mail send with findings that have not been released yet."""
-    context = get_new_context()
-    group_loader = context.group_all
-    organization_loader = context.organization
-    test_groups = FI_TEST_PROJECTS.split(',')
-    groups = await groups_domain.get_active_groups()
-    email_context: MailContentType = (
-        defaultdict(list)
-    )
-    cont = 0
-    groups = [
-        group
-        for group in groups
-        if group not in test_groups
-    ]
-    list_drafts = await findings_domain.list_drafts(groups)
-    group_drafts = await collect(
-        findings_domain.get_findings_async(drafts)
-        for drafts in list_drafts
-    )
-    for group_name, finding_requests in zip(groups, group_drafts):
-        if group_name not in test_groups:
-            try:
-                for finding in finding_requests:
-                    is_finding_released = findings_utils.is_released(finding)
-                    if not is_finding_released:
-                        group = await group_loader.load(group_name)
-                        org_id = group['organization']
-                        organization = await organization_loader.load(org_id)
-                        org_name = organization['name']
-                        submission = finding.get('historicState')
-                        status = submission[-1].get('state')
-                        category = (
-                            'unsubmitted'
-                            if status in ('CREATED', 'REJECTED')
-                            else 'unreleased'
-                        )
-                        cast(
-                            List[Dict[str, str]],
-                            email_context[category]
-                        ).append({
-                            'finding_name': finding.get('finding'),
-                            'finding_url': (
-                                f'{BASE_URL}/orgs/{org_name}/groups/'
-                                f'{group_name}/drafts/'
-                                f'{finding.get("findingId")}/description'
-                            ),
-                            'project': group_name.upper(),
-                            'organization': org_name
-                        })
-                        cont += 1
-            except (TypeError, KeyError) as ex:
-                LOGGER.exception(ex, extra={'extra': locals()})
-        else:
-            # ignore test projects
-            pass
-    if cont > 0:
-        email_context['total_unreleased'] = len(
-            cast(List[Dict[str, str]], email_context['unreleased'])
-        )
-        email_context['total_unsubmitted'] = len(
-            cast(List[Dict[str, str]], email_context['unsubmitted'])
-        )
-        approvers = FI_MAIL_REVIEWERS.split(',')
-        mail_to = [FI_MAIL_PROJECTS]
-        mail_to.extend(approvers)
-        scheduler_send_mail(
-            mailer.send_mail_new_releases,
-            mail_to,
-            email_context
-        )
 
 
 async def send_unsolved_to_all() -> None:
