@@ -105,11 +105,11 @@ describe("GroupToeLinesView", (): void => {
         "Attacked",
         "Coverage",
         "LOC",
-        "Tested lines",
+        "Attacked lines",
         "Pending lines",
         "Modified date",
         "Modified commit",
-        "Tested date",
+        "Attack moment",
         "Comments",
       ].join("")
     );

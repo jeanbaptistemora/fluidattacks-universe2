@@ -61,7 +61,7 @@ const GroupToeInputsView: React.FC = (): JSX.Element => {
       dataField: "verified",
       header: translate.t("group.toe.inputs.verified"),
       onSort,
-      width: "5%",
+      width: "2.5%",
     },
     {
       align: "center",
@@ -77,7 +77,7 @@ const GroupToeInputsView: React.FC = (): JSX.Element => {
       formatter: formatDate,
       header: translate.t("group.toe.inputs.testedDate"),
       onSort,
-      width: "5%",
+      width: "8%",
     },
     {
       align: "left",
@@ -93,7 +93,7 @@ const GroupToeInputsView: React.FC = (): JSX.Element => {
       formatter: formatDate,
       header: translate.t("group.toe.inputs.createdDate"),
       onSort,
-      width: "5%",
+      width: "8%",
     },
     {
       align: "left",

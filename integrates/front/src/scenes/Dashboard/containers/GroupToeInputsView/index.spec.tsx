@@ -101,11 +101,11 @@ describe("GroupToeInputsView", (): void => {
       [
         "Component",
         "Entry point",
-        "Verified",
+        "Attacked",
         "Commit",
-        "Tested date",
+        "Attack moment",
         "Vulns",
-        "Created date",
+        "Seen at",
         "Seen first time by",
       ].join("")
     );

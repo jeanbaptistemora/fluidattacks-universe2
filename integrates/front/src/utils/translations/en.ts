@@ -658,11 +658,11 @@ export const enTranslations: ResourceKey = {
       inputs: {
         commit: "Commit",
         component: "Component",
-        createdDate: "Created date",
+        createdDate: "Seen at",
         entryPoint: "Entry point",
         seenFirstTimeBy: "Seen first time by",
-        testedDate: "Tested date",
-        verified: "Verified",
+        testedDate: "Attack moment",
+        verified: "Attacked",
         vulns: "Vulns",
       },
       lines: {
@@ -675,8 +675,8 @@ export const enTranslations: ResourceKey = {
         modifiedDate: "Modified date",
         no: "No",
         pendingLines: "Pending lines",
-        testedDate: "Tested date",
-        testedLines: "Tested lines",
+        testedDate: "Attack moment",
+        testedLines: "Attacked lines",
         yes: "Yes",
       },
       tabs: {
