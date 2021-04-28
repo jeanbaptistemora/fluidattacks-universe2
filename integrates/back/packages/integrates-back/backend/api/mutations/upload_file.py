@@ -18,6 +18,7 @@ from custom_exceptions import (
     ErrorUploadingFileS3,
     InvalidFileType,
 )
+from organizations_finding_policies import domain as policies_domain
 from redis_cluster.operations import redis_del_by_deps
 from vulnerability_files import domain as vuln_files_domain
 
@@ -43,11 +44,20 @@ async def mutate(
         file_input,
         ['text/x-yaml', 'text/plain', 'text/html']
     )
+    group = await info.context.loaders.group_all.load(group_name)
+    organization = await info.context.loaders.organization.load(
+        group['organization']
+    )
+    finding_policy = await policies_domain.get_finding_policy_by_name(
+        org_name=organization['name'],
+        finding_name=finding_data['title'].split('.')[0].lower(),
+    )
     if file_input and allowed_mime_type:
         success = await vuln_files_domain.upload_file(
             info,
             file_input,
-            finding_data
+            finding_data,
+            finding_policy
         )
     else:
         raise InvalidFileType()

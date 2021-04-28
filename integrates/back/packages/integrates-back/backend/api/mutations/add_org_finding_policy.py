@@ -31,7 +31,7 @@ async def mutate(
     user_email: str = user_info['user_email']
 
     await policies_domain.add_finding_policy(
-        finding_name=finding_name,
+        finding_name=finding_name.strip(),
         org_name=organization_name,
         user_email=user_email
     )

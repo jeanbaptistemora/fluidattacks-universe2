@@ -503,3 +503,28 @@ def validate_verify(vuln: Dict[str, FindingType]) -> Dict[str, FindingType]:
     if not is_reattack_requested(vuln):
         raise NotVerificationRequested()
     return vuln
+
+
+def get_treatment_from_org_finding_policy(
+    *,
+    current_day: str,
+    user_email: str
+) -> List[Dict[str, str]]:
+    return [
+        {
+            'treatment': 'ACCEPTED_UNDEFINED',
+            'justification': 'From org policies',
+            'user': user_email,
+            'date': current_day,
+            'treatment_manager': user_email,
+            'acceptance_status': 'SUBMITTED',
+        },
+        {
+            'treatment': 'ACCEPTED_UNDEFINED',
+            'justification': 'From org policies',
+            'user': user_email,
+            'date': current_day,
+            'treatment_manager': user_email,
+            'acceptance_status': 'APPROVED',
+        }
+    ]
