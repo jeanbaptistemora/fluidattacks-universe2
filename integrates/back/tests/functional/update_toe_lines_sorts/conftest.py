@@ -43,6 +43,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     modified_by='admin@gmail.com',
                     modified_date='2020-11-19T13:37:10+00:00',
                     nickname='',
+                    other=None,
                     reason=None,
                     status='INACTIVE'
                 )
@@ -68,6 +69,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     modified_by='admin@gmail.com',
                     modified_date='2020-11-19T13:37:10+00:00',
                     nickname='',
+                    other=None,
                     reason=None,
                     status='INACTIVE'
                 )

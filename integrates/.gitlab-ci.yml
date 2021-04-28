@@ -350,6 +350,9 @@ integrates.back.test.functional.update_organization_policies:
 integrates.back.test.functional.update_severity:
   <<: *integrates_back_test_functional
 
+integrates.back.test.functional.update_toe_lines_sorts:
+  <<: *integrates_back_test_functional
+
 integrates.back.test.functional.upload_file:
   <<: *integrates_back_test_functional
 
