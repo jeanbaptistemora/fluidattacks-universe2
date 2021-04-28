@@ -54,9 +54,9 @@ async def test_get_toe_lines(populate: bool, email: str):
             'filename': 'integrates_1/test2/test.sh',
             'modifiedDate': '2020-11-19T00:00:00-05:00',
             'modifiedCommit': '273412t',
-            'loc': 120,
+            'loc': 172,
             'testedDate': '2021-01-20T00:00:00-05:00',
-            'testedLines': 172,
+            'testedLines': 120,
             'comments': comments
           },
           {

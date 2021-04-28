@@ -375,12 +375,12 @@ async def test_toe_lines_etl():
             comments='comment test',
             filename='integrates_1/test2/test.sh',
             group_name='unittesting',
-            loc=120,
+            loc=172,
             modified_commit='273412t',
             modified_date='2020-11-19T00:00:00-05:00',
             root_id='765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a',
             tested_date='2021-01-20T00:00:00-05:00',
-            tested_lines=172,
+            tested_lines=120,
             sorts_risk_level=0,
         )
     )
@@ -409,7 +409,7 @@ async def test_toe_lines_etl():
             comments='comment test',
             filename='integrates_1/test3/test.sh',
             group_name='unittesting',
-            loc=12,
+            loc=120,
             modified_commit='742412r',
             modified_date='2020-11-19T00:00:00-05:00',
             root_id='765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a',
