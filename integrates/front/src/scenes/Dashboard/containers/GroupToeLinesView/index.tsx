@@ -145,7 +145,7 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
       ? translate.t("group.toe.lines.yes")
       : translate.t("group.toe.lines.no");
   const getCoverage = (toeLinesAttr: IToeLinesAttr): number =>
-    toeLinesAttr.testedLines / toeLinesAttr.loc;
+    toeLinesAttr.loc === 0 ? 1 : toeLinesAttr.testedLines / toeLinesAttr.loc;
   const getPendingLines = (toeLinesAttr: IToeLinesAttr): number =>
     toeLinesAttr.loc - toeLinesAttr.testedLines;
   const toeLines: IToeLinesData[] = roots.reduce(
