@@ -516,9 +516,12 @@ export const enTranslations: ResourceKey = {
         addTooltip: "Add a new git root to this group",
         confirm: "Confirm state change",
         deactivation: {
+          other: "Which?",
           reason: {
             label: "Reason",
             mistake: "Registered by mistake",
+            moved: "Moved to another root",
+            other: "Other",
             scope: "Out of scope",
           },
           title: "Deactivate Root",

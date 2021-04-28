@@ -12,12 +12,12 @@ import {
   FormGroup,
   Row,
 } from "styles/styledComponents";
-import { FormikDropdown } from "utils/forms/fields";
+import { FormikDropdown, FormikText } from "utils/forms/fields";
 
 interface IDeactivationModalProps {
   rootId: string;
   onClose: () => void;
-  onSubmit: (rootId: string, reason: string) => Promise<void>;
+  onSubmit: (rootId: string, values: Record<string, string>) => Promise<void>;
 }
 
 export const DeactivationModal: React.FC<IDeactivationModalProps> = ({
@@ -28,12 +28,16 @@ export const DeactivationModal: React.FC<IDeactivationModalProps> = ({
   const { t } = useTranslation();
 
   const validations = object().shape({
+    other: string().when("reason", {
+      is: "OTHER",
+      then: string().required(t("validations.required")),
+    }),
     reason: string().required(t("validations.required")),
   });
 
   const handleSubmit = useCallback(
-    async (values: { reason: string }): Promise<void> => {
-      await onSubmit(rootId, values.reason);
+    async (values: Record<string, string>): Promise<void> => {
+      await onSubmit(rootId, values);
     },
     [onSubmit, rootId]
   );
@@ -45,11 +49,11 @@ export const DeactivationModal: React.FC<IDeactivationModalProps> = ({
         open={true}
       >
         <Formik
-          initialValues={{ reason: "" }}
+          initialValues={{ other: "", reason: "" }}
           onSubmit={handleSubmit}
           validationSchema={validations}
         >
-          {({ dirty, isSubmitting }): JSX.Element => (
+          {({ dirty, isSubmitting, values }): JSX.Element => (
             <Form>
               <Row>
                 <Col100>
@@ -65,8 +69,22 @@ export const DeactivationModal: React.FC<IDeactivationModalProps> = ({
                       <option value={"REGISTERED_BY_MISTAKE"}>
                         {t("group.scope.common.deactivation.reason.mistake")}
                       </option>
+                      <option value={"MOVED_TO_ANOTHER_ROOT"}>
+                        {t("group.scope.common.deactivation.reason.moved")}
+                      </option>
+                      <option value={"OTHER"}>
+                        {t("group.scope.common.deactivation.reason.other")}
+                      </option>
                     </Field>
                   </FormGroup>
+                  {values.reason === "OTHER" ? (
+                    <FormGroup>
+                      <ControlLabel>
+                        {t("group.scope.common.deactivation.other")}
+                      </ControlLabel>
+                      <Field component={FormikText} name={"other"} />
+                    </FormGroup>
+                  ) : undefined}
                 </Col100>
               </Row>
               <Row>

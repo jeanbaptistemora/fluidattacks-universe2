@@ -330,8 +330,15 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
   );
 
   const handleDeactivationSubmit = useCallback(
-    async (rootId: string, reason: string): Promise<void> => {
-      await deactivateRoot({ variables: { groupName, id: rootId, reason } });
+    async (rootId: string, values: Record<string, string>): Promise<void> => {
+      await deactivateRoot({
+        variables: {
+          groupName,
+          id: rootId,
+          other: values.other,
+          reason: values.reason,
+        },
+      });
     },
     [deactivateRoot, groupName]
   );
