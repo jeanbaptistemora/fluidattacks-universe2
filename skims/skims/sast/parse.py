@@ -265,7 +265,7 @@ def _parse_one_cached(
     raw_tree: Tree = parser.parse(content)
 
     graph: Graph = _build_ast_graph(content, language, raw_tree)
-    control_flow.add(graph)
+    control_flow.add(graph, language)
     syntax = generate_syntax_readers.read_from_graph(graph, language)
     danger_nodes.mark(graph, language, syntax)
     styles.add(graph)
