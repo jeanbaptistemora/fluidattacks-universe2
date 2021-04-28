@@ -3,7 +3,6 @@ import logging
 import logging.config
 from typing import (
     Any,
-    cast,
     Counter,
     Dict,
     List,
@@ -37,28 +36,39 @@ bugsnag_utils.start_scheduler_session()
 LOGGER = logging.getLogger(__name__)
 
 
-async def get_new_vulnerabilities(context: Any, finding_id: str) -> int:
-    finding_vulns_loader = context.finding_vulns_nzr
-    vulns = await finding_vulns_loader.load(finding_id)
-    states_actions = get_state_actions(vulns)
-    today = datetime_utils.get_now()
-    last_day = datetime_utils.get_now_minus_delta(hours=24)
-    actions = list(filter(
-        lambda action: (
-            datetime_utils.get_from_str(action.date, '%Y-%m-%d') >= last_day
-            and datetime_utils.get_from_str(action.date, '%Y-%m-%d') <= today
-        ),
-        states_actions
-    ))
-    state_counter: Counter[str] = sum(
-        [Counter({action.action: action.times}) for action in actions],
-        Counter()
-    )
-    return state_counter['open'] - state_counter['closed']
+async def get_findings_new_vulns(context: Any, group_name: str) -> list:
+    group_findings_loader = context.group_findings
+    try:
+        new_vulns: List[Dict[str, str]] = list()
+        findings = await group_findings_loader.load(group_name)
+        last_day = datetime_utils.get_now_minus_delta(hours=24)
+        finding_vulns_loader = context.finding_vulns_nzr
+        for finding in findings:
+            vulns = await finding_vulns_loader.load(str(finding['finding_id']))
+            states_actions = get_state_actions(vulns)
+            actions = list(filter(
+                lambda action: (
+                    datetime_utils.get_from_str(
+                        action.date, '%Y-%m-%d') >= last_day
+                ),
+                states_actions
+            ))
+            state_counter: Counter[str] = sum(
+                [Counter({action.action: action.times}) for action in actions],
+                Counter()
+            )
+            if state_counter['open']:
+                new_vulns.append({
+                    'finding_name': finding['finding'],
+                    'finding_number': str(state_counter['open']),
+                })
+        return new_vulns
+    except (TypeError, KeyError) as ex:
+        LOGGER.exception(ex, extra={'extra': {'group_name': group_name}})
+        raise
 
 
 async def get_group_statistics(context: Any, group_name: str) -> None:
-    group_findings_loader = context.group_findings
     # Most of the following statistics are yet to be calculated, however, the
     # fields in mail_context are needed for rendering the initial mail
     mail_context: MailContentType = {
@@ -79,23 +89,8 @@ async def get_group_statistics(context: Any, group_name: str) -> None:
         },
         'findings': list()
     }
-    try:
-        findings = await group_findings_loader.load(group_name)
-        for finding in findings:
-            delta = await get_new_vulnerabilities(
-                context,
-                str(finding['finding_id'])
-            )
-            cast(
-                List[Dict[str, str]],
-                mail_context['findings']
-            ).append({
-                'finding_name': finding['finding'],
-                'finding_number': str(delta),
-            })
-    except (TypeError, KeyError) as ex:
-        LOGGER.exception(ex, extra={'extra': {'group_name': group_name}})
-        raise
+    mail_context['findings'] = await get_findings_new_vulns(
+        context, group_name)
     mail_to = await group_access_domain.get_users_to_notify(group_name)
     schedule(
         mailer.send_mail_daily_digest(mail_to, mail_context)
