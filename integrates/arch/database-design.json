@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Apr 28, 2021, 07:36 AM",
+    "DateLastModified": "Apr 28, 2021, 09:15 AM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -1786,10 +1786,170 @@
         {
           "FacetName": "finding_metadata",
           "KeyAttributeAlias": {
-            "PartitionKeyAlias": "FIND#id",
+            "PartitionKeyAlias": "FIN#id",
             "SortKeyAlias": "GROUP#group_name"
           },
-          "TableData": [],
+          "TableData": [
+            {
+              "pk": {
+                "S": "FIN#475041513"
+              },
+              "sk": {
+                "S": "GROUP#unittesting"
+              },
+              "description": {
+                "S": "I just have updated the description"
+              },
+              "type": {
+                "S": "SECURITY"
+              },
+              "recommendation": {
+                "S": "solution"
+              },
+              "requirements": {
+                "S": "REQ.0132. Passwords (phrase type) must be at least 3 words long."
+              },
+              "threat": {
+                "S": "Updated threat"
+              },
+              "affected_systems": {
+                "S": "Server bWAPP"
+              },
+              "analyst": {
+                "S": "finding@gmail.com"
+              },
+              "cvss_version": {
+                "S": "3.1"
+              },
+              "cwe_url": {
+                "S": "200"
+              },
+              "title": {
+                "S": "F051. Weak passwords reversed"
+              },
+              "id": {
+                "S": "475041513"
+              },
+              "sorts": {
+                "S": "NO"
+              },
+              "actor": {
+                "S": "ANYONE_INTERNET"
+              },
+              "compromised_attributes": {
+                "S": "Clave plana"
+              },
+              "group_name": {
+                "S": "unittesting"
+              },
+              "severity": {
+                "M": {
+                  "access_complexity": {
+                    "N": "0.77"
+                  },
+                  "access_vector": {
+                    "N": "0.62"
+                  },
+                  "authentication": {
+                    "N": "0.704"
+                  },
+                  "availability_impact": {
+                    "N": "1"
+                  },
+                  "availability_requirement": {
+                    "N": "0.5"
+                  },
+                  "collateral_damage_potential": {
+                    "N": "0.62"
+                  },
+                  "confidence_level": {
+                    "N": "0.92"
+                  },
+                  "confidentiality_impact": {
+                    "N": "0.62"
+                  },
+                  "confidentiality_requirement": {
+                    "N": "0.62"
+                  },
+                  "exploitability": {
+                    "N": "0.91"
+                  },
+                  "finding_distribution": {
+                    "N": "0"
+                  },
+                  "integrity_impact": {
+                    "N": "0.275"
+                  },
+                  "integrity_requirement": {
+                    "N": "0.5"
+                  },
+                  "resolution_level": {
+                    "N": "0"
+                  },
+                  "attack_complexity": {
+                    "N": "0.77"
+                  },
+                  "attack_vector": {
+                    "N": "0.95"
+                  },
+                  "modified_attack_complexity": {
+                    "N": "0.95"
+                  },
+                  "modified_attack_vector": {
+                    "N": "0.62"
+                  },
+                  "modified_availability_impact": {
+                    "N": "0.95"
+                  },
+                  "modified_confidentiality_impact": {
+                    "N": "0"
+                  },
+                  "modified_integrity_impact": {
+                    "N": "0.22"
+                  },
+                  "modified_privileges_required": {
+                    "N": "0.62"
+                  },
+                  "modified_user_interaction": {
+                    "N": "0.85"
+                  },
+                  "privileges_required": {
+                    "N": "0.62"
+                  },
+                  "modified_severity_scope": {
+                    "N": "0"
+                  },
+                  "remediation_level": {
+                    "N": "0.97"
+                  },
+                  "report_confidence": {
+                    "N": "0.95"
+                  },
+                  "severity_scope": {
+                    "N": "0"
+                  },
+                  "user_interaction": {
+                    "N": "0.85"
+                  }
+                }
+              },
+              "compromised_records": {
+                "N": "2"
+              },
+              "risk": {
+                "S": "Probability that user probability compromising the application"
+              },
+              "scenario": {
+                "S": "UNAUTHORIZED_USER_EXTRANET"
+              },
+              "bts_url": {
+                "S": "https://btsurl.test/test"
+              },
+              "attack_vector_desc": {
+                "S": "This is an updated attack vector"
+              }
+            }
+          ],
           "NonKeyAttributes": [
             "description",
             "type",
