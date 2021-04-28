@@ -90,7 +90,7 @@ const ProjectFindingsView: React.FC = (): JSX.Element => {
     "tableSet",
     {
       age: false,
-      description: true,
+      description: false,
       isExploitable: true,
       lastVulnerability: true,
       openAge: false,
@@ -476,8 +476,7 @@ const ProjectFindingsView: React.FC = (): JSX.Element => {
         headerTitle={translate.t("group.findings.report.modalTitle")}
         open={isReportsModalOpen}
       >
-        {/* eslint-disable-next-line react/forbid-component-props */}
-        <Row className={"tc"}>
+        <div className={"flex flex-wrap tc"}>
           <Col100>
             <Trans>
               <p>{translate.t("group.findings.report.techDescription")}</p>
@@ -488,7 +487,12 @@ const ProjectFindingsView: React.FC = (): JSX.Element => {
                 rel={"nofollow noopener noreferrer"}
                 target={"_blank"}
               >
-                <img alt={""} height={"40"} src={AppstoreBadge} width={"140"} />
+                <img
+                  alt={"App Store"}
+                  height={"40"}
+                  src={AppstoreBadge}
+                  width={"140"}
+                />
               </a>
               <a
                 href={
@@ -498,7 +502,7 @@ const ProjectFindingsView: React.FC = (): JSX.Element => {
                 target={"_blank"}
               >
                 <img
-                  alt={""}
+                  alt={"Google Play"}
                   height={"40"}
                   src={GoogleplayBadge}
                   width={"140"}
@@ -552,7 +556,7 @@ const ProjectFindingsView: React.FC = (): JSX.Element => {
               </Col100>
             </Row>
           </Col100>
-        </Row>
+        </div>
         <hr />
         <Row>
           <Col100>

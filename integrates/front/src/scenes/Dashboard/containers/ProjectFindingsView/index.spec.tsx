@@ -265,11 +265,15 @@ describe("ProjectFindingsView", (): void => {
     const whereCheckbox: ReactWrapper = columnFilterInputs.find({
       name: "where",
     });
+    const descriptionCheckbox: ReactWrapper = columnFilterInputs.find({
+      name: "description",
+    });
 
     ageCheckbox.simulate("change");
     openAgeCheckbox.simulate("change");
     remediatedCheckbox.simulate("change");
     whereCheckbox.simulate("change");
+    descriptionCheckbox.simulate("change");
 
     const findingTable: ReactWrapper<ITableProps> = wrapper
       .find(DataTableNext)
