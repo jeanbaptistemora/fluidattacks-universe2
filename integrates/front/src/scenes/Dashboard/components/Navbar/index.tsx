@@ -2,6 +2,7 @@ import { useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
+import { track } from "mixpanel-browser";
 import React, { useCallback, useEffect } from "react";
 import { withRouter } from "react-router";
 import { Link, useHistory, useLocation } from "react-router-dom";
@@ -90,17 +91,20 @@ const NavbarComponent: React.FC = (): JSX.Element => {
   const handleOrganizationClick: () => void = useCallback((): void => {
     push(`/orgs/${lastOrganization.name}/`);
   }, [lastOrganization.name, push]);
+
   const handleSearchSubmit: (values: {
     projectName: string;
   }) => void = useCallback(
     (values: { projectName: string }): void => {
       const projectName: string = values.projectName.toLowerCase();
       if (!_.isEmpty(projectName)) {
+        track("SearchGroup", { group: projectName });
         push(`/groups/${projectName}/vulns`);
       }
     },
     [push]
   );
+
   const HANDLE_BLUR_EVENT_TIMEOUT: number = 250;
   const handleBlurEvent: (event: FocusEvent) => void = (
     event: FocusEvent

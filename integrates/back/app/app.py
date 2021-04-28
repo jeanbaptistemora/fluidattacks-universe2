@@ -45,6 +45,7 @@ from custom_exceptions import (
 )
 from group_access import domain as group_access_domain
 from groups import domain as groups_domain
+from newutils import analytics
 from organizations import domain as orgs_domain
 from redis_cluster.operations import redis_del_entity_attr
 from sessions import dal as sessions_dal
@@ -91,6 +92,7 @@ async def logout(request: Request) -> HTMLResponse:
             attr='jti',
             email=user_email
         )
+        await analytics.mixpanel_track(user_email, 'Logout')
 
     request.session.clear()
 
