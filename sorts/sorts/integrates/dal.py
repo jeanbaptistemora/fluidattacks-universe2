@@ -104,3 +104,35 @@ def get_user_email() -> str:
     )
 
     return result['me']['userEmail']
+
+
+def update_toe_lines_sorts(
+    group_name: str,
+    filename: str,
+    risk_level: int
+) -> bool:
+    result = _execute(
+        query="""
+            mutation SortsUpdateToeLinesSorts(
+                $group_name: String!,
+                $filename: String!,
+                $risk_level: Int!
+            ) {
+                updateToeLinesSorts(
+                    groupName: $group_name,
+                    filename: $filename,
+                    sortsRiskLevel: $risk_level
+                ) {
+                    success
+                }
+            }
+        """,
+        operation='SortsUpdateToeLinesSorts',
+        variables=dict(
+            group_name=group_name,
+            filename=filename,
+            risk_level=risk_level
+        )
+    )
+
+    return result['updateToeLinesSorts']['success']
