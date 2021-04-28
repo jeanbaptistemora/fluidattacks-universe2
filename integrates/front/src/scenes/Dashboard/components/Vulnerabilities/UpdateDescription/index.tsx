@@ -360,16 +360,17 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
       },
       onError: ({ graphQLErrors }: ApolloError): void => {
         graphQLErrors.forEach((error: GraphQLError): void => {
-          switch (error.message) {
-            case "Exception - Zero risk vulnerability is already requested":
-              msgError(translate.t("groupAlerts.zeroRiskAlreadyRequested"));
-              break;
-            default:
-              msgError(translate.t("groupAlerts.errorTextsad"));
-              Logger.warning(
-                "An error occurred requesting zero risk vuln",
-                error
-              );
+          if (
+            error.message ===
+            "Exception - Zero risk vulnerability is already requested"
+          ) {
+            msgError(translate.t("groupAlerts.zeroRiskAlreadyRequested"));
+          } else {
+            msgError(translate.t("groupAlerts.errorTextsad"));
+            Logger.warning(
+              "An error occurred requesting zero risk vuln",
+              error
+            );
           }
         });
       },
