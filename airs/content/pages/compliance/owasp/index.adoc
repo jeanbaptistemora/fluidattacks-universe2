@@ -150,3 +150,11 @@ vulnerabilities leads to having an application exposed to exploitation.
 link:https://owasp.org/www-project-top-ten/2017/A10_2017-Insufficient_Logging%2526Monitoring[Many companies do, role=basic-link] not frequently log and monitor their applications’ activities.
 Usually, data breaches are detected after months, when the attackers have
 already done a lot of damage.
+
+=== OWASP Benchmark Project v1.2
+
+[role="fw3 f3 lh-2"]
+Our SAST tool achieved the best possible result against the OWASP Benchmark: 
+A TPR (True Positive Rate) of 100% and an FPR (False Positive Rate) of 0%.
+
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1619725547/airs/compliance/OWASP_benchmark_clnlip.webp[]
