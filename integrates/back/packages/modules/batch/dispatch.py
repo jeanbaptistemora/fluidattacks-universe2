@@ -13,6 +13,7 @@ from batch.dal import (
     get_action,
 )
 from batch.report import generate_report
+from batch.roots import move_root
 
 logging.config.dictConfig(LOGGING)
 
@@ -39,6 +40,8 @@ async def main() -> None:
             return
         if action == 'report' and additional_info in {'PDF', 'XLS', 'DATA'}:
             await generate_report(item=item)
+        elif action == 'move_root':
+            await move_root(item=item)
         else:
             LOGGER.error('Invalid action', extra=dict(extra=locals()))
             await delete_action(

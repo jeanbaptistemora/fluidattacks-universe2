@@ -1,7 +1,7 @@
 # Standard
 import logging
 import logging.config
-from typing import Optional, Tuple, Union
+from typing import Any, Dict, Optional, Tuple, Union
 
 # Third party
 from boto3.dynamodb.conditions import Key
@@ -65,14 +65,18 @@ async def update_root_state(
     )
 
 
-async def has_open_vulns(*, nickname: str) -> bool:
-    vulns = await dynamodb_ops.query(
+async def get_root_vulns(*, nickname: str) -> Tuple[Dict[str, Any], ...]:
+    return await dynamodb_ops.query(
         'FI_vulnerabilities',
         {
             'IndexName': 'repo_index',
             'KeyConditionExpression': Key('repo_nickname').eq(nickname),
         }
     )
+
+
+async def has_open_vulns(*, nickname: str) -> bool:
+    vulns = await get_root_vulns(nickname=nickname)
 
     return bool(
         next(
