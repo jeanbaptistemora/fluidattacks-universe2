@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Apr 28, 2021, 12:02 PM",
+    "DateLastModified": "Apr 29, 2021, 12:20 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -393,6 +393,18 @@
         {
           "AttributeName": "other",
           "AttributeType": "S"
+        },
+        {
+          "AttributeName": "user_email",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "comment_id",
+          "AttributeType": "N"
+        },
+        {
+          "AttributeName": "vuln_uuids",
+          "AttributeType": "L"
         }
       ],
       "TableFacets": [
@@ -2058,6 +2070,52 @@
             "modified_date",
             "source",
             "analyst"
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
+        },
+        {
+          "FacetName": "finding_historic_verification",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "FIN#id",
+            "SortKeyAlias": "GROUP#group_name#VERIFICATION#iso8601utc"
+          },
+          "TableData": [
+            {
+              "pk": {
+                "S": "FIN#475041513"
+              },
+              "sk": {
+                "S": "GROUP#unittesting#VERIFICATION#2021-02-15T14:01:16Z"
+              },
+              "status": {
+                "S": "REQUESTED"
+              },
+              "modified_date": {
+                "S": "2021-02-15T14:01:16Z"
+              },
+              "user_email": {
+                "S": "analyst@fluidatttacks.com"
+              },
+              "comment_id": {
+                "N": "1558048727000"
+              },
+              "vuln_uuids": {
+                "L": [
+                  {
+                    "S": "3098e835-833c-48f7-aa76-12ea884e871f"
+                  }
+                ]
+              }
+            }
+          ],
+          "NonKeyAttributes": [
+            "status",
+            "modified_date",
+            "user_email",
+            "comment_id",
+            "vuln_uuids"
           ],
           "DataAccess": {
             "MySql": {}
