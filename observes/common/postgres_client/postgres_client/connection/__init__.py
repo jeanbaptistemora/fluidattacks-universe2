@@ -5,9 +5,11 @@ from typing import (
     NamedTuple,
     Optional,
 )
+
 # Third party libraries
 import psycopg2 as postgres
 import psycopg2.extensions as postgres_extensions
+
 # Local libraries
 
 
@@ -15,7 +17,7 @@ class DbConnection(NamedTuple):
     close: Callable[[], None]
     commit: Callable[[], None]
     get_cursor: Callable[[], Any]
-    options: 'Options'
+    options: "Options"
 
 
 class ConnectionID(NamedTuple):
@@ -41,8 +43,9 @@ class Credentials(NamedTuple):
 
 
 class Options(NamedTuple):
-    isolation_lvl: Optional[int] = \
-        postgres_extensions.ISOLATION_LEVEL_AUTOCOMMIT
+    isolation_lvl: Optional[
+        int
+    ] = postgres_extensions.ISOLATION_LEVEL_AUTOCOMMIT
 
 
 DbConn = Any
@@ -57,20 +60,18 @@ def adapt_connection(
         close=connection.close,
         get_cursor=connection.cursor,
         commit=connection.commit,
-        options=options
+        options=options,
     )
 
 
 def connect(
-    db_id: DatabaseID,
-    creds: Credentials,
-    options: Options = Options()
+    db_id: DatabaseID, creds: Credentials, options: Options = Options()
 ) -> DbConnection:
     dbcon = postgres.connect(
         dbname=db_id.db_name,
         user=creds.user,
         password=creds.password,
         host=db_id.host,
-        port=db_id.port
+        port=db_id.port,
     )
     return adapt_connection(dbcon, options)

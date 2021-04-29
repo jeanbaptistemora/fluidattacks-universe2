@@ -10,15 +10,17 @@ from typing import (
     Optional,
     Union,
 )
+
 # Third party libraries
 from psycopg2 import sql as postgres_sql
+
 # Local libraries
 from postgres_client.connection import DbConnection
 
 
 class FetchAction(Enum):
-    ALL = 'all'
-    ONE = 'one'
+    ALL = "all"
+    ONE = "one"
 
 
 class DynamicSQLargs(NamedTuple):
@@ -55,12 +57,16 @@ def sql_id_purifier(
     statement: str, args: Optional[DynamicSQLargs] = None
 ) -> Any:
     raw_sql = postgres_sql.SQL(statement)
-    format_input = dict(
-        map(
-            lambda t: (t[0], postgres_sql.Identifier(t[1])),
-            args.identifiers.items()
+    format_input = (
+        dict(
+            map(
+                lambda t: (t[0], postgres_sql.Identifier(t[1])),
+                args.identifiers.items(),
+            )
         )
-    ) if args else {}
+        if args
+        else {}
+    )
     if format_input:
         return raw_sql.format(**format_input)
     return statement
@@ -89,21 +95,16 @@ def _make_exe_action(
     def action() -> None:
         _act_exe_action(sql_id_purifier, cursor, statement, args)
 
-    return CursorExeAction(
-        statement=statement,
-        act=action
-    )
+    return CursorExeAction(statement=statement, act=action)
 
 
 def _make_fetch_action(
     cursor: DbCursor, f_action: FetchAction
 ) -> CursorFetchAction:
-    action = \
+    action = (
         cursor.fetchall if f_action == FetchAction.ALL else cursor.fetchone
-    return CursorFetchAction(
-        act=action,
-        fetch_type=f_action
     )
+    return CursorFetchAction(act=action, fetch_type=f_action)
 
 
 def _cursor_builder(db_cursor: DbCursor) -> Cursor:
@@ -123,7 +124,7 @@ def _cursor_builder(db_cursor: DbCursor) -> Cursor:
         execute=exe,
         fetchall=f_all,
         fetchone=f_one,
-        close=db_cursor.close
+        close=db_cursor.close,
     )
 
 

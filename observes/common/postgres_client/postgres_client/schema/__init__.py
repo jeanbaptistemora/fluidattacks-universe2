@@ -4,6 +4,7 @@ from typing import (
     Iterable,
     NamedTuple,
 )
+
 # Third party libraries
 # Local libraries
 

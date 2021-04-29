@@ -6,6 +6,7 @@ from typing import (
     NamedTuple,
     Tuple,
 )
+
 # Third party libraries
 # Local libraries
 from postgres_client import (
@@ -48,11 +49,9 @@ def _create_client(
     )
 
 
-def _extract_conf_info(
-    auth_file: IO[str]
-) -> Tuple[DatabaseID, Credentials]:
+def _extract_conf_info(auth_file: IO[str]) -> Tuple[DatabaseID, Credentials]:
     auth = json.load(auth_file)
-    auth['db_name'] = auth['dbname']
+    auth["db_name"] = auth["dbname"]
     db_id_raw = dict(
         filter(lambda x: x[0] in DatabaseID._fields, auth.items())
     )
@@ -62,10 +61,7 @@ def _extract_conf_info(
     return (DatabaseID(**db_id_raw), Credentials(**creds_raw))
 
 
-def new_client(
-    db_id: DatabaseID,
-    cred: Credentials
-) -> Client:
+def new_client(db_id: DatabaseID, cred: Credentials) -> Client:
     db_connection = connection_module.connect(db_id, cred)
     db_cursor = cursor_module.new_cursor(db_connection)
     return _create_client(db_connection, db_cursor)
