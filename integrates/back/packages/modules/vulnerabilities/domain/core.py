@@ -638,46 +638,6 @@ async def request_zero_risk_vulnerabilities(
     return success
 
 
-async def send_finding_verified_email(  # pylint: disable=too-many-arguments
-    context: Any,
-    finding_id: str,
-    finding_name: str,
-    group_name: str,
-    historic_verification: List[Dict[str, str]],
-    vulnerabilities: List[str]
-) -> None:
-    group_loader = context.group_all
-    organization_loader = context.organization
-    group = await group_loader.load(group_name)
-    org_id = group['organization']
-    organization = await organization_loader.load(org_id)
-    org_name = organization['name']
-    all_recipients = await group_access_domain.get_users_to_notify(group_name)
-    recipients = await in_process(
-        vulns_utils.get_reattack_requesters,
-        historic_verification,
-        vulnerabilities
-    )
-    recipients = [
-        recipient for recipient in recipients if recipient in all_recipients
-    ]
-    schedule(
-        mailer.send_mail_verified_finding(
-            recipients,
-            {
-                'project': group_name,
-                'organization': org_name,
-                'finding_name': finding_name,
-                'finding_url': (
-                    f'{BASE_URL}/orgs/{org_name}/groups/{group_name}'
-                    f'/vulns/{finding_id}/tracking'
-                ),
-                'finding_id': finding_id
-            }
-        )
-    )
-
-
 async def send_updated_treatment_mail(
     context: Any,
     treatment: str,
@@ -948,7 +908,6 @@ def validate_requested_zero_risk_vuln(
 
 async def verify(
     *,
-    context: Any,
     info: GraphQLResolveInfo,
     finding_id: str,
     vulnerabilities: List[Dict[str, FindingType]],
@@ -956,8 +915,6 @@ async def verify(
     date: str,
     vulns_to_close_from_file: List[Dict[str, str]]
 ) -> List[bool]:
-    finding_loader = info.context.loaders.finding
-    finding = await finding_loader.load(finding_id)
     list_closed_vulns = sorted(
         [
             [
@@ -994,19 +951,6 @@ async def verify(
             list_closed_vulns,
             vulns_to_close_from_file,
             fillvalue={}
-        )
-    )
-    schedule(
-        send_finding_verified_email(
-            context,
-            finding_id,
-            str(finding.get('title', '')),
-            str(finding.get('project_name', '')),
-            cast(
-                List[Dict[str, str]],
-                finding.get('historic_verification', [])
-            ),
-            [str(vuln.get('UUID', '')) for vuln in vulnerabilities],
         )
     )
     return success

@@ -13,11 +13,11 @@ from aioextensions import collect
 
 # Local libraries
 from back.settings import LOGGING
-from backend import mailer
 from backend.api import get_new_context
 from backend.typing import MailContent as MailContentType
 from findings import domain as findings_domain
 from groups import domain as groups_domain
+from mailer import findings as findings_mail
 from newutils import findings as findings_utils
 from __init__ import (
     BASE_URL,
@@ -100,7 +100,7 @@ async def get_new_releases() -> None:  # pylint: disable=too-many-locals
         mail_to = [FI_MAIL_PROJECTS]
         mail_to.extend(approvers)
         scheduler_send_mail(
-            mailer.send_mail_new_releases,
+            findings_mail.send_mail_new_releases,
             mail_to,
             email_context
         )

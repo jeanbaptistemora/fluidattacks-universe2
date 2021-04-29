@@ -319,19 +319,6 @@ async def send_mail_project_report(
     )
 
 
-async def send_mail_verified_finding(
-        email_to: List[str],
-        context: MailContentType) -> None:
-    await _send_mails_async_new(
-        email_to,
-        context,
-        VERIFY_TAG,
-        f'Finding verified in [{context["project"]}] - ' +
-        f'[Finding#{context["finding_id"]}]',
-        'verified_finding'
-    )
-
-
 async def send_mail_updated_treatment(
         email_to: List[str],
         context: MailContentType) -> None:
@@ -343,45 +330,6 @@ async def send_mail_updated_treatment(
         f'A vulnerability treatment has changed to {context["treatment"]} ' +
         f'in [{context["project"]}]',
         'updated_treatment'
-    )
-
-
-async def send_mail_new_remediated(
-        email_to: List[str],
-        context: MailContentType) -> None:
-    await _send_mails_async_new(
-        email_to,
-        context,
-        GENERAL_TAG,
-        f'Findings to verify ({context["total"]}) ' +
-        f'in [{context["project"]}]',
-        'new_remediated'
-    )
-
-
-async def send_mail_reject_draft(
-        email_to: List[str],
-        context: MailContentType) -> None:
-    await _send_mails_async_new(
-        email_to,
-        context,
-        GENERAL_TAG,
-        f'Draft unsubmitted in [{context["project"]}] -' +
-        f' #{context["finding_id"]}',
-        'unsubmitted_draft'
-    )
-
-
-async def send_mail_new_releases(
-        email_to: List[str],
-        context: MailContentType) -> None:
-    await _send_mails_async_new(
-        email_to,
-        context,
-        GENERAL_TAG,
-        f'Findings to release ({context["total_unreleased"]})' +
-        f'({context["total_unsubmitted"]})',
-        'new_releases'
     )
 
 

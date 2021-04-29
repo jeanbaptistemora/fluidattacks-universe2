@@ -16,10 +16,7 @@ from aioextensions import (
 )
 from graphql.type.definition import GraphQLResolveInfo
 
-from backend import (
-    mailer,
-    util,
-)
+from backend import util
 from backend.typing import (
     Finding as FindingType,
     MailContent as MailContentType,
@@ -221,7 +218,7 @@ async def send_draft_reject_mail(  # pylint: disable=too-many-arguments
         'project': group_name,
         'organization': org_name
     }
-    schedule(mailer.send_mail_reject_draft(recipients, email_context))
+    schedule(findings_mail.send_mail_reject_draft(recipients, email_context))
 
 
 async def reject_draft(

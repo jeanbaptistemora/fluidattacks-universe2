@@ -1000,13 +1000,25 @@ async def verify_vulnerabilities(  # pylint: disable=too-many-locals
     )
     if all(success) and update_finding:
         success = await vulns_domain.verify(
-            context=info.context.loaders,
             info=info,
             finding_id=finding_id,
             vulnerabilities=vulnerabilities,
             closed_vulns=cast(List[str], parameters.get('closed_vulns', [])),
             date=today,
             vulns_to_close_from_file=vulns_to_close_from_file
+        )
+        schedule(
+            findings_mail.send_mail_verified_finding(
+                info.context.loaders,
+                finding_id,
+                str(finding.get('title', '')),
+                str(finding.get('project_name', '')),
+                cast(
+                    List[Dict[str, str]],
+                    finding.get('historic_verification', [])
+                ),
+                [str(vuln.get('UUID', '')) for vuln in vulnerabilities],
+            )
         )
     else:
         LOGGER.error('An error occurred verifying', **NOEXTRA)

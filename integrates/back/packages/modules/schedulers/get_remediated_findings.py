@@ -12,11 +12,11 @@ from aioextensions import collect
 
 # Local libraries
 from back.settings import LOGGING
-from backend import mailer
 from backend.api import get_new_context
 from backend.typing import MailContent as MailContentType
 from findings import domain as findings_domain
 from groups import domain as groups_domain
+from mailer import findings as findings_mail
 from __init__ import (
     BASE_URL,
     FI_MAIL_CONTINUOUS,
@@ -64,7 +64,7 @@ async def get_remediated_findings() -> None:
                 })
             context['total'] = len(findings)
             scheduler_send_mail(
-                mailer.send_mail_new_remediated,
+                findings_mail.send_mail_new_remediated,
                 mail_to,
                 context
             )
