@@ -1,7 +1,7 @@
 # shellcheck shell=bash
 
 function abort {
-      echo "${1}" \
+      echo "${*}" \
   &&  exit 1 \
   ||  exit 1
 }

@@ -12,7 +12,10 @@ function export_product_variable {
   then
     api_token="${PRODUCT_API_TOKEN}"
   else
-    abort '[CRITICAL] Missing GITLAB_API_TOKEN and PRODUCT_API_TOKEN'
+    abort \
+      "[CRITICAL] ${var_name} is not present in the environment" \
+      "and can not be fetched from Gitlab because GITLAB_API_TOKEN or" \
+      "PRODUCT_API_TOKEN are also not present in the environment"
   fi
 
   if var_value="$(get_project_variable "${api_token}" "${CI_PROJECT_ID}" "${var_name}")"
