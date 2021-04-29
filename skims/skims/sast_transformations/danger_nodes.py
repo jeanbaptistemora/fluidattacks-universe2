@@ -244,10 +244,8 @@ def _mark_array(
         for syntax_step in syntax_steps:
             if isinstance(
                 syntax_step, (graph_model.SyntaxStepArrayInstantiation,)
-            ):
-                if syntax_step.array_type in types:
-                    marker(graph, syntax_step.meta.n_id, finding)
-                    continue
+            ) and (syntax_step.array_type in types):
+                marker(graph, syntax_step.meta.n_id, finding)
 
 
 def _mark_array_input(
