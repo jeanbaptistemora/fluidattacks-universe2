@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Apr 29, 2021, 12:20 PM",
+    "DateLastModified": "Apr 29, 2021, 02:21 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -327,7 +327,7 @@
           "AttributeType": "S"
         },
         {
-          "AttributeName": "analyst",
+          "AttributeName": "analyst_email",
           "AttributeType": "S"
         },
         {
@@ -392,10 +392,6 @@
         },
         {
           "AttributeName": "other",
-          "AttributeType": "S"
-        },
-        {
-          "AttributeName": "user_email",
           "AttributeType": "S"
         },
         {
@@ -1837,7 +1833,7 @@
               "affected_systems": {
                 "S": "Server bWAPP"
               },
-              "analyst": {
+              "analyst_email": {
                 "S": "finding@gmail.com"
               },
               "cvss_version": {
@@ -1979,7 +1975,7 @@
             "requirements",
             "threat",
             "affected_systems",
-            "analyst",
+            "analyst_email",
             "cvss_version",
             "cwe_url",
             "title",
@@ -2022,7 +2018,7 @@
               "source": {
                 "S": "integrates"
               },
-              "analyst": {
+              "modified_by": {
                 "S": "analyst@fluidatttacks.com"
               }
             }
@@ -2030,8 +2026,8 @@
           "NonKeyAttributes": [
             "status",
             "modified_date",
-            "source",
-            "analyst"
+            "modified_by",
+            "source"
           ],
           "DataAccess": {
             "MySql": {}
@@ -2060,7 +2056,7 @@
               "source": {
                 "S": "integrates"
               },
-              "analyst": {
+              "modified_by": {
                 "S": "analyst@fluidatttacks.com"
               }
             }
@@ -2068,8 +2064,54 @@
           "NonKeyAttributes": [
             "status",
             "modified_date",
-            "source",
-            "analyst"
+            "modified_by",
+            "source"
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
+        },
+        {
+          "FacetName": "finding_verification",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "FIN#id#VERIFICATION",
+            "SortKeyAlias": "GROUP#group_name"
+          },
+          "TableData": [
+            {
+              "pk": {
+                "S": "FIN#475041513#VERIFICATION"
+              },
+              "sk": {
+                "S": "GROUP#unittesting"
+              },
+              "status": {
+                "S": "REQUESTED"
+              },
+              "modified_date": {
+                "S": "2021-02-15T14:01:16Z"
+              },
+              "modified_by": {
+                "S": "analyst@fluidatttacks.com"
+              },
+              "comment_id": {
+                "N": "1558048727000"
+              },
+              "vuln_uuids": {
+                "L": [
+                  {
+                    "S": "3098e835-833c-48f7-aa76-12ea884e871f"
+                  }
+                ]
+              }
+            }
+          ],
+          "NonKeyAttributes": [
+            "status",
+            "modified_date",
+            "modified_by",
+            "comment_id",
+            "vuln_uuids"
           ],
           "DataAccess": {
             "MySql": {}
@@ -2095,7 +2137,7 @@
               "modified_date": {
                 "S": "2021-02-15T14:01:16Z"
               },
-              "user_email": {
+              "modified_by": {
                 "S": "analyst@fluidatttacks.com"
               },
               "comment_id": {
@@ -2113,7 +2155,7 @@
           "NonKeyAttributes": [
             "status",
             "modified_date",
-            "user_email",
+            "modified_by",
             "comment_id",
             "vuln_uuids"
           ],
