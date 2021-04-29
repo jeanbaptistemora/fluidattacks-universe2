@@ -365,7 +365,7 @@ const MainCoverHome: StyledComponent<
     h-section
   `,
 })`
-  background-image: url("https://res.cloudinary.com/fluid-attacks/image/upload/v1619036564/airs/home/cover-main_imgm6u.png");
+  background-image: url("https://res.cloudinary.com/fluid-attacks/image/upload/v1619036564/airs/home/cover-main_imgm6u.webp");
 `;
 
 const MainContentHome: StyledComponent<

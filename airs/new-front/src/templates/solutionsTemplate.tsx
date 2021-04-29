@@ -14,12 +14,6 @@ import { graphql } from "gatsby";
 import { Breadcrumb } from "gatsby-plugin-breadcrumb";
 import React from "react";
 
-import devSecOpsImage from "../../static/images/solutions/solution-1.png"; // eslint-disable-line import/no-unresolved
-import securityTestingImage from "../../static/images/solutions/solution-2.png"; // eslint-disable-line import/no-unresolved
-import penetrationTestingImage from "../../static/images/solutions/solution-3.png"; // eslint-disable-line import/no-unresolved
-import ethicalHackingImage from "../../static/images/solutions/solution-4.png"; // eslint-disable-line import/no-unresolved
-import redTeamingImage from "../../static/images/solutions/solution-5.png"; // eslint-disable-line import/no-unresolved
-import attackSimulationImage from "../../static/images/solutions/solution-6.png"; // eslint-disable-line import/no-unresolved
 import { Layout } from "../components/Layout";
 import { NavbarComponent } from "../components/Navbar";
 import { Seo } from "../components/Seo";
@@ -33,6 +27,19 @@ import {
   PageContainer,
 } from "../styles/styledComponents";
 import { translate } from "../utils/translations/translate";
+
+const redTeamingImage: string =
+  "https://res.cloudinary.com/fluid-attacks/image/upload/v1619735155/airs/solutions/solution-red-teaming_trx6rr.webp";
+const devSecOpsImage: string =
+  "https://res.cloudinary.com/fluid-attacks/image/upload/v1619735154/airs/solutions/solution-devsecops_jgeyje.webp";
+const ethicalHackingImage: string =
+  "https://res.cloudinary.com/fluid-attacks/image/upload/v1619735154/airs/solutions/solution-ethical-hacking_zuhkms.webp";
+const attackSimulationImage: string =
+  "https://res.cloudinary.com/fluid-attacks/image/upload/v1619735154/airs/solutions/solution-attack-simulation_asqzhr.webp";
+const penetrationTestingImage: string =
+  "https://res.cloudinary.com/fluid-attacks/image/upload/v1619735154/airs/solutions/solution-penetration-testing_ty3kro.webp";
+const securityTestingImage: string =
+  "https://res.cloudinary.com/fluid-attacks/image/upload/v1619735154/airs/solutions/solution-security-testing_mmthfa.webp";
 
 const SolutionsIndex: React.FC<IQueryData> = ({
   data,

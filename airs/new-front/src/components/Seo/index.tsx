@@ -4,8 +4,6 @@ import { string } from "prop-types"; // eslint-disable-line import/default
 import React from "react";
 import { Helmet } from "react-helmet";
 
-import favicon from "../../../static/images/favicon.png"; // eslint-disable-line import/no-unresolved
-
 interface IMetaItem {
   content: string;
   name: string;
@@ -102,12 +100,9 @@ const Seo: React.FC<ISeoProps> = ({
 
   const linkData: ILinkItem[] = [
     {
-      href: favicon,
+      href:
+        "https://res.cloudinary.com/fluid-attacks/image/upload/v1619036532/airs/favicon_bkgq2p.webp",
       rel: "shortcut icon",
-    },
-    {
-      href: "icons/apple-touch-icon.png",
-      rel: "apple-touch-icon",
     },
   ];
 

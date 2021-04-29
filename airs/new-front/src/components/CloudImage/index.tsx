@@ -51,7 +51,7 @@ const CloudImage: React.FC<{ alt: string; src: string; styles?: string }> = ({
           alt={alt}
           className={styles}
           key={alt}
-          src={image.node.secure_url}
+          src={image.node.secure_url.replace(".png", ".webp")}
         />
       )
     );

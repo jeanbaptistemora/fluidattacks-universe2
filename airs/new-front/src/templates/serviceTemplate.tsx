@@ -14,13 +14,16 @@ import { graphql } from "gatsby";
 import { Breadcrumb } from "gatsby-plugin-breadcrumb";
 import React from "react";
 
-import continuousImage from "../../static/images/services/service-continuous.png"; // eslint-disable-line import/no-unresolved
-import oneShotImage from "../../static/images/services/service-one-shot.png"; // eslint-disable-line import/no-unresolved
 import { Layout } from "../components/Layout";
 import { NavbarComponent } from "../components/Navbar";
 import { Seo } from "../components/Seo";
 import { ServicePage } from "../components/ServicePage";
 import { translate } from "../utils/translations/translate";
+
+const continuousImage: string =
+  "https://res.cloudinary.com/fluid-attacks/image/upload/v1619722210/airs/services/service-continuous_qyvqv8.webp";
+const oneShotImage: string =
+  "https://res.cloudinary.com/fluid-attacks/image/upload/v1619722210/airs/services/service-one-shot_pjqgnf.webp";
 
 const ContinuousHackingIndex: React.FC<IQueryData> = ({
   data,
