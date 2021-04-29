@@ -55,6 +55,10 @@ def update_integrates_toes(group_name: str, csv_name: str) -> None:
                 predicted_file['file'],
                 int(float(predicted_file['prob_vuln']))
             )
+        log(
+            'info',
+            f'ToeLines\'s sortsFileRisk for {group_name} updated'
+        )
 
 
 def prioritize(subscription_path: str) -> bool:
