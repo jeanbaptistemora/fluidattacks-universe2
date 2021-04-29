@@ -48,6 +48,7 @@ from custom_exceptions import (
     FindingNotFound,
     InvalidCommentParent,
     InvalidDraftTitle,
+    NotVerificationRequested,
     PermissionDenied,
     VulnNotFound,
 )
@@ -710,7 +711,7 @@ async def request_vulnerability_verification(
     user_info: Dict[str, str],
     justification: str,
     vuln_ids: List[str]
-) -> bool:
+) -> None:
     finding = await findings_dal.get_finding(finding_id)
     vulnerabilities = await vulns_domain.get_by_finding_and_uuids(
         finding_id,
@@ -769,7 +770,7 @@ async def request_vulnerability_verification(
         )
     else:
         LOGGER.error('An error occurred remediating', **NOEXTRA)
-    return all(update_vulns)
+        raise NotVerificationRequested()
 
 
 async def save_severity(finding: Dict[str, FindingType]) -> bool:
