@@ -238,6 +238,44 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
     },
   ];
 
+  function setColumn(): JSX.Element | undefined {
+    if (isEditing) {
+      return (
+        <Col100>
+          {isFindingReleased &&
+          (canUpdateVulnsTreatment || canRequestZeroRiskVuln) ? (
+            <React.Fragment>
+              <RowCenter>
+                <TooltipWrapper
+                  id={t("searchFindings.tabDescription.editVulnTooltip.id")}
+                  message={t("searchFindings.tabDescription.editVulnTooltip")}
+                  placement={"top"}
+                >
+                  <Button
+                    disabled={selectedVulnerabilities.length === 0}
+                    onClick={openUpdateVulnModal}
+                  >
+                    <FluidIcon icon={"edit"} />
+                    {t("searchFindings.tabDescription.editVuln")}
+                  </Button>
+                </TooltipWrapper>
+              </RowCenter>
+              <br />
+            </React.Fragment>
+          ) : undefined}
+          <Can do={"backend_api_mutations_upload_file_mutate"}>
+            <UploadVulnerabilities
+              findingId={findingId}
+              groupName={groupName}
+            />
+          </Can>
+        </Col100>
+      );
+    }
+
+    return undefined;
+  }
+
   return (
     <React.StrictMode>
       <DataTableNext
@@ -278,37 +316,7 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
           />
         </Modal>
       ) : undefined}
-      {isEditing ? (
-        <Col100>
-          {isFindingReleased &&
-          (canUpdateVulnsTreatment || canRequestZeroRiskVuln) ? (
-            <React.Fragment>
-              <RowCenter>
-                <TooltipWrapper
-                  id={t("searchFindings.tabDescription.editVulnTooltip.id")}
-                  message={t("searchFindings.tabDescription.editVulnTooltip")}
-                  placement={"top"}
-                >
-                  <Button
-                    disabled={selectedVulnerabilities.length === 0}
-                    onClick={openUpdateVulnModal}
-                  >
-                    <FluidIcon icon={"edit"} />
-                    {t("searchFindings.tabDescription.editVuln")}
-                  </Button>
-                </TooltipWrapper>
-              </RowCenter>
-              <br />
-            </React.Fragment>
-          ) : undefined}
-          <Can do={"backend_api_mutations_upload_file_mutate"}>
-            <UploadVulnerabilities
-              findingId={findingId}
-              groupName={groupName}
-            />
-          </Can>
-        </Col100>
-      ) : undefined}
+      {setColumn()}
       <Modal
         headerTitle={t("searchFindings.tabVuln.vulnerabilityInfo")}
         open={isAdditionalInfoOpen}
