@@ -25,6 +25,15 @@ a|==== Precision
 ensures that we achieve *minimal rates* of false positives (lies).
 | They report about *35%* false positives.<<f1 ,*>>
 
+a|==== Accuracy (only tool)
+| Our SAST tool achieved *the best possible result*
+against the OWASP Benchmark (link:../../blog/owasp-benchmark-fluid-attacks/[read the post here]):
+A *TPR* (True Positive Rate) of *100%*
+and an *FPR* (False Positive Rate) of *0%*.
+| Some of them boast about a TPR of 100%,
+but their FPR numbers may not be outstanding.
+Others hardly come close to the expected results.
+
 a|==== Completeness
 | Thanks to our combination of technology and human expertise,
 we have *minimal rates* of false negatives (omissions).
