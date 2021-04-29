@@ -700,3 +700,9 @@ class RepeatedFindingNamePolicy(Exception):
     def __init__(self) -> None:
         msg = 'Exception - The finding name policy already exists'
         super(RepeatedFindingNamePolicy, self).__init__(msg)
+
+
+class FindingNamePolicyNotFound(Exception):
+    def __init__(self) -> None:
+        msg = 'Exception - Finding name policy not found'
+        super(FindingNamePolicyNotFound, self).__init__(msg)

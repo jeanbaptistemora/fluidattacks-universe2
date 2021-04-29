@@ -7,6 +7,7 @@ from uuid import uuid4
 
 # Local libraries
 from custom_exceptions import (
+    FindingNamePolicyNotFound,
     InvalidFindingNamePolicy,
     RepeatedFindingNamePolicy,
 )
@@ -22,7 +23,23 @@ from newutils import (
 from .dal import (
     add_org_finding_policy,
     get_org_finding_policies,
+    get_org_finding_policy,
 )
+
+
+async def get_finding_policy(
+    *,
+    org_name: str,
+    finding_policy_id: str
+) -> OrgFindingPolicyItem:
+    finding_policy = await get_org_finding_policy(
+        org_name=org_name,
+        finding_policy_id=finding_policy_id
+    )
+    if finding_policy:
+        return finding_policy
+
+    raise FindingNamePolicyNotFound()
 
 
 async def get_finding_policies(

@@ -746,6 +746,42 @@ def _build_org_policy_finding(
     )
 
 
+async def get_org_finding_policy(
+    *,
+    org_name: str,
+    finding_policy_id: str,
+) -> Optional[OrgFindingPolicyItem]:
+    primary_key = keys.build_key(
+        facet=TABLE.facets['org_finding_policy_metadata'],
+        values={'name': org_name, 'uuid': finding_policy_id},
+    )
+
+    index = TABLE.indexes['inverted_index']
+    key_structure = index.primary_key
+    results = await operations.query(
+        condition_expression=(
+            Key(key_structure.partition_key).eq(primary_key.sort_key) &
+            Key(key_structure.sort_key).begins_with(primary_key.partition_key)
+        ),
+        facets=(
+            TABLE.facets['org_finding_policy_metadata'],
+            TABLE.facets['org_finding_policy_state']
+        ),
+        index=index,
+        table=TABLE
+    )
+
+    if results:
+        return _build_org_policy_finding(
+            org_name=org_name,
+            item_id=primary_key.partition_key,
+            key_structure=key_structure,
+            raw_items=results
+        )
+
+    return None
+
+
 async def get_org_finding_policies(
     *,
     org_name: str
