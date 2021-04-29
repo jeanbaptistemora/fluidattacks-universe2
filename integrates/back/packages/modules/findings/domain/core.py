@@ -55,6 +55,7 @@ from custom_exceptions import (
 from dynamodb.operations_legacy import start_context
 from findings import dal as findings_dal
 from group_access import domain as group_access_domain
+from mailer import findings as findings_mail
 from newutils import (
     comments as comments_utils,
     cvss,
@@ -809,7 +810,7 @@ async def send_finding_delete_mail(  # pylint: disable=too-many-arguments
     del context
     recipients = FI_MAIL_REVIEWERS.split(',')
     schedule(
-        mailer.send_mail_delete_finding(
+        findings_mail.send_mail_delete_finding(
             recipients,
             {
                 'analyst_email': discoverer_email,
@@ -847,7 +848,7 @@ async def send_remediation_email(  # pylint: disable=too-many-arguments
     org_name = organization['name']
     recipients = await group_access_domain.get_closers(group_name)
     schedule(
-        mailer.send_mail_remediate_finding(
+        findings_mail.send_mail_remediate_finding(
             recipients,
             {
                 'project': group_name.lower(),

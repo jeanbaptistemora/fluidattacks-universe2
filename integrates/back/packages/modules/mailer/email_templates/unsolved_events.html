@@ -1,0 +1,14 @@
+{% extends "layouts/fluid_attacks.html" %}
+{% from 'layouts/components/forms.html' import go_to_button as button %}
+{% block content %}
+<p>Hello {{ name }},</p>
+<p>
+  Project <strong>{{ project }}</strong> has {{ events_len }}
+  {% if events_len == 1 %} event {% else %} events {% endif %} which
+  {% if events_len == 1 %} is {% else %} are {% endif %} restricting the execution of the project.
+</p>
+<p>
+  Go right now to <strong>Integrates</strong> and solve them.
+</p>
+{{ button('Go to events', event_url) }}
+{% endblock %}

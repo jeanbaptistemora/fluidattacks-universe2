@@ -1,0 +1,11 @@
+{% extends "layouts/fluid_attacks.html" %}
+{% from 'layouts/components/forms.html' import go_to_button as button %}
+{% block content %}
+<p>Hello {{ name }},</p>
+<p>
+  <strong>{{ admin_mail }}</strong> has returned the draft <strong>{{ finding_name }}</strong>
+  of project <strong>{{ project }}</strong>, reported by <strong>{{ analyst_mail }}</strong>
+  to the unsubmitted status.
+</p>
+{{ button('Go to the draft', draft_url) }}
+{% endblock %}

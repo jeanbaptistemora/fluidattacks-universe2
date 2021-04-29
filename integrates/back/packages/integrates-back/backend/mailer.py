@@ -251,19 +251,6 @@ async def get_email_recipients(
     return recipients
 
 
-async def send_mail_new_draft(
-        email_to: List[str],
-        context: MailContentType) -> None:
-    await _send_mails_async_new(
-        email_to,
-        context,
-        GENERAL_TAG,
-        f'New draft submitted in [{context["project"]}] - ' +
-        f'[Finding#{context["finding_id"]}]',
-        'new_draft'
-    )
-
-
 async def send_mail_analytics(
         *email_to: str,
         **context: str) -> None:
@@ -290,35 +277,6 @@ async def send_mail_new_user(
         GENERAL_TAG,
         f'New access request by {context["mail_user"]} for FLUIDIntegrates',
         'new_user'
-    )
-
-
-async def send_mail_delete_finding(
-        email_to: List[str],
-        context: MailContentType) -> None:
-    await _send_mails_async_new(
-        email_to,
-        context,
-        GENERAL_TAG,
-        f'Finding #{context["finding_id"]} in [{context["project"]}] ' +
-        f'was removed',
-        'delete_finding'
-    )
-
-
-async def send_mail_remediate_finding(
-        email_to: List[str],
-        context: MailContentType) -> None:
-    context[
-        "solution_description"
-    ] = f'"{context["solution_description"]}"'.splitlines()
-    await _send_mails_async_new(
-        email_to,
-        context,
-        VERIFY_TAG,
-        f'New remediation in [{context["project"]}] - ' +
-        f'[Finding#{context["finding_id"]}]',
-        'remediate_finding'
     )
 
 

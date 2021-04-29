@@ -1,0 +1,12 @@
+{% extends "layouts/fluid_attacks.html" %}
+{% from 'layouts/components/forms.html' import go_to_button as button, bullet_area %}
+{% block content %}
+<p>Hello {{ name }},</p>
+<p>
+  <strong>{{ user_email }}</strong> has <strong>{{ action }}</strong> the
+  following {{ resource_type }} in <strong>{{ project }}</strong>:
+</p>
+{{ bullet_area(resource_list) }}
+<br />
+{{ button('Go to resources', project_url) }}
+{% endblock %}

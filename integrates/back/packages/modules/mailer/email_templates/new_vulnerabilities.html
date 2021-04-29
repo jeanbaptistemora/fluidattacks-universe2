@@ -1,0 +1,22 @@
+{% extends "layouts/fluid_attacks.html" %}
+{% from 'layouts/components/forms.html' import go_to_button as button, main_image, findings_area %}
+{% block content %}
+<p>Hello {{ name }},</p>
+<p>
+  We checked your system and found a modification in the amount of
+  vulnerabilities in the project <strong>{{ project }}</strong>.
+</p>
+{{ main_image('https://gallery.mailchimp.com/a32e6c9ce2902c975d3ea510c/images/68a2b87f-b052-40b0-8ca1-91e2e26f96cf.gif', 320) }}
+<p>
+  We detected the following modifications:
+</p>
+{{ findings_area(updated_findings) }}
+<p>
+  By the way, the following findings do not have a defined treatment yet:
+</p>
+{{ findings_area(no_treatment_findings) }}
+<p>
+  Log in to Integrates and see the current status of your project.
+</p>
+{{ button('Go to the project', project_url) }}
+{% endblock %}

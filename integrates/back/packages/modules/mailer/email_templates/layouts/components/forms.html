@@ -1,0 +1,80 @@
+{# Generic Go to button: rounded and centered #}
+{% macro go_to_button(text, url) %}
+<div class="flex justify-center">
+  <a id="download" class="pa3 dim justify-center" title="{{ text }}" href="{{ url }}" target="_blank" rel="noopener">
+    {{ text }}
+  </a>
+</div>
+{% endmacro %}
+
+{# Generic centered image or animation #}
+{% macro main_image(url, size) %}
+<div class="flex justify-center">
+  <img alt="Main image"
+    class="flex w-100 justify-center"
+    src="{{ url }}"
+    width="{{ size }}"
+    style="max-width: {{ size }}px; padding-bottom: 0; display: inline !important; vertical-align: bottom;">
+</div>
+{% endmacro %}
+
+{# Image section for analytics report #}
+{# Not the same as main_image due to a bug in safari with flexbox #}
+{% macro analytics_image(url, size) %}
+<div>
+  <img alt="Analytics (charts) image" class="w-100"
+    src="{{ url }}"
+    width="{{ size }}"
+    style="display:block;">
+</div>
+{% endmacro %}
+
+{# Generic gray text area #}
+{%+ macro text_area(text) %}
+<div class="w-80 gray-text-area">
+  {% for line in text %}
+    <div>{{ line }}</div>
+  {% endfor %}
+</div>
+{% endmacro %}
+
+{# Bulleted gray text area for resources changes #}
+{%+ macro bullet_area(list) %}
+<div class="w-80 gray-text-area">
+  <ul>
+  {% for resource in list %}
+    <li>{{ resource['resource_description'] }}</li>
+  {% endfor %}
+  <ul>
+</div>
+{% endmacro %}
+
+{# Bulleted gray text area for new releases #}
+{%+ macro releases_area(list) %}
+<div class="w-80 gray-text-area">
+  <ul>
+  {% for finding in list %}
+    <li>
+      <a href="{{ finding['finding_url'] }}" target="_blank" rel="noopener">
+        {{ finding['project'] }} - {{ finding['finding_name'] }}
+      </a>
+    </li>
+  {% endfor %}
+  <ul>
+</div>
+{% endmacro %}
+
+{# Bulleted gray text area for vulns changes #}
+{%+ macro findings_area(list) %}
+<div class="w-80 gray-text-area">
+  <ul>
+  {% for finding in list %}
+    <li>
+      <a href="{{ finding['finding_url'] }}" target="_blank" rel="noopener">
+        {{ finding['finding_name'] }}
+      </a>
+    </li>
+  {% endfor %}
+  <ul>
+</div>
+{% endmacro %}

@@ -1,0 +1,12 @@
+{% extends "layouts/fluid_attacks.html" %}
+{% from 'layouts/components/forms.html' import go_to_button as button, text_area %}
+{% block content %}
+<p>Hello {{ name }},</p>
+<p>
+  The treatment of the following vulnerabilities in finding <strong>{{ finding }}</strong>
+  in project <strong>{{ project }}</strong> has been changed to <strong>{{ treatment }}</strong>:
+</p>
+{{ text_area(vulnerabilities) }}
+<br />
+{{ button('Go to the finding', finding_link) }}
+{% endblock %}

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en" xml:lang="en" xmlns='http://www.w3.org/1999/xhtml' xmlns:v='urn:schemas-microsoft-com:vml'
+  xmlns:o='urn:schemas-microsoft-com:office:office'>
+
+<head>
+  <meta charset='UTF-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+  <title>{{ subject }}</title>
+  <style>
+    .flex {
+      display: flex;
+    }
+
+    .justify-center {
+      margin: 0 auto;
+    }
+
+    .w-100 {
+      width: 100%;
+    }
+
+    .w-50 {
+      width: 50%;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 800px;
+    }
+
+    .w-70 {
+      width: 70%;
+    }
+
+    .h-100 {
+      height: 100%;
+    }
+
+    .pa1 {
+      padding: 5px;
+    }
+
+    .pa3 {
+      padding: 15px;
+    }
+
+    img,
+    a img {
+      border: 0;
+      height: auto;
+      outline: none;
+      text-decoration: none;
+    }
+
+    .h2 {
+      height: 2rem;
+    }
+
+    .dim {
+      opacity: 1;
+      transition: opacity 0.15s ease-in;
+    }
+
+    .dim:hover,
+    .dim:focus {
+      opacity: 0.5;
+      transition: opacity 0.15s ease-in;
+    }
+
+    .dim:active {
+      opacity: 0.8;
+      transition: opacity 0.15s ease-out;
+    }
+
+    @media screen and (max-width: 30em) {
+      .w-80-ns {
+        width: 80%;
+      }
+
+      .w-90-ns {
+        width: 90%;
+      }
+
+      .w-100-ns {
+        width: 100%;
+      }
+    }
+
+    @media screen and (min-width: 30em) and (max-width: 60em) {
+      .w-80-m {
+        width: 80%;
+      }
+
+      .w-90-m {
+        width: 90%;
+      }
+
+      .w-100-m {
+        width: 100%;
+      }
+    }
+
+    @media screen and (min-width: 60em) {
+      .w-50-l {
+        width: 50%;
+      }
+    }
+
+    body {
+      background: #f0f0f0;
+      padding: 10px;
+    }
+
+    div#main {
+      background: white;
+    }
+
+    a {
+      color: red;
+    }
+
+    a#download {
+      background: red;
+      font-weight: bold;
+      letter-spacing: 1px;
+      line-height: 100%;
+      text-align: center;
+      text-decoration: none;
+      color: white;
+      border-radius: 15px;
+    }
+
+    .black-box {
+      background: #363636;
+      color: white;
+      text-align: center;
+      padding-top: 10px;
+    }
+
+    hr {
+      border: 1px solid grey;
+      border-radius: 15px;
+    }
+
+    .text-content {
+      font-family: Tahoma, Verdana, Segoe, sans-serif;
+      font-size: 15px;
+      padding: 16px;
+    }
+
+    .text-footer {
+      font-family: Tahoma, Verdana, Segoe, sans-serif;
+      font-size: 12px;
+      padding: 12px;
+    }
+
+    .gray-text-area {
+      font-family: Tahoma, Verdana, Segoe, sans-serif;
+      font-size: 15px;
+      background-color: lightgray;
+      font-style: italic;
+      text-align: justify;
+      padding: 15px 20px;
+      margin: 15px 0;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- BEGIN TEMPLATE // -->
+  {% block layout %}{% endblock %}
+  <!-- // END TEMPLATE -->
+</body>
+
+</html>

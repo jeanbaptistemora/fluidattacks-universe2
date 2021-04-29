@@ -34,6 +34,7 @@ from custom_exceptions import (
     NotSubmitted,
 )
 from findings import dal as findings_dal
+from mailer import findings as findings_mail
 from newutils import (
     datetime as datetime_utils,
     findings as findings_utils,
@@ -285,7 +286,7 @@ async def send_new_draft_mail(
         'project': group_name,
         'organization': org_name
     }
-    schedule(mailer.send_mail_new_draft(recipients, email_context))
+    schedule(findings_mail.send_mail_new_draft(recipients, email_context))
 
 
 async def submit_draft(  # pylint: disable=too-many-locals
