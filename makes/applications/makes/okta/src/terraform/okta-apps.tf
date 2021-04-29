@@ -179,11 +179,9 @@ resource "okta_app_user" "aws" {
 
   profile = jsonencode({
     email        = okta_user.users[each.value.user].email
-    secondEmail  = okta_user.users[each.value.user].second_email
     samlRoles    = each.value.roles
     firstName    = okta_user.users[each.value.user].first_name
     lastName     = okta_user.users[each.value.user].last_name
-    mobilePhone  = okta_user.users[each.value.user].mobile_phone
     role         = "AmazonComprehendServiceRole-testttt"
     idpRolePairs = []
   })

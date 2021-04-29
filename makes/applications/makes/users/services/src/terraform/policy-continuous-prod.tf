@@ -63,7 +63,8 @@ data "aws_iam_policy_document" "continuous-prod-policy-data" {
       "kms:Describe*",
       "kms:CreateKey",
       "kms:CreateAlias",
-      "kms:UpdateAlias"
+      "kms:UpdateAlias",
+      "kms:PutKeyPolicy",
     ]
     resources = ["*"]
   }
