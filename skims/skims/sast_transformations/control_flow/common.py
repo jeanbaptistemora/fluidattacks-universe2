@@ -199,7 +199,33 @@ def catch_statement(
     graph: Graph,
     n_id: str,
     stack: Stack,
+    *,
     _generic: GenericType,
 ) -> None:
     propagate_next_id_from_parent(stack)
     link_to_last_node(graph, n_id, stack, _generic=_generic)
+
+
+def loop_statement(
+    graph: Graph,
+    n_id: str,
+    stack: Stack,
+    *,
+    _generic: GenericType,
+) -> None:
+    # If there is a next node, link it as `false`, this means
+    # the predicate of the for did not hold
+    if (next_id := get_next_id(stack)) and graph.nodes[n_id][
+        "label_type"
+    ] not in {
+        "do_statement",
+    }:
+        graph.add_edge(n_id, next_id, **FALSE)
+
+    # If the predicate holds as `true` then enter into the block
+    c_id = g.adj_ast(graph, n_id, label_type="block")[-1]
+    graph.add_edge(n_id, c_id, **TRUE)
+
+    # Recurse into the for block
+    propagate_next_id_from_parent(stack)
+    _generic(graph, c_id, stack, edge_attrs=ALWAYS)

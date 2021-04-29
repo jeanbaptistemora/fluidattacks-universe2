@@ -12,9 +12,7 @@ from model import (
 )
 from sast_transformations import (
     ALWAYS,
-    FALSE,
     MAYBE,
-    TRUE,
 )
 from sast_transformations.control_flow.types import (
     EdgeAttrs,
@@ -22,9 +20,9 @@ from sast_transformations.control_flow.types import (
 )
 from sast_transformations.control_flow.common import (
     catch_statement,
-    get_next_id,
     if_statement,
     link_to_last_node,
+    loop_statement,
     propagate_next_id_from_parent,
     set_next_id,
     step_by_step,
@@ -33,25 +31,6 @@ from sast_transformations.control_flow.common import (
 from utils import (
     graph as g,
 )
-
-
-def _loop_statement(
-    graph: graph_model.Graph,
-    n_id: str,
-    stack: Stack,
-) -> None:
-    # If there is a next node, link it as `false`, this means
-    # the predicate of the for did not hold
-    if next_id := get_next_id(stack):
-        graph.add_edge(n_id, next_id, **FALSE)
-
-    # If the predicate holds as `true` then enter into the block
-    c_id = g.adj_ast(graph, n_id)[-1]
-    graph.add_edge(n_id, c_id, **TRUE)
-
-    # Recurse into the for block
-    propagate_next_id_from_parent(stack)
-    _generic(graph, c_id, stack, edge_attrs=ALWAYS)
 
 
 def _switch_statement(
@@ -117,24 +96,44 @@ def _generic(
             ),
         ),
         (
-            {"catch_clause"},
+            {
+                "catch_clause",
+            },
             partial(catch_statement, _generic=_generic),
         ),
         (
-            {"for_statement", "enhanced_for_statement", "while_statement"},
-            _loop_statement,
+            {
+                "for_statement",
+                "enhanced_for_statement",
+                "while_statement",
+                "do_statement",
+            },
+            partial(loop_statement, _generic=_generic),
         ),
         (
-            {"if_statement"},
+            {
+                "if_statement",
+            },
             partial(if_statement, _generic=_generic),
         ),
-        ({"switch_statement"}, _switch_statement),
         (
-            {"constructor_declaration", "method_declaration"},
+            {
+                "switch_statement",
+            },
+            _switch_statement,
+        ),
+        (
+            {
+                "constructor_declaration",
+                "method_declaration",
+            },
             partial(link_to_last_node, _generic=_generic),
         ),
         (
-            {"try_statement", "try_with_resources_statement"},
+            {
+                "try_statement",
+                "try_with_resources_statement",
+            },
             partial(try_statement, _generic=_generic),
         ),
     ):

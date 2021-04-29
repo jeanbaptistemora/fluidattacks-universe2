@@ -7055,6 +7055,8 @@
             },
             "782": {
               "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_true": "cfg_true",
               "label_index": "1"
             },
             "950": {
@@ -7068,10 +7070,6 @@
             "958": {
               "label_ast": "AST",
               "label_index": "4"
-            },
-            "959": {
-              "label_cfg": "CFG",
-              "label_cfg_always": "cfg_always"
             }
           },
           "782": {
@@ -7081,6 +7079,8 @@
             },
             "784": {
               "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always",
               "label_index": "1"
             },
             "797": {
@@ -7099,6 +7099,8 @@
           "784": {
             "785": {
               "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always",
               "label_index": "0"
             },
             "796": {
@@ -7122,6 +7124,10 @@
             "789": {
               "label_ast": "AST",
               "label_index": "3"
+            },
+            "797": {
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always"
             }
           },
           "789": {
@@ -7155,6 +7161,8 @@
           "797": {
             "798": {
               "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always",
               "label_index": "0"
             },
             "801": {
@@ -7170,6 +7178,10 @@
             "800": {
               "label_ast": "AST",
               "label_index": "1"
+            },
+            "802": {
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always"
             }
           },
           "802": {
@@ -7203,7 +7215,13 @@
             },
             "821": {
               "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_true": "cfg_true",
               "label_index": "7"
+            },
+            "959": {
+              "label_cfg": "CFG",
+              "label_cfg_false": "cfg_false"
             }
           },
           "805": {
@@ -7281,6 +7299,8 @@
             },
             "823": {
               "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always",
               "label_index": "1"
             },
             "836": {
@@ -7295,6 +7315,8 @@
           "823": {
             "824": {
               "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always",
               "label_index": "0"
             },
             "835": {
@@ -7318,6 +7340,10 @@
             "828": {
               "label_ast": "AST",
               "label_index": "3"
+            },
+            "836": {
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always"
             }
           },
           "828": {
@@ -7379,7 +7405,13 @@
             },
             "855": {
               "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_true": "cfg_true",
               "label_index": "7"
+            },
+            "959": {
+              "label_cfg": "CFG",
+              "label_cfg_false": "cfg_false"
             }
           },
           "839": {
@@ -7441,6 +7473,8 @@
             },
             "857": {
               "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always",
               "label_index": "1"
             },
             "864": {
@@ -7468,6 +7502,10 @@
             "863": {
               "label_ast": "AST",
               "label_index": "2"
+            },
+            "864": {
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always"
             }
           },
           "859": {
@@ -7515,7 +7553,13 @@
             },
             "873": {
               "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_true": "cfg_true",
               "label_index": "2"
+            },
+            "934": {
+              "label_cfg": "CFG",
+              "label_cfg_false": "cfg_false"
             }
           },
           "866": {
@@ -7553,6 +7597,8 @@
             },
             "875": {
               "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always",
               "label_index": "1"
             },
             "900": {
@@ -7583,7 +7629,13 @@
             },
             "884": {
               "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_true": "cfg_true",
               "label_index": "2"
+            },
+            "900": {
+              "label_cfg": "CFG",
+              "label_cfg_false": "cfg_false"
             }
           },
           "877": {
@@ -7641,6 +7693,8 @@
             },
             "886": {
               "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always",
               "label_index": "1"
             },
             "896": {
@@ -7655,6 +7709,8 @@
           "886": {
             "887": {
               "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always",
               "label_index": "0"
             },
             "895": {
@@ -7678,6 +7734,10 @@
             "891": {
               "label_ast": "AST",
               "label_index": "3"
+            },
+            "896": {
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always"
             }
           },
           "891": {
@@ -7702,6 +7762,10 @@
             "898": {
               "label_ast": "AST",
               "label_index": "1"
+            },
+            "900": {
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always"
             }
           },
           "90": {
@@ -7721,6 +7785,8 @@
           "900": {
             "901": {
               "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always",
               "label_index": "0"
             },
             "912": {
@@ -7744,6 +7810,10 @@
             "905": {
               "label_ast": "AST",
               "label_index": "3"
+            },
+            "913": {
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always"
             }
           },
           "905": {
@@ -7777,6 +7847,8 @@
           "913": {
             "914": {
               "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always",
               "label_index": "0"
             },
             "917": {
@@ -7792,6 +7864,10 @@
             "916": {
               "label_ast": "AST",
               "label_index": "1"
+            },
+            "918": {
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always"
             }
           },
           "918": {
@@ -7805,7 +7881,13 @@
             },
             "927": {
               "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_true": "cfg_true",
               "label_index": "2"
+            },
+            "934": {
+              "label_cfg": "CFG",
+              "label_cfg_false": "cfg_false"
             }
           },
           "92": {
@@ -7857,6 +7939,8 @@
             },
             "929": {
               "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always",
               "label_index": "1"
             },
             "932": {
@@ -7872,6 +7956,10 @@
             "931": {
               "label_ast": "AST",
               "label_index": "1"
+            },
+            "934": {
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always"
             }
           },
           "93": {
@@ -7895,6 +7983,8 @@
           "934": {
             "935": {
               "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always",
               "label_index": "0"
             },
             "946": {
@@ -7918,6 +8008,10 @@
             "939": {
               "label_ast": "AST",
               "label_index": "3"
+            },
+            "959": {
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always"
             }
           },
           "939": {
@@ -23308,6 +23402,263 @@
             "var": "e"
           }
         ],
+        "782": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "782",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "784": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "784",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "785": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "794",
+              "value": null
+            },
+            "symbol": "counter",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "792",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "Inside the while loop, counting: ",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "791",
+              "value": null
+            },
+            "operator": "+",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "current_instance": {
+              "fields": {}
+            },
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "785",
+              "value": null
+            },
+            "method": "System.out.println",
+            "type": "SyntaxStepMethodInvocation"
+          }
+        ],
+        "797": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "797",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "802": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "810",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "1",
+            "value_type": "number"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "805",
+              "value": null
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "i",
+            "var_type": "int"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "802",
+              "value": null
+            },
+            "n_id_conditional_expression": "812",
+            "n_id_update": "817",
+            "n_id_var_declaration": "805",
+            "type": "SyntaxStepFor"
+          }
+        ],
+        "821": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "821",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "823": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "823",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "824": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "833",
+              "value": null
+            },
+            "symbol": "i",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "831",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "number :",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "830",
+              "value": null
+            },
+            "operator": "+",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "current_instance": {
+              "fields": {}
+            },
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "824",
+              "value": null
+            },
+            "method": "System.out.println",
+            "type": "SyntaxStepMethodInvocation"
+          }
+        ],
+        "836": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "844",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "1",
+            "value_type": "number"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "839",
+              "value": null
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "j",
+            "var_type": "int"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "836",
+              "value": null
+            },
+            "n_id_conditional_expression": "846",
+            "n_id_update": "851",
+            "n_id_var_declaration": "839",
+            "type": "SyntaxStepFor"
+          }
+        ],
+        "855": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "855",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "857": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "862",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "0",
+            "value_type": "number"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "857",
+              "value": null
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "counter",
+            "var_type": "int"
+          }
+        ],
         "86": [
           {
             "meta": {
@@ -23317,6 +23668,103 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          }
+        ],
+        "864": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "871",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "5",
+            "value_type": "number"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "869",
+              "value": null
+            },
+            "symbol": "counter",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "868",
+              "value": null
+            },
+            "operator": "<",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "864",
+              "value": null
+            },
+            "type": "SyntaxStepParenthesizedExpression"
+          }
+        ],
+        "873": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "873",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "875": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "882",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "3",
+            "value_type": "number"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "880",
+              "value": null
+            },
+            "symbol": "counter",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "879",
+              "value": null
+            },
+            "operator": "==",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "875",
+              "value": null
+            },
+            "n_id_false": "900",
+            "n_id_true": "884",
+            "type": "SyntaxStepIf"
           }
         ],
         "88": [
@@ -23364,6 +23812,256 @@
             "n_id_false": "116",
             "n_id_true": "103",
             "type": "SyntaxStepIf"
+          }
+        ],
+        "884": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "884",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "886": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "886",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "887": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "893",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "Breaking the for loop.",
+            "value_type": "string"
+          },
+          {
+            "current_instance": {
+              "fields": {}
+            },
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "887",
+              "value": null
+            },
+            "method": "System.out.println",
+            "type": "SyntaxStepMethodInvocation"
+          }
+        ],
+        "896": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "896",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "900": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "900",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "901": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "910",
+              "value": null
+            },
+            "symbol": "counter",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "908",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "Inside the while loop, counting: ",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "907",
+              "value": null
+            },
+            "operator": "+",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "current_instance": {
+              "fields": {}
+            },
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "901",
+              "value": null
+            },
+            "method": "System.out.println",
+            "type": "SyntaxStepMethodInvocation"
+          }
+        ],
+        "913": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "913",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "918": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "925",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "4",
+            "value_type": "number"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "923",
+              "value": null
+            },
+            "symbol": "counter",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "922",
+              "value": null
+            },
+            "operator": "==",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "918",
+              "value": null
+            },
+            "n_id_false": "934",
+            "n_id_true": "927",
+            "type": "SyntaxStepIf"
+          }
+        ],
+        "927": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "927",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "929": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "929",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "934": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "934",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "935": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "944",
+              "value": null
+            },
+            "symbol": "j",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "942",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "number :",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "941",
+              "value": null
+            },
+            "operator": "+",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "current_instance": {
+              "fields": {}
+            },
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "935",
+              "value": null
+            },
+            "method": "System.out.println",
+            "type": "SyntaxStepMethodInvocation"
           }
         ],
         "959": [

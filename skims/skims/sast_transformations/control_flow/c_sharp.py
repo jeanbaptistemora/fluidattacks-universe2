@@ -15,6 +15,7 @@ from sast_transformations.control_flow.common import (
     catch_statement,
     if_statement,
     link_to_last_node,
+    loop_statement,
     propagate_next_id_from_parent,
     set_next_id,
     step_by_step,
@@ -83,7 +84,6 @@ def _generic(
                 "block",
                 "constructor_body",
                 "expression_statement",
-                "resource_specification",
             },
             partial(step_by_step, _generic=_generic),
         ),
@@ -101,16 +101,31 @@ def _generic(
             switch_statement,
         ),
         (
-            {"catch_clause"},
+            {
+                "catch_clause",
+            },
             partial(catch_statement, _generic=_generic),
         ),
         (
-            {"if_statement"},
+            {
+                "if_statement",
+            },
             partial(if_statement, _generic=_generic),
         ),
         (
-            {"try_statement"},
+            {
+                "try_statement",
+            },
             partial(try_statement, _generic=_generic),
+        ),
+        (
+            {
+                "for_statement",
+                "do_statement",
+                "while_statement",
+                "for_each_statement",
+            },
+            partial(loop_statement, _generic=_generic),
         ),
     )
     for types, walker in walkers:
