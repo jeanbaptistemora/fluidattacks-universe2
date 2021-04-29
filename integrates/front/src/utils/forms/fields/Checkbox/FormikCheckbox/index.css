@@ -1,0 +1,23 @@
+input[type=checkbox] {
+  background: black;
+  border-color: gray;
+  vertical-align: sub;
+  transition: all 150ms;
+}
+
+.input[type="checkbox"]:checked {
+  background-color: gray;
+  border-color: gray;
+}
+
+.ant-checkbox-disabled .ant-checkbox-inner {
+  background-color: gray;
+  border-color: gray;
+  line-height: 200px;
+}
+
+.ant-checkbox-checked .ant-checkbox-inner {
+  background-color: transparent;
+  border-color: gray;
+  line-height: 200px;
+}

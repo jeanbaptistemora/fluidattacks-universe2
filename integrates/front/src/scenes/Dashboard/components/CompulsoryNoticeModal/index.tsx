@@ -1,11 +1,10 @@
+import { Field, Form, Formik } from "formik";
 import React, { useCallback } from "react";
-import { Field } from "redux-form";
 
 import { Button } from "components/Button";
 import { Modal } from "components/Modal";
-import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import { ButtonToolbar, Col100, Row } from "styles/styledComponents";
-import { Checkbox } from "utils/forms/fields";
+import { FormikCheckbox } from "utils/forms/fields";
 import { translate } from "utils/translations/translate";
 
 interface ICompulsoryNoticeProps {
@@ -28,20 +27,19 @@ export const CompulsoryNotice: React.FC<ICompulsoryNoticeProps> = (
 
   return (
     <Modal headerTitle={translate.t("legalNotice.title")} open={open}>
-      <GenericForm
+      <Formik
         initialValues={{ remember: false }}
         name={"acceptLegal"}
         onSubmit={handleSubmit}
       >
-        <React.Fragment>
+        <Form>
           <p>{content}</p>
           <Field
-            component={Checkbox}
+            component={FormikCheckbox}
+            label={translate.t("legalNotice.rememberCbo.text")}
             name={"remember"}
             title={translate.t("legalNotice.rememberCbo.tooltip")}
-          >
-            {translate.t("legalNotice.rememberCbo.text")}
-          </Field>
+          />
           <hr />
           <Row>
             <Col100>
@@ -55,8 +53,8 @@ export const CompulsoryNotice: React.FC<ICompulsoryNoticeProps> = (
               </ButtonToolbar>
             </Col100>
           </Row>
-        </React.Fragment>
-      </GenericForm>
+        </Form>
+      </Formik>
     </Modal>
   );
 };

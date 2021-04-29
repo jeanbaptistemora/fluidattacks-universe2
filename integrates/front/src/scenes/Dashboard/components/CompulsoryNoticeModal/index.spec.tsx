@@ -1,7 +1,9 @@
 import type { ReactWrapper, ShallowWrapper } from "enzyme";
 import { mount, shallow } from "enzyme";
 import React from "react";
+import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
+import wait from "waait";
 
 import { CompulsoryNotice } from "scenes/Dashboard/components/CompulsoryNoticeModal";
 import store from "store";
@@ -33,7 +35,7 @@ describe("Compulsory notice modal", (): void => {
     expect(checkbox).toHaveLength(1);
   });
 
-  it("should submit", (): void => {
+  it("should submit", async (): Promise<void> => {
     expect.hasAssertions();
 
     const handleAccept: jest.Mock = jest.fn();
@@ -42,8 +44,15 @@ describe("Compulsory notice modal", (): void => {
         <CompulsoryNotice content={""} onAccept={handleAccept} open={true} />
       </Provider>
     );
-    const form: ReactWrapper = wrapper.find("Modal").find("genericForm");
-    form.simulate("submit");
+    const form: ReactWrapper = wrapper.find("Modal").find("Formik");
+    await act(
+      async (): Promise<void> => {
+        form.simulate("submit");
+
+        await wait(0);
+        wrapper.update();
+      }
+    );
 
     expect(handleAccept.mock.calls).toHaveLength(1);
   });
