@@ -80,6 +80,14 @@
       when: never
     - when: always
 
+.sorts_in_schedule_execute: &sorts_in_schedule_execute
+  rules:
+    - if: '$CI_PIPELINE_SOURCE != "schedule"'
+      when: never
+    - if: '$sorts_execute != "defined"'
+      when: never
+    - when: always
+
 makes.test.sorts:
   <<: *makes
   <<: *sorts_in_master_branch
@@ -108,6 +116,13 @@ sorts.infra.deploy:
 sorts.extract-features:
   <<: *makes
   <<: *sorts_in_schedule_extract_features
+  stage: test-code
+  interruptible: false
+  parallel: 15
+
+sorts.execute:
+  <<: *makes
+  <<: *sorts_in_schedule_execute
   stage: test-code
   interruptible: false
   parallel: 15
