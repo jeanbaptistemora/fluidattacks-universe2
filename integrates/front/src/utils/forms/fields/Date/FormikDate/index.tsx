@@ -22,9 +22,9 @@ export const FormikDate: React.FC<IDateProps> = (
 ): JSX.Element => {
   const { disabled, id, field, form } = props;
   const { touched, errors } = form;
-  const fieldTouched = Boolean(touched[field.name]);
-  const error = errors[field.name];
-  const { onBlur, onChange } = field;
+  const { name, onBlur, onChange } = field;
+  const error = errors[name];
+  const fieldTouched = Boolean(touched[name]);
   const { value }: { value: string } = field;
 
   return (
@@ -33,6 +33,7 @@ export const FormikDate: React.FC<IDateProps> = (
         className={style["form-control"]}
         disabled={disabled}
         id={id}
+        name={name}
         onBlur={onBlur}
         onChange={onChange}
         type={"date"}

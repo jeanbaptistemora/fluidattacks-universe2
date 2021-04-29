@@ -5,6 +5,7 @@ export { FormikCheckbox } from "utils/forms/fields/Checkbox/FormikCheckbox";
 export { Date } from "utils/forms/fields/Date";
 export { FormikDate } from "utils/forms/fields/Date/FormikDate";
 export { DateTime } from "utils/forms/fields/DateTime";
+export { FormikDateTime } from "utils/forms/fields/DateTime/FormikDateTime";
 export { Dropdown } from "utils/forms/fields/Dropdown";
 export { FileInput } from "utils/forms/fields/FileInput";
 export { PhoneNumber } from "utils/forms/fields/PhoneNumber";

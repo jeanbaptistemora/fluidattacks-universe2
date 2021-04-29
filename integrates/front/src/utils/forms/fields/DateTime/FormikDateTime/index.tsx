@@ -1,17 +1,19 @@
-import _ from "lodash";
+import type { FieldProps } from "formik";
 import React from "react";
 import Datetime from "react-datetime";
-import type { WrappedFieldProps } from "redux-form";
 
 import { ValidationError } from "styles/styledComponents";
 import style from "utils/forms/index.css";
 import "react-datetime/css/react-datetime.css";
 
-export const DateTime: React.FC<WrappedFieldProps> = (
-  props: WrappedFieldProps
+export const FormikDateTime: React.FC<FieldProps> = (
+  props: FieldProps
 ): JSX.Element => {
-  const { input, meta } = props;
-  const { touched, error } = meta;
+  const { field, form } = props;
+  const { name } = field;
+  const { touched, errors } = form;
+  const error = errors[name];
+  const fieldTouched = Boolean(touched[name]);
 
   return (
     <React.Fragment>
@@ -20,13 +22,13 @@ export const DateTime: React.FC<WrappedFieldProps> = (
         utc={false}
         // Best way to pass down props.
         // eslint-disable-next-line react/jsx-props-no-spreading
-        {...input}
+        {...field}
       />
-      {touched && !_.isUndefined(error) && (
+      {fieldTouched && error !== undefined ? (
         <ValidationError id={"validationError"}>
           {error as string}
         </ValidationError>
-      )}
+      ) : undefined}
     </React.Fragment>
   );
 };
