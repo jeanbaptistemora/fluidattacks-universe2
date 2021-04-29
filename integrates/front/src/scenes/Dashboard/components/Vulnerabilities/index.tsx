@@ -176,6 +176,23 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
     return true;
   }
 
+  function setNonSelectable(
+    vulns: IVulnRowAttr[],
+    editing: boolean,
+    requestingReattack: boolean,
+    verifyingRequest: boolean
+  ): number[] | undefined {
+    if (editing) {
+      return getNonSelectableVulnerabilitiesOnEdit(vulns);
+    } else if (requestingReattack) {
+      return getNonSelectableVulnerabilitiesOnReattack(vulns);
+    } else if (verifyingRequest) {
+      return getNonSelectableVulnerabilitiesOnVerify(vulns);
+    }
+
+    return undefined;
+  }
+
   const selectionMode: SelectRowOptions = {
     clickToSelect: false,
     hideSelectColumn: !(
@@ -184,13 +201,12 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
       isVerifyingRequest
     ),
     mode: "checkbox",
-    nonSelectable: isEditing
-      ? getNonSelectableVulnerabilitiesOnEdit(vulnerabilities)
-      : isRequestingReattack
-      ? getNonSelectableVulnerabilitiesOnReattack(vulnerabilities)
-      : isVerifyingRequest
-      ? getNonSelectableVulnerabilitiesOnVerify(vulnerabilities)
-      : undefined,
+    nonSelectable: setNonSelectable(
+      vulnerabilities,
+      isEditing,
+      isRequestingReattack,
+      isVerifyingRequest
+    ),
     onSelect: onSelectOneVulnerability,
     onSelectAll: onSelectVariousVulnerabilities,
     selected: getVulnerabilitiesIndex(selectedVulnerabilities, vulnerabilities),
