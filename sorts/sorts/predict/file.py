@@ -3,11 +3,13 @@ import os
 from typing import List
 
 # Third-party libraries
+import csv
 import pandas as pd
 from pandas import DataFrame
 
 # Local libraries
 from sorts.features.file import extract_features
+from sorts.integrates.dal import update_toe_lines_sorts
 from sorts.utils.logs import log
 from sorts.utils.predict import (
     display_results,
@@ -44,6 +46,17 @@ def get_subscription_files_df(fusion_path: str) -> DataFrame:
     return files_df
 
 
+def update_integrates_toes(group_name: str, csv_name: str) -> None:
+    with open(csv_name, 'r') as csv_file:
+        reader = csv.DictReader(csv_file)
+        for predicted_file in reader:
+            update_toe_lines_sorts(
+                group_name,
+                predicted_file['file'],
+                int(float(predicted_file['prob_vuln']))
+            )
+
+
 def prioritize(subscription_path: str) -> bool:
     """Prioritizes files according to the chance of finding a vulnerability"""
     scope: str = 'file'
@@ -63,6 +76,7 @@ def prioritize(subscription_path: str) -> bool:
                 csv_name,
                 scope
             )
+            update_integrates_toes(group, csv_name)
             display_results(csv_name)
     else:
         log(
