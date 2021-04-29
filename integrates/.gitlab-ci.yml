@@ -70,14 +70,6 @@
   stage: analytics
   tags: [autoscaling]
 
-.integrates_scheduler: &integrates_scheduler
-  <<: *makes
-  interruptible: false
-  script:
-    - ./m integrates.scheduler prod "backend.scheduler.${CI_JOB_NAME/integrates.scheduler./}"
-  stage: scheduler
-  tags: [autoscaling-large]
-
 .integrates_schedulers: &integrates_schedulers
   <<: *makes
   interruptible: false
@@ -569,7 +561,7 @@ integrates.scheduler.update_indicators:
     variables: [$integrates_scheduler_update_indicators]
 
 integrates.scheduler.update_portfolios:
-  <<: *integrates_scheduler
+  <<: *integrates_schedulers
   only:
     refs: [schedules]
     variables: [$integrates_scheduler_update_portfolios]
@@ -587,7 +579,7 @@ integrates.scheduler.send_treatment_change:
     variables: [$integrates_scheduler_send_treatment_change]
 
 integrates.scheduler.send_unsolved_to_all:
-  <<: *integrates_scheduler
+  <<: *integrates_schedulers
   only:
     refs: [schedules]
     variables: [$integrates_scheduler_send_unsolved_to_all]

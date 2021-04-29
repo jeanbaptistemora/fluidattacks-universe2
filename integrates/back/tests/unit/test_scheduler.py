@@ -9,13 +9,6 @@ from unittest.mock import patch
 from freezegun import freeze_time
 
 from backend.api import get_new_context
-from backend.scheduler import (
-    extract_info_from_event_dict,
-    get_unsolved_events,
-    is_a_unsolved_event,
-    is_not_a_fluidattacks_email,
-    remove_fluid_from_recipients,
-)
 from data_containers.toe_inputs import GitRootToeInput
 from data_containers.toe_lines import GitRootToeLines
 from findings.domain import get_findings_by_group
@@ -33,9 +26,11 @@ from organizations.domain import (
 from toe.inputs import domain as toe_inputs_domain
 from toe.lines import domain as toe_lines_domain
 from schedulers import (
+    common,
     delete_imamura_stakeholders,
     delete_obsolete_groups,
     delete_obsolete_orgs,
+    send_unsolved_to_all,
     toe_inputs_etl,
     toe_lines_etl,
     update_indicators,
@@ -53,19 +48,19 @@ pytestmark = [
 def test_is_not_a_fluid_attacks_email():
     fluid_attacks_email = 'test@fluidattacks.com'
     not_fluid_attacks_email = 'test@test.com'
-    assert is_not_a_fluidattacks_email(not_fluid_attacks_email)
-    assert not is_not_a_fluidattacks_email(fluid_attacks_email)
+    assert common.is_not_a_fluidattacks_email(not_fluid_attacks_email)
+    assert not common.is_not_a_fluidattacks_email(fluid_attacks_email)
 
 def test_remove_fluid_from_recipients():
     emails = [
         'test@fluidattacks.com', 'test2@fluidattacks.com', 'test@test.com',
         'test2@test.com'
     ]
-    test_data = remove_fluid_from_recipients(emails)
+    test_data = common.remove_fluid_from_recipients(emails)
     expected_output = ['test@test.com', 'test2@test.com']
     assert test_data == expected_output
 
-def test_is_a_unsolved_event():
+def test_is_an_unsolved_event():
     dumb_unsolved_event = {
         'id': 'testid',
         'historic_state': [{'state': 'OPEN'}, {'state': 'CREATED'}]
@@ -78,12 +73,12 @@ def test_is_a_unsolved_event():
             {'state': 'CLOSED'}
         ]
     }
-    assert is_a_unsolved_event(dumb_unsolved_event)
-    assert not is_a_unsolved_event(dumb_solved_event)
+    assert send_unsolved_to_all.is_an_unsolved_event(dumb_unsolved_event)
+    assert not send_unsolved_to_all.is_an_unsolved_event(dumb_solved_event)
 
 async def test_get_unsolved_events():
     project_name = 'unittesting'
-    test_data = await get_unsolved_events(project_name)
+    test_data = await send_unsolved_to_all.get_unsolved_events(project_name)
     assert isinstance(test_data, list)
     assert isinstance(test_data[0], dict)
     assert [ev for ev in test_data if ev['event_id'] == '540462628']
@@ -92,7 +87,9 @@ def test_extract_info_from_event_dict():
     dumb_event_dict = {
         'id': 'testid', 'event_type': 'test', 'detail': 'detail'
     }
-    test_data = extract_info_from_event_dict(dumb_event_dict)
+    test_data = send_unsolved_to_all.extract_info_from_event_dict(
+        dumb_event_dict
+    )
     expected_output = {'type': 'test', 'details': 'detail'}
     assert test_data == expected_output
 
