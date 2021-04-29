@@ -5,7 +5,6 @@ from aioextensions import collect
 from graphql import GraphQLError
 
 from backend import authz
-from backend.api import get_new_context
 from custom_exceptions import (
     InvalidAcceptanceDays,
     InvalidAcceptanceSeverity,
@@ -14,17 +13,9 @@ from custom_exceptions import (
     InvalidOrganization,
     UserNotInOrganization
 )
-from dynamodb.types import (
-    OrgFindingPolicyItem,
-    OrgFindingPolicyMetadata,
-    OrgFindingPolicyState,
-)
 from group_access import domain as group_access_domain
 from organizations import (
     domain as orgs_domain,
-)
-from organizations_finding_policies import (
-    domain as policies_domain,
 )
 
 
@@ -457,25 +448,3 @@ async def test_iterate_organizations_and_groups():
         assert sorted(groups) == sorted(
             expected_organizations_and_groups.pop(org_id)[org_name])
     assert expected_organizations_and_groups == {}
-
-
-async def test_get_finding_policies() -> None:
-    org_name = 'okada'
-    org_findings_policies = await policies_domain.get_finding_policies(
-        org_name=org_name
-    )
-
-    assert org_findings_policies == (
-        OrgFindingPolicyItem(
-            id='8b35ae2a-56a1-4f64-9da7-6a552683bf46',
-            org_name='okada',
-            metadata=OrgFindingPolicyMetadata(
-                name='F007. Cross site request forgery'
-            ),
-            state=OrgFindingPolicyState(
-                modified_date='2021-04-26T13:37:10+00:00',
-                modified_by='test2@test.com',
-                status='APPROVED'
-            ),
-        ),
-    )
