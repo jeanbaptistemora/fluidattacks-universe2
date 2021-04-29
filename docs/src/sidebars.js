@@ -479,6 +479,7 @@ module.exports = {
     'types/f020',
     'types/f021',
     'types/f022',
+    'types/f023',
     {
       type: 'category',
       label: 'Excessive privileges',
