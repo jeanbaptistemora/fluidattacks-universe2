@@ -31,6 +31,12 @@ resource "okta_app_group_assignment" "apps_auto_login" {
 
   app_id   = okta_app_auto_login.apps[each.value.id].id
   group_id = okta_group.groups[each.value.group].id
+
+  lifecycle {
+    ignore_changes = [
+      priority,
+    ]
+  }
 }
 
 resource "okta_app_user" "apps_auto_login" {
@@ -78,6 +84,12 @@ resource "okta_app_group_assignment" "apps_swa" {
 
   app_id   = okta_app_swa.apps[each.value.id].id
   group_id = okta_group.groups[each.value.group].id
+
+  lifecycle {
+    ignore_changes = [
+      priority,
+    ]
+  }
 }
 
 resource "okta_app_user" "apps_swa" {
@@ -135,6 +147,12 @@ resource "okta_app_group_assignment" "apps_saml" {
 
   app_id   = okta_app_saml.apps[each.value.id].id
   group_id = okta_group.groups[each.value.group].id
+
+  lifecycle {
+    ignore_changes = [
+      priority,
+    ]
+  }
 }
 
 resource "okta_app_user" "apps_saml" {
@@ -166,6 +184,12 @@ resource "okta_app_group_assignment" "aws" {
     samlRoles = each.value.roles
     role      = "AmazonComprehendServiceRole-testttt"
   })
+
+  lifecycle {
+    ignore_changes = [
+      priority,
+    ]
+  }
 }
 
 resource "okta_app_user" "aws" {
