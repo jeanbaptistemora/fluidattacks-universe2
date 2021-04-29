@@ -1,8 +1,8 @@
 ---
-id: java_io_file_create_temp_file
+id: java-io-file-create-temp-file
 title: java.io.File.createTempFile
 sidebar_label: java.io.File.createTempFile
-slug: /types/031/details/java_io_file_create_temp_file
+slug: /types/031/details/java-io-file-create-temp-file
 ---
 
 This java method has the following signature:

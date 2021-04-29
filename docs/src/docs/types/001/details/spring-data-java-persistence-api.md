@@ -1,8 +1,8 @@
 ---
-id: spring_data_java_persistence_api
+id: spring-data-java-persistence-api
 title: Spring Data Java Persistence API
 sidebar_label: Spring Data Java persistence API
-slug: /types/001/details/spring_data_java_persistence_api
+slug: /types/001/details/spring-data-java-persistence-api
 ---
 
 In **Spring Data JPA** framework you can create SQL queries in many ways:

@@ -1,8 +1,8 @@
 ---
-id: strict_transport_security
+id: strict-transport-security
 title: Strict Transport Security
 sidebar_label: Strict Transport Security
-slug: /types/043/details/strict_transport_security
+slug: /types/043/details/strict-transport-security
 ---
 
 The HTTP `Strict-Transport-Security` response header informs the browser that

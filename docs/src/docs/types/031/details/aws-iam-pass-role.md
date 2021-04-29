@@ -1,8 +1,8 @@
 ---
-id: aws_iam_pass_role
+id: aws-iam-pass-role
 title: AWS iam:PassRole
 sidebar_label: AWS iam:PassRole
-slug: /types/031/details/aws_iam_pass_role
+slug: /types/031/details/aws-iam-pass-role
 ---
 
 To configure many AWS services, you must pass an IAM role to the service.

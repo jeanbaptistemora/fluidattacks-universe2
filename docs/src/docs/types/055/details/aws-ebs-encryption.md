@@ -1,8 +1,8 @@
 ---
-id: aws_ebs_encryption
+id: aws-ebs-encryption
 title: AWS EBS Encryption
 sidebar_label: AWS EBS Encryption
-slug: /types/055/details/aws_ebs_encryption
+slug: /types/055/details/aws-ebs-encryption
 ---
 
 When dealing with sensitive data that is crucial to your business,

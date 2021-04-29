@@ -455,7 +455,7 @@ module.exports = {
           type: 'category',
           label: 'Details',
           items: [
-            'types/001/details/spring_data_java_persistence_api',
+            'types/001/details/spring-data-java-persistence-api',
           ],
         },
       ],
@@ -488,8 +488,8 @@ module.exports = {
           type: 'category',
           label: 'Details',
           items: [
-            'types/031/details/aws_iam_pass_role',
-            'types/031/details/java_io_file_create_temp_file',
+            'types/031/details/aws-iam-pass-role',
+            'types/031/details/java-io-file-create-temp-file',
           ],
         },
       ],
@@ -503,7 +503,7 @@ module.exports = {
           type: 'category',
           label: 'Details',
           items: [
-            'types/037/details/js_console',
+            'types/037/details/js-console',
           ],
         },
       ],
@@ -516,7 +516,7 @@ module.exports = {
           type: 'category',
           label: 'Details',
           items: [
-            'types/043/details/strict_transport_security',
+            'types/043/details/strict-transport-security',
           ],
         },
       ],
@@ -529,7 +529,7 @@ module.exports = {
           type: 'category',
           label: 'Details',
           items: [
-            'types/052/details/cipher_suites',
+            'types/052/details/cipher-suites',
             'types/052/details/ssl',
           ],
         },
@@ -543,8 +543,8 @@ module.exports = {
           type: 'category',
           label: 'Details',
           items: [
-            'types/055/details/aws_ebs_encryption',
-            'types/055/details/aws_s3_server_side_encryption',
+            'types/055/details/aws-ebs-encryption',
+            'types/055/details/aws-s3-server-side-encryption',
           ],
         },
       ],

@@ -1,8 +1,8 @@
 ---
-id: js_console
+id: js-console
 title: JavaScript Console
 sidebar_label: JavaScript Console
-slug: /types/037/details/js_console
+slug: /types/037/details/js-console
 ---
 
 In front-end programming,

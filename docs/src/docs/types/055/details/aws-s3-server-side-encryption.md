@@ -1,8 +1,8 @@
 ---
-id: aws_s3_server_side_encryption
+id: aws-s3-server-side-encryption
 title: AWS S3 Server Side Encryption
 sidebar_label: AWS S3 Server Side Encryption
-slug: /types/055/details/aws_s3_server_side_encryption
+slug: /types/055/details/aws-s3-server-side-encryption
 ---
 
 When dealing with sensitive data that is crucial to your business,

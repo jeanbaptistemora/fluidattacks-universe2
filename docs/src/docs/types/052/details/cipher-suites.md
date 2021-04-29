@@ -1,8 +1,8 @@
 ---
-id: cipher_suites
+id: cipher-suites
 title: Cipher Suites
 sidebar_label: Cipher Suites
-slug: /types/052/details/cipher_suites
+slug: /types/052/details/cipher-suites
 ---
 
 A cipher suite is a set of algorithms that help secure a network connection.
