@@ -20,7 +20,6 @@ function execute {
             echo "[ERROR] While running Sorts on: ${group}" \
         &&  success='false'
       fi \
-  &&  upload_sorts_results_to_s3 "${group}" \
   &&  rm -rf "groups/${group}/fusion" \
   &&  test "${success}" = 'true'
 }
