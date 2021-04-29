@@ -205,6 +205,7 @@ skims.test
 skims.test.mocks.http
 skims.test.mocks.http.env
 sorts
+sorts.execute
 sorts.extract-features
 sorts.infra.deploy
 sorts.infra.test
