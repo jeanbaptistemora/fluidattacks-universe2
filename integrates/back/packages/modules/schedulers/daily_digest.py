@@ -3,6 +3,7 @@ import logging
 import logging.config
 from typing import (
     Any,
+    cast,
     Counter,
     Dict,
     List,
@@ -18,13 +19,16 @@ from aioextensions import (
 from backend import mailer
 from backend.api import get_new_context
 from backend.typing import (
+    Finding as FindingType,
     MailContent as MailContentType,
 )
+from findings import domain as findings_domain
 from groups import domain as groups_domain
 from group_access import domain as group_access_domain
 from newutils import (
     bugsnag as bugsnag_utils,
     datetime as datetime_utils,
+    vulnerabilities as vulns_utils,
 )
 from newutils.findings import (
     get_state_actions,
@@ -36,11 +40,64 @@ bugsnag_utils.start_scheduler_session()
 LOGGER = logging.getLogger(__name__)
 
 
-async def get_findings_new_vulns(context: Any, group_name: str) -> list:
-    group_findings_loader = context.group_findings
+async def get_total_treatment_stats(  # pylint: disable=too-many-locals
+    context: Any,
+    findings: List[Dict[str, FindingType]]
+) -> Dict[str, int]:
+    """Get the total treatment of all the vulns"""
+    accepted_vuln: int = 0
+    accepted_undefined_vuln: int = 0
+    accepted_undefined_submited_vuln: int = 0
+    accepted_undefined_approved_vuln: int = 0
+    in_progress_vuln: int = 0
+    undefined_treatment: int = 0
+    finding_vulns_loader = context.finding_vulns_nzr
+
+    vulns = await finding_vulns_loader.load_many_chained([
+        str(finding['finding_id'])
+        for finding in findings
+    ])
+
+    for vuln in vulns:
+        vuln_treatment = cast(
+            List[Dict[str, str]],
+            vuln.get('historic_treatment', [{}])
+        )[-1].get('treatment')
+        vuln_acceptance_status = cast(
+            List[Dict[str, str]],
+            vuln.get('historic_treatment', [{}])
+        )[-1].get('acceptance_status')
+        current_state = vulns_utils.get_last_status(vuln)
+        open_vuln: int = 1 if current_state == 'open' else 0
+        if vuln_treatment == 'ACCEPTED':
+            accepted_vuln += open_vuln
+        elif vuln_treatment == 'ACCEPTED_UNDEFINED':
+            accepted_undefined_vuln += open_vuln
+            if vuln_acceptance_status == 'SUBMITTED':
+                accepted_undefined_submited_vuln += open_vuln
+            elif vuln_acceptance_status == 'APPROVED':
+                accepted_undefined_approved_vuln += open_vuln
+        elif vuln_treatment == 'IN PROGRESS':
+            in_progress_vuln += open_vuln
+        else:
+            undefined_treatment += open_vuln
+    return {
+        'accepted': accepted_vuln,
+        'accepted_undefined': accepted_undefined_vuln,
+        'accepted_undefined_submitted': accepted_undefined_submited_vuln,
+        'accepted_undefined_approved': accepted_undefined_approved_vuln,
+        'in_progress': in_progress_vuln,
+        'undefined': undefined_treatment,
+    }
+
+
+async def get_findings_new_vulns(
+    context: Any,
+    findings: List[Dict[str, FindingType]]
+) -> list:
+    """Get the findings with open vulns"""
     try:
         new_vulns: List[Dict[str, str]] = list()
-        findings = await group_findings_loader.load(group_name)
         last_day = datetime_utils.get_now_minus_delta(hours=24)
         finding_vulns_loader = context.finding_vulns_nzr
         for finding in findings:
@@ -64,7 +121,7 @@ async def get_findings_new_vulns(context: Any, group_name: str) -> list:
                 })
         return new_vulns
     except (TypeError, KeyError) as ex:
-        LOGGER.exception(ex, extra={'extra': {'group_name': group_name}})
+        LOGGER.exception(ex, extra={'extra': locals()})
         raise
 
 
@@ -89,9 +146,32 @@ async def get_group_statistics(context: Any, group_name: str) -> None:
         },
         'findings': list()
     }
+
+    # Get valid findings for the group
+    group_findings_loader = context.group_findings
+    findings = await group_findings_loader.load(group_name)
+    are_findings_valid = await collect(
+        findings_domain.validate_finding(str(finding['finding_id']))
+        for finding in findings
+    )
+    valid_findings = [
+        finding
+        for finding, is_finding_valid in zip(findings, are_findings_valid)
+        if is_finding_valid
+    ]
+
+    # Get stats
     mail_context['findings'] = await get_findings_new_vulns(
-        context, group_name)
+        context, valid_findings)
+    treatments = await get_total_treatment_stats(context, valid_findings)
+    mail_context['treatments']['temporary_applied'] = treatments.get(
+        'accepted', 0)
+    mail_context['treatments']['eternal_requested'] = treatments.get(
+        'accepted_undefined_submitted', 0)
+    mail_context['treatments']['pending_attacks'] = treatments.get(
+        'accepted_undefined_approved', 0)
     mail_to = await group_access_domain.get_users_to_notify(group_name)
+
     schedule(
         mailer.send_mail_daily_digest(mail_to, mail_context)
     )
