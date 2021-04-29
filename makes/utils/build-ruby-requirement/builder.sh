@@ -1,6 +1,8 @@
 # shellcheck shell=bash
 
 function main {
+  export SSL_CERT_FILE="${envCaCert}/etc/ssl/certs/ca-bundle.crt"
+
       gem install \
         --no-document \
         --install-dir "${out}" \

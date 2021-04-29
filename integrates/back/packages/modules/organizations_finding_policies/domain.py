@@ -1,14 +1,28 @@
 # Standard libraries
+from itertools import chain
 from typing import (
+    Dict,
+    List,
     Optional,
     Tuple,
 )
 from uuid import uuid4
 
+# Third-party libraries
+from aioextensions import (
+    collect,
+    schedule,
+)
+
 # Local libraries
+from backend.api import Dataloaders
+from backend.typing import (
+    Finding,
+)
 from custom_exceptions import (
     FindingNamePolicyNotFound,
     InvalidFindingNamePolicy,
+    PolicyAlreadyHandled,
     RepeatedFindingNamePolicy,
 )
 from dynamodb.types import (
@@ -19,11 +33,15 @@ from dynamodb.types import (
 from newutils import (
     datetime as datetime_utils,
     findings as findings_utils,
+    vulnerabilities as vulns_utils
 )
+from redis_cluster.operations import redis_del_by_deps
+from vulnerabilities import dal as vulns_dal
 from .dal import (
     add_org_finding_policy,
     get_org_finding_policies,
     get_org_finding_policy,
+    update_finding_policy_status,
 )
 
 
@@ -96,3 +114,111 @@ async def add_finding_policy(
         )
     )
     await add_org_finding_policy(finding_policy=new_finding_policy)
+
+
+async def handle_finding_policy_acceptation(
+    *,
+    finding_policy_id: str,
+    loaders: Dataloaders,
+    org_name: str,
+    status: str,
+    groups: List[str],
+    user_email: str
+) -> None:
+    finding_policy = await get_finding_policy(
+        org_name=org_name,
+        finding_policy_id=finding_policy_id
+    )
+    if finding_policy.state.status != 'SUBMITTED':
+        raise PolicyAlreadyHandled()
+
+    await update_finding_policy_status(
+        org_name=org_name,
+        finding_policy_id=finding_policy_id,
+        status=OrgFindingPolicyState(
+            modified_by=user_email,
+            modified_date=datetime_utils.get_iso_date(),
+            status=status
+        )
+    )
+
+    if status == 'APPROVED':
+        finding_name: str = finding_policy.metadata.name.split('.')[0].lower()
+        schedule(
+            update_treatment_in_org_groups(
+                finding_name=finding_name,
+                loaders=loaders,
+                groups=groups,
+                user_email=user_email
+            )
+        )
+
+
+async def update_treatment_in_org_groups(
+    *,
+    finding_name: str,
+    loaders: Dataloaders,
+    groups: List[str],
+    user_email: str
+) -> None:
+    group_drafts = await loaders.group_drafts.load_many(groups)
+    group_findings = await loaders.group_findings.load_many(groups)
+    findings: List[Dict[str, Finding]] = list(
+        chain.from_iterable(filter(None, group_drafts + group_findings))
+    )
+
+    findings_ids: List[str] = [
+        finding['id'] for finding in findings
+        if finding['title'].split('.')[0].lower() == finding_name
+    ]
+    if not findings_ids:
+        return
+    vulns = await loaders.finding_vulns_nzr.load_many_chained(findings_ids)
+
+    await _update_treatment_in_org_groups(
+        findings_ids=findings_ids,
+        vulns=vulns,
+        user_email=user_email
+    )
+
+
+async def _update_treatment_in_org_groups(
+    *,
+    findings_ids: List[str],
+    vulns: List[Dict[str, Finding]],
+    user_email: str
+) -> None:
+    current_day: str = datetime_utils.get_now_as_str()
+    vulns_to_update = [
+        vuln for vuln in vulns
+        if vuln['historic_treatment'][-1] != 'ACCEPTED_UNDEFINED'
+        and vuln['current_state'] == 'open'
+    ]
+    new_treatments = vulns_utils.get_treatment_from_org_finding_policy(
+        current_day=current_day,
+        user_email=user_email
+    )
+    historics_treatments = [
+        [*vuln['historic_treatment'], *new_treatments]
+        for vuln in vulns_to_update
+    ]
+
+    await collect([
+        vulns_dal.update(
+            vuln['finding_id'],
+            vuln['UUID'],
+            {'historic_treatment': historic_treatment}
+        )
+        for vuln, historic_treatment in zip(
+            vulns_to_update,
+            historics_treatments
+        )
+    ])
+
+    await collect([
+        redis_del_by_deps(
+            'update_treatment_vulnerability',
+            finding_id=finding_id
+        )
+        for finding_id in findings_ids
+    ])

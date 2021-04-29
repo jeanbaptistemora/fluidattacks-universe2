@@ -10,6 +10,7 @@ let
 in
 makeDerivation {
   arguments = {
+    envCaCert = pkgs.cacert;
     envRequirement = requirement;
   };
   builder = path "/makes/utils/build-ruby-requirement/builder.sh";

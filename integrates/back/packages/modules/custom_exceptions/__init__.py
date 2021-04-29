@@ -706,3 +706,9 @@ class FindingNamePolicyNotFound(Exception):
     def __init__(self) -> None:
         msg = 'Exception - Finding name policy not found'
         super(FindingNamePolicyNotFound, self).__init__(msg)
+
+
+class PolicyAlreadyHandled(Exception):
+    def __init__(self) -> None:
+        msg = 'Exception - This policy has already been reviewed'
+        super(PolicyAlreadyHandled, self).__init__(msg)
