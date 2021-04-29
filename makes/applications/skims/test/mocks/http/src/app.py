@@ -99,6 +99,18 @@ def add_f043_dast_sts_rules() -> None:
         }))
 
 
+def add_f043_dast_xfo() -> None:
+    for index, value in enumerate([
+        '',
+        'deny',
+        'sameorigin',
+        'allow-from: DOMAIN',
+    ]):
+        add_rule('f043_dast_xfo', index, partial(response_header, {
+            'X-Frame-Options': value,
+        }))
+
+
 def start() -> None:
     APP.run()
 
@@ -106,3 +118,4 @@ def start() -> None:
 add_f043_dast_csp_rules()
 add_f043_dast_rp_rules()
 add_f043_dast_sts_rules()
+add_f043_dast_xfo()
