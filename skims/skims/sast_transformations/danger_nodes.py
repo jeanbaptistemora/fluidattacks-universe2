@@ -271,12 +271,14 @@ def _mark_function_arg(
 ) -> None:
     for syntax_steps in graph_syntax.values():
         for syntax_step in syntax_steps:
-            if isinstance(syntax_step, graph_model.SyntaxStepDeclaration):
-                if syntax_step.var_type in dangerous_types or (
+            if isinstance(syntax_step, graph_model.SyntaxStepDeclaration) and (
+                syntax_step.var_type in dangerous_types
+                or (
                     syntax_step.modifiers
                     and syntax_step.modifiers.intersection(dangerous_types)
-                ):
-                    _append_label_input(graph, syntax_step.meta.n_id, finding)
+                )
+            ):
+                _append_label_input(graph, syntax_step.meta.n_id, finding)
 
 
 def _mark_methods(
