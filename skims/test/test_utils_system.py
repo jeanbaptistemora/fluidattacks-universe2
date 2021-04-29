@@ -11,20 +11,20 @@ from utils.system import (
 )
 
 
-@pytest.mark.skims_test_group('unittesting')
+@pytest.mark.skims_test_group("unittesting")
 def test_read_blocking() -> None:
-    code, stdout, stderr = read_blocking('echo', 'test')
+    code, stdout, stderr = read_blocking("echo", "test")
 
     assert code == 0
-    assert stdout == b'test\n', stdout
+    assert stdout == b"test\n", stdout
     assert not stderr, stderr
 
 
 @run_decorator
-@pytest.mark.skims_test_group('unittesting')
+@pytest.mark.skims_test_group("unittesting")
 async def test_read() -> None:
-    code, stdout, stderr = await read('echo', 'test')
+    code, stdout, stderr = await read("echo", "test")
 
     assert code == 0
-    assert stdout == b'test\n', stdout
+    assert stdout == b"test\n", stdout
     assert not stderr, stderr

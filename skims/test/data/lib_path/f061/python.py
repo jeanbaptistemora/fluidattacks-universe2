@@ -15,7 +15,8 @@ def get_cached_group_service_attributes_policies(
         # Let's fetch the data from the database
         ret = tuple(
             (policy.group, policy.service)
-            for policy in project_dal.get_service_policies(group))
+            for policy in project_dal.get_service_policies(group)
+        )
         try:
             # Put the data in the cache
             cache.set(cache_key, ret, timeout=3600)

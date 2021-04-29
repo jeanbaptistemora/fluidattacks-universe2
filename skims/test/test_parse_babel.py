@@ -14,9 +14,9 @@ from utils.fs import (
 
 
 @run_decorator
-@pytest.mark.skims_test_group('unittesting')
+@pytest.mark.skims_test_group("unittesting")
 async def test_parse_success() -> None:
-    path = 'skims/test/data/lib_path/f034/javascript.js'
+    path = "skims/test/data/lib_path/f034/javascript.js"
     data = await parse(
         content=await get_file_raw_content(path),
         path=path,
@@ -27,14 +27,8 @@ async def test_parse_success() -> None:
         "end": 20,
         "errors": [],
         "loc": {
-            "end": {
-                "column": 0,
-                "line": 3
-            },
-            "start": {
-                "column": 0,
-                "line": 1
-            }
+            "end": {"column": 0, "line": 3},
+            "start": {"column": 0, "line": 1},
         },
         "program": {
             "body": [
@@ -46,107 +40,71 @@ async def test_parse_success() -> None:
                             "computed": False,
                             "end": 16,
                             "loc": {
-                                "end": {
-                                    "column": 15,
-                                    "line": 2
-                                },
-                                "start": {
-                                    "column": 4,
-                                    "line": 2
-                                }
+                                "end": {"column": 15, "line": 2},
+                                "start": {"column": 4, "line": 2},
                             },
                             "object": {
                                 "end": 9,
                                 "loc": {
-                                    "end": {
-                                        "column": 8,
-                                        "line": 2
-                                    },
+                                    "end": {"column": 8, "line": 2},
                                     "identifierName": "Math",
-                                    "start": {
-                                        "column": 4,
-                                        "line": 2
-                                    }
+                                    "start": {"column": 4, "line": 2},
                                 },
                                 "name": "Math",
                                 "start": 5,
-                                "type": "Identifier"
+                                "type": "Identifier",
                             },
                             "optional": False,
                             "property": {
                                 "end": 16,
                                 "loc": {
-                                    "end": {
-                                        "column": 15,
-                                        "line": 2
-                                    },
+                                    "end": {"column": 15, "line": 2},
                                     "identifierName": "random",
-                                    "start": {
-                                        "column": 9,
-                                        "line": 2
-                                    }
+                                    "start": {"column": 9, "line": 2},
                                 },
                                 "name": "random",
                                 "start": 10,
-                                "type": "Identifier"
+                                "type": "Identifier",
                             },
                             "start": 5,
-                            "type": "MemberExpression"
+                            "type": "MemberExpression",
                         },
                         "end": 18,
                         "loc": {
-                            "end": {
-                                "column": 17,
-                                "line": 2
-                            },
-                            "start": {
-                                "column": 4,
-                                "line": 2
-                            }
+                            "end": {"column": 17, "line": 2},
+                            "start": {"column": 4, "line": 2},
                         },
                         "optional": False,
                         "start": 5,
-                        "type": "CallExpression"
+                        "type": "CallExpression",
                     },
                     "loc": {
-                        "end": {
-                            "column": 18,
-                            "line": 2
-                        },
-                        "start": {
-                            "column": 4,
-                            "line": 2
-                        }
+                        "end": {"column": 18, "line": 2},
+                        "start": {"column": 4, "line": 2},
                     },
                     "start": 5,
-                    "type": "ExpressionStatement"
+                    "type": "ExpressionStatement",
                 }
             ],
             "end": 20,
             "interpreter": None,
             "loc": {
-                "end": {
-                    "column": 0,
-                    "line": 3
-                },
-                "start": {
-                    "column": 0,
-                    "line": 1
-                }
+                "end": {"column": 0, "line": 3},
+                "start": {"column": 0, "line": 1},
             },
             "sourceType": "module",
             "start": 0,
-            "type": "Program"
+            "type": "Program",
         },
         "start": 0,
-        "type": "File"
+        "type": "File",
     }
 
 
 @run_decorator
-@pytest.mark.skims_test_group('unittesting')
+@pytest.mark.skims_test_group("unittesting")
 async def test_parse_fail() -> None:
-    path = 'skims/test/data/lib_path/f011/yarn.lock'
+    path = "skims/test/data/lib_path/f011/yarn.lock"
     data = await parse(
         content=await get_file_raw_content(path),
         path=path,

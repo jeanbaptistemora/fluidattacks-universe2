@@ -12,9 +12,10 @@ from utils.string import (
 )
 
 
-@pytest.mark.skims_test_group('unittesting')
+@pytest.mark.skims_test_group("unittesting")
 def test_to_snippet() -> None:
-    content: str = dedent("""
+    content: str = dedent(
+        """
         xxxxx
         xxxxxxxxxx
         xxxxxxxxxxxxxxx
@@ -28,7 +29,8 @@ def test_to_snippet() -> None:
         xxxxxxxxxxxxxxx
         xxxxxxxxxx
         xxxxx
-    """)
+    """
+    )
 
     snippet: str = to_snippet_blocking(
         chars_per_line=43,
@@ -38,7 +40,10 @@ def test_to_snippet() -> None:
         line=5,
     )
 
-    assert snippet == dedent("""
+    assert (
+        snippet
+        == dedent(
+            """
         ¦ line ¦ Data                                        ¦
         ¦ ---- ¦ ------------------------------------------- ¦
         ¦    3 ¦                                             ¦
@@ -52,4 +57,6 @@ def test_to_snippet() -> None:
         ¦   11 ¦                                             ¦
         ¦ ---- ¦ ------------------------------------------- ¦
                ^ Column 29
-    """)[1:-1], snippet
+    """
+        )[1:-1]
+    ), snippet

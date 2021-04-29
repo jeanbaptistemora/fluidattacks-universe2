@@ -227,9 +227,9 @@ F060. Insecure exceptions,namespace/skims/test/data/lib_path/f060/java.java,2,39
 F060. Insecure exceptions,namespace/skims/test/data/lib_path/f060/java.java,3,396
 F060. Insecure exceptions,namespace/skims/test/data/lib_path/f060/java.java,4,396
 F060. Insecure exceptions,namespace/skims/test/data/lib_path/f060/java.java,5,396
-F060. Insecure exceptions,namespace/skims/test/data/lib_path/f060/python.py,3,396
-F060. Insecure exceptions,namespace/skims/test/data/lib_path/f060/python.py,5,396
-F060. Insecure exceptions,namespace/skims/test/data/lib_path/f060/python.py,6,396
+F060. Insecure exceptions,namespace/skims/test/data/lib_path/f060/python.py,10,396
+F060. Insecure exceptions,namespace/skims/test/data/lib_path/f060/python.py,4,396
+F060. Insecure exceptions,namespace/skims/test/data/lib_path/f060/python.py,8,396
 F060. Insecure exceptions,namespace/skims/test/data/lib_path/f060/swift.swift,7,396
 F060. Insecure exceptions,namespace/skims/test/data/lib_path/f060/swift.swift,9,396
 F060. Insecure exceptions,namespace/skims/test/data/lib_path/f061/swift.swift,7,396
@@ -239,7 +239,7 @@ F061. Errors without traceability,namespace/skims/test/data/lib_path/f061/java.j
 F061. Errors without traceability,namespace/skims/test/data/lib_path/f061/javascript.js,3,390
 F061. Errors without traceability,namespace/skims/test/data/lib_path/f061/javascript.js,4,390
 F061. Errors without traceability,namespace/skims/test/data/lib_path/f061/javascript.js,5,390
-F061. Errors without traceability,namespace/skims/test/data/lib_path/f061/python.py,22,390
+F061. Errors without traceability,namespace/skims/test/data/lib_path/f061/python.py,23,390
 F061. Errors without traceability,namespace/skims/test/data/lib_path/f061/swift.swift,5,390
 F061. Errors without traceability,namespace/skims/test/data/lib_path/f061/swift.swift,6,390
 F061. Errors without traceability,namespace/skims/test/data/lib_path/f061/swift.swift,7,390

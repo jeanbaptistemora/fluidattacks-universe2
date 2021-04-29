@@ -23,36 +23,36 @@ from utils.encodings import (
 )
 
 
-@pytest.mark.skims_test_group('unittesting')
+@pytest.mark.skims_test_group("unittesting")
 @run_decorator
 @pytest.mark.parametrize(
     "files_to_test,suffix_out",
     [
         (
             (
-                'skims/test/data/benchmark/instance_references/src/App.java',
-                'skims/test/data/benchmark/instance_references/src/User.java',
+                "skims/test/data/benchmark/instance_references/src/App.java",
+                "skims/test/data/benchmark/instance_references/src/User.java",
             ),
-            'instance_ref',
+            "instance_ref",
         ),
         (
             (
-                'skims/test/data/benchmark/owasp/BenchmarkTest00001.java',
-                'skims/test/data/benchmark/owasp/BenchmarkTest00008.java',
-                'skims/test/data/benchmark/owasp/BenchmarkTest00167.java',
+                "skims/test/data/benchmark/owasp/BenchmarkTest00001.java",
+                "skims/test/data/benchmark/owasp/BenchmarkTest00008.java",
+                "skims/test/data/benchmark/owasp/BenchmarkTest00167.java",
             ),
-            'benchmark',
+            "benchmark",
         ),
         (
             (
-                'skims/test/data/lib_path/f031_cwe378/Test.java',
-                'skims/test/data/lib_path/f063_path_traversal/Test.java',
+                "skims/test/data/lib_path/f031_cwe378/Test.java",
+                "skims/test/data/lib_path/f063_path_traversal/Test.java",
             ),
-            'findings',
+            "findings",
         ),
         (
-            ('skims/test/data/sast/TestCFG.java', ),
-            'cfg',
+            ("skims/test/data/sast/TestCFG.java",),
+            "cfg",
         ),
     ],
 )
@@ -66,12 +66,12 @@ async def test_graph_generation(
 
     if SHOULD_UPDATE_TESTS:
         with open(
-                f'skims/test/data/sast/root-graph_{suffix_out}.json',
-                'w',
+            f"skims/test/data/sast/root-graph_{suffix_out}.json",
+            "w",
         ) as handle:
             handle.write(graph_db_as_json_str)
 
-    with open(f'skims/test/data/sast/root-graph_{suffix_out}.json') as handle:
+    with open(f"skims/test/data/sast/root-graph_{suffix_out}.json") as handle:
         expected = handle.read()
 
     assert graph_db_as_json_str == expected
@@ -89,13 +89,14 @@ async def test_graph_generation(
 
     if SHOULD_UPDATE_TESTS:
         with open(
-                f'skims/test/data/sast/root-graph-syntax_{suffix_out}.json',
-                'w',
+            f"skims/test/data/sast/root-graph-syntax_{suffix_out}.json",
+            "w",
         ) as handle:
             handle.write(syntax_steps_as_json_str)
 
-    with open(f'skims/test/data/sast/root-graph-syntax_{suffix_out}.json',
-              ) as handle:
+    with open(
+        f"skims/test/data/sast/root-graph-syntax_{suffix_out}.json",
+    ) as handle:
         expected = handle.read()
 
     assert syntax_steps_as_json_str == expected
