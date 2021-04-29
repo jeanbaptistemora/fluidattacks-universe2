@@ -99,19 +99,6 @@ def add_f043_dast_sts_rules() -> None:
         }))
 
 
-def add_f043_dast_xssp_rules() -> None:
-    for index, value in enumerate([
-        '0',
-        '0; mode=block;',
-        '1',
-        '1; mode=block',
-        '2; mode=other',
-    ]):
-        add_rule('f043_dast_xssp', index, partial(response_header, {
-            'X-XSS-Protection': value,
-        }))
-
-
 def start() -> None:
     APP.run()
 
@@ -119,4 +106,3 @@ def start() -> None:
 add_f043_dast_csp_rules()
 add_f043_dast_rp_rules()
 add_f043_dast_sts_rules()
-add_f043_dast_xssp_rules()
