@@ -181,3 +181,49 @@ class OrgFindingPolicyItem(NamedTuple):
     org_name: str
     metadata: OrgFindingPolicyMetadata
     state: OrgFindingPolicyState
+
+
+class FindingMetadata(NamedTuple):
+    actor: str
+    affected_systems: str
+    analyst_email: str
+    attack_vector_desc: str
+    bts_url: str
+    compromised_attributes: str
+    compromised_records: int
+    cvss_version: float
+    cwe_url: str
+    description: str
+    evidences: Dict[str, Dict[str, str]]
+    group_name: str
+    id: str
+    scenario: str
+    severity: Dict[str, float]
+    sorts: str
+    risk: str
+    recommendation: str
+    requirements: str
+    title: str
+    threat: str
+    type: str
+
+
+class FindingState(NamedTuple):
+    modified_by: str
+    modified_date: str
+    source: str
+    status: str
+
+
+class FindingVerification(NamedTuple):
+    comment_id: str
+    modified_by: str
+    modified_date: str
+    status: str
+    vuln_uuids: List[str]
+
+
+class FindingItem(NamedTuple):
+    metadata: FindingMetadata
+    state: FindingState
+    verification: FindingVerification
