@@ -113,14 +113,14 @@ def adj_lazy(
     childs: List[str] = sorted(graph.adj[n_id], key=int)
 
     edge_keys = set(edge_attrs.keys())
-    edge_keys.add("label_index")
 
     # Append direct childs
     for c_id in childs:
         process = has_labels(graph[n_id][c_id], **edge_attrs)
         if strict and process:
             graph_edge_keys = set(graph[n_id][c_id].keys())
-            process = not bool(edge_keys.difference(graph_edge_keys))
+            difference = graph_edge_keys.difference(edge_keys)
+            process = not bool(difference) or difference == {"label_index"}
         if process:
             yield c_id
 
@@ -130,7 +130,8 @@ def adj_lazy(
             process = has_labels(graph[n_id][c_id], **edge_attrs)
             if process and strict:
                 graph_edge_keys = set(graph[n_id][c_id].keys())
-                process = not bool(edge_keys.difference(graph_edge_keys))
+                difference = graph_edge_keys.difference(edge_keys)
+                process = not bool(difference) or difference == {"label_index"}
             if process:
                 yield from adj_lazy(
                     graph,
@@ -180,11 +181,12 @@ def adj_cfg(
     graph: Graph,
     n_id: str,
     depth: int = 1,
+    strict: bool = False,
     **n_attrs: str,
 ) -> Tuple[Any, ...]:
     return tuple(
         c_id
-        for c_id in adj(graph, n_id, depth, label_cfg="CFG")
+        for c_id in adj(graph, n_id, depth, strict=strict, label_cfg="CFG")
         if has_labels(graph.nodes[c_id], **n_attrs)
     )
 

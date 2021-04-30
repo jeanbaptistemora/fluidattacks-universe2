@@ -77,3 +77,21 @@ def test_branches_cfg() -> None:
     assert g.branches_cfg(graph, "1", core_model.FindingEnum.F004) == (
         ("1", "2", "4"),
     )
+
+
+@pytest.mark.skims_test_group("unittesting")
+def test_branches_adj() -> None:
+    graph = graph_model.Graph()
+    graph.add_edge("1", "2", label_ast="AST", label_index="0")
+    graph.add_edge("1", "3", label_ast="AST", label_index="1")
+    graph.add_edge("2", "3", label_ast="AST", label_index="0")
+    graph.add_edge("3", "5", label_cfg="CFG", label_index="1")
+    graph.add_edge("5", "6", label_cfg="CFG", label_index="1")
+
+    graph.add_edge("1", "4", label_cfg="CFG", label_ast="AST", label_index="2")
+
+    assert g.adj_ast(graph, "1") == ("2", "3", "4")
+    assert g.adj_cfg(graph, "1") == ("4",)
+
+    assert g.adj_ast(graph, "1", strict=True) == ("2", "3")
+    assert g.adj_cfg(graph, "3", strict=True, depth=-1) == ("5", "6")
