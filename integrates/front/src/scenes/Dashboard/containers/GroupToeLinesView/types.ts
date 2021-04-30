@@ -4,6 +4,7 @@ interface IToeLinesAttr {
   loc: number;
   modifiedDate: string;
   modifiedCommit: string;
+  sortsRiskLevel: string;
   testedDate: string;
   testedLines: number;
 }
@@ -24,6 +25,7 @@ interface IToeLinesData {
   modifiedCommit: string;
   pendingLines: number;
   rootId: string;
+  sortsRiskLevel: string;
   testedDate: string;
   testedLines: number;
 }

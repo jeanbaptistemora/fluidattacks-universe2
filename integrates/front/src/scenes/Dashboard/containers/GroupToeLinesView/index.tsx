@@ -123,6 +123,14 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
       onSort,
       width: "15%",
     },
+    {
+      align: "left",
+      dataField: "sortsRiskLevel",
+      header: translate.t("group.toe.lines.sortsRiskLevel"),
+      onSort,
+      visible: false,
+      width: "2.5%",
+    },
   ];
 
   // // GraphQL operations
@@ -148,6 +156,10 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
     toeLinesAttr.loc === 0 ? 1 : toeLinesAttr.testedLines / toeLinesAttr.loc;
   const getPendingLines = (toeLinesAttr: IToeLinesAttr): number =>
     toeLinesAttr.loc - toeLinesAttr.testedLines;
+  const getSortsRiskLevel = (toeLinesAttr: IToeLinesAttr): string =>
+    toeLinesAttr.sortsRiskLevel
+      ? `${toeLinesAttr.sortsRiskLevel.toString()} %`
+      : "-";
   const toeLines: IToeLinesData[] = roots.reduce(
     (acc: IToeLinesData[], root: IGitRootAttr): IToeLinesData[] =>
       acc.concat(
@@ -159,6 +171,7 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
             pendingLines: getPendingLines(toeLinesAttr),
             rootId: root.id,
             ...toeLinesAttr,
+            sortsRiskLevel: getSortsRiskLevel(toeLinesAttr),
           })
         )
       ),

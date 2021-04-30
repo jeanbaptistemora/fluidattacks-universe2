@@ -16,6 +16,7 @@ const GET_TOE_LINES: DocumentNode = gql`
             testedDate
             testedLines
             comments
+            sortsRiskLevel
           }
         }
       }
