@@ -12,6 +12,7 @@ from http_headers import (
     content_security_policy,
     strict_transport_security,
     referrer_policy,
+    x_frame_options,
 )
 
 
@@ -204,3 +205,12 @@ def test_strict_transport_security() -> None:
 
     header = parse("Strict-Transport-Security-: preload")
     assert not header
+
+
+@pytest.mark.skims_test_group("unittesting")
+def test_x_frame_options() -> None:
+    # Header names are caseless
+    parse = x_frame_options.parse
+
+    header = parse("  x-frame-options  :  deny  ")
+    assert header.value == "deny"

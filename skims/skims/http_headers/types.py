@@ -33,11 +33,17 @@ class XXSSProtectionHeader(NamedTuple):
     mode: str
 
 
+class XFrameOptionsHeader(NamedTuple):
+    name: str
+    value: str
+
+
 Header = Optional[
     Union[
         ContentSecurityPolicyHeader,
         ReferrerPolicyHeader,
         StrictTransportSecurityHeader,
         XXSSProtectionHeader,
+        XFrameOptionsHeader,
     ]
 ]
