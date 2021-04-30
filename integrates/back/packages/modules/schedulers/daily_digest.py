@@ -23,8 +23,6 @@ from backend.typing import (
     MailContent as MailContentType,
 )
 from findings import domain as findings_domain
-from groups import domain as groups_domain
-from group_access import domain as group_access_domain
 from newutils import (
     bugsnag as bugsnag_utils,
     datetime as datetime_utils,
@@ -32,6 +30,10 @@ from newutils import (
 )
 from newutils.findings import (
     get_state_actions,
+)
+from __init__ import (
+    FI_MAIL_DIGEST,
+    FI_TEST_PROJECTS_DIGEST,
 )
 
 
@@ -170,9 +172,9 @@ async def get_group_statistics(context: Any, group_name: str) -> None:
         'accepted_undefined_submitted', 0)
     mail_context['treatments']['pending_attacks'] = treatments.get(
         'accepted_undefined_approved', 0)
-    mail_to = await group_access_domain.get_users_to_notify(group_name)
+    mail_to = FI_MAIL_DIGEST.split(',')
 
-    schedule(
+    await schedule(
         mailer.send_mail_daily_digest(mail_to, mail_context)
     )
 
@@ -180,7 +182,7 @@ async def get_group_statistics(context: Any, group_name: str) -> None:
 async def main() -> None:
     """Daily Digest mail send to each analyst at the end of the day"""
     context = get_new_context()
-    groups = await groups_domain.get_active_groups()
+    groups = FI_TEST_PROJECTS_DIGEST.split(',')
     await collect([
         get_group_statistics(context, group)
         for group in groups
