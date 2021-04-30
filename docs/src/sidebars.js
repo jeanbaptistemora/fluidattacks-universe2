@@ -544,6 +544,7 @@ module.exports = {
     'types/f048',
     'types/f049',
     'types/f050',
+    'types/f051',
     {
       type: 'category',
       label: 'Insecure encryption algorithm',
