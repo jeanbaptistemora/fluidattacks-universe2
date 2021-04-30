@@ -355,11 +355,13 @@ def _mark_obj_inst(
 ) -> None:
     for syntax_steps in graph_syntax.values():
         for syntax_step in syntax_steps:
-            if isinstance(
-                syntax_step, (graph_model.SyntaxStepObjectInstantiation,)
+            if (
+                isinstance(
+                    syntax_step, (graph_model.SyntaxStepObjectInstantiation,)
+                )
+                and syntax_step.object_type in types
             ):
-                if syntax_step.object_type in types:
-                    marker(graph, syntax_step.meta.n_id, finding)
+                marker(graph, syntax_step.meta.n_id, finding)
 
 
 def _mark_obj_inst_input(
