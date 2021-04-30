@@ -83,16 +83,20 @@ def filter_nodes(
     return result
 
 
-def adj(
+def adj_lazy(
     graph: Graph,
     n_id: str,
     depth: int = 1,
+    strict: bool = False,
     _processed_n_ids: Optional[Set[str]] = None,
     **edge_attrs: str,
-) -> Tuple[str, ...]:
+) -> Iterator[str]:
     """Return adjacent nodes to `n_id`, following just edges with given attrs.
 
     - Parameter `depth` may be -1 to indicate infinite depth.
+    - Parameter `strcit` indicates that the edges must have only the indicated
+      attributes
+
     - Search is done breadth first.
     - Nodes are returned ordered ascending by index on each level.
 
@@ -100,50 +104,74 @@ def adj(
     becomes unstable (unordered) after mutating the graph, also this allow
     following just edges matching `edge_attrs`.
     """
-    if depth == 0:
-        return ()
-
     processed_n_ids: Set[str] = _processed_n_ids or set()
-    if n_id in processed_n_ids:
-        return ()
+    if depth == 0 or n_id in processed_n_ids:
+        return
 
     processed_n_ids.add(n_id)
 
-    results: List[str] = []
-
     childs: List[str] = sorted(graph.adj[n_id], key=int)
+
+    edge_keys = set(edge_attrs.keys())
+    edge_keys.add("label_index")
 
     # Append direct childs
     for c_id in childs:
-        if has_labels(graph[n_id][c_id], **edge_attrs):
-            results.append(c_id)
+        process = has_labels(graph[n_id][c_id], **edge_attrs)
+        if strict and process:
+            graph_edge_keys = set(graph[n_id][c_id].keys())
+            process = not bool(edge_keys.difference(graph_edge_keys))
+        if process:
+            yield c_id
 
     # Recurse into childs
     if depth < 0 or depth > 1:
         for c_id in childs:
-            if has_labels(graph[n_id][c_id], **edge_attrs):
-                results.extend(
-                    adj(
-                        graph,
-                        c_id,
-                        depth=depth - 1,
-                        _processed_n_ids=processed_n_ids,
-                        **edge_attrs,
-                    )
+            process = has_labels(graph[n_id][c_id], **edge_attrs)
+            if process and strict:
+                graph_edge_keys = set(graph[n_id][c_id].keys())
+                process = not bool(edge_keys.difference(graph_edge_keys))
+            if process:
+                yield from adj_lazy(
+                    graph,
+                    c_id,
+                    depth=depth - 1,
+                    strict=strict,
+                    _processed_n_ids=processed_n_ids,
+                    **edge_attrs,
                 )
 
-    return tuple(results)
+
+def adj(
+    graph: Graph,
+    n_id: str,
+    depth: int = 1,
+    strict: bool = False,
+    _processed_n_ids: Optional[Set[str]] = None,
+    **edge_attrs: str,
+) -> Tuple[str, ...]:
+    return tuple(
+        adj_lazy(
+            graph,
+            n_id,
+            depth=depth,
+            strict=strict,
+            _processed_n_ids=_processed_n_ids,
+            **edge_attrs,
+        )
+    )
 
 
 def adj_ast(
     graph: Graph,
     n_id: str,
     depth: int = 1,
+    strict: bool = False,
     **n_attrs: str,
 ) -> Tuple[Any, ...]:
     return tuple(
         c_id
-        for c_id in adj(graph, n_id, depth, label_ast="AST")
+        for c_id in adj(graph, n_id, depth, strict=strict, label_ast="AST")
         if has_labels(graph.nodes[c_id], **n_attrs)
     )
 
@@ -158,6 +186,24 @@ def adj_cfg(
         c_id
         for c_id in adj(graph, n_id, depth, label_cfg="CFG")
         if has_labels(graph.nodes[c_id], **n_attrs)
+    )
+
+
+def adj_cfg_lazy(
+    graph: Graph,
+    n_id: str,
+    depth: int = 1,
+    strict: bool = False,
+    **n_attrs: str,
+) -> Iterator[Any]:
+    yield from adj_lazy(
+        graph,
+        n_id,
+        depth=depth,
+        strict=strict,
+        _processed_n_ids=set(),
+        label_cfg="CFG",
+        **n_attrs,
     )
 
 
