@@ -11,7 +11,7 @@ from target_redshift_2.objects import RedshiftField
 
 def test_from_rfield() -> None:
     # Arrange
-    field1 = RedshiftField('field1', DbTypes.BOOLEAN)
+    field1 = RedshiftField("field1", DbTypes.BOOLEAN)
     # Act
     result = columns.from_rfield(field1)
     # Assert

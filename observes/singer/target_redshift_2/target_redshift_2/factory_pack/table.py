@@ -1,5 +1,6 @@
 # Standard libraries
 from typing import NamedTuple, Optional
+
 # Third party libraries
 # Local libraries
 from postgres_client import table
@@ -37,33 +38,25 @@ class TableDraftFactory(NamedTuple):
 def _rschema_to_tdraft(
     r_schema: RedshiftSchema,
     rfield_to_column: Transform[RedshiftField, IsolatedColumn],
-    rschema_to_tid: Transform[RedshiftSchema, TableID]
+    rschema_to_tid: Transform[RedshiftSchema, TableID],
 ) -> TableDraft:
     table_id: TableID = rschema_to_tid(r_schema)
     return TableDraft(
-        id=table_id, primary_keys=frozenset(),
-        columns=frozenset(
-            map(rfield_to_column, r_schema.fields)
-        )
+        id=table_id,
+        primary_keys=frozenset(),
+        columns=frozenset(map(rfield_to_column, r_schema.fields)),
     )
 
 
 def _rschema_to_tid(r_schema: RedshiftSchema) -> TableID:
-    return TableID(
-        schema=r_schema.schema_name,
-        table_name=r_schema.table_name
-    )
+    return TableID(schema=r_schema.schema_name, table_name=r_schema.table_name)
 
 
 def _srecord_to_tid(srecord: SingerRecord, schema_name: str) -> TableID:
-    return TableID(
-        schema=schema_name,
-        table_name=srecord.stream
-    )
+    return TableID(schema=schema_name, table_name=srecord.stream)
 
 
 def table_factory(client: Client) -> TableFactory:
-
     def table_create(draft: TableDraft) -> Table:
         return table.table_builder(client, draft)
 
@@ -77,7 +70,6 @@ def table_factory(client: Client) -> TableFactory:
 
 
 def tableid_factory(db_schema: str) -> TableIDFactory:
-
     def srecord_to_tid(record: SingerRecord) -> TableID:
         return _srecord_to_tid(record, db_schema)
 
@@ -95,6 +87,4 @@ def tabledraft_factory(db_schema: str) -> TableDraftFactory:
             schema, columns_factory.from_rfield, tid_factory.rschema_to_tid
         )
 
-    return TableDraftFactory(
-        rschema_to_tdraft=rschema_to_tdraft
-    )
+    return TableDraftFactory(rschema_to_tdraft=rschema_to_tdraft)

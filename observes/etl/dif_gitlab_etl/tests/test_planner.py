@@ -1,12 +1,8 @@
 # Standard libraries
 # Third party libraries
-from typing import (
-    Any,
-    Dict,
-    List,
-    Optional
-)
+from typing import Any, Dict, List, Optional
 import pytest
+
 # Local libraries
 from dif_gitlab_etl import planner
 from dif_gitlab_etl.utils import NotFoundException
@@ -22,17 +18,11 @@ Resource = List[Dict[str, Any]]
 # `search_page_with` Tests
 def mock_get_resource(resource: GitlabResourcePage) -> Optional[Resource]:
     if resource.page == 123:
-        return [
-            {'id': '245'}, {'id': '244'}, {'id': '243'}
-        ]
+        return [{"id": "245"}, {"id": "244"}, {"id": "243"}]
     if resource.page < 123:
-        return [
-            {'id': '250'}, {'id': '249'}, {'id': '248'}
-        ]
+        return [{"id": "250"}, {"id": "249"}, {"id": "248"}]
     if resource.page > 123 and resource.page <= 130:
-        return [
-            {'id': '242'}, {'id': '241'}, {'id': '240'}
-        ]
+        return [{"id": "242"}, {"id": "241"}, {"id": "240"}]
     return None
 
 
@@ -45,8 +35,8 @@ def test_search_page_with() -> None:
         target_id=243,
         last_seen=GitlabResourcePage(
             GitlabResource(
-                project='projet64',
-                resource='athernos',
+                project="projet64",
+                resource="athernos",
             ),
             page=111,
             per_page=3,
@@ -64,8 +54,8 @@ def test_search_page_last_page() -> None:
         target_id=0,
         last_seen=GitlabResourcePage(
             GitlabResource(
-                project='projet64',
-                resource='athernos',
+                project="projet64",
+                resource="athernos",
             ),
             page=111,
             per_page=3,
@@ -76,10 +66,8 @@ def test_search_page_last_page() -> None:
 
 def mock_fail_get_resource(resource: GitlabResourcePage) -> Optional[Resource]:
     if resource.page < 111:
-        raise Exception('Should not get pages below last_seen')
-    return [
-        {'id': '300'}
-    ]
+        raise Exception("Should not get pages below last_seen")
+    return [{"id": "300"}]
 
 
 def test_not_start_from_scratch() -> None:
@@ -91,12 +79,12 @@ def test_not_start_from_scratch() -> None:
         target_id=300,
         last_seen=GitlabResourcePage(
             GitlabResource(
-                project='projet64',
-                resource='athernos',
+                project="projet64",
+                resource="athernos",
             ),
             page=111,
             per_page=3,
-        )
+        ),
     )
 
 
@@ -134,8 +122,8 @@ def test_calculate_interval_start_min() -> None:
 # `get_lgu_id` Tests
 def mock_resource() -> GitlabResource:
     return GitlabResource(
-        project='projet64',
-        resource='athernos',
+        project="projet64",
+        resource="athernos",
     )
 
 
@@ -171,4 +159,4 @@ def test_get_lgu_last_seen_page_id_expected() -> None:
     result = planner.get_lgu_last_seen_page_id(
         mock_resource(), lambda x: ((12, 45),)
     )
-    assert result == {'page': 12, 'per_page': 45}
+    assert result == {"page": 12, "per_page": 45}

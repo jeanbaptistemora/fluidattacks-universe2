@@ -30,13 +30,9 @@ def _pop_if_exist(raw: JSON, key: str) -> Any:
 def create_api_data(raw: JSON) -> ApiData:
     raw_copy = raw.copy()
     try:
-        links = raw_copy.pop('_links')[0]
-        total_items = _pop_if_exist(raw_copy, 'total_items')
-        return ApiData(
-            data=raw_copy,
-            links=links,
-            total_items=total_items
-        )
+        links = raw_copy.pop("_links")[0]
+        total_items = _pop_if_exist(raw_copy, "total_items")
+        return ApiData(data=raw_copy, links=links, total_items=total_items)
     except KeyError as error:
-        LOG.debug('Bad json: %s', raw_copy)
+        LOG.debug("Bad json: %s", raw_copy)
         raise error

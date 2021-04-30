@@ -13,6 +13,7 @@ from typing import (
     Optional,
     Tuple,
 )
+
 # Third party libraries
 # Local libraries
 
@@ -41,46 +42,40 @@ def paginate_table(
 ) -> ScanResponse:
     table = db_client.Table(table_segment.table_name)
     scan_args: Dict[str, Any] = {
-        'Limit': 1000,
-        'ConsistentRead': True,
-        'Segment': table_segment.segment,
-        'TotalSegments': table_segment.total_segments,
+        "Limit": 1000,
+        "ConsistentRead": True,
+        "Segment": table_segment.segment,
+        "TotalSegments": table_segment.total_segments,
     }
     if ex_start_key:
-        scan_args.update({'ExclusiveStartKey': ex_start_key})
+        scan_args.update({"ExclusiveStartKey": ex_start_key})
     result = table.scan(**scan_args)
-    return ScanResponse(
-        t_segment=table_segment,
-        response=result
-    )
+    return ScanResponse(t_segment=table_segment, response=result)
 
 
 def response_to_dpage(scan_response: ScanResponse) -> Optional[PageData]:
     response = dict(scan_response.response)
-    if response.get('Count') == 0:
+    if response.get("Count") == 0:
         return None
 
-    last_key: Optional[Dict[str, Any]] = response.get('LastEvaluatedKey', None)
-    data = json.dumps(response['Items'])
-    file = tempfile.NamedTemporaryFile(mode='w+')
+    last_key: Optional[Dict[str, Any]] = response.get("LastEvaluatedKey", None)
+    data = json.dumps(response["Items"])
+    file = tempfile.NamedTemporaryFile(mode="w+")
     file.write(data)
     if last_key:
         return PageData(
             t_segment=scan_response.t_segment,
             file=file,
-            exclusive_start_key=frozenset(last_key.items())
+            exclusive_start_key=frozenset(last_key.items()),
         )
     return PageData(
-        t_segment=scan_response.t_segment,
-        file=file,
-        exclusive_start_key=None
+        t_segment=scan_response.t_segment, file=file, exclusive_start_key=None
     )
 
 
 def extract_until_end(
     extract: Callable[
-        [Optional[FrozenSet[Tuple[str, Any]]]],
-        Optional[PageData]
+        [Optional[FrozenSet[Tuple[str, Any]]]], Optional[PageData]
     ]
 ) -> List[PageData]:
     last_key: Optional[FrozenSet[Tuple[str, Any]]] = None
@@ -103,10 +98,7 @@ def extract_segment(db_client, segment: TableSegment) -> List[PageData]:
     def extract(
         last_key: Optional[FrozenSet[Tuple[str, Any]]]
     ) -> Optional[PageData]:
-        response: ScanResponse = paginate_table(
-            db_client, segment, last_key
-        )
+        response: ScanResponse = paginate_table(db_client, segment, last_key)
         return response_to_dpage(response)
-    return extract_until_end(
-        extract=extract
-    )
+
+    return extract_until_end(extract=extract)

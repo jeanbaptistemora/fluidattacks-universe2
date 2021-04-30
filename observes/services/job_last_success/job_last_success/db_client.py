@@ -5,14 +5,16 @@ from typing import (
     List,
     NamedTuple,
 )
+
 # Third party libraries
 import psycopg2 as postgres
 import psycopg2.extensions as postgres_extensions
+
 # Local libraries
 
 PGCONN = Any
 PGCURR = Any
-SCHEMA = 'repos-s3-sync'
+SCHEMA = "repos-s3-sync"
 
 
 class DbState(NamedTuple):
@@ -26,7 +28,7 @@ def make_access_point(auth: Dict[str, str]) -> DbState:
         user=auth["user"],
         password=auth["password"],
         host=auth["host"],
-        port=auth["port"]
+        port=auth["port"],
     )
     dbcon.set_session(readonly=False)
     dbcon.set_isolation_level(postgres_extensions.ISOLATION_LEVEL_AUTOCOMMIT)
@@ -42,7 +44,7 @@ def drop_access_point(state: DbState) -> None:
 
 def _create_timestamp_group(state: DbState, group: str, table: str) -> None:
     query = (
-        f"INSERT INTO \"{SCHEMA}\".{table} "
+        f'INSERT INTO "{SCHEMA}".{table} '
         f"(group_name,sync_date) VALUES ('{group}',getdate())"
     )
     state.cursor.execute(query)
@@ -50,17 +52,14 @@ def _create_timestamp_group(state: DbState, group: str, table: str) -> None:
 
 def _update_timestamp_group(state: DbState, group: str, table: str) -> None:
     query = (
-        f"UPDATE \"{SCHEMA}\".{table} "
+        f'UPDATE "{SCHEMA}".{table} '
         f"set sync_date=getdate() WHERE group_name='{group}'"
     )
     state.cursor.execute(query)
 
 
 def compound_job_update(state: DbState, group: str, table: str) -> None:
-    query = (
-        f"SELECT * FROM \"{SCHEMA}\".{table} "
-        f"WHERE group_name='{group}'"
-    )
+    query = f'SELECT * FROM "{SCHEMA}".{table} ' f"WHERE group_name='{group}'"
     state.cursor.execute(query)
     result = state.cursor.fetchall()
     if not result:
@@ -71,7 +70,7 @@ def compound_job_update(state: DbState, group: str, table: str) -> None:
 
 def _create_timestamp_job(state: DbState, job_name: str) -> None:
     query = (
-        f"INSERT INTO \"{SCHEMA}\".last_sync_jobs "
+        f'INSERT INTO "{SCHEMA}".last_sync_jobs '
         f"(job_name,sync_date) VALUES ('{job_name}',getdate())"
     )
     state.cursor.execute(query)
@@ -79,7 +78,7 @@ def _create_timestamp_job(state: DbState, job_name: str) -> None:
 
 def _update_timestamp_job(state: DbState, job_name: str) -> None:
     query = (
-        f"UPDATE \"{SCHEMA}\".last_sync_jobs "
+        f'UPDATE "{SCHEMA}".last_sync_jobs '
         f"set sync_date=getdate() WHERE job_name='{job_name}'"
     )
     state.cursor.execute(query)
@@ -87,7 +86,7 @@ def _update_timestamp_job(state: DbState, job_name: str) -> None:
 
 def _get_single_job(state: DbState, job_name: str) -> List[Any]:
     query = (
-        f"SELECT * FROM \"{SCHEMA}\".last_sync_jobs "
+        f'SELECT * FROM "{SCHEMA}".last_sync_jobs '
         f"WHERE job_name='{job_name}'"
     )
     state.cursor.execute(query)

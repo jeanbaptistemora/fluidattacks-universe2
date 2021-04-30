@@ -10,6 +10,7 @@ from typing import (
     Optional,
     Union,
 )
+
 # Third party libraries
 # Local libraries
 from dif_gitlab_etl.etl import ExtractState
@@ -33,32 +34,35 @@ class MockDataCase(NamedTuple):
 
 def mock_create_temp(mock_data: MockDataCase) -> Callable[[str], IO[str]]:
     def _mock_create_temp(path: str) -> IO[str]:
-        file = NamedTemporaryFile(mode='w+')
+        file = NamedTemporaryFile(mode="w+")
         mock_data.mock_temp_files[path] = file
         return file
+
     return _mock_create_temp
 
 
 def mock_get_temp(mock_data: MockDataCase) -> Callable[[str], IO[str]]:
     def _mock_get_temp(path: str) -> IO[str]:
         return mock_data.mock_temp_files[path]
+
     return _mock_get_temp
 
 
 def mock_extract_data(
-    mock_data: MockDataCase
+    mock_data: MockDataCase,
 ) -> Callable[[GitlabResourcePage], Union[PageData, None]]:
     def _mock_extract_data(resource: GitlabResourcePage) -> PageData:
         try:
             return PageData(
                 id=resource,
                 file=mock_create_temp(mock_data)(
-                    f'case_01/page_{resource.page}'
+                    f"case_01/page_{resource.page}"
                 ),
                 minor_item_id=mock_data.min_id[str(resource.page)],
             )
         except KeyError:
             return None
+
     return _mock_extract_data
 
 
@@ -71,28 +75,30 @@ def mock_case_01() -> MockDataCase:
         min_id=dict(),
         pages_range=range(0),
     )
-    resource = GitlabResource(
-        project='test_case_01',
-        resource='foo'
-    )
+    resource = GitlabResource(project="test_case_01", resource="foo")
     gr_pages: List[GitlabResourcePage] = []
     data_pages: List[PageData] = []
     gr_dpag_mapper: Dict[GitlabResourcePage, PageData] = {}
     min_id: Dict[str, int] = {
-        '1': 41, '2': 36, '3': 31,
-        '4': 26, '5': 21, '6': 16,
-        '7': 11, '8': 6, '9': 1,
+        "1": 41,
+        "2": 36,
+        "3": 31,
+        "4": 26,
+        "5": 21,
+        "6": 16,
+        "7": 11,
+        "8": 6,
+        "9": 1,
     }
     pages: range = range(1, 10)
 
     for page in pages:
         gr_page = GitlabResourcePage(
-            g_resource=resource,
-            page=page, per_page=5
+            g_resource=resource, page=page, per_page=5
         )
         gr_pages.append(gr_page)
 
-        temp_file = mock_create_temp(case)(f'case_01/page_{page}')
+        temp_file = mock_create_temp(case)(f"case_01/page_{page}")
 
         dpage = PageData(
             id=gr_pages[-1],
@@ -117,27 +123,29 @@ def mock_case_01() -> MockDataCase:
 
 
 def mock_extract_data_less_than(
-    mock_data: MockDataCase
+    mock_data: MockDataCase,
 ) -> Callable[[int, GitlabResourcePage], Union[PageData, None]]:
     def _mock_extract_data_less_than(
-        target_id: int,
-        resource: GitlabResourcePage
+        target_id: int, resource: GitlabResourcePage
     ) -> Union[PageData, None]:
-        if resource.g_resource == mock_data.resource \
-           and resource.page in mock_data.pages_range:
+        if (
+            resource.g_resource == mock_data.resource
+            and resource.page in mock_data.pages_range
+        ):
             return PageData(
                 id=resource,
                 file=mock_create_temp(mock_data)(
-                    f'case_01/page_{resource.page}_less_than_{target_id}'
+                    f"case_01/page_{resource.page}_less_than_{target_id}"
                 ),
                 minor_item_id=mock_data.min_id[str(resource.page)],
             )
         return None
+
     return _mock_extract_data_less_than
 
 
 def mock_extract_between(
-    mock_data: MockDataCase
+    mock_data: MockDataCase,
 ) -> Callable[[GResourcePageRange, Optional[int]], ExtractState]:
     def _mock_extract_between(
         resource_range: GResourcePageRange, init_last_minor_id: Optional[int]
@@ -161,7 +169,7 @@ def mock_extract_between(
                         g_resource=resource_range.g_resource,
                         per_page=resource_range.per_page,
                         page=page,
-                    )
+                    ),
                 )
             if not dpage:
                 last_page_reached = True
@@ -176,4 +184,5 @@ def mock_extract_between(
             cast(int, last_minor_id),
             last_page_reached,
         )
+
     return _mock_extract_between

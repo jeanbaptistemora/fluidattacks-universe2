@@ -4,12 +4,13 @@ from typing import (
     Dict,
     NamedTuple,
 )
+
 # Third party libraries
 # Local libraries
 
 
 JSON = Dict[str, Any]
-API_URL = 'https://www.zohoapis.com'
+API_URL = "https://www.zohoapis.com"
 
 
 class UnexpectedResponse(Exception):

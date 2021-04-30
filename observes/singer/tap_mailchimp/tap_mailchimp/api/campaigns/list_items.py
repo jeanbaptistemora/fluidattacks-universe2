@@ -29,15 +29,9 @@ def list_campaigns(
     raw_source: RawSource,
 ) -> Iterator[CampaignId]:
     def id_builder(item: Dict[str, str]) -> CampaignId:
-        return CampaignId(
-            str_id=item['id']
-        )
+        return CampaignId(str_id=item["id"])
 
-    return list_items(
-        raw_source.list_campaigns,
-        'campaigns',
-        id_builder
-    )
+    return list_items(raw_source.list_campaigns, "campaigns", id_builder)
 
 
 def list_feedbacks(
@@ -45,13 +39,8 @@ def list_feedbacks(
     campaign_id: CampaignId,
 ) -> Iterator[FeedbackId]:
     def id_builder(item: Dict[str, str]) -> FeedbackId:
-        return FeedbackId(
-            campaign_id=campaign_id,
-            str_id=item['feedback_id']
-        )
+        return FeedbackId(campaign_id=campaign_id, str_id=item["feedback_id"])
 
     return list_unsupported_pagination(
-        partial(raw_source.list_feedbacks, campaign_id),
-        'feedback',
-        id_builder
+        partial(raw_source.list_feedbacks, campaign_id), "feedback", id_builder
     )

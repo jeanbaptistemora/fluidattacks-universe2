@@ -90,7 +90,7 @@ async def worker(identifier: int, queue: Queue) -> None:
         while True:
             items = await drain_queue(queue)
 
-            await log('info', 'Worker[%s]: Sending %s', identifier, len(items))
+            await log("info", "Worker[%s]: Sending %s", identifier, len(items))
             await in_thread(
                 execute_batch,
                 cur=cursor,
@@ -128,8 +128,8 @@ def truncate_bytes(string: str, start: int, end: int) -> str:
 
 def cli() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument('--namespace', required=True)
-    parser.add_argument('repositories', nargs='*')
+    parser.add_argument("--namespace", required=True)
+    parser.add_argument("repositories", nargs="*")
     args = parser.parse_args()
 
     repositories: Iterator[str] = map(abspath, args.repositories)
@@ -150,10 +150,10 @@ def get_commit_data(commit: Commit) -> Dict[str, Any]:
         hash=commit.hexsha,
         message=truncate_bytes(commit.message, 0, 4096),
         summary=truncate_bytes(commit.summary, 0, 256),
-        total_insertions=commit.stats.total['insertions'],
-        total_deletions=commit.stats.total['deletions'],
-        total_lines=commit.stats.total['lines'],
-        total_files=commit.stats.total['files'],
+        total_insertions=commit.stats.total["insertions"],
+        total_deletions=commit.stats.total["deletions"],
+        total_lines=commit.stats.total["lines"],
+        total_files=commit.stats.total["files"],
     )
 
 
@@ -164,10 +164,15 @@ async def manager(queue: Queue, namespace: str, *repositories: str) -> bool:
         for repo_path in repositories:
             repo_name: str = basename(repo_path)
             repo_is_new: bool = not await does_commit_exist(
-                cursor, COMMIT_HASH_SENTINEL, namespace, repo_name,
+                cursor,
+                COMMIT_HASH_SENTINEL,
+                namespace,
+                repo_name,
             )
             repo_last_commit: Optional[str] = await get_last_commit(
-                cursor, namespace, repo_name,
+                cursor,
+                namespace,
+                repo_name,
             )
 
             try:
@@ -180,17 +185,19 @@ async def manager(queue: Queue, namespace: str, *repositories: str) -> bool:
                     if commit.hexsha == repo_last_commit:
                         break
 
-                    await queue.put(dict(
-                        namespace=namespace,
-                        repository=repo_name,
-                        seen_at=DATE_SENTINEL if repo_is_new else DATE_NOW,
-                        **get_commit_data(commit),
-                    ))
+                    await queue.put(
+                        dict(
+                            namespace=namespace,
+                            repository=repo_name,
+                            seen_at=DATE_SENTINEL if repo_is_new else DATE_NOW,
+                            **get_commit_data(commit),
+                        )
+                    )
             except ValueError:
-                await log('error', 'Repository is possibly empty, ignoring')
+                await log("error", "Repository is possibly empty, ignoring")
                 success = False
             except (GitCommandError, InvalidGitRepositoryError):
-                await log('error', 'Invalid or corrupt repository')
+                await log("error", "Invalid or corrupt repository")
                 success = False
 
             if repo_is_new:
@@ -206,8 +213,7 @@ async def does_commit_exist(
     namespace: str,
     repository: str,
 ) -> bool:
-    """Return True if the repository is new for the provided namespace.
-    """
+    """Return True if the repository is new for the provided namespace."""
     await in_thread(
         cursor.execute,
         """
@@ -266,7 +272,7 @@ async def register_repository(
     namespace: str,
     repository: str,
 ) -> None:
-    await log('info', 'Registering: %s/%s', namespace, repository)
+    await log("info", "Registering: %s/%s", namespace, repository)
     await in_thread(
         cursor.execute,
         """
@@ -286,7 +292,7 @@ async def initialize() -> None:
     with db_cursor() as cursor:
         # Initialize the table if not done yet
         with suppress(DuplicateTable):
-            await log('info', 'Ensuring code.commits table exists...')
+            await log("info", "Ensuring code.commits table exists...")
             await in_thread(
                 cursor.execute,
                 """
@@ -326,5 +332,5 @@ async def drain_queue(queue: Queue) -> List[Dict[str, Any]]:
     return items
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     cli()

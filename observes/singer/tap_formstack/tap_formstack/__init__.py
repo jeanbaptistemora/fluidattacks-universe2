@@ -10,13 +10,12 @@ from typing import (
     Dict,
     Any,
 )
+
 # Third party libraries
 import dateutil.parser
 import requests
-from requests.exceptions import (
-    ChunkedEncodingError,
-    HTTPError
-)
+from requests.exceptions import ChunkedEncodingError, HTTPError
+
 # Local libraries
 from . import logs
 
@@ -47,16 +46,9 @@ class StatusError(Exception):
 def map_ttype(type_str: str) -> Dict[str, str]:
     """Map a tap type to a Singer type."""
     type_map = {
-        "string": {
-            "type": "string"
-        },
-        "number": {
-            "type": "number"
-        },
-        "date": {
-            "type": "string",
-            "format": "date-time"
-        },
+        "string": {"type": "string"},
+        "number": {"type": "number"},
+        "date": {"type": "string", "format": "date-time"},
     }
     return type_map[type_str]
 
@@ -85,7 +77,7 @@ def get_request_response(user_token: str, resource: str) -> JSON:
     headers = {
         "Accept": "application/json",
         "Content-Type": "application/json",
-        "Authorization": f"Bearer {user_token}"
+        "Authorization": f"Bearer {user_token}",
     }
     max_retries = 2
     retry = 0
@@ -95,8 +87,8 @@ def get_request_response(user_token: str, resource: str) -> JSON:
 
     while retry < max_retries:
         json_obj = request().json()
-        status = json_obj.get('status', '')
-        if status.lower() == 'error':
+        status = json_obj.get("status", "")
+        if status.lower() == "error":
             retry = retry + 1
             if retry >= max_retries:
                 raise StatusError
@@ -190,25 +182,30 @@ def write_schema(form_name: str) -> JSON:
                 "_latitude": map_ttype("number"),
                 "_longitude": map_ttype("number"),
                 "_user_agent": map_ttype("string"),
-                "_remote_addr": map_ttype("string")
+                "_remote_addr": map_ttype("string"),
             }
-        }
+        },
     }
 
     fields_type: JSON = {
         "string": [
-            "text", "textarea", "name", "address", "email", "phone", "select",
-            "radio", "richtext", "embed", "creditcard", "file", "image"
+            "text",
+            "textarea",
+            "name",
+            "address",
+            "email",
+            "phone",
+            "select",
+            "radio",
+            "richtext",
+            "embed",
+            "creditcard",
+            "file",
+            "image",
         ],
-        "number": [
-            "number"
-        ],
-        "date": [
-            "datetime"
-        ],
-        "nested": [
-            "matrix", "checkbox"
-        ]
+        "number": ["number"],
+        "date": ["datetime"],
+        "nested": ["matrix", "checkbox"],
     }
 
     file_name = f"{logs.DOMAIN}{form_name}.jsonstream"
@@ -219,19 +216,23 @@ def write_schema(form_name: str) -> JSON:
 
             if field_name not in schema["schema"]["properties"]:
                 if field_type in fields_type["string"]:
-                    schema["schema"]["properties"][field_name] \
-                        = map_ttype("string")
+                    schema["schema"]["properties"][field_name] = map_ttype(
+                        "string"
+                    )
                 elif field_type in fields_type["number"]:
-                    schema["schema"]["properties"][field_name] \
-                        = map_ttype("number")
+                    schema["schema"]["properties"][field_name] = map_ttype(
+                        "number"
+                    )
                 elif field_type in fields_type["date"]:
-                    schema["schema"]["properties"][field_name] \
-                        = map_ttype("date")
+                    schema["schema"]["properties"][field_name] = map_ttype(
+                        "date"
+                    )
 
             # mutable object on function call == pass by reference
             if field_type in fields_type["nested"]:
                 write_schema__denest(
-                    schema, submission["data"][key_d], field_type)
+                    schema, submission["data"][key_d], field_type
+                )
 
     logs.log_json_obj(f"{form_name}.stdout", schema)
     logs.stdout_json_obj(schema)
@@ -260,38 +261,30 @@ def write_records(form_name: str, schema_properties: JSON) -> None:
     file_name: str = f"{logs.DOMAIN}{form_name}.jsonstream"
     for submission in iter_lines(file_name, json.loads):
         record: JSON = write_records__assign_data(
-            form_name,
-            schema_properties,
-            submission)
+            form_name, schema_properties, submission
+        )
         logs.log_json_obj(f"{form_name}.stdout", record)
         logs.stdout_json_obj(record)
 
 
 def write_records__assign_data(
-        form_name: str,
-        schema_properties: JSON,
-        submission: JSON) -> JSON:
+    form_name: str, schema_properties: JSON, submission: JSON
+) -> JSON:
     """Handle the assignment of form data to a record."""
     record: JSON = {
         "type": "RECORD",
         "stream": form_name,
         "record": {
             "_form_unique_id": submission.get("id", ""),
-            "_read": std_number(
-                submission.get("read"),
-                default=0.0),
-            "_latitude": std_number(
-                submission.get("latitude"),
-                default=0.0),
-            "_longitude": std_number(
-                submission.get("longitude"),
-                default=0.0),
+            "_read": std_number(submission.get("read"), default=0.0),
+            "_latitude": std_number(submission.get("latitude"), default=0.0),
+            "_longitude": std_number(submission.get("longitude"), default=0.0),
             "_timestamp": std_date(
-                submission.get("timestamp"),
-                default="1900-01-01T00:00:00Z"),
+                submission.get("timestamp"), default="1900-01-01T00:00:00Z"
+            ),
             "_user_agent": submission.get("user_agent", ""),
-            "_remote_addr": submission.get("remote_addr", "")
-        }
+            "_remote_addr": submission.get("remote_addr", ""),
+        },
     }
 
     for field in submission["data"]:
@@ -460,15 +453,19 @@ def main() -> None:
     # user interface
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        '-a', '--auth',
+        "-a",
+        "--auth",
         required=True,
-        help='JSON authentication file',
-        type=argparse.FileType('r'))
+        help="JSON authentication file",
+        type=argparse.FileType("r"),
+    )
     parser.add_argument(
-        '-c', '--conf',
+        "-c",
+        "--conf",
         required=True,
-        help='JSON configuration file',
-        type=argparse.FileType('r'))
+        help="JSON configuration file",
+        type=argparse.FileType("r"),
+    )
     args = parser.parse_args()
 
     tap_conf = json.load(args.conf)
@@ -497,7 +494,7 @@ def main() -> None:
         # Given an encrypted form is not downloaded
         # Then the file doesn't exist
         except FileNotFoundError as error:
-            logs.log_error(f'File:    [{form_name}] | {error}')
+            logs.log_error(f"File:    [{form_name}] | {error}")
 
 
 if __name__ == "__main__":

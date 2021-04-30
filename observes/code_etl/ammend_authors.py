@@ -70,22 +70,26 @@ async def get_items_to_change(
 
         if author_fixed:
             await log(
-                'warning', 'Update author from: %s, to: %s',
-                author, author_fixed,
+                "warning",
+                "Update author from: %s, to: %s",
+                author,
+                author_fixed,
             )
-            item_data['author_name'] = author_fixed[0]
-            item_data['author_email'] = author_fixed[1]
+            item_data["author_name"] = author_fixed[0]
+            item_data["author_email"] = author_fixed[1]
 
         committer = (item.committer_name, item.committer_email)
         committer_fixed = mailmap_dict.get(committer)
 
         if committer_fixed:
             await log(
-                'warning', 'Update committer from: %s, to: %s',
-                committer, committer_fixed,
+                "warning",
+                "Update committer from: %s, to: %s",
+                committer,
+                committer_fixed,
             )
-            item_data['committer_name'] = committer_fixed[0]
-            item_data['committer_email'] = committer_fixed[1]
+            item_data["committer_name"] = committer_fixed[0]
+            item_data["committer_email"] = committer_fixed[1]
 
         if author_fixed or committer_fixed:
             items_to_change.append(Item(**item_data))
@@ -105,8 +109,10 @@ async def worker(
 
             for item in items_to_change:
                 await log(
-                    'info', 'Worker[%s]: Sending to %s',
-                    identifier, item.namespace,
+                    "info",
+                    "Worker[%s]: Sending to %s",
+                    identifier,
+                    item.namespace,
                 )
                 await in_thread(cursor.execute, UPDATE_QUERY, item._asdict())
 
@@ -119,10 +125,10 @@ def get_mailmap_dict(mailmap_path: str) -> MailmapMapping:
     #     /blob/5ae9d2654375afb76dfb3087b1e9b200257331a2/default.nix#L39
     mailmap_dict: MailmapMapping = {}
     mailmap_line: Pattern = re.compile(
-        r'^(?P<canon_name>[A-Z][a-z]+ [A-Z][a-z]+) '
-        r'<(?P<canon_email>.*)> '
-        r'(?P<name>.*?) '
-        r'<(?P<email>.*?)>$',
+        r"^(?P<canon_name>[A-Z][a-z]+ [A-Z][a-z]+) "
+        r"<(?P<canon_email>.*)> "
+        r"(?P<name>.*?) "
+        r"<(?P<email>.*?)>$",
     )
 
     with open(mailmap_path) as file:
@@ -130,8 +136,8 @@ def get_mailmap_dict(mailmap_path: str) -> MailmapMapping:
             match: Optional[Match] = mailmap_line.match(line)
             if match:
                 mapping = match.groupdict()
-                mailmap_from = (mapping['name'], mapping['email'])
-                mailmap_to = (mapping['canon_name'], mapping['canon_email'])
+                mailmap_from = (mapping["name"], mapping["email"])
+                mailmap_to = (mapping["canon_name"], mapping["canon_email"])
                 if mailmap_from != mailmap_to:
                     mailmap_dict[mailmap_from] = mailmap_to
 
@@ -140,13 +146,15 @@ def get_mailmap_dict(mailmap_path: str) -> MailmapMapping:
 
 def cli() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument('--mailmap-path', required=True)
+    parser.add_argument("--mailmap-path", required=True)
 
     args = parser.parse_args()
 
-    run(main(
-        mailmap_dict=get_mailmap_dict(args.mailmap_path),
-    ))
+    run(
+        main(
+            mailmap_dict=get_mailmap_dict(args.mailmap_path),
+        )
+    )
 
 
 async def main(mailmap_dict: MailmapMapping) -> None:
@@ -175,7 +183,7 @@ async def manager(queue: Queue) -> None:
                     committer_email, committer_name
                 FROM code.commits
                 ORDER BY namespace
-            """
+            """,
         )
         async for (
             commit_hash,
@@ -186,16 +194,18 @@ async def manager(queue: Queue) -> None:
             committer_email,
             committer_name,
         ) in generate_in_thread(lambda: cursor):
-            await queue.put(Item(
-                hash=commit_hash,
-                namespace=namespace,
-                repository=repository,
-                author_email=author_email,
-                author_name=author_name,
-                committer_email=committer_email,
-                committer_name=committer_name,
-            ))
+            await queue.put(
+                Item(
+                    hash=commit_hash,
+                    namespace=namespace,
+                    repository=repository,
+                    author_email=author_email,
+                    author_name=author_name,
+                    committer_email=committer_email,
+                    committer_name=committer_name,
+                )
+            )
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     cli()

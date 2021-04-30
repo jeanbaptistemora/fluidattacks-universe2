@@ -20,24 +20,18 @@ def get_campaign(
     raw_source: RawSource,
     campaign: CampaignId,
 ) -> ApiData:
-    return api_data.create_api_data(
-        raw_source.get_campaign(campaign)
-    )
+    return api_data.create_api_data(raw_source.get_campaign(campaign))
 
 
 def get_feedback(
     raw_source: RawSource,
     feedback_id: FeedbackId,
 ) -> ApiData:
-    return api_data.create_api_data(
-        raw_source.get_feedback(feedback_id)
-    )
+    return api_data.create_api_data(raw_source.get_feedback(feedback_id))
 
 
 def get_checklist(
     raw_source: RawSource,
     campaign: CampaignId,
 ) -> ApiData:
-    return api_data.create_api_data(
-        raw_source.get_checklist(campaign)
-    )
+    return api_data.create_api_data(raw_source.get_checklist(campaign))

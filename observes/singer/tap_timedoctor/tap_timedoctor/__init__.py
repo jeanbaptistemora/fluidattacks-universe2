@@ -27,12 +27,13 @@ def standard_name(name: Any):
     """
     unic = unicodedata.normalize
     std = " ".join(name.split())
-    std = (unic('NFKD', std).encode('ASCII', 'ignore')).lower().decode('utf-8')
+    std = (unic("NFKD", std).encode("ASCII", "ignore")).lower().decode("utf-8")
     return std
 
 
 def get_users_list(timedoctor_users_str: str) -> List[Tuple[str, str]]:
     """Parse the users response into a list of users."""
+
     def parse(user: JSON) -> Tuple[str, str]:
         """Parse the user information from the raw response."""
         user_id: str = str(user["user_id"])
@@ -71,14 +72,14 @@ def translate_date(date_obj: Any) -> str:
     return date_obj.strftime("%Y-%m-%dT%H:%M:%SZ")
 
 
-def sync_worklogs(api_worker,
-                  company_id: str,
-                  start_date: str = None,
-                  end_date: str = None) -> None:
+def sync_worklogs(
+    api_worker, company_id: str, start_date: str = None, end_date: str = None
+) -> None:
     """API version 1.1.
 
     https://webapi.timedoctor.com/doc#worklogs
     """
+
     def write_schema() -> None:
         """Write the schema for this table."""
         schema: JSON = {
@@ -100,13 +101,14 @@ def sync_worklogs(api_worker,
                     "edited": _TYPE_STRING,
                     "work_mode": _TYPE_STRING,
                 }
-            }
+            },
         }
         logs.log_json_obj("worklogs.stdout", schema)
         logs.stdout_json_obj(schema)
 
     def write_records() -> None:
         """Write the records for this table."""
+
         def translate_work_mode(work_mode: str) -> str:
             work_mode_map: JSON = {
                 "0": "online",
@@ -116,7 +118,7 @@ def sync_worklogs(api_worker,
                 "4": "on break",
                 "5": "on break",
                 "6": "manually added",
-                "7": "mobile app"
+                "7": "mobile app",
             }
             work_mode_str: str = work_mode_map.get(work_mode, "other")
             return work_mode_str
@@ -128,7 +130,8 @@ def sync_worklogs(api_worker,
         #   iterate until an empty list is found
         while 1:
             status_code, response = api_worker.get_worklogs(
-                company_id, limit, offset, start_date, end_date)
+                company_id, limit, offset, start_date, end_date
+            )
             ensure_200(status_code)
             worklogs: JSON = json.loads(response)["worklogs"]
 
@@ -142,31 +145,27 @@ def sync_worklogs(api_worker,
                     "type": "RECORD",
                     "stream": "worklogs",
                     "record": {
-                        "worklog_id": worklog.get(
-                            "id", ""),
-                        "length": float(worklog.get(
-                            "length", "0.0")),
-                        "user_id": worklog.get(
-                            "user_id", ""),
-                        "user_name": standard_name(worklog.get(
-                            "user_name", "")),
-                        "task_id": worklog.get(
-                            "task_id", ""),
-                        "task_name": worklog.get(
-                            "task_name", ""),
-                        "project_id": worklog.get(
-                            "project_id", ""),
-                        "project_name": worklog.get(
-                            "project_name", ""),
-                        "start_time": translate_date(worklog.get(
-                            "start_time", "")),
-                        "end_time": translate_date(worklog.get(
-                            "end_time", "")),
-                        "edited": worklog.get(
-                            "edited", ""),
-                        "work_mode": translate_work_mode(worklog.get(
-                            "work_mode", "")),
-                    }
+                        "worklog_id": worklog.get("id", ""),
+                        "length": float(worklog.get("length", "0.0")),
+                        "user_id": worklog.get("user_id", ""),
+                        "user_name": standard_name(
+                            worklog.get("user_name", "")
+                        ),
+                        "task_id": worklog.get("task_id", ""),
+                        "task_name": worklog.get("task_name", ""),
+                        "project_id": worklog.get("project_id", ""),
+                        "project_name": worklog.get("project_name", ""),
+                        "start_time": translate_date(
+                            worklog.get("start_time", "")
+                        ),
+                        "end_time": translate_date(
+                            worklog.get("end_time", "")
+                        ),
+                        "edited": worklog.get("edited", ""),
+                        "work_mode": translate_work_mode(
+                            worklog.get("work_mode", "")
+                        ),
+                    },
                 }
 
                 logs.log_json_obj("worklogs.stdout", record)
@@ -179,15 +178,17 @@ def sync_worklogs(api_worker,
 
 
 def sync_computer_activity(
-        api_worker,
-        company_id: str,
-        users_list: List[Tuple[str, str]],
-        start_date: str = None,
-        end_date: str = None) -> None:
+    api_worker,
+    company_id: str,
+    users_list: List[Tuple[str, str]],
+    start_date: str = None,
+    end_date: str = None,
+) -> None:
     """Sync computer activity using API version 1.1.
 
     https://webapi.timedoctor.com/doc#screenshots
     """
+
     def write_schema() -> None:
         """Write the schema for this table."""
         schema: JSON = {
@@ -198,29 +199,25 @@ def sync_computer_activity(
                 "properties": {
                     "uuid": _TYPE_STRING,
                     "date": _TYPE_DATE,
-
                     "user_id": _TYPE_STRING,
                     "user_name": _TYPE_STRING,
-
                     "task_id": _TYPE_STRING,
                     "project_id": _TYPE_STRING,
-
                     "process": _TYPE_STRING,
                     "window": _TYPE_STRING,
-
                     "keystrokes": _TYPE_NUMBER,
                     "mousemovements": _TYPE_NUMBER,
-
                     "deleted_by": _TYPE_STRING,
                     "deletedSeconds": _TYPE_NUMBER,
                 }
-            }
+            },
         }
         logs.log_json_obj("computer_activity.stdout", schema)
         logs.stdout_json_obj(schema)
 
     def write_records(user_id: str, user_name: str) -> None:
         """Write the records for this table."""
+
         def sass(obj: JSON, keys: List[str], default: Any) -> Any:
             """Safely get the nested value after accessing a dict."""
             for key in keys:
@@ -228,7 +225,8 @@ def sync_computer_activity(
             return default if obj is None else obj
 
         (status_code, response) = api_worker.get_computer_activity(
-            company_id, user_id, start_date, end_date)
+            company_id, user_id, start_date, end_date
+        )
         ensure_200(status_code)
 
         response_obj: JSON = json.loads(response)
@@ -236,9 +234,9 @@ def sync_computer_activity(
         logs.log_json_obj("computer_activity", response_obj)
 
         # There is only one item in response
-        computer_activity = response_obj[0].get('screenshots', [])
+        computer_activity = response_obj[0].get("screenshots", [])
         if computer_activity:
-            computer_activity = computer_activity.get('screenshots', [])
+            computer_activity = computer_activity.get("screenshots", [])
 
         for record in computer_activity:
             stdout_json_obj: JSON = {
@@ -247,34 +245,27 @@ def sync_computer_activity(
                 "record": {
                     "uuid": record["uuid"],
                     "date": translate_date(record["date"]),
-
                     "task_id": str(record["task_id"]),
                     "project_id": record["project_name"],
-
                     "user_id": user_id,
                     "user_name": user_name,
-
                     "keystrokes": record["keystrokes"],
                     "mousemovements": record["mousemovements"],
-                }
+                },
             }
 
             stdout_json_obj["record"]["process"] = sass(
-                record,
-                ["appInfo", "process"],
-                "")
+                record, ["appInfo", "process"], ""
+            )
             stdout_json_obj["record"]["window"] = sass(
-                record,
-                ["appInfo", "window"],
-                "")
+                record, ["appInfo", "window"], ""
+            )
             stdout_json_obj["record"]["deleted_by"] = sass(
-                record,
-                ["deleted_by"],
-                "")
+                record, ["deleted_by"], ""
+            )
             stdout_json_obj["record"]["deletedSeconds"] = sass(
-                record,
-                ["deletedSeconds"],
-                0.0)
+                record, ["deletedSeconds"], 0.0
+            )
 
             logs.log_json_obj("computer_activity.stdout", stdout_json_obj)
             logs.stdout_json_obj(stdout_json_obj)
@@ -289,10 +280,11 @@ def main():
 
     # user interface
     def check_date(date):
-        re_date = r'([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))'
+        re_date = r"([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))"
         if not re.match(re_date, date):
             raise argparse.ArgumentTypeError(
-                f'{date} does not have the correct format (yyyy-mm-dd)')
+                f"{date} does not have the correct format (yyyy-mm-dd)"
+            )
         return date
 
     # by default all the data from a year ago is extracted
@@ -302,21 +294,24 @@ def main():
 
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        '-a',
-        '--auth',
+        "-a",
+        "--auth",
         required=True,
-        help='JSON authentication file',
-        type=argparse.FileType('r'))
+        help="JSON authentication file",
+        type=argparse.FileType("r"),
+    )
     parser.add_argument(
-        '-s',
-        '--start-date',
+        "-s",
+        "--start-date",
         type=check_date,
         required=False,
-        default=start_date)
+        default=start_date,
+    )
     parser.add_argument(
-        '-e', '--end-date', type=check_date, required=False, default=end_date)
-    parser.add_argument('--work-logs', '-w', action='store_true')
-    parser.add_argument('--computer-activity', '-ca', action='store_true')
+        "-e", "--end-date", type=check_date, required=False, default=end_date
+    )
+    parser.add_argument("--work-logs", "-w", action="store_true")
+    parser.add_argument("--computer-activity", "-ca", action="store_true")
     args = parser.parse_args()
 
     start_date = args.start_date or start_date
@@ -339,14 +334,17 @@ def main():
     if args.work_logs:
         sync_worklogs(api_worker, company_id, start_date, end_date)
     if args.computer_activity:
-        users: dict = map(lambda x: (str(x['user_id']), x['full_name']),
-                          json.loads(response)['users'])
+        users: dict = map(
+            lambda x: (str(x["user_id"]), x["full_name"]),
+            json.loads(response)["users"],
+        )
         sync_computer_activity(
             api_worker,
             company_id,
             users,
             start_date=start_date,
-            end_date=end_date)
+            end_date=end_date,
+        )
 
 
 if __name__ == "__main__":

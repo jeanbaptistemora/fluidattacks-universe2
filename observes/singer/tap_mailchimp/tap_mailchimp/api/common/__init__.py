@@ -31,7 +31,7 @@ from tap_mailchimp.common.objs import (
 
 LOG = logging.getLogger(__name__)
 MAX_PER_PAGE = 1000
-SomeId = TypeVar('SomeId')
+SomeId = TypeVar("SomeId")
 
 
 class NoneTotal(Exception):
@@ -41,13 +41,11 @@ class NoneTotal(Exception):
 def list_items(
     raw_list: Callable[[PageId], JSON],
     items_list_key: str,
-    id_builder: Callable[[Dict[str, str]], SomeId]
+    id_builder: Callable[[Dict[str, str]], SomeId],
 ) -> Iterator[SomeId]:
-    getter: Callable[[PageId], ApiData] = (
-        lambda page: api_data.create_api_data(
-            raw_list(page)
-        )
-    )
+    getter: Callable[
+        [PageId], ApiData
+    ] = lambda page: api_data.create_api_data(raw_list(page))
     test_page = getter(PageId(page=0, per_page=1))
     chunk_size = MAX_PER_PAGE
     if test_page.total_items is None:
@@ -73,5 +71,5 @@ def list_unsupported_pagination(
         raise NoneTotal()
     data_list = result.data[items_list_key]
     if result.total_items > len(data_list):
-        LOG.error('Unsupported pagination request miss some items')
+        LOG.error("Unsupported pagination request miss some items")
     return iter(map(id_builder, data_list))

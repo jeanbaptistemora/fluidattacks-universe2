@@ -3,6 +3,7 @@ from typing import (
     Callable,
     NamedTuple,
 )
+
 # Third party libraries
 # Local libraries
 from streamer_zoho_crm import auth
@@ -38,7 +39,7 @@ class ApiClient(NamedTuple):
 
 def new_client(credentials: Credentials) -> ApiClient:
     result = auth.generate_token(credentials)
-    token = result['access_token']
+    token = result["access_token"]
 
     def create_job(module: ModuleName, page: int) -> BulkJob:
         return bulk.create_bulk_read_job(token, module, page)
@@ -49,9 +50,7 @@ def new_client(credentials: Credentials) -> ApiClient:
     def download_job(job_id: str) -> BulkData:
         return bulk.download_result(token, job_id)
 
-    def get_users(
-        u_type: UserType, page_i: PageIndex
-    ) -> UsersDataPage:
+    def get_users(u_type: UserType, page_i: PageIndex) -> UsersDataPage:
         return users.get_users(token, u_type, page_i)
 
     return ApiClient(
@@ -60,7 +59,5 @@ def new_client(credentials: Credentials) -> ApiClient:
             get_bulk_job=get_job,
             download_result=download_job,
         ),
-        users=UsersApi(
-            get_users=get_users
-        )
+        users=UsersApi(get_users=get_users),
     )

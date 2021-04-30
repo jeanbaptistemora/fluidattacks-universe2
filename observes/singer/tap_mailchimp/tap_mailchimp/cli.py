@@ -14,29 +14,23 @@ from tap_mailchimp import (
     auth,
     executor,
 )
-from tap_mailchimp.auth import (
-    Credentials
-)
-from tap_mailchimp.streams import (
-    SupportedStreams
-)
+from tap_mailchimp.auth import Credentials
+from tap_mailchimp.streams import SupportedStreams
 
 
 @click.command()
-@click.option('--creds-file', type=click.File('r'), required=True)
-@click.option('--all-streams', is_flag=True, default=False)
+@click.option("--creds-file", type=click.File("r"), required=True)
+@click.option("--all-streams", is_flag=True, default=False)
 @click.option(
-    '--name',
+    "--name",
     type=click.Choice(
-        [x.value for x in iter(SupportedStreams)],
-        case_sensitive=False),
+        [x.value for x in iter(SupportedStreams)], case_sensitive=False
+    ),
     required=False,
-    default=None
+    default=None,
 )
 def stream(
-    creds_file: IO[AnyStr],
-    name: Optional[str],
-    all_streams: bool
+    creds_file: IO[AnyStr], name: Optional[str], all_streams: bool
 ) -> None:
     creds: Credentials = auth.to_credentials(json.load(creds_file))
     if all_streams:

@@ -7,5 +7,5 @@ from streamer_zoho_crm.core.users.crud import (
 
 
 __all__ = [
-    'get_users',
+    "get_users",
 ]

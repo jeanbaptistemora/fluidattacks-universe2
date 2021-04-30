@@ -1,11 +1,14 @@
 # Standard libraries
 from typing import (
     Any,
-    Dict, NamedTuple,
+    Dict,
+    NamedTuple,
 )
+
 # Third party libraries
 import psycopg2 as postgres
 import psycopg2.extensions as postgres_extensions
+
 # Local libraries
 from dif_gitlab_etl.utils import log
 
@@ -24,7 +27,7 @@ def make_access_point(auth: Dict[str, str]) -> DbState:
         user=auth["user"],
         password=auth["password"],
         host=auth["host"],
-        port=auth["port"]
+        port=auth["port"],
     )
     dbcon.set_session(readonly=False)
     dbcon.set_isolation_level(postgres_extensions.ISOLATION_LEVEL_AUTOCOMMIT)
@@ -39,8 +42,8 @@ def drop_access_point(state: DbState) -> None:
 
 
 def execute(state: DbState, statement: str) -> None:
-    log('debug', f"EXEC: {statement}.")
+    log("debug", f"EXEC: {statement}.")
     try:
         state.cursor.execute(statement)
     except postgres.ProgrammingError as exc:
-        log('EXCEPTION', f'{type(exc)} {exc}')
+        log("EXCEPTION", f"{type(exc)} {exc}")

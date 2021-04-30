@@ -24,12 +24,15 @@ def get_cursor(credentials):
     uid = credentials["UID"]
     pwd = credentials["PWD"]
 
-    conn = pyodbc.connect((
-        f"DRIVER={driver};"
-        f"SERVER={server};"
-        f"DATABASE={database};"
-        f"UID={uid};"
-        f"PWD={pwd};"))
+    conn = pyodbc.connect(
+        (
+            f"DRIVER={driver};"
+            f"SERVER={server};"
+            f"DATABASE={database};"
+            f"UID={uid};"
+            f"PWD={pwd};"
+        )
+    )
 
     curr = conn.cursor()
 
@@ -54,7 +57,8 @@ def iter_tables(credentials):
                 TABLE_NAME ASC,
                 ORDINAL_POSITION ASC,
                 COLUMN_NAME ASC
-            """)
+            """
+        )
         initial_cycle = True
         current_table_path: str = ""
         table_fields: List[str] = []
@@ -80,28 +84,25 @@ def iter_rows(credentials, table_path: str, table_fields: List[str]):
                 {table_fields_statement}
             FROM
                 {table_path}
-            """)
+            """
+        )
         for row in curr:
             yield row
 
 
 def write_csv(
-        credentials,
-        output_dir: str,
-        table_path: str,
-        table_fields: List[str]) -> None:
+    credentials, output_dir: str, table_path: str, table_fields: List[str]
+) -> None:
     """Prints a table as CSV to stdout."""
-    csv_name = table_path.replace('"', "").replace('.', "__")
+    csv_name = table_path.replace('"', "").replace(".", "__")
     file_name = f"{output_dir}/{csv_name}.csv"
 
     print(f"writing csv from {table_path} to {file_name}.", flush=True)
 
     with open(file_name, "w") as csvfile:
         writer = csv.writer(
-            csvfile,
-            delimiter=",",
-            quotechar='"',
-            quoting=csv.QUOTE_NONNUMERIC)
+            csvfile, delimiter=",", quotechar='"', quoting=csv.QUOTE_NONNUMERIC
+        )
 
         writer.writerow(table_fields)
         for row in iter_rows(credentials, table_path, table_fields):
@@ -111,10 +112,14 @@ def write_csv(
                 value_type = type(value).__name__
                 if value_type == "str":
                     value_ascsv = value
-                elif value_type in ("int", "float", "Decimal", ):
+                elif value_type in (
+                    "int",
+                    "float",
+                    "Decimal",
+                ):
                     value_ascsv = float(value)
                 elif value_type == "datetime":
-                    value_ascsv = value.strftime('%Y-%m-%dT%H:%M:%SZ')
+                    value_ascsv = value.strftime("%Y-%m-%dT%H:%M:%SZ")
                 elif value_type == "NoneType":
                     pass
                 else:
@@ -126,18 +131,23 @@ def write_csv(
 def main():
     """Usual entry point."""
     parser = argparse.ArgumentParser(
-        description="Export your entire database to CSV files.")
+        description="Export your entire database to CSV files."
+    )
     parser.add_argument(
-        "-a", "--auth",
+        "-a",
+        "--auth",
         required=True,
         help="JSON authentication file",
         type=argparse.FileType("r"),
-        dest="auth")
+        dest="auth",
+    )
     parser.add_argument(
-        "-o", "--output-dir",
+        "-o",
+        "--output-dir",
         required=True,
         help="path to write",
-        dest="output_dir")
+        dest="output_dir",
+    )
     args = parser.parse_args()
 
     credentials = json.load(args.auth)

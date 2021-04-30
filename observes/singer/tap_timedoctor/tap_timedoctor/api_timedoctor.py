@@ -13,7 +13,7 @@ def current_timestamp(offset=0.0):
     return time.time() + offset
 
 
-class Worker():
+class Worker:
     """Class to represent a worker who make request to the API.
 
     It takes care of making the requests without exceeding the rate limit.
@@ -43,12 +43,10 @@ class Worker():
         self.wait()
 
         try:
-            headers = {
-                "Authorization": f"Bearer {self.access_token}"
-            }
+            headers = {"Authorization": f"Bearer {self.access_token}"}
 
             request = urllib.request.Request(resource, headers=headers)
-            response = urllib.request.urlopen(request).read().decode('utf-8')
+            response = urllib.request.urlopen(request).read().decode("utf-8")
             status_code = 200
         except urllib.error.HTTPError as error:
             status_code = error.code
@@ -59,7 +57,7 @@ class Worker():
                 print("INFO: Unauthorized/Forbidden")
                 sys.exit(1)
         except urllib.error.URLError as error:
-            logs.log_error(f'URL:  [{request.full_url}] | {error}')
+            logs.log_error(f"URL:  [{request.full_url}] | {error}")
 
         return (status_code, response)
 
@@ -73,12 +71,14 @@ class Worker():
         resource = f"{self.url}/v1.1/companies/{company_id}/users"
         return self.request(resource)
 
-    def get_worklogs(self,  # pylint: disable=too-many-arguments
-                     company_id,
-                     limit,
-                     offset,
-                     start_date: str = None,
-                     end_date: str = None):
+    def get_worklogs(
+        self,  # pylint: disable=too-many-arguments
+        company_id,
+        limit,
+        offset,
+        start_date: str = None,
+        end_date: str = None,
+    ):
         """Return a collection of users worklogs under the given company id."""
         today = datetime.date.today()
         start_date = start_date or today.replace(today.year - 1).isoformat()
@@ -86,32 +86,33 @@ class Worker():
 
         resource = (
             f"{self.url}/v1.1/companies/{company_id}/worklogs"
-
             # fetch historical
             f"?start_date={start_date}&end_date={end_date}"
             f"&limit={limit}&offset={offset}"
-
             # fetch working time, not breaks
             f"&breaks_only=0"
-
             # don't consolidate records to make information richer
             f"&consolidated=0"
         )
 
         return self.request(resource)
 
-    def get_computer_activity(self,  # pylint: disable=too-many-arguments
-                              company_id,
-                              user_id,
-                              start_date: str = None,
-                              end_date: str = None,
-                              limit: int = 20000):
+    def get_computer_activity(
+        self,  # pylint: disable=too-many-arguments
+        company_id,
+        user_id,
+        start_date: str = None,
+        end_date: str = None,
+        limit: int = 20000,
+    ):
         """Return screenshots, keystrokes, mouse activities for a user_id."""
         today = datetime.date.today()
         start_date = start_date or today.replace(today.year - 1).isoformat()
         end_date = end_date or today.isoformat()
-        resource = (f"{self.url}/v1.1/companies/{company_id}/screenshots"
-                    f"?start_date={start_date}&end_date={end_date}"
-                    f"&user_id={user_id}"
-                    f"&limit=0&screenshots_limit={limit}&offset=0")
+        resource = (
+            f"{self.url}/v1.1/companies/{company_id}/screenshots"
+            f"?start_date={start_date}&end_date={end_date}"
+            f"&user_id={user_id}"
+            f"&limit=0&screenshots_limit={limit}&offset=0"
+        )
         return self.request(resource)

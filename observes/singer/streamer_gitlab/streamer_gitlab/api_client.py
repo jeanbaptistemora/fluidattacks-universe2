@@ -10,6 +10,7 @@ from typing import (
     List,
     NamedTuple,
 )
+
 # Third party libraries
 import urllib.parse
 from aiohttp import (
@@ -19,6 +20,7 @@ from aiohttp import (
 from aioextensions import (
     rate_limited,
 )
+
 # Local libraries
 from streamer_gitlab.log import (
     log,
@@ -55,19 +57,17 @@ async def get_json(
 ) -> List[Dict[str, Any]]:
     """Get as JSON the result of a GET request to endpoint."""
     async with session.get(endpoint, **kargs) as response:
-        log('debug', f'[{response.status}]')
-        log('debug', f'\tEndpoint: {endpoint}')
-        log('debug', f'\tParams: {kargs["params"]}')
-        log('debug', f'\tHeaders: {kargs["headers"].keys()}')
+        log("debug", f"[{response.status}]")
+        log("debug", f"\tEndpoint: {endpoint}")
+        log("debug", f'\tParams: {kargs["params"]}')
+        log("debug", f'\tHeaders: {kargs["headers"].keys()}')
         response.raise_for_status()
 
         return await response.json()
 
 
 async def get_json_less_than(
-    target_id: int,
-    session: ClientSession,
-    endpoint: str, **kargs: Any
+    target_id: int, session: ClientSession, endpoint: str, **kargs: Any
 ) -> List[Dict[str, Any]]:
     """Filter `get_json` result using `elements_less_than` filter"""
     raw_data = await get_json(session, endpoint, **kargs)
@@ -80,7 +80,7 @@ def elements_less_than(
     """Returns data where elements id are less than `target_id`"""
     result: List[Dict[str, Any]] = []
     for item in data:
-        if item['id'] < target_id:
+        if item["id"] < target_id:
             result.append(item)
     return result
 
@@ -91,20 +91,20 @@ def elements_greater_than(
     """Returns data where elements id are greater than `target_id`"""
     result: List[Dict[str, Any]] = []
     for item in data:
-        if item['id'] > target_id:
+        if item["id"] > target_id:
             result.append(item)
     return result
 
 
 def get_minor_id(data: List[Dict[str, Any]]) -> Optional[int]:
     if data:
-        log('debug', f"minor id: {int(data[-1]['id'])}")
-        return int(data[-1]['id'])
+        log("debug", f"minor id: {int(data[-1]['id'])}")
+        return int(data[-1]["id"])
     return None
 
 
 def build_getter(
-    less_than: Optional[int]
+    less_than: Optional[int],
 ) -> Callable[..., Coroutine[Any, Any, List[Dict[str, Any]]]]:
     if less_than is not None:
 
@@ -139,11 +139,12 @@ def insistent_endpoint_call(
                 return result
             except ClientError as exc:
                 errors += 1
-                log('h_error', f'# {errors}: {type(exc).__name__}')
+                log("h_error", f"# {errors}: {type(exc).__name__}")
         if errors >= max_errors:
             raise MaxRetriesReached(
-                f'#{errors} ClientErrors',
+                f"#{errors} ClientErrors",
             )
+
     return i_getter
 
 
@@ -151,20 +152,14 @@ async def get_resource(
     session: ClientSession,
     resource: GitlabResourcePage,
     less_than: Optional[int] = None,
-    **kargs: Any
+    **kargs: Any,
 ) -> List[Dict[str, Any]]:
     endpoint = (
-        'https://gitlab.com/api/v4/projects/' +
-        urllib.parse.quote(
-            f'{resource.g_resource.project}',
-            safe=''
-        ) +
-        f'/{resource.g_resource.resource}'
+        "https://gitlab.com/api/v4/projects/"
+        + urllib.parse.quote(f"{resource.g_resource.project}", safe="")
+        + f"/{resource.g_resource.resource}"
     )
-    params = {
-        'page': resource.page,
-        'per_page': resource.per_page
-    }
+    params = {"page": resource.page, "per_page": resource.per_page}
     params.update(dict(resource.g_resource.params))
     get_data = build_getter(less_than)
     return await get_data(session, endpoint, params=params, **kargs)

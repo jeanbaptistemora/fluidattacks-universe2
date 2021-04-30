@@ -1,7 +1,9 @@
 # Standard libraries
 import getpass
+
 # Third party libraries
 import pytest
+
 # Local libraries
 from streamer_zoho_crm import db
 from streamer_zoho_crm.api.bulk import (
@@ -16,10 +18,10 @@ from postgres_client.cursor import (
 
 
 def setup_db(db_client: Client) -> None:
-    schema = 'super-schema'
+    schema = "super-schema"
     create_schema = db_client.cursor.execute(
-        'CREATE SCHEMA {schema_name}',
-        DynamicSQLargs(identifiers={'schema_name': schema})
+        "CREATE SCHEMA {schema_name}",
+        DynamicSQLargs(identifiers={"schema_name": schema}),
     )
     create_table = db_client.cursor.execute(
         """
@@ -34,9 +36,7 @@ def setup_db(db_client: Client) -> None:
                 result VARCHAR DEFAULT NULL
             );
         """,
-        DynamicSQLargs(
-            identifiers={'schema_name': schema}
-        )
+        DynamicSQLargs(identifiers={"schema_name": schema}),
     )
     create_schema.act()
     create_table.act()
@@ -45,26 +45,26 @@ def setup_db(db_client: Client) -> None:
 
 def test_bulk_job() -> BulkJob:
     return BulkJob(
-        operation='operation1',
+        operation="operation1",
         created_by='{"author": master"}',
         created_time='{"time": "2020-01-01 00:00"}',
-        state='procesing',
-        id='a1234bc',
+        state="procesing",
+        id="a1234bc",
         module=ModuleName.PRICE_BOOKS,
         page=1,
-        result=None
+        result=None,
     )
 
 
 @pytest.mark.xfail(
-    getpass.getuser() == 'root',
-    reason="can not run with root")  # type: ignore
+    getpass.getuser() == "root", reason="can not run with root"
+)  # type: ignore
 def test_save_load_bulk_job_integrated(postgresql):
     # Arrange
     db_client = client.new_test_client(postgresql)
     setup_db(db_client)
     test_job = test_bulk_job()
-    schema = 'super-schema'
+    schema = "super-schema"
     # Act
     db.save_bulk_job(db_client, test_job, schema)
     db_client.connection.commit()
@@ -74,8 +74,8 @@ def test_save_load_bulk_job_integrated(postgresql):
 
 
 @pytest.mark.xfail(
-    getpass.getuser() == 'root',
-    reason="can not run with root")  # type: ignore
+    getpass.getuser() == "root", reason="can not run with root"
+)  # type: ignore
 def test_update_bulk_job_integrated(postgresql):
     # Arrange
     db_client = client.new_test_client(postgresql)
@@ -85,13 +85,13 @@ def test_update_bulk_job_integrated(postgresql):
         operation=test_job.operation,
         created_by=test_job.created_by,
         created_time=test_job.created_time,
-        state='done',
+        state="done",
         id=test_job.id,
         module=test_job.module,
         page=test_job.page,
-        result=test_job.result
+        result=test_job.result,
     )
-    schema = 'super-schema'
+    schema = "super-schema"
     # Act
     db.save_bulk_job(db_client, test_job, schema)
     db_client.connection.commit()

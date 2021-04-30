@@ -6,8 +6,10 @@ from contextlib import (
     redirect_stderr,
     redirect_stdout,
 )
+
 # Third party libraries
 import pytest
+
 # Local libraries
 from streamer_gitlab import cli
 
@@ -17,8 +19,8 @@ JSON = Dict[str, str]
 
 def mock_data() -> JSON:
     return {
-        'credentials_path': 'tests/mock_data/gitlab_credentials.json',
-        'projects_path': 'tests/mock_data/projects.json',
+        "credentials_path": "tests/mock_data/gitlab_credentials.json",
+        "projects_path": "tests/mock_data/projects.json",
     }
 
 
@@ -41,11 +43,11 @@ def test_cli_integration() -> None:
     assert len(lines) == 400
     for line in lines:
         obj = json.loads(line)
-        assert 'stream' in obj
-        assert obj['stream'] in ('jobs', 'merge_requests')
-        assert 'record' in obj
-        assert 'id' in obj['record']
-        if obj['stream'] == 'jobs':
-            assert 'commit' in obj['record']
-        if obj['stream'] == 'merge_requests':
-            assert 'merge_commit_sha' in obj['record']
+        assert "stream" in obj
+        assert obj["stream"] in ("jobs", "merge_requests")
+        assert "record" in obj
+        assert "id" in obj["record"]
+        if obj["stream"] == "jobs":
+            assert "commit" in obj["record"]
+        if obj["stream"] == "merge_requests":
+            assert "merge_commit_sha" in obj["record"]

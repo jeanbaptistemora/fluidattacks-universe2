@@ -16,7 +16,7 @@ NOW: float = datetime.utcnow().timestamp()
 
 # Side effects
 bugsnag.configure(
-    api_key='13748c4b5f6807a89f327c0f54fe6c7a',
+    api_key="13748c4b5f6807a89f327c0f54fe6c7a",
     asynchronous=False,
     send_code=False,
 )
@@ -53,32 +53,32 @@ def report_msg(
 
 
 def main() -> None:
-    client = boto3.client('batch')
-    paginator = client.get_paginator('list_jobs')
+    client = boto3.client("batch")
+    paginator = client.get_paginator("list_jobs")
     jobs = chain(
         paginator.paginate(
-            jobQueue='spot_now',
-            jobStatus='FAILED',
+            jobQueue="spot_now",
+            jobStatus="FAILED",
         ),
         paginator.paginate(
-            jobQueue='spot_soon',
-            jobStatus='FAILED',
+            jobQueue="spot_soon",
+            jobStatus="FAILED",
         ),
         paginator.paginate(
-            jobQueue='spot_later',
-            jobStatus='FAILED',
+            jobQueue="spot_later",
+            jobStatus="FAILED",
         ),
     )
     for job in jobs:
-        for job_summary in job['jobSummaryList']:
+        for job_summary in job["jobSummaryList"]:
             # Timestamps from aws come in miliseconds
-            created_at: float = job_summary['createdAt'] / 1000
+            created_at: float = job_summary["createdAt"] / 1000
 
             if created_at > NOW - 24 * HOUR:
                 report_msg(
-                    container=str(job_summary.get('container')),
-                    identifier=job_summary['jobId'],
-                    name=job_summary['jobName'],
-                    reason=job_summary['statusReason'],
-                    success=job_summary['status'] == 'SUCCEEDED',
+                    container=str(job_summary.get("container")),
+                    identifier=job_summary["jobId"],
+                    name=job_summary["jobName"],
+                    reason=job_summary["statusReason"],
+                    success=job_summary["status"] == "SUCCEEDED",
                 )

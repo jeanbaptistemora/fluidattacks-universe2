@@ -4,6 +4,7 @@ from typing import (
     FrozenSet,
     NamedTuple,
 )
+
 # Third party libraries
 # Local libraries
 from streamer_zoho_crm.api import (
@@ -53,13 +54,11 @@ def new_client(api_client: ApiClient, db_client: DbClient) -> CoreClient:
         return users.get_users(api_client, user_type, page)
 
     return CoreClient(
-        users=IUsers(
-            get_users=get_users
-        ),
+        users=IUsers(get_users=get_users),
         bulk=IBulk(
             create=create_bulk,
             update_all=update_bulks,
             get_all=db_client.get_bulk_jobs,
-            extract_data=extract
-        )
+            extract_data=extract,
+        ),
     )

@@ -11,6 +11,6 @@ from tap_mailchimp.api.audiences import (
 
 # export modules
 __all__ = [
-    'get_item',
-    'list_items',
+    "get_item",
+    "list_items",
 ]

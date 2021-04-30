@@ -2,8 +2,10 @@
 from typing import (
     List,
 )
+
 # Third party libraries
 import pytest
+
 # Local libraries
 from dif_gitlab_etl import etl
 from dif_gitlab_etl.etl import ExtractState
@@ -38,26 +40,26 @@ def test_extract_between() -> None:
     expected: List[PageData] = [
         PageData(
             id=page(5),
-            minor_item_id=case.min_id['5'],
-            file=mock_data.mock_get_temp(case)(
-                'case_01/page_5'
-            )
+            minor_item_id=case.min_id["5"],
+            file=mock_data.mock_get_temp(case)("case_01/page_5"),
         ),
         PageData(
-            id=page(6), minor_item_id=case.min_id['6'],
+            id=page(6),
+            minor_item_id=case.min_id["6"],
             file=mock_data.mock_get_temp(case)(
                 f"case_01/page_6_less_than_{case.min_id['5']}"
-            )
+            ),
         ),
         PageData(
-            id=page(7), minor_item_id=case.min_id['7'],
+            id=page(7),
+            minor_item_id=case.min_id["7"],
             file=mock_data.mock_get_temp(case)(
                 f"case_01/page_7_less_than_{case.min_id['6']}"
-            )
+            ),
         ),
     ]
     assert extract_status.data_pages == expected
-    assert extract_status.last_minor_id == case.min_id['7']
+    assert extract_status.last_minor_id == case.min_id["7"]
 
 
 @pytest.mark.timeout(10)
@@ -66,12 +68,13 @@ def test_extract_until_found() -> None:
     case = mock_data.mock_case_01()
     # Act
     extract_status: ExtractState = etl.extract_until_found(
-        target_id=case.min_id['2'] + 2,
+        target_id=case.min_id["2"] + 2,
         start_resource_page=GitlabResourcePage(
             g_resource=case.resource,
-            page=1, per_page=100,
+            page=1,
+            per_page=100,
         ),
-        extract_range=mock_data.mock_extract_between(case)
+        extract_range=mock_data.mock_extract_between(case),
     )
 
     # Assert
@@ -82,20 +85,20 @@ def test_extract_until_found() -> None:
 
     expected: List[PageData] = [
         PageData(
-            id=page(1), minor_item_id=case.min_id['1'],
-            file=mock_data.mock_get_temp(case)(
-                "case_01/page_1"
-            ),
+            id=page(1),
+            minor_item_id=case.min_id["1"],
+            file=mock_data.mock_get_temp(case)("case_01/page_1"),
         ),
         PageData(
-            id=page(2), minor_item_id=case.min_id['2'],
+            id=page(2),
+            minor_item_id=case.min_id["2"],
             file=mock_data.mock_get_temp(case)(
                 f"case_01/page_2_less_than_{case.min_id['1']}"
             ),
         ),
     ]
     assert extract_status.data_pages == expected
-    assert extract_status.last_minor_id == case.min_id['2']
+    assert extract_status.last_minor_id == case.min_id["2"]
 
 
 @pytest.mark.timeout(10)
@@ -107,9 +110,10 @@ def test_extract_until_found_last_page() -> None:
         target_id=0,
         start_resource_page=GitlabResourcePage(
             g_resource=case.resource,
-            page=8, per_page=100,
+            page=8,
+            per_page=100,
         ),
-        extract_range=mock_data.mock_extract_between(case)
+        extract_range=mock_data.mock_extract_between(case),
     )
 
     # Assert
@@ -120,13 +124,13 @@ def test_extract_until_found_last_page() -> None:
 
     expected: List[PageData] = [
         PageData(
-            id=page(8), minor_item_id=case.min_id['8'],
-            file=mock_data.mock_get_temp(case)(
-                "case_01/page_8"
-            ),
+            id=page(8),
+            minor_item_id=case.min_id["8"],
+            file=mock_data.mock_get_temp(case)("case_01/page_8"),
         ),
         PageData(
-            id=page(9), minor_item_id=case.min_id['9'],
+            id=page(9),
+            minor_item_id=case.min_id["9"],
             file=mock_data.mock_get_temp(case)(
                 f"case_01/page_9_less_than_{case.min_id['8']}"
             ),
@@ -134,4 +138,4 @@ def test_extract_until_found_last_page() -> None:
     ]
     assert extract_status.data_pages == expected
     assert extract_status.empty_responce is True
-    assert extract_status.last_minor_id == case.min_id['9']
+    assert extract_status.last_minor_id == case.min_id["9"]

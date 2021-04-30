@@ -13,6 +13,7 @@ from typing import (
     Optional,
     Sequence,
 )
+
 # Third party libraries
 # Local libraries
 from singer_io import factory
@@ -27,12 +28,12 @@ LOG = utils.get_log(__name__)
 
 
 class ColumnType(Enum):
-    FLOAT = 'float'
-    STRING = 'string'
-    NUMBER = 'number'
-    DATE_TIME = 'datetime'
-    INT = 'integer'
-    BOOL = 'bool'
+    FLOAT = "float"
+    STRING = "string"
+    NUMBER = "number"
+    DATE_TIME = "datetime"
+    INT = "integer"
+    BOOL = "bool"
 
 
 class MetadataRows(NamedTuple):
@@ -66,17 +67,14 @@ def translate_types(
         ColumnType.BOOL: type_bool,
         ColumnType.INT: type_int,
     }
-    field_type = map(
-        lambda x: (x[0], transform[x[1]]),
-        raw_field_type.items()
-    )
+    field_type = map(lambda x: (x[0], transform[x[1]]), raw_field_type.items())
     return dict(field_type)
 
 
 def translate_values(
     field_type: Dict[str, ColumnType],
     field_value: Dict[str, str],
-    auto_type: bool = False
+    auto_type: bool = False,
 ) -> Dict[str, Any]:
     """Translates type names into JSON SCHEMA value."""
     transform: Dict[ColumnType, Callable[[str], Any]] = {
@@ -88,12 +86,10 @@ def translate_values(
         ColumnType.INT: lambda x: int(x) if x else None,
     }
     cast_function: Callable[[str, str], Any] = (
-        lambda x, y: auto_cast(y) if auto_type
-        else transform[field_type[x]](y)
+        lambda x, y: auto_cast(y) if auto_type else transform[field_type[x]](y)
     )
     new_field_value = map(
-        lambda x: (x[0], cast_function(x[0], x[1])),
-        field_value.items()
+        lambda x: (x[0], cast_function(x[0], x[1])), field_value.items()
     )
     return dict(new_field_value)
 
@@ -109,57 +105,49 @@ def auto_cast(data: str) -> Any:
     test_casts: List[Callable[[str], Any]] = [
         lambda x: str(x) if int(x) > pow(10, 12) else int(x),
         lambda x: float(x)
-        if (x.lower() != 'nan' or x == 'NaN')
-        and float(x) != float('inf') else None,
-        lambda x: x.lower() == 'true'
-        if x.lower() == 'false' or x.lower() == 'true' else None,
-        str
+        if (x.lower() != "nan" or x == "NaN") and float(x) != float("inf")
+        else None,
+        lambda x: x.lower() == "true"
+        if x.lower() == "false" or x.lower() == "true"
+        else None,
+        str,
     ]
     cast: Callable[[Callable[[str], Any]], Any] = lambda c: try_cast(c, data)
-    return next(
-        filter(
-            lambda x: x is not None,
-            map(cast, test_casts)
-        ),
-        data
-    )
+    return next(filter(lambda x: x is not None, map(cast, test_casts)), data)
 
 
 def add_default_types(
-    field_names: Iterable[str],
-    options: AdjustCsvOptions
+    field_names: Iterable[str], options: AdjustCsvOptions
 ) -> Dict[str, str]:
     field_types = map(
         lambda name: (
             name,
-            options.file_schema.get(
-                name.lower(),
-                ColumnType.STRING.value
-            )
+            options.file_schema.get(name.lower(), ColumnType.STRING.value),
         ),
-        field_names
+        field_names,
     )
     result = dict(field_types)
-    LOG.debug('added types: %s', result)
+    LOG.debug("added types: %s", result)
     return result
 
 
 def adjust_csv(source: IO[str], options: AdjustCsvOptions) -> IO[str]:
-    if not(options.quote_nonnum or options.add_default_types):
+    if not (options.quote_nonnum or options.add_default_types):
         return source
     source.seek(0)
     source_reader = csv.DictReader(source)
     field_names: Optional[Sequence[str]] = source_reader.fieldnames
     if not field_names:
         raise Exception()
-    LOG.debug('field names: %s', field_names)
+    LOG.debug("field names: %s", field_names)
     with tempfile.TemporaryDirectory() as temp_dir:
-        with open(temp_dir + '/data.csv', 'w+') as destination:
+        with open(temp_dir + "/data.csv", "w+") as destination:
             dest_writer = csv.DictWriter(
                 destination,
                 field_names,
                 quoting=csv.QUOTE_NONNUMERIC
-                if options.quote_nonnum else csv.QUOTE_MINIMAL
+                if options.quote_nonnum
+                else csv.QUOTE_MINIMAL,
             )
             types_row: int = 3 if options.pkeys_present else 2
             dest_writer.writeheader()
@@ -167,13 +155,13 @@ def adjust_csv(source: IO[str], options: AdjustCsvOptions) -> IO[str]:
             for row in source_reader:
                 if row_num == types_row - 1 and options.add_default_types:
                     field_types = add_default_types(field_names, options)
-                    LOG.debug('Write row: %s', field_types)
+                    LOG.debug("Write row: %s", field_types)
                     dest_writer.writerow(field_types)
                     row_num = row_num + 1
                 dest_writer.writerow(row)
                 row_num = row_num + 1
-        output = tempfile.NamedTemporaryFile('w+')
-        with open(temp_dir + '/data.csv', 'r') as destination:
+        output = tempfile.NamedTemporaryFile("w+")
+        with open(temp_dir + "/data.csv", "r") as destination:
             output.write(destination.read())
     return output
 
@@ -183,7 +171,7 @@ def to_singer(
     stream: str,
     options: AdjustCsvOptions,
 ) -> None:
-    LOG.debug('csv file: %s', csv_file)
+    LOG.debug("csv file: %s", csv_file)
     # ==== TAP ================================================================
     # line 1, field names
     # line 2, primary field(s)
@@ -196,13 +184,13 @@ def to_singer(
     #           - use "null" value with "string" type for empty cells
     procesed_csv: IO[str] = adjust_csv(csv_file, options)
     procesed_csv.seek(0)
-    reader = csv.reader(procesed_csv, delimiter=",", quotechar="\"")
+    reader = csv.reader(procesed_csv, delimiter=",", quotechar='"')
     meta_rows = MetadataRows(
         field_names_row=1,
         field_types_row=3 if options.pkeys_present else 2,
-        pkeys_row=2 if options.pkeys_present else None
+        pkeys_row=2 if options.pkeys_present else None,
     )
-    LOG.debug('rows: %s', meta_rows)
+    LOG.debug("rows: %s", meta_rows)
     row_num = 0
     pkeys = []
     field_names = []
@@ -216,20 +204,18 @@ def to_singer(
             if row_num == meta_rows.pkeys_row:
                 pkeys = record
             if row_num == meta_rows.field_types_row:
-                LOG.debug('name_type_map: %s', tuple(zip(field_names, record)))
+                LOG.debug("name_type_map: %s", tuple(zip(field_names, record)))
                 name_type_map = dict(
                     map(
                         lambda x: (x[0], ColumnType(x[1])),
-                        zip(field_names, record)
+                        zip(field_names, record),
                     )
                 )
                 if not options.only_records:
                     singer_schema: SingerSchema = SingerSchema(
                         stream=stream,
-                        schema={
-                            "properties": translate_types(name_type_map)
-                        },
-                        key_properties=frozenset(pkeys)
+                        schema={"properties": translate_types(name_type_map)},
+                        key_properties=frozenset(pkeys),
                     )
                     factory.emit(singer_schema)
         else:
@@ -239,7 +225,7 @@ def to_singer(
                 record=translate_values(
                     name_type_map,
                     name_value_map,
-                    auto_type=options.only_records
-                )
+                    auto_type=options.only_records,
+                ),
             )
             factory.emit(singer_record)

@@ -30,7 +30,7 @@ AudienceId = Union[api.AudienceId]
 def test_all_audiences() -> None:
     # Arrange
     client = mock_client.new_client()
-    with tempfile.TemporaryFile(mode='w+') as tmp:
+    with tempfile.TemporaryFile(mode="w+") as tmp:
         # Act
         streams.all_audiences(client, target=tmp)
         tmp.seek(0)
@@ -39,10 +39,14 @@ def test_all_audiences() -> None:
         n_schemas = len(
             list(filter(lambda x: isinstance(x, SingerSchema), singer_msgs))
         )
-        raw_records = list(map(
-            lambda x: cast(SingerRecord, x).record,
-            list(filter(lambda x: isinstance(x, SingerRecord), singer_msgs))
-        ))
+        raw_records = list(
+            map(
+                lambda x: cast(SingerRecord, x).record,
+                list(
+                    filter(lambda x: isinstance(x, SingerRecord), singer_msgs)
+                ),
+            )
+        )
         audiences = client.list_audiences()
         # Assert
         assert n_schemas == 0

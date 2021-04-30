@@ -41,11 +41,11 @@ def main() -> None:
                     seen_at=authored_at,
                     namespace=namespace,
                     repository=repository,
-                )
+                ),
             ).decode()
-            log_sync('info', 'executing: %s', query)
+            log_sync("info", "executing: %s", query)
             cursor.execute(query)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

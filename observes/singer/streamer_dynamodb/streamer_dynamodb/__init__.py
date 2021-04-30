@@ -25,7 +25,7 @@ from streamer_dynamodb.logs import LOGGER
 CLIENT_CONFIG = botocore.config.Config(max_pool_connections=50)
 
 # Constants
-TVar = TypeVar('TVar')
+TVar = TypeVar("TVar")
 
 
 async def scan_table(
@@ -43,14 +43,14 @@ async def scan_table(
     :rtype: Generator[Dict, None, None].
     """
     resource_options: Dict[str, Optional[str]] = {
-        'service_name': 'dynamodb',
-        'aws_access_key_id': aws_access_key_id,
-        'aws_secret_access_key': aws_secret_access_key,
-        'region_name': region_name,
-        'config': CLIENT_CONFIG,
-        **kwargs
+        "service_name": "dynamodb",
+        "aws_access_key_id": aws_access_key_id,
+        "aws_secret_access_key": aws_secret_access_key,
+        "region_name": region_name,
+        "config": CLIENT_CONFIG,
+        **kwargs,
     }
-    scan_params = {'TableName': table_name, 'Limit': 1000}
+    scan_params = {"TableName": table_name, "Limit": 1000}
 
     async with aioboto3.resource(**resource_options) as dynamodb_resource:
         table = await dynamodb_resource.Table(table_name)
@@ -62,11 +62,13 @@ async def scan_table(
             try:
                 result = await table.scan(**scan_params)
                 retries = 0
-                for item in result.get('Items', []):
+                for item in result.get("Items", []):
                     yield item
             except botocore.exceptions.ClientError as exc:
-                if exc.response['Error'][
-                        'Code'] == 'ResourceNotFoundException':
+                if (
+                    exc.response["Error"]["Code"]
+                    == "ResourceNotFoundException"
+                ):
                     LOGGER.error("Failed to scan table %s", table_name)
                     LOGGER.error("Exception: %s", str(exc))
                     has_more = False
@@ -81,24 +83,24 @@ async def scan_table(
                 retries += 1
                 continue
 
-            if result.get('LastEvaluatedKey', None):
-                scan_params['ExclusiveStartKey'] = result.get(
-                    'LastEvaluatedKey')
+            if result.get("LastEvaluatedKey", None):
+                scan_params["ExclusiveStartKey"] = result.get(
+                    "LastEvaluatedKey"
+                )
 
-            has_more = result.get('LastEvaluatedKey', False)
+            has_more = result.get("LastEvaluatedKey", False)
 
 
 async def dump_table(connection_args: Dict[str, str]) -> str:
-    table_name = connection_args.pop('table_name')
+    table_name = connection_args.pop("table_name")
     LOGGER.info("Scanning %s", table_name)
 
     lock = asyncio.Lock()
     async for item in scan_table(table_name, **connection_args):
         item = deserialize(item)
-        record: str = await in_thread(json.dumps, {
-            "stream": table_name,
-            "record": item
-        })
+        record: str = await in_thread(
+            json.dumps, {"stream": table_name, "record": item}
+        )
         async with lock:
             print(record)
     return table_name
@@ -129,34 +131,43 @@ def deserialize(object_: Any) -> Any:
 async def _main() -> None:
     # user interface
     parser = argparse.ArgumentParser()
-    parser.add_argument('-a',
-                        '--auth',
-                        help='JSON authentication file',
-                        dest='auth',
-                        type=argparse.FileType('r'),
-                        required=True)
+    parser.add_argument(
+        "-a",
+        "--auth",
+        help="JSON authentication file",
+        dest="auth",
+        type=argparse.FileType("r"),
+        required=True,
+    )
     group = parser.add_mutually_exclusive_group(required=True)
-    group.add_argument('-c',
-                       '--conf',
-                       help='JSON config file',
-                       dest='conf',
-                       type=argparse.FileType('r'))
+    group.add_argument(
+        "-c",
+        "--conf",
+        help="JSON config file",
+        dest="conf",
+        type=argparse.FileType("r"),
+    )
     args = parser.parse_args()
 
     credentials: Dict[str, str] = json.load(args.auth)
     configuration = json.load(args.conf)
 
-    aws_access_key_id = credentials.pop('AWS_ACCESS_KEY_ID')
-    aws_secret_access_key = credentials.pop('AWS_SECRET_ACCESS_KEY')
-    region_name = credentials.pop('AWS_DEFAULT_REGION')
+    aws_access_key_id = credentials.pop("AWS_ACCESS_KEY_ID")
+    aws_secret_access_key = credentials.pop("AWS_SECRET_ACCESS_KEY")
+    region_name = credentials.pop("AWS_DEFAULT_REGION")
     async with Pool() as pool:
-        async for result in pool.map(dump_table, [
-                dict(table_name=table,
-                     aws_access_key_id=aws_access_key_id,
-                     aws_secret_access_key=aws_secret_access_key,
-                     region_name=region_name)
+        async for result in pool.map(
+            dump_table,
+            [
+                dict(
+                    table_name=table,
+                    aws_access_key_id=aws_access_key_id,
+                    aws_secret_access_key=aws_secret_access_key,
+                    region_name=region_name,
+                )
                 for table in configuration.get("tables", [])
-        ]):
+            ],
+        ):
             LOGGER.info("Success dump table: %s", result)
 
 

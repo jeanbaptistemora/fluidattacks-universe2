@@ -1,5 +1,6 @@
 # Standard libraries
 from typing import FrozenSet
+
 # Third party libraries
 # Local libraries
 from postgres_client.table import DbTypes
@@ -18,49 +19,52 @@ from singer_io.singer import (
 
 def mock_s_schema() -> SingerSchema:
     return SingerSchema(
-        'test_table',
+        "test_table",
         {
-            'properties': {
-                'field1': {"type": "number"}, 'field2': {"type": "string"}
+            "properties": {
+                "field1": {"type": "number"},
+                "field2": {"type": "string"},
             }
         },
-        frozenset()
+        frozenset(),
     )
 
 
 def mock_s_record() -> SingerRecord:
-    test_record = {'field1': 2.48, 'field2': 'text'}
-    return SingerRecord('test_stream', test_record)
+    test_record = {"field1": 2.48, "field2": "text"}
+    return SingerRecord("test_stream", test_record)
 
 
 def test_rschema_creation() -> None:
     # Arrange
-    factory: RedshiftElementsFactory = redshift.redshift_factory('test_schema')
+    factory: RedshiftElementsFactory = redshift.redshift_factory("test_schema")
     # Act
     r_schema = factory.to_rschema(mock_s_schema())
     # Assert
     expected = RedshiftSchema(
-        frozenset({
-            RedshiftField('field1', DbTypes.FLOAT),
-            RedshiftField('field2', DbTypes.VARCHAR)
-        }),
-        'test_schema',
-        'test_table'
+        frozenset(
+            {
+                RedshiftField("field1", DbTypes.FLOAT),
+                RedshiftField("field2", DbTypes.VARCHAR),
+            }
+        ),
+        "test_schema",
+        "test_table",
     )
     assert r_schema == expected
 
 
 def test_rrecord_creation() -> None:
     # Arrange
-    factory: RedshiftElementsFactory = redshift.redshift_factory('test_schema')
-    mock_schema_fields: FrozenSet[RedshiftField] = frozenset({
-        RedshiftField('field1', DbTypes.FLOAT),
-        RedshiftField('field2', DbTypes.VARCHAR)
-    })
+    factory: RedshiftElementsFactory = redshift.redshift_factory("test_schema")
+    mock_schema_fields: FrozenSet[RedshiftField] = frozenset(
+        {
+            RedshiftField("field1", DbTypes.FLOAT),
+            RedshiftField("field2", DbTypes.VARCHAR),
+        }
+    )
     mock_schema = RedshiftSchema(
-        mock_schema_fields,
-        'test_schema',
-        'test_table'
+        mock_schema_fields, "test_schema", "test_table"
     )
     # Act
     r_record: RedshiftRecord = factory.to_rrecord(
@@ -68,7 +72,7 @@ def test_rrecord_creation() -> None:
     )
     # Assert
     expected_record = frozenset(
-        {'field1': "'2.48'", 'field2': "'text'"}.items()
+        {"field1": "'2.48'", "field2": "'text'"}.items()
     )
     expected = RedshiftRecord(mock_schema, expected_record)
     assert r_record == expected

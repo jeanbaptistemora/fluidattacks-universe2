@@ -3,15 +3,17 @@ from typing import (
     AnyStr,
     IO,
 )
+
 # Third party libraries
 import click
+
 # Local libraries
 from streamer_zoho_crm import auth, etl
 from streamer_zoho_crm.auth import Credentials
 
 
 @click.command()
-@click.argument('crm_auth_file', type=click.File('r'))
+@click.argument("crm_auth_file", type=click.File("r"))
 def gen_refresh_token(crm_auth_file: IO[AnyStr]) -> None:
     # Manual refresh token generation, see:
     # https://www.zoho.com/crm/developer/docs/api/v2/auth-request.html
@@ -26,15 +28,15 @@ def revoke_token() -> None:
 
 
 @click.command()
-@click.argument('db_auth_file', type=click.File('r'))
+@click.argument("db_auth_file", type=click.File("r"))
 def init_db(db_auth_file: IO[AnyStr]) -> None:
     db_id, db_creds = auth.to_db_credentials(db_auth_file)
     etl.initialize(db_id, db_creds)
 
 
 @click.command()
-@click.argument('crm_auth_file', type=click.File('r'))
-@click.argument('db_auth_file', type=click.File('r'))
+@click.argument("crm_auth_file", type=click.File("r"))
+@click.argument("db_auth_file", type=click.File("r"))
 def create_jobs(crm_auth_file: IO[AnyStr], db_auth_file: IO[AnyStr]) -> None:
     crm_creds: Credentials = auth.to_credentials(crm_auth_file)
     db_id, db_creds = auth.to_db_credentials(db_auth_file)
@@ -42,8 +44,8 @@ def create_jobs(crm_auth_file: IO[AnyStr], db_auth_file: IO[AnyStr]) -> None:
 
 
 @click.command()
-@click.argument('crm_auth_file', type=click.File('r'))
-@click.argument('db_auth_file', type=click.File('r'))
+@click.argument("crm_auth_file", type=click.File("r"))
+@click.argument("db_auth_file", type=click.File("r"))
 def stream(crm_auth_file: IO[AnyStr], db_auth_file: IO[AnyStr]) -> None:
     crm_creds: Credentials = auth.to_credentials(crm_auth_file)
     db_id, db_creds = auth.to_db_credentials(db_auth_file)

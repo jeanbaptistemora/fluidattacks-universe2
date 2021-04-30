@@ -12,7 +12,7 @@ CSV_PARAMS = {
     "extrasaction": "ignore",
     "delimiter": ",",
     "quotechar": '"',
-    "quoting": csv.QUOTE_NONNUMERIC
+    "quoting": csv.QUOTE_NONNUMERIC,
 }
 
 
@@ -35,17 +35,17 @@ def persist_messages():
                 writer = csv.DictWriter(csvfile, headers[stream], **CSV_PARAMS)
                 # primary keys
                 writer.writerow(
-                    dict(zip(headers[stream], json_obj["key_properties"])))
+                    dict(zip(headers[stream], json_obj["key_properties"]))
+                )
                 # field names
-                writer.writerow(
-                    {
-                        f: f
-                        for f in headers[stream]})
+                writer.writerow({f: f for f in headers[stream]})
                 # field types
                 writer.writerow(
                     {
                         f: json.dumps(v)
-                        for f, v in json_obj["schema"]["properties"].items()})
+                        for f, v in json_obj["schema"]["properties"].items()
+                    }
+                )
 
         elif json_obj["type"] == "RECORD":
             stream = json_obj["stream"]

@@ -95,11 +95,11 @@ class RawSource(NamedTuple):
 @RateLimiter(max_calls=5, period=1)
 def _list_audiences(client: Client, page_id: PageId) -> JSON:
     result = client.lists.get_all_lists(
-        fields=['lists.id', 'total_items', '_links'],
+        fields=["lists.id", "total_items", "_links"],
         count=page_id.per_page,
-        offset=page_id.page * page_id.per_page
+        offset=page_id.page * page_id.per_page,
     )
-    LOG.debug('_list_audiences (%s) response: %s', page_id, result)
+    LOG.debug("_list_audiences (%s) response: %s", page_id, result)
     return result
 
 
@@ -114,11 +114,11 @@ def _list_abuse_reports(
 ) -> JSON:
     result = client.lists.get_list_abuse_reports(
         audience_id.str_id,
-        fields=['abuse_reports.id', 'total_items', '_links'],
+        fields=["abuse_reports.id", "total_items", "_links"],
         count=page_id.per_page,
-        offset=page_id.page * page_id.per_page
+        offset=page_id.page * page_id.per_page,
     )
-    LOG.debug('_list_abuse_reports response: %s', str(result)[:200])
+    LOG.debug("_list_abuse_reports response: %s", str(result)[:200])
     return result
 
 
@@ -145,13 +145,15 @@ def _list_members(
 ) -> JSON:
     result = client.lists.get_list_members_info(
         audience_id.str_id,
-        fields=['members.id', 'total_items', '_links'],
+        fields=["members.id", "total_items", "_links"],
         count=page_id.per_page,
-        offset=page_id.page * page_id.per_page
+        offset=page_id.page * page_id.per_page,
     )
     LOG.debug(
-        '_list_members(%s, %s) response: %s',
-        audience_id, page_id, str(result)[:200]
+        "_list_members(%s, %s) response: %s",
+        audience_id,
+        page_id,
+        str(result)[:200],
     )
     return result
 
@@ -159,9 +161,7 @@ def _list_members(
 @RateLimiter(max_calls=5, period=1)
 def _get_member(client: Client, member_id: MemberId) -> JSON:
     result = client.lists.get_list_member(
-        member_id.audience_id.str_id,
-        member_id.str_id,
-        exclude_fields=['tags']
+        member_id.audience_id.str_id, member_id.str_id, exclude_fields=["tags"]
     )
     return result
 
@@ -172,17 +172,16 @@ def _list_growth_hist(
 ) -> JSON:
     return client.lists.get_list_growth_history(
         audience_id.str_id,
-        fields=['history.month', 'total_items', '_links'],
+        fields=["history.month", "total_items", "_links"],
         count=page_id.per_page,
-        offset=page_id.page * page_id.per_page
+        offset=page_id.page * page_id.per_page,
     )
 
 
 @RateLimiter(max_calls=5, period=1)
 def _get_growth_hist(client: Client, ghist_id: GrowthHistId) -> JSON:
     return client.lists.get_list_growth_history_by_month(
-        ghist_id.audience_id.str_id,
-        ghist_id.str_id
+        ghist_id.audience_id.str_id, ghist_id.str_id
     )
 
 
@@ -192,17 +191,16 @@ def _list_interest_catg(
 ) -> JSON:
     return client.lists.get_list_interest_categories(
         audience_id.str_id,
-        fields=['categories.id', 'total_items', '_links'],
+        fields=["categories.id", "total_items", "_links"],
         count=page_id.per_page,
-        offset=page_id.page * page_id.per_page
+        offset=page_id.page * page_id.per_page,
     )
 
 
 @RateLimiter(max_calls=5, period=1)
 def _get_interest_catg(client: Client, interest_id: InterestCatgId) -> JSON:
     return client.lists.get_interest_category(
-        interest_id.audience_id.str_id,
-        interest_id.str_id
+        interest_id.audience_id.str_id, interest_id.str_id
     )
 
 
@@ -214,11 +212,11 @@ def _get_audience_locations(client: Client, audience_id: AudienceId) -> JSON:
 @RateLimiter(max_calls=5, period=1)
 def _list_campaigns(client: Client, page_id: PageId) -> JSON:
     result = client.campaigns.list(
-        fields=['campaigns.id', 'total_items', '_links'],
+        fields=["campaigns.id", "total_items", "_links"],
         count=page_id.per_page,
-        offset=page_id.page * page_id.per_page
+        offset=page_id.page * page_id.per_page,
     )
-    LOG.debug('_list_campaigns response: %s', result)
+    LOG.debug("_list_campaigns response: %s", result)
     return result
 
 
@@ -228,14 +226,12 @@ def _get_campaign(client: Client, campaign_id: CampaignId) -> JSON:
 
 
 @RateLimiter(max_calls=5, period=1)
-def _list_feedbacks(
-    client: Client, campaign_id: CampaignId
-) -> JSON:
+def _list_feedbacks(client: Client, campaign_id: CampaignId) -> JSON:
     result = client.campaigns.get_feedback(
         campaign_id.str_id,
-        fields=['feedback.feedback_id', 'total_items', '_links'],
+        fields=["feedback.feedback_id", "total_items", "_links"],
     )
-    LOG.debug('_list_feedbacks response: %s', result)
+    LOG.debug("_list_feedbacks response: %s", result)
     return result
 
 
@@ -248,9 +244,7 @@ def _get_feedback(client: Client, feedback_id: FeedbackId) -> JSON:
 
 
 @RateLimiter(max_calls=5, period=1)
-def _get_checklist(
-    client: Client, campaign_id: CampaignId
-) -> JSON:
+def _get_checklist(client: Client, campaign_id: CampaignId) -> JSON:
     return client.campaigns.get_send_checklist(campaign_id.str_id)
 
 

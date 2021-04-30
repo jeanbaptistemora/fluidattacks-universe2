@@ -40,7 +40,7 @@ def get_access_point(auth):
         user=auth["user"],
         password=auth["password"],
         host=auth["host"],
-        port=auth["port"]
+        port=auth["port"],
     )
 
     db_connection.set_session(readonly=False)
@@ -58,27 +58,24 @@ def close_access_point(db_connection, db_cursor):
 
 
 def main():
-    """Usual entry point.
-    """
+    """Usual entry point."""
 
     # user interface
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "-a", "--auth",
+        "-a",
+        "--auth",
         required=True,
         dest="auth",
         help="JSON authentication file",
-        type=argparse.FileType("r"))
+        type=argparse.FileType("r"),
+    )
     parser.add_argument(
-        "-e", "--exec",
-        required=True,
-        dest="exec",
-        help="Command to execute")
+        "-e", "--exec", required=True, dest="exec", help="Command to execute"
+    )
     parser.add_argument(
-        "-f", "--fetch",
-        dest="fetch",
-        action="store_true",
-        default=False)
+        "-f", "--fetch", dest="fetch", action="store_true", default=False
+    )
     args = parser.parse_args()
 
     # authentication file
@@ -88,7 +85,7 @@ def main():
     try:
         (db_connection, db_cursor) = get_access_point(auth)
 
-        print(f"INFO: Statement to run:\n\"{args.exec}\"\n")
+        print(f'INFO: Statement to run:\n"{args.exec}"\n')
         db_cursor.execute(args.exec)
         print("INFO: Statement ran successfully.\n")
 
@@ -100,12 +97,16 @@ def main():
             response_list = db_cursor.fetchall()
 
             # one row per line, columns between bars
-            print("\n".join(
-                list(
-                    map(
-                        lambda row: "|".join(
-                            list(
-                                map(str, row))), response_list))))
+            print(
+                "\n".join(
+                    list(
+                        map(
+                            lambda row: "|".join(list(map(str, row))),
+                            response_list,
+                        )
+                    )
+                )
+            )
 
     except (psycopg2.Warning, psycopg2.Error) as exception:
         print(f"INFO: Statement ran with errors:\n{exception}")

@@ -23,13 +23,13 @@ from tap_mailchimp.common.objs import (
 
 
 def _list_audiences(_page: PageId) -> JSON:
-    with open('./tests/mock_data/audience.json') as data:
-        return json.load(data)['list_audiences']
+    with open("./tests/mock_data/audience.json") as data:
+        return json.load(data)["list_audiences"]
 
 
 def _get_audience(audience: AudienceId) -> JSON:
-    with open('./tests/mock_data/audience.json') as data:
-        return json.load(data)['get_audience'][audience.str_id]
+    with open("./tests/mock_data/audience.json") as data:
+        return json.load(data)["get_audience"][audience.str_id]
 
 
 def mock_data_source() -> RawSource:

@@ -6,9 +6,7 @@ import pandas
 import pytest
 
 # Local libraries
-from tap_mixpanel import (
-    planner
-)
+from tap_mixpanel import planner
 
 
 Timestamp = pandas.Timestamp
@@ -17,7 +15,7 @@ DateOffset = pandas.DateOffset
 strptime = datetime.datetime.strptime
 
 
-@pytest.mark.freeze_time('2017-05-01')
+@pytest.mark.freeze_time("2017-05-01")
 def test_target_dates_month_start() -> None:
     # Arrange
     today = Timestamp(datetime.date.today())
@@ -29,7 +27,7 @@ def test_target_dates_month_start() -> None:
     assert today in target_dates.actual_range
 
 
-@pytest.mark.freeze_time('2017-05-15')
+@pytest.mark.freeze_time("2017-05-15")
 def test_target_dates_middle_date() -> None:
     # Arrange
     today = Timestamp(datetime.date.today())
@@ -41,7 +39,7 @@ def test_target_dates_middle_date() -> None:
     assert today in target_dates.actual_range
 
 
-@pytest.mark.freeze_time('2017-05-31')
+@pytest.mark.freeze_time("2017-05-31")
 def test_target_dates_month_end() -> None:
     # Arrange
     today = Timestamp(datetime.date.today())

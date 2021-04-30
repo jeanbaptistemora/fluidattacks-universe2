@@ -18,32 +18,32 @@ class UnexpectedInput(Exception):
 def test_create_table_schema_map_builder() -> None:
     # Arrange
     s_schema1 = SingerSchema(
-        stream='the_table_1',
-        schema={'field1': 'str'},
-        key_properties=frozenset()
+        stream="the_table_1",
+        schema={"field1": "str"},
+        key_properties=frozenset(),
     )
     s_schema2 = SingerSchema(
-        stream='the_table_1',
-        schema={'field2': 'bool', 'field1': 'str'},
-        key_properties=frozenset()
+        stream="the_table_1",
+        schema={"field2": "bool", "field1": "str"},
+        key_properties=frozenset(),
     )
-    field1 = RedshiftField('field1', DbTypes.VARCHAR)
-    field2 = RedshiftField('field2', DbTypes.BOOLEAN)
-    test_table_id = TableID('test_schema', 'the_table_1')
+    field1 = RedshiftField("field1", DbTypes.VARCHAR)
+    field2 = RedshiftField("field2", DbTypes.BOOLEAN)
+    test_table_id = TableID("test_schema", "the_table_1")
     test_schemas = [s_schema1, s_schema2]
 
     def mock_to_rschema(s_schema: SingerSchema) -> RedshiftSchema:
         if s_schema == s_schema1:
             return RedshiftSchema(
                 fields=frozenset({field1}),
-                schema_name='test_schema',
-                table_name=s_schema.stream
+                schema_name="test_schema",
+                table_name=s_schema.stream,
             )
         if s_schema == s_schema2:
             return RedshiftSchema(
                 fields=frozenset({field2, field1}),
-                schema_name='test_schema',
-                table_name=s_schema.stream
+                schema_name="test_schema",
+                table_name=s_schema.stream,
             )
         raise UnexpectedInput()
 
@@ -53,33 +53,34 @@ def test_create_table_schema_map_builder() -> None:
 
     # Act
     create_table_map = loader.create_table_schema_map_builder(
-        mock_to_rschema,
-        mock_extract_table_id
+        mock_to_rschema, mock_extract_table_id
     )
     result = create_table_map(test_schemas)
     # Assert
     expected = RedshiftSchema(
         fields=frozenset({field2, field1}),
-        schema_name='test_schema',
-        table_name='the_table_1'
+        schema_name="test_schema",
+        table_name="the_table_1",
     )
     assert result[test_table_id] == expected
 
 
 def test_create_redshift_records_builder() -> None:
     # Arrange
-    s_record1 = SingerRecord('table_1', {})
-    s_record2 = SingerRecord('table_2', {})
+    s_record1 = SingerRecord("table_1", {})
+    s_record2 = SingerRecord("table_2", {})
     r_schema1 = RedshiftSchema(
-        frozenset({RedshiftField('field1', DbTypes.BOOLEAN)}),
-        'test_schema', 'test_table'
+        frozenset({RedshiftField("field1", DbTypes.BOOLEAN)}),
+        "test_schema",
+        "test_table",
     )
     r_schema2 = RedshiftSchema(
-        frozenset({RedshiftField('field2', DbTypes.FLOAT)}),
-        'test_schema', 'test_table_2'
+        frozenset({RedshiftField("field2", DbTypes.FLOAT)}),
+        "test_schema",
+        "test_table_2",
     )
-    table_id1 = TableID('test_schema', 'table1')
-    table_id2 = TableID('test_schema_2', 'table2')
+    table_id1 = TableID("test_schema", "table1")
+    table_id2 = TableID("test_schema_2", "table2")
     r_record1 = RedshiftRecord(r_schema1, frozenset())
     r_record2 = RedshiftRecord(r_schema2, frozenset())
     test_records = [s_record1, s_record2]
@@ -113,7 +114,7 @@ def test_create_redshift_records_builder() -> None:
 
 def test_create_table_mapper_builder() -> None:
     # Arrange
-    test_table_id = TableID('test_schema', 'test_table')
+    test_table_id = TableID("test_schema", "test_table")
     test_table = Table(
         id=test_table_id,
         primary_keys=frozenset(),
@@ -128,9 +129,7 @@ def test_create_table_mapper_builder() -> None:
         raise UnexpectedInput()
 
     # Act
-    create_table_map = loader.create_table_mapper_builder(
-        mock_retrieve_table
-    )
+    create_table_map = loader.create_table_mapper_builder(mock_retrieve_table)
     result = create_table_map([test_table_id])
     # Assert
     assert result[test_table_id] == test_table

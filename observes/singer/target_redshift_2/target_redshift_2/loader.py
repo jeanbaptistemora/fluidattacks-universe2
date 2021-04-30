@@ -9,6 +9,7 @@ from typing import (
     Set,
     Tuple,
 )
+
 # Third party libraries
 # Local libraries
 from postgres_client.cursor import CursorExeAction
@@ -47,6 +48,7 @@ def process_lines_builder(
     deserialize: Transform[str, SingerMessage]
 ) -> Transform[List[str], ClassifiedSinger]:
     """Returns clasifier function of `SingerMessage`"""
+
     def process(lines: List[str]) -> ClassifiedSinger:
         """Separate `SingerSchema` and `SingerRecord` from lines"""
         s_schemas: List[SingerSchema] = []
@@ -65,12 +67,13 @@ def process_lines_builder(
 
 def create_table_schema_map_builder(
     to_rschema: Transform[SingerSchema, RedshiftSchema],
-    extract_table_id: Transform[RedshiftSchema, TableID]
+    extract_table_id: Transform[RedshiftSchema, TableID],
 ) -> Transform[Iterable[SingerSchema], TidRschemaMap]:
     """Returns creator of `TidRschemaMap`"""
-    def table_map(s_schemas: Iterable[SingerSchema]) -> Dict[
-        TableID, RedshiftSchema
-    ]:
+
+    def table_map(
+        s_schemas: Iterable[SingerSchema],
+    ) -> Dict[TableID, RedshiftSchema]:
         """Returns `TidRschemaMap` from various `SingerSchema`"""
         mapper: TidRschemaMap = {}
         for s_schema in s_schemas:
@@ -81,7 +84,7 @@ def create_table_schema_map_builder(
                 mapper[table_id] = RedshiftSchema(
                     fields=prev_rschema.fields.union(r_schema.fields),
                     schema_name=r_schema.schema_name,
-                    table_name=r_schema.table_name
+                    table_name=r_schema.table_name,
                 )
             else:
                 mapper[table_id] = r_schema
@@ -92,9 +95,10 @@ def create_table_schema_map_builder(
 
 def create_redshift_records_builder(
     to_rrecord: Callable[[SingerRecord, RedshiftSchema], RedshiftRecord],
-    extract_table_id: Transform[SingerRecord, TableID]
+    extract_table_id: Transform[SingerRecord, TableID],
 ) -> RRecordCreator:
     """Returns implemented `RRecordCreator`"""
+
     def create_rrecords(
         s_records: Iterable[SingerRecord], schema_map: TidRschemaMap
     ) -> Iterable[RedshiftRecord]:
@@ -113,6 +117,7 @@ def create_table_mapper_builder(
     retrieve_table: Transform[TableID, Table]
 ) -> Transform[Iterable[TableID], TidTableMap]:
     """Returns implemented `TidTableMap`"""
+
     def create_table_mapper(table_ids: Iterable[TableID]) -> TidTableMap:
         """
         Retrieves real tables from table ids and return a map between them
@@ -122,6 +127,7 @@ def create_table_mapper_builder(
             table = retrieve_table(table_id)
             mapper[table_id] = table
         return mapper
+
     return create_table_mapper
 
 
@@ -131,7 +137,7 @@ def _update_schema(
     to_columns: Transform[RedshiftSchema, FrozenSet[IsolatedColumn]],
     add_columns: Callable[
         [Table, FrozenSet[IsolatedColumn]], List[CursorExeAction]
-    ]
+    ],
 ) -> None:
     def adjust_columns(
         items: Tuple[TableID, RedshiftSchema]

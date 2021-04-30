@@ -5,6 +5,7 @@ from typing import (
     Optional,
     Set,
 )
+
 # Third party libraries
 # Local libraries=
 from singer_io.singer import (
@@ -45,15 +46,10 @@ def record_handler(
     )
 
 
-def state_handler(
-    singer: SingerState, state: State, loader: Loader
-) -> State:
+def state_handler(singer: SingerState, state: State, loader: Loader) -> State:
     if not state.previous_record:
-        raise InvalidState('State msg should have a preceded record msg')
-    loader.upload_and_save_state(
-        state.previous_record,
-        singer
-    )
+        raise InvalidState("State msg should have a preceded record msg")
+    loader.upload_and_save_state(state.previous_record, singer)
     return State(
         current_schemas=state.current_schemas,
         previous_record=None,
@@ -79,6 +75,6 @@ def process_stdin(stdin: IO[str], loader: Loader) -> None:
     state = State(
         current_schemas=state.current_schemas,
         previous_record=state.previous_record,
-        end_of_stream=True
+        end_of_stream=True,
     )
     handler(line, state)

@@ -84,21 +84,17 @@ def parse_actors(path: str, sha1: str) -> Tuple[str, str, str, str]:
     The quality of this function is upto the .mailmap.
     """
     authorn: str = os_tools.get_stdout_stderr(
-        [
-            "git", "-C", path,
-            "--no-pager", "show", "-s", "--format=%aN", sha1])[0][0:-1]
+        ["git", "-C", path, "--no-pager", "show", "-s", "--format=%aN", sha1]
+    )[0][0:-1]
     authore: str = os_tools.get_stdout_stderr(
-        [
-            "git", "-C", path,
-            "--no-pager", "show", "-s", "--format=%aE", sha1])[0][0:-1]
+        ["git", "-C", path, "--no-pager", "show", "-s", "--format=%aE", sha1]
+    )[0][0:-1]
     commitn: str = os_tools.get_stdout_stderr(
-        [
-            "git", "-C", path,
-            "--no-pager", "show", "-s", "--format=%cN", sha1])[0][0:-1]
+        ["git", "-C", path, "--no-pager", "show", "-s", "--format=%cN", sha1]
+    )[0][0:-1]
     commite: str = os_tools.get_stdout_stderr(
-        [
-            "git", "-C", path,
-            "--no-pager", "show", "-s", "--format=%cE", sha1])[0][0:-1]
+        ["git", "-C", path, "--no-pager", "show", "-s", "--format=%cE", sha1]
+    )[0][0:-1]
     return authorn, authore, commitn, commite
 
 
@@ -126,11 +122,12 @@ def scan_commits(config: JSON, sync_changes: bool, after: str) -> None:
         """Print singer records to stdout."""
         last_commit = None
         for commit in repo_obj.iter_commits(
-                branch,
-                after=after,
-                reverse=True,
-                no_merges=True,
-                date="iso-strict"):
+            branch,
+            after=after,
+            reverse=True,
+            no_merges=True,
+            date="iso-strict",
+        ):
             commit_insertions = commit.stats.total.get("insertions", 0)
             commit_deletions = commit.stats.total.get("deletions", 0)
 
@@ -138,7 +135,8 @@ def scan_commits(config: JSON, sync_changes: bool, after: str) -> None:
             # authorn, authore = commit.author.name, commit.author.email
             # commitn, commite = commit.committer.name, commit.committer.email
             authorn, authore, commitn, commite = parse_actors(
-                repo_path, commit.hexsha)
+                repo_path, commit.hexsha
+            )
 
             srecord = {
                 "type": "RECORD",
@@ -156,28 +154,35 @@ def scan_commits(config: JSON, sync_changes: bool, after: str) -> None:
                     "committer_name": commitn,
                     "committer_email": commite,
                     "authored_at": commit.authored_datetime.strftime(
-                        "%Y-%m-%dT%H:%M:%SZ"),
+                        "%Y-%m-%dT%H:%M:%SZ"
+                    ),
                     "committed_at": commit.committed_datetime.strftime(
-                        "%Y-%m-%dT%H:%M:%SZ"),
+                        "%Y-%m-%dT%H:%M:%SZ"
+                    ),
                     "integration_authored_at": analized_dag[commit.hexsha][
-                        "integration_authored_at"].strftime(
-                            "%Y-%m-%dT%H:%M:%SZ"),
+                        "integration_authored_at"
+                    ].strftime("%Y-%m-%dT%H:%M:%SZ"),
                     "integration_committed_at": analized_dag[commit.hexsha][
-                        "integration_committed_at"].strftime(
-                            "%Y-%m-%dT%H:%M:%SZ"),
+                        "integration_committed_at"
+                    ].strftime("%Y-%m-%dT%H:%M:%SZ"),
                     "time_to_master_authored": analized_dag[commit.hexsha][
-                        "time_to_master_authored"],
+                        "time_to_master_authored"
+                    ],
                     "time_to_master_committed": analized_dag[commit.hexsha][
-                        "time_to_master_committed"],
+                        "time_to_master_committed"
+                    ],
                     "summary": commit.summary,
-                    "message": re.sub(r"^[\n\r]*", "", commit.message.replace(
-                        commit.summary, "")),
+                    "message": re.sub(
+                        r"^[\n\r]*",
+                        "",
+                        commit.message.replace(commit.summary, ""),
+                    ),
                     "commit_files": commit.stats.total.get("files", 0),
                     "commit_insertions": commit_insertions,
                     "commit_deletions": commit_deletions,
                     "commit_tot_lines": commit_insertions + commit_deletions,
-                    "commit_net_lines": commit_insertions - commit_deletions
-                }
+                    "commit_net_lines": commit_insertions - commit_deletions,
+                },
             }
 
             sprint(srecord)
@@ -204,9 +209,8 @@ def scan_commits__schemas(sync_changes: bool):
 
 
 def scan_changes(
-        prev_commit: GIT_COMMIT,
-        this_commit: GIT_COMMIT,
-        files: JSON) -> None:
+    prev_commit: GIT_COMMIT, this_commit: GIT_COMMIT, files: JSON
+) -> None:
     """Writes singer records for the changes table to stdout.
 
     Comparison between two succesive commits yields a table of changes.
@@ -235,7 +239,7 @@ def scan_changes__base_record(commit: GIT_COMMIT) -> JSON:
         "stream": "changes",
         "record": {
             "sha1": commit.hexsha,
-        }
+        },
     }
     return base_record
 
@@ -282,9 +286,8 @@ def scan_changes__type_r(file, files: JSON, this_commit: GIT_COMMIT) -> None:
     srecord["record"]["target_ext"] = get_extension(file.rename_to)
     for file_name, stats in files.items():
         weird = re.sub(
-            r"(.*){(.*) => (.*)}(.*)",
-            r"\g<1>\g<3>\g<4>",
-            file_name)
+            r"(.*){(.*) => (.*)}(.*)", r"\g<1>\g<3>\g<4>", file_name
+        )
         if weird == file.rename_to:
             scan_changes__insert_stats(srecord, stats)
     sprint(srecord)
@@ -314,14 +317,17 @@ def scan_changes__type_t(file, files: JSON, this_commit: GIT_COMMIT) -> None:
 
 def scan_gitinspector(path: str) -> JSON:
     """Creates the gitinspector table."""
-    output: str = os.popen((
-        f"gitinspector             "
-        f"  --responsibilities=true"
-        f"  --timeline=true        "
-        f"  --metrics=true         "
-        f"  --format=json          "
-        f"  --hard                 "
-        f"  '{path}'               ")).read()
+    output: str = os.popen(
+        (
+            f"gitinspector             "
+            f"  --responsibilities=true"
+            f"  --timeline=true        "
+            f"  --metrics=true         "
+            f"  --format=json          "
+            f"  --hard                 "
+            f"  '{path}'               "
+        )
+    ).read()
 
     data = json.loads(output)["gitinspector"]
     scan_gitinspector__schemas()
@@ -359,7 +365,7 @@ def scan_gitinspector__blame(data: JSON) -> None:
                     "stability": record["stability"],
                     "age": record["age"],
                     "percentage_in_comments": record["percentage_in_comments"],
-                }
+                },
             }
             sprint(srecord)
 
@@ -379,7 +385,7 @@ def scan_gitinspector__changes(data: JSON) -> None:
                     "insertions": record["insertions"],
                     "deletions": record["deletions"],
                     "percentage_of_changes": record["percentage_of_changes"],
-                }
+                },
             }
             sprint(srecord)
 
@@ -396,7 +402,7 @@ def scan_gitinspector__metrics(data: JSON) -> None:
                     "type": record["type"],
                     "file_name": record["file_name"],
                     "value": record["value"],
-                }
+                },
             }
             sprint(srecord)
 
@@ -416,7 +422,7 @@ def scan_gitinspector__responsibilities(data: JSON) -> None:
                             "email": record["email"],
                             "files_name": file["name"],
                             "files_rows": file["rows"],
-                        }
+                        },
                     }
                     sprint(srecord)
 
@@ -426,47 +432,55 @@ def main():
     # user interface
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        '-c', '--conf',
+        "-c",
+        "--conf",
         required=True,
-        help='JSON configuration file.',
-        type=argparse.FileType('r'),
-        dest="conf")
+        help="JSON configuration file.",
+        type=argparse.FileType("r"),
+        dest="conf",
+    )
     parser.add_argument(
-        '--last-n-days',
-        help='in days (positive) how many days to go back and sync.',
+        "--last-n-days",
+        help="in days (positive) how many days to go back and sync.",
         type=int,
         dest="this_days",
-        default=36500)
+        default=36500,
+    )
     parser.add_argument(
-        '--no-changes',
-        help='flag to indicate if changes table should not be generated.',
-        action='store_false',
+        "--no-changes",
+        help="flag to indicate if changes table should not be generated.",
+        action="store_false",
         dest="sync_changes",
-        default=True)
+        default=True,
+    )
     parser.add_argument(
-        '--run-gitinspector',
-        help='flag to indicate if gitinspector should be ran.',
-        action='store_true',
+        "--run-gitinspector",
+        help="flag to indicate if gitinspector should be ran.",
+        action="store_true",
         dest="run_gitinspector",
-        default=False)
+        default=False,
+    )
     parser.add_argument(
-        '--with-metrics',
-        help='flag to indicate if metrics should be generated.',
-        action='store_true',
+        "--with-metrics",
+        help="flag to indicate if metrics should be generated.",
+        action="store_true",
         dest="with_metrics",
-        default=False)
+        default=False,
+    )
     parser.add_argument(
-        '--threads',
-        help='=the number of processes to fork in.',
+        "--threads",
+        help="=the number of processes to fork in.",
         type=int,
         dest="nthreads",
-        default=1)
+        default=1,
+    )
     parser.add_argument(
-        '--fork-id',
-        help='=the id of the current fork.',
+        "--fork-id",
+        help="=the id of the current fork.",
         type=int,
         dest="fork_id",
-        default=1)
+        default=1,
+    )
     args = parser.parse_args()
 
     # catch the config file (JSON) (list<dict>)
@@ -487,7 +501,8 @@ def main():
                 scan_gitinspector(conf["location"])
             except (KeyError, OSError) as excp:
                 print_stderr(
-                    f"EXCP: scan_gitinspector {repository}.", repr(excp))
+                    f"EXCP: scan_gitinspector {repository}.", repr(excp)
+                )
 
         if args.with_metrics:
             try:
@@ -496,10 +511,11 @@ def main():
                 KeyError,
                 OSError,
                 ValueError,
-                subprocess.SubprocessError
+                subprocess.SubprocessError,
             ) as excp:
                 print_stderr(
-                    f"WARN: metrics.scan_metrics {repository}.", repr(excp))
+                    f"WARN: metrics.scan_metrics {repository}.", repr(excp)
+                )
 
         try:
             scan_commits(conf, args.sync_changes, after)
@@ -507,10 +523,9 @@ def main():
             KeyError,
             OSError,
             ValueError,
-            subprocess.SubprocessError
+            subprocess.SubprocessError,
         ) as excp:
-            print_stderr(
-                f"WARN: scan_commits {repository}.", repr(excp))
+            print_stderr(f"WARN: scan_commits {repository}.", repr(excp))
 
 
 if __name__ == "__main__":

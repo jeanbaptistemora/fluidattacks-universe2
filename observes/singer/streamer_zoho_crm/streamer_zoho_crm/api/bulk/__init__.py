@@ -15,11 +15,11 @@ from streamer_zoho_crm.api.bulk.crud import (
 
 
 __all__ = [
-    'BulkData',
-    'BulkJob',
-    'BulkJobResult',
-    'ModuleName',
-    'create_bulk_read_job',
-    'download_result',
-    'get_bulk_job',
+    "BulkData",
+    "BulkJob",
+    "BulkJobResult",
+    "ModuleName",
+    "create_bulk_read_job",
+    "download_result",
+    "get_bulk_job",
 ]

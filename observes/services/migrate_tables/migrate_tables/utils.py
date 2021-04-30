@@ -1,12 +1,13 @@
 # Standard libraries
 import logging
 import sys
+
 # Third party libraries
 # Local libraries
 
 
 def get_log(name: str, min_lvl: int = logging.INFO) -> logging.Logger:
-    logger_format: str = '[%(levelname)s] %(message)s'
+    logger_format: str = "[%(levelname)s] %(message)s"
     logger_formatter: logging.Formatter = logging.Formatter(logger_format)
 
     logger_handler: logging.Handler = logging.StreamHandler(sys.stderr)

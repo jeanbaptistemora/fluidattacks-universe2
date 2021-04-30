@@ -8,8 +8,9 @@ from typing import (
     NamedTuple,
     Optional,
     Set,
-    Tuple
+    Tuple,
 )
+
 # Third party libraries
 # Local libraries
 from postgres_client.table import DbTypes
@@ -29,6 +30,7 @@ from target_redshift_2.utils import Transform
 
 class RedshiftElementsFactory(NamedTuple):
     """Generator of `RedshiftSchema` objects"""
+
     to_rschema: Callable[[SingerSchema], RedshiftSchema]
     to_rrecord: Callable[[SingerRecord, SingerSchema], RedshiftRecord]
 
@@ -36,17 +38,17 @@ class RedshiftElementsFactory(NamedTuple):
 def _singer_to_rschema(
     s_schema: SingerSchema,
     redshift_schema_name: str,
-    to_db_type: Transform[Dict[str, Any], Optional[DbTypes]]
+    to_db_type: Transform[Dict[str, Any], Optional[DbTypes]],
 ) -> RedshiftSchema:
     """`SingerSchema` to `RedshiftSchema` transformation"""
-    props = dict(s_schema.schema)['properties']
+    props = dict(s_schema.schema)["properties"]
     fields: Set[RedshiftField] = set()
     for field, raw_type in props.items():
         s_type: Optional[DbTypes] = to_db_type(raw_type)
         if s_type:
             fields.add(RedshiftField(field, s_type))
         else:
-            raise InvalidType(f'type: {raw_type} not supported')
+            raise InvalidType(f"type: {raw_type} not supported")
     return RedshiftSchema(
         fields=frozenset(fields),
         schema_name=redshift_schema_name,
@@ -78,7 +80,7 @@ def _str_len(str_obj: str, encoding: str = "utf-8") -> int:
 def _singer_to_rrecord(
     s_record: SingerRecord,
     s_schema: SingerSchema,
-    to_rschema: Transform[SingerSchema, RedshiftSchema]
+    to_rschema: Transform[SingerSchema, RedshiftSchema],
 ) -> RedshiftRecord:
     """`SingerRecord` to `RedshiftRecord` transformation"""
     raw_record = dict(s_record.record)
@@ -99,8 +101,7 @@ def _singer_to_rrecord(
                 new_value = f"'{_escape(str(value))}'"
             new_field_val_pairs.add((field, new_value))
     return RedshiftRecord(
-        r_schema=r_schema,
-        record=frozenset(new_field_val_pairs)
+        r_schema=r_schema, record=frozenset(new_field_val_pairs)
     )
 
 
@@ -114,6 +115,5 @@ def redshift_factory(schema_name: str) -> RedshiftElementsFactory:
         return _singer_to_rrecord(record, schema, to_rschema)
 
     return RedshiftElementsFactory(
-        to_rschema=to_rschema,
-        to_rrecord=to_rrecord
+        to_rschema=to_rschema, to_rrecord=to_rrecord
     )

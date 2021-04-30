@@ -20,16 +20,13 @@ from tap_mailchimp.api import (
 from tap_mailchimp.auth import (
     Credentials,
 )
-from tap_mailchimp.streams import (
-    SupportedStreams
-)
+from tap_mailchimp.streams import SupportedStreams
 
 
 LOG = logging.getLogger(__name__)
 
 _stream_executor: Mapping[
-    SupportedStreams,
-    Callable[[ApiClient, Optional[IO[str]]], None]
+    SupportedStreams, Callable[[ApiClient, Optional[IO[str]]], None]
 ] = {
     SupportedStreams.AUDIENCES: streams.all_audiences,
     SupportedStreams.ABUSE_REPORTS: streams.all_abuse_reports,
@@ -47,7 +44,7 @@ _stream_executor: Mapping[
 
 def stream(creds: Credentials, name: str) -> None:
     target_stream = SupportedStreams(name)
-    LOG.info('Executing stream: %s', target_stream)
+    LOG.info("Executing stream: %s", target_stream)
     client: ApiClient = api.new_client(creds)
     _stream_executor[target_stream](client, None)
 
@@ -55,5 +52,5 @@ def stream(creds: Credentials, name: str) -> None:
 def stream_all(creds: Credentials) -> None:
     client: ApiClient = api.new_client(creds)
     for target_stream, executor in _stream_executor.items():
-        LOG.info('Executing stream: %s', target_stream)
+        LOG.info("Executing stream: %s", target_stream)
         executor(client, None)

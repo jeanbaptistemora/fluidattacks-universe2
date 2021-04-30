@@ -11,24 +11,16 @@ def stream_csv(csv_file_path: str) -> None:
     stream_name = os.path.basename(csv_file_path).replace(".csv", "")
     with open(csv_file_path) as csv_file:
         for row in csv.DictReader(
-                f=csv_file,
-                delimiter=",",
-                quoting=csv.QUOTE_NONNUMERIC):
-            print(
-                json.dumps(
-                    {
-                        "stream": stream_name,
-                        "record": dict(row)
-                    }))
+            f=csv_file, delimiter=",", quoting=csv.QUOTE_NONNUMERIC
+        ):
+            print(json.dumps({"stream": stream_name, "record": dict(row)}))
 
 
 def main():
     """Usual entry point."""
     # user interface
     parser = argparse.ArgumentParser()
-    parser.add_argument(
-        "csv_file_path",
-        help="CSV file path to stream")
+    parser.add_argument("csv_file_path", help="CSV file path to stream")
     args = parser.parse_args()
 
     stream_csv(args.csv_file_path)

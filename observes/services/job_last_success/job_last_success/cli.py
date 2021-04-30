@@ -43,24 +43,24 @@ def update_compound_job(auth_file: IO[str], job: str, child: str) -> None:
 
 
 @click.command()
-@click.option('--auth', type=click.File('r'), required=True)
-@click.option('--job', type=str, required=True)
+@click.option("--auth", type=click.File("r"), required=True)
+@click.option("--job", type=str, required=True)
 def single_job(auth: IO[str], job: str) -> None:
-    if job in SINGLE_JOBS or job.startswith('skims'):
+    if job in SINGLE_JOBS or job.startswith("skims"):
         update_single_job(auth, job)
     else:
-        raise UnknownJob(f'single job: {job}')
+        raise UnknownJob(f"single job: {job}")
 
 
 @click.command()
-@click.option('--auth', type=click.File('r'), required=True)
-@click.option('--job', type=str, required=True)
-@click.option('--child', type=str, required=True)
+@click.option("--auth", type=click.File("r"), required=True)
+@click.option("--job", type=str, required=True)
+@click.option("--child", type=str, required=True)
 def compound_job(auth: IO[str], job: str, child: str) -> None:
     if job in COMPOUND_JOBS:
         update_compound_job(auth, job, child)
     else:
-        raise UnknownJob(f'compound job: {job}')
+        raise UnknownJob(f"compound job: {job}")
 
 
 @click.group()

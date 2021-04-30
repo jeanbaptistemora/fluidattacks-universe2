@@ -9,7 +9,7 @@ from streamer_zoho_crm.core.bulk.crud import (
 
 
 __all__ = [
-    'create_bulk_job',
-    'update_all',
-    'get_bulk_data',
+    "create_bulk_job",
+    "update_all",
+    "get_bulk_data",
 ]

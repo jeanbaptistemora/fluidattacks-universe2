@@ -7,6 +7,7 @@ from typing import (
     NamedTuple,
     Tuple,
 )
+
 # Third party libraries
 # Local libraries
 from postgres_client import client
@@ -25,7 +26,7 @@ from streamer_zoho_crm.api.bulk import (
 )
 
 
-SCHEMA = 'zoho_crm'
+SCHEMA = "zoho_crm"
 
 
 class Client(NamedTuple):
@@ -36,10 +37,9 @@ class Client(NamedTuple):
 
 
 def get_bulk_jobs(db_client: DbClient, db_schema: str) -> FrozenSet[BulkJob]:
-    statement = 'SELECT * FROM {schema_name}.bulk_jobs'
+    statement = "SELECT * FROM {schema_name}.bulk_jobs"
     exe_action = db_client.cursor.execute(
-        statement,
-        DynamicSQLargs(identifiers={'schema_name': db_schema})
+        statement, DynamicSQLargs(identifiers={"schema_name": db_schema})
     )
     exe_action.act()
     fetch_action = db_client.cursor.fetchall()
@@ -54,15 +54,13 @@ def get_bulk_jobs(db_client: DbClient, db_schema: str) -> FrozenSet[BulkJob]:
             id=element[4],
             module=ModuleName(element[5]),
             page=element[6],
-            result=element[7]
+            result=element[7],
         )
 
     return frozenset(map(tuple_to_bulkjob, results))
 
 
-def save_bulk_job(
-    db_client: DbClient, job: BulkJob, db_schema: str
-) -> None:
+def save_bulk_job(db_client: DbClient, job: BulkJob, db_schema: str) -> None:
     statement = """
         INSERT INTO {schema_name}.bulk_jobs VALUES (
             %(operation)s,
@@ -75,20 +73,17 @@ def save_bulk_job(
         )
     """
     job_dict = dict(job._asdict())
-    job_dict['module'] = job_dict['module'].value
+    job_dict["module"] = job_dict["module"].value
     exe_action = db_client.cursor.execute(
         statement,
         DynamicSQLargs(
-            values=job_dict,
-            identifiers={'schema_name': db_schema}
-        )
+            values=job_dict, identifiers={"schema_name": db_schema}
+        ),
     )
     exe_action.act()
 
 
-def update_bulk_job(
-    db_client: DbClient, job: BulkJob, db_schema: str
-) -> None:
+def update_bulk_job(db_client: DbClient, job: BulkJob, db_schema: str) -> None:
     statement = """
         UPDATE {schema_name}.bulk_jobs SET
             state = %(state)s
@@ -98,9 +93,8 @@ def update_bulk_job(
     exe_action = db_client.cursor.execute(
         statement,
         DynamicSQLargs(
-            values=job_dict,
-            identifiers={'schema_name': db_schema}
-        )
+            values=job_dict, identifiers={"schema_name": db_schema}
+        ),
     )
     exe_action.act()
 
@@ -122,10 +116,12 @@ def init_db(db_id: DatabaseID, db_creds: DbCredentials) -> None:
             result VARCHAR DEFAULT NULL
         );
     """
-    actions: List[CursorExeAction] = list(map(
-        lambda query: db_client.cursor.execute(query, None),
-        [create_schema, create_table]
-    ))
+    actions: List[CursorExeAction] = list(
+        map(
+            lambda query: db_client.cursor.execute(query, None),
+            [create_schema, create_table],
+        )
+    )
     try:
         for action in actions:
             action.act()

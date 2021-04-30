@@ -155,10 +155,11 @@ def release_env():
 
 
 def write(
-        directory: str,
-        table_name: str,
-        stru: STRU,
-        func: Callable[[STRU], STRU] = lambda x: x) -> None:
+    directory: str,
+    table_name: str,
+    stru: STRU,
+    func: Callable[[STRU], STRU] = lambda x: x,
+) -> None:
     """Write func(stru) to a file."""
     with open(f"{directory}/{table_name}", "a") as file:
         file.write(func(stru))
@@ -166,9 +167,8 @@ def write(
 
 
 def read(
-        directory: str,
-        table_name: str,
-        func: Callable[[STRU], STRU] = lambda x: x) -> Any:
+    directory: str, table_name: str, func: Callable[[STRU], STRU] = lambda x: x
+) -> Any:
     """Yield func(line) per every line of a file."""
     with open(f"{directory}/{table_name}", "r") as file:
         for line in file:
@@ -189,9 +189,8 @@ def linearize(table_name: str, structura: STRU) -> None:
     Produced records are suitable for use into a relational database structure.
     """
     linearize__deconstruct(
-        table=table_name,
-        stru=linearize__simplify(structura),
-        ids=None)
+        table=table_name, stru=linearize__simplify(structura), ids=None
+    )
 
 
 def linearize__simplify(stru: STRU) -> STRU:
@@ -211,8 +210,9 @@ def linearize__simplify(stru: STRU) -> STRU:
             if is_dict(val):
                 for nkey, nval in val.items():
                     if is_stru(nval):
-                        nkey_name = \
+                        nkey_name = (
                             f"{clean_str(key)}{FIELD_SEP}{clean_str(nkey)}"
+                        )
                         new_stru[nkey_name] = nval
                 new_stru = linearize__simplify(new_stru)
             elif is_stru(val):
@@ -221,10 +221,7 @@ def linearize__simplify(stru: STRU) -> STRU:
     return None
 
 
-def linearize__deconstruct(
-        table: str,
-        stru: STRU,
-        ids: Any) -> STRU:
+def linearize__deconstruct(table: str, stru: STRU, ids: Any) -> STRU:
     """Break a Structura into records of a relational data-structure."""
     if is_base(stru):
         ids = [] if ids is None else ids
@@ -249,7 +246,8 @@ def linearize__deconstruct(
                 ntable_ids = [nid] if ids is None else ids + [nid]
                 record[ntable] = nid
                 linearize__deconstruct(
-                    table=ntable, stru=nstru, ids=ntable_ids)
+                    table=ntable, stru=nstru, ids=ntable_ids
+                )
         write(RECORDS_DIR, table, record, func=dumps)
 
 
@@ -270,44 +268,56 @@ def catalog() -> None:
 
 def dump_schema(table: str) -> None:
     pschema = json_from_file(f"{SCHEMAS_DIR}/{table}")
-    emit(dumps({
-        "type": "SCHEMA",
-        "stream": table,
-        "schema": {
-            "properties": {
-                f"{f}_{ft}": pt2st(ft)
-                for f, fts in pschema.items() for ft in fts
+    emit(
+        dumps(
+            {
+                "type": "SCHEMA",
+                "stream": table,
+                "schema": {
+                    "properties": {
+                        f"{f}_{ft}": pt2st(ft)
+                        for f, fts in pschema.items()
+                        for ft in fts
+                    }
+                },
+                "key_properties": [],
             }
-        },
-        "key_properties": []
-    }))
+        )
+    )
 
     for precord in read(RECORDS_DIR, table, loads):
-        emit(dumps({
-            "type": "RECORD",
-            "stream": table,
-            "record": {
-                f"{f}_{stru_type(v)}": stru_cast(v)
-                for f, v in precord.items()
-            },
-        }))
+        emit(
+            dumps(
+                {
+                    "type": "RECORD",
+                    "stream": table,
+                    "record": {
+                        f"{f}_{stru_type(v)}": stru_cast(v)
+                        for f, v in precord.items()
+                    },
+                }
+            )
+        )
 
 
 def main() -> None:
     """Usual entry point."""
     parser = argparse.ArgumentParser(
-        description="Dump a JSON stream to a Singer stream.")
+        description="Dump a JSON stream to a Singer stream."
+    )
     parser.add_argument(
         "--enable-timestamps",
         help="Flag to indicate if timestamps should be casted to dates",
         action="store_true",
         default=False,
-        dest="enable_timestamps")
+        dest="enable_timestamps",
+    )
     parser.add_argument(
         "--date-formats",
         help="A string of formats separated by comma, extends RFC3339",
         default="",
-        dest="date_formats")
+        dest="date_formats",
+    )
     args = parser.parse_args()
 
     # some dates may come in the form of a timestamp

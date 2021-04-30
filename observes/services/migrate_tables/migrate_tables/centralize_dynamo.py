@@ -21,23 +21,19 @@ LOG = utils.get_log(__name__)
 
 
 def get_associated_schema(db_client: Client, dymo_table: str) -> Schema:
-    return schema_factory.db_schema(db_client, f'dynamodb_{dymo_table}')
+    return schema_factory.db_schema(db_client, f"dynamodb_{dymo_table}")
 
 
-def main(
-    auth_file: IO[str],
-    tables: List[str],
-    target_schema: str
-) -> None:
+def main(auth_file: IO[str], tables: List[str], target_schema: str) -> None:
     db_client = client_module.new_client_from_conf(auth_file)
-    target = schema_factory.db_schema(db_client, f'{target_schema}')
+    target = schema_factory.db_schema(db_client, f"{target_schema}")
     for table in tables:
         table = table.lower()
-        LOG.debug('Processing dymo table: %s', table)
+        LOG.debug("Processing dymo table: %s", table)
         source = get_associated_schema(db_client, table)
         if source.exist_on_db():
-            LOG.debug('Migrating: %s', table)
+            LOG.debug("Migrating: %s", table)
             schema_ops.migrate_all_tables(db_client, source, target)
             source.delete_on_db()
         else:
-            LOG.info('Schema: %s does not exist', source)
+            LOG.info("Schema: %s does not exist", source)

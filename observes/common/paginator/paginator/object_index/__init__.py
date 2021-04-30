@@ -15,7 +15,7 @@ from paginator.object_index.objs import (
     PageGetter,
     PageOrAll,
     PageResult,
-    PageId
+    PageId,
 )
 
 
@@ -36,6 +36,7 @@ def get_until_end(
         result_page = page.unwrap()
         yield result_page
         next_page_id = PageId(result_page.next_item, start.per_page)
+
 
 __all__ = [
     "PageId",

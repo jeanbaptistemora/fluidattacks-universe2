@@ -15,29 +15,17 @@ setuptools.setup(
     url="https://fluidattacks.com/",
     description="Singer tap for the Formstack API",
     long_description=read("README.md"),
-
     author="Fluid Attacks",
     author_email="engineering@fluidattacks.com",
     maintainer="Kevin Amado",
     maintainer_email="kamado@fluidattacks.com",
-
-    py_modules=[
-    ],
-
-    install_requires=[
-        "python-dateutil",
-        "requests"
-    ],
-
+    py_modules=[],
+    install_requires=["python-dateutil", "requests"],
     entry_points="""
         [console_scripts]
         tap-formstack=tap_formstack:main
     """,
-
-    packages=[
-        "tap_formstack"
-    ],
-
+    packages=["tap_formstack"],
     license="GPL",
     keywords="Formstack",
     classifiers=[

@@ -11,9 +11,12 @@ REDIRECT_URI = input("Enter your app redirect uri: ")
 
 print()
 print("Please visit this URL and grab the code from the redirection:")
-print((
-    f"https://login.salesforce.com/services/oauth2/authorize"
-    f"?response_type=code&CLIENT_ID={CLIENT_ID}&REDIRECT_URI={REDIRECT_URI}"))
+print(
+    (
+        f"https://login.salesforce.com/services/oauth2/authorize"
+        f"?response_type=code&CLIENT_ID={CLIENT_ID}&REDIRECT_URI={REDIRECT_URI}"
+    )
+)
 
 print()
 CODE = input("Enter your code: ")
@@ -26,9 +29,11 @@ TOKEN_REQUEST = urllib.request.Request(
         f"&code={CODE}"
         f"&CLIENT_ID={CLIENT_ID}"
         f"&CLIENT_SECRET={CLIENT_SECRET}"
-        f"&REDIRECT_URI={REDIRECT_URI}").encode())
+        f"&REDIRECT_URI={REDIRECT_URI}"
+    ).encode(),
+)
 TOKEN_RAW_RESPONSE = urllib.request.urlopen(TOKEN_REQUEST)
-token_response: str = TOKEN_RAW_RESPONSE.read().decode('utf-8')
+token_response: str = TOKEN_RAW_RESPONSE.read().decode("utf-8")
 
 print()
 print("This are your required credentials:")

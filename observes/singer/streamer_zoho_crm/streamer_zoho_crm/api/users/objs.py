@@ -8,12 +8,13 @@ from streamer_zoho_crm.api.common import (
     DataPageInfo,
     JSON,
 )
+
 # Third party libraries
 # Local libraries
 
 
 class UserType(Enum):
-    ANY = 'AllUsers'
+    ANY = "AllUsers"
 
 
 class UsersDataPage(NamedTuple):

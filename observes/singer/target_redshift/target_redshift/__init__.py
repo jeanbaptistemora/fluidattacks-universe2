@@ -44,107 +44,40 @@ LOGGER.addHandler(STDOUT)
 # Supported JSON Schema types
 JSON_SCHEMA_TYPES: JSON = {
     "BOOLEAN": [
-        {
-            "type": "boolean"
-        },
-        {
-            "type": [
-                "boolean",
-                "null"
-            ]
-        },
-        {
-            "type": [
-                "null",
-                "boolean"
-            ]
-        }
+        {"type": "boolean"},
+        {"type": ["boolean", "null"]},
+        {"type": ["null", "boolean"]},
     ],
     "NUMERIC(38)": [
-        {
-            "type": "integer"
-        },
-        {
-            "type": [
-                "integer",
-                "null"
-            ]
-        },
-        {
-            "type": [
-                "null",
-                "integer"
-            ]
-        }
+        {"type": "integer"},
+        {"type": ["integer", "null"]},
+        {"type": ["null", "integer"]},
     ],
     "FLOAT8": [
-        {
-            "type": "number"
-        },
-        {
-            "type": [
-                "number",
-                "null"
-            ]
-        },
-        {
-            "type": [
-                "null",
-                "number"
-            ]
-        }
+        {"type": "number"},
+        {"type": ["number", "null"]},
+        {"type": ["null", "number"]},
     ],
     "VARCHAR": [
-        {
-            "type": "string"
-        },
-        {
-            "type": [
-                "string",
-                "null"
-            ]
-        },
-        {
-            "type": [
-                "null",
-                "string"
-            ]
-        }
+        {"type": "string"},
+        {"type": ["string", "null"]},
+        {"type": ["null", "string"]},
     ],
     "TIMESTAMP": [
-        {
-            "type": "string",
-            "format": "date-time"
-        },
+        {"type": "string", "format": "date-time"},
         {
             "anyOf": [
-                {
-                    "type": "string",
-                    "format": "date-time"
-                },
-                {
-                    "type": [
-                        "string",
-                        "null"
-                    ]
-                },
+                {"type": "string", "format": "date-time"},
+                {"type": ["string", "null"]},
             ]
         },
         {
             "anyOf": [
-                {
-                    "type": "string",
-                    "format": "date-time"
-                },
-                {
-                    "type": [
-                        "null",
-                        "string"
-                    ]
-                },
+                {"type": "string", "format": "date-time"},
+                {"type": ["null", "string"]},
             ]
-        }
-    ]
+        },
+    ],
 }
 
 # pylint: disable=logging-format-interpolation
@@ -203,7 +136,7 @@ def make_access_point(auth: Dict[str, str]) -> Tuple[PGCONN, PGCURR]:
         user=auth["user"],
         password=auth["password"],
         host=auth["host"],
-        port=auth["port"]
+        port=auth["port"],
     )
 
     dbcon.set_session(readonly=False)
@@ -301,8 +234,12 @@ def translate_schema(json_schema: JSON) -> Dict[str, str]:
                 rtype = redshift_type
                 break
         else:
-            LOGGER.warning((f"WARN: Ignoring type {stype}, "
-                            f"it's not supported by the target (yet)."))
+            LOGGER.warning(
+                (
+                    f"WARN: Ignoring type {stype}, "
+                    f"it's not supported by the target (yet)."
+                )
+            )
         return rtype
 
     return {escape(f): stor(st) for f, st in json_schema.items() if stor(st)}
@@ -342,8 +279,12 @@ def translate_record(schema: JSON, record: JSON) -> Dict[str, str]:
         new_field = escape(user_field)
         new_value = ""
         if new_field not in schema:
-            LOGGER.warning((f"WARN: Ignoring field {new_field}, "
-                            f"it's not in the streamed schema."))
+            LOGGER.warning(
+                (
+                    f"WARN: Ignoring field {new_field}, "
+                    f"it's not in the streamed schema."
+                )
+            )
         elif user_value is not None:
             new_field_type = schema[new_field]
             if new_field_type == "BOOLEAN":
@@ -360,14 +301,18 @@ def translate_record(schema: JSON, record: JSON) -> Dict[str, str]:
             elif new_field_type == "TIMESTAMP":
                 new_value = f"'{escape(user_value)}'"
             else:
-                LOGGER.warning((f"WARN: Ignoring type {new_field_type}, "
-                                f"it's not in the streamed schema."))
+                LOGGER.warning(
+                    (
+                        f"WARN: Ignoring type {new_field_type}, "
+                        f"it's not in the streamed schema."
+                    )
+                )
 
             new_record[new_field] = new_value
     return new_record
 
 
-class Batcher():
+class Batcher:
     """A class that wraps a Redshift query executor.
 
     Args:
@@ -423,7 +368,7 @@ class Batcher():
         try:
             self.dbcur.execute(statement)
         except postgres.ProgrammingError as exc:
-            LOGGER.error(f'EXCEPTION: {type(exc)} {exc}')
+            LOGGER.error(f"EXCEPTION: {type(exc)} {exc}")
 
     def set_field_names(self, table_name: str, field_names: List[str]):
         """Set the fields for the provided table."""
@@ -453,12 +398,14 @@ class Batcher():
                 "n_fields": len(self.fields[table_name]),
                 "records": [],
                 "count": 0,
-                "size": 0
+                "size": 0,
             }
 
         # turn a row into a string of values separated by comma
-        row = stringify([record.get(field, 'null')
-                         for field in self.fields[table_name]], do_group=False)
+        row = stringify(
+            [record.get(field, "null") for field in self.fields[table_name]],
+            do_group=False,
+        )
         row_size = str_len(row)
 
         # a redshift statement must be less than 16MB
@@ -469,13 +416,14 @@ class Batcher():
         n_values = self.buckets[table_name]["count"] + 1
         n_items = n_fields * n_values
 
-        if self.buckets[table_name]["size"] + row_size >= 13000000 \
-                or n_items >= 1000000:
+        if (
+            self.buckets[table_name]["size"] + row_size >= 13000000
+            or n_items >= 1000000
+        ):
             # load the queued rows to Redshift
             self.load(table_name)
 
-        if self.msize >= 256 * 1024 * 1024 \
-                or self.rsize > 1000000:
+        if self.msize >= 256 * 1024 * 1024 or self.rsize > 1000000:
             self.flush()
 
         # queues the provided row in this function call
@@ -492,22 +440,30 @@ class Batcher():
             table_name: Table that owns the rows.
             do_print: True if you want to print the statement to stdout.
         """
-        if table_name not in self.fields \
-                or table_name not in self.buckets \
-                or self.buckets[table_name]["count"] == 0:
+        if (
+            table_name not in self.fields
+            or table_name not in self.buckets
+            or self.buckets[table_name]["count"] == 0
+        ):
             return
 
-        fields = stringify([
-            f'"{f}"' for f in self.fields[table_name]
-        ], do_group=False)
+        fields = stringify(
+            [f'"{f}"' for f in self.fields[table_name]], do_group=False
+        )
 
-        values = stringify([
-            stringify([
-                record.get(field, 'null')
-                for field in self.fields[table_name]
-            ], do_group=False)
-            for record in self.buckets[table_name]["records"]
-        ], do_group=True)
+        values = stringify(
+            [
+                stringify(
+                    [
+                        record.get(field, "null")
+                        for field in self.fields[table_name]
+                    ],
+                    do_group=False,
+                )
+                for record in self.buckets[table_name]["records"]
+            ],
+            do_group=True,
+        )
 
         statement = f"""
             INSERT INTO \"{self.sname}\".\"{table_name}\"({fields})
@@ -516,8 +472,12 @@ class Batcher():
 
         count = self.buckets[table_name]["count"]
         size = round(self.buckets[table_name]["size"] / 1.0e6, 2)
-        LOGGER.info((f"INFO: {count} rows ({size} MB) "
-                     f"loaded to Redshift/{self.sname}/{table_name}."))
+        LOGGER.info(
+            (
+                f"INFO: {count} rows ({size} MB) "
+                f"loaded to Redshift/{self.sname}/{table_name}."
+            )
+        )
 
         self.msize -= self.buckets[table_name]["size"]
         self.rsize -= self.buckets[table_name]["count"]
@@ -548,12 +508,13 @@ class Batcher():
         )
         for table_name in self.buckets:
             try:
-                table_path: str = f"\"{self.sname}\".\"{table_name}\""
+                table_path: str = f'"{self.sname}"."{table_name}"'
                 self.ex(
                     f"VACUUM FULL {table_path} TO 100 PERCENT",
-                    do_print=do_print)
+                    do_print=do_print,
+                )
             except vacuum_errors:
-                LOGGER.info(f"INFO: unable to vacuum \"{table_name}\"")
+                LOGGER.info(f'INFO: unable to vacuum "{table_name}"')
 
     def __del__(self, *args) -> None:
         LOGGER.info(f"INFO: worker down at {datetime.utcnow()}.")
@@ -569,9 +530,9 @@ def drop_schema(batcher: Batcher, schema_name: str) -> None:
     """
 
     try:
-        batcher.ex(f"DROP SCHEMA \"{schema_name}\" CASCADE", True)
+        batcher.ex(f'DROP SCHEMA "{schema_name}" CASCADE', True)
     except postgres.ProgrammingError as exc:
-        LOGGER.error(f'EXCEPTION: {type(exc)} {exc}')
+        LOGGER.error(f"EXCEPTION: {type(exc)} {exc}")
 
 
 def create_schema(batcher: Batcher, schema_name: str) -> None:
@@ -582,16 +543,18 @@ def create_schema(batcher: Batcher, schema_name: str) -> None:
         schema_name: The schema to operate over.
     """
     try:
-        batcher.ex(f"CREATE SCHEMA \"{schema_name}\"", True)
+        batcher.ex(f'CREATE SCHEMA "{schema_name}"', True)
     except postgres.ProgrammingError as exc:
-        LOGGER.error(f'EXCEPTION: {type(exc)} {exc}')
+        LOGGER.error(f"EXCEPTION: {type(exc)} {exc}")
 
 
 def create_table(
-        batcher: Batcher,
-        schema_name: str, table_name: str,
-        table_types: Dict[str, str],
-        table_pkeys: Iterable[str]) -> None:
+    batcher: Batcher,
+    schema_name: str,
+    table_name: str,
+    table_types: Dict[str, str],
+    table_pkeys: Iterable[str],
+) -> None:
     """Creates a table in the schema unless it currently exist.
 
     If the table exists in the schema, it leave it unchanged.
@@ -606,17 +569,17 @@ def create_table(
     # pylint: disable=too-many-arguments
     table_fields = batcher.fields[table_name]
 
-    path = f"\"{schema_name}\".\"{table_name}\""
-    fields = ",".join([f"\"{n}\" {table_types[n]}" for n in table_fields])
+    path = f'"{schema_name}"."{table_name}"'
+    fields = ",".join([f'"{n}" {table_types[n]}' for n in table_fields])
 
     try:
         if table_pkeys:
-            pkeys = ",".join([f"\"{n}\"" for n in table_pkeys])
+            pkeys = ",".join([f'"{n}"' for n in table_pkeys])
             batcher.ex(f"CREATE TABLE {path} ({fields},PRIMARY KEY({pkeys}))")
         else:
             batcher.ex(f"CREATE TABLE {path} ({fields})")
     except postgres.ProgrammingError as exc:
-        LOGGER.error(f'EXCEPTION: {type(exc)} {exc}')
+        LOGGER.error(f"EXCEPTION: {type(exc)} {exc}")
 
 
 def rename_schema(batcher: Batcher, rename_from: str, rename_to: str) -> None:
@@ -633,15 +596,14 @@ def rename_schema(batcher: Batcher, rename_from: str, rename_to: str) -> None:
         rename_to: The schema you wish your schema to be renamed to.
     """
     try:
-        statement = f"ALTER SCHEMA \"{rename_from}\" RENAME TO \"{rename_to}\""
+        statement = f'ALTER SCHEMA "{rename_from}" RENAME TO "{rename_to}"'
         batcher.ex(statement, True)
     except postgres.ProgrammingError as exc:
-        LOGGER.error(f'EXCEPTION: {type(exc)} {exc}')
+        LOGGER.error(f"EXCEPTION: {type(exc)} {exc}")
 
 
 def validate_schema(validator: JSON_VALIDATOR, schema: JSON) -> None:
-    """Prints the validation of a JSON by using the provided validator.
-    """
+    """Prints the validation of a JSON by using the provided validator."""
 
     try:
         validator.check_schema(schema)
@@ -652,8 +614,7 @@ def validate_schema(validator: JSON_VALIDATOR, schema: JSON) -> None:
 
 
 def validate_record(validator: JSON_VALIDATOR, record: JSON) -> None:
-    """Prints the validation of a JSON by using the provided validator.
-    """
+    """Prints the validation of a JSON by using the provided validator."""
 
     try:
         validator.validate(record)
@@ -708,8 +669,7 @@ def persist_messages(batcher: Batcher, schema_name: str) -> None:
 
 
 def main():
-    """Usual entry point.
-    """
+    """Usual entry point."""
 
     greeting = (
         "                                   ",
@@ -722,32 +682,39 @@ def main():
         "       We hack your software       ",
         "                                   ",
         "     https://fluidattacks.com/     ",
-        "                                   "
+        "                                   ",
     )
 
     LOGGER.info("\n".join(greeting))
 
     # user interface
     parser = argparse.ArgumentParser(
-        description="Persists a singer formatted stream to Amazon Redsfhit")
+        description="Persists a singer formatted stream to Amazon Redsfhit"
+    )
     parser.add_argument(
-        "-a", "--auth",
+        "-a",
+        "--auth",
         required=True,
         help="JSON authentication file",
         type=argparse.FileType("r"),
-        dest="auth")
+        dest="auth",
+    )
     parser.add_argument(
-        "-s", "--schema-name",
+        "-s",
+        "--schema-name",
         required=True,
         help="Schema name in your warehouse",
-        dest="schema_name")
+        dest="schema_name",
+    )
     parser.add_argument(
-        "-ds", "--drop-schema",
+        "-ds",
+        "--drop-schema",
         required=False,
         help="Flag to specify that you want to delete the schema if exist",
         action="store_true",
         dest="drop_schema",
-        default=False)
+        default=False,
+    )
 
     args = parser.parse_args()
     auth = json.load(args.auth)

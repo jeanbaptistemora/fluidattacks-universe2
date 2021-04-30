@@ -61,34 +61,24 @@ class ApiClient(NamedTuple):
     get_checklist: Callable[[CampaignId], ApiData]
 
 
-def new_client_from_source(
-    raw_source: RawSource
-) -> ApiClient:
+def new_client_from_source(raw_source: RawSource) -> ApiClient:
     return ApiClient(
         list_audiences=partial(
             audiences.list_items.list_audiences, raw_source
         ),
-        get_audience=partial(
-            audiences.get_item.get_audience, raw_source
-        ),
+        get_audience=partial(audiences.get_item.get_audience, raw_source),
         list_abuse_reports=partial(
             audiences.list_items.list_abuse_reports, raw_source
         ),
         get_abuse_report=partial(
             audiences.get_item.get_abuse_report, raw_source
         ),
-        get_activity=partial(
-            audiences.get_item.get_activity, raw_source
-        ),
+        get_activity=partial(audiences.get_item.get_activity, raw_source),
         get_top_clients=partial(
             audiences.get_item.get_top_clients, raw_source
         ),
-        list_members=partial(
-            audiences.list_items.list_members, raw_source
-        ),
-        get_member=partial(
-            audiences.get_item.get_member, raw_source
-        ),
+        list_members=partial(audiences.list_items.list_members, raw_source),
+        get_member=partial(audiences.get_item.get_member, raw_source),
         list_growth_hist=partial(
             audiences.list_items.list_growth_hist, raw_source
         ),
@@ -107,41 +97,32 @@ def new_client_from_source(
         list_campaigns=partial(
             campaigns.list_items.list_campaigns, raw_source
         ),
-        get_campaign=partial(
-            campaigns.get_item.get_campaign, raw_source
-        ),
+        get_campaign=partial(campaigns.get_item.get_campaign, raw_source),
         list_feedbacks=partial(
             campaigns.list_items.list_feedbacks, raw_source
         ),
-        get_feedback=partial(
-            campaigns.get_item.get_feedback, raw_source
-        ),
-        get_checklist=partial(
-            campaigns.get_item.get_checklist, raw_source
-        ),
+        get_feedback=partial(campaigns.get_item.get_feedback, raw_source),
+        get_checklist=partial(campaigns.get_item.get_checklist, raw_source),
     )
 
 
 def new_client(creds: Credentials) -> ApiClient:
     client = Client()
-    client.set_config({
-        'api_key': creds.api_key,
-        'server': creds.dc
-    })
+    client.set_config({"api_key": creds.api_key, "server": creds.dc})
     raw_source = raw_module.create_raw_source(client)
     return new_client_from_source(raw_source)
 
 
 # export types
 __all__ = [
-    'AbsReportId',
-    'ApiData',
-    'AudienceId',
-    'CampaignId',
-    'FeedbackId',
-    'GrowthHistId',
-    'ItemId',
-    'InterestCatgId',
-    'MemberId',
-    'RawSource',
+    "AbsReportId",
+    "ApiData",
+    "AudienceId",
+    "CampaignId",
+    "FeedbackId",
+    "GrowthHistId",
+    "ItemId",
+    "InterestCatgId",
+    "MemberId",
+    "RawSource",
 ]

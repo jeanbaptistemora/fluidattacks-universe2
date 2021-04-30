@@ -36,13 +36,13 @@ def specific_resources(project: str) -> List[GitlabResource]:
     return [
         GitlabResource(
             project=project,
-            resource='jobs',
+            resource="jobs",
         ),
         GitlabResource(
             project=project,
-            resource='merge_requests',
-            params=frozenset({'scope': 'all'}.items())
-        )
+            resource="merge_requests",
+            params=frozenset({"scope": "all"}.items()),
+        ),
     ]
 
 
@@ -51,7 +51,7 @@ def extract_range_function() -> Callable[
 ]:
     def extract_range(
         resource_range: GResourcePageRange,
-        init_last_minor_id: Optional[int] = None
+        init_last_minor_id: Optional[int] = None,
     ) -> ExtractState:
         return etl.extract_between(
             resource_range=resource_range,
@@ -59,29 +59,28 @@ def extract_range_function() -> Callable[
             extract_data_less_than=page_data.extract_data_less_than,
             init_last_minor_id=init_last_minor_id,
         )
+
     return extract_range
 
 
-def statement_executer_function(
-    db_state: DbState
-) -> Callable[[str], None]:
+def statement_executer_function(db_state: DbState) -> Callable[[str], None]:
     def statement_exe(statement: str) -> None:
         db_client.execute(db_state, statement)
+
     return statement_exe
 
 
-def exe_and_fetch_function(
-    db_state: DbState
-) -> Callable[[str], List[Any]]:
+def exe_and_fetch_function(db_state: DbState) -> Callable[[str], List[Any]]:
     def exe_and_fetch(statement: str) -> List[Any]:
         executer = statement_executer_function(db_state)
         executer(statement)
         return db_state.cursor.fetchall()
+
     return exe_and_fetch
 
 
 def start_etl(project: str, auth: Dict[str, str]) -> None:
-    log('info', f'Starting Gitlab ETL for {project}')
+    log("info", f"Starting Gitlab ETL for {project}")
     db_state = db_client.make_access_point(auth)
     stm_executer = exe_and_fetch_function(db_state)
     resources: List[GitlabResource] = specific_resources(project)
@@ -98,27 +97,26 @@ def start_etl(project: str, auth: Dict[str, str]) -> None:
                     per_page=100,
                 ),
                 last_greatest_uploaded_id=lgu_id,
-                extract_range=extract_range_function()
+                extract_range=extract_range_function(),
             )
             etl.upload_data(
-                list(reversed(data_pages)), auth,
-                statement_executer_function(db_state)
+                list(reversed(data_pages)),
+                auth,
+                statement_executer_function(db_state),
             )
         except MaxRetriesReached:
             continue
 
 
 PROYECT_API_TOKEN = {
-    'autonomicmind/default': 'AUTONOMIC_API_TOKEN',
-    'autonomicmind/challenges': 'AUTONOMIC_API_TOKEN',
-    'fluidattacks/services': 'SERVICES_API_TOKEN',
-    'fluidattacks/product': 'PRODUCT_API_TOKEN',
+    "autonomicmind/default": "AUTONOMIC_API_TOKEN",
+    "autonomicmind/challenges": "AUTONOMIC_API_TOKEN",
+    "fluidattacks/services": "SERVICES_API_TOKEN",
+    "fluidattacks/product": "PRODUCT_API_TOKEN",
 }
 
 
 async def start_etls(projects: List[str], auth: Dict[str, str]) -> None:
     for project in projects:
-        environ['GITLAB_ETL_API_TOKEN'] = environ[
-            PROYECT_API_TOKEN[project]
-        ]
+        environ["GITLAB_ETL_API_TOKEN"] = environ[PROYECT_API_TOKEN[project]]
         start_etl(project, auth)

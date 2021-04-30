@@ -7,6 +7,7 @@ from typing import (
     Tuple,
     TypedDict,
 )
+
 # Third party libraries
 # Local libraries
 from postgres_client.connection import (
@@ -31,10 +32,7 @@ from streamer_zoho_crm.api.bulk import (
 from streamer_zoho_crm.api.common import JSON, PageIndex
 from streamer_zoho_crm.api.users import UserType, UsersDataPage
 from streamer_zoho_crm.auth import Credentials
-from streamer_zoho_crm.core import (
-    CoreClient,
-    IBulk as BulkUtils
-)
+from streamer_zoho_crm.core import CoreClient, IBulk as BulkUtils
 from streamer_zoho_crm.db import Client as DbClient
 
 ALL_MODULES = frozenset(ModuleName)
@@ -61,7 +59,7 @@ def creation_phase(
     crm_creds: Credentials,
     db_id: DatabaseID,
     db_creds: DbCredentials,
-    target_modules: FrozenSet[ModuleName] = ALL_MODULES
+    target_modules: FrozenSet[ModuleName] = ALL_MODULES,
 ) -> None:
     """Creates bulk jobs for the `target_modules`"""
     api_client: ApiClient = api.new_client(crm_creds)
@@ -83,10 +81,12 @@ def creation_phase(
 def jobs_map(bulk_utils: BulkUtils) -> Mapping[str, BulkJob]:
     bulk_utils.update_all()
     jobs: FrozenSet[BulkJob] = bulk_utils.get_all()
-    id_job_map: FrozenSet[Tuple[str, BulkJob]] = frozenset(map(
-        lambda j: (j.id, j),
-        filter(lambda j: j.state.upper() == 'COMPLETED', jobs)
-    ))
+    id_job_map: FrozenSet[Tuple[str, BulkJob]] = frozenset(
+        map(
+            lambda j: (j.id, j),
+            filter(lambda j: j.state.upper() == "COMPLETED", jobs),
+        )
+    )
     return dict(id_job_map)
 
 
@@ -94,45 +94,39 @@ def emit_bulk_data(
     data: FrozenSet[BulkData],
     id_job_map: Mapping[str, BulkJob],
 ) -> None:
-
     def emit(bdata: BulkData) -> None:
-        persistent_file = tempfile.NamedTemporaryFile('w+', delete=False)
+        persistent_file = tempfile.NamedTemporaryFile("w+", delete=False)
         bdata.file.seek(0)
         persistent_file.write(bdata.file.read())
         module_name: str = id_job_map[bdata.job_id].module.value
         record = SingerRecord(
             stream=module_name,
             record={
-                'csv_path': persistent_file.name,
-                'options': {
-                    'quote_nonnum': True,
-                    'add_default_types': True,
-                    'pkeys_present': False,
-                    'only_records': True
-                }
-            }
+                "csv_path": persistent_file.name,
+                "options": {
+                    "quote_nonnum": True,
+                    "add_default_types": True,
+                    "pkeys_present": False,
+                    "only_records": True,
+                },
+            },
         )
         factory.emit(record)
+
     list(map(emit, data))
 
 
 def emit_user_data(data: UsersDataPage) -> None:
     def emit(user_data: JSON) -> None:
-        record = SingerRecord(
-            stream='users',
-            record=user_data
-        )
+        record = SingerRecord(stream="users", record=user_data)
         factory.emit(record)
+
     list(map(emit, data.data))
 
 
-def extraction_phase(
-    core_api: CoreClient
-) -> None:
+def extraction_phase(core_api: CoreClient) -> None:
     id_job_map: Mapping[str, BulkJob] = jobs_map(core_api.bulk)
-    ready_modules = frozenset(
-        map(lambda x: x.module, id_job_map.values())
-    )
+    ready_modules = frozenset(map(lambda x: x.module, id_job_map.values()))
     missing = ALL_MODULES - ready_modules
     if missing:
         raise MissingModuleData(str(missing))
@@ -145,9 +139,7 @@ def extraction_phase(
 
 
 def start_streamer(
-    crm_creds: Credentials,
-    db_id: DatabaseID,
-    db_creds: DbCredentials
+    crm_creds: Credentials, db_id: DatabaseID, db_creds: DbCredentials
 ) -> None:
     api_client: ApiClient = api.new_client(crm_creds)
     db_client: DbClient = db.new_client(db_id, db_creds)

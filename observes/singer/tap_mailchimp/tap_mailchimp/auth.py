@@ -6,9 +6,7 @@ from typing import (
 # Third party libraries
 
 # Local libraries
-from tap_mailchimp.common.objs import (
-    JSON
-)
+from tap_mailchimp.common.objs import JSON
 
 
 class Credentials(NamedTuple):
@@ -17,7 +15,4 @@ class Credentials(NamedTuple):
 
 
 def to_credentials(raw: JSON) -> Credentials:
-    return Credentials(
-        api_key=raw['api_key'],
-        dc=raw['dc']
-    )
+    return Credentials(api_key=raw["api_key"], dc=raw["dc"])

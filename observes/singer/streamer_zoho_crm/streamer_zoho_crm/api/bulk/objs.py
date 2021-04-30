@@ -5,6 +5,7 @@ from typing import (
     NamedTuple,
     Optional,
 )
+
 # Third party libraries
 # Local libraries
 
@@ -13,22 +14,22 @@ JSONstr = str
 
 
 class ModuleName(Enum):
-    LEADS = 'Leads'
-    ACCOUNTS = 'Accounts'
-    CONTACTS = 'Contacts'
-    DEALS = 'Deals'
-    CAMPAIGNS = 'Campaigns'
-    TASKS = 'Tasks'
-    CASES = 'Cases'
-    CALLS = 'Calls'
-    SOLUTIONS = 'Solutions'
-    PRODUCTS = 'Products'
-    VENDORS = 'Vendors'
-    PRICE_BOOKS = 'Price_Books'
-    QUOTES = 'Quotes'
-    SALES_ORDERS = 'Sales_Orders'
-    PURCHASE_ORDERS = 'Purchase_Orders'
-    INVOICES = 'Invoices'
+    LEADS = "Leads"
+    ACCOUNTS = "Accounts"
+    CONTACTS = "Contacts"
+    DEALS = "Deals"
+    CAMPAIGNS = "Campaigns"
+    TASKS = "Tasks"
+    CASES = "Cases"
+    CALLS = "Calls"
+    SOLUTIONS = "Solutions"
+    PRODUCTS = "Products"
+    VENDORS = "Vendors"
+    PRICE_BOOKS = "Price_Books"
+    QUOTES = "Quotes"
+    SALES_ORDERS = "Sales_Orders"
+    PURCHASE_ORDERS = "Purchase_Orders"
+    INVOICES = "Invoices"
 
 
 class BulkJobResult(NamedTuple):

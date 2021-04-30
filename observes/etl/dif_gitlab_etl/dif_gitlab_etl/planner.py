@@ -5,10 +5,13 @@ from typing import (
     Any,
     Callable,
     Dict,
-    List, Optional,
+    List,
+    Optional,
 )
+
 # Third party libraries
 from aiohttp import ClientSession
+
 # Local libraries
 from streamer_gitlab import api_client
 from streamer_gitlab.api_client import (
@@ -27,7 +30,7 @@ from dif_gitlab_etl.utils import (
 def search_page_with(
     get_resource: Callable[[GitlabResourcePage], List[Dict[str, Any]]],
     target_id: int,
-    last_seen: GitlabResourcePage
+    last_seen: GitlabResourcePage,
 ) -> int:
     """
     Returns de id of a page where item_id is present
@@ -35,7 +38,7 @@ def search_page_with(
     found: bool = False
     items: List[Dict[str, Any]] = []
     counter: int = 0
-    log('info', f'lgu last seen page: {last_seen.page}')
+    log("info", f"lgu last seen page: {last_seen.page}")
     while not found:
         items = get_resource(
             GitlabResourcePage(
@@ -48,13 +51,13 @@ def search_page_with(
         if minor_id:
             if minor_id > target_id:
                 counter = counter + 1
-                log('info', f'searching at offset {counter}')
+                log("info", f"searching at offset {counter}")
             else:
                 if counter == 0:
-                    log('warning', 'page id could be incorrect')
+                    log("warning", "page id could be incorrect")
                 found = True
         else:
-            log('info', 'page not found, default: last page returned')
+            log("info", "page not found, default: last page returned")
             counter = counter - 1
             found = True
     return last_seen.page + counter
@@ -68,96 +71,85 @@ def calculate_interval(last_page_id: int, max_pages: int) -> range:
 
 
 def get_lgu_id(
-    resource: GitlabResource,
-    exe_query: Callable[[str], Any]
+    resource: GitlabResource, exe_query: Callable[[str], Any]
 ) -> int:
     result = exe_query(
-        "SELECT lgu_id FROM \"gitlab-ci\".upload_state "
+        'SELECT lgu_id FROM "gitlab-ci".upload_state '
         f"WHERE project='{resource.project}' "
         f"AND resource='{resource.resource}'"
     )
     if not result:
         raise NotFoundException(
-            'Unknown lgu id for '
-            f'{resource.project}/{resource.resource}'
+            "Unknown lgu id for " f"{resource.project}/{resource.resource}"
         )
-    log('debug', str(result))
+    log("debug", str(result))
     return result[0][0]
 
 
 def get_lgu_last_seen_page_id(
-    resource: GitlabResource,
-    exe_query: Callable[[str], Any]
+    resource: GitlabResource, exe_query: Callable[[str], Any]
 ) -> Dict[str, int]:
     result = exe_query(
-        "SELECT last_seen_page,per_page FROM \"gitlab-ci\".upload_state "
+        'SELECT last_seen_page,per_page FROM "gitlab-ci".upload_state '
         f"WHERE project='{resource.project}' "
         f"AND resource='{resource.resource}'"
     )
     if not result:
         raise NotFoundException(
-            'Unknown last seen page for '
-            f'{resource.project}/{resource.resource}'
+            "Unknown last seen page for "
+            f"{resource.project}/{resource.resource}"
         )
-    log('debug', str(result))
-    return {'page': result[0][0], 'per_page': result[0][1]}
+    log("debug", str(result))
+    return {"page": result[0][0], "per_page": result[0][1]}
 
 
-def set_lgu_id(
-    dpage: PageData,
-    exe_query: Callable[[str], Any]
-) -> None:
+def set_lgu_id(dpage: PageData, exe_query: Callable[[str], Any]) -> None:
     result = exe_query(
-        "UPDATE \"gitlab-ci\".upload_state set "
+        'UPDATE "gitlab-ci".upload_state set '
         f"lgu_id={dpage.minor_item_id}, "
         f"last_seen_page={dpage.id.page}, "
         f"per_page={dpage.id.per_page} "
         f"WHERE project='{dpage.id.g_resource.project}' "
         f"AND resource='{dpage.id.g_resource.resource}'"
     )
-    log('debug', str(result))
+    log("debug", str(result))
 
 
 def get_work_interval(
     resource: GitlabResource,
     exe_query: Callable[[str], Any],
-    max_pages: int = 10
+    max_pages: int = 10,
 ) -> range:
     loop = asyncio.get_event_loop()
     return calculate_interval(
-        loop.run_until_complete(
-            search_lgu_page(resource, exe_query)
-        ),
-        max_pages
+        loop.run_until_complete(search_lgu_page(resource, exe_query)),
+        max_pages,
     )
 
 
 async def search_lgu_page(
-    resource: GitlabResource,
-    exe_query: Callable[[str], Any]
+    resource: GitlabResource, exe_query: Callable[[str], Any]
 ) -> int:
     """
     Returns de id of a page where lgu_id is present
     """
     target_id: int = get_lgu_id(resource, exe_query)
-    last_seen: Dict[str, int] = get_lgu_last_seen_page_id(
-        resource, exe_query
-    )
-    log('info', 'Search lgu page started')
+    last_seen: Dict[str, int] = get_lgu_last_seen_page_id(resource, exe_query)
+    log("info", "Search lgu page started")
 
     async with ClientSession() as session:
+
         def build_get_resource(
-            session: ClientSession
+            session: ClientSession,
         ) -> Callable[[GitlabResourcePage], List[Dict[str, Any]]]:
             def getter(resource: GitlabResourcePage) -> List[Dict[str, Any]]:
-                api_token = environ['GITLAB_ETL_API_TOKEN']
-                headers = {'Private-Token': api_token}
+                api_token = environ["GITLAB_ETL_API_TOKEN"]
+                headers = {"Private-Token": api_token}
                 loop = asyncio.get_event_loop()
                 return loop.run_until_complete(
-                    api_client.get_resource(
-                        session, resource, headers=headers
-                    )
+                    api_client.get_resource(session, resource, headers=headers)
                 )
+
             return getter
 
         return search_page_with(
@@ -165,7 +157,7 @@ async def search_lgu_page(
             target_id,
             GitlabResourcePage(
                 g_resource=resource,
-                page=last_seen['page'],
-                per_page=last_seen['per_page'],
-            )
+                page=last_seen["page"],
+                per_page=last_seen["per_page"],
+            ),
         )

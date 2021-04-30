@@ -13,34 +13,20 @@ setuptools.setup(
     version="1.0.0",
     name="target_redshift",
     url="https://fluidattacks.com/",
-
     author="Fluid Attacks",
     author_email="kamado@fluidattacks.com",
     maintainer="Kevin Amado",
     maintainer_email="kamado@fluidattacks.com",
-
     description="Singer target for Amazon Redshift",
     long_description=read("README.md"),
-
     python_requires=">=3.6",
-
-    install_requires=[
-        "jsonschema==3.2.0",
-        "psycopg2==2.8.4"
-    ],
-
+    install_requires=["jsonschema==3.2.0", "psycopg2==2.8.4"],
     entry_points="""
         [console_scripts]
         target-redshift=target_redshift:main
     """,
-
-    packages=[
-        "target_redshift"
-    ],
-
-    py_modules=[
-    ],
-
+    packages=["target_redshift"],
+    py_modules=[],
     license="GPL",
     keywords="Infrastructure",
     classifiers=[
