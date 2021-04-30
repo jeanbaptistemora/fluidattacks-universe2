@@ -11,6 +11,7 @@ function main {
   &&  for bin in "${out}/bin/"*
       do
             sed -i "s|#!/usr/bin/env ruby|#! $(command -v ruby)|g" "${bin}" \
+        &&  sed -i "s|#!/bin/env ruby|#! $(command -v ruby)|g" "${bin}" \
         ||  return 1
       done
 }
